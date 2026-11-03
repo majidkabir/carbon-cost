@@ -165,3 +165,31 @@ func TestNetherlandsTotals(t *testing.T) {
 		t.Error("NL: no charge before 1 July 2026")
 	}
 }
+
+// Dutch temporary rates, 1 September - 31 December 2026 (Staatscourant
+// 2026, 18058), about 22.3% below the statutory ones.
+func TestNetherlandsReduced(t *testing.T) {
+	tb, ok := Find(tables(t), "NL", on("2026-11-03"))
+	if !ok || tb.ValidFrom != "2026-09-01" {
+		t.Fatalf("NL November 2026: got %q, want the reduced table", tb.ValidFrom)
+	}
+	for _, tc := range []struct {
+		kg, euro, cls int
+		want          float64
+	}{
+		{40000, 6, 1, 0.156}, // .069 + .016 + .071
+		{40000, 6, 5, 0.030}, // .017 + .013 + 0
+		{26000, 6, 2, 0.128}, // .057 + .014 + .057
+		{7500, 0, 1, 0.211},  // .083 + .088 + .040
+	} {
+		if got := total(t, tb, Truck{MaxMassKg: tc.kg, Axles: 5, Euro: tc.euro, CO2Class: tc.cls}, on("2026-11-03")); got != tc.want {
+			t.Errorf("NL reduced %d kg Euro %d class %d: %v, want %v", tc.kg, tc.euro, tc.cls, got, tc.want)
+		}
+	}
+	if tb, _ := Find(tables(t), "NL", on("2026-08-31")); tb.ValidFrom != "2026-07-01" {
+		t.Error("NL 31 August 2026: want the statutory table")
+	}
+	if _, ok := Find(tables(t), "NL", on("2027-01-01")); ok {
+		t.Error("NL 2027: no table until the 2027 amounts are set")
+	}
+}

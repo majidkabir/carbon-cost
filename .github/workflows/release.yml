@@ -1,16 +1,38 @@
 name: Release
-# Push a tag like v0.1.0: builds binaries for Linux, macOS and Windows,
-# attaches them to a GitHub release, and publishes the Docker image
-# ghcr.io/majidkabir/carbon-cost.
+# Runs by itself when RELEASE changes on main (the file holds the version,
+# e.g. v0.1.0), or from the Actions tab (Run workflow). It builds binaries
+# for Linux, macOS and Windows, attaches them to a GitHub release (creating
+# the tag), and publishes the Docker image ghcr.io/majidkabir/carbon-cost.
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: [RELEASE]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, e.g. v0.1.0"
+        required: true
 permissions:
   contents: write
   packages: write
 jobs:
-  binaries:
+  version:
     runs-on: ubuntu-latest
+    outputs:
+      v: ${{ steps.v.outputs.v }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: v
+        run: |
+          v="${{ inputs.version }}"
+          if [ -z "$v" ]; then v=$(tr -d '[:space:]' < RELEASE); fi
+          case "$v" in v[0-9]*.[0-9]*.[0-9]*) ;; *) echo "version must look like v0.1.0, got '$v'"; exit 1;; esac
+          echo "v=$v" >> "$GITHUB_OUTPUT"
+  binaries:
+    needs: version
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.version.outputs.v }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -23,15 +45,23 @@ jobs:
           mkdir dist
           for t in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
             os=${t%/*}; arch=${t#*/}; ext=""; [ "$os" = windows ] && ext=.exe
-            GOOS=$os GOARCH=$arch CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o "dist/carbon-cost_${GITHUB_REF_NAME}_${os}_${arch}${ext}" ./cmd/carbon-cost
+            GOOS=$os GOARCH=$arch CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o "dist/carbon-cost_${VERSION}_${os}_${arch}${ext}" ./cmd/carbon-cost
           done
           (cd dist && sha256sum * > SHA256SUMS)
       - name: GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" dist/* --title "$GITHUB_REF_NAME" --generate-notes
+        run: |
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            gh release upload "$VERSION" dist/* --clobber
+          else
+            gh release create "$VERSION" dist/* --title "$VERSION" --generate-notes --target "$GITHUB_SHA"
+          fi
   image:
+    needs: version
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.version.outputs.v }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3
@@ -44,5 +74,5 @@ jobs:
           push: true
           platforms: linux/amd64
           tags: |
-            ghcr.io/majidkabir/carbon-cost:${{ github.ref_name }}
+            ghcr.io/majidkabir/carbon-cost:${{ env.VERSION }}
             ghcr.io/majidkabir/carbon-cost:latest

@@ -27,7 +27,7 @@ func total(t *testing.T, tb Table, tr Truck, date time.Time) float64 {
 	for _, r := range rs {
 		s += r.PerKm
 	}
-	return math.Round(s*1000) / 1000
+	return math.Round(s*1e6) / 1e6
 }
 
 // The DK components (§ 5 stk. 3) add up to the published rates (§ 5
@@ -102,5 +102,38 @@ func TestTruckValidate(t *testing.T) {
 		if tr.Validate() == nil {
 			t.Errorf("%+v: want an error", tr)
 		}
+	}
+}
+
+// The Austrian parts (BGBl. II Nr. 298/2025 §§ 2, 8, 9) add up to the 2026
+// totals the WKO publishes, in cent/km.
+func TestAustriaTotals(t *testing.T) {
+	tb, ok := Find(tables(t), "AT", on("2026-11-03"))
+	if !ok {
+		t.Fatal("no AT table for 2026")
+	}
+	for _, tc := range []struct {
+		euro, cls int
+		want      [3]float64 // 2, 3, 4+ axles
+	}{
+		{6, 5, [3]float64{5.87, 8.06, 11.89}},   // E
+		{6, 1, [3]float64{27.74, 38.56, 57.24}}, // A, CO2 class 1
+		{5, 1, [3]float64{29.24, 40.86, 60.24}}, // B
+		{4, 1, [3]float64{31.14, 42.96, 63.24}}, // C
+		{3, 1, [3]float64{32.74, 45.36, 66.54}}, // D
+	} {
+		for i, ax := range []int{2, 3, 5} {
+			got := total(t, tb, Truck{MaxMassKg: 40000, Axles: ax, Euro: tc.euro, CO2Class: tc.cls}, on("2026-06-01"))
+			if math.Abs(got*100-tc.want[i]) > 1e-6 {
+				t.Errorf("AT Euro %d class %d, %d axles: %.2f ct/km, want %.2f", tc.euro, tc.cls, ax, got*100, tc.want[i])
+			}
+		}
+	}
+	// Euro VI, CO2 class 4, 4+ axles: 45.91 + 1.00 + 4.00 = 50.91 ct/km.
+	if got := total(t, tb, Truck{MaxMassKg: 40000, Axles: 4, Euro: 6, CO2Class: 4}, on("2026-06-01")); math.Abs(got-0.5091) > 1e-9 {
+		t.Errorf("AT class 4: %v, want 0.5091", got)
+	}
+	if _, ok := Find(tables(t), "AT", on("2027-01-01")); ok {
+		t.Error("AT 2027: no table until the 2027 ordinance is published")
 	}
 }

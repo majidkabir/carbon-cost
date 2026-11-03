@@ -14,6 +14,7 @@ import (
 	"path"
 	"slices"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -58,7 +59,10 @@ type Exemption struct {
 
 // Table is one country's toll for one validity period.
 type Table struct {
-	Country          string      `json:"country"` // ISO 3166-1 alpha-2
+	Country string `json:"country"` // ISO 3166-1 alpha-2
+	// Region is set for a regional toll (ISO 3166-2, e.g. BE-VLG): the
+	// table then applies to that region's km, not the country's.
+	Region           string      `json:"region,omitempty"`
 	Currency         string      `json:"currency"`
 	ValidFrom        string      `json:"valid_from"`         // inclusive, YYYY-MM-DD
 	ValidTo          string      `json:"valid_to,omitempty"` // inclusive; "" = until replaced
@@ -179,8 +183,8 @@ func All() ([]Table, error) {
 		out = append(out, tb)
 	}
 	sort.Slice(out, func(i, j int) bool {
-		if out[i].Country != out[j].Country {
-			return out[i].Country < out[j].Country
+		if out[i].Area() != out[j].Area() {
+			return out[i].Area() < out[j].Area()
 		}
 		return out[i].ValidFrom < out[j].ValidFrom
 	})
@@ -199,6 +203,9 @@ func (tb Table) check() error {
 			return fmt.Errorf("bad exemption date %q", e.Until)
 		}
 	}
+	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
+		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
+	}
 	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || len(tb.Rows) == 0 {
 		return fmt.Errorf("country, currency, sources and rows are required")
 	}
@@ -210,12 +217,33 @@ func (tb Table) check() error {
 	return nil
 }
 
-// Find is the table for the country on the date, if any.
-func Find(tables []Table, country string, date time.Time) (Table, bool) {
+// Area is what the table applies to: its region if it has one, else
+// its country.
+func (tb Table) Area() string {
+	if tb.Region != "" {
+		return tb.Region
+	}
+	return tb.Country
+}
+
+// Find is the table for the area (a country, or a region for regional
+// tolls) on the date, if any.
+func Find(tables []Table, area string, date time.Time) (Table, bool) {
 	for _, tb := range tables {
-		if tb.Country == country && tb.Covers(date) {
+		if tb.Area() == area && tb.Covers(date) {
 			return tb, true
 		}
 	}
 	return Table{}, false
+}
+
+// Regional says whether the country's tolls are set by region: then its
+// km must be split by region to be priced.
+func Regional(tables []Table, country string) bool {
+	for _, tb := range tables {
+		if tb.Country == country && tb.Region != "" {
+			return true
+		}
+	}
+	return false
 }

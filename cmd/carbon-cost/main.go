@@ -203,11 +203,15 @@ func printResult(r cost.Response) {
 		if l.TonnesCO2 > 0 {
 			basis = fmt.Sprintf("%.3f t CO2e", l.TonnesCO2)
 		}
+		where := l.Country
+		if l.Region != "" {
+			where = l.Region
+		}
 		part := l.Component
 		if l.Carbon && part == "" {
 			part = "co2"
 		}
-		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, l.Country, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
+		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}
 	w.Flush()
 	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f\n", r.TotalEUR, r.CarbonEUR)
@@ -242,7 +246,7 @@ func listRates() error {
 		if to == "" {
 			to = "until replaced"
 		}
-		fmt.Printf("%s  %s  %s to %s  (%s)\n", tb.Country, tb.Name, tb.ValidFrom, to, tb.Law)
+		fmt.Printf("%s  %s  %s to %s  (%s)\n", tb.Area(), tb.Name, tb.ValidFrom, to, tb.Law)
 		for _, s := range tb.Sources {
 			fmt.Printf("    %s\n    %s\n", s.Title, s.URL)
 		}

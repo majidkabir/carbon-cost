@@ -193,3 +193,25 @@ func TestNetherlandsReduced(t *testing.T) {
 		t.Error("NL 2027: no table until the 2027 amounts are set")
 	}
 }
+
+func TestFindRegion(t *testing.T) {
+	src := []Source{{URL: "x"}}
+	tbs := []Table{
+		{Country: "BE", Region: "BE-VLG", ValidFrom: "2026-01-01", Sources: src},
+		{Country: "DE", ValidFrom: "2026-01-01", Sources: src},
+	}
+	d := on("2026-06-01")
+	if tb, ok := Find(tbs, "BE-VLG", d); !ok || tb.Region != "BE-VLG" {
+		t.Error("BE-VLG: want the Flemish table")
+	}
+	if _, ok := Find(tbs, "BE", d); ok {
+		t.Error("BE: a regional table must not answer for the whole country")
+	}
+	if !Regional(tbs, "BE") || Regional(tbs, "DE") {
+		t.Error("Regional: BE yes, DE no")
+	}
+	bad := Table{Country: "BE", Region: "NL-NH", Currency: "EUR", ValidFrom: "2026-01-01", Sources: src, Rows: []Row{{Component: "x"}}}
+	if bad.check() == nil {
+		t.Error("region outside its country: want an error")
+	}
+}

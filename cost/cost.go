@@ -14,6 +14,7 @@ import (
 	"math"
 	"slices"
 	"sort"
+	"strings"
 	"time"
 
 	"github.com/majidkabir/carbon-cost/rates"
@@ -89,6 +90,7 @@ type Comparison struct {
 type Line struct {
 	Charge    string  `json:"charge"`
 	Country   string  `json:"country,omitempty"`
+	Region    string  `json:"region,omitempty"` // ISO 3166-2, for regional tolls
 	Component string  `json:"component,omitempty"`
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
@@ -107,6 +109,7 @@ type Response struct {
 	DistanceKm float64            `json:"distance_km"`
 	FerryKm    float64            `json:"ferry_km,omitempty"`
 	CountryKm  map[string]float64 `json:"country_km"`
+	RegionKm   map[string]float64 `json:"region_km,omitempty"`
 	TTWKg      float64            `json:"ttw_kg"`
 	WTWKg      float64            `json:"wtw_kg"`
 	Lines      []Line             `json:"lines"`
@@ -215,6 +218,12 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 			out.CountryKm[k] += v
 			routed = true
 		}
+		for k, v := range l.RegionKm {
+			if out.RegionKm == nil {
+				out.RegionKm = map[string]float64{}
+			}
+			out.RegionKm[k] += v
+		}
 		for _, p := range l.Parts {
 			if p.Kind == "ferry" {
 				ferryTTW += p.TTWKg
@@ -252,24 +261,23 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 		}
 	}
 
-	// Road tolls, country by country.
-	countries := make([]string, 0, len(out.CountryKm))
-	for k := range out.CountryKm {
-		countries = append(countries, k)
-	}
-	sort.Strings(countries)
-	for _, cc := range countries {
-		km := out.CountryKm[cc]
-		tb, ok := rates.Find(tables, cc, date)
+	// Road tolls, area by area: countries, or their regions where tolls
+	// are set by region.
+	for _, a := range areas(&out, tables) {
+		cc, km := a.code, a.km
+		tb, ok := rates.Find(tables, a.code, date)
 		if !ok {
 			if km >= 0.5 {
-				out.NoRates = append(out.NoRates, cc)
+				out.NoRates = append(out.NoRates, a.code)
 			}
 			continue
 		}
-		share := 1.0
-		if v, ok := req.TolledShare[cc]; ok {
-			share = v
+		share, shareGiven := 1.0, false
+		for _, k := range []string{a.code, a.country} {
+			if v, ok := req.TolledShare[k]; ok {
+				share, shareGiven = v, true
+				break
+			}
 		}
 		tolledKm := km * share
 		rs, exempt, ok := tb.Rates(req.Truck, date)
@@ -284,22 +292,26 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 		}
 		addSources(tb.Sources)
 		for _, r := range rs {
-			if err := add(Line{Charge: RoadToll, Country: cc, Component: r.Component, Carbon: r.Component == rates.CO2,
+			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Carbon: r.Component == rates.CO2,
 				Km: round3(tolledKm), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
 				Amount: tolledKm * r.PerKm, Source: tb.Law}); err != nil {
 				return Response{}, err
 			}
 		}
-		if zkm := req.EnvZoneKm[cc]; zkm > 0 {
+		zkm := req.EnvZoneKm[a.code]
+		if a.region != "" && zkm == 0 {
+			zkm = req.EnvZoneKm[a.country]
+		}
+		if zkm > 0 {
 			zr := tb.EnvZoneRate(req.Truck)
 			if zr == 0 {
 				out.Notes = append(out.Notes, fmt.Sprintf("%s: env_zone_km given, but %s has no environmental zone surcharge.", cc, tb.Name))
-			} else if err := add(Line{Charge: RoadToll, Country: cc, Component: rates.EnvZoneSurcharge, Km: zkm, Rate: zr,
+			} else if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.EnvZoneSurcharge, Km: zkm, Rate: zr,
 				RateUnit: tb.Currency + "/km", Currency: tb.Currency, Amount: zkm * zr, Source: tb.Law}); err != nil {
 				return Response{}, err
 			}
 		}
-		if _, given := req.TolledShare[cc]; !given {
+		if !shareGiven {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
 				cc, km, cc, tb.TolledRoads))
 		}
@@ -348,7 +360,53 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 	for k, v := range out.CountryKm {
 		out.CountryKm[k] = round3(v)
 	}
+	for k, v := range out.RegionKm {
+		out.RegionKm[k] = round3(v)
+	}
 	return out, nil
+}
+
+// area is a country, or a region of one, priced with its own toll table.
+type area struct {
+	code, country, region string
+	km                    float64
+}
+
+// areas lists the route's countries, in code order, splitting those
+// whose tolls are set by region into their regions (from region_km).
+// A regional country without region_km is kept whole: it has no table,
+// so it is reported under no_rates with a note.
+func areas(out *Response, tables []rates.Table) []area {
+	countries := make([]string, 0, len(out.CountryKm))
+	for k := range out.CountryKm {
+		countries = append(countries, k)
+	}
+	sort.Strings(countries)
+	var as []area
+	for _, cc := range countries {
+		if !rates.Regional(tables, cc) {
+			as = append(as, area{code: cc, country: cc, km: out.CountryKm[cc]})
+			continue
+		}
+		var regs []string
+		for k := range out.RegionKm {
+			if strings.HasPrefix(k, cc+"-") {
+				regs = append(regs, k)
+			}
+		}
+		if len(regs) == 0 {
+			if out.CountryKm[cc] >= 0.5 {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: tolls differ by region, and Sootcase returned no region_km to split the %.1f km.", cc, out.CountryKm[cc]))
+			}
+			as = append(as, area{code: cc, country: cc, km: out.CountryKm[cc]})
+			continue
+		}
+		sort.Strings(regs)
+		for _, r := range regs {
+			as = append(as, area{code: r, country: cc, region: r, km: out.RegionKm[r]})
+		}
+	}
+	return as
 }
 
 // compare prices the trip again for each of req.CompareCO2Classes. The

@@ -66,7 +66,7 @@ Run `carbon-cost rates` for the full list. Countries on a route that have no tab
 ```
 go install github.com/majidkabir/carbon-cost/cmd/carbon-cost@latest
 carbon-cost calc -h
-carbon-cost serve -addr :8090   # POST /v1/carbon-cost, GET /v1/rates
+carbon-cost serve -addr :8090   # web page at /, POST /v1/carbon-cost, GET /v1/rates
 ```
 
 Or with Docker (images are published for each release tag):

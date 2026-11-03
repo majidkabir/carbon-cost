@@ -1,0 +1,2849 @@
+{
+ "source": "EU MRV public emission report (EMSA THETIS-MRV), Regulation (EU) 2015/757 Art. 21",
+ "reporting_period": 2025,
+ "version": "version 80 of 03-11-2026",
+ "ships": [
+  {
+   "imo": "7037806",
+   "name": "IONIAN STAR",
+   "freight_co2_t": 1313.27617,
+   "freight_work_t_nm": 4558720,
+   "g_per_t_nm": 288.08
+  },
+  {
+   "imo": "7207451",
+   "name": "SPORADES STAR",
+   "freight_co2_t": 525.04671,
+   "freight_work_t_nm": 75883,
+   "g_per_t_nm": 6919.16
+  },
+  {
+   "imo": "7230599",
+   "name": "MARKO POLO",
+   "freight_co2_t": 8163.82968,
+   "freight_work_t_nm": 13291594,
+   "g_per_t_nm": 614.21
+  },
+  {
+   "imo": "7346221",
+   "name": "SUPERSTAR",
+   "freight_co2_t": 3169.73524,
+   "freight_work_t_nm": 1165944,
+   "g_per_t_nm": 2718.6
+  },
+  {
+   "imo": "7350090",
+   "name": "MOBY NIKI",
+   "freight_co2_t": 1571.61474,
+   "freight_work_t_nm": 5009131,
+   "g_per_t_nm": 313.75
+  },
+  {
+   "imo": "7358755",
+   "name": "MOBY KISS",
+   "freight_co2_t": 1082.49958,
+   "freight_work_t_nm": 5872617,
+   "g_per_t_nm": 184.33
+  },
+  {
+   "imo": "7426045",
+   "name": "KEFALONIA",
+   "freight_co2_t": 4269.27697,
+   "freight_work_t_nm": 6382725,
+   "g_per_t_nm": 668.88
+  },
+  {
+   "imo": "7429669",
+   "name": "AQUA BLUE",
+   "freight_co2_t": 1662.05459,
+   "freight_work_t_nm": 754047,
+   "g_per_t_nm": 2204.18
+  },
+  {
+   "imo": "7527887",
+   "name": "SMYRNA DI LEVANTE",
+   "freight_co2_t": 6875.32304,
+   "freight_work_t_nm": 14708776,
+   "g_per_t_nm": 467.43
+  },
+  {
+   "imo": "7528635",
+   "name": "CENK T",
+   "freight_co2_t": 6531.58103,
+   "freight_work_t_nm": 30383686,
+   "g_per_t_nm": 214.97
+  },
+  {
+   "imo": "7602089",
+   "name": "AF FRANCESCA",
+   "freight_co2_t": 13830.31856,
+   "freight_work_t_nm": 22031220,
+   "g_per_t_nm": 627.76
+  },
+  {
+   "imo": "7602120",
+   "name": "MSC AURELIA",
+   "freight_co2_t": 5277.49271,
+   "freight_work_t_nm": 7840810,
+   "g_per_t_nm": 673.08
+  },
+  {
+   "imo": "7633143",
+   "name": "POVL ANKER",
+   "freight_co2_t": 111.99639,
+   "freight_work_t_nm": 1293560,
+   "g_per_t_nm": 86.58
+  },
+  {
+   "imo": "7633155",
+   "name": "ECKERO",
+   "freight_co2_t": 4025.72933,
+   "freight_work_t_nm": 11552254,
+   "g_per_t_nm": 348.48
+  },
+  {
+   "imo": "7719430",
+   "name": "MOROCCO SUN",
+   "freight_co2_t": 6396.50122,
+   "freight_work_t_nm": 18267367,
+   "g_per_t_nm": 350.16
+  },
+  {
+   "imo": "7803190",
+   "name": "MOROCCO STAR",
+   "freight_co2_t": 15770.3404,
+   "freight_work_t_nm": 25955990,
+   "g_per_t_nm": 607.58
+  },
+  {
+   "imo": "7803205",
+   "name": "KRONPRINS FREDERIK",
+   "freight_co2_t": 2599.8883,
+   "freight_work_t_nm": 11139196,
+   "g_per_t_nm": 233.4
+  },
+  {
+   "imo": "7807744",
+   "name": "RIGEL III",
+   "freight_co2_t": 9111.09049,
+   "freight_work_t_nm": 12390478,
+   "g_per_t_nm": 735.33
+  },
+  {
+   "imo": "7813949",
+   "name": "EUROPEAN STAR",
+   "freight_co2_t": 3611.46594,
+   "freight_work_t_nm": 8273691,
+   "g_per_t_nm": 436.5
+  },
+  {
+   "imo": "7814462",
+   "name": "WAWEL",
+   "freight_co2_t": 27975.39357,
+   "freight_work_t_nm": 84126402,
+   "g_per_t_nm": 332.54
+  },
+  {
+   "imo": "7825978",
+   "name": "PHIVOS",
+   "freight_co2_t": 3890.45225,
+   "freight_work_t_nm": 3356124,
+   "g_per_t_nm": 1159.21
+  },
+  {
+   "imo": "7826788",
+   "name": "RIGEL II",
+   "freight_co2_t": 7961.4187,
+   "freight_work_t_nm": 9213752,
+   "g_per_t_nm": 864.08
+  },
+  {
+   "imo": "7826790",
+   "name": "GNV AZZURRA",
+   "freight_co2_t": 18886.63707,
+   "freight_work_t_nm": 16443037,
+   "g_per_t_nm": 1148.61
+  },
+  {
+   "imo": "7826867",
+   "name": "GOTHICA",
+   "freight_co2_t": 4925.01861,
+   "freight_work_t_nm": 28270585,
+   "g_per_t_nm": 174.21
+  },
+  {
+   "imo": "7827225",
+   "name": "REGINA BALTICA",
+   "freight_co2_t": 12847.06789,
+   "freight_work_t_nm": 11025728,
+   "g_per_t_nm": 1165.19
+  },
+  {
+   "imo": "7901760",
+   "name": "STENA EUROPE",
+   "freight_co2_t": 7677.05703,
+   "freight_work_t_nm": 20460694,
+   "g_per_t_nm": 375.21
+  },
+  {
+   "imo": "7907245",
+   "name": "STENA DANICA",
+   "freight_co2_t": 17323.56532,
+   "freight_work_t_nm": 76952582,
+   "g_per_t_nm": 225.12
+  },
+  {
+   "imo": "7907659",
+   "name": "MEGA SERENA",
+   "freight_co2_t": 10934.44776,
+   "freight_work_t_nm": 49121508,
+   "g_per_t_nm": 222.6
+  },
+  {
+   "imo": "7907661",
+   "name": "STENA SPIRIT",
+   "freight_co2_t": 17847.51133,
+   "freight_work_t_nm": 143434150,
+   "g_per_t_nm": 124.43
+  },
+  {
+   "imo": "7907673",
+   "name": "EL. VENIZELOS",
+   "freight_co2_t": 24534.89526,
+   "freight_work_t_nm": 47232448,
+   "g_per_t_nm": 519.45
+  },
+  {
+   "imo": "7928160",
+   "name": "SAMPIYON TRABZONSPOR",
+   "freight_co2_t": 1251.94405,
+   "freight_work_t_nm": 7587540,
+   "g_per_t_nm": 165
+  },
+  {
+   "imo": "7928811",
+   "name": "ALMARIYA",
+   "freight_co2_t": 11047.622,
+   "freight_work_t_nm": 14050315,
+   "g_per_t_nm": 786.29
+  },
+  {
+   "imo": "8000226",
+   "name": "WASA EXPRESS",
+   "freight_co2_t": 0.97561,
+   "freight_work_t_nm": 1283697,
+   "g_per_t_nm": 0.76
+  },
+  {
+   "imo": "8019368",
+   "name": "VESTERALEN",
+   "freight_co2_t": 1312.78356,
+   "freight_work_t_nm": 1243944,
+   "g_per_t_nm": 1055.34
+  },
+  {
+   "imo": "8020927",
+   "name": "PREVELIS",
+   "freight_co2_t": 2894.93807,
+   "freight_work_t_nm": 3157104,
+   "g_per_t_nm": 916.96
+  },
+  {
+   "imo": "8208763",
+   "name": "POETA LOPEZ ANGLADA",
+   "freight_co2_t": 2129.37683,
+   "freight_work_t_nm": 24433469,
+   "g_per_t_nm": 87.15
+  },
+  {
+   "imo": "8219906",
+   "name": "SCILLA",
+   "freight_co2_t": 3975.17755,
+   "freight_work_t_nm": 4170262,
+   "g_per_t_nm": 953.22
+  },
+  {
+   "imo": "8306486",
+   "name": "MEGA SMERALDA",
+   "freight_co2_t": 35503.40257,
+   "freight_work_t_nm": 39904018,
+   "g_per_t_nm": 889.72
+  },
+  {
+   "imo": "8306498",
+   "name": "MEGA ANDREA",
+   "freight_co2_t": 39272.77162,
+   "freight_work_t_nm": 41656790,
+   "g_per_t_nm": 942.77
+  },
+  {
+   "imo": "8311900",
+   "name": "VILNIUS",
+   "freight_co2_t": 12396.12807,
+   "freight_work_t_nm": 96205883,
+   "g_per_t_nm": 128.85
+  },
+  {
+   "imo": "8311924",
+   "name": "KAUNAS",
+   "freight_co2_t": 6763.54455,
+   "freight_work_t_nm": 33999621,
+   "g_per_t_nm": 198.93
+  },
+  {
+   "imo": "8317942",
+   "name": "SUPERSTAR II",
+   "freight_co2_t": 301.09689,
+   "freight_work_t_nm": 105784,
+   "g_per_t_nm": 2846.34
+  },
+  {
+   "imo": "8317954",
+   "name": "STENA NAUTICA",
+   "freight_co2_t": 10300.33675,
+   "freight_work_t_nm": 60246457,
+   "g_per_t_nm": 170.97
+  },
+  {
+   "imo": "8320573",
+   "name": "MEGA REGINA",
+   "freight_co2_t": 25474.75151,
+   "freight_work_t_nm": 31303455,
+   "g_per_t_nm": 813.8
+  },
+  {
+   "imo": "8401444",
+   "name": "FJARDVAGEN",
+   "freight_co2_t": 223.27871,
+   "freight_work_t_nm": 1256917,
+   "g_per_t_nm": 177.64
+  },
+  {
+   "imo": "8405191",
+   "name": "MARE DI LEVANTE",
+   "freight_co2_t": 3063.16507,
+   "freight_work_t_nm": 21413248,
+   "g_per_t_nm": 143.05
+  },
+  {
+   "imo": "8414582",
+   "name": "MOBY ORLI",
+   "freight_co2_t": 440.35612,
+   "freight_work_t_nm": 8006475,
+   "g_per_t_nm": 55
+  },
+  {
+   "imo": "8416308",
+   "name": "GNV BLU",
+   "freight_co2_t": 3838.13774,
+   "freight_work_t_nm": 25587584933,
+   "g_per_t_nm": 0.15
+  },
+  {
+   "imo": "8420842",
+   "name": "GOLDEN CARRIER",
+   "freight_co2_t": 2827.16355,
+   "freight_work_t_nm": 12722363,
+   "g_per_t_nm": 222.22
+  },
+  {
+   "imo": "8500484",
+   "name": "ANDREAS KALVOS",
+   "freight_co2_t": 3549.77813,
+   "freight_work_t_nm": 6739147,
+   "g_per_t_nm": 526.74
+  },
+  {
+   "imo": "8502391",
+   "name": "PRINCESS SEAWAYS",
+   "freight_co2_t": 31040.44468,
+   "freight_work_t_nm": 82646692,
+   "g_per_t_nm": 375.58
+  },
+  {
+   "imo": "8502406",
+   "name": "KING SEAWAYS",
+   "freight_co2_t": 33021.06024,
+   "freight_work_t_nm": 82209426,
+   "g_per_t_nm": 401.67
+  },
+  {
+   "imo": "8503797",
+   "name": "GNV ANTARES",
+   "freight_co2_t": 2794.19479,
+   "freight_work_t_nm": 31046608778,
+   "g_per_t_nm": 0.09
+  },
+  {
+   "imo": "8506311",
+   "name": "GNV ALLEGRA",
+   "freight_co2_t": 1084.18051,
+   "freight_work_t_nm": 9034837583,
+   "g_per_t_nm": 0.12
+  },
+  {
+   "imo": "8512152",
+   "name": "AL ANDALUS EXPRESS",
+   "freight_co2_t": 14226.17395,
+   "freight_work_t_nm": 26367716,
+   "g_per_t_nm": 539.53
+  },
+  {
+   "imo": "8601915",
+   "name": "MEGA VICTORIA",
+   "freight_co2_t": 29421.92839,
+   "freight_work_t_nm": 39144685,
+   "g_per_t_nm": 751.62
+  },
+  {
+   "imo": "8613607",
+   "name": "ADAMANTIOS KORAIS",
+   "freight_co2_t": 3301.88063,
+   "freight_work_t_nm": 13201714,
+   "g_per_t_nm": 250.11
+  },
+  {
+   "imo": "8616336",
+   "name": "LEFKA ORI",
+   "freight_co2_t": 41726.71857,
+   "freight_work_t_nm": 190419927,
+   "g_per_t_nm": 219.13
+  },
+  {
+   "imo": "8618358",
+   "name": "HUCKLEBERRY FINN",
+   "freight_co2_t": 16257.46437,
+   "freight_work_t_nm": 171311532,
+   "g_per_t_nm": 94.9
+  },
+  {
+   "imo": "8701674",
+   "name": "NORDIC PEARL",
+   "freight_co2_t": 31419.48784,
+   "freight_work_t_nm": 30260802,
+   "g_per_t_nm": 1038.29
+  },
+  {
+   "imo": "8702446",
+   "name": "PETAR HEKTOROVIC",
+   "freight_co2_t": 3723.54473,
+   "freight_work_t_nm": 15094636,
+   "g_per_t_nm": 246.68
+  },
+  {
+   "imo": "8703232",
+   "name": "TOM SAWYER",
+   "freight_co2_t": 18052.65578,
+   "freight_work_t_nm": 182405333,
+   "g_per_t_nm": 98.97
+  },
+  {
+   "imo": "8704406",
+   "name": "NISSOS RODOS",
+   "freight_co2_t": 26401.54797,
+   "freight_work_t_nm": 114545308,
+   "g_per_t_nm": 230.49
+  },
+  {
+   "imo": "8705709",
+   "name": "SANSOVINO",
+   "freight_co2_t": 12273.8788,
+   "freight_work_t_nm": 8130496,
+   "g_per_t_nm": 1509.61
+  },
+  {
+   "imo": "8707329",
+   "name": "ROSALIND FRANKLIN",
+   "freight_co2_t": 9052.75228,
+   "freight_work_t_nm": 6790294,
+   "g_per_t_nm": 1333.19
+  },
+  {
+   "imo": "8712518",
+   "name": "GNV CRISTAL",
+   "freight_co2_t": 13082.35074,
+   "freight_work_t_nm": 56357863,
+   "g_per_t_nm": 232.13
+  },
+  {
+   "imo": "8712520",
+   "name": "GNV ATLAS",
+   "freight_co2_t": 14950.25541,
+   "freight_work_t_nm": 21445434,
+   "g_per_t_nm": 697.13
+  },
+  {
+   "imo": "8712635",
+   "name": "NISSOS SAMOS",
+   "freight_co2_t": 26632.79171,
+   "freight_work_t_nm": 92810119,
+   "g_per_t_nm": 286.96
+  },
+  {
+   "imo": "8715259",
+   "name": "SILJA SERENADE",
+   "freight_co2_t": 7566.62893,
+   "freight_work_t_nm": 59183644,
+   "g_per_t_nm": 127.85
+  },
+  {
+   "imo": "8719188",
+   "name": "VIKING CINDERELLA",
+   "freight_co2_t": 32079.11474,
+   "freight_work_t_nm": 80380653,
+   "g_per_t_nm": 399.09
+  },
+  {
+   "imo": "8803769",
+   "name": "SILJA SYMPHONY",
+   "freight_co2_t": 8568.22265,
+   "freight_work_t_nm": 69350244,
+   "g_per_t_nm": 123.55
+  },
+  {
+   "imo": "8818300",
+   "name": "GRYF",
+   "freight_co2_t": 10762.93166,
+   "freight_work_t_nm": 84309350,
+   "g_per_t_nm": 127.66
+  },
+  {
+   "imo": "8902345",
+   "name": "GOLDEN BRIDGE",
+   "freight_co2_t": 32327.79844,
+   "freight_work_t_nm": 60569573,
+   "g_per_t_nm": 533.73
+  },
+  {
+   "imo": "8907280",
+   "name": "FAST FERRIES ANDROS",
+   "freight_co2_t": 10280.3931,
+   "freight_work_t_nm": 32384291,
+   "g_per_t_nm": 317.45
+  },
+  {
+   "imo": "8908466",
+   "name": "ISLE OF INNISFREE",
+   "freight_co2_t": 41998.96467,
+   "freight_work_t_nm": 82665364,
+   "g_per_t_nm": 508.06
+  },
+  {
+   "imo": "8909886",
+   "name": "DIONISIOS SOLOMOS",
+   "freight_co2_t": 8900.55859,
+   "freight_work_t_nm": 39600278,
+   "g_per_t_nm": 224.76
+  },
+  {
+   "imo": "8911516",
+   "name": "MONTE D'ORO",
+   "freight_co2_t": 9949.57823,
+   "freight_work_t_nm": 20955745,
+   "g_per_t_nm": 474.79
+  },
+  {
+   "imo": "8916126",
+   "name": "DIAGORAS",
+   "freight_co2_t": 17545.85193,
+   "freight_work_t_nm": 37730581,
+   "g_per_t_nm": 465.03
+  },
+  {
+   "imo": "8917390",
+   "name": "PATRIA SEAWAYS",
+   "freight_co2_t": 4199.54903,
+   "freight_work_t_nm": 66754873,
+   "g_per_t_nm": 62.91
+  },
+  {
+   "imo": "8917601",
+   "name": "GABRIELLA",
+   "freight_co2_t": 32585.90995,
+   "freight_work_t_nm": 83061635,
+   "g_per_t_nm": 392.31
+  },
+  {
+   "imo": "8917613",
+   "name": "NORDIC CROWN",
+   "freight_co2_t": 12895.34833,
+   "freight_work_t_nm": 30117356,
+   "g_per_t_nm": 428.17
+  },
+  {
+   "imo": "8922163",
+   "name": "ASTERION II",
+   "freight_co2_t": 30095.81624,
+   "freight_work_t_nm": 127476031,
+   "g_per_t_nm": 236.09
+  },
+  {
+   "imo": "8976671",
+   "name": "AQUA JEWEL",
+   "freight_co2_t": 540.02766,
+   "freight_work_t_nm": 310052,
+   "g_per_t_nm": 1741.73
+  },
+  {
+   "imo": "9000443",
+   "name": "EKATERINI P.",
+   "freight_co2_t": 9036.41254,
+   "freight_work_t_nm": 24619023,
+   "g_per_t_nm": 367.05
+  },
+  {
+   "imo": "9006253",
+   "name": "MASSALIA",
+   "freight_co2_t": 19161.78083,
+   "freight_work_t_nm": 68783763,
+   "g_per_t_nm": 278.58
+  },
+  {
+   "imo": "9007116",
+   "name": "TYCHO BRAHE",
+   "freight_co2_t": 479.34679,
+   "freight_work_t_nm": 12482989,
+   "g_per_t_nm": 38.4
+  },
+  {
+   "imo": "9007128",
+   "name": "AURORA AF HELSINGBORG",
+   "freight_co2_t": 555.16437,
+   "freight_work_t_nm": 12540419,
+   "g_per_t_nm": 44.27
+  },
+  {
+   "imo": "9007130",
+   "name": "BARFLEUR",
+   "freight_co2_t": 1291.37508,
+   "freight_work_t_nm": 17319945,
+   "g_per_t_nm": 74.56
+  },
+  {
+   "imo": "9007283",
+   "name": "BLUE WAVE HARMONY",
+   "freight_co2_t": 1158.36118,
+   "freight_work_t_nm": 723514,
+   "g_per_t_nm": 1601.02
+  },
+  {
+   "imo": "9010163",
+   "name": "FINNPARTNER",
+   "freight_co2_t": 41157.7131,
+   "freight_work_t_nm": 283748453,
+   "g_per_t_nm": 145.05
+  },
+  {
+   "imo": "9010814",
+   "name": "MAZOVIA",
+   "freight_co2_t": 25340.66163,
+   "freight_work_t_nm": 100526268,
+   "g_per_t_nm": 252.08
+  },
+  {
+   "imo": "9011014",
+   "name": "LAURANA",
+   "freight_co2_t": 9315.21091,
+   "freight_work_t_nm": 11326035,
+   "g_per_t_nm": 822.46
+  },
+  {
+   "imo": "9015735",
+   "name": "MAJESTIC",
+   "freight_co2_t": 11504.77431,
+   "freight_work_t_nm": 16435391871,
+   "g_per_t_nm": 0.7
+  },
+  {
+   "imo": "9015747",
+   "name": "SPLENDID",
+   "freight_co2_t": 2003.01203,
+   "freight_work_t_nm": 22255689222,
+   "g_per_t_nm": 0.09
+  },
+  {
+   "imo": "9017769",
+   "name": "FINNTRADER",
+   "freight_co2_t": 40333.92194,
+   "freight_work_t_nm": 258186672,
+   "g_per_t_nm": 156.22
+  },
+  {
+   "imo": "9019054",
+   "name": "DENIA CIUTAT CREATIVA",
+   "freight_co2_t": 18958.74926,
+   "freight_work_t_nm": 91907840,
+   "g_per_t_nm": 206.28
+  },
+  {
+   "imo": "9019066",
+   "name": "LIDER PRESTIJ",
+   "freight_co2_t": 3333.55605,
+   "freight_work_t_nm": 18309200,
+   "g_per_t_nm": 182.07
+  },
+  {
+   "imo": "9019078",
+   "name": "GALILEUSZ",
+   "freight_co2_t": 14138.46583,
+   "freight_work_t_nm": 80437309,
+   "g_per_t_nm": 175.77
+  },
+  {
+   "imo": "9019080",
+   "name": "MARCO POLO",
+   "freight_co2_t": 13567.73206,
+   "freight_work_t_nm": 158835543,
+   "g_per_t_nm": 85.42
+  },
+  {
+   "imo": "9021485",
+   "name": "ZADAR",
+   "freight_co2_t": 6838.24089,
+   "freight_work_t_nm": 22929420,
+   "g_per_t_nm": 298.23
+  },
+  {
+   "imo": "9031698",
+   "name": "DRUJBA",
+   "freight_co2_t": 16261.07948,
+   "freight_work_t_nm": 140387460,
+   "g_per_t_nm": 115.83
+  },
+  {
+   "imo": "9031703",
+   "name": "COPERNICUS",
+   "freight_co2_t": 15220.03825,
+   "freight_work_t_nm": 75759275,
+   "g_per_t_nm": 200.9
+  },
+  {
+   "imo": "9031997",
+   "name": "LAS PALMAS",
+   "freight_co2_t": 10081.1313,
+   "freight_work_t_nm": 6466741,
+   "g_per_t_nm": 1558.92
+  },
+  {
+   "imo": "9035096",
+   "name": "RIGEL V",
+   "freight_co2_t": 22649.75227,
+   "freight_work_t_nm": 24427856,
+   "g_per_t_nm": 927.21
+  },
+  {
+   "imo": "9035101",
+   "name": "MEGA EXPRESS FIVE",
+   "freight_co2_t": 2977.3689,
+   "freight_work_t_nm": 19348641,
+   "g_per_t_nm": 153.88
+  },
+  {
+   "imo": "9035876",
+   "name": "KISSAMOS",
+   "freight_co2_t": 26705.84249,
+   "freight_work_t_nm": 97441685,
+   "g_per_t_nm": 274.07
+  },
+  {
+   "imo": "9039119",
+   "name": "KONG HARALD",
+   "freight_co2_t": 2028.18908,
+   "freight_work_t_nm": 3531154,
+   "g_per_t_nm": 574.37
+  },
+  {
+   "imo": "9039391",
+   "name": "JUAN J. SISTER",
+   "freight_co2_t": 11335.45308,
+   "freight_work_t_nm": 33045078,
+   "g_per_t_nm": 343.03
+  },
+  {
+   "imo": "9040429",
+   "name": "RICHARD WITH",
+   "freight_co2_t": 2066.98754,
+   "freight_work_t_nm": 2406664,
+   "g_per_t_nm": 858.86
+  },
+  {
+   "imo": "9048914",
+   "name": "NORDLYS",
+   "freight_co2_t": 1201.09984,
+   "freight_work_t_nm": 1076727,
+   "g_per_t_nm": 1115.51
+  },
+  {
+   "imo": "9050618",
+   "name": "KALLISTE",
+   "freight_co2_t": 14274.52339,
+   "freight_work_t_nm": 29292490,
+   "g_per_t_nm": 487.31
+  },
+  {
+   "imo": "9050826",
+   "name": "PAGLIA ORBA",
+   "freight_co2_t": 9723.81426,
+   "freight_work_t_nm": 17170176,
+   "g_per_t_nm": 566.32
+  },
+  {
+   "imo": "9056595",
+   "name": "NORBAY",
+   "freight_co2_t": 20211.62431,
+   "freight_work_t_nm": 119588334,
+   "g_per_t_nm": 169.01
+  },
+  {
+   "imo": "9058995",
+   "name": "DALMACIJA",
+   "freight_co2_t": 7794.62035,
+   "freight_work_t_nm": 13649868,
+   "g_per_t_nm": 571.04
+  },
+  {
+   "imo": "9059107",
+   "name": "AF MARINA",
+   "freight_co2_t": 17553.15166,
+   "freight_work_t_nm": 63792527,
+   "g_per_t_nm": 275.16
+  },
+  {
+   "imo": "9080015",
+   "name": "CIUDAD DE MALAGA",
+   "freight_co2_t": 8674.27568,
+   "freight_work_t_nm": 11137144,
+   "g_per_t_nm": 778.86
+  },
+  {
+   "imo": "9086588",
+   "name": "SKANIA",
+   "freight_co2_t": 22426.29736,
+   "freight_work_t_nm": 104473574,
+   "g_per_t_nm": 214.66
+  },
+  {
+   "imo": "9086590",
+   "name": "MEGA EXPRESS FOUR",
+   "freight_co2_t": 37539.03989,
+   "freight_work_t_nm": 47132952,
+   "g_per_t_nm": 796.45
+  },
+  {
+   "imo": "9087465",
+   "name": "NILS DACKE",
+   "freight_co2_t": 14944.93293,
+   "freight_work_t_nm": 202478430,
+   "g_per_t_nm": 73.81
+  },
+  {
+   "imo": "9087477",
+   "name": "ROBIN HOOD",
+   "freight_co2_t": 15547.77631,
+   "freight_work_t_nm": 215821437,
+   "g_per_t_nm": 72.04
+  },
+  {
+   "imo": "9087726",
+   "name": "RIGEL VII",
+   "freight_co2_t": 17065.31195,
+   "freight_work_t_nm": 27873111,
+   "g_per_t_nm": 612.25
+  },
+  {
+   "imo": "9088859",
+   "name": "GIROLATA",
+   "freight_co2_t": 29206.90108,
+   "freight_work_t_nm": 56400311,
+   "g_per_t_nm": 517.85
+  },
+  {
+   "imo": "9100267",
+   "name": "FANTASTIC",
+   "freight_co2_t": 1146.23934,
+   "freight_work_t_nm": 14327991750,
+   "g_per_t_nm": 0.08
+  },
+  {
+   "imo": "9104835",
+   "name": "RHAPSODY",
+   "freight_co2_t": 65.47569,
+   "freight_work_t_nm": 1309513800,
+   "g_per_t_nm": 0.05
+  },
+  {
+   "imo": "9106211",
+   "name": "CAT I",
+   "freight_co2_t": 3509.02665,
+   "freight_work_t_nm": 823856,
+   "g_per_t_nm": 4259.27
+  },
+  {
+   "imo": "9107772",
+   "name": "NORDKAPP",
+   "freight_co2_t": 2101.81927,
+   "freight_work_t_nm": 2873379,
+   "g_per_t_nm": 731.48
+  },
+  {
+   "imo": "9107784",
+   "name": "NORDNORGE",
+   "freight_co2_t": 1951.01023,
+   "freight_work_t_nm": 2152696,
+   "g_per_t_nm": 906.31
+  },
+  {
+   "imo": "9107796",
+   "name": "POLARLYS",
+   "freight_co2_t": 2233.51979,
+   "freight_work_t_nm": 2818819,
+   "g_per_t_nm": 792.36
+  },
+  {
+   "imo": "9108350",
+   "name": "POLONIA",
+   "freight_co2_t": 18614.35517,
+   "freight_work_t_nm": 113363917,
+   "g_per_t_nm": 164.2
+  },
+  {
+   "imo": "9108556",
+   "name": "CENK G",
+   "freight_co2_t": 8386.73547,
+   "freight_work_t_nm": 32543306,
+   "g_per_t_nm": 257.71
+  },
+  {
+   "imo": "9108568",
+   "name": "NAPOLI",
+   "freight_co2_t": 11302.41234,
+   "freight_work_t_nm": 14807494,
+   "g_per_t_nm": 763.29
+  },
+  {
+   "imo": "9110016",
+   "name": "SUPERFERRY",
+   "freight_co2_t": 10420.49504,
+   "freight_work_t_nm": 21142911,
+   "g_per_t_nm": 492.86
+  },
+  {
+   "imo": "9112765",
+   "name": "KATTEGAT",
+   "freight_co2_t": 4280.68031,
+   "freight_work_t_nm": 30452304,
+   "g_per_t_nm": 140.57
+  },
+  {
+   "imo": "9112777",
+   "name": "TANGER EXPRESS",
+   "freight_co2_t": 4551.26602,
+   "freight_work_t_nm": 26315502,
+   "g_per_t_nm": 172.95
+  },
+  {
+   "imo": "9125944",
+   "name": "STENA JUTLANDICA",
+   "freight_co2_t": 16708.18492,
+   "freight_work_t_nm": 89224527,
+   "g_per_t_nm": 187.26
+  },
+  {
+   "imo": "9127576",
+   "name": "POWER JET",
+   "freight_co2_t": 21.48419,
+   "freight_work_t_nm": 4553,
+   "g_per_t_nm": 4718.69
+  },
+  {
+   "imo": "9131797",
+   "name": "MECKLENBURG-VORPOMMERN",
+   "freight_co2_t": 23386.06338,
+   "freight_work_t_nm": 210685256,
+   "g_per_t_nm": 111
+  },
+  {
+   "imo": "9133915",
+   "name": "SKANE",
+   "freight_co2_t": 18839.65648,
+   "freight_work_t_nm": 263013493,
+   "g_per_t_nm": 71.63
+  },
+  {
+   "imo": "9135262",
+   "name": "ARIADNE",
+   "freight_co2_t": 49634.48217,
+   "freight_work_t_nm": 139677732,
+   "g_per_t_nm": 355.35
+  },
+  {
+   "imo": "9135896",
+   "name": "CHAMPION JET 2",
+   "freight_co2_t": 413.72388,
+   "freight_work_t_nm": 95091,
+   "g_per_t_nm": 4350.82
+  },
+  {
+   "imo": "9137997",
+   "name": "CIUDAD DE SOLLER",
+   "freight_co2_t": 43781.11828,
+   "freight_work_t_nm": 174914576,
+   "g_per_t_nm": 250.3
+  },
+  {
+   "imo": "9138006",
+   "name": "VIZZAVONA",
+   "freight_co2_t": 15718.67461,
+   "freight_work_t_nm": 44777446,
+   "g_per_t_nm": 351.04
+  },
+  {
+   "imo": "9142605",
+   "name": "ISLE OF INISHMORE",
+   "freight_co2_t": 43350.16047,
+   "freight_work_t_nm": 107182990,
+   "g_per_t_nm": 404.45
+  },
+  {
+   "imo": "9143441",
+   "name": "EXCELLENT",
+   "freight_co2_t": 1258.36473,
+   "freight_work_t_nm": 7402145471,
+   "g_per_t_nm": 0.17
+  },
+  {
+   "imo": "9143491",
+   "name": "FIOR DI LEVANTE",
+   "freight_co2_t": 6433.81189,
+   "freight_work_t_nm": 10958257,
+   "g_per_t_nm": 587.12
+  },
+  {
+   "imo": "9144081",
+   "name": "BASTØ I",
+   "freight_co2_t": 1905.2756,
+   "freight_work_t_nm": 7202766,
+   "g_per_t_nm": 264.52
+  },
+  {
+   "imo": "9144093",
+   "name": "BASTØ II",
+   "freight_co2_t": 1400.83128,
+   "freight_work_t_nm": 7451230,
+   "g_per_t_nm": 188
+  },
+  {
+   "imo": "9144419",
+   "name": "PRINS RICHARD",
+   "freight_co2_t": 4502.21561,
+   "freight_work_t_nm": 34852265,
+   "g_per_t_nm": 129.18
+  },
+  {
+   "imo": "9144421",
+   "name": "PRINSESSE BENEDIKTE",
+   "freight_co2_t": 4571.8307,
+   "freight_work_t_nm": 34090155,
+   "g_per_t_nm": 134.11
+  },
+  {
+   "imo": "9144732",
+   "name": "VINCENZO FLORIO",
+   "freight_co2_t": 7293.98924,
+   "freight_work_t_nm": 76545170,
+   "g_per_t_nm": 95.29
+  },
+  {
+   "imo": "9144744",
+   "name": "RAFFAELE RUBATTINO",
+   "freight_co2_t": 5343.2135,
+   "freight_work_t_nm": 50450510,
+   "g_per_t_nm": 105.91
+  },
+  {
+   "imo": "9144811",
+   "name": "AF MIA",
+   "freight_co2_t": 53527.08319,
+   "freight_work_t_nm": 214959573,
+   "g_per_t_nm": 249.01
+  },
+  {
+   "imo": "9145164",
+   "name": "FINNFELLOW",
+   "freight_co2_t": 42786.29642,
+   "freight_work_t_nm": 256374237,
+   "g_per_t_nm": 166.89
+  },
+  {
+   "imo": "9145176",
+   "name": "STENA GERMANICA",
+   "freight_co2_t": 21996.4102,
+   "freight_work_t_nm": 201672414,
+   "g_per_t_nm": 109.07
+  },
+  {
+   "imo": "9150030",
+   "name": "HAMLET",
+   "freight_co2_t": 661.02319,
+   "freight_work_t_nm": 6060541,
+   "g_per_t_nm": 109.07
+  },
+  {
+   "imo": "9151008",
+   "name": "CHAMPION JET 1",
+   "freight_co2_t": 278.96327,
+   "freight_work_t_nm": 71937,
+   "g_per_t_nm": 3877.88
+  },
+  {
+   "imo": "9151539",
+   "name": "SCHLESWIG-HOLSTEIN",
+   "freight_co2_t": 4352.70769,
+   "freight_work_t_nm": 32290116,
+   "g_per_t_nm": 134.8
+  },
+  {
+   "imo": "9151541",
+   "name": "DEUTSCHLAND",
+   "freight_co2_t": 3168.39812,
+   "freight_work_t_nm": 20315453,
+   "g_per_t_nm": 155.96
+  },
+  {
+   "imo": "9161560",
+   "name": "CHAMPION JET 3",
+   "freight_co2_t": 370.72316,
+   "freight_work_t_nm": 95876,
+   "g_per_t_nm": 3866.69
+  },
+  {
+   "imo": "9161948",
+   "name": "JEAN NICOLI",
+   "freight_co2_t": 8977.95419,
+   "freight_work_t_nm": 20568522,
+   "g_per_t_nm": 436.49
+  },
+  {
+   "imo": "9166223",
+   "name": "ANDROS QUEEN",
+   "freight_co2_t": 15137.19631,
+   "freight_work_t_nm": 39721833,
+   "g_per_t_nm": 381.08
+  },
+  {
+   "imo": "9168518",
+   "name": "OLIVER",
+   "freight_co2_t": 3798.80951,
+   "freight_work_t_nm": 8484599,
+   "g_per_t_nm": 447.73
+  },
+  {
+   "imo": "9170183",
+   "name": "AVEMAR DOS",
+   "freight_co2_t": 2128.60568,
+   "freight_work_t_nm": 370165,
+   "g_per_t_nm": 5750.43
+  },
+  {
+   "imo": "9170705",
+   "name": "BEN-MY-CHREE",
+   "freight_co2_t": 2003.28419,
+   "freight_work_t_nm": 652535567,
+   "g_per_t_nm": 3.07
+  },
+  {
+   "imo": "9171163",
+   "name": "SUPERRUNNER JET II",
+   "freight_co2_t": 32.87718,
+   "freight_work_t_nm": 4503,
+   "g_per_t_nm": 7301.17
+  },
+  {
+   "imo": "9176046",
+   "name": "SUPEREXPRESS",
+   "freight_co2_t": 22385.01639,
+   "freight_work_t_nm": 12048558,
+   "g_per_t_nm": 1857.9
+  },
+  {
+   "imo": "9176058",
+   "name": "EUROCHAMPION JET",
+   "freight_co2_t": 253.21366,
+   "freight_work_t_nm": 79579,
+   "g_per_t_nm": 3181.92
+  },
+  {
+   "imo": "9176072",
+   "name": "MANANNAN",
+   "freight_co2_t": 5.47423,
+   "freight_work_t_nm": 5702323,
+   "g_per_t_nm": 0.96
+  },
+  {
+   "imo": "9178599",
+   "name": "ELYROS",
+   "freight_co2_t": 22854.75573,
+   "freight_work_t_nm": 95847162,
+   "g_per_t_nm": 238.45
+  },
+  {
+   "imo": "9181091",
+   "name": "ISLE OF INISHEER",
+   "freight_co2_t": 50750.39032,
+   "freight_work_t_nm": 174190459,
+   "g_per_t_nm": 291.35
+  },
+  {
+   "imo": "9181106",
+   "name": "FINBO CARGO",
+   "freight_co2_t": 28635.0595,
+   "freight_work_t_nm": 166135179,
+   "g_per_t_nm": 172.36
+  },
+  {
+   "imo": "9184419",
+   "name": "EXCELSIOR",
+   "freight_co2_t": 1449.15115,
+   "freight_work_t_nm": 18114389375,
+   "g_per_t_nm": 0.08
+  },
+  {
+   "imo": "9185396",
+   "name": "CARTHAGE",
+   "freight_co2_t": 486.65708,
+   "freight_work_t_nm": 143832,
+   "g_per_t_nm": 3383.51
+  },
+  {
+   "imo": "9188427",
+   "name": "OPTIMA SEAWAYS",
+   "freight_co2_t": 15224.95824,
+   "freight_work_t_nm": 236559326,
+   "g_per_t_nm": 64.36
+  },
+  {
+   "imo": "9188867",
+   "name": "HIGHSPEED 3",
+   "freight_co2_t": 8601.50855,
+   "freight_work_t_nm": 1699812,
+   "g_per_t_nm": 5060.27
+  },
+  {
+   "imo": "9188881",
+   "name": "CECILIA PAYNE",
+   "freight_co2_t": 11460.68271,
+   "freight_work_t_nm": 4135102,
+   "g_per_t_nm": 2771.56
+  },
+  {
+   "imo": "9197105",
+   "name": "BLUE STAR 1",
+   "freight_co2_t": 58628.38662,
+   "freight_work_t_nm": 87774930,
+   "g_per_t_nm": 667.94
+  },
+  {
+   "imo": "9198927",
+   "name": "GNV SPIRIT",
+   "freight_co2_t": 22232.42862,
+   "freight_work_t_nm": 148216190800,
+   "g_per_t_nm": 0.15
+  },
+  {
+   "imo": "9198939",
+   "name": "EUROPA PALACE",
+   "freight_co2_t": 15476.82802,
+   "freight_work_t_nm": 236684937,
+   "g_per_t_nm": 65.39
+  },
+  {
+   "imo": "9201750",
+   "name": "COMMODORE CLIPPER",
+   "freight_co2_t": 6495.22601,
+   "freight_work_t_nm": 48954070,
+   "g_per_t_nm": 132.68
+  },
+  {
+   "imo": "9203174",
+   "name": "MEGA EXPRESS",
+   "freight_co2_t": 39491.92823,
+   "freight_work_t_nm": 38722892,
+   "g_per_t_nm": 1019.86
+  },
+  {
+   "imo": "9203186",
+   "name": "MEGA EXPRESS TWO",
+   "freight_co2_t": 40199.30792,
+   "freight_work_t_nm": 38745201,
+   "g_per_t_nm": 1037.53
+  },
+  {
+   "imo": "9204063",
+   "name": "CRUISE BONARIA",
+   "freight_co2_t": 8635.78797,
+   "freight_work_t_nm": 60209077,
+   "g_per_t_nm": 143.43
+  },
+  {
+   "imo": "9204568",
+   "name": "KYDON PALACE",
+   "freight_co2_t": 12235.50992,
+   "freight_work_t_nm": 91734217,
+   "g_per_t_nm": 133.38
+  },
+  {
+   "imo": "9206700",
+   "name": "VILLA DE AGAETE",
+   "freight_co2_t": 11843.85245,
+   "freight_work_t_nm": 2848806,
+   "g_per_t_nm": 4157.48
+  },
+  {
+   "imo": "9206712",
+   "name": "BENCOMO EXPRESS",
+   "freight_co2_t": 7813.86769,
+   "freight_work_t_nm": 13737702,
+   "g_per_t_nm": 568.79
+  },
+  {
+   "imo": "9207584",
+   "name": "BLUE STAR 2",
+   "freight_co2_t": 64163.75718,
+   "freight_work_t_nm": 146861426,
+   "g_per_t_nm": 436.9
+  },
+  {
+   "imo": "9208071",
+   "name": "ZEUS PALACE",
+   "freight_co2_t": 17395.80614,
+   "freight_work_t_nm": 146097305,
+   "g_per_t_nm": 119.07
+  },
+  {
+   "imo": "9208083",
+   "name": "MEGA EXPRESS THREE",
+   "freight_co2_t": 35421.50795,
+   "freight_work_t_nm": 43293050,
+   "g_per_t_nm": 818.18
+  },
+  {
+   "imo": "9208617",
+   "name": "PRIDE OF ROTTERDAM",
+   "freight_co2_t": 39579.48392,
+   "freight_work_t_nm": 269431477,
+   "g_per_t_nm": 146.9
+  },
+  {
+   "imo": "9208629",
+   "name": "PRIDE OF HULL",
+   "freight_co2_t": 38888.71964,
+   "freight_work_t_nm": 239580579,
+   "g_per_t_nm": 162.32
+  },
+  {
+   "imo": "9208679",
+   "name": "BLUE STAR MYCONOS",
+   "freight_co2_t": 60714.07863,
+   "freight_work_t_nm": 55013572,
+   "g_per_t_nm": 1103.62
+  },
+  {
+   "imo": "9211509",
+   "name": "SUPERFAST IX",
+   "freight_co2_t": 16736.91826,
+   "freight_work_t_nm": 65340302,
+   "g_per_t_nm": 256.15
+  },
+  {
+   "imo": "9211511",
+   "name": "A NEPITA",
+   "freight_co2_t": 23371.48129,
+   "freight_work_t_nm": 59674406,
+   "g_per_t_nm": 391.65
+  },
+  {
+   "imo": "9212163",
+   "name": "SIRENA SEAWAYS",
+   "freight_co2_t": 8602.14688,
+   "freight_work_t_nm": 176816997,
+   "g_per_t_nm": 48.65
+  },
+  {
+   "imo": "9213337",
+   "name": "BENTAGO EXPRESS",
+   "freight_co2_t": 11529.33713,
+   "freight_work_t_nm": 12755949,
+   "g_per_t_nm": 903.84
+  },
+  {
+   "imo": "9214288",
+   "name": "LA SUPREMA",
+   "freight_co2_t": 7807.49544,
+   "freight_work_t_nm": 60057657231,
+   "g_per_t_nm": 0.13
+  },
+  {
+   "imo": "9214367",
+   "name": "MOBY WONDER",
+   "freight_co2_t": 6343.80893,
+   "freight_work_t_nm": 78222058,
+   "g_per_t_nm": 81.1
+  },
+  {
+   "imo": "9214379",
+   "name": "FINLANDIA",
+   "freight_co2_t": 40065.69946,
+   "freight_work_t_nm": 126167337,
+   "g_per_t_nm": 317.56
+  },
+  {
+   "imo": "9214991",
+   "name": "ULYSSES",
+   "freight_co2_t": 56092.52447,
+   "freight_work_t_nm": 218114572,
+   "g_per_t_nm": 257.17
+  },
+  {
+   "imo": "9215505",
+   "name": "STENA NORDICA",
+   "freight_co2_t": 24058.17161,
+   "freight_work_t_nm": 40405380,
+   "g_per_t_nm": 595.42
+  },
+  {
+   "imo": "9215555",
+   "name": "BLUE STAR CHIOS",
+   "freight_co2_t": 62432.16127,
+   "freight_work_t_nm": 52966515,
+   "g_per_t_nm": 1178.71
+  },
+  {
+   "imo": "9216028",
+   "name": "SUPERFAST III",
+   "freight_co2_t": 72798.12423,
+   "freight_work_t_nm": 222651469,
+   "g_per_t_nm": 326.96
+  },
+  {
+   "imo": "9216030",
+   "name": "SUPERFAST IV",
+   "freight_co2_t": 65853.0355,
+   "freight_work_t_nm": 183731476,
+   "g_per_t_nm": 358.42
+  },
+  {
+   "imo": "9216183",
+   "name": "HIGHSPEED 4",
+   "freight_co2_t": 10264.75084,
+   "freight_work_t_nm": 1783446,
+   "g_per_t_nm": 5755.57
+  },
+  {
+   "imo": "9216250",
+   "name": "WORLDCHAMPION JET",
+   "freight_co2_t": 148.6281,
+   "freight_work_t_nm": 36491,
+   "g_per_t_nm": 4073.01
+  },
+  {
+   "imo": "9216585",
+   "name": "BUENAVISTA EXPRESS",
+   "freight_co2_t": 26565.69589,
+   "freight_work_t_nm": 31926853,
+   "g_per_t_nm": 832.08
+  },
+  {
+   "imo": "9217125",
+   "name": "CIUDAD DE GRANADA",
+   "freight_co2_t": 43540.56969,
+   "freight_work_t_nm": 102770009,
+   "g_per_t_nm": 423.67
+  },
+  {
+   "imo": "9217230",
+   "name": "AKKA",
+   "freight_co2_t": 23177.48914,
+   "freight_work_t_nm": 220948419,
+   "g_per_t_nm": 104.9
+  },
+  {
+   "imo": "9217242",
+   "name": "TINKER BELL",
+   "freight_co2_t": 22381.60989,
+   "freight_work_t_nm": 288274213,
+   "g_per_t_nm": 77.64
+  },
+  {
+   "imo": "9220330",
+   "name": "KNOSSOS PALACE",
+   "freight_co2_t": 12769.89331,
+   "freight_work_t_nm": 177187364,
+   "g_per_t_nm": 72.07
+  },
+  {
+   "imo": "9220342",
+   "name": "FESTOS PALACE",
+   "freight_co2_t": 12447.87478,
+   "freight_work_t_nm": 175718165,
+   "g_per_t_nm": 70.84
+  },
+  {
+   "imo": "9221310",
+   "name": "MOBY TOMMY",
+   "freight_co2_t": 5174.39777,
+   "freight_work_t_nm": 85105226,
+   "g_per_t_nm": 60.8
+  },
+  {
+   "imo": "9221346",
+   "name": "VOLCAN DE TENO",
+   "freight_co2_t": 14367.78843,
+   "freight_work_t_nm": 3160326,
+   "g_per_t_nm": 4546.3
+  },
+  {
+   "imo": "9221358",
+   "name": "CONDOR VOYAGER",
+   "freight_co2_t": 507.60059,
+   "freight_work_t_nm": 2904558,
+   "g_per_t_nm": 174.76
+  },
+  {
+   "imo": "9222522",
+   "name": "MOBY ALE DUE",
+   "freight_co2_t": 8095.49124,
+   "freight_work_t_nm": 80704728,
+   "g_per_t_nm": 100.31
+  },
+  {
+   "imo": "9222534",
+   "name": "JANAS",
+   "freight_co2_t": 5948.02841,
+   "freight_work_t_nm": 64074420,
+   "g_per_t_nm": 92.83
+  },
+  {
+   "imo": "9223150",
+   "name": "THEOLOGOS P.",
+   "freight_co2_t": 13271.97956,
+   "freight_work_t_nm": 39790075,
+   "g_per_t_nm": 333.55
+  },
+  {
+   "imo": "9223784",
+   "name": "VISBORG",
+   "freight_co2_t": 18329.37241,
+   "freight_work_t_nm": 84014174,
+   "g_per_t_nm": 218.17
+  },
+  {
+   "imo": "9223796",
+   "name": "DROTTEN",
+   "freight_co2_t": 15389.9104,
+   "freight_work_t_nm": 34661180,
+   "g_per_t_nm": 444.01
+  },
+  {
+   "imo": "9227390",
+   "name": "NORRONA",
+   "freight_co2_t": 36817.37734,
+   "freight_work_t_nm": 141512770,
+   "g_per_t_nm": 260.17
+  },
+  {
+   "imo": "9227417",
+   "name": "SUPERFAST XI",
+   "freight_co2_t": 124156.65925,
+   "freight_work_t_nm": 314870684,
+   "g_per_t_nm": 394.31
+  },
+  {
+   "imo": "9227429",
+   "name": "CRUISE AUSONIA",
+   "freight_co2_t": 15451.54945,
+   "freight_work_t_nm": 137139873,
+   "g_per_t_nm": 112.67
+  },
+  {
+   "imo": "9230476",
+   "name": "DANIELLE CASANOVA",
+   "freight_co2_t": 5146.63745,
+   "freight_work_t_nm": 8028449,
+   "g_per_t_nm": 641.05
+  },
+  {
+   "imo": "9232527",
+   "name": "COTE DES DUNES",
+   "freight_co2_t": 12808.40297,
+   "freight_work_t_nm": 96434294,
+   "g_per_t_nm": 132.82
+  },
+  {
+   "imo": "9233258",
+   "name": "TROLLFJORD",
+   "freight_co2_t": 1956.24833,
+   "freight_work_t_nm": 244140,
+   "g_per_t_nm": 8012.81
+  },
+  {
+   "imo": "9235517",
+   "name": "STENA SCANDINAVICA",
+   "freight_co2_t": 24393.877,
+   "freight_work_t_nm": 200690062,
+   "g_per_t_nm": 121.55
+  },
+  {
+   "imo": "9235529",
+   "name": "STENA ADVENTURER",
+   "freight_co2_t": 30943.79229,
+   "freight_work_t_nm": 125496988,
+   "g_per_t_nm": 246.57
+  },
+  {
+   "imo": "9237242",
+   "name": "CRACOVIA",
+   "freight_co2_t": 33705.05862,
+   "freight_work_t_nm": 49689024,
+   "g_per_t_nm": 678.32
+  },
+  {
+   "imo": "9237589",
+   "name": "ROMANTIKA",
+   "freight_co2_t": 1306.5902,
+   "freight_work_t_nm": 1939338,
+   "g_per_t_nm": 673.73
+  },
+  {
+   "imo": "9237644",
+   "name": "BARLOVENTO EXPRESS",
+   "freight_co2_t": 5985.4127,
+   "freight_work_t_nm": 15043639,
+   "g_per_t_nm": 397.87
+  },
+  {
+   "imo": "9238337",
+   "name": "MONT ST. MICHEL",
+   "freight_co2_t": 12250.44925,
+   "freight_work_t_nm": 143548737,
+   "g_per_t_nm": 85.34
+  },
+  {
+   "imo": "9241774",
+   "name": "BLUE STAR PAROS",
+   "freight_co2_t": 24090.5324,
+   "freight_work_t_nm": 22975968,
+   "g_per_t_nm": 1048.51
+  },
+  {
+   "imo": "9241786",
+   "name": "BLUE STAR NAXOS",
+   "freight_co2_t": 32279.69028,
+   "freight_work_t_nm": 30965514,
+   "g_per_t_nm": 1042.44
+  },
+  {
+   "imo": "9243227",
+   "name": "DUBLIN SWIFT",
+   "freight_co2_t": 2042.6555,
+   "freight_work_t_nm": 5442147,
+   "g_per_t_nm": 375.34
+  },
+  {
+   "imo": "9243423",
+   "name": "NAPOLES",
+   "freight_co2_t": 28979.39308,
+   "freight_work_t_nm": 37567758,
+   "g_per_t_nm": 771.39
+  },
+  {
+   "imo": "9243435",
+   "name": "AF CLAUDIA",
+   "freight_co2_t": 25281.25218,
+   "freight_work_t_nm": 84035541,
+   "g_per_t_nm": 300.84
+  },
+  {
+   "imo": "9243447",
+   "name": "KERRY",
+   "freight_co2_t": 40356.24097,
+   "freight_work_t_nm": 197109705,
+   "g_per_t_nm": 204.74
+  },
+  {
+   "imo": "9247510",
+   "name": "PASCAL PAOLI",
+   "freight_co2_t": 27090.81711,
+   "freight_work_t_nm": 120833261,
+   "g_per_t_nm": 224.2
+  },
+  {
+   "imo": "9247728",
+   "name": "MIDNATSOL",
+   "freight_co2_t": 2418.96166,
+   "freight_work_t_nm": 2755207,
+   "g_per_t_nm": 877.96
+  },
+  {
+   "imo": "9261542",
+   "name": "SICILIA",
+   "freight_co2_t": 61438.92828,
+   "freight_work_t_nm": 582525157,
+   "g_per_t_nm": 105.47
+  },
+  {
+   "imo": "9261554",
+   "name": "CATANIA",
+   "freight_co2_t": 22554.8367,
+   "freight_work_t_nm": 176568316,
+   "g_per_t_nm": 127.74
+  },
+  {
+   "imo": "9263370",
+   "name": "CIUDAD DE IBIZA",
+   "freight_co2_t": 16956.19862,
+   "freight_work_t_nm": 44310238,
+   "g_per_t_nm": 382.67
+  },
+  {
+   "imo": "9263655",
+   "name": "ATHARA",
+   "freight_co2_t": 6378.84059,
+   "freight_work_t_nm": 85017201,
+   "g_per_t_nm": 75.03
+  },
+  {
+   "imo": "9265419",
+   "name": "TASSILI II",
+   "freight_co2_t": 26325.31074,
+   "freight_work_t_nm": 21124128,
+   "g_per_t_nm": 1246.22
+  },
+  {
+   "imo": "9265421",
+   "name": "EL DJAZAIR II",
+   "freight_co2_t": 32109.14005,
+   "freight_work_t_nm": 25172780,
+   "g_per_t_nm": 1275.55
+  },
+  {
+   "imo": "9267390",
+   "name": "LOBO MARINHO",
+   "freight_co2_t": 12770.43489,
+   "freight_work_t_nm": 7030010,
+   "g_per_t_nm": 1816.56
+  },
+  {
+   "imo": "9268708",
+   "name": "PONT-AVEN",
+   "freight_co2_t": 1126.31349,
+   "freight_work_t_nm": 16019250,
+   "g_per_t_nm": 70.31
+  },
+  {
+   "imo": "9278234",
+   "name": "COLOR FANTASY",
+   "freight_co2_t": 5671.22516,
+   "freight_work_t_nm": 120844346,
+   "g_per_t_nm": 46.93
+  },
+  {
+   "imo": "9281281",
+   "name": "VICTORIA I",
+   "freight_co2_t": 15526.48654,
+   "freight_work_t_nm": 16703948,
+   "g_per_t_nm": 929.51
+  },
+  {
+   "imo": "9281322",
+   "name": "VOLCAN DE TAMASITE",
+   "freight_co2_t": 15045.44964,
+   "freight_work_t_nm": 18858437,
+   "g_per_t_nm": 797.81
+  },
+  {
+   "imo": "9281334",
+   "name": "VOLCAN DE TIMANFAYA",
+   "freight_co2_t": 13809.83452,
+   "freight_work_t_nm": 9892432,
+   "g_per_t_nm": 1396
+  },
+  {
+   "imo": "9287584",
+   "name": "FLORENCIA",
+   "freight_co2_t": 22346.36318,
+   "freight_work_t_nm": 262404453,
+   "g_per_t_nm": 85.16
+  },
+  {
+   "imo": "9293076",
+   "name": "DUNKERQUE SEAWAYS",
+   "freight_co2_t": 12380.68753,
+   "freight_work_t_nm": 130131254,
+   "g_per_t_nm": 95.14
+  },
+  {
+   "imo": "9293088",
+   "name": "DELFT SEAWAYS",
+   "freight_co2_t": 12157.89869,
+   "freight_work_t_nm": 126210928,
+   "g_per_t_nm": 96.33
+  },
+  {
+   "imo": "9293404",
+   "name": "GNV SIRIO",
+   "freight_co2_t": 9171.97937,
+   "freight_work_t_nm": 53952819824,
+   "g_per_t_nm": 0.17
+  },
+  {
+   "imo": "9294226",
+   "name": "VOLCAN DE TIRAJANA",
+   "freight_co2_t": 34963.5189,
+   "freight_work_t_nm": 10826462,
+   "g_per_t_nm": 3229.45
+  },
+  {
+   "imo": "9294238",
+   "name": "TERA JET 2",
+   "freight_co2_t": 70.63687,
+   "freight_work_t_nm": 23589,
+   "g_per_t_nm": 2994.48
+  },
+  {
+   "imo": "9299056",
+   "name": "BENCHIJIGUA EXPRESS",
+   "freight_co2_t": 17618.84863,
+   "freight_work_t_nm": 26288157,
+   "g_per_t_nm": 670.22
+  },
+  {
+   "imo": "9299393",
+   "name": "MOBY AKI",
+   "freight_co2_t": 9594.03247,
+   "freight_work_t_nm": 125444985,
+   "g_per_t_nm": 76.48
+  },
+  {
+   "imo": "9299408",
+   "name": "BØMLO",
+   "freight_co2_t": 6036.58309,
+   "freight_work_t_nm": 3290552,
+   "g_per_t_nm": 1834.52
+  },
+  {
+   "imo": "9304631",
+   "name": "VENEZIA",
+   "freight_co2_t": 22390.54751,
+   "freight_work_t_nm": 277419744,
+   "g_per_t_nm": 80.71
+  },
+  {
+   "imo": "9305269",
+   "name": "GNV AURIGA",
+   "freight_co2_t": 11119.66915,
+   "freight_work_t_nm": 42767958269,
+   "g_per_t_nm": 0.26
+  },
+  {
+   "imo": "9305843",
+   "name": "COTE DES FLANDRES",
+   "freight_co2_t": 13235.4832,
+   "freight_work_t_nm": 97946298,
+   "g_per_t_nm": 135.13
+  },
+  {
+   "imo": "9318345",
+   "name": "DOVER SEAWAYS",
+   "freight_co2_t": 12109.4931,
+   "freight_work_t_nm": 129319661,
+   "g_per_t_nm": 93.64
+  },
+  {
+   "imo": "9319442",
+   "name": "FINNSTAR",
+   "freight_co2_t": 91139.01099,
+   "freight_work_t_nm": 760125196,
+   "g_per_t_nm": 119.9
+  },
+  {
+   "imo": "9319454",
+   "name": "EUROPALINK",
+   "freight_co2_t": 34014.98088,
+   "freight_work_t_nm": 351794197,
+   "g_per_t_nm": 96.69
+  },
+  {
+   "imo": "9319466",
+   "name": "FINNMAID",
+   "freight_co2_t": 95476.69475,
+   "freight_work_t_nm": 768671562,
+   "g_per_t_nm": 124.21
+  },
+  {
+   "imo": "9320128",
+   "name": "COTE D'ALBATRE",
+   "freight_co2_t": 11463.93867,
+   "freight_work_t_nm": 37570670,
+   "g_per_t_nm": 305.13
+  },
+  {
+   "imo": "9320130",
+   "name": "SEVEN SISTERS",
+   "freight_co2_t": 10770.90909,
+   "freight_work_t_nm": 33167793,
+   "g_per_t_nm": 324.74
+  },
+  {
+   "imo": "9323699",
+   "name": "STENA VINGA",
+   "freight_co2_t": 1656.02886,
+   "freight_work_t_nm": 2992625,
+   "g_per_t_nm": 553.37
+  },
+  {
+   "imo": "9323704",
+   "name": "CONDOR ISLANDER",
+   "freight_co2_t": 601.96643,
+   "freight_work_t_nm": 3186356,
+   "g_per_t_nm": 188.92
+  },
+  {
+   "imo": "9328015",
+   "name": "GOLDEN PRINCESS",
+   "freight_co2_t": 871.35449,
+   "freight_work_t_nm": 175998,
+   "g_per_t_nm": 4950.92
+  },
+  {
+   "imo": "9329849",
+   "name": "STENA SCANDICA",
+   "freight_co2_t": 18361.00117,
+   "freight_work_t_nm": 118872207,
+   "g_per_t_nm": 154.46
+  },
+  {
+   "imo": "9329851",
+   "name": "STENA BALTICA",
+   "freight_co2_t": 18204.22088,
+   "freight_work_t_nm": 127382415,
+   "g_per_t_nm": 142.91
+  },
+  {
+   "imo": "9332559",
+   "name": "STENA HORIZON",
+   "freight_co2_t": 32572.93221,
+   "freight_work_t_nm": 266554273,
+   "g_per_t_nm": 122.2
+  },
+  {
+   "imo": "9336256",
+   "name": "FINNSWAN",
+   "freight_co2_t": 47042.31169,
+   "freight_work_t_nm": 374004704,
+   "g_per_t_nm": 125.78
+  },
+  {
+   "imo": "9336268",
+   "name": "FINNLADY",
+   "freight_co2_t": 90439.65604,
+   "freight_work_t_nm": 743991906,
+   "g_per_t_nm": 121.56
+  },
+  {
+   "imo": "9349758",
+   "name": "CORFU'",
+   "freight_co2_t": 16318.15598,
+   "freight_work_t_nm": 195684806,
+   "g_per_t_nm": 83.39
+  },
+  {
+   "imo": "9349772",
+   "name": "CIUDAD DE PALMA",
+   "freight_co2_t": 42219.81797,
+   "freight_work_t_nm": 210320903,
+   "g_per_t_nm": 200.74
+  },
+  {
+   "imo": "9349863",
+   "name": "COLOR MAGIC",
+   "freight_co2_t": 4824.34649,
+   "freight_work_t_nm": 109594423,
+   "g_per_t_nm": 44.02
+  },
+  {
+   "imo": "9350680",
+   "name": "ATHENA SEAWAYS",
+   "freight_co2_t": 15700.03457,
+   "freight_work_t_nm": 252209391,
+   "g_per_t_nm": 62.25
+  },
+  {
+   "imo": "9350707",
+   "name": "TENACIA",
+   "freight_co2_t": 5985.05773,
+   "freight_work_t_nm": 42750412357,
+   "g_per_t_nm": 0.14
+  },
+  {
+   "imo": "9350719",
+   "name": "SUPERFAST I",
+   "freight_co2_t": 59507.19289,
+   "freight_work_t_nm": 261731144,
+   "g_per_t_nm": 227.36
+  },
+  {
+   "imo": "9350721",
+   "name": "VICTORIA SEAWAYS",
+   "freight_co2_t": 15769.56233,
+   "freight_work_t_nm": 412168383,
+   "g_per_t_nm": 38.26
+  },
+  {
+   "imo": "9351476",
+   "name": "CRUISE ROMA",
+   "freight_co2_t": 38730.48508,
+   "freight_work_t_nm": 506082387,
+   "g_per_t_nm": 76.53
+  },
+  {
+   "imo": "9351488",
+   "name": "CRUISE BARCELONA",
+   "freight_co2_t": 32527.43166,
+   "freight_work_t_nm": 407969794,
+   "g_per_t_nm": 79.73
+  },
+  {
+   "imo": "9351490",
+   "name": "CRUISE EUROPA",
+   "freight_co2_t": 26727.99954,
+   "freight_work_t_nm": 175622574,
+   "g_per_t_nm": 152.19
+  },
+  {
+   "imo": "9351505",
+   "name": "CRUISE SARDEGNA",
+   "freight_co2_t": 24739.51777,
+   "freight_work_t_nm": 161474563,
+   "g_per_t_nm": 153.21
+  },
+  {
+   "imo": "9354284",
+   "name": "BALTIC PRINCESS",
+   "freight_co2_t": 5141.88666,
+   "freight_work_t_nm": 48655248,
+   "g_per_t_nm": 105.68
+  },
+  {
+   "imo": "9360506",
+   "name": "VOLCAN DE TAMADABA",
+   "freight_co2_t": 19164.61603,
+   "freight_work_t_nm": 41734791,
+   "g_per_t_nm": 459.2
+  },
+  {
+   "imo": "9364722",
+   "name": "JAMES JOYCE",
+   "freight_co2_t": 42389.29131,
+   "freight_work_t_nm": 104559067,
+   "g_per_t_nm": 405.41
+  },
+  {
+   "imo": "9364978",
+   "name": "COTENTIN",
+   "freight_co2_t": 22535.05745,
+   "freight_work_t_nm": 155811778,
+   "g_per_t_nm": 144.63
+  },
+  {
+   "imo": "9364980",
+   "name": "ARMORIQUE",
+   "freight_co2_t": 1456.24089,
+   "freight_work_t_nm": 29241785,
+   "g_per_t_nm": 49.8
+  },
+  {
+   "imo": "9365398",
+   "name": "PASCAL LOTA",
+   "freight_co2_t": 50411.80084,
+   "freight_work_t_nm": 63647246,
+   "g_per_t_nm": 792.05
+  },
+  {
+   "imo": "9372171",
+   "name": "CHAMPIONS LEAGUE JET 1",
+   "freight_co2_t": 233.39187,
+   "freight_work_t_nm": 70657,
+   "g_per_t_nm": 3303.17
+  },
+  {
+   "imo": "9374519",
+   "name": "SUPERSPEED 1",
+   "freight_co2_t": 31912.3044,
+   "freight_work_t_nm": 38444391,
+   "g_per_t_nm": 830.09
+  },
+  {
+   "imo": "9375654",
+   "name": "VIKING XPRS",
+   "freight_co2_t": 24326.88928,
+   "freight_work_t_nm": 96466370,
+   "g_per_t_nm": 252.18
+  },
+  {
+   "imo": "9378682",
+   "name": "SUPERSPEED 2",
+   "freight_co2_t": 54874.06907,
+   "freight_work_t_nm": 130141276,
+   "g_per_t_nm": 421.65
+  },
+  {
+   "imo": "9390367",
+   "name": "MARTIN I SOLER",
+   "freight_co2_t": 32815.52238,
+   "freight_work_t_nm": 102394915,
+   "g_per_t_nm": 320.48
+  },
+  {
+   "imo": "9398890",
+   "name": "CIUDAD DE MAHON",
+   "freight_co2_t": 21598.23059,
+   "freight_work_t_nm": 33240832,
+   "g_per_t_nm": 649.75
+  },
+  {
+   "imo": "9417919",
+   "name": "STENA FLAVIA",
+   "freight_co2_t": 31371.73031,
+   "freight_work_t_nm": 341330979,
+   "g_per_t_nm": 91.91
+  },
+  {
+   "imo": "9419163",
+   "name": "STENA HOLLANDICA",
+   "freight_co2_t": 36364.73516,
+   "freight_work_t_nm": 228852959,
+   "g_per_t_nm": 158.9
+  },
+  {
+   "imo": "9419175",
+   "name": "STENA BRITANNICA",
+   "freight_co2_t": 38016.81363,
+   "freight_work_t_nm": 234976288,
+   "g_per_t_nm": 161.79
+  },
+  {
+   "imo": "9435454",
+   "name": "GNV SEALAND",
+   "freight_co2_t": 9135.08358,
+   "freight_work_t_nm": 76125696500,
+   "g_per_t_nm": 0.12
+  },
+  {
+   "imo": "9441130",
+   "name": "ABEL MATUTES",
+   "freight_co2_t": 37506.40712,
+   "freight_work_t_nm": 166999453,
+   "g_per_t_nm": 224.59
+  },
+  {
+   "imo": "9441142",
+   "name": "BAHAMA MAMA",
+   "freight_co2_t": 32201.29829,
+   "freight_work_t_nm": 79319404,
+   "g_per_t_nm": 405.97
+  },
+  {
+   "imo": "9443255",
+   "name": "BALTIC QUEEN",
+   "freight_co2_t": 4730.78123,
+   "freight_work_t_nm": 74641547,
+   "g_per_t_nm": 63.38
+  },
+  {
+   "imo": "9458511",
+   "name": "SUPERFAST II",
+   "freight_co2_t": 55075.83766,
+   "freight_work_t_nm": 252097943,
+   "g_per_t_nm": 218.47
+  },
+  {
+   "imo": "9458523",
+   "name": "FORZA",
+   "freight_co2_t": 6574.51096,
+   "freight_work_t_nm": 93921585143,
+   "g_per_t_nm": 0.07
+  },
+  {
+   "imo": "9458535",
+   "name": "REGINA SEAWAYS",
+   "freight_co2_t": 11297.72369,
+   "freight_work_t_nm": 280132003,
+   "g_per_t_nm": 40.33
+  },
+  {
+   "imo": "9462067",
+   "name": "NOVA STAR",
+   "freight_co2_t": 33130.73429,
+   "freight_work_t_nm": 76794618,
+   "g_per_t_nm": 431.42
+  },
+  {
+   "imo": "9465239",
+   "name": "PASSIO PER FORMENTERA",
+   "freight_co2_t": 8801.84983,
+   "freight_work_t_nm": 5453641,
+   "g_per_t_nm": 1613.94
+  },
+  {
+   "imo": "9469376",
+   "name": "STENA TRANSPORTER",
+   "freight_co2_t": 24244.73173,
+   "freight_work_t_nm": 210002007,
+   "g_per_t_nm": 115.45
+  },
+  {
+   "imo": "9469388",
+   "name": "STENA TRANSIT",
+   "freight_co2_t": 23241.34537,
+   "freight_work_t_nm": 201905528,
+   "g_per_t_nm": 115.11
+  },
+  {
+   "imo": "9476305",
+   "name": "KORCULA",
+   "freight_co2_t": 3655.67263,
+   "freight_work_t_nm": 8200253,
+   "g_per_t_nm": 445.8
+  },
+  {
+   "imo": "9498743",
+   "name": "HEDY LAMARR",
+   "freight_co2_t": 43475.39531,
+   "freight_work_t_nm": 331797263,
+   "g_per_t_nm": 131.03
+  },
+  {
+   "imo": "9498755",
+   "name": "HYPATIA DE ALEJANDRIA",
+   "freight_co2_t": 46446.51776,
+   "freight_work_t_nm": 256965520,
+   "g_per_t_nm": 180.75
+  },
+  {
+   "imo": "9498767",
+   "name": "MARIE CURIE",
+   "freight_co2_t": 59667.77972,
+   "freight_work_t_nm": 714498620,
+   "g_per_t_nm": 83.51
+  },
+  {
+   "imo": "9501590",
+   "name": "EXPRESS 1",
+   "freight_co2_t": 667.70196,
+   "freight_work_t_nm": 12766768,
+   "g_per_t_nm": 52.3
+  },
+  {
+   "imo": "9506289",
+   "name": "CIUDAD DE BARCELONA",
+   "freight_co2_t": 51443.50754,
+   "freight_work_t_nm": 127676729,
+   "g_per_t_nm": 402.92
+  },
+  {
+   "imo": "9506291",
+   "name": "VOLCAN DE TINAMAR",
+   "freight_co2_t": 75699.4029,
+   "freight_work_t_nm": 126393179,
+   "g_per_t_nm": 598.92
+  },
+  {
+   "imo": "9524231",
+   "name": "OSCAR WILDE",
+   "freight_co2_t": 52115.18492,
+   "freight_work_t_nm": 135568350,
+   "g_per_t_nm": 384.42
+  },
+  {
+   "imo": "9526332",
+   "name": "PIANA",
+   "freight_co2_t": 30172.75672,
+   "freight_work_t_nm": 61891565,
+   "g_per_t_nm": 487.51
+  },
+  {
+   "imo": "9533816",
+   "name": "SPIRIT OF FRANCE",
+   "freight_co2_t": 33387.60856,
+   "freight_work_t_nm": 111500162,
+   "g_per_t_nm": 299.44
+  },
+  {
+   "imo": "9539042",
+   "name": "CARTOUR DELTA",
+   "freight_co2_t": 53583.78556,
+   "freight_work_t_nm": 277866550,
+   "g_per_t_nm": 192.84
+  },
+  {
+   "imo": "9539054",
+   "name": "EPSILON",
+   "freight_co2_t": 23454.64424,
+   "freight_work_t_nm": 110802363,
+   "g_per_t_nm": 211.68
+  },
+  {
+   "imo": "9557848",
+   "name": "BETANCURIA EXPRESS",
+   "freight_co2_t": 7172.19063,
+   "freight_work_t_nm": 15013063,
+   "g_per_t_nm": 477.73
+  },
+  {
+   "imo": "9559743",
+   "name": "JEAN DE LA VALETTE",
+   "freight_co2_t": 13484.8372,
+   "freight_work_t_nm": 14630239,
+   "g_per_t_nm": 921.71
+  },
+  {
+   "imo": "9561356",
+   "name": "EXPRESS 2",
+   "freight_co2_t": 1043.58335,
+   "freight_work_t_nm": 26109166,
+   "g_per_t_nm": 39.97
+  },
+  {
+   "imo": "9565039",
+   "name": "BLUE STAR DELOS",
+   "freight_co2_t": 62466.25567,
+   "freight_work_t_nm": 55190981,
+   "g_per_t_nm": 1131.82
+  },
+  {
+   "imo": "9565041",
+   "name": "BLUE STAR PATMOS",
+   "freight_co2_t": 80799.68587,
+   "freight_work_t_nm": 64091637,
+   "g_per_t_nm": 1260.69
+  },
+  {
+   "imo": "9586605",
+   "name": "STAVANGERFJORD",
+   "freight_co2_t": 10834.63086,
+   "freight_work_t_nm": 117960053,
+   "g_per_t_nm": 91.85
+  },
+  {
+   "imo": "9586617",
+   "name": "BERGENSFJORD",
+   "freight_co2_t": 9727.18226,
+   "freight_work_t_nm": 104503462,
+   "g_per_t_nm": 93.08
+  },
+  {
+   "imo": "9587855",
+   "name": "BERLIN",
+   "freight_co2_t": 10342.28319,
+   "freight_work_t_nm": 44943000,
+   "g_per_t_nm": 230.12
+  },
+  {
+   "imo": "9587867",
+   "name": "COPENHAGEN",
+   "freight_co2_t": 10241.06017,
+   "freight_work_t_nm": 53869129,
+   "g_per_t_nm": 190.11
+  },
+  {
+   "imo": "9606900",
+   "name": "VIKING GRACE",
+   "freight_co2_t": 45457.70926,
+   "freight_work_t_nm": 191376707,
+   "g_per_t_nm": 237.53
+  },
+  {
+   "imo": "9607370",
+   "name": "LANDEGODE",
+   "freight_co2_t": 7628.3438,
+   "freight_work_t_nm": 4211227,
+   "g_per_t_nm": 1811.43
+  },
+  {
+   "imo": "9607382",
+   "name": "VÆRØY",
+   "freight_co2_t": 9769.43901,
+   "freight_work_t_nm": 5190657,
+   "g_per_t_nm": 1882.12
+  },
+  {
+   "imo": "9607394",
+   "name": "BARØY",
+   "freight_co2_t": 1724.9097,
+   "freight_work_t_nm": 3838763,
+   "g_per_t_nm": 449.34
+  },
+  {
+   "imo": "9607409",
+   "name": "LØDINGEN",
+   "freight_co2_t": 1648.22518,
+   "freight_work_t_nm": 1236886,
+   "g_per_t_nm": 1332.56
+  },
+  {
+   "imo": "9631797",
+   "name": "MESSINA",
+   "freight_co2_t": 7922.59712,
+   "freight_work_t_nm": 8694113,
+   "g_per_t_nm": 911.26
+  },
+  {
+   "imo": "9692806",
+   "name": "PRINSESSE ISABELLA",
+   "freight_co2_t": 5621.5577,
+   "freight_work_t_nm": 4606815,
+   "g_per_t_nm": 1220.27
+  },
+  {
+   "imo": "9722819",
+   "name": "LEVANTE JET",
+   "freight_co2_t": 491.35952,
+   "freight_work_t_nm": 694060,
+   "g_per_t_nm": 707.95
+  },
+  {
+   "imo": "9763655",
+   "name": "VISBY",
+   "freight_co2_t": 35575.61167,
+   "freight_work_t_nm": 66157644,
+   "g_per_t_nm": 537.74
+  },
+  {
+   "imo": "9769219",
+   "name": "BASTØ VI",
+   "freight_co2_t": 1004.75146,
+   "freight_work_t_nm": 22840451,
+   "g_per_t_nm": 43.99
+  },
+  {
+   "imo": "9771420",
+   "name": "BASTØ IV",
+   "freight_co2_t": 1076.42806,
+   "freight_work_t_nm": 24598447,
+   "g_per_t_nm": 43.76
+  },
+  {
+   "imo": "9771432",
+   "name": "BASTØ V",
+   "freight_co2_t": 2368.53953,
+   "freight_work_t_nm": 12756716,
+   "g_per_t_nm": 185.67
+  },
+  {
+   "imo": "9773064",
+   "name": "MEGASTAR",
+   "freight_co2_t": 13837.15504,
+   "freight_work_t_nm": 103859154,
+   "g_per_t_nm": 133.23
+  },
+  {
+   "imo": "9783071",
+   "name": "GOTLAND",
+   "freight_co2_t": 32123.41472,
+   "freight_work_t_nm": 62962397,
+   "g_per_t_nm": 510.2
+  },
+  {
+   "imo": "9793064",
+   "name": "EXPRESS 3",
+   "freight_co2_t": 1395.63129,
+   "freight_work_t_nm": 30686704,
+   "g_per_t_nm": 45.48
+  },
+  {
+   "imo": "9807293",
+   "name": "STENA ESTRID",
+   "freight_co2_t": 23976.77496,
+   "freight_work_t_nm": 100392643,
+   "g_per_t_nm": 238.83
+  },
+  {
+   "imo": "9809679",
+   "name": "W.B. YEATS",
+   "freight_co2_t": 81283.08356,
+   "freight_work_t_nm": 291965099,
+   "g_per_t_nm": 278.4
+  },
+  {
+   "imo": "9812107",
+   "name": "HAMMERSHUS",
+   "freight_co2_t": 7906.20015,
+   "freight_work_t_nm": 84404827,
+   "g_per_t_nm": 93.67
+  },
+  {
+   "imo": "9817274",
+   "name": "SAINT JOHN PAUL II",
+   "freight_co2_t": 18274.22758,
+   "freight_work_t_nm": 26612824,
+   "g_per_t_nm": 686.67
+  },
+  {
+   "imo": "9819806",
+   "name": "ELIO",
+   "freight_co2_t": 10472.21879,
+   "freight_work_t_nm": 10101104,
+   "g_per_t_nm": 1036.74
+  },
+  {
+   "imo": "9822061",
+   "name": "FLATØY",
+   "freight_co2_t": 13163.39131,
+   "freight_work_t_nm": 9895724,
+   "g_per_t_nm": 1330.21
+  },
+  {
+   "imo": "9822073",
+   "name": "LYSØY",
+   "freight_co2_t": 13603.71657,
+   "freight_work_t_nm": 9880462,
+   "g_per_t_nm": 1376.83
+  },
+  {
+   "imo": "9824289",
+   "name": "COLOR HYBRID",
+   "freight_co2_t": 148.07513,
+   "freight_work_t_nm": 3411869,
+   "g_per_t_nm": 43.4
+  },
+  {
+   "imo": "9824564",
+   "name": "EXPRESS 4",
+   "freight_co2_t": 738.91636,
+   "freight_work_t_nm": 31349867,
+   "g_per_t_nm": 23.57
+  },
+  {
+   "imo": "9825805",
+   "name": "HUFTARØY",
+   "freight_co2_t": 13472.4348,
+   "freight_work_t_nm": 9871217,
+   "g_per_t_nm": 1364.82
+  },
+  {
+   "imo": "9825817",
+   "name": "SAMNØY",
+   "freight_co2_t": 4737.25221,
+   "freight_work_t_nm": 3041574,
+   "g_per_t_nm": 1557.5
+  },
+  {
+   "imo": "9825829",
+   "name": "FÆRØY",
+   "freight_co2_t": 8398.41675,
+   "freight_work_t_nm": 5881079,
+   "g_per_t_nm": 1428.04
+  },
+  {
+   "imo": "9827877",
+   "name": "VIKING GLORY",
+   "freight_co2_t": 40794.41298,
+   "freight_work_t_nm": 174424547,
+   "g_per_t_nm": 233.88
+  },
+  {
+   "imo": "9827889",
+   "name": "BADJI MOKHTAR III",
+   "freight_co2_t": 47117.86355,
+   "freight_work_t_nm": 46803810,
+   "g_per_t_nm": 1006.71
+  },
+  {
+   "imo": "9830111",
+   "name": "VOLCAN DE TAGORO",
+   "freight_co2_t": 40153.36781,
+   "freight_work_t_nm": 20563420,
+   "g_per_t_nm": 1952.66
+  },
+  {
+   "imo": "9832119",
+   "name": "RUSADIR",
+   "freight_co2_t": 33533.57646,
+   "freight_work_t_nm": 59141067,
+   "g_per_t_nm": 567.01
+  },
+  {
+   "imo": "9837339",
+   "name": "FJORD FSTR",
+   "freight_co2_t": 13524.32048,
+   "freight_work_t_nm": 15383580,
+   "g_per_t_nm": 879.14
+  },
+  {
+   "imo": "9837509",
+   "name": "MOBY FANTASY",
+   "freight_co2_t": 19488.33247,
+   "freight_work_t_nm": 257577749,
+   "g_per_t_nm": 75.66
+  },
+  {
+   "imo": "9837511",
+   "name": "MOBY LEGACY",
+   "freight_co2_t": 19070.28492,
+   "freight_work_t_nm": 251553686,
+   "g_per_t_nm": 75.81
+  },
+  {
+   "imo": "9851036",
+   "name": "AURA SEAWAYS",
+   "freight_co2_t": 27225.46778,
+   "freight_work_t_nm": 675569920,
+   "g_per_t_nm": 40.3
+  },
+  {
+   "imo": "9851048",
+   "name": "LUNA SEAWAYS",
+   "freight_co2_t": 17589.68106,
+   "freight_work_t_nm": 309895720,
+   "g_per_t_nm": 56.76
+  },
+  {
+   "imo": "9856189",
+   "name": "GALICIA",
+   "freight_co2_t": 7498.29515,
+   "freight_work_t_nm": 125117556,
+   "g_per_t_nm": 59.93
+  },
+  {
+   "imo": "9858321",
+   "name": "COTE D'OPALE",
+   "freight_co2_t": 11069.0021,
+   "freight_work_t_nm": 103875770,
+   "g_per_t_nm": 106.56
+  },
+  {
+   "imo": "9862994",
+   "name": "STENA ESTELLE",
+   "freight_co2_t": 28418.26479,
+   "freight_work_t_nm": 241981138,
+   "g_per_t_nm": 117.44
+  },
+  {
+   "imo": "9863003",
+   "name": "STENA EBBA",
+   "freight_co2_t": 27638.1694,
+   "freight_work_t_nm": 246461293,
+   "g_per_t_nm": 112.14
+  },
+  {
+   "imo": "9863637",
+   "name": "ELEANOR ROOSEVELT",
+   "freight_co2_t": 21205.8876,
+   "freight_work_t_nm": 20559497,
+   "g_per_t_nm": 1031.44
+  },
+  {
+   "imo": "9865685",
+   "name": "NILS HOLGERSSON",
+   "freight_co2_t": 21444.97746,
+   "freight_work_t_nm": 390618897,
+   "g_per_t_nm": 54.9
+  },
+  {
+   "imo": "9867592",
+   "name": "SALAMANCA",
+   "freight_co2_t": 15349.90961,
+   "freight_work_t_nm": 288749240,
+   "g_per_t_nm": 53.16
+  },
+  {
+   "imo": "9874296",
+   "name": "BAJAMAR EXPRESS",
+   "freight_co2_t": 23425.06788,
+   "freight_work_t_nm": 26008203,
+   "g_per_t_nm": 900.68
+  },
+  {
+   "imo": "9874301",
+   "name": "BANADEROS EXPRESS",
+   "freight_co2_t": 22474.47985,
+   "freight_work_t_nm": 25625960,
+   "g_per_t_nm": 877.02
+  },
+  {
+   "imo": "9878319",
+   "name": "AURORA BOTNIA",
+   "freight_co2_t": 10551.10447,
+   "freight_work_t_nm": 42425028,
+   "g_per_t_nm": 248.7
+  },
+  {
+   "imo": "9878993",
+   "name": "BASTØ ELECTRIC",
+   "freight_co2_t": 1471.11019,
+   "freight_work_t_nm": 22286172,
+   "g_per_t_nm": 66.01
+  },
+  {
+   "imo": "9880946",
+   "name": "PETER PAN",
+   "freight_co2_t": 21256.25258,
+   "freight_work_t_nm": 357548403,
+   "g_per_t_nm": 59.45
+  },
+  {
+   "imo": "9886847",
+   "name": "SANTONA",
+   "freight_co2_t": 6848.72338,
+   "freight_work_t_nm": 131909156,
+   "g_per_t_nm": 51.92
+  },
+  {
+   "imo": "9891749",
+   "name": "A GALEOTTA",
+   "freight_co2_t": 21264.4812,
+   "freight_work_t_nm": 102233083,
+   "g_per_t_nm": 208
+  },
+  {
+   "imo": "9892690",
+   "name": "MYSTAR",
+   "freight_co2_t": 12509.68188,
+   "freight_work_t_nm": 24618089,
+   "g_per_t_nm": 508.15
+  },
+  {
+   "imo": "9893369",
+   "name": "GNV BRIDGE",
+   "freight_co2_t": 40207.16221,
+   "freight_work_t_nm": 207692351,
+   "g_per_t_nm": 193.59
+  },
+  {
+   "imo": "9895161",
+   "name": "P\u0026O PIONEER",
+   "freight_co2_t": 26434.65141,
+   "freight_work_t_nm": 130207129,
+   "g_per_t_nm": 203.02
+  },
+  {
+   "imo": "9895173",
+   "name": "P\u0026O LIBERTE",
+   "freight_co2_t": 23398.30678,
+   "freight_work_t_nm": 142951532,
+   "g_per_t_nm": 163.68
+  },
+  {
+   "imo": "9902419",
+   "name": "FINNSIRIUS",
+   "freight_co2_t": 31636.15203,
+   "freight_work_t_nm": 241552661,
+   "g_per_t_nm": 130.97
+  },
+  {
+   "imo": "9902421",
+   "name": "FINNCANOPUS",
+   "freight_co2_t": 32466.09888,
+   "freight_work_t_nm": 294503800,
+   "g_per_t_nm": 110.24
+  },
+  {
+   "imo": "9907483",
+   "name": "IGINIA",
+   "freight_co2_t": 7554.71632,
+   "freight_work_t_nm": 8120731,
+   "g_per_t_nm": 930.3
+  },
+  {
+   "imo": "9913286",
+   "name": "EXPRESS 5",
+   "freight_co2_t": 2508.3652,
+   "freight_work_t_nm": 31382024,
+   "g_per_t_nm": 79.93
+  },
+  {
+   "imo": "9916264",
+   "name": "VOLCAN DE TAIDIA",
+   "freight_co2_t": 50743.0116,
+   "freight_work_t_nm": 26725134,
+   "g_per_t_nm": 1898.7
+  },
+  {
+   "imo": "9945538",
+   "name": "NEREA",
+   "freight_co2_t": 9521.99801,
+   "freight_work_t_nm": 11575771,
+   "g_per_t_nm": 822.58
+  },
+  {
+   "imo": "9946324",
+   "name": "GUILLAUME DE NORMANDIE",
+   "freight_co2_t": 4733.10867,
+   "freight_work_t_nm": 92065915,
+   "g_per_t_nm": 51.41
+  },
+  {
+   "imo": "9946336",
+   "name": "SAINT-MALO",
+   "freight_co2_t": 2005.79433,
+   "freight_work_t_nm": 47273022,
+   "g_per_t_nm": 42.43
+  },
+  {
+   "imo": "9948592",
+   "name": "GNV POLARIS",
+   "freight_co2_t": 13851.59815,
+   "freight_work_t_nm": 106550755000,
+   "g_per_t_nm": 0.13
+  },
+  {
+   "imo": "9948607",
+   "name": "GNV ORION",
+   "freight_co2_t": 7469.45885,
+   "freight_work_t_nm": 57457375769,
+   "g_per_t_nm": 0.13
+  },
+  {
+   "imo": "9969730",
+   "name": "MARGARITA SALAS",
+   "freight_co2_t": 5187.25564,
+   "freight_work_t_nm": 1893449,
+   "g_per_t_nm": 2739.58
+  },
+  {
+   "imo": "9969766",
+   "name": "HINNØY",
+   "freight_co2_t": 2067.52487,
+   "freight_work_t_nm": 2064634,
+   "g_per_t_nm": 1001.4
+  },
+  {
+   "imo": "9977206",
+   "name": "PIETRO MONDELLO",
+   "freight_co2_t": 8003.32996,
+   "freight_work_t_nm": 8468415,
+   "g_per_t_nm": 945.08
+  },
+  {
+   "imo": "9980057",
+   "name": "GNV VIRGO",
+   "freight_co2_t": 2115.15099,
+   "freight_work_t_nm": 6409548455,
+   "g_per_t_nm": 0.33
+  },
+  {
+   "imo": "9990480",
+   "name": "VARSOVIA",
+   "freight_co2_t": 25086.28679,
+   "freight_work_t_nm": 57251100,
+   "g_per_t_nm": 438.18
+  },
+  {
+   "imo": "9994357",
+   "name": "NERTHUS",
+   "freight_co2_t": 1072.9962,
+   "freight_work_t_nm": 1658187,
+   "g_per_t_nm": 647.09
+  }
+ ]
+}

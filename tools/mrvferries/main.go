@@ -32,8 +32,8 @@ const api = "https://mrv.emsa.europa.eu/api/public-emission-report"
 
 // Ship is one ro-pax ship's yearly MRV report, freight part.
 type Ship struct {
-	IMO     string `json:"imo"`
-	Name    string `json:"name"`
+	IMO  string `json:"imo"`
+	Name string `json:"name"`
 	// FreightCO2T is the CO2e (CO2 in older reports) assigned to freight
 	// transport, tonnes.
 	FreightCO2T float64 `json:"freight_co2_t"`

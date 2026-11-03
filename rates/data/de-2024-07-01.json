@@ -1,0 +1,1144 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2024-07-01",
+ "valid_to": "",
+ "name": "German HGV toll (Lkw-Maut)",
+ "law": "Bundesfernstraßenmautgesetz (BFStrMG) § 3 and Anlage 1 (BGBl. 2023 I Nr. 315)",
+ "sources": [
+  {
+   "title": "BFStrMG Anlage 1: Mautteilsätze (infrastructure, air pollution, noise, CO2)",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html"
+  },
+  {
+   "title": "IHK Bayreuth: toll exemption for emission-free trucks extended to 30 June 2031 (Viertes Gesetz zur Änderung mautrechtlicher Vorschriften, in force 1 December 2025)",
+   "url": "https://www.ihk.de/bayreuth/hauptnavigation/branchen-und-netzwerke/verkehr/aktuelles3/app-tall-6843714"
+  }
+ ],
+ "vehicles": "Vehicles and combinations over 3.5 t technically permissible maximum mass used for goods transport",
+ "min_kg": 3501,
+ "tolled_roads": "Federal motorways (Bundesautobahnen) and federal roads (Bundesstraßen).",
+ "exemptions": [
+  {
+   "co2_class": [
+    5
+   ],
+   "until": "2031-06-30",
+   "note": "Emission-free trucks (CO2 class 5) pay no toll until 30 June 2031."
+  }
+ ],
+ "rows": [
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "rate": 0.052,
+   "max_kg": 7499
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 7500,
+   "rate": 0.066,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "rate": 0.107,
+   "max_kg": 18000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18001,
+   "rate": 0.141,
+   "min_axles": 0,
+   "max_axles": 3
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18001,
+   "rate": 0.155,
+   "min_axles": 4,
+   "max_axles": 0
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.011,
+   "max_kg": 7499,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.015,
+   "max_kg": 11999,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.015,
+   "max_kg": 18000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.022,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.023,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.043,
+   "max_kg": 7499,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.043,
+   "max_kg": 11999,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.052,
+   "max_kg": 18000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.062,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.062,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.055,
+   "max_kg": 7499,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.059,
+   "max_kg": 11999,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.063,
+   "max_kg": 18000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.08,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.087,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.079,
+   "max_kg": 7499,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.088,
+   "max_kg": 11999,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.101,
+   "max_kg": 18000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.134,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.149,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.098,
+   "max_kg": 7499,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.113,
+   "max_kg": 11999,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.121,
+   "max_kg": 18000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.164,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.182,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.102,
+   "max_kg": 7499,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.114,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.123,
+   "max_kg": 18000,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.169,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.187,
+   "min_axles": 4,
+   "max_axles": 0,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 3501,
+   "rate": 0.001,
+   "max_kg": 7499,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 7500,
+   "rate": 0.001,
+   "max_kg": 11999,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 12000,
+   "rate": 0.001,
+   "max_kg": 18000,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air",
+   "min_kg": 18001,
+   "rate": 0.001,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "noise",
+   "min_kg": 3501,
+   "rate": 0.014,
+   "max_kg": 7499
+  },
+  {
+   "component": "noise",
+   "min_kg": 7500,
+   "rate": 0.016,
+   "max_kg": 11999
+  },
+  {
+   "component": "noise",
+   "min_kg": 12000,
+   "rate": 0.016,
+   "max_kg": 18000
+  },
+  {
+   "component": "noise",
+   "min_kg": 18001,
+   "rate": 0.016,
+   "min_axles": 0,
+   "max_axles": 3
+  },
+  {
+   "component": "noise",
+   "min_kg": 18001,
+   "rate": 0.012,
+   "min_axles": 4,
+   "max_axles": 0
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.08,
+   "max_kg": 7499,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.08,
+   "max_kg": 11999,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.104,
+   "max_kg": 18000,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.158,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.158,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.162,
+   "min_axles": 5,
+   "max_axles": 0,
+   "euro": [
+    0,
+    1
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.08,
+   "max_kg": 7499,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.08,
+   "max_kg": 11999,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.104,
+   "max_kg": 18000,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.138,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.138,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.162,
+   "min_axles": 5,
+   "max_axles": 0,
+   "euro": [
+    2,
+    3
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.08,
+   "max_kg": 7499,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.08,
+   "max_kg": 11999,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.1,
+   "max_kg": 18000,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.134,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.134,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.16,
+   "min_axles": 5,
+   "max_axles": 0,
+   "euro": [
+    4,
+    5
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.074,
+   "max_kg": 7499,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.08,
+   "max_kg": 11999,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.1,
+   "max_kg": 18000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.124,
+   "min_axles": 0,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.134,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.158,
+   "min_axles": 5,
+   "max_axles": 0,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.07,
+   "max_kg": 7499,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.076,
+   "max_kg": 11999,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.096,
+   "max_kg": 18000,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.118,
+   "min_axles": 0,
+   "max_axles": 3,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.128,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.15,
+   "min_axles": 5,
+   "max_axles": 0,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.067,
+   "max_kg": 7499,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.072,
+   "max_kg": 11999,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.09,
+   "max_kg": 18000,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.111,
+   "min_axles": 0,
+   "max_axles": 3,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.12,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.142,
+   "min_axles": 5,
+   "max_axles": 0,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0.037,
+   "max_kg": 7499,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0.04,
+   "max_kg": 11999,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0.05,
+   "max_kg": 18000,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.063,
+   "min_axles": 0,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.068,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0.079,
+   "min_axles": 5,
+   "max_axles": 0,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "rate": 0,
+   "max_kg": 7499,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 7500,
+   "rate": 0,
+   "max_kg": 11999,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "rate": 0,
+   "max_kg": 18000,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0,
+   "min_axles": 0,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 18001,
+   "rate": 0,
+   "min_axles": 5,
+   "max_axles": 0,
+   "co2_class": [
+    5
+   ]
+  }
+ ]
+}

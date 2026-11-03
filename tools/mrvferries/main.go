@@ -34,14 +34,13 @@ const api = "https://mrv.emsa.europa.eu/api/public-emission-report"
 type Ship struct {
 	IMO     string `json:"imo"`
 	Name    string `json:"name"`
-	Company string `json:"company,omitempty"`
-	// FreightCO2T is the CO2 (CO2e where reported) assigned to freight
+	// FreightCO2T is the CO2e (CO2 in older reports) assigned to freight
 	// transport, tonnes.
 	FreightCO2T float64 `json:"freight_co2_t"`
 	// FreightWorkTNm is the freight transport work, tonne-nautical miles.
 	FreightWorkTNm float64 `json:"freight_work_t_nm,omitempty"`
-	// GPerTNm is the reported annual average CO2 per freight transport
-	// work, g per tonne-nautical mile.
+	// GPerTNm is the reported CO2e (or CO2) per freight transport work,
+	// g per tonne-nautical mile.
 	GPerTNm float64 `json:"g_per_t_nm"`
 }
 
@@ -141,11 +140,6 @@ func ropax(rows [][]string) ([]Ship, error) {
 	if h < 0 {
 		return nil, fmt.Errorf("no header row")
 	}
-	for i, name := range rows[h] {
-		if l := strings.ToLower(name); strings.Contains(l, "freight") || strings.Contains(l, "transport work") || strings.Contains(l, "company") {
-			log.Printf("column %d: %q", i, name)
-		}
-	}
 	col := func(prefixes ...string) int {
 		for _, p := range prefixes {
 			for i, name := range rows[h] {
@@ -156,9 +150,16 @@ func ropax(rows [][]string) ([]Ship, error) {
 		}
 		return -1
 	}
-	cIMO, cName, cType, cComp := col("IMO Number"), col("Name"), col("Ship type"), col("Company name", "Company")
-	cCO2 := col("CO₂eq emissions assigned to Freight transport", "CO₂ emissions assigned to Freight transport")
-	cInt := col("Annual average CO₂eq emissions per transport work (freight)", "Annual average CO₂ emissions per transport work (freight)")
+	cIMO, cName, cType := col("IMO Number"), col("Name"), col("Ship type")
+	// CO2e (with CH4 and N2O, reported from 2024) where the report has it,
+	// else CO2; the amount and the intensity on the same basis.
+	cCO2 := col("CO₂eq emissions assigned to Freight transport")
+	cInt := col("CO₂eq emissions per transport work (freight) [")
+	gas := "CO2e"
+	if cCO2 < 0 || cInt < 0 {
+		cCO2, cInt, gas = col("CO₂ emissions assigned to Freight transport"), col("CO₂ emissions per transport work (freight) ["), "CO2"
+	}
+	log.Printf("freight columns %d and %d (%s)", cCO2, cInt, gas)
 	if cIMO < 0 || cName < 0 || cType < 0 || cCO2 < 0 || cInt < 0 {
 		return nil, fmt.Errorf("missing columns in header %q", rows[h])
 	}
@@ -178,7 +179,7 @@ func ropax(rows [][]string) ([]Ship, error) {
 		if err1 != nil || err2 != nil || co2 <= 0 || in <= 0 {
 			continue // no freight part reported
 		}
-		s := Ship{IMO: get(r, cIMO), Name: get(r, cName), Company: get(r, cComp), FreightCO2T: co2, GPerTNm: in}
+		s := Ship{IMO: get(r, cIMO), Name: get(r, cName), FreightCO2T: co2, GPerTNm: in}
 		// The intensity is reported in g per m tonnes x n miles.
 		s.FreightWorkTNm = math.Round(co2 * 1e6 / in)
 		out = append(out, s)

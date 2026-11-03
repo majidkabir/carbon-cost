@@ -137,3 +137,31 @@ func TestAustriaTotals(t *testing.T) {
 		t.Error("AT 2027: no table until the 2027 ordinance is published")
 	}
 }
+
+// Dutch sums from Staatscourant 2026, 3872; the >32 t totals match the
+// widely quoted EUR 0.201 (Euro VI, class 1) and 0.038 (zero-emission).
+func TestNetherlandsTotals(t *testing.T) {
+	tb, ok := Find(tables(t), "NL", on("2026-07-15"))
+	if !ok {
+		t.Fatal("no NL table for July 2026")
+	}
+	for _, tc := range []struct {
+		kg, euro, cls int
+		want          float64
+	}{
+		{40000, 6, 1, 0.201}, // .089 + .020 + .092
+		{40000, 6, 5, 0.038}, // .022 + .016 + 0
+		{40000, 5, 1, 0.236}, // .098 + .046 + .092
+		{26000, 6, 2, 0.165}, // .074 + .018 + .073
+		{15000, 6, 1, 0.160}, // .087 + .016 + .057
+		{7500, 0, 1, 0.272},  // .107 + .113 + .052
+		{32000, 6, 4, 0.100}, // .043 + .018 + .039
+	} {
+		if got := total(t, tb, Truck{MaxMassKg: tc.kg, Axles: 5, Euro: tc.euro, CO2Class: tc.cls}, on("2026-07-15")); got != tc.want {
+			t.Errorf("NL %d kg Euro %d class %d: %v, want %v", tc.kg, tc.euro, tc.cls, got, tc.want)
+		}
+	}
+	if _, ok := Find(tables(t), "NL", on("2026-06-30")); ok {
+		t.Error("NL: no charge before 1 July 2026")
+	}
+}

@@ -67,3 +67,7 @@ API request:
 ```
 
 Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t` and `dkk_per_eur`.
+
+## License
+
+MIT (see `LICENSE`). The toll rates in `rates/data` are copied from laws, which are not protected by copyright in Denmark (Ophavsretsloven § 9) or Germany (UrhG § 5). Route, distance and emission results come from the Sootcase server at run time and are not part of this repo; they follow that server's terms.

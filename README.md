@@ -69,6 +69,14 @@ carbon-cost calc -h
 carbon-cost serve -addr :8090   # POST /v1/carbon-cost, GET /v1/rates
 ```
 
+Or with Docker (images are published for each release tag):
+
+```
+docker run -p 8090:8090 -e SOOTCASE_URL=https://sootcase.org -e SOOTCASE_API_KEY=... ghcr.io/majidkabir/carbon-cost
+```
+
+Release binaries for Linux, macOS and Windows are on the [releases page](https://github.com/majidkabir/carbon-cost/releases).
+
 `calc` and `serve` call `https://sootcase.org` by default. Set `SOOTCASE_URL` to use another server, and set `SOOTCASE_API_KEY` to send an API key. The server must run Sootcase v0.9.0 or later, which adds `country_km`.
 
 API request:

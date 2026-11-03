@@ -1,0 +1,67 @@
+name: Live check
+# Runs Sootcase v0.9.1 (country_km) with real OSRM routing for Denmark,
+# Schleswig-Holstein and Hamburg, then prices trips with carbon-cost.
+on:
+  workflow_dispatch:
+  push:
+    branches: [live-check]
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go build -o cc ./cmd/carbon-cost
+      - name: Sootcase v0.9.1
+        run: git clone -q --depth 1 --branch v0.9.1 https://github.com/majidkabir/sootcase sootcase-src
+      - name: Map of DK + Schleswig-Holstein + Hamburg
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
+          mkdir -p maps && cd maps
+          for r in europe/denmark europe/germany/schleswig-holstein europe/germany/hamburg; do
+            curl -fsSL -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
+          done
+          osmium merge -o region.osm.pbf denmark.osm.pbf schleswig-holstein.osm.pbf hamburg.osm.pbf
+          ls -la
+      - name: Start stack
+        working-directory: sootcase-src
+        run: |
+          (cd ../maps && python3 -m http.server 8000 >/dev/null 2>&1 &)
+          ip=$(hostname -I | awk '{print $1}')
+          export OSRM_PBF_URL="http://$ip:8000/region.osm.pbf" SEA_RESOLUTION_KM=100
+          export SOOTCASE_FACTORS="desnz-2026,nl-iww-2026,eu-mrv-2024,glec-3.3"
+          docker compose up -d --build
+          for i in $(seq 1 240); do
+            if curl -fs localhost:8080/healthz >/dev/null; then echo healthy after $((i*5))s; exit 0; fi
+            sleep 5
+          done
+          docker compose logs --tail 50; exit 1
+      - name: Trips
+        run: |
+          set +e
+          export SOOTCASE_URL=http://localhost:8080
+          run() {
+            name="$1"; shift
+            start=$(date +%s.%N)
+            out=$(./cc calc -date 2026-11-04 -cargo-kg 20000 -eua 75 "$@" 2>&1)
+            code=$?
+            secs=$(echo "$(date +%s.%N) - $start" | bc)
+            echo "== $name (exit $code, ${secs}s)"; echo "$out"
+            echo "::notice title=$name::exit $code, ${secs}s%0A$(echo "$out" | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"
+          }
+          run cph-ham -from DKCPH -to DEHAM -compare 1,4,5 -trips-per-year 200
+          run aarhus-hamburg -from DKAAR -to DEHAM
+          run padborg-flensburg -from 54.8260,9.3640 -to 54.7937,9.4370
+          run cph-ham-2028 -from DKCPH -to DEHAM -ets2 45 -date 2028-03-01
+          raw=$(curl -s -X POST 'http://localhost:8080/v1/calculate?country_km=true' -H 'Content-Type: application/json' \
+            -d '{"id":"t","weight_kg":20000,"add_road_legs":false,"legs":[{"id":"r","mode":"road","vehicle_type":"glec/road/eu_sa/artic_34_40t/diesel","from":{"code":"DKCPH"},"to":{"code":"DEHAM"}}]}' \
+            | jq -c '.legs[0] | {distance_km, country_km, route_parts_km, parts: [.parts[]? | {kind, distance_km, ttw_kg}], ttw_kg}')
+          echo "$raw"; echo "::notice title=raw-cph-ham::$raw"
+      - name: Logs
+        if: failure()
+        working-directory: sootcase-src
+        run: docker compose logs --tail 100

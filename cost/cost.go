@@ -12,6 +12,7 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"slices"
 	"sort"
 	"time"
 
@@ -64,6 +65,24 @@ type Request struct {
 	ETS2EurPerT float64 `json:"ets2_eur_per_t,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
+	// CompareCO2Classes prices the same trip for trucks in these CO2
+	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
+	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
+	// TripsPerYear turns the comparison's savings per trip into savings
+	// per year.
+	TripsPerYear float64 `json:"trips_per_year,omitempty"`
+}
+
+// Comparison is the trip priced for a truck in another CO2 class.
+type Comparison struct {
+	CO2Class  int     `json:"co2_class"`
+	TollEUR   float64 `json:"road_toll_eur"`
+	TotalEUR  float64 `json:"total_eur"`
+	CarbonEUR float64 `json:"carbon_eur"`
+	// SavingEUR is what this truck saves per trip against the requested
+	// one (negative: it costs more).
+	SavingEUR        float64 `json:"saving_eur"`
+	SavingPerYearEUR float64 `json:"saving_per_year_eur,omitempty"`
 }
 
 // Line is one charge.
@@ -95,7 +114,9 @@ type Response struct {
 	CarbonEUR  float64            `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
 	// NoRates lists countries on the route this tool has no toll table
 	// for: their charges are not included.
-	NoRates []string       `json:"no_rates,omitempty"`
+	NoRates []string `json:"no_rates,omitempty"`
+	// Compare is the trip priced for each of CompareCO2Classes.
+	Compare []Comparison   `json:"compare,omitempty"`
 	Notes   []string       `json:"notes,omitempty"`
 	Sources []rates.Source `json:"sources"`
 }
@@ -161,6 +182,14 @@ func check(req Request) error {
 		if v < 0 {
 			return fmt.Errorf("env_zone_km[%s] must be >= 0", k)
 		}
+	}
+	for _, c := range req.CompareCO2Classes {
+		if c < 1 || c > 5 {
+			return fmt.Errorf("compare_co2_classes must be 1-5")
+		}
+	}
+	if req.TripsPerYear < 0 {
+		return fmt.Errorf("trips_per_year must be >= 0")
 	}
 	if req.EUAEurPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
 		return fmt.Errorf("prices, rates and shares can't be negative (ferry_ets_share is 0-1)")
@@ -313,10 +342,56 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 		}
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
+	if err := compare(&out, res, tables, req, date, ferryTTW); err != nil {
+		return Response{}, err
+	}
 	for k, v := range out.CountryKm {
 		out.CountryKm[k] = round3(v)
 	}
 	return out, nil
+}
+
+// compare prices the trip again for each of req.CompareCO2Classes. The
+// route and the cargo's emissions stay the same, except that a CO2 class
+// 5 (zero-emission) truck burns no road fuel, so pays no ETS2.
+func compare(out *Response, res sootcase.Result, tables []rates.Table, req Request, date time.Time, ferryTTW float64) error {
+	if len(req.CompareCO2Classes) == 0 {
+		return nil
+	}
+	sameEmissions := false
+	for _, cls := range req.CompareCO2Classes {
+		alt := req
+		alt.Truck.CO2Class, alt.CompareCO2Classes = cls, nil
+		altRes := res
+		if cls == 5 && req.Truck.CO2Class != 5 {
+			altRes.TTWKg = ferryTTW // no tailpipe emissions on the road
+		} else if cls != req.Truck.CO2Class {
+			sameEmissions = true
+		}
+		r, err := Price(altRes, tables, alt, date)
+		if err != nil {
+			return fmt.Errorf("compare co2_class %d: %w", cls, err)
+		}
+		c := Comparison{CO2Class: cls, TotalEUR: r.TotalEUR, CarbonEUR: r.CarbonEUR,
+			SavingEUR: round2(out.TotalEUR - r.TotalEUR)}
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				c.TollEUR += l.AmountEUR
+			}
+		}
+		c.TollEUR = round2(c.TollEUR)
+		if req.TripsPerYear > 0 {
+			c.SavingPerYearEUR = round2(c.SavingEUR * req.TripsPerYear)
+		}
+		out.Compare = append(out.Compare, c)
+	}
+	if req.Truck.CO2Class == 5 && !date.Before(ETS2Start) && req.ETS2EurPerT > 0 && slices.ContainsFunc(req.CompareCO2Classes, func(c int) bool { return c < 5 }) {
+		out.Notes = append(out.Notes, "Compare: the diesel classes are priced with this zero-emission trip's road emissions, so their ETS2 is too low; price the diesel truck as the request to compare ETS2.")
+	}
+	if sameEmissions && !date.Before(ETS2Start) && req.ETS2EurPerT > 0 {
+		out.Notes = append(out.Notes, "Compare: diesel trucks in other CO2 classes keep this truck's fuel emissions, so their ETS2 cost is the same; a lower class mostly changes the toll.")
+	}
+	return nil
 }
 
 // maritimeETSShare is the share of verified emissions shipping companies

@@ -27,6 +27,21 @@ Total: EUR 71.97, of which carbon EUR 35.79
 
 The numbers are this repo's worked test case (`cost/cost_test.go`).
 
+### Compare trucks
+
+`-compare 1,4,5` prices the same trip for trucks in other CO2 classes, and `-trips-per-year` turns the savings per trip into savings per year:
+
+```
+$ carbon-cost calc -from DKCPH -to DEHAM -cargo-kg 20000 -eua 75 -compare 1,4,5 -trips-per-year 200
+...
+  CO2 class  Tolls EUR  Total EUR  Carbon EUR  Saving/trip  Saving/year
+          1      69.72      71.97       35.79         0.00
+          4      48.82      51.07       19.02        20.90      4180.00
+          5       2.44       4.69        2.25        67.28     13456.00
+```
+
+The route and the cargo's emissions stay the same. The exception is a class 5 (zero-emission) truck, which burns no road fuel and so pays no ETS2. In 2026 the class 5 truck pays only the DK class 5 rate, because Germany exempts it.
+
 ## Rates included
 
 | Country | Charge | In force | Source |
@@ -66,7 +81,7 @@ API request:
 }
 ```
 
-Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t` and `dkk_per_eur`.
+Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `dkk_per_eur`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`.
 
 ## License
 

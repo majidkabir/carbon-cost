@@ -100,6 +100,8 @@ func calc(args []string) error {
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	zone := fs.String("env-zone-km", "", "km in environmental zones by country, e.g. DK=4")
+	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
+	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	fs.Parse(args)
 
@@ -115,6 +117,9 @@ func calc(args []string) error {
 	}
 	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
 		return fmt.Errorf("-env-zone-km: %w", err)
+	}
+	if req.CompareCO2Classes, err = ints(*cmp); err != nil {
+		return fmt.Errorf("-compare: %w", err)
 	}
 	c, err := calculator(sc)
 	if err != nil {
@@ -150,6 +155,22 @@ func location(s string) (sootcase.Location, error) {
 		return sootcase.Location{Lat: la, Lon: lo}, nil
 	}
 	return sootcase.Location{Code: strings.ToUpper(s)}, nil
+}
+
+// ints reads "1,4,5".
+func ints(s string) ([]int, error) {
+	if strings.TrimSpace(s) == "" {
+		return nil, nil
+	}
+	var out []int
+	for _, f := range strings.Split(s, ",") {
+		n, err := strconv.Atoi(strings.TrimSpace(f))
+		if err != nil {
+			return nil, fmt.Errorf("%q is not a number", f)
+		}
+		out = append(out, n)
+	}
+	return out, nil
 }
 
 // byCountry reads "DK=1,DE=0.9".
@@ -190,6 +211,19 @@ func printResult(r cost.Response) {
 	}
 	w.Flush()
 	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f\n", r.TotalEUR, r.CarbonEUR)
+	if len(r.Compare) > 0 {
+		fmt.Println()
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
+		fmt.Fprintln(w, "CO2 class\tTolls EUR\tTotal EUR\tCarbon EUR\tSaving/trip\tSaving/year\t")
+		for _, c := range r.Compare {
+			year := ""
+			if c.SavingPerYearEUR != 0 {
+				year = fmt.Sprintf("%.2f", c.SavingPerYearEUR)
+			}
+			fmt.Fprintf(w, "%d\t%.2f\t%.2f\t%.2f\t%.2f\t%s\t\n", c.CO2Class, c.TollEUR, c.TotalEUR, c.CarbonEUR, c.SavingEUR, year)
+		}
+		w.Flush()
+	}
 	if len(r.NoRates) > 0 {
 		fmt.Printf("Not included (no toll table yet): %s\n", strings.Join(r.NoRates, ", "))
 	}

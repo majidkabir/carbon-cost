@@ -1,0 +1,38 @@
+name: MRV ferry data
+# Builds ferries/data/mrv-ropax-<year>.json from EMSA's public MRV report
+# (not reachable from every machine) and pushes it to the mrv-data branch.
+on:
+  workflow_dispatch:
+  push:
+    branches: [mrv-data-run]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+      - name: Build data
+        run: |
+          mkdir -p ferries/data
+          for y in 2025 2024; do
+            go run ./tools/mrvferries -fetch -year $y -out ferries/data/mrv-ropax-$y.json 2>&1 | tee log-$y.txt || true
+          done
+          ls -la ferries/data
+          for f in ferries/data/*.json; do
+            echo "::notice title=$f::$(jq -c '{reporting_period, version, ships: (.ships|length)}' $f)"
+            echo "::notice title=$f known ferries::$(jq -c '[.ships[] | select(.name|test("DEUTSCHLAND|SCHLESWIG|BENEDIKTE|RICHARD|^BERLIN$|^COPENHAGEN$|HAMLET|AURORA|TYCHO|STENA|PETER PAN|NILS HOLGERSSON|HUCKLEPETER|ROBIN HOOD";"i")) | {imo, name, company, g_per_t_nm}]' $f | cut -c1-6000)"
+          done
+          for y in 2025 2024; do echo "::notice title=log $y::$(head -c 3000 log-$y.txt | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"; done
+      - name: Push to mrv-data branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898099+github-actions[bot]@users.noreply.github.com"
+          git checkout -B mrv-data
+          git add ferries/data/*.json
+          git commit -m "MRV ro-pax data" || exit 0
+          git push -f origin mrv-data

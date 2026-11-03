@@ -56,6 +56,7 @@ Run `carbon-cost rates` for the full list. Countries on a route that have no tab
 ## Things to know
 
 - **Tolled roads:** Sootcase gives km per country but not road classes yet, so all km in a country are counted as tolled by default. In Denmark the 2025–2027 tolled network covers about 100% of foreign trucks' driving and about 70% of Danish trucks' ([Skatteministeriet's answer to Folketinget](https://eu.dk/samling/20222/lovforslag/l74/spm/35/svar/1958301/2708151.pdf)), and from 2028 every public road is tolled. Germany tolls motorways and federal roads. If part of a trip is on untolled roads, give `tolled_share`.
+- **Regional tolls:** where a country's toll differs by region (Belgium), the tool prices the km per region from Sootcase's `region_km` (ISO 3166-2, e.g. `BE-VLG`). `country_km` still covers the whole country. `tolled_share` and `env_zone_km` take a region code or a country code. Belgium's regional rates are not in yet.
 - **Environmental zones:** the Danish surcharge applies to the km you give in `env_zone_km`.
 - **Ferry ETS:** this is the ETS cost of the cargo's share of the crossing. Emissions come from Sootcase's ferry part, which uses the GLEC ro-pax default. The share of emissions under the ETS is 40% for 2024, 70% for 2025 and 100% from 2026, all for crossings between EU/EEA ports. A ferry line's own surcharge is based on its ships' real emissions and its own pricing.
 - **Prices:** EUA and ETS2 prices are yours to give, since they move every day. DKK converts at the ERM II central rate of 7.46038 unless you give `dkk_per_eur`.

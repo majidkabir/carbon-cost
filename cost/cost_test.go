@@ -238,3 +238,68 @@ func TestPrice_Compare(t *testing.T) {
 		t.Error("class 6: want an error")
 	}
 }
+
+// Regional tolls are priced on Sootcase's region_km; country_km keeps the
+// whole country.
+func TestPrice_Regions(t *testing.T) {
+	src := []rates.Source{{Title: "test", URL: "https://example.org"}}
+	regional := func(region string, rate, co2 float64) rates.Table {
+		return rates.Table{Country: "BE", Region: region, Currency: "EUR", ValidFrom: "2026-01-01", Name: region, Law: region + " law",
+			Sources: src, MinKg: 3501, Rows: []rates.Row{{Component: "toll", Rate: rate}, {Component: rates.CO2, Rate: co2}}}
+	}
+	tbs := []rates.Table{regional("BE-VLG", 0.2, 0.05), regional("BE-WAL", 0.17, 0)}
+	trip := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: 150,
+		CountryKm: map[string]float64{"BE": 100, "FR": 50},
+		RegionKm:  map[string]float64{"BE-VLG": 60, "BE-WAL": 38, "BE-BRU": 2}}}}
+	nov26 := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+
+	r, err := Price(trip, tbs, Request{CargoKg: 1, Truck: truck40, TolledShare: map[string]float64{"BE-WAL": 0.5}}, nov26)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// VLG 60 km x (0.20 + 0.05) = 12 + 3; WAL 19 km x 0.17 = 3.23.
+	for _, tc := range []struct {
+		region, comp string
+		km, amount   float64
+	}{
+		{"BE-VLG", "toll", 60, 12}, {"BE-VLG", rates.CO2, 60, 3}, {"BE-WAL", "toll", 19, 3.23},
+	} {
+		var found bool
+		for _, l := range r.Lines {
+			if l.Region == tc.region && l.Component == tc.comp {
+				found = true
+				if l.Country != "BE" || l.Km != tc.km || l.Amount != tc.amount {
+					t.Errorf("%s %s: %+v, want %v km, %v EUR", tc.region, tc.comp, l, tc.km, tc.amount)
+				}
+			}
+		}
+		if !found {
+			t.Errorf("no %s %s line", tc.region, tc.comp)
+		}
+	}
+	if r.CountryKm["BE"] != 100 || r.RegionKm["BE-VLG"] != 60 || r.CarbonEUR != 3 {
+		t.Errorf("country_km %v, region_km %v, carbon %v", r.CountryKm, r.RegionKm, r.CarbonEUR)
+	}
+	// Brussels has no table here, France none at all.
+	if strings.Join(r.NoRates, ",") != "BE-BRU,FR" {
+		t.Errorf("no_rates %v, want BE-BRU,FR", r.NoRates)
+	}
+
+	// A country-wide tolled_share applies to all its regions.
+	r, _ = Price(trip, tbs, Request{CargoKg: 1, Truck: truck40, TolledShare: map[string]float64{"BE": 0.5}}, nov26)
+	for _, l := range r.Lines {
+		if l.Region == "BE-VLG" && l.Km != 30 {
+			t.Errorf("BE share 0.5: VLG km %v, want 30", l.Km)
+		}
+	}
+
+	// An older Sootcase without region_km: Belgium can't be split.
+	old := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"BE": 100}}}}
+	r, err = Price(old, tbs, Request{CargoKg: 1, Truck: truck40}, nov26)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.Lines) != 0 || strings.Join(r.NoRates, ",") != "BE" || !hasNote(r, "region_km") {
+		t.Errorf("no region_km: lines %v, no_rates %v, notes %v", r.Lines, r.NoRates, r.Notes)
+	}
+}

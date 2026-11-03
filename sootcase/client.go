@@ -59,7 +59,11 @@ type LegResult struct {
 	WTWKg      float64            `json:"wtw_kg"`
 	RouteParts map[string]float64 `json:"route_parts_km"`
 	CountryKm  map[string]float64 `json:"country_km"`
-	Parts      []Part             `json:"parts"`
+	// RegionKm splits some countries' km by region (ISO 3166-2, e.g.
+	// BE-VLG), where tolls differ by region. CountryKm still has the
+	// whole country.
+	RegionKm map[string]float64 `json:"region_km"`
+	Parts    []Part             `json:"parts"`
 }
 
 // Result is the part of Sootcase's result this tool uses.

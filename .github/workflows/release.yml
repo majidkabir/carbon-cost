@@ -1,24 +1,38 @@
 name: Release
-# Run it from the Actions tab (Run workflow, version e.g. v0.1.0), or push
-# a tag like v0.1.0. It builds binaries for Linux, macOS and Windows,
-# attaches them to a GitHub release (creating the tag if needed), and
-# publishes the Docker image ghcr.io/majidkabir/carbon-cost.
+# Runs by itself when RELEASE changes on main (the file holds the version,
+# e.g. v0.1.0), or from the Actions tab (Run workflow). It builds binaries
+# for Linux, macOS and Windows, attaches them to a GitHub release (creating
+# the tag), and publishes the Docker image ghcr.io/majidkabir/carbon-cost.
 on:
   push:
-    tags: ["v*"]
+    branches: [main]
+    paths: [RELEASE]
   workflow_dispatch:
     inputs:
       version:
         description: "Version to release, e.g. v0.1.0"
         required: true
-env:
-  VERSION: ${{ inputs.version || github.ref_name }}
 permissions:
   contents: write
   packages: write
 jobs:
-  binaries:
+  version:
     runs-on: ubuntu-latest
+    outputs:
+      v: ${{ steps.v.outputs.v }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: v
+        run: |
+          v="${{ inputs.version }}"
+          if [ -z "$v" ]; then v=$(tr -d '[:space:]' < RELEASE); fi
+          case "$v" in v[0-9]*.[0-9]*.[0-9]*) ;; *) echo "version must look like v0.1.0, got '$v'"; exit 1;; esac
+          echo "v=$v" >> "$GITHUB_OUTPUT"
+  binaries:
+    needs: version
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.version.outputs.v }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -38,14 +52,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          case "$VERSION" in v[0-9]*) ;; *) echo "version must look like v0.1.0"; exit 1;; esac
           if gh release view "$VERSION" >/dev/null 2>&1; then
             gh release upload "$VERSION" dist/* --clobber
           else
             gh release create "$VERSION" dist/* --title "$VERSION" --generate-notes --target "$GITHUB_SHA"
           fi
   image:
+    needs: version
     runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ needs.version.outputs.v }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3

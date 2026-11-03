@@ -141,7 +141,11 @@ func ropax(rows [][]string) ([]Ship, error) {
 	if h < 0 {
 		return nil, fmt.Errorf("no header row")
 	}
-	log.Printf("header: %q", rows[h])
+	for i, name := range rows[h] {
+		if l := strings.ToLower(name); strings.Contains(l, "freight") || strings.Contains(l, "transport work") || strings.Contains(l, "company") {
+			log.Printf("column %d: %q", i, name)
+		}
+	}
 	col := func(prefixes ...string) int {
 		for _, p := range prefixes {
 			for i, name := range rows[h] {

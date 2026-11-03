@@ -2,7 +2,7 @@
 
 What carbon and road charges does a truck trip pay? carbon-cost works it out per country and per charge, and shows the carbon part separately:
 
-- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut) and Austria (GO-Maut), split into their legal parts: infrastructure, air, noise and CO2.
+- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut) and the Netherlands (vrachtwagenheffing), split into their legal parts: infrastructure, air, noise and CO2.
 - **EU ETS on ferry crossings:** the cargo's share of the crossing's emissions × the allowance price.
 - **ETS2 on road fuel** from 2028: the trip's fuel emissions × the ETS2 price.
 
@@ -49,6 +49,7 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 | DK | Vejafgift, trucks of 12 t and over | 2026–2027 | Vejafgiftsloven, LBK nr. 647 af 28/05/2025, § 5; [Skatteministeriet's rate table](https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven) |
 | DE | Lkw-Maut, over 3.5 t | from 1 July 2024 | [BFStrMG Anlage 1](https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html); emission-free trucks are exempt until 30 June 2031 |
 | AT | GO-Maut, over 3.5 t | 2026 | [Mauttarifverordnung 2025, BGBl. II Nr. 298/2025](https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf) §§ 2, 8, 9; not included: the special toll sections (Brenner, Tauern, Arlberg, Karawanken, Pyhrn/Gleinalm) and the A 12 surcharge |
+| NL | Vrachtwagenheffing, over 3.5 t | 1 July – 31 August 2026 | [Staatscourant 2026, 3872](https://zoek.officielebekendmakingen.nl/stcrt-2026-3872.pdf) (indexed amounts of the Wet vrachtwagenheffing). The 22.3% lower rates for September–December 2026 aren't in yet; until they are, NL shows up under `no_rates` for those months |
 
 Run `carbon-cost rates` for the full list. Countries on a route that have no table are listed under `no_rates`, and their charges are not included.
 

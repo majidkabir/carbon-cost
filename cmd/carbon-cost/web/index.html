@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>carbon-cost: what a truck trip pays for carbon and tolls</title>
+<style>
+  :root { --ink: #1d2327; --muted: #5f6b73; --line: #dde3e7; --bg: #f6f8f9; --accent: #1f6f5c; --carbon: #b4532a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 20px; }
+  form { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: grid; gap: 12px;
+         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+  input, select { font: inherit; color: var(--ink); padding: 7px 8px; border: 1px solid var(--line); border-radius: 6px; background: #fff; width: 100%; }
+  .wide { grid-column: span 2; }
+  .check { display: flex; align-items: center; gap: 8px; color: var(--ink); }
+  .check input { width: auto; }
+  button { grid-column: 1 / -1; justify-self: start; font: inherit; font-weight: 600; color: #fff; background: var(--accent);
+           border: 0; border-radius: 6px; padding: 9px 18px; cursor: pointer; }
+  button:disabled { opacity: .6; cursor: wait; }
+  #error { color: #a3261b; margin: 14px 0 0; white-space: pre-wrap; }
+  .totals { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 12px; }
+  .tile { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; min-width: 150px; }
+  .tile b { display: block; font-size: 22px; }
+  .tile span { color: var(--muted); font-size: 13px; }
+  .tile.carbon b { color: var(--carbon); }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 8px 0 16px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  th { color: var(--muted); font-weight: 600; background: #fbfcfc; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.c td:first-child::before { content: "●"; color: var(--carbon); margin-right: 6px; }
+  h2 { font-size: 16px; margin: 22px 0 4px; }
+  ul.notes { color: var(--muted); padding-left: 18px; font-size: 13px; }
+  .foot { color: var(--muted); font-size: 12px; margin-top: 28px; }
+  .foot a { color: inherit; }
+  td:first-child { white-space: nowrap; }
+  @media (max-width: 560px) { .wide { grid-column: span 1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>What does a truck trip pay for carbon and tolls?</h1>
+  <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws; routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
+
+  <form id="f">
+    <label class="wide">From (UN/LOCODE, IATA or lat,lon)<input name="from" value="DKCPH" required></label>
+    <label class="wide">To<input name="to" value="DEHAM" required></label>
+    <label>Date<input name="date" type="date"></label>
+    <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
+    <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
+    <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
+    <label>Euro class<select name="euro">
+      <option value="6" selected>Euro VI</option><option value="5">Euro V / EEV</option><option value="4">Euro IV</option>
+      <option value="3">Euro III</option><option value="2">Euro II</option><option value="1">Euro I</option><option value="0">Euro 0</option></select></label>
+    <label>CO2 class<select name="co2_class">
+      <option value="1" selected>1 (most diesel trucks)</option><option value="2">2</option><option value="3">3</option>
+      <option value="4">4</option><option value="5">5 (zero-emission)</option></select></label>
+    <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
+    <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
+    <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
+    <label>Trips per year<input name="trips_per_year" type="number" min="0" value="200"></label>
+    <button id="go" type="submit">Calculate</button>
+  </form>
+  <p id="error" hidden></p>
+
+  <section id="out" hidden>
+    <div class="totals">
+      <div class="tile"><span>Total</span><b id="total"></b></div>
+      <div class="tile carbon"><span>Of which carbon</span><b id="carbon"></b></div>
+      <div class="tile"><span>Distance</span><b id="dist"></b></div>
+    </div>
+    <div id="km"></div>
+    <h2>Charges</h2>
+    <table><thead><tr><th>Charge</th><th>Where</th><th>Part</th><th class="n">Basis</th><th class="n sm-hide">Rate</th><th class="n sm-hide">Amount</th><th class="n">EUR</th></tr></thead>
+      <tbody id="lines"></tbody></table>
+    <div id="cmpwrap" hidden>
+      <h2>Same trip, other trucks</h2>
+      <table><thead><tr><th>CO2 class</th><th class="n">Tolls EUR</th><th class="n">Total EUR</th><th class="n">Carbon EUR</th><th class="n">Saving / trip</th><th class="n">Saving / year</th></tr></thead>
+        <tbody id="cmp"></tbody></table>
+    </div>
+    <ul class="notes" id="notes"></ul>
+  </section>
+
+  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code></p>
+</main>
+<script>
+const $ = (id) => document.getElementById(id);
+const f = $("f");
+f.date.value = new Date().toISOString().slice(0, 10);
+
+function place(s) {
+  s = s.trim();
+  const m = s.match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
+  return m ? { lat: +m[1], lon: +m[2] } : { code: s.toUpperCase() };
+}
+const eur = (v) => "EUR " + v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const num = (v, d) => v.toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
+function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
+
+f.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const req = {
+    from: place(f.from.value), to: place(f.to.value), date: f.date.value || undefined,
+    cargo_kg: +f.cargo_kg.value,
+    truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value },
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
+    compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
+  };
+  $("go").disabled = true; $("error").hidden = true;
+  try {
+    const resp = await fetch("v1/carbon-cost", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(req) });
+    const body = await resp.json();
+    if (!resp.ok) throw new Error(body.error || resp.statusText);
+    show(body);
+  } catch (err) {
+    $("out").hidden = true; $("error").textContent = err.message; $("error").hidden = false;
+  } finally { $("go").disabled = false; }
+});
+
+function show(r) {
+  $("total").textContent = eur(r.total_eur);
+  $("carbon").textContent = eur(r.carbon_eur);
+  $("dist").textContent = num(r.distance_km, 1) + " km";
+  const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
+  if (r.ferry_km) parts.push(`ferry ${num(r.ferry_km, 1)} km`);
+  if (r.region_km) parts.push("(" + Object.entries(r.region_km).sort().map(([c, k]) => `${c} ${num(k, 1)}`).join(", ") + ")");
+  $("km").textContent = "Route: " + parts.join(" · ");
+
+  const lines = $("lines"); lines.replaceChildren();
+  for (const l of r.lines) {
+    const tr = lines.insertRow(); if (l.carbon) tr.className = "c";
+    cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
+    cell(tr, (l.component || "co2").replace("_", " "));
+    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : num(l.km, 1) + " km", "n");
+    cell(tr, l.rate + " " + l.rate_unit, "n sm-hide");
+    cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
+  }
+  const cmp = $("cmp"); cmp.replaceChildren();
+  $("cmpwrap").hidden = !(r.compare && r.compare.length);
+  for (const c of r.compare || []) {
+    const tr = cmp.insertRow();
+    cell(tr, String(c.co2_class)); cell(tr, num(c.road_toll_eur, 2), "n"); cell(tr, num(c.total_eur, 2), "n");
+    cell(tr, num(c.carbon_eur, 2), "n"); cell(tr, num(c.saving_eur, 2), "n");
+    cell(tr, c.saving_per_year_eur ? num(c.saving_per_year_eur, 0) : "", "n");
+  }
+  const notes = $("notes"); notes.replaceChildren();
+  if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
+  for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
+  $("out").hidden = false;
+}
+</script>
+</body>
+</html>

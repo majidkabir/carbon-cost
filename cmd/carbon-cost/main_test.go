@@ -26,6 +26,7 @@ func TestHandler(t *testing.T) {
 		want               string
 	}{
 		{"GET", "/healthz", "", 200, "ok"},
+		{"GET", "/", "", 200, "v1/carbon-cost"},
 		{"GET", "/v1/rates", "", 200, `"country": "DK"`},
 		{"POST", "/v1/carbon-cost", `{"nope": 1}`, 400, "bad JSON"},
 		{"POST", "/v1/carbon-cost", `{"cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 9}}`, 400, "co2_class"},

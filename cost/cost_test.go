@@ -192,3 +192,49 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 		t.Errorf("want Sootcase's 400 passed on, got %v", err)
 	}
 }
+
+// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 71.97):
+//
+//	class 4: DK 140 km x (0.22 + 0.30 + 0.06) DKK = EUR 4.13 + 5.63 + 1.13
+//	         DE 141 km x (0.155 + 0.023 + 0.012 + 0.079) = EUR 21.86 + 3.24 + 1.69 + 11.14
+//	         ferry EUR 2.25; total 51.07, tolls 48.82, saving 20.90
+//	class 5: DK 140 km x (0.11 + 0 + 0.02) DKK = EUR 2.06 + 0 + 0.38; DE exempt
+//	         ferry EUR 2.25; total 4.69, tolls 2.44, saving 67.28
+func TestPrice_Compare(t *testing.T) {
+	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, CompareCO2Classes: []int{1, 4, 5}, TripsPerYear: 200}
+	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []Comparison{
+		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 71.97, CarbonEUR: 35.79},
+		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 51.07, CarbonEUR: 19.02, SavingEUR: 20.90, SavingPerYearEUR: 4180},
+		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 67.28, SavingPerYearEUR: 13456},
+	}
+	if len(r.Compare) != len(want) {
+		t.Fatalf("compare %+v", r.Compare)
+	}
+	for i, w := range want {
+		if r.Compare[i] != w {
+			t.Errorf("class %d: got %+v, want %+v", w.CO2Class, r.Compare[i], w)
+		}
+	}
+	// The requested truck's own lines are unchanged by the comparison.
+	if r.TotalEUR != 71.97 || len(r.Lines) != 8 {
+		t.Errorf("total %v with %d lines", r.TotalEUR, len(r.Lines))
+	}
+
+	// From 2028 a zero-emission truck pays no ETS2; diesel classes do.
+	// Class 1 carbon: DE toll CO2 part 22.28 + ETS2 0.22 t x 45 = 9.90.
+	r, err = Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, ETS2EurPerT: 45, CompareCO2Classes: []int{1, 5}},
+		time.Date(2028, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Compare[0].CarbonEUR != 32.18 || r.Compare[1].CarbonEUR != 0 {
+		t.Errorf("2028 carbon: class 1 %v, class 5 %v; want 32.18 and 0", r.Compare[0].CarbonEUR, r.Compare[1].CarbonEUR)
+	}
+	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, CompareCO2Classes: []int{6}}, time.Now()); err == nil {
+		t.Error("class 6: want an error")
+	}
+}

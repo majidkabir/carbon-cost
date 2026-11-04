@@ -4,6 +4,8 @@ name: Fetch documents
 on:
   push:
     branches: [fetch-docs]
+permissions:
+  contents: write
 jobs:
   docs:
     runs-on: ubuntu-latest
@@ -28,7 +30,8 @@ jobs:
           curl -fsSL -A "$ua" -o si.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025076.pdf"
           pdftotext -layout si.pdf si.txt
           mkdir -p out && cp bg.csv si.txt out/
-      - uses: actions/upload-artifact@v4
-        with:
-          name: docs
-          path: out/
+      - name: Push the texts to the docs-out branch
+        run: |
+          cd out && git init -q && git checkout -q -b docs-out && git add -A
+          git -c user.name=fetch-docs -c user.email=fetch-docs@users.noreply.github.com commit -qm "fetched documents"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" docs-out

@@ -11,23 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Hungarian toll segments (Magyar Közlöny 143/2025, 34/2025 ÉKM annex 1)
+      - name: ECB EUR/HUF on 1 October (Vhr 209/2013 § 3/A (2)-(3))
         run: |
           mkdir -p out
-          curl -fsSL -A "carbon-cost docs fetch" -o mk143.pdf "https://magyarkozlony.hu/dokumentumok/ffc3529aaa9c6075ef082089b3ec049444bc554a/letoltes"
-          pdftotext -layout mk143.pdf mk143.txt
-          python3 - <<'PY'
-          import re, json
-          t = open("mk143.txt", encoding="utf-8").read()
-          rows = []
-          for l in t.split("\n"):
-              m = re.match(r"\s*(\d+)\.?\s+(M\d+|\d+)\s+(\S+)\s+(\d+ \+ \d+)\s+(\d+ \+ \d+)\s+(\d+)\s+(gyorsforgalmi|főút)\s+([\d,]+)\s*$", l)
-              if m:
-                  rows.append([m.group(2), m.group(3), m.group(4), m.group(5), int(m.group(6)), m.group(7), float(m.group(8).replace(",", "."))])
-          json.dump(rows, open("out/hu-segments.json", "w"), ensure_ascii=False)
-          print(len(rows))
+          curl -fsSL -A "carbon-cost docs fetch" -o hist.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+          unzip -p hist.zip > hist.csv
+          python3 - <<'PY' > out/eurhuf.txt
+          import csv
+          r = list(csv.DictReader(open("hist.csv")))
+          for row in r:
+              d = row["Date"]
+              if d[5:] in ("09-27","09-28","09-29","09-30","10-01","10-02","10-03") and d[:4] in ("2021","2022","2023","2024","2025"):
+                  print(d, row[" HUF"] if " HUF" in row else row.get("HUF"))
           PY
-          cp mk143.txt out/
+          cat out/eurhuf.txt
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

@@ -11,25 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Bulgaria (Държавен вестник 49/2026) and Slovenia (Uradni list 76/2025) toll tariffs
+      - name: Slovenia (DarsGo price list, Uradni list 102/2025)
         run: |
-          note() { echo "::notice title=$1::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' | head -c 60000)"; }
           ua="carbon-cost docs fetch"
-          curl -fsSL -A "$ua" -o bg.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642"
-          pip install -q pandas lxml >/dev/null 2>&1
-          python3 - <<'PY' > bg.csv
-          import pandas as pd
-          for i, t in enumerate(pd.read_html("bg.html", encoding="windows-1251") + pd.read_html("bg.html")):
-              if t.shape[1] >= 15:
-                  t = t.fillna("")
-                  for r in t.itertuples(index=False):
-                      print(i, "|".join(str(x).strip()[:28] for x in r))
-                  break
-          PY
-          wc -l bg.csv
-          curl -fsSL -A "$ua" -o si.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025076.pdf"
-          pdftotext -layout si.pdf si.txt
-          mkdir -p out && cp bg.csv si.txt out/
+          mkdir -p out
+          for u in https://www.darsgo.si/ https://www.dars.si/Dokumenti/Cestnina/Cenik_cestnine_36.aspx https://pisrs.si/Pis.web/pregledPredpisa?id=TARI209 ; do
+            f=out/$(echo "$u" | tr -c 'A-Za-z0-9' _ | cut -c1-80).html
+            curl -fsSL -A "$ua" -o "$f" "$u" && echo "ok $u" || echo "fail $u"
+          done
+          grep -h -o -i 'href="[^"]*"' out/*.html | grep -i 'xls\|pdf\|cenik\|cestnin\|toll\|visina' | sort -u > out/links.txt || true
+          wc -l out/links.txt
+          curl -fsSL -A "$ua" -o out/u2025102.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025102.pdf" && pdftotext -layout out/u2025102.pdf out/u2025102.txt && rm out/u2025102.pdf
+          ls -la out
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

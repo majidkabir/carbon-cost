@@ -86,7 +86,7 @@ def main(src, out):
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
             status, body = get(s["url"])
-            save(out, manifest, s["id"] + ".html", s["url"], status, body)
+            save(out, manifest, s["id"] + (".pdf" if s["url"].lower().endswith(".pdf") else ".html"), s["url"], status, body)
             if s["id"] == "ro-tollro":
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:

@@ -1,6 +1,6 @@
 name: Tables data
 # Fetches the official pages behind the Romanian, Danish bridge and
-# Hungarian rate tables (tools/tables/sources.json), rebuilds the tables
+# Hungarian rate tables and the Fréjus tunnel (tools/tables/sources.json), rebuilds the tables
 # from them, compares them with the committed ones, and pushes the pages,
 # their manifest and the rebuilt tables to the tables-out branch. Push to
 # the tables-data branch to run it.
@@ -15,13 +15,17 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
       - name: Fetch
-        run: python3 tools/tables/fetch.py tools/tables/sources.json out
+        run: |
+          python3 tools/tables/fetch.py tools/tables/sources.json out
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables
           python3 tools/tables/dk_bridges.py out out/tables
           python3 tools/tables/hu.py out out/tables
+          python3 tools/tables/frejus.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

@@ -5,16 +5,20 @@ on:
   push:
     branches: [fetch-docs]
 jobs:
-  junctions:
+  hungary:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool jq >/dev/null
-      - name: Austrian motorway junctions and border crossings (OpenStreetMap)
+      - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
+      - name: Hungarian toll decrees (Magyar Közlöny, Nemzeti Jogszabálytár)
         run: |
-          curl -fsSL -o at.osm.pbf https://download.geofabrik.de/europe/austria-latest.osm.pbf
-          osmium tags-filter -o j.osm.pbf at.osm.pbf n/highway=motorway_junction n/barrier=border_control n/highway=services n/highway=rest_area
-          osmium export -f geojsonseq --geometry-types=point -o j.geojsonseq j.osm.pbf
-          pat='Wörgl|Kirchbichl|Kramsach|Radfeld|Wiesing|Jenbach|Schwaz|Vomp|Wattens|Hall|Kufstein|Innsbruck Ost|Ampass|Kiefersfelden'
-          tr -d '\036' < j.geojsonseq | jq -c 'select(.properties.name != null) | select(.properties.name|test("'"$pat"'")) | [.properties.name, .properties.ref, .geometry.coordinates[1], .geometry.coordinates[0]]' | sort -u > found.txt
-          wc -l found.txt
-          echo "::notice title=junctions::$(sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g' found.txt | head -c 60000)"
+          note() { echo "::notice title=$1::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' | head -c 60000)"; }
+          curl -fsSL -A "carbon-cost docs fetch" -o mk157.pdf "https://magyarkozlony.hu/dokumentumok/07b1e2fdffc8e80dff43e39b1b01b4a955ad4441/letoltes"
+          pdftotext -layout mk157.pdf mk157.txt
+          awk '/46\/2025\. \(XII\. 23\.\) ÉKM rendelete/{f=1} f' mk157.txt | head -150 | note "46-2025-EKM"
+          for u in 2013-25-20-2W 2025-46-20-8X 2026-2-20-8X; do
+            curl -fsSL -A "carbon-cost docs fetch" -o $u.html "https://njt.jog.gov.hu/jogszabaly/$u" || continue
+            html2text -utf8 -width 200 $u.html > $u.txt; wc -c $u.txt
+            grep -n -i 'melléklet\|forint\|J5\|Euro VI' $u.txt | head -60 | note "njt-$u-index"
+          done
+          awk '/2\. melléklet a 25\/2013/{f=1} f' 2013-25-20-2W.txt | head -120 | note "njt-annex2"
+          awk '/^1\. §/{f=1} f' 2013-25-20-2W.txt | head -80 | note "njt-par1"

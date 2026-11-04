@@ -11,20 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: ECB EUR/HUF on 1 October (Vhr 209/2013 § 3/A (2)-(3))
+      - name: Romania TollRo order (OMTI 1925/2025)
         run: |
           mkdir -p out
-          curl -fsSL -A "carbon-cost docs fetch" -o hist.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
-          unzip -p hist.zip > hist.csv
-          python3 - <<'PY' > out/eurhuf.txt
-          import csv
-          r = list(csv.DictReader(open("hist.csv")))
-          for row in r:
-              d = row["Date"]
-              if d[5:] in ("09-27","09-28","09-29","09-30","10-01","10-02","10-03") and d[:4] in ("2021","2022","2023","2024","2025"):
-                  print(d, row[" HUF"] if " HUF" in row else row.get("HUF"))
-          PY
-          cat out/eurhuf.txt
+          for id in 302972; do
+            curl -fsSL -A "carbon-cost docs fetch" -o ro-$id.html "https://legislatie.just.ro/Public/DetaliiDocument/$id" || echo fail $id
+            python3 -c "import re,html,sys;t=open('ro-$id.html',encoding='utf-8',errors='replace').read();t=re.sub(r'<(script|style)[^>]*>.*?</\\1>','',t,flags=re.S);t=re.sub(r'<br\\s*/?>|</(p|tr|div|td|th|li)>','\\n',t);t=html.unescape(re.sub(r'<[^>]+>',' ',t));t=re.sub(r'[ \\t]+',' ',t);t=re.sub(r'\\n\\s*\\n+','\\n',t);open('out/ro-$id.txt','w').write(t)"
+            grep -o 'DetaliiDocument[A-Za-z]*/[0-9]*' ro-$id.html | sort -u > out/ro-$id-links.txt
+          done
+          wc -c out/ro-*
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

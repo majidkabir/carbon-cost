@@ -13,11 +13,21 @@ jobs:
         run: |
           note() { echo "::notice title=$1::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' | head -c 60000)"; }
           ua="carbon-cost docs fetch"
-          curl -fsSL -A "$ua" -o bg.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642" || echo bg failed
-          html2text -utf8 -width 250 bg.html > bg.txt; wc -c bg.txt
-          awk '/За ползване на платената пътна инфраструктура/{f=1} f' bg.txt | head -170 | note "bg-tariff-1"
-          awk '/За ползване на платената пътна инфраструктура/{f=1} f' bg.txt | sed -n '171,340p' | note "bg-tariff-2"
-          curl -fsSL -A "$ua" -o si.html "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2726/cenik-cestnine-za-uporabo-cestninskih-cest" || echo si failed
-          html2text -utf8 -width 250 si.html > si.txt; wc -c si.txt
-          grep -n -i 'priloga\|pdf\|cestninski odsek\|R4' si.txt | head -40 | note "si-index"
-          grep -o 'href="[^"]*\(pdf\|Priloga\|priloga\)[^"]*"' si.html | sort -u | head -20 | note "si-links"
+          curl -fsSL -A "$ua" -o bg.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642"
+          pip install -q pandas lxml >/dev/null 2>&1
+          python3 - <<'PY' > bg.csv
+          import pandas as pd
+          for i, t in enumerate(pd.read_html("bg.html", encoding="windows-1251") + pd.read_html("bg.html")):
+              if t.shape[1] >= 15:
+                  t = t.fillna("")
+                  for r in t.itertuples(index=False):
+                      print(i, "|".join(str(x).strip()[:28] for x in r))
+                  break
+          PY
+          wc -l bg.csv; head -c 60000 bg.csv | note "bg-csv"
+          curl -fsSL -A "$ua" -o si.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025076.pdf"
+          pdftotext -layout si.pdf si.txt
+          n=$(grep -n '2726\.' si.txt | head -1 | cut -d: -f1); echo "start $n"
+          awk -v n="$n" 'NR>=n' si.txt | grep -n 'Priloga\|PRILOGA' | head -5 | note "si-annex-pos"
+          awk -v n="$n" 'NR>=n' si.txt | awk '/Priloga|PRILOGA/{c++} c>=1' | sed 's/  */ /g' | head -400 | note "si-annex-1"
+          awk -v n="$n" 'NR>=n' si.txt | awk '/Priloga|PRILOGA/{c++} c>=1' | sed 's/  */ /g' | sed -n '401,800p' | note "si-annex-2"

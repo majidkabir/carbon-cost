@@ -1,0 +1,129 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "Storebælt and Øresund bridge tolls",
+ "law": "Fixed price per crossing by vehicle length, on top of the km-based vejafgift: Storebælt (A/S Storebælt) and Øresund (Øresundsbro Konsortiet) price lists for 2026.",
+ "sources": [
+  {
+   "title": "Storebælt: prices for business customers 2026",
+   "url": "https://storebaelt.dk/priser-rabatter/erhverv/"
+  },
+  {
+   "title": "Øresundsbron: prices for trucks and vans (business)",
+   "url": "https://www.oresundsbron.com/da/erhverv/lastbil"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by length",
+ "min_kg": 3501,
+ "tolled_roads": "The Storebælt bridge (E20 Funen-Zealand) and the Øresund bridge (E20 Copenhagen-Malmö).",
+ "closed_systems": [
+  {
+   "name": "Storebælt bridge",
+   "law": "Storebæltsforbindelsen: prices set by the transport minister (lov om Sund & Bælt Holding A/S); A/S Storebælt's business price list 2026, DKK including 25% VAT, here excluding it. Green discount (Grøn rabat) 13% for EURO VI and electric or hydrogen trucks on a Storebælt Erhverv agreement paying automatically.",
+   "groups": [
+    {
+     "name": "up to 10 m",
+     "min_kg": 3501,
+     "min_length_m": 0,
+     "max_length_m": 10
+    },
+    {
+     "name": "10-20 m",
+     "min_kg": 3501,
+     "min_length_m": 10,
+     "max_length_m": 20
+    },
+    {
+     "name": "over 20 m",
+     "min_kg": 3501,
+     "min_length_m": 20
+    }
+   ],
+   "stations": [
+    {
+     "name": "Storebælt",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 55.34993,
+       "lon": 11.10876
+      },
+      {
+       "name": "booth",
+       "lat": 55.34967,
+       "lon": 11.10882
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Storebælt|Storebælt": {
+     "up to 10 m": 516.0,
+     "10-20 m": 816.0,
+     "over 20 m": 1224.0
+    }
+   },
+   "discounts": [
+    {
+     "name": "Grøn rabat",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "co2_class": [
+      5
+     ],
+     "percent": 13
+    }
+   ]
+  },
+  {
+   "name": "Øresund bridge",
+   "law": "Øresundsbron: Øresundsbro Konsortiet's business prices per crossing, DKK excluding 25% VAT; with ØresundBUSINESS (etc) the price for the first 500 crossings a year by a truck over 9 m (580 DKK) or the first 1,000 by a van of 6-9 m (292 DKK).",
+   "groups": [
+    {
+     "name": "up to 9 m",
+     "min_kg": 3501,
+     "max_length_m": 9
+    },
+    {
+     "name": "over 9 m",
+     "min_kg": 3501,
+     "min_length_m": 9
+    }
+   ],
+   "stations": [
+    {
+     "name": "Øresundsbron",
+     "points": [
+      {
+       "name": "bridge",
+       "lat": 55.57047,
+       "lon": 12.84879
+      },
+      {
+       "name": "bridge",
+       "lat": 55.57027,
+       "lon": 12.84989
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Øresundsbron|Øresundsbron": {
+     "up to 9 m": 832,
+     "over 9 m": 1324
+    }
+   },
+   "etc_prices": {
+    "Øresundsbron|Øresundsbron": {
+     "up to 9 m": 292,
+     "over 9 m": 580
+    }
+   }
+  }
+ ]
+}

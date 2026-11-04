@@ -16,12 +16,24 @@ jobs:
       - name: Build
         run: |
           mkdir -p out
-          for x in CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania; do
+          # tools/roads/ONLY lists the countries to rebuild; the others are
+          # kept from the roads-out branch.
+          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania"
+          if [ -f tools/roads/ONLY ]; then
+            git fetch -q origin roads-out && git archive FETCH_HEAD | tar -x -C out
+            list=$(cat tools/roads/ONLY)
+          fi
+          for x in $list; do
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
             osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
-            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz
-            rm -f in.pbf roads.pbf
+            extra=""
+            if [ $cc = RO ]; then
+              osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail r/boundary=administrative
+              extra=areas.pbf
+            fi
+            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
+            rm -f in.pbf roads.pbf areas.pbf
           done
           ls -la out
       - name: Push

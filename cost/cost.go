@@ -55,6 +55,10 @@ type Request struct {
 	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
 	// so give it when part of a trip runs on untolled roads.
 	TolledShare map[string]float64 `json:"tolled_share,omitempty"`
+	// ETC: the truck pays tolls by an electronic toll device or account
+	// agreement, for the operators' discounts on it (Croatia's ENC,
+	// Storebælt Erhverv, ØresundBUSINESS).
+	ETC bool `json:"etc,omitempty"`
 	// Night: the trip passes night-tariff sections between 22:00 and
 	// 05:00 (Austria's A 13 Brenner).
 	Night bool `json:"night,omitempty"`
@@ -514,27 +518,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				return Response{}, err
 			}
 		}
-		closedAny := false
-		for _, sys := range tb.Closed {
-			u, ok := usesSystem(sys, route)
-			if !ok {
-				continue
-			}
-			closedAny = true
-			g := sys.GroupOf(req.Truck)
-			p, ok := sys.Price(u.entry, u.exit, g)
-			if !ok {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", cc, sys.Name, u.entry, u.exit, g))
-				continue
-			}
-			name := sys.Name + ": " + u.entry
-			if u.exit != u.entry {
-				name += " – " + u.exit
-			}
-			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.Toll, Section: name,
-				Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
-				return Response{}, err
-			}
+		closedAny, err := priceClosed(tb, a.country, a.region, route, req, &out, add)
+		if err != nil {
+			return Response{}, err
 		}
 		if len(tb.Closed) > 0 && len(tb.Rows) == 0 && !closedAny && km >= 1 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route uses none of the tolled motorways.", cc))
@@ -545,6 +531,20 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if !shareGiven && !byRoute && len(tb.Rows) > 0 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
 				cc, km, cc, tb.TolledRoads))
+		}
+	}
+
+	// Fixed-charge crossings (bridges) wherever the route passes them.
+	for _, tb := range tables {
+		if !tb.Crossings || !tb.Covers(date) || req.Truck.MaxMassKg < tb.MinKg {
+			continue
+		}
+		used, err := priceClosed(tb, tb.Country, "", route, req, &out, add)
+		if err != nil {
+			return Response{}, err
+		}
+		if used {
+			addSources(tb.Sources)
 		}
 	}
 
@@ -886,4 +886,47 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 		return u, open
 	}
 	return u, true
+}
+
+// priceClosed adds a line for each closed toll system of the table the
+// route uses, and says whether it used any.
+func priceClosed(tb rates.Table, country, region string, route [][2]float64, req Request, out *Response, add func(Line) error) (bool, error) {
+	used := false
+	for _, sys := range tb.Closed {
+		u, ok := usesSystem(sys, route)
+		if !ok {
+			continue
+		}
+		used = true
+		g := sys.GroupOf(req.Truck)
+		p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
+		if !ok {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", country, sys.Name, u.entry, u.exit, g))
+			continue
+		}
+		var pct float64
+		var names []string
+		for _, d := range sys.Discounts {
+			if d.Applies(req.Truck, req.ETC) {
+				pct += d.Percent
+				names = append(names, fmt.Sprintf("%s %g%%", d.Name, d.Percent))
+			}
+		}
+		if pct > 0 {
+			p = round2(p * (1 - pct/100))
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s with %s off.", country, sys.Name, strings.Join(names, " and ")))
+		}
+		if req.Truck.LengthM == 0 && slices.ContainsFunc(sys.Groups, func(g rates.Group) bool { return g.MaxLengthM > 0 }) {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is priced by length; %g m assumed (group %s). Give the truck's length_m.", country, sys.Name, rates.DefaultLengthM, g))
+		}
+		name := sys.Name + ": " + u.entry
+		if u.exit != u.entry {
+			name += " – " + u.exit
+		}
+		if err := add(Line{Charge: RoadToll, Country: country, Region: region, Component: rates.Toll, Section: name,
+			Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
+			return used, err
+		}
+	}
+	return used, nil
 }

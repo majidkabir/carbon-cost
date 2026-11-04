@@ -108,6 +108,10 @@ type Table struct {
 	// Sections are road sections with a fixed infrastructure charge per
 	// passage instead of the per-km one (Austria's special toll sections).
 	Sections *Sections `json:"sections,omitempty"`
+	// Crossings marks a table of fixed-charge crossings (bridges) only:
+	// its closed systems are priced wherever the route passes them, on top
+	// of the countries' own tolls.
+	Crossings bool `json:"crossings,omitempty"`
 	// Closed are toll systems priced from entry to exit station
 	// (Croatia's motorways).
 	Closed []TollSystem `json:"closed_systems,omitempty"`
@@ -124,15 +128,43 @@ type TollSystem struct {
 	Groups   []Group                       `json:"groups"`
 	Stations []Station                     `json:"stations"`
 	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
+	// ETCPrices replace Prices for trucks paying by an electronic toll
+	// device or agreement (Request.ETC), where the operator sets them.
+	ETCPrices map[string]map[string]float64 `json:"etc_prices,omitempty"`
+	// Discounts in percent of the price, added up over those that apply.
+	Discounts []Discount `json:"discounts,omitempty"`
+}
+
+// Discount is a percentage off a toll system's price for the trucks it
+// matches; ETC ones only for trucks paying electronically.
+type Discount struct {
+	Name     string  `json:"name"`
+	ETC      bool    `json:"etc,omitempty"`
+	Euro     []int   `json:"euro,omitempty"`
+	CO2Class []int   `json:"co2_class,omitempty"`
+	Percent  float64 `json:"percent"`
+}
+
+// Applies says whether the discount is for the truck.
+func (d Discount) Applies(t Truck, etc bool) bool {
+	if d.ETC && !etc {
+		return false
+	}
+	if len(d.Euro) == 0 && len(d.CO2Class) == 0 {
+		return true
+	}
+	return slices.Contains(d.Euro, t.Euro) || slices.Contains(d.CO2Class, t.CO2Class)
 }
 
 // Group is a vehicle group of a toll system; the first a truck matches
 // is its group.
 type Group struct {
-	Name     string `json:"name"`
-	MinKg    int    `json:"min_kg,omitempty"`
-	MinAxles int    `json:"min_axles,omitempty"`
-	MaxAxles int    `json:"max_axles,omitempty"`
+	Name       string  `json:"name"`
+	MinKg      int     `json:"min_kg,omitempty"`
+	MinAxles   int     `json:"min_axles,omitempty"`
+	MaxAxles   int     `json:"max_axles,omitempty"`
+	MinLengthM float64 `json:"min_length_m,omitempty"` // more than this
+	MaxLengthM float64 `json:"max_length_m,omitempty"` // up to this
 }
 
 // Station is a toll station: where a route passes one of its points (the
@@ -145,18 +177,27 @@ type Station struct {
 // GroupOf is the truck's vehicle group, "" if none matches.
 func (s TollSystem) GroupOf(t Truck) string {
 	for _, g := range s.Groups {
-		if t.MaxMassKg >= g.MinKg && t.Axles >= g.MinAxles && (g.MaxAxles == 0 || t.Axles <= g.MaxAxles) {
+		l := t.Length()
+		if t.MaxMassKg >= g.MinKg && t.Axles >= g.MinAxles && (g.MaxAxles == 0 || t.Axles <= g.MaxAxles) &&
+			l > g.MinLengthM && (g.MaxLengthM == 0 || l <= g.MaxLengthM) {
 			return g.Name
 		}
 	}
 	return ""
 }
 
-// Price is the price from entry to exit for a group, either way round.
-func (s TollSystem) Price(entry, exit, group string) (float64, bool) {
-	for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
-		if p, ok := s.Prices[k][group]; ok {
-			return p, true
+// Price is the price from entry to exit for a group, either way round,
+// from ETCPrices for a truck paying electronically where it has one.
+func (s TollSystem) Price(entry, exit, group string, etc bool) (float64, bool) {
+	tables := []map[string]map[string]float64{s.Prices}
+	if etc && s.ETCPrices != nil {
+		tables = []map[string]map[string]float64{s.ETCPrices, s.Prices}
+	}
+	for _, tb := range tables {
+		for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
+			if p, ok := tb[k][group]; ok {
+				return p, true
+			}
 		}
 	}
 	return 0, false
@@ -311,6 +352,21 @@ type Truck struct {
 	// TareKg is the truck's own weight (with trailer), optional: ferries
 	// report freight emissions per tonne of vehicle and cargo.
 	TareKg int `json:"tare_kg,omitempty"`
+	// LengthM is the vehicle's length with trailer, optional: bridge tolls
+	// are priced by length (default DefaultLengthM).
+	LengthM float64 `json:"length_m,omitempty"`
+}
+
+// DefaultLengthM is the length assumed when a truck's isn't given: a
+// tractor with semi-trailer (EU maximum 16.50 m, Directive 96/53/EC).
+const DefaultLengthM = 16.5
+
+// Length is the truck's length, DefaultLengthM if not given.
+func (t Truck) Length() float64 {
+	if t.LengthM > 0 {
+		return t.LengthM
+	}
+	return DefaultLengthM
 }
 
 // Validate checks a truck's fields.
@@ -326,6 +382,8 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("co2_class must be 1-5")
 	case t.TareKg < 0 || (t.TareKg > 0 && t.TareKg >= t.MaxMassKg):
 		return fmt.Errorf("tare_kg must be >= 0 and below max_mass_kg")
+	case t.LengthM < 0 || t.LengthM > 50:
+		return fmt.Errorf("length_m must be 0-50")
 	}
 	return nil
 }
@@ -473,6 +531,9 @@ func (tb Table) check() error {
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")
 	}
+	if tb.Crossings && (len(tb.Rows) > 0 || len(tb.Closed) == 0) {
+		return fmt.Errorf("a crossings table has closed systems and no rows")
+	}
 	for k, v := range tb.SuburbanShare {
 		if v < 0 || v > 1 {
 			return fmt.Errorf("suburban_share[%s] must be 0-1", k)
@@ -504,7 +565,7 @@ func (tb Table) Area() string {
 // tolls) on the date, if any.
 func Find(tables []Table, area string, date time.Time) (Table, bool) {
 	for _, tb := range tables {
-		if tb.Area() == area && tb.Covers(date) {
+		if !tb.Crossings && tb.Area() == area && tb.Covers(date) {
 			return tb, true
 		}
 	}
@@ -515,7 +576,7 @@ func Find(tables []Table, area string, date time.Time) (Table, bool) {
 // km must be split by region to be priced.
 func Regional(tables []Table, country string) bool {
 	for _, tb := range tables {
-		if tb.Country == country && tb.Region != "" {
+		if !tb.Crossings && tb.Country == country && tb.Region != "" {
 			return true
 		}
 	}

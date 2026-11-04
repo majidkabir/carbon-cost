@@ -15,7 +15,7 @@ jobs:
         run: |
           mkdir -p out
           for id in 302972; do
-            curl -fsSL -A "carbon-cost docs fetch" -o ro-$id.html "https://legislatie.just.ro/Public/DetaliiDocument/$id" || echo fail $id
+            curl --http1.1 -fsSL -A "carbon-cost docs fetch" -o ro-$id.html "https://legislatie.just.ro/Public/DetaliiDocument/$id" || echo fail $id
             python3 -c "import re,html,sys;t=open('ro-$id.html',encoding='utf-8',errors='replace').read();t=re.sub(r'<(script|style)[^>]*>.*?</\\1>','',t,flags=re.S);t=re.sub(r'<br\\s*/?>|</(p|tr|div|td|th|li)>','\\n',t);t=html.unescape(re.sub(r'<[^>]+>',' ',t));t=re.sub(r'[ \\t]+',' ',t);t=re.sub(r'\\n\\s*\\n+','\\n',t);open('out/ro-$id.txt','w').write(t)"
             grep -o 'DetaliiDocument[A-Za-z]*/[0-9]*' ro-$id.html | sort -u > out/ro-$id-links.txt
           done

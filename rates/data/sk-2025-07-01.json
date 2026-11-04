@@ -1,0 +1,3362 @@
+{
+ "country": "SK",
+ "currency": "EUR",
+ "valid_from": "2025-07-01",
+ "valid_to": "2026-12-31",
+ "name": "Slovak electronic toll (mýto)",
+ "law": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest).",
+ "sources": [
+  {
+   "title": "NV 418/2024 Z. z. (Slov-Lex, version from 1 July 2025)",
+   "url": "https://static.slov-lex.sk/static/SK/ZZ/2024/418/20250701.html"
+  },
+  {
+   "title": "Annex 3: infrastructure, CO2 and air-pollution charges",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704373-2.pdf"
+  },
+  {
+   "title": "Annex 5: rates on motorways",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704381-2.pdf"
+  },
+  {
+   "title": "Annex 6: rates on class I roads",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704385-2.pdf"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t (buses have their own rates)",
+ "min_kg": 3501,
+ "tolled_roads": "Tolled sections of motorways and expressways, and of class I roads; class I roads parallel to motorways pay the motorway rate, other class I roads the lower Annex 6 part 2 rate, and the rest of the network a zero rate. Km off motorways are priced at the Annex 6 part 2 rate.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0892
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.002
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0892
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0072
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.009
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.0204
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.0336
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.0504
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.0576
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.0904
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.045
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.099
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.176
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.002
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.176
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0072
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.1778
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.045
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2511
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0025
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2511
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.009
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.015
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.025
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.035
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.035
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.052
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.052
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.2529
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.06
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2762
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0034
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2762
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.0201
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.0335
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.0469
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.0469
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.069
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.069
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.278
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.079
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2398
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.004
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.2398
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0144
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.024
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.056
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.056
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.081
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.081
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.2416
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.091
+  },
+  {
+   "component": "air",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0774
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.002
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0774
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0072
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.0015
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.009
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 0.0204
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 0.0336
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    2
+   ],
+   "rate": 0.0504
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    1
+   ],
+   "rate": 0.0576
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.0786
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.045
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ],
+   "rate": 0.099
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1287
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.002
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1287
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0072
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.028
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.1305
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.045
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1738
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0025
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1738
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.009
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.015
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.025
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.035
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.035
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.052
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.052
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.1756
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.06
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1998
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0034
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1998
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.012
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.0201
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.0335
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.0469
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.0469
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.069
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.069
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.2016
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.079
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0003
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1663
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.004
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.1663
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0144
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "co2_class": [
+    2,
+    3
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.024
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 0.0021
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 0.0135
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.056
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 0.027
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.056
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 0.0462
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.081
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 0.0672
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.081
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 0.0756
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.1681
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.091
+  },
+  {
+   "component": "air",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 0.137
+  }
+ ]
+}

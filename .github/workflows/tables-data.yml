@@ -1,7 +1,7 @@
 name: Tables data
 # Fetches the official pages behind the Romanian, Danish bridge and
 # Hungarian rate tables, the Fréjus and Mont Blanc tunnels and the Baltic,
-# Swedish and Luxembourg road user charges (tools/tables/sources.json), rebuilds the tables
+# Swedish, Luxembourg and UK road user charges (tools/tables/sources.json), rebuilds the tables
 # from them, compares them with the committed ones, and pushes the pages,
 # their manifest and the rebuilt tables to the tables-out branch. Push to
 # the tables-data branch to run it.
@@ -32,6 +32,7 @@ jobs:
           python3 tools/tables/ee.py out out/tables
           python3 tools/tables/se.py out out/tables
           python3 tools/tables/lu.py out out/tables
+          python3 tools/tables/gb.py out out/tables
           python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
       - name: Compare with the committed tables
         run: |

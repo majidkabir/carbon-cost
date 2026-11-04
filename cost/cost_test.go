@@ -1051,9 +1051,12 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 		{"LU", truck40, 13},
 		{"LU", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 4, CO2Class: 1}, 9},
 		{"LU", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 4},
+		{"GB", truck40, 9.67},
+		{"GB", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 5, CO2Class: 1}, 4.18},
+		{"GB", rates.Truck{MaxMassKg: 44000, Axles: 6, Euro: 6, CO2Class: 5}, 0},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{tc.cc: 150}}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"SEK": 11}}, date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"SEK": 11, "GBP": 0.87}}, date)
 		if err != nil {
 			t.Fatal(err)
 		}

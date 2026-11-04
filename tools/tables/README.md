@@ -1,4 +1,4 @@
-# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
+# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
 
 Everything here runs in the **Tables data** workflow (`.github/workflows/tables-data.yml`, started by pushing to the `tables-data` branch). It fetches the sources, rebuilds the tables, says whether each one is the same as the committed file, and pushes the fetched pages, `manifest.json` (URL, sha256, size, fetch time and HTTP status of every file) and the rebuilt tables to the `tables-out` branch.
 
@@ -12,6 +12,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - **Lithuania**: e-TAR and e-seimas refuse scripted requests (Cloudflare, status 403; `sources.json` keeps the URLs so the manifest shows it). The consolidated resolution No 447 was opened in Chrome instead: its page's text is in a frame (`/rs/actualedition/TAR.479B13E87700/<edition code>/`), whose text was read and saved, from the annex heading to point 6, as `browser/lt-447.txt` with the URL, date and edition in its header.
    - **Sweden**: Riksdagen's open-data text of Lag (1997:1137) and the PDF of SFS 2025:918 (the year's amounts in kronor, converted with `pdftotext -layout`).
    - **Luxembourg**: Legilux's file of the consolidated RGD du 21 mai 2019 (the page `…/a353/consolide/20241224` loads it from `/filestore/…-fr-html.html`).
+   - **UK**: GOV.UK's guidance on the HGV levy service, which tabulates the levy's rates in force. legislation.gov.uk's own pages of the Act can't be kept on `tables-out`: GitHub's secret scanning rejects a key-like string in them.
    - **Hungary**: the Nemzeti Jogszabálytár's consolidated text of 25/2013. (V. 31.) NFM rendelet. The site sends long parts (the annexes) separately; `fetch.py` asks for them as its page script does (`/ajax/njtGetBlock.json`).
 2. **Build**:
    - `ro.py` → `rates/data/ro-<date>.json`: lei/km including 21% VAT by mass category, road category and emission class, from the offer JSON; the date and order number from the offer's name.
@@ -23,6 +24,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - `lt.py` → `rates/data/lt-<date>.json` from `browser/lt-447.txt`: point 1's daily rates for N2 and N3 by the motor vehicle's axles and EURO class, a `per_day` and `motor_axles` table; dates from the edition line; point 6's roads.
    - `se.py` → `rates/data/se-<year>-01-01.json`: the förordning's daily amounts (the last number of each row) by axles, CO2 class and EURO class.
    - `lu.py` → `rates/data/lu-<date>.json`: art. 1er 2°'s daily amounts ("Pour une journée") by CO2 class, EURO class and axles; the date from "À compter du"; the annex's roads.
+   - `gb.py` → `rates/data/gb-<date>.json`: the daily rates by weight band, Euro 6 or older; zero-emission exempt; the date from "Levy rates from".
    - `hu.py` → `rates/data/hu-<date>.json` and `tools/roads/hu-annex1.json`: § 1 (2)-(4a) (infrastructure charge), annex 1 (tolled sections, with each one's suburban share) and annex 2 (external-cost charge).
 3. **Transcribed images**: Atlandes (A63) and ALBEA (A150) publish their prices only as images. Those are transcribed by hand into `tools/fr/transcribed/*.json`, each with the image's URL and sha256; the workflow fetches the images (`sources.json`) and `check_transcribed.py` says whether each is still the one transcribed.
 4. **Compare**: the workflow prints, for each rebuilt file, whether it is the same as the committed one, or the difference. A new file means a new price list: copy it into `rates/data` (with an end date on the previous one if they overlap).

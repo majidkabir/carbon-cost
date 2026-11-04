@@ -32,6 +32,8 @@ def get(url, accept=None):
     h = dict(UA)
     if accept:
         h["Accept"] = accept
+    if "nvdbapiles" in url:
+        h["X-Client"] = "carbon-cost tables fetch"  # the NVDB API asks clients to name themselves
     last = None
     for i in range(3):
         try:

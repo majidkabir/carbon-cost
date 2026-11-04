@@ -7,6 +7,10 @@
   {"id": "hu-25-2013", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W", "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet, consolidated text in force (infrastructure charge § 1, annexes 1-2)"},
   {"id": "hu-22-2023", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X", "what": "22/2023. (XII. 5.) ÉKM rendelet, which inserted annex 2 (external-cost charge, eurocent/km) into 25/2013 NFM; unchanged since (footnote 30 of the consolidated text)"},
   {"id": "hu-34-2025", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X", "what": "34/2025. (XI. 30.) ÉKM rendelet, whose § 2 set annex 1 (the tolled sections) of 25/2013 NFM (footnote 29)"},
-  {"id": "fr-frejus-tunnel", "table": "frejus", "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_FR.pdf", "what": "SFTRF: Fréjus road tunnel prices on the French platform (EUR including 20% VAT)"}
+  {"id": "fr-frejus-tunnel", "table": "frejus", "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_FR.pdf", "what": "SFTRF: Fréjus road tunnel prices on the French platform (EUR including 20% VAT)"},
+  {"id": "fr-mont-blanc-tunnel", "table": "mont-blanc", "url": "https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/", "what": "ATMB: Mont Blanc tunnel prices for heavy vehicles"},
+  {"id": "fr-a40-atmb", "table": "fr", "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/", "what": "ATMB: A40 (Autoroute Blanche) prices for heavy vehicles"},
+  {"id": "fr-atlandes", "table": "fr", "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg", "what": "Atlandes: A63 price grid 2026 (image)"},
+  {"id": "fr-albea", "table": "fr", "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg", "what": "ALBEA: A150 prices 2026 (image)"}
  ]
 }

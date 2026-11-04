@@ -17,7 +17,7 @@ VAT = 1.20
 
 def main(pairs_path, stations_path, manifest_path, out):
     stations = json.load(open(stations_path, encoding="utf-8"))
-    prices, docs, conflicts, skipped = {}, {}, 0, 0
+    prices, docs, conflicts, skipped, by_euro = {}, {}, 0, 0, False
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
         docs.setdefault(r["url"], r)
         if r.get("url4"):
@@ -27,6 +27,9 @@ def main(pairs_path, stations_path, manifest_path, out):
             continue
         k = r["entry"] + "|" + r["exit"]
         p = {"3": round(float(r["class3"]) / VAT, 4), "4": round(float(r["class4"]) / VAT, 4)}
+        if r.get("by_euro"):
+            p.update({g: round(v / VAT, 4) for g, v in json.loads(r["by_euro"]).items()})
+            by_euro = True
         if k in prices:
             conflicts += prices[k] != p
             continue
@@ -39,7 +42,12 @@ def main(pairs_path, stations_path, manifest_path, out):
         "name": "French motorways (" + ", ".join(ops) + ")",
         "law": "Operators' published tariffs (TTC, here excluding 20% VAT) under their concession contracts and the arrêtés of 28 January 2026; vehicle classes 3 (two axles) and 4 (three or more axles), over 3.5 t",
         "chain": True,
-        "groups": [{"name": "3", "min_kg": 3501, "max_axles": 2}, {"name": "4", "min_kg": 3501, "min_axles": 3}],
+        # Operators pricing by EURO class have their own groups; for the
+        # others' pairs these fall back on classes 3 and 4.
+        "groups": ([{"name": f"{ax} EURO {e}", "min_kg": 3501, **lim, "euro": [e], "base": base}
+                    for ax, lim, base in (("2 axles", {"max_axles": 2}, "3"), ("3 axles", {"min_axles": 3, "max_axles": 3}, "4"), ("4+ axles", {"min_axles": 4}, "4"))
+                    for e in range(7)] if by_euro else [])
+                  + [{"name": "3", "min_kg": 3501, "max_axles": 2}, {"name": "4", "min_kg": 3501, "min_axles": 3}],
         "stations": st,
         "prices": prices,
     }
@@ -50,7 +58,7 @@ def main(pairs_path, stations_path, manifest_path, out):
         "sources": [{"title": f"{d['operator']} tariffs from {d['valid_from']} (sha256 {d['sha256'][:12]})", "url": u} for u, d in docs.items()]
                    + [{"title": "Ministère de la Transition écologique: Gares de péage du réseau routier national concédé", "url": "https://www.data.gouv.fr/datasets/gares-de-peage-du-reseau-routier-national-concede"}],
         "vehicles": "Vehicles over 3.5 t (classes 3 and 4)", "min_kg": 3501,
-        "tolled_roads": "The conceded motorways of " + ", ".join(ops) + ". Not included yet: Arcos (A355) and the smaller concessions (ATMB, SFTRF, ALiS, Albea, Alicorne, Atlandes, CCI Seine-Estuaire).",
+        "tolled_roads": "The conceded motorways of " + ", ".join(ops) + ". Not included yet: Arcos (A355) and the smaller concessions (SFTRF's A43, ALiS, Alicorne, CCI Seine-Estuaire).",
         "closed_systems": [system],
     }
     json.dump(t, open(out, "w"), ensure_ascii=False, separators=(",", ":"))

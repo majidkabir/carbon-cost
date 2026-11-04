@@ -169,6 +169,12 @@ type Group struct {
 	MaxAxles   int     `json:"max_axles,omitempty"`
 	MinLengthM float64 `json:"min_length_m,omitempty"` // more than this
 	MaxLengthM float64 `json:"max_length_m,omitempty"` // up to this
+	// Euro: the EURO classes the group is for (any if empty).
+	Euro []int `json:"euro,omitempty"`
+	// Base: the group whose price a pair has when it has none for this
+	// one (an operator that prices by EURO class in a system where the
+	// others don't).
+	Base string `json:"base,omitempty"`
 }
 
 // Station is a toll station: where a route passes one of its points (the
@@ -183,7 +189,7 @@ func (s TollSystem) GroupOf(t Truck) string {
 	for _, g := range s.Groups {
 		l := t.Length()
 		if t.MaxMassKg >= g.MinKg && t.Axles >= g.MinAxles && (g.MaxAxles == 0 || t.Axles <= g.MaxAxles) &&
-			l > g.MinLengthM && (g.MaxLengthM == 0 || l <= g.MaxLengthM) {
+			l > g.MinLengthM && (g.MaxLengthM == 0 || l <= g.MaxLengthM) && (len(g.Euro) == 0 || slices.Contains(g.Euro, t.Euro)) {
 			return g.Name
 		}
 	}
@@ -197,10 +203,18 @@ func (s TollSystem) Price(entry, exit, group string, etc bool) (float64, bool) {
 	if etc && s.ETCPrices != nil {
 		tables = []map[string]map[string]float64{s.ETCPrices, s.Prices}
 	}
+	groups := []string{group}
+	for _, g := range s.Groups {
+		if g.Name == group && g.Base != "" {
+			groups = append(groups, g.Base)
+		}
+	}
 	for _, tb := range tables {
 		for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
-			if p, ok := tb[k][group]; ok {
-				return p, true
+			for _, gr := range groups {
+				if p, ok := tb[k][gr]; ok {
+					return p, true
+				}
 			}
 		}
 	}

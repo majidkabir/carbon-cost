@@ -930,16 +930,21 @@ func TestChainBoothBeside(t *testing.T) {
 	}
 }
 
-func TestFrejus(t *testing.T) {
+func TestAlpineTunnels(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
-	path := [][2]float64{{6.60, 45.20}, {6.67415, 45.19439}, {6.70, 45.15}}
+	frejus := [][2]float64{{6.60, 45.20}, {6.67415, 45.19439}, {6.70, 45.15}}
+	montBlanc := [][2]float64{{6.85, 45.92}, {6.86072, 45.90100}, {6.90, 45.85}}
 	for _, tc := range []struct {
+		path  [][2]float64
+		name  string
 		truck rates.Truck
 		want  float64
 	}{
-		{truck40, 337.33},
-		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 167.92},
+		{frejus, "Fréjus", truck40, 337.33},
+		{frejus, "Fréjus", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 167.92},
+		{montBlanc, "Mont Blanc", truck40, 337.33},
 	} {
+		path := tc.path
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 12, CountryKm: map[string]float64{"FR": 12}, Path: path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
 		if err != nil {
@@ -947,12 +952,42 @@ func TestFrejus(t *testing.T) {
 		}
 		got := 0.0
 		for _, l := range r.Lines {
-			if strings.Contains(l.Section, "Fréjus") {
+			if strings.Contains(l.Section, tc.name) {
 				got += l.Amount
 			}
 		}
 		if math.Abs(got-tc.want) > 0.011 {
-			t.Errorf("%+v: Fréjus %.2f, want %.2f: %v", tc.truck, got, tc.want, r.Lines)
+			t.Errorf("%s %+v: %.2f, want %.2f: %v", tc.name, tc.truck, got, tc.want, r.Lines)
+		}
+	}
+}
+
+// Atlandes prices its two A63 barriers by EURO class; the pairs of the
+// other French operators fall back on classes 3 and 4.
+func TestAtlandesEuro(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	path := [][2]float64{{-0.86, 44.40}, {-0.8603, 44.3470}, {-1.1803, 43.8351}, {-1.19, 43.80}}
+	for _, tc := range []struct {
+		truck rates.Truck
+		want  float64
+	}{
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}, 2 * 21.50 / 1.2},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 3, CO2Class: 1}, 2 * 23.40 / 1.2},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 4, CO2Class: 1}, 2 * 17.80 / 1.2},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"FR": 70}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Atlandes") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%+v: %.2f, want %.2f: %v", tc.truck, got, tc.want, r.Lines)
 		}
 	}
 }

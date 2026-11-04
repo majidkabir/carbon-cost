@@ -850,6 +850,7 @@ const StationMatchKm = 0.5
 type systemUse struct {
 	entry, exit string
 	km          float64
+	from        float64 // km along the route where it starts (chained systems)
 }
 
 // usesSystem finds where a route enters and leaves a closed toll system:
@@ -1044,8 +1045,27 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 			continue
 		}
 		j := b.exit
-		out = append(out, systemUse{entry: passes[i].name, exit: passes[j].name, km: passes[j].pos - passes[i].pos})
+		out = append(out, systemUse{entry: passes[i].name, exit: passes[j].name, km: passes[j].pos - passes[i].pos, from: passes[i].pos})
 		i, skip = cont(i, j), j
 	}
+	// A barrier across an open section is priced on its own (its pair
+	// with itself): passing it pays, unless a ticket's trip covers it.
+	var spans [][2]float64
+	for _, u := range out {
+		spans = append(spans, [2]float64{u.from, u.from + u.km})
+	}
+	for _, p := range passes {
+		if _, ok := sys.Price(p.name, p.name, g, etc); !ok {
+			continue
+		}
+		inside := false
+		for _, sp := range spans {
+			inside = inside || (p.pos > sp[0]+sameKm && p.pos < sp[1]-sameKm)
+		}
+		if !inside {
+			out = append(out, systemUse{entry: p.name, exit: p.name, from: p.pos})
+		}
+	}
+	sort.SliceStable(out, func(a, b int) bool { return out[a].from < out[b].from })
 	return out
 }

@@ -919,4 +919,13 @@ func TestChainBoothBeside(t *testing.T) {
 	if len(got) != 1 || got[0].entry != "X" {
 		t.Errorf("got %+v, want X-N", got)
 	}
+	// A barrier priced on its own (Z|Z) pays when passed outside a
+	// ticket, not inside one.
+	sys.Stations = append(sys.Stations, rates.Station{Name: "Z", Points: at(1.0)}, rates.Station{Name: "W", Points: at(2.08)})
+	sys.Prices["Z|Z"] = map[string]float64{"4": 12.4}
+	sys.Prices["W|W"] = map[string]float64{"4": 5}
+	got = chainUses(sys, route, truck40, false)
+	if len(got) != 2 || got[0].entry != "X" || got[1].entry != "W" || got[1].exit != "W" {
+		t.Errorf("got %+v, want X-N and W-W", got)
+	}
 }

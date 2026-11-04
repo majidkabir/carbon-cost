@@ -24,6 +24,17 @@
   {"id": "no-nvdb-45", "table": "no", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000", "what": "Norway: NVDB (Statens vegvesen), road object type 45 Bomstasjon (toll stations) with their rates, API v4"},
   {"id": "ie-tii-2026", "table": "ie", "url": "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026", "what": "Ireland: TII, toll charges from 1 January 2026 (M50, Dublin Port Tunnel and the eight PPP toll roads)"},
   {"id": "ie-tii-locations", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/", "what": "Ireland: TII, toll locations and charges"},
-  {"id": "ie-tii-notices", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/statutory-notices/", "what": "Ireland: TII, statutory notices (toll bye-laws and charges)"}
+  {"id": "ie-tii-notices", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/statutory-notices/", "what": "Ireland: TII, statutory notices (toll bye-laws and charges)"},
+  {"id": "ie-m1", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-m3", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-m3-blackbull", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-m4", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-n6", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-m7m8", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7m8-portlaoise-castletownportlaoise-cullahill/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-n8", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-limerick", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-n25", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-port-tunnel", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/dublin-port-tunnel/", "what": "Ireland: TII toll location and charges page"},
+  {"id": "ie-m50", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/", "what": "Ireland: TII toll location and charges page"}
  ]
 }

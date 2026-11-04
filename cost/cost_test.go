@@ -1027,7 +1027,8 @@ func TestLatviaPerDay(t *testing.T) {
 	}
 }
 
-// Estonia counts the combination's axles; Lithuania the motor vehicle's.
+// Estonia and Sweden count the combination's axles; Lithuania the motor
+// vehicle's.
 func TestEstoniaLithuaniaPerDay(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	for _, tc := range []struct {
@@ -1043,9 +1044,13 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 		{"LT", rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, 13},
 		{"LT", rates.Truck{MaxMassKg: 32000, Axles: 4, MotorAxles: 4, Euro: 5, CO2Class: 1}, 25},
 		{"LT", rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 0, CO2Class: 1}, 29},
+		{"SE", truck40, 147},
+		{"SE", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 45},
+		{"SE", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 5, CO2Class: 1}, 90},
+		{"SE", rates.Truck{MaxMassKg: 11990, Axles: 2, Euro: 5, CO2Class: 1}, 0},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{tc.cc: 150}}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"SEK": 11}}, date)
 		if err != nil {
 			t.Fatal(err)
 		}

@@ -90,6 +90,10 @@ func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
 			t.Motorway += k.Motorway
 			t.National += k.National
 			t.Local += k.Local
+			t.MotorwayKnown += k.MotorwayKnown
+			t.NationalKnown += k.NationalKnown
+			t.MotorwaySub += k.MotorwaySub
+			t.NationalSub += k.NationalSub
 			out[r.Country] = t
 		}
 	}

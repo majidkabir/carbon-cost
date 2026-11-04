@@ -30,14 +30,14 @@ def eur(s):
 
 
 def parse(page):
-    entry = re.search(r"(?:Entry|Ulaz):\s*([^<]+)<", page)
+    entry = re.search(r">\s*(?:Entry|Ulaz):\s*([^<]+)<", page)
     rows = []
     for tr in re.findall(r"<tr[^>]*>(.*?)</tr>", page, re.S):
         cells = [html.unescape(re.sub(r"<[^>]+>", " ", c)).strip() for c in re.findall(r"<t[dh][^>]*>(.*?)</t[dh]>", tr, re.S)]
         cells = [re.sub(r"\s+", " ", c) for c in cells]
         if len(cells) >= 6 and "€" in cells[-1]:
             rows.append([cells[0]] + [eur(c) for c in cells[-5:]])
-    links = sorted(set(html.unescape(u) for u in re.findall(r'href="([^"]*\?entry=[^"]+)"', page)))
+    links = sorted(set(urllib.parse.unquote(html.unescape(u)).replace("+", " ") for u in re.findall(r'entry(?:=|&#x3D;|&#61;)([^"\'&<>\s]+)', page)))
     return (html.unescape(entry.group(1)).strip() if entry else None), rows, links
 
 
@@ -47,13 +47,11 @@ def main(booths_path, out):
         first = get(BASE + p)
         entry0, rows0, links = parse(first)
         entries = {entry0: rows0}
-        for l in links:
-            name = urllib.parse.unquote(l.split("entry=", 1)[1]).replace("+", " ")
+        for name in links:
             if name in entries:
                 continue
-            url = l if l.startswith("http") else urllib.parse.urljoin(BASE + p, l)
-            e, rows, _ = parse(get(url))
-            entries[e or name] = rows
+            e, rows, _ = parse(get(BASE + p + "?entry=" + urllib.parse.quote(name)))
+            entries[name] = rows
             time.sleep(0.3)
         data[p] = entries
         print(p, len(entries), "entries", sum(len(v) for v in entries.values()), "prices")

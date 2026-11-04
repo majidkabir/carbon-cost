@@ -49,9 +49,19 @@ type Row struct {
 	CO2Class  []int  `json:"co2_class,omitempty"`
 	// Road is set where the rate depends on the road type (Motorway or
 	// OtherRoad): the row applies only to km on that type.
-	Road string  `json:"road,omitempty"`
+	Road string `json:"road,omitempty"`
+	// Area is set where the rate depends on whether the road is
+	// suburban or interurban (Suburban or Interurban): the row applies to
+	// that share of the km (Table.SuburbanShare).
+	Area string  `json:"area,omitempty"`
 	Rate float64 `json:"rate"` // currency per km, or per tonne-km in a PerTonneKm table
 }
+
+// Areas for rates that differ by suburban or interurban road.
+const (
+	Suburban   = "suburban"
+	Interurban = "interurban"
+)
 
 // Road types for rates that differ by road.
 const (
@@ -88,6 +98,9 @@ type Table struct {
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
 	MotorwayShare    float64     `json:"motorway_share,omitempty"`
+	// SuburbanShare is the share of km on suburban roads, by road type
+	// ("" for any), for rows with an Area, where the route doesn't tell.
+	SuburbanShare map[string]float64 `json:"suburban_share,omitempty"`
 	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
 	Exemptions       []Exemption `json:"exemptions,omitempty"`
 	Rows             []Row       `json:"rows"`
@@ -280,6 +293,7 @@ type Rate struct {
 	PerKm      float64
 	PerTonneKm float64
 	Tonnes     float64
+	Area       string // Suburban or Interurban, for a share of the km
 }
 
 // Rates are the truck's rates for each component, in the table's row
@@ -315,20 +329,20 @@ func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exempt
 	}
 	seen := map[string]bool{}
 	for _, r := range tb.Rows {
-		if r.Component == EnvZoneSurcharge || seen[r.Component] || !r.matches(t) || (r.Road != "" && r.Road != road) {
+		if r.Component == EnvZoneSurcharge || seen[r.Component+"/"+r.Area] || !r.matches(t) || (r.Road != "" && r.Road != road) {
 			continue
 		}
-		seen[r.Component] = true
+		seen[r.Component+"/"+r.Area] = true
 		if tb.PerTonneKm {
 			kg := t.MaxMassKg
 			if tb.MaxChargeableKg > 0 {
 				kg = min(kg, tb.MaxChargeableKg)
 			}
 			tonnes := float64(kg) / 1000
-			rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate * tonnes, PerTonneKm: r.Rate, Tonnes: tonnes})
+			rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate * tonnes, PerTonneKm: r.Rate, Tonnes: tonnes, Area: r.Area})
 			continue
 		}
-		rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate})
+		rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate, Area: r.Area})
 	}
 	return rs, "", true
 }
@@ -407,6 +421,16 @@ func (tb Table) check() error {
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")
+	}
+	for k, v := range tb.SuburbanShare {
+		if v < 0 || v > 1 {
+			return fmt.Errorf("suburban_share[%s] must be 0-1", k)
+		}
+	}
+	for _, r := range tb.Rows {
+		if r.Area != "" && r.Area != Suburban && r.Area != Interurban {
+			return fmt.Errorf("bad area %q", r.Area)
+		}
 	}
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {

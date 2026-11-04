@@ -4,6 +4,7 @@ import (
 	"math"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -74,4 +75,23 @@ func nearestIndex(path [][2]float64, p ferries.Point) int {
 
 func round5(p [2]float64) [2]float64 {
 	return [2]float64{math.Round(p[0]*1e5) / 1e5, math.Round(p[1]*1e5) / 1e5}
+}
+
+// RoadKm sums each country's road runs by road class, for the countries
+// rx has ways for.
+func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
+	out := map[string]roads.Km{}
+	for _, r := range runs {
+		if r.Kind != "road" || !rx.Has(r.Country) {
+			continue
+		}
+		if k, ok := rx.Classify(r.Country, r.Points); ok {
+			t := out[r.Country]
+			t.Motorway += k.Motorway
+			t.National += k.National
+			t.Local += k.Local
+			out[r.Country] = t
+		}
+	}
+	return out
 }

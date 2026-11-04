@@ -28,6 +28,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
@@ -93,7 +94,11 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 		return cost.Calculator{}, err
 	}
 	fxCache := &fx.Cache{URL: os.Getenv("FX_URL")}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, FX: fxCache.Get}, nil
+	rx, err := roads.Default()
+	if err != nil {
+		return cost.Calculator{}, err
+	}
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get}, nil
 }
 
 func calc(args []string) error {
@@ -236,8 +241,9 @@ func printResult(r cost.Response) {
 		if l.Carbon && part == "" {
 			part = "co2"
 		}
-		if l.Road != "" {
-			part += " (" + l.Road + ")"
+		if l.Road != "" || l.Area != "" {
+			part += " (" + strings.TrimPrefix(l.Road+", "+l.Area, ", ")
+			part = strings.TrimSuffix(part, ", ") + ")"
 		}
 		if l.Section != "" {
 			part += ": " + l.Section

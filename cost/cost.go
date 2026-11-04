@@ -569,7 +569,11 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if err != nil {
 			return Response{}, err
 		}
-		if used {
+		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, &out, add)
+		if err != nil {
+			return Response{}, err
+		}
+		if used || usedPoints {
 			addSources(tb.Sources)
 		}
 	}

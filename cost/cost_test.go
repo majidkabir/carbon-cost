@@ -1139,3 +1139,27 @@ func TestIrelandPlazas(t *testing.T) {
 		}
 	}
 }
+
+// Sweden's bridge charges: per passage at the charging station, any
+// direction, on top of the daily vägavgift.
+func TestSwedishBridges(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	sundsvall := [][2]float64{{17.3480, 62.3800}, {17.3560, 62.3840}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"SE": 1}, Path: sundsvall}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"SEK": 11}}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var bridge, day float64
+	for _, l := range r.Lines {
+		switch {
+		case l.Section == "Sundsvallsbron":
+			bridge += l.Amount
+		case l.Country == "SE":
+			day += l.Amount
+		}
+	}
+	if bridge != 20 || day != 147 {
+		t.Errorf("bridge %.2f, day %.2f, want 20 and 147: %v", bridge, day, r.Lines)
+	}
+}

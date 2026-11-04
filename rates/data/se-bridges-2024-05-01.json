@@ -1,0 +1,51 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "valid_from": "2024-05-01",
+ "name": "Swedish bridge infrastructure charges (broavgift)",
+ "law": "Lag (2024:172) om infrastrukturavgifter på väg; Förordning (2014:1564) 4 §: a charge per passage of the bridges over Motalaviken, Sundsvallsfjärden and Skurusundet, at the amounts Transportstyrelsen publishes (heavy trucks over 3.5 t where they differ). Charged at each bridge's charging station (OpenStreetMap toll gantries), either direction. Swedish and foreign vehicles alike.",
+ "sources": [
+  {
+   "title": "Transportstyrelsen: Broavgift på Motalabron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/"
+  },
+  {
+   "title": "Transportstyrelsen: Broavgift på Sundsvallsbron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-sundsvall/"
+  },
+  {
+   "title": "Transportstyrelsen: Broavgift på Skurubron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-skurubron/"
+  },
+  {
+   "title": "Förordning (2014:1564), consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "Motalabron (road 50), Sundsvallsbron (E4) and Skurubron (road 222).",
+ "crossings": true,
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Motalabron",
+   "lat": 58.539313,
+   "lon": 15.017296,
+   "rate": 11
+  },
+  {
+   "name": "Sundsvallsbron",
+   "lat": 62.381901,
+   "lon": 17.352235,
+   "rate": 20
+  },
+  {
+   "name": "Skurubron",
+   "lat": 59.31378,
+   "lon": 18.225953,
+   "rate": 4
+  }
+ ],
+ "rows": []
+}

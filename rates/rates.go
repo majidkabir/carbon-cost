@@ -617,8 +617,8 @@ func (tb Table) check() error {
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")
 	}
-	if tb.Crossings && (len(tb.Rows) > 0 || len(tb.Closed) == 0) {
-		return fmt.Errorf("a crossings table has closed systems and no rows")
+	if tb.Crossings && (len(tb.Rows) > 0 || (len(tb.Closed) == 0 && len(tb.TollPoints) == 0)) {
+		return fmt.Errorf("a crossings table has closed systems or toll points, and no rows")
 	}
 	for k, v := range tb.SuburbanShare {
 		if v < 0 || v > 1 {

@@ -14,7 +14,8 @@ where unknown. Lines are simplified to SIMPLIFY_M and stored as
 
 For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up
-area of a municipality (municipiu) aren't tolled (Legea 226/2023, SETRE
+area of a municipality (municipiu: in OpenStreetMap an administrative
+boundary named "Municipiul ..." or tagged place=city) aren't tolled (Legea 226/2023, SETRE
 România), so those stretches are left out of "nat". The built-up area
 is the municipality's residential, commercial, industrial and retail
 land, 50 m around.
@@ -161,7 +162,7 @@ def main(cc, src, dst, areas=None):
         u = Urban()
         u.apply_file(areas, locations=True)
         urban = u.built_up()
-        print(cc, "municipalities:", len(u.towns), "built-up polygons:", len(u.land))
+        print(cc, "municipalities (place=city):", len(u.towns), "built-up polygons:", len(u.land))
         for k, n in u.seen.most_common(40):
             print("  boundary", k, n)
     sections = {}

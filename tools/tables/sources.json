@@ -23,6 +23,7 @@
   {"id": "gb-levy-guide", "table": "gb", "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service", "what": "UK: GOV.UK, how to use the HGV levy service (rates from 1 April 2026)"},
   {"id": "no-nvdb-45", "table": "no", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000", "what": "Norway: NVDB (Statens vegvesen), road object type 45 Bomstasjon (toll stations) with their rates, API v4"},
   {"id": "ie-tii-2026", "table": "ie", "url": "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026", "what": "Ireland: TII, toll charges from 1 January 2026 (M50, Dublin Port Tunnel and the eight PPP toll roads)"},
-  {"id": "ie-tii-tolls", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/", "what": "Ireland: TII, tolling information (the toll roads and their charges)"}
+  {"id": "ie-tii-locations", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/", "what": "Ireland: TII, toll locations and charges"},
+  {"id": "ie-tii-notices", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/statutory-notices/", "what": "Ireland: TII, statutory notices (toll bye-laws and charges)"}
  ]
 }

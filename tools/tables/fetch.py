@@ -18,6 +18,10 @@ Riigi Teataja (riigiteataja.ee) pages are built by script from its public
 API: /public-api/api/v1/akt/<id>?leiaKehtiv=true names the version in
 force (kehtivId, saved as <id>.json), whose text is
 /public-api/api/v1/akt/<kehtivId>/blob-html (saved as <id>-text.html).
+
+The NVDB API (nvdbapiles.atlas.vegvesen.no) pages its results: each JSON
+names the next page in metadata.neste.href; those pages are fetched too,
+as <id>-<n>.json, until a page returns no objects.
 """
 import hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
 
@@ -92,18 +96,32 @@ def riigiteataja(out, manifest, sid, body):
     save(out, manifest, f"{sid}-text.html", url, status, text)
 
 
+def nvdb(out, manifest, sid, body):
+    n = 1
+    while n < 200:
+        d = json.loads(body)
+        nxt = (d.get("metadata") or {}).get("neste", {}).get("href")
+        if not d.get("objekter") or not nxt:
+            return
+        n += 1
+        status, body = get(nxt, "application/json")
+        save(out, manifest, f"{sid}-{n}.json", nxt, status, body)
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
-            status, body = get(s["url"])
+            status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"]:
+            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"]:
                 ext = ".json"
             save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:
                 riigiteataja(out, manifest, s["id"], body)
+            if "nvdbapiles" in s["url"] and status == 200:
+                nvdb(out, manifest, s["id"], body)
             if s["id"] == "ro-tollro":
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:

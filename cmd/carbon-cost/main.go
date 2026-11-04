@@ -218,6 +218,9 @@ func printResult(r cost.Response) {
 		if l.Carbon && part == "" {
 			part = "co2"
 		}
+		if l.Road != "" {
+			part += " (" + l.Road + ")"
+		}
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}
 	w.Flush()

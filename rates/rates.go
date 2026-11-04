@@ -40,15 +40,24 @@ type Source struct {
 // Row is one component rate for the trucks it matches. Zero or empty
 // conditions match any truck; MaxKg and MaxAxles 0 mean no upper limit.
 type Row struct {
-	Component string  `json:"component"`
-	MinKg     int     `json:"min_kg,omitempty"`
-	MaxKg     int     `json:"max_kg,omitempty"`
-	MinAxles  int     `json:"min_axles,omitempty"`
-	MaxAxles  int     `json:"max_axles,omitempty"`
-	Euro      []int   `json:"euro,omitempty"`
-	CO2Class  []int   `json:"co2_class,omitempty"`
-	Rate      float64 `json:"rate"` // currency per km
+	Component string `json:"component"`
+	MinKg     int    `json:"min_kg,omitempty"`
+	MaxKg     int    `json:"max_kg,omitempty"`
+	MinAxles  int    `json:"min_axles,omitempty"`
+	MaxAxles  int    `json:"max_axles,omitempty"`
+	Euro      []int  `json:"euro,omitempty"`
+	CO2Class  []int  `json:"co2_class,omitempty"`
+	// Road is set where the rate depends on the road type (Motorway or
+	// OtherRoad): the row applies only to km on that type.
+	Road string  `json:"road,omitempty"`
+	Rate float64 `json:"rate"` // currency per km
 }
+
+// Road types for rates that differ by road.
+const (
+	Motorway  = "motorway"
+	OtherRoad = "other"
+)
 
 // Exemption makes trucks of the given CO2 classes toll-free until a date.
 type Exemption struct {
@@ -121,8 +130,26 @@ type Rate struct {
 // Rates are the truck's rates for each component, in the table's row
 // order, without the environmental zone surcharge. ok is false if the
 // truck is lighter than the table's MinKg. An exemption on the date gives
-// no rates and its note.
+// no rates and its note. For a table whose rates differ by road type,
+// use RatesOn.
 func (tb Table) Rates(t Truck, date time.Time) (rs []Rate, exemptNote string, ok bool) {
+	return tb.RatesOn(t, date, "")
+}
+
+// Roads lists the road types the table's rates differ by, if any.
+func (tb Table) Roads() []string {
+	var out []string
+	for _, r := range tb.Rows {
+		if r.Road != "" && !slices.Contains(out, r.Road) {
+			out = append(out, r.Road)
+		}
+	}
+	return out
+}
+
+// RatesOn is Rates for km on one road type: rows for that road and rows
+// for any road.
+func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exemptNote string, ok bool) {
 	if t.MaxMassKg < tb.MinKg {
 		return nil, "", false
 	}
@@ -133,7 +160,7 @@ func (tb Table) Rates(t Truck, date time.Time) (rs []Rate, exemptNote string, ok
 	}
 	seen := map[string]bool{}
 	for _, r := range tb.Rows {
-		if r.Component == EnvZoneSurcharge || seen[r.Component] || !r.matches(t) {
+		if r.Component == EnvZoneSurcharge || seen[r.Component] || !r.matches(t) || (r.Road != "" && r.Road != road) {
 			continue
 		}
 		seen[r.Component] = true

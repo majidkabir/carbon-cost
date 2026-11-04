@@ -1,0 +1,235 @@
+{
+ "country": "BE",
+ "currency": "EUR",
+ "valid_from": "2026-07-01",
+ "valid_to": "2026-12-31",
+ "sources": [
+  {
+   "title": "Viapass: kilometer charge rates from 1 July 2026 (rate grid, ed. 01/07/2026)",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html"
+  },
+  {
+   "title": "Viapass: CO2 surcharge in Flanders from 1 July 2026",
+   "url": "https://www.viapass.be/en/news/surcharge-co2-emissions-flanders.html"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)",
+ "min_kg": 3501,
+ "region": "BE-WAL",
+ "name": "Belgian kilometre charge, Walloon Region (SOFICO)",
+ "law": "Viapass rate grid ed. 01/07/2026, Wallonia, excluding VAT. No CO2 element; zero-emission trucks pay the Euro VI rate.",
+ "tolled_roads": "The Walloon toll road network (SOFICO motorways and listed regional roads).",
+ "rows": [
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.123,
+   "max_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.234,
+   "max_kg": 32000,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.267,
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.092,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.203,
+   "max_kg": 32000,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.236,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.077,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.188,
+   "max_kg": 32000,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.221,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.061,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.172,
+   "max_kg": 32000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.205,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.061,
+   "max_kg": 12000
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.172,
+   "max_kg": 32000
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.205
+  }
+ ]
+}

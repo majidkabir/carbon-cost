@@ -1,0 +1,413 @@
+{
+ "country": "BE",
+ "currency": "EUR",
+ "valid_from": "2026-07-01",
+ "valid_to": "2026-12-31",
+ "sources": [
+  {
+   "title": "Viapass: kilometer charge rates from 1 July 2026 (rate grid, ed. 01/07/2026)",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html"
+  },
+  {
+   "title": "Viapass: CO2 surcharge in Flanders from 1 July 2026",
+   "url": "https://www.viapass.be/en/news/surcharge-co2-emissions-flanders.html"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)",
+ "min_kg": 3501,
+ "region": "BE-VLG",
+ "name": "Belgian kilometre charge, Flemish Region",
+ "law": "Viapass rate grid ed. 01/07/2026, Flanders (with the CO2 class element from 1 July 2026). The published rates are totals: the CO2 part is not shown separately.",
+ "tolled_roads": "The Flemish toll road network (motorways and listed regional and local roads).",
+ "rows": [
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.205,
+   "max_kg": 12000,
+   "euro": [
+    0
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.342,
+   "max_kg": 32000,
+   "euro": [
+    0
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.395,
+   "euro": [
+    0
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.199,
+   "max_kg": 12000,
+   "euro": [
+    1,
+    2
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.333,
+   "max_kg": 32000,
+   "euro": [
+    1,
+    2
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.384,
+   "euro": [
+    1,
+    2
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.172,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.306,
+   "max_kg": 32000,
+   "euro": [
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.358,
+   "euro": [
+    3
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.13,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.262,
+   "max_kg": 32000,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.314,
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.114,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.246,
+   "max_kg": 32000,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "rate": 0.299,
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    1
+   ],
+   "rate": 0.101,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    1
+   ],
+   "rate": 0.233,
+   "max_kg": 32000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    1
+   ],
+   "rate": 0.285,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.099,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.23,
+   "max_kg": 32000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.281,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.097,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.226,
+   "max_kg": 32000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.277,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.082,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.203,
+   "max_kg": 32000,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.245,
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 3501,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.009,
+   "max_kg": 12000
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 12001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.031,
+   "max_kg": 32000
+  },
+  {
+   "component": "km_charge",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.038
+  }
+ ]
+}

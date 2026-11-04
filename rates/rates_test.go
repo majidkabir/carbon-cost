@@ -215,3 +215,52 @@ func TestFindRegion(t *testing.T) {
 		t.Error("region outside its country: want an error")
 	}
 }
+
+// Belgian rates from the Viapass grid (ed. 01/07/2026), spot-checked.
+func TestBelgium(t *testing.T) {
+	tbs := tables(t)
+	d := on("2026-11-04")
+	rate := func(area string, tr Truck, road string) float64 {
+		t.Helper()
+		tb, ok := Find(tbs, area, d)
+		if !ok {
+			t.Fatalf("no %s table", area)
+		}
+		rs, _, ok := tb.RatesOn(tr, d, road)
+		if !ok || len(rs) != 1 {
+			t.Fatalf("%s %+v %s: %v", area, tr, road, rs)
+		}
+		return rs[0].PerKm
+	}
+	e6 := Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}
+	zev := Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}
+	for _, tc := range []struct {
+		area string
+		tr   Truck
+		road string
+		want float64
+	}{
+		{"BE-VLG", e6, "", 0.285},
+		{"BE-VLG", Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 4}, "", 0.203},
+		{"BE-VLG", zev, "", 0.038},
+		{"BE-VLG", Truck{MaxMassKg: 12000, Axles: 2, Euro: 0, CO2Class: 1}, "", 0.205}, // 12 t is in the 3.5-12 t band
+		{"BE-WAL", e6, "", 0.205},
+		{"BE-WAL", zev, "", 0.205}, // ZEV pays the Euro VI rate in Wallonia
+		{"BE-WAL", Truck{MaxMassKg: 20000, Axles: 3, Euro: 4, CO2Class: 1}, "", 0.203},
+		{"BE-BRU", e6, Motorway, 0.171},
+		{"BE-BRU", e6, OtherRoad, 0.271},
+		{"BE-BRU", zev, OtherRoad, 0.051},
+		{"BE-BRU", Truck{MaxMassKg: 40000, Axles: 5, Euro: 3, CO2Class: 1}, Motorway, 0.241},
+		{"BE-WAL", Truck{MaxMassKg: 40000, Axles: 5, Euro: 5, CO2Class: 2}, "", 0.221}, // Euro V in a class above 1 still gets a rate
+	} {
+		if got := rate(tc.area, tc.tr, tc.road); got != tc.want {
+			t.Errorf("%s %+v %s: %v, want %v", tc.area, tc.tr, tc.road, got, tc.want)
+		}
+	}
+	if tb, _ := Find(tbs, "BE-BRU", d); len(tb.Roads()) != 2 {
+		t.Errorf("Brussels roads %v, want motorway and other", tb.Roads())
+	}
+	if !Regional(tbs, "BE") {
+		t.Error("BE must be regional")
+	}
+}

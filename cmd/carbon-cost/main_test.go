@@ -27,7 +27,7 @@ func TestHandler(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	h := Handler(c)
+	h := Handler(c, DefaultTiles)
 	for _, tc := range []struct {
 		method, path, body string
 		status             int
@@ -36,6 +36,8 @@ func TestHandler(t *testing.T) {
 		{"GET", "/healthz", "", 200, "ok"},
 		{"GET", "/", "", 200, "v1/carbon-cost"},
 		{"GET", "/v1/rates", "", 200, `"country": "DK"`},
+		{"GET", "/", "", 200, `const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";`},
+		{"GET", "/leaflet/leaflet.js", "", 200, "Leaflet"},
 		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},
 		{"GET", "/v1/places?q=h", "", 200, `"places": []`},
 		{"GET", "/v1/places?q=other", "", 502, "HTTP 418"},

@@ -20,6 +20,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
 // DefaultVehicleType is Sootcase's GLEC vehicle type used when the request
@@ -133,6 +134,9 @@ type Response struct {
 	Compare []Comparison   `json:"compare,omitempty"`
 	Notes   []string       `json:"notes,omitempty"`
 	Sources []rates.Source `json:"sources"`
+	// Route is the route split by country, for a map (Calculate with
+	// Borders set).
+	Route []Run `json:"route,omitempty"`
 }
 
 // Calculator prices trips.
@@ -140,6 +144,7 @@ type Calculator struct {
 	Sootcase sootcase.Client
 	Tables   []rates.Table
 	Ferries  *ferries.Data    // nil: ferry crossings use Sootcase's default
+	Borders  *borders.Index   // nil: no Route in the response
 	Now      func() time.Time // default time.Now
 }
 
@@ -162,7 +167,16 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err != nil {
 		return Response{}, err
 	}
-	return PriceWith(res, c.Tables, c.Ferries, req, date)
+	out, err := PriceWith(res, c.Tables, c.Ferries, req, date)
+	if err != nil || c.Borders == nil {
+		return out, err
+	}
+	var path [][2]float64
+	for _, l := range res.Legs {
+		path = append(path, l.Path...)
+	}
+	out.Route = Route(c.Borders, path, c.Ferries)
+	return out, nil
 }
 
 func (c Calculator) date(s string) (time.Time, error) {

@@ -911,4 +911,12 @@ func TestChainBoothBeside(t *testing.T) {
 	if len(got) != 2 || got[0].entry != "B" || got[0].exit != "P" || got[1].entry != "P2" || got[1].exit != "N" {
 		t.Errorf("got %+v, want B-P, P2-N", got)
 	}
+	// A barrier across the road (X) and an exit's booth beside it (Y) at
+	// the same place: a trip driving through takes its ticket at X.
+	sys.Stations = []rates.Station{{Name: "Y", Points: []rates.Place{{Name: "p", Lat: 45.002, Lon: 0.4999}}}, {Name: "X", Points: at(0.5)}, {Name: "N", Points: at(2.0)}}
+	sys.Prices = map[string]map[string]float64{"Y|N": {"4": 36}, "X|N": {"4": 42}}
+	got = chainUses(sys, route, truck40, false)
+	if len(got) != 1 || got[0].entry != "X" {
+		t.Errorf("got %+v, want X-N", got)
+	}
 }

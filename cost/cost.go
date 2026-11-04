@@ -947,8 +947,8 @@ const sameKm = 0.3
 
 func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool) []systemUse {
 	type pass struct {
-		name string
-		pos  float64
+		name     string
+		pos, off float64 // km along the route, and from it
 	}
 	var passes []pass
 	for _, st := range sys.Stations {
@@ -959,7 +959,7 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 			}
 		}
 		if best <= StationMatchKm {
-			passes = append(passes, pass{st.Name, bestPos})
+			passes = append(passes, pass{st.Name, bestPos, best})
 		}
 	}
 	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
@@ -983,9 +983,25 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 		return k
 	}
 	type best struct {
-		cover   float64
+		cover   float64 // km
 		tickets int
-		exit    int // the ticket from this pass, -1 for none
+		off     float64 // km the tickets' stations lie off the route
+		exit    int     // the ticket from this pass, -1 for none
+	}
+	// Covers within sameKm count as equal; then fewer tickets, then
+	// stations on the road (a barrier across it rather than an exit's
+	// booth beside it), then more km.
+	better := func(a, b best) bool {
+		if math.Abs(a.cover-b.cover) > sameKm {
+			return a.cover > b.cover
+		}
+		if a.tickets != b.tickets {
+			return a.tickets < b.tickets
+		}
+		if math.Abs(a.off-b.off) > 1e-6 {
+			return a.off < b.off
+		}
+		return a.cover > b.cover+1e-9
 	}
 	type key struct{ k, skip int }
 	memo := map[key]best{}
@@ -1009,9 +1025,8 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 					continue
 				}
 				r := from(cont(k, j), j)
-				c, m := passes[j].pos-passes[k].pos+r.cover, r.tickets+1
-				if c > b.cover+1e-9 || (math.Abs(c-b.cover) <= 1e-9 && m < b.tickets) {
-					b = best{c, m, j}
+				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].off + passes[j].off + r.off, j}); better(c, b) {
+					b = c
 				}
 			}
 		}

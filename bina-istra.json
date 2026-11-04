@@ -1,0 +1,568 @@
+{
+"source": "Bina-Istra toll calculator (https://bina-istra.com/karta/hamburger.html, tablica_euro_2024.php), full prices in EUR including VAT (the column without discount), fetched 2026-11-04",
+"stations": [
+"Tunel Učka",
+"Vranja",
+"Lupoglav",
+"Cerovlje",
+"Ivoli",
+"Rogovići",
+"Žminj",
+"Kanfanar",
+"Vodnjan Sjever",
+"Vodnjan Jug",
+"Pula",
+"Medaki",
+"Baderna",
+"Višnjan",
+"Nova Vas",
+"Buje",
+"Umag"
+],
+"prices": {
+"Tunel Učka|Vranja": {
+"III": 12.1,
+"IV": 24.2
+},
+"Tunel Učka|Lupoglav": {
+"III": 13.7,
+"IV": 26.6
+},
+"Tunel Učka|Cerovlje": {
+"III": 16.7,
+"IV": 31.6
+},
+"Tunel Učka|Ivoli": {
+"III": 18.1,
+"IV": 33.9
+},
+"Tunel Učka|Rogovići": {
+"III": 19.4,
+"IV": 36.7
+},
+"Tunel Učka|Žminj": {
+"III": 22.2,
+"IV": 41.1
+},
+"Tunel Učka|Kanfanar": {
+"III": 23.5,
+"IV": 43.6
+},
+"Tunel Učka|Vodnjan Sjever": {
+"III": 26.8,
+"IV": 48.3
+},
+"Tunel Učka|Vodnjan Jug": {
+"III": 28.2,
+"IV": 51.0
+},
+"Tunel Učka|Pula": {
+"III": 29.5,
+"IV": 53.3
+},
+"Tunel Učka|Medaki": {
+"III": 25.9,
+"IV": 46.7
+},
+"Tunel Učka|Baderna": {
+"III": 27.8,
+"IV": 50.2
+},
+"Tunel Učka|Višnjan": {
+"III": 29.5,
+"IV": 53.3
+},
+"Tunel Učka|Nova Vas": {
+"III": 33.3,
+"IV": 59.4
+},
+"Tunel Učka|Buje": {
+"III": 34.6,
+"IV": 62.1
+},
+"Tunel Učka|Umag": {
+"III": 35.8,
+"IV": 64.2
+},
+"Vranja|Lupoglav": {
+"III": 1.5,
+"IV": 2.4
+},
+"Vranja|Cerovlje": {
+"III": 4.7,
+"IV": 7.5
+},
+"Vranja|Ivoli": {
+"III": 6.0,
+"IV": 10.0
+},
+"Vranja|Rogovići": {
+"III": 7.3,
+"IV": 12.7
+},
+"Vranja|Žminj": {
+"III": 10.6,
+"IV": 17.4
+},
+"Vranja|Kanfanar": {
+"III": 11.8,
+"IV": 20.0
+},
+"Vranja|Vodnjan Sjever": {
+"III": 14.8,
+"IV": 24.7
+},
+"Vranja|Vodnjan Jug": {
+"III": 16.2,
+"IV": 27.1
+},
+"Vranja|Pula": {
+"III": 17.4,
+"IV": 29.3
+},
+"Vranja|Medaki": {
+"III": 13.8,
+"IV": 22.8
+},
+"Vranja|Baderna": {
+"III": 15.8,
+"IV": 26.4
+},
+"Vranja|Višnjan": {
+"III": 17.4,
+"IV": 29.3
+},
+"Vranja|Nova Vas": {
+"III": 21.1,
+"IV": 35.6
+},
+"Vranja|Buje": {
+"III": 22.6,
+"IV": 38.1
+},
+"Vranja|Umag": {
+"III": 23.8,
+"IV": 40.4
+},
+"Lupoglav|Cerovlje": {
+"III": 3.4,
+"IV": 5.3
+},
+"Lupoglav|Ivoli": {
+"III": 4.7,
+"IV": 7.5
+},
+"Lupoglav|Rogovići": {
+"III": 6.0,
+"IV": 10.6
+},
+"Lupoglav|Žminj": {
+"III": 9.2,
+"IV": 15.2
+},
+"Lupoglav|Kanfanar": {
+"III": 10.4,
+"IV": 17.5
+},
+"Lupoglav|Vodnjan Sjever": {
+"III": 13.2,
+"IV": 22.3
+},
+"Lupoglav|Vodnjan Jug": {
+"III": 14.8,
+"IV": 24.8
+},
+"Lupoglav|Pula": {
+"III": 16.0,
+"IV": 27.1
+},
+"Lupoglav|Medaki": {
+"III": 12.3,
+"IV": 20.6
+},
+"Lupoglav|Baderna": {
+"III": 14.4,
+"IV": 23.9
+},
+"Lupoglav|Višnjan": {
+"III": 16.0,
+"IV": 27.1
+},
+"Lupoglav|Nova Vas": {
+"III": 19.7,
+"IV": 33.3
+},
+"Lupoglav|Buje": {
+"III": 21.2,
+"IV": 35.8
+},
+"Lupoglav|Umag": {
+"III": 22.4,
+"IV": 38.2
+},
+"Cerovlje|Ivoli": {
+"III": 1.4,
+"IV": 2.3
+},
+"Cerovlje|Rogovići": {
+"III": 3.0,
+"IV": 5.2
+},
+"Cerovlje|Žminj": {
+"III": 5.9,
+"IV": 9.9
+},
+"Cerovlje|Kanfanar": {
+"III": 7.1,
+"IV": 12.1
+},
+"Cerovlje|Vodnjan Sjever": {
+"III": 10.2,
+"IV": 17.0
+},
+"Cerovlje|Vodnjan Jug": {
+"III": 11.5,
+"IV": 19.4
+},
+"Cerovlje|Pula": {
+"III": 12.7,
+"IV": 21.8
+},
+"Cerovlje|Medaki": {
+"III": 9.2,
+"IV": 15.2
+},
+"Cerovlje|Baderna": {
+"III": 11.1,
+"IV": 18.6
+},
+"Cerovlje|Višnjan": {
+"III": 12.7,
+"IV": 21.8
+},
+"Cerovlje|Nova Vas": {
+"III": 16.4,
+"IV": 27.9
+},
+"Cerovlje|Buje": {
+"III": 17.9,
+"IV": 30.5
+},
+"Cerovlje|Umag": {
+"III": 19.3,
+"IV": 32.9
+},
+"Ivoli|Rogovići": {
+"III": 1.6,
+"IV": 2.9
+},
+"Ivoli|Žminj": {
+"III": 4.5,
+"IV": 7.5
+},
+"Ivoli|Kanfanar": {
+"III": 5.7,
+"IV": 10.0
+},
+"Ivoli|Vodnjan Sjever": {
+"III": 8.8,
+"IV": 14.8
+},
+"Ivoli|Vodnjan Jug": {
+"III": 10.2,
+"IV": 17.1
+},
+"Ivoli|Pula": {
+"III": 11.4,
+"IV": 19.5
+},
+"Ivoli|Medaki": {
+"III": 7.6,
+"IV": 12.8
+},
+"Ivoli|Baderna": {
+"III": 9.8,
+"IV": 16.4
+},
+"Ivoli|Višnjan": {
+"III": 11.4,
+"IV": 19.5
+},
+"Ivoli|Nova Vas": {
+"III": 15.1,
+"IV": 25.8
+},
+"Ivoli|Buje": {
+"III": 16.6,
+"IV": 28.2
+},
+"Ivoli|Umag": {
+"III": 17.8,
+"IV": 30.6
+},
+"Rogovići|Žminj": {
+"III": 3.2,
+"IV": 4.7
+},
+"Rogovići|Kanfanar": {
+"III": 4.4,
+"IV": 6.9
+},
+"Rogovići|Vodnjan Sjever": {
+"III": 7.2,
+"IV": 11.7
+},
+"Rogovići|Vodnjan Jug": {
+"III": 8.8,
+"IV": 14.3
+},
+"Rogovići|Pula": {
+"III": 10.0,
+"IV": 16.6
+},
+"Rogovići|Medaki": {
+"III": 6.3,
+"IV": 10.0
+},
+"Rogovići|Baderna": {
+"III": 8.3,
+"IV": 13.3
+},
+"Rogovići|Višnjan": {
+"III": 10.0,
+"IV": 16.6
+},
+"Rogovići|Nova Vas": {
+"III": 13.7,
+"IV": 22.7
+},
+"Rogovići|Buje": {
+"III": 15.2,
+"IV": 25.3
+},
+"Rogovići|Umag": {
+"III": 16.4,
+"IV": 27.6
+},
+"Žminj|Kanfanar": {
+"III": 2.2,
+"IV": 3.2
+},
+"Žminj|Vodnjan Sjever": {
+"III": 4.9,
+"IV": 7.6
+},
+"Žminj|Vodnjan Jug": {
+"III": 6.3,
+"IV": 10.0
+},
+"Žminj|Pula": {
+"III": 7.6,
+"IV": 12.4
+},
+"Žminj|Medaki": {
+"III": 4.1,
+"IV": 6.1
+},
+"Žminj|Baderna": {
+"III": 5.7,
+"IV": 9.4
+},
+"Žminj|Višnjan": {
+"III": 7.6,
+"IV": 12.4
+},
+"Žminj|Nova Vas": {
+"III": 11.2,
+"IV": 18.6
+},
+"Žminj|Buje": {
+"III": 12.4,
+"IV": 21.1
+},
+"Žminj|Umag": {
+"III": 14.2,
+"IV": 23.5
+},
+"Kanfanar|Vodnjan Sjever": {
+"III": 3.6,
+"IV": 5.3
+},
+"Kanfanar|Vodnjan Jug": {
+"III": 4.9,
+"IV": 7.6
+},
+"Kanfanar|Pula": {
+"III": 6.3,
+"IV": 10.0
+},
+"Kanfanar|Medaki": {
+"III": 2.6,
+"IV": 3.6
+},
+"Kanfanar|Baderna": {
+"III": 4.4,
+"IV": 6.9
+},
+"Kanfanar|Višnjan": {
+"III": 6.3,
+"IV": 10.0
+},
+"Kanfanar|Nova Vas": {
+"III": 9.6,
+"IV": 15.9
+},
+"Kanfanar|Buje": {
+"III": 11.2,
+"IV": 18.6
+},
+"Kanfanar|Umag": {
+"III": 12.4,
+"IV": 21.1
+},
+"Vodnjan Sjever|Vodnjan Jug": {
+"III": 2.1,
+"IV": 3.1
+},
+"Vodnjan Sjever|Pula": {
+"III": 3.6,
+"IV": 5.3
+},
+"Vodnjan Sjever|Medaki": {
+"III": 5.3,
+"IV": 8.7
+},
+"Vodnjan Sjever|Baderna": {
+"III": 7.2,
+"IV": 11.7
+},
+"Vodnjan Sjever|Višnjan": {
+"III": 9.2,
+"IV": 15.2
+},
+"Vodnjan Sjever|Nova Vas": {
+"III": 12.4,
+"IV": 21.1
+},
+"Vodnjan Sjever|Buje": {
+"III": 14.2,
+"IV": 23.5
+},
+"Vodnjan Sjever|Umag": {
+"III": 15.6,
+"IV": 26.1
+},
+"Vodnjan Jug|Pula": {
+"III": 2.2,
+"IV": 3.2
+},
+"Vodnjan Jug|Medaki": {
+"III": 6.8,
+"IV": 11.1
+},
+"Vodnjan Jug|Baderna": {
+"III": 8.8,
+"IV": 14.3
+},
+"Vodnjan Jug|Višnjan": {
+"III": 10.8,
+"IV": 17.5
+},
+"Vodnjan Jug|Nova Vas": {
+"III": 14.2,
+"IV": 23.5
+},
+"Vodnjan Jug|Buje": {
+"III": 15.6,
+"IV": 26.1
+},
+"Vodnjan Jug|Umag": {
+"III": 16.8,
+"IV": 28.3
+},
+"Pula|Medaki": {
+"III": 8.3,
+"IV": 13.3
+},
+"Pula|Baderna": {
+"III": 10.0,
+"IV": 16.6
+},
+"Pula|Višnjan": {
+"III": 12.0,
+"IV": 20.4
+},
+"Pula|Nova Vas": {
+"III": 15.6,
+"IV": 26.1
+},
+"Pula|Buje": {
+"III": 16.8,
+"IV": 28.3
+},
+"Pula|Umag": {
+"III": 18.7,
+"IV": 31.4
+},
+"Medaki|Baderna": {
+"III": 2.5,
+"IV": 3.8
+},
+"Medaki|Višnjan": {
+"III": 4.4,
+"IV": 6.9
+},
+"Medaki|Nova Vas": {
+"III": 7.6,
+"IV": 12.4
+},
+"Medaki|Buje": {
+"III": 9.2,
+"IV": 15.2
+},
+"Medaki|Umag": {
+"III": 10.8,
+"IV": 17.5
+},
+"Baderna|Višnjan": {
+"III": 2.5,
+"IV": 3.8
+},
+"Baderna|Nova Vas": {
+"III": 5.7,
+"IV": 9.4
+},
+"Baderna|Buje": {
+"III": 7.2,
+"IV": 11.7
+},
+"Baderna|Umag": {
+"III": 8.8,
+"IV": 14.3
+},
+"Višnjan|Nova Vas": {
+"III": 4.1,
+"IV": 6.1
+},
+"Višnjan|Buje": {
+"III": 5.3,
+"IV": 8.7
+},
+"Višnjan|Umag": {
+"III": 6.8,
+"IV": 11.1
+},
+"Nova Vas|Buje": {
+"III": 2.1,
+"IV": 3.0
+},
+"Nova Vas|Umag": {
+"III": 3.6,
+"IV": 5.3
+},
+"Buje|Umag": {
+"III": 2.1,
+"IV": 2.9
+}
+}
+}

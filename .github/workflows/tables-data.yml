@@ -34,6 +34,12 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp se.pbf > out/se-osm-timestamp.txt
           osmium tags-filter -O -o se-b.pbf se.pbf w/name=Sundsvallsbron,Motalabron,Skurubron,"Nya Skurubron" n/highway=toll_gantry n/barrier=toll_booth
           osmium export -O -f geojsonseq -o out/se-osm.geojsonseq se-b.pbf
+      - name: North Macedonian toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o mk.pbf https://download.geofabrik.de/europe/macedonia-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp mk.pbf > out/mk-osm-timestamp.txt
+          osmium tags-filter -O -o mk-b.pbf mk.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
+          osmium export -O -f geojsonseq -o out/mk-osm.geojsonseq mk-b.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables
@@ -60,6 +66,7 @@ jobs:
             else echo "::warning title=$f::differs from the committed $c"; diff <(python3 -m json.tool "$c") <(python3 -m json.tool "$f") | head -40; fi
           done | tee compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
+          python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
       - name: Push
         if: always()
         run: |

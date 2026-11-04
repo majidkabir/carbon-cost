@@ -1,0 +1,173 @@
+{
+ "operator": "Јавно претпријатие за државни патишта (PESR)",
+ "about": "North Macedonia: the Government decision amending the toll decision (Службен весник 88/2025, art. 1, new art. 5) gives the tolls per toll station only as images on page 2 of its PDF. Transcribed by hand from the second table (tolls in euro, paid in cash); tools/tables fetches the PDF again and says if it has changed (sha256). Columns: vehicle categories IA, I, II, III, IV.",
+ "source": {
+  "url": "https://roads.org.mk/wp-content/uploads/2025/09/%D0%9E%D0%B4%D0%BB%D1%83%D0%BA%D0%B0-%D0%BF%D0%B0%D1%82%D0%B0%D1%80%D0%B8%D0%BD%D0%B0.pdf",
+  "sha256": "88b5bdf7709d28554d3ed975d5244080e65e5701acbb75a790445a3283e5bd04",
+  "page": "2, second table (ПАТАРИНА ВО ЕВРА)"
+ },
+ "valid_from": "2025-05-01",
+ "columns": [
+  "IA",
+  "I",
+  "II",
+  "III",
+  "IV"
+ ],
+ "stations": [
+  {
+   "station": "Романовце",
+   "section": "Куманово – Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.5,
+    4.0
+   ]
+  },
+  {
+   "station": "Петровец",
+   "section": "Скопје - Петровец и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Сопот",
+   "section": "Петровец – Велес",
+   "eur": [
+    1.0,
+    1.5,
+    2.0,
+    4.0,
+    5.5
+   ]
+  },
+  {
+   "station": "Отовица",
+   "section": "Велес - Петровец",
+   "eur": [
+    1.0,
+    1.5,
+    2.0,
+    4.0,
+    5.5
+   ]
+  },
+  {
+   "station": "Стоби",
+   "section": "Велес - Градско и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    4.5
+   ]
+  },
+  {
+   "station": "Миладиновци",
+   "section": "Скопје - Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    2.5
+   ]
+  },
+  {
+   "station": "Тетово",
+   "section": "Тетово - Гостивар и обратно",
+   "eur": [
+    0.5,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+   ]
+  },
+  {
+   "station": "Гостивар",
+   "section": "Тетово - Гостивар и обратно",
+   "eur": [
+    0.5,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+   ]
+  },
+  {
+   "station": "Глумово",
+   "section": "Скопје - Тетово и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Желино",
+   "section": "Скопје - Тетово и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Демир Капија",
+   "section": "Градско – Демир Капија и обратно",
+   "eur": [
+    1.0,
+    1.5,
+    2.5,
+    4.0,
+    6.0
+   ]
+  },
+  {
+   "station": "Гевгелија",
+   "section": "Демир Капија – Гевгелија и обратно",
+   "eur": [
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.0
+   ]
+  },
+  {
+   "station": "Кадрифаково",
+   "section": "Штип – Св. Николе и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.5,
+    4.0
+   ]
+  },
+  {
+   "station": "Преод",
+   "section": "Св. Николе – Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.5,
+    2.0,
+    3.0,
+    4.5
+   ]
+  }
+ ]
+}

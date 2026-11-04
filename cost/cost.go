@@ -400,6 +400,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				prs, _, _ = tb.RatesOn(req.Truck, date, pt.road)
 			}
 			for _, r := range prs {
+				if r.PerKm == 0 {
+					continue // e.g. Bulgaria's CO2 part for zero-emission trucks
+				}
 				km := pt.km
 				if r.Component == rates.Infrastructure && secKm > 0 {
 					km = math.Max(0, km-secKm)

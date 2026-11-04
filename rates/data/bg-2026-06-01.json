@@ -27,6 +27,16 @@
    "rate": 0.04
   },
   {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
    "component": "infrastructure",
    "road": "motorway",
    "min_kg": 12001,
@@ -37,6 +47,16 @@
    "rate": 0.09
   },
   {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
    "component": "infrastructure",
    "road": "motorway",
    "min_kg": 12001,
@@ -45,6 +65,16 @@
     5
    ],
    "rate": 0.14
+  },
+  {
+   "component": "co2",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
   },
   {
    "component": "infrastructure",
@@ -549,6 +579,16 @@
    "rate": 0.03
   },
   {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
    "component": "infrastructure",
    "road": "other",
    "min_kg": 12001,
@@ -559,6 +599,16 @@
    "rate": 0.08
   },
   {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  },
+  {
    "component": "infrastructure",
    "road": "other",
    "min_kg": 12001,
@@ -567,6 +617,16 @@
     5
    ],
    "rate": 0.12
+  },
+  {
+   "component": "co2",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
   },
   {
    "component": "infrastructure",

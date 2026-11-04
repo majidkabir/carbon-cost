@@ -1163,3 +1163,36 @@ func TestSwedishBridges(t *testing.T) {
 		t.Errorf("bridge %.2f, day %.2f, want 20 and 147: %v", bridge, day, r.Lines)
 	}
 }
+
+// North Macedonia's toll stations charge per passage in the direction of
+// their carriageway: Sopot southbound only.
+func TestNorthMacedonia(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	south := [][2]float64{{21.7430, 41.7830}, {21.7466, 41.7686}}
+	north := [][2]float64{south[1], south[0]}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Sopot southbound, 5 axles", south, truck40, 5.50},
+		{"Sopot southbound, 3 axles", south, rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 4.00},
+		{"Sopot northbound", north, truck40, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2, CountryKm: map[string]float64{"MK": 2}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "MK" {
+				got += l.Amount
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

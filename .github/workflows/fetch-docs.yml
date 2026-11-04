@@ -11,17 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Slovenia (DarsGo price list, Uradni list 102/2025)
+      - name: Slovenia (PISRS annexes)
         run: |
           ua="carbon-cost docs fetch"
           mkdir -p out
-          for u in https://www.darsgo.si/ https://www.dars.si/Dokumenti/Cestnina/Cenik_cestnine_36.aspx https://pisrs.si/Pis.web/pregledPredpisa?id=TARI209 ; do
-            f=out/$(echo "$u" | tr -c 'A-Za-z0-9' _ | cut -c1-80).html
-            curl -fsSL -A "$ua" -o "$f" "$u" && echo "ok $u" || echo "fail $u"
+          for id in 659647014 659867315; do
+            curl -fsSL -A "$ua" -o "out/$id.bin" "https://pisrs.si/api/datoteke/integracije/$id" && file "out/$id.bin"
+            if file "out/$id.bin" | grep -q PDF; then pdftotext -layout "out/$id.bin" "out/$id.txt"; rm "out/$id.bin"; fi
           done
-          grep -h -o -i 'href="[^"]*"' out/*.html | grep -i 'xls\|pdf\|cenik\|cestnin\|toll\|visina' | sort -u > out/links.txt || true
-          wc -l out/links.txt
-          curl -fsSL -A "$ua" -o out/u2025102.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025102.pdf" && pdftotext -layout out/u2025102.pdf out/u2025102.txt && rm out/u2025102.pdf
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

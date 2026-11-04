@@ -565,3 +565,59 @@ func TestBulgaria(t *testing.T) {
 		}
 	}
 }
+
+// Unec - Postojna - Razdrto on the A1: two DarsGo sections, 11.375 and
+// 9.56 km, both interurban and in the rail surcharge's tier a. A 5-axle
+// (R4) Euro VI truck, CO2 class 1, pays per section its infrastructure
+// price (3.156462 + 2.652116 EUR), the rail surcharge 0.040179 EUR/km and
+// the external-cost charge 0.010 EUR/km on the official lengths.
+func TestSlovenia(t *testing.T) {
+	path := [][2]float64{{14.30, 45.83}, {14.2876, 45.8248}, {14.24, 45.79}, {14.1985, 45.7605}, {14.13, 45.76}, {14.075, 45.7593}, {14.07, 45.7592}}
+	var dist float64
+	for i := 1; i < len(path); i++ {
+		dist += haversine(path[i-1][1], path[i-1][0], path[i][1], path[i][0])
+	}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: dist, CountryKm: map[string]float64{"SI": dist}, Path: path}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]float64{}
+	for _, l := range r.Lines {
+		got[l.Component] += l.Amount
+	}
+
+	want := map[string]float64{
+		"infrastructure": round2(3.156462) + round2(2.652116),
+		"rail_surcharge": round2(11.375*0.040179) + round2(9.56*0.040179),
+		"air_noise":      round2(11.375*0.010) + round2(9.56*0.010),
+	}
+	for k, v := range want {
+		if math.Abs(got[k]-v) > 0.001 {
+			t.Errorf("%s: %.2f, want %.2f (lines %+v)", k, got[k], v, r.Lines)
+		}
+	}
+	if len(r.Lines) != 6 {
+		t.Errorf("want 2 sections x 3 charges, got %d lines: %+v", len(r.Lines), r.Lines)
+	}
+	// A zero-emission truck pays the CO2 class 5 price and the zev rate.
+	zev := truck40
+	zev.CO2Class = 5
+	r, _ = Price(trip, all(t), Request{CargoKg: 20000, Truck: zev}, date)
+	var air float64
+	for _, l := range r.Lines {
+		if l.Component == "air_noise" {
+			air += l.Amount
+		}
+	}
+	if math.Abs(air-(round2(11.375*0.004)+round2(9.56*0.004))) > 0.001 {
+		t.Errorf("zev external cost %.2f", air)
+	}
+	// A route that only crosses Slovenia elsewhere passes no section.
+	off := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 10, CountryKm: map[string]float64{"SI": 10}, Path: [][2]float64{{14.9, 45.5}, {14.95, 45.52}}}}}
+	r, _ = Price(off, all(t), Request{CargoKg: 1, Truck: truck40}, date)
+	if len(r.Lines) != 0 || !strings.Contains(strings.Join(r.Notes, " "), "passes none of the tolled sections") {
+		t.Errorf("off-network: %+v %v", r.Lines, r.Notes)
+	}
+}

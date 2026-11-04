@@ -1,11 +1,71 @@
 {
  "about": "Official pages the hand-gathered rate tables come from (tools/tables/fetch.py saves them as fetched; the parsers rebuild the tables from the saved copies).",
  "sources": [
-  {"id": "ro-tollro", "table": "ro", "url": "https://portal.etoll.ro/web/guest/tollro", "what": "CNAIR eToll TollRo page; its tariff widget asks the active-pricing-offer resource of the digitalizeportlet for the rates in force"},
-  {"id": "dk-storebaelt", "table": "dk-bridges", "url": "https://storebaelt.dk/priser-rabatter/erhverv/", "what": "A/S Storebælt business price list"},
-  {"id": "dk-oresund", "table": "dk-bridges", "url": "https://www.oresundsbron.com/da/erhverv/lastbil", "what": "Øresundsbron truck prices (business)"},
-  {"id": "hu-25-2013", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W", "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet, consolidated text in force (infrastructure charge § 1, annexes 1-2)"},
-  {"id": "hu-22-2023", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X", "what": "22/2023. (XII. 5.) ÉKM rendelet, which inserted annex 2 (external-cost charge, eurocent/km) into 25/2013 NFM; unchanged since (footnote 30 of the consolidated text)"},
-  {"id": "hu-34-2025", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X", "what": "34/2025. (XI. 30.) ÉKM rendelet, whose § 2 set annex 1 (the tolled sections) of 25/2013 NFM (footnote 29)"}
+  {
+   "id": "ro-tollro",
+   "table": "ro",
+   "url": "https://portal.etoll.ro/web/guest/tollro",
+   "what": "CNAIR eToll TollRo page; its tariff widget asks the active-pricing-offer resource of the digitalizeportlet for the rates in force"
+  },
+  {
+   "id": "dk-storebaelt",
+   "table": "dk-bridges",
+   "url": "https://storebaelt.dk/priser-rabatter/erhverv/",
+   "what": "A/S Storebælt business price list"
+  },
+  {
+   "id": "dk-oresund",
+   "table": "dk-bridges",
+   "url": "https://www.oresundsbron.com/da/erhverv/lastbil",
+   "what": "Øresundsbron truck prices (business)"
+  },
+  {
+   "id": "hu-25-2013",
+   "table": "hu",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet, consolidated text in force (infrastructure charge § 1, annexes 1-2)"
+  },
+  {
+   "id": "hu-22-2023",
+   "table": "hu",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X",
+   "what": "22/2023. (XII. 5.) ÉKM rendelet, which inserted annex 2 (external-cost charge, eurocent/km) into 25/2013 NFM; unchanged since (footnote 30 of the consolidated text)"
+  },
+  {
+   "id": "hu-34-2025",
+   "table": "hu",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X",
+   "what": "34/2025. (XI. 30.) ÉKM rendelet, whose § 2 set annex 1 (the tolled sections) of 25/2013 NFM (footnote 29)"
+  },
+  {
+   "id": "probe-2026_02-Grille-Sanef.pdf",
+   "table": "discovery",
+   "url": "https://archive.org/wayback/available?url=https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-Sanef.pdf"
+  },
+  {
+   "id": "probe-direct-2026_02-Grille-Sanef.pdf",
+   "table": "discovery",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-Sanef.pdf"
+  },
+  {
+   "id": "probe-2026_02-Grille-SAPN.pdf",
+   "table": "discovery",
+   "url": "https://archive.org/wayback/available?url=https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-SAPN.pdf"
+  },
+  {
+   "id": "probe-direct-2026_02-Grille-SAPN.pdf",
+   "table": "discovery",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-SAPN.pdf"
+  },
+  {
+   "id": "probe-grille-modulee-01022026.pdf",
+   "table": "discovery",
+   "url": "https://archive.org/wayback/available?url=https://www.autoroutes.sanef.com/sites/default/files/2026-02/grille-modulee-01022026.pdf"
+  },
+  {
+   "id": "probe-direct-grille-modulee-01022026.pdf",
+   "table": "discovery",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-02/grille-modulee-01022026.pdf"
+  }
  ]
 }

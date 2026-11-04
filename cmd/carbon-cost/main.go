@@ -9,13 +9,15 @@ package main
 
 import (
 	"context"
-	_ "embed"
+	"embed"
 	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"os"
 	"strconv"
 	"strings"
@@ -26,6 +28,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
@@ -84,7 +87,11 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd}, nil
+	bix, err := borders.Default()
+	if err != nil {
+		return cost.Calculator{}, err
+	}
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix}, nil
 }
 
 func calc(args []string) error {
@@ -272,27 +279,59 @@ func serve(args []string) error {
 	fs := flag.NewFlagSet("serve", flag.ExitOnError)
 	sc := sootcaseFlags(fs)
 	addr := fs.String("addr", envOr("ADDR", ":8090"), "listen address (env ADDR)")
+	tiles := fs.String("tiles", envOr("TILE_URL", DefaultTiles), "map tile URL template, {z}/{x}/{y}; \"none\" for no base map (env TILE_URL)")
 	fs.Parse(args)
 	c, err := calculator(sc)
 	if err != nil {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c), ReadHeaderTimeout: 10 * time.Second}
+	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
 
 //go:embed web/index.html
-var indexHTML []byte
+var indexHTML string
 
-// Handler serves the web page and the HTTP API.
-func Handler(c cost.Calculator) http.Handler {
+//go:embed web/leaflet
+var leafletFS embed.FS
+
+// DefaultTiles is OpenStreetMap's standard tile layer. Its usage policy
+// (https://operations.osmfoundation.org/policies/tiles/) allows light use
+// with attribution; a busy deployment should set its own tile server.
+const DefaultTiles = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+
+// Handler serves the web page and the HTTP API. tiles is the map's tile
+// URL template ("" or "none": no base map).
+func Handler(c cost.Calculator, tiles string) http.Handler {
+	if tiles == "none" {
+		tiles = ""
+	}
+	imgSrc := "'self' data:"
+	if u, err := url.Parse(strings.ReplaceAll(tiles, "{s}", "x")); err == nil && u.Host != "" {
+		host := u.Host
+		if strings.Contains(tiles, "{s}.") {
+			_, rest, _ := strings.Cut(host, ".")
+			host = "*." + rest
+		}
+		imgSrc += " " + u.Scheme + "://" + host
+	}
+	tj, _ := json.Marshal(tiles)
+	page := strings.Replace(indexHTML, "const TILES = \"\";", "const TILES = "+string(tj)+";", 1)
+	csp := "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src " + imgSrc +
+		"; connect-src 'self'; form-action 'none'; base-uri 'none'"
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, _ *http.Request) {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Header().Set("Content-Security-Policy", "default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; form-action 'none'; base-uri 'none'")
-		w.Write(indexHTML)
+		w.Header().Set("Content-Security-Policy", csp)
+		w.Write([]byte(page))
+	})
+	static, _ := fs.Sub(leafletFS, "web")
+	files := http.FileServerFS(static)
+	mux.HandleFunc("GET /leaflet/{file}", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
 	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tables) })

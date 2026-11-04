@@ -79,6 +79,23 @@ jobs:
             run brussels-ghent -from 50.8467,4.3525 -to BEGNE -json
             run antwerp-namur-zev -from BEANR -to 50.4669,4.8675 -co2-class 5
           fi
+      - name: Map route vs country_km
+        run: |
+          export SOOTCASE_URL=http://localhost:8080
+          case "${{ matrix.name }}" in
+            dk-de) trip="-from DKCPH -to DEHAM -tare-kg 15000" ;;
+            at) trip="-from ATSZG -to 46.6100,13.8500" ;;
+            *) trip="-from BEANR -to BELGG" ;;
+          esac
+          ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json
+          cmp=$(jq -r '
+            ([.route[] | {k: (if .kind == "road" then .country else .kind end), km}] | group_by(.k) | map({(.[0].k): (map(.km) | add)}) | add) as $map
+            | (.country_km + (if .ferry_km then {ferry: .ferry_km} else {} end)) as $want
+            | (($map | keys) + ($want | keys) | unique)[]
+            | "\(.) map \($map[.] // 0 | . * 10 | round / 10) km, country_km \($want[.] // 0 | . * 10 | round / 10) km"' trip.json)
+          runs=$(jq -r '[.route[] | "\(.kind):\(.country // "")"] | join(" > ")' trip.json)
+          echo "$runs"; echo "$cmp"
+          echo "::notice title=${{ matrix.name }}/map::$runs%0A$(echo "$cmp" | sed ':a;N;$!ba;s/\n/%0A/g')"
       - name: Logs
         if: failure()
         working-directory: sootcase-src

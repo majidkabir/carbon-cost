@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>carbon-cost: what a truck trip pays for carbon and tolls</title>
+<link rel="stylesheet" href="leaflet/leaflet.css">
+<script src="leaflet/leaflet.js"></script>
 <style>
   :root { --ink: #1d2327; --muted: #5f6b73; --line: #dde3e7; --bg: #f6f8f9; --accent: #1f6f5c; --carbon: #b4532a; }
   * { box-sizing: border-box; }
@@ -37,6 +39,10 @@
   .foot { color: var(--muted); font-size: 12px; margin-top: 28px; }
   .foot a { color: inherit; }
   td:first-child { white-space: nowrap; }
+  #map { height: 380px; border: 1px solid var(--line); border-radius: 10px; margin: 10px 0 6px; background: #eef1f3; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 5px; }
+  .legend i.dash { background: repeating-linear-gradient(90deg, #4a5568 0 5px, transparent 5px 9px) !important; }
   .ac { position: relative; }
   .ac ul { position: absolute; z-index: 10; left: 0; right: 0; top: 100%; margin: 2px 0 0; padding: 4px 0; list-style: none;
            background: #fff; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.08);
@@ -44,7 +50,7 @@
   .ac li { padding: 7px 10px; cursor: pointer; color: var(--ink); font-size: 14px; }
   .ac li small { color: var(--muted); margin-left: 6px; }
   .ac li[aria-selected="true"], .ac li:hover { background: #eef4f2; }
-  @media (max-width: 560px) { .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
+  @media (max-width: 560px) { #map { height: 300px; } .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
 </style>
 </head>
 <body>
@@ -81,6 +87,7 @@
       <div class="tile"><span>Distance</span><b id="dist"></b></div>
     </div>
     <div id="km"></div>
+    <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
     <h2>Charges</h2>
     <table><thead><tr><th>Charge</th><th>Where</th><th>Part</th><th class="n">Basis</th><th class="n sm-hide">Rate</th><th class="n sm-hide">Amount</th><th class="n">EUR</th></tr></thead>
       <tbody id="lines"></tbody></table>
@@ -96,6 +103,7 @@
 </main>
 <script>
 const $ = (id) => document.getElementById(id);
+const TILES = "";
 const f = $("f");
 f.date.value = new Date().toISOString().slice(0, 10);
 
@@ -223,6 +231,40 @@ function show(r) {
   if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
   for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
   $("out").hidden = false;
+  draw(r.route || []);
+}
+
+// The route on a map, one colour per country, the ferry dashed.
+const COLORS = ["#2b6cb0", "#c05621", "#2f855a", "#805ad5", "#b7791f", "#c53030", "#2c7a7b", "#97266d", "#4c51bf", "#718096"];
+let map, layer;
+function draw(runs) {
+  $("mapwrap").hidden = !runs.length || !window.L;
+  if ($("mapwrap").hidden) return;
+  if (!map) {
+    map = L.map("map", { scrollWheelZoom: false });
+    if (TILES) L.tileLayer(TILES, { maxZoom: 18, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+  }
+  if (layer) layer.remove();
+  layer = L.featureGroup().addTo(map);
+  const color = {}, km = {};
+  for (const run of runs) {
+    const key = run.kind === "road" ? run.country : run.kind;
+    if (!(key in color)) color[key] = run.kind === "road" ? COLORS[Object.values(color).filter((c) => c !== "#4a5568").length % COLORS.length] : "#4a5568";
+    km[key] = (km[key] || 0) + run.km;
+    L.polyline(run.points.map(([lon, lat]) => [lat, lon]), { color: color[key], weight: 5, opacity: .9, dashArray: run.kind === "road" ? null : "8 8" })
+      .bindTooltip(`${key === "ferry" ? "Ferry" : key === "sea" ? "Sea" : key} · ${num(run.km, 1)} km`, { sticky: true }).addTo(layer);
+  }
+  const first = runs[0].points[0], last = runs[runs.length - 1].points.at(-1);
+  for (const [lon, lat] of [first, last]) L.circleMarker([lat, lon], { radius: 6, color: "#1d2327", weight: 2, fillColor: "#fff", fillOpacity: 1 }).addTo(layer);
+  const legend = $("legend"); legend.replaceChildren();
+  for (const [key, c] of Object.entries(color)) {
+    const span = document.createElement("span"), i = document.createElement("i");
+    i.style.background = c; if (key === "ferry" || key === "sea") i.className = "dash";
+    span.append(i, `${key === "ferry" ? "Ferry" : key === "sea" ? "Sea" : key} ${num(km[key], 1)} km`);
+    legend.append(span);
+  }
+  map.invalidateSize();
+  map.fitBounds(layer.getBounds(), { padding: [20, 20] });
 }
 </script>
 </body>

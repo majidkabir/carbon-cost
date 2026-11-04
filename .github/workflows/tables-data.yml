@@ -1,8 +1,9 @@
 name: Tables data
 # Fetches the official pages behind the Romanian, Danish bridge and
-# Hungarian rate tables (tools/tables/sources.json) and pushes them, with
-# a manifest, to the tables-out branch. Push to the tables-data branch to
-# run it.
+# Hungarian rate tables (tools/tables/sources.json), rebuilds the tables
+# from them, compares them with the committed ones, and pushes the pages,
+# their manifest and the rebuilt tables to the tables-out branch. Push to
+# the tables-data branch to run it.
 on:
   push:
     branches: [tables-data]
@@ -16,7 +17,22 @@ jobs:
       - uses: actions/checkout@v4
       - name: Fetch
         run: python3 tools/tables/fetch.py tools/tables/sources.json out
+      - name: Build
+        run: |
+          python3 tools/tables/ro.py out out/tables
+          python3 tools/tables/dk_bridges.py out out/tables
+          python3 tools/tables/hu.py out out/tables
+      - name: Compare with the committed tables
+        run: |
+          cd out/tables
+          for f in *.json; do
+            if [ "$f" = hu-annex1.json ]; then c=../../tools/roads/hu-annex1.json; else c=../../rates/data/$f; fi
+            if [ ! -f "$c" ]; then echo "::warning title=$f::new table (no committed $c)"
+            elif cmp -s "$f" "$c"; then echo "$f: same as committed"
+            else echo "::warning title=$f::differs from the committed $c"; diff <(python3 -m json.tool "$c") <(python3 -m json.tool "$f") | head -40; fi
+          done | tee compare.txt
       - name: Push
+        if: always()
         run: |
           cd out
           git init -q -b tables-out && git add -A

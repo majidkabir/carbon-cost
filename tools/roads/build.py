@@ -8,7 +8,7 @@ ref:HU:edid with their ways). Each way goes in a class by the rule for
 its country (RULES): "mw" are the roads a toll law prices at the
 motorway rate, "nat" the other national roads it tolls. In Hungary a way
 in a toll section takes its class and suburban share from annex 1 of
-25/2013 NFM (hu-annex1.json); "mwf"/"natf" give each line's share, -1
+25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
 where unknown. Lines are simplified to SIMPLIFY_M and stored as
 [lon, lat] * 1e5 integers.
 

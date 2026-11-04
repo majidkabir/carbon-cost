@@ -12,6 +12,7 @@ Parsers (text documents, from pdftotext -layout):
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
   gares       one page per entry station ("Gare de X"), then rows
               "code EXIT c1 c2 c3 c4 c5" (A'liénor)
+  matrix      square tables per class on one PDF page (SFTRF's A43, matrix.py)
   transcribed prices published only as images, transcribed by hand
               (transcribed/*.json), by EURO class (Atlandes, ALBEA)
   columns     small tables on a web page, configured in documents.json
@@ -49,7 +50,10 @@ def num(s):
 
 def valid_from(text):
     m = re.search(r"(?:(?:en vigueur|applicables?|TTC|Tarifs) (?:au|à compter du)|^à compter du) (\d+)(?:er)? (\w+) (\d{4})", text, re.I | re.M)
-    return f"{int(m.group(3)):04d}-{MONTHS[m.group(2).lower()]:02d}-{int(m.group(1)):02d}" if m else ""
+    if m:
+        return f"{int(m.group(3)):04d}-{MONTHS[m.group(2).lower()]:02d}-{int(m.group(1)):02d}"
+    m = re.search(r"(?:TTC|applicables?) en euros au (\d\d)\.(\d\d)\.(\d{4})", text)  # "Prix TTC en euros au 01.02.2026"
+    return f"{m.group(3)}-{m.group(2)}-{m.group(1)}" if m else ""
 
 
 def key(name):
@@ -112,6 +116,18 @@ def main(docs_path, fetched, out):
                     if p4 is not None:
                         w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
                 print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
+            if d["parser"] == "matrix":
+                # SFTRF's A43: square tables per class on one PDF page (matrix.py).
+                import matrix
+                src = manifest[d["file"]]
+                t = matrix.tables(os.path.join(fetched, d["file"]))
+                p3, p4 = matrix.pairs(t[3]), matrix.pairs(t[4])
+                vf = valid_from(open(os.path.join(fetched, d["file"][:-4] + ".txt"), encoding="utf-8").read()) or d.get("valid_from", "")
+                for (a, b), p in p3.items():
+                    if (a, b) in p4:
+                        w.writerow([d["operator"], d["file"], src["url"], src["sha256"], "", "", vf, a, b, "", p, p4[(a, b)], "", ""])
+                print(f"{d['file']}: {len(p3)} class 3 and {len(p4)} class 4 pairs, valid from {vf}")
                 continue
             if d["parser"] == "transcribed":
                 # Prices an operator publishes only as an image, transcribed

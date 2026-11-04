@@ -159,6 +159,7 @@ jobs:
           elif [ "${{ matrix.name }}" = fr-alps ]; then
             run annemasse-bellegarde -from 46.1939,6.2342 -to 46.1080,5.8260
             run le-fayet-annemasse -from 45.9150,6.7000 -to 46.1939,6.2342
+            run maurienne-a43 -from 45.2200,6.4700 -to 45.5000,6.0500
           elif [ "${{ matrix.name }}" = fr-sw ]; then
             run langon-pau -from 44.5530,-0.2490 -to 43.2951,-0.3708
             run millau-viaduct -from 44.2000,3.0300 -to 43.9500,3.1000

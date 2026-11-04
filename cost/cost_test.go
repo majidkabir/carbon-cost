@@ -1104,3 +1104,38 @@ func TestNorwayTollPoints(t *testing.T) {
 		}
 	}
 }
+
+// Ireland's toll plazas: PPP roads by axles (excluding VAT), the M50 by
+// weight, at the tag price for trucks paying by tag.
+func TestIrelandPlazas(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	m1 := [][2]float64{{-6.3303, 53.6500}, {-6.3303, 53.6750}}
+	m50 := [][2]float64{{-6.3785, 53.3600}, {-6.3785, 53.3800}}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		etc   bool
+		want  float64
+	}{
+		{"M1, 5 axles", m1, truck40, false, 6.10},
+		{"M1, 2 axles", m1, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, false, 4.80},
+		{"M50 unregistered", m50, truck40, false, 7.8},
+		{"M50 tag", m50, truck40, true, 6.5},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 3, CountryKm: map[string]float64{"IE": 3}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: tc.etc}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "IE" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 1e-9 {
+			t.Errorf("%s: %.4f, want %.4f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

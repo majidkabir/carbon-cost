@@ -1,4 +1,4 @@
-# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Norwegian, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
+# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Norwegian, Irish, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
 
 Everything here runs in the **Tables data** workflow (`.github/workflows/tables-data.yml`, started by pushing to the `tables-data` branch). It fetches the sources, rebuilds the tables, says whether each one is the same as the committed file, and pushes the fetched pages, `manifest.json` (URL, sha256, size, fetch time and HTTP status of every file) and the rebuilt tables to the `tables-out` branch.
 
@@ -14,6 +14,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - **Luxembourg**: Legilux's file of the consolidated RGD du 21 mai 2019 (the page `…/a353/consolide/20241224` loads it from `/filestore/…-fr-html.html`).
    - **UK**: GOV.UK's guidance on the HGV levy service, which tabulates the levy's rates in force. legislation.gov.uk's own pages of the Act can't be kept on `tables-out`: GitHub's secret scanning rejects a key-like string in them.
    - **Norway**: the NVDB API's toll stations (object type 45, with properties, location, geometry and version dates; `fetch.py` sends an `X-Client` header, which the API asks for) and the road link sequences they are placed on (`/vegnett/api/v4/veglenkesekvenser`, 50 at a time).
+   - **Ireland**: TII's page for each toll road ("Toll Locations and Charges"), and the toll booths and main roads of Geofabrik's Ireland and Northern Ireland OpenStreetMap extract (filtered with `osmium`; its date saved as `ie-osm-timestamp.txt`).
    - **Hungary**: the Nemzeti Jogszabálytár's consolidated text of 25/2013. (V. 31.) NFM rendelet. The site sends long parts (the annexes) separately; `fetch.py` asks for them as its page script does (`/ajax/njtGetBlock.json`).
 2. **Build**:
    - `ro.py` → `rates/data/ro-<date>.json`: lei/km including 21% VAT by mass category, road category and emission class, from the offer JSON; the date and order number from the offer's name.
@@ -27,6 +28,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - `lu.py` → `rates/data/lu-<date>.json`: art. 1er 2°'s daily amounts ("Pour une journée") by CO2 class, EURO class and axles; the date from "À compter du"; the annex's roads.
    - `gb.py` → `rates/data/gb-<date>.json`: the daily rates by weight band, Euro 6 or older; zero-emission exempt; the date from "Levy rates from".
    - `no.py` → `rates/data/no-<date>.json`: one toll point per AutoPASS station with its large-vehicle price, rush-hour price, charged heading (the metering direction of its road link at the station, turned round for "Mot metrering") and hour-rule group; dated by the stations' latest version date. It prints the stations left out and why.
+   - `ie.py` → `rates/data/ie-<year>-01-01.json`: one toll point per plaza with its heavy-vehicle prices; each plaza is the OSM toll booths on its road's main carriageway (ramp booths left out), the road given per page in the script.
    - `hu.py` → `rates/data/hu-<date>.json` and `tools/roads/hu-annex1.json`: § 1 (2)-(4a) (infrastructure charge), annex 1 (tolled sections, with each one's suburban share) and annex 2 (external-cost charge).
 3. **Transcribed images**: Atlandes (A63) and ALBEA (A150) publish their prices only as images. Those are transcribed by hand into `tools/fr/transcribed/*.json`, each with the image's URL and sha256; the workflow fetches the images (`sources.json`) and `check_transcribed.py` says whether each is still the one transcribed.
 4. **Compare**: the workflow prints, for each rebuilt file, whether it is the same as the committed one, or the difference. A new file means a new price list: copy it into `rates/data` (with an end date on the previous one if they overlap).

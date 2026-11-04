@@ -131,6 +131,34 @@ type Table struct {
 	PointMatchKm float64 `json:"point_match_km,omitempty"`
 }
 
+// PointClass is a toll point's price for the trucks it matches; ETCRate,
+// if set, for trucks paying by tag (Request.ETC).
+type PointClass struct {
+	MinKg    int     `json:"min_kg,omitempty"`
+	MaxKg    int     `json:"max_kg,omitempty"`
+	MinAxles int     `json:"min_axles,omitempty"`
+	MaxAxles int     `json:"max_axles,omitempty"`
+	Rate     float64 `json:"rate"`
+	ETCRate  float64 `json:"etc_rate,omitempty"`
+}
+
+// Price is the toll point's price for the truck, and whether it charges
+// the truck at all.
+func (p TollPoint) Price(t Truck, etc bool) (float64, bool) {
+	if len(p.Classes) == 0 {
+		return p.Rate, true
+	}
+	for _, c := range p.Classes {
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) {
+			if etc && c.ETCRate > 0 {
+				return c.ETCRate, true
+			}
+			return c.Rate, true
+		}
+	}
+	return 0, false
+}
+
 // TollPoint is a toll station charged per passage.
 type TollPoint struct {
 	Name    string  `json:"name"`
@@ -142,6 +170,9 @@ type TollPoint struct {
 	Heading  *float64 `json:"heading,omitempty"`
 	Rate     float64  `json:"rate"`                // per passage, outside rush hours
 	PeakRate float64  `json:"peak_rate,omitempty"` // per passage in rush hours, where it differs
+	// Classes price the station by truck where its price differs by mass
+	// or axles: the first class the truck matches, instead of Rate.
+	Classes []PointClass `json:"classes,omitempty"`
 	// Group is the passage group of an hour rule: after a paid passage,
 	// the group's other stations are free for GroupMinutes.
 	Group        int `json:"group,omitempty"`

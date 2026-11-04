@@ -541,7 +541,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if err != nil {
 			return Response{}, err
 		}
-		pointsAny, err := priceTollPoints(tb, a.country, route, &out, add)
+		pointsAny, err := priceTollPoints(tb, a.country, route, req, &out, add)
 		if err != nil {
 			return Response{}, err
 		}
@@ -1129,7 +1129,7 @@ const DefaultPointMatchKm = 0.05
 // direction that pays, and says whether it passed any. Under an hour
 // rule only the first passage of a group pays: the route is taken to
 // pass a group's stations within its time limit.
-func priceTollPoints(tb rates.Table, country string, route [][2]float64, out *Response, add func(Line) error) (bool, error) {
+func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, out *Response, add func(Line) error) (bool, error) {
 	match := tb.PointMatchKm
 	if match == 0 {
 		match = DefaultPointMatchKm
@@ -1156,6 +1156,10 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, out *Re
 	paid := map[int]bool{}
 	free, peak := 0, 0
 	for _, p := range passes {
+		rate, ok := p.tp.Price(req.Truck, req.ETC)
+		if !ok || rate == 0 {
+			continue
+		}
 		if p.tp.Group != 0 && paid[p.tp.Group] {
 			free++
 			continue
@@ -1163,7 +1167,7 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, out *Re
 		if p.tp.Group != 0 {
 			paid[p.tp.Group] = true
 		}
-		if p.tp.PeakRate > p.tp.Rate {
+		if p.tp.PeakRate > rate {
 			peak++
 		}
 		name := p.tp.Name
@@ -1171,7 +1175,7 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, out *Re
 			name = p.tp.Project + ": " + name
 		}
 		if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: name,
-			Rate: p.tp.Rate, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p.tp.Rate, Source: tb.Law}); err != nil {
+			Rate: rate, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: rate, Source: tb.Law}); err != nil {
 			return true, err
 		}
 	}

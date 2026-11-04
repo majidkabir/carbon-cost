@@ -991,3 +991,38 @@ func TestAtlandesEuro(t *testing.T) {
 		}
 	}
 }
+
+// Latvia's road user charge is time-based: one day's rate per trip,
+// whatever the km.
+func TestLatviaPerDay(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		truck rates.Truck
+		want  float64
+	}{
+		{truck40, 22},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 5, CO2Class: 1}, 19},
+		{rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}, 10},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 0},
+	} {
+		for _, km := range []float64{20, 300} {
+			trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: km, CountryKm: map[string]float64{"LV": km}}}}
+			r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+			if err != nil {
+				t.Fatal(err)
+			}
+			got := 0.0
+			for _, l := range r.Lines {
+				if l.Country == "LV" {
+					got += l.Amount
+					if l.RateUnit != "EUR/day" {
+						t.Errorf("rate unit %q", l.RateUnit)
+					}
+				}
+			}
+			if got != tc.want {
+				t.Errorf("%+v, %.0f km: %.2f, want %.2f: %v", tc.truck, km, got, tc.want, r.Lines)
+			}
+		}
+	}
+}

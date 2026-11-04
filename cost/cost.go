@@ -393,6 +393,22 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			continue
 		}
 		addSources(tb.Sources)
+		if tb.PerDay {
+			if tolledKm < 0.5 {
+				continue
+			}
+			for _, r := range rs {
+				if r.PerKm == 0 {
+					continue // e.g. Latvia's zero-emission trucks
+				}
+				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Carbon: r.Component == rates.CO2,
+					Km: round3(tolledKm), Rate: r.PerKm, RateUnit: tb.Currency + "/day", Currency: tb.Currency, Amount: r.PerKm, Source: tb.Law}); err != nil {
+					return Response{}, err
+				}
+			}
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period.", cc))
+			continue
+		}
 		// Km by road type, where the rates differ by road: motorway_share
 		// of the tolled km on motorways, the rest on other roads.
 		type part struct {

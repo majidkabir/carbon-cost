@@ -55,7 +55,7 @@ type Row struct {
 	// suburban or interurban (Suburban or Interurban): the row applies to
 	// that share of the km (Table.SuburbanShare).
 	Area string  `json:"area,omitempty"`
-	Rate float64 `json:"rate"` // currency per km, or per tonne-km in a PerTonneKm table
+	Rate float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
 }
 
 // Areas for rates that differ by suburban or interurban road.
@@ -96,6 +96,9 @@ type Table struct {
 	// maximum mass, up to MaxChargeableKg (Switzerland's LSVA).
 	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
+	// PerDay tables charge their rates per day of use, whatever the km
+	// (time-based vignettes): a trip is priced at one day's charge.
+	PerDay bool `json:"per_day,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
 	MotorwayShare float64 `json:"motorway_share,omitempty"`

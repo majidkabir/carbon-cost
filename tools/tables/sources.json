@@ -16,6 +16,8 @@
   {"id": "ee-ls", "table": "ee", "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/113032019015?leiaKehtiv=true", "what": "Estonia: Liiklusseadus, version in force (§ 190^1-190^13: road user charge rates per 24 hours, 7, 30, 90 and 365 days)"},
   {"id": "lt-447-asr", "table": "lt", "url": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/TAIS.254521/asr", "what": "Lithuania: Government resolution No 447 of 21 April 2005, consolidated (kelių naudotojo mokesčio dydžiai)"},
   {"id": "lt-447-etar", "table": "lt", "url": "https://www.e-tar.lt/portal/lt/legalAct/TAR.479B13E87700/asr", "what": "Lithuania: resolution No 447, consolidated, on e-TAR"},
-  {"id": "lt-237-2026", "table": "lt", "url": "https://e-seimas.lrs.lt/rs/legalact/TAD/d634093034b711f19c389aefab77fb47/", "what": "Lithuania: resolution No 237 of 8 April 2026 amending resolution No 447"}
+  {"id": "lt-237-2026", "table": "lt", "url": "https://e-seimas.lrs.lt/rs/legalact/TAD/d634093034b711f19c389aefab77fb47/", "what": "Lithuania: resolution No 237 of 8 April 2026 amending resolution No 447"},
+  {"id": "se-1997-1137", "table": "se", "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text", "what": "Sweden: Lag (1997:1137) om vägavgift för vissa tunga fordon, consolidated (Riksdagen open data)"},
+  {"id": "se-2025-918", "table": "se", "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf", "what": "Sweden: Förordning (2025:918), the road charge amounts for 2026"}
  ]
 }

@@ -37,7 +37,14 @@
   .foot { color: var(--muted); font-size: 12px; margin-top: 28px; }
   .foot a { color: inherit; }
   td:first-child { white-space: nowrap; }
-  @media (max-width: 560px) { .wide { grid-column: span 1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
+  .ac { position: relative; }
+  .ac ul { position: absolute; z-index: 10; left: 0; right: 0; top: 100%; margin: 2px 0 0; padding: 4px 0; list-style: none;
+           background: #fff; border: 1px solid var(--line); border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.08);
+           max-height: 300px; overflow-y: auto; }
+  .ac li { padding: 7px 10px; cursor: pointer; color: var(--ink); font-size: 14px; }
+  .ac li small { color: var(--muted); margin-left: 6px; }
+  .ac li[aria-selected="true"], .ac li:hover { background: #eef4f2; }
+  @media (max-width: 560px) { .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
 </style>
 </head>
 <body>
@@ -46,8 +53,8 @@
   <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws; routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
 
   <form id="f">
-    <label class="wide">From (UN/LOCODE, IATA or lat,lon)<input name="from" value="DKCPH" required></label>
-    <label class="wide">To<input name="to" value="DEHAM" required></label>
+    <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
+    <label class="wide">To<span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" required></span></label>
     <label>Date<input name="date" type="date"></label>
     <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
@@ -92,11 +99,75 @@ const $ = (id) => document.getElementById(id);
 const f = $("f");
 f.date.value = new Date().toISOString().slice(0, 10);
 
-function place(s) {
-  s = s.trim();
-  const m = s.match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
-  return m ? { lat: +m[1], lon: +m[2] } : { code: s.toUpperCase() };
+const LATLON = /^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/;
+function place(input) {
+  const s = input.value.trim();
+  if (input.dataset.label === s && input.dataset.lat) return { lat: +input.dataset.lat, lon: +input.dataset.lon };
+  const m = s.match(LATLON);
+  if (m) return { lat: +m[1], lon: +m[2] };
+  const c = s.match(/\(([A-Za-z0-9]{3,5})\)$/);
+  return { code: (c ? c[1] : s).toUpperCase() };
 }
+
+// Autocomplete from Sootcase's place search (cities, ports, terminals, airports).
+function autocomplete(input) {
+  const list = document.createElement("ul");
+  list.id = input.name + "-list"; list.setAttribute("role", "listbox"); list.hidden = true;
+  input.after(list);
+  input.setAttribute("role", "combobox"); input.setAttribute("autocomplete", "off");
+  input.setAttribute("aria-autocomplete", "list"); input.setAttribute("aria-controls", list.id);
+  input.setAttribute("aria-expanded", "false");
+  let items = [], active = -1, seq = 0, timer;
+  const close = () => { list.hidden = true; input.setAttribute("aria-expanded", "false"); input.removeAttribute("aria-activedescendant"); active = -1; };
+  const mark = (i) => {
+    active = i;
+    [...list.children].forEach((li, j) => li.setAttribute("aria-selected", j === i ? "true" : "false"));
+    if (i >= 0) { list.children[i].scrollIntoView({ block: "nearest" }); input.setAttribute("aria-activedescendant", list.children[i].id); }
+  };
+  const label = (p) => p.name + (p.country ? ", " + p.country : "") + (p.code ? ` (${p.code})` : "");
+  const pick = (p) => {
+    input.value = label(p);
+    input.dataset.label = input.value;
+    if (p.code) { delete input.dataset.lat; delete input.dataset.lon; }
+    else { input.dataset.lat = p.lat; input.dataset.lon = p.lon; }
+    close();
+  };
+  input.addEventListener("input", () => {
+    clearTimeout(timer);
+    const q = input.value.trim();
+    if (q.length < 2 || LATLON.test(q)) { close(); return; }
+    timer = setTimeout(async () => {
+      const n = ++seq;
+      try {
+        const resp = await fetch("v1/places?q=" + encodeURIComponent(q));
+        const body = await resp.json();
+        if (n !== seq || !resp.ok) return;
+        items = body.places || [];
+      } catch { return; }
+      list.replaceChildren();
+      items.forEach((p, i) => {
+        const li = document.createElement("li");
+        li.id = list.id + "-" + i; li.setAttribute("role", "option");
+        li.textContent = label(p);
+        const more = [p.alt_name, p.region, p.country_name, (p.kinds || []).join("/")].filter(Boolean).join(" · ");
+        if (more) { const sm = document.createElement("small"); sm.textContent = more; li.append(sm); }
+        li.addEventListener("pointerdown", (e) => { e.preventDefault(); pick(p); });
+        list.append(li);
+      });
+      list.hidden = !items.length; input.setAttribute("aria-expanded", items.length ? "true" : "false");
+      mark(items.length ? 0 : -1);
+    }, 200);
+  });
+  input.addEventListener("keydown", (e) => {
+    if (list.hidden) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); mark((active + 1) % items.length); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); mark((active - 1 + items.length) % items.length); }
+    else if (e.key === "Enter" && active >= 0) { e.preventDefault(); pick(items[active]); }
+    else if (e.key === "Escape") close();
+  });
+  input.addEventListener("blur", close);
+}
+autocomplete(f.from); autocomplete(f.to);
 const eur = (v) => "EUR " + v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const num = (v, d) => v.toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
 function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
@@ -104,7 +175,7 @@ function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text
 f.addEventListener("submit", async (e) => {
   e.preventDefault();
   const req = {
-    from: place(f.from.value), to: place(f.to.value), date: f.date.value || undefined,
+    from: place(f.from), to: place(f.to), date: f.date.value || undefined,
     cargo_kg: +f.cargo_kg.value,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined },

@@ -1027,7 +1027,7 @@ func TestLatviaPerDay(t *testing.T) {
 	}
 }
 
-// Estonia and Sweden count the combination's axles; Lithuania the motor
+// Estonia, Sweden and Luxembourg count the combination's axles; Lithuania the motor
 // vehicle's.
 func TestEstoniaLithuaniaPerDay(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
@@ -1048,6 +1048,9 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 		{"SE", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 45},
 		{"SE", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 5, CO2Class: 1}, 90},
 		{"SE", rates.Truck{MaxMassKg: 11990, Axles: 2, Euro: 5, CO2Class: 1}, 0},
+		{"LU", truck40, 13},
+		{"LU", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 4, CO2Class: 1}, 9},
+		{"LU", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 4},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{tc.cc: 150}}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"SEK": 11}}, date)

@@ -1,0 +1,259 @@
+{
+ "country": "LU",
+ "currency": "EUR",
+ "valid_from": "2025-03-25",
+ "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
+ "law": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 2°, as amended by the RGD of 18 December 2024: from 25 March 2025, for vehicles over 12 t, a charge per day, week, month or year, administrative costs included, by CO2 emission class, EURO class (CO2 class 1) and axles (three at most, four at least). The table keeps the daily amount (one calendar day).",
+ "sources": [
+  {
+   "title": "RGD du 21 mai 2019, consolidated (Legilux)",
+   "url": "https://legilux.public.lu/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224"
+  }
+ ],
+ "vehicles": "Goods vehicles over 12 t maximum mass",
+ "min_kg": 12001,
+ "tolled_roads": "The motorways and similar roads in the annex: A1, A3, A4 / B40, A6, A7 / B7, A13.",
+ "per_day": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    2
+   ],
+   "rate": 7
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    2
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    3
+   ],
+   "rate": 6
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    3
+   ],
+   "rate": 10
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "rate": 5
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 2
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 4
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    0
+   ],
+   "rate": 24
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    1
+   ],
+   "rate": 21
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 11
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    2
+   ],
+   "rate": 18
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 9
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    3
+   ],
+   "rate": 16
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 9
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    4
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    5
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    1
+   ],
+   "euro": [
+    6
+   ],
+   "rate": 13
+  }
+ ]
+}

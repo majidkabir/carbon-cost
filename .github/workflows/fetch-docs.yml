@@ -11,19 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Slovenian motorway junctions and toll gantries (OpenStreetMap)
+      - name: Slovak toll rate annexes (NV 418/2024 Z. z.)
         run: |
-          sudo apt-get -qq install -y osmium-tool jq >/dev/null
           mkdir -p out
-          curl -fsSL -o si.osm.pbf https://download.geofabrik.de/europe/slovenia-latest.osm.pbf
-          osmium tags-filter -o j.osm.pbf si.osm.pbf n/highway=motorway_junction n/highway=toll_gantry n/barrier=toll_booth n/barrier=border_control
-          osmium export -f geojsonseq --geometry-types=point -o j.geojsonseq j.osm.pbf
-          tr -d '\036' < j.geojsonseq | jq -c '[.properties.highway // .properties.barrier, .properties.name, .properties.ref, .properties.operator, (.geometry.coordinates[1]*1e5|round/1e5), (.geometry.coordinates[0]*1e5|round/1e5)]' > out/si-nodes.jsonl
-          wc -l out/si-nodes.jsonl
-          osmium tags-filter -o mw.osm.pbf si.osm.pbf w/highway=motorway,trunk
-          osmium export -f geojsonseq -o mw.geojsonseq mw.osm.pbf
-          tr -d '\036' < mw.geojsonseq | jq -c 'select(.properties.ref != null) | [.properties.ref, .properties.highway, (.geometry.coordinates | map([(.[1]*1e4|round/1e4), (.[0]*1e4|round/1e4)]))]' > out/si-ways.jsonl
-          wc -l out/si-ways.jsonl; ls -la out
+          for f in 5704373 5704377 5704381 5704385 5704389; do
+            curl -fsSL -A "carbon-cost docs fetch" -o "$f.pdf" "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_${f}-2.pdf" && pdftotext -layout "$f.pdf" "out/sk-$f.txt"
+          done
+          ls -la out
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

@@ -1,6 +1,7 @@
 name: Live check
-# Runs Sootcase v0.9.1 (country_km) with real OSRM routing for Denmark,
-# Schleswig-Holstein and Hamburg, then prices trips with carbon-cost.
+# Runs Sootcase (v0.10.1, else main) with real OSRM routing on a map
+# extract, then prices trips with carbon-cost and prints them as
+# annotations. Run from the Actions tab, or push to the live-check branch.
 on:
   workflow_dispatch:
   push:
@@ -9,6 +10,14 @@ jobs:
   live:
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: dk-de
+            maps: europe/denmark europe/germany/schleswig-holstein europe/germany/hamburg
+          - name: be
+            maps: europe/belgium
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -16,16 +25,19 @@ jobs:
           go-version-file: go.mod
           cache: false
       - run: go build -o cc ./cmd/carbon-cost
-      - name: Sootcase v0.9.1
-        run: git clone -q --depth 1 --branch v0.9.1 https://github.com/majidkabir/sootcase sootcase-src
-      - name: Map of DK + Schleswig-Holstein + Hamburg
+      - name: Sootcase
+        run: |
+          git clone -q --depth 1 --branch v0.10.1 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
+            || { rm -rf sootcase-src; git clone -q --depth 1 https://github.com/majidkabir/sootcase sootcase-src; }
+          git -C sootcase-src log --oneline -1
+      - name: Map
         run: |
           sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
           mkdir -p maps && cd maps
-          for r in europe/denmark europe/germany/schleswig-holstein europe/germany/hamburg; do
+          for r in ${{ matrix.maps }}; do
             curl -fsSL -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
           done
-          osmium merge -o region.osm.pbf denmark.osm.pbf schleswig-holstein.osm.pbf hamburg.osm.pbf
+          if [ "$(ls *.osm.pbf | wc -l)" -gt 1 ]; then osmium merge -o region.osm.pbf *.osm.pbf; else mv *.osm.pbf region.osm.pbf; fi
           ls -la
       - name: Start stack
         working-directory: sootcase-src
@@ -45,23 +57,20 @@ jobs:
           set +e
           export SOOTCASE_URL=http://localhost:8080
           run() {
-            name="$1"; shift
-            start=$(date +%s.%N)
-            out=$(./cc calc -date 2026-11-04 -cargo-kg 20000 -eua 75 "$@" 2>&1)
-            code=$?
-            secs=$(echo "$(date +%s.%N) - $start" | bc)
-            echo "== $name (exit $code, ${secs}s)"; echo "$out"
-            echo "::notice title=$name::exit $code, ${secs}s%0A$(echo "$out" | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"
+            name="${{ matrix.name }}/$1"; shift
+            out=$(./cc calc -date 2026-11-04 -cargo-kg 20000 -eua 75 "$@" 2>&1); code=$?
+            echo "== $name (exit $code)"; echo "$out"
+            echo "::notice title=$name::exit $code%0A$(echo "$out" | grep -v 'counted as on tolled roads' | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"
           }
-          run cph-ham -from DKCPH -to DEHAM -compare 1,4,5 -trips-per-year 200
-          run cph-ham-mrv -from DKCPH -to DEHAM -tare-kg 15000
-          run aarhus-hamburg -from DKAAR -to DEHAM
-          run padborg-flensburg -from 54.8260,9.3640 -to 54.7937,9.4370
-          run cph-ham-2028 -from DKCPH -to DEHAM -ets2 45 -date 2028-03-01
-          raw=$(curl -s -X POST 'http://localhost:8080/v1/calculate?country_km=true' -H 'Content-Type: application/json' \
-            -d '{"id":"t","weight_kg":20000,"add_road_legs":false,"legs":[{"id":"r","mode":"road","vehicle_type":"glec/road/eu_sa/artic_34_40t/diesel","from":{"code":"DKCPH"},"to":{"code":"DEHAM"}}]}' \
-            | jq -c '.legs[0] | {distance_km, country_km, route_parts_km, parts: [.parts[]? | {kind, distance_km, ttw_kg}], ttw_kg}')
-          echo "$raw"; echo "::notice title=raw-cph-ham::$raw"
+          if [ "${{ matrix.name }}" = dk-de ]; then
+            run cph-ham -from DKCPH -to DEHAM -compare 1,4,5 -trips-per-year 200
+            run cph-ham-mrv -from DKCPH -to DEHAM -tare-kg 15000
+            run aarhus-hamburg -from DKAAR -to DEHAM
+          else
+            run antwerp-liege -from BEANR -to BELGG
+            run brussels-ghent -from 50.8467,4.3525 -to BEGNE -json
+            run antwerp-namur-zev -from BEANR -to 50.4669,4.8675 -co2-class 5
+          fi
       - name: Logs
         if: failure()
         working-directory: sootcase-src

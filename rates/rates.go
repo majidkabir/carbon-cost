@@ -99,6 +99,10 @@ type Table struct {
 	// PerDay tables charge their rates per day of use, whatever the km
 	// (time-based vignettes): a trip is priced at one day's charge.
 	PerDay bool `json:"per_day,omitempty"`
+	// MotorAxles tables count the axles of the motor vehicle alone (the
+	// truck or tractor), not of the combination: rows' axle bounds apply
+	// to Truck.MotorAxles, or to Axles when that isn't given.
+	MotorAxles bool `json:"motor_axles,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
 	MotorwayShare float64 `json:"motorway_share,omitempty"`
@@ -367,9 +371,12 @@ type Surcharge struct {
 // Truck is what a toll rate depends on.
 type Truck struct {
 	MaxMassKg int `json:"max_mass_kg"` // technically permissible maximum mass
-	Axles     int `json:"axles"`
-	Euro      int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
-	CO2Class  int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
+	Axles     int `json:"axles"`       // of the truck with its trailer
+	// MotorAxles is the motor vehicle's own axles, optional: Lithuania's
+	// charge counts those (a tractor's, without the semi-trailer's).
+	MotorAxles int `json:"motor_axles,omitempty"`
+	Euro       int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
+	CO2Class   int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
 	// TareKg is the truck's own weight (with trailer), optional: ferries
 	// report freight emissions per tonne of vehicle and cargo.
 	TareKg int `json:"tare_kg,omitempty"`
@@ -397,6 +404,8 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("max_mass_kg must be > 0")
 	case t.Axles < 2 || t.Axles > 10:
 		return fmt.Errorf("axles must be 2-10")
+	case t.MotorAxles != 0 && (t.MotorAxles < 2 || t.MotorAxles > t.Axles):
+		return fmt.Errorf("motor_axles must be 2 to axles")
 	case t.Euro < 0 || t.Euro > 6:
 		return fmt.Errorf("euro must be 0-6")
 	case t.CO2Class < 1 || t.CO2Class > 5:
@@ -451,6 +460,9 @@ func (tb Table) Roads() []string {
 func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exemptNote string, ok bool) {
 	if t.MaxMassKg < tb.MinKg {
 		return nil, "", false
+	}
+	if tb.MotorAxles && t.MotorAxles > 0 {
+		t.Axles = t.MotorAxles
 	}
 	for _, e := range tb.Exemptions {
 		if slices.Contains(e.CO2Class, t.CO2Class) && !date.After(day(e.Until)) {

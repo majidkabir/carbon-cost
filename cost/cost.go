@@ -407,6 +407,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				}
 			}
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period.", cc))
+			if tb.MotorAxles && req.Truck.MotorAxles == 0 {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles))
+			}
 			continue
 		}
 		// Km by road type, where the rates differ by road: motorway_share

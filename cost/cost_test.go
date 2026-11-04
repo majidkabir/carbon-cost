@@ -1026,3 +1026,37 @@ func TestLatviaPerDay(t *testing.T) {
 		}
 	}
 }
+
+// Estonia counts the combination's axles; Lithuania the motor vehicle's.
+func TestEstoniaLithuaniaPerDay(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		cc    string
+		truck rates.Truck
+		want  float64
+	}{
+		{"EE", truck40, 22},
+		{"EE", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 10},
+		{"EE", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 4, CO2Class: 1}, 16},
+		{"EE", rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 3, CO2Class: 1}, 13},
+		{"LT", truck40, 23},
+		{"LT", rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, 13},
+		{"LT", rates.Truck{MaxMassKg: 32000, Axles: 4, MotorAxles: 4, Euro: 5, CO2Class: 1}, 25},
+		{"LT", rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 0, CO2Class: 1}, 29},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{tc.cc: 150}}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == tc.cc {
+				got += l.Amount
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s %+v: %.2f, want %.2f: %v", tc.cc, tc.truck, got, tc.want, r.Lines)
+		}
+	}
+}

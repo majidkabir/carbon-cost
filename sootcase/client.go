@@ -10,6 +10,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -95,11 +97,65 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	if base == "" {
 		base = DefaultURL
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=detailed", bytes.NewReader(body))
+	raw, err := c.do(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=detailed", body)
 	if err != nil {
 		return Result{}, err
 	}
-	req.Header.Set("Content-Type", "application/json")
+	var r Result
+	if err := json.Unmarshal(raw, &r); err != nil {
+		return Result{}, fmt.Errorf("sootcase: unreadable result: %w", err)
+	}
+	return r, nil
+}
+
+// Place is one match from Sootcase's place search (GET /v1/places).
+type Place struct {
+	ID          string   `json:"id"`
+	Code        string   `json:"code,omitempty"`
+	Kinds       []string `json:"kinds,omitempty"`
+	Name        string   `json:"name"`
+	AltName     string   `json:"alt_name,omitempty"`
+	Region      string   `json:"region,omitempty"`
+	Country     string   `json:"country,omitempty"`
+	CountryName string   `json:"country_name,omitempty"`
+	Lat         float64  `json:"lat"`
+	Lon         float64  `json:"lon"`
+}
+
+// Places finds cities, ports, terminals and airports by name or code,
+// best match first.
+func (c Client) Places(ctx context.Context, q string, limit int) ([]Place, error) {
+	base := strings.TrimRight(c.BaseURL, "/")
+	if base == "" {
+		base = DefaultURL
+	}
+	v := url.Values{"q": {q}, "limit": {strconv.Itoa(limit)}}
+	raw, err := c.do(ctx, http.MethodGet, base+"/v1/places?"+v.Encode(), nil)
+	if err != nil {
+		return nil, err
+	}
+	var r struct {
+		Places []Place `json:"places"`
+	}
+	if err := json.Unmarshal(raw, &r); err != nil {
+		return nil, fmt.Errorf("sootcase: unreadable places: %w", err)
+	}
+	return r.Places, nil
+}
+
+// do sends one request and returns the body of a 200 answer.
+func (c Client) do(ctx context.Context, method, u string, body []byte) ([]byte, error) {
+	var rd io.Reader
+	if body != nil {
+		rd = bytes.NewReader(body)
+	}
+	req, err := http.NewRequestWithContext(ctx, method, u, rd)
+	if err != nil {
+		return nil, err
+	}
+	if body != nil {
+		req.Header.Set("Content-Type", "application/json")
+	}
 	if c.APIKey != "" {
 		req.Header.Set("Authorization", "Bearer "+c.APIKey)
 	}
@@ -109,12 +165,12 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	}
 	resp, err := hc.Do(req)
 	if err != nil {
-		return Result{}, fmt.Errorf("sootcase: %w", err)
+		return nil, fmt.Errorf("sootcase: %w", err)
 	}
 	defer resp.Body.Close()
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, 32<<20))
 	if err != nil {
-		return Result{}, fmt.Errorf("sootcase: %w", err)
+		return nil, fmt.Errorf("sootcase: %w", err)
 	}
 	if resp.StatusCode != http.StatusOK {
 		var e struct {
@@ -124,11 +180,7 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 		if e.Error == "" {
 			e.Error = strings.TrimSpace(string(raw))
 		}
-		return Result{}, fmt.Errorf("sootcase: HTTP %d: %s", resp.StatusCode, e.Error)
+		return nil, fmt.Errorf("sootcase: HTTP %d: %s", resp.StatusCode, e.Error)
 	}
-	var r Result
-	if err := json.Unmarshal(raw, &r); err != nil {
-		return Result{}, fmt.Errorf("sootcase: unreadable result: %w", err)
-	}
-	return r, nil
+	return raw, nil
 }

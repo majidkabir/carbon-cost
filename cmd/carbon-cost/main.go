@@ -296,6 +296,23 @@ func Handler(c cost.Calculator) http.Handler {
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
 	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tables) })
+	mux.HandleFunc("GET /v1/places", func(w http.ResponseWriter, r *http.Request) {
+		q := strings.TrimSpace(r.URL.Query().Get("q"))
+		if len(q) < 2 || len(q) > 100 {
+			writeJSON(w, http.StatusOK, map[string]any{"places": []sootcase.Place{}})
+			return
+		}
+		ps, err := c.Sootcase.Places(r.Context(), q, 8)
+		if err != nil {
+			writeJSON(w, http.StatusBadGateway, map[string]string{"error": err.Error()})
+			return
+		}
+		if ps == nil {
+			ps = []sootcase.Place{}
+		}
+		w.Header().Set("Cache-Control", "public, max-age=86400")
+		writeJSON(w, http.StatusOK, map[string]any{"places": ps})
+	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request
 		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20))

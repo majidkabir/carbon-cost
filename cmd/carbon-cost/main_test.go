@@ -11,6 +11,14 @@ import (
 
 func TestHandler(t *testing.T) {
 	fake := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == "/v1/places" {
+			if r.URL.Query().Get("q") != "hamb" || r.URL.Query().Get("limit") != "8" {
+				w.WriteHeader(http.StatusTeapot)
+				return
+			}
+			w.Write([]byte(`{"places":[{"id":"locode:DEHAM","code":"DEHAM","kinds":["port"],"name":"Hamburg","country":"DE","lat":53.55,"lon":9.99}]}`))
+			return
+		}
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(`{"error":"leg 1 from: unknown location \"XXXXX\""}`))
 	}))
@@ -28,6 +36,9 @@ func TestHandler(t *testing.T) {
 		{"GET", "/healthz", "", 200, "ok"},
 		{"GET", "/", "", 200, "v1/carbon-cost"},
 		{"GET", "/v1/rates", "", 200, `"country": "DK"`},
+		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},
+		{"GET", "/v1/places?q=h", "", 200, `"places": []`},
+		{"GET", "/v1/places?q=other", "", 502, "HTTP 418"},
 		{"POST", "/v1/carbon-cost", `{"nope": 1}`, 400, "bad JSON"},
 		{"POST", "/v1/carbon-cost", `{"cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 9}}`, 400, "co2_class"},
 		{"POST", "/v1/carbon-cost", `{"from": {"code": "XXXXX"}, "to": {"code": "DEHAM"}, "cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 1}}`, 400, "unknown location"},

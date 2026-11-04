@@ -52,6 +52,9 @@ type Request struct {
 	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
 	// so give it when part of a trip runs on untolled roads.
 	TolledShare map[string]float64 `json:"tolled_share,omitempty"`
+	// MotorwayShare is the share of an area's tolled km on motorways
+	// (default 0), where its rates differ by road type (Brussels).
+	MotorwayShare map[string]float64 `json:"motorway_share,omitempty"`
 	// EnvZoneKm is km driven on tolled roads inside environmental zones,
 	// by country (Denmark charges a surcharge there).
 	EnvZoneKm map[string]float64 `json:"env_zone_km,omitempty"`
@@ -92,6 +95,7 @@ type Line struct {
 	Charge    string  `json:"charge"`
 	Country   string  `json:"country,omitempty"`
 	Region    string  `json:"region,omitempty"` // ISO 3166-2, for regional tolls
+	Road      string  `json:"road,omitempty"`   // motorway or other, where rates differ by road
 	Component string  `json:"component,omitempty"`
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
@@ -183,6 +187,11 @@ func check(req Request) error {
 	for k, v := range req.TolledShare {
 		if v < 0 || v > 1 {
 			return fmt.Errorf("tolled_share[%s] must be 0-1", k)
+		}
+	}
+	for k, v := range req.MotorwayShare {
+		if v < 0 || v > 1 {
+			return fmt.Errorf("motorway_share[%s] must be 0-1", k)
 		}
 	}
 	for k, v := range req.EnvZoneKm {
@@ -303,11 +312,41 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			continue
 		}
 		addSources(tb.Sources)
-		for _, r := range rs {
-			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Carbon: r.Component == rates.CO2,
-				Km: round3(tolledKm), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
-				Amount: tolledKm * r.PerKm, Source: tb.Law}); err != nil {
-				return Response{}, err
+		// Km by road type, where the rates differ by road: motorway_share
+		// of the tolled km on motorways, the rest on other roads.
+		type part struct {
+			road string
+			km   float64
+		}
+		parts := []part{{"", tolledKm}}
+		if roads := tb.Roads(); len(roads) > 0 {
+			mw, given := 0.0, false
+			for _, k := range []string{a.code, a.country} {
+				if v, ok := req.MotorwayShare[k]; ok {
+					mw, given = v, true
+					break
+				}
+			}
+			parts = []part{{rates.Motorway, tolledKm * mw}, {rates.OtherRoad, tolledKm * (1 - mw)}}
+			if !given {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: rates differ by road type; all %.1f km are priced at the non-motorway rate. Give motorway_share.%s for the share on motorways.",
+					cc, tolledKm, cc))
+			}
+		}
+		for _, pt := range parts {
+			if pt.km <= 0 && pt.road != "" {
+				continue
+			}
+			prs := rs
+			if pt.road != "" {
+				prs, _, _ = tb.RatesOn(req.Truck, date, pt.road)
+			}
+			for _, r := range prs {
+				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Component: r.Component,
+					Carbon: r.Component == rates.CO2, Km: round3(pt.km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
+					Amount: pt.km * r.PerKm, Source: tb.Law}); err != nil {
+					return Response{}, err
+				}
 			}
 		}
 		zkm := req.EnvZoneKm[a.code]

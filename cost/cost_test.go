@@ -346,3 +346,40 @@ func TestPrice_FerryMRV(t *testing.T) {
 		t.Errorf("unknown crossing: %+v, notes %v", l, r.Notes)
 	}
 }
+
+// A Belgian trip on the real Viapass tables, by hand (>32 t Euro VI,
+// class 1): VLG 60 km x 0.285 = 17.10; WAL 38 km x 0.205 = 7.79;
+// BRU 2 km, half on the motorway: 1 x 0.171 + 1 x 0.271 = 0.17 + 0.27.
+func TestPrice_Belgium(t *testing.T) {
+	trip := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: 100,
+		CountryKm: map[string]float64{"BE": 100},
+		RegionKm:  map[string]float64{"BE-VLG": 60, "BE-WAL": 38, "BE-BRU": 2}}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1, Truck: truck40, MotorwayShare: map[string]float64{"BE-BRU": 0.5}},
+		time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]float64{}
+	for _, l := range r.Lines {
+		got[l.Region+"/"+l.Road] = l.Amount
+	}
+	want := map[string]float64{"BE-VLG/": 17.10, "BE-WAL/": 7.79, "BE-BRU/motorway": 0.17, "BE-BRU/other": 0.27}
+	for k, v := range want {
+		if got[k] != v {
+			t.Errorf("%s: %v, want %v (all %v)", k, got[k], v, got)
+		}
+	}
+	if len(r.Lines) != 4 || r.TotalEUR != 25.33 || len(r.NoRates) != 0 {
+		t.Errorf("%d lines, total %v, no_rates %v", len(r.Lines), r.TotalEUR, r.NoRates)
+	}
+	// Without motorway_share: Brussels at the non-motorway rate, with a note.
+	r, _ = Price(trip, all(t), Request{CargoKg: 1, Truck: truck40}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+	for _, l := range r.Lines {
+		if l.Region == "BE-BRU" && (l.Road != "other" || l.Km != 2) {
+			t.Errorf("no share: Brussels line %+v", l)
+		}
+	}
+	if !hasNote(r, "motorway_share.BE-BRU") {
+		t.Errorf("notes %v", r.Notes)
+	}
+}

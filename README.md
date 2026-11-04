@@ -2,7 +2,7 @@
 
 What carbon and road charges does a truck trip pay? carbon-cost works it out per country and per charge, and shows the carbon part separately:
 
-- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut) and the Netherlands (vrachtwagenheffing), split into their legal parts: infrastructure, air, noise and CO2.
+- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut), the Netherlands (vrachtwagenheffing) and Belgium (kilometerheffing, by region), split into their legal parts: infrastructure, air, noise and CO2.
 - **EU ETS on ferry crossings:** the cargo's share of the crossing's emissions × the allowance price.
 - **ETS2 on road fuel** from 2028: the trip's fuel emissions × the ETS2 price.
 
@@ -50,13 +50,14 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 | DE | Lkw-Maut, over 3.5 t | from 1 July 2024 | [BFStrMG Anlage 1](https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html); emission-free trucks are exempt until 30 June 2031 |
 | AT | GO-Maut, over 3.5 t | 2026 | [Mauttarifverordnung 2025, BGBl. II Nr. 298/2025](https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf) §§ 2, 8, 9; not included: the special toll sections (Brenner, Tauern, Arlberg, Karawanken, Pyhrn/Gleinalm) and the A 12 surcharge |
 | NL | Vrachtwagenheffing, over 3.5 t | from 1 July 2026 to the end of 2026 | [Staatscourant 2026, 3872](https://zoek.officielebekendmakingen.nl/stcrt-2026-3872.pdf) (statutory amounts, 1 July – 31 August) and [Staatscourant 2026, 18058](https://zoek.officielebekendmakingen.nl/stcrt-2026-18058.html) (22.3% lower, 1 September – 31 December) |
+| BE | Kilometre charge by region: Flanders (`BE-VLG`), Wallonia (`BE-WAL`), Brussels (`BE-BRU`), over 3.5 t | 1 July – 31 December 2026 | [Viapass rate grid, ed. 01/07/2026](https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html). Rates are totals: Flanders' CO2 element isn't published separately, so it isn't shown as a carbon part. Wallonia is excluding VAT. Brussels has motorway and urban-area rates: give `motorway_share.BE-BRU`, otherwise all km use the urban rate |
 
 Run `carbon-cost rates` for the full list. Countries on a route that have no table are listed under `no_rates`, and their charges are not included.
 
 ## Things to know
 
 - **Tolled roads:** Sootcase gives km per country but not road classes yet, so all km in a country are counted as tolled by default. In Denmark the 2025–2027 tolled network covers about 100% of foreign trucks' driving and about 70% of Danish trucks' ([Skatteministeriet's answer to Folketinget](https://eu.dk/samling/20222/lovforslag/l74/spm/35/svar/1958301/2708151.pdf)), and from 2028 every public road is tolled. Germany tolls motorways and federal roads. If part of a trip is on untolled roads, give `tolled_share`.
-- **Regional tolls:** where a country's toll differs by region (Belgium), the tool prices the km per region from Sootcase's `region_km` (ISO 3166-2, e.g. `BE-VLG`). `country_km` still covers the whole country. `tolled_share` and `env_zone_km` take a region code or a country code. Belgium's regional rates are not in yet.
+- **Regional tolls:** where a country's toll differs by region (Belgium), the tool prices the km per region from Sootcase's `region_km` (ISO 3166-2, e.g. `BE-VLG`). `country_km` still covers the whole country. `tolled_share` and `env_zone_km` take a region code or a country code. 
 - **Environmental zones:** the Danish surcharge applies to the km you give in `env_zone_km`.
 - **Ferry ETS:** this is the ETS cost of the cargo's share of the crossing. On a crossing the tool knows (Rødby–Puttgarden, Gedser–Rostock), and when you give the truck's `tare_kg`, the emissions come from that crossing's own ships in the EU MRV report: their freight CO2e per tonne-nautical mile × (truck + cargo) × the crossing's distance. MRV counts the vehicle in the freight mass, which is why the tare is needed. Otherwise the emissions come from Sootcase's ferry part, which uses the GLEC ro-pax default. The share of emissions under the ETS is 40% for 2024, 70% for 2025 and 100% from 2026, all for crossings between EU/EEA ports. A ferry line's own surcharge is based on its ships' real emissions and its own pricing.
 - **Prices:** EUA and ETS2 prices are yours to give, since they move every day. DKK converts at the ERM II central rate of 7.46038 unless you give `dkk_per_eur`.
@@ -92,7 +93,7 @@ API request:
 }
 ```
 
-Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `dkk_per_eur`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`.
+Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `motorway_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `dkk_per_eur`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`.
 
 ## License
 

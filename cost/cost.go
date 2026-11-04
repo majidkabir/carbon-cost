@@ -893,40 +893,89 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 func priceClosed(tb rates.Table, country, region string, route [][2]float64, req Request, out *Response, add func(Line) error) (bool, error) {
 	used := false
 	for _, sys := range tb.Closed {
-		u, ok := usesSystem(sys, route)
-		if !ok {
-			continue
+		var uses []systemUse
+		if sys.Chain {
+			uses = chainUses(sys, route, req.Truck, req.ETC)
+		} else if u, ok := usesSystem(sys, route); ok {
+			uses = []systemUse{u}
 		}
-		used = true
-		g := sys.GroupOf(req.Truck)
-		p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
-		if !ok {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", country, sys.Name, u.entry, u.exit, g))
-			continue
-		}
-		var pct float64
-		var names []string
-		for _, d := range sys.Discounts {
-			if d.Applies(req.Truck, req.ETC) {
-				pct += d.Percent
-				names = append(names, fmt.Sprintf("%s %g%%", d.Name, d.Percent))
+		for _, u := range uses {
+			used = true
+			g := sys.GroupOf(req.Truck)
+			p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
+			if !ok {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", country, sys.Name, u.entry, u.exit, g))
+				continue
 			}
-		}
-		if pct > 0 {
-			p = round2(p * (1 - pct/100))
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s with %s off.", country, sys.Name, strings.Join(names, " and ")))
-		}
-		if req.Truck.LengthM == 0 && slices.ContainsFunc(sys.Groups, func(g rates.Group) bool { return g.MaxLengthM > 0 }) {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is priced by length; %g m assumed (group %s). Give the truck's length_m.", country, sys.Name, rates.DefaultLengthM, g))
-		}
-		name := sys.Name + ": " + u.entry
-		if u.exit != u.entry {
-			name += " – " + u.exit
-		}
-		if err := add(Line{Charge: RoadToll, Country: country, Region: region, Component: rates.Toll, Section: name,
-			Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
-			return used, err
+			var pct float64
+			var names []string
+			for _, d := range sys.Discounts {
+				if d.Applies(req.Truck, req.ETC) {
+					pct += d.Percent
+					names = append(names, fmt.Sprintf("%s %g%%", d.Name, d.Percent))
+				}
+			}
+			if pct > 0 {
+				p = round2(p * (1 - pct/100))
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s with %s off.", country, sys.Name, strings.Join(names, " and ")))
+			}
+			if req.Truck.LengthM == 0 && slices.ContainsFunc(sys.Groups, func(g rates.Group) bool { return g.MaxLengthM > 0 }) {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is priced by length; %g m assumed (group %s). Give the truck's length_m.", country, sys.Name, rates.DefaultLengthM, g))
+			}
+			name := sys.Name + ": " + u.entry
+			if u.exit != u.entry {
+				name += " – " + u.exit
+			}
+			if err := add(Line{Charge: RoadToll, Country: country, Region: region, Component: rates.Toll, Section: name,
+				Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
+				return used, err
+			}
 		}
 	}
 	return used, nil
+}
+
+// chainUses splits a route's passes through a chained toll system into
+// tickets: from the first station passed, the longest pair with a
+// published price, then again from the next station after its exit.
+// Stations without any priced pair to a later one are skipped.
+func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool) []systemUse {
+	type pass struct {
+		name string
+		pos  float64
+	}
+	var passes []pass
+	for _, st := range sys.Stations {
+		best, bestPos := math.Inf(1), 0.0
+		for _, p := range st.Points {
+			if pos, d := project(route, p); d < best {
+				best, bestPos = d, pos
+			}
+		}
+		if best <= StationMatchKm {
+			passes = append(passes, pass{st.Name, bestPos})
+		}
+	}
+	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
+	g := sys.GroupOf(t)
+	var out []systemUse
+	for i := 0; i < len(passes); {
+		j := -1
+		for k := len(passes) - 1; k > i; k-- {
+			if passes[k].name == passes[i].name {
+				continue
+			}
+			if _, ok := sys.Price(passes[i].name, passes[k].name, g, etc); ok {
+				j = k
+				break
+			}
+		}
+		if j < 0 {
+			i++
+			continue
+		}
+		out = append(out, systemUse{entry: passes[i].name, exit: passes[j].name, km: passes[j].pos - passes[i].pos})
+		i = j + 1
+	}
+	return out
 }

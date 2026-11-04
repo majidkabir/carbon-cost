@@ -123,8 +123,12 @@ type Table struct {
 // a truck enters to the one where it leaves, by vehicle group. An open
 // toll station (a barrier on the road) is priced from itself to itself.
 type TollSystem struct {
-	Name     string                        `json:"name"`
-	Law      string                        `json:"law"`
+	Name string `json:"name"`
+	Law  string `json:"law"`
+	// Chain prices a trip that passes many stations as consecutive
+	// published entry-exit pairs, each as long as the prices allow
+	// (France); otherwise one ticket from the first to the last station.
+	Chain    bool                          `json:"chain,omitempty"`
 	Groups   []Group                       `json:"groups"`
 	Stations []Station                     `json:"stations"`
 	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price

@@ -40,6 +40,8 @@ jobs:
             maps: europe/croatia
           - name: rs
             maps: europe/serbia
+          - name: fr
+            maps: europe/france/bourgogne
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -131,6 +133,9 @@ jobs:
             run slovenia-border-zagreb -from 45.8470,15.6850 -to 45.8150,15.9819
             run rijeka-pula -from 45.3271,14.4422 -to 44.8666,13.8496
             run zagreb-split-etc -from 45.8150,15.9819 -to 43.5081,16.4402 -etc
+          elif [ "${{ matrix.name }}" = fr ]; then
+            run dijon-macon -from 47.3220,5.0415 -to 46.3069,4.8287
+            run auxerre-beaune-2axles -from 47.7982,3.5673 -to 47.0260,4.8400 -axles 2 -mass-kg 18000
           elif [ "${{ matrix.name }}" = rs ]; then
             run beograd-nis -from 44.7866,20.4489 -to 43.3209,21.8958
             run batrovci-dimitrovgrad -from 45.0470,19.1010 -to 43.0156,22.7782
@@ -159,6 +164,7 @@ jobs:
             ro) trip="-from 44.4268,26.1025 -to 45.6427,25.5887" ;;
             hr) trip="-from 45.8150,15.9819 -to 43.5081,16.4402" ;;
             rs) trip="-from 44.7866,20.4489 -to 43.3209,21.8958" ;;
+            fr) trip="-from 47.3220,5.0415 -to 46.3069,4.8287" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac

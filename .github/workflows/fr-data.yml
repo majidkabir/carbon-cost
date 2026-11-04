@@ -13,12 +13,21 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils osmium-tool && pip install -q pyproj
       - name: Fetch
         run: |
           mkdir -p out
           python3 tools/fr/fetch.py tools/fr/sources.json out
-          find out -type f | sort | head -200
+          curl -fsSL -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf
+          osmium tags-filter -O -o booths.pbf fr.pbf n/barrier=toll_booth n/highway=motorway_junction
+          osmium export -O -f geojsonseq -o out/osm-booths.geojsonseq booths.pbf
+          rm fr.pbf booths.pbf
+      - name: Parse and build
+        run: |
+          python3 tools/fr/parse.py tools/fr/documents.json out out/pairs.csv
+          gares=$(ls out/stations/Gares-Peage_20* | sort | tail -1)
+          python3 tools/fr/stations.py out/pairs.csv "$gares" tools/fr/aliases.json out/osm-booths.geojsonseq out/stations.json | tee out/stations-report.txt
+          python3 tools/fr/build.py out/pairs.csv out/stations.json out/manifest.json out/fr.json | tee out/build-report.txt
       - name: Push
         run: |
           cd out

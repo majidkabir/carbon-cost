@@ -1,0 +1,70 @@
+{
+ "about": "Tariff station names that the ministry's toll station dataset (data.gouv.fr) lists under another name, mapped by hand to its nomGare values (tools/fr/stations.py). Names not here and not in the dataset are looked up in OpenStreetMap's toll booths and motorway junctions.",
+ "aliases": {
+  "CHARMONT (LIM.CONC)": [
+   "Charmont-s-Barbuise Entree",
+   "Charmont-s-Barbuise Sortie"
+  ],
+  "TIL CHATEL": [
+   "Tilchatel"
+  ],
+  "PONTCHARRA": [
+   "Pontcharrat"
+  ],
+  "ISLE D'ABEAU CENTRE": [
+   "L'Isle d'Abeau Centre"
+  ],
+  "VOIRON": [
+   "Voiron (Champfeuillet)"
+  ],
+  "ST HILAIRE": [
+   "Saint Hilaire les Andresis"
+  ],
+  "FONTENAY /LOING": [
+   "Fontenay sur Loing"
+  ],
+  "GONDREVILLE A77/N": [
+   "Gondreville la Franche"
+  ],
+  "GONDREVILLE A77/S": [
+   "Gondreville la Franche"
+  ],
+  "ST PIERRE BELLEVILLE": [
+   "St Pierre de Belleville"
+  ],
+  "CRUSEILLES A 410": [
+   "Cruseilles A410"
+  ],
+  "MONTREUIL AUX LIONS": [
+   "Montreuil bretelle vers Paris Entree",
+   "Montreuil bretelle vers Paris Sortie",
+   "Montreuil bretelles vers Reims Entree",
+   "Montreuil bretelles vers Reims Sortie"
+  ],
+  "MONTREUIL (REIMS)": [
+   "Montreuil BPV sens 1",
+   "Montreuil BPV Sens 2"
+  ],
+  "TOURS-C/MONNAIE": [
+   "Monnaie Bpv"
+  ],
+  "REIMS NORD (ORMES)": [
+   "Ormes BPV Entree Sens 1",
+   "Ormes BPV Sortie Sens 2"
+  ],
+  "REIMS EST (TAISSY)": [
+   "Taissy BPV Entree Sens 1",
+   "Taissy BPV Sortie Sens 2"
+  ],
+  "REIMS OUEST (THILLOIS)": [
+   "Thillois BPV Entree Sens 1",
+   "Thillois BPV Sortie Sens 2"
+  ],
+  "ST GERMAIN LES VERGNE": [
+   "Saint Germain Les Vergnes"
+  ],
+  "ST MARTIN BELLEVUE A410": [
+   "Saint Martin de Bellevue A410"
+  ]
+ }
+}

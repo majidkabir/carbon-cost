@@ -929,3 +929,30 @@ func TestChainBoothBeside(t *testing.T) {
 		t.Errorf("got %+v, want X-N and W-W", got)
 	}
 }
+
+func TestFrejus(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	path := [][2]float64{{6.60, 45.20}, {6.67415, 45.19439}, {6.70, 45.15}}
+	for _, tc := range []struct {
+		truck rates.Truck
+		want  float64
+	}{
+		{truck40, 337.33},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 167.92},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 12, CountryKm: map[string]float64{"FR": 12}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Fréjus") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%+v: Fréjus %.2f, want %.2f: %v", tc.truck, got, tc.want, r.Lines)
+		}
+	}
+}

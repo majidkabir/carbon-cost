@@ -10,6 +10,10 @@ Parsers (text documents, from pdftotext -layout):
   list        ENTRY  EXIT  km  c1 €  c2 €  c3 €  c4 €  c5 €
   list_codes  code ENTRY  code EXIT  km  c1 €  c2 €  c3 €  c4 €  c5 € [km]
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
+  gares       one page per entry station ("Gare de X"), then rows
+              "code EXIT c1 c2 c3 c4 c5" (A'liénor)
+  barrier     a single barrier priced alone: its first five rows of two
+              prices are classes 1 to 5 (Millau)
 text positions saved from a browser (the Sanef site refuses scripted
 downloads; sanef/extract.js, sanef.py):
   items       Sanef's and SAPN's triangles; the file's header gives the
@@ -29,6 +33,7 @@ PARSERS = {
     "list_codes": re.compile(r"^\s*\d+\s+(?P<entry>\S.*?)\s{2,}\d+\s+(?P<exit>\S.*?)\s{2,}(?P<km>[\d ]+,\d+)\s+" + PRICES),
     "list_roads": re.compile(r"^\s*A\d+\s+(?P<entry_no>\d+(?:\.\d+)?[a-z]?|-)\s+(?P<entry>\S.*?)\s{2,}A\d+\s+(?P<exit_no>\d+(?:\.\d+)?[a-z]?|-)\s+(?P<exit>\S.*?)\s{2,}" + PRICES),
 }
+GARE_ROW = re.compile(r"^\s*\d{5}\s+(?P<exit>\S.*?)\s{2,}" + r"\s+".join(f"(?P<c{i}>[\\d ]+,\\d\\d)" for i in range(1, 6)) + r"\s*$")
 MONTHS = {"janvier": 1, "février": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6, "juillet": 7, "août": 8,
           "septembre": 9, "octobre": 10, "novembre": 11, "décembre": 12}
 
@@ -38,7 +43,7 @@ def num(s):
 
 
 def valid_from(text):
-    m = re.search(r"(?:en vigueur|applicables?|TTC) (?:au|à compter du) (\d+)(?:er)? (\w+) (\d{4})", text, re.I)
+    m = re.search(r"(?:(?:en vigueur|applicables?|TTC|Tarifs) (?:au|à compter du)|^à compter du) (\d+)(?:er)? (\w+) (\d{4})", text, re.I | re.M)
     return f"{int(m.group(3)):04d}-{MONTHS[m.group(2).lower()]:02d}-{int(m.group(1)):02d}" if m else ""
 
 
@@ -102,6 +107,36 @@ def main(docs_path, fetched, out):
                     if p4 is not None:
                         w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
                 print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
+            if d["parser"] in ("gares", "barrier"):
+                text = open(os.path.join(fetched, d["file"]), encoding="utf-8").read()
+                src = manifest[d["url_from"]]
+                # The date: the document's own, else the page linking it ("dated_by").
+                vf = valid_from(text) or (valid_from(open(os.path.join(fetched, d["dated_by"]), encoding="utf-8").read()) if d.get("dated_by") else "")
+                n = 0
+                if d["parser"] == "gares":
+                    # One page per entry station ("Gare de BAZAS"), then
+                    # "code EXIT c1 c2 c3 c4 c5" rows (EUR including VAT).
+                    entry = None
+                    for line in text.splitlines():
+                        g = re.search(r"Gare de ([A-ZÀ-Ü' -]*[A-ZÀ-Ü])", line)
+                        if g:
+                            entry = g.group(1).strip()
+                        m = GARE_ROW.match(line)
+                        if m and entry:
+                            w.writerow([d["operator"], d["url_from"], src["url"], src["sha256"], "", "", vf, entry, m["exit"].strip(), "",
+                                        num(m["c3"]), num(m["c4"]), "", ""])
+                            n += 1
+                else:
+                    # A single barrier: its first five price rows are classes
+                    # 1 to 5 (two seasons' prices; trucks pay the same in both).
+                    rows = [re.findall(r"([\d ]+,\d\d) €", line) for line in text.splitlines()]
+                    rows = [r for r in rows if len(r) == 2][:5]
+                    st = d["station"]
+                    w.writerow([d["operator"], d["url_from"], src["url"], src["sha256"], "", "", vf, st, st, "",
+                                num(rows[2][1]), num(rows[3][1]), "", ""])
+                    n = 1
+                print(f"{d['file']}: {n} pairs, valid from {vf}")
                 continue
             if d["parser"] == "grid":
                 for url, sha, url4, sha4, vf, a, b, p3, p4, na, nb in grid_rows(d, fetched, manifest):

@@ -1,9 +1,12 @@
 {
- "about": "Which fetched tariff documents (tools/fr/fetch.py output) are parsed, how, and what they cover. 'list' documents give one row per entry-exit pair with the five class prices in EUR including VAT (TTC). All the listed documents are priced together as one French system: a trip pays, in order along the route, for the longest entry-exit pairs these documents publish (tools/fr/build.py).",
+ "about": "Which fetched tariff documents (tools/fr/fetch.py output) are parsed, how, and what they cover. 'list' documents give one row per entry-exit pair with the five class prices in EUR including VAT (TTC); 'grid' documents are VINCI Autoroutes' class grids, one PDF page per class (parse.py, grid.py). All the listed documents are priced together as one French system: a trip pays, in order along the route, for the longest entry-exit pairs these documents publish (tools/fr/build.py).",
  "documents": [
   {"file": "aprr/TARIFS_APRR.txt", "parser": "list", "operator": "APRR", "covers": "APRR network, with trips to and from A79 (ALIAE) through Deux-Chaises", "url_from": "aprr/TARIFS_APRR.pdf"},
   {"file": "aprr/TARIFS_AREA.txt", "parser": "list_codes", "operator": "AREA", "covers": "AREA network", "url_from": "aprr/TARIFS_AREA.pdf"},
   {"file": "adelac/TARIFS_2026.txt", "parser": "list_codes", "operator": "ADELAC", "covers": "A41 Nord (Liane), with trips to and from AREA", "url_from": "adelac/TARIFS_2026.pdf"},
-  {"file": "aliae/TARIFS_ALIAE-2026.txt", "parser": "list", "operator": "ALIAE", "covers": "A79 free flow and the Deux-Chaises barrier, with trips to and from APRR", "url_from": "aliae/TARIFS_ALIAE-2026.pdf"}
+  {"file": "aliae/TARIFS_ALIAE-2026.txt", "parser": "list", "operator": "ALIAE", "covers": "A79 free flow and the Deux-Chaises barrier, with trips to and from APRR", "url_from": "aliae/TARIFS_ALIAE-2026.pdf"},
+  {"files": ["vinci/C3-TARIFS-WEB-2026-maille_maj062026.pdf", "vinci/C4-TARIFS-WEB-2026-maille_maj062026.pdf"], "parser": "grid", "operator": "ASF", "covers": "ASF network (VINCI Autoroutes south and west), with trips to and from Cofiroute, Arcour, APRR and AREA that ASF charges at its exits"},
+  {"files": ["vinci/Escota-Guide-tarifaire-2026.pdf"], "parser": "grid", "operator": "Escota", "covers": "Escota network (A8, A50, A51, A52, A57, A500): Provence and the Côte d'Azur"},
+  {"file": "vinci/Cofiroute-Guide-tarifaire-2026.txt", "parser": "list_roads", "operator": "Cofiroute", "covers": "Cofiroute network (A10, A11, A28, A71, A81, A85), with trips to and from APRR, AREA, ASF and Sanef that Cofiroute charges at its exits", "url_from": "vinci/Cofiroute-Guide-tarifaire-2026.pdf"}
  ]
 }

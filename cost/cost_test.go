@@ -837,3 +837,31 @@ func TestCroatiaDiscounts(t *testing.T) {
 		}
 	}
 }
+
+// Serbia: Beograd to Niš jug, category 4, 60.50 EUR; Dimitrovgrad to
+// Beograd 93.00; category 3 Beograd to Niš jug 30.50.
+func TestSerbia(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	trip := func(path [][2]float64) sootcase.Result {
+		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"RS": 300}, Path: path}}}
+	}
+	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
+	dimBg := [][2]float64{{22.75, 43.01}, {22.73643, 43.02192}, {21.9, 43.35}, {20.61189, 44.66423}, {20.60, 44.70}}
+	for _, tc := range []struct {
+		path  [][2]float64
+		truck rates.Truck
+		total float64
+	}{
+		{bgNis, truck40, 60.5},
+		{dimBg, truck40, 93},
+		{bgNis, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 30.5},
+	} {
+		r, err := Price(trip(tc.path), all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
+			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, tc.total, r.Notes)
+		}
+	}
+}

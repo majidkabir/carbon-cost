@@ -52,6 +52,9 @@ type Request struct {
 	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
 	// so give it when part of a trip runs on untolled roads.
 	TolledShare map[string]float64 `json:"tolled_share,omitempty"`
+	// Night: the trip passes night-tariff sections between 22:00 and
+	// 05:00 (Austria's A 13 Brenner).
+	Night bool `json:"night,omitempty"`
 	// MotorwayShare is the share of an area's tolled km on motorways
 	// (default 0), where its rates differ by road type (Brussels).
 	MotorwayShare map[string]float64 `json:"motorway_share,omitempty"`
@@ -94,8 +97,9 @@ type Comparison struct {
 type Line struct {
 	Charge    string  `json:"charge"`
 	Country   string  `json:"country,omitempty"`
-	Region    string  `json:"region,omitempty"` // ISO 3166-2, for regional tolls
-	Road      string  `json:"road,omitempty"`   // motorway or other, where rates differ by road
+	Region    string  `json:"region,omitempty"`  // ISO 3166-2, for regional tolls
+	Road      string  `json:"road,omitempty"`    // motorway or other, where rates differ by road
+	Section   string  `json:"section,omitempty"` // a fixed-charge section or a surcharged stretch
 	Component string  `json:"component,omitempty"`
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
@@ -282,6 +286,10 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		}
 	}
 
+	var route [][2]float64
+	for _, l := range res.Legs {
+		route = append(route, l.Path...)
+	}
 	// Road tolls, area by area: countries, or their regions where tolls
 	// are set by region.
 	for _, a := range areas(&out, tables) {
@@ -333,6 +341,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 					cc, tolledKm, cc))
 			}
 		}
+		// Fixed-charge sections on the route: their km pay the section
+		// charge instead of the per-km infrastructure rate.
+		secs, secKm := onRoute(tb, route)
 		for _, pt := range parts {
 			if pt.km <= 0 && pt.road != "" {
 				continue
@@ -342,9 +353,41 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				prs, _, _ = tb.RatesOn(req.Truck, date, pt.road)
 			}
 			for _, r := range prs {
+				km := pt.km
+				if r.Component == rates.Infrastructure && secKm > 0 {
+					km = math.Max(0, km-secKm)
+				}
 				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Component: r.Component,
-					Carbon: r.Component == rates.CO2, Km: round3(pt.km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
-					Amount: pt.km * r.PerKm, Source: tb.Law}); err != nil {
+					Carbon: r.Component == rates.CO2, Km: round3(km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
+					Amount: km * r.PerKm, Source: tb.Law}); err != nil {
+					return Response{}, err
+				}
+			}
+		}
+		for _, s := range secs {
+			v := s.sec.Amount(req.Truck, req.Night)
+			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.Infrastructure, Section: s.sec.Name,
+				Km: round3(s.km), Rate: v, RateUnit: tb.Currency + "/section", Currency: tb.Currency, Amount: v, Source: tb.Sections.Law}); err != nil {
+				return Response{}, err
+			}
+		}
+		for _, sc := range tb.Surcharges {
+			var km float64
+			for i := 0; i+1 < len(sc.Points); i++ {
+				if k, ok := along(route, sc.Points[i], sc.Points[i+1]); ok {
+					km += k
+				}
+			}
+			if km == 0 {
+				continue
+			}
+			for _, r := range rs {
+				if r.Component != sc.Component {
+					continue
+				}
+				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Section: sc.Name,
+					Km: round3(km), Rate: r.PerKm * sc.Factor, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
+					Amount: km * r.PerKm * sc.Factor, Source: sc.Law}); err != nil {
 					return Response{}, err
 				}
 			}
@@ -565,4 +608,79 @@ func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request,
 		out.Notes = append(out.Notes, "Ferry: "+c.NotInMRV)
 	}
 	return in.GPerTNm * grossT * nm / 1e6, basis, true
+}
+
+type sectionOnRoute struct {
+	sec rates.Section
+	km  float64
+}
+
+// onRoute lists the table's fixed-charge sections the route passes and
+// their total km along the route.
+func onRoute(tb rates.Table, route [][2]float64) ([]sectionOnRoute, float64) {
+	if tb.Sections == nil || len(route) < 2 {
+		return nil, 0
+	}
+	var out []sectionOnRoute
+	var total float64
+	for _, s := range tb.Sections.List {
+		if km, ok := along(route, s.From, s.To); ok {
+			out = append(out, sectionOnRoute{s, km})
+			total += km
+		}
+	}
+	return out, total
+}
+
+// SectionMatchKm is how close a route must pass to both ends of a
+// section to count as driving it.
+const SectionMatchKm = 0.5
+
+// along is the route's km between two places, if it passes within
+// SectionMatchKm of both and the stretch between is no longer than a road
+// between them could be (4x the straight line, plus 2 km).
+func along(route [][2]float64, a, b rates.Place) (float64, bool) {
+	pa, da := project(route, a)
+	pb, db := project(route, b)
+	if da > SectionMatchKm || db > SectionMatchKm {
+		return 0, false
+	}
+	km := math.Abs(pb - pa)
+	if km == 0 || km > 4*haversine(a.Lat, a.Lon, b.Lat, b.Lon)+2 {
+		return 0, false
+	}
+	return km, true
+}
+
+// project finds the point of the route nearest p: its distance along the
+// route and its distance from p, both in km.
+func project(route [][2]float64, p rates.Place) (pos, dist float64) {
+	dist = math.Inf(1)
+	cos := math.Cos(p.Lat * math.Pi / 180)
+	var cum float64
+	for i := 0; i+1 < len(route); i++ {
+		a, b := route[i], route[i+1]
+		seg := haversine(a[1], a[0], b[1], b[0])
+		// local flat projection around p, km
+		ax, ay := (a[0]-p.Lon)*cos*111.2, (a[1]-p.Lat)*111.2
+		bx, by := (b[0]-p.Lon)*cos*111.2, (b[1]-p.Lat)*111.2
+		dx, dy := bx-ax, by-ay
+		t := 0.0
+		if l := dx*dx + dy*dy; l > 0 {
+			t = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
+		}
+		if d := math.Hypot(ax+t*dx, ay+t*dy); d < dist {
+			dist, pos = d, cum+t*seg
+		}
+		cum += seg
+	}
+	return pos, dist
+}
+
+func haversine(lat1, lon1, lat2, lon2 float64) float64 {
+	const r = 6371.0088
+	rad := math.Pi / 180
+	dLat, dLon := (lat2-lat1)*rad, (lon2-lon1)*rad
+	h := math.Sin(dLat/2)*math.Sin(dLat/2) + math.Cos(lat1*rad)*math.Cos(lat2*rad)*math.Sin(dLon/2)*math.Sin(dLon/2)
+	return 2 * r * math.Asin(math.Min(1, math.Sqrt(h)))
 }

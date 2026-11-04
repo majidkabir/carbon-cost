@@ -109,6 +109,7 @@ func calc(args []string) error {
 	zone := fs.String("env-zone-km", "", "km in environmental zones by country, e.g. DK=4")
 	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
 	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
+	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	fs.Parse(args)
 
@@ -220,6 +221,9 @@ func printResult(r cost.Response) {
 		}
 		if l.Road != "" {
 			part += " (" + l.Road + ")"
+		}
+		if l.Section != "" {
+			part += ": " + l.Section
 		}
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}

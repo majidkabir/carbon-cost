@@ -1,0 +1,24 @@
+name: Tables data
+# Fetches the official pages behind the Romanian, Danish bridge and
+# Hungarian rate tables (tools/tables/sources.json) and pushes them, with
+# a manifest, to the tables-out branch. Push to the tables-data branch to
+# run it.
+on:
+  push:
+    branches: [tables-data]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch
+        run: python3 tools/tables/fetch.py tools/tables/sources.json out
+      - name: Push
+        run: |
+          cd out
+          git init -q -b tables-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "Rate table sources"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" tables-out

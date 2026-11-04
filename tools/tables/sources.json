@@ -1,0 +1,9 @@
+{
+ "about": "Official pages the hand-gathered rate tables come from (tools/tables/fetch.py saves them as fetched; the parsers rebuild the tables from the saved copies).",
+ "sources": [
+  {"id": "ro-tollro", "table": "ro", "url": "https://portal.etoll.ro/web/guest/tollro", "what": "CNAIR eToll TollRo page; its tariff widget asks the active-pricing-offer resource of the digitalizeportlet for the rates in force"},
+  {"id": "dk-storebaelt", "table": "dk-bridges", "url": "https://storebaelt.dk/priser-rabatter/erhverv/", "what": "A/S Storebælt business price list"},
+  {"id": "dk-oresund", "table": "dk-bridges", "url": "https://www.oresundsbron.com/da/erhverv/lastbil", "what": "Øresundsbron truck prices (business)"},
+  {"id": "hu-25-2013", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W", "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet, consolidated text in force (infrastructure charge § 1, annexes 1-2)"}
+ ]
+}

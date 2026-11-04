@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
   push:
     branches: [live-check]
+permissions:
+  contents: write
 jobs:
   live:
     runs-on: ubuntu-latest
@@ -24,6 +26,8 @@ jobs:
             maps: europe/switzerland europe/liechtenstein
           - name: cz
             maps: europe/czech-republic
+          - name: si
+            maps: europe/slovenia
           - name: bg
             maps: europe/bulgaria
           - name: pl
@@ -93,6 +97,10 @@ jobs:
           elif [ "${{ matrix.name }}" = pl ]; then
             run wroclaw-gliwice -from 51.1079,17.0385 -to 50.2945,18.6714
             run wroclaw-gliwice-10t-euro3 -from 51.1079,17.0385 -to 50.2945,18.6714 -mass-kg 10000 -axles 2 -euro 3
+          elif [ "${{ matrix.name }}" = si ]; then
+            run sentilj-koper -from 46.6770,15.6470 -to 45.5480,13.7650
+            run ljubljana-obrezje -from 46.0569,14.5058 -to 45.8540,15.6900
+            run ljubljana-obrezje-zev-3axles -from 46.0569,14.5058 -to 45.8540,15.6900 -co2-class 5 -axles 3 -mass-kg 26000
           elif [ "${{ matrix.name }}" = bg ]; then
             run sofia-plovdiv -from 42.6977,23.3219 -to 42.1354,24.7453
             run sofia-plovdiv-co2class4 -from 42.6977,23.3219 -to 42.1354,24.7453 -co2-class 4
@@ -110,6 +118,7 @@ jobs:
             at) trip="-from ATSZG -to 46.6100,13.8500" ;;
             ch) trip="-from 47.0450,9.4400 -to 47.2150,9.5650" ;;
             cz) trip="-from 50.0755,14.4378 -to 49.1951,16.6068" ;;
+            si) trip="-from 46.6770,15.6470 -to 45.5480,13.7650" ;;
             bg) trip="-from 42.6977,23.3219 -to 42.1354,24.7453" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
@@ -121,8 +130,17 @@ jobs:
             | (($map | keys) + ($want | keys) | unique)[]
             | "\(.) map \($map[.] // 0 | . * 10 | round / 10) km, country_km \($want[.] // 0 | . * 10 | round / 10) km"' trip.json)
           runs=$(jq -r '[.route[] | "\(.kind):\(.country // "")"] | join(" > ")' trip.json)
+          secs=$(jq -r '[.lines[] | select(.component == "infrastructure" and .section != null and .rate_unit == "EUR/section")] | "sections: \(length), route km on them \(map(.km) | add // 0 | . * 10 | round / 10)"' trip.json)
+          cmp="$cmp
+          $secs"
           echo "$runs"; echo "$cmp"
           echo "::notice title=${{ matrix.name }}/map::$runs%0A$(echo "$cmp" | sed ':a;N;$!ba;s/\n/%0A/g')"
+      - name: Save the Slovenian route for inspection
+        if: matrix.name == 'si'
+        run: |
+          mkdir -p dbg && cp trip.json dbg/si-trip.json && cd dbg && git init -q && git checkout -q -b live-out && git add -A
+          git -c user.name=live-check -c user.email=live-check@users.noreply.github.com commit -qm "Slovenian route"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" live-out
       - name: Logs
         if: failure()
         working-directory: sootcase-src

@@ -424,6 +424,20 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				Km: round3(s.km), Rate: v, RateUnit: tb.Currency + "/section", Currency: tb.Currency, Amount: v, Source: tb.Sections.Law}); err != nil {
 				return Response{}, err
 			}
+			for _, pk := range tb.Sections.PerKm {
+				r, ok := pk.Rate(req.Truck, s.sec)
+				if !ok || r == 0 {
+					continue
+				}
+				km := s.sec.Km
+				if km == 0 {
+					km = s.km
+				}
+				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: pk.Component, Section: s.sec.Name,
+					Km: round3(km), Rate: r, RateUnit: tb.Currency + "/km", Currency: tb.Currency, Amount: km * r, Source: pk.Law}); err != nil {
+					return Response{}, err
+				}
+			}
 		}
 		for _, sc := range tb.Surcharges {
 			var km float64
@@ -459,7 +473,10 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				return Response{}, err
 			}
 		}
-		if !shareGiven {
+		if tb.Sections != nil && len(tb.Rows) == 0 && len(secs) == 0 && km >= 1 {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the tolled sections.", cc))
+		}
+		if !shareGiven && len(tb.Rows) > 0 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
 				cc, km, cc, tb.TolledRoads))
 		}

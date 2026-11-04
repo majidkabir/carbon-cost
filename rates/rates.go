@@ -110,6 +110,61 @@ type Sections struct {
 	Law          string    `json:"law"`
 	TariffGroups string    `json:"tariff_groups"`
 	List         []Section `json:"list"`
+	// PerKm are charges per km of a section's official length (Km), on
+	// top of its fixed charge: Slovenia's rail surcharge and external-cost
+	// charge.
+	PerKm []SectionPerKm `json:"per_km,omitempty"`
+}
+
+// SectionPerKm is a per-km charge on sections. Rates are keyed by
+// TollClass and, as Key says, the truck's emission key (EmissionKey) and
+// the section's Area ("class/emission/area"), or the section's Tier
+// ("class/tier"). Sections with no rate for their key don't pay it.
+type SectionPerKm struct {
+	Component string             `json:"component"`
+	Name      string             `json:"name"`
+	Law       string             `json:"law"`
+	Key       string             `json:"key"` // "class/emission/area" or "class/tier"
+	Rates     map[string]float64 `json:"rates"`
+}
+
+// Rate is the charge's per-km rate on the section for the truck.
+func (c SectionPerKm) Rate(t Truck, s Section) (float64, bool) {
+	var k string
+	switch c.Key {
+	case "class/emission/area":
+		k = TollClass(t) + "/" + EmissionKey(t) + "/" + s.Area
+	case "class/tier":
+		if s.Tier == "" {
+			return 0, false
+		}
+		k = TollClass(t) + "/" + s.Tier
+	default:
+		return 0, false
+	}
+	v, ok := c.Rates[k]
+	return v, ok
+}
+
+// TollClass is Slovenia's toll class by axles: R2 (2 axles), R3 (3), R4
+// (more than 3).
+func TollClass(t Truck) string {
+	switch {
+	case t.Axles <= 2:
+		return "R2"
+	case t.Axles == 3:
+		return "R3"
+	}
+	return "R4"
+}
+
+// EmissionKey is "zev" for a zero-emission truck (CO2 class 5), else
+// "euro0" ... "euro6".
+func EmissionKey(t Truck) string {
+	if t.CO2Class == 5 {
+		return "zev"
+	}
+	return fmt.Sprintf("euro%d", t.Euro)
 }
 
 // Section is a road section from one place to another with a fixed
@@ -122,12 +177,38 @@ type Section struct {
 	Name      string                `json:"name"`
 	From      Place                 `json:"from"`
 	To        Place                 `json:"to"`
-	Tariff    map[string][3]float64 `json:"tariff"`
+	Tariff    map[string][3]float64 `json:"tariff,omitempty"`
 	NightKat4 map[string]float64    `json:"night_kat4,omitempty"`
+	// Km is the section's official length, where the law gives one.
+	Km float64 `json:"km,omitempty"`
+	// Area is suburban or interurban, for charges that differ by it.
+	Area string `json:"area,omitempty"`
+	// Tier picks the section's per-km surcharge rates, if any.
+	Tier string `json:"tier,omitempty"`
+	// Classes are Slovenia's charges per toll class (R2, R3, R4) in nine
+	// columns: EURO 0-III, IV, V, EEV and VI with CO2 class 1, then EURO
+	// VI with CO2 classes 2, 3, 4 and 5.
+	Classes map[string][9]float64 `json:"classes,omitempty"`
 }
 
 // Amount is the section's charge for the truck, by day or at night.
 func (s Section) Amount(t Truck, night bool) float64 {
+	if s.Classes != nil {
+		col := 0
+		switch {
+		case t.CO2Class == 5:
+			col = 8
+		case t.CO2Class >= 2 && t.Euro == 6:
+			col = 3 + t.CO2Class
+		case t.Euro == 6:
+			col = 4
+		case t.Euro == 5:
+			col = 2 // EEV is counted as Euro V here
+		case t.Euro == 4:
+			col = 1
+		}
+		return s.Classes[TollClass(t)][col]
+	}
 	g := "A"
 	if t.CO2Class == 5 {
 		g = "E"
@@ -321,8 +402,8 @@ func (tb Table) check() error {
 	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
 		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
 	}
-	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || len(tb.Rows) == 0 {
-		return fmt.Errorf("country, currency, sources and rows are required")
+	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil) {
+		return fmt.Errorf("country, currency, sources and rows (or sections) are required")
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")

@@ -1,0 +1,890 @@
+{
+ "country": "HU",
+ "currency": "HUF",
+ "valid_from": "2026-07-01",
+ "valid_to": "2026-12-31",
+ "name": "Hungarian distance-based toll (HU-GO)",
+ "law": "25/2013. (V. 31.) NFM rendelet (in force from 1 July 2026): § 1 (2)-(4a) as set by 46/2025. (XII. 23.) ÉKM gives the infrastructure charge in HUF/km including 27% VAT by category (J2-J5 by axles, 209/2013. (VI. 18.) Korm. rendelet § 2) and road level (expressway or main road); annex 2 gives the external-cost charge in eurocent/km excluding VAT (air and noise for suburban and interurban roads by EURO class, CO2 by EURO class, low- and zero-emission); annex 1 as set by 34/2025. (XI. 30.) ÉKM lists the 2,639 tolled elementary sections with their level and suburban share. Rates here exclude VAT: the infrastructure charge is divided by 1.27; the external-cost charge is converted at 388.60 HUF/EUR (ECB rate of 2 October 2023, kept because later 1 October rates moved it by 5% or less, 209/2013 § 3/A (2)-(3)), rounded to 0.01 HUF.",
+ "sources": [
+  {
+   "title": "25/2013. (V. 31.) NFM rendelet (Nemzeti Jogszabálytár, in force from 1 July 2026)",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W"
+  },
+  {
+   "title": "Magyar Közlöny 2025/143: 34/2025. (XI. 30.) ÉKM rendelet, annex 1 (tolled sections from 1 July 2026)",
+   "url": "https://magyarkozlony.hu/dokumentumok/ffc3529aaa9c6075ef082089b3ec049444bc554a/letoltes"
+  },
+  {
+   "title": "46/2025. (XII. 23.) ÉKM rendelet (its March 2026 step did not enter into force, 2/2026. (II. 26.) ÉKM 3. §)",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2025-46-20-8X"
+  },
+  {
+   "title": "209/2013. (VI. 18.) Korm. rendelet § 3/A (EUR/HUF conversion)",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-209-20-22"
+  },
+  {
+   "title": "HU-GO toll rate table (gross HUF/km, same EUR/HUF rate)",
+   "url": "https://hu-go.hu/articles/article/e-tolls-the-table-of-toll-rates-applicable-from-january-is-now-available"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t maximum authorised mass (buses have their own rates)",
+ "min_kg": 3501,
+ "tolled_roads": "Expressways (1938 km) and main roads (5560 km) listed in annex 1. Km off motorways are priced at the main-road rate. The air and noise charge is the length-weighted mix of the suburban and interurban rates over annex 1: suburban share 8.7% on expressways, 15.3% on main roads. Low-emission means CO2 class 4.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "max_axles": 2,
+   "rate": 51.8819
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "max_axles": 2,
+   "rate": 28.3701
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 1.7458
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 41.4196
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 26.9716
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 26.5825
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 20.2779
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 14.5326
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 7.872
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 2.5507
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 2.1786
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 43.6367
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    1
+   ],
+   "rate": 28.5513
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    2
+   ],
+   "rate": 28.1629
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    3
+   ],
+   "rate": 21.5015
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    4
+   ],
+   "rate": 15.5267
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    5
+   ],
+   "rate": 8.535
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "max_axles": 2,
+   "euro": [
+    6
+   ],
+   "rate": 3.0097
+  },
+  {
+   "component": "co2",
+   "max_axles": 2,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "co2",
+   "max_axles": 2,
+   "co2_class": [
+    4
+   ],
+   "rate": 7.77
+  },
+  {
+   "component": "co2",
+   "max_axles": 2,
+   "euro": [
+    0
+   ],
+   "rate": 17.49
+  },
+  {
+   "component": "co2",
+   "max_axles": 2,
+   "euro": [
+    1,
+    2,
+    3
+   ],
+   "rate": 15.54
+  },
+  {
+   "component": "co2",
+   "max_axles": 2,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 15.54
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 82.9291
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 46.9213
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 1.8479
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 56.9355
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 35.1491
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 35.1491
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 27.6504
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 19.083
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 11.4732
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 3.4319
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 2.3574
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 59.7133
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 37.035
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 37.035
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 29.1541
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 20.2804
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 12.2122
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 3.967
+  },
+  {
+   "component": "co2",
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "co2",
+   "min_axles": 3,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "rate": 9.72
+  },
+  {
+   "component": "co2",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 23.32
+  },
+  {
+   "component": "co2",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    1,
+    2,
+    3
+   ],
+   "rate": 20.21
+  },
+  {
+   "component": "co2",
+   "min_axles": 3,
+   "max_axles": 3,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 19.43
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "rate": 128.5512
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "rate": 80.3543
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 1.9159
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 65.4681
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 46.9949
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 46.6389
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 37.0982
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 25.2855
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 14.2953
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 3.8899
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 2.4766
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 68.5258
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 49.3136
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 48.9832
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 38.9834
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 26.7629
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 15.111
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 4.4762
+  },
+  {
+   "component": "co2",
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "co2",
+   "min_axles": 4,
+   "max_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "rate": 13.21
+  },
+  {
+   "component": "co2",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 30.7
+  },
+  {
+   "component": "co2",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    1,
+    2,
+    3
+   ],
+   "rate": 26.81
+  },
+  {
+   "component": "co2",
+   "min_axles": 4,
+   "max_axles": 4,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 26.04
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_axles": 5,
+   "rate": 134.5984
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_axles": 5,
+   "rate": 83.5906
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 2.0171
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 80.1699
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 58.4855
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 57.7487
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 46.1817
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 31.4118
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 16.0577
+  },
+  {
+   "component": "air_noise",
+   "road": "motorway",
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 3.9911
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "co2_class": [
+    4,
+    5
+   ],
+   "rate": 2.6538
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 83.7628
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    1
+   ],
+   "rate": 61.2633
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    2
+   ],
+   "rate": 60.5513
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    3
+   ],
+   "rate": 48.4755
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    4
+   ],
+   "rate": 33.1193
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    5
+   ],
+   "rate": 17.0256
+  },
+  {
+   "component": "air_noise",
+   "road": "other",
+   "min_axles": 5,
+   "euro": [
+    6
+   ],
+   "rate": 4.6534
+  },
+  {
+   "component": "co2",
+   "min_axles": 5,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "co2",
+   "min_axles": 5,
+   "co2_class": [
+    4
+   ],
+   "rate": 15.54
+  },
+  {
+   "component": "co2",
+   "min_axles": 5,
+   "euro": [
+    0
+   ],
+   "rate": 35.36
+  },
+  {
+   "component": "co2",
+   "min_axles": 5,
+   "euro": [
+    1,
+    2,
+    3
+   ],
+   "rate": 31.48
+  },
+  {
+   "component": "co2",
+   "min_axles": 5,
+   "euro": [
+    4,
+    5,
+    6
+   ],
+   "rate": 31.09
+  }
+ ]
+}

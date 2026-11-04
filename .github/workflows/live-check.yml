@@ -26,10 +26,14 @@ jobs:
             maps: europe/switzerland europe/liechtenstein
           - name: cz
             maps: europe/czech-republic
+          - name: sk
+            maps: europe/slovakia
           - name: si
-            maps: europe/slovenia
+            maps: europe/slovenia europe/austria
           - name: bg
             maps: europe/bulgaria
+          - name: hu
+            maps: europe/hungary
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -97,10 +101,18 @@ jobs:
           elif [ "${{ matrix.name }}" = pl ]; then
             run wroclaw-gliwice -from 51.1079,17.0385 -to 50.2945,18.6714
             run wroclaw-gliwice-10t-euro3 -from 51.1079,17.0385 -to 50.2945,18.6714 -mass-kg 10000 -axles 2 -euro 3
+          elif [ "${{ matrix.name }}" = sk ]; then
+            run bratislava-zilina -from 48.1486,17.1077 -to 49.2231,18.7394
+            run bratislava-zilina-co2class4 -from 48.1486,17.1077 -to 49.2231,18.7394 -co2-class 4
           elif [ "${{ matrix.name }}" = si ]; then
             run sentilj-koper -from 46.6770,15.6470 -to 45.5480,13.7650
             run ljubljana-obrezje -from 46.0569,14.5058 -to 45.8540,15.6900
+            run villach-ljubljana-karavanke -from 46.6100,13.8500 -to 46.0569,14.5058
             run ljubljana-obrezje-zev-3axles -from 46.0569,14.5058 -to 45.8540,15.6900 -co2-class 5 -axles 3 -mass-kg 26000
+          elif [ "${{ matrix.name }}" = hu ]; then
+            run budapest-gyor -from 47.4979,19.0402 -to 47.6875,17.6504
+            run budapest-gyor-co2class4 -from 47.4979,19.0402 -to 47.6875,17.6504 -co2-class 4
+            run budapest-szeged-euro3-2axles -from 47.4979,19.0402 -to 46.2530,20.1414 -euro 3 -axles 2 -mass-kg 12000
           elif [ "${{ matrix.name }}" = bg ]; then
             run sofia-plovdiv -from 42.6977,23.3219 -to 42.1354,24.7453
             run sofia-plovdiv-co2class4 -from 42.6977,23.3219 -to 42.1354,24.7453 -co2-class 4
@@ -118,8 +130,10 @@ jobs:
             at) trip="-from ATSZG -to 46.6100,13.8500" ;;
             ch) trip="-from 47.0450,9.4400 -to 47.2150,9.5650" ;;
             cz) trip="-from 50.0755,14.4378 -to 49.1951,16.6068" ;;
+            sk) trip="-from 48.1486,17.1077 -to 49.2231,18.7394" ;;
             si) trip="-from 46.6770,15.6470 -to 45.5480,13.7650" ;;
             bg) trip="-from 42.6977,23.3219 -to 42.1354,24.7453" ;;
+            hu) trip="-from 47.4979,19.0402 -to 47.6875,17.6504" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac

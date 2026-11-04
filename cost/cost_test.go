@@ -621,3 +621,56 @@ func TestSlovenia(t *testing.T) {
 		t.Errorf("off-network: %+v %v", r.Lines, r.Notes)
 	}
 }
+
+// Bratislava - Žilina style: 200 km of Slovak motorway. NV 418/2024 Annex
+// 5: a 5-axle Euro VI truck, CO2 class 1, pays 0.2677 EUR/km, of which
+// 0.0240 CO2 and 0.0021 air (Annex 3); CO2 class 4, 0.2459 with 0.0040
+// CO2; zero-emission, 0.2419 with no CO2.
+func TestSlovakia(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, CountryKm: map[string]float64{"SK": 200}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		truck         rates.Truck
+		total, carbon float64
+	}{
+		{truck40, 53.54, 4.8},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 4}, 49.18, 0.8},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 48.38, 0},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 5, CO2Class: 2}, 59.02, 8},
+		{rates.Truck{MaxMassKg: 10000, Axles: 2, Euro: 3, CO2Class: 1}, 30.4, 5.6},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 || math.Abs(r.CarbonEUR-tc.carbon) > 0.011 {
+			t.Errorf("%+v: total %.2f carbon %.2f, want %.2f and %.2f", tc.truck, r.TotalEUR, r.CarbonEUR, tc.total, tc.carbon)
+		}
+	}
+}
+
+// Hungary, 200 km of expressway at 400 HUF/EUR: J5 EURO VI is
+// 170.94/1.27 HUF infrastructure, the air and noise mix of 3.4 and 0.8
+// eurocent, and 8.0 eurocent CO2 per km (25/2013 NFM § 1, annex 2).
+func TestHungary(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, CountryKm: map[string]float64{"HU": 200}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		truck         rates.Truck
+		total, carbon float64
+	}{
+		{truck40, 84.84, 15.54},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 4}, 76.08, 7.77},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 68.31, 0},
+		{rates.Truck{MaxMassKg: 10000, Axles: 2, Euro: 3, CO2Class: 1}, 43.85, 7.77},
+		{rates.Truck{MaxMassKg: 32000, Axles: 4, Euro: 5, CO2Class: 2}, 84.44, 13.02},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"HUF": 400}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 || math.Abs(r.CarbonEUR-tc.carbon) > 0.011 {
+			t.Errorf("%+v: total %.2f carbon %.2f, want %.2f and %.2f", tc.truck, r.TotalEUR, r.CarbonEUR, tc.total, tc.carbon)
+		}
+	}
+}

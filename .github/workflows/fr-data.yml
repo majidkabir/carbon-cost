@@ -1,0 +1,27 @@
+name: France data
+# Fetches the French toll tariffs and toll stations listed in
+# tools/fr/sources.json (tools/fr/fetch.py) and pushes them, with a
+# manifest, to the fr-out branch. Push to the fr-data branch to run it.
+on:
+  push:
+    branches: [fr-data]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: Fetch
+        run: |
+          mkdir -p out
+          python3 tools/fr/fetch.py tools/fr/sources.json out
+          find out -type f | sort | head -200
+      - name: Push
+        run: |
+          cd out
+          git init -q -b fr-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "France toll data"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" fr-out

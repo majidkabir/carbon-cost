@@ -2,7 +2,7 @@
 
 What carbon and road charges does a truck trip pay? carbon-cost works it out per country and per charge, and shows the carbon part separately:
 
-- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut), the Netherlands (vrachtwagenheffing), Belgium (kilometerheffing, by region), Switzerland and Liechtenstein (LSVA), Czechia (mýtné) and Poland (e-TOLL), split into their legal parts (infrastructure, air, noise and CO2) where the law gives them.
+- **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut), the Netherlands (vrachtwagenheffing), Belgium (kilometerheffing, by region), Switzerland and Liechtenstein (LSVA), Czechia (mýtné), Poland (e-TOLL) and Bulgaria (BG TOLL), split into their legal parts (infrastructure, air, noise and CO2) where the law gives them.
 - **EU ETS on ferry crossings:** the cargo's share of the crossing's emissions × the allowance price.
 - **ETS2 on road fuel** from 2028: the trip's fuel emissions × the ETS2 price.
 
@@ -54,6 +54,7 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 | CH, LI | LSVA (heavy vehicle fee), over 3.5 t, all roads | from 1 January 2025 | [SVAV (SR 641.811)](https://www.fedlex.admin.ch/eli/cc/2024/150/de) Art. 8 (AS 2024 522): 2.39 Rappen per tonne-km for Euro VI, 3.26 for Euro 0–V, on the truck's maximum mass up to 40 t; [Liechtenstein SVAV, LGBl. 2024 Nr. 452](https://www.gesetze.li/konso/pdf/2024452000) Art. 7, the same rates. Electric trucks are exempt (to the end of 2030) |
 | CZ | Mýtné, over 3.5 t | 2026 | [Nařízení vlády č. 240/2014 Sb.](https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2014/240) Annexes 1–2 as set by [č. 327/2025 Sb.](https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327): by motorway or class I road, mass, axles and EURO / CO2 class. One rate with no separate CO2 part |
 | PL | e-TOLL, over 3.5 t | 1 February – 31 December 2026 | [Dz. U. 2026 poz. 33](https://eli.gov.pl/eli/DU/2026/33/ogl/pol/pdf) Annexes 3–4: by A/S or GP/G road, mass (with trailer) and EURO class. The concession motorways (parts of the A1, A2 and A4) charge separately and aren't included |
+| BG | BG TOLL, over 3.5 t | 1 June – 31 December 2026 | [ПМС № 64/2026, ДВ бр. 49/2026](https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642), Tariff art. 25(1): EUR/km by CO2 class, category, EURO class and road class, split into infrastructure, air, noise and CO2. Km off motorways use the class I rate; EEV is priced as Euro V here (Bulgaria prices it as Euro VI) |
 
 Run `carbon-cost rates` for the full list. Countries on a route that have no table are listed under `no_rates`, and their charges are not included.
 
@@ -64,7 +65,7 @@ Run `carbon-cost rates` for the full list. Countries on a route that have no tab
 - **Environmental zones:** the Danish surcharge applies to the km you give in `env_zone_km`.
 - **Ferry ETS:** this is the ETS cost of the cargo's share of the crossing. On a crossing the tool knows (Rødby–Puttgarden, Gedser–Rostock), and when you give the truck's `tare_kg`, the emissions come from that crossing's own ships in the EU MRV report: their freight CO2e per tonne-nautical mile × (truck + cargo) × the crossing's distance. MRV counts the vehicle in the freight mass, which is why the tare is needed. Otherwise the emissions come from Sootcase's ferry part, which uses the GLEC ro-pax default. The share of emissions under the ETS is 40% for 2024, 70% for 2025 and 100% from 2026, all for crossings between EU/EEA ports. A ferry line's own surcharge is based on its ships' real emissions and its own pricing.
 - **Prices:** EUA and ETS2 prices are yours to give, since they move every day. DKK converts at the ERM II central rate of 7.46038 unless you give `dkk_per_eur`. CHF, CZK and PLN convert at the latest [ECB euro reference rates](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) unless you give `fx` (units per euro, e.g. `{"CHF": 0.93}`).
-- **Road types:** Czechia and Poland charge less off motorways. Sootcase doesn't tell road classes apart yet, so their km are priced at the motorway rate unless you give `motorway_share`.
+- **Road types:** Czechia, Poland and Bulgaria charge less off motorways. Sootcase doesn't tell road classes apart yet, so their km are priced at the motorway rate unless you give `motorway_share`.
 
 ## Use
 

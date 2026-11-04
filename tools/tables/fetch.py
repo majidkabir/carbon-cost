@@ -7,6 +7,12 @@ For the CNAIR page it also follows the resource URLs the page's scripts
 use (Liferay portlet resource requests, p_p_lifecycle=2), and asks the
 TollRo one for the active pricing offer (rest_path
 /pricing-offers/active-pricing-offer, productClass PER_KM).
+
+The Nemzeti Jogszabálytár (njt.jog.gov.hu) sends long texts in parts:
+the page holds placeholders (data-show-order .. data-last-show-order)
+that its script fills from /ajax/njtGetBlock.json, given the document id
+and the placeholder's range. Those parts are fetched too, as
+<id>-block-<n>.html.
 """
 import hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
 
@@ -58,6 +64,22 @@ def tollro(out, manifest, page_url, page):
         save(out, manifest, f"ro-active-pricing-offer-{len(tried)}.json", q, status, body)
 
 
+def njt(out, manifest, sid, page_url, page):
+    doc = page_url.rstrip("/").rsplit("/", 1)[1]
+    text = page.decode("utf-8", "replace")
+    blocks = re.findall(r'data-show-order="(\d+)" data-last-show-order="(\d+)"', text)
+    for n, (a, b) in enumerate(blocks, 1):
+        body = json.dumps({"documentId": doc, "data": [{"start": int(a), "last": int(b)}]}).encode()
+        url = urllib.parse.urljoin(page_url, "/ajax/njtGetBlock.json")
+        req = urllib.request.Request(url, data=body, headers={**UA, "Content-Type": "application/json; charset=utf-8", "X-Requested-With": "XMLHttpRequest", "Referer": page_url})
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                status, resp = r.status, r.read()
+        except urllib.error.HTTPError as e:
+            status, resp = e.code, e.read()
+        save(out, manifest, f"{sid}-block-{n}.html", url + f" (POST start {a} last {b})", status, resp)
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
@@ -67,6 +89,8 @@ def main(src, out):
             save(out, manifest, s["id"] + ".html", s["url"], status, body)
             if s["id"] == "ro-tollro":
                 tollro(out, manifest, s["url"], body)
+            if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
+                njt(out, manifest, s["id"], s["url"], body)
         except Exception as e:
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)

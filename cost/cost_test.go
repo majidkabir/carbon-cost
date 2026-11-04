@@ -888,3 +888,35 @@ func TestFrance(t *testing.T) {
 		}
 	}
 }
+
+// A toll booth on an exit the route only drives past (R, 0.1 km off the
+// road) has a short priced pair to the barrier B; taking it would leave
+// B's long ticket to N unused.
+func TestChainBoothBeside(t *testing.T) {
+	at := func(lon float64) []rates.Place { return []rates.Place{{Name: "p", Lat: 45, Lon: lon}} }
+	sys := rates.TollSystem{Chain: true, Groups: []rates.Group{{Name: "4", MinKg: 3501}},
+		Stations: []rates.Station{{Name: "R", Points: []rates.Place{{Name: "p", Lat: 45.001, Lon: 0.0}}}, {Name: "B", Points: at(0.02)},
+			{Name: "P", Points: at(0.3)}, {Name: "N", Points: at(2.0)}},
+		Prices: map[string]map[string]float64{"R|B": {"4": 2.25}, "P|N": {"4": 39.25}, "B|N": {"4": 52.17}}}
+	route := [][2]float64{{-0.1, 45}, {2.1, 45}}
+	got := chainUses(sys, route, truck40, false)
+	if len(got) != 1 || got[0].entry != "B" || got[0].exit != "N" {
+		t.Errorf("got %+v, want one ticket B-N", got)
+	}
+	// Where two networks meet, the next ticket starts at the other
+	// network's station at the same place (P2 beside P).
+	sys.Stations = append(sys.Stations, rates.Station{Name: "P2", Points: at(0.3)})
+	sys.Prices = map[string]map[string]float64{"B|P": {"4": 5}, "P2|N": {"4": 30}}
+	got = chainUses(sys, route, truck40, false)
+	if len(got) != 2 || got[0].entry != "B" || got[0].exit != "P" || got[1].entry != "P2" || got[1].exit != "N" {
+		t.Errorf("got %+v, want B-P, P2-N", got)
+	}
+	// A barrier across the road (X) and an exit's booth beside it (Y) at
+	// the same place: a trip driving through takes its ticket at X.
+	sys.Stations = []rates.Station{{Name: "Y", Points: []rates.Place{{Name: "p", Lat: 45.002, Lon: 0.4999}}}, {Name: "X", Points: at(0.5)}, {Name: "N", Points: at(2.0)}}
+	sys.Prices = map[string]map[string]float64{"Y|N": {"4": 36}, "X|N": {"4": 42}}
+	got = chainUses(sys, route, truck40, false)
+	if len(got) != 1 || got[0].entry != "X" {
+		t.Errorf("got %+v, want X-N", got)
+	}
+}

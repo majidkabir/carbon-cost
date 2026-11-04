@@ -28,7 +28,7 @@ and for PDFs:
               class ("files"): the class 3 file's URL and sha256 go in url and
               sha256, the class 4 file's in url4 and sha256_4.
 """
-import csv, json, os, re, sys, unicodedata
+import csv, hashlib, json, os, re, sys, unicodedata
 from collections import Counter
 
 PRICES = r"\s+".join(f"(?P<c{i}>[\\d ]+,\\d\\d) €" for i in range(1, 6))
@@ -145,20 +145,26 @@ def main(docs_path, fetched, out):
                 # (an exit's own booth beside the road: left out).
                 text = re.sub(r"\s+", " ", open(os.path.join(fetched, d["file"]), encoding="utf-8").read())
                 src = manifest[d["url_from"]]
-                vf, n = valid_from(text), 0
+                vf, n, out_rows, used = valid_from(text), 0, [], ""
                 for tb in d["tables"]:
                     seg = text[text.index(tb["after"]):]
                     at = 0
                     for label in tb["labels"]:
                         at = seg.index(label, at)
+                    used += seg[:seg.index("Classe 4", at) + 200]
                     rows = {c: [num(p) for p in re.findall(r"([\d ]*\d,\d\d) €", re.search(r"Classe " + c + r" [^€]*?((?:[\d ]*\d,\d\d € ?)+)", seg[at:]).group(1))]
                             for c in ("3", "4")}
                     assert len(rows["3"]) == len(rows["4"]) == len(tb["columns"]), (tb["after"], rows)
                     for i, col in enumerate(tb["columns"]):
                         if col:
                             a, b = (col, col) if isinstance(col, str) else col
-                            w.writerow([d["operator"], d["url_from"], src["url"], src["sha256"], "", "", vf, a, b, "", rows["3"][i], rows["4"][i], "", ""])
+                            out_rows.append([a, b, rows["3"][i], rows["4"][i]])
                             n += 1
+                # The page also carries live traffic news: the sha256 is the
+                # price tables' text's, so it changes only when they do.
+                sha = hashlib.sha256(used.encode()).hexdigest()
+                for a, b, p3, p4 in out_rows:
+                    w.writerow([d["operator"], d["url_from"], src["url"], sha, "", "", vf, a, b, "", p3, p4, "", ""])
                 print(f"{d['file']}: {n} pairs, valid from {vf}")
                 continue
             if d["parser"] in ("gares", "barrier"):

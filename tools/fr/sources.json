@@ -4,20 +4,119 @@
  "legal": "Code de la voirie routière art. L122-4 and décret n° 95-81 du 24 janvier 1995; arrêtés du 28 janvier 2026 relatifs aux péages applicables sur les réseaux autoroutiers concédés (Journal officiel)",
  "stations": "https://www.data.gouv.fr/api/1/datasets/gares-de-peage-du-reseau-routier-national-concede/",
  "operators": [
-  {"id": "aprr", "name": "APRR", "pages": ["https://voyage.aprr.fr/tarifs-de-peage"]},
-  {"id": "area", "name": "AREA", "pages": ["https://voyage.aprr.fr/tarifs-de-peage"]},
-  {"id": "vinci", "name": "VINCI Autoroutes (ASF, Escota, Cofiroute, Arcour, Arcos)", "pages": ["https://www.vinci-autoroutes.com/fr/tarifs-peage-reseaux-vinci-autoroutes", "https://www.vinci-autoroutes.com/fr/conseils/autoroute-mode-demploi/tarifs-peage-vinci-autoroutes/"]},
-  {"id": "sanef", "name": "Sanef and SAPN", "pages": ["https://www.autoroutes.sanef.com/fr/grilles-tarifs-de-peage"]},
-  {"id": "atmb", "name": "ATMB (A40, Mont Blanc tunnel)", "pages": ["https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/", "https://www.atmb.com/telepeage-tarifs/"]},
-  {"id": "sftrf", "name": "SFTRF (A43, Fréjus tunnel)", "pages": ["https://www.sftrf.fr/tarifs-autoroute/", "https://www.sftrf.fr/tarifs-tunnel/"]},
-  {"id": "alis", "name": "ALiS (A28)", "pages": ["https://www.alis-sa.com/fr/preparez-votre-voyage/tarifs-alis-a28-rouen-alencon"]},
-  {"id": "alienor", "name": "A'liénor (A65)", "pages": ["https://www.a65-alienor.com/tarifs-de-peage"]},
-  {"id": "adelac", "name": "ADELAC (A41)", "pages": ["https://www.a41-adelac.com/tarifs-de-peage-au-1er-fevrier-2025-sur-la-liane-adelac"]},
-  {"id": "cevm", "name": "CEVM (Millau viaduct)", "pages": ["https://www.leviaducdemillau.com/sites/viaducdemillau/home/tarifs-du-peage.html"]},
-  {"id": "albea", "name": "ALBEA (A150)", "pages": ["https://www.a150-albea.fr/les-points-dinterets/peage/"]},
-  {"id": "alicorne", "name": "ALICORNE (A88)", "pages": ["https://a88-alicorne.fr/tarifs/"]},
-  {"id": "atlandes", "name": "Atlandes (A63)", "pages": ["https://www.a63-atlandes.fr/fr/calculateur-de-tarifs/"]},
-  {"id": "aliae", "name": "ALIAE (A79)", "pages": ["https://www.aliae.com/solutions-de-paiement"]},
-  {"id": "ccise", "name": "CCI Seine-Estuaire (Normandie and Tancarville bridges)", "pages": ["https://www.pontsnormandietancarville.fr/les-tarifs/"]}
+  {
+   "id": "aprr",
+   "name": "APRR",
+   "pages": [
+    "https://voyage.aprr.fr/tarifs-de-peage"
+   ]
+  },
+  {
+   "id": "area",
+   "name": "AREA",
+   "pages": [],
+   "note": "AREA's tariffs are published on APRR's page (TARIFS_AREA.pdf)."
+  },
+  {
+   "id": "vinci",
+   "name": "VINCI Autoroutes (ASF, Escota, Cofiroute, Arcour, Arcos)",
+   "pages": [
+    "https://www.vinci-autoroutes.com/page-data/fr/conseils/autoroute-mode-demploi/tarifs-peage-vinci-autoroutes/page-data.json",
+    "https://www.vinci-autoroutes.com/fr/tarifs-peage-reseaux-vinci-autoroutes"
+   ],
+   "note": "The tariff page is built by Gatsby; its document links are in page-data.json."
+  },
+  {
+   "id": "sanef",
+   "name": "Sanef and SAPN",
+   "pages": [
+    "https://www.autoroutes.sanef.com/fr/grilles-tarifs-de-peage"
+   ],
+   "documents": [
+    "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-Sanef.pdf",
+    "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-SAPN.pdf",
+    "https://www.autoroutes.sanef.com/sites/default/files/2026-02/grille-modulee-01022026.pdf"
+   ],
+   "note": "The tariff page answers bots with a Cloudflare challenge; its documents (as linked on 4 November 2026) are listed here."
+  },
+  {
+   "id": "atmb",
+   "name": "ATMB (A40, Mont Blanc tunnel)",
+   "pages": [
+    "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/",
+    "https://www.atmb.com/telepeage-tarifs/"
+   ]
+  },
+  {
+   "id": "sftrf",
+   "name": "SFTRF (A43, Fréjus tunnel)",
+   "pages": [
+    "https://www.sftrf.fr/tarifs-autoroute/",
+    "https://www.sftrf.fr/tarifs-tunnel/"
+   ]
+  },
+  {
+   "id": "alis",
+   "name": "ALiS (A28)",
+   "pages": [
+    "https://www.alis-sa.com/fr/preparez-votre-voyage/tarifs-alis-a28-rouen-alencon"
+   ]
+  },
+  {
+   "id": "alienor",
+   "name": "A'liénor (A65)",
+   "pages": [
+    "https://www.a65-alienor.com/tarifs-de-peage"
+   ]
+  },
+  {
+   "id": "adelac",
+   "name": "ADELAC (A41)",
+   "pages": [
+    "https://www.a41-adelac.com/tarifs-de-peage-au-1er-fevrier-2025-sur-la-liane-adelac"
+   ]
+  },
+  {
+   "id": "cevm",
+   "name": "CEVM (Millau viaduct)",
+   "pages": [
+    "https://www.leviaducdemillau.com/accueil-viaduc-de-millau/tarifs-du-peage.html"
+   ]
+  },
+  {
+   "id": "albea",
+   "name": "ALBEA (A150)",
+   "pages": [
+    "https://www.a150-albea.fr/les-points-dinterets/peage/"
+   ]
+  },
+  {
+   "id": "alicorne",
+   "name": "ALICORNE (A88)",
+   "pages": [
+    "https://a88-alicorne.fr/tarifs/"
+   ]
+  },
+  {
+   "id": "atlandes",
+   "name": "Atlandes (A63)",
+   "pages": [
+    "https://www.a63-atlandes.fr/fr/calculateur-de-tarifs/"
+   ]
+  },
+  {
+   "id": "aliae",
+   "name": "ALIAE (A79)",
+   "pages": [
+    "https://www.aliae.com/solutions-de-paiement"
+   ]
+  },
+  {
+   "id": "ccise",
+   "name": "CCI Seine-Estuaire (Normandie and Tancarville bridges)",
+   "pages": [
+    "https://www.pontsnormandietancarville.fr/les-tarifs/"
+   ]
+  }
  ]
 }

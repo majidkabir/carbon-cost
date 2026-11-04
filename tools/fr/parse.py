@@ -12,6 +12,8 @@ Parsers (text documents, from pdftotext -layout):
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
   gares       one page per entry station ("Gare de X"), then rows
               "code EXIT c1 c2 c3 c4 c5" (A'liénor)
+  browser     tables read in a browser (browser/*.txt), triangles or
+              barriers priced alone (Alicorne, ALiS, CCI Seine-Estuaire)
   matrix      square tables per class on one PDF page (SFTRF's A43, matrix.py)
   transcribed prices published only as images, transcribed by hand
               (transcribed/*.json), by EURO class (Atlandes, ALBEA)
@@ -116,6 +118,42 @@ def main(docs_path, fetched, out):
                     if p4 is not None:
                         w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
                 print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
+            if d["parser"] == "browser":
+                # Tables read in a browser from sites that refuse scripted
+                # requests (browser/*.txt: the page's URL and date, then per
+                # class either a triangle, one row per station ending with its
+                # name after its prices to the stations above, "GRATUIT" being
+                # 0, or a "barriers" line naming the columns of barriers priced
+                # alone). The sha256 is the extract's.
+                path = os.path.join(os.path.dirname(os.path.abspath(docs_path)), d["file"])
+                raw = open(path, encoding="utf-8").read()
+                head = dict(l[2:].split(" ", 1) for l in raw.splitlines() if l.startswith("# ") and " " in l[2:] and not l.startswith("# class"))
+                barriers, cls, prices, order = None, None, {3: {}, 4: {}}, {}
+                for line in raw.splitlines():
+                    if line.startswith("# barriers|"):
+                        barriers = line.split("|")[1:]
+                    elif line.startswith("# class "):
+                        cls, order[int(line[8:])] = int(line[8:]), []
+                    elif line.startswith("#") or not line.strip():
+                        continue
+                    elif cls in prices:
+                        cells = [c.replace("€", "").strip() for c in line.split("|")]
+                        val = lambda c: 0.0 if c.upper() == "GRATUIT" else (num(c) if c else None)
+                        if barriers:
+                            for b, c in zip(barriers, cells):
+                                prices[cls][(b, b)] = val(c)
+                        else:
+                            name, above = cells[-1], cells[:-1]
+                            for k, c in enumerate(above):
+                                if val(c) is not None:
+                                    prices[cls][(order[cls][k], name)] = val(c)
+                            order[cls].append(name)
+                sha = hashlib.sha256(raw.encode()).hexdigest()
+                for (a, b), p3 in prices[3].items():
+                    if prices[4].get((a, b)) is not None:
+                        w.writerow([d["operator"], d["file"], head["url"], sha, "", "", head.get("valid_from", "").strip(), a, b, "", p3, prices[4][(a, b)], "", ""])
+                print(f"{d['file']}: {len(prices[3])} class 3 and {len(prices[4])} class 4 prices, valid from {head.get('valid_from', '')}")
                 continue
             if d["parser"] == "matrix":
                 # SFTRF's A43: square tables per class on one PDF page (matrix.py).

@@ -1,0 +1,9 @@
+# url https://www.pontsnormandietancarville.fr/les-tarifs/
+# read 2026-11-04 in a browser (the site refuses scripted requests: HTTP 406), the "Passage à l'unité - Tarif normal" table as shown
+# page: "Tarifs à partir du 1er mai 2026"; prices as shown to the public, taken as including 20% VAT
+# valid_from 2026-05-01
+# barriers|Pont de Normandie|Pont de Tancarville
+# class 3
+7,60 €|4,40 €
+# class 4
+15,10 €|7,50 €

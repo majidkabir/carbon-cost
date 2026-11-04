@@ -71,23 +71,23 @@ type Table struct {
 	Country string `json:"country"` // ISO 3166-1 alpha-2
 	// Region is set for a regional toll (ISO 3166-2, e.g. BE-VLG): the
 	// table then applies to that region's km, not the country's.
-	Region           string      `json:"region,omitempty"`
-	Currency         string      `json:"currency"`
-	ValidFrom        string      `json:"valid_from"`         // inclusive, YYYY-MM-DD
-	ValidTo          string      `json:"valid_to,omitempty"` // inclusive; "" = until replaced
-	Name             string      `json:"name"`
-	Law              string      `json:"law"`
-	Sources          []Source    `json:"sources"`
-	Vehicles         string      `json:"vehicles"`
-	MinKg            int         `json:"min_kg"` // lighter trucks pay no toll
-	TolledRoads      string      `json:"tolled_roads"`
+	Region      string   `json:"region,omitempty"`
+	Currency    string   `json:"currency"`
+	ValidFrom   string   `json:"valid_from"`         // inclusive, YYYY-MM-DD
+	ValidTo     string   `json:"valid_to,omitempty"` // inclusive; "" = until replaced
+	Name        string   `json:"name"`
+	Law         string   `json:"law"`
+	Sources     []Source `json:"sources"`
+	Vehicles    string   `json:"vehicles"`
+	MinKg       int      `json:"min_kg"` // lighter trucks pay no toll
+	TolledRoads string   `json:"tolled_roads"`
 	// PerTonneKm tables charge their rates per tonne-km of the truck's
 	// maximum mass, up to MaxChargeableKg (Switzerland's LSVA).
 	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
-	MotorwayShare float64 `json:"motorway_share,omitempty"`
+	MotorwayShare    float64     `json:"motorway_share,omitempty"`
 	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
 	Exemptions       []Exemption `json:"exemptions,omitempty"`
 	Rows             []Row       `json:"rows"`

@@ -150,12 +150,12 @@ type Response struct {
 type Calculator struct {
 	Sootcase sootcase.Client
 	Tables   []rates.Table
-	Ferries  *ferries.Data    // nil: ferry crossings use Sootcase's default
-	Borders  *borders.Index   // nil: no Route in the response
+	Ferries  *ferries.Data  // nil: ferry crossings use Sootcase's default
+	Borders  *borders.Index // nil: no Route in the response
 	// FX gives exchange rates for currencies the request has no fx for;
 	// nil: those need fx in the request.
-	FX func(context.Context) (fx.Rates, error)
-	Now      func() time.Time // default time.Now
+	FX  func(context.Context) (fx.Rates, error)
+	Now func() time.Time // default time.Now
 }
 
 // Calculate routes the trip with Sootcase and prices it.

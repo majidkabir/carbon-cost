@@ -913,7 +913,7 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 			}
 		}
 		if pct > 0 {
-			p *= 1 - pct/100
+			p = round2(p * (1 - pct/100))
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s with %s off.", country, sys.Name, strings.Join(names, " and ")))
 		}
 		if req.Truck.LengthM == 0 && slices.ContainsFunc(sys.Groups, func(g rates.Group) bool { return g.MaxLengthM > 0 }) {

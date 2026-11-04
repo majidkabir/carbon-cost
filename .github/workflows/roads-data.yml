@@ -16,7 +16,14 @@ jobs:
       - name: Build
         run: |
           mkdir -p out
-          for x in CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania; do
+          # tools/roads/ONLY lists the countries to rebuild; the others are
+          # kept from the roads-out branch.
+          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania"
+          if [ -f tools/roads/ONLY ]; then
+            git fetch -q origin roads-out && git archive FETCH_HEAD | tar -x -C out
+            list=$(cat tools/roads/ONLY)
+          fi
+          for x in $list; do
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
             osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid

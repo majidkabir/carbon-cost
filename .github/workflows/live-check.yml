@@ -169,7 +169,7 @@ jobs:
             | (($map | keys) + ($want | keys) | unique)[]
             | "\(.) map \($map[.] // 0 | . * 10 | round / 10) km, country_km \($want[.] // 0 | . * 10 | round / 10) km"' trip.json)
           runs=$(jq -r '[.route[] | "\(.kind):\(.country // "")"] | join(" > ")' trip.json)
-          secs=$(jq -r '[.lines[] | select(.component == "infrastructure" and .section != null and .rate_unit == "EUR/section")] | "sections: \(length), route km on them \(map(.km) | add // 0 | . * 10 | round / 10)"' trip.json)
+          secs=$(jq -r '[(.lines // [])[] | select(.component == "infrastructure" and .section != null and .rate_unit == "EUR/section")] | "sections: \(length), route km on them \(map(.km) | add // 0 | . * 10 | round / 10)"' trip.json)
           cmp="$cmp
           $secs"
           echo "$runs"; echo "$cmp"

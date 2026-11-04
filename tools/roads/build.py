@@ -85,11 +85,15 @@ class Urban(osmium.SimpleHandler):
         super().__init__()
         self.wkb = osmium.geom.WKBFactory()
         self.towns, self.land = [], []
+        self.seen = Counter()
 
     def area(self, a):
         t = a.tags
+        if t.get("boundary") == "administrative":
+            self.seen[(t.get("admin_level"), (t.get("name") or "").split(" ")[0][:12], t.get("place"), t.get("border_type"))] += 1
         try:
-            if t.get("boundary") == "administrative" and (t.get("name") or "").startswith("Municipiul "):
+            if t.get("boundary") == "administrative" and ((t.get("name") or "").startswith("Municipiul ") or t.get("place") == "city"
+                                                            or t.get("border_type") in ("municipality", "municipiu")):
                 self.towns.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
             elif t.get("landuse") in ("residential", "commercial", "industrial", "retail"):
                 self.land.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
@@ -158,6 +162,8 @@ def main(cc, src, dst, areas=None):
         u.apply_file(areas, locations=True)
         urban = u.built_up()
         print(cc, "municipalities:", len(u.towns), "built-up polygons:", len(u.land))
+        for k, n in u.seen.most_common(40):
+            print("  boundary", k, n)
     sections = {}
     if cc == "HU":
         rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))

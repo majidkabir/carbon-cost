@@ -24,6 +24,7 @@ var files embed.FS
 // Component names. CO2 is the carbon part of a toll.
 const (
 	Infrastructure   = "infrastructure"
+	Toll             = "toll" // one rate with no legal split
 	CO2              = "co2"
 	Air              = "air"
 	Noise            = "noise"
@@ -49,9 +50,19 @@ type Row struct {
 	CO2Class  []int  `json:"co2_class,omitempty"`
 	// Road is set where the rate depends on the road type (Motorway or
 	// OtherRoad): the row applies only to km on that type.
-	Road string  `json:"road,omitempty"`
+	Road string `json:"road,omitempty"`
+	// Area is set where the rate depends on whether the road is
+	// suburban or interurban (Suburban or Interurban): the row applies to
+	// that share of the km (Table.SuburbanShare).
+	Area string  `json:"area,omitempty"`
 	Rate float64 `json:"rate"` // currency per km, or per tonne-km in a PerTonneKm table
 }
+
+// Areas for rates that differ by suburban or interurban road.
+const (
+	Suburban   = "suburban"
+	Interurban = "interurban"
+)
 
 // Road types for rates that differ by road.
 const (
@@ -87,15 +98,68 @@ type Table struct {
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
-	MotorwayShare    float64     `json:"motorway_share,omitempty"`
-	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
-	Exemptions       []Exemption `json:"exemptions,omitempty"`
-	Rows             []Row       `json:"rows"`
+	MotorwayShare float64 `json:"motorway_share,omitempty"`
+	// SuburbanShare is the share of km on suburban roads, by road type
+	// ("" for any), for rows with an Area, where the route doesn't tell.
+	SuburbanShare    map[string]float64 `json:"suburban_share,omitempty"`
+	EnvZoneSurcharge string             `json:"env_zone_surcharge,omitempty"`
+	Exemptions       []Exemption        `json:"exemptions,omitempty"`
+	Rows             []Row              `json:"rows"`
 	// Sections are road sections with a fixed infrastructure charge per
 	// passage instead of the per-km one (Austria's special toll sections).
 	Sections *Sections `json:"sections,omitempty"`
+	// Closed are toll systems priced from entry to exit station
+	// (Croatia's motorways).
+	Closed []TollSystem `json:"closed_systems,omitempty"`
 	// Surcharges raise a component's per-km rate on a stretch of road.
 	Surcharges []Surcharge `json:"surcharges,omitempty"`
+}
+
+// TollSystem is a closed toll system: the price from the station where
+// a truck enters to the one where it leaves, by vehicle group. An open
+// toll station (a barrier on the road) is priced from itself to itself.
+type TollSystem struct {
+	Name     string                        `json:"name"`
+	Law      string                        `json:"law"`
+	Groups   []Group                       `json:"groups"`
+	Stations []Station                     `json:"stations"`
+	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
+}
+
+// Group is a vehicle group of a toll system; the first a truck matches
+// is its group.
+type Group struct {
+	Name     string `json:"name"`
+	MinKg    int    `json:"min_kg,omitempty"`
+	MinAxles int    `json:"min_axles,omitempty"`
+	MaxAxles int    `json:"max_axles,omitempty"`
+}
+
+// Station is a toll station: where a route passes one of its points (the
+// motorway junction or the toll booths), it uses the station.
+type Station struct {
+	Name   string  `json:"name"`
+	Points []Place `json:"points"`
+}
+
+// GroupOf is the truck's vehicle group, "" if none matches.
+func (s TollSystem) GroupOf(t Truck) string {
+	for _, g := range s.Groups {
+		if t.MaxMassKg >= g.MinKg && t.Axles >= g.MinAxles && (g.MaxAxles == 0 || t.Axles <= g.MaxAxles) {
+			return g.Name
+		}
+	}
+	return ""
+}
+
+// Price is the price from entry to exit for a group, either way round.
+func (s TollSystem) Price(entry, exit, group string) (float64, bool) {
+	for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
+		if p, ok := s.Prices[k][group]; ok {
+			return p, true
+		}
+	}
+	return 0, false
 }
 
 // Place is a point on a road.
@@ -280,6 +344,7 @@ type Rate struct {
 	PerKm      float64
 	PerTonneKm float64
 	Tonnes     float64
+	Area       string // Suburban or Interurban, for a share of the km
 }
 
 // Rates are the truck's rates for each component, in the table's row
@@ -315,20 +380,20 @@ func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exempt
 	}
 	seen := map[string]bool{}
 	for _, r := range tb.Rows {
-		if r.Component == EnvZoneSurcharge || seen[r.Component] || !r.matches(t) || (r.Road != "" && r.Road != road) {
+		if r.Component == EnvZoneSurcharge || seen[r.Component+"/"+r.Area] || !r.matches(t) || (r.Road != "" && r.Road != road) {
 			continue
 		}
-		seen[r.Component] = true
+		seen[r.Component+"/"+r.Area] = true
 		if tb.PerTonneKm {
 			kg := t.MaxMassKg
 			if tb.MaxChargeableKg > 0 {
 				kg = min(kg, tb.MaxChargeableKg)
 			}
 			tonnes := float64(kg) / 1000
-			rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate * tonnes, PerTonneKm: r.Rate, Tonnes: tonnes})
+			rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate * tonnes, PerTonneKm: r.Rate, Tonnes: tonnes, Area: r.Area})
 			continue
 		}
-		rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate})
+		rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate, Area: r.Area})
 	}
 	return rs, "", true
 }
@@ -402,11 +467,21 @@ func (tb Table) check() error {
 	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
 		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
 	}
-	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil) {
+	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0) {
 		return fmt.Errorf("country, currency, sources and rows (or sections) are required")
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")
+	}
+	for k, v := range tb.SuburbanShare {
+		if v < 0 || v > 1 {
+			return fmt.Errorf("suburban_share[%s] must be 0-1", k)
+		}
+	}
+	for _, r := range tb.Rows {
+		if r.Area != "" && r.Area != Suburban && r.Area != Interurban {
+			return fmt.Errorf("bad area %q", r.Area)
+		}
 	}
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {

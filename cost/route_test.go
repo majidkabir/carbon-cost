@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -45,5 +46,20 @@ func TestRoute(t *testing.T) {
 	// Without ferry data the crossing counts for the nearest coast.
 	if r := Route(ix, path, nil); r[0].Country != "DK" || r[len(r)-1].Country != "DE" {
 		t.Errorf("without ferries: %v", r)
+	}
+}
+
+func TestRoadKmSums(t *testing.T) {
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	// The M1 west of Budapest, near Biatorbágy: an expressway in toll
+	// sections.
+	runs := []Run{{Kind: "road", Country: "HU", Points: [][2]float64{{18.83, 47.47}, {18.80, 47.49}}}}
+	path, ok := rx.Classify("HU", runs[0].Points)
+	k := RoadKm(rx, runs)["HU"]
+	if !ok || k != path {
+		t.Errorf("RoadKm %+v, Classify %+v", k, path)
 	}
 }

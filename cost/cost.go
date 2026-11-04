@@ -20,6 +20,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
@@ -80,6 +81,9 @@ type Request struct {
 	FX map[string]float64 `json:"fx,omitempty"`
 
 	ecb fx.Rates // set by Calculate from Calculator.FX
+	// roadKm is each country's route km by road class, set by Calculate
+	// from Calculator.Roads.
+	roadKm map[string]roads.Km
 	// CompareCO2Classes prices the same trip for trucks in these CO2
 	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
 	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
@@ -107,6 +111,7 @@ type Line struct {
 	Region    string  `json:"region,omitempty"`  // ISO 3166-2, for regional tolls
 	Road      string  `json:"road,omitempty"`    // motorway or other, where rates differ by road
 	Section   string  `json:"section,omitempty"` // a fixed-charge section or a surcharged stretch
+	Area      string  `json:"area,omitempty"`    // suburban or interurban, where rates differ by it
 	Component string  `json:"component,omitempty"`
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
@@ -152,6 +157,9 @@ type Calculator struct {
 	Tables   []rates.Table
 	Ferries  *ferries.Data  // nil: ferry crossings use Sootcase's default
 	Borders  *borders.Index // nil: no Route in the response
+	// Roads tells motorway, national and local km apart (with Borders);
+	// nil: motorway_share and tolled_share decide.
+	Roads *roads.Index
 	// FX gives exchange rates for currencies the request has no fx for;
 	// nil: those need fx in the request.
 	FX  func(context.Context) (fx.Rates, error)
@@ -182,15 +190,22 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err != nil {
 		return Response{}, err
 	}
+	var runs []Run
+	if c.Borders != nil {
+		var path [][2]float64
+		for _, l := range res.Legs {
+			path = append(path, l.Path...)
+		}
+		runs = Route(c.Borders, path, c.Ferries)
+		if c.Roads != nil {
+			req.roadKm = RoadKm(c.Roads, runs)
+		}
+	}
 	out, err := PriceWith(res, c.Tables, c.Ferries, req, date)
-	if err != nil || c.Borders == nil {
+	if err != nil {
 		return out, err
 	}
-	var path [][2]float64
-	for _, l := range res.Legs {
-		path = append(path, l.Path...)
-	}
-	out.Route = Route(c.Borders, path, c.Ferries)
+	out.Route = runs
 	return out, nil
 }
 
@@ -355,6 +370,14 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			}
 		}
 		tolledKm := km * share
+		// Road classes along the route, where the rates differ by road:
+		// motorway km at the motorway rate, other national roads at the
+		// other-road rate, local roads untolled.
+		rk, byRoute := req.roadKm[a.country]
+		byRoute = byRoute && a.region == "" && rk.Total() > 0 && len(tb.Roads()) > 0
+		if byRoute && !shareGiven {
+			tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
+		}
 		rs, exempt, ok := tb.Rates(req.Truck, date)
 		switch {
 		case !ok:
@@ -381,7 +404,18 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 					break
 				}
 			}
-			if !given {
+			switch {
+			case given && byRoute && !shareGiven:
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %.0f%% of the %.1f km are on local roads by OpenStreetMap along the route, which aren't tolled.", cc, 100*rk.Local/rk.Total(), km))
+			case given:
+			case byRoute:
+				if t := rk.Motorway + rk.National; t > 0 {
+					mw = rk.Motorway / t
+				}
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(),
+					map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven], cc, cc))
+			default:
 				mw = tb.MotorwayShare
 				out.Notes = append(out.Notes, fmt.Sprintf("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",
 					cc, mw*100, tolledKm, cc))
@@ -407,7 +441,14 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				if r.Component == rates.Infrastructure && secKm > 0 {
 					km = math.Max(0, km-secKm)
 				}
-				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Component: r.Component,
+				if r.Area != "" {
+					sh := suburbanShare(tb, rk, byRoute, pt.road)
+					if r.Area == rates.Interurban {
+						sh = 1 - sh
+					}
+					km *= sh
+				}
+				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Area: r.Area, Component: r.Component,
 					Carbon: r.Component == rates.CO2, Km: round3(km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
 					Amount: km * r.PerKm, Source: tb.Law}
 				if tb.PerTonneKm {
@@ -473,10 +514,35 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				return Response{}, err
 			}
 		}
+		closedAny := false
+		for _, sys := range tb.Closed {
+			u, ok := usesSystem(sys, route)
+			if !ok {
+				continue
+			}
+			closedAny = true
+			g := sys.GroupOf(req.Truck)
+			p, ok := sys.Price(u.entry, u.exit, g)
+			if !ok {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", cc, sys.Name, u.entry, u.exit, g))
+				continue
+			}
+			name := sys.Name + ": " + u.entry
+			if u.exit != u.entry {
+				name += " – " + u.exit
+			}
+			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.Toll, Section: name,
+				Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
+				return Response{}, err
+			}
+		}
+		if len(tb.Closed) > 0 && len(tb.Rows) == 0 && !closedAny && km >= 1 {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route uses none of the tolled motorways.", cc))
+		}
 		if tb.Sections != nil && len(tb.Rows) == 0 && len(secs) == 0 && km >= 1 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the tolled sections.", cc))
 		}
-		if !shareGiven && len(tb.Rows) > 0 {
+		if !shareGiven && !byRoute && len(tb.Rows) > 0 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
 				cc, km, cc, tb.TolledRoads))
 		}
@@ -754,4 +820,70 @@ func haversine(lat1, lon1, lat2, lon2 float64) float64 {
 	dLat, dLon := (lat2-lat1)*rad, (lon2-lon1)*rad
 	h := math.Sin(dLat/2)*math.Sin(dLat/2) + math.Cos(lat1*rad)*math.Cos(lat2*rad)*math.Sin(dLon/2)*math.Sin(dLon/2)
 	return 2 * r * math.Asin(math.Min(1, math.Sqrt(h)))
+}
+
+// suburbanShare is the share of km on suburban roads of a road type:
+// from the route's toll sections where it matched them, the table's
+// network share for the rest.
+func suburbanShare(tb rates.Table, rk roads.Km, byRoute bool, road string) float64 {
+	def, ok := tb.SuburbanShare[road]
+	if !ok {
+		def = tb.SuburbanShare[""]
+	}
+	if !byRoute {
+		return def
+	}
+	km, sub, known := rk.Motorway, rk.MotorwaySub, rk.MotorwayKnown
+	if road == rates.OtherRoad {
+		km, sub, known = rk.National, rk.NationalSub, rk.NationalKnown
+	}
+	if km <= 0 {
+		return def
+	}
+	return math.Min(1, (sub+math.Max(0, km-known)*def)/km)
+}
+
+// StationMatchKm is how close a route must pass a toll station's
+// junction or booth to count as using it.
+const StationMatchKm = 0.5
+
+type systemUse struct {
+	entry, exit string
+	km          float64
+}
+
+// usesSystem finds where a route enters and leaves a closed toll system:
+// the first and last of its stations the route passes.
+func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
+	if len(route) < 2 {
+		return systemUse{}, false
+	}
+	first, last := math.Inf(1), math.Inf(-1)
+	var u systemUse
+	for _, st := range sys.Stations {
+		best, bestPos := math.Inf(1), 0.0
+		for _, p := range st.Points {
+			if pos, d := project(route, p); d < best {
+				best, bestPos = d, pos
+			}
+		}
+		if best > StationMatchKm {
+			continue
+		}
+		if bestPos < first {
+			first, u.entry = bestPos, st.Name
+		}
+		if bestPos > last {
+			last, u.exit = bestPos, st.Name
+		}
+	}
+	if u.entry == "" {
+		return u, false
+	}
+	u.km = last - first
+	if u.entry == u.exit {
+		_, open := sys.Prices[u.entry+"|"+u.entry]
+		return u, open
+	}
+	return u, true
 }

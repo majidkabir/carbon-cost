@@ -12,6 +12,7 @@ import (
 
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -672,5 +673,98 @@ func TestHungary(t *testing.T) {
 		if math.Abs(r.TotalEUR-tc.total) > 0.011 || math.Abs(r.CarbonEUR-tc.carbon) > 0.011 {
 			t.Errorf("%+v: total %.2f carbon %.2f, want %.2f and %.2f", tc.truck, r.TotalEUR, r.CarbonEUR, tc.total, tc.carbon)
 		}
+	}
+}
+
+// Romania, 200 km at 5 RON/EUR: 12 t and over on motorways, EURO VI,
+// 0.48 lei/km with 21% VAT (OMTI 959/2026).
+func TestRomania(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, CountryKm: map[string]float64{"RO": 200}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		truck rates.Truck
+		total float64
+	}{
+		{truck40, 15.87},
+		{rates.Truck{MaxMassKg: 10000, Axles: 2, Euro: 3, CO2Class: 1}, 12.23},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 3.97},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"RON": 5}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
+			t.Errorf("%+v: total %.2f, want %.2f", tc.truck, r.TotalEUR, tc.total)
+		}
+	}
+	// Road classes from the route: 100 km motorway, 50 km national, 50
+	// km local (untolled): 100 * 0.48/1.21 + 50 * 0.24/1.21 lei.
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"RON": 5}, roadKm: map[string]roads.Km{"RO": {Motorway: 100, National: 50, Local: 50}}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if math.Abs(r.TotalEUR-9.92) > 0.011 {
+		t.Errorf("by route: total %.2f, want 9.92: %v", r.TotalEUR, r.Notes)
+	}
+}
+
+// Croatia: Zagreb (Lučko) to Split on the A1, group IV, 83.70 EUR with
+// 25% VAT; group III 55.20; the open station Bregana, group IV 3.30.
+func TestCroatia(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	trip := func(path [][2]float64) sootcase.Result {
+		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 400, CountryKm: map[string]float64{"HR": 400}, Path: path}}}
+	}
+	a1 := [][2]float64{{15.90, 45.80}, {15.88428, 45.74893}, {15.54862, 45.51211}, {16.57112, 43.59581}, {16.60, 43.55}}
+	for _, tc := range []struct {
+		path  [][2]float64
+		truck rates.Truck
+		total float64
+	}{
+		{a1, truck40, 66.96},
+		{a1, rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 44.16},
+		{[][2]float64{{15.69, 45.84}, {15.70462, 45.8393}, {15.72, 45.84}}, truck40, 2.64},
+		{[][2]float64{{16.0, 46.5}, {16.1, 46.6}}, truck40, 0},
+	} {
+		r, err := Price(trip(tc.path), all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
+			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, tc.total, r.Notes)
+		}
+	}
+}
+
+// Hungary with road classes from the route: 100 km of expressway, half
+// of it suburban by its toll sections: J5 EURO VI air and noise 13.21
+// HUF/km suburban, 3.11 interurban (3.4 and 0.8 eurocent at 388.60).
+func TestHungarySuburban(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"HU": 100}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"HUF": 400},
+		roadKm: map[string]roads.Km{"HU": {Motorway: 100, MotorwayKnown: 100, MotorwaySub: 50}}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var sub, inter float64
+	for _, l := range r.Lines {
+		if l.Component == rates.AirNoise {
+			switch l.Area {
+			case rates.Suburban:
+				sub = l.Km
+			case rates.Interurban:
+				inter = l.Km
+			}
+		}
+	}
+	if math.Abs(sub-50) > 0.01 || math.Abs(inter-50) > 0.01 {
+		t.Errorf("suburban %.2f km, interurban %.2f km, want 50 and 50", sub, inter)
+	}
+	// 100 km: 170.94/1.27 + 50%*13.21 + 50%*3.11 + 31.09 HUF/km.
+	if want := (134.5984 + 8.16 + 31.09) * 100 / 400; math.Abs(r.TotalEUR-want) > 0.02 {
+		t.Errorf("total %.2f, want %.2f", r.TotalEUR, want)
 	}
 }

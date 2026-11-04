@@ -1,0 +1,32 @@
+name: Roads data
+# Builds roads/data from Geofabrik OpenStreetMap extracts and pushes it
+# to the roads-out branch. Push to the roads-data branch to run it.
+on:
+  push:
+    branches: [roads-data]
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && pip install -q shapely osmium
+      - name: Build
+        run: |
+          mkdir -p out
+          for x in CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania; do
+            cc=${x%%:*}; name=${x#*:}
+            curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
+            osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
+            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz
+            rm -f in.pbf roads.pbf
+          done
+          ls -la out
+      - name: Push
+        run: |
+          cd out
+          git init -q -b roads-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "roads data from OpenStreetMap"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" roads-out

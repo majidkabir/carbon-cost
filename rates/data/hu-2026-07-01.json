@@ -29,8 +29,12 @@
  ],
  "vehicles": "Vehicles over 3.5 t maximum authorised mass (buses have their own rates)",
  "min_kg": 3501,
- "tolled_roads": "Expressways (1938 km) and main roads (5560 km) listed in annex 1. Km off motorways are priced at the main-road rate. The air and noise charge is the length-weighted mix of the suburban and interurban rates over annex 1: suburban share 8.7% on expressways, 15.3% on main roads. Low-emission means CO2 class 4.",
+ "tolled_roads": "Expressways (1938 km) and main roads (5560 km) listed in annex 1. Km on other roads are priced at the main-road rate. The air and noise charge has suburban and interurban rates; each route km takes its section's suburban share from annex 1 where OpenStreetMap places the section, else the network share (8.7% on expressways, 15.3% on main roads). Low-emission means CO2 class 4.",
  "motorway_share": 1,
+ "suburban_share": {
+  "motorway": 0.0872,
+  "other": 0.1528
+ },
  "rows": [
   {
    "component": "infrastructure",
@@ -46,149 +50,149 @@
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 1.7458
+   "rate": 7.77
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     0
    ],
-   "rate": 41.4196
+   "rate": 72.28
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     1
    ],
-   "rate": 26.9716
+   "rate": 48.96
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     2
    ],
-   "rate": 26.5825
+   "rate": 48.58
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     3
    ],
-   "rate": 20.2779
+   "rate": 37.31
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     4
    ],
-   "rate": 14.5326
+   "rate": 28.37
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     5
    ],
-   "rate": 7.872
+   "rate": 17.1
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "max_axles": 2,
+   "area": "suburban",
    "euro": [
     6
    ],
-   "rate": 2.5507
+   "rate": 8.94
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 2.1786
+   "rate": 1.17
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     0
    ],
-   "rate": 43.6367
+   "rate": 38.47
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     1
    ],
-   "rate": 28.5513
+   "rate": 24.87
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     2
    ],
-   "rate": 28.1629
+   "rate": 24.48
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     3
    ],
-   "rate": 21.5015
+   "rate": 18.65
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     4
    ],
-   "rate": 15.5267
+   "rate": 13.21
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     5
    ],
-   "rate": 8.535
+   "rate": 6.99
   },
   {
    "component": "air_noise",
-   "road": "other",
    "max_axles": 2,
+   "area": "interurban",
    "euro": [
     6
    ],
-   "rate": 3.0097
+   "rate": 1.94
   },
   {
    "component": "co2",
@@ -250,165 +254,165 @@
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 1.8479
+   "rate": 8.94
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     0
    ],
-   "rate": 56.9355
+   "rate": 95.6
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     1
    ],
-   "rate": 35.1491
+   "rate": 61.4
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     2
    ],
-   "rate": 35.1491
+   "rate": 61.4
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     3
    ],
-   "rate": 27.6504
+   "rate": 48.58
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     4
    ],
-   "rate": 19.083
+   "rate": 35.75
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     5
    ],
-   "rate": 11.4732
+   "rate": 21.76
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "suburban",
    "euro": [
     6
    ],
-   "rate": 3.4319
+   "rate": 10.88
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 2.3574
+   "rate": 1.17
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     0
    ],
-   "rate": 59.7133
+   "rate": 53.24
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     1
    ],
-   "rate": 37.035
+   "rate": 32.64
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     2
    ],
-   "rate": 37.035
+   "rate": 32.64
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     3
    ],
-   "rate": 29.1541
+   "rate": 25.65
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     4
    ],
-   "rate": 20.2804
+   "rate": 17.49
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     5
    ],
-   "rate": 12.2122
+   "rate": 10.49
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 3,
    "max_axles": 3,
+   "area": "interurban",
    "euro": [
     6
    ],
-   "rate": 3.967
+   "rate": 2.72
   },
   {
    "component": "co2",
@@ -475,165 +479,165 @@
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 1.9159
+   "rate": 9.72
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     0
    ],
-   "rate": 65.4681
+   "rate": 108.03
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     1
    ],
-   "rate": 46.9949
+   "rate": 79.27
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     2
    ],
-   "rate": 46.6389
+   "rate": 79.27
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     3
    ],
-   "rate": 37.0982
+   "rate": 63.34
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     4
    ],
-   "rate": 25.2855
+   "rate": 45.85
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     5
    ],
-   "rate": 14.2953
+   "rate": 25.65
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "suburban",
    "euro": [
     6
    ],
-   "rate": 3.8899
+   "rate": 12.05
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 2.4766
+   "rate": 1.17
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     0
    ],
-   "rate": 68.5258
+   "rate": 61.4
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     1
    ],
-   "rate": 49.3136
+   "rate": 43.91
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     2
    ],
-   "rate": 48.9832
+   "rate": 43.52
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     3
    ],
-   "rate": 38.9834
+   "rate": 34.59
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     4
    ],
-   "rate": 26.7629
+   "rate": 23.32
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     5
    ],
-   "rate": 15.111
+   "rate": 13.21
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 4,
    "max_axles": 4,
+   "area": "interurban",
    "euro": [
     6
    ],
-   "rate": 4.4762
+   "rate": 3.11
   },
   {
    "component": "co2",
@@ -698,149 +702,149 @@
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 2.0171
+   "rate": 10.88
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     0
    ],
-   "rate": 80.1699
+   "rate": 130.18
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     1
    ],
-   "rate": 58.4855
+   "rate": 97.15
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     2
    ],
-   "rate": 57.7487
+   "rate": 96.76
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     3
    ],
-   "rate": 46.1817
+   "rate": 78.11
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     4
    ],
-   "rate": 31.4118
+   "rate": 55.18
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     5
    ],
-   "rate": 16.0577
+   "rate": 29.53
   },
   {
    "component": "air_noise",
-   "road": "motorway",
    "min_axles": 5,
+   "area": "suburban",
    "euro": [
     6
    ],
-   "rate": 3.9911
+   "rate": 13.21
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "co2_class": [
     4,
     5
    ],
-   "rate": 2.6538
+   "rate": 1.17
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     0
    ],
-   "rate": 83.7628
+   "rate": 75.39
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     1
    ],
-   "rate": 61.2633
+   "rate": 54.79
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     2
    ],
-   "rate": 60.5513
+   "rate": 54.02
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     3
    ],
-   "rate": 48.4755
+   "rate": 43.13
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     4
    ],
-   "rate": 33.1193
+   "rate": 29.14
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     5
    ],
-   "rate": 17.0256
+   "rate": 14.77
   },
   {
    "component": "air_noise",
-   "road": "other",
    "min_axles": 5,
+   "area": "interurban",
    "euro": [
     6
    ],
-   "rate": 4.6534
+   "rate": 3.11
   },
   {
    "component": "co2",

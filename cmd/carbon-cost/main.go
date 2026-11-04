@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/cost"
+	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -79,7 +80,11 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs}, nil
+	fd, err := ferries.Load()
+	if err != nil {
+		return cost.Calculator{}, err
+	}
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd}, nil
 }
 
 func calc(args []string) error {
@@ -95,6 +100,7 @@ func calc(args []string) error {
 	fs.IntVar(&req.Truck.Axles, "axles", 5, "axles (truck and trailer)")
 	fs.IntVar(&req.Truck.Euro, "euro", 6, "Euro emission standard 0-6 (EEV = 5)")
 	fs.IntVar(&req.Truck.CO2Class, "co2-class", 1, "EU CO2 emission class 1-5 (5 = zero-emission)")
+	fs.IntVar(&req.Truck.TareKg, "tare-kg", 0, "truck's own weight with trailer, kg (lets ferries use their MRV data)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")

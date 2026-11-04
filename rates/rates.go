@@ -83,6 +83,9 @@ type Truck struct {
 	Axles     int `json:"axles"`
 	Euro      int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
 	CO2Class  int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
+	// TareKg is the truck's own weight (with trailer), optional: ferries
+	// report freight emissions per tonne of vehicle and cargo.
+	TareKg int `json:"tare_kg,omitempty"`
 }
 
 // Validate checks a truck's fields.
@@ -96,6 +99,8 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("euro must be 0-6")
 	case t.CO2Class < 1 || t.CO2Class > 5:
 		return fmt.Errorf("co2_class must be 1-5")
+	case t.TareKg < 0 || (t.TareKg > 0 && t.TareKg >= t.MaxMassKg):
+		return fmt.Errorf("tare_kg must be >= 0 and below max_mass_kg")
 	}
 	return nil
 }

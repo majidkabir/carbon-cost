@@ -1,0 +1,36 @@
+{
+ "note": "Truck ferry crossings carbon-cost recognises on a route, with the ships that sail them. A route uses a crossing when it passes within 3 km of both terminals and has a ferry part.",
+ "crossings": [
+  {
+   "id": "rodby-puttgarden",
+   "name": "Rødby–Puttgarden",
+   "operator": "Scandlines",
+   "terminals": [
+    {"name": "Rødby Færgehavn", "lat": 54.6556, "lon": 11.3522},
+    {"name": "Puttgarden", "lat": 54.5003, "lon": 11.2275}
+   ],
+   "ships": [
+    {"imo": "9151541", "name": "DEUTSCHLAND"},
+    {"imo": "9151539", "name": "SCHLESWIG-HOLSTEIN"},
+    {"imo": "9144419", "name": "PRINS RICHARD"},
+    {"imo": "9144421", "name": "PRINSESSE BENEDIKTE"}
+   ],
+   "not_in_mrv": "The battery freight ferry The Baltic Whale (in service from March 2026) has no MRV report yet.",
+   "source": {"title": "Scandlines: Our ferries and harbours", "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"}
+  },
+  {
+   "id": "gedser-rostock",
+   "name": "Gedser–Rostock",
+   "operator": "Scandlines",
+   "terminals": [
+    {"name": "Gedser", "lat": 54.5745, "lon": 11.9292},
+    {"name": "Rostock", "lat": 54.1553, "lon": 12.1105}
+   ],
+   "ships": [
+    {"imo": "9587855", "name": "BERLIN"},
+    {"imo": "9587867", "name": "COPENHAGEN"}
+   ],
+   "source": {"title": "Scandlines: Our ferries and harbours", "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"}
+  }
+ ]
+}

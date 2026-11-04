@@ -54,6 +54,7 @@ jobs:
             echo "::notice title=$name::exit $code, ${secs}s%0A$(echo "$out" | sed ':a;N;$!ba;s/%/%25/g;s/\n/%0A/g')"
           }
           run cph-ham -from DKCPH -to DEHAM -compare 1,4,5 -trips-per-year 200
+          run cph-ham-mrv -from DKCPH -to DEHAM -tare-kg 15000
           run aarhus-hamburg -from DKAAR -to DEHAM
           run padborg-flensburg -from 54.8260,9.3640 -to 54.7937,9.4370
           run cph-ham-2028 -from DKCPH -to DEHAM -ets2 45 -date 2028-03-01

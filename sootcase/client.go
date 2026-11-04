@@ -63,7 +63,10 @@ type LegResult struct {
 	// BE-VLG), where tolls differ by region. CountryKm still has the
 	// whole country.
 	RegionKm map[string]float64 `json:"region_km"`
-	Parts    []Part             `json:"parts"`
+	// Path is the route as [lon, lat] points (asked for with
+	// path=detailed), to tell which ferry crossing it uses.
+	Path  [][2]float64 `json:"path"`
+	Parts []Part       `json:"parts"`
 }
 
 // Result is the part of Sootcase's result this tool uses.
@@ -81,7 +84,8 @@ type Client struct {
 }
 
 // Calculate calculates a shipment with each leg's distance by country
-// (?country_km=true, Sootcase v0.9.0 or later).
+// (?country_km=true, Sootcase v0.9.0 or later) and its route
+// (path=detailed, at most 1,000 points).
 func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	body, err := json.Marshal(s)
 	if err != nil {
@@ -91,7 +95,7 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	if base == "" {
 		base = DefaultURL
 	}
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, base+"/v1/calculate?country_km=true", bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=detailed", bytes.NewReader(body))
 	if err != nil {
 		return Result{}, err
 	}

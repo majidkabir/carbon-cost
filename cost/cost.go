@@ -17,6 +17,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -105,16 +106,18 @@ type Line struct {
 
 // Response is a priced trip.
 type Response struct {
-	Date       string             `json:"date"`
-	DistanceKm float64            `json:"distance_km"`
-	FerryKm    float64            `json:"ferry_km,omitempty"`
-	CountryKm  map[string]float64 `json:"country_km"`
-	RegionKm   map[string]float64 `json:"region_km,omitempty"`
-	TTWKg      float64            `json:"ttw_kg"`
-	WTWKg      float64            `json:"wtw_kg"`
-	Lines      []Line             `json:"lines"`
-	TotalEUR   float64            `json:"total_eur"`
-	CarbonEUR  float64            `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
+	Date       string  `json:"date"`
+	DistanceKm float64 `json:"distance_km"`
+	FerryKm    float64 `json:"ferry_km,omitempty"`
+	// FerryCrossing is the crossing the route uses, when recognised.
+	FerryCrossing string             `json:"ferry_crossing,omitempty"`
+	CountryKm     map[string]float64 `json:"country_km"`
+	RegionKm      map[string]float64 `json:"region_km,omitempty"`
+	TTWKg         float64            `json:"ttw_kg"`
+	WTWKg         float64            `json:"wtw_kg"`
+	Lines         []Line             `json:"lines"`
+	TotalEUR      float64            `json:"total_eur"`
+	CarbonEUR     float64            `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
 	// NoRates lists countries on the route this tool has no toll table
 	// for: their charges are not included.
 	NoRates []string `json:"no_rates,omitempty"`
@@ -128,6 +131,7 @@ type Response struct {
 type Calculator struct {
 	Sootcase sootcase.Client
 	Tables   []rates.Table
+	Ferries  *ferries.Data    // nil: ferry crossings use Sootcase's default
 	Now      func() time.Time // default time.Now
 }
 
@@ -150,7 +154,7 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err != nil {
 		return Response{}, err
 	}
-	return Price(res, c.Tables, req, date)
+	return PriceWith(res, c.Tables, c.Ferries, req, date)
 }
 
 func (c Calculator) date(s string) (time.Time, error) {
@@ -200,8 +204,16 @@ func check(req Request) error {
 	return nil
 }
 
-// Price prices a trip from Sootcase's result.
+// Price prices a trip from Sootcase's result, with ferry crossings at
+// Sootcase's default factor.
 func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Time) (Response, error) {
+	return PriceWith(res, tables, nil, req, date)
+}
+
+// PriceWith prices a trip from Sootcase's result; a recognised ferry
+// crossing uses its ships' MRV data from fd when the truck's tare is
+// given.
+func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req Request, date time.Time) (Response, error) {
 	if err := check(req); err != nil {
 		return Response{}, err
 	}
@@ -327,10 +339,14 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 			if req.FerryETSShare > 0 {
 				share *= req.FerryETSShare
 			}
-			t := ferryTTW / 1000 * share
+			crossingT, basis := ferryTTW/1000, "Sootcase ferry part (GLEC ro-pax default)"
+			if t, b, ok := mrvFerry(&out, res, fd, req, date); ok {
+				crossingT, basis = t, b
+			}
+			t := crossingT * share
 			if err := add(Line{Charge: FerryETS, Carbon: true, Km: round3(out.FerryKm), TonnesCO2: round3(t), Rate: req.EUAEurPerT,
 				RateUnit: "EUR/t CO2e", Currency: "EUR", Amount: t * req.EUAEurPerT,
-				Source: "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb; emissions: Sootcase ferry part (GLEC ro-pax default)"}); err != nil {
+				Source: "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb; emissions: " + basis}); err != nil {
 				return Response{}, err
 			}
 			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the ETS cost of this cargo's share of the crossing's emissions (%.0f%% of them under the ETS in %d). A ferry line's own surcharge follows its ships' real emissions and its pricing.",
@@ -354,7 +370,7 @@ func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Tim
 		}
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
-	if err := compare(&out, res, tables, req, date, ferryTTW); err != nil {
+	if err := compare(&out, res, tables, fd, req, date, ferryTTW); err != nil {
 		return Response{}, err
 	}
 	for k, v := range out.CountryKm {
@@ -412,7 +428,7 @@ func areas(out *Response, tables []rates.Table) []area {
 // compare prices the trip again for each of req.CompareCO2Classes. The
 // route and the cargo's emissions stay the same, except that a CO2 class
 // 5 (zero-emission) truck burns no road fuel, so pays no ETS2.
-func compare(out *Response, res sootcase.Result, tables []rates.Table, req Request, date time.Time, ferryTTW float64) error {
+func compare(out *Response, res sootcase.Result, tables []rates.Table, fd *ferries.Data, req Request, date time.Time, ferryTTW float64) error {
 	if len(req.CompareCO2Classes) == 0 {
 		return nil
 	}
@@ -426,7 +442,7 @@ func compare(out *Response, res sootcase.Result, tables []rates.Table, req Reque
 		} else if cls != req.Truck.CO2Class {
 			sameEmissions = true
 		}
-		r, err := Price(altRes, tables, alt, date)
+		r, err := PriceWith(altRes, tables, fd, alt, date)
 		if err != nil {
 			return fmt.Errorf("compare co2_class %d: %w", cls, err)
 		}
@@ -468,3 +484,46 @@ func maritimeETSShare(date time.Time) float64 {
 
 func round2(v float64) float64 { return math.Round(v*100) / 100 }
 func round3(v float64) float64 { return math.Round(v*1000) / 1000 }
+
+// mrvFerry is the crossing's CO2e (tonnes) from its ships' MRV data: their
+// freight intensity x (truck tare + cargo) x the ferry distance. ok is
+// false, with a note, when the crossing isn't recognised, has no MRV data
+// or the truck's tare isn't given.
+func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time) (float64, string, bool) {
+	if fd == nil {
+		return 0, "", false
+	}
+	var route [][2]float64
+	for _, l := range res.Legs {
+		route = append(route, l.Path...)
+	}
+	c, ok := fd.Detect(route)
+	if !ok {
+		out.Notes = append(out.Notes, "Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor.")
+		return 0, "", false
+	}
+	out.FerryCrossing = c.Name
+	in, ok := fd.Intensity(c, date.Year())
+	if !ok {
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s has no MRV data; Sootcase's default ro-pax factor is used.", c.Name))
+		return 0, "", false
+	}
+	if req.Truck.TareKg == 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: give truck.tare_kg to use %s's own MRV data (%.1f g CO2e per tonne-nautical mile of vehicle and cargo); Sootcase's default ro-pax factor is used.",
+			c.Name, in.GPerTNm))
+		return 0, "", false
+	}
+	grossT := (float64(req.Truck.TareKg) + req.CargoKg) / 1000
+	nm := out.FerryKm * ferries.NmPerKm
+	names := make([]string, len(in.Ships))
+	for i, s := range in.Ships {
+		names[i] = s.Name
+	}
+	basis := fmt.Sprintf("EU MRV %d (%s), %s ships %s: %.1f g CO2e/t·nm x %.1f t (truck %.1f + cargo %.1f) x %.1f nm",
+		in.Year.ReportingPeriod, in.Year.Version, c.Name, strings.Join(names, ", "), in.GPerTNm, grossT,
+		float64(req.Truck.TareKg)/1000, req.CargoKg/1000, nm)
+	if c.NotInMRV != "" {
+		out.Notes = append(out.Notes, "Ferry: "+c.NotInMRV)
+	}
+	return in.GPerTNm * grossT * nm / 1e6, basis, true
+}

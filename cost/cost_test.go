@@ -768,3 +768,72 @@ func TestHungarySuburban(t *testing.T) {
 		t.Errorf("total %.2f, want %.2f", r.TotalEUR, want)
 	}
 }
+
+// Storebælt: a 16.5 m truck (10-20 m) pays 1,020 DKK with VAT, 816
+// without; on a Storebælt Erhverv agreement EURO VI gets 13% off; over 20
+// m 1,224. Øresund: 1,324 DKK, or 580 with ØresundBUSINESS.
+func TestDanishBridges(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	storebaelt := [][2]float64{{11.0, 55.34}, {11.10876, 55.34993}, {11.2, 55.36}}
+	oresund := [][2]float64{{12.65, 55.62}, {12.84879, 55.57047}, {13.0, 55.56}}
+	bridge := func(r Response) float64 {
+		for _, l := range r.Lines {
+			if l.Component == rates.Toll && strings.Contains(l.Section, "bridge") {
+				return l.Amount
+			}
+		}
+		return 0
+	}
+	for _, tc := range []struct {
+		path  [][2]float64
+		truck rates.Truck
+		etc   bool
+		want  float64
+	}{
+		{storebaelt, truck40, false, 816},
+		{storebaelt, truck40, true, 709.92},
+		{storebaelt, rates.Truck{MaxMassKg: 60000, Axles: 7, Euro: 6, CO2Class: 1, LengthM: 25.25}, false, 1224},
+		{storebaelt, rates.Truck{MaxMassKg: 12000, Axles: 2, Euro: 5, CO2Class: 1, LengthM: 9}, true, 516},
+		{oresund, truck40, false, 1324},
+		{oresund, truck40, true, 580},
+		{[][2]float64{{9.0, 55.0}, {9.1, 55.1}}, truck40, false, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"DK": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: tc.etc}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got := bridge(r); math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%v %+v etc %v: bridge %.2f DKK, want %.2f: %v", tc.path[1], tc.truck, tc.etc, got, tc.want, r.Notes)
+		}
+	}
+}
+
+// Croatia with ENC: Zagreb-Split, EURO VI, 21.74% + 7% off 66.96; the
+// Istrian Y from Umag to Pula, group IV, 31.40 EUR with VAT (25.12
+// without), 30% off with ENC PLUS.
+func TestCroatiaDiscounts(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	trip := func(path [][2]float64) sootcase.Result {
+		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 400, CountryKm: map[string]float64{"HR": 400}, Path: path}}}
+	}
+	a1 := [][2]float64{{15.90, 45.80}, {15.88428, 45.74893}, {15.54862, 45.51211}, {16.57112, 43.59581}, {16.60, 43.55}}
+	istria := [][2]float64{{13.60, 45.43}, {13.61752, 45.42442}, {13.80706, 45.11216}, {13.88653, 44.90411}, {13.86, 44.87}}
+	for _, tc := range []struct {
+		path  [][2]float64
+		etc   bool
+		total float64
+	}{
+		{a1, true, 66.96 * (1 - 0.2874)},
+		{istria, false, 25.12},
+		{istria, true, 25.12 * 0.7},
+	} {
+		r, err := Price(trip(tc.path), all(t), Request{CargoKg: 1000, Truck: truck40, ETC: tc.etc}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
+			t.Errorf("%v etc %v: total %.2f, want %.2f: %v", tc.path[1], tc.etc, r.TotalEUR, tc.total, r.Notes)
+		}
+	}
+}

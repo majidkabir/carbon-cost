@@ -4,11 +4,19 @@
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "name": "Croatian motorway toll (Hrvatske autoceste)",
- "law": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. They are the full prices: users of the ENC electronic toll get 21.74% off, and EURO V/EEV 3% and EURO VI 7% more.",
+ "law": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
  "sources": [
   {
    "title": "Hrvatske autoceste: toll rates",
    "url": "https://www.hac.hr/en/toll/toll-rates/a1"
+  },
+  {
+   "title": "Hrvatske autoceste: ENC discounts",
+   "url": "https://www.hac.hr/en/toll/etc"
+  },
+  {
+   "title": "Bina-Istra: toll calculator",
+   "url": "https://bina-istra.com/karta/hamburger.html"
   },
   {
    "title": "Pravilnik o cestarini (Narodne novine 130/2013)",
@@ -17,11 +25,34 @@
  ],
  "vehicles": "Vehicles over 3.5 t (groups III and IV)",
  "min_kg": 3501,
- "tolled_roads": "HAC's motorways (A1, A2, A3, A4, A5, A6, A7 Rupa, A10, A11). The Istrian Y (A8, A9, Bina-Istra) isn't included.",
+ "tolled_roads": "HAC's motorways (A1, A2, A3, A4, A5, A6, A7 Rupa, A10, A11) and Bina-Istra's Istrian Y (A8, A9).",
  "closed_systems": [
   {
    "name": "A1, A6, A10 Zagreb – Split – Rijeka – Čarapine",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates a1), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -7422,6 +7453,29 @@
   {
    "name": "A2 Zagreb – Macelj",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates a2), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -7682,6 +7736,29 @@
   {
    "name": "A3, A5 Zagreb – Lipovac – Osijek – Svilaj",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates a3), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -9965,6 +10042,29 @@
   {
    "name": "A4 Zagreb – Goričan",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates a4), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -10453,6 +10553,29 @@
   {
    "name": "A11 Zagreb – Sisak",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates a11), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -10552,6 +10675,29 @@
   {
    "name": "A3 Bregana",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates bregana), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -10591,6 +10737,29 @@
   {
    "name": "A7 Rupa",
    "law": "Hrvatske autoceste price list (hac.hr, toll rates rupa), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC",
+     "etc": true,
+     "percent": 21.74
+    },
+    {
+     "name": "ENC EURO V/EEV",
+     "etc": true,
+     "euro": [
+      5
+     ],
+     "percent": 3
+    },
+    {
+     "name": "ENC EURO VI",
+     "etc": true,
+     "euro": [
+      6
+     ],
+     "percent": 7
+    }
+   ],
    "groups": [
     {
      "name": "III",
@@ -10634,6 +10803,1012 @@
     "Rupa|Rupa": {
      "III": 2.08,
      "IV": 3.44
+    }
+   }
+  },
+  {
+   "name": "A8, A9 Istrian Y (Bina-Istra)",
+   "law": "Bina-Istra toll price list (bina-istra.com toll calculator), EUR including 25% VAT, here excluding it; vehicle groups by Pravilnik o cestarini (NN 130/2013) art. 2",
+   "discounts": [
+    {
+     "name": "ENC PLUS",
+     "etc": true,
+     "percent": 30
+    }
+   ],
+   "groups": [
+    {
+     "name": "III",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Baderna",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.21542,
+       "lon": 13.72175
+      },
+      {
+       "name": "booth",
+       "lat": 45.21545,
+       "lon": 13.7252
+      },
+      {
+       "name": "junction",
+       "lat": 45.2191,
+       "lon": 13.72254
+      },
+      {
+       "name": "junction",
+       "lat": 45.21613,
+       "lon": 13.72361
+      }
+     ]
+    },
+    {
+     "name": "Buje",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.40253,
+       "lon": 13.62268
+      },
+      {
+       "name": "booth",
+       "lat": 45.40298,
+       "lon": 13.62044
+      },
+      {
+       "name": "booth",
+       "lat": 45.40484,
+       "lon": 13.61989
+      },
+      {
+       "name": "booth",
+       "lat": 45.40483,
+       "lon": 13.62163
+      },
+      {
+       "name": "junction",
+       "lat": 45.40713,
+       "lon": 13.62056
+      },
+      {
+       "name": "junction",
+       "lat": 45.39936,
+       "lon": 13.62347
+      }
+     ]
+    },
+    {
+     "name": "Cerovlje",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.27279,
+       "lon": 14.01628
+      },
+      {
+       "name": "booth",
+       "lat": 45.27401,
+       "lon": 14.01707
+      },
+      {
+       "name": "booth",
+       "lat": 45.27383,
+       "lon": 14.01895
+      },
+      {
+       "name": "junction",
+       "lat": 45.27584,
+       "lon": 14.01855
+      },
+      {
+       "name": "junction",
+       "lat": 45.27426,
+       "lon": 14.01779
+      }
+     ]
+    },
+    {
+     "name": "Ivoli",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.24391,
+       "lon": 13.9739
+      },
+      {
+       "name": "booth",
+       "lat": 45.24437,
+       "lon": 13.97567
+      },
+      {
+       "name": "booth",
+       "lat": 45.24475,
+       "lon": 13.97525
+      },
+      {
+       "name": "booth",
+       "lat": 45.24427,
+       "lon": 13.97347
+      }
+     ]
+    },
+    {
+     "name": "Kanfanar",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.11216,
+       "lon": 13.80706
+      },
+      {
+       "name": "junction",
+       "lat": 45.10849,
+       "lon": 13.81681
+      },
+      {
+       "name": "junction",
+       "lat": 45.11177,
+       "lon": 13.81271
+      },
+      {
+       "name": "junction",
+       "lat": 45.11171,
+       "lon": 13.81497
+      },
+      {
+       "name": "junction",
+       "lat": 45.11361,
+       "lon": 13.81371
+      },
+      {
+       "name": "junction",
+       "lat": 45.11305,
+       "lon": 13.81558
+      },
+      {
+       "name": "junction",
+       "lat": 45.11493,
+       "lon": 13.8197
+      },
+      {
+       "name": "junction",
+       "lat": 45.11579,
+       "lon": 13.81148
+      }
+     ]
+    },
+    {
+     "name": "Lupoglav",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.34487,
+       "lon": 14.1088
+      },
+      {
+       "name": "booth",
+       "lat": 45.34695,
+       "lon": 14.10988
+      },
+      {
+       "name": "junction",
+       "lat": 45.34584,
+       "lon": 14.11313
+      },
+      {
+       "name": "junction",
+       "lat": 45.34693,
+       "lon": 14.1056
+      }
+     ]
+    },
+    {
+     "name": "Medaki",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.14936,
+       "lon": 13.74068
+      },
+      {
+       "name": "booth",
+       "lat": 45.15122,
+       "lon": 13.74204
+      },
+      {
+       "name": "junction",
+       "lat": 45.1488,
+       "lon": 13.74441
+      },
+      {
+       "name": "junction",
+       "lat": 45.14996,
+       "lon": 13.74235
+      }
+     ]
+    },
+    {
+     "name": "Nova Vas",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.35361,
+       "lon": 13.61651
+      },
+      {
+       "name": "booth",
+       "lat": 45.35422,
+       "lon": 13.6192
+      },
+      {
+       "name": "junction",
+       "lat": 45.35599,
+       "lon": 13.61866
+      },
+      {
+       "name": "junction",
+       "lat": 45.35479,
+       "lon": 13.61799
+      }
+     ]
+    },
+    {
+     "name": "Pula",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.90411,
+       "lon": 13.88653
+      },
+      {
+       "name": "booth",
+       "lat": 44.90413,
+       "lon": 13.88627
+      },
+      {
+       "name": "junction",
+       "lat": 44.8956,
+       "lon": 13.88768
+      },
+      {
+       "name": "junction",
+       "lat": 44.89263,
+       "lon": 13.8891
+      },
+      {
+       "name": "junction",
+       "lat": 44.89029,
+       "lon": 13.8904
+      },
+      {
+       "name": "junction",
+       "lat": 44.89308,
+       "lon": 13.88904
+      }
+     ]
+    },
+    {
+     "name": "Rogovići",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.22757,
+       "lon": 13.911
+      },
+      {
+       "name": "booth",
+       "lat": 45.2281,
+       "lon": 13.91092
+      },
+      {
+       "name": "booth",
+       "lat": 45.22818,
+       "lon": 13.91325
+      },
+      {
+       "name": "booth",
+       "lat": 45.22765,
+       "lon": 13.91337
+      }
+     ]
+    },
+    {
+     "name": "Tunel Učka",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.3176,
+       "lon": 14.1731
+      },
+      {
+       "name": "booth",
+       "lat": 45.31524,
+       "lon": 14.24488
+      }
+     ]
+    },
+    {
+     "name": "Umag",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.42442,
+       "lon": 13.61752
+      },
+      {
+       "name": "booth",
+       "lat": 45.4243,
+       "lon": 13.61733
+      },
+      {
+       "name": "booth",
+       "lat": 45.42365,
+       "lon": 13.61869
+      },
+      {
+       "name": "junction",
+       "lat": 45.45012,
+       "lon": 13.61798
+      }
+     ]
+    },
+    {
+     "name": "Višnjan",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.27354,
+       "lon": 13.70883
+      },
+      {
+       "name": "junction",
+       "lat": 45.27947,
+       "lon": 13.7084
+      },
+      {
+       "name": "junction",
+       "lat": 45.27343,
+       "lon": 13.71028
+      }
+     ]
+    },
+    {
+     "name": "Vodnjan Jug",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.94879,
+       "lon": 13.86498
+      },
+      {
+       "name": "junction",
+       "lat": 44.95116,
+       "lon": 13.8727
+      },
+      {
+       "name": "junction",
+       "lat": 44.95286,
+       "lon": 13.87213
+      }
+     ]
+    },
+    {
+     "name": "Vodnjan Sjever",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.98327,
+       "lon": 13.84521
+      },
+      {
+       "name": "junction",
+       "lat": 44.98827,
+       "lon": 13.84458
+      },
+      {
+       "name": "junction",
+       "lat": 44.98641,
+       "lon": 13.84679
+      }
+     ]
+    },
+    {
+     "name": "Vranja",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.32288,
+       "lon": 14.16302
+      },
+      {
+       "name": "junction",
+       "lat": 45.32442,
+       "lon": 14.1649
+      },
+      {
+       "name": "junction",
+       "lat": 45.32407,
+       "lon": 14.15781
+      }
+     ]
+    },
+    {
+     "name": "Žminj",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.13807,
+       "lon": 13.88524
+      },
+      {
+       "name": "junction",
+       "lat": 45.13641,
+       "lon": 13.88016
+      },
+      {
+       "name": "junction",
+       "lat": 45.13803,
+       "lon": 13.88057
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Tunel Učka|Vranja": {
+     "III": 9.68,
+     "IV": 19.36
+    },
+    "Tunel Učka|Lupoglav": {
+     "III": 10.96,
+     "IV": 21.28
+    },
+    "Tunel Učka|Cerovlje": {
+     "III": 13.36,
+     "IV": 25.28
+    },
+    "Tunel Učka|Ivoli": {
+     "III": 14.48,
+     "IV": 27.12
+    },
+    "Tunel Učka|Rogovići": {
+     "III": 15.52,
+     "IV": 29.36
+    },
+    "Tunel Učka|Žminj": {
+     "III": 17.76,
+     "IV": 32.88
+    },
+    "Tunel Učka|Kanfanar": {
+     "III": 18.8,
+     "IV": 34.88
+    },
+    "Tunel Učka|Vodnjan Sjever": {
+     "III": 21.44,
+     "IV": 38.64
+    },
+    "Tunel Učka|Vodnjan Jug": {
+     "III": 22.56,
+     "IV": 40.8
+    },
+    "Tunel Učka|Pula": {
+     "III": 23.6,
+     "IV": 42.64
+    },
+    "Tunel Učka|Medaki": {
+     "III": 20.72,
+     "IV": 37.36
+    },
+    "Tunel Učka|Baderna": {
+     "III": 22.24,
+     "IV": 40.16
+    },
+    "Tunel Učka|Višnjan": {
+     "III": 23.6,
+     "IV": 42.64
+    },
+    "Tunel Učka|Nova Vas": {
+     "III": 26.64,
+     "IV": 47.52
+    },
+    "Tunel Učka|Buje": {
+     "III": 27.68,
+     "IV": 49.68
+    },
+    "Tunel Učka|Umag": {
+     "III": 28.64,
+     "IV": 51.36
+    },
+    "Vranja|Lupoglav": {
+     "III": 1.2,
+     "IV": 1.92
+    },
+    "Vranja|Cerovlje": {
+     "III": 3.76,
+     "IV": 6.0
+    },
+    "Vranja|Ivoli": {
+     "III": 4.8,
+     "IV": 8.0
+    },
+    "Vranja|Rogovići": {
+     "III": 5.84,
+     "IV": 10.16
+    },
+    "Vranja|Žminj": {
+     "III": 8.48,
+     "IV": 13.92
+    },
+    "Vranja|Kanfanar": {
+     "III": 9.44,
+     "IV": 16.0
+    },
+    "Vranja|Vodnjan Sjever": {
+     "III": 11.84,
+     "IV": 19.76
+    },
+    "Vranja|Vodnjan Jug": {
+     "III": 12.96,
+     "IV": 21.68
+    },
+    "Vranja|Pula": {
+     "III": 13.92,
+     "IV": 23.44
+    },
+    "Vranja|Medaki": {
+     "III": 11.04,
+     "IV": 18.24
+    },
+    "Vranja|Baderna": {
+     "III": 12.64,
+     "IV": 21.12
+    },
+    "Vranja|Višnjan": {
+     "III": 13.92,
+     "IV": 23.44
+    },
+    "Vranja|Nova Vas": {
+     "III": 16.88,
+     "IV": 28.48
+    },
+    "Vranja|Buje": {
+     "III": 18.08,
+     "IV": 30.48
+    },
+    "Vranja|Umag": {
+     "III": 19.04,
+     "IV": 32.32
+    },
+    "Lupoglav|Cerovlje": {
+     "III": 2.72,
+     "IV": 4.24
+    },
+    "Lupoglav|Ivoli": {
+     "III": 3.76,
+     "IV": 6.0
+    },
+    "Lupoglav|Rogovići": {
+     "III": 4.8,
+     "IV": 8.48
+    },
+    "Lupoglav|Žminj": {
+     "III": 7.36,
+     "IV": 12.16
+    },
+    "Lupoglav|Kanfanar": {
+     "III": 8.32,
+     "IV": 14.0
+    },
+    "Lupoglav|Vodnjan Sjever": {
+     "III": 10.56,
+     "IV": 17.84
+    },
+    "Lupoglav|Vodnjan Jug": {
+     "III": 11.84,
+     "IV": 19.84
+    },
+    "Lupoglav|Pula": {
+     "III": 12.8,
+     "IV": 21.68
+    },
+    "Lupoglav|Medaki": {
+     "III": 9.84,
+     "IV": 16.48
+    },
+    "Lupoglav|Baderna": {
+     "III": 11.52,
+     "IV": 19.12
+    },
+    "Lupoglav|Višnjan": {
+     "III": 12.8,
+     "IV": 21.68
+    },
+    "Lupoglav|Nova Vas": {
+     "III": 15.76,
+     "IV": 26.64
+    },
+    "Lupoglav|Buje": {
+     "III": 16.96,
+     "IV": 28.64
+    },
+    "Lupoglav|Umag": {
+     "III": 17.92,
+     "IV": 30.56
+    },
+    "Cerovlje|Ivoli": {
+     "III": 1.12,
+     "IV": 1.84
+    },
+    "Cerovlje|Rogovići": {
+     "III": 2.4,
+     "IV": 4.16
+    },
+    "Cerovlje|Žminj": {
+     "III": 4.72,
+     "IV": 7.92
+    },
+    "Cerovlje|Kanfanar": {
+     "III": 5.68,
+     "IV": 9.68
+    },
+    "Cerovlje|Vodnjan Sjever": {
+     "III": 8.16,
+     "IV": 13.6
+    },
+    "Cerovlje|Vodnjan Jug": {
+     "III": 9.2,
+     "IV": 15.52
+    },
+    "Cerovlje|Pula": {
+     "III": 10.16,
+     "IV": 17.44
+    },
+    "Cerovlje|Medaki": {
+     "III": 7.36,
+     "IV": 12.16
+    },
+    "Cerovlje|Baderna": {
+     "III": 8.88,
+     "IV": 14.88
+    },
+    "Cerovlje|Višnjan": {
+     "III": 10.16,
+     "IV": 17.44
+    },
+    "Cerovlje|Nova Vas": {
+     "III": 13.12,
+     "IV": 22.32
+    },
+    "Cerovlje|Buje": {
+     "III": 14.32,
+     "IV": 24.4
+    },
+    "Cerovlje|Umag": {
+     "III": 15.44,
+     "IV": 26.32
+    },
+    "Ivoli|Rogovići": {
+     "III": 1.28,
+     "IV": 2.32
+    },
+    "Ivoli|Žminj": {
+     "III": 3.6,
+     "IV": 6.0
+    },
+    "Ivoli|Kanfanar": {
+     "III": 4.56,
+     "IV": 8.0
+    },
+    "Ivoli|Vodnjan Sjever": {
+     "III": 7.04,
+     "IV": 11.84
+    },
+    "Ivoli|Vodnjan Jug": {
+     "III": 8.16,
+     "IV": 13.68
+    },
+    "Ivoli|Pula": {
+     "III": 9.12,
+     "IV": 15.6
+    },
+    "Ivoli|Medaki": {
+     "III": 6.08,
+     "IV": 10.24
+    },
+    "Ivoli|Baderna": {
+     "III": 7.84,
+     "IV": 13.12
+    },
+    "Ivoli|Višnjan": {
+     "III": 9.12,
+     "IV": 15.6
+    },
+    "Ivoli|Nova Vas": {
+     "III": 12.08,
+     "IV": 20.64
+    },
+    "Ivoli|Buje": {
+     "III": 13.28,
+     "IV": 22.56
+    },
+    "Ivoli|Umag": {
+     "III": 14.24,
+     "IV": 24.48
+    },
+    "Rogovići|Žminj": {
+     "III": 2.56,
+     "IV": 3.76
+    },
+    "Rogovići|Kanfanar": {
+     "III": 3.52,
+     "IV": 5.52
+    },
+    "Rogovići|Vodnjan Sjever": {
+     "III": 5.76,
+     "IV": 9.36
+    },
+    "Rogovići|Vodnjan Jug": {
+     "III": 7.04,
+     "IV": 11.44
+    },
+    "Rogovići|Pula": {
+     "III": 8.0,
+     "IV": 13.28
+    },
+    "Rogovići|Medaki": {
+     "III": 5.04,
+     "IV": 8.0
+    },
+    "Rogovići|Baderna": {
+     "III": 6.64,
+     "IV": 10.64
+    },
+    "Rogovići|Višnjan": {
+     "III": 8.0,
+     "IV": 13.28
+    },
+    "Rogovići|Nova Vas": {
+     "III": 10.96,
+     "IV": 18.16
+    },
+    "Rogovići|Buje": {
+     "III": 12.16,
+     "IV": 20.24
+    },
+    "Rogovići|Umag": {
+     "III": 13.12,
+     "IV": 22.08
+    },
+    "Žminj|Kanfanar": {
+     "III": 1.76,
+     "IV": 2.56
+    },
+    "Žminj|Vodnjan Sjever": {
+     "III": 3.92,
+     "IV": 6.08
+    },
+    "Žminj|Vodnjan Jug": {
+     "III": 5.04,
+     "IV": 8.0
+    },
+    "Žminj|Pula": {
+     "III": 6.08,
+     "IV": 9.92
+    },
+    "Žminj|Medaki": {
+     "III": 3.28,
+     "IV": 4.88
+    },
+    "Žminj|Baderna": {
+     "III": 4.56,
+     "IV": 7.52
+    },
+    "Žminj|Višnjan": {
+     "III": 6.08,
+     "IV": 9.92
+    },
+    "Žminj|Nova Vas": {
+     "III": 8.96,
+     "IV": 14.88
+    },
+    "Žminj|Buje": {
+     "III": 9.92,
+     "IV": 16.88
+    },
+    "Žminj|Umag": {
+     "III": 11.36,
+     "IV": 18.8
+    },
+    "Kanfanar|Vodnjan Sjever": {
+     "III": 2.88,
+     "IV": 4.24
+    },
+    "Kanfanar|Vodnjan Jug": {
+     "III": 3.92,
+     "IV": 6.08
+    },
+    "Kanfanar|Pula": {
+     "III": 5.04,
+     "IV": 8.0
+    },
+    "Kanfanar|Medaki": {
+     "III": 2.08,
+     "IV": 2.88
+    },
+    "Kanfanar|Baderna": {
+     "III": 3.52,
+     "IV": 5.52
+    },
+    "Kanfanar|Višnjan": {
+     "III": 5.04,
+     "IV": 8.0
+    },
+    "Kanfanar|Nova Vas": {
+     "III": 7.68,
+     "IV": 12.72
+    },
+    "Kanfanar|Buje": {
+     "III": 8.96,
+     "IV": 14.88
+    },
+    "Kanfanar|Umag": {
+     "III": 9.92,
+     "IV": 16.88
+    },
+    "Vodnjan Sjever|Vodnjan Jug": {
+     "III": 1.68,
+     "IV": 2.48
+    },
+    "Vodnjan Sjever|Pula": {
+     "III": 2.88,
+     "IV": 4.24
+    },
+    "Vodnjan Sjever|Medaki": {
+     "III": 4.24,
+     "IV": 6.96
+    },
+    "Vodnjan Sjever|Baderna": {
+     "III": 5.76,
+     "IV": 9.36
+    },
+    "Vodnjan Sjever|Višnjan": {
+     "III": 7.36,
+     "IV": 12.16
+    },
+    "Vodnjan Sjever|Nova Vas": {
+     "III": 9.92,
+     "IV": 16.88
+    },
+    "Vodnjan Sjever|Buje": {
+     "III": 11.36,
+     "IV": 18.8
+    },
+    "Vodnjan Sjever|Umag": {
+     "III": 12.48,
+     "IV": 20.88
+    },
+    "Vodnjan Jug|Pula": {
+     "III": 1.76,
+     "IV": 2.56
+    },
+    "Vodnjan Jug|Medaki": {
+     "III": 5.44,
+     "IV": 8.88
+    },
+    "Vodnjan Jug|Baderna": {
+     "III": 7.04,
+     "IV": 11.44
+    },
+    "Vodnjan Jug|Višnjan": {
+     "III": 8.64,
+     "IV": 14.0
+    },
+    "Vodnjan Jug|Nova Vas": {
+     "III": 11.36,
+     "IV": 18.8
+    },
+    "Vodnjan Jug|Buje": {
+     "III": 12.48,
+     "IV": 20.88
+    },
+    "Vodnjan Jug|Umag": {
+     "III": 13.44,
+     "IV": 22.64
+    },
+    "Pula|Medaki": {
+     "III": 6.64,
+     "IV": 10.64
+    },
+    "Pula|Baderna": {
+     "III": 8.0,
+     "IV": 13.28
+    },
+    "Pula|Višnjan": {
+     "III": 9.6,
+     "IV": 16.32
+    },
+    "Pula|Nova Vas": {
+     "III": 12.48,
+     "IV": 20.88
+    },
+    "Pula|Buje": {
+     "III": 13.44,
+     "IV": 22.64
+    },
+    "Pula|Umag": {
+     "III": 14.96,
+     "IV": 25.12
+    },
+    "Medaki|Baderna": {
+     "III": 2.0,
+     "IV": 3.04
+    },
+    "Medaki|Višnjan": {
+     "III": 3.52,
+     "IV": 5.52
+    },
+    "Medaki|Nova Vas": {
+     "III": 6.08,
+     "IV": 9.92
+    },
+    "Medaki|Buje": {
+     "III": 7.36,
+     "IV": 12.16
+    },
+    "Medaki|Umag": {
+     "III": 8.64,
+     "IV": 14.0
+    },
+    "Baderna|Višnjan": {
+     "III": 2.0,
+     "IV": 3.04
+    },
+    "Baderna|Nova Vas": {
+     "III": 4.56,
+     "IV": 7.52
+    },
+    "Baderna|Buje": {
+     "III": 5.76,
+     "IV": 9.36
+    },
+    "Baderna|Umag": {
+     "III": 7.04,
+     "IV": 11.44
+    },
+    "Višnjan|Nova Vas": {
+     "III": 3.28,
+     "IV": 4.88
+    },
+    "Višnjan|Buje": {
+     "III": 4.24,
+     "IV": 6.96
+    },
+    "Višnjan|Umag": {
+     "III": 5.44,
+     "IV": 8.88
+    },
+    "Nova Vas|Buje": {
+     "III": 1.68,
+     "IV": 2.4
+    },
+    "Nova Vas|Umag": {
+     "III": 2.88,
+     "IV": 4.24
+    },
+    "Buje|Umag": {
+     "III": 1.68,
+     "IV": 2.32
     }
    }
   }

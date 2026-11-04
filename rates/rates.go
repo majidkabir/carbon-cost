@@ -126,7 +126,7 @@ type TollSystem struct {
 	Name string `json:"name"`
 	Law  string `json:"law"`
 	// Chain prices a trip that passes many stations as consecutive
-	// published entry-exit pairs, each as long as the prices allow
+	// published entry-exit pairs that together cover the most of it
 	// (France); otherwise one ticket from the first to the last station.
 	Chain    bool                          `json:"chain,omitempty"`
 	Groups   []Group                       `json:"groups"`

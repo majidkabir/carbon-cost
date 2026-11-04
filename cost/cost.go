@@ -936,9 +936,15 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 }
 
 // chainUses splits a route's passes through a chained toll system into
-// tickets: from the first station passed, the longest pair with a
-// published price, then again from the next station after its exit.
-// Stations without any priced pair to a later one are skipped.
+// tickets: the pairs with a published price, one after another along the
+// route, that together cover the most km (on a tie, the fewest tickets).
+// That is the longest pair from the first station passed, then again
+// after its exit, except where a station beside the route (an exit's
+// toll booth the route only drives past) would make a short ticket that
+// blocks a longer one.
+// sameKm: stations this close along the route are at the same place.
+const sameKm = 0.3
+
 func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool) []systemUse {
 	type pass struct {
 		name string
@@ -958,24 +964,73 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 	}
 	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	g := sys.GroupOf(t)
-	var out []systemUse
-	for i := 0; i < len(passes); {
-		j := -1
-		for k := len(passes) - 1; k > i; k-- {
-			if passes[k].name == passes[i].name {
-				continue
-			}
-			if _, ok := sys.Price(passes[i].name, passes[k].name, g, etc); ok {
-				j = k
-				break
+	n := len(passes)
+	priced := func(i, j int) bool {
+		if passes[j].name == passes[i].name {
+			return false
+		}
+		_, ok := sys.Price(passes[i].name, passes[j].name, g, etc)
+		return ok
+	}
+	// After a ticket's exit j the next may start at any other station at
+	// the same place (where one concession's network meets the next's,
+	// each names its station its own way): from cont(i, j), skipping j.
+	cont := func(i, j int) int {
+		k := j
+		for k > i+1 && passes[j].pos-passes[k-1].pos <= sameKm {
+			k--
+		}
+		return k
+	}
+	type best struct {
+		cover   float64
+		tickets int
+		exit    int // the ticket from this pass, -1 for none
+	}
+	type key struct{ k, skip int }
+	memo := map[key]best{}
+	// from(k, skip): the best from pass k on, never entering at pass skip.
+	var from func(k, skip int) best
+	from = func(k, skip int) best {
+		if k >= n {
+			return best{exit: -1}
+		}
+		if skip < k {
+			skip = -1
+		}
+		if b, ok := memo[key{k, skip}]; ok {
+			return b
+		}
+		b := from(k+1, skip)
+		b.exit = -1
+		if k != skip {
+			for j := k + 1; j < n; j++ {
+				if !priced(k, j) {
+					continue
+				}
+				r := from(cont(k, j), j)
+				c, m := passes[j].pos-passes[k].pos+r.cover, r.tickets+1
+				if c > b.cover+1e-9 || (math.Abs(c-b.cover) <= 1e-9 && m < b.tickets) {
+					b = best{c, m, j}
+				}
 			}
 		}
-		if j < 0 {
+		memo[key{k, skip}] = b
+		return b
+	}
+	for i := n - 1; i >= 0; i-- { // fill from the end, keeping the recursion shallow
+		from(i, -1)
+	}
+	var out []systemUse
+	for i, skip := 0, -1; i < n; {
+		b := from(i, skip)
+		if b.exit < 0 {
 			i++
 			continue
 		}
+		j := b.exit
 		out = append(out, systemUse{entry: passes[i].name, exit: passes[j].name, km: passes[j].pos - passes[i].pos})
-		i = j + 1
+		i, skip = cont(i, j), j
 	}
 	return out
 }

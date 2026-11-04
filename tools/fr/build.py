@@ -4,9 +4,9 @@
 Usage: python3 build.py pairs.csv stations.json manifest.json fr.json
 
 All documents' pairs go in one chained toll system (rates.TollSystem
-with chain): along the route, a truck pays for the longest published
-entry-exit pair from the first station it passes, then again from the
-next station after that exit, and so on. Prices exclude 20% VAT. Where
+with chain): along the route, a truck pays for the published entry-exit
+pairs, one after another, that together cover the most of the route
+(cost.chainUses). Prices exclude 20% VAT. Where
 two documents publish the same pair, the first in documents.json
 counts. Rows to or from "Système Ouvert" (the open sections) aren't used.
 """

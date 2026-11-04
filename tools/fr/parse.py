@@ -12,6 +12,8 @@ Parsers (text documents, from pdftotext -layout):
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
   gares       one page per entry station ("Gare de X"), then rows
               "code EXIT c1 c2 c3 c4 c5" (A'liénor)
+  transcribed prices published only as images, transcribed by hand
+              (transcribed/*.json), by EURO class (Atlandes, ALBEA)
   columns     small tables on a web page, configured in documents.json
               (headings to check, and what each column prices) (ATMB)
   barrier     a single barrier priced alone: its first five rows of two
@@ -36,6 +38,7 @@ PARSERS = {
     "list_roads": re.compile(r"^\s*A\d+\s+(?P<entry_no>\d+(?:\.\d+)?[a-z]?|-)\s+(?P<entry>\S.*?)\s{2,}A\d+\s+(?P<exit_no>\d+(?:\.\d+)?[a-z]?|-)\s+(?P<exit>\S.*?)\s{2,}" + PRICES),
 }
 GARE_ROW = re.compile(r"^\s*\d{5}\s+(?P<exit>\S.*?)\s{2,}" + r"\s+".join(f"(?P<c{i}>[\\d ]+,\\d\\d)" for i in range(1, 6)) + r"\s*$")
+AXLES = ("2 axles", "3 axles", "4+ axles")
 MONTHS = {"janvier": 1, "février": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6, "juillet": 7, "août": 8,
           "septembre": 9, "octobre": 10, "novembre": 11, "décembre": 12}
 
@@ -96,7 +99,7 @@ def main(docs_path, fetched, out):
     manifest = {f["file"]: f for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     with open(out, "w", newline="", encoding="utf-8") as fo:
         w = csv.writer(fo)
-        w.writerow(["operator", "document", "url", "sha256", "url4", "sha256_4", "valid_from", "entry", "exit", "km", "class3", "class4", "entry_no", "exit_no"])
+        w.writerow(["operator", "document", "url", "sha256", "url4", "sha256_4", "valid_from", "entry", "exit", "km", "class3", "class4", "entry_no", "exit_no", "by_euro"])
         for d in docs:
             if d["parser"] == "items":
                 # Saved in the repository (documents.json's folder): text
@@ -109,6 +112,30 @@ def main(docs_path, fetched, out):
                     if p4 is not None:
                         w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
                 print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
+            if d["parser"] == "transcribed":
+                # Prices an operator publishes only as an image, transcribed
+                # by hand (transcribed/*.json: the image's URL and sha256,
+                # which tools/tables checks). By EURO class: the by_euro
+                # column holds them for the groups "<axles> EURO <n>"
+                # (build.py), class3 and class4 the EURO 6 price.
+                t = json.load(open(os.path.join(os.path.dirname(os.path.abspath(docs_path)), d["file"]), encoding="utf-8"))
+                url, sha, vf, n = t["source"]["url"], t["source"]["sha256"], t["valid_from"], 0
+                rows = []
+                if "barriers" in t:
+                    pr = t["prices"]
+                    by = {f"{ax} EURO {e}": pr["2-3 axles" if ax in ("2 axles", "3 axles") else "4+ axles"][str(e)]
+                          for ax in AXLES for e in range(7)}
+                    rows = [(b, b, by) for b in t["barriers"]]
+                else:
+                    col = {e: t["columns"].index("0-3" if e <= 3 else str(e)) for e in range(7)}
+                    for x, pr in t["exits"].items():
+                        by = {f"{ax} EURO {e}": pr["3" if ax == "2 axles" else "4"][col[e]] for ax in AXLES for e in range(7)}
+                        rows.append((t["entry"], x, by))
+                for a, b, by in rows:
+                    w.writerow([d["operator"], d["file"], url, sha, "", "", vf, a, b, "", by["2 axles EURO 6"], by["3 axles EURO 6"], "", "", json.dumps(by)])
+                    n += 1
+                print(f"{d['file']}: {n} pairs by EURO class, valid from {vf}")
                 continue
             if d["parser"] == "columns":
                 # A page's small tables (ATMB): after each "after" marker, the

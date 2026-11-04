@@ -1,0 +1,11 @@
+{
+ "operator": "Atlandes",
+ "about": "A63 (Salles - Saint-Geours-de-Maremne): Atlandes publishes its 2026 truck prices only as an image. Transcribed by hand from it; tools/tables fetches the image again and says if it has changed (sha256). Prices in EUR including 20% VAT, per passage of either barrier (Saugnacq-et-Muret in the north, Castets in the south): Atlandes' own calculator gives 21.50 for class C EURO 6 from Saint-Geours to Castets (one barrier) and 43.00 to Salles (both). Classes A and B (two or three axles) share a price; class C is four axles or more. EEV is priced as EURO V.",
+ "source": {"url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg", "sha256": "75b05d72014863c7e4a91b2d1ad496b3840bc01fb8e704edbe5c3e908262e631", "page": "https://www.a63-atlandes.fr/fr/calculateur-de-tarifs/"},
+ "valid_from": "2026-02-01",
+ "barriers": {"Atlandes Saugnacq-et-Muret": ["BPV Nord S1 (SAUGNACQ ET MURET)", "BPV Nord S2 (SAUGNACQ ET MURET)"], "Atlandes Castets": ["BPV Sud S1 (CASTETS)", "BPV Sud S2 (CASTETS)"]},
+ "prices": {
+  "2-3 axles": {"0": 19.45, "1": 19.45, "2": 19.45, "3": 18.80, "4": 17.80, "5": 16.70, "6": 16.70},
+  "4+ axles": {"0": 23.40, "1": 23.40, "2": 23.40, "3": 23.40, "4": 23.40, "5": 22.70, "6": 21.50}
+ }
+}

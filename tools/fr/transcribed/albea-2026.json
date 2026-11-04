@@ -1,0 +1,15 @@
+{
+ "operator": "ALBEA",
+ "about": "A150 (Barentin - Écalles-Alix): ALBEA publishes its 2026 prices only as an image. Transcribed by hand from it; tools/tables fetches the image again and says if it has changed (sha256). Prices in EUR including 20% VAT from the Bouville barrier to the exits on SAPN's A29 beyond it, by EURO class: class 3 (two axles) and class 4 (more). The image's columns: outside the scheme (hors périmètre), EURO 0-3, 4, 5, 6, 7.",
+ "source": {"url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg", "sha256": "947c53d18b24a8fa2e962162a0c2ceba119993596c13586bae61f430e3974b97", "page": "https://www.a150-albea.fr/les-points-dinterets/peage/"},
+ "valid_from": "2026-02-01",
+ "entry": "Bouville",
+ "columns": ["outside", "0-3", "4", "5", "6", "7"],
+ "exits": {
+  "EPRETOT": {"3": [19.4, 20.0, 19.8, 19.4, 19.2, 19.0], "4": [27.7, 28.8, 28.4, 27.9, 27.6, 27.4]},
+  "ST ROMAIN": {"3": [15.6, 16.2, 16.0, 15.6, 15.4, 15.2], "4": [22.0, 23.1, 22.7, 22.2, 21.9, 21.7]},
+  "BOLBEC": {"3": [14.8, 15.4, 15.2, 14.8, 14.6, 14.4], "4": [20.3, 21.4, 21.0, 20.5, 20.2, 20.0]},
+  "FECAMP": {"3": [12.0, 12.6, 12.4, 12.0, 11.8, 11.6], "4": [16.8, 17.9, 17.5, 17.0, 16.7, 16.5]},
+  "YVETOT": {"3": [8.5, 9.1, 8.9, 8.5, 8.3, 8.1], "4": [11.8, 12.9, 12.5, 12.0, 11.7, 11.5]}
+ }
+}

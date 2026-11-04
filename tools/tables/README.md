@@ -14,6 +14,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - `frejus.py` → `rates/data/frejus-<date>.json`: one-way class 3 and 4 prices for trucks (EURO 5-6), a crossing priced at the French plaza.
    - `mont_blanc.py` → `rates/data/mont-blanc-<date>.json`: one-way class 3 and 4 prices (France to Italy; Italy to France is the same before VAT), a crossing priced at the French plaza.
    - `hu.py` → `rates/data/hu-<date>.json` and `tools/roads/hu-annex1.json`: § 1 (2)-(4a) (infrastructure charge), annex 1 (tolled sections, with each one's suburban share) and annex 2 (external-cost charge).
-3. **Compare**: the workflow prints, for each rebuilt file, whether it is the same as the committed one, or the difference. A new file means a new price list: copy it into `rates/data` (with an end date on the previous one if they overlap).
+3. **Transcribed images**: Atlandes (A63) and ALBEA (A150) publish their prices only as images. Those are transcribed by hand into `tools/fr/transcribed/*.json`, each with the image's URL and sha256; the workflow fetches the images (`sources.json`) and `check_transcribed.py` says whether each is still the one transcribed.
+4. **Compare**: the workflow prints, for each rebuilt file, whether it is the same as the committed one, or the difference. A new file means a new price list: copy it into `rates/data` (with an end date on the previous one if they overlap).
 
 The Danish plazas' coordinates are fixed in `dk_bridges.py` (OpenStreetMap toll booths). The Hungarian EUR/HUF rate (388.60, 209/2013. Korm. rendelet § 3/A) and the HU-GO checks are in `hu.py`.

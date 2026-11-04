@@ -36,6 +36,7 @@ jobs:
             elif cmp -s "$f" "$c"; then echo "$f: same as committed"
             else echo "::warning title=$f::differs from the committed $c"; diff <(python3 -m json.tool "$c") <(python3 -m json.tool "$f") | head -40; fi
           done | tee compare.txt
+          python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
       - name: Push
         if: always()
         run: |

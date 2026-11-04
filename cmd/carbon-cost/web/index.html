@@ -216,7 +216,7 @@ function show(r) {
     cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
     cell(tr, (l.component || "co2").replace("_", " ") + (l.road ? ` (${l.road})` : "") + (l.section ? `: ${l.section}` : ""));
     cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : num(l.km, 1) + " km", "n");
-    cell(tr, l.rate + " " + l.rate_unit, "n sm-hide");
+    cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
   }
   const cmp = $("cmp"); cmp.replaceChildren();

@@ -443,3 +443,56 @@ func TestPrice_AustriaSections(t *testing.T) {
 		}
 	}
 }
+
+// Basel - Chiasso style trip: 280 km in Switzerland, 40 t Euro VI. LSVA is
+// 2.39 Rappen per tonne-km (SVAV Art. 8): 0.0239 x 40 x 280 = CHF 267.68.
+func TestSwitzerland(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"CH": 280, "LI": 20}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"CHF": 0.93}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ch, li Line
+	for _, l := range r.Lines {
+		switch l.Country {
+		case "CH":
+			ch = l
+		case "LI":
+			li = l
+		}
+	}
+	if ch.Amount != 267.68 || ch.Tonnes != 40 || ch.Rate != 0.0239 || ch.RateUnit != "CHF/tkm" || ch.AmountEUR != 287.83 {
+		t.Errorf("CH line %+v", ch)
+	}
+	if li.Amount != 19.12 {
+		t.Errorf("LI line %+v", li)
+	}
+	// Euro V pays category 1, and the weight counts up to 40 t.
+	heavy := req
+	heavy.Truck = rates.Truck{MaxMassKg: 44000, Axles: 5, Euro: 5, CO2Class: 1}
+	r, _ = Price(trip, all(t), heavy, date)
+	for _, l := range r.Lines {
+		if l.Country == "CH" && (l.Amount != round2(0.0326*40*280) || l.Tonnes != 40) {
+			t.Errorf("Euro V 44 t: %+v", l)
+		}
+	}
+	// Electric trucks are exempt.
+	zev := req
+	zev.Truck.CO2Class = 5
+	if r, _ := Price(trip, all(t), zev, date); len(r.Lines) != 0 {
+		t.Errorf("electric truck: %+v", r.Lines)
+	}
+	// Without fx the ECB rates are used, with a note; without either, an error.
+	noFX := req
+	noFX.FX = nil
+	if _, err := Price(trip, all(t), noFX, date); err == nil || !strings.Contains(err.Error(), "fx.CHF") {
+		t.Errorf("want an error asking for fx.CHF, got %v", err)
+	}
+	noFX.ecb.Date, noFX.ecb.PerEUR = "2026-11-03", map[string]float64{"CHF": 0.9312}
+	r, err = Price(trip, all(t), noFX, date)
+	if err != nil || !strings.Contains(strings.Join(r.Notes, " "), "0.9312 CHF per euro (ECB euro foreign exchange reference rates, 2026-11-03)") {
+		t.Errorf("ECB rate note: %v %v", err, r.Notes)
+	}
+}

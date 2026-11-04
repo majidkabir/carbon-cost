@@ -18,6 +18,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
@@ -74,6 +75,11 @@ type Request struct {
 	ETS2EurPerT float64 `json:"ets2_eur_per_t,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
+	// FX converts other currencies to EUR, in units per euro, e.g.
+	// {"CHF": 0.93}; default the ECB reference rates (Calculator.FX).
+	FX map[string]float64 `json:"fx,omitempty"`
+
+	ecb fx.Rates // set by Calculate from Calculator.FX
 	// CompareCO2Classes prices the same trip for trucks in these CO2
 	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
 	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
@@ -105,8 +111,9 @@ type Line struct {
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
 	TonnesCO2 float64 `json:"t_co2e,omitempty"`
+	Tonnes    float64 `json:"tonnes,omitempty"` // chargeable weight, for rates per tonne-km
 	Rate      float64 `json:"rate"`
-	RateUnit  string  `json:"rate_unit"` // e.g. "DKK/km", "EUR/t CO2e"
+	RateUnit  string  `json:"rate_unit"` // e.g. "DKK/km", "CHF/tkm", "EUR/t CO2e"
 	Currency  string  `json:"currency"`
 	Amount    float64 `json:"amount"`
 	AmountEUR float64 `json:"amount_eur"`
@@ -145,6 +152,9 @@ type Calculator struct {
 	Tables   []rates.Table
 	Ferries  *ferries.Data    // nil: ferry crossings use Sootcase's default
 	Borders  *borders.Index   // nil: no Route in the response
+	// FX gives exchange rates for currencies the request has no fx for;
+	// nil: those need fx in the request.
+	FX func(context.Context) (fx.Rates, error)
 	Now      func() time.Time // default time.Now
 }
 
@@ -160,6 +170,11 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	vt := req.VehicleType
 	if vt == "" {
 		vt = DefaultVehicleType
+	}
+	if c.FX != nil {
+		if r, err := c.FX(ctx); err == nil {
+			req.ecb = r
+		}
 	}
 	no := false
 	res, err := c.Sootcase.Calculate(ctx, sootcase.Shipment{ID: "trip", WeightKg: req.CargoKg, AddRoadLegs: &no,
@@ -210,6 +225,11 @@ func check(req Request) error {
 	for k, v := range req.MotorwayShare {
 		if v < 0 || v > 1 {
 			return fmt.Errorf("motorway_share[%s] must be 0-1", k)
+		}
+	}
+	for k, v := range req.FX {
+		if v <= 0 {
+			return fmt.Errorf("fx.%s must be > 0 (units per euro)", k)
 		}
 	}
 	for k, v := range req.EnvZoneKm {
@@ -276,10 +296,22 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 	if req.DKKPerEUR > 0 {
 		eurPer["DKK"] = 1 / req.DKKPerEUR
 	}
+	for c, v := range req.FX {
+		if v > 0 {
+			eurPer[c] = 1 / v
+		}
+	}
 	add := func(l Line) error {
 		f, ok := eurPer[l.Currency]
 		if !ok {
-			return fmt.Errorf("no exchange rate for %s", l.Currency)
+			v := req.ecb.PerEUR[l.Currency]
+			if v == 0 {
+				return fmt.Errorf("no exchange rate for %s: give fx.%s (%s per euro)", l.Currency, l.Currency, l.Currency)
+			}
+			f = 1 / v
+			eurPer[l.Currency] = f
+			out.Notes = append(out.Notes, fmt.Sprintf("%s converted at %g %s per euro (%s, %s); give fx.%s to use another rate.",
+				l.Currency, v, l.Currency, fx.Source, req.ecb.Date, l.Currency))
 		}
 		l.Amount = round2(l.Amount)
 		l.AmountEUR = round2(l.Amount * f)
@@ -349,11 +381,12 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 					break
 				}
 			}
-			parts = []part{{rates.Motorway, tolledKm * mw}, {rates.OtherRoad, tolledKm * (1 - mw)}}
 			if !given {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: rates differ by road type; all %.1f km are priced at the non-motorway rate. Give motorway_share.%s for the share on motorways.",
-					cc, tolledKm, cc))
+				mw = tb.MotorwayShare
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",
+					cc, mw*100, tolledKm, cc))
 			}
+			parts = []part{{rates.Motorway, tolledKm * mw}, {rates.OtherRoad, tolledKm * (1 - mw)}}
 		}
 		// Fixed-charge sections on the route: their km pay the section
 		// charge instead of the per-km infrastructure rate.
@@ -371,9 +404,13 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				if r.Component == rates.Infrastructure && secKm > 0 {
 					km = math.Max(0, km-secKm)
 				}
-				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Component: r.Component,
+				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Component: r.Component,
 					Carbon: r.Component == rates.CO2, Km: round3(km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
-					Amount: km * r.PerKm, Source: tb.Law}); err != nil {
+					Amount: km * r.PerKm, Source: tb.Law}
+				if tb.PerTonneKm {
+					l.Tonnes, l.Rate, l.RateUnit = r.Tonnes, r.PerTonneKm, tb.Currency+"/tkm"
+				}
+				if err := add(l); err != nil {
 					return Response{}, err
 				}
 			}

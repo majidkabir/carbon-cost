@@ -26,6 +26,7 @@ import (
 
 	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
@@ -91,7 +92,8 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix}, nil
+	fxCache := &fx.Cache{URL: os.Getenv("FX_URL")}
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, FX: fxCache.Get}, nil
 }
 
 func calc(args []string) error {
@@ -113,6 +115,8 @@ func calc(args []string) error {
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
+	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
+	fxs := fs.String("fx", "", "exchange rates in units per euro, e.g. CHF=0.93,CZK=24.3 (default the ECB reference rates)")
 	zone := fs.String("env-zone-km", "", "km in environmental zones by country, e.g. DK=4")
 	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
 	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
@@ -129,6 +133,12 @@ func calc(args []string) error {
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
 		return fmt.Errorf("-tolled-share: %w", err)
+	}
+	if req.MotorwayShare, err = byCountry(*mway); err != nil {
+		return fmt.Errorf("-motorway-share: %w", err)
+	}
+	if req.FX, err = byCountry(*fxs); err != nil {
+		return fmt.Errorf("-fx: %w", err)
 	}
 	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
 		return fmt.Errorf("-env-zone-km: %w", err)

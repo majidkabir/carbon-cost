@@ -50,7 +50,7 @@ type Row struct {
 	// Road is set where the rate depends on the road type (Motorway or
 	// OtherRoad): the row applies only to km on that type.
 	Road string  `json:"road,omitempty"`
-	Rate float64 `json:"rate"` // currency per km
+	Rate float64 `json:"rate"` // currency per km, or per tonne-km in a PerTonneKm table
 }
 
 // Road types for rates that differ by road.
@@ -81,6 +81,13 @@ type Table struct {
 	Vehicles         string      `json:"vehicles"`
 	MinKg            int         `json:"min_kg"` // lighter trucks pay no toll
 	TolledRoads      string      `json:"tolled_roads"`
+	// PerTonneKm tables charge their rates per tonne-km of the truck's
+	// maximum mass, up to MaxChargeableKg (Switzerland's LSVA).
+	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
+	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
+	// MotorwayShare is the share of km priced at motorway rates when the
+	// rates differ by road type and the request doesn't say (default 0).
+	MotorwayShare float64 `json:"motorway_share,omitempty"`
 	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
 	Exemptions       []Exemption `json:"exemptions,omitempty"`
 	Rows             []Row       `json:"rows"`
@@ -185,10 +192,13 @@ func (r Row) matches(t Truck) bool {
 		(len(r.CO2Class) == 0 || slices.Contains(r.CO2Class, t.CO2Class))
 }
 
-// Rate is a component's rate for a truck.
+// Rate is a component's rate for a truck. In a PerTonneKm table,
+// PerTonneKm is the published rate and Tonnes the chargeable weight.
 type Rate struct {
-	Component string
-	PerKm     float64
+	Component  string
+	PerKm      float64
+	PerTonneKm float64
+	Tonnes     float64
 }
 
 // Rates are the truck's rates for each component, in the table's row
@@ -228,6 +238,15 @@ func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exempt
 			continue
 		}
 		seen[r.Component] = true
+		if tb.PerTonneKm {
+			kg := t.MaxMassKg
+			if tb.MaxChargeableKg > 0 {
+				kg = min(kg, tb.MaxChargeableKg)
+			}
+			tonnes := float64(kg) / 1000
+			rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate * tonnes, PerTonneKm: r.Rate, Tonnes: tonnes})
+			continue
+		}
 		rs = append(rs, Rate{Component: r.Component, PerKm: r.Rate})
 	}
 	return rs, "", true
@@ -304,6 +323,9 @@ func (tb Table) check() error {
 	}
 	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || len(tb.Rows) == 0 {
 		return fmt.Errorf("country, currency, sources and rows are required")
+	}
+	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
+		return fmt.Errorf("motorway_share must be 0-1")
 	}
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {

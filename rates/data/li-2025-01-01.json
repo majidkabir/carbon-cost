@@ -1,0 +1,41 @@
+{
+  "country": "LI",
+  "currency": "CHF",
+  "valid_from": "2025-01-01",
+  "valid_to": "2030-12-31",
+  "name": "Liechtenstein performance-related heavy vehicle fee (LSVA, as in Switzerland)",
+  "law": "Schwerverkehrsabgabeverordnung (SVAV) of 3 December 2024, LGBl. 2024 Nr. 452, Art. 7 para. 1: 3.26 / 2.82 / 2.39 Rappen per tonne-km for fee categories 1 / 2 / 3; Annex: EURO VI in category 3; Art. 5 para. 3: chargeable weight at most 40 t.",
+  "sources": [
+    {
+      "title": "Liechtenstein SVAV, LGBl. 2024 Nr. 452, consolidated version of 1 October 2025",
+      "url": "https://www.gesetze.li/konso/pdf/2024452000"
+    }
+  ],
+  "vehicles": "Motor vehicles and trailers over 3.5 t total weight used for goods transport, Swiss or foreign",
+  "min_kg": 3501,
+  "tolled_roads": "All public roads: the fee is per km driven anywhere in Switzerland and Liechtenstein.",
+  "per_tonne_km": true,
+  "max_chargeable_kg": 40000,
+  "exemptions": [
+    {
+      "co2_class": [
+        5
+      ],
+      "until": "2030-12-31",
+      "note": "Motor vehicles with electric drive are exempt, as in Switzerland (SVAG Art. 5 para. 1 let. i)."
+    }
+  ],
+  "rows": [
+    {
+      "component": "distance_fee",
+      "euro": [
+        6
+      ],
+      "rate": 0.0239
+    },
+    {
+      "component": "distance_fee",
+      "rate": 0.0326
+    }
+  ]
+}

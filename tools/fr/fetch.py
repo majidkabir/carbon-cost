@@ -3,7 +3,8 @@ output folder, with a manifest of what was fetched and when.
 
 Usage: python3 fetch.py sources.json out/
 
-For each operator: every page in "pages" (saved as HTML) and every PDF,
+For each operator: every page in "pages" (saved as text with its links,
+without scripts, which can hold the site's own access tokens) and every PDF,
 XLSX or CSV linked from those pages whose link or text mentions a tariff
 (tarif, grille, péage, prix); PDFs are also converted to text with
 pdftotext -layout. The toll stations dataset is fetched from data.gouv.fr
@@ -48,8 +49,12 @@ def main(src, out):
             except Exception as e:
                 errors.append({"operator": op["id"], "url": page, "error": str(e)})
                 continue
-            save(manifest, out, f"{op['id']}/page{i}.html", page, data)
             text = data.decode("utf-8", "replace")
+            text = re.sub(r"<(script|style|noscript)\b.*?</\1>", "", text, flags=re.S | re.I)
+            links = [f"{re.sub(r'<[^>]+>|\s+', ' ', html.unescape(m.group(2))).strip()} <{urllib.parse.urljoin(page, html.unescape(m.group(1)))}>"
+                     for m in re.finditer(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', text, re.S | re.I)]
+            body = html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", text)))
+            save(manifest, out, f"{op['id']}/page{i}.txt", page, (body + "\n\nLINKS\n" + "\n".join(links)).encode())
             for m in re.finditer(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', text, re.S | re.I):
                 href, label = html.unescape(m.group(1)), re.sub(r"<[^>]+>|\s+", " ", m.group(2))
                 url = urllib.parse.urljoin(page, href)

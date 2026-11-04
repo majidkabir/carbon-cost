@@ -21,16 +21,70 @@
   {
    "title": "Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, consolidated text NPB 9 (6 October 2025)",
    "url": "https://pisrs.si/pregledNpb?idPredpisa=SKLE11574&idPredpisaChng=SKLE14128"
+  },
+  {
+   "title": "Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24 in 76/25), art. 3",
+   "url": "https://pisrs.si/pregledPredpisa?id=URED9295"
   }
  ],
  "vehicles": "Motor vehicles over 3.5 t technically permissible maximum mass: R2 two axles, R3 three, R4 more than three",
  "min_kg": 3501,
- "tolled_roads": "The DARS motorway and expressway network, 129 toll sections; a section is charged when the route passes both of its ends. Not included: the 1.4 km Serminska vpadnica to the port of Koper, and the Karavanke tunnel, which is tolled separately at the tunnel.",
+ "tolled_roads": "The DARS motorway and expressway network, 129 toll sections; a section is charged when the route passes both of its ends. Not included: the 1.4 km Serminska vpadnica to the port of Koper. The Karavanke tunnel's Slovenian toll is a fixed amount per passage (Uredba o cestnini za uporabo cestnega predora Karavanke, Uradni list RS, št. 109/24 in 76/25, art. 3: R2 4.85, R3 5.38, R4 10.76 EUR excluding VAT).",
  "rows": [],
  "sections": {
   "law": "Cenik cestnine za uporabo cestninskih cest, Annex (as amended by Uradni list RS, št. 139/26, from 1 April 2026)",
   "tariff_groups": "Toll classes R2 (2 axles), R3 (3), R4 (more than 3); columns EURO 0-III, IV, V, EEV, VI with CO2 class 1, then EURO VI with CO2 classes 2-5. EEV is priced as EURO V here.",
   "list": [
+   {
+    "id": "karavanke",
+    "road": "A2",
+    "name": "Karavanke tunnel (Slovenian part)",
+    "from": {
+     "name": "State border in the Karavanke tunnel (approx., mid-tunnel)",
+     "lat": 46.5,
+     "lon": 14.02
+    },
+    "to": {
+     "name": "Hrušica",
+     "lat": 46.4454,
+     "lon": 14.0121
+    },
+    "classes": {
+     "R2": [
+      4.85,
+      4.85,
+      4.85,
+      4.85,
+      4.85,
+      4.85,
+      4.85,
+      4.85,
+      4.85
+     ],
+     "R3": [
+      5.38,
+      5.38,
+      5.38,
+      5.38,
+      5.38,
+      5.38,
+      5.38,
+      5.38,
+      5.38
+     ],
+     "R4": [
+      10.76,
+      10.76,
+      10.76,
+      10.76,
+      10.76,
+      10.76,
+      10.76,
+      10.76,
+      10.76
+     ]
+    }
+   },
    {
     "id": "a1-001",
     "road": "A1",

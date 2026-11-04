@@ -42,6 +42,10 @@ jobs:
             maps: europe/serbia
           - name: fr
             maps: europe/france/bourgogne
+          - name: fr-south
+            maps: europe/france/provence-alpes-cote-d-azur europe/france/languedoc-roussillon
+          - name: fr-west
+            maps: europe/france/pays-de-la-loire
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -136,6 +140,13 @@ jobs:
           elif [ "${{ matrix.name }}" = fr ]; then
             run dijon-macon -from 47.3220,5.0415 -to 46.3069,4.8287
             run auxerre-beaune-2axles -from 47.7982,3.5673 -to 47.0260,4.8400 -axles 2 -mass-kg 18000
+          elif [ "${{ matrix.name }}" = fr-south ]; then
+            run aix-nice -from 43.5297,5.4474 -to 43.7102,7.2620
+            run aix-nice-2axles -from 43.5297,5.4474 -to 43.7102,7.2620 -axles 2 -mass-kg 18000
+            run montpellier-narbonne -from 43.6108,3.8767 -to 43.1843,3.0039
+            run aix-gap-la-saulce -from 43.5297,5.4474 -to 44.4170,6.0240
+          elif [ "${{ matrix.name }}" = fr-west ]; then
+            run nantes-angers -from 47.2184,-1.5536 -to 47.4784,-0.5632
           elif [ "${{ matrix.name }}" = rs ]; then
             run beograd-nis -from 44.7866,20.4489 -to 43.3209,21.8958
             run batrovci-dimitrovgrad -from 45.0470,19.1010 -to 43.0156,22.7782
@@ -165,6 +176,8 @@ jobs:
             hr) trip="-from 45.8150,15.9819 -to 43.5081,16.4402" ;;
             rs) trip="-from 44.7866,20.4489 -to 43.3209,21.8958" ;;
             fr) trip="-from 47.3220,5.0415 -to 46.3069,4.8287" ;;
+            fr-south) trip="-from 43.5297,5.4474 -to 43.7102,7.2620" ;;
+            fr-west) trip="-from 47.2184,-1.5536 -to 47.4784,-0.5632" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac

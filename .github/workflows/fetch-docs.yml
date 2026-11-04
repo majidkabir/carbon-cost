@@ -24,10 +24,11 @@ jobs:
                       print(i, "|".join(str(x).strip()[:28] for x in r))
                   break
           PY
-          wc -l bg.csv; head -c 60000 bg.csv | note "bg-csv"
+          wc -l bg.csv
           curl -fsSL -A "$ua" -o si.pdf "https://www.uradni-list.si/_pdf/2025/Ur/u2025076.pdf"
           pdftotext -layout si.pdf si.txt
-          n=$(grep -n '2726\.' si.txt | head -1 | cut -d: -f1); echo "start $n"
-          awk -v n="$n" 'NR>=n' si.txt | grep -n 'Priloga\|PRILOGA' | head -5 | note "si-annex-pos"
-          awk -v n="$n" 'NR>=n' si.txt | awk '/Priloga|PRILOGA/{c++} c>=1' | sed 's/  */ /g' | head -400 | note "si-annex-1"
-          awk -v n="$n" 'NR>=n' si.txt | awk '/Priloga|PRILOGA/{c++} c>=1' | sed 's/  */ /g' | sed -n '401,800p' | note "si-annex-2"
+          mkdir -p out && cp bg.csv si.txt out/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: out/

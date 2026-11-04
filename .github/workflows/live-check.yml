@@ -34,6 +34,10 @@ jobs:
             maps: europe/bulgaria
           - name: hu
             maps: europe/hungary
+          - name: ro
+            maps: europe/romania
+          - name: hr
+            maps: europe/croatia
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -113,6 +117,14 @@ jobs:
             run budapest-gyor -from 47.4979,19.0402 -to 47.6875,17.6504
             run budapest-gyor-co2class4 -from 47.4979,19.0402 -to 47.6875,17.6504 -co2-class 4
             run budapest-szeged-euro3-2axles -from 47.4979,19.0402 -to 46.2530,20.1414 -euro 3 -axles 2 -mass-kg 12000
+          elif [ "${{ matrix.name }}" = ro ]; then
+            run bucharest-pitesti -from 44.4268,26.1025 -to 44.8565,24.8692
+            run bucharest-brasov -from 44.4268,26.1025 -to 45.6427,25.5887
+            run bucharest-brasov-zev -from 44.4268,26.1025 -to 45.6427,25.5887 -co2-class 5
+          elif [ "${{ matrix.name }}" = hr ]; then
+            run zagreb-split -from 45.8150,15.9819 -to 43.5081,16.4402
+            run zagreb-rijeka-3axles -from 45.8150,15.9819 -to 45.3271,14.4422 -axles 3 -mass-kg 26000
+            run slovenia-border-zagreb -from 45.8470,15.6850 -to 45.8150,15.9819
           elif [ "${{ matrix.name }}" = bg ]; then
             run sofia-plovdiv -from 42.6977,23.3219 -to 42.1354,24.7453
             run sofia-plovdiv-co2class4 -from 42.6977,23.3219 -to 42.1354,24.7453 -co2-class 4
@@ -134,6 +146,8 @@ jobs:
             si) trip="-from 46.6770,15.6470 -to 45.5480,13.7650" ;;
             bg) trip="-from 42.6977,23.3219 -to 42.1354,24.7453" ;;
             hu) trip="-from 47.4979,19.0402 -to 47.6875,17.6504" ;;
+            ro) trip="-from 44.4268,26.1025 -to 45.6427,25.5887" ;;
+            hr) trip="-from 45.8150,15.9819 -to 43.5081,16.4402" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac

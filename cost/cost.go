@@ -514,6 +514,31 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				return Response{}, err
 			}
 		}
+		closedAny := false
+		for _, sys := range tb.Closed {
+			u, ok := usesSystem(sys, route)
+			if !ok {
+				continue
+			}
+			closedAny = true
+			g := sys.GroupOf(req.Truck)
+			p, ok := sys.Price(u.entry, u.exit, g)
+			if !ok {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", cc, sys.Name, u.entry, u.exit, g))
+				continue
+			}
+			name := sys.Name + ": " + u.entry
+			if u.exit != u.entry {
+				name += " – " + u.exit
+			}
+			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.Toll, Section: name,
+				Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
+				return Response{}, err
+			}
+		}
+		if len(tb.Closed) > 0 && len(tb.Rows) == 0 && !closedAny && km >= 1 {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route uses none of the tolled motorways.", cc))
+		}
 		if tb.Sections != nil && len(tb.Rows) == 0 && len(secs) == 0 && km >= 1 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the tolled sections.", cc))
 		}
@@ -816,4 +841,49 @@ func suburbanShare(tb rates.Table, rk roads.Km, byRoute bool, road string) float
 		return def
 	}
 	return math.Min(1, (sub+math.Max(0, km-known)*def)/km)
+}
+
+// StationMatchKm is how close a route must pass a toll station's
+// junction or booth to count as using it.
+const StationMatchKm = 0.5
+
+type systemUse struct {
+	entry, exit string
+	km          float64
+}
+
+// usesSystem finds where a route enters and leaves a closed toll system:
+// the first and last of its stations the route passes.
+func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
+	if len(route) < 2 {
+		return systemUse{}, false
+	}
+	first, last := math.Inf(1), math.Inf(-1)
+	var u systemUse
+	for _, st := range sys.Stations {
+		best, bestPos := math.Inf(1), 0.0
+		for _, p := range st.Points {
+			if pos, d := project(route, p); d < best {
+				best, bestPos = d, pos
+			}
+		}
+		if best > StationMatchKm {
+			continue
+		}
+		if bestPos < first {
+			first, u.entry = bestPos, st.Name
+		}
+		if bestPos > last {
+			last, u.exit = bestPos, st.Name
+		}
+	}
+	if u.entry == "" {
+		return u, false
+	}
+	u.km = last - first
+	if u.entry == u.exit {
+		_, open := sys.Prices[u.entry+"|"+u.entry]
+		return u, open
+	}
+	return u, true
 }

@@ -24,6 +24,7 @@ var files embed.FS
 // Component names. CO2 is the carbon part of a toll.
 const (
 	Infrastructure   = "infrastructure"
+	Toll             = "toll" // one rate with no legal split
 	CO2              = "co2"
 	Air              = "air"
 	Noise            = "noise"
@@ -97,18 +98,68 @@ type Table struct {
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
-	MotorwayShare    float64     `json:"motorway_share,omitempty"`
+	MotorwayShare float64 `json:"motorway_share,omitempty"`
 	// SuburbanShare is the share of km on suburban roads, by road type
 	// ("" for any), for rows with an Area, where the route doesn't tell.
-	SuburbanShare map[string]float64 `json:"suburban_share,omitempty"`
-	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
-	Exemptions       []Exemption `json:"exemptions,omitempty"`
-	Rows             []Row       `json:"rows"`
+	SuburbanShare    map[string]float64 `json:"suburban_share,omitempty"`
+	EnvZoneSurcharge string             `json:"env_zone_surcharge,omitempty"`
+	Exemptions       []Exemption        `json:"exemptions,omitempty"`
+	Rows             []Row              `json:"rows"`
 	// Sections are road sections with a fixed infrastructure charge per
 	// passage instead of the per-km one (Austria's special toll sections).
 	Sections *Sections `json:"sections,omitempty"`
+	// Closed are toll systems priced from entry to exit station
+	// (Croatia's motorways).
+	Closed []TollSystem `json:"closed_systems,omitempty"`
 	// Surcharges raise a component's per-km rate on a stretch of road.
 	Surcharges []Surcharge `json:"surcharges,omitempty"`
+}
+
+// TollSystem is a closed toll system: the price from the station where
+// a truck enters to the one where it leaves, by vehicle group. An open
+// toll station (a barrier on the road) is priced from itself to itself.
+type TollSystem struct {
+	Name     string                        `json:"name"`
+	Law      string                        `json:"law"`
+	Groups   []Group                       `json:"groups"`
+	Stations []Station                     `json:"stations"`
+	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
+}
+
+// Group is a vehicle group of a toll system; the first a truck matches
+// is its group.
+type Group struct {
+	Name     string `json:"name"`
+	MinKg    int    `json:"min_kg,omitempty"`
+	MinAxles int    `json:"min_axles,omitempty"`
+	MaxAxles int    `json:"max_axles,omitempty"`
+}
+
+// Station is a toll station: where a route passes one of its points (the
+// motorway junction or the toll booths), it uses the station.
+type Station struct {
+	Name   string  `json:"name"`
+	Points []Place `json:"points"`
+}
+
+// GroupOf is the truck's vehicle group, "" if none matches.
+func (s TollSystem) GroupOf(t Truck) string {
+	for _, g := range s.Groups {
+		if t.MaxMassKg >= g.MinKg && t.Axles >= g.MinAxles && (g.MaxAxles == 0 || t.Axles <= g.MaxAxles) {
+			return g.Name
+		}
+	}
+	return ""
+}
+
+// Price is the price from entry to exit for a group, either way round.
+func (s TollSystem) Price(entry, exit, group string) (float64, bool) {
+	for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
+		if p, ok := s.Prices[k][group]; ok {
+			return p, true
+		}
+	}
+	return 0, false
 }
 
 // Place is a point on a road.
@@ -416,7 +467,7 @@ func (tb Table) check() error {
 	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
 		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
 	}
-	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil) {
+	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0) {
 		return fmt.Errorf("country, currency, sources and rows (or sections) are required")
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {

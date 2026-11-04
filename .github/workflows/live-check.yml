@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
   push:
     branches: [live-check]
+permissions:
+  contents: write
 jobs:
   live:
     runs-on: ubuntu-latest
@@ -133,6 +135,12 @@ jobs:
           $secs"
           echo "$runs"; echo "$cmp"
           echo "::notice title=${{ matrix.name }}/map::$runs%0A$(echo "$cmp" | sed ':a;N;$!ba;s/\n/%0A/g')"
+      - name: Save the Slovenian route for inspection
+        if: matrix.name == 'si'
+        run: |
+          mkdir -p dbg && cp trip.json dbg/si-trip.json && cd dbg && git init -q && git checkout -q -b live-out && git add -A
+          git -c user.name=live-check -c user.email=live-check@users.noreply.github.com commit -qm "Slovenian route"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" live-out
       - name: Logs
         if: failure()
         working-directory: sootcase-src

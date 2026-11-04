@@ -27,8 +27,7 @@ jobs:
           json.dump(rows, open("out/hu-segments.json", "w"), ensure_ascii=False)
           print(len(rows))
           PY
-          grep -c 'gyorsforgalmi\|főút' mk143.txt
-          grep -m5 'gyorsforgalmi' mk143.txt
+          cp mk143.txt out/
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

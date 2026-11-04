@@ -50,7 +50,7 @@ def main(pairs_path, stations_path, manifest_path, out):
         "sources": [{"title": f"{d['operator']} tariffs from {d['valid_from']} (sha256 {d['sha256'][:12]})", "url": u} for u, d in docs.items()]
                    + [{"title": "Ministère de la Transition écologique: Gares de péage du réseau routier national concédé", "url": "https://www.data.gouv.fr/datasets/gares-de-peage-du-reseau-routier-national-concede"}],
         "vehicles": "Vehicles over 3.5 t (classes 3 and 4)", "min_kg": 3501,
-        "tolled_roads": "The conceded motorways of " + ", ".join(ops) + ". Not included yet: Arcos (A355) and the smaller concessions (ATMB, SFTRF, ALiS, Albea, Alicorne, Atlandes, CCI Seine-Estuaire).",
+        "tolled_roads": "The conceded motorways of " + ", ".join(ops) + ". Not included yet: Arcos (A355) and the smaller concessions (SFTRF's A43, ALiS, Albea, Alicorne, Atlandes, CCI Seine-Estuaire).",
         "closed_systems": [system],
     }
     json.dump(t, open(out, "w"), ensure_ascii=False, separators=(",", ":"))

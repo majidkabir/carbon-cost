@@ -12,6 +12,8 @@ Parsers (text documents, from pdftotext -layout):
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
   gares       one page per entry station ("Gare de X"), then rows
               "code EXIT c1 c2 c3 c4 c5" (A'liénor)
+  columns     small tables on a web page, configured in documents.json
+              (headings to check, and what each column prices) (ATMB)
   barrier     a single barrier priced alone: its first five rows of two
               prices are classes 1 to 5 (Millau)
 text positions saved from a browser (the Sanef site refuses scripted
@@ -107,6 +109,30 @@ def main(docs_path, fetched, out):
                     if p4 is not None:
                         w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
                 print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
+            if d["parser"] == "columns":
+                # A page's small tables (ATMB): after each "after" marker, the
+                # column headings ("labels", checked to be there in order),
+                # then the class 3 and class 4 rows of prices in EUR including
+                # VAT; each column is a pair, a barrier priced alone, or null
+                # (an exit's own booth beside the road: left out).
+                text = re.sub(r"\s+", " ", open(os.path.join(fetched, d["file"]), encoding="utf-8").read())
+                src = manifest[d["url_from"]]
+                vf, n = valid_from(text), 0
+                for tb in d["tables"]:
+                    seg = text[text.index(tb["after"]):]
+                    at = 0
+                    for label in tb["labels"]:
+                        at = seg.index(label, at)
+                    rows = {c: [num(p) for p in re.findall(r"([\d ]*\d,\d\d) €", re.search(r"Classe " + c + r" [^€]*?((?:[\d ]*\d,\d\d € ?)+)", seg[at:]).group(1))]
+                            for c in ("3", "4")}
+                    assert len(rows["3"]) == len(rows["4"]) == len(tb["columns"]), (tb["after"], rows)
+                    for i, col in enumerate(tb["columns"]):
+                        if col:
+                            a, b = (col, col) if isinstance(col, str) else col
+                            w.writerow([d["operator"], d["url_from"], src["url"], src["sha256"], "", "", vf, a, b, "", rows["3"][i], rows["4"][i], "", ""])
+                            n += 1
+                print(f"{d['file']}: {n} pairs, valid from {vf}")
                 continue
             if d["parser"] in ("gares", "barrier"):
                 text = open(os.path.join(fetched, d["file"]), encoding="utf-8").read()

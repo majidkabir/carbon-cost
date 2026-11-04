@@ -50,6 +50,8 @@ jobs:
             maps: europe/france/nord-pas-de-calais europe/france/picardie
           - name: fr-normandy
             maps: europe/france/haute-normandie europe/france/basse-normandie
+          - name: fr-alps
+            maps: europe/france/rhone-alpes
           - name: fr-sw
             maps: europe/france/aquitaine europe/france/midi-pyrenees
           - name: pl
@@ -154,6 +156,10 @@ jobs:
           elif [ "${{ matrix.name }}" = fr-north ]; then
             run lille-arras -from 50.6292,3.0573 -to 50.2910,2.7775
             run lille-amiens -from 50.6292,3.0573 -to 49.8941,2.2958
+          elif [ "${{ matrix.name }}" = fr-alps ]; then
+            run annemasse-bellegarde -from 46.1939,6.2342 -to 46.1080,5.8260
+            run le-fayet-annemasse -from 45.9150,6.7000 -to 46.1939,6.2342
+            run chamonix-mont-blanc-tunnel -from 45.9237,6.8694 -to 45.8900,6.8500
           elif [ "${{ matrix.name }}" = fr-sw ]; then
             run langon-pau -from 44.5530,-0.2490 -to 43.2951,-0.3708
             run millau-viaduct -from 44.2000,3.0300 -to 43.9500,3.1000
@@ -193,6 +199,7 @@ jobs:
             fr-south) trip="-from 43.5297,5.4474 -to 43.7102,7.2620" ;;
             fr-west) trip="-from 47.2184,-1.5536 -to 47.4784,-0.5632" ;;
             fr-north) trip="-from 50.6292,3.0573 -to 49.8941,2.2958" ;;
+            fr-alps) trip="-from 46.1939,6.2342 -to 46.1080,5.8260" ;;
             fr-sw) trip="-from 44.5530,-0.2490 -to 43.2951,-0.3708" ;;
             fr-normandy) trip="-from 49.4431,1.0993 -to 49.1829,-0.3707" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;

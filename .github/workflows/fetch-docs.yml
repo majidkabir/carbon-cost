@@ -5,20 +5,19 @@ on:
   push:
     branches: [fetch-docs]
 jobs:
-  hungary:
+  docs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Hungarian toll decrees (Magyar Közlöny, Nemzeti Jogszabálytár)
+      - name: Bulgaria (Държавен вестник 49/2026) and Slovenia (Uradni list 76/2025) toll tariffs
         run: |
           note() { echo "::notice title=$1::$(sed ':a;N;$!ba;s/%/%25/g;s/\r//g;s/\n/%0A/g' | head -c 60000)"; }
-          curl -fsSL -A "carbon-cost docs fetch" -o mk157.pdf "https://magyarkozlony.hu/dokumentumok/07b1e2fdffc8e80dff43e39b1b01b4a955ad4441/letoltes"
-          pdftotext -layout mk157.pdf mk157.txt
-          awk '/46\/2025\. \(XII\. 23\.\) ÉKM rendelete/{f=1} f' mk157.txt | sed -n '75,190p' | note "46-2025-EKM-rest"
-          curl -fsSL -A "carbon-cost docs fetch" -o law.html "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W" && html2text -utf8 -width 220 law.html > law.txt
-          grep -n 'melléklet' law.txt | note "njt-mellekletek"
-          n=$(grep -n '^ *2\. melléklet a 25/2013' law.txt | tail -1 | cut -d: -f1); [ -n "$n" ] && sed -n "${n},$((n+110))p" law.txt | note "njt-annex2"
-          grep -o 'href="[^"]*melleklet[^"]*"' law.html | sort -u | head -20 | note "annex-links"
-          curl -fsSL -A "carbon-cost docs fetch" -o vhr.html "https://njt.jog.gov.hu/jogszabaly/2013-209-20-22" && html2text -utf8 -width 220 vhr.html > vhr.txt
-          grep -n -i -B1 -A3 'J5\|J4 díjkategória\|tengely' vhr.txt | head -80 | note "vhr-categories"
-          grep -n -i -A6 'átváltási\|árfolyam' vhr.txt | head -50 | note "vhr-fx"
+          ua="carbon-cost docs fetch"
+          curl -fsSL -A "$ua" -o bg.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642" || echo bg failed
+          html2text -utf8 -width 250 bg.html > bg.txt; wc -c bg.txt
+          awk '/За ползване на платената пътна инфраструктура/{f=1} f' bg.txt | head -170 | note "bg-tariff-1"
+          awk '/За ползване на платената пътна инфраструктура/{f=1} f' bg.txt | sed -n '171,340p' | note "bg-tariff-2"
+          curl -fsSL -A "$ua" -o si.html "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2726/cenik-cestnine-za-uporabo-cestninskih-cest" || echo si failed
+          html2text -utf8 -width 250 si.html > si.txt; wc -c si.txt
+          grep -n -i 'priloga\|pdf\|cestninski odsek\|R4' si.txt | head -40 | note "si-index"
+          grep -o 'href="[^"]*\(pdf\|Priloga\|priloga\)[^"]*"' si.html | sort -u | head -20 | note "si-links"

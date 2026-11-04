@@ -52,6 +52,7 @@
     <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
+    <label>Truck tare, kg (for ferries)<input name="tare_kg" type="number" min="0" placeholder="e.g. 15000"></label>
     <label>Euro class<select name="euro">
       <option value="6" selected>Euro VI</option><option value="5">Euro V / EEV</option><option value="4">Euro IV</option>
       <option value="3">Euro III</option><option value="2">Euro II</option><option value="1">Euro I</option><option value="0">Euro 0</option></select></label>
@@ -105,7 +106,8 @@ f.addEventListener("submit", async (e) => {
   const req = {
     from: place(f.from.value), to: place(f.to.value), date: f.date.value || undefined,
     cargo_kg: +f.cargo_kg.value,
-    truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value },
+    truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
+             tare_kg: +f.tare_kg.value || undefined },
     eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
@@ -125,7 +127,7 @@ function show(r) {
   $("carbon").textContent = eur(r.carbon_eur);
   $("dist").textContent = num(r.distance_km, 1) + " km";
   const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
-  if (r.ferry_km) parts.push(`ferry ${num(r.ferry_km, 1)} km`);
+  if (r.ferry_km) parts.push(`ferry ${num(r.ferry_km, 1)} km` + (r.ferry_crossing ? ` (${r.ferry_crossing})` : ""));
   if (r.region_km) parts.push("(" + Object.entries(r.region_km).sort().map(([c, k]) => `${c} ${num(k, 1)}`).join(", ") + ")");
   $("km").textContent = "Route: " + parts.join(" · ");
 

@@ -10,6 +10,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -301,5 +302,47 @@ func TestPrice_Regions(t *testing.T) {
 	}
 	if len(r.Lines) != 0 || strings.Join(r.NoRates, ",") != "BE" || !hasNote(r, "region_km") {
 		t.Errorf("no region_km: lines %v, no_rates %v, notes %v", r.Lines, r.NoRates, r.Notes)
+	}
+}
+
+// Copenhagen-Hamburg over Rødby-Puttgarden with the ferries' own MRV
+// data, worked by hand: MRV 2025 136.53 g CO2e/t·nm x (15 t truck + 20 t
+// cargo) x 18.976 km / 1.852 = 10.246 nm -> 0.04896 t x 75 EUR = 3.67 EUR
+// (against 0.030 t x 75 = 2.25 EUR from the fixture's default part).
+func TestPrice_FerryMRV(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := cphHam
+	trip.Legs = []sootcase.LegResult{cphHam.Legs[0]}
+	trip.Legs[0].RouteParts = map[string]float64{"ferry": 18.976}
+	trip.Legs[0].Path = [][2]float64{{12.57, 55.68}, {11.355, 54.66}, {11.2276, 54.5001}, {9.99, 53.55}}
+	nov26 := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	tr := truck40
+	tr.TareKg = 15000
+
+	r, err := PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr, EUAEurPerT: 75}, nov26)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, FerryETS, "", "")
+	if !ok || l.TonnesCO2 != 0.049 || l.Amount != 3.67 || !strings.Contains(l.Source, "EU MRV 2025") || r.FerryCrossing != "Rødby–Puttgarden" {
+		t.Errorf("ferry line %+v, crossing %q", l, r.FerryCrossing)
+	}
+	if !hasNote(r, "Baltic Whale") {
+		t.Errorf("want the note on the ferry without MRV data, got %v", r.Notes)
+	}
+
+	// No tare: the default part, and a note saying what tare would do.
+	r, _ = PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}, nov26)
+	if l, _ := line(r, FerryETS, "", ""); l.Amount != 2.25 || !hasNote(r, "tare_kg") {
+		t.Errorf("no tare: %+v, notes %v", l, r.Notes)
+	}
+	// An unknown crossing: the default part.
+	trip.Legs[0].Path = [][2]float64{{10.0, 57.5}, {10.5, 58.0}}
+	r, _ = PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr, EUAEurPerT: 75}, nov26)
+	if l, _ := line(r, FerryETS, "", ""); l.Amount != 2.25 || r.FerryCrossing != "" || !hasNote(r, "isn't one") {
+		t.Errorf("unknown crossing: %+v, notes %v", l, r.Notes)
 	}
 }

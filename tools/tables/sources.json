@@ -13,7 +13,7 @@
   {"id": "fr-atlandes", "table": "fr", "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg", "what": "Atlandes: A63 price grid 2026 (image)"},
   {"id": "fr-albea", "table": "fr", "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg", "what": "ALBEA: A150 prices 2026 (image)"},
   {"id": "lv-aln", "table": "lv", "url": "https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums", "what": "Latvia: Autoceļu lietošanas nodevas likums, consolidated (annex 2: rates per day, week, month, year)"},
-  {"id": "ee-ls", "table": "ee", "url": "https://www.riigiteataja.ee/akt/113032019015?leiaKehtiv", "what": "Estonia: Liiklusseadus, version in force (§ 190^1-190^13: road user charge rates per 24 hours, 7, 30, 90 and 365 days)"},
+  {"id": "ee-ls", "table": "ee", "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/113032019015?leiaKehtiv=true", "what": "Estonia: Liiklusseadus, version in force (§ 190^1-190^13: road user charge rates per 24 hours, 7, 30, 90 and 365 days)"},
   {"id": "lt-447-asr", "table": "lt", "url": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/TAIS.254521/asr", "what": "Lithuania: Government resolution No 447 of 21 April 2005, consolidated (kelių naudotojo mokesčio dydžiai)"},
   {"id": "lt-447-etar", "table": "lt", "url": "https://www.e-tar.lt/portal/lt/legalAct/TAR.479B13E87700/asr", "what": "Lithuania: resolution No 447, consolidated, on e-TAR"},
   {"id": "lt-237-2026", "table": "lt", "url": "https://e-seimas.lrs.lt/rs/legalact/TAD/d634093034b711f19c389aefab77fb47/", "what": "Lithuania: resolution No 237 of 8 April 2026 amending resolution No 447"}

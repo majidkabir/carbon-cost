@@ -13,6 +13,11 @@ the page holds placeholders (data-show-order .. data-last-show-order)
 that its script fills from /ajax/njtGetBlock.json, given the document id
 and the placeholder's range. Those parts are fetched too, as
 <id>-block-<n>.html.
+
+Riigi Teataja (riigiteataja.ee) pages are built by script from its public
+API: /public-api/api/v1/akt/<id>?leiaKehtiv=true names the version in
+force (kehtivId, saved as <id>.json), whose text is
+/public-api/api/v1/akt/<kehtivId>/blob-html (saved as <id>-text.html).
 """
 import hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
 
@@ -80,6 +85,13 @@ def njt(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-block-{n}.html", url + f" (POST start {a} last {b})", status, resp)
 
 
+def riigiteataja(out, manifest, sid, body):
+    d = json.loads(body)
+    url = f"https://www.riigiteataja.ee/public-api/api/v1/akt/{d['kehtivId']}/blob-html"
+    status, text = get(url)
+    save(out, manifest, f"{sid}-text.html", url, status, text)
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
@@ -87,7 +99,11 @@ def main(src, out):
         try:
             status, body = get(s["url"])
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png") else ".html"), s["url"], status, body)
+            if "riigiteataja.ee/public-api/" in s["url"]:
+                ext = ".json"
+            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
+            if "riigiteataja.ee/public-api/" in s["url"]:
+                riigiteataja(out, manifest, s["id"], body)
             if s["id"] == "ro-tollro":
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:

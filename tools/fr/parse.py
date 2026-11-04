@@ -10,6 +10,10 @@ Parsers (text documents, from pdftotext -layout):
   list        ENTRY  EXIT  km  c1 €  c2 €  c3 €  c4 €  c5 €
   list_codes  code ENTRY  code EXIT  km  c1 €  c2 €  c3 €  c4 €  c5 € [km]
   list_roads  road exit-no ENTRY  road exit-no EXIT  c1 €  c2 €  c3 €  c4 €  c5 €
+text positions saved from a browser (the Sanef site refuses scripted
+downloads; sanef/extract.js, sanef.py):
+  items       Sanef's and SAPN's triangles; the file's header gives the
+              PDF's URL and sha256
 and for PDFs:
   grid        VINCI Autoroutes' class grids (grid.py); each page says which
               class it prices ("CLASSE 3"). A document may be one PDF per
@@ -87,6 +91,18 @@ def main(docs_path, fetched, out):
         w = csv.writer(fo)
         w.writerow(["operator", "document", "url", "sha256", "url4", "sha256_4", "valid_from", "entry", "exit", "km", "class3", "class4", "entry_no", "exit_no"])
         for d in docs:
+            if d["parser"] == "items":
+                # Saved in the repository (documents.json's folder): text
+                # positions written in a browser (sanef/extract.js).
+                import sanef
+                meta, prices, numbers, vf, report = sanef.parse(os.path.join(os.path.dirname(os.path.abspath(docs_path)), d["file"]))
+                sha = meta["sha256"].replace(" ", "")
+                for (a, b), p3 in prices.get(3, {}).items():
+                    p4 = prices.get(4, {}).get((a, b))
+                    if p4 is not None:
+                        w.writerow([d["operator"], d["file"], meta["url"], sha, "", "", vf, a, b, "", p3, p4, numbers.get(a, ""), numbers.get(b, "")])
+                print(f"{d['file']}: {len(prices.get(3, {}))} class 3 and {len(prices.get(4, {}))} class 4 prices, valid from {vf}, {report}")
+                continue
             if d["parser"] == "grid":
                 for url, sha, url4, sha4, vf, a, b, p3, p4, na, nb in grid_rows(d, fetched, manifest):
                     w.writerow([d["operator"], d.get("files", [d.get("file")])[0], url, sha, url4, sha4, vf, a, b, "", p3, p4, na, nb])

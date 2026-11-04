@@ -46,6 +46,10 @@ jobs:
             maps: europe/france/provence-alpes-cote-d-azur europe/france/languedoc-roussillon
           - name: fr-west
             maps: europe/france/pays-de-la-loire
+          - name: fr-north
+            maps: europe/france/nord-pas-de-calais europe/france/picardie
+          - name: fr-normandy
+            maps: europe/france/haute-normandie europe/france/basse-normandie
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -145,6 +149,11 @@ jobs:
             run aix-nice-2axles -from 43.5297,5.4474 -to 43.7102,7.2620 -axles 2 -mass-kg 18000
             run montpellier-narbonne -from 43.6108,3.8767 -to 43.1843,3.0039
             run aix-gap-la-saulce -from 43.5297,5.4474 -to 44.4170,6.0240
+          elif [ "${{ matrix.name }}" = fr-north ]; then
+            run lille-arras -from 50.6292,3.0573 -to 50.2910,2.7775
+            run lille-amiens -from 50.6292,3.0573 -to 49.8941,2.2958
+          elif [ "${{ matrix.name }}" = fr-normandy ]; then
+            run rouen-caen -from 49.4431,1.0993 -to 49.1829,-0.3707
           elif [ "${{ matrix.name }}" = fr-west ]; then
             run nantes-angers -from 47.2184,-1.5536 -to 47.4784,-0.5632
           elif [ "${{ matrix.name }}" = rs ]; then
@@ -178,6 +187,8 @@ jobs:
             fr) trip="-from 47.3220,5.0415 -to 46.3069,4.8287" ;;
             fr-south) trip="-from 43.5297,5.4474 -to 43.7102,7.2620" ;;
             fr-west) trip="-from 47.2184,-1.5536 -to 47.4784,-0.5632" ;;
+            fr-north) trip="-from 50.6292,3.0573 -to 49.8941,2.2958" ;;
+            fr-normandy) trip="-from 49.4431,1.0993 -to 49.1829,-0.3707" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac

@@ -7,6 +7,8 @@
   {"file": "aliae/TARIFS_ALIAE-2026.txt", "parser": "list", "operator": "ALIAE", "covers": "A79 free flow and the Deux-Chaises barrier, with trips to and from APRR", "url_from": "aliae/TARIFS_ALIAE-2026.pdf"},
   {"files": ["vinci/C3-TARIFS-WEB-2026-maille_maj062026.pdf", "vinci/C4-TARIFS-WEB-2026-maille_maj062026.pdf"], "parser": "grid", "operator": "ASF", "covers": "ASF network (VINCI Autoroutes south and west), with trips to and from Cofiroute, Arcour, APRR and AREA that ASF charges at its exits"},
   {"files": ["vinci/Escota-Guide-tarifaire-2026.pdf"], "parser": "grid", "operator": "Escota", "covers": "Escota network (A8, A50, A51, A52, A57, A500): Provence and the Côte d'Azur"},
-  {"file": "vinci/Cofiroute-Guide-tarifaire-2026.txt", "parser": "list_roads", "operator": "Cofiroute", "covers": "Cofiroute network (A10, A11, A28, A71, A81, A85), with trips to and from APRR, AREA, ASF and Sanef that Cofiroute charges at its exits", "url_from": "vinci/Cofiroute-Guide-tarifaire-2026.pdf"}
+  {"file": "vinci/Cofiroute-Guide-tarifaire-2026.txt", "parser": "list_roads", "operator": "Cofiroute", "covers": "Cofiroute network (A10, A11, A28, A71, A81, A85), with trips to and from APRR, AREA, ASF and Sanef that Cofiroute charges at its exits", "url_from": "vinci/Cofiroute-Guide-tarifaire-2026.pdf"},
+  {"file": "sanef/2026_02-Grille-Sanef.items.txt", "parser": "items", "operator": "Sanef", "covers": "Sanef network (A1, A2, A4, A16, A26, A29) with the A1/A29 and A4/A26 junctions"},
+  {"file": "sanef/2026_02-Grille-SAPN.items.txt", "parser": "items", "operator": "SAPN", "covers": "SAPN network (A13, A14, A29, A132, A139, A150, A151, A154), with the Chambourcy and Montesson barriers (Montesson at its base price)"}
  ]
 }

@@ -48,7 +48,7 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 |---|---|---|---|
 | DK | Vejafgift, trucks of 12 t and over | 2026–2027 | Vejafgiftsloven, LBK nr. 647 af 28/05/2025, § 5; [Skatteministeriet's rate table](https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven) |
 | DE | Lkw-Maut, over 3.5 t | from 1 July 2024 | [BFStrMG Anlage 1](https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html); emission-free trucks are exempt until 30 June 2031 |
-| AT | GO-Maut, over 3.5 t | 2026 | [Mauttarifverordnung 2025, BGBl. II Nr. 298/2025](https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf) §§ 2, 8, 9; not included: the special toll sections (Brenner, Tauern, Arlberg, Karawanken, Pyhrn/Gleinalm) and the A 12 surcharge |
+| AT | GO-Maut, over 3.5 t | 2026 | [Mauttarifverordnung 2025, BGBl. II Nr. 298/2025](https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf) §§ 2–5, 8, 9. The special toll sections (A 9 Pyhrn/Gleinalm, A 10 Tauern, A 11 Karawanken, A 13 Brenner, S 16 Arlberg) charge their fixed infrastructure amount when the route passes both ends (from OpenStreetMap junctions), with the night rate on the A 13 when you give `night`; the A 12 Kufstein–Innsbruck adds 25% to the infrastructure rate |
 | NL | Vrachtwagenheffing, over 3.5 t | from 1 July 2026 to the end of 2026 | [Staatscourant 2026, 3872](https://zoek.officielebekendmakingen.nl/stcrt-2026-3872.pdf) (statutory amounts, 1 July – 31 August) and [Staatscourant 2026, 18058](https://zoek.officielebekendmakingen.nl/stcrt-2026-18058.html) (22.3% lower, 1 September – 31 December) |
 | BE | Kilometre charge by region: Flanders (`BE-VLG`), Wallonia (`BE-WAL`), Brussels (`BE-BRU`), over 3.5 t | 1 July – 31 December 2026 | [Viapass rate grid, ed. 01/07/2026](https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html). Rates are totals: Flanders' CO2 element isn't published separately, so it isn't shown as a carbon part. Wallonia is excluding VAT. Brussels has motorway and urban-area rates: give `motorway_share.BE-BRU`, otherwise all km use the urban rate |
 
@@ -93,7 +93,7 @@ API request:
 }
 ```
 
-Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `motorway_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `dkk_per_eur`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`.
+Optional fields: `vehicle_type` (Sootcase), `tolled_share`, `motorway_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `dkk_per_eur`, `night`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`.
 
 ## License
 

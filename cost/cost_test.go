@@ -383,3 +383,61 @@ func TestPrice_Belgium(t *testing.T) {
 		t.Errorf("notes %v", r.Notes)
 	}
 }
+
+// Kufstein -> Brenner (A 12, A 13), 40 t, 5 axles, Euro VI, class 1, as a
+// route through the section ends. The eight A 13 sections from Innsbruck/
+// Amras to the border (§ 4 lit. h, j-p) charge, by day:
+// 4.6574 + 2.2142 + 4.0924 + 4.4283 + 13.9721 + 11.2387 + 10.0858 + 1.9943
+// = 52.6832 EUR; at night the § 5 amounts, 105.3664 EUR. Their km pay no
+// per-km infrastructure; the A 12 stretch pays it +25% (§ 3).
+func TestPrice_AustriaSections(t *testing.T) {
+	pts := [][2]float64{{12.1870, 47.6070}, {11.4202, 47.2547}, {11.3905, 47.2396}, {11.3934, 47.2276}, {11.4030, 47.2082},
+		{11.3982, 47.1841}, {11.4497, 47.1195}, {11.4801, 47.0615}, {11.5065, 47.0152}, {11.5080, 47.0030}}
+	var km float64
+	for i := 0; i+1 < len(pts); i++ {
+		km += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
+	}
+	trip := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: km, CountryKm: map[string]float64{"AT": km}, Path: pts}}}
+	nov26 := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	price := func(night bool) Response {
+		r, err := Price(trip, all(t), Request{CargoKg: 1, Truck: truck40, Night: night}, nov26)
+		if err != nil {
+			t.Fatal(err)
+		}
+		return r
+	}
+	sum := func(r Response) (sections float64, n int, infraKm, a12 float64) {
+		for _, l := range r.Lines {
+			switch {
+			case l.RateUnit == "EUR/section":
+				sections += l.Amount
+				n++
+			case l.Component == rates.Infrastructure && l.Section == "":
+				infraKm = l.Km
+			case l.Section != "":
+				a12 = l.Km
+			}
+		}
+		return
+	}
+	s, n, infraKm, a12 := sum(price(false))
+	if n != 8 || math.Abs(s-52.68) > 0.02 {
+		t.Errorf("day: %d sections, EUR %.2f; want 8, 52.68", n, s)
+	}
+	secKm := 0.0
+	for i := 1; i+1 < len(pts); i++ {
+		secKm += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
+	}
+	if math.Abs(infraKm-(km-secKm)) > 0.01 || math.Abs(a12-(km-secKm)) > 0.01 {
+		t.Errorf("per-km infrastructure on %.1f km, A 12 surcharge on %.1f km; want both %.1f (total %.1f, sections %.1f)", infraKm, a12, km-secKm, km, secKm)
+	}
+	if s, _, _, _ := sum(price(true)); math.Abs(s-105.37) > 0.02 {
+		t.Errorf("night: EUR %.2f, want 105.37", s)
+	}
+	// Air/noise and CO2 still per km on the whole Austrian distance.
+	for _, l := range price(false).Lines {
+		if l.Component == rates.CO2 && math.Abs(l.Km-km) > 0.01 {
+			t.Errorf("CO2 on %.1f km, want %.1f", l.Km, km)
+		}
+	}
+}

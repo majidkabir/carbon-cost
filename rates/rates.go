@@ -84,6 +84,69 @@ type Table struct {
 	EnvZoneSurcharge string      `json:"env_zone_surcharge,omitempty"`
 	Exemptions       []Exemption `json:"exemptions,omitempty"`
 	Rows             []Row       `json:"rows"`
+	// Sections are road sections with a fixed infrastructure charge per
+	// passage instead of the per-km one (Austria's special toll sections).
+	Sections *Sections `json:"sections,omitempty"`
+	// Surcharges raise a component's per-km rate on a stretch of road.
+	Surcharges []Surcharge `json:"surcharges,omitempty"`
+}
+
+// Place is a point on a road.
+type Place struct {
+	Name string  `json:"name"`
+	Lat  float64 `json:"lat"`
+	Lon  float64 `json:"lon"`
+}
+
+// Sections lists the fixed-charge sections and the law they come from.
+type Sections struct {
+	Law          string    `json:"law"`
+	TariffGroups string    `json:"tariff_groups"`
+	List         []Section `json:"list"`
+}
+
+// Section is a road section from one place to another with a fixed
+// infrastructure charge: per tariff group (E for CO2 class 5, A for the
+// rest), for 2, 3 and 4+ axles, and optionally a night charge for 4+
+// axles.
+type Section struct {
+	ID        string                `json:"id"`
+	Road      string                `json:"road"`
+	Name      string                `json:"name"`
+	From      Place                 `json:"from"`
+	To        Place                 `json:"to"`
+	Tariff    map[string][3]float64 `json:"tariff"`
+	NightKat4 map[string]float64    `json:"night_kat4,omitempty"`
+}
+
+// Amount is the section's charge for the truck, by day or at night.
+func (s Section) Amount(t Truck, night bool) float64 {
+	g := "A"
+	if t.CO2Class == 5 {
+		g = "E"
+	}
+	k := 2
+	switch {
+	case t.Axles <= 2:
+		k = 0
+	case t.Axles == 3:
+		k = 1
+	}
+	if v, ok := s.NightKat4[g]; ok && night && k == 2 {
+		return v
+	}
+	return s.Tariff[g][k]
+}
+
+// Surcharge raises Component's per-km rate by Factor between two places.
+type Surcharge struct {
+	ID        string  `json:"id"`
+	Name      string  `json:"name"`
+	From      Place   `json:"from"`
+	To        Place   `json:"to"`
+	Component string  `json:"component"`
+	Factor    float64 `json:"factor"`
+	Law       string  `json:"law"`
 }
 
 // Truck is what a toll rate depends on.

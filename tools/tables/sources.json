@@ -7,5 +7,7 @@
   {"id": "hu-25-2013", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W", "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet, consolidated text in force (infrastructure charge § 1, annexes 1-2)"},
   {"id": "hu-22-2023", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X", "what": "22/2023. (XII. 5.) ÉKM rendelet, which inserted annex 2 (external-cost charge, eurocent/km) into 25/2013 NFM; unchanged since (footnote 30 of the consolidated text)"},
   {"id": "hu-34-2025", "table": "hu", "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X", "what": "34/2025. (XI. 30.) ÉKM rendelet, whose § 2 set annex 1 (the tolled sections) of 25/2013 NFM (footnote 29)"}
+,
+  {"id": "hu-njt-js", "table": "discovery", "url": "https://njt.jog.gov.hu/js/m-04042633b7e29fc47a744cf0973e3db4eda5a4eb.js", "what": "NJT front-end script (how annexes are loaded)"}
  ]
 }

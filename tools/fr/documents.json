@@ -1,0 +1,9 @@
+{
+ "about": "Which fetched tariff documents (tools/fr/fetch.py output) are parsed, how, and what they cover. 'list' documents give one row per entry-exit pair with the five class prices in EUR including VAT (TTC). All the listed documents are priced together as one French system: a trip pays, in order along the route, for the longest entry-exit pairs these documents publish (tools/fr/build.py).",
+ "documents": [
+  {"file": "aprr/TARIFS_APRR.txt", "parser": "list", "operator": "APRR", "covers": "APRR network, with trips to and from A79 (ALIAE) through Deux-Chaises", "url_from": "aprr/TARIFS_APRR.pdf"},
+  {"file": "aprr/TARIFS_AREA.txt", "parser": "list_codes", "operator": "AREA", "covers": "AREA network", "url_from": "aprr/TARIFS_AREA.pdf"},
+  {"file": "adelac/TARIFS_2026.txt", "parser": "list_codes", "operator": "ADELAC", "covers": "A41 Nord (Liane), with trips to and from AREA", "url_from": "adelac/TARIFS_2026.pdf"},
+  {"file": "aliae/TARIFS_ALIAE-2026.txt", "parser": "list", "operator": "ALIAE", "covers": "A79 free flow and the Deux-Chaises barrier, with trips to and from APRR", "url_from": "aliae/TARIFS_ALIAE-2026.pdf"}
+ ]
+}

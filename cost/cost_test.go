@@ -865,3 +865,26 @@ func TestSerbia(t *testing.T) {
 		}
 	}
 }
+
+// France, chained: Allaines to Ambérieu on APRR, class 4, 190.70 EUR
+// with VAT (158.92 without); class 3 143.00 (119.17).
+func TestFrance(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 470, CountryKm: map[string]float64{"FR": 470},
+		Path: [][2]float64{{1.80, 48.25}, {1.84618, 48.20516}, {5.31252, 45.97777}, {5.35, 45.95}}}}}
+	for _, tc := range []struct {
+		truck rates.Truck
+		total float64
+	}{
+		{truck40, 158.92},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 119.17},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
+			t.Errorf("%+v: total %.2f, want %.2f: %v %v", tc.truck, r.TotalEUR, tc.total, r.Lines, r.Notes)
+		}
+	}
+}

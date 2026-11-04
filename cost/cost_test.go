@@ -496,3 +496,45 @@ func TestSwitzerland(t *testing.T) {
 		t.Errorf("ECB rate note: %v %v", err, r.Notes)
 	}
 }
+
+// Prague - Brno style: 200 km in Czechia, 40 t, 5 axles, Euro VI, CO2
+// class 1: 5.9644 CZK/km on motorways (NV 240/2014 Annex 1 as of 2026).
+// Then Poland, 300 km of A/S roads for 12 t+ min. EURO 5: 0.56 PLN/km.
+func TestCzechiaPoland(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 500, CountryKm: map[string]float64{"CZ": 200, "PL": 300}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"CZK": 24.3, "PLN": 4.25}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]Line{}
+	for _, l := range r.Lines {
+		if l.Km > 0 {
+			got[l.Country+"/"+l.Road] = l
+		}
+	}
+	if l := got["CZ/motorway"]; l.Rate != 5.9644 || l.Amount != 1192.88 || l.Carbon {
+		t.Errorf("CZ motorway %+v", l)
+	}
+	if l := got["PL/motorway"]; l.Rate != 0.56 || l.Amount != 168 || l.AmountEUR != 39.53 {
+		t.Errorf("PL motorway %+v", l)
+	}
+	// Class I roads and a 3-axle 12 t+ CO2 class 4 truck: 2.0300 CZK/km.
+	req.MotorwayShare = map[string]float64{"CZ": 0}
+	req.Truck = rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 4}
+	r, _ = Price(trip, all(t), req, date)
+	for _, l := range r.Lines {
+		if l.Country == "CZ" && l.Km > 0 && (l.Road != "other" || l.Rate != 2.0300) {
+			t.Errorf("CZ class I road %+v", l)
+		}
+	}
+	// A 10 t Euro III truck in Poland pays 0.70 PLN/km on A/S roads.
+	req.Truck = rates.Truck{MaxMassKg: 10000, Axles: 2, Euro: 3, CO2Class: 1}
+	r, _ = Price(trip, all(t), req, date)
+	for _, l := range r.Lines {
+		if l.Country == "PL" && l.Road == "motorway" && l.Rate != 0.70 {
+			t.Errorf("PL 10 t Euro III %+v", l)
+		}
+	}
+}

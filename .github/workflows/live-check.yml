@@ -20,6 +20,12 @@ jobs:
             maps: europe/belgium
           - name: at
             maps: europe/austria
+          - name: ch
+            maps: europe/switzerland europe/liechtenstein
+          - name: cz
+            maps: europe/czech-republic
+          - name: pl
+            maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -74,6 +80,17 @@ jobs:
             run salzburg-villach -from ATSZG -to 46.6100,13.8500
             run linz-graz -from ATLNZ -to ATGRZ
             run arlberg -from 47.1400,10.5600 -to 47.1600,9.8200
+          elif [ "${{ matrix.name }}" = ch ]; then
+            run basel-chiasso -from 47.5596,7.5886 -to 45.8350,9.0300
+            run basel-chiasso-euro5-44t -from 47.5596,7.5886 -to 45.8350,9.0300 -euro 5 -mass-kg 44000
+            run sargans-schaanwald -from 47.0450,9.4400 -to 47.2150,9.5650
+            run zev -from 47.5596,7.5886 -to 45.8350,9.0300 -co2-class 5
+          elif [ "${{ matrix.name }}" = cz ]; then
+            run prague-brno -from 50.0755,14.4378 -to 49.1951,16.6068
+            run prague-brno-class4 -from 50.0755,14.4378 -to 49.1951,16.6068 -co2-class 4 -motorway-share CZ=0.9
+          elif [ "${{ matrix.name }}" = pl ]; then
+            run wroclaw-gliwice -from 51.1079,17.0385 -to 50.2945,18.6714
+            run wroclaw-gliwice-10t-euro3 -from 51.1079,17.0385 -to 50.2945,18.6714 -mass-kg 10000 -axles 2 -euro 3
           else
             run antwerp-liege -from BEANR -to BELGG
             run brussels-ghent -from 50.8467,4.3525 -to BEGNE -json
@@ -85,6 +102,9 @@ jobs:
           case "${{ matrix.name }}" in
             dk-de) trip="-from DKCPH -to DEHAM -tare-kg 15000" ;;
             at) trip="-from ATSZG -to 46.6100,13.8500" ;;
+            ch) trip="-from 47.0450,9.4400 -to 47.2150,9.5650" ;;
+            cz) trip="-from 50.0755,14.4378 -to 49.1951,16.6068" ;;
+            pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac
           ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json

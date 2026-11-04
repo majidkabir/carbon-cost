@@ -3342,14 +3342,14 @@
    {
     "id": "a2-064",
     "road": "A2",
-    "name": "LJ (Malence)–Šmarje - Sap",
+    "name": "LJ (Malence)–Šmarje-Sap",
     "from": {
      "name": "Lj (Malence)",
      "lat": 46.0125,
      "lon": 14.5584
     },
     "to": {
-     "name": "Šmarje - Sap",
+     "name": "Šmarje-Sap",
      "lat": 45.9782,
      "lon": 14.6084
     },
@@ -3394,9 +3394,9 @@
    {
     "id": "a2-065",
     "road": "A2",
-    "name": "Šmarje - Sap–Cikava",
+    "name": "Šmarje-Sap–Cikava",
     "from": {
-     "name": "Šmarje - Sap",
+     "name": "Šmarje-Sap",
      "lat": 45.9782,
      "lon": 14.6084
     },

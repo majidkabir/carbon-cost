@@ -1,0 +1,45 @@
+{
+  "country": "CH",
+  "currency": "CHF",
+  "valid_from": "2025-01-01",
+  "valid_to": "2030-12-31",
+  "name": "Swiss performance-related heavy vehicle fee (LSVA / RPLP)",
+  "law": "Schwerverkehrsabgabeverordnung (SVAV, SR 641.811) of 27 March 2024, Art. 8 para. 1 as amended 20 September 2024 (AS 2024 522), in force 1 January 2025: 3.26 / 2.82 / 2.39 Rappen per tonne-km for fee categories 1 / 2 / 3; Annex 1: EURO VI in category 3, EURO 0-V in category 1; Art. 6 para. 3: chargeable weight at most 40 t.",
+  "sources": [
+    {
+      "title": "SVAV (SR 641.811), consolidated text as of 1 October 2025, Art. 8 tariff and Annex 1 fee categories",
+      "url": "https://www.fedlex.admin.ch/eli/cc/2024/150/de"
+    },
+    {
+      "title": "BAZG: LSVA general information and tariffs",
+      "url": "https://www.bazg.admin.ch/bazg/en/home/informationen-firmen/verkehrsabgaben-und-strassenverkehrsrecht/schwerverkehrsabgaben-lsva-und-psva/lsva_allgemeines_tarife.html"
+    }
+  ],
+  "vehicles": "Motor vehicles and trailers over 3.5 t total weight used for goods transport, Swiss or foreign",
+  "min_kg": 3501,
+  "tolled_roads": "All public roads: the fee is per km driven anywhere in Switzerland and Liechtenstein.",
+  "per_tonne_km": true,
+  "max_chargeable_kg": 40000,
+  "exemptions": [
+    {
+      "co2_class": [
+        5
+      ],
+      "until": "2030-12-31",
+      "note": "Motor vehicles with electric drive are exempt (SVAV Art. 2 para. 1 let. k); the revised Heavy Vehicle Fee Act adopted on 2 October 2026 keeps them exempt until the end of 2030."
+    }
+  ],
+  "rows": [
+    {
+      "component": "distance_fee",
+      "euro": [
+        6
+      ],
+      "rate": 0.0239
+    },
+    {
+      "component": "distance_fee",
+      "rate": 0.0326
+    }
+  ]
+}

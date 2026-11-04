@@ -443,3 +443,98 @@ func TestPrice_AustriaSections(t *testing.T) {
 		}
 	}
 }
+
+// Basel - Chiasso style trip: 280 km in Switzerland, 40 t Euro VI. LSVA is
+// 2.39 Rappen per tonne-km (SVAV Art. 8): 0.0239 x 40 x 280 = CHF 267.68.
+func TestSwitzerland(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"CH": 280, "LI": 20}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"CHF": 0.93}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ch, li Line
+	for _, l := range r.Lines {
+		switch l.Country {
+		case "CH":
+			ch = l
+		case "LI":
+			li = l
+		}
+	}
+	if ch.Amount != 267.68 || ch.Tonnes != 40 || ch.Rate != 0.0239 || ch.RateUnit != "CHF/tkm" || ch.AmountEUR != 287.83 {
+		t.Errorf("CH line %+v", ch)
+	}
+	if li.Amount != 19.12 {
+		t.Errorf("LI line %+v", li)
+	}
+	// Euro V pays category 1, and the weight counts up to 40 t.
+	heavy := req
+	heavy.Truck = rates.Truck{MaxMassKg: 44000, Axles: 5, Euro: 5, CO2Class: 1}
+	r, _ = Price(trip, all(t), heavy, date)
+	for _, l := range r.Lines {
+		if l.Country == "CH" && (l.Amount != round2(0.0326*40*280) || l.Tonnes != 40) {
+			t.Errorf("Euro V 44 t: %+v", l)
+		}
+	}
+	// Electric trucks are exempt.
+	zev := req
+	zev.Truck.CO2Class = 5
+	if r, _ := Price(trip, all(t), zev, date); len(r.Lines) != 0 {
+		t.Errorf("electric truck: %+v", r.Lines)
+	}
+	// Without fx the ECB rates are used, with a note; without either, an error.
+	noFX := req
+	noFX.FX = nil
+	if _, err := Price(trip, all(t), noFX, date); err == nil || !strings.Contains(err.Error(), "fx.CHF") {
+		t.Errorf("want an error asking for fx.CHF, got %v", err)
+	}
+	noFX.ecb.Date, noFX.ecb.PerEUR = "2026-11-03", map[string]float64{"CHF": 0.9312}
+	r, err = Price(trip, all(t), noFX, date)
+	if err != nil || !strings.Contains(strings.Join(r.Notes, " "), "0.9312 CHF per euro (ECB euro foreign exchange reference rates, 2026-11-03)") {
+		t.Errorf("ECB rate note: %v %v", err, r.Notes)
+	}
+}
+
+// Prague - Brno style: 200 km in Czechia, 40 t, 5 axles, Euro VI, CO2
+// class 1: 5.9644 CZK/km on motorways (NV 240/2014 Annex 1 as of 2026).
+// Then Poland, 300 km of A/S roads for 12 t+ min. EURO 5: 0.56 PLN/km.
+func TestCzechiaPoland(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 500, CountryKm: map[string]float64{"CZ": 200, "PL": 300}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"CZK": 24.3, "PLN": 4.25}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[string]Line{}
+	for _, l := range r.Lines {
+		if l.Km > 0 {
+			got[l.Country+"/"+l.Road] = l
+		}
+	}
+	if l := got["CZ/motorway"]; l.Rate != 5.9644 || l.Amount != 1192.88 || l.Carbon {
+		t.Errorf("CZ motorway %+v", l)
+	}
+	if l := got["PL/motorway"]; l.Rate != 0.56 || l.Amount != 168 || l.AmountEUR != 39.53 {
+		t.Errorf("PL motorway %+v", l)
+	}
+	// Class I roads and a 3-axle 12 t+ CO2 class 4 truck: 2.0300 CZK/km.
+	req.MotorwayShare = map[string]float64{"CZ": 0}
+	req.Truck = rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 4}
+	r, _ = Price(trip, all(t), req, date)
+	for _, l := range r.Lines {
+		if l.Country == "CZ" && l.Km > 0 && (l.Road != "other" || l.Rate != 2.0300) {
+			t.Errorf("CZ class I road %+v", l)
+		}
+	}
+	// A 10 t Euro III truck in Poland pays 0.70 PLN/km on A/S roads.
+	req.Truck = rates.Truck{MaxMassKg: 10000, Axles: 2, Euro: 3, CO2Class: 1}
+	r, _ = Price(trip, all(t), req, date)
+	for _, l := range r.Lines {
+		if l.Country == "PL" && l.Road == "motorway" && l.Rate != 0.70 {
+			t.Errorf("PL 10 t Euro III %+v", l)
+		}
+	}
+}

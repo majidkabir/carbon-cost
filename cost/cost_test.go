@@ -736,3 +736,35 @@ func TestCroatia(t *testing.T) {
 		}
 	}
 }
+
+// Hungary with road classes from the route: 100 km of expressway, half
+// of it suburban by its toll sections: J5 EURO VI air and noise 13.21
+// HUF/km suburban, 3.11 interurban (3.4 and 0.8 eurocent at 388.60).
+func TestHungarySuburban(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"HU": 100}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"HUF": 400},
+		roadKm: map[string]roads.Km{"HU": {Motorway: 100, MotorwayKnown: 100, MotorwaySub: 50}}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var sub, inter float64
+	for _, l := range r.Lines {
+		if l.Component == rates.AirNoise {
+			switch l.Area {
+			case rates.Suburban:
+				sub = l.Km
+			case rates.Interurban:
+				inter = l.Km
+			}
+		}
+	}
+	if math.Abs(sub-50) > 0.01 || math.Abs(inter-50) > 0.01 {
+		t.Errorf("suburban %.2f km, interurban %.2f km, want 50 and 50", sub, inter)
+	}
+	// 100 km: 170.94/1.27 + 50%*13.21 + 50%*3.11 + 31.09 HUF/km.
+	if want := (134.5984 + 8.16 + 31.09) * 100 / 400; math.Abs(r.TotalEUR-want) > 0.02 {
+		t.Errorf("total %.2f, want %.2f", r.TotalEUR, want)
+	}
+}

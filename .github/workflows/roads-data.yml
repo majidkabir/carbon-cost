@@ -12,17 +12,16 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && pip install -q shapely
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && pip install -q shapely osmium
       - name: Build
         run: |
           mkdir -p out
           for x in CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania; do
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
-            osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary
-            osmium export -O -f geojsonseq -o roads.geojsonseq roads.pbf --geometry-types=linestring
-            python3 tools/roads/build.py $cc roads.geojsonseq out/$(echo $cc | tr A-Z a-z).json.gz
-            rm -f in.pbf roads.pbf roads.geojsonseq
+            osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
+            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz
+            rm -f in.pbf roads.pbf
           done
           ls -la out
       - name: Push

@@ -1,15 +1,20 @@
 """Builds roads/data/<cc>.json.gz from an OpenStreetMap extract.
 
-Usage: python3 build.py CC ways.geojsonseq out.json.gz
+Usage: python3 build.py CC roads.osm.pbf out.json.gz
 
-ways.geojsonseq: osmium export of the extract's highway=motorway, trunk
-and primary ways with their tags. Each way goes in a class by the rule
-for its country (RULES): "mw" are the roads a toll law prices at the
-motorway rate, "nat" the other national roads it tolls. Lines are
-simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
+roads.osm.pbf: the extract filtered to highway=motorway, trunk and
+primary ways (and, for Hungary, the toll section relations tagged
+ref:HU:edid with their ways). Each way goes in a class by the rule for
+its country (RULES): "mw" are the roads a toll law prices at the
+motorway rate, "nat" the other national roads it tolls. In Hungary a way
+in a toll section takes its class and suburban share from annex 1 of
+25/2013 NFM (hu-annex1.json); "mwf"/"natf" give each line's share, -1
+where unknown. Lines are simplified to SIMPLIFY_M and stored as
+[lon, lat] * 1e5 integers.
 """
-import gzip, json, re, sys
+import gzip, json, os, re, sys
 from collections import Counter
+import osmium
 from shapely.geometry import LineString
 
 SIMPLIFY_M = 10
@@ -42,33 +47,83 @@ def classify(rule, tags):
     return None
 
 
-def main(cc, src, dst):
-    rule = RULES[cc]
-    out = {"mw": [], "nat": []}
-    km = Counter()
-    refs = Counter()
-    for line in open(src, encoding="utf-8"):
-        f = json.loads(line.lstrip("\x1e"))
-        g, tags = f["geometry"], f["properties"]
-        if g["type"] != "LineString" or tags.get("highway", "").endswith("_link"):
-            continue
-        c = classify(rule, tags)
-        refs[(tags.get("highway"), (tags.get("ref") or "")[:6], c)] += 1
+class Sections(osmium.SimpleHandler):
+    """Way id -> (class, suburban share) from Hungary's toll sections."""
+
+    def __init__(self, annex):
+        super().__init__()
+        self.annex = annex
+        self.ways = {}
+        self.found = set()
+
+    def relation(self, r):
+        edid = r.tags.get("ref:HU:edid")
+        a = self.annex.get(edid)
+        if not a:
+            return
+        self.found.add(edid)
+        c = "mw" if a["level"] == "motorway" else "nat"
+        for m in r.members:
+            if m.type == "w":
+                self.ways[m.ref] = (c, a["f"])
+
+
+class Ways(osmium.SimpleHandler):
+    def __init__(self, rule, sections):
+        super().__init__()
+        self.rule, self.sections = rule, sections
+        self.lines = {"mw": [], "nat": []}
+        self.shares = {"mw": [], "nat": []}
+        self.km = Counter()
+        self.refs = Counter()
+
+    def way(self, w):
+        tags = {t.k: t.v for t in w.tags}
+        hw = tags.get("highway", "")
+        sec = self.sections.get(w.id)
+        if sec:
+            c, f = sec
+        else:
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary"):
+                return
+            c, f = classify(self.rule, tags), -1
+        self.refs[(hw, (tags.get("ref") or "")[:6], c, sec is not None)] += 1
         if c is None:
-            continue
-        ls = LineString(g["coordinates"])
-        # Degrees to metres at this latitude, roughly, for the tolerance.
-        tol = SIMPLIFY_M / 111_320
-        s = ls.simplify(tol, preserve_topology=False)
+            return
+        try:
+            coords = [(n.lon, n.lat) for n in w.nodes]
+        except osmium.InvalidLocationError:
+            return
+        if len(coords) < 2:
+            return
+        ls = LineString(coords)
+        s = ls.simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
         pts = [[round(x * 1e5), round(y * 1e5)] for x, y in s.coords]
         if len(pts) >= 2:
-            out[c].append([v for p in pts for v in p])
-            km[c] += ls.length * 111.32 * 0.68
+            self.lines[c].append([v for p in pts for v in p])
+            self.shares[c].append(round(f, 3))
+            self.km[c] += ls.length * 111.32 * 0.68
+
+
+def main(cc, src, dst):
+    rule = RULES[cc]
+    sections = {}
+    if cc == "HU":
+        rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
+        h = Sections({r["id"]: r for r in rows})
+        h.apply_file(src)
+        sections = h.ways
+        print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
+    h = Ways(rule, sections)
+    h.apply_file(src, locations=True)
+    out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
+    if sections:
+        out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]
     with gzip.open(dst, "wt", encoding="utf-8") as fo:
-        json.dump({"country": cc, "simplify_m": SIMPLIFY_M, "mw": out["mw"], "nat": out["nat"]}, fo, separators=(",", ":"))
-    print(cc, {k: len(v) for k, v in out.items()}, {k: round(v) for k, v in km.items()})
-    for (h, r, c), n in refs.most_common(25):
-        print(" ", h, r, c, n)
+        json.dump(out, fo, separators=(",", ":"))
+    print(cc, {k: len(v) for k, v in h.lines.items()}, {k: round(v) for k, v in h.km.items()})
+    for k, n in h.refs.most_common(30):
+        print(" ", k, n)
 
 
 if __name__ == "__main__":

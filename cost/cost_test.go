@@ -930,16 +930,21 @@ func TestChainBoothBeside(t *testing.T) {
 	}
 }
 
-func TestFrejus(t *testing.T) {
+func TestAlpineTunnels(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
-	path := [][2]float64{{6.60, 45.20}, {6.67415, 45.19439}, {6.70, 45.15}}
+	frejus := [][2]float64{{6.60, 45.20}, {6.67415, 45.19439}, {6.70, 45.15}}
+	montBlanc := [][2]float64{{6.85, 45.92}, {6.86072, 45.90100}, {6.90, 45.85}}
 	for _, tc := range []struct {
+		path  [][2]float64
+		name  string
 		truck rates.Truck
 		want  float64
 	}{
-		{truck40, 337.33},
-		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 167.92},
+		{frejus, "Fréjus", truck40, 337.33},
+		{frejus, "Fréjus", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 167.92},
+		{montBlanc, "Mont Blanc", truck40, 337.33},
 	} {
+		path := tc.path
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 12, CountryKm: map[string]float64{"FR": 12}, Path: path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
 		if err != nil {
@@ -947,12 +952,12 @@ func TestFrejus(t *testing.T) {
 		}
 		got := 0.0
 		for _, l := range r.Lines {
-			if strings.Contains(l.Section, "Fréjus") {
+			if strings.Contains(l.Section, tc.name) {
 				got += l.Amount
 			}
 		}
 		if math.Abs(got-tc.want) > 0.011 {
-			t.Errorf("%+v: Fréjus %.2f, want %.2f: %v", tc.truck, got, tc.want, r.Lines)
+			t.Errorf("%s %+v: %.2f, want %.2f: %v", tc.name, tc.truck, got, tc.want, r.Lines)
 		}
 	}
 }

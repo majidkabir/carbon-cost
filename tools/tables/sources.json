@@ -21,6 +21,6 @@
   {"id": "se-2025-918", "table": "se", "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf", "what": "Sweden: Förordning (2025:918), the road charge amounts for 2026"},
   {"id": "lu-rgd-2019", "table": "lu", "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224/fr/html/eli-etat-leg-rgd-2019-05-21-a353-consolide-20241224-fr-html.html", "what": "Luxembourg: Règlement grand-ducal du 21 mai 2019 fixant les montants du droit d'usage (Eurovignette), consolidated version applicable from 24 December 2024 (Legilux)"},
   {"id": "gb-levy-guide", "table": "gb", "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service", "what": "UK: GOV.UK, how to use the HGV levy service (rates from 1 April 2026)"},
-  {"id": "no-nvdb-45", "table": "no", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri&srid=4326&antall=1000", "what": "Norway: NVDB (Statens vegvesen), road object type 45 Bomstasjon (toll stations) with their rates, API v4"}
+  {"id": "no-nvdb-45", "table": "no", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000", "what": "Norway: NVDB (Statens vegvesen), road object type 45 Bomstasjon (toll stations) with their rates, API v4"}
  ]
 }

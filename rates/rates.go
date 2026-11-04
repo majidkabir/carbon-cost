@@ -124,6 +124,28 @@ type Table struct {
 	Closed []TollSystem `json:"closed_systems,omitempty"`
 	// Surcharges raise a component's per-km rate on a stretch of road.
 	Surcharges []Surcharge `json:"surcharges,omitempty"`
+	// TollPoints are toll stations charged per passage, each on its own
+	// (Norway's AutoPASS stations).
+	TollPoints []TollPoint `json:"toll_points,omitempty"`
+	// PointMatchKm is how close the route must pass a toll point to pay it.
+	PointMatchKm float64 `json:"point_match_km,omitempty"`
+}
+
+// TollPoint is a toll station charged per passage.
+type TollPoint struct {
+	Name    string  `json:"name"`
+	Project string  `json:"project,omitempty"` // the toll project (bompengeanlegg)
+	Lat     float64 `json:"lat"`
+	Lon     float64 `json:"lon"`
+	// Heading is the direction of travel that pays, in degrees clockwise
+	// from north; nil when both directions pay.
+	Heading  *float64 `json:"heading,omitempty"`
+	Rate     float64  `json:"rate"`                // per passage, outside rush hours
+	PeakRate float64  `json:"peak_rate,omitempty"` // per passage in rush hours, where it differs
+	// Group is the passage group of an hour rule: after a paid passage,
+	// the group's other stations are free for GroupMinutes.
+	Group        int `json:"group,omitempty"`
+	GroupMinutes int `json:"group_minutes,omitempty"`
 }
 
 // TollSystem is a closed toll system: the price from the station where

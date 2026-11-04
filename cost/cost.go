@@ -541,6 +541,13 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if err != nil {
 			return Response{}, err
 		}
+		pointsAny, err := priceTollPoints(tb, a.country, route, &out, add)
+		if err != nil {
+			return Response{}, err
+		}
+		if len(tb.TollPoints) > 0 && !pointsAny && km >= 1 {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the toll stations.", cc))
+		}
 		if len(tb.Closed) > 0 && len(tb.Rows) == 0 && !closedAny && km >= 1 {
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route uses none of the tolled motorways.", cc))
 		}
@@ -1087,4 +1094,92 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 	}
 	sort.SliceStable(out, func(a, b int) bool { return out[a].from < out[b].from })
 	return out
+}
+
+// projectHeading is project, with the route's direction of travel there
+// in degrees clockwise from north.
+func projectHeading(route [][2]float64, p rates.Place) (pos, dist, heading float64) {
+	dist = math.Inf(1)
+	cos := math.Cos(p.Lat * math.Pi / 180)
+	var cum float64
+	for i := 0; i+1 < len(route); i++ {
+		a, b := route[i], route[i+1]
+		seg := haversine(a[1], a[0], b[1], b[0])
+		ax, ay := (a[0]-p.Lon)*cos*111.2, (a[1]-p.Lat)*111.2
+		bx, by := (b[0]-p.Lon)*cos*111.2, (b[1]-p.Lat)*111.2
+		dx, dy := bx-ax, by-ay
+		t := 0.0
+		if l := dx*dx + dy*dy; l > 0 {
+			t = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
+		}
+		if d := math.Hypot(ax+t*dx, ay+t*dy); d < dist && seg > 0 {
+			dist, pos = d, cum+t*seg
+			heading = math.Mod(math.Atan2(dx, dy)*180/math.Pi+360, 360)
+		}
+		cum += seg
+	}
+	return pos, dist, heading
+}
+
+// DefaultPointMatchKm is how close the route must pass a toll point
+// when its table doesn't say.
+const DefaultPointMatchKm = 0.05
+
+// priceTollPoints adds a line for each toll point the route passes in a
+// direction that pays, and says whether it passed any. Under an hour
+// rule only the first passage of a group pays: the route is taken to
+// pass a group's stations within its time limit.
+func priceTollPoints(tb rates.Table, country string, route [][2]float64, out *Response, add func(Line) error) (bool, error) {
+	match := tb.PointMatchKm
+	if match == 0 {
+		match = DefaultPointMatchKm
+	}
+	type pass struct {
+		tp  rates.TollPoint
+		pos float64
+	}
+	var passes []pass
+	for _, tp := range tb.TollPoints {
+		pos, d, h := projectHeading(route, rates.Place{Lat: tp.Lat, Lon: tp.Lon})
+		if d > match {
+			continue
+		}
+		if tp.Heading != nil {
+			diff := math.Abs(math.Mod(h-*tp.Heading+540, 360) - 180)
+			if diff > 90 {
+				continue
+			}
+		}
+		passes = append(passes, pass{tp, pos})
+	}
+	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
+	paid := map[int]bool{}
+	free, peak := 0, 0
+	for _, p := range passes {
+		if p.tp.Group != 0 && paid[p.tp.Group] {
+			free++
+			continue
+		}
+		if p.tp.Group != 0 {
+			paid[p.tp.Group] = true
+		}
+		if p.tp.PeakRate > p.tp.Rate {
+			peak++
+		}
+		name := p.tp.Name
+		if p.tp.Project != "" {
+			name = p.tp.Project + ": " + name
+		}
+		if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: name,
+			Rate: p.tp.Rate, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p.tp.Rate, Source: tb.Law}); err != nil {
+			return true, err
+		}
+	}
+	if free > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule (the route is taken to pass them within the hour).", country, free))
+	}
+	if peak > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))
+	}
+	return len(passes) > 0, nil
 }

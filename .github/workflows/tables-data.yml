@@ -33,6 +33,7 @@ jobs:
           python3 tools/tables/se.py out out/tables
           python3 tools/tables/lu.py out out/tables
           python3 tools/tables/gb.py out out/tables
+          python3 tools/tables/no.py out out/tables
           python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
       - name: Compare with the committed tables
         run: |

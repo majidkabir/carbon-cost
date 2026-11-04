@@ -36,6 +36,9 @@
   {"id": "ie-n25", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/", "what": "Ireland: TII toll location and charges page"},
   {"id": "ie-port-tunnel", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/dublin-port-tunnel/", "what": "Ireland: TII toll location and charges page"},
   {"id": "ie-m50", "table": "ie", "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/", "what": "Ireland: TII toll location and charges page"},
-  {"id": "se-2014-1564", "table": "se-bridges", "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text", "what": "Sweden: Förordning (2014:1564) om infrastrukturavgifter på väg, consolidated (Riksdagen open data)"}
+  {"id": "se-2014-1564", "table": "se-bridges", "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text", "what": "Sweden: Förordning (2014:1564) om infrastrukturavgifter på väg, consolidated (Riksdagen open data)"},
+  {"id": "se-broavgift-motala", "table": "se-bridges", "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/", "what": "Sweden: Transportstyrelsen, infrastructure charge (amounts, charging stations)"},
+  {"id": "se-broavgift-sundsvall", "table": "se-bridges", "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-sundsvall/", "what": "Sweden: Transportstyrelsen, infrastructure charge (amounts, charging stations)"},
+  {"id": "se-broavgift-skurubron", "table": "se-bridges", "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-skurubron/", "what": "Sweden: Transportstyrelsen, infrastructure charge (amounts, charging stations)"}
  ]
 }

@@ -11,27 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Danish bridges and Bina-Istra price list
+      - name: Serbia toll price list and OSM toll booths
         run: |
           mkdir -p out
-          sudo apt-get install -y -qq osmium-tool >/dev/null
-          curl -fsSL -o dk.pbf https://download.geofabrik.de/europe/denmark-latest.osm.pbf
-          osmium tags-filter -O -o b.pbf dk.pbf "w/name=Øresundsbron,Storebæltsbroen,Østbroen,Vestbroen,Øresundsbroen" n/barrier=toll_booth
-          osmium export -O -f geojsonseq -o b.geojsonseq b.pbf
-          python3 - <<'PY' > out/dk-bridges.txt
-          import json
-          for l in open("b.geojsonseq"):
-              f = json.loads(l.lstrip("\x1e")); p = f["properties"]; g = f["geometry"]
-              c = g["coordinates"]
-              if g["type"] == "LineString":
-                  c = [c[0], c[len(c)//2], c[-1]]
-              print(p.get("name"), p.get("barrier") or p.get("bridge"), p.get("highway"), json.dumps(c)[:200])
-          PY
-          cat out/dk-bridges.txt | head -60
-          for u in https://bina-istra.com/wip_en/cestarina-2/cjenik-cestarine https://bina-istra.com/cestarina/cjenik-cestarine; do
-            curl -fsSL -A "carbon-cost docs fetch" "$u" -o bi.html && grep -o 'href="[^"]*\.pdf"' bi.html | sort -u | head -20 && break
+          sudo apt-get install -y -qq osmium-tool poppler-utils >/dev/null
+          for f in cene_putarina_lat cene_putarina_obilaznica_lat; do
+            curl -fsSL -A "carbon-cost docs fetch" -o $f.pdf "https://www.putevi-srbije.rs/images/pdf/$f.pdf"
+            pdftotext -layout $f.pdf out/rs-$f.txt
+            pdfinfo $f.pdf | head -5
           done
-          grep -o 'href="[^"]*\.pdf"' bi.html | sort -u > out/bina-links.txt || true
+          curl -fsSL -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf
+          osmium tags-filter -O -o b.pbf rs.pbf n/barrier=toll_booth n/highway=motorway_junction
+          osmium export -O -f geojsonseq -o out/rs-booths.geojsonseq b.pbf
+          wc -l out/*
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

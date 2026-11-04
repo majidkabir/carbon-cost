@@ -77,7 +77,9 @@ def hwords(page):
     return out
 
 
-def page_pairs(page):
+def page_pairs(page, numbers=None):
+    """The page's (row station, column station, price) cells. If numbers
+    is a dict, it also gets each station's exit number, where one is shown."""
     d = page.get_text("dict")
     cells, diag = [], []
     for b in d["blocks"]:
@@ -137,11 +139,11 @@ def page_pairs(page):
     for k in sorted(set(comp)):
         cs = [c for c, g in zip(cells, comp) if g == k]
         if len(cs) >= 2:
-            out += grid_pairs(cs, dg[k], wg[k])
+            out += grid_pairs(cs, dg[k], wg[k], numbers)
     return out
 
 
-def grid_pairs(cells, diag, words):
+def grid_pairs(cells, diag, words, numbers=None):
     if not cells:
         return []
     # The names in the corner boxes, larger than the stations', are
@@ -167,7 +169,7 @@ def grid_pairs(cells, diag, words):
 
     def across(ax, ay, bx, by):
         return ((bx - ax) + (by - ay)) * 0.7071
-    badges = [(ox, oy) for ox, oy, t, _ in diag if BADGE.fullmatch(t)]
+    badges = [(ox, oy, t) for ox, oy, t, _ in diag if BADGE.fullmatch(t)]
 
     def badge_of(x, y, tol=2):
         b = [p for p in badges if 2 < along(p[0], p[1], x, y) < 12 and abs(across(p[0], p[1], x, y)) < tol]
@@ -189,6 +191,8 @@ def grid_pairs(cells, diag, words):
         name = clean(" ".join(v[2] for v in g if len(v) == 4))
         if re.search(r"[A-Za-zÀ-ÿ]{2}", name):
             named.append((g[0][0], g[0][1], name))
+            if numbers is not None and len(g[0]) == 3:
+                numbers.setdefault(name, g[0][2])
     # A name starts a fixed distance from its column's centre. The last
     # stations' columns hold too few cells to be found from the cells
     # alone (and the very last has none): place them from their names.
@@ -242,6 +246,9 @@ def grid_pairs(cells, diag, words):
             name = clean(" ".join(w for w in side if not re.match(r"^A\d+[A-Z]?$", w)))
             if re.search(r"[A-Za-zÀ-ÿ]{2}", name):
                 rowname[r] = name
+                n = [w for w in side if BADGE.fullmatch(w)]
+                if numbers is not None and n:
+                    numbers.setdefault(name, n[0])
                 break
     out, miss = [], defaultdict(int)
     for x, y, t in cells:

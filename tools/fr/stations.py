@@ -19,7 +19,9 @@ remaining tariff names to dataset names by hand. "Péage de" and the
 like are left off both names when that is what matches. Where a name's
 candidates lie more than SPREAD_KM apart (same-named places elsewhere in
 France), only those with the most of the operator's other stations
-within NEAR_KM are kept. Unplaced names are listed.
+within NEAR_KM are kept. Stations still unplaced that the tariff gives an
+exit number are placed at the OpenStreetMap junction with that number
+(by_number). Unplaced names are listed.
 """
 import csv, json, math, re, sys, unicodedata
 from collections import defaultdict
@@ -60,6 +62,36 @@ def variants(name):
     return [v for v in dict.fromkeys(out) if v]
 
 
+def by_number(op, ns, placed, numbers, partners, junctions, km):
+    """Places the operator's remaining stations that have an exit number
+    (the same one in every row that gives one) at the OpenStreetMap
+    motorway junction with that ref nearest the stations they're cheapest
+    to reach: those can't be further away than the price pays for (as in
+    build.py). Taken only if no other junction with that ref comes close."""
+    for _ in range(3):
+        for n in sorted(ns):
+            nos = numbers[(op, n)] - {""}
+            if n in placed or len(nos) != 1 or "" in numbers[(op, n)]:
+                continue
+            cands = junctions.get(next(iter(nos)).upper(), [])
+            near = []
+            for p, m in sorted(partners[(op, n)]):
+                if m in placed and m != n and len(near) < 3:
+                    pts = placed[m]
+                    near.append(({"lat": sum(q[0] for q in pts) / len(pts), "lon": sum(q[1] for q in pts) / len(pts)}, p / 0.05 + 15))
+            if not cands or not near:
+                continue
+            fits = sorted((sum(km(c, q) for q, _ in near), i) for i, c in enumerate(cands)
+                          if all(km(c, q) <= bound for q, bound in near))
+            if not fits:
+                continue
+            best = cands[fits[0][1]]
+            rivals = [s for s, i in fits[1:] if km(cands[i], best) > 5]
+            if rivals and rivals[0] < fits[0][0] * 1.2:
+                continue
+            placed[n] = sorted({(c["lat"], c["lon"], c["gare"], c["type"]) for c in cands if km(c, best) <= 2})
+
+
 def main(pairs_path, gares_path, aliases_path, osm_path, out):
     to_wgs = Transformer.from_crs("EPSG:2154", "EPSG:4326", always_xy=True)
     gares = defaultdict(list)
@@ -72,20 +104,25 @@ def main(pairs_path, gares_path, aliases_path, osm_path, out):
         for k in {normalize(r["nomGare"]), OSM_PREFIX.sub("", normalize(r["nomGare"]))}:
             gares[k].append(p)
     aliases = json.load(open(aliases_path, encoding="utf-8"))["aliases"]
-    osm = defaultdict(list)
+    osm, junctions = defaultdict(list), defaultdict(list)
     for line in open(osm_path, encoding="utf-8"):
         f = json.loads(line.lstrip("\x1e"))
-        name = f["properties"].get("name")
-        if f["geometry"]["type"] != "Point" or not name:
+        if f["geometry"]["type"] != "Point":
             continue
         lon, lat = f["geometry"]["coordinates"]
+        name, ref = f["properties"].get("name"), f["properties"].get("ref")
         kind = f["properties"].get("barrier") or f["properties"].get("highway")
-        osm[OSM_PREFIX.sub("", normalize(name))].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": "OSM: " + name, "type": kind})
-    names = defaultdict(set)
+        if name:
+            osm[OSM_PREFIX.sub("", normalize(name))].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": "OSM: " + name, "type": kind})
+        if ref and kind == "motorway_junction":
+            junctions[ref.strip().upper()].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": f"OSM: junction {ref}", "type": kind})
+    names, numbers, partners = defaultdict(set), defaultdict(set), defaultdict(list)
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
-        for n in (r["entry"], r["exit"]):
+        for n, no, other in ((r["entry"], r.get("entry_no", ""), r["exit"]), (r["exit"], r.get("exit_no", ""), r["entry"])):
             if n != "Système Ouvert":
                 names[r["operator"]].add(n)
+                numbers[(r["operator"], n)].add(no)
+                partners[(r["operator"], n)].append((float(r["class3"]), other))
     placed, missing = {}, []
     for op, ns in names.items():
         found = {}
@@ -106,12 +143,15 @@ def main(pairs_path, gares_path, aliases_path, osm_path, out):
         # Same-named stations elsewhere in France: keep the candidates
         # among the most of this operator's other stations.
         def km(p, q):
+            if isinstance(p, tuple):
+                p = {"lat": p[0], "lon": p[1]}
             return math.hypot((p["lat"] - q["lat"]) * 111, (p["lon"] - q["lon"]) * 111 * math.cos(math.radians(p["lat"])))
         for n, pts in found.items():
             if max(km(p, q) for p in pts for q in pts) > SPREAD_KM:
                 score = [sum(any(km(p, q) <= NEAR_KM for q in qs) for m, qs in found.items() if m != n) for p in pts]
                 pts = [p for p, sc in zip(pts, score) if sc == max(score)]
             placed[n] = sorted({(p["lat"], p["lon"], p["gare"], p["type"]) for p in pts})
+        by_number(op, ns, placed, numbers, partners, junctions, km)
         missing += [(op, n) for n in sorted(ns) if n not in placed]
     json.dump({n: [{"lat": a, "lon": b, "gare": g, "type": t} for a, b, g, t in v] for n, v in sorted(placed.items())},
               open(out, "w"), ensure_ascii=False, indent=0)

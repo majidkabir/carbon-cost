@@ -14,6 +14,7 @@ Covered so far: APRR, AREA, ADELAC (A41 Nord), ALIAE (A79), VINCI Autoroutes' AS
 
 Not covered yet:
 - **Arcos (A355, Strasbourg bypass)**. Its prices vary by day, hour and Euro class.
-- **ALiS, Alicorne and CCI Seine-Estuaire**, in their own formats. (The Fréjus and Mont Blanc tunnels are crossings, in tools/tables.) Their tariffs are in their own formats, or the pages refuse the fetch.
+
+The Fréjus and Mont Blanc tunnels are crossings, in tools/tables.
 
 The rate table for 1 February to 31 May 2026 (`fr-2026-02-01.json`) has APRR, AREA, ADELAC and ALIAE only; from 1 June 2026 (`fr-2026-06-01.json`) it has all the above.

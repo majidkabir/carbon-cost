@@ -1071,3 +1071,36 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 		}
 	}
 }
+
+// Norway's toll stations: priced per passage in the charged direction,
+// once per hour-rule group.
+func TestNorwayTollPoints(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	sandvikenSE := [][2]float64{{5.3110, 60.4190}, {5.3150, 60.4170}}
+	straumeNE := [][2]float64{{5.2697, 60.3220}, {5.2723, 60.3232}}
+	reverse := func(p [][2]float64) [][2]float64 { return [][2]float64{p[1], p[0]} }
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Sandviken, charged direction", sandvikenSE, 88},
+		{"Sandviken, other direction", reverse(sandvikenSE), 0},
+		{"Sandviken and Straume, one hour-rule group", append(append([][2]float64{}, sandvikenSE...), straumeNE...), 88},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"NO": 20}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"NOK": 11.7}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "NO" {
+				got += l.Amount
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

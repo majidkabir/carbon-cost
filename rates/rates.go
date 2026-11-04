@@ -580,8 +580,8 @@ func (tb Table) check() error {
 	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
 		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
 	}
-	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0) {
-		return fmt.Errorf("country, currency, sources and rows (or sections) are required")
+	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0 && len(tb.TollPoints) == 0) {
+		return fmt.Errorf("country, currency, sources and rows (or sections, toll systems or toll points) are required")
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")

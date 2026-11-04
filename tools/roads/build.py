@@ -11,11 +11,21 @@ in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json); "mwf"/"natf" give each line's share, -1
 where unknown. Lines are simplified to SIMPLIFY_M and stored as
 [lon, lat] * 1e5 integers.
+
+For Romania, a fourth argument gives an extract of the administrative
+boundaries and built-up land use: national roads inside the built-up
+area of a municipality (municipiu) aren't tolled (Legea 226/2023, SETRE
+România), so those stretches are left out of "nat". The built-up area
+is the municipality's residential, commercial, industrial and retail
+land, 50 m around.
 """
 import gzip, json, os, re, sys
 from collections import Counter
 import osmium
+from shapely import wkb
 from shapely.geometry import LineString
+from shapely.ops import unary_union
+from shapely.strtree import STRtree
 
 SIMPLIFY_M = 10
 # mw: the motorway class of the toll law; nat: the national roads.
@@ -68,10 +78,39 @@ class Sections(osmium.SimpleHandler):
                 self.ways[m.ref] = (c, a["f"])
 
 
-class Ways(osmium.SimpleHandler):
-    def __init__(self, rule, sections):
+class Urban(osmium.SimpleHandler):
+    """Municipalities' boundaries and built-up land use."""
+
+    def __init__(self):
         super().__init__()
-        self.rule, self.sections = rule, sections
+        self.wkb = osmium.geom.WKBFactory()
+        self.towns, self.land = [], []
+
+    def area(self, a):
+        t = a.tags
+        try:
+            if t.get("boundary") == "administrative" and (t.get("name") or "").startswith("Municipiul "):
+                self.towns.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
+            elif t.get("landuse") in ("residential", "commercial", "industrial", "retail"):
+                self.land.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
+        except Exception:
+            pass
+
+    def built_up(self):
+        tree = STRtree(self.land)
+        parts = []
+        for town in self.towns:
+            hits = [self.land[i] for i in tree.query(town, predicate="intersects")]
+            if hits:
+                parts.append(unary_union([h.buffer(0.0005) for h in hits]).intersection(town))
+        return unary_union(parts) if parts else None
+
+
+class Ways(osmium.SimpleHandler):
+    def __init__(self, rule, sections, urban=None):
+        super().__init__()
+        self.rule, self.sections, self.urban = rule, sections, urban
+        self.urban_km = 0.0
         self.lines = {"mw": [], "nat": []}
         self.shares = {"mw": [], "nat": []}
         self.km = Counter()
@@ -97,16 +136,28 @@ class Ways(osmium.SimpleHandler):
         if len(coords) < 2:
             return
         ls = LineString(coords)
-        s = ls.simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
-        pts = [[round(x * 1e5), round(y * 1e5)] for x, y in s.coords]
-        if len(pts) >= 2:
-            self.lines[c].append([v for p in pts for v in p])
-            self.shares[c].append(round(f, 3))
-            self.km[c] += ls.length * 111.32 * 0.68
+        pieces = [ls]
+        if c == "nat" and self.urban is not None and ls.intersects(self.urban):
+            rest = ls.difference(self.urban)
+            self.urban_km += (ls.length - rest.length) * 111.32 * 0.68
+            pieces = [g for g in getattr(rest, "geoms", [rest]) if g.geom_type == "LineString" and not g.is_empty]
+        for piece in pieces:
+            s = piece.simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
+            pts = [[round(x * 1e5), round(y * 1e5)] for x, y in s.coords]
+            if len(pts) >= 2:
+                self.lines[c].append([v for p in pts for v in p])
+                self.shares[c].append(round(f, 3))
+                self.km[c] += piece.length * 111.32 * 0.68
 
 
-def main(cc, src, dst):
+def main(cc, src, dst, areas=None):
     rule = RULES[cc]
+    urban = None
+    if areas:
+        u = Urban()
+        u.apply_file(areas, locations=True)
+        urban = u.built_up()
+        print(cc, "municipalities:", len(u.towns), "built-up polygons:", len(u.land))
     sections = {}
     if cc == "HU":
         rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
@@ -114,8 +165,10 @@ def main(cc, src, dst):
         h.apply_file(src)
         sections = h.ways
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
-    h = Ways(rule, sections)
+    h = Ways(rule, sections, urban)
     h.apply_file(src, locations=True)
+    if urban is not None:
+        print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
     if sections:
         out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]

@@ -20,8 +20,13 @@ jobs:
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
             osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
-            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz
-            rm -f in.pbf roads.pbf
+            extra=""
+            if [ $cc = RO ]; then
+              osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail r/boundary=administrative
+              extra=areas.pbf
+            fi
+            python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
+            rm -f in.pbf roads.pbf areas.pbf
           done
           ls -la out
       - name: Push

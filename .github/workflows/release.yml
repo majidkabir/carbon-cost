@@ -54,6 +54,8 @@ jobs:
         run: |
           if gh release view "$VERSION" >/dev/null 2>&1; then
             gh release upload "$VERSION" dist/* --clobber
+            # a run cut off mid-create leaves a draft with no tag: publish it
+            gh release edit "$VERSION" --draft=false --target "$GITHUB_SHA"
           else
             gh release create "$VERSION" dist/* --title "$VERSION" --generate-notes --target "$GITHUB_SHA"
           fi

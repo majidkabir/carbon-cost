@@ -21,7 +21,8 @@
   {"id": "se-2025-918", "table": "se", "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf", "what": "Sweden: Förordning (2025:918), the road charge amounts for 2026"},
   {"id": "lu-rgd-2019", "table": "lu", "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224/fr/html/eli-etat-leg-rgd-2019-05-21-a353-consolide-20241224-fr-html.html", "what": "Luxembourg: Règlement grand-ducal du 21 mai 2019 fixant les montants du droit d'usage (Eurovignette), consolidated version applicable from 24 December 2024 (Legilux)"},
   {"id": "gb-levy-sch1", "table": "gb", "url": "https://www.legislation.gov.uk/ukpga/2013/7/schedule/1/data.xml", "what": "UK: HGV Road User Levy Act 2013, Schedule 1 (rates), revised (legislation.gov.uk)"},
-  {"id": "gb-levy-act", "table": "gb", "url": "https://www.legislation.gov.uk/ukpga/2013/7/data.xml", "what": "UK: HGV Road User Levy Act 2013, revised (whole Act)"},
+  {"id": "gb-levy-s3", "table": "gb", "url": "https://www.legislation.gov.uk/ukpga/2013/7/section/3/data.xml", "what": "UK: HGV Road User Levy Act 2013, section 3 (roads), revised"},
+  {"id": "gb-levy-s6", "table": "gb", "url": "https://www.legislation.gov.uk/ukpga/2013/7/section/6/data.xml", "what": "UK: HGV Road User Levy Act 2013, section 6 (non-UK vehicles, daily rate), revised"},
   {"id": "gb-levy-guide", "table": "gb", "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service", "what": "UK: GOV.UK, how to use the HGV levy service (rates from 1 April 2026)"}
  ]
 }

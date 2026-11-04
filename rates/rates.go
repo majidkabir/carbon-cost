@@ -138,12 +138,13 @@ func (s Section) Amount(t Truck, night bool) float64 {
 	return s.Tariff[g][k]
 }
 
-// Surcharge raises Component's per-km rate by Factor between two places.
+// Surcharge raises Component's per-km rate by Factor on a stretch of
+// road given as its junctions in order: the km between consecutive
+// junctions a route passes count.
 type Surcharge struct {
 	ID        string  `json:"id"`
 	Name      string  `json:"name"`
-	From      Place   `json:"from"`
-	To        Place   `json:"to"`
+	Points    []Place `json:"points"`
 	Component string  `json:"component"`
 	Factor    float64 `json:"factor"`
 	Law       string  `json:"law"`

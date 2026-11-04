@@ -963,19 +963,86 @@
   {
    "id": "a12",
    "name": "A 12, Staatsgrenze Kufstein – Kn Innsbruck/Amras",
-   "from": {
-    "name": "Staatsgrenze Kufstein (approx.)",
-    "lat": 47.607,
-    "lon": 12.187
-   },
-   "to": {
-    "name": "Kn Innsbruck/Amras",
-    "lat": 47.2547,
-    "lon": 11.4202
-   },
    "component": "infrastructure",
    "factor": 0.25,
-   "law": "Mauttarifverordnung 2025 § 3: the § 2 infrastructure tariff +25% on this stretch"
+   "law": "Mauttarifverordnung 2025 § 3: the § 2 infrastructure tariff +25% on this stretch. Stretch: OpenStreetMap motorway junctions (ODbL); km counted between consecutive junctions the route passes.",
+   "points": [
+    {
+     "name": "Staatsgrenze Kufstein (approx.)",
+     "lat": 47.607,
+     "lon": 12.187
+    },
+    {
+     "name": "Kufstein-Nord",
+     "lat": 47.5965,
+     "lon": 12.1756
+    },
+    {
+     "name": "Kufstein Süd",
+     "lat": 47.5675,
+     "lon": 12.1408
+    },
+    {
+     "name": "Kirchbichl",
+     "lat": 47.5333,
+     "lon": 12.0941
+    },
+    {
+     "name": "Wörgl Ost",
+     "lat": 47.495,
+     "lon": 12.0572
+    },
+    {
+     "name": "Wörgl West",
+     "lat": 47.4838,
+     "lon": 12.0235
+    },
+    {
+     "name": "Kramsach",
+     "lat": 47.4411,
+     "lon": 11.8842
+    },
+    {
+     "name": "Wiesing",
+     "lat": 47.4028,
+     "lon": 11.8032
+    },
+    {
+     "name": "Schwaz",
+     "lat": 47.3577,
+     "lon": 11.7016
+    },
+    {
+     "name": "Vomp",
+     "lat": 47.3307,
+     "lon": 11.6792
+    },
+    {
+     "name": "Wattens",
+     "lat": 47.2998,
+     "lon": 11.5838
+    },
+    {
+     "name": "Hall-Mitte",
+     "lat": 47.2739,
+     "lon": 11.5015
+    },
+    {
+     "name": "Hall-West",
+     "lat": 47.271,
+     "lon": 11.4764
+    },
+    {
+     "name": "Innsbruck Ost",
+     "lat": 47.2606,
+     "lon": 11.4385
+    },
+    {
+     "name": "Kn Innsbruck/Amras",
+     "lat": 47.2547,
+     "lon": 11.4202
+    }
+   ]
   }
  ]
 }

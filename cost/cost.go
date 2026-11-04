@@ -372,8 +372,13 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			}
 		}
 		for _, sc := range tb.Surcharges {
-			km, ok := along(route, sc.From, sc.To)
-			if !ok {
+			var km float64
+			for i := 0; i+1 < len(sc.Points); i++ {
+				if k, ok := along(route, sc.Points[i], sc.Points[i+1]); ok {
+					km += k
+				}
+			}
+			if km == 0 {
 				continue
 			}
 			for _, r := range rs {

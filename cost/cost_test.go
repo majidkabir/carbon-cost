@@ -391,7 +391,9 @@ func TestPrice_Belgium(t *testing.T) {
 // = 52.6832 EUR; at night the § 5 amounts, 105.3664 EUR. Their km pay no
 // per-km infrastructure; the A 12 stretch pays it +25% (§ 3).
 func TestPrice_AustriaSections(t *testing.T) {
-	pts := [][2]float64{{12.1870, 47.6070}, {11.4202, 47.2547}, {11.3905, 47.2396}, {11.3934, 47.2276}, {11.4030, 47.2082},
+	pts := [][2]float64{{12.1870, 47.6070}, {12.1756, 47.5965}, {12.1408, 47.5675}, {12.0941, 47.5333}, {12.0572, 47.4950},
+		{12.0235, 47.4838}, {11.8842, 47.4411}, {11.8032, 47.4028}, {11.7016, 47.3577}, {11.6792, 47.3307}, {11.5838, 47.2998},
+		{11.5015, 47.2739}, {11.4764, 47.2710}, {11.4385, 47.2606}, {11.4202, 47.2547}, {11.3905, 47.2396}, {11.3934, 47.2276}, {11.4030, 47.2082},
 		{11.3982, 47.1841}, {11.4497, 47.1195}, {11.4801, 47.0615}, {11.5065, 47.0152}, {11.5080, 47.0030}}
 	var km float64
 	for i := 0; i+1 < len(pts); i++ {
@@ -425,7 +427,7 @@ func TestPrice_AustriaSections(t *testing.T) {
 		t.Errorf("day: %d sections, EUR %.2f; want 8, 52.68", n, s)
 	}
 	secKm := 0.0
-	for i := 1; i+1 < len(pts); i++ {
+	for i := 14; i+1 < len(pts); i++ {
 		secKm += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
 	}
 	if math.Abs(infraKm-(km-secKm)) > 0.01 || math.Abs(a12-(km-secKm)) > 0.01 {

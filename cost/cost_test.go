@@ -538,3 +538,30 @@ func TestCzechiaPoland(t *testing.T) {
 		}
 	}
 }
+
+// Sofia - Plovdiv style: 130 km of Bulgarian motorway, 40 t, 5 axles.
+// ПМС № 64/2026: Euro VI, CO2 class 1 pays 0.14 infrastructure + 0.07 CO2
+// EUR/km; CO2 class 4, 0.14 + 0.03; zero-emission, 0.14 only.
+func TestBulgaria(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 130, CountryKm: map[string]float64{"BG": 130}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		truck         rates.Truck
+		total, carbon float64
+	}{
+		{truck40, 27.3, 9.1},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 4}, 22.1, 3.9},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 18.2, 0},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 5, CO2Class: 1}, 33.8, 9.1},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 18.2, 6.5},
+		{rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 3, CO2Class: 1}, 14.3, 5.2},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.total) > 0.005 || math.Abs(r.CarbonEUR-tc.carbon) > 0.005 {
+			t.Errorf("%+v: total %.2f carbon %.2f, want %.2f and %.2f", tc.truck, r.TotalEUR, r.CarbonEUR, tc.total, tc.carbon)
+		}
+	}
+}

@@ -3,8 +3,9 @@ hr-booths.json (OpenStreetMap toll booths and motorway junctions).
 
 Usage: python3 build.py hr-prices.json hr-booths.json out.json
 
-Bina-Istra's Istrian Y prices come from bina-istra.json (its online toll
-calculator).
+Bina-Istra's Istrian Y prices come from bina-istra.json (fetch.py, from
+its online toll calculator); pass its path as a fourth argument, else the
+copy in this folder is used.
 """
 import json, math, os, re, sys
 
@@ -57,9 +58,9 @@ def km(a, b):
     return math.hypot((a["lon"] - b["lon"]) * 111.2 * math.cos(math.radians(a["lat"])), (a["lat"] - b["lat"]) * 111.2)
 
 
-def main(prices_path, booths_path, out):
+def main(prices_path, booths_path, out, bina_path=None):
     prices = json.load(open(prices_path))
-    bina = json.load(open(os.path.join(os.path.dirname(__file__), "bina-istra.json")))
+    bina = json.load(open(bina_path or os.path.join(os.path.dirname(__file__), "bina-istra.json")))
     # Merge Bina-Istra's pairs under their entries.
     prices["bina"] = {}
     for k, p in bina["prices"].items():

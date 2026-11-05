@@ -2,7 +2,7 @@ name: Tables data
 # Fetches the official pages behind the Romanian, Danish bridge and
 # Hungarian rate tables, the Fréjus and Mont Blanc tunnels and the Baltic,
 # Swedish, Luxembourg and UK road user charges, and the
-# Norwegian, Irish, Swedish bridge, North Macedonian, Montenegrin and Greek toll stations (tools/tables/sources.json), rebuilds the tables
+# Norwegian, Irish, Swedish bridge, North Macedonian, Montenegrin and Greek toll stations and the Turkish bridges (tools/tables/sources.json), rebuilds the tables
 # from them, compares them with the committed ones, and pushes the pages,
 # their manifest and the rebuilt tables to the tables-out branch. Push to
 # the tables-data branch to run it.
@@ -52,6 +52,12 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp gr.pbf > out/gr-osm-timestamp.txt
           osmium tags-filter -O -o gr-b.pbf gr.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,motorway_link,trunk_link
           osmium export -O -f geojsonseq -o out/gr-osm.geojsonseq gr-b.pbf
+      - name: Turkish bridges (OpenStreetMap)
+        run: |
+          curl -fsSL -o tr.pbf https://download.geofabrik.de/europe/turkey-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp tr.pbf > out/tr-osm-timestamp.txt
+          osmium tags-filter -O -o tr-b.pbf tr.pbf "w/name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü" "w/bridge:name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü"
+          osmium export -O -f geojsonseq -o out/tr-osm.geojsonseq tr-b.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables
@@ -71,6 +77,7 @@ jobs:
           python3 tools/tables/me.py out out/tables
           python3 tools/tables/gr.py out out/tables
           python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
+          python3 tools/tables/tr.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

@@ -1,0 +1,398 @@
+{
+ "files": [
+  {
+   "file": "aprr/page0.txt",
+   "url": "https://voyage.aprr.fr/tarifs-de-peage",
+   "sha256": "3a5bd256aaab66eebf49541439601a77925fb620408bdf14567f25754f2cc3c7",
+   "bytes": 5305,
+   "fetched": "2026-11-05T07:29:48Z"
+  },
+  {
+   "file": "aprr/TARIFS_APRR.pdf",
+   "url": "https://voyage.aprr.fr/sites/default/files/2026-02/TARIFS_APRR.pdf",
+   "sha256": "f05dfa58cb4ffba8b940b95319186fbf60f86d3791dce6a9df0919946b635d14",
+   "bytes": 1659925,
+   "fetched": "2026-11-05T07:29:48Z"
+  },
+  {
+   "file": "aprr/TARIFS_AREA.pdf",
+   "url": "https://voyage.aprr.fr/sites/default/files/2026-02/TARIFS_AREA.pdf",
+   "sha256": "e395aa88784cdcd960253213364c0dd4e82237b4b565cb1569a0642af220516b",
+   "bytes": 913573,
+   "fetched": "2026-11-05T07:29:49Z"
+  },
+  {
+   "file": "aprr/TARIFS_TML.pdf",
+   "url": "https://voyage.aprr.fr/sites/default/files/2026-02/TARIFS_TML.pdf",
+   "sha256": "aeaeffa50a906ff0928555d272d42a2fa9daf966de54ed555f3c3ac691b70179",
+   "bytes": 463996,
+   "fetched": "2026-11-05T07:29:49Z"
+  },
+  {
+   "file": "vinci/page0.txt",
+   "url": "https://www.vinci-autoroutes.com/page-data/fr/conseils/autoroute-mode-demploi/tarifs-peage-vinci-autoroutes/page-data.json",
+   "sha256": "f55952f41d8c46eceb3269d2ce7756227cc24280d27cd4f41f13d6c497a07b2f",
+   "bytes": 22222,
+   "fetched": "2026-11-05T07:29:50Z"
+  },
+  {
+   "file": "vinci/C1-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C1-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "sha256": "c3833bcb85fb207735b4226497aa610f9352e82a494bbf6f2e61d3205cb48e05",
+   "bytes": 401278,
+   "fetched": "2026-11-05T07:29:50Z"
+  },
+  {
+   "file": "vinci/C2-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C2-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "sha256": "63ab9865ea42420df2d52b5ef31f9b901b9702c70f2674e4b098cfec7df026e2",
+   "bytes": 400967,
+   "fetched": "2026-11-05T07:29:50Z"
+  },
+  {
+   "file": "vinci/C3-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C3-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "sha256": "cb5353fe8475fe1b146b4a1438fb188e746284a3ba49910cc60651474c223024",
+   "bytes": 539204,
+   "fetched": "2026-11-05T07:29:51Z"
+  },
+  {
+   "file": "vinci/C4-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C4-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "sha256": "ae25c6c336313e500fbf8f1d94148cf0490ae6b913d6e42fdc1fdc3d485fe66b",
+   "bytes": 403651,
+   "fetched": "2026-11-05T07:29:51Z"
+  },
+  {
+   "file": "vinci/C5-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C5-TARIFS-WEB-2026-maille_maj062026.pdf",
+   "sha256": "c771b23bdbc8c84ac86c3c03afe31f6c220df99f6a6c91beef3016abf4057664",
+   "bytes": 399626,
+   "fetched": "2026-11-05T07:29:51Z"
+  },
+  {
+   "file": "vinci/ASF-Guide-tarifaire-2026-maj062026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/ASF-Guide-tarifaire-2026-maj062026.pdf",
+   "sha256": "221f3990f98cd5379a9c1013c88f61513c859fd148fdc613e1bd02700da9f687",
+   "bytes": 7116462,
+   "fetched": "2026-11-05T07:29:51Z"
+  },
+  {
+   "file": "vinci/Cofiroute-Guide-tarifaire-2026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Cofiroute/Cofiroute-Guide-tarifaire-2026.pdf",
+   "sha256": "d8443adcc6f037e87a7f1b5c42730081e7ef45d78b45bffa0d72edd7c3ee433a",
+   "bytes": 5300803,
+   "fetched": "2026-11-05T07:29:53Z"
+  },
+  {
+   "file": "vinci/Tarifs-Duplex-2026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-Duplex-A86/Tarifs-Duplex-2026.pdf",
+   "sha256": "88b776f5562ee71ed51cb9f73fa32703aa0d174890b7e1a56a4f727c149e2c0c",
+   "bytes": 3662141,
+   "fetched": "2026-11-05T07:29:55Z"
+  },
+  {
+   "file": "vinci/Escota-Guide-tarifaire-2026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Escota/Escota-Guide-tarifaire-2026.pdf",
+   "sha256": "ec09a55bf149a7c6184bfa77c825924b78b621ab9a0253fe3cda1a4cfe13787d",
+   "bytes": 6083105,
+   "fetched": "2026-11-05T07:29:55Z"
+  },
+  {
+   "file": "vinci/A355-Guide-tarifaire-2026.pdf",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Arcos/A355-Guide-tarifaire-2026.pdf",
+   "sha256": "bf9598e4c93bdc4cb819e44a1614b838e7b7139ed7f450e14fb7f3d247475812",
+   "bytes": 8854025,
+   "fetched": "2026-11-05T07:29:56Z"
+  },
+  {
+   "file": "vinci/page1.txt",
+   "url": "https://www.vinci-autoroutes.com/fr/tarifs-peage-reseaux-vinci-autoroutes",
+   "sha256": "88714c04b33de6c214999c68731f95000160b33101e7d2cfc3ff71b7943de7f4",
+   "bytes": 8130,
+   "fetched": "2026-11-05T07:29:57Z"
+  },
+  {
+   "file": "vinci/vinci_autoroutes-tarifs-principales-liaisons-2026.pdf",
+   "url": "https://www.vinci-autoroutes.com/static/b9b8279934080436ee3bba255c7835e2/vinci_autoroutes-tarifs-principales-liaisons-2026.pdf",
+   "sha256": "cdd88fd48ef2f3a21e20dab635a9d3deaf41700c9b88a7da1cd1e6b2b433d151",
+   "bytes": 91034,
+   "fetched": "2026-11-05T07:29:58Z"
+  },
+  {
+   "file": "atmb/page0.txt",
+   "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/",
+   "sha256": "6fbc28e1067d7b90d5cb01cdcd566511f2f7f053f5945f2f462be98f91dcd49f",
+   "bytes": 26720,
+   "fetched": "2026-11-05T07:30:00Z"
+  },
+  {
+   "file": "atmb/page1.txt",
+   "url": "https://www.atmb.com/telepeage-tarifs/",
+   "sha256": "189501176870a44e2e2871bfd9c62839759b2ba81831cdc69afab9f533881549",
+   "bytes": 24572,
+   "fetched": "2026-11-05T07:30:02Z"
+  },
+  {
+   "file": "sftrf/page0.txt",
+   "url": "https://www.sftrf.fr/tarifs-autoroute/",
+   "sha256": "c89c3af77eeb05b5f886d567c5302e80cb197d405299e1a92dd189622d0fbba6",
+   "bytes": 4858,
+   "fetched": "2026-11-05T07:30:03Z"
+  },
+  {
+   "file": "sftrf/Tarifs_autoroute_2026_2.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2026/02/Tarifs_autoroute_2026_2.pdf",
+   "sha256": "7ae01282a17f25c5a3dd059f5856bbfe743f323bfb3927296ac6ed84897fe484",
+   "bytes": 345676,
+   "fetched": "2026-11-05T07:30:04Z"
+  },
+  {
+   "file": "sftrf/Tarifs_autoroute_2026_1.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2026/02/Tarifs_autoroute_2026_1.pdf",
+   "sha256": "aa855ecb0ae28ac60aecb046470a4cfa55e033d360f437d87dbdce76072b0271",
+   "bytes": 2533435,
+   "fetched": "2026-11-05T07:30:06Z"
+  },
+  {
+   "file": "sftrf/page1.txt",
+   "url": "https://www.sftrf.fr/tarifs-tunnel/",
+   "sha256": "20f6c509d02d6661541ab56e30cfa48988f2796caf30f709d337ecc8acd99775",
+   "bytes": 4991,
+   "fetched": "2026-11-05T07:30:08Z"
+  },
+  {
+   "file": "sftrf/Tarifs_tunnel_2026_FR.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_FR.pdf",
+   "sha256": "e60b71e6a68c8d7813e933c63f5608d671aef4a298b37cdfdd1408ff8f240882",
+   "bytes": 804145,
+   "fetched": "2026-11-05T07:30:09Z"
+  },
+  {
+   "file": "sftrf/Tarifs_tunnel_2026_IT.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_IT.pdf",
+   "sha256": "aa5c0ff8a727ccbdf1340a0a4e2146a24286a1c6fb3359c6df815406ff99eb13",
+   "bytes": 7052835,
+   "fetched": "2026-11-05T07:30:11Z"
+  },
+  {
+   "file": "alis/page0.txt",
+   "url": "https://www.alis-sa.com/fr/preparez-votre-voyage/tarifs-alis-a28-rouen-alencon",
+   "sha256": "9fb996b730a206f59019e103b8901be77acb8531b336cc9a8672159dc3d61e23",
+   "bytes": 8101,
+   "fetched": "2026-11-05T07:30:12Z"
+  },
+  {
+   "file": "alienor/page0.txt",
+   "url": "https://www.a65-alienor.com/tarifs-de-peage",
+   "sha256": "530ab0628df4ca9fb3cda30e13e51f533eb81d514d55c9ced8feb2ced0e72f17",
+   "bytes": 5789,
+   "fetched": "2026-11-05T07:30:13Z"
+  },
+  {
+   "file": "alienor/2026_02_01_-_TARIFS_A65.pdf",
+   "url": "http://www.a65-alienor.com/sites/alienor/files/2026-01/2026%2002%2001%20-%20TARIFS%20A65.pdf",
+   "sha256": "3bfcaffe4602e23a9775e4ca5693930fb54e6249e67b55823a3f121b7dcbbf14",
+   "bytes": 254168,
+   "fetched": "2026-11-05T07:30:15Z"
+  },
+  {
+   "file": "adelac/page0.txt",
+   "url": "https://www.a41-adelac.com/tarifs-de-peage-au-1er-fevrier-2025-sur-la-liane-adelac",
+   "sha256": "03ed943c66bc74debcd10d80b6f0376379988d341a223f2b106ea878e7a6a103",
+   "bytes": 6425,
+   "fetched": "2026-11-05T07:30:17Z"
+  },
+  {
+   "file": "adelac/TARIFS_2026.pdf",
+   "url": "http://www.a41-adelac.com/sites/adelac/files/2026-02/TARIFS_2026.pdf",
+   "sha256": "4a44e9c379dbdb83c40ad7c59b098a0e7353d6984f40eecd2cb8c2aeef1996a1",
+   "bytes": 148370,
+   "fetched": "2026-11-05T07:30:19Z"
+  },
+  {
+   "file": "cevm/page0.txt",
+   "url": "https://www.leviaducdemillau.com/accueil-viaduc-de-millau/tarifs-du-peage.html",
+   "sha256": "d5e355f890b32ccb0a1636ce477d53dc0f751cac2f5d0806272ddc94a9514bab",
+   "bytes": 12556,
+   "fetched": "2026-11-05T07:30:20Z"
+  },
+  {
+   "file": "cevm/Tarifs_de_p_age_2026.pdf",
+   "url": "https://www.leviaducdemillau.com/files/live/sites/viaducdemillau/files/Tarifs%20de%20p%c3%a9age%202026.pdf",
+   "sha256": "07096975502a963e5136be2a6b2ecfd86112d7a2c7b003eb5cfeb4241bbd7246",
+   "bytes": 7556654,
+   "fetched": "2026-11-05T07:30:20Z"
+  },
+  {
+   "file": "cevm/asfa_classes_vehicules_01-01-19.pdf",
+   "url": "https://www.leviaducdemillau.com/files/live/sites/viaducdemillau/files/asfa_classes_vehicules_01-01-19.pdf",
+   "sha256": "610b028a1579f77cfdd8f7910528d38099dbdaf343186b52e2ede1535fa97cad",
+   "bytes": 1568707,
+   "fetched": "2026-11-05T07:30:20Z"
+  },
+  {
+   "file": "cevm/VIADUC_T30_2V_200x210.pdf",
+   "url": "https://www.leviaducdemillau.com/files/live/sites/viaducdemillau/files/Fichiers%20PDF/VIADUC%20T30_2V_200x210.pdf",
+   "sha256": "259419689875b3eab2da78c258b73e164f0fc2f99668753d62d6124aea5698af",
+   "bytes": 1356172,
+   "fetched": "2026-11-05T07:30:20Z"
+  },
+  {
+   "file": "albea/page0.txt",
+   "url": "https://www.a150-albea.fr/les-points-dinterets/peage/",
+   "sha256": "cc1a99d9a5bc277869a7997d9cde66d795c32786503cde7dcee38607ad1ac54e",
+   "bytes": 12754,
+   "fetched": "2026-11-05T07:30:22Z"
+  },
+  {
+   "file": "atlandes/page0.txt",
+   "url": "https://www.a63-atlandes.fr/fr/calculateur-de-tarifs/",
+   "sha256": "3c076f83dc6f1b5fcd09386c50df28e9c15c3e3aa759d1fb405ee1c302f12fce",
+   "bytes": 6047,
+   "fetched": "2026-11-05T07:30:27Z"
+  },
+  {
+   "file": "aliae/page0.txt",
+   "url": "https://www.aliae.com/solutions-de-paiement",
+   "sha256": "3ebbfbdac6e7c9c44e8114df06b749e6bafee688c54940a84e32059f5ce6f14a",
+   "bytes": 5100,
+   "fetched": "2026-11-05T07:30:27Z"
+  },
+  {
+   "file": "aliae/TARIFS_ALIAE-2026.pdf",
+   "url": "https://www.aliae.com/files/live/sites/aliae/files/Documents/TARIFS_ALIAE-2026.pdf",
+   "sha256": "39f628ce6993f2a2e31a9d147cbb145d2b0bb325e7580287e06603ed7d460339",
+   "bytes": 1375203,
+   "fetched": "2026-11-05T07:30:27Z"
+  },
+  {
+   "file": "stations/dataset.json",
+   "url": "https://www.data.gouv.fr/api/1/datasets/gares-de-peage-du-reseau-routier-national-concede/",
+   "sha256": "3fea799214d6036f68a5784537d42b58fa5ef39c7f9a3e18df4ee80e4f5a5ffd",
+   "bytes": 30639,
+   "fetched": "2026-11-05T07:30:29Z"
+  },
+  {
+   "file": "stations/Gares-peage_2025_shp",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20250805-130921/gares-peage-2025-shp.zip",
+   "sha256": "8cb9863bcc087d33db4f4af31356513ac06853142358f4eb8f767059aba8aed9",
+   "bytes": 65013,
+   "fetched": "2026-11-05T07:30:30Z"
+  },
+  {
+   "file": "stations/Gares-Peage_2025",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20250728-140859/gares-peage-2025.csv",
+   "sha256": "e70ebf3d57c550eb8e0b9583aba697273b6089d72bdfd2515a595248e18937ec",
+   "bytes": 120560,
+   "fetched": "2026-11-05T07:30:31Z"
+  },
+  {
+   "file": "stations/Gares-peage_2024_shp",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20240927-141128/gares-peage-2024-shp.zip",
+   "sha256": "64eebb974e75ea1bb2aa0218cbeac34fc974036d88af785adb132adfecf46a29",
+   "bytes": 65838,
+   "fetched": "2026-11-05T07:30:32Z"
+  },
+  {
+   "file": "stations/Gares-peage_2024",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20240927-140710/gares-peage-2024.csv",
+   "sha256": "b635f7ea9936724c9eea49f9bddafa3217f58e827211f662a972b103b550539b",
+   "bytes": 120562,
+   "fetched": "2026-11-05T07:30:33Z"
+  },
+  {
+   "file": "stations/Gares-peage_2023_shp",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20230728-163741/gares-peage-2023-shp.zip",
+   "sha256": "f1239e9ebdf28b50866b22164fe1a83fc5ac63093485c4c84e7fbc3c69edd689",
+   "bytes": 67308,
+   "fetched": "2026-11-05T07:30:34Z"
+  },
+  {
+   "file": "stations/Gares-peage_2023",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20230728-163544/gares-peage-2023.csv",
+   "sha256": "465ca12001f7ac1e49ca5561c455739639aaae9be2f808d3b6d4a6b2828aa150",
+   "bytes": 120554,
+   "fetched": "2026-11-05T07:30:35Z"
+  },
+  {
+   "file": "stations/Gares-peage_2022_shp",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20230728-163332/gares-peage-2022-shp.zip",
+   "sha256": "898a5a63b752776b76dd10dcedfd0d75901826f27abce99e153a63c4178371c0",
+   "bytes": 67260,
+   "fetched": "2026-11-05T07:30:36Z"
+  },
+  {
+   "file": "stations/Gares-peage_2022",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20230728-162819/gares-peage-2022.csv",
+   "sha256": "0f0395aae6d6ffb9863706600ae6445c316c7e7de2491ac1e6595b286edd086f",
+   "bytes": 126150,
+   "fetched": "2026-11-05T07:30:37Z"
+  },
+  {
+   "file": "stations/Gares-Peage_2019_shp",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20210224-180201/gares-peage-2019-shp.zip",
+   "sha256": "83010c8d9ecc64b161d84db6ada650689f8c6e37902a0cdf0d6026afc060b2cd",
+   "bytes": 41686,
+   "fetched": "2026-11-05T07:30:38Z"
+  },
+  {
+   "file": "stations/Gares-Peage_2019",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20210224-175626/gares-peage-2019.csv",
+   "sha256": "3f4db13693ad0f303069beeedb880a0532547cef2b32caa069b60aacae0c0a85",
+   "bytes": 136075,
+   "fetched": "2026-11-05T07:30:39Z"
+  },
+  {
+   "file": "stations/Gares_2017",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20180802-150633/Gares_2017.csv",
+   "sha256": "01f058fa4f47727572c1cc2534f8f02ded6ab8ab0990da567b900326cbbeba67",
+   "bytes": 135274,
+   "fetched": "2026-11-05T07:30:40Z"
+  },
+  {
+   "file": "stations/Gares_2015",
+   "url": "https://static.data.gouv.fr/resources/gares-de-peage-du-reseau-routier-national-concede/20170825-172559/Gares_2015.csv",
+   "sha256": "def34270b4a88b0f5a7f9e8076316581f25eb8636d4ca8b252b8dd1d345475f3",
+   "bytes": 133500,
+   "fetched": "2026-11-05T07:30:41Z"
+  }
+ ],
+ "errors": [
+  {
+   "operator": "sanef",
+   "url": "https://www.autoroutes.sanef.com/fr/grilles-tarifs-de-peage",
+   "error": "HTTP Error 403: Forbidden"
+  },
+  {
+   "operator": "sanef",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-Sanef.pdf",
+   "error": "HTTP Error 403: Forbidden"
+  },
+  {
+   "operator": "sanef",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-SAPN.pdf",
+   "error": "HTTP Error 403: Forbidden"
+  },
+  {
+   "operator": "sanef",
+   "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-02/grille-modulee-01022026.pdf",
+   "error": "HTTP Error 403: Forbidden"
+  },
+  {
+   "operator": "alis",
+   "url": "https://www.alis-sa.com/fr/preparez-votre-voyage/assets/files/asfa_classes_vehicules_01-01-19.pdf",
+   "error": "HTTP Error 403: Forbidden"
+  },
+  {
+   "operator": "alicorne",
+   "url": "https://a88-alicorne.fr/tarifs/",
+   "error": "HTTP Error 406: Not Acceptable"
+  },
+  {
+   "operator": "ccise",
+   "url": "https://www.pontsnormandietancarville.fr/les-tarifs/",
+   "error": "HTTP Error 406: Not Acceptable"
+  }
+ ]
+}

@@ -1,0 +1,682 @@
+ Autoroute , Societe , Departement , Sens , PR , Absc , Echangeur , Type , Nom gare , Date 1ere m.s. , Site 
+A1        ,SANEF     ,Val d'oise,-,27,873,,Gare sur bretelle d'échangeur                                                                       ,SAINT WITZ (ENTREE),30-12-1964,Gare isolée
+A1        ,SANEF     ,Val d'oise,+,27,873,,Gare sur bretelle d'échangeur                                                                       ,SAINT WITZ (SORTIE),30-12-1964,Gare isolée
+A1        ,SANEF     ,Oise,*,42,426,SENLIS SUD,Sur échangeur (diffuseur)                                                                           ,SENLIS BONSECOURS,29-11-1965,Gare isolée
+A1        ,SANEF     ,Oise,*,44,120,,Barrière pleine voie sur l'autoroute                                                                ,CHAMANT,29-11-1965,Gare principale d'un site de plusieurs gares
+A1        ,SANEF     ,Oise,*,44,120,,Gare sur bretelle d'échangeur                                                                       ,SENLIS NORD(ENTREE),29-11-1965,Gare secondaire d'un site de plusieurs gares
+A1        ,SANEF     ,Oise,*,44,120,,Gare sur bretelle d'échangeur                                                                       ,SENLIS NORD(SORTIE),29-11-1965,Gare secondaire d'un site de plusieurs gares
+A1        ,SANEF     ,Oise,*,57,740,CHEVRIERES,Sur échangeur (diffuseur)                                                                           ,CHEVRIERES,23-01-1986,Gare isolée
+A1        ,SANEF     ,Oise,*,66,470,ARSY,Sur échangeur (diffuseur)                                                                           ,ARSY,29-11-1965,Gare isolée
+A1        ,SANEF     ,Oise,*,80,540,RESSONS,Sur échangeur (diffuseur)                                                                           ,RESSONS,29-11-1965,Gare isolée
+A1        ,SANEF     ,Somme,*,101,300,ROYE,Sur échangeur (diffuseur)                                                                           ,ROYE,29-11-1965,Gare isolée
+A1        ,SANEF     ,Somme,*,121,480,VALLEE DE LA SOMME,Sur échangeur (diffuseur)                                                                           ,VALLEE DE LA SOMME,15-12-1966,Gare isolée
+A1        ,SANEF     ,Somme,*,131,880,MAUREPAS (ALBERT-PERONNE),Sur échangeur (diffuseur)                                                                           ,MAUREPAS                                ,01-01-1994,Gare isolée
+A1        ,SANEF     ,Pas de Calais,*,146,870,BAPAUME,Sur échangeur (diffuseur)                                                                           ,BAPAUME,15-12-1966,Gare isolée
+A1        ,SANEF     ,Pas de Calais,*,165,984,L'ARRAGEOIS,Sur échangeur (diffuseur)                                                                           ,L'ARRAGEOIS,29-11-1967,Gare isolée
+A1        ,SANEF     ,Pas de Calais,*,174,60,,Barrière pleine voie sur l'autoroute                                                                ,FRESNES LES MONTAUBAN,29-11-1967,Gare isolée
+A10       ,COFIROUTE ,Yvelines,*,19,573,,Gare sur bretelle d'échangeur                                                                       ,DOURDAN (ENTRéE),30-10-1972,Gare isolée
+A10       ,COFIROUTE ,Yvelines,*,19,573,,Gare sur bretelle d'échangeur                                                                       ,DOURDAN (SORTIE),30-10-1972,Gare isolée
+A10       ,COFIROUTE ,Yvelines,*,24,0,,Barrière pleine voie sur l'autoroute                                                                ,SAINT ARNOULT,30-10-1972,Gare isolée
+A10       ,COFIROUTE ,Yvelines,*,36,69,ALLAINVILLE,Sur échangeur (diffuseur)                                                                           ,ALLAINVILLE,12-10-1973,Gare isolée
+A10       ,COFIROUTE ,Eure et Loire,*,64,670,ALLAINES,Sur échangeur (diffuseur)                                                                           ,ALLAINES,12-10-1973,Gare isolée
+A10       ,COFIROUTE ,Loiret,*,78,50,ARTENAY,Sur échangeur (diffuseur)                                                                           ,ARTENAY,23-12-1982,Gare isolée
+A10       ,COFIROUTE ,Loiret,*,115,74,MEUNG,Sur échangeur (diffuseur)                                                                           ,MEUNG,18-07-1974,Gare isolée
+A10       ,COFIROUTE ,Loire et Cher,*,131,645,MER,Sur échangeur (diffuseur)                                                                           ,MER,26-06-1992,Gare isolée
+A10       ,COFIROUTE ,Loire et Cher,*,148,797,BLOIS,Sur échangeur (diffuseur)                                                                           ,BLOIS,18-07-1974,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,178,462,AMBOISE CHATEAU RENAULT,Sur échangeur (diffuseur)                                                                           ,AMBOISE - CHATEAU RENAULT,18-07-1974,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,192,425,,Barrière pleine voie sur l'autoroute                                                                ,MONNAIE,18-07-1974,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,199,775,TOURS NORD PARCAY MESLAY,Sur échangeur (diffuseur)                                                                           ,TOURS NORD (B)                          ,01-07-1974,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,199,776,TOURS NORD PARCAY MESLAY,Sur échangeur (diffuseur)                                                                           ,TOURS NORD (A)                          ,01-07-1974,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,212,592,CHAMBRAY (->RN143),Sur échangeur (diffuseur)                                                                           ,CHAMBRAY (RN143),28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,212,876,CHAMBRAY (->RN10),Sur échangeur (diffuseur)                                                                           ,CHAMBRAY (RN10),28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,214,630,LA THIBAUDIERE,Sur échangeur (diffuseur)                                                                           ,LA THIBAUDIERE,14-12-1995,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,223,360,MONTS-SORIGNY,Sur échangeur (diffuseur)                                                                           ,MONTS SORIGNY,01-10-2004,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,228,0,,Barrière pleine voie sur l'autoroute                                                                ,SORIGNY,28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Indre et Loire,*,241,300,SAINTE MAURE,Sur échangeur (diffuseur)                                                                           ,SAINTE MAURE,28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Vienne,*,272,255,CHATELLERAULT NORD,Sur échangeur (diffuseur)                                                                           ,CHATELLERAULT NORD,28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Vienne,*,278,933,CHATELLERAULT SUD,Sur échangeur (diffuseur)                                                                           ,CHATELLERAULT SUD,28-10-1977,Gare isolée
+A10       ,COFIROUTE ,Vienne,*,295,899,FUTUROSCOPE,Sur échangeur (diffuseur)                                                                           ,FUTUROSCOPE                             ,28-04-1989,Gare isolée
+A10       ,COFIROUTE ,Vienne,*,301,442,POITIERS NORD,Sur échangeur (diffuseur)                                                                           ,POITIERS NORD,30-06-1977,Gare isolée
+A10       ,COFIROUTE ,Vienne,*,311,50,POITIERS SUD,Sur échangeur (diffuseur)                                                                           ,POITIERS SUD,30-06-1977,Gare isolée
+A10       ,ASF       ,Sévres (Les deux Sévres),*,343,808,ST. MAIXENT L'ECOLE,Sur échangeur (diffuseur)                                                                           ,ST MAIXENT L'ECOLE-SOUDAN,23-07-1981,Gare isolée
+A10       ,ASF       ,Sévres (Les deux Sévres),*,370,58,VOUILLE,Sur échangeur (diffuseur)                                                                           ,VOUILLE (LIMOGES NIORT),23-07-1981,Gare isolée
+A10       ,ASF       ,Sévres (Les deux Sévres),*,379,806,NIORT SUD,Sur échangeur (diffuseur)                                                                           ,NIORT SUD,23-07-1981,Gare isolée
+A10       ,ASF       ,Charente Maritime,*,412,480,SAINT JEAN D'ANGELY,Sur échangeur (diffuseur)                                                                           ,ST JEAN D'ANGELY,23-07-1981,Gare isolée
+A10       ,ASF       ,Charente Maritime,*,439,89,SAINTES,Sur échangeur (diffuseur)                                                                           ,SAINTES,23-07-1981,Gare isolée
+A10       ,ASF       ,Charente Maritime,*,460,450,PONS,Sur échangeur (diffuseur)                                                                           ,PONS,03-06-1981,Gare isolée
+A10       ,ASF       ,Charente Maritime,*,483,809,MIRAMBEAU,Sur échangeur (diffuseur)                                                                           ,MIRAMBEAU,03-06-1981,Gare isolée
+A10       ,ASF       ,Gironde,*,497,489,MONTENDRE (ST AUBIN),Sur échangeur (diffuseur)                                                                           ,SAINT AUBIN DE BLAYE,03-06-1981,Gare isolée
+A10       ,ASF       ,Gironde,*,525,372,,Barrière pleine voie sur l'autoroute                                                                ,VIRSAC,05-06-1981,Gare isolée
+A11       ,COFIROUTE ,Yvelines,*,31,970,ABLIS,Sur échangeur (diffuseur)                                                                           ,ABLIS,30-12-1972,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,55,377,,Gare sur bretelle d'échangeur                                                                       ,CHARTRES EST,30-12-1972,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,55,377,,Gare sur bretelle d'échangeur                                                                       ,CHARTRES EST (-),30-12-1972,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,68,240,,Gare sur bretelle d'échangeur                                                                       ,THIVARS(-),30-12-1972,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,68,240,,Gare sur bretelle d'échangeur                                                                       ,THIVARS (+)I,30-12-1972,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,83,440,,Gare sur bretelle d'échangeur                                                                       ,ILLIERS-COMBRAY,,Gare isolée
+A11       ,COFIROUTE ,Eure et Loire,*,102,735,LUIGNY,Sur échangeur (diffuseur)                                                                           ,LUIGNY,19-12-1975,Gare isolée
+A11       ,COFIROUTE ,Sarthe,*,130,390,LA FERTE BERNARD,Sur échangeur (diffuseur)                                                                           ,LA FERTE BERNARD,19-12-1975,Gare isolée
+A11       ,COFIROUTE ,Sarthe,*,170,949,,Sur échangeur (diffuseur)                                                                           ,LE MANS NORD                            ,01-08-1978,Gare isolée
+A11       ,ASF       ,Sarthe,*,176,599,LE MANS OUEST,Sur échangeur (diffuseur)                                                                           ,LE MANS OUEST,24-03-1989,Gare isolée
+A11       ,COFIROUTE ,Sarthe,*,176,599,LE MANS OUEST,Sur échangeur (diffuseur)                                                                           ,LE MANS OUEST,24-03-1989,Gare isolée
+A11       ,ASF       ,Sarthe,*,184,370,LE MANS SUD,Sur échangeur (diffuseur)                                                                           ,LE MANS SUD,05-07-1991,Gare isolée
+A11       ,ASF       ,Sarthe,*,215,249,SABLE - LA FLECHE,Sur échangeur (diffuseur)                                                                           ,SABLE LAFLECHE,28-06-1988,Gare isolée
+A11       ,ASF       ,Maine et Loire,*,229,35,DURTAL,Sur échangeur (diffuseur)                                                                           ,DURTAL,27-06-1987,Gare isolée
+A11       ,ASF       ,Maine et Loire,*,242,131,SEICHES SUR LE LOIR,Sur échangeur (diffuseur)                                                                           ,SEICHES SUR LE LOIR,27-06-1987,Gare isolée
+A11       ,ASF       ,Maine et Loire,*,245,80,,Barrière pleine voie sur l'autoroute                                                                ,CORZE (BPV A11),27-06-1987,Gare isolée
+A11       ,COFIROUTE ,Maine et Loire,*,285,510,ST GERMAIN DES PRES BEAUPRéAU CHALONNES,Sur échangeur (diffuseur)                                                                           ,ST GERMAIN DES PRES,05-01-1996,Gare isolée
+A11       ,COFIROUTE ,Loire Atlantique,*,315,295,,Barrière pleine voie sur l'autoroute                                                                ,ANCENIS,23-12-1980,Gare principale d'un site de plusieurs gares
+A11       ,COFIROUTE ,Loire Atlantique,*,315,870,ANCENIS,Sur échangeur (diffuseur)                                                                           ,ANCENIS NORD,23-12-1980,Gare secondaire d'un site de plusieurs gares
+A11       ,COFIROUTE ,Loire Atlantique,*,315,870,ANCENIS,Sur échangeur (diffuseur)                                                                           ,ANCENIS SUD,23-12-1980,Gare secondaire d'un site de plusieurs gares
+A11       ,COFIROUTE ,Loire Atlantique,*,340,606,,Gare sur bretelle d'échangeur                                                                       ,VIEILLEVILLE NORD,05-01-1996,Gare isolée
+A11       ,COFIROUTE ,Loire Atlantique,*,340,606,,Gare sur bretelle d'échangeur                                                                       ,VIEILLEVILLE SUD,05-01-1996,Gare isolée
+A13       ,SAPN      ,Yvelines,*,48,200,,Barrière pleine voie sur l'autoroute                                                                ,BUCHELAY,31-12-1996,Gare isolée
+A13       ,SAPN      ,Eure,*,90,400,LOUVIERS,Gare sur bretelle d'échangeur                                                                       ,HEUDEBOUVILLE (SENS +)                  ,19-08-1968,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,90,400,LOUVIERS,Sur échangeur (diffuseur)                                                                           ,LOUVIERS,01-12-1968,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,90,400,,Barrière pleine voie sur l'autoroute                                                                ,HEUDEBOUVILLE,19-08-1968,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,97,582,,Gare sur bretelle d'échangeur                                                                       ,INCARVILLE (ENTREE),18-12-1970,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,97,582,,Gare sur bretelle d'échangeur                                                                       ,INCARVILLE (SORTIE),18-12-1970,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,130,899,BOURG ACHARD,Sur échangeur (diffuseur)                                                                           ,BOURG ACHARD,31-12-1972,Gare isolée
+A13       ,SAPN      ,Eure,*,145,330,BOURNEVILLE PONT AUDEMER,Sur échangeur (diffuseur)                                                                           ,BOURNEVILLE (ENTREE),27-12-1972,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,145,330,BOURNEVILLE PONT AUDEMER,Sur échangeur (diffuseur)                                                                           ,BOURNEVILLE (SORTIE),27-12-1972,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,167,75,,Gare sur bretelle d'échangeur                                                                       ,BEUZEVILLE ECHANGEUR (ENTREE VERS CAEN),01-12-1976,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,167,75,,Gare sur bretelle d'échangeur                                                                       ,BEUZEVILLE ECHANGEUR (ENTREE VERS PARIS),01-12-1976,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,167,75,,Gare sur bretelle d'échangeur                                                                       ,BEUZEVILLE ECHANGEUR (SORTIE DE CAEN),01-12-1976,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,167,75,,Gare sur bretelle d'échangeur                                                                       ,BEUZEVILLE ECHANGEUR (SORTIE DE PARIS),01-12-1976,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Eure,*,167,460,,Barrière pleine voie sur l'autoroute                                                                ,BEUZEVILLE,18-06-1976,Gare isolée
+A13       ,SAPN      ,Calvados,*,203,500,,Barrière pleine voie sur l'autoroute                                                                ,DOZULE,29-07-1976,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Calvados,*,203,796,DOZULE,Sur échangeur (diffuseur)                                                                           ,DOZULE (ECHANGEUR),01-12-1976,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Calvados,*,214,490,,Gare sur bretelle d'échangeur                                                                       ,TROARN (ENTREE),15-12-1973,Gare principale d'un site de plusieurs gares
+A13       ,SAPN      ,Calvados,*,214,490,,Gare sur bretelle d'échangeur                                                                       ,TROARN (SORTIE),15-12-1973,Gare secondaire d'un site de plusieurs gares
+A13       ,SAPN      ,Calvados,-,218,300,,Gare sur bretelle d'échangeur                                                                       ,BIF A13 A813 (SORTIE),05-01-2012,Gare isolée
+A13       ,SAPN      ,Calvados,+,218,300,,Gare sur bretelle d'échangeur                                                                       ,BIF A13 A813,05-01-2012,Gare isolée
+A131      ,SAPN      ,Eure,*,1,283,,Barrière pleine voie sur l'autoroute                                                                ,BOURNEVILLE,23-07-1992,Gare isolée
+A14       ,SAPN      ,Yvelines,-,7,780,,Barrière pleine voie sur l'autoroute                                                                ,MONTESSON SUD,06-11-1996,Gare principale d'un site de plusieurs gares
+A14       ,SAPN      ,Yvelines,+,8,140,,Barrière pleine voie sur l'autoroute                                                                ,MONTESSON NORD,06-11-1996,Gare secondaire d'un site de plusieurs gares
+A16       ,SANEF     ,Oise,*,42,400,,Barrière pleine voie sur l'autoroute                                                                ,AMBLAINVILLE,20-10-1994,Gare isolée
+A16       ,SANEF     ,Oise,*,43,338,AMBLAINVILLE MERU,Sur échangeur (diffuseur)                                                                           ,MERU,20-10-1994,Gare isolée
+A16       ,SANEF     ,Oise,*,68,220,BEAUVAIS CENTRE (EX SUD),Sur échangeur (diffuseur)                                                                           ,BEAUVAIS CENTRE,20-10-1994,Gare isolée
+A16       ,SANEF     ,Oise,*,72,30,BEAUVAIS EST,Sur échangeur (diffuseur)                                                                           ,BEAUVAIS EST,20-10-1994,Gare isolée
+A16       ,SANEF     ,Oise,*,92,510,HARDIVILLERS,Sur échangeur (diffuseur)                                                                           ,HARDIVILLERS,20-10-1994,Gare isolée
+A16       ,SANEF     ,Somme,*,108,100,ESSERTAUX,Sur échangeur (diffuseur)                                                                           ,ESSERTAUX,20-10-2006,Gare isolée
+A16       ,SANEF     ,Somme,*,123,200,RN 29,Sur échangeur (diffuseur)                                                                           ,SALOUEL,26-06-1995,Gare isolée
+A16       ,SANEF     ,Somme,*,126,907,PENETRANTE OUEST D'AMIENS,Sur échangeur (diffuseur)                                                                           ,AMIENS OUEST,27-06-1997,Gare isolée
+A16       ,SANEF     ,Somme,*,131,555,AMIENS NORD OUEST,Sur échangeur (diffuseur)                                                                           ,AMIENS NORD,27-06-1997,Gare isolée
+A16       ,SANEF     ,Somme,*,149,622,VALLEE DE LA NIEVRE,Sur échangeur (diffuseur)                                                                           ,FLIXECOURT,27-06-1997,Gare isolée
+A16       ,SANEF     ,Somme,*,167,566,ABBEVILLE EST,Sur échangeur (diffuseur)                                                                           ,ABBEVILLE EST,27-06-1997,Gare isolée
+A16       ,SANEF     ,Somme,*,174,221,ABBEVILLE NORD,Sur échangeur (diffuseur)                                                                           ,ABBEVILLE NORD,15-05-1998,Gare isolée
+A16       ,SANEF     ,Somme,*,188,693,COTE PICARDE,Sur échangeur (diffuseur)                                                                           ,RUE,15-05-1998,Gare isolée
+A16       ,SANEF     ,Pas de Calais,*,207,352,BERCK,Sur échangeur (diffuseur)                                                                           ,BERCK,15-05-1998,Gare isolée
+A16       ,SANEF     ,Pas de Calais,*,219,218,ETAPLES-LE TOUQUET,Sur échangeur (diffuseur)                                                                           ,LE TOUQUET,15-05-1998,Gare isolée
+A16       ,SANEF     ,Pas de Calais,*,231,704,NEUFCHATEL-HARDELOT,Sur échangeur (diffuseur)                                                                           ,NEUFCHATEL HARDELOT,15-05-1998,Gare isolée
+A16       ,SANEF     ,Pas de Calais,*,239,539,BOULOGNE SUD,Sur échangeur (diffuseur)                                                                           ,ISQUES,15-05-1998,Gare isolée
+A16       ,SANEF     ,Pas de Calais,*,243,797,,Barrière pleine voie sur l'autoroute                                                                ,HERQUELINGUE,26-05-1998,Gare isolée
+A19       ,APRR      ,Yonne,*,4,767,SAINT DENIS LES SENS,Sur échangeur (diffuseur)                                                                           ,SAINT DENIS LES SENS,07-11-1997,Gare isolée
+A19       ,APRR      ,Yonne,*,17,800,VILLENEUVE LA DONDAGRE,Sur échangeur (diffuseur)                                                                           ,VILLENEUVE LA DONDAGRE,07-11-1997,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,30,910,DIFFUSEUR DE SAVIGNY SUR CLAIRIS,Sur échangeur (diffuseur)                                                                           ,SAVIGNY-SUR-CLAIRIS,16-06-2009,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,36,236,,Gare sur bretelle d'échangeur                                                                       ,SAINT-HILAIRE-LES-ANDRéSIS,16-06-2009,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,55,634,,Gare sur bretelle d'échangeur                                                                       ,FONTENAY-SUR-LOING,16-06-2009,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,63,998,,Gare sur bretelle d'échangeur                                                                       ,GONDREVILLE,16-06-2009,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,79,709,,Gare sur bretelle d'échangeur                                                                       ,AUXY,16-06-2009,Gare isolée
+A19       ,ARCOUR    ,Loiret,*,100,561,,Gare sur bretelle d'échangeur                                                                       ,ESCRENNES,16-06-2009,Gare isolée
+A2        ,SANEF     ,Nord,*,29,314,FONTAINE NOTRE DAME,Sur échangeur (diffuseur)                                                                           ,FONTAINE NOTRE DAME,19-12-1972,Gare isolée
+A2        ,SANEF     ,Nord,*,42,323,,Barrière pleine voie sur l'autoroute                                                                ,HORDAIN-THUN L'EVEQUE,19-12-1972,Gare isolée
+A20       ,ASF       ,Lot,*,294,5,MARTEL,Sur échangeur (diffuseur)                                                                           ,MARTEL,05-02-1999,Gare isolée
+A20       ,ASF       ,Lot,*,294,344,,Barrière pleine voie sur l'autoroute                                                                ,GIGNAC,05-02-1999,Gare isolée
+A20       ,ASF       ,Lot,*,305,467,SOUILLAC,Sur échangeur (diffuseur)                                                                           ,SOUILLAC,13-07-2001,Gare isolée
+A20       ,ASF       ,Lot,*,329,699,LABASTIDE MURAT,Sur échangeur (diffuseur)                                                                           ,LABASTIDE,13-07-2001,Gare isolée
+A20       ,ASF       ,Lot,*,351,414,CAHORS NORD,Sur échangeur (diffuseur)                                                                           ,CAHORS NORD,13-07-2001,Gare isolée
+A20       ,ASF       ,Lot,*,374,96,CAHORS SUD,Sur échangeur (diffuseur)                                                                           ,CAHORS SUD,10-07-1998,Gare isolée
+A20       ,ASF       ,Tarn et Garonne,*,396,580,CAUSSADE,Sur échangeur (diffuseur)                                                                           ,CAUSSADE,10-07-1998,Gare isolée
+A20       ,ASF       ,Tarn et Garonne,*,411,535,,Barrière pleine voie sur l'autoroute                                                                ,MONTAUBAN NORD,10-07-1998,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,18,380,NORDAUSQUES,Gare sur bretelle d'échangeur                                                                       ,NORDAUSQUES (A)                         ,11-08-1983,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,18,380,NORDAUSQUES,Sur échangeur (diffuseur)                                                                           ,NORDAUSQUES (B)                         ,11-08-1983,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,32,356,,Gare sur bretelle d'échangeur                                                                       ,L'AUDOMAROIS  B,20-12-1981,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,32,716,,Barrière pleine voie sur l'autoroute                                                                ,SETQUES,11-08-1983,Gare principale d'un site de plusieurs gares
+A26       ,SANEF     ,Pas de Calais,*,32,716,,Gare sur bretelle d'échangeur                                                                       ,AUDOMAROIS A,20-12-1981,Gare secondaire d'un site de plusieurs gares
+A26       ,SANEF     ,Pas de Calais,*,40,600,THEROUANNE,Sur échangeur (diffuseur)                                                                           ,THEROUANNE,25-06-1990,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,61,670,LILLERS,Sur échangeur (diffuseur)                                                                           ,LILLERS,20-12-1981,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,73,612,LE BETHUNOIS,Sur échangeur (diffuseur)                                                                           ,LE BETHUNOIS,03-12-1976,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,79,180,NOEUD-LES-MINES,Sur échangeur (diffuseur)                                                                           ,NOEUD-LES-MINES,,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,85,40,LE LIEVINOIS AIX NOULETTE,Sur échangeur (diffuseur)                                                                           ,LE LIEVINOIS AIX NOULETTE,03-12-1976,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,97,492,THELUS,Sur échangeur (diffuseur)                                                                           ,THELUS                                  ,23-09-1977,Gare isolée
+A26       ,SANEF     ,Pas de Calais,*,126,360,MARQUION,Sur échangeur (diffuseur)                                                                           ,MARQUION,16-11-1982,Gare isolée
+A26       ,SANEF     ,Nord,*,142,360,MASNIERES,Sur échangeur (diffuseur)                                                                           ,MASNIERES,27-07-1985,Gare isolée
+A26       ,SANEF     ,Aisne,*,167,60,SAINT QUENTIN LA VALLEE,Sur échangeur (diffuseur)                                                                           ,ST QUENTIN NORD,27-07-1985,Gare isolée
+A26       ,SANEF     ,Aisne,*,175,484,GAUCHY,Sur échangeur (diffuseur)                                                                           ,GAUCHY,29-11-1985,Gare isolée
+A26       ,SANEF     ,Aisne,*,194,40,COURBES,Sur échangeur (diffuseur)                                                                           ,COURBES,07-07-1987,Gare isolée
+A26       ,SANEF     ,Aisne,*,210,446,LAON-CHAMBRY,Sur échangeur (diffuseur)                                                                           ,LAON,07-07-1987,Gare isolée
+A26       ,SANEF     ,Aisne,*,240,924,VALLEE DE L'AISNE,Sur échangeur (diffuseur)                                                                           ,VALLEE DE L' AISNE,24-03-1989,Gare isolée
+A26       ,SANEF     ,Marne,*,253,793,,Barrière pleine voie sur l'autoroute                                                                ,COURCY,24-03-1989,Gare isolée
+A26       ,SANEF     ,Marne,*,256,428,REIMS-LA NEUVILETTE,Sur échangeur (diffuseur)                                                                           ,REIMS LA NEUVILETTE,24-03-1989,Gare isolée
+A26       ,SANEF     ,Marne,*,307,793,SAINT GIBRIEN,Sur échangeur (diffuseur)                                                                           ,SAINT GIBRIEN,30-06-1992,Gare isolée
+A26       ,SANEF     ,Marne,*,314,963,MONT CHOISY,Sur échangeur (diffuseur)                                                                           ,MONTCHOISY,30-06-1992,Gare isolée
+A26       ,SANEF     ,Marne,*,331,800,VATRY,Sur échangeur (diffuseur)                                                                           ,VATRY,01-01-2003,Gare isolée
+A26       ,SANEF     ,Marne,*,336,218,SOMMESOUS,Sur échangeur (diffuseur)                                                                           ,SOMMESOUS,30-06-1992,Gare isolée
+A26       ,SANEF     ,Aube,*,360,503,VALLEE DE L'AUBE,Sur échangeur (diffuseur)                                                                           ,VALLEE DE L' AUBE,30-06-1992,Gare isolée
+A26       ,APRR      ,Aube,*,373,343,CHARMONT SOUS BARBUISE,Sur échangeur (diffuseur)                                                                           ,CHARMONT S BABUISE,30-06-1992,Gare isolée
+A26       ,SANEF     ,Aube,*,373,343,CHARMONT SOUS BARBUISE,Sur échangeur (diffuseur)                                                                           ,CHARMONT S BABUISE,30-06-1992,Gare isolée
+A26       ,APRR      ,Aube,*,387,142,THENNELIERE,Sur échangeur (diffuseur)                                                                           ,THENNELIERE,30-06-1992,Gare isolée
+A28       ,COFIROUTE ,Indre et Loire,*,35,0,NEUILLE PONT PIERRE,Sur échangeur (diffuseur)                                                                           ,NEUILLE-PONT-PIERRE,15-12-2005,Gare isolée
+A28       ,COFIROUTE ,Indre et Loire,*,46,980,,Barrière pleine voie sur l'autoroute                                                                ,SAINT CHRISTOPHE SUR LE NAIS,15-12-2005,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,59,700,MONTABON,Sur échangeur (diffuseur)                                                                           ,CHATEAU-DU-LOIR LE-LUDE,15-12-2005,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,75,596,ECOMMOY,Sur échangeur (diffuseur)                                                                           ,ECOMMOY,27-10-2000,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,91,172,PARIGNE-L'EVEQUE,Sur échangeur (diffuseur)                                                                           ,PARIGNE L'EVEQUE,21-12-2006,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,96,532,AUVOURS,Sur échangeur (diffuseur)                                                                           ,LE MANS CENTRE,27-10-2000,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,128,965,MARESCHE,Sur échangeur (diffuseur)                                                                           ,BEAUMONT S/SARTHE,27-10-2000,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,142,910,ROUESSE-FONTAINE,Sur échangeur (diffuseur)                                                                           ,MAMERS,21-12-2006,Gare isolée
+A28       ,COFIROUTE ,Sarthe,*,153,285,ARCONNAY,Sur échangeur (diffuseur)                                                                           ,ALENCON SUD,22-06-2001,Gare isolée
+A28       ,COFIROUTE ,Orne,*,159,230,ALENCON NORD CERISE,Sur échangeur (diffuseur)                                                                           ,ALENCON NORD,22-06-2001,Gare isolée
+A28       ,ALIS      ,Orne,*,182,9,SEES (ALIS),Sur échangeur (diffuseur)                                                                           ,SEES,27-10-2005,Gare principale d'un site de plusieurs gares
+A28       ,ALIS      ,Orne,*,200,423,GACE,Sur échangeur (diffuseur)                                                                           ,GACE 2,27-10-2005,Gare isolée
+A28       ,ALIS      ,Orne,*,200,424,GACE,Sur échangeur (diffuseur)                                                                           ,GACE 1,27-10-2005,Gare isolée
+A28       ,ALIS      ,Eure,*,232,209,BROGLIE-ORBEC,Sur échangeur (diffuseur)                                                                           ,ORBEC 1,27-10-2005,Gare isolée
+A28       ,ALIS      ,Eure,*,232,209,BROGLIE-ORBEC,Sur échangeur (diffuseur)                                                                           ,ORBEC 2,27-10-2005,Gare isolée
+A28       ,ALIS      ,Eure,*,248,731,BERNAY,Sur échangeur (diffuseur)                                                                           ,BERNAY,27-10-2005,Gare isolée
+A28       ,ALIS      ,Eure,*,270,981,BRIONNE,Sur échangeur (diffuseur)                                                                           ,BRIONNE,27-10-2005,Gare isolée
+A28       ,ALIS      ,Eure,*,285,900,,Barrière pleine voie sur l'autoroute                                                                ,ROUMOIS,27-10-2005,Gare isolée
+A29       ,SAPN      ,Calvados,*,2,0,,Barrière pleine voie sur l'autoroute                                                                ,QUETTEVILLE,10-12-1998,Gare isolée
+A29       ,SAPN      ,Calvados,*,13,500,PLATEAU,Sur échangeur (diffuseur)                                                                           ,PLATEAU-HONFLEUR,10-12-1998,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,34,136,,Barrière pleine voie sur l'autoroute                                                                ,EPRETOT                                 ,25-05-1996,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,34,436,SAINT ROMAIN DE COLBOSC,Gare sur bretelle d'échangeur                                                                       ,ST ROMAIN DE COLBOSC (Né3)              ,25-05-1996,Gare secondaire d'un site de plusieurs gares
+A29       ,SAPN      ,Seine Maritime,*,34,436,SAINT ROMAIN DE COLBOSC,Gare sur bretelle d'échangeur                                                                       ,ST ROMAIN DE COLBOSC( Né4)              ,25-05-1996,Gare principale d'un site de plusieurs gares
+A29       ,SAPN      ,Seine Maritime,*,34,436,,Gare sur bretelle d'échangeur                                                                       ,ST ROMAIN DE COLBOSC (Né1),25-05-1996,Gare secondaire d'un site de plusieurs gares
+A29       ,SAPN      ,Seine Maritime,*,34,436,,Gare sur bretelle d'échangeur                                                                       ,ST ROMAIN DE COLBOSC (Né2),25-05-1996,Gare secondaire d'un site de plusieurs gares
+A29       ,SAPN      ,Seine Maritime,*,43,166,BOLBEC,Sur échangeur (diffuseur)                                                                           ,BOLBEC                                  ,25-05-1996,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,60,33,FECAMP YVETOT,Sur échangeur (diffuseur)                                                                           ,FECAMP,25-05-1996,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,75,198,YERVILLE,Sur échangeur (diffuseur)                                                                           ,YERVILLE,25-05-1996,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,91,300,BEAUTOT    (BIFURCATION A29.A151),Sur échangeur (diffuseur)                                                                           ,BEAUTOT,10-12-1998,Gare isolée
+A29       ,SAPN      ,Seine Maritime,*,105,500,,Barrière pleine voie sur l'autoroute                                                                ,COTTEVRARD,10-12-1998,Gare isolée
+A29       ,SANEF     ,Seine Maritime,*,143,46,,Barrière pleine voie sur l'autoroute                                                                ,HAUDRICOURT,14-01-2005,Gare principale d'un site de plusieurs gares
+A29       ,SANEF     ,Seine Maritime,*,143,459,AUMALE,Sur échangeur (diffuseur)                                                                           ,AUMALE OUEST,14-01-2005,Gare secondaire d'un site de plusieurs gares
+A29       ,SANEF     ,Seine Maritime,*,143,461,AUMALE,Sur échangeur (diffuseur)                                                                           ,AUMALE EST,14-01-2005,Gare secondaire d'un site de plusieurs gares
+A29       ,SANEF     ,Somme,*,165,486,POIX DE PICARDIE,Sur échangeur (diffuseur)                                                                           ,POIX DE PICARDIE,14-01-2005,Gare isolée
+A29       ,SANEF     ,Somme,*,191,470,,Barrière pleine voie sur l'autoroute                                                                ,DURY(BIF A16-A29 AMIENS SUD),20-10-1994,Gare isolée
+A29       ,SANEF     ,Somme,*,201,512,,Barrière pleine voie sur l'autoroute                                                                ,JULES VERNE,28-06-2001,Gare isolée
+A29       ,SANEF     ,Somme,*,210,588,VILLERS BRETONNEUX,Sur échangeur (diffuseur)                                                                           ,VILLIERS BRETONNEUX,06-11-2001,Gare isolée
+A29       ,SANEF     ,Somme,*,232,476,,Gare sur bretelle d'échangeur                                                                       ,SANTERRE,28-06-2001,Gare isolée
+A29       ,SANEF     ,Somme,*,245,238,ATHIES,Sur échangeur (diffuseur)                                                                           ,ATHIES,06-11-2001,Gare isolée
+A31       ,APRR      ,Céte d'or,*,15,185,NUITS SAINT GEORGES,Sur échangeur (diffuseur)                                                                           ,NUITS SAINT GEORGES,04-06-1984,Gare isolée
+A31       ,APRR      ,Céte d'or,*,47,369,DIJON EST (DIJON ARC SUR TILLE),Sur échangeur (diffuseur)                                                                           ,DIJON ARC  SUR TILLE,23-06-1989,Gare isolée
+A31       ,APRR      ,Céte d'or,*,70,213,TIL CHATEL,Sur échangeur (diffuseur)                                                                           ,TILCHATEL,28-06-1983,Gare isolée
+A31       ,APRR      ,Marne (Haute Marne),*,100,290,LANGRES SUD,Sur échangeur (diffuseur)                                                                           ,LANGRES SUD,04-06-1984,Gare isolée
+A31       ,APRR      ,Marne (Haute Marne),*,119,900,ROLAMPONT LANGRES NORD,Sur échangeur (diffuseur)                                                                           ,LANGRES NORD,04-06-1984,Gare isolée
+A31       ,APRR      ,Marne (Haute Marne),*,140,55,MONTIGNY LE ROI,Sur échangeur (diffuseur)                                                                           ,MONTIGNY LE ROI,04-06-1984,Gare isolée
+A31       ,APRR      ,Vosges,*,162,0,,Gare sur bretelle d'échangeur                                                                       ,ROBECOURT EST,26-11-2001,Gare isolée
+A31       ,APRR      ,Vosges,*,162,0,,Gare sur bretelle d'échangeur                                                                       ,ROBECOURT OUEST,26-11-2001,Gare isolée
+A31       ,APRR      ,Vosges,*,175,951,BULGNEVILLE,Sur échangeur (diffuseur)                                                                           ,BULGNEVILLE,04-06-1984,Gare isolée
+A31       ,APRR      ,Vosges,*,186,131,CHATENOIS,Sur échangeur (diffuseur)                                                                           ,CHATENOIS,04-06-1984,Gare isolée
+A31       ,APRR      ,Meurthe et Moselle,*,214,792,COLOMBEY LES BELLES,Sur échangeur (diffuseur)                                                                           ,COLOMBEY LES BELLES,04-06-1984,Gare isolée
+A31       ,APRR      ,Meurthe et Moselle,*,225,600,,Barrière pleine voie sur l'autoroute                                                                ,GYE,04-06-1984,Gare isolée
+A311      ,APRR      ,Céte d'or,*,30,810,,Barrière pleine voie sur l'autoroute                                                                ,DIJON SUD,23-06-1989,Gare isolée
+A36       ,APRR      ,Territoire de Belfort,*,24,300,,Barrière pleine voie sur l'autoroute                                                                ,FONTAINE,01-11-1976,Gare isolée
+A36       ,APRR      ,Doubs,*,65,800,,Barrière pleine voie sur l'autoroute                                                                ,SAINT MAURICE,01-07-1977,Gare isolée
+A36       ,APRR      ,Doubs,*,73,173,ISLE SUR LE DOUBS,Sur échangeur (diffuseur)                                                                           ,ISLE SUR LE DOUBS,30-05-1986,Gare isolée
+A36       ,APRR      ,Doubs,*,90,516,BAUME LES DAMES,Sur échangeur (diffuseur)                                                                           ,BAUME LES DAMES,01-07-1977,Gare isolée
+A36       ,APRR      ,Doubs,*,109,588,BESANCON EST,Sur échangeur (diffuseur)                                                                           ,BESANCON EST,30-06-1978,Gare isolée
+A36       ,APRR      ,Doubs,*,124,241,BESANCON NORD,Sur échangeur (diffuseur)                                                                           ,BESANCON NORD,30-06-1978,Gare isolée
+A36       ,APRR      ,Doubs,*,133,590,BESANCON OUEST,Sur échangeur (diffuseur)                                                                           ,BESANCON OUEST,30-06-1978,Gare isolée
+A36       ,APRR      ,Jura,*,149,615,GENDREY,Sur échangeur (diffuseur)                                                                           ,GENDREY,27-03-1996,Gare isolée
+A36       ,APRR      ,Jura,*,166,220,DOLE,Sur échangeur (diffuseur)                                                                           ,DOLE,29-07-1980,Gare isolée
+A36       ,APRR      ,Céte d'or,*,195,898,SEURRE,Sur échangeur (diffuseur)                                                                           ,SEURRE,01-10-1980,Gare isolée
+A39       ,APRR      ,Céte d'or,*,5,508,,Barrière pleine voie sur l'autoroute                                                                ,DIJON-CRIMOLOIS,04-12-1992,Gare isolée
+A39       ,APRR      ,Céte d'or,*,21,568,SOIRANS,Sur échangeur (diffuseur)                                                                           ,SOIRANS,25-10-1994,Gare isolée
+A39       ,APRR      ,Jura,*,40,637,CHOISEY,Sur échangeur (diffuseur)                                                                           ,CHOISEY,25-10-1994,Gare isolée
+A39       ,APRR      ,Jura,*,93,650,BEAUREPAIRE EN BRESSE,Sur échangeur (diffuseur)                                                                           ,BEAUREPAIRE,03-06-1998,Gare isolée
+A39       ,APRR      ,Saéne et Loire,*,108,846,LE MIROIR,Sur échangeur (diffuseur)                                                                           ,LE MIROIR,03-06-1998,Gare isolée
+A39       ,APRR      ,Ain,*,121,876,BEAUPONT,Sur échangeur (diffuseur)                                                                           ,BEAUPONT,03-06-1998,Gare isolée
+A391      ,APRR      ,Jura,*,1,0,,Barrière pleine voie sur l'autoroute                                                                ,BERSAILLIN,03-06-1998,Gare isolée
+A4        ,SANEF     ,Seine et Marne,*,35,61,,Barrière pleine voie sur l'autoroute                                                                ,COUTEVROULT,20-10-1976,Gare isolée
+A4        ,SANEF     ,Seine et Marne,*,54,174,,Gare sur bretelle d'échangeur                                                                       ,SAINT JEAN LES DEUX JUMEAUX,20-10-1976,Gare isolée
+A4        ,SANEF     ,Seine et Marne,*,64,779,MONTREUIL AUX LIONS,Sur échangeur (diffuseur)                                                                           ,MONTREUIL AUX LIONS,15-07-1976,Gare isolée
+A4        ,SANEF     ,Seine et Marne,*,65,200,,Barrière pleine voie sur l'autoroute                                                                ,MONTREUIL AUX LIONS,15-07-1976,Gare isolée
+A4        ,SANEF     ,Aisne,*,85,710,,Gare sur bretelle d'échangeur                                                                       ,CHATEAU-THIERRY,22-11-2010,Gare isolée
+A4        ,SANEF     ,Aisne,*,110,905,DORMANS,Sur échangeur (diffuseur)                                                                           ,DORMANS DIFFUSEUR,29-10-1975,Gare isolée
+A4        ,SANEF     ,Marne,*,132,50,,Gare sur bretelle d'échangeur                                                                       ,THILLOIS,23-06-2011,Gare isolée
+A4        ,SANEF     ,Marne,*,133,130,,Gare sur bretelle d'échangeur                                                                       ,ORMES,22-11-2010,Gare isolée
+A4        ,SANEF     ,Marne,*,138,730,DIF RD951,Sur échangeur (diffuseur)                                                                           ,PORTES DU VIGNOBLE - CHAMPFLEURY,22-11-2010,Gare isolée
+A4        ,SANEF     ,Marne,*,143,590,,Barrière pleine voie sur l'autoroute                                                                ,TAISSY,10-06-1976,Gare isolée
+A4        ,SANEF     ,Marne,*,170,800,LA VEUVE,Sur échangeur (diffuseur)                                                                           ,LA VEUVE,01-07-1976,Gare isolée
+A4        ,SANEF     ,Marne,*,171,10,LA VEUVE,Sur échangeur (diffuseur)                                                                           ,MOURMELON(CHALONS),01-07-1976,Gare isolée
+A4        ,SANEF     ,Marne,*,179,612,SAINT ETIENNE AU TEMPLE,Sur échangeur (diffuseur)                                                                           ,SAINT ETIENNE AU TEMPLE                 ,22-10-1990,Gare isolée
+A4        ,SANEF     ,Marne,*,212,198,SAINTE MENEHOULD,Sur échangeur (diffuseur)                                                                           ,SAINTE MENEHOULD                        ,01-09-1976,Gare isolée
+A4        ,SANEF     ,Meuse,*,230,250,CLERMONT EN ARGONNE,Sur échangeur (diffuseur)                                                                           ,CLERMONT EN ARGONNE,27-10-2006,Gare isolée
+A4        ,SANEF     ,Meuse,*,243,265,VOIE SACREE VERDUN,Sur échangeur (diffuseur)                                                                           ,VOIE SACRE,01-09-1976,Gare isolée
+A4        ,SANEF     ,Meuse,*,254,0,VERDUN,Sur échangeur (diffuseur)                                                                           ,VERDUN,01-09-1976,Gare isolée
+A4        ,SANEF     ,Meuse,*,270,338,FRESNES EN WOEVRE,Sur échangeur (diffuseur)                                                                           ,FRESNES EN WOEVRE,24-07-1975,Gare isolée
+A4        ,SANEF     ,Meurthe et Moselle,*,292,811,JARNY,Sur échangeur (diffuseur)                                                                           ,JARNY,24-07-1975,Gare isolée
+A4        ,SANEF     ,Meurthe et Moselle,*,294,719,,Barrière pleine voie sur l'autoroute                                                                ,BEAUMONT,24-07-1975,Gare isolée
+A4        ,SANEF     ,Moselle,*,299,720,,Gare sur bretelle d'échangeur                                                                       ,SAINTE MARIE (ENTREE),24-07-1975,Gare isolée
+A4        ,SANEF     ,Moselle,*,299,720,,Gare sur bretelle d'échangeur                                                                       ,SAINTE MARIE (SORTIE),24-07-1975,Gare isolée
+A4        ,SANEF     ,Moselle,*,343,500,BOULAY,Gare sur bretelle d'échangeur                                                                       ,BOULAY (ENTREE)                         ,26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,343,500,BOULAY,Gare sur bretelle d'échangeur                                                                       ,BOULAY (SORTIE)                         ,26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,361,500,,Barrière pleine voie sur l'autoroute                                                                ,SAINT AVOLD,01-07-1971,Gare isolée
+A4        ,SANEF     ,Moselle,*,362,300,,Gare sur bretelle d'échangeur                                                                       ,SAINT AVOLD (ENTREE),26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,362,300,,Gare sur bretelle d'échangeur                                                                       ,SAINT AVOLD (SORTIE),26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,374,800,FAREBERSVILLER,Gare sur bretelle d'échangeur                                                                       ,FAREBERSVILLER (ENTREE)                 ,26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,374,800,,Gare sur bretelle d'échangeur                                                                       ,FAREBERSVILLER (SORTIE),26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,379,700,,Barrière pleine voie sur l'autoroute                                                                ,LOUPERSHOUSE,26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,381,600,,Gare sur bretelle d'échangeur                                                                       ,PUTTELANGE,27-06-2002,Gare isolée
+A4        ,SANEF     ,Moselle,*,390,200,SARREGUEMINES HAMBACH,Sur échangeur (diffuseur)                                                                           ,SARREGUEMINES,26-11-1976,Gare isolée
+A4        ,SANEF     ,Rhin (Bas Rhin),*,408,200,SARRE UNION,Sur échangeur (diffuseur)                                                                           ,SARRE-UNION,26-11-1976,Gare isolée
+A4        ,SANEF     ,Moselle,*,428,200,PHALSBOURG,Sur échangeur (diffuseur)                                                                           ,PHALSBOURG,26-11-1976,Gare isolée
+A4        ,SANEF     ,Rhin (Bas Rhin),*,439,400,SAVERNE,Sur échangeur (diffuseur)                                                                           ,SAVERNE,26-11-1976,Gare isolée
+A4        ,SANEF     ,Rhin (Bas Rhin),*,456,0,,Barrière pleine voie sur l'autoroute                                                                ,SCHWINDRATZHEIM,26-11-1976,Gare principale d'un site de plusieurs gares
+A4        ,SANEF     ,Rhin (Bas Rhin),*,456,0,,Gare sur bretelle d'échangeur                                                                       ,HOCHFELDEN(ENTRéE),26-11-1976,Gare secondaire d'un site de plusieurs gares
+A4        ,SANEF     ,Rhin (Bas Rhin),*,456,0,,Gare sur bretelle d'échangeur                                                                       ,HOCHFELDEN (SORTIE),26-11-1976,Gare secondaire d'un site de plusieurs gares
+A40       ,ATMB      ,Savoie (Haute savoie),*,19,641,,Barrière pleine voie sur l'autoroute                                                                ,CLUSES                                  ,29-11-1974,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,19,961,CLUSES EST (CLUSES CENTRE),Gare sur bretelle d'échangeur                                                                       ,CLUSES CENTRE (entrée)                  ,01-01-1994,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,19,961,CLUSES EST (CLUSES CENTRE),Gare sur bretelle d'échangeur                                                                       ,CLUSES CENTRE (sortie)                  ,01-01-1994,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,24,96,,Gare sur bretelle d'échangeur                                                                       ,SCIONZIER,01-01-1994,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,37,476,,Gare sur bretelle d'échangeur                                                                       ,BONNEVILLE S 1,01-01-1994,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,37,476,,Gare sur bretelle d'échangeur                                                                       ,BONNEVILLE S2,01-01-1994,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,49,29,,Barrière pleine voie sur l'autoroute                                                                ,NANGY,05-02-1982,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,75,145,,Barrière pleine voie sur l'autoroute                                                                ,VIRY,05-02-1982,Gare isolée
+A40       ,ATMB      ,Savoie (Haute savoie),*,90,428,ELOISE ANNECY SEYSSEL,Sur échangeur (diffuseur)                                                                           ,ELOISE,01-01-1994,Gare isolée
+A40       ,ATMB      ,Ain,*,99,93,BELLEGARDE-OUEST,Sur échangeur (diffuseur)                                                                           ,BELLEGARDE                              ,01-01-1994,Gare isolée
+A40       ,APRR      ,Ain,*,115,849,SYLANS,Sur échangeur (diffuseur)                                                                           ,SYLANS,19-12-1986,Gare isolée
+A40       ,APRR      ,Ain,*,125,917,,Gare sur bretelle d'échangeur                                                                       ,ST MARTIN DU FRESNE,19-12-1986,Gare isolée
+A40       ,APRR      ,Ain,*,156,559,BOURG SUD,Sur échangeur (diffuseur)                                                                           ,BOURG SUD                               ,25-06-1985,Gare isolée
+A40       ,APRR      ,Ain,*,167,629,VIRIAT,Sur échangeur (diffuseur)                                                                           ,VIRIAT                                  ,25-06-1985,Gare isolée
+A40       ,APRR      ,Ain,*,176,988,BOURG NORD,Sur échangeur (diffuseur)                                                                           ,BOURG NORD,25-06-1985,Gare isolée
+A40       ,APRR      ,Ain,*,188,600,ST GENIS SUR MENTHON,Gare sur bretelle d'échangeur                                                                       ,ST GENIS SUR MENTHON (ENTREE)           ,25-10-1990,Gare isolée
+A40       ,APRR      ,Ain,*,188,600,,Gare sur bretelle d'échangeur                                                                       ,ST GENIS SUR MENTHON (SORTIE),26-10-1990,Gare isolée
+A40       ,APRR      ,Ain,*,198,630,REPLONGES,Sur échangeur (diffuseur)                                                                           ,REPLONGES,31-05-1987,Gare isolée
+A40       ,APRR      ,Ain,*,201,893,FEILLENS,Sur échangeur (diffuseur)                                                                           ,FEILLENS,26-10-1990,Gare isolée
+A40       ,APRR      ,Saéne et Loire,*,204,600,,Gare sur bretelle d'échangeur                                                                       ,MACON CENTRE (B1),26-10-1990,Gare isolée
+A40       ,APRR      ,Saéne et Loire,*,204,600,,Gare sur bretelle d'échangeur                                                                       ,MACON CENTRE (B2),26-10-1990,Gare isolée
+A40       ,APRR      ,Saéne et Loire,*,204,600,,Gare sur bretelle d'échangeur                                                                       ,MACON CENTRE (B3),26-10-1990,Gare isolée
+A404      ,APRR      ,Ain,*,5,973,CROIX CHALON,Sur échangeur (diffuseur)                                                                           ,LA CROIX CHALON,29-11-1997,Gare isolée
+A404      ,APRR      ,Ain,*,12,500,,Barrière pleine voie sur l'autoroute                                                                ,GROISSIAT,29-11-1997,Gare isolée
+A41       ,AREA      ,Isére,*,13,580,,Barrière pleine voie sur l'autoroute                                                                ,BRIGNOUD,18-12-1976,Gare principale d'un site de plusieurs gares
+A41       ,AREA      ,Isére,*,13,580,,Gare sur bretelle d'échangeur                                                                       ,BRIGNOUD (ECHANGEUR ENTREE),18-12-1976,Gare secondaire d'un site de plusieurs gares
+A41       ,AREA      ,Isére,*,13,580,,Gare sur bretelle d'échangeur                                                                       ,BRIGNOUD (ECHANGEUR SORTIE),18-12-1976,Gare secondaire d'un site de plusieurs gares
+A41       ,AREA      ,Isére,*,23,755,LE TOUVET,Sur échangeur (diffuseur)                                                                           ,LE TOUVET,18-12-1976,Gare isolée
+A41       ,AREA      ,Isére,*,33,199,PONTCHARRA,Sur échangeur (diffuseur)                                                                           ,PONTCHARRA,18-12-1976,Gare isolée
+A41       ,AREA      ,Savoie,*,95,464,AIX LES BAINS SUD,Sur échangeur (diffuseur)                                                                           ,AIX LES BAINS (SUD),07-10-1987,Gare isolée
+A41       ,AREA      ,Savoie,*,102,510,AIX LES BAINS NORD,Sur échangeur (diffuseur)                                                                           ,AIX LES BAINS (NORD),22-12-1977,Gare isolée
+A41       ,AREA      ,Savoie (Haute savoie),*,116,0,RUMILLY L'ALBANAIS,Sur échangeur (diffuseur)                                                                           ,RUMILLY,22-12-1979,Gare isolée
+A41       ,AREA      ,Savoie (Haute savoie),*,121,947,DIF SEYNOD SUD,Sur échangeur (diffuseur)                                                                           ,SEYNOD SUD,29-11-2010,Gare isolée
+A41       ,AREA      ,Savoie (Haute savoie),*,128,419,ANNECY-SUD,Sur échangeur (diffuseur)                                                                           ,ANNECY SUD,11-07-1978,Gare isolée
+A41       ,AREA      ,Savoie (Haute savoie),*,133,589,ANNECY NORD,Sur échangeur (diffuseur)                                                                           ,ANNECY NORD,11-07-1978,Gare isolée
+A410      ,AREA      ,Savoie (Haute savoie),*,140,50,,Barrière pleine voie sur l'autoroute                                                                ,CRUSEILLES,15-09-1979,Gare principale d'un site de plusieurs gares
+A410      ,AREA      ,Savoie (Haute savoie),*,140,360,,Gare sur bretelle d'échangeur                                                                       ,CRUSEILLES (ECHANGEUR ENTREE FERMEE),01-10-1997,Gare secondaire d'un site de plusieurs gares
+A410      ,AREA      ,Savoie (Haute savoie),*,140,360,,Gare sur bretelle d'échangeur                                                                       ,CRUSEILLES (ECHANGEUR SORTIE FERMEE),01-10-1997,Gare secondaire d'un site de plusieurs gares
+A42       ,APRR      ,Ain,*,9,720,,Barrière pleine voie sur l'autoroute                                                                ,SAINT MAURICE DE BEYNOST,12-04-1983,Gare isolée
+A42       ,APRR      ,Ain,*,14,200,LA BOISSE - MONTLUEL,Sur échangeur (diffuseur)                                                                           ,LA BOISSE-MONTLUEL,10-05-2007,Gare isolée
+A42       ,APRR      ,Ain,*,18,510,BALAN,Sur échangeur (diffuseur)                                                                           ,DAGNEUX    BALAN,12-04-1983,Gare isolée
+A42       ,APRR      ,Ain,*,25,80,PEROUGES,Sur échangeur (diffuseur)                                                                           ,MEXIMIEUX-PEROUGES,12-04-1983,Gare isolée
+A42       ,APRR      ,Ain,*,42,540,AMBERIEU EN BUGEY,Sur échangeur (diffuseur)                                                                           ,AMBERIEU,26-11-1988,Gare isolée
+A42       ,APRR      ,Ain,*,49,902,PONT D'AIN,Sur échangeur (diffuseur)                                                                           ,PONT D'AIN,26-11-1988,Gare isolée
+A43       ,AREA      ,Isére,*,19,285,,Gare sur bretelle d'échangeur                                                                       ,L'ISLE D'ABEAU OUEST(CHESNES),06-11-1973,Gare isolée
+A43       ,AREA      ,Isére,*,21,10,L'ISLE D'ABEAU OUEST (BARRIERE),Gare sur bretelle d'échangeur                                                                       ,ST QUENTIN FALLAVIER (ENTRéE RN)        ,06-11-1973,Gare secondaire d'un site de plusieurs gares
+A43       ,AREA      ,Isére,*,21,10,,Barrière pleine voie sur l'autoroute                                                                ,SAINT QUENTIN FALLAVIER,06-11-1973,Gare principale d'un site de plusieurs gares
+A43       ,AREA      ,Isére,*,21,10,,Gare sur bretelle d'échangeur                                                                       ,ST QUENTIN FALLAVIER (SORTIE RN),06-11-1973,Gare secondaire d'un site de plusieurs gares
+A43       ,AREA      ,Isére,*,25,100,L'ISLE D'ABEAU-VILLEFONTAINE,Sur échangeur (diffuseur)                                                                           ,VILLEFONTAINE,20-12-1989,Gare isolée
+A43       ,AREA      ,Isére,*,31,345,L'ISLE D'ABEAU EST,Sur échangeur (diffuseur)                                                                           ,ISLE D'ABEAU EST,15-06-1976,Gare isolée
+A43       ,AREA      ,Isére,*,37,549,BOURGOIN EST RUY,Sur échangeur (diffuseur)                                                                           ,BOURGOIN JALLIEU,06-11-1973,Gare isolée
+A43       ,AREA      ,Isére,*,47,914,LA TOUR DU PIN,Sur échangeur (diffuseur)                                                                           ,LA TOUR DU PIN,19-12-1973,Gare isolée
+A43       ,AREA      ,Isére,*,62,380,LES ABRETS CHIMILIN,Sur échangeur (diffuseur)                                                                           ,LES ABRETS,20-10-1974,Gare isolée
+A43       ,AREA      ,Savoie,*,66,734,,Gare sur bretelle d'échangeur                                                                       ,BELMONT TRAMONET-ST GENIS SUR GUIERS,17-10-1988,Gare isolée
+A43       ,AREA      ,Savoie,*,79,655,AIGUEBELETTE,Sur échangeur (diffuseur)                                                                           ,AIGUEBELETTE,24-10-1974,Gare isolée
+A43       ,AREA      ,Savoie,*,88,500,,Barrière pleine voie sur l'autoroute                                                                ,CHAMBERY NORD,25-06-1974,Gare isolée
+A43       ,AREA      ,Savoie,*,103,0,,Barrière pleine voie sur l'autoroute                                                                ,CHAMBERY SUD,21-12-1978,Gare principale d'un site de plusieurs gares
+A43       ,AREA      ,Savoie,*,103,670,LES MARCHES,Sur échangeur (diffuseur)                                                                           ,CHIGNIN,21-12-1978,Gare secondaire d'un site de plusieurs gares
+A43       ,AREA      ,Savoie,*,109,759,MONTMELIAN,Sur échangeur (diffuseur)                                                                           ,MONTMELIAN,18-12-1989,Gare isolée
+A43       ,AREA      ,Savoie,*,120,470,CHATEAUNEUF,Sur échangeur (diffuseur)                                                                           ,CHATEAUNEUF (ENTREE),29-10-1991,Gare secondaire d'un site de plusieurs gares
+A43       ,AREA      ,Savoie,*,120,470,CHATEAUNEUF,Sur échangeur (diffuseur)                                                                           ,CHATEAUNEUF (SORTIE),29-10-1991,Gare principale d'un site de plusieurs gares
+A43       ,AREA      ,Savoie,*,127,454,AITON,Sur échangeur (diffuseur)                                                                           ,AITON,29-10-1991,Gare isolée
+A43       ,SFTRF     ,Savoie,*,141,315,ST PIERRE DE BELLEVILLE,Sur échangeur (diffuseur)                                                                           ,EPIERRE,14-01-1997,Gare isolée
+A43       ,SFTRF     ,Savoie,*,157,40,STE MARIE DE CUINES,Sur échangeur (diffuseur)                                                                           ,LA CHAMBRE,14-01-1997,Gare isolée
+A43       ,SFTRF     ,Savoie,*,163,575,HERMILLON,Gare sur bretelle d'échangeur                                                                       ,HERMILLON (ENTREE ALLANT VERS LYON)     ,20-01-1998,Gare secondaire d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,163,575,HERMILLON,Gare sur bretelle d'échangeur                                                                       ,HERMILLON (SORTIE VERS MODANE)          ,20-01-1987,Gare principale d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,170,288,SAINT JULIEN MONT DENIS,Gare sur bretelle d'échangeur                                                                       ,ST JULIEN MT DENIS(ENTREE VERS MODANE)  ,20-01-1998,Gare principale d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,170,288,,Gare sur bretelle d'échangeur                                                                       ,ST JULIEN MT DENIS(SORTIE VERS ST JUL..),20-01-1998,Gare secondaire d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,176,921,SAINT MICHEL DE MAURIENNE,Gare sur bretelle d'échangeur                                                                       ,ST MICHEL DE MAURIENNE(ECH. ENTREE)     ,20-01-1998,Gare secondaire d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,176,921,,Barrière pleine voie sur l'autoroute                                                                ,ST MICHEL DE MAURIENNE (BPV),20-01-1998,Gare principale d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,176,921,,Gare sur bretelle d'échangeur                                                                       ,ST MICHEL DE MAURIENNE (ECH.SORTIE),20-01-1998,Gare secondaire d'un site de plusieurs gares
+A43       ,SFTRF     ,Savoie,*,177,149,SAINT MICHEL DE MAURIENNE,Sur échangeur (diffuseur)                                                                           ,ST MICHEL DE MAURIENNE AMONT,12-07-2000,Gare isolée
+A430      ,AREA      ,Savoie,*,135,287,,Barrière pleine voie sur l'autoroute                                                                ,SAINT-HELENE,29-10-1991,Gare isolée
+A432      ,APRR      ,Ain,*,12,920,,Barrière pleine voie sur l'autoroute                                                                ,LA BOISSE,19-12-1991,Gare isolée
+A432      ,APRR      ,Isére,*,18,920,,Barrière pleine voie sur l'autoroute                                                                ,SATOLAS-ST EXUPERY,01-01-1993,Gare isolée
+A46       ,APRR      ,Rhéne,*,9,88,GENAY-MASSIEUX,Gare sur bretelle d'échangeur                                                                       ,GENAY                                   ,31-10-1991,Gare isolée
+A46       ,APRR      ,Ain,-,16,630,DIF ANSE - NEYRON,Sur échangeur (diffuseur)                                                                           ,MIONNAY,10-02-2011,Gare isolée
+A48       ,AREA      ,Isére,*,67,15,RIVES,Sur échangeur (diffuseur)                                                                           ,RIVES,25-10-1975,Gare isolée
+A48       ,AREA      ,Isére,*,76,60,CHAMPFEUILLET,Sur échangeur (diffuseur)                                                                           ,CHAMPFEUILLET,16-04-1993,Gare isolée
+A48       ,AREA      ,Isére,-,80,190,,Gare sur bretelle d'échangeur                                                                       ,MOIRANS (SORTIES),19-12-1998,Gare isolée
+A48       ,AREA      ,Isére,+,80,190,,Gare sur bretelle d'échangeur                                                                       ,MOIRANS (ENTRéES),19-12-1998,Gare isolée
+A48       ,AREA      ,Isére,*,84,830,,Barrière pleine voie sur l'autoroute                                                                ,VOREPPE,25-10-1975,Gare isolée
+A49       ,AREA      ,Isére,*,9,511,TULLINS,Sur échangeur (diffuseur)                                                                           ,TULLINS,27-12-1990,Gare isolée
+A49       ,AREA      ,Isére,*,22,939,VINAY,Sur échangeur (diffuseur)                                                                           ,VINAY,20-12-1991,Gare isolée
+A49       ,AREA      ,Isére,*,33,427,SAINT MARCELLIN,Sur échangeur (diffuseur)                                                                           ,SAINT-MARCELLIN                         ,20-12-1991,Gare isolée
+A49       ,AREA      ,Dréme,*,46,365,LA BAUME D'HOSTUN,Sur échangeur (diffuseur)                                                                           ,LA BAUME D'HOSTUN                       ,20-12-1991,Gare isolée
+A49       ,AREA      ,Dréme,*,56,500,,Barrière pleine voie sur l'autoroute                                                                ,CHATUZANGE LE GOUBET,20-12-1991,Gare isolée
+A5        ,APRR      ,Seine et Marne,*,1,0,,Barrière pleine voie sur l'autoroute                                                                ,LES EPRUNES,24-11-1994,Gare isolée
+A5        ,APRR      ,Seine et Marne,*,6,732,SAINT GERMAIN LAXIS,Sur échangeur (diffuseur)                                                                           ,SAINT GERMAIN LAXIS,22-10-1993,Gare isolée
+A5        ,APRR      ,Seine et Marne,*,13,991,CHATILLON LA BORDE,Sur échangeur (diffuseur)                                                                           ,CHATILLON LA BORDE,22-10-1993,Gare isolée
+A5        ,APRR      ,Seine et Marne,*,31,468,FORGES,Sur échangeur (diffuseur)                                                                           ,FORGES,22-10-1993,Gare isolée
+A5        ,APRR      ,Seine et Marne,*,38,993,MAROLLES SUR SEINE,Sur échangeur (diffuseur)                                                                           ,MAROLLES SUR SEINE,22-10-1993,Gare isolée
+A5        ,APRR      ,Yonne,*,88,75,VULAINES,Sur échangeur (diffuseur)                                                                           ,VULAINES,24-11-1994,Gare isolée
+A5        ,APRR      ,Aube,*,115,115,TORVILLIERS,Sur échangeur (diffuseur)                                                                           ,TORVILLIERS                             ,24-11-1994,Gare isolée
+A5        ,APRR      ,Aube,*,131,202,SAINT-THIBAULT,Sur échangeur (diffuseur)                                                                           ,SAINT THIBAULT,26-10-1990,Gare isolée
+A5        ,APRR      ,Aube,*,157,429,MAGNANT,Sur échangeur (diffuseur)                                                                           ,MAGNANT,26-10-1990,Gare isolée
+A5        ,APRR      ,Aube,*,185,95,VILLE-SOUS-LA FERTE,Sur échangeur (diffuseur)                                                                           ,VILLE SOUS LA FERTE,28-10-1990,Gare isolée
+A5        ,APRR      ,Marne (Haute Marne),*,208,267,SEMOUTIERS-CHAUMONT,Sur échangeur (diffuseur)                                                                           ,CHAUMONT,18-10-1983,Gare isolée
+A50       ,ESCOTA    ,Bouches du Rhéne,*,32,453,CASSIS,Gare sur bretelle d'échangeur                                                                       ,CASSIS (ENTREE)                         ,16-12-1975,Gare isolée
+A50       ,ESCOTA    ,Bouches du Rhéne,*,32,453,,Gare sur bretelle d'échangeur                                                                       ,CASSIS (SORTIE),16-12-1975,Gare isolée
+A50       ,ESCOTA    ,Bouches du Rhéne,*,34,843,,Barrière pleine voie sur l'autoroute                                                                ,LA CIOTAT (BPV.)                        ,16-12-1975,Gare principale d'un site de plusieurs gares
+A50       ,ESCOTA    ,Bouches du Rhéne,*,35,238,LA CIOTAT,Sur échangeur (diffuseur)                                                                           ,LA CIOTAT (ECHANGEUR),16-12-1975,Gare secondaire d'un site de plusieurs gares
+A50       ,ESCOTA    ,Var,*,56,87,BANDOL,Sur échangeur (diffuseur)                                                                           ,BANDOL (Echangeur)                      ,23-06-1975,Gare isolée
+A50       ,ESCOTA    ,Var,*,56,319,,Barrière pleine voie sur l'autoroute                                                                ,BANDOL,16-12-1976,Gare isolée
+A500      ,ESCOTA    ,Alpes Maritimes,*,0,579,,Barrière pleine voie sur l'autoroute                                                                ,BRETELLE DE MONACO,25-05-1992,Gare isolée
+A500      ,ESCOTA    ,Alpes Maritimes,*,0,900,LAGHET,Sur échangeur (diffuseur)                                                                           ,LAGHET,14-02-2004,Gare isolée
+A51       ,ESCOTA    ,Bouches du Rhéne,*,35,9,,Gare sur bretelle d'échangeur                                                                       ,PERTUIS NORD,29-03-1985,Gare secondaire d'un site de plusieurs gares
+A51       ,ESCOTA    ,Bouches du Rhéne,*,35,542,,Gare sur bretelle d'échangeur                                                                       ,PERTUIS (O),22-03-1985,Gare isolée
+A51       ,ESCOTA    ,Bouches du Rhéne,*,35,900,,Barrière pleine voie sur l'autoroute                                                                ,MEYRARGUES   BPV    ( PERTUIS),29-03-1985,Gare principale d'un site de plusieurs gares
+A51       ,ESCOTA    ,Bouches du Rhéne,*,56,686,ST PAUL LES DURANCE,Sur échangeur (diffuseur)                                                                           ,ST-PAUL- LES- DURANCE,12-12-1986,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,70,199,MANOSQUE,Sur échangeur (diffuseur)                                                                           ,MANOSQUE,12-12-1986,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,84,745,LA BRILLANNE,Sur échangeur (diffuseur)                                                                           ,LA BRILLANNE,21-12-1989,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,99,955,PEYRUIS,Sur échangeur (diffuseur)                                                                           ,PEYRUIS,21-12-1989,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,110,672,,Gare sur bretelle d'échangeur                                                                       ,AUBIGNOSC EST,21-12-1989,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,110,672,,Gare sur bretelle d'échangeur                                                                       ,AUBIGNOSC OUEST,21-12-1989,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,116,200,SISTERON SUD,Sur échangeur (diffuseur)                                                                           ,SISTERON SUD,28-06-1990,Gare isolée
+A51       ,ESCOTA    ,Alpes de Hautes Provence,*,123,200,,Barrière pleine voie sur l'autoroute                                                                ,SISTERON      NORD,28-06-1990,Gare isolée
+A51       ,ESCOTA    ,Alpes (Hautes Alpes),+,152,8,,Barrière pleine voie sur l'autoroute                                                                ,LA SAULCE,26-06-1999,Gare isolée
+A51N      ,AREA      ,Isére,*,8,400,,Barrière pleine voie sur l'autoroute                                                                ,LE CROZET,29-07-1999,Gare isolée
+A52       ,ESCOTA    ,Bouches du Rhéne,*,12,590,,Gare sur bretelle d'échangeur                                                                       ,PAS DE TRETS (1),29-08-1974,Gare isolée
+A52       ,ESCOTA    ,Bouches du Rhéne,*,12,590,,Gare sur bretelle d'échangeur                                                                       ,PAS DE TRETS (2),29-08-1974,Gare isolée
+A52       ,ESCOTA    ,Bouches du Rhéne,*,20,349,,Barrière pleine voie sur l'autoroute                                                                ,PONT DE L'ETOILE,29-08-1974,Gare isolée
+A520      ,ESCOTA    ,Bouches du Rhéne,*,2,857,,Barrière pleine voie sur l'autoroute                                                                ,AURIOL,29-08-1974,Gare isolée
+A54       ,ASF       ,Gard,*,2,980,NIMES-CENTRE,Sur échangeur (diffuseur)                                                                           ,NIMES CENTRE,28-06-1990,Gare isolée
+A54       ,ASF       ,Gard,*,9,800,GARONS,Sur échangeur (diffuseur)                                                                           ,GARONS,28-06-1990,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,22,500,,Barrière pleine voie sur l'autoroute                                                                ,ARLES,28-06-1990,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,50,400,,Barrière pleine voie sur l'autoroute                                                                ,SAINT MARTIN DE CRAU,15-03-1996,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,63,960,SALON OUEST,Sur échangeur (diffuseur)                                                                           ,SALON OUEST,15-03-1996,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,68,640,GRANS,Sur échangeur (diffuseur)                                                                           ,GRANS,15-03-1996,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,70,530,,Gare sur bretelle d'échangeur                                                                       ,SALON SUD (ENTREE),15-03-1987,Gare isolée
+A54       ,ASF       ,Bouches du Rhéne,*,70,530,,Gare sur bretelle d'échangeur                                                                       ,SALON SUD (SORTIE),15-06-1987,Gare isolée
+A57       ,ESCOTA    ,Var,*,24,100,,Barrière pleine voie sur l'autoroute                                                                ,PUGET VILLE,20-12-1991,Gare isolée
+A57       ,ESCOTA    ,Var,+,32,0,CARNOULES,Sur échangeur (diffuseur)                                                                           ,CARNOULES,14-06-1998,Gare isolée
+A57       ,ESCOTA    ,Var,*,51,400,LE CANNET DES MAURES,Sur échangeur (diffuseur)                                                                           ,LE CANNET DES MAURES,20-12-1991,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,50,250,,Barrière pleine voie sur l'autoroute                                                                ,FLEURY(BARRIERE),25-05-1964,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,50,250,,Satellite                                                                                           ,FLEURY (SATELLITE),25-05-1964,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,60,999,URY,Sur échangeur (diffuseur)                                                                           ,URY,25-05-1964,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,69,689,,Gare sur bretelle d'échangeur                                                                       ,FONTAINEBLEAU (SORTIE),30-04-1965,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,69,690,FONTAINEBLEAU,Gare sur bretelle d'échangeur                                                                       ,FONTAINEBLEAU (ENTREE)                  ,30-04-1965,Gare isolée
+A6        ,APRR      ,Seine et Marne,*,72,819,NEMOURS,Sur échangeur (diffuseur)                                                                           ,NEMOURS,15-03-1967,Gare isolée
+A6        ,APRR      ,Yonne,*,110,865,,Sur échangeur (diffuseur)                                                                           ,COURTENAY,31-03-1967,Gare isolée
+A6        ,APRR      ,Yonne,*,128,100,JOIGNY,Gare sur bretelle d'échangeur                                                                       ,JOIGNY (ENTREE VERS LYON)               ,15-12-1997,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Yonne,*,128,100,JOIGNY,Gare sur bretelle d'échangeur                                                                       ,JOIGNY (ENTREE VERS PARIS)              ,31-03-1967,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Yonne,*,128,100,,Gare sur bretelle d'échangeur                                                                       ,JOIGNY (SORTIE VENANT DE LYON),15-12-1997,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Yonne,*,128,100,,Gare sur bretelle d'échangeur                                                                       ,JOIGNY (SORTIE VENANT DE PARIS),31-03-1967,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Yonne,*,153,659,AUXERRE NORD,Sur échangeur (diffuseur)                                                                           ,AUXERRE NORD,31-03-1967,Gare isolée
+A6        ,APRR      ,Yonne,*,164,971,AUXERRE SUD,Sur échangeur (diffuseur)                                                                           ,AUXERRE SUD,31-12-1965,Gare isolée
+A6        ,APRR      ,Yonne,*,190,133,NITRY,Sur échangeur (diffuseur)                                                                           ,NITRY,30-11-1963,Gare isolée
+A6        ,APRR      ,Yonne,*,209,472,AVALLON,Sur échangeur (diffuseur)                                                                           ,AVALLON,31-10-1969,Gare isolée
+A6        ,APRR      ,Céte d'or,*,235,363,BIERRE LES SEMUR,Sur échangeur (diffuseur)                                                                           ,BIERRE LES SEMUR,31-10-1969,Gare isolée
+A6        ,APRR      ,Céte d'or,*,264,407,BIF A6.A38 POUILLY EN AUXOIS,Sur échangeur (diffuseur)                                                                           ,POUILLY EN AUXOIS                       ,31-10-1969,Gare isolée
+A6        ,APRR      ,Céte d'or,*,301,57,RN74,Sur échangeur (diffuseur)                                                                           ,BEAUNE NORD,01-11-1997,Gare isolée
+A6        ,APRR      ,Céte d'or,*,306,780,BEAUNE,Sur échangeur (diffuseur)                                                                           ,BEAUNE,31-10-1970,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,328,970,CHALON NORD,Sur échangeur (diffuseur)                                                                           ,CHALON NORD,30-10-1970,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,335,130,CHALON SUD,Gare sur bretelle d'échangeur                                                                       ,CHALON SUD ( ENTREE)                    ,15-11-1996,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,335,130,,Gare sur bretelle d'échangeur                                                                       ,CHALON SUD (SORTIE),30-10-1970,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,355,420,TOURNUS,Sur échangeur (diffuseur)                                                                           ,TOURNUS                                 ,31-10-1970,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,380,900,MACON NORD,Sur échangeur (diffuseur)                                                                           ,MACON NORD,30-10-1970,Gare isolée
+A6        ,APRR      ,Saéne et Loire,*,391,220,MACON SUD,Sur échangeur (diffuseur)                                                                           ,MACON SUD,31-12-1969,Gare isolée
+A6        ,APRR      ,Rhéne,*,412,500,BELLEVILLE,Sur échangeur (diffuseur)                                                                           ,BELLEVILLE,31-12-1969,Gare isolée
+A6        ,APRR      ,Rhéne,*,421,450,VILLEFRANCHE NORD,Sur échangeur (diffuseur)                                                                           ,VILLEFRANCHE NORD,10-11-2006,Gare isolée
+A6        ,APRR      ,Rhéne,-,426,540,,Gare sur bretelle d'échangeur                                                                       ,VILLEFRANCHE VILLE (SENS -),16-12-1968,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Rhéne,+,426,540,,Gare sur bretelle d'échangeur                                                                       ,VILLEFRANCHE VILLE (SENS +),16-12-1968,Gare secondaire d'un site de plusieurs gares
+A6        ,APRR      ,Rhéne,*,427,300,,Barrière pleine voie sur l'autoroute                                                                ,VILLEFRANCHE LIMAS,16-12-1968,Gare principale d'un site de plusieurs gares
+A61       ,ASF       ,Garonne (Haute Garonne),-,240,517,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE SUD-EST (SORTIE ),04-04-1979,Gare isolée
+A61       ,ASF       ,Garonne (Haute Garonne),-,240,517,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE SUD-OUEST (SORTIE),04-04-1979,Gare isolée
+A61       ,ASF       ,Garonne (Haute Garonne),+,240,517,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE SUD-EST (ENTREE),04-04-1979,Gare isolée
+A61       ,ASF       ,Garonne (Haute Garonne),+,240,517,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE SUD-OUEST (ENTREE),04-04-1979,Gare isolée
+A61       ,ASF       ,Garonne (Haute Garonne),*,263,794,VILLEFRANCHE DE LAURAGAIS,Sur échangeur (diffuseur)                                                                           ,VILLEFRANCHE DE LAURAGAIS,04-04-1979,Gare isolée
+A61       ,ASF       ,Aude,*,287,762,CASTELNAUDARY,Sur échangeur (diffuseur)                                                                           ,CASTELNAUDARY,26-10-1979,Gare isolée
+A61       ,ASF       ,Aude,*,301,565,BRAM,Sur échangeur (diffuseur)                                                                           ,BRAM,29-10-1993,Gare isolée
+A61       ,ASF       ,Aude,*,319,410,CARCASSONNE OUEST,Sur échangeur (diffuseur)                                                                           ,CARCASSONNE OUEST,26-10-1979,Gare isolée
+A61       ,ASF       ,Aude,*,329,445,CARCASSONNE EST,Sur échangeur (diffuseur)                                                                           ,CARCASSONNE EST,02-01-1979,Gare isolée
+A61       ,ASF       ,Aude,*,356,890,LEZIGNAN,Sur échangeur (diffuseur)                                                                           ,LEZIGNAN,02-01-1979,Gare isolée
+A62       ,ASF       ,Gironde,*,15,200,,Barrière pleine voie sur l'autoroute                                                                ,ST SELVE,19-12-1975,Gare isolée
+A62       ,ASF       ,Gironde,*,24,297,PODENSAC,Sur échangeur (diffuseur)                                                                           ,PODENSAC,19-12-1975,Gare isolée
+A62       ,ASF       ,Gironde,*,35,175,LANGON,Sur échangeur (diffuseur)                                                                           ,LANGON                                  ,19-12-1975,Gare isolée
+A62       ,ASF       ,Gironde,*,54,313,LA REOLE,Sur échangeur (diffuseur)                                                                           ,LA REOLE,13-10-1981,Gare isolée
+A62       ,ASF       ,Lot et Garonne,*,71,286,MARMANDE,Sur échangeur (diffuseur)                                                                           ,MARMANDE,12-05-1979,Gare isolée
+A62       ,ASF       ,Lot et Garonne,*,92,755,AIGUILLON,Sur échangeur (diffuseur)                                                                           ,AIGUILLON,12-05-1979,Gare isolée
+A62       ,ASF       ,Lot et Garonne,*,124,165,AGEN,Sur échangeur (diffuseur)                                                                           ,AGEN,30-10-1980,Gare isolée
+A62       ,ASF       ,Tarn et Garonne,*,149,65,VALENCE D'AGEN,Sur échangeur (diffuseur)                                                                           ,VALENCE D'AGEN,28-06-1982,Gare isolée
+A62       ,ASF       ,Tarn et Garonne,*,168,657,CASTELSARRASIN,Sur échangeur (diffuseur)                                                                           ,CASTELSARRASIN,28-06-1982,Gare isolée
+A62       ,ASF       ,Tarn et Garonne,*,192,105,,Gare sur bretelle d'échangeur                                                                       ,MONTAUBAN,30-10-1980,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),*,211,950,EUROCENTRE,Sur échangeur (diffuseur)                                                                           ,EUROCENTRE,06-10-1997,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),*,217,770,SAINT JORY,Sur échangeur (diffuseur)                                                                           ,SAINT JORY,30-10-1980,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),-,224,570,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE NORD-EST (ENTREE),30-10-1980,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),-,224,570,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE NORD-OUEST (ENTREE),30-10-1980,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),+,224,570,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE NORD-EST (SORTIE),30-10-1980,Gare isolée
+A62       ,ASF       ,Garonne (Haute Garonne),+,224,570,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE NORD-OUEST (SORTIE),30-10-1980,Gare isolée
+A63       ,ASF       ,Landes,*,58,50,,Barrière pleine voie sur l'autoroute                                                                ,SAUGNAC ET MURET,,Gare isolée
+A63       ,ASF       ,Landes,*,123,230,,Barrière pleine voie sur l'autoroute                                                                ,CASTETS,,Gare isolée
+A63       ,ASF       ,Landes,*,156,80,DIFFUSEUR D'HOSSEGOR-CAPBRETON,Sur échangeur (diffuseur)                                                                           ,BENNESSE-MARENNE -CAP BRETON,15-04-1981,Gare isolée
+A63       ,ASF       ,Landes,*,156,408,,Barrière pleine voie sur l'autoroute                                                                ,BENESSE MAREMNE,15-04-1981,Gare isolée
+A63       ,ASF       ,Landes,*,166,588,,Gare sur bretelle d'échangeur                                                                       ,ONDRES,15-06-1990,Gare isolée
+A63       ,ASF       ,Pyrénées Atlantiques,*,178,980,,Gare sur bretelle d'échangeur                                                                       ,BAYONNE SUD,27-06-1980,Gare isolée
+A63       ,ASF       ,Pyrénées Atlantiques,*,183,630,DIFFUSEUR DE BIARRITZ,Sur échangeur (diffuseur)                                                                           ,BIARRITZ LA NEGRESSE (SATELLITE),21-06-1978,Gare secondaire d'un site de plusieurs gares
+A63       ,ASF       ,Pyrénées Atlantiques,*,183,820,,Barrière pleine voie sur l'autoroute                                                                ,BIARRITZ   LA NEGRESSE,21-06-1978,Gare principale d'un site de plusieurs gares
+A63       ,ASF       ,Pyrénées Atlantiques,*,197,788,,Gare sur bretelle d'échangeur                                                                       ,SAINT JEAN DE LUZ SUD (ENTREE),30-06-1976,Gare isolée
+A63       ,ASF       ,Pyrénées Atlantiques,*,197,788,,Gare sur bretelle d'échangeur                                                                       ,SAINT JEAN DE LUZ SUD (SORTIE),30-06-1976,Gare isolée
+A63       ,ASF       ,Pyrénées Atlantiques,*,204,938,,Barrière pleine voie sur l'autoroute                                                                ,BIRIATOU,30-06-1976,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,23,640,,Gare sur bretelle d'échangeur                                                                       ,GUICHE (ENTREE),19-12-1991,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,23,640,,Gare sur bretelle d'échangeur                                                                       ,GUICHE (SORTIE),19-12-1991,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,27,386,,Barrière pleine voie sur l'autoroute                                                                ,SAMES,20-12-1991,Gare isolée
+A64       ,ASF       ,Landes,*,34,585,,Gare sur bretelle d'échangeur                                                                       ,PEYREHORADE,09-07-1991,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,50,130,SALIES DE BEARN,Sur échangeur (diffuseur)                                                                           ,SALIES DE BEARN,02-06-1989,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,66,480,ORTHEZ,Sur échangeur (diffuseur)                                                                           ,ORTHEZ,28-10-1982,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,85,130,ARTIX,Sur échangeur (diffuseur)                                                                           ,ARTIX,28-10-1982,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,103,560,PAU,Sur échangeur (diffuseur)                                                                           ,PAU,31-03-1985,Gare isolée
+A64       ,ASF       ,Pyrénées Atlantiques,*,117,589,SOUMOULOU,Sur échangeur (diffuseur)                                                                           ,SOUMOULOU,21-03-1985,Gare isolée
+A64       ,ASF       ,Pyrénées (Hautes Pyrénées),*,137,610,TARBES-OUEST,Sur échangeur (diffuseur)                                                                           ,TARBES OUEST                            ,01-07-1988,Gare isolée
+A64       ,ASF       ,Pyrénées (Hautes Pyrénées),*,145,50,TARBES EST,Sur échangeur (diffuseur)                                                                           ,TARBES EST                              ,26-01-1989,Gare isolée
+A64       ,ASF       ,Pyrénées (Hautes Pyrénées),*,158,180,TOURNAY,Sur échangeur (diffuseur)                                                                           ,TOURNAY,04-02-1993,Gare isolée
+A64       ,ASF       ,Pyrénées (Hautes Pyrénées),*,170,716,CAPVERN,Sur échangeur (diffuseur)                                                                           ,CAPVERN,09-07-1991,Gare isolée
+A64       ,ASF       ,Pyrénées (Hautes Pyrénées),*,175,0,LANNEMEZAN,Sur échangeur (diffuseur)                                                                           ,LANNEMEZAN,09-07-1991,Gare isolée
+A64       ,ASF       ,Garonne (Haute Garonne),*,192,436,,Gare sur bretelle d'échangeur                                                                       ,MONTREJEAU,09-07-1996,Gare isolée
+A64       ,ASF       ,Garonne (Haute Garonne),*,206,260,SAINT GAUDENS,Sur échangeur (diffuseur)                                                                           ,SAINT GAUDENS,09-07-1996,Gare isolée
+A64       ,ASF       ,Garonne (Haute Garonne),*,218,100,,Barrière pleine voie sur l'autoroute                                                                ,LESTELLE,09-07-1996,Gare isolée
+A64       ,ASF       ,Garonne (Haute Garonne),*,218,249,LESTELLE,Sur échangeur (diffuseur)                                                                           ,LESTELLE (ECHANGEUR),09-07-1996,Gare isolée
+A64       ,ASF       ,Garonne (Haute Garonne),*,278,340,,Barrière pleine voie sur l'autoroute                                                                ,MURET,05-03-1996,Gare isolée
+A641      ,ASF       ,Landes,*,0,50,,Barrière pleine voie sur l'autoroute                                                                ,PEYREHORADE,01-12-1994,Gare isolée
+A65       ,ALIENOR   ,Gironde,*,11,180,DIF BAZAS,Sur échangeur (diffuseur)                                                                           ,BAZAS,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Gironde,*,30,350,DIF CAPTIEUX,Sur échangeur (diffuseur)                                                                           ,CAPTIEUX,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Landes,*,58,900,DIF ROQUEFORT,Sur échangeur (diffuseur)                                                                           ,ROQUEFORT,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Landes,*,70,620,DIF CALOY,Sur échangeur (diffuseur)                                                                           ,CALOY,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Landes,*,99,450,DIF AIRE / ADOUR N,Sur échangeur (diffuseur)                                                                           ,AIRE SUR L'ADOUR NORD,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Landes,*,105,900,DIF AIRE / ADOUR S,Sur échangeur (diffuseur)                                                                           ,AIRE SUR L'ADOUR SUD,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Pyrénées Atlantiques,*,118,0,DIF GARLIN,Sur échangeur (diffuseur)                                                                           ,GARLIN,16-12-2010,Gare isolée
+A65       ,ALIENOR   ,Pyrénées Atlantiques,*,130,60,DIF THEZE,Sur échangeur (diffuseur)                                                                           ,THEZE,16-12-2010,Gare isolée
+A66       ,ASF       ,Garonne (Haute Garonne),*,5,559,NAILLOUX,Sur échangeur (diffuseur)                                                                           ,NAILLOUX,27-02-2002,Gare isolée
+A66       ,ASF       ,Ariège,*,26,696,MAZERES,Sur échangeur (diffuseur)                                                                           ,MAZERES,27-02-2002,Gare isolée
+A66       ,ASF       ,Ariège,*,36,39,,Barrière pleine voie sur l'autoroute                                                                ,PAMIER,27-02-2002,Gare isolée
+A68       ,ASF       ,Garonne (Haute Garonne),*,2,577,L'UNION,Sur échangeur (diffuseur)                                                                           ,L ' UNION,03-09-1993,Gare isolée
+A68       ,ASF       ,Garonne (Haute Garonne),*,2,870,,Barrière pleine voie sur l'autoroute                                                                ,TOULOUSE EST,03-09-1993,Gare isolée
+A7        ,ASF       ,Isére,-,6,0,,Barrière pleine voie sur l'autoroute                                                                ,VIENNE-REVENTIN (SENS -),23-10-1964,Gare isolée
+A7        ,ASF       ,Isére,+,6,0,,Barrière pleine voie sur l'autoroute                                                                ,VIENNE REVENTIN (SENS +),23-10-1964,Gare isolée
+A7        ,ASF       ,Isére,+,16,0,,Gare sur bretelle d'échangeur                                                                       ,AUBERIVES,29-11-1982,Gare isolée
+A7        ,ASF       ,Isére,*,23,630,CHANAS,Sur échangeur (diffuseur)                                                                           ,CHANAS,31-07-1965,Gare isolée
+A7        ,ASF       ,Drôme,*,55,109,TAIN L'HERMITAGE,Sur échangeur (diffuseur)                                                                           ,TAIN L'HERMITAGE,31-07-1965,Gare isolée
+A7        ,ASF       ,Drôme,*,65,838,VALENCE NORD,Sur échangeur (diffuseur)                                                                           ,VALENCE NORD,31-07-1965,Gare isolée
+A7        ,ASF       ,Drôme,*,73,770,VALENCE SUD,Sur échangeur (diffuseur)                                                                           ,VALENCE SUD,07-12-1966,Gare isolée
+A7        ,ASF       ,Drôme,*,92,272,LORIOL,Sur échangeur (diffuseur)                                                                           ,LORIOL,07-12-1966,Gare isolée
+A7        ,ASF       ,Drôme,*,102,210,MONTELIMAR NORD,Sur échangeur (diffuseur)                                                                           ,MONTELIMAR NORD,07-12-1966,Gare isolée
+A7        ,ASF       ,Drôme,*,124,633,MONTELIMAR SUD,Sur échangeur (diffuseur)                                                                           ,MONTELIMAR SUD,28-06-1968,Gare isolée
+A7        ,ASF       ,Vaucluse,*,146,270,BOLLENE,Sur échangeur (diffuseur)                                                                           ,BOLLENE                                 ,17-12-1968,Gare isolée
+A7        ,ASF       ,Vaucluse,*,161,200,PIOLENC,Sur échangeur (diffuseur)                                                                           ,PIOLENC,,Gare isolée
+A7        ,ASF       ,Vaucluse,*,162,780,,Gare sur bretelle d'échangeur                                                                       ,ORANGE NORD,27-07-1983,Gare isolée
+A7        ,ASF       ,Vaucluse,*,167,364,,Sur échangeur (diffuseur)                                                                           ,ORANGE CENTRE                           ,10-08-1966,Gare isolée
+A7        ,ASF       ,Vaucluse,*,172,440,ORANGE SUD,Sur échangeur (diffuseur)                                                                           ,ORANGE SUD,27-07-1983,Gare isolée
+A7        ,ASF       ,Vaucluse,*,188,480,AVIGNON NORD,Sur échangeur (diffuseur)                                                                           ,AVIGNON NORD,10-08-1966,Gare isolée
+A7        ,ASF       ,Vaucluse,*,198,114,AVIGNON SUD,Sur échangeur (diffuseur)                                                                           ,AVIGNON SUD,10-08-1966,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,*,211,860,CAVAILLON,Sur échangeur (diffuseur)                                                                           ,CAVAILLON,27-02-1969,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,*,221,119,SENAS,Sur échangeur (diffuseur)                                                                           ,SENAS,27-02-1969,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,*,230,340,,Gare sur bretelle d'échangeur                                                                       ,SALON NORD (SORTIE),19-03-1970,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,*,230,939,,Gare sur bretelle d'échangeur                                                                       ,SALON NORD (ENTREE),19-03-1970,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,+,240,240,,Barrière pleine voie sur l'autoroute                                                                ,LANCON DE PROVENCE (SORTIES),30-06-1970,Gare isolée
+A7        ,ASF       ,Bouches du Rhône,-,240,600,,Barrière pleine voie sur l'autoroute                                                                ,LANCON DE PROVENCE (ENTREES),30-06-1970,Gare isolée
+A701      ,COFIROUTE ,Loiret,*,94,347,,Barrière pleine voie sur l'autoroute                                                                ,ORLEANS NORD,12-10-1973,Gare isolée
+A71       ,COFIROUTE ,Loiret,*,99,447,ORLEANS CENTRE,Sur échangeur (diffuseur)                                                                           ,ORLEANS CENTRE,24-10-1986,Gare isolée
+A71       ,COFIROUTE ,Loiret,*,105,848,OLIVET,Sur échangeur (diffuseur)                                                                           ,OLIVET,24-10-1986,Gare isolée
+A71       ,COFIROUTE ,Loire et Cher,*,138,50,LAMOTTE BEUVRON,Sur échangeur (diffuseur)                                                                           ,LA MOTTE-BEUVRON,24-10-1986,Gare isolée
+A71       ,COFIROUTE ,Loire et Cher,*,156,790,SALBRIS,Sur échangeur (diffuseur)                                                                           ,SALBRIS,24-10-1986,Gare isolée
+A71       ,COFIROUTE ,Cher,*,177,735,BIF A71-A20 (VIERZON NORD),Sur échangeur (diffuseur)                                                                           ,VIERZON NORD,29-06-1989,Gare isolée
+A71       ,COFIROUTE ,Cher,*,183,458,VIERZON EST,Sur échangeur (diffuseur)                                                                           ,VIERZON EST,29-06-1989,Gare isolée
+A71       ,COFIROUTE ,Cher,*,209,300,BOURGES,Sur échangeur (diffuseur)                                                                           ,BOURGES,29-06-1989,Gare isolée
+A71       ,APRR      ,Cher,*,251,229,SAINT AMANT MONTROND,Sur échangeur (diffuseur)                                                                           ,ST AMAND MONTROND,11-12-1989,Gare isolée
+A71       ,APRR      ,Allier,*,280,430,FORET DE TRONCAIS,Sur échangeur (diffuseur)                                                                           ,FORET DE TRONCAIS,12-11-1989,Gare isolée
+A71       ,APRR      ,Allier,*,294,950,BIF A71 - A714  DEBUT CONCESSION A714,Sur échangeur (diffuseur)                                                                           ,MONTLUCON,10-12-1988,Gare isolée
+A71       ,APRR      ,Allier,*,318,0,MONTMARAULT,Sur échangeur (diffuseur)                                                                           ,MONTMARAULT,29-10-1987,Gare isolée
+A71       ,APRR      ,Puy de Déme,*,362,40,COMBRONDE,Sur échangeur (diffuseur)                                                                           ,COMBRONDE,21-03-2003,Gare isolée
+A71       ,APRR      ,Puy de Déme,*,374,900,RIOM,Sur échangeur (diffuseur)                                                                           ,RIOM,29-10-1987,Gare isolée
+A71       ,APRR      ,Puy de Déme,-,380,700,,Gare sur bretelle d'échangeur                                                                       ,GERZAT (ECHANGEUR ENTREE FERME),29-10-1987,Gare secondaire d'un site de plusieurs gares
+A71       ,APRR      ,Puy de Déme,-,380,700,,Gare sur bretelle d'échangeur                                                                       ,GERZAT (ECHANGEUR SORTIE OUVERT),29-12-1987,Gare secondaire d'un site de plusieurs gares
+A71       ,APRR      ,Puy de Déme,*,380,700,,Barrière pleine voie sur l'autoroute                                                                ,GERZAT-CLERMONT-BARRIERE,29-10-1987,Gare principale d'un site de plusieurs gares
+A71       ,APRR      ,Puy de Déme,+,380,700,,Gare sur bretelle d'échangeur                                                                       ,GERZAT (ECHANGEUR ENTREE OUVERT),29-10-1987,Gare secondaire d'un site de plusieurs gares
+A71       ,APRR      ,Puy de Déme,+,380,700,,Gare sur bretelle d'échangeur                                                                       ,GERZAT (ECHANGEUR SORTIE FERME),29-10-1987,Gare secondaire d'un site de plusieurs gares
+A719      ,APRR      ,Allier,*,1,300,,Barrière pleine voie sur l'autoroute                                                                ,GANNAT,03-06-1997,Gare isolée
+A72       ,ASF       ,Loire,*,95,506,FEURS,Sur échangeur (diffuseur)                                                                           ,FEURS,13-06-1984,Gare isolée
+A72       ,ASF       ,Loire,*,107,642,MONTBRISON,Sur échangeur (diffuseur)                                                                           ,MONTBRISON,28-03-1985,Gare isolée
+A72       ,ASF       ,Loire,*,117,500,,Barrière pleine voie sur l'autoroute                                                                ,VEAUCHETTE,28-03-1985,Gare isolée
+A75       ,CEVM      ,Aveyron,*,220,0,,Barrière pleine voie sur l'autoroute                                                                ,VIADUC DE MILLAU,16-12-2004,Gare isolée
+A75       ,ASF       ,Hérault,+,332,700,,Barrière pleine voie sur l'autoroute                                                                ,BEZIERS CABRIALS (ENTRéE),23-06-2010,Gare isolée
+A75       ,ASF       ,Hérault,-,333,0,,Barrière pleine voie sur l'autoroute                                                                ,BEZIERS CABRIALS (SORTIE),23-06-2010,Gare isolée
+A77       ,APRR      ,Seine et Marne,-,6,0,DORDIVE,Sur échangeur (diffuseur)                                                                           ,VAL DE LOING(ENTRéE FERMé),17-11-1999,Gare secondaire d'un site de plusieurs gares
+A77       ,APRR      ,Seine et Marne,-,6,0,,Gare sur bretelle d'échangeur                                                                       ,DORDIVES EST,17-11-1999,Gare secondaire d'un site de plusieurs gares
+A77       ,APRR      ,Seine et Marne,*,6,0,,Barrière pleine voie sur l'autoroute                                                                ,DORDIVES-VAL DE LOING,28-10-1971,Gare principale d'un site de plusieurs gares
+A77       ,APRR      ,Seine et Marne,+,6,0,DORDIVE,Sur échangeur (diffuseur)                                                                           ,VAL DE LOING(SORTIES FERMé),17-11-1999,Gare secondaire d'un site de plusieurs gares
+A77       ,APRR      ,Seine et Marne,+,6,0,,Gare sur bretelle d'échangeur                                                                       ,DORDIVES OUEST,17-11-1999,Gare secondaire d'un site de plusieurs gares
+A77       ,APRR      ,Loiret,*,28,114,MONTARGIS,Sur échangeur (diffuseur)                                                                           ,LE TOURNEAU-MONTARGIS,17-11-1999,Gare isolée
+A77       ,APRR      ,Niévre,*,97,0,,Barrière pleine voie sur l'autoroute                                                                ,MYENNES,19-06-2000,Gare isolée
+A7N       ,ASF       ,Rhéne,*,31,755,,Gare sur bretelle d'échangeur                                                                       ,CONDRIEU (ENTRéE),27-06-1974,Gare isolée
+A7N       ,ASF       ,Rhéne,*,31,755,,Gare sur bretelle d'échangeur                                                                       ,CONDRIEU (SORTIE),27-06-1974,Gare isolée
+A8        ,ASF       ,Bouches du Rhéne,*,1,600,,Gare sur bretelle d'échangeur                                                                       ,COUDOUX (A),20-12-1972,Gare isolée
+A8        ,ASF       ,Bouches du Rhéne,*,1,600,,Gare sur bretelle d'échangeur                                                                       ,COUDOUX (B),20-12-1972,Gare isolée
+A8        ,ESCOTA    ,Bouches du Rhéne,*,26,819,,Gare sur bretelle d'échangeur                                                                       ,LE CANET,24-06-1974,Gare isolée
+A8        ,ESCOTA    ,Bouches du Rhéne,+,28,700,,Barrière pleine voie sur l'autoroute                                                                ,LA BARQUE (ENTREE),24-06-1974,Gare isolée
+A8        ,ESCOTA    ,Bouches du Rhéne,-,28,900,,Barrière pleine voie sur l'autoroute                                                                ,LA BARQUE (SORTIE),24-06-1974,Gare isolée
+A8        ,ESCOTA    ,Var,*,46,750,POURRIERES,Gare sur bretelle d'échangeur                                                                       ,POURRIERES (ENTREE)                     ,01-10-1986,Gare isolée
+A8        ,ESCOTA    ,Var,*,46,750,,Gare sur bretelle d'échangeur                                                                       ,POURRIERES (SORTIE),01-10-1986,Gare isolée
+A8        ,ESCOTA    ,Var,*,57,680,SAINT MAXIMIN,Sur échangeur (diffuseur)                                                                           ,SAINT-MAXIMIN,24-06-1974,Gare isolée
+A8        ,ESCOTA    ,Var,*,73,763,BRIGNOLES,Sur échangeur (diffuseur)                                                                           ,BRIGNOLES,21-06-1973,Gare isolée
+A8        ,ESCOTA    ,Var,*,117,608,LE MUY,Sur échangeur (diffuseur)                                                                           ,LE MUY,29-06-1972,Gare isolée
+A8        ,ESCOTA    ,Var,*,129,234,PUGET SUR ARGENS,Sur échangeur (diffuseur)                                                                           ,PUGET SUR ARGENS,29-06-1972,Gare isolée
+A8        ,ESCOTA    ,Var,*,132,870,,Barrière pleine voie sur l'autoroute                                                                ,LE CAPITOU,01-03-1961,Gare principale d'un site de plusieurs gares
+A8        ,ESCOTA    ,Var,*,132,870,,Gare sur bretelle d'échangeur                                                                       ,FRéJUS OUEST,29-06-1992,Gare secondaire d'un site de plusieurs gares
+A8        ,ESCOTA    ,Var,*,133,960,,Gare sur bretelle d'échangeur                                                                       ,FREJUS,01-07-1961,Gare isolée
+A8        ,ESCOTA    ,Var,*,145,539,,Gare sur bretelle d'échangeur                                                                       ,LES ADRETS NORD,27-06-1972,Gare isolée
+A8        ,ESCOTA    ,Var,*,145,539,,Gare sur bretelle d'échangeur                                                                       ,LES ADRETS SUD,27-06-1972,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,171,350,,Gare sur bretelle d'échangeur                                                                       ,ANTIBES OUEST,27-10-1977,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,-,171,400,,Barrière pleine voie sur l'autoroute                                                                ,ANTIBES PV NORD,14-06-1995,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,172,20,,Barrière pleine voie sur l'autoroute                                                                ,ANTIBES   PV SUD,01-07-1961,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,172,500,,Gare sur bretelle d'échangeur                                                                       ,SOPHIA,26-09-1996,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,-,172,600,,Gare sur bretelle d'échangeur                                                                       ,ANTIBES EST  SORTIE,01-10-1996,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,172,600,,Gare sur bretelle d'échangeur                                                                       ,ANTIBES EST ENTRéE,27-06-1972,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,179,0,VILLENEUVE LOUBET W,Gare sur bretelle d'échangeur                                                                       ,VILLENEUVE LOUBET(SORTIE)               ,01-07-1961,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,179,700,VILLENEUVE LOUBET W,Gare sur bretelle d'échangeur                                                                       ,VILLENEUVE LOUBET (ENTREE)              ,15-05-1985,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,181,238,,Gare sur bretelle d'échangeur                                                                       ,CAGNES SUR MER,18-06-1976,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,-,189,463,,Barrière pleine voie sur l'autoroute                                                                ,SAINT ISIDORE BPV (SENS -),24-12-1976,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,-,189,463,,Gare sur bretelle d'échangeur                                                                       ,CAGNES SUR MER,18-06-1976,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,190,100,,Gare sur bretelle d'échangeur                                                                       ,ST ISIDORE EST ENTREé-SORTIE,24-12-1976,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,190,100,,Gare sur bretelle d'échangeur                                                                       ,ST ISIDORE OUEST ENTREE,01-05-1987,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,190,100,,Gare sur bretelle d'échangeur                                                                       ,ST ISIDORE OUEST SORTIE,14-06-1985,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,+,190,388,,Barrière pleine voie sur l'autoroute                                                                ,SAINT ISIDORE BPV (SENS +),24-12-1976,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,208,10,,Barrière pleine voie sur l'autoroute                                                                ,LA TURBIE                               ,10-02-1978,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,208,300,,Gare sur bretelle d'échangeur                                                                       ,LA TURBIE ENTREE (SENS +),10-02-1978,Gare isolée
+A8        ,ESCOTA    ,Alpes Maritimes,*,208,300,,Gare sur bretelle d'échangeur                                                                       ,LA TURBIE SORTIE (SENS -),10-02-1978,Gare isolée
+A81       ,COFIROUTE ,Sarthe,*,202,347,JOUE EN CHARNIE,Sur échangeur (diffuseur)                                                                           ,JOUE EN CHARNIE,14-03-1980,Gare isolée
+A81       ,COFIROUTE ,Mayenne,*,224,17,VAIGES,Sur échangeur (diffuseur)                                                                           ,VAIGES,24-10-1980,Gare isolée
+A81       ,COFIROUTE ,Mayenne,*,244,31,LAVAL EST,Sur échangeur (diffuseur)                                                                           ,LAVAL- EST,24-10-1980,Gare isolée
+A81       ,COFIROUTE ,Mayenne,*,251,582,LAVAL OUEST,Sur échangeur (diffuseur)                                                                           ,LAVAL OUEST,24-10-1980,Gare isolée
+A81       ,COFIROUTE ,Mayenne,*,267,217,,Barrière pleine voie sur l'autoroute                                                                ,LA GRAVELLE,24-10-1980,Gare isolée
+A83       ,ASF       ,Loire Atlantique,*,2,355,,Barrière pleine voie sur l'autoroute                                                                ,LE BIGNON,21-12-1991,Gare isolée
+A83       ,ASF       ,Vendée,*,22,631,MONTAIGU,Sur échangeur (diffuseur)                                                                           ,MONTAIGU,21-12-1991,Gare isolée
+A83       ,ASF       ,Vendée,*,45,930,LES ESSARTS,Sur échangeur (diffuseur)                                                                           ,LES ESSARTS,28-10-1994,Gare isolée
+A83       ,ASF       ,Vendée,*,65,20,CHANTONNAY,Sur échangeur (diffuseur)                                                                           ,CHANTONNAY (EX BOURNEZEAU),28-10-1994,Gare isolée
+A83       ,ASF       ,Vendée,*,76,670,SAINTE HERMINE,Sur échangeur (diffuseur)                                                                           ,STE HERMINE,28-10-1994,Gare isolée
+A83       ,ASF       ,Vendée,*,100,34,FONTENAY LE COMTE,Sur échangeur (diffuseur)                                                                           ,FONTENAY CENTRE,21-06-2001,Gare isolée
+A83       ,ASF       ,Vendée,*,113,636,OULMES NIORT OUEST,Sur échangeur (diffuseur)                                                                           ,NIORT OUEST,21-06-2001,Gare isolée
+A83       ,ASF       ,Sévres (Les deux Sévres),*,134,786,NIORT NORD,Sur échangeur (diffuseur)                                                                           ,NIORT NORD,21-06-2001,Gare isolée
+A83       ,ASF       ,Sévres (Les deux Sévres),*,142,933,NIORT EST,Sur échangeur (diffuseur)                                                                           ,NIORT EST,21-06-2001,Gare isolée
+A837      ,ASF       ,Charente Maritime,*,8,906,TONNAY CHARENTE RN 137,Sur échangeur (diffuseur)                                                                           ,TONNAY-CHARENTE,17-03-1997,Gare isolée
+A837      ,ASF       ,Charente Maritime,*,12,560,,Barrière pleine voie sur l'autoroute                                                                ,CABARIOT,17-03-1997,Gare isolée
+A85       ,COFIROUTE ,Maine et Loire,-,0,0,,Barrière pleine voie sur l'autoroute                                                                ,CORZE (A85 -),10-01-1997,Gare isolée
+A85       ,COFIROUTE ,Maine et Loire,+,0,0,,Barrière pleine voie sur l'autoroute                                                                ,CORZE (A85 +),10-01-1997,Gare isolée
+A85       ,COFIROUTE ,Maine et Loire,*,14,820,BEAUFORT EN VALLEE,Sur échangeur (diffuseur)                                                                           ,BEAUFORT EN VALLEE,10-01-1997,Gare isolée
+A85       ,COFIROUTE ,Maine et Loire,*,24,570,LONGUE,Sur échangeur (diffuseur)                                                                           ,LONGUE,10-01-1997,Gare isolée
+A85       ,COFIROUTE ,Maine et Loire,*,37,550,VIVY,Sur échangeur (diffuseur)                                                                           ,VIVY,10-01-1997,Gare isolée
+A85       ,COFIROUTE ,Indre et Loire,*,55,160,BOURGUEIL,Sur échangeur (diffuseur)                                                                           ,BOURGUEIL,01-10-1997,Gare isolée
+A85       ,COFIROUTE ,Indre et Loire,*,61,940,,Barrière pleine voie sur l'autoroute                                                                ,RESTIGNE,29-01-2007,Gare isolée
+A85       ,COFIROUTE ,Indre et Loire,*,103,889,,Barrière pleine voie sur l'autoroute                                                                ,VEIGNE,21-12-2007,Gare isolée
+A85       ,COFIROUTE ,Indre et Loire,*,108,956,ESVRES,Sur échangeur (diffuseur)                                                                           ,LOCHES-ST PIERRE DES CORPS,21-12-2007,Gare isolée
+A85       ,COFIROUTE ,Indre et Loire,*,122,736,BLERE,Sur échangeur (diffuseur)                                                                           ,BLERE,21-12-2007,Gare isolée
+A85       ,COFIROUTE ,Loire et Cher,*,152,296,SAINT ROMAIN SUR CHER,Sur échangeur (diffuseur)                                                                           ,SAINT AIGNAN,12-12-2003,Gare isolée
+A85       ,COFIROUTE ,Loire et Cher,*,163,317,CHEMERY,Sur échangeur (diffuseur)                                                                           ,SELLES SUR CHER,12-12-2003,Gare isolée
+A85       ,COFIROUTE ,Loire et Cher,*,184,650,VILLEFRANCHE SUR CHER,Sur échangeur (diffuseur)                                                                           ,ROMORANTIN,31-10-2001,Gare isolée
+A87       ,ASF       ,Maine et Loire,*,9,495,THOUARCE,Sur échangeur (diffuseur)                                                                           ,THOUARCE,22-01-2002,Gare isolée
+A87       ,ASF       ,Maine et Loire,*,10,247,,Barrière pleine voie sur l'autoroute                                                                ,BEAULIEU,22-01-2002,Gare isolée
+A87       ,ASF       ,Maine et Loire,*,27,735,CHEMILLE,Sur échangeur (diffuseur)                                                                           ,CHEMILLE,22-01-2002,Gare isolée
+A87       ,ASF       ,Maine et Loire,*,47,362,CHOLET NORD,Sur échangeur (diffuseur)                                                                           ,CHOLET NORD,22-01-2002,Gare isolée
+A87       ,ASF       ,Maine et Loire,*,56,519,CHOLET SUD,Sur échangeur (diffuseur)                                                                           ,CHOLET SUD,22-01-2002,Gare isolée
+A87       ,ASF       ,Vendée,*,68,540,LA VERRIE (BOCAGE),Sur échangeur (diffuseur)                                                                           ,LA VERRIE,20-06-2005,Gare isolée
+A87       ,ASF       ,Vendée,*,76,270,LES HERBIERS,Sur échangeur (diffuseur)                                                                           ,LES HERBIERS,19-06-2003,Gare isolée
+A87       ,ASF       ,Vendée,*,112,160,,Barrière pleine voie sur l'autoroute                                                                ,LA ROCHE SUR YON,14-01-2005,Gare isolée
+A88       ,ALICORNE  ,Orne,-,0,545,SEES,Sur échangeur (diffuseur)                                                                           ,SEES OUEST,27-08-2010,Gare isolée
+A88       ,ALICORNE  ,Orne,+,0,545,SEES,Sur échangeur (diffuseur)                                                                           ,SEES EST,27-08-2010,Gare isolée
+A88       ,ALICORNE  ,Calvados,*,34,668,,Barrière pleine voie sur l'autoroute                                                                ,RONAI,27-08-2010,Gare principale d'un site de plusieurs gares
+A88       ,ALICORNE  ,Orne,+,35,380,NECY,Sur échangeur (diffuseur)                                                                           ,NECY EST,27-08-2010,Gare secondaire d'un site de plusieurs gares
+A88       ,ALICORNE  ,Orne,-,35,540,NECY,Sur échangeur (diffuseur)                                                                           ,NECY OUEST,27-08-2010,Gare secondaire d'un site de plusieurs gares
+A89       ,ASF       ,Gironde,*,20,785,,Barrière pleine voie sur l'autoroute                                                                ,ARVEYRES,11-07-2001,Gare isolée
+A89       ,ASF       ,Gironde,*,29,375,LIBOURNE NORD,Sur échangeur (diffuseur)                                                                           ,LIBOURNE NORD,11-07-2001,Gare isolée
+A89       ,ASF       ,Gironde,*,43,460,COUTRAS,Sur échangeur (diffuseur)                                                                           ,COUTRAS,11-07-2001,Gare isolée
+A89       ,ASF       ,Dordogne,*,64,275,MONTPON,Sur échangeur (diffuseur)                                                                           ,MONTPON,11-07-2001,Gare isolée
+A89       ,ASF       ,Dordogne,*,83,155,MUSSIDAN SUD LES LECHES,Sur échangeur (diffuseur)                                                                           ,MUSSIDAN SUD,21-12-2004,Gare isolée
+A89       ,ASF       ,Dordogne,*,90,264,,Barrière pleine voie sur l'autoroute                                                                ,MUSSIDAN,11-07-2001,Gare isolée
+A89       ,ASF       ,Dordogne,*,90,619,MUSSIDAN EST,Sur échangeur (diffuseur)                                                                           ,MUSSIDAN EST,29-10-2004,Gare isolée
+A89       ,ASF       ,Dordogne,*,157,94,,Barrière pleine voie sur l'autoroute                                                                ,THENON,09-01-2004,Gare isolée
+A89       ,ASF       ,Corréze,*,203,205,,Barrière pleine voie sur l'autoroute                                                                ,SAINT GERMAIN LES VERGNES,21-02-2003,Gare isolée
+A89       ,ASF       ,Corréze,*,215,945,TULLE NORD,Sur échangeur (diffuseur)                                                                           ,TULLE NORD,21-02-2003,Gare isolée
+A89       ,ASF       ,Corréze,*,224,206,TULLE EST,Sur échangeur (diffuseur)                                                                           ,TULLE EST,22-02-2002,Gare isolée
+A89       ,ASF       ,Corréze,*,242,504,EGLETONS,Sur échangeur (diffuseur)                                                                           ,EGLETONS,22-02-2002,Gare isolée
+A89       ,ASF       ,Corréze,*,266,885,USSEL OUEST,Sur échangeur (diffuseur)                                                                           ,USSEL OUEST,05-03-2000,Gare isolée
+A89       ,ASF       ,Corréze,*,283,355,USSEL EST,Sur échangeur (diffuseur)                                                                           ,USSEL EST,05-03-2000,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,306,644,ST JULIEN PUY L'AVEZE - SANCY,Sur échangeur (diffuseur)                                                                           ,ST JULIEN SANCY,05-03-2000,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,329,500,PONTGIBAUD,Sur échangeur (diffuseur)                                                                           ,VULCANIA BROMONT,11-01-2006,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,349,980,MANZAT,Sur échangeur (diffuseur)                                                                           ,MANZAT,11-01-2006,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,408,0,,Barrière pleine voie sur l'autoroute                                                                ,LES MARTRES D'ARTIERES,24-10-1978,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,419,81,LEZOUX,Sur échangeur (diffuseur)                                                                           ,LEZOUX,20-03-2002,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,428,857,THIERS OUEST,Sur échangeur (diffuseur)                                                                           ,THIERS OUEST,31-03-1977,Gare isolée
+A89       ,ASF       ,Puy de Déme,*,440,66,THIERS EST,Sur échangeur (diffuseur)                                                                           ,THIERS EST,21-01-1980,Gare isolée
+A89       ,ASF       ,Loire,*,455,545,LES SALLES NOIRETABLE,Sur échangeur (diffuseur)                                                                           ,NOIRETABLE,13-06-1984,Gare isolée
+A89       ,ASF       ,Loire,*,477,545,SAINT GERMAIN LAVAL,Sur échangeur (diffuseur)                                                                           ,ST GERMAIN LAVAL,13-06-1984,Gare isolée
+A89       ,ASF       ,Loire,*,489,935,BALBIGNY,Sur échangeur (diffuseur)                                                                           ,BALBIGNY,11-12-2012,Gare isolée
+A89       ,ASF       ,Loire,*,521,250,,Barrière pleine voie sur l'autoroute                                                                ,SAINT-ROMAIN-DE-POPEY,,Gare isolée
+A89       ,ASF       ,Loire,*,522,930,TARARE EST,Sur échangeur (diffuseur)                                                                           ,TARARE EST,,Gare isolée
+A89       ,ASF       ,Loire,*,512,800,TARARE OUEST,Sur échangeur (diffuseur)                                                                           ,TARARE OUEST,,Gare isolée
+A9        ,ASF       ,Gard,*,14,710,ROQUEMAURE,Sur échangeur (diffuseur)                                                                           ,ROQUEMAURE,02-04-1987,Gare isolée
+A9        ,ASF       ,Gard,*,29,540,REMOULINS,Sur échangeur (diffuseur)                                                                           ,REMOULINS,30-06-1972,Gare isolée
+A9        ,ASF       ,Gard,*,46,850,NIMES EST,Sur échangeur (diffuseur)                                                                           ,NIMES EST,30-06-1972,Gare isolée
+A9        ,ASF       ,Gard,*,55,30,,Gare sur bretelle d'échangeur                                                                       ,NéMES OUEST,29-05-1974,Gare isolée
+A9        ,ASF       ,Gard,*,72,680,,Barrière pleine voie sur l'autoroute                                                                ,MONTPELLIER,05-07-1968,Gare isolée
+A9        ,ASF       ,Gard,*,72,850,GALLARGUES,Sur échangeur (diffuseur)                                                                           ,GALLARGUES FERMé,05-07-1968,Gare isolée
+A9        ,ASF       ,Gard,*,72,850,GALLARGUES,Sur échangeur (diffuseur)                                                                           ,GALLARGUES OUVERT,05-07-1968,Gare isolée
+A9        ,ASF       ,Hérault,*,78,420,LUNEL,Sur échangeur (diffuseur)                                                                           ,LUNEL,05-11-1993,Gare isolée
+A9        ,ASF       ,Hérault,*,107,380,,Barrière pleine voie sur l'autoroute                                                                ,MONTPELLIER,,Gare isolée
+A9        ,ASF       ,Hérault,*,122,900,SETE,Sur échangeur (diffuseur)                                                                           ,SETE                                    ,27-06-1975,Gare isolée
+A9        ,ASF       ,Hérault,*,148,430,AGDE PEZENAS,Sur échangeur (diffuseur)                                                                           ,AGDE,27-06-1975,Gare isolée
+A9        ,ASF       ,Hérault,*,166,624,BEZIERS OUEST,Sur échangeur (diffuseur)                                                                           ,BEZIERS OUEST,01-07-1971,Gare isolée
+A9        ,ASF       ,Aude,*,188,421,NARBONNE EST,Sur échangeur (diffuseur)                                                                           ,NARBONNE EST,20-12-1971,Gare isolée
+A9        ,ASF       ,Aude,*,192,20,NARBONNE SUD,Sur échangeur (diffuseur)                                                                           ,NARBONNE SUD,20-12-1971,Gare isolée
+A9        ,ASF       ,Aude,*,208,150,SIGEAN,Sur échangeur (diffuseur)                                                                           ,SIGEAN,01-06-1978,Gare isolée
+A9        ,ASF       ,Aude,*,219,230,LEUCATE,Sur échangeur (diffuseur)                                                                           ,LEUCATE,01-06-1978,Gare isolée
+A9        ,ASF       ,Pyrénées Orientales,*,241,390,PERPIGNAN NORD,Sur échangeur (diffuseur)                                                                           ,PERPIGNAN NORD                          ,01-06-1978,Gare isolée
+A9        ,ASF       ,Pyrénées Orientales,*,255,110,PERPIGNAN SUD,Sur échangeur (diffuseur)                                                                           ,PERPIGNAN SUD,30-06-1976,Gare isolée
+A9        ,ASF       ,Pyrénées Orientales,*,271,580,,Barrière pleine voie sur l'autoroute                                                                ,LE PERTHUS-LE BOULOU,30-06-1976,Gare isolée
+A9        ,ASF       ,Pyrénées Orientales,*,271,890,,Gare sur bretelle d'échangeur                                                                       ,BOULOU (FERMé),30-06-1976,Gare isolée
+A9        ,ASF       ,Pyrénées Orientales,*,271,890,,Gare sur bretelle d'échangeur                                                                       ,LE BOULOU (OUVERT),30-06-1976,Gare isolée
+RN159     ,APRR      ,Vosges,*,2,900,,Barriére pleine voie sur l'autoroute                                                                ,GARE DU TUNNEL MAURICE LEMAIRE,10-04-1981,Gare isolée

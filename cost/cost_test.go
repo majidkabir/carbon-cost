@@ -1362,3 +1362,31 @@ func TestPortugalLancos(t *testing.T) {
 		}
 	}
 }
+
+func TestSpainSEITT(t *testing.T) {
+	path := [][2]float64{{-3.8940, 40.2140}, {-3.8940, 40.2120}, {-3.8605, 40.1030}, {-3.8675, 39.9565}, {-3.8675, 39.9500}} // AP-41 Serranillos to Villaseca
+	for _, tc := range []struct {
+		name, at string
+		etc      bool
+		want     float64
+	}{
+		{"cash at 10:00", "10:00", false, 6.82},
+		{"Vía-T at 10:00", "10:00", true, 6.16},
+		{"at night", "03:00", false, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"ES": 1}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, ETC: tc.etc}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "ES" {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

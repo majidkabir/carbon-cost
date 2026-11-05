@@ -13,7 +13,8 @@ into Telepeaje (toll tag) and Efectivo/Tarjeta (cash or card). A price
 on the diagonal is an open plaza's (R-2's Aeropuerto, M-12's Barajas); a
 "-" or blank is no trip; "0,00 (*)" is free. Pesados 1: trucks of two or
 three axles (with a one-axle trailer); Pesados 2: four axles or more
-(each PDF's notes). Prices include 21% IVA, divided out. Cash prices are
+(each PDF's notes). Rows are the entry, columns the exit: priced per
+direction ("directed"). Prices include 21% IVA, divided out. Cash prices are
 the toll, tag prices the ETC prices; from 00:00 to 06:00 the motorways
 are free (each PDF's heading).
 
@@ -271,7 +272,7 @@ def main(fetched, out):
         print(f"{name}: {len(stations)}/{len(rows)} stations placed, {len(prices)} prices" + (f"; unplaced {miss}" if miss else ""))
         if len(stations) >= 3:
             systems.append({"name": name, "law": f"SEITT tariff {y} ({sid}), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
-                            "free_hours": ["00:00", "05:59"], "groups": GROUPS, "stations": stations, "prices": prices, "etc_prices": etc})
+                            "free_hours": ["00:00", "05:59"], "directed": True, "groups": GROUPS, "stations": stations, "prices": prices, "etc_prices": etc})
     osm = open(os.path.join(fetched, "es-osm-timestamp.txt")).read().strip()[:10]
     tb = {
         "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",

@@ -22,6 +22,7 @@ jobs:
         run: |
           python3 tools/tables/fetch.py tools/tables/sources.json out
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
+          for f in out/tr-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html"; done
       - name: Irish toll booths (OpenStreetMap)
         run: |
           curl -fsSL -o ie.pbf https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf

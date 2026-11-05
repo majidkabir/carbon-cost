@@ -1273,7 +1273,9 @@ func TestTurkeyBridges(t *testing.T) {
 		{"Yavuz Sultan Selim, 5 axles", truck40, cross(29.11176, 41.20308), 11.50},
 		{"Yavuz Sultan Selim, 2 axles", two, cross(29.11176, 41.20308), 2.42},
 		{"Osmangazi, 5 axles", truck40, cross(29.51602, 40.75600), 49.17},
-		{"1915 Çanakkale, 5 axles", truck40, cross(26.63819, 40.33899), 48.75},
+		{"1915 Çanakkale bridge to Gelibolu Güney, 5 axles", truck40, [][2]float64{{26.6600, 40.3200}, {26.6095, 40.3535}, {26.6154, 40.3665}}, 48.75},
+		{"Malkara to the 1915 Çanakkale bridge, 5 axles", truck40, [][2]float64{{27.0453, 40.8656}, {26.8631, 40.5865}, {26.6095, 40.3535}, {26.6600, 40.3200}}, 61.75},
+		{"Anadolu Otoyolu Çamlıca to Gebze, 5 axles", truck40, [][2]float64{{29.1725, 40.9922}, {29.3157, 40.9539}, {29.4743, 40.8043}}, 1.92},
 		{"no bridge", truck40, cross(29.2, 41.0), 0},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"TR": 1}, Path: tc.path}}}

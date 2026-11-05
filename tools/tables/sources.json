@@ -48,6 +48,7 @@
   {"id": "gr-neaodos", "table": "gr", "url": "https://www.neaodos.gr/highways/tolls/", "what": "Greece: Nea Odos toll prices (A1 Metamorfosi–Skarfeia, Ionia Odos)"},
   {"id": "gr-kentriki", "table": "gr", "url": "https://www.kentrikiodos.gr/highways/toll-fees/", "what": "Greece: Kentriki Odos toll prices (A1 Skarfeia–Raches, E65)"},
   {"id": "gr-moreas", "table": "gr", "url": "https://www.moreas.com.gr/leitourgia/diodia", "what": "Greece: Moreas toll prices (A7 Korinthos–Tripoli–Kalamata, Lefktro–Sparti)"},
-  {"id": "gr-aegean", "table": "gr", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/", "what": "Greece: Aegean Motorway toll prices (A1 Raches–Kleidi)"}
+  {"id": "gr-aegean", "table": "gr", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/", "what": "Greece: Aegean Motorway toll prices (A1 Raches–Kleidi)"},
+  {"id": "gr-gefyra", "table": "gr", "url": "https://www.gefyra.gr/prices/Times-Diodion/", "what": "Greece: Gefyra, Rio–Antirrio bridge toll prices"}
  ]
 }

@@ -1,6 +1,6 @@
 """Builds the Greek motorway toll table from the concession companies'
 price pages (fetch.py's gr-olympia, gr-neaodos, gr-kentriki, gr-moreas,
-gr-aegean .html) and the toll booths in OpenStreetMap (the workflow's
+gr-aegean, gr-gefyra .html) and the toll booths in OpenStreetMap (the workflow's
 gr-osm.geojsonseq, from Geofabrik's Greece extract).
 
 Usage: python3 gr.py fetched/ out-dir -> out-dir/gr-<year>-01-01.json
@@ -12,6 +12,10 @@ two or three axles, 4 for four or more axles (each page's category
 list). Each page's table is read as a station name followed by its four
 category prices. Prices include 24% VAT (Aegean Motorway's list says so;
 Greek motorway tolls carry VAT) and are divided by 1.24.
+
+The Rio–Antirrio bridge (Gefyra) charges trucks over 2 m high by axles:
+2, 3, 4, 5 and more ("Φορτηγά 3 άξονες € 40,10"), at its toll station
+(the OSM booths "Διόδια Γέφυρας Ρίου Αντιρρίου"), either way.
 
 Stations are matched to the OSM toll booths named "Μετωπικά Διόδια
 <name>" / "Πλευρικά Διόδια <name>" (front / side; names compared without
@@ -74,11 +78,12 @@ def heading(a, b):
 
 
 def main(fetched, out):
-    booths, ways = {}, []
+    booths, ways, booths_named = {}, [], {}
     for line in open(os.path.join(fetched, "gr-osm.geojsonseq"), encoding="utf-8"):
         f = json.loads(line.strip("\x1e"))
         p, g = f["properties"], f["geometry"]
         if p.get("barrier") == "toll_booth" and g["type"] == "Point" and p.get("name"):
+            booths_named.setdefault(p["name"], []).append(tuple(g["coordinates"]))
             m = re.match(r"^(Μετωπικ\w+|Πλευρικ\w+)( Διόδια| Σταθμός Διοδίων)? (.+?)( [\d,]+\s*€)?$", p["name"])
             if m:
                 kind = "side" if m.group(1).startswith("Πλευρ") else "front"
@@ -110,17 +115,33 @@ def main(fetched, out):
                     tp["heading"] = h
                 tp.update(rate=0, classes=classes)
                 points.append(tp)
+    # The Rio–Antirrio bridge: trucks over 2 m high by axles (2, 3, 4, 5 and more).
+    c = " ".join(cells(os.path.join(fetched, "gr-gefyra.html")))
+    ax = {int(n): euros(v) for n, v in re.findall(r"(\d) άξονες(?: και άνω)? € ?(\d+,\d\d)", c)}
+    if sorted(ax) != [2, 3, 4, 5]:
+        sys.exit(f"Gefyra: axle prices {ax}")
+    bs = booths_named.get("Διόδια Γέφυρας Ρίου Αντιρρίου")
+    if not bs:
+        missing.append("Γέφυρα Ρίου–Αντιρρίου")
+    else:
+        lon, lat = sum(b[0] for b in bs) / len(bs), sum(b[1] for b in bs) / len(bs)
+        points.append({"name": "Γέφυρα: Ρίο–Αντίρριο", "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0,
+                       "classes": [{"min_kg": 3501, "max_axles": 2, "rate": round(ax[2] / VAT, 4)},
+                                   {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": round(ax[3] / VAT, 4)},
+                                   {"min_kg": 3501, "min_axles": 4, "max_axles": 4, "rate": round(ax[4] / VAT, 4)},
+                                   {"min_kg": 3501, "min_axles": 5, "rate": round(ax[5] / VAT, 4)}]})
     if missing:
         print("not in OpenStreetMap:", "; ".join(missing))
     tb = {
         "country": "GR", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
         "name": "Greek motorway tolls (open toll stations)",
-        "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway. Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
+        "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
         "sources": [{"title": "Olympia Odos: Τιμές διοδίων", "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/"},
                     {"title": "Nea Odos: Διόδια Τέλη", "url": "https://www.neaodos.gr/highways/tolls/"},
                     {"title": "Kentriki Odos: Διόδια Τέλη", "url": "https://www.kentrikiodos.gr/highways/toll-fees/"},
                     {"title": "Moreas: Διόδια", "url": "https://www.moreas.com.gr/leitourgia/diodia"},
                     {"title": "Aegean Motorway: Τιμές Διοδίων 2026", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"},
+                    {"title": "Gefyra: Τιμές Διοδίων (Rio–Antirrio bridge)", "url": "https://www.gefyra.gr/prices/Times-Diodion/"},
                     {"title": "OpenStreetMap (Geofabrik extract), toll booths", "url": "https://download.geofabrik.de/europe/greece.html"}],
         "vehicles": "Vehicles over 3,500 kg (categories 3 and 4)",
         "min_kg": 3501,

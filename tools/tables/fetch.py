@@ -27,7 +27,7 @@ as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
 (as <id>-links-<n>.json): their geometry runs in the road's metering
 direction, which a station's charged direction refers to.
 """
-import hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
+import gzip, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
 
@@ -42,7 +42,11 @@ def get(url, accept=None):
     for i in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60) as r:
-                return r.status, r.read()
+                body = r.read()
+                # Some servers send gzip unasked.
+                if body[:2] == b"\x1f\x8b":
+                    body = gzip.decompress(body)
+                return r.status, body
         except urllib.error.HTTPError as e:
             return e.code, e.read()
         except Exception as e:

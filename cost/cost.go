@@ -1158,8 +1158,14 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	paid := map[int]bool{}
+	last := map[string]float64{} // where each station was last paid, km along the route
 	free, peak := 0, 0
 	for _, p := range passes {
+		// One station mapped as several booths (a lane, a carriageway):
+		// passing them together pays once.
+		if at, ok := last[p.tp.Name]; ok && p.pos-at < 1 {
+			continue
+		}
 		rate, ok := p.tp.Price(req.Truck, req.ETC)
 		if !ok || rate == 0 {
 			continue
@@ -1171,6 +1177,7 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		if p.tp.Group != 0 {
 			paid[p.tp.Group] = true
 		}
+		last[p.tp.Name] = p.pos
 		if p.tp.PeakRate > rate {
 			peak++
 		}

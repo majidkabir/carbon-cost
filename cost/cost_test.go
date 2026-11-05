@@ -1227,3 +1227,32 @@ func TestMontenegro(t *testing.T) {
 		}
 	}
 }
+
+// Greece: open toll stations per passage, excluding VAT; a station mapped
+// as several booths pays once.
+func TestGreece(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Elefsina", [][2]float64{{23.4900, 38.0400}, {23.5010, 38.0445}}, 7.18},
+		{"Spathovouni southbound", [][2]float64{{22.8100, 37.8390}, {22.8060, 37.8330}}, 8.43},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"GR": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "GR" {
+				got += l.Amount
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

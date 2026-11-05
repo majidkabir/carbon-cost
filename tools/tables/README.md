@@ -1,4 +1,4 @@
-# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Norwegian, Irish, North Macedonian, Montenegrin, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
+# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Norwegian, Irish, North Macedonian, Montenegrin, Greek, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
 
 Everything here runs in the **Tables data** workflow (`.github/workflows/tables-data.yml`, started by pushing to the `tables-data` branch). It fetches the sources, rebuilds the tables, says whether each one is the same as the committed file, and pushes the fetched pages, `manifest.json` (URL, sha256, size, fetch time and HTTP status of every file) and the rebuilt tables to the `tables-out` branch.
 
@@ -18,6 +18,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - **Swedish bridges**: Riksdagen's text of Förordning (2014:1564), Transportstyrelsen's page for each bridge, and the toll gantries named after the bridges in Geofabrik's Sweden OpenStreetMap extract.
    - **North Macedonia**: the PDFs of the toll decision (Службен весник 118/2019, for the categories) and its 2025 amendment, whose toll table is an image: transcribed by hand into `transcribed/mk-2025.json` with the PDF's sha256, which `check_transcribed.py` compares with the fetched PDF; and the toll booths ("Патарина <station>") of Geofabrik's North Macedonia OpenStreetMap extract.
    - **Montenegro**: Monteput's price pages for the motorway and the Sozina tunnel, and the toll booths and motorway junctions of Geofabrik's Montenegro OpenStreetMap extract.
+   - **Greece**: the toll price pages of Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the toll booths and motorway ways of Geofabrik's Greece OpenStreetMap extract. (`fetch.py` gunzips a response a server sends compressed unasked.)
    - **Hungary**: the Nemzeti Jogszabálytár's consolidated text of 25/2013. (V. 31.) NFM rendelet. The site sends long parts (the annexes) separately; `fetch.py` asks for them as its page script does (`/ajax/njtGetBlock.json`).
 2. **Build**:
    - `ro.py` → `rates/data/ro-<date>.json`: lei/km including 21% VAT by mass category, road category and emission class, from the offer JSON; the date and order number from the offer's name.
@@ -35,6 +36,7 @@ Everything here runs in the **Tables data** workflow (`.github/workflows/tables-
    - `se_bridges.py` → `rates/data/se-bridges-<date>.json`: one toll point per bridge (its gantries' centre) with the heavy-truck amount; valid from Förordning (2024:194)'s entry into force.
    - `mk.py` → `rates/data/mk-<date>.json`: one toll point per booth with the category III and IV euro prices; a booth on a one-way carriageway charges its direction, booths charging both ways are merged.
    - `me.py` → `rates/data/me-2022-07-21.json`: the motorway's entry–exit prices (the calculator's `items` in the page) as a closed toll system, and the Sozina tunnel as a toll point; stations are the booths named "Naplatna stanica <name>", else the booths within 1 km of the junction of that name.
+   - `gr.py` → `rates/data/gr-2026-01-01.json`: one toll point per booth (a station's two-way booths merged) with the category 3 and 4 prices divided by 1.24; page names matched to the OSM booths ("Μετωπικά/Πλευρικά Διόδια <name>") without accents, nominatives put in the genitive by a table in the script.
    - `hu.py` → `rates/data/hu-<date>.json` and `tools/roads/hu-annex1.json`: § 1 (2)-(4a) (infrastructure charge), annex 1 (tolled sections, with each one's suburban share) and annex 2 (external-cost charge).
 3. **Transcribed images**: Atlandes (A63) and ALBEA (A150) publish their prices only as images. Those are transcribed by hand into `tools/fr/transcribed/*.json`, each with the image's URL and sha256; the workflow fetches the images (`sources.json`) and `check_transcribed.py` says whether each is still the one transcribed.
 4. **Compare**: the workflow prints, for each rebuilt file, whether it is the same as the committed one, or the difference. A new file means a new price list: copy it into `rates/data` (with an end date on the previous one if they overlap).

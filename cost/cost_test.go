@@ -1299,3 +1299,38 @@ func TestTurkeyBridges(t *testing.T) {
 		}
 	}
 }
+
+func TestSwedishCongestionTax(t *testing.T) {
+	sto := [][2]float64{{18.1034, 59.3130}, {18.1034, 59.3140}, {18.1034, 59.3150}}                   // through Danvikstull
+	gbg := [][2]float64{{11.9941, 57.7190}, {11.99404, 57.7199}, {11.9839, 57.7238}, {11.98, 57.725}} // Marieholmsleden then Ringömotet
+	for _, tc := range []struct {
+		name, day, at string
+		path          [][2]float64
+		cc            string
+		want          float64
+	}{
+		{"Stockholm high season rush hour", "2026-11-05", "08:00", sto, "SE", 4.09}, // 45 SEK
+		{"Stockholm low season midday", "2026-12-08", "12:00", sto, "SE", 1.0},      // 11 SEK
+		{"Stockholm at night", "2026-11-05", "22:00", sto, "SE", 0},
+		{"Stockholm on a Saturday", "2026-11-07", "08:00", sto, "SE", 0},
+		{"Stockholm without a time", "2026-11-05", "", sto, "SE", 0},
+		{"Göteborg two stations within the hour", "2026-11-05", "07:30", gbg, "SE", 2.0}, // 22 SEK once
+		{"Göteborg in July", "2026-07-02", "07:30", gbg, "SE", 0},
+	} {
+		date, _ := time.Parse(time.DateOnly, tc.day)
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"SE": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"SEK": 11}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Source, "trängselskatt") {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

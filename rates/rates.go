@@ -129,6 +129,9 @@ type Table struct {
 	TollPoints []TollPoint `json:"toll_points,omitempty"`
 	// PointMatchKm is how close the route must pass a toll point to pay it.
 	PointMatchKm float64 `json:"point_match_km,omitempty"`
+	// Congestion prices the toll points that name a Schedule by the time
+	// of day (Sweden's congestion tax).
+	Congestion *Congestion `json:"congestion,omitempty"`
 }
 
 // PointClass is a toll point's price for the trucks it matches; ETCRate,
@@ -181,6 +184,9 @@ type TollPoint struct {
 	// include this station's charge: a route with a ticket of that system
 	// from one side of the station to the other doesn't pay it again.
 	Within string `json:"within,omitempty"`
+	// Schedule names the table's Congestion schedule that prices this
+	// station by the time of day, instead of Rate.
+	Schedule string `json:"schedule,omitempty"`
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -642,6 +648,9 @@ func (tb Table) check() error {
 	for _, p := range tb.TollPoints {
 		if p.Within != "" && !slices.ContainsFunc(tb.Closed, func(s TollSystem) bool { return s.Name == p.Within }) {
 			return fmt.Errorf("toll point %s: no closed system %q in the table", p.Name, p.Within)
+		}
+		if p.Schedule != "" && (tb.Congestion == nil || tb.Congestion.Schedules[p.Schedule] == nil) {
+			return fmt.Errorf("toll point %s: no congestion schedule %q in the table", p.Name, p.Schedule)
 		}
 	}
 	return nil

@@ -61,12 +61,15 @@ jobs:
           osmium export -O -f geojsonseq -o out/tr-osm.geojsonseq tr-b.pbf
           osmium tags-filter -O -o tr-t.pbf tr.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=toll_gantry n/highway=motorway_junction
           osmium export -O -f geojsonseq -o out/tr-osm-booths.geojsonseq tr-t.pbf
-      - name: Galician toll stations (OpenStreetMap)
+      - name: Spanish SEITT toll stations (OpenStreetMap)
         run: |
-          curl -fsSL -o gal.pbf https://download.geofabrik.de/europe/spain/galicia-latest.osm.pbf
-          osmium fileinfo -g header.option.osmosis_replication_timestamp gal.pbf > out/es-gal-osm-timestamp.txt
-          osmium tags-filter -O -o gal-b.pbf gal.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry w/highway=motorway
-          osmium export -O -f geojsonseq -o out/es-gal-osm.geojsonseq gal-b.pbf
+          for r in madrid castilla-la-mancha murcia andalucia; do
+            curl -fsSL -o es-$r.pbf https://download.geofabrik.de/europe/spain/$r-latest.osm.pbf
+            osmium tags-filter -O -o es-$r-b.pbf es-$r.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry
+          done
+          osmium fileinfo -g header.option.osmosis_replication_timestamp es-madrid.pbf > out/es-osm-timestamp.txt
+          osmium merge -O -o es-b.pbf es-*-b.pbf
+          osmium export -O -f geojsonseq -o out/es-osm.geojsonseq es-b.pbf
       - name: Portuguese motorways (OpenStreetMap)
         run: |
           curl -fsSL -o pt.pbf https://download.geofabrik.de/europe/portugal-latest.osm.pbf
@@ -88,6 +91,7 @@ jobs:
           python3 tools/tables/no.py out out/tables
           python3 tools/tables/ie.py out out/tables
           python3 tools/tables/se_bridges.py out out/tables
+          python3 tools/tables/se_congestion.py out out/tables
           python3 tools/tables/mk.py tools/tables/transcribed/mk-2025.json out out/tables
           python3 tools/tables/me.py out out/tables
           python3 tools/tables/gr.py out out/tables

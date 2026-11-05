@@ -45,12 +45,15 @@ var ETS2Start = time.Date(2028, 1, 1, 0, 0, 0, 0, time.UTC)
 
 // Request is a trip to price.
 type Request struct {
-	From        sootcase.Location `json:"from"`
-	To          sootcase.Location `json:"to"`
-	Date        string            `json:"date,omitempty"` // YYYY-MM-DD; default today
-	CargoKg     float64           `json:"cargo_kg"`
-	VehicleType string            `json:"vehicle_type,omitempty"`
-	Truck       rates.Truck       `json:"truck"`
+	From sootcase.Location `json:"from"`
+	To   sootcase.Location `json:"to"`
+	Date string            `json:"date,omitempty"` // YYYY-MM-DD; default today
+	// Time is the local time (HH:MM) the route passes time-priced toll
+	// stations (Sweden's congestion tax); without it they aren't priced.
+	Time        string      `json:"time,omitempty"`
+	CargoKg     float64     `json:"cargo_kg"`
+	VehicleType string      `json:"vehicle_type,omitempty"`
+	Truck       rates.Truck `json:"truck"`
 	// TolledShare is the share of each country's km on tolled roads,
 	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
 	// so give it when part of a trip runs on untolled roads.
@@ -237,6 +240,11 @@ func check(req Request) error {
 	}
 	if req.CargoKg <= 0 {
 		return fmt.Errorf("cargo_kg must be > 0")
+	}
+	if req.Time != "" {
+		if err := rates.ValidTime(req.Time); err != nil {
+			return fmt.Errorf("time: %w", err)
+		}
 	}
 	for k, v := range req.TolledShare {
 		if v < 0 || v > 1 {
@@ -549,7 +557,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if err != nil {
 			return Response{}, err
 		}
-		pointsAny, err := priceTollPoints(tb, a.country, route, req, &out, add, sp)
+		pointsAny, err := priceTollPoints(tb, a.country, route, req, date, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
@@ -579,7 +587,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if err != nil {
 			return Response{}, err
 		}
-		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, &out, add, sp)
+		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, date, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
@@ -1157,7 +1165,7 @@ const DefaultPointMatchKm = 0.05
 // direction that pays, and says whether it passed any. Under an hour
 // rule only the first passage of a group pays: the route is taken to
 // pass a group's stations within its time limit.
-func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, out *Response, add func(Line) error, sp spans) (bool, error) {
+func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
 	match := tb.PointMatchKm
 	if match == 0 {
 		match = DefaultPointMatchKm
@@ -1184,6 +1192,11 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 	paid := map[int]bool{}
 	last := map[string]float64{} // where each station was last paid, km along the route
 	free, peak := 0, 0
+	var cg struct {
+		noTime, offHours, multi, paid int
+		why                           string
+		total, capped                 float64
+	}
 	for _, p := range passes {
 		// One station mapped as several booths (a lane, a carriageway):
 		// passing them together pays once.
@@ -1193,6 +1206,44 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		if p.tp.Within != "" && slices.ContainsFunc(sp[p.tp.Within], func(s [2]float64) bool { return s[0] < p.pos && p.pos < s[1] }) {
 			last[p.tp.Name] = p.pos
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is included in the %s ticket.", country, p.tp.Name, p.tp.Within))
+			continue
+		}
+		if p.tp.Schedule != "" {
+			c := tb.Congestion
+			last[p.tp.Name] = p.pos
+			switch taxed, why := c.Taxed(date); {
+			case req.Time == "":
+				cg.noTime++
+				continue
+			case !taxed:
+				cg.why = why
+				continue
+			}
+			amt, err := c.Amount(p.tp.Schedule, date, req.Time)
+			if err != nil {
+				return true, err
+			}
+			if amt == 0 {
+				cg.offHours++
+				continue
+			}
+			if c.MultiPassMinutes > 0 && cg.paid > 0 {
+				cg.multi++
+				continue
+			}
+			if dayCap := c.Cap(date); dayCap > 0 && cg.total+amt > dayCap {
+				amt = dayCap - cg.total
+				cg.capped = dayCap
+				if amt <= 0 {
+					continue
+				}
+			}
+			cg.paid++
+			cg.total += amt
+			if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: p.tp.Name,
+				Rate: amt, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: amt, Source: tb.Law}); err != nil {
+				return true, err
+			}
 			continue
 		}
 		rate, ok := p.tp.Price(req.Truck, req.ETC)
@@ -1224,6 +1275,21 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))
+	}
+	switch {
+	case cg.noTime > 0:
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s not priced: give time (HH:MM, local) for when the route passes its %d station(s).", country, tb.Name, cg.noTime))
+	case cg.why != "":
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: %s on %s.", country, tb.Name, cg.why, date.Format(time.DateOnly)))
+	}
+	if cg.offHours > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: no tax at %s at %d station(s).", country, tb.Name, req.Time, cg.offHours))
+	}
+	if cg.multi > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: %d more passage(s) within %d minutes pay once.", country, tb.Name, cg.multi, tb.Congestion.MultiPassMinutes))
+	}
+	if cg.capped > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: capped at %g %s a day.", country, tb.Name, cg.capped, tb.Currency))
 	}
 	return len(passes) > 0, nil
 }

@@ -39,9 +39,8 @@ them). A station further than 60 km from the others, or with no match,
 isn't placed, nor are its prices. The 1915 Çanakkale bridge is a station
 of Malkara–Çanakkale; its own tariff is checked to equal the Gelibolu
 Güney – bridge price. Gebze–Orhangazi–İzmir (two matrices side by side,
-the Osmangazi bridge a station of it), the Yavuz Sultan Selim bridge's
-Kuzey Çevre motorway (which includes the bridge), Ankara–Niğde and
-Aydın–Denizli (other layouts) aren't read.
+the Osmangazi bridge a station of it) and the Yavuz Sultan Selim bridge's
+Kuzey Çevre motorway (which includes the bridge) aren't read.
 
 The table is valid from the latest date the bridge tariffs give
 ("01/07/2026 saat 00:00'dan itibaren geçerlidir").
@@ -67,7 +66,9 @@ SYSTEMS = [("tr-5-anadoluotoyolucamlica-akinci", "O-4 Anadolu Otoyolu (Çamlıca
            ("tr-14-kmoavrupakinali-odayeri", "O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri)"),
            ("tr-15-kmoanadolukurtkoy-akyazi", "O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı)"),
            ("tr-16-menemen-aliaga-candarli", "O-33 Menemen – Aliağa – Çandarlı"),
+           ("tr-17-ankara-nigde", "O-21 Ankara – Niğde"),
            ("tr-18-malkara-canakkale", "O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü)"),
+           ("tr-19-aydin-denizli", "O-31 Aydın – Denizli"),
            ("tr-20-cesmeli-kizkalesitr", "Çeşmeli – Erdemli – Kızkalesi")]
 # Abbreviated tariff names -> the OpenStreetMap toll booths' names.
 ALIAS = {"Ş.PINAR": "Şekerpınar", "K.BURGAZ": "Kumburgaz", "GEBZE ORG. SAN. BÖLGELERİ": "Gebze OSB",
@@ -127,11 +128,13 @@ def wkey(name):
 def variants(name):
     """Keys a tariff name may match: as printed (without its booth number,
     "(G11)", "G-1"), without or only the part in brackets, without a
-    trailing ALIN (main-line plaza), SGS, KMO or 2."""
+    trailing ALIN (main-line plaza), SGS, KMO or 2, and a double name's
+    first part ("Kulu-Kırıkkale")."""
     n = ALIAS.get(name, name)
     n = re.sub(r"\s*\(G\d+\)|\s+G-\d+$", "", n)
     out = [n, re.sub(r"\s*\([^)]*\)", "", n).strip()] + re.findall(r"\(([^)]*)\)", n)
-    out += [re.sub(r"^(KMO)\s+|\s+(ALIN|SGS|2)$", "", x) for x in out]
+    out += [re.sub(r"^(KMO)\s+|\s+(ALIN|Alın|SGS|2)$", "", x) for x in out]
+    out += [m.group(1) for x in out for m in [re.match(r"^(\w+)-\w{2,}$", x)] if m]  # "Kulu-Kırıkkale"
     return list(dict.fromkeys(k for x in out if x.strip() for k in (wkey(x), tr_matrix.key(x))))
 
 
@@ -290,7 +293,7 @@ def main(fetched, out):
     tb = {
         "country": "TR", "currency": "TRY", "valid_from": date,
         "name": "Turkish motorway and bridge tolls (KGM)",
-        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge), Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge), Ankara–Niğde and Aydın–Denizli aren't included.",
+        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge) and Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge) aren't included.",
         "sources": [{"title": "KGM: Otoyol ve Köprü Geçiş Ücretleri", "url": url["tr-kgm-ucretler"]}]
                    + [{"title": f"KGM: {a} Geçiş Ücretleri Tarifesi", "url": kgm + b + ".pdf"} for a, b in titles.values()]
                    + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in SYSTEMS]

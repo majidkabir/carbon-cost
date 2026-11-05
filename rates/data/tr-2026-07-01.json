@@ -3,7 +3,7 @@
  "currency": "TRY",
  "valid_from": "2026-07-01",
  "name": "Turkish motorway and bridge tolls (KGM)",
- "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 24 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge), Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge), Ankara–Niğde and Aydın–Denizli aren't included.",
+ "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 26 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge) and Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge) aren't included.",
  "sources": [
   {
    "title": "KGM: Otoyol ve Köprü Geçiş Ücretleri",
@@ -66,8 +66,16 @@
    "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/16-Menemen-Aliaga-Candarli.pdf"
   },
   {
+   "title": "KGM: O-21 Ankara – Niğde geçiş ücretleri",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/17-Ankara-Nigde.pdf"
+  },
+  {
    "title": "KGM: O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü) geçiş ücretleri",
    "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/18-Malkara-Canakkale.pdf"
+  },
+  {
+   "title": "KGM: O-31 Aydın – Denizli geçiş ücretleri",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/19-Aydin-Denizli.pdf"
   },
   {
    "title": "KGM: Çeşmeli – Erdemli – Kızkalesi geçiş ücretleri",
@@ -79,7 +87,7 @@
   }
  ],
  "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
- "tolled_roads": "The 15 Temmuz Şehitler, Fatih Sultan Mehmet, Yavuz Sultan Selim and Osmangazi bridges; O-4 Anadolu Otoyolu (Çamlıca – Akıncı), O-32 İzmir – Çeşme, O-31 İzmir – Aydın (Işıkkent – Aydın Batı), O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı), O-52 Çukurova (Gaziantep Doğu – Şanlıurfa), O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı), O-3 Avrupa Otoyolu (Mahmutbey – Edirne), O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri), O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı), O-33 Menemen – Aliağa – Çandarlı, O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü), Çeşmeli – Erdemli – Kızkalesi.",
+ "tolled_roads": "The 15 Temmuz Şehitler, Fatih Sultan Mehmet, Yavuz Sultan Selim and Osmangazi bridges; O-4 Anadolu Otoyolu (Çamlıca – Akıncı), O-32 İzmir – Çeşme, O-31 İzmir – Aydın (Işıkkent – Aydın Batı), O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı), O-52 Çukurova (Gaziantep Doğu – Şanlıurfa), O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı), O-3 Avrupa Otoyolu (Mahmutbey – Edirne), O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri), O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı), O-33 Menemen – Aliağa – Çandarlı, O-21 Ankara – Niğde, O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü), O-31 Aydın – Denizli, Çeşmeli – Erdemli – Kızkalesi.",
  "point_match_km": 0.05,
  "toll_points": [
   {
@@ -7675,6 +7683,1381 @@
    }
   },
   {
+   "name": "O-21 Ankara – Niğde",
+   "law": "KGM 2026 tariff (tr-17-ankara-nigde), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ankara Alın",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.630465,
+       "lon": 32.758941
+      },
+      {
+       "name": "booth",
+       "lat": 39.630181,
+       "lon": 32.758559
+      },
+      {
+       "name": "booth",
+       "lat": 39.63015,
+       "lon": 32.758457
+      }
+     ]
+    },
+    {
+     "name": "Karagedik",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.606987,
+       "lon": 32.786757
+      },
+      {
+       "name": "booth",
+       "lat": 39.606903,
+       "lon": 32.78692
+      },
+      {
+       "name": "booth",
+       "lat": 39.60702,
+       "lon": 32.786614
+      }
+     ]
+    },
+    {
+     "name": "Ahiboz",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.544886,
+       "lon": 32.873889
+      },
+      {
+       "name": "booth",
+       "lat": 39.545073,
+       "lon": 32.873747
+      },
+      {
+       "name": "booth",
+       "lat": 39.545451,
+       "lon": 32.874416
+      }
+     ]
+    },
+    {
+     "name": "Emirler",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.381135,
+       "lon": 32.96491
+      },
+      {
+       "name": "booth",
+       "lat": 39.381032,
+       "lon": 32.965104
+      },
+      {
+       "name": "booth",
+       "lat": 39.38116,
+       "lon": 32.964751
+      }
+     ]
+    },
+    {
+     "name": "Kulu-Kırıkkale",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.236946,
+       "lon": 33.127134
+      },
+      {
+       "name": "booth",
+       "lat": 39.236782,
+       "lon": 33.127258
+      },
+      {
+       "name": "booth",
+       "lat": 39.237068,
+       "lon": 33.127049
+      }
+     ]
+    },
+    {
+     "name": "Acıkuyu",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.119878,
+       "lon": 33.425169
+      },
+      {
+       "name": "booth",
+       "lat": 39.119782,
+       "lon": 33.425444
+      },
+      {
+       "name": "booth",
+       "lat": 39.119927,
+       "lon": 33.424936
+      }
+     ]
+    },
+    {
+     "name": "Evren-Sarıyahşi",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.016926,
+       "lon": 33.816947
+      },
+      {
+       "name": "booth",
+       "lat": 39.016787,
+       "lon": 33.817144
+      },
+      {
+       "name": "booth",
+       "lat": 39.016956,
+       "lon": 33.816827
+      }
+     ]
+    },
+    {
+     "name": "Ağaçören",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.93647,
+       "lon": 33.964261
+      },
+      {
+       "name": "booth",
+       "lat": 38.936586,
+       "lon": 33.964399
+      }
+     ]
+    },
+    {
+     "name": "Kırşehir",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.986957,
+       "lon": 34.03671
+      },
+      {
+       "name": "booth",
+       "lat": 38.986825,
+       "lon": 34.036721
+      }
+     ]
+    },
+    {
+     "name": "Ortaköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.772762,
+       "lon": 34.120887
+      },
+      {
+       "name": "booth",
+       "lat": 38.77263,
+       "lon": 34.121069
+      }
+     ]
+    },
+    {
+     "name": "Alayhan",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.507231,
+       "lon": 34.330011
+      },
+      {
+       "name": "booth",
+       "lat": 38.507044,
+       "lon": 34.329961
+      }
+     ]
+    },
+    {
+     "name": "Derinkuyu",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.34268,
+       "lon": 34.56911
+      },
+      {
+       "name": "booth",
+       "lat": 38.342518,
+       "lon": 34.569037
+      }
+     ]
+    },
+    {
+     "name": "Çiftlik",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.25772,
+       "lon": 34.630014
+      },
+      {
+       "name": "booth",
+       "lat": 38.257678,
+       "lon": 34.629847
+      },
+      {
+       "name": "booth",
+       "lat": 38.257674,
+       "lon": 34.629683
+      }
+     ]
+    },
+    {
+     "name": "Niğde Alın",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.143027,
+       "lon": 34.717471
+      },
+      {
+       "name": "booth",
+       "lat": 38.143064,
+       "lon": 34.71773
+      },
+      {
+       "name": "booth",
+       "lat": 38.143079,
+       "lon": 34.717269
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Ankara Alın|Karagedik": {
+     "2": 95.8333,
+     "3": 104.1667,
+     "4": 145.8333,
+     "5": 145.8333
+    },
+    "Ankara Alın|Ahiboz": {
+     "2": 145.8333,
+     "3": 145.8333,
+     "4": 200.0,
+     "5": 229.1667
+    },
+    "Ankara Alın|Emirler": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 379.1667
+    },
+    "Ankara Alın|Kulu-Kırıkkale": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Ankara Alın|Acıkuyu": {
+     "2": 366.6667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 700.0
+    },
+    "Ankara Alın|Evren-Sarıyahşi": {
+     "2": 470.8333,
+     "3": 558.3333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Ankara Alın|Ağaçören": {
+     "2": 533.3333,
+     "3": 641.6667,
+     "4": 795.8333,
+     "5": 970.8333
+    },
+    "Ankara Alın|Kırşehir": {
+     "2": 620.8333,
+     "3": 733.3333,
+     "4": 929.1667,
+     "5": 1129.1667
+    },
+    "Ankara Alın|Ortaköy": {
+     "2": 600.0,
+     "3": 708.3333,
+     "4": 920.8333,
+     "5": 1100.0
+    },
+    "Ankara Alın|Alayhan": {
+     "2": 708.3333,
+     "3": 866.6667,
+     "4": 1075.0,
+     "5": 1304.1667
+    },
+    "Ankara Alın|Derinkuyu": {
+     "2": 795.8333,
+     "3": 929.1667,
+     "4": 1204.1667,
+     "5": 1470.8333
+    },
+    "Ankara Alın|Çiftlik": {
+     "2": 829.1667,
+     "3": 983.3333,
+     "4": 1262.5,
+     "5": 1537.5
+    },
+    "Ankara Alın|Niğde Alın": {
+     "2": 875.0,
+     "3": 1054.1667,
+     "4": 1354.1667,
+     "5": 1625.0
+    },
+    "Karagedik|Ankara Alın": {
+     "2": 95.8333,
+     "3": 104.1667,
+     "4": 145.8333,
+     "5": 145.8333
+    },
+    "Karagedik|Ahiboz": {
+     "2": 58.3333,
+     "3": 58.3333,
+     "4": 95.8333,
+     "5": 104.1667
+    },
+    "Karagedik|Emirler": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Karagedik|Kulu-Kırıkkale": {
+     "2": 200.0,
+     "3": 229.1667,
+     "4": 275.0,
+     "5": 329.1667
+    },
+    "Karagedik|Acıkuyu": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 470.8333,
+     "5": 558.3333
+    },
+    "Karagedik|Evren-Sarıyahşi": {
+     "2": 429.1667,
+     "3": 495.8333,
+     "4": 600.0,
+     "5": 750.0
+    },
+    "Karagedik|Ağaçören": {
+     "2": 433.3333,
+     "3": 558.3333,
+     "4": 700.0,
+     "5": 829.1667
+    },
+    "Karagedik|Kırşehir": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 829.1667,
+     "5": 1004.1667
+    },
+    "Karagedik|Ortaköy": {
+     "2": 533.3333,
+     "3": 641.6667,
+     "4": 795.8333,
+     "5": 970.8333
+    },
+    "Karagedik|Alayhan": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 970.8333,
+     "5": 1200.0
+    },
+    "Karagedik|Derinkuyu": {
+     "2": 708.3333,
+     "3": 866.6667,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Karagedik|Çiftlik": {
+     "2": 750.0,
+     "3": 920.8333,
+     "4": 1158.3333,
+     "5": 1400.0
+    },
+    "Karagedik|Niğde Alın": {
+     "2": 795.8333,
+     "3": 970.8333,
+     "4": 1250.0,
+     "5": 1520.8333
+    },
+    "Ahiboz|Ankara Alın": {
+     "2": 145.8333,
+     "3": 145.8333,
+     "4": 200.0,
+     "5": 229.1667
+    },
+    "Ahiboz|Karagedik": {
+     "2": 58.3333,
+     "3": 58.3333,
+     "4": 95.8333,
+     "5": 104.1667
+    },
+    "Ahiboz|Emirler": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Ahiboz|Kulu-Kırıkkale": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 308.3333
+    },
+    "Ahiboz|Acıkuyu": {
+     "2": 275.0,
+     "3": 329.1667,
+     "4": 429.1667,
+     "5": 495.8333
+    },
+    "Ahiboz|Evren-Sarıyahşi": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 595.8333,
+     "5": 700.0
+    },
+    "Ahiboz|Ağaçören": {
+     "2": 429.1667,
+     "3": 495.8333,
+     "4": 641.6667,
+     "5": 770.8333
+    },
+    "Ahiboz|Kırşehir": {
+     "2": 512.5,
+     "3": 620.8333,
+     "4": 791.6667,
+     "5": 970.8333
+    },
+    "Ahiboz|Ortaköy": {
+     "2": 495.8333,
+     "3": 600.0,
+     "4": 750.0,
+     "5": 920.8333
+    },
+    "Ahiboz|Alayhan": {
+     "2": 600.0,
+     "3": 708.3333,
+     "4": 929.1667,
+     "5": 1129.1667
+    },
+    "Ahiboz|Derinkuyu": {
+     "2": 700.0,
+     "3": 829.1667,
+     "4": 1054.1667,
+     "5": 1304.1667
+    },
+    "Ahiboz|Çiftlik": {
+     "2": 708.3333,
+     "3": 875.0,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Ahiboz|Niğde Alın": {
+     "2": 770.8333,
+     "3": 929.1667,
+     "4": 1200.0,
+     "5": 1470.8333
+    },
+    "Emirler|Ankara Alın": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 379.1667
+    },
+    "Emirler|Karagedik": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Emirler|Ahiboz": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Emirler|Kulu-Kırıkkale": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Emirler|Acıkuyu": {
+     "2": 229.1667,
+     "3": 275.0,
+     "4": 329.1667,
+     "5": 429.1667
+    },
+    "Emirler|Evren-Sarıyahşi": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 495.8333,
+     "5": 600.0
+    },
+    "Emirler|Ağaçören": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 700.0
+    },
+    "Emirler|Kırşehir": {
+     "2": 462.5,
+     "3": 562.5,
+     "4": 708.3333,
+     "5": 866.6667
+    },
+    "Emirler|Ortaköy": {
+     "2": 433.3333,
+     "3": 533.3333,
+     "4": 700.0,
+     "5": 829.1667
+    },
+    "Emirler|Alayhan": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1025.0
+    },
+    "Emirler|Derinkuyu": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 970.8333,
+     "5": 1200.0
+    },
+    "Emirler|Çiftlik": {
+     "2": 662.5,
+     "3": 795.8333,
+     "4": 1025.0,
+     "5": 1262.5
+    },
+    "Emirler|Niğde Alın": {
+     "2": 708.3333,
+     "3": 875.0,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Kulu-Kırıkkale|Ankara Alın": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Kulu-Kırıkkale|Karagedik": {
+     "2": 200.0,
+     "3": 229.1667,
+     "4": 275.0,
+     "5": 329.1667
+    },
+    "Kulu-Kırıkkale|Ahiboz": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 308.3333
+    },
+    "Kulu-Kırıkkale|Emirler": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Kulu-Kırıkkale|Acıkuyu": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Kulu-Kırıkkale|Evren-Sarıyahşi": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 366.6667,
+     "5": 433.3333
+    },
+    "Kulu-Kırıkkale|Ağaçören": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 433.3333,
+     "5": 533.3333
+    },
+    "Kulu-Kırıkkale|Kırşehir": {
+     "2": 379.1667,
+     "3": 462.5,
+     "4": 562.5,
+     "5": 700.0
+    },
+    "Kulu-Kırıkkale|Ortaköy": {
+     "2": 366.6667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 662.5
+    },
+    "Kulu-Kırıkkale|Alayhan": {
+     "2": 470.8333,
+     "3": 558.3333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Kulu-Kırıkkale|Derinkuyu": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1025.0
+    },
+    "Kulu-Kırıkkale|Çiftlik": {
+     "2": 595.8333,
+     "3": 708.3333,
+     "4": 920.8333,
+     "5": 1100.0
+    },
+    "Kulu-Kırıkkale|Niğde Alın": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 983.3333,
+     "5": 1200.0
+    },
+    "Acıkuyu|Ankara Alın": {
+     "2": 366.6667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 700.0
+    },
+    "Acıkuyu|Karagedik": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 470.8333,
+     "5": 558.3333
+    },
+    "Acıkuyu|Ahiboz": {
+     "2": 275.0,
+     "3": 329.1667,
+     "4": 429.1667,
+     "5": 495.8333
+    },
+    "Acıkuyu|Emirler": {
+     "2": 229.1667,
+     "3": 275.0,
+     "4": 329.1667,
+     "5": 429.1667
+    },
+    "Acıkuyu|Kulu-Kırıkkale": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Acıkuyu|Evren-Sarıyahşi": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 308.3333
+    },
+    "Acıkuyu|Ağaçören": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 379.1667
+    },
+    "Acıkuyu|Kırşehir": {
+     "2": 291.6667,
+     "3": 358.3333,
+     "4": 462.5,
+     "5": 562.5
+    },
+    "Acıkuyu|Ortaköy": {
+     "2": 275.0,
+     "3": 329.1667,
+     "4": 433.3333,
+     "5": 533.3333
+    },
+    "Acıkuyu|Alayhan": {
+     "2": 379.1667,
+     "3": 470.8333,
+     "4": 600.0,
+     "5": 708.3333
+    },
+    "Acıkuyu|Derinkuyu": {
+     "2": 470.8333,
+     "3": 595.8333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Acıkuyu|Çiftlik": {
+     "2": 495.8333,
+     "3": 600.0,
+     "4": 770.8333,
+     "5": 929.1667
+    },
+    "Acıkuyu|Niğde Alın": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1054.1667
+    },
+    "Evren-Sarıyahşi|Ankara Alın": {
+     "2": 470.8333,
+     "3": 558.3333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Evren-Sarıyahşi|Karagedik": {
+     "2": 429.1667,
+     "3": 495.8333,
+     "4": 600.0,
+     "5": 750.0
+    },
+    "Evren-Sarıyahşi|Ahiboz": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 595.8333,
+     "5": 700.0
+    },
+    "Evren-Sarıyahşi|Emirler": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 495.8333,
+     "5": 600.0
+    },
+    "Evren-Sarıyahşi|Kulu-Kırıkkale": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 366.6667,
+     "5": 433.3333
+    },
+    "Evren-Sarıyahşi|Acıkuyu": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 308.3333
+    },
+    "Evren-Sarıyahşi|Ağaçören": {
+     "2": 95.8333,
+     "3": 95.8333,
+     "4": 104.1667,
+     "5": 145.8333
+    },
+    "Evren-Sarıyahşi|Kırşehir": {
+     "2": 187.5,
+     "3": 229.1667,
+     "4": 233.3333,
+     "5": 308.3333
+    },
+    "Evren-Sarıyahşi|Ortaköy": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 275.0
+    },
+    "Evren-Sarıyahşi|Alayhan": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Evren-Sarıyahşi|Derinkuyu": {
+     "2": 329.1667,
+     "3": 429.1667,
+     "4": 533.3333,
+     "5": 641.6667
+    },
+    "Evren-Sarıyahşi|Çiftlik": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 595.8333,
+     "5": 700.0
+    },
+    "Evren-Sarıyahşi|Niğde Alın": {
+     "2": 433.3333,
+     "3": 533.3333,
+     "4": 662.5,
+     "5": 795.8333
+    },
+    "Ağaçören|Ankara Alın": {
+     "2": 533.3333,
+     "3": 641.6667,
+     "4": 795.8333,
+     "5": 970.8333
+    },
+    "Ağaçören|Karagedik": {
+     "2": 433.3333,
+     "3": 558.3333,
+     "4": 700.0,
+     "5": 829.1667
+    },
+    "Ağaçören|Ahiboz": {
+     "2": 429.1667,
+     "3": 495.8333,
+     "4": 641.6667,
+     "5": 770.8333
+    },
+    "Ağaçören|Emirler": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 700.0
+    },
+    "Ağaçören|Kulu-Kırıkkale": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 433.3333,
+     "5": 533.3333
+    },
+    "Ağaçören|Acıkuyu": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 379.1667
+    },
+    "Ağaçören|Evren-Sarıyahşi": {
+     "2": 95.8333,
+     "3": 95.8333,
+     "4": 104.1667,
+     "5": 145.8333
+    },
+    "Ağaçören|Kırşehir": {
+     "2": 129.1667,
+     "3": 170.8333,
+     "4": 187.5,
+     "5": 233.3333
+    },
+    "Ağaçören|Ortaköy": {
+     "2": 104.1667,
+     "3": 104.1667,
+     "4": 145.8333,
+     "5": 200.0
+    },
+    "Ağaçören|Alayhan": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 329.1667,
+     "5": 379.1667
+    },
+    "Ağaçören|Derinkuyu": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 433.3333,
+     "5": 558.3333
+    },
+    "Ağaçören|Çiftlik": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 495.8333,
+     "5": 600.0
+    },
+    "Ağaçören|Niğde Alın": {
+     "2": 379.1667,
+     "3": 470.8333,
+     "4": 595.8333,
+     "5": 708.3333
+    },
+    "Kırşehir|Ankara Alın": {
+     "2": 620.8333,
+     "3": 733.3333,
+     "4": 929.1667,
+     "5": 1129.1667
+    },
+    "Kırşehir|Karagedik": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 829.1667,
+     "5": 1004.1667
+    },
+    "Kırşehir|Ahiboz": {
+     "2": 512.5,
+     "3": 620.8333,
+     "4": 791.6667,
+     "5": 970.8333
+    },
+    "Kırşehir|Emirler": {
+     "2": 462.5,
+     "3": 562.5,
+     "4": 708.3333,
+     "5": 866.6667
+    },
+    "Kırşehir|Kulu-Kırıkkale": {
+     "2": 379.1667,
+     "3": 462.5,
+     "4": 562.5,
+     "5": 700.0
+    },
+    "Kırşehir|Acıkuyu": {
+     "2": 291.6667,
+     "3": 358.3333,
+     "4": 462.5,
+     "5": 562.5
+    },
+    "Kırşehir|Evren-Sarıyahşi": {
+     "2": 187.5,
+     "3": 229.1667,
+     "4": 233.3333,
+     "5": 308.3333
+    },
+    "Kırşehir|Ağaçören": {
+     "2": 129.1667,
+     "3": 170.8333,
+     "4": 187.5,
+     "5": 233.3333
+    },
+    "Kırşehir|Ortaköy": {
+     "2": 229.1667,
+     "3": 233.3333,
+     "4": 291.6667,
+     "5": 366.6667
+    },
+    "Kırşehir|Alayhan": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 462.5,
+     "5": 562.5
+    },
+    "Kırşehir|Derinkuyu": {
+     "2": 408.3333,
+     "3": 462.5,
+     "4": 562.5,
+     "5": 733.3333
+    },
+    "Kırşehir|Çiftlik": {
+     "2": 433.3333,
+     "3": 512.5,
+     "4": 620.8333,
+     "5": 791.6667
+    },
+    "Kırşehir|Niğde Alın": {
+     "2": 495.8333,
+     "3": 562.5,
+     "4": 708.3333,
+     "5": 895.8333
+    },
+    "Ortaköy|Ankara Alın": {
+     "2": 600.0,
+     "3": 708.3333,
+     "4": 920.8333,
+     "5": 1100.0
+    },
+    "Ortaköy|Karagedik": {
+     "2": 533.3333,
+     "3": 641.6667,
+     "4": 795.8333,
+     "5": 970.8333
+    },
+    "Ortaköy|Ahiboz": {
+     "2": 495.8333,
+     "3": 600.0,
+     "4": 750.0,
+     "5": 920.8333
+    },
+    "Ortaköy|Emirler": {
+     "2": 433.3333,
+     "3": 533.3333,
+     "4": 700.0,
+     "5": 829.1667
+    },
+    "Ortaköy|Kulu-Kırıkkale": {
+     "2": 366.6667,
+     "3": 433.3333,
+     "4": 558.3333,
+     "5": 662.5
+    },
+    "Ortaköy|Acıkuyu": {
+     "2": 275.0,
+     "3": 329.1667,
+     "4": 433.3333,
+     "5": 533.3333
+    },
+    "Ortaköy|Evren-Sarıyahşi": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 275.0
+    },
+    "Ortaköy|Ağaçören": {
+     "2": 104.1667,
+     "3": 104.1667,
+     "4": 145.8333,
+     "5": 200.0
+    },
+    "Ortaköy|Kırşehir": {
+     "2": 229.1667,
+     "3": 233.3333,
+     "4": 291.6667,
+     "5": 366.6667
+    },
+    "Ortaköy|Alayhan": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Ortaköy|Derinkuyu": {
+     "2": 229.1667,
+     "3": 275.0,
+     "4": 329.1667,
+     "5": 429.1667
+    },
+    "Ortaköy|Çiftlik": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Ortaköy|Niğde Alın": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 470.8333,
+     "5": 595.8333
+    },
+    "Alayhan|Ankara Alın": {
+     "2": 708.3333,
+     "3": 866.6667,
+     "4": 1075.0,
+     "5": 1304.1667
+    },
+    "Alayhan|Karagedik": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 970.8333,
+     "5": 1200.0
+    },
+    "Alayhan|Ahiboz": {
+     "2": 600.0,
+     "3": 708.3333,
+     "4": 929.1667,
+     "5": 1129.1667
+    },
+    "Alayhan|Emirler": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1025.0
+    },
+    "Alayhan|Kulu-Kırıkkale": {
+     "2": 470.8333,
+     "3": 558.3333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Alayhan|Acıkuyu": {
+     "2": 379.1667,
+     "3": 470.8333,
+     "4": 600.0,
+     "5": 708.3333
+    },
+    "Alayhan|Evren-Sarıyahşi": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Alayhan|Ağaçören": {
+     "2": 229.1667,
+     "3": 262.5,
+     "4": 329.1667,
+     "5": 379.1667
+    },
+    "Alayhan|Kırşehir": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 462.5,
+     "5": 562.5
+    },
+    "Alayhan|Ortaköy": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 262.5
+    },
+    "Alayhan|Derinkuyu": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Alayhan|Çiftlik": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 275.0
+    },
+    "Alayhan|Niğde Alın": {
+     "2": 200.0,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 366.6667
+    },
+    "Derinkuyu|Ankara Alın": {
+     "2": 795.8333,
+     "3": 929.1667,
+     "4": 1204.1667,
+     "5": 1470.8333
+    },
+    "Derinkuyu|Karagedik": {
+     "2": 708.3333,
+     "3": 866.6667,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Derinkuyu|Ahiboz": {
+     "2": 700.0,
+     "3": 829.1667,
+     "4": 1054.1667,
+     "5": 1304.1667
+    },
+    "Derinkuyu|Emirler": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 970.8333,
+     "5": 1200.0
+    },
+    "Derinkuyu|Kulu-Kırıkkale": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1025.0
+    },
+    "Derinkuyu|Acıkuyu": {
+     "2": 470.8333,
+     "3": 595.8333,
+     "4": 708.3333,
+     "5": 875.0
+    },
+    "Derinkuyu|Evren-Sarıyahşi": {
+     "2": 329.1667,
+     "3": 429.1667,
+     "4": 533.3333,
+     "5": 641.6667
+    },
+    "Derinkuyu|Ağaçören": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 433.3333,
+     "5": 558.3333
+    },
+    "Derinkuyu|Kırşehir": {
+     "2": 408.3333,
+     "3": 462.5,
+     "4": 562.5,
+     "5": 733.3333
+    },
+    "Derinkuyu|Ortaköy": {
+     "2": 229.1667,
+     "3": 275.0,
+     "4": 329.1667,
+     "5": 429.1667
+    },
+    "Derinkuyu|Alayhan": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Derinkuyu|Çiftlik": {
+     "2": 58.3333,
+     "3": 58.3333,
+     "4": 95.8333,
+     "5": 104.1667
+    },
+    "Derinkuyu|Niğde Alın": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Çiftlik|Ankara Alın": {
+     "2": 829.1667,
+     "3": 983.3333,
+     "4": 1262.5,
+     "5": 1537.5
+    },
+    "Çiftlik|Karagedik": {
+     "2": 750.0,
+     "3": 920.8333,
+     "4": 1158.3333,
+     "5": 1400.0
+    },
+    "Çiftlik|Ahiboz": {
+     "2": 708.3333,
+     "3": 875.0,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Çiftlik|Emirler": {
+     "2": 662.5,
+     "3": 795.8333,
+     "4": 1025.0,
+     "5": 1262.5
+    },
+    "Çiftlik|Kulu-Kırıkkale": {
+     "2": 595.8333,
+     "3": 708.3333,
+     "4": 920.8333,
+     "5": 1100.0
+    },
+    "Çiftlik|Acıkuyu": {
+     "2": 495.8333,
+     "3": 600.0,
+     "4": 770.8333,
+     "5": 929.1667
+    },
+    "Çiftlik|Evren-Sarıyahşi": {
+     "2": 379.1667,
+     "3": 433.3333,
+     "4": 595.8333,
+     "5": 700.0
+    },
+    "Çiftlik|Ağaçören": {
+     "2": 329.1667,
+     "3": 379.1667,
+     "4": 495.8333,
+     "5": 600.0
+    },
+    "Çiftlik|Kırşehir": {
+     "2": 433.3333,
+     "3": 512.5,
+     "4": 620.8333,
+     "5": 791.6667
+    },
+    "Çiftlik|Ortaköy": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 379.1667,
+     "5": 470.8333
+    },
+    "Çiftlik|Alayhan": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 229.1667,
+     "5": 275.0
+    },
+    "Çiftlik|Derinkuyu": {
+     "2": 58.3333,
+     "3": 58.3333,
+     "4": 95.8333,
+     "5": 104.1667
+    },
+    "Çiftlik|Niğde Alın": {
+     "2": 95.8333,
+     "3": 95.8333,
+     "4": 104.1667,
+     "5": 145.8333
+    },
+    "Niğde Alın|Ankara Alın": {
+     "2": 875.0,
+     "3": 1054.1667,
+     "4": 1354.1667,
+     "5": 1625.0
+    },
+    "Niğde Alın|Karagedik": {
+     "2": 795.8333,
+     "3": 970.8333,
+     "4": 1250.0,
+     "5": 1520.8333
+    },
+    "Niğde Alın|Ahiboz": {
+     "2": 770.8333,
+     "3": 929.1667,
+     "4": 1200.0,
+     "5": 1470.8333
+    },
+    "Niğde Alın|Emirler": {
+     "2": 708.3333,
+     "3": 875.0,
+     "4": 1100.0,
+     "5": 1354.1667
+    },
+    "Niğde Alın|Kulu-Kırıkkale": {
+     "2": 641.6667,
+     "3": 770.8333,
+     "4": 983.3333,
+     "5": 1200.0
+    },
+    "Niğde Alın|Acıkuyu": {
+     "2": 558.3333,
+     "3": 662.5,
+     "4": 866.6667,
+     "5": 1054.1667
+    },
+    "Niğde Alın|Evren-Sarıyahşi": {
+     "2": 433.3333,
+     "3": 533.3333,
+     "4": 662.5,
+     "5": 795.8333
+    },
+    "Niğde Alın|Ağaçören": {
+     "2": 379.1667,
+     "3": 470.8333,
+     "4": 595.8333,
+     "5": 708.3333
+    },
+    "Niğde Alın|Kırşehir": {
+     "2": 495.8333,
+     "3": 562.5,
+     "4": 708.3333,
+     "5": 895.8333
+    },
+    "Niğde Alın|Ortaköy": {
+     "2": 308.3333,
+     "3": 366.6667,
+     "4": 470.8333,
+     "5": 595.8333
+    },
+    "Niğde Alın|Alayhan": {
+     "2": 200.0,
+     "3": 262.5,
+     "4": 308.3333,
+     "5": 366.6667
+    },
+    "Niğde Alın|Derinkuyu": {
+     "2": 104.1667,
+     "3": 145.8333,
+     "4": 170.8333,
+     "5": 200.0
+    },
+    "Niğde Alın|Çiftlik": {
+     "2": 95.8333,
+     "3": 95.8333,
+     "4": 104.1667,
+     "5": 145.8333
+    }
+   }
+  },
+  {
    "name": "O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü)",
    "law": "KGM 2026 tariff (tr-18-malkara-canakkale), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
    "groups": [
@@ -7914,6 +9297,596 @@
      "3": 2195.8333,
      "4": 2437.5,
      "5": 4633.3333
+    }
+   }
+  },
+  {
+   "name": "O-31 Aydın – Denizli",
+   "law": "KGM 2026 tariff (tr-19-aydin-denizli), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "AYDIN ALIN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.860598,
+       "lon": 27.786928
+      },
+      {
+       "name": "booth",
+       "lat": 37.860781,
+       "lon": 27.787063
+      }
+     ]
+    },
+    {
+     "name": "KÖŞK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.801406,
+       "lon": 28.057198
+      },
+      {
+       "name": "booth",
+       "lat": 37.80137,
+       "lon": 28.056994
+      }
+     ]
+    },
+    {
+     "name": "YENİ PAZAR",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 37.820327,
+       "lon": 28.20832
+      },
+      {
+       "name": "junction",
+       "lat": 37.828037,
+       "lon": 28.217406
+      },
+      {
+       "name": "junction",
+       "lat": 37.825972,
+       "lon": 28.209632
+      }
+     ]
+    },
+    {
+     "name": "NAZİLLİ",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 37.829396,
+       "lon": 28.31978
+      },
+      {
+       "name": "junction",
+       "lat": 37.830967,
+       "lon": 28.329284
+      },
+      {
+       "name": "junction",
+       "lat": 37.83267,
+       "lon": 28.324553
+      }
+     ]
+    },
+    {
+     "name": "KUYUCAK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.882016,
+       "lon": 28.50117
+      }
+     ]
+    },
+    {
+     "name": "BUHARKENT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.951587,
+       "lon": 28.720267
+      }
+     ]
+    },
+    {
+     "name": "SARAYKÖY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.900595,
+       "lon": 28.94365
+      }
+     ]
+    },
+    {
+     "name": "PAMUKKALE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.859003,
+       "lon": 29.146239
+      }
+     ]
+    },
+    {
+     "name": "KOCABAŞ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.823009,
+       "lon": 29.301981
+      },
+      {
+       "name": "booth",
+       "lat": 37.822893,
+       "lon": 29.302193
+      },
+      {
+       "name": "booth",
+       "lat": 37.823041,
+       "lon": 29.301827
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "AYDIN ALIN|KÖŞK": {
+     "2": 91.6667,
+     "3": 112.5,
+     "4": 129.1667,
+     "5": 145.8333
+    },
+    "AYDIN ALIN|YENİ PAZAR": {
+     "2": 166.6667,
+     "3": 195.8333,
+     "4": 233.3333,
+     "5": 262.5
+    },
+    "AYDIN ALIN|NAZİLLİ": {
+     "2": 200.0,
+     "3": 241.6667,
+     "4": 287.5,
+     "5": 316.6667
+    },
+    "AYDIN ALIN|KUYUCAK": {
+     "2": 275.0,
+     "3": 333.3333,
+     "4": 391.6667,
+     "5": 441.6667
+    },
+    "AYDIN ALIN|BUHARKENT": {
+     "2": 366.6667,
+     "3": 450.0,
+     "4": 533.3333,
+     "5": 595.8333
+    },
+    "AYDIN ALIN|SARAYKÖY": {
+     "2": 458.3333,
+     "3": 554.1667,
+     "4": 666.6667,
+     "5": 737.5
+    },
+    "AYDIN ALIN|PAMUKKALE": {
+     "2": 550.0,
+     "3": 654.1667,
+     "4": 787.5,
+     "5": 875.0
+    },
+    "AYDIN ALIN|KOCABAŞ": {
+     "2": 620.8333,
+     "3": 745.8333,
+     "4": 891.6667,
+     "5": 987.5
+    },
+    "KÖŞK|AYDIN ALIN": {
+     "2": 91.6667,
+     "3": 112.5,
+     "4": 129.1667,
+     "5": 145.8333
+    },
+    "KÖŞK|YENİ PAZAR": {
+     "2": 100.0,
+     "3": 116.6667,
+     "4": 141.6667,
+     "5": 150.0
+    },
+    "KÖŞK|NAZİLLİ": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 191.6667,
+     "5": 216.6667
+    },
+    "KÖŞK|KUYUCAK": {
+     "2": 212.5,
+     "3": 250.0,
+     "4": 300.0,
+     "5": 333.3333
+    },
+    "KÖŞK|BUHARKENT": {
+     "2": 308.3333,
+     "3": 362.5,
+     "4": 437.5,
+     "5": 483.3333
+    },
+    "KÖŞK|SARAYKÖY": {
+     "2": 391.6667,
+     "3": 475.0,
+     "4": 570.8333,
+     "5": 633.3333
+    },
+    "KÖŞK|PAMUKKALE": {
+     "2": 479.1667,
+     "3": 579.1667,
+     "4": 695.8333,
+     "5": 766.6667
+    },
+    "KÖŞK|KOCABAŞ": {
+     "2": 554.1667,
+     "3": 666.6667,
+     "4": 791.6667,
+     "5": 875.0
+    },
+    "YENİ PAZAR|AYDIN ALIN": {
+     "2": 166.6667,
+     "3": 195.8333,
+     "4": 233.3333,
+     "5": 262.5
+    },
+    "YENİ PAZAR|KÖŞK": {
+     "2": 100.0,
+     "3": 116.6667,
+     "4": 141.6667,
+     "5": 150.0
+    },
+    "YENİ PAZAR|NAZİLLİ": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 104.1667,
+     "5": 116.6667
+    },
+    "YENİ PAZAR|KUYUCAK": {
+     "2": 145.8333,
+     "3": 175.0,
+     "4": 216.6667,
+     "5": 241.6667
+    },
+    "YENİ PAZAR|BUHARKENT": {
+     "2": 245.8333,
+     "3": 295.8333,
+     "4": 354.1667,
+     "5": 391.6667
+    },
+    "YENİ PAZAR|SARAYKÖY": {
+     "2": 337.5,
+     "3": 400.0,
+     "4": 483.3333,
+     "5": 533.3333
+    },
+    "YENİ PAZAR|PAMUKKALE": {
+     "2": 416.6667,
+     "3": 504.1667,
+     "4": 608.3333,
+     "5": 675.0
+    },
+    "YENİ PAZAR|KOCABAŞ": {
+     "2": 491.6667,
+     "3": 587.5,
+     "4": 704.1667,
+     "5": 787.5
+    },
+    "NAZİLLİ|AYDIN ALIN": {
+     "2": 200.0,
+     "3": 241.6667,
+     "4": 287.5,
+     "5": 316.6667
+    },
+    "NAZİLLİ|KÖŞK": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 191.6667,
+     "5": 216.6667
+    },
+    "NAZİLLİ|YENİ PAZAR": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 104.1667,
+     "5": 116.6667
+    },
+    "NAZİLLİ|KUYUCAK": {
+     "2": 91.6667,
+     "3": 112.5,
+     "4": 137.5,
+     "5": 145.8333
+    },
+    "NAZİLLİ|BUHARKENT": {
+     "2": 191.6667,
+     "3": 225.0,
+     "4": 270.8333,
+     "5": 300.0
+    },
+    "NAZİLLİ|SARAYKÖY": {
+     "2": 283.3333,
+     "3": 337.5,
+     "4": 408.3333,
+     "5": 450.0
+    },
+    "NAZİLLİ|PAMUKKALE": {
+     "2": 366.6667,
+     "3": 437.5,
+     "4": 529.1667,
+     "5": 583.3333
+    },
+    "NAZİLLİ|KOCABAŞ": {
+     "2": 437.5,
+     "3": 525.0,
+     "4": 625.0,
+     "5": 700.0
+    },
+    "KUYUCAK|AYDIN ALIN": {
+     "2": 275.0,
+     "3": 333.3333,
+     "4": 391.6667,
+     "5": 441.6667
+    },
+    "KUYUCAK|KÖŞK": {
+     "2": 212.5,
+     "3": 250.0,
+     "4": 300.0,
+     "5": 333.3333
+    },
+    "KUYUCAK|YENİ PAZAR": {
+     "2": 145.8333,
+     "3": 175.0,
+     "4": 216.6667,
+     "5": 241.6667
+    },
+    "KUYUCAK|NAZİLLİ": {
+     "2": 91.6667,
+     "3": 112.5,
+     "4": 137.5,
+     "5": 145.8333
+    },
+    "KUYUCAK|BUHARKENT": {
+     "2": 116.6667,
+     "3": 137.5,
+     "4": 166.6667,
+     "5": 187.5
+    },
+    "KUYUCAK|SARAYKÖY": {
+     "2": 200.0,
+     "3": 245.8333,
+     "4": 295.8333,
+     "5": 333.3333
+    },
+    "KUYUCAK|PAMUKKALE": {
+     "2": 287.5,
+     "3": 354.1667,
+     "4": 416.6667,
+     "5": 466.6667
+    },
+    "KUYUCAK|KOCABAŞ": {
+     "2": 362.5,
+     "3": 437.5,
+     "4": 525.0,
+     "5": 579.1667
+    },
+    "BUHARKENT|AYDIN ALIN": {
+     "2": 366.6667,
+     "3": 450.0,
+     "4": 533.3333,
+     "5": 595.8333
+    },
+    "BUHARKENT|KÖŞK": {
+     "2": 308.3333,
+     "3": 362.5,
+     "4": 437.5,
+     "5": 483.3333
+    },
+    "BUHARKENT|YENİ PAZAR": {
+     "2": 245.8333,
+     "3": 295.8333,
+     "4": 354.1667,
+     "5": 391.6667
+    },
+    "BUHARKENT|NAZİLLİ": {
+     "2": 191.6667,
+     "3": 225.0,
+     "4": 270.8333,
+     "5": 300.0
+    },
+    "BUHARKENT|KUYUCAK": {
+     "2": 116.6667,
+     "3": 137.5,
+     "4": 166.6667,
+     "5": 187.5
+    },
+    "BUHARKENT|SARAYKÖY": {
+     "2": 104.1667,
+     "3": 129.1667,
+     "4": 150.0,
+     "5": 170.8333
+    },
+    "BUHARKENT|PAMUKKALE": {
+     "2": 191.6667,
+     "3": 233.3333,
+     "4": 275.0,
+     "5": 308.3333
+    },
+    "BUHARKENT|KOCABAŞ": {
+     "2": 262.5,
+     "3": 312.5,
+     "4": 383.3333,
+     "5": 416.6667
+    },
+    "SARAYKÖY|AYDIN ALIN": {
+     "2": 458.3333,
+     "3": 554.1667,
+     "4": 666.6667,
+     "5": 737.5
+    },
+    "SARAYKÖY|KÖŞK": {
+     "2": 391.6667,
+     "3": 475.0,
+     "4": 570.8333,
+     "5": 633.3333
+    },
+    "SARAYKÖY|YENİ PAZAR": {
+     "2": 337.5,
+     "3": 400.0,
+     "4": 483.3333,
+     "5": 533.3333
+    },
+    "SARAYKÖY|NAZİLLİ": {
+     "2": 283.3333,
+     "3": 337.5,
+     "4": 408.3333,
+     "5": 450.0
+    },
+    "SARAYKÖY|KUYUCAK": {
+     "2": 200.0,
+     "3": 245.8333,
+     "4": 295.8333,
+     "5": 333.3333
+    },
+    "SARAYKÖY|BUHARKENT": {
+     "2": 104.1667,
+     "3": 129.1667,
+     "4": 150.0,
+     "5": 170.8333
+    },
+    "SARAYKÖY|PAMUKKALE": {
+     "2": 104.1667,
+     "3": 120.8333,
+     "4": 145.8333,
+     "5": 166.6667
+    },
+    "SARAYKÖY|KOCABAŞ": {
+     "2": 170.8333,
+     "3": 212.5,
+     "4": 245.8333,
+     "5": 275.0
+    },
+    "PAMUKKALE|AYDIN ALIN": {
+     "2": 550.0,
+     "3": 654.1667,
+     "4": 787.5,
+     "5": 875.0
+    },
+    "PAMUKKALE|KÖŞK": {
+     "2": 479.1667,
+     "3": 579.1667,
+     "4": 695.8333,
+     "5": 766.6667
+    },
+    "PAMUKKALE|YENİ PAZAR": {
+     "2": 416.6667,
+     "3": 504.1667,
+     "4": 608.3333,
+     "5": 675.0
+    },
+    "PAMUKKALE|NAZİLLİ": {
+     "2": 366.6667,
+     "3": 437.5,
+     "4": 529.1667,
+     "5": 583.3333
+    },
+    "PAMUKKALE|KUYUCAK": {
+     "2": 287.5,
+     "3": 354.1667,
+     "4": 416.6667,
+     "5": 466.6667
+    },
+    "PAMUKKALE|BUHARKENT": {
+     "2": 191.6667,
+     "3": 233.3333,
+     "4": 275.0,
+     "5": 308.3333
+    },
+    "PAMUKKALE|SARAYKÖY": {
+     "2": 104.1667,
+     "3": 120.8333,
+     "4": 145.8333,
+     "5": 166.6667
+    },
+    "PAMUKKALE|KOCABAŞ": {
+     "2": 87.5,
+     "3": 104.1667,
+     "4": 129.1667,
+     "5": 141.6667
+    },
+    "KOCABAŞ|AYDIN ALIN": {
+     "2": 620.8333,
+     "3": 745.8333,
+     "4": 891.6667,
+     "5": 987.5
+    },
+    "KOCABAŞ|KÖŞK": {
+     "2": 554.1667,
+     "3": 666.6667,
+     "4": 791.6667,
+     "5": 875.0
+    },
+    "KOCABAŞ|YENİ PAZAR": {
+     "2": 491.6667,
+     "3": 587.5,
+     "4": 704.1667,
+     "5": 787.5
+    },
+    "KOCABAŞ|NAZİLLİ": {
+     "2": 437.5,
+     "3": 525.0,
+     "4": 625.0,
+     "5": 700.0
+    },
+    "KOCABAŞ|KUYUCAK": {
+     "2": 362.5,
+     "3": 437.5,
+     "4": 525.0,
+     "5": 579.1667
+    },
+    "KOCABAŞ|BUHARKENT": {
+     "2": 262.5,
+     "3": 312.5,
+     "4": 383.3333,
+     "5": 416.6667
+    },
+    "KOCABAŞ|SARAYKÖY": {
+     "2": 170.8333,
+     "3": 212.5,
+     "4": 245.8333,
+     "5": 275.0
+    },
+    "KOCABAŞ|PAMUKKALE": {
+     "2": 87.5,
+     "3": 104.1667,
+     "4": 129.1667,
+     "5": 141.6667
     }
    }
   },

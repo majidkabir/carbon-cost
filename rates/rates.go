@@ -187,6 +187,9 @@ type TollPoint struct {
 	// Schedule names the table's Congestion schedule that prices this
 	// station by the time of day, instead of Rate.
 	Schedule string `json:"schedule,omitempty"`
+	// FreeHours: from and to (HH:MM, both included) the station charges
+	// nothing.
+	FreeHours []string `json:"free_hours,omitempty"`
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -208,8 +211,11 @@ type TollSystem struct {
 	// Discounts in percent of the price, added up over those that apply.
 	Discounts []Discount `json:"discounts,omitempty"`
 	// FreeHours: from and to (HH:MM, both included) the system charges
-	// nothing, for a trip at that time (Request.Time).
+	// nothing, for a trip entering it then.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// Directed: the prices are per direction, entry|exit; a pair with no
+	// price that way has none (no trip), instead of the other way's.
+	Directed bool `json:"directed,omitempty"`
 }
 
 // Discount is a percentage off a toll system's price for the trucks it
@@ -283,7 +289,11 @@ func (s TollSystem) Price(entry, exit, group string, etc bool) (float64, bool) {
 		}
 	}
 	for _, tb := range tables {
-		for _, k := range []string{entry + "|" + exit, exit + "|" + entry} {
+		keys := []string{entry + "|" + exit, exit + "|" + entry}
+		if s.Directed {
+			keys = keys[:1]
+		}
+		for _, k := range keys {
 			for _, gr := range groups {
 				if p, ok := tb[k][gr]; ok {
 					return p, true
@@ -658,6 +668,11 @@ func (tb Table) check() error {
 	for _, p := range tb.TollPoints {
 		if p.Within != "" && !slices.ContainsFunc(tb.Closed, func(s TollSystem) bool { return s.Name == p.Within }) {
 			return fmt.Errorf("toll point %s: no closed system %q in the table", p.Name, p.Within)
+		}
+		if len(p.FreeHours) != 0 {
+			if _, err := Within("00:00", p.FreeHours[0], p.FreeHours[len(p.FreeHours)-1]); err != nil || len(p.FreeHours) != 2 {
+				return fmt.Errorf("toll point %s: free_hours must be [from, to] (HH:MM)", p.Name)
+			}
 		}
 		if p.Schedule != "" && (tb.Congestion == nil || tb.Congestion.Schedules[p.Schedule] == nil) {
 			return fmt.Errorf("toll point %s: no congestion schedule %q in the table", p.Name, p.Schedule)

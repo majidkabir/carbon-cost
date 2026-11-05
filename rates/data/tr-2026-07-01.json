@@ -6336,7 +6336,8 @@
      "4": 137.5,
      "5": 162.5
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı)",
@@ -7560,7 +7561,8 @@
      "4": 245.8333,
      "5": 287.5
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-33 Menemen – Aliağa – Çandarlı",
@@ -7858,7 +7860,8 @@
      "4": 129.1667,
      "5": 129.1667
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-21 Ankara – Niğde",
@@ -9233,7 +9236,8 @@
      "4": 104.1667,
      "5": 145.8333
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü)",
@@ -9476,7 +9480,8 @@
      "4": 2437.5,
      "5": 4633.3333
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-31 Aydın – Denizli",
@@ -10066,7 +10071,8 @@
      "4": 129.1667,
      "5": 141.6667
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "Çeşmeli – Erdemli – Kızkalesi",
@@ -10294,7 +10300,8 @@
      "4": 200.0,
      "5": 254.1667
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü)",
@@ -10622,7 +10629,8 @@
      "4": 400.0,
      "5": 466.6667
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-5 Bursa – İzmir",
@@ -11607,7 +11615,8 @@
      "4": 341.6667,
      "5": 441.6667
     }
-   }
+   },
+   "directed": true
   },
   {
    "name": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu",
@@ -12310,7 +12319,8 @@
      "4": 162.5,
      "5": 187.5
     }
-   }
+   },
+   "directed": true
   }
  ],
  "rows": []

@@ -3,7 +3,7 @@
  "currency": "TRY",
  "valid_from": "2026-07-01",
  "name": "Turkish motorway and bridge tolls (KGM)",
- "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 26 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge) and Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge) aren't included.",
+ "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
  "sources": [
   {
    "title": "KGM: Otoyol ve Köprü Geçiş Ücretleri",
@@ -82,12 +82,20 @@
    "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/20-Cesmeli-KizkalesiTR.pdf"
   },
   {
+   "title": "KGM: O-5 Gebze – Orhangazi – İzmir geçiş ücretleri",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/12-Gebze-Orhangazi-Izmir.pdf"
+  },
+  {
+   "title": "KGM: O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu geçiş ücretleri",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/13-YSSKuzeyCevreYolu.pdf"
+  },
+  {
    "title": "OpenStreetMap (Geofabrik extract), bridges and toll booths",
    "url": "https://download.geofabrik.de/europe/turkey.html"
   }
  ],
  "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
- "tolled_roads": "The 15 Temmuz Şehitler, Fatih Sultan Mehmet, Yavuz Sultan Selim and Osmangazi bridges; O-4 Anadolu Otoyolu (Çamlıca – Akıncı), O-32 İzmir – Çeşme, O-31 İzmir – Aydın (Işıkkent – Aydın Batı), O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı), O-52 Çukurova (Gaziantep Doğu – Şanlıurfa), O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı), O-3 Avrupa Otoyolu (Mahmutbey – Edirne), O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri), O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı), O-33 Menemen – Aliağa – Çandarlı, O-21 Ankara – Niğde, O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü), O-31 Aydın – Denizli, Çeşmeli – Erdemli – Kızkalesi.",
+ "tolled_roads": "The 15 Temmuz Şehitler, Fatih Sultan Mehmet, Yavuz Sultan Selim and Osmangazi bridges; O-4 Anadolu Otoyolu (Çamlıca – Akıncı), O-32 İzmir – Çeşme, O-31 İzmir – Aydın (Işıkkent – Aydın Batı), O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı), O-52 Çukurova (Gaziantep Doğu – Şanlıurfa), O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı), O-3 Avrupa Otoyolu (Mahmutbey – Edirne), O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri), O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı), O-33 Menemen – Aliağa – Çandarlı, O-21 Ankara – Niğde, O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü), O-31 Aydın – Denizli, Çeşmeli – Erdemli – Kızkalesi, O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü), O-5 Bursa – İzmir, O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu.",
  "point_match_km": 0.05,
  "toll_points": [
   {
@@ -277,7 +285,8 @@
      "min_axles": 6,
      "rate": 716.6667
     }
-   ]
+   ],
+   "within": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu"
   },
   {
    "name": "Yavuz Sultan Selim Köprüsü",
@@ -304,7 +313,8 @@
      "min_axles": 6,
      "rate": 716.6667
     }
-   ]
+   ],
+   "within": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu"
   }
  ],
  "closed_systems": [
@@ -10115,6 +10125,2022 @@
      "3": 150.0,
      "4": 200.0,
      "5": 254.1667
+    }
+   }
+  },
+  {
+   "name": "O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü)",
+   "law": "KGM 2026 tariff (tr-12-gebze-orhangazi-izmir), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Osmangazi Köprüsü",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.71653,
+       "lon": 29.500179
+      },
+      {
+       "name": "booth",
+       "lat": 40.716332,
+       "lon": 29.500749
+      },
+      {
+       "name": "booth",
+       "lat": 40.716555,
+       "lon": 29.499864
+      }
+     ]
+    },
+    {
+     "name": "Altınova",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.696331,
+       "lon": 29.475436
+      },
+      {
+       "name": "booth",
+       "lat": 40.696527,
+       "lon": 29.475403
+      },
+      {
+       "name": "booth",
+       "lat": 40.696705,
+       "lon": 29.475312
+      }
+     ]
+    },
+    {
+     "name": "Kılıç",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.64075,
+       "lon": 29.385648
+      },
+      {
+       "name": "booth",
+       "lat": 40.64074,
+       "lon": 29.38586
+      },
+      {
+       "name": "booth",
+       "lat": 40.64071,
+       "lon": 29.385551
+      }
+     ]
+    },
+    {
+     "name": "Orhangazi",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.50192,
+       "lon": 29.342768
+      },
+      {
+       "name": "booth",
+       "lat": 40.502037,
+       "lon": 29.342847
+      },
+      {
+       "name": "booth",
+       "lat": 40.501834,
+       "lon": 29.342663
+      }
+     ]
+    },
+    {
+     "name": "Gemlik",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.429031,
+       "lon": 29.239721
+      },
+      {
+       "name": "booth",
+       "lat": 40.429246,
+       "lon": 29.239731
+      },
+      {
+       "name": "booth",
+       "lat": 40.429381,
+       "lon": 29.239698
+      },
+      {
+       "name": "booth",
+       "lat": 40.428837,
+       "lon": 29.239675
+      }
+     ]
+    },
+    {
+     "name": "Bursa Kuzey",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.319498,
+       "lon": 29.086469
+      },
+      {
+       "name": "booth",
+       "lat": 40.319401,
+       "lon": 29.086333
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Altınova|Osmangazi Köprüsü": {
+     "2": 87.5,
+     "3": 87.5,
+     "4": 100.0,
+     "5": 137.5
+    },
+    "Osmangazi Köprüsü|Altınova": {
+     "2": 87.5,
+     "3": 87.5,
+     "4": 100.0,
+     "5": 137.5
+    },
+    "Altınova|Kılıç": {
+     "2": 100.0,
+     "3": 100.0,
+     "4": 162.5,
+     "5": 187.5
+    },
+    "Altınova|Orhangazi": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 341.6667
+    },
+    "Altınova|Gemlik": {
+     "2": 258.3333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Altınova|Bursa Kuzey": {
+     "2": 466.6667,
+     "3": 558.3333,
+     "4": 725.0,
+     "5": 925.0
+    },
+    "Kılıç|Osmangazi Köprüsü": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Osmangazi Köprüsü|Kılıç": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Kılıç|Altınova": {
+     "2": 100.0,
+     "3": 100.0,
+     "4": 162.5,
+     "5": 187.5
+    },
+    "Kılıç|Orhangazi": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 216.6667
+    },
+    "Kılıç|Gemlik": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 341.6667
+    },
+    "Kılıç|Bursa Kuzey": {
+     "2": 400.0,
+     "3": 466.6667,
+     "4": 620.8333,
+     "5": 779.1667
+    },
+    "Orhangazi|Osmangazi Köprüsü": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Osmangazi Köprüsü|Orhangazi": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Orhangazi|Altınova": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 341.6667
+    },
+    "Orhangazi|Kılıç": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 216.6667
+    },
+    "Orhangazi|Gemlik": {
+     "2": 100.0,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 187.5
+    },
+    "Orhangazi|Bursa Kuzey": {
+     "2": 308.3333,
+     "3": 358.3333,
+     "4": 500.0,
+     "5": 604.1667
+    },
+    "Gemlik|Osmangazi Köprüsü": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 562.5
+    },
+    "Osmangazi Köprüsü|Gemlik": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 562.5
+    },
+    "Gemlik|Altınova": {
+     "2": 258.3333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Gemlik|Kılıç": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 341.6667
+    },
+    "Gemlik|Orhangazi": {
+     "2": 100.0,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 187.5
+    },
+    "Gemlik|Bursa Kuzey": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 466.6667
+    },
+    "Bursa Kuzey|Osmangazi Köprüsü": {
+     "2": 525.0,
+     "3": 604.1667,
+     "4": 812.5,
+     "5": 1008.3333
+    },
+    "Osmangazi Köprüsü|Bursa Kuzey": {
+     "2": 525.0,
+     "3": 604.1667,
+     "4": 812.5,
+     "5": 1008.3333
+    },
+    "Bursa Kuzey|Altınova": {
+     "2": 466.6667,
+     "3": 558.3333,
+     "4": 725.0,
+     "5": 925.0
+    },
+    "Bursa Kuzey|Kılıç": {
+     "2": 400.0,
+     "3": 466.6667,
+     "4": 620.8333,
+     "5": 779.1667
+    },
+    "Bursa Kuzey|Orhangazi": {
+     "2": 308.3333,
+     "3": 358.3333,
+     "4": 500.0,
+     "5": 604.1667
+    },
+    "Bursa Kuzey|Gemlik": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 466.6667
+    }
+   }
+  },
+  {
+   "name": "O-5 Bursa – İzmir",
+   "law": "KGM 2026 tariff (tr-12-gebze-orhangazi-izmir), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bursa Batı",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.25645,
+       "lon": 28.709723
+      },
+      {
+       "name": "booth",
+       "lat": 40.256597,
+       "lon": 28.709705
+      },
+      {
+       "name": "booth",
+       "lat": 40.256847,
+       "lon": 28.709574
+      }
+     ]
+    },
+    {
+     "name": "Teknosab",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.27061,
+       "lon": 28.656933
+      },
+      {
+       "name": "booth",
+       "lat": 40.270629,
+       "lon": 28.656678
+      }
+     ]
+    },
+    {
+     "name": "Susurluk",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.961983,
+       "lon": 28.164873
+      },
+      {
+       "name": "booth",
+       "lat": 39.962012,
+       "lon": 28.165043
+      },
+      {
+       "name": "booth",
+       "lat": 39.962,
+       "lon": 28.164679
+      }
+     ]
+    },
+    {
+     "name": "Balıkesir Kuzey",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.756344,
+       "lon": 27.997
+      },
+      {
+       "name": "booth",
+       "lat": 39.756188,
+       "lon": 27.996921
+      },
+      {
+       "name": "booth",
+       "lat": 39.756069,
+       "lon": 27.996819
+      }
+     ]
+    },
+    {
+     "name": "Balıkesir Batı",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.636216,
+       "lon": 27.718554
+      }
+     ]
+    },
+    {
+     "name": "Savaştepe",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.380833,
+       "lon": 27.639483
+      }
+     ]
+    },
+    {
+     "name": "Soma",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.252303,
+       "lon": 27.574512
+      },
+      {
+       "name": "booth",
+       "lat": 39.252255,
+       "lon": 27.574651
+      },
+      {
+       "name": "booth",
+       "lat": 39.252323,
+       "lon": 27.574341
+      }
+     ]
+    },
+    {
+     "name": "Kırkağaç",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.096686,
+       "lon": 27.700042
+      }
+     ]
+    },
+    {
+     "name": "Akhisar",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.964828,
+       "lon": 27.736073
+      }
+     ]
+    },
+    {
+     "name": "Saruhanlı",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.764261,
+       "lon": 27.654498
+      }
+     ]
+    },
+    {
+     "name": "Turgutlu",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.505757,
+       "lon": 27.602267
+      }
+     ]
+    },
+    {
+     "name": "İzmir",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.454593,
+       "lon": 27.496104
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Bursa Batı|Teknosab": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 258.3333,
+     "5": 308.3333
+    },
+    "Bursa Batı|Susurluk": {
+     "2": 500.0,
+     "3": 604.1667,
+     "4": 779.1667,
+     "5": 987.5
+    },
+    "Bursa Batı|Balıkesir Kuzey": {
+     "2": 654.1667,
+     "3": 779.1667,
+     "4": 1033.3333,
+     "5": 1291.6667
+    },
+    "Bursa Batı|Balıkesir Batı": {
+     "2": 820.8333,
+     "3": 962.5,
+     "4": 1291.6667,
+     "5": 1645.8333
+    },
+    "Bursa Batı|Savaştepe": {
+     "2": 987.5,
+     "3": 1183.3333,
+     "4": 1587.5,
+     "5": 1966.6667
+    },
+    "Bursa Batı|Soma": {
+     "2": 1087.5,
+     "3": 1275.0,
+     "4": 1708.3333,
+     "5": 2150.0
+    },
+    "Bursa Batı|Kırkağaç": {
+     "2": 1225.0,
+     "3": 1429.1667,
+     "4": 1883.3333,
+     "5": 2379.1667
+    },
+    "Bursa Batı|Akhisar": {
+     "2": 1316.6667,
+     "3": 1587.5,
+     "4": 2095.8333,
+     "5": 2625.0
+    },
+    "Bursa Batı|Saruhanlı": {
+     "2": 1429.1667,
+     "3": 1708.3333,
+     "4": 2258.3333,
+     "5": 2841.6667
+    },
+    "Bursa Batı|Turgutlu": {
+     "2": 1604.1667,
+     "3": 1908.3333,
+     "4": 2529.1667,
+     "5": 3195.8333
+    },
+    "Bursa Batı|İzmir": {
+     "2": 1808.3333,
+     "3": 2150.0,
+     "4": 2841.6667,
+     "5": 3562.5
+    },
+    "Teknosab|Bursa Batı": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 258.3333,
+     "5": 308.3333
+    },
+    "Teknosab|Susurluk": {
+     "2": 358.3333,
+     "3": 441.6667,
+     "4": 562.5,
+     "5": 725.0
+    },
+    "Teknosab|Balıkesir Kuzey": {
+     "2": 525.0,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1033.3333
+    },
+    "Teknosab|Balıkesir Batı": {
+     "2": 666.6667,
+     "3": 812.5,
+     "4": 1062.5,
+     "5": 1345.8333
+    },
+    "Teknosab|Savaştepe": {
+     "2": 866.6667,
+     "3": 1033.3333,
+     "4": 1345.8333,
+     "5": 1708.3333
+    },
+    "Teknosab|Soma": {
+     "2": 962.5,
+     "3": 1125.0,
+     "4": 1475.0,
+     "5": 1883.3333
+    },
+    "Teknosab|Kırkağaç": {
+     "2": 1062.5,
+     "3": 1275.0,
+     "4": 1687.5,
+     "5": 2120.8333
+    },
+    "Teknosab|Akhisar": {
+     "2": 1183.3333,
+     "3": 1429.1667,
+     "4": 1883.3333,
+     "5": 2379.1667
+    },
+    "Teknosab|Saruhanlı": {
+     "2": 1291.6667,
+     "3": 1529.1667,
+     "4": 2050.0,
+     "5": 2562.5
+    },
+    "Teknosab|Turgutlu": {
+     "2": 1475.0,
+     "3": 1754.1667,
+     "4": 2316.6667,
+     "5": 2941.6667
+    },
+    "Teknosab|İzmir": {
+     "2": 1654.1667,
+     "3": 1995.8333,
+     "4": 2625.0,
+     "5": 3304.1667
+    },
+    "Susurluk|Bursa Batı": {
+     "2": 500.0,
+     "3": 604.1667,
+     "4": 779.1667,
+     "5": 987.5
+    },
+    "Susurluk|Teknosab": {
+     "2": 358.3333,
+     "3": 441.6667,
+     "4": 562.5,
+     "5": 725.0
+    },
+    "Susurluk|Balıkesir Kuzey": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Susurluk|Balıkesir Batı": {
+     "2": 358.3333,
+     "3": 408.3333,
+     "4": 558.3333,
+     "5": 666.6667
+    },
+    "Susurluk|Savaştepe": {
+     "2": 525.0,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1033.3333
+    },
+    "Susurluk|Soma": {
+     "2": 620.8333,
+     "3": 725.0,
+     "4": 962.5,
+     "5": 1225.0
+    },
+    "Susurluk|Kırkağaç": {
+     "2": 725.0,
+     "3": 870.8333,
+     "4": 1175.0,
+     "5": 1445.8333
+    },
+    "Susurluk|Akhisar": {
+     "2": 866.6667,
+     "3": 1008.3333,
+     "4": 1345.8333,
+     "5": 1708.3333
+    },
+    "Susurluk|Saruhanlı": {
+     "2": 962.5,
+     "3": 1129.1667,
+     "4": 1491.6667,
+     "5": 1908.3333
+    },
+    "Susurluk|Turgutlu": {
+     "2": 1129.1667,
+     "3": 1345.8333,
+     "4": 1808.3333,
+     "5": 2270.8333
+    },
+    "Susurluk|İzmir": {
+     "2": 1316.6667,
+     "3": 1587.5,
+     "4": 2095.8333,
+     "5": 2625.0
+    },
+    "Balıkesir Kuzey|Bursa Batı": {
+     "2": 654.1667,
+     "3": 779.1667,
+     "4": 1033.3333,
+     "5": 1291.6667
+    },
+    "Balıkesir Kuzey|Teknosab": {
+     "2": 525.0,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1033.3333
+    },
+    "Balıkesir Kuzey|Susurluk": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Balıkesir Kuzey|Balıkesir Batı": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Balıkesir Kuzey|Savaştepe": {
+     "2": 358.3333,
+     "3": 441.6667,
+     "4": 562.5,
+     "5": 725.0
+    },
+    "Balıkesir Kuzey|Soma": {
+     "2": 441.6667,
+     "3": 558.3333,
+     "4": 704.1667,
+     "5": 870.8333
+    },
+    "Balıkesir Kuzey|Kırkağaç": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 912.5,
+     "5": 1129.1667
+    },
+    "Balıkesir Kuzey|Akhisar": {
+     "2": 704.1667,
+     "3": 820.8333,
+     "4": 1087.5,
+     "5": 1379.1667
+    },
+    "Balıkesir Kuzey|Saruhanlı": {
+     "2": 812.5,
+     "3": 962.5,
+     "4": 1275.0,
+     "5": 1587.5
+    },
+    "Balıkesir Kuzey|Turgutlu": {
+     "2": 987.5,
+     "3": 1175.0,
+     "4": 1550.0,
+     "5": 1966.6667
+    },
+    "Balıkesir Kuzey|İzmir": {
+     "2": 1175.0,
+     "3": 1395.8333,
+     "4": 1837.5,
+     "5": 2316.6667
+    },
+    "Balıkesir Batı|Bursa Batı": {
+     "2": 820.8333,
+     "3": 962.5,
+     "4": 1291.6667,
+     "5": 1645.8333
+    },
+    "Balıkesir Batı|Teknosab": {
+     "2": 666.6667,
+     "3": 812.5,
+     "4": 1062.5,
+     "5": 1345.8333
+    },
+    "Balıkesir Batı|Susurluk": {
+     "2": 358.3333,
+     "3": 408.3333,
+     "4": 558.3333,
+     "5": 666.6667
+    },
+    "Balıkesir Batı|Balıkesir Kuzey": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Balıkesir Batı|Savaştepe": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Balıkesir Batı|Soma": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 562.5
+    },
+    "Balıkesir Batı|Kırkağaç": {
+     "2": 408.3333,
+     "3": 500.0,
+     "4": 654.1667,
+     "5": 812.5
+    },
+    "Balıkesir Batı|Akhisar": {
+     "2": 558.3333,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1062.5
+    },
+    "Balıkesir Batı|Saruhanlı": {
+     "2": 620.8333,
+     "3": 750.0,
+     "4": 987.5,
+     "5": 1237.5
+    },
+    "Balıkesir Batı|Turgutlu": {
+     "2": 820.8333,
+     "3": 987.5,
+     "4": 1291.6667,
+     "5": 1645.8333
+    },
+    "Balıkesir Batı|İzmir": {
+     "2": 1008.3333,
+     "3": 1183.3333,
+     "4": 1587.5,
+     "5": 1995.8333
+    },
+    "Savaştepe|Bursa Batı": {
+     "2": 987.5,
+     "3": 1183.3333,
+     "4": 1587.5,
+     "5": 1966.6667
+    },
+    "Savaştepe|Teknosab": {
+     "2": 866.6667,
+     "3": 1033.3333,
+     "4": 1345.8333,
+     "5": 1708.3333
+    },
+    "Savaştepe|Susurluk": {
+     "2": 525.0,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1033.3333
+    },
+    "Savaştepe|Balıkesir Kuzey": {
+     "2": 358.3333,
+     "3": 441.6667,
+     "4": 562.5,
+     "5": 725.0
+    },
+    "Savaştepe|Balıkesir Batı": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Savaştepe|Soma": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 216.6667
+    },
+    "Savaştepe|Kırkağaç": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 358.3333,
+     "5": 466.6667
+    },
+    "Savaştepe|Akhisar": {
+     "2": 358.3333,
+     "3": 408.3333,
+     "4": 562.5,
+     "5": 704.1667
+    },
+    "Savaştepe|Saruhanlı": {
+     "2": 466.6667,
+     "3": 558.3333,
+     "4": 725.0,
+     "5": 912.5
+    },
+    "Savaştepe|Turgutlu": {
+     "2": 654.1667,
+     "3": 750.0,
+     "4": 1008.3333,
+     "5": 1275.0
+    },
+    "Savaştepe|İzmir": {
+     "2": 820.8333,
+     "3": 987.5,
+     "4": 1291.6667,
+     "5": 1654.1667
+    },
+    "Soma|Bursa Batı": {
+     "2": 1087.5,
+     "3": 1275.0,
+     "4": 1708.3333,
+     "5": 2150.0
+    },
+    "Soma|Teknosab": {
+     "2": 962.5,
+     "3": 1125.0,
+     "4": 1475.0,
+     "5": 1883.3333
+    },
+    "Soma|Susurluk": {
+     "2": 620.8333,
+     "3": 725.0,
+     "4": 962.5,
+     "5": 1225.0
+    },
+    "Soma|Balıkesir Kuzey": {
+     "2": 441.6667,
+     "3": 558.3333,
+     "4": 704.1667,
+     "5": 870.8333
+    },
+    "Soma|Balıkesir Batı": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 562.5
+    },
+    "Soma|Savaştepe": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 216.6667
+    },
+    "Soma|Kırkağaç": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "Soma|Akhisar": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 558.3333
+    },
+    "Soma|Saruhanlı": {
+     "2": 400.0,
+     "3": 441.6667,
+     "4": 604.1667,
+     "5": 750.0
+    },
+    "Soma|Turgutlu": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 870.8333,
+     "5": 1125.0
+    },
+    "Soma|İzmir": {
+     "2": 750.0,
+     "3": 870.8333,
+     "4": 1175.0,
+     "5": 1475.0
+    },
+    "Kırkağaç|Bursa Batı": {
+     "2": 1225.0,
+     "3": 1429.1667,
+     "4": 1883.3333,
+     "5": 2379.1667
+    },
+    "Kırkağaç|Teknosab": {
+     "2": 1062.5,
+     "3": 1275.0,
+     "4": 1687.5,
+     "5": 2120.8333
+    },
+    "Kırkağaç|Susurluk": {
+     "2": 725.0,
+     "3": 870.8333,
+     "4": 1175.0,
+     "5": 1445.8333
+    },
+    "Kırkağaç|Balıkesir Kuzey": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 912.5,
+     "5": 1129.1667
+    },
+    "Kırkağaç|Balıkesir Batı": {
+     "2": 408.3333,
+     "3": 500.0,
+     "4": 654.1667,
+     "5": 812.5
+    },
+    "Kırkağaç|Savaştepe": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 358.3333,
+     "5": 466.6667
+    },
+    "Kırkağaç|Soma": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "Kırkağaç|Akhisar": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 287.5
+    },
+    "Kırkağaç|Saruhanlı": {
+     "2": 258.3333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Kırkağaç|Turgutlu": {
+     "2": 441.6667,
+     "3": 525.0,
+     "4": 666.6667,
+     "5": 866.6667
+    },
+    "Kırkağaç|İzmir": {
+     "2": 620.8333,
+     "3": 725.0,
+     "4": 987.5,
+     "5": 1225.0
+    },
+    "Akhisar|Bursa Batı": {
+     "2": 1316.6667,
+     "3": 1587.5,
+     "4": 2095.8333,
+     "5": 2625.0
+    },
+    "Akhisar|Teknosab": {
+     "2": 1183.3333,
+     "3": 1429.1667,
+     "4": 1883.3333,
+     "5": 2379.1667
+    },
+    "Akhisar|Susurluk": {
+     "2": 866.6667,
+     "3": 1008.3333,
+     "4": 1345.8333,
+     "5": 1708.3333
+    },
+    "Akhisar|Balıkesir Kuzey": {
+     "2": 704.1667,
+     "3": 820.8333,
+     "4": 1087.5,
+     "5": 1379.1667
+    },
+    "Akhisar|Balıkesir Batı": {
+     "2": 558.3333,
+     "3": 620.8333,
+     "4": 820.8333,
+     "5": 1062.5
+    },
+    "Akhisar|Savaştepe": {
+     "2": 358.3333,
+     "3": 408.3333,
+     "4": 562.5,
+     "5": 704.1667
+    },
+    "Akhisar|Soma": {
+     "2": 287.5,
+     "3": 341.6667,
+     "4": 441.6667,
+     "5": 558.3333
+    },
+    "Akhisar|Kırkağaç": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 287.5
+    },
+    "Akhisar|Saruhanlı": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Akhisar|Turgutlu": {
+     "2": 400.0,
+     "3": 441.6667,
+     "4": 604.1667,
+     "5": 750.0
+    },
+    "Akhisar|İzmir": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 870.8333,
+     "5": 1125.0
+    },
+    "Saruhanlı|Bursa Batı": {
+     "2": 1429.1667,
+     "3": 1708.3333,
+     "4": 2258.3333,
+     "5": 2841.6667
+    },
+    "Saruhanlı|Teknosab": {
+     "2": 1291.6667,
+     "3": 1529.1667,
+     "4": 2050.0,
+     "5": 2562.5
+    },
+    "Saruhanlı|Susurluk": {
+     "2": 962.5,
+     "3": 1129.1667,
+     "4": 1491.6667,
+     "5": 1908.3333
+    },
+    "Saruhanlı|Balıkesir Kuzey": {
+     "2": 812.5,
+     "3": 962.5,
+     "4": 1275.0,
+     "5": 1587.5
+    },
+    "Saruhanlı|Balıkesir Batı": {
+     "2": 620.8333,
+     "3": 750.0,
+     "4": 987.5,
+     "5": 1237.5
+    },
+    "Saruhanlı|Savaştepe": {
+     "2": 466.6667,
+     "3": 558.3333,
+     "4": 725.0,
+     "5": 912.5
+    },
+    "Saruhanlı|Soma": {
+     "2": 400.0,
+     "3": 441.6667,
+     "4": 604.1667,
+     "5": 750.0
+    },
+    "Saruhanlı|Kırkağaç": {
+     "2": 258.3333,
+     "3": 287.5,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Saruhanlı|Akhisar": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Saruhanlı|Turgutlu": {
+     "2": 216.6667,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Saruhanlı|İzmir": {
+     "2": 400.0,
+     "3": 466.6667,
+     "4": 620.8333,
+     "5": 779.1667
+    },
+    "Turgutlu|Bursa Batı": {
+     "2": 1604.1667,
+     "3": 1908.3333,
+     "4": 2529.1667,
+     "5": 3195.8333
+    },
+    "Turgutlu|Teknosab": {
+     "2": 1475.0,
+     "3": 1754.1667,
+     "4": 2316.6667,
+     "5": 2941.6667
+    },
+    "Turgutlu|Susurluk": {
+     "2": 1129.1667,
+     "3": 1345.8333,
+     "4": 1808.3333,
+     "5": 2270.8333
+    },
+    "Turgutlu|Balıkesir Kuzey": {
+     "2": 987.5,
+     "3": 1175.0,
+     "4": 1550.0,
+     "5": 1966.6667
+    },
+    "Turgutlu|Balıkesir Batı": {
+     "2": 820.8333,
+     "3": 987.5,
+     "4": 1291.6667,
+     "5": 1645.8333
+    },
+    "Turgutlu|Savaştepe": {
+     "2": 654.1667,
+     "3": 750.0,
+     "4": 1008.3333,
+     "5": 1275.0
+    },
+    "Turgutlu|Soma": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 870.8333,
+     "5": 1125.0
+    },
+    "Turgutlu|Kırkağaç": {
+     "2": 441.6667,
+     "3": 525.0,
+     "4": 666.6667,
+     "5": 866.6667
+    },
+    "Turgutlu|Akhisar": {
+     "2": 400.0,
+     "3": 441.6667,
+     "4": 604.1667,
+     "5": 750.0
+    },
+    "Turgutlu|Saruhanlı": {
+     "2": 216.6667,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Turgutlu|İzmir": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 441.6667
+    },
+    "İzmir|Bursa Batı": {
+     "2": 1808.3333,
+     "3": 2150.0,
+     "4": 2841.6667,
+     "5": 3562.5
+    },
+    "İzmir|Teknosab": {
+     "2": 1654.1667,
+     "3": 1995.8333,
+     "4": 2625.0,
+     "5": 3304.1667
+    },
+    "İzmir|Susurluk": {
+     "2": 1316.6667,
+     "3": 1587.5,
+     "4": 2095.8333,
+     "5": 2625.0
+    },
+    "İzmir|Balıkesir Kuzey": {
+     "2": 1175.0,
+     "3": 1395.8333,
+     "4": 1837.5,
+     "5": 2316.6667
+    },
+    "İzmir|Balıkesir Batı": {
+     "2": 1008.3333,
+     "3": 1183.3333,
+     "4": 1587.5,
+     "5": 1995.8333
+    },
+    "İzmir|Savaştepe": {
+     "2": 820.8333,
+     "3": 987.5,
+     "4": 1291.6667,
+     "5": 1654.1667
+    },
+    "İzmir|Soma": {
+     "2": 750.0,
+     "3": 870.8333,
+     "4": 1175.0,
+     "5": 1475.0
+    },
+    "İzmir|Kırkağaç": {
+     "2": 620.8333,
+     "3": 725.0,
+     "4": 987.5,
+     "5": 1225.0
+    },
+    "İzmir|Akhisar": {
+     "2": 562.5,
+     "3": 666.6667,
+     "4": 870.8333,
+     "5": 1125.0
+    },
+    "İzmir|Saruhanlı": {
+     "2": 400.0,
+     "3": 466.6667,
+     "4": 620.8333,
+     "5": 779.1667
+    },
+    "İzmir|Turgutlu": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 441.6667
+    }
+   }
+  },
+  {
+   "name": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu",
+   "law": "KGM 2026 tariff (tr-13-ysskuzeycevreyolu), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Fenertepe",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.197094,
+       "lon": 28.823506
+      }
+     ]
+    },
+    {
+     "name": "Işıklar",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.210847,
+       "lon": 28.831751
+      }
+     ]
+    },
+    {
+     "name": "Odayeri",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.2383,
+       "lon": 28.82087
+      }
+     ]
+    },
+    {
+     "name": "Uskumruköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.234945,
+       "lon": 29.027875
+      }
+     ]
+    },
+    {
+     "name": "Riva",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.19211,
+       "lon": 29.202463
+      }
+     ]
+    },
+    {
+     "name": "Hüseyinli",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.114831,
+       "lon": 29.297543
+      },
+      {
+       "name": "booth",
+       "lat": 41.114968,
+       "lon": 29.297545
+      },
+      {
+       "name": "booth",
+       "lat": 41.114706,
+       "lon": 29.297488
+      }
+     ]
+    },
+    {
+     "name": "Reşadiye",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.04631,
+       "lon": 29.257409
+      }
+     ]
+    },
+    {
+     "name": "Alemdağ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.031148,
+       "lon": 29.265096
+      },
+      {
+       "name": "booth",
+       "lat": 41.031201,
+       "lon": 29.265105
+      },
+      {
+       "name": "booth",
+       "lat": 41.029853,
+       "lon": 29.269358
+      },
+      {
+       "name": "booth",
+       "lat": 41.031301,
+       "lon": 29.265195
+      },
+      {
+       "name": "booth",
+       "lat": 41.029713,
+       "lon": 29.269228
+      },
+      {
+       "name": "booth",
+       "lat": 41.031103,
+       "lon": 29.265025
+      }
+     ]
+    },
+    {
+     "name": "Paşaköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.00533,
+       "lon": 29.268611
+      }
+     ]
+    },
+    {
+     "name": "Kurnaköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.957525,
+       "lon": 29.329398
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Fenertepe|Işıklar": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Fenertepe|Odayeri": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Fenertepe|Uskumruköy": {
+     "2": 258.3333,
+     "3": 308.3333,
+     "4": 408.3333,
+     "5": 525.0
+    },
+    "Fenertepe|Riva": {
+     "2": 479.1667,
+     "3": 666.6667,
+     "4": 1137.5,
+     "5": 1441.6667
+    },
+    "Fenertepe|Hüseyinli": {
+     "2": 587.5,
+     "3": 787.5,
+     "4": 1325.0,
+     "5": 1641.6667
+    },
+    "Fenertepe|Reşadiye": {
+     "2": 725.0,
+     "3": 929.1667,
+     "4": 1500.0,
+     "5": 1891.6667
+    },
+    "Fenertepe|Alemdağ": {
+     "2": 683.3333,
+     "3": 891.6667,
+     "4": 1445.8333,
+     "5": 1841.6667
+    },
+    "Fenertepe|Paşaköy": {
+     "2": 683.3333,
+     "3": 891.6667,
+     "4": 1487.5,
+     "5": 1845.8333
+    },
+    "Fenertepe|Kurnaköy": {
+     "2": 775.0,
+     "3": 975.0,
+     "4": 1583.3333,
+     "5": 1991.6667
+    },
+    "Işıklar|Fenertepe": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Işıklar|Odayeri": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 162.5
+    },
+    "Işıklar|Uskumruköy": {
+     "2": 216.6667,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Işıklar|Riva": {
+     "2": 429.1667,
+     "3": 583.3333,
+     "4": 1075.0,
+     "5": 1337.5
+    },
+    "Işıklar|Hüseyinli": {
+     "2": 529.1667,
+     "3": 725.0,
+     "4": 1229.1667,
+     "5": 1537.5
+    },
+    "Işıklar|Reşadiye": {
+     "2": 679.1667,
+     "3": 845.8333,
+     "4": 1395.8333,
+     "5": 1779.1667
+    },
+    "Işıklar|Alemdağ": {
+     "2": 620.8333,
+     "3": 829.1667,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Işıklar|Paşaköy": {
+     "2": 645.8333,
+     "3": 845.8333,
+     "4": 1395.8333,
+     "5": 1750.0
+    },
+    "Işıklar|Kurnaköy": {
+     "2": 725.0,
+     "3": 929.1667,
+     "4": 1500.0,
+     "5": 1891.6667
+    },
+    "Odayeri|Fenertepe": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Odayeri|Işıklar": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 162.5
+    },
+    "Odayeri|Uskumruköy": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Odayeri|Riva": {
+     "2": 408.3333,
+     "3": 566.6667,
+     "4": 1016.6667,
+     "5": 1275.0
+    },
+    "Odayeri|Hüseyinli": {
+     "2": 520.8333,
+     "3": 691.6667,
+     "4": 1179.1667,
+     "5": 1466.6667
+    },
+    "Odayeri|Reşadiye": {
+     "2": 620.8333,
+     "3": 829.1667,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Odayeri|Alemdağ": {
+     "2": 587.5,
+     "3": 783.3333,
+     "4": 1300.0,
+     "5": 1641.6667
+    },
+    "Odayeri|Paşaköy": {
+     "2": 620.8333,
+     "3": 787.5,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Odayeri|Kurnaköy": {
+     "2": 679.1667,
+     "3": 879.1667,
+     "4": 1445.8333,
+     "5": 1841.6667
+    },
+    "Uskumruköy|Fenertepe": {
+     "2": 258.3333,
+     "3": 308.3333,
+     "4": 408.3333,
+     "5": 525.0
+    },
+    "Uskumruköy|Işıklar": {
+     "2": 216.6667,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 408.3333
+    },
+    "Uskumruköy|Odayeri": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Uskumruköy|Riva": {
+     "2": 283.3333,
+     "3": 412.5,
+     "4": 820.8333,
+     "5": 1025.0
+    },
+    "Uskumruköy|Hüseyinli": {
+     "2": 379.1667,
+     "3": 533.3333,
+     "4": 983.3333,
+     "5": 1241.6667
+    },
+    "Uskumruköy|Reşadiye": {
+     "2": 520.8333,
+     "3": 666.6667,
+     "4": 1179.1667,
+     "5": 1441.6667
+    },
+    "Uskumruköy|Alemdağ": {
+     "2": 462.5,
+     "3": 633.3333,
+     "4": 1133.3333,
+     "5": 1383.3333
+    },
+    "Uskumruköy|Paşaköy": {
+     "2": 479.1667,
+     "3": 666.6667,
+     "4": 1137.5,
+     "5": 1441.6667
+    },
+    "Uskumruköy|Kurnaköy": {
+     "2": 562.5,
+     "3": 750.0,
+     "4": 1241.6667,
+     "5": 1583.3333
+    },
+    "Riva|Fenertepe": {
+     "2": 479.1667,
+     "3": 666.6667,
+     "4": 1137.5,
+     "5": 1441.6667
+    },
+    "Riva|Işıklar": {
+     "2": 429.1667,
+     "3": 583.3333,
+     "4": 1075.0,
+     "5": 1337.5
+    },
+    "Riva|Odayeri": {
+     "2": 408.3333,
+     "3": 566.6667,
+     "4": 1016.6667,
+     "5": 1275.0
+    },
+    "Riva|Uskumruköy": {
+     "2": 283.3333,
+     "3": 412.5,
+     "4": 820.8333,
+     "5": 1025.0
+    },
+    "Riva|Hüseyinli": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Riva|Reşadiye": {
+     "2": 258.3333,
+     "3": 308.3333,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Riva|Alemdağ": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 441.6667
+    },
+    "Riva|Paşaköy": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 358.3333,
+     "5": 466.6667
+    },
+    "Riva|Kurnaköy": {
+     "2": 308.3333,
+     "3": 358.3333,
+     "4": 466.6667,
+     "5": 604.1667
+    },
+    "Hüseyinli|Fenertepe": {
+     "2": 587.5,
+     "3": 787.5,
+     "4": 1325.0,
+     "5": 1641.6667
+    },
+    "Hüseyinli|Işıklar": {
+     "2": 529.1667,
+     "3": 725.0,
+     "4": 1229.1667,
+     "5": 1537.5
+    },
+    "Hüseyinli|Odayeri": {
+     "2": 520.8333,
+     "3": 691.6667,
+     "4": 1179.1667,
+     "5": 1466.6667
+    },
+    "Hüseyinli|Uskumruköy": {
+     "2": 379.1667,
+     "3": 533.3333,
+     "4": 983.3333,
+     "5": 1241.6667
+    },
+    "Hüseyinli|Riva": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Hüseyinli|Reşadiye": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 287.5
+    },
+    "Hüseyinli|Alemdağ": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Hüseyinli|Paşaköy": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Hüseyinli|Kurnaköy": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Reşadiye|Fenertepe": {
+     "2": 725.0,
+     "3": 929.1667,
+     "4": 1500.0,
+     "5": 1891.6667
+    },
+    "Reşadiye|Işıklar": {
+     "2": 679.1667,
+     "3": 845.8333,
+     "4": 1395.8333,
+     "5": 1779.1667
+    },
+    "Reşadiye|Odayeri": {
+     "2": 620.8333,
+     "3": 829.1667,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Reşadiye|Uskumruköy": {
+     "2": 520.8333,
+     "3": 666.6667,
+     "4": 1179.1667,
+     "5": 1441.6667
+    },
+    "Reşadiye|Riva": {
+     "2": 258.3333,
+     "3": 308.3333,
+     "4": 400.0,
+     "5": 500.0
+    },
+    "Reşadiye|Hüseyinli": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 287.5
+    },
+    "Reşadiye|Alemdağ": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 216.6667
+    },
+    "Reşadiye|Paşaköy": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Reşadiye|Kurnaköy": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Alemdağ|Fenertepe": {
+     "2": 683.3333,
+     "3": 891.6667,
+     "4": 1445.8333,
+     "5": 1841.6667
+    },
+    "Alemdağ|Işıklar": {
+     "2": 620.8333,
+     "3": 829.1667,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Alemdağ|Odayeri": {
+     "2": 587.5,
+     "3": 783.3333,
+     "4": 1300.0,
+     "5": 1641.6667
+    },
+    "Alemdağ|Uskumruköy": {
+     "2": 462.5,
+     "3": 633.3333,
+     "4": 1133.3333,
+     "5": 1383.3333
+    },
+    "Alemdağ|Riva": {
+     "2": 245.8333,
+     "3": 258.3333,
+     "4": 341.6667,
+     "5": 441.6667
+    },
+    "Alemdağ|Hüseyinli": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Alemdağ|Reşadiye": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 216.6667
+    },
+    "Alemdağ|Paşaköy": {
+     "2": 54.1667,
+     "3": 54.1667,
+     "4": 87.5,
+     "5": 100.0
+    },
+    "Alemdağ|Kurnaköy": {
+     "2": 137.5,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Paşaköy|Fenertepe": {
+     "2": 683.3333,
+     "3": 891.6667,
+     "4": 1487.5,
+     "5": 1845.8333
+    },
+    "Paşaköy|Işıklar": {
+     "2": 645.8333,
+     "3": 845.8333,
+     "4": 1395.8333,
+     "5": 1750.0
+    },
+    "Paşaköy|Odayeri": {
+     "2": 620.8333,
+     "3": 787.5,
+     "4": 1354.1667,
+     "5": 1704.1667
+    },
+    "Paşaköy|Uskumruköy": {
+     "2": 479.1667,
+     "3": 666.6667,
+     "4": 1137.5,
+     "5": 1441.6667
+    },
+    "Paşaköy|Riva": {
+     "2": 245.8333,
+     "3": 287.5,
+     "4": 358.3333,
+     "5": 466.6667
+    },
+    "Paşaköy|Hüseyinli": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "Paşaköy|Reşadiye": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Paşaköy|Alemdağ": {
+     "2": 54.1667,
+     "3": 54.1667,
+     "4": 87.5,
+     "5": 100.0
+    },
+    "Paşaköy|Kurnaköy": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 187.5
+    },
+    "Kurnaköy|Fenertepe": {
+     "2": 775.0,
+     "3": 975.0,
+     "4": 1583.3333,
+     "5": 1991.6667
+    },
+    "Kurnaköy|Işıklar": {
+     "2": 725.0,
+     "3": 929.1667,
+     "4": 1500.0,
+     "5": 1891.6667
+    },
+    "Kurnaköy|Odayeri": {
+     "2": 679.1667,
+     "3": 879.1667,
+     "4": 1445.8333,
+     "5": 1841.6667
+    },
+    "Kurnaköy|Uskumruköy": {
+     "2": 562.5,
+     "3": 750.0,
+     "4": 1241.6667,
+     "5": 1583.3333
+    },
+    "Kurnaköy|Riva": {
+     "2": 308.3333,
+     "3": 358.3333,
+     "4": 466.6667,
+     "5": 604.1667
+    },
+    "Kurnaköy|Hüseyinli": {
+     "2": 216.6667,
+     "3": 245.8333,
+     "4": 308.3333,
+     "5": 400.0
+    },
+    "Kurnaköy|Reşadiye": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "Kurnaköy|Alemdağ": {
+     "2": 137.5,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
+    "Kurnaköy|Paşaköy": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 162.5,
+     "5": 187.5
     }
    }
   }

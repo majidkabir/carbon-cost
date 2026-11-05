@@ -177,6 +177,10 @@ type TollPoint struct {
 	// the group's other stations are free for GroupMinutes.
 	Group        int `json:"group,omitempty"`
 	GroupMinutes int `json:"group_minutes,omitempty"`
+	// Within names a closed system of the same table whose tickets
+	// include this station's charge: a route with a ticket of that system
+	// from one side of the station to the other doesn't pay it again.
+	Within string `json:"within,omitempty"`
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -633,6 +637,11 @@ func (tb Table) check() error {
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {
 			return fmt.Errorf("negative rate in %+v", r)
+		}
+	}
+	for _, p := range tb.TollPoints {
+		if p.Within != "" && !slices.ContainsFunc(tb.Closed, func(s TollSystem) bool { return s.Name == p.Within }) {
+			return fmt.Errorf("toll point %s: no closed system %q in the table", p.Name, p.Within)
 		}
 	}
 	return nil

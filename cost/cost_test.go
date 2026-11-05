@@ -1275,6 +1275,8 @@ func TestTurkeyBridges(t *testing.T) {
 		{"Osmangazi, 5 axles", truck40, cross(29.51602, 40.75600), 49.17},
 		{"1915 Çanakkale bridge to Gelibolu Güney, 5 axles", truck40, [][2]float64{{26.6600, 40.3200}, {26.6095, 40.3535}, {26.6154, 40.3665}}, 48.75},
 		{"Malkara to the 1915 Çanakkale bridge, 5 axles", truck40, [][2]float64{{27.0453, 40.8656}, {26.8631, 40.5865}, {26.6095, 40.3535}, {26.6600, 40.3200}}, 61.75},
+		{"Gebze over the Osmangazi bridge to Bursa Kuzey, 5 axles", truck40, [][2]float64{{29.5200, 40.7800}, {29.5160, 40.7560}, {29.5002, 40.7165}, {29.4754, 40.6963}, {29.0865, 40.3195}}, 65.42},
+		{"Kuzey Çevre Uskumruköy over the bridge to Riva, 5 axles (bridge in the ticket)", truck40, [][2]float64{{29.0279, 41.2349}, {29.1117, 41.2030}, {29.2025, 41.1921}}, 16.42},
 		{"Anadolu Otoyolu Çamlıca to Gebze, 5 axles", truck40, [][2]float64{{29.1725, 40.9922}, {29.3157, 40.9539}, {29.4743, 40.8043}}, 1.92},
 		{"no bridge", truck40, cross(29.2, 41.0), 0},
 	} {

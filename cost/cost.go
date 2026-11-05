@@ -544,11 +544,12 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 				return Response{}, err
 			}
 		}
-		closedAny, err := priceClosed(tb, a.country, a.region, route, req, &out, add)
+		sp := spans{}
+		closedAny, err := priceClosed(tb, a.country, a.region, route, req, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
-		pointsAny, err := priceTollPoints(tb, a.country, route, req, &out, add)
+		pointsAny, err := priceTollPoints(tb, a.country, route, req, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
@@ -573,11 +574,12 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			continue
 		}
 		lineSrc = tb.Sources
-		used, err := priceClosed(tb, tb.Country, "", route, req, &out, add)
+		sp := spans{}
+		used, err := priceClosed(tb, tb.Country, "", route, req, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
-		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, &out, add)
+		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, &out, add, sp)
 		if err != nil {
 			return Response{}, err
 		}
@@ -926,7 +928,7 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 	if u.entry == "" {
 		return u, false
 	}
-	u.km = last - first
+	u.km, u.from = last-first, first
 	if u.entry == u.exit {
 		_, open := sys.Prices[u.entry+"|"+u.entry]
 		return u, open
@@ -936,7 +938,11 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 
 // priceClosed adds a line for each closed toll system of the table the
 // route uses, and says whether it used any.
-func priceClosed(tb rates.Table, country, region string, route [][2]float64, req Request, out *Response, add func(Line) error) (bool, error) {
+// spans: where along the route each closed system's tickets start and
+// end (km), by system name.
+type spans map[string][][2]float64
+
+func priceClosed(tb rates.Table, country, region string, route [][2]float64, req Request, out *Response, add func(Line) error, sp spans) (bool, error) {
 	used := false
 	for _, sys := range tb.Closed {
 		var uses []systemUse
@@ -947,6 +953,9 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 		}
 		for _, u := range uses {
 			used = true
+			if sp != nil {
+				sp[sys.Name] = append(sp[sys.Name], [2]float64{u.from, u.from + u.km})
+			}
 			g := sys.GroupOf(req.Truck)
 			p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
 			if !ok {
@@ -1148,7 +1157,7 @@ const DefaultPointMatchKm = 0.05
 // direction that pays, and says whether it passed any. Under an hour
 // rule only the first passage of a group pays: the route is taken to
 // pass a group's stations within its time limit.
-func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, out *Response, add func(Line) error) (bool, error) {
+func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, out *Response, add func(Line) error, sp spans) (bool, error) {
 	match := tb.PointMatchKm
 	if match == 0 {
 		match = DefaultPointMatchKm
@@ -1179,6 +1188,11 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		// One station mapped as several booths (a lane, a carriageway):
 		// passing them together pays once.
 		if at, ok := last[p.tp.Name]; ok && p.pos-at < 1 {
+			continue
+		}
+		if p.tp.Within != "" && slices.ContainsFunc(sp[p.tp.Within], func(s [2]float64) bool { return s[0] < p.pos && p.pos < s[1] }) {
+			last[p.tp.Name] = p.pos
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is included in the %s ticket.", country, p.tp.Name, p.tp.Within))
 			continue
 		}
 		rate, ok := p.tp.Price(req.Truck, req.ETC)

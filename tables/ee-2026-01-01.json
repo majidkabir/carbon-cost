@@ -1,0 +1,130 @@
+{
+ "country": "EE",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "name": "Estonian road user charge (teekasutustasu)",
+ "law": "Liiklusseadus § 190^1-190^13; rates in § 190^3 (as amended, RT I, 22.12.2023, 1): a time-based charge in euro for 24 hours, 7, 30, 90 or 365 days, by the summed maximum masses of the truck and trailer (over 3.5 to 12 t, over 12 t), their total axles and the truck's EURO class; zero-emission trucks pay lower rates from 1 January 2026. The table keeps the 24-hour rate. A fee, without VAT.",
+ "sources": [
+  {
+   "title": "Liiklusseadus, version in force (Riigi Teataja)",
+   "url": "https://www.riigiteataja.ee/akt/113032019015?leiaKehtiv"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t maximum mass, with their trailers",
+ "min_kg": 3501,
+ "tolled_roads": "All public roads (§ 190^1).",
+ "per_day": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 10
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 6
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 4
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 40
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 30
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 26
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 22
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "rate": 13
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 24
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 18
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    4,
+    5
+   ],
+   "rate": 16
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 14
+  }
+ ]
+}

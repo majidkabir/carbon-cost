@@ -1,0 +1,709 @@
+{
+ "files": [
+  {
+   "file": "ro-tollro.html",
+   "url": "https://portal.etoll.ro/web/guest/tollro",
+   "status": 200,
+   "size": 154852,
+   "sha256": "8208cb58d4efe22bf8d117db5382514bc8fb21fca7d81ab783a5287301e11091",
+   "fetched": "2026-11-05T11:07:41Z"
+  },
+  {
+   "file": "ro-active-pricing-offer-1.json",
+   "url": "https://portal.etoll.ro:443/web/guest/tollro?p_p_id=digitalizeportlet_WAR_digitalizeportlet_INSTANCE_cmig&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage&productClass=PER_KM&lang=ro&rest_path=%2Fpricing-offers%2Factive-pricing-offer&rest_method=GET",
+   "status": 200,
+   "size": 21034,
+   "sha256": "d81a52c3ee204d5a03e8ca8ec6708a883d4ff8acbc86bf183af71e2d4f56a8dd",
+   "fetched": "2026-11-05T11:07:42Z"
+  },
+  {
+   "file": "dk-storebaelt.html",
+   "url": "https://storebaelt.dk/priser-rabatter/erhverv/",
+   "status": 200,
+   "size": 253742,
+   "sha256": "80aea0ad72725be6c0f30bebc25c606c984983f717cffa2166c7abe3b595f86e",
+   "fetched": "2026-11-05T11:07:44Z"
+  },
+  {
+   "file": "dk-oresund.html",
+   "url": "https://www.oresundsbron.com/da/erhverv/lastbil",
+   "status": 200,
+   "size": 391787,
+   "sha256": "976f4957f4cb391b40e2a854fc1e05adaf98e6be1fb64bbe6fc47d81d508c462",
+   "fetched": "2026-11-05T11:07:45Z"
+  },
+  {
+   "file": "hu-25-2013.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W",
+   "status": 200,
+   "size": 70979,
+   "sha256": "8de82ff2e42f94de599496312c0a46fc83530ca9927313ffb35e06f8ffd868f5",
+   "fetched": "2026-11-05T11:07:47Z"
+  },
+  {
+   "file": "hu-25-2013-block-1.html",
+   "url": "https://njt.jog.gov.hu/ajax/njtGetBlock.json (POST start 62 last 67)",
+   "status": 200,
+   "size": 2740920,
+   "sha256": "cbac215499d68dc964efc2f6c543533a24f8c53f8c2b2a690ffefe11743c2ea5",
+   "fetched": "2026-11-05T11:08:04Z"
+  },
+  {
+   "file": "hu-22-2023.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X",
+   "status": 200,
+   "size": 55589,
+   "sha256": "8f7b3556b66e91052c95e5299871f961414a46eb2a1a26bde8c3de7e8ac77424",
+   "fetched": "2026-11-05T11:08:06Z"
+  },
+  {
+   "file": "hu-34-2025.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X",
+   "status": 200,
+   "size": 55369,
+   "sha256": "0f1a416eb3ff15898c07c94167b1c23db479c915fff7019b937a4e4d0901f374",
+   "fetched": "2026-11-05T11:08:07Z"
+  },
+  {
+   "file": "fr-frejus-tunnel.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_FR.pdf",
+   "status": 200,
+   "size": 804145,
+   "sha256": "e60b71e6a68c8d7813e933c63f5608d671aef4a298b37cdfdd1408ff8f240882",
+   "fetched": "2026-11-05T11:08:09Z"
+  },
+  {
+   "file": "fr-mont-blanc-tunnel.html",
+   "url": "https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/",
+   "status": 200,
+   "size": 132923,
+   "sha256": "b5edaa89fd3148fc7d09cea268c3877b2a9a9a904caa0b9fe675164430828b59",
+   "fetched": "2026-11-05T11:08:10Z"
+  },
+  {
+   "file": "fr-a40-atmb.html",
+   "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/",
+   "status": 200,
+   "size": 133349,
+   "sha256": "111f6785f15dd8745180bfc8e5b82c6150f70ab31833b56acab260fdf4ef07cf",
+   "fetched": "2026-11-05T11:08:12Z"
+  },
+  {
+   "file": "fr-atlandes.jpg",
+   "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg",
+   "status": 200,
+   "size": 34418,
+   "sha256": "75b05d72014863c7e4a91b2d1ad496b3840bc01fb8e704edbe5c3e908262e631",
+   "fetched": "2026-11-05T11:08:13Z"
+  },
+  {
+   "file": "fr-albea.jpg",
+   "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg",
+   "status": 200,
+   "size": 149358,
+   "sha256": "947c53d18b24a8fa2e962162a0c2ceba119993596c13586bae61f430e3974b97",
+   "fetched": "2026-11-05T11:08:14Z"
+  },
+  {
+   "file": "lv-aln.html",
+   "url": "https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums",
+   "status": 200,
+   "size": 121858,
+   "sha256": "924f5cf9ad5560e8b666f0590942ddf05b4b589978c3fe57161983fabfda210b",
+   "fetched": "2026-11-05T11:08:15Z"
+  },
+  {
+   "file": "ee-ls.json",
+   "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/113032019015?leiaKehtiv=true",
+   "status": 200,
+   "size": 2141,
+   "sha256": "b003a76bf62017911e3395bdbae05b78d18c7ffac1a80ddba42da069e242b979",
+   "fetched": "2026-11-05T11:08:17Z"
+  },
+  {
+   "file": "ee-ls-text.html",
+   "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/111072026045/blob-html",
+   "status": 200,
+   "size": 2136339,
+   "sha256": "75c93c2b217182bbe4963d5aceecff3696cbf20153ff7f28440ab2a8857388c5",
+   "fetched": "2026-11-05T11:08:19Z"
+  },
+  {
+   "file": "lt-447-asr.html",
+   "url": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/TAIS.254521/asr",
+   "status": 403,
+   "size": 5662,
+   "sha256": "e51f1e8137edb4132fc0980b5deb338cd2e9d8f4b13011295d3fd43bfd2a02c5",
+   "fetched": "2026-11-05T11:08:20Z"
+  },
+  {
+   "file": "lt-447-etar.html",
+   "url": "https://www.e-tar.lt/portal/lt/legalAct/TAR.479B13E87700/asr",
+   "status": 403,
+   "size": 5644,
+   "sha256": "f084e8a6fc9b68f36db182a402b93e6856efcedf4852da532b9b10b92ef68229",
+   "fetched": "2026-11-05T11:08:20Z"
+  },
+  {
+   "file": "lt-237-2026.html",
+   "url": "https://e-seimas.lrs.lt/rs/legalact/TAD/d634093034b711f19c389aefab77fb47/",
+   "status": 403,
+   "size": 5695,
+   "sha256": "0526174792839a478513bd6136c4d504db0d4543069ba489b4640a8905159702",
+   "fetched": "2026-11-05T11:08:21Z"
+  },
+  {
+   "file": "se-1997-1137.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text",
+   "status": 200,
+   "size": 41670,
+   "sha256": "9af3cfa870ed022559cd21c4a0d5b31ee0df91b56fd72917df69a3c7d3678bb8",
+   "fetched": "2026-11-05T11:08:22Z"
+  },
+  {
+   "file": "se-2025-918.pdf",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf",
+   "status": 200,
+   "size": 425869,
+   "sha256": "1742294ec8acdaea1e5e131d107a5082bbbd8e19c3741190c372f27d2c6fc1c8",
+   "fetched": "2026-11-05T11:08:23Z"
+  },
+  {
+   "file": "lu-rgd-2019.html",
+   "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224/fr/html/eli-etat-leg-rgd-2019-05-21-a353-consolide-20241224-fr-html.html",
+   "status": 200,
+   "size": 136749,
+   "sha256": "898d5faad794d40dc9c49b622e700eb7e86d6c815dd28c91a5c495d5d6a5c7ad",
+   "fetched": "2026-11-05T11:08:24Z"
+  },
+  {
+   "file": "gb-levy-guide.html",
+   "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
+   "status": 200,
+   "size": 113916,
+   "sha256": "6023bc037934b30123d68ca4bc7ea853b74646b768ba8c567072d6d6fcea7109",
+   "fetched": "2026-11-05T11:08:24Z"
+  },
+  {
+   "file": "no-nvdb-45.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000",
+   "status": 200,
+   "size": 1561948,
+   "sha256": "5d665c0ddbd012094e2387faf200b79b2adaffa3a4bdf6e9b482b6ae212462d8",
+   "fetched": "2026-11-05T11:08:29Z"
+  },
+  {
+   "file": "no-nvdb-45-2.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&start=1027710378:1&antall=800",
+   "status": 200,
+   "size": 244,
+   "sha256": "0d93dc90b542aabad0bdb301697c6f2b3e9fad8267566b4701c4b774cf5ff4a7",
+   "fetched": "2026-11-05T11:08:29Z"
+  },
+  {
+   "file": "no-nvdb-45-links-1.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=41394,41468,41587,41620,41628,41862,42003,42597,42636,42659,42831,72196,72218,72219,72314,72334,72359,72810,72812,72814,72832,72848,72853,72854,72858,103768,104306,121303,121366,121488,121510,121514,121760,121800,180781,181261,181263,248928,248929,248930,248931,248945,248948,248950,249420,249421,249424,249425,249528,249534",
+   "status": 200,
+   "size": 2488351,
+   "sha256": "ffdca93579cb3ce82056c3049fe79abeb64fbd6cb3159422fdd0ea7861e0c1ec",
+   "fetched": "2026-11-05T11:08:41Z"
+  },
+  {
+   "file": "no-nvdb-45-links-2.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=249595,249596,249662,249674,281957,282607,289118,319607,319722,319725,319740,319814,319821,319868,319875,319881,320132,320139,320152,320210,320223,320231,320233,320297,320485,320536,320544,320581,320582,320583,320624,320670,320678,320684,320689,320693,320695,320700,320742,320746,320754,384021,384037,384103,384339,384481,384566,404759,407618,443152",
+   "status": 200,
+   "size": 2905122,
+   "sha256": "a9e8a67721086ffe8c2c4bea9c02da9603033f8159992baaf14fe3a3ab14b924",
+   "fetched": "2026-11-05T11:08:44Z"
+  },
+  {
+   "file": "no-nvdb-45-links-3.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=443308,443314,443317,443319,443603,443788,443841,443964,444232,444259,444290,490668,490705,521118,521176,521180,521181,521254,521397,521398,521400,521440,521465,578625,578626,603545,603696,603857,603903,603934,604031,604083,604149,604495,604510,604513,604551,604554,604555,604620,605010,605181,605242,605247,605343,605351,605375,605424,605435,605492",
+   "status": 200,
+   "size": 2184275,
+   "sha256": "77692d4d896762811282029a0150a7297af253c29848cb0c61ef03cc15d3d672",
+   "fetched": "2026-11-05T11:08:47Z"
+  },
+  {
+   "file": "no-nvdb-45-links-4.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=605495,605509,605569,605672,605692,605697,605800,605841,605848,605978,606025,617227,625212,625213,625215,625240,625286,625292,625294,625338,625342,625366,625367,625368,625369,625405,625426,625427,625442,625484,625500,625504,625530,625580,625602,625603,625604,625643,699850,702419,704759,705187,755378,804741,804770,804781,804784,804867,804911,804949",
+   "status": 200,
+   "size": 1706871,
+   "sha256": "2668a4463408013bb656158da8a031d09d738499222f88ba43b96d030b7132e1",
+   "fetched": "2026-11-05T11:08:50Z"
+  },
+  {
+   "file": "no-nvdb-45-links-5.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=804961,805054,805068,805081,805120,805137,805140,805293,805354,805391,805421,805614,805616,805617,805619,805643,805707,805712,805716,805722,805724,805744,805748,805789,805793,854449,854539,854680,885119,885156,885288,885912,886007,886041,943685,944133,944372,945690,971445,971469,971483,971490,971509,971657,971799,971804,971806,971807,971817,971842",
+   "status": 200,
+   "size": 3208819,
+   "sha256": "efe3a2538995580ed760f4a0e4324b7b9dea58375a29f9b9adb424701f2cc8e1",
+   "fetched": "2026-11-05T11:08:53Z"
+  },
+  {
+   "file": "no-nvdb-45-links-6.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=971847,1014866,1014877,1014895,1014902,1014913,1014957,1057174,1057175,1057177,1057189,1057191,1057192,1057193,1057195,1060622,1060624,1060651,1060678,1108720,1108872,1108881,1109432,1109452,1109517,1109528,1109654,1110314,1125797,1125799,1125800,1125914,1125917,1125918,1125937,1126309,1175469,1175548,1175565,1175846,1216606,1216828,1672679,1684268,1684322,1686474,1688423,1696393,1696541,1716791",
+   "status": 200,
+   "size": 1469697,
+   "sha256": "b822143a1d5bf1113ef6f70f8787a3a9e9a06b32f6600a3a11721e3a6c68f305",
+   "fetched": "2026-11-05T11:08:55Z"
+  },
+  {
+   "file": "no-nvdb-45-links-7.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=1719036,1719039,1719108,1719110,1822153,1885974,1955438,1993682,2014294,2037805,2037820,2039168,2046965,2128260,2252707,2252899,2258382,2258479,2269011,2282260,2282277,2343038,2343105,2352363,2352545,2353784,2370700,2370820,2378328,2394249,2410214,2411244,2411253,2449259,2486027,2490803,2490821,2490870,2499814,2499864,2562065,2562128,2583662,2676833,2677998,2678204,2679095,2679715,2680848,2684727",
+   "status": 200,
+   "size": 474972,
+   "sha256": "b4c61eb11c45a8388013bb55e72a48950ac46b22c58d2fd67273ede543b7a7ef",
+   "fetched": "2026-11-05T11:08:56Z"
+  },
+  {
+   "file": "no-nvdb-45-links-8.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=2708271,2721331,2722505,2725975,2725979,2725982,2725983,2725992,2726085,2726087,2726088,2744411,2788110,2788124,2797857,2799091,2803004,2809673,2809674,2816773,2822704,2822707,2823403,2823423,2982039,3106834,3112184,3112188,3118172,3134118,3144515,3144561,3149508,3151498,3153344,3154515,3154516,3159931,3159933,3160931,3182363,3188346,3214479,3225859,3256668,3263296,3293702,3306403,3306409,3306433",
+   "status": 200,
+   "size": 873101,
+   "sha256": "1591893e031af58c61e801519d7b3cd0547485803e4d7788ea012968a396e0c3",
+   "fetched": "2026-11-05T11:08:58Z"
+  },
+  {
+   "file": "no-nvdb-45-links-9.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=3306449,3366119,3366122,3366159,3366169,3366170,3366970,3367271,3384666,3402547,3402575,3403129,3407590,3441687,3441694,3486594,3486595,3500119,3508288,3605213,3662328,3718445,3816696,3861425,3904220,3904224,3904225,3921616,3938204,3950061,4009876,4098792",
+   "status": 200,
+   "size": 287808,
+   "sha256": "7613b33e87369dc37b92e07ec2ae6229e055c5d1c1b03474fdbc48599c44320a",
+   "fetched": "2026-11-05T11:08:59Z"
+  },
+  {
+   "file": "ie-tii-2026.html",
+   "url": "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026",
+   "status": 200,
+   "size": 23414,
+   "sha256": "4c4811ed03ca0bd3cc062af02bf91938ba5b92f6f7f4032c4a725acd58f7cdc4",
+   "fetched": "2026-11-05T11:09:01Z"
+  },
+  {
+   "file": "ie-tii-locations.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/",
+   "status": 200,
+   "size": 25389,
+   "sha256": "90e604cda92f7dcc208d28ef3ed725fc77fcc3ffe005e3ea4084eca2a04df0f8",
+   "fetched": "2026-11-05T11:09:01Z"
+  },
+  {
+   "file": "ie-tii-notices.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/statutory-notices/",
+   "status": 200,
+   "size": 48974,
+   "sha256": "1ca5555d9da4fd3f11bf0123ab06925d601de08e42cd1249ca74c2fa257164e1",
+   "fetched": "2026-11-05T11:09:02Z"
+  },
+  {
+   "file": "ie-m1.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/",
+   "status": 200,
+   "size": 24009,
+   "sha256": "45dde7ae735219bc1417b4aace06b69a003381026e7336c5fbc2b71821ad1433",
+   "fetched": "2026-11-05T11:09:02Z"
+  },
+  {
+   "file": "ie-m3.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/",
+   "status": 200,
+   "size": 23276,
+   "sha256": "b72d11c6f0018bfb1834f3d22ce3324544718e42f32b37d39dec60e7f52fe75e",
+   "fetched": "2026-11-05T11:09:03Z"
+  },
+  {
+   "file": "ie-m3-blackbull.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/",
+   "status": 200,
+   "size": 23142,
+   "sha256": "1d501e1df7d13cdf0531390972122c7738f5176c29cce2c2a5e0e8780d0cda36",
+   "fetched": "2026-11-05T11:09:03Z"
+  },
+  {
+   "file": "ie-m4.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/",
+   "status": 200,
+   "size": 23741,
+   "sha256": "f5c2a00f04920afbc95a67b5d7edaa23a3ee8a33edc7bf894c0cdf67ded40048",
+   "fetched": "2026-11-05T11:09:03Z"
+  },
+  {
+   "file": "ie-n6.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/",
+   "status": 200,
+   "size": 22634,
+   "sha256": "0b64bb9407cae2dcc095f5540402385960cc8f8edb06331974941dbd2f33a465",
+   "fetched": "2026-11-05T11:09:03Z"
+  },
+  {
+   "file": "ie-m7m8.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7m8-portlaoise-castletownportlaoise-cullahill/",
+   "status": 200,
+   "size": 23295,
+   "sha256": "8b6ac53b9c1d23cc3041200e0a4e94d4ec06b50e3bf6e3bc10d397cd3392366c",
+   "fetched": "2026-11-05T11:09:04Z"
+  },
+  {
+   "file": "ie-n8.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/",
+   "status": 200,
+   "size": 22898,
+   "sha256": "d5427aaa5467b9e9acc642b2192d41d555a5c965fa3418c0369e981c7193f466",
+   "fetched": "2026-11-05T11:09:04Z"
+  },
+  {
+   "file": "ie-limerick.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/",
+   "status": 200,
+   "size": 22455,
+   "sha256": "91e6e48685c37fb839051ddcf8228a28ee6a82d52e4b0d3644362f9ade3c7b41",
+   "fetched": "2026-11-05T11:09:04Z"
+  },
+  {
+   "file": "ie-n25.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/",
+   "status": 200,
+   "size": 22713,
+   "sha256": "81794405099abdd3583f5c9ad45d90ccf21ac7f7a2ccac6b492f20a6bb84747a",
+   "fetched": "2026-11-05T11:09:04Z"
+  },
+  {
+   "file": "ie-port-tunnel.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/dublin-port-tunnel/",
+   "status": 200,
+   "size": 22235,
+   "sha256": "10531a13b89be5459f6f537b3d4b302d005a2d3f82171216356f02a351b778d1",
+   "fetched": "2026-11-05T11:09:05Z"
+  },
+  {
+   "file": "ie-m50.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/",
+   "status": 200,
+   "size": 25384,
+   "sha256": "545909e9eb6263243a4a84c37d97d57cfc145831dffa83865384fab7b03359f0",
+   "fetched": "2026-11-05T11:09:05Z"
+  },
+  {
+   "file": "se-2014-1564.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text",
+   "status": 200,
+   "size": 21652,
+   "sha256": "5faa044b673fb408cbbaac0482b3b85103c7b1ef5f19fae7b8b1530ec7f96500",
+   "fetched": "2026-11-05T11:09:06Z"
+  },
+  {
+   "file": "se-broavgift-motala.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/",
+   "status": 200,
+   "size": 181759,
+   "sha256": "055adb96b789e7c940ddd59b8096699ce94ca6c5c6af2f1ca7cbb3a2b6ba8b1b",
+   "fetched": "2026-11-05T11:09:07Z"
+  },
+  {
+   "file": "se-broavgift-sundsvall.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-sundsvall/",
+   "status": 200,
+   "size": 181930,
+   "sha256": "e95544fc2fa57995c1c0ac80e46d7ae01388cfdf4680e4940bf77138098b0b94",
+   "fetched": "2026-11-05T11:09:09Z"
+  },
+  {
+   "file": "se-broavgift-skurubron.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-skurubron/",
+   "status": 200,
+   "size": 182395,
+   "sha256": "1492073437b36ff8c88112fea9cc79e1e2e57ff9658d2c6753a50075d752e5c0",
+   "fetched": "2026-11-05T11:09:10Z"
+  },
+  {
+   "file": "mk-odluka-2025.pdf",
+   "url": "https://roads.org.mk/wp-content/uploads/2025/09/%D0%9E%D0%B4%D0%BB%D1%83%D0%BA%D0%B0-%D0%BF%D0%B0%D1%82%D0%B0%D1%80%D0%B8%D0%BD%D0%B0.pdf",
+   "status": 200,
+   "size": 97908,
+   "sha256": "88b5bdf7709d28554d3ed975d5244080e65e5701acbb75a790445a3283e5bd04",
+   "fetched": "2026-11-05T11:09:11Z"
+  },
+  {
+   "file": "mk-odluka-2019.pdf",
+   "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf",
+   "status": 200,
+   "size": 380821,
+   "sha256": "4fb2e69db60deedc050499dab8c7fcecd8a4bdbc48f99b0859beecd593f7ca72",
+   "fetched": "2026-11-05T11:09:13Z"
+  },
+  {
+   "file": "me-autoput.html",
+   "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/",
+   "status": 200,
+   "size": 174095,
+   "sha256": "834b79b6b789e4787a35070047ce148f0a2b62b9be42d0c34d3176f429ba1495",
+   "fetched": "2026-11-05T11:09:15Z"
+  },
+  {
+   "file": "me-sozina.html",
+   "url": "https://monteput.me/cjenovnik-tunel-sozina/",
+   "status": 200,
+   "size": 195995,
+   "sha256": "7d81c30680bcc3f7323bb5e15698635b365eb2d7f60a2d1e4e5f24e0e7a0edd2",
+   "fetched": "2026-11-05T11:09:17Z"
+  },
+  {
+   "file": "gr-olympia.html",
+   "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "status": 200,
+   "size": 47421,
+   "sha256": "c59d3e15006cc6a699ede84f3a419b4c06372441790bf6b69bc2dc86053b7597",
+   "fetched": "2026-11-05T11:09:18Z"
+  },
+  {
+   "file": "gr-neaodos.html",
+   "url": "https://www.neaodos.gr/highways/tolls/",
+   "status": 200,
+   "size": 140057,
+   "sha256": "bada47c0602126a7b4eab82fdcc61723a7a237b74da727583ddf29c497991c2c",
+   "fetched": "2026-11-05T11:09:20Z"
+  },
+  {
+   "file": "gr-kentriki.html",
+   "url": "https://www.kentrikiodos.gr/highways/toll-fees/",
+   "status": 200,
+   "size": 136558,
+   "sha256": "6c00a3e166f2901a28ca99850c02b89d29c1dc2ff3c8447e917bda885786ffa9",
+   "fetched": "2026-11-05T11:09:22Z"
+  },
+  {
+   "file": "gr-moreas.html",
+   "url": "https://www.moreas.com.gr/leitourgia/diodia",
+   "status": 200,
+   "size": 231052,
+   "sha256": "fd57dc4d4839b95834424376e4138955605f17688194fe5b5f6503943e6821be",
+   "fetched": "2026-11-05T11:09:26Z"
+  },
+  {
+   "file": "gr-aegean.html",
+   "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/",
+   "status": 200,
+   "size": 195383,
+   "sha256": "d56a873afa6da7dbe1c733fa34f5ebaecb83af7dccff5e83136141327498f83a",
+   "fetched": "2026-11-05T11:09:28Z"
+  },
+  {
+   "file": "gr-gefyra.html",
+   "url": "https://www.gefyra.gr/prices/Times-Diodion/",
+   "status": 200,
+   "size": 38616,
+   "sha256": "6219881dd5dd5ba3a3a29b89b11d492f694646d5fc5ce9616d48780c734854d8",
+   "fetched": "2026-11-05T11:09:30Z"
+  },
+  {
+   "file": "tr-kgm-ucretler.html",
+   "url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/Otoyollar/UcretlerYeni.aspx",
+   "status": 200,
+   "size": 101610,
+   "sha256": "934d5a14ec5c155b76034f6fa48b432b9c49ab75705238b9ea1d77c57ee92ab2",
+   "fetched": "2026-11-05T11:09:32Z"
+  },
+  {
+   "file": "tr-1-15temmuz-fsm.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/1-15Temmuz-FSM.pdf",
+   "status": 200,
+   "size": 131770,
+   "sha256": "432c81143779b91cb293f5993ab4ca64ec7856fd019b0e94577a266a0528df92",
+   "fetched": "2026-11-05T11:09:34Z"
+  },
+  {
+   "file": "tr-2-osmangazi.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/2-Osmangazi.pdf",
+   "status": 200,
+   "size": 198600,
+   "sha256": "48a76bc5e4139f6a3586f33a42fb79904b0fbfa3ba8ef8d9222ef2538da12cef",
+   "fetched": "2026-11-05T11:09:36Z"
+  },
+  {
+   "file": "tr-3-ysskoprusu.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/3-YSSKoprusu.pdf",
+   "status": 200,
+   "size": 201363,
+   "sha256": "5e894b657a03c81a844c7a277abe3453f7d2d895bf14981eeba0f4b5a718b99a",
+   "fetched": "2026-11-05T11:09:39Z"
+  },
+  {
+   "file": "tr-4-1915canakkale.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/4-1915Canakkale.pdf",
+   "status": 200,
+   "size": 160578,
+   "sha256": "e9f623572c7b794fa121cd1b5f19143292c958ee0f2eb27aadc713abfa2758a0",
+   "fetched": "2026-11-05T11:09:41Z"
+  },
+  {
+   "file": "tr-5-anadoluotoyolucamlica-akinci.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/5-AnadoluOtoyoluCamlica-Akinci.pdf",
+   "status": 200,
+   "size": 636452,
+   "sha256": "ebf4e3d7d082fa4f78ec408ac403c9e44bffb75da0cf583f2f043f3f67bce436",
+   "fetched": "2026-11-05T11:09:45Z"
+  },
+  {
+   "file": "tr-6-izmir-cesme.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/6-Izmir-Cesme.pdf",
+   "status": 200,
+   "size": 119695,
+   "sha256": "7dbc4c7fd3e0050cc9d449041dc2855936823ca996fdd3fe87f79fa2e0f705a7",
+   "fetched": "2026-11-05T11:09:47Z"
+  },
+  {
+   "file": "tr-7-izmir-aydin.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/7-Izmir-Aydin.pdf",
+   "status": 200,
+   "size": 119958,
+   "sha256": "d5de1b42eef443094081e6c66d4d12f643ce2fb3ef4b39646532b0fbcf7404f4",
+   "fetched": "2026-11-05T11:09:48Z"
+  },
+  {
+   "file": "tr-8-cukurovaotoyoluadana-gaziantep.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/8-CukurovaOtoyoluAdana-Gaziantep.pdf",
+   "status": 200,
+   "size": 238260,
+   "sha256": "184330f8137a0bcaefa9520977cb2f0999932b4e00d7fe9ce512b436a83e98b4",
+   "fetched": "2026-11-05T11:09:51Z"
+  },
+  {
+   "file": "tr-9-cukurovaotoyolugaziantep-sanliurfa.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/9-CukurovaOtoyoluGaziantep-Sanliurfa.pdf",
+   "status": 200,
+   "size": 114826,
+   "sha256": "b4cdec4c8b1398c81e7ffa604cd897dbe226cd8b7dea45812d4d85cbeeef08e6",
+   "fetched": "2026-11-05T11:09:53Z"
+  },
+  {
+   "file": "tr-10-cukurovaotoyolunigde-mersin-adana.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/10-CukurovaOtoyoluNigde-Mersin-Adana.pdf",
+   "status": 200,
+   "size": 231464,
+   "sha256": "910102a03ca3b2df4bf4317f1a4cf10301c7b5548fc3372d0c1038b934d8d123",
+   "fetched": "2026-11-05T11:09:55Z"
+  },
+  {
+   "file": "tr-11-avrupaotoyolumahmutbey-edirne.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/11-AvrupaOtoyoluMahmutbey-Edirne.pdf",
+   "status": 200,
+   "size": 253701,
+   "sha256": "768a03b042cd8aca5be2669f7d633429c6907bc747421d0867ba5cadf6e631db",
+   "fetched": "2026-11-05T11:09:58Z"
+  },
+  {
+   "file": "tr-12-gebze-orhangazi-izmir.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/12-Gebze-Orhangazi-Izmir.pdf",
+   "status": 200,
+   "size": 446827,
+   "sha256": "006eb48a97e90856f8545c86601bcf68b4e4d8ba0fec0311d80cc54c391af1ad",
+   "fetched": "2026-11-05T11:10:01Z"
+  },
+  {
+   "file": "tr-13-ysskuzeycevreyolu.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/13-YSSKuzeyCevreYolu.pdf",
+   "status": 200,
+   "size": 216429,
+   "sha256": "6ad8fa01fad3bf77e50f8da59ba6b637b30b1207772127ed3f031654be8f87a9",
+   "fetched": "2026-11-05T11:10:03Z"
+  },
+  {
+   "file": "tr-14-kmoavrupakinali-odayeri.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/14-KMOAvrupaKinali-Odayeri.pdf",
+   "status": 200,
+   "size": 158029,
+   "sha256": "b77f767a46564c9274b97bc7dc6cc593687fb0b3f5dc23b55f8430e08ee2061e",
+   "fetched": "2026-11-05T11:10:05Z"
+  },
+  {
+   "file": "tr-15-kmoanadolukurtkoy-akyazi.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/15-KMOAnadoluKurtkoy-Akyazi.pdf",
+   "status": 200,
+   "size": 221737,
+   "sha256": "4c6e5e6d3a69055c1809f3120ae3a4b63d9477f4a074366d739e0889a13a4ba9",
+   "fetched": "2026-11-05T11:10:07Z"
+  },
+  {
+   "file": "tr-16-menemen-aliaga-candarli.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/16-Menemen-Aliaga-Candarli.pdf",
+   "status": 200,
+   "size": 154639,
+   "sha256": "17dd4890bd34c98eb6aadb80bdae5ee962341aba29ee4bff43d45037ba27b8bb",
+   "fetched": "2026-11-05T11:10:09Z"
+  },
+  {
+   "file": "tr-17-ankara-nigde.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/17-Ankara-Nigde.pdf",
+   "status": 200,
+   "size": 364350,
+   "sha256": "c734645dca0060073df67f649272cdcda41c73611249a5a7f30c183e7b994725",
+   "fetched": "2026-11-05T11:10:12Z"
+  },
+  {
+   "file": "tr-18-malkara-canakkale.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/18-Malkara-Canakkale.pdf",
+   "status": 200,
+   "size": 219026,
+   "sha256": "5278bbd8ed2ba3f917dbf48c074495ae77ea751568c6297b3e380e1b9b1e6ab5",
+   "fetched": "2026-11-05T11:10:15Z"
+  },
+  {
+   "file": "tr-19-aydin-denizli.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/19-Aydin-Denizli.pdf",
+   "status": 200,
+   "size": 438713,
+   "sha256": "ddd3b41e586af58a7f44be574862d4ed2ee1046ac2236bf2e23287c26a866ad9",
+   "fetched": "2026-11-05T11:10:18Z"
+  },
+  {
+   "file": "tr-20-cesmeli-kizkalesitr.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/20-Cesmeli-KizkalesiTR.pdf",
+   "status": 200,
+   "size": 133187,
+   "sha256": "e188a67985325a05bd79687ba1624f21c4857cc9012c3719ae44630e191845d4",
+   "fetched": "2026-11-05T11:10:20Z"
+  },
+  {
+   "file": "se-2004-629.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-2004-629.text",
+   "status": 200,
+   "size": 25781,
+   "sha256": "e4cc33daa8e6ba991eb3c954f11a015a7bd588936aca8ee6d20ac26b0006085c",
+   "fetched": "2026-11-05T11:10:21Z"
+  },
+  {
+   "file": "pt-imt-taxas.html",
+   "url": "https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/",
+   "status": 200,
+   "size": 149930,
+   "sha256": "4fb117f0f12e7a03cbc7715fe443fee4063d1e3721462614587714d806cc3307",
+   "fetched": "2026-11-05T11:10:22Z"
+  },
+  {
+   "file": "es-seitt-ap36.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2026_v1.pdf",
+   "status": 200,
+   "size": 880953,
+   "sha256": "3893ec19f79e85980dacec46f801c9a01abe0dc58a1c3a5a78e3c5a8a45132e8",
+   "fetched": "2026-11-05T11:10:23Z"
+  },
+  {
+   "file": "es-seitt-ap41.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_ap41_2026.pdf",
+   "status": 200,
+   "size": 714119,
+   "sha256": "0695734afff7101bc36b5df4544fa2e58000d3a757de7b5a5ff225b36131ac1c",
+   "fetched": "2026-11-05T11:10:23Z"
+  },
+  {
+   "file": "es-seitt-ap7cv.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf",
+   "status": 200,
+   "size": 731325,
+   "sha256": "b7fbdb565f90434e19bce16a072028524727ad9072bfb5ec8e259d0c456d3dab",
+   "fetched": "2026-11-05T11:10:23Z"
+  }
+ ],
+ "errors": []
+}

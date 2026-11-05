@@ -1,0 +1,58 @@
+{
+  "kuvaDigitempliNupp" : true,
+  "kuvaSeotudKohtulahendidNupp" : true,
+  "kuvaKohtulahendid" : null,
+  "kehtivId" : 111072026045,
+  "grupiId" : 344969,
+  "tekstiliik" : "terviktekst",
+  "dokumentliik" : "seadus",
+  "aktiParameetrid" : {
+    "aktideAadress" : "https://www.riigiteataja.ee/akt/",
+    "lisaAadress" : "https://www.riigiteataja.ee/aktilisa/1110/7202/6045/",
+    "pildiAadress" : "https://www.riigiteataja.ee/aktilisa/1110/7202/6045/",
+    "kohtulahendiUrlPrefix" : "https://www.riigiteataja.ee/akt_seosed_kohtulahenditega.html?id=111072026045&kuvakohtulahendid=true",
+    "htmlLisaAadress" : "https://www.riigiteataja.ee/akt/111072026045/htmllisa/",
+    "kehtivKehtetus" : false,
+    "mitteJoustunud" : false,
+    "onHetkelKehtivKuvada" : false,
+    "tavatekstAlgus" : null,
+    "tavatekstLopp" : null,
+    "kehtivuseAlgus" : "2026-09-30T21:00:00Z",
+    "kehtivuseLopp" : "2026-12-30T22:00:00Z",
+    "kuupaev" : null,
+    "staatus" : "KOIK",
+    "pealkiri" : "Liiklusseadus",
+    "lyhend" : "LS",
+    "avaldamiseKuupaev" : "2026-07-10T21:00:00Z"
+  },
+  "viited" : [ {
+    "vaartus" : "ELOI",
+    "kirjeldus" : "EL õigus"
+  }, {
+    "vaartus" : "LITE",
+    "kirjeldus" : "Lisateave"
+  }, {
+    "vaartus" : "METE",
+    "kirjeldus" : "Menetlusteave"
+  }, {
+    "vaartus" : "OKS",
+    "kirjeldus" : "Õiguskantsleri seisukohad"
+  }, {
+    "vaartus" : "RAAS",
+    "kirjeldus" : "Rakendusasutused"
+  }, {
+    "vaartus" : "RKAN",
+    "kirjeldus" : "Riigikohtu analüüsid"
+  }, {
+    "vaartus" : "TVK",
+    "kirjeldus" : "Tõlge vene keelde"
+  }, {
+    "vaartus" : "VSAK",
+    "kirjeldus" : "Andmekogud"
+  } ],
+  "liigitused" : [ "0¤28¤2846¤4619¤847¤5429", "0¤28¤2826¤2690¤1162", "0¤48¤4806¤3160¤3110", "0¤48¤4806¤3160¤3116", "0¤48¤4806¤2494¤4033¤4047", "0¤12¤1216¤3878¤1549", "0¤4¤436¤517¤7365", "0¤12¤1216¤1432¤7944", "0¤10¤1011¤525¤2247", "0¤48¤4806¤3131", "0¤48¤4811¤2015", "0¤48¤4816¤4539¤4533", "SÜSTJAOT¤HALDUS¤LIIKLUS", "SÜSTJAOT¤KARISTUS¤VÄÄRTEOD" ],
+  "kuvaRakendusakte" : true,
+  "aktiStaatus" : "KEHTIV",
+  "tolkeSeosId" : 526102026003,
+  "tolkeSeosTekst" : null
+}

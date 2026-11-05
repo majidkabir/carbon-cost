@@ -1,0 +1,5776 @@
+{
+ "country": "PT",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "name": "Portuguese motorway tolls (portagens)",
+ "law": "IMT, Taxas de Portagem de 2026: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-03). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
+ "sources": [
+  {
+   "title": "IMT: Taxas de Portagem de 2026",
+   "url": "https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/"
+  },
+  {
+   "title": "Polígrafo: Lusoponte bridge tolls carry the reduced 6% IVA",
+   "url": "http://poligrafo.sapo.pt/fact-check/portagens-das-pontes-25-de-abril-e-vasco-da-gama-tem-taxa-reduzida-6-de-iva-ao-contrario-do-resto-do-pais/"
+  },
+  {
+   "title": "Decreto-Lei n.º 294/97 (Brisa concession bases), consolidated: tolls plus IVA",
+   "url": "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/2008-168384077"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), motorways",
+   "url": "https://download.geofabrik.de/europe/portugal.html"
+  }
+ ],
+ "vehicles": "Trucks of two or more axles (classes 2 to 4)",
+ "tolled_roads": "The lanços in IMT's table: A1, A2, A3, A4, A5, A6, A8, A9, A10, A12, A13, A14, A15, A17, A21, A32, A41, A43, and the Ponte 25 de Abril and Ponte Vasco da Gama.",
+ "point_match_km": 0.05,
+ "toll_points": [
+  {
+   "name": "A1 Alverca (A1/A9) / V.Franca de Xira II",
+   "lat": 38.918032,
+   "lon": -9.020462,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A1 Alverca (A1/A9) / V.Franca de Xira II",
+   "lat": 38.917452,
+   "lon": -9.021244,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A1 V.Franca de Xira II / V.Franca de Xira I",
+   "lat": 38.957952,
+   "lon": -8.99042,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5691
+    }
+   ]
+  },
+  {
+   "name": "A1 V.Franca de Xira II / V.Franca de Xira I",
+   "lat": 38.957744,
+   "lon": -8.990684,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5691
+    }
+   ]
+  },
+  {
+   "name": "A1 V.Franca de Xira I / Castanheira do Ribatejo",
+   "lat": 38.986815,
+   "lon": -8.971184,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A1 V.Franca de Xira I / Castanheira do Ribatejo",
+   "lat": 38.988264,
+   "lon": -8.9705,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A1 Castanheira do Ribatejo/ A1/A10",
+   "lat": 39.00722,
+   "lon": -8.966666,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.3252
+    }
+   ]
+  },
+  {
+   "name": "A1 Castanheira do Ribatejo/ A1/A10",
+   "lat": 39.006516,
+   "lon": -8.967004,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.3252
+    }
+   ]
+  },
+  {
+   "name": "A1 A1/A10 / Carregado",
+   "lat": 39.017411,
+   "lon": -8.96586,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2439
+    }
+   ]
+  },
+  {
+   "name": "A1 A1/A10 / Carregado",
+   "lat": 39.017306,
+   "lon": -8.965876,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2439
+    }
+   ]
+  },
+  {
+   "name": "A1 Carregado / Aveiras de Cima",
+   "lat": 39.085747,
+   "lon": -8.930216,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2764
+    }
+   ]
+  },
+  {
+   "name": "A1 Carregado / Aveiras de Cima",
+   "lat": 39.08588,
+   "lon": -8.930164,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2764
+    }
+   ]
+  },
+  {
+   "name": "A1 Aveiras de Cima / Cartaxo",
+   "lat": 39.173369,
+   "lon": -8.843214,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8293
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.0325
+    }
+   ]
+  },
+  {
+   "name": "A1 Aveiras de Cima / Cartaxo",
+   "lat": 39.173041,
+   "lon": -8.843886,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8293
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.0325
+    }
+   ]
+  },
+  {
+   "name": "A1 Cartaxo / Santarém",
+   "lat": 39.232014,
+   "lon": -8.765272,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A1 Cartaxo / Santarém",
+   "lat": 39.231748,
+   "lon": -8.76546,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A1 Santarém / A1/A15",
+   "lat": 39.26069,
+   "lon": -8.732731,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2439
+    }
+   ]
+  },
+  {
+   "name": "A1 Santarém / A1/A15",
+   "lat": 39.260498,
+   "lon": -8.732892,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2439
+    }
+   ]
+  },
+  {
+   "name": "A1 A1/A15 / Torres Novas (A1/A23)",
+   "lat": 39.358024,
+   "lon": -8.637511,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.7805
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.8374
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.3659
+    }
+   ]
+  },
+  {
+   "name": "A1 A1/A15 / Torres Novas (A1/A23)",
+   "lat": 39.35823,
+   "lon": -8.637265,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.7805
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.8374
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.3659
+    }
+   ]
+  },
+  {
+   "name": "A1 Torres Novas (A1/A23) / Fátima",
+   "lat": 39.54485,
+   "lon": -8.662013,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.8862
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.7398
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.1463
+    }
+   ]
+  },
+  {
+   "name": "A1 Torres Novas (A1/A23) / Fátima",
+   "lat": 39.545345,
+   "lon": -8.661937,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.8862
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.7398
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.1463
+    }
+   ]
+  },
+  {
+   "name": "A1 Fátima / Leiria",
+   "lat": 39.688666,
+   "lon": -8.68924,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9268
+    }
+   ]
+  },
+  {
+   "name": "A1 Fátima / Leiria",
+   "lat": 39.688448,
+   "lon": -8.689298,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9268
+    }
+   ]
+  },
+  {
+   "name": "A1 Leiria / Pombal",
+   "lat": 39.837869,
+   "lon": -8.720545,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.4553
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.4309
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.9187
+    }
+   ]
+  },
+  {
+   "name": "A1 Leiria / Pombal",
+   "lat": 39.83775,
+   "lon": -8.720771,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.4553
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.4309
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.9187
+    }
+   ]
+  },
+  {
+   "name": "A1 Pombal – Soure",
+   "lat": 39.98436,
+   "lon": -8.623918,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0732
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6829
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9675
+    }
+   ]
+  },
+  {
+   "name": "A1 Pombal – Soure",
+   "lat": 39.984272,
+   "lon": -8.624004,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0732
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6829
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9675
+    }
+   ]
+  },
+  {
+   "name": "A1 Soure / Condeixa",
+   "lat": 40.084683,
+   "lon": -8.536517,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.7886
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.561
+    }
+   ]
+  },
+  {
+   "name": "A1 Soure / Condeixa",
+   "lat": 40.084852,
+   "lon": -8.536423,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.7886
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.561
+    }
+   ]
+  },
+  {
+   "name": "A1 Condeixa / Coimbra Sul",
+   "lat": 40.161573,
+   "lon": -8.494294,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A1 Condeixa / Coimbra Sul",
+   "lat": 40.162096,
+   "lon": -8.494138,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A1 Coimbra Sul / Coimbra Norte (A1/A14)",
+   "lat": 40.232116,
+   "lon": -8.486882,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1382
+    }
+   ]
+  },
+  {
+   "name": "A1 Coimbra Sul / Coimbra Norte (A1/A14)",
+   "lat": 40.232064,
+   "lon": -8.487072,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1382
+    }
+   ]
+  },
+  {
+   "name": "A1 Coimbra Norte (A1/A14) / Mealhada",
+   "lat": 40.318318,
+   "lon": -8.490319,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1789
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7073
+    }
+   ]
+  },
+  {
+   "name": "A1 Coimbra Norte (A1/A14) / Mealhada",
+   "lat": 40.318453,
+   "lon": -8.490362,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1789
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7073
+    }
+   ]
+  },
+  {
+   "name": "A1 Mealhada / Aveiro Sul",
+   "lat": 40.469541,
+   "lon": -8.521446,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.8618
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.2683
+    }
+   ]
+  },
+  {
+   "name": "A1 Mealhada / Aveiro Sul",
+   "lat": 40.468756,
+   "lon": -8.521374,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.8618
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.2683
+    }
+   ]
+  },
+  {
+   "name": "A1 Aveiro Sul / Albergaria (A1/IP5)",
+   "lat": 40.625414,
+   "lon": -8.536031,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.7886
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.561
+    }
+   ]
+  },
+  {
+   "name": "A1 Aveiro Sul / Albergaria (A1/IP5)",
+   "lat": 40.625859,
+   "lon": -8.535838,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.7886
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.561
+    }
+   ]
+  },
+  {
+   "name": "A1 Albergaria (A1/IP5) / Estarreja",
+   "lat": 40.731425,
+   "lon": -8.522753,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A1 Albergaria (A1/IP5) / Estarreja",
+   "lat": 40.731048,
+   "lon": -8.522673,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A1 Estarreja / Feira",
+   "lat": 40.848653,
+   "lon": -8.557397,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9268
+    }
+   ]
+  },
+  {
+   "name": "A1 Estarreja / Feira",
+   "lat": 40.848703,
+   "lon": -8.557632,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.9268
+    }
+   ]
+  },
+  {
+   "name": "A1 Feira / Espinho (IC24)",
+   "lat": 40.966456,
+   "lon": -8.56831,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A1 Feira / Espinho (IC24)",
+   "lat": 40.966962,
+   "lon": -8.568615,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A1 Espinho (IC24) / Carvalhos",
+   "lat": 41.03863,
+   "lon": -8.570181,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A1 Espinho (IC24) / Carvalhos",
+   "lat": 41.038575,
+   "lon": -8.570403,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A2 Fogueteiro / Coina",
+   "lat": 38.589157,
+   "lon": -9.060637,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2602
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.626
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7886
+    }
+   ]
+  },
+  {
+   "name": "A2 Fogueteiro / Coina",
+   "lat": 38.588969,
+   "lon": -9.060691,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2602
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.626
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7886
+    }
+   ]
+  },
+  {
+   "name": "A2 Coina / Palmela",
+   "lat": 38.584248,
+   "lon": -8.947477,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7073
+    }
+   ]
+  },
+  {
+   "name": "A2 Coina / Palmela",
+   "lat": 38.584219,
+   "lon": -8.948457,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.7073
+    }
+   ]
+  },
+  {
+   "name": "A2 Palmela / A2/A12",
+   "lat": 38.581358,
+   "lon": -8.870685,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.122
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2033
+    }
+   ]
+  },
+  {
+   "name": "A2 Palmela / A2/A12",
+   "lat": 38.581225,
+   "lon": -8.870711,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.122
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2033
+    }
+   ]
+  },
+  {
+   "name": "A2 A2/A12 / Marateca",
+   "lat": 38.590409,
+   "lon": -8.762702,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.374
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.7398
+    }
+   ]
+  },
+  {
+   "name": "A2 A2/A12 / Marateca",
+   "lat": 38.590214,
+   "lon": -8.762915,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.6423
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.374
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.7398
+    }
+   ]
+  },
+  {
+   "name": "A2 Marateca / A2/A6/A13",
+   "lat": 38.602428,
+   "lon": -8.655793,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5285
+    }
+   ]
+  },
+  {
+   "name": "A2 Marateca / A2/A6/A13",
+   "lat": 38.602294,
+   "lon": -8.655498,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5285
+    }
+   ]
+  },
+  {
+   "name": "A2 A2/A6/A13 / Alcácer do Sal",
+   "lat": 38.507874,
+   "lon": -8.579566,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.8618
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.9593
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.5285
+    }
+   ]
+  },
+  {
+   "name": "A2 A2/A6/A13 / Alcácer do Sal",
+   "lat": 38.508087,
+   "lon": -8.580023,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.8618
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.9593
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.5285
+    }
+   ]
+  },
+  {
+   "name": "A2 Alcácer do Sal / Grândola Norte",
+   "lat": 38.323317,
+   "lon": -8.507473,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.4146
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.3902
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.878
+    }
+   ]
+  },
+  {
+   "name": "A2 Alcácer do Sal / Grândola Norte",
+   "lat": 38.324055,
+   "lon": -8.507441,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.4146
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.3902
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.878
+    }
+   ]
+  },
+  {
+   "name": "A2 Grândola Norte / Grândola Sul",
+   "lat": 38.162109,
+   "lon": -8.484977,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.3333
+    }
+   ]
+  },
+  {
+   "name": "A2 Grândola Norte / Grândola Sul",
+   "lat": 38.161751,
+   "lon": -8.484497,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.3171
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.3333
+    }
+   ]
+  },
+  {
+   "name": "A2 Grândola Sul / Aljustrel",
+   "lat": 38.026809,
+   "lon": -8.287477,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.9187
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 6.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 7.0325
+    }
+   ]
+  },
+  {
+   "name": "A2 Grândola Sul / Aljustrel",
+   "lat": 38.025891,
+   "lon": -8.286784,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.9187
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 6.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 7.0325
+    }
+   ]
+  },
+  {
+   "name": "A2 Aljustrel / Castro Verde",
+   "lat": 37.775675,
+   "lon": -8.211536,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.187
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 5.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.9756
+    }
+   ]
+  },
+  {
+   "name": "A2 Aljustrel / Castro Verde",
+   "lat": 37.776091,
+   "lon": -8.212079,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.187
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 5.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 5.9756
+    }
+   ]
+  },
+  {
+   "name": "A2 Castro Verde / Almodôvar",
+   "lat": 37.594472,
+   "lon": -8.176124,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.6016
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.3333
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.6992
+    }
+   ]
+  },
+  {
+   "name": "A2 Castro Verde / Almodôvar",
+   "lat": 37.594673,
+   "lon": -8.176265,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.6016
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.3333
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.6992
+    }
+   ]
+  },
+  {
+   "name": "A2 Almodôvar / S.B.Messines",
+   "lat": 37.396059,
+   "lon": -8.260338,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 5.0813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 6.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 7.2764
+    }
+   ]
+  },
+  {
+   "name": "A2 Almodôvar / S.B.Messines",
+   "lat": 37.395952,
+   "lon": -8.260496,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 5.0813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 6.5447
+    },
+    {
+     "min_axles": 4,
+     "rate": 7.2764
+    }
+   ]
+  },
+  {
+   "name": "A2 S.B.Messines / Paderne (A22)",
+   "lat": 37.204823,
+   "lon": -8.234111,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3984
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.6829
+    }
+   ]
+  },
+  {
+   "name": "A2 S.B.Messines / Paderne (A22)",
+   "lat": 37.205228,
+   "lon": -8.234411,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3984
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.6829
+    }
+   ]
+  },
+  {
+   "name": "A3 Maia / Santo Tirso",
+   "lat": 41.289657,
+   "lon": -8.550269,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1138
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3577
+    }
+   ]
+  },
+  {
+   "name": "A3 Maia / Santo Tirso",
+   "lat": 41.289746,
+   "lon": -8.55047,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1138
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3577
+    }
+   ]
+  },
+  {
+   "name": "A3 Santo Tirso / Famalicão",
+   "lat": 41.355601,
+   "lon": -8.505091,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A3 Santo Tirso / Famalicão",
+   "lat": 41.355402,
+   "lon": -8.505301,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0163
+    }
+   ]
+  },
+  {
+   "name": "A3 Famalicão / Cruz",
+   "lat": 41.414149,
+   "lon": -8.494673,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A3 Famalicão / Cruz",
+   "lat": 41.414003,
+   "lon": -8.494735,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A3 Cruz / Braga Sul",
+   "lat": 41.476832,
+   "lon": -8.459538,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5854
+    }
+   ]
+  },
+  {
+   "name": "A3 Cruz / Braga Sul",
+   "lat": 41.476912,
+   "lon": -8.459475,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5854
+    }
+   ]
+  },
+  {
+   "name": "A3 Braga Sul / Braga Oeste",
+   "lat": 41.522698,
+   "lon": -8.482788,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A3 Braga Sul / Braga Oeste",
+   "lat": 41.521299,
+   "lon": -8.482649,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A3 Braga Oeste / EN 201",
+   "lat": 41.606356,
+   "lon": -8.549791,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0894
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.9837
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.4309
+    }
+   ]
+  },
+  {
+   "name": "A3 Braga Oeste / EN 201",
+   "lat": 41.60639,
+   "lon": -8.549934,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0894
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.9837
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.4309
+    }
+   ]
+  },
+  {
+   "name": "A3 EN 201 / Ponte de Lima Sul",
+   "lat": 41.726353,
+   "lon": -8.558807,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9919
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2358
+    }
+   ]
+  },
+  {
+   "name": "A3 EN 201 / Ponte de Lima Sul",
+   "lat": 41.726159,
+   "lon": -8.558503,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5447
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9919
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2358
+    }
+   ]
+  },
+  {
+   "name": "A3 Ponte de Lima Sul / Ponte de Lima Norte",
+   "lat": 41.771542,
+   "lon": -8.55858,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.122
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.1626
+    }
+   ]
+  },
+  {
+   "name": "A3 Ponte de Lima Sul / Ponte de Lima Norte",
+   "lat": 41.771867,
+   "lon": -8.558506,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.122
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.1626
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.1626
+    }
+   ]
+  },
+  {
+   "name": "A3 Ponte de Lima Norte / EN 303",
+   "lat": 41.850153,
+   "lon": -8.617091,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.2114
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.1057
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.5528
+    }
+   ]
+  },
+  {
+   "name": "A3 Ponte de Lima Norte / EN 303",
+   "lat": 41.850002,
+   "lon": -8.616885,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.2114
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.1057
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.5528
+    }
+   ]
+  },
+  {
+   "name": "A3 EN 303 / Valença",
+   "lat": 41.953637,
+   "lon": -8.672531,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A3 EN 303 / Valença",
+   "lat": 41.953631,
+   "lon": -8.672709,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A4 Ermesinde / Valongo",
+   "lat": 41.201893,
+   "lon": -8.535832,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A4 Ermesinde / Valongo",
+   "lat": 41.201809,
+   "lon": -8.536245,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A4 Valongo / Campo",
+   "lat": 41.193855,
+   "lon": -8.483883,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A4 Valongo / Campo",
+   "lat": 41.19379,
+   "lon": -8.483997,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A4 Campo / Baltar",
+   "lat": 41.17296,
+   "lon": -8.42704,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3821
+    }
+   ]
+  },
+  {
+   "name": "A4 Campo / Baltar",
+   "lat": 41.173003,
+   "lon": -8.426868,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3821
+    }
+   ]
+  },
+  {
+   "name": "A4 Baltar / Paredes",
+   "lat": 41.183328,
+   "lon": -8.373936,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A4 Baltar / Paredes",
+   "lat": 41.183286,
+   "lon": -8.373719,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A4 Paredes / Guilhufe",
+   "lat": 41.197747,
+   "lon": -8.33185,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5691
+    }
+   ]
+  },
+  {
+   "name": "A4 Paredes / Guilhufe",
+   "lat": 41.197617,
+   "lon": -8.331772,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5691
+    }
+   ]
+  },
+  {
+   "name": "A4 Guilhufe / Penafiel",
+   "lat": 41.202429,
+   "lon": -8.304177,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4065
+    }
+   ]
+  },
+  {
+   "name": "A4 Guilhufe / Penafiel",
+   "lat": 41.202497,
+   "lon": -8.303954,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4065
+    }
+   ]
+  },
+  {
+   "name": "A4 Penafiel / Castelões (A4/IP9)",
+   "lat": 41.219405,
+   "lon": -8.252243,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A4 Penafiel / Castelões (A4/IP9)",
+   "lat": 41.21938,
+   "lon": -8.252617,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A4 Castelões (A4/IP9) / Geraldes",
+   "lat": 41.224896,
+   "lon": -8.141299,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.2358
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8862
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1707
+    }
+   ]
+  },
+  {
+   "name": "A4 Castelões (A4/IP9) / Geraldes",
+   "lat": 41.224714,
+   "lon": -8.141208,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.2358
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8862
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1707
+    }
+   ]
+  },
+  {
+   "name": "A5 Estádio Nacional / Oeiras",
+   "lat": 38.721357,
+   "lon": -9.203537,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6098
+    }
+   ]
+  },
+  {
+   "name": "A5 Estádio Nacional / Oeiras",
+   "lat": 38.721492,
+   "lon": -9.203546,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6098
+    }
+   ]
+  },
+  {
+   "name": "A5 Oeiras / Carcavelos",
+   "lat": 38.713495,
+   "lon": -9.258209,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0976
+    }
+   ]
+  },
+  {
+   "name": "A5 Oeiras / Carcavelos",
+   "lat": 38.713497,
+   "lon": -9.258063,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0976
+    }
+   ]
+  },
+  {
+   "name": "A5 Carcavelos / Estoril",
+   "lat": 38.708168,
+   "lon": -9.346264,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4228
+    }
+   ]
+  },
+  {
+   "name": "A5 Carcavelos / Estoril",
+   "lat": 38.708201,
+   "lon": -9.346398,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4228
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4228
+    }
+   ]
+  },
+  {
+   "name": "A5 Estoril / Cascais",
+   "lat": 38.725503,
+   "lon": -9.412907,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A5 Estoril / Cascais",
+   "lat": 38.725611,
+   "lon": -9.413,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A6 A2/A6/A13 / Vendas Novas",
+   "lat": 38.632749,
+   "lon": -8.540741,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0488
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.9024
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.3496
+    }
+   ]
+  },
+  {
+   "name": "A6 A2/A6/A13 / Vendas Novas",
+   "lat": 38.632861,
+   "lon": -8.540201,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.0488
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.9024
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.3496
+    }
+   ]
+  },
+  {
+   "name": "A6 Vendas Novas / Montemor-o-Novo Poente",
+   "lat": 38.636295,
+   "lon": -8.327453,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.9268
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.7398
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.187
+    }
+   ]
+  },
+  {
+   "name": "A6 Vendas Novas / Montemor-o-Novo Poente",
+   "lat": 38.636305,
+   "lon": -8.327775,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.9268
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.7398
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.187
+    }
+   ]
+  },
+  {
+   "name": "A6 Montemor-o-Novo Poente / Montemor-o-Novo Nascente",
+   "lat": 38.670592,
+   "lon": -8.205395,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1789
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3008
+    }
+   ]
+  },
+  {
+   "name": "A6 Montemor-o-Novo Nascente / Évora Poente",
+   "lat": 38.628313,
+   "lon": -8.109002,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.3577
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.3333
+    }
+   ]
+  },
+  {
+   "name": "A6 Montemor-o-Novo Nascente / Évora Poente",
+   "lat": 38.628558,
+   "lon": -8.109879,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.3577
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.0081
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.3333
+    }
+   ]
+  },
+  {
+   "name": "A6 Évora Poente / Évora Nascente",
+   "lat": 38.630707,
+   "lon": -7.95039,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.4797
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.1707
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.5366
+    }
+   ]
+  },
+  {
+   "name": "A6 Évora Poente / Évora Nascente",
+   "lat": 38.630665,
+   "lon": -7.947962,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.4797
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.1707
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.5366
+    }
+   ]
+  },
+  {
+   "name": "A6 Évora Nascente / Estremoz",
+   "lat": 38.742598,
+   "lon": -7.748763,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.5935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 5.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 6.5447
+    }
+   ]
+  },
+  {
+   "name": "A6 Évora Nascente / Estremoz",
+   "lat": 38.742697,
+   "lon": -7.748443,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.5935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 5.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 6.5447
+    }
+   ]
+  },
+  {
+   "name": "A6 Estremoz / Borba",
+   "lat": 38.811187,
+   "lon": -7.54714,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.8293
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3577
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.6423
+    }
+   ]
+  },
+  {
+   "name": "A6 Estremoz / Borba",
+   "lat": 38.81113,
+   "lon": -7.546954,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.8293
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.3577
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.6423
+    }
+   ]
+  },
+  {
+   "name": "A6 Borba / Elvas Poente",
+   "lat": 38.84966,
+   "lon": -7.356358,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 3.4146
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 4.3902
+    },
+    {
+     "min_axles": 4,
+     "rate": 4.8374
+    }
+   ]
+  },
+  {
+   "name": "A8 Loures – CREL",
+   "lat": 38.846168,
+   "lon": -9.169952,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.0
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.0
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.0
+    }
+   ]
+  },
+  {
+   "name": "A8 Loures – CREL",
+   "lat": 38.846206,
+   "lon": -9.169783,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.0
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.0
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.0
+    }
+   ]
+  },
+  {
+   "name": "A8 CREL – Lousa",
+   "lat": 38.875163,
+   "lon": -9.200633,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A8 CREL – Lousa",
+   "lat": 38.874482,
+   "lon": -9.201051,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5447
+    }
+   ]
+  },
+  {
+   "name": "A8 Lousa – Malveira",
+   "lat": 38.916444,
+   "lon": -9.21101,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4065
+    }
+   ]
+  },
+  {
+   "name": "A8 Lousa – Malveira",
+   "lat": 38.916871,
+   "lon": -9.210989,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2846
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4065
+    }
+   ]
+  },
+  {
+   "name": "A8 Malveira – Enxara",
+   "lat": 38.955648,
+   "lon": -9.214031,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A8 Malveira – Enxara",
+   "lat": 38.955886,
+   "lon": -9.213866,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A8 Enxara – Torres Vedras Sul",
+   "lat": 39.025739,
+   "lon": -9.216761,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9106
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A8 Enxara – Torres Vedras Sul",
+   "lat": 39.025806,
+   "lon": -9.216617,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9106
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A8 Torres Vedras Sul – Torres Vedras Norte",
+   "lat": 39.083519,
+   "lon": -9.231809,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3008
+    }
+   ]
+  },
+  {
+   "name": "A8 Torres Vedras Sul – Torres Vedras Norte",
+   "lat": 39.083479,
+   "lon": -9.231662,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3008
+    }
+   ]
+  },
+  {
+   "name": "A8 Torres Vedras Norte – Ramalhal",
+   "lat": 39.113899,
+   "lon": -9.249983,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4878
+    }
+   ]
+  },
+  {
+   "name": "A8 Torres Vedras Norte – Ramalhal",
+   "lat": 39.11413,
+   "lon": -9.25044,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4878
+    }
+   ]
+  },
+  {
+   "name": "A8 Ramalhal – Campelos",
+   "lat": 39.157003,
+   "lon": -9.227464,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A8 Ramalhal – Campelos",
+   "lat": 39.156839,
+   "lon": -9.227478,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A8 Campelos – Bombarral",
+   "lat": 39.223784,
+   "lon": -9.186479,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A8 Campelos – Bombarral",
+   "lat": 39.223529,
+   "lon": -9.186355,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A9 Estádio Nacional (A5/A9) / Queluz",
+   "lat": 38.732855,
+   "lon": -9.275001,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 Estádio Nacional (A5/A9) / Queluz",
+   "lat": 38.733063,
+   "lon": -9.275118,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 Queluz / A9/A16",
+   "lat": 38.759628,
+   "lon": -9.27024,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A9 Queluz / A9/A16",
+   "lat": 38.759937,
+   "lon": -9.270175,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A9 A9/A16 / Radial da Pontinha",
+   "lat": 38.777146,
+   "lon": -9.249873,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6911
+    }
+   ]
+  },
+  {
+   "name": "A9 A9/A16 / Radial da Pontinha",
+   "lat": 38.777197,
+   "lon": -9.250029,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6911
+    }
+   ]
+  },
+  {
+   "name": "A9 Radial Pontinha / Radial Odivelas",
+   "lat": 38.809226,
+   "lon": -9.229646,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A9 Radial Pontinha / Radial Odivelas",
+   "lat": 38.809019,
+   "lon": -9.231855,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A9 Radial Odivelas / A8/A9",
+   "lat": 38.835966,
+   "lon": -9.189075,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 Radial Odivelas / A8/A9",
+   "lat": 38.836437,
+   "lon": -9.188953,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 A8/A9 / Bucelas (Zambujal)",
+   "lat": 38.858404,
+   "lon": -9.162697,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 A8/A9 / Bucelas (Zambujal)",
+   "lat": 38.858481,
+   "lon": -9.162565,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A9 Bucelas (Zambujal) / A9/A10",
+   "lat": 38.894746,
+   "lon": -9.119629,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.8699
+    }
+   ]
+  },
+  {
+   "name": "A9 Bucelas (Zambujal) / A9/A10",
+   "lat": 38.89486,
+   "lon": -9.119736,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.8699
+    }
+   ]
+  },
+  {
+   "name": "A9 A9/A10 / Alverca",
+   "lat": 38.905732,
+   "lon": -9.060934,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A9 A9/A10 / Alverca",
+   "lat": 38.905578,
+   "lon": -9.060447,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A10 A9/A10 / Arruda dos Vinhos",
+   "lat": 38.940622,
+   "lon": -9.069171,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A10 A9/A10 / Arruda dos Vinhos",
+   "lat": 38.940451,
+   "lon": -9.06894,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A10 Arruda dos Vinhos / Carregado (A1/A10)",
+   "lat": 38.999634,
+   "lon": -9.016081,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1545
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3984
+    }
+   ]
+  },
+  {
+   "name": "A10 Arruda dos Vinhos / Carregado (A1/A10)",
+   "lat": 38.999527,
+   "lon": -9.016106,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1545
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3984
+    }
+   ]
+  },
+  {
+   "name": "A10 Carregado / Benavente",
+   "lat": 38.994869,
+   "lon": -8.898516,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.1951
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1301
+    }
+   ]
+  },
+  {
+   "name": "A10 Carregado / Benavente",
+   "lat": 38.995486,
+   "lon": -8.899117,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.1951
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1301
+    }
+   ]
+  },
+  {
+   "name": "A10 Benavente / A10/A13",
+   "lat": 38.93248,
+   "lon": -8.817958,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.626
+    }
+   ]
+  },
+  {
+   "name": "A10 Benavente / A10/A13",
+   "lat": 38.932405,
+   "lon": -8.818091,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.626
+    }
+   ]
+  },
+  {
+   "name": "A12 Montijo / Pinhal Novo",
+   "lat": 38.698754,
+   "lon": -8.903245,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2358
+    }
+   ]
+  },
+  {
+   "name": "A12 Montijo / Pinhal Novo",
+   "lat": 38.698128,
+   "lon": -8.902952,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2358
+    }
+   ]
+  },
+  {
+   "name": "A12 Pinhal Novo / Nó da A2/A12",
+   "lat": 38.624992,
+   "lon": -8.866959,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.0732
+    }
+   ]
+  },
+  {
+   "name": "A12 Pinhal Novo / Nó da A2/A12",
+   "lat": 38.624645,
+   "lon": -8.867037,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.8699
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.0732
+    }
+   ]
+  },
+  {
+   "name": "A12 Nó da A2/A12/ Setúbal",
+   "lat": 38.561292,
+   "lon": -8.867898,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A12 Nó da A2/A12/ Setúbal",
+   "lat": 38.561011,
+   "lon": -8.867798,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7724
+    }
+   ]
+  },
+  {
+   "name": "A14 Santa Eulália / Montemor-o-Velho",
+   "lat": 40.191641,
+   "lon": -8.695082,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0569
+    }
+   ]
+  },
+  {
+   "name": "A14 Santa Eulália / Montemor-o-Velho",
+   "lat": 40.19138,
+   "lon": -8.695398,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0569
+    }
+   ]
+  },
+  {
+   "name": "A14 Montemor-o-Velho / EN335",
+   "lat": 40.238673,
+   "lon": -8.661151,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A14 Montemor-o-Velho / EN335",
+   "lat": 40.237485,
+   "lon": -8.661706,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.748
+    }
+   ]
+  },
+  {
+   "name": "A14 EN335 / Ançã",
+   "lat": 40.284011,
+   "lon": -8.577599,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9106
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A14 EN335 / Ançã",
+   "lat": 40.283946,
+   "lon": -8.577741,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.9106
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.1138
+    }
+   ]
+  },
+  {
+   "name": "A14 Ançã / Coimbra Norte (A14/A1)",
+   "lat": 40.272934,
+   "lon": -8.502671,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A14 Ançã / Coimbra Norte (A14/A1)",
+   "lat": 40.272813,
+   "lon": -8.502701,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A15 Arnoia – A-dos-Negros",
+   "lat": 39.364325,
+   "lon": -9.108609,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.8943
+    }
+   ]
+  },
+  {
+   "name": "A15 A-dos-Negros – A-dos-Francos",
+   "lat": 39.353126,
+   "lon": -9.03974,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A15 A-dos-Negros – A-dos-Francos",
+   "lat": 39.353402,
+   "lon": -9.040152,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3821
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.748
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9512
+    }
+   ]
+  },
+  {
+   "name": "A15 A-dos-Francos – Rio Maior Oeste",
+   "lat": 39.321238,
+   "lon": -8.971218,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2602
+    }
+   ]
+  },
+  {
+   "name": "A15 A-dos-Francos – Rio Maior Oeste",
+   "lat": 39.3211,
+   "lon": -8.971163,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2602
+    }
+   ]
+  },
+  {
+   "name": "A15 Rio Maior Oeste – Rio Maior Este",
+   "lat": 39.304201,
+   "lon": -8.927899,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6504
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A15 Rio Maior Oeste – Rio Maior Este",
+   "lat": 39.303938,
+   "lon": -8.92926,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6504
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A15 Rio Maior Este – Malaqueijo",
+   "lat": 39.298218,
+   "lon": -8.871156,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.626
+    }
+   ]
+  },
+  {
+   "name": "A15 Rio Maior Este – Malaqueijo",
+   "lat": 39.298524,
+   "lon": -8.869102,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.4634
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.626
+    }
+   ]
+  },
+  {
+   "name": "A15 Malaqueijo – Nó A1/ A15",
+   "lat": 39.275105,
+   "lon": -8.781545,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1138
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3577
+    }
+   ]
+  },
+  {
+   "name": "A15 Malaqueijo – Nó A1/ A15",
+   "lat": 39.275178,
+   "lon": -8.781668,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.1138
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.3577
+    }
+   ]
+  },
+  {
+   "name": "A17 Leiria Norte – Monte Real",
+   "lat": 39.833566,
+   "lon": -8.834243,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A17 Leiria Norte – Monte Real",
+   "lat": 39.833419,
+   "lon": -8.834199,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A17 Monte Real – Monte Redondo",
+   "lat": 39.875672,
+   "lon": -8.822338,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A17 Monte Real – Monte Redondo",
+   "lat": 39.875554,
+   "lon": -8.822429,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A17 Monte Redondo – Guia",
+   "lat": 39.922914,
+   "lon": -8.790798,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A17 Monte Redondo – Guia",
+   "lat": 39.923025,
+   "lon": -8.790598,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4634
+    }
+   ]
+  },
+  {
+   "name": "A17 Guia – Louriçal (IC8)",
+   "lat": 39.969331,
+   "lon": -8.780962,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2195
+    }
+   ]
+  },
+  {
+   "name": "A17 Guia – Louriçal (IC8)",
+   "lat": 39.969221,
+   "lon": -8.780889,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0976
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2195
+    }
+   ]
+  },
+  {
+   "name": "A17 Louriçal (IC8) – Marinha das Ondas",
+   "lat": 40.016912,
+   "lon": -8.810142,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4228
+    }
+   ]
+  },
+  {
+   "name": "A17 Louriçal (IC8) – Marinha das Ondas",
+   "lat": 40.017041,
+   "lon": -8.810254,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.4228
+    }
+   ]
+  },
+  {
+   "name": "A17 Marinha das Ondas – A14",
+   "lat": 40.100367,
+   "lon": -8.750285,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.5203
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.2114
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.5772
+    }
+   ]
+  },
+  {
+   "name": "A17 Marinha das Ondas – A14",
+   "lat": 40.100134,
+   "lon": -8.750105,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.5203
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 3.2114
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.5772
+    }
+   ]
+  },
+  {
+   "name": "A17 A14 – Quiaios",
+   "lat": 40.188724,
+   "lon": -8.811777,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.7073
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9106
+    }
+   ]
+  },
+  {
+   "name": "A17 A14 – Quiaios",
+   "lat": 40.188832,
+   "lon": -8.811585,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.7073
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.9106
+    }
+   ]
+  },
+  {
+   "name": "A17 Quiaios – Tocha",
+   "lat": 40.27462,
+   "lon": -8.758039,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.1951
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1301
+    }
+   ]
+  },
+  {
+   "name": "A17 Quiaios – Tocha",
+   "lat": 40.274233,
+   "lon": -8.758219,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 2.1951
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_axles": 4,
+     "rate": 3.1301
+    }
+   ]
+  },
+  {
+   "name": "A17 Tocha – Mira",
+   "lat": 40.370346,
+   "lon": -8.707385,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2764
+    }
+   ]
+  },
+  {
+   "name": "A17 Tocha – Mira",
+   "lat": 40.370093,
+   "lon": -8.707242,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.5854
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2.0325
+    },
+    {
+     "min_axles": 4,
+     "rate": 2.2764
+    }
+   ]
+  },
+  {
+   "name": "A17 Mira – Mira PV",
+   "lat": 40.433863,
+   "lon": -8.704791,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A17 Mira – Mira PV",
+   "lat": 40.433693,
+   "lon": -8.70484,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.8537
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.9756
+    }
+   ]
+  },
+  {
+   "name": "A21 Ericeira – Mafra Oeste",
+   "lat": 38.950529,
+   "lon": -9.382144,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1382
+    }
+   ]
+  },
+  {
+   "name": "A21 Ericeira – Mafra Oeste",
+   "lat": 38.950494,
+   "lon": -9.38198,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0163
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1382
+    }
+   ]
+  },
+  {
+   "name": "A21 Mafra Oeste – Mafra Este",
+   "lat": 38.919015,
+   "lon": -9.333581,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A21 Mafra Oeste – Mafra Este",
+   "lat": 38.919042,
+   "lon": -9.333452,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.3415
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.5041
+    }
+   ]
+  },
+  {
+   "name": "A21 Mafra Este – Malveira",
+   "lat": 38.936398,
+   "lon": -9.274883,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A21 Mafra Este – Malveira",
+   "lat": 38.936262,
+   "lon": -9.274968,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A21 Malveira – Venda do Pinheiro",
+   "lat": 38.938402,
+   "lon": -9.231195,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A21 Malveira – Venda do Pinheiro",
+   "lat": 38.937988,
+   "lon": -9.230991,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6911
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A32 EN 224 – EN227",
+   "lat": 40.867486,
+   "lon": -8.436904,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4472
+    }
+   ]
+  },
+  {
+   "name": "A32 EN 224 – EN227",
+   "lat": 40.866238,
+   "lon": -8.438693,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4065
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.4472
+    }
+   ]
+  },
+  {
+   "name": "A32 EN 227 – Feira-Mansores",
+   "lat": 40.910452,
+   "lon": -8.4495,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.8699
+    }
+   ]
+  },
+  {
+   "name": "A32 EN 227 – Feira-Mansores",
+   "lat": 40.909864,
+   "lon": -8.449322,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1.3008
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.6667
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.8699
+    }
+   ]
+  },
+  {
+   "name": "A32 Feira-Mansores – Gião-Louredo",
+   "lat": 40.966992,
+   "lon": -8.469144,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A32 Feira-Mansores – Gião-Louredo",
+   "lat": 40.967271,
+   "lon": -8.469188,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.813
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.0569
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.1789
+    }
+   ]
+  },
+  {
+   "name": "A32 Gião-Louredo – Canedo",
+   "lat": 41.002256,
+   "lon": -8.466534,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A32 Gião-Louredo – Canedo",
+   "lat": 41.002001,
+   "lon": -8.466244,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A32 Canedo – A32/A41",
+   "lat": 41.027099,
+   "lon": -8.480026,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6911
+    }
+   ]
+  },
+  {
+   "name": "A32 Canedo – A32/A41",
+   "lat": 41.026794,
+   "lon": -8.479686,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4878
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6911
+    }
+   ]
+  },
+  {
+   "name": "A32 A32/A41 – Olival",
+   "lat": 41.048365,
+   "lon": -8.506281,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A32 A32/A41 – Olival",
+   "lat": 41.048464,
+   "lon": -8.506581,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7317
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.813
+    }
+   ]
+  },
+  {
+   "name": "A32 Olival – A32/A1",
+   "lat": 41.07911,
+   "lon": -8.544073,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2602
+    }
+   ]
+  },
+  {
+   "name": "A32 Olival – A32/A1",
+   "lat": 41.078803,
+   "lon": -8.542549,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1382
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.2602
+    }
+   ]
+  },
+  {
+   "name": "A41 Argoncilhe – Sandim",
+   "lat": 41.01376,
+   "lon": -8.529441,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1789
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3008
+    }
+   ]
+  },
+  {
+   "name": "A41 Argoncilhe – Sandim",
+   "lat": 41.013913,
+   "lon": -8.529535,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.8943
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.1789
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3008
+    }
+   ]
+  },
+  {
+   "name": "A41 Sandim – A32/A41",
+   "lat": 41.03047,
+   "lon": -8.49497,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2846
+    }
+   ]
+  },
+  {
+   "name": "A41 Sandim – A32/A41",
+   "lat": 41.030473,
+   "lon": -8.495158,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2033
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.2846
+    }
+   ]
+  },
+  {
+   "name": "A41 A32/A41 – Medas",
+   "lat": 41.051259,
+   "lon": -8.474221,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.9756
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0976
+    }
+   ]
+  },
+  {
+   "name": "A41 A32/A41 – Medas",
+   "lat": 41.051583,
+   "lon": -8.473923,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.9756
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.0976
+    }
+   ]
+  },
+  {
+   "name": "A41 Medas – A41/A43",
+   "lat": 41.078993,
+   "lon": -8.452922,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A41 Medas – A41/A43",
+   "lat": 41.079157,
+   "lon": -8.453167,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.5691
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.6504
+    }
+   ]
+  },
+  {
+   "name": "A41 A41/A43 – Aguiar de Sousa",
+   "lat": 41.109643,
+   "lon": -8.43274,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3415
+    }
+   ]
+  },
+  {
+   "name": "A41 A41/A43 – Aguiar de Sousa",
+   "lat": 41.109558,
+   "lon": -8.432797,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.935
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1.2195
+    },
+    {
+     "min_axles": 4,
+     "rate": 1.3415
+    }
+   ]
+  },
+  {
+   "name": "A41 Aguiar de Sousa – Z.I.C.",
+   "lat": 41.150725,
+   "lon": -8.432665,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6504
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A41 Aguiar de Sousa – Z.I.C.",
+   "lat": 41.150854,
+   "lon": -8.432757,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.5285
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.6504
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.7317
+    }
+   ]
+  },
+  {
+   "name": "A41 Z.I.C. – A4/A41",
+   "lat": 41.168133,
+   "lon": -8.449242,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.3659
+    }
+   ]
+  },
+  {
+   "name": "A41 Z.I.C. – A4/A41",
+   "lat": 41.168092,
+   "lon": -8.449417,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.2439
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.3252
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.3659
+    }
+   ]
+  },
+  {
+   "name": "A41 A4/A41 – Gandra",
+   "lat": 41.191267,
+   "lon": -8.455819,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.8537
+    }
+   ]
+  },
+  {
+   "name": "A41 A4/A41 – Gandra",
+   "lat": 41.19129,
+   "lon": -8.455976,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.6098
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.7724
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.8537
+    }
+   ]
+  },
+  {
+   "name": "A41 Gandra – A41/A42",
+   "lat": 41.217661,
+   "lon": -8.451436,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5285
+    }
+   ]
+  },
+  {
+   "name": "A41 Gandra – A41/A42",
+   "lat": 41.217702,
+   "lon": -8.451589,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 0.3659
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 0.4472
+    },
+    {
+     "min_axles": 4,
+     "rate": 0.5285
+    }
+   ]
+  },
+  {
+   "name": "Ponte 25 de Abril",
+   "lat": 38.69396,
+   "lon": -9.178004,
+   "heading": 350.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 4.5755
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 6.1792
+    },
+    {
+     "min_axles": 4,
+     "rate": 7.9717
+    }
+   ]
+  },
+  {
+   "name": "Ponte Vasco da Gama",
+   "lat": 38.757609,
+   "lon": -9.036765,
+   "heading": 313.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 7.1226
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 10.4717
+    },
+    {
+     "min_axles": 4,
+     "rate": 13.3962
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

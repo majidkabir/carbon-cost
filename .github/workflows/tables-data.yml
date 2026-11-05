@@ -22,7 +22,7 @@ jobs:
         run: |
           python3 tools/tables/fetch.py tools/tables/sources.json out
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
-          for f in out/tr-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html"; done
+          for f in out/tr-*.pdf out/es-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html"; done
       - name: Irish toll booths (OpenStreetMap)
         run: |
           curl -fsSL -o ie.pbf https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf
@@ -65,7 +65,7 @@ jobs:
         run: |
           for r in madrid castilla-la-mancha murcia andalucia; do
             curl -fsSL -o es-$r.pbf https://download.geofabrik.de/europe/spain/$r-latest.osm.pbf
-            osmium tags-filter -O -o es-$r-b.pbf es-$r.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry
+            osmium tags-filter -O -o es-$r-b.pbf es-$r.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry w/highway=motorway_link,motorway
           done
           osmium fileinfo -g header.option.osmosis_replication_timestamp es-madrid.pbf > out/es-osm-timestamp.txt
           osmium merge -O -o es-b.pbf es-*-b.pbf
@@ -97,6 +97,7 @@ jobs:
           python3 tools/tables/gr.py out out/tables
           python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
           python3 tools/tables/tr.py out out/tables
+          python3 tools/tables/pt.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

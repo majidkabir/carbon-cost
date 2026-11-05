@@ -1334,3 +1334,31 @@ func TestSwedishCongestionTax(t *testing.T) {
 		}
 	}
 }
+
+func TestPortugalLancos(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"A1 Condeixa / Coimbra Sul, 5 axles", [][2]float64{{-8.4950, 40.1590}, {-8.494294, 40.161573}, {-8.4935, 40.1640}}, 0.98},
+		{"Ponte Vasco da Gama northbound", [][2]float64{{-9.0300, 38.7520}, {-9.036765, 38.757609}, {-9.0430, 38.7630}}, 13.40},
+		{"Ponte Vasco da Gama southbound", [][2]float64{{-9.0430, 38.7630}, {-9.036765, 38.757609}, {-9.0300, 38.7520}}, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"PT": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "PT" {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

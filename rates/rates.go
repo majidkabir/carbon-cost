@@ -207,6 +207,9 @@ type TollSystem struct {
 	ETCPrices map[string]map[string]float64 `json:"etc_prices,omitempty"`
 	// Discounts in percent of the price, added up over those that apply.
 	Discounts []Discount `json:"discounts,omitempty"`
+	// FreeHours: from and to (HH:MM, both included) the system charges
+	// nothing, for a trip at that time (Request.Time).
+	FreeHours []string `json:"free_hours,omitempty"`
 }
 
 // Discount is a percentage off a toll system's price for the trucks it
@@ -643,6 +646,13 @@ func (tb Table) check() error {
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {
 			return fmt.Errorf("negative rate in %+v", r)
+		}
+	}
+	for _, s := range tb.Closed {
+		if len(s.FreeHours) != 0 {
+			if _, err := Within("00:00", s.FreeHours[0], s.FreeHours[len(s.FreeHours)-1]); err != nil || len(s.FreeHours) != 2 {
+				return fmt.Errorf("%s: free_hours must be [from, to] (HH:MM)", s.Name)
+			}
 		}
 	}
 	for _, p := range tb.TollPoints {

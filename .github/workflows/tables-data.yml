@@ -98,6 +98,7 @@ jobs:
           python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
           python3 tools/tables/tr.py out out/tables
           python3 tools/tables/pt.py out out/tables
+          python3 tools/tables/es_seitt.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

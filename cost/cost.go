@@ -959,6 +959,13 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 		} else if u, ok := usesSystem(sys, route); ok {
 			uses = []systemUse{u}
 		}
+		if len(sys.FreeHours) == 2 && req.Time != "" && len(uses) > 0 {
+			if free, err := rates.Within(req.Time, sys.FreeHours[0], sys.FreeHours[1]); err == nil && free {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is free from %s to %s.", country, sys.Name, sys.FreeHours[0], sys.FreeHours[1]))
+				used = true
+				continue
+			}
+		}
 		for _, u := range uses {
 			used = true
 			if sp != nil {

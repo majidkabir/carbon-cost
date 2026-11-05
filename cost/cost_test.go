@@ -1257,3 +1257,38 @@ func TestGreece(t *testing.T) {
 		}
 	}
 }
+
+func TestTurkeyBridges(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	two := rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}
+	cross := func(lon, lat float64) [][2]float64 {
+		return [][2]float64{{lon - 0.003, lat - 0.002}, {lon + 0.003, lat + 0.002}}
+	}
+	for _, tc := range []struct {
+		name  string
+		truck rates.Truck
+		path  [][2]float64
+		want  float64
+	}{
+		{"Yavuz Sultan Selim, 5 axles", truck40, cross(29.11176, 41.20308), 11.50},
+		{"Yavuz Sultan Selim, 2 axles", two, cross(29.11176, 41.20308), 2.42},
+		{"Osmangazi, 5 axles", truck40, cross(29.51602, 40.75600), 49.17},
+		{"1915 Çanakkale, 5 axles", truck40, cross(26.63819, 40.33899), 48.75},
+		{"no bridge", truck40, cross(29.2, 41.0), 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"TR": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"TRY": 50}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "TR" {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

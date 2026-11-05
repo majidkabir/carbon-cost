@@ -127,6 +127,8 @@ type Line struct {
 	Amount    float64 `json:"amount"`
 	AmountEUR float64 `json:"amount_eur"`
 	Source    string  `json:"source"`
+	// Sources link the documents the line's rate comes from.
+	Sources []rates.Source `json:"sources,omitempty"`
 }
 
 // Response is a priced trip.
@@ -320,7 +322,11 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			eurPer[c] = 1 / v
 		}
 	}
+	var lineSrc []rates.Source // the sources of the table being priced
 	add := func(l Line) error {
+		if l.Sources == nil {
+			l.Sources = lineSrc
+		}
 		f, ok := eurPer[l.Currency]
 		if !ok {
 			v := req.ecb.PerEUR[l.Currency]
@@ -360,6 +366,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 	for _, a := range areas(&out, tables) {
 		cc, km := a.code, a.km
 		tb, ok := rates.Find(tables, a.code, date)
+		lineSrc = tb.Sources
 		if !ok {
 			if km >= 0.5 {
 				out.NoRates = append(out.NoRates, a.code)
@@ -565,6 +572,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if !tb.Crossings || !tb.Covers(date) || req.Truck.MaxMassKg < tb.MinKg {
 			continue
 		}
+		lineSrc = tb.Sources
 		used, err := priceClosed(tb, tb.Country, "", route, req, &out, add)
 		if err != nil {
 			return Response{}, err
@@ -595,7 +603,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			t := crossingT * share
 			if err := add(Line{Charge: FerryETS, Carbon: true, Km: round3(out.FerryKm), TonnesCO2: round3(t), Rate: req.EUAEurPerT,
 				RateUnit: "EUR/t CO2e", Currency: "EUR", Amount: t * req.EUAEurPerT,
-				Source: "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb; emissions: " + basis}); err != nil {
+				Source: "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb; emissions: " + basis, Sources: etsSources}); err != nil {
 				return Response{}, err
 			}
 			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the ETS cost of this cargo's share of the crossing's emissions (%.0f%% of them under the ETS in %d). A ferry line's own surcharge follows its ships' real emissions and its pricing.",
@@ -612,7 +620,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		case roadT > 0:
 			if err := add(Line{Charge: ETS2, Carbon: true, TonnesCO2: round3(roadT), Rate: req.ETS2EurPerT, RateUnit: "EUR/t CO2e",
 				Currency: "EUR", Amount: roadT * req.ETS2EurPerT,
-				Source: "Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: Sootcase road tank-to-wheel"}); err != nil {
+				Source: "Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: Sootcase road tank-to-wheel", Sources: etsSources}); err != nil {
 				return Response{}, err
 			}
 			out.Notes = append(out.Notes, "ETS2: fuel suppliers pay it and pass it on in the fuel price; this is that cost for this trip's fuel.")
@@ -871,6 +879,13 @@ func suburbanShare(tb rates.Table, rk roads.Km, byRoute bool, road string) float
 		return def
 	}
 	return math.Min(1, (sub+math.Max(0, km-known)*def)/km)
+}
+
+// etsSources link the EU ETS Directive (consolidated) and Sootcase,
+// which gives the emissions.
+var etsSources = []rates.Source{
+	{Title: "Directive 2003/87/EC (EU ETS), consolidated", URL: "https://eur-lex.europa.eu/eli/dir/2003/87/oj"},
+	{Title: "Sootcase (route and emissions)", URL: "https://sootcase.org"},
 }
 
 // StationMatchKm is how close a route must pass a toll station's

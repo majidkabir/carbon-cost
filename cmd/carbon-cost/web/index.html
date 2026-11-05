@@ -39,6 +39,14 @@
   .foot { color: var(--muted); font-size: 12px; margin-top: 28px; }
   .foot a { color: inherit; }
   td:first-child { white-space: nowrap; }
+  tr.src td { font-size: 12px; color: var(--muted); padding-top: 0; white-space: normal; }
+  tr.src a { color: var(--accent); margin-right: 10px; }
+  tr.src td::before { content: none !important; }
+  tr.has-src td { border-bottom: 0; }
+  #lines:not(.show-src) tr.src { display: none; }
+  #lines:not(.show-src) tr.has-src td { border-bottom: 1px solid var(--line); }
+  .h2row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .h2row .check { font-size: 13px; color: var(--muted); }
   #map { height: 380px; border: 1px solid var(--line); border-radius: 10px; margin: 10px 0 6px; background: #eef1f3; }
   .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 13px; color: var(--muted); margin-bottom: 4px; }
   .legend i { display: inline-block; width: 18px; height: 4px; border-radius: 2px; vertical-align: middle; margin-right: 5px; }
@@ -90,7 +98,7 @@
     </div>
     <div id="km"></div>
     <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
-    <h2>Charges</h2>
+    <div class="h2row"><h2>Charges</h2><label class="check"><input id="showsrc" type="checkbox"> Show sources</label></div>
     <table><thead><tr><th>Charge</th><th>Where</th><th>Part</th><th class="n">Basis</th><th class="n sm-hide">Rate</th><th class="n sm-hide">Amount</th><th class="n">EUR</th></tr></thead>
       <tbody id="lines"></tbody></table>
     <div id="cmpwrap" hidden>
@@ -178,6 +186,12 @@ function autocomplete(input) {
   input.addEventListener("blur", close);
 }
 autocomplete(f.from); autocomplete(f.to);
+// Sources under each charge, shown on request; the choice is remembered.
+const showsrc = $("showsrc");
+try { showsrc.checked = localStorage.getItem("showsrc") === "1"; } catch {}
+const applySrc = () => $("lines").classList.toggle("show-src", showsrc.checked);
+showsrc.addEventListener("change", () => { applySrc(); try { localStorage.setItem("showsrc", showsrc.checked ? "1" : "0"); } catch {} });
+applySrc();
 const eur = (v) => "EUR " + v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const num = (v, d) => v.toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
 function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
@@ -221,6 +235,18 @@ function show(r) {
     cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : num(l.km, 1) + " km", "n");
     cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
+    // The law or tariff behind the number, with links to the documents.
+    if (l.source || (l.sources && l.sources.length)) {
+      tr.classList.add("has-src");
+      const sr = lines.insertRow(); sr.className = "src";
+      const td = sr.insertCell(); td.colSpan = 7;
+      if (l.source) td.append(l.source, document.createElement("br"));
+      for (const s of l.sources || []) {
+        const a = document.createElement("a");
+        a.href = s.url; a.target = "_blank"; a.rel = "noopener"; a.textContent = s.title + " ↗";
+        td.append(a);
+      }
+    }
   }
   const cmp = $("cmp"); cmp.replaceChildren();
   $("cmpwrap").hidden = !(r.compare && r.compare.length);

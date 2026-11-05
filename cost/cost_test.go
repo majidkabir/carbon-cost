@@ -1287,6 +1287,9 @@ func TestTurkeyBridges(t *testing.T) {
 		for _, l := range r.Lines {
 			if l.Country == "TR" {
 				got += l.AmountEUR
+				if len(l.Sources) == 0 || l.Sources[0].URL == "" {
+					t.Errorf("%s: line %q has no source links", tc.name, l.Section)
+				}
 			}
 		}
 		if got != tc.want {

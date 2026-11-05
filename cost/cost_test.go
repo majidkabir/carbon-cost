@@ -1261,7 +1261,9 @@ func TestGreece(t *testing.T) {
 func TestTurkeyBridges(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	two := rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}
-	cross := func(lon, lat float64) [][2]float64 { return [][2]float64{{lon - 0.003, lat - 0.002}, {lon + 0.003, lat + 0.002}} }
+	cross := func(lon, lat float64) [][2]float64 {
+		return [][2]float64{{lon - 0.003, lat - 0.002}, {lon + 0.003, lat + 0.002}}
+	}
 	for _, tc := range []struct {
 		name  string
 		truck rates.Truck

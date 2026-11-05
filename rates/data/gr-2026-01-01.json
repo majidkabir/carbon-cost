@@ -4,7 +4,7 @@
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "name": "Greek motorway tolls (open toll stations)",
- "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway. Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
+ "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
  "sources": [
   {
    "title": "Olympia Odos: Τιμές διοδίων",
@@ -25,6 +25,10 @@
   {
    "title": "Aegean Motorway: Τιμές Διοδίων 2026",
    "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"
+  },
+  {
+   "title": "Gefyra: Τιμές Διοδίων (Rio–Antirrio bridge)",
+   "url": "https://www.gefyra.gr/prices/Times-Diodion/"
   },
   {
    "title": "OpenStreetMap (Geofabrik extract), toll booths",
@@ -2363,6 +2367,36 @@
      "min_kg": 3501,
      "min_axles": 4,
      "rate": 5.9677
+    }
+   ]
+  },
+  {
+   "name": "Γέφυρα: Ρίο–Αντίρριο",
+   "lat": 38.333835,
+   "lon": 21.765955,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 19.9194
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 32.3387
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "max_axles": 4,
+     "rate": 41.0484
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 41.0484
     }
    ]
   }

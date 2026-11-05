@@ -61,12 +61,6 @@ jobs:
           osmium export -O -f geojsonseq -o out/tr-osm.geojsonseq tr-b.pbf
           osmium tags-filter -O -o tr-t.pbf tr.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=toll_gantry n/highway=motorway_junction
           osmium export -O -f geojsonseq -o out/tr-osm-booths.geojsonseq tr-t.pbf
-      - name: Portuguese motorways (OpenStreetMap)
-        run: |
-          curl -fsSL -o pt.pbf https://download.geofabrik.de/europe/portugal-latest.osm.pbf
-          osmium fileinfo -g header.option.osmosis_replication_timestamp pt.pbf > out/pt-osm-timestamp.txt
-          osmium tags-filter -O -o pt-m.pbf pt.pbf w/highway=motorway,motorway_link,trunk n/highway=motorway_junction,toll_gantry n/barrier=toll_booth w/barrier=toll_booth
-          osmium export -O -f geojsonseq -o out/pt-osm.geojsonseq pt-m.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables

@@ -1,0 +1,309 @@
+{
+ "country": "TR",
+ "currency": "TRY",
+ "valid_from": "2026-07-01",
+ "name": "Turkish bridge tolls (KGM)",
+ "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs of the 15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim and 1915 Çanakkale bridges. Per passage, either direction, by KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Each bridge placed at its main span in OpenStreetMap (extract of 2026-11-03). The KGM and concession motorways' entry–exit tolls aren't included.",
+ "sources": [
+  {
+   "title": "KGM: Otoyol ve Köprü Geçiş Ücretleri",
+   "url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/Otoyollar/UcretlerYeni.aspx"
+  },
+  {
+   "title": "KGM: 15 Temmuz Şehitler ve Fatih Sultan Mehmet Köprüleri Geçiş Ücretleri Tarifesi",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/1-15Temmuz-FSM.pdf"
+  },
+  {
+   "title": "KGM: Osmangazi Köprüsü Geçiş Ücretleri Tarifesi",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/2-Osmangazi.pdf"
+  },
+  {
+   "title": "KGM: Yavuz Sultan Selim Köprüsü Geçiş Ücretleri Tarifesi",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/3-YSSKoprusu.pdf"
+  },
+  {
+   "title": "KGM: 1915 Çanakkale Köprüsü Geçiş Ücretleri Tarifesi",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/4-1915Canakkale.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), bridges",
+   "url": "https://download.geofabrik.de/europe/turkey.html"
+  }
+ ],
+ "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
+ "tolled_roads": "15 Temmuz Şehitler and Fatih Sultan Mehmet bridges (Bosphorus), Yavuz Sultan Selim bridge (Bosphorus, O-7), Osmangazi bridge (İzmit Gulf, O-5), 1915 Çanakkale bridge (Dardanelles, O-6).",
+ "point_match_km": 0.05,
+ "toll_points": [
+  {
+   "name": "15 Temmuz Şehitler Köprüsü",
+   "lat": 41.045535,
+   "lon": 29.034468,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 62.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 140.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 277.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 366.6667
+    }
+   ]
+  },
+  {
+   "name": "15 Temmuz Şehitler Köprüsü",
+   "lat": 41.045462,
+   "lon": 29.034344,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 62.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 140.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 277.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 366.6667
+    }
+   ]
+  },
+  {
+   "name": "Fatih Sultan Mehmet Köprüsü",
+   "lat": 41.091228,
+   "lon": 29.061174,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 62.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 140.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 277.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 366.6667
+    }
+   ]
+  },
+  {
+   "name": "Fatih Sultan Mehmet Köprüsü",
+   "lat": 41.091375,
+   "lon": 29.06116,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 62.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 140.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 277.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 366.6667
+    }
+   ]
+  },
+  {
+   "name": "Osmangazi Köprüsü",
+   "lat": 40.755996,
+   "lon": 29.516096,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1558.3333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1854.1667
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 2458.3333
+    },
+    {
+     "min_axles": 6,
+     "rate": 3100.0
+    }
+   ]
+  },
+  {
+   "name": "Osmangazi Köprüsü",
+   "lat": 40.756003,
+   "lon": 29.515946,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1558.3333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 1854.1667
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 2458.3333
+    },
+    {
+     "min_axles": 6,
+     "rate": 3100.0
+    }
+   ]
+  },
+  {
+   "name": "Yavuz Sultan Selim Köprüsü",
+   "lat": 41.202962,
+   "lon": 29.111661,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 120.8333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 225.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 575.0
+    },
+    {
+     "min_axles": 6,
+     "rate": 716.6667
+    }
+   ]
+  },
+  {
+   "name": "Yavuz Sultan Selim Köprüsü",
+   "lat": 41.203201,
+   "lon": 29.111858,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 120.8333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 225.0
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 575.0
+    },
+    {
+     "min_axles": 6,
+     "rate": 716.6667
+    }
+   ]
+  },
+  {
+   "name": "1915 Çanakkale Köprüsü",
+   "lat": 40.339071,
+   "lon": 26.638261,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1220.8333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2195.8333
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 2437.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 4633.3333
+    }
+   ]
+  },
+  {
+   "name": "1915 Çanakkale Köprüsü",
+   "lat": 40.338904,
+   "lon": 26.638116,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 1220.8333
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 2195.8333
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 2437.5
+    },
+    {
+     "min_axles": 6,
+     "rate": 4633.3333
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

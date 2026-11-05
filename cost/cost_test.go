@@ -1196,3 +1196,34 @@ func TestNorthMacedonia(t *testing.T) {
 		}
 	}
 }
+
+// Montenegro: the motorway from entry to exit station, and the Sozina
+// tunnel per passage.
+func TestMontenegro(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	motorway := [][2]float64{{19.2990, 42.4700}, {19.2990, 42.4750}, {19.4600, 42.6440}, {19.5442, 42.7510}, {19.5442, 42.7540}}
+	sozina := [][2]float64{{19.0520, 42.1980}, {19.0520, 42.2030}}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Smokovac–Mateševo", motorway, 17},
+		{"Sozina", sozina, 18},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"ME": 40}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "ME" {
+				got += l.Amount
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

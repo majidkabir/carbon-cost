@@ -35,8 +35,10 @@ case, accents or word order; the part in brackets, a trailing ALIN
 ALIAS), else the motorway junction of its name; where a name matches
 several places, the one that makes the stations' chain along the motorway
 shortest, each booth serving one motorway (KGM's first, as SYSTEMS lists
-them). A station further than 60 km from the others, or with no match,
-isn't placed, nor are its prices. The 1915 Çanakkale bridge is a station
+them). A station with no match whose neighbours are placed takes the one
+plaza of unnamed booths between them, if there is exactly one (see
+between()). A station further than 60 km from the others, or still with
+no match, isn't placed, nor are its prices. The 1915 Çanakkale bridge is a station
 of Malkara–Çanakkale; its own tariff is checked to equal the Gelibolu
 Güney – bridge price. Gebze–Orhangazi–İzmir prints two matrices side by
 side (Gebze–Bursa and Bursa–İzmir, read as two systems); its Osmangazi
@@ -243,7 +245,33 @@ def osmangazi(rows, cols, cells, bridge):
     return names, names, out
 
 
-def system(m, name, booths, junctions, used, sid):
+def between(order, pts, unnamed, named, used):
+    """Places an unplaced station whose neighbours along the motorway are
+    placed at the one plaza of unnamed OSM toll booths (two or more) on
+    the way between them: going through it adds at most 1 km to the
+    straight line, it is more than 1.5 km from every named booth and
+    every place a station was given (any motorway so far), and no
+    other unplaced station of the motorway could take it."""
+    cand = {}
+    for i, p in enumerate(pts):
+        if p or not order[i] or order[i] in DROP:
+            continue
+        a = next((pts[j][1] for j in range(i - 1, -1, -1) if pts[j]), None)
+        b = next((pts[j][1] for j in range(i + 1, len(pts)) if pts[j]), None)
+        if not (a and b):
+            continue
+        cand[i] = [(cl, ctr) for cl, ctr in unnamed
+                   if len(cl) >= 2 and (round(ctr[0], 4), round(ctr[1], 4)) not in used
+                   and km(a, ctr) + km(ctr, b) <= km(a, b) + 1 and all(km(ctr, n) > 1.5 for n in named)
+                   and all(km(ctr, u) > 1.5 for u in used)]
+    for i, c in cand.items():
+        if len(c) == 1 and sum(c[0][1] == x[1] for cs in cand.values() for x in cs) == 1:
+            pts[i] = (c[0][0], c[0][1], "booth")
+            used.add((round(c[0][1][0], 4), round(c[0][1][1], 4)))
+            print(f"  {order[i]}: the unnamed toll booths at {c[0][1][1]:.5f},{c[0][1][0]:.5f}")
+
+
+def system(m, name, booths, junctions, used, sid, unnamed, named):
     rows, cols, cells = m
     square = len(rows) == len(cols) and all((r, c) in cells for r in range(len(rows)) for c in range(len(cols)))
     if square:
@@ -264,6 +292,7 @@ def system(m, name, booths, junctions, used, sid):
         pos.setdefault(rows[r], max(c for (r2, c) in cells if r2 == r) - 0.5)
     order = sorted(pos, key=lambda n: pos[n])
     pts = place([n if n not in DROP else "" for n in order], booths, junctions, used)
+    between(order, pts, unnamed, named, used)
     placed = {n: p for n, p in zip(order, pts) if p}
     prices = {}
     for (r, c), p in cells.items():
@@ -275,7 +304,7 @@ def system(m, name, booths, junctions, used, sid):
     missing = [n for n in order if n not in placed]
     print(f"{name}: {len(stations)}/{len(order)} stations placed, {len(prices)} prices" + (f"; unplaced {missing}" if missing else ""))
     return {"name": name, "law": "KGM 2026 tariff (" + sid + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
-            "groups": GROUPS, "stations": stations, "prices": prices}, missing
+            "groups": GROUPS, "stations": stations, "prices": prices}, missing, order
 
 
 def main(fetched, out):
@@ -311,17 +340,22 @@ def main(fetched, out):
                                **({"within": WITHIN[name]} if name in WITHIN else {})})
             print(f"{name}: {len(ws)} ways, main span {longest:.2f} km, {len(keep)} points; class 2-5 TL {[prices[c] for c in AXLES]} ({d})")
     # Motorways: toll booths (else junctions) by name.
-    booths, junctions = {}, {}
+    booths, junctions, anon, named = {}, {}, [], []
     for line in open(os.path.join(fetched, "tr-osm-booths.geojsonseq"), encoding="utf-8"):
         f = json.loads(line.strip("\x1e"))
         p, c = f["properties"], f["geometry"]["coordinates"]
         while isinstance(c[0], list):
             c = c[0]
         if not p.get("name"):
+            if p.get("highway") != "motorway_junction":
+                anon.append(c)
             continue
+        if p.get("highway") != "motorway_junction":
+            named.append(c)
         n = SUFFIX.sub("", p["name"])
         for k in {wkey(n), tr_matrix.key(n)}:
             (junctions if p.get("highway") == "motorway_junction" else booths).setdefault(k, []).append(c)
+    unnamed = clusters(anon, 1.0)
     used, systems, unplaced = set(), [], []
     _, osmangazi_tl = tariff(os.path.join(fetched, "tr-2-osmangazi.txt"))
     for sid, name in SYSTEMS:
@@ -332,7 +366,7 @@ def main(fetched, out):
         rows = [RENAME.get(name, {}).get(r, r) for r in rows]
         if name.startswith("O-5 Gebze"):
             rows, cols, cells = osmangazi(rows, cols, cells, osmangazi_tl)
-        s, missing = system((rows, cols, cells), name, booths, junctions, used, sid)
+        s, missing, _ = system((rows, cols, cells), name, booths, junctions, used, sid, unnamed, named)
         systems.append(s)
         unplaced += missing
     # The 1915 Çanakkale bridge's own tariff is Malkara–Çanakkale's

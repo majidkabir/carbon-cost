@@ -3,7 +3,7 @@
  "currency": "TRY",
  "valid_from": "2026-07-01",
  "name": "Turkish motorway and bridge tolls (KGM)",
- "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+ "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-03); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
  "sources": [
   {
    "title": "KGM: Otoyol ve Köprü Geçiş Ücretleri",
@@ -3577,6 +3577,21 @@
      ]
     },
     {
+     "name": "SAKIZGEDİĞİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.086853,
+       "lon": 36.198017
+      },
+      {
+       "name": "booth",
+       "lat": 37.086973,
+       "lon": 36.197919
+      }
+     ]
+    },
+    {
      "name": "OSMANİYE",
      "points": [
       {
@@ -3764,6 +3779,18 @@
      "4": 79.1667,
      "5": 85.8333
     },
+    "SAKIZGEDİĞİ|ADANA DOĞU ALIN": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 85.8333,
+     "5": 111.6667
+    },
+    "SAKIZGEDİĞİ|TOPRAKKALE": {
+     "2": 33.3333,
+     "3": 46.6667,
+     "4": 74.1667,
+     "5": 85.0
+    },
     "OSMANİYE|ADANA DOĞU ALIN": {
      "2": 60.8333,
      "3": 74.1667,
@@ -3771,6 +3798,12 @@
      "5": 111.6667
     },
     "OSMANİYE|TOPRAKKALE": {
+     "2": 33.3333,
+     "3": 46.6667,
+     "4": 74.1667,
+     "5": 85.0
+    },
+    "OSMANİYE|SAKIZGEDİĞİ": {
      "2": 33.3333,
      "3": 46.6667,
      "4": 74.1667,
@@ -3788,6 +3821,12 @@
      "4": 74.1667,
      "5": 79.1667
     },
+    "ERZİN|SAKIZGEDİĞİ": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 79.1667,
+     "5": 85.8333
+    },
     "ERZİN|OSMANİYE": {
      "2": 44.1667,
      "3": 74.1667,
@@ -3801,6 +3840,12 @@
      "5": 111.6667
     },
     "DÖRTYOL|TOPRAKKALE": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 79.1667,
+     "5": 85.8333
+    },
+    "DÖRTYOL|SAKIZGEDİĞİ": {
      "2": 44.1667,
      "3": 74.1667,
      "4": 79.1667,
@@ -3825,6 +3870,12 @@
      "5": 111.6667
     },
     "PAYAS|TOPRAKKALE": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 85.8333,
+     "5": 111.6667
+    },
+    "PAYAS|SAKIZGEDİĞİ": {
      "2": 44.1667,
      "3": 74.1667,
      "4": 85.8333,
@@ -3856,6 +3907,12 @@
     },
     "İSKENDERUN OSB|TOPRAKKALE": {
      "2": 44.1667,
+     "3": 74.1667,
+     "4": 85.8333,
+     "5": 111.6667
+    },
+    "İSKENDERUN OSB|SAKIZGEDİĞİ": {
+     "2": 57.5,
      "3": 74.1667,
      "4": 85.8333,
      "5": 111.6667
@@ -3892,6 +3949,12 @@
     },
     "İSKENDERUN|TOPRAKKALE": {
      "2": 57.5,
+     "3": 74.1667,
+     "4": 85.8333,
+     "5": 111.6667
+    },
+    "İSKENDERUN|SAKIZGEDİĞİ": {
+     "2": 60.8333,
      "3": 74.1667,
      "4": 85.8333,
      "5": 111.6667
@@ -3933,6 +3996,12 @@
      "5": 130.0
     },
     "DÜZİÇİ|TOPRAKKALE": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 79.1667,
+     "5": 85.8333
+    },
+    "DÜZİÇİ|SAKIZGEDİĞİ": {
      "2": 44.1667,
      "3": 74.1667,
      "4": 79.1667,
@@ -3985,6 +4054,12 @@
      "3": 74.1667,
      "4": 85.8333,
      "5": 111.6667
+    },
+    "BAHÇE|SAKIZGEDİĞİ": {
+     "2": 44.1667,
+     "3": 74.1667,
+     "4": 79.1667,
+     "5": 85.8333
     },
     "BAHÇE|OSMANİYE": {
      "2": 44.1667,
@@ -4039,6 +4114,12 @@
      "3": 85.8333,
      "4": 113.3333,
      "5": 130.0
+    },
+    "KÖMÜRLER (NURDAĞI)|SAKIZGEDİĞİ": {
+     "2": 57.5,
+     "3": 74.1667,
+     "4": 85.8333,
+     "5": 111.6667
     },
     "KÖMÜRLER (NURDAĞI)|OSMANİYE": {
      "2": 44.1667,
@@ -4099,6 +4180,12 @@
      "3": 111.6667,
      "4": 130.0,
      "5": 160.8333
+    },
+    "NARLI|SAKIZGEDİĞİ": {
+     "2": 60.8333,
+     "3": 85.8333,
+     "4": 113.3333,
+     "5": 134.1667
     },
     "NARLI|OSMANİYE": {
      "2": 60.8333,
@@ -4165,6 +4252,12 @@
      "3": 130.0,
      "4": 147.5,
      "5": 197.5
+    },
+    "GAZİANTEP BATI ALIN|SAKIZGEDİĞİ": {
+     "2": 95.8333,
+     "3": 111.6667,
+     "4": 130.0,
+     "5": 160.8333
     },
     "GAZİANTEP BATI ALIN|OSMANİYE": {
      "2": 95.8333,
@@ -6002,6 +6095,21 @@
      ]
     },
     {
+     "name": "ÇATALCA (G13)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.163948,
+       "lon": 28.470571
+      },
+      {
+       "name": "booth",
+       "lat": 41.164062,
+       "lon": 28.470353
+      }
+     ]
+    },
+    {
      "name": "NAKKAŞ (G14)",
      "points": [
       {
@@ -6054,6 +6162,12 @@
      "4": 137.5,
      "5": 187.5
     },
+    "KINALI (G11)|ÇATALCA (G13)": {
+     "2": 187.5,
+     "3": 216.6667,
+     "4": 287.5,
+     "5": 358.3333
+    },
     "KINALI (G11)|NAKKAŞ (G14)": {
      "2": 245.8333,
      "3": 258.3333,
@@ -6078,6 +6192,12 @@
      "4": 162.5,
      "5": 187.5
     },
+    "SİLİVRİ (G12)|ÇATALCA (G13)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 187.5,
+     "5": 245.8333
+    },
     "SİLİVRİ (G12)|NAKKAŞ (G14)": {
      "2": 187.5,
      "3": 216.6667,
@@ -6096,6 +6216,36 @@
      "4": 408.3333,
      "5": 525.0
     },
+    "ÇATALCA (G13)|KINALI (G11)": {
+     "2": 187.5,
+     "3": 245.8333,
+     "4": 287.5,
+     "5": 358.3333
+    },
+    "ÇATALCA (G13)|SİLİVRİ (G12)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 216.6667,
+     "5": 258.3333
+    },
+    "ÇATALCA (G13)|NAKKAŞ (G14)": {
+     "2": 87.5,
+     "3": 87.5,
+     "4": 100.0,
+     "5": 137.5
+    },
+    "ÇATALCA (G13)|YASSIÖREN (G21)": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 216.6667
+    },
+    "ÇATALCA (G13)|TAYAKADIN (G22)": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 308.3333
+    },
     "NAKKAŞ (G14)|KINALI (G11)": {
      "2": 245.8333,
      "3": 258.3333,
@@ -6107,6 +6257,12 @@
      "3": 216.6667,
      "4": 258.3333,
      "5": 341.6667
+    },
+    "NAKKAŞ (G14)|ÇATALCA (G13)": {
+     "2": 87.5,
+     "3": 87.5,
+     "4": 100.0,
+     "5": 137.5
     },
     "NAKKAŞ (G14)|YASSIÖREN (G21)": {
      "2": 87.5,
@@ -6132,6 +6288,12 @@
      "4": 341.6667,
      "5": 408.3333
     },
+    "YASSIÖREN (G21)|ÇATALCA (G13)": {
+     "2": 100.0,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 216.6667
+    },
     "YASSIÖREN (G21)|NAKKAŞ (G14)": {
      "2": 87.5,
      "3": 87.5,
@@ -6155,6 +6317,12 @@
      "3": 308.3333,
      "4": 408.3333,
      "5": 525.0
+    },
+    "TAYAKADIN (G22)|ÇATALCA (G13)": {
+     "2": 162.5,
+     "3": 187.5,
+     "4": 245.8333,
+     "5": 308.3333
     },
     "TAYAKADIN (G22)|NAKKAŞ (G14)": {
      "2": 137.5,

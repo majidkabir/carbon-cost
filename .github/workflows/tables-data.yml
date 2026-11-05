@@ -40,6 +40,12 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp mk.pbf > out/mk-osm-timestamp.txt
           osmium tags-filter -O -o mk-b.pbf mk.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
           osmium export -O -f geojsonseq -o out/mk-osm.geojsonseq mk-b.pbf
+      - name: Montenegrin toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o me.pbf https://download.geofabrik.de/europe/montenegro-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp me.pbf > out/me-osm-timestamp.txt
+          osmium tags-filter -O -o me-b.pbf me.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction w/name=Sozina "w/name=Tunel Sozina"
+          osmium export -O -f geojsonseq -o out/me-osm.geojsonseq me-b.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables

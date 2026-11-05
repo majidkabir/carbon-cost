@@ -43,6 +43,11 @@
   {"id": "mk-odluka-2025", "table": "mk", "url": "https://roads.org.mk/wp-content/uploads/2025/09/%D0%9E%D0%B4%D0%BB%D1%83%D0%BA%D0%B0-%D0%BF%D0%B0%D1%82%D0%B0%D1%80%D0%B8%D0%BD%D0%B0.pdf", "what": "North Macedonia: Government decision amending the decision on the toll (патарина), Службен весник 88/2025: tolls per section in denars"},
   {"id": "mk-odluka-2019", "table": "mk", "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf", "what": "North Macedonia: the toll decision (Службен весник 118/2019), with the vehicle categories"},
   {"id": "me-autoput", "table": "me", "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/", "what": "Montenegro: Monteput, motorway Smokovac–Mateševo tolls"},
-  {"id": "me-sozina", "table": "me", "url": "https://monteput.me/cjenovnik-tunel-sozina/", "what": "Montenegro: Monteput, Sozina tunnel tolls"}
+  {"id": "me-sozina", "table": "me", "url": "https://monteput.me/cjenovnik-tunel-sozina/", "what": "Montenegro: Monteput, Sozina tunnel tolls"},
+  {"id": "gr-olympia", "table": "gr", "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/", "what": "Greece: Olympia Odos toll prices (A8 Elefsina–Patra–Pyrgos)"},
+  {"id": "gr-neaodos", "table": "gr", "url": "https://www.neaodos.gr/highways/tolls/", "what": "Greece: Nea Odos toll prices (A1 Metamorfosi–Skarfeia, Ionia Odos)"},
+  {"id": "gr-kentriki", "table": "gr", "url": "https://www.kentrikiodos.gr/highways/toll-fees/", "what": "Greece: Kentriki Odos toll prices (A1 Skarfeia–Raches, E65)"},
+  {"id": "gr-moreas", "table": "gr", "url": "https://www.moreas.com.gr/leitourgia/diodia", "what": "Greece: Moreas toll prices (A7 Korinthos–Tripoli–Kalamata, Lefktro–Sparti)"},
+  {"id": "gr-aegean", "table": "gr", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/", "what": "Greece: Aegean Motorway toll prices (A1 Raches–Kleidi)"}
  ]
 }

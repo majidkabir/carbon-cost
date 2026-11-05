@@ -46,6 +46,12 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp me.pbf > out/me-osm-timestamp.txt
           osmium tags-filter -O -o me-b.pbf me.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction w/name=Sozina "w/name=Tunel Sozina"
           osmium export -O -f geojsonseq -o out/me-osm.geojsonseq me-b.pbf
+      - name: Greek toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o gr.pbf https://download.geofabrik.de/europe/greece-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp gr.pbf > out/gr-osm-timestamp.txt
+          osmium tags-filter -O -o gr-b.pbf gr.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,motorway_link,trunk_link
+          osmium export -O -f geojsonseq -o out/gr-osm.geojsonseq gr-b.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables

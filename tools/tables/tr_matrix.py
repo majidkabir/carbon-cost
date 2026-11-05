@@ -16,8 +16,9 @@ def words(path):
     t = open(path, encoding="utf-8").read()
     pages = []
     for page in re.findall(r"<page .*?</page>", t, flags=re.S):
-        pages.append([(float(a), float(b), float(c), float(d), html.unescape(w).replace("​", "").strip())
-                      for a, b, c, d, w in re.findall(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>', page)])
+        pages.append([w for w in [(float(a), float(b), float(c), float(d), html.unescape(w).replace("​", "").strip())
+                      for a, b, c, d, w in re.findall(r'<word xMin="([\d.]+)" yMin="([\d.]+)" xMax="([\d.]+)" yMax="([\d.]+)">([^<]*)</word>', page)]
+                      if w[4] not in ("", "₺")])  # some tariffs print ₺ before each price
     return pages
 
 
@@ -102,7 +103,7 @@ def page_matrix(ws):
     for bi, b in enumerate(blocks):
         lo = max(prev, label_top if bi == 0 else prev)
         hi = b[-1][0] + 2
-        lab = [w for w in ws if w[2] < cx - 1 and lo < (w[1] + w[3]) / 2 <= hi and w[4] not in ("GİRİŞ", "GİŞELERİ", "İSTASYON") and not DIST.match(w[4]) and w[4] != "km"]
+        lab = [w for w in ws if w[2] < cx - 1 and lo < (w[1] + w[3]) / 2 <= hi and w[4] not in ("GİRİŞ", "GİŞELERİ", "İSTASYON", "Giriş", "/", "Çıkış") and not DIST.match(w[4]) and w[4] != "km"]
         prev = hi
         name = " ".join(w[4] for _, l in lines(lab) for w in l)
         rows.append(name)

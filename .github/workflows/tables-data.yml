@@ -88,6 +88,7 @@ jobs:
           python3 tools/tables/no.py out out/tables
           python3 tools/tables/ie.py out out/tables
           python3 tools/tables/se_bridges.py out out/tables
+          python3 tools/tables/se_congestion.py out out/tables
           python3 tools/tables/mk.py tools/tables/transcribed/mk-2025.json out out/tables
           python3 tools/tables/me.py out out/tables
           python3 tools/tables/gr.py out out/tables

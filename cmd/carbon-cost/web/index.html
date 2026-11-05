@@ -70,6 +70,7 @@
     <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
     <label class="wide">To<span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" required></span></label>
     <label>Date<input name="date" type="date"></label>
+    <label>Time (for congestion taxes)<input name="time" type="time"></label>
     <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
@@ -116,6 +117,7 @@ const $ = (id) => document.getElementById(id);
 const TILES = "";
 const f = $("f");
 f.date.value = new Date().toISOString().slice(0, 10);
+f.time.value = new Date().toTimeString().slice(0, 5);
 
 const LATLON = /^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/;
 function place(input) {
@@ -199,7 +201,7 @@ function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text
 f.addEventListener("submit", async (e) => {
   e.preventDefault();
   const req = {
-    from: place(f.from), to: place(f.to), date: f.date.value || undefined,
+    from: place(f.from), to: place(f.to), date: f.date.value || undefined, time: f.time.value || undefined,
     cargo_kg: +f.cargo_kg.value,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined },

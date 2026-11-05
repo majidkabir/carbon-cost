@@ -35,12 +35,18 @@ case, accents or word order; the part in brackets, a trailing ALIN
 ALIAS), else the motorway junction of its name; where a name matches
 several places, the one that makes the stations' chain along the motorway
 shortest, each booth serving one motorway (KGM's first, as SYSTEMS lists
-them). A station further than 60 km from the others, or with no match,
-isn't placed, nor are its prices. The 1915 Çanakkale bridge is a station
+them). A station with no match whose neighbours are placed takes the one
+plaza of unnamed booths between them, if there is exactly one (see
+between()). A station further than 60 km from the others, or still with
+no match, isn't placed, nor are its prices. The 1915 Çanakkale bridge is a station
 of Malkara–Çanakkale; its own tariff is checked to equal the Gelibolu
-Güney – bridge price. Gebze–Orhangazi–İzmir (two matrices side by side,
-the Osmangazi bridge a station of it) and the Yavuz Sultan Selim bridge's
-Kuzey Çevre motorway (which includes the bridge) aren't read.
+Güney – bridge price. Gebze–Orhangazi–İzmir prints two matrices side by
+side (Gebze–Bursa and Bursa–İzmir, read as two systems); its Osmangazi
+bridge stations are folded into one priced without the bridge (see
+osmangazi()), the bridge charged by its own toll point. The Yavuz Sultan
+Selim bridge's toll point is "within" the Kuzey Çevre motorway, whose
+tickets include it. Karacabey – Mustafakemalpaşa 1 and 2 aren't placed
+(DROP).
 
 The table is valid from the latest date the bridge tariffs give
 ("01/07/2026 saat 00:00'dan itibaren geçerlidir").
@@ -69,10 +75,29 @@ SYSTEMS = [("tr-5-anadoluotoyolucamlica-akinci", "O-4 Anadolu Otoyolu (Çamlıca
            ("tr-17-ankara-nigde", "O-21 Ankara – Niğde"),
            ("tr-18-malkara-canakkale", "O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü)"),
            ("tr-19-aydin-denizli", "O-31 Aydın – Denizli"),
-           ("tr-20-cesmeli-kizkalesitr", "Çeşmeli – Erdemli – Kızkalesi")]
+           ("tr-20-cesmeli-kizkalesitr", "Çeşmeli – Erdemli – Kızkalesi"),
+           ("tr-12-gebze-orhangazi-izmir", "O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü)"),
+           ("tr-12-gebze-orhangazi-izmir", "O-5 Bursa – İzmir"),
+           ("tr-13-ysskuzeycevreyolu", "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu")]
+# Gebze–Orhangazi–İzmir prints two matrices side by side (the Gebze–Bursa
+# and Bursa–İzmir sections, each its own ticket).
+PART = {"O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü)": 0, "O-5 Bursa – İzmir": 1}
+# Row labels the word boxes cut short -> the names the header prints.
+RENAME = {"O-5 Bursa – İzmir": {"- Mustafakemalpaşa - 1": "Karacabey - Mustafakemalpaşa - 1",
+                                "- Mustafakemalpaşa - 2": "Karacabey - Mustafakemalpaşa - 2", "Kuzey": "Balıkesir Kuzey"}}
+# The Yavuz Sultan Selim bridge lies inside the Kuzey Çevre motorway, whose
+# tickets include it (Uskumruköy – Riva, the stations either side, class
+# 4: 985 TL against the bridge's own 690): a route with such a ticket
+# across the bridge doesn't pay the bridge again.
+WITHIN = {"Yavuz Sultan Selim Köprüsü": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu"}
 # Abbreviated tariff names -> the OpenStreetMap toll booths' names.
 ALIAS = {"Ş.PINAR": "Şekerpınar", "K.BURGAZ": "Kumburgaz", "GEBZE ORG. SAN. BÖLGELERİ": "Gebze OSB",
-         "MERMECİLER": "Mermerciler", "KÜÇÜKILIÇLI": "Küçükkılıçlı"}
+         "MERMECİLER": "Mermerciler", "KÜÇÜKILIÇLI": "Küçükkılıçlı",
+         "Osmangazi Köprüsü": "Osmangazi Köprüsü (Hersek)"}
+# Stations left unplaced on purpose: Karacabey – Mustafakemalpaşa 1 and 2
+# are one place, each charging the longest trip's price for all but one
+# direction (one-way ramps); the route can't tell which it took.
+DROP = {"Karacabey - Mustafakemalpaşa - 1", "Karacabey - Mustafakemalpaşa - 2"}
 GROUPS = [{"name": "2", "max_axles": 2}, {"name": "3", "min_axles": 3, "max_axles": 3},
           {"name": "4", "min_axles": 4, "max_axles": 5}, {"name": "5", "min_axles": 6}]
 KDV = 1.20
@@ -193,8 +218,61 @@ def place(names, booths, junctions, used):
     return out
 
 
-def system(path, name, booths, junctions, used):
-    rows, cols, cells = tr_matrix.matrix(path)
+def osmangazi(rows, cols, cells, bridge):
+    """Gebze–Bursa's matrix has the bridge as two stations: "İzmir Yönü"
+    (entering southbound, its row) and "İstanbul Yönü" (leaving
+    northbound, a column). Southbound the bridge is paid at its plaza and
+    the row prices are the motorway alone; the northbound column is the
+    row price plus the bridge. Checked, then folded into one station
+    "Osmangazi Köprüsü" priced without the bridge, which its own toll
+    point charges either way."""
+    iz, ist = 0, 1
+    if not (rows[0].endswith("(İzmir Yönü)") and cols[ist].endswith("(İstanbul Yönü)")):
+        sys.exit(f"Gebze–Bursa: unexpected stations {rows[0]}, {cols[ist]}")
+    for c in AXLES:
+        if round(cells[(0, iz)][c], 2) != bridge[c]:
+            sys.exit(f"Gebze–Bursa: the bridge price {cells[(0, iz)][c]} isn't the Osmangazi tariff {bridge[c]}")
+    out = {(0, 0): cells[(0, 0)]}
+    for r in range(1, len(rows)):
+        for c in AXLES:
+            if round(cells[(r, ist)][c] - cells[(0, r + 1)][c], 2) != bridge[c]:
+                sys.exit(f"Gebze–Bursa: {rows[r]} northbound isn't the southbound price plus the bridge")
+        out[(r, 0)] = {c: cells[(r, ist)][c] - bridge[c] for c in cells[(r, ist)]}
+        out[(0, r)] = cells[(0, r + 1)]
+        for c2 in range(1, len(rows)):
+            out[(r, c2)] = cells[(r, c2 + 1)]
+    names = ["Osmangazi Köprüsü"] + rows[1:]
+    return names, names, out
+
+
+def between(order, pts, unnamed, named, used):
+    """Places an unplaced station whose neighbours along the motorway are
+    placed at the one plaza of unnamed OSM toll booths (two or more) on
+    the way between them: going through it adds at most 1 km to the
+    straight line, it is more than 1.5 km from every named booth and
+    every place a station was given (any motorway so far), and no
+    other unplaced station of the motorway could take it."""
+    cand = {}
+    for i, p in enumerate(pts):
+        if p or not order[i] or order[i] in DROP:
+            continue
+        a = next((pts[j][1] for j in range(i - 1, -1, -1) if pts[j]), None)
+        b = next((pts[j][1] for j in range(i + 1, len(pts)) if pts[j]), None)
+        if not (a and b):
+            continue
+        cand[i] = [(cl, ctr) for cl, ctr in unnamed
+                   if len(cl) >= 2 and (round(ctr[0], 4), round(ctr[1], 4)) not in used
+                   and km(a, ctr) + km(ctr, b) <= km(a, b) + 1 and all(km(ctr, n) > 1.5 for n in named)
+                   and all(km(ctr, u) > 1.5 for u in used)]
+    for i, c in cand.items():
+        if len(c) == 1 and sum(c[0][1] == x[1] for cs in cand.values() for x in cs) == 1:
+            pts[i] = (c[0][0], c[0][1], "booth")
+            used.add((round(c[0][1][0], 4), round(c[0][1][1], 4)))
+            print(f"  {order[i]}: the unnamed toll booths at {c[0][1][1]:.5f},{c[0][1][0]:.5f}")
+
+
+def system(m, name, booths, junctions, used, sid, unnamed, named):
+    rows, cols, cells = m
     square = len(rows) == len(cols) and all((r, c) in cells for r in range(len(rows)) for c in range(len(cols)))
     if square:
         owner = {c: c for c in range(len(cols))}  # column c is row c's station
@@ -213,7 +291,8 @@ def system(path, name, booths, junctions, used):
     for r in range(len(rows)):
         pos.setdefault(rows[r], max(c for (r2, c) in cells if r2 == r) - 0.5)
     order = sorted(pos, key=lambda n: pos[n])
-    pts = place(order, booths, junctions, used)
+    pts = place([n if n not in DROP else "" for n in order], booths, junctions, used)
+    between(order, pts, unnamed, named, used)
     placed = {n: p for n, p in zip(order, pts) if p}
     prices = {}
     for (r, c), p in cells.items():
@@ -224,8 +303,8 @@ def system(path, name, booths, junctions, used):
     stations = [{"name": n, "points": [{"name": placed[n][2], "lat": round(x[1], 6), "lon": round(x[0], 6)} for x in placed[n][0]]} for n in order if n in placed]
     missing = [n for n in order if n not in placed]
     print(f"{name}: {len(stations)}/{len(order)} stations placed, {len(prices)} prices" + (f"; unplaced {missing}" if missing else ""))
-    return {"name": name, "law": "KGM 2026 tariff (" + os.path.basename(path).rsplit(".", 2)[0] + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
-            "groups": GROUPS, "stations": stations, "prices": prices}, missing
+    return {"name": name, "law": "KGM 2026 tariff (" + sid + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+            "groups": GROUPS, "stations": stations, "prices": prices}, missing, order
 
 
 def main(fetched, out):
@@ -257,23 +336,37 @@ def main(fetched, out):
             if len(keep) > 2 or (len(keep) == 2 and km(keep[0], keep[1]) > 0.2):
                 sys.exit(f"{name}: main spans {keep}")
             for lon, lat in keep:
-                points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes})
+                points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes,
+                               **({"within": WITHIN[name]} if name in WITHIN else {})})
             print(f"{name}: {len(ws)} ways, main span {longest:.2f} km, {len(keep)} points; class 2-5 TL {[prices[c] for c in AXLES]} ({d})")
     # Motorways: toll booths (else junctions) by name.
-    booths, junctions = {}, {}
+    booths, junctions, anon, named = {}, {}, [], []
     for line in open(os.path.join(fetched, "tr-osm-booths.geojsonseq"), encoding="utf-8"):
         f = json.loads(line.strip("\x1e"))
         p, c = f["properties"], f["geometry"]["coordinates"]
         while isinstance(c[0], list):
             c = c[0]
         if not p.get("name"):
+            if p.get("highway") != "motorway_junction":
+                anon.append(c)
             continue
+        if p.get("highway") != "motorway_junction":
+            named.append(c)
         n = SUFFIX.sub("", p["name"])
         for k in {wkey(n), tr_matrix.key(n)}:
             (junctions if p.get("highway") == "motorway_junction" else booths).setdefault(k, []).append(c)
+    unnamed = clusters(anon, 1.0)
     used, systems, unplaced = set(), [], []
+    _, osmangazi_tl = tariff(os.path.join(fetched, "tr-2-osmangazi.txt"))
     for sid, name in SYSTEMS:
-        s, missing = system(os.path.join(fetched, sid + ".bbox.html"), name, booths, junctions, used)
+        ms = tr_matrix.matrices(os.path.join(fetched, sid + ".bbox.html"))
+        if len(ms) != (2 if name in PART else 1):
+            sys.exit(f"{sid}: {len(ms)} matrices")
+        rows, cols, cells = ms[PART.get(name, 0)]
+        rows = [RENAME.get(name, {}).get(r, r) for r in rows]
+        if name.startswith("O-5 Gebze"):
+            rows, cols, cells = osmangazi(rows, cols, cells, osmangazi_tl)
+        s, missing, _ = system((rows, cols, cells), name, booths, junctions, used, sid, unnamed, named)
         systems.append(s)
         unplaced += missing
     # The 1915 Çanakkale bridge's own tariff is Malkara–Çanakkale's
@@ -293,10 +386,10 @@ def main(fetched, out):
     tb = {
         "country": "TR", "currency": "TRY", "valid_from": date,
         "name": "Turkish motorway and bridge tolls (KGM)",
-        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. Gebze–Orhangazi–İzmir (O-5 beyond the Osmangazi bridge) and Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu (O-7 beyond the bridge) aren't included.",
+        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
         "sources": [{"title": "KGM: Otoyol ve Köprü Geçiş Ücretleri", "url": url["tr-kgm-ucretler"]}]
                    + [{"title": f"KGM: {a} Geçiş Ücretleri Tarifesi", "url": kgm + b + ".pdf"} for a, b in titles.values()]
-                   + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in SYSTEMS]
+                   + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in dict((sid, "O-5 Gebze – Orhangazi – İzmir" if sid in ("tr-12-gebze-orhangazi-izmir",) else n) for sid, n in SYSTEMS).items()]
                    + [{"title": "OpenStreetMap (Geofabrik extract), bridges and toll booths", "url": "https://download.geofabrik.de/europe/turkey.html"}],
         "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
         "tolled_roads": "The 15 Temmuz Şehitler, Fatih Sultan Mehmet, Yavuz Sultan Selim and Osmangazi bridges; " + ", ".join(n for _, n in SYSTEMS) + ".",

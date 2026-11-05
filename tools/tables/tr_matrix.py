@@ -117,9 +117,25 @@ def page_matrix(ws):
     return rows, [colname.get(i, "") for i in range(len(centers))], {(ri[r], i): p for (r, i), p in prices.items()}
 
 
+def matrices(path):
+    """Every matrix of the tariff: a page printing two side by side (each
+    with its own "İstasyon" header) is split between them."""
+    out = []
+    for ws in words(path):
+        ist = sorted((w for w in ws if key(w[4]) == "istasyon"), key=lambda w: w[0])
+        # Side by side: "İstasyon" headers on one line, far apart.
+        xs = [w[0] for w in ist if abs(w[1] - ist[0][1]) < 20 and w[0] - ist[0][0] > 100] if ist else []
+        cuts = [-1e9] + [x - 5 for x in xs] + [1e9]
+        for a, b in zip(cuts, cuts[1:]):
+            m = page_matrix([w for w in ws if a <= w[0] < b])
+            if m[0]:
+                out.append(m)
+    return out
+
+
 def matrix(path):
     """(row names, column header names, {(row index, column index): {class: TL}})."""
-    found = [m for m in (page_matrix(ws) for ws in words(path)) if m[0]]
+    found = matrices(path)
     if len(found) != 1:
-        raise ValueError(f"{path}: {len(found)} pages with a matrix")
+        raise ValueError(f"{path}: {len(found)} matrices")
     return found[0]

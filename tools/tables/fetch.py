@@ -13,8 +13,21 @@ the page holds placeholders (data-show-order .. data-last-show-order)
 that its script fills from /ajax/njtGetBlock.json, given the document id
 and the placeholder's range. Those parts are fetched too, as
 <id>-block-<n>.html.
+
+Riigi Teataja (riigiteataja.ee) pages are built by script from its public
+API: /public-api/api/v1/akt/<id>?leiaKehtiv=true names the version in
+force (kehtivId, saved as <id>.json), whose text is
+/public-api/api/v1/akt/<kehtivId>/blob-html (saved as <id>-text.html).
+
+The NVDB API (nvdbapiles.atlas.vegvesen.no) pages its results: each JSON
+names the next page in metadata.neste.href; those pages are fetched too,
+as <id>-<n>.json, until a page returns no objects. For toll stations
+(object type 45) the road link sequences they are placed on are fetched
+as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
+(as <id>-links-<n>.json): their geometry runs in the road's metering
+direction, which a station's charged direction refers to.
 """
-import hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
+import gzip, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
 
@@ -23,11 +36,17 @@ def get(url, accept=None):
     h = dict(UA)
     if accept:
         h["Accept"] = accept
+    if "nvdbapiles" in url:
+        h["X-Client"] = "carbon-cost tables fetch"  # the NVDB API asks clients to name themselves
     last = None
     for i in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60) as r:
-                return r.status, r.read()
+                body = r.read()
+                # Some servers send gzip unasked.
+                if body[:2] == b"\x1f\x8b":
+                    body = gzip.decompress(body)
+                return r.status, body
         except urllib.error.HTTPError as e:
             return e.code, e.read()
         except Exception as e:
@@ -80,14 +99,50 @@ def njt(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-block-{n}.html", url + f" (POST start {a} last {b})", status, resp)
 
 
+def riigiteataja(out, manifest, sid, body):
+    d = json.loads(body)
+    url = f"https://www.riigiteataja.ee/public-api/api/v1/akt/{d['kehtivId']}/blob-html"
+    status, text = get(url)
+    save(out, manifest, f"{sid}-text.html", url, status, text)
+
+
+def nvdb(out, manifest, sid, url, body):
+    n, links = 1, set()
+    while n < 200:
+        d = json.loads(body)
+        for o in d.get("objekter") or []:
+            for st in (o.get("lokasjon") or {}).get("stedfestinger") or []:
+                if st.get("veglenkesekvensid"):
+                    links.add(st["veglenkesekvensid"])
+        nxt = (d.get("metadata") or {}).get("neste", {}).get("href")
+        if not d.get("objekter") or not nxt:
+            break
+        n += 1
+        status, body = get(nxt, "application/json")
+        save(out, manifest, f"{sid}-{n}.json", nxt, status, body)
+    if "/vegobjekter/45" not in url:
+        return
+    links = sorted(links)
+    for k in range(0, len(links), 50):
+        q = "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=" + ",".join(map(str, links[k:k + 50]))
+        status, b = get(q, "application/json")
+        save(out, manifest, f"{sid}-links-{k // 50 + 1}.json", q, status, b)
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
-            status, body = get(s["url"])
+            status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png") else ".html"), s["url"], status, body)
+            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"]:
+                ext = ".json"
+            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
+            if "riigiteataja.ee/public-api/" in s["url"]:
+                riigiteataja(out, manifest, s["id"], body)
+            if "nvdbapiles" in s["url"] and status == 200:
+                nvdb(out, manifest, s["id"], s["url"], body)
             if s["id"] == "ro-tollro":
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:

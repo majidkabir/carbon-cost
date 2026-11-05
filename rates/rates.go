@@ -55,7 +55,7 @@ type Row struct {
 	// suburban or interurban (Suburban or Interurban): the row applies to
 	// that share of the km (Table.SuburbanShare).
 	Area string  `json:"area,omitempty"`
-	Rate float64 `json:"rate"` // currency per km, or per tonne-km in a PerTonneKm table
+	Rate float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
 }
 
 // Areas for rates that differ by suburban or interurban road.
@@ -96,6 +96,13 @@ type Table struct {
 	// maximum mass, up to MaxChargeableKg (Switzerland's LSVA).
 	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
 	MaxChargeableKg int  `json:"max_chargeable_kg,omitempty"`
+	// PerDay tables charge their rates per day of use, whatever the km
+	// (time-based vignettes): a trip is priced at one day's charge.
+	PerDay bool `json:"per_day,omitempty"`
+	// MotorAxles tables count the axles of the motor vehicle alone (the
+	// truck or tractor), not of the combination: rows' axle bounds apply
+	// to Truck.MotorAxles, or to Axles when that isn't given.
+	MotorAxles bool `json:"motor_axles,omitempty"`
 	// MotorwayShare is the share of km priced at motorway rates when the
 	// rates differ by road type and the request doesn't say (default 0).
 	MotorwayShare float64 `json:"motorway_share,omitempty"`
@@ -117,6 +124,69 @@ type Table struct {
 	Closed []TollSystem `json:"closed_systems,omitempty"`
 	// Surcharges raise a component's per-km rate on a stretch of road.
 	Surcharges []Surcharge `json:"surcharges,omitempty"`
+	// TollPoints are toll stations charged per passage, each on its own
+	// (Norway's AutoPASS stations).
+	TollPoints []TollPoint `json:"toll_points,omitempty"`
+	// PointMatchKm is how close the route must pass a toll point to pay it.
+	PointMatchKm float64 `json:"point_match_km,omitempty"`
+	// Congestion prices the toll points that name a Schedule by the time
+	// of day (Sweden's congestion tax).
+	Congestion *Congestion `json:"congestion,omitempty"`
+}
+
+// PointClass is a toll point's price for the trucks it matches; ETCRate,
+// if set, for trucks paying by tag (Request.ETC).
+type PointClass struct {
+	MinKg    int     `json:"min_kg,omitempty"`
+	MaxKg    int     `json:"max_kg,omitempty"`
+	MinAxles int     `json:"min_axles,omitempty"`
+	MaxAxles int     `json:"max_axles,omitempty"`
+	Rate     float64 `json:"rate"`
+	ETCRate  float64 `json:"etc_rate,omitempty"`
+}
+
+// Price is the toll point's price for the truck, and whether it charges
+// the truck at all.
+func (p TollPoint) Price(t Truck, etc bool) (float64, bool) {
+	if len(p.Classes) == 0 {
+		return p.Rate, true
+	}
+	for _, c := range p.Classes {
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) {
+			if etc && c.ETCRate > 0 {
+				return c.ETCRate, true
+			}
+			return c.Rate, true
+		}
+	}
+	return 0, false
+}
+
+// TollPoint is a toll station charged per passage.
+type TollPoint struct {
+	Name    string  `json:"name"`
+	Project string  `json:"project,omitempty"` // the toll project (bompengeanlegg)
+	Lat     float64 `json:"lat"`
+	Lon     float64 `json:"lon"`
+	// Heading is the direction of travel that pays, in degrees clockwise
+	// from north; nil when both directions pay.
+	Heading  *float64 `json:"heading,omitempty"`
+	Rate     float64  `json:"rate"`                // per passage, outside rush hours
+	PeakRate float64  `json:"peak_rate,omitempty"` // per passage in rush hours, where it differs
+	// Classes price the station by truck where its price differs by mass
+	// or axles: the first class the truck matches, instead of Rate.
+	Classes []PointClass `json:"classes,omitempty"`
+	// Group is the passage group of an hour rule: after a paid passage,
+	// the group's other stations are free for GroupMinutes.
+	Group        int `json:"group,omitempty"`
+	GroupMinutes int `json:"group_minutes,omitempty"`
+	// Within names a closed system of the same table whose tickets
+	// include this station's charge: a route with a ticket of that system
+	// from one side of the station to the other doesn't pay it again.
+	Within string `json:"within,omitempty"`
+	// Schedule names the table's Congestion schedule that prices this
+	// station by the time of day, instead of Rate.
+	Schedule string `json:"schedule,omitempty"`
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -364,9 +434,12 @@ type Surcharge struct {
 // Truck is what a toll rate depends on.
 type Truck struct {
 	MaxMassKg int `json:"max_mass_kg"` // technically permissible maximum mass
-	Axles     int `json:"axles"`
-	Euro      int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
-	CO2Class  int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
+	Axles     int `json:"axles"`       // of the truck with its trailer
+	// MotorAxles is the motor vehicle's own axles, optional: Lithuania's
+	// charge counts those (a tractor's, without the semi-trailer's).
+	MotorAxles int `json:"motor_axles,omitempty"`
+	Euro       int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
+	CO2Class   int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
 	// TareKg is the truck's own weight (with trailer), optional: ferries
 	// report freight emissions per tonne of vehicle and cargo.
 	TareKg int `json:"tare_kg,omitempty"`
@@ -394,6 +467,8 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("max_mass_kg must be > 0")
 	case t.Axles < 2 || t.Axles > 10:
 		return fmt.Errorf("axles must be 2-10")
+	case t.MotorAxles != 0 && (t.MotorAxles < 2 || t.MotorAxles > t.Axles):
+		return fmt.Errorf("motor_axles must be 2 to axles")
 	case t.Euro < 0 || t.Euro > 6:
 		return fmt.Errorf("euro must be 0-6")
 	case t.CO2Class < 1 || t.CO2Class > 5:
@@ -448,6 +523,9 @@ func (tb Table) Roads() []string {
 func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exemptNote string, ok bool) {
 	if t.MaxMassKg < tb.MinKg {
 		return nil, "", false
+	}
+	if tb.MotorAxles && t.MotorAxles > 0 {
+		t.Axles = t.MotorAxles
 	}
 	for _, e := range tb.Exemptions {
 		if slices.Contains(e.CO2Class, t.CO2Class) && !date.After(day(e.Until)) {
@@ -543,14 +621,14 @@ func (tb Table) check() error {
 	if tb.Region != "" && !strings.HasPrefix(tb.Region, tb.Country+"-") {
 		return fmt.Errorf("region %q is not in country %s", tb.Region, tb.Country)
 	}
-	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0) {
-		return fmt.Errorf("country, currency, sources and rows (or sections) are required")
+	if tb.Country == "" || tb.Currency == "" || len(tb.Sources) == 0 || (len(tb.Rows) == 0 && tb.Sections == nil && len(tb.Closed) == 0 && len(tb.TollPoints) == 0) {
+		return fmt.Errorf("country, currency, sources and rows (or sections, toll systems or toll points) are required")
 	}
 	if tb.MotorwayShare < 0 || tb.MotorwayShare > 1 {
 		return fmt.Errorf("motorway_share must be 0-1")
 	}
-	if tb.Crossings && (len(tb.Rows) > 0 || len(tb.Closed) == 0) {
-		return fmt.Errorf("a crossings table has closed systems and no rows")
+	if tb.Crossings && (len(tb.Rows) > 0 || (len(tb.Closed) == 0 && len(tb.TollPoints) == 0)) {
+		return fmt.Errorf("a crossings table has closed systems or toll points, and no rows")
 	}
 	for k, v := range tb.SuburbanShare {
 		if v < 0 || v > 1 {
@@ -565,6 +643,14 @@ func (tb Table) check() error {
 	for _, r := range tb.Rows {
 		if r.Rate < 0 {
 			return fmt.Errorf("negative rate in %+v", r)
+		}
+	}
+	for _, p := range tb.TollPoints {
+		if p.Within != "" && !slices.ContainsFunc(tb.Closed, func(s TollSystem) bool { return s.Name == p.Within }) {
+			return fmt.Errorf("toll point %s: no closed system %q in the table", p.Name, p.Within)
+		}
+		if p.Schedule != "" && (tb.Congestion == nil || tb.Congestion.Schedules[p.Schedule] == nil) {
+			return fmt.Errorf("toll point %s: no congestion schedule %q in the table", p.Name, p.Schedule)
 		}
 	}
 	return nil

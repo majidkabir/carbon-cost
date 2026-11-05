@@ -63,7 +63,11 @@ def section(ws):
             continue
         label = " ".join(w[4] for w in l if w[2] < left)
         vals = [w for w in l if w[0] >= left]
-        if not label or not vals and not label:
+        if not label:
+            continue
+        if not any(PRICE.match(w[4]) or w[4] == "-" for w in vals):
+            if rows:
+                break  # the notes under the matrix
             continue
         r = len(rows)
         rows.append(label)
@@ -90,10 +94,12 @@ def read(path):
                     if x[4] not in ("Ligeros", "Pesados", "1", "2"):
                         break
                     n.append(x[4])
-                heads.append((l[0][1], " ".join(n)))
+                if " ".join(n) in ("Ligeros", "Pesados 1", "Pesados 2"):
+                    heads.append((l[0][1], " ".join(n)))
         heads.sort()
         for i, (y, name) in enumerate(heads):
-            y2 = heads[i + 1][0] if i + 1 < len(heads) else min([w[1] for w in ws if w[4] in ("Las", "Ligeros:", "(*)") and w[1] > y + 40] + [1e9])
+            notes = [l[0][1] for _, l in tr_matrix.lines(ws) if l[0][1] > y + 20 and (l[0][4] == "Ligeros:" or [w[4] for w in l[:2]] == ["Las", "presentes"])]
+            y2 = heads[i + 1][0] if i + 1 < len(heads) else min(notes + [1e9])
             part = [w for w in ws if y - 2 <= w[1] < y2 - 2 and not (w[4] == "(*)")]
             cls = name
             out[cls] = section(part)

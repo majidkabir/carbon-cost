@@ -185,3 +185,21 @@ func ValidTime(s string) error {
 	_, err := minutes(s)
 	return err
 }
+
+// Within says whether the time (HH:MM) is in the from–to window (both
+// included; a window past midnight wraps).
+func Within(at, from, to string) (bool, error) {
+	t, err := minutes(at)
+	if err != nil {
+		return false, err
+	}
+	a, err1 := minutes(from)
+	b, err2 := minutes(to)
+	if err1 != nil || err2 != nil {
+		return false, fmt.Errorf("bad window %s–%s", from, to)
+	}
+	if a <= b {
+		return t >= a && t <= b, nil
+	}
+	return t >= a || t <= b, nil
+}

@@ -3729,13 +3729,15 @@
    "project": "E16 Bjørum - Skaret",
    "lat": 59.974332,
    "lon": 10.33251,
+   "heading": 303.2,
    "rate": 102.0
   },
   {
    "name": "E16 Avtjerna",
    "project": "E16 Avtjerna",
-   "lat": 59.952216,
-   "lon": 10.37417,
+   "lat": 59.952364,
+   "lon": 10.374375,
+   "heading": 147.6,
    "rate": 102.0
   },
   {
@@ -3747,8 +3749,9 @@
   {
    "name": "Fv. Avtjerna",
    "project": "E16 Bjørum - Skaret",
-   "lat": 59.953049,
-   "lon": 10.376385,
+   "lat": 59.953189,
+   "lon": 10.376418,
+   "heading": 174.8,
    "rate": 102.0
   },
   {
@@ -3947,9 +3950,9 @@
   {
    "name": "Fv. Skaret",
    "project": "Fv. Skaret",
-   "lat": 59.972672,
-   "lon": 10.333481,
-   "heading": 339.1,
+   "lat": 59.972682,
+   "lon": 10.333521,
+   "heading": 157.7,
    "rate": 102.0
   }
  ],

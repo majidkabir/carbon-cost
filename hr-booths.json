@@ -1,0 +1,5509 @@
+{
+"stations": [
+"Babina Greda",
+"Benkovac",
+"Bisko",
+"Blato na Cetini",
+"Bosiljevo",
+"Bregana",
+"Brez. Hum",
+"Breznički Hum",
+"Brinje",
+"Buševec",
+"Danilo",
+"Delnice",
+"Goričan",
+"Gornja Ploča",
+"Gospić",
+"Ivanić Grad",
+"Jastrebarsko",
+"Karamatići",
+"Karlovac",
+"Komin",
+"Krapina",
+"Križ",
+"Kutina",
+"Lekenik",
+"Lipovac",
+"Lipovljani",
+"Ludbreg",
+"Lužani",
+"Mokrice",
+"Mraclin",
+"Nova Gradiška",
+"Novi Marof",
+"Novigrad",
+"Novska",
+"Ogulin",
+"Okučani",
+"Osijek",
+"Otočac",
+"Oštrovica",
+"Perušić",
+"Podi",
+"Popovača",
+"Posedarje",
+"Prgomet",
+"Ravna Gora",
+"Ravča",
+"Rijeka (Grobnik)",
+"Rovanjska",
+"Rupa",
+"Skradin",
+"Sl. Brod  zapad",
+"Sl. Brod istok",
+"Sl. Brod zapad",
+"Spačva",
+"Split",
+"Sudaraž",
+"Sveta Helena",
+"Sveti Rok",
+"Trakošćan",
+"Varaž. Toplice",
+"Varaždin",
+"Velika Kopanica",
+"Vodice",
+"Vrata",
+"Vrbovsko",
+"Vrgorac",
+"Vučevica",
+"Zadar centar",
+"Zadar istok",
+"Zagreb",
+"Zagreb istok",
+"Zagvozd",
+"Zaprešić",
+"Začretje",
+"Zdenčina",
+"ČCP Svilaj",
+"Čakovec",
+"Čarapine",
+"Čepin",
+"Đakovo",
+"Đurmanec",
+"Šestanovac",
+"Šibenik",
+"Županja",
+"Žuta Lokva"
+],
+"booths": [
+{
+"name": "Sv. Helena",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2673076,
+"lat": 45.9001419
+},
+{
+"name": "Odmorište Sesvete",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1897801,
+"lat": 45.8685008
+},
+{
+"name": "Naplatna postaja Bregana",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.7046156,
+"lat": 45.8392953
+},
+{
+"name": "Naplatna postaja Goričan",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.6413928,
+"lat": 46.4126821
+},
+{
+"name": "Odmorište Drava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4524535,
+"lat": 46.2842174
+},
+{
+"name": "Varaždin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3991132,
+"lat": 46.2577164
+},
+{
+"name": "Buzin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9962845,
+"lat": 45.7527803
+},
+{
+"name": "Buzin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9910616,
+"lat": 45.753148
+},
+{
+"name": "Zagreb zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8555474,
+"lat": 45.7865833
+},
+{
+"name": "Rakitje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.834545,
+"lat": 45.7849732
+},
+{
+"name": "Zagreb zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8262862,
+"lat": 45.7838359
+},
+{
+"name": "Zaprešić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8252747,
+"lat": 45.8502651
+},
+{
+"name": "Naplatna postaja Zaprešić",
+"kind": "toll_booth",
+"op": "AZM",
+"lon": 15.8300778,
+"lat": 45.8747401
+},
+{
+"name": "Naplatna postaja Mokrice",
+"kind": "toll_booth",
+"op": "AZM",
+"lon": 15.8767701,
+"lat": 46.0033572
+},
+{
+"name": "Zabok-Oroslavje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8630402,
+"lat": 45.9964372
+},
+{
+"name": "Sveta Nedelja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7879436,
+"lat": 45.7958593
+},
+{
+"name": "Sveta Nedelja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7845922,
+"lat": 45.7980595
+},
+{
+"name": "Samobor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7245558,
+"lat": 45.8312238
+},
+{
+"name": "Samobor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.718788,
+"lat": 45.8330522
+},
+{
+"name": "Jarek",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8241709,
+"lat": 45.8356726
+},
+{
+"name": "Rupa",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2734416,
+"lat": 45.4699511
+},
+{
+"name": "Odmorište Brgud",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2753716,
+"lat": 45.4408253
+},
+{
+"name": "Jurdani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3011086,
+"lat": 45.3951473
+},
+{
+"name": "Učka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3380658,
+"lat": 45.3607777
+},
+{
+"name": "Odmorište Vrata Jadrana",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3565791,
+"lat": 45.3539368
+},
+{
+"name": "Odmorište Mirna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6878297,
+"lat": 45.3201544
+},
+{
+"name": "Višnjan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7083991,
+"lat": 45.2794745
+},
+{
+"name": "Baderna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7225658,
+"lat": 45.2191013
+},
+{
+"name": "Naplatna postaja Kutina",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.767624,
+"lat": 45.4621625
+},
+{
+"name": "Odmorište Bačva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.713913,
+"lat": 45.2400996
+},
+{
+"name": "Žuta Lokva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.0918424,
+"lat": 44.9675432
+},
+{
+"name": "Otočac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1907338,
+"lat": 44.8929035
+},
+{
+"name": "Odmorište Zir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.600014,
+"lat": 44.4640402
+},
+{
+"name": "Odmorište Prokljan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.842937,
+"lat": 43.856813
+},
+{
+"name": "Odmorište Krka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9174763,
+"lat": 43.8041961
+},
+{
+"name": "Split",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5627012,
+"lat": 43.5993525
+},
+{
+"name": "Novigrad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6186649,
+"lat": 45.3559931
+},
+{
+"name": "Vidici",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.916747,
+"lat": 43.7215372
+},
+{
+"name": "Odmorište Dragalić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2859884,
+"lat": 45.2337724
+},
+{
+"name": "Ivanić Grad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3849872,
+"lat": 45.6870064
+},
+{
+"name": "Bilice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4889488,
+"lat": 43.5299482
+},
+{
+"name": "Bilice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4913029,
+"lat": 43.528545
+},
+{
+"name": "Split",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.5711247,
+"lat": 43.5958063
+},
+{
+"name": "Učka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.332158,
+"lat": 45.3622305
+},
+{
+"name": "Ravna Gora",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 14.9127685,
+"lat": 45.3820682
+},
+{
+"name": "Ravna Gora",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.9106314,
+"lat": 45.3844122
+},
+{
+"name": "Bosiljevo",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.2916382,
+"lat": 45.4179259
+},
+{
+"name": "Naplatna postaja Zagreb - Lučko",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.8842809,
+"lat": 45.7489288
+},
+{
+"name": "Oštrovica",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.5978322,
+"lat": 45.3368786
+},
+{
+"name": "Odmorište Dobra",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.279119,
+"lat": 45.3066051
+},
+{
+"name": "Bosiljevo 2",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2521679,
+"lat": 45.4072756
+},
+{
+"name": "Bosiljevo 2",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2445981,
+"lat": 45.4041195
+},
+{
+"name": "Vrbovsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.0827129,
+"lat": 45.3631235
+},
+{
+"name": "Vrata",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.7243319,
+"lat": 45.3174852
+},
+{
+"name": "",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4915701,
+"lat": 45.3636081
+},
+{
+"name": "Naplatna postaja Bregana",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.7044306,
+"lat": 45.8391225
+},
+{
+"name": "Rijeka zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3710211,
+"lat": 45.3481109
+},
+{
+"name": "Naplatna postaja Slavonski Brod - zapad",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.9451829,
+"lat": 45.1684562
+},
+{
+"name": "Ogulin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2687899,
+"lat": 45.240989
+},
+{
+"name": "Naplatna postaja Ogulin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.2638729,
+"lat": 45.236028
+},
+{
+"name": "Odmorište Sitno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1667059,
+"lat": 43.6671986
+},
+{
+"name": "Odmorište Vrpolje Primorsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.041364,
+"lat": 43.689354
+},
+{
+"name": "Odmorište Krka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9177066,
+"lat": 43.8031606
+},
+{
+"name": "Odmorište Nadin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5334682,
+"lat": 44.0600172
+},
+{
+"name": "Rokići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9087519,
+"lat": 43.7315067
+},
+{
+"name": "Zadar centar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4343421,
+"lat": 44.1893154
+},
+{
+"name": "Zadar zapad",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4283949,
+"lat": 44.1901878
+},
+{
+"name": "Križice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6000095,
+"lat": 43.6076923
+},
+{
+"name": "NP Šestanovac",
+"kind": "toll_booth",
+"op": "",
+"lon": 16.9156271,
+"lat": 43.444992
+},
+{
+"name": "Odmorište Janjče",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.376035,
+"lat": 44.7488943
+},
+{
+"name": "Žuta Lokva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1138743,
+"lat": 44.9580791
+},
+{
+"name": "Naplatna postaja Zagreb - Lučko",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.8840807,
+"lat": 45.7490141
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9063962,
+"lat": 45.7535208
+},
+{
+"name": "Đurmanec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8421247,
+"lat": 46.1971442
+},
+{
+"name": "Naplatna postaja Đurmanec",
+"kind": "toll_booth",
+"op": "AZM",
+"lon": 15.843608,
+"lat": 46.2008546
+},
+{
+"name": "Zabok-Oroslavje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8639511,
+"lat": 45.9985642
+},
+{
+"name": "Sv. Križ Začretje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9079984,
+"lat": 46.0899443
+},
+{
+"name": "Bosiljevo 1",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2916761,
+"lat": 45.4193162
+},
+{
+"name": "Naplatna postaja Nova Gradiška",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.4117169,
+"lat": 45.2318909
+},
+{
+"name": "Kutina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.757614,
+"lat": 45.4608658
+},
+{
+"name": "Zabrđe",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4971861,
+"lat": 45.8933999
+},
+{
+"name": "Pirovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.7859322,
+"lat": 43.8867245
+},
+{
+"name": "Odmorište Brgud",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2733355,
+"lat": 45.4452563
+},
+{
+"name": "Posedarje",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4557205,
+"lat": 44.2185707
+},
+{
+"name": "Zadar istok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4370947,
+"lat": 44.1148547
+},
+{
+"name": "Naplatna postaja Gornja Ploča",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.6293762,
+"lat": 44.4394366
+},
+{
+"name": "Ploča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6663777,
+"lat": 44.4488691
+},
+{
+"name": "Udbina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7468706,
+"lat": 44.5052687
+},
+{
+"name": "Rovanjska",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.5322731,
+"lat": 44.240111
+},
+{
+"name": "Vodice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7881143,
+"lat": 43.8902083
+},
+{
+"name": "Kaštel Sućurac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4091895,
+"lat": 43.5521596
+},
+{
+"name": "Kaštel Sućurac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4167542,
+"lat": 43.5510029
+},
+{
+"name": "Bilice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4921865,
+"lat": 43.5278235
+},
+{
+"name": "Bilice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4892706,
+"lat": 43.5252411
+},
+{
+"name": "Dračevac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4988074,
+"lat": 43.5277855
+},
+{
+"name": "Mravince",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.502516,
+"lat": 43.5281801
+},
+{
+"name": "Elektroslavonija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.740731,
+"lat": 45.5318222
+},
+{
+"name": "Elektroslavonija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7463735,
+"lat": 45.5294252
+},
+{
+"name": "Sv. Kajo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4679421,
+"lat": 43.5406231
+},
+{
+"name": "Split",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4829717,
+"lat": 43.5206438
+},
+{
+"name": "Split",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4877581,
+"lat": 43.5107117
+},
+{
+"name": "Posedarje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4535213,
+"lat": 44.2167242
+},
+{
+"name": "Rovanjska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5325232,
+"lat": 44.2389862
+},
+{
+"name": "Čavle",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4920653,
+"lat": 45.3491287
+},
+{
+"name": "Čavle",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4919775,
+"lat": 45.3508287
+},
+{
+"name": "Rijeka istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4879309,
+"lat": 45.3251053
+},
+{
+"name": "Rovanjska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5297071,
+"lat": 44.2382735
+},
+{
+"name": "Naplatna postaja Sveti Rok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.6282739,
+"lat": 44.3883852
+},
+{
+"name": "Sveti Rok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6312015,
+"lat": 44.3894352
+},
+{
+"name": "Naplatna postaja Babina Greda",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.5577556,
+"lat": 45.1095127
+},
+{
+"name": "Naplatna postaja Popovača",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.5970626,
+"lat": 45.5583145
+},
+{
+"name": "Naplatna postaja Lužani",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.6788474,
+"lat": 45.1710076
+},
+{
+"name": "Sv. Martin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3427562,
+"lat": 44.0723799
+},
+{
+"name": "Zadar istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.442391,
+"lat": 44.1161584
+},
+{
+"name": "Skradin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.8928908,
+"lat": 43.8374253
+},
+{
+"name": "Skradin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8838236,
+"lat": 43.8388545
+},
+{
+"name": "Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3218434,
+"lat": 45.145315
+},
+{
+"name": "Odmorište Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.2783874,
+"lat": 45.1475914
+},
+{
+"name": "Rugvica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2284605,
+"lat": 45.7633752
+},
+{
+"name": "Retfala",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6319935,
+"lat": 45.5541415
+},
+{
+"name": "Osijek - zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6300179,
+"lat": 45.5512579
+},
+{
+"name": "Naplatna postaja Đakovo",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.3847406,
+"lat": 45.3244276
+},
+{
+"name": "Đakovo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3785996,
+"lat": 45.3228346
+},
+{
+"name": "Zagreb istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1266457,
+"lat": 45.7906803
+},
+{
+"name": "Karlovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5452909,
+"lat": 45.5134395
+},
+{
+"name": "Karlovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5514065,
+"lat": 45.5158377
+},
+{
+"name": "D. Zdenčina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7545676,
+"lat": 45.6759476
+},
+{
+"name": "Odmorište Dobra",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2806033,
+"lat": 45.311013
+},
+{
+"name": "Bosiljevo 2",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2670026,
+"lat": 45.4088153
+},
+{
+"name": "Sesvete",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1375055,
+"lat": 45.8249954
+},
+{
+"name": "Rokići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9079437,
+"lat": 43.7344326
+},
+{
+"name": "Odmorište Vrpolje Primorsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0353758,
+"lat": 43.6925974
+},
+{
+"name": "Odmorište Prokljan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8491457,
+"lat": 43.8554288
+},
+{
+"name": "Udbina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.749689,
+"lat": 44.5068749
+},
+{
+"name": "Benkovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5822556,
+"lat": 44.0128687
+},
+{
+"name": "Naplatna postaja Benkovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.5809023,
+"lat": 44.0086803
+},
+{
+"name": "Veliko Trgovišće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8479908,
+"lat": 45.9766539
+},
+{
+"name": "Sv. Križ Začretje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9096608,
+"lat": 46.0883211
+},
+{
+"name": "Naplatna postaja Sveti Križ Začretje",
+"kind": "toll_booth",
+"op": "AZM",
+"lon": 15.9084872,
+"lat": 46.0936861
+},
+{
+"name": "Veliko Trgovišće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8487375,
+"lat": 45.973686
+},
+{
+"name": "Jarek",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8276488,
+"lat": 45.8392849
+},
+{
+"name": "Odmorište Vukova Gorica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3752127,
+"lat": 45.4539683
+},
+{
+"name": "Zaprešić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8294328,
+"lat": 45.8574308
+},
+{
+"name": "Zagreb zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.847107,
+"lat": 45.792046
+},
+{
+"name": "Zagreb istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1323652,
+"lat": 45.8046157
+},
+{
+"name": "Sesvete",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1378172,
+"lat": 45.8225188
+},
+{
+"name": "Duilovo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4959196,
+"lat": 43.5087699
+},
+{
+"name": "Lovrinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4921669,
+"lat": 43.5096105
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "JU Kamenjak",
+"lon": 13.9107823,
+"lat": 44.7966731
+},
+{
+"name": "Naplatna postaja Krapina",
+"kind": "toll_booth",
+"op": "AZM",
+"lon": 15.8832013,
+"lat": 46.1334885
+},
+{
+"name": "Trakošćan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8623947,
+"lat": 46.2609727
+},
+{
+"name": "Odmorište Lepa Bukva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8465074,
+"lat": 46.2422247
+},
+{
+"name": "Odmorište Lepa Bukva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8469329,
+"lat": 46.2374578
+},
+{
+"name": "Bast",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9725445,
+"lat": 43.3555395
+},
+{
+"name": "Sv. Helena",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2740466,
+"lat": 45.9079977
+},
+{
+"name": "Sv. Helena",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2741201,
+"lat": 45.9029696
+},
+{
+"name": "Naplatna postaja Komin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2827536,
+"lat": 45.9951269
+},
+{
+"name": "Komin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2864285,
+"lat": 45.9911128
+},
+{
+"name": "Komin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.28701,
+"lat": 45.9954059
+},
+{
+"name": "Naplatna postaja Breznički Hum",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2824276,
+"lat": 46.1007561
+},
+{
+"name": "Breznički Hum",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2839087,
+"lat": 46.0990545
+},
+{
+"name": "Breznički Hum",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2837825,
+"lat": 46.1001796
+},
+{
+"name": "Novi Marof",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3681449,
+"lat": 46.1530596
+},
+{
+"name": "Naplatna postaja Novi Marof",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.3648673,
+"lat": 46.1503296
+},
+{
+"name": "Odmorište Ljubeščica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3747845,
+"lat": 46.1721405
+},
+{
+"name": "Odmorište Ljubeščica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3751385,
+"lat": 46.1666953
+},
+{
+"name": "Naplatna postaja Varaždinske Toplice",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.4129997,
+"lat": 46.2083907
+},
+{
+"name": "Varaždinske Toplice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.409336,
+"lat": 46.2085838
+},
+{
+"name": "Varaždin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4020932,
+"lat": 46.2630917
+},
+{
+"name": "Naplatna postaja Varaždin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.3957379,
+"lat": 46.2625735
+},
+{
+"name": "Odmorište Drava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4614309,
+"lat": 46.2840817
+},
+{
+"name": "Naplatna postaja Ludbreg",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.4851204,
+"lat": 46.2834484
+},
+{
+"name": "Ludbreg",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4861735,
+"lat": 46.2883858
+},
+{
+"name": "Ludbreg",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4796162,
+"lat": 46.2852951
+},
+{
+"name": "Naplatna postaja Čakovec",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.5298228,
+"lat": 46.3501234
+},
+{
+"name": "Čakovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5343638,
+"lat": 46.351213
+},
+{
+"name": "Čakovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5337162,
+"lat": 46.3493233
+},
+{
+"name": "Naplatna postaja Goričan",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.6414064,
+"lat": 46.4127805
+},
+{
+"name": "Goričan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6691484,
+"lat": 46.4084645
+},
+{
+"name": "Goričan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6633001,
+"lat": 46.4093855
+},
+{
+"name": "Varaždinske Toplice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4059547,
+"lat": 46.2108586
+},
+{
+"name": "Naplatna postaja Ivanić Grad",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.3909001,
+"lat": 45.6907148
+},
+{
+"name": "Ivanić Grad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3925738,
+"lat": 45.6858401
+},
+{
+"name": "Popovača",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5888677,
+"lat": 45.5615043
+},
+{
+"name": "Popovača",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5933832,
+"lat": 45.5575796
+},
+{
+"name": "Kutina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7637905,
+"lat": 45.4573896
+},
+{
+"name": "Novska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9389659,
+"lat": 45.3306411
+},
+{
+"name": "Naplatna postaja Novska",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.9477983,
+"lat": 45.3316441
+},
+{
+"name": "Novska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9464738,
+"lat": 45.3286056
+},
+{
+"name": "Naplatna postaja Okučani",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.2099206,
+"lat": 45.2143794
+},
+{
+"name": "Okučani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2124906,
+"lat": 45.2291394
+},
+{
+"name": "Okučani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2177639,
+"lat": 45.2282106
+},
+{
+"name": "Nova Gradiška",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4077624,
+"lat": 45.2272293
+},
+{
+"name": "Nova Gradiška",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.415868,
+"lat": 45.2279565
+},
+{
+"name": "Lužani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6728888,
+"lat": 45.1678095
+},
+{
+"name": "Lužani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6801269,
+"lat": 45.1662261
+},
+{
+"name": "Sl. Brod zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.9365304,
+"lat": 45.1698223
+},
+{
+"name": "Sl. Brod zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.9403871,
+"lat": 45.1702888
+},
+{
+"name": "Naplatna postaja Slavonski Brod - istok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.0657158,
+"lat": 45.1744882
+},
+{
+"name": "Sl. Brod istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.0736147,
+"lat": 45.1773743
+},
+{
+"name": "Sl. Brod istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.0661156,
+"lat": 45.1785678
+},
+{
+"name": "Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3125604,
+"lat": 45.1532696
+},
+{
+"name": "Naplatna postaja Velika Kopanica",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.4086158,
+"lat": 45.1354234
+},
+{
+"name": "Velika Kopanica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4027231,
+"lat": 45.1320794
+},
+{
+"name": "Velika Kopanica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4097663,
+"lat": 45.1310313
+},
+{
+"name": "Odmorište Sava - jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5198043,
+"lat": 45.1088361
+},
+{
+"name": "Babina Greda",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5652727,
+"lat": 45.1116142
+},
+{
+"name": "Babina Greda",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5590857,
+"lat": 45.1110472
+},
+{
+"name": "Naplatna postaja Županja",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.7130644,
+"lat": 45.1051484
+},
+{
+"name": "Županja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7180097,
+"lat": 45.1014671
+},
+{
+"name": "Županja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7156211,
+"lat": 45.1020293
+},
+{
+"name": "Naplatna postaja Lipovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 19.0240626,
+"lat": 45.0469055
+},
+{
+"name": "Naplatna postaja Lipovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 19.0241115,
+"lat": 45.0466376
+},
+{
+"name": "Odmorište Andrijevci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.326071,
+"lat": 45.1819388
+},
+{
+"name": "Odmorište Andrijevci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3275971,
+"lat": 45.1849875
+},
+{
+"name": "Naplatna postaja Križ",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.4976787,
+"lat": 45.6576538
+},
+{
+"name": "Križ",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4921475,
+"lat": 45.6592268
+},
+{
+"name": "Križ",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4960028,
+"lat": 45.6550347
+},
+{
+"name": "Rugvica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2219054,
+"lat": 45.7660673
+},
+{
+"name": "Vrbovec 1",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3647563,
+"lat": 45.8754335
+},
+{
+"name": "Vrbovec 1",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3647366,
+"lat": 45.8752528
+},
+{
+"name": "Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4502297,
+"lat": 45.8648149
+},
+{
+"name": "Jastrebarsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6824014,
+"lat": 45.6473175
+},
+{
+"name": "Jastrebarsko",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.6768172,
+"lat": 45.6458544
+},
+{
+"name": "Jastrebarsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6803682,
+"lat": 45.6458625
+},
+{
+"name": "Bosiljevo 1",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2964553,
+"lat": 45.4220503
+},
+{
+"name": "Ogulin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2685133,
+"lat": 45.2393375
+},
+{
+"name": "Odmorište Modruš",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2492886,
+"lat": 45.1315152
+},
+{
+"name": "Naplatna postaja Brinje",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.1603663,
+"lat": 45.0255927
+},
+{
+"name": "Brinje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1583231,
+"lat": 45.0269612
+},
+{
+"name": "Naplatna postaja Žuta Lokva",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.0851394,
+"lat": 44.9658662
+},
+{
+"name": "Odmorište Brloška Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1666525,
+"lat": 44.923351
+},
+{
+"name": "Naplatna postaja Otočac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.1887638,
+"lat": 44.8926182
+},
+{
+"name": "Odmorište Ličko Lešće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.315054,
+"lat": 44.7975597
+},
+{
+"name": "Perušić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.419716,
+"lat": 44.6696945
+},
+{
+"name": "Perušić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4183842,
+"lat": 44.6708536
+},
+{
+"name": "Naplatna postaja Perušić",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4185832,
+"lat": 44.6674392
+},
+{
+"name": "Naplatna postaja Gospić",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4221891,
+"lat": 44.5736419
+},
+{
+"name": "Gospić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4269774,
+"lat": 44.5734165
+},
+{
+"name": "Gospić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4271775,
+"lat": 44.5752407
+},
+{
+"name": "Odmorište Zir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6045464,
+"lat": 44.4604635
+},
+{
+"name": "Gornja Ploča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6229065,
+"lat": 44.4375945
+},
+{
+"name": "Gornja Ploča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6210188,
+"lat": 44.4394614
+},
+{
+"name": "Sveti Rok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6330741,
+"lat": 44.3951743
+},
+{
+"name": "Posedarje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4555117,
+"lat": 44.2177901
+},
+{
+"name": "Zadar centar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4331642,
+"lat": 44.1872641
+},
+{
+"name": "Odmorište Nadin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5273874,
+"lat": 44.0643704
+},
+{
+"name": "Benkovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5840495,
+"lat": 44.0117254
+},
+{
+"name": "Vodice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7891205,
+"lat": 43.8893855
+},
+{
+"name": "Skradin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8892971,
+"lat": 43.8348139
+},
+{
+"name": "Šibenik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9331339,
+"lat": 43.7668286
+},
+{
+"name": "Vrpolje",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.0590285,
+"lat": 43.6754711
+},
+{
+"name": "Danilo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0615291,
+"lat": 43.6834863
+},
+{
+"name": "Danilo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.058175,
+"lat": 43.683608
+},
+{
+"name": "Odmorište Sitno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1696204,
+"lat": 43.6653977
+},
+{
+"name": "Prgomet",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2420877,
+"lat": 43.6221821
+},
+{
+"name": "Prgomet",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2408432,
+"lat": 43.6230822
+},
+{
+"name": "Vučevica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4046177,
+"lat": 43.5897972
+},
+{
+"name": "Vučevica",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.4084876,
+"lat": 43.5921089
+},
+{
+"name": "Vučevica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3980761,
+"lat": 43.5913785
+},
+{
+"name": "Ravna Gora",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.9133477,
+"lat": 45.3842422
+},
+{
+"name": "Vrbovsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.0840073,
+"lat": 45.3639968
+},
+{
+"name": "Vrbovsko",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.086438,
+"lat": 45.362379
+},
+{
+"name": "Odmorište Kupjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.9416927,
+"lat": 45.3826719
+},
+{
+"name": "Odmorište Kupjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.9383661,
+"lat": 45.3828959
+},
+{
+"name": "Delnice",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 14.791085,
+"lat": 45.3770679
+},
+{
+"name": "Vrata",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 14.7276154,
+"lat": 45.317285
+},
+{
+"name": "Oštrovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.59624,
+"lat": 45.3348238
+},
+{
+"name": "Oštrovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5985204,
+"lat": 45.3321142
+},
+{
+"name": "Orehovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4735108,
+"lat": 45.3339849
+},
+{
+"name": "Jurdani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3009938,
+"lat": 45.3971562
+},
+{
+"name": "Rupa",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.2687028,
+"lat": 45.4563168
+},
+{
+"name": "Rupa",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.2690761,
+"lat": 45.4563741
+},
+{
+"name": "Odmorište Vrata Jadrana",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3475368,
+"lat": 45.3562282
+},
+{
+"name": "Odmorište Vukova Gorica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3758665,
+"lat": 45.4552104
+},
+{
+"name": "Šestanovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9150632,
+"lat": 43.4433261
+},
+{
+"name": "Ravča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2627006,
+"lat": 43.2190218
+},
+{
+"name": "NP Ravča",
+"kind": "toll_booth",
+"op": "",
+"lon": 17.268082,
+"lat": 43.2183629
+},
+{
+"name": "Ravča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2640431,
+"lat": 43.2180113
+},
+{
+"name": "Blato n/C",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8426619,
+"lat": 43.465546
+},
+{
+"name": "Blato na Cetini",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.8413389,
+"lat": 43.4628991
+},
+{
+"name": "Blato n/C",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8494176,
+"lat": 43.4635957
+},
+{
+"name": "Zagvozd",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.0292786,
+"lat": 43.4045475
+},
+{
+"name": "Zagvozd",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.0335714,
+"lat": 43.4006
+},
+{
+"name": "Odmorište Mosor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7806401,
+"lat": 43.4937947
+},
+{
+"name": "Split",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5649953,
+"lat": 43.5996932
+},
+{
+"name": "Bisko",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.6854878,
+"lat": 43.57016
+},
+{
+"name": "Bisko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6865945,
+"lat": 43.5637838
+},
+{
+"name": "Bisko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6811046,
+"lat": 43.5678159
+},
+{
+"name": "Šestanovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9240239,
+"lat": 43.4394278
+},
+{
+"name": "Đakovo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3820994,
+"lat": 45.3252713
+},
+{
+"name": "Lipovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 19.0680397,
+"lat": 45.0488925
+},
+{
+"name": "Lipovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 19.0717235,
+"lat": 45.0490625
+},
+{
+"name": "Naplatna postaja Spačva",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.907192,
+"lat": 45.0456936
+},
+{
+"name": "Krapina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8846026,
+"lat": 46.1301687
+},
+{
+"name": "Đurmanec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8448811,
+"lat": 46.2001094
+},
+{
+"name": "Rijeka zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3776296,
+"lat": 45.3484699
+},
+{
+"name": "Kosnica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0943083,
+"lat": 45.7679263
+},
+{
+"name": "NP Mraclin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.0759974,
+"lat": 45.664381
+},
+{
+"name": "NP Mraclin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.0761447,
+"lat": 45.6643573
+},
+{
+"name": "Buševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1014458,
+"lat": 45.6213005
+},
+{
+"name": "Velika Gorica jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0727774,
+"lat": 45.6868212
+},
+{
+"name": "Velika Gorica jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0618741,
+"lat": 45.6957713
+},
+{
+"name": "Prilesje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4174417,
+"lat": 45.8515314
+},
+{
+"name": "Prilesje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4112917,
+"lat": 45.8511739
+},
+{
+"name": "Zabrđe",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5025008,
+"lat": 45.8970323
+},
+{
+"name": "Zabrđe",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4979407,
+"lat": 45.8941743
+},
+{
+"name": "Odmorište Gradna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7415434,
+"lat": 45.8249862
+},
+{
+"name": "Odmorište Ježevo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2962911,
+"lat": 45.7512974
+},
+{
+"name": "Odmorište Novoselec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5079553,
+"lat": 45.6414799
+},
+{
+"name": "Odmorište Novoselec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5154648,
+"lat": 45.634874
+},
+{
+"name": "Odmorište Popovača Gračenica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6586668,
+"lat": 45.5082815
+},
+{
+"name": "Odmorište Popovača Gračenica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6647866,
+"lat": 45.5021763
+},
+{
+"name": "Odmorište Kraljeva Velika",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8577349,
+"lat": 45.4056212
+},
+{
+"name": "Odmorište Kraljeva Velika",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8623913,
+"lat": 45.3985366
+},
+{
+"name": "Odmorište Stari Grabovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.0177446,
+"lat": 45.3072116
+},
+{
+"name": "Odmorište Stari Grabovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.0073537,
+"lat": 45.308588
+},
+{
+"name": "Odmorište Dragalić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2962506,
+"lat": 45.2327557
+},
+{
+"name": "Odmorište Brodski Stupnik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.8137755,
+"lat": 45.1556598
+},
+{
+"name": "Odmorište Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.2700257,
+"lat": 45.1493924
+},
+{
+"name": "Odmorište Sava - sjever",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.529512,
+"lat": 45.1084943
+},
+{
+"name": "Odmorište Spačvanska šuma",
+"kind": "motorway_junction",
+"op": "",
+"lon": 19.0060907,
+"lat": 45.0450622
+},
+{
+"name": "Čepin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.505101,
+"lat": 45.5025
+},
+{
+"name": "Naplatna postaja Čepin",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 18.5125993,
+"lat": 45.5043844
+},
+{
+"name": "Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3015403,
+"lat": 45.1449061
+},
+{
+"name": "Vodnjan jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8727108,
+"lat": 44.9511326
+},
+{
+"name": "Vodnjan sjever",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8445805,
+"lat": 44.9882719
+},
+{
+"name": "Baderna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7236472,
+"lat": 45.2159971
+},
+{
+"name": "Velika Gorica - sjever",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0102346,
+"lat": 45.7349946
+},
+{
+"name": "Ražine",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9141141,
+"lat": 43.7147926
+},
+{
+"name": "Odmorište Kozjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4552201,
+"lat": 43.5864358
+},
+{
+"name": "Odmorište Kozjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4623497,
+"lat": 43.5877475
+},
+{
+"name": "Naplatna postaja Trakoščan",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.8589528,
+"lat": 46.2601045
+},
+{
+"name": "Bani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5608085,
+"lat": 43.5834869
+},
+{
+"name": "Grlo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5411748,
+"lat": 43.5760387
+},
+{
+"name": "Županja 2",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.701279,
+"lat": 45.106009
+},
+{
+"name": "Krapina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8755223,
+"lat": 46.161465
+},
+{
+"name": "Krapina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8756243,
+"lat": 46.1612538
+},
+{
+"name": "Koridor Vc",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5730792,
+"lat": 45.5742969
+},
+{
+"name": "Odmorište Rašćane Gornje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.1702182,
+"lat": 43.3232615
+},
+{
+"name": "Gaženica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2740398,
+"lat": 44.0979221
+},
+{
+"name": "Sv. Martin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3394989,
+"lat": 44.0711543
+},
+{
+"name": "Odmorište Jadova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5005019,
+"lat": 44.5151799
+},
+{
+"name": "Odmorište Lički Osik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4379354,
+"lat": 44.6226703
+},
+{
+"name": "Odmorište Janjče",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3721932,
+"lat": 44.753246
+},
+{
+"name": "Odmorište Ličko Lešće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3219533,
+"lat": 44.7943432
+},
+{
+"name": "Odmorište Brloška Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1688821,
+"lat": 44.9189551
+},
+{
+"name": "Odmorište Radošić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3057403,
+"lat": 43.6089422
+},
+{
+"name": "Odmorište Radošić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3018352,
+"lat": 43.60991
+},
+{
+"name": "Križice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5994507,
+"lat": 43.6075163
+},
+{
+"name": "Dračevac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4986877,
+"lat": 43.5278751
+},
+{
+"name": "Sirobuja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5102193,
+"lat": 43.5056053
+},
+{
+"name": "Rujevica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4093367,
+"lat": 45.3431902
+},
+{
+"name": "Rujevica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4007931,
+"lat": 45.3437187
+},
+{
+"name": "Duboka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5290451,
+"lat": 42.9537568
+},
+{
+"name": "Nemetin-Saponia",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7717164,
+"lat": 45.5236465
+},
+{
+"name": "Tromilja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4013256,
+"lat": 44.1120145
+},
+{
+"name": "Trakošćan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8686386,
+"lat": 46.2635772
+},
+{
+"name": "Pojatno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8163546,
+"lat": 45.9105512
+},
+{
+"name": "Meterize",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8930913,
+"lat": 43.7451834
+},
+{
+"name": "Trpimirova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6896896,
+"lat": 45.5411395
+},
+{
+"name": "Naplatna postaja Trakoščan",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.8591485,
+"lat": 46.2599164
+},
+{
+"name": "Grlo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5357521,
+"lat": 43.5740731
+},
+{
+"name": "Delnice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.7928999,
+"lat": 45.3746394
+},
+{
+"name": "Vidici",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9138707,
+"lat": 43.7261573
+},
+{
+"name": "Županja 2",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7022188,
+"lat": 45.109013
+},
+{
+"name": "Podi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5722489,
+"lat": 43.5909825
+},
+{
+"name": "Bani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5590946,
+"lat": 43.5828268
+},
+{
+"name": "Tromilja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4002269,
+"lat": 44.110945
+},
+{
+"name": "Podgora",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8612894,
+"lat": 46.1803044
+},
+{
+"name": "Podgora",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8618452,
+"lat": 46.1789348
+},
+{
+"name": "Đurmanec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8430088,
+"lat": 46.1945475
+},
+{
+"name": "Gornji Kneginec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3839644,
+"lat": 46.2644251
+},
+{
+"name": "Gornji Kneginec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3841266,
+"lat": 46.264412
+},
+{
+"name": "Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9342522,
+"lat": 43.7364052
+},
+{
+"name": "Ploča",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6605733,
+"lat": 44.4461329
+},
+{
+"name": "Lovrinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4927637,
+"lat": 43.5095807
+},
+{
+"name": "Gaženica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2699763,
+"lat": 44.0958271
+},
+{
+"name": "Novigrad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6179917,
+"lat": 45.3547925
+},
+{
+"name": "Brnik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5021645,
+"lat": 43.5074378
+},
+{
+"name": "Ražine",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9142765,
+"lat": 43.7156251
+},
+{
+"name": "Odmorište Staro Petrovo selo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5182661,
+"lat": 45.216111
+},
+{
+"name": "Odmorište Lužani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6982452,
+"lat": 45.1638393
+},
+{
+"name": "Kikovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5160652,
+"lat": 45.3765127
+},
+{
+"name": "Kikovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5213467,
+"lat": 45.3767223
+},
+{
+"name": "Podi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5757341,
+"lat": 43.5955997
+},
+{
+"name": "Buje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.620565,
+"lat": 45.4071315
+},
+{
+"name": "Naplatna postaja Zaprešić",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.8297073,
+"lat": 45.8746812
+},
+{
+"name": "Akrapi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6948408,
+"lat": 43.5726339
+},
+{
+"name": "Vodnjan sjever",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8467904,
+"lat": 44.9864117
+},
+{
+"name": "Vodnjan jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8721032,
+"lat": 44.9530275
+},
+{
+"name": "Naplatna postaja Zagvozd",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.0385081,
+"lat": 43.4006865
+},
+{
+"name": "D. Zdenčina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7517375,
+"lat": 45.6752037
+},
+{
+"name": "Kula Norinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5524936,
+"lat": 43.1214113
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "",
+"lon": 17.3790101,
+"lat": 43.1916487
+},
+{
+"name": "Vrgorac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.3792181,
+"lat": 43.1890979
+},
+{
+"name": "Spačva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.9072317,
+"lat": 45.0481408
+},
+{
+"name": "Spačva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.9130257,
+"lat": 45.0479838
+},
+{
+"name": "Omiš istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7054355,
+"lat": 43.4338207
+},
+{
+"name": "Buševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.105422,
+"lat": 45.6190466
+},
+{
+"name": "Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.451195,
+"lat": 45.8651723
+},
+{
+"name": "Odmorište Sesvete",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1952516,
+"lat": 45.8708131
+},
+{
+"name": "Odmorište Marsonija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.0026204,
+"lat": 45.1800636
+},
+{
+"name": "Odmorište Ivandvor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.346353,
+"lat": 45.2689814
+},
+{
+"name": "Delnice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.7946772,
+"lat": 45.3759308
+},
+{
+"name": "Vrata",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.7284784,
+"lat": 45.3198996
+},
+{
+"name": "Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8876811,
+"lat": 44.8956037
+},
+{
+"name": "Medaki",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7445216,
+"lat": 45.1487057
+},
+{
+"name": "Odmorište Bačva",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.718686,
+"lat": 45.2369945
+},
+{
+"name": "Odmorište Mirna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6917326,
+"lat": 45.3200087
+},
+{
+"name": "Buje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6234662,
+"lat": 45.3993639
+},
+{
+"name": "Odmorište Lički Osik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4386517,
+"lat": 44.627276
+},
+{
+"name": "Dubrava",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9379138,
+"lat": 43.7394915
+},
+{
+"name": "Babindub",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3159112,
+"lat": 44.0894693
+},
+{
+"name": "Babindub",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.3139418,
+"lat": 44.0908891
+},
+{
+"name": "Zadar istok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4370086,
+"lat": 44.1147668
+},
+{
+"name": "Zadar istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4487043,
+"lat": 44.1120014
+},
+{
+"name": "Retfala",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6292172,
+"lat": 45.5542011
+},
+{
+"name": "Nemetin-Saponia",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7814248,
+"lat": 45.5251302
+},
+{
+"name": "Novigrad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.42926,
+"lat": 45.479274
+},
+{
+"name": "Novigrad",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 15.4256845,
+"lat": 45.4791456
+},
+{
+"name": "Novigrad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4312976,
+"lat": 45.4810832
+},
+{
+"name": "Žminj",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8801635,
+"lat": 45.1364089
+},
+{
+"name": "Žminj",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8805682,
+"lat": 45.1380346
+},
+{
+"name": "Odmorište Matulji",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3177282,
+"lat": 45.3587454
+},
+{
+"name": "Odmorište Matulji",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3172827,
+"lat": 45.3586725
+},
+{
+"name": "Čepinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.658547,
+"lat": 45.5485899
+},
+{
+"name": "Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8891021,
+"lat": 44.8926274
+},
+{
+"name": "Vrgorac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.3814375,
+"lat": 43.1882508
+},
+{
+"name": "Lupoglav",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.1131348,
+"lat": 45.3458446
+},
+{
+"name": "Odmorište Marsonija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.0090527,
+"lat": 45.1815704
+},
+{
+"name": "Hreljin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5868398,
+"lat": 45.2869478
+},
+{
+"name": "Hreljin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.582778,
+"lat": 45.2894741
+},
+{
+"name": "Ploče",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4891001,
+"lat": 43.1445656
+},
+{
+"name": "Odmorište Dusina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4150813,
+"lat": 43.1796808
+},
+{
+"name": "Veprinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2684463,
+"lat": 45.3271224
+},
+{
+"name": "Anđeli",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2926471,
+"lat": 45.3406337
+},
+{
+"name": "Matulji-Opatija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3244062,
+"lat": 45.3601548
+},
+{
+"name": "Učka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3300953,
+"lat": 45.36577
+},
+{
+"name": "Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8903961,
+"lat": 44.8902886
+},
+{
+"name": "Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8890425,
+"lat": 44.8930848
+},
+{
+"name": "Odmorište Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8912309,
+"lat": 44.9307971
+},
+{
+"name": "Odmorište Pula",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8891046,
+"lat": 44.9351201
+},
+{
+"name": "Odmorište Jakovlje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8285234,
+"lat": 45.9301385
+},
+{
+"name": "Odmorište Jakovlje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8273212,
+"lat": 45.925035
+},
+{
+"name": "Odmorište Modruš",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2449043,
+"lat": 45.1286929
+},
+{
+"name": "Šibenik",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.9337729,
+"lat": 43.7586513
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.894377,
+"lat": 45.7642798
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9039858,
+"lat": 45.7605809
+},
+{
+"name": "Odmorište Zagreb",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8746791,
+"lat": 45.7770715
+},
+{
+"name": "Sirobuja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5057188,
+"lat": 43.5065276
+},
+{
+"name": "Požega",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4723856,
+"lat": 45.2278321
+},
+{
+"name": "Svilaj",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.319078,
+"lat": 45.1196402
+},
+{
+"name": "Svilaj",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3178678,
+"lat": 45.1215156
+},
+{
+"name": "Odmorište Rašćane Gornje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.1683767,
+"lat": 43.3245393
+},
+{
+"name": "Otočac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1941591,
+"lat": 44.8891956
+},
+{
+"name": "Cerovlje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.0185475,
+"lat": 45.2758375
+},
+{
+"name": "Pazin-istok Ivoli",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.9701485,
+"lat": 45.243651
+},
+{
+"name": "Pazin-zapad Rogovići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.9079433,
+"lat": 45.2267252
+},
+{
+"name": "Pazin-istok Ivoli",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.9776371,
+"lat": 45.2454497
+},
+{
+"name": "Cerovlje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.0177876,
+"lat": 45.2742636
+},
+{
+"name": "Farkaševac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6296227,
+"lat": 45.8928017
+},
+{
+"name": "Križevci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5537228,
+"lat": 46.0057874
+},
+{
+"name": "Gradec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5036125,
+"lat": 45.9159911
+},
+{
+"name": "Kula Norinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.554721,
+"lat": 43.1224655
+},
+{
+"name": "Popovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.150454,
+"lat": 45.8516435
+},
+{
+"name": "Šibenik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9318101,
+"lat": 43.7684092
+},
+{
+"name": "Popovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1470215,
+"lat": 45.8488435
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8168131,
+"lat": 45.1084933
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8127084,
+"lat": 45.1117666
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8149658,
+"lat": 45.11171
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.81371,
+"lat": 45.113614
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8155791,
+"lat": 45.1130473
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8196985,
+"lat": 45.1149339
+},
+{
+"name": "Kanfanar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8114811,
+"lat": 45.1157939
+},
+{
+"name": "Odmorište Limska Draga",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7920763,
+"lat": 45.1231896
+},
+{
+"name": "Odmorište Bale",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.8316247,
+"lat": 45.0461463
+},
+{
+"name": "Odmorište Bale",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.831997,
+"lat": 45.0493917
+},
+{
+"name": "Odmorište Buje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6164081,
+"lat": 45.4371498
+},
+{
+"name": "Odmorište Buje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.618534,
+"lat": 45.4414025
+},
+{
+"name": "Umag",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6179771,
+"lat": 45.4501163
+},
+{
+"name": "Umag",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.6189045,
+"lat": 45.4519009
+},
+{
+"name": "Odmorište Jadova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.4959221,
+"lat": 44.5157154
+},
+{
+"name": "Odmorište Pristeg",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6983328,
+"lat": 43.9428383
+},
+{
+"name": "Odmorište Pristeg",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6933304,
+"lat": 43.9462191
+},
+{
+"name": "Odmorište Sokolac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1305463,
+"lat": 45.0075672
+},
+{
+"name": "Trogir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2672083,
+"lat": 43.5280708
+},
+{
+"name": "Odmorište Zagreb",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8834711,
+"lat": 45.7725234
+},
+{
+"name": "NP Buševec",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.10855,
+"lat": 45.6221551
+},
+{
+"name": "Mravince",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5114986,
+"lat": 43.5338949
+},
+{
+"name": "Sveti Kuzam",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5336104,
+"lat": 45.3114204
+},
+{
+"name": "Sveti Kuzam",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5316887,
+"lat": 45.3115787
+},
+{
+"name": "Čepin",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5054576,
+"lat": 45.504489
+},
+{
+"name": "Vežica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4847519,
+"lat": 45.3200211
+},
+{
+"name": "Pećine",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4719188,
+"lat": 45.3171641
+},
+{
+"name": "Brajdica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4602153,
+"lat": 45.3208296
+},
+{
+"name": "Odmorište Dračevac-jug",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5058037,
+"lat": 43.5286931
+},
+{
+"name": "Odmorište Bošnjaci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.8111267,
+"lat": 45.0577929
+},
+{
+"name": "Odmorište Bošnjaci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.8150134,
+"lat": 45.0562673
+},
+{
+"name": "Odmorište Rastovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6888463,
+"lat": 45.1086058
+},
+{
+"name": "Odmorište Rastovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6800328,
+"lat": 45.1097009
+},
+{
+"name": "Odmorište Spačvanska šuma",
+"kind": "motorway_junction",
+"op": "",
+"lon": 19.0003817,
+"lat": 45.0446853
+},
+{
+"name": "Jakuševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0114093,
+"lat": 45.750523
+},
+{
+"name": "Podi-zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5656094,
+"lat": 43.5860515
+},
+{
+"name": "Lekenik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2202432,
+"lat": 45.562373
+},
+{
+"name": "Lekenik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2172112,
+"lat": 45.5639411
+},
+{
+"name": "Akrapi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6947415,
+"lat": 43.5725272
+},
+{
+"name": "Odmorište Tuhobić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.6229113,
+"lat": 45.323801
+},
+{
+"name": "Orehovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4709325,
+"lat": 45.3370397
+},
+{
+"name": "Škurinje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4212614,
+"lat": 45.3450042
+},
+{
+"name": "Škurinje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4232596,
+"lat": 45.345084
+},
+{
+"name": "Rijeka-Grobnik",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.5230934,
+"lat": 45.3766604
+},
+{
+"name": "Rijeka-Grobnik",
+"kind": "toll_booth",
+"op": "ARZ",
+"lon": 14.5230542,
+"lat": 45.3769249
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8892723,
+"lat": 45.7535188
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9022256,
+"lat": 45.7565351
+},
+{
+"name": "Križišće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5909483,
+"lat": 45.2673852
+},
+{
+"name": "Križišće",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.5915787,
+"lat": 45.2679863
+},
+{
+"name": "Veprinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2732359,
+"lat": 45.3263393
+},
+{
+"name": "Višnjan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.7102837,
+"lat": 45.2734321
+},
+{
+"name": "Medaki",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.742276,
+"lat": 45.1500111
+},
+{
+"name": "Vranja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.1649005,
+"lat": 45.3244209
+},
+{
+"name": "Odmorište Sokolac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1257538,
+"lat": 45.0057329
+},
+{
+"name": "Brinje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.1623983,
+"lat": 45.0300158
+},
+{
+"name": "Trinajstići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3253497,
+"lat": 45.3715812
+},
+{
+"name": "Krapina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8857655,
+"lat": 46.1296803
+},
+{
+"name": "Jadranovo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.637057,
+"lat": 45.2319906
+},
+{
+"name": "Selce",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.7511498,
+"lat": 45.1440241
+},
+{
+"name": "Pojatno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8168859,
+"lat": 45.9111621
+},
+{
+"name": "Odmorište Gradna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.73906,
+"lat": 45.825893
+},
+{
+"name": "",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8629754,
+"lat": 45.716703
+},
+{
+"name": "Đurmanec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8454205,
+"lat": 46.2039345
+},
+{
+"name": "Zagreb - Demerje",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.8702251,
+"lat": 45.7235893
+},
+{
+"name": "Naplatna postaja Zagreb - Lučko",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.8837763,
+"lat": 45.749299
+},
+{
+"name": "Podsolarsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9040783,
+"lat": 43.6976306
+},
+{
+"name": "Podsolarsko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9058773,
+"lat": 43.6997602
+},
+{
+"name": "Naplatna postaja Čarapine",
+"kind": "toll_booth",
+"op": "Hrvatske autoceste",
+"lon": 17.5477934,
+"lat": 43.1192177
+},
+{
+"name": "Naplatna postaja Čarapine",
+"kind": "toll_booth",
+"op": "Hrvatske autoceste",
+"lon": 17.5475491,
+"lat": 43.1195186
+},
+{
+"name": "Veliko Polje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0106085,
+"lat": 45.7441068
+},
+{
+"name": "Jakuševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0047494,
+"lat": 45.7478152
+},
+{
+"name": "Jakuševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9984806,
+"lat": 45.7523931
+},
+{
+"name": "Andraševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9379111,
+"lat": 46.0137485
+},
+{
+"name": "Andraševec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9345197,
+"lat": 46.013791
+},
+{
+"name": "Zabok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8802075,
+"lat": 46.0051935
+},
+{
+"name": "Otok Svibovski",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1621472,
+"lat": 45.7928256
+},
+{
+"name": "Otok Svibovski",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1676134,
+"lat": 45.7914611
+},
+{
+"name": "Kaštel Štafilić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3195119,
+"lat": 43.5533105
+},
+{
+"name": "Kaštel Štafilić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3222619,
+"lat": 43.5545836
+},
+{
+"name": "Kaštel Novi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3290016,
+"lat": 43.5562947
+},
+{
+"name": "Odmorište Klis-Brdo",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5431339,
+"lat": 43.5765967
+},
+{
+"name": "Ploče",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4890527,
+"lat": 43.1461841
+},
+{
+"name": "Ploče",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.480983,
+"lat": 43.1529897
+},
+{
+"name": "Rupa",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.277921,
+"lat": 45.4776667
+},
+{
+"name": "Karlovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.5486208,
+"lat": 45.5121083
+},
+{
+"name": "Karlovac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.5484411,
+"lat": 45.5122239
+},
+{
+"name": "Zaradeže",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5642947,
+"lat": 42.8675389
+},
+{
+"name": "Veliko Polje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0092664,
+"lat": 45.7451975
+},
+{
+"name": "Odmorište Mosor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7867458,
+"lat": 43.4926741
+},
+{
+"name": "Novi Varoš",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2157119,
+"lat": 45.1814011
+},
+{
+"name": "Zvirići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5868372,
+"lat": 43.1296997
+},
+{
+"name": "Naplatna postaja Zagreb Istok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.27442,
+"lat": 45.7538811
+},
+{
+"name": "Naplatna postaja Zagreb Istok",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2745993,
+"lat": 45.7545232
+},
+{
+"name": "Naplatna postaja Sveta Helena",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2736864,
+"lat": 45.9205011
+},
+{
+"name": "Naplatna postaja Sveta Helena",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2735293,
+"lat": 45.9204797
+},
+{
+"name": "Tunel Učka",
+"kind": "toll_booth",
+"op": "BINA Istra",
+"lon": 14.1731011,
+"lat": 45.3176037
+},
+{
+"name": "Bjelovar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.818758,
+"lat": 45.8492684
+},
+{
+"name": "Gudovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7616698,
+"lat": 45.8580488
+},
+{
+"name": "Gudovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.764634,
+"lat": 45.8585363
+},
+{
+"name": "Virovitica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.3490805,
+"lat": 45.8403558
+},
+{
+"name": "Virovitica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.3531073,
+"lat": 45.8449728
+},
+{
+"name": "Osijek",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5511499,
+"lat": 45.5732192
+},
+{
+"name": "Novi Marof",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3663689,
+"lat": 46.1495999
+},
+{
+"name": "Sv. Helena",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2695853,
+"lat": 45.9048165
+},
+{
+"name": "Strossmayerova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6304092,
+"lat": 45.562764
+},
+{
+"name": "Naplatna postaja Karamatići",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.4852956,
+"lat": 43.1012581
+},
+{
+"name": "Naplatna postaja Karamatići",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.4855217,
+"lat": 43.1015142
+},
+{
+"name": "Odmorište Dusina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4253309,
+"lat": 43.1770416
+},
+{
+"name": "Čepinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6615442,
+"lat": 45.5474544
+},
+{
+"name": "Čepinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6615853,
+"lat": 45.5473171
+},
+{
+"name": "Vinkovačka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6782168,
+"lat": 45.542342
+},
+{
+"name": "Vinkovačka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6801172,
+"lat": 45.5422334
+},
+{
+"name": "Odmorište Jezerane",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.2076623,
+"lat": 45.0667667
+},
+{
+"name": "Svilaj",
+"kind": "toll_booth",
+"op": "",
+"lon": 18.3147092,
+"lat": 45.1282293
+},
+{
+"name": "Svilaj",
+"kind": "toll_booth",
+"op": "",
+"lon": 18.3151675,
+"lat": 45.1282742
+},
+{
+"name": "Kaštel Kambelovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3886908,
+"lat": 43.5572877
+},
+{
+"name": "Kaštel Stari",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3425296,
+"lat": 43.5591705
+},
+{
+"name": "Kaštel Stari",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3435826,
+"lat": 43.5591742
+},
+{
+"name": "Bast",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9766481,
+"lat": 43.3591588
+},
+{
+"name": "Gradec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.505428,
+"lat": 45.9182666
+},
+{
+"name": "Bedekovčina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9893996,
+"lat": 46.0310381
+},
+{
+"name": "Bedekovčina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9993734,
+"lat": 46.0339095
+},
+{
+"name": "Meterize",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8933736,
+"lat": 43.7446718
+},
+{
+"name": "Zagreb istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1731507,
+"lat": 45.789261
+},
+{
+"name": "Orehovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4689112,
+"lat": 45.3364438
+},
+{
+"name": "Odmorište Cernik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4934961,
+"lat": 45.3586186
+},
+{
+"name": "Anđeli",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.28734,
+"lat": 45.3354087
+},
+{
+"name": "Orehovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4694235,
+"lat": 45.3400357
+},
+{
+"name": "Lučko",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8965208,
+"lat": 45.7576977
+},
+{
+"name": "Kapela",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5955994,
+"lat": 43.6066368
+},
+{
+"name": "Sredanci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.3126248,
+"lat": 45.1375333
+},
+{
+"name": "Lipovljani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8797279,
+"lat": 45.3746279
+},
+{
+"name": "Kosnica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0858335,
+"lat": 45.7604227
+},
+{
+"name": "Granični prijelaz Goričan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6872574,
+"lat": 46.408018
+},
+{
+"name": "Seget Donji",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2247342,
+"lat": 43.5220582
+},
+{
+"name": "Trogir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2633155,
+"lat": 43.5289742
+},
+{
+"name": "Odmorište Zamet",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3997109,
+"lat": 45.3441052
+},
+{
+"name": "Naplatna postaja Lekenik",
+"kind": "toll_booth",
+"op": "",
+"lon": 16.2208975,
+"lat": 45.5658604
+},
+{
+"name": "Odmorište Pešćenica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1617851,
+"lat": 45.591651
+},
+{
+"name": "Odmorište Pešćenica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1566253,
+"lat": 45.5924856
+},
+{
+"name": "Kaštel Novi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3279098,
+"lat": 43.5560641
+},
+{
+"name": "Zadar zapad",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.4282733,
+"lat": 44.1901101
+},
+{
+"name": "Rijeka istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4915152,
+"lat": 45.323596
+},
+{
+"name": "Trpimirova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6912197,
+"lat": 45.5408582
+},
+{
+"name": "Tenjska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7114988,
+"lat": 45.5411169
+},
+{
+"name": "Poznanovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0208107,
+"lat": 46.0374302
+},
+{
+"name": "Zlatar Bistrica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0764143,
+"lat": 46.0365
+},
+{
+"name": "Zlatar Bistrica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.074978,
+"lat": 46.0371938
+},
+{
+"name": "Poznanovec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.0250031,
+"lat": 46.0380746
+},
+{
+"name": "Lipovljani",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8840163,
+"lat": 45.3716214
+},
+{
+"name": "Odmorište Cernik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4908584,
+"lat": 45.3647571
+},
+{
+"name": "TTTS",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5267836,
+"lat": 43.5135048
+},
+{
+"name": "Karepovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.517331,
+"lat": 43.5197988
+},
+{
+"name": "Karepovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5173186,
+"lat": 43.5201247
+},
+{
+"name": "Mravince",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5121282,
+"lat": 43.5288747
+},
+{
+"name": "Prapratno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6807434,
+"lat": 42.8184234
+},
+{
+"name": "Prapratno",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6815615,
+"lat": 42.8179549
+},
+{
+"name": "Odmorište Sparagovići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6050981,
+"lat": 42.8408028
+},
+{
+"name": "Odmorište Sparagovići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.6019427,
+"lat": 42.8428426
+},
+{
+"name": "Zaradeže",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5677182,
+"lat": 42.862878
+},
+{
+"name": "Odmorište Lepenica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.659694,
+"lat": 45.3243396
+},
+{
+"name": "Omiš istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.7087527,
+"lat": 43.4294639
+},
+{
+"name": "Žminj",
+"kind": "toll_booth",
+"op": "BINA Istra",
+"lon": 13.8852429,
+"lat": 45.1380682
+},
+{
+"name": "Čepinska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6645789,
+"lat": 45.5461843
+},
+{
+"name": "Trpimirova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6928319,
+"lat": 45.5407769
+},
+{
+"name": "Odmorište Pojezerje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5064541,
+"lat": 43.1368771
+},
+{
+"name": "Odmorište Pojezerje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5080071,
+"lat": 43.1361124
+},
+{
+"name": "Kaštel Kambelovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.3876629,
+"lat": 43.5572996
+},
+{
+"name": "Topići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9670601,
+"lat": 43.350658
+},
+{
+"name": "Odmorište Špičkovina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9697466,
+"lat": 46.0227263
+},
+{
+"name": "Odmorište Špičkovina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9631985,
+"lat": 46.0202057
+},
+{
+"name": "Trpimirova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6880921,
+"lat": 45.5412145
+},
+{
+"name": "Čeveljuša",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4549873,
+"lat": 43.0473967
+},
+{
+"name": "Novi Varoš",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2153376,
+"lat": 45.1834778
+},
+{
+"name": "Osijek - zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.63218,
+"lat": 45.5566688
+},
+{
+"name": "Strossmayerova",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6313056,
+"lat": 45.5676993
+},
+{
+"name": "Osijek",
+"kind": "toll_booth",
+"op": "",
+"lon": 18.559027,
+"lat": 45.5753639
+},
+{
+"name": "Udbina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7454987,
+"lat": 44.5102092
+},
+{
+"name": "Koridor Vc",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.569385,
+"lat": 45.579348
+},
+{
+"name": "Osijek",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5514127,
+"lat": 45.5751302
+},
+{
+"name": "Umag",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6175154,
+"lat": 45.4244215
+},
+{
+"name": "Umag",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6173293,
+"lat": 45.4242986
+},
+{
+"name": "Vodnjan jug",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.8649512,
+"lat": 44.9487842
+},
+{
+"name": "Pula",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.8865255,
+"lat": 44.904114
+},
+{
+"name": "Pula",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.886266,
+"lat": 44.9041278
+},
+{
+"name": "Vodnjan sjever",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.8452124,
+"lat": 44.9832737
+},
+{
+"name": "Kanfanar",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.8070644,
+"lat": 45.1121565
+},
+{
+"name": "Medaki",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.74067,
+"lat": 45.1493782
+},
+{
+"name": "Medaki",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.7420255,
+"lat": 45.1512278
+},
+{
+"name": "Baderna",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.7217506,
+"lat": 45.2154155
+},
+{
+"name": "Baderna",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.725184,
+"lat": 45.2154187
+},
+{
+"name": "Višnjan",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.7088257,
+"lat": 45.2735402
+},
+{
+"name": "Novigrad",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6165142,
+"lat": 45.3536137
+},
+{
+"name": "Novigrad",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6192019,
+"lat": 45.3542157
+},
+{
+"name": "Buje",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6226805,
+"lat": 45.4025323
+},
+{
+"name": "Buje",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6204407,
+"lat": 45.4029785
+},
+{
+"name": "Buje",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6198904,
+"lat": 45.4048388
+},
+{
+"name": "Buje",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.6216319,
+"lat": 45.4048279
+},
+{
+"name": "Rogovići",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9110011,
+"lat": 45.2275653
+},
+{
+"name": "Rogovići",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9109178,
+"lat": 45.2280951
+},
+{
+"name": "Rogovići",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.913246,
+"lat": 45.2281753
+},
+{
+"name": "Rogovići",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9133679,
+"lat": 45.2276517
+},
+{
+"name": "Ivoli",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9739033,
+"lat": 45.2439106
+},
+{
+"name": "Ivoli",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9756722,
+"lat": 45.2443728
+},
+{
+"name": "Ivoli",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9752504,
+"lat": 45.2447535
+},
+{
+"name": "Ivoli",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.9734689,
+"lat": 45.2442683
+},
+{
+"name": "Cerovlje",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.0162759,
+"lat": 45.2727938
+},
+{
+"name": "Cerovlje",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.0170715,
+"lat": 45.2740095
+},
+{
+"name": "Cerovlje",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.0189453,
+"lat": 45.2738331
+},
+{
+"name": "Lupoglav",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.1087972,
+"lat": 45.3448699
+},
+{
+"name": "Lupoglav",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.1098776,
+"lat": 45.3469539
+},
+{
+"name": "Beli Manastir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.572806,
+"lat": 45.7662551
+},
+{
+"name": "Beli Manastir",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5739684,
+"lat": 45.7642917
+},
+{
+"name": "Luka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8277725,
+"lat": 45.9556812
+},
+{
+"name": "Luka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8293261,
+"lat": 45.957687
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "",
+"lon": 16.0759017,
+"lat": 45.6643922
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "",
+"lon": 16.0762886,
+"lat": 45.6643385
+},
+{
+"name": "Zagreb - Demerje",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.869885,
+"lat": 45.7237081
+},
+{
+"name": "Split",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.5713042,
+"lat": 43.5959223
+},
+{
+"name": "Naplatna postaja Sudaraž",
+"kind": "toll_booth",
+"op": "",
+"lon": 18.5773741,
+"lat": 45.7545299
+},
+{
+"name": "Naplatna postaja Sudaraž",
+"kind": "toll_booth",
+"op": "",
+"lon": 18.5775412,
+"lat": 45.7545556
+},
+{
+"name": "Naplatna postaja Lipovljani",
+"kind": "toll_booth",
+"op": "",
+"lon": 16.8863458,
+"lat": 45.3749074
+},
+{
+"name": "Odmorište Beketinci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4837303,
+"lat": 45.473525
+},
+{
+"name": "Odmorište Beketinci",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4824239,
+"lat": 45.4725721
+},
+{
+"name": "Naplatna postaja Čarapine",
+"kind": "toll_booth",
+"op": "Hrvatske autoceste",
+"lon": 17.5476326,
+"lat": 43.1194149
+},
+{
+"name": "Naplatna postaja Čarapine",
+"kind": "toll_booth",
+"op": "Hrvatske autoceste",
+"lon": 17.5477087,
+"lat": 43.119322
+},
+{
+"name": "Naplatna postaja Čarapine",
+"kind": "toll_booth",
+"op": "Hrvatske autoceste",
+"lon": 17.5474227,
+"lat": 43.1196723
+},
+{
+"name": "Zadar zapad",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.428136,
+"lat": 44.1899532
+},
+{
+"name": "Tenjska",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.7130059,
+"lat": 45.5413907
+},
+{
+"name": "Retfala",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.6369236,
+"lat": 45.5538446
+},
+{
+"name": "Šmrika",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.591194,
+"lat": 45.2608985
+},
+{
+"name": "Granični prijelaz Goričan",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.6817189,
+"lat": 46.4071565
+},
+{
+"name": "Požega",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4672155,
+"lat": 45.2286153
+},
+{
+"name": "Brestovac Požeški",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.576998,
+"lat": 45.3352547
+},
+{
+"name": "Brestovac Požeški",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5725291,
+"lat": 45.3342122
+},
+{
+"name": "Godinjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4761859,
+"lat": 45.2412918
+},
+{
+"name": "Godinjak",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4785179,
+"lat": 45.244166
+},
+{
+"name": "Naplatna postaja Okučani",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.2099527,
+"lat": 45.2142407
+},
+{
+"name": "Donja Zdenčina",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.7565228,
+"lat": 45.6751582
+},
+{
+"name": "Odmorište Desinec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7145153,
+"lat": 45.6636917
+},
+{
+"name": "Odmorište Desinec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.7075272,
+"lat": 45.6605749
+},
+{
+"name": "Odmorište Marune",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6365038,
+"lat": 44.2501607
+},
+{
+"name": "Odmorište Marune",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6440649,
+"lat": 44.2528961
+},
+{
+"name": "Odmorište Jasenice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5704691,
+"lat": 44.240468
+},
+{
+"name": "Odmorište Jasenice",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.5669247,
+"lat": 44.2403225
+},
+{
+"name": "Podi-zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.5678082,
+"lat": 43.5876435
+},
+{
+"name": "Odmorište Stupnik",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8820577,
+"lat": 45.746325
+},
+{
+"name": "Vranja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.1578077,
+"lat": 45.324074
+},
+{
+"name": "Pazin-zapad Rogovići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 13.9169661,
+"lat": 45.2270902
+},
+{
+"name": "Naplatna postaja Brinje",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.1605072,
+"lat": 45.0255613
+},
+{
+"name": "Naplatna postaja Žuta Lokva",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.0850939,
+"lat": 44.9657663
+},
+{
+"name": "Naplatna postaja Otočac",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 15.1885782,
+"lat": 44.8925212
+},
+{
+"name": "Odmorište Rebri",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.0758442,
+"lat": 45.3337096
+},
+{
+"name": "Odmorište Rebri",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.0744476,
+"lat": 45.3311844
+},
+{
+"name": "Lupoglav",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.1056048,
+"lat": 45.3469328
+},
+{
+"name": "Čeveljuša",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4587376,
+"lat": 43.0494935
+},
+{
+"name": "Duboka",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5329978,
+"lat": 42.9500555
+},
+{
+"name": "Brijesta",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5340971,
+"lat": 42.9083418
+},
+{
+"name": "Brijesta",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5402187,
+"lat": 42.9055701
+},
+{
+"name": "Odmorište Sveti Križ Začretje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9191645,
+"lat": 46.0689225
+},
+{
+"name": "Odmorište Sveti Križ Začretje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9197105,
+"lat": 46.0656217
+},
+{
+"name": "Odmorište Draganić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6099268,
+"lat": 45.5615964
+},
+{
+"name": "Odmorište Draganić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.6047799,
+"lat": 45.5559618
+},
+{
+"name": "Odmorište Komarna",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5401229,
+"lat": 42.9443694
+},
+{
+"name": "Odmorište Blaca",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.5271189,
+"lat": 42.9186783
+},
+{
+"name": "Matulji-Opatija",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3244666,
+"lat": 45.3603217
+},
+{
+"name": "Zaprešić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.826903,
+"lat": 45.8532584
+},
+{
+"name": "Zaprešić",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.8273772,
+"lat": 45.8537492
+},
+{
+"name": "Otok Svibovski",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1344334,
+"lat": 45.7970567
+},
+{
+"name": "Bjelovar",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.8182957,
+"lat": 45.8495449
+},
+{
+"name": "Vranja",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.1630237,
+"lat": 45.3228754
+},
+{
+"name": "Orehovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.4681524,
+"lat": 45.3406169
+},
+{
+"name": "Odmorište Prilesje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4270479,
+"lat": 45.8533258
+},
+{
+"name": "Odmorište Prilesje",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.4247915,
+"lat": 45.852617
+},
+{
+"name": "Odmorište Kvarner",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2479358,
+"lat": 45.3144762
+},
+{
+"name": "Odmorište Kvarner",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.2529228,
+"lat": 45.3143249
+},
+{
+"name": "Odmorište Baranja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5773414,
+"lat": 45.7553039
+},
+{
+"name": "Odmorište Črnec",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.2654889,
+"lat": 45.75525
+},
+{
+"name": "Odmorište Ivandvor",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.349078,
+"lat": 45.2741908
+},
+{
+"name": "Odmorište Štrosmajerovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4078407,
+"lat": 45.3980346
+},
+{
+"name": "Odmorište Štrosmajerovac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.4150474,
+"lat": 45.4026404
+},
+{
+"name": "Grude-zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.374786,
+"lat": 43.3831285
+},
+{
+"name": "Grude-zapad",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.3758453,
+"lat": 43.3829919
+},
+{
+"name": "Grude-istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4384938,
+"lat": 43.3663165
+},
+{
+"name": "Grude-istok",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.4361614,
+"lat": 43.3698261
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "JU Kamenjak",
+"lon": 13.9081567,
+"lat": 44.7959101
+},
+{
+"name": "Šibenik - Podi",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.9866522,
+"lat": 43.7131617
+},
+{
+"name": "Šibenik - Podi",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.9904322,
+"lat": 43.7159937
+},
+{
+"name": "Šibenik - Podi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9882403,
+"lat": 43.7153894
+},
+{
+"name": "Odmorište Baranja",
+"kind": "motorway_junction",
+"op": "",
+"lon": 18.5775521,
+"lat": 45.7538195
+},
+{
+"name": "Naplatna postaja Učka (portal Kvarner)",
+"kind": "toll_booth",
+"op": "",
+"lon": 14.2448767,
+"lat": 45.3152356
+},
+{
+"name": "Šibenik - Podi",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9887437,
+"lat": 43.7140218
+},
+{
+"name": "Mandalina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9088898,
+"lat": 43.7073979
+},
+{
+"name": "Mandalina",
+"kind": "motorway_junction",
+"op": "",
+"lon": 15.9132867,
+"lat": 43.7115547
+},
+{
+"name": "",
+"kind": "toll_booth",
+"op": "",
+"lon": 15.5941432,
+"lat": 43.8259978
+},
+{
+"name": "Špišić Bukovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.294512,
+"lat": 45.835468
+},
+{
+"name": "Špišić Bukovica",
+"kind": "motorway_junction",
+"op": "",
+"lon": 17.2985249,
+"lat": 45.8358011
+},
+{
+"name": "Bulinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9964498,
+"lat": 45.812425
+},
+{
+"name": "Trinajstići",
+"kind": "motorway_junction",
+"op": "",
+"lon": 14.3217986,
+"lat": 45.3737594
+},
+{
+"name": "Prgomet",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 16.2353662,
+"lat": 43.6162908
+},
+{
+"name": "Naplatna postaja Karamatići",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.4854576,
+"lat": 43.1014408
+},
+{
+"name": "Naplatna postaja Karamatići",
+"kind": "toll_booth",
+"op": "HAC",
+"lon": 17.4853656,
+"lat": 43.1013398
+},
+{
+"name": "Bulinac",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.9963318,
+"lat": 45.8124422
+},
+{
+"name": "Kamenjača",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1338799,
+"lat": 43.8604449
+},
+{
+"name": "Kamenjača",
+"kind": "motorway_junction",
+"op": "",
+"lon": 16.1325479,
+"lat": 43.8593011
+},
+{
+"name": "Umag",
+"kind": "toll_booth",
+"op": "",
+"lon": 13.618689,
+"lat": 45.4236484
+}
+]
+}

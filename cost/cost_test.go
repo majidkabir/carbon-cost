@@ -1362,3 +1362,107 @@ func TestPortugalLancos(t *testing.T) {
 		}
 	}
 }
+
+func TestSpainSEITT(t *testing.T) {
+	path := [][2]float64{{-3.8940, 40.2140}, {-3.8940, 40.2120}, {-3.8605, 40.1030}, {-3.8675, 39.9565}, {-3.8675, 39.9500}} // AP-41 Serranillos to Villaseca
+	for _, tc := range []struct {
+		name, at string
+		etc      bool
+		want     float64
+	}{
+		{"cash at 10:00", "10:00", false, 6.82},
+		{"Vía-T at 10:00", "10:00", true, 6.16},
+		{"at night", "03:00", false, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"ES": 1}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, ETC: tc.etc}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "ES" {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
+// The departure time and the km along the route tell when each station
+// is reached.
+func TestPassageTimes(t *testing.T) {
+	sum := func(r Response, src string) float64 {
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Source, src) {
+				got += l.AmountEUR
+			}
+		}
+		return got
+	}
+	run := func(tbs []rates.Table, cc string, path [][2]float64, req Request) Response {
+		t.Helper()
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{cc: 1}, Path: path}}}
+		req.CargoKg, req.Truck = 1000, truck40
+		r, err := Price(trip, tbs, req, time.Date(2026, 11, 5, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		return r
+	}
+	fx := map[string]float64{"SEK": 11}
+	// Danvikstull ~35 km after the start: leaving 06:35 it is reached about
+	// 07:05 at 70 km/h, 45 SEK in high season (30 at 06:35).
+	sto := [][2]float64{{18.1034, 59.0}, {18.1034, 59.3130}, {18.1034, 59.3150}}
+	if got := sum(run(all(t), "SE", sto, Request{Time: "06:35", FX: fx}), "trängselskatt"); got != 4.09 {
+		t.Errorf("Stockholm reached at 07:05: %.2f, want 4.09", got)
+	}
+	// Göteborg: Marieholmsleden about 06:58 (16 SEK), Ringömotet about
+	// 07:01 at 20 km/h (22 SEK): within 60 minutes, the highest once.
+	gbg := [][2]float64{{11.9941, 57.7190}, {11.99404, 57.7199}, {11.9839, 57.7238}, {11.98, 57.725}}
+	if got := sum(run(all(t), "SE", gbg, Request{Time: "06:58", AvgSpeedKmh: 20, FX: fx}), "trängselskatt"); got != 2.0 {
+		t.Errorf("Göteborg 16 then 22 within the hour: %.2f, want 2.00", got)
+	}
+	// A toll station free at night.
+	src := []rates.Source{{Title: "test", URL: "https://example.org"}}
+	tb := rates.Table{Country: "XX", Currency: "EUR", ValidFrom: "2026-01-01", Name: "test", Law: "test law", Sources: src,
+		TollPoints: []rates.TollPoint{{Name: "night-free", Lat: 50, Lon: 10, Rate: 5, FreeHours: []string{"22:00", "05:59"}}}}
+	path := [][2]float64{{10, 49.99}, {10, 50.01}}
+	for at, want := range map[string]float64{"12:00": 5, "23:30": 0, "": 5} {
+		if got := sum(run([]rates.Table{tb}, "XX", path, Request{Time: at}), "test law"); got != want {
+			t.Errorf("free hours at %q: %.2f, want %.2f", at, got, want)
+		}
+	}
+}
+
+// Square tariffs are priced per direction: Kuzey Marmara's İzmit Kuzey to
+// İzmit Doğu (class 4) is 105 TL, the other way 120 TL (with KDV).
+func TestDirectedPrices(t *testing.T) {
+	north, east := [2]float64{29.998845, 40.791116}, [2]float64{30.052139, 40.784959}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"İzmit Kuzey to İzmit Doğu", [][2]float64{north, east}, 1.75}, // 87.5 TRY at 50
+		{"İzmit Doğu to İzmit Kuzey", [][2]float64{east, north}, 2.00}, // 100
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"TR": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"TRY": 50}}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "TR" {
+				got += l.AmountEUR
+			}
+		}
+		if got != tc.want {
+			t.Errorf("%s: %.2f, want %.2f: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}

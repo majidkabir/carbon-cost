@@ -70,7 +70,7 @@
     <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
     <label class="wide">To<span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" required></span></label>
     <label>Date<input name="date" type="date"></label>
-    <label>Time (for congestion taxes)<input name="time" type="time"></label>
+    <label>Departure time<input name="time" type="time"></label>
     <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
@@ -194,8 +194,8 @@ try { showsrc.checked = localStorage.getItem("showsrc") === "1"; } catch {}
 const applySrc = () => $("lines").classList.toggle("show-src", showsrc.checked);
 showsrc.addEventListener("change", () => { applySrc(); try { localStorage.setItem("showsrc", showsrc.checked ? "1" : "0"); } catch {} });
 applySrc();
-const eur = (v) => "EUR " + v.toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const num = (v, d) => v.toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
+const eur = (v) => "EUR " + (v ?? 0).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const num = (v, d) => (v ?? 0).toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
 function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
 
 f.addEventListener("submit", async (e) => {
@@ -234,7 +234,8 @@ function show(r) {
     const tr = lines.insertRow(); if (l.carbon) tr.className = "c";
     cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
     cell(tr, (l.component || "co2").replace("_", " ") + (l.road || l.area ? ` (${[l.road, l.area].filter(Boolean).join(", ")})` : "") + (l.section ? `: ${l.section}` : ""));
-    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : num(l.km, 1) + " km", "n");
+    // Per-passage charges (toll stations, bridges) have no km.
+    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
     cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
     // The law or tariff behind the number, with links to the documents.

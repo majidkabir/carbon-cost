@@ -27,7 +27,8 @@ Motorways: tr_matrix.py reads each tariff's matrix, a station's six
 class rows against a column per station. KGM's own motorways print a
 lower triangle, a row's last price (the longest trip's, charged when the
 entry is unknown) in its own column; the concessions a full square,
-rows the entry and columns the exit, the diagonal that longest price.
+rows the entry and columns the exit, the diagonal that longest price; a square one is priced per direction
+("directed").
 The diagonal isn't a trip and isn't kept. A station is placed at the OSM
 toll booths named after it ("<name> Gişeleri"; names compared without
 case, accents or word order; the part in brackets, a trailing ALIN
@@ -304,7 +305,7 @@ def system(m, name, booths, junctions, used, sid, unnamed, named):
     missing = [n for n in order if n not in placed]
     print(f"{name}: {len(stations)}/{len(order)} stations placed, {len(prices)} prices" + (f"; unplaced {missing}" if missing else ""))
     return {"name": name, "law": "KGM 2026 tariff (" + sid + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
-            "groups": GROUPS, "stations": stations, "prices": prices}, missing, order
+            "groups": GROUPS, "stations": stations, "prices": prices, **({"directed": True} if square else {})}, missing, order
 
 
 def main(fetched, out):

@@ -65,8 +65,9 @@ type LegResult struct {
 	// BE-VLG), where tolls differ by region. CountryKm still has the
 	// whole country.
 	RegionKm map[string]float64 `json:"region_km"`
-	// Path is the route as [lon, lat] points (asked for with
-	// path=detailed), to tell which ferry crossing it uses.
+	// Path is the route as [lon, lat] points, every point of it (asked
+	// for with path=full): toll stations, gantries and sections are found
+	// along it, some within 30 m, which a thinned line misses on curves.
 	Path  [][2]float64 `json:"path"`
 	Parts []Part       `json:"parts"`
 }
@@ -91,7 +92,7 @@ type Client struct {
 
 // Calculate calculates a shipment with each leg's distance by country
 // (?country_km=true, Sootcase v0.9.0 or later) and its route
-// (path=detailed, at most 1,000 points).
+// (path=full).
 func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	body, err := json.Marshal(s)
 	if err != nil {
@@ -101,7 +102,7 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	if base == "" {
 		base = DefaultURL
 	}
-	raw, err := c.do(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=detailed", body)
+	raw, err := c.do(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=full", body)
 	if err != nil {
 		return Result{}, err
 	}
@@ -184,7 +185,24 @@ func (c Client) do(ctx context.Context, method, u string, body []byte) ([]byte, 
 		if e.Error == "" {
 			e.Error = strings.TrimSpace(string(raw))
 		}
-		return nil, fmt.Errorf("sootcase: HTTP %d: %s", resp.StatusCode, e.Error)
+		if len(e.Error) > 300 {
+			e.Error = e.Error[:300] + "…"
+		}
+		return nil, &HTTPError{Status: resp.StatusCode, Message: e.Error}
 	}
 	return raw, nil
+}
+
+// HTTPError is a Sootcase answer other than 200.
+type HTTPError struct {
+	Status  int
+	Message string
+}
+
+func (e *HTTPError) Error() string { return fmt.Sprintf("sootcase: HTTP %d: %s", e.Status, e.Message) }
+
+// CallerError says whether Sootcase refused the request itself (bad
+// input: 400, 404, 422), rather than failing or refusing this server.
+func (e *HTTPError) CallerError() bool {
+	return e.Status == 400 || e.Status == 404 || e.Status == 422
 }

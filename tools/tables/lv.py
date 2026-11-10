@@ -50,15 +50,9 @@ def rows_2017(parts):
     return rows
 
 
-def main(fetched, out):
-    t = text(os.path.join(fetched, "lv-aln.html"))
-    i = re.search(r"2\. pielikums (?:Autoceļu lietošanas nodevas likmes )?\(Pielikums", t).start()
-    annex = t[i:t.index("Tiesību akta pase", i)]
-    d = re.search(r"stājas spēkā (\d\d)\.(\d\d)\.(\d{4})", annex)
-    valid_from = f"{d.group(3)}-{d.group(2)}-{d.group(1)}"
-    parts = re.split(r" ([123])\. Transportlīdzekļiem ", annex)
-    if "Bezemisiju" not in annex:
-        return write(out, valid_from, rows_2017(parts), "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 28 July 2017 (in force 22 August 2017): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (up to 3, or 4 and more, over 12 t) and EURO class (0-II, III, IV and better). The table keeps the 1-day rate. A fee, without VAT.")
+def rows_euro(parts):
+    """Rows of annex 2 by EURO class with a zero-emission ("Bezemisiju")
+    row, as worded from 1 January 2025."""
     rows = []
     for no, body in zip(parts[1::2], parts[2::2]):
         mass = MASS[no]
@@ -86,7 +80,19 @@ def main(fetched, out):
                 rows.append(row)
     # Zero-emission rows first: such a truck matches them whatever its EURO class.
     rows.sort(key=lambda r: "co2_class" not in r)
-    write(out, valid_from, rows, "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.")
+    return rows
+
+
+def main(fetched, out):
+    t = text(os.path.join(fetched, "lv-aln.html"))
+    i = re.search(r"2\. pielikums (?:Autoceļu lietošanas nodevas likmes )?\(Pielikums", t).start()
+    annex = t[i:t.index("Tiesību akta pase", i)]
+    d = re.search(r"stājas spēkā (\d\d)\.(\d\d)\.(\d{4})", annex)
+    valid_from = f"{d.group(3)}-{d.group(2)}-{d.group(1)}"
+    parts = re.split(r" ([123])\. Transportlīdzekļiem ", annex)
+    if "Bezemisiju" not in annex:
+        return write(out, valid_from, rows_2017(parts), "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 28 July 2017 (in force 22 August 2017): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (up to 3, or 4 and more, over 12 t) and EURO class (0-II, III, IV and better). The table keeps the 1-day rate. A fee, without VAT.")
+    write(out, valid_from, rows_euro(parts), "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.")
 
 
 def write(out, valid_from, rows, law):

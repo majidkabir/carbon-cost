@@ -122,12 +122,6 @@
    "what": "Nariadenie vlády SR č. 497/2013 Z. z. as in force on 1 January 2024 (Slov-Lex)"
   },
   {
-   "id": "at-mtv-2023",
-   "table": "at-2024-01-01",
-   "url": "https://gw-world.com/fileadmin/Corporate_Documents/BGBLA_2023_II_331_Mautverordnung.pdf",
-   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS refuses scripted requests (503)"
-  },
-  {
    "id": "cz-nv-40-2024",
    "table": "cz-2024-03-01",
    "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40",
@@ -240,6 +234,18 @@
    "table": "be-*",
    "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html",
    "what": "Viapass: changes from 1 July 2026 (the current grid, for comparison)"
+  },
+  {
+   "id": "at-mtv-2023",
+   "table": "at-2024-01-01",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
+   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF (RIS)"
+  },
+  {
+   "id": "at-mtv-2023-rtf",
+   "table": "at-2024-01-01",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.rtf",
+   "what": "Mauttarifverordnung 2023 as RTF (RIS), if the PDF is refused"
   }
  ]
 }

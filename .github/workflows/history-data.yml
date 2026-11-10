@@ -33,6 +33,17 @@ jobs:
         run: |
           mkdir -p out/tables
           for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
+      - name: Archived operator pages (tools/history/wayback.json)
+        run: |
+          # The OpenStreetMap extracts placing the toll stations, as the
+          # tables-data workflow last fetched them.
+          mkdir -p out/osm
+          git fetch -q --depth 1 origin tables-out
+          git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          python3 tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed"
+          rm -rf out/osm
+      - name: Compare
+        run: |
           for f in out/tables/*.json; do
             [ -e "$f" ] || continue
             n=$(basename "$f")

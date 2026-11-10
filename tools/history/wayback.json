@@ -1,0 +1,65 @@
+{
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) and saves it under out/wb-<set>/, then runs the named tools/tables builders on it. Each table built names the archived copies it used.",
+ "sets": [
+  {
+   "set": "2024",
+   "from": "20240115",
+   "to": "20241130",
+   "ids": [
+    "dk-storebaelt",
+    "dk-oresund",
+    "fr-mont-blanc-tunnel",
+    "pt-imt-taxas",
+    "lv-aln",
+    "ie-m1",
+    "ie-m3",
+    "ie-m3-blackbull",
+    "ie-m4",
+    "ie-n6",
+    "ie-m7m8",
+    "ie-n8",
+    "ie-limerick",
+    "ie-n25",
+    "ie-port-tunnel",
+    "ie-m50"
+   ],
+   "builders": [
+    "dk_bridges",
+    "mont_blanc",
+    "pt",
+    "lv",
+    "ie"
+   ]
+  },
+  {
+   "set": "2025",
+   "from": "20250115",
+   "to": "20251130",
+   "ids": [
+    "dk-storebaelt",
+    "dk-oresund",
+    "fr-mont-blanc-tunnel",
+    "pt-imt-taxas",
+    "lv-aln",
+    "ie-m1",
+    "ie-m3",
+    "ie-m3-blackbull",
+    "ie-m4",
+    "ie-n6",
+    "ie-m7m8",
+    "ie-n8",
+    "ie-limerick",
+    "ie-n25",
+    "ie-port-tunnel",
+    "ie-m50"
+   ],
+   "builders": [
+    "dk_bridges",
+    "mont_blanc",
+    "pt",
+    "lv",
+    "ie"
+   ]
+  }
+ ]
+}

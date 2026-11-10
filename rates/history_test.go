@@ -16,7 +16,7 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 var historyGaps = map[string]string{
 	"AT": "2024 not yet added", "BE-BRU": "before 1 July 2026 not yet added", "BE-VLG": "before 1 July 2026 not yet added",
 	"BE-WAL": "before 1 July 2026 not yet added", "BG": "before June 2026 not yet added", "CH": "2024 not yet added",
-	"CZ": "March-December 2024 not yet added",
+
 	"EE": "2024-2025 not yet added", "ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
 	"GB": "before April 2026 not yet added", "GR": "2024-2025 not yet added", "HR": "2024-2025 not yet added",
 	"HU": "before July 2026 not yet added", "IE": "2024-2025 not yet added", "LI": "2024 not yet added",

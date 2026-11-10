@@ -386,6 +386,7 @@ def main(fetched, out):
     url = {s["id"]: s["url"] for s in srcs}
     tb = {
         "country": "TR", "currency": "TRY", "valid_from": date,
+        "osm_extract": osm,
         "name": "Turkish motorway and bridge tolls (KGM)",
         "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
         "sources": [{"title": "KGM: Otoyol ve Köprü Geçiş Ücretleri", "url": url["tr-kgm-ucretler"]}]

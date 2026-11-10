@@ -276,6 +276,7 @@ def main(fetched, out):
     osm = open(os.path.join(fetched, "es-osm-timestamp.txt")).read().strip()[:10]
     tb = {
         "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
+        "osm_extract": osm,
         "name": "Spanish state toll motorways (SEITT)",
         "law": f"Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's {year} tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of {osm}); {len(missing)} stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions (AP-6, AP-9, AP-46, AP-51, AP-53, AP-61, AP-66, AP-68, AP-71, AP-7 Málaga–Guadiaro and Alicante–Cartagena) aren't included.",
         "sources": []

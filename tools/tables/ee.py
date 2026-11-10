@@ -75,6 +75,7 @@ def main(fetched, out):
         "min_kg": 3501,
         "tolled_roads": "All public roads (§ 190^1).",
         "per_day": True,
+        "day": "24h",
         "rows": rows,
     }
     os.makedirs(out, exist_ok=True)

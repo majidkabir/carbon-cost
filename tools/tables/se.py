@@ -54,6 +54,7 @@ def main(fetched, out):
         "min_kg": 12000,
         "tolled_roads": "Motorways and the roads in annex 1 of the law (for foreign vehicles; Swedish vehicles pay for all roads, yearly).",
         "per_day": True,
+        "day": "calendar",
         "rows": rows,
     }
     os.makedirs(out, exist_ok=True)

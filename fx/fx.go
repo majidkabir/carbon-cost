@@ -81,22 +81,24 @@ func Fetch(ctx context.Context, hc *http.Client, url string) (Rates, error) {
 }
 
 // Cache keeps the rates for TTL (default 6 hours); on a failed refresh it
-// keeps serving the last rates it got.
+// keeps serving the last rates it got. Only one refresh runs at a time and
+// the lock is never held during it: while it runs, other callers get the
+// stale rates, or wait for it when there are none yet.
 type Cache struct {
 	URL  string
 	HTTP *http.Client
 	TTL  time.Duration
 
-	mu  sync.Mutex
-	r   Rates
-	at  time.Time
-	now func() time.Time
+	mu       sync.Mutex
+	r        Rates
+	at       time.Time
+	err      error
+	inflight chan struct{}
+	now      func() time.Time
 }
 
 // Get returns the rates, fetching them when the cached ones are stale.
 func (c *Cache) Get(ctx context.Context) (Rates, error) {
-	c.mu.Lock()
-	defer c.mu.Unlock()
 	now := time.Now
 	if c.now != nil {
 		now = c.now
@@ -105,16 +107,49 @@ func (c *Cache) Get(ctx context.Context) (Rates, error) {
 	if ttl == 0 {
 		ttl = 6 * time.Hour
 	}
+	c.mu.Lock()
 	if c.r.Date != "" && now().Sub(c.at) < ttl {
-		return c.r, nil
+		r := c.r
+		c.mu.Unlock()
+		return r, nil
 	}
-	r, err := Fetch(ctx, c.HTTP, c.URL)
-	if err != nil {
-		if c.r.Date != "" {
-			return c.r, nil
+	if ch := c.inflight; ch != nil {
+		have := c.r
+		c.mu.Unlock()
+		if have.Date != "" {
+			return have, nil
+		}
+		select {
+		case <-ch:
+		case <-ctx.Done():
+			return Rates{}, ctx.Err()
+		}
+		c.mu.Lock()
+		r, err := c.r, c.err
+		c.mu.Unlock()
+		if r.Date != "" {
+			return r, nil
 		}
 		return Rates{}, err
 	}
-	c.r, c.at = r, now()
-	return r, nil
+	ch := make(chan struct{})
+	c.inflight = ch
+	c.mu.Unlock()
+
+	r, err := Fetch(ctx, c.HTTP, c.URL)
+
+	c.mu.Lock()
+	c.inflight = nil
+	if err == nil {
+		c.r, c.at, c.err = r, now(), nil
+	} else {
+		c.err = err
+	}
+	out := c.r
+	c.mu.Unlock()
+	close(ch)
+	if out.Date != "" {
+		return out, nil
+	}
+	return Rates{}, err
 }

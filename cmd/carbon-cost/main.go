@@ -16,9 +16,12 @@ import (
 	"fmt"
 	"io/fs"
 	"log/slog"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
+	"runtime/debug"
+	"slices"
 	"strconv"
 	"strings"
 	"text/tabwriter"
@@ -32,6 +35,25 @@ import (
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
+
+// version is the release, set at build time with -ldflags "-X
+// main.version=v0.28.0" (the Dockerfile and release workflow do).
+var version = "dev"
+
+// buildVersion is version, with the commit when built from a checkout.
+func buildVersion() string {
+	if version != "dev" {
+		return version
+	}
+	if bi, ok := debug.ReadBuildInfo(); ok {
+		for _, s := range bi.Settings {
+			if s.Key == "vcs.revision" && len(s.Value) >= 7 {
+				return "dev+" + s.Value[:7]
+			}
+		}
+	}
+	return version
+}
 
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
@@ -98,7 +120,7 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get}, nil
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, Version: buildVersion()}, nil
 }
 
 func calc(args []string) error {
@@ -127,6 +149,9 @@ func calc(args []string) error {
 	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
 	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
 	fs.BoolVar(&req.ETC, "etc", false, "pays tolls by electronic toll device or agreement (operators' discounts)")
+	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
+	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
+	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	fs.Parse(args)
@@ -235,6 +260,9 @@ func printResult(r cost.Response) {
 		if l.TonnesCO2 > 0 {
 			basis = fmt.Sprintf("%.3f t CO2e", l.TonnesCO2)
 		}
+		if l.Days > 0 {
+			basis = fmt.Sprintf("%d day(s)", l.Days)
+		}
 		where := l.Country
 		if l.Region != "" {
 			where = l.Region
@@ -272,6 +300,27 @@ func printResult(r cost.Response) {
 	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)
+	}
+	p := r.Provenance
+	fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	for _, t := range p.Tables {
+		osm := ""
+		if t.OSMExtract != "" {
+			osm = ", OpenStreetMap " + t.OSMExtract
+		}
+		fmt.Printf("- %s: %s (rates/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
+	}
+	for _, cc := range slices.Sorted(maps.Keys(p.RoadClasses)) {
+		fmt.Printf("- %s road classes: %s\n", cc, p.RoadClasses[cc])
+	}
+	if p.FerryMRV != "" {
+		fmt.Println("- Ferry: " + p.FerryMRV)
+	}
+	for _, f := range p.FX {
+		fmt.Println("- " + f)
+	}
+	for _, a := range p.Assumed {
+		fmt.Println("- Assumed " + a)
 	}
 }
 

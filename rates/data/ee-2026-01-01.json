@@ -14,6 +14,7 @@
  "min_kg": 3501,
  "tolled_roads": "All public roads (§ 190^1).",
  "per_day": true,
+ "day": "24h",
  "rows": [
   {
    "component": "toll",

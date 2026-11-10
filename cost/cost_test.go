@@ -3,9 +3,11 @@ package cost
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"math"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -1497,5 +1499,113 @@ func TestNetherlands2027(t *testing.T) {
 		if math.Abs(got-tc.want) > 0.005 {
 			t.Errorf("%s class %d: %.2f, want %.2f: %v", tc.day, tc.class, got, tc.want, r.Lines)
 		}
+	}
+}
+
+// Driving time to elapsed time under Regulation 561/2006: a 45-minute
+// break after 4.5 hours, an 11-hour rest after 9.
+func TestWithRest(t *testing.T) {
+	for _, tc := range []struct{ d, want float64 }{
+		{0, 0}, {4, 4}, {4.5, 4.5}, {5, 5.75}, {9, 9.75}, {10, 9 + 0.75 + 11 + 1}, {18, 20.75 + 9.75}, {20, 2*20.75 + 2},
+	} {
+		if got := withRest(tc.d); math.Abs(got-tc.want) > 1e-9 {
+			t.Errorf("withRest(%g) = %g, want %g", tc.d, got, tc.want)
+		}
+	}
+}
+
+// Days of a time-based charge by passage times: Sweden counts calendar
+// days, Estonia 24-hour periods.
+func TestTripDays(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	tb := func(cc string) rates.Table {
+		x, ok := rates.Find(all(t), cc, date)
+		if !ok {
+			t.Fatal(cc)
+		}
+		return x
+	}
+	se, ee, lv := tb("SE"), tb("EE"), tb("LV")
+	for _, tc := range []struct {
+		name  string
+		tb    rates.Table
+		req   Request
+		spans [][2]float64
+		want  int
+	}{
+		{"no time", se, Request{}, [][2]float64{{0, 700}}, 1},
+		{"SE same day", se, Request{Time: "08:00"}, [][2]float64{{0, 700}}, 1},
+		{"SE past midnight", se, Request{Time: "20:00"}, [][2]float64{{0, 700}}, 2},
+		{"SE with rests", se, Request{Time: "08:00", DriverRest: true}, [][2]float64{{0, 700}}, 2},
+		{"SE out and back in", se, Request{Time: "08:00"}, [][2]float64{{0, 100}, {1200, 1300}}, 2},
+		{"EE within 24 h", ee, Request{Time: "20:00"}, [][2]float64{{0, 700}}, 1},
+		{"EE over 24 h", ee, Request{Time: "20:00"}, [][2]float64{{0, 1800}}, 2},
+		{"LV: day not known", lv, Request{Time: "20:00"}, [][2]float64{{0, 1800}}, 1},
+	} {
+		req := tc.req
+		req.spans = map[string][][2]float64{tc.tb.Country: tc.spans}
+		if got, note := tripDays(tc.tb, tc.tb.Country, req, date); got != tc.want {
+			t.Errorf("%s: %d days, want %d (%s)", tc.name, got, tc.want, note)
+		}
+	}
+}
+
+func TestSpans(t *testing.T) {
+	runs := []Run{{Kind: "road", Country: "SE", Km: 100}, {Kind: "road", Country: "NO", Km: 50}, {Kind: "ferry", Km: 20}, {Kind: "road", Country: "SE", Km: 30}}
+	got := Spans(runs)
+	if fmt.Sprint(got["SE"]) != "[[0 100] [170 200]]" || fmt.Sprint(got["NO"]) != "[[100 150]]" {
+		t.Errorf("%v", got)
+	}
+}
+
+// The provenance names the tables, their files and the exchange rates.
+func TestProvenance(t *testing.T) {
+	date := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	res := cphHam
+	res.Warnings = []string{"gap between legs"}
+	r, err := PriceWith(res, all(t), nil, Request{CargoKg: 20000, Truck: truck40, Time: "08:00"}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := r.Provenance
+	files := map[string]bool{}
+	for _, tb := range p.Tables {
+		files[tb.Area+" "+tb.File] = true
+	}
+	if !files["DK dk-2026-01-01.json"] || !files["DE de-2024-07-01.json"] {
+		t.Errorf("tables %+v", p.Tables)
+	}
+	if len(p.FX) != 1 || !strings.Contains(p.FX[0], "DKK: 7.46038") {
+		t.Errorf("fx %v", p.FX)
+	}
+	if len(p.Assumed) != 1 || !strings.HasPrefix(p.Assumed[0], "avg_speed_kmh: 70") {
+		t.Errorf("assumed %v", p.Assumed)
+	}
+	if !slices.Contains(r.Notes, "Sootcase: gap between legs") {
+		t.Errorf("notes %v", r.Notes)
+	}
+}
+
+// A Swedish transit of 1,200 km from 18:00: at 70 km/h the trip is in
+// Sweden on two calendar days.
+func TestSwedenTwoDays(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1200, CountryKm: map[string]float64{"SE": 1200}}}}
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"SEK": 11}, Time: "18:00"}
+	req.spans = map[string][][2]float64{"SE": {{0, 1200}}}
+	r, err := Price(trip, all(t), req, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, RoadToll, "SE", rates.Infrastructure)
+	if !ok {
+		for _, x := range r.Lines {
+			if x.Country == "SE" {
+				l, ok = x, true
+			}
+		}
+	}
+	if !ok || l.Days != 2 || l.Amount != 294 {
+		t.Errorf("%+v", r.Lines)
 	}
 }

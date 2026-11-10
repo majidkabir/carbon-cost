@@ -165,7 +165,10 @@ def main(cfg, sources, out, data="rates/data"):
     urls = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     tables = []
     conf = json.load(open(cfg, encoding="utf-8"))
+    only = [x for x in os.environ.get("WAYBACK_SETS", "").split(",") if x]
     for s in conf["sets"]:
+        if only and s["set"] not in only:
+            continue
         d, manifest = fetch(s, urls, out)
         if s.get("builders"):
             tables += build(s, d, manifest, out)
@@ -176,6 +179,8 @@ def main(cfg, sources, out, data="rates/data"):
         write(tables, out, data)
     # Probes list the archived URLs under a prefix, to find where a page
     # was before it moved; they build nothing.
+    if only:
+        return
     with open(os.path.join(out, "wayback-probes.txt"), "w") as f:
         for p in conf.get("probes", []):
             try:

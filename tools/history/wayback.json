@@ -10,7 +10,11 @@
     "at-mtv-2023"
    ],
    "urls": {
-    "at-mtv-2023": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf"
+    "at-mtv-2023": {
+     "url": "gw-world.com/fileadmin/Corporate_Documents/",
+     "match": "prefix",
+     "regex": ".*BGBLA_2023_II_331.*"
+    }
    },
    "must": {
     "at-mtv-2023": "%PDF"

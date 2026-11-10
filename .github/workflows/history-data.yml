@@ -36,12 +36,16 @@ jobs:
       - name: Archived operator pages (tools/history/wayback.json)
         # Left out when the run's commit says [no-wayback] (it takes long).
         if: "!contains(github.event.head_commit.message, '[no-wayback]')"
+        env:
+          MSG: ${{ github.event.head_commit.message }}
         run: |
           # The OpenStreetMap extracts placing the toll stations, as the
           # tables-data workflow last fetched them.
           mkdir -p out/osm
           git fetch -q --depth 1 origin tables-out
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # "[wayback=a,b]" in the run's commit message limits it to those sets.
+          export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
           timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
           rm -rf out/osm; find out -path 'out/wb-*' -name '*-osm*' -delete
       - name: Build

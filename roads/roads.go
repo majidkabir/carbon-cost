@@ -24,6 +24,11 @@ var data embed.FS
 // points.
 const MatchM = 40
 
+// NearM is how close a point not on a way must be for the km next to it
+// to count as uncertain: route points this near a tolled road may still
+// be on it (OSRM's road and OSM's way drawn apart, or a slip road).
+const NearM = 150
+
 // Class of road.
 const (
 	Motorway = "motorway" // the toll law's motorway class
@@ -38,6 +43,9 @@ type Km struct {
 	Motorway, National, Local    float64
 	MotorwayKnown, NationalKnown float64
 	MotorwaySub, NationalSub     float64
+	// Uncertain is the Local km with an end within NearM of a motorway or
+	// national road: they may be on it.
+	Uncertain float64
 }
 
 // Total is all the km.
@@ -46,6 +54,16 @@ func (k Km) Total() float64 { return k.Motorway + k.National + k.Local }
 // Index holds the ways of the countries in data/.
 type Index struct {
 	countries map[string]*grid
+	extract   map[string]string
+}
+
+// Extract is the date of the OpenStreetMap extract a country's ways come
+// from ("" if not recorded).
+func (ix *Index) Extract(country string) string {
+	if ix == nil {
+		return ""
+	}
+	return ix.extract[strings.ToUpper(country)]
 }
 
 const cell = 0.01 // degrees
@@ -73,7 +91,7 @@ func Default() (*Index, error) {
 }
 
 func load(fsys fs.FS) (*Index, error) {
-	ix := &Index{countries: map[string]*grid{}}
+	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}}
 	files, err := fs.Glob(fsys, "data/*.json.gz")
 	if err != nil {
 		return nil, err
@@ -90,6 +108,7 @@ func load(fsys fs.FS) (*Index, error) {
 		}
 		var d struct {
 			Country string    `json:"country"`
+			Extract string    `json:"osm_extract"`
 			MW      [][]int32 `json:"mw"`
 			Nat     [][]int32 `json:"nat"`
 			MWF     []float64 `json:"mwf"`
@@ -117,6 +136,9 @@ func load(fsys fs.FS) (*Index, error) {
 			}
 		}
 		ix.countries[strings.ToUpper(d.Country)] = g
+		if d.Extract != "" {
+			ix.extract[strings.ToUpper(d.Country)] = d.Extract
+		}
 	}
 	return ix, nil
 }
@@ -145,15 +167,19 @@ func (ix *Index) Has(country string) bool {
 }
 
 // classOf is the class of the nearest way within MatchM of p, Motorway
-// winning over National when both are near, and that way's suburban
-// share (-1 unknown).
-func (g *grid) classOf(p [2]float64) (string, float64) {
+// winning over National when both are near, that way's suburban share
+// (-1 unknown), and whether any way is within NearM.
+func (g *grid) classOf(p [2]float64) (string, float64, bool) {
 	k := key(p[0], p[1])
 	best, sub, bestD := Local, -1.0, math.Inf(1)
+	near := false
 	for dx := int32(-1); dx <= 1; dx++ {
 		for dy := int32(-1); dy <= 1; dy++ {
 			for _, s := range g.cells[[2]int32{k[0] + dx, k[1] + dy}] {
 				d := distM(p, s.a, s.b)
+				if d <= NearM {
+					near = true
+				}
 				if d > MatchM {
 					continue
 				}
@@ -164,7 +190,7 @@ func (g *grid) classOf(p [2]float64) (string, float64) {
 			}
 		}
 	}
-	return best, sub
+	return best, sub, near
 }
 
 // Classify gives the km of a country's stretch of route (consecutive
@@ -181,9 +207,9 @@ func (ix *Index) Classify(country string, points [][2]float64) (Km, bool) {
 	if !ok {
 		return k, false
 	}
-	prev, ps := g.classOf(points[0])
+	prev, ps, pn := g.classOf(points[0])
 	for i := 1; i < len(points); i++ {
-		cur, cs := g.classOf(points[i])
+		cur, cs, cn := g.classOf(points[i])
 		km := haversine(points[i-1], points[i])
 		known := ps >= 0 && cs >= 0
 		sub := (ps + cs) / 2 * km
@@ -202,8 +228,11 @@ func (ix *Index) Classify(country string, points [][2]float64) (Km, bool) {
 			}
 		default:
 			k.Local += km
+			if pn || cn {
+				k.Uncertain += km
+			}
 		}
-		prev, ps = cur, cs
+		prev, ps, pn = cur, cs, cn
 	}
 	return k, true
 }

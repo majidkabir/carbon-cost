@@ -26,6 +26,7 @@ jobs:
           for x in $list; do
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
+            export OSM_EXTRACT=$(osmium fileinfo -g header.option.osmosis_replication_timestamp in.pbf)
             osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             extra=""
             if [ $cc = RO ]; then

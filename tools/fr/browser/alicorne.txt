@@ -1,0 +1,20 @@
+# url https://a88-alicorne.fr/tarifs/
+# read 2026-11-04 in a browser (the site refuses scripted requests: HTTP 406), the page's tables as shown, cells separated by "|"
+# page: "Les tarifs en vigueur au 1er Février 2025." "(tarifs TTC- TVA 20%)"
+# valid_from 2025-02-01
+# class 3
+FALAISE OUEST
+GRATUIT|FALAISE SUD
+5,40 €||NÉCY
+12,10 €||12,10 €|ARGENTAN OUEST
+||||ARGENTAN SUD
+12,10 €||12,10 €|GRATUIT|GRATUIT|MORTRÉE
+24,00 €||24,00 €|11,90 €|11,90 €|11,90 €|SÉES NORD
+# class 4
+FALAISE OUEST
+GRATUIT|FALAISE SUD
+7,10 €||NÉCY
+15,60 €||15,60 €|ARGENTAN OUEST
+||||ARGENTAN SUD
+15,60 €||15,60 €|GRATUIT|GRATUIT|MORTRÉE
+31,10 €||31,10 €|15,50 €|15,50 €|15,50 €|SÉES NORD

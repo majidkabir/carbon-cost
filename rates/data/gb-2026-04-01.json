@@ -1,0 +1,99 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2026-04-01",
+ "name": "UK HGV road user levy (non-UK vehicles)",
+ "law": "HGV Road User Levy Act 2013, section 6 and Schedule 1 (Tables 1, 1A and 1B) as amended: a non-UK HGV of 12,000 kg or more pays the daily rate for each day it uses a main road, by band of maximum permitted (revenue) weight of the combination and by whether it meets Euro 6. Rates as tabulated by the Department for Transport's guidance. Zero-emission HGVs are exempt. The table keeps the daily rate.",
+ "sources": [
+  {
+   "title": "GOV.UK: How to use the HGV levy service (rates; a day runs from 00:00:00 to 23:59:59)",
+   "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service"
+  },
+  {
+   "title": "HGV Road User Levy Act 2013 (legislation.gov.uk)",
+   "url": "https://www.legislation.gov.uk/ukpga/2013/7"
+  }
+ ],
+ "vehicles": "Non-UK heavy goods vehicles of 12,000 kg or more (UK vehicles pay yearly or half-yearly with vehicle excise duty)",
+ "min_kg": 12000,
+ "tolled_roads": "Main roads: roads numbered with A or M, in England, Scotland, Wales and Northern Ireland.",
+ "per_day": true,
+ "day": "calendar",
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_kg": 31000,
+   "euro": [
+    6
+   ],
+   "rate": 3.22
+  },
+  {
+   "component": "toll",
+   "min_kg": 31001,
+   "max_kg": 38000,
+   "euro": [
+    6
+   ],
+   "rate": 7.74
+  },
+  {
+   "component": "toll",
+   "min_kg": 38001,
+   "euro": [
+    6
+   ],
+   "rate": 9.67
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_kg": 31000,
+   "euro": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "rate": 4.18
+  },
+  {
+   "component": "toll",
+   "min_kg": 31001,
+   "max_kg": 38000,
+   "euro": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "rate": 10.06
+  },
+  {
+   "component": "toll",
+   "min_kg": 38001,
+   "euro": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "rate": 10.74
+  }
+ ]
+}

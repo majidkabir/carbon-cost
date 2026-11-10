@@ -1,6 +1,6 @@
 """Builds roads/data/<cc>.json.gz from an OpenStreetMap extract.
 
-Usage: python3 build.py CC roads.osm.pbf out.json.gz
+Usage: OSM_EXTRACT=<extract timestamp> python3 build.py CC roads.osm.pbf out.json.gz
 
 roads.osm.pbf: the extract filtered to highway=motorway, trunk and
 primary ways (and, for Hungary, the toll section relations tagged
@@ -177,6 +177,9 @@ def main(cc, src, dst, areas=None):
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
+    # The extract's date (the workflow passes its osmosis_replication_timestamp).
+    if os.environ.get("OSM_EXTRACT"):
+        out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
     if sections:
         out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]
     with gzip.open(dst, "wt", encoding="utf-8") as fo:

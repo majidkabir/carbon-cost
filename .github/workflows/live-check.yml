@@ -54,6 +54,8 @@ jobs:
             maps: europe/france/rhone-alpes
           - name: fr-sw
             maps: europe/france/aquitaine europe/france/midi-pyrenees
+          - name: lu
+            maps: europe/luxembourg
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
     steps:
@@ -117,6 +119,11 @@ jobs:
             run basel-chiasso-euro5-44t -from 47.5596,7.5886 -to 45.8350,9.0300 -euro 5 -mass-kg 44000
             run sargans-schaanwald -from 47.0450,9.4400 -to 47.2150,9.5650
             run zev -from 47.5596,7.5886 -to 45.8350,9.0300 -co2-class 5
+          elif [ "${{ matrix.name }}" = lu ]; then
+            # The Eurovignette counts calendar days: an hour's drive from
+            # 23:30 runs into a second day.
+            run dudelange-wasserbillig-day -from 49.4800,6.0870 -to 49.7150,6.5000 -time 10:00
+            run dudelange-wasserbillig-midnight -from 49.4800,6.0870 -to 49.7150,6.5000 -time 23:30 -driver-rest
           elif [ "${{ matrix.name }}" = cz ]; then
             run prague-brno -from 50.0755,14.4378 -to 49.1951,16.6068
             run prague-brno-class4 -from 50.0755,14.4378 -to 49.1951,16.6068 -co2-class 4 -motorway-share CZ=0.9

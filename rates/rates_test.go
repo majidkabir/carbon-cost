@@ -189,8 +189,8 @@ func TestNetherlandsReduced(t *testing.T) {
 	if tb, _ := Find(tables(t), "NL", on("2026-08-31")); tb.ValidFrom != "2026-07-01" {
 		t.Error("NL 31 August 2026: want the statutory table")
 	}
-	if _, ok := Find(tables(t), "NL", on("2027-01-01")); ok {
-		t.Error("NL 2027: no table until the 2027 amounts are set")
+	if tb, _ := Find(tables(t), "NL", on("2027-01-01")); tb.ValidFrom != "2027-01-01" {
+		t.Error("NL 2027: want the 2027 indexed table (Staatscourant 2026, 33659)")
 	}
 }
 

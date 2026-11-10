@@ -1,0 +1,166 @@
+{
+ "country": "ME",
+ "currency": "EUR",
+ "valid_from": "2022-07-21",
+ "name": "Montenegrin road tolls (putarina): motorway Smokovac–Mateševo and the Sozina tunnel",
+ "law": "Zakon o putevima; prices published by Monteput d.o.o.: on the motorway Bar–Boljare (Smokovac–Mateševo), from entry to exit station, category IV (over 3,500 kg, two or three axles) and V (four or more axles); in the Sozina tunnel per passage. The pages carry no date: the table runs from the start of toll collection on the motorway (21 July 2022). Stations placed with OpenStreetMap's toll booths.",
+ "sources": [
+  {
+   "title": "Monteput: Cjenovnik Autoput Bar-Boljare",
+   "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/"
+  },
+  {
+   "title": "Monteput: Cjenovnik Tunel Sozina",
+   "url": "https://monteput.me/cjenovnik-tunel-sozina/"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/montenegro.html"
+  }
+ ],
+ "vehicles": "Vehicles over 3,500 kg (categories IV and V)",
+ "min_kg": 3501,
+ "tolled_roads": "The motorway Smokovac–Mateševo (stations Smokovac, Pelev Brijeg, Veruša, Mateševo) and the Sozina tunnel.",
+ "closed_systems": [
+  {
+   "name": "Autoput Bar–Boljare (Smokovac–Mateševo)",
+   "law": "Monteput price list: from entry to exit station, categories IV and V.",
+   "groups": [
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "V",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Smokovac",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.472802,
+       "lon": 19.298984
+      },
+      {
+       "name": "booth",
+       "lat": 42.472767,
+       "lon": 19.299125
+      }
+     ]
+    },
+    {
+     "name": "Pelev Brijeg",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.592399,
+       "lon": 19.394746
+      }
+     ]
+    },
+    {
+     "name": "Veruša",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.644202,
+       "lon": 19.461707
+      }
+     ]
+    },
+    {
+     "name": "Mateševo",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 42.752857,
+       "lon": 19.544086
+      },
+      {
+       "name": "booth",
+       "lat": 42.752631,
+       "lon": 19.544338
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Smokovac|Mateševo": {
+     "IV": 10.5,
+     "V": 17.0
+    },
+    "Smokovac|Veruša": {
+     "IV": 6.0,
+     "V": 10.0
+    },
+    "Smokovac|Pelev Brijeg": {
+     "IV": 4.5,
+     "V": 7.0
+    },
+    "Mateševo|Smokovac": {
+     "IV": 10.5,
+     "V": 17.0
+    },
+    "Mateševo|Pelev Brijeg": {
+     "IV": 6.0,
+     "V": 10.0
+    },
+    "Mateševo|Veruša": {
+     "IV": 4.5,
+     "V": 7.0
+    },
+    "Veruša|Pelev Brijeg": {
+     "IV": 1.5,
+     "V": 3.0
+    },
+    "Veruša|Smokovac": {
+     "IV": 6.0,
+     "V": 10.0
+    },
+    "Veruša|Mateševo": {
+     "IV": 4.5,
+     "V": 7.0
+    },
+    "Pelev Brijeg|Smokovac": {
+     "IV": 4.5,
+     "V": 7.0
+    },
+    "Pelev Brijeg|Veruša": {
+     "IV": 1.5,
+     "V": 3.0
+    },
+    "Pelev Brijeg|Mateševo": {
+     "IV": 6.0,
+     "V": 10.0
+    }
+   }
+  }
+ ],
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Tunel Sozina",
+   "lat": 42.20058,
+   "lon": 19.052024,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 10.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 18.0
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

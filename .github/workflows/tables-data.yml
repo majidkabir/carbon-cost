@@ -1,6 +1,8 @@
 name: Tables data
 # Fetches the official pages behind the Romanian, Danish bridge and
-# Hungarian rate tables and the Fréjus and Mont Blanc tunnels (tools/tables/sources.json), rebuilds the tables
+# Hungarian rate tables, the Fréjus and Mont Blanc tunnels and the Baltic,
+# Swedish, Luxembourg and UK road user charges, and the
+# Norwegian, Irish, Swedish bridge, North Macedonian, Montenegrin and Greek toll stations and the Turkish bridges (tools/tables/sources.json), rebuilds the tables
 # from them, compares them with the committed ones, and pushes the pages,
 # their manifest and the rebuilt tables to the tables-out branch. Push to
 # the tables-data branch to run it.
@@ -12,14 +14,68 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils osmium-tool
       - name: Fetch
         run: |
           python3 tools/tables/fetch.py tools/tables/sources.json out
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
+          for f in out/tr-*.pdf out/es-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html"; done
+      - name: Irish toll booths (OpenStreetMap)
+        run: |
+          curl -fsSL -o ie.pbf https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp ie.pbf > out/ie-osm-timestamp.txt
+          osmium tags-filter -O -o ie-b.pbf ie.pbf n/barrier=toll_booth n/highway=toll_gantry w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
+          osmium export -O -f geojsonseq -o out/ie-osm.geojsonseq ie-b.pbf
+      - name: Swedish charged bridges (OpenStreetMap)
+        run: |
+          curl -fsSL -o se.pbf https://download.geofabrik.de/europe/sweden-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp se.pbf > out/se-osm-timestamp.txt
+          osmium tags-filter -O -o se-b.pbf se.pbf w/name=Sundsvallsbron,Motalabron,Skurubron,"Nya Skurubron" n/highway=toll_gantry n/barrier=toll_booth
+          osmium export -O -f geojsonseq -o out/se-osm.geojsonseq se-b.pbf
+      - name: North Macedonian toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o mk.pbf https://download.geofabrik.de/europe/macedonia-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp mk.pbf > out/mk-osm-timestamp.txt
+          osmium tags-filter -O -o mk-b.pbf mk.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
+          osmium export -O -f geojsonseq -o out/mk-osm.geojsonseq mk-b.pbf
+      - name: Montenegrin toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o me.pbf https://download.geofabrik.de/europe/montenegro-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp me.pbf > out/me-osm-timestamp.txt
+          osmium tags-filter -O -o me-b.pbf me.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction w/name=Sozina "w/name=Tunel Sozina"
+          osmium export -O -f geojsonseq -o out/me-osm.geojsonseq me-b.pbf
+      - name: Greek toll stations (OpenStreetMap)
+        run: |
+          curl -fsSL -o gr.pbf https://download.geofabrik.de/europe/greece-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp gr.pbf > out/gr-osm-timestamp.txt
+          osmium tags-filter -O -o gr-b.pbf gr.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,motorway_link,trunk_link
+          osmium export -O -f geojsonseq -o out/gr-osm.geojsonseq gr-b.pbf
+      - name: Turkish bridges and toll booths (OpenStreetMap)
+        run: |
+          curl -fsSL -o tr.pbf https://download.geofabrik.de/europe/turkey-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp tr.pbf > out/tr-osm-timestamp.txt
+          osmium tags-filter -O -o tr-b.pbf tr.pbf "w/name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü" "w/bridge:name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü"
+          osmium export -O -f geojsonseq -o out/tr-osm.geojsonseq tr-b.pbf
+          osmium tags-filter -O -o tr-t.pbf tr.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=toll_gantry n/highway=motorway_junction
+          osmium export -O -f geojsonseq -o out/tr-osm-booths.geojsonseq tr-t.pbf
+      - name: Spanish SEITT toll stations (OpenStreetMap)
+        run: |
+          for r in madrid castilla-la-mancha murcia andalucia; do
+            curl -fsSL -o es-$r.pbf https://download.geofabrik.de/europe/spain/$r-latest.osm.pbf
+            osmium tags-filter -O -o es-$r-b.pbf es-$r.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry w/highway=motorway_link,motorway
+          done
+          osmium fileinfo -g header.option.osmosis_replication_timestamp es-madrid.pbf > out/es-osm-timestamp.txt
+          osmium merge -O -o es-b.pbf es-*-b.pbf
+          osmium export -O -f geojsonseq -o out/es-osm.geojsonseq es-b.pbf
+      - name: Portuguese motorways (OpenStreetMap)
+        run: |
+          curl -fsSL -o pt.pbf https://download.geofabrik.de/europe/portugal-latest.osm.pbf
+          osmium fileinfo -g header.option.osmosis_replication_timestamp pt.pbf > out/pt-osm-timestamp.txt
+          osmium tags-filter -O -o pt-m.pbf pt.pbf w/highway=motorway,motorway_link n/highway=motorway_junction,toll_gantry n/barrier=toll_booth w/barrier=toll_booth
+          osmium export -O -f geojsonseq -a type,id -o out/pt-osm.geojsonseq pt-m.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables
@@ -27,6 +83,22 @@ jobs:
           python3 tools/tables/hu.py out out/tables
           python3 tools/tables/frejus.py out out/tables
           python3 tools/tables/mont_blanc.py out out/tables
+          python3 tools/tables/lv.py out out/tables
+          python3 tools/tables/ee.py out out/tables
+          python3 tools/tables/se.py out out/tables
+          python3 tools/tables/lu.py out out/tables
+          python3 tools/tables/gb.py out out/tables
+          python3 tools/tables/no.py out out/tables
+          python3 tools/tables/ie.py out out/tables
+          python3 tools/tables/se_bridges.py out out/tables
+          python3 tools/tables/se_congestion.py out out/tables
+          python3 tools/tables/mk.py tools/tables/transcribed/mk-2025.json out out/tables
+          python3 tools/tables/me.py out out/tables
+          python3 tools/tables/gr.py out out/tables
+          python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
+          python3 tools/tables/tr.py out out/tables
+          python3 tools/tables/pt.py out out/tables
+          python3 tools/tables/es_seitt.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables
@@ -37,6 +109,7 @@ jobs:
             else echo "::warning title=$f::differs from the committed $c"; diff <(python3 -m json.tool "$c") <(python3 -m json.tool "$f") | head -40; fi
           done | tee compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
+          python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
       - name: Push
         if: always()
         run: |

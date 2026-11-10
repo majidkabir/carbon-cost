@@ -104,12 +104,6 @@
    "what": "Obwieszczenie Ministra Infrastruktury z 3 grudnia 2025 r. (M.P. 2025 poz. 1244): electronic toll rates for 2026 (before Dz.U. 2026 poz. 33)"
   },
   {
-   "id": "at-mtv-2023",
-   "table": "at-2024-01-01",
-   "url": "https://www.gw-world.com/fileadmin/Corporate_Documents/BGBLA_2023_II_331_Mautverordnung.pdf",
-   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS (ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331) refuses scripted requests (503)"
-  },
-  {
    "id": "at-mtv-2024",
    "table": "at-2025-01-01",
    "url": "https://gw-world.com/fileadmin/Corporate_Documents/BGBLA_2024_II_410.pdf",
@@ -126,6 +120,18 @@
    "table": "sk-2024-01-01",
    "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20240101.html",
    "what": "Nariadenie vlády SR č. 497/2013 Z. z. as in force on 1 January 2024 (Slov-Lex)"
+  },
+  {
+   "id": "at-mtv-2023",
+   "table": "at-2024-01-01",
+   "url": "https://www.ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
+   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024)"
+  },
+  {
+   "id": "cz-nv-40-2024",
+   "table": "cz-2024-03-01",
+   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40",
+   "what": "Nařízení vlády č. 40/2024 Sb. as tabulated by epravo.cz (the Sbírka PDF has its annexes as images)"
   }
  ]
 }

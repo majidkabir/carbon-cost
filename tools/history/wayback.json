@@ -7,17 +7,16 @@
    "from": "20230101",
    "to": "20261110",
    "ids": [
-    "at-mtv-2023"
+    "at-mtv-2023",
+    "at-mtv-2023-gw"
    ],
    "urls": {
-    "at-mtv-2023": {
-     "url": "gw-world.com/fileadmin/Corporate_Documents/",
-     "match": "prefix",
-     "regex": ".*BGBLA_2023_II_331.*"
-    }
+    "at-mtv-2023": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
+    "at-mtv-2023-gw": "https://www.gw-world.com/fileadmin/Corporate_Documents/BGBLA_2023_II_331_Mautverordnung.pdf"
    },
    "must": {
-    "at-mtv-2023": "%PDF"
+    "at-mtv-2023": "%PDF",
+    "at-mtv-2023-gw": "%PDF"
    }
   },
   {

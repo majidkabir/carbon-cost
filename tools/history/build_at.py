@@ -86,8 +86,9 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
 def main(fetched, out):
     tmpl = json.load(open(os.path.join(ROOT, "rates", "data", "at-2026-01-01.json"), encoding="utf-8"))
     for f, frm, to, title, bgbl, url in YEARS:
-        p = os.path.join(fetched, f + ".txt")
-        if not os.path.exists(p):
+        # The same text may come from a mirror (<file>-gw.txt).
+        p = next((x for x in (os.path.join(fetched, f + ".txt"), os.path.join(fetched, f + "-gw.txt")) if os.path.exists(x)), "")
+        if not p:
             print("missing", p)
             continue
         tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url)

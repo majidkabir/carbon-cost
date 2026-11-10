@@ -50,7 +50,12 @@ def rows_2017(parts):
     return rows
 
 
-def rows_euro(parts):
+# The annex from 1 January 2025 to 28 February 2026.
+EURO_2025 = [("EURO 0, I, II", [0, 1, 2]), ("EURO III", [3]), ("EURO IV, V, EEV", [4, 5]),
+             ("EURO VI un mazāk piesārņojošs", [6]), ("Bezemisiju", None)]
+
+
+def rows_euro(parts, classes=EURO):
     """Rows of annex 2 by EURO class with a zero-emission ("Bezemisiju")
     row, as worded from 1 January 2025."""
     rows = []
@@ -67,7 +72,7 @@ def rows_euro(parts):
         if len(groups) != (2 if no == "3" else 1):
             sys.exit(f"annex 2 part {no}: {len(groups)} groups")
         for g, ax in groups:
-            for label, euro in EURO:
+            for label, euro in classes:
                 m = re.search(re.escape(label) + r" (\d+) (\d+) (\d+) (\d+)", g)
                 if m is None:
                     sys.exit(f"annex 2 part {no}: no {label} row")

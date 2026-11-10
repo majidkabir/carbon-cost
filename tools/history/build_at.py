@@ -21,7 +21,7 @@ import copy, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 YEARS = [  # (file, valid_from, valid_to, title, BGBl, RIS URL)
-    ("at-mtv-2023", "2024-01-01", "2024-12-31", "Mauttarifverordnung 2023", "BGBl. II Nr. 331/2023", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf"),
+    ("at-mtv-2023", "2024-01-01", "2024-12-31", "Mauttarifverordnung 2023", "BGBl. II Nr. 331/2023", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.html"),
     ("at-mtv-2024", "2025-01-01", "2025-12-31", "Mauttarifverordnung 2024", "BGBl. II Nr. 410/2024", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2024_II_410/BGBLA_2024_II_410.pdf"),
 ]
 AXLES = [{"min_axles": 2, "max_axles": 2}, {"min_axles": 3, "max_axles": 3}, {"min_axles": 4}]
@@ -50,7 +50,8 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
             sel = {"co2_class": [5]} if e is None else {"co2_class": [1, 2, 3, 4], "euro": e}
             rows.append({"component": "air_noise", "min_kg": 3501, **a, "rate": round(v / 100, 6)} | sel)
     # § 9 b) CO2, cents, other vehicles than buses.
-    seg = txt[txt.index("b) andere Kraftfahrzeuge", par(9)):]
+    # MTV 2024 on: b) for vehicles other than buses; MTV 2023: one table.
+    seg = txt[txt.index("b) andere Kraftfahrzeuge", par(9)):] if "b) andere Kraftfahrzeuge" in txt else txt[par(9):par(10)]
     for c in (5, 4, 3, 2, 1):
         vals = nums(re.search(rf"^\s*{c}\s+([\d,\s]+)$", seg, re.M).group(1))
         for a, v in zip(AXLES, vals):
@@ -83,15 +84,35 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
     return tb
 
 
+def check_asfinag(fetched, frm, tb):
+    """ASFINAG's rate sheet for the year (at-asfinag-<year>.txt), if fetched,
+    gives the total per km by CO2 and EURO class: it must be the sum of the
+    table's parts."""
+    p = os.path.join(fetched, f"at-asfinag-{frm[:4]}.txt")
+    if not os.path.exists(p):
+        return
+    txt = open(p, encoding="utf-8").read()
+    m = re.search(r"CO2 emission class 1\s+EURO VI\s+([\d,]+)\s+([\d,]+)\s+([\d,]+)", txt)
+    want = [float(x.replace(",", ".")) for x in m.groups()]
+    for i, a in enumerate(AXLES):
+        got = sum(r["rate"] for r in tb["rows"] if r["min_axles"] == a["min_axles"] and 1 in r["co2_class"] and r.get("euro", [6]) == [6])
+        assert abs(got - want[i]) < 1e-6, (frm, a, got, want[i])
+    print("ASFINAG totals agree:", want)
+
+
 def main(fetched, out):
     tmpl = json.load(open(os.path.join(ROOT, "rates", "data", "at-2026-01-01.json"), encoding="utf-8"))
     for f, frm, to, title, bgbl, url in YEARS:
-        # The same text may come from a mirror (<file>-gw.txt).
-        p = next((x for x in (os.path.join(fetched, f + ".txt"), os.path.join(fetched, f + "-gw.txt")) if os.path.exists(x)), "")
+        # The fetched text, else one read in a browser (tools/history/browser/,
+        # for RIS, which refuses scripted requests).
+        p = next((x for x in (os.path.join(fetched, f + ".txt"), os.path.join(HERE, "browser", f + ".txt")) if os.path.exists(x)), "")
         if not p:
-            print("missing", p)
+            print("missing", f)
             continue
         tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url)
+        if os.path.dirname(p) != fetched:
+            tb["law"] += f"; the text read in a browser into tools/history/browser/{f}.txt"
+        check_asfinag(fetched, frm, tb)
         os.makedirs(out, exist_ok=True)
         path = os.path.join(out, f"at-{frm}.json")
         json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)

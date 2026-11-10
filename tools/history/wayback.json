@@ -1,9 +1,9 @@
 {
- "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) and saves it under out/wb-<set>/, then runs the named tools/tables builders on it. Each table built names the archived copies it used.",
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages.",
  "sets": [
   {
    "set": "2024",
-   "from": "20240115",
+   "from": "20240101",
    "to": "20241130",
    "ids": [
     "dk-storebaelt",
@@ -29,11 +29,27 @@
     "pt",
     "lv",
     "ie"
-   ]
+   ],
+   "must": {
+    "dk-storebaelt": "Priser for erhverv \\d{4}",
+    "pt-imt-taxas": "Taxas de Portagem de",
+    "lv-aln": "2\\. pielikums",
+    "ie-m1": "Location:",
+    "ie-m3": "Location:",
+    "ie-m3-blackbull": "Location:",
+    "ie-m4": "Location:",
+    "ie-n6": "Location:",
+    "ie-m7m8": "Location:",
+    "ie-n8": "Location:",
+    "ie-limerick": "Location:",
+    "ie-n25": "Location:",
+    "ie-port-tunnel": "Location:",
+    "ie-m50": "Location:"
+   }
   },
   {
    "set": "2025",
-   "from": "20250115",
+   "from": "20250101",
    "to": "20251130",
    "ids": [
     "dk-storebaelt",
@@ -59,7 +75,54 @@
     "pt",
     "lv",
     "ie"
-   ]
+   ],
+   "must": {
+    "dk-storebaelt": "Priser for erhverv \\d{4}",
+    "pt-imt-taxas": "Taxas de Portagem de",
+    "lv-aln": "2\\. pielikums",
+    "ie-m1": "Location:",
+    "ie-m3": "Location:",
+    "ie-m3-blackbull": "Location:",
+    "ie-m4": "Location:",
+    "ie-n6": "Location:",
+    "ie-m7m8": "Location:",
+    "ie-n8": "Location:",
+    "ie-limerick": "Location:",
+    "ie-n25": "Location:",
+    "ie-port-tunnel": "Location:",
+    "ie-m50": "Location:"
+   }
+  }
+ ],
+ "probes": [
+  {
+   "url": "imt-ip.pt/",
+   "regex": ".*[Pp]ortage.*"
+  },
+  {
+   "url": "www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/"
+  },
+  {
+   "url": "cdn.transportes.gob.es/portal-web-seitt/",
+   "regex": ".*(ap36|ap41|ap7|AP36|AP41|AP7).*"
+  },
+  {
+   "url": "www.seitt.es/",
+   "regex": ".*([Tt]arifa|[Pp]recio|pdf).*"
+  },
+  {
+   "url": "www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/"
+  },
+  {
+   "url": "www.sftrf.fr/wp-content/uploads/",
+   "regex": ".*[Tt]arif.*"
+  },
+  {
+   "url": "storebaelt.dk/",
+   "regex": ".*erhverv.*"
+  },
+  {
+   "url": "www.oresundsbron.com/da/erhverv/"
   }
  ]
 }

@@ -43,10 +43,11 @@ def coords(wkt):
     return [tuple(map(float, p.split()[:2])) for p in re.search(r"\((.*)\)", wkt).group(1).split(",")]
 
 
-def heading_at(seq, rel):
-    """Compass heading of the metering direction at relative position rel."""
+def heading_at(seq, rel, closed=False):
+    """Compass heading of the metering direction at relative position rel,
+    on the links in use (closed: also on links no longer in use)."""
     for v in seq.get("veglenker", []):
-        if v.get("sluttdato") or not (v["startposisjon"] <= rel <= v["sluttposisjon"]):
+        if (v.get("sluttdato") and not closed) or not (v["startposisjon"] <= rel <= v["sluttposisjon"]):
             continue
         pts = coords(v["geometri"]["wkt"])  # (lat, lon), in metering direction
         if len(pts) < 2:
@@ -62,6 +63,40 @@ def heading_at(seq, rel):
     return None
 
 
+def point(o, seqs, closed=False):
+    """The toll point of an NVDB Bomstasjon object, or None and why not."""
+    e = props(o)
+    name = (e.get("Navn bomstasjon") or "").strip() or f"NVDB {o['id']}"
+    kind = e.get("Bomstasjonstype")
+    if kind != "AutoPASS bomstasjon":
+        return None, f"{name} ({kind})"
+    if e.get("Takst stor bil") is None:
+        return None, f"{name} (no large-vehicle price)"
+    lat, lon = coords(o["geometri"]["wkt"])[0]
+    tp = {"name": name}
+    if e.get("Navn bompengeanlegg"):
+        tp["project"] = e["Navn bompengeanlegg"].strip()
+    tp.update(lat=round(lat, 6), lon=round(lon, 6))
+    way = e.get("Innkrevningsretning")
+    if way in ("Med metrering", "Mot metrering"):
+        st = next((s for s in o["lokasjon"]["stedfestinger"] if s.get("veglenkesekvensid") in seqs), None)
+        h = heading_at(seqs[st["veglenkesekvensid"]], st["relativPosisjon"]) if st else None
+        if h is None and st and closed:
+            h = heading_at(seqs[st["veglenkesekvensid"]], st["relativPosisjon"], closed=True)
+        if h is None:
+            return None, f"{name} (charged direction not found on its road link)"
+        if way == "Mot metrering":
+            h = round((h + 180) % 360, 1)
+        tp["heading"] = h
+    tp["rate"] = e["Takst stor bil"]
+    if (e.get("Rushtidstakst stor bil") or 0) > tp["rate"]:
+        tp["peak_rate"] = e["Rushtidstakst stor bil"]
+    if e.get("Timesregel") == "Første passering gjelder" and e.get("Timesregel, passeringsgruppe"):
+        tp["group"] = e["Timesregel, passeringsgruppe"]
+        tp["group_minutes"] = e.get("Timesregel, varighet") or 60
+    return tp, None
+
+
 def main(fetched, out):
     objs = []
     for f in sorted(glob.glob(os.path.join(fetched, "no-nvdb-45*.json"))):
@@ -71,36 +106,10 @@ def main(fetched, out):
     seqs = links(fetched)
     points, left_out, dates = [], [], []
     for o in sorted(objs, key=lambda o: o["id"]):
-        e = props(o)
-        name = (e.get("Navn bomstasjon") or "").strip() or f"NVDB {o['id']}"
-        kind = e.get("Bomstasjonstype")
-        if kind != "AutoPASS bomstasjon":
-            left_out.append(f"{name} ({kind})")
+        tp, why = point(o, seqs)
+        if tp is None:
+            left_out.append(why)
             continue
-        if e.get("Takst stor bil") is None:
-            left_out.append(f"{name} (no large-vehicle price)")
-            continue
-        lat, lon = coords(o["geometri"]["wkt"])[0]
-        tp = {"name": name}
-        if e.get("Navn bompengeanlegg"):
-            tp["project"] = e["Navn bompengeanlegg"].strip()
-        tp.update(lat=round(lat, 6), lon=round(lon, 6))
-        way = e.get("Innkrevningsretning")
-        if way in ("Med metrering", "Mot metrering"):
-            st = next((s for s in o["lokasjon"]["stedfestinger"] if s.get("veglenkesekvensid") in seqs), None)
-            h = heading_at(seqs[st["veglenkesekvensid"]], st["relativPosisjon"]) if st else None
-            if h is None:
-                left_out.append(f"{name} (charged direction not found on its road link)")
-                continue
-            if way == "Mot metrering":
-                h = round((h + 180) % 360, 1)
-            tp["heading"] = h
-        tp["rate"] = e["Takst stor bil"]
-        if (e.get("Rushtidstakst stor bil") or 0) > tp["rate"]:
-            tp["peak_rate"] = e["Rushtidstakst stor bil"]
-        if e.get("Timesregel") == "Første passering gjelder" and e.get("Timesregel, passeringsgruppe"):
-            tp["group"] = e["Timesregel, passeringsgruppe"]
-            tp["group_minutes"] = e.get("Timesregel, varighet") or 60
         points.append(tp)
         dates.append(o["metadata"]["startdato"])
     valid_from = max(dates)

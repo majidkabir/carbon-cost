@@ -199,6 +199,17 @@ type TollPoint struct {
 	// FreeHours: from and to (HH:MM, both included) the station charges
 	// nothing.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// ValidFrom and ValidTo (YYYY-MM-DD, both included, either may be
+	// empty) limit the point to part of the table's time: a table can
+	// then hold each version of a station that changed its price.
+	ValidFrom string `json:"valid_from,omitempty"`
+	ValidTo   string `json:"valid_to,omitempty"`
+}
+
+// InForce says whether the point charges on the given day.
+func (p TollPoint) InForce(d time.Time) bool {
+	day := d.Format(time.DateOnly)
+	return (p.ValidFrom == "" || day >= p.ValidFrom) && (p.ValidTo == "" || day <= p.ValidTo)
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -691,6 +702,14 @@ func (tb Table) check() error {
 			if _, err := Within("00:00", p.FreeHours[0], p.FreeHours[len(p.FreeHours)-1]); err != nil || len(p.FreeHours) != 2 {
 				return fmt.Errorf("toll point %s: free_hours must be [from, to] (HH:MM)", p.Name)
 			}
+		}
+		for _, v := range []string{p.ValidFrom, p.ValidTo} {
+			if _, err := time.Parse(time.DateOnly, v); v != "" && err != nil {
+				return fmt.Errorf("toll point %s: bad date %q", p.Name, v)
+			}
+		}
+		if p.ValidFrom != "" && p.ValidTo != "" && p.ValidTo < p.ValidFrom {
+			return fmt.Errorf("toll point %s: valid_to before valid_from", p.Name)
 		}
 		if p.Schedule != "" && (tb.Congestion == nil || tb.Congestion.Schedules[p.Schedule] == nil) {
 			return fmt.Errorf("toll point %s: no congestion schedule %q in the table", p.Name, p.Schedule)

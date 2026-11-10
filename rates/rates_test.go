@@ -290,3 +290,22 @@ func TestNoOverlaps(t *testing.T) {
 		}
 	}
 }
+
+func TestTollPointDates(t *testing.T) {
+	tb := Table{Country: "XX", Currency: "EUR", ValidFrom: "2026-01-01", Name: "t", Law: "l", Sources: []Source{{Title: "t", URL: "https://example.org"}},
+		TollPoints: []TollPoint{{Name: "a", ValidFrom: "2026-03-01", ValidTo: "2026-02-01"}}}
+	if tb.check() == nil {
+		t.Error("valid_to before valid_from accepted")
+	}
+	tb.TollPoints[0].ValidTo = "2026-3-9"
+	if tb.check() == nil {
+		t.Error("bad date accepted")
+	}
+	p := TollPoint{ValidFrom: "2026-03-01", ValidTo: "2026-03-31"}
+	for d, want := range map[string]bool{"2026-02-28": false, "2026-03-01": true, "2026-03-31": true, "2026-04-01": false} {
+		day, _ := time.Parse(time.DateOnly, d)
+		if p.InForce(day) != want {
+			t.Errorf("%s: in force %v, want %v", d, !want, want)
+		}
+	}
+}

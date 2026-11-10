@@ -1438,6 +1438,14 @@ func TestPassageTimes(t *testing.T) {
 			t.Errorf("free hours at %q: %.2f, want %.2f", at, got, want)
 		}
 	}
+	// Two versions of one station, each in force for part of the table's time.
+	tb.TollPoints = []rates.TollPoint{
+		{Name: "old", Lat: 50, Lon: 10, Rate: 4, ValidTo: "2026-11-04"},
+		{Name: "new", Lat: 50, Lon: 10, Rate: 6, ValidFrom: "2026-11-05"},
+	}
+	if got := sum(run([]rates.Table{tb}, "XX", path, Request{}), "test law"); got != 6 {
+		t.Errorf("versioned station on 2026-11-05: %.2f, want 6", got)
+	}
 }
 
 // Square tariffs are priced per direction: Kuzey Marmara's İzmit Kuzey to

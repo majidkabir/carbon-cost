@@ -1382,6 +1382,9 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 	}
 	var passes []pass
 	for _, tp := range tb.TollPoints {
+		if !tp.InForce(date) {
+			continue
+		}
 		pos, d, h := route.project(rates.Place{Lat: tp.Lat, Lon: tp.Lon})
 		if d > match {
 			continue

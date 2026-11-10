@@ -24,13 +24,41 @@ def text(path):
     return re.sub(r"\s+", " ", html.unescape(t))
 
 
+# The annex from 22 August 2017 to 28 February 2026: up to 3500 kg one
+# rate; over it EURO 0-II, III, and IV and better ("IV un mazāk
+# piesārņojošs"); over 12 t each EURO row by axles (up to 3, 4 or more).
+EURO_2017 = [("EURO 0, I, II", [0, 1, 2]), ("EURO III", [3]), ("EURO IV un mazāk piesārņojošs", [4, 5, 6])]
+EURO_2017_HEAVY = [("EURO 0 EURO I EURO II", [0, 1, 2]), ("EURO III", [3]), ("EURO IV un mazāk piesārņojošs", [4, 5, 6])]
+
+
+def rows_2017(parts):
+    rows = []
+    for no, body in zip(parts[1::2], parts[2::2]):
+        mass = MASS[no]
+        if no == "1":
+            m = re.search(r"gada likme (\d+) (\d+) (\d+) (\d+)", body)
+            rows.append({"component": "toll", **mass, "rate": int(m.group(1))})
+        elif no == "2":
+            for label, euro in EURO_2017:
+                m = re.search(re.escape(label) + r" (\d+) (\d+) (\d+) (\d+)", body)
+                rows.append({"component": "toll", **mass, "euro": euro, "rate": int(m.group(1))})
+        else:
+            for label, euro in EURO_2017_HEAVY:
+                m = re.search(re.escape(label) + r" ne vairāk kā 3 asis (\d+) \d+ \d+ \d+ ne mazāk kā 4 asis (\d+) \d+ \d+ \d+", body)
+                rows.append({"component": "toll", **mass, "max_axles": 3, "euro": euro, "rate": int(m.group(1))})
+                rows.append({"component": "toll", **mass, "min_axles": 4, "euro": euro, "rate": int(m.group(2))})
+    return rows
+
+
 def main(fetched, out):
     t = text(os.path.join(fetched, "lv-aln.html"))
-    i = t.index("2. pielikums (Pielikums")
+    i = re.search(r"2\. pielikums (?:Autoceļu lietošanas nodevas likmes )?\(Pielikums", t).start()
     annex = t[i:t.index("Tiesību akta pase", i)]
     d = re.search(r"stājas spēkā (\d\d)\.(\d\d)\.(\d{4})", annex)
     valid_from = f"{d.group(3)}-{d.group(2)}-{d.group(1)}"
     parts = re.split(r" ([123])\. Transportlīdzekļiem ", annex)
+    if "Bezemisiju" not in annex:
+        return write(out, valid_from, rows_2017(parts), "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 28 July 2017 (in force 22 August 2017): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (up to 3, or 4 and more, over 12 t) and EURO class (0-II, III, IV and better). The table keeps the 1-day rate. A fee, without VAT.")
     rows = []
     for no, body in zip(parts[1::2], parts[2::2]):
         mass = MASS[no]
@@ -58,10 +86,14 @@ def main(fetched, out):
                 rows.append(row)
     # Zero-emission rows first: such a truck matches them whatever its EURO class.
     rows.sort(key=lambda r: "co2_class" not in r)
+    write(out, valid_from, rows, "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.")
+
+
+def write(out, valid_from, rows, law):
     tb = {
         "country": "LV", "currency": "EUR", "valid_from": valid_from,
         "name": "Latvian road user charge (autoceļu lietošanas nodeva)",
-        "law": "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.",
+        "law": law,
         "sources": [{"title": "Autoceļu lietošanas nodevas likums, consolidated (likumi.lv)", "url": "https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums"}],
         "vehicles": "Goods vehicles and combinations from 3001 kg maximum mass",
         "min_kg": 3001,

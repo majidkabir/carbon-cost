@@ -177,10 +177,10 @@ def netherlands(fetched, out):
         i = [k for k, x in enumerate(L) if x == "Artikel 10"][-1]
         j = next(k for k in range(i, i + 400) if "één dag" in L[k] or "dagtarief" in L[k].lower())
         span = " ".join(L[j:j + 6])
-        m = re.search(r"€ (\d+)", span)
+        m = re.search(r"€\s*(\d+)", span)
         assert m, span
-        save(out, {**base, "_file": "nl-2019-07-01.json", "valid_from": "2019-07-01", "valid_to": "2025-03-24",
-                   "law": f"Wet belasting zware motorrijtuigen, art. 10 (as in force on 1 January 2024): the tax for a day is € {m.group(1)} for every vehicle (the Eurovignette Agreement as amended by the 2017 protocol, from 1 July 2019). Replaced on 25 March 2025 by the amounts by CO2 class.",
+        save(out, {**base, "_file": "nl-2024-01-01.json", "valid_from": "2024-01-01", "valid_to": "2025-03-24",
+                   "law": f"Wet belasting zware motorrijtuigen, art. 10 (as in force on 1 January 2024, unchanged until 25 March 2025): the tax for a day is € {m.group(1)} for every vehicle. Replaced on 25 March 2025 by the amounts by CO2 class.",
                    "sources": [src_law("2024-01-01"), portal], "rows": flat_day(int(m.group(1)))})
     L = nl_lines(os.path.join(fetched, "nl-bzm-2025-03-25.html"))
     i = [k for k, x in enumerate(L) if x == "Artikel 10"][-1]

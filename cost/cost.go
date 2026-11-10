@@ -223,8 +223,11 @@ type Calculator struct {
 	Roads *roads.Index
 	// FX gives exchange rates for currencies the request has no fx for;
 	// nil: those need fx in the request.
-	FX  func(context.Context) (fx.Rates, error)
-	Now func() time.Time // default time.Now
+	FX func(context.Context) (fx.Rates, error)
+	// FXOn gives the rates of a past day (fx.OnDate); a trip on a day it
+	// has uses them, other trips FX.
+	FXOn func(time.Time) (fx.Rates, bool)
+	Now  func() time.Time // default time.Now
 	// Version is the release, for the response's provenance.
 	Version string
 }
@@ -247,7 +250,12 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		vt = DefaultVehicleType
 		assumed = append(assumed, "vehicle_type: "+vt)
 	}
-	if c.FX != nil {
+	if c.FXOn != nil {
+		if r, ok := c.FXOn(date); ok {
+			req.ecb = r
+		}
+	}
+	if req.ecb.Date == "" && c.FX != nil {
 		if r, err := c.FX(ctx); err == nil {
 			req.ecb = r
 		}

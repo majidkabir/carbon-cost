@@ -264,3 +264,28 @@ func TestBelgium(t *testing.T) {
 		t.Error("BE must be regional")
 	}
 }
+
+// Find takes the first table in force, so an area's tables (not
+// crossings, which add up) must not overlap in time.
+func TestNoOverlaps(t *testing.T) {
+	tbs, err := All()
+	if err != nil {
+		t.Fatal(err)
+	}
+	end := func(tb Table) string {
+		if tb.ValidTo == "" {
+			return "9999-12-31"
+		}
+		return tb.ValidTo
+	}
+	for i, a := range tbs {
+		for _, b := range tbs[i+1:] {
+			if a.Crossings || b.Crossings || a.Area() != b.Area() {
+				continue
+			}
+			if a.ValidFrom <= end(b) && b.ValidFrom <= end(a) {
+				t.Errorf("%s and %s overlap", a.File, b.File)
+			}
+		}
+	}
+}

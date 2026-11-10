@@ -2,6 +2,7 @@
  "country": "MK",
  "currency": "EUR",
  "valid_from": "2025-05-01",
+ "osm_extract": "2026-11-09",
  "name": "North Macedonian road tolls (патарина)",
  "law": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 as replaced by Службен весник 88/2025 (in force 1 May 2025): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
  "sources": [

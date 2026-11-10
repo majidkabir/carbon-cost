@@ -26,6 +26,8 @@ jobs:
       - name: Fetch
         run: |
           python3 tools/tables/fetch.py tools/history/sources.json out
+          # Some servers send a PDF from a URL without .pdf.
+          for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
       - name: Build
         run: |

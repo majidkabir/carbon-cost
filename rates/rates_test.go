@@ -161,8 +161,9 @@ func TestNetherlandsTotals(t *testing.T) {
 			t.Errorf("NL %d kg Euro %d class %d: %v, want %v", tc.kg, tc.euro, tc.cls, got, tc.want)
 		}
 	}
-	if _, ok := Find(tables(t), "NL", on("2026-06-30")); ok {
-		t.Error("NL: no charge before 1 July 2026")
+	// Before 1 July 2026 the Eurovignette's day charge applies.
+	if tb, ok := Find(tables(t), "NL", on("2026-06-30")); !ok || !tb.PerDay {
+		t.Error("NL: want the Eurovignette's day charge on 30 June 2026")
 	}
 }
 

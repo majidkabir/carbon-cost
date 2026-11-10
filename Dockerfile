@@ -2,7 +2,7 @@ FROM golang:1.24 AS build
 WORKDIR /src
 COPY go.mod ./
 COPY . .
-RUN CGO_ENABLED=0 go build -trimpath -ldflags "-s -w" -o /carbon-cost ./cmd/carbon-cost
+RUN CGO_ENABLED=0 go build -trimpath -ldflags "-s -w -X main.version=$(cat RELEASE)" -o /carbon-cost ./cmd/carbon-cost
 
 FROM gcr.io/distroless/static-debian12:nonroot
 COPY --from=build /carbon-cost /carbon-cost

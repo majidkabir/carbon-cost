@@ -84,6 +84,7 @@
       <option value="4">4</option><option value="5">5 (zero-emission)</option></select></label>
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
+    <label class="check"><input name="driver_rest" type="checkbox" checked> Driver breaks and rests in passage times (Reg. 561/2006)</label>
     <label class="check"><input name="etc" type="checkbox"> Pays by toll box or agreement (operators' discounts)</label>
     <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
     <label>Trips per year<input name="trips_per_year" type="number" min="0" value="200"></label>
@@ -108,9 +109,10 @@
         <tbody id="cmp"></tbody></table>
     </div>
     <ul class="notes" id="notes"></ul>
+    <details id="prov"><summary>Data used</summary><ul class="notes" id="provlist"></ul></details>
   </section>
 
-  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code></p>
+  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
 </main>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -205,7 +207,7 @@ f.addEventListener("submit", async (e) => {
     cargo_kg: +f.cargo_kg.value,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined },
-    etc: f.etc.checked || undefined,
+    etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
     eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
@@ -235,7 +237,7 @@ function show(r) {
     cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
     cell(tr, (l.component || "co2").replace("_", " ") + (l.road || l.area ? ` (${[l.road, l.area].filter(Boolean).join(", ")})` : "") + (l.section ? `: ${l.section}` : ""));
     // Per-passage charges (toll stations, bridges) have no km.
-    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
+    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.days ? l.days + (l.days === 1 ? " day" : " days") : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
     cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
     // The law or tariff behind the number, with links to the documents.
@@ -262,6 +264,16 @@ function show(r) {
   const notes = $("notes"); notes.replaceChildren();
   if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
   for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
+  // What the result rests on: release, rate tables and their files, map
+  // extracts, ferry data, exchange rates and defaults taken.
+  const p = r.provenance || {}, pl = $("provlist"); pl.replaceChildren();
+  const li = (t) => { const e = document.createElement("li"); e.textContent = t; pl.append(e); };
+  li(`carbon-cost ${p.carbon_cost_version || "?"} · ${p.sootcase || "Sootcase"}`);
+  for (const t of p.tables || []) li(`${t.area}: ${t.name}, valid from ${t.valid_from}${t.valid_to ? " to " + t.valid_to : ""} (rates/data/${t.file})${t.osm_extract ? ", stations from OpenStreetMap " + t.osm_extract : ""}`);
+  for (const [c, d] of Object.entries(p.road_classes_osm || {}).sort()) li(`${c} road classes: ${d}`);
+  if (p.ferry_mrv) li("Ferry emissions: " + p.ferry_mrv);
+  for (const x of p.fx || []) li("Exchange rate " + x);
+  for (const x of p.assumed || []) li("Assumed " + x);
   $("out").hidden = false;
   draw(r.route || []);
 }

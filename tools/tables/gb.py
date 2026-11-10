@@ -47,12 +47,13 @@ def main(fetched, out):
         "country": "GB", "currency": "GBP", "valid_from": valid_from,
         "name": "UK HGV road user levy (non-UK vehicles)",
         "law": "HGV Road User Levy Act 2013, section 6 and Schedule 1 (Tables 1, 1A and 1B) as amended: a non-UK HGV of 12,000 kg or more pays the daily rate for each day it uses a main road, by band of maximum permitted (revenue) weight of the combination and by whether it meets Euro 6. Rates as tabulated by the Department for Transport's guidance. Zero-emission HGVs are exempt. The table keeps the daily rate.",
-        "sources": [{"title": "GOV.UK: How to use the HGV levy service (rates)", "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service"},
+        "sources": [{"title": "GOV.UK: How to use the HGV levy service (rates; a day runs from 00:00:00 to 23:59:59)", "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service"},
                     {"title": "HGV Road User Levy Act 2013 (legislation.gov.uk)", "url": "https://www.legislation.gov.uk/ukpga/2013/7"}],
         "vehicles": "Non-UK heavy goods vehicles of 12,000 kg or more (UK vehicles pay yearly or half-yearly with vehicle excise duty)",
         "min_kg": 12000,
         "tolled_roads": "Main roads: roads numbered with A or M, in England, Scotland, Wales and Northern Ireland.",
         "per_day": True,
+        "day": "calendar",
         "rows": rows,
     }
     os.makedirs(out, exist_ok=True)

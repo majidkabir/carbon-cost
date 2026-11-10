@@ -134,6 +134,7 @@ def main(fetched, out):
         print("not in OpenStreetMap:", "; ".join(missing))
     tb = {
         "country": "GR", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
+        "osm_extract": open(os.path.join(fetched, "gr-osm-timestamp.txt")).read().strip()[:10],
         "name": "Greek motorway tolls (open toll stations)",
         "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
         "sources": [{"title": "Olympia Odos: Τιμές διοδίων", "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/"},

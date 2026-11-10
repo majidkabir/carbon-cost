@@ -66,6 +66,7 @@ def main(transcribed, fetched, out):
         print(st["station"], len(bs), "booths ->", [(p.get("heading")) for p in points[-len(headed):]])
     tb = {
         "country": "MK", "currency": "EUR", "valid_from": tr["valid_from"],
+        "osm_extract": open(os.path.join(fetched, "mk-osm-timestamp.txt")).read().strip()[:10],
         "name": "North Macedonian road tolls (патарина)",
         "law": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 as replaced by Службен весник 88/2025 (in force 1 May 2025): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
         "sources": [{"title": "Службен весник 88/2025: Одлука за изменување на Одлуката за патарина (PESR)", "url": tr["source"]["url"]},

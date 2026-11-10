@@ -31,23 +31,37 @@ sys.path.insert(0, os.path.join(HERE, "..", "tables"))
 UA = {"User-Agent": "carbon-cost history (github.com/majidkabir/carbon-cost)"}
 
 
+# Pages a bot check or an error served instead of the content.
+NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One moment, please|Just a moment\.\.\.|Access denied", re.I)
+
+
 def get(url):
     last = None
-    for _ in range(4):
+    for i in range(6):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=90) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
                 return r.read()
         except Exception as e:
             last = e
-            time.sleep(10)
+            # The archive refuses connections when asked too fast.
+            time.sleep(20 * (i + 1))
     raise RuntimeError(f"{url}: {last}")
 
 
-def capture(url, frm, to):
-    q = "https://web.archive.org/cdx/search/cdx?" + urllib.parse.urlencode(
-        {"url": url, "from": frm, "to": to, "output": "json", "fl": "timestamp,original,statuscode", "filter": "statuscode:200"})
-    rows = json.loads(get(q) or b"[]")
-    return rows[-1][:2] if len(rows) > 1 else None
+def captures(url, frm, to, match=None, regex=None, collapse=None):
+    """Captures with HTTP 200 between frm and to, oldest first, as
+    (timestamp, original URL); match="prefix" takes every URL under url,
+    regex keeps those whose URL matches it."""
+    q = {"url": url, "from": frm, "to": to, "output": "json", "fl": "timestamp,original,statuscode", "filter": ["statuscode:200"]}
+    if match:
+        q["matchType"] = match
+    if regex:
+        q["filter"].append("original:" + regex)
+    if collapse:
+        q["collapse"] = collapse
+    rows = json.loads(get("https://web.archive.org/cdx/search/cdx?" + urllib.parse.urlencode(q, doseq=True)) or b"[]")
+    time.sleep(3)
+    return [tuple(r[:2]) for r in rows[1:]]
 
 
 def fetch(s, urls, out):
@@ -55,21 +69,34 @@ def fetch(s, urls, out):
     os.makedirs(d, exist_ok=True)
     manifest = []
     for sid in s["ids"]:
-        url = s.get("urls", {}).get(sid) or urls[sid]
+        # An id's URL, or where its earlier copies are: {"url", "match",
+        # "regex"} (the latest URL matching).
+        where = s.get("urls", {}).get(sid) or urls[sid]
+        if isinstance(where, str):
+            where = {"url": where}
+        url = where["url"]
+        must = s.get("must", {}).get(sid)
         try:
-            c = capture(url, s["from"], s["to"])
-            if not c:
+            body = None
+            for ts, orig in reversed(captures(url, where.get("from", s["from"]), where.get("to", s["to"]), where.get("match"), where.get("regex"))[-8:]):
+                b = get(f"https://web.archive.org/web/{ts}id_/{orig}")
+                time.sleep(3)
+                if NOT_CONTENT.search(b[:20000]) or (must and not re.search(must.encode(), b)):
+                    print("not the content", sid, ts)
+                    continue
+                body = b
+                break
+            if body is None:
                 print("no capture", sid, url)
                 manifest.append({"id": sid, "url": url, "capture": None})
                 continue
-            ts, orig = c
-            body = get(f"https://web.archive.org/web/{ts}id_/{orig}")
             ext = ".pdf" if body[:4] == b"%PDF" else ".html"
             path = os.path.join(d, sid + ext)
             open(path, "wb").write(body)
             if ext == ".pdf":
                 subprocess.run(["pdftotext", "-layout", path, path[:-4] + ".txt"], check=False)
-            manifest.append({"id": sid, "url": url, "capture": ts, "archived": f"https://web.archive.org/web/{ts}/{orig}",
+                subprocess.run(["pdftotext", "-bbox", path, path[:-4] + ".bbox.html"], check=False)
+            manifest.append({"id": sid, "url": url, "capture": ts, "original": orig, "archived": f"https://web.archive.org/web/{ts}/{orig}",
                              "size": len(body), "sha256": hashlib.sha256(body).hexdigest()})
             print(ts, len(body), sid)
         except Exception as e:
@@ -102,7 +129,7 @@ def build(s, d, manifest, out):
         have = {src.get("url") for src in tb.get("sources", [])}
         for m in caps:
             if m["id"].split("-")[0] == tb["country"].lower() and m["archived"] not in have:
-                tb.setdefault("sources", []).append({"title": f"Internet Archive copy of {m['url']} ({m['capture'][:8]})", "url": m["archived"]})
+                tb.setdefault("sources", []).append({"title": f"Internet Archive copy of {m['original']} ({m['capture'][:8]})", "url": m["archived"]})
         tb["law"] += f" Rebuilt from the Internet Archive's copies of these pages ({s['from'][:4]})."
         made.append((os.path.basename(f), tb))
     return made
@@ -127,9 +154,21 @@ def close(tables, data):
 def main(cfg, sources, out, data="rates/data"):
     urls = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     tables = []
-    for s in json.load(open(cfg, encoding="utf-8"))["sets"]:
+    conf = json.load(open(cfg, encoding="utf-8"))
+    # Probes list the archived URLs under a prefix, to find where a page
+    # was before it moved; they build nothing.
+    with open(os.path.join(out, "wayback-probes.txt"), "w") as f:
+        for p in conf.get("probes", []):
+            try:
+                for ts, orig in captures(p["url"], p.get("from", "2023"), p.get("to", "2026"), "prefix", p.get("regex"), "urlkey"):
+                    f.write(f"{ts} {orig}\n")
+            except Exception as e:
+                f.write(f"ERROR {p['url']}: {e}\n")
+    for s in conf["sets"]:
         d, manifest = fetch(s, urls, out)
         tables += build(s, d, manifest, out)
+        for f in glob.glob(os.path.join(out, "osm", "*")):
+            os.remove(os.path.join(d, os.path.basename(f)))
     # The same table from two sets (a page unchanged across years) is kept once.
     uniq = {}
     for name, tb in tables:

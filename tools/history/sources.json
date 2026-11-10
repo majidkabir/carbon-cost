@@ -162,6 +162,12 @@
    "table": "gb-2025-04-01",
    "url": "https://web.archive.org/web/20250615000000id_/https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
    "what": "The same guidance as archived in June 2025"
+  },
+  {
+   "id": "no-nvdb-45-hist",
+   "table": "no-2024-01-01",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000&alle_versjoner=true",
+   "what": "NVDB: every version of every toll station (Bomstasjon), with its dates"
   }
  ]
 }

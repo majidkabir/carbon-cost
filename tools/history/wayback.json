@@ -1,6 +1,21 @@
 {
- "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages.",
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages. A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself.",
  "sets": [
+  {
+   "set": "laws",
+   "dir": ".",
+   "from": "20230101",
+   "to": "20261110",
+   "ids": [
+    "at-mtv-2023"
+   ],
+   "urls": {
+    "at-mtv-2023": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf"
+   },
+   "must": {
+    "at-mtv-2023": "%PDF"
+   }
+  },
   {
    "set": "2024",
    "from": "20240101",

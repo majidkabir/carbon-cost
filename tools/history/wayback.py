@@ -37,14 +37,14 @@ NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One
 
 def get(url):
     last = None
-    for i in range(6):
+    for i in range(3):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
                 return r.read()
         except Exception as e:
             last = e
             # The archive refuses connections when asked too fast.
-            time.sleep(20 * (i + 1))
+            time.sleep(15 * (i + 1))
     raise RuntimeError(f"{url}: {last}")
 
 
@@ -59,13 +59,16 @@ def captures(url, frm, to, match=None, regex=None, collapse=None):
         q["filter"].append("original:" + regex)
     if collapse:
         q["collapse"] = collapse
+        q["limit"] = 3000
     rows = json.loads(get("https://web.archive.org/cdx/search/cdx?" + urllib.parse.urlencode(q, doseq=True)) or b"[]")
     time.sleep(3)
     return [tuple(r[:2]) for r in rows[1:]]
 
 
 def fetch(s, urls, out):
-    d = os.path.join(out, "wb-" + s["set"])
+    # A set with "dir" saves its copies there (under out) for the
+    # build_*.py scripts, which read out/.
+    d = os.path.join(out, s.get("dir", "wb-" + s["set"]))
     os.makedirs(d, exist_ok=True)
     manifest = []
     for sid in s["ids"]:
@@ -98,13 +101,14 @@ def fetch(s, urls, out):
                 subprocess.run(["pdftotext", "-bbox", path, path[:-4] + ".bbox.html"], check=False)
             manifest.append({"id": sid, "url": url, "capture": ts, "original": orig, "archived": f"https://web.archive.org/web/{ts}/{orig}",
                              "size": len(body), "sha256": hashlib.sha256(body).hexdigest()})
-            print(ts, len(body), sid)
+            print(ts, len(body), sid, flush=True)
         except Exception as e:
             print("ERROR", sid, e)
             manifest.append({"id": sid, "url": url, "error": str(e)})
-    for f in glob.glob(os.path.join(out, "osm", "*")):
-        shutil.copy(f, d)
-    json.dump(manifest, open(os.path.join(d, "manifest.json"), "w"), indent=1)
+    if "dir" not in s:
+        for f in glob.glob(os.path.join(out, "osm", "*")):
+            shutil.copy(f, d)
+    json.dump(manifest, open(os.path.join(out, f"wb-{s['set']}-manifest.json"), "w"), indent=1)
     return d, manifest
 
 
@@ -155,6 +159,15 @@ def main(cfg, sources, out, data="rates/data"):
     urls = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     tables = []
     conf = json.load(open(cfg, encoding="utf-8"))
+    for s in conf["sets"]:
+        d, manifest = fetch(s, urls, out)
+        if s.get("builders"):
+            tables += build(s, d, manifest, out)
+        if "dir" not in s:
+            for f in glob.glob(os.path.join(out, "osm", "*")):
+                os.remove(os.path.join(d, os.path.basename(f)))
+        # Written after each set, so a run cut short keeps what it built.
+        write(tables, out, data)
     # Probes list the archived URLs under a prefix, to find where a page
     # was before it moved; they build nothing.
     with open(os.path.join(out, "wayback-probes.txt"), "w") as f:
@@ -162,13 +175,12 @@ def main(cfg, sources, out, data="rates/data"):
             try:
                 for ts, orig in captures(p["url"], p.get("from", "2023"), p.get("to", "2026"), "prefix", p.get("regex"), "urlkey"):
                     f.write(f"{ts} {orig}\n")
+                f.flush()
             except Exception as e:
                 f.write(f"ERROR {p['url']}: {e}\n")
-    for s in conf["sets"]:
-        d, manifest = fetch(s, urls, out)
-        tables += build(s, d, manifest, out)
-        for f in glob.glob(os.path.join(out, "osm", "*")):
-            os.remove(os.path.join(d, os.path.basename(f)))
+
+
+def write(tables, out, data):
     # The same table from two sets (a page unchanged across years) is kept once.
     uniq = {}
     for name, tb in tables:
@@ -178,7 +190,7 @@ def main(cfg, sources, out, data="rates/data"):
     os.makedirs(os.path.join(out, "tables"), exist_ok=True)
     for name, tb in tables:
         json.dump(tb, open(os.path.join(out, "tables", name), "w"), ensure_ascii=False, indent=1)
-        print("table", name, tb["valid_from"], tb.get("valid_to"))
+        print("table", name, tb["valid_from"], tb.get("valid_to"), flush=True)
 
 
 if __name__ == "__main__":

@@ -9,6 +9,10 @@ on:
     branches: [history-data]
 permissions:
   contents: write
+# A new push replaces a run still going.
+concurrency:
+  group: history-data
+  cancel-in-progress: true
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -29,10 +33,6 @@ jobs:
           # Some servers send a PDF from a URL without .pdf.
           for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
-      - name: Build
-        run: |
-          mkdir -p out/tables
-          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
       - name: Archived operator pages (tools/history/wayback.json)
         run: |
           # The OpenStreetMap extracts placing the toll stations, as the
@@ -40,8 +40,12 @@ jobs:
           mkdir -p out/osm
           git fetch -q --depth 1 origin tables-out
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
-          python3 tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed"
-          rm -rf out/osm
+          timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
+          rm -rf out/osm; find out -path 'out/wb-*' -name '*-osm*' -delete
+      - name: Build
+        run: |
+          mkdir -p out/tables
+          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
       - name: Compare
         run: |
           for f in out/tables/*.json; do

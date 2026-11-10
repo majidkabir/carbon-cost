@@ -245,10 +245,15 @@ def denmark(fetched, out):
 
 
 def main(fetched, out):
-    sweden(fetched, out)
-    luxembourg(fetched, out)
-    netherlands(fetched, out)
-    denmark(fetched, out)
+    failed = []
+    for f in (sweden, luxembourg, netherlands, denmark):
+        try:
+            f(fetched, out)
+        except Exception as e:  # a source that didn't come (e.g. 403): say so, build the rest
+            print(f"{f.__name__}: {e!r}")
+            failed.append(f.__name__)
+    if failed:
+        sys.exit("failed: " + ", ".join(failed))
 
 
 if __name__ == "__main__":

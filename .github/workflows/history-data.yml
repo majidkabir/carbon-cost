@@ -34,6 +34,8 @@ jobs:
           for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
       - name: Archived operator pages (tools/history/wayback.json)
+        # Left out when the run's commit says [no-wayback] (it takes long).
+        if: "!contains(github.event.head_commit.message, '[no-wayback]')"
         run: |
           # The OpenStreetMap extracts placing the toll stations, as the
           # tables-data workflow last fetched them.

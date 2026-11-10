@@ -135,6 +135,12 @@ def build(s, d, manifest, out):
             if m["id"].split("-")[0] == tb["country"].lower() and m["archived"] not in have:
                 tb.setdefault("sources", []).append({"title": f"Internet Archive copy of {m['original']} ({m['capture'][:8]})", "url": m["archived"]})
         tb["law"] += f" Rebuilt from the Internet Archive's copies of these pages ({s['from'][:4]})."
+        # A table the set ends earlier: [valid_to, why, source URL].
+        end = s.get("valid_to", {}).get(os.path.basename(f))
+        if end:
+            tb["valid_to"], why, url = end
+            tb["law"] += " " + why
+            tb["sources"].append({"title": why.rstrip("."), "url": url})
         made.append((os.path.basename(f), tb))
     return made
 
@@ -151,7 +157,7 @@ def close(tables, data):
         nxt = sorted(v for v in starts[prefix(name)] if v > tb["valid_from"])
         if nxt:
             end = (datetime.date.fromisoformat(nxt[0]) - datetime.timedelta(days=1)).isoformat()
-            if not tb.get("valid_to") or tb["valid_to"] > end:
+            if not tb.get("valid_to") or tb["valid_to"] > end:  # never later than the next table
                 tb["valid_to"] = end
 
 

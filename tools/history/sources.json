@@ -168,6 +168,30 @@
    "table": "no-2024-01-01",
    "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000&alle_versjoner=true",
    "what": "NVDB: every version of every toll station (Bomstasjon), with its dates"
+  },
+  {
+   "id": "be-vp-news",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/",
+   "what": "Viapass news list (links to each rate change)"
+  },
+  {
+   "id": "be-vp-2024-01",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-what-will-change-on-january-1st.html",
+   "what": "Viapass: changes from 1 January 2024 (rate grid)"
+  },
+  {
+   "id": "be-vp-2024-07",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-what-will-change-on-july-1st.html",
+   "what": "Viapass: changes from 1 July 2024 (rate grid)"
+  },
+  {
+   "id": "be-vp-2025-07",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2025.html",
+   "what": "Viapass: changes from 1 July 2025 (rate grid)"
   }
  ]
 }

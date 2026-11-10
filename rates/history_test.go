@@ -1,6 +1,7 @@
 package rates
 
 import (
+	"math"
 	"sort"
 	"testing"
 	"time"
@@ -15,14 +16,14 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 var historyGaps = map[string]string{
 	"AT": "2024-2025 not yet added", "BE-BRU": "before 1 July 2026 not yet added", "BE-VLG": "before 1 July 2026 not yet added",
 	"BE-WAL": "before 1 July 2026 not yet added", "BG": "before June 2026 not yet added", "CH": "2024 not yet added",
-	"CZ": "2024-2025 not yet added", "DE": "January-June 2024 not yet added", "DK": "2024-2025 not yet added",
+	"CZ": "2024-2025 not yet added", "DE": "January-June 2024 not yet added",
 	"EE": "2024-2025 not yet added", "ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
 	"GB": "before April 2026 not yet added", "GR": "2024-2025 not yet added", "HR": "2024-2025 not yet added",
 	"HU": "before July 2026 not yet added", "IE": "2024-2025 not yet added", "LI": "2024 not yet added",
-	"LT": "before 25 August 2026 not yet added", "LU": "before 25 March 2025 not yet added", "LV": "before March 2026 not yet added",
-	"MK": "before May 2025 not yet added", "NL": "before July 2026 not yet added", "NO": "before November 2026 not yet added",
+	"LT": "before 25 August 2026 not yet added", "LV": "before March 2026 not yet added",
+	"MK": "before May 2025 not yet added", "NL": "before 25 March 2025 not yet added", "NO": "before November 2026 not yet added",
 	"PL": "before February 2026 not yet added", "PT": "2024-2025 not yet added", "RO": "before 8 October 2026 not yet added",
-	"RS": "before July 2026 not yet added", "SE": "2024-2025 not yet added", "SI": "before April 2026 not yet added",
+	"RS": "before July 2026 not yet added", "SI": "before April 2026 not yet added",
 	"SK": "before July 2025 not yet added", "TR": "before July 2026 not yet added",
 }
 
@@ -75,5 +76,48 @@ func TestHistoryCoverage(t *testing.T) {
 		case len(g) > 0:
 			t.Logf("%s: no table for %v (%s)", a, g, why)
 		}
+	}
+}
+
+// The Eurovignette years: a day's charge for a 40 t, 5-axle Euro VI
+// truck in CO2 class 1.
+func TestEurovignetteHistory(t *testing.T) {
+	tbs, err := All()
+	if err != nil {
+		t.Fatal(err)
+	}
+	truck := Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		area, date string
+		want       float64
+	}{
+		{"SE", "2024-06-01", 138}, // SFS 2023:599
+		{"SE", "2025-02-01", 138}, // SFS 2024:953
+		{"SE", "2025-04-01", 147}, // SFS 2025:46
+		{"LU", "2024-06-01", 12},  // RGD 21 May 2019, art. 1er 4°
+		{"NL", "2025-04-01", 13},  // Wet BZM art. 10 (4), Stb. 2025, 445
+		{"DK", "2024-06-01", 89},  // LBK 174/2020 § 3 stk. 4 nr. 5
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.date)
+		tb, ok := Find(tbs, tc.area, d)
+		if !ok {
+			t.Errorf("%s %s: no table", tc.area, tc.date)
+			continue
+		}
+		rs, _, _ := tb.Rates(truck, d)
+		if len(rs) != 1 || rs[0].PerKm != tc.want || !tb.PerDay {
+			t.Errorf("%s %s: %+v, want %g a day", tc.area, tc.date, rs, tc.want)
+		}
+	}
+	// Denmark's km toll in 2025: 1.10 kroner a km over 32 t, class 1.
+	d, _ := time.Parse(time.DateOnly, "2025-06-01")
+	tb, _ := Find(tbs, "DK", d)
+	rs, _, _ := tb.Rates(truck, d)
+	sum := 0.0
+	for _, r := range rs {
+		sum += r.PerKm
+	}
+	if math.Abs(sum-1.10) > 1e-9 {
+		t.Errorf("DK 2025: %g kr/km, want 1.10", sum)
 	}
 }

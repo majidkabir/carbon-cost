@@ -1,0 +1,30 @@
+{
+ "country": "LU",
+ "currency": "EUR",
+ "valid_from": "2019-07-01",
+ "valid_to": "2025-03-24",
+ "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
+ "law": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 4° as published: the daily charge, administrative costs included, is 12 euros for every category of vehicle from 1 July 2019, for goods vehicles of 12 t or more. Replaced on 25 March 2025 by the amounts by CO2 class (RGD of 18 December 2024).",
+ "sources": [
+  {
+   "title": "RGD du 21 mai 2019, as published (Legilux, Mémorial A 353)",
+   "url": "https://legilux.public.lu/eli/etat/leg/rgd/2019/05/21/a353/jo"
+  },
+  {
+   "title": "Guichet.lu: Eurovignette, droit d'usage routier pour poids-lourds (a day's charge is a calendar day, 00:00 to 24:00)",
+   "url": "https://guichet.public.lu/fr/entreprises/import-export/transit/transit-ue/e-vignette-poids-lourds.html"
+  }
+ ],
+ "vehicles": "Goods vehicles of 12 t or more maximum mass",
+ "min_kg": 12000,
+ "tolled_roads": "The motorways and similar roads in the RGD's annex.",
+ "per_day": true,
+ "day": "calendar",
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "rate": 12
+  }
+ ]
+}

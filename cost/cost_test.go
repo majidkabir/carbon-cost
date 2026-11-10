@@ -1466,3 +1466,36 @@ func TestDirectedPrices(t *testing.T) {
 		}
 	}
 }
+
+// The Dutch charge: 22.3% off from September to December 2026, then the
+// 2027 indexed amounts (Staatscourant 2026, 33659): EURO 6 over 32 t,
+// CO2 class 1, 0.092 + 0.020 + 0.094 = 0.206 EUR/km; class 5 0.040.
+func TestNetherlands2027(t *testing.T) {
+	for _, tc := range []struct {
+		day   string
+		class int
+		want  float64
+	}{
+		{"2026-11-10", 1, 15.6}, // 0.069 + 0.016 + 0.071 (Staatscourant 2026, 18058)
+		{"2027-01-01", 1, 20.6},
+		{"2027-06-01", 5, 4.0},
+	} {
+		date, _ := time.Parse(time.DateOnly, tc.day)
+		tr := truck40
+		tr.CO2Class = tc.class
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"NL": 100}}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tr}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "NL" {
+				got += l.AmountEUR
+			}
+		}
+		if math.Abs(got-tc.want) > 0.005 {
+			t.Errorf("%s class %d: %.2f, want %.2f: %v", tc.day, tc.class, got, tc.want, r.Lines)
+		}
+	}
+}

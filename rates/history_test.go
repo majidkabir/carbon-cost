@@ -14,8 +14,7 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 // from HistoryFrom to the end of 2026, with why. TestHistoryCoverage
 // fails on a gap not listed here, and on a listed area that has none.
 var historyGaps = map[string]string{
-	"AT": "2024 not yet added", "BE-BRU": "before 1 July 2026 not yet added", "BE-VLG": "before 1 July 2026 not yet added",
-	"BE-WAL": "before 1 July 2026 not yet added", "BG": "before June 2026 not yet added",
+	"AT": "2024 not yet added", "BG": "before June 2026 not yet added",
 
 	"ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
 	"GR": "2024-2025 not yet added", "HR": "2024-2025 not yet added",

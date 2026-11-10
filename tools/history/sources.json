@@ -2,12 +2,6 @@
  "about": "Official texts the historical rate tables (from 1 January 2024) come from. tools/tables/fetch.py saves them as fetched, with a manifest; the tables are built or checked from the saved copies.",
  "sources": [
   {
-   "id": "de-bfstrmg-anlage-11",
-   "table": "de-2023-12-01",
-   "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_11.html",
-   "what": "BFStrMG Anlage 11: toll rates from 1 December 2023 to 30 June 2024"
-  },
-  {
    "id": "se-sfs-2023-599",
    "table": "se-2024-01-01",
    "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2023-10/SFS2023-599.pdf",
@@ -74,18 +68,6 @@
    "what": "Wet belasting zware motorrijtuigen as in force on 1 January 2024 (art. 10: tariffs)"
   },
   {
-   "id": "at-mtv-2023",
-   "table": "at-2024-01-01",
-   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
-   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024)"
-  },
-  {
-   "id": "at-mtv-2024",
-   "table": "at-2025-01-01",
-   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2024_II_410/BGBLA_2024_II_410.pdf",
-   "what": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024 (in force 1 January 2025)"
-  },
-  {
    "id": "cz-nv-479-2020",
    "table": "cz-2021-01-01",
    "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479",
@@ -120,6 +102,30 @@
    "table": "pl-2026-01-01",
    "url": "https://eli.gov.pl/api/acts/MP/2025/1244/text/O/M20251244.pdf",
    "what": "Obwieszczenie Ministra Infrastruktury z 3 grudnia 2025 r. (M.P. 2025 poz. 1244): electronic toll rates for 2026 (before Dz.U. 2026 poz. 33)"
+  },
+  {
+   "id": "at-mtv-2023",
+   "table": "at-2024-01-01",
+   "url": "https://www.gw-world.com/fileadmin/Corporate_Documents/BGBLA_2023_II_331_Mautverordnung.pdf",
+   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS (ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331) refuses scripted requests (503)"
+  },
+  {
+   "id": "at-mtv-2024",
+   "table": "at-2025-01-01",
+   "url": "https://gw-world.com/fileadmin/Corporate_Documents/BGBLA_2024_II_410.pdf",
+   "what": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024 (in force 1 January 2025), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS refuses scripted requests (503)"
+  },
+  {
+   "id": "ch-svav-2024",
+   "table": "ch-2017-01-01",
+   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2000/226/20240101/de/pdf-a/fedlex-data-admin-ch-eli-cc-2000-226-20240101-de-pdf-a.pdf",
+   "what": "Schwerverkehrsabgabeverordnung (SVAV) of 6 March 2000, as in force on 1 January 2024 (Fedlex)"
+  },
+  {
+   "id": "sk-nv-497-2013-2024",
+   "table": "sk-2024-01-01",
+   "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20240101.html",
+   "what": "Nariadenie vlády SR č. 497/2013 Z. z. as in force on 1 January 2024 (Slov-Lex)"
   }
  ]
 }

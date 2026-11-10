@@ -32,7 +32,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p out/tables
-          for b in tools/history/build_*.py; do [ -e "$b" ] && python3 "$b" out out/tables; done
+          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
           for f in out/tables/*.json; do
             [ -e "$f" ] || continue
             n=$(basename "$f")

@@ -242,10 +242,16 @@
    "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF (RIS)"
   },
   {
-   "id": "at-mtv-2023-rtf",
+   "id": "at-asfinag-2024",
    "table": "at-2024-01-01",
-   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.rtf",
-   "what": "Mauttarifverordnung 2023 as RTF (RIS), if the PDF is refused"
+   "url": "https://www.go-maut.at/media/dxwhuwjm/go-maut-tarife-2024_en.pdf",
+   "what": "ASFINAG: GO toll rates 2024 (km tariffs by axles, CO2 and EURO class, with the air, noise and CO2 parts), under the Mauttarifverordnung 2023"
+  },
+  {
+   "id": "at-asfinag-2024-sections",
+   "table": "at-2024-01-01",
+   "url": "https://www.go-maut.at/media/zsocruyi/go-maut-tarife-2024_streckenmaut_en.pdf",
+   "what": "ASFINAG: GO toll rates 2024 on the special toll sections"
   }
  ]
 }

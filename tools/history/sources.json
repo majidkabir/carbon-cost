@@ -1,0 +1,89 @@
+{
+ "about": "Official texts the historical rate tables (from 1 January 2024) come from. tools/tables/fetch.py saves them as fetched, with a manifest; the tables are built or checked from the saved copies.",
+ "sources": [
+  {
+   "id": "de-bfstrmg-anlage-11",
+   "table": "de-2023-12-01",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_11.html",
+   "what": "BFStrMG Anlage 11: toll rates from 1 December 2023 to 30 June 2024"
+  },
+  {
+   "id": "se-sfs-2023-599",
+   "table": "se-2024-01-01",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2023-10/SFS2023-599.pdf",
+   "what": "Förordning (2023:599): vägavgift amounts for 2024"
+  },
+  {
+   "id": "se-sfs-2024-953",
+   "table": "se-2025-01-01",
+   "url": "https://www.svenskforfattningssamling.se/sites/default/files/sfs/2024-10/SFS2024-953.pdf",
+   "what": "Förordning (2024:953): vägavgift amounts for 2025 as first issued"
+  },
+  {
+   "id": "se-sfs-2025-46",
+   "table": "se-2025-03-25",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-02/SFS2025-46.pdf",
+   "what": "Förordning (2025:46): 2025 amounts by CO2 class, in force 25 March 2025"
+  },
+  {
+   "id": "lu-rgd-2019-jo",
+   "table": "lu-2024-01-01",
+   "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/jo/fr/html/eli-etat-leg-rgd-2019-05-21-a353-jo-fr-html.html",
+   "what": "RGD du 21 mai 2019 as published (Mémorial A 353): droit d'usage amounts before 25 March 2025"
+  },
+  {
+   "id": "nl-bzm-2024",
+   "table": "nl-2024-01-01",
+   "url": "https://wetten.overheid.nl/BWBR0007678/2024-01-01",
+   "what": "Wet belasting zware motorrijtuigen as in force on 1 January 2024 (art. 10: tariffs)"
+  },
+  {
+   "id": "nl-bzm-2025-03-25",
+   "table": "nl-2025-03-25",
+   "url": "https://wetten.overheid.nl/BWBR0007678/2025-03-25",
+   "what": "Wet belasting zware motorrijtuigen as in force on 25 March 2025"
+  },
+  {
+   "id": "nl-stb-2025-41",
+   "table": "nl-2025-03-25",
+   "url": "https://zoek.officielebekendmakingen.nl/stb-2025-41.pdf",
+   "what": "Besluit of 10 February 2025 (Stb. 2025, 41): the new Eurovignette tariff structure in force 25 March 2025; the Protocol's tariffs prevail"
+  },
+  {
+   "id": "nl-stb-2024-240",
+   "table": "nl-2025-03-25",
+   "url": "https://zoek.officielebekendmakingen.nl/stb-2024-240.pdf",
+   "what": "Wet of 26 June 2024 (Stb. 2024, 240): approval of the Eurovignette Protocol and the amended Wet BZM tariffs"
+  },
+  {
+   "id": "dk-vejal-2020",
+   "table": "dk-2024-01-01",
+   "url": "https://www.retsinformation.dk/eli/lta/2020/174/pdf",
+   "what": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020 (§ 3: the charge per day, week, month and year)"
+  },
+  {
+   "id": "dk-jv-2024-2-vejal",
+   "table": "dk-2024-01-01",
+   "url": "https://tax.dk/jv-2024-2/ia/I_A_2_5.htm",
+   "what": "Den Juridiske Vejledning 2024-2, I.A.2.5 (mirror of SKAT's guide): the amounts in kroner for foreign trucks"
+  },
+  {
+   "id": "dk-lov-1489-2024",
+   "table": "dk-2025-01-01",
+   "url": "https://www.retsinformation.dk/eli/lta/2024/1489/pdf",
+   "what": "Lov nr. 1489 af 10/12/2024: amended vejafgift rates and components, including those for 2025"
+  },
+  {
+   "id": "dk-vejafgift-763-2023",
+   "table": "dk-2025-01-01",
+   "url": "https://www.retsinformation.dk/eli/lta/2023/763/pdf",
+   "what": "Lov nr. 763 af 13/06/2023 om vejafgift as enacted"
+  },
+  {
+   "id": "dk-trm-2025",
+   "table": "dk-2025-01-01",
+   "url": "https://www.trm.dk/media/q2wpgmh0/afrapportering-vedr-vej-og-infrastrukturafgifter-i-danmark2-a.pdf",
+   "what": "Transportministeriet, 25 March 2025: report on road charges in Denmark (the vejafgift rates and components in force in 2025)"
+  }
+ ]
+}

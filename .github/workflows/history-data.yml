@@ -1,0 +1,44 @@
+name: History data
+# Fetches the ECB's euro reference rates since 1999 and the official texts
+# behind the historical rate tables (tools/history/sources.json), builds
+# fx/data/ecb-hist.csv and the historical tables, and pushes them with the
+# fetched texts and their manifest to the history-out branch. Push to the
+# history-data branch to run it.
+on:
+  push:
+    branches: [history-data]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - name: ECB reference rates
+        run: |
+          mkdir -p out/fx
+          curl -fsSL -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+          sha256sum ecb.zip > out/fx/ecb-hist.zip.sha256
+          unzip -o ecb.zip eurofxref-hist.csv
+          python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
+      - name: Fetch
+        run: |
+          python3 tools/tables/fetch.py tools/history/sources.json out
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
+      - name: Build
+        run: |
+          mkdir -p out/tables
+          for b in tools/history/build_*.py; do [ -e "$b" ] && python3 "$b" out out/tables; done
+          for f in out/tables/*.json; do
+            [ -e "$f" ] || continue
+            n=$(basename "$f")
+            if [ -f "rates/data/$n" ] && cmp -s "$f" "rates/data/$n"; then echo "$n: same as committed"; else echo "::warning title=$n::new or differs from rates/data"; fi
+          done | tee out/tables/compare.txt
+      - name: Push
+        run: |
+          cd out
+          git init -q -b history-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "History sources and tables"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" history-out

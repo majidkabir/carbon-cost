@@ -76,6 +76,10 @@ type Result struct {
 	Legs  []LegResult `json:"legs"`
 	TTWKg float64     `json:"ttw_kg"`
 	WTWKg float64     `json:"wtw_kg"`
+	// Dataset names Sootcase's emission factor dataset, when it says.
+	Dataset string `json:"dataset,omitempty"`
+	// Warnings are Sootcase's notes on what may make its result too low.
+	Warnings []string `json:"warnings,omitempty"`
 }
 
 // Client calls a Sootcase server.

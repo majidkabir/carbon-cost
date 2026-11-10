@@ -1,0 +1,1429 @@
+{
+ "country": "NL",
+ "currency": "EUR",
+ "valid_from": "2027-01-01",
+ "name": "Dutch HGV charge (vrachtwagenheffing)",
+ "law": "Wet vrachtwagenheffing art. 5 lid 1, amounts indexed for 2027 by Regeling IENW/BSK-2026/181678 (Staatscourant 2026, 33659): the rates of 1 July 2026 times the 2027 tabelcorrectiefactor (2.6%); the temporary 22.3% reduction ended on 31 December 2026",
+ "sources": [
+  {
+   "title": "Staatscourant 2026, nr. 33659: Regeling vrachtwagenheffing, amounts from 1 January 2027",
+   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-33659.html"
+  },
+  {
+   "title": "Rijksoverheid: vrachtwagenheffing from 1 July 2026",
+   "url": "https://www.rijksoverheid.nl/onderwerpen/goederenvervoer/vrachtwagenheffing"
+  }
+ ],
+ "vehicles": "Trucks of category N2 and N3 (over 3.5 t technical maximum mass), by maximum mass of the combination",
+ "min_kg": 3501,
+ "tolled_roads": "Motorways and some provincial and municipal roads listed in the annex of the Wet vrachtwagenheffing.",
+ "rows": [
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.11,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.101,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.091,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.082,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.074,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.061,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.055,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.038,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.027,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.014,
+   "max_kg": 11999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.178,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.164,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.147,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.133,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.119,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.098,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.089,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.075,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.062,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.044,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.022,
+   "max_kg": 17999
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.178,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.164,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.147,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.133,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.119,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.098,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.089,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.075,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.062,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.044,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 18000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.022,
+   "max_kg": 32000
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.183
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.168
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.152
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.137
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.123
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.101
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.092
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.078
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.064
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.046
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.023
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.116,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.078,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.078,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.06,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.045,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.027,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.014,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.014,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.014,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.014,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.012,
+   "max_kg": 11999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.153,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.098,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.098,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.078,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.057,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.035,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.017,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.017,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.017,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.017,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.014,
+   "max_kg": 17999
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.174,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.13,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.127,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.102,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.073,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.041,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.019,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.019,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.019,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.019,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 18000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.015,
+   "max_kg": 32000
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.209
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.156
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.155
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.125
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.088
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.02
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.017
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.053,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.047,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.045,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.042,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.023,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0,
+   "max_kg": 11999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.07,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.061,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.061,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.061,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.059,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.059,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.059,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.056,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.053,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.029,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0,
+   "max_kg": 17999
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.093,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.081,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.081,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.081,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.079,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.079,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.079,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.075,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.07,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.04,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 18000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0,
+   "max_kg": 32000
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    0
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.107
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    1
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.095
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    2
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.095
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    3
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.095
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    4
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.094
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    5
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.094
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "euro": [
+    6
+   ],
+   "co2_class": [
+    1
+   ],
+   "rate": 0.094
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "co2_class": [
+    2
+   ],
+   "rate": 0.089
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "co2_class": [
+    3
+   ],
+   "rate": 0.085
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "co2_class": [
+    4
+   ],
+   "rate": 0.047
+  },
+  {
+   "component": "co2",
+   "min_kg": 32001,
+   "co2_class": [
+    5
+   ],
+   "rate": 0.0
+  }
+ ]
+}

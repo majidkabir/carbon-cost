@@ -68,6 +68,7 @@ def main(fetched, out):
     lon, lat = sum(c[0] for c in soz_pts) / len(soz_pts), sum(c[1] for c in soz_pts) / len(soz_pts)
     tb = {
         "country": "ME", "currency": "EUR", "valid_from": "2022-07-21",
+        "osm_extract": open(os.path.join(fetched, "me-osm-timestamp.txt")).read().strip()[:10],
         "name": "Montenegrin road tolls (putarina): motorway Smokovac–Mateševo and the Sozina tunnel",
         "law": "Zakon o putevima; prices published by Monteput d.o.o.: on the motorway Bar–Boljare (Smokovac–Mateševo), from entry to exit station, category IV (over 3,500 kg, two or three axles) and V (four or more axles); in the Sozina tunnel per passage. The pages carry no date: the table runs from the start of toll collection on the motorway (21 July 2022). Stations placed with OpenStreetMap's toll booths.",
         "sources": [{"title": "Monteput: Cjenovnik Autoput Bar-Boljare", "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/"},

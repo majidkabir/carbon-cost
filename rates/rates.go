@@ -82,16 +82,21 @@ type Table struct {
 	Country string `json:"country"` // ISO 3166-1 alpha-2
 	// Region is set for a regional toll (ISO 3166-2, e.g. BE-VLG): the
 	// table then applies to that region's km, not the country's.
-	Region      string   `json:"region,omitempty"`
-	Currency    string   `json:"currency"`
-	ValidFrom   string   `json:"valid_from"`         // inclusive, YYYY-MM-DD
-	ValidTo     string   `json:"valid_to,omitempty"` // inclusive; "" = until replaced
-	Name        string   `json:"name"`
-	Law         string   `json:"law"`
-	Sources     []Source `json:"sources"`
-	Vehicles    string   `json:"vehicles"`
-	MinKg       int      `json:"min_kg"` // lighter trucks pay no toll
-	TolledRoads string   `json:"tolled_roads"`
+	Region    string   `json:"region,omitempty"`
+	Currency  string   `json:"currency"`
+	ValidFrom string   `json:"valid_from"`         // inclusive, YYYY-MM-DD
+	ValidTo   string   `json:"valid_to,omitempty"` // inclusive; "" = until replaced
+	Name      string   `json:"name"`
+	Law       string   `json:"law"`
+	Sources   []Source `json:"sources"`
+	// OSMExtract is the date of the OpenStreetMap extract the table's
+	// stations or sections were placed from, where they were.
+	OSMExtract string `json:"osm_extract,omitempty"`
+	// File is the table's file in data/.
+	File        string `json:"-"`
+	Vehicles    string `json:"vehicles"`
+	MinKg       int    `json:"min_kg"` // lighter trucks pay no toll
+	TolledRoads string `json:"tolled_roads"`
 	// PerTonneKm tables charge their rates per tonne-km of the truck's
 	// maximum mass, up to MaxChargeableKg (Switzerland's LSVA).
 	PerTonneKm      bool `json:"per_tonne_km,omitempty"`
@@ -99,6 +104,10 @@ type Table struct {
 	// PerDay tables charge their rates per day of use, whatever the km
 	// (time-based vignettes): a trip is priced at one day's charge.
 	PerDay bool `json:"per_day,omitempty"`
+	// Day is what a day of a PerDay charge is: "calendar" (00:00 to
+	// 24:00) or "24h" (24 hours from when it starts); "" not known, so a
+	// trip is priced at one day.
+	Day string `json:"day,omitempty"`
 	// MotorAxles tables count the axles of the motor vehicle alone (the
 	// truck or tractor), not of the combination: rows' axle bounds apply
 	// to Truck.MotorAxles, or to Axles when that isn't given.
@@ -608,6 +617,7 @@ func All() ([]Table, error) {
 		if err := tb.check(); err != nil {
 			return nil, fmt.Errorf("%s: %w", e.Name(), err)
 		}
+		tb.File = e.Name()
 		out = append(out, tb)
 	}
 	sort.Slice(out, func(i, j int) bool {
@@ -620,6 +630,14 @@ func All() ([]Table, error) {
 }
 
 func (tb Table) check() error {
+	switch tb.Day {
+	case "", "calendar", "24h":
+	default:
+		return fmt.Errorf("day must be calendar or 24h, not %q", tb.Day)
+	}
+	if tb.Day != "" && !tb.PerDay {
+		return fmt.Errorf("day is only for per_day tables")
+	}
 	if _, err := time.Parse(time.DateOnly, tb.ValidFrom); err != nil {
 		return fmt.Errorf("bad valid_from %q", tb.ValidFrom)
 	}

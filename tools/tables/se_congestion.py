@@ -119,7 +119,7 @@ def main(fetched, out):
     }
     os.makedirs(out, exist_ok=True)
     for c, tb in tables.items():
-        tb = {"country": "SE", "currency": "SEK", "valid_from": date, **tb,
+        tb = {"country": "SE", "currency": "SEK", "valid_from": date, "osm_extract": open(os.path.join(fetched, "se-osm-timestamp.txt")).read().strip()[:10], **tb,
               "vehicles": "All vehicles, Swedish and foreign", "tolled_roads": f"The charging stations of {c.capitalize().replace('Goteborg', 'Göteborg')}.",
               "crossings": True, "point_match_km": 0.03, "toll_points": stations[c], "rows": []}
         path = os.path.join(out, f"se-congestion-{c}-{date}.json")

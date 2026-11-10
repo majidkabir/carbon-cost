@@ -56,7 +56,11 @@ type Request struct {
 	Time string `json:"time,omitempty"`
 	// AvgSpeedKmh is the average speed for those times, default
 	// DefaultAvgSpeedKmh.
-	AvgSpeedKmh float64     `json:"avg_speed_kmh,omitempty"`
+	AvgSpeedKmh float64 `json:"avg_speed_kmh,omitempty"`
+	// DriverRest adds a single driver's breaks and daily rests to those
+	// times (Regulation (EC) No 561/2006, Arts. 7 and 8): 45 minutes after
+	// 4.5 hours' driving, 11 hours after 9.
+	DriverRest  bool        `json:"driver_rest,omitempty"`
 	CargoKg     float64     `json:"cargo_kg"`
 	VehicleType string      `json:"vehicle_type,omitempty"`
 	Truck       rates.Truck `json:"truck"`
@@ -97,6 +101,11 @@ type Request struct {
 	// roadKm is each country's route km by road class, set by Calculate
 	// from Calculator.Roads.
 	roadKm map[string]roads.Km
+	// roadOSM is the OSM extract date of each country's road classes.
+	roadOSM map[string]string
+	// spans are each country's stretches of the route, as [from, to] km
+	// along it, set by Calculate from the route split by country.
+	spans map[string][][2]float64
 	// CompareCO2Classes prices the same trip for trucks in these CO2
 	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
 	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
@@ -119,7 +128,9 @@ type Comparison struct {
 
 // Line is one charge.
 type Line struct {
-	Charge    string  `json:"charge"`
+	Charge string `json:"charge"`
+	// Days is the days a time-based charge is paid for.
+	Days      int     `json:"days,omitempty"`
 	Country   string  `json:"country,omitempty"`
 	Region    string  `json:"region,omitempty"`  // ISO 3166-2, for regional tolls
 	Road      string  `json:"road,omitempty"`    // motorway or other, where rates differ by road
@@ -164,6 +175,38 @@ type Response struct {
 	// Route is the route split by country, for a map (Calculate with
 	// Borders set).
 	Route []Run `json:"route,omitempty"`
+	// Provenance names the data and assumptions the result rests on.
+	Provenance Provenance `json:"provenance"`
+}
+
+// Provenance is what a result was calculated from: enough to repeat it.
+type Provenance struct {
+	// Version is this tool's release (Calculator.Version).
+	Version string `json:"carbon_cost_version,omitempty"`
+	// Sootcase is the Sootcase server and its emission factor dataset.
+	Sootcase string `json:"sootcase,omitempty"`
+	// Tables are the rate tables priced, with their data files.
+	Tables []TableUsed `json:"tables,omitempty"`
+	// RoadClasses is the OpenStreetMap extract date of the road classes
+	// used, by country.
+	RoadClasses map[string]string `json:"road_classes_osm,omitempty"`
+	// FerryMRV is the EU MRV publication a ferry crossing's emissions
+	// come from.
+	FerryMRV string `json:"ferry_mrv,omitempty"`
+	// FX is the exchange rates used.
+	FX []string `json:"fx,omitempty"`
+	// Assumed lists defaults taken where the request didn't say.
+	Assumed []string `json:"assumed,omitempty"`
+}
+
+// TableUsed is a rate table a result used.
+type TableUsed struct {
+	Name       string `json:"name"`
+	Area       string `json:"area"`
+	ValidFrom  string `json:"valid_from"`
+	ValidTo    string `json:"valid_to,omitempty"`
+	File       string `json:"file,omitempty"`
+	OSMExtract string `json:"osm_extract,omitempty"`
 }
 
 // Calculator prices trips.
@@ -179,6 +222,8 @@ type Calculator struct {
 	// nil: those need fx in the request.
 	FX  func(context.Context) (fx.Rates, error)
 	Now func() time.Time // default time.Now
+	// Version is the release, for the response's provenance.
+	Version string
 }
 
 // Calculate routes the trip with Sootcase and prices it.
@@ -191,8 +236,13 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		return Response{}, err
 	}
 	vt := req.VehicleType
+	var assumed []string
+	if req.Date == "" {
+		assumed = append(assumed, "date: today ("+date.Format(time.DateOnly)+")")
+	}
 	if vt == "" {
 		vt = DefaultVehicleType
+		assumed = append(assumed, "vehicle_type: "+vt)
 	}
 	if c.FX != nil {
 		if r, err := c.FX(ctx); err == nil {
@@ -212,8 +262,13 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			path = append(path, l.Path...)
 		}
 		runs = Route(c.Borders, path, c.Ferries)
+		req.spans = Spans(runs)
 		if c.Roads != nil {
 			req.roadKm = RoadKm(c.Roads, runs)
+			req.roadOSM = map[string]string{}
+			for cc := range req.roadKm {
+				req.roadOSM[cc] = c.Roads.Extract(cc)
+			}
 		}
 	}
 	out, err := PriceWith(res, c.Tables, c.Ferries, req, date)
@@ -221,6 +276,16 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		return out, err
 	}
 	out.Route = runs
+	out.Provenance.Version = c.Version
+	base := c.Sootcase.BaseURL
+	if base == "" {
+		base = sootcase.DefaultURL
+	}
+	out.Provenance.Sootcase = strings.TrimRight(base, "/")
+	if res.Dataset != "" {
+		out.Provenance.Sootcase += ", factors: " + res.Dataset
+	}
+	out.Provenance.Assumed = append(assumed, out.Provenance.Assumed...)
 	return out, nil
 }
 
@@ -330,6 +395,28 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 	if !routed {
 		return Response{}, fmt.Errorf("sootcase returned no distance by country: the server needs Sootcase v0.9.0 or later (country_km)")
 	}
+	for _, w := range res.Warnings {
+		out.Notes = append(out.Notes, "Sootcase: "+w)
+	}
+	if req.Time != "" {
+		if req.AvgSpeedKmh == 0 {
+			out.Provenance.Assumed = append(out.Provenance.Assumed, fmt.Sprintf("avg_speed_kmh: %d (station passage times)", DefaultAvgSpeedKmh))
+		}
+		if req.DriverRest {
+			out.Provenance.Assumed = append(out.Provenance.Assumed, "driver_rest: one driver, 45 min break after 4.5 h and 11 h rest after 9 h driving (Regulation (EC) No 561/2006)")
+		}
+	}
+	seenTable := map[string]bool{}
+	useTable := func(tb rates.Table) {
+		k := tb.File + tb.Area() + tb.ValidFrom
+		if seenTable[k] {
+			return
+		}
+		seenTable[k] = true
+		out.Provenance.Tables = append(out.Provenance.Tables, TableUsed{Name: tb.Name, Area: tb.Area(), ValidFrom: tb.ValidFrom,
+			ValidTo: tb.ValidTo, File: tb.File, OSMExtract: tb.OSMExtract})
+	}
+	seenFX := map[string]bool{}
 	eurPer := map[string]float64{"EUR": 1, "DKK": 1 / DKKPerEUR}
 	if req.DKKPerEUR > 0 {
 		eurPer["DKK"] = 1 / req.DKKPerEUR
@@ -345,6 +432,17 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			l.Sources = lineSrc
 		}
 		f, ok := eurPer[l.Currency]
+		if ok && l.Currency != "EUR" && !seenFX[l.Currency] {
+			seenFX[l.Currency] = true
+			switch v, given := req.FX[l.Currency]; {
+			case given && v > 0:
+				out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("%s: %g per EUR (request)", l.Currency, v))
+			case l.Currency == "DKK" && req.DKKPerEUR > 0:
+				out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("DKK: %g per EUR (request)", req.DKKPerEUR))
+			case l.Currency == "DKK":
+				out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("DKK: %g per EUR (ERM II central rate)", DKKPerEUR))
+			}
+		}
 		if !ok {
 			v := req.ecb.PerEUR[l.Currency]
 			if v == 0 {
@@ -352,6 +450,8 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			}
 			f = 1 / v
 			eurPer[l.Currency] = f
+			seenFX[l.Currency] = true
+			out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("%s: %g per EUR (%s, %s)", l.Currency, v, fx.Source, req.ecb.Date))
 			out.Notes = append(out.Notes, fmt.Sprintf("%s converted at %g %s per euro (%s, %s); give fx.%s to use another rate.",
 				l.Currency, v, l.Currency, fx.Source, req.ecb.Date, l.Currency))
 		}
@@ -406,6 +506,21 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		if byRoute && !shareGiven {
 			tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
 		}
+		useTable(tb)
+		if byRoute {
+			if out.Provenance.RoadClasses == nil {
+				out.Provenance.RoadClasses = map[string]string{}
+			}
+			d := req.roadOSM[a.country]
+			if d == "" {
+				d = "date not recorded"
+			}
+			out.Provenance.RoadClasses[a.country] = "OpenStreetMap " + d
+			if rk.Uncertain >= 0.5 {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: %.1f km counted as untolled local roads pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
+					cc, rk.Uncertain, roads.NearM, cc))
+			}
+		}
 		rs, exempt, ok := tb.Rates(req.Truck, date)
 		switch {
 		case !ok:
@@ -421,16 +536,18 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			if tolledKm < 0.5 {
 				continue
 			}
+			days, note := tripDays(tb, a.country, req, date)
 			for _, r := range rs {
 				if r.PerKm == 0 {
 					continue // e.g. Latvia's zero-emission trucks
 				}
 				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Carbon: r.Component == rates.CO2,
-					Km: round3(tolledKm), Rate: r.PerKm, RateUnit: tb.Currency + "/day", Currency: tb.Currency, Amount: r.PerKm, Source: tb.Law}); err != nil {
+					Km: round3(tolledKm), Days: days, Rate: r.PerKm, RateUnit: tb.Currency + "/day", Currency: tb.Currency,
+					Amount: r.PerKm * float64(days), Source: tb.Law}); err != nil {
 					return Response{}, err
 				}
 			}
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period.", cc))
+			out.Notes = append(out.Notes, cc+": "+note)
 			if tb.MotorAxles && req.Truck.MotorAxles == 0 {
 				out.Notes = append(out.Notes, fmt.Sprintf("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles))
 			}
@@ -602,6 +719,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		}
 		if used || usedPoints {
 			addSources(tb.Sources)
+			useTable(tb)
 		}
 	}
 
@@ -780,6 +898,9 @@ func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request,
 	}
 	out.FerryCrossing = c.Name
 	in, ok := fd.Intensity(c, date.Year())
+	if ok && req.Truck.TareKg > 0 {
+		out.Provenance.FerryMRV = fmt.Sprintf("EU MRV %d, %s", in.Year.ReportingPeriod, in.Year.Version)
+	}
 	if !ok {
 		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s has no MRV data; Sootcase's default ro-pax factor is used.", c.Name))
 		return 0, "", false
@@ -919,7 +1040,77 @@ func passage(req Request, date time.Time, pos float64) (time.Time, bool) {
 		v = DefaultAvgSpeedKmh
 	}
 	start := time.Date(date.Year(), date.Month(), date.Day(), h, m, 0, 0, time.UTC)
-	return start.Add(time.Duration(pos / v * float64(time.Hour))).Truncate(time.Minute), true
+	hours := pos / v
+	if req.DriverRest {
+		hours = withRest(hours)
+	}
+	return start.Add(time.Duration(hours * float64(time.Hour))).Truncate(time.Minute), true
+}
+
+// withRest turns hours of driving into hours elapsed for one driver under
+// Regulation (EC) No 561/2006: a 45-minute break after 4.5 hours'
+// driving (Art. 7) and an 11-hour daily rest after 9 hours (Arts. 6 and
+// 8), the rest taken only once more driving follows.
+func withRest(d float64) float64 {
+	if d <= 0 {
+		return 0
+	}
+	days := math.Ceil(d/9) - 1 // full driving days before this one
+	r := d - 9*days
+	el := days*(9+0.75+11) + r
+	if r > 4.5 {
+		el += 0.75
+	}
+	return el
+}
+
+// tripDays is how many days of a time-based charge a trip pays in a
+// country, from the passage times of its stretches there, and a note
+// saying how.
+func tripDays(tb rates.Table, country string, req Request, date time.Time) (int, string) {
+	sp := req.spans[country]
+	switch {
+	case tb.Day == "":
+		return 1, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period."
+	case req.Time == "" || len(sp) == 0:
+		return 1, "a time-based charge, priced at one day's rate; give time (the departure) to count the days the trip spends there."
+	}
+	n := 0
+	if tb.Day == "calendar" {
+		seen := map[string]bool{}
+		for _, s := range sp {
+			a, _ := passage(req, date, s[0])
+			b, _ := passage(req, date, s[1])
+			for d := time.Date(a.Year(), a.Month(), a.Day(), 0, 0, 0, 0, time.UTC); !d.After(b); d = d.AddDate(0, 0, 1) {
+				if k := d.Format(time.DateOnly); !seen[k] {
+					seen[k] = true
+					n++
+				}
+			}
+		}
+	} else {
+		var until time.Time
+		for _, s := range sp {
+			a, _ := passage(req, date, s[0])
+			b, _ := passage(req, date, s[1])
+			if n == 0 || !a.Before(until) {
+				n, until = n+1, a.Add(24*time.Hour)
+			}
+			for b.After(until) {
+				n, until = n+1, until.Add(24*time.Hour)
+			}
+		}
+	}
+	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[tb.Day]
+	if n != 1 {
+		unit += "s"
+	}
+	rest := ""
+	if !req.DriverRest {
+		rest = " without driver rests (give driver_rest for them)"
+	}
+	return n, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s; a longer period may cost less.",
+		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[tb.Day], n, unit, rest)
 }
 
 // etsSources link the EU ETS Directive (consolidated) and Sootcase,

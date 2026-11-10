@@ -77,6 +77,26 @@ func round5(p [2]float64) [2]float64 {
 	return [2]float64{math.Round(p[0]*1e5) / 1e5, math.Round(p[1]*1e5) / 1e5}
 }
 
+// Spans are each country's road stretches of the runs, as [from, to] km
+// along the route.
+func Spans(runs []Run) map[string][][2]float64 {
+	out := map[string][][2]float64{}
+	pos := 0.0
+	for _, r := range runs {
+		if r.Kind == "road" && r.Country != "" {
+			s := out[r.Country]
+			if n := len(s); n > 0 && s[n-1][1] == pos {
+				s[n-1][1] = pos + r.Km
+			} else {
+				s = append(s, [2]float64{pos, pos + r.Km})
+			}
+			out[r.Country] = s
+		}
+		pos += r.Km
+	}
+	return out
+}
+
 // RoadKm sums each country's road runs by road class, for the countries
 // rx has ways for.
 func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
@@ -90,6 +110,7 @@ func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
 			t.Motorway += k.Motorway
 			t.National += k.National
 			t.Local += k.Local
+			t.Uncertain += k.Uncertain
 			t.MotorwayKnown += k.MotorwayKnown
 			t.NationalKnown += k.NationalKnown
 			t.MotorwaySub += k.MotorwaySub

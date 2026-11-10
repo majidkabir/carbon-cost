@@ -17,7 +17,7 @@ var historyGaps = map[string]string{
 	"AT": "2024 not yet added", "BE-BRU": "before 1 July 2026 not yet added", "BE-VLG": "before 1 July 2026 not yet added",
 	"BE-WAL": "before 1 July 2026 not yet added", "BG": "before June 2026 not yet added",
 
-	"EE": "2024-2025 not yet added", "ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
+	"ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
 	"GR": "2024-2025 not yet added", "HR": "2024-2025 not yet added",
 	"HU": "before July 2026 not yet added", "IE": "2024-2025 not yet added",
 	"LT": "before 25 August 2026 not yet added", "LV": "before March 2026 not yet added",

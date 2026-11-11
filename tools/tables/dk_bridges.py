@@ -28,24 +28,30 @@ def kr(s):
 
 def main(fetched, out):
     sb = text(os.path.join(fetched, "dk-storebaelt.html"))
-    year = re.search(r"Priser for erhverv (\d{4})", sb).group(1)
+    # Until 2025 the page read "Prisliste <year>" with the list price, then
+    # the green price; from 2026 "Priser for erhverv <year>" with the green
+    # price, then the Eksprespris.
+    new = re.search(r"Priser for erhverv (\d{4})", sb)
+    year = (new or re.search(r"Prisliste (\d{4})", sb)).group(1)
     assert "inkl. 25 % moms" in sb
     p = {}
-    for label, key in (("Lastbil op til 10 m", "up to 10 m"), ("Lastbil 10-20 m", "10-20 m"), ("Lastbil over 20 m og op til broklasse 100", "over 20 m")):
+    last = "Lastbil over 20 m og op til broklasse 100" if new else "Lastbil over 20 m og op til 100 t"
+    for label, key in (("Lastbil op til 10 m", "up to 10 m"), ("Lastbil 10-20 m", "10-20 m"), (last, "over 20 m")):
         m = re.search(re.escape(label) + r"(?: \d)? ([\d.]+) kr\. ([\d.]+) kr\.", sb)
-        green, express = kr(m.group(1)), kr(m.group(2))
-        p[key] = express / 1.25
+        green, price = (kr(m.group(1)), kr(m.group(2))) if new else (kr(m.group(2)), kr(m.group(1)))
+        p[key] = price / 1.25
         p[key + " green"] = green
     pct = int(re.search(r"spare (\d+) ?% på turen over Storebæltsbroen", sb).group(1))
     for k in ("up to 10 m", "10-20 m", "over 20 m"):
         # The green price on the page is the express price less the discount.
         assert abs(p[k] * 1.25 * (1 - pct / 100) - p[k + " green"]) <= 1, k
     ob = text(os.path.join(fetched, "dk-oresund.html"))
-    assert "eksklusiv 25% moms" in ob
-    van = re.search(r"Varebil \(6-9m\) 1-\d+ (\d+) DKK (\d+) DKK", ob)
-    truck = re.search(r"Lastbil, Varebil \(over 9m\) 1-\d+ (\d+) DKK (\d+) DKK", ob)
+    # Until 2025: "eksklusiv moms", prices without "DKK", "(över 9m)".
+    assert "eksklusiv 25% moms" in ob or "Priserne er pr. tur og eksklusiv moms" in ob
+    van = re.search(r"Varebil \(6-9m\) 1-\d+ (\d+)(?: DKK)? (\d+)(?: DKK)?", ob)
+    truck = re.search(r"Lastbil, Varebil \([oö]ver 9m\) 1-\d+ (\d+)(?: DKK)? (\d+)(?: DKK)?", ob)
     first_van = re.search(r"Varebil \(6-9m\) 1-(\d+)", ob).group(1)
-    first_truck = re.search(r"Lastbil, Varebil \(over 9m\) 1-(\d+)", ob).group(1)
+    first_truck = re.search(r"Lastbil, Varebil \([oö]ver 9m\) 1-(\d+)", ob).group(1)
     t = {
         "country": "DK", "currency": "DKK", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True,
         "name": "Storebælt and Øresund bridge tolls",

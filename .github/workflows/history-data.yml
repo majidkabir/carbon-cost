@@ -28,18 +28,21 @@ jobs:
           unzip -o ecb.zip eurofxref-hist.csv
           python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
       - name: Fetch
+        # Internet Archive copies the last run fetched aren't asked for again
+        # (a capture never changes); the next step takes them from it.
         run: |
-          python3 tools/tables/fetch.py tools/history/sources.json out
+          mkdir -p prev
+          if git fetch -q --depth 1 origin history-out; then git archive FETCH_HEAD | tar -x -C prev; fi
+          python3 tools/history/reuse.py todo tools/history/sources.json prev todo.json
+          python3 tools/tables/fetch.py todo.json out
           # Some servers send a PDF from a URL without .pdf.
           for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
       - name: Reuse Internet Archive copies
         # A capture never changes; the archive often refuses requests.
         run: |
-          mkdir -p prev
-          if git fetch -q --depth 1 origin history-out; then git archive FETCH_HEAD | tar -x -C prev; fi
           python3 tools/history/reuse.py tools/history/sources.json out prev
-          rm -rf prev
+          rm -rf prev todo.json
       - name: OpenStreetMap extracts
         # The extracts placing the toll stations, as the tables-data
         # workflow last fetched them (removed before the push).

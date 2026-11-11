@@ -7,7 +7,7 @@ make each builder's input files (several copies are joined in order).
 A build may also give captured_from (YYYYMMDD: copies captured from then
 on count for the year, for prices put up late in the year before),
 absent (input files the builder knows that the year didn't have, written
-to absent.txt) and sources: "copies" (the table names the archived copies
+to absent.txt; the year itself goes to year.txt) and sources: "copies" (the table names the archived copies
 only, when the builder's own sources name later files).
 
 Usage: python3 build_archived.py fetched/ out-dir
@@ -63,6 +63,7 @@ def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
                 os.system(f"pdftotext -bbox '{os.path.join(tmp, target)}' '{os.path.join(tmp, target[:-4])}.bbox.html'")
         if not ok:
             continue
+        open(os.path.join(tmp, "year.txt"), "w").write(b["year"] + "\n")
         if b.get("absent"):
             # Input files the builder knows that year didn't have yet.
             open(os.path.join(tmp, "absent.txt"), "w").write("\n".join(b["absent"]) + "\n")

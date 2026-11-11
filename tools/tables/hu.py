@@ -31,8 +31,10 @@ def parse(fetched):
     state = re.search(r"az útdíjköteles utakról (\d{4})\.(\d\d)\.(\d\d)\.", text)
     infra = {}
     for cat in ("J2", "J3", "J4", "J5"):
-        m = re.search(cat + r" díjkategóriába tartozó útdíjköteles gépjármű kilométerenkénti, általános forgalmi adót magában foglaló "
-                      r"infrastruktúradíjának alapmértéke: a\) gyorsforgalmi úton ([\d,]+) forint, b\) főúton ([\d,]+) forint", text)
+        # Worded "útdíjköteles gépjármű ... infrastruktúradíjának alapmértéke" from 2026, "gépjárművek ...
+        # infrastruktúra díj (alap)mértéke" before.
+        m = re.search(cat + r" díjkategóriába tartozó (?:útdíjköteles gépjármű|gépjárművek) kilométerenkénti, általános forgalmi adót magában foglaló "
+                      r"infrastruktúra ?díj(?:ának)? (?:alap)?mértéke: a\) gyorsforgalmi úton ([\d,]+) forint, b\) főúton ([\d,]+) forint", text)
         infra[cat] = (num(m.group(1)), num(m.group(2)))
     blocks = "".join(open(f, encoding="utf-8").read() for f in sorted(glob.glob(os.path.join(fetched, "hu-25-2013-block-*.html"))))
     a2 = blocks.index("2. melléklet a 25/2013")

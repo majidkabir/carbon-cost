@@ -261,8 +261,16 @@ def main(fetched, out):
         if set(m) != {"Ligeros", "Pesados 1", "Pesados 2"}:
             sys.exit(f"{sid}: classes {list(m)}")
         rows = m["Pesados 1"][0]
+        note = ""
         if m["Pesados 2"][0] != rows:
-            sys.exit(f"{sid}: Pesados 1 and 2 list other stations")
+            # SEITT's 2025 AP-36 PDF labels the Pesados 2 matrix's rows with
+            # another motorway's stations; its columns are the AP-36's, so
+            # the rows are read in the column order when Ligeros and
+            # Pesados 1 agree and the counts match.
+            if m["Ligeros"][0] != rows or len(m["Pesados 2"][0]) != len(rows):
+                sys.exit(f"{sid}: Pesados 1 and 2 list other stations")
+            print(f"{sid}: Pesados 2 rows labelled {m['Pesados 2'][0]}; read as {rows}")
+            note = "; the PDF labels the Pesados 2 rows with other stations (" + ", ".join(m["Pesados 2"][0]) + "), read here in the order of its columns, the AP-36's"
         placed = place(rows, road_of(name), plazas)
         miss = [r for r in rows if r not in placed]
         missing += [f"{name}: {r}" for r in miss]
@@ -280,7 +288,7 @@ def main(fetched, out):
         stations = [{"name": r, "points": [{"name": "booth", "lat": round(c[1], 6), "lon": round(c[0], 6)} for c in placed[r]]} for r in rows if r in placed]
         print(f"{name}: {len(stations)}/{len(rows)} stations placed, {len(prices)} prices" + (f"; unplaced {miss}" if miss else ""))
         if len(stations) >= 3:
-            systems.append({"name": name, "law": f"SEITT tariff {y} ({sid}), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+            systems.append({"name": name, "law": f"SEITT tariff {y} ({sid}), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00" + note,
                             "free_hours": ["00:00", "05:59"], "directed": True, "groups": GROUPS, "stations": stations, "prices": prices, "etc_prices": etc})
     osm = open(os.path.join(fetched, "es-osm-timestamp.txt")).read().strip()[:10]
     tb = {

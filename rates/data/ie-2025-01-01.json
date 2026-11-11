@@ -1,0 +1,243 @@
+{
+ "country": "IE",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "osm_extract": "2026-11-08",
+ "name": "Irish national road tolls (M50 and the PPP toll roads)",
+ "law": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2025 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-08T21:21:00Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2025.json.",
+ "sources": [
+  {
+   "title": "TII: M1 Gormanston to Monasterboice (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250818011152/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/"
+  },
+  {
+   "title": "TII: M3 Clonee Kells (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250910232858/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/"
+  },
+  {
+   "title": "TII: M3 Between Clonee and Dunshaughlin (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250715033035/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/"
+  },
+  {
+   "title": "TII: M4 Kilcock Enfield Kinnegad (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712065817/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/"
+  },
+  {
+   "title": "TII: N6 Galway Ballinasloe (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250911000234/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/"
+  },
+  {
+   "title": "TII: M7-M8 Portlaoise Castletown Portlaoise Cullahill (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712060620/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7-m8-portlaoise-castletown-portlaoise-cullahill/"
+  },
+  {
+   "title": "TII: N8 Rathcormac Fermoy Bypass (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20251108210607/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/"
+  },
+  {
+   "title": "TII: Limerick Tunnel (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250808142831/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/"
+  },
+  {
+   "title": "TII: N25 Waterford City Bypass (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250910231418/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/"
+  },
+  {
+   "title": "TII: M50 Barrier Free Tolling (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712062825/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/ireland-and-northern-ireland.html"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3,500 kg (M50: over 2,000 kg)",
+ "min_kg": 3501,
+ "tolled_roads": "The M1, M3 (two plazas), M4, M6, M7, M8, N18 Limerick Tunnel and N25 Waterford toll plazas and the M50 toll between junctions 6 and 7.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "M1 Gormanston to Monasterboice",
+   "lat": 53.662852,
+   "lon": -6.3303,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "M3 Clonee Kells",
+   "lat": 53.672403,
+   "lon": -6.775738,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.4959
+    }
+   ]
+  },
+  {
+   "name": "M3 Between Clonee and Dunshaughlin",
+   "lat": 53.453751,
+   "lon": -6.482601,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.8455
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.4959
+    }
+   ]
+  },
+  {
+   "name": "M4 Kilcock Enfield Kinnegad",
+   "lat": 53.410308,
+   "lon": -6.739993,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.6911
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.9919
+    }
+   ]
+  },
+  {
+   "name": "N6 Galway Ballinasloe",
+   "lat": 53.282212,
+   "lon": -8.413455,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "M7-M8 Portlaoise Castletown Portlaoise Cullahill",
+   "lat": 53.000441,
+   "lon": -7.393453,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "N8 Rathcormac Fermoy Bypass",
+   "lat": 52.02701,
+   "lon": -8.328118,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "Limerick Tunnel",
+   "lat": 52.669569,
+   "lon": -8.700088,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "N25 Waterford City Bypass",
+   "lat": 52.273883,
+   "lon": -7.158746,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.7154
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0163
+    }
+   ]
+  },
+  {
+   "name": "M50 Barrier Free Tolling",
+   "lat": 53.369438,
+   "lon": -6.37846,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 2001,
+     "max_kg": 10000,
+     "rate": 6.4,
+     "etc_rate": 5.1
+    },
+    {
+     "min_kg": 10001,
+     "rate": 7.7,
+     "etc_rate": 6.4
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

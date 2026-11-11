@@ -1,8 +1,9 @@
-"""Keeps Internet Archive copies from the last run: a capture never
-changes, and the archive often refuses the workflow's requests. For each
-history source with a Wayback URL (web.archive.org/web/<capture>id_/...)
-that this run failed to fetch, the copy the last run fetched (in prev/,
-from the history-out branch) is used, with its manifest entry.
+"""Keeps copies from the last run. For each history source this run
+failed to fetch (any status but 200), the copy the last run fetched from
+the same URL (in prev/, from the history-out branch) is used, with its
+manifest entry marked reused: an Internet Archive capture never changes,
+and the archive and some law portals (wetten.overheid.nl) at times refuse
+the workflow's requests.
 
 Usage: python3 reuse.py tools/history/sources.json out/ prev/
 
@@ -13,7 +14,7 @@ import glob, json, os, shutil, sys
 
 
 def main(sources, out, prev):
-    ids = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"] if "web.archive.org/web/" in s["url"]}
+    ids = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     man = json.load(open(os.path.join(out, "manifest.json")))
     try:
         old = {f["file"]: f for f in json.load(open(os.path.join(prev, "manifest.json")))["files"]}

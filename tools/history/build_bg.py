@@ -16,8 +16,7 @@ EURO V (the tool has no EEV class; Bulgaria prices it as EURO VI).
 
 Usage: python3 build_bg.py fetched/ out-dir"""
 import html, json, os, re, sys
-
-from bs4 import BeautifulSoup
+from html.parser import HTMLParser
 
 DV = "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat="
 IISDA = "https://iisda.government.bg/adm_services/service_regulatory_file/22321_97892"
@@ -55,11 +54,36 @@ def num(s):
     return float(s.replace(",", ".").strip())
 
 
+class Tables(HTMLParser):
+    """The page's tables as rows of cell texts (nested tables listed apart)."""
+
+    def __init__(self):
+        super().__init__()
+        self.tables, self.stack = [], []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "table":
+            self.stack.append([])
+        elif self.stack and tag == "tr":
+            self.stack[-1].append([])
+        elif self.stack and tag in ("td", "th") and self.stack[-1]:
+            self.stack[-1][-1].append("")
+
+    def handle_endtag(self, tag):
+        if tag == "table" and self.stack:
+            self.tables.append(self.stack.pop())
+
+    def handle_data(self, data):
+        if self.stack and self.stack[-1] and self.stack[-1][-1]:
+            self.stack[-1][-1][-1] += data
+
+
 def toll_tables(path):
-    soup = BeautifulSoup(open(path, "rb").read().decode("utf-8", "replace"), "lxml")
+    p = Tables()
+    p.feed(open(path, "rb").read().decode("utf-8", "replace"))
     out = []
-    for t in soup.find_all("table"):
-        rows = [[c.get_text(" ", strip=True) for c in r.find_all(["td", "th"])] for r in t.find_all("tr")]
+    for rows in p.tables:
+        rows = [[re.sub(r"\s+", " ", c).strip() for c in r] for r in rows]
         if any("Цена на тол такса" in " ".join(r) for r in rows):
             out.append(rows)
     return out

@@ -1,0 +1,1882 @@
+{
+ "country": "GR",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "osm_extract": "2026-11-09",
+ "name": "Greek motorway tolls (open toll stations)",
+ "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2025 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included. Built from the Internet Archive's copies of the 2025 pages. Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced.",
+ "sources": [
+  {
+   "title": "Olympia Odos: Τιμές διοδίων",
+   "url": "https://web.archive.org/web/20251217071829/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/"
+  },
+  {
+   "title": "Nea Odos: Διόδια Τέλη",
+   "url": "https://web.archive.org/web/20251123021248/https://www.neaodos.gr/highways/tolls/"
+  },
+  {
+   "title": "Kentriki Odos: Διόδια Τέλη",
+   "url": "https://web.archive.org/web/20251206172556/https://www.kentrikiodos.gr/highways/toll-fees/"
+  },
+  {
+   "title": "Moreas: Διόδια",
+   "url": "https://web.archive.org/web/20251216205541/https://www.moreas.com.gr/leitourgia/diodia"
+  },
+  {
+   "title": "Aegean Motorway: Τιμές Διοδίων 2026",
+   "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"
+  },
+  {
+   "title": "Gefyra: Τιμές Διοδίων (Rio–Antirrio bridge)",
+   "url": "https://web.archive.org/web/20250120075907/https://www.gefyra.gr/prices/Times-Diodion/"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/greece.html"
+  }
+ ],
+ "vehicles": "Vehicles over 3,500 kg (categories 3 and 4)",
+ "min_kg": 3501,
+ "tolled_roads": "A1 (Metamorfosi–Kleidi), A8 (Elefsina–Patra–Pyrgos), A5 Ionia Odos, A7 (Korinthos–Kalamata, Lefktro–Sparti), E65.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Ελευσίνας",
+   "lat": 38.042237,
+   "lon": 23.495701,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.9194
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.8548
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Ισθμού",
+   "lat": 37.925162,
+   "lon": 23.032463,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.1935
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.8871
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Κιάτου",
+   "lat": 37.9967,
+   "lon": 22.735457,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.3226
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.4194
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Ελαιώνα",
+   "lat": 38.19055,
+   "lon": 22.165377,
+   "heading": 94.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.4839
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Ελαιώνα",
+   "lat": 38.190907,
+   "lon": 22.165412,
+   "heading": 275.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.4839
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Ρίου",
+   "lat": 38.316452,
+   "lon": 21.830146,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.2419
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.3387
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Πάτρας",
+   "lat": 38.145184,
+   "lon": 21.618995,
+   "heading": 262.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.1774
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.0
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Πάτρας",
+   "lat": 38.144981,
+   "lon": 21.619028,
+   "heading": 86.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.1774
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.0
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Πύργου",
+   "lat": 37.752637,
+   "lon": 21.358685,
+   "heading": 204.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.2742
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0484
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Μετωπικός Πύργου",
+   "lat": 37.752562,
+   "lon": 21.358915,
+   "heading": 24.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.2742
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0484
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Νέας Περάμου",
+   "lat": 38.019648,
+   "lon": 23.426682,
+   "heading": 240.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.3065
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5968
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Νέας Περάμου",
+   "lat": 38.019888,
+   "lon": 23.428464,
+   "heading": 61.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.3065
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5968
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Πάχης",
+   "lat": 37.985808,
+   "lon": 23.348981,
+   "heading": 204.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.9839
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Πάχης",
+   "lat": 37.984998,
+   "lon": 23.350115,
+   "heading": 78.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.9839
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Αγίων Θεοδώρων",
+   "lat": 37.921943,
+   "lon": 23.119518,
+   "heading": 298.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.2097
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.7742
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Αγίων Θεοδώρων",
+   "lat": 37.921789,
+   "lon": 23.119518,
+   "heading": 118.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.2097
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.7742
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Ζευγολατιού",
+   "lat": 37.931258,
+   "lon": 22.787996,
+   "heading": 103.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.6935
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4194
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Ζευγολατιού",
+   "lat": 37.931466,
+   "lon": 22.787937,
+   "heading": 282.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.6935
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4194
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Κιάτου",
+   "lat": 38.007735,
+   "lon": 22.733339,
+   "heading": 155.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0161
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.8226
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Κιάτου",
+   "lat": 38.00789,
+   "lon": 22.733527,
+   "heading": 335.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0161
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.8226
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Δερβενίου",
+   "lat": 38.132016,
+   "lon": 22.405088,
+   "heading": 303.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0645
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.2742
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Δερβενίου",
+   "lat": 38.13186,
+   "lon": 22.404906,
+   "heading": 127.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0645
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.2742
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Ακράτας",
+   "lat": 38.157188,
+   "lon": 22.34224,
+   "heading": 243.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0323
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.6452
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Ακράτας",
+   "lat": 38.156775,
+   "lon": 22.342785,
+   "heading": 357.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0323
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.6452
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Καλαβρύτων",
+   "lat": 38.174721,
+   "lon": 22.239686,
+   "heading": 47.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.4839
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.7419
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Καλαβρύτων",
+   "lat": 38.174699,
+   "lon": 22.239292,
+   "heading": 229.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.4839
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.7419
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Δρεπάνου",
+   "lat": 38.32515,
+   "lon": 21.857979,
+   "heading": 277.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.9516
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.5645
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Δρεπάνου",
+   "lat": 38.324961,
+   "lon": 21.858062,
+   "heading": 97.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.9516
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.5645
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Κάτω Αχαΐας",
+   "lat": 38.114812,
+   "lon": 21.527963,
+   "heading": 44.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.3548
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0484
+    }
+   ]
+  },
+  {
+   "name": "Ολυμπία Οδός: Πλευρικός Κάτω Αχαΐας",
+   "lat": 38.11453,
+   "lon": 21.526824,
+   "heading": 223.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.3548
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0484
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Αφιδνών",
+   "lat": 38.176366,
+   "lon": 23.854084,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.5806
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.6452
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Καπανδριτίου",
+   "lat": 38.202844,
+   "lon": 23.854781,
+   "heading": 13.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.5968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.4516
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Καπανδριτίου",
+   "lat": 38.202551,
+   "lon": 23.853886,
+   "heading": 203.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.5968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.4516
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Μαλακάσας",
+   "lat": 38.236384,
+   "lon": 23.785893,
+   "heading": 293.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.2661
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5968
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Μαλακάσας",
+   "lat": 38.237454,
+   "lon": 23.780597,
+   "heading": 111.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.2661
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5968
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Οινοφύτων",
+   "lat": 38.292179,
+   "lon": 23.674612,
+   "heading": 266.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5323
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.1774
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Οινοφύτων",
+   "lat": 38.28917,
+   "lon": 23.67592,
+   "heading": 157.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5323
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.1774
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Θήβας",
+   "lat": 38.370851,
+   "lon": 23.286924,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 8.871
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 12.4194
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Θήβας",
+   "lat": 38.364148,
+   "lon": 23.32206,
+   "heading": 348.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.5081
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.9194
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Θήβας",
+   "lat": 38.366352,
+   "lon": 23.324593,
+   "heading": 353.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.5081
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.9194
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Τραγάνας",
+   "lat": 38.617602,
+   "lon": 23.143577,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 8.8306
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 12.379
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Τραγάνας",
+   "lat": 38.622549,
+   "lon": 23.123702,
+   "heading": 273.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.0968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.9194
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Τραγάνας",
+   "lat": 38.621955,
+   "lon": 23.123618,
+   "heading": 106.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.0968
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.9194
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Κλόκοβας",
+   "lat": 38.359352,
+   "lon": 21.656746,
+   "heading": 315.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.9355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.6774
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Κλόκοβας",
+   "lat": 38.359147,
+   "lon": 21.656481,
+   "heading": 132.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.9355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.6774
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Γαβρολίμνης",
+   "lat": 38.37336,
+   "lon": 21.624921,
+   "heading": 115.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.879
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.8548
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Γαβρολίμνης",
+   "lat": 38.374209,
+   "lon": 21.624926,
+   "heading": 277.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.879
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.8548
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Μεσολογγίου",
+   "lat": 38.379379,
+   "lon": 21.495097,
+   "heading": 103.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.9032
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0726
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Μεσολογγίου",
+   "lat": 38.379543,
+   "lon": 21.495145,
+   "heading": 282.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.9032
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0726
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Αγγελοκάστρου",
+   "lat": 38.549428,
+   "lon": 21.272429,
+   "heading": 336.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 8.1452
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 11.4113
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Αγγελοκάστρου",
+   "lat": 38.54935,
+   "lon": 21.272189,
+   "heading": 158.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 8.1452
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 11.4113
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Κουβαρά",
+   "lat": 38.700404,
+   "lon": 21.215713,
+   "heading": 353.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.75
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.2823
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Κουβαρά",
+   "lat": 38.699493,
+   "lon": 21.214125,
+   "heading": 1.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.75
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.2823
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Μενιδίου",
+   "lat": 38.989853,
+   "lon": 21.170801,
+   "heading": 170.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.9355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.7177
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Μενιδίου",
+   "lat": 38.989887,
+   "lon": 21.171099,
+   "heading": 350.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.9355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.7177
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Άρτας",
+   "lat": 39.160389,
+   "lon": 21.010856,
+   "heading": 136.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7742
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Άρτας",
+   "lat": 39.160625,
+   "lon": 21.012041,
+   "heading": 249.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7742
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Γοργόμυλου",
+   "lat": 39.331769,
+   "lon": 20.915648,
+   "heading": 11.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.3387
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.2661
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Πλευρικός Γοργόμυλου",
+   "lat": 39.331876,
+   "lon": 20.914228,
+   "heading": 180.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.3387
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.2661
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Τερόβου",
+   "lat": 39.425473,
+   "lon": 20.905119,
+   "heading": 183.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.1774
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.0403
+    }
+   ]
+  },
+  {
+   "name": "Νέα Οδός: Μετωπικός Τερόβου",
+   "lat": 39.425486,
+   "lon": 20.905401,
+   "heading": 2.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.1774
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.0403
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Μετωπικός Αγίας Τριάδας",
+   "lat": 38.808512,
+   "lon": 22.602641,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0726
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.7258
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Μώλου",
+   "lat": 38.802892,
+   "lon": 22.649427,
+   "heading": 276.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 0.7661
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.0887
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Μώλου",
+   "lat": 38.80264,
+   "lon": 22.649557,
+   "heading": 96.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 0.7661
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.0887
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Μπράλου",
+   "lat": 38.79927,
+   "lon": 22.509363,
+   "heading": 116.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.4113
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.9758
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Μπράλου",
+   "lat": 38.799604,
+   "lon": 22.511019,
+   "heading": 272.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.4113
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.9758
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Μετωπικός Μαυρομαντήλας",
+   "lat": 38.904106,
+   "lon": 22.527701,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.3548
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.129
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Αγίας Μαρίνας",
+   "lat": 38.903725,
+   "lon": 22.570507,
+   "heading": 254.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.7823
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.9113
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Αγίας Μαρίνας",
+   "lat": 38.903056,
+   "lon": 22.569244,
+   "heading": 78.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.7823
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.9113
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Στυλίδας",
+   "lat": 38.913573,
+   "lon": 22.657878,
+   "heading": 111.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.4919
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0968
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Στυλίδας",
+   "lat": 38.913691,
+   "lon": 22.6589,
+   "heading": 291.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.4919
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0968
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Μετωπικός Λιανοκλαδίου",
+   "lat": 38.915006,
+   "lon": 22.348875,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.9919
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.5645
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Ανάβρας",
+   "lat": 39.21025,
+   "lon": 22.069247,
+   "heading": 91.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.2339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.9274
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Ανάβρας",
+   "lat": 39.210486,
+   "lon": 22.069106,
+   "heading": 271.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.2339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.9274
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Μετωπικός Σοφάδων",
+   "lat": 39.257055,
+   "lon": 22.083107,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.2177
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 10.0806
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Προαστίου",
+   "lat": 39.474649,
+   "lon": 21.903325,
+   "heading": 2.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.4194
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.4274
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Προαστίου",
+   "lat": 39.474536,
+   "lon": 21.903039,
+   "heading": 182.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.4194
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.4274
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Μετωπικός Τρικάλων",
+   "lat": 39.5202,
+   "lon": 21.832363,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.2903
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 8.8306
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Τρικάλων",
+   "lat": 39.568984,
+   "lon": 21.818103,
+   "heading": 271.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Τρικάλων",
+   "lat": 39.568782,
+   "lon": 21.818383,
+   "heading": 90.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Καλαμπάκας",
+   "lat": 39.699846,
+   "lon": 21.610719,
+   "heading": 354.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.8952
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.6613
+    }
+   ]
+  },
+  {
+   "name": "Κεντρική Οδός: Πλευρικός Καλαμπάκας",
+   "lat": 39.700192,
+   "lon": 21.608671,
+   "heading": 116.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.8952
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.6613
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "lat": 37.835943,
+   "lon": 22.807744,
+   "heading": 211.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.8065
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 8.1048
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "lat": 37.835709,
+   "lon": 22.808268,
+   "heading": 29.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.8065
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 8.1048
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "lat": 37.835825,
+   "lon": 22.808018,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.8065
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 8.1048
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Νεστάνης",
+   "lat": 37.600785,
+   "lon": 22.446442,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.4839
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.7016
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Γέφυρας Μάναρη",
+   "lat": 37.412353,
+   "lon": 22.307739,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.4355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.25
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Βελιγοστής",
+   "lat": 37.345002,
+   "lon": 22.110272,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.9032
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0323
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Παραδεισίων",
+   "lat": 37.331656,
+   "lon": 22.077681,
+   "heading": 208.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Παραδεισίων",
+   "lat": 37.330717,
+   "lon": 22.07835,
+   "heading": 283.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4597
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Αρφαρών",
+   "lat": 37.153608,
+   "lon": 22.025489,
+   "heading": 309.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4194
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Αρφαρών",
+   "lat": 37.152387,
+   "lon": 22.026263,
+   "heading": 132.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7339
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4194
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Καλαμάτας",
+   "lat": 37.136833,
+   "lon": 22.037936,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.3952
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.129
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Θουρίας",
+   "lat": 37.072077,
+   "lon": 22.048018,
+   "heading": 326.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.0887
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.5323
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Πλευρικός Θουρίας",
+   "lat": 37.071567,
+   "lon": 22.047391,
+   "heading": 127.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.0887
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.5323
+    }
+   ]
+  },
+  {
+   "name": "Μορέας: Μετωπικός Πετρίνας",
+   "lat": 37.298728,
+   "lon": 22.210251,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 6.6935
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.3548
+    }
+   ]
+  },
+  {
+   "name": "Γέφυρα: Ρίο–Αντίρριο",
+   "lat": 38.333835,
+   "lon": 21.765955,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 19.1129
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 31.0484
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "max_axles": 4,
+     "rate": 39.4355
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 5,
+     "rate": 39.4355
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

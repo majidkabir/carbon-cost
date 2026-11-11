@@ -1,0 +1,151 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+ "vehicles": "Trucks and articulated combinations of 12 t or more total weight, for goods transport",
+ "min_kg": 12000,
+ "tolled_roads": "Motorways and the roads in annex 1 of the law (for foreign vehicles; Swedish vehicles pay for all roads, yearly).",
+ "per_day": true,
+ "day": "calendar",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-12-31",
+ "law": "Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for 2024 from Förordning (2023:599): per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4) and EURO class; the day's amount is 138 kronor for all. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT.",
+ "sources": [
+  {
+   "title": "SFS 2023:599 (Svensk författningssamling)",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2023-10/SFS2023-599.pdf"
+  },
+  {
+   "title": "Lag (1997:1137), consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text"
+  }
+ ],
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 138
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 138
+  }
+ ]
+}

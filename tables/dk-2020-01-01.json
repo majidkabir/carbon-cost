@@ -1,0 +1,26 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2020-01-01",
+ "valid_to": "2024-12-31",
+ "name": "Danish road user charge (vejbenyttelsesafgift, Eurovignette)",
+ "law": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020, § 3, stk. 4, nr. 5: 89 kroner a day for trucks registered abroad of 12 t or more, whatever their emission norm and axles; § 4 adjusts the amounts each 1 January only if the euro's value in kroner has changed by 5% or more. The period starts at the start of a day (§ 2, stk. 5). The law ended on 1 January 2025 (lov nr. 763 af 13/06/2023), replaced by the km-based vejafgift.",
+ "sources": [
+  {
+   "title": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020 (Retsinformation)",
+   "url": "https://www.retsinformation.dk/eli/lta/2020/174"
+  }
+ ],
+ "vehicles": "Trucks and combinations registered abroad of 12 t or more total weight",
+ "min_kg": 12000,
+ "tolled_roads": "Motorways (motorvejsstrækningerne).",
+ "per_day": true,
+ "day": "calendar",
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "rate": 89
+  }
+ ]
+}

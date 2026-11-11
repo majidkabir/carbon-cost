@@ -12,7 +12,7 @@ The lists of 1 April 2023 (in force until 9 July 2024), 10 January 2025
 and 4 July 2025 weren't archived, so those periods have no table.
 
 Usage: python3 build_rs.py fetched/ out-dir"""
-import datetime, importlib.util, json, os, re, sys
+import datetime, importlib.util, json, os, re, sys, unicodedata
 from collections import defaultdict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -28,6 +28,30 @@ MONTHS = {"januara": 1, "februara": 2, "marta": 3, "aprila": 4, "maja": 5, "juna
           "septembra": 9, "oktobra": 10, "novembra": 11, "decembra": 12}
 
 
+SKIPPED = set()  # origins the current table has no system for
+
+
+def plain(s):
+    return unicodedata.normalize("NFD", s).encode("ascii", "ignore").decode()
+
+
+# Names an earlier list spells otherwise -> the current list's.
+ALIAS = {"ADAŠEVCI": "MOROVIĆ / ADAŠEVCI", "BUJANOVAC jud": "BUJANOVAC jug", "PRELJINA": "PRELJINA JUG",
+         "ČAĆAK (Pakovraće)": "ČAČAK (Pakovraće)"}
+# Origins the current list doesn't head a table with: the system they're on.
+ORIGIN_SYSTEM = {"ŠIMANOVCI": "A3 Beograd – Šid"}
+
+
+def system(origin):
+    """The system an origin heads (the current list spells Preševo without its accent)."""
+    if origin in ORIGIN_SYSTEM:
+        return origin, ORIGIN_SYSTEM[origin]
+    for k, v in rs.SYSTEMS.items():
+        if plain(k) == plain(origin):
+            return k, v
+    return None, None
+
+
 def prices(path):
     origin, out = None, defaultdict(dict)
     for line in open(path, encoding="utf-8"):
@@ -37,13 +61,22 @@ def prices(path):
             continue
         m = re.match(r"^\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+(.+?)\s+(\d+,\d\d)\s+(\d+,\d\d)\s+(\d+,\d\d)\s+(\d+,\d\d)\s+(\d+,\d\d)\s*$", line)
         if m and origin:
-            out[rs.SYSTEMS[origin]][rs.name(origin) + "|" + rs.name(m.group(6))] = {"K3": rs.num(m.group(10)), "K4": rs.num(m.group(11))}
+            k, name = system(origin)
+            if name is None:
+                SKIPPED.add(origin)
+                continue
+            out[name][rs.name(k) + "|" + rs.name(m.group(6))] = {"K3": rs.num(m.group(10)), "K4": rs.num(m.group(11))}
     return out
 
 
 def main(fetched, out):
     cur = json.load(open(os.path.join(ROOT, "rates", "data", "rs-2026-07-01.json"), encoding="utf-8"))
     pts = {(s["name"], st["name"]): st["points"] for s in cur["closed_systems"] for st in s["stations"]}
+    canon = {(s["name"], plain(st["name"]).lower()): st["name"] for s in cur["closed_systems"] for st in s["stations"]}
+
+    def name_in(system_name, n):
+        n = ALIAS.get(n, n)
+        return canon.get((system_name, plain(n).lower()), n)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(HERE, "sources.json"), encoding="utf-8"))["sources"]}
     os.makedirs(out, exist_ok=True)
     for sid, nxt in LISTS:
@@ -55,6 +88,7 @@ def main(fetched, out):
         rate = re.search(r"kursnoj listi NBS br\.\s*(\d+)\s*od\s*([\d.]+)", text)
         end = (datetime.date.fromisoformat(nxt) - datetime.timedelta(days=1)).isoformat()
         pr = prices(os.path.join(fetched, sid + ".txt"))
+        pr = {name: {"|".join(name_in(name, x) for x in k.split("|")): v for k, v in p.items()} for name, p in pr.items()}
         systems, missing = [], []
         for name, p in pr.items():
             names = sorted({n for k in p for n in k.split("|")})

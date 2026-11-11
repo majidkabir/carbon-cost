@@ -151,6 +151,124 @@
     "tr-20-cesmeli-kizkalesitr"
    ],
    "note": "KGM's tariffs from 1 January 2026, as the Internet Archive kept them on 31 December 2025 (the Çeşmeli – Erdemli – Kızkalesi motorway had no tariff yet)."
+  },
+  {
+   "builder": "tr",
+   "year": "2025",
+   "files": {
+    "tr-1-15temmuz-fsm.pdf": [
+     "tr-20250116-15-temmuz-sehitler-ve-fatih-sultan-mehme"
+    ],
+    "tr-2-osmangazi.pdf": [
+     "tr-20250113-osmangazi-koprusu-tur-13-01-2025"
+    ],
+    "tr-3-ysskoprusu.pdf": [
+     "tr-20250117-yss-koprusu-tur-13-01-2025"
+    ],
+    "tr-4-1915canakkale.pdf": [
+     "tr-20250114-1915-tur-13-01-2025"
+    ],
+    "tr-5-anadoluotoyolucamlica-akinci.pdf": [
+     "tr-20250113-kgm-anadolu-otoyolu-camlica-i-stasyonu-a"
+    ],
+    "tr-6-izmir-cesme.pdf": [
+     "tr-20250113-kgm-i-zmir-cesme-otoyolu-gecis-ucretleri"
+    ],
+    "tr-7-izmir-aydin.pdf": [
+     "tr-20250117-kgm-i-zmir-aydin-otoyolu-isikkent-aydin"
+    ],
+    "tr-8-cukurovaotoyoluadana-gaziantep.pdf": [
+     "tr-20250113-kgmco-adana-dogu"
+    ],
+    "tr-9-cukurovaotoyolugaziantep-sanliurfa.pdf": [
+     "tr-20250114-kgmantepdogu-surfabati"
+    ],
+    "tr-10-cukurovaotoyolunigde-mersin-adana.pdf": [
+     "tr-20250113-kgm-cukurova-otoyollari-nigde-mersin-ada"
+    ],
+    "tr-11-avrupaotoyolumahmutbey-edirne.pdf": [
+     "tr-20250113-kgm-avrupa-otoyolu-mahmutbey-edirne-kesi"
+    ],
+    "tr-12-gebze-orhangazi-izmir.pdf": [
+     "tr-20250116-goi-tur-13-01-2025"
+    ],
+    "tr-13-ysskuzeycevreyolu.pdf": [
+     "tr-20250117-kmo-yss-tur-13-01-2025"
+    ],
+    "tr-14-kmoavrupakinali-odayeri.pdf": [
+     "tr-20250117-kmo-avrupa-tur-13-01-2025"
+    ],
+    "tr-15-kmoanadolukurtkoy-akyazi.pdf": [
+     "tr-20250117-kmo-anadolu-tur-13-01-2025"
+    ],
+    "tr-16-menemen-aliaga-candarli.pdf": [
+     "tr-20250113-mac-tur-13-01-2025"
+    ],
+    "tr-17-ankara-nigde.pdf": [
+     "tr-20250114-ano-tur-13-01-2025"
+    ],
+    "tr-18-malkara-canakkale.pdf": [
+     "tr-20250113-cok-tur-13-01-2025"
+    ],
+    "tr-19-aydin-denizli.pdf": [
+     "tr-20250113-ado-tur-13-01-2025"
+    ]
+   },
+   "absent": [
+    "tr-20-cesmeli-kizkalesitr"
+   ],
+   "sources": "copies",
+   "note": "KGM's tariffs from 13 January 2025 (the 2025 list, its files named ADO Aydın–Denizli, ANO Ankara–Niğde, MAÇ Menemen–Aliağa–Çandarlı, ÇOK Malkara–Çanakkale, GOİ Gebze–Orhangazi–İzmir), as the Internet Archive kept them in January 2025."
+  },
+  {
+   "builder": "gr",
+   "year": "2024",
+   "files": {
+    "gr-olympia.html": [
+     "gr-olympia-20241208"
+    ],
+    "gr-neaodos.html": [
+     "gr-neaodos-20241208"
+    ],
+    "gr-kentriki.html": [
+     "gr-kentriki-20241110"
+    ],
+    "gr-moreas.html": [
+     "gr-moreas-20240225"
+    ],
+    "gr-gefyra.html": [
+     "gr-gefyra-20240303"
+    ]
+   },
+   "absent": [
+    "gr-aegean"
+   ],
+   "note": "Each operator's page as the Internet Archive kept it in 2024 (Olympia Odos's copies of February and December 2024 show the same prices; Moreas's only readable copy is of February 2024). Aegean Motorway's Greek price page has no copy of 2024, so its stations aren't priced."
+  },
+  {
+   "builder": "gr",
+   "year": "2025",
+   "files": {
+    "gr-olympia.html": [
+     "gr-olympia-20251217"
+    ],
+    "gr-neaodos.html": [
+     "gr-neaodos-20251123"
+    ],
+    "gr-kentriki.html": [
+     "gr-kentriki-20251206"
+    ],
+    "gr-moreas.html": [
+     "gr-moreas-20251216"
+    ],
+    "gr-gefyra.html": [
+     "gr-gefyra-20250120"
+    ]
+   },
+   "absent": [
+    "gr-aegean"
+   ],
+   "note": "Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced."
   }
  ]
 }

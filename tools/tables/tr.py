@@ -119,7 +119,9 @@ def tariff(path):
     date = f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
     prices = {}
     for line in t.split("\n"):
-        m = re.match(r"^\s*([1-6])\s+(?:.*?\s)?(\d{1,3}(?:\.\d{3})*,\d\d)(?:\s*₺)?(?:\s+[\d,]+)?\s*$", line)
+        # The class, then its price (the first amount; later columns are
+        # other charges, one or several by the year's layout).
+        m = re.match(r"^\s*([1-6])\s+(?:.*?\s)??(\d{1,3}(?:\.\d{3})*,\d\d)(?:\s*₺)?(?:\s+[\d,]+)*\s*$", line)
         if m and int(m.group(1)) not in prices:
             prices[int(m.group(1))] = tl(m.group(2))
     if sorted(prices) != [1, 2, 3, 4, 5, 6]:

@@ -9,7 +9,7 @@ Only the documents archived are priced: the table names its operators.
 The stations are placed as the current table's are, with the ministry's
 toll station dataset, tools/fr/aliases.json and OpenStreetMap, from the
 inputs the France data workflow last fetched (the fr-out branch, which the
-history workflow copies into fetched/osm/fr).
+history workflow copies into fetched/fr-in).
 
 Usage: python3 build_fr.py fetched/ out-dir"""
 import hashlib, json, os, shutil, subprocess, sys, tempfile
@@ -53,9 +53,9 @@ def sha(path):
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(HERE, "sources.json"), encoding="utf-8"))["sources"]}
-    frin = next((d for d in (os.path.join(fetched, "osm", "fr"), os.path.join(fetched, "fr")) if os.path.exists(os.path.join(d, "osm-booths.geojsonseq"))), None)
+    frin = next((d for d in (os.path.join(fetched, "fr-in"), os.path.join(fetched, "osm", "fr")) if os.path.exists(os.path.join(d, "osm-booths.geojsonseq"))), None)
     if frin is None:
-        sys.exit("no France station inputs (osm/fr)")
+        sys.exit("no France station inputs (fr-in)")
     gares = sorted(f for f in os.listdir(os.path.join(frin, "stations")) if f.startswith("Gares-Peage_20") and "shp" not in f)[-1]
     for y in YEARS:
         tmp = tempfile.mkdtemp()

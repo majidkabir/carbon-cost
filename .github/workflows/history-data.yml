@@ -52,8 +52,8 @@ jobs:
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
           # The French station inputs, as the France data workflow last fetched them.
           git fetch -q --depth 1 origin fr-out
-          mkdir -p out/osm/fr
-          git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/osm/fr
+          mkdir -p out/fr-in
+          git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/fr-in
       - name: Archived operator pages (tools/history/wayback.json)
         # Left out when the run's commit says [no-wayback] (it takes long).
         if: "!contains(github.event.head_commit.message, '[no-wayback]')"
@@ -70,7 +70,7 @@ jobs:
           for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
       - name: Compare
         run: |
-          rm -rf out/osm
+          rm -rf out/osm out/fr-in
           for f in out/tables/*.json; do
             [ -e "$f" ] || continue
             n=$(basename "$f")

@@ -15,10 +15,10 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 // fails on a gap not listed here, and on a listed area that has none.
 var historyGaps = map[string]string{
 	"ES": "2024-2025 not yet added", "FR": "before February 2026 not yet added",
-	"GR": "2024-2025 not yet added", "HR": "2024-2025 not yet added",
+	"HR": "2024-2025 not yet added",
 	"RO": "before 8 October 2026 not yet added",
-	"RS": "before July 2026 not yet added",
-	"TR": "before July 2026 not yet added",
+	"RS": "JP Putevi Srbije's price lists of April 2023 (to 9 July 2024), 10 January 2025 and 4 July 2025 weren't archived",
+	"TR": "2024 to 12 January 2025 not yet added (KGM's 2024 bridge tariffs weren't archived)",
 }
 
 // gaps are an area's uncovered days from HistoryFrom to the end of 2026,

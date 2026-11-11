@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && pip install -q pyproj pymupdf
       - name: ECB reference rates
         run: |
           mkdir -p out/fx
@@ -50,6 +50,10 @@ jobs:
           mkdir -p out/osm
           git fetch -q --depth 1 origin tables-out
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # The French station inputs, as the France data workflow last fetched them.
+          git fetch -q --depth 1 origin fr-out
+          mkdir -p out/osm/fr
+          git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/osm/fr
       - name: Archived operator pages (tools/history/wayback.json)
         # Left out when the run's commit says [no-wayback] (it takes long).
         if: "!contains(github.event.head_commit.message, '[no-wayback]')"

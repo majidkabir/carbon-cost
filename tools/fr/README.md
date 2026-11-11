@@ -18,3 +18,5 @@ Not covered yet:
 The Fréjus and Mont Blanc tunnels are crossings, in tools/tables.
 
 The rate table for 1 February to 31 May 2026 (`fr-2026-02-01.json`) has APRR, AREA, ADELAC and ALIAE only; from 1 June 2026 (`fr-2026-06-01.json`) it has all the above.
+
+Earlier years (from 1 January 2024) are built by `tools/history/build_fr.py` with these scripts from the operators' tariff documents the Internet Archive kept: each table lists its operators, and the others' motorways aren't priced in it.

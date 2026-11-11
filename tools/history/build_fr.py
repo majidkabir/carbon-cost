@@ -29,7 +29,8 @@ YEARS = [
         ("fr-2023-cofiroute", "vinci/Tarifs-guide-Cofiroute-2023.pdf", {"parser": "list_roads", "operator": "Cofiroute", "covers": "Cofiroute network"}),
         ("fr-2023-aliae", "aliae/TARIFS_ALIAE.pdf", {"parser": "list", "operator": "ALIAE", "covers": "A79"}),
     ]},
-    {"tariffs": 2024, "valid_from": "2024-02-01", "valid_to": "2025-01-31", "docs": [
+    {"tariffs": 2024, "valid_from": "2024-02-01", "valid_to": "2025-01-31",
+     "note": " ASF's archived 2024 grids (C3- and C4-TARIFS-WEB-2024) pair fewer stations than its 2023 guide; trips between stations they don't pair are priced only as far as published pairs go.", "docs": [
         ("fr-2024-aprr-v2", "aprr/TARIFS_APRR.pdf", {"parser": "list", "operator": "APRR", "covers": "APRR network (the document's second version, of April 2024)"}),
         ("fr-2024-area", "aprr/TARIFS_AREA.pdf", {"parser": "list_codes", "operator": "AREA", "covers": "AREA network"}),
         (["fr-2024-asf-c3", "fr-2024-asf-c4"], ["vinci/C3-TARIFS-WEB-2024.pdf", "vinci/C4-TARIFS-WEB-2024.pdf"], {"parser": "grid", "operator": "ASF", "covers": "ASF network"}),
@@ -90,7 +91,7 @@ def main(fetched, out):
         tb["valid_from"], tb["valid_to"] = y["valid_from"], y["valid_to"]
         tb["law"] = ("Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts, as published by each operator: "
                      f"their tariffs in force from 1 February {y['tariffs']}, as the Internet Archive kept them, for " + ", ".join(ops)
-                     + ". The other operators' documents of that year weren't archived, so their motorways aren't priced. A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.")
+                     + ". The other operators' documents of that year weren't archived, so their motorways aren't priced." + y.get("note", "") + " A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.")
         tb["closed_systems"][0]["law"] = tb["closed_systems"][0]["law"].replace("and the arrêtés of 28 January 2026", f"in force from 1 February {y['tariffs']}")
         tb["tolled_roads"] = "The conceded motorways of " + ", ".join(ops) + " (the others' tariffs of that year weren't archived)."
         tb["sources"] = [dict(s, title=s["title"].replace(" tariffs from ", " tariffs from ").replace(f"(sha256", "(Internet Archive copy, sha256")) if " tariffs from " in s["title"] else s for s in tb["sources"]]

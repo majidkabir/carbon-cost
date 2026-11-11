@@ -42,20 +42,26 @@ def germany(fetched, out, srcs):
     m = re.search(r"Für das Jahr 2026 wird ein Preiskorridor mit einem Mindestpreis von (\d+) Euro pro Emissionszertifikat und einem Höchstpreis von (\d+) Euro", t)
     if not m:
         sys.exit("BEHG § 10: no 2026 price corridor")
-    ceiling = float(m.group(2))
-    cal = open(os.path.join(fetched, "de-eex-nehs-calendar.txt"), encoding="utf-8").read()
-    rows = re.findall(r"EHSP 2026\s+[\d.]+\s+(Ja|Nein)\b", cal)
-    if not rows or any(r != "Ja" for r in rows):
-        sys.exit(f"EEX calendar: 65 EUR rule not applied at every 2026 auction ({rows})")
+    lo, hi = float(m.group(1)), float(m.group(2))
+    rows = []
+    for line in open(os.path.join(fetched, "de-eex-nehs-auctions.csv"), encoding="utf-8-sig").read().splitlines()[1:]:
+        f = line.split(";")
+        if len(f) > 5 and f[3] == "2026":
+            rows.append((f[0], float(f[4]), int(f[5])))
+    if not rows or any(not lo <= p <= hi for _, p, _ in rows):
+        sys.exit(f"EEX: no 2026 auctions in the corridor ({rows[:3]})")
+    vol = sum(v for _, _, v in rows)
+    avg = round(sum(p * v for _, p, v in rows) / vol, 2)
+    prices = sorted({p for _, p, _ in rows})
     write(out, {"country": "DE", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
-                "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": ceiling,
-                "law": f"BEHG § 10 (2): 2026 certificates are auctioned in a corridor of {m.group(1)} to {m.group(2)} euro; every 2026 auction ({len(rows)}) cleared at the {m.group(2)} euro ceiling (EEX's calendar marks the 65 EUR rule of BEHV § 12 (4) applied to each). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
-                "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-calendar")]})
+                "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": avg,
+                "law": f"BEHG § 10 (2): 2026 certificates are auctioned in a corridor of {m.group(1)} to {m.group(2)} euro. This is the volume-weighted clearing price of the {len(rows)} auctions EEX held ({rows[-1][0]} to {rows[0][0]}; clearing prices {', '.join(f'{p:g}' for p in prices)} euro). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
+                "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-auctions")]})
 
 
 def austria(fetched, out, srcs):
     t = text(os.path.join(fetched, "at-nehg.html"))
-    m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: Kalenderjahr Betrag (.*?) \(2\)", t)
+    m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)
     if not m:
         sys.exit("NEHG 2022 § 10 (1) not found")
     vals = dict(re.findall(r"(20\d\d) (\d+(?:,\d+)?) Euro", m.group(1)))

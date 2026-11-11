@@ -1707,3 +1707,69 @@ func TestPrice_FuelCountry(t *testing.T) {
 		t.Error("lower-case fuel_country accepted")
 	}
 }
+
+// Tunnels and bridges charged per passage (crossings tables), each in the
+// direction it charges, on 5 November 2026.
+func TestTunnelsAndBridges(t *testing.T) {
+	fx := map[string]float64{"GBP": 0.84, "CHF": 0.95}
+	run := func(path [][2]float64, req Request) (float64, int) {
+		t.Helper()
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"ZZ": 1}, Path: path}}}
+		req.CargoKg, req.Truck, req.FX = 1000, truck40, fx
+		r, err := Price(trip, all(t), req, time.Date(2026, 11, 5, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		n := 0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.AmountEUR
+				n++
+			}
+		}
+		return math.Round(eur*100) / 100, n
+	}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		req  Request
+		eur  float64
+	}{
+		// Dartford, class D: GBP 8.40 (pre-pay 7.20), 6am to 10pm.
+		{"Dartford tunnels northbound", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{}, 10.0},
+		{"Dartford bridge southbound", [][2]float64{{0.2667, 51.4768}, {0.258914, 51.464813}, {0.2458, 51.4548}}, Request{ETC: true}, 8.57},
+		{"Dartford at night", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{Time: "23:00"}, 0},
+		// Westerscheldetunnel, category 4 (over 12 m): EUR 25, T-Tag 15.
+		{"Westerscheldetunnel", [][2]float64{{3.7557, 51.43}, {3.7557, 51.45}}, Request{}, 25},
+		{"Westerscheldetunnel T-Tag", [][2]float64{{3.7557, 51.45}, {3.7557, 51.43}}, Request{ETC: true}, 15},
+		// Herrentunnel, class D (4 axles or more): EUR 17.60.
+		{"Herrentunnel", [][2]float64{{10.7594, 53.89}, {10.7594, 53.905}}, Request{}, 17.6},
+		// Great St Bernard, class 4: southbound CHF 192.50 at the Swiss
+		// plaza, northbound EUR 202 at the Italian one.
+		{"Great St Bernard southbound", [][2]float64{{7.1937, 45.905}, {7.1932, 45.8985}, {7.1729, 45.8645}, {7.1615, 45.8513}, {7.1611, 45.845}}, Request{}, 202.63},
+		{"Great St Bernard northbound", [][2]float64{{7.1611, 45.845}, {7.1615, 45.8513}, {7.1729, 45.8645}, {7.1932, 45.8985}, {7.1937, 45.905}}, Request{}, 202},
+	} {
+		if got, n := run(tc.path, tc.req); got != tc.eur || (tc.eur > 0 && n != 1) {
+			t.Errorf("%s: EUR %.2f in %d lines, want %.2f in one", tc.name, got, n, tc.eur)
+		}
+	}
+	// Before 1 September 2025 the 2013 Order's GBP 6.00.
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"GB": 1}, Path: [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: fx}, time.Date(2025, 6, 2, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if l.Section == "Dartford Crossing" {
+			n++
+			if l.Amount != 6 || l.Currency != "GBP" {
+				t.Errorf("Dartford in June 2025: %+v", l)
+			}
+		}
+	}
+	if n != 1 {
+		t.Errorf("Dartford in June 2025: %d lines", n)
+	}
+}

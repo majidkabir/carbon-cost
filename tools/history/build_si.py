@@ -117,8 +117,9 @@ def main(fetched, out):
     geo[key("Brezovica–Vrhnika")] = dict(a, id="a1-brezovica-vrhnika", name="Brezovica–Vrhnika", to=b["to"], km=round(a["km"] + b["km"], 3))
     rows = {sid: si_annex.rows(os.path.join(fetched, sid + "-priloga.pdf")) for sid in CENIK}
     # 76/25's annex wraps its names past reading: its rows are 102/25's, priced alike.
-    named = {tuple(map(tuple, r[2].values())): r[1] for r in rows["si-cenik-76-25-npb1"]}
-    rows["si-cenik-76-25"] = [(r[0], named.get(tuple(map(tuple, r[2].values())), r[1]), r[2]) for r in rows["si-cenik-76-25"]]
+    # (Row by row where the prices agree; the Koper sections 102/25 measured anew keep their own names.)
+    later = rows["si-cenik-76-25-npb1"]
+    rows["si-cenik-76-25"] = [(r[0], later[i][1] if i < len(later) and later[i][2] == r[2] else r[1], r[2]) for i, r in enumerate(rows["si-cenik-76-25"])]
     os.makedirs(out, exist_ok=True)
     for k, (start, cid, pn, kid, acts) in enumerate(PERIODS):
         for a_ in acts or ():

@@ -4,6 +4,11 @@ sources (tools/history/sources.json) name each copy by its Wayback URL
 (https://web.archive.org/web/<capture>id_/<original URL>), so the workflow
 fetches exactly those bytes; tools/history/archived.json says which copies
 make each builder's input files (several copies are joined in order).
+A build may also give captured_from (YYYYMMDD: copies captured from then
+on count for the year, for prices put up late in the year before),
+absent (input files the builder knows that the year didn't have, written
+to absent.txt) and sources: "copies" (the table names the archived copies
+only, when the builder's own sources name later files).
 
 Usage: python3 build_archived.py fetched/ out-dir
 
@@ -45,7 +50,9 @@ def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
                     break
                 parts.append(open(p, "rb").read())
                 ts, orig = WB.match(srcs[sid]["url"]).groups()
-                if ts[:4] != b["year"]:
+                # A year's copies are captured in it, or from captured_from
+                # (late in the year before, once the new prices were up).
+                if not (b.get("captured_from", b["year"] + "0101") <= ts[:8] <= b["year"] + "1231"):
                     sys.exit(f"{sid}: captured {ts}, not in {b['year']}")
                 copies.append((orig, f"https://web.archive.org/web/{ts}/{orig}", ts))
             if not ok:
@@ -56,6 +63,9 @@ def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
                 os.system(f"pdftotext -bbox '{os.path.join(tmp, target)}' '{os.path.join(tmp, target[:-4])}.bbox.html'")
         if not ok:
             continue
+        if b.get("absent"):
+            # Input files the builder knows that year didn't have yet.
+            open(os.path.join(tmp, "absent.txt"), "w").write("\n".join(b["absent"]) + "\n")
         before = set(os.listdir(tmp))
         try:
             importlib.import_module(b["builder"]).main(tmp, tmp)
@@ -73,6 +83,9 @@ def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
                 for orig, arch, _ in copies:
                     if s["url"].rstrip("/") == orig.rstrip("/"):
                         s["url"] = arch
+            if b.get("sources") == "copies":
+                # The builder's own sources name that year's files under other names.
+                tb["sources"] = []
             have = {s["url"] for s in tb["sources"]}
             tb["sources"] += [{"title": f"Internet Archive copy of {orig} ({ts[:8]})", "url": arch} for orig, arch, ts in copies if arch not in have]
             tb["law"] += f" Built from the Internet Archive's copies of the {b['year']} pages." + (" " + b["note"] if b.get("note") else "")

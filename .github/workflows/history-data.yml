@@ -23,7 +23,7 @@ jobs:
       - name: ECB reference rates
         run: |
           mkdir -p out/fx
-          curl -fsSL -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
           sha256sum ecb.zip > out/fx/ecb-hist.zip.sha256
           unzip -o ecb.zip eurofxref-hist.csv
           python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv

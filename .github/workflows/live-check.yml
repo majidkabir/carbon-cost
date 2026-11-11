@@ -75,7 +75,7 @@ jobs:
           sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
           mkdir -p maps && cd maps
           for r in ${{ matrix.maps }}; do
-            curl -fsSL -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
+            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
           done
           if [ "$(ls *.osm.pbf | wc -l)" -gt 1 ]; then osmium merge -o region.osm.pbf *.osm.pbf; else mv *.osm.pbf region.osm.pbf; fi
           ls -la

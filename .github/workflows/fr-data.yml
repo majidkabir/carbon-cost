@@ -18,7 +18,7 @@ jobs:
         run: |
           mkdir -p out
           python3 tools/fr/fetch.py tools/fr/sources.json out
-          curl -fsSL -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf
           osmium tags-filter -O -o booths.pbf fr.pbf n/barrier=toll_booth n/highway=motorway_junction
           osmium export -O -f geojsonseq -o out/osm-booths.geojsonseq booths.pbf
           rm fr.pbf booths.pbf

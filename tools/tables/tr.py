@@ -102,6 +102,7 @@ DROP = {"Karacabey - Mustafakemalpaşa - 1", "Karacabey - Mustafakemalpaşa - 2"
 GROUPS = [{"name": "2", "max_axles": 2}, {"name": "3", "min_axles": 3, "max_axles": 3},
           {"name": "4", "min_axles": 4, "max_axles": 5}, {"name": "5", "min_axles": 6}]
 KDV = 1.20
+YEAR = ""  # the tariffs' year, from the bridge tariffs' date (main sets it)
 # KGM class -> axle bounds of the truck classes.
 AXLES = {2: (2, 2), 3: (3, 3), 4: (4, 5), 5: (6, 0)}
 
@@ -304,7 +305,7 @@ def system(m, name, booths, junctions, used, sid, unnamed, named):
     stations = [{"name": n, "points": [{"name": placed[n][2], "lat": round(x[1], 6), "lon": round(x[0], 6)} for x in placed[n][0]]} for n in order if n in placed]
     missing = [n for n in order if n not in placed]
     print(f"{name}: {len(stations)}/{len(order)} stations placed, {len(prices)} prices" + (f"; unplaced {missing}" if missing else ""))
-    return {"name": name, "law": "KGM 2026 tariff (" + sid + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+    return {"name": name, "law": "KGM " + YEAR + " tariff (" + sid + "), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
             "groups": GROUPS, "stations": stations, "prices": prices, **({"directed": True} if square else {})}, missing, order
 
 
@@ -340,6 +341,8 @@ def main(fetched, out):
                 points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes,
                                **({"within": WITHIN[name]} if name in WITHIN else {})})
             print(f"{name}: {len(ws)} ways, main span {longest:.2f} km, {len(keep)} points; class 2-5 TL {[prices[c] for c in AXLES]} ({d})")
+    global YEAR
+    YEAR = date[:4]
     # Motorways: toll booths (else junctions) by name.
     booths, junctions, anon, named = {}, {}, [], []
     for line in open(os.path.join(fetched, "tr-osm-booths.geojsonseq"), encoding="utf-8"):
@@ -359,7 +362,13 @@ def main(fetched, out):
     unnamed = clusters(anon, 1.0)
     used, systems, unplaced = set(), [], []
     _, osmangazi_tl = tariff(os.path.join(fetched, "tr-2-osmangazi.txt"))
+    # Tariffs a past year didn't have yet (tools/history/build_archived.py
+    # lists them in absent.txt).
+    absent = set(open(os.path.join(fetched, "absent.txt")).read().split()) if os.path.exists(os.path.join(fetched, "absent.txt")) else set()
     for sid, name in SYSTEMS:
+        if sid in absent:
+            print(f"{sid}: no tariff that year")
+            continue
         ms = tr_matrix.matrices(os.path.join(fetched, sid + ".bbox.html"))
         if len(ms) != (2 if name in PART else 1):
             sys.exit(f"{sid}: {len(ms)} matrices")
@@ -378,7 +387,7 @@ def main(fetched, out):
     if [round(mc["GELİBOLU GÜNEY G-4|1915 ÇANAKKALE KÖPRÜSÜ G-5"][str(c)] * KDV, 2) for c in AXLES] != [bridge[c] for c in AXLES]:
         sys.exit(f"1915 Çanakkale bridge tariff {bridge} isn't the Gelibolu Güney – bridge price")
     osm = open(os.path.join(fetched, "tr-osm-timestamp.txt")).read().strip()[:10]
-    kgm = "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/"
+    kgm = f"https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/{date[:4]}Gecis_Ucret/"
     titles = {"tr-1-15temmuz-fsm": ("15 Temmuz Şehitler ve Fatih Sultan Mehmet Köprüleri", "1-15Temmuz-FSM"),
               "tr-2-osmangazi": ("Osmangazi Köprüsü", "2-Osmangazi"), "tr-3-ysskoprusu": ("Yavuz Sultan Selim Köprüsü", "3-YSSKoprusu"),
               "tr-4-1915canakkale": ("1915 Çanakkale Köprüsü", "4-1915Canakkale")}
@@ -388,7 +397,7 @@ def main(fetched, out):
         "country": "TR", "currency": "TRY", "valid_from": date,
         "osm_extract": osm,
         "name": "Turkish motorway and bridge tolls (KGM)",
-        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's " + date[:4] + " tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
         "sources": [{"title": "KGM: Otoyol ve Köprü Geçiş Ücretleri", "url": url["tr-kgm-ucretler"]}]
                    + [{"title": f"KGM: {a} Geçiş Ücretleri Tarifesi", "url": kgm + b + ".pdf"} for a, b in titles.values()]
                    + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in dict((sid, "O-5 Gebze – Orhangazi – İzmir" if sid in ("tr-12-gebze-orhangazi-izmir",) else n) for sid, n in SYSTEMS).items()]

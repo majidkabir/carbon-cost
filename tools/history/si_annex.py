@@ -63,13 +63,14 @@ def rows(pdf):
             below = [c["yc"] for c in codes if c["yc"] > x["yc"]]
             if below:
                 bands.append((x["y0"], min(below) - 0.7 * h))
+        # Above the page's first heading or column titles: the end of the
+        # previous page's last row (a name or a split price), if any.
+        first_head = min([x["y0"] for x in heads] + [w["y0"] for w in head] + [codes[0]["y0"]])
         for w in ws:
-            if w in codes or w["yc"] < top or w["t"] in ("R2", "R3", "R4") or any(a <= w["yc"] <= b for a, b in bands):
+            if found and w["yc"] < first_head - h / 2 and w["yc"] < codes[0]["yc"] - 1.5 * h and not re.match(r"^P?Priloga", w["t"]):
+                found[-1][1].append(dict(w, yc=w["yc"] + 10000))
                 continue
-            if w["yc"] < codes[0]["yc"] - 1.5 * h and found and not head:
-                # The end of a name the previous page's last row began.
-                w = dict(w, yc=w["yc"] + 10000)
-                found[-1][1].append(w)
+            if w in codes or w["yc"] < top or w["t"] in ("R2", "R3", "R4") or any(a <= w["yc"] <= b for a, b in bands):
                 continue
             # Nearest code line, the word's centre within a row's reach.
             i = min(range(len(codes)), key=lambda k: abs(w["yc"] - codes[k]["yc"]))

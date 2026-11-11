@@ -178,11 +178,15 @@ def main(cfg, sources, out, data="rates/data"):
         # Written after each set, so a run cut short keeps what it built.
         write(tables, out, data)
     # Probes list the archived URLs under a prefix, to find where a page
-    # was before it moved; they build nothing.
-    if only:
+    # was before it moved; they build nothing. "probes:<group>" in
+    # WAYBACK_SETS runs only the probes of that group.
+    groups = [x.split(":", 1)[1] for x in only if x.startswith("probes:")]
+    if only and not groups:
         return
     with open(os.path.join(out, "wayback-probes.txt"), "w") as f:
         for p in conf.get("probes", []):
+            if groups and p.get("group") not in groups:
+                continue
             try:
                 for ts, orig in captures(p["url"], p.get("from", "2023"), p.get("to", "2026"), "prefix", p.get("regex"), "urlkey"):
                     f.write(f"{ts} {orig}\n")

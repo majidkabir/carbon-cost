@@ -14,6 +14,9 @@ that its script fills from /ajax/njtGetBlock.json, given the document id
 and the placeholder's range. Those parts are fetched too, as
 <id>-block-<n>.html.
 
+Uradni list (uradni-list.si) pages link their annexes as PDFs under
+/files/; those are fetched too, as <id>-att-<n>.pdf.
+
 Riigi Teataja (riigiteataja.ee) pages are built by script from its public
 API: /public-api/api/v1/akt/<id>?leiaKehtiv=true names the version in
 force (kehtivId, saved as <id>.json), whose text is
@@ -129,6 +132,20 @@ def nvdb(out, manifest, sid, url, body):
         save(out, manifest, f"{sid}-links-{k // 50 + 1}.json", q, status, b)
 
 
+def uradni_list(out, manifest, sid, page_url, page):
+    # A Uradni list page links its annexes (Priloga) as PDFs under /files/;
+    # each is saved as <id>-att-<n>.pdf, in page order.
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = []
+    for u in re.findall(r"""href=["']([^"']*/files/RS_[^"']+\.pdf)["']""", text, re.I):
+        u = urllib.parse.urljoin(page_url, u)
+        if u not in seen:
+            seen.append(u)
+    for n, u in enumerate(seen, 1):
+        status, body = get(u)
+        save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
@@ -147,6 +164,8 @@ def main(src, out):
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
                 njt(out, manifest, s["id"], s["url"], body)
+            if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
+                uradni_list(out, manifest, s["id"], s["url"], body)
         except Exception as e:
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)

@@ -428,12 +428,6 @@
    "what": "SFTRF: Fréjus tunnel prices 2025, French platform (Internet Archive copy; linked from sftrf.fr/tarifs-tunnel/ in May 2025)"
   },
   {
-   "id": "bg-dv-104-2022",
-   "table": "bg-2023-07-01",
-   "url": "https://www.minfin.bg/upload/53830/104_22.pdf",
-   "what": "Държавен вестник бр. 104 от 30.12.2022 (the Ministry of Finance's copy of the issue): ПМС № 487 от 23.12.2022 amending the Тарифа (ПМС 370/2019), toll rates from 1 July 2023"
-  },
-  {
    "id": "hu-25-2013-v20",
    "table": "hu-2024-01-01",
    "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.20",
@@ -462,6 +456,102 @@
    "table": "hu-2026-01-01",
    "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.24",
    "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2026-01-01 to 2026-06-30 (time state 24)"
+  },
+  {
+   "id": "bg-dv-142-2022",
+   "table": "bg-2024-01-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=174365",
+   "what": "Държавен вестник бр. 49 от 30.06.2022: ПМС № 142 от 24.06.2022 amending the Тарифа (ПМС 370/2019); чл. 25, ал. 1, т. 2 holds the toll rates in force from 1 July 2023"
+  },
+  {
+   "id": "bg-dv-495-2022",
+   "table": "bg-2024-01-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=182660",
+   "what": "Държавен вестник бр. 104 от 30.12.2022: ПМС № 495 от 29.12.2022, which moved the start of чл. 25, ал. 1, т. 2 from 1 January to 1 July 2023"
+  },
+  {
+   "id": "bg-iisda-tarifa",
+   "table": "bg-2024-01-01",
+   "url": "https://iisda.government.bg/adm_services/service_regulatory_file/22321_97892",
+   "what": "Административен регистър (iisda.government.bg): consolidated text of the Тарифа (ПМС 370/2019) with its amendment history, as an RTF"
+  },
+  {
+   "id": "si-ul-2018-0654",
+   "table": "si-2024-01-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2018-01-0654/cenik-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 14/2018: Cenik cestnine za uporabo cestninskih cest (DARS), in force 1 April 2018"
+  },
+  {
+   "id": "si-ul-2020-1987",
+   "table": "si-2024-01-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2020-01-1987/spremembe-in-dopolnitve-cenika-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 105/2020: Spremembe in dopolnitve Cenika cestnine, with its annex (Priloga) of section prices R2/R3/R4, in force 1 September 2020"
+  },
+  {
+   "id": "si-ul-2020-1986",
+   "table": "si-2024-01-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2020-01-1986",
+   "what": "Uradni list RS 105/2020: Sklep o spremembah Sklepa o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest"
+  },
+  {
+   "id": "si-ul-2024-2006",
+   "table": "si-2024-07-15",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2024-01-2006/spremembe-cenika-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 57/2024: Spremembe Cenika cestnine, with a new annex of section prices"
+  },
+  {
+   "id": "si-ul-kazalo-2024057",
+   "table": "si-2024-07-15",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2024057",
+   "what": "Uradni list RS 57/2024: table of contents (other toll acts in the issue)"
+  },
+  {
+   "id": "si-ul-kazalo-2024109",
+   "table": "si-2024-07-15",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2024109",
+   "what": "Uradni list RS 109/2024: table of contents (Uredba o cestnini za uporabo cestnega predora Karavanke)"
+  },
+  {
+   "id": "si-ul-2025-1917",
+   "table": "si-2025-07-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-1917/cenik-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 47/2025: Cenik cestnine za uporabo cestninskih cest, with its annex, in force 1 July 2025"
+  },
+  {
+   "id": "si-ul-kazalo-2025047",
+   "table": "si-2025-07-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2025047",
+   "what": "Uradni list RS 47/2025: table of contents"
+  },
+  {
+   "id": "si-ul-2025-2726",
+   "table": "si-2025-11-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2726/cenik-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 76/2025: Cenik cestnine za uporabo cestninskih cest, with its annex (EURO and CO2 classes), in force 1 November 2025"
+  },
+  {
+   "id": "si-ul-2025-2720",
+   "table": "si-2025-11-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2720",
+   "what": "Uradni list RS 76/2025: Sklep o spremembah Sklepa o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest"
+  },
+  {
+   "id": "si-ul-kazalo-2025076",
+   "table": "si-2025-11-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2025076",
+   "what": "Uradni list RS 76/2025: table of contents"
+  },
+  {
+   "id": "si-ul-2025-3504",
+   "table": "si-2026-01-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-3504/spremembe-cenika-cestnine-za-uporabo-cestninskih-cest",
+   "what": "Uradni list RS 102/2025: Spremembe Cenika cestnine, with a new annex, in force 1 January 2026"
+  },
+  {
+   "id": "si-ul-2025-3497",
+   "table": "si-2026-01-01",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-3497/uredba-o-spremembah-in-dopolnitvah-uredbe-o-cestninskih-cestah-in-cestnini",
+   "what": "Uradni list RS 102/2025: Uredba o spremembah in dopolnitvah Uredbe o cestninskih cestah in cestnini (sections removed from 1 January 2026)"
   }
  ]
 }

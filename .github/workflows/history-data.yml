@@ -33,27 +33,30 @@ jobs:
           # Some servers send a PDF from a URL without .pdf.
           for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
+      - name: OpenStreetMap extracts
+        # The extracts placing the toll stations, as the tables-data
+        # workflow last fetched them (removed before the push).
+        run: |
+          mkdir -p out/osm
+          git fetch -q --depth 1 origin tables-out
+          git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
       - name: Archived operator pages (tools/history/wayback.json)
         # Left out when the run's commit says [no-wayback] (it takes long).
         if: "!contains(github.event.head_commit.message, '[no-wayback]')"
         env:
           MSG: ${{ github.event.head_commit.message }}
         run: |
-          # The OpenStreetMap extracts placing the toll stations, as the
-          # tables-data workflow last fetched them.
-          mkdir -p out/osm
-          git fetch -q --depth 1 origin tables-out
-          git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
           # "[wayback=a,b]" in the run's commit message limits it to those sets.
           export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
           timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
-          rm -rf out/osm; find out -path 'out/wb-*' -name '*-osm*' -delete
+          find out -path 'out/wb-*' -name '*-osm*' -delete
       - name: Build
         run: |
           mkdir -p out/tables
           for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
       - name: Compare
         run: |
+          rm -rf out/osm
           for f in out/tables/*.json; do
             [ -e "$f" ] || continue
             n=$(basename "$f")

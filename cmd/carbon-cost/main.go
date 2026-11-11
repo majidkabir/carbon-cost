@@ -141,6 +141,7 @@ func calc(args []string) error {
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
+	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")

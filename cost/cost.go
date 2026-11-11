@@ -12,9 +12,11 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"regexp"
 	"slices"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
@@ -38,6 +40,9 @@ const (
 	RoadToll = "road_toll"
 	FerryETS = "ferry_ets"
 	ETS2     = "ets2"
+	// FuelCO2 is a national CO2 price on road fuel (Germany's BEHG,
+	// Austria's NEHG 2022), paid where the fuel is bought.
+	FuelCO2 = "fuel_co2"
 )
 
 // ETS2Start is when ETS2 covers road transport fuel.
@@ -91,6 +96,10 @@ type Request struct {
 	// ETS2EurPerT is the ETS2 allowance price (EUR per t CO2e), for trips
 	// from 2028. 0: ETS2 is not priced.
 	ETS2EurPerT float64 `json:"ets2_eur_per_t,omitempty"`
+	// FuelCountry is where the trip's road fuel is bought (ISO 3166-1
+	// alpha-2), for national CO2 prices on fuel. "": bought along the
+	// route, each country's share in proportion to its road km.
+	FuelCountry string `json:"fuel_country,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
 	// FX converts other currencies to EUR, in units per euro, e.g.
@@ -367,6 +376,9 @@ func check(req Request) error {
 	}
 	if req.TripsPerYear < 0 {
 		return fmt.Errorf("trips_per_year must be >= 0")
+	}
+	if req.FuelCountry != "" && !regexp.MustCompile(`^[A-Z]{2}$`).MatchString(req.FuelCountry) {
+		return fmt.Errorf("fuel_country %q: give an ISO 3166-1 alpha-2 code, e.g. DE", req.FuelCountry)
 	}
 	if req.EUAEurPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
 		return fmt.Errorf("prices, rates and shares can't be negative (ferry_ets_share is 0-1)")
@@ -783,6 +795,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			}
 			out.Notes = append(out.Notes, "ETS2: fuel suppliers pay it and pass it on in the fuel price; this is that cost for this trip's fuel.")
 		}
+	}
+	if err := fuelCO2(&out, req, date, (res.TTWKg-ferryTTW)/1000, add); err != nil {
+		return Response{}, err
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
 	if err := compare(&out, res, tables, fd, req, date, ferryTTW); err != nil {
@@ -1537,4 +1552,66 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: capped at %g %s a day.", country, tb.Name, cg.capped, tb.Currency))
 	}
 	return len(passes) > 0, nil
+}
+
+var (
+	fuelOnce   sync.Once
+	fuelPrices []rates.FuelCO2
+	fuelErr    error
+)
+
+// fuelCO2 adds the national CO2 prices on the trip's road fuel: roadT
+// tonnes of CO2 (the cargo's share of the road tank-to-wheel emissions),
+// at the price of the country the fuel is bought in.
+func fuelCO2(out *Response, req Request, date time.Time, roadT float64, add func(Line) error) error {
+	if roadT <= 0 {
+		return nil
+	}
+	fuelOnce.Do(func() { fuelPrices, fuelErr = rates.FuelCO2All() })
+	if fuelErr != nil {
+		return fuelErr
+	}
+	share := map[string]float64{}
+	if req.FuelCountry != "" {
+		share[req.FuelCountry] = 1
+	} else {
+		var total float64
+		for _, km := range out.CountryKm {
+			total += km
+		}
+		for cc, km := range out.CountryKm {
+			if total > 0 {
+				share[cc] = km / total
+			}
+		}
+	}
+	ccs := make([]string, 0, len(share))
+	for cc := range share {
+		ccs = append(ccs, cc)
+	}
+	sort.Strings(ccs)
+	priced := false
+	for _, cc := range ccs {
+		f, ok := rates.FindFuelCO2(fuelPrices, cc, date)
+		if !ok || share[cc] <= 0 {
+			continue
+		}
+		t := roadT * share[cc]
+		l := Line{Charge: FuelCO2, Country: cc, Component: rates.CO2, Carbon: true, TonnesCO2: round3(t), Rate: f.RatePerT,
+			RateUnit: f.Currency + "/t CO2", Currency: f.Currency, Amount: t * f.RatePerT, Source: f.Name + " (" + f.File + ")", Sources: f.Sources}
+		if req.FuelCountry == "" {
+			l.Km = round3(out.CountryKm[cc])
+		}
+		if err := add(l); err != nil {
+			return err
+		}
+		priced = true
+	}
+	switch {
+	case priced && req.FuelCountry == "":
+		out.Notes = append(out.Notes, "Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
+	case priced:
+		out.Notes = append(out.Notes, "Fuel CO2: the national CO2 price on diesel of "+req.FuelCountry+", where the fuel is bought, on this trip's road fuel.")
+	}
+	return nil
 }

@@ -617,6 +617,9 @@ func All() ([]Table, error) {
 	}
 	var out []Table
 	for _, e := range ents {
+		if strings.HasPrefix(e.Name(), FuelCO2Prefix) {
+			continue // national CO2 prices on fuel (fuelco2.go)
+		}
 		b, err := files.ReadFile(path.Join("data", e.Name()))
 		if err != nil {
 			return nil, err

@@ -73,6 +73,8 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 		{RoadToll, "DE", rates.Noise, 1.69, 1.69, false},
 		{RoadToll, "DE", rates.CO2, 22.28, 22.28, true},
 		{FerryETS, "", "", 2.25, 2.25, true},
+		// BEHG: the DE road km's share of the road fuel, 0.11 t x EUR 65.
+		{FuelCO2, "DE", rates.CO2, 7.18, 7.18, true},
 	} {
 		l, ok := line(r, tc.charge, tc.country, tc.comp)
 		if !ok {
@@ -84,11 +86,11 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 				tc.charge, tc.country, tc.comp, l.Amount, l.Currency, l.AmountEUR, l.Carbon, tc.amount, tc.eur, tc.carbon)
 		}
 	}
-	if len(r.Lines) != 8 {
-		t.Errorf("%d lines, want 8", len(r.Lines))
+	if len(r.Lines) != 9 {
+		t.Errorf("%d lines, want 9", len(r.Lines))
 	}
-	if r.CarbonEUR != 35.79 || math.Abs(r.TotalEUR-71.97) > 1e-9 {
-		t.Errorf("total EUR %v, carbon EUR %v; want 71.97 and 35.79", r.TotalEUR, r.CarbonEUR)
+	if r.CarbonEUR != 42.97 || math.Abs(r.TotalEUR-79.15) > 1e-9 {
+		t.Errorf("total EUR %v, carbon EUR %v; want 79.15 and 42.97", r.TotalEUR, r.CarbonEUR)
 	}
 	if r.FerryKm != 19 || r.CountryKm["DK"] != 140 || len(r.Sources) < 3 || len(r.NoRates) != 0 {
 		t.Errorf("response %+v", r)
@@ -185,7 +187,7 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if r.Date != "2026-11-03" || len(r.Lines) != 7 {
+	if r.Date != "2026-11-03" || len(r.Lines) != 8 {
 		t.Errorf("date %s, %d lines", r.Date, len(r.Lines))
 	}
 	if len(got.Legs) != 1 || got.Legs[0].VehicleType != DefaultVehicleType || got.WeightKg != 20000 || got.AddRoadLegs == nil || *got.AddRoadLegs {
@@ -197,13 +199,13 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	}
 }
 
-// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 71.97):
+// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 79.15):
 //
 //	class 4: DK 140 km x (0.22 + 0.30 + 0.06) DKK = EUR 4.13 + 5.63 + 1.13
 //	         DE 141 km x (0.155 + 0.023 + 0.012 + 0.079) = EUR 21.86 + 3.24 + 1.69 + 11.14
-//	         ferry EUR 2.25; total 51.07, tolls 48.82, saving 20.90
+//	         ferry EUR 2.25, fuel CO2 EUR 7.18; total 58.25, tolls 48.82, saving 20.90
 //	class 5: DK 140 km x (0.11 + 0 + 0.02) DKK = EUR 2.06 + 0 + 0.38; DE exempt
-//	         ferry EUR 2.25; total 4.69, tolls 2.44, saving 67.28
+//	         ferry EUR 2.25, no road fuel; total 4.69, tolls 2.44, saving 74.46
 func TestPrice_Compare(t *testing.T) {
 	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, CompareCO2Classes: []int{1, 4, 5}, TripsPerYear: 200}
 	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
@@ -211,9 +213,9 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := []Comparison{
-		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 71.97, CarbonEUR: 35.79},
-		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 51.07, CarbonEUR: 19.02, SavingEUR: 20.90, SavingPerYearEUR: 4180},
-		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 67.28, SavingPerYearEUR: 13456},
+		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 79.15, CarbonEUR: 42.97},
+		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 58.25, CarbonEUR: 26.2, SavingEUR: 20.90, SavingPerYearEUR: 4180},
+		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 74.46, SavingPerYearEUR: 14892},
 	}
 	if len(r.Compare) != len(want) {
 		t.Fatalf("compare %+v", r.Compare)
@@ -224,7 +226,7 @@ func TestPrice_Compare(t *testing.T) {
 		}
 	}
 	// The requested truck's own lines are unchanged by the comparison.
-	if r.TotalEUR != 71.97 || len(r.Lines) != 8 {
+	if r.TotalEUR != 79.15 || len(r.Lines) != 9 {
 		t.Errorf("total %v with %d lines", r.TotalEUR, len(r.Lines))
 	}
 
@@ -1669,5 +1671,39 @@ func TestPassageZones(t *testing.T) {
 	}
 	if n, _ := tripDays(gb, "GB", dk, date); n != 1 {
 		t.Errorf("GB: %d days", n)
+	}
+}
+
+func TestPrice_FuelCountry(t *testing.T) {
+	d := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	// All fuel bought in Germany: the whole road fuel at the 2026 price.
+	r, err := Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DE"}, d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, FuelCO2, "DE", rates.CO2)
+	if !ok || l.Rate != 65 || l.Km != 0 || l.TonnesCO2 <= 0.11 {
+		t.Errorf("fuel line %+v", l)
+	}
+	// Bought in Denmark (no per-tonne price here): no fuel line.
+	r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DK"}, d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := line(r, FuelCO2, "DK", rates.CO2); ok {
+		t.Error("DK fuel line")
+	}
+	// The 2024 and 2025 prices are fixed in BEHG § 10 (2).
+	for y, want := range map[int]float64{2024: 45, 2025: 55} {
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DE"}, time.Date(y, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "DE", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("%d: %+v", y, l)
+		}
+	}
+	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
+		t.Error("lower-case fuel_country accepted")
 	}
 }

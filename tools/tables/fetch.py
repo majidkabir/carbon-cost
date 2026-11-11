@@ -157,7 +157,7 @@ def main(src, out):
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"]:
+            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"
             if ("pisrs.si/api/datoteke/" in s["url"] or "portal.etoll.ro/documents/" in s["url"]) and body[:4] == b"%PDF":
                 ext = ".pdf"

@@ -159,7 +159,7 @@ def main(src, out):
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
             if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"]:
                 ext = ".json"
-            if "pisrs.si/api/datoteke/" in s["url"] and body[:4] == b"%PDF":
+            if ("pisrs.si/api/datoteke/" in s["url"] or "portal.etoll.ro/documents/" in s["url"]) and body[:4] == b"%PDF":
                 ext = ".pdf"
             save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:

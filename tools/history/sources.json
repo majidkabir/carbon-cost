@@ -1304,46 +1304,52 @@
    "what": "SEITT: 2025 tariffs of the AP-7 Cartagena – Vera toll motorway (PDF)"
   },
   {
-   "id": "ro-og15-298839",
+   "id": "ro-og15-20231216",
    "table": "ro-2024-01-01",
-   "url": "https://legislatie.just.ro/Public/DetaliiDocument/298839",
-   "what": "Portal Legislativ: Ordonanța Guvernului nr. 15/2002, consolidated text with its forms (rovinieta tariffs in Anexa nr. 1, peaj)"
+   "url": "https://web.archive.org/web/20240424152455id_/https://legislatie.just.ro/Public/DetaliiDocument/269498",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 16.12.2023 (Internet Archive copy)"
   },
   {
-   "id": "ro-l226-310825",
+   "id": "ro-og15-20240129",
    "table": "ro-2024-01-01",
-   "url": "https://legislatie.just.ro/Public/DetaliiDocument/310825",
-   "what": "Portal Legislativ: Legea nr. 226/2023, consolidated (the dates OG 15/2002 ended and TollRo started)"
+   "url": "https://web.archive.org/web/20240424155900id_/https://legislatie.just.ro/Public/DetaliiDocument/269983",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 29.01.2024 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20240311",
+   "table": "ro-2024-01-01",
+   "url": "https://web.archive.org/web/20240324151646id_/https://legislatie.just.ro/Public/DetaliiDocument/279873",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 11.03.2024 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20250728",
+   "table": "ro-2025-08-01",
+   "url": "https://web.archive.org/web/20250810072308id_/https://legislatie.just.ro/Public/DetaliiDocument/298839",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 28.07.2025, Legea nr. 141/2025 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20250908",
+   "table": "ro-2025-09-08",
+   "url": "https://web.archive.org/web/20251215073420id_/https://legislatie.just.ro/Public/DetaliiDocument/301686",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 08.09.2025, OG nr. 23/2025 (Internet Archive copy)"
   },
   {
    "id": "ro-l141-2025",
    "table": "ro-2025-08-01",
-   "url": "https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf",
-   "what": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025), new Anexa nr. 1 to OG 15/2002 from 1 September 2025 and the 21% VAT rate"
+   "url": "https://web.archive.org/web/20251029222437id_/https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf",
+   "what": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025): 21% VAT from 1 August 2025, OG 15/2002 Anexa nr. 1 from 1 September 2025 (Internet Archive copy)"
   },
   {
    "id": "ro-cnadnr-tabele",
    "table": "ro-2025-09-08",
-   "url": "https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf",
-   "what": "CNAIR press release annex: rovinieta and peaj tariffs and fines from 8 September 2025 (OG 23/2025)"
+   "url": "https://web.archive.org/web/20250907021509id_/https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf",
+   "what": "CNAIR: rovinieta and peaj tariffs from 8 September 2025 under OG 23/2025 (Internet Archive copy)"
   },
   {
-   "id": "ro-cnadnr-og15-2022",
-   "table": "ro-2024-01-01",
-   "url": "https://www.cnadnr.ro/sites/default/files/pagini-statice/OG%2015%20-%2012.10.2022.pdf",
-   "what": "CNAIR: OG 15/2002 consolidated as of 12 October 2022"
-  },
-  {
-   "id": "ro-cnadnr-og15",
-   "table": "ro-2025-09-08",
-   "url": "https://www.cnadnr.ro/sites/default/files/pagini-statice/Ordonan%C5%A3a%20nr.%2015_2002%20privind%20aplicarea%20tarifului%20de%20utilizare%20%C5%9Fi%20a%20tarifului%20de%20trecere%20pe%20re%C5%A3eaua%20de%20drumuri%20na%C5%A3ionale%20din%20Rom%C3%A2nia.pdf",
-   "what": "CNAIR: OG 15/2002 consolidated (2025)"
-  },
-  {
-   "id": "ro-omti-1925-2025",
+   "id": "ro-etoll-l226",
    "table": "ro-2026-10-01",
-   "url": "https://legislatie.just.ro/Public/DetaliiDocument/302972",
-   "what": "Portal Legislativ: Ordinul MTI nr. 1.925/2025 (TollRo unit rates as first issued)"
+   "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania",
+   "what": "CNAIR eToll: Legea nr. 226/2023 as published on the Acte normative page (PDF)"
   }
  ]
 }

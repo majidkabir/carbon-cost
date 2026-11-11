@@ -64,6 +64,8 @@ def lancos(path):
                 continue
             if len(c) >= 6 and all(re.fullmatch(r"\d+(,\d+)?", x) for x in c[-5:]):
                 lead = c[:-5]
+                if lead[-1] == "Total":
+                    continue  # a table's total line (until 2025 also the Lusoponte table's)
                 m = re.match(r"^(A\s*\d+)", lead[0]) if lead else None
                 if m:
                     road = m.group(1).replace(" ", "")

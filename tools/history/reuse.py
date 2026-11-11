@@ -4,7 +4,11 @@ history source with a Wayback URL (web.archive.org/web/<capture>id_/...)
 that this run failed to fetch, the copy the last run fetched (in prev/,
 from the history-out branch) is used, with its manifest entry.
 
-Usage: python3 reuse.py tools/history/sources.json out/ prev/"""
+Usage: python3 reuse.py tools/history/sources.json out/ prev/
+
+Before the fetch, "python3 reuse.py todo sources.json prev/ todo.json"
+writes the sources less those Wayback copies the last run has, so the
+fetch doesn't ask the archive for them again."""
 import glob, json, os, shutil, sys
 
 
@@ -31,5 +35,21 @@ def main(sources, out, prev):
     json.dump(man, open(os.path.join(out, "manifest.json"), "w"), indent=1)
 
 
+def todo(sources, prev, out):
+    d = json.load(open(sources, encoding="utf-8"))
+    try:
+        old = {f["file"]: f for f in json.load(open(os.path.join(prev, "manifest.json")))["files"]}
+    except FileNotFoundError:
+        old = {}
+    have = {s["id"] for s in d["sources"] if "web.archive.org/web/" in s["url"]
+            and any(f.startswith(s["id"] + ".") and v.get("status") == 200 and v.get("url") == s["url"] for f, v in old.items())}
+    d["sources"] = [s for s in d["sources"] if s["id"] not in have]
+    json.dump(d, open(out, "w"), ensure_ascii=False, indent=1)
+    print(len(have), "archived copies kept from the last run;", len(d["sources"]), "sources to fetch")
+
+
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    if sys.argv[1] == "todo":
+        todo(*sys.argv[2:])
+    else:
+        main(*sys.argv[1:])

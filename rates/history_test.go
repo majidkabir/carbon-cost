@@ -16,7 +16,6 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 var historyGaps = map[string]string{
 	"ES": "SEITT's 2024 tariffs (and the AP-41's of 2025) are neither served nor archived any more",
 	"RS": "JP Putevi Srbije's price lists of April 2023 (to 9 July 2024), 10 January 2025 and 4 July 2025 weren't archived",
-	"TR": "2024 to 12 January 2025 not yet added (KGM's 2024 bridge tariffs weren't archived)",
 }
 
 // gaps are an area's uncovered days from HistoryFrom to the end of 2026,

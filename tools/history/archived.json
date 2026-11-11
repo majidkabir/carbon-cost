@@ -269,6 +269,156 @@
     "gr-aegean"
    ],
    "note": "Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced."
+  },
+  {
+   "builder": "tr",
+   "year": "2024",
+   "files": {
+    "tr-5-anadoluotoyolucamlica-akinci.pdf": [
+     "tr-20240407-2024anadoluotoyolu-tr"
+    ],
+    "tr-11-avrupaotoyolumahmutbey-edirne.pdf": [
+     "tr-20240407-2024avrupaotoyolu-tr"
+    ],
+    "tr-19-aydin-denizli.pdf": [
+     "tr-20240407-2024aydin-denizlitr"
+    ],
+    "tr-8-cukurovaotoyoluadana-gaziantep.pdf": [
+     "tr-20240407-2024cukurovaotoyollari-adana-gaziantep-t"
+    ],
+    "tr-9-cukurovaotoyolugaziantep-sanliurfa.pdf": [
+     "tr-20240407-2024cukurovaotoyollari-gaziantep-urfa-tr"
+    ],
+    "tr-10-cukurovaotoyolunigde-mersin-adana.pdf": [
+     "tr-20240407-2024cukurovaotoyollari-nigde-mersin-adan"
+    ],
+    "tr-12-gebze-orhangazi-izmir.pdf": [
+     "tr-20240407-2024gebzeorhangaziizmit-tr"
+    ],
+    "tr-7-izmir-aydin.pdf": [
+     "tr-20240407-2024izmir-aydin-tr"
+    ],
+    "tr-15-kmoanadolukurtkoy-akyazi.pdf": [
+     "tr-20240407-2024kmo-anadoluotoyolu-tr"
+    ],
+    "tr-14-kmoavrupakinali-odayeri.pdf": [
+     "tr-20240407-2024kmo-avrupaotoyolu-tr"
+    ],
+    "tr-18-malkara-canakkale.pdf": [
+     "tr-20240407-2024malkara-canakkale-tur"
+    ],
+    "tr-16-menemen-aliaga-candarli.pdf": [
+     "tr-20240407-2024menemen-aliaga-candarli-tr"
+    ],
+    "tr-13-ysskuzeycevreyolu.pdf": [
+     "tr-20240407-2024yavuzsultanselimvekuzeycevre-tr"
+    ]
+   },
+   "absent": [
+    "tr-20-cesmeli-kizkalesitr",
+    "tr-6-izmir-cesme",
+    "tr-17-ankara-nigde",
+    "tr-1-15temmuz-fsm",
+    "tr-2-osmangazi",
+    "tr-3-ysskoprusu",
+    "tr-4-1915canakkale"
+   ],
+   "sources": "copies",
+   "note": "KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale."
+  },
+  {
+   "builder": "tr",
+   "year": "2024",
+   "files": {
+    "tr-17-ankara-nigde.pdf": [
+     "tr-20240515-2024ankara-nigdeotoyolu-tr"
+    ],
+    "tr-19-aydin-denizli.pdf": [
+     "tr-20240515-2024aydin-denizlitr"
+    ],
+    "tr-8-cukurovaotoyoluadana-gaziantep.pdf": [
+     "tr-20240515-2024cukurovaotoyollari-adana-gaziantep-t"
+    ],
+    "tr-12-gebze-orhangazi-izmir.pdf": [
+     "tr-20240515-2024gebzeorhangaziizmit-tr"
+    ],
+    "tr-15-kmoanadolukurtkoy-akyazi.pdf": [
+     "tr-20240515-2024kmo-anadoluotoyolu-tr"
+    ],
+    "tr-14-kmoavrupakinali-odayeri.pdf": [
+     "tr-20240515-2024kmo-avrupaotoyolu-tr"
+    ],
+    "tr-18-malkara-canakkale.pdf": [
+     "tr-20240515-2024malkara-canakkale-tur"
+    ],
+    "tr-16-menemen-aliaga-candarli.pdf": [
+     "tr-20240515-2024menemen-aliaga-candarli-tr"
+    ],
+    "tr-13-ysskuzeycevreyolu.pdf": [
+     "tr-20240515-2024yavuzsultanselimvekuzeycevre-tr"
+    ],
+    "tr-11-avrupaotoyolumahmutbey-edirne.pdf": [
+     "tr-20240515-kgm-avrupa-otoyolu-mahmutbey-edirne-kesi"
+    ],
+    "tr-9-cukurovaotoyolugaziantep-sanliurfa.pdf": [
+     "tr-20240515-kgm-cukurova-otoyollari-gaziantep-dogu-s"
+    ],
+    "tr-10-cukurovaotoyolunigde-mersin-adana.pdf": [
+     "tr-20240515-kgm-cukurova-otoyollari-nigde-mersin-ada"
+    ],
+    "tr-7-izmir-aydin.pdf": [
+     "tr-20240515-kgm-i-zmir-aydin-otoyolu-gecis-ucretleri"
+    ],
+    "tr-6-izmir-cesme.pdf": [
+     "tr-20240515-kgm-i-zmir-cesme-otoyolu-gecis-ucretleri"
+    ],
+    "tr-5-anadoluotoyolucamlica-akinci.pdf": [
+     "tr-20240515-kgmanadoluotoyolu-camlica-akinci-kesimi"
+    ]
+   },
+   "absent": [
+    "tr-20-cesmeli-kizkalesitr",
+    "tr-1-15temmuz-fsm",
+    "tr-2-osmangazi",
+    "tr-3-ysskoprusu",
+    "tr-4-1915canakkale"
+   ],
+   "sources": "copies",
+   "note": "KGM's tariffs from 15 May 2024, as the Internet Archive kept them in May 2024. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale."
+  },
+  {
+   "builder": "tr",
+   "year": "2024",
+   "files": {
+    "tr-12-gebze-orhangazi-izmir.pdf": [
+     "tr-20240816-2024gebzeorhangaziizmit-tr"
+    ],
+    "tr-15-kmoanadolukurtkoy-akyazi.pdf": [
+     "tr-20241127-2024kmo-anadoluotoyolu-tr"
+    ]
+   },
+   "absent": [
+    "tr-5-anadoluotoyolucamlica-akinci",
+    "tr-6-izmir-cesme",
+    "tr-7-izmir-aydin",
+    "tr-8-cukurovaotoyoluadana-gaziantep",
+    "tr-9-cukurovaotoyolugaziantep-sanliurfa",
+    "tr-10-cukurovaotoyolunigde-mersin-adana",
+    "tr-11-avrupaotoyolumahmutbey-edirne",
+    "tr-13-ysskuzeycevreyolu",
+    "tr-14-kmoavrupakinali-odayeri",
+    "tr-16-menemen-aliaga-candarli",
+    "tr-17-ankara-nigde",
+    "tr-18-malkara-canakkale",
+    "tr-19-aydin-denizli",
+    "tr-20-cesmeli-kizkalesitr",
+    "tr-1-15temmuz-fsm",
+    "tr-2-osmangazi",
+    "tr-3-ysskoprusu",
+    "tr-4-1915canakkale"
+   ],
+   "sources": "copies",
+   "note": "KGM raised every tariff from 16 August 2024; of those, the Internet Archive kept only Gebze–Orhangazi–İzmir's (with the Osmangazi bridge's price in its Gebze–Bursa table) and Kuzey Marmara Anadolu's, so only those are priced until the 2025 tariffs."
   }
  ]
 }

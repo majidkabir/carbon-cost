@@ -1,0 +1,9468 @@
+{
+ "country": "TR",
+ "currency": "TRY",
+ "valid_from": "2024-01-01",
+ "osm_extract": "2026-11-08",
+ "name": "Turkish motorway and bridge tolls (KGM)",
+ "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-08); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+ "sources": [
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AnadoluOtoyolu_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133339/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AnadoluOtoyolu_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AvrupaOtoyolu_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133342/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AvrupaOtoyolu_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Aydin-DenizliTr.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133342/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Aydin-DenizliTr.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Adana_Gaziantep_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133341/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Adana_Gaziantep_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Gaziantep_Urfa_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133340/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Gaziantep_Urfa_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari-Nigde-Mersin-Adana_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133339/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari-Nigde-Mersin-Adana_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024GebzeOrhangaziIzmit_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133342/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024GebzeOrhangaziIzmit_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Izmir-Aydin_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133337/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Izmir-Aydin_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AnadoluOtoyolu_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133338/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AnadoluOtoyolu_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AvrupaOtoyolu_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133339/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AvrupaOtoyolu_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Malkara-Canakkale_TUR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133341/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Malkara-Canakkale_TUR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Menemen_Aliaga_Candarli_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133343/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Menemen_Aliaga_Candarli_TR.pdf"
+  },
+  {
+   "title": "Internet Archive copy of https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024YavuzSultanSelimveKuzeyCevre_TR.pdf (20240407)",
+   "url": "https://web.archive.org/web/20240407133340/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024YavuzSultanSelimveKuzeyCevre_TR.pdf"
+  }
+ ],
+ "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
+ "tolled_roads": "The Osmangazi bridge; O-4 Anadolu Otoyolu (Çamlıca – Akıncı), O-31 İzmir – Aydın (Işıkkent – Aydın Batı), O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı), O-52 Çukurova (Gaziantep Doğu – Şanlıurfa), O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı), O-3 Avrupa Otoyolu (Mahmutbey – Edirne), O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri), O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı), O-33 Menemen – Aliağa – Çandarlı, O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü), O-31 Aydın – Denizli, O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü), O-5 Bursa – İzmir, O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu.",
+ "point_match_km": 0.05,
+ "toll_points": [
+  {
+   "name": "Osmangazi Köprüsü",
+   "lat": 40.755996,
+   "lon": 29.516096,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 387.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 458.3333
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 608.3333
+    },
+    {
+     "min_axles": 6,
+     "rate": 766.6667
+    }
+   ]
+  },
+  {
+   "name": "Osmangazi Köprüsü",
+   "lat": 40.756003,
+   "lon": 29.515946,
+   "rate": 0,
+   "classes": [
+    {
+     "min_axles": 2,
+     "max_axles": 2,
+     "rate": 387.5
+    },
+    {
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 458.3333
+    },
+    {
+     "min_axles": 4,
+     "max_axles": 5,
+     "rate": 608.3333
+    },
+    {
+     "min_axles": 6,
+     "rate": 766.6667
+    }
+   ]
+  }
+ ],
+ "closed_systems": [
+  {
+   "name": "O-4 Anadolu Otoyolu (Çamlıca – Akıncı)",
+   "law": "KGM 2024 tariff (tr-5-anadoluotoyolucamlica-akinci), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "ANADOLU (ÇAMLICA)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.992168,
+       "lon": 29.172503
+      },
+      {
+       "name": "booth",
+       "lat": 40.992751,
+       "lon": 29.170057
+      }
+     ]
+    },
+    {
+     "name": "SAMANDIRA",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 40.982491,
+       "lon": 29.208032
+      },
+      {
+       "name": "junction",
+       "lat": 40.983648,
+       "lon": 29.201714
+      },
+      {
+       "name": "junction",
+       "lat": 40.979582,
+       "lon": 29.207144
+      }
+     ]
+    },
+    {
+     "name": "SULTANBEYLİ",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 40.97549,
+       "lon": 29.245558
+      },
+      {
+       "name": "junction",
+       "lat": 40.970568,
+       "lon": 29.265655
+      }
+     ]
+    },
+    {
+     "name": "MECİDİYE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.953948,
+       "lon": 29.315712
+      },
+      {
+       "name": "booth",
+       "lat": 40.954093,
+       "lon": 29.315348
+      },
+      {
+       "name": "booth",
+       "lat": 40.954142,
+       "lon": 29.315082
+      }
+     ]
+    },
+    {
+     "name": "KURTKÖY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.932463,
+       "lon": 29.32988
+      },
+      {
+       "name": "booth",
+       "lat": 40.932393,
+       "lon": 29.330012
+      }
+     ]
+    },
+    {
+     "name": "ORHANLI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.926708,
+       "lon": 29.344058
+      },
+      {
+       "name": "booth",
+       "lat": 40.926766,
+       "lon": 29.34361
+      }
+     ]
+    },
+    {
+     "name": "ŞEKERPINAR",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.8677,
+       "lon": 29.390179
+      },
+      {
+       "name": "booth",
+       "lat": 40.867588,
+       "lon": 29.390274
+      }
+     ]
+    },
+    {
+     "name": "GEBZE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.804304,
+       "lon": 29.474322
+      },
+      {
+       "name": "booth",
+       "lat": 40.804288,
+       "lon": 29.474111
+      },
+      {
+       "name": "booth",
+       "lat": 40.804231,
+       "lon": 29.473881
+      }
+     ]
+    },
+    {
+     "name": "MUALLİMKÖY",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 40.790078,
+       "lon": 29.514223
+      },
+      {
+       "name": "junction",
+       "lat": 40.793248,
+       "lon": 29.512097
+      },
+      {
+       "name": "junction",
+       "lat": 40.791189,
+       "lon": 29.516717
+      },
+      {
+       "name": "junction",
+       "lat": 40.80198,
+       "lon": 29.500329
+      },
+      {
+       "name": "junction",
+       "lat": 40.793565,
+       "lon": 29.515556
+      },
+      {
+       "name": "junction",
+       "lat": 40.799099,
+       "lon": 29.515082
+      },
+      {
+       "name": "junction",
+       "lat": 40.801394,
+       "lon": 29.501602
+      }
+     ]
+    },
+    {
+     "name": "BATI HEREKE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.777592,
+       "lon": 29.59518
+      },
+      {
+       "name": "booth",
+       "lat": 40.777465,
+       "lon": 29.595265
+      }
+     ]
+    },
+    {
+     "name": "KÖRFEZ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.770478,
+       "lon": 29.768824
+      }
+     ]
+    },
+    {
+     "name": "BATI İZMİT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.762616,
+       "lon": 29.876397
+      },
+      {
+       "name": "booth",
+       "lat": 40.763568,
+       "lon": 29.876631
+      }
+     ]
+    },
+    {
+     "name": "KANDIRA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.77821,
+       "lon": 29.973423
+      },
+      {
+       "name": "booth",
+       "lat": 40.778269,
+       "lon": 29.973273
+      },
+      {
+       "name": "booth",
+       "lat": 40.778253,
+       "lon": 29.973101
+      }
+     ]
+    },
+    {
+     "name": "DOĞU İZMİT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.749059,
+       "lon": 30.036765
+      },
+      {
+       "name": "booth",
+       "lat": 40.749064,
+       "lon": 30.036886
+      },
+      {
+       "name": "booth",
+       "lat": 40.749098,
+       "lon": 30.036501
+      },
+      {
+       "name": "booth",
+       "lat": 40.749098,
+       "lon": 30.036501
+      }
+     ]
+    },
+    {
+     "name": "SAPANCA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.686539,
+       "lon": 30.240137
+      },
+      {
+       "name": "booth",
+       "lat": 40.686614,
+       "lon": 30.240246
+      },
+      {
+       "name": "booth",
+       "lat": 40.686495,
+       "lon": 30.239981
+      },
+      {
+       "name": "booth",
+       "lat": 40.686495,
+       "lon": 30.239981
+      }
+     ]
+    },
+    {
+     "name": "ADAPAZARI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.713274,
+       "lon": 30.38453
+      },
+      {
+       "name": "booth",
+       "lat": 40.713319,
+       "lon": 30.384675
+      },
+      {
+       "name": "booth",
+       "lat": 40.713251,
+       "lon": 30.384307
+      }
+     ]
+    },
+    {
+     "name": "AKYAZI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.721742,
+       "lon": 30.565017
+      },
+      {
+       "name": "booth",
+       "lat": 40.7218,
+       "lon": 30.565045
+      },
+      {
+       "name": "booth",
+       "lat": 40.721922,
+       "lon": 30.564979
+      },
+      {
+       "name": "booth",
+       "lat": 40.721644,
+       "lon": 30.564962
+      }
+     ]
+    },
+    {
+     "name": "HENDEK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.758838,
+       "lon": 30.717994
+      },
+      {
+       "name": "booth",
+       "lat": 40.758846,
+       "lon": 30.717922
+      },
+      {
+       "name": "booth",
+       "lat": 40.758811,
+       "lon": 30.717792
+      }
+     ]
+    },
+    {
+     "name": "DÜZCE (GÖLYAKA)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.804942,
+       "lon": 31.17009
+      },
+      {
+       "name": "booth",
+       "lat": 40.804955,
+       "lon": 31.164511
+      },
+      {
+       "name": "booth",
+       "lat": 40.80325,
+       "lon": 31.165646
+      },
+      {
+       "name": "booth",
+       "lat": 40.80295,
+       "lon": 31.170011
+      },
+      {
+       "name": "booth",
+       "lat": 40.805035,
+       "lon": 31.164448
+      },
+      {
+       "name": "booth",
+       "lat": 40.80319,
+       "lon": 31.165541
+      },
+      {
+       "name": "booth",
+       "lat": 40.802972,
+       "lon": 31.169931
+      },
+      {
+       "name": "booth",
+       "lat": 40.804936,
+       "lon": 31.170013
+      }
+     ]
+    },
+    {
+     "name": "KAYNAŞLI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.783957,
+       "lon": 31.277692
+      },
+      {
+       "name": "booth",
+       "lat": 40.783919,
+       "lon": 31.277564
+      },
+      {
+       "name": "booth",
+       "lat": 40.783991,
+       "lon": 31.277815
+      },
+      {
+       "name": "booth",
+       "lat": 40.783922,
+       "lon": 31.277427
+      }
+     ]
+    },
+    {
+     "name": "ABANT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.71884,
+       "lon": 31.471665
+      },
+      {
+       "name": "booth",
+       "lat": 40.718696,
+       "lon": 31.471592
+      },
+      {
+       "name": "booth",
+       "lat": 40.718643,
+       "lon": 31.471477
+      }
+     ]
+    },
+    {
+     "name": "BOLU BATI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.73839,
+       "lon": 31.565214
+      },
+      {
+       "name": "booth",
+       "lat": 40.738429,
+       "lon": 31.565355
+      },
+      {
+       "name": "booth",
+       "lat": 40.738411,
+       "lon": 31.56508
+      },
+      {
+       "name": "booth",
+       "lat": 40.738411,
+       "lon": 31.56508
+      }
+     ]
+    },
+    {
+     "name": "YENİÇAĞA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.768325,
+       "lon": 32.008569
+      },
+      {
+       "name": "booth",
+       "lat": 40.768346,
+       "lon": 32.008747
+      },
+      {
+       "name": "booth",
+       "lat": 40.768373,
+       "lon": 32.008458
+      }
+     ]
+    },
+    {
+     "name": "DÖRTDİVAN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.740288,
+       "lon": 32.118181
+      },
+      {
+       "name": "booth",
+       "lat": 40.742217,
+       "lon": 32.116884
+      },
+      {
+       "name": "booth",
+       "lat": 40.743957,
+       "lon": 32.123433
+      },
+      {
+       "name": "booth",
+       "lat": 40.745217,
+       "lon": 32.122166
+      },
+      {
+       "name": "booth",
+       "lat": 40.743973,
+       "lon": 32.123301
+      },
+      {
+       "name": "booth",
+       "lat": 40.745238,
+       "lon": 32.122107
+      },
+      {
+       "name": "booth",
+       "lat": 40.742181,
+       "lon": 32.11673
+      },
+      {
+       "name": "booth",
+       "lat": 40.74036,
+       "lon": 32.118117
+      }
+     ]
+    },
+    {
+     "name": "GEREDE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.749382,
+       "lon": 32.198589
+      },
+      {
+       "name": "booth",
+       "lat": 40.749247,
+       "lon": 32.198748
+      },
+      {
+       "name": "booth",
+       "lat": 40.749356,
+       "lon": 32.19844
+      }
+     ]
+    },
+    {
+     "name": "PELİTÇİK (ÇAMLIDERE)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.440509,
+       "lon": 32.410139
+      },
+      {
+       "name": "booth",
+       "lat": 40.440605,
+       "lon": 32.410296
+      },
+      {
+       "name": "booth",
+       "lat": 40.440518,
+       "lon": 32.410077
+      }
+     ]
+    },
+    {
+     "name": "ÇELTİKÇİ (KIZILCAHAMAM)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.332161,
+       "lon": 32.497185
+      }
+     ]
+    },
+    {
+     "name": "AKINCI (MÜRTED)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.116482,
+       "lon": 32.605457
+      },
+      {
+       "name": "booth",
+       "lat": 40.116607,
+       "lon": 32.605721
+      },
+      {
+       "name": "booth",
+       "lat": 40.116423,
+       "lon": 32.605223
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "SAMANDIRA|ANADOLU (ÇAMLICA)": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "SULTANBEYLİ|ANADOLU (ÇAMLICA)": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "SULTANBEYLİ|SAMANDIRA": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "MECİDİYE|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "MECİDİYE|SAMANDIRA": {
+     "2": 10.0,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "MECİDİYE|SULTANBEYLİ": {
+     "2": 10.0,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "KURTKÖY|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "KURTKÖY|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "KURTKÖY|SULTANBEYLİ": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "KURTKÖY|MECİDİYE": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "ORHANLI|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ORHANLI|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ORHANLI|SULTANBEYLİ": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "ORHANLI|MECİDİYE": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "ORHANLI|KURTKÖY": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "ŞEKERPINAR|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ŞEKERPINAR|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ŞEKERPINAR|SULTANBEYLİ": {
+     "2": 11.6667,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ŞEKERPINAR|MECİDİYE": {
+     "2": 11.6667,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ŞEKERPINAR|KURTKÖY": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "ŞEKERPINAR|ORHANLI": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "GEBZE|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "GEBZE|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "GEBZE|SULTANBEYLİ": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "GEBZE|MECİDİYE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "GEBZE|KURTKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEBZE|ORHANLI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEBZE|ŞEKERPINAR": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "MUALLİMKÖY|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "MUALLİMKÖY|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "MUALLİMKÖY|SULTANBEYLİ": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "MUALLİMKÖY|MECİDİYE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "MUALLİMKÖY|KURTKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "MUALLİMKÖY|ORHANLI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "MUALLİMKÖY|ŞEKERPINAR": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "MUALLİMKÖY|GEBZE": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "BATI HEREKE|ANADOLU (ÇAMLICA)": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI HEREKE|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI HEREKE|SULTANBEYLİ": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI HEREKE|MECİDİYE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI HEREKE|KURTKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI HEREKE|ORHANLI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI HEREKE|ŞEKERPINAR": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI HEREKE|GEBZE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "BATI HEREKE|MUALLİMKÖY": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "KÖRFEZ|ANADOLU (ÇAMLICA)": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KÖRFEZ|SAMANDIRA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KÖRFEZ|SULTANBEYLİ": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KÖRFEZ|MECİDİYE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KÖRFEZ|KURTKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KÖRFEZ|ORHANLI": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KÖRFEZ|ŞEKERPINAR": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KÖRFEZ|GEBZE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KÖRFEZ|MUALLİMKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KÖRFEZ|BATI HEREKE": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "BATI İZMİT|ANADOLU (ÇAMLICA)": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "BATI İZMİT|SAMANDIRA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 38.3333
+    },
+    "BATI İZMİT|SULTANBEYLİ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 38.3333
+    },
+    "BATI İZMİT|MECİDİYE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI İZMİT|KURTKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI İZMİT|ORHANLI": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI İZMİT|ŞEKERPINAR": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BATI İZMİT|GEBZE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI İZMİT|MUALLİMKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BATI İZMİT|BATI HEREKE": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 25.0
+    },
+    "BATI İZMİT|KÖRFEZ": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 11.6667,
+     "5": 24.1667
+    },
+    "KANDIRA|ANADOLU (ÇAMLICA)": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "KANDIRA|SAMANDIRA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KANDIRA|SULTANBEYLİ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KANDIRA|MECİDİYE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KANDIRA|KURTKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KANDIRA|ORHANLI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KANDIRA|ŞEKERPINAR": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KANDIRA|GEBZE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KANDIRA|MUALLİMKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KANDIRA|BATI HEREKE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 30.8333
+    },
+    "KANDIRA|KÖRFEZ": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "DOĞU İZMİT|ANADOLU (ÇAMLICA)": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "DOĞU İZMİT|SAMANDIRA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "DOĞU İZMİT|SULTANBEYLİ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "DOĞU İZMİT|MECİDİYE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DOĞU İZMİT|KURTKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DOĞU İZMİT|ORHANLI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DOĞU İZMİT|ŞEKERPINAR": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DOĞU İZMİT|GEBZE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "DOĞU İZMİT|MUALLİMKÖY": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "DOĞU İZMİT|BATI HEREKE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "DOĞU İZMİT|KÖRFEZ": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "DOĞU İZMİT|KANDIRA": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 14.1667,
+     "5": 24.1667
+    },
+    "SAPANCA|ANADOLU (ÇAMLICA)": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "SAPANCA|SAMANDIRA": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "SAPANCA|SULTANBEYLİ": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "SAPANCA|MECİDİYE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SAPANCA|KURTKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SAPANCA|ORHANLI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SAPANCA|ŞEKERPINAR": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SAPANCA|GEBZE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "SAPANCA|MUALLİMKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "SAPANCA|BATI HEREKE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SAPANCA|KÖRFEZ": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SAPANCA|KANDIRA": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SAPANCA|DOĞU İZMİT": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 21.6667,
+     "5": 24.1667
+    },
+    "ADAPAZARI|ANADOLU (ÇAMLICA)": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|SAMANDIRA": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|SULTANBEYLİ": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|MECİDİYE": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|KURTKÖY": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|ORHANLI": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "ADAPAZARI|ŞEKERPINAR": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "ADAPAZARI|GEBZE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "ADAPAZARI|MUALLİMKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "ADAPAZARI|BATI HEREKE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ADAPAZARI|KÖRFEZ": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "ADAPAZARI|KANDIRA": {
+     "2": 11.6667,
+     "3": 14.1667,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ADAPAZARI|DOĞU İZMİT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ADAPAZARI|SAPANCA": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "AKYAZI|ANADOLU (ÇAMLICA)": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "AKYAZI|SAMANDIRA": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "AKYAZI|SULTANBEYLİ": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "AKYAZI|MECİDİYE": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|KURTKÖY": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|ORHANLI": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|ŞEKERPINAR": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|GEBZE": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|MUALLİMKÖY": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "AKYAZI|BATI HEREKE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "AKYAZI|KÖRFEZ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "AKYAZI|KANDIRA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "AKYAZI|DOĞU İZMİT": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "AKYAZI|SAPANCA": {
+     "2": 9.1667,
+     "3": 14.1667,
+     "4": 20.8333,
+     "5": 30.8333
+    },
+    "AKYAZI|ADAPAZARI": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "HENDEK|ANADOLU (ÇAMLICA)": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "HENDEK|SAMANDIRA": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|SULTANBEYLİ": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|MECİDİYE": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|KURTKÖY": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|ORHANLI": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|ŞEKERPINAR": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HENDEK|GEBZE": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "HENDEK|MUALLİMKÖY": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "HENDEK|BATI HEREKE": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 53.3333,
+     "5": 55.8333
+    },
+    "HENDEK|KÖRFEZ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "HENDEK|KANDIRA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "HENDEK|DOĞU İZMİT": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "HENDEK|SAPANCA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "HENDEK|ADAPAZARI": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "HENDEK|AKYAZI": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "DÜZCE (GÖLYAKA)|ANADOLU (ÇAMLICA)": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "DÜZCE (GÖLYAKA)|SAMANDIRA": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "DÜZCE (GÖLYAKA)|SULTANBEYLİ": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "DÜZCE (GÖLYAKA)|MECİDİYE": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "DÜZCE (GÖLYAKA)|KURTKÖY": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "DÜZCE (GÖLYAKA)|ORHANLI": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "DÜZCE (GÖLYAKA)|ŞEKERPINAR": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "DÜZCE (GÖLYAKA)|GEBZE": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "DÜZCE (GÖLYAKA)|MUALLİMKÖY": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "DÜZCE (GÖLYAKA)|BATI HEREKE": {
+     "2": 25.0,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "DÜZCE (GÖLYAKA)|KÖRFEZ": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "DÜZCE (GÖLYAKA)|KANDIRA": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "DÜZCE (GÖLYAKA)|DOĞU İZMİT": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "DÜZCE (GÖLYAKA)|SAPANCA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DÜZCE (GÖLYAKA)|ADAPAZARI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "DÜZCE (GÖLYAKA)|AKYAZI": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "DÜZCE (GÖLYAKA)|HENDEK": {
+     "2": 11.6667,
+     "3": 11.6667,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KAYNAŞLI|ANADOLU (ÇAMLICA)": {
+     "2": 35.8333,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|SAMANDIRA": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|SULTANBEYLİ": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|MECİDİYE": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|KURTKÖY": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|ORHANLI": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|ŞEKERPINAR": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "KAYNAŞLI|GEBZE": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 55.8333,
+     "5": 65.8333
+    },
+    "KAYNAŞLI|MUALLİMKÖY": {
+     "2": 32.5,
+     "3": 53.3333,
+     "4": 55.8333,
+     "5": 65.8333
+    },
+    "KAYNAŞLI|BATI HEREKE": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 65.8333
+    },
+    "KAYNAŞLI|KÖRFEZ": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "KAYNAŞLI|KANDIRA": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "KAYNAŞLI|DOĞU İZMİT": {
+     "2": 25.0,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "KAYNAŞLI|SAPANCA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "KAYNAŞLI|ADAPAZARI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KAYNAŞLI|AKYAZI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "KAYNAŞLI|HENDEK": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KAYNAŞLI|DÜZCE (GÖLYAKA)": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 15.0,
+     "5": 20.8333
+    },
+    "ABANT|ANADOLU (ÇAMLICA)": {
+     "2": 70.0,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|SAMANDIRA": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|SULTANBEYLİ": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|MECİDİYE": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|KURTKÖY": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|ORHANLI": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|ŞEKERPINAR": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 108.3333,
+     "5": 132.5
+    },
+    "ABANT|GEBZE": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 107.5,
+     "5": 132.5
+    },
+    "ABANT|MUALLİMKÖY": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 97.5,
+     "5": 125.8333
+    },
+    "ABANT|BATI HEREKE": {
+     "2": 60.8333,
+     "3": 70.8333,
+     "4": 95.0,
+     "5": 125.8333
+    },
+    "ABANT|KÖRFEZ": {
+     "2": 60.8333,
+     "3": 70.8333,
+     "4": 95.0,
+     "5": 119.1667
+    },
+    "ABANT|KANDIRA": {
+     "2": 49.1667,
+     "3": 65.8333,
+     "4": 78.3333,
+     "5": 107.5
+    },
+    "ABANT|DOĞU İZMİT": {
+     "2": 49.1667,
+     "3": 65.8333,
+     "4": 78.3333,
+     "5": 107.5
+    },
+    "ABANT|SAPANCA": {
+     "2": 42.5,
+     "3": 62.5,
+     "4": 78.3333,
+     "5": 107.5
+    },
+    "ABANT|ADAPAZARI": {
+     "2": 42.5,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 93.3333
+    },
+    "ABANT|AKYAZI": {
+     "2": 42.5,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 93.3333
+    },
+    "ABANT|HENDEK": {
+     "2": 38.3333,
+     "3": 54.1667,
+     "4": 70.8333,
+     "5": 88.3333
+    },
+    "ABANT|DÜZCE (GÖLYAKA)": {
+     "2": 33.3333,
+     "3": 45.8333,
+     "4": 54.1667,
+     "5": 64.1667
+    },
+    "ABANT|KAYNAŞLI": {
+     "2": 27.5,
+     "3": 32.5,
+     "4": 43.3333,
+     "5": 53.3333
+    },
+    "BOLU BATI|ANADOLU (ÇAMLICA)": {
+     "2": 71.6667,
+     "3": 95.0,
+     "4": 121.6667,
+     "5": 154.1667
+    },
+    "BOLU BATI|SAMANDIRA": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|SULTANBEYLİ": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|MECİDİYE": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|KURTKÖY": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|ORHANLI": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|ŞEKERPINAR": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 120.8333,
+     "5": 151.6667
+    },
+    "BOLU BATI|GEBZE": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 107.5,
+     "5": 137.5
+    },
+    "BOLU BATI|MUALLİMKÖY": {
+     "2": 70.0,
+     "3": 95.0,
+     "4": 107.5,
+     "5": 137.5
+    },
+    "BOLU BATI|BATI HEREKE": {
+     "2": 70.0,
+     "3": 77.5,
+     "4": 107.5,
+     "5": 137.5
+    },
+    "BOLU BATI|KÖRFEZ": {
+     "2": 70.0,
+     "3": 77.5,
+     "4": 107.5,
+     "5": 137.5
+    },
+    "BOLU BATI|KANDIRA": {
+     "2": 60.8333,
+     "3": 76.6667,
+     "4": 93.3333,
+     "5": 125.0
+    },
+    "BOLU BATI|DOĞU İZMİT": {
+     "2": 60.8333,
+     "3": 76.6667,
+     "4": 93.3333,
+     "5": 125.0
+    },
+    "BOLU BATI|SAPANCA": {
+     "2": 51.6667,
+     "3": 70.0,
+     "4": 93.3333,
+     "5": 121.6667
+    },
+    "BOLU BATI|ADAPAZARI": {
+     "2": 51.6667,
+     "3": 70.0,
+     "4": 90.0,
+     "5": 108.3333
+    },
+    "BOLU BATI|AKYAZI": {
+     "2": 51.6667,
+     "3": 70.0,
+     "4": 90.0,
+     "5": 108.3333
+    },
+    "BOLU BATI|HENDEK": {
+     "2": 49.1667,
+     "3": 65.8333,
+     "4": 84.1667,
+     "5": 107.5
+    },
+    "BOLU BATI|DÜZCE (GÖLYAKA)": {
+     "2": 42.5,
+     "3": 53.3333,
+     "4": 76.6667,
+     "5": 84.1667
+    },
+    "BOLU BATI|KAYNAŞLI": {
+     "2": 33.3333,
+     "3": 40.8333,
+     "4": 54.1667,
+     "5": 72.5
+    },
+    "BOLU BATI|ABANT": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 13.3333,
+     "5": 20.8333
+    },
+    "YENİÇAĞA|ANADOLU (ÇAMLICA)": {
+     "2": 76.6667,
+     "3": 97.5,
+     "4": 130.0,
+     "5": 155.8333
+    },
+    "YENİÇAĞA|SAMANDIRA": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|SULTANBEYLİ": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|MECİDİYE": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|KURTKÖY": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|ORHANLI": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|ŞEKERPINAR": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "YENİÇAĞA|GEBZE": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "YENİÇAĞA|MUALLİMKÖY": {
+     "2": 71.6667,
+     "3": 97.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "YENİÇAĞA|BATI HEREKE": {
+     "2": 71.6667,
+     "3": 80.0,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "YENİÇAĞA|KÖRFEZ": {
+     "2": 71.6667,
+     "3": 80.0,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "YENİÇAĞA|KANDIRA": {
+     "2": 64.1667,
+     "3": 77.5,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "YENİÇAĞA|DOĞU İZMİT": {
+     "2": 64.1667,
+     "3": 77.5,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "YENİÇAĞA|SAPANCA": {
+     "2": 60.0,
+     "3": 76.6667,
+     "4": 100.8333,
+     "5": 124.1667
+    },
+    "YENİÇAĞA|ADAPAZARI": {
+     "2": 60.0,
+     "3": 76.6667,
+     "4": 95.0,
+     "5": 113.3333
+    },
+    "YENİÇAĞA|AKYAZI": {
+     "2": 60.0,
+     "3": 76.6667,
+     "4": 95.0,
+     "5": 111.6667
+    },
+    "YENİÇAĞA|HENDEK": {
+     "2": 51.6667,
+     "3": 72.5,
+     "4": 90.0,
+     "5": 108.3333
+    },
+    "YENİÇAĞA|DÜZCE (GÖLYAKA)": {
+     "2": 49.1667,
+     "3": 53.3333,
+     "4": 76.6667,
+     "5": 88.3333
+    },
+    "YENİÇAĞA|KAYNAŞLI": {
+     "2": 38.3333,
+     "3": 45.0,
+     "4": 63.3333,
+     "5": 76.6667
+    },
+    "YENİÇAĞA|ABANT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "YENİÇAĞA|BOLU BATI": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "DÖRTDİVAN|ANADOLU (ÇAMLICA)": {
+     "2": 76.6667,
+     "3": 107.5,
+     "4": 130.0,
+     "5": 155.8333
+    },
+    "DÖRTDİVAN|SAMANDIRA": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|SULTANBEYLİ": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|MECİDİYE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|KURTKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|ORHANLI": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|ŞEKERPINAR": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "DÖRTDİVAN|GEBZE": {
+     "2": 71.6667,
+     "3": 102.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "DÖRTDİVAN|MUALLİMKÖY": {
+     "2": 71.6667,
+     "3": 102.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "DÖRTDİVAN|BATI HEREKE": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "DÖRTDİVAN|KÖRFEZ": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "DÖRTDİVAN|KANDIRA": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "DÖRTDİVAN|DOĞU İZMİT": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "DÖRTDİVAN|SAPANCA": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 100.8333,
+     "5": 124.1667
+    },
+    "DÖRTDİVAN|ADAPAZARI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 95.0,
+     "5": 113.3333
+    },
+    "DÖRTDİVAN|AKYAZI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 95.0,
+     "5": 111.6667
+    },
+    "DÖRTDİVAN|HENDEK": {
+     "2": 51.6667,
+     "3": 76.6667,
+     "4": 90.0,
+     "5": 108.3333
+    },
+    "DÖRTDİVAN|DÜZCE (GÖLYAKA)": {
+     "2": 49.1667,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 88.3333
+    },
+    "DÖRTDİVAN|KAYNAŞLI": {
+     "2": 38.3333,
+     "3": 54.1667,
+     "4": 63.3333,
+     "5": 76.6667
+    },
+    "DÖRTDİVAN|ABANT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "DÖRTDİVAN|BOLU BATI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "DÖRTDİVAN|YENİÇAĞA": {
+     "2": 9.1667,
+     "3": 10.8333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEREDE|ANADOLU (ÇAMLICA)": {
+     "2": 76.6667,
+     "3": 107.5,
+     "4": 130.0,
+     "5": 155.8333
+    },
+    "GEREDE|SAMANDIRA": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "GEREDE|SULTANBEYLİ": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "GEREDE|MECİDİYE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 154.1667
+    },
+    "GEREDE|KURTKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "GEREDE|ORHANLI": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "GEREDE|ŞEKERPINAR": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "GEREDE|GEBZE": {
+     "2": 71.6667,
+     "3": 102.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "GEREDE|MUALLİMKÖY": {
+     "2": 71.6667,
+     "3": 102.5,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "GEREDE|BATI HEREKE": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "GEREDE|KÖRFEZ": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 116.6667,
+     "5": 140.8333
+    },
+    "GEREDE|KANDIRA": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "GEREDE|DOĞU İZMİT": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 100.8333,
+     "5": 129.1667
+    },
+    "GEREDE|SAPANCA": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 100.8333,
+     "5": 124.1667
+    },
+    "GEREDE|ADAPAZARI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 95.0,
+     "5": 113.3333
+    },
+    "GEREDE|AKYAZI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 95.0,
+     "5": 111.6667
+    },
+    "GEREDE|HENDEK": {
+     "2": 51.6667,
+     "3": 76.6667,
+     "4": 90.0,
+     "5": 108.3333
+    },
+    "GEREDE|DÜZCE (GÖLYAKA)": {
+     "2": 49.1667,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 88.3333
+    },
+    "GEREDE|KAYNAŞLI": {
+     "2": 38.3333,
+     "3": 54.1667,
+     "4": 63.3333,
+     "5": 76.6667
+    },
+    "GEREDE|ABANT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEREDE|BOLU BATI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEREDE|YENİÇAĞA": {
+     "2": 9.1667,
+     "3": 10.8333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GEREDE|DÖRTDİVAN": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 13.3333,
+     "5": 20.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|ANADOLU (ÇAMLICA)": {
+     "2": 76.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 163.3333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|SAMANDIRA": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|SULTANBEYLİ": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|MECİDİYE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|KURTKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|ORHANLI": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|ŞEKERPINAR": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|GEBZE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|MUALLİMKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|BATI HEREKE": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|KÖRFEZ": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 125.0,
+     "5": 149.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|KANDIRA": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 102.5,
+     "5": 135.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|DOĞU İZMİT": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 102.5,
+     "5": 135.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|SAPANCA": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 102.5,
+     "5": 130.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|ADAPAZARI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 97.5,
+     "5": 118.3333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|AKYAZI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 97.5,
+     "5": 118.3333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|HENDEK": {
+     "2": 51.6667,
+     "3": 76.6667,
+     "4": 90.0,
+     "5": 116.6667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|DÜZCE (GÖLYAKA)": {
+     "2": 49.1667,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 94.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|KAYNAŞLI": {
+     "2": 38.3333,
+     "3": 54.1667,
+     "4": 64.1667,
+     "5": 82.5
+    },
+    "PELİTÇİK (ÇAMLIDERE)|ABANT": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|BOLU BATI": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "PELİTÇİK (ÇAMLIDERE)|YENİÇAĞA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|DÖRTDİVAN": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "PELİTÇİK (ÇAMLIDERE)|GEREDE": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|ANADOLU (ÇAMLICA)": {
+     "2": 76.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 163.3333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|SAMANDIRA": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|SULTANBEYLİ": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 135.8333,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|MECİDİYE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|KURTKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|ORHANLI": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|ŞEKERPINAR": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|GEBZE": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|MUALLİMKÖY": {
+     "2": 71.6667,
+     "3": 107.5,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|BATI HEREKE": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 125.0,
+     "5": 154.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|KÖRFEZ": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 125.0,
+     "5": 149.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|KANDIRA": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 102.5,
+     "5": 135.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|DOĞU İZMİT": {
+     "2": 64.1667,
+     "3": 86.6667,
+     "4": 102.5,
+     "5": 135.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|SAPANCA": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 102.5,
+     "5": 130.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|ADAPAZARI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 97.5,
+     "5": 123.3333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|AKYAZI": {
+     "2": 60.0,
+     "3": 82.5,
+     "4": 97.5,
+     "5": 118.3333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|HENDEK": {
+     "2": 51.6667,
+     "3": 76.6667,
+     "4": 90.0,
+     "5": 116.6667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|DÜZCE (GÖLYAKA)": {
+     "2": 49.1667,
+     "3": 62.5,
+     "4": 76.6667,
+     "5": 94.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|KAYNAŞLI": {
+     "2": 38.3333,
+     "3": 54.1667,
+     "4": 64.1667,
+     "5": 82.5
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|ABANT": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|BOLU BATI": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|YENİÇAĞA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 22.5,
+     "5": 24.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|DÖRTDİVAN": {
+     "2": 11.6667,
+     "3": 18.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|GEREDE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ÇELTİKÇİ (KIZILCAHAMAM)|PELİTÇİK (ÇAMLIDERE)": {
+     "2": 9.1667,
+     "3": 10.0,
+     "4": 13.3333,
+     "5": 20.8333
+    },
+    "AKINCI (MÜRTED)|ANADOLU (ÇAMLICA)": {
+     "2": 80.8333,
+     "3": 108.3333,
+     "4": 140.0,
+     "5": 168.3333
+    },
+    "AKINCI (MÜRTED)|SAMANDIRA": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|SULTANBEYLİ": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|MECİDİYE": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 135.8333,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|KURTKÖY": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 135.8333,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|ORHANLI": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 135.8333,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|ŞEKERPINAR": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 135.8333,
+     "5": 165.8333
+    },
+    "AKINCI (MÜRTED)|GEBZE": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "AKINCI (MÜRTED)|MUALLİMKÖY": {
+     "2": 74.1667,
+     "3": 108.3333,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "AKINCI (MÜRTED)|BATI HEREKE": {
+     "2": 74.1667,
+     "3": 91.6667,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "AKINCI (MÜRTED)|KÖRFEZ": {
+     "2": 74.1667,
+     "3": 91.6667,
+     "4": 129.1667,
+     "5": 160.8333
+    },
+    "AKINCI (MÜRTED)|KANDIRA": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 118.3333,
+     "5": 146.6667
+    },
+    "AKINCI (MÜRTED)|DOĞU İZMİT": {
+     "2": 71.6667,
+     "3": 89.1667,
+     "4": 118.3333,
+     "5": 146.6667
+    },
+    "AKINCI (MÜRTED)|SAPANCA": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 112.5,
+     "5": 136.6667
+    },
+    "AKINCI (MÜRTED)|ADAPAZARI": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 112.5,
+     "5": 125.8333
+    },
+    "AKINCI (MÜRTED)|AKYAZI": {
+     "2": 60.8333,
+     "3": 84.1667,
+     "4": 112.5,
+     "5": 123.3333
+    },
+    "AKINCI (MÜRTED)|HENDEK": {
+     "2": 60.0,
+     "3": 76.6667,
+     "4": 101.6667,
+     "5": 120.8333
+    },
+    "AKINCI (MÜRTED)|DÜZCE (GÖLYAKA)": {
+     "2": 51.6667,
+     "3": 65.8333,
+     "4": 101.6667,
+     "5": 107.5
+    },
+    "AKINCI (MÜRTED)|KAYNAŞLI": {
+     "2": 40.0,
+     "3": 54.1667,
+     "4": 76.6667,
+     "5": 88.3333
+    },
+    "AKINCI (MÜRTED)|ABANT": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 26.6667,
+     "5": 35.0
+    },
+    "AKINCI (MÜRTED)|BOLU BATI": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 25.0,
+     "5": 35.0
+    },
+    "AKINCI (MÜRTED)|YENİÇAĞA": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "AKINCI (MÜRTED)|DÖRTDİVAN": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "AKINCI (MÜRTED)|GEREDE": {
+     "2": 11.6667,
+     "3": 20.8333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "AKINCI (MÜRTED)|PELİTÇİK (ÇAMLIDERE)": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "AKINCI (MÜRTED)|ÇELTİKÇİ (KIZILCAHAMAM)": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    }
+   }
+  },
+  {
+   "name": "O-31 İzmir – Aydın (Işıkkent – Aydın Batı)",
+   "law": "KGM 2024 tariff (tr-7-izmir-aydin), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "TORBALI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.177675,
+       "lon": 27.320529
+      },
+      {
+       "name": "booth",
+       "lat": 38.177527,
+       "lon": 27.32056
+      }
+     ]
+    },
+    {
+     "name": "BELEVİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.028338,
+       "lon": 27.449264
+      },
+      {
+       "name": "booth",
+       "lat": 38.028367,
+       "lon": 27.44948
+      }
+     ]
+    },
+    {
+     "name": "GERMENCİK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.878008,
+       "lon": 27.577645
+      },
+      {
+       "name": "booth",
+       "lat": 37.87822,
+       "lon": 27.577558
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "BELEVİ|TORBALI": {
+     "2": 11.6667,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "GERMENCİK|TORBALI": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "GERMENCİK|BELEVİ": {
+     "2": 11.6667,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 24.1667
+    }
+   }
+  },
+  {
+   "name": "O-52/O-53 Çukurova (Adana Doğu – Gaziantep Batı)",
+   "law": "KGM 2024 tariff (tr-8-cukurovaotoyoluadana-gaziantep), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "ADANA DOĞU ALIN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 36.988797,
+       "lon": 35.749453
+      },
+      {
+       "name": "booth",
+       "lat": 36.988611,
+       "lon": 35.750828
+      }
+     ]
+    },
+    {
+     "name": "TOPRAKKALE",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 37.081158,
+       "lon": 36.125179
+      },
+      {
+       "name": "junction",
+       "lat": 37.079282,
+       "lon": 36.122853
+      }
+     ]
+    },
+    {
+     "name": "SAKIZGEDİĞİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.086853,
+       "lon": 36.198017
+      },
+      {
+       "name": "booth",
+       "lat": 37.086973,
+       "lon": 36.197919
+      }
+     ]
+    },
+    {
+     "name": "OSMANİYE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.102518,
+       "lon": 36.24664
+      },
+      {
+       "name": "booth",
+       "lat": 37.102465,
+       "lon": 36.246531
+      }
+     ]
+    },
+    {
+     "name": "ERZİN",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 36.958402,
+       "lon": 36.132147
+      },
+      {
+       "name": "junction",
+       "lat": 36.958218,
+       "lon": 36.144123
+      }
+     ]
+    },
+    {
+     "name": "DÖRTYOL",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 36.855102,
+       "lon": 36.225705
+      },
+      {
+       "name": "booth",
+       "lat": 36.854946,
+       "lon": 36.225816
+      }
+     ]
+    },
+    {
+     "name": "PAYAS",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 36.743301,
+       "lon": 36.227792
+      },
+      {
+       "name": "junction",
+       "lat": 36.74109,
+       "lon": 36.225172
+      }
+     ]
+    },
+    {
+     "name": "İSKENDERUN OSB",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 36.706979,
+       "lon": 36.219077
+      },
+      {
+       "name": "junction",
+       "lat": 36.696112,
+       "lon": 36.215283
+      },
+      {
+       "name": "junction",
+       "lat": 36.701141,
+       "lon": 36.215574
+      },
+      {
+       "name": "junction",
+       "lat": 36.703297,
+       "lon": 36.212172
+      },
+      {
+       "name": "junction",
+       "lat": 36.698094,
+       "lon": 36.214448
+      }
+     ]
+    },
+    {
+     "name": "İSKENDERUN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 36.635458,
+       "lon": 36.230085
+      },
+      {
+       "name": "booth",
+       "lat": 36.635459,
+       "lon": 36.230335
+      }
+     ]
+    },
+    {
+     "name": "DÜZİÇİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.19862,
+       "lon": 36.425629
+      },
+      {
+       "name": "booth",
+       "lat": 37.198748,
+       "lon": 36.425617
+      }
+     ]
+    },
+    {
+     "name": "BAHÇE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.182235,
+       "lon": 36.513147
+      },
+      {
+       "name": "booth",
+       "lat": 37.182283,
+       "lon": 36.513334
+      }
+     ]
+    },
+    {
+     "name": "KÖMÜRLER",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 37.189449,
+       "lon": 36.757004
+      }
+     ]
+    },
+    {
+     "name": "NARLI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.290293,
+       "lon": 37.127484
+      },
+      {
+       "name": "booth",
+       "lat": 37.290284,
+       "lon": 37.127188
+      }
+     ]
+    },
+    {
+     "name": "GAZİANTEP BATI ALIN",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 37.209038,
+       "lon": 37.268364
+      },
+      {
+       "name": "junction",
+       "lat": 37.209031,
+       "lon": 37.268885
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "TOPRAKKALE|ADANA DOĞU ALIN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "SAKIZGEDİĞİ|ADANA DOĞU ALIN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "SAKIZGEDİĞİ|TOPRAKKALE": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.8333
+    },
+    "OSMANİYE|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 18.3333,
+     "4": 22.5,
+     "5": 27.5
+    },
+    "OSMANİYE|TOPRAKKALE": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.8333
+    },
+    "OSMANİYE|SAKIZGEDİĞİ": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.8333
+    },
+    "ERZİN|ADANA DOĞU ALIN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "ERZİN|TOPRAKKALE": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "ERZİN|SAKIZGEDİĞİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "ERZİN|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÖRTYOL|ADANA DOĞU ALIN": {
+     "2": 14.1667,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "DÖRTYOL|TOPRAKKALE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÖRTYOL|SAKIZGEDİĞİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÖRTYOL|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "DÖRTYOL|ERZİN": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "PAYAS|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "PAYAS|TOPRAKKALE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "PAYAS|SAKIZGEDİĞİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "PAYAS|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "PAYAS|ERZİN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "PAYAS|DÖRTYOL": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "İSKENDERUN OSB|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 32.5
+    },
+    "İSKENDERUN OSB|TOPRAKKALE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN OSB|SAKIZGEDİĞİ": {
+     "2": 14.1667,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN OSB|OSMANİYE": {
+     "2": 15.0,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN OSB|ERZİN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "İSKENDERUN OSB|DÖRTYOL": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.8333
+    },
+    "İSKENDERUN OSB|PAYAS": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "İSKENDERUN|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 32.5
+    },
+    "İSKENDERUN|TOPRAKKALE": {
+     "2": 14.1667,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN|SAKIZGEDİĞİ": {
+     "2": 15.0,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN|OSMANİYE": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "İSKENDERUN|ERZİN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "İSKENDERUN|DÖRTYOL": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "İSKENDERUN|PAYAS": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "İSKENDERUN|İSKENDERUN OSB": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "DÜZİÇİ|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 32.5
+    },
+    "DÜZİÇİ|TOPRAKKALE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÜZİÇİ|SAKIZGEDİĞİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÜZİÇİ|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "DÜZİÇİ|ERZİN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "DÜZİÇİ|DÖRTYOL": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "DÜZİÇİ|PAYAS": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "DÜZİÇİ|İSKENDERUN OSB": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "DÜZİÇİ|İSKENDERUN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 32.5
+    },
+    "BAHÇE|ADANA DOĞU ALIN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "BAHÇE|TOPRAKKALE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "BAHÇE|SAKIZGEDİĞİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "BAHÇE|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "BAHÇE|ERZİN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "BAHÇE|DÖRTYOL": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "BAHÇE|PAYAS": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "BAHÇE|İSKENDERUN OSB": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "BAHÇE|İSKENDERUN": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "BAHÇE|DÜZİÇİ": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "KÖMÜRLER|ADANA DOĞU ALIN": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "KÖMÜRLER|TOPRAKKALE": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 32.5
+    },
+    "KÖMÜRLER|SAKIZGEDİĞİ": {
+     "2": 14.1667,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "KÖMÜRLER|OSMANİYE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "KÖMÜRLER|ERZİN": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "KÖMÜRLER|DÖRTYOL": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "KÖMÜRLER|PAYAS": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "KÖMÜRLER|İSKENDERUN OSB": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "KÖMÜRLER|İSKENDERUN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 40.0,
+     "5": 50.8333
+    },
+    "KÖMÜRLER|DÜZİÇİ": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "KÖMÜRLER|BAHÇE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "NARLI|ADANA DOĞU ALIN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "NARLI|TOPRAKKALE": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "NARLI|SAKIZGEDİĞİ": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "NARLI|OSMANİYE": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 28.3333,
+     "5": 33.3333
+    },
+    "NARLI|ERZİN": {
+     "2": 21.6667,
+     "3": 22.5,
+     "4": 27.5,
+     "5": 33.3333
+    },
+    "NARLI|DÖRTYOL": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "NARLI|PAYAS": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "NARLI|İSKENDERUN OSB": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "NARLI|İSKENDERUN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 49.1667,
+     "5": 53.3333
+    },
+    "NARLI|DÜZİÇİ": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "NARLI|BAHÇE": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "NARLI|KÖMÜRLER": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "GAZİANTEP BATI ALIN|ADANA DOĞU ALIN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 42.5,
+     "5": 53.3333
+    },
+    "GAZİANTEP BATI ALIN|TOPRAKKALE": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "GAZİANTEP BATI ALIN|SAKIZGEDİĞİ": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "GAZİANTEP BATI ALIN|OSMANİYE": {
+     "2": 24.1667,
+     "3": 27.5,
+     "4": 32.5,
+     "5": 40.0
+    },
+    "GAZİANTEP BATI ALIN|ERZİN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 36.6667,
+     "5": 49.1667
+    },
+    "GAZİANTEP BATI ALIN|DÖRTYOL": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 49.1667,
+     "5": 53.3333
+    },
+    "GAZİANTEP BATI ALIN|PAYAS": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 49.1667,
+     "5": 53.3333
+    },
+    "GAZİANTEP BATI ALIN|İSKENDERUN OSB": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 49.1667,
+     "5": 53.3333
+    },
+    "GAZİANTEP BATI ALIN|İSKENDERUN": {
+     "2": 25.0,
+     "3": 32.5,
+     "4": 50.8333,
+     "5": 53.3333
+    },
+    "GAZİANTEP BATI ALIN|DÜZİÇİ": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 30.8333,
+     "5": 32.5
+    },
+    "GAZİANTEP BATI ALIN|BAHÇE": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "GAZİANTEP BATI ALIN|KÖMÜRLER": {
+     "2": 13.3333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "GAZİANTEP BATI ALIN|NARLI": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.8333
+    }
+   }
+  },
+  {
+   "name": "O-52 Çukurova (Gaziantep Doğu – Şanlıurfa)",
+   "law": "KGM 2024 tariff (tr-9-cukurovaotoyolugaziantep-sanliurfa), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "GAZİANTEP DOĞU",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.052057,
+       "lon": 37.557225
+      },
+      {
+       "name": "booth",
+       "lat": 37.052225,
+       "lon": 37.557218
+      }
+     ]
+    },
+    {
+     "name": "NİZİP",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.022202,
+       "lon": 37.81934
+      },
+      {
+       "name": "booth",
+       "lat": 37.022169,
+       "lon": 37.819149
+      }
+     ]
+    },
+    {
+     "name": "BİRECİK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.069398,
+       "lon": 38.01737
+      },
+      {
+       "name": "booth",
+       "lat": 37.069522,
+       "lon": 38.017473
+      },
+      {
+       "name": "booth",
+       "lat": 37.069295,
+       "lon": 38.01721
+      }
+     ]
+    },
+    {
+     "name": "SURUÇ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.116667,
+       "lon": 38.460931
+      },
+      {
+       "name": "booth",
+       "lat": 37.116703,
+       "lon": 38.461118
+      },
+      {
+       "name": "booth",
+       "lat": 37.116702,
+       "lon": 38.460799
+      }
+     ]
+    },
+    {
+     "name": "ŞANLIURFA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.188403,
+       "lon": 38.55138
+      },
+      {
+       "name": "booth",
+       "lat": 37.188494,
+       "lon": 38.551145
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "NİZİP|GAZİANTEP DOĞU": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 22.5,
+     "5": 27.5
+    },
+    "BİRECİK|GAZİANTEP DOĞU": {
+     "2": 24.1667,
+     "3": 28.3333,
+     "4": 36.6667,
+     "5": 42.5
+    },
+    "BİRECİK|NİZİP": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 22.5,
+     "5": 27.5
+    },
+    "SURUÇ|GAZİANTEP DOĞU": {
+     "2": 30.8333,
+     "3": 36.6667,
+     "4": 42.5,
+     "5": 53.3333
+    },
+    "SURUÇ|NİZİP": {
+     "2": 24.1667,
+     "3": 28.3333,
+     "4": 36.6667,
+     "5": 42.5
+    },
+    "SURUÇ|BİRECİK": {
+     "2": 18.3333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "ŞANLIURFA|GAZİANTEP DOĞU": {
+     "2": 33.3333,
+     "3": 40.0,
+     "4": 50.8333,
+     "5": 63.3333
+    },
+    "ŞANLIURFA|NİZİP": {
+     "2": 30.8333,
+     "3": 36.6667,
+     "4": 42.5,
+     "5": 53.3333
+    },
+    "ŞANLIURFA|BİRECİK": {
+     "2": 24.1667,
+     "3": 28.3333,
+     "4": 36.6667,
+     "5": 42.5
+    },
+    "ŞANLIURFA|SURUÇ": {
+     "2": 14.1667,
+     "3": 18.3333,
+     "4": 24.1667,
+     "5": 28.3333
+    }
+   }
+  },
+  {
+   "name": "O-21/O-51 Çukurova (Niğde – Mersin – Adana Batı)",
+   "law": "KGM 2024 tariff (tr-10-cukurovaotoyolunigde-mersin-adana), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "NİĞDE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.143027,
+       "lon": 34.717471
+      },
+      {
+       "name": "booth",
+       "lat": 38.143064,
+       "lon": 34.71773
+      },
+      {
+       "name": "booth",
+       "lat": 38.143079,
+       "lon": 34.717269
+      }
+     ]
+    },
+    {
+     "name": "NİĞDE KUZEY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.037582,
+       "lon": 34.744999
+      },
+      {
+       "name": "booth",
+       "lat": 38.037707,
+       "lon": 34.744918
+      },
+      {
+       "name": "booth",
+       "lat": 38.037788,
+       "lon": 34.74479
+      }
+     ]
+    },
+    {
+     "name": "GÖLCÜK (KAYSERİ)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.11397,
+       "lon": 34.713823
+      },
+      {
+       "name": "booth",
+       "lat": 38.11354,
+       "lon": 34.713934
+      }
+     ]
+    },
+    {
+     "name": "KEMERHİSAR",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.779432,
+       "lon": 34.605184
+      },
+      {
+       "name": "booth",
+       "lat": 37.779537,
+       "lon": 34.605318
+      },
+      {
+       "name": "booth",
+       "lat": 37.779442,
+       "lon": 34.605063
+      }
+     ]
+    },
+    {
+     "name": "EMİNLİK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.647881,
+       "lon": 34.655735
+      },
+      {
+       "name": "booth",
+       "lat": 37.647659,
+       "lon": 34.656001
+      },
+      {
+       "name": "booth",
+       "lat": 37.647908,
+       "lon": 34.655608
+      }
+     ]
+    },
+    {
+     "name": "POZANTI (KUZEY)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.448682,
+       "lon": 34.878414
+      },
+      {
+       "name": "booth",
+       "lat": 37.448692,
+       "lon": 34.878287
+      },
+      {
+       "name": "booth",
+       "lat": 37.448659,
+       "lon": 34.878163
+      }
+     ]
+    },
+    {
+     "name": "POZANTI (GÜNEY)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.411898,
+       "lon": 34.879351
+      },
+      {
+       "name": "booth",
+       "lat": 37.411942,
+       "lon": 34.879566
+      },
+      {
+       "name": "booth",
+       "lat": 37.411892,
+       "lon": 34.879137
+      }
+     ]
+    },
+    {
+     "name": "TEKİR",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.327374,
+       "lon": 34.79255
+      },
+      {
+       "name": "booth",
+       "lat": 37.327243,
+       "lon": 34.79265
+      },
+      {
+       "name": "booth",
+       "lat": 37.32739,
+       "lon": 34.792484
+      }
+     ]
+    },
+    {
+     "name": "ÇAMALAN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.20033,
+       "lon": 34.816069
+      },
+      {
+       "name": "booth",
+       "lat": 37.200209,
+       "lon": 34.8161
+      },
+      {
+       "name": "booth",
+       "lat": 37.200422,
+       "lon": 34.815975
+      }
+     ]
+    },
+    {
+     "name": "YENİCE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 36.978918,
+       "lon": 34.974067
+      },
+      {
+       "name": "booth",
+       "lat": 36.978771,
+       "lon": 34.973894
+      },
+      {
+       "name": "booth",
+       "lat": 36.978734,
+       "lon": 34.973773
+      }
+     ]
+    },
+    {
+     "name": "ADANA BATI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.028878,
+       "lon": 35.114495
+      },
+      {
+       "name": "booth",
+       "lat": 37.029061,
+       "lon": 35.114362
+      }
+     ]
+    },
+    {
+     "name": "ÇAMTEPE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.001378,
+       "lon": 34.945098
+      },
+      {
+       "name": "booth",
+       "lat": 37.001134,
+       "lon": 34.944723
+      },
+      {
+       "name": "booth",
+       "lat": 37.001092,
+       "lon": 34.944584
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "NİĞDE KUZEY|NİĞDE": {
+     "2": 8.3333,
+     "3": 9.1667,
+     "4": 11.6667,
+     "5": 16.6667
+    },
+    "GÖLCÜK (KAYSERİ)|NİĞDE": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "GÖLCÜK (KAYSERİ)|NİĞDE KUZEY": {
+     "2": 8.3333,
+     "3": 10.0,
+     "4": 15.0,
+     "5": 18.3333
+    },
+    "KEMERHİSAR|NİĞDE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "KEMERHİSAR|NİĞDE KUZEY": {
+     "2": 11.6667,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 22.5
+    },
+    "KEMERHİSAR|GÖLCÜK (KAYSERİ)": {
+     "2": 13.3333,
+     "3": 20.8333,
+     "4": 21.6667,
+     "5": 24.1667
+    },
+    "EMİNLİK|NİĞDE": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "EMİNLİK|NİĞDE KUZEY": {
+     "2": 13.3333,
+     "3": 20.8333,
+     "4": 21.6667,
+     "5": 28.3333
+    },
+    "EMİNLİK|GÖLCÜK (KAYSERİ)": {
+     "2": 14.1667,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "EMİNLİK|KEMERHİSAR": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "POZANTI (KUZEY)|NİĞDE": {
+     "2": 33.3333,
+     "3": 45.8333,
+     "4": 60.0,
+     "5": 72.5
+    },
+    "POZANTI (KUZEY)|NİĞDE KUZEY": {
+     "2": 34.1667,
+     "3": 46.6667,
+     "4": 60.0,
+     "5": 75.0
+    },
+    "POZANTI (KUZEY)|GÖLCÜK (KAYSERİ)": {
+     "2": 35.0,
+     "3": 49.1667,
+     "4": 63.3333,
+     "5": 75.0
+    },
+    "POZANTI (KUZEY)|KEMERHİSAR": {
+     "2": 33.3333,
+     "3": 42.5,
+     "4": 53.3333,
+     "5": 68.3333
+    },
+    "POZANTI (KUZEY)|EMİNLİK": {
+     "2": 33.3333,
+     "3": 45.8333,
+     "4": 60.0,
+     "5": 72.5
+    },
+    "TEKİR|NİĞDE": {
+     "2": 40.8333,
+     "3": 53.3333,
+     "4": 68.3333,
+     "5": 82.5
+    },
+    "TEKİR|NİĞDE KUZEY": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "TEKİR|GÖLCÜK (KAYSERİ)": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 71.6667,
+     "5": 84.1667
+    },
+    "TEKİR|KEMERHİSAR": {
+     "2": 33.3333,
+     "3": 45.8333,
+     "4": 60.0,
+     "5": 72.5
+    },
+    "TEKİR|EMİNLİK": {
+     "2": 36.6667,
+     "3": 54.1667,
+     "4": 64.1667,
+     "5": 76.6667
+    },
+    "TEKİR|POZANTI (KUZEY)": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "TEKİR|POZANTI (GÜNEY)": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 21.6667
+    },
+    "ÇAMALAN|NİĞDE": {
+     "2": 40.8333,
+     "3": 53.3333,
+     "4": 68.3333,
+     "5": 82.5
+    },
+    "ÇAMALAN|NİĞDE KUZEY": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "ÇAMALAN|GÖLCÜK (KAYSERİ)": {
+     "2": 46.6667,
+     "3": 59.1667,
+     "4": 72.5,
+     "5": 85.8333
+    },
+    "ÇAMALAN|KEMERHİSAR": {
+     "2": 38.3333,
+     "3": 51.6667,
+     "4": 64.1667,
+     "5": 80.8333
+    },
+    "ÇAMALAN|EMİNLİK": {
+     "2": 40.8333,
+     "3": 53.3333,
+     "4": 68.3333,
+     "5": 82.5
+    },
+    "ÇAMALAN|POZANTI (KUZEY)": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 24.1667
+    },
+    "ÇAMALAN|POZANTI (GÜNEY)": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "ÇAMALAN|TEKİR": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "YENİCE|NİĞDE": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 71.6667,
+     "5": 87.5
+    },
+    "YENİCE|NİĞDE KUZEY": {
+     "2": 46.6667,
+     "3": 59.1667,
+     "4": 72.5,
+     "5": 88.3333
+    },
+    "YENİCE|GÖLCÜK (KAYSERİ)": {
+     "2": 46.6667,
+     "3": 60.0,
+     "4": 75.0,
+     "5": 90.0
+    },
+    "YENİCE|KEMERHİSAR": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "YENİCE|EMİNLİK": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "YENİCE|POZANTI (KUZEY)": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "YENİCE|POZANTI (GÜNEY)": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "YENİCE|TEKİR": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "YENİCE|ÇAMALAN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "ADANA BATI|NİĞDE": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 71.6667,
+     "5": 87.5
+    },
+    "ADANA BATI|NİĞDE KUZEY": {
+     "2": 46.6667,
+     "3": 60.0,
+     "4": 75.0,
+     "5": 91.6667
+    },
+    "ADANA BATI|GÖLCÜK (KAYSERİ)": {
+     "2": 49.1667,
+     "3": 60.0,
+     "4": 76.6667,
+     "5": 93.3333
+    },
+    "ADANA BATI|KEMERHİSAR": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "ADANA BATI|EMİNLİK": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 71.6667,
+     "5": 87.5
+    },
+    "ADANA BATI|POZANTI (KUZEY)": {
+     "2": 15.0,
+     "3": 21.6667,
+     "4": 32.5,
+     "5": 36.6667
+    },
+    "ADANA BATI|POZANTI (GÜNEY)": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "ADANA BATI|TEKİR": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "ADANA BATI|ÇAMALAN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "ADANA BATI|YENİCE": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    },
+    "ÇAMTEPE|NİĞDE": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 71.6667,
+     "5": 87.5
+    },
+    "ÇAMTEPE|NİĞDE KUZEY": {
+     "2": 46.6667,
+     "3": 59.1667,
+     "4": 72.5,
+     "5": 88.3333
+    },
+    "ÇAMTEPE|GÖLCÜK (KAYSERİ)": {
+     "2": 46.6667,
+     "3": 60.0,
+     "4": 75.0,
+     "5": 90.0
+    },
+    "ÇAMTEPE|KEMERHİSAR": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "ÇAMTEPE|EMİNLİK": {
+     "2": 43.3333,
+     "3": 56.6667,
+     "4": 70.0,
+     "5": 84.1667
+    },
+    "ÇAMTEPE|POZANTI (KUZEY)": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "ÇAMTEPE|POZANTI (GÜNEY)": {
+     "2": 10.8333,
+     "3": 21.6667,
+     "4": 27.5,
+     "5": 32.5
+    },
+    "ÇAMTEPE|TEKİR": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 21.6667,
+     "5": 27.5
+    },
+    "ÇAMTEPE|ÇAMALAN": {
+     "2": 10.8333,
+     "3": 18.3333,
+     "4": 20.0,
+     "5": 21.6667
+    },
+    "ÇAMTEPE|YENİCE": {
+     "2": 8.3333,
+     "3": 9.1667,
+     "4": 15.0,
+     "5": 18.3333
+    },
+    "ÇAMTEPE|ADANA BATI": {
+     "2": 8.3333,
+     "3": 11.6667,
+     "4": 18.3333,
+     "5": 20.0
+    }
+   }
+  },
+  {
+   "name": "O-3 Avrupa Otoyolu (Mahmutbey – Edirne)",
+   "law": "KGM 2024 tariff (tr-11-avrupaotoyolumahmutbey-edirne), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "ISPARTAKULE",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 41.054912,
+       "lon": 28.716932
+      },
+      {
+       "name": "junction",
+       "lat": 41.058204,
+       "lon": 28.706426
+      }
+     ]
+    },
+    {
+     "name": "AVCILAR",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 41.057708,
+       "lon": 28.690893
+      },
+      {
+       "name": "junction",
+       "lat": 41.053825,
+       "lon": 28.672036
+      }
+     ]
+    },
+    {
+     "name": "ESENYURT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.053507,
+       "lon": 28.674568
+      }
+     ]
+    },
+    {
+     "name": "HADIMKÖY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.085959,
+       "lon": 28.632173
+      },
+      {
+       "name": "booth",
+       "lat": 41.086116,
+       "lon": 28.632093
+      }
+     ]
+    },
+    {
+     "name": "ÇATALCA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.087046,
+       "lon": 28.513092
+      },
+      {
+       "name": "booth",
+       "lat": 41.087222,
+       "lon": 28.513159
+      }
+     ]
+    },
+    {
+     "name": "KUMBURGAZ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.047645,
+       "lon": 28.469047
+      }
+     ]
+    },
+    {
+     "name": "SELİMPAŞA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.06159,
+       "lon": 28.376089
+      }
+     ]
+    },
+    {
+     "name": "SİLİVRİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.107583,
+       "lon": 28.259984
+      },
+      {
+       "name": "booth",
+       "lat": 41.107496,
+       "lon": 28.260196
+      },
+      {
+       "name": "booth",
+       "lat": 41.107594,
+       "lon": 28.259839
+      }
+     ]
+    },
+    {
+     "name": "KINALI",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.127163,
+       "lon": 28.210502
+      },
+      {
+       "name": "booth",
+       "lat": 41.126897,
+       "lon": 28.210583
+      },
+      {
+       "name": "booth",
+       "lat": 41.127425,
+       "lon": 28.210357
+      }
+     ]
+    },
+    {
+     "name": "ÇERKEZKÖY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.198323,
+       "lon": 28.083582
+      },
+      {
+       "name": "booth",
+       "lat": 41.198461,
+       "lon": 28.083801
+      },
+      {
+       "name": "booth",
+       "lat": 41.198345,
+       "lon": 28.083469
+      }
+     ]
+    },
+    {
+     "name": "ÇORLU",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.225684,
+       "lon": 27.873503
+      },
+      {
+       "name": "booth",
+       "lat": 41.225642,
+       "lon": 27.873827
+      },
+      {
+       "name": "booth",
+       "lat": 41.225654,
+       "lon": 27.873245
+      }
+     ]
+    },
+    {
+     "name": "SARAY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.32873,
+       "lon": 27.684368
+      },
+      {
+       "name": "booth",
+       "lat": 41.328734,
+       "lon": 27.684656
+      },
+      {
+       "name": "booth",
+       "lat": 41.328787,
+       "lon": 27.68426
+      },
+      {
+       "name": "booth",
+       "lat": 41.328643,
+       "lon": 27.684207
+      }
+     ]
+    },
+    {
+     "name": "LÜLEBURGAZ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.445008,
+       "lon": 27.388386
+      },
+      {
+       "name": "booth",
+       "lat": 41.445007,
+       "lon": 27.3887
+      },
+      {
+       "name": "booth",
+       "lat": 41.444907,
+       "lon": 27.388162
+      }
+     ]
+    },
+    {
+     "name": "BABAESKİ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.501113,
+       "lon": 27.117038
+      },
+      {
+       "name": "booth",
+       "lat": 41.501092,
+       "lon": 27.11736
+      },
+      {
+       "name": "booth",
+       "lat": 41.50105,
+       "lon": 27.116801
+      }
+     ]
+    },
+    {
+     "name": "HAVSA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.614397,
+       "lon": 26.845925
+      },
+      {
+       "name": "booth",
+       "lat": 41.61446,
+       "lon": 26.846203
+      },
+      {
+       "name": "booth",
+       "lat": 41.614276,
+       "lon": 26.845775
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "AVCILAR|ISPARTAKULE": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "ESENYURT|ISPARTAKULE": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "ESENYURT|AVCILAR": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "HADIMKÖY|ISPARTAKULE": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "HADIMKÖY|AVCILAR": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "HADIMKÖY|ESENYURT": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "ÇATALCA|ISPARTAKULE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇATALCA|AVCILAR": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇATALCA|ESENYURT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇATALCA|HADIMKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KUMBURGAZ|ISPARTAKULE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KUMBURGAZ|AVCILAR": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KUMBURGAZ|ESENYURT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KUMBURGAZ|HADIMKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KUMBURGAZ|ÇATALCA": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "SELİMPAŞA|ISPARTAKULE": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SELİMPAŞA|AVCILAR": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SELİMPAŞA|ESENYURT": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SELİMPAŞA|HADIMKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SELİMPAŞA|ÇATALCA": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "SELİMPAŞA|KUMBURGAZ": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "SİLİVRİ|ISPARTAKULE": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SİLİVRİ|AVCILAR": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SİLİVRİ|ESENYURT": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SİLİVRİ|HADIMKÖY": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SİLİVRİ|ÇATALCA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SİLİVRİ|KUMBURGAZ": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "SİLİVRİ|SELİMPAŞA": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "KINALI|ISPARTAKULE": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KINALI|AVCILAR": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KINALI|ESENYURT": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KINALI|HADIMKÖY": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "KINALI|ÇATALCA": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KINALI|KUMBURGAZ": {
+     "2": 11.6667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "KINALI|SELİMPAŞA": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "KINALI|SİLİVRİ": {
+     "2": 9.1667,
+     "3": 11.6667,
+     "4": 15.0,
+     "5": 24.1667
+    },
+    "ÇERKEZKÖY|ISPARTAKULE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇERKEZKÖY|AVCILAR": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇERKEZKÖY|ESENYURT": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇERKEZKÖY|HADIMKÖY": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "ÇERKEZKÖY|ÇATALCA": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "ÇERKEZKÖY|KUMBURGAZ": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇERKEZKÖY|SELİMPAŞA": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇERKEZKÖY|SİLİVRİ": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ÇERKEZKÖY|KINALI": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "ÇORLU|ISPARTAKULE": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇORLU|AVCILAR": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇORLU|ESENYURT": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇORLU|HADIMKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇORLU|ÇATALCA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "ÇORLU|KUMBURGAZ": {
+     "2": 11.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "ÇORLU|SELİMPAŞA": {
+     "2": 11.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "ÇORLU|SİLİVRİ": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇORLU|KINALI": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "ÇORLU|ÇERKEZKÖY": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "SARAY|ISPARTAKULE": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SARAY|AVCILAR": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SARAY|ESENYURT": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SARAY|HADIMKÖY": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "SARAY|ÇATALCA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "SARAY|KUMBURGAZ": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "SARAY|SELİMPAŞA": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "SARAY|SİLİVRİ": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SARAY|KINALI": {
+     "2": 16.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "SARAY|ÇERKEZKÖY": {
+     "2": 11.6667,
+     "3": 15.0,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "SARAY|ÇORLU": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 20.8333,
+     "5": 24.1667
+    },
+    "LÜLEBURGAZ|ISPARTAKULE": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "LÜLEBURGAZ|AVCILAR": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "LÜLEBURGAZ|ESENYURT": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "LÜLEBURGAZ|HADIMKÖY": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "LÜLEBURGAZ|ÇATALCA": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "LÜLEBURGAZ|KUMBURGAZ": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "LÜLEBURGAZ|SELİMPAŞA": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "LÜLEBURGAZ|SİLİVRİ": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "LÜLEBURGAZ|KINALI": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "LÜLEBURGAZ|ÇERKEZKÖY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "LÜLEBURGAZ|ÇORLU": {
+     "2": 11.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "LÜLEBURGAZ|SARAY": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "BABAESKİ|ISPARTAKULE": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "BABAESKİ|AVCILAR": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "BABAESKİ|ESENYURT": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "BABAESKİ|HADIMKÖY": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "BABAESKİ|ÇATALCA": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "BABAESKİ|KUMBURGAZ": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "BABAESKİ|SELİMPAŞA": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "BABAESKİ|SİLİVRİ": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "BABAESKİ|KINALI": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "BABAESKİ|ÇERKEZKÖY": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "BABAESKİ|ÇORLU": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "BABAESKİ|SARAY": {
+     "2": 11.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "BABAESKİ|LÜLEBURGAZ": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    },
+    "HAVSA|ISPARTAKULE": {
+     "2": 40.0,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "HAVSA|AVCILAR": {
+     "2": 40.0,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "HAVSA|ESENYURT": {
+     "2": 40.0,
+     "3": 53.3333,
+     "4": 65.8333,
+     "5": 78.3333
+    },
+    "HAVSA|HADIMKÖY": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "HAVSA|ÇATALCA": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "HAVSA|KUMBURGAZ": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 55.8333,
+     "5": 70.0
+    },
+    "HAVSA|SELİMPAŞA": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HAVSA|SİLİVRİ": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HAVSA|KINALI": {
+     "2": 32.5,
+     "3": 40.0,
+     "4": 53.3333,
+     "5": 65.8333
+    },
+    "HAVSA|ÇERKEZKÖY": {
+     "2": 26.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 55.8333
+    },
+    "HAVSA|ÇORLU": {
+     "2": 16.6667,
+     "3": 35.0,
+     "4": 40.0,
+     "5": 53.3333
+    },
+    "HAVSA|SARAY": {
+     "2": 16.6667,
+     "3": 30.8333,
+     "4": 35.0,
+     "5": 40.0
+    },
+    "HAVSA|LÜLEBURGAZ": {
+     "2": 11.6667,
+     "3": 24.1667,
+     "4": 30.8333,
+     "5": 35.0
+    },
+    "HAVSA|BABAESKİ": {
+     "2": 9.1667,
+     "3": 13.3333,
+     "4": 24.1667,
+     "5": 30.8333
+    }
+   }
+  },
+  {
+   "name": "O-7 Kuzey Marmara Avrupa (Kınalı – Odayeri)",
+   "law": "KGM 2024 tariff (tr-14-kmoavrupakinali-odayeri), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "KINALI (G11)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.111273,
+       "lon": 28.166743
+      },
+      {
+       "name": "booth",
+       "lat": 41.111429,
+       "lon": 28.16656
+      },
+      {
+       "name": "booth",
+       "lat": 41.111587,
+       "lon": 28.166472
+      },
+      {
+       "name": "booth",
+       "lat": 41.111537,
+       "lon": 28.16638
+      }
+     ]
+    },
+    {
+     "name": "SİLİVRİ (G12)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.134817,
+       "lon": 28.290267
+      },
+      {
+       "name": "booth",
+       "lat": 41.1347,
+       "lon": 28.29038
+      },
+      {
+       "name": "booth",
+       "lat": 41.134881,
+       "lon": 28.29012
+      }
+     ]
+    },
+    {
+     "name": "ÇATALCA (G13)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.163948,
+       "lon": 28.470571
+      },
+      {
+       "name": "booth",
+       "lat": 41.164062,
+       "lon": 28.470353
+      }
+     ]
+    },
+    {
+     "name": "NAKKAŞ (G14)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.164071,
+       "lon": 28.561542
+      },
+      {
+       "name": "booth",
+       "lat": 41.163905,
+       "lon": 28.561353
+      },
+      {
+       "name": "booth",
+       "lat": 41.163835,
+       "lon": 28.5612
+      }
+     ]
+    },
+    {
+     "name": "YASSIÖREN (G21)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.223144,
+       "lon": 28.597681
+      }
+     ]
+    },
+    {
+     "name": "TAYAKADIN (G22)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.253923,
+       "lon": 28.678226
+      },
+      {
+       "name": "booth",
+       "lat": 41.25385,
+       "lon": 28.678173
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "KINALI (G11)|SİLİVRİ (G12)": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 45.8333
+    },
+    "KINALI (G11)|ÇATALCA (G13)": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "KINALI (G11)|NAKKAŞ (G14)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "KINALI (G11)|YASSIÖREN (G21)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 133.3333
+    },
+    "KINALI (G11)|TAYAKADIN (G22)": {
+     "2": 75.0,
+     "3": 95.8333,
+     "4": 120.8333,
+     "5": 150.0
+    },
+    "SİLİVRİ (G12)|KINALI (G11)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "SİLİVRİ (G12)|ÇATALCA (G13)": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "SİLİVRİ (G12)|NAKKAŞ (G14)": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 83.3333
+    },
+    "SİLİVRİ (G12)|YASSIÖREN (G21)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "SİLİVRİ (G12)|TAYAKADIN (G22)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "ÇATALCA (G13)|KINALI (G11)": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "ÇATALCA (G13)|SİLİVRİ (G12)": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "ÇATALCA (G13)|NAKKAŞ (G14)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "ÇATALCA (G13)|YASSIÖREN (G21)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "ÇATALCA (G13)|TAYAKADIN (G22)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 75.0
+    },
+    "NAKKAŞ (G14)|KINALI (G11)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "NAKKAŞ (G14)|SİLİVRİ (G12)": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 83.3333
+    },
+    "NAKKAŞ (G14)|ÇATALCA (G13)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "NAKKAŞ (G14)|YASSIÖREN (G21)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "NAKKAŞ (G14)|TAYAKADIN (G22)": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "YASSIÖREN (G21)|KINALI (G11)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "YASSIÖREN (G21)|SİLİVRİ (G12)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "YASSIÖREN (G21)|ÇATALCA (G13)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "YASSIÖREN (G21)|NAKKAŞ (G14)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "YASSIÖREN (G21)|TAYAKADIN (G22)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "TAYAKADIN (G22)|KINALI (G11)": {
+     "2": 75.0,
+     "3": 95.8333,
+     "4": 120.8333,
+     "5": 150.0
+    },
+    "TAYAKADIN (G22)|SİLİVRİ (G12)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "TAYAKADIN (G22)|ÇATALCA (G13)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 75.0
+    },
+    "TAYAKADIN (G22)|NAKKAŞ (G14)": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "TAYAKADIN (G22)|YASSIÖREN (G21)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-7 Kuzey Marmara Anadolu (Kurtköy – Akyazı)",
+   "law": "KGM 2024 tariff (tr-15-kmoanadolukurtkoy-akyazi), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "KURNAKÖY 2 (G41)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.941008,
+       "lon": 29.353198
+      }
+     ]
+    },
+    {
+     "name": "İSTANBULPARK (G42)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.937779,
+       "lon": 29.411816
+      },
+      {
+       "name": "booth",
+       "lat": 40.937533,
+       "lon": 29.411346
+      }
+     ]
+    },
+    {
+     "name": "BALÇIK (G43)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.912627,
+       "lon": 29.469974
+      },
+      {
+       "name": "booth",
+       "lat": 40.912575,
+       "lon": 29.470224
+      },
+      {
+       "name": "booth",
+       "lat": 40.912642,
+       "lon": 29.469704
+      }
+     ]
+    },
+    {
+     "name": "SEVİNDİKLİ (G51B)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.884537,
+       "lon": 29.770933
+      },
+      {
+       "name": "booth",
+       "lat": 40.884649,
+       "lon": 29.770837
+      },
+      {
+       "name": "booth",
+       "lat": 40.884678,
+       "lon": 29.770752
+      }
+     ]
+    },
+    {
+     "name": "İLİMTEPE (G51A)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.864069,
+       "lon": 29.772204
+      },
+      {
+       "name": "booth",
+       "lat": 40.863951,
+       "lon": 29.772104
+      },
+      {
+       "name": "booth",
+       "lat": 40.863854,
+       "lon": 29.77193
+      }
+     ]
+    },
+    {
+     "name": "İZMİT KUZEY (G52)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.791116,
+       "lon": 29.998845
+      },
+      {
+       "name": "booth",
+       "lat": 40.790993,
+       "lon": 29.998895
+      },
+      {
+       "name": "booth",
+       "lat": 40.791292,
+       "lon": 29.998832
+      },
+      {
+       "name": "booth",
+       "lat": 40.791266,
+       "lon": 29.998722
+      }
+     ]
+    },
+    {
+     "name": "İZMİT DOĞU (G61)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.784959,
+       "lon": 30.052139
+      },
+      {
+       "name": "booth",
+       "lat": 40.784829,
+       "lon": 30.051941
+      },
+      {
+       "name": "booth",
+       "lat": 40.784758,
+       "lon": 30.051759
+      },
+      {
+       "name": "booth",
+       "lat": 40.784758,
+       "lon": 30.051759
+      }
+     ]
+    },
+    {
+     "name": "AKMEŞE (G62)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.851938,
+       "lon": 30.217353
+      },
+      {
+       "name": "booth",
+       "lat": 40.851795,
+       "lon": 30.217292
+      },
+      {
+       "name": "booth",
+       "lat": 40.851654,
+       "lon": 30.217171
+      }
+     ]
+    },
+    {
+     "name": "ADAPAZARI-1 (G63-1)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.843107,
+       "lon": 30.342783
+      },
+      {
+       "name": "booth",
+       "lat": 40.842525,
+       "lon": 30.342591
+      },
+      {
+       "name": "booth",
+       "lat": 40.843028,
+       "lon": 30.342694
+      },
+      {
+       "name": "booth",
+       "lat": 40.842439,
+       "lon": 30.342507
+      }
+     ]
+    },
+    {
+     "name": "ADAPAZARI-2 (G63-2)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.83908,
+       "lon": 30.363762
+      },
+      {
+       "name": "booth",
+       "lat": 40.839689,
+       "lon": 30.363799
+      },
+      {
+       "name": "booth",
+       "lat": 40.838998,
+       "lon": 30.363681
+      },
+      {
+       "name": "booth",
+       "lat": 40.839598,
+       "lon": 30.363736
+      }
+     ]
+    },
+    {
+     "name": "KARASU (G64)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.82197,
+       "lon": 30.448779
+      },
+      {
+       "name": "booth",
+       "lat": 40.821876,
+       "lon": 30.448902
+      },
+      {
+       "name": "booth",
+       "lat": 40.822019,
+       "lon": 30.448638
+      }
+     ]
+    },
+    {
+     "name": "TEM AKYAZI (G66)",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.739335,
+       "lon": 30.623878
+      },
+      {
+       "name": "booth",
+       "lat": 40.739583,
+       "lon": 30.623932
+      },
+      {
+       "name": "booth",
+       "lat": 40.739123,
+       "lon": 30.623797
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "KURNAKÖY 2 (G41)|İSTANBULPARK (G42)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "KURNAKÖY 2 (G41)|BALÇIK (G43)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "KURNAKÖY 2 (G41)|SEVİNDİKLİ (G51B)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "KURNAKÖY 2 (G41)|İLİMTEPE (G51A)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "KURNAKÖY 2 (G41)|İZMİT KUZEY (G52)": {
+     "2": 100.0,
+     "3": 120.8333,
+     "4": 158.3333,
+     "5": 200.0
+    },
+    "KURNAKÖY 2 (G41)|İZMİT DOĞU (G61)": {
+     "2": 100.0,
+     "3": 120.8333,
+     "4": 158.3333,
+     "5": 200.0
+    },
+    "KURNAKÖY 2 (G41)|AKMEŞE (G62)": {
+     "2": 125.0,
+     "3": 150.0,
+     "4": 200.0,
+     "5": 250.0
+    },
+    "KURNAKÖY 2 (G41)|ADAPAZARI-1 (G63-1)": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 225.0,
+     "5": 283.3333
+    },
+    "KURNAKÖY 2 (G41)|ADAPAZARI-2 (G63-2)": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 233.3333,
+     "5": 287.5
+    },
+    "KURNAKÖY 2 (G41)|KARASU (G64)": {
+     "2": 158.3333,
+     "3": 187.5,
+     "4": 250.0,
+     "5": 312.5
+    },
+    "KURNAKÖY 2 (G41)|TEM AKYAZI (G66)": {
+     "2": 187.5,
+     "3": 220.8333,
+     "4": 287.5,
+     "5": 362.5
+    },
+    "İSTANBULPARK (G42)|KURNAKÖY 2 (G41)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "İSTANBULPARK (G42)|BALÇIK (G43)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "İSTANBULPARK (G42)|SEVİNDİKLİ (G51B)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "İSTANBULPARK (G42)|İLİMTEPE (G51A)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "İSTANBULPARK (G42)|İZMİT KUZEY (G52)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "İSTANBULPARK (G42)|İZMİT DOĞU (G61)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "İSTANBULPARK (G42)|AKMEŞE (G62)": {
+     "2": 120.8333,
+     "3": 145.8333,
+     "4": 187.5,
+     "5": 237.5
+    },
+    "İSTANBULPARK (G42)|ADAPAZARI-1 (G63-1)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "İSTANBULPARK (G42)|ADAPAZARI-2 (G63-2)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 220.8333,
+     "5": 275.0
+    },
+    "İSTANBULPARK (G42)|KARASU (G64)": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 237.5,
+     "5": 295.8333
+    },
+    "İSTANBULPARK (G42)|TEM AKYAZI (G66)": {
+     "2": 175.0,
+     "3": 208.3333,
+     "4": 275.0,
+     "5": 350.0
+    },
+    "BALÇIK (G43)|KURNAKÖY 2 (G41)": {
+     "2": 33.3333,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "BALÇIK (G43)|İSTANBULPARK (G42)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "BALÇIK (G43)|SEVİNDİKLİ (G51B)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "BALÇIK (G43)|İLİMTEPE (G51A)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "BALÇIK (G43)|İZMİT KUZEY (G52)": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "BALÇIK (G43)|İZMİT DOĞU (G61)": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "BALÇIK (G43)|AKMEŞE (G62)": {
+     "2": 120.8333,
+     "3": 137.5,
+     "4": 183.3333,
+     "5": 225.0
+    },
+    "BALÇIK (G43)|ADAPAZARI-1 (G63-1)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 262.5
+    },
+    "BALÇIK (G43)|ADAPAZARI-2 (G63-2)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "BALÇIK (G43)|KARASU (G64)": {
+     "2": 145.8333,
+     "3": 175.0,
+     "4": 225.0,
+     "5": 287.5
+    },
+    "BALÇIK (G43)|TEM AKYAZI (G66)": {
+     "2": 175.0,
+     "3": 208.3333,
+     "4": 270.8333,
+     "5": 345.8333
+    },
+    "SEVİNDİKLİ (G51B)|KURNAKÖY 2 (G41)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "SEVİNDİKLİ (G51B)|İSTANBULPARK (G42)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 108.3333
+    },
+    "SEVİNDİKLİ (G51B)|BALÇIK (G43)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "SEVİNDİKLİ (G51B)|İLİMTEPE (G51A)": {
+     "2": 0.0,
+     "3": 0.0,
+     "4": 0.0,
+     "5": 0.0
+    },
+    "SEVİNDİKLİ (G51B)|İZMİT KUZEY (G52)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "SEVİNDİKLİ (G51B)|İZMİT DOĞU (G61)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "SEVİNDİKLİ (G51B)|AKMEŞE (G62)": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 120.8333,
+     "5": 145.8333
+    },
+    "SEVİNDİKLİ (G51B)|ADAPAZARI-1 (G63-1)": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "SEVİNDİKLİ (G51B)|ADAPAZARI-2 (G63-2)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 187.5
+    },
+    "SEVİNDİKLİ (G51B)|KARASU (G64)": {
+     "2": 108.3333,
+     "3": 125.0,
+     "4": 162.5,
+     "5": 208.3333
+    },
+    "SEVİNDİKLİ (G51B)|TEM AKYAZI (G66)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 262.5
+    },
+    "İLİMTEPE (G51A)|KURNAKÖY 2 (G41)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "İLİMTEPE (G51A)|İSTANBULPARK (G42)": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "İLİMTEPE (G51A)|BALÇIK (G43)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "İLİMTEPE (G51A)|SEVİNDİKLİ (G51B)": {
+     "2": 0.0,
+     "3": 0.0,
+     "4": 0.0,
+     "5": 0.0
+    },
+    "İLİMTEPE (G51A)|İZMİT KUZEY (G52)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "İLİMTEPE (G51A)|İZMİT DOĞU (G61)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "İLİMTEPE (G51A)|AKMEŞE (G62)": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 112.5,
+     "5": 145.8333
+    },
+    "İLİMTEPE (G51A)|ADAPAZARI-1 (G63-1)": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 175.0
+    },
+    "İLİMTEPE (G51A)|ADAPAZARI-2 (G63-2)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "İLİMTEPE (G51A)|KARASU (G64)": {
+     "2": 108.3333,
+     "3": 125.0,
+     "4": 162.5,
+     "5": 208.3333
+    },
+    "İLİMTEPE (G51A)|TEM AKYAZI (G66)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 258.3333
+    },
+    "İZMİT KUZEY (G52)|KURNAKÖY 2 (G41)": {
+     "2": 100.0,
+     "3": 120.8333,
+     "4": 158.3333,
+     "5": 200.0
+    },
+    "İZMİT KUZEY (G52)|İSTANBULPARK (G42)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "İZMİT KUZEY (G52)|BALÇIK (G43)": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "İZMİT KUZEY (G52)|SEVİNDİKLİ (G51B)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "İZMİT KUZEY (G52)|İLİMTEPE (G51A)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 100.0
+    },
+    "İZMİT KUZEY (G52)|İZMİT DOĞU (G61)": {
+     "2": 12.5,
+     "3": 20.8333,
+     "4": 20.8333,
+     "5": 25.0
+    },
+    "İZMİT KUZEY (G52)|AKMEŞE (G62)": {
+     "2": 37.5,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 75.0
+    },
+    "İZMİT KUZEY (G52)|ADAPAZARI-1 (G63-1)": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "İZMİT KUZEY (G52)|ADAPAZARI-2 (G63-2)": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "İZMİT KUZEY (G52)|KARASU (G64)": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 137.5
+    },
+    "İZMİT KUZEY (G52)|TEM AKYAZI (G66)": {
+     "2": 100.0,
+     "3": 112.5,
+     "4": 150.0,
+     "5": 187.5
+    },
+    "İZMİT DOĞU (G61)|KURNAKÖY 2 (G41)": {
+     "2": 100.0,
+     "3": 120.8333,
+     "4": 158.3333,
+     "5": 200.0
+    },
+    "İZMİT DOĞU (G61)|İSTANBULPARK (G42)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "İZMİT DOĞU (G61)|BALÇIK (G43)": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "İZMİT DOĞU (G61)|SEVİNDİKLİ (G51B)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "İZMİT DOĞU (G61)|İLİMTEPE (G51A)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 75.0,
+     "5": 100.0
+    },
+    "İZMİT DOĞU (G61)|İZMİT KUZEY (G52)": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "İZMİT DOĞU (G61)|AKMEŞE (G62)": {
+     "2": 37.5,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "İZMİT DOĞU (G61)|ADAPAZARI-1 (G63-1)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "İZMİT DOĞU (G61)|ADAPAZARI-2 (G63-2)": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "İZMİT DOĞU (G61)|KARASU (G64)": {
+     "2": 70.8333,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 133.3333
+    },
+    "İZMİT DOĞU (G61)|TEM AKYAZI (G66)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "AKMEŞE (G62)|KURNAKÖY 2 (G41)": {
+     "2": 125.0,
+     "3": 150.0,
+     "4": 200.0,
+     "5": 250.0
+    },
+    "AKMEŞE (G62)|İSTANBULPARK (G42)": {
+     "2": 120.8333,
+     "3": 137.5,
+     "4": 187.5,
+     "5": 233.3333
+    },
+    "AKMEŞE (G62)|BALÇIK (G43)": {
+     "2": 112.5,
+     "3": 137.5,
+     "4": 183.3333,
+     "5": 225.0
+    },
+    "AKMEŞE (G62)|SEVİNDİKLİ (G51B)": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 112.5,
+     "5": 145.8333
+    },
+    "AKMEŞE (G62)|İLİMTEPE (G51A)": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 120.8333,
+     "5": 150.0
+    },
+    "AKMEŞE (G62)|İZMİT KUZEY (G52)": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 83.3333
+    },
+    "AKMEŞE (G62)|İZMİT DOĞU (G61)": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "AKMEŞE (G62)|ADAPAZARI-1 (G63-1)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 50.0
+    },
+    "AKMEŞE (G62)|ADAPAZARI-2 (G63-2)": {
+     "2": 33.3333,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "AKMEŞE (G62)|KARASU (G64)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 75.0
+    },
+    "AKMEŞE (G62)|TEM AKYAZI (G66)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "ADAPAZARI-1 (G63-1)|KURNAKÖY 2 (G41)": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 225.0,
+     "5": 287.5
+    },
+    "ADAPAZARI-1 (G63-1)|İSTANBULPARK (G42)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "ADAPAZARI-1 (G63-1)|BALÇIK (G43)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 262.5
+    },
+    "ADAPAZARI-1 (G63-1)|SEVİNDİKLİ (G51B)": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "ADAPAZARI-1 (G63-1)|İLİMTEPE (G51A)": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "ADAPAZARI-1 (G63-1)|İZMİT KUZEY (G52)": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 112.5
+    },
+    "ADAPAZARI-1 (G63-1)|İZMİT DOĞU (G61)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "ADAPAZARI-1 (G63-1)|AKMEŞE (G62)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "ADAPAZARI-1 (G63-1)|ADAPAZARI-2 (G63-2)": {
+     "2": 12.5,
+     "3": 12.5,
+     "4": 12.5,
+     "5": 20.8333
+    },
+    "ADAPAZARI-1 (G63-1)|KARASU (G64)": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "ADAPAZARI-1 (G63-1)|TEM AKYAZI (G66)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "ADAPAZARI-2 (G63-2)|KURNAKÖY 2 (G41)": {
+     "2": 145.8333,
+     "3": 170.8333,
+     "4": 225.0,
+     "5": 283.3333
+    },
+    "ADAPAZARI-2 (G63-2)|İSTANBULPARK (G42)": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 262.5
+    },
+    "ADAPAZARI-2 (G63-2)|BALÇIK (G43)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 258.3333
+    },
+    "ADAPAZARI-2 (G63-2)|SEVİNDİKLİ (G51B)": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "ADAPAZARI-2 (G63-2)|İLİMTEPE (G51A)": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "ADAPAZARI-2 (G63-2)|İZMİT KUZEY (G52)": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "ADAPAZARI-2 (G63-2)|İZMİT DOĞU (G61)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "ADAPAZARI-2 (G63-2)|AKMEŞE (G62)": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 45.8333
+    },
+    "ADAPAZARI-2 (G63-2)|ADAPAZARI-1 (G63-1)": {
+     "2": 12.5,
+     "3": 12.5,
+     "4": 12.5,
+     "5": 20.8333
+    },
+    "ADAPAZARI-2 (G63-2)|KARASU (G64)": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 45.8333
+    },
+    "ADAPAZARI-2 (G63-2)|TEM AKYAZI (G66)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "KARASU (G64)|KURNAKÖY 2 (G41)": {
+     "2": 158.3333,
+     "3": 187.5,
+     "4": 250.0,
+     "5": 312.5
+    },
+    "KARASU (G64)|İSTANBULPARK (G42)": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 233.3333,
+     "5": 295.8333
+    },
+    "KARASU (G64)|BALÇIK (G43)": {
+     "2": 145.8333,
+     "3": 175.0,
+     "4": 225.0,
+     "5": 287.5
+    },
+    "KARASU (G64)|SEVİNDİKLİ (G51B)": {
+     "2": 108.3333,
+     "3": 120.8333,
+     "4": 162.5,
+     "5": 200.0
+    },
+    "KARASU (G64)|İLİMTEPE (G51A)": {
+     "2": 108.3333,
+     "3": 125.0,
+     "4": 170.8333,
+     "5": 208.3333
+    },
+    "KARASU (G64)|İZMİT KUZEY (G52)": {
+     "2": 70.8333,
+     "3": 87.5,
+     "4": 112.5,
+     "5": 137.5
+    },
+    "KARASU (G64)|İZMİT DOĞU (G61)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "KARASU (G64)|AKMEŞE (G62)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    },
+    "KARASU (G64)|ADAPAZARI-1 (G63-1)": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "KARASU (G64)|ADAPAZARI-2 (G63-2)": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "KARASU (G64)|TEM AKYAZI (G66)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 62.5,
+     "5": 75.0
+    },
+    "TEM AKYAZI (G66)|KURNAKÖY 2 (G41)": {
+     "2": 187.5,
+     "3": 220.8333,
+     "4": 287.5,
+     "5": 362.5
+    },
+    "TEM AKYAZI (G66)|İSTANBULPARK (G42)": {
+     "2": 175.0,
+     "3": 208.3333,
+     "4": 275.0,
+     "5": 350.0
+    },
+    "TEM AKYAZI (G66)|BALÇIK (G43)": {
+     "2": 175.0,
+     "3": 208.3333,
+     "4": 270.8333,
+     "5": 337.5
+    },
+    "TEM AKYAZI (G66)|SEVİNDİKLİ (G51B)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 200.0,
+     "5": 258.3333
+    },
+    "TEM AKYAZI (G66)|İLİMTEPE (G51A)": {
+     "2": 133.3333,
+     "3": 158.3333,
+     "4": 208.3333,
+     "5": 262.5
+    },
+    "TEM AKYAZI (G66)|İZMİT KUZEY (G52)": {
+     "2": 100.0,
+     "3": 120.8333,
+     "4": 150.0,
+     "5": 195.8333
+    },
+    "TEM AKYAZI (G66)|İZMİT DOĞU (G61)": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "TEM AKYAZI (G66)|AKMEŞE (G62)": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "TEM AKYAZI (G66)|ADAPAZARI-1 (G63-1)": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "TEM AKYAZI (G66)|ADAPAZARI-2 (G63-2)": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "TEM AKYAZI (G66)|KARASU (G64)": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-33 Menemen – Aliağa – Çandarlı",
+   "law": "KGM 2024 tariff (tr-16-menemen-aliaga-candarli), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "MENEMEN",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 38.683045,
+       "lon": 27.005557
+      }
+     ]
+    },
+    {
+     "name": "ESKİFOÇA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.693018,
+       "lon": 27.022988
+      },
+      {
+       "name": "booth",
+       "lat": 38.692873,
+       "lon": 27.02302
+      }
+     ]
+    },
+    {
+     "name": "YENİFOÇA",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.721854,
+       "lon": 26.993857
+      },
+      {
+       "name": "booth",
+       "lat": 38.721981,
+       "lon": 26.993734
+      }
+     ]
+    },
+    {
+     "name": "ALİAĞA OSB",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.804441,
+       "lon": 27.030838
+      },
+      {
+       "name": "booth",
+       "lat": 38.804448,
+       "lon": 27.031059
+      }
+     ]
+    },
+    {
+     "name": "YENİŞAKRAN",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.888149,
+       "lon": 27.078851
+      },
+      {
+       "name": "booth",
+       "lat": 38.888154,
+       "lon": 27.07908
+      }
+     ]
+    },
+    {
+     "name": "ÇANDARLI",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 38.960659,
+       "lon": 27.017376
+      },
+      {
+       "name": "junction",
+       "lat": 38.961148,
+       "lon": 27.017731
+      },
+      {
+       "name": "junction",
+       "lat": 38.958529,
+       "lon": 27.012098
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "MENEMEN|ESKİFOÇA": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "MENEMEN|YENİFOÇA": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "MENEMEN|ALİAĞA OSB": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 120.8333,
+     "5": 150.0
+    },
+    "MENEMEN|YENİŞAKRAN": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 150.0,
+     "5": 187.5
+    },
+    "MENEMEN|ÇANDARLI": {
+     "2": 112.5,
+     "3": 133.3333,
+     "4": 175.0,
+     "5": 225.0
+    },
+    "ESKİFOÇA|MENEMEN": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "ESKİFOÇA|YENİFOÇA": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "ESKİFOÇA|ALİAĞA OSB": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "ESKİFOÇA|YENİŞAKRAN": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 137.5
+    },
+    "ESKİFOÇA|ÇANDARLI": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 170.8333
+    },
+    "YENİFOÇA|MENEMEN": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 108.3333
+    },
+    "YENİFOÇA|ESKİFOÇA": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "YENİFOÇA|ALİAĞA OSB": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 83.3333
+    },
+    "YENİFOÇA|YENİŞAKRAN": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "YENİFOÇA|ÇANDARLI": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 125.0,
+     "5": 158.3333
+    },
+    "ALİAĞA OSB|MENEMEN": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 120.8333,
+     "5": 150.0
+    },
+    "ALİAĞA OSB|ESKİFOÇA": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "ALİAĞA OSB|YENİFOÇA": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 83.3333
+    },
+    "ALİAĞA OSB|YENİŞAKRAN": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "ALİAĞA OSB|ÇANDARLI": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "YENİŞAKRAN|MENEMEN": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 150.0,
+     "5": 187.5
+    },
+    "YENİŞAKRAN|ESKİFOÇA": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 137.5
+    },
+    "YENİŞAKRAN|YENİFOÇA": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "YENİŞAKRAN|ALİAĞA OSB": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "YENİŞAKRAN|ÇANDARLI": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "ÇANDARLI|MENEMEN": {
+     "2": 112.5,
+     "3": 133.3333,
+     "4": 175.0,
+     "5": 225.0
+    },
+    "ÇANDARLI|ESKİFOÇA": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 170.8333
+    },
+    "ÇANDARLI|YENİFOÇA": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 125.0,
+     "5": 158.3333
+    },
+    "ÇANDARLI|ALİAĞA OSB": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "ÇANDARLI|YENİŞAKRAN": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-6 Malkara – Çanakkale (1915 Çanakkale Köprüsü)",
+   "law": "KGM 2024 tariff (tr-18-malkara-canakkale), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "MALKARA G-1",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.865647,
+       "lon": 27.045343
+      },
+      {
+       "name": "booth",
+       "lat": 40.865614,
+       "lon": 27.045137
+      },
+      {
+       "name": "booth",
+       "lat": 40.86563,
+       "lon": 27.044949
+      }
+     ]
+    },
+    {
+     "name": "KAVAKKÖY G-2",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.586469,
+       "lon": 26.863074
+      },
+      {
+       "name": "booth",
+       "lat": 40.586285,
+       "lon": 26.863065
+      }
+     ]
+    },
+    {
+     "name": "GELİBOLU KUZEY G-3",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.479606,
+       "lon": 26.693852
+      },
+      {
+       "name": "booth",
+       "lat": 40.47953,
+       "lon": 26.694081
+      },
+      {
+       "name": "booth",
+       "lat": 40.479601,
+       "lon": 26.693703
+      }
+     ]
+    },
+    {
+     "name": "GELİBOLU GÜNEY G-4",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.366514,
+       "lon": 26.6154
+      },
+      {
+       "name": "booth",
+       "lat": 40.36643,
+       "lon": 26.61518
+      },
+      {
+       "name": "booth",
+       "lat": 40.366426,
+       "lon": 26.615035
+      }
+     ]
+    },
+    {
+     "name": "1915 ÇANAKKALE KÖPRÜSÜ G-5",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.353528,
+       "lon": 26.609489
+      },
+      {
+       "name": "booth",
+       "lat": 40.353237,
+       "lon": 26.609235
+      },
+      {
+       "name": "booth",
+       "lat": 40.353124,
+       "lon": 26.609064
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "MALKARA G-1|KAVAKKÖY G-2": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 133.3333,
+     "5": 162.5
+    },
+    "MALKARA G-1|GELİBOLU KUZEY G-3": {
+     "2": 125.0,
+     "3": 145.8333,
+     "4": 195.8333,
+     "5": 245.8333
+    },
+    "MALKARA G-1|GELİBOLU GÜNEY G-4": {
+     "2": 150.0,
+     "3": 183.3333,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "MALKARA G-1|1915 ÇANAKKALE KÖPRÜSÜ G-5": {
+     "2": 458.3333,
+     "3": 729.1667,
+     "4": 850.0,
+     "5": 1462.5
+    },
+    "KAVAKKÖY G-2|MALKARA G-1": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 133.3333,
+     "5": 162.5
+    },
+    "KAVAKKÖY G-2|GELİBOLU KUZEY G-3": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 100.0
+    },
+    "KAVAKKÖY G-2|GELİBOLU GÜNEY G-4": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 125.0,
+     "5": 158.3333
+    },
+    "KAVAKKÖY G-2|1915 ÇANAKKALE KÖPRÜSÜ G-5": {
+     "2": 383.3333,
+     "3": 641.6667,
+     "4": 737.5,
+     "5": 1316.6667
+    },
+    "GELİBOLU KUZEY G-3|MALKARA G-1": {
+     "2": 125.0,
+     "3": 145.8333,
+     "4": 195.8333,
+     "5": 245.8333
+    },
+    "GELİBOLU KUZEY G-3|KAVAKKÖY G-2": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 100.0
+    },
+    "GELİBOLU KUZEY G-3|GELİBOLU GÜNEY G-4": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "GELİBOLU KUZEY G-3|1915 ÇANAKKALE KÖPRÜSÜ G-5": {
+     "2": 345.8333,
+     "3": 600.0,
+     "4": 679.1667,
+     "5": 1241.6667
+    },
+    "GELİBOLU GÜNEY G-4|MALKARA G-1": {
+     "2": 150.0,
+     "3": 183.3333,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "GELİBOLU GÜNEY G-4|KAVAKKÖY G-2": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 125.0,
+     "5": 158.3333
+    },
+    "GELİBOLU GÜNEY G-4|GELİBOLU KUZEY G-3": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "GELİBOLU GÜNEY G-4|1915 ÇANAKKALE KÖPRÜSÜ G-5": {
+     "2": 308.3333,
+     "3": 554.1667,
+     "4": 616.6667,
+     "5": 1166.6667
+    },
+    "1915 ÇANAKKALE KÖPRÜSÜ G-5|MALKARA G-1": {
+     "2": 458.3333,
+     "3": 729.1667,
+     "4": 850.0,
+     "5": 1462.5
+    },
+    "1915 ÇANAKKALE KÖPRÜSÜ G-5|KAVAKKÖY G-2": {
+     "2": 383.3333,
+     "3": 641.6667,
+     "4": 737.5,
+     "5": 1316.6667
+    },
+    "1915 ÇANAKKALE KÖPRÜSÜ G-5|GELİBOLU KUZEY G-3": {
+     "2": 345.8333,
+     "3": 600.0,
+     "4": 679.1667,
+     "5": 1241.6667
+    },
+    "1915 ÇANAKKALE KÖPRÜSÜ G-5|GELİBOLU GÜNEY G-4": {
+     "2": 308.3333,
+     "3": 554.1667,
+     "4": 616.6667,
+     "5": 1166.6667
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-31 Aydın – Denizli",
+   "law": "KGM 2024 tariff (tr-19-aydin-denizli), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "KUYUCAK",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.882016,
+       "lon": 28.50117
+      }
+     ]
+    },
+    {
+     "name": "BUHARKENT",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.951587,
+       "lon": 28.720267
+      }
+     ]
+    },
+    {
+     "name": "SARAYKÖY",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.900595,
+       "lon": 28.94365
+      }
+     ]
+    },
+    {
+     "name": "PAMUKKALE",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.859003,
+       "lon": 29.146239
+      }
+     ]
+    },
+    {
+     "name": "KOCABAŞ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.823009,
+       "lon": 29.301981
+      },
+      {
+       "name": "booth",
+       "lat": 37.822893,
+       "lon": 29.302193
+      },
+      {
+       "name": "booth",
+       "lat": 37.823041,
+       "lon": 29.301827
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "KUYUCAK|BUHARKENT": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 75.0
+    },
+    "KUYUCAK|SARAYKÖY": {
+     "2": 83.3333,
+     "3": 100.0,
+     "4": 120.8333,
+     "5": 133.3333
+    },
+    "KUYUCAK|PAMUKKALE": {
+     "2": 120.8333,
+     "3": 137.5,
+     "4": 170.8333,
+     "5": 195.8333
+    },
+    "KUYUCAK|KOCABAŞ": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 212.5,
+     "5": 233.3333
+    },
+    "BUHARKENT|KUYUCAK": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 75.0
+    },
+    "BUHARKENT|SARAYKÖY": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 62.5,
+     "5": 70.8333
+    },
+    "BUHARKENT|PAMUKKALE": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 112.5,
+     "5": 125.0
+    },
+    "BUHARKENT|KOCABAŞ": {
+     "2": 108.3333,
+     "3": 133.3333,
+     "4": 158.3333,
+     "5": 170.8333
+    },
+    "SARAYKÖY|KUYUCAK": {
+     "2": 83.3333,
+     "3": 100.0,
+     "4": 120.8333,
+     "5": 133.3333
+    },
+    "SARAYKÖY|BUHARKENT": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 62.5,
+     "5": 70.8333
+    },
+    "SARAYKÖY|PAMUKKALE": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 70.8333
+    },
+    "SARAYKÖY|KOCABAŞ": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 100.0,
+     "5": 112.5
+    },
+    "PAMUKKALE|KUYUCAK": {
+     "2": 120.8333,
+     "3": 137.5,
+     "4": 170.8333,
+     "5": 195.8333
+    },
+    "PAMUKKALE|BUHARKENT": {
+     "2": 83.3333,
+     "3": 95.8333,
+     "4": 112.5,
+     "5": 125.0
+    },
+    "PAMUKKALE|SARAYKÖY": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 62.5,
+     "5": 70.8333
+    },
+    "PAMUKKALE|KOCABAŞ": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 50.0,
+     "5": 58.3333
+    },
+    "KOCABAŞ|KUYUCAK": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 212.5,
+     "5": 233.3333
+    },
+    "KOCABAŞ|BUHARKENT": {
+     "2": 108.3333,
+     "3": 133.3333,
+     "4": 158.3333,
+     "5": 170.8333
+    },
+    "KOCABAŞ|SARAYKÖY": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 100.0,
+     "5": 112.5
+    },
+    "KOCABAŞ|PAMUKKALE": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 50.0,
+     "5": 58.3333
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-5 Gebze – Orhangazi – Bursa (Osmangazi Köprüsü)",
+   "law": "KGM 2024 tariff (tr-12-gebze-orhangazi-izmir), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Osmangazi Köprüsü",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.71653,
+       "lon": 29.500179
+      },
+      {
+       "name": "booth",
+       "lat": 40.716332,
+       "lon": 29.500749
+      },
+      {
+       "name": "booth",
+       "lat": 40.716555,
+       "lon": 29.499864
+      }
+     ]
+    },
+    {
+     "name": "Altınova",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.696331,
+       "lon": 29.475436
+      },
+      {
+       "name": "booth",
+       "lat": 40.696527,
+       "lon": 29.475403
+      },
+      {
+       "name": "booth",
+       "lat": 40.696705,
+       "lon": 29.475312
+      }
+     ]
+    },
+    {
+     "name": "Kılıç",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.64075,
+       "lon": 29.385648
+      },
+      {
+       "name": "booth",
+       "lat": 40.64074,
+       "lon": 29.38586
+      },
+      {
+       "name": "booth",
+       "lat": 40.64071,
+       "lon": 29.385551
+      }
+     ]
+    },
+    {
+     "name": "Orhangazi",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.50192,
+       "lon": 29.342768
+      },
+      {
+       "name": "booth",
+       "lat": 40.502037,
+       "lon": 29.342847
+      },
+      {
+       "name": "booth",
+       "lat": 40.501834,
+       "lon": 29.342663
+      }
+     ]
+    },
+    {
+     "name": "Gemlik",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.429031,
+       "lon": 29.239721
+      },
+      {
+       "name": "booth",
+       "lat": 40.429246,
+       "lon": 29.239731
+      },
+      {
+       "name": "booth",
+       "lat": 40.429381,
+       "lon": 29.239698
+      },
+      {
+       "name": "booth",
+       "lat": 40.428837,
+       "lon": 29.239675
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Altınova|Osmangazi Köprüsü": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "Osmangazi Köprüsü|Altınova": {
+     "2": 20.8333,
+     "3": 20.8333,
+     "4": 25.0,
+     "5": 33.3333
+    },
+    "Altınova|Kılıç": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "Altınova|Orhangazi": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "Altınova|Gemlik": {
+     "2": 62.5,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Kılıç|Osmangazi Köprüsü": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Osmangazi Köprüsü|Kılıç": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Kılıç|Altınova": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "Kılıç|Orhangazi": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 50.0
+    },
+    "Kılıç|Gemlik": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "Orhangazi|Osmangazi Köprüsü": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Osmangazi Köprüsü|Orhangazi": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Orhangazi|Altınova": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "Orhangazi|Kılıç": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 50.0
+    },
+    "Orhangazi|Gemlik": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 45.8333
+    },
+    "Gemlik|Osmangazi Köprüsü": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 137.5
+    },
+    "Osmangazi Köprüsü|Gemlik": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 137.5
+    },
+    "Gemlik|Altınova": {
+     "2": 62.5,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Gemlik|Kılıç": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 83.3333
+    },
+    "Gemlik|Orhangazi": {
+     "2": 25.0,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 45.8333
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-5 Bursa – İzmir",
+   "law": "KGM 2024 tariff (tr-12-gebze-orhangazi-izmir), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bursa Batı",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.25645,
+       "lon": 28.709723
+      },
+      {
+       "name": "booth",
+       "lat": 40.256597,
+       "lon": 28.709705
+      },
+      {
+       "name": "booth",
+       "lat": 40.256847,
+       "lon": 28.709574
+      }
+     ]
+    },
+    {
+     "name": "Karacabey- 2",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.190596,
+       "lon": 28.342467
+      },
+      {
+       "name": "booth",
+       "lat": 40.190123,
+       "lon": 28.342825
+      },
+      {
+       "name": "booth",
+       "lat": 40.195999,
+       "lon": 28.360671
+      },
+      {
+       "name": "booth",
+       "lat": 40.19544,
+       "lon": 28.360939
+      },
+      {
+       "name": "booth",
+       "lat": 40.190552,
+       "lon": 28.34236
+      },
+      {
+       "name": "booth",
+       "lat": 40.190076,
+       "lon": 28.342718
+      }
+     ]
+    },
+    {
+     "name": "Susurluk",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.961983,
+       "lon": 28.164873
+      },
+      {
+       "name": "booth",
+       "lat": 39.962012,
+       "lon": 28.165043
+      },
+      {
+       "name": "booth",
+       "lat": 39.962,
+       "lon": 28.164679
+      }
+     ]
+    },
+    {
+     "name": "Balıkesir Kuzey",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.756344,
+       "lon": 27.997
+      },
+      {
+       "name": "booth",
+       "lat": 39.756188,
+       "lon": 27.996921
+      },
+      {
+       "name": "booth",
+       "lat": 39.756069,
+       "lon": 27.996819
+      }
+     ]
+    },
+    {
+     "name": "Savaştepe",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.380833,
+       "lon": 27.639483
+      }
+     ]
+    },
+    {
+     "name": "Soma",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.252303,
+       "lon": 27.574512
+      },
+      {
+       "name": "booth",
+       "lat": 39.252255,
+       "lon": 27.574651
+      },
+      {
+       "name": "booth",
+       "lat": 39.252323,
+       "lon": 27.574341
+      }
+     ]
+    },
+    {
+     "name": "Kırkağaç",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.096686,
+       "lon": 27.700042
+      }
+     ]
+    },
+    {
+     "name": "Akhisar",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.964828,
+       "lon": 27.736073
+      }
+     ]
+    },
+    {
+     "name": "Saruhanlı",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.764261,
+       "lon": 27.654498
+      }
+     ]
+    },
+    {
+     "name": "Turgutlu",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.505757,
+       "lon": 27.602267
+      }
+     ]
+    },
+    {
+     "name": "İzmir",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 38.454593,
+       "lon": 27.496104
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Bursa Batı|Karacabey- 2": {
+     "2": 362.5,
+     "3": 433.3333,
+     "4": 570.8333,
+     "5": 720.8333
+    },
+    "Bursa Batı|Susurluk": {
+     "2": 120.8333,
+     "3": 145.8333,
+     "4": 187.5,
+     "5": 237.5
+    },
+    "Bursa Batı|Balıkesir Kuzey": {
+     "2": 158.3333,
+     "3": 187.5,
+     "4": 250.0,
+     "5": 312.5
+    },
+    "Bursa Batı|Savaştepe": {
+     "2": 237.5,
+     "3": 287.5,
+     "4": 383.3333,
+     "5": 475.0
+    },
+    "Bursa Batı|Soma": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 412.5,
+     "5": 520.8333
+    },
+    "Bursa Batı|Kırkağaç": {
+     "2": 295.8333,
+     "3": 345.8333,
+     "4": 458.3333,
+     "5": 575.0
+    },
+    "Bursa Batı|Akhisar": {
+     "2": 320.8333,
+     "3": 383.3333,
+     "4": 508.3333,
+     "5": 637.5
+    },
+    "Bursa Batı|Saruhanlı": {
+     "2": 345.8333,
+     "3": 412.5,
+     "4": 545.8333,
+     "5": 687.5
+    },
+    "Bursa Batı|Turgutlu": {
+     "2": 387.5,
+     "3": 462.5,
+     "4": 612.5,
+     "5": 775.0
+    },
+    "Bursa Batı|İzmir": {
+     "2": 437.5,
+     "3": 520.8333,
+     "4": 687.5,
+     "5": 862.5
+    },
+    "Karacabey- 2|Bursa Batı": {
+     "2": 437.5,
+     "3": 520.8333,
+     "4": 687.5,
+     "5": 862.5
+    },
+    "Karacabey- 2|Susurluk": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Karacabey- 2|Balıkesir Kuzey": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 133.3333,
+     "5": 162.5
+    },
+    "Karacabey- 2|Savaştepe": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 333.3333
+    },
+    "Karacabey- 2|Soma": {
+     "2": 187.5,
+     "3": 220.8333,
+     "4": 295.8333,
+     "5": 370.8333
+    },
+    "Karacabey- 2|Kırkağaç": {
+     "2": 220.8333,
+     "3": 258.3333,
+     "4": 345.8333,
+     "5": 433.3333
+    },
+    "Karacabey- 2|Akhisar": {
+     "2": 245.8333,
+     "3": 295.8333,
+     "4": 387.5,
+     "5": 487.5
+    },
+    "Karacabey- 2|Saruhanlı": {
+     "2": 270.8333,
+     "3": 320.8333,
+     "4": 425.0,
+     "5": 537.5
+    },
+    "Karacabey- 2|Turgutlu": {
+     "2": 312.5,
+     "3": 375.0,
+     "4": 500.0,
+     "5": 625.0
+    },
+    "Karacabey- 2|İzmir": {
+     "2": 362.5,
+     "3": 433.3333,
+     "4": 570.8333,
+     "5": 720.8333
+    },
+    "Susurluk|Bursa Batı": {
+     "2": 120.8333,
+     "3": 145.8333,
+     "4": 187.5,
+     "5": 237.5
+    },
+    "Susurluk|Karacabey- 2": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Susurluk|Balıkesir Kuzey": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Susurluk|Savaştepe": {
+     "2": 125.0,
+     "3": 150.0,
+     "4": 200.0,
+     "5": 250.0
+    },
+    "Susurluk|Soma": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 233.3333,
+     "5": 295.8333
+    },
+    "Susurluk|Kırkağaç": {
+     "2": 175.0,
+     "3": 212.5,
+     "4": 283.3333,
+     "5": 350.0
+    },
+    "Susurluk|Akhisar": {
+     "2": 208.3333,
+     "3": 245.8333,
+     "4": 325.0,
+     "5": 412.5
+    },
+    "Susurluk|Saruhanlı": {
+     "2": 233.3333,
+     "3": 275.0,
+     "4": 362.5,
+     "5": 462.5
+    },
+    "Susurluk|Turgutlu": {
+     "2": 275.0,
+     "3": 325.0,
+     "4": 437.5,
+     "5": 550.0
+    },
+    "Susurluk|İzmir": {
+     "2": 320.8333,
+     "3": 383.3333,
+     "4": 508.3333,
+     "5": 637.5
+    },
+    "Balıkesir Kuzey|Bursa Batı": {
+     "2": 158.3333,
+     "3": 187.5,
+     "4": 250.0,
+     "5": 312.5
+    },
+    "Balıkesir Kuzey|Karacabey- 2": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 133.3333,
+     "5": 162.5
+    },
+    "Balıkesir Kuzey|Susurluk": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Balıkesir Kuzey|Savaştepe": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "Balıkesir Kuzey|Soma": {
+     "2": 108.3333,
+     "3": 133.3333,
+     "4": 170.8333,
+     "5": 212.5
+    },
+    "Balıkesir Kuzey|Kırkağaç": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 220.8333,
+     "5": 275.0
+    },
+    "Balıkesir Kuzey|Akhisar": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 333.3333
+    },
+    "Balıkesir Kuzey|Saruhanlı": {
+     "2": 195.8333,
+     "3": 233.3333,
+     "4": 308.3333,
+     "5": 383.3333
+    },
+    "Balıkesir Kuzey|Turgutlu": {
+     "2": 237.5,
+     "3": 283.3333,
+     "4": 375.0,
+     "5": 475.0
+    },
+    "Balıkesir Kuzey|İzmir": {
+     "2": 283.3333,
+     "3": 337.5,
+     "4": 445.8333,
+     "5": 562.5
+    },
+    "Savaştepe|Bursa Batı": {
+     "2": 237.5,
+     "3": 287.5,
+     "4": 383.3333,
+     "5": 475.0
+    },
+    "Savaştepe|Karacabey- 2": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 333.3333
+    },
+    "Savaştepe|Susurluk": {
+     "2": 125.0,
+     "3": 150.0,
+     "4": 200.0,
+     "5": 250.0
+    },
+    "Savaştepe|Balıkesir Kuzey": {
+     "2": 87.5,
+     "3": 108.3333,
+     "4": 137.5,
+     "5": 175.0
+    },
+    "Savaştepe|Soma": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "Savaştepe|Kırkağaç": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "Savaştepe|Akhisar": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 170.8333
+    },
+    "Savaştepe|Saruhanlı": {
+     "2": 112.5,
+     "3": 133.3333,
+     "4": 175.0,
+     "5": 220.8333
+    },
+    "Savaştepe|Turgutlu": {
+     "2": 158.3333,
+     "3": 183.3333,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "Savaştepe|İzmir": {
+     "2": 200.0,
+     "3": 237.5,
+     "4": 312.5,
+     "5": 400.0
+    },
+    "Soma|Bursa Batı": {
+     "2": 262.5,
+     "3": 308.3333,
+     "4": 412.5,
+     "5": 520.8333
+    },
+    "Soma|Karacabey- 2": {
+     "2": 187.5,
+     "3": 220.8333,
+     "4": 295.8333,
+     "5": 370.8333
+    },
+    "Soma|Susurluk": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 233.3333,
+     "5": 295.8333
+    },
+    "Soma|Balıkesir Kuzey": {
+     "2": 108.3333,
+     "3": 133.3333,
+     "4": 170.8333,
+     "5": 212.5
+    },
+    "Soma|Savaştepe": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 50.0
+    },
+    "Soma|Kırkağaç": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 75.0
+    },
+    "Soma|Akhisar": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 133.3333
+    },
+    "Soma|Saruhanlı": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "Soma|Turgutlu": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "Soma|İzmir": {
+     "2": 183.3333,
+     "3": 212.5,
+     "4": 283.3333,
+     "5": 358.3333
+    },
+    "Kırkağaç|Bursa Batı": {
+     "2": 295.8333,
+     "3": 345.8333,
+     "4": 458.3333,
+     "5": 575.0
+    },
+    "Kırkağaç|Karacabey- 2": {
+     "2": 220.8333,
+     "3": 258.3333,
+     "4": 345.8333,
+     "5": 433.3333
+    },
+    "Kırkağaç|Susurluk": {
+     "2": 175.0,
+     "3": 212.5,
+     "4": 283.3333,
+     "5": 350.0
+    },
+    "Kırkağaç|Balıkesir Kuzey": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 220.8333,
+     "5": 275.0
+    },
+    "Kırkağaç|Savaştepe": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "Kırkağaç|Soma": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 75.0
+    },
+    "Kırkağaç|Akhisar": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    },
+    "Kırkağaç|Saruhanlı": {
+     "2": 62.5,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Kırkağaç|Turgutlu": {
+     "2": 108.3333,
+     "3": 125.0,
+     "4": 162.5,
+     "5": 208.3333
+    },
+    "Kırkağaç|İzmir": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 237.5,
+     "5": 295.8333
+    },
+    "Akhisar|Bursa Batı": {
+     "2": 320.8333,
+     "3": 383.3333,
+     "4": 508.3333,
+     "5": 637.5
+    },
+    "Akhisar|Karacabey- 2": {
+     "2": 245.8333,
+     "3": 295.8333,
+     "4": 387.5,
+     "5": 487.5
+    },
+    "Akhisar|Susurluk": {
+     "2": 208.3333,
+     "3": 245.8333,
+     "4": 325.0,
+     "5": 412.5
+    },
+    "Akhisar|Balıkesir Kuzey": {
+     "2": 170.8333,
+     "3": 200.0,
+     "4": 262.5,
+     "5": 333.3333
+    },
+    "Akhisar|Savaştepe": {
+     "2": 87.5,
+     "3": 100.0,
+     "4": 137.5,
+     "5": 170.8333
+    },
+    "Akhisar|Soma": {
+     "2": 70.8333,
+     "3": 83.3333,
+     "4": 108.3333,
+     "5": 133.3333
+    },
+    "Akhisar|Kırkağaç": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    },
+    "Akhisar|Saruhanlı": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Akhisar|Turgutlu": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "Akhisar|İzmir": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "Saruhanlı|Bursa Batı": {
+     "2": 345.8333,
+     "3": 412.5,
+     "4": 545.8333,
+     "5": 687.5
+    },
+    "Saruhanlı|Karacabey- 2": {
+     "2": 270.8333,
+     "3": 320.8333,
+     "4": 425.0,
+     "5": 537.5
+    },
+    "Saruhanlı|Susurluk": {
+     "2": 233.3333,
+     "3": 275.0,
+     "4": 362.5,
+     "5": 462.5
+    },
+    "Saruhanlı|Balıkesir Kuzey": {
+     "2": 195.8333,
+     "3": 233.3333,
+     "4": 308.3333,
+     "5": 383.3333
+    },
+    "Saruhanlı|Savaştepe": {
+     "2": 112.5,
+     "3": 133.3333,
+     "4": 175.0,
+     "5": 220.8333
+    },
+    "Saruhanlı|Soma": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "Saruhanlı|Kırkağaç": {
+     "2": 62.5,
+     "3": 70.8333,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Saruhanlı|Akhisar": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Saruhanlı|Turgutlu": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Saruhanlı|İzmir": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 150.0,
+     "5": 187.5
+    },
+    "Turgutlu|Bursa Batı": {
+     "2": 387.5,
+     "3": 462.5,
+     "4": 612.5,
+     "5": 775.0
+    },
+    "Turgutlu|Karacabey- 2": {
+     "2": 312.5,
+     "3": 375.0,
+     "4": 500.0,
+     "5": 625.0
+    },
+    "Turgutlu|Susurluk": {
+     "2": 275.0,
+     "3": 325.0,
+     "4": 437.5,
+     "5": 550.0
+    },
+    "Turgutlu|Balıkesir Kuzey": {
+     "2": 237.5,
+     "3": 283.3333,
+     "4": 375.0,
+     "5": 475.0
+    },
+    "Turgutlu|Savaştepe": {
+     "2": 158.3333,
+     "3": 183.3333,
+     "4": 245.8333,
+     "5": 308.3333
+    },
+    "Turgutlu|Soma": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "Turgutlu|Kırkağaç": {
+     "2": 108.3333,
+     "3": 125.0,
+     "4": 162.5,
+     "5": 208.3333
+    },
+    "Turgutlu|Akhisar": {
+     "2": 95.8333,
+     "3": 108.3333,
+     "4": 145.8333,
+     "5": 183.3333
+    },
+    "Turgutlu|Saruhanlı": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Turgutlu|İzmir": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 108.3333
+    },
+    "İzmir|Bursa Batı": {
+     "2": 437.5,
+     "3": 520.8333,
+     "4": 687.5,
+     "5": 862.5
+    },
+    "İzmir|Karacabey- 2": {
+     "2": 362.5,
+     "3": 433.3333,
+     "4": 570.8333,
+     "5": 720.8333
+    },
+    "İzmir|Susurluk": {
+     "2": 320.8333,
+     "3": 383.3333,
+     "4": 508.3333,
+     "5": 637.5
+    },
+    "İzmir|Balıkesir Kuzey": {
+     "2": 283.3333,
+     "3": 337.5,
+     "4": 445.8333,
+     "5": 562.5
+    },
+    "İzmir|Savaştepe": {
+     "2": 200.0,
+     "3": 237.5,
+     "4": 312.5,
+     "5": 400.0
+    },
+    "İzmir|Soma": {
+     "2": 183.3333,
+     "3": 212.5,
+     "4": 283.3333,
+     "5": 358.3333
+    },
+    "İzmir|Kırkağaç": {
+     "2": 150.0,
+     "3": 175.0,
+     "4": 237.5,
+     "5": 295.8333
+    },
+    "İzmir|Akhisar": {
+     "2": 137.5,
+     "3": 162.5,
+     "4": 212.5,
+     "5": 270.8333
+    },
+    "İzmir|Saruhanlı": {
+     "2": 95.8333,
+     "3": 112.5,
+     "4": 150.0,
+     "5": 187.5
+    },
+    "İzmir|Turgutlu": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 108.3333
+    }
+   },
+   "directed": true
+  },
+  {
+   "name": "O-7 Yavuz Sultan Selim Köprüsü ve Kuzey Çevre Otoyolu",
+   "law": "KGM 2024 tariff (tr-13-ysskuzeycevreyolu), TL including 20% KDV, here excluding it; KGM classes 2 (two axles), 3, 4 (four and five axles), 5 (six or more)",
+   "groups": [
+    {
+     "name": "2",
+     "max_axles": 2
+    },
+    {
+     "name": "3",
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "name": "4",
+     "min_axles": 4,
+     "max_axles": 5
+    },
+    {
+     "name": "5",
+     "min_axles": 6
+    }
+   ],
+   "stations": [
+    {
+     "name": "Fenertepe",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.197094,
+       "lon": 28.823506
+      }
+     ]
+    },
+    {
+     "name": "Işıklar",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.210847,
+       "lon": 28.831751
+      }
+     ]
+    },
+    {
+     "name": "Odayeri",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.2383,
+       "lon": 28.82087
+      }
+     ]
+    },
+    {
+     "name": "Uskumruköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.234945,
+       "lon": 29.027875
+      }
+     ]
+    },
+    {
+     "name": "Riva",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.19211,
+       "lon": 29.202463
+      }
+     ]
+    },
+    {
+     "name": "Hüseyinli",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.114831,
+       "lon": 29.297543
+      },
+      {
+       "name": "booth",
+       "lat": 41.114968,
+       "lon": 29.297545
+      },
+      {
+       "name": "booth",
+       "lat": 41.114706,
+       "lon": 29.297488
+      }
+     ]
+    },
+    {
+     "name": "Reşadiye",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.04631,
+       "lon": 29.257409
+      }
+     ]
+    },
+    {
+     "name": "Alemdağ",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.031148,
+       "lon": 29.265096
+      },
+      {
+       "name": "booth",
+       "lat": 41.031201,
+       "lon": 29.265105
+      },
+      {
+       "name": "booth",
+       "lat": 41.029853,
+       "lon": 29.269358
+      },
+      {
+       "name": "booth",
+       "lat": 41.031301,
+       "lon": 29.265195
+      },
+      {
+       "name": "booth",
+       "lat": 41.029713,
+       "lon": 29.269228
+      },
+      {
+       "name": "booth",
+       "lat": 41.031103,
+       "lon": 29.265025
+      }
+     ]
+    },
+    {
+     "name": "Paşaköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 41.00533,
+       "lon": 29.268611
+      }
+     ]
+    },
+    {
+     "name": "Kurnaköy",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.957525,
+       "lon": 29.329398
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Fenertepe|Işıklar": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Fenertepe|Odayeri": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Fenertepe|Uskumruköy": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "Fenertepe|Riva": {
+     "2": 125.0,
+     "3": 179.1667,
+     "4": 320.8333,
+     "5": 404.1667
+    },
+    "Fenertepe|Hüseyinli": {
+     "2": 150.0,
+     "3": 208.3333,
+     "4": 366.6667,
+     "5": 454.1667
+    },
+    "Fenertepe|Reşadiye": {
+     "2": 183.3333,
+     "3": 241.6667,
+     "4": 408.3333,
+     "5": 512.5
+    },
+    "Fenertepe|Alemdağ": {
+     "2": 175.0,
+     "3": 233.3333,
+     "4": 395.8333,
+     "5": 500.0
+    },
+    "Fenertepe|Paşaköy": {
+     "2": 175.0,
+     "3": 233.3333,
+     "4": 404.1667,
+     "5": 504.1667
+    },
+    "Fenertepe|Kurnaköy": {
+     "2": 195.8333,
+     "3": 254.1667,
+     "4": 429.1667,
+     "5": 537.5
+    },
+    "Işıklar|Fenertepe": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Işıklar|Odayeri": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "Işıklar|Uskumruköy": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Işıklar|Riva": {
+     "2": 112.5,
+     "3": 158.3333,
+     "4": 304.1667,
+     "5": 379.1667
+    },
+    "Işıklar|Hüseyinli": {
+     "2": 137.5,
+     "3": 191.6667,
+     "4": 341.6667,
+     "5": 429.1667
+    },
+    "Işıklar|Reşadiye": {
+     "2": 170.8333,
+     "3": 220.8333,
+     "4": 383.3333,
+     "5": 487.5
+    },
+    "Işıklar|Alemdağ": {
+     "2": 158.3333,
+     "3": 216.6667,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Işıklar|Paşaköy": {
+     "2": 162.5,
+     "3": 220.8333,
+     "4": 383.3333,
+     "5": 479.1667
+    },
+    "Işıklar|Kurnaköy": {
+     "2": 183.3333,
+     "3": 241.6667,
+     "4": 408.3333,
+     "5": 512.5
+    },
+    "Odayeri|Fenertepe": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Odayeri|Işıklar": {
+     "2": 20.8333,
+     "3": 25.0,
+     "4": 33.3333,
+     "5": 37.5
+    },
+    "Odayeri|Uskumruköy": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Odayeri|Riva": {
+     "2": 108.3333,
+     "3": 154.1667,
+     "4": 291.6667,
+     "5": 362.5
+    },
+    "Odayeri|Hüseyinli": {
+     "2": 133.3333,
+     "3": 183.3333,
+     "4": 329.1667,
+     "5": 412.5
+    },
+    "Odayeri|Reşadiye": {
+     "2": 158.3333,
+     "3": 216.6667,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Odayeri|Alemdağ": {
+     "2": 150.0,
+     "3": 204.1667,
+     "4": 358.3333,
+     "5": 454.1667
+    },
+    "Odayeri|Paşaköy": {
+     "2": 158.3333,
+     "3": 208.3333,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Odayeri|Kurnaköy": {
+     "2": 170.8333,
+     "3": 229.1667,
+     "4": 395.8333,
+     "5": 500.0
+    },
+    "Uskumruköy|Fenertepe": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 100.0,
+     "5": 125.0
+    },
+    "Uskumruköy|Işıklar": {
+     "2": 50.0,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 100.0
+    },
+    "Uskumruköy|Odayeri": {
+     "2": 45.8333,
+     "3": 50.0,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Uskumruköy|Riva": {
+     "2": 75.0,
+     "3": 116.6667,
+     "4": 241.6667,
+     "5": 304.1667
+    },
+    "Uskumruköy|Hüseyinli": {
+     "2": 100.0,
+     "3": 145.8333,
+     "4": 283.3333,
+     "5": 354.1667
+    },
+    "Uskumruköy|Reşadiye": {
+     "2": 133.3333,
+     "3": 179.1667,
+     "4": 329.1667,
+     "5": 404.1667
+    },
+    "Uskumruköy|Alemdağ": {
+     "2": 120.8333,
+     "3": 170.8333,
+     "4": 316.6667,
+     "5": 391.6667
+    },
+    "Uskumruköy|Paşaköy": {
+     "2": 125.0,
+     "3": 179.1667,
+     "4": 320.8333,
+     "5": 404.1667
+    },
+    "Uskumruköy|Kurnaköy": {
+     "2": 145.8333,
+     "3": 195.8333,
+     "4": 345.8333,
+     "5": 437.5
+    },
+    "Riva|Fenertepe": {
+     "2": 125.0,
+     "3": 179.1667,
+     "4": 320.8333,
+     "5": 404.1667
+    },
+    "Riva|Işıklar": {
+     "2": 112.5,
+     "3": 158.3333,
+     "4": 304.1667,
+     "5": 379.1667
+    },
+    "Riva|Odayeri": {
+     "2": 108.3333,
+     "3": 154.1667,
+     "4": 291.6667,
+     "5": 362.5
+    },
+    "Riva|Uskumruköy": {
+     "2": 75.0,
+     "3": 116.6667,
+     "4": 241.6667,
+     "5": 304.1667
+    },
+    "Riva|Hüseyinli": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Riva|Reşadiye": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Riva|Alemdağ": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 108.3333
+    },
+    "Riva|Paşaköy": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "Riva|Kurnaköy": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 112.5,
+     "5": 145.8333
+    },
+    "Hüseyinli|Fenertepe": {
+     "2": 150.0,
+     "3": 208.3333,
+     "4": 366.6667,
+     "5": 454.1667
+    },
+    "Hüseyinli|Işıklar": {
+     "2": 137.5,
+     "3": 191.6667,
+     "4": 341.6667,
+     "5": 429.1667
+    },
+    "Hüseyinli|Odayeri": {
+     "2": 133.3333,
+     "3": 183.3333,
+     "4": 329.1667,
+     "5": 412.5
+    },
+    "Hüseyinli|Uskumruköy": {
+     "2": 100.0,
+     "3": 145.8333,
+     "4": 283.3333,
+     "5": 354.1667
+    },
+    "Hüseyinli|Riva": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Hüseyinli|Reşadiye": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    },
+    "Hüseyinli|Alemdağ": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Hüseyinli|Paşaköy": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Hüseyinli|Kurnaköy": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Reşadiye|Fenertepe": {
+     "2": 183.3333,
+     "3": 241.6667,
+     "4": 408.3333,
+     "5": 512.5
+    },
+    "Reşadiye|Işıklar": {
+     "2": 170.8333,
+     "3": 220.8333,
+     "4": 383.3333,
+     "5": 487.5
+    },
+    "Reşadiye|Odayeri": {
+     "2": 158.3333,
+     "3": 216.6667,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Reşadiye|Uskumruköy": {
+     "2": 133.3333,
+     "3": 179.1667,
+     "4": 329.1667,
+     "5": 404.1667
+    },
+    "Reşadiye|Riva": {
+     "2": 62.5,
+     "3": 75.0,
+     "4": 95.8333,
+     "5": 120.8333
+    },
+    "Reşadiye|Hüseyinli": {
+     "2": 37.5,
+     "3": 45.8333,
+     "4": 58.3333,
+     "5": 70.8333
+    },
+    "Reşadiye|Alemdağ": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 50.0
+    },
+    "Reşadiye|Paşaköy": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Reşadiye|Kurnaköy": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Alemdağ|Fenertepe": {
+     "2": 175.0,
+     "3": 233.3333,
+     "4": 395.8333,
+     "5": 500.0
+    },
+    "Alemdağ|Işıklar": {
+     "2": 158.3333,
+     "3": 216.6667,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Alemdağ|Odayeri": {
+     "2": 150.0,
+     "3": 204.1667,
+     "4": 358.3333,
+     "5": 454.1667
+    },
+    "Alemdağ|Uskumruköy": {
+     "2": 120.8333,
+     "3": 170.8333,
+     "4": 316.6667,
+     "5": 391.6667
+    },
+    "Alemdağ|Riva": {
+     "2": 58.3333,
+     "3": 62.5,
+     "4": 83.3333,
+     "5": 108.3333
+    },
+    "Alemdağ|Hüseyinli": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Alemdağ|Reşadiye": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 50.0
+    },
+    "Alemdağ|Paşaköy": {
+     "2": 12.5,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 25.0
+    },
+    "Alemdağ|Kurnaköy": {
+     "2": 33.3333,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Paşaköy|Fenertepe": {
+     "2": 175.0,
+     "3": 233.3333,
+     "4": 404.1667,
+     "5": 504.1667
+    },
+    "Paşaköy|Işıklar": {
+     "2": 162.5,
+     "3": 220.8333,
+     "4": 383.3333,
+     "5": 479.1667
+    },
+    "Paşaköy|Odayeri": {
+     "2": 158.3333,
+     "3": 208.3333,
+     "4": 370.8333,
+     "5": 466.6667
+    },
+    "Paşaköy|Uskumruköy": {
+     "2": 125.0,
+     "3": 179.1667,
+     "4": 320.8333,
+     "5": 404.1667
+    },
+    "Paşaköy|Riva": {
+     "2": 58.3333,
+     "3": 70.8333,
+     "4": 87.5,
+     "5": 112.5
+    },
+    "Paşaköy|Hüseyinli": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 50.0,
+     "5": 62.5
+    },
+    "Paşaköy|Reşadiye": {
+     "2": 33.3333,
+     "3": 37.5,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Paşaköy|Alemdağ": {
+     "2": 12.5,
+     "3": 12.5,
+     "4": 20.8333,
+     "5": 25.0
+    },
+    "Paşaköy|Kurnaköy": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 45.8333
+    },
+    "Kurnaköy|Fenertepe": {
+     "2": 195.8333,
+     "3": 254.1667,
+     "4": 429.1667,
+     "5": 537.5
+    },
+    "Kurnaköy|Işıklar": {
+     "2": 183.3333,
+     "3": 241.6667,
+     "4": 408.3333,
+     "5": 512.5
+    },
+    "Kurnaköy|Odayeri": {
+     "2": 170.8333,
+     "3": 229.1667,
+     "4": 395.8333,
+     "5": 500.0
+    },
+    "Kurnaköy|Uskumruköy": {
+     "2": 145.8333,
+     "3": 195.8333,
+     "4": 345.8333,
+     "5": 437.5
+    },
+    "Kurnaköy|Riva": {
+     "2": 75.0,
+     "3": 87.5,
+     "4": 112.5,
+     "5": 145.8333
+    },
+    "Kurnaköy|Hüseyinli": {
+     "2": 50.0,
+     "3": 58.3333,
+     "4": 75.0,
+     "5": 95.8333
+    },
+    "Kurnaköy|Reşadiye": {
+     "2": 45.8333,
+     "3": 58.3333,
+     "4": 70.8333,
+     "5": 87.5
+    },
+    "Kurnaköy|Alemdağ": {
+     "2": 33.3333,
+     "3": 33.3333,
+     "4": 45.8333,
+     "5": 58.3333
+    },
+    "Kurnaköy|Paşaköy": {
+     "2": 25.0,
+     "3": 33.3333,
+     "4": 37.5,
+     "5": 45.8333
+    }
+   },
+   "directed": true
+  }
+ ],
+ "rows": [],
+ "valid_to": "2024-05-14"
+}

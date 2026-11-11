@@ -148,6 +148,125 @@
   },
   {
    "url": "www.oresundsbron.com/da/erhverv/"
+  },
+  {
+   "url": "voyage.aprr.fr/sites/default/files/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "public-content.vinci-autoroutes.com/PDF/",
+   "regex": ".*[Tt]arif.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.vinci-autoroutes.com/static/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.autoroutes.sanef.com/sites/default/files/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.atmb.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.sftrf.fr/wp-content/uploads/",
+   "regex": ".*[Tt]arif.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a65-alienor.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a65-alienor.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a41-adelac.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a41-adelac.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.leviaducdemillau.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.aliae.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a150-albea.fr/",
+   "regex": ".*([Pp]eage|pdf|jpg|png).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a88-alicorne.fr/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a63-atlandes.fr/",
+   "regex": ".*([Tt]arif|pdf|jpg|png).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.alis-sa.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.pontsnormandietancarville.fr/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
   }
  ]
 }

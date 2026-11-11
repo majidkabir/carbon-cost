@@ -1,7 +1,8 @@
 """Builds the tables of tunnels and bridges charged per passage on top of
 the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel (DE), the Westerscheldetunnel (NL),
-the Great St Bernard tunnel (CH and IT) and the Dartford Crossing (GB).
+the Great St Bernard tunnel (CH and IT), the Dartford Crossing and the
+Tyne Tunnels (GB).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -23,6 +24,8 @@ taken comes from OpenStreetMap (tunnels-osm.json, an Overpass query):
   in EUR; each heading is along the tunnel's OSM way.
 - Herrentunnel: the plaza's booths named Herrentunnel (operator
   Herrentunnel Lübeck GmbH & Co. KG), either direction.
+- Tyne Tunnels: free-flow: the middle of each A19 bore over 1 km long
+  (tunnels-osm-tyne.json), either direction.
 - Dartford: free-flow, no booths: the middle of the northbound tunnels
   (A282, tunnel=yes) and of the southbound bridge (A282, bridge=yes),
   each in its direction.
@@ -256,6 +259,51 @@ def dartford(fetched, out, osm, stamp):
         write(out, t, "gb-dartford")
 
 
+def tyne(fetched, out):
+    """The Tyne Tunnels (A19): the tolls of each River Tyne (Tunnels)
+    (Revision of Toll(s)) Order, class 3 (other than motorcycles and
+    vehicles up to 3.5 t), with `etc` the permit holder's price."""
+    try:
+        d = json.load(open(os.path.join(fetched, "tunnels-osm-tyne.json")))
+    except (OSError, ValueError):
+        print("Tyne Tunnels: OpenStreetMap ways not fetched; not built")
+        return
+    pts = []
+    for e in d["elements"]:
+        t = e.get("tags", {})
+        g = e.get("geometry", [])
+        if e["type"] == "way" and t.get("ref") == "A19" and t.get("tunnel") == "yes" and len(g) > 1 and km((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"])) > 1:
+            pts.append(middle(e))
+    if len(pts) != 2:
+        sys.exit(f"Tyne Tunnels: expected two A19 bores, got {pts}")
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    orders = []
+    for y, si in ((2023, "2023/413"), (2024, "2024/479"), (2025, "2025/449")):
+        o = text(os.path.join(fetched, f"gb-tyne-{y}.html"))
+        since = re.search(r"come into force on (\d+)(?:st|nd|rd|th) (\w+) (\d{4})", o)
+        m = re.search(r"Class 3 Mechanically propelled vehicle other than a vehicle in Classes 1 and 2 £([\d.]+) Class 3 permit holder after discount £([\d.]+)", o)
+        if not since or not m or "maximum weight not exceeding 3.5 tonnes" not in o:
+            sys.exit(f"Tyne Tunnels {y}: Order not as expected")
+        months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        orders.append((f"{since.group(3)}-{months.index(since.group(2)) + 1:02d}-{int(since.group(1)):02d}", si, y, float(m.group(1)), float(m.group(2))))
+    for i, (vf, si, y, rate, etc) in enumerate(orders):
+        vt = prev_day(orders[i + 1][0]) if i + 1 < len(orders) else ""
+        if vt and vt < "2024-01-01":
+            continue
+        t = {"country": "GB", "currency": "GBP", "valid_from": max(vf, "2024-01-01"), "crossings": True, "osm_extract": stamp,
+             "name": "Tyne Tunnels toll",
+             "law": f"Tyne and Wear Act 1976 s. 13 and the River Tyne (Tunnels) Order 2005: the River Tyne (Tunnels) (Revision of Toll{'s' if y == 2023 else ''}) Order {y} (S.I. {si}), in force from {vf}: class 3 (vehicles other than motorcycles and those up to 3.5 t) per passage either way; with `etc` the permit holder's price after discount.",
+             "sources": [{"title": f"S.I. {si}, the River Tyne (Tunnels) Revision of Toll Order {y}", "url": f"https://www.legislation.gov.uk/uksi/{si}/made"}],
+             "vehicles": "Vehicles over 3.5 t (class 3)", "min_kg": 3501,
+             "tolled_roads": "The Tyne Tunnels (A19, Jarrow-Howdon), free-flow, either way.",
+             "point_match_km": 0.15,
+             "toll_points": [{"name": "Tyne Tunnels", "lat": lat, "lon": lon, "rate": rate, "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}]} for lat, lon, _ in pts],
+             "rows": []}
+        if vt:
+            t["valid_to"] = vt
+        write(out, t, "gb-tyne-tunnels")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
@@ -270,6 +318,7 @@ def main(transcribed, fetched, out):
     westerschelde(fetched, out, osm, stamp)
     gsb(fetched, out, osm, stamp)
     dartford(fetched, out, osm, stamp)
+    tyne(fetched, out)
 
 
 if __name__ == "__main__":

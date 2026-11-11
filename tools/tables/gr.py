@@ -32,9 +32,12 @@ NAMES = {"Ελευσίνα": "Ελευσίνας", "Ισθμός": "Ισθμού
          "Πάτρα": "Πάτρας", "Πύργος": "Πύργου", "Νέα Πέραμος": "Νέας Περάμου", "Πάχη": "Πάχης",
          "Αγ. Θεόδωροι": "Αγίων Θεοδώρων", "Ζευγολατιό": "Ζευγολατιού", "Δερβένι": "Δερβενίου", "Ακράτα": "Ακράτας",
          "Καλάβρυτα": "Καλαβρύτων", "Δρέπανο": "Δρεπάνου", "Κάτω Αχαΐα": "Κάτω Αχαΐας", "Αμαλιάδα": "Αμαλιάδας",
-         "Αγ. Μαρίνας": "Αγίας Μαρίνας", "Μ. Μοναστηρίου": "Μεγάλου Μοναστηρίου"}
+         "Αγ. Μαρίνας": "Αγίας Μαρίνας", "Μ. Μοναστηρίου": "Μεγάλου Μοναστηρίου",
+         # Moreas's 2024 page names its stations in the nominative.
+         "Σπαθοβούνι": "Σπαθοβουνίου", "Νεστάνη": "Νεστάνης", "Γέφυρα Μάναρη": "Γέφυρας Μάναρη", "Βελιγοστή": "Βελιγοστής",
+         "Καλαμάτα": "Καλαμάτας", "Πετρίνα": "Πετρίνας"}
 VAT = 1.24
-PRICE = re.compile(r"^\d+(,\d+)?\s*€?$")
+PRICE = re.compile(r"^\d+([.,]\d+)?\s*€?$")  # 8,95 € (or 8.95 € on older pages)
 
 
 def plain(s):
@@ -78,6 +81,10 @@ def heading(a, b):
 
 
 def main(fetched, out):
+    # A past year's pages (tools/history/build_archived.py writes year.txt,
+    # and absent.txt for pages it has no copy of).
+    year = open(os.path.join(fetched, "year.txt")).read().strip() if os.path.exists(os.path.join(fetched, "year.txt")) else "2026"
+    absent = set(open(os.path.join(fetched, "absent.txt")).read().split()) if os.path.exists(os.path.join(fetched, "absent.txt")) else set()
     booths, ways, booths_named = {}, [], {}
     for line in open(os.path.join(fetched, "gr-osm.geojsonseq"), encoding="utf-8"):
         f = json.loads(line.strip("\x1e"))
@@ -97,6 +104,9 @@ def main(fetched, out):
                 on_oneway[x] = heading(cs[i - 1], x) if i > 0 else heading(x, cs[i + 1])
     points, missing = [], []
     for sid, operator in PAGES:
+        if f"gr-{sid}" in absent:
+            print(f"gr-{sid}: no copy of that year's page")
+            continue
         for name, c3, c4 in stations(os.path.join(fetched, f"gr-{sid}.html")):
             kind, stem = split(name)
             bs = booths.get((kind, plain(stem)))
@@ -133,10 +143,10 @@ def main(fetched, out):
     if missing:
         print("not in OpenStreetMap:", "; ".join(missing))
     tb = {
-        "country": "GR", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
+        "country": "GR", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
         "osm_extract": open(os.path.join(fetched, "gr-osm-timestamp.txt")).read().strip()[:10],
         "name": "Greek motorway tolls (open toll stations)",
-        "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
+        "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for " + year + " as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included.",
         "sources": [{"title": "Olympia Odos: Τιμές διοδίων", "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/"},
                     {"title": "Nea Odos: Διόδια Τέλη", "url": "https://www.neaodos.gr/highways/tolls/"},
                     {"title": "Kentriki Odos: Διόδια Τέλη", "url": "https://www.kentrikiodos.gr/highways/toll-fees/"},
@@ -152,7 +162,7 @@ def main(fetched, out):
         "rows": [],
     }
     os.makedirs(out, exist_ok=True)
-    path = os.path.join(out, "gr-2026-01-01.json")
+    path = os.path.join(out, f"gr-{year}-01-01.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, len(points), "booth points")
 

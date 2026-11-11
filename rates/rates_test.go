@@ -161,8 +161,9 @@ func TestNetherlandsTotals(t *testing.T) {
 			t.Errorf("NL %d kg Euro %d class %d: %v, want %v", tc.kg, tc.euro, tc.cls, got, tc.want)
 		}
 	}
-	if _, ok := Find(tables(t), "NL", on("2026-06-30")); ok {
-		t.Error("NL: no charge before 1 July 2026")
+	// Before 1 July 2026 the Eurovignette's day charge applies.
+	if tb, ok := Find(tables(t), "NL", on("2026-06-30")); !ok || !tb.PerDay {
+		t.Error("NL: want the Eurovignette's day charge on 30 June 2026")
 	}
 }
 
@@ -262,5 +263,49 @@ func TestBelgium(t *testing.T) {
 	}
 	if !Regional(tbs, "BE") {
 		t.Error("BE must be regional")
+	}
+}
+
+// Find takes the first table in force, so an area's tables (not
+// crossings, which add up) must not overlap in time.
+func TestNoOverlaps(t *testing.T) {
+	tbs, err := All()
+	if err != nil {
+		t.Fatal(err)
+	}
+	end := func(tb Table) string {
+		if tb.ValidTo == "" {
+			return "9999-12-31"
+		}
+		return tb.ValidTo
+	}
+	for i, a := range tbs {
+		for _, b := range tbs[i+1:] {
+			if a.Crossings || b.Crossings || a.Area() != b.Area() {
+				continue
+			}
+			if a.ValidFrom <= end(b) && b.ValidFrom <= end(a) {
+				t.Errorf("%s and %s overlap", a.File, b.File)
+			}
+		}
+	}
+}
+
+func TestTollPointDates(t *testing.T) {
+	tb := Table{Country: "XX", Currency: "EUR", ValidFrom: "2026-01-01", Name: "t", Law: "l", Sources: []Source{{Title: "t", URL: "https://example.org"}},
+		TollPoints: []TollPoint{{Name: "a", ValidFrom: "2026-03-01", ValidTo: "2026-02-01"}}}
+	if tb.check() == nil {
+		t.Error("valid_to before valid_from accepted")
+	}
+	tb.TollPoints[0].ValidTo = "2026-3-9"
+	if tb.check() == nil {
+		t.Error("bad date accepted")
+	}
+	p := TollPoint{ValidFrom: "2026-03-01", ValidTo: "2026-03-31"}
+	for d, want := range map[string]bool{"2026-02-28": false, "2026-03-01": true, "2026-03-31": true, "2026-04-01": false} {
+		day, _ := time.Parse(time.DateOnly, d)
+		if p.InForce(day) != want {
+			t.Errorf("%s: in force %v, want %v", d, !want, want)
+		}
 	}
 }

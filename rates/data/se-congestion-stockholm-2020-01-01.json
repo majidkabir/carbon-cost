@@ -2,6 +2,7 @@
  "country": "SE",
  "currency": "SEK",
  "valid_from": "2020-01-01",
+ "osm_extract": "2026-11-08",
  "name": "Stockholm congestion tax (trängselskatt)",
  "law": "Lag (2004:629) om trängselskatt, bilaga 1: per passage of a charging station, by time of day, inner city or Essingeleden, low or high season; at most 105 SEK a day (135 in high season); weekdays, not the day before a public holiday (except before Good Friday, Ascension, All Saints, and 1 May and National Day on weekdays), in July only its first five weekdays. Foreign-registered vehicles pay too (4 §). Stations: Transportstyrelsen's gantries in OpenStreetMap.",
  "sources": [

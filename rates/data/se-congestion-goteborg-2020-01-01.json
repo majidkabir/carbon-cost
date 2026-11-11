@@ -2,6 +2,7 @@
  "country": "SE",
  "currency": "SEK",
  "valid_from": "2020-01-01",
+ "osm_extract": "2026-11-08",
  "name": "Göteborg congestion tax (trängselskatt)",
  "law": "Lag (2004:629) om trängselskatt, bilaga 2: per passage of a charging station, by time of day; passages within 60 minutes pay once; at most 60 SEK a day; weekdays, not the day before a public holiday nor in July. Foreign-registered vehicles pay too (4 §). Stations: Transportstyrelsen's gantries in OpenStreetMap; the Backa stations (taxed only with a control point within 30 minutes) are left out.",
  "sources": [

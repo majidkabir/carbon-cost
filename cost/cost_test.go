@@ -901,7 +901,7 @@ func TestChainBoothBeside(t *testing.T) {
 			{Name: "P", Points: at(0.3)}, {Name: "N", Points: at(2.0)}},
 		Prices: map[string]map[string]float64{"R|B": {"4": 2.25}, "P|N": {"4": 39.25}, "B|N": {"4": 52.17}}}
 	route := [][2]float64{{-0.1, 45}, {2.1, 45}}
-	got := chainUses(sys, route, truck40, false)
+	got := chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 1 || got[0].entry != "B" || got[0].exit != "N" {
 		t.Errorf("got %+v, want one ticket B-N", got)
 	}
@@ -909,7 +909,7 @@ func TestChainBoothBeside(t *testing.T) {
 	// network's station at the same place (P2 beside P).
 	sys.Stations = append(sys.Stations, rates.Station{Name: "P2", Points: at(0.3)})
 	sys.Prices = map[string]map[string]float64{"B|P": {"4": 5}, "P2|N": {"4": 30}}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 2 || got[0].entry != "B" || got[0].exit != "P" || got[1].entry != "P2" || got[1].exit != "N" {
 		t.Errorf("got %+v, want B-P, P2-N", got)
 	}
@@ -917,7 +917,7 @@ func TestChainBoothBeside(t *testing.T) {
 	// the same place: a trip driving through takes its ticket at X.
 	sys.Stations = []rates.Station{{Name: "Y", Points: []rates.Place{{Name: "p", Lat: 45.002, Lon: 0.4999}}}, {Name: "X", Points: at(0.5)}, {Name: "N", Points: at(2.0)}}
 	sys.Prices = map[string]map[string]float64{"Y|N": {"4": 36}, "X|N": {"4": 42}}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 1 || got[0].entry != "X" {
 		t.Errorf("got %+v, want X-N", got)
 	}
@@ -926,7 +926,7 @@ func TestChainBoothBeside(t *testing.T) {
 	sys.Stations = append(sys.Stations, rates.Station{Name: "Z", Points: at(1.0)}, rates.Station{Name: "W", Points: at(2.08)})
 	sys.Prices["Z|Z"] = map[string]float64{"4": 12.4}
 	sys.Prices["W|W"] = map[string]float64{"4": 5}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 2 || got[0].entry != "X" || got[1].entry != "W" || got[1].exit != "W" {
 		t.Errorf("got %+v, want X-N and W-W", got)
 	}
@@ -1438,6 +1438,14 @@ func TestPassageTimes(t *testing.T) {
 			t.Errorf("free hours at %q: %.2f, want %.2f", at, got, want)
 		}
 	}
+	// Two versions of one station, each in force for part of the table's time.
+	tb.TollPoints = []rates.TollPoint{
+		{Name: "old", Lat: 50, Lon: 10, Rate: 4, ValidTo: "2026-11-04"},
+		{Name: "new", Lat: 50, Lon: 10, Rate: 6, ValidFrom: "2026-11-05"},
+	}
+	if got := sum(run([]rates.Table{tb}, "XX", path, Request{}), "test law"); got != 6 {
+		t.Errorf("versioned station on 2026-11-05: %.2f, want 6", got)
+	}
 }
 
 // Square tariffs are priced per direction: Kuzey Marmara's İzmit Kuzey to
@@ -1607,5 +1615,59 @@ func TestSwedenTwoDays(t *testing.T) {
 	}
 	if !ok || l.Days != 2 || l.Amount != 294 {
 		t.Errorf("%+v", r.Lines)
+	}
+}
+
+// The hour rule lasts the group's minutes: reached two hours later (at
+// 5 km/h), Straume pays again.
+func TestNorwayHourRuleTimed(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	path := [][2]float64{{5.3110, 60.4190}, {5.3150, 60.4170}, {5.2697, 60.3220}, {5.2723, 60.3232}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"NO": 20}, Path: path}}}
+	count := func(req Request) int {
+		r, err := Price(trip, all(t), req, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if l.Country == "NO" {
+				n++
+			}
+		}
+		return n
+	}
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"NOK": 11.7}, Time: "08:00"}
+	if n := count(req); n != 1 {
+		t.Errorf("at 70 km/h: %d passages paid, want 1", n)
+	}
+	req.AvgSpeedKmh = 5
+	if n := count(req); n != 2 {
+		t.Errorf("at 5 km/h: %d passages paid, want 2", n)
+	}
+}
+
+// Passage times are local where the station is: 23:30 leaving Portugal
+// is 00:30 in Spain, and the day counts by the local date.
+func TestPassageZones(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{Time: "23:30", origin: "PT"}
+	if at, _ := passage(req, date, 0, "ES"); at.Format("2006-01-02 15:04") != "2026-11-05 00:30" {
+		t.Errorf("ES: %v", at)
+	}
+	if at, _ := passage(req, date, 0, "PT"); at.Format("2006-01-02 15:04") != "2026-11-04 23:30" {
+		t.Errorf("PT: %v", at)
+	}
+	// From Denmark at 23:00, an hour on is midnight in Sweden but 23:00 in
+	// Britain: one calendar day there, two in Sweden.
+	dk := Request{Time: "23:00", origin: "DK", spans: map[string][][2]float64{"SE": {{0, 70}}, "GB": {{0, 70}}}}
+	tbs := all(t)
+	se, _ := rates.Find(tbs, "SE", date)
+	gb, _ := rates.Find(tbs, "GB", date)
+	if n, _ := tripDays(se, "SE", dk, date); n != 2 {
+		t.Errorf("SE: %d days", n)
+	}
+	if n, _ := tripDays(gb, "GB", dk, date); n != 1 {
+		t.Errorf("GB: %d days", n)
 	}
 }

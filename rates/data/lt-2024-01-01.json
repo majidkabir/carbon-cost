@@ -1,0 +1,292 @@
+{
+ "country": "LT",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-08-30",
+ "name": "Lithuanian road user charge (kelių naudotojo mokestis)",
+ "law": "Kelių priežiūros ir plėtros programos finansavimo įstatymas; Government resolution No 447 of 21 April 2005, annex point 1 (consolidated edition in force 2024-01-01 to 2024-08-30, read in a browser into tools/history/browser/lt-447-2024-01-01.txt): a time-based charge in euro for a year, a month, a week or a day, by category (N2 over 3.5 to 12 t, N3 over 12 t), the motor vehicle's own axles (no more than three, or four or more; point 2.2) and EURO class. The table keeps the daily rate. Paid as an e-vignette, without VAT.",
+ "sources": [
+  {
+   "title": "Nutarimas Nr. 447, consolidated edition 2024-01-01 to 2024-08-30 (e-TAR)",
+   "url": "https://www.e-tar.lt/rs/actualedition/TAR.479B13E87700/zHloIVIYUD/"
+  },
+  {
+   "title": "Via Lietuva: User charge (electronic vignettes): a daily vignette expires 24 hours after its validity starts",
+   "url": "https://vialietuva.lt/?p=1504"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t (categories N2 and N3)",
+ "min_kg": 3501,
+ "tolled_roads": "The roads listed in point 6 of the annex: A1 Vilnius–Kaunas–Klaipėda (10,00–91,00 km; 103,00–304,00 km); A2 Vilnius–Panevėžys (12,00–132,55 km); A3 Vilnius–Minskas (6,65–32,91 km); A4 Vilnius–Varėna–Gardinas (15,57–133,91 km); A5 Kaunas–Marijampolė–Suvalkai (7,60–96,74 km); A6 Kaunas–Zarasai–Daugpilis (5,95–66,80 km; 72,44–185,24 km); A7 Marijampolė–Kybartai–Kaliningradas (2,50–41,92 km); A8 Panevėžys–Aristava–Sitkūnai (7,50–87,86 km); A9 Panevėžys–Šiauliai (5,00–75,29 km); A10 Panevėžys–Pasvalys–Ryga (4,57–66,10 km); A11 Šiauliai–Palanga (2,65–146,52 km); A12 Ryga–Šiauliai–Tauragė–Kaliningradas (0–49,74 km; 59,49–151,82 km; 155,80–185,97 km); A13 Klaipėda–Liepoja (11,00–43,83 km); A14 Vilnius–Utena (10,66–95,66 km); A15 Vilnius–Lyda (10,78–48,83 km); A16 Vilnius–Prienai–Marijampolė (15,56–135,42 km); A17 Panevėžio aplinkkelis (0–22,24 km); A18 Šiaulių aplinkkelis (0–17,13 km); A20 Ukmergės šiaurinis aplinkkelis (0,02–7,64 km).",
+ "per_day": true,
+ "day": "24h",
+ "motor_axles": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 29
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 51
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 26
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 45
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 22
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 38
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 19
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 34
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 16
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 29
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 25
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 13
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 23
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 29
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 51
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 26
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 45
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 22
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 38
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 19
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 34
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 16
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 29
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 25
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 13
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 23
+  }
+ ]
+}

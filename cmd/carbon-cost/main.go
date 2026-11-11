@@ -120,7 +120,7 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, Version: buildVersion()}, nil
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
 func calc(args []string) error {
@@ -353,7 +353,8 @@ func serve(args []string) error {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second}
+	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
@@ -429,10 +430,17 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		res, err := c.Calculate(r.Context(), req)
 		if err != nil {
-			// Bad input (ours or Sootcase's 4xx) is the caller's; anything
-			// else from Sootcase is a bad gateway.
+			// Bad input (ours, or Sootcase refusing the request itself) is
+			// the caller's; Sootcase failing, limiting or refusing this
+			// server is a bad gateway (busy: unavailable).
 			status := http.StatusBadRequest
-			if msg := err.Error(); strings.HasPrefix(msg, "sootcase") && !strings.HasPrefix(msg, "sootcase: HTTP 4") {
+			var he *sootcase.HTTPError
+			switch {
+			case errors.As(err, &he) && he.Status == http.StatusTooManyRequests:
+				status = http.StatusServiceUnavailable
+			case errors.As(err, &he) && !he.CallerError():
+				status = http.StatusBadGateway
+			case he == nil && strings.HasPrefix(err.Error(), "sootcase"):
 				status = http.StatusBadGateway
 			}
 			writeJSON(w, status, map[string]string{"error": err.Error()})

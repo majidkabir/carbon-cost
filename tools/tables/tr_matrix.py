@@ -43,12 +43,14 @@ def lines(ws, tol=1.5):
 
 def page_matrix(ws):
     ls = lines(ws)
-    # Class lines: a lone digit 1-6 then prices only.
+    # Class lines: a lone digit 1-6 (or "SINIF-1", Aydın–Denizli's January
+    # 2024 tariff) then prices only.
     cls = []
     for y, l in ls:
         for i, w in enumerate(l):
-            if re.fullmatch(r"[1-6]", w[4]) and l[i + 1:] and all(PRICE.match(v[4]) for v in l[i + 1:]):
-                cls.append((y, int(w[4]), w[0], l[i + 1:]))
+            m = re.fullmatch(r"(?:SINIF-)?([1-6])", w[4])
+            if m and l[i + 1:] and all(PRICE.match(v[4]) for v in l[i + 1:]):
+                cls.append((y, int(m.group(1)), w[0], l[i + 1:]))
                 break
     if not cls:
         return [], [], {}

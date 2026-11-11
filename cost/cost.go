@@ -106,6 +106,9 @@ type Request struct {
 	// spans are each country's stretches of the route, as [from, to] km
 	// along it, set by Calculate from the route split by country.
 	spans map[string][][2]float64
+	// origin is the country the trip starts in, whose local time Time
+	// is (set by Calculate; "" takes each station's country).
+	origin string
 	// CompareCO2Classes prices the same trip for trucks in these CO2
 	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
 	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
@@ -220,8 +223,11 @@ type Calculator struct {
 	Roads *roads.Index
 	// FX gives exchange rates for currencies the request has no fx for;
 	// nil: those need fx in the request.
-	FX  func(context.Context) (fx.Rates, error)
-	Now func() time.Time // default time.Now
+	FX func(context.Context) (fx.Rates, error)
+	// FXOn gives the rates of a past day (fx.OnDate); a trip on a day it
+	// has uses them, other trips FX.
+	FXOn func(time.Time) (fx.Rates, bool)
+	Now  func() time.Time // default time.Now
 	// Version is the release, for the response's provenance.
 	Version string
 }
@@ -244,7 +250,12 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		vt = DefaultVehicleType
 		assumed = append(assumed, "vehicle_type: "+vt)
 	}
-	if c.FX != nil {
+	if c.FXOn != nil {
+		if r, ok := c.FXOn(date); ok {
+			req.ecb = r
+		}
+	}
+	if req.ecb.Date == "" && c.FX != nil {
 		if r, err := c.FX(ctx); err == nil {
 			req.ecb = r
 		}
@@ -263,6 +274,12 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		}
 		runs = Route(c.Borders, path, c.Ferries)
 		req.spans = Spans(runs)
+		for _, r := range runs {
+			if r.Kind == "road" && r.Country != "" {
+				req.origin = r.Country
+				break
+			}
+		}
 		if c.Roads != nil {
 			req.roadKm = RoadKm(c.Roads, runs)
 			req.roadOSM = map[string]string{}
@@ -275,7 +292,7 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err != nil {
 		return out, err
 	}
-	out.Route = runs
+	out.Route = thinRuns(runs, MapPoints)
 	out.Provenance.Version = c.Version
 	base := c.Sootcase.BaseURL
 	if base == "" {
@@ -284,6 +301,9 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	out.Provenance.Sootcase = strings.TrimRight(base, "/")
 	if res.Dataset != "" {
 		out.Provenance.Sootcase += ", factors: " + res.Dataset
+	}
+	if req.Time != "" && req.origin != "" {
+		assumed = append(assumed, fmt.Sprintf("time: %s local time in %s, where the trip starts; stations use their own country's time", req.Time, req.origin))
 	}
 	out.Provenance.Assumed = append(assumed, out.Provenance.Assumed...)
 	return out, nil
@@ -474,10 +494,11 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		}
 	}
 
-	var route [][2]float64
+	var path [][2]float64
 	for _, l := range res.Legs {
-		route = append(route, l.Path...)
+		path = append(path, l.Path...)
 	}
+	route := newTrack(path)
 	// Road tolls, area by area: countries, or their regions where tolls
 	// are set by region.
 	for _, a := range areas(&out, tables) {
@@ -932,8 +953,8 @@ type sectionOnRoute struct {
 
 // onRoute lists the table's fixed-charge sections the route passes and
 // their total km along the route.
-func onRoute(tb rates.Table, route [][2]float64) ([]sectionOnRoute, float64) {
-	if tb.Sections == nil || len(route) < 2 {
+func onRoute(tb rates.Table, route *track) ([]sectionOnRoute, float64) {
+	if tb.Sections == nil || len(route.pts) < 2 {
 		return nil, 0
 	}
 	var out []sectionOnRoute
@@ -954,9 +975,9 @@ const SectionMatchKm = 0.5
 // along is the route's km between two places, if it passes within
 // SectionMatchKm of both and the stretch between is no longer than a road
 // between them could be (4x the straight line, plus 2 km).
-func along(route [][2]float64, a, b rates.Place) (float64, bool) {
-	pa, da := project(route, a)
-	pb, db := project(route, b)
+func along(route *track, a, b rates.Place) (float64, bool) {
+	pa, da, _ := route.project(a)
+	pb, db, _ := route.project(b)
 	if da > SectionMatchKm || db > SectionMatchKm {
 		return 0, false
 	}
@@ -965,31 +986,6 @@ func along(route [][2]float64, a, b rates.Place) (float64, bool) {
 		return 0, false
 	}
 	return km, true
-}
-
-// project finds the point of the route nearest p: its distance along the
-// route and its distance from p, both in km.
-func project(route [][2]float64, p rates.Place) (pos, dist float64) {
-	dist = math.Inf(1)
-	cos := math.Cos(p.Lat * math.Pi / 180)
-	var cum float64
-	for i := 0; i+1 < len(route); i++ {
-		a, b := route[i], route[i+1]
-		seg := haversine(a[1], a[0], b[1], b[0])
-		// local flat projection around p, km
-		ax, ay := (a[0]-p.Lon)*cos*111.2, (a[1]-p.Lat)*111.2
-		bx, by := (b[0]-p.Lon)*cos*111.2, (b[1]-p.Lat)*111.2
-		dx, dy := bx-ax, by-ay
-		t := 0.0
-		if l := dx*dx + dy*dy; l > 0 {
-			t = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
-		}
-		if d := math.Hypot(ax+t*dx, ay+t*dy); d < dist {
-			dist, pos = d, cum+t*seg
-		}
-		cum += seg
-	}
-	return pos, dist
 }
 
 func haversine(lat1, lon1, lat2, lon2 float64) float64 {
@@ -1028,8 +1024,9 @@ func suburbanShare(tb rates.Table, rk roads.Km, byRoute bool, road string) float
 const DefaultAvgSpeedKmh = 70
 
 // passage is when the trip reaches the point pos km along the route,
-// and whether a departure time was given.
-func passage(req Request, date time.Time, pos float64) (time.Time, bool) {
+// in the local time of the country there, and whether a departure time
+// was given. The departure is local time where the trip starts.
+func passage(req Request, date time.Time, pos float64, country string) (time.Time, bool) {
 	if req.Time == "" {
 		return time.Time{}, false
 	}
@@ -1039,12 +1036,17 @@ func passage(req Request, date time.Time, pos float64) (time.Time, bool) {
 	if v <= 0 {
 		v = DefaultAvgSpeedKmh
 	}
-	start := time.Date(date.Year(), date.Month(), date.Day(), h, m, 0, 0, time.UTC)
+	here := zone(country)
+	from := zone(req.origin)
+	if req.origin == "" {
+		from = here
+	}
+	start := time.Date(date.Year(), date.Month(), date.Day(), h, m, 0, 0, from)
 	hours := pos / v
 	if req.DriverRest {
 		hours = withRest(hours)
 	}
-	return start.Add(time.Duration(hours * float64(time.Hour))).Truncate(time.Minute), true
+	return start.Add(time.Duration(hours * float64(time.Hour))).In(here).Truncate(time.Minute), true
 }
 
 // withRest turns hours of driving into hours elapsed for one driver under
@@ -1079,9 +1081,10 @@ func tripDays(tb rates.Table, country string, req Request, date time.Time) (int,
 	if tb.Day == "calendar" {
 		seen := map[string]bool{}
 		for _, s := range sp {
-			a, _ := passage(req, date, s[0])
-			b, _ := passage(req, date, s[1])
-			for d := time.Date(a.Year(), a.Month(), a.Day(), 0, 0, 0, 0, time.UTC); !d.After(b); d = d.AddDate(0, 0, 1) {
+			a, _ := passage(req, date, s[0], country)
+			b, _ := passage(req, date, s[1], country)
+			last := time.Date(b.Year(), b.Month(), b.Day(), 0, 0, 0, 0, time.UTC)
+			for d := time.Date(a.Year(), a.Month(), a.Day(), 0, 0, 0, 0, time.UTC); !d.After(last); d = d.AddDate(0, 0, 1) {
 				if k := d.Format(time.DateOnly); !seen[k] {
 					seen[k] = true
 					n++
@@ -1091,8 +1094,8 @@ func tripDays(tb rates.Table, country string, req Request, date time.Time) (int,
 	} else {
 		var until time.Time
 		for _, s := range sp {
-			a, _ := passage(req, date, s[0])
-			b, _ := passage(req, date, s[1])
+			a, _ := passage(req, date, s[0], country)
+			b, _ := passage(req, date, s[1], country)
 			if n == 0 || !a.Before(until) {
 				n, until = n+1, a.Add(24*time.Hour)
 			}
@@ -1132,8 +1135,8 @@ type systemUse struct {
 
 // usesSystem finds where a route enters and leaves a closed toll system:
 // the first and last of its stations the route passes.
-func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
-	if len(route) < 2 {
+func usesSystem(sys rates.TollSystem, route *track) (systemUse, bool) {
+	if len(route.pts) < 2 {
 		return systemUse{}, false
 	}
 	first, last := math.Inf(1), math.Inf(-1)
@@ -1141,7 +1144,7 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 	for _, st := range sys.Stations {
 		best, bestPos := math.Inf(1), 0.0
 		for _, p := range st.Points {
-			if pos, d := project(route, p); d < best {
+			if pos, d, _ := route.project(p); d < best {
 				best, bestPos = d, pos
 			}
 		}
@@ -1172,7 +1175,7 @@ func usesSystem(sys rates.TollSystem, route [][2]float64) (systemUse, bool) {
 // end (km), by system name.
 type spans map[string][][2]float64
 
-func priceClosed(tb rates.Table, country, region string, route [][2]float64, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
+func priceClosed(tb rates.Table, country, region string, route *track, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
 	used := false
 	for _, sys := range tb.Closed {
 		var uses []systemUse
@@ -1183,7 +1186,7 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 		}
 		for _, u := range uses {
 			used = true
-			if at, ok := passage(req, date, u.from); ok && len(sys.FreeHours) == 2 {
+			if at, ok := passage(req, date, u.from, country); ok && len(sys.FreeHours) == 2 {
 				if free, err := rates.Within(at.Format("15:04"), sys.FreeHours[0], sys.FreeHours[1]); err == nil && free {
 					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is free from %s to %s (entered about %s).", country, sys.Name, sys.FreeHours[0], sys.FreeHours[1], at.Format("15:04")))
 					continue
@@ -1236,7 +1239,7 @@ func priceClosed(tb rates.Table, country, region string, route [][2]float64, req
 // sameKm: stations this close along the route are at the same place.
 const sameKm = 0.3
 
-func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool) []systemUse {
+func chainUses(sys rates.TollSystem, route *track, t rates.Truck, etc bool) []systemUse {
 	type pass struct {
 		name     string
 		pos, off float64 // km along the route, and from it
@@ -1245,7 +1248,7 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 	for _, st := range sys.Stations {
 		best, bestPos := math.Inf(1), 0.0
 		for _, p := range st.Points {
-			if pos, d := project(route, p); d < best {
+			if pos, d, _ := route.project(p); d < best {
 				best, bestPos = d, pos
 			}
 		}
@@ -1360,31 +1363,6 @@ func chainUses(sys rates.TollSystem, route [][2]float64, t rates.Truck, etc bool
 	return out
 }
 
-// projectHeading is project, with the route's direction of travel there
-// in degrees clockwise from north.
-func projectHeading(route [][2]float64, p rates.Place) (pos, dist, heading float64) {
-	dist = math.Inf(1)
-	cos := math.Cos(p.Lat * math.Pi / 180)
-	var cum float64
-	for i := 0; i+1 < len(route); i++ {
-		a, b := route[i], route[i+1]
-		seg := haversine(a[1], a[0], b[1], b[0])
-		ax, ay := (a[0]-p.Lon)*cos*111.2, (a[1]-p.Lat)*111.2
-		bx, by := (b[0]-p.Lon)*cos*111.2, (b[1]-p.Lat)*111.2
-		dx, dy := bx-ax, by-ay
-		t := 0.0
-		if l := dx*dx + dy*dy; l > 0 {
-			t = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
-		}
-		if d := math.Hypot(ax+t*dx, ay+t*dy); d < dist && seg > 0 {
-			dist, pos = d, cum+t*seg
-			heading = math.Mod(math.Atan2(dx, dy)*180/math.Pi+360, 360)
-		}
-		cum += seg
-	}
-	return pos, dist, heading
-}
-
 // DefaultPointMatchKm is how close the route must pass a toll point
 // when its table doesn't say.
 const DefaultPointMatchKm = 0.05
@@ -1393,7 +1371,7 @@ const DefaultPointMatchKm = 0.05
 // direction that pays, and says whether it passed any. Under an hour
 // rule only the first passage of a group pays: the route is taken to
 // pass a group's stations within its time limit.
-func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
+func priceTollPoints(tb rates.Table, country string, route *track, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
 	match := tb.PointMatchKm
 	if match == 0 {
 		match = DefaultPointMatchKm
@@ -1404,7 +1382,10 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 	}
 	var passes []pass
 	for _, tp := range tb.TollPoints {
-		pos, d, h := projectHeading(route, rates.Place{Lat: tp.Lat, Lon: tp.Lon})
+		if !tp.InForce(date) {
+			continue
+		}
+		pos, d, h := route.project(rates.Place{Lat: tp.Lat, Lon: tp.Lon})
 		if d > match {
 			continue
 		}
@@ -1417,7 +1398,8 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		passes = append(passes, pass{tp, pos})
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	paid := map[int]bool{}
+	paid := map[int]time.Time{} // when each hour-rule group was last paid
+	untimedFree := false
 	last := map[string]float64{} // where each station was last paid, km along the route
 	free, peak := 0, 0
 	var cg struct {
@@ -1439,7 +1421,7 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is included in the %s ticket.", country, p.tp.Name, p.tp.Within))
 			continue
 		}
-		at, timed := passage(req, date, p.pos)
+		at, timed := passage(req, date, p.pos, country)
 		if p.tp.Schedule != "" {
 			c := tb.Congestion
 			last[p.tp.Name] = p.pos
@@ -1498,12 +1480,20 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		if !ok || rate == 0 {
 			continue
 		}
-		if p.tp.Group != 0 && paid[p.tp.Group] {
-			free++
-			continue
-		}
 		if p.tp.Group != 0 {
-			paid[p.tp.Group] = true
+			// The hour rule: after a paid passage the group's stations are
+			// free for GroupMinutes; without times the trip is taken to pass
+			// them all within it.
+			mins := p.tp.GroupMinutes
+			if mins == 0 {
+				mins = 60
+			}
+			if t0, ok := paid[p.tp.Group]; ok && (!timed || at.Sub(t0) < time.Duration(mins)*time.Minute) {
+				free++
+				untimedFree = untimedFree || !timed
+				continue
+			}
+			paid[p.tp.Group] = at
 		}
 		last[p.tp.Name] = p.pos
 		if p.tp.PeakRate > rate {
@@ -1519,7 +1509,11 @@ func priceTollPoints(tb rates.Table, country string, route [][2]float64, req Req
 		}
 	}
 	if free > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule (the route is taken to pass them within the hour).", country, free))
+		how := " (by the passage times)"
+		if untimedFree {
+			how = " (without a departure time the route is taken to pass them within the hour)"
+		}
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule%s.", country, free, how))
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))

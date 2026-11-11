@@ -476,82 +476,148 @@
    "what": "Административен регистър (iisda.government.bg): consolidated text of the Тарифа (ПМС 370/2019) with its amendment history, as an RTF"
   },
   {
-   "id": "si-ul-2018-0654",
+   "id": "si-cenik-npb3",
    "table": "si-2024-01-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2018-01-0654/cenik-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 14/2018: Cenik cestnine za uporabo cestninskih cest (DARS), in force 1 April 2018"
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/21918255/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18, 74/18, 85/20 in 105/20), NPB 3, text (JSON)"
   },
   {
-   "id": "si-ul-2020-1987",
+   "id": "si-cenik-npb3-priloga",
    "table": "si-2024-01-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2020-01-1987/spremembe-in-dopolnitve-cenika-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 105/2020: Spremembe in dopolnitve Cenika cestnine, with its annex (Priloga) of section prices R2/R3/R4, in force 1 September 2020"
+   "url": "https://pisrs.si/api/datoteke/integracije/349732048",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18, 74/18, 85/20 in 105/20), NPB 3, annex (Priloga) of section prices, PDF"
   },
   {
-   "id": "si-ul-2020-1986",
-   "table": "si-2024-01-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2020-01-1986",
-   "what": "Uradni list RS 105/2020: Sklep o spremembah Sklepa o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest"
-  },
-  {
-   "id": "si-ul-2024-2006",
+   "id": "si-cenik-npb4",
    "table": "si-2024-07-15",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2024-01-2006/spremembe-cenika-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 57/2024: Spremembe Cenika cestnine, with a new annex of section prices"
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/114449399/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18 ... 57/24), NPB 4, text (JSON)"
   },
   {
-   "id": "si-ul-kazalo-2024057",
+   "id": "si-cenik-npb4-priloga",
    "table": "si-2024-07-15",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2024057",
-   "what": "Uradni list RS 57/2024: table of contents (other toll acts in the issue)"
+   "url": "https://pisrs.si/api/datoteke/integracije/359046490",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18 ... 57/24), NPB 4, annex (Priloga) of section prices, PDF"
   },
   {
-   "id": "si-ul-kazalo-2024109",
-   "table": "si-2024-07-15",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2024109",
-   "what": "Uradni list RS 109/2024: table of contents (Uredba o cestnini za uporabo cestnega predora Karavanke)"
-  },
-  {
-   "id": "si-ul-2025-1917",
+   "id": "si-cenik-47-25",
    "table": "si-2025-07-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-1917/cenik-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 47/2025: Cenik cestnine za uporabo cestninskih cest, with its annex, in force 1 July 2025"
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/299801447/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 47/25), text (JSON)"
   },
   {
-   "id": "si-ul-kazalo-2025047",
+   "id": "si-cenik-47-25-priloga",
    "table": "si-2025-07-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2025047",
-   "what": "Uradni list RS 47/2025: table of contents"
+   "url": "https://pisrs.si/api/datoteke/integracije/358799018",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 47/25), annex (Priloga) of section prices, PDF"
   },
   {
-   "id": "si-ul-2025-2726",
+   "id": "si-cenik-76-25",
    "table": "si-2025-11-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2726/cenik-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 76/2025: Cenik cestnine za uporabo cestninskih cest, with its annex (EURO and CO2 classes), in force 1 November 2025"
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/364858397/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25), text (JSON)"
   },
   {
-   "id": "si-ul-2025-2720",
+   "id": "si-cenik-76-25-priloga",
    "table": "si-2025-11-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-2720",
-   "what": "Uradni list RS 76/2025: Sklep o spremembah Sklepa o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest"
+   "url": "https://pisrs.si/api/datoteke/integracije/365428696",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25), annex (Priloga) of section prices, PDF"
   },
   {
-   "id": "si-ul-kazalo-2025076",
-   "table": "si-2025-11-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/celotno-kazalo/2025076",
-   "what": "Uradni list RS 76/2025: table of contents"
-  },
-  {
-   "id": "si-ul-2025-3504",
+   "id": "si-cenik-76-25-npb1",
    "table": "si-2026-01-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-3504/spremembe-cenika-cestnine-za-uporabo-cestninskih-cest",
-   "what": "Uradni list RS 102/2025: Spremembe Cenika cestnine, with a new annex, in force 1 January 2026"
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/414059459/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25 in 102/25), NPB 1, text (JSON)"
   },
   {
-   "id": "si-ul-2025-3497",
+   "id": "si-cenik-76-25-npb1-priloga",
    "table": "si-2026-01-01",
-   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2025-01-3497/uredba-o-spremembah-in-dopolnitvah-uredbe-o-cestninskih-cestah-in-cestnini",
-   "what": "Uradni list RS 102/2025: Uredba o spremembah in dopolnitvah Uredbe o cestninskih cestah in cestnini (sections removed from 1 January 2026)"
+   "url": "https://pisrs.si/api/datoteke/integracije/537170320",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25 in 102/25), NPB 1, annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-pribitek-npb6",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/16600869/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 6 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb7",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/175774901/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 7 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb8",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/297007789/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 8 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb9",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/363904440/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 9 (JSON)"
+  },
+  {
+   "id": "si-karavanke-14-18-npb6",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/8731697/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 14/18 ...), NPB 6 (JSON)"
+  },
+  {
+   "id": "si-karavanke-14-18-npb7",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/107377149/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 14/18 ...), NPB 7 (JSON)"
+  },
+  {
+   "id": "si-karavanke-109-24-npb0",
+   "table": "si-2025-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/190067456/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24 ...), Osnovni (JSON)"
+  },
+  {
+   "id": "si-karavanke-109-24-npb1",
+   "table": "si-2025-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/363857534/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24 ...), NPB 1 (JSON)"
+  },
+  {
+   "id": "si-zbirka-tari209",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/TARI209",
+   "what": "PISRS: Cenik cestnine (14/18): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-anjp178",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP178",
+   "what": "PISRS: Cenik cestnine (47/25): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-akt-1550",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/AKT_1550",
+   "what": "PISRS: Cenik cestnine (76/25): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle11574",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE11574",
+   "what": "PISRS: Sklep o uvedbi pribitka: its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured7728",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED7728",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (14/18): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured9295",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED9295",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (109/24): its versions (JSON)"
   }
  ]
 }

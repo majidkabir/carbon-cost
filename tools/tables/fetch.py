@@ -14,6 +14,10 @@ that its script fills from /ajax/njtGetBlock.json, given the document id
 and the placeholder's range. Those parts are fetched too, as
 <id>-block-<n>.html.
 
+PISRS (pisrs.si) answers from its API: /api/rezultat/... as JSON (saved
+as <id>.json), /api/datoteke/integracije/<n> with the file (a PDF is saved
+as <id>.pdf).
+
 Uradni list (uradni-list.si) pages link their annexes as PDFs under
 /files/; those are fetched too, as <id>-att-<n>.pdf.
 
@@ -153,8 +157,10 @@ def main(src, out):
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"]:
+            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"]:
                 ext = ".json"
+            if "pisrs.si/api/datoteke/" in s["url"] and body[:4] == b"%PDF":
+                ext = ".pdf"
             save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:
                 riigiteataja(out, manifest, s["id"], body)

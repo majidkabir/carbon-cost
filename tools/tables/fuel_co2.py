@@ -61,6 +61,11 @@ def germany(fetched, out, srcs):
 
 def austria(fetched, out, srcs):
     t = text(os.path.join(fetched, "at-nehg.html"))
+    if "Ausgabewert" not in t:
+        # RIS refuses the workflow (503) and the Internet Archive has no
+        # copy yet: Austria isn't priced until the page can be read.
+        print("NEHG 2022: the RIS page wasn't fetched; Austria not built")
+        return
     m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)
     if not m:
         sys.exit("NEHG 2022 § 10 (1) not found")

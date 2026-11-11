@@ -1,0 +1,88 @@
+{
+ "about": "Past tables rebuilt by tools/history/build_archived.py: for each, the tools/tables builder, the year, and which history sources (Internet Archive copies) make each of its input files, joined in order. Every copy must be captured in the build's year.",
+ "builds": [
+  {
+   "builder": "pt",
+   "year": "2024",
+   "files": {
+    "pt-imt-taxas.html": [
+     "pt-imt-2024",
+     "pt-imt-2024-a1",
+     "pt-imt-2024-a2",
+     "pt-imt-2024-a3",
+     "pt-imt-2024-a4",
+     "pt-imt-2024-a5",
+     "pt-imt-2024-a6",
+     "pt-imt-2024-a8",
+     "pt-imt-2024-a9",
+     "pt-imt-2024-a10",
+     "pt-imt-2024-a12",
+     "pt-imt-2024-a13",
+     "pt-imt-2024-a14",
+     "pt-imt-2024-a15",
+     "pt-imt-2024-a17-ic1",
+     "pt-imt-2024-lusoponte-ponte25deabrilepontevascodagama",
+     "pt-imt-2024-a21",
+     "pt-imt-2024-a23",
+     "pt-imt-2024-a41-ic24",
+     "pt-imt-2024-a43-ic29",
+     "pt-imt-2024-tuneldomarao"
+    ]
+   },
+   "note": "IMT's 2024 pages, one per motorway; the A32 page has no 2024 copy and the former SCUT roads (electronic tolls, abolished on 1 January 2025) have no page, so neither is priced."
+  },
+  {
+   "builder": "pt",
+   "year": "2025",
+   "files": {
+    "pt-imt-taxas.html": [
+     "pt-imt-2025"
+    ]
+   }
+  },
+  {
+   "builder": "dk_bridges",
+   "year": "2024",
+   "files": {
+    "dk-storebaelt.html": [
+     "dk-storebaelt-2024"
+    ],
+    "dk-oresund.html": [
+     "dk-oresund-2024"
+    ]
+   },
+   "note": "Øresundsbron's page gives no year: the copies of February and November 2024 show the same prices."
+  },
+  {
+   "builder": "dk_bridges",
+   "year": "2025",
+   "files": {
+    "dk-storebaelt.html": [
+     "dk-storebaelt-2025"
+    ],
+    "dk-oresund.html": [
+     "dk-oresund-2025"
+    ]
+   },
+   "note": "Øresundsbron's page gives no year: the copies of March and September 2025 show the same prices."
+  },
+  {
+   "builder": "frejus",
+   "year": "2024",
+   "files": {
+    "fr-frejus-tunnel.pdf": [
+     "fr-frejus-2024"
+    ]
+   }
+  },
+  {
+   "builder": "frejus",
+   "year": "2025",
+   "files": {
+    "fr-frejus-tunnel.pdf": [
+     "fr-frejus-2025"
+    ]
+   }
+  }
+ ]
+}

@@ -146,12 +146,16 @@ type Table struct {
 // PointClass is a toll point's price for the trucks it matches; ETCRate,
 // if set, for trucks paying by tag (Request.ETC).
 type PointClass struct {
-	MinKg    int     `json:"min_kg,omitempty"`
-	MaxKg    int     `json:"max_kg,omitempty"`
-	MinAxles int     `json:"min_axles,omitempty"`
-	MaxAxles int     `json:"max_axles,omitempty"`
-	Rate     float64 `json:"rate"`
-	ETCRate  float64 `json:"etc_rate,omitempty"`
+	MinKg    int `json:"min_kg,omitempty"`
+	MaxKg    int `json:"max_kg,omitempty"`
+	MinAxles int `json:"min_axles,omitempty"`
+	MaxAxles int `json:"max_axles,omitempty"`
+	// MinLengthM (more than) and MaxLengthM (up to) bound the truck's
+	// length with trailer (Truck.Length), where the price goes by length.
+	MinLengthM float64 `json:"min_length_m,omitempty"`
+	MaxLengthM float64 `json:"max_length_m,omitempty"`
+	Rate       float64 `json:"rate"`
+	ETCRate    float64 `json:"etc_rate,omitempty"`
 }
 
 // Price is the toll point's price for the truck, and whether it charges
@@ -161,7 +165,9 @@ func (p TollPoint) Price(t Truck, etc bool) (float64, bool) {
 		return p.Rate, true
 	}
 	for _, c := range p.Classes {
-		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
 			if etc && c.ETCRate > 0 {
 				return c.ETCRate, true
 			}

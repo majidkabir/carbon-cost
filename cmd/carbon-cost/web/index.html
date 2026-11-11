@@ -84,6 +84,7 @@
       <option value="4">4</option><option value="5">5 (zero-emission)</option></select></label>
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
+    <label>Fuel bought in (country code; blank: along the route)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
     <label class="check"><input name="driver_rest" type="checkbox" checked> Driver breaks and rests in passage times (Reg. 561/2006)</label>
     <label class="check"><input name="etc" type="checkbox"> Pays by toll box or agreement (operators' discounts)</label>
     <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
@@ -208,7 +209,7 @@ f.addEventListener("submit", async (e) => {
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined },
     etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
-    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
   $("go").disabled = true; $("error").hidden = true;

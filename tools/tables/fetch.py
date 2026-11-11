@@ -161,7 +161,7 @@ def main(src, out):
                 ext = ".json"
             if ("pisrs.si/api/datoteke/" in s["url"] or "portal.etoll.ro/documents/" in s["url"]) and body[:4] == b"%PDF":
                 ext = ".pdf"
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
+            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:
                 riigiteataja(out, manifest, s["id"], body)
             if "nvdbapiles" in s["url"] and status == 200:

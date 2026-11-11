@@ -1,0 +1,96 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2024-01-01",
+ "crossings": true,
+ "osm_extract": "2026-11-11",
+ "name": "Dartford Crossing charge (Dart Charge)",
+ "law": "The A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013 (S.I. 2013/2249), Schedule 2 column 4 (free-flow charging): class C (goods vehicles with two axles) and D (more than two axles), per crossing either way, from 6am to 10pm (GOV.UK).",
+ "sources": [
+  {
+   "title": "S.I. 2013/2249, the A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013",
+   "url": "https://www.legislation.gov.uk/uksi/2013/2249/made"
+  },
+  {
+   "title": "GOV.UK: Dartford Crossing charges",
+   "url": "https://www.gov.uk/pay-dartford-crossing-charge/charges"
+  }
+ ],
+ "vehicles": "Goods vehicles, by axles (here: over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "The Dartford-Thurrock Crossing (A282): the northbound tunnels and the southbound Queen Elizabeth II Bridge.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Dartford Crossing",
+   "lat": 51.464529,
+   "lon": 0.257598,
+   "heading": 29.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 6.0
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "Dartford Crossing",
+   "lat": 51.464813,
+   "lon": 0.258914,
+   "heading": 209.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 6.0
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "Dartford Crossing",
+   "lat": 51.464641,
+   "lon": 0.257355,
+   "heading": 29.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 6.0
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  }
+ ],
+ "rows": [],
+ "valid_to": "2025-08-31"
+}

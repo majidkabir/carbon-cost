@@ -1,0 +1,276 @@
+"""Builds the tables of tunnels and bridges charged per passage on top of
+the countries' own tolls (each a "crossings" table, priced wherever a
+route passes it): the Herrentunnel (DE), the Westerscheldetunnel (NL),
+the Great St Bernard tunnel (CH and IT) and the Dartford Crossing (GB).
+
+Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
+
+The Herrentunnel's prices are published only as an image, transcribed
+by hand into transcribed/de-herrentunnel-2025.json (check_transcribed.py
+says when the image changes).
+
+Prices come from each operator's or government's page (fetch.py's
+nl-westerscheldetunnel.html, ch-gsb.html, gb-dartford.html) and, for
+Dartford, the charging scheme orders on legislation.gov.uk
+(gb-dartford-2013.html, gb-dartford-2025.html). Where each charge is
+taken comes from OpenStreetMap (tunnels-osm.json, an Overpass query):
+
+- Westerscheldetunnel: the toll plaza's booths (operator N.V.
+  Westerscheldetunnel), either direction.
+- Great St Bernard: the Swiss plaza (the booth at the tunnel's north
+  end, Bourg-Saint-Pierre) charges southbound in CHF, the Italian plaza
+  (the booth named Traforo del Gran San Bernardo, Saint-Rhémy) northbound
+  in EUR; each heading is along the tunnel's OSM way.
+- Herrentunnel: the plaza's booths named Herrentunnel (operator
+  Herrentunnel Lübeck GmbH & Co. KG), either direction.
+- Dartford: free-flow, no booths: the middle of the northbound tunnels
+  (A282, tunnel=yes) and of the southbound bridge (A282, bridge=yes),
+  each in its direction.
+"""
+import html, json, math, os, re, sys
+
+
+def text(path):
+    t = open(path, encoding="utf-8", errors="replace").read()
+    t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t)))
+
+
+def num(s):
+    return float(s.replace(".", "").replace(",", ".")) if "," in s else float(s)
+
+
+def bearing(a, b):
+    y = math.sin(math.radians(b[1] - a[1])) * math.cos(math.radians(b[0]))
+    x = math.cos(math.radians(a[0])) * math.sin(math.radians(b[0])) - math.sin(math.radians(a[0])) * math.cos(math.radians(b[0])) * math.cos(math.radians(b[1] - a[1]))
+    return round(math.degrees(math.atan2(y, x)) % 360, 1)
+
+
+def km(a, b):
+    return math.hypot((a[1] - b[1]) * 111.2 * math.cos(math.radians(a[0])), (a[0] - b[0]) * 111.2)
+
+
+def middle(way):
+    """The point halfway along a way, and the heading of its geometry there."""
+    g = [(p["lat"], p["lon"]) for p in way["geometry"]]
+    total = sum(km(g[i], g[i + 1]) for i in range(len(g) - 1))
+    run = 0
+    for i in range(len(g) - 1):
+        d = km(g[i], g[i + 1])
+        if run + d >= total / 2:
+            f = (total / 2 - run) / d if d else 0
+            p = (g[i][0] + f * (g[i + 1][0] - g[i][0]), g[i][1] + f * (g[i + 1][1] - g[i][1]))
+            return round(p[0], 6), round(p[1], 6), bearing(g[i], g[i + 1])
+        run += d
+    raise ValueError("empty way")
+
+
+def centre(nodes):
+    lat = sum(n["lat"] for n in nodes) / len(nodes)
+    lon = sum(n["lon"] for n in nodes) / len(nodes)
+    if max(km((lat, lon), (n["lat"], n["lon"])) for n in nodes) > 0.3:
+        sys.exit(f"booths more than 300 m apart: {[n['id'] for n in nodes]}")
+    return round(lat, 6), round(lon, 6)
+
+
+def write(out, t, name):
+    os.makedirs(out, exist_ok=True)
+    path = os.path.join(out, f"{name}-{t['valid_from']}.json")
+    json.dump(t, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path)
+
+
+def westerschelde(fetched, out, osm, stamp):
+    p = os.path.join(fetched, "nl-westerscheldetunnel.html")
+    if not os.path.exists(p):
+        print("Westerscheldetunnel: page not fetched; not built")
+        return
+    t = text(p)
+    cats = {}
+    for c in (3, 4):
+        m = re.search(rf"cat\. {c} (.*?) € ([\d,]+) Standaard € ([\d,]+) T-Tag", t)
+        if not m:
+            sys.exit(f"Westerscheldetunnel: category {c} not found")
+        cats[c] = (m.group(1).strip(), num(m.group(2)), num(m.group(3)))
+    assert "Lengte < 12 meter en hoogte > 3 meter" in cats[3][0] and "Lengte > 12 meter en hoogte > 3 meter" in cats[4][0], cats
+    booths = [e for e in osm if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth"
+              and e["tags"].get("operator") == "N.V. Westerscheldetunnel"]
+    if not booths:
+        sys.exit("Westerscheldetunnel: no toll booths in OpenStreetMap")
+    lat, lon = centre(booths)
+    write(out, {
+        "country": "NL", "currency": "EUR", "valid_from": "2026-01-01", "crossings": True, "osm_extract": stamp,
+        "name": "Westerscheldetunnel toll",
+        "law": "Tunnelwet Westerschelde: N.V. Westerscheldetunnel's tariffs per passage, by the whole vehicle's length and height: category 3 (under 12 m, over 3 m high) and 4 (over 12 m), the standard price, with `etc` the T-Tag price. Trucks over 3.5 t are taken to be over 3 m high. Cars and vans pay nothing since 30 December 2024; trucks still pay. The page names no date: the prices are those it published when fetched.",
+        "sources": [{"title": "N.V. Westerscheldetunnel: tarieven", "url": "https://www.westerscheldetunnel.nl/nl/tarieven-betaalmiddelen/tarieven/"}],
+        "vehicles": "Vehicles over 3 m high (here: trucks over 3.5 t), by length", "min_kg": 3501,
+        "tolled_roads": "The Westerscheldetunnel (N62 Terneuzen-Ellewoutsdijk), charged at its toll plaza either way.",
+        "point_match_km": 0.15,
+        "toll_points": [{"name": "Westerscheldetunnel", "lat": lat, "lon": lon, "rate": 0, "classes": [
+            {"min_kg": 3501, "max_length_m": 12, "rate": cats[3][1], "etc_rate": cats[3][2]},
+            {"min_kg": 3501, "min_length_m": 12, "rate": cats[4][1], "etc_rate": cats[4][2]}]}],
+        "rows": [],
+    }, "nl-westerscheldetunnel")
+
+
+def gsb(fetched, out, osm, stamp):
+    p = os.path.join(fetched, "ch-gsb.html")
+    if not os.path.exists(p):
+        print("Great St Bernard: page not fetched; not built")
+        return
+    t = text(p)
+    m = re.search(r"Tariffe DAL (\d\d)\.(\d\d)\.(\d{4})", t)
+    since = f"{m.group(3)}-{m.group(2)}-{m.group(1)}"
+    prices = {}
+    for key, label in (("2", r"Classe B2/B3 Camion a due assi"), ("3", r"Classe 3A/3B Camion a tre assi"), ("4", r"Classe 4 Veicoli a quattro o più assi")):
+        m = re.search(label + r".*?SOLO ANDATA ([\d.,]+) EUR ([\d.,]+) CHF", t)
+        if not m:
+            sys.exit(f"Great St Bernard: class {key} not found")
+        prices[key] = (num(m.group(1)), num(m.group(2)))
+    ways = {e["tags"]["name"]: e for e in osm if e["type"] == "way" and e.get("tags", {}).get("name") in ("Tunnel du Grand-Saint-Bernard", "Traforo del Gran San Bernardo")}
+    if len(ways) != 2:
+        sys.exit(f"Great St Bernard: tunnel ways {list(ways)}")
+    # The Swiss way runs from the border north to the Swiss portal; the
+    # Italian way from the Italian portal north to the border.
+    ch, it = ways["Tunnel du Grand-Saint-Bernard"]["geometry"], ways["Traforo del Gran San Bernardo"]["geometry"]
+    north, south = (ch[-1]["lat"], ch[-1]["lon"]), (it[0]["lat"], it[0]["lon"])
+    if north[0] < south[0]:
+        sys.exit("Great St Bernard: unexpected way directions")
+    southbound, northbound = bearing(north, south), bearing(south, north)
+    booths = [e for e in osm if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and 45.80 < e["lat"] < 45.92 and 7.10 < e["lon"] < 7.25]
+    chb = [b for b in booths if km((b["lat"], b["lon"]), north) < 0.5]
+    itb = [b for b in booths if km((b["lat"], b["lon"]), south) < 0.5]
+    if not chb or not itb:
+        sys.exit(f"Great St Bernard: plazas not found ({len(chb)} Swiss, {len(itb)} Italian booths)")
+    law = (f"Tunnel du Grand-Saint-Bernard (SISEX SA, Swiss side; SITRASB S.p.A., Italian side): one-way tariff from {since}, "
+           "paid at the plaza where the trip enters, in CHF on the Swiss side and EUR on the Italian side: trucks over 3 m high with 2 axles (class B2), "
+           "3 axles (3A) or 4 or more (4). Trucks over 3.5 t are taken to be over 3 m high.")
+    src = [{"title": "Tunnel du Grand-Saint-Bernard: tariffs", "url": "https://www.letunnel.com/"}]
+    for cc, cur, i, (lat, lon), head, plaza in (("CH", "CHF", 1, centre(chb), southbound, "Bourg-Saint-Pierre (southbound)"),
+                                                ("IT", "EUR", 0, centre(itb), northbound, "Saint-Rhémy (northbound)")):
+        write(out, {
+            "country": cc, "currency": cur, "valid_from": since, "crossings": True, "osm_extract": stamp,
+            "name": "Great St Bernard tunnel toll, " + plaza,
+            "law": law, "sources": src,
+            "vehicles": "Trucks over 3 m high (here: over 3.5 t), by axles", "min_kg": 3501,
+            "tolled_roads": f"The Great St Bernard tunnel, charged at the {plaza} plaza.",
+            "point_match_km": 0.2,
+            "toll_points": [{"name": "Great St Bernard tunnel", "lat": lat, "lon": lon, "heading": head, "rate": 0, "classes": [
+                {"min_kg": 3501, "max_axles": 2, "rate": prices["2"][i]},
+                {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": prices["3"][i]},
+                {"min_kg": 3501, "min_axles": 4, "rate": prices["4"][i]}]}],
+            "rows": [],
+        }, f"{cc.lower()}-great-st-bernard")
+
+
+def herrentunnel(transcribed, out, osm, stamp):
+    tr = json.load(open(os.path.join(transcribed, "de-herrentunnel-2025.json"), encoding="utf-8"))
+    booths = [e for e in osm if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth"
+              and e["tags"].get("operator") == "Herrentunnel Lübeck GmbH & Co. KG" and e["tags"].get("name", "").startswith("Herrentunnel")]
+    if not booths:
+        sys.exit("Herrentunnel: no toll booths in OpenStreetMap")
+    lat, lon = centre(booths)
+    c = {x["class"]: x for x in tr["classes"]}
+    write(out, {
+        "country": "DE", "currency": "EUR", "valid_from": tr["valid_from"], "crossings": True, "osm_extract": stamp,
+        "name": "Herrentunnel toll (Lübeck)",
+        "law": "Fernstraßenbauprivatfinanzierungsgesetz: the toll of the Herrentunnel Lübeck GmbH & Co. KG, as its Gebührentabelle (valid from 1 March 2025) gives it per passage, by height over the front axle (over 130 cm) and axles: class B (2 axles), C (3), D (4 or more); the cash price, with `etc` the Quick-Box/RFID price. Trucks over 3.5 t are taken to be over 130 cm.",
+        "sources": [{"title": "Herrentunnel: Gebührentabelle (gültig ab 01.03.2025)", "url": tr["source"]["page"]},
+                    {"title": "Herrentunnel: the toll table image, as transcribed in tools/tables/transcribed/de-herrentunnel-2025.json", "url": tr["source"]["url"]}],
+        "vehicles": "Vehicles over 130 cm high at the front axle (here: trucks over 3.5 t), by axles", "min_kg": 3501,
+        "tolled_roads": "The Herrentunnel (B 104/B 75 Lübeck-Travemünde), charged at its toll plaza either way.",
+        "point_match_km": 0.15,
+        "toll_points": [{"name": "Herrentunnel", "lat": lat, "lon": lon, "rate": 0, "classes": [
+            {"min_kg": 3501, "max_axles": 2, "rate": c["B"]["cash"], "etc_rate": c["B"]["tag"]},
+            {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": c["C"]["cash"], "etc_rate": c["C"]["tag"]},
+            {"min_kg": 3501, "min_axles": 4, "rate": c["D"]["cash"], "etc_rate": c["D"]["tag"]}]}],
+        "rows": [],
+    }, "de-herrentunnel")
+
+
+def dartford(fetched, out, osm, stamp):
+    paths = [os.path.join(fetched, f) for f in ("gb-dartford.html", "gb-dartford-2013.html", "gb-dartford-2025.html")]
+    if not all(os.path.exists(p) for p in paths):
+        print("Dartford: a page wasn't fetched; not built")
+        return
+    gov, o13, o25 = (text(p) for p in paths)
+    # The 2013 Order, Schedule 2: column 3 (first, barrier regime) and
+    # column 4 (second, free-flow regime, in force since 30 November 2014).
+    old = {}
+    for item in ("C", "D"):
+        m = re.search(rf" {item} Classes— .*? £([\d.]+) £([\d.]+) (?:[A-E] Classes|Article|Column|$)", o13)
+        if not m:
+            sys.exit(f"Dartford 2013 Order: item {item} not found")
+        old[item] = float(m.group(2))
+    new = {}
+    for item in ("C", "D"):
+        m = re.search(rf"at item {item}, for “£([\d.]+)” substitute “£([\d.]+)”", o25)
+        if not m or float(m.group(1)) != old[item]:
+            sys.exit(f"Dartford 2025 Order: item {item} not found or not varying {old[item]}")
+        new[item] = float(m.group(2))
+    since = re.search(r"comes into force on (\d+)(?:st|nd|rd|th) (\w+) (\d{4})", o25)
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    since = f"{since.group(3)}-{months.index(since.group(2)) + 1:02d}-{int(since.group(1)):02d}"
+    # GOV.UK: one-off, pay as you go and pre-pay (account) prices, and the
+    # hours the charge applies.
+    pre = {}
+    for item, label in (("C", "Vehicles with 2 axles"), ("D", "Vehicles with more than 2 axles")):
+        m = re.search(re.escape(label) + rf" {item} £([\d.]+) £([\d.]+) £([\d.]+)", gov)
+        if not m or float(m.group(1)) != new[item]:
+            sys.exit(f"Dartford GOV.UK: class {item} not found or not the Order's {new[item]}")
+        pre[item] = float(m.group(3))
+    if "between 6am and 10pm" not in gov:
+        sys.exit("Dartford GOV.UK: charging hours changed")
+    pts = []
+    for e in osm:
+        t = e.get("tags", {})
+        if e["type"] == "way" and t.get("ref") == "A282" and (t.get("tunnel") == "yes" or t.get("bridge") == "yes") and t.get("oneway") == "yes" and len(e["geometry"]) > 1:
+            g = e["geometry"]
+            if km((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"])) > 1:  # the crossing, not a short bridge
+                pts.append((t.get("tunnel") == "yes", middle(e)))
+    if sorted(p[0] for p in pts) != [False, True, True]:
+        sys.exit(f"Dartford: expected one bridge and two tunnels in OpenStreetMap, got {pts}")
+    law = ("The A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013 (S.I. 2013/2249), Schedule 2 column 4 (free-flow charging): "
+           "class C (goods vehicles with two axles) and D (more than two axles), per crossing either way, from 6am to 10pm (GOV.UK)")
+    src13 = {"title": "S.I. 2013/2249, the A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013", "url": "https://www.legislation.gov.uk/uksi/2013/2249/made"}
+    src25 = {"title": "S.I. 2025/853, the Variation Order 2025", "url": "https://www.legislation.gov.uk/uksi/2025/853/made"}
+    gsrc = {"title": "GOV.UK: Dartford Crossing charges", "url": "https://www.gov.uk/pay-dartford-crossing-charge/charges"}
+    for vf, vt, price, etc, extra, srcs in (("2024-01-01", prev_day(since), old, {}, ".", [src13, gsrc]),
+                                             (since, "", new, pre, f", as varied from {since} by S.I. 2025/853; with `etc` the pre-pay account price GOV.UK gives.", [src13, src25, gsrc])):
+        tps = []
+        for tunnel, (lat, lon, head) in pts:
+            cl = []
+            for item, ax in (("C", {"max_axles": 2}), ("D", {"min_axles": 3})):
+                c = {"min_kg": 3501, **ax, "rate": price[item]}
+                if etc:
+                    c["etc_rate"] = etc[item]
+                cl.append(c)
+            tps.append({"name": "Dartford Crossing", "lat": lat, "lon": lon, "heading": head, "rate": 0, "classes": cl, "free_hours": ["22:00", "05:59"]})
+        t = {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+             "name": "Dartford Crossing charge (Dart Charge)", "law": law + extra, "sources": srcs,
+             "vehicles": "Goods vehicles, by axles (here: over 3.5 t)", "min_kg": 3501,
+             "tolled_roads": "The Dartford-Thurrock Crossing (A282): the northbound tunnels and the southbound Queen Elizabeth II Bridge.",
+             "point_match_km": 0.15, "toll_points": tps, "rows": []}
+        if vt:
+            t["valid_to"] = vt
+        write(out, t, "gb-dartford")
+
+
+def prev_day(d):
+    import datetime
+    return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
+
+
+def main(transcribed, fetched, out):
+    p = os.path.join(fetched, "tunnels-osm.json")
+    d = json.load(open(p))
+    osm = d["elements"]
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    herrentunnel(transcribed, out, osm, stamp)
+    westerschelde(fetched, out, osm, stamp)
+    gsb(fetched, out, osm, stamp)
+    dartford(fetched, out, osm, stamp)
+
+
+if __name__ == "__main__":
+    main(*sys.argv[1:])

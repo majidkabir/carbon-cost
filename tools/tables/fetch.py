@@ -156,6 +156,12 @@ def main(src, out):
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
+            # Overpass answers 429/502/504 when busy and asks for backoff.
+            for wait in (30, 60, 120, 240):
+                if "/api/interpreter" not in s["url"] or status not in (429, 502, 503, 504):
+                    break
+                time.sleep(wait)
+                status, body = get(s["url"])
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
             if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"

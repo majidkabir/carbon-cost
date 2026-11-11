@@ -1,0 +1,49 @@
+{
+ "country": "RO",
+ "currency": "EUR",
+ "valid_from": "2025-08-01",
+ "valid_to": "2025-09-07",
+ "name": "Romanian road user charge (rovinieta)",
+ "law": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 1 (Legea nr. 141/2025 replaced the annex from 1 September 2025 with the same tariffs for these categories): the rovinieta is a time-based charge in euro, including VAT, for periods from 1 day to 12 months, by the maximum authorised mass of the vehicle or combination and its axles: C 4 euro a day, D 7 euro a day, E 9 euro a day, F 11 euro a day (C over 3.5 to 7.5 t, D over 7.5 to under 12 t, E 12 t and over with up to 3 axles, F 12 t and over with 4 or more). A day runs from 00:00 to 24:00 (art. 1 alin. (8)). Paid in lei at the BNR rate of the month before (art. 6). Rates here exclude 21% VAT. Bridge tolls (tarif de trecere: Fetești–Cernavodă, Giurgeni–Vadu Oii, Giurgiu–Ruse) aren't included.",
+ "sources": [
+  {
+   "title": "Portal Legislativ: OG 15/2002, consolidation of 28.07.2025, Legea nr. 141/2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20250810072308id_/https://legislatie.just.ro/Public/DetaliiDocument/298839"
+  },
+  {
+   "title": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025): 21% VAT from 1 August 2025, OG 15/2002 Anexa nr. 1 from 1 September 2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20251029222437id_/https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t maximum authorised mass (the vehicle or combination)",
+ "min_kg": 3501,
+ "tolled_roads": "National roads, expressways and motorways, except national roads inside municipalities (between the town entry and exit signs).",
+ "per_day": true,
+ "day": "calendar",
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 7500,
+   "rate": 3.3058
+  },
+  {
+   "component": "toll",
+   "min_kg": 7501,
+   "max_kg": 11999,
+   "rate": 5.7851
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "rate": 7.438
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "rate": 9.0909
+  }
+ ]
+}

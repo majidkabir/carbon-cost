@@ -76,8 +76,8 @@
   {"id": "es-seitt-ap36", "table": "es-seitt", "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2026_v1.pdf", "what": "Spain: SEITT 2026 tariffs of the AP-36 Ocaña – La Roda toll motorway"},
   {"id": "es-seitt-ap41", "table": "es-seitt", "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_ap41_2026.pdf", "what": "Spain: SEITT 2026 tariffs of the AP-41 Madrid – Toledo toll motorway"},
   {"id": "es-seitt-ap7cv", "table": "es-seitt", "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf", "what": "Spain: SEITT 2026 tariffs of the AP-7 Cartagena – Vera toll motorway"},
-  {"id": "de-behg-10", "table": "fuelco2-de", "url": "https://www.gesetze-im-internet.de/behg/__10.html", "what": "BEHG § 10: fixed certificate prices to 2025 and the 2026 price corridor"},
-  {"id": "de-eex-nehs-calendar", "table": "fuelco2-de", "url": "https://www.eex.com/fileadmin/EEX/Downloads/Trading/Calendar/nEHS_Sell-off_Calendar/20261104_nEHS_auction_calendar_2026_DE.pdf", "what": "EEX nEHS Veräußerungskalender 2026 (4 November 2026): each 2026 auction and whether the 65 EUR rule (clearing at the 65 euro ceiling, BEHV § 12 (4)) applied"},
-  {"id": "at-nehg", "table": "fuelco2-at", "url": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20011818", "what": "NEHG 2022 consolidated (RIS): § 10 (1) certificate values by calendar year"}
+  {"id": "de-behg-10", "table": "fuelco2-de", "url": "https://web.archive.org/web/2026id_/https://www.gesetze-im-internet.de/behg/__10.html", "what": "BEHG § 10 (gesetze-im-internet.de, as the Internet Archive last kept it; the site times out to the workflow): fixed certificate prices to 2025 and the 2026 price corridor"},
+  {"id": "de-eex-nehs-auctions", "table": "fuelco2-de", "url": "https://public.eex-group.com/eex/nehs-reporting/nEHS_Auction_Reporting.csv", "what": "EEX nEHS auction results (CSV): each 2026 auction's clearing price and volume"},
+  {"id": "at-nehg", "table": "fuelco2-at", "url": "https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40242271/NOR40242271.html", "what": "NEHG 2022 § 10 (RIS): certificate values by calendar year"}
 ]
 }

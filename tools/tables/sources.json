@@ -78,6 +78,15 @@
   {"id": "es-seitt-ap7cv", "table": "es-seitt", "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf", "what": "Spain: SEITT 2026 tariffs of the AP-7 Cartagena – Vera toll motorway"},
   {"id": "de-behg-10", "table": "fuelco2-de", "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/behg/__10.html", "what": "BEHG § 10 (gesetze-im-internet.de, as the Internet Archive last kept it; the site times out to the workflow): fixed certificate prices to 2025 and the 2026 price corridor"},
   {"id": "de-eex-nehs-auctions", "table": "fuelco2-de", "url": "https://web.archive.org/web/20261231id_/https://public.eex-group.com/eex/nehs-reporting/nEHS_Auction_Reporting.csv", "what": "EEX nEHS auction results (CSV; the Internet Archive's latest copy, as EEX refuses the workflow): each 2026 auction's clearing price and volume"},
-  {"id": "at-nehg", "table": "fuelco2-at", "url": "https://web.archive.org/web/20261231id_/https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40242271/NOR40242271.html", "what": "NEHG 2022 § 10 (RIS; the Internet Archive's latest copy, as RIS refuses the workflow): certificate values by calendar year"}
+  {"id": "at-nehg", "table": "fuelco2-at", "url": "https://web.archive.org/web/20261231id_/https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40242271/NOR40242271.html", "what": "NEHG 2022 § 10 (RIS; the Internet Archive's latest copy, as RIS refuses the workflow): certificate values by calendar year"},
+  {"id": "de-herrentunnel", "table": "tunnels-de", "url": "https://www.herrentunnel.de/", "what": "Herrentunnel Lübeck GmbH & Co. KG: home page (links to the toll prices)"},
+  {"id": "de-herrentunnelmauthv", "table": "tunnels-de", "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/herrentunnelmauthv/BJNR210800005.html", "what": "HerrentunnelMautHV (gesetze-im-internet.de, the Internet Archive's latest copy)"},
+  {"id": "de-warnowtunnel", "table": "tunnels-de", "url": "https://www.warnowtunnel.de/", "what": "Warnowquerung GmbH & Co. KG: home page (links to the toll prices)"},
+  {"id": "de-warnowmauthv", "table": "tunnels-de", "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/warnowmauthv/anlage.html", "what": "WarnowMautHV (gesetze-im-internet.de, the Internet Archive's latest copy)"},
+  {"id": "nl-westerscheldetunnel", "table": "tunnels-nl", "url": "https://www.westerscheldetunnel.nl/tarieven", "what": "N.V. Westerscheldetunnel: tariffs"},
+  {"id": "be-liefkenshoek", "table": "tunnels-be", "url": "https://www.liefkenshoektunnel.be/nl/tarieven", "what": "Tunnel Liefkenshoek nv: tariffs"},
+  {"id": "gb-dartford", "table": "tunnels-gb", "url": "https://www.gov.uk/pay-dartford-crossing-charge/charges-fines", "what": "GOV.UK: Dartford Crossing charges"},
+  {"id": "gb-m6toll", "table": "tunnels-gb", "url": "https://www.m6toll.co.uk/", "what": "M6 Toll: home page (links to the prices)"},
+  {"id": "ch-gsb", "table": "tunnels-ch", "url": "https://www.letunnel.com/", "what": "Tunnel du Grand-Saint-Bernard: home page (links to the prices)"}
 ]
 }

@@ -239,6 +239,10 @@ type TollSystem struct {
 	// FreeHours: from and to (HH:MM, both included) the system charges
 	// nothing, for a trip entering it then.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// NightHours: from and to (HH:MM, both included) NightPrices replace
+	// Prices for a trip entering the system then (AP-71's night tariff).
+	NightHours  []string                      `json:"night_hours,omitempty"`
+	NightPrices map[string]map[string]float64 `json:"night_prices,omitempty"`
 	// Directed: the prices are per direction, entry|exit; a pair with no
 	// price that way has none (no trip), instead of the other way's.
 	Directed bool `json:"directed,omitempty"`
@@ -700,6 +704,14 @@ func (tb Table) check() error {
 		if len(s.FreeHours) != 0 {
 			if _, err := Within("00:00", s.FreeHours[0], s.FreeHours[len(s.FreeHours)-1]); err != nil || len(s.FreeHours) != 2 {
 				return fmt.Errorf("%s: free_hours must be [from, to] (HH:MM)", s.Name)
+			}
+		}
+		if len(s.NightHours) != 0 || len(s.NightPrices) != 0 {
+			if len(s.NightHours) != 2 || len(s.NightPrices) == 0 {
+				return fmt.Errorf("%s: night_hours must be [from, to] (HH:MM), with night_prices", s.Name)
+			}
+			if _, err := Within("00:00", s.NightHours[0], s.NightHours[1]); err != nil {
+				return fmt.Errorf("%s: night_hours must be [from, to] (HH:MM)", s.Name)
 			}
 		}
 	}

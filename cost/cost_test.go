@@ -1883,3 +1883,25 @@ func TestAP6(t *testing.T) {
 		}
 	}
 }
+
+// The AP-71 León–Astorga, Pesados 2: EUR 10.10 by day, 5.05 at night
+// (23:00 to 07:00), 21% IVA included.
+func TestAP71(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"ZZ": 40}, Path: [][2]float64{{-5.62, 42.575}, {-5.639884, 42.57088}, {-5.74975, 42.527119}, {-5.894253, 42.452951}, {-6.017108, 42.439394}, {-6.06, 42.44}}}}}
+	date := time.Date(2026, 3, 2, 0, 0, 0, 0, time.UTC)
+	for at, want := range map[string]float64{"10:00": 10.10, "23:30": 5.05, "": 10.10} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: at}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-71") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%q: EUR %.2f with IVA, want %.2f", at, got*1.21, want)
+		}
+	}
+}

@@ -1964,3 +1964,27 @@ func TestItalyEstimate(t *testing.T) {
 		t.Errorf("IT line not flagged as an estimate: %s", l.Source)
 	}
 }
+
+// London's Low Emission Zone: lorries over 3.5 t below Euro VI pay GBP 100
+// a day (Euro IV or V) or 300 (older), any hour; Euro VI pays nothing.
+func TestLondonLEZ(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"GB": 6}, Path: [][2]float64{{-0.20, 51.513}, {-0.12, 51.513}, {-0.02, 51.513}}}}}
+	d := time.Date(2026, 11, 14, 0, 0, 0, 0, time.UTC)
+	for euro, want := range map[int]float64{6: 0, 5: 100, 4: 100, 3: 300} {
+		tr := truck40
+		tr.Euro = euro
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tr, Time: "23:00", FX: map[string]float64{"GBP": 0.84}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Section == "London Low Emission Zone" {
+				got += l.Amount
+			}
+		}
+		if got != want {
+			t.Errorf("Euro %d: GBP %v, want %v", euro, got, want)
+		}
+	}
+}

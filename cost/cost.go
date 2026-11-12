@@ -1681,8 +1681,9 @@ func areaCharges(out *Response, req Request, date time.Time, route *track, add f
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", z.Country, z.Name))
 		}
 		km := route.cum[in[len(in)-1]] - route.cum[in[0]]
+		charge := z.ChargeFor(req.Truck.Euro)
 		if err := add(Line{Charge: AreaCharge, Country: z.Country, Component: rates.Toll, Section: z.Name, Km: round3(km), Days: 1,
-			Rate: z.Charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: z.Charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
+			Rate: charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
 			return err
 		}
 	}

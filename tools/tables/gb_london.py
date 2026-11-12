@@ -4,7 +4,9 @@ Charge (rates.Zone, data/zone-gb-*.json).
 Usage: python3 gb_london.py fetched/ out-dir -> out-dir/zone-gb-<zone>-<date>.json
 
 Charges and hours: Transport for London's pages (fetch.py's gb-tfl-*.html,
-the Internet Archive's copies as TfL refuses the workflow). Zones:
+the Internet Archive's copies as TfL refuses the workflow; for the LEZ,
+TfL's payment page and the Mayor's notice read in Chrome:
+browser/gb-tfl-lez-pay.txt). Zones:
 OpenStreetMap (gb-london-osm.json: the London Low Emission Zone relation;
 gb-london-ccz-osm.json: the Congestion Charge zone), each relation's outer
 and inner ways joined into rings.
@@ -93,14 +95,42 @@ def prev_day(d):
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
 
 
-def main(fetched, out):
+def lez(browser, fetched, out):
+    """The Low Emission Zone: the daily charges of TfL's payment page and
+    the Mayor's notice of the Euro VI standard from 1 March 2021 (both
+    read in Chrome: browser/gb-tfl-lez-pay.txt), and the zone's OSM
+    relation."""
+    b, osm_p = os.path.join(browser, "gb-tfl-lez-pay.txt"), os.path.join(fetched, "gb-london-osm.json")
+    if not os.path.exists(osm_p):
+        print("London LEZ: the OSM relation wasn't fetched; not built")
+        return
+    t = re.sub(r"\s+", " ", " ".join(l for l in open(b, encoding="utf-8") if not l.startswith("#")))
+    hi = re.search(r"£(\d+) for HGVs, lorries, vans and specialist heavy vehicles over 3\.5 tonnes .{0,80}? which do not meet Euro VI \(NOx and PM\) standards, but meet Euro IV \(PM\)", t)
+    lo = re.search(r"£(\d+) for HGVs, lorries, vans and specialist heavy vehicles over 3\.5 tonnes .{0,80}? which do not meet Euro IV \(PM\)", t)
+    days = "charging days run from midnight to midnight, every day of the year" in t
+    since = re.search(r"Created on (\d\d) (\w+) (\d{4}) .*?must now meet Euro VI \(NOx and PM\).*?Meets Euro IV or V \(PM\) - you will need to pay a daily charge of £(\d+).*?Does not meet Euro IV \(PM\) - you will need to pay a daily charge of £(\d+)", t)
+    if not hi or not lo or not days or not since or (since.group(4), since.group(5)) != (hi.group(1), lo.group(1)):
+        sys.exit(f"London LEZ: the captured pages changed ({bool(hi)}, {bool(lo)}, {days}, {bool(since)})")
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    sd = f"{since.group(3)}-{months.index(since.group(2)) + 1:02d}-{since.group(1)}"
+    rel, stamp = relation(osm_p, "London Low Emission Zone")
+    z = {"country": "GB", "currency": "GBP", "valid_from": max(sd, "2024-01-01"), "name": "London Low Emission Zone",
+         "law": ("Greater London Low Emission Zone Charging Order 2006, as varied (Euro VI standard for heavy vehicles from " + sd + "): "
+                 f"lorries over 3.5 t that don't meet Euro VI (NOx and PM) pay GBP {hi.group(1)} a day if they meet Euro IV (PM), "
+                 f"GBP {lo.group(1)} if not; charging days run midnight to midnight, every day (TfL). Euro IV and V are taken as meeting Euro IV (PM)."),
+         "sources": [{"title": "Transport for London: How to pay a LEZ charge (read in Chrome, as TfL refuses the workflow)", "url": "https://tfl.gov.uk/modes/driving/low-emission-zone/make-a-payment"},
+                     {"title": "Mayor of London: new tighter LEZ standards for HGVs (1 March 2021)", "url": "https://www.london.gov.uk/press-releases/mayoral/new-tighter-lez-standards-for-hgvs-in-london"}],
+         "min_kg": 3501, "charge": float(lo.group(1)), "exempt_euro": 6, "euro_charges": [{"min_euro": 4, "charge": float(hi.group(1))}],
+         "polygons": rings(rel, "outer"), "osm_extract": stamp}
+    holes = rings(rel, "inner")
+    if holes:
+        z["holes"] = holes
+    write(out, z, "low-emission-zone")
+
+
+def main(fetched, out, browser=os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser")):
     ccz(fetched, out)
-    lez_p = os.path.join(fetched, "gb-tfl-lez-charges.html")
-    if not os.path.exists(lez_p) or "Euro VI" not in text(lez_p):
-        print("London LEZ: TfL's charges page not fetched; not built")
-    else:
-        t = text(lez_p)
-        print("LEZ:", t[t.find("Euro VI") - 400:t.find("Euro VI") + 600])
+    lez(browser, fetched, out)
 
 
 if __name__ == "__main__":

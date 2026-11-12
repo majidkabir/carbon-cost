@@ -1801,3 +1801,28 @@ func TestAusol(t *testing.T) {
 		}
 	}
 }
+
+// London's Congestion Charge: GBP 18 a day from 2 January 2026 (15
+// before) for driving in the zone 07:00-18:00 on weekdays.
+func TestCongestionCharge(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"GB": 6}, Path: [][2]float64{{-0.20, 51.513}, {-0.12, 51.513}, {-0.02, 51.513}}}}}
+	for _, tc := range []struct {
+		date, at string
+		gbp      float64
+	}{{"2026-11-11", "10:00", 18}, {"2026-11-11", "20:00", 0}, {"2026-11-14", "10:00", 0}, {"2025-06-04", "10:00", 15}, {"2026-12-29", "10:00", 0}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"GBP": 0.84}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Charge == AreaCharge {
+				got += l.Amount
+			}
+		}
+		if got != tc.gbp {
+			t.Errorf("%s %s: GBP %v, want %v", tc.date, tc.at, got, tc.gbp)
+		}
+	}
+}

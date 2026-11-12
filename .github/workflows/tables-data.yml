@@ -105,6 +105,7 @@ jobs:
           python3 tools/tables/fuel_co2.py out out/tables
           python3 tools/tables/tunnels.py tools/tables/transcribed out out/tables
           python3 tools/tables/es_ausol.py out out/tables
+          python3 tools/tables/gb_london.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

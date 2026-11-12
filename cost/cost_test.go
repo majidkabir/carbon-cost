@@ -1728,6 +1728,20 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("PT %s: %+v", d, l)
 		}
 	}
+	// Slovenia's okoljska dajatev on diesel: 17.3 under the Uredba, 30.85 from
+	// 10 September 2024, the 2026 sklepi (0, 25.90, 30.85 from 2 June, 0 from
+	// 28 July to 14 December).
+	for d, want := range map[string]float64{"2024-06-01": 17.3, "2025-06-01": 30.85, "2026-04-01": 0,
+		"2026-05-20": 25.9, "2026-06-02": 30.85, "2026-11-03": 0, "2026-12-15": 30.85} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "SI"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "SI", rates.CO2); !ok || l.Rate != want || (want == 0 && l.Amount != 0) {
+			t.Errorf("SI %s: %+v", d, l)
+		}
+	}
 	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
 		t.Error("lower-case fuel_country accepted")
 	}

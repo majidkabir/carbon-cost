@@ -54,7 +54,7 @@ func FuelCO2All() ([]FuelCO2, error) {
 		if err := json.Unmarshal(b, &f); err != nil {
 			return nil, fmt.Errorf("%s: %w", e.Name(), err)
 		}
-		if f.Country == "" || f.Currency == "" || f.RatePerT <= 0 || f.Law == "" || len(f.Sources) == 0 {
+		if f.Country == "" || f.Currency == "" || f.RatePerT < 0 || f.Law == "" || len(f.Sources) == 0 {
 			return nil, fmt.Errorf("%s: country, currency, rate_per_t, law and sources are required", e.Name())
 		}
 		for _, d := range []string{f.ValidFrom, f.ValidTo} {

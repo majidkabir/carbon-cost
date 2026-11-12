@@ -1776,3 +1776,28 @@ func TestTunnelsAndBridges(t *testing.T) {
 		t.Errorf("Dartford in June 2025: %d lines", n)
 	}
 }
+
+// The AP-7 Málaga–Guadiaro (Ausol) troncal barriers, Pesados 2 (four
+// axles or more), IVA divided out: San Pedro EUR 7.70 in the normal
+// season, 10.35 in the special one (June to September).
+func TestAusol(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 3, CountryKm: map[string]float64{"ES": 3}, Path: [][2]float64{{-5.03, 36.4995}, {-5.008749, 36.499382}, {-4.99, 36.4990}}}}}
+	for d, want := range map[string]float64{"2026-11-05": 7.70, "2026-07-01": 10.35} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		n := 0
+		for _, l := range r.Lines {
+			if l.Section == "AP-7 San Pedro" {
+				got += l.Amount
+				n++
+			}
+		}
+		if n != 1 || math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%s: EUR %.4f in %d lines, want %.2f/1.21", d, got, n, want)
+		}
+	}
+}

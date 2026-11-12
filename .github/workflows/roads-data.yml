@@ -18,7 +18,7 @@ jobs:
           mkdir -p out
           # tools/roads/ONLY lists the countries to rebuild; the others are
           # kept from the roads-out branch.
-          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania"
+          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania IT:italy"
           if [ -f tools/roads/ONLY ]; then
             git fetch -q origin roads-out && git archive FETCH_HEAD | tar -x -C out
             list=$(cat tools/roads/ONLY)

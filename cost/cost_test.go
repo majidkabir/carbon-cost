@@ -1740,6 +1740,9 @@ func TestTunnelsAndBridges(t *testing.T) {
 		{"Dartford tunnels northbound", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{}, 10.0},
 		{"Dartford bridge southbound", [][2]float64{{0.2667, 51.4768}, {0.258914, 51.464813}, {0.2458, 51.4548}}, Request{ETC: true}, 8.57},
 		{"Dartford at night", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{Time: "23:00"}, 0},
+		// Tyne Tunnels, class 3: GBP 5.00 (permit 4.50), each bore its way.
+		{"Tyne Tunnel northbound", [][2]float64{{-1.4827, 54.9791}, {-1.486078, 54.984689}, {-1.4843, 54.9906}}, Request{}, 5.95},
+		{"New Tyne Tunnel southbound", [][2]float64{{-1.4844, 54.9918}, {-1.484379, 54.988309}, {-1.4850, 54.9848}, {-1.4821, 54.9788}}, Request{ETC: true}, 5.36},
 		// Westerscheldetunnel, category 4 (over 12 m): EUR 25, T-Tag 15.
 		{"Westerscheldetunnel", [][2]float64{{3.7557, 51.43}, {3.7557, 51.45}}, Request{}, 25},
 		{"Westerscheldetunnel T-Tag", [][2]float64{{3.7557, 51.45}, {3.7557, 51.43}}, Request{ETC: true}, 15},

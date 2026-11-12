@@ -79,11 +79,63 @@ def austria(fetched, out, srcs):
                     "sources": [src(srcs, "at-nehg")]})
 
 
+MONTHS = {m: i + 1 for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])}
+
+
+def irish_date(d):
+    day, month, year = d.split()
+    return f"{year}-{MONTHS[month]:02d}-{int(day):02d}"
+
+
+def ireland(fetched, out, srcs):
+    """Mineral Oil Tax's carbon component on auto-diesel ("heavy oil used as
+    a propellant"), as Revenue's Excise Duty Rates manual gives the amount
+    charged per tonne of CO2 for each period (Finance Act 1999 Schedule 2A)."""
+    p = os.path.join(fetched, "ie-revenue-energy-rates.txt")
+    if not os.path.exists(p):
+        print("Ireland: Revenue's rates manual wasn't fetched; not built")
+        return
+    t = open(p, encoding="utf-8").read()
+    periods = []
+    for m in re.finditer(r"Mineral Oil Tax \(MOT\) rates effective from (\d+ \w+ \d{4})(?: to (\d+ \w+ \d{4}))?\n", t):
+        if m.group(2) and irish_date(m.group(2)) < "2024-01-01":
+            continue  # older tables, laid out differently
+        seg = t[m.end():m.end() + 6000]
+        h = seg.find("Heavy Oil:")
+        r = re.search(r"Used as a propellant[.…\s]*€([\d.]+)\*?\s", seg[h:])
+        if h < 0 or not r:
+            sys.exit(f"Ireland: no auto-diesel rate in the period from {m.group(1)}")
+        periods.append((irish_date(m.group(1)), irish_date(m.group(2)) if m.group(2) else "", float(r.group(1))))
+    periods.sort()
+    for a, b in zip(periods, periods[1:]):
+        if a[1] and a[1] >= b[0]:
+            sys.exit(f"Ireland: overlapping periods {a} {b}")
+    # From 2024, merging consecutive periods at the same rate.
+    merged = []
+    for vf, vt, rate in periods:
+        if (vt or "9999") < "2024-01-01":
+            continue
+        vf = max(vf, "2024-01-01")
+        if merged and merged[-1][2] == rate:
+            merged[-1][1] = vt
+        else:
+            merged.append([vf, vt, rate])
+    for vf, vt, rate in merged:
+        f = {"country": "IE", "currency": "EUR", "valid_from": vf,
+             "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel", "rate_per_t": rate,
+             "law": f"Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges {rate:.2f} euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price.",
+             "sources": [src(srcs, "ie-revenue-energy-rates")]}
+        if vt:
+            f["valid_to"] = vt
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
     germany(fetched, out, srcs)
     austria(fetched, out, srcs)
+    ireland(fetched, out, srcs)
 
 
 if __name__ == "__main__":

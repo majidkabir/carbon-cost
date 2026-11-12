@@ -1,0 +1,15 @@
+{
+ "country": "IE",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel",
+ "rate_per_t": 56.0,
+ "law": "Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges 56.00 euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price.",
+ "sources": [
+  {
+   "title": "Revenue (Ireland): energy excise duty rates, Mineral Oil Tax with its carbon component and the amount charged per tonne of CO2, with previous rates",
+   "url": "https://www.revenue.ie/en/tax-professionals/tdm/excise/excise-duty-rates/energy-excise-duty-rates.pdf"
+  }
+ ],
+ "valid_to": "2024-10-08"
+}

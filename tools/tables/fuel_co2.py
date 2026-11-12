@@ -13,7 +13,11 @@ from the fetched law texts (sources.json, table fuelco2-*):
 - Portugal, the "adicionamento sobre as emissões de CO2" (CIEC art.
   92.º-A): each portaria's rate from its entry into force, and the rate
   the Autoridade Tributária publishes for the next year (art. 92.º-A n.º 3)
-  from 1 January, unless that ofício says the portaria's rate still applies.
+  from 1 January, unless that ofício says the portaria's rate still applies;
+- Slovenia, the okoljska dajatev za onesnaževanje zraka z emisijo CO2 on
+  plinsko olje (diesel): 17.3 euro per unit (1 tonne of CO2) under Uredba
+  48/18 until the government's first sklep, then each sklep from its entry
+  into force (point I, and point III's later date) until the next one.
 
 Usage: python3 fuel_co2.py fetched/ out-dir"""
 import html, json, os, re, sys
@@ -218,6 +222,85 @@ def portugal(fetched, out, srcs):
         write(out, f)
 
 
+SI_MONTHS = {"januarja": 1, "februarja": 2, "marca": 3, "aprila": 4, "maja": 5, "junija": 6, "julija": 7,
+             "avgusta": 8, "septembra": 9, "oktobra": 10, "novembra": 11, "decembra": 12}
+
+
+def si_text(path):
+    t = open(path, encoding="utf-8", errors="replace").read()
+    if path.endswith(".html"):
+        t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
+        t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+    t = re.sub(r"(\w)-\s*\n\s*(\w)", r"\1\2", t)  # words hyphenated across lines
+    return re.sub(r"\s+", " ", t)
+
+
+def si_rate(v):
+    return float(v.replace(",", "."))
+
+
+def slovenia(fetched, out, srcs):
+    """Okoljska dajatev za onesnaževanje zraka z emisijo CO2 on diesel
+    (plinsko olje), euro per unit of burden (enota obremenitve, 1 tonne of
+    CO2), from the Uredba and the government's sklepi in the Uradni list."""
+    import datetime
+    p = os.path.join(fetched, "si-uredba-48-2018.html")
+    if not os.path.exists(p):
+        sys.exit("Slovenia: the Uredba wasn't fetched")
+    t = si_text(p)
+    if not re.search(r"enota obremenitve in je enaka emisiji 1 tone CO ?2", t):
+        sys.exit("Slovenia: the Uredba doesn't define the unit as 1 tonne of CO2")
+    m = re.search(r"znesek na enoto obremenitve zraka z emisijo CO ?2 ([\d,]+) eura", t)
+    if not m:
+        sys.exit("Slovenia: no amount in the Uredba")
+    base = si_rate(m.group(1))
+    sklepi = []  # (entry into force, [(from, rate)], source id, gazette)
+    for sid in sorted(k for k in srcs if k.startswith("si-sklep-")):
+        p = next((os.path.join(fetched, sid + e) for e in (".txt", ".html") if os.path.exists(os.path.join(fetched, sid + e))), None)
+        if not p:
+            sys.exit(f"Slovenia: {sid} wasn't fetched")
+        t = si_text(p)
+        ul = re.search(r"(?:URADNI LIST REPUBLIKE SLOVENIJE ŠT\.|Uradni list RS, št\.) (\d+)/(\d{4}) Z DNE (\d+)\. (\d+)\. (\d{4})", t, re.I)
+        if not ul:
+            sys.exit(f"Slovenia: no gazette number and date in {sid}")
+        pub = datetime.date(int(ul.group(5)), int(ul.group(4)), int(ul.group(3)))
+        if m := re.search(r"Ta sklep začne veljati (\d+)\. (\w+) (\d{4})", t):
+            entry = datetime.date(int(m.group(3)), SI_MONTHS[m.group(2)], int(m.group(1)))
+        elif re.search(r"Ta sklep začne veljati naslednji dan po objavi", t):
+            entry = pub + datetime.timedelta(days=1)
+        else:
+            sys.exit(f"Slovenia: no entry into force in {sid}")
+        m = re.search(r"plinsko olje[^.]{0,200}? znaša ([\d,]+) eur", t) or re.search(r"za enoto obremenitve je ([\d,]+) eura", t)
+        if not m:
+            sys.exit(f"Slovenia: no diesel amount in {sid}")
+        steps = [(entry, si_rate(m.group(1)))]
+        for m in re.finditer(r"Ne glede na točk[oi] [^.]{0,200}? za enoto obremenitve od (\d+)\. (\w+) (\d{4}) znaša ([\d,]+) eur", t):
+            steps.append((datetime.date(int(m.group(3)), SI_MONTHS[m.group(2)], int(m.group(1))), si_rate(m.group(4))))
+        sklepi.append((entry, steps, sid, f"{ul.group(1)}/{ul.group(2)}"))
+    sklepi.sort()
+    timeline = [(datetime.date(2018, 8, 1), base, "si-uredba-48-2018", "Uredba 48/18 (until the government's sklep)")]
+    for i, (entry, steps, sid, ul) in enumerate(sklepi):
+        end = sklepi[i + 1][0] if i + 1 < len(sklepi) else datetime.date.max
+        for d, r in steps:
+            if d < end:
+                timeline.append((d, r, sid, f"the government's sklep in Uradni list RS {ul}"))
+    timeline.sort(key=lambda x: x[0])
+    start = max((x for x in timeline if x[0] <= datetime.date(2024, 1, 1)), key=lambda x: x[0])
+    merged = []
+    for d, r, sid, note in [(datetime.date(2024, 1, 1),) + start[1:]] + [x for x in timeline if x[0] > datetime.date(2024, 1, 1)]:
+        if merged and merged[-1][1] == r:
+            continue
+        merged.append((d, r, sid, note))
+    for i, (d, r, sid, note) in enumerate(merged):
+        f = {"country": "SI", "currency": "EUR", "valid_from": d.isoformat(),
+             "name": "Okoljska dajatev za onesnaževanje zraka z emisijo CO2 on diesel", "rate_per_t": r,
+             "law": f"Uredba o okoljski dajatvi za onesnaževanje zraka z emisijo ogljikovega dioksida (Uradni list RS 48/18) art. 3: the charge is an amount per unit of burden, one tonne of CO2; for plinsko olje (diesel) it is {r:g} euro, from {note}. Fuel suppliers pay it and pass it on in the fuel price.",
+             "sources": [src(srcs, sid)]}
+        if i + 1 < len(merged):
+            f["valid_to"] = (merged[i + 1][0] - datetime.timedelta(days=1)).isoformat()
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -225,6 +308,7 @@ def main(fetched, out):
     austria(fetched, out, srcs)
     ireland(fetched, out, srcs)
     portugal(fetched, out, srcs)
+    slovenia(fetched, out, srcs)
 
 
 if __name__ == "__main__":

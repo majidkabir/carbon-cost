@@ -1,0 +1,15 @@
+{
+ "country": "SI",
+ "currency": "EUR",
+ "valid_from": "2024-09-10",
+ "name": "Okoljska dajatev za onesnaževanje zraka z emisijo CO2 on diesel",
+ "rate_per_t": 30.85,
+ "law": "Uredba o okoljski dajatvi za onesnaževanje zraka z emisijo ogljikovega dioksida (Uradni list RS 48/18) art. 3: the charge is an amount per unit of burden, one tonne of CO2; for plinsko olje (diesel) it is 30.85 euro, from the government's sklep in Uradni list RS 75/2024. Fuel suppliers pay it and pass it on in the fuel price.",
+ "sources": [
+  {
+   "title": "Uradni list RS 75/2024: Sklep o višini okoljske dajatve za onesnaževanje zraka z emisijo ogljikovega dioksida",
+   "url": "https://www.uradni-list.si/glasilo-uradni-list-rs/vsebina/2024-01-2328/sklep-o-visini-okoljske-dajatve-za-onesnazevanje-zraka-z-emisijo-ogljikovega-dioksida"
+  }
+ ],
+ "valid_to": "2026-03-23"
+}

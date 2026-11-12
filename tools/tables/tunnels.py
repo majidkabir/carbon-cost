@@ -24,8 +24,8 @@ taken comes from OpenStreetMap (tunnels-osm.json, an Overpass query):
   in EUR; each heading is along the tunnel's OSM way.
 - Herrentunnel: the plaza's booths named Herrentunnel (operator
   Herrentunnel Lübeck GmbH & Co. KG), either direction.
-- Tyne Tunnels: free-flow: the middle of each A19 bore over 1 km long
-  (tunnels-osm-tyne.json), either direction.
+- Tyne Tunnels: free-flow: the middle of each one-way A19 bore's longest
+  way (tunnels-osm-tyne.json), in its direction.
 - Dartford: free-flow, no booths: the middle of the northbound tunnels
   (A282, tunnel=yes) and of the southbound bridge (A282, bridge=yes),
   each in its direction.
@@ -268,14 +268,19 @@ def tyne(fetched, out):
     except (OSError, ValueError):
         print("Tyne Tunnels: OpenStreetMap ways not fetched; not built")
         return
-    pts = []
+    # One point per bore (Tyne Tunnel, New Tyne Tunnel; each one-way): the
+    # middle of its longest way, charged in that way's direction.
+    bores = {}
     for e in d["elements"]:
         t = e.get("tags", {})
         g = e.get("geometry", [])
-        if e["type"] == "way" and t.get("ref") == "A19" and t.get("tunnel") == "yes" and len(g) > 1 and km((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"])) > 1:
-            pts.append(middle(e))
-    if len(pts) != 2:
-        sys.exit(f"Tyne Tunnels: expected two A19 bores, got {pts}")
+        if e["type"] == "way" and t.get("ref") == "A19" and t.get("tunnel") == "yes" and t.get("oneway") == "yes" and len(g) > 1:
+            n = km((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"]))
+            if n > bores.get(t.get("name"), (0, None))[0]:
+                bores[t.get("name")] = (n, e)
+    if sorted(bores) != ["New Tyne Tunnel", "Tyne Tunnel"]:
+        sys.exit(f"Tyne Tunnels: expected the two A19 bores, got {sorted(bores)}")
+    pts = [middle(e) for _, e in bores.values()]
     stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
     orders = []
     for y, si in ((2023, "2023/413"), (2024, "2024/479"), (2025, "2025/449")):
@@ -297,7 +302,7 @@ def tyne(fetched, out):
              "vehicles": "Vehicles over 3.5 t (class 3)", "min_kg": 3501,
              "tolled_roads": "The Tyne Tunnels (A19, Jarrow-Howdon), free-flow, either way.",
              "point_match_km": 0.15,
-             "toll_points": [{"name": "Tyne Tunnels", "lat": lat, "lon": lon, "rate": rate, "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}]} for lat, lon, _ in pts],
+             "toll_points": [{"name": "Tyne Tunnels", "lat": lat, "lon": lon, "heading": head, "rate": 0, "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}]} for lat, lon, head in pts],
              "rows": []}
         if vt:
             t["valid_to"] = vt

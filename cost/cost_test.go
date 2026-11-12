@@ -1988,3 +1988,32 @@ func TestLondonLEZ(t *testing.T) {
 		}
 	}
 }
+
+// The Blackwall and Silvertown tunnels: GBP 10.00 per HGV crossing from
+// 7 April 2025, 10.50 from 21 September 2026, none from 22:00 to 06:00.
+func TestThamesTunnels(t *testing.T) {
+	// Through the middle of a Blackwall bore, along its heading (306.3°).
+	h := 306.3 * math.Pi / 180
+	lat, lon := 51.503838, -0.004038
+	dl, dn := 0.002*math.Cos(h), 0.002*math.Sin(h)/math.Cos(lat*math.Pi/180)
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 0.6, CountryKm: map[string]float64{"GB": 0.6}, Path: [][2]float64{{lon - dn, lat - dl}, {lon, lat}, {lon + dn, lat + dl}}}}}
+	for _, tc := range []struct {
+		date, at string
+		want     float64
+	}{{"2026-10-01", "12:00", 10.50}, {"2026-10-01", "23:00", 0}, {"2025-06-01", "12:00", 10.00}, {"2025-03-01", "12:00", 0}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"GBP": 0.84}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Blackwall and Silvertown") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.001 {
+			t.Errorf("%s %s: GBP %v, want %v: %v", tc.date, tc.at, got, tc.want, r.Lines)
+		}
+	}
+}

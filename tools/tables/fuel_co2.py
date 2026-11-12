@@ -70,24 +70,42 @@ def germany(fetched, out, srcs):
 
 
 def austria(fetched, out, srcs):
-    p = os.path.join(fetched, "at-nehg.html")
+    """NEHG 2022 § 10 (1): the certificate value for 2024 and 2025, from
+    RIS (via the Internet Archive, as RIS refuses the workflow). The law's
+    table ends at 2025; the Federal Ministry of Finance, which runs the
+    system, gives 55 euro for 2025 to 2027 (the fixed-price phase until EU
+    ETS 2), so 2026 and 2027 are priced from its page."""
+    vals, law_src = {}, None
+    for sid in ("at-nehg-current", "at-nehg"):
+        p = os.path.join(fetched, sid + ".html")
+        t = text(p) if os.path.exists(p) else ""
+        m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)
+        if m:
+            vals = dict(re.findall(r"(20\d\d) (\d+(?:,\d+)?) Euro", m.group(1)))
+            law_src = sid
+            break
+    p = os.path.join(fetched, "at-bmf-nehg.html")
     t = text(p) if os.path.exists(p) else ""
-    if "Ausgabewert" not in t:
-        # RIS refuses the workflow (503) and the Internet Archive has no
-        # copy yet: Austria isn't priced until the page can be read.
-        print("NEHG 2022: the RIS page wasn't fetched; Austria not built")
+    bmf = {}
+    for m in re.finditer(r"(20\d\d)(?: - (20\d\d))? EUR (\d+), ?(\d\d)", t):
+        for y in range(int(m.group(1)), int(m.group(2) or m.group(1)) + 1):
+            bmf[str(y)] = f"{m.group(3)},{m.group(4)}"
+    if not law_src and not bmf:
+        print("NEHG 2022: neither RIS nor the ministry's page was fetched; Austria not built")
         return
-    m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)
-    if not m:
-        sys.exit("NEHG 2022 § 10 (1) not found")
-    vals = dict(re.findall(r"(20\d\d) (\d+(?:,\d+)?) Euro", m.group(1)))
-    for y in ("2024", "2025"):
-        if y not in vals:
-            sys.exit(f"NEHG 2022 § 10 (1): no value for {y}")
+    for y in ("2024", "2025", "2026", "2027"):
+        if law_src and y in vals:
+            v, sid = vals[y], law_src
+            law = f"NEHG 2022 § 10 (1): certificate value of {v} euro per tonne of CO2 in {y}."
+        elif y in bmf:
+            v, sid = bmf[y], "at-bmf-nehg"
+            law = f"NEHG 2022 § 10: certificate value of {float(v.replace(',', '.')):g} euro per tonne of CO2 in {y}, as the Federal Ministry of Finance gives it for the fixed-price phase" + (" (the law's table ends at 2025)." if y > "2025" else ".")
+        else:
+            sys.exit(f"NEHG 2022: no value for {y}")
         write(out, {"country": "AT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
-                    "name": "Nationaler Emissionszertifikatehandel certificate value", "rate_per_t": float(vals[y].replace(",", ".")),
-                    "law": f"NEHG 2022 § 10 (1): certificate value of {vals[y]} euro per tonne of CO2 in {y}. Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price. The law sets no value for 2026 or later, so those years aren't priced.",
-                    "sources": [src(srcs, "at-nehg")]})
+                    "name": "Nationaler Emissionszertifikatehandel certificate value", "rate_per_t": float(v.replace(",", ".")),
+                    "law": law + " Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price.",
+                    "sources": [src(srcs, sid)]})
 
 
 MONTHS = {m: i + 1 for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])}

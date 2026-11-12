@@ -1,8 +1,8 @@
 """Builds the tables of tunnels and bridges charged per passage on top of
 the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel (DE), the Westerscheldetunnel (NL),
-the Great St Bernard tunnel (CH and IT), the Dartford Crossing and the
-Tyne Tunnels (GB).
+the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
+Tyne Tunnels and the Blackwall and Silvertown tunnels (GB).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -309,12 +309,72 @@ def tyne(fetched, out):
         write(out, t, "gb-tyne-tunnels")
 
 
+def thames(browser, fetched, out):
+    """The Blackwall and Silvertown tunnels (TfL's user charge, from 7
+    April 2025): per crossing either way, 06:00-22:00 except Christmas
+    Day; heavy goods vehicles (N2, N3) pay the price charged online at
+    all times, with `etc` the Auto Pay off-peak price. Charges from TfL's
+    payment page and its press release of 23 July 2026, read in Chrome
+    (browser/gb-tfl-tunnels.txt); one point per bore (OSM,
+    tunnels-osm-thames.json): the middle of its longest one-way way."""
+    t = re.sub(r"\s+", " ", " ".join(l for l in open(os.path.join(browser, "gb-tfl-tunnels.txt"), encoding="utf-8") if not l.startswith("# ")))
+    cur = re.search(r"Tunnel charges increased on (\d+) (\w+) (\d{4})\. Current charges .*?Heavy goods vehicles £([\d.]+) £([\d.]+) £([\d.]+)", t)
+    pr = re.search(r"press release PN-215, (\d+) (\w+) (\d{4}).*?opened on (\d+) (\w+) last year.*?Heavy Goods Vehicles £([\d.]+) will become £([\d.]+) £([\d.]+) will become £([\d.]+) £([\d.]+) will become £([\d.]+)", t)
+    hours = "Charges apply from 06.00 - 22.00, 7 days a week in both directions." in t and "except Christmas Day" in t
+    if not cur or not pr or not hours or "N2 | HGV" not in t or "N3 | HGV" not in t:
+        sys.exit(f"Thames tunnels: the captured pages changed ({bool(cur)}, {bool(pr)}, {hours})")
+    if (pr.group(7), pr.group(9), pr.group(11)) != (cur.group(4), cur.group(5), cur.group(6)):
+        sys.exit("Thames tunnels: the press release's new charges aren't the page's current ones")
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    since = f"{cur.group(3)}-{months.index(cur.group(2)) + 1:02d}-{int(cur.group(1)):02d}"
+    opened = f"{int(pr.group(3)) - 1}-{months.index(pr.group(5)) + 1:02d}-{int(pr.group(4)):02d}"
+    try:
+        d = json.load(open(os.path.join(fetched, "tunnels-osm-thames.json")))
+    except (OSError, ValueError):
+        print("Thames tunnels: OpenStreetMap ways not fetched; not built")
+        return
+    bores = {}
+    for e in d["elements"]:
+        tg, g = e.get("tags", {}), e.get("geometry", [])
+        name = tg.get("name", "")
+        if e["type"] != "way" or tg.get("oneway") != "yes" or len(g) < 2 or name not in ("Blackwall Tunnel", "Silvertown Tunnel"):
+            continue
+        n = km((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"]))
+        north = g[-1]["lat"] > g[0]["lat"]
+        if n > bores.get((name, north), (0, None))[0]:
+            bores[(name, north)] = (n, e)
+    print("Thames tunnels in OSM:", {k: round(v[0], 2) for k, v in bores.items()})
+    if len(bores) != 4:
+        names = sorted(set((e.get("tags", {}).get("name"), e.get("tags", {}).get("ref"), e.get("tags", {}).get("oneway")) for e in d["elements"] if e["type"] == "way"))
+        print("Thames tunnels: expected a northbound and a southbound bore of each tunnel; not built. Ways:", names)
+        return
+    pts = [middle(e) for _, e in bores.values()]
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    src = [{"title": "Transport for London: paying the Blackwall and Silvertown tunnels charge (read in Chrome, as TfL refuses the workflow)", "url": "https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges"},
+           {"title": "TfL press release PN-215 (23 July 2026): current and new user charges", "url": "https://tfl-newsroom.prgloo.com/news/new-report-shows-one-year-old-silvertown-tunnel-cuts-congestion-and-boosts-bus-use-alongside-improved-air-quality"}]
+    for vf, vt, rate, etc in ((opened, prev_day(since), float(pr.group(8)), float(pr.group(6))), (since, "", float(cur.group(6)), float(cur.group(4)))):
+        tb = {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+              "name": "Blackwall and Silvertown tunnels charge",
+              "law": (f"The Silvertown Tunnel Order 2018 (user charges set by TfL): heavy goods vehicles (N2, N3) pay GBP {rate:.2f} per crossing either way, 06:00-22:00 every day except Christmas Day, paid online or by phone; "
+                      f"with `etc` the Auto Pay off-peak price, GBP {etc:.2f} (Auto Pay's peak, weekdays 06:00-10:00 northbound and 16:00-19:00 southbound, is the full price, not modelled). "
+                      + ("From the tunnel's opening; TfL's press release of 23 July 2026 gives these as the charges before 21 September 2026." if vt else f"From {since} (TfL).")),
+              "sources": src, "vehicles": "Heavy goods vehicles (N2, N3: over 3.5 t)", "min_kg": 3501,
+              "tolled_roads": "The Blackwall Tunnel (A102) and the Silvertown Tunnel under the Thames, each bore, either way.",
+              "point_match_km": 0.15,
+              "toll_points": [{"name": "Blackwall and Silvertown tunnels", "lat": lat, "lon": lon, "heading": head, "rate": 0,
+                               "classes": [{"min_kg": 3501, "rate": rate, "etc_rate": etc}], "free_hours": ["22:00", "05:59"]} for lat, lon, head in pts],
+              "rows": []}
+        if vt:
+            tb["valid_to"] = vt
+        write(out, tb, "gb-thames-tunnels")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
 
 
-def main(transcribed, fetched, out):
+def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser")):
     p = os.path.join(fetched, "tunnels-osm.json")
     d = json.load(open(p))
     osm = d["elements"]
@@ -324,6 +384,7 @@ def main(transcribed, fetched, out):
     gsb(fetched, out, osm, stamp)
     dartford(fetched, out, osm, stamp)
     tyne(fetched, out)
+    thames(browser, fetched, out)
 
 
 if __name__ == "__main__":

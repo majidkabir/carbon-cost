@@ -30,6 +30,9 @@ type Zone struct {
 	// ExemptEuro: trucks meeting this Euro standard or a later one pay
 	// nothing (0: none exempt).
 	ExemptEuro int `json:"exempt_euro,omitempty"`
+	// EuroCharges: lower charges for trucks meeting a Euro standard (the
+	// highest MinEuro the truck meets), Charge for the rest.
+	EuroCharges []EuroCharge `json:"euro_charges,omitempty"`
 	// Hours the zone charges, from and to (HH:MM, both included), on
 	// weekdays (Monday to Friday) and weekends; none: all day, every day.
 	Weekdays []string `json:"weekdays,omitempty"`
@@ -43,6 +46,23 @@ type Zone struct {
 	Holes    [][][2]float64 `json:"holes,omitempty"`
 	OSM      string         `json:"osm_extract"`
 	File     string         `json:"-"`
+}
+
+// EuroCharge is a zone's daily charge for trucks of MinEuro or later.
+type EuroCharge struct {
+	MinEuro int     `json:"min_euro"`
+	Charge  float64 `json:"charge"`
+}
+
+// ChargeFor is the zone's daily charge for a truck of the Euro standard.
+func (z Zone) ChargeFor(euro int) float64 {
+	c, best := z.Charge, -1
+	for _, e := range z.EuroCharges {
+		if euro >= e.MinEuro && e.MinEuro > best {
+			c, best = e.Charge, e.MinEuro
+		}
+	}
+	return c
 }
 
 // Covers says whether the zone is in force on the day.

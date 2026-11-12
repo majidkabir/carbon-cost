@@ -1703,6 +1703,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("%d: %+v", y, l)
 		}
 	}
+	// Ireland's carbon tax on auto-diesel: EUR 71 per tonne from 8 October
+	// 2025, 63.50 before.
+	for d, want := range map[string]float64{"2026-11-03": 71, "2025-06-01": 63.5} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "IE"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "IE", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("IE %s: %+v", d, l)
+		}
+	}
 	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
 		t.Error("lower-case fuel_country accepted")
 	}

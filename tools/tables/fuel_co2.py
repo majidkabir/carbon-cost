@@ -267,8 +267,8 @@ def slovenia(fetched, out, srcs):
     (plinsko olje), euro per unit of burden (enota obremenitve, 1 tonne of
     CO2), from the Uredba and the government's sklepi in the Uradni list."""
     import datetime
-    p = os.path.join(fetched, "si-uredba-48-2018.html")
-    if not os.path.exists(p):
+    p = next((os.path.join(fetched, "si-uredba-48-2018" + e) for e in (".json", ".html") if os.path.exists(os.path.join(fetched, "si-uredba-48-2018" + e))), "")
+    if not p:
         print("Slovenia: the Uredba wasn't fetched; not built")
         return
     t = si_text(p)
@@ -285,9 +285,12 @@ def slovenia(fetched, out, srcs):
             print(f"Slovenia: {sid} wasn't fetched; not built")
             return
         t = si_text(p)
-        ul = re.search(r"(?:URADNI LIST REPUBLIKE SLOVENIJE ŠT\.|Uradni list RS, št\.) (\d+)/(\d{4}) Z DNE (\d+)\. (\d+)\. (\d{4})", t, re.I)
-        meta = os.path.join(fetched, sid + "-meta.html")
-        if not ul and os.path.exists(meta):
+        # The gazette's header: "ŠT. 103/2026" and "Z DNE 20. 3. 2026" (two
+        # columns in the PDF's text, so matched apart).
+        no, dt = re.search(r"\bŠT\. (\d+)/(\d{4})\b", t), re.search(r"\bZ DNE (\d+)\. (\d+)\. (\d{4})\b", t)
+        ul = re.match(r"(\d+)/(\d{4}) (\d+)\. (\d+)\. (\d{4})", f"{no.group(1)}/{no.group(2)} {dt.group(1)}. {dt.group(2)}. {dt.group(3)}") if no and dt else None
+        meta = next((os.path.join(fetched, sid + "-meta" + e) for e in (".json", ".html") if os.path.exists(os.path.join(fetched, sid + "-meta" + e))), "")
+        if not ul and meta:
             # PISRS's record of the act: gazette number and publication date.
             e = json.load(open(meta, encoding="utf-8"))["data"]["evidencniPodatki"]
             no, yy = e["ulStLeto"].split("/")

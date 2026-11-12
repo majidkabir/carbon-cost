@@ -1826,3 +1826,26 @@ func TestCongestionCharge(t *testing.T) {
 		}
 	}
 }
+
+// Romania's Danube bridges (OG 15/2002 Anexa nr. 3) until TollRo: the A2
+// bridge at Cernavodă, category 4 (12 t, 4 axles or more): 133 lei with
+// VAT, either way.
+func TestRODanubeBridges(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 4, CountryKm: map[string]float64{"ZZ": 4}, Path: [][2]float64{{27.99, 44.3395}, {28.018083, 44.339525}, {28.05, 44.3396}}}}}
+	for d, want := range map[string]float64{"2026-03-01": 133 / 1.21, "2026-11-01": 0} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"RON": 5.0}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Section == "Danube bridge Fetești–Cernavodă" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-want) > 0.01 {
+			t.Errorf("%s: RON %.2f, want %.2f", d, got, want)
+		}
+	}
+}

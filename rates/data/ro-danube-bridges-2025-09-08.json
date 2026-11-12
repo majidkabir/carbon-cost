@@ -1,0 +1,69 @@
+{
+ "country": "RO",
+ "currency": "RON",
+ "valid_from": "2025-09-08",
+ "valid_to": "2026-09-30",
+ "crossings": true,
+ "osm_extract": "2026-11-12",
+ "name": "Romania's Danube bridge tolls (tarif de trecere)",
+ "law": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 3 (A2 bridges between Fetești and Cernavodă; DN2A bridge between Giurgeni and Vadu Oii), tariffs from 8 September 2025 (OG nr. 23/2025) as CNAIR publishes them: one crossing either way, category 2 (over 3.5 to under 12 t), 3 (12 t and over, up to 3 axles), 4 (4 axles or more), lei excluding 21% VAT. OG 15/2002 was repealed when TollRo started on 1 October 2026. The Giurgiu–Ruse bridge (towards Ruse only) isn't priced.",
+ "sources": [
+  {
+   "title": "CNAIR: Tabele ROVINIETA PEAJ (OG 23/2025), the Internet Archive's copy",
+   "url": "https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by mass and axles",
+ "min_kg": 3501,
+ "tolled_roads": "The A2 Danube bridge at Cernavodă (with the Borcea bridge at Fetești, one ticket) and the DN2A Danube bridge at Giurgeni.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Danube bridge Fetești–Cernavodă",
+   "lat": 44.339525,
+   "lon": 28.018083,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_kg": 11999,
+     "rate": 57.0248
+    },
+    {
+     "min_kg": 12000,
+     "max_axles": 3,
+     "rate": 77.686
+    },
+    {
+     "min_kg": 12000,
+     "min_axles": 4,
+     "rate": 109.9174
+    }
+   ]
+  },
+  {
+   "name": "Danube bridge Giurgeni–Vadu Oii",
+   "lat": 44.754203,
+   "lon": 27.876715,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_kg": 11999,
+     "rate": 31.405
+    },
+    {
+     "min_kg": 12000,
+     "max_axles": 3,
+     "rate": 52.0661
+    },
+    {
+     "min_kg": 12000,
+     "min_axles": 4,
+     "rate": 77.686
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

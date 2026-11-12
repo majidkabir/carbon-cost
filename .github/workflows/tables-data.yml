@@ -107,6 +107,7 @@ jobs:
           python3 tools/tables/es_ausol.py out out/tables
           python3 tools/tables/gb_london.py out out/tables
           python3 tools/tables/ro_bridges.py out out/tables
+          python3 tools/tables/es_castellana.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

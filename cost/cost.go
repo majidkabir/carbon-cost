@@ -1218,6 +1218,16 @@ func priceClosed(tb rates.Table, country, region string, route *track, req Reque
 			}
 			g := sys.GroupOf(req.Truck)
 			p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
+			if len(sys.NightHours) == 2 {
+				if at, timed := passage(req, date, u.from, country); !timed {
+					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is cheaper from %s to %s; priced at the day tariff. Give a departure time.", country, sys.Name, sys.NightHours[0], sys.NightHours[1]))
+				} else if night, err := rates.Within(at.Format("15:04"), sys.NightHours[0], sys.NightHours[1]); err == nil && night {
+					n := sys
+					n.Prices, n.ETCPrices = sys.NightPrices, nil
+					p, ok = n.Price(u.entry, u.exit, g, false)
+					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s at the night tariff (entered about %s).", country, sys.Name, at.Format("15:04")))
+				}
+			}
 			if !ok {
 				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", country, sys.Name, u.entry, u.exit, g))
 				continue

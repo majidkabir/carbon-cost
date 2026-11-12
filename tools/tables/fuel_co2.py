@@ -7,7 +7,13 @@ from the fetched law texts (sources.json, table fuelco2-*):
   "65 EUR rule" (BEHV § 12 (4): more volume allotted because the price
   reached the ceiling), read from EEX's auction calendar;
 - Austria, NEHG 2022 § 10 (1): the certificate value by calendar year
-  (to 2025; the law sets none for later years).
+  (to 2025; the law sets none for later years);
+- Ireland, the carbon component of Mineral Oil Tax on auto-diesel by
+  period, from Revenue's Excise Duty Rates manual;
+- Portugal, the "adicionamento sobre as emissões de CO2" (CIEC art.
+  92.º-A): each portaria's rate from its entry into force, and the rate
+  the Autoridade Tributária publishes for the next year (art. 92.º-A n.º 3)
+  from 1 January, unless that ofício says the portaria's rate still applies.
 
 Usage: python3 fuel_co2.py fetched/ out-dir"""
 import html, json, os, re, sys
@@ -60,7 +66,8 @@ def germany(fetched, out, srcs):
 
 
 def austria(fetched, out, srcs):
-    t = text(os.path.join(fetched, "at-nehg.html"))
+    p = os.path.join(fetched, "at-nehg.html")
+    t = text(p) if os.path.exists(p) else ""
     if "Ausgabewert" not in t:
         # RIS refuses the workflow (503) and the Internet Archive has no
         # copy yet: Austria isn't priced until the page can be read.
@@ -130,12 +137,94 @@ def ireland(fetched, out, srcs):
         write(out, f)
 
 
+PT_MONTHS = {"janeiro": 1, "fevereiro": 2, "março": 3, "abril": 4, "maio": 5, "junho": 6, "julho": 7,
+             "agosto": 8, "setembro": 9, "outubro": 10, "novembro": 11, "dezembro": 12}
+# Fixed public holidays (Código do Trabalho art. 234.º), for "dia útil".
+PT_HOLIDAYS = {"01-01", "04-25", "05-01", "06-10", "08-15", "10-05", "11-01", "12-01", "12-08", "12-25"}
+
+
+def pt_next_day(d, working):
+    import datetime
+    d = datetime.date.fromisoformat(d) + datetime.timedelta(days=1)
+    while working and (d.weekday() >= 5 or d.strftime("%m-%d") in PT_HOLIDAYS):
+        d += datetime.timedelta(days=1)
+    return d.isoformat()
+
+
+def portugal(fetched, out, srcs):
+    """Adicionamento sobre as emissões de CO2 (CIEC art. 92.º-A), euro per
+    tonne of CO2, from the portarias that fix it and the Autoridade
+    Tributária's yearly ofícios circulados."""
+    steps = []  # (valid_from, rate, source id, note)
+    for sid in sorted(k for k in srcs if k.startswith("pt-portaria-")):
+        p = os.path.join(fetched, sid + ".txt")
+        if not os.path.exists(p):
+            sys.exit(f"Portugal: {sid} wasn't fetched")
+        t = re.sub(r"\s+", " ", open(p, encoding="utf-8").read())
+        pub = re.search(r"Publicação: Diário da República [^:]*?de (\d{4}-\d\d-\d\d)", t)
+        rate = re.search(r"A taxa do adicionamento sobre as emissões de CO ?2 é de ([\d,]+) euros ?/ ?tonelada", t)
+        if not pub or not rate:
+            sys.exit(f"Portugal: no publication date or rate in {sid}")
+        if m := re.search(r"entra em vigor no dia (\d+) de (\w+) de (\d{4})", t):
+            vf = f"{m.group(3)}-{PT_MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
+            rule = f"in force from {vf}"
+        elif re.search(r"entra em vigor no dia útil seguinte ao da sua publicação", t):
+            vf = pt_next_day(pub.group(1), True)
+            rule = f"published {pub.group(1)}, in force the next working day"
+        elif re.search(r"entra em vigor no dia seguinte ao da sua publicação", t):
+            vf = pt_next_day(pub.group(1), False)
+            rule = f"published {pub.group(1)}, in force the next day"
+        else:
+            sys.exit(f"Portugal: no entry into force in {sid}")
+        name = re.search(r"Portaria n\.º ([\w/-]+), de", t).group(1)
+        steps.append((vf, float(rate.group(1).replace(",", ".")), sid, f"Portaria {name} ({rule})"))
+    kept = {}  # year -> (source id, ofício number): the portaria in force keeps applying
+    for sid in sorted(k for k in srcs if k.startswith("pt-oficio-")):
+        p = os.path.join(fetched, sid + ".txt")
+        if not os.path.exists(p):
+            sys.exit(f"Portugal: {sid} wasn't fetched")
+        t = re.sub(r"\s+", " ", open(p, encoding="utf-8").read())
+        m = re.search(r"emissões de CO ?2 para o ano de (\d{4}), nos termos do n\.º 2 do artigo 92\.º-A do CIEC, de ([\d,]+) euros ?/ ?tonelada", t)
+        if not m:
+            sys.exit(f"Portugal: no yearly rate in {sid}")
+        year = m.group(1)
+        no = re.search(r"Ofício Circulado N\.º: (\d+)", t).group(1)
+        if re.search(rf"taxa do adicionamento sobre as emissões de CO ?2 a aplicar no ano de {year} é a taxa prevista na Portaria", t):
+            kept[year] = (sid, no)  # a despacho kept the portaria's rate
+            continue
+        steps.append((f"{year}-01-01", float(m.group(2).replace(",", ".")), sid, f"the Autoridade Tributária's Ofício Circulado {no}, which publishes the rate for {year} under art. 92.º-A n.º 2 and 3"))
+    steps.sort()
+    # From 2024, merging consecutive steps at the same rate.
+    start = max((s for s in steps if s[0] <= "2024-01-01"), default=None)
+    if not start:
+        sys.exit("Portugal: no rate in force on 2024-01-01")
+    merged = []
+    for vf, rate, sid, note in [("2024-01-01",) + start[1:]] + [s for s in steps if s[0] > "2024-01-01"]:
+        if merged and merged[-1][1] == rate:
+            continue
+        merged.append([vf, rate, sid, note])
+    import datetime
+    for i, (vf, rate, sid, note) in enumerate(merged):
+        f = {"country": "PT", "currency": "EUR", "valid_from": vf,
+             "name": "Adicionamento sobre as emissões de CO2 (carbon tax on road diesel)", "rate_per_t": rate,
+             "law": f"Código dos Impostos Especiais de Consumo art. 92.º-A: the adicionamento sobre as emissões de CO2 is {rate:g} euro per tonne of CO2, from {note}. It is charged with the ISP on gasóleo rodoviário, the product's CO2 factor times this rate, and passed on in the fuel price.",
+             "sources": [src(srcs, sid)]}
+        if vf[:4] in kept and vf.endswith("-01-01") and not sid.startswith("pt-oficio-"):
+            ks, no = kept[vf[:4]]
+            f["law"] += f" The Autoridade Tributária's Ofício Circulado {no} says this rate applies in {vf[:4]}."
+            f["sources"].append(src(srcs, ks))
+        if i + 1 < len(merged):
+            f["valid_to"] = (datetime.date.fromisoformat(merged[i + 1][0]) - datetime.timedelta(days=1)).isoformat()
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
     germany(fetched, out, srcs)
     austria(fetched, out, srcs)
     ireland(fetched, out, srcs)
+    portugal(fetched, out, srcs)
 
 
 if __name__ == "__main__":

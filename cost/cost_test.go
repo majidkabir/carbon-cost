@@ -1715,6 +1715,19 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("IE %s: %+v", d, l)
 		}
 	}
+	// Portugal's adicionamento: the portarias of 2024 (each in force the next
+	// working day), 67.395 in 2025, 70.0405 in 2026.
+	for d, want := range map[string]float64{"2024-08-23": 56.246, "2024-08-26": 68.368, "2024-09-13": 74.429,
+		"2024-09-16": 81, "2025-06-01": 67.395, "2026-11-03": 70.0405} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "PT"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "PT", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("PT %s: %+v", d, l)
+		}
+	}
 	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
 		t.Error("lower-case fuel_country accepted")
 	}
@@ -1880,6 +1893,28 @@ func TestAP6(t *testing.T) {
 		}
 		if math.Abs(got*1.21-want) > 0.01 {
 			t.Errorf("%s: EUR %.2f with IVA, want %.2f (%+v)", d, got*1.21, want, r.Lines)
+		}
+	}
+}
+
+// The AP-71 León–Astorga, Pesados 2: EUR 10.10 by day, 5.05 at night
+// (23:00 to 07:00), 21% IVA included.
+func TestAP71(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"ZZ": 40}, Path: [][2]float64{{-5.62, 42.575}, {-5.639884, 42.57088}, {-5.74975, 42.527119}, {-5.894253, 42.452951}, {-6.017108, 42.439394}, {-6.06, 42.44}}}}}
+	date := time.Date(2026, 3, 2, 0, 0, 0, 0, time.UTC)
+	for at, want := range map[string]float64{"10:00": 10.10, "23:30": 5.05, "": 10.10} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: at}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-71") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%q: EUR %.2f with IVA, want %.2f", at, got*1.21, want)
 		}
 	}
 }

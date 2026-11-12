@@ -77,7 +77,15 @@ def austria(fetched, out, srcs):
     system, gives 55 euro for 2025 to 2027 (the fixed-price phase until EU
     ETS 2), so 2026 and 2027 are priced from its page."""
     vals, law_src = {}, None
-    for sid in ("at-nehg-current", "at-nehg"):
+    # The consolidated law read in Chrome (browser/at-nehg-10.txt), else
+    # an archived RIS page.
+    bp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "at-nehg-10.txt")
+    bt = " ".join(l.strip() for l in open(bp, encoding="utf-8") if not l.startswith("#")) if os.path.exists(bp) else ""
+    m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?)(?: \(2\)|$| Anm)", bt)
+    if m and "Fassung vom" in open(bp, encoding="utf-8").read():
+        vals = dict(re.findall(r"(20\d\d) (\d+(?:,\d+)?) Euro", m.group(1)))
+        law_src = "at-nehg-ris"
+    for sid in ("at-nehg-current", "at-nehg") if not law_src else ():
         p = os.path.join(fetched, sid + ".html")
         t = text(p) if os.path.exists(p) else ""
         m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)

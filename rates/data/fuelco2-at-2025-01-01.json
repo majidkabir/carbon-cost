@@ -5,11 +5,11 @@
  "valid_to": "2025-12-31",
  "name": "Nationaler Emissionszertifikatehandel certificate value",
  "rate_per_t": 55.0,
- "law": "NEHG 2022 § 10: certificate value of 55 euro per tonne of CO2 in 2025, as the Federal Ministry of Finance gives it for the fixed-price phase. Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price.",
+ "law": "NEHG 2022 § 10 (1): certificate value of 55 euro per tonne of CO2 in 2025. Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price.",
  "sources": [
   {
-   "title": "Federal Ministry of Finance (Austria): information on the NEHG 2022, the fixed certificate price by calendar year (EUR 55 for 2025 to 2027)",
-   "url": "https://www.bmf.gv.at/en/topics/climate-policy/initial_nehg_2022_en.html"
+   "title": "NEHG 2022 (RIS, consolidated, Fassung vom 12.11.2026) § 10 (1): certificate values by calendar year; RIS refuses the workflow, so read in Chrome (tools/tables/browser/at-nehg-10.txt)",
+   "url": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20011818"
   }
  ]
 }

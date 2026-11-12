@@ -43,6 +43,9 @@ const (
 	// FuelCO2 is a national CO2 price on road fuel (Germany's BEHG,
 	// Austria's NEHG 2022), paid where the fuel is bought.
 	FuelCO2 = "fuel_co2"
+	// AreaCharge is a charge per day in a zone (London's Congestion
+	// Charge and Low Emission Zone).
+	AreaCharge = "area_charge"
 )
 
 // ETS2Start is when ETS2 covers road transport fuel.
@@ -797,6 +800,9 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		}
 	}
 	if err := fuelCO2(&out, req, date, (res.TTWKg-ferryTTW)/1000, add); err != nil {
+		return Response{}, err
+	}
+	if err := areaCharges(&out, req, date, route, add); err != nil {
 		return Response{}, err
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
@@ -1612,6 +1618,63 @@ func fuelCO2(out *Response, req Request, date time.Time, roadT float64, add func
 		out.Notes = append(out.Notes, "Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
 	case priced:
 		out.Notes = append(out.Notes, "Fuel CO2: the national CO2 price on diesel of "+req.FuelCountry+", where the fuel is bought, on this trip's road fuel.")
+	}
+	return nil
+}
+
+var (
+	zoneOnce sync.Once
+	zoneList []rates.Zone
+	zoneErr  error
+)
+
+// areaCharges adds a day's charge for each zone the route drives into
+// (rates.Zone), when it is there in the charging hours: with a departure
+// time, at the times each point in the zone is reached; without one, the
+// charge is assumed.
+func areaCharges(out *Response, req Request, date time.Time, route *track, add func(Line) error) error {
+	zoneOnce.Do(func() { zoneList, zoneErr = rates.ZonesAll() })
+	if zoneErr != nil {
+		return zoneErr
+	}
+	for _, z := range zoneList {
+		if !z.Covers(date) || req.Truck.MaxMassKg < z.MinKg {
+			continue
+		}
+		var in []int
+		for i, p := range route.pts {
+			if z.Contains(p) {
+				in = append(in, i)
+			}
+		}
+		if len(in) == 0 {
+			continue
+		}
+		if z.ExemptEuro > 0 && req.Truck.Euro >= z.ExemptEuro {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route enters the %s; a Euro %d truck pays nothing there.", z.Country, z.Name, req.Truck.Euro))
+			continue
+		}
+		charged := true
+		if req.Time != "" {
+			charged = false
+			for _, i := range in {
+				if at, ok := passage(req, date, route.cum[i], z.Country); ok && z.Charging(at) {
+					charged = true
+					break
+				}
+			}
+			if !charged {
+				out.Notes = append(out.Notes, fmt.Sprintf("%s: the route is in the %s outside its charging hours.", z.Country, z.Name))
+				continue
+			}
+		} else if len(z.Weekdays) > 0 || len(z.Weekends) > 0 {
+			out.Notes = append(out.Notes, fmt.Sprintf("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", z.Country, z.Name))
+		}
+		km := route.cum[in[len(in)-1]] - route.cum[in[0]]
+		if err := add(Line{Charge: AreaCharge, Country: z.Country, Component: rates.Toll, Section: z.Name, Km: round3(km), Days: 1,
+			Rate: z.Charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: z.Charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
+			return err
+		}
 	}
 	return nil
 }

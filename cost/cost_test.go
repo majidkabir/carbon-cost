@@ -1728,6 +1728,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("PT %s: %+v", d, l)
 		}
 	}
+	// Austria's NEHG certificate value: 45 in 2024, 55 from 2025 (the
+	// ministry's 55 for 2026 and 2027).
+	for d, want := range map[string]float64{"2024-06-01": 45, "2025-06-01": 55, "2026-11-03": 55} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "AT"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "AT", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("AT %s: %+v", d, l)
+		}
+	}
 	// Slovenia's okoljska dajatev on diesel: 17.3 under the Uredba, 30.85 from
 	// 10 September 2024, the 2026 sklepi (0, 25.90, 30.85 from 2 June, 0 from
 	// 28 July to 14 December).
@@ -1930,5 +1942,25 @@ func TestAP71(t *testing.T) {
 		if math.Abs(got*1.21-want) > 0.01 {
 			t.Errorf("%q: EUR %.2f with IVA, want %.2f", at, got*1.21, want)
 		}
+	}
+}
+
+// Italy's motorway tolls are an estimate: the km on toll motorways (OSM
+// toll=yes) at Autostrade per l'Italia's plain-stretch rate, VAT
+// included (class 5: EUR 0.19034/km from 1 January 2026).
+func TestItalyEstimate(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 7, CountryKm: map[string]float64{"IT": 7}, Path: a1}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, RoadToll, "IT", rates.Toll)
+	if !ok || l.Rate != 0.19034 || l.Km < 6 {
+		t.Errorf("IT: %+v %v", l, r.Lines)
+	}
+	if !strings.Contains(l.Source, "Estimate") {
+		t.Errorf("IT line not flagged as an estimate: %s", l.Source)
 	}
 }

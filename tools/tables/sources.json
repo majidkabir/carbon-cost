@@ -110,12 +110,8 @@
   {"id": "es-conc-ap71-2024", "table": "es-conc", "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-71_leon_-_astorga_2024.pdf", "what": "Spain: Ministerio de Transportes, 2024 tariffs of the AP71 concession (the Internet Archive's copy, as the Ministry's site refuses the workflow)"},
   {"id": "es-conc-ap9-2024", "table": "es-conc", "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-9_ferrol_-_frontera_portuguesa_2024.pdf", "what": "Spain: Ministerio de Transportes, 2024 tariffs of the AP9 concession (the Internet Archive's copy, as the Ministry's site refuses the workflow)"},
   {"id": "es-conc-cdx-2025", "table": "es-conc", "url": "https://web.archive.org/cdx/search/cdx?url=transportes.gob.es/recursos_mfom/&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&limit=3000&filter=original%3A.%2A%28ap-%7CAP-%7Cpeaje%7Ctarifa%29.%2A%282025%7C2026%29.%2A", "what": "The Internet Archive's index of the Ministry's 2025-2026 toll tariff files"},
-  {"id": "es-op-autopistas", "table": "es-conc", "url": "https://www.autopistas.com/tarifas/", "what": "Abertis Autopistas (AP-6, AP-51, AP-61, AP-7 Alicante–Cartagena, AP-68): tariffs page"},
-  {"id": "es-op-audasa", "table": "es-conc", "url": "https://www.audasa.es/", "what": "Audasa (AP-9): home page"},
-  {"id": "es-op-aucalsa", "table": "es-conc", "url": "https://www.aucalsa.es/", "what": "Aucalsa (AP-66): home page"},
-  {"id": "es-op-aulesa", "table": "es-conc", "url": "https://www.aulesa.es/", "what": "Aulesa (AP-71): home page"},
-  {"id": "es-op-ausol", "table": "es-conc", "url": "https://www.ausol.es/", "what": "Ausol (AP-7 Málaga–Guadiaro): home page"},
-  {"id": "es-op-acega", "table": "es-conc", "url": "https://www.autopistacentralgallega.es/", "what": "Autopista Central Gallega (AP-53): home page"},
-  {"id": "es-op-guadalmedina", "table": "es-conc", "url": "https://www.guadalmedina.es/", "what": "Autopista del Guadalmedina (AP-46): home page"}
+  {"id": "es-op-autopistas", "table": "es-conc", "url": "https://www.autopistas.com/es/beneficios/tarifas-y-descuentos", "what": "Abertis Autopistas (AP-6, AP-51, AP-61, AP-7 Alicante–Cartagena, AP-68): tariffs and discounts"},
+  {"id": "es-op-audasa", "table": "es-conc", "url": "https://www.audasa.es/la-autopista/tarifas-y-descuentos/", "what": "Audasa (AP-9): tariffs and discounts"},
+  {"id": "es-op-ausol", "table": "es-conc", "url": "https://www.ausol.es/es/tarifas-y-descuentos/tarifas", "what": "Ausol (AP-7 Málaga–Guadiaro): tariffs"}
 ]
 }

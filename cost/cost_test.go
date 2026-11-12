@@ -1861,3 +1861,25 @@ func TestRODanubeBridges(t *testing.T) {
 		}
 	}
 }
+
+// The AP-6 from Villalba to Adanero, Pesados 2: EUR 35.40 in 2026 with
+// 21% IVA, 34.15 in 2025 (the operator's sheets).
+func TestAP6(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"ZZ": 70}, Path: [][2]float64{{-3.99, 40.62}, {-4.02933, 40.6426}, {-4.1962, 40.73107}, {-4.41318, 40.77253}, {-4.57387, 40.89945}, {-4.59013, 40.94729}, {-4.61, 40.99}}}}}
+	for d, want := range map[string]float64{"2026-03-01": 35.40, "2025-03-01": 34.15} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-6/AP-51/AP-61") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%s: EUR %.2f with IVA, want %.2f (%+v)", d, got*1.21, want, r.Lines)
+		}
+	}
+}

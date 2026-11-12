@@ -30,7 +30,8 @@ def text(path):
 
 
 def src(srcs, sid):
-    return {"title": srcs[sid]["what"], "url": srcs[sid]["url"]}
+    # "page": the human-readable page of a source fetched from an API.
+    return {"title": srcs[sid]["what"], "url": srcs[sid].get("page", srcs[sid]["url"])}
 
 
 def write(out, f):
@@ -246,7 +247,11 @@ SI_MONTHS = {"januarja": 1, "februarja": 2, "marca": 3, "aprila": 4, "maja": 5, 
 
 def si_text(path):
     t = open(path, encoding="utf-8", errors="replace").read()
-    if path.endswith(".html"):
+    if t.lstrip().startswith("{"):
+        # PISRS's API: the text's paragraphs in data.besedilo[].vsebina.
+        t = " ".join(p.get("vsebina") or "" for p in json.loads(t)["data"]["besedilo"])
+        t = html.unescape(re.sub(r"<[^>]+>", "", t))
+    elif path.endswith(".html"):
         t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
         t = html.unescape(re.sub(r"<[^>]+>", " ", t))
     t = re.sub(r"(\w)-\s*\n\s*(\w)", r"\1\2", t)  # words hyphenated across lines
@@ -264,7 +269,8 @@ def slovenia(fetched, out, srcs):
     import datetime
     p = os.path.join(fetched, "si-uredba-48-2018.html")
     if not os.path.exists(p):
-        sys.exit("Slovenia: the Uredba wasn't fetched")
+        print("Slovenia: the Uredba wasn't fetched; not built")
+        return
     t = si_text(p)
     if not re.search(r"enota obremenitve in je enaka emisiji 1 tone CO ?2", t):
         sys.exit("Slovenia: the Uredba doesn't define the unit as 1 tonne of CO2")
@@ -273,12 +279,20 @@ def slovenia(fetched, out, srcs):
         sys.exit("Slovenia: no amount in the Uredba")
     base = si_rate(m.group(1))
     sklepi = []  # (entry into force, [(from, rate)], source id, gazette)
-    for sid in sorted(k for k in srcs if k.startswith("si-sklep-")):
-        p = next((os.path.join(fetched, sid + e) for e in (".txt", ".html") if os.path.exists(os.path.join(fetched, sid + e))), None)
+    for sid in sorted(k for k in srcs if k.startswith("si-sklep-") and not k.endswith("-meta")):
+        p = next((os.path.join(fetched, sid + e) for e in (".txt", ".html", ".json") if os.path.exists(os.path.join(fetched, sid + e))), None)
         if not p:
-            sys.exit(f"Slovenia: {sid} wasn't fetched")
+            print(f"Slovenia: {sid} wasn't fetched; not built")
+            return
         t = si_text(p)
         ul = re.search(r"(?:URADNI LIST REPUBLIKE SLOVENIJE ŠT\.|Uradni list RS, št\.) (\d+)/(\d{4}) Z DNE (\d+)\. (\d+)\. (\d{4})", t, re.I)
+        meta = os.path.join(fetched, sid + "-meta.html")
+        if not ul and os.path.exists(meta):
+            # PISRS's record of the act: gazette number and publication date.
+            e = json.load(open(meta, encoding="utf-8"))["data"]["evidencniPodatki"]
+            no, yy = e["ulStLeto"].split("/")
+            y, mo, d = e["objavljeno"].split("-")
+            ul = re.match(r"(\d+)/(\d{4}) (\d+)\. (\d+)\. (\d{4})", f"{no}/20{yy[-2:]} {int(d)}. {int(mo)}. {y}")
         if not ul:
             sys.exit(f"Slovenia: no gazette number and date in {sid}")
         pub = datetime.date(int(ul.group(5)), int(ul.group(4)), int(ul.group(3)))

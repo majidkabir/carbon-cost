@@ -146,12 +146,16 @@ type Table struct {
 // PointClass is a toll point's price for the trucks it matches; ETCRate,
 // if set, for trucks paying by tag (Request.ETC).
 type PointClass struct {
-	MinKg    int     `json:"min_kg,omitempty"`
-	MaxKg    int     `json:"max_kg,omitempty"`
-	MinAxles int     `json:"min_axles,omitempty"`
-	MaxAxles int     `json:"max_axles,omitempty"`
-	Rate     float64 `json:"rate"`
-	ETCRate  float64 `json:"etc_rate,omitempty"`
+	MinKg    int `json:"min_kg,omitempty"`
+	MaxKg    int `json:"max_kg,omitempty"`
+	MinAxles int `json:"min_axles,omitempty"`
+	MaxAxles int `json:"max_axles,omitempty"`
+	// MinLengthM (more than) and MaxLengthM (up to) bound the truck's
+	// length with trailer (Truck.Length), where the price goes by length.
+	MinLengthM float64 `json:"min_length_m,omitempty"`
+	MaxLengthM float64 `json:"max_length_m,omitempty"`
+	Rate       float64 `json:"rate"`
+	ETCRate    float64 `json:"etc_rate,omitempty"`
 }
 
 // Price is the toll point's price for the truck, and whether it charges
@@ -161,7 +165,9 @@ func (p TollPoint) Price(t Truck, etc bool) (float64, bool) {
 		return p.Rate, true
 	}
 	for _, c := range p.Classes {
-		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
 			if etc && c.ETCRate > 0 {
 				return c.ETCRate, true
 			}
@@ -199,6 +205,17 @@ type TollPoint struct {
 	// FreeHours: from and to (HH:MM, both included) the station charges
 	// nothing.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// ValidFrom and ValidTo (YYYY-MM-DD, both included, either may be
+	// empty) limit the point to part of the table's time: a table can
+	// then hold each version of a station that changed its price.
+	ValidFrom string `json:"valid_from,omitempty"`
+	ValidTo   string `json:"valid_to,omitempty"`
+}
+
+// InForce says whether the point charges on the given day.
+func (p TollPoint) InForce(d time.Time) bool {
+	day := d.Format(time.DateOnly)
+	return (p.ValidFrom == "" || day >= p.ValidFrom) && (p.ValidTo == "" || day <= p.ValidTo)
 }
 
 // TollSystem is a closed toll system: the price from the station where
@@ -222,6 +239,10 @@ type TollSystem struct {
 	// FreeHours: from and to (HH:MM, both included) the system charges
 	// nothing, for a trip entering it then.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// NightHours: from and to (HH:MM, both included) NightPrices replace
+	// Prices for a trip entering the system then (AP-71's night tariff).
+	NightHours  []string                      `json:"night_hours,omitempty"`
+	NightPrices map[string]map[string]float64 `json:"night_prices,omitempty"`
 	// Directed: the prices are per direction, entry|exit; a pair with no
 	// price that way has none (no trip), instead of the other way's.
 	Directed bool `json:"directed,omitempty"`
@@ -606,6 +627,9 @@ func All() ([]Table, error) {
 	}
 	var out []Table
 	for _, e := range ents {
+		if strings.HasPrefix(e.Name(), FuelCO2Prefix) || strings.HasPrefix(e.Name(), ZonePrefix) {
+			continue // national CO2 prices on fuel (fuelco2.go), area charges (zones.go)
+		}
 		b, err := files.ReadFile(path.Join("data", e.Name()))
 		if err != nil {
 			return nil, err
@@ -682,6 +706,14 @@ func (tb Table) check() error {
 				return fmt.Errorf("%s: free_hours must be [from, to] (HH:MM)", s.Name)
 			}
 		}
+		if len(s.NightHours) != 0 || len(s.NightPrices) != 0 {
+			if len(s.NightHours) != 2 || len(s.NightPrices) == 0 {
+				return fmt.Errorf("%s: night_hours must be [from, to] (HH:MM), with night_prices", s.Name)
+			}
+			if _, err := Within("00:00", s.NightHours[0], s.NightHours[1]); err != nil {
+				return fmt.Errorf("%s: night_hours must be [from, to] (HH:MM)", s.Name)
+			}
+		}
 	}
 	for _, p := range tb.TollPoints {
 		if p.Within != "" && !slices.ContainsFunc(tb.Closed, func(s TollSystem) bool { return s.Name == p.Within }) {
@@ -691,6 +723,14 @@ func (tb Table) check() error {
 			if _, err := Within("00:00", p.FreeHours[0], p.FreeHours[len(p.FreeHours)-1]); err != nil || len(p.FreeHours) != 2 {
 				return fmt.Errorf("toll point %s: free_hours must be [from, to] (HH:MM)", p.Name)
 			}
+		}
+		for _, v := range []string{p.ValidFrom, p.ValidTo} {
+			if _, err := time.Parse(time.DateOnly, v); v != "" && err != nil {
+				return fmt.Errorf("toll point %s: bad date %q", p.Name, v)
+			}
+		}
+		if p.ValidFrom != "" && p.ValidTo != "" && p.ValidTo < p.ValidFrom {
+			return fmt.Errorf("toll point %s: valid_to before valid_from", p.Name)
 		}
 		if p.Schedule != "" && (tb.Congestion == nil || tb.Congestion.Schedules[p.Schedule] == nil) {
 			return fmt.Errorf("toll point %s: no congestion schedule %q in the table", p.Name, p.Schedule)

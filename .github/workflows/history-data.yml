@@ -1,0 +1,84 @@
+name: History data
+# Fetches the ECB's euro reference rates since 1999 and the official texts
+# behind the historical rate tables (tools/history/sources.json), builds
+# fx/data/ecb-hist.csv and the historical tables, and pushes them with the
+# fetched texts and their manifest to the history-out branch. Push to the
+# history-data branch to run it.
+on:
+  push:
+    branches: [history-data]
+permissions:
+  contents: write
+# A new push replaces a run still going.
+concurrency:
+  group: history-data
+  cancel-in-progress: true
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
+      - name: ECB reference rates
+        run: |
+          mkdir -p out/fx
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+          sha256sum ecb.zip > out/fx/ecb-hist.zip.sha256
+          unzip -o ecb.zip eurofxref-hist.csv
+          python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
+      - name: Fetch
+        # Internet Archive copies the last run fetched aren't asked for again
+        # (a capture never changes); the next step takes them from it.
+        run: |
+          mkdir -p prev
+          if git fetch -q --depth 1 origin history-out; then git archive FETCH_HEAD | tar -x -C prev; fi
+          python3 tools/history/reuse.py todo tools/history/sources.json prev todo.json
+          python3 tools/tables/fetch.py todo.json out
+          # Some servers send a PDF from a URL without .pdf.
+          for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
+      - name: Reuse Internet Archive copies
+        # A capture never changes; the archive often refuses requests.
+        run: |
+          python3 tools/history/reuse.py tools/history/sources.json out prev
+          rm -rf prev todo.json
+      - name: OpenStreetMap extracts
+        # The extracts placing the toll stations, as the tables-data
+        # workflow last fetched them (removed before the push).
+        run: |
+          mkdir -p out/osm
+          git fetch -q --depth 1 origin tables-out
+          git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # The French station inputs, as the France data workflow last fetched them.
+          git fetch -q --depth 1 origin fr-out
+          mkdir -p out/fr-in
+          git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/fr-in
+      - name: Archived operator pages (tools/history/wayback.json)
+        # Left out when the run's commit says [no-wayback] (it takes long).
+        if: "!contains(github.event.head_commit.message, '[no-wayback]')"
+        env:
+          MSG: ${{ github.event.head_commit.message }}
+        run: |
+          # "[wayback=a,b]" in the run's commit message limits it to those sets.
+          export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
+          timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
+          find out -path 'out/wb-*' -name '*-osm*' -delete
+      - name: Build
+        run: |
+          mkdir -p out/tables
+          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
+      - name: Compare
+        run: |
+          rm -rf out/osm out/fr-in
+          for f in out/tables/*.json; do
+            [ -e "$f" ] || continue
+            n=$(basename "$f")
+            if [ -f "rates/data/$n" ] && cmp -s "$f" "rates/data/$n"; then echo "$n: same as committed"; else echo "::warning title=$n::new or differs from rates/data"; fi
+          done | tee out/tables/compare.txt
+      - name: Push
+        run: |
+          cd out
+          git init -q -b history-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "History sources and tables"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" history-out

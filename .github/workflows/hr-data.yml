@@ -13,11 +13,11 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done
       - name: Fetch
         run: |
           mkdir -p out
-          curl -fsSL -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
           osmium tags-filter -O -o b.pbf hr.pbf n/barrier=toll_booth n/highway=motorway_junction
           osmium export -O -f geojsonseq -o booths.geojsonseq b.pbf
           python3 tools/hr/fetch.py booths.geojsonseq out

@@ -1,0 +1,272 @@
+{
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine. For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages. A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself.",
+ "sets": [
+  {
+   "set": "laws",
+   "dir": ".",
+   "from": "20230101",
+   "to": "20261110",
+   "ids": [
+    "at-mtv-2023",
+    "at-mtv-2023-gw"
+   ],
+   "urls": {
+    "at-mtv-2023": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
+    "at-mtv-2023-gw": "https://www.gw-world.com/fileadmin/Corporate_Documents/BGBLA_2023_II_331_Mautverordnung.pdf"
+   },
+   "must": {
+    "at-mtv-2023": "%PDF",
+    "at-mtv-2023-gw": "%PDF"
+   }
+  },
+  {
+   "set": "2024",
+   "from": "20240101",
+   "to": "20241130",
+   "ids": [
+    "dk-storebaelt",
+    "dk-oresund",
+    "fr-mont-blanc-tunnel",
+    "pt-imt-taxas",
+    "lv-aln",
+    "ie-m1",
+    "ie-m3",
+    "ie-m3-blackbull",
+    "ie-m4",
+    "ie-n6",
+    "ie-m7m8",
+    "ie-n8",
+    "ie-limerick",
+    "ie-n25",
+    "ie-port-tunnel",
+    "ie-m50"
+   ],
+   "builders": [
+    "dk_bridges",
+    "mont_blanc",
+    "pt",
+    "lv",
+    "ie"
+   ],
+   "must": {
+    "dk-storebaelt": "Priser for erhverv \\d{4}",
+    "pt-imt-taxas": "Taxas de Portagem de",
+    "lv-aln": "2\\. pielikums",
+    "ie-m1": "Location:",
+    "ie-m3": "Location:",
+    "ie-m3-blackbull": "Location:",
+    "ie-m4": "Location:",
+    "ie-n6": "Location:",
+    "ie-m7m8": "Location:",
+    "ie-n8": "Location:",
+    "ie-limerick": "Location:",
+    "ie-n25": "Location:",
+    "ie-port-tunnel": "Location:",
+    "ie-m50": "Location:"
+   },
+   "valid_to": {
+    "lv-2017-08-22.json": [
+     "2024-12-31",
+     "Annex 2 was replaced from 1 January 2025 by the law of 4 December 2024 (Grozījumi Autoceļu lietošanas nodevas likumā).",
+     "https://likumi.lv/ta/id/357477"
+    ]
+   }
+  },
+  {
+   "set": "2025",
+   "from": "20250101",
+   "to": "20251130",
+   "ids": [
+    "dk-storebaelt",
+    "dk-oresund",
+    "fr-mont-blanc-tunnel",
+    "pt-imt-taxas",
+    "lv-aln",
+    "ie-m1",
+    "ie-m3",
+    "ie-m3-blackbull",
+    "ie-m4",
+    "ie-n6",
+    "ie-m7m8",
+    "ie-n8",
+    "ie-limerick",
+    "ie-n25",
+    "ie-port-tunnel",
+    "ie-m50"
+   ],
+   "builders": [
+    "dk_bridges",
+    "mont_blanc",
+    "pt",
+    "lv",
+    "ie"
+   ],
+   "must": {
+    "dk-storebaelt": "Priser for erhverv \\d{4}",
+    "pt-imt-taxas": "Taxas de Portagem de",
+    "lv-aln": "2\\. pielikums",
+    "ie-m1": "Location:",
+    "ie-m3": "Location:",
+    "ie-m3-blackbull": "Location:",
+    "ie-m4": "Location:",
+    "ie-n6": "Location:",
+    "ie-m7m8": "Location:",
+    "ie-n8": "Location:",
+    "ie-limerick": "Location:",
+    "ie-n25": "Location:",
+    "ie-port-tunnel": "Location:",
+    "ie-m50": "Location:"
+   }
+  }
+ ],
+ "probes": [
+  {
+   "url": "imt-ip.pt/",
+   "regex": ".*[Pp]ortage.*"
+  },
+  {
+   "url": "www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/"
+  },
+  {
+   "url": "cdn.transportes.gob.es/portal-web-seitt/",
+   "regex": ".*(ap36|ap41|ap7|AP36|AP41|AP7).*"
+  },
+  {
+   "url": "www.seitt.es/",
+   "regex": ".*([Tt]arifa|[Pp]recio|pdf).*"
+  },
+  {
+   "url": "www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/"
+  },
+  {
+   "url": "www.sftrf.fr/wp-content/uploads/",
+   "regex": ".*[Tt]arif.*"
+  },
+  {
+   "url": "storebaelt.dk/",
+   "regex": ".*erhverv.*"
+  },
+  {
+   "url": "www.oresundsbron.com/da/erhverv/"
+  },
+  {
+   "url": "voyage.aprr.fr/sites/default/files/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "public-content.vinci-autoroutes.com/PDF/",
+   "regex": ".*[Tt]arif.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.vinci-autoroutes.com/static/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.autoroutes.sanef.com/sites/default/files/",
+   "regex": ".*\\.pdf.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.atmb.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.sftrf.fr/wp-content/uploads/",
+   "regex": ".*[Tt]arif.*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a65-alienor.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a65-alienor.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a41-adelac.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a41-adelac.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.leviaducdemillau.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.aliae.com/",
+   "regex": ".*([Tt]arif|TARIF|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a150-albea.fr/",
+   "regex": ".*([Pp]eage|pdf|jpg|png).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "a88-alicorne.fr/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.a63-atlandes.fr/",
+   "regex": ".*([Tt]arif|pdf|jpg|png).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.alis-sa.com/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  },
+  {
+   "url": "www.pontsnormandietancarville.fr/",
+   "regex": ".*([Tt]arif|pdf).*",
+   "group": "fr",
+   "from": "2023",
+   "to": "2026"
+  }
+ ]
+}

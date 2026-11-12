@@ -1,0 +1,30 @@
+{
+ "country": "NL",
+ "currency": "EUR",
+ "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)",
+ "vehicles": "Goods motor vehicles whose maximum mass, alone or with the trailer, is 12,000 kg or more",
+ "min_kg": 12000,
+ "tolled_roads": "Motorways (autosnelwegen).",
+ "per_day": true,
+ "day": "calendar",
+ "valid_from": "2024-01-01",
+ "valid_to": "2025-03-24",
+ "law": "Wet belasting zware motorrijtuigen, art. 10 (as in force on 1 January 2024, unchanged until 25 March 2025): the tax for a day is € 12 for every vehicle. Replaced on 25 March 2025 by the amounts by CO2 class.",
+ "sources": [
+  {
+   "title": "Wet belasting zware motorrijtuigen, in force on 2024-01-01 (wetten.overheid.nl)",
+   "url": "https://wetten.overheid.nl/jci1.3:c:BWBR0007678&g=2024-01-01&z=2024-01-01"
+  },
+  {
+   "title": "Eurovignetten portal, user description: validity from 0:00 on the first day to 24:00 on the last",
+   "url": "https://www.eurovignettes.eu/download/Nutzerbeschreibung_20260701_EN.pdf"
+  }
+ ],
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "rate": 12
+  }
+ ]
+}

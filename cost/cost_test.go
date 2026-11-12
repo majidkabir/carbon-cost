@@ -73,6 +73,8 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 		{RoadToll, "DE", rates.Noise, 1.69, 1.69, false},
 		{RoadToll, "DE", rates.CO2, 22.28, 22.28, true},
 		{FerryETS, "", "", 2.25, 2.25, true},
+		// BEHG: the DE road km's share of the road fuel, 0.11 t x EUR 65.
+		{FuelCO2, "DE", rates.CO2, 7.18, 7.18, true},
 	} {
 		l, ok := line(r, tc.charge, tc.country, tc.comp)
 		if !ok {
@@ -84,11 +86,11 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 				tc.charge, tc.country, tc.comp, l.Amount, l.Currency, l.AmountEUR, l.Carbon, tc.amount, tc.eur, tc.carbon)
 		}
 	}
-	if len(r.Lines) != 8 {
-		t.Errorf("%d lines, want 8", len(r.Lines))
+	if len(r.Lines) != 9 {
+		t.Errorf("%d lines, want 9", len(r.Lines))
 	}
-	if r.CarbonEUR != 35.79 || math.Abs(r.TotalEUR-71.97) > 1e-9 {
-		t.Errorf("total EUR %v, carbon EUR %v; want 71.97 and 35.79", r.TotalEUR, r.CarbonEUR)
+	if r.CarbonEUR != 42.97 || math.Abs(r.TotalEUR-79.15) > 1e-9 {
+		t.Errorf("total EUR %v, carbon EUR %v; want 79.15 and 42.97", r.TotalEUR, r.CarbonEUR)
 	}
 	if r.FerryKm != 19 || r.CountryKm["DK"] != 140 || len(r.Sources) < 3 || len(r.NoRates) != 0 {
 		t.Errorf("response %+v", r)
@@ -185,7 +187,7 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if r.Date != "2026-11-03" || len(r.Lines) != 7 {
+	if r.Date != "2026-11-03" || len(r.Lines) != 8 {
 		t.Errorf("date %s, %d lines", r.Date, len(r.Lines))
 	}
 	if len(got.Legs) != 1 || got.Legs[0].VehicleType != DefaultVehicleType || got.WeightKg != 20000 || got.AddRoadLegs == nil || *got.AddRoadLegs {
@@ -197,13 +199,13 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	}
 }
 
-// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 71.97):
+// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 79.15):
 //
 //	class 4: DK 140 km x (0.22 + 0.30 + 0.06) DKK = EUR 4.13 + 5.63 + 1.13
 //	         DE 141 km x (0.155 + 0.023 + 0.012 + 0.079) = EUR 21.86 + 3.24 + 1.69 + 11.14
-//	         ferry EUR 2.25; total 51.07, tolls 48.82, saving 20.90
+//	         ferry EUR 2.25, fuel CO2 EUR 7.18; total 58.25, tolls 48.82, saving 20.90
 //	class 5: DK 140 km x (0.11 + 0 + 0.02) DKK = EUR 2.06 + 0 + 0.38; DE exempt
-//	         ferry EUR 2.25; total 4.69, tolls 2.44, saving 67.28
+//	         ferry EUR 2.25, no road fuel; total 4.69, tolls 2.44, saving 74.46
 func TestPrice_Compare(t *testing.T) {
 	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, CompareCO2Classes: []int{1, 4, 5}, TripsPerYear: 200}
 	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
@@ -211,9 +213,9 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := []Comparison{
-		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 71.97, CarbonEUR: 35.79},
-		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 51.07, CarbonEUR: 19.02, SavingEUR: 20.90, SavingPerYearEUR: 4180},
-		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 67.28, SavingPerYearEUR: 13456},
+		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 79.15, CarbonEUR: 42.97},
+		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 58.25, CarbonEUR: 26.2, SavingEUR: 20.90, SavingPerYearEUR: 4180},
+		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 74.46, SavingPerYearEUR: 14892},
 	}
 	if len(r.Compare) != len(want) {
 		t.Fatalf("compare %+v", r.Compare)
@@ -224,7 +226,7 @@ func TestPrice_Compare(t *testing.T) {
 		}
 	}
 	// The requested truck's own lines are unchanged by the comparison.
-	if r.TotalEUR != 71.97 || len(r.Lines) != 8 {
+	if r.TotalEUR != 79.15 || len(r.Lines) != 9 {
 		t.Errorf("total %v with %d lines", r.TotalEUR, len(r.Lines))
 	}
 
@@ -901,7 +903,7 @@ func TestChainBoothBeside(t *testing.T) {
 			{Name: "P", Points: at(0.3)}, {Name: "N", Points: at(2.0)}},
 		Prices: map[string]map[string]float64{"R|B": {"4": 2.25}, "P|N": {"4": 39.25}, "B|N": {"4": 52.17}}}
 	route := [][2]float64{{-0.1, 45}, {2.1, 45}}
-	got := chainUses(sys, route, truck40, false)
+	got := chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 1 || got[0].entry != "B" || got[0].exit != "N" {
 		t.Errorf("got %+v, want one ticket B-N", got)
 	}
@@ -909,7 +911,7 @@ func TestChainBoothBeside(t *testing.T) {
 	// network's station at the same place (P2 beside P).
 	sys.Stations = append(sys.Stations, rates.Station{Name: "P2", Points: at(0.3)})
 	sys.Prices = map[string]map[string]float64{"B|P": {"4": 5}, "P2|N": {"4": 30}}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 2 || got[0].entry != "B" || got[0].exit != "P" || got[1].entry != "P2" || got[1].exit != "N" {
 		t.Errorf("got %+v, want B-P, P2-N", got)
 	}
@@ -917,7 +919,7 @@ func TestChainBoothBeside(t *testing.T) {
 	// the same place: a trip driving through takes its ticket at X.
 	sys.Stations = []rates.Station{{Name: "Y", Points: []rates.Place{{Name: "p", Lat: 45.002, Lon: 0.4999}}}, {Name: "X", Points: at(0.5)}, {Name: "N", Points: at(2.0)}}
 	sys.Prices = map[string]map[string]float64{"Y|N": {"4": 36}, "X|N": {"4": 42}}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 1 || got[0].entry != "X" {
 		t.Errorf("got %+v, want X-N", got)
 	}
@@ -926,7 +928,7 @@ func TestChainBoothBeside(t *testing.T) {
 	sys.Stations = append(sys.Stations, rates.Station{Name: "Z", Points: at(1.0)}, rates.Station{Name: "W", Points: at(2.08)})
 	sys.Prices["Z|Z"] = map[string]float64{"4": 12.4}
 	sys.Prices["W|W"] = map[string]float64{"4": 5}
-	got = chainUses(sys, route, truck40, false)
+	got = chainUses(sys, newTrack(route), truck40, false)
 	if len(got) != 2 || got[0].entry != "X" || got[1].entry != "W" || got[1].exit != "W" {
 		t.Errorf("got %+v, want X-N and W-W", got)
 	}
@@ -1438,6 +1440,14 @@ func TestPassageTimes(t *testing.T) {
 			t.Errorf("free hours at %q: %.2f, want %.2f", at, got, want)
 		}
 	}
+	// Two versions of one station, each in force for part of the table's time.
+	tb.TollPoints = []rates.TollPoint{
+		{Name: "old", Lat: 50, Lon: 10, Rate: 4, ValidTo: "2026-11-04"},
+		{Name: "new", Lat: 50, Lon: 10, Rate: 6, ValidFrom: "2026-11-05"},
+	}
+	if got := sum(run([]rates.Table{tb}, "XX", path, Request{}), "test law"); got != 6 {
+		t.Errorf("versioned station on 2026-11-05: %.2f, want 6", got)
+	}
 }
 
 // Square tariffs are priced per direction: Kuzey Marmara's İzmit Kuzey to
@@ -1607,5 +1617,318 @@ func TestSwedenTwoDays(t *testing.T) {
 	}
 	if !ok || l.Days != 2 || l.Amount != 294 {
 		t.Errorf("%+v", r.Lines)
+	}
+}
+
+// The hour rule lasts the group's minutes: reached two hours later (at
+// 5 km/h), Straume pays again.
+func TestNorwayHourRuleTimed(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	path := [][2]float64{{5.3110, 60.4190}, {5.3150, 60.4170}, {5.2697, 60.3220}, {5.2723, 60.3232}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"NO": 20}, Path: path}}}
+	count := func(req Request) int {
+		r, err := Price(trip, all(t), req, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if l.Country == "NO" {
+				n++
+			}
+		}
+		return n
+	}
+	req := Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"NOK": 11.7}, Time: "08:00"}
+	if n := count(req); n != 1 {
+		t.Errorf("at 70 km/h: %d passages paid, want 1", n)
+	}
+	req.AvgSpeedKmh = 5
+	if n := count(req); n != 2 {
+		t.Errorf("at 5 km/h: %d passages paid, want 2", n)
+	}
+}
+
+// Passage times are local where the station is: 23:30 leaving Portugal
+// is 00:30 in Spain, and the day counts by the local date.
+func TestPassageZones(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	req := Request{Time: "23:30", origin: "PT"}
+	if at, _ := passage(req, date, 0, "ES"); at.Format("2006-01-02 15:04") != "2026-11-05 00:30" {
+		t.Errorf("ES: %v", at)
+	}
+	if at, _ := passage(req, date, 0, "PT"); at.Format("2006-01-02 15:04") != "2026-11-04 23:30" {
+		t.Errorf("PT: %v", at)
+	}
+	// From Denmark at 23:00, an hour on is midnight in Sweden but 23:00 in
+	// Britain: one calendar day there, two in Sweden.
+	dk := Request{Time: "23:00", origin: "DK", spans: map[string][][2]float64{"SE": {{0, 70}}, "GB": {{0, 70}}}}
+	tbs := all(t)
+	se, _ := rates.Find(tbs, "SE", date)
+	gb, _ := rates.Find(tbs, "GB", date)
+	if n, _ := tripDays(se, "SE", dk, date); n != 2 {
+		t.Errorf("SE: %d days", n)
+	}
+	if n, _ := tripDays(gb, "GB", dk, date); n != 1 {
+		t.Errorf("GB: %d days", n)
+	}
+}
+
+func TestPrice_FuelCountry(t *testing.T) {
+	d := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	// All fuel bought in Germany: the whole road fuel at the 2026 price.
+	r, err := Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DE"}, d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, FuelCO2, "DE", rates.CO2)
+	if !ok || l.Rate != 65 || l.Km != 0 || l.TonnesCO2 <= 0.11 {
+		t.Errorf("fuel line %+v", l)
+	}
+	// Bought in Denmark (no per-tonne price here): no fuel line.
+	r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DK"}, d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := line(r, FuelCO2, "DK", rates.CO2); ok {
+		t.Error("DK fuel line")
+	}
+	// The 2024 and 2025 prices are fixed in BEHG § 10 (2).
+	for y, want := range map[int]float64{2024: 45, 2025: 55} {
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DE"}, time.Date(y, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "DE", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("%d: %+v", y, l)
+		}
+	}
+	// Ireland's carbon tax on auto-diesel: EUR 71 per tonne from 8 October
+	// 2025, 63.50 before.
+	for d, want := range map[string]float64{"2026-11-03": 71, "2025-06-01": 63.5} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "IE"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "IE", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("IE %s: %+v", d, l)
+		}
+	}
+	// Portugal's adicionamento: the portarias of 2024 (each in force the next
+	// working day), 67.395 in 2025, 70.0405 in 2026.
+	for d, want := range map[string]float64{"2024-08-23": 56.246, "2024-08-26": 68.368, "2024-09-13": 74.429,
+		"2024-09-16": 81, "2025-06-01": 67.395, "2026-11-03": 70.0405} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "PT"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "PT", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("PT %s: %+v", d, l)
+		}
+	}
+	// Slovenia's okoljska dajatev on diesel: 17.3 under the Uredba, 30.85 from
+	// 10 September 2024, the 2026 sklepi (0, 25.90, 30.85 from 2 June, 0 from
+	// 28 July to 14 December).
+	for d, want := range map[string]float64{"2024-06-01": 17.3, "2025-06-01": 30.85, "2026-04-01": 0,
+		"2026-05-20": 25.9, "2026-06-02": 30.85, "2026-11-03": 0, "2026-12-15": 30.85} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "SI"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "SI", rates.CO2); !ok || l.Rate != want || (want == 0 && l.Amount != 0) {
+			t.Errorf("SI %s: %+v", d, l)
+		}
+	}
+	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
+		t.Error("lower-case fuel_country accepted")
+	}
+}
+
+// Tunnels and bridges charged per passage (crossings tables), each in the
+// direction it charges, on 5 November 2026.
+func TestTunnelsAndBridges(t *testing.T) {
+	fx := map[string]float64{"GBP": 0.84, "CHF": 0.95}
+	run := func(path [][2]float64, req Request) (float64, int) {
+		t.Helper()
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"ZZ": 1}, Path: path}}}
+		req.CargoKg, req.Truck, req.FX = 1000, truck40, fx
+		r, err := Price(trip, all(t), req, time.Date(2026, 11, 5, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		n := 0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.AmountEUR
+				n++
+			}
+		}
+		return math.Round(eur*100) / 100, n
+	}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		req  Request
+		eur  float64
+	}{
+		// Dartford, class D: GBP 8.40 (pre-pay 7.20), 6am to 10pm.
+		{"Dartford tunnels northbound", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{}, 10.0},
+		{"Dartford bridge southbound", [][2]float64{{0.2667, 51.4768}, {0.258914, 51.464813}, {0.2458, 51.4548}}, Request{ETC: true}, 8.57},
+		{"Dartford at night", [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}, Request{Time: "23:00"}, 0},
+		// Tyne Tunnels, class 3: GBP 5.00 (permit 4.50), each bore its way.
+		{"Tyne Tunnel northbound", [][2]float64{{-1.4827, 54.9791}, {-1.486078, 54.984689}, {-1.4843, 54.9906}}, Request{}, 5.95},
+		{"New Tyne Tunnel southbound", [][2]float64{{-1.4844, 54.9918}, {-1.484379, 54.988309}, {-1.4850, 54.9848}, {-1.4821, 54.9788}}, Request{ETC: true}, 5.36},
+		// Westerscheldetunnel, category 4 (over 12 m): EUR 25, T-Tag 15.
+		{"Westerscheldetunnel", [][2]float64{{3.7557, 51.43}, {3.7557, 51.45}}, Request{}, 25},
+		{"Westerscheldetunnel T-Tag", [][2]float64{{3.7557, 51.45}, {3.7557, 51.43}}, Request{ETC: true}, 15},
+		// Herrentunnel, class D (4 axles or more): EUR 17.60.
+		{"Herrentunnel", [][2]float64{{10.7594, 53.89}, {10.7594, 53.905}}, Request{}, 17.6},
+		// Great St Bernard, class 4: southbound CHF 192.50 at the Swiss
+		// plaza, northbound EUR 202 at the Italian one.
+		{"Great St Bernard southbound", [][2]float64{{7.1937, 45.905}, {7.1932, 45.8985}, {7.1729, 45.8645}, {7.1615, 45.8513}, {7.1611, 45.845}}, Request{}, 202.63},
+		{"Great St Bernard northbound", [][2]float64{{7.1611, 45.845}, {7.1615, 45.8513}, {7.1729, 45.8645}, {7.1932, 45.8985}, {7.1937, 45.905}}, Request{}, 202},
+	} {
+		if got, n := run(tc.path, tc.req); got != tc.eur || (tc.eur > 0 && n != 1) {
+			t.Errorf("%s: EUR %.2f in %d lines, want %.2f in one", tc.name, got, n, tc.eur)
+		}
+	}
+	// Before 1 September 2025 the 2013 Order's GBP 6.00.
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"GB": 1}, Path: [][2]float64{{0.2517, 51.4593}, {0.2626, 51.4702}}}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: fx}, time.Date(2025, 6, 2, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if l.Section == "Dartford Crossing" {
+			n++
+			if l.Amount != 6 || l.Currency != "GBP" {
+				t.Errorf("Dartford in June 2025: %+v", l)
+			}
+		}
+	}
+	if n != 1 {
+		t.Errorf("Dartford in June 2025: %d lines", n)
+	}
+}
+
+// The AP-7 Málaga–Guadiaro (Ausol) troncal barriers, Pesados 2 (four
+// axles or more), IVA divided out: San Pedro EUR 7.70 in the normal
+// season, 10.35 in the special one (June to September).
+func TestAusol(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 3, CountryKm: map[string]float64{"ES": 3}, Path: [][2]float64{{-5.03, 36.4995}, {-5.008749, 36.499382}, {-4.99, 36.4990}}}}}
+	for d, want := range map[string]float64{"2026-11-05": 7.70, "2026-07-01": 10.35} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		n := 0
+		for _, l := range r.Lines {
+			if l.Section == "AP-7 San Pedro" {
+				got += l.Amount
+				n++
+			}
+		}
+		if n != 1 || math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%s: EUR %.4f in %d lines, want %.2f/1.21", d, got, n, want)
+		}
+	}
+}
+
+// London's Congestion Charge: GBP 18 a day from 2 January 2026 (15
+// before) for driving in the zone 07:00-18:00 on weekdays.
+func TestCongestionCharge(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"GB": 6}, Path: [][2]float64{{-0.20, 51.513}, {-0.12, 51.513}, {-0.02, 51.513}}}}}
+	for _, tc := range []struct {
+		date, at string
+		gbp      float64
+	}{{"2026-11-11", "10:00", 18}, {"2026-11-11", "20:00", 0}, {"2026-11-14", "10:00", 0}, {"2025-06-04", "10:00", 15}, {"2026-12-29", "10:00", 0}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"GBP": 0.84}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Charge == AreaCharge {
+				got += l.Amount
+			}
+		}
+		if got != tc.gbp {
+			t.Errorf("%s %s: GBP %v, want %v", tc.date, tc.at, got, tc.gbp)
+		}
+	}
+}
+
+// Romania's Danube bridges (OG 15/2002 Anexa nr. 3) until TollRo: the A2
+// bridge at Cernavodă, category 4 (12 t, 4 axles or more): 133 lei with
+// VAT, either way.
+func TestRODanubeBridges(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 4, CountryKm: map[string]float64{"ZZ": 4}, Path: [][2]float64{{27.99, 44.3395}, {28.018083, 44.339525}, {28.05, 44.3396}}}}}
+	for d, want := range map[string]float64{"2026-03-01": 133 / 1.21, "2026-11-01": 0} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"RON": 5.0}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Section == "Danube bridge Fetești–Cernavodă" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-want) > 0.01 {
+			t.Errorf("%s: RON %.2f, want %.2f", d, got, want)
+		}
+	}
+}
+
+// The AP-6 from Villalba to Adanero, Pesados 2: EUR 35.40 in 2026 with
+// 21% IVA, 34.15 in 2025 (the operator's sheets).
+func TestAP6(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"ZZ": 70}, Path: [][2]float64{{-3.99, 40.62}, {-4.02933, 40.6426}, {-4.1962, 40.73107}, {-4.41318, 40.77253}, {-4.57387, 40.89945}, {-4.59013, 40.94729}, {-4.61, 40.99}}}}}
+	for d, want := range map[string]float64{"2026-03-01": 35.40, "2025-03-01": 34.15} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-6/AP-51/AP-61") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%s: EUR %.2f with IVA, want %.2f (%+v)", d, got*1.21, want, r.Lines)
+		}
+	}
+}
+
+// The AP-71 León–Astorga, Pesados 2: EUR 10.10 by day, 5.05 at night
+// (23:00 to 07:00), 21% IVA included.
+func TestAP71(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"ZZ": 40}, Path: [][2]float64{{-5.62, 42.575}, {-5.639884, 42.57088}, {-5.74975, 42.527119}, {-5.894253, 42.452951}, {-6.017108, 42.439394}, {-6.06, 42.44}}}}}
+	date := time.Date(2026, 3, 2, 0, 0, 0, 0, time.UTC)
+	for at, want := range map[string]float64{"10:00": 10.10, "23:30": 5.05, "": 10.10} {
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: at}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-71") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-want) > 0.01 {
+			t.Errorf("%q: EUR %.2f with IVA, want %.2f", at, got*1.21, want)
+		}
 	}
 }

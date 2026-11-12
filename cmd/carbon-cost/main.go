@@ -120,7 +120,7 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, Version: buildVersion()}, nil
+	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
 func calc(args []string) error {
@@ -141,6 +141,7 @@ func calc(args []string) error {
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
+	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -353,7 +354,8 @@ func serve(args []string) error {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second}
+	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
@@ -429,10 +431,17 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		res, err := c.Calculate(r.Context(), req)
 		if err != nil {
-			// Bad input (ours or Sootcase's 4xx) is the caller's; anything
-			// else from Sootcase is a bad gateway.
+			// Bad input (ours, or Sootcase refusing the request itself) is
+			// the caller's; Sootcase failing, limiting or refusing this
+			// server is a bad gateway (busy: unavailable).
 			status := http.StatusBadRequest
-			if msg := err.Error(); strings.HasPrefix(msg, "sootcase") && !strings.HasPrefix(msg, "sootcase: HTTP 4") {
+			var he *sootcase.HTTPError
+			switch {
+			case errors.As(err, &he) && he.Status == http.StatusTooManyRequests:
+				status = http.StatusServiceUnavailable
+			case errors.As(err, &he) && !he.CallerError():
+				status = http.StatusBadGateway
+			case he == nil && strings.HasPrefix(err.Error(), "sootcase"):
 				status = http.StatusBadGateway
 			}
 			writeJSON(w, status, map[string]string{"error": err.Error()})

@@ -1,0 +1,77 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-04-13",
+ "valid_to": "2026-05-31",
+ "crossings": true,
+ "osm_extract": "2026-11-12",
+ "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), normal season",
+ "law": "Tariffs of Autopista del Sol, Concesionaria Española, approved by Orden Ministerial of 18 December 2025, 2026: per troncal barrier (Calahonda, San Pedro, Manilva), Pesados 1 (two or three axles) and Pesados 2 (four or more), excluding 21% IVA; the normal season. The lateral barriers on the ramps aren't priced: a trip joining or leaving at one is priced as through traffic.",
+ "sources": [
+  {
+   "title": "Ausol: tarifas",
+   "url": "https://www.ausol.es/es/tarifas-y-descuentos/tarifas"
+  }
+ ],
+ "vehicles": "Pesados 1 (two or three axles) and Pesados 2 (four or more)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-7 Málaga–Estepona (Calahonda, San Pedro) and Estepona–Guadiaro (Manilva), at the main-road barriers.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "AP-7 Calahonda",
+   "lat": 36.505733,
+   "lon": -4.717858,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 7.6446
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 9.3802
+    }
+   ]
+  },
+  {
+   "name": "AP-7 San Pedro",
+   "lat": 36.499382,
+   "lon": -5.008749,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.1653
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.3636
+    }
+   ]
+  },
+  {
+   "name": "AP-7 Manilva",
+   "lat": 36.38047,
+   "lon": -5.265471,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0165
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.9669
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

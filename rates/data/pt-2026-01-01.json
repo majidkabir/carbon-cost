@@ -3,6 +3,7 @@
  "currency": "EUR",
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
+ "osm_extract": "2026-11-08",
  "name": "Portuguese motorway tolls (portagens)",
  "law": "IMT, Taxas de Portagem de 2026: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-08). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
  "sources": [

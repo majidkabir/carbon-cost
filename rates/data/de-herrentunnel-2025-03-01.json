@@ -1,0 +1,53 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2025-03-01",
+ "crossings": true,
+ "osm_extract": "2026-11-11",
+ "name": "Herrentunnel toll (Lübeck)",
+ "law": "Fernstraßenbauprivatfinanzierungsgesetz: the toll of the Herrentunnel Lübeck GmbH & Co. KG, as its Gebührentabelle (valid from 1 March 2025) gives it per passage, by height over the front axle (over 130 cm) and axles: class B (2 axles), C (3), D (4 or more); the cash price, with `etc` the Quick-Box/RFID price. Trucks over 3.5 t are taken to be over 130 cm.",
+ "sources": [
+  {
+   "title": "Herrentunnel: Gebührentabelle (gültig ab 01.03.2025)",
+   "url": "https://www.herrentunnel.de/index.php/maut-tarife/maut-tarife-2.html"
+  },
+  {
+   "title": "Herrentunnel: the toll table image, as transcribed in tools/tables/transcribed/de-herrentunnel-2025.json",
+   "url": "https://www.herrentunnel.de/public/img/content/Gebuehrentabelle_2025.png"
+  }
+ ],
+ "vehicles": "Vehicles over 130 cm high at the front axle (here: trucks over 3.5 t), by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Herrentunnel (B 104/B 75 Lübeck-Travemünde), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Herrentunnel",
+   "lat": 53.898345,
+   "lon": 10.759392,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 4.3,
+     "etc_rate": 3.52
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 11.1,
+     "etc_rate": 9.15
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 17.6,
+     "etc_rate": 14.6
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

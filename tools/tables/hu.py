@@ -31,8 +31,10 @@ def parse(fetched):
     state = re.search(r"az útdíjköteles utakról (\d{4})\.(\d\d)\.(\d\d)\.", text)
     infra = {}
     for cat in ("J2", "J3", "J4", "J5"):
-        m = re.search(cat + r" díjkategóriába tartozó útdíjköteles gépjármű kilométerenkénti, általános forgalmi adót magában foglaló "
-                      r"infrastruktúradíjának alapmértéke: a\) gyorsforgalmi úton ([\d,]+) forint, b\) főúton ([\d,]+) forint", text)
+        # Worded "útdíjköteles gépjármű ... infrastruktúradíjának alapmértéke" from 2026, "gépjárművek ...
+        # infrastruktúra díj (alap)mértéke" before.
+        m = re.search(cat + r" díjkategóriába tartozó (?:útdíjköteles gépjármű|gépjárművek) kilométerenkénti, általános forgalmi adót magában foglaló "
+                      r"infrastruktúra ?díj(?:ának)? (?:alap)?mértéke: a\) gyorsforgalmi úton ([\d,]+) forint, b\) főúton ([\d,]+) forint", text)
         infra[cat] = (num(m.group(1)), num(m.group(2)))
     blocks = "".join(open(f, encoding="utf-8").read() for f in sorted(glob.glob(os.path.join(fetched, "hu-25-2013-block-*.html"))))
     a2 = blocks.index("2. melléklet a 25/2013")
@@ -61,7 +63,7 @@ def parse(fetched):
     return f"{state.group(1)}-{state.group(2)}-{state.group(3)}", infra, seg, an, co2
 
 
-def main(fetched, outdir):
+def main(fetched, outdir, law=None, sources=None):
     valid_from, infra, seg, an, co2 = parse(fetched)
     fbar = {}
     for lv in ('motorway', 'main'):
@@ -94,7 +96,7 @@ def main(fetched, outdir):
     assert round(huf(18.6) * VAT, 2) == 91.80 and round(huf(9.9) * VAT, 2) == 48.86 and round(huf(4.5) * VAT, 2) == 22.21
     assert round(huf(3.4) * VAT, 2) == 16.78 and round(huf(2.8) * VAT, 2) == 13.82 and round(huf(0.8) * VAT, 2) == 3.95 and round(huf(4.0) * VAT, 2) == 19.74
     t = {
-     "country": "HU", "currency": "HUF", "valid_from": "2026-07-01", "valid_to": "2026-12-31",
+     "country": "HU", "currency": "HUF", "valid_from": valid_from, "valid_to": valid_from[:4] + "-12-31",
      "name": "Hungarian distance-based toll (HU-GO)",
      "law": ("25/2013. (V. 31.) NFM rendelet (in force from 1 July 2026): § 1 (2)-(4a) as set by 46/2025. (XII. 23.) ÉKM gives the infrastructure charge in HUF/km including 27% VAT by category "
              "(J2-J5 by axles, 209/2013. (VI. 18.) Korm. rendelet § 2) and road level (expressway or main road); annex 2 gives the external-cost charge in eurocent/km excluding VAT "
@@ -115,6 +117,11 @@ def main(fetched, outdir):
      "suburban_share": {"motorway": round(fbar['motorway'], 4), "other": round(fbar['main'], 4)},
      "rows": rows,
     }
+    # A past time state (tools/history/build_hu.py) names its own text.
+    if law:
+        t["law"] = law + t["law"][t["law"].index(" Rates here exclude VAT"):]
+    if sources:
+        t["sources"] = sources + t["sources"][3:]
     os.makedirs(outdir, exist_ok=True)
     json.dump(t, open(os.path.join(outdir, f'hu-{valid_from}.json'), 'w'), ensure_ascii=False, indent=1)
     json.dump(seg, open(os.path.join(outdir, 'hu-annex1.json'), 'w'), ensure_ascii=False)

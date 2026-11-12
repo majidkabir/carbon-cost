@@ -34,6 +34,9 @@ MOTORWAYS = [("ap36", "AP-36 Ocaña – La Roda"), ("ap41", "AP-41 Madrid – To
 # which the signage of OSM's links names all along them, so most can't
 # be placed.
 IVA = 1.21
+# Each year's tariffs: the acts behind them.
+ACUERDO = {"2025": "Acuerdo del Consejo de Ministros de 3 de diciembre de 2024 (BOE 18/12/2024), SEITT's tariff regime for 2025-2032",
+           "2026": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025"}
 GROUPS = [{"name": "Pesados 1", "min_kg": 3501, "max_axles": 3}, {"name": "Pesados 2", "min_kg": 3501, "min_axles": 4}]
 PRICE = re.compile(r"^\d+,\d\d$")
 
@@ -241,7 +244,13 @@ def read(path):
 def main(fetched, out):
     plazas = load_plazas(os.path.join(fetched, "es-osm.geojsonseq"))
     systems, year, missing = [], None, []
+    # A past year's tariffs (tools/history/build_es.py lists the ones it
+    # has none of in absent.txt).
+    absent = set(open(os.path.join(fetched, "absent.txt")).read().split()) if os.path.exists(os.path.join(fetched, "absent.txt")) else set()
     for sid, name in MOTORWAYS:
+        if f"es-seitt-{sid}" in absent:
+            print(f"es-seitt-{sid}: no tariff of that year")
+            continue
         path = os.path.join(fetched, f"es-seitt-{sid}.bbox.html")
         text = open(os.path.join(fetched, f"es-seitt-{sid}.txt"), encoding="utf-8").read()
         y = re.search(r"Peajes? (\d{4})", text).group(1)
@@ -252,8 +261,16 @@ def main(fetched, out):
         if set(m) != {"Ligeros", "Pesados 1", "Pesados 2"}:
             sys.exit(f"{sid}: classes {list(m)}")
         rows = m["Pesados 1"][0]
+        note = ""
         if m["Pesados 2"][0] != rows:
-            sys.exit(f"{sid}: Pesados 1 and 2 list other stations")
+            # SEITT's 2025 AP-36 PDF labels the Pesados 2 matrix's rows with
+            # another motorway's stations; its columns are the AP-36's, so
+            # the rows are read in the column order when Ligeros and
+            # Pesados 1 agree and the counts match.
+            if m["Ligeros"][0] != rows or len(m["Pesados 2"][0]) != len(rows):
+                sys.exit(f"{sid}: Pesados 1 and 2 list other stations")
+            print(f"{sid}: Pesados 2 rows labelled {m['Pesados 2'][0]}; read as {rows}")
+            note = "; the PDF labels the Pesados 2 rows with other stations (" + ", ".join(m["Pesados 2"][0]) + "), read here in the order of its columns, the AP-36's"
         placed = place(rows, road_of(name), plazas)
         miss = [r for r in rows if r not in placed]
         missing += [f"{name}: {r}" for r in miss]
@@ -271,14 +288,14 @@ def main(fetched, out):
         stations = [{"name": r, "points": [{"name": "booth", "lat": round(c[1], 6), "lon": round(c[0], 6)} for c in placed[r]]} for r in rows if r in placed]
         print(f"{name}: {len(stations)}/{len(rows)} stations placed, {len(prices)} prices" + (f"; unplaced {miss}" if miss else ""))
         if len(stations) >= 3:
-            systems.append({"name": name, "law": f"SEITT tariff {y} ({sid}), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+            systems.append({"name": name, "law": f"SEITT tariff {y} ({sid}), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00" + note,
                             "free_hours": ["00:00", "05:59"], "directed": True, "groups": GROUPS, "stations": stations, "prices": prices, "etc_prices": etc})
     osm = open(os.path.join(fetched, "es-osm-timestamp.txt")).read().strip()[:10]
     tb = {
         "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
         "osm_extract": osm,
         "name": "Spanish state toll motorways (SEITT)",
-        "law": f"Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's {year} tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of {osm}); {len(missing)} stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions (AP-6, AP-9, AP-46, AP-51, AP-53, AP-61, AP-66, AP-68, AP-71, AP-7 Málaga–Guadiaro and Alicante–Cartagena) aren't included.",
+        "law": f"{ACUERDO.get(year, ACUERDO['2026'])}: SEITT's {year} tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of {osm}); {len(missing)} stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro) or not included (AP-9, AP-46, AP-53, AP-66, AP-68, AP-7 Alicante–Cartagena).",
         "sources": []
                    + [{"title": s["what"], "url": s["url"]} for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json")))["sources"] if s["id"] in {f"es-seitt-{k}" for k, _ in MOTORWAYS}]
                    + [{"title": "OpenStreetMap (Geofabrik extracts), toll booths", "url": "https://download.geofabrik.de/europe/spain.html"}],

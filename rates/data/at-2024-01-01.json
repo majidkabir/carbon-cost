@@ -1,0 +1,1044 @@
+{
+ "country": "AT",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-12-31",
+ "name": "Austrian HGV toll (GO-Maut)",
+ "law": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023, §§ 1-2, 7-9 (in force 2024-01-01); the text read in a browser into tools/history/browser/at-mtv-2023.txt",
+ "sources": [
+  {
+   "title": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (RIS)",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.html"
+  }
+ ],
+ "vehicles": "Motor vehicles over 3.5 t maximum permissible mass, by number of axles (vehicle and trailer)",
+ "min_kg": 3501,
+ "tolled_roads": "Motorways and expressways (A and S roads). On the special toll sections (§ 4: parts of A 9, A 10, A 11, A 13 Brenner, S 16 Arlberg) the infrastructure part is a fixed amount per section, recognised on the route; § 3 adds 25% to the infrastructure tariff on the A 12 Kufstein–Innsbruck.",
+ "rows": [
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.0508,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0711,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.1067,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.203,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.2842,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "infrastructure",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.4263,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.003,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.003,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.003,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.005,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.007,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.008,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    6
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.018,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.027,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.034,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    5
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.034,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.045,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.06,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    4
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.048,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.066,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "air_noise",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.089,
+   "co2_class": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "euro": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.0,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.0,
+   "co2_class": [
+    5
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.006,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0075,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.0102,
+   "co2_class": [
+    4
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.0179,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0239,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.035,
+   "co2_class": [
+    3
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.0185,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0248,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.0362,
+   "co2_class": [
+    2
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 2,
+   "max_axles": 2,
+   "rate": 0.0198,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.0265,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "co2",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.0387,
+   "co2_class": [
+    1
+   ]
+  }
+ ],
+ "sections": {
+  "law": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023, § 4 (Mautabschnitts-Teiltarife for infrastructure, EUR per section) and § 5 (A 13, 22:00-05:00, 4+ axles); they replace the per-km infrastructure tariff on those sections (§ 9 Abs. 11 BStMG). Section ends: OpenStreetMap motorway junctions (ODbL); border points approximate.",
+  "tariff_groups": "E = CO2 class 5, A = other classes; values for 2, 3 and 4+ axles",
+  "list": [
+   {
+    "id": "a",
+    "road": "A 9",
+    "name": "A 9, ASt Spital/Pyhrn – ASt Ardning/Admont",
+    "from": {
+     "name": "ASt Spital/Pyhrn",
+     "lat": 47.6475,
+     "lon": 14.3324
+    },
+    "to": {
+     "name": "ASt Ardning/Admont",
+     "lat": 47.5751,
+     "lon": 14.3157
+    },
+    "tariff": {
+     "E": [
+      1.1504,
+      1.6106,
+      2.4159
+     ],
+     "A": [
+      4.5996,
+      6.4395,
+      9.6592
+     ]
+    }
+   },
+   {
+    "id": "b",
+    "road": "A 9",
+    "name": "A 9, Kn St. Michael – ASt Übelbach",
+    "from": {
+     "name": "Kn St. Michael",
+     "lat": 47.338,
+     "lon": 15.01
+    },
+    "to": {
+     "name": "ASt Übelbach",
+     "lat": 47.2159,
+     "lon": 15.2646
+    },
+    "tariff": {
+     "E": [
+      2.802,
+      3.9228,
+      5.8842
+     ],
+     "A": [
+      11.2031,
+      15.6843,
+      23.5265
+     ]
+    }
+   },
+   {
+    "id": "c",
+    "road": "A 10",
+    "name": "A 10, ASt Flachau – ASt Flachauwinkl",
+    "from": {
+     "name": "ASt Flachau",
+     "lat": 47.3604,
+     "lon": 13.3973
+    },
+    "to": {
+     "name": "ASt Flachauwinkl",
+     "lat": 47.2959,
+     "lon": 13.3944
+    },
+    "tariff": {
+     "E": [
+      0.7677,
+      1.0748,
+      1.6122
+     ],
+     "A": [
+      3.0708,
+      4.2992,
+      6.4488
+     ]
+    }
+   },
+   {
+    "id": "d",
+    "road": "A 10",
+    "name": "A 10, ASt Flachauwinkl – HASt Zederhaus",
+    "from": {
+     "name": "ASt Flachauwinkl",
+     "lat": 47.2959,
+     "lon": 13.3944
+    },
+    "to": {
+     "name": "HASt Zederhaus",
+     "lat": 47.1605,
+     "lon": 13.4826
+    },
+    "tariff": {
+     "E": [
+      1.9347,
+      2.7086,
+      4.0629
+     ],
+     "A": [
+      7.7388,
+      10.8343,
+      16.2515
+     ]
+    }
+   },
+   {
+    "id": "e",
+    "road": "A 10",
+    "name": "A 10, HASt Zederhaus – ASt St. Michael/Lungau",
+    "from": {
+     "name": "HASt Zederhaus",
+     "lat": 47.1605,
+     "lon": 13.4826
+    },
+    "to": {
+     "name": "ASt St. Michael/Lungau",
+     "lat": 47.0935,
+     "lon": 13.6094
+    },
+    "tariff": {
+     "E": [
+      1.2765,
+      1.7871,
+      2.6806
+     ],
+     "A": [
+      5.106,
+      7.1484,
+      10.7225
+     ]
+    }
+   },
+   {
+    "id": "f",
+    "road": "A 10",
+    "name": "A 10, ASt St. Michael/Lungau – ASt Rennweg/Katschberg",
+    "from": {
+     "name": "ASt St. Michael/Lungau",
+     "lat": 47.0935,
+     "lon": 13.6094
+    },
+    "to": {
+     "name": "ASt Rennweg/Katschberg",
+     "lat": 47.0224,
+     "lon": 13.6103
+    },
+    "tariff": {
+     "E": [
+      0.9358,
+      1.3102,
+      1.9652
+     ],
+     "A": [
+      3.7433,
+      5.2406,
+      7.8609
+     ]
+    }
+   },
+   {
+    "id": "g",
+    "road": "A 11",
+    "name": "A 11, ASt St. Jakob/Rosental – Staatsgrenze Karawankentunnel (approx., mid-tunnel)",
+    "from": {
+     "name": "ASt St. Jakob/Rosental",
+     "lat": 46.5583,
+     "lon": 14.0061
+    },
+    "to": {
+     "name": "Staatsgrenze Karawankentunnel (approx., mid-tunnel)",
+     "lat": 46.5,
+     "lon": 14.02
+    },
+    "tariff": {
+     "E": [
+      2.1899,
+      3.0659,
+      4.5988
+     ],
+     "A": [
+      8.7586,
+      12.2621,
+      18.3931
+     ]
+    }
+   },
+   {
+    "id": "h",
+    "road": "A 13",
+    "name": "A 13, Kn Innsbruck/Amras – ASt Innsbruck/Süd",
+    "from": {
+     "name": "Kn Innsbruck/Amras",
+     "lat": 47.2547,
+     "lon": 11.4202
+    },
+    "to": {
+     "name": "ASt Innsbruck/Süd",
+     "lat": 47.2396,
+     "lon": 11.3905
+    },
+    "tariff": {
+     "E": [
+      0.5147,
+      0.7206,
+      1.0808
+     ],
+     "A": [
+      2.0591,
+      2.8826,
+      4.3241
+     ]
+    },
+    "night_kat4": {
+     "E": 2.1616,
+     "A": 8.6482
+    }
+   },
+   {
+    "id": "i",
+    "road": "A 13",
+    "name": "A 13, Kn Innsbruck/Wilten – ASt Innsbruck/Süd",
+    "from": {
+     "name": "Kn Innsbruck/Wilten",
+     "lat": 47.2533,
+     "lon": 11.3813
+    },
+    "to": {
+     "name": "ASt Innsbruck/Süd",
+     "lat": 47.2396,
+     "lon": 11.3905
+    },
+    "tariff": {
+     "E": [
+      0.335,
+      0.469,
+      0.7034
+     ],
+     "A": [
+      1.3401,
+      1.8761,
+      2.8142
+     ]
+    },
+    "night_kat4": {
+     "E": 1.4068,
+     "A": 5.6284
+    }
+   },
+   {
+    "id": "j",
+    "road": "A 13",
+    "name": "A 13, ASt Innsbruck/Süd – ASt Zenzenhof",
+    "from": {
+     "name": "ASt Innsbruck/Süd",
+     "lat": 47.2396,
+     "lon": 11.3905
+    },
+    "to": {
+     "name": "ASt Zenzenhof",
+     "lat": 47.2276,
+     "lon": 11.3934
+    },
+    "tariff": {
+     "E": [
+      0.2447,
+      0.3426,
+      0.5138
+     ],
+     "A": [
+      0.9789,
+      1.3704,
+      2.0557
+     ]
+    },
+    "night_kat4": {
+     "E": 1.0276,
+     "A": 4.1114
+    }
+   },
+   {
+    "id": "k",
+    "road": "A 13",
+    "name": "A 13, ASt Zenzenhof – ASt Patsch/Igls",
+    "from": {
+     "name": "ASt Zenzenhof",
+     "lat": 47.2276,
+     "lon": 11.3934
+    },
+    "to": {
+     "name": "ASt Patsch/Igls",
+     "lat": 47.2082,
+     "lon": 11.403
+    },
+    "tariff": {
+     "E": [
+      0.4523,
+      0.6332,
+      0.9497
+     ],
+     "A": [
+      1.8093,
+      2.5329,
+      3.7996
+     ]
+    },
+    "night_kat4": {
+     "E": 1.8994,
+     "A": 7.5992
+    }
+   },
+   {
+    "id": "l",
+    "road": "A 13",
+    "name": "A 13, ASt Patsch/Igls – ASt Schönberg/Stubaital",
+    "from": {
+     "name": "ASt Patsch/Igls",
+     "lat": 47.2082,
+     "lon": 11.403
+    },
+    "to": {
+     "name": "ASt Schönberg/Stubaital",
+     "lat": 47.1841,
+     "lon": 11.3982
+    },
+    "tariff": {
+     "E": [
+      0.4894,
+      0.6851,
+      1.0277
+     ],
+     "A": [
+      1.9579,
+      2.7409,
+      4.1115
+     ]
+    },
+    "night_kat4": {
+     "E": 2.0554,
+     "A": 8.223
+    }
+   },
+   {
+    "id": "m",
+    "road": "A 13",
+    "name": "A 13, ASt Schönberg/Stubaital – ASt Matrei/Steinach",
+    "from": {
+     "name": "ASt Schönberg/Stubaital",
+     "lat": 47.1841,
+     "lon": 11.3982
+    },
+    "to": {
+     "name": "ASt Matrei/Steinach",
+     "lat": 47.1195,
+     "lon": 11.4497
+    },
+    "tariff": {
+     "E": [
+      1.5441,
+      2.1617,
+      3.2425
+     ],
+     "A": [
+      6.1774,
+      8.6479,
+      12.9724
+     ]
+    },
+    "night_kat4": {
+     "E": 6.485,
+     "A": 25.9448
+    }
+   },
+   {
+    "id": "n",
+    "road": "A 13",
+    "name": "A 13, ASt Matrei/Steinach – ASt Nösslach",
+    "from": {
+     "name": "ASt Matrei/Steinach",
+     "lat": 47.1195,
+     "lon": 11.4497
+    },
+    "to": {
+     "name": "ASt Nösslach",
+     "lat": 47.0615,
+     "lon": 11.4801
+    },
+    "tariff": {
+     "E": [
+      1.242,
+      1.7388,
+      2.6082
+     ],
+     "A": [
+      4.9689,
+      6.9561,
+      10.4346
+     ]
+    },
+    "night_kat4": {
+     "E": 5.2164,
+     "A": 20.8692
+    }
+   },
+   {
+    "id": "o",
+    "road": "A 13",
+    "name": "A 13, ASt Nösslach – ASt Brennersee",
+    "from": {
+     "name": "ASt Nösslach",
+     "lat": 47.0615,
+     "lon": 11.4801
+    },
+    "to": {
+     "name": "ASt Brennersee",
+     "lat": 47.0152,
+     "lon": 11.5065
+    },
+    "tariff": {
+     "E": [
+      1.1146,
+      1.5604,
+      2.3406
+     ],
+     "A": [
+      4.4592,
+      6.2426,
+      9.3642
+     ]
+    },
+    "night_kat4": {
+     "E": 4.6812,
+     "A": 18.7284
+    }
+   },
+   {
+    "id": "p",
+    "road": "A 13",
+    "name": "A 13, ASt Brennersee – Staatsgrenze Brennerpass (approx.)",
+    "from": {
+     "name": "ASt Brennersee",
+     "lat": 47.0152,
+     "lon": 11.5065
+    },
+    "to": {
+     "name": "Staatsgrenze Brennerpass (approx.)",
+     "lat": 47.003,
+     "lon": 11.508
+    },
+    "tariff": {
+     "E": [
+      0.2204,
+      0.3085,
+      0.4628
+     ],
+     "A": [
+      0.8817,
+      1.2343,
+      1.8516
+     ]
+    },
+    "night_kat4": {
+     "E": 0.9256,
+     "A": 3.7032
+    }
+   },
+   {
+    "id": "q",
+    "road": "S 16",
+    "name": "S 16, ASt St. Anton/Arlberg – ASt Langen/Arlberg",
+    "from": {
+     "name": "ASt St. Anton/Arlberg",
+     "lat": 47.1417,
+     "lon": 10.3162
+    },
+    "to": {
+     "name": "ASt Langen/Arlberg",
+     "lat": 47.1301,
+     "lon": 10.114
+    },
+    "tariff": {
+     "E": [
+      2.1672,
+      3.034,
+      4.551
+     ],
+     "A": [
+      8.6702,
+      12.1383,
+      18.2075
+     ]
+    }
+   }
+  ]
+ },
+ "surcharges": [
+  {
+   "id": "a12",
+   "name": "A 12, Staatsgrenze Kufstein – Kn Innsbruck/Amras",
+   "component": "infrastructure",
+   "factor": 0.25,
+   "law": "Mauttarifverordnung 2023 § 3: the § 2 infrastructure tariff +25% on this stretch. Stretch: OpenStreetMap motorway junctions (ODbL); km counted between consecutive junctions the route passes.",
+   "points": [
+    {
+     "name": "Staatsgrenze Kufstein (approx.)",
+     "lat": 47.607,
+     "lon": 12.187
+    },
+    {
+     "name": "Kufstein-Nord",
+     "lat": 47.5965,
+     "lon": 12.1756
+    },
+    {
+     "name": "Kufstein Süd",
+     "lat": 47.5675,
+     "lon": 12.1408
+    },
+    {
+     "name": "Kirchbichl",
+     "lat": 47.5333,
+     "lon": 12.0941
+    },
+    {
+     "name": "Wörgl Ost",
+     "lat": 47.495,
+     "lon": 12.0572
+    },
+    {
+     "name": "Wörgl West",
+     "lat": 47.4838,
+     "lon": 12.0235
+    },
+    {
+     "name": "Kramsach",
+     "lat": 47.4411,
+     "lon": 11.8842
+    },
+    {
+     "name": "Wiesing",
+     "lat": 47.4028,
+     "lon": 11.8032
+    },
+    {
+     "name": "Schwaz",
+     "lat": 47.3577,
+     "lon": 11.7016
+    },
+    {
+     "name": "Vomp",
+     "lat": 47.3307,
+     "lon": 11.6792
+    },
+    {
+     "name": "Wattens",
+     "lat": 47.2998,
+     "lon": 11.5838
+    },
+    {
+     "name": "Hall-Mitte",
+     "lat": 47.2739,
+     "lon": 11.5015
+    },
+    {
+     "name": "Hall-West",
+     "lat": 47.271,
+     "lon": 11.4764
+    },
+    {
+     "name": "Innsbruck Ost",
+     "lat": 47.2606,
+     "lon": 11.4385
+    },
+    {
+     "name": "Kn Innsbruck/Amras",
+     "lat": 47.2547,
+     "lon": 11.4202
+    }
+   ]
+  }
+ ]
+}

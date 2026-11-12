@@ -5,7 +5,7 @@ Usage: OSM_EXTRACT=<extract timestamp> python3 build.py CC roads.osm.pbf out.jso
 roads.osm.pbf: the extract filtered to highway=motorway, trunk and
 primary ways (and, for Hungary, the toll section relations tagged
 ref:HU:edid with their ways). Each way goes in a class by the rule for
-its country (RULES): "mw" are the roads a toll law prices at the
+its country (RULES; in Italy the motorways tagged toll=yes): "mw" are the roads a toll law prices at the
 motorway rate, "nat" the other national roads it tolls. In Hungary a way
 in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
@@ -46,10 +46,15 @@ RULES = {
     # Romania, OMT 1925/2025: autostrăzi and drumuri expres (A, DEx) vs
     # drumuri naționale.
     "RO": {"mw": r"^(A|DEx)\s?\d", "mw_highway": ["motorway"], "nat": r"^(DN\s?)?\d{1,3}[A-Z]{0,2}$"},
+    # Italy: the toll motorways (autostrade a pedaggio), the ways tagged
+    # toll=yes; the toll-free ones (A2, A19, A29, ring roads) aren't.
+    "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True},
 }
 
 
 def classify(rule, tags):
+    if rule.get("toll"):
+        return "mw" if tags.get("highway") == "motorway" and tags.get("toll") == "yes" else None
     refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
     if tags.get("highway") in rule["mw_highway"] or any(re.match(rule["mw"], r) for r in refs):
         return "mw"

@@ -1,0 +1,19 @@
+{
+ "country": "PT",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "name": "Adicionamento sobre as emissões de CO2 (carbon tax on road diesel)",
+ "rate_per_t": 56.246,
+ "law": "Código dos Impostos Especiais de Consumo art. 92.º-A: the adicionamento sobre as emissões de CO2 is 56.246 euro per tonne of CO2, from Portaria 244-A/2023 (published 2023-07-28, in force the next day). It is charged with the ISP on gasóleo rodoviário, the product's CO2 factor times this rate, and passed on in the fuel price. The Autoridade Tributária's Ofício Circulado 25010 says this rate applies in 2024.",
+ "sources": [
+  {
+   "title": "Autoridade Tributária: Portaria 244 A 2023 (adicionamento sobre as emissões de CO2)",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_244_A_2023.pdf"
+  },
+  {
+   "title": "Autoridade Tributária: Ofício circulado 25010/2023, the adicionamento sobre as emissões de CO2 for 2024",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/oficios_circulados_doclib/Documents/Oficio_circulado_25010_2023.pdf"
+  }
+ ],
+ "valid_to": "2024-08-25"
+}

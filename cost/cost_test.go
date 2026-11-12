@@ -1715,6 +1715,19 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("IE %s: %+v", d, l)
 		}
 	}
+	// Portugal's adicionamento: the portarias of 2024 (each in force the next
+	// working day), 67.395 in 2025, 70.0405 in 2026.
+	for d, want := range map[string]float64{"2024-08-23": 56.246, "2024-08-26": 68.368, "2024-09-13": 74.429,
+		"2024-09-16": 81, "2025-06-01": 67.395, "2026-11-03": 70.0405} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "PT"}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "PT", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("PT %s: %+v", d, l)
+		}
+	}
 	if _, err := Price(cphHam, all(t), Request{CargoKg: 1, Truck: truck40, FuelCountry: "de"}, d); err == nil {
 		t.Error("lower-case fuel_country accepted")
 	}

@@ -21,8 +21,8 @@ jobs:
       - name: Fetch
         run: |
           python3 tools/tables/fetch.py tools/tables/sources.json out
-          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
-          for f in out/tr-*.pdf out/es-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html"; done
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "not a PDF: $f"; done
+          for f in out/tr-*.pdf out/es-*.pdf; do pdftotext -bbox "$f" "${f%.pdf}.bbox.html" || echo "not a PDF: $f"; done
           # A source that fails this run keeps the copy the last run fetched.
           git fetch -q --depth 1 origin tables-out && mkdir -p prev && git archive FETCH_HEAD | tar -x -C prev
           python3 tools/history/reuse.py tools/tables/sources.json out prev && rm -rf prev

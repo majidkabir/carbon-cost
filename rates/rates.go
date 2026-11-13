@@ -209,7 +209,7 @@ func (s Season) Has(d time.Time) bool {
 }
 
 // PriceOn is the point's price on the day: its classes' HighRate on its
-// HighSeason days.
+// HighSeason days (not for a tag's ETCRate, which holds all year).
 func (p TollPoint) PriceOn(t Truck, etc bool, day time.Time) (float64, bool) {
 	r, ok := p.Price(t, etc)
 	if !ok || p.HighSeason == nil || !p.HighSeason.Has(day) {
@@ -219,7 +219,7 @@ func (p TollPoint) PriceOn(t Truck, etc bool, day time.Time) (float64, bool) {
 		l := t.Length()
 		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
 			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
-			if c.HighRate > 0 {
+			if c.HighRate > 0 && !(etc && c.ETCRate > 0) {
 				return c.HighRate, true
 			}
 			return r, ok

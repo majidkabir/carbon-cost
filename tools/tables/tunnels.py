@@ -1,6 +1,6 @@
 """Builds the tables of tunnels and bridges charged per passage on top of
 the countries' own tolls (each a "crossings" table, priced wherever a
-route passes it): the Herrentunnel (DE), the Westerscheldetunnel (NL),
+route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL),
 the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB).
 
@@ -24,6 +24,9 @@ taken comes from OpenStreetMap (tunnels-osm.json, an Overpass query):
   in EUR; each heading is along the tunnel's OSM way.
 - Herrentunnel: the plaza's booths named Herrentunnel (operator
   Herrentunnel Lübeck GmbH & Co. KG), either direction.
+- Warnowtunnel: the plaza's booths (operator Warnowtunnel), either
+  direction; prices from the state ordinance, read in Chrome
+  (browser/de-warnow-mauthvo.txt).
 - Tyne Tunnels: free-flow: the middle of each one-way A19 bore's longest
   way (tunnels-osm-tyne.json), in its direction.
 - Dartford: free-flow, no booths: the middle of the northbound tunnels
@@ -189,6 +192,52 @@ def herrentunnel(transcribed, out, osm, stamp):
             {"min_kg": 3501, "min_axles": 4, "rate": c["D"]["cash"], "etc_rate": c["D"]["tag"]}]}],
         "rows": [],
     }, "de-herrentunnel")
+
+
+def warnow(browser, out, osm, stamp):
+    """The Warnowtunnel (Rostock): the toll of the Warnow-QuerungMautHVO
+    M-V's Anlage, read in Chrome (browser/de-warnow-mauthvo.txt): winter
+    (1 Nov - 30 Apr) and summer (1 May - 31 Oct) prices per passage, the
+    "360 Tage" price as `etc`; at the plaza's booths (operator
+    Warnowtunnel), either direction."""
+    try:
+        t = open(os.path.join(browser, "de-warnow-mauthvo.txt"), encoding="utf-8").read()
+    except OSError:
+        print("Warnowtunnel: browser/de-warnow-mauthvo.txt missing; not built")
+        return
+    since = re.search(r"^Anlage (\d\d)\.(\d\d)\.(\d{4})$", t, re.M)
+    amend = re.search(r"Anlage neu gefasst durch Verordnung vom ([^(]+?) \((GVOBl\. M-V S\. \d+)\)", t)
+    head = "Kategorie | Höhe | Achsen | Fahrzeugtyp (Beispiele) | 360 Tage | Winter 1. Nov. - 30. April | Sommer 1. Mai - 31. Okt."
+    rows = {m.group(1): [num(x) for x in m.group(3, 4, 5)] for m in re.finditer(r"^([345]) \| ≥ 2,60 m \| ([=≥] \d) \| [^|]+\| ([\d,]+) EUR \| ([\d,]+) EUR \| ([\d,]+) EUR$", t, re.M)}
+    if not since or not amend or head not in t or len(rows) != 3 or "= 2 | Lkw 12 t" not in t or "= 3 | Lkw 20 t" not in t or "≥ 4 | Lkw 40 t" not in t:
+        sys.exit("Warnowtunnel: the captured ordinance changed")
+    booths = [e for e in osm if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and e["tags"].get("operator") == "Warnowtunnel"]
+    if not booths:
+        sys.exit("Warnowtunnel: no toll booths in OpenStreetMap")
+    lat, lon = centre(booths)
+    vf = f"{since.group(3)}-{since.group(2)}-{since.group(1)}"
+    cls = []
+    for k, lo, hi in (("3", 0, 2), ("4", 3, 3), ("5", 4, 0)):
+        tag, winter, summer = rows[k]
+        c = {"min_kg": 3501, "rate": winter, "etc_rate": tag, "high_rate": summer}
+        if lo:
+            c["min_axles"] = lo
+        if hi:
+            c["max_axles"] = hi
+        cls.append(c)
+    write(out, {
+        "country": "DE", "currency": "EUR", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+        "name": "Warnowtunnel toll (Rostock)",
+        "law": (f"Warnow-QuerungMautHVO M-V (Anlage as newly set by the Verordnung of {amend.group(1)}, {amend.group(2)}, valid from {since.group(1)}.{since.group(2)}.{since.group(3)}): "
+                "the toll per passage of the Warnow-Querung (B 105, Rostock), VAT included, for vehicles 2.60 m high or more by axles: category 3 (2 axles), 4 (3), 5 (4 or more); "
+                "the winter price (1 November - 30 April), the summer price (1 May - 31 October) as the high season, and the '360 Tage' price as `etc`. Trucks over 3.5 t are taken to be 2.60 m high or more."),
+        "sources": [{"title": "Landesrecht Mecklenburg-Vorpommern: Warnow-QuerungMautHVO M-V, Gesamtausgabe (read in Chrome: tools/tables/browser/de-warnow-mauthvo.txt)", "url": "https://www.landesrecht-mv.de/bsmv/document/jlr-NNLMV0000717F"}],
+        "vehicles": "Vehicles 2.60 m high or more (here: trucks over 3.5 t), by axles", "min_kg": 3501,
+        "tolled_roads": "The Warnowtunnel (B 105 Rostock, km 1+040 to 3+160), charged at its toll plaza either way.",
+        "point_match_km": 0.15,
+        "toll_points": [{"name": "Warnowtunnel", "lat": lat, "lon": lon, "rate": 0, "classes": cls, "high_season": {"months": [5, 6, 7, 8, 9, 10]}}],
+        "rows": [],
+    }, "de-warnowtunnel")
 
 
 def dartford(fetched, out, osm, stamp):
@@ -380,6 +429,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     osm = d["elements"]
     stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
     herrentunnel(transcribed, out, osm, stamp)
+    warnow(browser, out, osm, stamp)
     westerschelde(fetched, out, osm, stamp)
     gsb(fetched, out, osm, stamp)
     dartford(fetched, out, osm, stamp)

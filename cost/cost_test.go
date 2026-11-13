@@ -1799,6 +1799,10 @@ func TestTunnelsAndBridges(t *testing.T) {
 		{"Westerscheldetunnel T-Tag", [][2]float64{{3.7557, 51.45}, {3.7557, 51.43}}, Request{ETC: true}, 15},
 		// Herrentunnel, class D (4 axles or more): EUR 17.60.
 		{"Herrentunnel", [][2]float64{{10.7594, 53.89}, {10.7594, 53.905}}, Request{}, 17.6},
+		// Warnowtunnel, category 5 (4 axles or more): winter EUR 20.30,
+		// "360 Tage" 17.07.
+		{"Warnowtunnel", [][2]float64{{12.1076, 54.13}, {12.1076, 54.14}}, Request{}, 20.3},
+		{"Warnowtunnel 360 Tage", [][2]float64{{12.1076, 54.14}, {12.1076, 54.13}}, Request{ETC: true}, 17.07},
 		// Great St Bernard, class 4: southbound CHF 192.50 at the Swiss
 		// plaza, northbound EUR 202 at the Italian one.
 		{"Great St Bernard southbound", [][2]float64{{7.1937, 45.905}, {7.1932, 45.8985}, {7.1729, 45.8645}, {7.1615, 45.8513}, {7.1611, 45.845}}, Request{}, 202.63},
@@ -2067,6 +2071,30 @@ func TestAP46(t *testing.T) {
 		}
 		if math.Abs(got*1.21-tc.want) > 0.01 {
 			t.Errorf("%s %s: %v x1.21 = %v, want %v: %v", tc.date, tc.at, got, got*1.21, tc.want, r.Lines)
+		}
+	}
+}
+
+// Warnowtunnel in summer (1 May - 31 October): category 5 EUR 23.00;
+// the "360 Tage" price (17.07) holds all year.
+func TestWarnowSummer(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"DE": 1}, Path: [][2]float64{{12.1076, 54.13}, {12.1076, 54.14}}}}}
+	for _, tc := range []struct {
+		etc  bool
+		want float64
+	}{{false, 23}, {true, 17.07}} {
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, ETC: tc.etc}, time.Date(2027, 7, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Warnow") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.001 {
+			t.Errorf("etc %v: %v, want %v: %v", tc.etc, got, tc.want, r.Lines)
 		}
 	}
 }

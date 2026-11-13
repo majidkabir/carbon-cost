@@ -1163,7 +1163,7 @@ func stationPass(sys rates.TollSystem, st rates.Station, route *track) (float64,
 	best, bestPos := math.Inf(1), 0.0
 	for _, p := range st.Points {
 		pos, d, h := route.project(p)
-		if p.Heading != nil && math.Abs(math.Mod(h-*p.Heading+540, 360)-180) > 90 {
+		if p.Heading != nil && math.Abs(math.Mod(h-*p.Heading+540, 360)-180) > 60 {
 			continue
 		}
 		if d < best {

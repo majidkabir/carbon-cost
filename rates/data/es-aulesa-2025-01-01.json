@@ -1,0 +1,194 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "AP-71 León–Astorga (Aulesa)",
+ "law": "The concessionaire's tariffs in force from 1 January 2025, as its tariff sheet gives them by entry and exit: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), the day tariff (07:00 to 23:00) and the night tariff (23:00 to 07:00, by the time the trip enters), excluding 21% IVA. Stations placed at OpenStreetMap's junctions of the exit numbers the sheet's map gives them, and León at the motorway's eastern end; Astorga is priced as San Justo de la Vega (same prices).",
+ "sources": [
+  {
+   "title": "Abertis Autopistas: AP-71 León–Astorga tariffs 2025",
+   "url": "https://www.autopistas.com/sites/publica/files/documentos/tramos/25_002_Aulesa_AP71_Leon-Astorga_T25.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API), motorway junctions",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-71 León–Astorga.",
+ "closed_systems": [
+  {
+   "name": "AP-71",
+   "law": "Aulesa tariffs 2025, including 21% IVA, here excluding it; night tariff 23:00 to 07:00",
+   "directed": true,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "León",
+     "points": [
+      {
+       "name": "end of the AP-71",
+       "lat": 42.57088,
+       "lon": -5.639884
+      }
+     ]
+    },
+    {
+     "name": "Villadangos",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 42.527119,
+       "lon": -5.74975
+      },
+      {
+       "name": "junction",
+       "lat": 42.520977,
+       "lon": -5.757384
+      }
+     ]
+    },
+    {
+     "name": "Hospital de Órbigo",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 42.452951,
+       "lon": -5.894253
+      }
+     ]
+    },
+    {
+     "name": "San Justo de la Vega",
+     "points": [
+      {
+       "name": "junction",
+       "lat": 42.439394,
+       "lon": -6.017108
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "León|Villadangos": {
+     "Pesados 1": 1.8595,
+     "Pesados 2": 2.2727
+    },
+    "León|Hospital de Órbigo": {
+     "Pesados 1": 4.3388,
+     "Pesados 2": 5.2893
+    },
+    "León|San Justo de la Vega": {
+     "Pesados 1": 6.6529,
+     "Pesados 2": 8.0579
+    },
+    "Villadangos|León": {
+     "Pesados 1": 1.8595,
+     "Pesados 2": 2.2727
+    },
+    "Villadangos|Hospital de Órbigo": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.2231
+    },
+    "Villadangos|San Justo de la Vega": {
+     "Pesados 1": 4.9587,
+     "Pesados 2": 6.0331
+    },
+    "Hospital de Órbigo|León": {
+     "Pesados 1": 4.3388,
+     "Pesados 2": 5.2893
+    },
+    "Hospital de Órbigo|Villadangos": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.2231
+    },
+    "Hospital de Órbigo|San Justo de la Vega": {
+     "Pesados 1": 2.5207,
+     "Pesados 2": 3.0579
+    },
+    "San Justo de la Vega|León": {
+     "Pesados 1": 6.6529,
+     "Pesados 2": 8.0579
+    },
+    "San Justo de la Vega|Villadangos": {
+     "Pesados 1": 4.9587,
+     "Pesados 2": 6.0331
+    },
+    "San Justo de la Vega|Hospital de Órbigo": {
+     "Pesados 1": 2.5207,
+     "Pesados 2": 3.0579
+    }
+   },
+   "night_hours": [
+    "23:00",
+    "06:59"
+   ],
+   "night_prices": {
+    "León|Villadangos": {
+     "Pesados 1": 0.9504,
+     "Pesados 2": 1.1157
+    },
+    "León|Hospital de Órbigo": {
+     "Pesados 1": 2.1901,
+     "Pesados 2": 2.6446
+    },
+    "León|San Justo de la Vega": {
+     "Pesados 1": 3.3058,
+     "Pesados 2": 4.0496
+    },
+    "Villadangos|León": {
+     "Pesados 1": 0.9504,
+     "Pesados 2": 1.1157
+    },
+    "Villadangos|Hospital de Órbigo": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.6116
+    },
+    "Villadangos|San Justo de la Vega": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.0165
+    },
+    "Hospital de Órbigo|León": {
+     "Pesados 1": 2.1901,
+     "Pesados 2": 2.6446
+    },
+    "Hospital de Órbigo|Villadangos": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.6116
+    },
+    "Hospital de Órbigo|San Justo de la Vega": {
+     "Pesados 1": 1.281,
+     "Pesados 2": 1.5289
+    },
+    "San Justo de la Vega|León": {
+     "Pesados 1": 3.3058,
+     "Pesados 2": 4.0496
+    },
+    "San Justo de la Vega|Villadangos": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.0165
+    },
+    "San Justo de la Vega|Hospital de Órbigo": {
+     "Pesados 1": 1.281,
+     "Pesados 2": 1.5289
+    }
+   }
+  }
+ ],
+ "rows": []
+}

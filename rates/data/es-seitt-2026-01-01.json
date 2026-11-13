@@ -5,7 +5,7 @@
  "valid_to": "2026-12-31",
  "osm_extract": "2026-11-08",
  "name": "Spanish state toll motorways (SEITT)",
- "law": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-08); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro) or not included (AP-9, AP-46, AP-53, AP-66, AP-68, AP-7 Alicante–Cartagena).",
+ "law": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-08); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68).",
  "sources": [
   {
    "title": "Spain: SEITT 2026 tariffs of the AP-36 Ocaña – La Roda toll motorway",

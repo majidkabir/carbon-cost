@@ -2043,3 +2043,57 @@ func TestAP66(t *testing.T) {
 		}
 	}
 }
+
+// AP-46: one barrier (Casabermeja), Pesados 2 EUR 8.70 in the low season,
+// 11.35 in the high season (May-October, weekends, Easter), free for
+// trucks 22:00-08:00 (2026, IVA included).
+func TestAP46(t *testing.T) {
+	path := [][2]float64{{-4.4575, 36.93}, {-4.45791, 36.90258}, {-4.4583, 36.875}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"ES": 6}, Path: path}}}
+	for _, tc := range []struct {
+		date, at string
+		want     float64
+	}{{"2026-11-13", "12:00", 8.70}, {"2026-11-14", "12:00", 11.35}, {"2026-07-01", "12:00", 11.35}, {"2026-04-01", "12:00", 11.35}, {"2026-11-13", "23:00", 0}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, Time: tc.at}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Casabermeja") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-tc.want) > 0.01 {
+			t.Errorf("%s %s: %v x1.21 = %v, want %v: %v", tc.date, tc.at, got, got*1.21, tc.want, r.Lines)
+		}
+	}
+}
+
+// AP-7 Alicante–Cartagena: a through trip passes two barriers, Pesados 2
+// EUR 6.50 each in the low season (13.00, as the table's 724–763), 7.20 in
+// the high season (June-September, Semana Santa), IVA included.
+func TestAP7AlicanteCartagena(t *testing.T) {
+	path := [][2]float64{{-0.80, 38.05}, {-0.782622, 38.008606}, {-0.741711, 37.920565}, {-0.76, 37.88}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"ES": 20}, Path: path}}}
+	for _, tc := range []struct {
+		date string
+		want float64
+	}{{"2026-11-13", 13.00}, {"2026-07-01", 14.40}, {"2026-03-28", 14.40}, {"2025-11-13", 12.40}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Montesinos") || strings.Contains(l.Section, "Zenia") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-tc.want) > 0.02 {
+			t.Errorf("%s: %v x1.21 = %v, want %v: %v", tc.date, got, got*1.21, tc.want, r.Lines)
+		}
+	}
+}

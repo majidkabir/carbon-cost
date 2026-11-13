@@ -150,18 +150,33 @@ def uradni_list(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
 
 
+def overpass_failed(status, body):
+    if status != 200:
+        return False
+    try:
+        d = json.loads(body)
+    except ValueError:
+        return False
+    return bool(d.get("remark")) and not d.get("elements")
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
-            # Overpass answers 429/502/504 when busy and asks for backoff.
+            # Overpass answers 429/502/504 when busy and asks for backoff; a
+            # 200 with a "remark" and no elements is a query that timed out
+            # or ran out of memory: also retried, then an error (so the last
+            # run's copy is kept).
             for wait in (30, 60, 120, 240):
-                if "/api/interpreter" not in s["url"] or status not in (429, 502, 503, 504):
+                if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):
                     break
                 time.sleep(wait)
                 status, body = get(s["url"])
+            if "/api/interpreter" in s["url"] and overpass_failed(status, body):
+                raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
             if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"

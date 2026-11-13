@@ -2246,6 +2246,25 @@ func TestAlbaniaA1(t *testing.T) {
 	}
 }
 
+// Moldova's vignette for trucks not registered there: over 10 t, EUR 11 a
+// day (one day for a trip).
+func TestMoldovaVignette(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 180, CountryKm: map[string]float64{"MD": 180}, Path: [][2]float64{{28.0, 47.0}, {28.8, 47.0}}}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got float64
+	for _, l := range r.Lines {
+		if l.Country == "MD" {
+			got += l.Amount
+		}
+	}
+	if got != 11 {
+		t.Errorf("Moldova: %v, want 11: %v", got, r.Lines)
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

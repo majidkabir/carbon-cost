@@ -23,6 +23,10 @@ RULES = {
     "gr-attiki": ("01-01", 366),        # yearly indexation from 1 January
     "gr-egnatia": ("01-01", 366),
     "lt-447": (None, 183),
+    "gb-humber": (None, 183),
+    "gb-tamar": (None, 183),
+    "nl-kiltunnel": (None, 183),
+    "md-evinieta": (None, 183),
 }
 
 

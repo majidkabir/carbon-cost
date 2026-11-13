@@ -556,6 +556,27 @@ def bridges(browser, fetched, out):
                         {"min_kg": 3501, "min_axles": 4, "rate": ax[4][0], "etc_rate": ax[4][1]}]}],
                     "rows": []}, "gb-tamar-bridge")
 
+    # Mersey Gateway and Silver Jubilee bridges (free-flow, either way).
+    tr = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "transcribed", "gb-merseyflow-2025.json"), encoding="utf-8"))
+    ws = [w for w in (longest(d, r"^Mersey Gateway Bridge$"), longest(d, r"^Silver Jubilee Bridge$")) if w]
+    if len(ws) != 2:
+        print(f"Mersey bridges: {len(ws)} of the two bridges in OpenStreetMap; not built")
+    else:
+        c = {x["class"]: x for x in tr["classes"]}
+        write(out, {"country": "GB", "currency": "GBP", "valid_from": tr["valid_from"], "crossings": True, "osm_extract": stamp,
+                    "name": "Mersey Gateway and Silver Jubilee bridges toll",
+                    "law": (f"Halton Borough Council's Road User Charging Scheme Order, toll charges from 1 April 2025 (merseyflow's summary; a table published as an image, transcribed in tools/tables/transcribed/gb-merseyflow-2025.json): "
+                            f"per crossing of either bridge, either way, class 3 (3.5-12 t) GBP {c['3']['unregistered']:.2f}, class 4 (over 12 t) GBP {c['4']['unregistered']:.2f} unregistered; "
+                            f"with `etc` the sticker-registered price ({c['3']['sticker']:.2f}, {c['4']['sticker']:.2f})."),
+                    "sources": [{"title": "merseyflow: Toll charge and scheme detail changed on 1 April 2025", "url": tr["source"]["url"]},
+                                {"title": "merseyflow: Toll charges", "url": tr["source"]["page"]}],
+                    "vehicles": "Vehicles over 3.5 t (classes 3 and 4)", "min_kg": 3501,
+                    "tolled_roads": "The Mersey Gateway Bridge (A533) and the Silver Jubilee Bridge, Runcorn–Widnes, either way.", "point_match_km": 0.15,
+                    "toll_points": [{"name": w["tags"]["name"], "lat": middle(w)[0], "lon": middle(w)[1], "rate": 0, "classes": [
+                        {"min_kg": 3501, "max_kg": 12000, "rate": c["3"]["unregistered"], "etc_rate": c["3"]["sticker"]},
+                        {"min_kg": 12001, "rate": c["4"]["unregistered"], "etc_rate": c["4"]["sticker"]}]} for w in ws],
+                    "rows": []}, "gb-mersey-bridges")
+
     # Kiltunnel (Dordrecht–Hoeksche Waard), either way.
     t, how = page_or_capture(fetched, browser, "nl-kiltunnel", "HOOGTE > 2.30 METER")
     m = t and re.search(r"HOOGTE > 2\.30 METER INCL\. LADING Contant € ?([\d,]+)-?\s*\|?\s*Telecard € ?([\d,]+)", t)

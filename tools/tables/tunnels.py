@@ -466,6 +466,116 @@ def thames(browser, fetched, out):
         write(out, tb, "gb-thames-tunnels")
 
 
+def longest(d, pattern):
+    """The longest way of bridges-osm.json whose name matches."""
+    ws = [e for e in d["elements"] if e["type"] == "way" and re.search(pattern, e.get("tags", {}).get("name", "")) and len(e.get("geometry", [])) > 1]
+    return max(ws, key=lambda e: sum(km((a["lat"], a["lon"]), (b["lat"], b["lon"])) for a, b in zip(e["geometry"], e["geometry"][1:]))) if ws else None
+
+
+def page_or_capture(fetched, browser, name, needle):
+    """The text of fetch.py's <name>.html when it holds needle, else the
+    copy read in Chrome (browser/<name>.txt); with which one it is."""
+    p = os.path.join(fetched, f"{name}.html")
+    if os.path.exists(p):
+        t = text(p)
+        if needle in t:
+            return t, "fetched"
+    b = os.path.join(browser, f"{name}.txt")
+    if os.path.exists(b):
+        return re.sub(r"\s+", " ", " ".join(l for l in open(b, encoding="utf-8") if not l.startswith("# "))), "browser"
+    return None, None
+
+
+def read_on(browser, name):
+    b = os.path.join(browser, f"{name}.txt")
+    m = re.search(r"read on (\d{4}-\d\d-\d\d)", open(b, encoding="utf-8").read()) if os.path.exists(b) else None
+    return m.group(1) if m else None
+
+
+def bridges(browser, fetched, out):
+    """The Humber Bridge, the Tamar Bridge and the Kiltunnel, per crossing:
+    each operator's published prices (fetched, else read in Chrome), at the
+    middle of the bridge or the tunnel's toll plaza (bridges-osm.json)."""
+    try:
+        d = json.load(open(os.path.join(fetched, "bridges-osm.json")))
+    except (OSError, ValueError):
+        print("Bridges: OpenStreetMap not fetched; not built")
+        return
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    vf = "2026-11-13"  # the day the pages were first read; none gives a date
+
+    # Humber Bridge (free-flow, either way).
+    t, how = page_or_capture(fetched, browser, "gb-humber", "3 axles or more, over 7.5 tonnes")
+    m2 = t and re.search(r"2 axle vehicles between 3\.5 - 7 tonnes[^£]*£([\d.]+)\s*\|?\s*£([\d.]+)", t)
+    m3 = t and re.search(r"3 axles or more, over 7\.5 tonnes\s*\|?\s*£([\d.]+)\s*\|?\s*£([\d.]+)", t)
+    w = longest(d, r"^Humber Bridge$")
+    if not (m2 and m3 and w):
+        print(f"Humber Bridge: page or bridge not read ({bool(m2)}, {bool(m3)}, {bool(w)}); not built")
+    else:
+        lat, lon, _ = middle(w)
+        write(out, {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+                    "name": "Humber Bridge toll",
+                    "law": (f"Humber Bridge Board's tolls (Humber Bridge Acts 1959 and 2013) per crossing, either way, as published: two-axle vehicles of 3.5-7 t GBP {m2.group(1)}, "
+                            f"three axles or more over 7.5 t GBP {m3.group(1)}; with `etc` the account price ({m2.group(2)}, {m3.group(2)}). Two-axle trucks over 7 t are taken at the two-axle price. "
+                            "The page gives no date: valid_from is the day it was first read."),
+                    "sources": [{"title": "Humber Bridge: Tolls and Ways to Pay" + (" (read in Chrome: tools/tables/browser/gb-humber.txt)" if how == "browser" else ""), "url": "https://www.humberbridge.co.uk/plan-your-trip/tolls-ways-to-pay/"}],
+                    "vehicles": "Vehicles over 3.5 t, by axles", "min_kg": 3501,
+                    "tolled_roads": "The Humber Bridge (A15), either way.", "point_match_km": 0.15,
+                    "toll_points": [{"name": "Humber Bridge", "lat": lat, "lon": lon, "rate": 0, "classes": [
+                        {"min_kg": 3501, "max_axles": 2, "rate": float(m2.group(1)), "etc_rate": float(m2.group(2))},
+                        {"min_kg": 3501, "min_axles": 3, "rate": float(m3.group(1)), "etc_rate": float(m3.group(2))}]}],
+                    "rows": []}, "gb-humber-bridge")
+
+    # Tamar Bridge (charged eastbound, Saltash to Plymouth).
+    t, how = page_or_capture(fetched, browser, "gb-tamar", "payable one way, on the trip from Saltash (Cornwall) to Plymouth (Devon)")
+    ax = {}
+    for n, label in ((2, "2 axles"), (3, "3 axles"), (4, "4\\+ axles")):
+        m = t and re.search(r"MGW over 3\.5 tonnes " + label + r" Cash/Card Single £([\d.]+) \+ Trailer £[\d.]+ TamarTag Single £([\d.]+)", t)
+        if m:
+            ax[n] = (float(m.group(1)), float(m.group(2)))
+    w = longest(d, r"^Tamar Bridge$")
+    if len(ax) != 3 or not w:
+        print(f"Tamar Bridge: page or bridge not read ({sorted(ax)}, {bool(w)}); not built")
+    else:
+        lat, lon, head = middle(w)
+        g = w["geometry"]
+        east = bearing((g[0]["lat"], g[0]["lon"]), (g[-1]["lat"], g[-1]["lon"]))
+        if not 0 < east < 180:
+            east = (east + 180) % 360
+        write(out, {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+                    "name": "Tamar Bridge toll",
+                    "law": (f"Tamar Bridge and Torpoint Ferry Joint Committee's tolls (Tamar Bridge Acts), payable one way, Saltash (Cornwall) to Plymouth (Devon): vehicles over 3.5 t with 2 axles GBP {ax[2][0]}, "
+                            f"3 axles {ax[3][0]}, 4 or more {ax[4][0]} (the 'Single' price; towing a trailer costs double, not modelled); with `etc` the TamarTag price. "
+                            "The page gives no date: valid_from is the day it was first read."),
+                    "sources": [{"title": "Tamar Crossings: Tamar Bridge Tolls", "url": "https://www.tamarcrossings.org.uk/prices/tamar-bridge-tolls/"}],
+                    "vehicles": "Vehicles over 3.5 t, by axles", "min_kg": 3501,
+                    "tolled_roads": "The Tamar Bridge (A38), eastbound only.", "point_match_km": 0.15,
+                    "toll_points": [{"name": "Tamar Bridge", "lat": lat, "lon": lon, "heading": east, "rate": 0, "classes": [
+                        {"min_kg": 3501, "max_axles": 2, "rate": ax[2][0], "etc_rate": ax[2][1]},
+                        {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": ax[3][0], "etc_rate": ax[3][1]},
+                        {"min_kg": 3501, "min_axles": 4, "rate": ax[4][0], "etc_rate": ax[4][1]}]}],
+                    "rows": []}, "gb-tamar-bridge")
+
+    # Kiltunnel (Dordrecht–Hoeksche Waard), either way.
+    t, how = page_or_capture(fetched, browser, "nl-kiltunnel", "HOOGTE > 2.30 METER")
+    m = t and re.search(r"HOOGTE > 2\.30 METER INCL\. LADING Contant € ?([\d,]+)-?\s*\|?\s*Telecard € ?([\d,]+)", t)
+    booths = [e for e in d["elements"] if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and 51.74 < e["lat"] < 51.81 and 4.6 < e["lon"] < 4.7]
+    if not m or not booths:
+        print(f"Kiltunnel: page or booths not read ({bool(m)}, {len(booths)}); not built")
+    else:
+        lat, lon = centre(booths)
+        cash, tag = num(m.group(1).rstrip(",")), num(m.group(2))
+        write(out, {"country": "NL", "currency": "EUR", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+                    "name": "Kiltunnel toll",
+                    "law": (f"The Kiltunnel's toll (Dordrecht–Hoeksche Waard) per passage, either way, for vehicles over 2.30 m high including load (trucks over 3.5 t are taken to be): EUR {cash:g} cash, "
+                            f"with `etc` the Telecard price, EUR {tag:g}. The page gives no date: valid_from is the day it was first read."),
+                    "sources": [{"title": "Kiltunnel: Toltarieven", "url": "https://kiltunnel.nl/tarieven"}],
+                    "vehicles": "Vehicles over 2.30 m high (here trucks over 3.5 t)", "min_kg": 3501,
+                    "tolled_roads": "The Kiltunnel (N217), charged at its toll plaza either way.", "point_match_km": 0.15,
+                    "toll_points": [{"name": "Kiltunnel", "lat": lat, "lon": lon, "rate": 0, "classes": [{"min_kg": 3501, "rate": cash, "etc_rate": tag}]}],
+                    "rows": []}, "nl-kiltunnel")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
@@ -484,6 +594,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     dartford(fetched, out, osm, stamp)
     tyne(fetched, out)
     thames(browser, fetched, out)
+    bridges(browser, fetched, out)
 
 
 if __name__ == "__main__":

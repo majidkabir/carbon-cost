@@ -2303,6 +2303,44 @@ func TestCataloniaC16(t *testing.T) {
 	}
 }
 
+// Bridges and tunnels added from the operators' pages: the Humber Bridge
+// (3+ axles GBP 15), the Tamar Bridge (4+ axles GBP 16.50 eastbound only),
+// the Mersey Gateway (over 12 t GBP 9.60), the Kiltunnel (EUR 5) and the
+// AP-15 Marcilla barrier (Pesados II EUR 5.45 with IVA, 4.50 without).
+func TestMoreCrossings(t *testing.T) {
+	fx := map[string]float64{"GBP": 0.84}
+	cross := func(lat, lon, dlat, dlon float64) [][2]float64 {
+		return [][2]float64{{lon - dlon, lat - dlat}, {lon, lat}, {lon + dlon, lat + dlat}}
+	}
+	for _, tc := range []struct {
+		name, country string
+		path          [][2]float64
+		want          float64
+	}{
+		{"Humber Bridge", "GB", cross(53.706846, -0.450058, 0.004, 0), 15},
+		{"Tamar Bridge eastbound", "GB", cross(50.408203, -4.203564, 0, 0.004), 16.5},
+		{"Tamar Bridge westbound", "GB", cross(50.408203, -4.203564, 0, -0.004), 0},
+		{"Mersey Gateway Bridge", "GB", cross(53.352052, -2.712029, 0.003, 0.003), 9.6},
+		{"Kiltunnel", "NL", cross(51.7726, 4.638273, 0.002, 0.002), 5},
+		{"AP-15 Marcilla", "ES", cross(42.331205, -1.726227, 0.003, 0), 4.5},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{tc.country: 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: fx}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Rate > 0 && strings.Contains(l.RateUnit, "/passage") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

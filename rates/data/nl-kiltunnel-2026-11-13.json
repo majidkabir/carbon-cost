@@ -1,0 +1,35 @@
+{
+ "country": "NL",
+ "currency": "EUR",
+ "valid_from": "2026-11-13",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "Kiltunnel toll",
+ "law": "The Kiltunnel's toll (Dordrecht–Hoeksche Waard) per passage, either way, for vehicles over 2.30 m high including load (trucks over 3.5 t are taken to be): EUR 5 cash, with `etc` the Telecard price, EUR 3.8. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Kiltunnel: Toltarieven",
+   "url": "https://kiltunnel.nl/tarieven"
+  }
+ ],
+ "vehicles": "Vehicles over 2.30 m high (here trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "The Kiltunnel (N217), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Kiltunnel",
+   "lat": 51.7726,
+   "lon": 4.638273,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 5.0,
+     "etc_rate": 3.8
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

@@ -5,7 +5,7 @@
  "crossings": true,
  "osm_extract": "2026-11-13",
  "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
- "law": "Uredba o naplati naknade za korištenje autoceste A1 (Službene novine FBiH 54/15) article 3 as replaced by the Uredba of 26 November 2020 (86/20), in force the day after publication: per direction from each toll station to each other on Svilaj–Odžak, Sarajevo–Zenica, Sarajevo–Tarčin and Međugorje–Ljubuški, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. The A1 sections opened since (e.g. at Golubinja, Bradina, Čapljina) aren't priced: the act setting their tolls wasn't found.",
+ "law": "Uredba o naplati naknade za korištenje autoceste A1 (SN 54/15) article 3 as replaced by the Uredba of 26 November 2020 (SN 86/20, in force the day after publication; valid_from is the day it was adopted): per direction from each toll station to each other, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. Stations at JP Autoceste FBiH's OSM toll booths.",
  "sources": [
   {
    "title": "Uredba o izmjeni Uredbe o naplati naknade za korištenje autoceste A1 (SN 86/20), on JP Autoceste FBiH's site",
@@ -26,7 +26,7 @@
  ],
  "vehicles": "Classes III and IV (over 1.3 m at the first axle; here trucks over 3.5 t)",
  "min_kg": 3501,
- "tolled_roads": "A1 Svilaj–Odžak, Sarajevo sjever–Zenica sjever, Sarajevo zapad–Tarčin, Međugorje–Ljubuški.",
+ "tolled_roads": "A1 in the Federation: Sarajevo–Zenica, Sarajevo–Tarčin; mainline barriers: Ljubuški, Svilaj.",
  "point_match_km": 0.2,
  "toll_points": [
   {
@@ -105,7 +105,7 @@
  "closed_systems": [
   {
    "name": "A1 Sarajevo–Zenica",
-   "law": "Uredba SN 86/20, article 3, directions Sarajevo - Zenica and Zenica - Sarajevo.",
+   "law": "Uredba o naplati naknade za korištenje autoceste A1 (SN 54/15) article 3 as replaced by the Uredba of 26 November 2020 (SN 86/20, in force the day after publication; valid_from is the day it was adopted): directions Sarajevo - Zenica and Zenica - Sarajevo.",
    "directed": true,
    "groups": [
     {
@@ -431,7 +431,7 @@
   },
   {
    "name": "A1 Sarajevo–Tarčin",
-   "law": "Uredba SN 86/20, article 3, directions Sarajevo - Tarčin and Tarčin - Sarajevo.",
+   "law": "Uredba o naplati naknade za korištenje autoceste A1 (SN 54/15) article 3 as replaced by the Uredba of 26 November 2020 (SN 86/20, in force the day after publication; valid_from is the day it was adopted): directions Sarajevo - Tarčin and Tarčin - Sarajevo.",
    "directed": true,
    "groups": [
     {
@@ -515,5 +515,6 @@
    }
   }
  ],
- "rows": []
+ "rows": [],
+ "valid_to": "2024-08-21"
 }

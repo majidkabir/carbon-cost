@@ -1797,6 +1797,13 @@ func TestTunnelsAndBridges(t *testing.T) {
 		// Westerscheldetunnel, category 4 (over 12 m): EUR 25, T-Tag 15.
 		{"Westerscheldetunnel", [][2]float64{{3.7557, 51.43}, {3.7557, 51.45}}, Request{}, 25},
 		{"Westerscheldetunnel T-Tag", [][2]float64{{3.7557, 51.45}, {3.7557, 51.43}}, Request{ETC: true}, 15},
+		// Liefkenshoektunnel, category 2 by day: EUR 25 cash, 17.60 OBU;
+		// 22:00-06:00 8.00 and 4.40.
+		{"Liefkenshoektunnel", [][2]float64{{4.2895, 51.28}, {4.2895, 51.293}}, Request{}, 25},
+		{"Liefkenshoektunnel OBU", [][2]float64{{4.2895, 51.293}, {4.2895, 51.28}}, Request{ETC: true}, 17.6},
+		{"Liefkenshoektunnel at night", [][2]float64{{4.2895, 51.28}, {4.2895, 51.293}}, Request{Time: "23:00"}, 8},
+		{"Liefkenshoektunnel OBU at night", [][2]float64{{4.2895, 51.28}, {4.2895, 51.293}}, Request{ETC: true, Time: "05:30"}, 4.4},
+		{"Liefkenshoektunnel OBU at 06:30", [][2]float64{{4.2895, 51.28}, {4.2895, 51.293}}, Request{ETC: true, Time: "06:30"}, 17.6},
 		// Herrentunnel, class D (4 axles or more): EUR 17.60.
 		{"Herrentunnel", [][2]float64{{10.7594, 53.89}, {10.7594, 53.905}}, Request{}, 17.6},
 		// Warnowtunnel, category 5 (4 axles or more): winter EUR 20.30,
@@ -2096,6 +2103,25 @@ func TestWarnowSummer(t *testing.T) {
 		if math.Abs(got-tc.want) > 0.001 {
 			t.Errorf("etc %v: %v, want %v: %v", tc.etc, got, tc.want, r.Lines)
 		}
+	}
+}
+
+// Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
+// that it's cheaper at night.
+func TestLiefkenshoek2027(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"BE": 1}, Path: [][2]float64{{4.2895, 51.28}, {4.2895, 51.293}}}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, ETC: true}, time.Date(2027, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var got float64
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Liefkenshoek") {
+			got += l.Amount
+		}
+	}
+	if math.Abs(got-17.95) > 0.001 || !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "Liefkenshoektunnel is cheaper from 22:00 to 06:00") }) {
+		t.Errorf("%v, want 17.95 and a night note: %v %v", got, r.Lines, r.Notes)
 	}
 }
 

@@ -1,6 +1,6 @@
 """Builds the tables of tunnels and bridges charged per passage on top of
 the countries' own tolls (each a "crossings" table, priced wherever a
-route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL),
+route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL), the Liefkenshoektunnel (BE),
 the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB).
 
@@ -24,6 +24,9 @@ taken comes from OpenStreetMap (tunnels-osm.json, an Overpass query):
   in EUR; each heading is along the tunnel's OSM way.
 - Herrentunnel: the plaza's booths named Herrentunnel (operator
   Herrentunnel Lübeck GmbH & Co. KG), either direction.
+- Liefkenshoektunnel: the plaza's booths (operator NV Tunnel
+  Liefkenshoek), either direction; prices read in Chrome
+  (browser/be-liefkenshoek.txt).
 - Warnowtunnel: the plaza's booths (operator Warnowtunnel), either
   direction; prices from the state ordinance, read in Chrome
   (browser/de-warnow-mauthvo.txt).
@@ -240,6 +243,51 @@ def warnow(browser, out, osm, stamp):
     }, "de-warnowtunnel")
 
 
+def liefkenshoek(browser, out, osm, stamp):
+    """The Liefkenshoektunnel (Antwerp): category 2 (3 m high or more) per
+    passage either way, a calendar year's tariff from 1 January; the cash
+    (standaardtarief) price, `etc` the Teletolbadge & OBU price; cheaper
+    22:00-06:00. Read in Chrome (browser/be-liefkenshoek.txt); at the
+    plaza's booths (operator NV Tunnel Liefkenshoek)."""
+    try:
+        t = open(os.path.join(browser, "be-liefkenshoek.txt"), encoding="utf-8").read()
+    except OSError:
+        print("Liefkenshoektunnel: browser/be-liefkenshoek.txt missing; not built")
+        return
+    head = "Categorie 1 (24/7) Categorie 2 (22u00-06u00) Categorie 2 (06u01-21u59)"
+    eur = r"€ ([\d,]+)"
+    years = {}
+    for m in re.finditer(r"^Tarieven (\d{4})\n" + re.escape(head) + r"\nTeletolbadge & OBU " + " ".join([eur] * 3) + r"\nBank-Tank-Creditkaart " + " ".join([eur] * 3) + r"\nCash \(standaardtarief\) " + " ".join([eur] * 3) + "$", t, re.M):
+        years[m.group(1)] = [num(x) for x in m.groups()[1:]]
+    cat = "Voertuigen met een totale hoogte van 3 meter of meer vallen onder categorie 2" in t and "Andere criteria (aantal assen, gebruik, lengte, gewicht" in t
+    if not years or not cat or t.count("Tarieven 2") != len(years):
+        sys.exit(f"Liefkenshoektunnel: the captured pages changed ({sorted(years)}, {cat})")
+    booths = [e for e in osm if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and e["tags"].get("operator") == "NV Tunnel Liefkenshoek"]
+    if not booths:
+        sys.exit("Liefkenshoektunnel: no toll booths in OpenStreetMap")
+    lat, lon = centre(booths)
+    ys = sorted(years)
+    for i, y in enumerate(ys):
+        obu_n, obu_d, card_n, card_d, cash_n, cash_d = (years[y][k] for k in (1, 2, 4, 5, 7, 8))
+        tb = {
+            "country": "BE", "currency": "EUR", "valid_from": f"{y}-01-01", "crossings": True, "osm_extract": stamp,
+            "name": "Liefkenshoektunnel toll (Antwerp)",
+            "law": (f"NV Tunnel Liefkenshoek's tariffs {y}: category 2 (vehicles 3 m high or more; trucks over 3.5 t are taken to be) per passage either way, VAT included: "
+                    f"EUR {cash_d:.2f} cash (standaardtarief) 06:01-21:59 and {cash_n:.2f} 22:00-06:00; `etc` the Teletolbadge & OBU price, {obu_d:.2f} and {obu_n:.2f} "
+                    f"(bank, fuel or credit card: {card_d:.2f} and {card_n:.2f}, not modelled). Without a departure time, the day price."),
+            "sources": [{"title": "NV Tunnel Liefkenshoek: Tarieven & abonnement, and Veelgestelde vragen (categories) (read in Chrome: tools/tables/browser/be-liefkenshoek.txt)", "url": "https://www.liefkenshoektunnel.be/nl/tarieven-abonnementen"}],
+            "vehicles": "Category 2: vehicles 3 m high or more (here: trucks over 3.5 t)", "min_kg": 3501,
+            "tolled_roads": "The Liefkenshoektunnel (R2, Antwerp), charged at its toll plaza either way.",
+            "point_match_km": 0.15,
+            "toll_points": [{"name": "Liefkenshoektunnel", "lat": lat, "lon": lon, "rate": 0, "night_hours": ["22:00", "06:00"],
+                             "classes": [{"min_kg": 3501, "rate": cash_d, "etc_rate": obu_d, "night_rate": cash_n, "night_etc_rate": obu_n}]}],
+            "rows": [],
+        }
+        if i + 1 < len(ys):
+            tb["valid_to"] = f"{y}-12-31"
+        write(out, tb, "be-liefkenshoek")
+
+
 def dartford(fetched, out, osm, stamp):
     paths = [os.path.join(fetched, f) for f in ("gb-dartford.html", "gb-dartford-2013.html", "gb-dartford-2025.html")]
     if not all(os.path.exists(p) for p in paths):
@@ -431,6 +479,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     herrentunnel(transcribed, out, osm, stamp)
     warnow(browser, out, osm, stamp)
     westerschelde(fetched, out, osm, stamp)
+    liefkenshoek(browser, out, osm, stamp)
     gsb(fetched, out, osm, stamp)
     dartford(fetched, out, osm, stamp)
     tyne(fetched, out)

@@ -74,7 +74,7 @@ def main(fetched, out):
         stations.append({"name": s, "points": [{"name": "junction", "lat": a, "lon": b} for a, b in pts]})
     placed = {s["name"] for s in stations}
     urls = {s["id"]: s["url"] for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json")))["sources"]}
-    for year in ("2026",):
+    for year in ("2025", "2026"):
         path = os.path.join(fetched, f"es-aulesa-{year}.bbox.html")
         if not os.path.exists(path):
             print(f"Aulesa {year}: tariff sheet not fetched")

@@ -2152,6 +2152,44 @@ func TestM6Toll(t *testing.T) {
 	}
 }
 
+// Bosnia and Herzegovina's A1 (Uredba SN 86/20), class IV, KM with VAT:
+// Sarajevo sjever–Zenica sjever 28.0 either way (EUR 12.24 without VAT),
+// Sarajevo zapad–Tarčin 10.0 (4.37), the Svilaj barrier 5.0 (2.19).
+func TestBosniaA1(t *testing.T) {
+	sz := [][2]float64{{18.3300, 43.9050}, {18.321171, 43.911507}, {18.251882, 43.970949}, {18.166477, 44.001398}, {18.110811, 44.080897},
+		{18.107402, 44.097542}, {18.100574, 44.124616}, {17.98448, 44.131606}, {17.969721, 44.18181}, {17.901, 44.237}, {17.8950, 44.2450}}
+	rev := func(p [][2]float64) [][2]float64 {
+		r := slices.Clone(p)
+		slices.Reverse(r)
+		return r
+	}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Sarajevo sjever to Zenica sjever", sz, 12.24},
+		{"Zenica sjever to Sarajevo sjever", rev(sz), 12.24},
+		{"Sarajevo zapad to Tarčin", [][2]float64{{18.2200, 43.8720}, {18.212609, 43.868922}, {18.143133, 43.866182}, {18.086035, 43.793065}, {18.0800, 43.7850}}, 4.37},
+		{"Svilaj", [][2]float64{{18.2900, 45.1000}, {18.284385, 45.090308}, {18.2800, 45.0800}}, 2.19},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"BA": 60}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A1") || strings.Contains(l.Section, "|") || l.Country == "BA" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

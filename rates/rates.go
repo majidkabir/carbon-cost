@@ -322,10 +322,13 @@ type TollSystem struct {
 	// Chain prices a trip that passes many stations as consecutive
 	// published entry-exit pairs that together cover the most of it
 	// (France); otherwise one ticket from the first to the last station.
-	Chain    bool                          `json:"chain,omitempty"`
-	Groups   []Group                       `json:"groups"`
-	Stations []Station                     `json:"stations"`
-	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
+	Chain    bool      `json:"chain,omitempty"`
+	Groups   []Group   `json:"groups"`
+	Stations []Station `json:"stations"`
+	// StationMatchKm: how near a route must pass a station, where not
+	// the default 0.5 km.
+	StationMatchKm float64                       `json:"station_match_km,omitempty"`
+	Prices         map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
 	// ETCPrices replace Prices for trucks paying by an electronic toll
 	// device or agreement (Request.ETC), where the operator sets them.
 	ETCPrices map[string]map[string]float64 `json:"etc_prices,omitempty"`
@@ -434,6 +437,9 @@ type Place struct {
 	Name string  `json:"name"`
 	Lat  float64 `json:"lat"`
 	Lon  float64 `json:"lon"`
+	// Heading, for a closed system's station point: the direction of
+	// travel (degrees clockwise from north) in which a route passes it.
+	Heading *float64 `json:"heading,omitempty"`
 }
 
 // Sections lists the fixed-charge sections and the law they come from.

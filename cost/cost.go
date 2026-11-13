@@ -1149,6 +1149,30 @@ var etsSources = []rates.Source{
 // junction or booth to count as using it.
 const StationMatchKm = 0.5
 
+// stationMatch is how near a route passes a station of the system.
+func stationMatch(sys rates.TollSystem) float64 {
+	if sys.StationMatchKm > 0 {
+		return sys.StationMatchKm
+	}
+	return StationMatchKm
+}
+
+// stationPass is how near the route passes the station (its nearest
+// point, in the point's heading where it has one), and where along it.
+func stationPass(sys rates.TollSystem, st rates.Station, route *track) (float64, float64) {
+	best, bestPos := math.Inf(1), 0.0
+	for _, p := range st.Points {
+		pos, d, h := route.project(p)
+		if p.Heading != nil && math.Abs(math.Mod(h-*p.Heading+540, 360)-180) > 90 {
+			continue
+		}
+		if d < best {
+			best, bestPos = d, pos
+		}
+	}
+	return best, bestPos
+}
+
 type systemUse struct {
 	entry, exit string
 	km          float64
@@ -1164,13 +1188,8 @@ func usesSystem(sys rates.TollSystem, route *track) (systemUse, bool) {
 	first, last := math.Inf(1), math.Inf(-1)
 	var u systemUse
 	for _, st := range sys.Stations {
-		best, bestPos := math.Inf(1), 0.0
-		for _, p := range st.Points {
-			if pos, d, _ := route.project(p); d < best {
-				best, bestPos = d, pos
-			}
-		}
-		if best > StationMatchKm {
+		best, bestPos := stationPass(sys, st, route)
+		if best > stationMatch(sys) {
 			continue
 		}
 		if bestPos < first {
@@ -1278,13 +1297,8 @@ func chainUses(sys rates.TollSystem, route *track, t rates.Truck, etc bool) []sy
 	}
 	var passes []pass
 	for _, st := range sys.Stations {
-		best, bestPos := math.Inf(1), 0.0
-		for _, p := range st.Points {
-			if pos, d, _ := route.project(p); d < best {
-				best, bestPos = d, pos
-			}
-		}
-		if best <= StationMatchKm {
+		best, bestPos := stationPass(sys, st, route)
+		if best <= stationMatch(sys) {
 			passes = append(passes, pass{st.Name, bestPos, best})
 		}
 	}

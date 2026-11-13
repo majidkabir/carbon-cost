@@ -156,6 +156,76 @@ type PointClass struct {
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
 	Rate       float64 `json:"rate"`
 	ETCRate    float64 `json:"etc_rate,omitempty"`
+	// HighRate is the price on the point's HighSeason days.
+	HighRate float64 `json:"high_rate,omitempty"`
+}
+
+// Season is a set of days: in Months (1-12), on Weekdays (0 Sunday to
+// 6 Saturday), or from EasterFrom to EasterTo days after Easter Sunday
+// (negative before it), when that window is set.
+type Season struct {
+	Months     []int `json:"months,omitempty"`
+	Weekdays   []int `json:"weekdays,omitempty"`
+	EasterFrom int   `json:"easter_from,omitempty"`
+	EasterTo   int   `json:"easter_to,omitempty"`
+}
+
+// Easter is Easter Sunday of the year (Gregorian calendar).
+func Easter(y int) time.Time {
+	a, b, c := y%19, y/100, y%100
+	d, e := b/4, b%4
+	f := (b + 8) / 25
+	g := (b - f + 1) / 3
+	h := (19*a + b - d - g + 15) % 30
+	i, k := c/4, c%4
+	l := (32 + 2*e + 2*i - h - k) % 7
+	m := (a + 11*h + 22*l) / 451
+	month := (h + l - 7*m + 114) / 31
+	day := (h+l-7*m+114)%31 + 1
+	return time.Date(y, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
+
+// Has says whether the day is in the season.
+func (s Season) Has(d time.Time) bool {
+	for _, m := range s.Months {
+		if int(d.Month()) == m {
+			return true
+		}
+	}
+	for _, w := range s.Weekdays {
+		if int(d.Weekday()) == w {
+			return true
+		}
+	}
+	if s.EasterFrom != 0 || s.EasterTo != 0 {
+		e := Easter(d.Year())
+		day := time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, time.UTC)
+		n := int(day.Sub(e).Hours() / 24)
+		if n >= s.EasterFrom && n <= s.EasterTo {
+			return true
+		}
+	}
+	return false
+}
+
+// PriceOn is the point's price on the day: its classes' HighRate on its
+// HighSeason days.
+func (p TollPoint) PriceOn(t Truck, etc bool, day time.Time) (float64, bool) {
+	r, ok := p.Price(t, etc)
+	if !ok || p.HighSeason == nil || !p.HighSeason.Has(day) {
+		return r, ok
+	}
+	for _, c := range p.Classes {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
+			if c.HighRate > 0 {
+				return c.HighRate, true
+			}
+			return r, ok
+		}
+	}
+	return r, ok
 }
 
 // Price is the toll point's price for the truck, and whether it charges
@@ -205,6 +275,8 @@ type TollPoint struct {
 	// FreeHours: from and to (HH:MM, both included) the station charges
 	// nothing.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// HighSeason: the days its classes charge their HighRate.
+	HighSeason *Season `json:"high_season,omitempty"`
 	// ValidFrom and ValidTo (YYYY-MM-DD, both included, either may be
 	// empty) limit the point to part of the table's time: a table can
 	// then hold each version of a station that changed its price.

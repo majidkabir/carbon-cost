@@ -2017,3 +2017,29 @@ func TestThamesTunnels(t *testing.T) {
 		}
 	}
 }
+
+// AP-66 (Aucalsa), from the Ministry's tolls in force, either way:
+// Campomanes–León, Pesados 2, EUR 15.05 in 2026 (IVA included).
+func TestAP66(t *testing.T) {
+	path := [][2]float64{{-5.8189854, 43.1135722}, {-5.8896348, 42.9073625}, {-5.7867426, 42.7830472}, {-5.6681621, 42.5789112}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 78, CountryKm: map[string]float64{"ES": 78}, Path: path}}}
+	for _, tc := range []struct {
+		date string
+		want float64
+	}{{"2026-06-01", 15.05}} {
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "AP-66") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got*1.21-tc.want) > 0.01 {
+			t.Errorf("%s: %v ex IVA (x1.21 = %v), want %v incl.: %v", tc.date, got, got*1.21, tc.want, r.Lines)
+		}
+	}
+}

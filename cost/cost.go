@@ -1507,7 +1507,11 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 				continue
 			}
 		}
-		rate, ok := p.tp.Price(req.Truck, req.ETC)
+		day := date
+		if timed {
+			day = at
+		}
+		rate, ok := p.tp.PriceOn(req.Truck, req.ETC, day)
 		if !ok || rate == 0 {
 			continue
 		}

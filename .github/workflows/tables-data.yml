@@ -110,6 +110,7 @@ jobs:
           python3 tools/tables/es_castellana.py out out/tables
           python3 tools/tables/es_aulesa.py out out/tables
           python3 tools/tables/it.py out out/tables
+          python3 tools/tables/es_ministry.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

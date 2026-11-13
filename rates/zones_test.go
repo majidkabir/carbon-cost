@@ -35,3 +35,19 @@ func TestZone(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestEasterSeason(t *testing.T) {
+	for y, want := range map[int]string{2024: "2024-03-31", 2025: "2025-04-20", 2026: "2026-04-05"} {
+		if got := Easter(y).Format("2006-01-02"); got != want {
+			t.Errorf("Easter %d: %s, want %s", y, got, want)
+		}
+	}
+	// AP-46: Viernes de Dolores (Easter - 9) to the Sunday after Easter (+7).
+	s := Season{Months: []int{5, 6, 7, 8, 9, 10}, Weekdays: []int{0, 6}, EasterFrom: -9, EasterTo: 7}
+	for d, want := range map[string]bool{"2026-03-27": true, "2026-03-26": false, "2026-04-12": true, "2026-04-13": false, "2026-11-14": true, "2026-11-13": false, "2026-07-01": true} {
+		day, _ := time.Parse("2006-01-02", d)
+		if s.Has(day) != want {
+			t.Errorf("%s: %v, want %v", d, !want, want)
+		}
+	}
+}

@@ -1,0 +1,114 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "AP-66 Campomanes–León (Aucalsa)",
+ "law": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-66 Campomanes–León (Aucalsa), by pair of stations either way: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), excluding 21% IVA, with the heavy-vehicle reductions of RD 1341/2024 the table applies. Stations placed at the concessionaire's own map of its toll plazas and accesses.",
+ "sources": [
+  {
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-66 CAMPOMANES - LEON (2026)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-66,-campomanes---leon-2026.pdf"
+  },
+  {
+   "title": "Aucalsa (AP-66 concessionaire): its interactive map's accesses and toll plazas (the Google My Maps it embeds, as KML)",
+   "url": "https://www.aucalsa.com/la-autopista/mapa-interactivo/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-66 Campomanes–León.",
+ "closed_systems": [
+  {
+   "name": "AP-66 Campomanes–León (Aucalsa)",
+   "law": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-66 Campomanes–León (Aucalsa), by pair of stations either way: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), excluding 21% IVA, with the heavy-vehicle reductions of RD 1341/2024 the table applies. Stations placed at the concessionaire's own map of its toll plazas and accesses.",
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "CAMPOMANES",
+     "points": [
+      {
+       "name": "ACCESO CAMPOMANES",
+       "lat": 43.113572,
+       "lon": -5.818985
+      }
+     ]
+    },
+    {
+     "name": "OBLANCA",
+     "points": [
+      {
+       "name": "PEAJE VILLABLINO - BARRIOS DE LUNA",
+       "lat": 42.907362,
+       "lon": -5.889635
+      }
+     ]
+    },
+    {
+     "name": "LA MAGDALENA",
+     "points": [
+      {
+       "name": "PEAJE TRONCAL DE LA MAGDALENA",
+       "lat": 42.783047,
+       "lon": -5.786743
+      },
+      {
+       "name": "PEAJE RAMAL DE LA MAGDALENA",
+       "lat": 42.782791,
+       "lon": -5.784028
+      }
+     ]
+    },
+    {
+     "name": "LEON",
+     "points": [
+      {
+       "name": "ACCESO LEÓN - ASTORGA",
+       "lat": 42.578911,
+       "lon": -5.668162
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "CAMPOMANES|OBLANCA": {
+     "Pesados 1": 3.5124,
+     "Pesados 2": 4.5041
+    },
+    "CAMPOMANES|LA MAGDALENA": {
+     "Pesados 1": 6.0744,
+     "Pesados 2": 7.7273
+    },
+    "CAMPOMANES|LEON": {
+     "Pesados 1": 9.6694,
+     "Pesados 2": 12.438
+    },
+    "OBLANCA|LA MAGDALENA": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.2231
+    },
+    "OBLANCA|LEON": {
+     "Pesados 1": 6.157,
+     "Pesados 2": 7.9339
+    },
+    "LA MAGDALENA|LEON": {
+     "Pesados 1": 3.7603,
+     "Pesados 2": 4.7934
+    }
+   }
+  }
+ ],
+ "rows": []
+}

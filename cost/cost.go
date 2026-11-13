@@ -1562,7 +1562,7 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 		if untimedFree {
 			how = " (without a departure time the route is taken to pass them within the hour)"
 		}
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule%s.", country, free, how))
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free: their group charges once within its time (the hour rule)%s.", country, free, how))
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))

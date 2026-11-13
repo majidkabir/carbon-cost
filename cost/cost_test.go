@@ -1244,6 +1244,11 @@ func TestGreece(t *testing.T) {
 		{"Elefsina", [][2]float64{{23.4900, 38.0400}, {23.5010, 38.0445}}, 7.18},
 		{"Spathovouni southbound", [][2]float64{{22.8100, 37.8390}, {22.8060, 37.8330}}, 8.43},
 		{"Rio–Antirrio bridge, 5 axles", [][2]float64{{21.7600, 38.3300}, {21.7720, 38.3380}}, 41.05},
+		// Egnatia Odos, front station Malgara: 4+ axles EUR 4.10 with VAT.
+		{"Egnatia Odos, Malgara", [][2]float64{{22.6900, 40.6024}, {22.7100, 40.6024}}, 3.31},
+		// Attiki Odos eastbound past five entry booths: one toll, category
+		// 6 EUR 10.10 with VAT.
+		{"Attiki Odos eastbound", [][2]float64{{23.7000, 38.0718}, {23.711567, 38.070172}, {23.734474, 38.066044}, {23.772411, 38.056347}, {23.785653, 38.048344}, {23.7950, 38.0450}}, 8.15},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"GR": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40}, date)

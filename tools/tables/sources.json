@@ -49,6 +49,8 @@
   {"id": "gr-kentriki", "table": "gr", "url": "https://www.kentrikiodos.gr/highways/toll-fees/", "what": "Greece: Kentriki Odos toll prices (A1 Skarfeia–Raches, E65)"},
   {"id": "gr-moreas", "table": "gr", "url": "https://www.moreas.com.gr/leitourgia/diodia", "what": "Greece: Moreas toll prices (A7 Korinthos–Tripoli–Kalamata, Lefktro–Sparti)"},
   {"id": "gr-aegean", "table": "gr", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/", "what": "Greece: Aegean Motorway toll prices (A1 Raches–Kleidi)"},
+  {"id": "gr-egnatia", "table": "gr", "url": "https://neodos.gr/stathmoi-diodion/", "what": "Greece: Νέα Εγνατία Οδός toll stations and prices (A2 Egnatia Odos and its vertical axes); browser/gr-egnatia.txt is the copy read in Chrome"},
+  {"id": "gr-attiki", "table": "gr", "url": "https://www.naodos.gr/2025/arthro/nea-attiki-odos-timarithmiki-prosarmogi-diodion-telon-2026/", "what": "Greece: Νέα Αττική Οδός, the 2026 tolls of Attiki Odos; browser/gr-attiki.txt is the copy read in Chrome"},
   {"id": "gr-gefyra", "table": "gr", "url": "https://www.gefyra.gr/prices/Times-Diodion/", "what": "Greece: Gefyra, Rio–Antirrio bridge toll prices"},
   {"id": "tr-kgm-ucretler", "table": "tr", "url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/Otoyollar/UcretlerYeni.aspx", "what": "Turkey: KGM page \"Otoyol ve Köprü Geçiş Ücretleri\" listing the 2026 toll tariffs of the bridges and motorways"},
   {"id": "tr-1-15temmuz-fsm", "table": "tr", "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/1-15Temmuz-FSM.pdf", "what": "Turkey: KGM 2026 toll tariff 15Temmuz-FSM (TL)"},

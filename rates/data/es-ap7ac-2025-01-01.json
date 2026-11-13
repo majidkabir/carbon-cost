@@ -1,0 +1,117 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "AP-7 Alicante–Cartagena",
+ "law": "The Ministry of Transport's tolls in force from 2025-01-01 on the AP-7 Alicante–Cartagena, per barrier (Troncal de Los Montesinos, Acceso de La Zenia, Troncal de La Zenia): Pesados 1 (two or three axles) EUR 4.0083 and Pesados 2 (four axles or more) 5.1240 in the low season, 4.6694 and 5.7025 in the high season, excluding 21% IVA. High season: June to September and the 17 days of Semana Santa (from the Friday before it to the Sunday after it); regular users pay the low season's tolls all year (not modelled). Barriers placed at OpenStreetMap's toll plazas on the motorway, in the table's order from north to south.",
+ "sources": [
+  {
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-7 ALICANTE - CARTAGENA (2025)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-7,-alicante---cartagena-2025.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API), toll booths",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-7 Alicante–Cartagena (toll barriers at Los Montesinos and La Zenia).",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Troncal de Los Montesinos",
+   "lat": 38.008606,
+   "lon": -0.782622,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0083,
+     "high_rate": 4.6694
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.124,
+     "high_rate": 5.7025
+    }
+   ],
+   "high_season": {
+    "months": [
+     6,
+     7,
+     8,
+     9
+    ],
+    "easter_from": -9,
+    "easter_to": 7
+   }
+  },
+  {
+   "name": "Acceso de La Zenia",
+   "lat": 37.925935,
+   "lon": -0.737382,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0083,
+     "high_rate": 4.6694
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.124,
+     "high_rate": 5.7025
+    }
+   ],
+   "high_season": {
+    "months": [
+     6,
+     7,
+     8,
+     9
+    ],
+    "easter_from": -9,
+    "easter_to": 7
+   }
+  },
+  {
+   "name": "Troncal de La Zenia",
+   "lat": 37.920565,
+   "lon": -0.741711,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0083,
+     "high_rate": 4.6694
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.124,
+     "high_rate": 5.7025
+    }
+   ],
+   "high_season": {
+    "months": [
+     6,
+     7,
+     8,
+     9
+    ],
+    "easter_from": -9,
+    "easter_to": 7
+   }
+  }
+ ],
+ "rows": []
+}

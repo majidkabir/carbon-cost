@@ -2265,6 +2265,44 @@ func TestMoldovaVignette(t *testing.T) {
 	}
 }
 
+// Catalonia's C-16, category 4 excluding IVA: the Túnel del Cadí 31.50; Sant
+// Vicenç de Castellet 4.22 on a weekday, 7.09 at the weekend; les Fonts
+// 3.21 on a weekday with Via-T, else 5.83.
+func TestCataloniaC16(t *testing.T) {
+	cross := func(lat, lon float64) [][2]float64 {
+		return [][2]float64{{lon - 0.002, lat - 0.002}, {lon, lat}, {lon + 0.002, lat + 0.002}}
+	}
+	for _, tc := range []struct {
+		name, date string
+		path       [][2]float64
+		etc        bool
+		want       float64
+	}{
+		{"Cadí", "2026-11-19", cross(42.340173, 1.839159), false, 31.50},
+		{"Sant Vicenç weekday", "2026-11-19", cross(41.651767, 1.864713), false, 4.22},
+		{"Sant Vicenç Saturday", "2026-11-21", cross(41.651767, 1.864713), false, 7.09},
+		{"les Fonts weekday Via-T", "2026-11-19", cross(41.517896, 2.030133), true, 3.21},
+		{"les Fonts weekday cash", "2026-11-19", cross(41.517896, 2.030133), false, 5.83},
+		{"les Fonts Sunday Via-T", "2026-11-22", cross(41.517896, 2.030133), true, 5.83},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"ES": 1}, Path: tc.path}}}
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, ETC: tc.etc}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.HasPrefix(l.Section, "C-16") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

@@ -1,0 +1,76 @@
+{
+ "operator": "JP \"Autoputevi Republike Srpske\" d.o.o. Banja Luka",
+ "about": "Republika Srpska: the toll price list at the Čatrnja toll station (naplatno mjesto), 'na osnovu Uredbe o visini putarine, član 4. stav 1, Službeni glasnik Republike Srpske br. 89/19 od 28.10.2019', published by the operator only as an image in a PDF. Transcribed by hand; tools/tables fetches the PDF again and says if it has changed (sha256). Rows: the entry station ('iz pravca') to Čatrnja, KM with VAT, by class: IA (motorcycles), I (two axles, up to 1.3 m at the first axle and under 1.9 m), II, III (two or three axles over 1.3 m, or with a trailer, under 2.9 m), IV (four or more axles, over 1.3 m at the first axle and 2.9 m or more in all).",
+ "source": {
+  "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Catrnja.pdf",
+  "sha256": "2c0753fafdea4e976fafcae564c31145f7cd808794adf41a6d13bc220c7cad8a",
+  "page": "https://autoputevirs.com/clanci/cjn/1207"
+ },
+ "exit": "Čatrnja",
+ "rows": [
+  {
+   "from": "Nova Topola",
+   "IA": 0.5,
+   "I": 1.0,
+   "II": 2.0,
+   "III": 3.0,
+   "IV": 5
+  },
+  {
+   "from": "Aleksandrovac",
+   "IA": 1.0,
+   "I": 2.0,
+   "II": 4.0,
+   "III": 6.0,
+   "IV": 10
+  },
+  {
+   "from": "Jakupovci",
+   "IA": 1.75,
+   "I": 3.5,
+   "II": 7.0,
+   "III": 10.5,
+   "IV": 17.5
+  },
+  {
+   "from": "Laktaši",
+   "IA": 2.0,
+   "I": 4.0,
+   "II": 8.0,
+   "III": 12.0,
+   "IV": 20
+  },
+  {
+   "from": "Drugovići",
+   "IA": 2.5,
+   "I": 5.0,
+   "II": 10.0,
+   "III": 15.0,
+   "IV": 25
+  },
+  {
+   "from": "Prnjavor",
+   "IA": 3.5,
+   "I": 7.0,
+   "II": 14.0,
+   "III": 21.0,
+   "IV": 35
+  },
+  {
+   "from": "Kladari",
+   "IA": 5.0,
+   "I": 10.0,
+   "II": 20.0,
+   "III": 30.0,
+   "IV": 50
+  },
+  {
+   "from": "Kostajnica",
+   "IA": 5.5,
+   "I": 11.0,
+   "II": 22.0,
+   "III": 33.0,
+   "IV": 55
+  }
+ ]
+}

@@ -2193,6 +2193,38 @@ func TestBosniaA1(t *testing.T) {
 	}
 }
 
+// Republika Srpska, class IV: Čatrnja–Prnjavor KM 35 with VAT (EUR 15.30
+// without), either way; Laktaši–Jakupovci 5 (2.19).
+func TestRepublikaSrpska(t *testing.T) {
+	cp := [][2]float64{{17.1900, 45.1100}, {17.193283, 45.100624}, {17.223614, 45.045062}, {17.276936, 44.958706}, {17.404083, 44.870197}, {17.684223, 44.852395}, {17.7000, 44.8500}}
+	rev := slices.Clone(cp)
+	slices.Reverse(rev)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Čatrnja to Prnjavor", cp, 15.30},
+		{"Prnjavor to Čatrnja", rev, 15.30},
+		{"Laktaši to Jakupovci", [][2]float64{{17.3300, 44.9200}, {17.325387, 44.9155}, {17.285689, 44.891804}, {17.2800, 44.8850}}, 2.19},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"BA": 60}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Currency == "EUR" && l.Country == "BA" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

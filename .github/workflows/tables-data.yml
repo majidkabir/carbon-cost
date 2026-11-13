@@ -114,6 +114,7 @@ jobs:
           python3 tools/tables/m6toll.py out out/tables
           python3 tools/tables/ba.py out out/tables
           python3 tools/tables/al.py out out/tables
+          python3 tools/tables/ba_rs.py tools/tables/transcribed out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

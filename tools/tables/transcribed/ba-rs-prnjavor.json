@@ -1,0 +1,76 @@
+{
+ "operator": "JP \"Autoputevi Republike Srpske\" d.o.o. Banja Luka",
+ "about": "Republika Srpska: the toll price list at the Prnjavor toll station (naplatno mjesto), 'na osnovu Uredbe o visini putarine, član 4. stav 1, Službeni glasnik Republike Srpske br. 89/19 od 28.10.2019', published by the operator only as an image in a PDF. Transcribed by hand; tools/tables fetches the PDF again and says if it has changed (sha256). Rows: the entry station ('iz pravca') to Prnjavor, KM with VAT, by class: IA (motorcycles), I (two axles, up to 1.3 m at the first axle and under 1.9 m), II, III (two or three axles over 1.3 m, or with a trailer, under 2.9 m), IV (four or more axles, over 1.3 m at the first axle and 2.9 m or more in all).",
+ "source": {
+  "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Prnjavor.pdf",
+  "sha256": "e09f0036a0a719adc6033503b0e70f1aec459b17311e6fac0c452fd4c2f52bd6",
+  "page": "https://autoputevirs.com/clanci/cjn/1207"
+ },
+ "exit": "Prnjavor",
+ "rows": [
+  {
+   "from": "Kladari",
+   "IA": 1.5,
+   "I": 3.0,
+   "II": 6.0,
+   "III": 9.0,
+   "IV": 15
+  },
+  {
+   "from": "Kostajnica",
+   "IA": 2.0,
+   "I": 4.0,
+   "II": 8.0,
+   "III": 12.0,
+   "IV": 20
+  },
+  {
+   "from": "Drugovići",
+   "IA": 1.0,
+   "I": 2.0,
+   "II": 4.0,
+   "III": 6.0,
+   "IV": 10
+  },
+  {
+   "from": "Laktaši",
+   "IA": 1.5,
+   "I": 3.0,
+   "II": 6.0,
+   "III": 9.0,
+   "IV": 15
+  },
+  {
+   "from": "Jakupovci",
+   "IA": 2.0,
+   "I": 4.0,
+   "II": 8.0,
+   "III": 12.0,
+   "IV": 20
+  },
+  {
+   "from": "Aleksandrovac",
+   "IA": 2.5,
+   "I": 5.0,
+   "II": 10.0,
+   "III": 15.0,
+   "IV": 25
+  },
+  {
+   "from": "Nova Topola",
+   "IA": 3.0,
+   "I": 6.0,
+   "II": 12.0,
+   "III": 18.0,
+   "IV": 30
+  },
+  {
+   "from": "Čatrnja",
+   "IA": 3.5,
+   "I": 7.0,
+   "II": 14.0,
+   "III": 21.0,
+   "IV": 35
+  }
+ ]
+}

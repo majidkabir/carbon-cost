@@ -2386,3 +2386,44 @@ func TestAP7AlicanteCartagena(t *testing.T) {
 		}
 	}
 }
+
+// Gipuzkoa's N-I/A-15 canon (Bidegi 2026, VAT included): Pesados 2 from
+// the Navarra border at Etzegarate to Lasarte-Oria 13.31 either way (11.00
+// without VAT; 80% for a EURO 6 truck with a TAG), Olaberria to
+// Ikaztegieta 3.23 (Pesados 1: 2.54), the A-15 from the Navarra border to
+// Astigarraga 8.28. The paths run through the stretches' middles.
+func TestGipuzkoaNIA15(t *testing.T) {
+	north := [][2]float64{{-2.233752, 42.975276}, {-2.235671, 43.012005}, {-2.229985, 43.025091}, {-2.219160, 43.031472}, {-2.216272, 43.039493}, {-2.206366, 43.045757}, {-2.188690, 43.047709}, {-2.174213, 43.052941}, {-2.159260, 43.074206}, {-2.127150, 43.089336}, {-2.102954, 43.100584}, {-2.091125, 43.114395}, {-2.083447, 43.127762}, {-2.069501, 43.136957}, {-2.068657, 43.153665}, {-2.066286, 43.164239}, {-2.058001, 43.174967}, {-2.051309, 43.187986}, {-2.040521, 43.198132}, {-2.024312, 43.215077}, {-2.025480, 43.222605}, {-2.027607, 43.241979}, {-2.017673, 43.263306}}
+	south := [][2]float64{{-2.017812, 43.263330}, {-2.030182, 43.241861}, {-2.025647, 43.222582}, {-2.027362, 43.213530}, {-2.040011, 43.198988}, {-2.051435, 43.188000}, {-2.058161, 43.174990}, {-2.066461, 43.164237}, {-2.068833, 43.153639}, {-2.069601, 43.137008}, {-2.083516, 43.127849}, {-2.092500, 43.115031}, {-2.103085, 43.100680}, {-2.127228, 43.089478}, {-2.159432, 43.074276}, {-2.174328, 43.052991}, {-2.188775, 43.047828}, {-2.206470, 43.045867}, {-2.216406, 43.039528}, {-2.219277, 43.031533}, {-2.230111, 43.025170}, {-2.235800, 43.011995}, {-2.238156, 42.972238}}
+	a15 := [][2]float64{{-1.953008, 43.107744}, {-2.006100, 43.160423}, {-2.024312, 43.215077}, {-2.025480, 43.222605}, {-2.015596, 43.227869}, {-2.002537, 43.235253}, {-1.995401, 43.252420}, {-1.972676, 43.261736}, {-1.957261, 43.268486}, {-1.959252, 43.276115}}
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		etc   bool
+		want  float64
+	}{
+		{"Etzegarate to Lasarte-Oria", north, truck40, false, 11.0},
+		{"Etzegarate to Lasarte-Oria, EURO 6 with a TAG", north, truck40, true, 8.8},
+		{"Lasarte-Oria to Etzegarate", south, truck40, false, 11.0},
+		{"Olaberria to Ikaztegieta", north[4:10], truck40, false, 3.23 / 1.21},
+		{"Olaberria to Ikaztegieta, Pesados 1", north[4:10], light, false, 2.54 / 1.21},
+		{"A-15 Navarra border to Astigarraga", a15, truck40, false, 8.28 / 1.21},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck, ETC: tc.etc}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "N-I/A-15") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

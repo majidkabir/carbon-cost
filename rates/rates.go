@@ -156,8 +156,10 @@ type PointClass struct {
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
 	Rate       float64 `json:"rate"`
 	ETCRate    float64 `json:"etc_rate,omitempty"`
-	// HighRate is the price on the point's HighSeason days.
-	HighRate float64 `json:"high_rate,omitempty"`
+	// HighRate is the price on the point's HighSeason days; HighETCRate
+	// the tag's price then, where it differs from ETCRate.
+	HighRate    float64 `json:"high_rate,omitempty"`
+	HighETCRate float64 `json:"high_etc_rate,omitempty"`
 	// NightRate and NightETCRate are the prices in the point's
 	// NightHours, where they differ.
 	NightRate    float64 `json:"night_rate,omitempty"`
@@ -239,6 +241,9 @@ func (p TollPoint) PriceOn(t Truck, etc bool, day time.Time) (float64, bool) {
 		l := t.Length()
 		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
 			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
+			if etc && c.HighETCRate > 0 {
+				return c.HighETCRate, true
+			}
 			if c.HighRate > 0 && !(etc && c.ETCRate > 0) {
 				return c.HighRate, true
 			}

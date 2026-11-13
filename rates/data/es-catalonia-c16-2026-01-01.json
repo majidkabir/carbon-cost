@@ -1,0 +1,92 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "Catalonia: C-16 tolls (Túnel del Cadí, Túnels de Vallvidrera, les Fonts, Sant Vicenç de Castellet)",
+ "law": "The Generalitat de Catalunya's toll rates for 2026 (yearly revision by Resolució under Decret 465/2004), category 4 (trucks with more than four wheels, or three axles; trucks over 3.5 t are taken to be), per passage either way, excluding 21% IVA: the Túnel del Cadí; the Túnels de Vallvidrera at the off-peak price (weekdays 7:30-10:30 and 17:00-21:00 cost more, priced off-peak with a note); the C-16 barriers of les Fonts (the weekday price only with Via-T or Satelise, so `etc`; else and at weekends the full price) and Sant Vicenç de Castellet (weekday and weekend prices; public holidays aren't modelled). The C-16 Manresa barrier and the C-32 barriers have no named booths in OpenStreetMap and aren't priced.",
+ "sources": [
+  {
+   "title": "Generalitat de Catalunya: Tarifes de peatges 2026",
+   "url": "https://territori.gencat.cat/ca/03_infraestructures_i_mobilitat/carreteres/peatges-tarifes-descomptes/tarifes-peatges/"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Category 4 (here trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "C-16 Túnel del Cadí, Túnels de Vallvidrera, and the barriers of les Fonts (Sant Cugat-Terrassa) and Sant Vicenç de Castellet (Terrassa-Manresa).",
+ "point_match_km": 0.2,
+ "toll_points": [
+  {
+   "name": "C-16 Túnel del Cadí",
+   "lat": 42.340173,
+   "lon": 1.839159,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 31.4959
+    }
+   ]
+  },
+  {
+   "name": "C-16 Túnels de Vallvidrera",
+   "lat": 41.437192,
+   "lon": 2.075248,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 8.0992
+    }
+   ],
+   "peak_rate": 9.1074
+  },
+  {
+   "name": "C-16 les Fonts",
+   "lat": 41.517896,
+   "lon": 2.030133,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 5.8264,
+     "etc_rate": 3.2066,
+     "high_rate": 5.8264,
+     "high_etc_rate": 5.8264
+    }
+   ],
+   "high_season": {
+    "weekdays": [
+     0,
+     6
+    ]
+   }
+  },
+  {
+   "name": "C-16 Sant Vicenç de Castellet",
+   "lat": 41.651767,
+   "lon": 1.864713,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 4.2231,
+     "high_rate": 7.0909
+    }
+   ],
+   "high_season": {
+    "weekdays": [
+     0,
+     6
+    ]
+   }
+  }
+ ],
+ "rows": []
+}

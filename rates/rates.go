@@ -158,6 +158,26 @@ type PointClass struct {
 	ETCRate    float64 `json:"etc_rate,omitempty"`
 	// HighRate is the price on the point's HighSeason days.
 	HighRate float64 `json:"high_rate,omitempty"`
+	// NightRate and NightETCRate are the prices in the point's
+	// NightHours, where they differ.
+	NightRate    float64 `json:"night_rate,omitempty"`
+	NightETCRate float64 `json:"night_etc_rate,omitempty"`
+}
+
+// NightPrice is the point's price for the truck in its NightHours, and
+// whether it has one.
+func (p TollPoint) NightPrice(t Truck, etc bool) (float64, bool) {
+	for _, c := range p.Classes {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
+			if etc && c.NightETCRate > 0 {
+				return c.NightETCRate, true
+			}
+			return c.NightRate, c.NightRate > 0
+		}
+	}
+	return 0, false
 }
 
 // Season is a set of days: in Months (1-12), on Weekdays (0 Sunday to
@@ -275,6 +295,9 @@ type TollPoint struct {
 	// FreeHours: from and to (HH:MM, both included) the station charges
 	// nothing.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// NightHours: from and to (HH:MM, both included) its classes charge
+	// their NightRate (NightETCRate by tag).
+	NightHours []string `json:"night_hours,omitempty"`
 	// HighSeason: the days its classes charge their HighRate.
 	HighSeason *Season `json:"high_season,omitempty"`
 	// ValidFrom and ValidTo (YYYY-MM-DD, both included, either may be
@@ -794,6 +817,11 @@ func (tb Table) check() error {
 		if len(p.FreeHours) != 0 {
 			if _, err := Within("00:00", p.FreeHours[0], p.FreeHours[len(p.FreeHours)-1]); err != nil || len(p.FreeHours) != 2 {
 				return fmt.Errorf("toll point %s: free_hours must be [from, to] (HH:MM)", p.Name)
+			}
+		}
+		if len(p.NightHours) != 0 {
+			if _, err := Within("00:00", p.NightHours[0], p.NightHours[len(p.NightHours)-1]); err != nil || len(p.NightHours) != 2 {
+				return fmt.Errorf("toll point %s: night_hours must be [from, to] (HH:MM)", p.Name)
 			}
 		}
 		for _, v := range []string{p.ValidFrom, p.ValidTo} {

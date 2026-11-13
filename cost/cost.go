@@ -11,6 +11,7 @@ package cost
 import (
 	"context"
 	"fmt"
+	"maps"
 	"math"
 	"regexp"
 	"slices"
@@ -1431,6 +1432,7 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	paid := map[int]time.Time{} // when each hour-rule group was last paid
 	untimedFree := false
+	nightUntimed := map[string][]string{}
 	last := map[string]float64{} // where each station was last paid, km along the route
 	free, peak := 0, 0
 	var cg struct {
@@ -1515,6 +1517,15 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 		if !ok || rate == 0 {
 			continue
 		}
+		if len(p.tp.NightHours) == 2 {
+			if nr, has := p.tp.NightPrice(req.Truck, req.ETC); has && nr != rate {
+				if !timed {
+					nightUntimed[p.tp.Name] = p.tp.NightHours
+				} else if night, err := rates.Within(at.Format("15:04"), p.tp.NightHours[0], p.tp.NightHours[1]); err == nil && night {
+					rate = nr
+				}
+			}
+		}
 		if p.tp.Group != 0 {
 			// The hour rule: after a paid passage the group's stations are
 			// free for GroupMinutes; without times the trip is taken to pass
@@ -1543,12 +1554,15 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 			return true, err
 		}
 	}
+	for _, n := range slices.Sorted(maps.Keys(nightUntimed)) {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is cheaper from %s to %s; priced at the day price. Give a departure time.", country, n, nightUntimed[n][0], nightUntimed[n][1]))
+	}
 	if free > 0 {
 		how := " (by the passage times)"
 		if untimedFree {
 			how = " (without a departure time the route is taken to pass them within the hour)"
 		}
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule%s.", country, free, how))
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free: their group charges once within its time (the hour rule)%s.", country, free, how))
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))

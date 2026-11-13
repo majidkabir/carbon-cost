@@ -1,0 +1,312 @@
+{
+ "country": "BA",
+ "currency": "EUR",
+ "valid_from": "2024-10-02",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "Republika Srpska motorway tolls (Autoputevi Republike Srpske)",
+ "law": "Uredba o visini putarine (Službeni glasnik Republike Srpske 89/19), article 4(1), as JP Autoputevi Republike Srpske's price list at each toll station gives it (published as images, uploaded 2 October 2024, transcribed by hand): by entry and exit station either way, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. valid_from is the price lists' upload date.",
+ "sources": [
+  {
+   "title": "Autoputevi Republike Srpske: Cjenovnik (price lists per toll station)",
+   "url": "https://autoputevirs.com/clanci/cjn/1207"
+  },
+  {
+   "title": "The price lists as transcribed in tools/tables/transcribed/ba-rs-*.json",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Aleksandrovac-2.pdf"
+  },
+  {
+   "title": "Zakon o Centralnoj banci Bosne i Hercegovine, article 32 (1 EUR = 1.95583 KM)",
+   "url": "https://www.cbbh.ba/content/read/915"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the operator's toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Classes III and IV (here trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "Motorways 9. januar (Kostajnica–Kladari–Prnjavor–Laktaši) and Gradiška–Banja Luka (Čatrnja–Nova Topola–Aleksandrovac–Jakupovci).",
+ "closed_systems": [
+  {
+   "name": "Autoputevi Republike Srpske",
+   "law": "Uredba o visini putarine (SG RS 89/19): by entry and exit station.",
+   "groups": [
+    {
+     "name": "III",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Aleksandrovac",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.958706,
+       "lon": 17.276936
+      },
+      {
+       "name": "booth",
+       "lat": 44.960097,
+       "lon": 17.279649
+      }
+     ]
+    },
+    {
+     "name": "Drugovići",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.870197,
+       "lon": 17.404083
+      }
+     ]
+    },
+    {
+     "name": "Jakupovci",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.891804,
+       "lon": 17.285689
+      },
+      {
+       "name": "booth",
+       "lat": 44.891875,
+       "lon": 17.285463
+      }
+     ]
+    },
+    {
+     "name": "Kladari",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.809635,
+       "lon": 18.047285
+      },
+      {
+       "name": "booth",
+       "lat": 44.809537,
+       "lon": 18.047211
+      }
+     ]
+    },
+    {
+     "name": "Kostajnica",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.760805,
+       "lon": 18.066396
+      }
+     ]
+    },
+    {
+     "name": "Laktaši",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.9155,
+       "lon": 17.325387
+      }
+     ]
+    },
+    {
+     "name": "Nova Topola",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.045062,
+       "lon": 17.223614
+      }
+     ]
+    },
+    {
+     "name": "Prnjavor",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.852395,
+       "lon": 17.684223
+      },
+      {
+       "name": "booth",
+       "lat": 44.852312,
+       "lon": 17.684264
+      }
+     ]
+    },
+    {
+     "name": "Čatrnja",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 45.100624,
+       "lon": 17.193283
+      },
+      {
+       "name": "booth",
+       "lat": 45.100609,
+       "lon": 17.193124
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Aleksandrovac|Drugovići": {
+     "III": 3.933,
+     "IV": 6.555
+    },
+    "Aleksandrovac|Jakupovci": {
+     "III": 1.9665,
+     "IV": 3.2775
+    },
+    "Aleksandrovac|Kladari": {
+     "III": 10.488,
+     "IV": 17.4801
+    },
+    "Aleksandrovac|Kostajnica": {
+     "III": 11.799,
+     "IV": 19.6651
+    },
+    "Aleksandrovac|Laktaši": {
+     "III": 2.622,
+     "IV": 4.37
+    },
+    "Aleksandrovac|Nova Topola": {
+     "III": 1.311,
+     "IV": 2.185
+    },
+    "Aleksandrovac|Prnjavor": {
+     "III": 6.555,
+     "IV": 10.925
+    },
+    "Aleksandrovac|Čatrnja": {
+     "III": 2.622,
+     "IV": 4.37
+    },
+    "Drugovići|Jakupovci": {
+     "III": 2.622,
+     "IV": 4.37
+    },
+    "Drugovići|Kladari": {
+     "III": 6.555,
+     "IV": 10.925
+    },
+    "Drugovići|Kostajnica": {
+     "III": 7.866,
+     "IV": 13.11
+    },
+    "Drugovići|Laktaši": {
+     "III": 1.311,
+     "IV": 2.185
+    },
+    "Drugovići|Nova Topola": {
+     "III": 5.244,
+     "IV": 8.74
+    },
+    "Drugovići|Prnjavor": {
+     "III": 2.622,
+     "IV": 4.37
+    },
+    "Drugovići|Čatrnja": {
+     "III": 6.555,
+     "IV": 10.925
+    },
+    "Jakupovci|Kladari": {
+     "III": 9.177,
+     "IV": 15.2951
+    },
+    "Jakupovci|Kostajnica": {
+     "III": 10.488,
+     "IV": 17.4801
+    },
+    "Jakupovci|Laktaši": {
+     "III": 1.311,
+     "IV": 2.185
+    },
+    "Jakupovci|Nova Topola": {
+     "III": 3.2775,
+     "IV": 5.4625
+    },
+    "Jakupovci|Prnjavor": {
+     "III": 5.244,
+     "IV": 8.74
+    },
+    "Jakupovci|Čatrnja": {
+     "III": 4.5885,
+     "IV": 7.6475
+    },
+    "Kladari|Kostajnica": {
+     "III": 1.311,
+     "IV": 2.185
+    },
+    "Kladari|Laktaši": {
+     "III": 7.866,
+     "IV": 13.11
+    },
+    "Kladari|Nova Topola": {
+     "III": 11.799,
+     "IV": 19.6651
+    },
+    "Kladari|Prnjavor": {
+     "III": 3.933,
+     "IV": 6.555
+    },
+    "Kladari|Čatrnja": {
+     "III": 13.11,
+     "IV": 21.8501
+    },
+    "Kostajnica|Laktaši": {
+     "III": 9.177,
+     "IV": 15.2951
+    },
+    "Kostajnica|Nova Topola": {
+     "III": 13.11,
+     "IV": 21.8501
+    },
+    "Kostajnica|Prnjavor": {
+     "III": 5.244,
+     "IV": 8.74
+    },
+    "Kostajnica|Čatrnja": {
+     "III": 14.4211,
+     "IV": 24.0351
+    },
+    "Laktaši|Nova Topola": {
+     "III": 3.933,
+     "IV": 6.555
+    },
+    "Laktaši|Prnjavor": {
+     "III": 3.933,
+     "IV": 6.555
+    },
+    "Laktaši|Čatrnja": {
+     "III": 5.244,
+     "IV": 8.74
+    },
+    "Nova Topola|Prnjavor": {
+     "III": 7.866,
+     "IV": 13.11
+    },
+    "Nova Topola|Čatrnja": {
+     "III": 1.311,
+     "IV": 2.185
+    },
+    "Prnjavor|Čatrnja": {
+     "III": 9.177,
+     "IV": 15.2951
+    }
+   }
+  }
+ ],
+ "rows": []
+}

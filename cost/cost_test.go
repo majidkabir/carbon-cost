@@ -2152,9 +2152,10 @@ func TestM6Toll(t *testing.T) {
 	}
 }
 
-// Bosnia and Herzegovina's A1 (Uredba SN 86/20), class IV, KM with VAT:
-// Sarajevo sjever–Zenica sjever 28.0 either way (EUR 12.24 without VAT),
-// Sarajevo zapad–Tarčin 10.0 (4.37), the Svilaj barrier 5.0 (2.19).
+// Bosnia and Herzegovina's A1, class IV, KM with VAT: from 1 November
+// 2026 (JP Autoceste FBiH's price list) Sarajevo sjever–Zenica sjever 32.0
+// either way (EUR 13.98 without VAT), Sarajevo zapad–Tarčin 11.5 (5.03),
+// the Svilaj barrier 5.7 (2.49); in 2025 (decree SN 63/24) 28.0 (12.24).
 func TestBosniaA1(t *testing.T) {
 	sz := [][2]float64{{18.3300, 43.9050}, {18.321171, 43.911507}, {18.251882, 43.970949}, {18.166477, 44.001398}, {18.110811, 44.080897},
 		{18.107402, 44.097542}, {18.100574, 44.124616}, {17.98448, 44.131606}, {17.969721, 44.18181}, {17.901, 44.237}, {17.8950, 44.2450}}
@@ -2164,17 +2165,19 @@ func TestBosniaA1(t *testing.T) {
 		return r
 	}
 	for _, tc := range []struct {
-		name string
-		path [][2]float64
-		want float64
+		name, date string
+		path       [][2]float64
+		want       float64
 	}{
-		{"Sarajevo sjever to Zenica sjever", sz, 12.24},
-		{"Zenica sjever to Sarajevo sjever", rev(sz), 12.24},
-		{"Sarajevo zapad to Tarčin", [][2]float64{{18.2200, 43.8720}, {18.212609, 43.868922}, {18.143133, 43.866182}, {18.086035, 43.793065}, {18.0800, 43.7850}}, 4.37},
-		{"Svilaj", [][2]float64{{18.2900, 45.1000}, {18.284385, 45.090308}, {18.2800, 45.0800}}, 2.19},
+		{"Sarajevo sjever to Zenica sjever", "2026-11-20", sz, 13.98},
+		{"Zenica sjever to Sarajevo sjever", "2026-11-20", rev(sz), 13.98},
+		{"Sarajevo zapad to Tarčin", "2026-11-20", [][2]float64{{18.2200, 43.8720}, {18.212609, 43.868922}, {18.143133, 43.866182}, {18.086035, 43.793065}, {18.0800, 43.7850}}, 5.03},
+		{"Svilaj", "2026-11-20", [][2]float64{{18.2900, 45.1000}, {18.284385, 45.090308}, {18.2800, 45.0800}}, 2.49},
+		{"Sarajevo sjever to Zenica sjever in 2025", "2025-06-02", sz, 12.24},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"BA": 60}, Path: tc.path}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		d, _ := time.Parse("2006-01-02", tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, d)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -2186,6 +2189,38 @@ func TestBosniaA1(t *testing.T) {
 		}
 		if math.Abs(got-tc.want) > 0.006 {
 			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
+// Republika Srpska, class IV: Čatrnja–Prnjavor KM 35 with VAT (EUR 15.30
+// without), either way; Laktaši–Jakupovci 5 (2.19).
+func TestRepublikaSrpska(t *testing.T) {
+	cp := [][2]float64{{17.1900, 45.1100}, {17.193283, 45.100624}, {17.223614, 45.045062}, {17.276936, 44.958706}, {17.404083, 44.870197}, {17.684223, 44.852395}, {17.7000, 44.8500}}
+	rev := slices.Clone(cp)
+	slices.Reverse(rev)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Čatrnja to Prnjavor", cp, 15.30},
+		{"Prnjavor to Čatrnja", rev, 15.30},
+		{"Laktaši to Jakupovci", [][2]float64{{17.3300, 44.9200}, {17.325387, 44.9155}, {17.285689, 44.891804}, {17.2800, 44.8850}}, 2.19},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"BA": 60}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Currency == "EUR" && l.Country == "BA" {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
 		}
 	}
 }

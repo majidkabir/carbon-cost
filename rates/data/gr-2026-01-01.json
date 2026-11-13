@@ -3,7 +3,7 @@
  "currency": "EUR",
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
- "osm_extract": "2026-11-09",
+ "osm_extract": "2026-11-12",
  "name": "Greek motorway tolls (open toll stations)",
  "law": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2026 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths. Egnatia Odos: Νέα Εγνατία Οδός's station list (front stations per direction, side stations by ramp), 'Φορτηγά – Λεωφορεία' as category 3 and '4+ Άξονες' as 4. Attiki Odos: one toll per entry (Νέα Αττική Οδός, under article 18.4.1 of its concession agreement), category 5 (over 2.70 m, two or three axles) and 6 (four or more), at each of its booths: as they lie by the main carriageway, a trip pays the first it passes and no other within the hour.",
  "sources": [
@@ -36,11 +36,11 @@
    "url": "https://download.geofabrik.de/europe/greece.html"
   },
   {
-   "title": "Νέα Εγνατία Οδός: Σταθμοί Διοδίων (read in Chrome: tools/tables/browser/gr-egnatia.txt)",
+   "title": "Νέα Εγνατία Οδός: Σταθμοί Διοδίων",
    "url": "https://neodos.gr/stathmoi-diodion/"
   },
   {
-   "title": "Νέα Αττική Οδός: Τιμαριθμική προσαρμογή διοδίων τελών 2026 (read in Chrome: tools/tables/browser/gr-attiki.txt)",
+   "title": "Νέα Αττική Οδός: Τιμαριθμική προσαρμογή διοδίων τελών 2026",
    "url": "https://www.naodos.gr/2025/arthro/nea-attiki-odos-timarithmiki-prosarmogi-diodion-telon-2026/"
   }
  ],

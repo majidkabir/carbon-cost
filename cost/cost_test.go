@@ -2111,6 +2111,47 @@ func TestWarnowSummer(t *testing.T) {
 	}
 }
 
+// M6 Toll, class 5 (three axles or more), excluding VAT: all three zones
+// GBP 20.90 (17.42), two 18.20 (15.17), within zone 2 15.70 (13.08),
+// within zone 3 nothing; breeze 18.20 (15.17) for all three.
+func TestM6Toll(t *testing.T) {
+	n := [][2]float64{{-1.7296, 52.5200}, {-1.729643, 52.529124}, {-1.729678, 52.54144}, {-1.74938, 52.557982}, {-1.796744, 52.595927},
+		{-1.822424, 52.643702}, {-1.881197, 52.650629}, {-1.966462, 52.662794}, {-2.033988, 52.670872}, {-2.064168, 52.664986}, {-2.0750, 52.6700}}
+	rev := func(p [][2]float64) [][2]float64 {
+		r := slices.Clone(p)
+		slices.Reverse(r)
+		return r
+	}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		etc  bool
+		want float64
+	}{
+		{"M6(S) to M6(N)", n, false, 17.42},
+		{"M6(S) to M6(N), breeze", n, true, 15.17},
+		{"T3 to M6(N)", n[4:], false, 15.17},
+		{"T3 to T6", n[4:7], false, 13.08},
+		{"T7 to M6(N)", n[8:], false, 0},
+		{"southbound against the northbound stations' heading", rev(n[4:7]), false, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"GB": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, ETC: tc.etc, FX: map[string]float64{"GBP": 0.84}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "M6 Toll") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

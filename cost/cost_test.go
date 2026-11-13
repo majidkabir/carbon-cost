@@ -2225,6 +2225,27 @@ func TestRepublikaSrpska(t *testing.T) {
 	}
 }
 
+// Albania's A1 (Rruga e Kombit): one plaza, class 5 (four axles or more)
+// EUR 22.50 with VAT (18.75 without), either way.
+func TestAlbaniaA1(t *testing.T) {
+	for _, path := range [][][2]float64{{{20.3000, 42.0400}, {20.31435, 42.048682}, {20.3300, 42.0550}}, {{20.3300, 42.0550}, {20.31435, 42.048682}, {20.3000, 42.0400}}} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 3, CountryKm: map[string]float64{"AL": 3}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Rruga e Kombit") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-18.75) > 0.001 {
+			t.Errorf("%v: %v, want 18.75: %v", path, got, r.Lines)
+		}
+	}
+}
+
 // Liefkenshoektunnel in 2027: OBU EUR 17.95 by day; untimed, a note
 // that it's cheaper at night.
 func TestLiefkenshoek2027(t *testing.T) {

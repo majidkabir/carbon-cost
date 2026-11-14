@@ -1,0 +1,6098 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:38:28Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 199944,
+  "lat": 52.5291238,
+  "lon": -1.7296429,
+  "tags": {
+    "destination": "M6 Toll Lichfield, The North West",
+    "highway": "motorway_junction",
+    "layer": "3",
+    "name": "Dunton Interchange",
+    "ref": "T1"
+  }
+},
+{
+  "type": "node",
+  "id": 227863,
+  "lat": 52.5520605,
+  "lon": -1.7377259,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "T2"
+  }
+},
+{
+  "type": "node",
+  "id": 228098,
+  "lat": 52.5812845,
+  "lon": -1.7849785,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Langley Mill",
+    "ref": "T3"
+  }
+},
+{
+  "type": "node",
+  "id": 228179,
+  "lat": 52.6354780,
+  "lon": -1.8076629,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Weeford Interchange",
+    "ref": "T4"
+  }
+},
+{
+  "type": "node",
+  "id": 228191,
+  "lat": 52.6413207,
+  "lon": -1.8164496,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Weeford Interchange",
+    "ref": "T4"
+  }
+},
+{
+  "type": "node",
+  "id": 228267,
+  "lat": 52.6612488,
+  "lon": -1.9192464,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "T6"
+  }
+},
+{
+  "type": "node",
+  "id": 228384,
+  "lat": 52.6718598,
+  "lon": -2.0114396,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Churchbridge",
+    "ref": "T7"
+  }
+},
+{
+  "type": "node",
+  "id": 228420,
+  "lat": 52.6654266,
+  "lon": -2.0544708,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Wedges Mills",
+    "ref": "T8"
+  }
+},
+{
+  "type": "node",
+  "id": 260231691,
+  "lat": 52.6621871,
+  "lon": -1.9334155,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "T6"
+  }
+},
+{
+  "type": "node",
+  "id": 261013614,
+  "lat": 52.5641747,
+  "lon": -1.7606190,
+  "tags": {
+    "highway": "motorway_junction",
+    "name": "Langley Mill",
+    "ref": "T3"
+  }
+},
+{
+  "type": "node",
+  "id": 271841972,
+  "lat": 52.6496849,
+  "lon": -1.8400113,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "T5"
+  }
+},
+{
+  "type": "way",
+  "id": 1166,
+  "bounds": {
+    "minlat": 52.5525873,
+    "minlon": -1.7494674,
+    "maxlat": 52.5582538,
+    "maxlon": -1.7389154
+  },
+  "nodes": [
+    227866,
+    227865,
+    227864,
+    199952,
+    1436647766,
+    227859,
+    1566258428
+  ],
+  "geometry": [
+    { "lat": 52.5582538, "lon": -1.7494674 },
+    { "lat": 52.5570226, "lon": -1.7476485 },
+    { "lat": 52.5559384, "lon": -1.7458686 },
+    { "lat": 52.5549363, "lon": -1.7439692 },
+    { "lat": 52.5541290, "lon": -1.7422686 },
+    { "lat": 52.5526292, "lon": -1.7390098 },
+    { "lat": 52.5525873, "lon": -1.7389154 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1168,
+  "bounds": {
+    "minlat": 52.5419523,
+    "minlon": -1.7301208,
+    "maxlat": 52.5456733,
+    "maxlon": -1.7296778
+  },
+  "nodes": [
+    654112,
+    1544333904,
+    199936,
+    247659,
+    247658,
+    312271419
+  ],
+  "geometry": [
+    { "lat": 52.5419523, "lon": -1.7296778 },
+    { "lat": 52.5436395, "lon": -1.7297110 },
+    { "lat": 52.5441603, "lon": -1.7297450 },
+    { "lat": 52.5446062, "lon": -1.7298239 },
+    { "lat": 52.5454419, "lon": -1.7300260 },
+    { "lat": 52.5456733, "lon": -1.7301208 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 2352,
+  "bounds": {
+    "minlat": 52.4756568,
+    "minlon": -1.6818631,
+    "maxlat": 52.4769978,
+    "maxlon": -1.6765106
+  },
+  "nodes": [
+    208666,
+    15893370,
+    15893369,
+    1505623744,
+    247644,
+    247643,
+    15893365,
+    1556745052
+  ],
+  "geometry": [
+    { "lat": 52.4756568, "lon": -1.6765106 },
+    { "lat": 52.4759619, "lon": -1.6773583 },
+    { "lat": 52.4761611, "lon": -1.6780473 },
+    { "lat": 52.4763323, "lon": -1.6786610 },
+    { "lat": 52.4764852, "lon": -1.6792883 },
+    { "lat": 52.4767778, "lon": -1.6806295 },
+    { "lat": 52.4769705, "lon": -1.6816767 },
+    { "lat": 52.4769978, "lon": -1.6818631 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "carriageway_ref": "A",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 2511,
+  "bounds": {
+    "minlat": 52.6230757,
+    "minlon": -1.8007106,
+    "maxlat": 52.6231958,
+    "maxlon": -1.8006760
+  },
+  "nodes": [
+    6507174508,
+    6507174510
+  ],
+  "geometry": [
+    { "lat": 52.6231958, "lon": -1.8007106 },
+    { "lat": 52.6230757, "lon": -1.8006760 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "covered": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "layer": "-1",
+    "lit": "yes",
+    "maxheight:signed": "no",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "paved",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 2385845,
+  "bounds": {
+    "minlat": 52.6514121,
+    "minlon": -1.9108964,
+    "maxlat": 52.6591090,
+    "maxlon": -1.8943062
+  },
+  "nodes": [
+    228248,
+    228253,
+    228251,
+    228249,
+    228254,
+    260299953,
+    228256,
+    228259,
+    228260,
+    11800375957,
+    228263
+  ],
+  "geometry": [
+    { "lat": 52.6514121, "lon": -1.8943062 },
+    { "lat": 52.6520093, "lon": -1.8959719 },
+    { "lat": 52.6525418, "lon": -1.8971814 },
+    { "lat": 52.6533230, "lon": -1.8985856 },
+    { "lat": 52.6549317, "lon": -1.9012967 },
+    { "lat": 52.6557398, "lon": -1.9027861 },
+    { "lat": 52.6564804, "lon": -1.9042744 },
+    { "lat": 52.6572859, "lon": -1.9060549 },
+    { "lat": 52.6580913, "lon": -1.9080575 },
+    { "lat": 52.6586034, "lon": -1.9094539 },
+    { "lat": 52.6591090, "lon": -1.9108964 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 2385867,
+  "bounds": {
+    "minlat": 52.6503591,
+    "minlon": -1.8946568,
+    "maxlat": 52.6540422,
+    "maxlon": -1.8526457
+  },
+  "nodes": [
+    228247,
+    2788985484,
+    228245,
+    2788985480,
+    260299459,
+    2788985476,
+    228243,
+    260299462,
+    228236,
+    260299461,
+    2788985471,
+    228238,
+    260299464,
+    2788985472,
+    228240,
+    2788985475,
+    228242,
+    2788985478,
+    228231,
+    2788985481,
+    260299945,
+    2788985482,
+    228232,
+    2788985485,
+    228234,
+    2788985486,
+    228224,
+    2788985495,
+    228226,
+    2788985504,
+    260299947,
+    228228,
+    260299949,
+    228219,
+    2788985533,
+    260299951,
+    2788985539,
+    228221,
+    2788985546,
+    2788985548,
+    228223,
+    2788985547,
+    200461,
+    2788985544,
+    2788985541,
+    200462,
+    200463,
+    2788985530,
+    200464,
+    2788985525,
+    200465,
+    1889772676
+  ],
+  "geometry": [
+    { "lat": 52.6517186, "lon": -1.8946568 },
+    { "lat": 52.6514181, "lon": -1.8937008 },
+    { "lat": 52.6511590, "lon": -1.8927728 },
+    { "lat": 52.6509788, "lon": -1.8919917 },
+    { "lat": 52.6508246, "lon": -1.8912355 },
+    { "lat": 52.6507064, "lon": -1.8904959 },
+    { "lat": 52.6505911, "lon": -1.8897599 },
+    { "lat": 52.6504732, "lon": -1.8887113 },
+    { "lat": 52.6504042, "lon": -1.8877281 },
+    { "lat": 52.6503620, "lon": -1.8866295 },
+    { "lat": 52.6503591, "lon": -1.8860759 },
+    { "lat": 52.6503652, "lon": -1.8855460 },
+    { "lat": 52.6503894, "lon": -1.8846868 },
+    { "lat": 52.6504289, "lon": -1.8840413 },
+    { "lat": 52.6504784, "lon": -1.8834218 },
+    { "lat": 52.6505378, "lon": -1.8828739 },
+    { "lat": 52.6506049, "lon": -1.8823339 },
+    { "lat": 52.6507132, "lon": -1.8815858 },
+    { "lat": 52.6508587, "lon": -1.8807780 },
+    { "lat": 52.6510094, "lon": -1.8800563 },
+    { "lat": 52.6511824, "lon": -1.8793013 },
+    { "lat": 52.6513806, "lon": -1.8785240 },
+    { "lat": 52.6515748, "lon": -1.8777842 },
+    { "lat": 52.6518709, "lon": -1.8767083 },
+    { "lat": 52.6521592, "lon": -1.8756581 },
+    { "lat": 52.6523953, "lon": -1.8747916 },
+    { "lat": 52.6526101, "lon": -1.8739041 },
+    { "lat": 52.6528686, "lon": -1.8727850 },
+    { "lat": 52.6530936, "lon": -1.8716749 },
+    { "lat": 52.6532125, "lon": -1.8710339 },
+    { "lat": 52.6533291, "lon": -1.8703564 },
+    { "lat": 52.6535247, "lon": -1.8690752 },
+    { "lat": 52.6536752, "lon": -1.8678943 },
+    { "lat": 52.6537839, "lon": -1.8668409 },
+    { "lat": 52.6538526, "lon": -1.8660806 },
+    { "lat": 52.6539060, "lon": -1.8654050 },
+    { "lat": 52.6539598, "lon": -1.8645877 },
+    { "lat": 52.6539913, "lon": -1.8637974 },
+    { "lat": 52.6540177, "lon": -1.8632125 },
+    { "lat": 52.6540398, "lon": -1.8624997 },
+    { "lat": 52.6540422, "lon": -1.8614134 },
+    { "lat": 52.6540381, "lon": -1.8605465 },
+    { "lat": 52.6540219, "lon": -1.8598448 },
+    { "lat": 52.6539939, "lon": -1.8589721 },
+    { "lat": 52.6539615, "lon": -1.8583940 },
+    { "lat": 52.6539304, "lon": -1.8578368 },
+    { "lat": 52.6538287, "lon": -1.8564600 },
+    { "lat": 52.6537436, "lon": -1.8555568 },
+    { "lat": 52.6536574, "lon": -1.8548174 },
+    { "lat": 52.6535768, "lon": -1.8541705 },
+    { "lat": 52.6534818, "lon": -1.8535094 },
+    { "lat": 52.6533629, "lon": -1.8526457 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092273,
+  "bounds": {
+    "minlat": 52.6625412,
+    "minlon": -1.9696657,
+    "maxlat": 52.6629306,
+    "maxlon": -1.9642103
+  },
+  "nodes": [
+    228310,
+    2839514565,
+    2839514561,
+    2839514550,
+    2839514541,
+    228309,
+    228314
+  ],
+  "geometry": [
+    { "lat": 52.6629306, "lon": -1.9642103 },
+    { "lat": 52.6629001, "lon": -1.9648550 },
+    { "lat": 52.6628612, "lon": -1.9655272 },
+    { "lat": 52.6628169, "lon": -1.9661507 },
+    { "lat": 52.6627700, "lon": -1.9667764 },
+    { "lat": 52.6627195, "lon": -1.9674039 },
+    { "lat": 52.6625412, "lon": -1.9696657 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092274,
+  "bounds": {
+    "minlat": 52.6626076,
+    "minlon": -1.9721573,
+    "maxlat": 52.6630038,
+    "maxlon": -1.9656099
+  },
+  "nodes": [
+    228321,
+    228337,
+    2839514552,
+    228308
+  ],
+  "geometry": [
+    { "lat": 52.6626076, "lon": -1.9721573 },
+    { "lat": 52.6626821, "lon": -1.9698357 },
+    { "lat": 52.6628317, "lon": -1.9677249 },
+    { "lat": 52.6630038, "lon": -1.9656099 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092290,
+  "bounds": {
+    "minlat": 52.6624227,
+    "minlon": -1.9737617,
+    "maxlat": 52.6625412,
+    "maxlon": -1.9696657
+  },
+  "nodes": [
+    228314,
+    1376223897,
+    228315,
+    3681129317
+  ],
+  "geometry": [
+    { "lat": 52.6625412, "lon": -1.9696657 },
+    { "lat": 52.6624456, "lon": -1.9717434 },
+    { "lat": 52.6624227, "lon": -1.9722509 },
+    { "lat": 52.6624241, "lon": -1.9737617 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092291,
+  "bounds": {
+    "minlat": 52.6626096,
+    "minlon": -2.0086967,
+    "maxlat": 52.6713157,
+    "maxlon": -1.9748074
+  },
+  "nodes": [
+    228378,
+    2839661529,
+    2839661517,
+    2839661503,
+    2839661389,
+    228375,
+    228372,
+    228374,
+    4948807316,
+    228368,
+    228370,
+    4948807308,
+    4948811125,
+    228363,
+    228366,
+    228357,
+    228359,
+    2839515030,
+    228361,
+    2839514703,
+    228353,
+    2839514620,
+    2839514603,
+    228355,
+    2839514560,
+    355233235,
+    2839514526,
+    228318,
+    2839514514,
+    228319,
+    228320
+  ],
+  "geometry": [
+    { "lat": 52.6713157, "lon": -2.0086967 },
+    { "lat": 52.6711694, "lon": -2.0082529 },
+    { "lat": 52.6709982, "lon": -2.0077855 },
+    { "lat": 52.6707798, "lon": -2.0071893 },
+    { "lat": 52.6704885, "lon": -2.0064431 },
+    { "lat": 52.6701812, "lon": -2.0056641 },
+    { "lat": 52.6693423, "lon": -2.0034916 },
+    { "lat": 52.6686837, "lon": -2.0016504 },
+    { "lat": 52.6681918, "lon": -2.0002304 },
+    { "lat": 52.6679175, "lon": -1.9994360 },
+    { "lat": 52.6674752, "lon": -1.9980903 },
+    { "lat": 52.6672651, "lon": -1.9974414 },
+    { "lat": 52.6670202, "lon": -1.9966452 },
+    { "lat": 52.6667131, "lon": -1.9956593 },
+    { "lat": 52.6657454, "lon": -1.9923864 },
+    { "lat": 52.6648659, "lon": -1.9890655 },
+    { "lat": 52.6642799, "lon": -1.9866897 },
+    { "lat": 52.6639970, "lon": -1.9854768 },
+    { "lat": 52.6637327, "lon": -1.9842426 },
+    { "lat": 52.6634887, "lon": -1.9830160 },
+    { "lat": 52.6632712, "lon": -1.9817911 },
+    { "lat": 52.6631763, "lon": -1.9812184 },
+    { "lat": 52.6630891, "lon": -1.9806281 },
+    { "lat": 52.6629426, "lon": -1.9795060 },
+    { "lat": 52.6628545, "lon": -1.9786979 },
+    { "lat": 52.6627749, "lon": -1.9778392 },
+    { "lat": 52.6627056, "lon": -1.9769866 },
+    { "lat": 52.6626580, "lon": -1.9761742 },
+    { "lat": 52.6626147, "lon": -1.9752628 },
+    { "lat": 52.6626107, "lon": -1.9749881 },
+    { "lat": 52.6626096, "lon": -1.9748074 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092306,
+  "bounds": {
+    "minlat": 52.6697365,
+    "minlon": -2.0436855,
+    "maxlat": 52.6724592,
+    "maxlon": -2.0088367
+  },
+  "nodes": [
+    228377,
+    2839661536,
+    228388,
+    2839661551,
+    228386,
+    228384,
+    5040191488,
+    5040191487,
+    5040191486,
+    2839661734,
+    2839661746,
+    228382,
+    2839661759,
+    228380,
+    2839661766,
+    228396,
+    2839661763,
+    228394,
+    2839661758,
+    361691344,
+    2839661743,
+    228392,
+    1643592546,
+    2839661595,
+    228390,
+    228402,
+    2839661537,
+    228399,
+    2839661525,
+    2839661520,
+    228398,
+    2839661512,
+    228406,
+    2839661507,
+    2839661505,
+    228404,
+    2839661502,
+    2839661397,
+    228412,
+    2839661393,
+    2839661390,
+    2839661386,
+    228410,
+    2839661375,
+    2839661359,
+    2839661351,
+    228407
+  ],
+  "geometry": [
+    { "lat": 52.6711783, "lon": -2.0088367 },
+    { "lat": 52.6713349, "lon": -2.0093460 },
+    { "lat": 52.6714827, "lon": -2.0098715 },
+    { "lat": 52.6716335, "lon": -2.0104594 },
+    { "lat": 52.6717713, "lon": -2.0110348 },
+    { "lat": 52.6718598, "lon": -2.0114396 },
+    { "lat": 52.6719615, "lon": -2.0120042 },
+    { "lat": 52.6720425, "lon": -2.0124831 },
+    { "lat": 52.6721340, "lon": -2.0130693 },
+    { "lat": 52.6722080, "lon": -2.0135605 },
+    { "lat": 52.6722725, "lon": -2.0141000 },
+    { "lat": 52.6723211, "lon": -2.0146334 },
+    { "lat": 52.6723850, "lon": -2.0154760 },
+    { "lat": 52.6724258, "lon": -2.0162571 },
+    { "lat": 52.6724579, "lon": -2.0169562 },
+    { "lat": 52.6724592, "lon": -2.0176357 },
+    { "lat": 52.6724498, "lon": -2.0182382 },
+    { "lat": 52.6724226, "lon": -2.0188520 },
+    { "lat": 52.6723866, "lon": -2.0195112 },
+    { "lat": 52.6723167, "lon": -2.0202661 },
+    { "lat": 52.6722589, "lon": -2.0208442 },
+    { "lat": 52.6721744, "lon": -2.0214356 },
+    { "lat": 52.6720813, "lon": -2.0220668 },
+    { "lat": 52.6719590, "lon": -2.0229068 },
+    { "lat": 52.6718120, "lon": -2.0238095 },
+    { "lat": 52.6715224, "lon": -2.0256869 },
+    { "lat": 52.6713564, "lon": -2.0269811 },
+    { "lat": 52.6712167, "lon": -2.0282156 },
+    { "lat": 52.6711009, "lon": -2.0295073 },
+    { "lat": 52.6710444, "lon": -2.0301859 },
+    { "lat": 52.6709984, "lon": -2.0308218 },
+    { "lat": 52.6709355, "lon": -2.0320068 },
+    { "lat": 52.6708881, "lon": -2.0333762 },
+    { "lat": 52.6708696, "lon": -2.0340783 },
+    { "lat": 52.6708602, "lon": -2.0347526 },
+    { "lat": 52.6708240, "lon": -2.0361067 },
+    { "lat": 52.6707741, "lon": -2.0375161 },
+    { "lat": 52.6707243, "lon": -2.0382280 },
+    { "lat": 52.6706732, "lon": -2.0388826 },
+    { "lat": 52.6706248, "lon": -2.0393880 },
+    { "lat": 52.6705226, "lon": -2.0401975 },
+    { "lat": 52.6704190, "lon": -2.0408362 },
+    { "lat": 52.6703049, "lon": -2.0414503 },
+    { "lat": 52.6701850, "lon": -2.0420117 },
+    { "lat": 52.6700451, "lon": -2.0426105 },
+    { "lat": 52.6699012, "lon": -2.0431561 },
+    { "lat": 52.6697365, "lon": -2.0436855 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3092307,
+  "bounds": {
+    "minlat": 52.6665837,
+    "minlon": -2.0832715,
+    "maxlat": 52.6746960,
+    "maxlon": -2.0685515
+  },
+  "nodes": [
+    211556,
+    228455,
+    13980151339,
+    228452,
+    2839783819,
+    20954041,
+    228436,
+    2839783693,
+    2839783647,
+    228432,
+    2839783607,
+    228433
+  ],
+  "geometry": [
+    { "lat": 52.6746960, "lon": -2.0832715 },
+    { "lat": 52.6731880, "lon": -2.0804510 },
+    { "lat": 52.6727625, "lon": -2.0796529 },
+    { "lat": 52.6706521, "lon": -2.0756174 },
+    { "lat": 52.6697430, "lon": -2.0739764 },
+    { "lat": 52.6688351, "lon": -2.0723826 },
+    { "lat": 52.6681274, "lon": -2.0712186 },
+    { "lat": 52.6675493, "lon": -2.0702836 },
+    { "lat": 52.6672628, "lon": -2.0698046 },
+    { "lat": 52.6670091, "lon": -2.0693527 },
+    { "lat": 52.6667975, "lon": -2.0689729 },
+    { "lat": 52.6665837, "lon": -2.0685515 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123647,
+  "bounds": {
+    "minlat": 52.6591090,
+    "minlon": -1.9165215,
+    "maxlat": 52.6606770,
+    "maxlon": -1.9108964
+  },
+  "nodes": [
+    228263,
+    228273,
+    228271,
+    2789035441,
+    2789035465
+  ],
+  "geometry": [
+    { "lat": 52.6591090, "lon": -1.9108964 },
+    { "lat": 52.6596395, "lon": -1.9125547 },
+    { "lat": 52.6602193, "lon": -1.9147258 },
+    { "lat": 52.6605699, "lon": -1.9160848 },
+    { "lat": 52.6606770, "lon": -1.9165215 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123649,
+  "bounds": {
+    "minlat": 52.6525266,
+    "minlon": -1.8736444,
+    "maxlat": 52.6538587,
+    "maxlon": -1.8638217
+  },
+  "nodes": [
+    228220,
+    2788985531,
+    260299952,
+    2788985529,
+    228218,
+    260299950,
+    228229,
+    260299948,
+    228227,
+    2788985489,
+    228225
+  ],
+  "geometry": [
+    { "lat": 52.6538587, "lon": -1.8638217 },
+    { "lat": 52.6538185, "lon": -1.8646157 },
+    { "lat": 52.6537695, "lon": -1.8654043 },
+    { "lat": 52.6537181, "lon": -1.8660666 },
+    { "lat": 52.6536596, "lon": -1.8667533 },
+    { "lat": 52.6535456, "lon": -1.8678159 },
+    { "lat": 52.6534270, "lon": -1.8688345 },
+    { "lat": 52.6532529, "lon": -1.8700262 },
+    { "lat": 52.6530602, "lon": -1.8711366 },
+    { "lat": 52.6527937, "lon": -1.8724258 },
+    { "lat": 52.6525266, "lon": -1.8736444 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123650,
+  "bounds": {
+    "minlat": 52.6616511,
+    "minlon": -1.9271409,
+    "maxlat": 52.6622682,
+    "maxlon": -1.9216070
+  },
+  "nodes": [
+    228265,
+    228278,
+    228277,
+    368230947
+  ],
+  "geometry": [
+    { "lat": 52.6616511, "lon": -1.9216070 },
+    { "lat": 52.6619016, "lon": -1.9234408 },
+    { "lat": 52.6621264, "lon": -1.9252747 },
+    { "lat": 52.6622682, "lon": -1.9271409 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123651,
+  "bounds": {
+    "minlat": 52.6502060,
+    "minlon": -1.8943062,
+    "maxlat": 52.6525266,
+    "maxlon": -1.8736444
+  },
+  "nodes": [
+    228225,
+    228235,
+    228233,
+    260299946,
+    228230,
+    260299944,
+    228241,
+    260299465,
+    228239,
+    260299460,
+    228237,
+    260299463,
+    228244,
+    260299458,
+    228246,
+    228248
+  ],
+  "geometry": [
+    { "lat": 52.6525266, "lon": -1.8736444 },
+    { "lat": 52.6520566, "lon": -1.8755457 },
+    { "lat": 52.6514695, "lon": -1.8776203 },
+    { "lat": 52.6510580, "lon": -1.8791543 },
+    { "lat": 52.6507224, "lon": -1.8806320 },
+    { "lat": 52.6504592, "lon": -1.8822304 },
+    { "lat": 52.6503274, "lon": -1.8833400 },
+    { "lat": 52.6502425, "lon": -1.8843730 },
+    { "lat": 52.6502102, "lon": -1.8853978 },
+    { "lat": 52.6502060, "lon": -1.8865523 },
+    { "lat": 52.6502363, "lon": -1.8877295 },
+    { "lat": 52.6503170, "lon": -1.8887182 },
+    { "lat": 52.6504204, "lon": -1.8896780 },
+    { "lat": 52.6506511, "lon": -1.8911401 },
+    { "lat": 52.6510281, "lon": -1.8929191 },
+    { "lat": 52.6514121, "lon": -1.8943062 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123653,
+  "bounds": {
+    "minlat": 52.6604916,
+    "minlon": -1.9656099,
+    "maxlat": 52.6631213,
+    "maxlon": -1.9340968
+  },
+  "nodes": [
+    228308,
+    2839514593,
+    2839514594,
+    228311,
+    2839514606,
+    2839514609,
+    2839514612,
+    228313,
+    2839514611,
+    228307,
+    2839514607,
+    2839514602,
+    510799909,
+    2839514588,
+    2839514583,
+    228305,
+    2839514551,
+    510799907,
+    2839514529,
+    2839514518,
+    228303,
+    2839514389,
+    510799905,
+    2839514363,
+    2839514349,
+    228300,
+    2839514086,
+    228298,
+    2839514041,
+    2839514026,
+    510799898,
+    2839513783,
+    228296,
+    2839513750,
+    510799900,
+    2839513736,
+    228295,
+    2839513717,
+    2839513712,
+    2839513707,
+    228292,
+    2839513706,
+    2839513709,
+    510799904,
+    2839513716,
+    2839513728,
+    228286,
+    2839513745,
+    2839513751,
+    2839513761,
+    228289,
+    2839514014,
+    2839514031,
+    228290,
+    2839514054,
+    2839514076,
+    2839514301,
+    228285,
+    6507171148,
+    260231688
+  ],
+  "geometry": [
+    { "lat": 52.6630038, "lon": -1.9656099 },
+    { "lat": 52.6630181, "lon": -1.9654233 },
+    { "lat": 52.6630342, "lon": -1.9651955 },
+    { "lat": 52.6630727, "lon": -1.9645836 },
+    { "lat": 52.6630945, "lon": -1.9640414 },
+    { "lat": 52.6631133, "lon": -1.9634820 },
+    { "lat": 52.6631213, "lon": -1.9629226 },
+    { "lat": 52.6631207, "lon": -1.9623770 },
+    { "lat": 52.6631173, "lon": -1.9618835 },
+    { "lat": 52.6631064, "lon": -1.9613883 },
+    { "lat": 52.6630972, "lon": -1.9610699 },
+    { "lat": 52.6630784, "lon": -1.9607338 },
+    { "lat": 52.6630291, "lon": -1.9600399 },
+    { "lat": 52.6630020, "lon": -1.9596725 },
+    { "lat": 52.6629725, "lon": -1.9592746 },
+    { "lat": 52.6628948, "lon": -1.9585641 },
+    { "lat": 52.6628290, "lon": -1.9580055 },
+    { "lat": 52.6627537, "lon": -1.9574409 },
+    { "lat": 52.6627123, "lon": -1.9571365 },
+    { "lat": 52.6626587, "lon": -1.9568005 },
+    { "lat": 52.6625545, "lon": -1.9562226 },
+    { "lat": 52.6624227, "lon": -1.9555314 },
+    { "lat": 52.6622789, "lon": -1.9548609 },
+    { "lat": 52.6622041, "lon": -1.9545254 },
+    { "lat": 52.6621210, "lon": -1.9541694 },
+    { "lat": 52.6619489, "lon": -1.9535089 },
+    { "lat": 52.6616449, "lon": -1.9523984 },
+    { "lat": 52.6613624, "lon": -1.9512675 },
+    { "lat": 52.6612372, "lon": -1.9507667 },
+    { "lat": 52.6611219, "lon": -1.9502560 },
+    { "lat": 52.6610137, "lon": -1.9497302 },
+    { "lat": 52.6608953, "lon": -1.9490930 },
+    { "lat": 52.6607922, "lon": -1.9484550 },
+    { "lat": 52.6607089, "lon": -1.9479190 },
+    { "lat": 52.6606515, "lon": -1.9474057 },
+    { "lat": 52.6606056, "lon": -1.9469307 },
+    { "lat": 52.6605607, "lon": -1.9464338 },
+    { "lat": 52.6605332, "lon": -1.9459513 },
+    { "lat": 52.6605064, "lon": -1.9454980 },
+    { "lat": 52.6604916, "lon": -1.9450249 },
+    { "lat": 52.6604926, "lon": -1.9445743 },
+    { "lat": 52.6604916, "lon": -1.9442002 },
+    { "lat": 52.6605010, "lon": -1.9437624 },
+    { "lat": 52.6605118, "lon": -1.9432545 },
+    { "lat": 52.6605305, "lon": -1.9428448 },
+    { "lat": 52.6605627, "lon": -1.9424004 },
+    { "lat": 52.6606000, "lon": -1.9419161 },
+    { "lat": 52.6606552, "lon": -1.9414099 },
+    { "lat": 52.6607112, "lon": -1.9409293 },
+    { "lat": 52.6607867, "lon": -1.9403774 },
+    { "lat": 52.6608726, "lon": -1.9398573 },
+    { "lat": 52.6610384, "lon": -1.9389594 },
+    { "lat": 52.6611417, "lon": -1.9384464 },
+    { "lat": 52.6612475, "lon": -1.9379697 },
+    { "lat": 52.6613871, "lon": -1.9373387 },
+    { "lat": 52.6615507, "lon": -1.9366356 },
+    { "lat": 52.6617143, "lon": -1.9359259 },
+    { "lat": 52.6618612, "lon": -1.9352332 },
+    { "lat": 52.6618981, "lon": -1.9350392 },
+    { "lat": 52.6620775, "lon": -1.9340968 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8123654,
+  "bounds": {
+    "minlat": 52.6517186,
+    "minlon": -1.9108290,
+    "maxlat": 52.6592702,
+    "maxlon": -1.8946568
+  },
+  "nodes": [
+    228262,
+    11800375956,
+    228261,
+    228258,
+    228257,
+    260299954,
+    228255,
+    228250,
+    228252,
+    1601848087,
+    228247
+  ],
+  "geometry": [
+    { "lat": 52.6592702, "lon": -1.9108290 },
+    { "lat": 52.6587628, "lon": -1.9093493 },
+    { "lat": 52.6582813, "lon": -1.9080184 },
+    { "lat": 52.6573385, "lon": -1.9057662 },
+    { "lat": 52.6565090, "lon": -1.9039639 },
+    { "lat": 52.6558304, "lon": -1.9025748 },
+    { "lat": 52.6550471, "lon": -1.9011133 },
+    { "lat": 52.6534075, "lon": -1.8983213 },
+    { "lat": 52.6526507, "lon": -1.8969200 },
+    { "lat": 52.6522218, "lon": -1.8959505 },
+    { "lat": 52.6517186, "lon": -1.8946568 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "smoothness": "good",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 8126590,
+  "bounds": {
+    "minlat": 52.6646329,
+    "minlon": -2.0673301,
+    "maxlat": 52.6697365,
+    "maxlon": -2.0436855
+  },
+  "nodes": [
+    228407,
+    2839783818,
+    2839783813,
+    2839783807,
+    2839783804,
+    2839783792,
+    228416,
+    2839783753,
+    228414,
+    2839783636,
+    2839783610,
+    228417,
+    2839783249,
+    2839783164,
+    228424,
+    2839783072,
+    228420,
+    4383824235,
+    2839782976,
+    2839782966,
+    2839782959,
+    2839782956,
+    361691298,
+    2839782954,
+    16705787,
+    2839782948,
+    2839782949,
+    2839782953,
+    228428,
+    16705791,
+    2839782961,
+    2839782969,
+    2839782979,
+    228426,
+    2839782997,
+    2839783020,
+    2839783033,
+    16705789,
+    2839783070,
+    2839783089,
+    228430,
+    16705792
+  ],
+  "geometry": [
+    { "lat": 52.6697365, "lon": -2.0436855 },
+    { "lat": 52.6696431, "lon": -2.0440111 },
+    { "lat": 52.6695290, "lon": -2.0443624 },
+    { "lat": 52.6693597, "lon": -2.0448423 },
+    { "lat": 52.6691872, "lon": -2.0452750 },
+    { "lat": 52.6689019, "lon": -2.0459713 },
+    { "lat": 52.6686238, "lon": -2.0465881 },
+    { "lat": 52.6680103, "lon": -2.0478707 },
+    { "lat": 52.6675749, "lon": -2.0487771 },
+    { "lat": 52.6670839, "lon": -2.0498540 },
+    { "lat": 52.6668315, "lon": -2.0504240 },
+    { "lat": 52.6665762, "lon": -2.0510470 },
+    { "lat": 52.6661132, "lon": -2.0522903 },
+    { "lat": 52.6658818, "lon": -2.0529778 },
+    { "lat": 52.6656671, "lon": -2.0536460 },
+    { "lat": 52.6654770, "lon": -2.0543085 },
+    { "lat": 52.6654266, "lon": -2.0544708 },
+    { "lat": 52.6651500, "lon": -2.0556966 },
+    { "lat": 52.6648946, "lon": -2.0569345 },
+    { "lat": 52.6648206, "lon": -2.0574358 },
+    { "lat": 52.6647600, "lon": -2.0579414 },
+    { "lat": 52.6647130, "lon": -2.0584427 },
+    { "lat": 52.6646818, "lon": -2.0588371 },
+    { "lat": 52.6646612, "lon": -2.0592068 },
+    { "lat": 52.6646403, "lon": -2.0596428 },
+    { "lat": 52.6646329, "lon": -2.0601782 },
+    { "lat": 52.6646356, "lon": -2.0606062 },
+    { "lat": 52.6646545, "lon": -2.0612139 },
+    { "lat": 52.6646900, "lon": -2.0618376 },
+    { "lat": 52.6647378, "lon": -2.0623980 },
+    { "lat": 52.6647997, "lon": -2.0629616 },
+    { "lat": 52.6648683, "lon": -2.0634562 },
+    { "lat": 52.6649302, "lon": -2.0638466 },
+    { "lat": 52.6649860, "lon": -2.0641677 },
+    { "lat": 52.6650516, "lon": -2.0645166 },
+    { "lat": 52.6651276, "lon": -2.0648585 },
+    { "lat": 52.6652094, "lon": -2.0652286 },
+    { "lat": 52.6653039, "lon": -2.0655991 },
+    { "lat": 52.6654605, "lon": -2.0661570 },
+    { "lat": 52.6655671, "lon": -2.0665052 },
+    { "lat": 52.6656593, "lon": -2.0667992 },
+    { "lat": 52.6658440, "lon": -2.0673301 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 23883226,
+  "bounds": {
+    "minlat": 52.5408039,
+    "minlon": -1.7296774,
+    "maxlat": 52.5411592,
+    "maxlon": -1.7296719
+  },
+  "nodes": [
+    258871340,
+    258871339
+  ],
+  "geometry": [
+    { "lat": 52.5408039, "lon": -1.7296719 },
+    { "lat": 52.5411592, "lon": -1.7296774 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 23883227,
+  "bounds": {
+    "minlat": 52.5411592,
+    "minlon": -1.7296778,
+    "maxlat": 52.5419523,
+    "maxlon": -1.7296774
+  },
+  "nodes": [
+    258871339,
+    654112
+  ],
+  "geometry": [
+    { "lat": 52.5411592, "lon": -1.7296774 },
+    { "lat": 52.5419523, "lon": -1.7296778 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 23883228,
+  "bounds": {
+    "minlat": 52.5408869,
+    "minlon": -1.7294589,
+    "maxlat": 52.5412372,
+    "maxlon": -1.7294589
+  },
+  "nodes": [
+    247560,
+    258871342
+  ],
+  "geometry": [
+    { "lat": 52.5412372, "lon": -1.7294589 },
+    { "lat": 52.5408869, "lon": -1.7294589 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 23883229,
+  "bounds": {
+    "minlat": 52.5291458,
+    "minlon": -1.7295004,
+    "maxlat": 52.5408869,
+    "maxlon": -1.7294130
+  },
+  "nodes": [
+    258871342,
+    247562,
+    4115320566,
+    247563,
+    4115320378,
+    247564,
+    966847615,
+    247567,
+    247568
+  ],
+  "geometry": [
+    { "lat": 52.5408869, "lon": -1.7294589 },
+    { "lat": 52.5368345, "lon": -1.7294793 },
+    { "lat": 52.5361339, "lon": -1.7294857 },
+    { "lat": 52.5354264, "lon": -1.7294810 },
+    { "lat": 52.5343458, "lon": -1.7294884 },
+    { "lat": 52.5332693, "lon": -1.7295004 },
+    { "lat": 52.5311806, "lon": -1.7294812 },
+    { "lat": 52.5303066, "lon": -1.7294156 },
+    { "lat": 52.5291458, "lon": -1.7294130 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 24000172,
+  "bounds": {
+    "minlat": 52.6619203,
+    "minlon": -1.9340939,
+    "maxlat": 52.6620424,
+    "maxlon": -1.9333187
+  },
+  "nodes": [
+    260231690,
+    260231689
+  ],
+  "geometry": [
+    { "lat": 52.6620424, "lon": -1.9333187 },
+    { "lat": 52.6619203, "lon": -1.9340939 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:name": "Anglesey Wharf Bridge",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "start_date": "2003",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 24000173,
+  "bounds": {
+    "minlat": 52.6603305,
+    "minlon": -1.9642103,
+    "maxlat": 52.6629671,
+    "maxlon": -1.9340939
+  },
+  "nodes": [
+    260231689,
+    228284,
+    2839514079,
+    2839514061,
+    2839514042,
+    228291,
+    2839514008,
+    2839513786,
+    228288,
+    2839513741,
+    2839513734,
+    2839513726,
+    2839513705,
+    228287,
+    2839513587,
+    2839513584,
+    510799903,
+    2839513575,
+    228293,
+    2839513578,
+    2839513585,
+    228294,
+    2839513598,
+    2839513600,
+    510799899,
+    2839513723,
+    228297,
+    2839513754,
+    510799896,
+    2839513795,
+    2839514017,
+    228299,
+    2839514069,
+    228301,
+    2839514328,
+    2839514345,
+    2839514368,
+    228302,
+    2839514501,
+    2839514509,
+    2839514519,
+    228304,
+    2839514548,
+    510799910,
+    2839514568,
+    228306,
+    2839514578,
+    228312,
+    2839514580,
+    2839514576,
+    2839514575,
+    228310
+  ],
+  "geometry": [
+    { "lat": 52.6619203, "lon": -1.9340939 },
+    { "lat": 52.6617302, "lon": -1.9351289 },
+    { "lat": 52.6615815, "lon": -1.9358154 },
+    { "lat": 52.6614287, "lon": -1.9364941 },
+    { "lat": 52.6612691, "lon": -1.9371972 },
+    { "lat": 52.6611076, "lon": -1.9378888 },
+    { "lat": 52.6610130, "lon": -1.9383204 },
+    { "lat": 52.6609177, "lon": -1.9387714 },
+    { "lat": 52.6607474, "lon": -1.9396442 },
+    { "lat": 52.6606432, "lon": -1.9402669 },
+    { "lat": 52.6605976, "lon": -1.9405808 },
+    { "lat": 52.6605597, "lon": -1.9408475 },
+    { "lat": 52.6604916, "lon": -1.9414298 },
+    { "lat": 52.6604337, "lon": -1.9420398 },
+    { "lat": 52.6603870, "lon": -1.9426901 },
+    { "lat": 52.6603656, "lon": -1.9430284 },
+    { "lat": 52.6603548, "lon": -1.9433436 },
+    { "lat": 52.6603361, "lon": -1.9439216 },
+    { "lat": 52.6603305, "lon": -1.9444784 },
+    { "lat": 52.6603428, "lon": -1.9453543 },
+    { "lat": 52.6603709, "lon": -1.9459004 },
+    { "lat": 52.6603998, "lon": -1.9464113 },
+    { "lat": 52.6604367, "lon": -1.9468799 },
+    { "lat": 52.6604621, "lon": -1.9471739 },
+    { "lat": 52.6604978, "lon": -1.9474604 },
+    { "lat": 52.6605480, "lon": -1.9479168 },
+    { "lat": 52.6606142, "lon": -1.9483655 },
+    { "lat": 52.6607317, "lon": -1.9490864 },
+    { "lat": 52.6608462, "lon": -1.9497321 },
+    { "lat": 52.6609543, "lon": -1.9502450 },
+    { "lat": 52.6610736, "lon": -1.9507446 },
+    { "lat": 52.6612040, "lon": -1.9512687 },
+    { "lat": 52.6615068, "lon": -1.9524228 },
+    { "lat": 52.6617743, "lon": -1.9534348 },
+    { "lat": 52.6619480, "lon": -1.9541451 },
+    { "lat": 52.6621102, "lon": -1.9548349 },
+    { "lat": 52.6622658, "lon": -1.9555380 },
+    { "lat": 52.6624025, "lon": -1.9562657 },
+    { "lat": 52.6625045, "lon": -1.9568469 },
+    { "lat": 52.6625916, "lon": -1.9574151 },
+    { "lat": 52.6626708, "lon": -1.9579767 },
+    { "lat": 52.6627314, "lon": -1.9584875 },
+    { "lat": 52.6628062, "lon": -1.9591839 },
+    { "lat": 52.6628645, "lon": -1.9598487 },
+    { "lat": 52.6629068, "lon": -1.9605038 },
+    { "lat": 52.6629390, "lon": -1.9611474 },
+    { "lat": 52.6629604, "lon": -1.9617862 },
+    { "lat": 52.6629662, "lon": -1.9624997 },
+    { "lat": 52.6629671, "lon": -1.9630929 },
+    { "lat": 52.6629510, "lon": -1.9637142 },
+    { "lat": 52.6629497, "lon": -1.9638402 },
+    { "lat": 52.6629306, "lon": -1.9642103 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 24000174,
+  "bounds": {
+    "minlat": 52.6620775,
+    "minlon": -1.9340968,
+    "maxlat": 52.6621871,
+    "maxlon": -1.9334155
+  },
+  "nodes": [
+    260231688,
+    260231691
+  ],
+  "geometry": [
+    { "lat": 52.6620775, "lon": -1.9340968 },
+    { "lat": 52.6621871, "lon": -1.9334155 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:name": "Anglesey Wharf Bridge",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "start_date": "2003",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 24000175,
+  "bounds": {
+    "minlat": 52.6621871,
+    "minlon": -1.9334155,
+    "maxlat": 52.6623847,
+    "maxlon": -1.9315921
+  },
+  "nodes": [
+    260231691,
+    6507171150,
+    228283
+  ],
+  "geometry": [
+    { "lat": 52.6621871, "lon": -1.9334155 },
+    { "lat": 52.6622947, "lon": -1.9325075 },
+    { "lat": 52.6623847, "lon": -1.9315921 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 27581747,
+  "bounds": {
+    "minlat": 52.5291238,
+    "minlon": -1.7297419,
+    "maxlat": 52.5408039,
+    "maxlon": -1.7296429
+  },
+  "nodes": [
+    199944,
+    966847661,
+    199943,
+    4115320366,
+    966847597,
+    4115320557,
+    247561,
+    258871340
+  ],
+  "geometry": [
+    { "lat": 52.5291238, "lon": -1.7296429 },
+    { "lat": 52.5311763, "lon": -1.7297419 },
+    { "lat": 52.5332606, "lon": -1.7297302 },
+    { "lat": 52.5340725, "lon": -1.7297231 },
+    { "lat": 52.5349585, "lon": -1.7297087 },
+    { "lat": 52.5358941, "lon": -1.7297190 },
+    { "lat": 52.5367965, "lon": -1.7297076 },
+    { "lat": 52.5408039, "lon": -1.7296719 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "source": "Bing",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 28423251,
+  "bounds": {
+    "minlat": 52.5412372,
+    "minlon": -1.7298118,
+    "maxlat": 52.5456773,
+    "maxlon": -1.7294587
+  },
+  "nodes": [
+    312271467,
+    247554,
+    247555,
+    247556,
+    247557,
+    247560
+  ],
+  "geometry": [
+    { "lat": 52.5456773, "lon": -1.7298118 },
+    { "lat": 52.5454979, "lon": -1.7297587 },
+    { "lat": 52.5445873, "lon": -1.7295620 },
+    { "lat": 52.5436659, "lon": -1.7294686 },
+    { "lat": 52.5427256, "lon": -1.7294587 },
+    { "lat": 52.5412372, "lon": -1.7294589 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 28423252,
+  "bounds": {
+    "minlat": 52.5456773,
+    "minlon": -1.7299392,
+    "maxlat": 52.5459643,
+    "maxlon": -1.7298118
+  },
+  "nodes": [
+    312271497,
+    312271467
+  ],
+  "geometry": [
+    { "lat": 52.5459643, "lon": -1.7299392 },
+    { "lat": 52.5456773, "lon": -1.7298118 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "note": "Structure damaged in fire on 30 April 2014. M6Toll remains open but road beneath is closed until further notice.",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 28423257,
+  "bounds": {
+    "minlat": 52.5459404,
+    "minlon": -1.7390810,
+    "maxlat": 52.5524913,
+    "maxlon": -1.7302292
+  },
+  "nodes": [
+    312271421,
+    247657,
+    3453817899,
+    3453817900,
+    246756,
+    3453817902,
+    1566258423,
+    1566258415,
+    247660,
+    1436647768,
+    246742,
+    1566258419
+  ],
+  "geometry": [
+    { "lat": 52.5459404, "lon": -1.7302292 },
+    { "lat": 52.5463844, "lon": -1.7304317 },
+    { "lat": 52.5471794, "lon": -1.7309124 },
+    { "lat": 52.5475565, "lon": -1.7311931 },
+    { "lat": 52.5478889, "lon": -1.7314563 },
+    { "lat": 52.5482769, "lon": -1.7318197 },
+    { "lat": 52.5486376, "lon": -1.7321954 },
+    { "lat": 52.5492927, "lon": -1.7330075 },
+    { "lat": 52.5496841, "lon": -1.7335337 },
+    { "lat": 52.5501757, "lon": -1.7342943 },
+    { "lat": 52.5507783, "lon": -1.7353889 },
+    { "lat": 52.5524913, "lon": -1.7390810 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 28423258,
+  "bounds": {
+    "minlat": 52.5456733,
+    "minlon": -1.7302292,
+    "maxlat": 52.5459404,
+    "maxlon": -1.7301208
+  },
+  "nodes": [
+    312271419,
+    312271421
+  ],
+  "geometry": [
+    { "lat": 52.5456733, "lon": -1.7301208 },
+    { "lat": 52.5459404, "lon": -1.7302292 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "note": "Structure damaged in fire on 30 April 2014. M6Toll remains open but road beneath is closed until further notice.",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29180143,
+  "bounds": {
+    "minlat": 52.5187122,
+    "minlon": -1.7271259,
+    "maxlat": 52.5210507,
+    "maxlon": -1.7263098
+  },
+  "nodes": [
+    247575,
+    247579,
+    320908177
+  ],
+  "geometry": [
+    { "lat": 52.5210507, "lon": -1.7271259 },
+    { "lat": 52.5199107, "lon": -1.7267269 },
+    { "lat": 52.5187122, "lon": -1.7263098 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29180160,
+  "bounds": {
+    "minlat": 52.5210507,
+    "minlon": -1.7275041,
+    "maxlat": 52.5221117,
+    "maxlon": -1.7271259
+  },
+  "nodes": [
+    320907983,
+    247575
+  ],
+  "geometry": [
+    { "lat": 52.5221117, "lon": -1.7275041 },
+    { "lat": 52.5210507, "lon": -1.7271259 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29180243,
+  "bounds": {
+    "minlat": 52.5181633,
+    "minlon": -1.7263098,
+    "maxlat": 52.5187122,
+    "maxlon": -1.7261149
+  },
+  "nodes": [
+    320908177,
+    247580
+  ],
+  "geometry": [
+    { "lat": 52.5187122, "lon": -1.7263098 },
+    { "lat": 52.5181633, "lon": -1.7261149 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29180247,
+  "bounds": {
+    "minlat": 52.5169800,
+    "minlon": -1.7261149,
+    "maxlat": 52.5181633,
+    "maxlon": -1.7257788
+  },
+  "nodes": [
+    247580,
+    247581,
+    1505300572,
+    4777140483
+  ],
+  "geometry": [
+    { "lat": 52.5181633, "lon": -1.7261149 },
+    { "lat": 52.5175945, "lon": -1.7259300 },
+    { "lat": 52.5171277, "lon": -1.7258118 },
+    { "lat": 52.5169800, "lon": -1.7257788 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29499674,
+  "bounds": {
+    "minlat": 52.5928795,
+    "minlon": -1.7957375,
+    "maxlat": 52.5930511,
+    "maxlon": -1.7956684
+  },
+  "nodes": [
+    325174924,
+    325174926
+  ],
+  "geometry": [
+    { "lat": 52.5930511, "lon": -1.7957375 },
+    { "lat": 52.5928795, "lon": -1.7956684 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29499675,
+  "bounds": {
+    "minlat": 52.5683612,
+    "minlon": -1.7956684,
+    "maxlat": 52.5928795,
+    "maxlon": -1.7706255
+  },
+  "nodes": [
+    325174926,
+    228119,
+    1461414041,
+    228114,
+    228117,
+    1792000252,
+    228113,
+    1791967374,
+    228111,
+    228109,
+    1791967311,
+    228106,
+    1791967265,
+    228107,
+    228103,
+    228101,
+    1250191696,
+    1250191833,
+    228098,
+    228096,
+    1250191923,
+    1250191883,
+    228094,
+    1250191719,
+    228092,
+    1970094888,
+    228086,
+    1250191785,
+    228089,
+    228091,
+    228061,
+    228058,
+    228057,
+    1250191829,
+    228054,
+    1250191877,
+    1791553297,
+    227882,
+    1791553153,
+    227883,
+    227885,
+    883495419
+  ],
+  "geometry": [
+    { "lat": 52.5928795, "lon": -1.7956684 },
+    { "lat": 52.5919389, "lon": -1.7953094 },
+    { "lat": 52.5913212, "lon": -1.7950428 },
+    { "lat": 52.5907011, "lon": -1.7947536 },
+    { "lat": 52.5891776, "lon": -1.7939477 },
+    { "lat": 52.5886424, "lon": -1.7936293 },
+    { "lat": 52.5879006, "lon": -1.7931695 },
+    { "lat": 52.5871865, "lon": -1.7926761 },
+    { "lat": 52.5863816, "lon": -1.7920935 },
+    { "lat": 52.5855238, "lon": -1.7914170 },
+    { "lat": 52.5849417, "lon": -1.7908949 },
+    { "lat": 52.5843859, "lon": -1.7903489 },
+    { "lat": 52.5838576, "lon": -1.7897411 },
+    { "lat": 52.5833511, "lon": -1.7890834 },
+    { "lat": 52.5828686, "lon": -1.7883590 },
+    { "lat": 52.5822162, "lon": -1.7871884 },
+    { "lat": 52.5819627, "lon": -1.7866483 },
+    { "lat": 52.5817285, "lon": -1.7861056 },
+    { "lat": 52.5812845, "lon": -1.7849785 },
+    { "lat": 52.5804499, "lon": -1.7827598 },
+    { "lat": 52.5799411, "lon": -1.7814016 },
+    { "lat": 52.5796529, "lon": -1.7807473 },
+    { "lat": 52.5793411, "lon": -1.7801195 },
+    { "lat": 52.5790196, "lon": -1.7795479 },
+    { "lat": 52.5786768, "lon": -1.7789937 },
+    { "lat": 52.5783312, "lon": -1.7784911 },
+    { "lat": 52.5779683, "lon": -1.7780132 },
+    { "lat": 52.5775803, "lon": -1.7775521 },
+    { "lat": 52.5771797, "lon": -1.7771260 },
+    { "lat": 52.5766205, "lon": -1.7765949 },
+    { "lat": 52.5757787, "lon": -1.7759511 },
+    { "lat": 52.5746168, "lon": -1.7753268 },
+    { "lat": 52.5728682, "lon": -1.7745704 },
+    { "lat": 52.5724073, "lon": -1.7743588 },
+    { "lat": 52.5719261, "lon": -1.7740878 },
+    { "lat": 52.5712938, "lon": -1.7736839 },
+    { "lat": 52.5708036, "lon": -1.7733165 },
+    { "lat": 52.5702925, "lon": -1.7728715 },
+    { "lat": 52.5697568, "lon": -1.7723582 },
+    { "lat": 52.5692283, "lon": -1.7717789 },
+    { "lat": 52.5687155, "lon": -1.7711275 },
+    { "lat": 52.5683612, "lon": -1.7706255 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29499677,
+  "bounds": {
+    "minlat": 52.5928056,
+    "minlon": -1.7959414,
+    "maxlat": 52.5929838,
+    "maxlon": -1.7958722
+  },
+  "nodes": [
+    325174925,
+    325174922
+  ],
+  "geometry": [
+    { "lat": 52.5928056, "lon": -1.7958722 },
+    { "lat": 52.5929838, "lon": -1.7959414 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 29499678,
+  "bounds": {
+    "minlat": 52.5929838,
+    "minlon": -1.7971039,
+    "maxlat": 52.5991590,
+    "maxlon": -1.7959414
+  },
+  "nodes": [
+    325174922,
+    228120,
+    1461414089,
+    228122,
+    1792000508,
+    228124,
+    228126,
+    4332060189,
+    883495429
+  ],
+  "geometry": [
+    { "lat": 52.5929838, "lon": -1.7959414 },
+    { "lat": 52.5936372, "lon": -1.7961559 },
+    { "lat": 52.5945565, "lon": -1.7964297 },
+    { "lat": 52.5954377, "lon": -1.7966455 },
+    { "lat": 52.5963355, "lon": -1.7968257 },
+    { "lat": 52.5972359, "lon": -1.7969710 },
+    { "lat": 52.5988096, "lon": -1.7971039 },
+    { "lat": 52.5988731, "lon": -1.7971037 },
+    { "lat": 52.5991590, "lon": -1.7971027 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724408,
+  "bounds": {
+    "minlat": 52.6623847,
+    "minlon": -1.9315921,
+    "maxlat": 52.6624191,
+    "maxlon": -1.9311115
+  },
+  "nodes": [
+    228283,
+    2789035630,
+    228280
+  ],
+  "geometry": [
+    { "lat": 52.6623847, "lon": -1.9315921 },
+    { "lat": 52.6623997, "lon": -1.9314194 },
+    { "lat": 52.6624191, "lon": -1.9311115 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724409,
+  "bounds": {
+    "minlat": 52.6624191,
+    "minlon": -1.9311115,
+    "maxlat": 52.6624902,
+    "maxlon": -1.9276615
+  },
+  "nodes": [
+    228280,
+    2789035636,
+    503895238,
+    2789035638,
+    228274
+  ],
+  "geometry": [
+    { "lat": 52.6624191, "lon": -1.9311115 },
+    { "lat": 52.6624745, "lon": -1.9300394 },
+    { "lat": 52.6624854, "lon": -1.9293791 },
+    { "lat": 52.6624902, "lon": -1.9286396 },
+    { "lat": 52.6624477, "lon": -1.9276615 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724410,
+  "bounds": {
+    "minlat": 52.6622578,
+    "minlon": -1.9313413,
+    "maxlat": 52.6622915,
+    "maxlon": -1.9308491
+  },
+  "nodes": [
+    228281,
+    2789035621,
+    228282
+  ],
+  "geometry": [
+    { "lat": 52.6622915, "lon": -1.9308491 },
+    { "lat": 52.6622822, "lon": -1.9310137 },
+    { "lat": 52.6622578, "lon": -1.9313413 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724411,
+  "bounds": {
+    "minlat": 52.6620424,
+    "minlon": -1.9333187,
+    "maxlat": 52.6622578,
+    "maxlon": -1.9313413
+  },
+  "nodes": [
+    228282,
+    2789035614,
+    260231690
+  ],
+  "geometry": [
+    { "lat": 52.6622578, "lon": -1.9313413 },
+    { "lat": 52.6621376, "lon": -1.9325484 },
+    { "lat": 52.6620424, "lon": -1.9333187 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724412,
+  "bounds": {
+    "minlat": 52.6622682,
+    "minlon": -1.9276834,
+    "maxlat": 52.6622972,
+    "maxlon": -1.9271409
+  },
+  "nodes": [
+    368230947,
+    228275
+  ],
+  "geometry": [
+    { "lat": 52.6622682, "lon": -1.9271409 },
+    { "lat": 52.6622972, "lon": -1.9276834 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724413,
+  "bounds": {
+    "minlat": 52.6622915,
+    "minlon": -1.9308491,
+    "maxlat": 52.6623363,
+    "maxlon": -1.9276834
+  },
+  "nodes": [
+    228275,
+    2789035626,
+    503895239,
+    4383707168,
+    11800431058,
+    228281
+  ],
+  "geometry": [
+    { "lat": 52.6622972, "lon": -1.9276834 },
+    { "lat": 52.6623332, "lon": -1.9286635 },
+    { "lat": 52.6623363, "lon": -1.9289957 },
+    { "lat": 52.6623358, "lon": -1.9295379 },
+    { "lat": 52.6623191, "lon": -1.9301820 },
+    { "lat": 52.6622915, "lon": -1.9308491 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724414,
+  "bounds": {
+    "minlat": 52.6624146,
+    "minlon": -1.9276615,
+    "maxlat": 52.6624477,
+    "maxlon": -1.9271152
+  },
+  "nodes": [
+    228274,
+    368230945
+  ],
+  "geometry": [
+    { "lat": 52.6624477, "lon": -1.9276615 },
+    { "lat": 52.6624146, "lon": -1.9271152 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 32724415,
+  "bounds": {
+    "minlat": 52.6608018,
+    "minlon": -1.9271152,
+    "maxlat": 52.6624146,
+    "maxlon": -1.9164371
+  },
+  "nodes": [
+    368230945,
+    2789035627,
+    228276,
+    2789035606,
+    228279,
+    228264,
+    2789035572,
+    228266,
+    2789035521,
+    228268,
+    2789035484
+  ],
+  "geometry": [
+    { "lat": 52.6624146, "lon": -1.9271152 },
+    { "lat": 52.6623344, "lon": -1.9260430 },
+    { "lat": 52.6622688, "lon": -1.9253115 },
+    { "lat": 52.6621013, "lon": -1.9238666 },
+    { "lat": 52.6619138, "lon": -1.9224550 },
+    { "lat": 52.6617844, "lon": -1.9215651 },
+    { "lat": 52.6616207, "lon": -1.9205253 },
+    { "lat": 52.6614432, "lon": -1.9195072 },
+    { "lat": 52.6612318, "lon": -1.9184265 },
+    { "lat": 52.6610132, "lon": -1.9173886 },
+    { "lat": 52.6608018, "lon": -1.9164371 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 50072019,
+  "bounds": {
+    "minlat": 52.6276265,
+    "minlon": -1.8036377,
+    "maxlat": 52.6296970,
+    "maxlon": -1.8028221
+  },
+  "nodes": [
+    635874349,
+    228171,
+    603641080
+  ],
+  "geometry": [
+    { "lat": 52.6296970, "lon": -1.8036377 },
+    { "lat": 52.6291650, "lon": -1.8034192 },
+    { "lat": 52.6276265, "lon": -1.8028221 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 50072048,
+  "bounds": {
+    "minlat": 52.6296970,
+    "minlon": -1.8037402,
+    "maxlat": 52.6299360,
+    "maxlon": -1.8036377
+  },
+  "nodes": [
+    635874350,
+    635874349
+  ],
+  "geometry": [
+    { "lat": 52.6299360, "lon": -1.8037402 },
+    { "lat": 52.6296970, "lon": -1.8036377 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "source": "GPS Survey",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 50072052,
+  "bounds": {
+    "minlat": 52.6296510,
+    "minlon": -1.8039869,
+    "maxlat": 52.6298996,
+    "maxlon": -1.8038800
+  },
+  "nodes": [
+    635874348,
+    635874347
+  ],
+  "geometry": [
+    { "lat": 52.6296510, "lon": -1.8038800 },
+    { "lat": 52.6298996, "lon": -1.8039869 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "source": "GPS Survey",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 50072055,
+  "bounds": {
+    "minlat": 52.6298996,
+    "minlon": -1.8067334,
+    "maxlat": 52.6344711,
+    "maxlon": -1.8039869
+  },
+  "nodes": [
+    635874347,
+    228174,
+    649256925,
+    2788875228,
+    228176,
+    2788875247,
+    228177
+  ],
+  "geometry": [
+    { "lat": 52.6298996, "lon": -1.8039869 },
+    { "lat": 52.6310884, "lon": -1.8044864 },
+    { "lat": 52.6319596, "lon": -1.8049472 },
+    { "lat": 52.6324010, "lon": -1.8052078 },
+    { "lat": 52.6328289, "lon": -1.8054804 },
+    { "lat": 52.6336656, "lon": -1.8060796 },
+    { "lat": 52.6344711, "lon": -1.8067334 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 52413867,
+  "bounds": {
+    "minlat": 52.6700710,
+    "minlon": -2.0088367,
+    "maxlat": 52.6711783,
+    "maxlon": -2.0058256
+  },
+  "nodes": [
+    228376,
+    666376582,
+    2839661388,
+    2839661395,
+    2839661510,
+    2839661521,
+    228377
+  ],
+  "geometry": [
+    { "lat": 52.6700710, "lon": -2.0058256 },
+    { "lat": 52.6701706, "lon": -2.0060930 },
+    { "lat": 52.6704447, "lon": -2.0067724 },
+    { "lat": 52.6706857, "lon": -2.0074067 },
+    { "lat": 52.6709107, "lon": -2.0080427 },
+    { "lat": 52.6710496, "lon": -2.0084489 },
+    { "lat": 52.6711783, "lon": -2.0088367 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 52413882,
+  "bounds": {
+    "minlat": 52.6645620,
+    "minlon": -1.9946913,
+    "maxlat": 52.6662655,
+    "maxlon": -1.9884414
+  },
+  "nodes": [
+    666376499,
+    228358,
+    228365,
+    666376656
+  ],
+  "geometry": [
+    { "lat": 52.6645620, "lon": -1.9884414 },
+    { "lat": 52.6647238, "lon": -1.9890876 },
+    { "lat": 52.6656034, "lon": -1.9924839 },
+    { "lat": 52.6662655, "lon": -1.9946913 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 70761875,
+  "bounds": {
+    "minlat": 52.6648022,
+    "minlon": -2.0673852,
+    "maxlat": 52.6726197,
+    "maxlon": -2.0086967
+  },
+  "nodes": [
+    16705793,
+    2839783185,
+    2839783138,
+    228429,
+    16705788,
+    2839783042,
+    228425,
+    2839783005,
+    16705790,
+    2839782981,
+    2839782972,
+    228427,
+    2839782965,
+    2839782962,
+    16705786,
+    2839782964,
+    228419,
+    2839782971,
+    361691295,
+    2839782985,
+    2839782998,
+    2839783026,
+    2839783053,
+    2839783066,
+    16705693,
+    361691304,
+    228421,
+    228423,
+    2839783466,
+    228418,
+    2839783642,
+    228413,
+    2839783770,
+    2839783778,
+    228415,
+    1377778468,
+    2839661328,
+    2839661334,
+    2839661339,
+    2839661345,
+    228408,
+    2839661361,
+    2839661378,
+    2839661384,
+    228409,
+    2839661391,
+    2839661396,
+    2839661400,
+    228411,
+    2839661508,
+    2839661511,
+    3601325513,
+    228403,
+    2839661518,
+    228405,
+    2839661524,
+    228397,
+    2839661530,
+    2839661533,
+    2839661535,
+    228400,
+    2839661543,
+    228401,
+    228389,
+    2839661718,
+    228391,
+    2839661760,
+    361691341,
+    2839661776,
+    228393,
+    361691347,
+    2839661790,
+    228395,
+    2839661791,
+    228379,
+    2839661782,
+    2839661778,
+    228381,
+    2839661762,
+    2839661753,
+    5040191484,
+    5040191485,
+    228383,
+    228385,
+    2839661588,
+    2839661575,
+    228387,
+    2839661542,
+    228378
+  ],
+  "geometry": [
+    { "lat": 52.6660722, "lon": -2.0673852 },
+    { "lat": 52.6659353, "lon": -2.0670389 },
+    { "lat": 52.6658144, "lon": -2.0666840 },
+    { "lat": 52.6656361, "lon": -2.0661341 },
+    { "lat": 52.6654132, "lon": -2.0653197 },
+    { "lat": 52.6652627, "lon": -2.0646797 },
+    { "lat": 52.6651474, "lon": -2.0640944 },
+    { "lat": 52.6650701, "lon": -2.0636447 },
+    { "lat": 52.6650056, "lon": -2.0632080 },
+    { "lat": 52.6649356, "lon": -2.0626489 },
+    { "lat": 52.6648831, "lon": -2.0621521 },
+    { "lat": 52.6648465, "lon": -2.0616811 },
+    { "lat": 52.6648186, "lon": -2.0611141 },
+    { "lat": 52.6648024, "lon": -2.0604732 },
+    { "lat": 52.6648022, "lon": -2.0600123 },
+    { "lat": 52.6648172, "lon": -2.0594485 },
+    { "lat": 52.6648391, "lon": -2.0590331 },
+    { "lat": 52.6648744, "lon": -2.0585004 },
+    { "lat": 52.6649146, "lon": -2.0580521 },
+    { "lat": 52.6649739, "lon": -2.0575644 },
+    { "lat": 52.6650519, "lon": -2.0570011 },
+    { "lat": 52.6651659, "lon": -2.0563524 },
+    { "lat": 52.6653354, "lon": -2.0555184 },
+    { "lat": 52.6654430, "lon": -2.0550660 },
+    { "lat": 52.6657657, "lon": -2.0538822 },
+    { "lat": 52.6657851, "lon": -2.0538103 },
+    { "lat": 52.6658321, "lon": -2.0536363 },
+    { "lat": 52.6661207, "lon": -2.0527508 },
+    { "lat": 52.6665083, "lon": -2.0516615 },
+    { "lat": 52.6667384, "lon": -2.0510769 },
+    { "lat": 52.6672068, "lon": -2.0499716 },
+    { "lat": 52.6677141, "lon": -2.0488604 },
+    { "lat": 52.6683236, "lon": -2.0476305 },
+    { "lat": 52.6686337, "lon": -2.0469750 },
+    { "lat": 52.6689117, "lon": -2.0463694 },
+    { "lat": 52.6691082, "lon": -2.0459274 },
+    { "lat": 52.6693039, "lon": -2.0454605 },
+    { "lat": 52.6694694, "lon": -2.0450605 },
+    { "lat": 52.6695677, "lon": -2.0447752 },
+    { "lat": 52.6696629, "lon": -2.0444854 },
+    { "lat": 52.6698979, "lon": -2.0437742 },
+    { "lat": 52.6700707, "lon": -2.0431739 },
+    { "lat": 52.6702213, "lon": -2.0426061 },
+    { "lat": 52.6703585, "lon": -2.0420073 },
+    { "lat": 52.6704761, "lon": -2.0414549 },
+    { "lat": 52.6705831, "lon": -2.0408562 },
+    { "lat": 52.6706907, "lon": -2.0401576 },
+    { "lat": 52.6707687, "lon": -2.0394811 },
+    { "lat": 52.6708311, "lon": -2.0388490 },
+    { "lat": 52.6708844, "lon": -2.0382036 },
+    { "lat": 52.6709274, "lon": -2.0374894 },
+    { "lat": 52.6709641, "lon": -2.0367044 },
+    { "lat": 52.6709651, "lon": -2.0361847 },
+    { "lat": 52.6710027, "lon": -2.0345552 },
+    { "lat": 52.6710276, "lon": -2.0334613 },
+    { "lat": 52.6710955, "lon": -2.0317318 },
+    { "lat": 52.6711435, "lon": -2.0308950 },
+    { "lat": 52.6711964, "lon": -2.0301549 },
+    { "lat": 52.6712515, "lon": -2.0294496 },
+    { "lat": 52.6713161, "lon": -2.0287243 },
+    { "lat": 52.6713997, "lon": -2.0280116 },
+    { "lat": 52.6715326, "lon": -2.0268768 },
+    { "lat": 52.6716964, "lon": -2.0257025 },
+    { "lat": 52.6719413, "lon": -2.0240562 },
+    { "lat": 52.6721230, "lon": -2.0229157 },
+    { "lat": 52.6723069, "lon": -2.0216971 },
+    { "lat": 52.6724041, "lon": -2.0209772 },
+    { "lat": 52.6724712, "lon": -2.0203583 },
+    { "lat": 52.6725413, "lon": -2.0195201 },
+    { "lat": 52.6725826, "lon": -2.0189496 },
+    { "lat": 52.6726066, "lon": -2.0183348 },
+    { "lat": 52.6726152, "lon": -2.0178012 },
+    { "lat": 52.6726197, "lon": -2.0173650 },
+    { "lat": 52.6726166, "lon": -2.0168453 },
+    { "lat": 52.6725978, "lon": -2.0163293 },
+    { "lat": 52.6725789, "lon": -2.0158251 },
+    { "lat": 52.6725480, "lon": -2.0153128 },
+    { "lat": 52.6724872, "lon": -2.0145783 },
+    { "lat": 52.6724349, "lon": -2.0140303 },
+    { "lat": 52.6723533, "lon": -2.0133796 },
+    { "lat": 52.6722965, "lon": -2.0129350 },
+    { "lat": 52.6721872, "lon": -2.0122860 },
+    { "lat": 52.6720538, "lon": -2.0115510 },
+    { "lat": 52.6719800, "lon": -2.0112022 },
+    { "lat": 52.6718988, "lon": -2.0108484 },
+    { "lat": 52.6718113, "lon": -2.0104626 },
+    { "lat": 52.6716207, "lon": -2.0097324 },
+    { "lat": 52.6714746, "lon": -2.0092205 },
+    { "lat": 52.6713157, "lon": -2.0086967 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 70761883,
+  "bounds": {
+    "minlat": 52.6660722,
+    "minlon": -2.0685515,
+    "maxlat": 52.6665837,
+    "maxlon": -2.0673852
+  },
+  "nodes": [
+    228433,
+    2839783414,
+    16705793
+  ],
+  "geometry": [
+    { "lat": 52.6665837, "lon": -2.0685515 },
+    { "lat": 52.6663159, "lon": -2.0679793 },
+    { "lat": 52.6660722, "lon": -2.0673852 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 70761887,
+  "bounds": {
+    "minlat": 52.6658440,
+    "minlon": -2.0686678,
+    "maxlat": 52.6664267,
+    "maxlon": -2.0673301
+  },
+  "nodes": [
+    16705792,
+    2839783195,
+    2839783256,
+    228434
+  ],
+  "geometry": [
+    { "lat": 52.6658440, "lon": -2.0673301 },
+    { "lat": 52.6659729, "lon": -2.0676688 },
+    { "lat": 52.6661290, "lon": -2.0680258 },
+    { "lat": 52.6664267, "lon": -2.0686678 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810753,
+  "bounds": {
+    "minlat": 52.5679077,
+    "minlon": -1.7706255,
+    "maxlat": 52.5683612,
+    "maxlon": -1.7699133
+  },
+  "nodes": [
+    883495419,
+    227884,
+    883495427
+  ],
+  "geometry": [
+    { "lat": 52.5683612, "lon": -1.7706255 },
+    { "lat": 52.5680621, "lon": -1.7701713 },
+    { "lat": 52.5679077, "lon": -1.7699133 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "2",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810761,
+  "bounds": {
+    "minlat": 52.5676830,
+    "minlon": -1.7705585,
+    "maxlat": 52.5681058,
+    "maxlon": -1.7698690
+  },
+  "nodes": [
+    883495428,
+    246755,
+    883495422
+  ],
+  "geometry": [
+    { "lat": 52.5676830, "lon": -1.7698690 },
+    { "lat": 52.5679230, "lon": -1.7702729 },
+    { "lat": 52.5681058, "lon": -1.7705585 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "2",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810763,
+  "bounds": {
+    "minlat": 52.5993164,
+    "minlon": -1.8038800,
+    "maxlat": 52.6296510,
+    "maxlon": -1.7964509
+  },
+  "nodes": [
+    883495424,
+    228128,
+    2669069880,
+    228131,
+    228132,
+    2669069913,
+    228134,
+    228136,
+    2669069931,
+    228138,
+    2669069933,
+    228140,
+    228142,
+    228145,
+    228146,
+    228148,
+    228150,
+    228152,
+    228154,
+    228156,
+    228159,
+    228160,
+    228162,
+    228163,
+    228170,
+    228172,
+    635874348
+  ],
+  "geometry": [
+    { "lat": 52.5993164, "lon": -1.7971022 },
+    { "lat": 52.6002443, "lon": -1.7970991 },
+    { "lat": 52.6016632, "lon": -1.7970225 },
+    { "lat": 52.6027185, "lon": -1.7969040 },
+    { "lat": 52.6042369, "lon": -1.7966504 },
+    { "lat": 52.6050555, "lon": -1.7965152 },
+    { "lat": 52.6058740, "lon": -1.7964509 },
+    { "lat": 52.6067064, "lon": -1.7964637 },
+    { "lat": 52.6071760, "lon": -1.7964969 },
+    { "lat": 52.6076463, "lon": -1.7965440 },
+    { "lat": 52.6081156, "lon": -1.7966225 },
+    { "lat": 52.6085621, "lon": -1.7967183 },
+    { "lat": 52.6093910, "lon": -1.7970016 },
+    { "lat": 52.6102913, "lon": -1.7973527 },
+    { "lat": 52.6114286, "lon": -1.7978795 },
+    { "lat": 52.6125289, "lon": -1.7984647 },
+    { "lat": 52.6139148, "lon": -1.7992061 },
+    { "lat": 52.6152995, "lon": -1.7997523 },
+    { "lat": 52.6167328, "lon": -1.8001425 },
+    { "lat": 52.6178936, "lon": -1.8003376 },
+    { "lat": 52.6201705, "lon": -1.8008058 },
+    { "lat": 52.6210232, "lon": -1.8010204 },
+    { "lat": 52.6224318, "lon": -1.8013716 },
+    { "lat": 52.6235806, "lon": -1.8017228 },
+    { "lat": 52.6264459, "lon": -1.8026397 },
+    { "lat": 52.6290625, "lon": -1.8036347 },
+    { "lat": 52.6296510, "lon": -1.8038800 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810774,
+  "bounds": {
+    "minlat": 52.5930511,
+    "minlon": -1.7968635,
+    "maxlat": 52.5990909,
+    "maxlon": -1.7957375
+  },
+  "nodes": [
+    883495431,
+    228127,
+    228125,
+    228123,
+    1461414091,
+    325174961,
+    325174924
+  ],
+  "geometry": [
+    { "lat": 52.5990909, "lon": -1.7968635 },
+    { "lat": 52.5987728, "lon": -1.7968598 },
+    { "lat": 52.5971915, "lon": -1.7967491 },
+    { "lat": 52.5954437, "lon": -1.7964241 },
+    { "lat": 52.5945939, "lon": -1.7962146 },
+    { "lat": 52.5937534, "lon": -1.7959487 },
+    { "lat": 52.5930511, "lon": -1.7957375 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810782,
+  "bounds": {
+    "minlat": 52.5582538,
+    "minlon": -1.7699133,
+    "maxlat": 52.5679077,
+    "maxlon": -1.7494674
+  },
+  "nodes": [
+    883495427,
+    227877,
+    7845080070,
+    1250191628,
+    7845080072,
+    227876,
+    1250191721,
+    7845080074,
+    1250191826,
+    1250191891,
+    1579277016,
+    227873,
+    227872,
+    227871,
+    227870,
+    1250191895,
+    227869,
+    227868,
+    1579277010,
+    227867,
+    1579277004,
+    227866
+  ],
+  "geometry": [
+    { "lat": 52.5679077, "lon": -1.7699133 },
+    { "lat": 52.5672431, "lon": -1.7687329 },
+    { "lat": 52.5670301, "lon": -1.7682949 },
+    { "lat": 52.5668188, "lon": -1.7678282 },
+    { "lat": 52.5666366, "lon": -1.7674029 },
+    { "lat": 52.5664544, "lon": -1.7669508 },
+    { "lat": 52.5661359, "lon": -1.7660741 },
+    { "lat": 52.5659646, "lon": -1.7655703 },
+    { "lat": 52.5657933, "lon": -1.7650437 },
+    { "lat": 52.5652895, "lon": -1.7634444 },
+    { "lat": 52.5648041, "lon": -1.7619455 },
+    { "lat": 52.5643021, "lon": -1.7604762 },
+    { "lat": 52.5639198, "lon": -1.7594915 },
+    { "lat": 52.5634444, "lon": -1.7583335 },
+    { "lat": 52.5629044, "lon": -1.7571267 },
+    { "lat": 52.5622935, "lon": -1.7558608 },
+    { "lat": 52.5617847, "lon": -1.7548812 },
+    { "lat": 52.5610253, "lon": -1.7535549 },
+    { "lat": 52.5605056, "lon": -1.7527298 },
+    { "lat": 52.5599806, "lon": -1.7519272 },
+    { "lat": 52.5588730, "lon": -1.7503371 },
+    { "lat": 52.5582538, "lon": -1.7494674 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "motor_vehicle": "designated",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810785,
+  "bounds": {
+    "minlat": 52.5991590,
+    "minlon": -1.7971027,
+    "maxlat": 52.5993164,
+    "maxlon": -1.7971022
+  },
+  "nodes": [
+    883495429,
+    883495424
+  ],
+  "geometry": [
+    { "lat": 52.5991590, "lon": -1.7971027 },
+    { "lat": 52.5993164, "lon": -1.7971022 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810791,
+  "bounds": {
+    "minlat": 52.5681058,
+    "minlon": -1.7958722,
+    "maxlat": 52.5928056,
+    "maxlon": -1.7705585
+  },
+  "nodes": [
+    883495422,
+    246754,
+    1791553078,
+    246753,
+    246752,
+    1791553275,
+    227886,
+    1250191751,
+    228055,
+    1250191837,
+    228056,
+    228059,
+    228060,
+    228090,
+    228088,
+    1250191808,
+    228087,
+    1970094887,
+    228093,
+    1250191660,
+    228095,
+    1250191940,
+    1250191676,
+    228097,
+    228099,
+    1250191822,
+    1250191758,
+    228100,
+    228102,
+    228104,
+    228105,
+    1791967276,
+    228108,
+    228110,
+    1791967373,
+    1792000173,
+    228112,
+    228116,
+    228115,
+    1461414039,
+    228118,
+    325174925
+  ],
+  "geometry": [
+    { "lat": 52.5681058, "lon": -1.7705585 },
+    { "lat": 52.5686103, "lon": -1.7712803 },
+    { "lat": 52.5688667, "lon": -1.7716285 },
+    { "lat": 52.5691329, "lon": -1.7719671 },
+    { "lat": 52.5697839, "lon": -1.7726917 },
+    { "lat": 52.5704542, "lon": -1.7733238 },
+    { "lat": 52.5711377, "lon": -1.7738658 },
+    { "lat": 52.5712587, "lon": -1.7739490 },
+    { "lat": 52.5718694, "lon": -1.7743337 },
+    { "lat": 52.5723369, "lon": -1.7745710 },
+    { "lat": 52.5728030, "lon": -1.7748051 },
+    { "lat": 52.5745575, "lon": -1.7756195 },
+    { "lat": 52.5758024, "lon": -1.7763218 },
+    { "lat": 52.5765375, "lon": -1.7768681 },
+    { "lat": 52.5770830, "lon": -1.7773656 },
+    { "lat": 52.5775418, "lon": -1.7778564 },
+    { "lat": 52.5778957, "lon": -1.7782717 },
+    { "lat": 52.5782064, "lon": -1.7786901 },
+    { "lat": 52.5785150, "lon": -1.7791377 },
+    { "lat": 52.5789055, "lon": -1.7797634 },
+    { "lat": 52.5792692, "lon": -1.7804195 },
+    { "lat": 52.5795358, "lon": -1.7809629 },
+    { "lat": 52.5798008, "lon": -1.7815613 },
+    { "lat": 52.5803908, "lon": -1.7830193 },
+    { "lat": 52.5811133, "lon": -1.7850118 },
+    { "lat": 52.5815821, "lon": -1.7862299 },
+    { "lat": 52.5818333, "lon": -1.7868005 },
+    { "lat": 52.5820941, "lon": -1.7873427 },
+    { "lat": 52.5826789, "lon": -1.7883980 },
+    { "lat": 52.5835561, "lon": -1.7896856 },
+    { "lat": 52.5842696, "lon": -1.7905434 },
+    { "lat": 52.5847731, "lon": -1.7910336 },
+    { "lat": 52.5852867, "lon": -1.7914805 },
+    { "lat": 52.5861048, "lon": -1.7921363 },
+    { "lat": 52.5871845, "lon": -1.7929314 },
+    { "lat": 52.5879421, "lon": -1.7934335 },
+    { "lat": 52.5883129, "lon": -1.7936629 },
+    { "lat": 52.5890717, "lon": -1.7941311 },
+    { "lat": 52.5907365, "lon": -1.7950116 },
+    { "lat": 52.5913048, "lon": -1.7952693 },
+    { "lat": 52.5918693, "lon": -1.7955143 },
+    { "lat": 52.5928056, "lon": -1.7958722 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 74810799,
+  "bounds": {
+    "minlat": 52.5990909,
+    "minlon": -1.7968674,
+    "maxlat": 52.5993003,
+    "maxlon": -1.7968635
+  },
+  "nodes": [
+    883495426,
+    883495431
+  ],
+  "geometry": [
+    { "lat": 52.5993003, "lon": -1.7968674 },
+    { "lat": 52.5990909, "lon": -1.7968635 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 130170308,
+  "bounds": {
+    "minlat": 52.4773133,
+    "minlon": -1.7172202,
+    "maxlat": 52.4959353,
+    "maxlon": -1.6842072
+  },
+  "nodes": [
+    247635,
+    247637,
+    247636,
+    247638,
+    247640,
+    1505635735,
+    15893456,
+    247639,
+    247641,
+    15893457,
+    247642,
+    247623,
+    628942985,
+    1505635824,
+    1505635845,
+    247624,
+    628942991,
+    1505635873,
+    1505635878,
+    247625,
+    1505635886,
+    1505635890,
+    1505635894,
+    247626,
+    1505667961,
+    247628,
+    247629
+  ],
+  "geometry": [
+    { "lat": 52.4773133, "lon": -1.6842072 },
+    { "lat": 52.4778484, "lon": -1.6882169 },
+    { "lat": 52.4782160, "lon": -1.6907876 },
+    { "lat": 52.4791557, "lon": -1.6968747 },
+    { "lat": 52.4794944, "lon": -1.6989898 },
+    { "lat": 52.4796512, "lon": -1.6999542 },
+    { "lat": 52.4798219, "lon": -1.7009003 },
+    { "lat": 52.4801320, "lon": -1.7023277 },
+    { "lat": 52.4806834, "lon": -1.7042618 },
+    { "lat": 52.4810422, "lon": -1.7053325 },
+    { "lat": 52.4815407, "lon": -1.7064492 },
+    { "lat": 52.4819709, "lon": -1.7073855 },
+    { "lat": 52.4822542, "lon": -1.7079142 },
+    { "lat": 52.4828305, "lon": -1.7088882 },
+    { "lat": 52.4831396, "lon": -1.7093568 },
+    { "lat": 52.4834586, "lon": -1.7097534 },
+    { "lat": 52.4837307, "lon": -1.7101231 },
+    { "lat": 52.4844235, "lon": -1.7109241 },
+    { "lat": 52.4847840, "lon": -1.7113201 },
+    { "lat": 52.4851418, "lon": -1.7116780 },
+    { "lat": 52.4856281, "lon": -1.7121042 },
+    { "lat": 52.4861100, "lon": -1.7124853 },
+    { "lat": 52.4866163, "lon": -1.7128352 },
+    { "lat": 52.4871371, "lon": -1.7131500 },
+    { "lat": 52.4880606, "lon": -1.7136211 },
+    { "lat": 52.4889926, "lon": -1.7140260 },
+    { "lat": 52.4959353, "lon": -1.7172202 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "carriageway_ref": "A",
+    "cycleway:both": "no",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 142234715,
+  "bounds": {
+    "minlat": 52.4713206,
+    "minlon": -1.6818209,
+    "maxlat": 52.4771171,
+    "maxlon": -1.6628514
+  },
+  "nodes": [
+    1556744945,
+    199833,
+    199831,
+    199830,
+    1505623745,
+    199829,
+    199827,
+    247645,
+    1505623743,
+    247630,
+    1505623742,
+    247631,
+    1505623739,
+    247649,
+    13961454622,
+    15893371,
+    15893372,
+    15893373,
+    1505623734,
+    1505623732,
+    199812
+  ],
+  "geometry": [
+    { "lat": 52.4771171, "lon": -1.6818209 },
+    { "lat": 52.4770887, "lon": -1.6816276 },
+    { "lat": 52.4768953, "lon": -1.6805539 },
+    { "lat": 52.4766426, "lon": -1.6793994 },
+    { "lat": 52.4764572, "lon": -1.6786565 },
+    { "lat": 52.4762746, "lon": -1.6779660 },
+    { "lat": 52.4760735, "lon": -1.6772783 },
+    { "lat": 52.4756082, "lon": -1.6758867 },
+    { "lat": 52.4752080, "lon": -1.6748290 },
+    { "lat": 52.4747768, "lon": -1.6738122 },
+    { "lat": 52.4743295, "lon": -1.6728452 },
+    { "lat": 52.4738998, "lon": -1.6718269 },
+    { "lat": 52.4736272, "lon": -1.6711737 },
+    { "lat": 52.4733753, "lon": -1.6704948 },
+    { "lat": 52.4731433, "lon": -1.6698435 },
+    { "lat": 52.4729783, "lon": -1.6693805 },
+    { "lat": 52.4725699, "lon": -1.6680433 },
+    { "lat": 52.4721764, "lon": -1.6667357 },
+    { "lat": 52.4718189, "lon": -1.6653036 },
+    { "lat": 52.4715861, "lon": -1.6641829 },
+    { "lat": 52.4713206, "lon": -1.6628514 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "carriageway_ref": "B",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 142234722,
+  "bounds": {
+    "minlat": 52.4770847,
+    "minlon": -1.6842072,
+    "maxlat": 52.4773133,
+    "maxlon": -1.6824577
+  },
+  "nodes": [
+    1556745050,
+    15893363,
+    247635
+  ],
+  "geometry": [
+    { "lat": 52.4770847, "lon": -1.6824577 },
+    { "lat": 52.4771715, "lon": -1.6830513 },
+    { "lat": 52.4773133, "lon": -1.6842072 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "carriageway_ref": "A",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 142234723,
+  "bounds": {
+    "minlat": 52.4771171,
+    "minlon": -1.6824191,
+    "maxlat": 52.4772049,
+    "maxlon": -1.6818209
+  },
+  "nodes": [
+    1556744938,
+    1556744945
+  ],
+  "geometry": [
+    { "lat": 52.4772049, "lon": -1.6824191 },
+    { "lat": 52.4771171, "lon": -1.6818209 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "carriageway_ref": "B",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 142234751,
+  "bounds": {
+    "minlat": 52.4769978,
+    "minlon": -1.6824577,
+    "maxlat": 52.4770847,
+    "maxlon": -1.6818631
+  },
+  "nodes": [
+    1556745052,
+    1556745050
+  ],
+  "geometry": [
+    { "lat": 52.4769978, "lon": -1.6818631 },
+    { "lat": 52.4770847, "lon": -1.6824577 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "carriageway_ref": "A",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "2",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 143113418,
+  "bounds": {
+    "minlat": 52.5524913,
+    "minlon": -1.7496520,
+    "maxlat": 52.5581705,
+    "maxlon": -1.7390810
+  },
+  "nodes": [
+    1566258419,
+    1436647765,
+    246741,
+    1436647770,
+    247661,
+    246743,
+    246745,
+    246744
+  ],
+  "geometry": [
+    { "lat": 52.5524913, "lon": -1.7390810 },
+    { "lat": 52.5526898, "lon": -1.7395088 },
+    { "lat": 52.5532896, "lon": -1.7408388 },
+    { "lat": 52.5540169, "lon": -1.7424266 },
+    { "lat": 52.5548228, "lon": -1.7441031 },
+    { "lat": 52.5558405, "lon": -1.7460267 },
+    { "lat": 52.5569168, "lon": -1.7478454 },
+    { "lat": 52.5581705, "lon": -1.7496520 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 143113420,
+  "bounds": {
+    "minlat": 52.5459643,
+    "minlon": -1.7389154,
+    "maxlat": 52.5525873,
+    "maxlon": -1.7299392
+  },
+  "nodes": [
+    1566258428,
+    227863,
+    1794645585,
+    1794645581,
+    247548,
+    247549,
+    247550,
+    1566258426,
+    247551,
+    3453817901,
+    247552,
+    247553,
+    312271497
+  ],
+  "geometry": [
+    { "lat": 52.5525873, "lon": -1.7389154 },
+    { "lat": 52.5520605, "lon": -1.7377259 },
+    { "lat": 52.5512214, "lon": -1.7358972 },
+    { "lat": 52.5507796, "lon": -1.7349938 },
+    { "lat": 52.5503053, "lon": -1.7341469 },
+    { "lat": 52.5496088, "lon": -1.7330522 },
+    { "lat": 52.5490966, "lon": -1.7324157 },
+    { "lat": 52.5484805, "lon": -1.7317096 },
+    { "lat": 52.5480145, "lon": -1.7312822 },
+    { "lat": 52.5476478, "lon": -1.7309679 },
+    { "lat": 52.5472685, "lon": -1.7306818 },
+    { "lat": 52.5464155, "lon": -1.7301758 },
+    { "lat": 52.5459643, "lon": -1.7299392 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 144373633,
+  "bounds": {
+    "minlat": 52.5581705,
+    "minlon": -1.7698690,
+    "maxlat": 52.5676830,
+    "maxlon": -1.7496520
+  },
+  "nodes": [
+    246744,
+    1579257955,
+    1579257956,
+    1579257957,
+    1579277009,
+    1579257958,
+    1579277011,
+    1579257959,
+    1579257960,
+    1579257961,
+    1579257962,
+    1579277012,
+    261013614,
+    1579277014,
+    1579257966,
+    1579257970,
+    1579257973,
+    7845080075,
+    1579257975,
+    7845080073,
+    1579257979,
+    7845080071,
+    1579257982,
+    7845080069,
+    1579257988,
+    1579257989,
+    883495428
+  ],
+  "geometry": [
+    { "lat": 52.5581705, "lon": -1.7496520 },
+    { "lat": 52.5584817, "lon": -1.7500926 },
+    { "lat": 52.5587893, "lon": -1.7505300 },
+    { "lat": 52.5598880, "lon": -1.7521082 },
+    { "lat": 52.5604055, "lon": -1.7529030 },
+    { "lat": 52.5609005, "lon": -1.7536824 },
+    { "lat": 52.5612990, "lon": -1.7543588 },
+    { "lat": 52.5616825, "lon": -1.7550583 },
+    { "lat": 52.5621796, "lon": -1.7560368 },
+    { "lat": 52.5627779, "lon": -1.7572595 },
+    { "lat": 52.5633438, "lon": -1.7585303 },
+    { "lat": 52.5637669, "lon": -1.7595671 },
+    { "lat": 52.5641747, "lon": -1.7606190 },
+    { "lat": 52.5646814, "lon": -1.7620724 },
+    { "lat": 52.5651630, "lon": -1.7635541 },
+    { "lat": 52.5654271, "lon": -1.7643810 },
+    { "lat": 52.5656742, "lon": -1.7651638 },
+    { "lat": 52.5658407, "lon": -1.7656743 },
+    { "lat": 52.5659958, "lon": -1.7661580 },
+    { "lat": 52.5661704, "lon": -1.7666368 },
+    { "lat": 52.5663450, "lon": -1.7670969 },
+    { "lat": 52.5666089, "lon": -1.7677508 },
+    { "lat": 52.5667410, "lon": -1.7680523 },
+    { "lat": 52.5669398, "lon": -1.7684780 },
+    { "lat": 52.5671531, "lon": -1.7689117 },
+    { "lat": 52.5673322, "lon": -1.7692433 },
+    { "lat": 52.5676830, "lon": -1.7698690 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "motor_vehicle": "designated",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 173270967,
+  "bounds": {
+    "minlat": 52.6667958,
+    "minlon": -1.9972988,
+    "maxlat": 52.6669438,
+    "maxlon": -1.9967180
+  },
+  "nodes": [
+    4948811135,
+    1841113575
+  ],
+  "geometry": [
+    { "lat": 52.6667958, "lon": -1.9967180 },
+    { "lat": 52.6669438, "lon": -1.9972988 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 173271711,
+  "bounds": {
+    "minlat": 52.6680855,
+    "minlon": -2.0052883,
+    "maxlat": 52.6698653,
+    "maxlon": -2.0010775
+  },
+  "nodes": [
+    1841121661,
+    6506880878,
+    1841246928,
+    6506880877
+  ],
+  "geometry": [
+    { "lat": 52.6680855, "lon": -2.0010775 },
+    { "lat": 52.6684961, "lon": -2.0021140 },
+    { "lat": 52.6689278, "lon": -2.0031309 },
+    { "lat": 52.6698653, "lon": -2.0052883 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 178545568,
+  "bounds": {
+    "minlat": 52.5263088,
+    "minlon": -1.7294130,
+    "maxlat": 52.5291458,
+    "maxlon": -1.7288885
+  },
+  "nodes": [
+    247568,
+    247569,
+    247570,
+    247571,
+    2117966711
+  ],
+  "geometry": [
+    { "lat": 52.5291458, "lon": -1.7294130 },
+    { "lat": 52.5284082, "lon": -1.7293079 },
+    { "lat": 52.5274528, "lon": -1.7291463 },
+    { "lat": 52.5264606, "lon": -1.7289346 },
+    { "lat": 52.5263088, "lon": -1.7288885 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 178633138,
+  "bounds": {
+    "minlat": 52.6532674,
+    "minlon": -1.8526457,
+    "maxlat": 52.6533629,
+    "maxlon": -1.8521287
+  },
+  "nodes": [
+    1889772676,
+    228211
+  ],
+  "geometry": [
+    { "lat": 52.6533629, "lon": -1.8526457 },
+    { "lat": 52.6532674, "lon": -1.8521287 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 178633139,
+  "bounds": {
+    "minlat": 52.6504022,
+    "minlon": -1.8521287,
+    "maxlat": 52.6532674,
+    "maxlon": -1.8420145
+  },
+  "nodes": [
+    228211,
+    228212,
+    2788949651,
+    228213,
+    2788949636,
+    200037,
+    200445,
+    2788949467,
+    200444
+  ],
+  "geometry": [
+    { "lat": 52.6532674, "lon": -1.8521287 },
+    { "lat": 52.6528957, "lon": -1.8502093 },
+    { "lat": 52.6526880, "lon": -1.8492637 },
+    { "lat": 52.6524489, "lon": -1.8482890 },
+    { "lat": 52.6521680, "lon": -1.8472436 },
+    { "lat": 52.6518686, "lon": -1.8461950 },
+    { "lat": 52.6514285, "lon": -1.8448182 },
+    { "lat": 52.6510749, "lon": -1.8438265 },
+    { "lat": 52.6504022, "lon": -1.8420145 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 178633150,
+  "bounds": {
+    "minlat": 52.6531159,
+    "minlon": -1.8526813,
+    "maxlat": 52.6532155,
+    "maxlon": -1.8521180
+  },
+  "nodes": [
+    200455,
+    1889772675
+  ],
+  "geometry": [
+    { "lat": 52.6531159, "lon": -1.8521180 },
+    { "lat": 52.6532155, "lon": -1.8526813 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 178633151,
+  "bounds": {
+    "minlat": 52.6532155,
+    "minlon": -1.8638217,
+    "maxlat": 52.6539071,
+    "maxlon": -1.8526813
+  },
+  "nodes": [
+    1889772675,
+    200466,
+    228217,
+    228216,
+    228215,
+    2788985534,
+    228214,
+    2788985538,
+    228222,
+    2788985537,
+    2788985536,
+    228220
+  ],
+  "geometry": [
+    { "lat": 52.6532155, "lon": -1.8526813 },
+    { "lat": 52.6533504, "lon": -1.8535505 },
+    { "lat": 52.6535336, "lon": -1.8549050 },
+    { "lat": 52.6536756, "lon": -1.8563096 },
+    { "lat": 52.6538176, "lon": -1.8581630 },
+    { "lat": 52.6538645, "lon": -1.8591040 },
+    { "lat": 52.6538919, "lon": -1.8599913 },
+    { "lat": 52.6539071, "lon": -1.8607093 },
+    { "lat": 52.6539071, "lon": -1.8613901 },
+    { "lat": 52.6539002, "lon": -1.8625643 },
+    { "lat": 52.6538798, "lon": -1.8631957 },
+    { "lat": 52.6538587, "lon": -1.8638217 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 201784492,
+  "bounds": {
+    "minlat": 52.5260859,
+    "minlon": -1.7288885,
+    "maxlat": 52.5263088,
+    "maxlon": -1.7288314
+  },
+  "nodes": [
+    2117966711,
+    2117966696
+  ],
+  "geometry": [
+    { "lat": 52.5263088, "lon": -1.7288885 },
+    { "lat": 52.5260859, "lon": -1.7288314 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 201784493,
+  "bounds": {
+    "minlat": 52.5221117,
+    "minlon": -1.7288314,
+    "maxlat": 52.5260859,
+    "maxlon": -1.7275041
+  },
+  "nodes": [
+    2117966696,
+    5758351656,
+    247573,
+    5758351655,
+    247574,
+    5758351654,
+    247576,
+    320907983
+  ],
+  "geometry": [
+    { "lat": 52.5260859, "lon": -1.7288314 },
+    { "lat": 52.5258181, "lon": -1.7287588 },
+    { "lat": 52.5255475, "lon": -1.7286824 },
+    { "lat": 52.5250707, "lon": -1.7285429 },
+    { "lat": 52.5246019, "lon": -1.7283894 },
+    { "lat": 52.5238900, "lon": -1.7281486 },
+    { "lat": 52.5231861, "lon": -1.7278943 },
+    { "lat": 52.5221117, "lon": -1.7275041 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 362642013,
+  "bounds": {
+    "minlat": 52.4772049,
+    "minlon": -1.7182156,
+    "maxlat": 52.4981849,
+    "maxlon": -1.6824191
+  },
+  "nodes": [
+    247615,
+    247614,
+    247613,
+    247612,
+    247607,
+    247608,
+    247609,
+    1505667970,
+    247610,
+    1505635902,
+    247611,
+    1505635895,
+    247618,
+    1505635888,
+    247619,
+    1505635876,
+    247620,
+    1037192406,
+    247621,
+    247622,
+    1037186266,
+    1037192404,
+    321206432,
+    199847,
+    199846,
+    199845,
+    199817,
+    199844,
+    1505635736,
+    199843,
+    199825,
+    199816,
+    199824,
+    199840,
+    199838,
+    199836,
+    199835,
+    1556744938
+  ],
+  "geometry": [
+    { "lat": 52.4981849, "lon": -1.7182156 },
+    { "lat": 52.4968940, "lon": -1.7175020 },
+    { "lat": 52.4959929, "lon": -1.7170189 },
+    { "lat": 52.4943047, "lon": -1.7162176 },
+    { "lat": 52.4917457, "lon": -1.7150008 },
+    { "lat": 52.4908743, "lon": -1.7146067 },
+    { "lat": 52.4900011, "lon": -1.7142596 },
+    { "lat": 52.4891671, "lon": -1.7138891 },
+    { "lat": 52.4883414, "lon": -1.7135158 },
+    { "lat": 52.4877529, "lon": -1.7132140 },
+    { "lat": 52.4871827, "lon": -1.7129038 },
+    { "lat": 52.4866710, "lon": -1.7126009 },
+    { "lat": 52.4861705, "lon": -1.7122530 },
+    { "lat": 52.4856870, "lon": -1.7118723 },
+    { "lat": 52.4852194, "lon": -1.7114513 },
+    { "lat": 52.4847183, "lon": -1.7109525 },
+    { "lat": 52.4842173, "lon": -1.7103549 },
+    { "lat": 52.4838822, "lon": -1.7099500 },
+    { "lat": 52.4835479, "lon": -1.7095460 },
+    { "lat": 52.4829307, "lon": -1.7086669 },
+    { "lat": 52.4822988, "lon": -1.7076796 },
+    { "lat": 52.4821599, "lon": -1.7073844 },
+    { "lat": 52.4818068, "lon": -1.7066339 },
+    { "lat": 52.4816561, "lon": -1.7062326 },
+    { "lat": 52.4812127, "lon": -1.7051824 },
+    { "lat": 52.4808224, "lon": -1.7040420 },
+    { "lat": 52.4802933, "lon": -1.7022506 },
+    { "lat": 52.4799644, "lon": -1.7008040 },
+    { "lat": 52.4797939, "lon": -1.6998792 },
+    { "lat": 52.4796333, "lon": -1.6989514 },
+    { "lat": 52.4791990, "lon": -1.6961851 },
+    { "lat": 52.4785491, "lon": -1.6920406 },
+    { "lat": 52.4782393, "lon": -1.6899328 },
+    { "lat": 52.4778482, "lon": -1.6871648 },
+    { "lat": 52.4776509, "lon": -1.6857017 },
+    { "lat": 52.4774684, "lon": -1.6843594 },
+    { "lat": 52.4772915, "lon": -1.6830094 },
+    { "lat": 52.4772049, "lon": -1.6824191 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "carriageway_ref": "B",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 24",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 364006387,
+  "bounds": {
+    "minlat": 52.6354780,
+    "minlon": -1.8159526,
+    "maxlat": 52.6408981,
+    "maxlon": -1.8076629
+  },
+  "nodes": [
+    228179,
+    2462946317,
+    2462946319,
+    2788875506,
+    228181,
+    2788875840,
+    200399,
+    228185,
+    2788876512,
+    2788876633,
+    228187,
+    228192
+  ],
+  "geometry": [
+    { "lat": 52.6354780, "lon": -1.8076629 },
+    { "lat": 52.6360810, "lon": -1.8083051 },
+    { "lat": 52.6366744, "lon": -1.8089903 },
+    { "lat": 52.6372622, "lon": -1.8097279 },
+    { "lat": 52.6378083, "lon": -1.8104645 },
+    { "lat": 52.6382221, "lon": -1.8110680 },
+    { "lat": 52.6386342, "lon": -1.8116801 },
+    { "lat": 52.6394244, "lon": -1.8130406 },
+    { "lat": 52.6396008, "lon": -1.8133819 },
+    { "lat": 52.6398014, "lon": -1.8137542 },
+    { "lat": 52.6401642, "lon": -1.8144817 },
+    { "lat": 52.6408981, "lon": -1.8159526 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006391,
+  "bounds": {
+    "minlat": 52.6355401,
+    "minlon": -1.8164496,
+    "maxlat": 52.6413207,
+    "maxlon": -1.8074781
+  },
+  "nodes": [
+    228191,
+    228188,
+    2788876638,
+    2788876510,
+    228186,
+    2788876046,
+    200404,
+    2788875851,
+    228182,
+    649256938,
+    228184,
+    228180
+  ],
+  "geometry": [
+    { "lat": 52.6413207, "lon": -1.8164496 },
+    { "lat": 52.6402508, "lon": -1.8142956 },
+    { "lat": 52.6398183, "lon": -1.8134615 },
+    { "lat": 52.6395996, "lon": -1.8130454 },
+    { "lat": 52.6393942, "lon": -1.8126669 },
+    { "lat": 52.6390680, "lon": -1.8121095 },
+    { "lat": 52.6387225, "lon": -1.8115363 },
+    { "lat": 52.6382910, "lon": -1.8108649 },
+    { "lat": 52.6378423, "lon": -1.8102166 },
+    { "lat": 52.6372373, "lon": -1.8093846 },
+    { "lat": 52.6365514, "lon": -1.8085624 },
+    { "lat": 52.6355401, "lon": -1.8074781 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006393,
+  "bounds": {
+    "minlat": 52.6414225,
+    "minlon": -1.8347549,
+    "maxlat": 52.6477292,
+    "maxlon": -1.8170575
+  },
+  "nodes": [
+    228189,
+    2788877321,
+    228197,
+    228195,
+    2788877367,
+    228193,
+    2788877376,
+    228202,
+    228201,
+    2788877386,
+    228200,
+    228199,
+    2788877393,
+    228206
+  ],
+  "geometry": [
+    { "lat": 52.6414225, "lon": -1.8170575 },
+    { "lat": 52.6422513, "lon": -1.8189168 },
+    { "lat": 52.6428917, "lon": -1.8203920 },
+    { "lat": 52.6435978, "lon": -1.8221527 },
+    { "lat": 52.6440721, "lon": -1.8233911 },
+    { "lat": 52.6445305, "lon": -1.8246187 },
+    { "lat": 52.6449033, "lon": -1.8256731 },
+    { "lat": 52.6452571, "lon": -1.8266961 },
+    { "lat": 52.6457543, "lon": -1.8282086 },
+    { "lat": 52.6461272, "lon": -1.8293907 },
+    { "lat": 52.6464825, "lon": -1.8305733 },
+    { "lat": 52.6471150, "lon": -1.8327476 },
+    { "lat": 52.6474151, "lon": -1.8337496 },
+    { "lat": 52.6477292, "lon": -1.8347549 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006394,
+  "bounds": {
+    "minlat": 52.6482684,
+    "minlon": -1.8521180,
+    "maxlat": 52.6531159,
+    "maxlon": -1.8364059
+  },
+  "nodes": [
+    228205,
+    228204,
+    2788877400,
+    228203,
+    228210,
+    228209,
+    2788949391,
+    228208,
+    228207,
+    2788949624,
+    200452,
+    200453,
+    200454,
+    200455
+  ],
+  "geometry": [
+    { "lat": 52.6482684, "lon": -1.8364059 },
+    { "lat": 52.6489189, "lon": -1.8383611 },
+    { "lat": 52.6491260, "lon": -1.8389866 },
+    { "lat": 52.6494578, "lon": -1.8399431 },
+    { "lat": 52.6499388, "lon": -1.8412568 },
+    { "lat": 52.6505737, "lon": -1.8429333 },
+    { "lat": 52.6509280, "lon": -1.8438741 },
+    { "lat": 52.6512674, "lon": -1.8448343 },
+    { "lat": 52.6516708, "lon": -1.8461046 },
+    { "lat": 52.6519850, "lon": -1.8471563 },
+    { "lat": 52.6522833, "lon": -1.8482545 },
+    { "lat": 52.6525916, "lon": -1.8494933 },
+    { "lat": 52.6529002, "lon": -1.8509397 },
+    { "lat": 52.6531159, "lon": -1.8521180 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006395,
+  "bounds": {
+    "minlat": 52.6624241,
+    "minlon": -1.9884414,
+    "maxlat": 52.6645620,
+    "maxlon": -1.9737617
+  },
+  "nodes": [
+    3681129317,
+    228316,
+    2839514395,
+    228317,
+    2839514505,
+    355233233,
+    2839514528,
+    228356,
+    2839514577,
+    228354,
+    2839514656,
+    228362,
+    2839514789,
+    228360,
+    355233236,
+    666376499
+  ],
+  "geometry": [
+    { "lat": 52.6624241, "lon": -1.9737617 },
+    { "lat": 52.6624292, "lon": -1.9742246 },
+    { "lat": 52.6624573, "lon": -1.9752503 },
+    { "lat": 52.6625057, "lon": -1.9762608 },
+    { "lat": 52.6625595, "lon": -1.9771326 },
+    { "lat": 52.6626325, "lon": -1.9779669 },
+    { "lat": 52.6627097, "lon": -1.9787952 },
+    { "lat": 52.6628013, "lon": -1.9796120 },
+    { "lat": 52.6629537, "lon": -1.9807718 },
+    { "lat": 52.6631212, "lon": -1.9818625 },
+    { "lat": 52.6633412, "lon": -1.9830889 },
+    { "lat": 52.6635881, "lon": -1.9842895 },
+    { "lat": 52.6638682, "lon": -1.9855541 },
+    { "lat": 52.6641399, "lon": -1.9867194 },
+    { "lat": 52.6644207, "lon": -1.9878766 },
+    { "lat": 52.6645620, "lon": -1.9884414 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006396,
+  "bounds": {
+    "minlat": 52.6408981,
+    "minlon": -1.8170575,
+    "maxlat": 52.6414225,
+    "maxlon": -1.8159526
+  },
+  "nodes": [
+    228192,
+    228189
+  ],
+  "geometry": [
+    { "lat": 52.6408981, "lon": -1.8159526 },
+    { "lat": 52.6414225, "lon": -1.8170575 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006397,
+  "bounds": {
+    "minlat": 52.6625887,
+    "minlon": -1.9748074,
+    "maxlat": 52.6626096,
+    "maxlon": -1.9721573
+  },
+  "nodes": [
+    228320,
+    4383728612,
+    228321
+  ],
+  "geometry": [
+    { "lat": 52.6626096, "lon": -1.9748074 },
+    { "lat": 52.6625887, "lon": -1.9734674 },
+    { "lat": 52.6626076, "lon": -1.9721573 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006398,
+  "bounds": {
+    "minlat": 52.5993003,
+    "minlon": -1.8002579,
+    "maxlat": 52.6188735,
+    "maxlon": -1.7962129
+  },
+  "nodes": [
+    3681129315,
+    228157,
+    228155,
+    228153,
+    228151,
+    228149,
+    228147,
+    228144,
+    228143,
+    5010535641,
+    228141,
+    2669069934,
+    228139,
+    2669069932,
+    228137,
+    228135,
+    2669069915,
+    344177068,
+    228133,
+    228130,
+    2669069879,
+    228129,
+    883495426
+  ],
+  "geometry": [
+    { "lat": 52.6188735, "lon": -1.8002579 },
+    { "lat": 52.6180594, "lon": -1.8001230 },
+    { "lat": 52.6168759, "lon": -1.7998549 },
+    { "lat": 52.6154235, "lon": -1.7994811 },
+    { "lat": 52.6139567, "lon": -1.7989123 },
+    { "lat": 52.6124578, "lon": -1.7981303 },
+    { "lat": 52.6115480, "lon": -1.7976367 },
+    { "lat": 52.6103415, "lon": -1.7970820 },
+    { "lat": 52.6093588, "lon": -1.7967119 },
+    { "lat": 52.6087408, "lon": -1.7965226 },
+    { "lat": 52.6085825, "lon": -1.7964854 },
+    { "lat": 52.6081308, "lon": -1.7963920 },
+    { "lat": 52.6076677, "lon": -1.7963180 },
+    { "lat": 52.6071884, "lon": -1.7962619 },
+    { "lat": 52.6067124, "lon": -1.7962243 },
+    { "lat": 52.6058876, "lon": -1.7962129 },
+    { "lat": 52.6054643, "lon": -1.7962459 },
+    { "lat": 52.6050436, "lon": -1.7962802 },
+    { "lat": 52.6041696, "lon": -1.7964250 },
+    { "lat": 52.6025565, "lon": -1.7966568 },
+    { "lat": 52.6016534, "lon": -1.7968030 },
+    { "lat": 52.6003272, "lon": -1.7969040 },
+    { "lat": 52.5993003, "lon": -1.7968674 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006399,
+  "bounds": {
+    "minlat": 52.6418784,
+    "minlon": -1.8400113,
+    "maxlat": 52.6496849,
+    "maxlon": -1.8177024
+  },
+  "nodes": [
+    271841972,
+    200436,
+    200435,
+    200434,
+    200433,
+    200432,
+    2788877391,
+    2788877389,
+    200431,
+    2788877383,
+    200424,
+    200423,
+    2788877381,
+    200422,
+    228194,
+    2788877373,
+    2788877370,
+    228196,
+    2788877358,
+    228198,
+    2788877325,
+    3681129316
+  ],
+  "geometry": [
+    { "lat": 52.6496849, "lon": -1.8400113 },
+    { "lat": 52.6490514, "lon": -1.8382793 },
+    { "lat": 52.6484514, "lon": -1.8365425 },
+    { "lat": 52.6478283, "lon": -1.8346098 },
+    { "lat": 52.6475222, "lon": -1.8336068 },
+    { "lat": 52.6472295, "lon": -1.8326101 },
+    { "lat": 52.6470043, "lon": -1.8318400 },
+    { "lat": 52.6467965, "lon": -1.8311052 },
+    { "lat": 52.6463571, "lon": -1.8296591 },
+    { "lat": 52.6461260, "lon": -1.8289069 },
+    { "lat": 52.6458814, "lon": -1.8281326 },
+    { "lat": 52.6453889, "lon": -1.8266323 },
+    { "lat": 52.6451414, "lon": -1.8259120 },
+    { "lat": 52.6448792, "lon": -1.8251633 },
+    { "lat": 52.6445421, "lon": -1.8242290 },
+    { "lat": 52.6443584, "lon": -1.8237456 },
+    { "lat": 52.6441470, "lon": -1.8231781 },
+    { "lat": 52.6437400, "lon": -1.8221186 },
+    { "lat": 52.6433737, "lon": -1.8211968 },
+    { "lat": 52.6430017, "lon": -1.8202933 },
+    { "lat": 52.6423769, "lon": -1.8188312 },
+    { "lat": 52.6418784, "lon": -1.8177024 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006400,
+  "bounds": {
+    "minlat": 52.6413207,
+    "minlon": -1.8177024,
+    "maxlat": 52.6418784,
+    "maxlon": -1.8164496
+  },
+  "nodes": [
+    3681129316,
+    228190,
+    228191
+  ],
+  "geometry": [
+    { "lat": 52.6418784, "lon": -1.8177024 },
+    { "lat": 52.6417164, "lon": -1.8173528 },
+    { "lat": 52.6413207, "lon": -1.8164496 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006401,
+  "bounds": {
+    "minlat": 52.6344711,
+    "minlon": -1.8076629,
+    "maxlat": 52.6354780,
+    "maxlon": -1.8067334
+  },
+  "nodes": [
+    228177,
+    2788875333,
+    228179
+  ],
+  "geometry": [
+    { "lat": 52.6344711, "lon": -1.8067334 },
+    { "lat": 52.6349770, "lon": -1.8071851 },
+    { "lat": 52.6354780, "lon": -1.8076629 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006402,
+  "bounds": {
+    "minlat": 52.6496849,
+    "minlon": -1.8420145,
+    "maxlat": 52.6504022,
+    "maxlon": -1.8400113
+  },
+  "nodes": [
+    200444,
+    200443,
+    271841972
+  ],
+  "geometry": [
+    { "lat": 52.6504022, "lon": -1.8420145 },
+    { "lat": 52.6500575, "lon": -1.8410812 },
+    { "lat": 52.6496849, "lon": -1.8400113 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006406,
+  "bounds": {
+    "minlat": 52.6477292,
+    "minlon": -1.8364059,
+    "maxlat": 52.6482684,
+    "maxlon": -1.8347549
+  },
+  "nodes": [
+    228206,
+    2788877397,
+    228205
+  ],
+  "geometry": [
+    { "lat": 52.6477292, "lon": -1.8347549 },
+    { "lat": 52.6480194, "lon": -1.8356851 },
+    { "lat": 52.6482684, "lon": -1.8364059 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006407,
+  "bounds": {
+    "minlat": 52.6338130,
+    "minlon": -1.8074781,
+    "maxlat": 52.6355401,
+    "maxlon": -1.8059423
+  },
+  "nodes": [
+    228180,
+    2788875346,
+    228178,
+    2788875250
+  ],
+  "geometry": [
+    { "lat": 52.6355401, "lon": -1.8074781 },
+    { "lat": 52.6351317, "lon": -1.8070736 },
+    { "lat": 52.6347090, "lon": -1.8066875 },
+    { "lat": 52.6338130, "lon": -1.8059423 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006408,
+  "bounds": {
+    "minlat": 52.6592702,
+    "minlon": -1.9164371,
+    "maxlat": 52.6608018,
+    "maxlon": -1.9108290
+  },
+  "nodes": [
+    2789035484,
+    2789035464,
+    228270,
+    228272,
+    228262
+  ],
+  "geometry": [
+    { "lat": 52.6608018, "lon": -1.9164371 },
+    { "lat": 52.6607173, "lon": -1.9160649 },
+    { "lat": 52.6603946, "lon": -1.9147509 },
+    { "lat": 52.6597223, "lon": -1.9122816 },
+    { "lat": 52.6592702, "lon": -1.9108290 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "smoothness": "good",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006409,
+  "bounds": {
+    "minlat": 52.6606770,
+    "minlon": -1.9216070,
+    "maxlat": 52.6616511,
+    "maxlon": -1.9165215
+  },
+  "nodes": [
+    2789035465,
+    228269,
+    2789035505,
+    228267,
+    228265
+  ],
+  "geometry": [
+    { "lat": 52.6606770, "lon": -1.9165215 },
+    { "lat": 52.6608769, "lon": -1.9174599 },
+    { "lat": 52.6610651, "lon": -1.9183070 },
+    { "lat": 52.6612488, "lon": -1.9192464 },
+    { "lat": 52.6616511, "lon": -1.9216070 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006411,
+  "bounds": {
+    "minlat": 52.6257647,
+    "minlon": -1.8028221,
+    "maxlat": 52.6276265,
+    "maxlon": -1.8018897
+  },
+  "nodes": [
+    603641080,
+    6507174505,
+    228169,
+    6507174506
+  ],
+  "geometry": [
+    { "lat": 52.6276265, "lon": -1.8028221 },
+    { "lat": 52.6272441, "lon": -1.8026553 },
+    { "lat": 52.6264183, "lon": -1.8022332 },
+    { "lat": 52.6257647, "lon": -1.8018897 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 364006416,
+  "bounds": {
+    "minlat": 52.6325937,
+    "minlon": -1.8059423,
+    "maxlat": 52.6338130,
+    "maxlon": -1.8050940
+  },
+  "nodes": [
+    2788875250,
+    2788875237,
+    228175,
+    6507174504
+  ],
+  "geometry": [
+    { "lat": 52.6338130, "lon": -1.8059423 },
+    { "lat": 52.6333490, "lon": -1.8055978 },
+    { "lat": 52.6329139, "lon": -1.8053027 },
+    { "lat": 52.6325937, "lon": -1.8050940 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 484966975,
+  "bounds": {
+    "minlat": 52.5165388,
+    "minlon": -1.7257788,
+    "maxlat": 52.5169800,
+    "maxlon": -1.7256861
+  },
+  "nodes": [
+    4777140483,
+    247583,
+    4777140487
+  ],
+  "geometry": [
+    { "lat": 52.5169800, "lon": -1.7257788 },
+    { "lat": 52.5166622, "lon": -1.7257119 },
+    { "lat": 52.5165388, "lon": -1.7256861 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 484966981,
+  "bounds": {
+    "minlat": 52.5158205,
+    "minlon": -1.7256861,
+    "maxlat": 52.5165388,
+    "maxlon": -1.7255360
+  },
+  "nodes": [
+    4777140487,
+    9603692680
+  ],
+  "geometry": [
+    { "lat": 52.5165388, "lon": -1.7256861 },
+    { "lat": 52.5158205, "lon": -1.7255360 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "maxspeed:variable": "yes",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 586684603,
+  "bounds": {
+    "minlat": 52.4981849,
+    "minlon": -1.7196258,
+    "maxlat": 52.5004517,
+    "maxlon": -1.7182156
+  },
+  "nodes": [
+    247616,
+    247615
+  ],
+  "geometry": [
+    { "lat": 52.5004517, "lon": -1.7196258 },
+    { "lat": 52.4981849, "lon": -1.7182156 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "motorway",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "National Highways",
+    "operator:wikidata": "Q5760006",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 693083400,
+  "bounds": {
+    "minlat": 52.6669438,
+    "minlon": -1.9990056,
+    "maxlat": 52.6674053,
+    "maxlon": -1.9972988
+  },
+  "nodes": [
+    1841113575,
+    4948807306
+  ],
+  "geometry": [
+    { "lat": 52.6669438, "lon": -1.9972988 },
+    { "lat": 52.6674053, "lon": -1.9990056 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "6",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693083401,
+  "bounds": {
+    "minlat": 52.6662655,
+    "minlon": -1.9967180,
+    "maxlat": 52.6667958,
+    "maxlon": -1.9946913
+  },
+  "nodes": [
+    666376656,
+    6506880869,
+    4948811155,
+    4948811135
+  ],
+  "geometry": [
+    { "lat": 52.6662655, "lon": -1.9946913 },
+    { "lat": 52.6664366, "lon": -1.9952975 },
+    { "lat": 52.6666350, "lon": -1.9960706 },
+    { "lat": 52.6667958, "lon": -1.9967180 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693083402,
+  "bounds": {
+    "minlat": 52.6674053,
+    "minlon": -2.0001269,
+    "maxlat": 52.6677602,
+    "maxlon": -1.9990056
+  },
+  "nodes": [
+    4948807306,
+    4948807305,
+    4948811151
+  ],
+  "geometry": [
+    { "lat": 52.6674053, "lon": -1.9990056 },
+    { "lat": 52.6676170, "lon": -1.9996963 },
+    { "lat": 52.6677602, "lon": -2.0001269 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693083404,
+  "bounds": {
+    "minlat": 52.6678155,
+    "minlon": -2.0010775,
+    "maxlat": 52.6680855,
+    "maxlon": -2.0002899
+  },
+  "nodes": [
+    6506880876,
+    4948807298,
+    1841121661
+  ],
+  "geometry": [
+    { "lat": 52.6678155, "lon": -2.0002899 },
+    { "lat": 52.6679572, "lon": -2.0007031 },
+    { "lat": 52.6680855, "lon": -2.0010775 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693083405,
+  "bounds": {
+    "minlat": 52.6677602,
+    "minlon": -2.0002899,
+    "maxlat": 52.6678155,
+    "maxlon": -2.0001269
+  },
+  "nodes": [
+    4948811151,
+    6506880876
+  ],
+  "geometry": [
+    { "lat": 52.6677602, "lon": -2.0001269 },
+    { "lat": 52.6678155, "lon": -2.0002899 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "paved",
+    "toll": "yes",
+    "tunnel": "covered"
+  }
+},
+{
+  "type": "way",
+  "id": 693083406,
+  "bounds": {
+    "minlat": 52.6698653,
+    "minlon": -2.0058256,
+    "maxlat": 52.6700710,
+    "maxlon": -2.0052883
+  },
+  "nodes": [
+    6506880877,
+    228376
+  ],
+  "geometry": [
+    { "lat": 52.6698653, "lon": -2.0052883 },
+    { "lat": 52.6700710, "lon": -2.0058256 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099485,
+  "bounds": {
+    "minlat": 52.6299360,
+    "minlon": -1.8050940,
+    "maxlat": 52.6325937,
+    "maxlon": -1.8037402
+  },
+  "nodes": [
+    6507174504,
+    2788875230,
+    649256922,
+    2788875215,
+    228173,
+    635874350
+  ],
+  "geometry": [
+    { "lat": 52.6325937, "lon": -1.8050940 },
+    { "lat": 52.6324445, "lon": -1.8049967 },
+    { "lat": 52.6319670, "lon": -1.8047186 },
+    { "lat": 52.6314643, "lon": -1.8044412 },
+    { "lat": 52.6309543, "lon": -1.8041973 },
+    { "lat": 52.6299360, "lon": -1.8037402 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "no",
+    "maxspeed": "50 mph",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099486,
+  "bounds": {
+    "minlat": 52.6250090,
+    "minlon": -1.8018897,
+    "maxlat": 52.6257647,
+    "maxlon": -1.8015074
+  },
+  "nodes": [
+    6507174506,
+    6507174507
+  ],
+  "geometry": [
+    { "lat": 52.6257647, "lon": -1.8018897 },
+    { "lat": 52.6250090, "lon": -1.8015074 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099487,
+  "bounds": {
+    "minlat": 52.6239347,
+    "minlon": -1.8015074,
+    "maxlat": 52.6250090,
+    "maxlon": -1.8009760
+  },
+  "nodes": [
+    6507174507,
+    228168,
+    6507174509,
+    228167
+  ],
+  "geometry": [
+    { "lat": 52.6250090, "lon": -1.8015074 },
+    { "lat": 52.6245859, "lon": -1.8012900 },
+    { "lat": 52.6242926, "lon": -1.8011393 },
+    { "lat": 52.6239347, "lon": -1.8009760 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "6",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099488,
+  "bounds": {
+    "minlat": 52.6231958,
+    "minlon": -1.8009760,
+    "maxlat": 52.6239347,
+    "maxlon": -1.8007106
+  },
+  "nodes": [
+    228167,
+    228164,
+    6507174508
+  ],
+  "geometry": [
+    { "lat": 52.6239347, "lon": -1.8009760 },
+    { "lat": 52.6236028, "lon": -1.8008412 },
+    { "lat": 52.6231958, "lon": -1.8007106 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099489,
+  "bounds": {
+    "minlat": 52.6222221,
+    "minlon": -1.8006760,
+    "maxlat": 52.6230757,
+    "maxlon": -1.8005317
+  },
+  "nodes": [
+    6507174510,
+    2612291321,
+    228165
+  ],
+  "geometry": [
+    { "lat": 52.6230757, "lon": -1.8006760 },
+    { "lat": 52.6228589, "lon": -1.8006231 },
+    { "lat": 52.6222221, "lon": -1.8005317 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 693099490,
+  "bounds": {
+    "minlat": 52.6188735,
+    "minlon": -1.8005317,
+    "maxlat": 52.6222221,
+    "maxlon": -1.8002579
+  },
+  "nodes": [
+    228165,
+    228158,
+    3681129315
+  ],
+  "geometry": [
+    { "lat": 52.6222221, "lon": -1.8005317 },
+    { "lat": 52.6211024, "lon": -1.8003952 },
+    { "lat": 52.6188735, "lon": -1.8002579 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "10",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "maxspeed:type": "sign",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1247342705,
+  "bounds": {
+    "minlat": 52.6664267,
+    "minlon": -2.0721514,
+    "maxlat": 52.6684642,
+    "maxlon": -2.0686678
+  },
+  "nodes": [
+    228434,
+    2839783481,
+    2839783602,
+    228431,
+    228435,
+    20954040
+  ],
+  "geometry": [
+    { "lat": 52.6664267, "lon": -2.0686678 },
+    { "lat": 52.6665742, "lon": -2.0689618 },
+    { "lat": 52.6667356, "lon": -2.0692634 },
+    { "lat": 52.6669848, "lon": -2.0696995 },
+    { "lat": 52.6680403, "lon": -2.0714447 },
+    { "lat": 52.6684642, "lon": -2.0721514 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "highway": "motorway",
+    "int_ref": "E 05",
+    "lanes": "3",
+    "lit": "yes",
+    "maxheight": "default",
+    "maxspeed": "70 mph",
+    "maxspeed:type": "GB:motorway",
+    "oneway": "yes",
+    "operator": "Midland Expressway Ltd",
+    "parking:both": "no",
+    "parking:both:restriction": "no_stopping",
+    "ref": "M6 Toll",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+}
+
+  ]
+}

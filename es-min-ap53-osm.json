@@ -1,0 +1,285 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:44:35Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 255542693,
+  "lat": 42.8520712,
+  "lon": -8.5311851,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "1"
+  }
+},
+{
+  "type": "node",
+  "id": 764904590,
+  "lat": 42.7594072,
+  "lon": -8.4404351,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "15"
+  }
+},
+{
+  "type": "node",
+  "id": 764911133,
+  "lat": 42.7799278,
+  "lon": -8.4652885,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 764916517,
+  "lat": 42.8338659,
+  "lon": -8.5270464,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 766291882,
+  "lat": 42.8395593,
+  "lon": -8.5291228,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 1132439387,
+  "lat": 42.7080631,
+  "lon": -8.2298935,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1132443182,
+  "lat": 42.7318788,
+  "lon": -8.3378207,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1132443183,
+  "lat": 42.7319096,
+  "lon": -8.3378658,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1132443184,
+  "lat": 42.7319497,
+  "lon": -8.3379108,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1132443185,
+  "lat": 42.7318458,
+  "lon": -8.3377403,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1134259293,
+  "lat": 42.7586490,
+  "lon": -8.4353848,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "15"
+  }
+},
+{
+  "type": "node",
+  "id": 1134259768,
+  "lat": 42.7575090,
+  "lon": -8.4381491,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaxe de Ribadulla"
+  }
+},
+{
+  "type": "node",
+  "id": 1134267215,
+  "lat": 42.7799179,
+  "lon": -8.4654007,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1134445625,
+  "lat": 42.7295234,
+  "lon": -8.3374161,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "24"
+  }
+},
+{
+  "type": "node",
+  "id": 1134445643,
+  "lat": 42.7304265,
+  "lon": -8.3396878,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "24"
+  }
+},
+{
+  "type": "node",
+  "id": 1134506032,
+  "lat": 42.7171708,
+  "lon": -8.2986704,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1134506083,
+  "lat": 42.7178803,
+  "lon": -8.3053092,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1135796405,
+  "lat": 42.7132749,
+  "lon": -8.2367795,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "33"
+  }
+},
+{
+  "type": "node",
+  "id": 1135796872,
+  "lat": 42.7114559,
+  "lon": -8.2368177,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaxe de Silleda"
+  }
+},
+{
+  "type": "node",
+  "id": 1135796958,
+  "lat": 42.7115106,
+  "lon": -8.2366814,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaxe de Silleda"
+  }
+},
+{
+  "type": "node",
+  "id": 1135796978,
+  "lat": 42.7138334,
+  "lon": -8.2376182,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "33"
+  }
+},
+{
+  "type": "node",
+  "id": 1136527311,
+  "lat": 42.6406392,
+  "lon": -8.1325394,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "46"
+  }
+},
+{
+  "type": "node",
+  "id": 1136527847,
+  "lat": 42.6355571,
+  "lon": -8.1301880,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "46"
+  }
+},
+{
+  "type": "node",
+  "id": 1136528047,
+  "lat": 42.6171500,
+  "lon": -8.0978212,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "50"
+  }
+},
+{
+  "type": "node",
+  "id": 1136528236,
+  "lat": 42.6716301,
+  "lon": -8.1567391,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "41"
+  }
+},
+{
+  "type": "node",
+  "id": 1136528449,
+  "lat": 42.6757599,
+  "lon": -8.1620884,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "41"
+  }
+},
+{
+  "type": "node",
+  "id": 1136528528,
+  "lat": 42.6226836,
+  "lon": -8.1009813,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "50"
+  }
+},
+{
+  "type": "node",
+  "id": 6359222638,
+  "lat": 42.7575548,
+  "lon": -8.4380229,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaxe de Ribadulla"
+  }
+}
+
+  ]
+}

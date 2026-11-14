@@ -1,0 +1,138 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:50:36Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 1944385002,
+  "lat": 36.9025077,
+  "lon": -4.4577306,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610819,
+  "lat": 36.9025585,
+  "lon": -4.4577700,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610820,
+  "lat": 36.9025825,
+  "lon": -4.4577945,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610821,
+  "lat": 36.9026125,
+  "lon": -4.4578254,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610822,
+  "lat": 36.9024760,
+  "lon": -4.4576938,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610823,
+  "lat": 36.9024413,
+  "lon": -4.4576546,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5043610824,
+  "lat": 36.9022367,
+  "lon": -4.4575092,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370601,
+  "lat": 36.9027712,
+  "lon": -4.4582140,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370602,
+  "lat": 36.9027376,
+  "lon": -4.4581790,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370603,
+  "lat": 36.9027055,
+  "lon": -4.4581427,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370604,
+  "lat": 36.9026788,
+  "lon": -4.4581020,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370605,
+  "lat": 36.9026407,
+  "lon": -4.4580634,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370606,
+  "lat": 36.9026051,
+  "lon": -4.4580271,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5044370607,
+  "lat": 36.9025659,
+  "lon": -4.4579842,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+}
+
+  ]
+}

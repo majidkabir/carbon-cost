@@ -1,0 +1,385 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:48:36Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 31060154,
+  "lat": 42.9122301,
+  "lon": -5.8935108,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "93"
+  }
+},
+{
+  "type": "node",
+  "id": 31060249,
+  "lat": 42.8179540,
+  "lon": -5.8548605,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 31060314,
+  "lat": 42.7843699,
+  "lon": -5.7885550,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "113"
+  }
+},
+{
+  "type": "node",
+  "id": 31060315,
+  "lat": 42.7830043,
+  "lon": -5.7868089,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de La Magdalena",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 31061387,
+  "lat": 42.9069713,
+  "lon": -5.8900879,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "93"
+  }
+},
+{
+  "type": "node",
+  "id": 31061415,
+  "lat": 42.9276597,
+  "lon": -5.8615802,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "89"
+  }
+},
+{
+  "type": "node",
+  "id": 31062346,
+  "lat": 42.8671141,
+  "lon": -5.8824914,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 31062464,
+  "lat": 42.7830809,
+  "lon": -5.7866605,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de La Magdalena",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 31281442,
+  "lat": 42.6931771,
+  "lon": -5.7721801,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 31281506,
+  "lat": 42.5788412,
+  "lon": -5.6683518,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "143"
+  }
+},
+{
+  "type": "node",
+  "id": 31281917,
+  "lat": 42.7107367,
+  "lon": -5.7958760,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 31281936,
+  "lat": 42.6893716,
+  "lon": -5.7652887,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 31431077,
+  "lat": 42.7828370,
+  "lon": -5.7840194,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de La Magdalena",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 31431080,
+  "lat": 42.7791929,
+  "lon": -5.7839847,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "113"
+  }
+},
+{
+  "type": "node",
+  "id": 593586307,
+  "lat": 42.7086879,
+  "lon": -5.7947210,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 893508089,
+  "lat": 42.7827645,
+  "lon": -5.7839597,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de La Magdalena",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 945872020,
+  "lat": 42.9292096,
+  "lon": -5.8539307,
+  "tags": {
+    "highway": "motorway_junction",
+    "ref": "89"
+  }
+},
+{
+  "type": "node",
+  "id": 945922944,
+  "lat": 42.6158418,
+  "lon": -5.7349135,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 945923487,
+  "lat": 42.6127296,
+  "lon": -5.7309281,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1103970692,
+  "lat": 43.0266403,
+  "lon": -5.8238395,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1103970861,
+  "lat": 43.0223144,
+  "lon": -5.8243065,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1104570566,
+  "lat": 42.9859522,
+  "lon": -5.8228093,
+  "tags": {
+    "highway": "motorway_junction",
+    "noref": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1423285874,
+  "lat": 42.9073407,
+  "lon": -5.8897041,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje A-66 Salida 93 Villablino",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 1423285875,
+  "lat": 42.9073597,
+  "lon": -5.8896489,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje A-66 Entrada 93 Villablino",
+    "operator": "Aucalsa"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796620,
+  "lat": 42.7831802,
+  "lon": -5.7864571,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796657,
+  "lat": 42.7829298,
+  "lon": -5.7869582,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796666,
+  "lat": 42.7829566,
+  "lon": -5.7869131,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796668,
+  "lat": 42.7831062,
+  "lon": -5.7865980,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796673,
+  "lat": 42.7828810,
+  "lon": -5.7870445,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796675,
+  "lat": 42.7830306,
+  "lon": -5.7867575,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796742,
+  "lat": 42.7829795,
+  "lon": -5.7868627,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796771,
+  "lat": 42.7831979,
+  "lon": -5.7864115,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796779,
+  "lat": 42.7831507,
+  "lon": -5.7865001,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796809,
+  "lat": 42.7829062,
+  "lon": -5.7870034,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796833,
+  "lat": 42.7831251,
+  "lon": -5.7865457,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391796834,
+  "lat": 42.7830562,
+  "lon": -5.7867093,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391806059,
+  "lat": 42.9073762,
+  "lon": -5.8895976,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2391806110,
+  "lat": 42.9073212,
+  "lon": -5.8897451,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Aucalsa"
+  }
+}
+
+  ]
+}

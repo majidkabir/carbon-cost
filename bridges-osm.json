@@ -1,0 +1,727 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:25:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 4029069518,
+  "lat": 51.7727789,
+  "lon": 4.6382390,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4029069565,
+  "lat": 51.7726853,
+  "lon": 4.6382397,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4029069568,
+  "lat": 51.7726348,
+  "lon": 4.6382398,
+  "tags": {
+    "barrier": "toll_booth",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4029069569,
+  "lat": 51.7725636,
+  "lon": 4.6383044,
+  "tags": {
+    "barrier": "toll_booth",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4029069570,
+  "lat": 51.7725163,
+  "lon": 4.6383090,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4029069579,
+  "lat": 51.7724657,
+  "lon": 4.6383050,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11047252644,
+  "lat": 51.7727352,
+  "lon": 4.6382381,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 11047252645,
+  "lat": 51.7724193,
+  "lon": 4.6383052,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Telecard",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 3996808,
+  "bounds": {
+    "minlat": 53.6969294,
+    "minlon": -0.4507622,
+    "maxlat": 53.7167758,
+    "maxlon": -0.4490797
+  },
+  "nodes": [
+    342169,
+    119661308
+  ],
+  "geometry": [
+    { "lat": 53.7167758, "lon": -0.4507622 },
+    { "lat": 53.6969294, "lon": -0.4490797 }
+  ],
+  "tags": {
+    "alt_name": "The Humber Bridge",
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "highway": "trunk",
+    "lanes": "2",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "name": "Humber Bridge",
+    "oneway": "yes",
+    "ref": "A15",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "wikidata": "Q1141014"
+  }
+},
+{
+  "type": "way",
+  "id": 4063883,
+  "bounds": {
+    "minlat": 53.6969212,
+    "minlon": -0.4509039,
+    "maxlat": 53.7167701,
+    "maxlon": -0.4492123
+  },
+  "nodes": [
+    119661304,
+    342168
+  ],
+  "geometry": [
+    { "lat": 53.6969212, "lon": -0.4492123 },
+    { "lat": 53.7167701, "lon": -0.4509039 }
+  ],
+  "tags": {
+    "alt_name": "The Humber Bridge",
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "foot": "yes",
+    "highway": "trunk",
+    "lanes": "2",
+    "layer": "1",
+    "lit": "yes",
+    "maxspeed": "50 mph",
+    "name": "Humber Bridge",
+    "oneway": "yes",
+    "ref": "A15",
+    "seamark:bridge:category": "suspension",
+    "seamark:bridge:clearance_height": "29",
+    "seamark:type": "bridge",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "wikidata": "Q1141014"
+  }
+},
+{
+  "type": "way",
+  "id": 5007045,
+  "bounds": {
+    "minlat": 53.3481437,
+    "minlon": -2.7370268,
+    "maxlat": 53.3491408,
+    "maxlon": -2.7368725
+  },
+  "nodes": [
+    1723860,
+    307552236,
+    1723861,
+    1215751703
+  ],
+  "geometry": [
+    { "lat": 53.3491408, "lon": -2.7368725 },
+    { "lat": 53.3488224, "lon": -2.7368881 },
+    { "lat": 53.3484777, "lon": -2.7369557 },
+    { "lat": 53.3481437, "lon": -2.7370268 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "bridge": "yes",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "cycleway:left": "track",
+    "highway": "primary",
+    "lanes": "2",
+    "layer": "1",
+    "loc_name": "Runcorn-Widnes Bridge",
+    "maxspeed": "30 mph",
+    "name": "Silver Jubilee Bridge",
+    "oneway": "no",
+    "ref": "A557",
+    "toll": "yes",
+    "toll:bicycle": "no",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "website:toll": "https://www.merseyflow.co.uk/"
+  }
+},
+{
+  "type": "way",
+  "id": 105572903,
+  "bounds": {
+    "minlat": 53.3435805,
+    "minlon": -2.7392552,
+    "maxlat": 53.3481437,
+    "maxlon": -2.7370268
+  },
+  "nodes": [
+    1215751703,
+    7292011548,
+    307552253,
+    1457026885,
+    1723867
+  ],
+  "geometry": [
+    { "lat": 53.3481437, "lon": -2.7370268 },
+    { "lat": 53.3477286, "lon": -2.7371664 },
+    { "lat": 53.3457248, "lon": -2.7381815 },
+    { "lat": 53.3448371, "lon": -2.7386226 },
+    { "lat": 53.3435805, "lon": -2.7392552 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "cycleway:left": "track",
+    "cycleway:left:oneway": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "layer": "1",
+    "loc_name": "Runcorn Bridge",
+    "maxspeed": "30 mph",
+    "name": "Silver Jubilee Bridge",
+    "old_name": "Runcorn-Widnes Bridge",
+    "oneway": "no",
+    "ref": "A557",
+    "toll": "yes",
+    "toll:bicycle": "no",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "website:toll": "https://www.merseyflow.co.uk/",
+    "wikidata": "Q7516091"
+  }
+},
+{
+  "type": "way",
+  "id": 105572904,
+  "bounds": {
+    "minlat": 53.3433924,
+    "minlon": -2.7392780,
+    "maxlat": 53.3478525,
+    "maxlon": -2.7370298
+  },
+  "nodes": [
+    9652563707,
+    1634301458,
+    1215751692,
+    1215751693,
+    1215751697,
+    7442572327,
+    1215751699
+  ],
+  "geometry": [
+    { "lat": 53.3433924, "lon": -2.7392780 },
+    { "lat": 53.3434649, "lon": -2.7392242 },
+    { "lat": 53.3436016, "lon": -2.7391510 },
+    { "lat": 53.3447720, "lon": -2.7385508 },
+    { "lat": 53.3457203, "lon": -2.7380759 },
+    { "lat": 53.3477111, "lon": -2.7370789 },
+    { "lat": 53.3478525, "lon": -2.7370298 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "highway": "footway",
+    "layer": "1",
+    "loc_name": "Runcorn-Widnes Bridge",
+    "name": "Silver Jubilee Bridge",
+    "segregated": "no",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 132451826,
+  "bounds": {
+    "minlat": 53.3491408,
+    "minlon": -2.7368798,
+    "maxlat": 53.3493072,
+    "maxlon": -2.7368725
+  },
+  "nodes": [
+    9652563908,
+    1723860
+  ],
+  "geometry": [
+    { "lat": 53.3493072, "lon": -2.7368798 },
+    { "lat": 53.3491408, "lon": -2.7368725 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "bridge": "yes",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "cycleway:left": "track",
+    "highway": "primary",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "30 mph",
+    "name": "Silver Jubilee Bridge",
+    "oneway": "no",
+    "ref": "A557",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:bicycle": "no",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "website:toll": "https://www.merseyflow.co.uk/"
+  }
+},
+{
+  "type": "way",
+  "id": 155866686,
+  "bounds": {
+    "minlat": 50.4078156,
+    "minlon": -4.2079035,
+    "maxlat": 50.4085908,
+    "maxlon": -4.1992246
+  },
+  "nodes": [
+    314762294,
+    1682206781
+  ],
+  "geometry": [
+    { "lat": 50.4078156, "lon": -4.1992246 },
+    { "lat": 50.4085908, "lon": -4.2079035 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bicycle": "yes",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "cycleway": "no",
+    "dual_carriageway": "no",
+    "foot": "no",
+    "highway": "trunk",
+    "lanes": "3",
+    "layer": "2",
+    "lit": "yes",
+    "maxspeed": "30 mph",
+    "maxspeed:type": "GB:nsl_restricted",
+    "maxweight:signed": "no",
+    "name": "Tamar Bridge",
+    "name:kw": "Pons Tamar",
+    "oneway": "no",
+    "operator": "Tamar Bridge and Torpoint Ferry Joint Committee",
+    "parking:both": "no",
+    "parking:condition:both": "no_parking",
+    "ref": "A38",
+    "sidewalk": "no",
+    "source": "Highways Agency",
+    "surface": "asphalt",
+    "wikidata": "Q7680729",
+    "wikipedia": "en:Tamar Bridge"
+  }
+},
+{
+  "type": "way",
+  "id": 192534380,
+  "bounds": {
+    "minlat": 53.3466072,
+    "minlon": -2.7249559,
+    "maxlat": 53.3576053,
+    "maxlon": -2.7028629
+  },
+  "nodes": [
+    8715360067,
+    2030897144,
+    2030897142,
+    8978441363,
+    8978441364,
+    5172985098,
+    5232896641,
+    14298928611,
+    8978441365,
+    2030897141,
+    8978441366,
+    2030897139,
+    8978441367,
+    2030897137,
+    5172985097,
+    5172985095,
+    4888478640,
+    5172985093,
+    2030897125,
+    6486764332,
+    2030897109,
+    4888478632,
+    8825168209,
+    2030897067
+  ],
+  "geometry": [
+    { "lat": 53.3576053, "lon": -2.7249559 },
+    { "lat": 53.3575565, "lon": -2.7244752 },
+    { "lat": 53.3574917, "lon": -2.7239670 },
+    { "lat": 53.3574006, "lon": -2.7234018 },
+    { "lat": 53.3572994, "lon": -2.7228681 },
+    { "lat": 53.3571746, "lon": -2.7223345 },
+    { "lat": 53.3570244, "lon": -2.7217716 },
+    { "lat": 53.3570008, "lon": -2.7216890 },
+    { "lat": 53.3568473, "lon": -2.7211967 },
+    { "lat": 53.3566258, "lon": -2.7205713 },
+    { "lat": 53.3563683, "lon": -2.7199686 },
+    { "lat": 53.3561069, "lon": -2.7194034 },
+    { "lat": 53.3550876, "lon": -2.7174703 },
+    { "lat": 53.3541277, "lon": -2.7156234 },
+    { "lat": 53.3532915, "lon": -2.7140041 },
+    { "lat": 53.3524856, "lon": -2.7124675 },
+    { "lat": 53.3513510, "lon": -2.7102716 },
+    { "lat": 53.3494146, "lon": -2.7065489 },
+    { "lat": 53.3488726, "lon": -2.7055442 },
+    { "lat": 53.3485385, "lon": -2.7050000 },
+    { "lat": 53.3481945, "lon": -2.7045078 },
+    { "lat": 53.3477015, "lon": -2.7039003 },
+    { "lat": 53.3472292, "lon": -2.7034059 },
+    { "lat": 53.3466072, "lon": -2.7028629 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "cycleway:both": "no",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "foot": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "3",
+    "layer": "1",
+    "maxspeed": "60 mph",
+    "motorroad": "yes",
+    "name": "Mersey Gateway Bridge",
+    "oneway": "yes",
+    "ref": "A533",
+    "sidewalk": "no",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "website": "https://www.merseygateway.co.uk/",
+    "website:toll": "https://www.merseyflow.co.uk/",
+    "wikidata": "Q6820551"
+  }
+},
+{
+  "type": "way",
+  "id": 532680444,
+  "bounds": {
+    "minlat": 53.3452192,
+    "minlon": -2.7242923,
+    "maxlat": 53.3573962,
+    "maxlon": -2.7022343
+  },
+  "nodes": [
+    2030897059,
+    5172985090,
+    4888478633,
+    5172985092,
+    2030897086,
+    4888478631,
+    8825168207,
+    2030897105,
+    2030897121,
+    8825168208,
+    6486764347,
+    6486764339,
+    5232896637,
+    4888478639,
+    5172985094,
+    5172985096,
+    4888478641,
+    3884066617,
+    8978489537,
+    2030897138,
+    8978489536,
+    5232896625,
+    14298928612,
+    2030897140,
+    8978489535,
+    8978489534,
+    2030897145,
+    2030897146
+  ],
+  "geometry": [
+    { "lat": 53.3452192, "lon": -2.7022343 },
+    { "lat": 53.3455208, "lon": -2.7023788 },
+    { "lat": 53.3459578, "lon": -2.7026349 },
+    { "lat": 53.3462828, "lon": -2.7028518 },
+    { "lat": 53.3465741, "lon": -2.7030758 },
+    { "lat": 53.3470197, "lon": -2.7034574 },
+    { "lat": 53.3473772, "lon": -2.7038059 },
+    { "lat": 53.3477576, "lon": -2.7042342 },
+    { "lat": 53.3480333, "lon": -2.7045791 },
+    { "lat": 53.3484068, "lon": -2.7050913 },
+    { "lat": 53.3485906, "lon": -2.7053808 },
+    { "lat": 53.3489187, "lon": -2.7059478 },
+    { "lat": 53.3494719, "lon": -2.7070151 },
+    { "lat": 53.3512579, "lon": -2.7104867 },
+    { "lat": 53.3522676, "lon": -2.7124465 },
+    { "lat": 53.3531629, "lon": -2.7141739 },
+    { "lat": 53.3540130, "lon": -2.7157699 },
+    { "lat": 53.3559059, "lon": -2.7193723 },
+    { "lat": 53.3561902, "lon": -2.7199463 },
+    { "lat": 53.3564144, "lon": -2.7204645 },
+    { "lat": 53.3566070, "lon": -2.7209752 },
+    { "lat": 53.3567817, "lon": -2.7214863 },
+    { "lat": 53.3568739, "lon": -2.7217907 },
+    { "lat": 53.3569416, "lon": -2.7220143 },
+    { "lat": 53.3570865, "lon": -2.7225698 },
+    { "lat": 53.3571924, "lon": -2.7230651 },
+    { "lat": 53.3572979, "lon": -2.7236290 },
+    { "lat": 53.3573962, "lon": -2.7242923 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "cycleway:both": "no",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "foot": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "3",
+    "layer": "1",
+    "maxspeed": "60 mph",
+    "motorroad": "yes",
+    "name": "Mersey Gateway Bridge",
+    "oneway": "yes",
+    "ref": "A533",
+    "sidewalk": "no",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "turn:lanes": "slight_left|through|through",
+    "website": "https://www.merseygateway.co.uk/",
+    "website:toll": "https://www.merseyflow.co.uk/",
+    "wikidata": "Q6820551"
+  }
+},
+{
+  "type": "way",
+  "id": 975649537,
+  "bounds": {
+    "minlat": 52.2024293,
+    "minlon": -2.6825343,
+    "maxlat": 52.2025144,
+    "maxlon": -2.6822336
+  },
+  "nodes": [
+    9028645815,
+    9028658222
+  ],
+  "geometry": [
+    { "lat": 52.2024293, "lon": -2.6825343 },
+    { "lat": 52.2025144, "lon": -2.6822336 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "unclassified",
+    "layer": "1",
+    "name": "Humber Bridge",
+    "source": "Bing"
+  }
+},
+{
+  "type": "way",
+  "id": 1050368106,
+  "bounds": {
+    "minlat": 53.3493072,
+    "minlon": -2.7368798,
+    "maxlat": 53.3493920,
+    "maxlon": -2.7368798
+  },
+  "nodes": [
+    1720627,
+    9652563908
+  ],
+  "geometry": [
+    { "lat": 53.3493920, "lon": -2.7368798 },
+    { "lat": 53.3493072, "lon": -2.7368798 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "bridge": "yes",
+    "charge": "2.40 GBP",
+    "charge:bus": "7.20 GBP",
+    "charge:bus:conditional": "2.40 GBP; 7.20 GBP @ 8 seats; 9.60 GBP @ 5 t",
+    "charge:hgv": "7.20 GBP",
+    "charge:hgv:conditional": "9.60 GBP @ 12 t",
+    "charge:minibus": "2.40 GBP",
+    "charge:minibus:conditional": "7.20 GBP @ 8 seats",
+    "charge:motorcycle": "0.00 GBP",
+    "check_date:charge": "2024-02-08",
+    "highway": "primary",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "30 mph",
+    "name": "Silver Jubilee Bridge",
+    "old_ref": "A533",
+    "oneway": "no",
+    "ref": "A557",
+    "surface": "asphalt",
+    "toll": "yes",
+    "toll:bicycle": "no",
+    "toll:moped": "no",
+    "toll:motorcycle": "no",
+    "toll:operator": "Merseyflow",
+    "website:toll": "https://www.merseyflow.co.uk/"
+  }
+},
+{
+  "type": "way",
+  "id": 1181415437,
+  "bounds": {
+    "minlat": 53.3478525,
+    "minlon": -2.7370298,
+    "maxlat": 53.3493953,
+    "maxlon": -2.7367770
+  },
+  "nodes": [
+    1215751699,
+    1634301447,
+    10971491764,
+    1634301508,
+    1634301449,
+    8846338098
+  ],
+  "geometry": [
+    { "lat": 53.3478525, "lon": -2.7370298 },
+    { "lat": 53.3482110, "lon": -2.7369392 },
+    { "lat": 53.3484077, "lon": -2.7368846 },
+    { "lat": 53.3485819, "lon": -2.7368429 },
+    { "lat": 53.3491329, "lon": -2.7367911 },
+    { "lat": 53.3493953, "lon": -2.7367770 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "bridge:structure": "suspension",
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "1",
+    "loc_name": "Runcorn-Widnes Bridge",
+    "name": "Silver Jubilee Bridge",
+    "segregated": "no",
+    "surface": "asphalt"
+  }
+}
+
+  ]
+}

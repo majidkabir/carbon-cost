@@ -1,0 +1,50 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2026-11-13",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Tamar Bridge toll",
+ "law": "Tamar Bridge and Torpoint Ferry Joint Committee's tolls (Tamar Bridge Acts), payable one way, Saltash (Cornwall) to Plymouth (Devon): vehicles over 3.5 t with 2 axles GBP 7.3, 3 axles 12.0, 4 or more 16.5 (the 'Single' price; towing a trailer costs double, not modelled); with `etc` the TamarTag price. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Tamar Crossings: Tamar Bridge Tolls",
+   "url": "https://www.tamarcrossings.org.uk/prices/tamar-bridge-tolls/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Tamar Bridge (A38), eastbound only.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Tamar Bridge",
+   "lat": 50.408203,
+   "lon": -4.203564,
+   "heading": 98.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 7.3,
+     "etc_rate": 3.65
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 12.0,
+     "etc_rate": 6.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 16.5,
+     "etc_rate": 8.25
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,42 @@
+{
+ "country": "NL",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Westerscheldetunnel toll",
+ "law": "Tunnelwet Westerschelde: N.V. Westerscheldetunnel's tariffs per passage, by the whole vehicle's length and height: category 3 (under 12 m, over 3 m high) and 4 (over 12 m), the standard price, with `etc` the T-Tag price. Trucks over 3.5 t are taken to be over 3 m high. Cars and vans pay nothing since 30 December 2024; trucks still pay. The page names no date: the prices are those it published when fetched.",
+ "sources": [
+  {
+   "title": "N.V. Westerscheldetunnel: tarieven",
+   "url": "https://www.westerscheldetunnel.nl/nl/tarieven-betaalmiddelen/tarieven/"
+  }
+ ],
+ "vehicles": "Vehicles over 3 m high (here: trucks over 3.5 t), by length",
+ "min_kg": 3501,
+ "tolled_roads": "The Westerscheldetunnel (N62 Terneuzen-Ellewoutsdijk), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Westerscheldetunnel",
+   "lat": 51.441533,
+   "lon": 3.755744,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "rate": 18.2,
+     "etc_rate": 11.0
+    },
+    {
+     "min_kg": 3501,
+     "min_length_m": 12,
+     "rate": 25.0,
+     "etc_rate": 15.0
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

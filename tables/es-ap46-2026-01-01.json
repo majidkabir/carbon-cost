@@ -1,0 +1,67 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "AP-46 Alto de las Pedrizas–Málaga",
+ "law": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-46 Alto de las Pedrizas–Málaga, per barrier (Troncal de Casabermeja): Pesados 1 (two or three axles) EUR 4.9587 and Pesados 2 (four axles or more) 7.1901 in the low season, 6.2810 and 9.3802 in the high season, excluding 21% IVA; free for trucks from 22:00 to 08:00. High season: May to October, every Saturday and Sunday, and the 17 days from Viernes de Dolores to the Sunday after Easter. Barriers placed at OpenStreetMap's toll plazas on the motorway, its only plaza.",
+ "sources": [
+  {
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-46 ALTO-DE-LAS-PEDRIZAS - MALAGA (2026)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-46,-alto-de-las-pedrizas---malaga-2026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API), toll booths",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-46 Alto de las Pedrizas–Málaga (one toll barrier, Casabermeja).",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Troncal de Casabermeja",
+   "lat": 36.90258,
+   "lon": -4.457906,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.9587,
+     "high_rate": 6.281
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.1901,
+     "high_rate": 9.3802
+    }
+   ],
+   "high_season": {
+    "months": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "weekdays": [
+     0,
+     6
+    ],
+    "easter_from": -9,
+    "easter_to": 7
+   },
+   "free_hours": [
+    "22:00",
+    "07:59"
+   ]
+  }
+ ],
+ "rows": []
+}

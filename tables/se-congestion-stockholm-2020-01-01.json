@@ -1,0 +1,591 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "valid_from": "2020-01-01",
+ "osm_extract": "2026-11-13",
+ "name": "Stockholm congestion tax (trängselskatt)",
+ "law": "Lag (2004:629) om trängselskatt, bilaga 1: per passage of a charging station, by time of day, inner city or Essingeleden, low or high season; at most 105 SEK a day (135 in high season); weekdays, not the day before a public holiday (except before Good Friday, Ascension, All Saints, and 1 May and National Day on weekdays), in July only its first five weekdays. Foreign-registered vehicles pay too (4 §). Stations: Transportstyrelsen's gantries in OpenStreetMap.",
+ "sources": [
+  {
+   "title": "Lag (2004:629) om trängselskatt, consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-2004-629.html"
+  },
+  {
+   "title": "Transportstyrelsen: Trängselskatt i Stockholm",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/trangselskatt/trangselskatt-i-stockholm/"
+  }
+ ],
+ "congestion": {
+  "schedules": {
+   "inner": [
+    {
+     "from": "06:00",
+     "to": "06:29",
+     "amount": 15,
+     "high": 15
+    },
+    {
+     "from": "06:30",
+     "to": "06:59",
+     "amount": 25,
+     "high": 30
+    },
+    {
+     "from": "07:00",
+     "to": "08:29",
+     "amount": 35,
+     "high": 45
+    },
+    {
+     "from": "08:30",
+     "to": "08:59",
+     "amount": 25,
+     "high": 30
+    },
+    {
+     "from": "09:00",
+     "to": "09:29",
+     "amount": 15,
+     "high": 20
+    },
+    {
+     "from": "09:30",
+     "to": "14:59",
+     "amount": 11,
+     "high": 11
+    },
+    {
+     "from": "15:00",
+     "to": "15:29",
+     "amount": 15,
+     "high": 20
+    },
+    {
+     "from": "15:30",
+     "to": "15:59",
+     "amount": 25,
+     "high": 30
+    },
+    {
+     "from": "16:00",
+     "to": "17:29",
+     "amount": 35,
+     "high": 45
+    },
+    {
+     "from": "17:30",
+     "to": "17:59",
+     "amount": 25,
+     "high": 30
+    },
+    {
+     "from": "18:00",
+     "to": "18:29",
+     "amount": 15,
+     "high": 20
+    }
+   ],
+   "essingeleden": [
+    {
+     "from": "06:00",
+     "to": "06:29",
+     "amount": 15,
+     "high": 15
+    },
+    {
+     "from": "06:30",
+     "to": "06:59",
+     "amount": 22,
+     "high": 27
+    },
+    {
+     "from": "07:00",
+     "to": "08:29",
+     "amount": 30,
+     "high": 40
+    },
+    {
+     "from": "08:30",
+     "to": "08:59",
+     "amount": 22,
+     "high": 27
+    },
+    {
+     "from": "09:00",
+     "to": "09:29",
+     "amount": 15,
+     "high": 20
+    },
+    {
+     "from": "09:30",
+     "to": "14:59",
+     "amount": 11,
+     "high": 11
+    },
+    {
+     "from": "15:00",
+     "to": "15:29",
+     "amount": 15,
+     "high": 20
+    },
+    {
+     "from": "15:30",
+     "to": "15:59",
+     "amount": 22,
+     "high": 27
+    },
+    {
+     "from": "16:00",
+     "to": "17:29",
+     "amount": 30,
+     "high": 40
+    },
+    {
+     "from": "17:30",
+     "to": "17:59",
+     "amount": 22,
+     "high": 27
+    },
+    {
+     "from": "18:00",
+     "to": "18:29",
+     "amount": 15,
+     "high": 20
+    }
+   ]
+  },
+  "high_season": [
+   [
+    "03-01",
+    "midsummer_eve-1"
+   ],
+   [
+    "08-15",
+    "11-30"
+   ]
+  ],
+  "day_cap": 105,
+  "day_cap_high": 135,
+  "july": "first5",
+  "eve_taxed": [
+   "good_friday",
+   "ascension",
+   "all_saints",
+   "may_1",
+   "june_6"
+  ]
+ },
+ "vehicles": "All vehicles, Swedish and foreign",
+ "tolled_roads": "The charging stations of Stockholm.",
+ "crossings": true,
+ "point_match_km": 0.03,
+ "toll_points": [
+  {
+   "name": "Danvikstull",
+   "lat": 59.313919,
+   "lon": 18.103382,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Danvikstull",
+   "lat": 59.314013,
+   "lon": 18.103403,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Drottningholmsvägen",
+   "lat": 59.330697,
+   "lon": 18.010624,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Drottningholmsvägen",
+   "lat": 59.331233,
+   "lon": 18.010996,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Drottningholmsvägen",
+   "lat": 59.33137,
+   "lon": 18.010654,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Drottningholmsvägen",
+   "lat": 59.331525,
+   "lon": 18.0108,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ekelundsbron",
+   "lat": 59.340727,
+   "lon": 18.012963,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ekhagen",
+   "lat": 59.369332,
+   "lon": 18.051576,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ekhagen",
+   "lat": 59.369574,
+   "lon": 18.050647,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ekhagen",
+   "lat": 59.371218,
+   "lon": 18.050259,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ekhagen",
+   "lat": 59.371468,
+   "lon": 18.050824,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Essingeleden",
+   "lat": 59.331728,
+   "lon": 18.010724,
+   "rate": 0,
+   "schedule": "essingeleden"
+  },
+  {
+   "name": "Essingeleden",
+   "lat": 59.333795,
+   "lon": 18.009873,
+   "rate": 0,
+   "schedule": "essingeleden"
+  },
+  {
+   "name": "Essingeleden",
+   "lat": 59.3338,
+   "lon": 18.009686,
+   "rate": 0,
+   "schedule": "essingeleden"
+  },
+  {
+   "name": "Frescati",
+   "lat": 59.36562,
+   "lon": 18.052466,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Gävlegatan",
+   "lat": 59.347578,
+   "lon": 18.03317,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Hälsingegatan",
+   "lat": 59.349164,
+   "lon": 18.036167,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Johanneshovsbron",
+   "lat": 59.303706,
+   "lon": 18.077129,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Johanneshovsbron",
+   "lat": 59.303748,
+   "lon": 18.077251,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Klarastrandsleden",
+   "lat": 59.338726,
+   "lon": 18.029948,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Klarastrandsleden",
+   "lat": 59.338765,
+   "lon": 18.029984,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Kristineberg",
+   "lat": 59.333705,
+   "lon": 18.009492,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Kristineberg",
+   "lat": 59.333705,
+   "lon": 18.010088,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Kristineberg",
+   "lat": 59.336182,
+   "lon": 18.010819,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Kristineberg",
+   "lat": 59.336445,
+   "lon": 18.010277,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Liljeholmsbron",
+   "lat": 59.311451,
+   "lon": 18.028835,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Liljeholmsbron",
+   "lat": 59.311921,
+   "lon": 18.029213,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Liljeholmsbron",
+   "lat": 59.311971,
+   "lon": 18.029121,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Lilla Essingen",
+   "lat": 59.32512,
+   "lon": 18.003971,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Norrtull",
+   "lat": 59.35049,
+   "lon": 18.043667,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ropsten",
+   "lat": 59.356577,
+   "lon": 18.105072,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ropsten",
+   "lat": 59.356631,
+   "lon": 18.105014,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ropsten",
+   "lat": 59.356941,
+   "lon": 18.102292,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ropsten",
+   "lat": 59.356988,
+   "lon": 18.102347,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Ropsten",
+   "lat": 59.357062,
+   "lon": 18.102471,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Roslagstull",
+   "lat": 59.352512,
+   "lon": 18.058825,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Roslagstull",
+   "lat": 59.352767,
+   "lon": 18.058004,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skansbron",
+   "lat": 59.304022,
+   "lon": 18.079454,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skanstullsbron",
+   "lat": 59.306279,
+   "lon": 18.077292,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skanstullsbron",
+   "lat": 59.3063,
+   "lon": 18.077461,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skurubron",
+   "lat": 59.31376,
+   "lon": 18.224895,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skurubron",
+   "lat": 59.313821,
+   "lon": 18.22489,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Skurubron",
+   "lat": 59.313922,
+   "lon": 18.22488,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Solnabron",
+   "lat": 59.34683,
+   "lon": 18.03183,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Solnabron",
+   "lat": 59.346893,
+   "lon": 18.031995,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Stora Essingen",
+   "lat": 59.322072,
+   "lon": 17.996574,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Stora Essingen",
+   "lat": 59.322885,
+   "lon": 17.996583,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Stora Essingen",
+   "lat": 59.322915,
+   "lon": 17.996703,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Tomtebodavägen",
+   "lat": 59.343748,
+   "lon": 18.025898,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Tomtebodavägen",
+   "lat": 59.343808,
+   "lon": 18.026004,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Universitetet",
+   "lat": 59.362974,
+   "lon": 18.054637,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Universitetet",
+   "lat": 59.363103,
+   "lon": 18.055216,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Västra",
+   "lat": 59.35081,
+   "lon": 18.099241,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Västra",
+   "lat": 59.351202,
+   "lon": 18.095228,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Västra",
+   "lat": 59.35141,
+   "lon": 18.095664,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Östra",
+   "lat": 59.351779,
+   "lon": 18.106553,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Östra",
+   "lat": 59.352441,
+   "lon": 18.106442,
+   "rate": 0,
+   "schedule": "inner"
+  },
+  {
+   "name": "Värtan Östra",
+   "lat": 59.352445,
+   "lon": 18.106447,
+   "rate": 0,
+   "schedule": "inner"
+  }
+ ],
+ "rows": []
+}

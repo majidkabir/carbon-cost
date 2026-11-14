@@ -1,0 +1,47 @@
+{
+ "country": "IT",
+ "currency": "EUR",
+ "valid_from": "2026-02-01",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Great St Bernard tunnel toll, Saint-Rhémy (northbound)",
+ "law": "Tunnel du Grand-Saint-Bernard (SISEX SA, Swiss side; SITRASB S.p.A., Italian side): one-way tariff from 2026-02-01, paid at the plaza where the trip enters, in CHF on the Swiss side and EUR on the Italian side: trucks over 3 m high with 2 axles (class B2), 3 axles (3A) or 4 or more (4). Trucks over 3.5 t are taken to be over 3 m high.",
+ "sources": [
+  {
+   "title": "Tunnel du Grand-Saint-Bernard: tariffs",
+   "url": "https://www.letunnel.com/"
+  }
+ ],
+ "vehicles": "Trucks over 3 m high (here: over 3.5 t), by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Great St Bernard tunnel, charged at the Saint-Rhémy (northbound) plaza.",
+ "point_match_km": 0.2,
+ "toll_points": [
+  {
+   "name": "Great St Bernard tunnel",
+   "lat": 45.849914,
+   "lon": 7.161072,
+   "heading": 25.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 91.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 133.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 202.0
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

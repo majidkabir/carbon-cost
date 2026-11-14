@@ -1,0 +1,1893 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:42:36Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 4937248,
+  "bounds": {
+    "minlat": 54.9790808,
+    "minlon": -1.4861256,
+    "maxlat": 54.9906259,
+    "maxlon": -1.4826605
+  },
+  "nodes": [
+    8113349892,
+    14298993219,
+    32530782,
+    687086327,
+    717554070,
+    717554068,
+    717554066,
+    717554063,
+    717554062,
+    717554061,
+    717554059,
+    717554058,
+    717554056,
+    717554051
+  ],
+  "geometry": [
+    { "lat": 54.9790808, "lon": -1.4826605 },
+    { "lat": 54.9792151, "lon": -1.4828120 },
+    { "lat": 54.9807639, "lon": -1.4844734 },
+    { "lat": 54.9814166, "lon": -1.4850742 },
+    { "lat": 54.9818598, "lon": -1.4853746 },
+    { "lat": 54.9824139, "lon": -1.4856750 },
+    { "lat": 54.9828941, "lon": -1.4858681 },
+    { "lat": 54.9834605, "lon": -1.4859754 },
+    { "lat": 54.9843224, "lon": -1.4860612 },
+    { "lat": 54.9857629, "lon": -1.4861256 },
+    { "lat": 54.9862923, "lon": -1.4861041 },
+    { "lat": 54.9866617, "lon": -1.4859754 },
+    { "lat": 54.9893455, "lon": -1.4848167 },
+    { "lat": 54.9906259, "lon": -1.4842588 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "5.1",
+    "maxlength": "18.75",
+    "maxspeed": "30 mph",
+    "maxwidth": "2.55",
+    "name": "Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "OS_OpenData_StreetView",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes",
+    "wikidata": "Q7860496"
+  }
+},
+{
+  "type": "way",
+  "id": 37851028,
+  "bounds": {
+    "minlat": 54.9857359,
+    "minlon": -1.4876063,
+    "maxlat": 54.9884993,
+    "maxlon": -1.4866625
+  },
+  "nodes": [
+    9388161550,
+    443913558,
+    6728532502,
+    9388161544,
+    9388161555,
+    9388161545
+  ],
+  "geometry": [
+    { "lat": 54.9884984, "lon": -1.4875598 },
+    { "lat": 54.9884993, "lon": -1.4875920 },
+    { "lat": 54.9883085, "lon": -1.4876063 },
+    { "lat": 54.9881148, "lon": -1.4875841 },
+    { "lat": 54.9857359, "lon": -1.4867076 },
+    { "lat": 54.9857408, "lon": -1.4866625 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "no",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "lit": "24/7",
+    "name": "Cycle Tunnel",
+    "smoothness": "good",
+    "source": "survey at each end",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 51939837,
+  "bounds": {
+    "minlat": 54.9857820,
+    "minlon": -1.4875491,
+    "maxlat": 54.9884461,
+    "maxlon": -1.4866340
+  },
+  "nodes": [
+    9388161558,
+    9388161540,
+    9388161541,
+    662508572
+  ],
+  "geometry": [
+    { "lat": 54.9857820, "lon": -1.4866340 },
+    { "lat": 54.9881236, "lon": -1.4875291 },
+    { "lat": 54.9883071, "lon": -1.4875491 },
+    { "lat": 54.9884461, "lon": -1.4875373 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "designated",
+    "highway": "footway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "lit": "24/7",
+    "name": "Pedestrian Tunnel",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 51939839,
+  "bounds": {
+    "minlat": 54.9854255,
+    "minlon": -1.4866501,
+    "maxlat": 54.9857018,
+    "maxlon": -1.4865696
+  },
+  "nodes": [
+    662508554,
+    443913581
+  ],
+  "geometry": [
+    { "lat": 54.9857018, "lon": -1.4866501 },
+    { "lat": 54.9854255, "lon": -1.4865696 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "conveying": "yes",
+    "foot": "private",
+    "highway": "steps",
+    "incline": "up",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1;0",
+    "note": "Fixed (non-operational) escalator being preserved for historical significance.\nNo access except in case of emergency.",
+    "source": "survey",
+    "surface": "wood",
+    "survey:date": "2024-11-29",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 51939848,
+  "bounds": {
+    "minlat": 54.9884407,
+    "minlon": -1.4875373,
+    "maxlat": 54.9885799,
+    "maxlon": -1.4874230
+  },
+  "nodes": [
+    662508571,
+    9388161539,
+    662508572
+  ],
+  "geometry": [
+    { "lat": 54.9885799, "lon": -1.4874230 },
+    { "lat": 54.9884407, "lon": -1.4874307 },
+    { "lat": 54.9884461, "lon": -1.4875373 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 51939849,
+  "bounds": {
+    "minlat": 54.9885583,
+    "minlon": -1.4875342,
+    "maxlat": 54.9888637,
+    "maxlon": -1.4874791
+  },
+  "nodes": [
+    662508578,
+    662508588
+  ],
+  "geometry": [
+    { "lat": 54.9885583, "lon": -1.4875342 },
+    { "lat": 54.9888637, "lon": -1.4874791 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "private",
+    "handrail": "yes",
+    "highway": "steps",
+    "incline": "up",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1;0",
+    "note": "Fixed (non-operational) escalator being preserved for historical significance.\nNo access except in case of emergency.",
+    "source": "survey",
+    "surface": "wood",
+    "survey:date": "2024-11-29",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 54571935,
+  "bounds": {
+    "minlat": 54.9847844,
+    "minlon": -1.4850400,
+    "maxlat": 54.9918173,
+    "maxlon": -1.4839933
+  },
+  "nodes": [
+    687086328,
+    1610087087,
+    1610087085,
+    1610087083,
+    1610068461,
+    1610087080,
+    1610087076,
+    687086329,
+    1162517953,
+    1610087072
+  ],
+  "geometry": [
+    { "lat": 54.9918173, "lon": -1.4844185 },
+    { "lat": 54.9910988, "lon": -1.4841348 },
+    { "lat": 54.9905985, "lon": -1.4840163 },
+    { "lat": 54.9903446, "lon": -1.4839933 },
+    { "lat": 54.9900940, "lon": -1.4839954 },
+    { "lat": 54.9895420, "lon": -1.4840811 },
+    { "lat": 54.9889636, "lon": -1.4841904 },
+    { "lat": 54.9878114, "lon": -1.4845224 },
+    { "lat": 54.9857708, "lon": -1.4848379 },
+    { "lat": 54.9847844, "lon": -1.4850400 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "dual_carriageway": "yes",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "4.87",
+    "maxlength": "18.75",
+    "maxspeed": "40 mph",
+    "maxwidth": "2.55",
+    "name": "New Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "Bing",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes",
+    "wikidata": "Q7860496"
+  }
+},
+{
+  "type": "way",
+  "id": 80905000,
+  "bounds": {
+    "minlat": 55.0147842,
+    "minlon": -1.4711153,
+    "maxlat": 55.0150404,
+    "maxlon": -1.4709285
+  },
+  "nodes": [
+    943124381,
+    6381577993,
+    943124382
+  ],
+  "geometry": [
+    { "lat": 55.0147842, "lon": -1.4709285 },
+    { "lat": 55.0150404, "lon": -1.4710724 },
+    { "lat": 55.0150329, "lon": -1.4711153 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "layer": "-1",
+    "oneway": "no",
+    "segregated": "no",
+    "surface": "paving_stones",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 91818429,
+  "bounds": {
+    "minlat": 54.9970122,
+    "minlon": -1.4672220,
+    "maxlat": 54.9971836,
+    "maxlon": -1.4667695
+  },
+  "nodes": [
+    1066924216,
+    1066924207
+  ],
+  "geometry": [
+    { "lat": 54.9970122, "lon": -1.4667695 },
+    { "lat": 54.9971836, "lon": -1.4672220 }
+  ],
+  "tags": {
+    "highway": "cycleway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 132547515,
+  "bounds": {
+    "minlat": 54.9765874,
+    "minlon": -1.4412552,
+    "maxlat": 54.9766534,
+    "maxlon": -1.4410500
+  },
+  "nodes": [
+    1457878109,
+    9518337008,
+    9518337007,
+    1457878115
+  ],
+  "geometry": [
+    { "lat": 54.9765874, "lon": -1.4410500 },
+    { "lat": 54.9766043, "lon": -1.4411036 },
+    { "lat": 54.9766204, "lon": -1.4411537 },
+    { "lat": 54.9766534, "lon": -1.4412552 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "footway",
+    "layer": "-1",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 210509559,
+  "bounds": {
+    "minlat": 54.9950538,
+    "minlon": -1.4788065,
+    "maxlat": 54.9953910,
+    "maxlon": -1.4788033
+  },
+  "nodes": [
+    2205900111,
+    2205900125
+  ],
+  "geometry": [
+    { "lat": 54.9950538, "lon": -1.4788065 },
+    { "lat": 54.9953910, "lon": -1.4788033 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "layer": "-1",
+    "lit": "yes",
+    "oneway": "no",
+    "segregated": "no",
+    "surface": "asphalt",
+    "tunnel": "yes",
+    "width": "3"
+  }
+},
+{
+  "type": "way",
+  "id": 232003702,
+  "bounds": {
+    "minlat": 54.9787936,
+    "minlon": -1.4851949,
+    "maxlat": 54.9829535,
+    "maxlon": -1.4820681
+  },
+  "nodes": [
+    687086331,
+    687086332,
+    1610087066,
+    687086333,
+    1610087061,
+    1162518120,
+    32530784
+  ],
+  "geometry": [
+    { "lat": 54.9829535, "lon": -1.4851949 },
+    { "lat": 54.9825563, "lon": -1.4851063 },
+    { "lat": 54.9822653, "lon": -1.4850203 },
+    { "lat": 54.9819804, "lon": -1.4848708 },
+    { "lat": 54.9813539, "lon": -1.4845265 },
+    { "lat": 54.9807387, "lon": -1.4840919 },
+    { "lat": 54.9787936, "lon": -1.4820681 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "4.87",
+    "maxlength": "18.75",
+    "maxspeed": "40 mph",
+    "maxwidth": "2.55",
+    "name": "New Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "Bing",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 232003703,
+  "bounds": {
+    "minlat": 54.9829535,
+    "minlon": -1.4852379,
+    "maxlat": 54.9847844,
+    "maxlon": -1.4850400
+  },
+  "nodes": [
+    1610087072,
+    687086330,
+    687086331
+  ],
+  "geometry": [
+    { "lat": 54.9847844, "lon": -1.4850400 },
+    { "lat": 54.9837784, "lon": -1.4852379 },
+    { "lat": 54.9829535, "lon": -1.4851949 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "4.87",
+    "maxlength": "18.75",
+    "maxspeed": "40 mph",
+    "maxwidth": "2.55 m",
+    "name": "New Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "Bing",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 248390121,
+  "bounds": {
+    "minlat": 54.9958188,
+    "minlon": -1.4944715,
+    "maxlat": 54.9959005,
+    "maxlon": -1.4943463
+  },
+  "nodes": [
+    2551830479,
+    2551830488
+  ],
+  "geometry": [
+    { "lat": 54.9958188, "lon": -1.4943463 },
+    { "lat": 54.9959005, "lon": -1.4944715 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 293027538,
+  "bounds": {
+    "minlat": 54.9703959,
+    "minlon": -1.4756594,
+    "maxlat": 54.9704462,
+    "maxlon": -1.4751421
+  },
+  "nodes": [
+    2965801225,
+    2965808245
+  ],
+  "geometry": [
+    { "lat": 54.9703959, "lon": -1.4756594 },
+    { "lat": 54.9704462, "lon": -1.4751421 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "layer": "-1",
+    "oneway": "no",
+    "segregated": "no",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 437432565,
+  "bounds": {
+    "minlat": 54.9769223,
+    "minlon": -1.4880067,
+    "maxlat": 54.9769647,
+    "maxlon": -1.4880040
+  },
+  "nodes": [
+    4352470123,
+    4352470124
+  ],
+  "geometry": [
+    { "lat": 54.9769647, "lon": -1.4880040 },
+    { "lat": 54.9769223, "lon": -1.4880067 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 437432569,
+  "bounds": {
+    "minlat": 54.9785282,
+    "minlon": -1.4875092,
+    "maxlat": 54.9785855,
+    "maxlon": -1.4874827
+  },
+  "nodes": [
+    4352470126,
+    4352470127
+  ],
+  "geometry": [
+    { "lat": 54.9785282, "lon": -1.4875092 },
+    { "lat": 54.9785855, "lon": -1.4874827 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "surface": "paving_stones",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 446430759,
+  "bounds": {
+    "minlat": 54.9918055,
+    "minlon": -1.4868156,
+    "maxlat": 54.9930622,
+    "maxlon": -1.4838036
+  },
+  "nodes": [
+    32530781,
+    4942979577,
+    317054190,
+    32530780,
+    4942979576,
+    60337437,
+    4942979575,
+    717554045,
+    4942979574,
+    317054001,
+    4942979573,
+    717554043,
+    4942979572,
+    717554041,
+    717554040,
+    717554039,
+    717554038
+  ],
+  "geometry": [
+    { "lat": 54.9918055, "lon": -1.4838149 },
+    { "lat": 54.9919634, "lon": -1.4838036 },
+    { "lat": 54.9921208, "lon": -1.4838308 },
+    { "lat": 54.9922744, "lon": -1.4838960 },
+    { "lat": 54.9924213, "lon": -1.4839978 },
+    { "lat": 54.9925586, "lon": -1.4841344 },
+    { "lat": 54.9926837, "lon": -1.4843029 },
+    { "lat": 54.9927941, "lon": -1.4845002 },
+    { "lat": 54.9928876, "lon": -1.4847224 },
+    { "lat": 54.9929624, "lon": -1.4849652 },
+    { "lat": 54.9930171, "lon": -1.4852237 },
+    { "lat": 54.9930506, "lon": -1.4854931 },
+    { "lat": 54.9930622, "lon": -1.4857679 },
+    { "lat": 54.9930518, "lon": -1.4860429 },
+    { "lat": 54.9930194, "lon": -1.4863126 },
+    { "lat": 54.9929659, "lon": -1.4865719 },
+    { "lat": 54.9928921, "lon": -1.4868156 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "5.1",
+    "maxlength": "18.75",
+    "maxspeed": "30 mph",
+    "maxwidth": "2.55",
+    "name": "Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "OS_OpenData_StreetView",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes",
+    "wikidata": "Q7860496"
+  }
+},
+{
+  "type": "way",
+  "id": 446430760,
+  "bounds": {
+    "minlat": 54.9906259,
+    "minlon": -1.4842588,
+    "maxlat": 54.9918055,
+    "maxlon": -1.4838149
+  },
+  "nodes": [
+    717554051,
+    717554049,
+    32530781
+  ],
+  "geometry": [
+    { "lat": 54.9906259, "lon": -1.4842588 },
+    { "lat": 54.9913768, "lon": -1.4839369 },
+    { "lat": 54.9918055, "lon": -1.4838149 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-2",
+    "lit": "24/7",
+    "maxheight": "5.1",
+    "maxlength": "18.75",
+    "maxspeed": "30 mph",
+    "maxwidth": "2.55",
+    "name": "Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "OS_OpenData_StreetView",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes",
+    "wikidata": "Q7860496"
+  }
+},
+{
+  "type": "way",
+  "id": 464726086,
+  "bounds": {
+    "minlat": 54.9800794,
+    "minlon": -1.4906292,
+    "maxlat": 54.9801168,
+    "maxlon": -1.4902399
+  },
+  "nodes": [
+    4598074846,
+    4598074847
+  ],
+  "geometry": [
+    { "lat": 54.9801168, "lon": -1.4906292 },
+    { "lat": 54.9800794, "lon": -1.4902399 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "lit": "yes",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 464726089,
+  "bounds": {
+    "minlat": 54.9792378,
+    "minlon": -1.4896967,
+    "maxlat": 54.9794893,
+    "maxlon": -1.4895980
+  },
+  "nodes": [
+    2693136775,
+    4598074849
+  ],
+  "geometry": [
+    { "lat": 54.9792378, "lon": -1.4895980 },
+    { "lat": 54.9794893, "lon": -1.4896967 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "lit": "yes",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 473553546,
+  "bounds": {
+    "minlat": 54.9936354,
+    "minlon": -1.4499684,
+    "maxlat": 54.9936704,
+    "maxlon": -1.4497507
+  },
+  "nodes": [
+    4676372188,
+    4676372189
+  ],
+  "geometry": [
+    { "lat": 54.9936704, "lon": -1.4499684 },
+    { "lat": 54.9936354, "lon": -1.4497507 }
+  ],
+  "tags": {
+    "highway": "service",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 474577007,
+  "bounds": {
+    "minlat": 55.0083822,
+    "minlon": -1.4462464,
+    "maxlat": 55.0086633,
+    "maxlon": -1.4455451
+  },
+  "nodes": [
+    4684972395,
+    6839456061,
+    4684972396
+  ],
+  "geometry": [
+    { "lat": 55.0083822, "lon": -1.4462464 },
+    { "lat": 55.0085029, "lon": -1.4459531 },
+    { "lat": 55.0086633, "lon": -1.4455451 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 509848932,
+  "bounds": {
+    "minlat": 54.9927959,
+    "minlon": -1.4519297,
+    "maxlat": 54.9929329,
+    "maxlon": -1.4515532
+  },
+  "nodes": [
+    2473988054,
+    4989942353
+  ],
+  "geometry": [
+    { "lat": 54.9929329, "lon": -1.4519297 },
+    { "lat": 54.9927959, "lon": -1.4515532 }
+  ],
+  "tags": {
+    "covered": "yes",
+    "highway": "service",
+    "maxheight": "5.1",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 730091910,
+  "bounds": {
+    "minlat": 55.0086633,
+    "minlon": -1.4455451,
+    "maxlat": 55.0089568,
+    "maxlon": -1.4448587
+  },
+  "nodes": [
+    4684972396,
+    6839456060,
+    6839456058
+  ],
+  "geometry": [
+    { "lat": 55.0086633, "lon": -1.4455451 },
+    { "lat": 55.0089247, "lon": -1.4449428 },
+    { "lat": 55.0089568, "lon": -1.4448587 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 734283188,
+  "bounds": {
+    "minlat": 55.0028600,
+    "minlon": -1.4600558,
+    "maxlat": 55.0029480,
+    "maxlon": -1.4599809
+  },
+  "nodes": [
+    6876375116,
+    6876375117
+  ],
+  "geometry": [
+    { "lat": 55.0029480, "lon": -1.4600558 },
+    { "lat": 55.0028600, "lon": -1.4599809 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "foot": "designated",
+    "highway": "footway",
+    "layer": "-1",
+    "lit": "yes",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 740400947,
+  "bounds": {
+    "minlat": 54.9714263,
+    "minlon": -1.4462765,
+    "maxlat": 54.9719080,
+    "maxlon": -1.4458573
+  },
+  "nodes": [
+    6932022228,
+    6932022230
+  ],
+  "geometry": [
+    { "lat": 54.9719080, "lon": -1.4458573 },
+    { "lat": 54.9714263, "lon": -1.4462765 }
+  ],
+  "tags": {
+    "highway": "service",
+    "layer": "-1",
+    "oneway": "yes",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 760562522,
+  "bounds": {
+    "minlat": 54.9970055,
+    "minlon": -1.4672319,
+    "maxlat": 54.9971781,
+    "maxlon": -1.4667765
+  },
+  "nodes": [
+    5535959727,
+    5535959728
+  ],
+  "geometry": [
+    { "lat": 54.9970055, "lon": -1.4667765 },
+    { "lat": 54.9971781, "lon": -1.4672319 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 779608302,
+  "bounds": {
+    "minlat": 54.9816351,
+    "minlon": -1.4880677,
+    "maxlat": 54.9817090,
+    "maxlon": -1.4880499
+  },
+  "nodes": [
+    7280070999,
+    7280070998
+  ],
+  "geometry": [
+    { "lat": 54.9816351, "lon": -1.4880499 },
+    { "lat": 54.9817090, "lon": -1.4880677 }
+  ],
+  "tags": {
+    "highway": "service",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 779928982,
+  "bounds": {
+    "minlat": 54.9824226,
+    "minlon": -1.4862823,
+    "maxlat": 54.9824750,
+    "maxlon": -1.4862654
+  },
+  "nodes": [
+    7282598538,
+    7282598539
+  ],
+  "geometry": [
+    { "lat": 54.9824750, "lon": -1.4862823 },
+    { "lat": 54.9824226, "lon": -1.4862654 }
+  ],
+  "tags": {
+    "highway": "service",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 779929006,
+  "bounds": {
+    "minlat": 54.9806566,
+    "minlon": -1.4903927,
+    "maxlat": 54.9806973,
+    "maxlon": -1.4902272
+  },
+  "nodes": [
+    7282598658,
+    7282598659
+  ],
+  "geometry": [
+    { "lat": 54.9806566, "lon": -1.4903927 },
+    { "lat": 54.9806973, "lon": -1.4902272 }
+  ],
+  "tags": {
+    "highway": "service",
+    "layer": "-1",
+    "maxspeed": "5 mph",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211336,
+  "bounds": {
+    "minlat": 54.9773699,
+    "minlon": -1.4832212,
+    "maxlat": 54.9773885,
+    "maxlon": -1.4832120
+  },
+  "nodes": [
+    7285074840,
+    7285074839
+  ],
+  "geometry": [
+    { "lat": 54.9773699, "lon": -1.4832212 },
+    { "lat": 54.9773885, "lon": -1.4832120 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211340,
+  "bounds": {
+    "minlat": 54.9779740,
+    "minlon": -1.4851224,
+    "maxlat": 54.9780042,
+    "maxlon": -1.4851049
+  },
+  "nodes": [
+    7285074870,
+    7285074871
+  ],
+  "geometry": [
+    { "lat": 54.9779740, "lon": -1.4851224 },
+    { "lat": 54.9780042, "lon": -1.4851049 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211343,
+  "bounds": {
+    "minlat": 54.9784237,
+    "minlon": -1.4849278,
+    "maxlat": 54.9784479,
+    "maxlon": -1.4849101
+  },
+  "nodes": [
+    7285074876,
+    7285074877
+  ],
+  "geometry": [
+    { "lat": 54.9784237, "lon": -1.4849278 },
+    { "lat": 54.9784479, "lon": -1.4849101 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211346,
+  "bounds": {
+    "minlat": 54.9778678,
+    "minlon": -1.4843937,
+    "maxlat": 54.9779018,
+    "maxlon": -1.4843683
+  },
+  "nodes": [
+    7285074886,
+    7285074887
+  ],
+  "geometry": [
+    { "lat": 54.9779018, "lon": -1.4843683 },
+    { "lat": 54.9778678, "lon": -1.4843937 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211350,
+  "bounds": {
+    "minlat": 54.9783088,
+    "minlon": -1.4841498,
+    "maxlat": 54.9783348,
+    "maxlon": -1.4841357
+  },
+  "nodes": [
+    7285074880,
+    7285074881
+  ],
+  "geometry": [
+    { "lat": 54.9783348, "lon": -1.4841357 },
+    { "lat": 54.9783088, "lon": -1.4841498 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211355,
+  "bounds": {
+    "minlat": 54.9782495,
+    "minlon": -1.4834007,
+    "maxlat": 54.9782788,
+    "maxlon": -1.4833856
+  },
+  "nodes": [
+    7285074890,
+    7285074891
+  ],
+  "geometry": [
+    { "lat": 54.9782788, "lon": -1.4833856 },
+    { "lat": 54.9782495, "lon": -1.4834007 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780211357,
+  "bounds": {
+    "minlat": 54.9777482,
+    "minlon": -1.4836885,
+    "maxlat": 54.9777803,
+    "maxlon": -1.4836679
+  },
+  "nodes": [
+    7285074896,
+    7285074897
+  ],
+  "geometry": [
+    { "lat": 54.9777803, "lon": -1.4836679 },
+    { "lat": 54.9777482, "lon": -1.4836885 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780546262,
+  "bounds": {
+    "minlat": 54.9776711,
+    "minlon": -1.4882870,
+    "maxlat": 54.9776817,
+    "maxlon": -1.4881915
+  },
+  "nodes": [
+    7288724970,
+    7288724971
+  ],
+  "geometry": [
+    { "lat": 54.9776711, "lon": -1.4882870 },
+    { "lat": 54.9776817, "lon": -1.4881915 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "surface": "paving_stones",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780546268,
+  "bounds": {
+    "minlat": 54.9773217,
+    "minlon": -1.4884093,
+    "maxlat": 54.9773805,
+    "maxlon": -1.4884087
+  },
+  "nodes": [
+    7288724990,
+    7288724974
+  ],
+  "geometry": [
+    { "lat": 54.9773217, "lon": -1.4884093 },
+    { "lat": 54.9773805, "lon": -1.4884087 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780546274,
+  "bounds": {
+    "minlat": 54.9773320,
+    "minlon": -1.4890858,
+    "maxlat": 54.9773915,
+    "maxlon": -1.4890823
+  },
+  "nodes": [
+    7288724975,
+    7288725027
+  ],
+  "geometry": [
+    { "lat": 54.9773915, "lon": -1.4890823 },
+    { "lat": 54.9773320, "lon": -1.4890858 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780546279,
+  "bounds": {
+    "minlat": 54.9773405,
+    "minlon": -1.4897563,
+    "maxlat": 54.9774000,
+    "maxlon": -1.4897563
+  },
+  "nodes": [
+    7288724977,
+    7288725033
+  ],
+  "geometry": [
+    { "lat": 54.9774000, "lon": -1.4897563 },
+    { "lat": 54.9773405, "lon": -1.4897563 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 780546295,
+  "bounds": {
+    "minlat": 54.9777609,
+    "minlon": -1.4899017,
+    "maxlat": 54.9777790,
+    "maxlon": -1.4898153
+  },
+  "nodes": [
+    7288724966,
+    7288725106
+  ],
+  "geometry": [
+    { "lat": 54.9777609, "lon": -1.4898153 },
+    { "lat": 54.9777790, "lon": -1.4899017 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 843984809,
+  "bounds": {
+    "minlat": 55.0150404,
+    "minlon": -1.4710724,
+    "maxlat": 55.0150690,
+    "maxlon": -1.4709094
+  },
+  "nodes": [
+    7872944647,
+    6381577993
+  ],
+  "geometry": [
+    { "lat": 55.0150690, "lon": -1.4709094 },
+    { "lat": 55.0150404, "lon": -1.4710724 }
+  ],
+  "tags": {
+    "foot": "yes",
+    "highway": "footway",
+    "layer": "-1",
+    "surface": "concrete",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 870999806,
+  "bounds": {
+    "minlat": 54.9787118,
+    "minlon": -1.4826605,
+    "maxlat": 54.9790808,
+    "maxlon": -1.4823508
+  },
+  "nodes": [
+    8113349891,
+    8113349892
+  ],
+  "geometry": [
+    { "lat": 54.9787118, "lon": -1.4823508 },
+    { "lat": 54.9790808, "lon": -1.4826605 }
+  ],
+  "tags": {
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "hazmat:C": "no",
+    "highway": "trunk_link",
+    "layer": "-1",
+    "maxheight": "5.1",
+    "maxspeed": "30 mph",
+    "oneway": "yes",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 902824704,
+  "bounds": {
+    "minlat": 54.9996005,
+    "minlon": -1.4742088,
+    "maxlat": 54.9996819,
+    "maxlon": -1.4741135
+  },
+  "nodes": [
+    1389648311,
+    8385372003
+  ],
+  "geometry": [
+    { "lat": 54.9996005, "lon": -1.4741135 },
+    { "lat": 54.9996819, "lon": -1.4742088 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "segregated": "no",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 918003804,
+  "bounds": {
+    "minlat": 54.9787473,
+    "minlon": -1.4826605,
+    "maxlat": 54.9790808,
+    "maxlon": -1.4822553
+  },
+  "nodes": [
+    32530783,
+    8113349892
+  ],
+  "geometry": [
+    { "lat": 54.9787473, "lon": -1.4822553 },
+    { "lat": 54.9790808, "lon": -1.4826605 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge": "2.60 GBP",
+    "charge:hgv": "5.20 GBP",
+    "expressway": "yes",
+    "foot": "no",
+    "hazmat:C": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "24/7",
+    "maxheight": "5.1",
+    "maxlength": "18.75",
+    "maxspeed": "30 mph",
+    "maxwidth": "2.55",
+    "name": "Tyne Tunnel",
+    "oneway": "yes",
+    "ref": "A19",
+    "source": "OS_OpenData_StreetView",
+    "toll": "yes",
+    "toll:motorcycle": "no",
+    "tunnel": "yes",
+    "wikidata": "Q7860496"
+  }
+},
+{
+  "type": "way",
+  "id": 932937245,
+  "bounds": {
+    "minlat": 54.9994666,
+    "minlon": -1.4747512,
+    "maxlat": 54.9996285,
+    "maxlon": -1.4747127
+  },
+  "nodes": [
+    8648005897,
+    8648005898
+  ],
+  "geometry": [
+    { "lat": 54.9996285, "lon": -1.4747512 },
+    { "lat": 54.9994666, "lon": -1.4747127 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 932937258,
+  "bounds": {
+    "minlat": 54.9995203,
+    "minlon": -1.4745925,
+    "maxlat": 54.9996330,
+    "maxlon": -1.4745544
+  },
+  "nodes": [
+    5689050045,
+    8648005912
+  ],
+  "geometry": [
+    { "lat": 54.9995203, "lon": -1.4745544 },
+    { "lat": 54.9996330, "lon": -1.4745925 }
+  ],
+  "tags": {
+    "footway": "sidewalk",
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1017823264,
+  "bounds": {
+    "minlat": 54.9885593,
+    "minlon": -1.4875541,
+    "maxlat": 54.9888657,
+    "maxlon": -1.4875004
+  },
+  "nodes": [
+    9388161549,
+    9388161551
+  ],
+  "geometry": [
+    { "lat": 54.9888657, "lon": -1.4875004 },
+    { "lat": 54.9885593, "lon": -1.4875541 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "elevator",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1;0",
+    "stroller": "yes",
+    "surface": "paved",
+    "survey:date": "2024-11-26",
+    "tunnel": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1017823265,
+  "bounds": {
+    "minlat": 54.9884984,
+    "minlon": -1.4875598,
+    "maxlat": 54.9885583,
+    "maxlon": -1.4875342
+  },
+  "nodes": [
+    9388161550,
+    662508578
+  ],
+  "geometry": [
+    { "lat": 54.9884984, "lon": -1.4875598 },
+    { "lat": 54.9885583, "lon": -1.4875342 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "yes",
+    "highway": "footway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "segregated": "no",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1017823266,
+  "bounds": {
+    "minlat": 54.9854240,
+    "minlon": -1.4866749,
+    "maxlat": 54.9856994,
+    "maxlon": -1.4865930
+  },
+  "nodes": [
+    9388161553,
+    9388161554
+  ],
+  "geometry": [
+    { "lat": 54.9856994, "lon": -1.4866749 },
+    { "lat": 54.9854240, "lon": -1.4865930 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "elevator",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1;0",
+    "stroller": "yes",
+    "surface": "paved",
+    "survey:date": "2024-11-26",
+    "tunnel": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1017823267,
+  "bounds": {
+    "minlat": 54.9857018,
+    "minlon": -1.4866625,
+    "maxlat": 54.9857408,
+    "maxlon": -1.4866501
+  },
+  "nodes": [
+    662508554,
+    9388161545
+  ],
+  "geometry": [
+    { "lat": 54.9857018, "lon": -1.4866501 },
+    { "lat": 54.9857408, "lon": -1.4866625 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "footway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1017823268,
+  "bounds": {
+    "minlat": 54.9856771,
+    "minlon": -1.4866340,
+    "maxlat": 54.9857925,
+    "maxlon": -1.4865231
+  },
+  "nodes": [
+    662508563,
+    9388161556,
+    9388161557,
+    9388161558
+  ],
+  "geometry": [
+    { "lat": 54.9856771, "lon": -1.4865795 },
+    { "lat": 54.9857468, "lon": -1.4865231 },
+    { "lat": 54.9857925, "lon": -1.4865382 },
+    { "lat": 54.9857820, "lon": -1.4866340 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "oneway": "no",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1094956046,
+  "bounds": {
+    "minlat": 54.9856994,
+    "minlon": -1.4866749,
+    "maxlat": 54.9857408,
+    "maxlon": -1.4866625
+  },
+  "nodes": [
+    9388161545,
+    9388161553
+  ],
+  "geometry": [
+    { "lat": 54.9857408, "lon": -1.4866625 },
+    { "lat": 54.9856994, "lon": -1.4866749 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1094956050,
+  "bounds": {
+    "minlat": 54.9884984,
+    "minlon": -1.4875598,
+    "maxlat": 54.9885593,
+    "maxlon": -1.4875541
+  },
+  "nodes": [
+    9388161550,
+    9388161551
+  ],
+  "geometry": [
+    { "lat": 54.9884984, "lon": -1.4875598 },
+    { "lat": 54.9885593, "lon": -1.4875541 }
+  ],
+  "tags": {
+    "bicycle": "designated",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "segregated": "no",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1094956051,
+  "bounds": {
+    "minlat": 54.9857408,
+    "minlon": -1.4866625,
+    "maxlat": 54.9857820,
+    "maxlon": -1.4866220
+  },
+  "nodes": [
+    9388161545,
+    9388161546,
+    9388161558
+  ],
+  "geometry": [
+    { "lat": 54.9857408, "lon": -1.4866625 },
+    { "lat": 54.9857464, "lon": -1.4866220 },
+    { "lat": 54.9857820, "lon": -1.4866340 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "name": "Pedestrian Tunnel",
+    "oneway": "no",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1094956052,
+  "bounds": {
+    "minlat": 54.9884461,
+    "minlon": -1.4875598,
+    "maxlat": 54.9884984,
+    "maxlon": -1.4875320
+  },
+  "nodes": [
+    662508572,
+    9388161552,
+    9388161550
+  ],
+  "geometry": [
+    { "lat": 54.9884461, "lon": -1.4875373 },
+    { "lat": 54.9884977, "lon": -1.4875320 },
+    { "lat": 54.9884984, "lon": -1.4875598 }
+  ],
+  "tags": {
+    "bicycle": "dismount",
+    "foot": "designated",
+    "highway": "cycleway",
+    "indoor": "yes",
+    "layer": "-1",
+    "level": "-1",
+    "name": "Pedestrian Tunnel",
+    "segregated": "no",
+    "smoothness": "good",
+    "surface": "paved",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1184218330,
+  "bounds": {
+    "minlat": 54.9927307,
+    "minlon": -1.4520071,
+    "maxlat": 54.9928661,
+    "maxlon": -1.4516276
+  },
+  "nodes": [
+    10997311369,
+    10997311375
+  ],
+  "geometry": [
+    { "lat": 54.9928661, "lon": -1.4520071 },
+    { "lat": 54.9927307, "lon": -1.4516276 }
+  ],
+  "tags": {
+    "covered": "yes",
+    "highway": "service",
+    "maxheight": "3.2",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1184218331,
+  "bounds": {
+    "minlat": 54.9928669,
+    "minlon": -1.4518435,
+    "maxlat": 54.9930046,
+    "maxlon": -1.4514707
+  },
+  "nodes": [
+    10997311370,
+    10997311376
+  ],
+  "geometry": [
+    { "lat": 54.9930046, "lon": -1.4518435 },
+    { "lat": 54.9928669, "lon": -1.4514707 }
+  ],
+  "tags": {
+    "covered": "yes",
+    "highway": "service",
+    "maxheight": "3.2",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1214008314,
+  "bounds": {
+    "minlat": 55.0026820,
+    "minlon": -1.4458654,
+    "maxlat": 55.0028157,
+    "maxlon": -1.4457710
+  },
+  "nodes": [
+    11247667841,
+    11247667840
+  ],
+  "geometry": [
+    { "lat": 55.0028157, "lon": -1.4457710 },
+    { "lat": 55.0026820, "lon": -1.4458654 }
+  ],
+  "tags": {
+    "highway": "service",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 1214008316,
+  "bounds": {
+    "minlat": 55.0029931,
+    "minlon": -1.4455887,
+    "maxlat": 55.0031336,
+    "maxlon": -1.4454887
+  },
+  "nodes": [
+    11247667845,
+    11247667844
+  ],
+  "geometry": [
+    { "lat": 55.0031336, "lon": -1.4454887 },
+    { "lat": 55.0029931, "lon": -1.4455887 }
+  ],
+  "tags": {
+    "highway": "service",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 1395816953,
+  "bounds": {
+    "minlat": 55.0198328,
+    "minlon": -1.4864541,
+    "maxlat": 55.0198645,
+    "maxlon": -1.4863293
+  },
+  "nodes": [
+    12920016519,
+    12920016520
+  ],
+  "geometry": [
+    { "lat": 55.0198328, "lon": -1.4864541 },
+    { "lat": 55.0198645, "lon": -1.4863293 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 1543078258,
+  "bounds": {
+    "minlat": 54.9772455,
+    "minlon": -1.4861409,
+    "maxlat": 54.9772488,
+    "maxlon": -1.4860283
+  },
+  "nodes": [
+    14040270504,
+    14040270505
+  ],
+  "geometry": [
+    { "lat": 54.9772488, "lon": -1.4861409 },
+    { "lat": 54.9772455, "lon": -1.4860283 }
+  ],
+  "tags": {
+    "highway": "footway",
+    "layer": "-1",
+    "tunnel": "yes"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,1026 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "osm_extract": "2026-11-13",
+ "name": "Spanish state toll motorways (SEITT)",
+ "law": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations placed at OpenStreetMap's toll booths of their name (extract of 2026-11-13); 6 stations without one aren't priced. Only SEITT's AP-36, AP-41 and AP-7 Cartagena–Vera (not the Madrid radials or M-12); the concessions are separate tables (AP-6, AP-51 and AP-61; AP-71; AP-7 Málaga–Guadiaro; AP-66; AP-46; AP-7 Alicante–Cartagena) or not included (AP-9, AP-53, AP-68).",
+ "sources": [
+  {
+   "title": "Spain: SEITT 2026 tariffs of the AP-36 Ocaña – La Roda toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2026_v1.pdf"
+  },
+  {
+   "title": "Spain: SEITT 2026 tariffs of the AP-41 Madrid – Toledo toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_ap41_2026.pdf"
+  },
+  {
+   "title": "Spain: SEITT 2026 tariffs of the AP-7 Cartagena – Vera toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extracts), toll booths",
+   "url": "https://download.geofabrik.de/europe/spain.html"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-36 Ocaña – La Roda, AP-41 Madrid – Toledo, AP-7 Cartagena – Vera.",
+ "closed_systems": [
+  {
+   "name": "AP-36 Ocaña – La Roda",
+   "law": "SEITT tariff 2026 (ap36), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ],
+   "directed": true,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Troncal Corral Almaguer",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.800317,
+       "lon": -3.213087
+      },
+      {
+       "name": "booth",
+       "lat": 39.800503,
+       "lon": -3.212803
+      }
+     ]
+    },
+    {
+     "name": "Quintanar Orden",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.630588,
+       "lon": -3.073759
+      },
+      {
+       "name": "booth",
+       "lat": 39.630626,
+       "lon": -3.073665
+      }
+     ]
+    },
+    {
+     "name": "Mota Cuervo",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.51967,
+       "lon": -2.916739
+      }
+     ]
+    },
+    {
+     "name": "Pedernoso",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.474381,
+       "lon": -2.718178
+      },
+      {
+       "name": "booth",
+       "lat": 39.474469,
+       "lon": -2.718161
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Troncal Corral Almaguer|Quintanar Orden": {
+     "Pesados 1": 6.9421,
+     "Pesados 2": 9.9174
+    },
+    "Troncal Corral Almaguer|Mota Cuervo": {
+     "Pesados 1": 9.7521,
+     "Pesados 2": 13.9256
+    },
+    "Troncal Corral Almaguer|Pedernoso": {
+     "Pesados 1": 12.438,
+     "Pesados 2": 17.7686
+    },
+    "Quintanar Orden|Troncal Corral Almaguer": {
+     "Pesados 1": 6.9421,
+     "Pesados 2": 9.9174
+    },
+    "Quintanar Orden|Mota Cuervo": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0496
+    },
+    "Quintanar Orden|Pedernoso": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.8512
+    },
+    "Mota Cuervo|Troncal Corral Almaguer": {
+     "Pesados 1": 9.7521,
+     "Pesados 2": 13.9256
+    },
+    "Mota Cuervo|Quintanar Orden": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0496
+    },
+    "Mota Cuervo|Pedernoso": {
+     "Pesados 1": 2.7273,
+     "Pesados 2": 3.8843
+    },
+    "Pedernoso|Troncal Corral Almaguer": {
+     "Pesados 1": 12.438,
+     "Pesados 2": 17.7686
+    },
+    "Pedernoso|Quintanar Orden": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.8512
+    },
+    "Pedernoso|Mota Cuervo": {
+     "Pesados 1": 2.7273,
+     "Pesados 2": 3.8843
+    }
+   },
+   "etc_prices": {
+    "Troncal Corral Almaguer|Quintanar Orden": {
+     "Pesados 1": 6.405,
+     "Pesados 2": 8.9669
+    },
+    "Troncal Corral Almaguer|Mota Cuervo": {
+     "Pesados 1": 8.9669,
+     "Pesados 2": 12.562
+    },
+    "Troncal Corral Almaguer|Pedernoso": {
+     "Pesados 1": 11.4463,
+     "Pesados 2": 16.0331
+    },
+    "Quintanar Orden|Troncal Corral Almaguer": {
+     "Pesados 1": 6.405,
+     "Pesados 2": 8.9669
+    },
+    "Quintanar Orden|Mota Cuervo": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "Quintanar Orden|Pedernoso": {
+     "Pesados 1": 5.0826,
+     "Pesados 2": 7.1074
+    },
+    "Mota Cuervo|Troncal Corral Almaguer": {
+     "Pesados 1": 8.9669,
+     "Pesados 2": 12.562
+    },
+    "Mota Cuervo|Quintanar Orden": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "Mota Cuervo|Pedernoso": {
+     "Pesados 1": 2.5207,
+     "Pesados 2": 3.5124
+    },
+    "Pedernoso|Troncal Corral Almaguer": {
+     "Pesados 1": 11.4463,
+     "Pesados 2": 16.0331
+    },
+    "Pedernoso|Quintanar Orden": {
+     "Pesados 1": 5.0826,
+     "Pesados 2": 7.1074
+    },
+    "Pedernoso|Mota Cuervo": {
+     "Pesados 1": 2.5207,
+     "Pesados 2": 3.5124
+    }
+   }
+  },
+  {
+   "name": "AP-41 Madrid – Toledo",
+   "law": "SEITT tariff 2026 (ap41), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ],
+   "directed": true,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Serranillos",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.21203,
+       "lon": -3.894118
+      },
+      {
+       "name": "booth",
+       "lat": 40.211972,
+       "lon": -3.893951
+      }
+     ]
+    },
+    {
+     "name": "Carranque",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.157945,
+       "lon": -3.904456
+      }
+     ]
+    },
+    {
+     "name": "Illescas",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.102888,
+       "lon": -3.860599
+      },
+      {
+       "name": "booth",
+       "lat": 40.103027,
+       "lon": -3.860494
+      }
+     ]
+    },
+    {
+     "name": "Numancia",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.074864,
+       "lon": -3.846069
+      },
+      {
+       "name": "booth",
+       "lat": 40.074789,
+       "lon": -3.846033
+      }
+     ]
+    },
+    {
+     "name": "Villaluenga",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 40.029351,
+       "lon": -3.888873
+      }
+     ]
+    },
+    {
+     "name": "Villaseca",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 39.956523,
+       "lon": -3.867566
+      },
+      {
+       "name": "booth",
+       "lat": 39.956532,
+       "lon": -3.867411
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Serranillos|Carranque": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Serranillos|Illescas": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.3058
+    },
+    "Serranillos|Numancia": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Serranillos|Villaluenga": {
+     "Pesados 1": 3.595,
+     "Pesados 2": 5.124
+    },
+    "Serranillos|Villaseca": {
+     "Pesados 1": 4.7934,
+     "Pesados 2": 6.8182
+    },
+    "Carranque|Serranillos": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Carranque|Illescas": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.7355
+    },
+    "Carranque|Numancia": {
+     "Pesados 1": 1.6942,
+     "Pesados 2": 2.3967
+    },
+    "Carranque|Villaluenga": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.5537
+    },
+    "Carranque|Villaseca": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.2479
+    },
+    "Illescas|Serranillos": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.3058
+    },
+    "Illescas|Carranque": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.7355
+    },
+    "Illescas|Numancia": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "Illescas|Villaluenga": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "Illescas|Villaseca": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.5537
+    },
+    "Numancia|Serranillos": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Numancia|Carranque": {
+     "Pesados 1": 1.6942,
+     "Pesados 2": 2.3967
+    },
+    "Numancia|Illescas": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "Numancia|Villaluenga": {
+     "Pesados 1": 0.8264,
+     "Pesados 2": 1.1983
+    },
+    "Numancia|Villaseca": {
+     "Pesados 1": 2.0248,
+     "Pesados 2": 2.8926
+    },
+    "Villaluenga|Serranillos": {
+     "Pesados 1": 3.595,
+     "Pesados 2": 5.124
+    },
+    "Villaluenga|Carranque": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.5537
+    },
+    "Villaluenga|Illescas": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "Villaluenga|Numancia": {
+     "Pesados 1": 0.8264,
+     "Pesados 2": 1.1983
+    },
+    "Villaluenga|Villaseca": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6942
+    },
+    "Villaseca|Serranillos": {
+     "Pesados 1": 4.7934,
+     "Pesados 2": 6.8182
+    },
+    "Villaseca|Carranque": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.2479
+    },
+    "Villaseca|Illescas": {
+     "Pesados 1": 2.4793,
+     "Pesados 2": 3.5537
+    },
+    "Villaseca|Numancia": {
+     "Pesados 1": 2.0248,
+     "Pesados 2": 2.8926
+    },
+    "Villaseca|Villaluenga": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6942
+    }
+   },
+   "etc_prices": {
+    "Serranillos|Carranque": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.4463
+    },
+    "Serranillos|Illescas": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9752
+    },
+    "Serranillos|Numancia": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Serranillos|Villaluenga": {
+     "Pesados 1": 3.3058,
+     "Pesados 2": 4.6281
+    },
+    "Serranillos|Villaseca": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.157
+    },
+    "Carranque|Serranillos": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.4463
+    },
+    "Carranque|Illescas": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Carranque|Numancia": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1488
+    },
+    "Carranque|Villaluenga": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.2231
+    },
+    "Carranque|Villaseca": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7107
+    },
+    "Illescas|Serranillos": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9752
+    },
+    "Illescas|Carranque": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Illescas|Numancia": {
+     "Pesados 1": 0.4545,
+     "Pesados 2": 0.6198
+    },
+    "Illescas|Villaluenga": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6529
+    },
+    "Illescas|Villaseca": {
+     "Pesados 1": 2.2727,
+     "Pesados 2": 3.1818
+    },
+    "Numancia|Serranillos": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Numancia|Carranque": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1488
+    },
+    "Numancia|Illescas": {
+     "Pesados 1": 0.4545,
+     "Pesados 2": 0.6198
+    },
+    "Numancia|Villaluenga": {
+     "Pesados 1": 0.7851,
+     "Pesados 2": 1.0744
+    },
+    "Numancia|Villaseca": {
+     "Pesados 1": 1.8595,
+     "Pesados 2": 2.6033
+    },
+    "Villaluenga|Serranillos": {
+     "Pesados 1": 3.3058,
+     "Pesados 2": 4.6281
+    },
+    "Villaluenga|Carranque": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.2231
+    },
+    "Villaluenga|Illescas": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6529
+    },
+    "Villaluenga|Numancia": {
+     "Pesados 1": 0.7851,
+     "Pesados 2": 1.0744
+    },
+    "Villaluenga|Villaseca": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5289
+    },
+    "Villaseca|Serranillos": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.157
+    },
+    "Villaseca|Carranque": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7107
+    },
+    "Villaseca|Illescas": {
+     "Pesados 1": 2.2727,
+     "Pesados 2": 3.1818
+    },
+    "Villaseca|Numancia": {
+     "Pesados 1": 1.8595,
+     "Pesados 2": 2.6033
+    },
+    "Villaseca|Villaluenga": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5289
+    }
+   }
+  },
+  {
+   "name": "AP-7 Cartagena – Vera",
+   "law": "SEITT tariff 2026 (ap7cv), cash and tag prices including 21% IVA, here excluding it; free 00:00–06:00",
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ],
+   "directed": true,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Cuevas del Almanzora",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.305606,
+       "lon": -1.799766
+      },
+      {
+       "name": "booth",
+       "lat": 37.305546,
+       "lon": -1.799638
+      }
+     ]
+    },
+    {
+     "name": "Pulpí",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.390658,
+       "lon": -1.727379
+      },
+      {
+       "name": "booth",
+       "lat": 37.390601,
+       "lon": -1.727226
+      }
+     ]
+    },
+    {
+     "name": "Águilas",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.436322,
+       "lon": -1.620227
+      },
+      {
+       "name": "booth",
+       "lat": 37.436241,
+       "lon": -1.620125
+      }
+     ]
+    },
+    {
+     "name": "Cabo Cope",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.492336,
+       "lon": -1.506919
+      },
+      {
+       "name": "booth",
+       "lat": 37.492434,
+       "lon": -1.50684
+      }
+     ]
+    },
+    {
+     "name": "Ramonete",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.547009,
+       "lon": -1.435903
+      },
+      {
+       "name": "booth",
+       "lat": 37.546862,
+       "lon": -1.435878
+      }
+     ]
+    },
+    {
+     "name": "Mazarrón",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.599864,
+       "lon": -1.336067
+      },
+      {
+       "name": "booth",
+       "lat": 37.599808,
+       "lon": -1.335896
+      }
+     ]
+    },
+    {
+     "name": "Las Palas",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 37.647793,
+       "lon": -1.178289
+      },
+      {
+       "name": "booth",
+       "lat": 37.647672,
+       "lon": -1.178284
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Cuevas del Almanzora|Pulpí": {
+     "Pesados 1": 1.5702,
+     "Pesados 2": 2.2314
+    },
+    "Cuevas del Almanzora|Águilas": {
+     "Pesados 1": 3.1405,
+     "Pesados 2": 4.4628
+    },
+    "Cuevas del Almanzora|Cabo Cope": {
+     "Pesados 1": 4.7521,
+     "Pesados 2": 6.7769
+    },
+    "Cuevas del Almanzora|Ramonete": {
+     "Pesados 1": 5.9091,
+     "Pesados 2": 8.4298
+    },
+    "Cuevas del Almanzora|Mazarrón": {
+     "Pesados 1": 7.5207,
+     "Pesados 2": 10.7438
+    },
+    "Cuevas del Almanzora|Las Palas": {
+     "Pesados 1": 9.5868,
+     "Pesados 2": 13.6777
+    },
+    "Pulpí|Cuevas del Almanzora": {
+     "Pesados 1": 1.5702,
+     "Pesados 2": 2.2314
+    },
+    "Pulpí|Águilas": {
+     "Pesados 1": 1.6116,
+     "Pesados 2": 2.2727
+    },
+    "Pulpí|Cabo Cope": {
+     "Pesados 1": 3.2231,
+     "Pesados 2": 4.5868
+    },
+    "Pulpí|Ramonete": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.2397
+    },
+    "Pulpí|Mazarrón": {
+     "Pesados 1": 5.9917,
+     "Pesados 2": 8.5124
+    },
+    "Pulpí|Las Palas": {
+     "Pesados 1": 8.0579,
+     "Pesados 2": 11.4876
+    },
+    "Águilas|Cuevas del Almanzora": {
+     "Pesados 1": 3.1405,
+     "Pesados 2": 4.4628
+    },
+    "Águilas|Pulpí": {
+     "Pesados 1": 1.6116,
+     "Pesados 2": 2.2727
+    },
+    "Águilas|Cabo Cope": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.314
+    },
+    "Águilas|Ramonete": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Águilas|Mazarrón": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.281
+    },
+    "Águilas|Las Palas": {
+     "Pesados 1": 6.4463,
+     "Pesados 2": 9.2149
+    },
+    "Cabo Cope|Cuevas del Almanzora": {
+     "Pesados 1": 4.7521,
+     "Pesados 2": 6.7769
+    },
+    "Cabo Cope|Pulpí": {
+     "Pesados 1": 3.2231,
+     "Pesados 2": 4.5868
+    },
+    "Cabo Cope|Águilas": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.314
+    },
+    "Cabo Cope|Ramonete": {
+     "Pesados 1": 1.157,
+     "Pesados 2": 1.6529
+    },
+    "Cabo Cope|Mazarrón": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Cabo Cope|Las Palas": {
+     "Pesados 1": 4.8347,
+     "Pesados 2": 6.9421
+    },
+    "Ramonete|Cuevas del Almanzora": {
+     "Pesados 1": 5.9091,
+     "Pesados 2": 8.4298
+    },
+    "Ramonete|Pulpí": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.2397
+    },
+    "Ramonete|Águilas": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Ramonete|Cabo Cope": {
+     "Pesados 1": 1.157,
+     "Pesados 2": 1.6529
+    },
+    "Ramonete|Mazarrón": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.314
+    },
+    "Ramonete|Las Palas": {
+     "Pesados 1": 3.719,
+     "Pesados 2": 5.2893
+    },
+    "Mazarrón|Cuevas del Almanzora": {
+     "Pesados 1": 7.5207,
+     "Pesados 2": 10.7438
+    },
+    "Mazarrón|Pulpí": {
+     "Pesados 1": 5.9917,
+     "Pesados 2": 8.5124
+    },
+    "Mazarrón|Águilas": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.281
+    },
+    "Mazarrón|Cabo Cope": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9669
+    },
+    "Mazarrón|Ramonete": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.314
+    },
+    "Mazarrón|Las Palas": {
+     "Pesados 1": 2.0661,
+     "Pesados 2": 2.9752
+    },
+    "Las Palas|Cuevas del Almanzora": {
+     "Pesados 1": 9.5868,
+     "Pesados 2": 13.6777
+    },
+    "Las Palas|Pulpí": {
+     "Pesados 1": 8.0579,
+     "Pesados 2": 11.4876
+    },
+    "Las Palas|Águilas": {
+     "Pesados 1": 6.4463,
+     "Pesados 2": 9.2149
+    },
+    "Las Palas|Cabo Cope": {
+     "Pesados 1": 4.8347,
+     "Pesados 2": 6.9421
+    },
+    "Las Palas|Ramonete": {
+     "Pesados 1": 3.719,
+     "Pesados 2": 5.2893
+    },
+    "Las Palas|Mazarrón": {
+     "Pesados 1": 2.0661,
+     "Pesados 2": 2.9752
+    }
+   },
+   "etc_prices": {
+    "Cuevas del Almanzora|Pulpí": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "Cuevas del Almanzora|Águilas": {
+     "Pesados 1": 2.8926,
+     "Pesados 2": 4.0496
+    },
+    "Cuevas del Almanzora|Cabo Cope": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.1157
+    },
+    "Cuevas del Almanzora|Ramonete": {
+     "Pesados 1": 5.4545,
+     "Pesados 2": 7.6033
+    },
+    "Cuevas del Almanzora|Mazarrón": {
+     "Pesados 1": 6.9008,
+     "Pesados 2": 9.6694
+    },
+    "Cuevas del Almanzora|Las Palas": {
+     "Pesados 1": 8.843,
+     "Pesados 2": 12.3554
+    },
+    "Pulpí|Cuevas del Almanzora": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "Pulpí|Águilas": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.0661
+    },
+    "Pulpí|Cabo Cope": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.1322
+    },
+    "Pulpí|Ramonete": {
+     "Pesados 1": 4.0083,
+     "Pesados 2": 5.6198
+    },
+    "Pulpí|Mazarrón": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.686
+    },
+    "Pulpí|Las Palas": {
+     "Pesados 1": 7.3967,
+     "Pesados 2": 10.3306
+    },
+    "Águilas|Cuevas del Almanzora": {
+     "Pesados 1": 2.8926,
+     "Pesados 2": 4.0496
+    },
+    "Águilas|Pulpí": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.0661
+    },
+    "Águilas|Cabo Cope": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.1074
+    },
+    "Águilas|Ramonete": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Águilas|Mazarrón": {
+     "Pesados 1": 4.0496,
+     "Pesados 2": 5.6612
+    },
+    "Águilas|Las Palas": {
+     "Pesados 1": 5.9504,
+     "Pesados 2": 8.3058
+    },
+    "Cabo Cope|Cuevas del Almanzora": {
+     "Pesados 1": 4.3802,
+     "Pesados 2": 6.1157
+    },
+    "Cabo Cope|Pulpí": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.1322
+    },
+    "Cabo Cope|Águilas": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.1074
+    },
+    "Cabo Cope|Ramonete": {
+     "Pesados 1": 1.0744,
+     "Pesados 2": 1.4876
+    },
+    "Cabo Cope|Mazarrón": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Cabo Cope|Las Palas": {
+     "Pesados 1": 4.4628,
+     "Pesados 2": 6.2397
+    },
+    "Ramonete|Cuevas del Almanzora": {
+     "Pesados 1": 5.4545,
+     "Pesados 2": 7.6033
+    },
+    "Ramonete|Pulpí": {
+     "Pesados 1": 4.0083,
+     "Pesados 2": 5.6198
+    },
+    "Ramonete|Águilas": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Ramonete|Cabo Cope": {
+     "Pesados 1": 1.0744,
+     "Pesados 2": 1.4876
+    },
+    "Ramonete|Mazarrón": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.1074
+    },
+    "Ramonete|Las Palas": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7521
+    },
+    "Mazarrón|Cuevas del Almanzora": {
+     "Pesados 1": 6.9008,
+     "Pesados 2": 9.6694
+    },
+    "Mazarrón|Pulpí": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.686
+    },
+    "Mazarrón|Águilas": {
+     "Pesados 1": 4.0496,
+     "Pesados 2": 5.6612
+    },
+    "Mazarrón|Cabo Cope": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5537
+    },
+    "Mazarrón|Ramonete": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.1074
+    },
+    "Mazarrón|Las Palas": {
+     "Pesados 1": 1.9008,
+     "Pesados 2": 2.686
+    },
+    "Las Palas|Cuevas del Almanzora": {
+     "Pesados 1": 8.843,
+     "Pesados 2": 12.3554
+    },
+    "Las Palas|Pulpí": {
+     "Pesados 1": 7.3967,
+     "Pesados 2": 10.3306
+    },
+    "Las Palas|Águilas": {
+     "Pesados 1": 5.9504,
+     "Pesados 2": 8.3058
+    },
+    "Las Palas|Cabo Cope": {
+     "Pesados 1": 4.4628,
+     "Pesados 2": 6.2397
+    },
+    "Las Palas|Ramonete": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7521
+    },
+    "Las Palas|Mazarrón": {
+     "Pesados 1": 1.9008,
+     "Pesados 2": 2.686
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,520 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "valid_from": "2020-01-01",
+ "osm_extract": "2026-11-13",
+ "name": "Göteborg congestion tax (trängselskatt)",
+ "law": "Lag (2004:629) om trängselskatt, bilaga 2: per passage of a charging station, by time of day; passages within 60 minutes pay once; at most 60 SEK a day; weekdays, not the day before a public holiday nor in July. Foreign-registered vehicles pay too (4 §). Stations: Transportstyrelsen's gantries in OpenStreetMap; the Backa stations (taxed only with a control point within 30 minutes) are left out.",
+ "sources": [
+  {
+   "title": "Lag (2004:629) om trängselskatt, consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-2004-629.html"
+  },
+  {
+   "title": "Transportstyrelsen: Trängselskatt i Göteborg",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/trangselskatt/trangselskatt-i-goteborg/"
+  }
+ ],
+ "congestion": {
+  "schedules": {
+   "goteborg": [
+    {
+     "from": "06:00",
+     "to": "06:29",
+     "amount": 9
+    },
+    {
+     "from": "06:30",
+     "to": "06:59",
+     "amount": 16
+    },
+    {
+     "from": "07:00",
+     "to": "07:59",
+     "amount": 22
+    },
+    {
+     "from": "08:00",
+     "to": "08:29",
+     "amount": 16
+    },
+    {
+     "from": "08:30",
+     "to": "14:59",
+     "amount": 9
+    },
+    {
+     "from": "15:00",
+     "to": "15:29",
+     "amount": 16
+    },
+    {
+     "from": "15:30",
+     "to": "16:59",
+     "amount": 22
+    },
+    {
+     "from": "17:00",
+     "to": "17:59",
+     "amount": 16
+    },
+    {
+     "from": "18:00",
+     "to": "18:29",
+     "amount": 9
+    }
+   ]
+  },
+  "day_cap": 60,
+  "multi_pass_minutes": 60,
+  "july": "free"
+ },
+ "vehicles": "All vehicles, Swedish and foreign",
+ "tolled_roads": "The charging stations of Göteborg.",
+ "crossings": true,
+ "point_match_km": 0.03,
+ "toll_points": [
+  {
+   "name": "Backavägen",
+   "lat": 57.726695,
+   "lon": 11.960293,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Backavägen",
+   "lat": 57.726708,
+   "lon": 11.960411,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Bäcktuvevägen",
+   "lat": 57.738877,
+   "lon": 11.941023,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Dag Hammarskjöldsleden",
+   "lat": 57.677979,
+   "lon": 11.942343,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Dag Hammarskjöldsleden",
+   "lat": 57.678052,
+   "lon": 11.942191,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Deltavägen",
+   "lat": 57.728491,
+   "lon": 11.954217,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Doktor Allards gata",
+   "lat": 57.681557,
+   "lon": 11.97867,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E20 Alingsåsleden",
+   "lat": 57.716739,
+   "lon": 11.99703,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E20 Alingsåsleden",
+   "lat": 57.716809,
+   "lon": 11.996879,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E20 Alingsåsleden",
+   "lat": 57.716836,
+   "lon": 11.996828,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E45 Marieholmsleden",
+   "lat": 57.719893,
+   "lon": 11.994042,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E45 Marieholmsleden",
+   "lat": 57.719971,
+   "lon": 11.993814,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E45 Marieholmsleden",
+   "lat": 57.720041,
+   "lon": 11.993656,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E45 Oscarsleden",
+   "lat": 57.699972,
+   "lon": 11.935866,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E45 Oscarsleden",
+   "lat": 57.700056,
+   "lon": 11.935856,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E6/E20 Kungsbackadalen",
+   "lat": 57.688468,
+   "lon": 12.001024,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E6/E20 Kungsbackadalen",
+   "lat": 57.688511,
+   "lon": 12.001208,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E6/E20 Kungsbackadalen",
+   "lat": 57.688946,
+   "lon": 12.001224,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E6/E20 Kungsbackadalen",
+   "lat": 57.68898,
+   "lon": 12.00126,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "E6/E20 Kungsbackadalen",
+   "lat": 57.689876,
+   "lon": 12.000639,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Ehrenströmsgatan",
+   "lat": 57.679181,
+   "lon": 11.968675,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Emigrantvägen",
+   "lat": 57.700142,
+   "lon": 11.93583,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Fjällgatan",
+   "lat": 57.696135,
+   "lon": 11.945614,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Fridkullagatan",
+   "lat": 57.682431,
+   "lon": 11.987621,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Gibraltargatan",
+   "lat": 57.68298,
+   "lon": 11.984495,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Hjalmar Brantingsgatan",
+   "lat": 57.720233,
+   "lon": 11.958062,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Hjalmar Brantingsgatan",
+   "lat": 57.720491,
+   "lon": 11.959389,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Karlavagnsgatan västra",
+   "lat": 57.708223,
+   "lon": 11.935306,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Karlavagnsgatan västra",
+   "lat": 57.708262,
+   "lon": 11.935219,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Karlavagnsgatan östra",
+   "lat": 57.711843,
+   "lon": 11.943,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Karlavagnsgatan östra",
+   "lat": 57.711887,
+   "lon": 11.942917,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Lindholmsallén",
+   "lat": 57.707609,
+   "lon": 11.935834,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Lindholmsallén",
+   "lat": 57.707799,
+   "lon": 11.935578,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Margretebergsgatan",
+   "lat": 57.680836,
+   "lon": 11.943236,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Marieholmsgatan",
+   "lat": 57.720737,
+   "lon": 11.990771,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Minelundsvägen",
+   "lat": 57.729709,
+   "lon": 11.952982,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Mölndalsvägen",
+   "lat": 57.685017,
+   "lon": 11.999292,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Mölndalsvägen",
+   "lat": 57.685066,
+   "lon": 11.999522,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Olskroksmotet avfart E20",
+   "lat": 57.71523,
+   "lon": 11.995101,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Olskroksmotet avfart E6",
+   "lat": 57.714804,
+   "lon": 11.994939,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Partihandelsgatan",
+   "lat": 57.718604,
+   "lon": 11.994543,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Polstjärnegatan",
+   "lat": 57.710569,
+   "lon": 11.936477,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Redbergsvägen",
+   "lat": 57.71365,
+   "lon": 11.995002,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Redbergsvägen",
+   "lat": 57.713984,
+   "lon": 11.994831,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Redbergsvägen",
+   "lat": 57.714093,
+   "lon": 11.994845,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Ringömotet",
+   "lat": 57.723791,
+   "lon": 11.983841,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Ringömotet",
+   "lat": 57.723888,
+   "lon": 11.984041,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Ringömotet",
+   "lat": 57.725797,
+   "lon": 11.975423,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Ringömotet",
+   "lat": 57.726217,
+   "lon": 11.976992,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Salsmästaregatan",
+   "lat": 57.724022,
+   "lon": 11.984639,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Sankt Sigfridsgatan",
+   "lat": 57.689181,
+   "lon": 12.00497,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Sankt Sigfridsgatan",
+   "lat": 57.689507,
+   "lon": 12.004934,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Stigbergsliden",
+   "lat": 57.699445,
+   "lon": 11.93684,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Stigbergsliden",
+   "lat": 57.699516,
+   "lon": 11.936291,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Tuvevägen",
+   "lat": 57.738903,
+   "lon": 11.941296,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Tuvevägen",
+   "lat": 57.738921,
+   "lon": 11.941515,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Willinsbron",
+   "lat": 57.709221,
+   "lon": 11.997049,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Willinsbron",
+   "lat": 57.709296,
+   "lon": 11.997029,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Älvsborgsbron",
+   "lat": 57.694811,
+   "lon": 11.899047,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Älvsborgsbron",
+   "lat": 57.694844,
+   "lon": 11.899224,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Örgrytevägen",
+   "lat": 57.697713,
+   "lon": 11.997301,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Örgrytevägen",
+   "lat": 57.697882,
+   "lon": 11.997246,
+   "rate": 0,
+   "schedule": "goteborg"
+  },
+  {
+   "name": "Örgrytevägen",
+   "lat": 57.697915,
+   "lon": 11.997234,
+   "rate": 0,
+   "schedule": "goteborg"
+  }
+ ],
+ "rows": []
+}

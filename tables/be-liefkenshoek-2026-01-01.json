@@ -1,0 +1,42 @@
+{
+ "country": "BE",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Liefkenshoektunnel toll (Antwerp)",
+ "law": "NV Tunnel Liefkenshoek's tariffs 2026: category 2 (vehicles 3 m high or more; trucks over 3.5 t are taken to be) per passage either way, VAT included: EUR 25.00 cash (standaardtarief) 06:01-21:59 and 8.00 22:00-06:00; `etc` the Teletolbadge & OBU price, 17.60 and 4.40 (bank, fuel or credit card: 21.90 and 6.20, not modelled). Without a departure time, the day price.",
+ "sources": [
+  {
+   "title": "NV Tunnel Liefkenshoek: Tarieven & abonnement, and Veelgestelde vragen (categories) (read in Chrome: tools/tables/browser/be-liefkenshoek.txt)",
+   "url": "https://www.liefkenshoektunnel.be/nl/tarieven-abonnementen"
+  }
+ ],
+ "vehicles": "Category 2: vehicles 3 m high or more (here: trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "The Liefkenshoektunnel (R2, Antwerp), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Liefkenshoektunnel",
+   "lat": 51.286289,
+   "lon": 4.289465,
+   "rate": 0,
+   "night_hours": [
+    "22:00",
+    "06:00"
+   ],
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 25.0,
+     "etc_rate": 17.6,
+     "night_rate": 8.0,
+     "night_etc_rate": 4.4
+    }
+   ]
+  }
+ ],
+ "rows": [],
+ "valid_to": "2026-12-31"
+}

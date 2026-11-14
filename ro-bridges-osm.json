@@ -1,0 +1,475 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T12:11:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "way",
+  "id": 12896703,
+  "bounds": {
+    "minlat": 44.7527694,
+    "minlon": 27.8674489,
+    "maxlat": 44.7556478,
+    "maxlon": 27.8859851
+  },
+  "geometry": [
+    { "lat": 44.7527694, "lon": 27.8859851 },
+    { "lat": 44.7537379, "lon": 27.8796991 },
+    { "lat": 44.7556478, "lon": 27.8674489 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "bridge": "yes",
+    "highway": "trunk",
+    "horse": "no",
+    "int_ref": "E 60",
+    "lanes": "4",
+    "layer": "1",
+    "maxspeed": "100",
+    "oneway": "no",
+    "ref": "DN2A",
+    "smoothness": "good",
+    "surface": "asphalt",
+    "surface_survey": "iun - 2026"
+  }
+},
+{
+  "type": "way",
+  "id": 15241694,
+  "bounds": {
+    "minlat": 44.3311201,
+    "minlon": 28.0270503,
+    "maxlat": 44.3315275,
+    "maxlon": 28.0272687
+  },
+  "geometry": [
+    { "lat": 44.3315275, "lon": 28.0270503 },
+    { "lat": 44.3311201, "lon": 28.0272687 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2010",
+    "surface": "asphalt",
+    "surface-survey": "24JAN2010_uzunu@motociclism.ro",
+    "surface_survey": "04SEP2011 owene"
+  }
+},
+{
+  "type": "way",
+  "id": 33231963,
+  "bounds": {
+    "minlat": 44.3367962,
+    "minlon": 28.0103578,
+    "maxlat": 44.3416221,
+    "maxlon": 28.0249373
+  },
+  "geometry": [
+    { "lat": 44.3367962, "lon": 28.0249373 },
+    { "lat": 44.3369985, "lon": 28.0248445 },
+    { "lat": 44.3371869, "lon": 28.0247353 },
+    { "lat": 44.3373473, "lon": 28.0246307 },
+    { "lat": 44.3375135, "lon": 28.0244966 },
+    { "lat": 44.3377438, "lon": 28.0242634 },
+    { "lat": 44.3379471, "lon": 28.0239919 },
+    { "lat": 44.3380925, "lon": 28.0237758 },
+    { "lat": 44.3382507, "lon": 28.0234950 },
+    { "lat": 44.3383176, "lon": 28.0233511 },
+    { "lat": 44.3383924, "lon": 28.0231674 },
+    { "lat": 44.3384608, "lon": 28.0229799 },
+    { "lat": 44.3385289, "lon": 28.0227380 },
+    { "lat": 44.3385683, "lon": 28.0225764 },
+    { "lat": 44.3386096, "lon": 28.0223863 },
+    { "lat": 44.3386568, "lon": 28.0221522 },
+    { "lat": 44.3386981, "lon": 28.0219158 },
+    { "lat": 44.3387460, "lon": 28.0216069 },
+    { "lat": 44.3388249, "lon": 28.0210764 },
+    { "lat": 44.3389131, "lon": 28.0205749 },
+    { "lat": 44.3389783, "lon": 28.0202339 },
+    { "lat": 44.3390487, "lon": 28.0199031 },
+    { "lat": 44.3391293, "lon": 28.0195775 },
+    { "lat": 44.3392263, "lon": 28.0191992 },
+    { "lat": 44.3393333, "lon": 28.0187999 },
+    { "lat": 44.3398081, "lon": 28.0170200 },
+    { "lat": 44.3412818, "lon": 28.0115829 },
+    { "lat": 44.3416221, "lon": 28.0103578 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "100",
+    "maxspeed:conditional": "60 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "start_date": "1987",
+    "status": "AC,builder:MARISTAR,progress_estimate:90%/27.05.2021",
+    "surface": "asphalt",
+    "surface_survey": "2021MAY_RobertH@peundemerg.ro"
+  }
+},
+{
+  "type": "way",
+  "id": 132329735,
+  "bounds": {
+    "minlat": 44.3311636,
+    "minlon": 28.0272262,
+    "maxlat": 44.3315769,
+    "maxlon": 28.0274467
+  },
+  "geometry": [
+    { "lat": 44.3311636, "lon": 28.0274467 },
+    { "lat": 44.3315769, "lon": 28.0272262 }
+  ],
+  "tags": {
+    "access": "yes",
+    "access:note": "started operation 2012",
+    "bicycle": "no",
+    "bridge": "yes",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2010",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 223845533,
+  "bounds": {
+    "minlat": 44.3448834,
+    "minlon": 28.0013562,
+    "maxlat": 44.3453888,
+    "maxlon": 28.0029275
+  },
+  "geometry": [
+    { "lat": 44.3453888, "lon": 28.0013562 },
+    { "lat": 44.3453314, "lon": 28.0016189 },
+    { "lat": 44.3452895, "lon": 28.0017845 },
+    { "lat": 44.3451752, "lon": 28.0021620 },
+    { "lat": 44.3450247, "lon": 28.0025770 },
+    { "lat": 44.3448834, "lon": 28.0029275 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "1987",
+    "surface": "asphalt",
+    "surface_survey": "04SEP2011 owene",
+    "survey:date": "2018AUG"
+  }
+},
+{
+  "type": "way",
+  "id": 223845534,
+  "bounds": {
+    "minlat": 44.3449726,
+    "minlon": 28.0013977,
+    "maxlat": 44.3454929,
+    "maxlon": 28.0030033
+  },
+  "geometry": [
+    { "lat": 44.3449726, "lon": 28.0030033 },
+    { "lat": 44.3451038, "lon": 28.0026923 },
+    { "lat": 44.3452636, "lon": 28.0022354 },
+    { "lat": 44.3453863, "lon": 28.0018303 },
+    { "lat": 44.3454306, "lon": 28.0016662 },
+    { "lat": 44.3454929, "lon": 28.0013977 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "1987",
+    "status": "AC,builder:MARISTAR,progress_estimate:90%/27.05.2021",
+    "surface": "asphalt",
+    "surface_survey": "2021MAY_RobertH@peundemerg.ro"
+  }
+},
+{
+  "type": "way",
+  "id": 223845537,
+  "bounds": {
+    "minlat": 44.3378709,
+    "minlon": 28.0102252,
+    "maxlat": 44.3411733,
+    "maxlon": 28.0226770
+  },
+  "geometry": [
+    { "lat": 44.3411733, "lon": 28.0102252 },
+    { "lat": 44.3410782, "lon": 28.0109144 },
+    { "lat": 44.3410111, "lon": 28.0113903 },
+    { "lat": 44.3409432, "lon": 28.0117929 },
+    { "lat": 44.3408719, "lon": 28.0121661 },
+    { "lat": 44.3407964, "lon": 28.0125018 },
+    { "lat": 44.3407064, "lon": 28.0128791 },
+    { "lat": 44.3406184, "lon": 28.0132410 },
+    { "lat": 44.3392942, "lon": 28.0181661 },
+    { "lat": 44.3389873, "lon": 28.0192862 },
+    { "lat": 44.3383525, "lon": 28.0214979 },
+    { "lat": 44.3382582, "lon": 28.0217983 },
+    { "lat": 44.3381956, "lon": 28.0219711 },
+    { "lat": 44.3381581, "lon": 28.0220712 },
+    { "lat": 44.3380868, "lon": 28.0222461 },
+    { "lat": 44.3380200, "lon": 28.0223902 },
+    { "lat": 44.3379572, "lon": 28.0225190 },
+    { "lat": 44.3378709, "lon": 28.0226770 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "100",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "good",
+    "start_date": "1987",
+    "surface": "asphalt",
+    "surface_survey": "04SEP2011 owene",
+    "survey:date": "2018AUG"
+  }
+},
+{
+  "type": "way",
+  "id": 226837172,
+  "bounds": {
+    "minlat": 44.7033234,
+    "minlon": 27.8471930,
+    "maxlat": 44.7034874,
+    "maxlon": 27.8472430
+  },
+  "geometry": [
+    { "lat": 44.7034874, "lon": 27.8472430 },
+    { "lat": 44.7033234, "lon": 27.8471930 }
+  ],
+  "tags": {
+    "bridge": "yes",
+    "highway": "trunk",
+    "int_ref": "E 60",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "70",
+    "oneway": "no",
+    "ref": "DN2A",
+    "smoothness": "good",
+    "surface": "asphalt",
+    "surface_survey": "iun - 2026"
+  }
+},
+{
+  "type": "way",
+  "id": 704207636,
+  "bounds": {
+    "minlat": 44.3215160,
+    "minlon": 28.0312732,
+    "maxlat": 44.3229480,
+    "maxlon": 28.0319260
+  },
+  "geometry": [
+    { "lat": 44.3229480, "lon": 28.0312732 },
+    { "lat": 44.3215160, "lon": 28.0319260 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source": "Landsat imagery as of 2011 11 29",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2012",
+    "surface": "asphalt",
+    "surface_survey": "2018AUG"
+  }
+},
+{
+  "type": "way",
+  "id": 704207637,
+  "bounds": {
+    "minlat": 44.3253178,
+    "minlon": 28.0295668,
+    "maxlat": 44.3265119,
+    "maxlon": 28.0301440
+  },
+  "geometry": [
+    { "lat": 44.3265119, "lon": 28.0295668 },
+    { "lat": 44.3253178, "lon": 28.0301440 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source": "Landsat imagery as of 2011 11 29",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2012",
+    "surface": "asphalt",
+    "surface_survey": "2018AUG"
+  }
+},
+{
+  "type": "way",
+  "id": 704207639,
+  "bounds": {
+    "minlat": 44.3253604,
+    "minlon": 28.0297286,
+    "maxlat": 44.3265572,
+    "maxlon": 28.0302871
+  },
+  "geometry": [
+    { "lat": 44.3253604, "lon": 28.0302871 },
+    { "lat": 44.3265572, "lon": 28.0297286 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "motor_vehicle": "yes",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source": "Landsat imagery as of 2011 11 29",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2012",
+    "surface": "asphalt",
+    "surface_survey": "2018OCT_igp"
+  }
+},
+{
+  "type": "way",
+  "id": 704207641,
+  "bounds": {
+    "minlat": 44.3215535,
+    "minlon": 28.0314048,
+    "maxlat": 44.3229933,
+    "maxlon": 28.0320704
+  },
+  "geometry": [
+    { "lat": 44.3215535, "lon": 28.0320704 },
+    { "lat": 44.3229933, "lon": 28.0314048 }
+  ],
+  "tags": {
+    "access": "yes",
+    "bicycle": "no",
+    "bridge": "yes",
+    "foot": "no",
+    "highway": "motorway",
+    "horse": "no",
+    "int_ref": "E 81",
+    "lanes": "2",
+    "layer": "1",
+    "maxspeed": "130",
+    "maxspeed:conditional": "80 @ wet",
+    "maxspeed:conditional:source": "road signs",
+    "motor_vehicle": "yes",
+    "name": "Autostrada Soarelui",
+    "oneway": "yes",
+    "ref": "A2",
+    "smoothness": "excellent",
+    "source": "Landsat imagery as of 2011 11 29",
+    "source:maxspeed": "RO:motorway",
+    "start_date": "2012",
+    "surface": "asphalt",
+    "surface_survey": "2018OCT_igp"
+  }
+}
+
+  ]
+}

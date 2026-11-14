@@ -1,0 +1,42 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2026-11-13",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Humber Bridge toll",
+ "law": "Humber Bridge Board's tolls (Humber Bridge Acts 1959 and 2013) per crossing, either way, as published: two-axle vehicles of 3.5-7 t GBP 5.00, three axles or more over 7.5 t GBP 15.00; with `etc` the account price (4.00, 12.00). Two-axle trucks over 7 t are taken at the two-axle price. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Humber Bridge: Tolls and Ways to Pay (read in Chrome: tools/tables/browser/gb-humber.txt)",
+   "url": "https://www.humberbridge.co.uk/plan-your-trip/tolls-ways-to-pay/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Humber Bridge (A15), either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Humber Bridge",
+   "lat": 53.706846,
+   "lon": -0.450058,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 5.0,
+     "etc_rate": 4.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 15.0,
+     "etc_rate": 12.0
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

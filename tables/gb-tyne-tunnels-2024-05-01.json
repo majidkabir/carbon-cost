@@ -1,0 +1,51 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2024-05-01",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Tyne Tunnels toll",
+ "law": "Tyne and Wear Act 1976 s. 13 and the River Tyne (Tunnels) Order 2005: the River Tyne (Tunnels) (Revision of Toll) Order 2024 (S.I. 2024/479), in force from 2024-05-01: class 3 (vehicles other than motorcycles and those up to 3.5 t) per passage either way; with `etc` the permit holder's price after discount.",
+ "sources": [
+  {
+   "title": "S.I. 2024/479, the River Tyne (Tunnels) Revision of Toll Order 2024",
+   "url": "https://www.legislation.gov.uk/uksi/2024/479/made"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t (class 3)",
+ "min_kg": 3501,
+ "tolled_roads": "The Tyne Tunnels (A19, Jarrow-Howdon), free-flow, either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Tyne Tunnels",
+   "lat": 54.984689,
+   "lon": -1.486078,
+   "heading": 358.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 4.8,
+     "etc_rate": 4.32
+    }
+   ]
+  },
+  {
+   "name": "Tyne Tunnels",
+   "lat": 54.988309,
+   "lon": -1.484379,
+   "heading": 189.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 4.8,
+     "etc_rate": 4.32
+    }
+   ]
+  }
+ ],
+ "rows": [],
+ "valid_to": "2025-04-30"
+}

@@ -1,0 +1,44 @@
+{
+ "country": "AL",
+ "currency": "EUR",
+ "valid_from": "2026-11-13",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "A1 Rruga e Kombit toll (Milot–Morinë)",
+ "law": "The Milot–Morinë motorway concession contract (clauses 11.4.3 and 11.4.4), as ATRAKO, the state concessions agency, publishes it: EUR 5 with VAT per passage times the class's coefficient, class 4 (G: three axles, or commercial vehicles over 2.70 m) EUR 16.25, class 5 (H: four axles or more) EUR 22.5; trucks over 3.5 t with two or three axles are taken to be over 2.70 m. Excluding 20% VAT. Charged at the toll plaza by the Thirrë tunnel, either way. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "ATRAKO (Agjencia e Trajtimit të Koncesioneve): Rruga e Kombit",
+   "url": "https://atrako.gov.al/?p=1076"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): toll booths on the A1",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Classes 4 and 5 (here trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "A1 Rruga e Kombit, Milot–Morinë (one plaza, by the Thirrë/Kalimash tunnel).",
+ "point_match_km": 0.2,
+ "toll_points": [
+  {
+   "name": "Rruga e Kombit: Kalimash toll plaza",
+   "lat": 42.048682,
+   "lon": 20.31435,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 13.5417
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 18.75
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

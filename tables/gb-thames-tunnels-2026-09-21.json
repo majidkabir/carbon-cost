@@ -1,0 +1,98 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2026-09-21",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Blackwall and Silvertown tunnels charge",
+ "law": "The Silvertown Tunnel Order 2018 (user charges set by TfL): heavy goods vehicles (N2, N3) pay GBP 10.50 per crossing either way, 06:00-22:00 every day except Christmas Day, paid online or by phone; with `etc` the Auto Pay off-peak price, GBP 5.25 (Auto Pay's peak, weekdays 06:00-10:00 northbound and 16:00-19:00 southbound, is the full price, not modelled). From 2026-09-21 (TfL).",
+ "sources": [
+  {
+   "title": "Transport for London: paying the Blackwall and Silvertown tunnels charge (read in Chrome, as TfL refuses the workflow)",
+   "url": "https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges"
+  },
+  {
+   "title": "TfL press release PN-215 (23 July 2026): current and new user charges",
+   "url": "https://tfl-newsroom.prgloo.com/news/new-report-shows-one-year-old-silvertown-tunnel-cuts-congestion-and-boosts-bus-use-alongside-improved-air-quality"
+  }
+ ],
+ "vehicles": "Heavy goods vehicles (N2, N3: over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "The Blackwall Tunnel (A102) and the Silvertown Tunnel under the Thames, each bore, either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Blackwall and Silvertown tunnels",
+   "lat": 51.505044,
+   "lon": -0.001316,
+   "heading": 130.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 10.5,
+     "etc_rate": 5.25
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "Blackwall and Silvertown tunnels",
+   "lat": 51.503838,
+   "lon": -0.004038,
+   "heading": 306.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 10.5,
+     "etc_rate": 5.25
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "Blackwall and Silvertown tunnels",
+   "lat": 51.501149,
+   "lon": 0.011221,
+   "heading": 232.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 10.5,
+     "etc_rate": 5.25
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "Blackwall and Silvertown tunnels",
+   "lat": 51.501226,
+   "lon": 0.010812,
+   "heading": 52.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 10.5,
+     "etc_rate": 5.25
+    }
+   ],
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  }
+ ],
+ "rows": []
+}

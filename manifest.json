@@ -1,0 +1,2061 @@
+{
+ "files": [
+  {
+   "file": "ro-tollro.html",
+   "url": "https://portal.etoll.ro/web/guest/tollro",
+   "status": 200,
+   "size": 154858,
+   "sha256": "79cdf06e6cf15cc2ef01c9554d03a0be55e31c8cbabe9e3f2fa5098aac1a02d2",
+   "fetched": "2026-11-14T11:13:26Z"
+  },
+  {
+   "file": "ro-active-pricing-offer-1.json",
+   "url": "https://portal.etoll.ro:443/web/guest/tollro?p_p_id=digitalizeportlet_WAR_digitalizeportlet_INSTANCE_cmig&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage&productClass=PER_KM&lang=ro&rest_path=%2Fpricing-offers%2Factive-pricing-offer&rest_method=GET",
+   "status": 200,
+   "size": 21034,
+   "sha256": "d81a52c3ee204d5a03e8ca8ec6708a883d4ff8acbc86bf183af71e2d4f56a8dd",
+   "fetched": "2026-11-14T11:13:28Z"
+  },
+  {
+   "file": "dk-storebaelt.html",
+   "url": "https://storebaelt.dk/priser-rabatter/erhverv/",
+   "status": 200,
+   "size": 250648,
+   "sha256": "b8e96387ddca65ff39e04ff2a0e84b5ff89f6818c20147da7f775d2fa3ffec6c",
+   "fetched": "2026-11-14T11:13:29Z"
+  },
+  {
+   "file": "dk-oresund.html",
+   "url": "https://www.oresundsbron.com/da/erhverv/lastbil",
+   "status": 200,
+   "size": 405876,
+   "sha256": "0b8b55663bce11a4b49a1575cabd05677df6e611fa2d2d4b7d5398ecb00a2719",
+   "fetched": "2026-11-14T11:13:30Z"
+  },
+  {
+   "file": "hu-25-2013.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W",
+   "status": 200,
+   "size": 70979,
+   "sha256": "8de82ff2e42f94de599496312c0a46fc83530ca9927313ffb35e06f8ffd868f5",
+   "fetched": "2026-11-14T11:13:33Z"
+  },
+  {
+   "file": "hu-25-2013-block-1.html",
+   "url": "https://njt.jog.gov.hu/ajax/njtGetBlock.json (POST start 62 last 67)",
+   "status": 200,
+   "size": 2740920,
+   "sha256": "cbac215499d68dc964efc2f6c543533a24f8c53f8c2b2a690ffefe11743c2ea5",
+   "fetched": "2026-11-14T11:13:45Z"
+  },
+  {
+   "file": "hu-22-2023.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2023-22-20-8X",
+   "status": 200,
+   "size": 55589,
+   "sha256": "8f7b3556b66e91052c95e5299871f961414a46eb2a1a26bde8c3de7e8ac77424",
+   "fetched": "2026-11-14T11:13:46Z"
+  },
+  {
+   "file": "hu-34-2025.html",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2025-34-20-8X",
+   "status": 200,
+   "size": 55369,
+   "sha256": "0f1a416eb3ff15898c07c94167b1c23db479c915fff7019b937a4e4d0901f374",
+   "fetched": "2026-11-14T11:13:48Z"
+  },
+  {
+   "file": "fr-frejus-tunnel.pdf",
+   "url": "https://www.sftrf.fr/wp-content/uploads/2025/12/Tarifs_tunnel_2026_FR.pdf",
+   "status": 200,
+   "size": 804145,
+   "sha256": "e60b71e6a68c8d7813e933c63f5608d671aef4a298b37cdfdd1408ff8f240882",
+   "fetched": "2026-11-14T11:13:49Z"
+  },
+  {
+   "file": "fr-mont-blanc-tunnel.html",
+   "url": "https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/",
+   "status": 200,
+   "size": 135889,
+   "sha256": "c75178756a8db89e9808ca52936c6312bce4d7dbef8292b6fdaf14ac533289b8",
+   "fetched": "2026-11-14T11:13:51Z"
+  },
+  {
+   "file": "fr-a40-atmb.html",
+   "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/",
+   "status": 200,
+   "size": 136438,
+   "sha256": "86410f7ac3b07283b2e83a272c5fdbf7f51fbf6ffd8e45a4ace86caf5e6095c8",
+   "fetched": "2026-11-14T11:13:52Z"
+  },
+  {
+   "file": "fr-atlandes.jpg",
+   "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg",
+   "status": 200,
+   "size": 34418,
+   "sha256": "75b05d72014863c7e4a91b2d1ad496b3840bc01fb8e704edbe5c3e908262e631",
+   "fetched": "2026-11-14T11:13:53Z"
+  },
+  {
+   "file": "fr-albea.jpg",
+   "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg",
+   "status": 200,
+   "size": 149358,
+   "sha256": "947c53d18b24a8fa2e962162a0c2ceba119993596c13586bae61f430e3974b97",
+   "fetched": "2026-11-14T11:13:54Z"
+  },
+  {
+   "file": "lv-aln.html",
+   "url": "https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums",
+   "status": 200,
+   "size": 121858,
+   "sha256": "8ae7b3babc67039a14fdef2054ef03365248fe009e2a67c3c0a0eca3e3c019dd",
+   "fetched": "2026-11-14T11:13:56Z"
+  },
+  {
+   "file": "ee-ls.json",
+   "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/113032019015?leiaKehtiv=true",
+   "status": 200,
+   "size": 2141,
+   "sha256": "b003a76bf62017911e3395bdbae05b78d18c7ffac1a80ddba42da069e242b979",
+   "fetched": "2026-11-14T11:13:59Z"
+  },
+  {
+   "file": "ee-ls-text.html",
+   "url": "https://www.riigiteataja.ee/public-api/api/v1/akt/111072026045/blob-html",
+   "status": 200,
+   "size": 2136339,
+   "sha256": "75c93c2b217182bbe4963d5aceecff3696cbf20153ff7f28440ab2a8857388c5",
+   "fetched": "2026-11-14T11:14:01Z"
+  },
+  {
+   "file": "lt-447-asr.html",
+   "url": "https://e-seimas.lrs.lt/portal/legalAct/lt/TAD/TAIS.254521/asr",
+   "status": 403,
+   "size": 5662,
+   "sha256": "ef60e09bdf3e1ba2b3c19f97618a466d0213b33bce306117c4cbbe85b70943cb",
+   "fetched": "2026-11-14T11:14:01Z"
+  },
+  {
+   "file": "lt-447-etar.html",
+   "url": "https://www.e-tar.lt/portal/lt/legalAct/TAR.479B13E87700/asr",
+   "status": 403,
+   "size": 5644,
+   "sha256": "6eded365eca8ccf83a9b784aebce206dd2f784c0c7a7eea1816c4928c886c869",
+   "fetched": "2026-11-14T11:14:02Z"
+  },
+  {
+   "file": "lt-237-2026.html",
+   "url": "https://e-seimas.lrs.lt/rs/legalact/TAD/d634093034b711f19c389aefab77fb47/",
+   "status": 403,
+   "size": 5716,
+   "sha256": "4255a8ef1f857adde03fcd5fab874c868a5a87ef51910c4948b3b7a5ba0a5ac6",
+   "fetched": "2026-11-14T11:14:03Z"
+  },
+  {
+   "file": "se-1997-1137.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text",
+   "status": 200,
+   "size": 41670,
+   "sha256": "9af3cfa870ed022559cd21c4a0d5b31ee0df91b56fd72917df69a3c7d3678bb8",
+   "fetched": "2026-11-14T11:14:03Z"
+  },
+  {
+   "file": "se-2025-918.pdf",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf",
+   "status": 200,
+   "size": 425869,
+   "sha256": "1742294ec8acdaea1e5e131d107a5082bbbd8e19c3741190c372f27d2c6fc1c8",
+   "fetched": "2026-11-14T11:14:05Z"
+  },
+  {
+   "file": "lu-rgd-2019.html",
+   "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224/fr/html/eli-etat-leg-rgd-2019-05-21-a353-consolide-20241224-fr-html.html",
+   "status": 200,
+   "size": 137132,
+   "sha256": "e21762ca2519839a5daee87a7d07f6faaa3177947bf678503f9eb5ca1bcca1bc",
+   "fetched": "2026-11-14T11:14:06Z"
+  },
+  {
+   "file": "gb-levy-guide.html",
+   "url": "https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
+   "status": 200,
+   "size": 113916,
+   "sha256": "292a92f76d02fca949bc2649e89a93e67b737ad10676d1e57819de1fe51f0d2d",
+   "fetched": "2026-11-14T11:14:06Z"
+  },
+  {
+   "file": "no-nvdb-45.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000",
+   "status": 200,
+   "size": 1559302,
+   "sha256": "72d344a64af75b4c0299df4c9d6eafac01040f084dd9e254e03f626562235d6f",
+   "fetched": "2026-11-14T11:14:10Z"
+  },
+  {
+   "file": "no-nvdb-45-2.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&start=1027710378:2&antall=800",
+   "status": 200,
+   "size": 244,
+   "sha256": "1a5d903d74ae78a9eca5b3856ef1d6690cb82d03148d1e0fedeedd69d8920424",
+   "fetched": "2026-11-14T11:14:10Z"
+  },
+  {
+   "file": "no-nvdb-45-links-1.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=41394,41468,41587,41620,41628,41862,42003,42597,42636,42659,42831,72196,72218,72219,72314,72359,72810,72812,72814,72832,72848,72853,72854,72858,103768,104306,121303,121366,121488,121510,121514,121760,121800,180781,181261,181263,248928,248929,248930,248931,248945,248948,248950,249420,249421,249424,249425,249528,249534,249595",
+   "status": 200,
+   "size": 2607952,
+   "sha256": "ad2d52343d64f56f87bfae97818b846c61e5e777bbb8fa580121844361fb9413",
+   "fetched": "2026-11-14T11:14:14Z"
+  },
+  {
+   "file": "no-nvdb-45-links-2.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=249596,249662,249674,281957,282607,289118,319607,319722,319725,319740,319814,319821,319868,319875,319881,320132,320139,320152,320210,320223,320231,320233,320297,320485,320536,320544,320581,320582,320583,320624,320670,320678,320684,320689,320693,320695,320700,320742,320746,320754,384021,384037,384103,384339,384481,384566,404759,407618,443152,443308",
+   "status": 200,
+   "size": 2784923,
+   "sha256": "ca59ccd8ad8ce4e46174cca46482b746ad156f016333082208f2819734802739",
+   "fetched": "2026-11-14T11:14:17Z"
+  },
+  {
+   "file": "no-nvdb-45-links-3.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=443314,443317,443319,443603,443788,443841,443964,444232,444259,444290,490668,490705,521118,521176,521180,521181,521254,521397,521398,521400,521440,521465,578625,578626,603545,603696,603857,603903,603934,604031,604083,604149,604495,604510,604513,604551,604554,604555,604620,605010,605181,605242,605247,605343,605351,605375,605424,605435,605492,605495",
+   "status": 200,
+   "size": 2194342,
+   "sha256": "04b619c0923651f012de18144c953d983b39aa870f4b12e82f59f9fee354db70",
+   "fetched": "2026-11-14T11:14:19Z"
+  },
+  {
+   "file": "no-nvdb-45-links-4.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=605509,605569,605672,605692,605697,605800,605841,605848,605978,606025,617227,625212,625213,625215,625240,625286,625292,625294,625338,625342,625366,625367,625368,625369,625405,625426,625427,625442,625484,625500,625504,625530,625580,625602,625603,625604,625643,699850,702419,704759,705187,755378,804741,804770,804781,804784,804867,804911,804949,804961",
+   "status": 200,
+   "size": 1745517,
+   "sha256": "8f9cdc4d9a609afbe20fac2823b7e9ce72f1bfd4a9cd58a280f8156cccce2902",
+   "fetched": "2026-11-14T11:14:21Z"
+  },
+  {
+   "file": "no-nvdb-45-links-5.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=805054,805068,805081,805120,805137,805140,805293,805354,805391,805421,805614,805616,805617,805619,805643,805707,805712,805716,805722,805724,805744,805748,805789,805793,854449,854539,854680,885119,885156,885288,885912,886007,886041,943685,944133,944372,945690,971445,971469,971483,971490,971509,971657,971799,971804,971806,971807,971817,971842,971847",
+   "status": 200,
+   "size": 3204162,
+   "sha256": "338d560850ca2e8370c1c1eadc62e10bc85f657e5f58bd853275bc505f21d7b3",
+   "fetched": "2026-11-14T11:14:24Z"
+  },
+  {
+   "file": "no-nvdb-45-links-6.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=1014866,1014877,1014895,1014902,1014913,1014957,1057174,1057175,1057177,1057189,1057191,1057192,1057193,1057195,1060622,1060624,1060651,1060678,1108720,1108872,1108881,1109432,1109452,1109517,1109528,1109654,1110314,1125797,1125799,1125800,1125914,1125917,1125918,1125937,1126309,1175469,1175548,1175565,1175846,1216606,1216828,1672679,1684268,1684322,1686474,1688423,1696393,1696541,1716791,1719036",
+   "status": 200,
+   "size": 1425896,
+   "sha256": "c57703d3969846acbe74a26b63407f9c77ff07895725e03a02bda4cfe99d10e9",
+   "fetched": "2026-11-14T11:14:26Z"
+  },
+  {
+   "file": "no-nvdb-45-links-7.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=1719039,1719108,1719110,1822153,1885974,1955438,1993682,2014294,2037805,2037820,2039168,2046965,2128260,2252707,2252899,2258382,2258479,2269011,2282260,2282277,2343038,2343105,2352363,2352545,2353784,2370700,2370820,2378328,2394249,2410214,2411244,2411253,2449259,2486027,2490803,2490821,2490870,2499814,2499864,2562065,2562128,2583662,2676833,2677998,2678204,2679095,2679715,2680848,2684727,2708271",
+   "status": 200,
+   "size": 525853,
+   "sha256": "ff4940683f2487909ba065aa496f8dc5da61c592d9f18024ee206dff0cb43fb0",
+   "fetched": "2026-11-14T11:14:27Z"
+  },
+  {
+   "file": "no-nvdb-45-links-8.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=2721331,2722505,2725975,2725979,2725982,2725983,2725992,2726085,2726087,2726088,2744411,2788110,2788124,2797857,2799091,2803004,2809673,2809674,2816773,2822704,2822707,2823403,2823423,2982039,3106834,3112184,3112188,3118172,3122695,3134118,3144515,3144561,3149508,3151498,3153344,3154515,3154516,3159931,3159933,3160931,3182363,3188346,3214479,3225859,3256668,3263296,3293702,3306403,3306409,3306433",
+   "status": 200,
+   "size": 828662,
+   "sha256": "cc623c2a063271ffb952d22d9d487e5d1be70dab938515de741406ca0de8f948",
+   "fetched": "2026-11-14T11:14:28Z"
+  },
+  {
+   "file": "no-nvdb-45-links-9.json",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegnett/api/v4/veglenkesekvenser?srid=4326&ider=3306449,3366119,3366122,3366159,3366169,3366170,3366970,3367271,3384666,3402547,3402575,3403129,3407590,3441687,3441694,3486594,3486595,3500119,3508288,3605213,3662328,3718445,3816696,3861425,3904220,3904225,3921616,3938204,3950061,4009876,4098792",
+   "status": 200,
+   "size": 277986,
+   "sha256": "37e4d8bf95b14fa773799e699bcc4931907a3a19b479020e1c7a0c069160ac20",
+   "fetched": "2026-11-14T11:14:29Z"
+  },
+  {
+   "file": "ie-tii-2026.html",
+   "url": "https://www.tii.ie/en/news/press-releases/toll-charge-increase-from-1st-january-2026",
+   "status": 200,
+   "size": 23566,
+   "sha256": "9d8c65ee2a9a95a48c069669e89ddbac9a46ff9c8e452ac8de144abc9516159e",
+   "fetched": "2026-11-14T11:14:31Z"
+  },
+  {
+   "file": "ie-tii-locations.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/",
+   "status": 200,
+   "size": 25541,
+   "sha256": "b04efcb0803f362c64d13bb18a055f7f42912fc92cd151c00221852f08704098",
+   "fetched": "2026-11-14T11:14:31Z"
+  },
+  {
+   "file": "ie-tii-notices.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/statutory-notices/",
+   "status": 200,
+   "size": 49126,
+   "sha256": "9451ffc675ce07fadfc097b4d21ab92f189d432b5f0d6595badab190beaea102",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-m1.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/",
+   "status": 200,
+   "size": 24161,
+   "sha256": "fb6127d22e07d49d1aaa16c01a2866bd75377f9846bb1b4a3d5ae08167fd9859",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-m3.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/",
+   "status": 200,
+   "size": 23428,
+   "sha256": "3f9746e066212abfbf17b0b95be7c0e3f3cfc676976ddab60ace73339619ff22",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-m3-blackbull.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/",
+   "status": 200,
+   "size": 23294,
+   "sha256": "02f4892ee933319c14335f8a8a1f36e39b698abd06c8f5198f4840f2da0605d6",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-m4.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/",
+   "status": 200,
+   "size": 23893,
+   "sha256": "11f5e3a735ad7a1b51eda9c161ea877a065e52b44065331050cc170e89cf5893",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-n6.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/",
+   "status": 200,
+   "size": 22786,
+   "sha256": "51d7e514da1810efc8ca74fd878e88e2ed59ac22a2532d813c8bed8a80e7afc1",
+   "fetched": "2026-11-14T11:14:32Z"
+  },
+  {
+   "file": "ie-m7m8.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7m8-portlaoise-castletownportlaoise-cullahill/",
+   "status": 200,
+   "size": 23447,
+   "sha256": "76ab16d059e8df8efa4eeb726d4576b2ebf0a2362c5a96e44ff1d928b65e1f79",
+   "fetched": "2026-11-14T11:14:33Z"
+  },
+  {
+   "file": "ie-n8.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/",
+   "status": 200,
+   "size": 23050,
+   "sha256": "82850b00f42035120b739d7476aafaf096f5ab7d4a7254ba7aecd4d609f3c21a",
+   "fetched": "2026-11-14T11:14:33Z"
+  },
+  {
+   "file": "ie-limerick.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/",
+   "status": 200,
+   "size": 22607,
+   "sha256": "4bc34b9c4a14e312c8f7042a68dd56ca6e4b8fa988dda38872d54dd7b9bcdf11",
+   "fetched": "2026-11-14T11:14:33Z"
+  },
+  {
+   "file": "ie-n25.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/",
+   "status": 200,
+   "size": 22865,
+   "sha256": "86c76fb1c512a8b4aaf0af7250a06c0d03c0da29b1e6bedd0c9a830f74db011b",
+   "fetched": "2026-11-14T11:14:33Z"
+  },
+  {
+   "file": "ie-port-tunnel.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/dublin-port-tunnel/",
+   "status": 200,
+   "size": 22387,
+   "sha256": "81473df60e6601a6ebcb113990e50714e9aa7390353c098050eb732029e775da",
+   "fetched": "2026-11-14T11:14:33Z"
+  },
+  {
+   "file": "ie-m50.html",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/",
+   "status": 200,
+   "size": 25536,
+   "sha256": "963c99b24c484fb4709703cc35807f391c351738d496ed4f8db6e491add9b5e5",
+   "fetched": "2026-11-14T11:14:34Z"
+  },
+  {
+   "file": "se-2014-1564.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text",
+   "status": 200,
+   "size": 21652,
+   "sha256": "5faa044b673fb408cbbaac0482b3b85103c7b1ef5f19fae7b8b1530ec7f96500",
+   "fetched": "2026-11-14T11:14:34Z"
+  },
+  {
+   "file": "se-broavgift-motala.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/",
+   "status": 200,
+   "size": 181759,
+   "sha256": "ef439048dd4d55ae896bd4657b0c05e8d5a51b74405163a02679c1fcdecf8213",
+   "fetched": "2026-11-14T11:14:36Z"
+  },
+  {
+   "file": "se-broavgift-sundsvall.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-sundsvall/",
+   "status": 200,
+   "size": 181930,
+   "sha256": "57b53f76cd3d59e8cd2e0364dda8f097a0f7825a2e23bc472af501ed9566f8ba",
+   "fetched": "2026-11-14T11:14:37Z"
+  },
+  {
+   "file": "se-broavgift-skurubron.html",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-skurubron/",
+   "status": 200,
+   "size": 182395,
+   "sha256": "b80cff98710e8f9f0ab02e190b9b1e6e706d62af283fb9cd838122dcbef1cf29",
+   "fetched": "2026-11-14T11:14:38Z"
+  },
+  {
+   "file": "mk-odluka-2025.pdf",
+   "url": "https://roads.org.mk/wp-content/uploads/2025/09/%D0%9E%D0%B4%D0%BB%D1%83%D0%BA%D0%B0-%D0%BF%D0%B0%D1%82%D0%B0%D1%80%D0%B8%D0%BD%D0%B0.pdf",
+   "status": 200,
+   "size": 97908,
+   "sha256": "88b5bdf7709d28554d3ed975d5244080e65e5701acbb75a790445a3283e5bd04",
+   "fetched": "2026-11-14T11:14:40Z"
+  },
+  {
+   "file": "mk-odluka-2019.pdf",
+   "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf",
+   "status": 200,
+   "size": 380821,
+   "sha256": "4fb2e69db60deedc050499dab8c7fcecd8a4bdbc48f99b0859beecd593f7ca72",
+   "fetched": "2026-11-14T11:14:42Z"
+  },
+  {
+   "file": "me-autoput.html",
+   "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/",
+   "status": 200,
+   "size": 174095,
+   "sha256": "d42a31dae4364b165219d94a6cc0e4f2d7d4c5df55decef7327c873154a4d480",
+   "fetched": "2026-11-14T11:14:44Z"
+  },
+  {
+   "file": "me-sozina.html",
+   "url": "https://monteput.me/cjenovnik-tunel-sozina/",
+   "status": 200,
+   "size": 195995,
+   "sha256": "64d33e3bc07e7120e7691bab638b1abed1a1150ed4f3bae5df120393cc27a920",
+   "fetched": "2026-11-14T11:14:46Z"
+  },
+  {
+   "file": "gr-olympia.html",
+   "url": "https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "status": 200,
+   "size": 47421,
+   "sha256": "c59d3e15006cc6a699ede84f3a419b4c06372441790bf6b69bc2dc86053b7597",
+   "fetched": "2026-11-14T11:14:47Z"
+  },
+  {
+   "file": "gr-neaodos.html",
+   "url": "https://www.neaodos.gr/highways/tolls/",
+   "status": 200,
+   "size": 140066,
+   "sha256": "644e116e910f708c532aaed67d78369ea93b39c9c60d0decf2ed3d6d0cc93080",
+   "fetched": "2026-11-14T11:14:48Z"
+  },
+  {
+   "file": "gr-kentriki.html",
+   "url": "https://www.kentrikiodos.gr/highways/toll-fees/",
+   "status": 200,
+   "size": 136568,
+   "sha256": "66237dcfea931ce1d5101559577b6b8657d7ef760f33f04d85c88dc2ce2ae052",
+   "fetched": "2026-11-14T11:14:50Z"
+  },
+  {
+   "file": "gr-moreas.html",
+   "url": "https://www.moreas.com.gr/leitourgia/diodia",
+   "status": 200,
+   "size": 231054,
+   "sha256": "5977f624ea0afece7249e03bd397146d658405307030fc7c99cb4bc2ff0c3035",
+   "fetched": "2026-11-14T11:14:53Z"
+  },
+  {
+   "file": "gr-aegean.html",
+   "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/",
+   "status": 200,
+   "size": 159168,
+   "sha256": "49f8783569ee5de480c7787efa0c4252ab20b24d2a0d6706728e88c1990e5dbe",
+   "fetched": "2026-11-14T11:14:55Z"
+  },
+  {
+   "file": "rs-ba-cj-catrnja.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Catrnja.pdf",
+   "status": 200,
+   "size": 1294554,
+   "sha256": "2c0753fafdea4e976fafcae564c31145f7cd808794adf41a6d13bc220c7cad8a",
+   "fetched": "2026-11-14T11:14:57Z"
+  },
+  {
+   "file": "rs-ba-cj-drugovici.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Drugovici.pdf",
+   "status": 200,
+   "size": 1294452,
+   "sha256": "68b425d4ad0b460d01b093b1c52b014cac06d92a5e9f72ee6a859aec81defdc7",
+   "fetched": "2026-11-14T11:14:59Z"
+  },
+  {
+   "file": "rs-ba-cj-jakupovci.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Jakupovci.pdf",
+   "status": 200,
+   "size": 1300292,
+   "sha256": "f800839ed8ee8d0703d16b103251b9b7efd1a8f8b65ed4120232851050f84725",
+   "fetched": "2026-11-14T11:15:01Z"
+  },
+  {
+   "file": "rs-ba-cj-kladari.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Kladari.pdf",
+   "status": 200,
+   "size": 1301531,
+   "sha256": "d544c6f92936a21dc9fca9efa7641b708bed07ec04f24f56dfcaaf5b70311a68",
+   "fetched": "2026-11-14T11:15:03Z"
+  },
+  {
+   "file": "rs-ba-cj-kostajnica.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Kostajnica.pdf",
+   "status": 200,
+   "size": 1301003,
+   "sha256": "59df11db3458e65f5395e76efbd426c07bf8343e3cd26614b1968445b31f4aa3",
+   "fetched": "2026-11-14T11:15:06Z"
+  },
+  {
+   "file": "rs-ba-cj-laktasi.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Laktasi.pdf",
+   "status": 200,
+   "size": 1300068,
+   "sha256": "c66776cbc1bca260cc647f2741edd39e8ff349ffce70aa04e9a2616f4a143afe",
+   "fetched": "2026-11-14T11:15:07Z"
+  },
+  {
+   "file": "rs-ba-cj-nova-topola.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Nova-Topola.pdf",
+   "status": 200,
+   "size": 1305228,
+   "sha256": "40e7939ffea2e86e56c123b3cda35af784d9b5c0916347fa22c91c00509ddf5c",
+   "fetched": "2026-11-14T11:15:09Z"
+  },
+  {
+   "file": "rs-ba-cj-prnjavor.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Prnjavor.pdf",
+   "status": 200,
+   "size": 1325611,
+   "sha256": "e09f0036a0a719adc6033503b0e70f1aec459b17311e6fac0c452fd4c2f52bd6",
+   "fetched": "2026-11-14T11:15:11Z"
+  },
+  {
+   "file": "rs-ba-cj-aleksandrovac.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Aleksandrovac-2.pdf",
+   "status": 200,
+   "size": 1298427,
+   "sha256": "15e3fa98274dffe2b29581de74535c01185d9d69e081eec78c467aef264dd83a",
+   "fetched": "2026-11-14T11:15:14Z"
+  },
+  {
+   "file": "rs-ba-pravilnik-83-16.pdf",
+   "url": "https://api.autoputevirs.com/storage/wp-content/uploads/2024/10/Pravilnik-o-izmjeni-i-dopunu-Pravilnika-o-naplati-putarine-83-16.pdf",
+   "status": 200,
+   "size": 645758,
+   "sha256": "73c282126a92b015770477b6d8e69abb4ad61a7f311f7acb3f51abc0966798fb",
+   "fetched": "2026-11-14T11:15:15Z"
+  },
+  {
+   "file": "rs-ba-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2844.3%2C16.3%2C45.3%2C19.5%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%2844.3%2C16.3%2C45.3%2C19.5%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 952539,
+   "sha256": "275edfde1873b7e56d780626e1ff8c8386af46f4e1ddbcccf0ce3bbecba464b8",
+   "fetched": "2026-11-14T11:16:17Z"
+  },
+  {
+   "file": "ba-cjenovnik.html",
+   "url": "https://www.jpautoceste.ba/cjenovnik/",
+   "status": 200,
+   "size": 173191,
+   "sha256": "3566f896d1dae3907672162ba985dd780577817d006bf2c095d758ee40fd6c92",
+   "fetched": "2026-11-14T11:16:19Z"
+  },
+  {
+   "file": "ba-cjenovnik-2026-11.pdf",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2026/11/Cjenovnik-od-1.11.2026.-godine.pdf",
+   "status": 200,
+   "size": 404506,
+   "sha256": "1530e24ff305e9f067091389eab260150f122e7f06e3ed23f48e00d05768351b",
+   "fetched": "2026-11-14T11:16:20Z"
+  },
+  {
+   "file": "ba-obavijest-2026-11.html",
+   "url": "https://www.jpautoceste.ba/obavijest-o-primjeni-novog-cjenovnika-cestarine-na-autocesti-a1/",
+   "status": 200,
+   "size": 170281,
+   "sha256": "818e37250cc5a2e338292d33bd3c93afac6aaede54f32c9e7acc57bc5ec6071a",
+   "fetched": "2026-11-14T11:16:22Z"
+  },
+  {
+   "file": "ba-uredba-63-24.pdf",
+   "url": "http://www.upfbihpravnapomoc.ba/udocs/U41BBCAE_Uredba20o20naplati20naknade20za20koriC5A1tenje20autoceste20A1.pdf",
+   "status": 200,
+   "size": 289499,
+   "sha256": "03189addd06121409f177713631389837bce36cf49586d6ae1a5d8ccc20351d5",
+   "fetched": "2026-11-14T11:16:24Z"
+  },
+  {
+   "file": "ba-uredba-63-24-vlada.html",
+   "url": "https://fbihvlada.gov.ba/bs/13-uredba-o-naplati-naknade-za-koristenje-autoceste-a1",
+   "status": 200,
+   "size": 157475,
+   "sha256": "55172ad78bc3495d41a97ee2ff15851cb269d92df2654e6f0daa961dcc4413d3",
+   "fetched": "2026-11-14T11:16:26Z"
+  },
+  {
+   "file": "ba-uredbe-2024.html",
+   "url": "https://fbihvlada.gov.ba/bs/hronoloski-registar-uredbi-objavljenih-u-sluzbenim-novinama-fbih-u-2024-godini",
+   "status": 200,
+   "size": 53814,
+   "sha256": "05180c6637390437726da5e38bfc6febf356db8a42dac37f8dce5cd1d5876376",
+   "fetched": "2026-11-14T11:16:28Z"
+  },
+  {
+   "file": "al-atrako.html",
+   "url": "https://atrako.gov.al/?p=1076",
+   "status": 200,
+   "size": 58319,
+   "sha256": "c5fc8730b85327f66dfb6d03c41df23f34667144cb7488c156f0e85b3fc41d58",
+   "fetched": "2026-11-14T11:16:30Z"
+  },
+  {
+   "file": "al-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2841.5%2C19.6%2C42.3%2C20.7%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22A1%22%5D%2841.5%2C19.6%2C42.3%2C20.7%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 522102,
+   "sha256": "1668c6dd6c0227d04c44a17d4704c887addccb7c4dc02e8d584b717b93801e30",
+   "fetched": "2026-11-14T11:17:23Z"
+  },
+  {
+   "file": "es-bidegi.html",
+   "url": "https://www.bidegi.eus/es/tarifak",
+   "status": 200,
+   "size": 247264,
+   "sha256": "e908922f1c816a8acc45734c2f1c90c1c7a43a2db679941090e03ef9d59ebbce",
+   "fetched": "2026-11-14T11:17:25Z"
+  },
+  {
+   "file": "es-bidegi-2026.pdf",
+   "url": "https://www.bidegi.eus/documents/42696171/0/20251231TARIFAS2026.pdf/c4f3b69d-f07e-fbeb-d034-c37f0b978f2b",
+   "status": 200,
+   "size": 153479,
+   "sha256": "4ce4f32c21959088d6800f4e1478b1d6e843888ad6db637d9dcc7a24c9a51633",
+   "fetched": "2026-11-14T11:17:26Z"
+  },
+  {
+   "file": "es-bidegi-ap8-2026.pdf",
+   "url": "https://www.bidegi.eus/documents/42696171/0/2026__AP-8_AP-1_AP-636_tarifak.pdf/0c9dbcf3-f3e7-e6f6-709b-8cbb7d9da9d5",
+   "status": 200,
+   "size": 184501,
+   "sha256": "388a37fc0551616d943a97b98d112de97019a879ae5d18fc55aee70431462b2c",
+   "fetched": "2026-11-14T11:17:27Z"
+  },
+  {
+   "file": "es-bidegi-categories.pdf",
+   "url": "https://www.bidegi.eus/documents/42696171/0/Categoria+de+veh%C3%ADculos_CAS.pdf/07c6468b-5045-2d19-4a59-1f16a5062528",
+   "status": 200,
+   "size": 145885,
+   "sha256": "4132068a566116a20b9bd33dca67786a44672ad2b6e3c86cdffcd255df1501a4",
+   "fetched": "2026-11-14T11:17:28Z"
+  },
+  {
+   "file": "es-gipuzkoa-nf-5-2021.pdf",
+   "url": "https://egoitza.gipuzkoa.eus/ogasuna/normativa/docs/0001239c.pdf",
+   "status": 200,
+   "size": 759486,
+   "sha256": "dace4729663079b00ecc9a3b9271184c93d12f14dad8943f15f72cf7c0998498",
+   "fetched": "2026-11-14T11:17:31Z"
+  },
+  {
+   "file": "es-basque-links-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%3D%22motorway_link%22%5D%5B%22destination%22%5D%2842.95%2C-3.1%2C43.4%2C-1.75%29%3Bway%5B%22highway%22%3D%22motorway_link%22%5D%5B%22destination%3Aref%22%5D%2842.95%2C-3.1%2C43.4%2C-1.75%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%5B%22exit_to%22%5D%2842.95%2C-3.1%2C43.4%2C-1.75%29%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 564901,
+   "sha256": "698da8d9ba76ea29b844e3042d648edb39811d0da54286e53a1d42b516ca8a58",
+   "fetched": "2026-11-14T11:18:22Z"
+  },
+  {
+   "file": "es-ap68-links-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29%24%22%5D%5B%22ref%22~%22%28%5E%7C%3B%29%20%2A%28AP-68%29%20%2A%28%3B%7C%24%29%22%5D%2841.55%2C-3.05%2C43.30%2C-0.80%29-%3E.m%3B%28.m%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3Bnode%28w.m%29-%3E.n%3Bway%28bn.n%29%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29_link%24%22%5D%3Bnode%28around.m%3A1500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 1389476,
+   "sha256": "e60b31f94d8a277ffbe8b55390855f4e74e1d45b7f759b929fb609896aad299c",
+   "fetched": "2026-11-14T11:22:38Z"
+  },
+  {
+   "file": "es-ap53-links-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29%24%22%5D%5B%22ref%22~%22%28%5E%7C%3B%29%20%2A%28AP-53%29%20%2A%28%3B%7C%24%29%22%5D%2842.50%2C-8.65%2C42.95%2C-7.80%29-%3E.m%3B%28.m%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3Bnode%28w.m%29-%3E.n%3Bway%28bn.n%29%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29_link%24%22%5D%3Bnode%28around.m%3A1500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 354292,
+   "sha256": "257d77fdca5e9b39f5777c51a2c33a605085ca81db673e928c34646f36c49e55",
+   "fetched": "2026-11-14T11:23:08Z"
+  },
+  {
+   "file": "es-ap9-links-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29%24%22%5D%5B%22ref%22~%22%28%5E%7C%3B%29%20%2A%28AP-9%7CAP-9F%7CAP-9V%29%20%2A%28%3B%7C%24%29%22%5D%2841.90%2C-9.00%2C43.45%2C-8.00%29-%3E.m%3B%28.m%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3Bnode%28w.m%29-%3E.n%3Bway%28bn.n%29%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29_link%24%22%5D%3Bnode%28around.m%3A1500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 1279379,
+   "sha256": "c99494e0f676f4e5fc0490bb9e230e11a3f5a123d5fca71f42fa6ad374b7d73d",
+   "fetched": "2026-11-14T11:23:50Z"
+  },
+  {
+   "file": "es-radials-links-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29%24%22%5D%5B%22ref%22~%22%28%5E%7C%3B%29%20%2A%28R-2%7CR-3%7CR-4%7CR-5%7CM-12%29%20%2A%28%3B%7C%24%29%22%5D%2839.95%2C-4.15%2C40.80%2C-3.00%29-%3E.m%3B%28.m%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3Bnode%28w.m%29-%3E.n%3Bway%28bn.n%29%5B%22highway%22~%22%5E%28motorway%7Ctrunk%29_link%24%22%5D%3Bnode%28around.m%3A1500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 960886,
+   "sha256": "323a7bf5a6030e707b9a784795c9772c9272b32897a2cb189df3d8f032f6502c",
+   "fetched": "2026-11-14T11:24:28Z"
+  },
+  {
+   "file": "es-bidegi-n1-a15-2026.pdf",
+   "url": "https://www.bidegi.eus/documents/42696171/0/2026__N-I-A-15_tarifak.pdf/f1728e98-d55a-b934-c3ff-276649650617",
+   "status": 200,
+   "size": 133682,
+   "sha256": "a288fd19dafff251a365da7ffdfcdf6ab16033f7cf3da33bcb20ce64a9b5f5e5",
+   "fetched": "2026-11-14T11:24:29Z"
+  },
+  {
+   "file": "es-basque-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22highway%22~%22%5E%28motorway%7Ctrunk%7Cmotorway_link%7Ctrunk_link%29%24%22%5D%5B%22ref%22~%22%28%5E%7C%3B%29%20%2A%28N-I%7CA-15%7CAP-8%7CAP-1%7CAP-636%7CA-636%7CA-8%29%20%2A%28%3B%7C%24%29%22%5D%2842.85%2C-3.2%2C43.4%2C-1.75%29-%3E.w%3B%28.w%3Bnode%28w.w%29%5B%22highway%22%3D%22motorway_junction%22%5D%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2842.85%2C-3.2%2C43.4%2C-1.75%29%3Bnode%5B%22highway%22%3D%22toll_gantry%22%5D%2842.85%2C-3.2%2C43.4%2C-1.75%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 2028122,
+   "sha256": "6c5e49b2f588c9f7d26293b252d3f1bc8450814f3be171a0a1ba53d97c0fda72",
+   "fetched": "2026-11-14T11:25:11Z"
+  },
+  {
+   "file": "es-interbiak.html",
+   "url": "https://interbiak.bizkaia.eus/es/servicios/bidesaria",
+   "status": 200,
+   "size": 473604,
+   "sha256": "395d4d72fcdec1ab92cb996d6fc60c2f40734d6b8a5fc916a5105b9276c5c2f7",
+   "fetched": "2026-11-14T11:25:17Z"
+  },
+  {
+   "file": "es-interbiak-ap8-2026.pdf",
+   "url": "https://interbiak.bizkaia.eus/fitxategiak/Dokumentuak/Tarifas/Bidesariak%20AP8-AP1%2001-01-2026.pdf",
+   "status": 200,
+   "size": 151956,
+   "sha256": "b5d90fcfc52f3bb484095b2dba288528e22b484100f71cfed9b7428e5fb39b78",
+   "fetched": "2026-11-14T11:25:20Z"
+  },
+  {
+   "file": "es-interbiak-vsm-2026.pdf",
+   "url": "https://interbiak.bizkaia.eus/fitxategiak/Dokumentuak/Tarifas/Bidesariak%20VSM%2001-01-2026.pdf",
+   "status": 200,
+   "size": 123269,
+   "sha256": "bcfbee34237686b5e383e24491b7dac4e3186d6d4738cd6948c60d5ce2bcfb60",
+   "fetched": "2026-11-14T11:25:21Z"
+  },
+  {
+   "file": "es-interbiak-ppu.pdf",
+   "url": "https://interbiak.bizkaia.eus/fitxategiak/Dokumentuak/PPU/peajes_cast.pdf",
+   "status": 200,
+   "size": 1574851,
+   "sha256": "4463d528c457036c88aff36879769847d6c54068d0f9fcd91fdcd6315482703c",
+   "fetched": "2026-11-14T11:25:28Z"
+  },
+  {
+   "file": "es-audenasa.html",
+   "url": "https://www.audenasa.es/la-autopista/tarifas-y-descuentos/",
+   "status": 200,
+   "size": 94186,
+   "sha256": "55f65087cf8fc863f738415bc72c197e2b9798a97349d65c89005fb8d98701b6",
+   "fetched": "2026-11-14T11:25:29Z"
+  },
+  {
+   "file": "es-audenasa-2026.pdf",
+   "url": "https://www.audenasa.es/storage/Tarifas-2026-Recorrido.pdf",
+   "status": 200,
+   "size": 115402,
+   "sha256": "a8a58c084a46716196e840d47a3ff3fcf29b5a7cfd813cb444068b3c8a176ac3",
+   "fetched": "2026-11-14T11:25:30Z"
+  },
+  {
+   "file": "es-gencat-peatges.html",
+   "url": "https://territori.gencat.cat/ca/03_infraestructures_i_mobilitat/carreteres/peatges-tarifes-descomptes/tarifes-peatges/",
+   "status": 200,
+   "size": 672980,
+   "sha256": "19894767f0a42980d374bdf470039a9e6938ba1caac4a99853df7e4db5506a0f",
+   "fetched": "2026-11-14T11:25:33Z"
+  },
+  {
+   "file": "es-regional-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2842.25%2C-3.6%2C43.45%2C-1.4%29%3Bnode%5B%22highway%22%3D%22toll_gantry%22%5D%2842.25%2C-3.6%2C43.45%2C-1.4%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2841.1%2C1.5%2C42.45%2C2.3%29%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 43465,
+   "sha256": "495312764594a5e5f9b7eb85f05614af1116d671cb84c57dc58db922107d07c5",
+   "fetched": "2026-11-14T11:26:08Z"
+  },
+  {
+   "file": "gb-humber.html",
+   "url": "https://www.humberbridge.co.uk/plan-your-trip/tolls-ways-to-pay/",
+   "status": 403,
+   "size": 5650,
+   "sha256": "c475bb865ec71a5c1cf5ac49a1ef71168f03046ba37d31a859ff24f899e1b1dc",
+   "fetched": "2026-11-14T11:26:08Z"
+  },
+  {
+   "file": "gb-merseyflow.html",
+   "url": "https://www.merseyflow.co.uk/toll-charges",
+   "status": 200,
+   "size": 61871,
+   "sha256": "d9aafe9ac3e65247f6ba421469fe99e3220bb0f1fe961585a0fb17c45561f2ad",
+   "fetched": "2026-11-14T11:26:09Z"
+  },
+  {
+   "file": "gb-merseyflow-2025.pdf",
+   "url": "https://assets-eu-01.kc-usercontent.com/b8de78b4-ca83-013e-5a94-3f6e455b08ad/87803a1c-6386-4414-9200-51e438ca3cb8/25793%20Toll_Charge_Change_A4_post1April%20(1).pdf",
+   "status": 200,
+   "size": 375827,
+   "sha256": "12dc09174674c907125ea1bc67f42bad93838b24f8fec43af889a26b1e2f217b",
+   "fetched": "2026-11-14T11:26:09Z"
+  },
+  {
+   "file": "gb-merseyflow-technical.html",
+   "url": "https://www.merseyflow.co.uk/technical-summary",
+   "status": 200,
+   "size": 55727,
+   "sha256": "934054d2ed63e77243fa4b2a9283b6989b78edac41d5918d8c7bf6cd92afc16a",
+   "fetched": "2026-11-14T11:26:10Z"
+  },
+  {
+   "file": "gb-tamar.html",
+   "url": "https://www.tamarcrossings.org.uk/prices/tamar-bridge-tolls/",
+   "status": 200,
+   "size": 51333,
+   "sha256": "0a38701e89ef624891d56c73f70ee742e54beb5f6bc7e19a5668199967a078e9",
+   "fetched": "2026-11-14T11:26:11Z"
+  },
+  {
+   "file": "nl-kiltunnel.html",
+   "url": "https://kiltunnel.nl/tarieven",
+   "status": 200,
+   "size": 25505,
+   "sha256": "7ad3f338b64c5f57aa5fbcc50959dc96d0643d211608681cebb107a5ae9c8067",
+   "fetched": "2026-11-14T11:26:11Z"
+  },
+  {
+   "file": "bridges-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2851.74%2C4.6%2C51.81%2C4.7%29%3Bway%5B%22highway%22%5D%5B%22name%22~%22%5E%28Humber%20Bridge%7CTamar%20Bridge%7CMersey%20Gateway%20Bridge%7CSilver%20Jubilee%20Bridge%29%24%22%5D%2850.3%2C-4.4%2C53.8%2C-0.3%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 17472,
+   "sha256": "9866268b6f207657dc7f0d9dd0e3b2b44e3f5e43730b0d95ead7662bbcbacf73",
+   "fetched": "2026-11-14T11:26:58Z"
+  },
+  {
+   "file": "md-evinieta.html",
+   "url": "https://evinieta.gov.md/Home/Legislation",
+   "status": 200,
+   "size": 265045,
+   "sha256": "4c0be93fdf6e1a40c1d05ff74b283bd941a4f7788cbb08188fe8dbe04d4c7698",
+   "fetched": "2026-11-14T11:27:02Z"
+  },
+  {
+   "file": "ba-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2842.9%2C17.3%2C45.2%2C18.7%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2842.9%2C17.3%2C45.2%2C18.7%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%2842.9%2C17.3%2C45.2%2C18.7%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 1041058,
+   "sha256": "a91ee6f87047e3bd82b5da8f5c13e21b89546897270ca38c8d8369cbb647ea5b",
+   "fetched": "2026-11-14T11:27:34Z"
+  },
+  {
+   "file": "ba-pricelist.html",
+   "url": "https://www.jpautoceste.ba/en/pricelist/",
+   "status": 200,
+   "size": 163001,
+   "sha256": "e4dd0c460af159fbe66837d8df3f86648d96b1fea495f353e15a19b9a2be69e5",
+   "fetched": "2026-11-14T11:27:36Z"
+  },
+  {
+   "file": "ba-uredba-86-20.pdf",
+   "url": "http://jpautoceste.ba/wp-content/uploads/2020/11/Uredba-o-izmjeni-Uredbe-o-naplati-naknade-za-kori%C5%A1tenje-autoceste-A1-SN-86-20-1.pdf",
+   "status": 200,
+   "size": 557737,
+   "sha256": "5edc4b1d578ae69fcd79b279d2677e384586383ab1e20eebf42afe25ccfc62c2",
+   "fetched": "2026-11-14T11:27:38Z"
+  },
+  {
+   "file": "ba-uredba-54-15.pdf",
+   "url": "http://jpautoceste.ba/images/u54.pdf",
+   "status": 200,
+   "size": 216914,
+   "sha256": "94a234ff5512a8eb0caadb4016e296a74d43d669a367a724928bf9dbe7d4944a",
+   "fetched": "2026-11-14T11:27:40Z"
+  },
+  {
+   "file": "ba-cj-svilaj.pdf",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2022/01/cjenovnik-svilaj.pdf",
+   "status": 200,
+   "size": 3166525,
+   "sha256": "6042a4b71f1ecf1c629cebc125aaf9aa91a47e5b9d2f61dc12664f45508097af",
+   "fetched": "2026-11-14T11:27:42Z"
+  },
+  {
+   "file": "ba-cj-sa-ze.pdf",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2021/05/CJENIK-WEB-PRIPREMA-SA-ZE-2.pdf",
+   "status": 200,
+   "size": 15501996,
+   "sha256": "9b1e79d28c0bc750a20f4804bca9809b73f4598e44f8d8bc5974c98427a1e8a2",
+   "fetched": "2026-11-14T11:27:45Z"
+  },
+  {
+   "file": "ba-cj-sa-ta.pdf",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2021/05/CJENIK-WEB-PRIPREMA-SA-TA-2.pdf",
+   "status": 200,
+   "size": 3196844,
+   "sha256": "719c94c8535a5bc418b7bf052cac8f50a1c565b756ac886e8b1bd356e7ed1395",
+   "fetched": "2026-11-14T11:27:50Z"
+  },
+  {
+   "file": "ba-cj-ljubuski.pdf",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2021/05/CJENIK-WEB-PRIPREMA-LJUBU%C5%A0KI-2.pdf",
+   "status": 200,
+   "size": 1316124,
+   "sha256": "0bcd796a13cc0c56769c6e62ef560166f66d9bdbc23132d4b34e08d1f7bad030",
+   "fetched": "2026-11-14T11:27:51Z"
+  },
+  {
+   "file": "gr-egnatia.html",
+   "url": "https://neodos.gr/stathmoi-diodion/",
+   "status": 200,
+   "size": 90576,
+   "sha256": "805e5c2c0094293ce5fe081d5b669b4f3f5a5500339592b74bc3dc9f69df3ca9",
+   "fetched": "2026-11-14T11:27:53Z"
+  },
+  {
+   "file": "gr-attiki.html",
+   "url": "https://www.naodos.gr/2025/arthro/nea-attiki-odos-timarithmiki-prosarmogi-diodion-telon-2026/",
+   "status": 200,
+   "size": 105751,
+   "sha256": "81b1f5ed91e3780588936a9590ec9b78a1b78a920869351b0329322b08810968",
+   "fetched": "2026-11-14T11:27:54Z"
+  },
+  {
+   "file": "gr-gefyra.html",
+   "url": "https://www.gefyra.gr/prices/Times-Diodion/",
+   "status": 200,
+   "size": 38592,
+   "sha256": "e5f3cf9f4bc87e1989bdf8d980af4633cf48136c5c29c17c21106e0c752fef13",
+   "fetched": "2026-11-14T11:27:55Z"
+  },
+  {
+   "file": "tr-kgm-ucretler.html",
+   "url": "https://www.kgm.gov.tr/Sayfalar/KGM/SiteTr/Otoyollar/UcretlerYeni.aspx",
+   "status": 200,
+   "size": 101610,
+   "sha256": "8a7357e0ccc8c382f7aba0780bb5fcf78ccbbcf1fa07b75184a2f0e91f860347",
+   "fetched": "2026-11-14T11:28:04Z"
+  },
+  {
+   "file": "tr-1-15temmuz-fsm.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/1-15Temmuz-FSM.pdf",
+   "status": 200,
+   "size": 131770,
+   "sha256": "432c81143779b91cb293f5993ab4ca64ec7856fd019b0e94577a266a0528df92",
+   "fetched": "2026-11-14T11:28:06Z"
+  },
+  {
+   "file": "tr-2-osmangazi.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/2-Osmangazi.pdf",
+   "status": 200,
+   "size": 198600,
+   "sha256": "48a76bc5e4139f6a3586f33a42fb79904b0fbfa3ba8ef8d9222ef2538da12cef",
+   "fetched": "2026-11-14T11:28:27Z"
+  },
+  {
+   "file": "tr-3-ysskoprusu.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/3-YSSKoprusu.pdf",
+   "status": 200,
+   "size": 201363,
+   "sha256": "5e894b657a03c81a844c7a277abe3453f7d2d895bf14981eeba0f4b5a718b99a",
+   "fetched": "2026-11-14T11:28:45Z"
+  },
+  {
+   "file": "tr-4-1915canakkale.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/4-1915Canakkale.pdf",
+   "status": 200,
+   "size": 160578,
+   "sha256": "e9f623572c7b794fa121cd1b5f19143292c958ee0f2eb27aadc713abfa2758a0",
+   "fetched": "2026-11-14T11:28:47Z"
+  },
+  {
+   "file": "tr-5-anadoluotoyolucamlica-akinci.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/5-AnadoluOtoyoluCamlica-Akinci.pdf",
+   "status": 200,
+   "size": 636452,
+   "sha256": "ebf4e3d7d082fa4f78ec408ac403c9e44bffb75da0cf583f2f043f3f67bce436",
+   "fetched": "2026-11-14T11:33:55Z"
+  },
+  {
+   "file": "tr-6-izmir-cesme.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/6-Izmir-Cesme.pdf",
+   "status": 200,
+   "size": 119695,
+   "sha256": "7dbc4c7fd3e0050cc9d449041dc2855936823ca996fdd3fe87f79fa2e0f705a7",
+   "fetched": "2026-11-14T11:34:06Z"
+  },
+  {
+   "file": "tr-7-izmir-aydin.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/7-Izmir-Aydin.pdf",
+   "status": 200,
+   "size": 119958,
+   "sha256": "d5de1b42eef443094081e6c66d4d12f643ce2fb3ef4b39646532b0fbcf7404f4",
+   "fetched": "2026-11-14T11:34:10Z"
+  },
+  {
+   "file": "tr-8-cukurovaotoyoluadana-gaziantep.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/8-CukurovaOtoyoluAdana-Gaziantep.pdf",
+   "status": 200,
+   "size": 238260,
+   "sha256": "184330f8137a0bcaefa9520977cb2f0999932b4e00d7fe9ce512b436a83e98b4",
+   "fetched": "2026-11-14T11:34:52Z"
+  },
+  {
+   "file": "tr-9-cukurovaotoyolugaziantep-sanliurfa.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/9-CukurovaOtoyoluGaziantep-Sanliurfa.pdf",
+   "status": 200,
+   "size": 114826,
+   "sha256": "b4cdec4c8b1398c81e7ffa604cd897dbe226cd8b7dea45812d4d85cbeeef08e6",
+   "fetched": "2026-11-14T11:34:53Z"
+  },
+  {
+   "file": "tr-10-cukurovaotoyolunigde-mersin-adana.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/10-CukurovaOtoyoluNigde-Mersin-Adana.pdf",
+   "status": 200,
+   "size": 231464,
+   "sha256": "910102a03ca3b2df4bf4317f1a4cf10301c7b5548fc3372d0c1038b934d8d123",
+   "fetched": "2026-11-14T11:34:56Z"
+  },
+  {
+   "file": "tr-11-avrupaotoyolumahmutbey-edirne.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/11-AvrupaOtoyoluMahmutbey-Edirne.pdf",
+   "status": 200,
+   "size": 253701,
+   "sha256": "768a03b042cd8aca5be2669f7d633429c6907bc747421d0867ba5cadf6e631db",
+   "fetched": "2026-11-14T11:34:58Z"
+  },
+  {
+   "file": "tr-12-gebze-orhangazi-izmir.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/12-Gebze-Orhangazi-Izmir.pdf",
+   "status": 200,
+   "size": 446827,
+   "sha256": "006eb48a97e90856f8545c86601bcf68b4e4d8ba0fec0311d80cc54c391af1ad",
+   "fetched": "2026-11-14T11:35:01Z"
+  },
+  {
+   "file": "tr-13-ysskuzeycevreyolu.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/13-YSSKuzeyCevreYolu.pdf",
+   "status": 200,
+   "size": 216429,
+   "sha256": "6ad8fa01fad3bf77e50f8da59ba6b637b30b1207772127ed3f031654be8f87a9",
+   "fetched": "2026-11-14T11:35:03Z"
+  },
+  {
+   "file": "tr-14-kmoavrupakinali-odayeri.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/14-KMOAvrupaKinali-Odayeri.pdf",
+   "status": 200,
+   "size": 158029,
+   "sha256": "b77f767a46564c9274b97bc7dc6cc593687fb0b3f5dc23b55f8430e08ee2061e",
+   "fetched": "2026-11-14T11:35:05Z"
+  },
+  {
+   "file": "tr-15-kmoanadolukurtkoy-akyazi.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/15-KMOAnadoluKurtkoy-Akyazi.pdf",
+   "status": 200,
+   "size": 221737,
+   "sha256": "4c6e5e6d3a69055c1809f3120ae3a4b63d9477f4a074366d739e0889a13a4ba9",
+   "fetched": "2026-11-14T11:35:07Z"
+  },
+  {
+   "file": "tr-16-menemen-aliaga-candarli.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/16-Menemen-Aliaga-Candarli.pdf",
+   "status": 200,
+   "size": 154639,
+   "sha256": "17dd4890bd34c98eb6aadb80bdae5ee962341aba29ee4bff43d45037ba27b8bb",
+   "fetched": "2026-11-14T11:35:09Z"
+  },
+  {
+   "file": "tr-17-ankara-nigde.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/17-Ankara-Nigde.pdf",
+   "status": 200,
+   "size": 364350,
+   "sha256": "c734645dca0060073df67f649272cdcda41c73611249a5a7f30c183e7b994725",
+   "fetched": "2026-11-14T11:35:11Z"
+  },
+  {
+   "file": "tr-18-malkara-canakkale.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/18-Malkara-Canakkale.pdf",
+   "status": 200,
+   "size": 219026,
+   "sha256": "5278bbd8ed2ba3f917dbf48c074495ae77ea751568c6297b3e380e1b9b1e6ab5",
+   "fetched": "2026-11-14T11:35:13Z"
+  },
+  {
+   "file": "tr-19-aydin-denizli.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/19-Aydin-Denizli.pdf",
+   "status": 200,
+   "size": 438713,
+   "sha256": "ddd3b41e586af58a7f44be574862d4ed2ee1046ac2236bf2e23287c26a866ad9",
+   "fetched": "2026-11-14T11:36:39Z"
+  },
+  {
+   "file": "tr-20-cesmeli-kizkalesitr.pdf",
+   "url": "https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/20-Cesmeli-KizkalesiTR.pdf",
+   "status": 200,
+   "size": 133187,
+   "sha256": "e188a67985325a05bd79687ba1624f21c4857cc9012c3719ae44630e191845d4",
+   "fetched": "2026-11-14T11:36:41Z"
+  },
+  {
+   "file": "se-2004-629.html",
+   "url": "https://data.riksdagen.se/dokument/sfs-2004-629.text",
+   "status": 200,
+   "size": 25781,
+   "sha256": "e4cc33daa8e6ba991eb3c954f11a015a7bd588936aca8ee6d20ac26b0006085c",
+   "fetched": "2026-11-14T11:36:42Z"
+  },
+  {
+   "file": "pt-imt-taxas.html",
+   "url": "https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/",
+   "status": 200,
+   "size": 149922,
+   "sha256": "e97c10051709fad2bccd305589e2d2616206d728bc868986908479775f52cb69",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-r2.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r2_2026.pdf",
+   "status": 200,
+   "size": 251021,
+   "sha256": "47d7f509ba7aecf52c714ea0bb26181d9f6327df8b7939ec52448b55ee853148",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-r3.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r3_2026.pdf",
+   "status": 200,
+   "size": 709171,
+   "sha256": "bc808175c7b89351f8472653013590f0ab8c3d834a127cdc1d15e00ce42711c6",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-r4.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf",
+   "status": 200,
+   "size": 323726,
+   "sha256": "a1b491a445d5aa811a9261f684cb2da1babb4a67c77594d4ed4ace03714a45e6",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-r5.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r5_2026.pdf",
+   "status": 200,
+   "size": 709545,
+   "sha256": "0d83306a717c0c368037f91c7aff1f59fd94e4af04e20c2a063cefb9ef8199e3",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-m12.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifa_m12_2026.pdf",
+   "status": 200,
+   "size": 701582,
+   "sha256": "fb2a20a1e9326007af019754d5e6c5da00c1e16959aee0e7ca80682b0bc7f159",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-ap36.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2026_v1.pdf",
+   "status": 200,
+   "size": 880953,
+   "sha256": "3893ec19f79e85980dacec46f801c9a01abe0dc58a1c3a5a78e3c5a8a45132e8",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-ap41.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_ap41_2026.pdf",
+   "status": 200,
+   "size": 714119,
+   "sha256": "0695734afff7101bc36b5df4544fa2e58000d3a757de7b5a5ff225b36131ac1c",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "es-seitt-ap7cv.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap7cv_2026.pdf",
+   "status": 200,
+   "size": 731325,
+   "sha256": "b7fbdb565f90434e19bce16a072028524727ad9072bfb5ec8e259d0c456d3dab",
+   "fetched": "2026-11-14T11:36:43Z"
+  },
+  {
+   "file": "de-behg-10.html",
+   "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/behg/__10.html",
+   "status": 200,
+   "size": 9292,
+   "sha256": "468055cac8708ea216399d10811725a0bb9cbbefcffc87c0a1c33b21e3c1d73d",
+   "fetched": "2026-11-14T11:36:44Z"
+  },
+  {
+   "file": "de-eex-nehs-auctions.csv",
+   "url": "https://web.archive.org/web/20261231id_/https://public.eex-group.com/eex/nehs-reporting/nEHS_Auction_Reporting.csv",
+   "status": 200,
+   "size": 1755,
+   "sha256": "5c171c0092dbba7932bd063916bc9e5119da9946ebd0d3e1666a477367c20114",
+   "fetched": "2026-11-14T11:36:46Z"
+  },
+  {
+   "file": "at-nehg.html",
+   "url": "https://web.archive.org/web/20261231id_/https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40242271/NOR40242271.html",
+   "status": 404,
+   "size": 4703,
+   "sha256": "f6251bf448259847cc8c9192881577bead4fdf7cd467f4d6eacb459c6e7b5b18",
+   "fetched": "2026-11-14T11:36:46Z"
+  },
+  {
+   "file": "at-nehg-current.html",
+   "url": "https://web.archive.org/web/20261231id_/https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40254865/NOR40254865.html",
+   "status": 404,
+   "size": 4703,
+   "sha256": "0da811e1eb7d5711fd2eef340eab0a1366282a1419c432b0037ad68ee886bd2d",
+   "fetched": "2026-11-14T11:36:48Z"
+  },
+  {
+   "file": "at-bmf-nehg.html",
+   "url": "https://www.bmf.gv.at/en/topics/climate-policy/initial_nehg_2022_en.html",
+   "status": 200,
+   "size": 81019,
+   "sha256": "ea757deeeacf17b4f9488c1aef5edd560757fbb0a11e31e858740e39c0497ac8",
+   "fetched": "2026-11-14T11:36:49Z"
+  },
+  {
+   "file": "at-nehg-ris.html",
+   "url": "https://www.ris.bka.gv.at/GeltendeFassung.wxe?Abfrage=Bundesnormen&Gesetzesnummer=20011818",
+   "status": 503,
+   "size": 30734,
+   "sha256": "c59bf5776bd6414c72897d390bf78be0872b8bdabf883182d4b5b041d021a0d1",
+   "fetched": "2026-11-14T11:36:50Z"
+  },
+  {
+   "file": "de-herrentunnel.html",
+   "url": "https://www.herrentunnel.de/index.php/maut-tarife/maut-tarife-2.html",
+   "status": 200,
+   "size": 22091,
+   "sha256": "153292a3fac09dea0f3de6c20f9d015db4e570568047d0f250fc3bc9e35923e0",
+   "fetched": "2026-11-14T11:36:52Z"
+  },
+  {
+   "file": "nl-westerscheldetunnel.html",
+   "url": "https://www.westerscheldetunnel.nl/nl/tarieven-betaalmiddelen/tarieven/",
+   "status": 200,
+   "size": 38112,
+   "sha256": "36eb2c90ebf7197b28da6ee6cad121fe324c9e43c1195d6a3b8398adf1d46602",
+   "fetched": "2026-11-14T11:37:11Z"
+  },
+  {
+   "file": "be-liefkenshoek.html",
+   "url": "https://web.archive.org/web/20261231id_/https://www.liefkenshoektunnel.be/nl/tarieven",
+   "status": 200,
+   "size": 22294,
+   "sha256": "ac6b269984f9d0fb4f0bdd908af42c48f85805e7daf21c01652b57ed0e5c93e0",
+   "fetched": "2026-11-14T11:38:38Z"
+  },
+  {
+   "file": "gb-dartford.html",
+   "url": "https://www.gov.uk/pay-dartford-crossing-charge/charges",
+   "status": 200,
+   "size": 77058,
+   "sha256": "dad03fc1c1ded625049aabeafcba750d3f11541715602cb51a06b7c2a1adb1b7",
+   "fetched": "2026-11-14T11:38:39Z"
+  },
+  {
+   "file": "gb-m6toll-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22%3D%22M6%20Toll%22%5D%2852.45%2C-2.2%2C52.75%2C-1.6%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%5B%22ref%22~%22%5ET%5B1-8%5D%24%22%5D%2852.45%2C-2.2%2C52.75%2C-1.6%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 143725,
+   "sha256": "330b18650d26703aa0cc4d446dd13bd2abb014cea69ac7ed39e3c624eea137a5",
+   "fetched": "2026-11-14T11:39:17Z"
+  },
+  {
+   "file": "gb-m6toll-tables.html",
+   "url": "https://www.m6toll.co.uk/pricing-tables/",
+   "status": 200,
+   "size": 54948,
+   "sha256": "89ff110f88da77f106360fa26f08dfa915de116aa03baffcd9a2a3325bbf3d9b",
+   "fetched": "2026-11-14T11:39:18Z"
+  },
+  {
+   "file": "gb-m6toll.html",
+   "url": "https://www.m6toll.co.uk/pricing/",
+   "status": 200,
+   "size": 106329,
+   "sha256": "4935b924560d539999d40f50ccd2becf870c0c7e2318ac08d14cbf7171db04f9",
+   "fetched": "2026-11-14T11:39:19Z"
+  },
+  {
+   "file": "ch-gsb.html",
+   "url": "https://www.letunnel.com/",
+   "status": 200,
+   "size": 248484,
+   "sha256": "291ba3635d99868cb755852614baa503f2706df52192acfb9b372d87f42dfb69",
+   "fetched": "2026-11-14T11:39:23Z"
+  },
+  {
+   "file": "tunnels-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 722660,
+   "sha256": "0c063e5e3ae1255b3fd43b0fa6d581cae6c79bc5e375dd71646f14ee84ef4af8",
+   "fetched": "2026-11-14T11:39:53Z"
+  },
+  {
+   "file": "de-herrentunnel-table.png",
+   "url": "https://www.herrentunnel.de/public/img/content/Gebuehrentabelle_2025.png",
+   "status": 200,
+   "size": 181513,
+   "sha256": "6e8b48c64de0979bb8e7cb3caf779734efad111399b7c8879581f356e716f1cc",
+   "fetched": "2026-11-14T11:43:12Z"
+  },
+  {
+   "file": "gb-dartford-2013.html",
+   "url": "https://www.legislation.gov.uk/uksi/2013/2249/made",
+   "status": 200,
+   "size": 68161,
+   "sha256": "689974c658bb495147006822cc99daedad71390ac7002443feac3fbd06365d82",
+   "fetched": "2026-11-14T11:43:12Z"
+  },
+  {
+   "file": "gb-dartford-2025.html",
+   "url": "https://www.legislation.gov.uk/uksi/2025/853/made",
+   "status": 200,
+   "size": 29711,
+   "sha256": "497f38d60a0532547ac757cbdca7c1b12af0e2729749d82033a10b1a1f2cc68a",
+   "fetched": "2026-11-14T11:43:12Z"
+  },
+  {
+   "file": "gb-tyne-2023.html",
+   "url": "https://www.legislation.gov.uk/uksi/2023/413/made",
+   "status": 200,
+   "size": 31677,
+   "sha256": "5f60096f2892684f5a58d0c4a67a0f8e3117e9decc98751d2551b261649fe6f8",
+   "fetched": "2026-11-14T11:43:13Z"
+  },
+  {
+   "file": "gb-tyne-2024.html",
+   "url": "https://www.legislation.gov.uk/uksi/2024/479/made",
+   "status": 200,
+   "size": 31719,
+   "sha256": "8776b4f567d78f9a6e7e23e6643dc6c5accae6b1b1f814ad0a0fda2e284b50d3",
+   "fetched": "2026-11-14T11:43:13Z"
+  },
+  {
+   "file": "gb-tyne-2025.html",
+   "url": "https://www.legislation.gov.uk/uksi/2025/449/made",
+   "status": 200,
+   "size": 31905,
+   "sha256": "73d259def1f04b8ce37619ff176b15376dc30f45c7ed95d502d19ee3bdca3f2b",
+   "fetched": "2026-11-14T11:43:13Z"
+  },
+  {
+   "file": "tunnels-osm-tyne.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A120%5D%3B%28way%5B%22highway%22%5D%5B%22tunnel%22%5D%2854.97%2C-1.50%2C55.02%2C-1.44%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 37113,
+   "sha256": "9e657a2ec623e16773d6de4b2e011194574a13da7652a929e0f55efa3b43cea5",
+   "fetched": "2026-11-14T11:44:10Z"
+  },
+  {
+   "file": "tunnels-osm-thames.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A120%5D%3B%28way%5B%22highway%22%5D%5B%22tunnel%22%5D%2851.495%2C-0.03%2C51.52%2C0.03%29%3B%29%3Bout%20geom%3B",
+   "status": 200,
+   "size": 191503,
+   "sha256": "1cde9abbbf632f08c77e5871f3c8b7903d1abe03f701bce0268a9f7665726ffd",
+   "fetched": "2026-11-14T11:44:42Z"
+  },
+  {
+   "file": "es-min-ap9-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-9,-ferrol---frontera-portuguesa-2026.pdf",
+   "status": 200,
+   "size": 61979,
+   "sha256": "db30ec2a1d61f226d22354663e6d0408693e3a9994f4a310578ca70b441be006",
+   "fetched": "2026-11-14T11:44:43Z"
+  },
+  {
+   "file": "es-min-ap9-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-9,-ferrol---frontera-portuguesa-2025.pdf",
+   "status": 200,
+   "size": 70281,
+   "sha256": "db30a0ef6a094fd697a8490d6a9780a537d6eb24e2af0700ae1acc7c488214a0",
+   "fetched": "2026-11-14T11:44:43Z"
+  },
+  {
+   "file": "es-min-ap9-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-9,-ferrol---frontera-portuguesa-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "2061f87af169d1d7920595d457ea3dc5f7e2cdf04f374449f9dbd07e6f058b92",
+   "fetched": "2026-11-14T11:44:44Z"
+  },
+  {
+   "file": "es-min-ap53-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-53,-santiago---alto-de-santo-domingo-2026.pdf",
+   "status": 200,
+   "size": 49466,
+   "sha256": "e5ac6a9f5e5493005cff1410ead8946ea506122894f22fab201ea4297f1e0849",
+   "fetched": "2026-11-14T11:44:45Z"
+  },
+  {
+   "file": "es-min-ap53-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-53,-santiago---alto-de-santo-domingo-2025.pdf",
+   "status": 200,
+   "size": 25818,
+   "sha256": "2d9acef28abbaaec38fd8b3d425e6bdbe6454cbf625da20f046f3ae20bd193d4",
+   "fetched": "2026-11-14T11:44:46Z"
+  },
+  {
+   "file": "es-min-ap53-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-53,-santiago---alto-de-santo-domingo-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "b8618f37fa8b70039bbadce3210abab896f34e4609c32c1d99e89fcbd294a503",
+   "fetched": "2026-11-14T11:44:46Z"
+  },
+  {
+   "file": "es-min-ap66-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-66,-campomanes---leon-2026.pdf",
+   "status": 200,
+   "size": 28512,
+   "sha256": "c245eaef5a1c83031537ffb515e49cd734ca694a2fbb1a6fa4346c887db75ad9",
+   "fetched": "2026-11-14T11:44:47Z"
+  },
+  {
+   "file": "es-min-ap66-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-66,-campomanes---leon-2025.pdf",
+   "status": 200,
+   "size": 30454,
+   "sha256": "2fb6770389e973b90a8e15c8553cb1898a27e6df76123307ef5bf7dca8e984f6",
+   "fetched": "2026-11-14T11:44:48Z"
+  },
+  {
+   "file": "es-min-ap66-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-66,-campomanes---leon-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "0e151a8dde5805565d3773df7406f324321342c0444b5ca37551b28ae730afdd",
+   "fetched": "2026-11-14T11:44:48Z"
+  },
+  {
+   "file": "es-min-ap68-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-2026.pdf",
+   "status": 200,
+   "size": 272343,
+   "sha256": "6884ebdeb726fafd78435176409e23536f5c26a7edea6ee31998891f3baf2ede",
+   "fetched": "2026-11-14T11:44:49Z"
+  },
+  {
+   "file": "es-min-ap68-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-2025.pdf",
+   "status": 200,
+   "size": 227935,
+   "sha256": "29f272f5b5ea0ff2a7988795a0d4959039fce362a7d2323108fd061f832ecf90",
+   "fetched": "2026-11-14T11:44:50Z"
+  },
+  {
+   "file": "es-min-ap68-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "fcb92d0ded6675c28d9663602868e5cb2c6e9b808a55356324e177e3f2f1c17c",
+   "fetched": "2026-11-14T11:44:50Z"
+  },
+  {
+   "file": "es-min-ap7ac-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-7,-alicante---cartagena-2026.pdf",
+   "status": 200,
+   "size": 83448,
+   "sha256": "2f30eae191dad574bcfc7f86089b399cf4bdf002d1a74895856335033951ef92",
+   "fetched": "2026-11-14T11:44:50Z"
+  },
+  {
+   "file": "es-min-ap7ac-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-7,-alicante---cartagena-2025.pdf",
+   "status": 200,
+   "size": 90678,
+   "sha256": "b593b9e0771eaf00f6d8fa0012c576d4ebc0b3bc4afa42aff7828c543a5c4f01",
+   "fetched": "2026-11-14T11:44:50Z"
+  },
+  {
+   "file": "es-min-ap7ac-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-7,-alicante---cartagena-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "e43b6a9eb7701175938a214010e43b48844a2c966d83e0ae15374c3a401c7448",
+   "fetched": "2026-11-14T11:44:51Z"
+  },
+  {
+   "file": "es-min-ap46-2026.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-46,-alto-de-las-pedrizas---malaga-2026.pdf",
+   "status": 200,
+   "size": 21184,
+   "sha256": "384375033d1f1bae6f97f634e83e3e0f89d48965c543c3b05519a51cb375cee0",
+   "fetched": "2026-11-14T11:44:51Z"
+  },
+  {
+   "file": "es-min-ap46-2025.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-46,-alto-de-las-pedrizas---malaga-2025.pdf",
+   "status": 200,
+   "size": 21258,
+   "sha256": "611df15dd1c6dc510088d22b9859425c6c5ce62ab69d33fc7f52ab0dd012dabe",
+   "fetched": "2026-11-14T11:44:51Z"
+  },
+  {
+   "file": "es-min-ap46-2024.pdf",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-46,-alto-de-las-pedrizas---malaga-2024.pdf",
+   "status": 404,
+   "size": 215,
+   "sha256": "500aa2fcfaf60b04df75dcad8c65c570d3b641669140d149ba3bfb661659e9b6",
+   "fetched": "2026-11-14T11:44:52Z"
+  },
+  {
+   "file": "es-min-ap9-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-9%5BFV%5D%3F%24%22%5D%2841.95%2C-8.95%2C43.55%2C-8.10%29-%3E.m%3B%28node%28around.m%3A2500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 14862,
+   "sha256": "677aaf56304fc522b43413a62ba5df682fe6f8bc42273100c1ff5bf8c24c20e3",
+   "fetched": "2026-11-14T11:45:25Z"
+  },
+  {
+   "file": "es-min-ap53-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-53%24%22%5D%2842.50%2C-8.65%2C42.95%2C-7.80%29-%3E.m%3B%28node%28around.m%3A2500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 4435,
+   "sha256": "93cf263f1c084c94d15aa68327e3d18ac800bbf843a06e6f63ce1ca0c33e7c8a",
+   "fetched": "2026-11-14T11:45:53Z"
+  },
+  {
+   "file": "es-min-ap66-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-66%24%22%5D%2842.45%2C-6.00%2C43.20%2C-5.45%29-%3E.m%3B%28node%28around.m%3A2500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 6054,
+   "sha256": "3e52d926748f35da82901bd6f5817efda3ec90f78862c2cdce4395065e461b0b",
+   "fetched": "2026-11-14T11:49:51Z"
+  },
+  {
+   "file": "es-min-ap68-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-68%24%22%5D%2841.55%2C-3.05%2C43.30%2C-0.80%29-%3E.m%3B%28node%28around.m%3A2500%29%5B%22barrier%22%3D%22toll_booth%22%5D%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 13581,
+   "sha256": "87a5200b76fff48eb8ed102168c6be1c31c5a31c8fb9847b6197c9a0492fefaf",
+   "fetched": "2026-11-14T11:50:30Z"
+  },
+  {
+   "file": "es-min-ap7ac-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22%3D%22AP-7%22%5D%2837.55%2C-1.10%2C38.30%2C-0.60%29-%3E.m%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2837.55%2C-1.10%2C38.30%2C-0.60%29%3Bnode%28w.m%29%5B%22highway%22%3D%22motorway_junction%22%5D%3B%29%3Bout%3B",
+   "status": 200,
+   "size": 9890,
+   "sha256": "4a0ea12512104ac847ca3f7f60d5327354e9df358ba561b62c0e5a046027124a",
+   "fetched": "2026-11-14T11:51:00Z"
+  },
+  {
+   "file": "es-map-aucalsa.html",
+   "url": "https://www.google.com/maps/d/kml?mid=1yJ0vlKyIE05g7Jhz6Rez9KEvcHUcu2Wc&forcekml=1",
+   "status": 200,
+   "size": 61583,
+   "sha256": "8858635a0c946ae9c12c8adef0cc761f49ad1f2a865c6610757847159c258828",
+   "fetched": "2026-11-14T11:51:01Z"
+  },
+  {
+   "file": "es-map-audasa.html",
+   "url": "https://www.google.com/maps/d/kml?mid=13LrVefO4MCusFg6_qwAk9l-hMlcUZ35N&forcekml=1",
+   "status": 200,
+   "size": 22701,
+   "sha256": "26deec4283f40540f4f0c145ead4eb4ae5e3b6f59fc06b0bffe34d1c67076ec4",
+   "fetched": "2026-11-14T11:51:01Z"
+  },
+  {
+   "file": "es-min-ap46-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2836.85%2C-4.50%2C36.95%2C-4.40%29%3Bout%3B",
+   "status": 200,
+   "size": 2091,
+   "sha256": "b90e6df20758a4835f302cea66b73aaf063b4e2ed281e493c1a6cefea1e2513c",
+   "fetched": "2026-11-14T11:51:58Z"
+  },
+  {
+   "file": "es-conc-cdx-transportes.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=transportes.gob.es/recursos_mfom/autopista_&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&limit=500",
+   "status": 200,
+   "size": 4504,
+   "sha256": "81314d3b20a52035e698a3218b3e87d235d2115a51630d1919b485ca2fa37bd5",
+   "fetched": "2026-11-14T11:52:41Z"
+  },
+  {
+   "file": "es-conc-cdx-mitma.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=mitma.es/recursos_mfom/autopista_&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&limit=500",
+   "status": 200,
+   "size": 3735,
+   "sha256": "37324a6aec8d341229e819c986b9737143e4128c591a1f4a79d2dd82ec442200",
+   "fetched": "2026-11-14T11:53:05Z"
+  },
+  {
+   "file": "es-conc-ap51-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-51_conexion_ap-6_-_avila_2024.pdf",
+   "status": 200,
+   "size": 32540,
+   "sha256": "6257ad807df834cca5c7e3c66a3693b699bc3ecddd67785623655b31e93499de",
+   "fetched": "2026-11-14T11:57:46Z"
+  },
+  {
+   "file": "es-conc-ap53-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-53_santiago_-_alto_de_santo_domingo_2024.pdf",
+   "status": 200,
+   "size": 26029,
+   "sha256": "e0b275181d355ee1eafbf44e4cc887de525040c85ccdac1d04326e1080942984",
+   "fetched": "2026-11-14T11:57:47Z"
+  },
+  {
+   "file": "es-conc-ap6-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-6_villalba_-_adanero_2024.pdf",
+   "status": 200,
+   "size": 21155,
+   "sha256": "f2f63f774cb0c456736ad10adcd232d746d7b64c90d5588686c8b6e2815db0a6",
+   "fetched": "2026-11-14T11:57:48Z"
+  },
+  {
+   "file": "es-conc-ap61-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-61_conexion_ap-6_-_segovia_2024.pdf",
+   "status": 200,
+   "size": 35147,
+   "sha256": "3eba4424b98ed7dfd53809d23ae340ed8f97b2c70c510389022ae1d3f6daadc0",
+   "fetched": "2026-11-14T11:57:49Z"
+  },
+  {
+   "file": "es-conc-ap66-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-66_campomanes_-_leon_2024.pdf",
+   "status": 404,
+   "size": 4681,
+   "sha256": "480c40f9b2cf65e840e8243648fdb22fa911248262022fe90af15047f14880e9",
+   "fetched": "2026-11-14T11:57:49Z"
+  },
+  {
+   "file": "es-conc-ap7ac-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-7_alicante_-_cartagena_2024.pdf",
+   "status": 200,
+   "size": 88146,
+   "sha256": "9e416717f66743017e2e94f6196023bacf87985b7a402faa934d73b248d4fb55",
+   "fetched": "2026-11-14T11:57:59Z"
+  },
+  {
+   "file": "es-conc-ap7eg-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-7_estepona_-_guadiaro_2024.pdf",
+   "status": 200,
+   "size": 29654,
+   "sha256": "3ef32eca31015698b226b42c9590ee2c623c21252beeafb9bb6a7ddadb092c9d",
+   "fetched": "2026-11-14T11:59:44Z"
+  },
+  {
+   "file": "es-conc-ap7me-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-7_malaga_-_estepona_2024.pdf",
+   "status": 200,
+   "size": 53090,
+   "sha256": "b884bf4bc0558a7e9b6122b7ba42df968b077cb9806f8e1c347c8fc6d933d80e",
+   "fetched": "2026-11-14T11:59:46Z"
+  },
+  {
+   "file": "es-conc-ap71-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-71_leon_-_astorga_2024.pdf",
+   "status": 200,
+   "size": 23928,
+   "sha256": "df9002e561589bd4cde7c931df079828fe5dc09d68d400da71c92478df536bb5",
+   "fetched": "2026-11-14T11:59:47Z"
+  },
+  {
+   "file": "es-conc-ap9-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-9_ferrol_-_frontera_portuguesa_2024.pdf",
+   "status": 403,
+   "size": 919,
+   "sha256": "1c761d704b746a3757ccf438976de8804a25fb459d520e065874c22d4e72e8eb",
+   "fetched": "2026-11-14T11:59:48Z"
+  },
+  {
+   "file": "es-conc-cdx-2025.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=transportes.gob.es/recursos_mfom/&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&limit=3000&filter=original%3A.%2A%28ap-%7CAP-%7Cpeaje%7Ctarifa%29.%2A%282025%7C2026%29.%2A",
+   "status": 200,
+   "size": 128,
+   "sha256": "c738afecf9fa6bab98ecd648ee34a6363cbb89ed4a34b7f9014eae21687868ee",
+   "fetched": "2026-11-14T12:00:11Z"
+  },
+  {
+   "file": "es-op-autopistas.html",
+   "url": "https://www.autopistas.com/es/beneficios/tarifas-y-descuentos",
+   "status": 200,
+   "size": 162620,
+   "sha256": "b0f5070a7c527476c79ef6f9ad473acb31b330b42041606a8e22c7960f5e7154",
+   "fetched": "2026-11-14T12:00:12Z"
+  },
+  {
+   "file": "es-op-audasa.html",
+   "url": "https://www.audasa.es/la-autopista/tarifas-y-descuentos/",
+   "status": 200,
+   "size": 125363,
+   "sha256": "2dd4ca6671604a7a5baaed1ff0aac69e037d3c6fa1751cd7bd173b83cba43ff3",
+   "fetched": "2026-11-14T12:00:15Z"
+  },
+  {
+   "file": "es-op-ausol.html",
+   "url": "https://www.ausol.es/es/tarifas-y-descuentos/tarifas",
+   "status": 200,
+   "size": 104439,
+   "sha256": "01483ea1b99d11be0b8994ab9b15797b7792bbf5cd55ecd167a4cc34386a856f",
+   "fetched": "2026-11-14T12:00:17Z"
+  },
+  {
+   "file": "es-castellana-2026.pdf",
+   "url": "https://www.autopistas.com/sites/publica/files/2026-11/26_004%20Castellana%20AP6_AP51_AP61%20NOV%20T26.pdf",
+   "status": 200,
+   "size": 450702,
+   "sha256": "298c62ec7010b12cc468ded174d43c801bdc701f9571151d433c29b048eeda5a",
+   "fetched": "2026-11-14T12:00:18Z"
+  },
+  {
+   "file": "es-castellana-2025.pdf",
+   "url": "https://www.autopistas.com/sites/publica/files/documentos/tramos/25_004_Castellana_AP6_AP51_AP61_T25.pdf",
+   "status": 200,
+   "size": 154829,
+   "sha256": "992e3cb603c43362eae4109093d5eb1bb0f7fe3097ae1ea5b60a22491ee9a5a4",
+   "fetched": "2026-11-14T12:00:19Z"
+  },
+  {
+   "file": "es-aulesa-2025.pdf",
+   "url": "https://www.autopistas.com/sites/publica/files/documentos/tramos/25_002_Aulesa_AP71_Leon-Astorga_T25.pdf",
+   "status": 200,
+   "size": 147523,
+   "sha256": "d6c78a95d162ceee43518b1c707d7907c135b03f68624f3e363debf42e049469",
+   "fetched": "2026-11-14T12:00:20Z"
+  },
+  {
+   "file": "es-aulesa-2026.pdf",
+   "url": "https://www.autopistas.com/sites/publica/files/2026-11/26_002%20Aulesa%20AP71%20Leon-Astorga%20NOV%20T26.pdf",
+   "status": 200,
+   "size": 420759,
+   "sha256": "770f0e8bbbfc4a2d8d95fde898d7b98855d3aea633c204d063b9f971bdac6c21",
+   "fetched": "2026-11-14T12:00:21Z"
+  },
+  {
+   "file": "es-conc-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2836.38%2C-5.35%2C36.56%2C-4.65%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2840.55%2C-4.75%2C41.00%2C-3.95%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2842.42%2C-6.10%2C42.62%2C-5.55%29%3B%29-%3E.b%3B.b%20out%3Bway%28bn.b%29%5B%22highway%22%5D%3Bout%20tags%20geom%3B",
+   "status": 200,
+   "size": 102015,
+   "sha256": "3ef09859315ef2bac4701e45ebcbccb9eb05edb8fc9654e56944d03f4e51fa08",
+   "fetched": "2026-11-14T12:01:27Z"
+  },
+  {
+   "file": "gb-tfl-cc.html",
+   "url": "https://web.archive.org/web/20261231id_/https://tfl.gov.uk/modes/driving/congestion-charge",
+   "status": 200,
+   "size": 34131,
+   "sha256": "55000b4e3f6efbb4c2bf6451f6d4e28c2feaa52ead8295188abf7be7b15285cc",
+   "fetched": "2026-11-14T12:01:29Z"
+  },
+  {
+   "file": "gb-tfl-lez.html",
+   "url": "https://web.archive.org/web/20261231id_/https://tfl.gov.uk/modes/driving/low-emission-zone",
+   "status": 200,
+   "size": 33010,
+   "sha256": "d33fe638a083623cd044b51ca775dd9de6387c11cf2f08912f674cd9717befcc",
+   "fetched": "2026-11-14T12:01:34Z"
+  },
+  {
+   "file": "gb-tfl-lez-charges.html",
+   "url": "https://web.archive.org/web/20261231id_/https://tfl.gov.uk/modes/driving/low-emission-zone/lez-charges",
+   "status": 404,
+   "size": 4668,
+   "sha256": "fedbb66537417316eed447e1c30dfc94fa8c6d768a0dff7361ad45caea3d6079",
+   "fetched": "2026-11-14T12:01:35Z"
+  },
+  {
+   "file": "gb-london-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28relation%5B%22boundary%22%3D%22low_emission_zone%22%5D%2851.25%2C-0.55%2C51.72%2C0.35%29%3Brelation%5B%22type%22%3D%22boundary%22%5D%5B%22name%22~%22Congestion%22%5D%2851.45%2C-0.20%2C51.55%2C-0.05%29%3Brelation%5B%22admin_level%22%3D%225%22%5D%5B%22name%22%3D%22Greater%20London%22%5D%3B%29%3Bout%20tags%3Bout%20geom%3B",
+   "status": 200,
+   "size": 1427507,
+   "sha256": "a47024b2c26bf3b964c6660b1c7a22726a01dffcbf276002c606cfd13a14bd74",
+   "fetched": "2026-11-14T12:09:36Z"
+  },
+  {
+   "file": "gb-london-ccz-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28relation%5B%22name%22~%22Congestion%22%2Ci%5D%2851.40%2C-0.30%2C51.60%2C0.05%29%3Bway%5B%22name%22~%22Congestion%22%2Ci%5D%2851.40%2C-0.30%2C51.60%2C0.05%29%3B%29%3Bout%20tags%3Bout%20geom%3B",
+   "status": 200,
+   "size": 44473,
+   "sha256": "eab740f9808f0322168d93c4323a54667fc0b30c5ffb53691c5cb77bf59fe346",
+   "fetched": "2026-11-14T12:10:11Z"
+  },
+  {
+   "file": "gb-gazette-cc-2026.html",
+   "url": "https://www.thegazette.co.uk/notice/4893898",
+   "status": 200,
+   "size": 15470,
+   "sha256": "37870ffe04e474f13d7be40b83e131aa5c74ef041eb4fcd4704ae711f6dbb70a",
+   "fetched": "2026-11-14T12:10:11Z"
+  },
+  {
+   "file": "gb-tfl-cdx-tunnels.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=tfl.gov.uk/modes/driving/blackwall-and-silvertown&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&filter=statuscode:200&limit=300",
+   "status": 200,
+   "size": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "fetched": "2026-11-14T12:11:20Z"
+  },
+  {
+   "file": "ro-cnair-peaj-2025.pdf",
+   "url": "https://web.archive.org/web/20250907021509id_/https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf",
+   "status": 200,
+   "size": 155033,
+   "sha256": "b33ad487fb416fea89d1be64132c6fd0d80e19b2c492911fa64c0c8172b0e8a1",
+   "fetched": "2026-11-14T12:11:21Z"
+  },
+  {
+   "file": "ro-bridges-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A120%5D%3B%28way%5B%22bridge%22%5D%5B%22highway%22%5D%5B%22ref%22~%22%5E%28A2%7CDN2A%29%24%22%5D%2844.30%2C27.95%2C44.40%2C28.10%29%3Bway%5B%22bridge%22%5D%5B%22highway%22%5D%5B%22ref%22~%22%5E%28A2%7CDN2A%29%24%22%5D%2844.68%2C27.80%2C44.80%2C27.95%29%3B%29%3Bout%20tags%20geom%3B",
+   "status": 200,
+   "size": 12170,
+   "sha256": "1d0d3b3f9859ba2e52cadc989078f5023873779bb1a324990cd01bc0c8a7c968",
+   "fetched": "2026-11-14T12:12:00Z"
+  },
+  {
+   "file": "ro-cnair-cdx.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=cnadnr.ro/sites/default/files/&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&filter=statuscode:200&filter=original:.*(peaj|tarif|trecere|PEAJ|Tarif).*&limit=500",
+   "status": 200,
+   "size": 13332,
+   "sha256": "46eb6f01789380b3eb3e3bda9ca3422c3f319c0e67a69079ba094630ed9544f7",
+   "fetched": "2026-11-14T12:13:50Z"
+  },
+  {
+   "file": "at-ris-cdx-geltende.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=ris.bka.gv.at/GeltendeFassung.wxe&matchType=prefix&fl=original,timestamp,statuscode&filter=statuscode:200&filter=original:.*20011855.*&limit=50",
+   "status": 200,
+   "size": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "fetched": "2026-11-14T12:15:51Z"
+  },
+  {
+   "file": "ie-revenue-energy-rates.pdf",
+   "url": "https://www.revenue.ie/en/tax-professionals/tdm/excise/excise-duty-rates/energy-excise-duty-rates.pdf",
+   "status": 200,
+   "size": 3223068,
+   "sha256": "52e09a72e6c900a17cb2792b1f7fcbc036ef71016ef5b63e971d5cb97c6dc475",
+   "fetched": "2026-11-14T12:15:51Z"
+  },
+  {
+   "file": "it-aspi-tariffe.html",
+   "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio",
+   "status": 200,
+   "size": 172833,
+   "sha256": "10e3c8976a6fdb4ff751f31fafbea50e6414f76be8392235c50562564743f15a",
+   "fetched": "2026-11-14T12:15:54Z"
+  },
+  {
+   "file": "si-uredba-48-2018.json",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/35791528/details",
+   "status": 200,
+   "size": 101083,
+   "sha256": "0af061e9edb9ae40cc4a2b4e4d7fbcea23c5969dc86d0fe535d25dffc2ca1cad",
+   "fetched": "2026-11-14T12:15:55Z"
+  },
+  {
+   "file": "si-sklep-75-2024.json",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/136163077/details",
+   "status": 200,
+   "size": 2789,
+   "sha256": "32daceba11c03fafbe1b1655f8f4084e5f279526fc71323699302485ecbb06bb",
+   "fetched": "2026-11-14T12:15:56Z"
+  },
+  {
+   "file": "si-sklep-75-2024-meta.json",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE13802",
+   "status": 200,
+   "size": 2375,
+   "sha256": "f94da15a11cb688ad7f2bdf69a99e1fa1d5a1533397311d1ae09b12dd02f4c41",
+   "fetched": "2026-11-14T12:15:56Z"
+  },
+  {
+   "file": "si-sklep-103-2026.pdf",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20260103.pdf",
+   "status": 200,
+   "size": 166809,
+   "sha256": "8bb6a125854aa313dd4ad315b392e33af45f79758935729dd427d837bbefeaf2",
+   "fetched": "2026-11-14T12:15:58Z"
+  },
+  {
+   "file": "si-sklep-495-2026.pdf",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20260495.pdf",
+   "status": 200,
+   "size": 167771,
+   "sha256": "e0f9fb68e8753f572e11ca78113857b02555c379dd47f5c171b0b232ce1c81d0",
+   "fetched": "2026-11-14T12:15:59Z"
+  },
+  {
+   "file": "si-sklep-598-2026.pdf",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20260598.pdf",
+   "status": 200,
+   "size": 167033,
+   "sha256": "c44fcc61fc4f52143885806bd412b8aef3b5299886f966582d626936cc2042b7",
+   "fetched": "2026-11-14T12:16:00Z"
+  },
+  {
+   "file": "si-sklep-1280-2026.pdf",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20261280.pdf",
+   "status": 200,
+   "size": 153200,
+   "sha256": "8b3ed3b7f8cd9a36cb1b0c405969665ffdb8d4009c08bd815ddfc450f881cbd5",
+   "fetched": "2026-11-14T12:16:02Z"
+  },
+  {
+   "file": "si-sklep-1516-2026.pdf",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20261516.pdf",
+   "status": 200,
+   "size": 154497,
+   "sha256": "d034dc73ba0b9f02ffe56fad85bcec901da2f5c792ad1c1a98bf608b81074356",
+   "fetched": "2026-11-14T12:16:03Z"
+  },
+  {
+   "file": "pt-portaria-244-a-2023.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_244_A_2023.pdf",
+   "status": 200,
+   "size": 178165,
+   "sha256": "fa6c8362c74b19aa8845b388a8b4069326907b4de28b0fd3b560fce55610210c",
+   "fetched": "2026-11-14T12:16:05Z"
+  },
+  {
+   "file": "pt-portaria-189-a-2024-1.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_189_A_2024_1.pdf",
+   "status": 200,
+   "size": 176245,
+   "sha256": "9dfec2d9b94f8835ce1433a3c77acb5efd55144224b6f738005cd597d3115280",
+   "fetched": "2026-11-14T12:16:06Z"
+  },
+  {
+   "file": "pt-portaria-203-a-2024-1.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_203_A_2024_1.pdf",
+   "status": 200,
+   "size": 171751,
+   "sha256": "1303e2a3ad5d4004bedf800450db7eb67819c9733b9fe5df82b11429b97627a2",
+   "fetched": "2026-11-14T12:16:07Z"
+  },
+  {
+   "file": "pt-portaria-355-a-2024-1.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_355_A_2024_1.pdf",
+   "status": 200,
+   "size": 166756,
+   "sha256": "ac95dc99049ab5c4bf29073a54cb7de271defa9e4ef246c8213a39b32ebe2c89",
+   "fetched": "2026-11-14T12:16:09Z"
+  },
+  {
+   "file": "pt-oficio-25086-2025.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/oficios_circulados_doclib/Documents/Oficio_circulado_25086_2025.pdf",
+   "status": 200,
+   "size": 238224,
+   "sha256": "424f195b9e511e00df423b3f171d0c912b7ca37be7a438fbdb1c88064859f103",
+   "fetched": "2026-11-14T12:16:10Z"
+  },
+  {
+   "file": "gb-tfl-lez-vehicle.html",
+   "url": "https://web.archive.org/web/20261231id_/https://tfl.gov.uk/modes/driving/low-emission-zone/your-vehicle-and-lez",
+   "status": 200,
+   "size": 28480,
+   "sha256": "142d6e77126fd2fcc7d8e62dc123e9b6473c755601415b823b7093d0713b302f",
+   "fetched": "2026-11-14T12:17:50Z"
+  },
+  {
+   "file": "at-bgbl-cdx.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2022_I_10*&fl=original,timestamp,statuscode&filter=statuscode:200&limit=50",
+   "status": 200,
+   "size": 5074,
+   "sha256": "acb501790909d06fc68939dddfe7dcc3f6d310af7e8d363ae75acbff9d813b42",
+   "fetched": "2026-11-14T12:18:36Z"
+  },
+  {
+   "file": "es-castellana-osm.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28node%5B%22highway%22%3D%22motorway_junction%22%5D%2840.55%2C-4.75%2C41.00%2C-3.95%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-%286%7C51%7C61%7C71%29%24%22%5D%2840.55%2C-4.75%2C41.00%2C-3.95%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2842.42%2C-6.10%2C42.62%2C-5.55%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22%5EAP-%286%7C51%7C61%7C71%29%24%22%5D%2842.42%2C-6.10%2C42.62%2C-5.55%29%3B%29%3Bout%20tags%20geom%3B",
+   "status": 200,
+   "size": 490611,
+   "sha256": "7bac1497ded2f7ebf1b170ae46ff57920a6072620a8ce8fadfbef707ec2d807c",
+   "fetched": "2026-11-14T12:19:08Z"
+  },
+  {
+   "file": "pt-portaria-210-a-2024-1.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_210_A_2024_1.pdf",
+   "status": 200,
+   "size": 185623,
+   "sha256": "12eb809421060da2f91c3154a2ef1493f3877761998ccf5d9983ac001b7b4bd1",
+   "fetched": "2026-11-14T12:19:10Z"
+  },
+  {
+   "file": "pt-oficio-25010-2023.pdf",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/oficios_circulados_doclib/Documents/Oficio_circulado_25010_2023.pdf",
+   "status": 200,
+   "size": 223581,
+   "sha256": "c022edba96d95908658d3137c6e3aec6e0a10204c54167d6b05a6ef9843eb68a",
+   "fetched": "2026-11-14T12:19:11Z"
+  },
+  {
+   "file": "gb-tfl-lez-pay.html",
+   "url": "https://web.archive.org/web/20261231id_/https://tfl.gov.uk/modes/driving/low-emission-zone/how-to-pay-a-lez-charge",
+   "status": 404,
+   "size": 4680,
+   "sha256": "ba1a32bf925fb0a36302bfe80d107ff9adf8cec5dd04c1ab8482c0a76a379417",
+   "fetched": "2026-11-14T12:19:47Z"
+  },
+  {
+   "file": "es-conc-ap46-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-46_alto_de_las_pedrizas_-_malaga_2024.pdf",
+   "status": 200,
+   "size": 21446,
+   "sha256": "ebacb50411a7e4666b74006b22e2a6f07003e6f8108c790780897eb0d0f37569",
+   "fetched": "2026-11-14T08:11:43Z",
+   "reused": true
+  },
+  {
+   "file": "es-conc-ap68-2024.pdf",
+   "url": "https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-68_bilbao_-_zaragoza_2024.pdf",
+   "status": 200,
+   "size": 214138,
+   "sha256": "90d0c4cc4e7fe9fa77cee5f98ba55cdff91a001de4b1082bf4b07e5449bcc368",
+   "fetched": "2026-11-14T08:15:04Z",
+   "reused": true
+  },
+  {
+   "file": "gb-tfl-cdx-lez.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=tfl.gov.uk/modes/driving/low-emission-zone&matchType=prefix&fl=original,timestamp,statuscode&collapse=urlkey&filter=statuscode:200&limit=300",
+   "status": 200,
+   "size": 5399,
+   "sha256": "e2f058c67769f556289a357dc65092ead84457015995a230e3f8be525800e190",
+   "fetched": "2026-11-14T06:02:23Z",
+   "reused": true
+  },
+  {
+   "file": "at-ris-cdx.html",
+   "url": "https://web.archive.org/cdx/search/cdx?url=ris.bka.gv.at/Dokumente/Bundesnormen/NOR4024227*&fl=original,timestamp,statuscode&filter=statuscode:200&limit=200",
+   "status": 200,
+   "size": 958,
+   "sha256": "6701c94e4be76cd4f290d1c76301bfec8094bf98d7873c1a2b2507b4d8dad6ed",
+   "fetched": "2026-11-14T08:31:56Z",
+   "reused": true
+  }
+ ],
+ "errors": [
+  "de-warnowtunnel: https://warnowtunnel.de/: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: Hostname mismatch, certificate is not valid for 'warnowtunnel.de'. (_ssl.c:1081)>",
+  "tunnels-osm-kumi: https://overpass.kumi.systems/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2853.85%2C10.7%2C53.95%2C10.85%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2854.1%2C12.03%2C54.2%2C12.18%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.3%2C3.7%2C51.5%2C3.95%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.25%2C4.2%2C51.35%2C4.35%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2851.42%2C0.2%2C51.5%2C0.32%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.8%2C7.1%2C45.92%2C7.25%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22tunnel%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3Bway%5B%22highway%22%5D%5B%22name%22%5D%5B%22bridge%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2852.55%2C-2.15%2C52.75%2C-1.65%29%3B%29%3Bout%20geom%3B: The read operation timed out",
+  "es-conc-ap46-2024: https://web.archive.org/web/2024id_/https://www.transportes.gob.es/recursos_mfom/autopista_ap-46_alto_de_las_pedrizas_-_malaga_2024.pdf: <urlopen error timed out>"
+ ]
+}

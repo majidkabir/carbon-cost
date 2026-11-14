@@ -1,0 +1,523 @@
+{
+ "country": "MK",
+ "currency": "EUR",
+ "valid_from": "2025-05-01",
+ "osm_extract": "2026-11-13",
+ "name": "North Macedonian road tolls (патарина)",
+ "law": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 as replaced by Службен весник 88/2025 (in force 1 May 2025): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
+ "sources": [
+  {
+   "title": "Службен весник 88/2025: Одлука за изменување на Одлуката за патарина (PESR)",
+   "url": "https://roads.org.mk/wp-content/uploads/2025/09/%D0%9E%D0%B4%D0%BB%D1%83%D0%BA%D0%B0-%D0%BF%D0%B0%D1%82%D0%B0%D1%80%D0%B8%D0%BD%D0%B0.pdf"
+  },
+  {
+   "title": "Службен весник 118/2019: Одлука за патарина (PESR)",
+   "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/macedonia.html"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (categories III and IV)",
+ "min_kg": 3501,
+ "tolled_roads": "The motorway sections of the toll stations: Романовце (Куманово – Миладиновци и обратно); Петровец (Скопје - Петровец и обратно); Сопот (Петровец – Велес); Отовица (Велес - Петровец); Стоби (Велес - Градско и обратно); Миладиновци (Скопје - Миладиновци и обратно); Тетово (Тетово - Гостивар и обратно); Гостивар (Тетово - Гостивар и обратно); Глумово (Скопје - Тетово и обратно); Желино (Скопје - Тетово и обратно); Демир Капија (Градско – Демир Капија и обратно); Гевгелија (Демир Капија – Гевгелија и обратно); Кадрифаково (Штип – Св. Николе и обратно); Преод (Св. Николе – Миладиновци и обратно).",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "Романовце",
+   "lat": 42.110037,
+   "lon": 21.698788,
+   "heading": 193.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0
+    }
+   ]
+  },
+  {
+   "name": "Романовце",
+   "lat": 42.10998,
+   "lon": 21.699077,
+   "heading": 16.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0
+    }
+   ]
+  },
+  {
+   "name": "Петровец",
+   "lat": 41.942102,
+   "lon": 21.619752,
+   "heading": 302.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Петровец",
+   "lat": 41.941932,
+   "lon": 21.619599,
+   "heading": 123.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Сопот",
+   "lat": 41.775798,
+   "lon": 21.74481,
+   "heading": 166.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.5
+    }
+   ]
+  },
+  {
+   "name": "Отовица",
+   "lat": 41.778484,
+   "lon": 21.767612,
+   "heading": 322.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 5.5
+    }
+   ]
+  },
+  {
+   "name": "Стоби",
+   "lat": 41.593432,
+   "lon": 21.913272,
+   "heading": 328.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5
+    }
+   ]
+  },
+  {
+   "name": "Стоби",
+   "lat": 41.593309,
+   "lon": 21.913011,
+   "heading": 148.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5
+    }
+   ]
+  },
+  {
+   "name": "Миладиновци",
+   "lat": 41.983275,
+   "lon": 21.641493,
+   "heading": 69.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.5
+    }
+   ]
+  },
+  {
+   "name": "Миладиновци",
+   "lat": 41.983436,
+   "lon": 21.641413,
+   "heading": 249.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.5
+    }
+   ]
+  },
+  {
+   "name": "Тетово",
+   "lat": 41.976362,
+   "lon": 20.956669,
+   "heading": 187.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0
+    }
+   ]
+  },
+  {
+   "name": "Тетово",
+   "lat": 41.976343,
+   "lon": 20.956874,
+   "heading": 10.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0
+    }
+   ]
+  },
+  {
+   "name": "Гостивар",
+   "lat": 41.819955,
+   "lon": 20.917663,
+   "heading": 10.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0
+    }
+   ]
+  },
+  {
+   "name": "Гостивар",
+   "lat": 41.819975,
+   "lon": 20.917506,
+   "heading": 190.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.0
+    }
+   ]
+  },
+  {
+   "name": "Глумово",
+   "lat": 41.98837,
+   "lon": 21.292679,
+   "heading": 97.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Глумово",
+   "lat": 41.988536,
+   "lon": 21.292695,
+   "heading": 278.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Желино",
+   "lat": 41.989879,
+   "lon": 21.077112,
+   "heading": 67.5,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Желино",
+   "lat": 41.989992,
+   "lon": 21.077054,
+   "heading": 251.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 3.0
+    }
+   ]
+  },
+  {
+   "name": "Демир Капија",
+   "lat": 41.417436,
+   "lon": 22.2086,
+   "heading": 250.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0
+    }
+   ]
+  },
+  {
+   "name": "Демир Капија",
+   "lat": 41.417306,
+   "lon": 22.208648,
+   "heading": 71.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 4.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 6.0
+    }
+   ]
+  },
+  {
+   "name": "Гевгелија",
+   "lat": 41.235537,
+   "lon": 22.492367,
+   "heading": 180.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.0
+    }
+   ]
+  },
+  {
+   "name": "Гевгелија",
+   "lat": 41.235532,
+   "lon": 22.492642,
+   "heading": 0.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 5.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 7.0
+    }
+   ]
+  },
+  {
+   "name": "Кадрифаково",
+   "lat": 41.808913,
+   "lon": 22.058247,
+   "heading": 288.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0
+    }
+   ]
+  },
+  {
+   "name": "Кадрифаково",
+   "lat": 41.80878,
+   "lon": 22.05819,
+   "heading": 104.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 2.5
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.0
+    }
+   ]
+  },
+  {
+   "name": "Преод",
+   "lat": 41.920305,
+   "lon": 21.866256,
+   "heading": 108.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5
+    }
+   ]
+  },
+  {
+   "name": "Преод",
+   "lat": 41.920414,
+   "lon": 21.866302,
+   "heading": 288.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.0
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

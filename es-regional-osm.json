@@ -1,0 +1,2718 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:25:06Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 448261,
+  "lat": 43.1796896,
+  "lon": -2.6427901,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 506110,
+  "lat": 43.0738580,
+  "lon": -2.4639812,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 834673,
+  "lat": 43.2305492,
+  "lon": -2.4022485,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 938123,
+  "lat": 42.3312054,
+  "lon": -1.7264146,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Marcilla"
+  }
+},
+{
+  "type": "node",
+  "id": 938352,
+  "lat": 42.8676263,
+  "lon": -1.7487244,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sarasa"
+  }
+},
+{
+  "type": "node",
+  "id": 6929503,
+  "lat": 43.1905577,
+  "lon": -2.4494774,
+  "tags": {
+    "barrier": "toll_booth",
+    "lanes": "4",
+    "name": "Eibar-Soraluze",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 27013967,
+  "lat": 43.2840076,
+  "lon": -2.3284451,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 27015741,
+  "lat": 43.2675093,
+  "lon": -2.2726747,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 27015759,
+  "lat": 43.2675410,
+  "lon": -2.2727875,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 27364134,
+  "lat": 42.8677515,
+  "lon": -1.7481513,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sarasa"
+  }
+},
+{
+  "type": "node",
+  "id": 30753746,
+  "lat": 43.1392094,
+  "lon": -2.9351806,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 32620454,
+  "lat": 43.2854209,
+  "lon": -2.9360800,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 93036740,
+  "lat": 42.7101335,
+  "lon": -1.6281318,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Imárcoain"
+  }
+},
+{
+  "type": "node",
+  "id": 132361789,
+  "lat": 43.1231337,
+  "lon": -2.7667141,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 141831078,
+  "lat": 41.6494918,
+  "lon": 1.8606216,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 146302625,
+  "lat": 42.3401734,
+  "lon": 1.8391593,
+  "tags": {
+    "barrier": "toll_booth",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "Peatge Túnel del Cadí"
+  }
+},
+{
+  "type": "node",
+  "id": 150686870,
+  "lat": 41.6518869,
+  "lon": 1.8645820,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 150688616,
+  "lat": 41.6517124,
+  "lon": 1.8647640,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 195885934,
+  "lat": 42.3313815,
+  "lon": -1.7232429,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 196315916,
+  "lat": 42.7101035,
+  "lon": -1.6280889,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Imárcoain"
+  }
+},
+{
+  "type": "node",
+  "id": 197738053,
+  "lat": 42.3312042,
+  "lon": -1.7260402,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Marcilla"
+  }
+},
+{
+  "type": "node",
+  "id": 243083723,
+  "lat": 43.2314898,
+  "lon": -2.7527491,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 243896089,
+  "lat": 42.3313713,
+  "lon": -1.7231156,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 252021757,
+  "lat": 43.1390543,
+  "lon": -2.9357169,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 255022590,
+  "lat": 43.3719648,
+  "lon": -1.6777590,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Saint-Jean-de-Luz Sud",
+    "operator": "ASF",
+    "operator:ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 255558497,
+  "lat": 41.5177633,
+  "lon": 2.0300347,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge de les Fonts",
+    "name:ca": "Peatge de les Fonts",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 255620252,
+  "lat": 41.4372418,
+  "lon": 2.0754407,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge Túnels de Vallvidrera"
+  }
+},
+{
+  "type": "node",
+  "id": 255620612,
+  "lat": 41.5180221,
+  "lon": 2.0302289,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge de les Fonts",
+    "name:ca": "Peatge de les Fonts",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 255902880,
+  "lat": 41.4371531,
+  "lon": 2.0750590,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge Túnels de Vallvidrera"
+  }
+},
+{
+  "type": "node",
+  "id": 264162992,
+  "lat": 43.3048572,
+  "lon": -2.9040889,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 275714819,
+  "lat": 43.2791928,
+  "lon": -2.1591833,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Zarautz"
+  }
+},
+{
+  "type": "node",
+  "id": 275715010,
+  "lat": 43.2796974,
+  "lon": -2.1590499,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Zarautz"
+  }
+},
+{
+  "type": "node",
+  "id": 275715013,
+  "lat": 43.2794553,
+  "lon": -2.1590982,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Zarautz"
+  }
+},
+{
+  "type": "node",
+  "id": 275715018,
+  "lat": 43.2798860,
+  "lon": -2.1590049,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Zarautz"
+  }
+},
+{
+  "type": "node",
+  "id": 275715087,
+  "lat": 43.2806853,
+  "lon": -2.1566356,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 275715111,
+  "lat": 43.2806847,
+  "lon": -2.1567173,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 279743006,
+  "lat": 41.2448996,
+  "lon": 1.8520145,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 279746493,
+  "lat": 41.2451166,
+  "lon": 1.8521083,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 280335199,
+  "lat": 43.3186573,
+  "lon": -1.8364580,
+  "tags": {
+    "barrier": "toll_booth",
+    "created_by": "JOSM"
+  }
+},
+{
+  "type": "node",
+  "id": 280335228,
+  "lat": 43.3184911,
+  "lon": -1.8364094,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 280351090,
+  "lat": 43.3412455,
+  "lon": -1.7496367,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Péage de Biriatou",
+    "operator": "Autoroutes du Sud de la France",
+    "operator:ref": "Péage de Biriatou"
+  }
+},
+{
+  "type": "node",
+  "id": 280361615,
+  "lat": 43.3219165,
+  "lon": -1.8316607,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 280361681,
+  "lat": 43.3211694,
+  "lon": -1.8321878,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 280361712,
+  "lat": 43.3211572,
+  "lon": -1.8323180,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 299139562,
+  "lat": 43.1250932,
+  "lon": -2.4267726,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 299452144,
+  "lat": 43.0739557,
+  "lon": -2.4640496,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 301664947,
+  "lat": 43.0476932,
+  "lon": -2.2339649,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Beasain",
+    "name:eu": "Beasain",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 301665205,
+  "lat": 43.0476417,
+  "lon": -2.2338664,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Beasain",
+    "name:eu": "Beasain",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 309316957,
+  "lat": 43.3183546,
+  "lon": -2.0117258,
+  "tags": {
+    "barrier": "toll_booth",
+    "charge": "2.3",
+    "currency:EUR": "yes",
+    "payment:cash": "yes",
+    "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 309316961,
+  "lat": 43.3213278,
+  "lon": -2.0083547,
+  "tags": {
+    "barrier": "toll_booth",
+    "charge": "2.3",
+    "currency:EUR": "yes",
+    "payment:cash": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 314261826,
+  "lat": 43.2106836,
+  "lon": -2.8076568,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 314269167,
+  "lat": 43.2067199,
+  "lon": -2.7774315,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 317019554,
+  "lat": 43.1395600,
+  "lon": -2.9375890,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 332289114,
+  "lat": 41.2062750,
+  "lon": 1.6588171,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 360856595,
+  "lat": 42.9153899,
+  "lon": -2.6972537,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 367993623,
+  "lat": 43.0241819,
+  "lon": -2.5192393,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 504931866,
+  "lat": 43.2313748,
+  "lon": -2.7528108,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 523971080,
+  "lat": 43.2011181,
+  "lon": -2.8955024,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 524008698,
+  "lat": 43.1578061,
+  "lon": -2.9342608,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 529263709,
+  "lat": 43.2820840,
+  "lon": -2.1107527,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Bidegi"
+  }
+},
+{
+  "type": "node",
+  "id": 667983151,
+  "lat": 43.1784084,
+  "lon": -2.6417638,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 667983152,
+  "lat": 43.1784213,
+  "lon": -2.6420038,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 668016357,
+  "lat": 43.1784972,
+  "lon": -2.6431019,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 668016362,
+  "lat": 43.1784689,
+  "lon": -2.6432707,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 668016382,
+  "lat": 43.1798580,
+  "lon": -2.6427522,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 674651148,
+  "lat": 42.9645267,
+  "lon": -2.8670504,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 674651153,
+  "lat": 42.9643853,
+  "lon": -2.8670918,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 678298967,
+  "lat": 42.8174568,
+  "lon": -2.8930188,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 710442973,
+  "lat": 43.1394547,
+  "lon": -2.9373575,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 728391392,
+  "lat": 43.1583161,
+  "lon": -2.7822835,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 893969113,
+  "lat": 42.6731812,
+  "lon": -2.8865185,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Zambrana"
+  }
+},
+{
+  "type": "node",
+  "id": 976032374,
+  "lat": 41.2062951,
+  "lon": 1.6588698,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 976184426,
+  "lat": 43.2535768,
+  "lon": -2.9717753,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje del Kadagua",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 976184696,
+  "lat": 43.2534685,
+  "lon": -2.9715768,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje del Kadagua",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 981187977,
+  "lat": 41.2085727,
+  "lon": 1.5689674,
+  "tags": {
+    "barrier": "toll_booth",
+    "source": "PNOA",
+    "source:date": "2008"
+  }
+},
+{
+  "type": "node",
+  "id": 981188045,
+  "lat": 41.2086114,
+  "lon": 1.5688359,
+  "tags": {
+    "barrier": "toll_booth",
+    "source": "PNOA",
+    "source:date": "2008"
+  }
+},
+{
+  "type": "node",
+  "id": 984774533,
+  "lat": 43.3024314,
+  "lon": -3.0245347,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Trapagaran",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 984851451,
+  "lat": 43.3140433,
+  "lon": -3.0452488,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Santurtzi",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 1272979614,
+  "lat": 43.2821306,
+  "lon": -2.1107720,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Bidegi"
+  }
+},
+{
+  "type": "node",
+  "id": 1371313451,
+  "lat": 43.4483995,
+  "lon": -1.5533894,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Péage de Biarritz",
+    "operator": "ASF",
+    "operator:ref": "Péage de Biarritz"
+  }
+},
+{
+  "type": "node",
+  "id": 1371313452,
+  "lat": 43.4487953,
+  "lon": -1.5533049,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Péage de Biarritz",
+    "operator": "ASF",
+    "operator:ref": "Péage de Biarritz"
+  }
+},
+{
+  "type": "node",
+  "id": 1419636397,
+  "lat": 41.4370800,
+  "lon": 2.0747884,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge Túnels de Vallvidrera"
+  }
+},
+{
+  "type": "node",
+  "id": 1419636417,
+  "lat": 41.4372943,
+  "lon": 2.0757020,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge Túnels de Vallvidrera"
+  }
+},
+{
+  "type": "node",
+  "id": 1428956242,
+  "lat": 43.2923421,
+  "lon": -3.0207290,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Ugarte",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 1428956248,
+  "lat": 43.2924915,
+  "lon": -3.0203051,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Ugarte",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 1430244679,
+  "lat": 43.2369994,
+  "lon": -2.9438148,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Larraskitu",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 1458151541,
+  "lat": 43.2855376,
+  "lon": -2.9360716,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1483905539,
+  "lat": 43.0157800,
+  "lon": -2.9092111,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1489211488,
+  "lat": 41.2080288,
+  "lon": 1.6517074,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1489211494,
+  "lat": 41.2082450,
+  "lon": 1.6517343,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 1641074282,
+  "lat": 43.3064613,
+  "lon": -1.8836921,
+  "tags": {
+    "barrier": "toll_booth",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1668079070,
+  "lat": 43.1685465,
+  "lon": -2.6049773,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Matiena"
+  }
+},
+{
+  "type": "node",
+  "id": 1668079078,
+  "lat": 43.1687122,
+  "lon": -2.6048765,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Matiena",
+    "name:eu": "Matiena"
+  }
+},
+{
+  "type": "node",
+  "id": 1690642278,
+  "lat": 43.3719357,
+  "lon": -1.6749458,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Saint-Jean-de-Luz Sud",
+    "operator": "ASF",
+    "operator:ref": "2"
+  }
+},
+{
+  "type": "node",
+  "id": 1797912452,
+  "lat": 42.9152095,
+  "lon": -2.6970788,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620547,
+  "lat": 41.6495256,
+  "lon": 1.8606345,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620548,
+  "lat": 41.6495443,
+  "lon": 1.8600755,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620549,
+  "lat": 41.6495611,
+  "lon": 1.8606486,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620550,
+  "lat": 41.6495637,
+  "lon": 1.8601407,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620551,
+  "lat": 41.6495999,
+  "lon": 1.8606647,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620552,
+  "lat": 41.6496007,
+  "lon": 1.8611026,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620553,
+  "lat": 41.6496255,
+  "lon": 1.8611552,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024620554,
+  "lat": 41.6496430,
+  "lon": 1.8606804,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Ramal Sant Vicenç-C55",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647210,
+  "lat": 41.6512465,
+  "lon": 1.8645740,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç (Via-T)",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647211,
+  "lat": 41.6516089,
+  "lon": 1.8648663,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647212,
+  "lat": 41.6516450,
+  "lon": 1.8648305,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647213,
+  "lat": 41.6516773,
+  "lon": 1.8647981,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647214,
+  "lat": 41.6517471,
+  "lon": 1.8647313,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647220,
+  "lat": 41.6517722,
+  "lon": 1.8647174,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647223,
+  "lat": 41.6518193,
+  "lon": 1.8646563,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647225,
+  "lat": 41.6518539,
+  "lon": 1.8646227,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647226,
+  "lat": 41.6519255,
+  "lon": 1.8645529,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç",
+    "name:ca": "Sant Vicenç",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2024647227,
+  "lat": 41.6523136,
+  "lon": 1.8648545,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Sant Vicenç (Via-T)",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 2104862541,
+  "lat": 43.0771380,
+  "lon": -2.2992199,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Ezkio",
+    "name:eu": "Ezkio",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 2104862568,
+  "lat": 43.0772043,
+  "lon": -2.2991377,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Ezkio",
+    "name:eu": "Ezkio",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 2125622899,
+  "lat": 43.0934931,
+  "lon": -2.4306504,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2125622901,
+  "lat": 43.0935741,
+  "lon": -2.4307824,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206702955,
+  "lat": 41.2077322,
+  "lon": 1.6516738,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206702980,
+  "lat": 41.2077701,
+  "lon": 1.6516781,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206702996,
+  "lat": 41.2078153,
+  "lon": 1.6516832,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703043,
+  "lat": 41.2078555,
+  "lon": 1.6516877,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703081,
+  "lat": 41.2079033,
+  "lon": 1.6516932,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703095,
+  "lat": 41.2079879,
+  "lon": 1.6517027,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703132,
+  "lat": 41.2080728,
+  "lon": 1.6517124,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703146,
+  "lat": 41.2081157,
+  "lon": 1.6517172,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703167,
+  "lat": 41.2081607,
+  "lon": 1.6517223,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703206,
+  "lat": 41.2084150,
+  "lon": 1.6517511,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703222,
+  "lat": 41.2082026,
+  "lon": 1.6517321,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703237,
+  "lat": 41.2082846,
+  "lon": 1.6517363,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703254,
+  "lat": 41.2083288,
+  "lon": 1.6517414,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703267,
+  "lat": 41.2083721,
+  "lon": 1.6517463,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703285,
+  "lat": 41.2085024,
+  "lon": 1.6517610,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703290,
+  "lat": 41.2084593,
+  "lon": 1.6517561,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2206703306,
+  "lat": 41.2085472,
+  "lon": 1.6517659,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225199,
+  "lat": 41.2446045,
+  "lon": 1.8518870,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225210,
+  "lat": 41.2446495,
+  "lon": 1.8519064,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225221,
+  "lat": 41.2446862,
+  "lon": 1.8519223,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225232,
+  "lat": 41.2447268,
+  "lon": 1.8519399,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225243,
+  "lat": 41.2447673,
+  "lon": 1.8519574,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225253,
+  "lat": 41.2448101,
+  "lon": 1.8519759,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225261,
+  "lat": 41.2448540,
+  "lon": 1.8519948,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225274,
+  "lat": 41.2449981,
+  "lon": 1.8520571,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225287,
+  "lat": 41.2449416,
+  "lon": 1.8520327,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225310,
+  "lat": 41.2450358,
+  "lon": 1.8520725,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225322,
+  "lat": 41.2450770,
+  "lon": 1.8520912,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225355,
+  "lat": 41.2451481,
+  "lon": 1.8521219,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225363,
+  "lat": 41.2451979,
+  "lon": 1.8521435,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225371,
+  "lat": 41.2452417,
+  "lon": 1.8521624,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225382,
+  "lat": 41.2452890,
+  "lon": 1.8521828,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225392,
+  "lat": 41.2453304,
+  "lon": 1.8522007,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225400,
+  "lat": 41.2453687,
+  "lon": 1.8522173,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2711225409,
+  "lat": 41.2454134,
+  "lon": 1.8522366,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2950398495,
+  "lat": 43.3409844,
+  "lon": -1.7493887,
+  "tags": {
+    "barrier": "toll_booth",
+    "highway:ref": "A 63",
+    "name": "Péage de Biriatou",
+    "operator": "Autoroutes du Sud de la France",
+    "operator:ref": "Péage de Biriatou"
+  }
+},
+{
+  "type": "node",
+  "id": 3196925975,
+  "lat": 43.2579330,
+  "lon": -2.9288207,
+  "tags": {
+    "barrier": "toll_booth",
+    "bicycle": "yes",
+    "foot": "yes",
+    "horse": "no",
+    "motor_vehicle": "customers"
+  }
+},
+{
+  "type": "node",
+  "id": 3241643071,
+  "lat": 43.1902753,
+  "lon": -2.8965796,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3417773128,
+  "lat": 43.0887991,
+  "lon": -2.3582012,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Antzuola",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 3810033389,
+  "lat": 43.1576729,
+  "lon": -2.9342701,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 4800873696,
+  "lat": 43.0892929,
+  "lon": -2.3584747,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Antzuola",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 4864301677,
+  "lat": 43.1688931,
+  "lon": -2.6034980,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Matiena"
+  }
+},
+{
+  "type": "node",
+  "id": 4864301681,
+  "lat": 43.1689473,
+  "lon": -2.6002878,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Matiena"
+  }
+},
+{
+  "type": "node",
+  "id": 4864301699,
+  "lat": 43.1683977,
+  "lon": -2.6050513,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Matiena"
+  }
+},
+{
+  "type": "node",
+  "id": 4890014453,
+  "lat": 42.9285836,
+  "lon": -2.6473400,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5335035111,
+  "lat": 43.1762535,
+  "lon": -2.5141174,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5580427399,
+  "lat": 43.1675329,
+  "lon": -2.5954481,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6059979460,
+  "lat": 42.7075898,
+  "lon": -2.9076416,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6059979462,
+  "lat": 42.7073218,
+  "lon": -2.9073957,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6986879662,
+  "lat": 43.1780750,
+  "lon": -2.6428374,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6986879674,
+  "lat": 43.1790487,
+  "lon": -2.6435395,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 7034570661,
+  "lat": 41.5175587,
+  "lon": 2.0298980,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge de les Fonts (Via-T)",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 7034570669,
+  "lat": 41.5182388,
+  "lon": 2.0303687,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peatge de les Fonts (Via-T)",
+    "operator": "AUTEMA"
+  }
+},
+{
+  "type": "node",
+  "id": 7511727738,
+  "lat": 43.2840685,
+  "lon": -2.3284504,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9427898716,
+  "lat": 43.0848582,
+  "lon": -2.3393848,
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "toll_gantry",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "Deskarga",
+    "name:eu": "Deskarga",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 9427928317,
+  "lat": 43.0847676,
+  "lon": -2.3394417,
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "highway": "toll_gantry",
+    "horse": "no",
+    "motor_vehicle": "yes",
+    "name": "Deskarga",
+    "name:eu": "Deskarga",
+    "opening_hours": "24/7",
+    "operator": "Bidegi",
+    "payment:abiatu": "yes",
+    "toll:motorcycle": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 9524132244,
+  "lat": 43.2163288,
+  "lon": -2.0245743,
+  "tags": {
+    "highway": "toll_gantry",
+    "toll:hgv": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9524132245,
+  "lat": 43.2162964,
+  "lon": -2.0247072,
+  "tags": {
+    "highway": "toll_gantry",
+    "toll:hgv": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 9563437203,
+  "lat": 42.3759374,
+  "lon": -3.5909799,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9581659879,
+  "lat": 41.2079462,
+  "lon": 1.6516980,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9581735196,
+  "lat": 41.2062348,
+  "lon": 1.6587121,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9581735197,
+  "lat": 41.2062557,
+  "lon": 1.6587667,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9581735198,
+  "lat": 41.2063150,
+  "lon": 1.6589217,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 9581735199,
+  "lat": 41.2063348,
+  "lon": 1.6589737,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986460,
+  "lat": 43.2315303,
+  "lon": -2.7527285,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986462,
+  "lat": 43.2314509,
+  "lon": -2.7527697,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986524,
+  "lat": 43.2313338,
+  "lon": -2.7520375,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986546,
+  "lat": 43.2314086,
+  "lon": -2.7527925,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986550,
+  "lat": 43.2313289,
+  "lon": -2.7528316,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10124986583,
+  "lat": 43.2314639,
+  "lon": -2.7534296,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10132125058,
+  "lat": 43.3060750,
+  "lon": -1.8835772,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10132125066,
+  "lat": 43.3068621,
+  "lon": -1.8837065,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 10315534782,
+  "lat": 43.2201864,
+  "lon": -2.0244790,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Peaje Vehiculos pesados",
+    "note": "Peaje Para Camiones",
+    "website": "https://www.bidegi.eus/documents/530150/531872/2023-Tarifak-web-N-I-A-15.pdf/c3bf16c9-d850-1965-6e43-d9e9131c285a?t=1674047351811"
+  }
+},
+{
+  "type": "node",
+  "id": 10820230137,
+  "lat": 43.2247402,
+  "lon": -2.0246901,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Peaje Vehiculos pesados",
+    "note": "Peaje Para Camiones",
+    "website": "https://www.bidegi.eus/documents/530150/531872/2023-Tarifak-web-N-I-A-15.pdf/c3bf16c9-d850-1965-6e43-d9e9131c285a?t=1674047351811"
+  }
+},
+{
+  "type": "node",
+  "id": 10820230138,
+  "lat": 43.2263946,
+  "lon": -2.0240273,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Peaje Vehiculos pesados",
+    "note": "Peaje Para Camiones",
+    "website": "https://www.bidegi.eus/documents/530150/531872/2023-Tarifak-web-N-I-A-15.pdf/c3bf16c9-d850-1965-6e43-d9e9131c285a?t=1674047351811"
+  }
+},
+{
+  "type": "node",
+  "id": 10820230140,
+  "lat": 43.2092658,
+  "lon": -2.0341633,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Peaje Vehiculos pesados",
+    "note": "Peaje Para Camiones",
+    "website": "https://www.bidegi.eus/documents/530150/531872/2023-Tarifak-web-N-I-A-15.pdf/c3bf16c9-d850-1965-6e43-d9e9131c285a?t=1674047351811"
+  }
+},
+{
+  "type": "node",
+  "id": 10820230141,
+  "lat": 43.2096283,
+  "lon": -2.0339189,
+  "tags": {
+    "highway": "toll_gantry",
+    "name": "Peaje Vehiculos pesados",
+    "note": "Peaje Para Camiones",
+    "website": "https://www.bidegi.eus/documents/530150/531872/2023-Tarifak-web-N-I-A-15.pdf/c3bf16c9-d850-1965-6e43-d9e9131c285a?t=1674047351811"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940589,
+  "lat": 43.2207460,
+  "lon": -2.8156355,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940590,
+  "lat": 43.1711452,
+  "lon": -2.7730366,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940591,
+  "lat": 43.1865565,
+  "lon": -2.7747630,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940592,
+  "lat": 43.1588033,
+  "lon": -2.7716285,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940593,
+  "lat": 43.1470254,
+  "lon": -2.7885455,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940596,
+  "lat": 43.1110659,
+  "lon": -2.7592561,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940597,
+  "lat": 43.0642437,
+  "lon": -2.7102972,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12045940598,
+  "lat": 43.0515874,
+  "lon": -2.6986317,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412703,
+  "lat": 42.7100719,
+  "lon": -1.6280435,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412706,
+  "lat": 42.7100444,
+  "lon": -1.6280040,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412738,
+  "lat": 42.7100086,
+  "lon": -1.6279528,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412740,
+  "lat": 42.7099742,
+  "lon": -1.6279035,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412742,
+  "lat": 42.7099442,
+  "lon": -1.6278605,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412744,
+  "lat": 42.7099169,
+  "lon": -1.6278213,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412752,
+  "lat": 42.7098861,
+  "lon": -1.6277773,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412761,
+  "lat": 42.7101628,
+  "lon": -1.6281738,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412766,
+  "lat": 42.7101944,
+  "lon": -1.6282191,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412769,
+  "lat": 42.7102287,
+  "lon": -1.6282683,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412771,
+  "lat": 42.7102581,
+  "lon": -1.6283104,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412773,
+  "lat": 42.7102908,
+  "lon": -1.6283573,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412775,
+  "lat": 42.7103192,
+  "lon": -1.6283980,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412779,
+  "lat": 42.7103546,
+  "lon": -1.6284487,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412782,
+  "lat": 42.7103841,
+  "lon": -1.6284910,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12410412799,
+  "lat": 42.7098500,
+  "lon": -1.6277254,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12488386728,
+  "lat": 43.3062411,
+  "lon": -2.9077776,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12652209079,
+  "lat": 43.1389448,
+  "lon": -2.9361696,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12813472558,
+  "lat": 42.9439718,
+  "lon": -2.2264386,
+  "tags": {
+    "highway": "toll_gantry",
+    "toll": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457686,
+  "lat": 43.1784858,
+  "lon": -2.6431574,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457694,
+  "lat": 43.1785078,
+  "lon": -2.6430516,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457699,
+  "lat": 43.1784756,
+  "lon": -2.6432168,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457701,
+  "lat": 43.1784479,
+  "lon": -2.6433243,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457706,
+  "lat": 43.1780830,
+  "lon": -2.6427908,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12896457713,
+  "lat": 43.1790479,
+  "lon": -2.6435845,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12912137407,
+  "lat": 43.3429203,
+  "lon": -3.1415694,
+  "tags": {
+    "highway": "toll_gantry",
+    "motor_vehicle": "yes",
+    "opening_hours": "24/7",
+    "operator": "Bizkaia Provincial Council",
+    "payment:electronic_toll_collection": "yes",
+    "payment:via_t": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12912137408,
+  "lat": 43.3430417,
+  "lon": -3.1415632,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 13291148412,
+  "lat": 43.2852668,
+  "lon": -2.9361732,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 13291148419,
+  "lat": 43.2856926,
+  "lon": -2.9359684,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 13348502065,
+  "lat": 43.3185792,
+  "lon": -1.8332433,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13386799863,
+  "lat": 43.3064650,
+  "lon": -1.8837474,
+  "tags": {
+    "barrier": "toll_booth",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13386799878,
+  "lat": 43.3064565,
+  "lon": -1.8836404,
+  "tags": {
+    "barrier": "toll_booth",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13386799879,
+  "lat": 43.3064504,
+  "lon": -1.8835812,
+  "tags": {
+    "barrier": "toll_booth",
+    "motor_vehicle": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758527,
+  "lat": 42.7072895,
+  "lon": -2.9073639,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758530,
+  "lat": 42.7072515,
+  "lon": -2.9073292,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758533,
+  "lat": 42.7072147,
+  "lon": -2.9073015,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758537,
+  "lat": 42.7073613,
+  "lon": -2.9074455,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758565,
+  "lat": 42.7077364,
+  "lon": -2.9077777,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758568,
+  "lat": 42.7076995,
+  "lon": -2.9077516,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758571,
+  "lat": 42.7076620,
+  "lon": -2.9077154,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758574,
+  "lat": 42.7076256,
+  "lon": -2.9076792,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758577,
+  "lat": 42.7075481,
+  "lon": -2.9076105,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758580,
+  "lat": 42.7075112,
+  "lon": -2.9075860,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758583,
+  "lat": 42.7074751,
+  "lon": -2.9075527,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758586,
+  "lat": 42.7074302,
+  "lon": -2.9075207,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13388758588,
+  "lat": 42.7073936,
+  "lon": -2.9074770,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13437323974,
+  "lat": 43.2820411,
+  "lon": -2.1107334,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Bidegi"
+  }
+},
+{
+  "type": "node",
+  "id": 13437323993,
+  "lat": 43.2821661,
+  "lon": -2.1108025,
+  "tags": {
+    "barrier": "toll_booth",
+    "operator": "Bidegi"
+  }
+},
+{
+  "type": "node",
+  "id": 13658747787,
+  "lat": 43.1784112,
+  "lon": -2.6417077,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13658753106,
+  "lat": 43.1784144,
+  "lon": -2.6418059,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13658753132,
+  "lat": 43.1784225,
+  "lon": -2.6421216,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13658753135,
+  "lat": 43.1784123,
+  "lon": -2.6418865,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13658753136,
+  "lat": 43.1784171,
+  "lon": -2.6419426,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13658753137,
+  "lat": 43.1784253,
+  "lon": -2.6420617,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Durango",
+    "operator": "Interbiak"
+  }
+},
+{
+  "type": "node",
+  "id": 13672788699,
+  "lat": 43.2305528,
+  "lon": -2.4021956,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13672788700,
+  "lat": 43.2305719,
+  "lon": -2.4021407,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13672799201,
+  "lat": 43.2305734,
+  "lon": -2.4020721,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13672799202,
+  "lat": 43.2305741,
+  "lon": -2.4020186,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 13822248337,
+  "lat": 43.1280107,
+  "lon": -2.0827390,
+  "tags": {
+    "highway": "toll_gantry",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 13822248338,
+  "lat": 43.1279100,
+  "lon": -2.0827159,
+  "tags": {
+    "highway": "toll_gantry",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "node",
+  "id": 13992698000,
+  "lat": 42.9439869,
+  "lon": -2.2263117,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14300383141,
+  "lat": 43.1686286,
+  "lon": -2.0653217,
+  "tags": {
+    "direction": "forward",
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14300383142,
+  "lat": 43.1685613,
+  "lon": -2.0656437,
+  "tags": {
+    "direction": "forward",
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14309941245,
+  "lat": 43.1962400,
+  "lon": -2.0482079,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14318127786,
+  "lat": 43.1765661,
+  "lon": -2.0557803,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14359893488,
+  "lat": 43.2638263,
+  "lon": -2.0176102,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14359893489,
+  "lat": 43.2638500,
+  "lon": -2.0177505,
+  "tags": {
+    "highway": "toll_gantry"
+  }
+},
+{
+  "type": "node",
+  "id": 14364951838,
+  "lat": 42.6731901,
+  "lon": -2.8866361,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de Zambrana"
+  }
+},
+{
+  "type": "node",
+  "id": 14368119009,
+  "lat": 42.6771145,
+  "lon": -2.8897641,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+}
+
+  ]
+}

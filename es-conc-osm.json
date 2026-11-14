@@ -1,0 +1,4508 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-14T11:59:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 13842373,
+  "lat": 36.4993130,
+  "lon": -5.0087452,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 25997323,
+  "lat": 40.7256847,
+  "lon": -4.1930625,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 26000032,
+  "lat": 40.7690522,
+  "lon": -4.4305007,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 26000452,
+  "lat": 40.7696005,
+  "lon": -4.4308400,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 29213250,
+  "lat": 40.8224511,
+  "lon": -4.1768731,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 29213253,
+  "lat": 40.8227557,
+  "lon": -4.1769660,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 29958076,
+  "lat": 40.8841708,
+  "lon": -4.5724278,
+  "tags": {
+    "barrier": "toll_booth",
+    "currency:EUR": "yes",
+    "highway": "traffic_signals",
+    "traffic_signals": "toll"
+  }
+},
+{
+  "type": "node",
+  "id": 48221137,
+  "lat": 42.5220821,
+  "lon": -5.7539377,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 48221591,
+  "lat": 42.4536952,
+  "lon": -5.8872688,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 48221647,
+  "lat": 42.4519007,
+  "lon": -5.8880113,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 244714441,
+  "lat": 40.7277215,
+  "lon": -4.1959294,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 244714493,
+  "lat": 40.7276404,
+  "lon": -4.1958655,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 280770329,
+  "lat": 36.4987262,
+  "lon": -5.0020217,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 280770355,
+  "lat": 36.4994501,
+  "lon": -5.0087521,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 292266631,
+  "lat": 40.6505711,
+  "lon": -4.1021672,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 297560234,
+  "lat": 36.5058170,
+  "lon": -4.7178325,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 302819538,
+  "lat": 36.3803250,
+  "lon": -5.2654416,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 345731334,
+  "lat": 36.3803735,
+  "lon": -5.2655671,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 349121963,
+  "lat": 36.5056480,
+  "lon": -4.7178825,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 365856912,
+  "lat": 40.7895745,
+  "lon": -4.2155913,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 487277290,
+  "lat": 42.5250409,
+  "lon": -5.7528405,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje AP-71 Astorga-León"
+  }
+},
+{
+  "type": "node",
+  "id": 860525152,
+  "lat": 40.8228622,
+  "lon": -4.1781846,
+  "tags": {
+    "barrier": "toll_booth",
+    "direction": "forward",
+    "highway": "stop"
+  }
+},
+{
+  "type": "node",
+  "id": 870413476,
+  "lat": 40.7895387,
+  "lon": -4.2157487,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 875905147,
+  "lat": 40.8244006,
+  "lon": -4.1775359,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 875905182,
+  "lat": 40.8242490,
+  "lon": -4.1774117,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892292,
+  "lat": 40.7690977,
+  "lon": -4.4305307,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892293,
+  "lat": 40.7691402,
+  "lon": -4.4305550,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892295,
+  "lat": 40.7691838,
+  "lon": -4.4305820,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892297,
+  "lat": 40.7692230,
+  "lon": -4.4306078,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892307,
+  "lat": 40.7693484,
+  "lon": -4.4306813,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892309,
+  "lat": 40.7693929,
+  "lon": -4.4307097,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892311,
+  "lat": 40.7694371,
+  "lon": -4.4307344,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892322,
+  "lat": 40.7694758,
+  "lon": -4.4307585,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892326,
+  "lat": 40.7695161,
+  "lon": -4.4307863,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151892329,
+  "lat": 40.7695574,
+  "lon": -4.4308098,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903493,
+  "lat": 40.7255535,
+  "lon": -4.1937178,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903494,
+  "lat": 40.7255645,
+  "lon": -4.1936631,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903495,
+  "lat": 40.7255750,
+  "lon": -4.1936104,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903496,
+  "lat": 40.7255889,
+  "lon": -4.1935411,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903497,
+  "lat": 40.7256010,
+  "lon": -4.1934807,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903498,
+  "lat": 40.7256121,
+  "lon": -4.1934251,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903499,
+  "lat": 40.7256265,
+  "lon": -4.1933530,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903500,
+  "lat": 40.7256378,
+  "lon": -4.1932967,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903501,
+  "lat": 40.7256493,
+  "lon": -4.1932390,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903502,
+  "lat": 40.7256608,
+  "lon": -4.1931816,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903503,
+  "lat": 40.7256983,
+  "lon": -4.1929943,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903504,
+  "lat": 40.7257098,
+  "lon": -4.1929368,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903506,
+  "lat": 40.7257208,
+  "lon": -4.1928818,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903507,
+  "lat": 40.7257349,
+  "lon": -4.1928116,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903508,
+  "lat": 40.7257450,
+  "lon": -4.1927610,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903509,
+  "lat": 40.7257586,
+  "lon": -4.1926930,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903510,
+  "lat": 40.7257703,
+  "lon": -4.1926349,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903511,
+  "lat": 40.7257804,
+  "lon": -4.1925845,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903512,
+  "lat": 40.7257922,
+  "lon": -4.1925251,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903513,
+  "lat": 40.7258020,
+  "lon": -4.1924763,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2151903514,
+  "lat": 40.7258146,
+  "lon": -4.1924134,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 2372344235,
+  "lat": 40.7761683,
+  "lon": -4.4275288,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 3607508234,
+  "lat": 40.7734507,
+  "lon": -4.4208134,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 4753380281,
+  "lat": 40.9481672,
+  "lon": -4.1162670,
+  "tags": {
+    "access": "yes",
+    "amenity": "parking_entrance",
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667720326,
+  "lat": 36.4991872,
+  "lon": -5.0095068,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667720342,
+  "lat": 36.4991333,
+  "lon": -5.0100955,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807540,
+  "lat": 36.4995882,
+  "lon": -5.0079457,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807552,
+  "lat": 36.4996054,
+  "lon": -5.0073624,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807573,
+  "lat": 36.4989079,
+  "lon": -5.0016399,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807580,
+  "lat": 36.4989823,
+  "lon": -5.0012898,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807602,
+  "lat": 36.4984670,
+  "lon": -5.0024070,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807611,
+  "lat": 36.4983786,
+  "lon": -5.0027744,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 5667807618,
+  "lat": 36.4986082,
+  "lon": -5.0019752,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6128263849,
+  "lat": 36.3807228,
+  "lon": -5.2653641,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6128263859,
+  "lat": 36.3807098,
+  "lon": -5.2654526,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 6866566678,
+  "lat": 36.5066160,
+  "lon": -4.6764111,
+  "tags": {
+    "barrier": "toll_booth",
+    "source": "survey"
+  }
+},
+{
+  "type": "node",
+  "id": 7856120503,
+  "lat": 42.5250647,
+  "lon": -5.7528713,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje AP-71 Astorga-León"
+  }
+},
+{
+  "type": "node",
+  "id": 7856124106,
+  "lat": 40.7256723,
+  "lon": -4.1931245,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 8819132180,
+  "lat": 40.7276970,
+  "lon": -4.1959100,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 8819132204,
+  "lat": 40.7278417,
+  "lon": -4.1960242,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 11807325143,
+  "lat": 36.3803381,
+  "lon": -5.2654764,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 11807325144,
+  "lat": 36.3803533,
+  "lon": -5.2655253,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465544156,
+  "lat": 40.8227142,
+  "lon": -4.1769533,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465544157,
+  "lat": 40.8228002,
+  "lon": -4.1769796,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465544158,
+  "lat": 40.8228409,
+  "lon": -4.1769920,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465544159,
+  "lat": 40.8226735,
+  "lon": -4.1769409,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465544191,
+  "lat": 40.8242987,
+  "lon": -4.1774525,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545017,
+  "lat": 40.8243568,
+  "lon": -4.1775001,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545054,
+  "lat": 40.8224926,
+  "lon": -4.1768858,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545055,
+  "lat": 40.8225348,
+  "lon": -4.1768986,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545056,
+  "lat": 40.8225760,
+  "lon": -4.1769112,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545057,
+  "lat": 40.8226184,
+  "lon": -4.1769241,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545058,
+  "lat": 40.8224012,
+  "lon": -4.1768579,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545059,
+  "lat": 40.8223565,
+  "lon": -4.1768442,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545060,
+  "lat": 40.8223151,
+  "lon": -4.1768316,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465545061,
+  "lat": 40.8222726,
+  "lon": -4.1768187,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465550343,
+  "lat": 40.7895898,
+  "lon": -4.2155238,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12465550344,
+  "lat": 40.7895532,
+  "lon": -4.2156852,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297335,
+  "lat": 40.7725403,
+  "lon": -4.4242212,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297340,
+  "lat": 40.7725019,
+  "lon": -4.4242458,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297341,
+  "lat": 40.7724628,
+  "lon": -4.4242766,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297344,
+  "lat": 40.7724226,
+  "lon": -4.4243047,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297353,
+  "lat": 40.7725836,
+  "lon": -4.4241873,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297354,
+  "lat": 40.7726250,
+  "lon": -4.4241585,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297357,
+  "lat": 40.7726667,
+  "lon": -4.4241305,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959297360,
+  "lat": 40.7727073,
+  "lon": -4.4241025,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959299727,
+  "lat": 40.7693061,
+  "lon": -4.4306594,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 12959299730,
+  "lat": 40.7692624,
+  "lon": -4.4306353,
+  "tags": {
+    "barrier": "toll_booth"
+  }
+},
+{
+  "type": "node",
+  "id": 14178954184,
+  "lat": 40.7277595,
+  "lon": -4.1959594,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 14178954185,
+  "lat": 40.7278002,
+  "lon": -4.1959914,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 14178954323,
+  "lat": 40.7276027,
+  "lon": -4.1958357,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "node",
+  "id": 14178954330,
+  "lat": 40.7275562,
+  "lon": -4.1957990,
+  "tags": {
+    "barrier": "toll_booth",
+    "name": "Peaje de San Rafael"
+  }
+},
+{
+  "type": "way",
+  "id": 23220123,
+  "bounds": {
+    "minlat": 40.7730527,
+    "minlon": -4.4237993,
+    "maxlat": 40.7748298,
+    "maxlon": -4.4206937
+  },
+  "geometry": [
+    { "lat": 40.7748298, "lon": -4.4237993 },
+    { "lat": 40.7747398, "lon": -4.4235818 },
+    { "lat": 40.7747010, "lon": -4.4233398 },
+    { "lat": 40.7746297, "lon": -4.4229563 },
+    { "lat": 40.7745458, "lon": -4.4224757 },
+    { "lat": 40.7744566, "lon": -4.4219905 },
+    { "lat": 40.7744106, "lon": -4.4217347 },
+    { "lat": 40.7743566, "lon": -4.4214718 },
+    { "lat": 40.7743198, "lon": -4.4213062 },
+    { "lat": 40.7742838, "lon": -4.4211866 },
+    { "lat": 40.7742405, "lon": -4.4210778 },
+    { "lat": 40.7741980, "lon": -4.4209885 },
+    { "lat": 40.7741518, "lon": -4.4209137 },
+    { "lat": 40.7741009, "lon": -4.4208487 },
+    { "lat": 40.7740552, "lon": -4.4208043 },
+    { "lat": 40.7740114, "lon": -4.4207680 },
+    { "lat": 40.7739427, "lon": -4.4207271 },
+    { "lat": 40.7738791, "lon": -4.4207073 },
+    { "lat": 40.7738074, "lon": -4.4206945 },
+    { "lat": 40.7737537, "lon": -4.4206937 },
+    { "lat": 40.7736958, "lon": -4.4207026 },
+    { "lat": 40.7736417, "lon": -4.4207196 },
+    { "lat": 40.7735646, "lon": -4.4207545 },
+    { "lat": 40.7734812, "lon": -4.4207981 },
+    { "lat": 40.7734507, "lon": -4.4208134 },
+    { "lat": 40.7733822, "lon": -4.4208509 },
+    { "lat": 40.7733041, "lon": -4.4209021 },
+    { "lat": 40.7732410, "lon": -4.4209550 },
+    { "lat": 40.7731664, "lon": -4.4210261 },
+    { "lat": 40.7731069, "lon": -4.4210922 },
+    { "lat": 40.7730527, "lon": -4.4211583 }
+  ],
+  "tags": {
+    "destination": "Villacastín;Ávila;Segovia",
+    "destination:ref": "N-110;AP-51",
+    "highway": "motorway_link",
+    "lanes": "1",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 26645524,
+  "bounds": {
+    "minlat": 40.6505384,
+    "minlon": -4.1028080,
+    "maxlat": 40.6510472,
+    "maxlon": -4.1020988
+  },
+  "geometry": [
+    { "lat": 40.6505384, "lon": -4.1020988 },
+    { "lat": 40.6505711, "lon": -4.1021672 },
+    { "lat": 40.6508391, "lon": -4.1026070 },
+    { "lat": 40.6510472, "lon": -4.1028080 }
+  ],
+  "tags": {
+    "highway": "tertiary_link",
+    "oneway": "yes",
+    "source": "PNOA"
+  }
+},
+{
+  "type": "way",
+  "id": 27579933,
+  "bounds": {
+    "minlat": 36.3803250,
+    "minlon": -5.2654416,
+    "maxlat": 36.3811114,
+    "maxlon": -5.2642009
+  },
+  "geometry": [
+    { "lat": 36.3803250, "lon": -5.2654416 },
+    { "lat": 36.3803618, "lon": -5.2654162 },
+    { "lat": 36.3805106, "lon": -5.2653138 },
+    { "lat": 36.3805687, "lon": -5.2652611 },
+    { "lat": 36.3806758, "lon": -5.2651640 },
+    { "lat": 36.3808237, "lon": -5.2649457 },
+    { "lat": 36.3809530, "lon": -5.2647251 },
+    { "lat": 36.3810311, "lon": -5.2645354 },
+    { "lat": 36.3810909, "lon": -5.2643676 },
+    { "lat": 36.3811055, "lon": -5.2643103 },
+    { "lat": 36.3811114, "lon": -5.2642875 },
+    { "lat": 36.3811090, "lon": -5.2642009 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 29048485,
+  "bounds": {
+    "minlat": 36.5054550,
+    "minlon": -4.7208289,
+    "maxlat": 36.5066272,
+    "maxlon": -4.7160389
+  },
+  "geometry": [
+    { "lat": 36.5054550, "lon": -4.7160389 },
+    { "lat": 36.5055621, "lon": -4.7166238 },
+    { "lat": 36.5056366, "lon": -4.7170303 },
+    { "lat": 36.5056869, "lon": -4.7172539 },
+    { "lat": 36.5058170, "lon": -4.7178325 },
+    { "lat": 36.5059774, "lon": -4.7183997 },
+    { "lat": 36.5061521, "lon": -4.7190177 },
+    { "lat": 36.5064550, "lon": -4.7200890 },
+    { "lat": 36.5066272, "lon": -4.7208289 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "int_ref": "E 15",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Mediterráneo",
+    "old_ref": "A-7",
+    "oneway": "yes",
+    "ref": "AP-7",
+    "source": "PNOA",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 39633897,
+  "bounds": {
+    "minlat": 36.3792813,
+    "minlon": -5.2656440,
+    "maxlat": 36.3803250,
+    "maxlon": -5.2654416
+  },
+  "geometry": [
+    { "lat": 36.3792813, "lon": -5.2655666 },
+    { "lat": 36.3795178, "lon": -5.2656135 },
+    { "lat": 36.3796103, "lon": -5.2656239 },
+    { "lat": 36.3797882, "lon": -5.2656440 },
+    { "lat": 36.3799238, "lon": -5.2656336 },
+    { "lat": 36.3800004, "lon": -5.2656162 },
+    { "lat": 36.3800462, "lon": -5.2655892 },
+    { "lat": 36.3803250, "lon": -5.2654416 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 45855498,
+  "bounds": {
+    "minlat": 40.7274244,
+    "minlon": -4.1963530,
+    "maxlat": 40.7290304,
+    "maxlon": -4.1920784
+  },
+  "geometry": [
+    { "lat": 40.7274244, "lon": -4.1963530 },
+    { "lat": 40.7275723, "lon": -4.1961623 },
+    { "lat": 40.7275964, "lon": -4.1961247 },
+    { "lat": 40.7276161, "lon": -4.1960903 },
+    { "lat": 40.7276970, "lon": -4.1959100 },
+    { "lat": 40.7277462, "lon": -4.1958023 },
+    { "lat": 40.7277513, "lon": -4.1957911 },
+    { "lat": 40.7279378, "lon": -4.1953831 },
+    { "lat": 40.7281063, "lon": -4.1950319 },
+    { "lat": 40.7282525, "lon": -4.1947421 },
+    { "lat": 40.7288792, "lon": -4.1934187 },
+    { "lat": 40.7289245, "lon": -4.1933067 },
+    { "lat": 40.7289444, "lon": -4.1932522 },
+    { "lat": 40.7289611, "lon": -4.1931962 },
+    { "lat": 40.7289773, "lon": -4.1931371 },
+    { "lat": 40.7289903, "lon": -4.1930766 },
+    { "lat": 40.7290073, "lon": -4.1929939 },
+    { "lat": 40.7290199, "lon": -4.1929098 },
+    { "lat": 40.7290254, "lon": -4.1928584 },
+    { "lat": 40.7290292, "lon": -4.1928077 },
+    { "lat": 40.7290304, "lon": -4.1927594 },
+    { "lat": 40.7290282, "lon": -4.1927049 },
+    { "lat": 40.7290240, "lon": -4.1926468 },
+    { "lat": 40.7290165, "lon": -4.1925888 },
+    { "lat": 40.7290044, "lon": -4.1925311 },
+    { "lat": 40.7289896, "lon": -4.1924755 },
+    { "lat": 40.7289707, "lon": -4.1924233 },
+    { "lat": 40.7289496, "lon": -4.1923740 },
+    { "lat": 40.7289252, "lon": -4.1923275 },
+    { "lat": 40.7288998, "lon": -4.1922839 },
+    { "lat": 40.7288690, "lon": -4.1922405 },
+    { "lat": 40.7288350, "lon": -4.1922015 },
+    { "lat": 40.7287977, "lon": -4.1921660 },
+    { "lat": 40.7287604, "lon": -4.1921362 },
+    { "lat": 40.7287268, "lon": -4.1921179 },
+    { "lat": 40.7286922, "lon": -4.1921025 },
+    { "lat": 40.7286587, "lon": -4.1920900 },
+    { "lat": 40.7286240, "lon": -4.1920817 },
+    { "lat": 40.7285787, "lon": -4.1920784 },
+    { "lat": 40.7285358, "lon": -4.1920795 },
+    { "lat": 40.7284923, "lon": -4.1920834 },
+    { "lat": 40.7284509, "lon": -4.1920887 },
+    { "lat": 40.7284246, "lon": -4.1920948 },
+    { "lat": 40.7283982, "lon": -4.1921052 },
+    { "lat": 40.7283763, "lon": -4.1921170 },
+    { "lat": 40.7283510, "lon": -4.1921324 },
+    { "lat": 40.7283265, "lon": -4.1921493 },
+    { "lat": 40.7283025, "lon": -4.1921676 },
+    { "lat": 40.7282782, "lon": -4.1921889 },
+    { "lat": 40.7282556, "lon": -4.1922115 },
+    { "lat": 40.7282250, "lon": -4.1922469 },
+    { "lat": 40.7282032, "lon": -4.1922753 },
+    { "lat": 40.7281825, "lon": -4.1923066 }
+  ],
+  "tags": {
+    "destination:symbol": "Segovia;Ávila;La Coruña",
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 62126724,
+  "bounds": {
+    "minlat": 40.7757969,
+    "minlon": -4.4323437,
+    "maxlat": 40.7791316,
+    "maxlon": -4.4237802
+  },
+  "geometry": [
+    { "lat": 40.7769381, "lon": -4.4237802 },
+    { "lat": 40.7768390, "lon": -4.4238093 },
+    { "lat": 40.7767521, "lon": -4.4238473 },
+    { "lat": 40.7765432, "lon": -4.4239606 },
+    { "lat": 40.7763785, "lon": -4.4240990 },
+    { "lat": 40.7762437, "lon": -4.4242605 },
+    { "lat": 40.7760865, "lon": -4.4244846 },
+    { "lat": 40.7759741, "lon": -4.4247153 },
+    { "lat": 40.7758793, "lon": -4.4249790 },
+    { "lat": 40.7758094, "lon": -4.4253547 },
+    { "lat": 40.7757969, "lon": -4.4256447 },
+    { "lat": 40.7758244, "lon": -4.4259644 },
+    { "lat": 40.7758868, "lon": -4.4263401 },
+    { "lat": 40.7760615, "lon": -4.4271509 },
+    { "lat": 40.7761683, "lon": -4.4275288 },
+    { "lat": 40.7763235, "lon": -4.4280078 },
+    { "lat": 40.7765931, "lon": -4.4287163 },
+    { "lat": 40.7768327, "lon": -4.4292536 },
+    { "lat": 40.7770648, "lon": -4.4297150 },
+    { "lat": 40.7772545, "lon": -4.4300379 },
+    { "lat": 40.7775714, "lon": -4.4305257 },
+    { "lat": 40.7778884, "lon": -4.4309739 },
+    { "lat": 40.7781454, "lon": -4.4312804 },
+    { "lat": 40.7786271, "lon": -4.4318177 },
+    { "lat": 40.7791316, "lon": -4.4323437 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 72478756,
+  "bounds": {
+    "minlat": 40.8228581,
+    "minlon": -4.1789461,
+    "maxlat": 40.8239378,
+    "maxlon": -4.1712388
+  },
+  "geometry": [
+    { "lat": 40.8237266, "lon": -4.1712388 },
+    { "lat": 40.8236335, "lon": -4.1720490 },
+    { "lat": 40.8232653, "lon": -4.1742909 },
+    { "lat": 40.8232548, "lon": -4.1743881 },
+    { "lat": 40.8231630, "lon": -4.1761339 },
+    { "lat": 40.8231419, "lon": -4.1764274 },
+    { "lat": 40.8231271, "lon": -4.1765959 },
+    { "lat": 40.8230240, "lon": -4.1773162 },
+    { "lat": 40.8228622, "lon": -4.1781846 },
+    { "lat": 40.8228581, "lon": -4.1783147 },
+    { "lat": 40.8228696, "lon": -4.1784447 },
+    { "lat": 40.8229165, "lon": -4.1785953 },
+    { "lat": 40.8229863, "lon": -4.1787358 },
+    { "lat": 40.8230476, "lon": -4.1788129 },
+    { "lat": 40.8231204, "lon": -4.1788722 },
+    { "lat": 40.8231887, "lon": -4.1789120 },
+    { "lat": 40.8232589, "lon": -4.1789378 },
+    { "lat": 40.8233323, "lon": -4.1789461 },
+    { "lat": 40.8234057, "lon": -4.1789431 },
+    { "lat": 40.8234804, "lon": -4.1789273 },
+    { "lat": 40.8235551, "lon": -4.1788989 },
+    { "lat": 40.8236541, "lon": -4.1788158 },
+    { "lat": 40.8237339, "lon": -4.1787112 },
+    { "lat": 40.8239378, "lon": -4.1782818 }
+  ],
+  "tags": {
+    "destination": "Ortigosa del Monte;Otero de Herreros",
+    "destination:ref": "N-603",
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 72478916,
+  "bounds": {
+    "minlat": 40.8201249,
+    "minlon": -4.1860807,
+    "maxlat": 40.8245324,
+    "maxlon": -4.1769207
+  },
+  "geometry": [
+    { "lat": 40.8201249, "lon": -4.1860807 },
+    { "lat": 40.8207331, "lon": -4.1846808 },
+    { "lat": 40.8210542, "lon": -4.1838130 },
+    { "lat": 40.8211085, "lon": -4.1836150 },
+    { "lat": 40.8211512, "lon": -4.1833862 },
+    { "lat": 40.8211791, "lon": -4.1831602 },
+    { "lat": 40.8211871, "lon": -4.1829211 },
+    { "lat": 40.8211804, "lon": -4.1826847 },
+    { "lat": 40.8211580, "lon": -4.1824667 },
+    { "lat": 40.8211309, "lon": -4.1822929 },
+    { "lat": 40.8210296, "lon": -4.1817824 },
+    { "lat": 40.8209939, "lon": -4.1815296 },
+    { "lat": 40.8209817, "lon": -4.1813774 },
+    { "lat": 40.8209936, "lon": -4.1812252 },
+    { "lat": 40.8210395, "lon": -4.1809599 },
+    { "lat": 40.8211162, "lon": -4.1807518 },
+    { "lat": 40.8212179, "lon": -4.1805548 },
+    { "lat": 40.8213001, "lon": -4.1804454 },
+    { "lat": 40.8213702, "lon": -4.1803710 },
+    { "lat": 40.8214813, "lon": -4.1802787 },
+    { "lat": 40.8215622, "lon": -4.1802340 },
+    { "lat": 40.8217301, "lon": -4.1801607 },
+    { "lat": 40.8217560, "lon": -4.1801495 },
+    { "lat": 40.8217732, "lon": -4.1801421 },
+    { "lat": 40.8229153, "lon": -4.1796820 },
+    { "lat": 40.8231235, "lon": -4.1795739 },
+    { "lat": 40.8232280, "lon": -4.1794972 },
+    { "lat": 40.8233146, "lon": -4.1794251 },
+    { "lat": 40.8234067, "lon": -4.1793281 },
+    { "lat": 40.8234930, "lon": -4.1792212 },
+    { "lat": 40.8235820, "lon": -4.1790938 },
+    { "lat": 40.8236577, "lon": -4.1789586 },
+    { "lat": 40.8237301, "lon": -4.1788040 },
+    { "lat": 40.8239378, "lon": -4.1782818 },
+    { "lat": 40.8241214, "lon": -4.1777327 },
+    { "lat": 40.8242490, "lon": -4.1774117 },
+    { "lat": 40.8243569, "lon": -4.1771649 },
+    { "lat": 40.8244418, "lon": -4.1770234 },
+    { "lat": 40.8245324, "lon": -4.1769207 }
+  ],
+  "tags": {
+    "destination": "Ortigosa del Monte;Otero de Herreros",
+    "destination:ref": "N-603",
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 73419657,
+  "bounds": {
+    "minlat": 40.7889405,
+    "minlon": -4.2157906,
+    "maxlat": 40.7901074,
+    "maxlon": -4.2153261
+  },
+  "geometry": [
+    { "lat": 40.7889405, "lon": -4.2153261 },
+    { "lat": 40.7895745, "lon": -4.2155913 },
+    { "lat": 40.7896403, "lon": -4.2156188 },
+    { "lat": 40.7899390, "lon": -4.2157438 },
+    { "lat": 40.7899817, "lon": -4.2157589 },
+    { "lat": 40.7900233, "lon": -4.2157725 },
+    { "lat": 40.7901074, "lon": -4.2157906 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 73419663,
+  "bounds": {
+    "minlat": 40.7889264,
+    "minlon": -4.2158756,
+    "maxlat": 40.7899579,
+    "maxlon": -4.2154315
+  },
+  "geometry": [
+    { "lat": 40.7899579, "lon": -4.2158756 },
+    { "lat": 40.7898811, "lon": -4.2158710 },
+    { "lat": 40.7898406, "lon": -4.2158616 },
+    { "lat": 40.7895459, "lon": -4.2157523 },
+    { "lat": 40.7895387, "lon": -4.2157487 },
+    { "lat": 40.7894726, "lon": -4.2157156 },
+    { "lat": 40.7894570, "lon": -4.2157078 },
+    { "lat": 40.7892544, "lon": -4.2156108 },
+    { "lat": 40.7889264, "lon": -4.2154315 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 75683946,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8222582, "lon": -4.1781635 },
+    { "lat": 40.8223156, "lon": -4.1776638 },
+    { "lat": 40.8223675, "lon": -4.1773539 },
+    { "lat": 40.8224358, "lon": -4.1769612 },
+    { "lat": 40.8224511, "lon": -4.1768731 },
+    { "lat": 40.8224631, "lon": -4.1768049 },
+    { "lat": 40.8225692, "lon": -4.1761937 },
+    { "lat": 40.8225826, "lon": -4.1761216 },
+    { "lat": 40.8228032, "lon": -4.1753179 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 202458080,
+  "bounds": {
+    "minlat": 42.5249848,
+    "minlon": -5.7529191,
+    "maxlat": 42.5250748,
+    "maxlon": -5.7527921
+  },
+  "geometry": [
+    { "lat": 42.5249848, "lon": -5.7529191 },
+    { "lat": 42.5250409, "lon": -5.7528405 },
+    { "lat": 42.5250748, "lon": -5.7527921 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "maxspeed": "10",
+    "name": "Autopista León - Astorga",
+    "oneway": "yes",
+    "ref": "AP-71",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 202458083,
+  "bounds": {
+    "minlat": 42.4536893,
+    "minlon": -5.8873194,
+    "maxlat": 42.4537071,
+    "maxlon": -5.8871501
+  },
+  "geometry": [
+    { "lat": 42.4537071, "lon": -5.8871501 },
+    { "lat": 42.4536952, "lon": -5.8872688 },
+    { "lat": 42.4536893, "lon": -5.8873194 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "2",
+    "maxspeed": "10",
+    "name": "Autopista León - Astorga",
+    "oneway": "yes",
+    "ref": "AP-71",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 205214780,
+  "bounds": {
+    "minlat": 40.7693949,
+    "minlon": -4.4309849,
+    "maxlat": 40.7696230,
+    "maxlon": -4.4303308
+  },
+  "geometry": [
+    { "lat": 40.7696230, "lon": -4.4303308 },
+    { "lat": 40.7694758, "lon": -4.4307585 },
+    { "lat": 40.7693949, "lon": -4.4309849 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214781,
+  "bounds": {
+    "minlat": 40.7694365,
+    "minlon": -4.4310073,
+    "maxlat": 40.7696635,
+    "maxlon": -4.4303575
+  },
+  "geometry": [
+    { "lat": 40.7696635, "lon": -4.4303575 },
+    { "lat": 40.7695161, "lon": -4.4307863 },
+    { "lat": 40.7694365, "lon": -4.4310073 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214782,
+  "bounds": {
+    "minlat": 40.7689912,
+    "minlon": -4.4309817,
+    "maxlat": 40.7692167,
+    "maxlon": -4.4303368
+  },
+  "geometry": [
+    { "lat": 40.7689912, "lon": -4.4309817 },
+    { "lat": 40.7691402, "lon": -4.4305550 },
+    { "lat": 40.7692167, "lon": -4.4303368 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214783,
+  "bounds": {
+    "minlat": 40.7693130,
+    "minlon": -4.4309340,
+    "maxlat": 40.7695423,
+    "maxlon": -4.4302763
+  },
+  "geometry": [
+    { "lat": 40.7695423, "lon": -4.4302763 },
+    { "lat": 40.7693929, "lon": -4.4307097 },
+    { "lat": 40.7693130, "lon": -4.4309340 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214784,
+  "bounds": {
+    "minlat": 40.7693572,
+    "minlon": -4.4309577,
+    "maxlat": 40.7695824,
+    "maxlon": -4.4303068
+  },
+  "geometry": [
+    { "lat": 40.7695824, "lon": -4.4303068 },
+    { "lat": 40.7694371, "lon": -4.4307344 },
+    { "lat": 40.7693572, "lon": -4.4309577 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214785,
+  "bounds": {
+    "minlat": 40.7690337,
+    "minlon": -4.4310092,
+    "maxlat": 40.7692596,
+    "maxlon": -4.4303659
+  },
+  "geometry": [
+    { "lat": 40.7690337, "lon": -4.4310092 },
+    { "lat": 40.7691838, "lon": -4.4305820 },
+    { "lat": 40.7692596, "lon": -4.4303659 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214786,
+  "bounds": {
+    "minlat": 40.7692700,
+    "minlon": -4.4309071,
+    "maxlat": 40.7694975,
+    "maxlon": -4.4302497
+  },
+  "geometry": [
+    { "lat": 40.7694975, "lon": -4.4302497 },
+    { "lat": 40.7693484, "lon": -4.4306813 },
+    { "lat": 40.7692700, "lon": -4.4309071 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214787,
+  "bounds": {
+    "minlat": 40.7689488,
+    "minlon": -4.4309560,
+    "maxlat": 40.7691784,
+    "maxlon": -4.4303069
+  },
+  "geometry": [
+    { "lat": 40.7689488, "lon": -4.4309560 },
+    { "lat": 40.7690977, "lon": -4.4305307 },
+    { "lat": 40.7691784, "lon": -4.4303069 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 205214788,
+  "bounds": {
+    "minlat": 40.7694788,
+    "minlon": -4.4310319,
+    "maxlat": 40.7697027,
+    "maxlon": -4.4303870
+  },
+  "geometry": [
+    { "lat": 40.7697027, "lon": -4.4303870 },
+    { "lat": 40.7695574, "lon": -4.4308098 },
+    { "lat": 40.7694788, "lon": -4.4310319 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 234877640,
+  "bounds": {
+    "minlat": 40.7277544,
+    "minlon": -4.1961997,
+    "maxlat": 40.7282278,
+    "maxlon": -4.1950434
+  },
+  "geometry": [
+    { "lat": 40.7282278, "lon": -4.1950434 },
+    { "lat": 40.7281017, "lon": -4.1953098 },
+    { "lat": 40.7279904, "lon": -4.1956917 },
+    { "lat": 40.7279468, "lon": -4.1958068 },
+    { "lat": 40.7278417, "lon": -4.1960242 },
+    { "lat": 40.7278203, "lon": -4.1960685 },
+    { "lat": 40.7277703, "lon": -4.1961720 },
+    { "lat": 40.7277544, "lon": -4.1961997 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 280536863,
+  "bounds": {
+    "minlat": 40.7275822,
+    "minlon": -4.1963977,
+    "maxlat": 40.7277215,
+    "maxlon": -4.1959294
+  },
+  "geometry": [
+    { "lat": 40.7277215, "lon": -4.1959294 },
+    { "lat": 40.7277027, "lon": -4.1959722 },
+    { "lat": 40.7276645, "lon": -4.1960601 },
+    { "lat": 40.7276414, "lon": -4.1961227 },
+    { "lat": 40.7276256, "lon": -4.1961698 },
+    { "lat": 40.7276070, "lon": -4.1962597 },
+    { "lat": 40.7275822, "lon": -4.1963977 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 280788851,
+  "bounds": {
+    "minlat": 40.8215419,
+    "minlon": -4.1830832,
+    "maxlat": 40.8245673,
+    "maxlon": -4.1770039
+  },
+  "geometry": [
+    { "lat": 40.8245673, "lon": -4.1770039 },
+    { "lat": 40.8245247, "lon": -4.1771790 },
+    { "lat": 40.8244707, "lon": -4.1773477 },
+    { "lat": 40.8244006, "lon": -4.1775359 },
+    { "lat": 40.8240246, "lon": -4.1783528 },
+    { "lat": 40.8238404, "lon": -4.1787533 },
+    { "lat": 40.8237346, "lon": -4.1790354 },
+    { "lat": 40.8235901, "lon": -4.1793334 },
+    { "lat": 40.8232690, "lon": -4.1797409 },
+    { "lat": 40.8227113, "lon": -4.1802892 },
+    { "lat": 40.8225664, "lon": -4.1804555 },
+    { "lat": 40.8224216, "lon": -4.1806595 },
+    { "lat": 40.8223043, "lon": -4.1808650 },
+    { "lat": 40.8221914, "lon": -4.1811009 },
+    { "lat": 40.8220214, "lon": -4.1815117 },
+    { "lat": 40.8215419, "lon": -4.1830832 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 306797167,
+  "bounds": {
+    "minlat": 40.8837084,
+    "minlon": -4.5728569,
+    "maxlat": 40.8848640,
+    "maxlon": -4.5721185
+  },
+  "geometry": [
+    { "lat": 40.8837084, "lon": -4.5721185 },
+    { "lat": 40.8841708, "lon": -4.5724278 },
+    { "lat": 40.8845962, "lon": -4.5727039 },
+    { "lat": 40.8848640, "lon": -4.5728569 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "18",
+    "maxspeed": "30",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 368806523,
+  "bounds": {
+    "minlat": 40.9480864,
+    "minlon": -4.1166960,
+    "maxlat": 40.9481672,
+    "maxlon": -4.1162670
+  },
+  "geometry": [
+    { "lat": 40.9480864, "lon": -4.1166960 },
+    { "lat": 40.9480907, "lon": -4.1166307 },
+    { "lat": 40.9480959, "lon": -4.1165888 },
+    { "lat": 40.9481672, "lon": -4.1162670 }
+  ],
+  "tags": {
+    "highway": "service",
+    "lanes": "1",
+    "lit": "yes",
+    "oneway": "yes",
+    "service": "parking_aisle",
+    "surface": "unhewn_cobblestone"
+  }
+},
+{
+  "type": "way",
+  "id": 545291458,
+  "bounds": {
+    "minlat": 42.5220307,
+    "minlon": -5.7539744,
+    "maxlat": 42.5221459,
+    "maxlon": -5.7538966
+  },
+  "geometry": [
+    { "lat": 42.5221459, "lon": -5.7538966 },
+    { "lat": 42.5220821, "lon": -5.7539377 },
+    { "lat": 42.5220307, "lon": -5.7539744 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "oneway": "no",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 545554589,
+  "bounds": {
+    "minlat": 42.4518692,
+    "minlon": -5.8880774,
+    "maxlat": 42.4519257,
+    "maxlon": -5.8879229
+  },
+  "geometry": [
+    { "lat": 42.4519257, "lon": -5.8880774 },
+    { "lat": 42.4519007, "lon": -5.8880113 },
+    { "lat": 42.4518692, "lon": -5.8879229 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "oneway": "no",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 553090279,
+  "bounds": {
+    "minlat": 36.5065603,
+    "minlon": -4.6770772,
+    "maxlat": 36.5070573,
+    "maxlon": -4.6763923
+  },
+  "geometry": [
+    { "lat": 36.5070450, "lon": -4.6770772 },
+    { "lat": 36.5070502, "lon": -4.6770209 },
+    { "lat": 36.5070573, "lon": -4.6769646 },
+    { "lat": 36.5068963, "lon": -4.6769228 },
+    { "lat": 36.5067489, "lon": -4.6768732 },
+    { "lat": 36.5067194, "lon": -4.6768508 },
+    { "lat": 36.5066954, "lon": -4.6768084 },
+    { "lat": 36.5066747, "lon": -4.6767187 },
+    { "lat": 36.5066394, "lon": -4.6765037 },
+    { "lat": 36.5066418, "lon": -4.6764781 },
+    { "lat": 36.5066532, "lon": -4.6764567 },
+    { "lat": 36.5067571, "lon": -4.6764224 },
+    { "lat": 36.5066640, "lon": -4.6763932 },
+    { "lat": 36.5066421, "lon": -4.6763923 },
+    { "lat": 36.5066160, "lon": -4.6764111 },
+    { "lat": 36.5065603, "lon": -4.6765377 }
+  ],
+  "tags": {
+    "highway": "service",
+    "name": "Mercadona parking",
+    "oneway": "yes",
+    "source": "survey"
+  }
+},
+{
+  "type": "way",
+  "id": 591902652,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1930625,
+    "maxlat": 40.7256847,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7256847, "lon": -4.1930625 },
+    { "lat": 40.7251796, "lon": -4.1928467 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 591902653,
+  "bounds": {
+    "minlat": 40.7256847,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1930625
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262273, "lon": -4.1932585 },
+    { "lat": 40.7256847, "lon": -4.1930625 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594339121,
+  "bounds": {
+    "minlat": 36.4991731,
+    "minlon": -5.0100768,
+    "maxlat": 36.4992721,
+    "maxlon": -5.0080693
+  },
+  "geometry": [
+    { "lat": 36.4992582, "lon": -5.0100768 },
+    { "lat": 36.4991926, "lon": -5.0096793 },
+    { "lat": 36.4991872, "lon": -5.0095068 },
+    { "lat": 36.4991731, "lon": -5.0092050 },
+    { "lat": 36.4991742, "lon": -5.0088725 },
+    { "lat": 36.4991916, "lon": -5.0086384 },
+    { "lat": 36.4992227, "lon": -5.0083078 },
+    { "lat": 36.4992721, "lon": -5.0080693 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594339123,
+  "bounds": {
+    "minlat": 36.4989998,
+    "minlon": -5.0117550,
+    "maxlat": 36.4993386,
+    "maxlon": -5.0078615
+  },
+  "geometry": [
+    { "lat": 36.4989998, "lon": -5.0117550 },
+    { "lat": 36.4990244, "lon": -5.0114474 },
+    { "lat": 36.4990718, "lon": -5.0111631 },
+    { "lat": 36.4991085, "lon": -5.0109243 },
+    { "lat": 36.4991257, "lon": -5.0107527 },
+    { "lat": 36.4991386, "lon": -5.0105783 },
+    { "lat": 36.4991365, "lon": -5.0103718 },
+    { "lat": 36.4991349, "lon": -5.0102350 },
+    { "lat": 36.4991333, "lon": -5.0100955 },
+    { "lat": 36.4991257, "lon": -5.0098810 },
+    { "lat": 36.4991128, "lon": -5.0095511 },
+    { "lat": 36.4991106, "lon": -5.0092399 },
+    { "lat": 36.4991257, "lon": -5.0089073 },
+    { "lat": 36.4991488, "lon": -5.0086339 },
+    { "lat": 36.4991537, "lon": -5.0085747 },
+    { "lat": 36.4991882, "lon": -5.0082395 },
+    { "lat": 36.4992721, "lon": -5.0080693 },
+    { "lat": 36.4993386, "lon": -5.0078615 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594349465,
+  "bounds": {
+    "minlat": 36.4985967,
+    "minlon": -5.0026114,
+    "maxlat": 36.4992659,
+    "maxlon": -5.0002679
+  },
+  "geometry": [
+    { "lat": 36.4992659, "lon": -5.0002679 },
+    { "lat": 36.4990770, "lon": -5.0007087 },
+    { "lat": 36.4989928, "lon": -5.0008566 },
+    { "lat": 36.4988896, "lon": -5.0012107 },
+    { "lat": 36.4988285, "lon": -5.0015805 },
+    { "lat": 36.4987898, "lon": -5.0017395 },
+    { "lat": 36.4987262, "lon": -5.0020217 },
+    { "lat": 36.4987216, "lon": -5.0020427 },
+    { "lat": 36.4985967, "lon": -5.0026114 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349466,
+  "bounds": {
+    "minlat": 36.4984508,
+    "minlon": -5.0026564,
+    "maxlat": 36.4985103,
+    "maxlon": -5.0019673
+  },
+  "geometry": [
+    { "lat": 36.4984853, "lon": -5.0026564 },
+    { "lat": 36.4984508, "lon": -5.0025854 },
+    { "lat": 36.4984670, "lon": -5.0024070 },
+    { "lat": 36.4985103, "lon": -5.0019673 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349467,
+  "bounds": {
+    "minlat": 36.4984853,
+    "minlon": -5.0026564,
+    "maxlat": 36.4988270,
+    "maxlon": -5.0011289
+  },
+  "geometry": [
+    { "lat": 36.4984853, "lon": -5.0026564 },
+    { "lat": 36.4985274, "lon": -5.0023413 },
+    { "lat": 36.4986008, "lon": -5.0020087 },
+    { "lat": 36.4986082, "lon": -5.0019752 },
+    { "lat": 36.4986825, "lon": -5.0017073 },
+    { "lat": 36.4988270, "lon": -5.0011289 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "3",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349469,
+  "bounds": {
+    "minlat": 36.4994922,
+    "minlon": -5.0094451,
+    "maxlat": 36.4995968,
+    "maxlon": -5.0071880
+  },
+  "geometry": [
+    { "lat": 36.4994922, "lon": -5.0071880 },
+    { "lat": 36.4995709, "lon": -5.0077030 },
+    { "lat": 36.4995882, "lon": -5.0079457 },
+    { "lat": 36.4995968, "lon": -5.0081885 },
+    { "lat": 36.4995928, "lon": -5.0084410 },
+    { "lat": 36.4995865, "lon": -5.0087194 },
+    { "lat": 36.4995515, "lon": -5.0094451 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349471,
+  "bounds": {
+    "minlat": 36.4992383,
+    "minlon": -5.0102989,
+    "maxlat": 36.4994297,
+    "maxlon": -5.0064974
+  },
+  "geometry": [
+    { "lat": 36.4992383, "lon": -5.0102989 },
+    { "lat": 36.4992483, "lon": -5.0101870 },
+    { "lat": 36.4992582, "lon": -5.0100768 },
+    { "lat": 36.4993130, "lon": -5.0087452 },
+    { "lat": 36.4993177, "lon": -5.0086515 },
+    { "lat": 36.4993386, "lon": -5.0078615 },
+    { "lat": 36.4993459, "lon": -5.0077128 },
+    { "lat": 36.4994297, "lon": -5.0064974 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "int_ref": "E 15",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Mediterráneo",
+    "oneway": "yes",
+    "ref": "AP-7",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594349474,
+  "bounds": {
+    "minlat": 36.4993479,
+    "minlon": -5.0103793,
+    "maxlat": 36.4994922,
+    "maxlon": -5.0071880
+  },
+  "geometry": [
+    { "lat": 36.4994922, "lon": -5.0071880 },
+    { "lat": 36.4994621, "lon": -5.0076815 },
+    { "lat": 36.4994555, "lon": -5.0086658 },
+    { "lat": 36.4994501, "lon": -5.0087521 },
+    { "lat": 36.4993479, "lon": -5.0103793 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "int_ref": "E 15",
+    "lanes": "4",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Mediterráneo",
+    "oneway": "yes",
+    "ref": "AP-7",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594349476,
+  "bounds": {
+    "minlat": 36.4995515,
+    "minlon": -5.0094451,
+    "maxlat": 36.4996761,
+    "maxlon": -5.0058411
+  },
+  "geometry": [
+    { "lat": 36.4996761, "lon": -5.0058411 },
+    { "lat": 36.4996443, "lon": -5.0063686 },
+    { "lat": 36.4996162, "lon": -5.0067173 },
+    { "lat": 36.4995990, "lon": -5.0070915 },
+    { "lat": 36.4996021, "lon": -5.0072215 },
+    { "lat": 36.4996054, "lon": -5.0073624 },
+    { "lat": 36.4996302, "lon": -5.0076601 },
+    { "lat": 36.4996443, "lon": -5.0079498 },
+    { "lat": 36.4996572, "lon": -5.0082690 },
+    { "lat": 36.4996561, "lon": -5.0085828 },
+    { "lat": 36.4996335, "lon": -5.0089328 },
+    { "lat": 36.4995515, "lon": -5.0094451 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349482,
+  "bounds": {
+    "minlat": 36.4987188,
+    "minlon": -5.0024204,
+    "maxlat": 36.4989306,
+    "maxlon": -5.0012107
+  },
+  "geometry": [
+    { "lat": 36.4988896, "lon": -5.0012107 },
+    { "lat": 36.4989306, "lon": -5.0014186 },
+    { "lat": 36.4989263, "lon": -5.0015634 },
+    { "lat": 36.4989079, "lon": -5.0016399 },
+    { "lat": 36.4988055, "lon": -5.0020663 },
+    { "lat": 36.4987188, "lon": -5.0024204 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 594349483,
+  "bounds": {
+    "minlat": 36.4985967,
+    "minlon": -5.0026114,
+    "maxlat": 36.4989823,
+    "maxlon": -5.0012898
+  },
+  "geometry": [
+    { "lat": 36.4989823, "lon": -5.0012898 },
+    { "lat": 36.4989748, "lon": -5.0015205 },
+    { "lat": 36.4989608, "lon": -5.0016144 },
+    { "lat": 36.4988573, "lon": -5.0020811 },
+    { "lat": 36.4987753, "lon": -5.0023319 },
+    { "lat": 36.4987188, "lon": -5.0024204 },
+    { "lat": 36.4985967, "lon": -5.0026114 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 594349485,
+  "bounds": {
+    "minlat": 36.4983498,
+    "minlon": -5.0032122,
+    "maxlat": 36.4988270,
+    "maxlon": -5.0011289
+  },
+  "geometry": [
+    { "lat": 36.4983498, "lon": -5.0032122 },
+    { "lat": 36.4983538, "lon": -5.0030454 },
+    { "lat": 36.4983614, "lon": -5.0029314 },
+    { "lat": 36.4983786, "lon": -5.0027744 },
+    { "lat": 36.4984099, "lon": -5.0025089 },
+    { "lat": 36.4984325, "lon": -5.0023051 },
+    { "lat": 36.4984756, "lon": -5.0021119 },
+    { "lat": 36.4985103, "lon": -5.0019673 },
+    { "lat": 36.4985716, "lon": -5.0017123 },
+    { "lat": 36.4986751, "lon": -5.0013851 },
+    { "lat": 36.4988270, "lon": -5.0011289 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 653952225,
+  "bounds": {
+    "minlat": 36.3805576,
+    "minlon": -5.2655786,
+    "maxlat": 36.3808351,
+    "maxlon": -5.2651522
+  },
+  "geometry": [
+    { "lat": 36.3808351, "lon": -5.2651522 },
+    { "lat": 36.3808330, "lon": -5.2651945 },
+    { "lat": 36.3808216, "lon": -5.2652345 },
+    { "lat": 36.3807767, "lon": -5.2653046 },
+    { "lat": 36.3807228, "lon": -5.2653641 },
+    { "lat": 36.3806987, "lon": -5.2653897 },
+    { "lat": 36.3806317, "lon": -5.2654612 },
+    { "lat": 36.3805576, "lon": -5.2655786 }
+  ],
+  "tags": {
+    "destination": "Pago con Tarjeta",
+    "highway": "motorway_link",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 653952226,
+  "bounds": {
+    "minlat": 36.3798957,
+    "minlon": -5.2658160,
+    "maxlat": 36.3809333,
+    "maxlon": -5.2649915
+  },
+  "geometry": [
+    { "lat": 36.3809309, "lon": -5.2649915 },
+    { "lat": 36.3809333, "lon": -5.2650931 },
+    { "lat": 36.3808966, "lon": -5.2651991 },
+    { "lat": 36.3808561, "lon": -5.2652829 },
+    { "lat": 36.3808027, "lon": -5.2653547 },
+    { "lat": 36.3807098, "lon": -5.2654526 },
+    { "lat": 36.3806331, "lon": -5.2655169 },
+    { "lat": 36.3805576, "lon": -5.2655786 },
+    { "lat": 36.3804464, "lon": -5.2656484 },
+    { "lat": 36.3803373, "lon": -5.2657101 },
+    { "lat": 36.3801797, "lon": -5.2657825 },
+    { "lat": 36.3800419, "lon": -5.2658150 },
+    { "lat": 36.3800008, "lon": -5.2658155 },
+    { "lat": 36.3799659, "lon": -5.2658160 },
+    { "lat": 36.3798957, "lon": -5.2658053 }
+  ],
+  "tags": {
+    "destination": "Telepeaje",
+    "highway": "motorway_link",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 842086818,
+  "bounds": {
+    "minlat": 42.5250109,
+    "minlon": -5.7529535,
+    "maxlat": 42.5250972,
+    "maxlon": -5.7528216
+  },
+  "geometry": [
+    { "lat": 42.5250109, "lon": -5.7529535 },
+    { "lat": 42.5250647, "lon": -5.7528713 },
+    { "lat": 42.5250972, "lon": -5.7528216 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "maxheight": "2.10",
+    "maxspeed": "10",
+    "name": "Autopista León - Astorga",
+    "oneway": "yes",
+    "ref": "AP-71",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "building_passage"
+  }
+},
+{
+  "type": "way",
+  "id": 842086821,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7265292, "lon": -4.1926705 },
+    { "lat": 40.7258146, "lon": -4.1924134 },
+    { "lat": 40.7253135, "lon": -4.1922330 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086822,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7263636, "lon": -4.1926672 },
+    { "lat": 40.7258020, "lon": -4.1924763 },
+    { "lat": 40.7252989, "lon": -4.1922908 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086823,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7263393, "lon": -4.1927315 },
+    { "lat": 40.7257922, "lon": -4.1925251 },
+    { "lat": 40.7252965, "lon": -4.1923390 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086824,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7263295, "lon": -4.1927829 },
+    { "lat": 40.7257804, "lon": -4.1925845 },
+    { "lat": 40.7252868, "lon": -4.1923936 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086825,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7263247, "lon": -4.1928408 },
+    { "lat": 40.7257703, "lon": -4.1926349 },
+    { "lat": 40.7252794, "lon": -4.1924515 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086826,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7263076, "lon": -4.1929018 },
+    { "lat": 40.7257586, "lon": -4.1926930 },
+    { "lat": 40.7252648, "lon": -4.1925029 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086827,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262954, "lon": -4.1929597 },
+    { "lat": 40.7257450, "lon": -4.1927610 },
+    { "lat": 40.7252502, "lon": -4.1925672 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086828,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1939365,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7266543, "lon": -4.1938886 },
+    { "lat": 40.7262419, "lon": -4.1939365 },
+    { "lat": 40.7261201, "lon": -4.1939204 },
+    { "lat": 40.7255535, "lon": -4.1937178 },
+    { "lat": 40.7250232, "lon": -4.1934732 },
+    { "lat": 40.7249789, "lon": -4.1934364 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086829,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1938690,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7266448, "lon": -4.1937938 },
+    { "lat": 40.7261591, "lon": -4.1938690 },
+    { "lat": 40.7255645, "lon": -4.1936631 },
+    { "lat": 40.7250403, "lon": -4.1934080 },
+    { "lat": 40.7249959, "lon": -4.1933708 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "4.3",
+    "maxspeed": "40",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086830,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1938015,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7266434, "lon": -4.1937042 },
+    { "lat": 40.7261493, "lon": -4.1938015 },
+    { "lat": 40.7255750, "lon": -4.1936104 },
+    { "lat": 40.7250556, "lon": -4.1933565 },
+    { "lat": 40.7250090, "lon": -4.1933169 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086831,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1937437,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261396, "lon": -4.1937437 },
+    { "lat": 40.7255889, "lon": -4.1935411 },
+    { "lat": 40.7250719, "lon": -4.1933030 },
+    { "lat": 40.7250331, "lon": -4.1932720 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "4.3",
+    "maxspeed": "40",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086832,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1936794,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261493, "lon": -4.1936794 },
+    { "lat": 40.7256010, "lon": -4.1934807 },
+    { "lat": 40.7250912, "lon": -4.1932484 },
+    { "lat": 40.7250596, "lon": -4.1932215 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "4.3",
+    "maxspeed": "40",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086833,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1936248,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261688, "lon": -4.1936248 },
+    { "lat": 40.7256121, "lon": -4.1934251 },
+    { "lat": 40.7251149, "lon": -4.1931885 },
+    { "lat": 40.7250820, "lon": -4.1931641 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086834,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1935670,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261688, "lon": -4.1935670 },
+    { "lat": 40.7256265, "lon": -4.1933530 },
+    { "lat": 40.7251114, "lon": -4.1931231 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086835,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1934995,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261810, "lon": -4.1934995 },
+    { "lat": 40.7256378, "lon": -4.1932967 },
+    { "lat": 40.7251285, "lon": -4.1930620 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086836,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1934384,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7261980, "lon": -4.1934384 },
+    { "lat": 40.7256493, "lon": -4.1932390 },
+    { "lat": 40.7251406, "lon": -4.1930106 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086837,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933742,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262078, "lon": -4.1933742 },
+    { "lat": 40.7256608, "lon": -4.1931816 },
+    { "lat": 40.7251479, "lon": -4.1929592 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086838,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262784, "lon": -4.1930207 },
+    { "lat": 40.7257349, "lon": -4.1928116 },
+    { "lat": 40.7252210, "lon": -4.1926379 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086839,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262687, "lon": -4.1930785 },
+    { "lat": 40.7257208, "lon": -4.1928818 },
+    { "lat": 40.7252137, "lon": -4.1926796 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086840,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262565, "lon": -4.1931364 },
+    { "lat": 40.7257098, "lon": -4.1929368 },
+    { "lat": 40.7251869, "lon": -4.1927310 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086841,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262346, "lon": -4.1931942 },
+    { "lat": 40.7256983, "lon": -4.1929943 },
+    { "lat": 40.7251796, "lon": -4.1927792 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 842086842,
+  "bounds": {
+    "minlat": 40.7237525,
+    "minlon": -4.1933586,
+    "maxlat": 40.7279902,
+    "maxlon": -4.1918104
+  },
+  "geometry": [
+    { "lat": 40.7279902, "lon": -4.1933586 },
+    { "lat": 40.7262126, "lon": -4.1933260 },
+    { "lat": 40.7256723, "lon": -4.1931245 },
+    { "lat": 40.7251699, "lon": -4.1929110 },
+    { "lat": 40.7237525, "lon": -4.1918104 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista del Noroeste",
+    "oneway": "yes",
+    "ref": "AP-6",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 902795694,
+  "bounds": {
+    "minlat": 40.7275633,
+    "minlon": -4.1960400,
+    "maxlat": 40.7276915,
+    "maxlon": -4.1957578
+  },
+  "geometry": [
+    { "lat": 40.7275633, "lon": -4.1960400 },
+    { "lat": 40.7276404, "lon": -4.1958655 },
+    { "lat": 40.7276915, "lon": -4.1957578 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 910561968,
+  "bounds": {
+    "minlat": 40.7277215,
+    "minlon": -4.1959294,
+    "maxlat": 40.7281692,
+    "maxlon": -4.1950654
+  },
+  "geometry": [
+    { "lat": 40.7281692, "lon": -4.1950654 },
+    { "lat": 40.7281324, "lon": -4.1951670 },
+    { "lat": 40.7281163, "lon": -4.1952193 },
+    { "lat": 40.7281080, "lon": -4.1952577 },
+    { "lat": 40.7281017, "lon": -4.1953098 },
+    { "lat": 40.7278940, "lon": -4.1955957 },
+    { "lat": 40.7277895, "lon": -4.1957969 },
+    { "lat": 40.7277215, "lon": -4.1959294 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1148740592,
+  "bounds": {
+    "minlat": 36.5053136,
+    "minlon": -4.7211554,
+    "maxlat": 36.5065031,
+    "maxlon": -4.7159756
+  },
+  "geometry": [
+    { "lat": 36.5065031, "lon": -4.7211554 },
+    { "lat": 36.5064216, "lon": -4.7207672 },
+    { "lat": 36.5061916, "lon": -4.7197393 },
+    { "lat": 36.5060132, "lon": -4.7190958 },
+    { "lat": 36.5059322, "lon": -4.7188266 },
+    { "lat": 36.5058063, "lon": -4.7184084 },
+    { "lat": 36.5056480, "lon": -4.7178825 },
+    { "lat": 36.5055659, "lon": -4.7175051 },
+    { "lat": 36.5054691, "lon": -4.7170598 },
+    { "lat": 36.5054567, "lon": -4.7169734 },
+    { "lat": 36.5053475, "lon": -4.7162116 },
+    { "lat": 36.5053136, "lon": -4.7159756 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "int_ref": "E 15",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "name": "Autopista del Mediterráneo",
+    "old_ref": "A-7",
+    "oneway": "yes",
+    "ref": "AP-7",
+    "source": "PNOA",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1149078970,
+  "bounds": {
+    "minlat": 36.3798957,
+    "minlon": -5.2658053,
+    "maxlat": 36.3812449,
+    "maxlon": -5.2642914
+  },
+  "geometry": [
+    { "lat": 36.3812449, "lon": -5.2642914 },
+    { "lat": 36.3812055, "lon": -5.2643314 },
+    { "lat": 36.3811740, "lon": -5.2643744 },
+    { "lat": 36.3811517, "lon": -5.2644194 },
+    { "lat": 36.3810501, "lon": -5.2646874 },
+    { "lat": 36.3809309, "lon": -5.2649915 },
+    { "lat": 36.3808351, "lon": -5.2651522 },
+    { "lat": 36.3807159, "lon": -5.2652881 },
+    { "lat": 36.3805795, "lon": -5.2654109 },
+    { "lat": 36.3804951, "lon": -5.2654760 },
+    { "lat": 36.3804105, "lon": -5.2655426 },
+    { "lat": 36.3803735, "lon": -5.2655671 },
+    { "lat": 36.3801577, "lon": -5.2656894 },
+    { "lat": 36.3799907, "lon": -5.2657680 },
+    { "lat": 36.3799740, "lon": -5.2657746 },
+    { "lat": 36.3798957, "lon": -5.2658053 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 1271477286,
+  "bounds": {
+    "minlat": 36.3799740,
+    "minlon": -5.2657746,
+    "maxlat": 36.3805795,
+    "maxlon": -5.2654109
+  },
+  "geometry": [
+    { "lat": 36.3805795, "lon": -5.2654109 },
+    { "lat": 36.3803956, "lon": -5.2655038 },
+    { "lat": 36.3803533, "lon": -5.2655253 },
+    { "lat": 36.3802389, "lon": -5.2655859 },
+    { "lat": 36.3800528, "lon": -5.2656991 },
+    { "lat": 36.3799740, "lon": -5.2657746 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1271477287,
+  "bounds": {
+    "minlat": 36.3800004,
+    "minlon": -5.2656162,
+    "maxlat": 36.3805687,
+    "maxlon": -5.2652611
+  },
+  "geometry": [
+    { "lat": 36.3800004, "lon": -5.2656162 },
+    { "lat": 36.3800471, "lon": -5.2656151 },
+    { "lat": 36.3801195, "lon": -5.2655941 },
+    { "lat": 36.3802285, "lon": -5.2655427 },
+    { "lat": 36.3803381, "lon": -5.2654764 },
+    { "lat": 36.3803762, "lon": -5.2654534 },
+    { "lat": 36.3804457, "lon": -5.2654049 },
+    { "lat": 36.3805199, "lon": -5.2653279 },
+    { "lat": 36.3805687, "lon": -5.2652611 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "oneway": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1319024323,
+  "bounds": {
+    "minlat": 40.7690743,
+    "minlon": -4.4310351,
+    "maxlat": 40.7692981,
+    "maxlon": -4.4303873
+  },
+  "geometry": [
+    { "lat": 40.7690743, "lon": -4.4310351 },
+    { "lat": 40.7692230, "lon": -4.4306078 },
+    { "lat": 40.7692981, "lon": -4.4303873 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1319024328,
+  "bounds": {
+    "minlat": 40.7689056,
+    "minlon": -4.4309225,
+    "maxlat": 40.7691316,
+    "maxlon": -4.4302788
+  },
+  "geometry": [
+    { "lat": 40.7689056, "lon": -4.4309225 },
+    { "lat": 40.7690522, "lon": -4.4305007 },
+    { "lat": 40.7691316, "lon": -4.4302788 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1319024337,
+  "bounds": {
+    "minlat": 40.7695222,
+    "minlon": -4.4310586,
+    "maxlat": 40.7697443,
+    "maxlon": -4.4304157
+  },
+  "geometry": [
+    { "lat": 40.7697443, "lon": -4.4304157 },
+    { "lat": 40.7696005, "lon": -4.4308400 },
+    { "lat": 40.7695222, "lon": -4.4310586 }
+  ],
+  "tags": {
+    "hazmat": "designated",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601184,
+  "bounds": {
+    "minlat": 40.8223132,
+    "minlon": -4.1793484,
+    "maxlat": 40.8231620,
+    "maxlon": -4.1744730
+  },
+  "geometry": [
+    { "lat": 40.8231620, "lon": -4.1744730 },
+    { "lat": 40.8231094, "lon": -4.1748649 },
+    { "lat": 40.8230369, "lon": -4.1754514 },
+    { "lat": 40.8229955, "lon": -4.1759880 },
+    { "lat": 40.8229864, "lon": -4.1760921 },
+    { "lat": 40.8229507, "lon": -4.1763425 },
+    { "lat": 40.8228409, "lon": -4.1769920 },
+    { "lat": 40.8228244, "lon": -4.1770900 },
+    { "lat": 40.8227858, "lon": -4.1773182 },
+    { "lat": 40.8226258, "lon": -4.1781118 },
+    { "lat": 40.8225446, "lon": -4.1784143 },
+    { "lat": 40.8224462, "lon": -4.1787655 },
+    { "lat": 40.8223132, "lon": -4.1793484 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601185,
+  "bounds": {
+    "minlat": 40.8223132,
+    "minlon": -4.1793484,
+    "maxlat": 40.8231620,
+    "maxlon": -4.1744730
+  },
+  "geometry": [
+    { "lat": 40.8231620, "lon": -4.1744730 },
+    { "lat": 40.8230914, "lon": -4.1748498 },
+    { "lat": 40.8229236, "lon": -4.1762287 },
+    { "lat": 40.8228002, "lon": -4.1769796 },
+    { "lat": 40.8227841, "lon": -4.1770771 },
+    { "lat": 40.8227317, "lon": -4.1773963 },
+    { "lat": 40.8225938, "lon": -4.1780728 },
+    { "lat": 40.8225225, "lon": -4.1783655 },
+    { "lat": 40.8224240, "lon": -4.1787688 },
+    { "lat": 40.8223132, "lon": -4.1793484 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601186,
+  "bounds": {
+    "minlat": 40.8223132,
+    "minlon": -4.1793484,
+    "maxlat": 40.8231620,
+    "maxlon": -4.1744730
+  },
+  "geometry": [
+    { "lat": 40.8231620, "lon": -4.1744730 },
+    { "lat": 40.8230779, "lon": -4.1748352 },
+    { "lat": 40.8228880, "lon": -4.1762254 },
+    { "lat": 40.8227557, "lon": -4.1769660 },
+    { "lat": 40.8227384, "lon": -4.1770625 },
+    { "lat": 40.8225569, "lon": -4.1780793 },
+    { "lat": 40.8224019, "lon": -4.1787590 },
+    { "lat": 40.8223132, "lon": -4.1793484 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601187,
+  "bounds": {
+    "minlat": 40.8223132,
+    "minlon": -4.1793484,
+    "maxlat": 40.8231620,
+    "maxlon": -4.1744730
+  },
+  "geometry": [
+    { "lat": 40.8231620, "lon": -4.1744730 },
+    { "lat": 40.8230625, "lon": -4.1748272 },
+    { "lat": 40.8228591, "lon": -4.1761513 },
+    { "lat": 40.8227142, "lon": -4.1769533 },
+    { "lat": 40.8226968, "lon": -4.1770493 },
+    { "lat": 40.8226725, "lon": -4.1771840 },
+    { "lat": 40.8223811, "lon": -4.1787668 },
+    { "lat": 40.8223444, "lon": -4.1789894 },
+    { "lat": 40.8223132, "lon": -4.1793484 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601188,
+  "bounds": {
+    "minlat": 40.8223132,
+    "minlon": -4.1793484,
+    "maxlat": 40.8231620,
+    "maxlon": -4.1744730
+  },
+  "geometry": [
+    { "lat": 40.8231620, "lon": -4.1744730 },
+    { "lat": 40.8230450, "lon": -4.1748210 },
+    { "lat": 40.8228032, "lon": -4.1761761 },
+    { "lat": 40.8226735, "lon": -4.1769409 },
+    { "lat": 40.8226572, "lon": -4.1770366 },
+    { "lat": 40.8223264, "lon": -4.1789876 },
+    { "lat": 40.8223132, "lon": -4.1793484 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601194,
+  "bounds": {
+    "minlat": 40.8239378,
+    "minlon": -4.1782818,
+    "maxlat": 40.8245324,
+    "maxlon": -4.1769207
+  },
+  "geometry": [
+    { "lat": 40.8239378, "lon": -4.1782818 },
+    { "lat": 40.8241945, "lon": -4.1777048 },
+    { "lat": 40.8242987, "lon": -4.1774525 },
+    { "lat": 40.8243153, "lon": -4.1774123 },
+    { "lat": 40.8243803, "lon": -4.1772495 },
+    { "lat": 40.8244664, "lon": -4.1770511 },
+    { "lat": 40.8245324, "lon": -4.1769207 }
+  ],
+  "tags": {
+    "destination": "Ortigosa del Monte;Otero de Herreros",
+    "destination:ref": "N-603",
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601198,
+  "bounds": {
+    "minlat": 40.8240246,
+    "minlon": -4.1783528,
+    "maxlat": 40.8245673,
+    "maxlon": -4.1770039
+  },
+  "geometry": [
+    { "lat": 40.8245673, "lon": -4.1770039 },
+    { "lat": 40.8244187, "lon": -4.1773301 },
+    { "lat": 40.8243568, "lon": -4.1775001 },
+    { "lat": 40.8241946, "lon": -4.1778987 },
+    { "lat": 40.8240246, "lon": -4.1783528 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601201,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8223870, "lon": -4.1774681 },
+    { "lat": 40.8224766, "lon": -4.1769736 },
+    { "lat": 40.8224926, "lon": -4.1768858 },
+    { "lat": 40.8225052, "lon": -4.1768169 },
+    { "lat": 40.8225634, "lon": -4.1764957 },
+    { "lat": 40.8226329, "lon": -4.1761381 },
+    { "lat": 40.8228222, "lon": -4.1753118 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601202,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8224054, "lon": -4.1776381 },
+    { "lat": 40.8225194, "lon": -4.1769866 },
+    { "lat": 40.8225348, "lon": -4.1768986 },
+    { "lat": 40.8225471, "lon": -4.1768288 },
+    { "lat": 40.8226626, "lon": -4.1761679 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601203,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8224465, "lon": -4.1776410 },
+    { "lat": 40.8225604, "lon": -4.1769990 },
+    { "lat": 40.8225760, "lon": -4.1769112 },
+    { "lat": 40.8225885, "lon": -4.1768406 },
+    { "lat": 40.8227047, "lon": -4.1761857 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601204,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8224893, "lon": -4.1776690 },
+    { "lat": 40.8226009, "lon": -4.1770113 },
+    { "lat": 40.8226184, "lon": -4.1769241 },
+    { "lat": 40.8226309, "lon": -4.1768526 },
+    { "lat": 40.8227528, "lon": -4.1761486 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601206,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8222690, "lon": -4.1776413 },
+    { "lat": 40.8223863, "lon": -4.1769462 },
+    { "lat": 40.8224012, "lon": -4.1768579 },
+    { "lat": 40.8224126, "lon": -4.1767905 },
+    { "lat": 40.8225163, "lon": -4.1761758 },
+    { "lat": 40.8225346, "lon": -4.1760993 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601207,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8221861, "lon": -4.1781259 },
+    { "lat": 40.8222218, "lon": -4.1776413 },
+    { "lat": 40.8223416, "lon": -4.1769327 },
+    { "lat": 40.8223565, "lon": -4.1768442 },
+    { "lat": 40.8223677, "lon": -4.1767778 },
+    { "lat": 40.8224764, "lon": -4.1761346 },
+    { "lat": 40.8224896, "lon": -4.1760861 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601208,
+  "bounds": {
+    "minlat": 40.8221273,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8221435, "lon": -4.1781216 },
+    { "lat": 40.8221768, "lon": -4.1776413 },
+    { "lat": 40.8223000, "lon": -4.1769201 },
+    { "lat": 40.8223151, "lon": -4.1768316 },
+    { "lat": 40.8223263, "lon": -4.1767660 },
+    { "lat": 40.8224375, "lon": -4.1761262 },
+    { "lat": 40.8224601, "lon": -4.1760476 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347601209,
+  "bounds": {
+    "minlat": 40.8220895,
+    "minlon": -4.1792816,
+    "maxlat": 40.8229151,
+    "maxlon": -4.1748819
+  },
+  "geometry": [
+    { "lat": 40.8221273, "lon": -4.1792816 },
+    { "lat": 40.8220911, "lon": -4.1781594 },
+    { "lat": 40.8220895, "lon": -4.1780796 },
+    { "lat": 40.8220954, "lon": -4.1779924 },
+    { "lat": 40.8221340, "lon": -4.1775733 },
+    { "lat": 40.8221866, "lon": -4.1772871 },
+    { "lat": 40.8222564, "lon": -4.1769069 },
+    { "lat": 40.8222726, "lon": -4.1768187 },
+    { "lat": 40.8222843, "lon": -4.1767541 },
+    { "lat": 40.8223914, "lon": -4.1761720 },
+    { "lat": 40.8224070, "lon": -4.1761065 },
+    { "lat": 40.8224216, "lon": -4.1760533 },
+    { "lat": 40.8225818, "lon": -4.1756197 },
+    { "lat": 40.8229151, "lon": -4.1748819 }
+  ],
+  "tags": {
+    "agricultural": "no",
+    "goods": "no",
+    "hazmat": "designated",
+    "hgv": "no",
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxheight": "2.10",
+    "maxspeed": "40",
+    "motorcar": "yes",
+    "name": "Autopista Segovia-San Rafael",
+    "oneway": "yes",
+    "ref": "AP-61",
+    "ref:colour": "blue",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347604248,
+  "bounds": {
+    "minlat": 40.7889264,
+    "minlon": -4.2158756,
+    "maxlat": 40.7899579,
+    "maxlon": -4.2154315
+  },
+  "geometry": [
+    { "lat": 40.7899579, "lon": -4.2158756 },
+    { "lat": 40.7898679, "lon": -4.2158304 },
+    { "lat": 40.7896289, "lon": -4.2157191 },
+    { "lat": 40.7895532, "lon": -4.2156852 },
+    { "lat": 40.7894868, "lon": -4.2156555 },
+    { "lat": 40.7894652, "lon": -4.2156459 },
+    { "lat": 40.7889264, "lon": -4.2154315 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "source": "ITACyL",
+    "source:date": "2010",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1347604249,
+  "bounds": {
+    "minlat": 40.7889405,
+    "minlon": -4.2157906,
+    "maxlat": 40.7901074,
+    "maxlon": -4.2153261
+  },
+  "geometry": [
+    { "lat": 40.7889405, "lon": -4.2153261 },
+    { "lat": 40.7892115, "lon": -4.2153955 },
+    { "lat": 40.7895107, "lon": -4.2154882 },
+    { "lat": 40.7895898, "lon": -4.2155238 },
+    { "lat": 40.7896582, "lon": -4.2155546 },
+    { "lat": 40.7897705, "lon": -4.2156053 },
+    { "lat": 40.7901074, "lon": -4.2157906 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "no",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1393670651,
+  "bounds": {
+    "minlat": 36.4989823,
+    "minlon": -5.0012898,
+    "maxlat": 36.4990770,
+    "maxlon": -5.0007087
+  },
+  "geometry": [
+    { "lat": 36.4990770, "lon": -5.0007087 },
+    { "lat": 36.4990319, "lon": -5.0008862 },
+    { "lat": 36.4990028, "lon": -5.0010055 },
+    { "lat": 36.4989926, "lon": -5.0011467 },
+    { "lat": 36.4989823, "lon": -5.0012898 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "20",
+    "oneway": "yes",
+    "surface": "asphalt"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344180,
+  "bounds": {
+    "minlat": 40.7724294,
+    "minlon": -4.4248240,
+    "maxlat": 40.7727854,
+    "maxlon": -4.4239744
+  },
+  "geometry": [
+    { "lat": 40.7727854, "lon": -4.4248240 },
+    { "lat": 40.7726799, "lon": -4.4245354 },
+    { "lat": 40.7725403, "lon": -4.4242212 },
+    { "lat": 40.7724294, "lon": -4.4239744 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344181,
+  "bounds": {
+    "minlat": 40.7723946,
+    "minlon": -4.4248240,
+    "maxlat": 40.7727854,
+    "maxlon": -4.4240042
+  },
+  "geometry": [
+    { "lat": 40.7727854, "lon": -4.4248240 },
+    { "lat": 40.7726454, "lon": -4.4245621 },
+    { "lat": 40.7725019, "lon": -4.4242458 },
+    { "lat": 40.7723946, "lon": -4.4240042 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344182,
+  "bounds": {
+    "minlat": 40.7723572,
+    "minlon": -4.4248240,
+    "maxlat": 40.7727854,
+    "maxlon": -4.4240392
+  },
+  "geometry": [
+    { "lat": 40.7727854, "lon": -4.4248240 },
+    { "lat": 40.7726050, "lon": -4.4245827 },
+    { "lat": 40.7724628, "lon": -4.4242766 },
+    { "lat": 40.7723572, "lon": -4.4240392 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344183,
+  "bounds": {
+    "minlat": 40.7723168,
+    "minlon": -4.4248240,
+    "maxlat": 40.7727854,
+    "maxlon": -4.4240748
+  },
+  "geometry": [
+    { "lat": 40.7727854, "lon": -4.4248240 },
+    { "lat": 40.7725572, "lon": -4.4246040 },
+    { "lat": 40.7724226, "lon": -4.4243047 },
+    { "lat": 40.7723168, "lon": -4.4240748 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344188,
+  "bounds": {
+    "minlat": 40.7723188,
+    "minlon": -4.4244045,
+    "maxlat": 40.7726796,
+    "maxlon": -4.4235370
+  },
+  "geometry": [
+    { "lat": 40.7723188, "lon": -4.4235370 },
+    { "lat": 40.7724473, "lon": -4.4238783 },
+    { "lat": 40.7725836, "lon": -4.4241873 },
+    { "lat": 40.7726796, "lon": -4.4244045 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344189,
+  "bounds": {
+    "minlat": 40.7723188,
+    "minlon": -4.4243718,
+    "maxlat": 40.7727185,
+    "maxlon": -4.4235370
+  },
+  "geometry": [
+    { "lat": 40.7723188, "lon": -4.4235370 },
+    { "lat": 40.7724921, "lon": -4.4238581 },
+    { "lat": 40.7726250, "lon": -4.4241585 },
+    { "lat": 40.7727185, "lon": -4.4243718 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344190,
+  "bounds": {
+    "minlat": 40.7724041,
+    "minlon": -4.4243425,
+    "maxlat": 40.7727590,
+    "maxlon": -4.4234684
+  },
+  "geometry": [
+    { "lat": 40.7724041, "lon": -4.4234684 },
+    { "lat": 40.7725311, "lon": -4.4238235 },
+    { "lat": 40.7726667, "lon": -4.4241305 },
+    { "lat": 40.7727590, "lon": -4.4243425 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344191,
+  "bounds": {
+    "minlat": 40.7724041,
+    "minlon": -4.4243073,
+    "maxlat": 40.7727959,
+    "maxlon": -4.4234684
+  },
+  "geometry": [
+    { "lat": 40.7724041, "lon": -4.4234684 },
+    { "lat": 40.7725742, "lon": -4.4238018 },
+    { "lat": 40.7727073, "lon": -4.4241025 },
+    { "lat": 40.7727959, "lon": -4.4243073 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344208,
+  "bounds": {
+    "minlat": 40.7692267,
+    "minlon": -4.4308854,
+    "maxlat": 40.7694576,
+    "maxlon": -4.4302281
+  },
+  "geometry": [
+    { "lat": 40.7694576, "lon": -4.4302281 },
+    { "lat": 40.7693061, "lon": -4.4306594 },
+    { "lat": 40.7692267, "lon": -4.4308854 }
+  ],
+  "tags": {
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1410344209,
+  "bounds": {
+    "minlat": 40.7691815,
+    "minlon": -4.4308623,
+    "maxlat": 40.7694165,
+    "maxlon": -4.4302024
+  },
+  "geometry": [
+    { "lat": 40.7694165, "lon": -4.4302024 },
+    { "lat": 40.7692624, "lon": -4.4306353 },
+    { "lat": 40.7691815, "lon": -4.4308623 }
+  ],
+  "tags": {
+    "highway": "motorway",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "30",
+    "oneway": "yes",
+    "ref": "AP-51",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1558651581,
+  "bounds": {
+    "minlat": 40.7275822,
+    "minlon": -4.1963977,
+    "maxlat": 40.7281017,
+    "maxlon": -4.1953098
+  },
+  "geometry": [
+    { "lat": 40.7281017, "lon": -4.1953098 },
+    { "lat": 40.7277595, "lon": -4.1959594 },
+    { "lat": 40.7277413, "lon": -4.1960039 },
+    { "lat": 40.7275822, "lon": -4.1963977 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1558651582,
+  "bounds": {
+    "minlat": 40.7275822,
+    "minlon": -4.1963977,
+    "maxlat": 40.7281017,
+    "maxlon": -4.1953098
+  },
+  "geometry": [
+    { "lat": 40.7281017, "lon": -4.1953098 },
+    { "lat": 40.7278002, "lon": -4.1959914 },
+    { "lat": 40.7277792, "lon": -4.1960349 },
+    { "lat": 40.7277003, "lon": -4.1961982 },
+    { "lat": 40.7275822, "lon": -4.1963977 }
+  ],
+  "tags": {
+    "highway": "motorway_link",
+    "lanes": "1",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1558651590,
+  "bounds": {
+    "minlat": 40.7274758,
+    "minlon": -4.1962201,
+    "maxlat": 40.7279570,
+    "maxlon": -4.1951838
+  },
+  "geometry": [
+    { "lat": 40.7274758, "lon": -4.1962201 },
+    { "lat": 40.7275145, "lon": -4.1960671 },
+    { "lat": 40.7275402, "lon": -4.1959859 },
+    { "lat": 40.7276027, "lon": -4.1958357 },
+    { "lat": 40.7276561, "lon": -4.1957289 },
+    { "lat": 40.7277298, "lon": -4.1955805 },
+    { "lat": 40.7279570, "lon": -4.1951838 }
+  ],
+  "tags": {
+    "destination:symbol": "madrid",
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1558651591,
+  "bounds": {
+    "minlat": 40.7274758,
+    "minlon": -4.1962201,
+    "maxlat": 40.7279570,
+    "maxlon": -4.1951838
+  },
+  "geometry": [
+    { "lat": 40.7274758, "lon": -4.1962201 },
+    { "lat": 40.7274922, "lon": -4.1960341 },
+    { "lat": 40.7274991, "lon": -4.1959663 },
+    { "lat": 40.7275045, "lon": -4.1959312 },
+    { "lat": 40.7275128, "lon": -4.1959106 },
+    { "lat": 40.7275562, "lon": -4.1957990 },
+    { "lat": 40.7276102, "lon": -4.1956915 },
+    { "lat": 40.7276418, "lon": -4.1956287 },
+    { "lat": 40.7276898, "lon": -4.1955488 },
+    { "lat": 40.7277763, "lon": -4.1954234 },
+    { "lat": 40.7278486, "lon": -4.1953273 },
+    { "lat": 40.7279570, "lon": -4.1951838 }
+  ],
+  "tags": {
+    "destination:symbol": "madrid",
+    "highway": "motorway_link",
+    "lanes": "2",
+    "lit": "yes",
+    "maxspeed": "40",
+    "oneway": "yes",
+    "surface": "asphalt",
+    "toll": "yes"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,28 @@
+{
+ "operator": "Tangenziale Esterna (A58)",
+ "about": "Italy: the concession's unit toll rates per km (euro, VAT excluded) by vehicle class, as the concessionaire's tariff sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them for 2025. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: B two axles over 1.30 m at the front axle, 3, 4 and 5 (five or more) axles. anas is the surcharge per km for ANAS (law 102/2009 art. 19 c. 9-bis: 0.006 classes A and B, 0.018 classes 3 to 5) where the sheet gives the rate without it; null where the sheet's rate already includes it or states none. Stretch: plain. Note: from 1 Jan 2024.",
+ "source": {
+  "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Tangenziale_esterna.pdf",
+  "sha256": "b79c959711ea2ed869c24a8c9d2f68b20aa5c44411cbd344b41184191c21f585",
+  "page": 3
+ },
+ "valid_from": "2025-01-01",
+ "rates": {
+  "B": {
+   "unit": 0.19628,
+   "anas": 0.006
+  },
+  "3": {
+   "unit": 0.23211,
+   "anas": 0.018
+  },
+  "4": {
+   "unit": 0.37677,
+   "anas": 0.018
+  },
+  "5": {
+   "unit": 0.45391,
+   "anas": 0.018
+  }
+ }
+}

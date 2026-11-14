@@ -117,7 +117,7 @@ jobs:
           python3 tools/tables/ro_bridges.py out out/tables
           python3 tools/tables/es_castellana.py out out/tables
           python3 tools/tables/es_aulesa.py out out/tables
-          python3 tools/tables/it.py out out/tables
+          python3 tools/tables/it.py tools/tables/transcribed out out/tables
           python3 tools/tables/es_ministry.py out out/tables
           python3 tools/tables/m6toll.py out out/tables
           python3 tools/tables/ba.py out out/tables

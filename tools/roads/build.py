@@ -120,21 +120,30 @@ class Urban(osmium.SimpleHandler):
         return unary_union(parts) if parts else None
 
 
-# Operator keys whose way names and junctions the build prints (to place
-# the stretches some concessions price apart).
-LOOK = {"SATAP S.p.A.|A4", "CAV S.p.A.|A4"}
+# Stretches a concession prices apart from the rest of its motorway: the
+# ways of an operator key east of a named motorway junction (the mean
+# longitude of the junction nodes of that name in the box) get the key
+# "operator|ref|label". SATAP's A4 charges its tariff B from Novara Est to
+# Milan; CAV's A4 is the stretch Padova Est-A4/A57 interchange and, east
+# of the interchange (OSM "A57 Venezia"), the Passante di Mestre.
+SPLITS = {"IT": [
+    ("SATAP S.p.A.|A4", "Novara Est", (8.6, 45.4, 8.8, 45.55), "Novara Est-Milano"),
+    ("CAV S.p.A.|A4", "A57 Venezia", (12.0, 45.4, 12.15, 45.5), "Passante"),
+]}
 
 
 class Junctions(osmium.SimpleHandler):
-    def __init__(self, box):
+    def __init__(self, splits):
         super().__init__()
-        self.box, self.found = box, []
+        self.splits, self.found = splits, {}
 
     def node(self, n):
-        if n.tags.get("highway") == "motorway_junction":
-            x, y = n.location.lon, n.location.lat
-            if any(a <= x <= c and b <= y <= d for a, b, c, d in self.box):
-                self.found.append((round(x, 4), round(y, 4), n.tags.get("name", ""), n.tags.get("ref", "")))
+        if n.tags.get("highway") != "motorway_junction":
+            return
+        x, y = n.location.lon, n.location.lat
+        for key, name, (a, b, c, d), label in self.splits:
+            if n.tags.get("name") == name and a <= x <= c and b <= y <= d:
+                self.found.setdefault(key, []).append(x)
 
 
 class Ways(osmium.SimpleHandler):
@@ -147,7 +156,7 @@ class Ways(osmium.SimpleHandler):
         self.km = Counter()
         self.refs = Counter()
         self.ops, self.op_index, self.mwop, self.op_km = [], {}, [], Counter()
-        self.op_names = Counter()
+        self.split_at = {}
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -185,12 +194,12 @@ class Ways(osmium.SimpleHandler):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
                     op = f"{op}|{ref}" if op else ""
+                    if op in self.split_at and piece.centroid.x > self.split_at[op][0]:
+                        op = f"{op}|{self.split_at[op][1]}"
                     if op and op not in self.op_index:
                         self.op_index[op] = len(self.ops)
                         self.ops.append(op)
                     self.mwop.append(self.op_index.get(op, -1))
-                    if op in LOOK:
-                        self.op_names[(op, tags.get("name", ""), round(piece.centroid.x, 2))] += 1
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
@@ -212,6 +221,15 @@ def main(cc, src, dst, areas=None):
         sections = h.ways
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
     h = Ways(rule, sections, urban)
+    if SPLITS.get(cc):
+        j = Junctions(SPLITS[cc])
+        j.apply_file(src)
+        for key, name, box, label in SPLITS[cc]:
+            xs = j.found.get(key)
+            if not xs:
+                sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
+            h.split_at[key] = (sum(xs) / len(xs), label)
+            print(cc, "split", key, "east of", name, round(sum(xs) / len(xs), 4))
     h.apply_file(src, locations=True)
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
@@ -225,12 +243,6 @@ def main(cc, src, dst, areas=None):
         out["ops"], out["mwop"] = h.ops, h.mwop
         for op, km in h.op_km.most_common():
             print("  operator", repr(op), round(km))
-        for k, n in sorted(h.op_names.items()):
-            print("  look", k, n)
-        j = Junctions([(8.4, 45.3, 9.2, 45.6), (11.85, 45.3, 12.5, 45.65)])
-        j.apply_file(src)
-        for x in sorted(j.found):
-            print("  junction", x)
     with gzip.open(dst, "wt", encoding="utf-8") as fo:
         json.dump(out, fo, separators=(",", ":"))
     print(cc, {k: len(v) for k, v in h.lines.items()}, {k: round(v) for k, v in h.km.items()})

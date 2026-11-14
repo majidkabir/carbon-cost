@@ -1981,10 +1981,10 @@ func TestItalyEstimate(t *testing.T) {
 	}
 }
 
-// Italy by concession: km on Autostrada del Brennero's A22 at its own
-// 2025 unit rate (class 5 0.12635, the sheet's rate with the ANAS
-// surcharge, x 1.22 VAT = 0.15415), km on ASPI's A1 at ASPI's 2026 rate
-// (0.19034); the A22 line names the operator.
+// Italy by concession: km on Autostrada del Brennero's A22 at its 2026
+// plain-stretch rate from its tariff PDF (class 5 0.15607, VAT and ANAS
+// quotas included), km on ASPI's A1 at ASPI's 2026 rate (0.19034); the
+// A22 line names the operator.
 func TestItalyOperators(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
@@ -2006,12 +2006,12 @@ func TestItalyOperators(t *testing.T) {
 	for _, l := range r.Lines {
 		if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll {
 			got[l.Rate] += l.Km
-			if l.Rate == 0.15415 && !strings.Contains(l.Section, "Autostrada del Brennero") {
+			if l.Rate == 0.15607 && !strings.Contains(l.Section, "Autostrada del Brennero") {
 				t.Errorf("A22 line section %q", l.Section)
 			}
 		}
 	}
-	if got[0.19034] < 6 || got[0.15415] < 5 || len(got) != 2 {
+	if got[0.19034] < 6 || got[0.15607] < 5 || len(got) != 2 {
 		t.Errorf("IT km by rate %v, lines %v", got, r.Lines)
 	}
 }

@@ -4,19 +4,35 @@
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
- "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: the concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied: the Ministry's note couldn't be found), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+ "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Autostrada del Brennero (A22), Asti-Cuneo (A33), Ivrea Torino Piacenza (A5, A55), SATAP (A4 Torino-Milano), Ivrea Torino Piacenza (A21), SAV (A5 Quincinetto-Aosta) at the unit rates for users (VAT and ANAS fee included) their own pages give for 2026; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied to them: the Ministry's note couldn't be found and their pages give no rates as text), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
  "sources": [
   {
    "title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)",
    "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"
   },
   {
-   "title": "MIT: Autostrada del Brennero, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
-   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/A22_Brennero.pdf"
+   "title": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
+   "url": "https://www.autobrennero.it/media/fzulutir/it_tariffe-a22_2026.pdf"
   },
   {
-   "title": "MIT: Autostrada Asti-Cuneo, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
-   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Asti-Cuneo.pdf"
+   "title": "Asti-Cuneo: A33 toll information (unit rates for users, VAT and ANAS fee included)",
+   "url": "https://www.asticuneo.it/en/the-motorway-toll/"
+  },
+  {
+   "title": "Ivrea Torino Piacenza: A55/A5 toll information (unit rates, VAT and ANAS fee included)",
+   "url": "https://www.itpspa.it/en/section-a55-a5/toll-info/"
+  },
+  {
+   "title": "SATAP: A4 Torino-Milano toll information (unit tariffs for users, VAT and ANAS fee included)",
+   "url": "https://www.satapweb.it/en/toll-info-a4/"
+  },
+  {
+   "title": "Ivrea Torino Piacenza: A21 toll information (unit rates, VAT and ANAS fee included)",
+   "url": "https://www.itpspa.it/en/section-a21/toll-info/"
+  },
+  {
+   "title": "SAV: A5 Quincinetto-Aosta toll information (unit tariffs for users, VAT and ANAS fee included)",
+   "url": "https://www.sav-a5.it/en/toll-info/"
   },
   {
    "title": "MIT: Autostrada dei Fiori (A6), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
@@ -65,14 +81,6 @@
   {
    "title": "MIT: SAT (A12 Tirrenica), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SAT.pdf"
-  },
-  {
-   "title": "MIT: SATAP, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
-   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SATAP_A4.pdf"
-  },
-  {
-   "title": "MIT: SAV (A5 Quincinetto-Aosta), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
-   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SAV.pdf"
   },
   {
    "title": "MIT: SITAF (A32), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
@@ -127,7 +135,7 @@
    "road": "motorway",
    "operator": "Autostrada del Brennero S.p.A.",
    "min_kg": 3501,
-   "rate": 0.06479,
+   "rate": 0.06564,
    "max_axles": 2
   },
   {
@@ -136,7 +144,7 @@
    "operator": "Autostrada del Brennero S.p.A.",
    "min_kg": 3501,
    "min_axles": 3,
-   "rate": 0.08805,
+   "rate": 0.08901,
    "max_axles": 3
   },
   {
@@ -145,7 +153,7 @@
    "operator": "Autostrada del Brennero S.p.A.",
    "min_kg": 3501,
    "min_axles": 4,
-   "rate": 0.13117,
+   "rate": 0.13277,
    "max_axles": 4
   },
   {
@@ -154,14 +162,14 @@
    "operator": "Autostrada del Brennero S.p.A.",
    "min_kg": 3501,
    "min_axles": 5,
-   "rate": 0.15415
+   "rate": 0.15607
   },
   {
    "component": "toll",
    "road": "motorway",
    "operator": "Autostrada Asti-Cuneo S.p.A.",
    "min_kg": 3501,
-   "rate": 0.16642,
+   "rate": 0.16881,
    "max_axles": 2
   },
   {
@@ -170,7 +178,7 @@
    "operator": "Autostrada Asti-Cuneo S.p.A.",
    "min_kg": 3501,
    "min_axles": 3,
-   "rate": 0.27099,
+   "rate": 0.27472,
    "max_axles": 3
   },
   {
@@ -179,7 +187,7 @@
    "operator": "Autostrada Asti-Cuneo S.p.A.",
    "min_kg": 3501,
    "min_axles": 4,
-   "rate": 0.35397,
+   "rate": 0.35895,
    "max_axles": 4
   },
   {
@@ -188,7 +196,41 @@
    "operator": "Autostrada Asti-Cuneo S.p.A.",
    "min_kg": 3501,
    "min_axles": 5,
-   "rate": 0.40936
+   "rate": 0.41517
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.085681,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.123818,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.186538,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.213976
   },
   {
    "component": "toll",
@@ -773,7 +815,7 @@
    "road": "motorway",
    "operator": "SATAP S.p.A.|A4",
    "min_kg": 3501,
-   "rate": 0.13932,
+   "rate": 0.1413,
    "max_axles": 2
   },
   {
@@ -782,7 +824,7 @@
    "operator": "SATAP S.p.A.|A4",
    "min_kg": 3501,
    "min_axles": 3,
-   "rate": 0.1737,
+   "rate": 0.17598,
    "max_axles": 3
   },
   {
@@ -791,7 +833,7 @@
    "operator": "SATAP S.p.A.|A4",
    "min_kg": 3501,
    "min_axles": 4,
-   "rate": 0.27276,
+   "rate": 0.27652,
    "max_axles": 4
   },
   {
@@ -800,14 +842,14 @@
    "operator": "SATAP S.p.A.|A4",
    "min_kg": 3501,
    "min_axles": 5,
-   "rate": 0.32551
+   "rate": 0.33006
   },
   {
    "component": "toll",
    "road": "motorway",
    "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
    "min_kg": 3501,
-   "rate": 0.14296,
+   "rate": 0.14499,
    "max_axles": 2
   },
   {
@@ -816,7 +858,7 @@
    "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
    "min_kg": 3501,
    "min_axles": 3,
-   "rate": 0.17791,
+   "rate": 0.18025,
    "max_axles": 3
   },
   {
@@ -825,7 +867,7 @@
    "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
    "min_kg": 3501,
    "min_axles": 4,
-   "rate": 0.27968,
+   "rate": 0.28355,
    "max_axles": 4
   },
   {
@@ -834,7 +876,7 @@
    "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
    "min_kg": 3501,
    "min_axles": 5,
-   "rate": 0.33385
+   "rate": 0.33853
   },
   {
    "component": "toll",
@@ -875,7 +917,7 @@
    "road": "motorway",
    "operator": "Società Autostrade Valdostane S.p.A.",
    "min_kg": 3501,
-   "rate": 0.2181,
+   "rate": 0.221,
    "max_axles": 2
   },
   {
@@ -884,7 +926,7 @@
    "operator": "Società Autostrade Valdostane S.p.A.",
    "min_kg": 3501,
    "min_axles": 3,
-   "rate": 0.29592,
+   "rate": 0.3,
    "max_axles": 3
   },
   {
@@ -893,7 +935,7 @@
    "operator": "Società Autostrade Valdostane S.p.A.",
    "min_kg": 3501,
    "min_axles": 4,
-   "rate": 0.46458,
+   "rate": 0.471,
    "max_axles": 4
   },
   {
@@ -902,7 +944,7 @@
    "operator": "Società Autostrade Valdostane S.p.A.",
    "min_kg": 3501,
    "min_axles": 5,
-   "rate": 0.5384
+   "rate": 0.546
   },
   {
    "component": "toll",

@@ -114,13 +114,13 @@ def page_rates(fetched, pid, row, year):
         # the plain table after "pianura".
         if not re.search(rf"in vigore dal 1° gennaio {year}", t, re.I):
             return None, f"not in force from 1 January {year}"
-        i = re.search(row, t, re.I)
-        if not i:
-            return None, "plain table not found"
-        rows = re.findall(r"\b(A|B|3|4|5) (\d,\d{5}) (\d,\d{4}) (\d,\d{4}) (\d,\d{5}) (\d,\d{5})", t[i.end():])
-        got = {r[0]: float(r[5].replace(",", ".")) for r in rows[:5]}
-        if sorted(got) != ["3", "4", "5", "A", "B"]:
-            return None, "plain rows not found"
+        # Ten class rows, A to 5 twice: the mountain table, then the plain
+        # one (the labels "TARIFFA DI MONTAGNA/PIANURA" sit beside the rows).
+        rows = re.findall(r"\b(A|B|3|4|5) (\d,\d{5}) (\d,\d{4}) (\d,\d{4}) (\d,\d{5}) (\d,\d{5})", t)
+        mo, pl = re.search(r"MONTAGNA", t), re.search(r"PIANURA", t)
+        if [r[0] for r in rows] != list("AB345") * 2 or not mo or not pl or mo.start() > pl.start():
+            return None, "mountain and plain rows not found"
+        got = {r[0]: float(r[5].replace(",", ".")) for r in rows[5:]}
         return [got[c] for c in "AB345"], ""
     head = re.search(r"VEHICLE CLASS(?:ES)? A B 3 4 5", t, re.I)
     if not head:
@@ -133,7 +133,7 @@ def page_rates(fetched, pid, row, year):
             return None, f"rates for {m.group(1)}"
     else:
         m = re.search(r"valid from 1 January (\d{4})", t, re.I)
-        if not m or not all(re.search(rf"\b{y} 0,00%", t) for y in range(int(m.group(1)) + 1, year + 1)):
+        if not m or not all(re.search(rf"\b{y} (?:Increase )?0,00%", t) for y in range(int(m.group(1)) + 1, year + 1)):
             return None, f"rates not for {year}"
     if not re.search(r"VAT \(22%\).{0,40}ANAS fee", t):
         return None, "VAT and ANAS fee not stated as included"

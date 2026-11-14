@@ -67,6 +67,14 @@ PAGES = [
     ("it-sav", r"MOUNTAIN TARIFF", ["Società Autostrade Valdostane S.p.A."]),
     ("it-a22", r"pianura", ["Autostrada del Brennero S.p.A."]),
 ]
+# Concessions whose rates for the year are published only as an image,
+# transcribed (transcribed/<file>.json, "user" rates with VAT and ANAS fee):
+# the file, its section, the operator keys it prices.
+IMAGES = [
+    ("it-cav-2026", "A4", ["CAV S.p.A."]),
+    ("it-cav-2026", "A57", ["CAV S.p.A.|A57"]),
+    ("it-cav-2026", "Passante", ["CAV S.p.A.|A4|Passante"]),
+]
 TITLES = {
     "it-satap-a4": "SATAP: A4 Torino-Milano toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-itp-a21": "Ivrea Torino Piacenza: A21 toll information (unit rates, VAT and ANAS fee included)",
@@ -75,7 +83,8 @@ TITLES = {
     "it-sav": "SAV: A5 Quincinetto-Aosta toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
 }
-PAGE_NAMES = {"it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
+IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)"}
+PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
               "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)"}
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
 
@@ -158,6 +167,15 @@ def operator_rows(transcribed, fetched, year):
         if vals:
             for k in keys:
                 pages[k] = (pid, vals)
+    for name, section, keys in IMAGES:
+        d = json.load(open(os.path.join(transcribed, name + ".json"), encoding="utf-8"))
+        if d["valid_from"][:4] != str(year):
+            print(name, "rates for", d["valid_from"])
+            continue
+        vals = [d["rates"][section][c]["user"] for c in "AB345"]
+        print(name, section, vals)
+        for k in keys:
+            pages[k] = ("image:" + name, vals)
     for op, ref, sheet, stretch in OPS:
         key = f"{op}|{ref}" if ref else op
         if key in pages:
@@ -229,7 +247,8 @@ def main(transcribed, fetched, out):
                f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
                f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
         "sources": [{"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"}]
-        + [{"title": TITLES[d], "url": page_url(fetched, d)} for k, d in used.items() if k.startswith("page:")]
+        + [{"title": TITLES[d], "url": page_url(fetched, d)} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
+        + [{"title": IMAGE_TITLES[d[6:]], "url": json.load(open(os.path.join(transcribed, d[6:] + ".json"), encoding="utf-8"))["source"]["page"]} for k, d in used.items() if k.startswith("page:image:")]
         + [{"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]} for k, d in used.items() if not k.startswith("page:")],
         "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",
         "min_kg": 3501,

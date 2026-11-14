@@ -155,7 +155,8 @@ def stretches(ls, pts, tol=0.15):
     stations, at its middle and in its direction. Where OSM breaks a
     carriageway into pieces, a piece's head joins the last station passed
     on the piece it leaves and its tail the first station on the piece it
-    joins (within 0.6 km, heading within 100 degrees)."""
+    joins (within 0.8 km, heading within 120 degrees; of several such
+    pieces, the one whose station is nearest)."""
     pieces = []
     for line in ls:
         cum = m6toll.along(line)
@@ -167,14 +168,15 @@ def stretches(ls, pts, tol=0.15):
         pieces.append((line, cum, sorted(c)))
 
     def onto(p, h, me):
-        best = None
+        """[(piece, km along)] of the other pieces p lies on, going h."""
+        out = []
         for q in pieces:
             if q is me:
                 continue
             x, d = m6toll.project(q[0], q[1], p)
-            if d < 0.6 and abs((m6toll.at(q[0], q[1], x)[1] - h + 540) % 360 - 180) < 100 and (best is None or d < best[0]):
-                best = (d, q, x)
-        return best and best[1:]
+            if d < 0.8 and abs((m6toll.at(q[0], q[1], x)[1] - h + 540) % 360 - 180) < 120:
+                out.append((q, x))
+        return out
 
     out = {}
 
@@ -190,15 +192,14 @@ def stretches(ls, pts, tol=0.15):
         if not c:
             continue
         if c[0][0] > 0.1:
-            o = onto(line[0], m6toll.at(line, cum, 0)[1], piece)
-            before = [s for x, s in o[0][2] if x <= o[1] + 0.05] if o else []
-            if before:
-                add(before[-1], c[0][1], line, cum, 0, c[0][0])
+            # The station passed last before leaving the nearest (by that gap) piece this one leaves.
+            cand = [(x - bx, bs) for q, x in onto(line[0], m6toll.at(line, cum, 0)[1], piece) for bx, bs in q[2] if bx <= x + 0.05]
+            if cand:
+                add(min(cand)[1], c[0][1], line, cum, 0, c[0][0])
         if c[-1][0] < cum[-1] - 0.1:
-            o = onto(line[-1], m6toll.at(line, cum, cum[-1])[1], piece)
-            after = [s for x, s in o[0][2] if x >= o[1] - 0.05 and s != c[-1][1]] if o else []
-            if after:
-                add(c[-1][1], after[0], line, cum, c[-1][0], cum[-1])
+            cand = [(ax - x, as_) for q, x in onto(line[-1], m6toll.at(line, cum, cum[-1])[1], piece) for ax, as_ in q[2] if ax >= x - 0.05 and as_ != c[-1][1]]
+            if cand:
+                add(c[-1][1], min(cand)[1], line, cum, c[-1][0], cum[-1])
     return [(a, b, p, h) for (a, b), (p, h) in out.items()]
 
 

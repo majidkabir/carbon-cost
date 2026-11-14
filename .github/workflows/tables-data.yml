@@ -128,6 +128,7 @@ jobs:
           python3 tools/tables/es_basque.py out out/tables
           python3 tools/tables/es_ap53.py out out/tables
           python3 tools/tables/es_radials.py out out/tables
+          python3 tools/tables/es_basque_ap8.py out out/tables
       - name: Compare with the committed tables
         run: |
           cd out/tables

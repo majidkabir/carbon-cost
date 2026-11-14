@@ -52,7 +52,9 @@ def walk(ways):
 
 def lines(osm, refs):
     """The one-way carriageway chains of the ways whose ref includes one of
-    refs, over 1 km."""
+    refs, over 1 km. An Overpass answer cut short (its remark) is refused."""
+    if "runtime error" in osm.get("remark", "") or "timed out" in osm.get("remark", ""):
+        raise SystemExit(f"Overpass answer incomplete: {osm['remark'][:200]}")
     ways = []
     for e in osm["elements"]:
         t = e.get("tags", {})

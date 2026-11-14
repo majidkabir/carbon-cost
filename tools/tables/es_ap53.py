@@ -1,6 +1,7 @@
 """Builds the AP-53 Santiago–Alto de Santo Domingo toll table from the
 Ministry of Transport's tolls in force (fetch.py's es-min-ap53-<year>.txt)
-and OSM (es-ap53-links-osm.json): a closed system by entry and exit.
+and OSM (es-ap53-links-osm.json, and es-min-ap53-osm.json's toll
+booths): a closed system by entry and exit.
 
 Usage: python3 es_ap53.py fetched/ out-dir -> out-dir/es-ap53-<year>-01-01.json
 
@@ -51,7 +52,10 @@ def main(fetched, out, year="2026"):
     osm = json.load(open(os.path.join(fetched, "es-ap53-links-osm.json")))
     stamp = osm.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
     ls = es_stretch.lines(osm, ["AP-53"])
-    juncs, booths = es_stretch.signs(osm), es_stretch.booths(osm)
+    # Booths from both queries: Overpass at times leaves those near the
+    # carriageways out of the links query's answer (since 14 November 2026).
+    juncs = es_stretch.signs(osm)
+    booths = es_stretch.booths(osm) + es_stretch.booths(json.load(open(os.path.join(fetched, "es-min-ap53-osm.json"))))
     keys = {s: es_stretch.plain(s) for s in ORDER}
     match = lambda s, w: re.search(r"\b" + keys[s] + r"\b", w) is not None
     pts = {}

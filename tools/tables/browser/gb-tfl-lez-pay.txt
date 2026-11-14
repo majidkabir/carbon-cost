@@ -1,0 +1,19 @@
+# London Low Emission Zone: Transport for London, "How to pay a LEZ charge".
+# Page: https://tfl.gov.uk/modes/driving/low-emission-zone/make-a-payment
+# TfL refuses the workflow's requests, so the page was opened in Chrome and its text read
+# (Claude in Chrome, get_page_text) on 2026-11-12; this file is that text from the page's
+# introduction to the charges, and its paragraph on Euro VI vehicles, blank lines dropped.
+We prefer that your vehicle meets the Low Emission Zone (LEZ) standards so you don't have to pay the charge. If you do need to pay, charging days run from midnight to midnight, every day of the year.
+You can pay for up to three previous days, today or any day up to 90 days in the future. The daily charge is:
+£100 for vans or specialist diesel vehicles (over 1.205 tonnes unladen weight up to 3.5 tonnes gross vehicle weight) or minibuses (up to 5 tonnes) which do not meet Euro 3 standards.
+£100 for HGVs, lorries, vans and specialist heavy vehicles over 3.5 tonnes as well as buses/minibuses and coaches over 5 tonnes which do not meet Euro VI (NOx and PM) standards, but meet Euro IV (PM)
+£300 for HGVs, lorries, vans and specialist heavy vehicles over 3.5 tonnes as well as buses/minibuses and coaches over 5 tonnes which do not meet Euro IV (PM)
+Heavy goods vehicles, vans and other specialist vehicles over 3.5 tonnes gross vehicle weight (GVW), as well as buses, minibuses and coaches over 5 tonnes GVW that meet the new Euro VI (NOx and PM) standards already in operation in the ULEZ, will not have to pay an additional ULEZ charge. The Euro VI (NOx and PM) LEZ emissions standard will be a London-wide requirement.
+## Mayor of London press release, 1 March 2021: "New tighter Low Emission Zone standards for HGVs introduced in London"
+## https://www.london.gov.uk/press-releases/mayoral/new-tighter-lez-standards-for-hgvs-in-london (read in Chrome on 2026-11-12)
+Created on 01 March 2021
+The Mayor of London, Sadiq Khan, is today tightening the London-wide Low Emission Zone (LEZ) standards for heavy vehicles. Heavy Goods Vehicles (HGVs), buses and coaches must now meet Euro VI (NOx and PM) emissions standards or pay a daily charge of up to £300.
+If your vehicle:
+· Meets Euro IV or V (PM) - you will need to pay a daily charge of £100
+· Does not meet Euro IV (PM) - you will need to pay a daily charge of £300
+No charge if vehicle meets Euro VI standard (NOx and PM).

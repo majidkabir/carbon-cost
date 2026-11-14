@@ -30,7 +30,8 @@ def text(path):
 
 
 def src(srcs, sid):
-    return {"title": srcs[sid]["what"], "url": srcs[sid]["url"]}
+    # "page": the human-readable page of a source fetched from an API.
+    return {"title": srcs[sid]["what"], "url": srcs[sid].get("page", srcs[sid]["url"])}
 
 
 def write(out, f):
@@ -76,7 +77,15 @@ def austria(fetched, out, srcs):
     system, gives 55 euro for 2025 to 2027 (the fixed-price phase until EU
     ETS 2), so 2026 and 2027 are priced from its page."""
     vals, law_src = {}, None
-    for sid in ("at-nehg-current", "at-nehg"):
+    # The consolidated law read in Chrome (browser/at-nehg-10.txt), else
+    # an archived RIS page.
+    bp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "at-nehg-10.txt")
+    bt = " ".join(l.strip() for l in open(bp, encoding="utf-8") if not l.startswith("#")) if os.path.exists(bp) else ""
+    m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?)(?: \(2\)|$| Anm)", bt)
+    if m and "Fassung vom" in open(bp, encoding="utf-8").read():
+        vals = dict(re.findall(r"(20\d\d) (\d+(?:,\d+)?) Euro", m.group(1)))
+        law_src = "at-nehg-ris"
+    for sid in ("at-nehg-current", "at-nehg") if not law_src else ():
         p = os.path.join(fetched, sid + ".html")
         t = text(p) if os.path.exists(p) else ""
         m = re.search(r"Die nationalen Emissionszertifikate haben einen Ausgabewert von: ?Kalenderjahr ?Betrag (.*?) \(2\)", t)
@@ -246,7 +255,11 @@ SI_MONTHS = {"januarja": 1, "februarja": 2, "marca": 3, "aprila": 4, "maja": 5, 
 
 def si_text(path):
     t = open(path, encoding="utf-8", errors="replace").read()
-    if path.endswith(".html"):
+    if t.lstrip().startswith("{"):
+        # PISRS's API: the text's paragraphs in data.besedilo[].vsebina.
+        t = " ".join(p.get("vsebina") or "" for p in json.loads(t)["data"]["besedilo"])
+        t = html.unescape(re.sub(r"<[^>]+>", "", t))
+    elif path.endswith(".html"):
         t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
         t = html.unescape(re.sub(r"<[^>]+>", " ", t))
     t = re.sub(r"(\w)-\s*\n\s*(\w)", r"\1\2", t)  # words hyphenated across lines
@@ -262,9 +275,10 @@ def slovenia(fetched, out, srcs):
     (plinsko olje), euro per unit of burden (enota obremenitve, 1 tonne of
     CO2), from the Uredba and the government's sklepi in the Uradni list."""
     import datetime
-    p = os.path.join(fetched, "si-uredba-48-2018.html")
-    if not os.path.exists(p):
-        sys.exit("Slovenia: the Uredba wasn't fetched")
+    p = next((os.path.join(fetched, "si-uredba-48-2018" + e) for e in (".json", ".html") if os.path.exists(os.path.join(fetched, "si-uredba-48-2018" + e))), "")
+    if not p:
+        print("Slovenia: the Uredba wasn't fetched; not built")
+        return
     t = si_text(p)
     if not re.search(r"enota obremenitve in je enaka emisiji 1 tone CO ?2", t):
         sys.exit("Slovenia: the Uredba doesn't define the unit as 1 tonne of CO2")
@@ -273,12 +287,23 @@ def slovenia(fetched, out, srcs):
         sys.exit("Slovenia: no amount in the Uredba")
     base = si_rate(m.group(1))
     sklepi = []  # (entry into force, [(from, rate)], source id, gazette)
-    for sid in sorted(k for k in srcs if k.startswith("si-sklep-")):
-        p = next((os.path.join(fetched, sid + e) for e in (".txt", ".html") if os.path.exists(os.path.join(fetched, sid + e))), None)
+    for sid in sorted(k for k in srcs if k.startswith("si-sklep-") and not k.endswith("-meta")):
+        p = next((os.path.join(fetched, sid + e) for e in (".txt", ".html", ".json") if os.path.exists(os.path.join(fetched, sid + e))), None)
         if not p:
-            sys.exit(f"Slovenia: {sid} wasn't fetched")
+            print(f"Slovenia: {sid} wasn't fetched; not built")
+            return
         t = si_text(p)
-        ul = re.search(r"(?:URADNI LIST REPUBLIKE SLOVENIJE ŠT\.|Uradni list RS, št\.) (\d+)/(\d{4}) Z DNE (\d+)\. (\d+)\. (\d{4})", t, re.I)
+        # The gazette's header: "ŠT. 103/2026" and "Z DNE 20. 3. 2026" (two
+        # columns in the PDF's text, so matched apart).
+        no, dt = re.search(r"\bŠT\. (\d+)/(\d{4})\b", t), re.search(r"\bZ DNE (\d+)\. (\d+)\. (\d{4})\b", t)
+        ul = re.match(r"(\d+)/(\d{4}) (\d+)\. (\d+)\. (\d{4})", f"{no.group(1)}/{no.group(2)} {dt.group(1)}. {dt.group(2)}. {dt.group(3)}") if no and dt else None
+        meta = next((os.path.join(fetched, sid + "-meta" + e) for e in (".json", ".html") if os.path.exists(os.path.join(fetched, sid + "-meta" + e))), "")
+        if not ul and meta:
+            # PISRS's record of the act: gazette number and publication date.
+            e = json.load(open(meta, encoding="utf-8"))["data"]["evidencniPodatki"]
+            no, yy = e["ulStLeto"].split("/")
+            y, mo, d = e["objavljeno"].split("-")
+            ul = re.match(r"(\d+)/(\d{4}) (\d+)\. (\d+)\. (\d{4})", f"{no}/20{yy[-2:]} {int(d)}. {int(mo)}. {y}")
         if not ul:
             sys.exit(f"Slovenia: no gazette number and date in {sid}")
         pub = datetime.date(int(ul.group(5)), int(ul.group(4)), int(ul.group(3)))

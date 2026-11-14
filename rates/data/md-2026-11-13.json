@@ -1,0 +1,30 @@
+{
+ "country": "MD",
+ "currency": "EUR",
+ "valid_from": "2026-11-13",
+ "name": "Moldova vignette (vinieta), trucks not registered in Moldova",
+ "law": "Codul fiscal, Titlul IX (taxele rutiere), Anexa nr. 2, item 4: the charge for using Moldova's roads by vehicles not registered in Moldova, trucks and road tractors by total mass: over 3.5 t up to 10 t EUR 8 a day (32 for 7 days, 640 for 12 months), over 10 t up to 40 t EUR 11 a day (55 for 7 days, 1120 for 12 months). The table keeps the 1-day amount; trucks registered in Moldova pay instead a yearly road fee, not modelled. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "e-Vinieta (S.A. Administrația Națională a Drumurilor): Legislația",
+   "url": "https://evinieta.gov.md/Home/Legislation"
+  }
+ ],
+ "vehicles": "Trucks and road tractors not registered in Moldova, over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "All public roads of the Republic of Moldova.",
+ "per_day": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 10000,
+   "rate": 8
+  },
+  {
+   "component": "toll",
+   "min_kg": 10001,
+   "rate": 11
+  }
+ ]
+}

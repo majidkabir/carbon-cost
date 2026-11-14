@@ -11,6 +11,7 @@ package cost
 import (
 	"context"
 	"fmt"
+	"maps"
 	"math"
 	"regexp"
 	"slices"
@@ -1148,6 +1149,30 @@ var etsSources = []rates.Source{
 // junction or booth to count as using it.
 const StationMatchKm = 0.5
 
+// stationMatch is how near a route passes a station of the system.
+func stationMatch(sys rates.TollSystem) float64 {
+	if sys.StationMatchKm > 0 {
+		return sys.StationMatchKm
+	}
+	return StationMatchKm
+}
+
+// stationPass is how near the route passes the station (its nearest
+// point, in the point's heading where it has one), and where along it.
+func stationPass(sys rates.TollSystem, st rates.Station, route *track) (float64, float64) {
+	best, bestPos := math.Inf(1), 0.0
+	for _, p := range st.Points {
+		pos, d, h := route.project(p)
+		if p.Heading != nil && math.Abs(math.Mod(h-*p.Heading+540, 360)-180) > 60 {
+			continue
+		}
+		if d < best {
+			best, bestPos = d, pos
+		}
+	}
+	return best, bestPos
+}
+
 type systemUse struct {
 	entry, exit string
 	km          float64
@@ -1163,13 +1188,8 @@ func usesSystem(sys rates.TollSystem, route *track) (systemUse, bool) {
 	first, last := math.Inf(1), math.Inf(-1)
 	var u systemUse
 	for _, st := range sys.Stations {
-		best, bestPos := math.Inf(1), 0.0
-		for _, p := range st.Points {
-			if pos, d, _ := route.project(p); d < best {
-				best, bestPos = d, pos
-			}
-		}
-		if best > StationMatchKm {
+		best, bestPos := stationPass(sys, st, route)
+		if best > stationMatch(sys) {
 			continue
 		}
 		if bestPos < first {
@@ -1277,13 +1297,8 @@ func chainUses(sys rates.TollSystem, route *track, t rates.Truck, etc bool) []sy
 	}
 	var passes []pass
 	for _, st := range sys.Stations {
-		best, bestPos := math.Inf(1), 0.0
-		for _, p := range st.Points {
-			if pos, d, _ := route.project(p); d < best {
-				best, bestPos = d, pos
-			}
-		}
-		if best <= StationMatchKm {
+		best, bestPos := stationPass(sys, st, route)
+		if best <= stationMatch(sys) {
 			passes = append(passes, pass{st.Name, bestPos, best})
 		}
 	}
@@ -1431,6 +1446,7 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	paid := map[int]time.Time{} // when each hour-rule group was last paid
 	untimedFree := false
+	nightUntimed := map[string][]string{}
 	last := map[string]float64{} // where each station was last paid, km along the route
 	free, peak := 0, 0
 	var cg struct {
@@ -1507,9 +1523,22 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 				continue
 			}
 		}
-		rate, ok := p.tp.Price(req.Truck, req.ETC)
+		day := date
+		if timed {
+			day = at
+		}
+		rate, ok := p.tp.PriceOn(req.Truck, req.ETC, day)
 		if !ok || rate == 0 {
 			continue
+		}
+		if len(p.tp.NightHours) == 2 {
+			if nr, has := p.tp.NightPrice(req.Truck, req.ETC); has && nr != rate {
+				if !timed {
+					nightUntimed[p.tp.Name] = p.tp.NightHours
+				} else if night, err := rates.Within(at.Format("15:04"), p.tp.NightHours[0], p.tp.NightHours[1]); err == nil && night {
+					rate = nr
+				}
+			}
 		}
 		if p.tp.Group != 0 {
 			// The hour rule: after a paid passage the group's stations are
@@ -1539,12 +1568,15 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 			return true, err
 		}
 	}
+	for _, n := range slices.Sorted(maps.Keys(nightUntimed)) {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is cheaper from %s to %s; priced at the day price. Give a departure time.", country, n, nightUntimed[n][0], nightUntimed[n][1]))
+	}
 	if free > 0 {
 		how := " (by the passage times)"
 		if untimedFree {
 			how = " (without a departure time the route is taken to pass them within the hour)"
 		}
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free under their project's hour rule%s.", country, free, how))
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free: their group charges once within its time (the hour rule)%s.", country, free, how))
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))
@@ -1681,8 +1713,9 @@ func areaCharges(out *Response, req Request, date time.Time, route *track, add f
 			out.Notes = append(out.Notes, fmt.Sprintf("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", z.Country, z.Name))
 		}
 		km := route.cum[in[len(in)-1]] - route.cum[in[0]]
+		charge := z.ChargeFor(req.Truck.Euro)
 		if err := add(Line{Charge: AreaCharge, Country: z.Country, Component: rates.Toll, Section: z.Name, Km: round3(km), Days: 1,
-			Rate: z.Charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: z.Charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
+			Rate: charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
 			return err
 		}
 	}

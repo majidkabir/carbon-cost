@@ -1,0 +1,63 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "AP-15 Navarra (Audenasa) barriers",
+ "law": "Audenasa's tariffs 2026 (the Gobierno de Navarra's concession of the AP-15): per passage of each barrier, either way, Pesados I (two or three axles) and II (four or more), excluding 21% IVA. Not placed (no named OSM booth), so not priced: Oriz-Tiebas, Marcilla Enlace.",
+ "sources": [
+  {
+   "title": "Audenasa: Tarifas y Recorrido 2026",
+   "url": "https://www.audenasa.es/storage/Tarifas-2026-Recorrido.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Pesados I and II (trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "AP-15 Irurzun–Tudela (Navarra): Sarasa, Marcilla Tronco.",
+ "point_match_km": 0.2,
+ "toll_points": [
+  {
+   "name": "AP-15 Sarasa",
+   "lat": 42.867689,
+   "lon": -1.748438,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.4876
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.7355
+    }
+   ]
+  },
+  {
+   "name": "AP-15 Marcilla Tronco",
+   "lat": 42.331205,
+   "lon": -1.726227,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 3.9669
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4.5041
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

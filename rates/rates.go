@@ -156,6 +156,101 @@ type PointClass struct {
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
 	Rate       float64 `json:"rate"`
 	ETCRate    float64 `json:"etc_rate,omitempty"`
+	// HighRate is the price on the point's HighSeason days; HighETCRate
+	// the tag's price then, where it differs from ETCRate.
+	HighRate    float64 `json:"high_rate,omitempty"`
+	HighETCRate float64 `json:"high_etc_rate,omitempty"`
+	// NightRate and NightETCRate are the prices in the point's
+	// NightHours, where they differ.
+	NightRate    float64 `json:"night_rate,omitempty"`
+	NightETCRate float64 `json:"night_etc_rate,omitempty"`
+}
+
+// NightPrice is the point's price for the truck in its NightHours, and
+// whether it has one.
+func (p TollPoint) NightPrice(t Truck, etc bool) (float64, bool) {
+	for _, c := range p.Classes {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
+			if etc && c.NightETCRate > 0 {
+				return c.NightETCRate, true
+			}
+			return c.NightRate, c.NightRate > 0
+		}
+	}
+	return 0, false
+}
+
+// Season is a set of days: in Months (1-12), on Weekdays (0 Sunday to
+// 6 Saturday), or from EasterFrom to EasterTo days after Easter Sunday
+// (negative before it), when that window is set.
+type Season struct {
+	Months     []int `json:"months,omitempty"`
+	Weekdays   []int `json:"weekdays,omitempty"`
+	EasterFrom int   `json:"easter_from,omitempty"`
+	EasterTo   int   `json:"easter_to,omitempty"`
+}
+
+// Easter is Easter Sunday of the year (Gregorian calendar).
+func Easter(y int) time.Time {
+	a, b, c := y%19, y/100, y%100
+	d, e := b/4, b%4
+	f := (b + 8) / 25
+	g := (b - f + 1) / 3
+	h := (19*a + b - d - g + 15) % 30
+	i, k := c/4, c%4
+	l := (32 + 2*e + 2*i - h - k) % 7
+	m := (a + 11*h + 22*l) / 451
+	month := (h + l - 7*m + 114) / 31
+	day := (h+l-7*m+114)%31 + 1
+	return time.Date(y, time.Month(month), day, 0, 0, 0, 0, time.UTC)
+}
+
+// Has says whether the day is in the season.
+func (s Season) Has(d time.Time) bool {
+	for _, m := range s.Months {
+		if int(d.Month()) == m {
+			return true
+		}
+	}
+	for _, w := range s.Weekdays {
+		if int(d.Weekday()) == w {
+			return true
+		}
+	}
+	if s.EasterFrom != 0 || s.EasterTo != 0 {
+		e := Easter(d.Year())
+		day := time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, time.UTC)
+		n := int(day.Sub(e).Hours() / 24)
+		if n >= s.EasterFrom && n <= s.EasterTo {
+			return true
+		}
+	}
+	return false
+}
+
+// PriceOn is the point's price on the day: its classes' HighRate on its
+// HighSeason days (not for a tag's ETCRate, which holds all year).
+func (p TollPoint) PriceOn(t Truck, etc bool, day time.Time) (float64, bool) {
+	r, ok := p.Price(t, etc)
+	if !ok || p.HighSeason == nil || !p.HighSeason.Has(day) {
+		return r, ok
+	}
+	for _, c := range p.Classes {
+		l := t.Length()
+		if t.MaxMassKg >= c.MinKg && (c.MaxKg == 0 || t.MaxMassKg <= c.MaxKg) && t.Axles >= c.MinAxles && (c.MaxAxles == 0 || t.Axles <= c.MaxAxles) &&
+			l > c.MinLengthM && (c.MaxLengthM == 0 || l <= c.MaxLengthM) {
+			if etc && c.HighETCRate > 0 {
+				return c.HighETCRate, true
+			}
+			if c.HighRate > 0 && !(etc && c.ETCRate > 0) {
+				return c.HighRate, true
+			}
+			return r, ok
+		}
+	}
+	return r, ok
 }
 
 // Price is the toll point's price for the truck, and whether it charges
@@ -205,6 +300,11 @@ type TollPoint struct {
 	// FreeHours: from and to (HH:MM, both included) the station charges
 	// nothing.
 	FreeHours []string `json:"free_hours,omitempty"`
+	// NightHours: from and to (HH:MM, both included) its classes charge
+	// their NightRate (NightETCRate by tag).
+	NightHours []string `json:"night_hours,omitempty"`
+	// HighSeason: the days its classes charge their HighRate.
+	HighSeason *Season `json:"high_season,omitempty"`
 	// ValidFrom and ValidTo (YYYY-MM-DD, both included, either may be
 	// empty) limit the point to part of the table's time: a table can
 	// then hold each version of a station that changed its price.
@@ -227,10 +327,13 @@ type TollSystem struct {
 	// Chain prices a trip that passes many stations as consecutive
 	// published entry-exit pairs that together cover the most of it
 	// (France); otherwise one ticket from the first to the last station.
-	Chain    bool                          `json:"chain,omitempty"`
-	Groups   []Group                       `json:"groups"`
-	Stations []Station                     `json:"stations"`
-	Prices   map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
+	Chain    bool      `json:"chain,omitempty"`
+	Groups   []Group   `json:"groups"`
+	Stations []Station `json:"stations"`
+	// StationMatchKm: how near a route must pass a station, where not
+	// the default 0.5 km.
+	StationMatchKm float64                       `json:"station_match_km,omitempty"`
+	Prices         map[string]map[string]float64 `json:"prices"` // "entry|exit" -> group -> price
 	// ETCPrices replace Prices for trucks paying by an electronic toll
 	// device or agreement (Request.ETC), where the operator sets them.
 	ETCPrices map[string]map[string]float64 `json:"etc_prices,omitempty"`
@@ -339,6 +442,9 @@ type Place struct {
 	Name string  `json:"name"`
 	Lat  float64 `json:"lat"`
 	Lon  float64 `json:"lon"`
+	// Heading, for a closed system's station point: the direction of
+	// travel (degrees clockwise from north) in which a route passes it.
+	Heading *float64 `json:"heading,omitempty"`
 }
 
 // Sections lists the fixed-charge sections and the law they come from.
@@ -722,6 +828,11 @@ func (tb Table) check() error {
 		if len(p.FreeHours) != 0 {
 			if _, err := Within("00:00", p.FreeHours[0], p.FreeHours[len(p.FreeHours)-1]); err != nil || len(p.FreeHours) != 2 {
 				return fmt.Errorf("toll point %s: free_hours must be [from, to] (HH:MM)", p.Name)
+			}
+		}
+		if len(p.NightHours) != 0 {
+			if _, err := Within("00:00", p.NightHours[0], p.NightHours[len(p.NightHours)-1]); err != nil || len(p.NightHours) != 2 {
+				return fmt.Errorf("toll point %s: night_hours must be [from, to] (HH:MM)", p.Name)
 			}
 		}
 		for _, v := range []string{p.ValidFrom, p.ValidTo} {

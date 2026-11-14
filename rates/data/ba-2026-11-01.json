@@ -1,0 +1,607 @@
+{
+ "country": "BA",
+ "currency": "EUR",
+ "valid_from": "2026-11-01",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
+ "law": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: per direction from each toll station to each other, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. Stations at JP Autoceste FBiH's OSM toll booths; not placed, so not priced: Tešanj, Usora, Žepče.",
+ "sources": [
+  {
+   "title": "JP Autoceste FBiH: price list from 1 November 2026 (up to 15% over the decree's, under its article 6)",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2026/11/Cjenovnik-od-1.11.2026.-godine.pdf"
+  },
+  {
+   "title": "JP Autoceste FBiH: Pricelist and vehicle category",
+   "url": "https://www.jpautoceste.ba/en/pricelist/"
+  },
+  {
+   "title": "Zakon o Centralnoj banci Bosne i Hercegovine, article 32 (1 EUR = 1.95583 KM)",
+   "url": "https://www.cbbh.ba/content/read/915"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): JP Autoceste FBiH's toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Classes III and IV (over 1.3 m at the first axle; here trucks over 3.5 t)",
+ "min_kg": 3501,
+ "tolled_roads": "A1 in the Federation: Sarajevo–Žepče, Sarajevo–Bradina, Ljubuški–Čapljina; mainline barriers: Svilaj.",
+ "point_match_km": 0.2,
+ "toll_points": [
+  {
+   "name": "A1 Svilaj–Odžak: Svilaj",
+   "lat": 45.090308,
+   "lon": 18.284385,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7043
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4909
+    }
+   ]
+  },
+  {
+   "name": "A1 Svilaj–Odžak: Svilaj",
+   "lat": 45.090383,
+   "lon": 18.284216,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 3,
+     "rate": 1.7043
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.4909
+    }
+   ]
+  }
+ ],
+ "closed_systems": [
+  {
+   "name": "A1 Sarajevo–Žepče",
+   "law": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Sarajevo - Žepče and Žepče - Sarajevo.",
+   "directed": true,
+   "groups": [
+    {
+     "name": "III",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Kakanj",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.124616,
+       "lon": 18.100574
+      }
+     ]
+    },
+    {
+     "name": "Kakanj I",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.080897,
+       "lon": 18.110811
+      }
+     ]
+    },
+    {
+     "name": "Kakanj II",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.097542,
+       "lon": 18.107402
+      }
+     ]
+    },
+    {
+     "name": "Lašva",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.131606,
+       "lon": 17.98448
+      }
+     ]
+    },
+    {
+     "name": "Podlugovi",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.970949,
+       "lon": 18.251882
+      },
+      {
+       "name": "booth",
+       "lat": 43.970976,
+       "lon": 18.251997
+      }
+     ]
+    },
+    {
+     "name": "Sarajevo sjever",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.911507,
+       "lon": 18.321171
+      },
+      {
+       "name": "booth",
+       "lat": 43.911417,
+       "lon": 18.320963
+      }
+     ]
+    },
+    {
+     "name": "Visoko",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.001398,
+       "lon": 18.166477
+      }
+     ]
+    },
+    {
+     "name": "Zenica jug",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.18181,
+       "lon": 17.969721
+      },
+      {
+       "name": "booth",
+       "lat": 44.181742,
+       "lon": 17.969535
+      }
+     ]
+    },
+    {
+     "name": "Zenica sjever",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 44.237468,
+       "lon": 17.900994
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Sarajevo sjever|Podlugovi": {
+     "III": 1.748,
+     "IV": 2.4909
+    },
+    "Sarajevo sjever|Visoko": {
+     "III": 3.2338,
+     "IV": 4.4574
+    },
+    "Sarajevo sjever|Kakanj": {
+     "III": 6.2054,
+     "IV": 8.0845
+    },
+    "Sarajevo sjever|Lašva": {
+     "III": 8.0408,
+     "IV": 10.7065
+    },
+    "Sarajevo sjever|Zenica jug": {
+     "III": 9.177,
+     "IV": 12.236
+    },
+    "Sarajevo sjever|Zenica sjever": {
+     "III": 10.488,
+     "IV": 13.9841
+    },
+    "Podlugovi|Visoko": {
+     "III": 1.4858,
+     "IV": 1.9665
+    },
+    "Podlugovi|Kakanj": {
+     "III": 4.4574,
+     "IV": 5.8995
+    },
+    "Podlugovi|Lašva": {
+     "III": 5.8995,
+     "IV": 7.866
+    },
+    "Podlugovi|Zenica jug": {
+     "III": 7.5164,
+     "IV": 9.7888
+    },
+    "Podlugovi|Zenica sjever": {
+     "III": 9.0459,
+     "IV": 12.0175
+    },
+    "Visoko|Kakanj": {
+     "III": 3.0153,
+     "IV": 4.0204
+    },
+    "Visoko|Lašva": {
+     "III": 4.7633,
+     "IV": 6.5113
+    },
+    "Visoko|Zenica jug": {
+     "III": 5.8995,
+     "IV": 7.866
+    },
+    "Visoko|Zenica sjever": {
+     "III": 7.5164,
+     "IV": 10.051
+    },
+    "Kakanj II|Kakanj": {
+     "III": 0.4807,
+     "IV": 0.7429
+    },
+    "Kakanj II|Lašva": {
+     "III": 2.4909,
+     "IV": 3.2338
+    },
+    "Kakanj II|Zenica jug": {
+     "III": 3.496,
+     "IV": 4.7633
+    },
+    "Kakanj II|Zenica sjever": {
+     "III": 5.1129,
+     "IV": 6.992
+    },
+    "Kakanj|Lašva": {
+     "III": 1.9665,
+     "IV": 2.4909
+    },
+    "Kakanj|Zenica jug": {
+     "III": 3.0153,
+     "IV": 4.0204
+    },
+    "Kakanj|Zenica sjever": {
+     "III": 4.5011,
+     "IV": 6.0306
+    },
+    "Zenica jug|Zenica sjever": {
+     "III": 1.5295,
+     "IV": 2.185
+    },
+    "Zenica sjever|Zenica jug": {
+     "III": 1.5295,
+     "IV": 2.185
+    },
+    "Zenica sjever|Kakanj": {
+     "III": 4.5011,
+     "IV": 6.0306
+    },
+    "Zenica sjever|Kakanj I": {
+     "III": 5.4625,
+     "IV": 7.429
+    },
+    "Zenica sjever|Visoko": {
+     "III": 7.5164,
+     "IV": 10.051
+    },
+    "Zenica sjever|Podlugovi": {
+     "III": 9.0459,
+     "IV": 12.0175
+    },
+    "Zenica sjever|Sarajevo sjever": {
+     "III": 10.488,
+     "IV": 13.9841
+    },
+    "Zenica jug|Kakanj": {
+     "III": 3.0153,
+     "IV": 4.0204
+    },
+    "Zenica jug|Kakanj I": {
+     "III": 3.7582,
+     "IV": 5.0255
+    },
+    "Zenica jug|Visoko": {
+     "III": 5.8995,
+     "IV": 7.866
+    },
+    "Zenica jug|Podlugovi": {
+     "III": 7.5164,
+     "IV": 9.7888
+    },
+    "Zenica jug|Sarajevo sjever": {
+     "III": 9.177,
+     "IV": 12.236
+    },
+    "Lašva|Kakanj": {
+     "III": 1.9665,
+     "IV": 2.4909
+    },
+    "Lašva|Kakanj I": {
+     "III": 2.7094,
+     "IV": 3.7145
+    },
+    "Lašva|Visoko": {
+     "III": 4.7633,
+     "IV": 6.5113
+    },
+    "Lašva|Podlugovi": {
+     "III": 5.8995,
+     "IV": 7.866
+    },
+    "Lašva|Sarajevo sjever": {
+     "III": 8.0408,
+     "IV": 10.7065
+    },
+    "Kakanj|Kakanj I": {
+     "III": 0.9614,
+     "IV": 1.2236
+    },
+    "Kakanj|Visoko": {
+     "III": 3.0153,
+     "IV": 4.0204
+    },
+    "Kakanj|Podlugovi": {
+     "III": 4.4574,
+     "IV": 5.8995
+    },
+    "Kakanj|Sarajevo sjever": {
+     "III": 6.2054,
+     "IV": 8.0845
+    },
+    "Kakanj I|Kakanj": {
+     "III": 0.9614,
+     "IV": 1.2236
+    },
+    "Kakanj I|Lašva": {
+     "III": 2.7094,
+     "IV": 3.7145
+    },
+    "Kakanj I|Zenica jug": {
+     "III": 3.7582,
+     "IV": 5.0255
+    },
+    "Kakanj I|Zenica sjever": {
+     "III": 5.4625,
+     "IV": 7.429
+    },
+    "Visoko|Podlugovi": {
+     "III": 1.4858,
+     "IV": 1.9665
+    },
+    "Visoko|Sarajevo sjever": {
+     "III": 3.2338,
+     "IV": 4.4574
+    },
+    "Podlugovi|Sarajevo sjever": {
+     "III": 1.748,
+     "IV": 2.4909
+    }
+   }
+  },
+  {
+   "name": "A1 Sarajevo–Bradina",
+   "law": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Sarajevo - Bradina and Bradina - Sarajevo.",
+   "directed": true,
+   "groups": [
+    {
+     "name": "III",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bradina",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.741694,
+       "lon": 18.028045
+      },
+      {
+       "name": "booth",
+       "lat": 43.741582,
+       "lon": 18.027995
+      }
+     ]
+    },
+    {
+     "name": "Lepenica",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.866182,
+       "lon": 18.143133
+      }
+     ]
+    },
+    {
+     "name": "Sarajevo zapad",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.868922,
+       "lon": 18.212609
+      },
+      {
+       "name": "booth",
+       "lat": 43.869119,
+       "lon": 18.212684
+      }
+     ]
+    },
+    {
+     "name": "Tarčin",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.793065,
+       "lon": 18.086035
+      },
+      {
+       "name": "booth",
+       "lat": 43.793267,
+       "lon": 18.085742
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Sarajevo zapad|Lepenica": {
+     "III": 2.0102,
+     "IV": 2.4909
+    },
+    "Sarajevo zapad|Tarčin": {
+     "III": 3.7582,
+     "IV": 5.0255
+    },
+    "Sarajevo zapad|Bradina": {
+     "III": 5.244,
+     "IV": 6.992
+    },
+    "Lepenica|Tarčin": {
+     "III": 2.0102,
+     "IV": 2.4909
+    },
+    "Lepenica|Bradina": {
+     "III": 3.496,
+     "IV": 4.5011
+    },
+    "Tarčin|Bradina": {
+     "III": 1.4858,
+     "IV": 2.0102
+    },
+    "Bradina|Tarčin": {
+     "III": 1.4858,
+     "IV": 2.0102
+    },
+    "Bradina|Lepenica": {
+     "III": 3.496,
+     "IV": 4.5011
+    },
+    "Bradina|Sarajevo zapad": {
+     "III": 5.244,
+     "IV": 6.992
+    },
+    "Tarčin|Lepenica": {
+     "III": 2.0102,
+     "IV": 2.4909
+    },
+    "Tarčin|Sarajevo zapad": {
+     "III": 3.7582,
+     "IV": 5.0255
+    },
+    "Lepenica|Sarajevo zapad": {
+     "III": 2.0102,
+     "IV": 2.4909
+    }
+   }
+  },
+  {
+   "name": "A1 Ljubuški–Čapljina",
+   "law": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Ljubuški - Čapljina and Čapljina - Ljubuški.",
+   "directed": true,
+   "groups": [
+    {
+     "name": "III",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "IV",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ljubuški",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.140766,
+       "lon": 17.590375
+      },
+      {
+       "name": "booth",
+       "lat": 43.140682,
+       "lon": 17.590605
+      }
+     ]
+    },
+    {
+     "name": "Međugorje",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.159881,
+       "lon": 17.659209
+      }
+     ]
+    },
+    {
+     "name": "Čapljina",
+     "points": [
+      {
+       "name": "booth",
+       "lat": 43.154096,
+       "lon": 17.770985
+      },
+      {
+       "name": "booth",
+       "lat": 43.154195,
+       "lon": 17.771058
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Ljubuški|Međugorje": {
+     "III": 1.4858,
+     "IV": 1.9665
+    },
+    "Ljubuški|Čapljina": {
+     "III": 3.2338,
+     "IV": 4.5011
+    },
+    "Međugorje|Čapljina": {
+     "III": 1.748,
+     "IV": 2.4909
+    },
+    "Čapljina|Međugorje": {
+     "III": 1.748,
+     "IV": 2.4909
+    },
+    "Čapljina|Ljubuški": {
+     "III": 3.2338,
+     "IV": 4.5011
+    },
+    "Međugorje|Ljubuški": {
+     "III": 1.4858,
+     "IV": 1.9665
+    }
+   }
+  }
+ ],
+ "rows": []
+}

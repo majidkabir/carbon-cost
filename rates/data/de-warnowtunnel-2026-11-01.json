@@ -1,0 +1,62 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2026-11-01",
+ "crossings": true,
+ "osm_extract": "2026-11-13",
+ "name": "Warnowtunnel toll (Rostock)",
+ "law": "Warnow-QuerungMautHVO M-V (Anlage as newly set by the Verordnung of 22. September 2026, GVOBl. M-V S. 1123, valid from 01.11.2026): the toll per passage of the Warnow-Querung (B 105, Rostock), VAT included, for vehicles 2.60 m high or more by axles: category 3 (2 axles), 4 (3), 5 (4 or more); the winter price (1 November - 30 April), the summer price (1 May - 31 October) as the high season, and the '360 Tage' price as `etc`. Trucks over 3.5 t are taken to be 2.60 m high or more.",
+ "sources": [
+  {
+   "title": "Landesrecht Mecklenburg-Vorpommern: Warnow-QuerungMautHVO M-V, Gesamtausgabe (read in Chrome: tools/tables/browser/de-warnow-mauthvo.txt)",
+   "url": "https://www.landesrecht-mv.de/bsmv/document/jlr-NNLMV0000717F"
+  }
+ ],
+ "vehicles": "Vehicles 2.60 m high or more (here: trucks over 3.5 t), by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Warnowtunnel (B 105 Rostock, km 1+040 to 3+160), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Warnowtunnel",
+   "lat": 54.13545,
+   "lon": 12.107553,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "rate": 11.3,
+     "etc_rate": 10.16,
+     "high_rate": 14.7,
+     "max_axles": 2
+    },
+    {
+     "min_kg": 3501,
+     "rate": 15.4,
+     "etc_rate": 13.56,
+     "high_rate": 21.1,
+     "min_axles": 3,
+     "max_axles": 3
+    },
+    {
+     "min_kg": 3501,
+     "rate": 20.3,
+     "etc_rate": 17.07,
+     "high_rate": 23.0,
+     "min_axles": 4
+    }
+   ],
+   "high_season": {
+    "months": [
+     5,
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   }
+  }
+ ],
+ "rows": []
+}

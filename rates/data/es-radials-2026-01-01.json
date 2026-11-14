@@ -1,0 +1,1352 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "Madrid radials R-2, R-3, R-4 and R-5 (SEITT)",
+ "law": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations: each carriageway's stretch between two consecutive entries/exits, the entries/exits placed at the OpenStreetMap junctions whose exits are signposted to the places and roads they're named after, in the tariff's order; not placed (a trip from or to one priced from the next placed station): R-4 Madrid – Ocaña: Pinto-Parla; R-4 Madrid – Ocaña: Villaseca Sagra (CM 4001); R-4 Madrid – Ocaña: Ontígola; open plazas not built: R-2 Madrid – Guadalajara: Aeropuerto; R-2 Madrid – Guadalajara: Alcobendas.",
+ "sources": [
+  {
+   "title": "Spain: SEITT 2026 tariffs of the R-2 Madrid – Guadalajara toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r2_2026.pdf"
+  },
+  {
+   "title": "Spain: SEITT 2026 tariffs of the R-3 Madrid – Arganda toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r3_2026.pdf"
+  },
+  {
+   "title": "Spain: SEITT 2026 tariffs of the R-4 Madrid – Ocaña toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_r4_2026_1.pdf"
+  },
+  {
+   "title": "Spain: SEITT 2026 tariffs of the R-5 Madrid – Navalcarnero toll motorway",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/precios_web_r5_2026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): the radials' carriageways, junctions and signposted links",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t (Pesados 1 and 2)",
+ "min_kg": 3501,
+ "tolled_roads": "R-2 Madrid – Guadalajara, R-3 Madrid – Arganda, R-4 Madrid – Ocaña, R-5 Madrid – Navalcarnero.",
+ "closed_systems": [
+  {
+   "name": "R-2 Madrid – Guadalajara",
+   "law": "SEITT tariff 2026 (r2), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00; open plazas not built: Aeropuerto, Alcobendas",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ajalvir > Alcala",
+     "points": [
+      {
+       "name": "between Ajalvir and Alcala",
+       "lat": 40.519956,
+       "lon": -3.418861,
+       "heading": 56.6
+      }
+     ]
+    },
+    {
+     "name": "Alcala > Ajalvir",
+     "points": [
+      {
+       "name": "between Alcala and Ajalvir",
+       "lat": 40.520092,
+       "lon": -3.418983,
+       "heading": 237.4
+      }
+     ]
+    },
+    {
+     "name": "Alcala > Meco",
+     "points": [
+      {
+       "name": "between Alcala and Meco",
+       "lat": 40.525115,
+       "lon": -3.367706,
+       "heading": 78.3
+      }
+     ]
+    },
+    {
+     "name": "Cabanillas > Guadalajara Norte",
+     "points": [
+      {
+       "name": "between Cabanillas and Guadalajara Norte",
+       "lat": 40.656313,
+       "lon": -3.226027,
+       "heading": 42.4
+      }
+     ]
+    },
+    {
+     "name": "Cabanillas > Meco",
+     "points": [
+      {
+       "name": "between Cabanillas and Meco",
+       "lat": 40.576099,
+       "lon": -3.285155,
+       "heading": 210.6
+      }
+     ]
+    },
+    {
+     "name": "Guadalajara Norte > Cabanillas",
+     "points": [
+      {
+       "name": "between Guadalajara Norte and Cabanillas",
+       "lat": 40.656438,
+       "lon": -3.226182,
+       "heading": 223.2
+      }
+     ]
+    },
+    {
+     "name": "Guadalajara Norte > NII-Taracena",
+     "points": [
+      {
+       "name": "between Guadalajara Norte and NII-Taracena",
+       "lat": 40.664155,
+       "lon": -3.153515,
+       "heading": 112.1
+      }
+     ]
+    },
+    {
+     "name": "Meco > Alcala",
+     "points": [
+      {
+       "name": "between Meco and Alcala",
+       "lat": 40.525275,
+       "lon": -3.36782,
+       "heading": 258.4
+      }
+     ]
+    },
+    {
+     "name": "Meco > Cabanillas",
+     "points": [
+      {
+       "name": "between Meco and Cabanillas",
+       "lat": 40.575999,
+       "lon": -3.284967,
+       "heading": 31.1
+      }
+     ]
+    },
+    {
+     "name": "NII-Taracena > Guadalajara Norte",
+     "points": [
+      {
+       "name": "between NII-Taracena and Guadalajara Norte",
+       "lat": 40.664271,
+       "lon": -3.153509,
+       "heading": 292.1
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Ajalvir > Alcala|Ajalvir > Alcala": {
+     "Pesados 1": 1.0744,
+     "Pesados 2": 1.5702
+    },
+    "Ajalvir > Alcala|Alcala > Meco": {
+     "Pesados 1": 2.2727,
+     "Pesados 2": 3.2645
+    },
+    "Ajalvir > Alcala|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 5.0413,
+     "Pesados 2": 7.1901
+    },
+    "Ajalvir > Alcala|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 5.9917,
+     "Pesados 2": 8.5124
+    },
+    "Ajalvir > Alcala|Meco > Cabanillas": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.2479
+    },
+    "Alcala > Ajalvir|Alcala > Ajalvir": {
+     "Pesados 1": 1.0744,
+     "Pesados 2": 1.5702
+    },
+    "Alcala > Meco|Alcala > Meco": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6942
+    },
+    "Alcala > Meco|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 3.9669,
+     "Pesados 2": 5.6612
+    },
+    "Alcala > Meco|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 4.9174,
+     "Pesados 2": 6.9835
+    },
+    "Alcala > Meco|Meco > Cabanillas": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.719
+    },
+    "Cabanillas > Guadalajara Norte|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 1.405,
+     "Pesados 2": 1.9835
+    },
+    "Cabanillas > Guadalajara Norte|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.3058
+    },
+    "Cabanillas > Meco|Alcala > Ajalvir": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.2479
+    },
+    "Cabanillas > Meco|Cabanillas > Meco": {
+     "Pesados 1": 1.405,
+     "Pesados 2": 2.0248
+    },
+    "Cabanillas > Meco|Meco > Alcala": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.719
+    },
+    "Guadalajara Norte > Cabanillas|Alcala > Ajalvir": {
+     "Pesados 1": 5.0413,
+     "Pesados 2": 7.1901
+    },
+    "Guadalajara Norte > Cabanillas|Cabanillas > Meco": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "Guadalajara Norte > Cabanillas|Guadalajara Norte > Cabanillas": {
+     "Pesados 1": 1.405,
+     "Pesados 2": 1.9835
+    },
+    "Guadalajara Norte > Cabanillas|Meco > Alcala": {
+     "Pesados 1": 3.9669,
+     "Pesados 2": 5.6612
+    },
+    "Guadalajara Norte > NII-Taracena|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 0.0,
+     "Pesados 2": 0.0
+    },
+    "Meco > Alcala|Alcala > Ajalvir": {
+     "Pesados 1": 2.2727,
+     "Pesados 2": 3.2645
+    },
+    "Meco > Alcala|Meco > Alcala": {
+     "Pesados 1": 1.1983,
+     "Pesados 2": 1.6942
+    },
+    "Meco > Cabanillas|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "Meco > Cabanillas|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 3.719,
+     "Pesados 2": 5.2893
+    },
+    "Meco > Cabanillas|Meco > Cabanillas": {
+     "Pesados 1": 1.405,
+     "Pesados 2": 2.0248
+    },
+    "NII-Taracena > Guadalajara Norte|Alcala > Ajalvir": {
+     "Pesados 1": 5.9917,
+     "Pesados 2": 8.5124
+    },
+    "NII-Taracena > Guadalajara Norte|Cabanillas > Meco": {
+     "Pesados 1": 3.719,
+     "Pesados 2": 5.2893
+    },
+    "NII-Taracena > Guadalajara Norte|Guadalajara Norte > Cabanillas": {
+     "Pesados 1": 2.314,
+     "Pesados 2": 3.3058
+    },
+    "NII-Taracena > Guadalajara Norte|Meco > Alcala": {
+     "Pesados 1": 4.9174,
+     "Pesados 2": 6.9835
+    },
+    "NII-Taracena > Guadalajara Norte|NII-Taracena > Guadalajara Norte": {
+     "Pesados 1": 0.0,
+     "Pesados 2": 0.0
+    }
+   },
+   "etc_prices": {
+    "Ajalvir > Alcala|Ajalvir > Alcala": {
+     "Pesados 1": 0.9917,
+     "Pesados 2": 1.405
+    },
+    "Ajalvir > Alcala|Alcala > Meco": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9339
+    },
+    "Ajalvir > Alcala|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 4.6694,
+     "Pesados 2": 6.4876
+    },
+    "Ajalvir > Alcala|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.686
+    },
+    "Ajalvir > Alcala|Meco > Cabanillas": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7521
+    },
+    "Alcala > Ajalvir|Alcala > Ajalvir": {
+     "Pesados 1": 0.9917,
+     "Pesados 2": 1.405
+    },
+    "Alcala > Meco|Alcala > Meco": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5289
+    },
+    "Alcala > Meco|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.124
+    },
+    "Alcala > Meco|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 4.5041,
+     "Pesados 2": 6.3223
+    },
+    "Alcala > Meco|Meco > Cabanillas": {
+     "Pesados 1": 2.3967,
+     "Pesados 2": 3.3471
+    },
+    "Cabanillas > Guadalajara Norte|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 1.281,
+     "Pesados 2": 1.7769
+    },
+    "Cabanillas > Guadalajara Norte|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9752
+    },
+    "Cabanillas > Meco|Alcala > Ajalvir": {
+     "Pesados 1": 3.3884,
+     "Pesados 2": 4.7521
+    },
+    "Cabanillas > Meco|Cabanillas > Meco": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8182
+    },
+    "Cabanillas > Meco|Meco > Alcala": {
+     "Pesados 1": 2.3967,
+     "Pesados 2": 3.3471
+    },
+    "Guadalajara Norte > Cabanillas|Alcala > Ajalvir": {
+     "Pesados 1": 4.6694,
+     "Pesados 2": 6.4876
+    },
+    "Guadalajara Norte > Cabanillas|Cabanillas > Meco": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.595
+    },
+    "Guadalajara Norte > Cabanillas|Guadalajara Norte > Cabanillas": {
+     "Pesados 1": 1.281,
+     "Pesados 2": 1.7769
+    },
+    "Guadalajara Norte > Cabanillas|Meco > Alcala": {
+     "Pesados 1": 3.6777,
+     "Pesados 2": 5.124
+    },
+    "Guadalajara Norte > NII-Taracena|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 0.0,
+     "Pesados 2": 0.0
+    },
+    "Meco > Alcala|Alcala > Ajalvir": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9339
+    },
+    "Meco > Alcala|Meco > Alcala": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5289
+    },
+    "Meco > Cabanillas|Cabanillas > Guadalajara Norte": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.595
+    },
+    "Meco > Cabanillas|Guadalajara Norte > NII-Taracena": {
+     "Pesados 1": 3.4298,
+     "Pesados 2": 4.7934
+    },
+    "Meco > Cabanillas|Meco > Cabanillas": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8182
+    },
+    "NII-Taracena > Guadalajara Norte|Alcala > Ajalvir": {
+     "Pesados 1": 5.4959,
+     "Pesados 2": 7.686
+    },
+    "NII-Taracena > Guadalajara Norte|Cabanillas > Meco": {
+     "Pesados 1": 3.4298,
+     "Pesados 2": 4.7934
+    },
+    "NII-Taracena > Guadalajara Norte|Guadalajara Norte > Cabanillas": {
+     "Pesados 1": 2.1074,
+     "Pesados 2": 2.9752
+    },
+    "NII-Taracena > Guadalajara Norte|Meco > Alcala": {
+     "Pesados 1": 4.5041,
+     "Pesados 2": 6.3223
+    },
+    "NII-Taracena > Guadalajara Norte|NII-Taracena > Guadalajara Norte": {
+     "Pesados 1": 0.0,
+     "Pesados 2": 0.0
+    }
+   },
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "R-3 Madrid – Arganda",
+   "law": "SEITT tariff 2026 (r3), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Conexión A-3 > M-300 Arganda/Loeches",
+     "points": [
+      {
+       "name": "between Conexión A-3 and M-300 Arganda/Loeches",
+       "lat": 40.300904,
+       "lon": -3.414224,
+       "heading": 323.3
+      }
+     ]
+    },
+    {
+     "name": "M-208 Mejorada/Velilla > M-300 Arganda/Loeches",
+     "points": [
+      {
+       "name": "between M-208 Mejorada/Velilla and M-300 Arganda/Loeches",
+       "lat": 40.3667,
+       "lon": -3.454187,
+       "heading": 159.1
+      }
+     ]
+    },
+    {
+     "name": "M-208 Mejorada/Velilla > M-50",
+     "points": [
+      {
+       "name": "between M-208 Mejorada/Velilla and M-50",
+       "lat": 40.395479,
+       "lon": -3.507372,
+       "heading": 290.4
+      }
+     ]
+    },
+    {
+     "name": "M-300 Arganda/Loeches > Conexión A-3",
+     "points": [
+      {
+       "name": "between M-300 Arganda/Loeches and Conexión A-3",
+       "lat": 40.300211,
+       "lon": -3.413827,
+       "heading": 143.3
+      }
+     ]
+    },
+    {
+     "name": "M-300 Arganda/Loeches > M-208 Mejorada/Velilla",
+     "points": [
+      {
+       "name": "between M-300 Arganda/Loeches and M-208 Mejorada/Velilla",
+       "lat": 40.366857,
+       "lon": -3.453928,
+       "heading": 337.9
+      }
+     ]
+    },
+    {
+     "name": "M-45 > M-50",
+     "points": [
+      {
+       "name": "between M-45 and M-50",
+       "lat": 40.394859,
+       "lon": -3.559129,
+       "heading": 121.6
+      }
+     ]
+    },
+    {
+     "name": "M-45 > Madrid / M-40 / M-602",
+     "points": [
+      {
+       "name": "between M-45 and Madrid / M-40 / M-602",
+       "lat": 40.410721,
+       "lon": -3.59613,
+       "heading": 286.7
+      }
+     ]
+    },
+    {
+     "name": "M-50 > M-208 Mejorada/Velilla",
+     "points": [
+      {
+       "name": "between M-50 and M-208 Mejorada/Velilla",
+       "lat": 40.395232,
+       "lon": -3.507412,
+       "heading": 112.5
+      }
+     ]
+    },
+    {
+     "name": "M-50 > M-45",
+     "points": [
+      {
+       "name": "between M-50 and M-45",
+       "lat": 40.395076,
+       "lon": -3.559095,
+       "heading": 301.5
+      }
+     ]
+    },
+    {
+     "name": "Madrid / M-40 / M-602 > M-45",
+     "points": [
+      {
+       "name": "between Madrid / M-40 / M-602 and M-45",
+       "lat": 40.410537,
+       "lon": -3.596233,
+       "heading": 106.5
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Conexión A-3 > M-300 Arganda/Loeches|M-208 Mejorada/Velilla > M-50": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-300 Arganda/Loeches > M-208 Mejorada/Velilla": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 3.9256,
+     "Pesados 2": 5.5785
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-50 > M-45": {
+     "Pesados 1": 3.3471,
+     "Pesados 2": 4.7934
+    },
+    "M-208 Mejorada/Velilla > M-300 Arganda/Loeches|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.3554
+    },
+    "M-208 Mejorada/Velilla > M-300 Arganda/Loeches|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "M-208 Mejorada/Velilla > M-50|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "M-208 Mejorada/Velilla > M-50|M-50 > M-45": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7851
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-208 Mejorada/Velilla > M-50": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.3554
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-300 Arganda/Loeches > M-208 Mejorada/Velilla": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.3554
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9256
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-50 > M-45": {
+     "Pesados 1": 2.1901,
+     "Pesados 2": 3.1405
+    },
+    "M-45 > M-50|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 2.1901,
+     "Pesados 2": 3.1405
+    },
+    "M-45 > M-50|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 3.3471,
+     "Pesados 2": 4.7934
+    },
+    "M-45 > M-50|M-45 > M-50": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7851
+    },
+    "M-45 > M-50|M-50 > M-208 Mejorada/Velilla": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7851
+    },
+    "M-45 > Madrid / M-40 / M-602|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 0.5785,
+     "Pesados 2": 0.8264
+    },
+    "M-50 > M-208 Mejorada/Velilla|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 1.6529,
+     "Pesados 2": 2.3554
+    },
+    "M-50 > M-208 Mejorada/Velilla|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 2.8099,
+     "Pesados 2": 4.0083
+    },
+    "M-50 > M-45|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "M-50 > M-45|M-50 > M-45": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7851
+    },
+    "Madrid / M-40 / M-602 > M-45|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.9256
+    },
+    "Madrid / M-40 / M-602 > M-45|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 3.9256,
+     "Pesados 2": 5.5785
+    },
+    "Madrid / M-40 / M-602 > M-45|M-45 > M-50": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Madrid / M-40 / M-602 > M-45|M-50 > M-208 Mejorada/Velilla": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Madrid / M-40 / M-602 > M-45|Madrid / M-40 / M-602 > M-45": {
+     "Pesados 1": 0.5785,
+     "Pesados 2": 0.8264
+    }
+   },
+   "etc_prices": {
+    "Conexión A-3 > M-300 Arganda/Loeches|M-208 Mejorada/Velilla > M-50": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-300 Arganda/Loeches > M-208 Mejorada/Velilla": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 3.6364,
+     "Pesados 2": 5.0413
+    },
+    "Conexión A-3 > M-300 Arganda/Loeches|M-50 > M-45": {
+     "Pesados 1": 3.0992,
+     "Pesados 2": 4.3388
+    },
+    "M-208 Mejorada/Velilla > M-300 Arganda/Loeches|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1074
+    },
+    "M-208 Mejorada/Velilla > M-300 Arganda/Loeches|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "M-208 Mejorada/Velilla > M-50|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.405
+    },
+    "M-208 Mejorada/Velilla > M-50|M-50 > M-45": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-208 Mejorada/Velilla > M-50": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1074
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-300 Arganda/Loeches > M-208 Mejorada/Velilla": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1074
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5124
+    },
+    "M-300 Arganda/Loeches > M-208 Mejorada/Velilla|M-50 > M-45": {
+     "Pesados 1": 2.0248,
+     "Pesados 2": 2.8099
+    },
+    "M-45 > M-50|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 2.0248,
+     "Pesados 2": 2.8099
+    },
+    "M-45 > M-50|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 3.0992,
+     "Pesados 2": 4.3388
+    },
+    "M-45 > M-50|M-45 > M-50": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "M-45 > M-50|M-50 > M-208 Mejorada/Velilla": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "M-45 > Madrid / M-40 / M-602|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7438
+    },
+    "M-50 > M-208 Mejorada/Velilla|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 1.5289,
+     "Pesados 2": 2.1074
+    },
+    "M-50 > M-208 Mejorada/Velilla|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 2.6033,
+     "Pesados 2": 3.6364
+    },
+    "M-50 > M-45|M-45 > Madrid / M-40 / M-602": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.405
+    },
+    "M-50 > M-45|M-50 > M-45": {
+     "Pesados 1": 0.4959,
+     "Pesados 2": 0.7025
+    },
+    "Madrid / M-40 / M-602 > M-45|M-208 Mejorada/Velilla > M-300 Arganda/Loeches": {
+     "Pesados 1": 2.562,
+     "Pesados 2": 3.5124
+    },
+    "Madrid / M-40 / M-602 > M-45|M-300 Arganda/Loeches > Conexión A-3": {
+     "Pesados 1": 3.6364,
+     "Pesados 2": 5.0413
+    },
+    "Madrid / M-40 / M-602 > M-45|M-45 > M-50": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.405
+    },
+    "Madrid / M-40 / M-602 > M-45|M-50 > M-208 Mejorada/Velilla": {
+     "Pesados 1": 1.0331,
+     "Pesados 2": 1.405
+    },
+    "Madrid / M-40 / M-602 > M-45|Madrid / M-40 / M-602 > M-45": {
+     "Pesados 1": 0.5372,
+     "Pesados 2": 0.7438
+    }
+   },
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "R-4 Madrid – Ocaña",
+   "law": "SEITT tariff 2026 (r4), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00; stations not placed (priced from the next one placed): Pinto-Parla, Villaseca Sagra (CM 4001), Ontígola",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "Aranjuez > Ocaña / A-40",
+     "points": [
+      {
+       "name": "between Aranjuez and Ocaña / A-40",
+       "lat": 39.994807,
+       "lon": -3.605763,
+       "heading": 161.4
+      }
+     ]
+    },
+    {
+     "name": "Aranjuez > Seseña",
+     "points": [
+      {
+       "name": "between Aranjuez and Seseña",
+       "lat": 40.066388,
+       "lon": -3.671269,
+       "heading": 352.3
+      }
+     ]
+    },
+    {
+     "name": "M-50 > Valdemoro",
+     "points": [
+      {
+       "name": "between M-50 and Valdemoro",
+       "lat": 40.219809,
+       "lon": -3.746694,
+       "heading": 189.8
+      }
+     ]
+    },
+    {
+     "name": "Ocaña / A-40 > Aranjuez",
+     "points": [
+      {
+       "name": "between Ocaña / A-40 and Aranjuez",
+       "lat": 39.994933,
+       "lon": -3.605629,
+       "heading": 341.9
+      }
+     ]
+    },
+    {
+     "name": "Seseña > Aranjuez",
+     "points": [
+      {
+       "name": "between Seseña and Aranjuez",
+       "lat": 40.066275,
+       "lon": -3.671551,
+       "heading": 171.7
+      }
+     ]
+    },
+    {
+     "name": "Seseña > Valdemoro",
+     "points": [
+      {
+       "name": "between Seseña and Valdemoro",
+       "lat": 40.151159,
+       "lon": -3.670571,
+       "heading": 345.7
+      }
+     ]
+    },
+    {
+     "name": "Valdemoro > M-50",
+     "points": [
+      {
+       "name": "between Valdemoro and M-50",
+       "lat": 40.220177,
+       "lon": -3.746289,
+       "heading": 10.2
+      }
+     ]
+    },
+    {
+     "name": "Valdemoro > Seseña",
+     "points": [
+      {
+       "name": "between Valdemoro and Seseña",
+       "lat": 40.150955,
+       "lon": -3.670821,
+       "heading": 165.7
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Aranjuez > Ocaña / A-40|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.8017
+    },
+    "Aranjuez > Seseña|Seseña > Valdemoro": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.8017
+    },
+    "Aranjuez > Seseña|Valdemoro > M-50": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 6.1157
+    },
+    "M-50 > Valdemoro|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 7.0661,
+     "Pesados 2": 10.2893
+    },
+    "M-50 > Valdemoro|M-50 > Valdemoro": {
+     "Pesados 1": 1.6116,
+     "Pesados 2": 2.314
+    },
+    "M-50 > Valdemoro|Seseña > Aranjuez": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 6.1157
+    },
+    "M-50 > Valdemoro|Valdemoro > Seseña": {
+     "Pesados 1": 2.9339,
+     "Pesados 2": 4.2149
+    },
+    "Ocaña / A-40 > Aranjuez|Ocaña / A-40 > Aranjuez": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.8017
+    },
+    "Ocaña / A-40 > Aranjuez|Seseña > Valdemoro": {
+     "Pesados 1": 5.5785,
+     "Pesados 2": 7.9752
+    },
+    "Ocaña / A-40 > Aranjuez|Valdemoro > M-50": {
+     "Pesados 1": 7.0661,
+     "Pesados 2": 10.2893
+    },
+    "Seseña > Valdemoro|Seseña > Valdemoro": {
+     "Pesados 1": 1.3636,
+     "Pesados 2": 1.9008
+    },
+    "Seseña > Valdemoro|Valdemoro > M-50": {
+     "Pesados 1": 2.9339,
+     "Pesados 2": 4.2149
+    },
+    "Valdemoro > M-50|Valdemoro > M-50": {
+     "Pesados 1": 1.6116,
+     "Pesados 2": 2.314
+    },
+    "Valdemoro > Seseña|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 5.4545,
+     "Pesados 2": 7.9752
+    },
+    "Valdemoro > Seseña|Seseña > Aranjuez": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.8017
+    },
+    "Valdemoro > Seseña|Valdemoro > Seseña": {
+     "Pesados 1": 1.3636,
+     "Pesados 2": 1.9008
+    }
+   },
+   "etc_prices": {
+    "Aranjuez > Ocaña / A-40|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 2.3967,
+     "Pesados 2": 3.4298
+    },
+    "Aranjuez > Seseña|Seseña > Valdemoro": {
+     "Pesados 1": 2.438,
+     "Pesados 2": 3.4298
+    },
+    "Aranjuez > Seseña|Valdemoro > M-50": {
+     "Pesados 1": 3.9256,
+     "Pesados 2": 5.4959
+    },
+    "M-50 > Valdemoro|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 6.6116,
+     "Pesados 2": 9.2562
+    },
+    "M-50 > Valdemoro|M-50 > Valdemoro": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.0661
+    },
+    "M-50 > Valdemoro|Seseña > Aranjuez": {
+     "Pesados 1": 3.9256,
+     "Pesados 2": 5.4959
+    },
+    "M-50 > Valdemoro|Valdemoro > Seseña": {
+     "Pesados 1": 2.7273,
+     "Pesados 2": 3.8017
+    },
+    "Ocaña / A-40 > Aranjuez|Ocaña / A-40 > Aranjuez": {
+     "Pesados 1": 2.438,
+     "Pesados 2": 3.4298
+    },
+    "Ocaña / A-40 > Aranjuez|Seseña > Valdemoro": {
+     "Pesados 1": 5.124,
+     "Pesados 2": 7.1901
+    },
+    "Ocaña / A-40 > Aranjuez|Valdemoro > M-50": {
+     "Pesados 1": 6.6116,
+     "Pesados 2": 9.2562
+    },
+    "Seseña > Valdemoro|Seseña > Valdemoro": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    },
+    "Seseña > Valdemoro|Valdemoro > M-50": {
+     "Pesados 1": 2.7273,
+     "Pesados 2": 3.8017
+    },
+    "Valdemoro > M-50|Valdemoro > M-50": {
+     "Pesados 1": 1.4876,
+     "Pesados 2": 2.0661
+    },
+    "Valdemoro > Seseña|Aranjuez > Ocaña / A-40": {
+     "Pesados 1": 5.124,
+     "Pesados 2": 7.1901
+    },
+    "Valdemoro > Seseña|Seseña > Aranjuez": {
+     "Pesados 1": 2.438,
+     "Pesados 2": 3.4298
+    },
+    "Valdemoro > Seseña|Valdemoro > Seseña": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    }
+   },
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ]
+  },
+  {
+   "name": "R-5 Madrid – Navalcarnero",
+   "law": "SEITT tariff 2026 (r5), cash prices (tag prices with etc) including 21% IVA, here excluding it; free 00:00–06:00",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "Pesados 1",
+     "min_kg": 3501,
+     "max_axles": 3
+    },
+    {
+     "name": "Pesados 2",
+     "min_kg": 3501,
+     "min_axles": 4
+    }
+   ],
+   "stations": [
+    {
+     "name": "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja",
+     "points": [
+      {
+       "name": "between AP-41 Madrid-Toledo and M-413 Arroyomolinos/Moraleja",
+       "lat": 40.262693,
+       "lon": -3.903563,
+       "heading": 222.9
+      }
+     ]
+    },
+    {
+     "name": "AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada",
+     "points": [
+      {
+       "name": "between AP-41 Madrid-Toledo and M-50 / M-506 Móstoles/Fuenlabrada",
+       "lat": 40.289595,
+       "lon": -3.857525,
+       "heading": 27.2
+      }
+     ]
+    },
+    {
+     "name": "Conexión A-5 > M-404 El Álamo/Navalcarnero",
+     "points": [
+      {
+       "name": "between Conexión A-5 and M-404 El Álamo/Navalcarnero",
+       "lat": 40.265374,
+       "lon": -4.02377,
+       "heading": 97.8
+      }
+     ]
+    },
+    {
+     "name": "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada",
+     "points": [
+      {
+       "name": "between M-40 / M-45 and M-50 / M-506 Móstoles/Fuenlabrada",
+       "lat": 40.337064,
+       "lon": -3.80227,
+       "heading": 250.5
+      }
+     ]
+    },
+    {
+     "name": "M-404 El Álamo/Navalcarnero > Conexión A-5",
+     "points": [
+      {
+       "name": "between M-404 El Álamo/Navalcarnero and Conexión A-5",
+       "lat": 40.265613,
+       "lon": -4.023775,
+       "heading": 278.2
+      }
+     ]
+    },
+    {
+     "name": "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja",
+     "points": [
+      {
+       "name": "between M-404 El Álamo/Navalcarnero and M-413 Arroyomolinos/Moraleja",
+       "lat": 40.260236,
+       "lon": -3.957437,
+       "heading": 98.0
+      }
+     ]
+    },
+    {
+     "name": "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo",
+     "points": [
+      {
+       "name": "between M-413 Arroyomolinos/Moraleja and AP-41 Madrid-Toledo",
+       "lat": 40.257029,
+       "lon": -3.910601,
+       "heading": 56.7
+      }
+     ]
+    },
+    {
+     "name": "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero",
+     "points": [
+      {
+       "name": "between M-413 Arroyomolinos/Moraleja and M-404 El Álamo/Navalcarnero",
+       "lat": 40.260431,
+       "lon": -3.957149,
+       "heading": 275.5
+      }
+     ]
+    },
+    {
+     "name": "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo",
+     "points": [
+      {
+       "name": "between M-50 / M-506 Móstoles/Fuenlabrada and AP-41 Madrid-Toledo",
+       "lat": 40.289776,
+       "lon": -3.857752,
+       "heading": 206.9
+      }
+     ]
+    },
+    {
+     "name": "M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45",
+     "points": [
+      {
+       "name": "between M-50 / M-506 Móstoles/Fuenlabrada and M-40 / M-45",
+       "lat": 40.336367,
+       "lon": -3.804067,
+       "heading": 70.6
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 5.9917
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.7603
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 5.9917
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 5.9917
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 4.2149,
+     "Pesados 2": 5.9917
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 2.686,
+     "Pesados 2": 3.7603
+    },
+    "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.4463,
+     "Pesados 2": 2.0248
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 2.9752,
+     "Pesados 2": 4.2562
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 1.2397,
+     "Pesados 2": 1.7355
+    }
+   },
+   "etc_prices": {
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "Conexión A-5 > M-404 El Álamo/Navalcarnero|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 3.8843,
+     "Pesados 2": 5.4132
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 2.438,
+     "Pesados 2": 3.4298
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 3.8843,
+     "Pesados 2": 5.4132
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 3.8843,
+     "Pesados 2": 5.4132
+    },
+    "M-40 / M-45 > M-50 / M-506 Móstoles/Fuenlabrada|M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "M-404 El Álamo/Navalcarnero > M-413 Arroyomolinos/Moraleja|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 3.8843,
+     "Pesados 2": 5.4132
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|AP-41 Madrid-Toledo > M-50 / M-506 Móstoles/Fuenlabrada": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-413 Arroyomolinos/Moraleja > AP-41 Madrid-Toledo|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 2.438,
+     "Pesados 2": 3.4298
+    },
+    "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|AP-41 Madrid-Toledo > M-413 Arroyomolinos/Moraleja": {
+     "Pesados 1": 1.3223,
+     "Pesados 2": 1.8595
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|M-404 El Álamo/Navalcarnero > Conexión A-5": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > AP-41 Madrid-Toledo|M-413 Arroyomolinos/Moraleja > M-404 El Álamo/Navalcarnero": {
+     "Pesados 1": 2.7686,
+     "Pesados 2": 3.843
+    },
+    "M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45|M-50 / M-506 Móstoles/Fuenlabrada > M-40 / M-45": {
+     "Pesados 1": 1.1157,
+     "Pesados 2": 1.5702
+    }
+   },
+   "free_hours": [
+    "00:00",
+    "05:59"
+   ]
+  }
+ ],
+ "rows": []
+}

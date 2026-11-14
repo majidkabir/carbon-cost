@@ -2427,3 +2427,110 @@ func TestGipuzkoaNIA15(t *testing.T) {
 		}
 	}
 }
+
+// The AP-53 (Ministry of Transport's tolls in force 2026, IVA included):
+// Pesados 2 from Santiago to Alto de Santo Domingo 7.25, Ribadulla to
+// Silleda 2.45 (Pesados 1: 2.05). The paths run through the stretches' middles,
+// 300 m either side along each stretch.
+func TestAP53(t *testing.T) {
+	south := [][2]float64{{-8.482406, 42.805564}, {-8.483561, 42.803003}, {-8.484716, 42.800442}, {-8.387161, 42.747675}, {-8.383600, 42.747013}, {-8.380039, 42.746351}, {-8.292354, 42.717730}, {-8.288770, 42.718319}, {-8.285186, 42.718908}, {-8.200645, 42.693912}, {-8.197127, 42.693141}, {-8.193609, 42.692370}, {-8.142676, 42.660453}, {-8.141011, 42.658049}, {-8.139346, 42.655645}, {-8.119122, 42.629105}, {-8.116951, 42.626931}, {-8.114780, 42.624757}, {-8.091521, 42.599924}, {-8.088980, 42.597980}, {-8.086439, 42.596036}}
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Santiago to Alto de Santo Domingo", south, truck40, 7.25 / 1.21},
+		{"Ribadulla to Silleda", south[3:9], truck40, 2.45 / 1.21},
+		{"Ribadulla to Silleda, Pesados 1", south[3:9], light, 2.05 / 1.21},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "AP-53") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
+// The Madrid radials (SEITT 2026, IVA included): Pesados 2 on the R-3 from
+// Madrid (M-40) to the A-3 6.75 cash, 6.10 by tag; on the R-4 from Ocaña
+// to the M-50 12.45 (Pesados 1: 8.55); free from 00:00 to 06:00. The paths
+// run through the stretches' middles, 300 m either side.
+func TestMadridRadials(t *testing.T) {
+	r3 := [][2]float64{{-3.599630, 40.411303}, {-3.596233, 40.410537}, {-3.592836, 40.409771}, {-3.562146, 40.396273}, {-3.559129, 40.394859}, {-3.556112, 40.393445}, {-3.510685, 40.396264}, {-3.507412, 40.395232}, {-3.504139, 40.394200}, {-3.455450, 40.369220}, {-3.454187, 40.366700}, {-3.452924, 40.364180}, {-3.415941, 40.302374}, {-3.413827, 40.300211}, {-3.411713, 40.298048}}
+	r4 := [][2]float64{{-3.604535, 39.992369}, {-3.605629, 39.994933}, {-3.606723, 39.997497}, {-3.670797, 40.063714}, {-3.671269, 40.066388}, {-3.671741, 40.069062}, {-3.669699, 40.148545}, {-3.670571, 40.151159}, {-3.671443, 40.153773}, {-3.746915, 40.217522}, {-3.746289, 40.220177}, {-3.745663, 40.222832}}
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	day := time.Date(2026, 11, 20, 12, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		etc   bool
+		at    time.Time
+		want  float64
+	}{
+		{"R-3 Madrid to the A-3", r3, truck40, false, day, 6.75 / 1.21},
+		{"R-3 Madrid to the A-3 by tag", r3, truck40, true, day, 6.10 / 1.21},
+		{"R-4 Ocaña to the M-50", r4, truck40, false, day, 12.45 / 1.21},
+		{"R-4 Ocaña to the M-50, Pesados 1", r4, light, false, day, 8.55 / 1.21},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck, ETC: tc.etc}, tc.at)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "R-3") || strings.Contains(l.Section, "R-4") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
+// The Basque AP-8 and AP-1 (Bidegi's 2026 sheet, VAT included): Pesados 2
+// from Bilbao's western access to Zarautz's main plaza 30.38, Eibar to
+// Etxabarri-Ibiña 20.06, Donostia's eastern plaza to Behobia 6.53. The paths
+// run through the stretches' middles, 300 m either side.
+func TestBasqueAP8(t *testing.T) {
+	west := [][2]float64{{-2.757602, 43.231056}, {-2.753926, 43.230732}, {-2.750250, 43.230408}, {-2.697674, 43.202532}, {-2.695202, 43.200524}, {-2.692730, 43.198516}, {-2.623820, 43.178233}, {-2.620696, 43.176787}, {-2.617572, 43.175341}, {-2.561651, 43.167017}, {-2.557970, 43.167285}, {-2.554289, 43.167553}, {-2.483254, 43.181026}, {-2.479566, 43.181242}, {-2.475878, 43.181458}, {-2.417722, 43.206361}, {-2.416493, 43.208906}, {-2.415264, 43.211451}, {-2.372888, 43.263420}, {-2.371645, 43.265962}, {-2.370402, 43.268504}, {-2.304752, 43.269726}, {-2.302003, 43.267917}, {-2.299254, 43.266108}, {-2.221993, 43.286451}, {-2.218878, 43.284990}, {-2.215763, 43.283529}, {-2.140817, 43.283048}, {-2.137112, 43.283114}, {-2.133407, 43.283180}}
+	ap1 := [][2]float64{{-2.426363, 43.165485}, {-2.426807, 43.162807}, {-2.427251, 43.160129}, {-2.430458, 43.113112}, {-2.432498, 43.110862}, {-2.434538, 43.108612}, {-2.445981, 43.080167}, {-2.448950, 43.078562}, {-2.451919, 43.076957}, {-2.494423, 43.049804}, {-2.496983, 43.047860}, {-2.499543, 43.045916}, {-2.616823, 42.958657}, {-2.620022, 42.957316}, {-2.623221, 42.955975}}
+	east := [][2]float64{{-1.874903, 43.309746}, {-1.872776, 43.311956}, {-1.870649, 43.314166}, {-1.848480, 43.318197}, {-1.844964, 43.317341}, {-1.841448, 43.316485}, {-1.809770, 43.327081}, {-1.806285, 43.328004}, {-1.802800, 43.328927}, {-1.769906, 43.334811}, {-1.766743, 43.336221}, {-1.763580, 43.337631}}
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Bilbao to Zarautz's main plaza", west, 30.38 / 1.21},
+		{"Eibar to Etxabarri-Ibiña", ap1, 20.06 / 1.21},
+		{"Donostia to Behobia", east, 6.53 / 1.21},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: truck40}, time.Date(2026, 11, 20, 12, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "AP-8") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

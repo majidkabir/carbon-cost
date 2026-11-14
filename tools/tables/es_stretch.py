@@ -18,15 +18,48 @@ def plain(s):
     return re.sub(r"[^a-z0-9]+", " ", "".join(c for c in s if unicodedata.category(c) != "Mn")).strip()
 
 
+def walk(ways):
+    """The one-way ways joined end to start into carriageways (lists of
+    (lon, lat)): from each way no other leads into, following at each
+    fork the way that turns least (a toll plaza's parallel lanes, a split
+    for a junction), each way used once."""
+    by_start = {}
+    for w in ways:
+        by_start.setdefault(w[0], []).append(w)
+    ends = {w[-1] for w in ways}
+    used, out = set(), []
+
+    def go(w):
+        line = list(w)
+        used.add(id(w))
+        while True:
+            nxt = [x for x in by_start.get(line[-1], []) if id(x) not in used]
+            if not nxt:
+                return line
+            h = m6toll.bearing(line[-2], line[-1])
+            w2 = min(nxt, key=lambda x: abs((m6toll.bearing(x[0], x[1]) - h + 540) % 360 - 180))
+            used.add(id(w2))
+            line += w2[1:]
+
+    for w in ways:
+        if w[0] not in ends:
+            out.append(go(w))
+    for w in ways:  # what's left: lanes beside the chosen one, or loops
+        if id(w) not in used and len(w) > 1:
+            out.append(go(w))
+    return out
+
+
 def lines(osm, refs):
-    """The one-way carriageway chains of the ways whose ref includes one of refs."""
+    """The one-way carriageway chains of the ways whose ref includes one of
+    refs, over 1 km."""
     ways = []
     for e in osm["elements"]:
         t = e.get("tags", {})
         if e["type"] == "way" and t.get("highway") in ("motorway", "trunk") and set(r.strip() for r in t.get("ref", "").split(";")) & set(refs):
             g = tuple((p["lon"], p["lat"]) for p in e["geometry"])
             ways.append(g[::-1] if t.get("oneway") == "-1" else g)
-    return [l for l in m6toll.chains(ways) if m6toll.along(l)[-1] > 1]
+    return [l for l in walk(ways) if m6toll.along(l)[-1] > 1]
 
 
 def signs(osm):
@@ -54,36 +87,65 @@ def signs(osm):
     return out
 
 
+def open_end(p, h, ls, me):
+    """Whether the carriageway ends (or begins) at p, heading h: no other
+    line runs on from there (within 0.6 km and 60 degrees)."""
+    for l in ls:
+        if l is me:
+            continue
+        cum = m6toll.along(l)
+        x, d = m6toll.project(l, cum, p)
+        if d < 0.6 and abs((m6toll.at(l, cum, x)[1] - h + 540) % 360 - 180) < 60:
+            return False
+    return True
+
+
 def booths(osm):
     return [((e["lon"], e["lat"]), plain(e.get("tags", {}).get("name", ""))) for e in osm["elements"]
             if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth"]
 
 
-def assign(order, match, line, cum, juncs, near=0.06):
+def assign(order, match, line, cum, juncs, booths=(), near=0.06):
     """{station: km along line}: the stations in the tariff's order (or its
-    reverse, whichever matches more) at junctions on the line whose words
-    match the station (match(station, words)), keeping the order: the
-    longest such matching (a station at most one junction)."""
-    js = sorted((x, w) for x, w in ((m6toll.project(line, cum, p)[0], w) for p, w, _ in juncs if m6toll.project(line, cum, p)[1] < near))
-    best = {}
+    reverse, whichever places more) at junctions on the line: a junction
+    matches a station where its signposted words do (match(station,
+    words)); a station with a toll booth of its name within 1.5 km of the
+    line matches only the junction nearest that booth. The longest
+    matching that keeps the order (a station at one junction at most);
+    returns the order it ran in too."""
+    js = []
+    for p, w, _ in juncs:
+        x, d = m6toll.project(line, cum, p)
+        if d < near:
+            js.append((x, w))
+    js.sort()
+    pinned = {}
+    for p, name in booths:
+        x, d = m6toll.project(line, cum, p)
+        if d < 1.5 and js:
+            for s in order:
+                if name and match(s, name):
+                    pinned[s] = min(range(len(js)), key=lambda j: abs(js[j][0] - x))
+    ok = lambda s, j: pinned[s] == j if s in pinned else match(s, js[j][1])
+    best, how = {}, order
     for seq in (order, order[::-1]):
         n, m = len(seq), len(js)
         f = [[0] * (m + 1) for _ in range(n + 1)]
-        for i in range(1, n + 1):
-            for j in range(1, m + 1):
-                f[i][j] = max(f[i - 1][j], f[i][j - 1], f[i - 1][j - 1] + 1 if match(seq[i - 1], js[j - 1][1]) else 0)
-        got, i, j = {}, n, m
-        while i and j:
-            if f[i][j] == f[i - 1][j]:
-                i -= 1
-            elif f[i][j] == f[i][j - 1]:
-                j -= 1
+        for a in range(1, n + 1):
+            for b in range(1, m + 1):
+                f[a][b] = max(f[a - 1][b], f[a][b - 1], f[a - 1][b - 1] + 1 if ok(seq[a - 1], b - 1) else 0)
+        got, a, b = {}, n, m
+        while a and b:
+            if f[a][b] == f[a - 1][b]:
+                a -= 1
+            elif f[a][b] == f[a][b - 1]:
+                b -= 1
             else:
-                got[seq[i - 1]] = js[j - 1][0]
-                i, j = i - 1, j - 1
+                got[seq[a - 1]] = js[b - 1][0]
+                a, b = a - 1, b - 1
         if len(got) > len(best):
-            best = got
-    return best
+            best, how = got, seq
+    return best, how
 
 
 def stretches(ls, pts, tol=0.15):
@@ -93,7 +155,8 @@ def stretches(ls, pts, tol=0.15):
     stations, at its middle and in its direction. Where OSM breaks a
     carriageway into pieces, a piece's head joins the last station passed
     on the piece it leaves and its tail the first station on the piece it
-    joins (within 0.6 km, heading within 100 degrees)."""
+    joins (within 0.8 km, heading within 120 degrees; of several such
+    pieces, the one whose station is nearest)."""
     pieces = []
     for line in ls:
         cum = m6toll.along(line)
@@ -105,14 +168,15 @@ def stretches(ls, pts, tol=0.15):
         pieces.append((line, cum, sorted(c)))
 
     def onto(p, h, me):
-        best = None
+        """[(piece, km along)] of the other pieces p lies on, going h."""
+        out = []
         for q in pieces:
             if q is me:
                 continue
             x, d = m6toll.project(q[0], q[1], p)
-            if d < 0.6 and abs((m6toll.at(q[0], q[1], x)[1] - h + 540) % 360 - 180) < 100 and (best is None or d < best[0]):
-                best = (d, q, x)
-        return best and best[1:]
+            if d < 0.8 and abs((m6toll.at(q[0], q[1], x)[1] - h + 540) % 360 - 180) < 120:
+                out.append((q, x))
+        return out
 
     out = {}
 
@@ -128,15 +192,14 @@ def stretches(ls, pts, tol=0.15):
         if not c:
             continue
         if c[0][0] > 0.1:
-            o = onto(line[0], m6toll.at(line, cum, 0)[1], piece)
-            before = [s for x, s in o[0][2] if x <= o[1] + 0.05] if o else []
-            if before:
-                add(before[-1], c[0][1], line, cum, 0, c[0][0])
+            # The station passed last before leaving the nearest (by that gap) piece this one leaves.
+            cand = [(x - bx, bs) for q, x in onto(line[0], m6toll.at(line, cum, 0)[1], piece) for bx, bs in q[2] if bx <= x + 0.05]
+            if cand:
+                add(min(cand)[1], c[0][1], line, cum, 0, c[0][0])
         if c[-1][0] < cum[-1] - 0.1:
-            o = onto(line[-1], m6toll.at(line, cum, cum[-1])[1], piece)
-            after = [s for x, s in o[0][2] if x >= o[1] - 0.05 and s != c[-1][1]] if o else []
-            if after:
-                add(c[-1][1], after[0], line, cum, c[-1][0], cum[-1])
+            cand = [(ax - x, as_) for q, x in onto(line[-1], m6toll.at(line, cum, cum[-1])[1], piece) for ax, as_ in q[2] if ax >= x - 0.05 and as_ != c[-1][1]]
+            if cand:
+                add(c[-1][1], min(cand)[1], line, cum, c[-1][0], cum[-1])
     return [(a, b, p, h) for (a, b), (p, h) in out.items()]
 
 

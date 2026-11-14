@@ -9,11 +9,11 @@ Usage: python3 it_cas.py fetched/ out-dir -> out-dir/it-cas-<date>.json
 Prices: the tables' tolls by entry and exit station and class (A, B, 3,
 4, 5), VAT included (as the main Italian table's rates), either way.
 
-Stations, in the tables' order along the motorway: the terminal barriers
-(A18 Messina Sud and Catania Nord, A20 Messina Nord and Buonfornello) at
-the toll plazas in OSM (clusters of toll booths), the first nearest the
-first junction station; the others at the junctions whose exits are
-signposted to them. A stretch of carriageway between two consecutive
+Stations, in the tables' order along the motorway: the others at the
+junctions whose exits are signposted to them; the terminal barriers (A18
+Messina Sud and Catania Nord, A20 Messina Nord and Buonfornello) at the
+toll plaza in OSM (a cluster of toll booths) nearest the end station
+among those over 2 km beyond it. A stretch of carriageway between two consecutive
 stations is a station of the system (es_stretch). The A20's Villafranca
 barrier ("Sistema Aperto", a fixed toll for the Villafranca exit) isn't
 modelled.
@@ -124,11 +124,16 @@ def build(road, text, osm):
     if missing:
         sys.exit(f"CAS {road}: {missing} not placed")
     pl = [p for p in plazas(osm) if any(m6toll.project(l, m6toll.along(l), p)[1] < 0.15 for l in ls)]
-    if len(pl) != 2:
-        sys.exit(f"CAS {road}: {len(pl)} toll plazas on the carriageways, not 2")
-    first = pts[inner[0]][0]
-    pl.sort(key=lambda p: m6toll.km(p, first))
-    for s, p in zip((order[0], order[-1]), pl):
+    mean = lambda ps: (sum(q[0] for q in ps) / len(ps), sum(q[1] for q in ps) / len(ps))
+    ends = {}
+    for term, near, far in ((order[0], inner[0], inner[-1]), (order[-1], inner[-1], inner[0])):
+        a, b = mean(pts[near]), mean(pts[far])
+        # Beyond the end station: over 2 km further from the other end than it is.
+        cand = [p for p in pl if m6toll.km(p, b) > m6toll.km(a, b) + 2]
+        if not cand:
+            sys.exit(f"CAS {road}: no toll plaza beyond {near} for {term}")
+        ends[term] = min(cand, key=lambda p: m6toll.km(p, a))
+    for s, p in ends.items():
         for line in ls:
             cum = m6toll.along(line)
             x, d = m6toll.project(line, cum, p)
@@ -169,7 +174,7 @@ def main(fetched, out):
         "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
         "law": (f"The Consorzio per le Autostrade Siciliane's tolls in force from 1 January {year} by entry and exit station and class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, either way: "
                 + "; ".join(notes) + ". "
-                "Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths), the others at the junctions whose exits are signposted to them. "
+                "Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths) beyond the end stations, the others at the junctions whose exits are signposted to them. "
                 "The A20's Villafranca barrier (an open-system fixed toll for the Villafranca exit) isn't modelled."),
         "sources": [{"title": f"Consorzio per le Autostrade Siciliane: tariffe pedaggio in vigore dal 1 gennaio {year}, A18 Messina-Catania", "url": "https://www.autostradesiciliane.it/files/upload/PortaleNews/allegati/a18%20tariffe%201%20gen%202026.pdf"},
                     {"title": f"Consorzio per le Autostrade Siciliane: tariffe pedaggio in vigore dal 1 gennaio {year}, A20 Messina-Palermo", "url": "https://www.autostradesiciliane.it/files/upload/PortaleNews/allegati/a20%20tariffe%201%20gen%202026.pdf"},

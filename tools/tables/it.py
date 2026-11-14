@@ -32,7 +32,9 @@ OPS = [
     ("Autovia Padana S.p.A.", "", "autovia-padana", ""),
     ("Società di Progetto Brebemi S.p.A", "", "brebe-mi", ""),
     ("Autostrada Brescia Verona Vicenza Padova S.p.A.", "", "brescia-padova", ""),
-    ("CAV S.p.A.", "", "cav", ""),
+    ("CAV S.p.A.", "", "cav", "A4"),
+    ("CAV S.p.A.", "A57", "cav", "A57"),
+    ("CAV S.p.A.", "A4|Passante", "cav", "Passante"),
     ("Concessioni del Tirreno S.p.A.", "A10", "cdt-a10", "A10"),
     ("Concessioni del Tirreno S.p.A.", "", "cdt-a10", "A12"),
     ("Milano Serravalle - Milano Tangenziali S.p.A.", "A7", "mi-serravalle-mi-tangenziali", ""),
@@ -43,6 +45,7 @@ OPS = [
     ("Società Autostrada Ligure Toscana p.a.", "A15", "salt-a15", ""),
     ("SAT p.A.", "", "sat", ""),
     ("SATAP S.p.A.", "A4", "satap-a4", "A4"),
+    ("SATAP S.p.A.", "A4|Novara Est-Milano", "satap-a4", "A4 Novara Est-Milano"),
     ("Ivrea Torino Piacenza S.p.A.", "A21", "satap-a4", "A21"),
     ("Società Autostrade Valdostane S.p.A.", "", "sav", ""),
     ("SITAF S.p.A.", "A32", "sitaf", ""),
@@ -113,7 +116,7 @@ def main(transcribed, fetched, out):
                "No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: "
                f"the concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied: the Ministry's note couldn't be found), each concession's plain-stretch rate unless it has only mountain stretches; "
                f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
-               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), some concessions price parts of their network higher (SATAP's A4 Novara Est-Milano, CAV's Passante di Mestre, SITAF's Salbertrand), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
         "sources": [{"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"}]
         + [{"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]} for d in used.values()],
         "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",

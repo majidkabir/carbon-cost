@@ -4,7 +4,7 @@
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
  "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
- "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: the concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied: the Ministry's note couldn't be found), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), some concessions price parts of their network higher (SATAP's A4 Novara Est-Milano, CAV's Passante di Mestre, SITAF's Salbertrand), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+ "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: the concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied: the Ministry's note couldn't be found), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
  "sources": [
   {
    "title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)",
@@ -397,6 +397,74 @@
   {
    "component": "toll",
    "road": "motorway",
+   "operator": "CAV S.p.A.|A57",
+   "min_kg": 3501,
+   "rate": 0.0686,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A57",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.09243,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A57",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.13835,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A57",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.16286
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A4|Passante",
+   "min_kg": 3501,
+   "rate": 0.13293,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A4|Passante",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.17518,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A4|Passante",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.26575,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.|A4|Passante",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.31409
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
    "operator": "Concessioni del Tirreno S.p.A.|A10",
    "min_kg": 3501,
    "rate": 0.15049,
@@ -733,6 +801,40 @@
    "min_kg": 3501,
    "min_axles": 5,
    "rate": 0.32551
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
+   "min_kg": 3501,
+   "rate": 0.14296,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.17791,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.27968,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4|Novara Est-Milano",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.33385
   },
   {
    "component": "toll",

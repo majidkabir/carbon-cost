@@ -128,7 +128,7 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 
 Run `carbon-cost rates` for the full list. Countries on a route that have no table are listed under `no_rates`, and their charges are not included.
 
-Not covered yet, for want of an official source the tool can read and place repeatably: Italy's exact tolls (only the estimate above), Spain's AP-9 (the Ministry's prices group several exits under one name and some trips pay more than one plaza, so a route can't be priced reliably), AP-53 and AP-68 (their stations can't yet be placed from an official map) and the Madrid radials (stations named after the roads they meet, which OSM's signposting can't tell apart).
+Not covered yet, for want of an official source the tool can read and place repeatably: Italy's exact tolls (only the estimate above), Spain's AP-9 (the Ministry's prices group several exits under one name and some trips pay more than one plaza, so a route can't be priced reliably), AP-53 and AP-68 (their stations can't yet be placed from an official map), the Basque AP-8/AP-1/AP-636 and Bizkaia's Supersur (Bidegi's and Interbiak's 2026 matrices are fetched, but name their stations without a PK, and OSM's AP-8/AP-1 junctions carry only exit numbers) and the Madrid radials (stations named after the roads they meet, which OSM's signposting can't tell apart).
 
 ## Things to know
 

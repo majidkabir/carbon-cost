@@ -34,9 +34,35 @@ as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
 (as <id>-links-<n>.json): their geometry runs in the road's metering
 direction, which a station's charged direction refers to.
 """
-import gzip, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
+import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
+
+
+def read(req):
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.status, r.read()
+
+
+def within(f, seconds):
+    """f() in a daemon thread, given up after seconds (the socket timeout
+    is per read, so a server that trickles could hold a run for hours)."""
+    box = {}
+
+    def run():
+        try:
+            box["v"] = f()
+        except BaseException as e:  # noqa: BLE001  (re-raised below)
+            box["e"] = e
+
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"no answer within {seconds} s")
+    if "e" in box:
+        raise box["e"]
+    return box["v"]
 
 
 def get(url, accept=None):
@@ -48,12 +74,11 @@ def get(url, accept=None):
     last = None
     for i in range(3):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60) as r:
-                body = r.read()
-                # Some servers send gzip unasked.
-                if body[:2] == b"\x1f\x8b":
-                    body = gzip.decompress(body)
-                return r.status, body
+            status, body = within(lambda: read(urllib.request.Request(url, headers=h)), 300)
+            # Some servers send gzip unasked.
+            if body[:2] == b"\x1f\x8b":
+                body = gzip.decompress(body)
+            return status, body
         except urllib.error.HTTPError as e:
             return e.code, e.read()
         except Exception as e:

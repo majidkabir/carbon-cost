@@ -49,8 +49,9 @@ RULES = {
     "RO": {"mw": r"^(A|DEx)\s?\d", "mw_highway": ["motorway"], "nat": r"^(DN\s?)?\d{1,3}[A-Z]{0,2}$"},
     # Italy: the toll motorways (autostrade a pedaggio), the ways tagged
     # toll=yes; the toll-free ones (A2, A19, A29, ring roads) aren't.
-    # Each line keeps its way's operator tag (the concession), in "ops" and
-    # "mwop" (an index into ops per mw line, -1 for none).
+    # Each line keeps its way's operator tag (the concession) and first
+    # ref, as "operator|ref", in "ops" and "mwop" (an index into ops per mw
+    # line, -1 for none).
     "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True, "operator": True},
 }
 
@@ -164,6 +165,8 @@ class Ways(osmium.SimpleHandler):
                 self.km[c] += piece.length * 111.32 * 0.68
                 if c == "mw" and self.rule.get("operator"):
                     op = (tags.get("operator") or "").strip()
+                    ref = (tags.get("ref") or "").split(";")[0].strip()
+                    op = f"{op}|{ref}" if op else ""
                     if op and op not in self.op_index:
                         self.op_index[op] = len(self.ops)
                         self.ops.append(op)

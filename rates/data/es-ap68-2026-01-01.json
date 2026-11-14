@@ -1,0 +1,3978 @@
+{
+ "country": "ES",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "crossings": true,
+ "osm_extract": "2026-11-14",
+ "name": "AP-68 Bilbao – Zaragoza (Avasa)",
+ "law": "The Ministry of Transport's tolls in force from 1 January 2026 on the AP-68: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; Bilbao – Zaragoza EUR 84.15 with IVA), excluding 21% IVA. Heavy vehicles between Ziorraga and Altube are exempt (the Diputación Foral de Álava's convenio). Paying by tag (sistema dinámico, `etc`): the Haro–Alfaro tolls after Real Decreto 584/2014's 50% (Cenicero–Agoncillo free) and the Zambrana–Tudela Pesados 2 tolls after Real Decreto 757/2019's 75%, where lower. Stations: each carriageway's stretch between two consecutive entries/exits, at the OpenStreetMap junctions whose exits are signposted to them in the table's order, Altube, Subijana, Recajo by elimination (the only numbered junction between their neighbours), Bilbao and Zaragoza at the motorway's ends. Bilbao's service area – Arrigorriaga-Bilbao ramp isn't built.",
+ "sources": [
+  {
+   "title": "Ministerio de Transportes: peajes vigentes AP-68 2026",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-2026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): AP-68 carriageways, junctions and signposted links",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more",
+ "min_kg": 3501,
+ "tolled_roads": "AP-68 from Bilbao to Zaragoza.",
+ "closed_systems": [
+  {
+   "name": "AP-68",
+   "law": "The Ministry of Transport's tolls in force: by entry and exit, either way; with a tag, the Haro–Alfaro and Zambrana–Tudela tables.",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "P2",
+     "min_kg": 3501,
+     "min_axles": 4
+    },
+    {
+     "name": "P1",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Agoncillo > Lodosa",
+     "points": [
+      {
+       "name": "between Agoncillo and Lodosa",
+       "lat": 42.389223,
+       "lon": -2.193433,
+       "heading": 110.4
+      }
+     ]
+    },
+    {
+     "name": "Agoncillo > Recajo",
+     "points": [
+      {
+       "name": "between Agoncillo and Recajo",
+       "lat": 42.446705,
+       "lon": -2.314011,
+       "heading": 305.1
+      }
+     ]
+    },
+    {
+     "name": "Alagón (pk 272) > Alagón (pk 275)",
+     "points": [
+      {
+       "name": "between Alagón (pk 272) and Alagón (pk 275)",
+       "lat": 41.77708,
+       "lon": -1.135548,
+       "heading": 83.9
+      }
+     ]
+    },
+    {
+     "name": "Alagón (pk 272) > Gallur",
+     "points": [
+      {
+       "name": "between Alagón (pk 272) and Gallur",
+       "lat": 41.791171,
+       "lon": -1.255844,
+       "heading": 324.0
+      }
+     ]
+    },
+    {
+     "name": "Alagón (pk 275) > Alagón (pk 272)",
+     "points": [
+      {
+       "name": "between Alagón (pk 275) and Alagón (pk 272)",
+       "lat": 41.777338,
+       "lon": -1.135558,
+       "heading": 264.8
+      }
+     ]
+    },
+    {
+     "name": "Alagón (pk 275) > Zaragoza",
+     "points": [
+      {
+       "name": "between Alagón (pk 275) and Zaragoza",
+       "lat": 41.725888,
+       "lon": -1.01974,
+       "heading": 121.1
+      }
+     ]
+    },
+    {
+     "name": "Alfaro > AP-15 (Navarra)",
+     "points": [
+      {
+       "name": "between Alfaro and AP-15 (Navarra)",
+       "lat": 42.118924,
+       "lon": -1.740435,
+       "heading": 139.7
+      }
+     ]
+    },
+    {
+     "name": "Alfaro > Calahorra",
+     "points": [
+      {
+       "name": "between Alfaro and Calahorra",
+       "lat": 42.213014,
+       "lon": -1.882206,
+       "heading": 297.6
+      }
+     ]
+    },
+    {
+     "name": "Altube > Subijana",
+     "points": [
+      {
+       "name": "between Altube and Subijana",
+       "lat": 42.897307,
+       "lon": -2.896648,
+       "heading": 161.6
+      }
+     ]
+    },
+    {
+     "name": "Altube > Ziorraga",
+     "points": [
+      {
+       "name": "between Altube and Ziorraga",
+       "lat": 42.990772,
+       "lon": -2.873581,
+       "heading": 314.9
+      }
+     ]
+    },
+    {
+     "name": "Areta > Arrigorriaga",
+     "points": [
+      {
+       "name": "between Areta and Arrigorriaga",
+       "lat": 43.17643,
+       "lon": -2.902949,
+       "heading": 54.1
+      }
+     ]
+    },
+    {
+     "name": "Areta > Llodio",
+     "points": [
+      {
+       "name": "between Areta and Llodio",
+       "lat": 43.150894,
+       "lon": -2.938306,
+       "heading": 190.1
+      }
+     ]
+    },
+    {
+     "name": "Arrigorriaga > Areta",
+     "points": [
+      {
+       "name": "between Arrigorriaga and Areta",
+       "lat": 43.176536,
+       "lon": -2.903125,
+       "heading": 233.3
+      }
+     ]
+    },
+    {
+     "name": "Arrigorriaga > Bilbao",
+     "points": [
+      {
+       "name": "between Arrigorriaga and Bilbao",
+       "lat": 43.218043,
+       "lon": -2.907032,
+       "heading": 300.1
+      }
+     ]
+    },
+    {
+     "name": "AP-1 (Burgos) > Subijana",
+     "points": [
+      {
+       "name": "between AP-1 (Burgos) and Subijana",
+       "lat": 42.762061,
+       "lon": -2.901202,
+       "heading": 11.1
+      }
+     ]
+    },
+    {
+     "name": "AP-1 (Burgos) > Zambrana",
+     "points": [
+      {
+       "name": "between AP-1 (Burgos) and Zambrana",
+       "lat": 42.693712,
+       "lon": -2.891723,
+       "heading": 165.5
+      }
+     ]
+    },
+    {
+     "name": "AP-15 (Navarra) > Alfaro",
+     "points": [
+      {
+       "name": "between AP-15 (Navarra) and Alfaro",
+       "lat": 42.119065,
+       "lon": -1.740259,
+       "heading": 319.2
+      }
+     ]
+    },
+    {
+     "name": "AP-15 (Navarra) > Tudela",
+     "points": [
+      {
+       "name": "between AP-15 (Navarra) and Tudela",
+       "lat": 42.05164,
+       "lon": -1.67851,
+       "heading": 107.1
+      }
+     ]
+    },
+    {
+     "name": "Bilbao > Arrigorriaga",
+     "points": [
+      {
+       "name": "between Bilbao and Arrigorriaga",
+       "lat": 43.217813,
+       "lon": -2.90693,
+       "heading": 120.1
+      }
+     ]
+    },
+    {
+     "name": "Calahorra > Alfaro",
+     "points": [
+      {
+       "name": "between Calahorra and Alfaro",
+       "lat": 42.212885,
+       "lon": -1.882387,
+       "heading": 117.4
+      }
+     ]
+    },
+    {
+     "name": "Calahorra > Lodosa",
+     "points": [
+      {
+       "name": "between Calahorra and Lodosa",
+       "lat": 42.33705,
+       "lon": -2.021657,
+       "heading": 299.3
+      }
+     ]
+    },
+    {
+     "name": "Cenicero > Fuenmayor",
+     "points": [
+      {
+       "name": "between Cenicero and Fuenmayor",
+       "lat": 42.462503,
+       "lon": -2.602663,
+       "heading": 133.1
+      }
+     ]
+    },
+    {
+     "name": "Cenicero > Haro",
+     "points": [
+      {
+       "name": "between Cenicero and Haro",
+       "lat": 42.518266,
+       "lon": -2.760549,
+       "heading": 323.2
+      }
+     ]
+    },
+    {
+     "name": "Fuenmayor > Cenicero",
+     "points": [
+      {
+       "name": "between Fuenmayor and Cenicero",
+       "lat": 42.462597,
+       "lon": -2.602529,
+       "heading": 312.8
+      }
+     ]
+    },
+    {
+     "name": "Fuenmayor > Logroño",
+     "points": [
+      {
+       "name": "between Fuenmayor and Logroño",
+       "lat": 42.431607,
+       "lon": -2.484593,
+       "heading": 91.3
+      }
+     ]
+    },
+    {
+     "name": "Gallur > Alagón (pk 272)",
+     "points": [
+      {
+       "name": "between Gallur and Alagón (pk 272)",
+       "lat": 41.790861,
+       "lon": -1.255943,
+       "heading": 144.4
+      }
+     ]
+    },
+    {
+     "name": "Gallur > Tudela",
+     "points": [
+      {
+       "name": "between Gallur and Tudela",
+       "lat": 41.926055,
+       "lon": -1.490428,
+       "heading": 308.0
+      }
+     ]
+    },
+    {
+     "name": "Haro > Cenicero",
+     "points": [
+      {
+       "name": "between Haro and Cenicero",
+       "lat": 42.518174,
+       "lon": -2.760692,
+       "heading": 143.2
+      }
+     ]
+    },
+    {
+     "name": "Haro > Zambrana",
+     "points": [
+      {
+       "name": "between Haro and Zambrana",
+       "lat": 42.620027,
+       "lon": -2.854317,
+       "heading": 4.0
+      }
+     ]
+    },
+    {
+     "name": "Llodio > Areta",
+     "points": [
+      {
+       "name": "between Llodio and Areta",
+       "lat": 43.150822,
+       "lon": -2.938083,
+       "heading": 13.5
+      }
+     ]
+    },
+    {
+     "name": "Llodio > Ziorraga",
+     "points": [
+      {
+       "name": "between Llodio and Ziorraga",
+       "lat": 43.074895,
+       "lon": -2.920448,
+       "heading": 208.0
+      }
+     ]
+    },
+    {
+     "name": "Lodosa > Agoncillo",
+     "points": [
+      {
+       "name": "between Lodosa and Agoncillo",
+       "lat": 42.389379,
+       "lon": -2.193276,
+       "heading": 290.4
+      }
+     ]
+    },
+    {
+     "name": "Lodosa > Calahorra",
+     "points": [
+      {
+       "name": "between Lodosa and Calahorra",
+       "lat": 42.336921,
+       "lon": -2.021823,
+       "heading": 119.3
+      }
+     ]
+    },
+    {
+     "name": "Logroño > Fuenmayor",
+     "points": [
+      {
+       "name": "between Logroño and Fuenmayor",
+       "lat": 42.431743,
+       "lon": -2.484537,
+       "heading": 271.8
+      }
+     ]
+    },
+    {
+     "name": "Logroño > Recajo",
+     "points": [
+      {
+       "name": "between Logroño and Recajo",
+       "lat": 42.452213,
+       "lon": -2.374662,
+       "heading": 113.0
+      }
+     ]
+    },
+    {
+     "name": "Recajo > Agoncillo",
+     "points": [
+      {
+       "name": "between Recajo and Agoncillo",
+       "lat": 42.446533,
+       "lon": -2.314114,
+       "heading": 126.6
+      }
+     ]
+    },
+    {
+     "name": "Recajo > Logroño",
+     "points": [
+      {
+       "name": "between Recajo and Logroño",
+       "lat": 42.452408,
+       "lon": -2.374666,
+       "heading": 292.6
+      }
+     ]
+    },
+    {
+     "name": "Subijana > Altube",
+     "points": [
+      {
+       "name": "between Subijana and Altube",
+       "lat": 42.897307,
+       "lon": -2.896372,
+       "heading": 342.3
+      }
+     ]
+    },
+    {
+     "name": "Subijana > AP-1 (Burgos)",
+     "points": [
+      {
+       "name": "between Subijana and AP-1 (Burgos)",
+       "lat": 42.762099,
+       "lon": -2.901458,
+       "heading": 191.6
+      }
+     ]
+    },
+    {
+     "name": "Tudela > AP-15 (Navarra)",
+     "points": [
+      {
+       "name": "between Tudela and AP-15 (Navarra)",
+       "lat": 42.05191,
+       "lon": -1.678201,
+       "heading": 287.5
+      }
+     ]
+    },
+    {
+     "name": "Tudela > Gallur",
+     "points": [
+      {
+       "name": "between Tudela and Gallur",
+       "lat": 41.925842,
+       "lon": -1.490593,
+       "heading": 127.8
+      }
+     ]
+    },
+    {
+     "name": "Zambrana > AP-1 (Burgos)",
+     "points": [
+      {
+       "name": "between Zambrana and AP-1 (Burgos)",
+       "lat": 42.693742,
+       "lon": -2.89149,
+       "heading": 345.5
+      }
+     ]
+    },
+    {
+     "name": "Zambrana > Haro",
+     "points": [
+      {
+       "name": "between Zambrana and Haro",
+       "lat": 42.619995,
+       "lon": -2.854487,
+       "heading": 183.2
+      }
+     ]
+    },
+    {
+     "name": "Zaragoza > Alagón (pk 275)",
+     "points": [
+      {
+       "name": "between Zaragoza and Alagón (pk 275)",
+       "lat": 41.728386,
+       "lon": -1.024282,
+       "heading": 303.4
+      }
+     ]
+    },
+    {
+     "name": "Ziorraga > Altube",
+     "points": [
+      {
+       "name": "between Ziorraga and Altube",
+       "lat": 42.990657,
+       "lon": -2.87375,
+       "heading": 135.2
+      }
+     ]
+    },
+    {
+     "name": "Ziorraga > Llodio",
+     "points": [
+      {
+       "name": "between Ziorraga and Llodio",
+       "lat": 43.074924,
+       "lon": -2.920173,
+       "heading": 28.1
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "AP-1 (Burgos) > Subijana|AP-1 (Burgos) > Subijana": {
+     "P1": 4.0083,
+     "P2": 4.5455
+    },
+    "AP-1 (Burgos) > Subijana|Altube > Ziorraga": {
+     "P1": 10.9091,
+     "P2": 12.314
+    },
+    "AP-1 (Burgos) > Subijana|Areta > Arrigorriaga": {
+     "P1": 18.8017,
+     "P2": 21.3223
+    },
+    "AP-1 (Burgos) > Subijana|Arrigorriaga > Bilbao": {
+     "P1": 18.8017,
+     "P2": 21.3223
+    },
+    "AP-1 (Burgos) > Subijana|Subijana > Altube": {
+     "P1": 9.0909,
+     "P2": 10.2893
+    },
+    "AP-1 (Burgos) > Subijana|Ziorraga > Llodio": {
+     "P1": 15.2893,
+     "P2": 17.314
+    },
+    "AP-1 (Burgos) > Zambrana|AP-1 (Burgos) > Zambrana": {
+     "P1": 1.3636,
+     "P2": 1.5702
+    },
+    "AP-1 (Burgos) > Zambrana|AP-15 (Navarra) > Tudela": {
+     "P1": 26.6116,
+     "P2": 30.8264
+    },
+    "AP-1 (Burgos) > Zambrana|Agoncillo > Lodosa": {
+     "P1": 16.8182,
+     "P2": 19.3802
+    },
+    "AP-1 (Burgos) > Zambrana|Alagón (pk 275) > Zaragoza": {
+     "P1": 40.9504,
+     "P2": 48.0165
+    },
+    "AP-1 (Burgos) > Zambrana|Alfaro > AP-15 (Navarra)": {
+     "P1": 24.5868,
+     "P2": 28.3471
+    },
+    "AP-1 (Burgos) > Zambrana|Calahorra > Alfaro": {
+     "P1": 23.5124,
+     "P2": 27.1488
+    },
+    "AP-1 (Burgos) > Zambrana|Cenicero > Fuenmayor": {
+     "P1": 9.0909,
+     "P2": 10.4545
+    },
+    "AP-1 (Burgos) > Zambrana|Fuenmayor > Logroño": {
+     "P1": 10.8264,
+     "P2": 12.4793
+    },
+    "AP-1 (Burgos) > Zambrana|Gallur > Alagón (pk 272)": {
+     "P1": 37.0661,
+     "P2": 43.3884
+    },
+    "AP-1 (Burgos) > Zambrana|Haro > Cenicero": {
+     "P1": 7.686,
+     "P2": 8.843
+    },
+    "AP-1 (Burgos) > Zambrana|Lodosa > Calahorra": {
+     "P1": 18.7603,
+     "P2": 21.6529
+    },
+    "AP-1 (Burgos) > Zambrana|Logroño > Recajo": {
+     "P1": 12.4793,
+     "P2": 14.3802
+    },
+    "AP-1 (Burgos) > Zambrana|Recajo > Agoncillo": {
+     "P1": 13.2645,
+     "P2": 15.2893
+    },
+    "AP-1 (Burgos) > Zambrana|Tudela > Gallur": {
+     "P1": 32.3554,
+     "P2": 37.686
+    },
+    "AP-1 (Burgos) > Zambrana|Zambrana > Haro": {
+     "P1": 3.719,
+     "P2": 4.2562
+    },
+    "AP-15 (Navarra) > Alfaro|AP-1 (Burgos) > Subijana": {
+     "P1": 28.8017,
+     "P2": 33.1405
+    },
+    "AP-15 (Navarra) > Alfaro|AP-15 (Navarra) > Alfaro": {
+     "P1": 1.5289,
+     "P2": 1.7355
+    },
+    "AP-15 (Navarra) > Alfaro|Agoncillo > Recajo": {
+     "P1": 12.3554,
+     "P2": 14.2975
+    },
+    "AP-15 (Navarra) > Alfaro|Alfaro > Calahorra": {
+     "P1": 6.0744,
+     "P2": 7.0248
+    },
+    "AP-15 (Navarra) > Alfaro|Altube > Ziorraga": {
+     "P1": 35.7025,
+     "P2": 40.9504
+    },
+    "AP-15 (Navarra) > Alfaro|Areta > Arrigorriaga": {
+     "P1": 43.595,
+     "P2": 49.9174
+    },
+    "AP-15 (Navarra) > Alfaro|Arrigorriaga > Bilbao": {
+     "P1": 43.595,
+     "P2": 49.9174
+    },
+    "AP-15 (Navarra) > Alfaro|Calahorra > Lodosa": {
+     "P1": 7.8926,
+     "P2": 9.0909
+    },
+    "AP-15 (Navarra) > Alfaro|Cenicero > Haro": {
+     "P1": 21.157,
+     "P2": 24.4215
+    },
+    "AP-15 (Navarra) > Alfaro|Fuenmayor > Cenicero": {
+     "P1": 17.2314,
+     "P2": 19.9174
+    },
+    "AP-15 (Navarra) > Alfaro|Haro > Zambrana": {
+     "P1": 23.8017,
+     "P2": 27.4793
+    },
+    "AP-15 (Navarra) > Alfaro|Lodosa > Agoncillo": {
+     "P1": 11.5702,
+     "P2": 13.3471
+    },
+    "AP-15 (Navarra) > Alfaro|Logroño > Fuenmayor": {
+     "P1": 15.7851,
+     "P2": 18.2231
+    },
+    "AP-15 (Navarra) > Alfaro|Recajo > Logroño": {
+     "P1": 14.4628,
+     "P2": 16.6942
+    },
+    "AP-15 (Navarra) > Alfaro|Subijana > Altube": {
+     "P1": 33.8843,
+     "P2": 38.8843
+    },
+    "AP-15 (Navarra) > Alfaro|Zambrana > AP-1 (Burgos)": {
+     "P1": 24.5868,
+     "P2": 28.3471
+    },
+    "AP-15 (Navarra) > Alfaro|Ziorraga > Llodio": {
+     "P1": 40.0826,
+     "P2": 45.9091
+    },
+    "AP-15 (Navarra) > Tudela|AP-15 (Navarra) > Tudela": {
+     "P1": 2.4793,
+     "P2": 2.9752
+    },
+    "AP-15 (Navarra) > Tudela|Alagón (pk 275) > Zaragoza": {
+     "P1": 16.8182,
+     "P2": 20.1653
+    },
+    "AP-15 (Navarra) > Tudela|Gallur > Alagón (pk 272)": {
+     "P1": 12.9752,
+     "P2": 15.5372
+    },
+    "AP-15 (Navarra) > Tudela|Tudela > Gallur": {
+     "P1": 8.2231,
+     "P2": 9.876
+    },
+    "Agoncillo > Lodosa|AP-15 (Navarra) > Tudela": {
+     "P1": 13.595,
+     "P2": 15.7851
+    },
+    "Agoncillo > Lodosa|Agoncillo > Lodosa": {
+     "P1": 3.7603,
+     "P2": 4.3802
+    },
+    "Agoncillo > Lodosa|Alagón (pk 275) > Zaragoza": {
+     "P1": 27.8926,
+     "P2": 32.9752
+    },
+    "Agoncillo > Lodosa|Alfaro > AP-15 (Navarra)": {
+     "P1": 11.5702,
+     "P2": 13.3471
+    },
+    "Agoncillo > Lodosa|Calahorra > Alfaro": {
+     "P1": 10.4959,
+     "P2": 12.1074
+    },
+    "Agoncillo > Lodosa|Gallur > Alagón (pk 272)": {
+     "P1": 24.0496,
+     "P2": 28.3471
+    },
+    "Agoncillo > Lodosa|Lodosa > Calahorra": {
+     "P1": 5.7438,
+     "P2": 6.6116
+    },
+    "Agoncillo > Lodosa|Tudela > Gallur": {
+     "P1": 19.3388,
+     "P2": 22.686
+    },
+    "Agoncillo > Recajo|AP-1 (Burgos) > Subijana": {
+     "P1": 17.5207,
+     "P2": 20.0826
+    },
+    "Agoncillo > Recajo|Agoncillo > Recajo": {
+     "P1": 1.0744,
+     "P2": 1.2397
+    },
+    "Agoncillo > Recajo|Altube > Ziorraga": {
+     "P1": 24.3802,
+     "P2": 27.8926
+    },
+    "Agoncillo > Recajo|Areta > Arrigorriaga": {
+     "P1": 32.314,
+     "P2": 36.8595
+    },
+    "Agoncillo > Recajo|Arrigorriaga > Bilbao": {
+     "P1": 32.314,
+     "P2": 36.8595
+    },
+    "Agoncillo > Recajo|Cenicero > Haro": {
+     "P1": 9.8347,
+     "P2": 11.3636
+    },
+    "Agoncillo > Recajo|Fuenmayor > Cenicero": {
+     "P1": 5.9504,
+     "P2": 6.9008
+    },
+    "Agoncillo > Recajo|Haro > Zambrana": {
+     "P1": 12.4793,
+     "P2": 14.4215
+    },
+    "Agoncillo > Recajo|Logroño > Fuenmayor": {
+     "P1": 4.5041,
+     "P2": 5.1653
+    },
+    "Agoncillo > Recajo|Recajo > Logroño": {
+     "P1": 3.1405,
+     "P2": 3.6364
+    },
+    "Agoncillo > Recajo|Subijana > Altube": {
+     "P1": 22.562,
+     "P2": 25.8264
+    },
+    "Agoncillo > Recajo|Zambrana > AP-1 (Burgos)": {
+     "P1": 13.2645,
+     "P2": 15.2893
+    },
+    "Agoncillo > Recajo|Ziorraga > Llodio": {
+     "P1": 28.7603,
+     "P2": 32.8512
+    },
+    "Alagón (pk 272) > Alagón (pk 275)|Alagón (pk 275) > Zaragoza": {
+     "P1": 4.876,
+     "P2": 5.8264
+    },
+    "Alagón (pk 272) > Gallur|AP-1 (Burgos) > Subijana": {
+     "P1": 41.3223,
+     "P2": 48.1818
+    },
+    "Alagón (pk 272) > Gallur|AP-15 (Navarra) > Alfaro": {
+     "P1": 14.0083,
+     "P2": 16.7769
+    },
+    "Alagón (pk 272) > Gallur|Agoncillo > Recajo": {
+     "P1": 24.876,
+     "P2": 29.2975
+    },
+    "Alagón (pk 272) > Gallur|Alagón (pk 272) > Gallur": {
+     "P1": 5.0413,
+     "P2": 6.0744
+    },
+    "Alagón (pk 272) > Gallur|Alfaro > Calahorra": {
+     "P1": 18.5537,
+     "P2": 22.0248
+    },
+    "Alagón (pk 272) > Gallur|Altube > Ziorraga": {
+     "P1": 48.1818,
+     "P2": 55.9504
+    },
+    "Alagón (pk 272) > Gallur|Areta > Arrigorriaga": {
+     "P1": 56.1157,
+     "P2": 64.9174
+    },
+    "Alagón (pk 272) > Gallur|Arrigorriaga > Bilbao": {
+     "P1": 56.1157,
+     "P2": 64.9174
+    },
+    "Alagón (pk 272) > Gallur|Calahorra > Lodosa": {
+     "P1": 20.3719,
+     "P2": 24.1322
+    },
+    "Alagón (pk 272) > Gallur|Cenicero > Haro": {
+     "P1": 33.6364,
+     "P2": 39.4628
+    },
+    "Alagón (pk 272) > Gallur|Fuenmayor > Cenicero": {
+     "P1": 29.7521,
+     "P2": 34.9174
+    },
+    "Alagón (pk 272) > Gallur|Gallur > Tudela": {
+     "P1": 10.8264,
+     "P2": 13.0165
+    },
+    "Alagón (pk 272) > Gallur|Haro > Zambrana": {
+     "P1": 36.3223,
+     "P2": 42.5207
+    },
+    "Alagón (pk 272) > Gallur|Lodosa > Agoncillo": {
+     "P1": 24.0496,
+     "P2": 28.3471
+    },
+    "Alagón (pk 272) > Gallur|Logroño > Fuenmayor": {
+     "P1": 28.3058,
+     "P2": 33.2645
+    },
+    "Alagón (pk 272) > Gallur|Recajo > Logroño": {
+     "P1": 26.9421,
+     "P2": 31.6942
+    },
+    "Alagón (pk 272) > Gallur|Subijana > Altube": {
+     "P1": 46.3636,
+     "P2": 53.9256
+    },
+    "Alagón (pk 272) > Gallur|Tudela > AP-15 (Navarra)": {
+     "P1": 12.9752,
+     "P2": 15.5372
+    },
+    "Alagón (pk 272) > Gallur|Zambrana > AP-1 (Burgos)": {
+     "P1": 37.0661,
+     "P2": 43.3884
+    },
+    "Alagón (pk 272) > Gallur|Ziorraga > Llodio": {
+     "P1": 52.562,
+     "P2": 60.9091
+    },
+    "Alagón (pk 275) > Zaragoza|Alagón (pk 275) > Zaragoza": {
+     "P1": 4.1736,
+     "P2": 5.0
+    },
+    "Alfaro > AP-15 (Navarra)|AP-15 (Navarra) > Tudela": {
+     "P1": 3.5537,
+     "P2": 4.2149
+    },
+    "Alfaro > AP-15 (Navarra)|Alagón (pk 275) > Zaragoza": {
+     "P1": 17.8926,
+     "P2": 21.405
+    },
+    "Alfaro > AP-15 (Navarra)|Alfaro > AP-15 (Navarra)": {
+     "P1": 1.5289,
+     "P2": 1.7355
+    },
+    "Alfaro > AP-15 (Navarra)|Gallur > Alagón (pk 272)": {
+     "P1": 14.0083,
+     "P2": 16.7769
+    },
+    "Alfaro > AP-15 (Navarra)|Tudela > Gallur": {
+     "P1": 9.2975,
+     "P2": 11.1157
+    },
+    "Alfaro > Calahorra|AP-1 (Burgos) > Subijana": {
+     "P1": 27.7686,
+     "P2": 31.9421
+    },
+    "Alfaro > Calahorra|Agoncillo > Recajo": {
+     "P1": 11.3223,
+     "P2": 13.0579
+    },
+    "Alfaro > Calahorra|Alfaro > Calahorra": {
+     "P1": 5.0,
+     "P2": 5.7851
+    },
+    "Alfaro > Calahorra|Altube > Ziorraga": {
+     "P1": 34.6281,
+     "P2": 39.7107
+    },
+    "Alfaro > Calahorra|Areta > Arrigorriaga": {
+     "P1": 42.562,
+     "P2": 48.6777
+    },
+    "Alfaro > Calahorra|Arrigorriaga > Bilbao": {
+     "P1": 42.562,
+     "P2": 48.6777
+    },
+    "Alfaro > Calahorra|Calahorra > Lodosa": {
+     "P1": 6.8182,
+     "P2": 7.8926
+    },
+    "Alfaro > Calahorra|Cenicero > Haro": {
+     "P1": 20.0826,
+     "P2": 23.2231
+    },
+    "Alfaro > Calahorra|Fuenmayor > Cenicero": {
+     "P1": 16.157,
+     "P2": 18.6777
+    },
+    "Alfaro > Calahorra|Haro > Zambrana": {
+     "P1": 22.7273,
+     "P2": 26.281
+    },
+    "Alfaro > Calahorra|Lodosa > Agoncillo": {
+     "P1": 10.4959,
+     "P2": 12.1074
+    },
+    "Alfaro > Calahorra|Logroño > Fuenmayor": {
+     "P1": 14.7521,
+     "P2": 17.0248
+    },
+    "Alfaro > Calahorra|Recajo > Logroño": {
+     "P1": 13.3884,
+     "P2": 15.4545
+    },
+    "Alfaro > Calahorra|Subijana > Altube": {
+     "P1": 32.8099,
+     "P2": 37.686
+    },
+    "Alfaro > Calahorra|Zambrana > AP-1 (Burgos)": {
+     "P1": 23.5124,
+     "P2": 27.1488
+    },
+    "Alfaro > Calahorra|Ziorraga > Llodio": {
+     "P1": 39.0083,
+     "P2": 44.6694
+    },
+    "Altube > Subijana|AP-1 (Burgos) > Zambrana": {
+     "P1": 10.6612,
+     "P2": 12.1074
+    },
+    "Altube > Subijana|AP-15 (Navarra) > Tudela": {
+     "P1": 35.9091,
+     "P2": 41.3636
+    },
+    "Altube > Subijana|Agoncillo > Lodosa": {
+     "P1": 26.1157,
+     "P2": 29.9174
+    },
+    "Altube > Subijana|Alagón (pk 275) > Zaragoza": {
+     "P1": 50.2479,
+     "P2": 58.5537
+    },
+    "Altube > Subijana|Alfaro > AP-15 (Navarra)": {
+     "P1": 33.8843,
+     "P2": 38.8843
+    },
+    "Altube > Subijana|Altube > Subijana": {
+     "P1": 5.3306,
+     "P2": 6.0331
+    },
+    "Altube > Subijana|Calahorra > Alfaro": {
+     "P1": 32.8099,
+     "P2": 37.686
+    },
+    "Altube > Subijana|Cenicero > Fuenmayor": {
+     "P1": 18.3884,
+     "P2": 20.9917
+    },
+    "Altube > Subijana|Fuenmayor > Logroño": {
+     "P1": 20.124,
+     "P2": 23.0165
+    },
+    "Altube > Subijana|Gallur > Alagón (pk 272)": {
+     "P1": 46.3636,
+     "P2": 53.9256
+    },
+    "Altube > Subijana|Haro > Cenicero": {
+     "P1": 16.9835,
+     "P2": 19.3802
+    },
+    "Altube > Subijana|Lodosa > Calahorra": {
+     "P1": 28.0579,
+     "P2": 32.1901
+    },
+    "Altube > Subijana|Logroño > Recajo": {
+     "P1": 21.7769,
+     "P2": 24.9174
+    },
+    "Altube > Subijana|Recajo > Agoncillo": {
+     "P1": 22.562,
+     "P2": 25.8264
+    },
+    "Altube > Subijana|Subijana > AP-1 (Burgos)": {
+     "P1": 9.0909,
+     "P2": 10.2893
+    },
+    "Altube > Subijana|Tudela > Gallur": {
+     "P1": 41.6529,
+     "P2": 48.2231
+    },
+    "Altube > Subijana|Zambrana > Haro": {
+     "P1": 13.0165,
+     "P2": 14.7934
+    },
+    "Altube > Ziorraga|Altube > Ziorraga": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Altube > Ziorraga|Areta > Arrigorriaga": {
+     "P1": 10.4132,
+     "P2": 11.7769
+    },
+    "Altube > Ziorraga|Arrigorriaga > Bilbao": {
+     "P1": 10.4132,
+     "P2": 11.7769
+    },
+    "Altube > Ziorraga|Ziorraga > Llodio": {
+     "P1": 6.8595,
+     "P2": 7.7686
+    },
+    "Areta > Arrigorriaga|Areta > Arrigorriaga": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Areta > Arrigorriaga|Arrigorriaga > Bilbao": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Arrigorriaga > Areta|AP-1 (Burgos) > Zambrana": {
+     "P1": 20.4132,
+     "P2": 23.0992
+    },
+    "Arrigorriaga > Areta|AP-15 (Navarra) > Tudela": {
+     "P1": 45.6198,
+     "P2": 52.3554
+    },
+    "Arrigorriaga > Areta|Agoncillo > Lodosa": {
+     "P1": 35.8264,
+     "P2": 40.9091
+    },
+    "Arrigorriaga > Areta|Alagón (pk 275) > Zaragoza": {
+     "P1": 59.9587,
+     "P2": 69.5455
+    },
+    "Arrigorriaga > Areta|Alfaro > AP-15 (Navarra)": {
+     "P1": 43.595,
+     "P2": 49.9174
+    },
+    "Arrigorriaga > Areta|Altube > Subijana": {
+     "P1": 15.0413,
+     "P2": 17.0248
+    },
+    "Arrigorriaga > Areta|Areta > Llodio": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Arrigorriaga > Areta|Arrigorriaga > Areta": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Arrigorriaga > Areta|Calahorra > Alfaro": {
+     "P1": 42.562,
+     "P2": 48.6777
+    },
+    "Arrigorriaga > Areta|Cenicero > Fuenmayor": {
+     "P1": 28.0992,
+     "P2": 32.0248
+    },
+    "Arrigorriaga > Areta|Fuenmayor > Logroño": {
+     "P1": 29.876,
+     "P2": 34.0496
+    },
+    "Arrigorriaga > Areta|Gallur > Alagón (pk 272)": {
+     "P1": 56.1157,
+     "P2": 64.9174
+    },
+    "Arrigorriaga > Areta|Haro > Cenicero": {
+     "P1": 26.6942,
+     "P2": 30.3719
+    },
+    "Arrigorriaga > Areta|Lodosa > Calahorra": {
+     "P1": 37.8099,
+     "P2": 43.1818
+    },
+    "Arrigorriaga > Areta|Logroño > Recajo": {
+     "P1": 31.4876,
+     "P2": 35.9091
+    },
+    "Arrigorriaga > Areta|Recajo > Agoncillo": {
+     "P1": 32.314,
+     "P2": 36.8595
+    },
+    "Arrigorriaga > Areta|Subijana > AP-1 (Burgos)": {
+     "P1": 18.8017,
+     "P2": 21.3223
+    },
+    "Arrigorriaga > Areta|Tudela > Gallur": {
+     "P1": 51.3636,
+     "P2": 59.2562
+    },
+    "Arrigorriaga > Areta|Zambrana > Haro": {
+     "P1": 22.7273,
+     "P2": 25.7851
+    },
+    "Arrigorriaga > Areta|Ziorraga > Altube": {
+     "P1": 10.4132,
+     "P2": 11.7769
+    },
+    "Arrigorriaga > Bilbao|Arrigorriaga > Bilbao": {
+     "P1": 1.5702,
+     "P2": 1.7769
+    },
+    "Bilbao > Arrigorriaga|AP-1 (Burgos) > Zambrana": {
+     "P1": 20.4132,
+     "P2": 23.0992
+    },
+    "Bilbao > Arrigorriaga|AP-15 (Navarra) > Tudela": {
+     "P1": 45.6198,
+     "P2": 52.3554
+    },
+    "Bilbao > Arrigorriaga|Agoncillo > Lodosa": {
+     "P1": 35.8264,
+     "P2": 40.9091
+    },
+    "Bilbao > Arrigorriaga|Alagón (pk 275) > Zaragoza": {
+     "P1": 59.9587,
+     "P2": 69.5455
+    },
+    "Bilbao > Arrigorriaga|Alfaro > AP-15 (Navarra)": {
+     "P1": 43.595,
+     "P2": 49.9174
+    },
+    "Bilbao > Arrigorriaga|Altube > Subijana": {
+     "P1": 15.0413,
+     "P2": 17.0248
+    },
+    "Bilbao > Arrigorriaga|Areta > Llodio": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Bilbao > Arrigorriaga|Arrigorriaga > Areta": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Bilbao > Arrigorriaga|Bilbao > Arrigorriaga": {
+     "P1": 1.5702,
+     "P2": 1.7769
+    },
+    "Bilbao > Arrigorriaga|Calahorra > Alfaro": {
+     "P1": 42.562,
+     "P2": 48.6777
+    },
+    "Bilbao > Arrigorriaga|Cenicero > Fuenmayor": {
+     "P1": 28.0992,
+     "P2": 32.0248
+    },
+    "Bilbao > Arrigorriaga|Fuenmayor > Logroño": {
+     "P1": 29.876,
+     "P2": 34.0496
+    },
+    "Bilbao > Arrigorriaga|Gallur > Alagón (pk 272)": {
+     "P1": 56.1157,
+     "P2": 64.9174
+    },
+    "Bilbao > Arrigorriaga|Haro > Cenicero": {
+     "P1": 26.6942,
+     "P2": 30.3719
+    },
+    "Bilbao > Arrigorriaga|Lodosa > Calahorra": {
+     "P1": 37.8099,
+     "P2": 43.1818
+    },
+    "Bilbao > Arrigorriaga|Logroño > Recajo": {
+     "P1": 31.4876,
+     "P2": 35.9091
+    },
+    "Bilbao > Arrigorriaga|Recajo > Agoncillo": {
+     "P1": 32.314,
+     "P2": 36.8595
+    },
+    "Bilbao > Arrigorriaga|Subijana > AP-1 (Burgos)": {
+     "P1": 18.8017,
+     "P2": 21.3223
+    },
+    "Bilbao > Arrigorriaga|Tudela > Gallur": {
+     "P1": 51.3636,
+     "P2": 59.2562
+    },
+    "Bilbao > Arrigorriaga|Zambrana > Haro": {
+     "P1": 22.7273,
+     "P2": 25.7851
+    },
+    "Bilbao > Arrigorriaga|Ziorraga > Altube": {
+     "P1": 10.4132,
+     "P2": 11.7769
+    },
+    "Calahorra > Alfaro|AP-15 (Navarra) > Tudela": {
+     "P1": 8.0992,
+     "P2": 9.4628
+    },
+    "Calahorra > Alfaro|Alagón (pk 275) > Zaragoza": {
+     "P1": 22.438,
+     "P2": 26.6529
+    },
+    "Calahorra > Alfaro|Alfaro > AP-15 (Navarra)": {
+     "P1": 6.0744,
+     "P2": 7.0248
+    },
+    "Calahorra > Alfaro|Calahorra > Alfaro": {
+     "P1": 5.0,
+     "P2": 5.7851
+    },
+    "Calahorra > Alfaro|Gallur > Alagón (pk 272)": {
+     "P1": 18.5537,
+     "P2": 22.0248
+    },
+    "Calahorra > Alfaro|Tudela > Gallur": {
+     "P1": 13.843,
+     "P2": 16.3636
+    },
+    "Calahorra > Lodosa|AP-1 (Burgos) > Subijana": {
+     "P1": 23.0165,
+     "P2": 26.4463
+    },
+    "Calahorra > Lodosa|Agoncillo > Recajo": {
+     "P1": 6.5702,
+     "P2": 7.562
+    },
+    "Calahorra > Lodosa|Altube > Ziorraga": {
+     "P1": 29.876,
+     "P2": 34.2149
+    },
+    "Calahorra > Lodosa|Areta > Arrigorriaga": {
+     "P1": 37.8099,
+     "P2": 43.1818
+    },
+    "Calahorra > Lodosa|Arrigorriaga > Bilbao": {
+     "P1": 37.8099,
+     "P2": 43.1818
+    },
+    "Calahorra > Lodosa|Calahorra > Lodosa": {
+     "P1": 2.0661,
+     "P2": 2.3967
+    },
+    "Calahorra > Lodosa|Cenicero > Haro": {
+     "P1": 15.3306,
+     "P2": 17.7273
+    },
+    "Calahorra > Lodosa|Fuenmayor > Cenicero": {
+     "P1": 11.405,
+     "P2": 13.1818
+    },
+    "Calahorra > Lodosa|Haro > Zambrana": {
+     "P1": 17.9752,
+     "P2": 20.7851
+    },
+    "Calahorra > Lodosa|Lodosa > Agoncillo": {
+     "P1": 5.7438,
+     "P2": 6.6116
+    },
+    "Calahorra > Lodosa|Logroño > Fuenmayor": {
+     "P1": 9.9587,
+     "P2": 11.5289
+    },
+    "Calahorra > Lodosa|Recajo > Logroño": {
+     "P1": 8.6364,
+     "P2": 9.9587
+    },
+    "Calahorra > Lodosa|Subijana > Altube": {
+     "P1": 28.0579,
+     "P2": 32.1901
+    },
+    "Calahorra > Lodosa|Zambrana > AP-1 (Burgos)": {
+     "P1": 18.7603,
+     "P2": 21.6529
+    },
+    "Calahorra > Lodosa|Ziorraga > Llodio": {
+     "P1": 34.2562,
+     "P2": 39.1736
+    },
+    "Cenicero > Fuenmayor|AP-15 (Navarra) > Tudela": {
+     "P1": 19.2562,
+     "P2": 22.3554
+    },
+    "Cenicero > Fuenmayor|Agoncillo > Lodosa": {
+     "P1": 9.4628,
+     "P2": 10.9091
+    },
+    "Cenicero > Fuenmayor|Alagón (pk 275) > Zaragoza": {
+     "P1": 33.595,
+     "P2": 39.5455
+    },
+    "Cenicero > Fuenmayor|Alfaro > AP-15 (Navarra)": {
+     "P1": 17.2314,
+     "P2": 19.9174
+    },
+    "Cenicero > Fuenmayor|Calahorra > Alfaro": {
+     "P1": 16.157,
+     "P2": 18.6777
+    },
+    "Cenicero > Fuenmayor|Cenicero > Fuenmayor": {
+     "P1": 1.7355,
+     "P2": 2.0248
+    },
+    "Cenicero > Fuenmayor|Fuenmayor > Logroño": {
+     "P1": 3.4711,
+     "P2": 4.0083
+    },
+    "Cenicero > Fuenmayor|Gallur > Alagón (pk 272)": {
+     "P1": 29.7521,
+     "P2": 34.9174
+    },
+    "Cenicero > Fuenmayor|Lodosa > Calahorra": {
+     "P1": 11.405,
+     "P2": 13.1818
+    },
+    "Cenicero > Fuenmayor|Logroño > Recajo": {
+     "P1": 5.124,
+     "P2": 5.9091
+    },
+    "Cenicero > Fuenmayor|Recajo > Agoncillo": {
+     "P1": 5.9504,
+     "P2": 6.9008
+    },
+    "Cenicero > Fuenmayor|Tudela > Gallur": {
+     "P1": 25.0,
+     "P2": 29.2562
+    },
+    "Cenicero > Haro|AP-1 (Burgos) > Subijana": {
+     "P1": 11.9008,
+     "P2": 13.6364
+    },
+    "Cenicero > Haro|Altube > Ziorraga": {
+     "P1": 18.7603,
+     "P2": 21.405
+    },
+    "Cenicero > Haro|Areta > Arrigorriaga": {
+     "P1": 26.6942,
+     "P2": 30.3719
+    },
+    "Cenicero > Haro|Arrigorriaga > Bilbao": {
+     "P1": 26.6942,
+     "P2": 30.3719
+    },
+    "Cenicero > Haro|Cenicero > Haro": {
+     "P1": 4.2562,
+     "P2": 4.9174
+    },
+    "Cenicero > Haro|Haro > Zambrana": {
+     "P1": 6.9008,
+     "P2": 7.9752
+    },
+    "Cenicero > Haro|Subijana > Altube": {
+     "P1": 16.9835,
+     "P2": 19.3802
+    },
+    "Cenicero > Haro|Zambrana > AP-1 (Burgos)": {
+     "P1": 7.686,
+     "P2": 8.843
+    },
+    "Cenicero > Haro|Ziorraga > Llodio": {
+     "P1": 23.1818,
+     "P2": 26.3636
+    },
+    "Fuenmayor > Cenicero|AP-1 (Burgos) > Subijana": {
+     "P1": 13.3058,
+     "P2": 15.2479
+    },
+    "Fuenmayor > Cenicero|Altube > Ziorraga": {
+     "P1": 20.2066,
+     "P2": 23.0579
+    },
+    "Fuenmayor > Cenicero|Areta > Arrigorriaga": {
+     "P1": 28.0992,
+     "P2": 32.0248
+    },
+    "Fuenmayor > Cenicero|Arrigorriaga > Bilbao": {
+     "P1": 28.0992,
+     "P2": 32.0248
+    },
+    "Fuenmayor > Cenicero|Cenicero > Haro": {
+     "P1": 5.6612,
+     "P2": 6.5289
+    },
+    "Fuenmayor > Cenicero|Fuenmayor > Cenicero": {
+     "P1": 1.7355,
+     "P2": 2.0248
+    },
+    "Fuenmayor > Cenicero|Haro > Zambrana": {
+     "P1": 8.3058,
+     "P2": 9.5868
+    },
+    "Fuenmayor > Cenicero|Subijana > Altube": {
+     "P1": 18.3884,
+     "P2": 20.9917
+    },
+    "Fuenmayor > Cenicero|Zambrana > AP-1 (Burgos)": {
+     "P1": 9.0909,
+     "P2": 10.4545
+    },
+    "Fuenmayor > Cenicero|Ziorraga > Llodio": {
+     "P1": 24.5868,
+     "P2": 28.0165
+    },
+    "Fuenmayor > Logroño|AP-15 (Navarra) > Tudela": {
+     "P1": 17.8099,
+     "P2": 20.7025
+    },
+    "Fuenmayor > Logroño|Agoncillo > Lodosa": {
+     "P1": 8.0165,
+     "P2": 9.2562
+    },
+    "Fuenmayor > Logroño|Alagón (pk 275) > Zaragoza": {
+     "P1": 32.1488,
+     "P2": 37.8926
+    },
+    "Fuenmayor > Logroño|Alfaro > AP-15 (Navarra)": {
+     "P1": 15.7851,
+     "P2": 18.2231
+    },
+    "Fuenmayor > Logroño|Calahorra > Alfaro": {
+     "P1": 14.7521,
+     "P2": 17.0248
+    },
+    "Fuenmayor > Logroño|Fuenmayor > Logroño": {
+     "P1": 2.0661,
+     "P2": 2.3554
+    },
+    "Fuenmayor > Logroño|Gallur > Alagón (pk 272)": {
+     "P1": 28.3058,
+     "P2": 33.2645
+    },
+    "Fuenmayor > Logroño|Lodosa > Calahorra": {
+     "P1": 9.9587,
+     "P2": 11.5289
+    },
+    "Fuenmayor > Logroño|Logroño > Recajo": {
+     "P1": 3.6777,
+     "P2": 4.2562
+    },
+    "Fuenmayor > Logroño|Recajo > Agoncillo": {
+     "P1": 4.5041,
+     "P2": 5.1653
+    },
+    "Fuenmayor > Logroño|Tudela > Gallur": {
+     "P1": 23.5537,
+     "P2": 27.562
+    },
+    "Gallur > Alagón (pk 272)|Alagón (pk 275) > Zaragoza": {
+     "P1": 8.8843,
+     "P2": 10.7025
+    },
+    "Gallur > Alagón (pk 272)|Gallur > Alagón (pk 272)": {
+     "P1": 5.0413,
+     "P2": 6.0744
+    },
+    "Gallur > Tudela|AP-1 (Burgos) > Subijana": {
+     "P1": 36.5702,
+     "P2": 42.4793
+    },
+    "Gallur > Tudela|AP-15 (Navarra) > Alfaro": {
+     "P1": 9.2975,
+     "P2": 11.1157
+    },
+    "Gallur > Tudela|Agoncillo > Recajo": {
+     "P1": 20.124,
+     "P2": 23.6364
+    },
+    "Gallur > Tudela|Alfaro > Calahorra": {
+     "P1": 13.843,
+     "P2": 16.3636
+    },
+    "Gallur > Tudela|Altube > Ziorraga": {
+     "P1": 43.4711,
+     "P2": 50.2893
+    },
+    "Gallur > Tudela|Areta > Arrigorriaga": {
+     "P1": 51.3636,
+     "P2": 59.2562
+    },
+    "Gallur > Tudela|Arrigorriaga > Bilbao": {
+     "P1": 51.3636,
+     "P2": 59.2562
+    },
+    "Gallur > Tudela|Calahorra > Lodosa": {
+     "P1": 15.6612,
+     "P2": 18.4298
+    },
+    "Gallur > Tudela|Cenicero > Haro": {
+     "P1": 28.9256,
+     "P2": 33.7603
+    },
+    "Gallur > Tudela|Fuenmayor > Cenicero": {
+     "P1": 25.0,
+     "P2": 29.2562
+    },
+    "Gallur > Tudela|Gallur > Tudela": {
+     "P1": 6.1157,
+     "P2": 7.3554
+    },
+    "Gallur > Tudela|Haro > Zambrana": {
+     "P1": 31.5702,
+     "P2": 36.8182
+    },
+    "Gallur > Tudela|Lodosa > Agoncillo": {
+     "P1": 19.3388,
+     "P2": 22.686
+    },
+    "Gallur > Tudela|Logroño > Fuenmayor": {
+     "P1": 23.5537,
+     "P2": 27.562
+    },
+    "Gallur > Tudela|Recajo > Logroño": {
+     "P1": 22.2314,
+     "P2": 26.0331
+    },
+    "Gallur > Tudela|Subijana > Altube": {
+     "P1": 41.6529,
+     "P2": 48.2231
+    },
+    "Gallur > Tudela|Tudela > AP-15 (Navarra)": {
+     "P1": 8.2231,
+     "P2": 9.876
+    },
+    "Gallur > Tudela|Zambrana > AP-1 (Burgos)": {
+     "P1": 32.3554,
+     "P2": 37.686
+    },
+    "Gallur > Tudela|Ziorraga > Llodio": {
+     "P1": 47.8512,
+     "P2": 55.2479
+    },
+    "Haro > Cenicero|AP-15 (Navarra) > Tudela": {
+     "P1": 23.1818,
+     "P2": 26.9008
+    },
+    "Haro > Cenicero|Agoncillo > Lodosa": {
+     "P1": 13.3884,
+     "P2": 15.4545
+    },
+    "Haro > Cenicero|Alagón (pk 275) > Zaragoza": {
+     "P1": 37.5207,
+     "P2": 44.0909
+    },
+    "Haro > Cenicero|Alfaro > AP-15 (Navarra)": {
+     "P1": 21.157,
+     "P2": 24.4215
+    },
+    "Haro > Cenicero|Calahorra > Alfaro": {
+     "P1": 20.0826,
+     "P2": 23.2231
+    },
+    "Haro > Cenicero|Cenicero > Fuenmayor": {
+     "P1": 5.6612,
+     "P2": 6.5289
+    },
+    "Haro > Cenicero|Fuenmayor > Logroño": {
+     "P1": 7.3967,
+     "P2": 8.5537
+    },
+    "Haro > Cenicero|Gallur > Alagón (pk 272)": {
+     "P1": 33.6364,
+     "P2": 39.4628
+    },
+    "Haro > Cenicero|Haro > Cenicero": {
+     "P1": 4.2562,
+     "P2": 4.9174
+    },
+    "Haro > Cenicero|Lodosa > Calahorra": {
+     "P1": 15.3306,
+     "P2": 17.7273
+    },
+    "Haro > Cenicero|Logroño > Recajo": {
+     "P1": 9.0496,
+     "P2": 10.4545
+    },
+    "Haro > Cenicero|Recajo > Agoncillo": {
+     "P1": 9.8347,
+     "P2": 11.3636
+    },
+    "Haro > Cenicero|Tudela > Gallur": {
+     "P1": 28.9256,
+     "P2": 33.7603
+    },
+    "Haro > Zambrana|AP-1 (Burgos) > Subijana": {
+     "P1": 7.9339,
+     "P2": 9.0496
+    },
+    "Haro > Zambrana|Altube > Ziorraga": {
+     "P1": 14.7934,
+     "P2": 16.8182
+    },
+    "Haro > Zambrana|Areta > Arrigorriaga": {
+     "P1": 22.7273,
+     "P2": 25.7851
+    },
+    "Haro > Zambrana|Arrigorriaga > Bilbao": {
+     "P1": 22.7273,
+     "P2": 25.7851
+    },
+    "Haro > Zambrana|Haro > Zambrana": {
+     "P1": 2.9339,
+     "P2": 3.3884
+    },
+    "Haro > Zambrana|Subijana > Altube": {
+     "P1": 13.0165,
+     "P2": 14.7934
+    },
+    "Haro > Zambrana|Zambrana > AP-1 (Burgos)": {
+     "P1": 3.719,
+     "P2": 4.2562
+    },
+    "Haro > Zambrana|Ziorraga > Llodio": {
+     "P1": 19.2149,
+     "P2": 21.8182
+    },
+    "Llodio > Areta|Areta > Arrigorriaga": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Llodio > Areta|Arrigorriaga > Bilbao": {
+     "P1": 3.843,
+     "P2": 4.3388
+    },
+    "Llodio > Ziorraga|AP-1 (Burgos) > Zambrana": {
+     "P1": 16.8595,
+     "P2": 19.0909
+    },
+    "Llodio > Ziorraga|AP-15 (Navarra) > Tudela": {
+     "P1": 42.1074,
+     "P2": 48.3471
+    },
+    "Llodio > Ziorraga|Agoncillo > Lodosa": {
+     "P1": 32.314,
+     "P2": 36.9421
+    },
+    "Llodio > Ziorraga|Alagón (pk 275) > Zaragoza": {
+     "P1": 56.4463,
+     "P2": 65.5372
+    },
+    "Llodio > Ziorraga|Alfaro > AP-15 (Navarra)": {
+     "P1": 40.0826,
+     "P2": 45.9091
+    },
+    "Llodio > Ziorraga|Altube > Subijana": {
+     "P1": 11.5289,
+     "P2": 13.0165
+    },
+    "Llodio > Ziorraga|Calahorra > Alfaro": {
+     "P1": 39.0083,
+     "P2": 44.6694
+    },
+    "Llodio > Ziorraga|Cenicero > Fuenmayor": {
+     "P1": 24.5868,
+     "P2": 28.0165
+    },
+    "Llodio > Ziorraga|Fuenmayor > Logroño": {
+     "P1": 26.3223,
+     "P2": 30.0413
+    },
+    "Llodio > Ziorraga|Gallur > Alagón (pk 272)": {
+     "P1": 52.562,
+     "P2": 60.9091
+    },
+    "Llodio > Ziorraga|Haro > Cenicero": {
+     "P1": 23.1818,
+     "P2": 26.3636
+    },
+    "Llodio > Ziorraga|Lodosa > Calahorra": {
+     "P1": 34.2562,
+     "P2": 39.1736
+    },
+    "Llodio > Ziorraga|Logroño > Recajo": {
+     "P1": 27.9339,
+     "P2": 31.9008
+    },
+    "Llodio > Ziorraga|Recajo > Agoncillo": {
+     "P1": 28.7603,
+     "P2": 32.8512
+    },
+    "Llodio > Ziorraga|Subijana > AP-1 (Burgos)": {
+     "P1": 15.2893,
+     "P2": 17.314
+    },
+    "Llodio > Ziorraga|Tudela > Gallur": {
+     "P1": 47.8512,
+     "P2": 55.2479
+    },
+    "Llodio > Ziorraga|Zambrana > Haro": {
+     "P1": 19.2149,
+     "P2": 21.8182
+    },
+    "Llodio > Ziorraga|Ziorraga > Altube": {
+     "P1": 6.8595,
+     "P2": 7.7686
+    },
+    "Lodosa > Agoncillo|AP-1 (Burgos) > Subijana": {
+     "P1": 21.0331,
+     "P2": 24.1736
+    },
+    "Lodosa > Agoncillo|Agoncillo > Recajo": {
+     "P1": 4.5868,
+     "P2": 5.2893
+    },
+    "Lodosa > Agoncillo|Altube > Ziorraga": {
+     "P1": 27.8926,
+     "P2": 31.9421
+    },
+    "Lodosa > Agoncillo|Areta > Arrigorriaga": {
+     "P1": 35.8264,
+     "P2": 40.9091
+    },
+    "Lodosa > Agoncillo|Arrigorriaga > Bilbao": {
+     "P1": 35.8264,
+     "P2": 40.9091
+    },
+    "Lodosa > Agoncillo|Cenicero > Haro": {
+     "P1": 13.3884,
+     "P2": 15.4545
+    },
+    "Lodosa > Agoncillo|Fuenmayor > Cenicero": {
+     "P1": 9.4628,
+     "P2": 10.9091
+    },
+    "Lodosa > Agoncillo|Haro > Zambrana": {
+     "P1": 16.0331,
+     "P2": 18.5124
+    },
+    "Lodosa > Agoncillo|Lodosa > Agoncillo": {
+     "P1": 3.7603,
+     "P2": 4.3802
+    },
+    "Lodosa > Agoncillo|Logroño > Fuenmayor": {
+     "P1": 8.0165,
+     "P2": 9.2562
+    },
+    "Lodosa > Agoncillo|Recajo > Logroño": {
+     "P1": 6.6942,
+     "P2": 7.7273
+    },
+    "Lodosa > Agoncillo|Subijana > Altube": {
+     "P1": 26.1157,
+     "P2": 29.9174
+    },
+    "Lodosa > Agoncillo|Zambrana > AP-1 (Burgos)": {
+     "P1": 16.8182,
+     "P2": 19.3802
+    },
+    "Lodosa > Agoncillo|Ziorraga > Llodio": {
+     "P1": 32.314,
+     "P2": 36.9421
+    },
+    "Lodosa > Calahorra|AP-15 (Navarra) > Tudela": {
+     "P1": 9.9174,
+     "P2": 11.5702
+    },
+    "Lodosa > Calahorra|Alagón (pk 275) > Zaragoza": {
+     "P1": 24.2562,
+     "P2": 28.7603
+    },
+    "Lodosa > Calahorra|Alfaro > AP-15 (Navarra)": {
+     "P1": 7.8926,
+     "P2": 9.0909
+    },
+    "Lodosa > Calahorra|Calahorra > Alfaro": {
+     "P1": 6.8182,
+     "P2": 7.8926
+    },
+    "Lodosa > Calahorra|Gallur > Alagón (pk 272)": {
+     "P1": 20.3719,
+     "P2": 24.1322
+    },
+    "Lodosa > Calahorra|Lodosa > Calahorra": {
+     "P1": 2.0661,
+     "P2": 2.3967
+    },
+    "Lodosa > Calahorra|Tudela > Gallur": {
+     "P1": 15.6612,
+     "P2": 18.4298
+    },
+    "Logroño > Fuenmayor|AP-1 (Burgos) > Subijana": {
+     "P1": 15.0826,
+     "P2": 17.2727
+    },
+    "Logroño > Fuenmayor|Altube > Ziorraga": {
+     "P1": 21.9421,
+     "P2": 25.0413
+    },
+    "Logroño > Fuenmayor|Areta > Arrigorriaga": {
+     "P1": 29.876,
+     "P2": 34.0496
+    },
+    "Logroño > Fuenmayor|Arrigorriaga > Bilbao": {
+     "P1": 29.876,
+     "P2": 34.0496
+    },
+    "Logroño > Fuenmayor|Cenicero > Haro": {
+     "P1": 7.3967,
+     "P2": 8.5537
+    },
+    "Logroño > Fuenmayor|Fuenmayor > Cenicero": {
+     "P1": 3.4711,
+     "P2": 4.0083
+    },
+    "Logroño > Fuenmayor|Haro > Zambrana": {
+     "P1": 10.0413,
+     "P2": 11.6116
+    },
+    "Logroño > Fuenmayor|Logroño > Fuenmayor": {
+     "P1": 2.0661,
+     "P2": 2.3554
+    },
+    "Logroño > Fuenmayor|Subijana > Altube": {
+     "P1": 20.124,
+     "P2": 23.0165
+    },
+    "Logroño > Fuenmayor|Zambrana > AP-1 (Burgos)": {
+     "P1": 10.8264,
+     "P2": 12.4793
+    },
+    "Logroño > Fuenmayor|Ziorraga > Llodio": {
+     "P1": 26.3223,
+     "P2": 30.0413
+    },
+    "Logroño > Recajo|AP-15 (Navarra) > Tudela": {
+     "P1": 16.4876,
+     "P2": 19.1322
+    },
+    "Logroño > Recajo|Agoncillo > Lodosa": {
+     "P1": 6.6942,
+     "P2": 7.7273
+    },
+    "Logroño > Recajo|Alagón (pk 275) > Zaragoza": {
+     "P1": 30.7851,
+     "P2": 36.3223
+    },
+    "Logroño > Recajo|Alfaro > AP-15 (Navarra)": {
+     "P1": 14.4628,
+     "P2": 16.6942
+    },
+    "Logroño > Recajo|Calahorra > Alfaro": {
+     "P1": 13.3884,
+     "P2": 15.4545
+    },
+    "Logroño > Recajo|Gallur > Alagón (pk 272)": {
+     "P1": 26.9421,
+     "P2": 31.6942
+    },
+    "Logroño > Recajo|Lodosa > Calahorra": {
+     "P1": 8.6364,
+     "P2": 9.9587
+    },
+    "Logroño > Recajo|Logroño > Recajo": {
+     "P1": 2.314,
+     "P2": 2.686
+    },
+    "Logroño > Recajo|Recajo > Agoncillo": {
+     "P1": 3.1405,
+     "P2": 3.6364
+    },
+    "Logroño > Recajo|Tudela > Gallur": {
+     "P1": 22.2314,
+     "P2": 26.0331
+    },
+    "Recajo > Agoncillo|AP-15 (Navarra) > Tudela": {
+     "P1": 14.3802,
+     "P2": 16.7355
+    },
+    "Recajo > Agoncillo|Agoncillo > Lodosa": {
+     "P1": 4.5868,
+     "P2": 5.2893
+    },
+    "Recajo > Agoncillo|Alagón (pk 275) > Zaragoza": {
+     "P1": 28.719,
+     "P2": 33.9256
+    },
+    "Recajo > Agoncillo|Alfaro > AP-15 (Navarra)": {
+     "P1": 12.3554,
+     "P2": 14.2975
+    },
+    "Recajo > Agoncillo|Calahorra > Alfaro": {
+     "P1": 11.3223,
+     "P2": 13.0579
+    },
+    "Recajo > Agoncillo|Gallur > Alagón (pk 272)": {
+     "P1": 24.876,
+     "P2": 29.2975
+    },
+    "Recajo > Agoncillo|Lodosa > Calahorra": {
+     "P1": 6.5702,
+     "P2": 7.562
+    },
+    "Recajo > Agoncillo|Recajo > Agoncillo": {
+     "P1": 1.0744,
+     "P2": 1.2397
+    },
+    "Recajo > Agoncillo|Tudela > Gallur": {
+     "P1": 20.124,
+     "P2": 23.6364
+    },
+    "Recajo > Logroño|AP-1 (Burgos) > Subijana": {
+     "P1": 16.6942,
+     "P2": 19.1736
+    },
+    "Recajo > Logroño|Altube > Ziorraga": {
+     "P1": 23.5537,
+     "P2": 26.9421
+    },
+    "Recajo > Logroño|Areta > Arrigorriaga": {
+     "P1": 31.4876,
+     "P2": 35.9091
+    },
+    "Recajo > Logroño|Arrigorriaga > Bilbao": {
+     "P1": 31.4876,
+     "P2": 35.9091
+    },
+    "Recajo > Logroño|Cenicero > Haro": {
+     "P1": 9.0496,
+     "P2": 10.4545
+    },
+    "Recajo > Logroño|Fuenmayor > Cenicero": {
+     "P1": 5.124,
+     "P2": 5.9091
+    },
+    "Recajo > Logroño|Haro > Zambrana": {
+     "P1": 11.6942,
+     "P2": 13.5124
+    },
+    "Recajo > Logroño|Logroño > Fuenmayor": {
+     "P1": 3.6777,
+     "P2": 4.2562
+    },
+    "Recajo > Logroño|Recajo > Logroño": {
+     "P1": 2.314,
+     "P2": 2.686
+    },
+    "Recajo > Logroño|Subijana > Altube": {
+     "P1": 21.7769,
+     "P2": 24.9174
+    },
+    "Recajo > Logroño|Zambrana > AP-1 (Burgos)": {
+     "P1": 12.4793,
+     "P2": 14.3802
+    },
+    "Recajo > Logroño|Ziorraga > Llodio": {
+     "P1": 27.9339,
+     "P2": 31.9008
+    },
+    "Subijana > AP-1 (Burgos)|AP-1 (Burgos) > Zambrana": {
+     "P1": 5.6198,
+     "P2": 6.3636
+    },
+    "Subijana > AP-1 (Burgos)|AP-15 (Navarra) > Tudela": {
+     "P1": 30.8264,
+     "P2": 35.6198
+    },
+    "Subijana > AP-1 (Burgos)|Agoncillo > Lodosa": {
+     "P1": 21.0331,
+     "P2": 24.1736
+    },
+    "Subijana > AP-1 (Burgos)|Alagón (pk 275) > Zaragoza": {
+     "P1": 45.1653,
+     "P2": 52.8099
+    },
+    "Subijana > AP-1 (Burgos)|Alfaro > AP-15 (Navarra)": {
+     "P1": 28.8017,
+     "P2": 33.1405
+    },
+    "Subijana > AP-1 (Burgos)|Calahorra > Alfaro": {
+     "P1": 27.7686,
+     "P2": 31.9421
+    },
+    "Subijana > AP-1 (Burgos)|Cenicero > Fuenmayor": {
+     "P1": 13.3058,
+     "P2": 15.2479
+    },
+    "Subijana > AP-1 (Burgos)|Fuenmayor > Logroño": {
+     "P1": 15.0826,
+     "P2": 17.2727
+    },
+    "Subijana > AP-1 (Burgos)|Gallur > Alagón (pk 272)": {
+     "P1": 41.3223,
+     "P2": 48.1818
+    },
+    "Subijana > AP-1 (Burgos)|Haro > Cenicero": {
+     "P1": 11.9008,
+     "P2": 13.6364
+    },
+    "Subijana > AP-1 (Burgos)|Lodosa > Calahorra": {
+     "P1": 23.0165,
+     "P2": 26.4463
+    },
+    "Subijana > AP-1 (Burgos)|Logroño > Recajo": {
+     "P1": 16.6942,
+     "P2": 19.1736
+    },
+    "Subijana > AP-1 (Burgos)|Recajo > Agoncillo": {
+     "P1": 17.5207,
+     "P2": 20.0826
+    },
+    "Subijana > AP-1 (Burgos)|Subijana > AP-1 (Burgos)": {
+     "P1": 4.0083,
+     "P2": 4.5455
+    },
+    "Subijana > AP-1 (Burgos)|Tudela > Gallur": {
+     "P1": 36.5702,
+     "P2": 42.4793
+    },
+    "Subijana > AP-1 (Burgos)|Zambrana > Haro": {
+     "P1": 7.9339,
+     "P2": 9.0496
+    },
+    "Subijana > Altube|Altube > Ziorraga": {
+     "P1": 7.1074,
+     "P2": 8.0579
+    },
+    "Subijana > Altube|Areta > Arrigorriaga": {
+     "P1": 15.0413,
+     "P2": 17.0248
+    },
+    "Subijana > Altube|Arrigorriaga > Bilbao": {
+     "P1": 15.0413,
+     "P2": 17.0248
+    },
+    "Subijana > Altube|Subijana > Altube": {
+     "P1": 5.3306,
+     "P2": 6.0331
+    },
+    "Subijana > Altube|Ziorraga > Llodio": {
+     "P1": 11.5289,
+     "P2": 13.0165
+    },
+    "Tudela > AP-15 (Navarra)|AP-1 (Burgos) > Subijana": {
+     "P1": 30.8264,
+     "P2": 35.6198
+    },
+    "Tudela > AP-15 (Navarra)|AP-15 (Navarra) > Alfaro": {
+     "P1": 3.5537,
+     "P2": 4.2149
+    },
+    "Tudela > AP-15 (Navarra)|Agoncillo > Recajo": {
+     "P1": 14.3802,
+     "P2": 16.7355
+    },
+    "Tudela > AP-15 (Navarra)|Alfaro > Calahorra": {
+     "P1": 8.0992,
+     "P2": 9.4628
+    },
+    "Tudela > AP-15 (Navarra)|Altube > Ziorraga": {
+     "P1": 37.7273,
+     "P2": 43.3884
+    },
+    "Tudela > AP-15 (Navarra)|Areta > Arrigorriaga": {
+     "P1": 45.6198,
+     "P2": 52.3554
+    },
+    "Tudela > AP-15 (Navarra)|Arrigorriaga > Bilbao": {
+     "P1": 45.6198,
+     "P2": 52.3554
+    },
+    "Tudela > AP-15 (Navarra)|Calahorra > Lodosa": {
+     "P1": 9.9174,
+     "P2": 11.5702
+    },
+    "Tudela > AP-15 (Navarra)|Cenicero > Haro": {
+     "P1": 23.1818,
+     "P2": 26.9008
+    },
+    "Tudela > AP-15 (Navarra)|Fuenmayor > Cenicero": {
+     "P1": 19.2562,
+     "P2": 22.3554
+    },
+    "Tudela > AP-15 (Navarra)|Haro > Zambrana": {
+     "P1": 25.8264,
+     "P2": 29.9587
+    },
+    "Tudela > AP-15 (Navarra)|Lodosa > Agoncillo": {
+     "P1": 13.595,
+     "P2": 15.7851
+    },
+    "Tudela > AP-15 (Navarra)|Logroño > Fuenmayor": {
+     "P1": 17.8099,
+     "P2": 20.7025
+    },
+    "Tudela > AP-15 (Navarra)|Recajo > Logroño": {
+     "P1": 16.4876,
+     "P2": 19.1322
+    },
+    "Tudela > AP-15 (Navarra)|Subijana > Altube": {
+     "P1": 35.9091,
+     "P2": 41.3636
+    },
+    "Tudela > AP-15 (Navarra)|Tudela > AP-15 (Navarra)": {
+     "P1": 2.4793,
+     "P2": 2.9752
+    },
+    "Tudela > AP-15 (Navarra)|Zambrana > AP-1 (Burgos)": {
+     "P1": 26.6116,
+     "P2": 30.8264
+    },
+    "Tudela > AP-15 (Navarra)|Ziorraga > Llodio": {
+     "P1": 42.1074,
+     "P2": 48.3471
+    },
+    "Tudela > Gallur|Alagón (pk 275) > Zaragoza": {
+     "P1": 14.7107,
+     "P2": 17.6446
+    },
+    "Tudela > Gallur|Gallur > Alagón (pk 272)": {
+     "P1": 10.8264,
+     "P2": 13.0165
+    },
+    "Tudela > Gallur|Tudela > Gallur": {
+     "P1": 6.1157,
+     "P2": 7.3554
+    },
+    "Zambrana > AP-1 (Burgos)|AP-1 (Burgos) > Subijana": {
+     "P1": 5.6198,
+     "P2": 6.3636
+    },
+    "Zambrana > AP-1 (Burgos)|Altube > Ziorraga": {
+     "P1": 12.4793,
+     "P2": 14.1322
+    },
+    "Zambrana > AP-1 (Burgos)|Areta > Arrigorriaga": {
+     "P1": 20.4132,
+     "P2": 23.0992
+    },
+    "Zambrana > AP-1 (Burgos)|Arrigorriaga > Bilbao": {
+     "P1": 20.4132,
+     "P2": 23.0992
+    },
+    "Zambrana > AP-1 (Burgos)|Subijana > Altube": {
+     "P1": 10.6612,
+     "P2": 12.1074
+    },
+    "Zambrana > AP-1 (Burgos)|Zambrana > AP-1 (Burgos)": {
+     "P1": 1.3636,
+     "P2": 1.5702
+    },
+    "Zambrana > AP-1 (Burgos)|Ziorraga > Llodio": {
+     "P1": 16.8595,
+     "P2": 19.0909
+    },
+    "Zambrana > Haro|AP-15 (Navarra) > Tudela": {
+     "P1": 25.8264,
+     "P2": 29.9587
+    },
+    "Zambrana > Haro|Agoncillo > Lodosa": {
+     "P1": 16.0331,
+     "P2": 18.5124
+    },
+    "Zambrana > Haro|Alagón (pk 275) > Zaragoza": {
+     "P1": 40.1653,
+     "P2": 47.1488
+    },
+    "Zambrana > Haro|Alfaro > AP-15 (Navarra)": {
+     "P1": 23.8017,
+     "P2": 27.4793
+    },
+    "Zambrana > Haro|Calahorra > Alfaro": {
+     "P1": 22.7273,
+     "P2": 26.281
+    },
+    "Zambrana > Haro|Cenicero > Fuenmayor": {
+     "P1": 8.3058,
+     "P2": 9.5868
+    },
+    "Zambrana > Haro|Fuenmayor > Logroño": {
+     "P1": 10.0413,
+     "P2": 11.6116
+    },
+    "Zambrana > Haro|Gallur > Alagón (pk 272)": {
+     "P1": 36.3223,
+     "P2": 42.5207
+    },
+    "Zambrana > Haro|Haro > Cenicero": {
+     "P1": 6.9008,
+     "P2": 7.9752
+    },
+    "Zambrana > Haro|Lodosa > Calahorra": {
+     "P1": 17.9752,
+     "P2": 20.7851
+    },
+    "Zambrana > Haro|Logroño > Recajo": {
+     "P1": 11.6942,
+     "P2": 13.5124
+    },
+    "Zambrana > Haro|Recajo > Agoncillo": {
+     "P1": 12.4793,
+     "P2": 14.4215
+    },
+    "Zambrana > Haro|Tudela > Gallur": {
+     "P1": 31.5702,
+     "P2": 36.8182
+    },
+    "Zambrana > Haro|Zambrana > Haro": {
+     "P1": 2.9339,
+     "P2": 3.3884
+    },
+    "Zaragoza > Alagón (pk 275)|AP-1 (Burgos) > Subijana": {
+     "P1": 45.1653,
+     "P2": 52.8099
+    },
+    "Zaragoza > Alagón (pk 275)|AP-15 (Navarra) > Alfaro": {
+     "P1": 17.8926,
+     "P2": 21.405
+    },
+    "Zaragoza > Alagón (pk 275)|Agoncillo > Recajo": {
+     "P1": 28.719,
+     "P2": 33.9256
+    },
+    "Zaragoza > Alagón (pk 275)|Alagón (pk 272) > Gallur": {
+     "P1": 8.8843,
+     "P2": 10.7025
+    },
+    "Zaragoza > Alagón (pk 275)|Alagón (pk 275) > Alagón (pk 272)": {
+     "P1": 4.876,
+     "P2": 5.8264
+    },
+    "Zaragoza > Alagón (pk 275)|Alfaro > Calahorra": {
+     "P1": 22.438,
+     "P2": 26.6529
+    },
+    "Zaragoza > Alagón (pk 275)|Altube > Ziorraga": {
+     "P1": 52.0248,
+     "P2": 60.5785
+    },
+    "Zaragoza > Alagón (pk 275)|Areta > Arrigorriaga": {
+     "P1": 59.9587,
+     "P2": 69.5455
+    },
+    "Zaragoza > Alagón (pk 275)|Arrigorriaga > Bilbao": {
+     "P1": 59.9587,
+     "P2": 69.5455
+    },
+    "Zaragoza > Alagón (pk 275)|Calahorra > Lodosa": {
+     "P1": 24.2562,
+     "P2": 28.7603
+    },
+    "Zaragoza > Alagón (pk 275)|Cenicero > Haro": {
+     "P1": 37.5207,
+     "P2": 44.0909
+    },
+    "Zaragoza > Alagón (pk 275)|Fuenmayor > Cenicero": {
+     "P1": 33.595,
+     "P2": 39.5455
+    },
+    "Zaragoza > Alagón (pk 275)|Gallur > Tudela": {
+     "P1": 14.7107,
+     "P2": 17.6446
+    },
+    "Zaragoza > Alagón (pk 275)|Haro > Zambrana": {
+     "P1": 40.1653,
+     "P2": 47.1488
+    },
+    "Zaragoza > Alagón (pk 275)|Lodosa > Agoncillo": {
+     "P1": 27.8926,
+     "P2": 32.9752
+    },
+    "Zaragoza > Alagón (pk 275)|Logroño > Fuenmayor": {
+     "P1": 32.1488,
+     "P2": 37.8926
+    },
+    "Zaragoza > Alagón (pk 275)|Recajo > Logroño": {
+     "P1": 30.7851,
+     "P2": 36.3223
+    },
+    "Zaragoza > Alagón (pk 275)|Subijana > Altube": {
+     "P1": 50.2479,
+     "P2": 58.5537
+    },
+    "Zaragoza > Alagón (pk 275)|Tudela > AP-15 (Navarra)": {
+     "P1": 16.8182,
+     "P2": 20.1653
+    },
+    "Zaragoza > Alagón (pk 275)|Zambrana > AP-1 (Burgos)": {
+     "P1": 40.9504,
+     "P2": 48.0165
+    },
+    "Zaragoza > Alagón (pk 275)|Zaragoza > Alagón (pk 275)": {
+     "P1": 4.1736,
+     "P2": 5.0
+    },
+    "Zaragoza > Alagón (pk 275)|Ziorraga > Llodio": {
+     "P1": 56.4463,
+     "P2": 65.5372
+    },
+    "Ziorraga > Altube|AP-1 (Burgos) > Zambrana": {
+     "P1": 12.4793,
+     "P2": 14.1322
+    },
+    "Ziorraga > Altube|AP-15 (Navarra) > Tudela": {
+     "P1": 37.7273,
+     "P2": 43.3884
+    },
+    "Ziorraga > Altube|Agoncillo > Lodosa": {
+     "P1": 27.8926,
+     "P2": 31.9421
+    },
+    "Ziorraga > Altube|Alagón (pk 275) > Zaragoza": {
+     "P1": 52.0248,
+     "P2": 60.5785
+    },
+    "Ziorraga > Altube|Alfaro > AP-15 (Navarra)": {
+     "P1": 35.7025,
+     "P2": 40.9504
+    },
+    "Ziorraga > Altube|Altube > Subijana": {
+     "P1": 7.1074,
+     "P2": 8.0579
+    },
+    "Ziorraga > Altube|Calahorra > Alfaro": {
+     "P1": 34.6281,
+     "P2": 39.7107
+    },
+    "Ziorraga > Altube|Cenicero > Fuenmayor": {
+     "P1": 20.2066,
+     "P2": 23.0579
+    },
+    "Ziorraga > Altube|Fuenmayor > Logroño": {
+     "P1": 21.9421,
+     "P2": 25.0413
+    },
+    "Ziorraga > Altube|Gallur > Alagón (pk 272)": {
+     "P1": 48.1818,
+     "P2": 55.9504
+    },
+    "Ziorraga > Altube|Haro > Cenicero": {
+     "P1": 18.7603,
+     "P2": 21.405
+    },
+    "Ziorraga > Altube|Lodosa > Calahorra": {
+     "P1": 29.876,
+     "P2": 34.2149
+    },
+    "Ziorraga > Altube|Logroño > Recajo": {
+     "P1": 23.5537,
+     "P2": 26.9421
+    },
+    "Ziorraga > Altube|Recajo > Agoncillo": {
+     "P1": 24.3802,
+     "P2": 27.8926
+    },
+    "Ziorraga > Altube|Subijana > AP-1 (Burgos)": {
+     "P1": 10.9091,
+     "P2": 12.314
+    },
+    "Ziorraga > Altube|Tudela > Gallur": {
+     "P1": 43.4711,
+     "P2": 50.2893
+    },
+    "Ziorraga > Altube|Zambrana > Haro": {
+     "P1": 14.7934,
+     "P2": 16.8182
+    },
+    "Ziorraga > Altube|Ziorraga > Altube": {
+     "P1": 0.0,
+     "P2": 0.0
+    }
+   },
+   "etc_prices": {
+    "AP-1 (Burgos) > Zambrana|AP-15 (Navarra) > Tudela": {
+     "P1": 26.6116,
+     "P2": 9.6612
+    },
+    "AP-1 (Burgos) > Zambrana|Agoncillo > Lodosa": {
+     "P1": 16.8182,
+     "P2": 6.3719
+    },
+    "AP-1 (Burgos) > Zambrana|Alagón (pk 275) > Zaragoza": {
+     "P1": 40.9504,
+     "P2": 27.1405
+    },
+    "AP-1 (Burgos) > Zambrana|Alfaro > AP-15 (Navarra)": {
+     "P1": 24.5868,
+     "P2": 8.9504
+    },
+    "AP-1 (Burgos) > Zambrana|Calahorra > Alfaro": {
+     "P1": 23.5124,
+     "P2": 8.6033
+    },
+    "AP-1 (Burgos) > Zambrana|Cenicero > Fuenmayor": {
+     "P1": 9.0909,
+     "P2": 3.8099
+    },
+    "AP-1 (Burgos) > Zambrana|Fuenmayor > Logroño": {
+     "P1": 10.8264,
+     "P2": 4.3884
+    },
+    "AP-1 (Burgos) > Zambrana|Gallur > Alagón (pk 272)": {
+     "P1": 37.0661,
+     "P2": 22.5207
+    },
+    "AP-1 (Burgos) > Zambrana|Haro > Cenicero": {
+     "P1": 7.686,
+     "P2": 3.3388
+    },
+    "AP-1 (Burgos) > Zambrana|Lodosa > Calahorra": {
+     "P1": 18.7603,
+     "P2": 7.0248
+    },
+    "AP-1 (Burgos) > Zambrana|Logroño > Recajo": {
+     "P1": 12.4793,
+     "P2": 4.9339
+    },
+    "AP-1 (Burgos) > Zambrana|Recajo > Agoncillo": {
+     "P1": 13.2645,
+     "P2": 5.1983
+    },
+    "AP-1 (Burgos) > Zambrana|Tudela > Gallur": {
+     "P1": 32.3554,
+     "P2": 16.843
+    },
+    "AP-1 (Burgos) > Zambrana|Zambrana > Haro": {
+     "P1": 3.719,
+     "P2": 2.0248
+    },
+    "AP-15 (Navarra) > Alfaro|AP-1 (Burgos) > Subijana": {
+     "P1": 28.8017,
+     "P2": 13.7438
+    },
+    "AP-15 (Navarra) > Alfaro|AP-15 (Navarra) > Alfaro": {
+     "P1": 1.5289,
+     "P2": 0.438
+    },
+    "AP-15 (Navarra) > Alfaro|Agoncillo > Recajo": {
+     "P1": 12.3554,
+     "P2": 3.3471
+    },
+    "AP-15 (Navarra) > Alfaro|Alfaro > Calahorra": {
+     "P1": 6.0744,
+     "P2": 1.7521
+    },
+    "AP-15 (Navarra) > Alfaro|Altube > Ziorraga": {
+     "P1": 35.7025,
+     "P2": 21.5207
+    },
+    "AP-15 (Navarra) > Alfaro|Areta > Arrigorriaga": {
+     "P1": 43.595,
+     "P2": 30.4959
+    },
+    "AP-15 (Navarra) > Alfaro|Arrigorriaga > Bilbao": {
+     "P1": 43.595,
+     "P2": 30.4959
+    },
+    "AP-15 (Navarra) > Alfaro|Calahorra > Lodosa": {
+     "P1": 7.8926,
+     "P2": 2.2727
+    },
+    "AP-15 (Navarra) > Alfaro|Cenicero > Haro": {
+     "P1": 21.157,
+     "P2": 4.4876
+    },
+    "AP-15 (Navarra) > Alfaro|Fuenmayor > Cenicero": {
+     "P1": 17.2314,
+     "P2": 3.3554
+    },
+    "AP-15 (Navarra) > Alfaro|Haro > Zambrana": {
+     "P1": 23.8017,
+     "P2": 5.2562
+    },
+    "AP-15 (Navarra) > Alfaro|Lodosa > Agoncillo": {
+     "P1": 11.5702,
+     "P2": 3.3388
+    },
+    "AP-15 (Navarra) > Alfaro|Logroño > Fuenmayor": {
+     "P1": 15.7851,
+     "P2": 3.3554
+    },
+    "AP-15 (Navarra) > Alfaro|Recajo > Logroño": {
+     "P1": 14.4628,
+     "P2": 3.405
+    },
+    "AP-15 (Navarra) > Alfaro|Subijana > Altube": {
+     "P1": 33.8843,
+     "P2": 19.4876
+    },
+    "AP-15 (Navarra) > Alfaro|Zambrana > AP-1 (Burgos)": {
+     "P1": 24.5868,
+     "P2": 8.9504
+    },
+    "AP-15 (Navarra) > Alfaro|Ziorraga > Llodio": {
+     "P1": 40.0826,
+     "P2": 26.4959
+    },
+    "AP-15 (Navarra) > Tudela|AP-15 (Navarra) > Tudela": {
+     "P1": 2.4793,
+     "P2": 0.7438
+    },
+    "AP-15 (Navarra) > Tudela|Alagón (pk 275) > Zaragoza": {
+     "P1": 16.8182,
+     "P2": 18.3471
+    },
+    "AP-15 (Navarra) > Tudela|Gallur > Alagón (pk 272)": {
+     "P1": 12.9752,
+     "P2": 13.719
+    },
+    "AP-15 (Navarra) > Tudela|Tudela > Gallur": {
+     "P1": 8.2231,
+     "P2": 8.0413
+    },
+    "Agoncillo > Lodosa|AP-15 (Navarra) > Tudela": {
+     "P1": 13.595,
+     "P2": 3.9504
+    },
+    "Agoncillo > Lodosa|Agoncillo > Lodosa": {
+     "P1": 1.8926,
+     "P2": 1.0909
+    },
+    "Agoncillo > Lodosa|Alagón (pk 275) > Zaragoza": {
+     "P1": 27.8926,
+     "P2": 22.0248
+    },
+    "Agoncillo > Lodosa|Alfaro > AP-15 (Navarra)": {
+     "P1": 11.5702,
+     "P2": 3.3388
+    },
+    "Agoncillo > Lodosa|Calahorra > Alfaro": {
+     "P1": 5.2479,
+     "P2": 3.0331
+    },
+    "Agoncillo > Lodosa|Gallur > Alagón (pk 272)": {
+     "P1": 24.0496,
+     "P2": 17.3967
+    },
+    "Agoncillo > Lodosa|Lodosa > Calahorra": {
+     "P1": 2.8678,
+     "P2": 1.6529
+    },
+    "Agoncillo > Lodosa|Tudela > Gallur": {
+     "P1": 19.3388,
+     "P2": 11.719
+    },
+    "Agoncillo > Recajo|AP-1 (Burgos) > Subijana": {
+     "P1": 17.5207,
+     "P2": 9.9917
+    },
+    "Agoncillo > Recajo|Agoncillo > Recajo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Agoncillo > Recajo|Altube > Ziorraga": {
+     "P1": 24.3802,
+     "P2": 17.7686
+    },
+    "Agoncillo > Recajo|Areta > Arrigorriaga": {
+     "P1": 32.314,
+     "P2": 26.7438
+    },
+    "Agoncillo > Recajo|Arrigorriaga > Bilbao": {
+     "P1": 32.314,
+     "P2": 26.7438
+    },
+    "Agoncillo > Recajo|Cenicero > Haro": {
+     "P1": 2.124,
+     "P2": 1.2231
+    },
+    "Agoncillo > Recajo|Fuenmayor > Cenicero": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Agoncillo > Recajo|Haro > Zambrana": {
+     "P1": 12.4793,
+     "P2": 1.9917
+    },
+    "Agoncillo > Recajo|Logroño > Fuenmayor": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Agoncillo > Recajo|Recajo > Logroño": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Agoncillo > Recajo|Subijana > Altube": {
+     "P1": 22.562,
+     "P2": 15.7355
+    },
+    "Agoncillo > Recajo|Zambrana > AP-1 (Burgos)": {
+     "P1": 13.2645,
+     "P2": 5.1983
+    },
+    "Agoncillo > Recajo|Ziorraga > Llodio": {
+     "P1": 28.7603,
+     "P2": 22.7438
+    },
+    "Alagón (pk 272) > Gallur|AP-1 (Burgos) > Subijana": {
+     "P1": 41.3223,
+     "P2": 27.3058
+    },
+    "Alagón (pk 272) > Gallur|AP-15 (Navarra) > Alfaro": {
+     "P1": 14.0083,
+     "P2": 14.0661
+    },
+    "Alagón (pk 272) > Gallur|Agoncillo > Recajo": {
+     "P1": 24.876,
+     "P2": 17.6694
+    },
+    "Alagón (pk 272) > Gallur|Alfaro > Calahorra": {
+     "P1": 18.5537,
+     "P2": 15.5785
+    },
+    "Alagón (pk 272) > Gallur|Altube > Ziorraga": {
+     "P1": 48.1818,
+     "P2": 35.0909
+    },
+    "Alagón (pk 272) > Gallur|Areta > Arrigorriaga": {
+     "P1": 56.1157,
+     "P2": 44.0579
+    },
+    "Alagón (pk 272) > Gallur|Arrigorriaga > Bilbao": {
+     "P1": 56.1157,
+     "P2": 44.0579
+    },
+    "Alagón (pk 272) > Gallur|Calahorra > Lodosa": {
+     "P1": 20.3719,
+     "P2": 16.1818
+    },
+    "Alagón (pk 272) > Gallur|Cenicero > Haro": {
+     "P1": 33.6364,
+     "P2": 20.5868
+    },
+    "Alagón (pk 272) > Gallur|Fuenmayor > Cenicero": {
+     "P1": 29.7521,
+     "P2": 19.281
+    },
+    "Alagón (pk 272) > Gallur|Haro > Zambrana": {
+     "P1": 36.3223,
+     "P2": 21.4628
+    },
+    "Alagón (pk 272) > Gallur|Lodosa > Agoncillo": {
+     "P1": 24.0496,
+     "P2": 17.3967
+    },
+    "Alagón (pk 272) > Gallur|Logroño > Fuenmayor": {
+     "P1": 28.3058,
+     "P2": 18.8017
+    },
+    "Alagón (pk 272) > Gallur|Recajo > Logroño": {
+     "P1": 26.9421,
+     "P2": 18.3554
+    },
+    "Alagón (pk 272) > Gallur|Subijana > Altube": {
+     "P1": 46.3636,
+     "P2": 33.0496
+    },
+    "Alagón (pk 272) > Gallur|Tudela > AP-15 (Navarra)": {
+     "P1": 12.9752,
+     "P2": 13.719
+    },
+    "Alagón (pk 272) > Gallur|Zambrana > AP-1 (Burgos)": {
+     "P1": 37.0661,
+     "P2": 22.5207
+    },
+    "Alagón (pk 272) > Gallur|Ziorraga > Llodio": {
+     "P1": 52.562,
+     "P2": 40.0579
+    },
+    "Alfaro > AP-15 (Navarra)|AP-15 (Navarra) > Tudela": {
+     "P1": 3.5537,
+     "P2": 1.0496
+    },
+    "Alfaro > AP-15 (Navarra)|Alagón (pk 275) > Zaragoza": {
+     "P1": 17.8926,
+     "P2": 18.6942
+    },
+    "Alfaro > AP-15 (Navarra)|Alfaro > AP-15 (Navarra)": {
+     "P1": 1.5289,
+     "P2": 0.438
+    },
+    "Alfaro > AP-15 (Navarra)|Gallur > Alagón (pk 272)": {
+     "P1": 14.0083,
+     "P2": 14.0661
+    },
+    "Alfaro > AP-15 (Navarra)|Tudela > Gallur": {
+     "P1": 9.2975,
+     "P2": 8.3884
+    },
+    "Alfaro > Calahorra|AP-1 (Burgos) > Subijana": {
+     "P1": 27.7686,
+     "P2": 13.3967
+    },
+    "Alfaro > Calahorra|Agoncillo > Recajo": {
+     "P1": 5.2727,
+     "P2": 3.0413
+    },
+    "Alfaro > Calahorra|Alfaro > Calahorra": {
+     "P1": 2.5041,
+     "P2": 1.4463
+    },
+    "Alfaro > Calahorra|Altube > Ziorraga": {
+     "P1": 34.6281,
+     "P2": 21.1736
+    },
+    "Alfaro > Calahorra|Areta > Arrigorriaga": {
+     "P1": 42.562,
+     "P2": 30.1405
+    },
+    "Alfaro > Calahorra|Arrigorriaga > Bilbao": {
+     "P1": 42.562,
+     "P2": 30.1405
+    },
+    "Alfaro > Calahorra|Calahorra > Lodosa": {
+     "P1": 3.4132,
+     "P2": 1.9669
+    },
+    "Alfaro > Calahorra|Cenicero > Haro": {
+     "P1": 7.2479,
+     "P2": 4.1818
+    },
+    "Alfaro > Calahorra|Fuenmayor > Cenicero": {
+     "P1": 5.281,
+     "P2": 3.0496
+    },
+    "Alfaro > Calahorra|Haro > Zambrana": {
+     "P1": 22.7273,
+     "P2": 4.9504
+    },
+    "Alfaro > Calahorra|Lodosa > Agoncillo": {
+     "P1": 5.2479,
+     "P2": 3.0331
+    },
+    "Alfaro > Calahorra|Logroño > Fuenmayor": {
+     "P1": 5.2727,
+     "P2": 3.0496
+    },
+    "Alfaro > Calahorra|Recajo > Logroño": {
+     "P1": 5.3719,
+     "P2": 3.0992
+    },
+    "Alfaro > Calahorra|Subijana > Altube": {
+     "P1": 32.8099,
+     "P2": 19.1322
+    },
+    "Alfaro > Calahorra|Zambrana > AP-1 (Burgos)": {
+     "P1": 23.5124,
+     "P2": 8.6033
+    },
+    "Alfaro > Calahorra|Ziorraga > Llodio": {
+     "P1": 39.0083,
+     "P2": 26.1405
+    },
+    "Altube > Subijana|AP-15 (Navarra) > Tudela": {
+     "P1": 35.9091,
+     "P2": 20.1901
+    },
+    "Altube > Subijana|Agoncillo > Lodosa": {
+     "P1": 26.1157,
+     "P2": 16.9091
+    },
+    "Altube > Subijana|Alagón (pk 275) > Zaragoza": {
+     "P1": 50.2479,
+     "P2": 37.6777
+    },
+    "Altube > Subijana|Alfaro > AP-15 (Navarra)": {
+     "P1": 33.8843,
+     "P2": 19.4876
+    },
+    "Altube > Subijana|Calahorra > Alfaro": {
+     "P1": 32.8099,
+     "P2": 19.1322
+    },
+    "Altube > Subijana|Cenicero > Fuenmayor": {
+     "P1": 18.3884,
+     "P2": 14.3471
+    },
+    "Altube > Subijana|Fuenmayor > Logroño": {
+     "P1": 20.124,
+     "P2": 14.9256
+    },
+    "Altube > Subijana|Gallur > Alagón (pk 272)": {
+     "P1": 46.3636,
+     "P2": 33.0496
+    },
+    "Altube > Subijana|Haro > Cenicero": {
+     "P1": 16.9835,
+     "P2": 13.876
+    },
+    "Altube > Subijana|Lodosa > Calahorra": {
+     "P1": 28.0579,
+     "P2": 17.5537
+    },
+    "Altube > Subijana|Logroño > Recajo": {
+     "P1": 21.7769,
+     "P2": 15.4628
+    },
+    "Altube > Subijana|Recajo > Agoncillo": {
+     "P1": 22.562,
+     "P2": 15.7355
+    },
+    "Altube > Subijana|Tudela > Gallur": {
+     "P1": 41.6529,
+     "P2": 27.3719
+    },
+    "Altube > Subijana|Zambrana > Haro": {
+     "P1": 13.0165,
+     "P2": 12.562
+    },
+    "Arrigorriaga > Areta|AP-15 (Navarra) > Tudela": {
+     "P1": 45.6198,
+     "P2": 31.1983
+    },
+    "Arrigorriaga > Areta|Agoncillo > Lodosa": {
+     "P1": 35.8264,
+     "P2": 27.9174
+    },
+    "Arrigorriaga > Areta|Alagón (pk 275) > Zaragoza": {
+     "P1": 59.9587,
+     "P2": 48.686
+    },
+    "Arrigorriaga > Areta|Alfaro > AP-15 (Navarra)": {
+     "P1": 43.595,
+     "P2": 30.4959
+    },
+    "Arrigorriaga > Areta|Calahorra > Alfaro": {
+     "P1": 42.562,
+     "P2": 30.1405
+    },
+    "Arrigorriaga > Areta|Cenicero > Fuenmayor": {
+     "P1": 28.0992,
+     "P2": 25.3554
+    },
+    "Arrigorriaga > Areta|Fuenmayor > Logroño": {
+     "P1": 29.876,
+     "P2": 25.9339
+    },
+    "Arrigorriaga > Areta|Gallur > Alagón (pk 272)": {
+     "P1": 56.1157,
+     "P2": 44.0579
+    },
+    "Arrigorriaga > Areta|Haro > Cenicero": {
+     "P1": 26.6942,
+     "P2": 24.8843
+    },
+    "Arrigorriaga > Areta|Lodosa > Calahorra": {
+     "P1": 37.8099,
+     "P2": 28.5702
+    },
+    "Arrigorriaga > Areta|Logroño > Recajo": {
+     "P1": 31.4876,
+     "P2": 26.4711
+    },
+    "Arrigorriaga > Areta|Recajo > Agoncillo": {
+     "P1": 32.314,
+     "P2": 26.7438
+    },
+    "Arrigorriaga > Areta|Tudela > Gallur": {
+     "P1": 51.3636,
+     "P2": 38.3802
+    },
+    "Arrigorriaga > Areta|Zambrana > Haro": {
+     "P1": 22.7273,
+     "P2": 23.5702
+    },
+    "Bilbao > Arrigorriaga|AP-15 (Navarra) > Tudela": {
+     "P1": 45.6198,
+     "P2": 31.1983
+    },
+    "Bilbao > Arrigorriaga|Agoncillo > Lodosa": {
+     "P1": 35.8264,
+     "P2": 27.9174
+    },
+    "Bilbao > Arrigorriaga|Alagón (pk 275) > Zaragoza": {
+     "P1": 59.9587,
+     "P2": 48.686
+    },
+    "Bilbao > Arrigorriaga|Alfaro > AP-15 (Navarra)": {
+     "P1": 43.595,
+     "P2": 30.4959
+    },
+    "Bilbao > Arrigorriaga|Calahorra > Alfaro": {
+     "P1": 42.562,
+     "P2": 30.1405
+    },
+    "Bilbao > Arrigorriaga|Cenicero > Fuenmayor": {
+     "P1": 28.0992,
+     "P2": 25.3554
+    },
+    "Bilbao > Arrigorriaga|Fuenmayor > Logroño": {
+     "P1": 29.876,
+     "P2": 25.9339
+    },
+    "Bilbao > Arrigorriaga|Gallur > Alagón (pk 272)": {
+     "P1": 56.1157,
+     "P2": 44.0579
+    },
+    "Bilbao > Arrigorriaga|Haro > Cenicero": {
+     "P1": 26.6942,
+     "P2": 24.8843
+    },
+    "Bilbao > Arrigorriaga|Lodosa > Calahorra": {
+     "P1": 37.8099,
+     "P2": 28.5702
+    },
+    "Bilbao > Arrigorriaga|Logroño > Recajo": {
+     "P1": 31.4876,
+     "P2": 26.4711
+    },
+    "Bilbao > Arrigorriaga|Recajo > Agoncillo": {
+     "P1": 32.314,
+     "P2": 26.7438
+    },
+    "Bilbao > Arrigorriaga|Tudela > Gallur": {
+     "P1": 51.3636,
+     "P2": 38.3802
+    },
+    "Bilbao > Arrigorriaga|Zambrana > Haro": {
+     "P1": 22.7273,
+     "P2": 23.5702
+    },
+    "Calahorra > Alfaro|AP-15 (Navarra) > Tudela": {
+     "P1": 8.0992,
+     "P2": 2.3636
+    },
+    "Calahorra > Alfaro|Alagón (pk 275) > Zaragoza": {
+     "P1": 22.438,
+     "P2": 20.2066
+    },
+    "Calahorra > Alfaro|Alfaro > AP-15 (Navarra)": {
+     "P1": 6.0744,
+     "P2": 1.7521
+    },
+    "Calahorra > Alfaro|Calahorra > Alfaro": {
+     "P1": 2.5041,
+     "P2": 1.4463
+    },
+    "Calahorra > Alfaro|Gallur > Alagón (pk 272)": {
+     "P1": 18.5537,
+     "P2": 15.5785
+    },
+    "Calahorra > Alfaro|Tudela > Gallur": {
+     "P1": 13.843,
+     "P2": 9.9008
+    },
+    "Calahorra > Lodosa|AP-1 (Burgos) > Subijana": {
+     "P1": 23.0165,
+     "P2": 11.8182
+    },
+    "Calahorra > Lodosa|Agoncillo > Recajo": {
+     "P1": 2.8926,
+     "P2": 1.6694
+    },
+    "Calahorra > Lodosa|Altube > Ziorraga": {
+     "P1": 29.876,
+     "P2": 19.595
+    },
+    "Calahorra > Lodosa|Areta > Arrigorriaga": {
+     "P1": 37.8099,
+     "P2": 28.5702
+    },
+    "Calahorra > Lodosa|Arrigorriaga > Bilbao": {
+     "P1": 37.8099,
+     "P2": 28.5702
+    },
+    "Calahorra > Lodosa|Calahorra > Lodosa": {
+     "P1": 1.0331,
+     "P2": 0.595
+    },
+    "Calahorra > Lodosa|Cenicero > Haro": {
+     "P1": 4.8678,
+     "P2": 2.8099
+    },
+    "Calahorra > Lodosa|Fuenmayor > Cenicero": {
+     "P1": 2.9091,
+     "P2": 1.6777
+    },
+    "Calahorra > Lodosa|Haro > Zambrana": {
+     "P1": 17.9752,
+     "P2": 3.5785
+    },
+    "Calahorra > Lodosa|Lodosa > Agoncillo": {
+     "P1": 2.8678,
+     "P2": 1.6529
+    },
+    "Calahorra > Lodosa|Logroño > Fuenmayor": {
+     "P1": 2.9008,
+     "P2": 1.6694
+    },
+    "Calahorra > Lodosa|Recajo > Logroño": {
+     "P1": 2.9917,
+     "P2": 1.7273
+    },
+    "Calahorra > Lodosa|Subijana > Altube": {
+     "P1": 28.0579,
+     "P2": 17.5537
+    },
+    "Calahorra > Lodosa|Zambrana > AP-1 (Burgos)": {
+     "P1": 18.7603,
+     "P2": 7.0248
+    },
+    "Calahorra > Lodosa|Ziorraga > Llodio": {
+     "P1": 34.2562,
+     "P2": 24.562
+    },
+    "Cenicero > Fuenmayor|AP-15 (Navarra) > Tudela": {
+     "P1": 19.2562,
+     "P2": 3.9669
+    },
+    "Cenicero > Fuenmayor|Agoncillo > Lodosa": {
+     "P1": 1.9256,
+     "P2": 1.1074
+    },
+    "Cenicero > Fuenmayor|Alagón (pk 275) > Zaragoza": {
+     "P1": 33.595,
+     "P2": 23.9091
+    },
+    "Cenicero > Fuenmayor|Alfaro > AP-15 (Navarra)": {
+     "P1": 17.2314,
+     "P2": 3.3554
+    },
+    "Cenicero > Fuenmayor|Calahorra > Alfaro": {
+     "P1": 5.281,
+     "P2": 3.0496
+    },
+    "Cenicero > Fuenmayor|Cenicero > Fuenmayor": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Cenicero > Fuenmayor|Fuenmayor > Logroño": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Cenicero > Fuenmayor|Gallur > Alagón (pk 272)": {
+     "P1": 29.7521,
+     "P2": 19.281
+    },
+    "Cenicero > Fuenmayor|Lodosa > Calahorra": {
+     "P1": 2.9091,
+     "P2": 1.6777
+    },
+    "Cenicero > Fuenmayor|Logroño > Recajo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Cenicero > Fuenmayor|Recajo > Agoncillo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Cenicero > Fuenmayor|Tudela > Gallur": {
+     "P1": 25.0,
+     "P2": 13.6033
+    },
+    "Cenicero > Haro|AP-1 (Burgos) > Subijana": {
+     "P1": 11.9008,
+     "P2": 8.1322
+    },
+    "Cenicero > Haro|Altube > Ziorraga": {
+     "P1": 18.7603,
+     "P2": 15.9174
+    },
+    "Cenicero > Haro|Areta > Arrigorriaga": {
+     "P1": 26.6942,
+     "P2": 24.8843
+    },
+    "Cenicero > Haro|Arrigorriaga > Bilbao": {
+     "P1": 26.6942,
+     "P2": 24.8843
+    },
+    "Cenicero > Haro|Cenicero > Haro": {
+     "P1": 2.124,
+     "P2": 1.2231
+    },
+    "Cenicero > Haro|Haro > Zambrana": {
+     "P1": 6.9008,
+     "P2": 1.9917
+    },
+    "Cenicero > Haro|Subijana > Altube": {
+     "P1": 16.9835,
+     "P2": 13.876
+    },
+    "Cenicero > Haro|Zambrana > AP-1 (Burgos)": {
+     "P1": 7.686,
+     "P2": 3.3388
+    },
+    "Cenicero > Haro|Ziorraga > Llodio": {
+     "P1": 23.1818,
+     "P2": 20.8843
+    },
+    "Fuenmayor > Cenicero|AP-1 (Burgos) > Subijana": {
+     "P1": 13.3058,
+     "P2": 8.6033
+    },
+    "Fuenmayor > Cenicero|Altube > Ziorraga": {
+     "P1": 20.2066,
+     "P2": 16.3884
+    },
+    "Fuenmayor > Cenicero|Areta > Arrigorriaga": {
+     "P1": 28.0992,
+     "P2": 25.3554
+    },
+    "Fuenmayor > Cenicero|Arrigorriaga > Bilbao": {
+     "P1": 28.0992,
+     "P2": 25.3554
+    },
+    "Fuenmayor > Cenicero|Cenicero > Haro": {
+     "P1": 2.1488,
+     "P2": 1.2397
+    },
+    "Fuenmayor > Cenicero|Fuenmayor > Cenicero": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Fuenmayor > Cenicero|Haro > Zambrana": {
+     "P1": 8.3058,
+     "P2": 2.0
+    },
+    "Fuenmayor > Cenicero|Subijana > Altube": {
+     "P1": 18.3884,
+     "P2": 14.3471
+    },
+    "Fuenmayor > Cenicero|Zambrana > AP-1 (Burgos)": {
+     "P1": 9.0909,
+     "P2": 3.8099
+    },
+    "Fuenmayor > Cenicero|Ziorraga > Llodio": {
+     "P1": 24.5868,
+     "P2": 21.3554
+    },
+    "Fuenmayor > Logroño|AP-15 (Navarra) > Tudela": {
+     "P1": 17.8099,
+     "P2": 3.9669
+    },
+    "Fuenmayor > Logroño|Agoncillo > Lodosa": {
+     "P1": 1.9174,
+     "P2": 1.1074
+    },
+    "Fuenmayor > Logroño|Alagón (pk 275) > Zaragoza": {
+     "P1": 32.1488,
+     "P2": 23.4298
+    },
+    "Fuenmayor > Logroño|Alfaro > AP-15 (Navarra)": {
+     "P1": 15.7851,
+     "P2": 3.3554
+    },
+    "Fuenmayor > Logroño|Calahorra > Alfaro": {
+     "P1": 5.2727,
+     "P2": 3.0496
+    },
+    "Fuenmayor > Logroño|Fuenmayor > Logroño": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Fuenmayor > Logroño|Gallur > Alagón (pk 272)": {
+     "P1": 28.3058,
+     "P2": 18.8017
+    },
+    "Fuenmayor > Logroño|Lodosa > Calahorra": {
+     "P1": 2.9008,
+     "P2": 1.6694
+    },
+    "Fuenmayor > Logroño|Logroño > Recajo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Fuenmayor > Logroño|Recajo > Agoncillo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Fuenmayor > Logroño|Tudela > Gallur": {
+     "P1": 23.5537,
+     "P2": 13.124
+    },
+    "Gallur > Tudela|AP-1 (Burgos) > Subijana": {
+     "P1": 36.5702,
+     "P2": 21.6364
+    },
+    "Gallur > Tudela|AP-15 (Navarra) > Alfaro": {
+     "P1": 9.2975,
+     "P2": 8.3884
+    },
+    "Gallur > Tudela|Agoncillo > Recajo": {
+     "P1": 20.124,
+     "P2": 11.9917
+    },
+    "Gallur > Tudela|Alfaro > Calahorra": {
+     "P1": 13.843,
+     "P2": 9.9008
+    },
+    "Gallur > Tudela|Altube > Ziorraga": {
+     "P1": 43.4711,
+     "P2": 29.4132
+    },
+    "Gallur > Tudela|Areta > Arrigorriaga": {
+     "P1": 51.3636,
+     "P2": 38.3802
+    },
+    "Gallur > Tudela|Arrigorriaga > Bilbao": {
+     "P1": 51.3636,
+     "P2": 38.3802
+    },
+    "Gallur > Tudela|Calahorra > Lodosa": {
+     "P1": 15.6612,
+     "P2": 10.5041
+    },
+    "Gallur > Tudela|Cenicero > Haro": {
+     "P1": 28.9256,
+     "P2": 14.9091
+    },
+    "Gallur > Tudela|Fuenmayor > Cenicero": {
+     "P1": 25.0,
+     "P2": 13.6033
+    },
+    "Gallur > Tudela|Haro > Zambrana": {
+     "P1": 31.5702,
+     "P2": 15.7851
+    },
+    "Gallur > Tudela|Lodosa > Agoncillo": {
+     "P1": 19.3388,
+     "P2": 11.719
+    },
+    "Gallur > Tudela|Logroño > Fuenmayor": {
+     "P1": 23.5537,
+     "P2": 13.124
+    },
+    "Gallur > Tudela|Recajo > Logroño": {
+     "P1": 22.2314,
+     "P2": 12.686
+    },
+    "Gallur > Tudela|Subijana > Altube": {
+     "P1": 41.6529,
+     "P2": 27.3719
+    },
+    "Gallur > Tudela|Tudela > AP-15 (Navarra)": {
+     "P1": 8.2231,
+     "P2": 8.0413
+    },
+    "Gallur > Tudela|Zambrana > AP-1 (Burgos)": {
+     "P1": 32.3554,
+     "P2": 16.843
+    },
+    "Gallur > Tudela|Ziorraga > Llodio": {
+     "P1": 47.8512,
+     "P2": 34.3802
+    },
+    "Haro > Cenicero|AP-15 (Navarra) > Tudela": {
+     "P1": 23.1818,
+     "P2": 5.0992
+    },
+    "Haro > Cenicero|Agoncillo > Lodosa": {
+     "P1": 3.8843,
+     "P2": 2.2479
+    },
+    "Haro > Cenicero|Alagón (pk 275) > Zaragoza": {
+     "P1": 37.5207,
+     "P2": 25.2066
+    },
+    "Haro > Cenicero|Alfaro > AP-15 (Navarra)": {
+     "P1": 21.157,
+     "P2": 4.4876
+    },
+    "Haro > Cenicero|Calahorra > Alfaro": {
+     "P1": 7.2479,
+     "P2": 4.1818
+    },
+    "Haro > Cenicero|Cenicero > Fuenmayor": {
+     "P1": 2.1488,
+     "P2": 1.2397
+    },
+    "Haro > Cenicero|Fuenmayor > Logroño": {
+     "P1": 2.2562,
+     "P2": 1.3058
+    },
+    "Haro > Cenicero|Gallur > Alagón (pk 272)": {
+     "P1": 33.6364,
+     "P2": 20.5868
+    },
+    "Haro > Cenicero|Haro > Cenicero": {
+     "P1": 2.124,
+     "P2": 1.2231
+    },
+    "Haro > Cenicero|Lodosa > Calahorra": {
+     "P1": 4.8678,
+     "P2": 2.8099
+    },
+    "Haro > Cenicero|Logroño > Recajo": {
+     "P1": 2.1322,
+     "P2": 1.2314
+    },
+    "Haro > Cenicero|Recajo > Agoncillo": {
+     "P1": 2.124,
+     "P2": 1.2231
+    },
+    "Haro > Cenicero|Tudela > Gallur": {
+     "P1": 28.9256,
+     "P2": 14.9091
+    },
+    "Haro > Zambrana|AP-1 (Burgos) > Subijana": {
+     "P1": 7.9339,
+     "P2": 6.8182
+    },
+    "Haro > Zambrana|Altube > Ziorraga": {
+     "P1": 14.7934,
+     "P2": 14.6033
+    },
+    "Haro > Zambrana|Areta > Arrigorriaga": {
+     "P1": 22.7273,
+     "P2": 23.5702
+    },
+    "Haro > Zambrana|Arrigorriaga > Bilbao": {
+     "P1": 22.7273,
+     "P2": 23.5702
+    },
+    "Haro > Zambrana|Haro > Zambrana": {
+     "P1": 2.9339,
+     "P2": 0.843
+    },
+    "Haro > Zambrana|Subijana > Altube": {
+     "P1": 13.0165,
+     "P2": 12.562
+    },
+    "Haro > Zambrana|Zambrana > AP-1 (Burgos)": {
+     "P1": 3.719,
+     "P2": 2.0248
+    },
+    "Haro > Zambrana|Ziorraga > Llodio": {
+     "P1": 19.2149,
+     "P2": 19.5702
+    },
+    "Llodio > Ziorraga|AP-15 (Navarra) > Tudela": {
+     "P1": 42.1074,
+     "P2": 27.1983
+    },
+    "Llodio > Ziorraga|Agoncillo > Lodosa": {
+     "P1": 32.314,
+     "P2": 23.9174
+    },
+    "Llodio > Ziorraga|Alagón (pk 275) > Zaragoza": {
+     "P1": 56.4463,
+     "P2": 44.686
+    },
+    "Llodio > Ziorraga|Alfaro > AP-15 (Navarra)": {
+     "P1": 40.0826,
+     "P2": 26.4959
+    },
+    "Llodio > Ziorraga|Calahorra > Alfaro": {
+     "P1": 39.0083,
+     "P2": 26.1405
+    },
+    "Llodio > Ziorraga|Cenicero > Fuenmayor": {
+     "P1": 24.5868,
+     "P2": 21.3554
+    },
+    "Llodio > Ziorraga|Fuenmayor > Logroño": {
+     "P1": 26.3223,
+     "P2": 21.9339
+    },
+    "Llodio > Ziorraga|Gallur > Alagón (pk 272)": {
+     "P1": 52.562,
+     "P2": 40.0579
+    },
+    "Llodio > Ziorraga|Haro > Cenicero": {
+     "P1": 23.1818,
+     "P2": 20.8843
+    },
+    "Llodio > Ziorraga|Lodosa > Calahorra": {
+     "P1": 34.2562,
+     "P2": 24.562
+    },
+    "Llodio > Ziorraga|Logroño > Recajo": {
+     "P1": 27.9339,
+     "P2": 22.4711
+    },
+    "Llodio > Ziorraga|Recajo > Agoncillo": {
+     "P1": 28.7603,
+     "P2": 22.7438
+    },
+    "Llodio > Ziorraga|Tudela > Gallur": {
+     "P1": 47.8512,
+     "P2": 34.3802
+    },
+    "Llodio > Ziorraga|Zambrana > Haro": {
+     "P1": 19.2149,
+     "P2": 19.5702
+    },
+    "Lodosa > Agoncillo|AP-1 (Burgos) > Subijana": {
+     "P1": 21.0331,
+     "P2": 11.1653
+    },
+    "Lodosa > Agoncillo|Agoncillo > Recajo": {
+     "P1": 1.9174,
+     "P2": 1.1074
+    },
+    "Lodosa > Agoncillo|Altube > Ziorraga": {
+     "P1": 27.8926,
+     "P2": 18.9421
+    },
+    "Lodosa > Agoncillo|Areta > Arrigorriaga": {
+     "P1": 35.8264,
+     "P2": 27.9174
+    },
+    "Lodosa > Agoncillo|Arrigorriaga > Bilbao": {
+     "P1": 35.8264,
+     "P2": 27.9174
+    },
+    "Lodosa > Agoncillo|Cenicero > Haro": {
+     "P1": 3.8843,
+     "P2": 2.2479
+    },
+    "Lodosa > Agoncillo|Fuenmayor > Cenicero": {
+     "P1": 1.9256,
+     "P2": 1.1074
+    },
+    "Lodosa > Agoncillo|Haro > Zambrana": {
+     "P1": 16.0331,
+     "P2": 3.0083
+    },
+    "Lodosa > Agoncillo|Lodosa > Agoncillo": {
+     "P1": 1.8926,
+     "P2": 1.0909
+    },
+    "Lodosa > Agoncillo|Logroño > Fuenmayor": {
+     "P1": 1.9174,
+     "P2": 1.1074
+    },
+    "Lodosa > Agoncillo|Recajo > Logroño": {
+     "P1": 2.0165,
+     "P2": 1.1653
+    },
+    "Lodosa > Agoncillo|Subijana > Altube": {
+     "P1": 26.1157,
+     "P2": 16.9091
+    },
+    "Lodosa > Agoncillo|Zambrana > AP-1 (Burgos)": {
+     "P1": 16.8182,
+     "P2": 6.3719
+    },
+    "Lodosa > Agoncillo|Ziorraga > Llodio": {
+     "P1": 32.314,
+     "P2": 23.9174
+    },
+    "Lodosa > Calahorra|AP-15 (Navarra) > Tudela": {
+     "P1": 9.9174,
+     "P2": 2.8926
+    },
+    "Lodosa > Calahorra|Alagón (pk 275) > Zaragoza": {
+     "P1": 24.2562,
+     "P2": 20.8017
+    },
+    "Lodosa > Calahorra|Alfaro > AP-15 (Navarra)": {
+     "P1": 7.8926,
+     "P2": 2.2727
+    },
+    "Lodosa > Calahorra|Calahorra > Alfaro": {
+     "P1": 3.4132,
+     "P2": 1.9669
+    },
+    "Lodosa > Calahorra|Gallur > Alagón (pk 272)": {
+     "P1": 20.3719,
+     "P2": 16.1818
+    },
+    "Lodosa > Calahorra|Lodosa > Calahorra": {
+     "P1": 1.0331,
+     "P2": 0.595
+    },
+    "Lodosa > Calahorra|Tudela > Gallur": {
+     "P1": 15.6612,
+     "P2": 10.5041
+    },
+    "Logroño > Fuenmayor|AP-1 (Burgos) > Subijana": {
+     "P1": 15.0826,
+     "P2": 9.1818
+    },
+    "Logroño > Fuenmayor|Altube > Ziorraga": {
+     "P1": 21.9421,
+     "P2": 16.9669
+    },
+    "Logroño > Fuenmayor|Areta > Arrigorriaga": {
+     "P1": 29.876,
+     "P2": 25.9339
+    },
+    "Logroño > Fuenmayor|Arrigorriaga > Bilbao": {
+     "P1": 29.876,
+     "P2": 25.9339
+    },
+    "Logroño > Fuenmayor|Cenicero > Haro": {
+     "P1": 2.2562,
+     "P2": 1.3058
+    },
+    "Logroño > Fuenmayor|Fuenmayor > Cenicero": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Logroño > Fuenmayor|Haro > Zambrana": {
+     "P1": 10.0413,
+     "P2": 2.0661
+    },
+    "Logroño > Fuenmayor|Logroño > Fuenmayor": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Logroño > Fuenmayor|Subijana > Altube": {
+     "P1": 20.124,
+     "P2": 14.9256
+    },
+    "Logroño > Fuenmayor|Zambrana > AP-1 (Burgos)": {
+     "P1": 10.8264,
+     "P2": 4.3884
+    },
+    "Logroño > Fuenmayor|Ziorraga > Llodio": {
+     "P1": 26.3223,
+     "P2": 21.9339
+    },
+    "Logroño > Recajo|AP-15 (Navarra) > Tudela": {
+     "P1": 16.4876,
+     "P2": 4.0165
+    },
+    "Logroño > Recajo|Agoncillo > Lodosa": {
+     "P1": 2.0165,
+     "P2": 1.1653
+    },
+    "Logroño > Recajo|Alagón (pk 275) > Zaragoza": {
+     "P1": 30.7851,
+     "P2": 22.9835
+    },
+    "Logroño > Recajo|Alfaro > AP-15 (Navarra)": {
+     "P1": 14.4628,
+     "P2": 3.405
+    },
+    "Logroño > Recajo|Calahorra > Alfaro": {
+     "P1": 5.3719,
+     "P2": 3.0992
+    },
+    "Logroño > Recajo|Gallur > Alagón (pk 272)": {
+     "P1": 26.9421,
+     "P2": 18.3554
+    },
+    "Logroño > Recajo|Lodosa > Calahorra": {
+     "P1": 2.9917,
+     "P2": 1.7273
+    },
+    "Logroño > Recajo|Logroño > Recajo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Logroño > Recajo|Recajo > Agoncillo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Logroño > Recajo|Tudela > Gallur": {
+     "P1": 22.2314,
+     "P2": 12.686
+    },
+    "Recajo > Agoncillo|AP-15 (Navarra) > Tudela": {
+     "P1": 14.3802,
+     "P2": 3.9587
+    },
+    "Recajo > Agoncillo|Agoncillo > Lodosa": {
+     "P1": 1.9174,
+     "P2": 1.1074
+    },
+    "Recajo > Agoncillo|Alagón (pk 275) > Zaragoza": {
+     "P1": 28.719,
+     "P2": 22.2893
+    },
+    "Recajo > Agoncillo|Alfaro > AP-15 (Navarra)": {
+     "P1": 12.3554,
+     "P2": 3.3471
+    },
+    "Recajo > Agoncillo|Calahorra > Alfaro": {
+     "P1": 5.2727,
+     "P2": 3.0413
+    },
+    "Recajo > Agoncillo|Gallur > Alagón (pk 272)": {
+     "P1": 24.876,
+     "P2": 17.6694
+    },
+    "Recajo > Agoncillo|Lodosa > Calahorra": {
+     "P1": 2.8926,
+     "P2": 1.6694
+    },
+    "Recajo > Agoncillo|Recajo > Agoncillo": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Recajo > Agoncillo|Tudela > Gallur": {
+     "P1": 20.124,
+     "P2": 11.9917
+    },
+    "Recajo > Logroño|AP-1 (Burgos) > Subijana": {
+     "P1": 16.6942,
+     "P2": 9.7273
+    },
+    "Recajo > Logroño|Altube > Ziorraga": {
+     "P1": 23.5537,
+     "P2": 17.5041
+    },
+    "Recajo > Logroño|Areta > Arrigorriaga": {
+     "P1": 31.4876,
+     "P2": 26.4711
+    },
+    "Recajo > Logroño|Arrigorriaga > Bilbao": {
+     "P1": 31.4876,
+     "P2": 26.4711
+    },
+    "Recajo > Logroño|Cenicero > Haro": {
+     "P1": 2.1322,
+     "P2": 1.2314
+    },
+    "Recajo > Logroño|Fuenmayor > Cenicero": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Recajo > Logroño|Haro > Zambrana": {
+     "P1": 11.6942,
+     "P2": 1.9917
+    },
+    "Recajo > Logroño|Logroño > Fuenmayor": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Recajo > Logroño|Recajo > Logroño": {
+     "P1": 0.0,
+     "P2": 0.0
+    },
+    "Recajo > Logroño|Subijana > Altube": {
+     "P1": 21.7769,
+     "P2": 15.4628
+    },
+    "Recajo > Logroño|Zambrana > AP-1 (Burgos)": {
+     "P1": 12.4793,
+     "P2": 4.9339
+    },
+    "Recajo > Logroño|Ziorraga > Llodio": {
+     "P1": 27.9339,
+     "P2": 22.4711
+    },
+    "Subijana > AP-1 (Burgos)|AP-15 (Navarra) > Tudela": {
+     "P1": 30.8264,
+     "P2": 14.4463
+    },
+    "Subijana > AP-1 (Burgos)|Agoncillo > Lodosa": {
+     "P1": 21.0331,
+     "P2": 11.1653
+    },
+    "Subijana > AP-1 (Burgos)|Alagón (pk 275) > Zaragoza": {
+     "P1": 45.1653,
+     "P2": 31.9339
+    },
+    "Subijana > AP-1 (Burgos)|Alfaro > AP-15 (Navarra)": {
+     "P1": 28.8017,
+     "P2": 13.7438
+    },
+    "Subijana > AP-1 (Burgos)|Calahorra > Alfaro": {
+     "P1": 27.7686,
+     "P2": 13.3967
+    },
+    "Subijana > AP-1 (Burgos)|Cenicero > Fuenmayor": {
+     "P1": 13.3058,
+     "P2": 8.6033
+    },
+    "Subijana > AP-1 (Burgos)|Fuenmayor > Logroño": {
+     "P1": 15.0826,
+     "P2": 9.1818
+    },
+    "Subijana > AP-1 (Burgos)|Gallur > Alagón (pk 272)": {
+     "P1": 41.3223,
+     "P2": 27.3058
+    },
+    "Subijana > AP-1 (Burgos)|Haro > Cenicero": {
+     "P1": 11.9008,
+     "P2": 8.1322
+    },
+    "Subijana > AP-1 (Burgos)|Lodosa > Calahorra": {
+     "P1": 23.0165,
+     "P2": 11.8182
+    },
+    "Subijana > AP-1 (Burgos)|Logroño > Recajo": {
+     "P1": 16.6942,
+     "P2": 9.7273
+    },
+    "Subijana > AP-1 (Burgos)|Recajo > Agoncillo": {
+     "P1": 17.5207,
+     "P2": 9.9917
+    },
+    "Subijana > AP-1 (Burgos)|Tudela > Gallur": {
+     "P1": 36.5702,
+     "P2": 21.6364
+    },
+    "Subijana > AP-1 (Burgos)|Zambrana > Haro": {
+     "P1": 7.9339,
+     "P2": 6.8182
+    },
+    "Tudela > AP-15 (Navarra)|AP-1 (Burgos) > Subijana": {
+     "P1": 30.8264,
+     "P2": 14.4463
+    },
+    "Tudela > AP-15 (Navarra)|AP-15 (Navarra) > Alfaro": {
+     "P1": 3.5537,
+     "P2": 1.0496
+    },
+    "Tudela > AP-15 (Navarra)|Agoncillo > Recajo": {
+     "P1": 14.3802,
+     "P2": 3.9587
+    },
+    "Tudela > AP-15 (Navarra)|Alfaro > Calahorra": {
+     "P1": 8.0992,
+     "P2": 2.3636
+    },
+    "Tudela > AP-15 (Navarra)|Altube > Ziorraga": {
+     "P1": 37.7273,
+     "P2": 22.2314
+    },
+    "Tudela > AP-15 (Navarra)|Areta > Arrigorriaga": {
+     "P1": 45.6198,
+     "P2": 31.1983
+    },
+    "Tudela > AP-15 (Navarra)|Arrigorriaga > Bilbao": {
+     "P1": 45.6198,
+     "P2": 31.1983
+    },
+    "Tudela > AP-15 (Navarra)|Calahorra > Lodosa": {
+     "P1": 9.9174,
+     "P2": 2.8926
+    },
+    "Tudela > AP-15 (Navarra)|Cenicero > Haro": {
+     "P1": 23.1818,
+     "P2": 5.0992
+    },
+    "Tudela > AP-15 (Navarra)|Fuenmayor > Cenicero": {
+     "P1": 19.2562,
+     "P2": 3.9669
+    },
+    "Tudela > AP-15 (Navarra)|Haro > Zambrana": {
+     "P1": 25.8264,
+     "P2": 5.8678
+    },
+    "Tudela > AP-15 (Navarra)|Lodosa > Agoncillo": {
+     "P1": 13.595,
+     "P2": 3.9504
+    },
+    "Tudela > AP-15 (Navarra)|Logroño > Fuenmayor": {
+     "P1": 17.8099,
+     "P2": 3.9669
+    },
+    "Tudela > AP-15 (Navarra)|Recajo > Logroño": {
+     "P1": 16.4876,
+     "P2": 4.0165
+    },
+    "Tudela > AP-15 (Navarra)|Subijana > Altube": {
+     "P1": 35.9091,
+     "P2": 20.1901
+    },
+    "Tudela > AP-15 (Navarra)|Tudela > AP-15 (Navarra)": {
+     "P1": 2.4793,
+     "P2": 0.7438
+    },
+    "Tudela > AP-15 (Navarra)|Zambrana > AP-1 (Burgos)": {
+     "P1": 26.6116,
+     "P2": 9.6612
+    },
+    "Tudela > AP-15 (Navarra)|Ziorraga > Llodio": {
+     "P1": 42.1074,
+     "P2": 27.1983
+    },
+    "Zambrana > Haro|AP-15 (Navarra) > Tudela": {
+     "P1": 25.8264,
+     "P2": 5.8678
+    },
+    "Zambrana > Haro|Agoncillo > Lodosa": {
+     "P1": 16.0331,
+     "P2": 3.0083
+    },
+    "Zambrana > Haro|Alagón (pk 275) > Zaragoza": {
+     "P1": 40.1653,
+     "P2": 26.0909
+    },
+    "Zambrana > Haro|Alfaro > AP-15 (Navarra)": {
+     "P1": 23.8017,
+     "P2": 5.2562
+    },
+    "Zambrana > Haro|Calahorra > Alfaro": {
+     "P1": 22.7273,
+     "P2": 4.9504
+    },
+    "Zambrana > Haro|Cenicero > Fuenmayor": {
+     "P1": 8.3058,
+     "P2": 2.0
+    },
+    "Zambrana > Haro|Fuenmayor > Logroño": {
+     "P1": 10.0413,
+     "P2": 2.0661
+    },
+    "Zambrana > Haro|Gallur > Alagón (pk 272)": {
+     "P1": 36.3223,
+     "P2": 21.4628
+    },
+    "Zambrana > Haro|Haro > Cenicero": {
+     "P1": 6.9008,
+     "P2": 1.9917
+    },
+    "Zambrana > Haro|Lodosa > Calahorra": {
+     "P1": 17.9752,
+     "P2": 3.5785
+    },
+    "Zambrana > Haro|Logroño > Recajo": {
+     "P1": 11.6942,
+     "P2": 1.9917
+    },
+    "Zambrana > Haro|Recajo > Agoncillo": {
+     "P1": 12.4793,
+     "P2": 1.9917
+    },
+    "Zambrana > Haro|Tudela > Gallur": {
+     "P1": 31.5702,
+     "P2": 15.7851
+    },
+    "Zambrana > Haro|Zambrana > Haro": {
+     "P1": 2.9339,
+     "P2": 0.843
+    },
+    "Zaragoza > Alagón (pk 275)|AP-1 (Burgos) > Subijana": {
+     "P1": 45.1653,
+     "P2": 31.9339
+    },
+    "Zaragoza > Alagón (pk 275)|AP-15 (Navarra) > Alfaro": {
+     "P1": 17.8926,
+     "P2": 18.6942
+    },
+    "Zaragoza > Alagón (pk 275)|Agoncillo > Recajo": {
+     "P1": 28.719,
+     "P2": 22.2893
+    },
+    "Zaragoza > Alagón (pk 275)|Alfaro > Calahorra": {
+     "P1": 22.438,
+     "P2": 20.2066
+    },
+    "Zaragoza > Alagón (pk 275)|Altube > Ziorraga": {
+     "P1": 52.0248,
+     "P2": 39.7107
+    },
+    "Zaragoza > Alagón (pk 275)|Areta > Arrigorriaga": {
+     "P1": 59.9587,
+     "P2": 48.686
+    },
+    "Zaragoza > Alagón (pk 275)|Arrigorriaga > Bilbao": {
+     "P1": 59.9587,
+     "P2": 48.686
+    },
+    "Zaragoza > Alagón (pk 275)|Calahorra > Lodosa": {
+     "P1": 24.2562,
+     "P2": 20.8017
+    },
+    "Zaragoza > Alagón (pk 275)|Cenicero > Haro": {
+     "P1": 37.5207,
+     "P2": 25.2066
+    },
+    "Zaragoza > Alagón (pk 275)|Fuenmayor > Cenicero": {
+     "P1": 33.595,
+     "P2": 23.9091
+    },
+    "Zaragoza > Alagón (pk 275)|Haro > Zambrana": {
+     "P1": 40.1653,
+     "P2": 26.0909
+    },
+    "Zaragoza > Alagón (pk 275)|Lodosa > Agoncillo": {
+     "P1": 27.8926,
+     "P2": 22.0248
+    },
+    "Zaragoza > Alagón (pk 275)|Logroño > Fuenmayor": {
+     "P1": 32.1488,
+     "P2": 23.4298
+    },
+    "Zaragoza > Alagón (pk 275)|Recajo > Logroño": {
+     "P1": 30.7851,
+     "P2": 22.9835
+    },
+    "Zaragoza > Alagón (pk 275)|Subijana > Altube": {
+     "P1": 50.2479,
+     "P2": 37.6777
+    },
+    "Zaragoza > Alagón (pk 275)|Tudela > AP-15 (Navarra)": {
+     "P1": 16.8182,
+     "P2": 18.3471
+    },
+    "Zaragoza > Alagón (pk 275)|Zambrana > AP-1 (Burgos)": {
+     "P1": 40.9504,
+     "P2": 27.1405
+    },
+    "Zaragoza > Alagón (pk 275)|Ziorraga > Llodio": {
+     "P1": 56.4463,
+     "P2": 44.686
+    },
+    "Ziorraga > Altube|AP-15 (Navarra) > Tudela": {
+     "P1": 37.7273,
+     "P2": 22.2314
+    },
+    "Ziorraga > Altube|Agoncillo > Lodosa": {
+     "P1": 27.8926,
+     "P2": 18.9421
+    },
+    "Ziorraga > Altube|Alagón (pk 275) > Zaragoza": {
+     "P1": 52.0248,
+     "P2": 39.7107
+    },
+    "Ziorraga > Altube|Alfaro > AP-15 (Navarra)": {
+     "P1": 35.7025,
+     "P2": 21.5207
+    },
+    "Ziorraga > Altube|Calahorra > Alfaro": {
+     "P1": 34.6281,
+     "P2": 21.1736
+    },
+    "Ziorraga > Altube|Cenicero > Fuenmayor": {
+     "P1": 20.2066,
+     "P2": 16.3884
+    },
+    "Ziorraga > Altube|Fuenmayor > Logroño": {
+     "P1": 21.9421,
+     "P2": 16.9669
+    },
+    "Ziorraga > Altube|Gallur > Alagón (pk 272)": {
+     "P1": 48.1818,
+     "P2": 35.0909
+    },
+    "Ziorraga > Altube|Haro > Cenicero": {
+     "P1": 18.7603,
+     "P2": 15.9174
+    },
+    "Ziorraga > Altube|Lodosa > Calahorra": {
+     "P1": 29.876,
+     "P2": 19.595
+    },
+    "Ziorraga > Altube|Logroño > Recajo": {
+     "P1": 23.5537,
+     "P2": 17.5041
+    },
+    "Ziorraga > Altube|Recajo > Agoncillo": {
+     "P1": 24.3802,
+     "P2": 17.7686
+    },
+    "Ziorraga > Altube|Tudela > Gallur": {
+     "P1": 43.4711,
+     "P2": 29.4132
+    },
+    "Ziorraga > Altube|Zambrana > Haro": {
+     "P1": 14.7934,
+     "P2": 14.6033
+    }
+   }
+  }
+ ],
+ "rows": []
+}

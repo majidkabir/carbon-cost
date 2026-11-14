@@ -14,8 +14,9 @@ from Donostia's eastern plaza (Donostia SS E, Hernani, Astigarraga,
 Lasarte) to Behobia, by entry row and exit column. Prices include 21% VAT
 (BEZa/IVA barne), divided out; either way where only one way is printed.
 Pesados 1 and 2 as the Spanish motorways' classes (the sheet's Astun.1
-and Astun.2). Not built: the sheet's single prices to Donostia's exits
-from Zarautz E and Orio, Oñaurre (a tag-only price) and the AP-636.
+and Astun.2). The AP-636's sections: toll points (see ap636). Not built:
+the sheet's single prices to Donostia's exits from Zarautz E and Orio,
+Oñaurre (a tag-only price).
 
 Stations: placed at the junctions whose exits are signposted to them, in
 the matrix's order along each carriageway (es_stretch.assign), the
@@ -190,6 +191,28 @@ def place(ls, juncs, booths):
     return pts
 
 
+# The AP-636's sections (the sheet's names) and the Bidegi gantry pair in
+# OpenStreetMap that is the first on each, going from Beasain to Bergara.
+AP636 = [("Beasain - Ormaiztegi", "Beasain"), ("Ormaiztegi - Zumarraga", "Ezkio"), ("Legazpi/Urretxu - Bergara", "Deskarga")]
+
+
+def ap636(text, osm):
+    """[toll point]: each AP-636 section's price at its gantry pair's middle, either way."""
+    out = []
+    gantries = [e for e in osm["elements"] if e["type"] == "node" and e.get("tags", {}).get("highway") == "toll_gantry" and e["tags"].get("operator") == "Bidegi"]
+    for section, gantry in AP636:
+        m = re.search(re.escape(section) + r"\s+(\d+,\d\d)\s+(\d+,\d\d)\s+(\d+,\d\d)", text)
+        if not m:
+            sys.exit(f"AP-636: no prices for {section}")
+        g = [e for e in gantries if e["tags"].get("name") == gantry]
+        if not 1 <= len(g) <= 2:
+            sys.exit(f"AP-636: {len(g)} OSM gantries named {gantry}")
+        p1, p2 = (float(m.group(i).replace(",", ".")) for i in (2, 3))
+        out.append({"name": f"AP-636 {section} ({gantry} gantry)", "lat": round(sum(e["lat"] for e in g) / len(g), 6), "lon": round(sum(e["lon"] for e in g) / len(g), 6),
+                    "rate": 0, "classes": [{"min_kg": 3501, "min_axles": 4, "rate": round(p2 / VAT, 4)}, {"min_kg": 3501, "rate": round(p1 / VAT, 4)}]})
+    return out
+
+
 def main(fetched, out):
     m, e = matrices(os.path.join(fetched, "es-bidegi-ap8-2026.bbox.html"))
     flat = re.sub(r"\s+", " ", open(os.path.join(fetched, "es-bidegi-ap8-2026.txt"), encoding="utf-8").read())
@@ -219,20 +242,24 @@ def main(fetched, out):
                                + (f"; stations not placed (priced from the next one): {', '.join(miss)}" if miss else ""), secs, price, groups)
         print(f"{name}: {len(stations) - len(miss)}/{len(stations)} placed, {len(secs)} stretches, {len(cs['prices'])} pairs" + (f"; unplaced {miss}" if miss else ""))
         systems.append(cs)
+    points = ap636(open(os.path.join(fetched, "es-bidegi-ap8-2026.txt"), encoding="utf-8").read(), osm)
     p2 = m[(MAIN[0], MAIN[-1])]["P2"]
     tb = {
         "country": "ES", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "crossings": True, "osm_extract": stamp,
-        "name": "AP-8 and AP-1, Basque Country (Interbiak, Bidegi)",
+        "name": "AP-8, AP-1 and AP-636, Basque Country (Interbiak, Bidegi)",
         "law": ("Bidegi's tariff sheet in force from 1 January 2026 (Interbiak's and Bidegi's AP-8 and AP-1, Pesados 1 and 2, VAT included; "
                 f"Pesados 2 from Bilbao's western access to Zarautz's main plaza towards Donostia EUR {p2:.2f}): by entry and exit, either way, excluding 21% VAT. "
                 "Stations: each carriageway's stretch between two consecutive entries/exits, placed at the OpenStreetMap junctions whose exits are signposted to them, "
                 "Bilbao's western access and Etxabarri-Ibiña at the motorways' ends, Zarautz's main plaza and Donostia's eastern plaza at the toll booths on the carriageway"
                 + (f"; not placed (a trip from or to one priced from the next station): {', '.join(missing)}" if missing else "")
-                + ". Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits and the AP-636."),
+                + ". AP-636: each section's price (either way) at the first Bidegi gantry on it going from Beasain (OpenStreetMap's gantries named "
+                + ", ".join(g for _, g in AP636) + "); the sheet's Legazpi/Urretxu – Antzuola price by tag isn't modelled (a trip from Legazpi to Antzuola is charged Legazpi – Bergara, one from Antzuola to Bergara nothing). "
+                "Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits."),
         "sources": [{"title": "Bidegi: AP-8, AP-1 and AP-636 tariffs 2026", "url": "https://www.bidegi.eus/documents/42696171/0/2026__AP-8_AP-1_AP-636_tarifak.pdf/0c9dbcf3-f3e7-e6f6-709b-8cbb7d9da9d5"},
                     {"title": "OpenStreetMap (Overpass API): the Basque motorways, junctions, signposted links and toll booths", "url": "https://www.openstreetmap.org/"}],
         "vehicles": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more", "min_kg": 3501,
-        "tolled_roads": "AP-8 from Bilbao (western access) to Behobia, AP-1 from Eibar to Vitoria-Gasteiz.",
+        "tolled_roads": "AP-8 from Bilbao (western access) to Behobia, AP-1 from Eibar to Vitoria-Gasteiz, AP-636 from Beasain to Bergara.",
+        "point_match_km": 0.1, "toll_points": points,
         "closed_systems": systems, "rows": [],
     }
     os.makedirs(out, exist_ok=True)

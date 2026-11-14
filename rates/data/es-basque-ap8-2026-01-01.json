@@ -5,8 +5,8 @@
  "valid_to": "2026-12-31",
  "crossings": true,
  "osm_extract": "2026-11-13",
- "name": "AP-8 and AP-1, Basque Country (Interbiak, Bidegi)",
- "law": "Bidegi's tariff sheet in force from 1 January 2026 (Interbiak's and Bidegi's AP-8 and AP-1, Pesados 1 and 2, VAT included; Pesados 2 from Bilbao's western access to Zarautz's main plaza towards Donostia EUR 30.38): by entry and exit, either way, excluding 21% VAT. Stations: each carriageway's stretch between two consecutive entries/exits, placed at the OpenStreetMap junctions whose exits are signposted to them, Bilbao's western access and Etxabarri-Ibiña at the motorways' ends, Zarautz's main plaza and Donostia's eastern plaza at the toll booths on the carriageway; not placed (a trip from or to one priced from the next station): Luko, Oñaurre. Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits and the AP-636.",
+ "name": "AP-8, AP-1 and AP-636, Basque Country (Interbiak, Bidegi)",
+ "law": "Bidegi's tariff sheet in force from 1 January 2026 (Interbiak's and Bidegi's AP-8 and AP-1, Pesados 1 and 2, VAT included; Pesados 2 from Bilbao's western access to Zarautz's main plaza towards Donostia EUR 30.38): by entry and exit, either way, excluding 21% VAT. Stations: each carriageway's stretch between two consecutive entries/exits, placed at the OpenStreetMap junctions whose exits are signposted to them, Bilbao's western access and Etxabarri-Ibiña at the motorways' ends, Zarautz's main plaza and Donostia's eastern plaza at the toll booths on the carriageway; not placed (a trip from or to one priced from the next station): Luko, Oñaurre. AP-636: each section's price (either way) at the first Bidegi gantry on it going from Beasain (OpenStreetMap's gantries named Beasain, Ezkio, Deskarga); the sheet's Legazpi/Urretxu – Antzuola price by tag isn't modelled (a trip from Legazpi to Antzuola is charged Legazpi – Bergara, one from Antzuola to Bergara nothing). Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits.",
  "sources": [
   {
    "title": "Bidegi: AP-8, AP-1 and AP-636 tariffs 2026",
@@ -19,7 +19,61 @@
  ],
  "vehicles": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more",
  "min_kg": 3501,
- "tolled_roads": "AP-8 from Bilbao (western access) to Behobia, AP-1 from Eibar to Vitoria-Gasteiz.",
+ "tolled_roads": "AP-8 from Bilbao (western access) to Behobia, AP-1 from Eibar to Vitoria-Gasteiz, AP-636 from Beasain to Bergara.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "AP-636 Beasain - Ormaiztegi (Beasain gantry)",
+   "lat": 43.047667,
+   "lon": -2.233916,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 0.7107
+    },
+    {
+     "min_kg": 3501,
+     "rate": 0.5537
+    }
+   ]
+  },
+  {
+   "name": "AP-636 Ormaiztegi - Zumarraga (Ezkio gantry)",
+   "lat": 43.077171,
+   "lon": -2.299179,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 1.3554
+    },
+    {
+     "min_kg": 3501,
+     "rate": 1.0826
+    }
+   ]
+  },
+  {
+   "name": "AP-636 Legazpi/Urretxu - Bergara (Deskarga gantry)",
+   "lat": 43.084813,
+   "lon": -2.339413,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 2.6198
+    },
+    {
+     "min_kg": 3501,
+     "rate": 2.1074
+    }
+   ]
+  }
+ ],
  "closed_systems": [
   {
    "name": "AP-8/AP-1 Bilbao – Zarautz – Vitoria-Gasteiz",

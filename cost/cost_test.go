@@ -2517,6 +2517,8 @@ func TestBasqueAP8(t *testing.T) {
 		{"Bilbao to Zarautz's main plaza", west, 30.38 / 1.21},
 		{"Eibar to Etxabarri-Ibiña", ap1, 20.06 / 1.21},
 		{"Donostia to Behobia", east, 6.53 / 1.21},
+		// AP-636 Beasain to Bergara: 0.86 + 1.64 + 3.17 at its three gantries.
+		{"AP-636 Beasain to Bergara", [][2]float64{{-2.2200, 43.0420}, {-2.233916, 43.047667}, {-2.299179, 43.077171}, {-2.339413, 43.084813}, {-2.3700, 43.0900}}, (0.86 + 1.64 + 3.17) / 1.21},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: truck40}, time.Date(2026, 11, 20, 12, 0, 0, 0, time.UTC))
@@ -2525,7 +2527,7 @@ func TestBasqueAP8(t *testing.T) {
 		}
 		var got float64
 		for _, l := range r.Lines {
-			if strings.Contains(l.Section, "AP-8") {
+			if strings.Contains(l.Section, "AP-8") || strings.Contains(l.Section, "AP-636") {
 				got += l.Amount
 			}
 		}

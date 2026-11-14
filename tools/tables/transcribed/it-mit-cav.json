@@ -1,6 +1,6 @@
 {
  "operator": "Concessioni Autostradali Venete",
- "about": "Italy: the concession's unit toll rates per km (euro, VAT excluded) by vehicle class, as the concessionaire's tariff sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them for 2025. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: B two axles over 1.30 m at the front axle, 3, 4 and 5 (five or more) axles. anas is the surcharge per km for ANAS (law 102/2009 art. 19 c. 9-bis: 0.006 classes A and B, 0.018 classes 3 to 5) where the sheet gives the rate without it; null where the sheet's rate already includes it or states none. Stretch: plain. Note: Tratta A4; A57 0.11549, Passante 0.23945 (class 5, + ANAS).",
+ "about": "Italy: the concession's unit toll rates per km (euro, VAT excluded) by vehicle class, as the concessionaire's tariff sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them for 2025. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: B two axles over 1.30 m at the front axle, 3, 4 and 5 (five or more) axles. anas is the surcharge per km for ANAS (law 102/2009 art. 19 c. 9-bis: 0.006 classes A and B, 0.018 classes 3 to 5) where the sheet gives the rate without it; null where the sheet's rate already includes it or states none. Stretches (all plain): Tratta A4 (Padova Est - A4/A13 interchange - A4/A57 interchange, p. 3), Tratta A57 (A4/A57 interchange - Mirano-Dolo - Mira-Oriago - Venezia Mestre, p. 4), Tratta A4 Passante (A4/A57 interchange - Spinea - Martellago-Scorzè - Preganziol - A4/A27 interchange - A57/A4 interchange, p. 4). Note: Tratta A4; A57 0.11549, Passante 0.23945 (class 5, + ANAS).",
  "source": {
   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/CAV.pdf",
   "sha256": "4f901e6a6d5276fe2353f4f9232861dedeb6742cdf872fcbc885bc8906a6af71",
@@ -8,21 +8,59 @@
  },
  "valid_from": "2025-01-01",
  "rates": {
-  "B": {
-   "unit": 0.04838,
-   "anas": 0.006
+  "A4": {
+   "B": {
+    "unit": 0.04838,
+    "anas": 0.006
+   },
+   "3": {
+    "unit": 0.05567,
+    "anas": 0.018
+   },
+   "4": {
+    "unit": 0.09197,
+    "anas": 0.018
+   },
+   "5": {
+    "unit": 0.11133,
+    "anas": 0.018
+   }
   },
-  "3": {
-   "unit": 0.05567,
-   "anas": 0.018
+  "A57": {
+   "B": {
+    "unit": 0.05023,
+    "anas": 0.006
+   },
+   "3": {
+    "unit": 0.05776,
+    "anas": 0.018
+   },
+   "4": {
+    "unit": 0.0954,
+    "anas": 0.018
+   },
+   "5": {
+    "unit": 0.11549,
+    "anas": 0.018
+   }
   },
-  "4": {
-   "unit": 0.09197,
-   "anas": 0.018
-  },
-  "5": {
-   "unit": 0.11133,
-   "anas": 0.018
+  "Passante": {
+   "B": {
+    "unit": 0.10296,
+    "anas": 0.006
+   },
+   "3": {
+    "unit": 0.12559,
+    "anas": 0.018
+   },
+   "4": {
+    "unit": 0.19983,
+    "anas": 0.018
+   },
+   "5": {
+    "unit": 0.23945,
+    "anas": 0.018
+   }
   }
  }
 }

@@ -120,6 +120,32 @@ class Urban(osmium.SimpleHandler):
         return unary_union(parts) if parts else None
 
 
+# Stretches a concession prices apart from the rest of its motorway: the
+# ways of an operator key east of a named motorway junction (the mean
+# longitude of the junction nodes of that name in the box) get the key
+# "operator|ref|label". SATAP's A4 charges its tariff B from Novara Est to
+# Milan; CAV's A4 is the stretch Padova Est-A4/A57 interchange and, east
+# of the interchange (OSM "A57 Venezia"), the Passante di Mestre.
+SPLITS = {"IT": [
+    ("SATAP S.p.A.|A4", "Novara Est", (8.6, 45.4, 8.8, 45.55), "Novara Est-Milano"),
+    ("CAV S.p.A.|A4", "A57 Venezia", (12.0, 45.4, 12.15, 45.5), "Passante"),
+]}
+
+
+class Junctions(osmium.SimpleHandler):
+    def __init__(self, splits):
+        super().__init__()
+        self.splits, self.found = splits, {}
+
+    def node(self, n):
+        if n.tags.get("highway") != "motorway_junction":
+            return
+        x, y = n.location.lon, n.location.lat
+        for key, name, (a, b, c, d), label in self.splits:
+            if n.tags.get("name") == name and a <= x <= c and b <= y <= d:
+                self.found.setdefault(key, []).append(x)
+
+
 class Ways(osmium.SimpleHandler):
     def __init__(self, rule, sections, urban=None):
         super().__init__()
@@ -130,6 +156,7 @@ class Ways(osmium.SimpleHandler):
         self.km = Counter()
         self.refs = Counter()
         self.ops, self.op_index, self.mwop, self.op_km = [], {}, [], Counter()
+        self.split_at = {}
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -167,6 +194,8 @@ class Ways(osmium.SimpleHandler):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
                     op = f"{op}|{ref}" if op else ""
+                    if op in self.split_at and piece.centroid.x > self.split_at[op][0]:
+                        op = f"{op}|{self.split_at[op][1]}"
                     if op and op not in self.op_index:
                         self.op_index[op] = len(self.ops)
                         self.ops.append(op)
@@ -192,6 +221,15 @@ def main(cc, src, dst, areas=None):
         sections = h.ways
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
     h = Ways(rule, sections, urban)
+    if SPLITS.get(cc):
+        j = Junctions(SPLITS[cc])
+        j.apply_file(src)
+        for key, name, box, label in SPLITS[cc]:
+            xs = j.found.get(key)
+            if not xs:
+                sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
+            h.split_at[key] = (sum(xs) / len(xs), label)
+            print(cc, "split", key, "east of", name, round(sum(xs) / len(xs), 4))
     h.apply_file(src, locations=True)
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))

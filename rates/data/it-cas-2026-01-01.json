@@ -6,7 +6,7 @@
  "crossings": true,
  "osm_extract": "2026-11-14",
  "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
- "law": "The Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026 by entry and exit station and class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, either way: A18 Messina-Catania (Messina Sud - Catania Nord class 5 EUR 10.90); A20 Messina-Palermo (Messina Nord - Buonfornello class 5 EUR 25.40). Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths), the others at the junctions whose exits are signposted to them. The A20's Villafranca barrier (an open-system fixed toll for the Villafranca exit) isn't modelled.",
+ "law": "The Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026 by entry and exit station and class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, either way: A18 Messina-Catania (Messina Sud - Catania Nord class 5 EUR 10.90); A20 Messina-Palermo (Messina Nord - Buonfornello class 5 EUR 25.40). Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths) beyond the end stations, the others at the junctions whose exits are signposted to them. The A20's Villafranca barrier (an open-system fixed toll for the Villafranca exit) isn't modelled.",
  "sources": [
   {
    "title": "Consorzio per le Autostrade Siciliane: tariffe pedaggio in vigore dal 1 gennaio 2026, A18 Messina-Catania",
@@ -57,8 +57,8 @@
      "points": [
       {
        "name": "between Acireale and Catania Nord",
-       "lat": 37.590268,
-       "lon": 15.127933,
+       "lat": 37.590231,
+       "lon": 15.127916,
        "heading": 201.1
       }
      ]
@@ -79,8 +79,8 @@
      "points": [
       {
        "name": "between Catania Nord and Acireale",
-       "lat": 37.590214,
-       "lon": 15.128048,
+       "lat": 37.590179,
+       "lon": 15.128031,
        "heading": 20.7
       }
      ]
@@ -156,8 +156,8 @@
      "points": [
       {
        "name": "between Messina Sud and Roccalumera",
-       "lat": 38.043023,
-       "lon": 15.458766,
+       "lat": 38.043021,
+       "lon": 15.458764,
        "heading": 225.3
       }
      ]
@@ -167,8 +167,8 @@
      "points": [
       {
        "name": "between Roccalumera and Messina Sud",
-       "lat": 38.042978,
-       "lon": 15.458898,
+       "lat": 38.042977,
+       "lon": 15.458897,
        "heading": 45.1
       }
      ]
@@ -622,8 +622,8 @@
      "points": [
       {
        "name": "between Buonfornello and Cefalu'",
-       "lat": 37.995897,
-       "lon": 13.912531,
+       "lat": 37.995896,
+       "lon": 13.912529,
        "heading": 65.9
       }
      ]
@@ -655,8 +655,8 @@
      "points": [
       {
        "name": "between Cefalu' and Buonfornello",
-       "lat": 37.996103,
-       "lon": 13.912521,
+       "lat": 37.996102,
+       "lon": 13.912518,
        "heading": 245.1
       }
      ]
@@ -700,7 +700,7 @@
       {
        "name": "between Messina Nord and Rometta",
        "lat": 38.236498,
-       "lon": 15.437347,
+       "lon": 15.437346,
        "heading": 224.0
       }
      ]

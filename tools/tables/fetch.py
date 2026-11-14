@@ -182,7 +182,10 @@ def overpass_failed(status, body):
         d = json.loads(body)
     except ValueError:
         return False
-    return bool(d.get("remark")) and not d.get("elements")
+    # A remark with elements is an answer cut short (a runtime error or a
+    # timeout part way): incomplete, so failed too.
+    r = d.get("remark") or ""
+    return bool(r) and (not d.get("elements") or "error" in r.lower() or "timed out" in r.lower())
 
 
 def main(src, out):
@@ -192,8 +195,8 @@ def main(src, out):
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             # Overpass answers 429/502/504 when busy and asks for backoff; a
-            # 200 with a "remark" and no elements is a query that timed out
-            # or ran out of memory: also retried, then an error (so the last
+            # 200 with an error "remark" is a query that timed out or ran out
+            # of memory (with no or part of its elements): also retried, then an error (so the last
             # run's copy is kept).
             for wait in (30, 60, 120, 240):
                 if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):

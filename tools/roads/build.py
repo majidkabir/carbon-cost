@@ -120,6 +120,23 @@ class Urban(osmium.SimpleHandler):
         return unary_union(parts) if parts else None
 
 
+# Operator keys whose way names and junctions the build prints (to place
+# the stretches some concessions price apart).
+LOOK = {"SATAP S.p.A.|A4", "CAV S.p.A.|A4"}
+
+
+class Junctions(osmium.SimpleHandler):
+    def __init__(self, box):
+        super().__init__()
+        self.box, self.found = box, []
+
+    def node(self, n):
+        if n.tags.get("highway") == "motorway_junction":
+            x, y = n.location.lon, n.location.lat
+            if any(a <= x <= c and b <= y <= d for a, b, c, d in self.box):
+                self.found.append((round(x, 4), round(y, 4), n.tags.get("name", ""), n.tags.get("ref", "")))
+
+
 class Ways(osmium.SimpleHandler):
     def __init__(self, rule, sections, urban=None):
         super().__init__()
@@ -130,6 +147,7 @@ class Ways(osmium.SimpleHandler):
         self.km = Counter()
         self.refs = Counter()
         self.ops, self.op_index, self.mwop, self.op_km = [], {}, [], Counter()
+        self.op_names = Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -171,6 +189,8 @@ class Ways(osmium.SimpleHandler):
                         self.op_index[op] = len(self.ops)
                         self.ops.append(op)
                     self.mwop.append(self.op_index.get(op, -1))
+                    if op in LOOK:
+                        self.op_names[(op, tags.get("name", ""), round(piece.centroid.x, 2))] += 1
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
@@ -205,6 +225,12 @@ def main(cc, src, dst, areas=None):
         out["ops"], out["mwop"] = h.ops, h.mwop
         for op, km in h.op_km.most_common():
             print("  operator", repr(op), round(km))
+        for k, n in sorted(h.op_names.items()):
+            print("  look", k, n)
+        j = Junctions([(8.4, 45.3, 9.2, 45.6), (11.85, 45.3, 12.5, 45.65)])
+        j.apply_file(src)
+        for x in sorted(j.found):
+            print("  junction", x)
     with gzip.open(dst, "wt", encoding="utf-8") as fo:
         json.dump(out, fo, separators=(",", ":"))
     print(cc, {k: len(v) for k, v in h.lines.items()}, {k: round(v) for k, v in h.km.items()})

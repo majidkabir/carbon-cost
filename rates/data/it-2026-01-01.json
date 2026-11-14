@@ -3,12 +3,88 @@
  "currency": "EUR",
  "valid_from": "2026-01-01",
  "valid_to": "2026-12-31",
- "name": "Italian motorway tolls (ESTIMATE: Autostrade per l'Italia's plain-stretch rate per km)",
- "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), other concessions have their own, mostly higher, rates, and the rounding and fixed-toll stretches aren't modelled, so the true toll can be higher.",
+ "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
+ "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: the concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied: the Ministry's note couldn't be found), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), some concessions price parts of their network higher (SATAP's A4 Novara Est-Milano, CAV's Passante di Mestre, SITAF's Salbertrand), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
  "sources": [
   {
    "title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)",
    "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"
+  },
+  {
+   "title": "MIT: Autostrada del Brennero, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/A22_Brennero.pdf"
+  },
+  {
+   "title": "MIT: Autostrada Asti-Cuneo, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Asti-Cuneo.pdf"
+  },
+  {
+   "title": "MIT: Autostrada dei Fiori (A6), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autostrada_dei_Fiori_A6.pdf"
+  },
+  {
+   "title": "MIT: Autostrade Alto Adriatico, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autostrade_Alto_Adriatico.pdf"
+  },
+  {
+   "title": "MIT: Autovia Padana (A21 Piacenza-Brescia), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autovia_Padana.pdf"
+  },
+  {
+   "title": "MIT: Brebemi, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/BRE.BE_.MI_.pdf"
+  },
+  {
+   "title": "MIT: Autostrada Brescia Verona Vicenza Padova, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Brescia-Padova.pdf"
+  },
+  {
+   "title": "MIT: Concessioni Autostradali Venete, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/CAV.pdf"
+  },
+  {
+   "title": "MIT: Concessioni del Tirreno, tariff sheet (Directive (EU) 2022/362 art. 11), p. 5",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/CDT_A10.pdf"
+  },
+  {
+   "title": "MIT: Milano Serravalle - Milano Tangenziali, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/MI_Serravalle_-_MI_Tangenziali.pdf"
+  },
+  {
+   "title": "MIT: Autostrada Pedemontana Lombarda, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Pedemontana_Lombarda.pdf"
+  },
+  {
+   "title": "MIT: RAV (A5 Aosta-Courmayeur), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/RAV.pdf"
+  },
+  {
+   "title": "MIT: SALT (A15 Autocisa), tariff sheet (Directive (EU) 2022/362 art. 11), p. 6",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SALT_A15.pdf"
+  },
+  {
+   "title": "MIT: SAT (A12 Tirrenica), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SAT.pdf"
+  },
+  {
+   "title": "MIT: SATAP, tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SATAP_A4.pdf"
+  },
+  {
+   "title": "MIT: SAV (A5 Quincinetto-Aosta), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SAV.pdf"
+  },
+  {
+   "title": "MIT: SITAF (A32), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SITAF.pdf"
+  },
+  {
+   "title": "MIT: Strada dei Parchi (A24, A25), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Strada_dei_Parchi.pdf"
+  },
+  {
+   "title": "MIT: Tangenziale Esterna (A58), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
+   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Tangenziale_esterna.pdf"
   }
  ],
  "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",
@@ -45,6 +121,788 @@
    "min_kg": 3501,
    "min_axles": 5,
    "rate": 0.19034
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada del Brennero S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.06479,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada del Brennero S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.08805,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada del Brennero S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.13117,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada del Brennero S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.15415
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Asti-Cuneo S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.16642,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Asti-Cuneo S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.27099,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Asti-Cuneo S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.35397,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Asti-Cuneo S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.40936
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada dei Fiori S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.09493,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada dei Fiori S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.13587,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada dei Fiori S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.20594,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada dei Fiori S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.23669
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Alto Adriatico S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.07997,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Alto Adriatico S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.10547,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Alto Adriatico S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.15991,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Alto Adriatico S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.18898
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autovia Padana S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.08046,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autovia Padana S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.10605,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autovia Padana S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.16095,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autovia Padana S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.19015
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società di Progetto Brebemi S.p.A",
+   "min_kg": 3501,
+   "rate": 0.27256,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società di Progetto Brebemi S.p.A",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.33415,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società di Progetto Brebemi S.p.A",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.53108,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società di Progetto Brebemi S.p.A",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.63647
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Brescia Verona Vicenza Padova S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.07067,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Brescia Verona Vicenza Padova S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.09482,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Brescia Verona Vicenza Padova S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.14237,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Brescia Verona Vicenza Padova S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.1677
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.06634,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.08988,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.13416,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "CAV S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.15778
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.|A10",
+   "min_kg": 3501,
+   "rate": 0.15049,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.|A10",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.24601,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.|A10",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.32075,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.|A10",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.37051
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.09948,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.14179,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.2155,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Concessioni del Tirreno S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.24777
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Milano Serravalle - Milano Tangenziali S.p.A.|A7",
+   "min_kg": 3501,
+   "rate": 0.07066,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Milano Serravalle - Milano Tangenziali S.p.A.|A7",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.09481,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Milano Serravalle - Milano Tangenziali S.p.A.|A7",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.14234,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Milano Serravalle - Milano Tangenziali S.p.A.|A7",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.16769
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A36",
+   "min_kg": 3501,
+   "rate": 0.27983,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A36",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.27983,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A36",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.30439,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A36",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.30439
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A59",
+   "min_kg": 3501,
+   "rate": 0.26756,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A59",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.26756,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A59",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.29095,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A59",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.29095
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A60",
+   "min_kg": 3501,
+   "rate": 0.26756,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A60",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.26756,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A60",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.29095,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Autostrada Pedemontana Lombarda S.p.A .|A60",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.29095
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "RAV Raccordo Autostradale Valle d'Aosta S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.46975,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "RAV Raccordo Autostradale Valle d'Aosta S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.62588,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "RAV Raccordo Autostradale Valle d'Aosta S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.99459,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "RAV Raccordo Autostradale Valle d'Aosta S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 1.15589
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrada Ligure Toscana p.a.|A15",
+   "min_kg": 3501,
+   "rate": 0.13418,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrada Ligure Toscana p.a.|A15",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.18682,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrada Ligure Toscana p.a.|A15",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.28826,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrada Ligure Toscana p.a.|A15",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.33267
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SAT p.A.",
+   "min_kg": 3501,
+   "rate": 0.23645,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SAT p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.32256,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SAT p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.50458,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SAT p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.58418
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4",
+   "min_kg": 3501,
+   "rate": 0.13932,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.1737,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.27276,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SATAP S.p.A.|A4",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.32551
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.|A21",
+   "min_kg": 3501,
+   "rate": 0.08912,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.|A21",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.116,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.|A21",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.17739,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Ivrea Torino Piacenza S.p.A.|A21",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.2101
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Valdostane S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.2181,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Valdostane S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.29592,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Valdostane S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.46458,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Società Autostrade Valdostane S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.5384
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SITAF S.p.A.|A32",
+   "min_kg": 3501,
+   "rate": 0.18538,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SITAF S.p.A.|A32",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.30103,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SITAF S.p.A.|A32",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.39324,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "SITAF S.p.A.|A32",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.45513
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Strada dei Parchi S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.10714,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Strada dei Parchi S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.13682,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Strada dei Parchi S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.21166,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Strada dei Parchi S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.25161
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Tangenziale Esterna S.p.A.",
+   "min_kg": 3501,
+   "rate": 0.24678,
+   "max_axles": 2
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Tangenziale Esterna S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "rate": 0.30513,
+   "max_axles": 3
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Tangenziale Esterna S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.48162,
+   "max_axles": 4
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "operator": "Tangenziale Esterna S.p.A.",
+   "min_kg": 3501,
+   "min_axles": 5,
+   "rate": 0.57573
   }
  ]
 }

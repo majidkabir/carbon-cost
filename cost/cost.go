@@ -626,13 +626,43 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		// Fixed-charge sections on the route: their km pay the section
 		// charge instead of the per-km infrastructure rate.
 		secs, secKm := onRoute(tb, route)
+		// Where the motorway rates differ by operator (Italy's concessions),
+		// the motorway km split by the operators of the ways they're on.
+		type opPart struct {
+			road, op string
+			km       float64
+		}
+		var ops []opPart
 		for _, pt := range parts {
+			if pt.road == rates.Motorway && byRoute && tb.ByOperator() && rk.Motorway > 0 && pt.km > 0 {
+				keys := make([]string, 0, len(rk.MotorwayOp))
+				on := 0.0
+				for k, v := range rk.MotorwayOp {
+					keys = append(keys, k)
+					on += v
+				}
+				sort.Strings(keys)
+				for _, k := range keys {
+					ops = append(ops, opPart{pt.road, k, pt.km * rk.MotorwayOp[k] / rk.Motorway})
+				}
+				if rest := rk.Motorway - on; rest > 1e-9 {
+					ops = append(ops, opPart{pt.road, "", pt.km * rest / rk.Motorway})
+				}
+				continue
+			}
+			ops = append(ops, opPart{pt.road, "", pt.km})
+		}
+		for _, pt := range ops {
 			if pt.km <= 0 && pt.road != "" {
 				continue
 			}
 			prs := rs
 			if pt.road != "" {
-				prs, _, _ = tb.RatesOn(req.Truck, date, pt.road)
+				prs, _, _ = tb.RatesFor(req.Truck, date, pt.road, pt.op)
+			}
+			section := ""
+			if pt.op != "" {
+				section = opName(pt.op)
 			}
 			for _, r := range prs {
 				if r.PerKm == 0 {
@@ -649,7 +679,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 					}
 					km *= sh
 				}
-				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Area: r.Area, Component: r.Component,
+				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Area: r.Area, Component: r.Component, Section: section,
 					Carbon: r.Component == rates.CO2, Km: round3(km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
 					Amount: km * r.PerKm, Source: tb.Law}
 				if tb.PerTonneKm {
@@ -1720,4 +1750,14 @@ func areaCharges(out *Response, req Request, date time.Time, route *track, add f
 		}
 	}
 	return nil
+}
+
+// opName is an operator key ("operator|ref") as a line's section:
+// "operator (ref)".
+func opName(op string) string {
+	name, ref, _ := strings.Cut(op, "|")
+	if ref == "" {
+		return name
+	}
+	return name + " (" + ref + ")"
 }

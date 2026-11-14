@@ -1981,6 +1981,41 @@ func TestItalyEstimate(t *testing.T) {
 	}
 }
 
+// Italy by concession: km on Autostrada del Brennero's A22 at its own
+// 2025 unit rate (class 5 0.12635, the sheet's rate with the ANAS
+// surcharge, x 1.22 VAT = 0.15415), km on ASPI's A1 at ASPI's 2026 rate
+// (0.19034); the A22 line names the operator.
+func TestItalyOperators(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
+	a22 := [][2]float64{{11.23365, 46.27388}, {11.23330, 46.27256}, {11.23269, 46.27110}, {11.22905, 46.26516}, {11.22814, 46.26390}, {11.22080, 46.25646}, {11.21933, 46.25522}, {11.21460, 46.25186}, {11.21032, 46.24804}, {11.20789, 46.24664}, {11.19945, 46.24312}, {11.17430, 46.23473}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{
+		{DistanceKm: 7, CountryKm: map[string]float64{"IT": 7}, Path: a1},
+		{DistanceKm: 6.6, CountryKm: map[string]float64{"IT": 6.6}, Path: a22},
+	}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a1}, {Kind: "road", Country: "IT", Points: a22}})
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := map[float64]float64{}
+	for _, l := range r.Lines {
+		if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll {
+			got[l.Rate] += l.Km
+			if l.Rate == 0.15415 && !strings.Contains(l.Section, "Autostrada del Brennero") {
+				t.Errorf("A22 line section %q", l.Section)
+			}
+		}
+	}
+	if got[0.19034] < 6 || got[0.15415] < 5 || len(got) != 2 {
+		t.Errorf("IT km by rate %v, lines %v", got, r.Lines)
+	}
+}
+
 // London's Low Emission Zone: lorries over 3.5 t below Euro VI pay GBP 100
 // a day (Euro IV or V) or 300 (older), any hour; Euro VI pays nothing.
 func TestLondonLEZ(t *testing.T) {

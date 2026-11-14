@@ -54,8 +54,13 @@ type Row struct {
 	// Area is set where the rate depends on whether the road is
 	// suburban or interurban (Suburban or Interurban): the row applies to
 	// that share of the km (Table.SuburbanShare).
-	Area string  `json:"area,omitempty"`
-	Rate float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
+	Area string `json:"area,omitempty"`
+	// Operator is set where the rate depends on who runs the road (Italy's
+	// concessions): the row applies only to Motorway km on ways of that
+	// operator, "operator" or "operator|ref" as roads.Km.MotorwayOp keys
+	// them; rows without one apply to the other operators' km.
+	Operator string  `json:"operator,omitempty"`
+	Rate     float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
 }
 
 // Areas for rates that differ by suburban or interurban road.
@@ -667,9 +672,40 @@ func (tb Table) Roads() []string {
 	return out
 }
 
+// ByOperator says whether the table's motorway rates differ by operator.
+func (tb Table) ByOperator() bool {
+	for _, r := range tb.Rows {
+		if r.Operator != "" {
+			return true
+		}
+	}
+	return false
+}
+
+// OperatorMatch is how well a row's Operator fits a way's op key
+// ("operator|ref"): 2 the key itself, 1 its operator, 0 not at all.
+func OperatorMatch(row, op string) int {
+	switch {
+	case row == "" || op == "":
+		return 0
+	case row == op:
+		return 2
+	case !strings.Contains(row, "|") && strings.SplitN(op, "|", 2)[0] == row:
+		return 1
+	}
+	return 0
+}
+
 // RatesOn is Rates for km on one road type: rows for that road and rows
-// for any road.
+// for any road (not an operator's).
 func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exemptNote string, ok bool) {
+	return tb.RatesFor(t, date, road, "")
+}
+
+// RatesFor is RatesOn for km on an operator's ways (op as
+// roads.Km.MotorwayOp keys them): for each component the rows that fit
+// the operator best, else those without one.
+func (tb Table) RatesFor(t Truck, date time.Time, road, op string) (rs []Rate, exemptNote string, ok bool) {
 	if t.MaxMassKg < tb.MinKg {
 		return nil, "", false
 	}
@@ -681,9 +717,19 @@ func (tb Table) RatesOn(t Truck, date time.Time, road string) (rs []Rate, exempt
 			return nil, e.Note, true
 		}
 	}
+	// The best operator match per component (0: the rows without one).
+	best := map[string]int{}
+	for _, r := range tb.Rows {
+		if m := OperatorMatch(r.Operator, op); m > best[r.Component+"/"+r.Area] && r.matches(t) && (r.Road == "" || r.Road == road) {
+			best[r.Component+"/"+r.Area] = m
+		}
+	}
 	seen := map[string]bool{}
 	for _, r := range tb.Rows {
 		if r.Component == EnvZoneSurcharge || seen[r.Component+"/"+r.Area] || !r.matches(t) || (r.Road != "" && r.Road != road) {
+			continue
+		}
+		if m := OperatorMatch(r.Operator, op); (r.Operator != "" && m == 0) || m != best[r.Component+"/"+r.Area] {
 			continue
 		}
 		seen[r.Component+"/"+r.Area] = true

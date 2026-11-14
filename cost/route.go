@@ -142,6 +142,12 @@ func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
 			t.Local += k.Local
 			t.Uncertain += k.Uncertain
 			t.MotorwayKnown += k.MotorwayKnown
+			for op, km := range k.MotorwayOp {
+				if t.MotorwayOp == nil {
+					t.MotorwayOp = map[string]float64{}
+				}
+				t.MotorwayOp[op] += km
+			}
 			t.NationalKnown += k.NationalKnown
 			t.MotorwaySub += k.MotorwaySub
 			t.NationalSub += k.NationalSub

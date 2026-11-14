@@ -1,0 +1,28 @@
+{
+ "operator": "Autovia Padana (A21 Piacenza-Brescia)",
+ "about": "Italy: the concession's unit toll rates per km (euro, VAT excluded) by vehicle class, as the concessionaire's tariff sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them for 2025. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: B two axles over 1.30 m at the front axle, 3, 4 and 5 (five or more) axles. anas is the surcharge per km for ANAS (law 102/2009 art. 19 c. 9-bis: 0.006 classes A and B, 0.018 classes 3 to 5) where the sheet gives the rate without it; null where the sheet's rate already includes it or states none. Stretch: plain. Note: from 1 Jan 2024; Ospitaletto-Montichiari link higher.",
+ "source": {
+  "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autovia_Padana.pdf",
+  "sha256": "7cb5cdcde5d746401558a5f56d1c04858481b514173a00c8b2df9e936f1c6dac",
+  "page": 3
+ },
+ "valid_from": "2025-01-01",
+ "rates": {
+  "B": {
+   "unit": 0.05995,
+   "anas": 0.006
+  },
+  "3": {
+   "unit": 0.06893,
+   "anas": 0.018
+  },
+  "4": {
+   "unit": 0.11393,
+   "anas": 0.018
+  },
+  "5": {
+   "unit": 0.13786,
+   "anas": 0.018
+  }
+ }
+}

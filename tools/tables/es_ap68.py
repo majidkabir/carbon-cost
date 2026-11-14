@@ -59,30 +59,95 @@ def tables(text):
 
 def main(fetched, out, year="2026"):
     text = open(os.path.join(fetched, f"es-min-ap68-{year}.txt"), encoding="utf-8").read()
+    flat = re.sub(r"\s+", " ", text)
     t = tables(text)
     if len(t.get("G", {})) < 200 or len(t.get("HA", {})) < 30 or len(t.get("ZT", {})) < 150:
-        sys exit = None
-    for need in ("ZIORRAGA-ALTUBE", "quedarán exentos", "Real Decreto 584/2014", "Real Decreto 757/2019", "bonificación del 75%"):
-        if need not in re.sub(r"\s+", " ", text):
+        sys.exit(f"AP-68: tables of {[(k, len(v)) for k, v in t.items()]} pairs")
+    for need in ("RECORRIDO ZIORRAGA-ALTUBE", "los vehículos pesados que utilicen el tramo Ziorroga-Altube, con entrada y salida por los enlaces del mismo nombre, quedarán exentos",
+                 "Real Decreto 584/2014", "Real Decreto 757/2019", "los vehículos pesados 2 que realicen recorridos internos en el tramo Zambrana-Tudela disfrutarán de una bonificación del 75%",
+                 "cuando se abone el peaje con el sistema dinámico"):
+        if need not in flat:
             sys.exit(f"AP-68: the Ministry's notes no longer say {need!r}")
     names = {x for k in t["G"] for x in k} - {"BILBAO-A.SERV.", "ARRIG.-BILBAO"}
     if names != set(ORDER):
         sys.exit(f"AP-68: stations changed: {sorted(names ^ set(ORDER))}")
 
-    def price(a, b, tb, g):
-        v = tb.get((a, b)) or tb.get((b, a))
-        return v and v[g]
-
     osm = json.load(open(os.path.join(fetched, "es-ap68-links-osm.json")))
+    stamp = osm.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
     ls = es_stretch.lines(osm, ["AP-68"])
     juncs = es_stretch.signs(osm)
     keys = {s: SIGN.get(s, [es_stretch.plain(s)]) for s in ORDER}
-    match = lambda s, words: any(re.search(r"\b" + k + r"\b", words) for k in keys[s])
-    pts = {}
+    match = lambda s, w: any(re.search(r"\b" + k + r"\b", w) for k in keys[s])
+    pts, filled = {}, set()
     for line in ls:
         cum = m6toll.along(line)
-        got = es_stretch.assign(ORDER[1:-1], match, line, cum, juncs)
+        if cum[-1] < 20:
+            continue
+        got, seq = es_stretch.assign(ORDER[1:-1], match, line, cum, juncs)
+        if len(got) < 5:
+            continue
+        seq = [ORDER[0]] + seq + [ORDER[-1]] if seq[0] == ORDER[1] else [ORDER[-1]] + seq + [ORDER[0]]
+        # The motorway's ends: Bilbao and Zaragoza where the carriageway ends.
+        if es_stretch.open_end(line[0], m6toll.at(line, cum, 0)[1], ls, line):
+            got[seq[0]] = 0.0
+        if es_stretch.open_end(line[-1], m6toll.at(line, cum, cum[-1])[1], ls, line):
+            got[seq[-1]] = cum[-1]
+        filled |= set(es_stretch.fill(seq, got, line, cum, juncs))
         for s, x in got.items():
             pts.setdefault(s, []).append(m6toll.at(line, cum, x)[0])
-    # The ends: the carriageways' ends nearest Bilbao and Zaragoza.
-    ...
+    miss = [s for s in ORDER if s not in pts]
+    secs = es_stretch.stretches(ls, pts)
+
+    def find(tb, a, b):
+        v = tb.get((a, b)) or tb.get((b, a))
+        return v
+
+    exempt = {("ZIORRAGA", "ALTUBE"), ("ALTUBE", "ZIORRAGA")}
+
+    def cash(a, b):
+        if (a, b) in exempt:
+            return {"P1": 0.0, "P2": 0.0}
+        v = find(t["G"], a, b)
+        return v and {"P1": round(v[0] / VAT, 4), "P2": round(v[1] / VAT, 4)}
+
+    def tag(a, b):
+        c = cash(a, b)
+        if not c:
+            return None
+        out = dict(c)
+        ha, zt = find(t.get("HA", {}), a, b), find(t.get("ZT", {}), a, b)
+        if ha:
+            out = {"P1": min(out["P1"], round(ha[0] / VAT, 4)), "P2": min(out["P2"], round(ha[1] / VAT, 4))}
+        if zt:
+            out["P2"] = min(out["P2"], round(zt[1] / VAT, 4))
+        return out if out != c else None
+
+    groups = [{"name": "P2", "min_kg": 3501, "min_axles": 4}, {"name": "P1", "min_kg": 3501}]
+    cs = es_stretch.system("AP-68", "The Ministry of Transport's tolls in force: by entry and exit, either way; with a tag, the Haro–Alfaro and Zambrana–Tudela tables.", secs, cash, groups, label)
+    cs["etc_prices"] = es_stretch.system("AP-68", "", secs, tag, groups, label)["prices"]
+    g = t["G"][("BILBAO", "ZARAGOZA")]
+    tb = {
+        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "crossings": True, "osm_extract": stamp,
+        "name": "AP-68 Bilbao – Zaragoza (Avasa)",
+        "law": (f"The Ministry of Transport's tolls in force from 1 January {year} on the AP-68: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; "
+                f"Bilbao – Zaragoza EUR {g[1]:.2f} with IVA), excluding 21% IVA. Heavy vehicles between Ziorraga and Altube are exempt (the Diputación Foral de Álava's convenio). "
+                "Paying by tag (sistema dinámico, `etc`): the Haro–Alfaro tolls after Real Decreto 584/2014's 50% (Cenicero–Agoncillo free) and the Zambrana–Tudela Pesados 2 tolls "
+                "after Real Decreto 757/2019's 75%, where lower. Stations: each carriageway's stretch between two consecutive entries/exits, at the OpenStreetMap junctions whose exits are "
+                "signposted to them in the table's order"
+                + (f", {', '.join(label(s) for s in sorted(filled, key=ORDER.index))} by elimination (the only numbered junction between their neighbours)" if filled else "")
+                + ", Bilbao and Zaragoza at the motorway's ends"
+                + (f"; not placed: {', '.join(label(s) for s in miss)}" if miss else "") + ". Bilbao's service area – Arrigorriaga-Bilbao ramp isn't built."),
+        "sources": [{"title": f"Ministerio de Transportes: peajes vigentes AP-68 {year}", "url": f"https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-{year}.pdf"},
+                    {"title": "OpenStreetMap (Overpass API): AP-68 carriageways, junctions and signposted links", "url": "https://www.openstreetmap.org/"}],
+        "vehicles": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more", "min_kg": 3501,
+        "tolled_roads": "AP-68 from Bilbao to Zaragoza.",
+        "closed_systems": [cs], "rows": [],
+    }
+    os.makedirs(out, exist_ok=True)
+    path = os.path.join(out, f"es-ap68-{year}-01-01.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, f"{len(ORDER) - len(miss)}/{len(ORDER)} placed (by elimination: {sorted(filled)}),", len(secs), "stretches,", len(cs["prices"]), "pairs,", len(cs["etc_prices"]), "tag pairs" + (f"; unplaced {miss}" if miss else ""))
+
+
+if __name__ == "__main__":
+    main(*sys.argv[1:])

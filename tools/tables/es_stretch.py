@@ -148,6 +148,41 @@ def assign(order, match, line, cum, juncs, booths=(), near=0.06):
     return best, how
 
 
+def fill(seq, got, line, cum, juncs, near=0.06):
+    """Places, by elimination, stations no junction is signposted to:
+    where a run of them lies between two placed stations (in the order
+    seq, as the line runs) and exactly as many numbered interchanges
+    (junction nodes with an exit ref, within 1.5 km of each other; not
+    rest areas) lie between those two, more than 0.75 km from either, one
+    station each in order. Returns the stations so placed."""
+    xs = sorted(x for x, d, w in ((*m6toll.project(line, cum, p), w) for p, w, ref in juncs if ref) if d < near and "area de" not in w)
+    groups, cl = [], []
+    for x in xs + [None]:
+        if x is not None and (not cl or x - cl[-1] < 1.5):
+            cl.append(x)
+            continue
+        if cl:
+            groups.append(sum(cl) / len(cl))
+        cl = [x] if x is not None else []
+    done, i = [], 0
+    while i < len(seq):
+        if seq[i] in got:
+            i += 1
+            continue
+        j = i
+        while j < len(seq) and seq[j] not in got:
+            j += 1
+        if i > 0 and j < len(seq):
+            a, b = got[seq[i - 1]], got[seq[j]]
+            between = [g for g in groups if a + 0.75 < g < b - 0.75]
+            if a < b and len(between) == j - i:
+                for s, g in zip(seq[i:j], between):
+                    got[s] = g
+                    done.append(s)
+        i = j
+    return done
+
+
 def stretches(ls, pts, tol=0.15):
     """[(entry, exit, (lon, lat), heading)]: each carriageway (ls, one-way
     lines) cut at the stations (pts: {station: [(lon, lat)]}, the mean of

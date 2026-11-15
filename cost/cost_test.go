@@ -2466,6 +2466,39 @@ func TestGipuzkoaNIA15(t *testing.T) {
 // The AP-53 (Ministry of Transport's tolls in force 2026, IVA included):
 // Pesados 2 from Santiago to Alto de Santo Domingo 7.25, Ribadulla to
 // Silleda 2.45 (Pesados 1: 2.05). The paths run through the stretches' middles,
+// Milan's ring roads: a fixed toll at each barrier (Milano Serravalle,
+// 2026, VAT included), class 5: Terrazzano 8.40, Vimercate 4.90, Sesto San
+// Giovanni 6.30; class B at Terrazzano 3.60. The paths cross each barrier.
+func TestMilanBarriers(t *testing.T) {
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Terrazzano", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, truck40, 8.40},
+		{"Terrazzano, class B", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, light, 3.60},
+		{"Vimercate", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 4.90},
+		{"Sesto San Giovanni", [][2]float64{{9.2590, 45.5510}, {9.263721, 45.55137}, {9.2680, 45.5517}}, truck40, 6.30},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "barrier") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Sicily's A18 and A20 (Consorzio per le Autostrade Siciliane, 2026, VAT
 // included): class 5 Messina Sud to Catania Nord 10.90, Roccalumera to
 // Taormina 2.50; Messina Nord to Buonfornello 25.40 (class B 10.60). The

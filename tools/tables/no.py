@@ -22,7 +22,8 @@ Each AutoPASS toll station becomes a toll point with:
 - the rush hours where "Rushtidstakst stor bil" applies: the hours of the
   project's tariff decision (RUSH), checked against the station's
   "Rushtid morgen/ettermiddag, fra/til" (NVDB writes the end either as the
-  last minute, 08:59, or as the end, 09:00), on the days of RUSH_DAYS.
+  last minute, 08:59, or as the end, 09:00), Monday to Friday except
+  RUSH_DAYS and the project's own rush-free days.
   A station whose project RUSH lacks, or whose NVDB hours differ, keeps
   only its off-peak price (a warning says so).
 Stations without a large-vehicle price, ferry collection points and
@@ -33,22 +34,22 @@ table is valid from the latest version date of the stations
 import glob, html, json, math, os, re, sys, unicodedata
 
 
-# The days without rush-hour prices besides weekends: Norway's public
-# holidays (offentlige fridager), Christmas Eve, New Year's Eve and the
-# Wednesday before Maundy Thursday (Takstretningslinjer § 3.3;
-# rates.NorwegianRushFree).
+# The days without rush-hour prices besides weekends, for every project:
+# Norway's public holidays (offentlige fridager: rates.NorwegianHoliday).
 RUSH_DAYS = ["norwegian_holidays"]
 
 # Rush-hour pricing by toll project (NVDB "Navn bompengeanlegg"): the rush
 # hours of its tariff decision (from, to; the end excluded), its rush-free
-# days besides RUSH_DAYS, what the hour rule charges ("first": the first
-# passage of the hour, AutoPASS's practice, Vegdirektoratet 27.09.2018,
-# 15/233884-22; "highest": the hour's highest price) and the sources
-# (tools/tables/sources.json ids) with what they must still say.
+# days besides RUSH_DAYS ("norwegian_eves": Christmas Eve, New Year's Eve
+# and the Wednesday before Maundy Thursday; "july"), what the hour rule
+# charges ("first": the first passage of the hour, AutoPASS's practice,
+# Vegdirektoratet 27.09.2018, 15/233884-22; "highest": the hour's highest
+# price) and the sources (tools/tables/sources.json ids) with what they
+# must still say.
 RUSH = {
     "Fjellinjen AS": {
         "hours": [("06:30", "09:00"), ("15:00", "17:00")], "free_days": ["july"], "pays": "highest",
-        "check": {"no-rush-fjellinjen": ["06.30 and 09.00", "15.00 and 17.00", "public holidays or in July"],
+        "check": {"no-rush-fjellinjen": ["06.30 and 09.00", "15.00 and 17.00", "Saturdays, Sundays or public holidays or in July"],
                   "no-rush-fjellinjen-hour": ["høyeste taksten ved flere passeringer med ulik takst innenfor en time"]}},
     "Ferde AS - Bomringen Bergen": {
         "hours": [("06:30", "09:00"), ("14:30", "16:30")], "free_days": [], "pays": "highest",
@@ -56,18 +57,19 @@ RUSH = {
                   "no-rush-bergen-decision": ["høyeste taksten ved flere passeringer med ulik takst innenfor en time"]}},
     "Ferde AS - Bomringen i Kristiansand": {
         "hours": [("06:30", "09:00"), ("14:30", "17:00")], "free_days": [], "pays": "first",
-        "check": {"no-rush-kristiansand": ["06:30-09:00 og 14:30-17:00"]}},
+        "check": {"no-rush-kristiansand": ["Rushtid (06:30-", "09:00 og 14:30-17:00)"],
+                  "no-rush-kristiansand-days": ["mandag til fredag unntatt for offentlige fri og helligdager"]}},
     "Vegamot AS": {
-        "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": [], "pays": "first",
-        "check": {"no-rush-vegamot": ["07:00 til 09:00, og 15:00-17:00", "julaften, nyttårsaften og onsdag før påske"]}},
+        "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": ["norwegian_eves"], "pays": "first",
+        "check": {"no-rush-vegamot": ["07:00 til 09:00, og 15:00-17:00", "lørdag, søndag eller helligdager", "julaften, nyttårsaften og onsdag før påske"]}},
     "Bypakke Tenk Tromsø - BPS Nord": {
-        "hours": [("06:30", "09:00"), ("15:00", "17:00")], "free_days": [], "pays": "first",
-        "check": {"no-rush-tromso": ["mandag-fredag kl. 06.30-09:00 og kl. 15.00-17.00", "første registrerte passeringen"]}},
+        "hours": [("06:30", "09:00"), ("15:00", "17:00")], "free_days": ["norwegian_eves"], "pays": "first",
+        "check": {"no-rush-tromso": ["mandag-fredag kl. 06.30-09:00 og kl. 15.00-17.00", "første registrerte passeringen"],
+                  "no-rush-tromso-days": ["offisielle fridager, noe som omfatter julaften, nyttårsaften og onsdag før påske"]}},
     "Vegfinans Bypakke Grenland AS": {
         "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": [], "pays": "first",
         "check": {"no-rush-grenland": ["mandag - fredag kl. 07:00 - 09:00 og kl. 15:00 - 17:00, unntatt offentlige fri- og helgedager"]}},
 }
-RUSH_CHECK = {"no-rush-guidelines": ["onsdag før skjærtorsdag", "julaften, nyttårsaften"]}
 
 
 def check_rush(fetched):
@@ -75,7 +77,7 @@ def check_rush(fetched):
     def norm(t):
         t = unicodedata.normalize("NFKC", t)
         return re.sub(r"\s+", " ", re.sub(r"[‐-―−]", "-", t)).replace(" - ", "-").replace("- ", "-").lower()
-    want = dict(RUSH_CHECK)
+    want = {}
     for r in RUSH.values():
         want.update(r["check"])
     for sid, phrases in sorted(want.items()):
@@ -192,7 +194,7 @@ def point(o, seqs, closed=False):
 
 def rush_sources():
     src = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
-    ids = list(RUSH_CHECK) + [i for r in RUSH.values() for i in r["check"]]
+    ids = [i for r in RUSH.values() for i in r["check"]]
     return [{"title": src[i]["what"], "url": src[i]["url"]} for i in ids]
 
 
@@ -216,7 +218,7 @@ def main(fetched, out):
     tb = {
         "country": "NO", "currency": "NOK", "valid_from": valid_from,
         "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
-        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (offentlige fridager), Christmas Eve, New Year's Eve and the Wednesday before Maundy Thursday (Takstretningslinjer for bompengeprosjekt på offentlig veg, Vegdirektoratet, July 2025, § 3.3), at Fjellinjen not in July. Tolls carry no VAT.",
+        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Tolls carry no VAT.",
         "sources": [{"title": "NVDB API: Bomstasjon (Statens vegvesen)", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45"}] + rush_sources(),
         "vehicles": "Vehicles over 3,500 kg (takstgruppe 2)",
         "min_kg": 3501,

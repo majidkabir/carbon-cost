@@ -2681,8 +2681,7 @@ func TestAP68(t *testing.T) {
 }
 
 // Norway's rush hours: the rush-hour price within the hours on weekdays
-// other than public holidays and their eves (and July where the project
-// says so); the hour rule charges the first passage, or the hour's highest
+// other than public holidays (and July where the project says so); the hour rule charges the first passage, or the hour's highest
 // price where the group pays the highest.
 func TestNorwayRush(t *testing.T) {
 	rush := &rates.Rush{Hours: [][]string{{"06:30", "08:59"}, {"15:00", "16:59"}}, FreeDays: []string{"norwegian_holidays"}}
@@ -2726,8 +2725,9 @@ func TestNorwayRush(t *testing.T) {
 		{"2026-11-05", "07:00", "", false, 150},        // both in rush: A pays
 		{"2026-11-05", "12:00", "highest", false, 100}, // off-peak
 		{"2026-11-07", "07:00", "highest", false, 100}, // Saturday
-		{"2026-12-24", "07:00", "highest", false, 100}, // Christmas Eve
-		{"2026-04-01", "07:00", "highest", false, 100}, // the Wednesday before Maundy Thursday
+		{"2026-12-24", "07:00", "highest", false, 150}, // Christmas Eve: only norwegian_eves frees it
+		{"2026-12-25", "07:00", "highest", false, 100}, // Christmas Day
+		{"2026-05-01", "07:00", "highest", false, 100}, // 1 May
 		{"2026-05-14", "07:00", "highest", false, 100}, // Ascension Day
 		{"2026-07-01", "07:00", "highest", false, 150},
 		{"2026-07-01", "07:00", "highest", true, 100}, // no rush-hour price in July (Fjellinjen)

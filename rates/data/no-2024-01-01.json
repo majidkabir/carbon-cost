@@ -4,15 +4,11 @@
  "valid_from": "2024-01-01",
  "valid_to": "2026-11-11",
  "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
- "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). A station's version is the one in force on the trip's date. Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (offentlige fridager), Christmas Eve, New Year's Eve and the Wednesday before Maundy Thursday (Takstretningslinjer for bompengeprosjekt på offentlig veg, Vegdirektoratet, July 2025, § 3.3), at Fjellinjen not in July. Tolls carry no VAT.",
+ "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). A station's version is the one in force on the trip's date. Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Tolls carry no VAT.",
  "sources": [
   {
    "title": "NVDB API: Bomstasjon (Statens vegvesen), all versions",
    "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?alle_versjoner=true"
-  },
-  {
-   "title": "Norway: Takstretningslinjer for bompengeprosjekt på offentlig veg (Vegdirektoratet), the days without rush-hour prices",
-   "url": "https://www.autopass.no/siteassets/filer-og-vedlegg/04.-takstretningslinjene/takstretninglinjer-for-bompengeprosjekt-pa-offentlig-veg---februar-2025.pdf"
   },
   {
    "title": "Norway: Fjellinjen, Tariffs and toll stations (rush hours; not on Saturdays, Sundays, public holidays or in July)",
@@ -35,12 +31,20 @@
    "url": "https://cdn.sanity.io/files/0cmsx83u/production/92146f48ce9d1aae9556bb25fead7ed480e18126.pdf"
   },
   {
+   "title": "Norway: Prop. 88 S (2022–2023), Kristiansand bystyre 1 December 2021: rush hours Monday to Friday except public holidays",
+   "url": "https://cms12.regjeringen.no/contentassets/e8c4b61337d648259fd23e835a6da0a1/no/pdfs/prp202220230088000dddpdfs.pdf"
+  },
+  {
    "title": "Norway: Vegdirektoratet, takstvedtak Miljøpakke Trondheim (Vegamot), rush hours and rush-free days",
    "url": "https://www.vegamot.no/getfile.php/133105-1793699450/6.%20Takstvedtak%20og%20Kunngj%C3%B8ringer/11.%20Milj%C3%B8pakken%20Trondheim/Takstvedtak%20Milj%C3%B8pakke%20Trondheim%20for%20tunge%20nullutslippskj%C3%B8ret%C3%B8y%20.PDF"
   },
   {
    "title": "Norway: Vegdirektoratet, takstvedtak Bypakke Tenk Tromsø 2026 (rush hours; the hour rule charges the first passage)",
    "url": "https://bpsnord.no/wp-content/uploads/2026/07/Takstvedtak-nullutslipp-Bypakke-Tenk-Tromso.pdf"
+  },
+  {
+   "title": "Norway: Bypakke Tenk Tromsø, FAQ (no rush-hour price on weekends and official holidays, including Christmas Eve, New Year's Eve and the Wednesday before Easter)",
+   "url": "https://www.tenktromso.no/faq"
   },
   {
    "title": "Norway: Vegfinans, Bypakke Grenland (rush hours Monday to Friday except public holidays)",
@@ -1811,7 +1815,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1838,7 +1843,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1866,7 +1872,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1893,7 +1900,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1920,7 +1928,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1948,7 +1957,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -1974,7 +1984,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160010,
@@ -2000,7 +2011,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160010,
@@ -2027,7 +2039,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160010,
@@ -2053,7 +2066,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -2079,7 +2093,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -2106,7 +2121,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -2132,7 +2148,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -2158,7 +2175,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -2185,7 +2203,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -2701,7 +2720,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2727,7 +2747,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2754,7 +2775,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2780,7 +2802,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2806,7 +2829,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2833,7 +2857,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160013,
@@ -2859,7 +2884,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -2885,7 +2911,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -2912,7 +2939,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -2938,7 +2966,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -2964,7 +2993,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -2991,7 +3021,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3017,7 +3048,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3043,7 +3075,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3070,7 +3103,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3096,7 +3130,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3122,7 +3157,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3149,7 +3185,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3175,7 +3212,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3201,7 +3239,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3228,7 +3267,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3254,7 +3294,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3280,7 +3321,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3307,7 +3349,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160011,
@@ -3333,7 +3376,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3359,7 +3403,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3386,7 +3431,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3412,7 +3458,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3438,7 +3485,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3465,7 +3513,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3491,7 +3540,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3517,7 +3567,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3544,7 +3595,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3570,7 +3622,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3596,7 +3649,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3623,7 +3677,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3649,7 +3704,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3675,7 +3731,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3702,7 +3759,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3945,7 +4003,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3971,7 +4030,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -3998,7 +4058,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5595,7 +5656,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5622,7 +5684,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5650,7 +5713,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5677,7 +5741,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5704,7 +5769,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5732,7 +5798,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160009,
@@ -5759,7 +5826,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -5786,7 +5854,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -5814,7 +5883,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -5841,7 +5911,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -5868,7 +5939,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -5896,7 +5968,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160012,
@@ -8250,7 +8323,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -8276,7 +8350,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -8303,7 +8378,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -12460,7 +12536,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -12486,7 +12563,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -12513,7 +12591,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160007,
@@ -15527,7 +15606,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15553,7 +15633,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15579,7 +15660,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15605,7 +15687,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15631,7 +15714,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15657,7 +15741,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15683,7 +15768,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15709,7 +15795,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15735,7 +15822,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15761,7 +15849,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15787,7 +15876,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15813,7 +15903,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15839,7 +15930,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15865,7 +15957,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15891,7 +15984,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15917,7 +16011,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15943,7 +16038,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15969,7 +16065,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -15995,7 +16092,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16021,7 +16119,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16047,7 +16146,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16073,7 +16173,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16099,7 +16200,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16125,7 +16227,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16151,7 +16254,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16177,7 +16281,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16203,7 +16308,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16229,7 +16335,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16255,7 +16362,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16281,7 +16389,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16307,7 +16416,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16333,7 +16443,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 540101,
@@ -16529,7 +16640,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -16555,7 +16667,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -16582,7 +16695,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -16608,7 +16722,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -16634,7 +16749,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,
@@ -16661,7 +16777,8 @@
      ]
     ],
     "free_days": [
-     "norwegian_holidays"
+     "norwegian_holidays",
+     "norwegian_eves"
     ]
    },
    "group": 160008,

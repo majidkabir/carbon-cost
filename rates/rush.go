@@ -11,7 +11,7 @@ type Rush struct {
 	// Hours: each from and to (HH:MM, both included).
 	Hours [][]string `json:"hours"`
 	// FreeDays, besides Saturdays and Sundays: "norwegian_holidays"
-	// (NorwegianRushFree) and "july".
+	// (NorwegianHoliday), "norwegian_eves" (NorwegianEve) and "july".
 	FreeDays []string `json:"free_days,omitempty"`
 }
 
@@ -24,7 +24,11 @@ func (r Rush) In(t time.Time) (bool, string, error) {
 	for _, f := range r.FreeDays {
 		switch f {
 		case "norwegian_holidays":
-			if k := NorwegianRushFree(day); k != "" {
+			if k := NorwegianHoliday(day); k != "" {
+				return false, "no rush-hour price on " + k, nil
+			}
+		case "norwegian_eves":
+			if k := NorwegianEve(day); k != "" {
 				return false, "no rush-hour price on " + k, nil
 			}
 		case "july":
@@ -54,7 +58,8 @@ func (r Rush) In(t time.Time) (bool, string, error) {
 // NorwegianHolidays are Norway's public holidays (offentlige fridager)
 // other than ordinary Sundays, by key: the helligdager of the
 // helligdagsfredloven (lov 24. februar 1995 nr. 12) § 2 and the
-// høgtidsdager 1 and 17 May (lov 26. april 1947 nr. 1 § 1).
+// høgtidsdager 1 and 17 May, which lov 26. april 1947 nr. 1 § 1 equates
+// with Sundays.
 func NorwegianHolidays(year int) map[string]time.Time {
 	d := func(m time.Month, day int) time.Time { return time.Date(year, m, day, 0, 0, 0, 0, time.UTC) }
 	easter := easterSunday(year)
@@ -66,18 +71,22 @@ func NorwegianHolidays(year int) map[string]time.Time {
 	}
 }
 
-// NorwegianRushFree names the day when Norway's toll stations charge no
-// rush-hour price on it although it is a weekday, or is empty: the
-// Takstretningslinjer for bompengeprosjekt på offentlig veg (Vegdirektoratet,
-// July 2025) § 3.3 leave out public holidays, Christmas Eve, New Year's Eve
-// and the Wednesday before Maundy Thursday.
-func NorwegianRushFree(day time.Time) string {
+// NorwegianHoliday names the day if it is one of NorwegianHolidays, or is
+// empty.
+func NorwegianHoliday(day time.Time) string {
 	day = time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
 	for k, h := range NorwegianHolidays(day.Year()) {
 		if h.Equal(day) {
 			return "a public holiday (" + k + ")"
 		}
 	}
+	return ""
+}
+
+// NorwegianEve names the day if it is Christmas Eve, New Year's Eve or the
+// Wednesday before Maundy Thursday (onsdag før påske), or is empty.
+func NorwegianEve(day time.Time) string {
+	day = time.Date(day.Year(), day.Month(), day.Day(), 0, 0, 0, 0, time.UTC)
 	switch {
 	case day.Month() == time.December && day.Day() == 24:
 		return "Christmas Eve"

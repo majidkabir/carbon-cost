@@ -52,24 +52,36 @@ func TestEasterSeason(t *testing.T) {
 	}
 }
 
-// Norway's days without rush-hour prices in 2026 (Easter 5 April).
-func TestNorwegianRushFree(t *testing.T) {
-	for day, want := range map[string]bool{
-		"2026-01-01": true, "2026-04-01": true, "2026-04-02": true, "2026-04-03": true, "2026-04-06": true,
-		"2026-05-01": true, "2026-05-14": true, "2026-05-25": true, "2026-12-24": true, "2026-12-25": true,
-		"2026-12-31": true, "2026-03-31": false, "2026-05-13": false, "2026-11-05": false, "2026-12-23": false,
+// Norway's public holidays and the eves some projects free from rush-hour
+// prices, in 2026 (Easter 5 April).
+func TestNorwegianHolidays(t *testing.T) {
+	for day, want := range map[string]string{
+		"2026-01-01": "h", "2026-04-01": "e", "2026-04-02": "h", "2026-04-03": "h", "2026-04-06": "h",
+		"2026-05-01": "h", "2026-05-14": "h", "2026-05-17": "h", "2026-05-25": "h", "2026-12-24": "e", "2026-12-25": "h",
+		"2026-12-31": "e", "2026-03-31": "", "2026-05-13": "", "2026-11-05": "", "2026-12-23": "",
 	} {
 		d, _ := time.Parse(time.DateOnly, day)
-		if got := NorwegianRushFree(d) != ""; got != want {
-			t.Errorf("%s: rush-free %v, want %v", day, got, want)
+		got := ""
+		if NorwegianHoliday(d) != "" {
+			got += "h"
+		}
+		if NorwegianEve(d) != "" {
+			got += "e"
+		}
+		if got != want {
+			t.Errorf("%s: %q, want %q", day, got, want)
 		}
 	}
 	r := Rush{Hours: [][]string{{"06:30", "08:59"}}, FreeDays: []string{"norwegian_holidays", "july"}}
 	for at, want := range map[string]bool{"2026-11-05 06:29": false, "2026-11-05 06:30": true, "2026-11-05 08:59": true,
-		"2026-11-05 09:00": false, "2026-11-07 07:00": false, "2026-07-02 07:00": false} {
+		"2026-11-05 09:00": false, "2026-11-07 07:00": false, "2026-07-02 07:00": false, "2026-12-24 07:00": true, "2026-12-25 07:00": false} {
 		tm, _ := time.Parse("2006-01-02 15:04", at)
 		if got, _, err := r.In(tm); err != nil || got != want {
 			t.Errorf("%s: in rush %v (%v), want %v", at, got, err, want)
 		}
+	}
+	r.FreeDays = []string{"norwegian_holidays", "norwegian_eves"}
+	if got, _, _ := r.In(time.Date(2026, 12, 24, 7, 0, 0, 0, time.UTC)); got {
+		t.Error("Christmas Eve with norwegian_eves: in rush")
 	}
 }

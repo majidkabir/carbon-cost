@@ -53,6 +53,8 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 
 ## Rates included
 
+Every table below is also published in an open format, [ORCT](https://github.com/majidkabir/orct) (Open Road Charge Tariff), one folder per country under [data/carbon-cost](https://github.com/majidkabir/orct/tree/main/data/carbon-cost), regenerated daily from this repo.
+
 | Country | Charge | In force | Source |
 |---|---|---|---|
 | DK | Vejafgift, trucks of 12 t and over | 2026–2027 | Vejafgiftsloven, LBK nr. 647 af 28/05/2025, § 5; [Skatteministeriet's rate table](https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven) |

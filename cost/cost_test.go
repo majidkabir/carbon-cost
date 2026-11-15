@@ -2679,3 +2679,65 @@ func TestAP68(t *testing.T) {
 		}
 	}
 }
+
+// Norway's rush hours: the rush-hour price within the hours on weekdays
+// other than public holidays and their eves (and July where the project
+// says so); the hour rule charges the first passage, or the hour's highest
+// price where the group pays the highest.
+func TestNorwayRush(t *testing.T) {
+	rush := &rates.Rush{Hours: [][]string{{"06:30", "08:59"}, {"15:00", "16:59"}}, FreeDays: []string{"norwegian_holidays"}}
+	pt := func(name string, lat float64, pays string) rates.TollPoint {
+		return rates.TollPoint{Name: name, Lat: lat, Lon: 10, Rate: 100, PeakRate: 150, Rush: rush, Group: 1, GroupMinutes: 60, GroupPays: pays}
+	}
+	tb := rates.Table{Country: "NO", Currency: "NOK", ValidFrom: "2026-01-01", Name: "test", Law: "test law",
+		Sources: []rates.Source{{Title: "test", URL: "https://example.org"}}}
+	// A about 06:24 and B about 06:34 when leaving 06:15 at 70 km/h.
+	path := [][2]float64{{10, 59.9}, {10, 60.2}}
+	run := func(day, at, pays string, july bool) (float64, []string) {
+		t.Helper()
+		r2 := *rush
+		if july {
+			r2.FreeDays = append(slices.Clone(r2.FreeDays), "july")
+		}
+		a, b := pt("A", 60.0, pays), pt("B", 60.1, pays)
+		a.Rush, b.Rush = &r2, &r2
+		tb.TollPoints = []rates.TollPoint{a, b}
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 33, CountryKm: map[string]float64{"NO": 33}, Path: path}}}
+		d, _ := time.Parse(time.DateOnly, day)
+		r, err := Price(trip, []rates.Table{tb}, Request{CargoKg: 1000, Truck: truck40, Time: at, FX: map[string]float64{"NOK": 11.7}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		sum := 0.0
+		for _, l := range r.Lines {
+			if l.Country == "NO" {
+				sum += l.Amount
+			}
+		}
+		return sum, r.Notes
+	}
+	for _, tc := range []struct {
+		day, at, pays string
+		july          bool
+		want          float64
+	}{
+		{"2026-11-05", "06:15", "highest", false, 150}, // 100 at A, then 50 more at B in rush
+		{"2026-11-05", "06:15", "", false, 100},        // the first passage pays
+		{"2026-11-05", "07:00", "", false, 150},        // both in rush: A pays
+		{"2026-11-05", "12:00", "highest", false, 100}, // off-peak
+		{"2026-11-07", "07:00", "highest", false, 100}, // Saturday
+		{"2026-12-24", "07:00", "highest", false, 100}, // Christmas Eve
+		{"2026-04-01", "07:00", "highest", false, 100}, // the Wednesday before Maundy Thursday
+		{"2026-05-14", "07:00", "highest", false, 100}, // Ascension Day
+		{"2026-07-01", "07:00", "highest", false, 150},
+		{"2026-07-01", "07:00", "highest", true, 100}, // no rush-hour price in July (Fjellinjen)
+	} {
+		if got, notes := run(tc.day, tc.at, tc.pays, tc.july); got != tc.want {
+			t.Errorf("%s %s pays %q july %v: %.0f NOK, want %.0f: %v", tc.day, tc.at, tc.pays, tc.july, got, tc.want, notes)
+		}
+	}
+	got, notes := run("2026-11-05", "", "highest", false)
+	if got != 100 || !slices.ContainsFunc(notes, func(n string) bool { return strings.Contains(n, "Give a departure time") }) {
+		t.Errorf("without a time: %.0f NOK, want 100 and a note: %v", got, notes)
+	}
+}

@@ -2,13 +2,49 @@
  "country": "NO",
  "currency": "NOK",
  "valid_from": "2024-01-01",
- "valid_to": "2026-11-02",
+ "valid_to": "2026-11-11",
  "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
- "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given). A station's version is the one in force on the trip's date. Rush-hour prices are higher at some stations: the off-peak price is used. Tolls carry no VAT.",
+ "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). A station's version is the one in force on the trip's date. Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (offentlige fridager), Christmas Eve, New Year's Eve and the Wednesday before Maundy Thursday (Takstretningslinjer for bompengeprosjekt på offentlig veg, Vegdirektoratet, July 2025, § 3.3), at Fjellinjen not in July. Tolls carry no VAT.",
  "sources": [
   {
    "title": "NVDB API: Bomstasjon (Statens vegvesen), all versions",
    "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?alle_versjoner=true"
+  },
+  {
+   "title": "Norway: Takstretningslinjer for bompengeprosjekt på offentlig veg (Vegdirektoratet, July 2025), § 3.3 the days without rush-hour prices",
+   "url": "https://www.autopass.no/siteassets/filer-og-vedlegg/04.-takstretningslinjene/takstretninglinjer-juli-2025.pdf"
+  },
+  {
+   "title": "Norway: Fjellinjen, Tariffs and toll stations (rush hours; not on Saturdays, Sundays, public holidays or in July)",
+   "url": "https://www.fjellinjen.no/en/tariffs-and-toll-stations"
+  },
+  {
+   "title": "Norway: Fjellinjen, takstkunngjøring from 1 January 2025 (the hour rule charges the highest tariff)",
+   "url": "https://live.euronext.com/sites/default/files/company_press_releases/attachments_oslo/2024/11/21/632799_B%C3%B8rsmelding%20Takstkunngj%C3%B8ring%2001.01.25.pdf"
+  },
+  {
+   "title": "Norway: Ferde, Bergen toll stations and prices (rush hours)",
+   "url": "https://ferde.no/en/toll-stations-and-prices/bergen"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Bypakke Bergen 24.11.2025, 22/33576-18 (the hour rule charges the highest tariff)",
+   "url": "https://cdn.sanity.io/files/6d3nulko/production/c9b5b450af19c7153cf03a8ee79376d2f66f7d04.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Samferdselspakke for Kristiansandsregionen fase 2, 29.06.2021, 20/5876-21 (rush hours)",
+   "url": "https://cdn.sanity.io/files/6d3nulko/production/92146f48ce9d1aae9556bb25fead7ed480e18126.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Miljøpakke Trondheim (Vegamot), rush hours and rush-free days",
+   "url": "https://www.vegamot.no/wp-content/uploads/2025/09/TakstvedtakMiljopakkeTrondheimfortungenullutslippskjoretoy.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Bypakke Tenk Tromsø 2026 (rush hours; the hour rule charges the first passage)",
+   "url": "https://bpsnord.no/wp-content/uploads/2026/07/Takstvedtak-nullutslipp-Bypakke-Tenk-Tromso.pdf"
+  },
+  {
+   "title": "Norway: Bypakke Grenland (Vegfinans), AutoPASS household brochure (rush hours Monday to Friday except public holidays)",
+   "url": "https://www.bamble.kommune.no/contentassets/a909827d89de4a2da2ef3f09732d2ec1/tefy_autopass-a4_hustandsbrosjyre_ma_webny.pdf"
   }
  ],
  "vehicles": "Vehicles over 3,500 kg (takstgruppe 2)",
@@ -31,8 +67,24 @@
    "heading": 139.2,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -43,8 +95,24 @@
    "heading": 139.2,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -56,8 +124,24 @@
    "heading": 139.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -68,8 +152,24 @@
    "heading": 50.5,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -80,8 +180,24 @@
    "heading": 50.5,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -93,8 +209,24 @@
    "heading": 50.5,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -105,8 +237,24 @@
    "heading": 37.5,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -117,8 +265,24 @@
    "heading": 37.5,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -130,8 +294,24 @@
    "heading": 37.5,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -142,8 +322,24 @@
    "heading": 5.3,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -154,8 +350,24 @@
    "heading": 5.3,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -167,8 +379,24 @@
    "heading": 5.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -179,8 +407,24 @@
    "heading": 157.7,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -191,8 +435,24 @@
    "heading": 157.7,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -204,8 +464,24 @@
    "heading": 157.7,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -216,8 +492,24 @@
    "heading": 307.1,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -228,8 +520,24 @@
    "heading": 307.1,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -241,8 +549,24 @@
    "heading": 307.1,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -253,8 +577,25 @@
    "heading": 113.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -265,8 +606,25 @@
    "heading": 113.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -277,8 +635,25 @@
    "heading": 257.1,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -289,8 +664,25 @@
    "heading": 257.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -301,8 +693,25 @@
    "heading": 242.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -313,8 +722,25 @@
    "heading": 242.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -325,8 +751,24 @@
    "heading": 188.1,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -337,8 +779,24 @@
    "heading": 188.1,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -350,8 +808,24 @@
    "heading": 188.1,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -362,8 +836,24 @@
    "heading": 23.9,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -374,8 +864,24 @@
    "heading": 23.9,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -387,8 +893,24 @@
    "heading": 23.9,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -399,8 +921,24 @@
    "heading": 10.3,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -411,8 +949,24 @@
    "heading": 10.3,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -424,8 +978,24 @@
    "heading": 10.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -436,8 +1006,24 @@
    "heading": 118.2,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -448,8 +1034,24 @@
    "heading": 118.2,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -461,8 +1063,24 @@
    "heading": 118.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -473,8 +1091,25 @@
    "heading": 101.3,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -485,8 +1120,25 @@
    "heading": 101.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -497,8 +1149,25 @@
    "heading": 55.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -509,8 +1178,25 @@
    "heading": 55.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -521,8 +1207,25 @@
    "heading": 87.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -533,8 +1236,25 @@
    "heading": 87.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -545,8 +1265,25 @@
    "heading": 89.4,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -557,8 +1294,25 @@
    "heading": 89.4,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -569,8 +1323,25 @@
    "heading": 236.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -581,8 +1352,25 @@
    "heading": 236.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -593,8 +1381,25 @@
    "heading": 358.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -605,8 +1410,25 @@
    "heading": 358.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -617,8 +1439,25 @@
    "heading": 30.2,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Strandveien",
@@ -628,8 +1467,25 @@
    "heading": 77.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -640,8 +1496,25 @@
    "heading": 77.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -652,8 +1525,25 @@
    "heading": 318.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -664,8 +1554,25 @@
    "heading": 318.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -892,6 +1799,21 @@
    "heading": 16.1,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -904,6 +1826,21 @@
    "heading": 16.1,
    "rate": 54.0,
    "peak_rate": 73.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -917,6 +1854,21 @@
    "heading": 16.1,
    "rate": 60.0,
    "peak_rate": 81.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2025-02-13"
@@ -929,6 +1881,21 @@
    "heading": 200.9,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -941,6 +1908,21 @@
    "heading": 200.9,
    "rate": 54.0,
    "peak_rate": 73.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -954,6 +1936,21 @@
    "heading": 200.9,
    "rate": 60.0,
    "peak_rate": 81.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2025-02-13"
@@ -965,6 +1962,21 @@
    "lon": 10.566582,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160010,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -976,6 +1988,21 @@
    "lon": 10.566582,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160010,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -988,6 +2015,21 @@
    "lon": 10.566582,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160010,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -999,6 +2041,21 @@
    "lon": 10.392406,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1010,6 +2067,21 @@
    "lon": 10.392406,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1022,6 +2094,21 @@
    "lon": 10.392406,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2025-02-13"
@@ -1033,6 +2120,21 @@
    "lon": 10.306641,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1044,6 +2146,21 @@
    "lon": 10.306641,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1056,6 +2173,21 @@
    "lon": 10.306641,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -1214,8 +2346,24 @@
    "heading": 32.3,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-04-02"
   },
   {
@@ -1226,8 +2374,24 @@
    "heading": 32.3,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-04-03",
    "valid_to": "2025-12-31"
   },
@@ -1239,8 +2403,24 @@
    "heading": 32.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -1342,8 +2522,24 @@
    "heading": 343.9,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -1354,8 +2550,24 @@
    "heading": 343.9,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -1367,8 +2579,24 @@
    "heading": 343.9,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -1461,6 +2689,21 @@
    "lon": 10.367595,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1472,6 +2715,21 @@
    "lon": 10.367595,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1484,6 +2742,21 @@
    "lon": 10.367595,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1495,6 +2768,21 @@
    "lon": 10.437414,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1506,6 +2794,21 @@
    "lon": 10.437414,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1518,6 +2821,21 @@
    "lon": 10.437414,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1529,6 +2847,21 @@
    "lon": 10.379429,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1540,6 +2873,21 @@
    "lon": 10.379429,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1552,6 +2900,21 @@
    "lon": 10.379429,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -1563,6 +2926,21 @@
    "lon": 10.358947,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1574,6 +2952,21 @@
    "lon": 10.358947,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1586,6 +2979,21 @@
    "lon": 10.358947,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1597,6 +3005,21 @@
    "lon": 10.346583,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1608,6 +3031,21 @@
    "lon": 10.346583,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1620,6 +3058,21 @@
    "lon": 10.346583,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1631,6 +3084,21 @@
    "lon": 10.400555,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1642,6 +3110,21 @@
    "lon": 10.400555,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1654,6 +3137,21 @@
    "lon": 10.400555,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1665,6 +3163,21 @@
    "lon": 10.397159,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1676,6 +3189,21 @@
    "lon": 10.397159,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1688,6 +3216,21 @@
    "lon": 10.397159,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1699,6 +3242,21 @@
    "lon": 10.382963,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1710,6 +3268,21 @@
    "lon": 10.382963,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1722,6 +3295,21 @@
    "lon": 10.382963,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1733,6 +3321,21 @@
    "lon": 10.420678,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1744,6 +3347,21 @@
    "lon": 10.420678,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1756,6 +3374,21 @@
    "lon": 10.420678,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1767,6 +3400,21 @@
    "lon": 10.440545,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1778,6 +3426,21 @@
    "lon": 10.440545,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1790,6 +3453,21 @@
    "lon": 10.440545,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -1801,6 +3479,21 @@
    "lon": 10.462099,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1812,6 +3505,21 @@
    "lon": 10.462099,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1824,6 +3532,21 @@
    "lon": 10.462099,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1835,6 +3558,21 @@
    "lon": 10.475049,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1846,6 +3584,21 @@
    "lon": 10.475049,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1858,6 +3611,21 @@
    "lon": 10.475049,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -1869,6 +3637,21 @@
    "lon": 10.479339,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -1880,6 +3663,21 @@
    "lon": 10.479339,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -1892,6 +3690,21 @@
    "lon": 10.479339,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -2120,6 +3933,21 @@
    "lon": 10.476012,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -2131,6 +3959,21 @@
    "lon": 10.476012,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -2143,6 +3986,21 @@
    "lon": 10.476012,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -2507,6 +4365,21 @@
    "heading": 157.5,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2519,6 +4392,21 @@
    "heading": 157.5,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2531,6 +4419,21 @@
    "heading": 343.4,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2543,6 +4446,21 @@
    "heading": 343.4,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2555,6 +4473,21 @@
    "heading": 84.2,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2567,6 +4500,21 @@
    "heading": 84.2,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2579,6 +4527,21 @@
    "heading": 244.8,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2591,6 +4554,21 @@
    "heading": 244.8,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2603,6 +4581,21 @@
    "heading": 142.6,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2615,6 +4608,21 @@
    "heading": 142.6,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2627,6 +4635,21 @@
    "heading": 356.9,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2639,6 +4662,21 @@
    "heading": 356.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2651,6 +4689,21 @@
    "heading": 339.3,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2663,6 +4716,21 @@
    "heading": 339.3,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2675,6 +4743,21 @@
    "heading": 125.5,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2687,6 +4770,21 @@
    "heading": 125.5,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2699,6 +4797,21 @@
    "heading": 324.1,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2711,6 +4824,21 @@
    "heading": 324.1,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2723,6 +4851,21 @@
    "heading": 124.1,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2735,6 +4878,21 @@
    "heading": 124.1,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2747,6 +4905,21 @@
    "heading": 290.2,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2759,6 +4932,21 @@
    "heading": 290.2,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2771,6 +4959,21 @@
    "heading": 342.9,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2783,6 +4986,21 @@
    "heading": 342.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -2795,6 +5013,21 @@
    "heading": 178.9,
    "rate": 27.0,
    "peak_rate": 38.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_to": "2026-05-10"
@@ -2807,6 +5040,21 @@
    "heading": 178.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60,
    "valid_from": "2026-05-11"
@@ -3221,8 +5469,25 @@
    "heading": 46.8,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring Granfoss fra E18",
@@ -3232,8 +5497,25 @@
    "heading": 83.1,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -3244,8 +5526,25 @@
    "heading": 83.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -3256,8 +5555,25 @@
    "heading": 72.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Moholt, O-snitt, rampe 1",
@@ -3267,6 +5583,21 @@
    "heading": 281.0,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -3279,6 +5610,21 @@
    "heading": 281.0,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -3292,6 +5638,21 @@
    "heading": 281.0,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -3304,6 +5665,21 @@
    "heading": 159.3,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -3316,6 +5692,21 @@
    "heading": 159.3,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -3329,6 +5720,21 @@
    "heading": 159.3,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -3341,6 +5747,21 @@
    "heading": 326.7,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -3353,6 +5774,21 @@
    "heading": 326.7,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -3366,6 +5802,21 @@
    "heading": 326.7,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -3378,6 +5829,21 @@
    "heading": 190.3,
    "rate": 33.0,
    "peak_rate": 42.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -3390,6 +5856,21 @@
    "heading": 190.3,
    "rate": 34.0,
    "peak_rate": 44.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -3403,6 +5884,21 @@
    "heading": 190.3,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -5189,6 +7685,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5200,6 +7697,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5212,6 +7710,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5223,6 +7722,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5234,6 +7734,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5246,6 +7747,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5257,6 +7759,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5268,6 +7771,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5280,6 +7784,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5291,6 +7796,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5302,6 +7808,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5314,6 +7821,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5325,6 +7833,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5336,6 +7845,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5348,6 +7858,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5359,6 +7870,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5370,6 +7882,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5382,6 +7895,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5393,6 +7907,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5404,6 +7919,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5416,6 +7932,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5427,6 +7944,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5438,6 +7956,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5450,6 +7969,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5461,6 +7981,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5472,6 +7993,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5484,6 +8006,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5495,6 +8018,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5506,6 +8030,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5518,6 +8043,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5529,6 +8055,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5540,6 +8067,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5552,6 +8080,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5563,6 +8092,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5574,6 +8104,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5586,6 +8117,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5597,6 +8129,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5608,6 +8141,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5620,6 +8154,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5631,6 +8166,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5642,6 +8178,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5654,6 +8191,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5665,6 +8203,7 @@
    "rate": 82.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -5676,6 +8215,7 @@
    "rate": 85.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -5688,6 +8228,7 @@
    "rate": 88.0,
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -5697,6 +8238,21 @@
    "lon": 10.341285,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -5708,6 +8264,21 @@
    "lon": 10.341285,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -5720,6 +8291,21 @@
    "lon": 10.341285,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -5751,8 +8337,25 @@
    "heading": 184.1,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5763,8 +8366,25 @@
    "heading": 184.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5774,8 +8394,25 @@
    "lon": 10.768132,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5785,8 +8422,25 @@
    "lon": 10.768132,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5797,8 +8451,25 @@
    "heading": 245.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5809,8 +8480,25 @@
    "heading": 245.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5821,8 +8509,25 @@
    "heading": 17.2,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5833,8 +8538,25 @@
    "heading": 17.2,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5845,8 +8567,25 @@
    "heading": 114.1,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5857,8 +8596,25 @@
    "heading": 114.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5868,8 +8624,25 @@
    "lon": 10.687039,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5879,8 +8652,25 @@
    "lon": 10.687039,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5890,8 +8680,25 @@
    "lon": 10.817592,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5901,8 +8708,25 @@
    "lon": 10.817592,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5912,8 +8736,25 @@
    "lon": 10.766777,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5923,8 +8764,25 @@
    "lon": 10.766777,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5934,8 +8792,25 @@
    "lon": 10.7098,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5945,8 +8820,25 @@
    "lon": 10.7098,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5957,8 +8849,25 @@
    "heading": 277.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5969,8 +8878,25 @@
    "heading": 277.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -5980,8 +8906,25 @@
    "lon": 10.819164,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -5991,8 +8934,25 @@
    "lon": 10.819164,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6003,8 +8963,25 @@
    "heading": 94.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Strømsveien",
@@ -6013,8 +8990,25 @@
    "lon": 10.85405,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6024,8 +9018,25 @@
    "lon": 10.85405,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6035,8 +9046,25 @@
    "lon": 10.749739,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6046,8 +9074,25 @@
    "lon": 10.749739,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6058,8 +9103,25 @@
    "heading": 225.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6070,8 +9132,25 @@
    "heading": 225.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6081,8 +9160,25 @@
    "lon": 10.782749,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6092,8 +9188,25 @@
    "lon": 10.782749,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6104,8 +9217,25 @@
    "heading": 275.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6116,8 +9246,25 @@
    "heading": 275.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6128,8 +9275,25 @@
    "heading": 35.3,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6140,8 +9304,25 @@
    "heading": 35.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6151,8 +9332,25 @@
    "lon": 10.843987,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Alnabru",
@@ -6162,8 +9360,25 @@
    "heading": 231.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6174,8 +9389,25 @@
    "heading": 231.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6185,8 +9417,25 @@
    "lon": 10.777668,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6196,8 +9445,25 @@
    "lon": 10.777668,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6207,8 +9473,25 @@
    "lon": 10.780249,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6218,8 +9501,25 @@
    "lon": 10.780249,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6229,8 +9529,25 @@
    "lon": 10.775534,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6240,8 +9557,25 @@
    "lon": 10.775534,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6251,8 +9585,25 @@
    "lon": 10.781712,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Skiveien",
@@ -6262,8 +9613,25 @@
    "heading": 357.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6274,8 +9642,25 @@
    "heading": 357.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6285,8 +9670,25 @@
    "lon": 10.777698,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6296,8 +9698,25 @@
    "lon": 10.777698,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6307,8 +9726,25 @@
    "lon": 10.759391,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6318,8 +9754,25 @@
    "lon": 10.759391,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6329,8 +9782,25 @@
    "lon": 10.762482,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6340,8 +9810,25 @@
    "lon": 10.762482,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6351,8 +9838,25 @@
    "lon": 10.730447,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6362,8 +9866,25 @@
    "lon": 10.730447,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6374,8 +9895,25 @@
    "heading": 353.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6386,8 +9924,25 @@
    "heading": 353.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6398,8 +9953,25 @@
    "heading": 304.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6410,8 +9982,25 @@
    "heading": 304.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6421,8 +10010,25 @@
    "lon": 10.802674,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6432,8 +10038,25 @@
    "lon": 10.802674,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6443,8 +10066,25 @@
    "lon": 10.805141,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6454,8 +10094,25 @@
    "lon": 10.805141,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6465,8 +10122,25 @@
    "lon": 10.841846,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-08"
   },
   {
@@ -6476,8 +10150,25 @@
    "lon": 10.841846,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-09"
   },
   {
@@ -6488,8 +10179,25 @@
    "heading": 355.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6500,8 +10208,25 @@
    "heading": 355.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6511,8 +10236,25 @@
    "lon": 10.850121,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6522,8 +10264,25 @@
    "lon": 10.850121,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6534,8 +10293,25 @@
    "heading": 36.8,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6546,8 +10322,25 @@
    "heading": 36.8,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6557,8 +10350,25 @@
    "lon": 10.684804,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6568,8 +10378,25 @@
    "lon": 10.684804,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6580,8 +10407,25 @@
    "heading": 249.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6592,8 +10436,25 @@
    "heading": 249.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6604,8 +10465,25 @@
    "heading": 330.3,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-08"
   },
   {
@@ -6616,8 +10494,25 @@
    "heading": 330.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-09"
   },
   {
@@ -6628,8 +10523,25 @@
    "heading": 182.4,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6640,8 +10552,25 @@
    "heading": 182.4,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6651,8 +10580,25 @@
    "lon": 10.780136,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6662,8 +10608,25 @@
    "lon": 10.780136,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6673,8 +10636,25 @@
    "lon": 10.714859,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6684,8 +10664,25 @@
    "lon": 10.714859,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6696,8 +10693,25 @@
    "heading": 77.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6708,8 +10722,25 @@
    "heading": 77.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6720,8 +10751,25 @@
    "heading": 287.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6732,8 +10780,25 @@
    "heading": 287.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6743,8 +10808,25 @@
    "lon": 10.806069,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6754,8 +10836,25 @@
    "lon": 10.806069,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6766,8 +10865,25 @@
    "heading": 293.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6778,8 +10894,25 @@
    "heading": 293.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6789,8 +10922,25 @@
    "lon": 10.777524,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6800,8 +10950,25 @@
    "lon": 10.777524,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6811,8 +10978,25 @@
    "lon": 10.768001,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6822,8 +11006,25 @@
    "lon": 10.768001,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6834,8 +11035,25 @@
    "heading": 346.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6846,8 +11064,25 @@
    "heading": 346.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6857,8 +11092,25 @@
    "lon": 10.862314,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6868,8 +11120,25 @@
    "lon": 10.862314,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6879,8 +11148,25 @@
    "lon": 10.746535,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6890,8 +11176,25 @@
    "lon": 10.746535,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6902,8 +11205,25 @@
    "heading": 166.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "På og avkjøring E6 Lodalen",
@@ -6913,8 +11233,25 @@
    "heading": 17.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Teisen",
@@ -6923,8 +11260,25 @@
    "lon": 10.812479,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -6934,8 +11288,25 @@
    "lon": 10.812479,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -6946,8 +11317,25 @@
    "heading": 81.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-08"
   },
   {
@@ -6958,8 +11346,25 @@
    "heading": 81.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-09"
   },
   {
@@ -6969,8 +11374,25 @@
    "lon": 10.724336,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-08"
   },
   {
@@ -6980,8 +11402,25 @@
    "lon": 10.724336,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-09"
   },
   {
@@ -6992,8 +11431,25 @@
    "heading": 220.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7004,8 +11460,25 @@
    "heading": 220.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7015,8 +11488,25 @@
    "lon": 10.82016,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7026,8 +11516,25 @@
    "lon": 10.82016,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7038,8 +11545,25 @@
    "heading": 274.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7050,8 +11574,25 @@
    "heading": 274.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7061,8 +11602,25 @@
    "lon": 10.84278,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7072,8 +11630,25 @@
    "lon": 10.84278,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7083,8 +11658,25 @@
    "lon": 10.841967,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7094,8 +11686,25 @@
    "lon": 10.841967,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7105,8 +11714,25 @@
    "lon": 10.760133,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7116,8 +11742,25 @@
    "lon": 10.760133,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7127,8 +11770,25 @@
    "lon": 10.706881,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7138,8 +11798,25 @@
    "lon": 10.706881,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7149,8 +11826,25 @@
    "lon": 10.78065,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7160,8 +11854,25 @@
    "lon": 10.78065,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7171,8 +11882,25 @@
    "lon": 10.781838,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7182,8 +11910,25 @@
    "lon": 10.781838,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7193,8 +11938,25 @@
    "lon": 10.710968,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-08"
   },
   {
@@ -7204,8 +11966,25 @@
    "lon": 10.710968,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-09"
   },
   {
@@ -7215,8 +11994,25 @@
    "lon": 10.779397,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7226,8 +12022,25 @@
    "lon": 10.779397,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7238,8 +12051,25 @@
    "heading": 323.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7250,8 +12080,25 @@
    "heading": 323.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7261,8 +12108,25 @@
    "lon": 10.747528,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7272,8 +12136,25 @@
    "lon": 10.747528,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7283,8 +12164,25 @@
    "lon": 10.770736,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7294,8 +12192,25 @@
    "lon": 10.770736,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7305,8 +12220,25 @@
    "lon": 10.769278,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7316,8 +12248,25 @@
    "lon": 10.769278,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7328,8 +12277,25 @@
    "heading": 152.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7340,8 +12306,25 @@
    "heading": 152.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7352,8 +12335,25 @@
    "heading": 346.8,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7364,8 +12364,25 @@
    "heading": 346.8,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7375,8 +12392,25 @@
    "lon": 10.682309,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7386,8 +12420,25 @@
    "lon": 10.682309,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7397,6 +12448,21 @@
    "lon": 10.311147,
    "rate": 46.0,
    "peak_rate": 92.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -7408,6 +12474,21 @@
    "lon": 10.311147,
    "rate": 48.0,
    "peak_rate": 95.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -7420,6 +12501,21 @@
    "lon": 10.311147,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60,
    "valid_from": "2025-04-03"
@@ -7770,8 +12866,25 @@
    "heading": 208.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Lodalen",
@@ -7781,8 +12894,25 @@
    "heading": 209.2,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -7793,8 +12923,25 @@
    "heading": 29.2,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -7805,8 +12952,25 @@
    "heading": 163.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Seljestad",
@@ -8882,8 +14046,24 @@
    "heading": 32.2,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-04-02"
   },
   {
@@ -8894,8 +14074,24 @@
    "heading": 32.2,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-04-03",
    "valid_to": "2025-12-31"
   },
@@ -8907,8 +14103,24 @@
    "heading": 32.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -8919,6 +14131,21 @@
    "heading": 151.3,
    "rate": 33.0,
    "peak_rate": 50.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_to": "2024-02-18"
@@ -8931,6 +14158,21 @@
    "heading": 151.3,
    "rate": 36.0,
    "peak_rate": 55.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_from": "2024-02-19",
@@ -8967,6 +14209,21 @@
    "heading": 268.1,
    "rate": 33.0,
    "peak_rate": 50.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_to": "2024-02-18"
@@ -8979,6 +14236,21 @@
    "heading": 268.1,
    "rate": 36.0,
    "peak_rate": 55.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_from": "2024-02-19",
@@ -9015,6 +14287,21 @@
    "heading": 252.7,
    "rate": 33.0,
    "peak_rate": 50.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_to": "2024-02-18"
@@ -9027,6 +14314,21 @@
    "heading": 252.7,
    "rate": 36.0,
    "peak_rate": 55.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_from": "2024-02-19",
@@ -9063,6 +14365,21 @@
    "heading": 68.8,
    "rate": 33.0,
    "peak_rate": 50.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_to": "2024-02-18"
@@ -9075,6 +14392,21 @@
    "heading": 68.8,
    "rate": 36.0,
    "peak_rate": 55.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_from": "2024-02-19",
@@ -9111,6 +14443,21 @@
    "heading": 98.9,
    "rate": 33.0,
    "peak_rate": 50.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_to": "2024-02-18"
@@ -9123,6 +14470,21 @@
    "heading": 98.9,
    "rate": 36.0,
    "peak_rate": 55.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 200026,
    "group_minutes": 60,
    "valid_from": "2024-02-19",
@@ -9159,8 +14521,25 @@
    "heading": 340.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2026-03-09"
   },
   {
@@ -9171,8 +14550,25 @@
    "heading": 340.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-03-10"
   },
   {
@@ -10119,6 +15515,21 @@
    "lon": 18.979264,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10130,6 +15541,21 @@
    "lon": 18.979264,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10141,6 +15567,21 @@
    "lon": 18.917946,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10152,6 +15593,21 @@
    "lon": 18.917946,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10163,6 +15619,21 @@
    "lon": 18.902531,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10174,6 +15645,21 @@
    "lon": 18.902531,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10185,6 +15671,21 @@
    "lon": 18.968972,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10196,6 +15697,21 @@
    "lon": 18.968972,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10207,6 +15723,21 @@
    "lon": 18.965009,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10218,6 +15749,21 @@
    "lon": 18.965009,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10229,6 +15775,21 @@
    "lon": 18.929771,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10240,6 +15801,21 @@
    "lon": 18.929771,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10251,6 +15827,21 @@
    "lon": 18.922583,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10262,6 +15853,21 @@
    "lon": 18.922583,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10273,6 +15879,21 @@
    "lon": 18.938102,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10284,6 +15905,21 @@
    "lon": 18.938102,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10295,6 +15931,21 @@
    "lon": 18.933969,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10306,6 +15957,21 @@
    "lon": 18.933969,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10317,6 +15983,21 @@
    "lon": 18.904536,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10328,6 +16009,21 @@
    "lon": 18.904536,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10339,6 +16035,21 @@
    "lon": 18.96723,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10350,6 +16061,21 @@
    "lon": 18.96723,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10361,6 +16087,21 @@
    "lon": 18.91984,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10372,6 +16113,21 @@
    "lon": 18.91984,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10383,6 +16139,21 @@
    "lon": 18.989849,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10394,6 +16165,21 @@
    "lon": 18.989849,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10405,6 +16191,21 @@
    "lon": 18.907469,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10416,6 +16217,21 @@
    "lon": 18.907469,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10427,6 +16243,21 @@
    "lon": 19.018143,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10438,6 +16269,21 @@
    "lon": 19.018143,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10449,6 +16295,21 @@
    "lon": 19.018157,
    "rate": 24.0,
    "peak_rate": 72.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_to": "2024-06-13"
@@ -10460,6 +16321,21 @@
    "lon": 19.018157,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60,
    "valid_from": "2024-06-14"
@@ -10472,8 +16348,24 @@
    "heading": 59.6,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -10484,8 +16376,24 @@
    "heading": 59.6,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -10497,8 +16405,24 @@
    "heading": 239.6,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -10509,8 +16433,24 @@
    "heading": 125.6,
    "rate": 82.0,
    "peak_rate": 145.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_to": "2025-01-01"
   },
   {
@@ -10521,8 +16461,24 @@
    "heading": 125.6,
    "rate": 85.0,
    "peak_rate": 149.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2025-01-02",
    "valid_to": "2025-12-31"
   },
@@ -10534,8 +16490,24 @@
    "heading": 125.6,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
    "group_minutes": 60,
+   "group_pays": "highest",
    "valid_from": "2026-01-01"
   },
   {
@@ -10545,6 +16517,21 @@
    "lon": 10.386588,
    "rate": 34.0,
    "peak_rate": 61.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -10556,6 +16543,21 @@
    "lon": 10.386588,
    "rate": 35.0,
    "peak_rate": 64.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -10568,6 +16570,21 @@
    "lon": 10.386588,
    "rate": 39.0,
    "peak_rate": 70.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -10579,6 +16596,21 @@
    "lon": 10.38482,
    "rate": 34.0,
    "peak_rate": 61.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_to": "2024-01-31"
@@ -10590,6 +16622,21 @@
    "lon": 10.38482,
    "rate": 35.0,
    "peak_rate": 64.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2024-02-01",
@@ -10602,6 +16649,21 @@
    "lon": 10.38482,
    "rate": 39.0,
    "peak_rate": 70.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60,
    "valid_from": "2024-12-03"
@@ -11509,7 +17571,17 @@
    "lat": 59.974166,
    "lon": 10.332487,
    "rate": 102.0,
-   "valid_from": "2025-12-19"
+   "valid_from": "2025-12-19",
+   "valid_to": "2026-11-02"
+  },
+  {
+   "name": "E16 Skaret",
+   "project": "E16 Bjørum - Skaret",
+   "lat": 59.974332,
+   "lon": 10.33251,
+   "heading": 303.2,
+   "rate": 102.0,
+   "valid_from": "2026-11-03"
   },
   {
    "name": "Fv. Skaret",
@@ -11517,7 +17589,8 @@
    "lat": 59.972783,
    "lon": 10.333059,
    "rate": 102.0,
-   "valid_from": "2025-12-19"
+   "valid_from": "2025-12-19",
+   "valid_to": "2026-11-02"
   },
   {
    "name": "E16 Avtjerna",
@@ -11816,6 +17889,15 @@
    "group": 100001,
    "group_minutes": 60,
    "valid_from": "2026-08-05"
+  },
+  {
+   "name": "Fv. Skaret",
+   "project": "Fv. Skaret",
+   "lat": 59.972682,
+   "lon": 10.333521,
+   "heading": 157.7,
+   "rate": 102.0,
+   "valid_from": "2026-11-03"
   }
  ],
  "rows": []

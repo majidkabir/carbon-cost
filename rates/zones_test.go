@@ -51,3 +51,25 @@ func TestEasterSeason(t *testing.T) {
 		}
 	}
 }
+
+// Norway's days without rush-hour prices in 2026 (Easter 5 April).
+func TestNorwegianRushFree(t *testing.T) {
+	for day, want := range map[string]bool{
+		"2026-01-01": true, "2026-04-01": true, "2026-04-02": true, "2026-04-03": true, "2026-04-06": true,
+		"2026-05-01": true, "2026-05-14": true, "2026-05-25": true, "2026-12-24": true, "2026-12-25": true,
+		"2026-12-31": true, "2026-03-31": false, "2026-05-13": false, "2026-11-05": false, "2026-12-23": false,
+	} {
+		d, _ := time.Parse(time.DateOnly, day)
+		if got := NorwegianRushFree(d) != ""; got != want {
+			t.Errorf("%s: rush-free %v, want %v", day, got, want)
+		}
+	}
+	r := Rush{Hours: [][]string{{"06:30", "08:59"}}, FreeDays: []string{"norwegian_holidays", "july"}}
+	for at, want := range map[string]bool{"2026-11-05 06:29": false, "2026-11-05 06:30": true, "2026-11-05 08:59": true,
+		"2026-11-05 09:00": false, "2026-11-07 07:00": false, "2026-07-02 07:00": false} {
+		tm, _ := time.Parse("2006-01-02 15:04", at)
+		if got, _, err := r.In(tm); err != nil || got != want {
+			t.Errorf("%s: in rush %v (%v), want %v", at, got, err, want)
+		}
+	}
+}

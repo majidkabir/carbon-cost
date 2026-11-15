@@ -30,7 +30,7 @@ stations on local or private roads are left out (listed when built). The
 table is valid from the latest version date of the stations
 (metadata.startdato).
 """
-import glob, html, json, math, os, re, sys
+import glob, html, json, math, os, re, sys, unicodedata
 
 
 # The days without rush-hour prices besides weekends: Norway's public
@@ -52,7 +52,7 @@ RUSH = {
                   "no-rush-fjellinjen-hour": ["høyeste taksten ved flere passeringer med ulik takst innenfor en time"]}},
     "Ferde AS - Bomringen Bergen": {
         "hours": [("06:30", "09:00"), ("14:30", "16:30")], "free_days": [], "pays": "highest",
-        "check": {"no-rush-bergen": ["06:30 - 09:00 and 14:30 - 16:30"],
+        "check": {"no-rush-bergen": ["Mandag til fredag i rushtiden kl. 06:30 – 09:00 og 14:30 – 16:30", "lørdag, søndag og helligdager"],
                   "no-rush-bergen-decision": ["høyeste taksten ved flere passeringer med ulik takst innenfor en time"]}},
     "Ferde AS - Bomringen i Kristiansand": {
         "hours": [("06:30", "09:00"), ("14:30", "17:00")], "free_days": [], "pays": "first",
@@ -65,7 +65,7 @@ RUSH = {
         "check": {"no-rush-tromso": ["mandag-fredag kl. 06.30-09:00 og kl. 15.00-17.00", "første registrerte passeringen"]}},
     "Vegfinans Bypakke Grenland AS": {
         "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": [], "pays": "first",
-        "check": {"no-rush-grenland": ["07.00-09.00 og kl. 15.00-17.00", "unntatt offentlige fri- og helgedager"]}},
+        "check": {"no-rush-grenland": ["mandag - fredag kl. 07:00 - 09:00 og kl. 15:00 - 17:00, unntatt offentlige fri- og helgedager"]}},
 }
 RUSH_CHECK = {"no-rush-guidelines": ["onsdag før skjærtorsdag", "julaften, nyttårsaften"]}
 
@@ -73,6 +73,7 @@ RUSH_CHECK = {"no-rush-guidelines": ["onsdag før skjærtorsdag", "julaften, nyt
 def check_rush(fetched):
     """Warns where a rush source no longer says what RUSH was taken from."""
     def norm(t):
+        t = unicodedata.normalize("NFKC", t)
         return re.sub(r"\s+", " ", re.sub(r"[‐-―−]", "-", t)).replace(" - ", "-").replace("- ", "-").lower()
     want = dict(RUSH_CHECK)
     for r in RUSH.values():

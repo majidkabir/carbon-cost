@@ -1,18 +1,54 @@
 {
  "country": "NO",
  "currency": "NOK",
- "valid_from": "2026-11-03",
+ "valid_from": "2026-11-12",
  "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
- "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given). Rush-hour prices are higher at some stations: the off-peak price is used. Tolls carry no VAT.",
+ "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (offentlige fridager), Christmas Eve, New Year's Eve and the Wednesday before Maundy Thursday (Takstretningslinjer for bompengeprosjekt på offentlig veg, Vegdirektoratet, July 2025, § 3.3), at Fjellinjen not in July. Tolls carry no VAT.",
  "sources": [
   {
    "title": "NVDB API: Bomstasjon (Statens vegvesen)",
    "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45"
+  },
+  {
+   "title": "Norway: Takstretningslinjer for bompengeprosjekt på offentlig veg (Vegdirektoratet, July 2025), § 3.3 the days without rush-hour prices",
+   "url": "https://www.autopass.no/siteassets/filer-og-vedlegg/04.-takstretningslinjene/takstretninglinjer-juli-2025.pdf"
+  },
+  {
+   "title": "Norway: Fjellinjen, Tariffs and toll stations (rush hours; not on Saturdays, Sundays, public holidays or in July)",
+   "url": "https://www.fjellinjen.no/en/tariffs-and-toll-stations"
+  },
+  {
+   "title": "Norway: Fjellinjen, takstkunngjøring from 1 January 2025 (the hour rule charges the highest tariff)",
+   "url": "https://live.euronext.com/sites/default/files/company_press_releases/attachments_oslo/2024/11/21/632799_B%C3%B8rsmelding%20Takstkunngj%C3%B8ring%2001.01.25.pdf"
+  },
+  {
+   "title": "Norway: Ferde, Bergen toll stations and prices (rush hours)",
+   "url": "https://ferde.no/en/toll-stations-and-prices/bergen"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Bypakke Bergen 24.11.2025, 22/33576-18 (the hour rule charges the highest tariff)",
+   "url": "https://cdn.sanity.io/files/6d3nulko/production/c9b5b450af19c7153cf03a8ee79376d2f66f7d04.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Samferdselspakke for Kristiansandsregionen fase 2, 29.06.2021, 20/5876-21 (rush hours)",
+   "url": "https://cdn.sanity.io/files/6d3nulko/production/92146f48ce9d1aae9556bb25fead7ed480e18126.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Miljøpakke Trondheim (Vegamot), rush hours and rush-free days",
+   "url": "https://www.vegamot.no/wp-content/uploads/2025/09/TakstvedtakMiljopakkeTrondheimfortungenullutslippskjoretoy.pdf"
+  },
+  {
+   "title": "Norway: Vegdirektoratet, takstvedtak Bypakke Tenk Tromsø 2026 (rush hours; the hour rule charges the first passage)",
+   "url": "https://bpsnord.no/wp-content/uploads/2026/07/Takstvedtak-nullutslipp-Bypakke-Tenk-Tromso.pdf"
+  },
+  {
+   "title": "Norway: Bypakke Grenland (Vegfinans), AutoPASS household brochure (rush hours Monday to Friday except public holidays)",
+   "url": "https://www.bamble.kommune.no/contentassets/a909827d89de4a2da2ef3f09732d2ec1/tefy_autopass-a4_hustandsbrosjyre_ma_webny.pdf"
   }
  ],
  "vehicles": "Vehicles over 3,500 kg (takstgruppe 2)",
  "min_kg": 3501,
- "tolled_roads": "424 AutoPASS toll stations, each charged when the route passes it in a charged direction.",
+ "tolled_roads": "427 AutoPASS toll stations, each charged when the route passes it in a charged direction.",
  "toll_points": [
   {
    "name": "Sandviken",
@@ -22,8 +58,24 @@
    "heading": 139.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Straume",
@@ -33,8 +85,24 @@
    "heading": 50.5,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Gravdal",
@@ -44,8 +112,24 @@
    "heading": 37.5,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fyllingen",
@@ -55,8 +139,24 @@
    "heading": 5.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Nyebroen",
@@ -66,8 +166,24 @@
    "heading": 157.7,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kalfaret",
@@ -77,8 +193,24 @@
    "heading": 307.1,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sørkedalsveien",
@@ -88,8 +220,25 @@
    "heading": 113.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv 163 Veitvet",
@@ -99,8 +248,25 @@
    "heading": 257.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E18 Maritim",
@@ -110,8 +276,25 @@
    "heading": 242.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fjøsangerveien",
@@ -121,8 +304,24 @@
    "heading": 188.1,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Storetveitveien",
@@ -132,8 +331,24 @@
    "heading": 23.9,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Natlandsveien",
@@ -143,8 +358,24 @@
    "heading": 10.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Damsgårdsveien",
@@ -154,8 +385,24 @@
    "heading": 118.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E18 Påkjøring fra Sjølyst",
@@ -165,8 +412,25 @@
    "heading": 101.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Gaustad",
@@ -176,8 +440,25 @@
    "heading": 55.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Griniveien",
@@ -187,8 +468,25 @@
    "heading": 87.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Bærumsveien",
@@ -198,8 +496,25 @@
    "heading": 89.4,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E 18 hovedløp",
@@ -209,8 +524,25 @@
    "heading": 236.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring Granfoss fra Fornebu",
@@ -220,8 +552,25 @@
    "heading": 358.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E 18 hovedløp",
@@ -231,8 +580,25 @@
    "heading": 30.2,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Strandveien",
@@ -242,8 +608,25 @@
    "heading": 77.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring E18 fra Lysakerlokket",
@@ -253,8 +636,25 @@
    "heading": 318.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kroppan bru (Nordgående), M-snitt",
@@ -264,6 +664,21 @@
    "heading": 16.1,
    "rate": 60.0,
    "peak_rate": 81.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -275,6 +690,21 @@
    "heading": 200.9,
    "rate": 60.0,
    "peak_rate": 81.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -285,6 +715,21 @@
    "lon": 10.566582,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160010,
    "group_minutes": 60
   },
@@ -295,6 +740,21 @@
    "lon": 10.392406,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60
   },
@@ -305,6 +765,21 @@
    "lon": 10.306641,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60
   },
@@ -341,8 +816,24 @@
    "heading": 32.3,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Boksrud - Minnesund",
@@ -380,8 +871,24 @@
    "heading": 343.9,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Bømlopakken",
@@ -413,6 +920,21 @@
    "lon": 10.367595,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60
   },
@@ -423,6 +945,21 @@
    "lon": 10.437414,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160013,
    "group_minutes": 60
   },
@@ -433,6 +970,21 @@
    "lon": 10.379429,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60
   },
@@ -443,6 +995,21 @@
    "lon": 10.358947,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60
   },
@@ -453,6 +1020,21 @@
    "lon": 10.346583,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60
   },
@@ -463,6 +1045,21 @@
    "lon": 10.400555,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -473,6 +1070,21 @@
    "lon": 10.397159,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -483,6 +1095,21 @@
    "lon": 10.382963,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160011,
    "group_minutes": 60
   },
@@ -493,6 +1120,21 @@
    "lon": 10.420678,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -503,6 +1145,21 @@
    "lon": 10.440545,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -513,6 +1170,21 @@
    "lon": 10.462099,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -523,6 +1195,21 @@
    "lon": 10.475049,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -533,6 +1220,21 @@
    "lon": 10.479339,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -611,6 +1313,21 @@
    "lon": 10.476012,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -775,6 +1492,21 @@
    "heading": 157.5,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -786,6 +1518,21 @@
    "heading": 343.4,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -797,6 +1544,21 @@
    "heading": 84.2,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -808,6 +1570,21 @@
    "heading": 244.8,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -819,6 +1596,21 @@
    "heading": 142.6,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -830,6 +1622,21 @@
    "heading": 356.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -841,6 +1648,21 @@
    "heading": 339.3,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -852,6 +1674,21 @@
    "heading": 125.5,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -863,6 +1700,21 @@
    "heading": 324.1,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -874,6 +1726,21 @@
    "heading": 124.1,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -885,6 +1752,21 @@
    "heading": 290.2,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -896,6 +1778,21 @@
    "heading": 342.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -907,6 +1804,21 @@
    "heading": 178.9,
    "rate": 42.0,
    "peak_rate": 58.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 580027,
    "group_minutes": 60
   },
@@ -1019,8 +1931,25 @@
    "heading": 46.8,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring Granfoss fra E18",
@@ -1030,8 +1959,25 @@
    "heading": 83.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Gaustad",
@@ -1041,8 +1987,25 @@
    "heading": 72.0,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Moholt, O-snitt, rampe 1",
@@ -1052,6 +2015,21 @@
    "heading": 281.0,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -1063,6 +2041,21 @@
    "heading": 159.3,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160009,
    "group_minutes": 60
   },
@@ -1074,6 +2067,21 @@
    "heading": 326.7,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60
   },
@@ -1085,6 +2093,21 @@
    "heading": 190.3,
    "rate": 38.0,
    "peak_rate": 48.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160012,
    "group_minutes": 60
   },
@@ -1508,7 +2531,8 @@
    "heading": 135.3,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv556 Straumevegen, mot nord",
@@ -1518,7 +2542,8 @@
    "heading": 28.3,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv580 Fritz-C-Riebers veg, mot nord",
@@ -1528,7 +2553,8 @@
    "heading": 23.7,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv582 Fanavegen, mot nord",
@@ -1538,7 +2564,8 @@
    "heading": 55.2,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Steinsvikvegen",
@@ -1548,7 +2575,8 @@
    "heading": 205.5,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Småstrandgaten",
@@ -1558,7 +2586,8 @@
    "heading": 293.7,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv555 Strandkaien, mot vest",
@@ -1568,7 +2597,8 @@
    "heading": 110.6,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E39 Åsanevegen, mot sør",
@@ -1578,7 +2608,8 @@
    "heading": 41.6,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Åsanemyrane",
@@ -1588,7 +2619,8 @@
    "heading": 275.0,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv580 Grimesvingene, mot vest",
@@ -1598,7 +2630,8 @@
    "heading": 315.4,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Telleviksveien",
@@ -1608,7 +2641,8 @@
    "heading": 149.6,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Flyplassvegen",
@@ -1618,7 +2652,8 @@
    "heading": 73.3,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv172 Skagevegen, mot sør",
@@ -1628,7 +2663,8 @@
    "heading": 168.5,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fv558 Lyderhornsveien, mot sør-øst",
@@ -1638,7 +2674,8 @@
    "heading": 157.2,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv555 Sotravegen, mot øst",
@@ -1648,7 +2685,8 @@
    "heading": 61.6,
    "rate": 88.0,
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Klett - E6, S-snitt",
@@ -1657,6 +2695,21 @@
    "lon": 10.341285,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60
   },
@@ -1687,8 +2740,25 @@
    "heading": 184.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Konows gate",
@@ -1697,8 +2767,25 @@
    "lon": 10.768132,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Gaustad",
@@ -1708,8 +2795,25 @@
    "heading": 245.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fjellveien",
@@ -1719,8 +2823,25 @@
    "heading": 17.2,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring operatunnelen",
@@ -1730,8 +2851,25 @@
    "heading": 114.1,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Dronning Blancas vei",
@@ -1740,8 +2878,25 @@
    "lon": 10.687039,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Teisenveien",
@@ -1750,8 +2905,25 @@
    "lon": 10.817592,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ole Bulls Gate",
@@ -1760,8 +2932,25 @@
    "lon": 10.766777,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Slemdalsveien",
@@ -1770,8 +2959,25 @@
    "lon": 10.7098,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Furuset",
@@ -1781,8 +2987,25 @@
    "heading": 277.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Lambertseterveien",
@@ -1791,8 +3014,25 @@
    "lon": 10.819164,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E18 Bygdøylokket",
@@ -1802,8 +3042,25 @@
    "heading": 94.9,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Strømsveien",
@@ -1812,8 +3069,25 @@
    "lon": 10.85405,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Uelands Gate",
@@ -1822,8 +3096,25 @@
    "lon": 10.749739,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv 4 Skillebekk",
@@ -1833,8 +3124,25 @@
    "heading": 225.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ensjøveien",
@@ -1843,8 +3151,25 @@
    "lon": 10.782749,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Høybråtenveien",
@@ -1854,8 +3179,25 @@
    "heading": 275.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E 6 avkjøring til Abildsø",
@@ -1865,8 +3207,25 @@
    "heading": 35.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Alnabru",
@@ -1875,8 +3234,25 @@
    "lon": 10.843987,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Alnabru",
@@ -1886,8 +3262,25 @@
    "heading": 231.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "RV 4 Carl Berner",
@@ -1896,8 +3289,25 @@
    "lon": 10.777668,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kværnerveien",
@@ -1906,8 +3316,25 @@
    "lon": 10.780249,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Jørgen Løvlands gate",
@@ -1916,8 +3343,25 @@
    "lon": 10.775534,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Sinsenkrysset",
@@ -1926,8 +3370,25 @@
    "lon": 10.781712,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Skiveien",
@@ -1937,8 +3398,25 @@
    "heading": 357.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Grenseveien",
@@ -1947,8 +3425,25 @@
    "lon": 10.777698,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Myhrens verksted",
@@ -1957,8 +3452,25 @@
    "lon": 10.759391,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Vogts Gate",
@@ -1967,8 +3479,25 @@
    "lon": 10.762482,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sognsveien",
@@ -1977,8 +3506,25 @@
    "lon": 10.730447,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rosenholmveien",
@@ -1988,8 +3534,25 @@
    "heading": 353.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Karihaugen",
@@ -1999,8 +3562,25 @@
    "heading": 304.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kildeveien",
@@ -2009,8 +3589,25 @@
    "lon": 10.802674,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Østensjøveien",
@@ -2019,8 +3616,25 @@
    "lon": 10.805141,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Alfaset 3. Industri vei",
@@ -2029,8 +3643,25 @@
    "lon": 10.841846,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ljansbrukveien",
@@ -2040,8 +3671,25 @@
    "heading": 355.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ytre Ringvei Alnabru",
@@ -2050,8 +3698,25 @@
    "lon": 10.850121,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Taraldrud",
@@ -2061,8 +3726,25 @@
    "heading": 36.8,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Drammensveien",
@@ -2071,8 +3753,25 @@
    "lon": 10.684804,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Enebakkveien",
@@ -2082,8 +3781,25 @@
    "heading": 249.5,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Avkjøring fra Sinsenkrysset",
@@ -2093,8 +3809,25 @@
    "heading": 330.3,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E18 Fiskevollbukta",
@@ -2104,8 +3837,25 @@
    "heading": 182.4,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Økernveien",
@@ -2114,8 +3864,25 @@
    "lon": 10.780136,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Suhms Gate",
@@ -2124,8 +3891,25 @@
    "lon": 10.714859,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv 163 Veitvet",
@@ -2135,8 +3919,25 @@
    "heading": 77.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv163 Stovner",
@@ -2146,8 +3947,25 @@
    "heading": 287.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sandstuveien",
@@ -2156,8 +3974,25 @@
    "lon": 10.806069,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sørkedalsveien",
@@ -2167,8 +4002,25 @@
    "heading": 293.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Hasleveien",
@@ -2177,8 +4029,25 @@
    "lon": 10.777524,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E 18 Mosseveien",
@@ -2187,8 +4056,25 @@
    "lon": 10.768001,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Starveien",
@@ -2198,8 +4084,25 @@
    "heading": 346.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Tvetenveien",
@@ -2208,8 +4111,25 @@
    "lon": 10.862314,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Tåsenveien",
@@ -2218,8 +4138,25 @@
    "lon": 10.746535,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Sinsenkrysset",
@@ -2229,8 +4166,25 @@
    "heading": 166.5,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "På og avkjøring E6 Lodalen",
@@ -2240,8 +4194,25 @@
    "heading": 17.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Teisen",
@@ -2250,8 +4221,25 @@
    "lon": 10.812479,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Avkjøring E6 til strømsveien",
@@ -2261,8 +4249,25 @@
    "heading": 81.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Blindernveien",
@@ -2271,8 +4276,25 @@
    "lon": 10.724336,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fagerheimgata Nord",
@@ -2282,8 +4304,25 @@
    "heading": 220.7,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Abildsø",
@@ -2292,8 +4331,25 @@
    "lon": 10.82016,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E18 Bygdøylokket",
@@ -2303,8 +4359,25 @@
    "heading": 274.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Smalvollveien",
@@ -2313,8 +4386,25 @@
    "lon": 10.84278,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Rv 4 Linderud",
@@ -2323,8 +4413,25 @@
    "lon": 10.841967,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sandakerveien",
@@ -2333,8 +4440,25 @@
    "lon": 10.760133,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fritjof Nansens vei",
@@ -2343,8 +4467,25 @@
    "lon": 10.706881,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "St. Halvards gate",
@@ -2353,8 +4494,25 @@
    "lon": 10.78065,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ekebergveien",
@@ -2363,8 +4521,25 @@
    "lon": 10.781838,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Apalveien",
@@ -2373,8 +4548,25 @@
    "lon": 10.710968,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Dyvekes vei",
@@ -2383,8 +4575,25 @@
    "lon": 10.779397,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Gamleveien",
@@ -2394,8 +4603,25 @@
    "heading": 323.6,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230307,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kierschows Gate",
@@ -2404,8 +4630,25 @@
    "lon": 10.747528,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Kongsveien",
@@ -2414,8 +4657,25 @@
    "lon": 10.770736,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Fagerheimgata Sør",
@@ -2424,8 +4684,25 @@
    "lon": 10.769278,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Påkjøring til Sinsenkrysset",
@@ -2435,8 +4712,25 @@
    "heading": 152.0,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Ring 3 Sinsenkrysset",
@@ -2446,8 +4740,25 @@
    "heading": 346.8,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Karenslyst allè",
@@ -2456,8 +4767,25 @@
    "lon": 10.682309,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Klett Røddeveien, S-snitt",
@@ -2466,6 +4794,21 @@
    "lon": 10.311147,
    "rate": 53.0,
    "peak_rate": 106.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160007,
    "group_minutes": 60
   },
@@ -2572,8 +4915,25 @@
    "heading": 208.7,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Lodalen",
@@ -2583,8 +4943,25 @@
    "heading": 29.2,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E6 Svartdalstunnelen",
@@ -2594,8 +4971,25 @@
    "heading": 163.6,
    "rate": 113.0,
    "peak_rate": 150.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Seljestad",
@@ -2847,8 +5241,24 @@
    "heading": 32.2,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Sødal",
@@ -2908,8 +5318,25 @@
    "heading": 340.9,
    "rate": 161.0,
    "peak_rate": 223.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
    "group": 230301,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "E39 Skoieveien",
@@ -3159,6 +5586,21 @@
    "lon": 18.979264,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3169,6 +5611,21 @@
    "lon": 18.917946,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3179,6 +5636,21 @@
    "lon": 18.902531,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3189,6 +5661,21 @@
    "lon": 18.968972,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3199,6 +5686,21 @@
    "lon": 18.965009,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3209,6 +5711,21 @@
    "lon": 18.929771,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3219,6 +5736,21 @@
    "lon": 18.922583,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3229,6 +5761,21 @@
    "lon": 18.938102,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3239,6 +5786,21 @@
    "lon": 18.933969,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3249,6 +5811,21 @@
    "lon": 18.904536,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3259,6 +5836,21 @@
    "lon": 18.96723,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3269,6 +5861,21 @@
    "lon": 18.91984,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3279,6 +5886,21 @@
    "lon": 18.989849,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3289,6 +5911,21 @@
    "lon": 18.907469,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3299,6 +5936,21 @@
    "lon": 19.018143,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3309,6 +5961,21 @@
    "lon": 19.018157,
    "rate": 28.0,
    "peak_rate": 84.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 540101,
    "group_minutes": 60
   },
@@ -3320,8 +5987,24 @@
    "heading": 239.6,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Michael Krohns gate",
@@ -3331,8 +6014,24 @@
    "heading": 125.6,
    "rate": 88.0,
    "peak_rate": 154.0,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "14:30",
+      "16:29"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 240016,
-   "group_minutes": 60
+   "group_minutes": 60,
+   "group_pays": "highest"
   },
   {
    "name": "Nydalsbrua Nord (Oslovn)",
@@ -3341,6 +6040,21 @@
    "lon": 10.386588,
    "rate": 39.0,
    "peak_rate": 70.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60
   },
@@ -3351,6 +6065,21 @@
    "lon": 10.38482,
    "rate": 39.0,
    "peak_rate": 70.0,
+   "rush": {
+    "hours": [
+     [
+      "07:00",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays"
+    ]
+   },
    "group": 160008,
    "group_minutes": 60
   },
@@ -3688,7 +6417,7 @@
    "name": "Ranheim",
    "lat": 63.422291,
    "lon": 10.554037,
-   "rate": 121.0
+   "rate": 127.0
   },
   {
    "name": "NVDB 1025249143",
@@ -3873,6 +6602,12 @@
    "rate": 31.0
   },
   {
+   "name": "E6 Forbordsfjelltunnelen",
+   "lat": 63.496188,
+   "lon": 10.883473,
+   "rate": 104.0
+  },
+  {
    "name": "Rv.70 Nordsundbrua",
    "project": "Bypakke Kristiansund",
    "lat": 63.114301,
@@ -3954,6 +6689,20 @@
    "lon": 10.333521,
    "heading": 157.7,
    "rate": 102.0
+  },
+  {
+   "name": "E6 Åsen (Felt 1 og 2)",
+   "lat": 63.600552,
+   "lon": 11.049688,
+   "heading": 205.1,
+   "rate": 21.0
+  },
+  {
+   "name": "E6 Åsen (Felt 3 og 4)",
+   "lat": 63.600169,
+   "lon": 11.049727,
+   "heading": 25.1,
+   "rate": 21.0
   }
  ],
  "rows": []

@@ -288,6 +288,9 @@ type TollPoint struct {
 	Heading  *float64 `json:"heading,omitempty"`
 	Rate     float64  `json:"rate"`                // per passage, outside rush hours
 	PeakRate float64  `json:"peak_rate,omitempty"` // per passage in rush hours, where it differs
+	// Rush is when PeakRate applies; without it the station is priced at
+	// Rate, with a note.
+	Rush *Rush `json:"rush,omitempty"`
 	// Classes price the station by truck where its price differs by mass
 	// or axles: the first class the truck matches, instead of Rate.
 	Classes []PointClass `json:"classes,omitempty"`
@@ -295,6 +298,9 @@ type TollPoint struct {
 	// the group's other stations are free for GroupMinutes.
 	Group        int `json:"group,omitempty"`
 	GroupMinutes int `json:"group_minutes,omitempty"`
+	// GroupPays "highest": the passages within the group's minutes pay the
+	// highest of their prices; otherwise the first passage pays.
+	GroupPays string `json:"group_pays,omitempty"`
 	// Within names a closed system of the same table whose tickets
 	// include this station's charge: a route with a ticket of that system
 	// from one side of the station to the other doesn't pay it again.

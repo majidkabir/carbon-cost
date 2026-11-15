@@ -1474,11 +1474,15 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 		passes = append(passes, pass{tp, pos})
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	paid := map[int]time.Time{} // when each hour-rule group was last paid
+	type window struct {
+		at     time.Time // when the group was paid
+		amount float64   // the most a passage within its minutes has paid
+	}
+	paid := map[int]window{} // each hour-rule group's latest paid window
 	untimedFree := false
 	nightUntimed := map[string][]string{}
 	last := map[string]float64{} // where each station was last paid, km along the route
-	free, peak := 0, 0
+	free, peak, peakUntimed := 0, 0, 0
 	var cg struct {
 		noTime, offHours, multi, freeHours int
 		why                                string
@@ -1570,31 +1574,54 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 				}
 			}
 		}
-		if p.tp.Group != 0 {
-			// The hour rule: after a paid passage the group's stations are
-			// free for GroupMinutes; without times the trip is taken to pass
-			// them all within it.
-			mins := p.tp.GroupMinutes
-			if mins == 0 {
-				mins = 60
+		rush := ""
+		if p.tp.PeakRate > rate && len(p.tp.Classes) == 0 {
+			switch {
+			case p.tp.Rush == nil:
+				peak++
+			case !timed:
+				peakUntimed++
+			default:
+				in, _, err := p.tp.Rush.In(at)
+				if err != nil {
+					return true, err
+				}
+				if in {
+					rate, rush = p.tp.PeakRate, " (rush hour, "+at.Format("15:04")+")"
+				}
 			}
-			if t0, ok := paid[p.tp.Group]; ok && (!timed || at.Sub(t0) < time.Duration(mins)*time.Minute) {
-				free++
-				untimedFree = untimedFree || !timed
-				continue
-			}
-			paid[p.tp.Group] = at
-		}
-		last[p.tp.Name] = p.pos
-		if p.tp.PeakRate > rate {
-			peak++
 		}
 		name := p.tp.Name
 		if p.tp.Project != "" {
 			name = p.tp.Project + ": " + name
 		}
-		if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: name,
-			Rate: rate, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: rate, Source: tb.Law}); err != nil {
+		amount := rate
+		if p.tp.Group != 0 {
+			// The hour rule: after a paid passage the group's stations are
+			// free for GroupMinutes, or charge only what their price exceeds
+			// the window's where the group pays the highest price; without
+			// times the trip is taken to pass them all within it.
+			mins := p.tp.GroupMinutes
+			if mins == 0 {
+				mins = 60
+			}
+			if w, ok := paid[p.tp.Group]; ok && (!timed || at.Sub(w.at) < time.Duration(mins)*time.Minute) {
+				if p.tp.GroupPays != "highest" || rate <= w.amount {
+					free++
+					untimedFree = untimedFree || !timed
+					continue
+				}
+				amount = rate - w.amount
+				name += fmt.Sprintf(" (the hour's highest price: %g less %g paid within the hour)", rate, w.amount)
+				w.amount = rate
+				paid[p.tp.Group] = w
+			} else {
+				paid[p.tp.Group] = window{at, rate}
+			}
+		}
+		last[p.tp.Name] = p.pos
+		if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: name + rush,
+			Rate: amount, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: amount, Source: tb.Law}); err != nil {
 			return true, err
 		}
 	}
@@ -1610,6 +1637,9 @@ func priceTollPoints(tb rates.Table, country string, route *track, req Request, 
 	}
 	if peak > 0 {
 		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))
+	}
+	if peakUntimed > 0 {
+		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d station passage(s) charge more in rush hours; priced at the off-peak rate. Give a departure time.", country, peakUntimed))
 	}
 	switch {
 	case cg.noTime > 0:

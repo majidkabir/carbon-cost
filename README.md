@@ -133,7 +133,7 @@ The route and the cargo's emissions stay the same. The exception is a class 5 (z
 
 Run `carbon-cost rates` for the full list. Countries on a route that have no table are listed under `no_rates`, and their charges are not included.
 
-Not covered yet, for want of an official source the tool can read and place repeatably: Italy's exact tolls (only the per-concession estimate above), Spain's AP-9 (the Ministry's prices group several exits under one name and some trips pay more than one plaza, so a route can't be priced reliably), Bizkaia's Supersur (Interbiak's prices name Bilbao Este, Bilbao Sur and Arrigorriaga, which no exit sign or toll booth in OSM names), the M-12 and the R-2's open plazas (their booths in OSM carry no names), and Bidegi's Zarautz E / Orio – Donostia prices (the sheet doesn't say where Zarautz E is).
+Not covered yet, for want of an official source the tool can read and place repeatably: Italy's exact tolls (only the per-concession estimate above), Spain's AP-9 (five chained sections, each priced by entry and exit, but the Ministry's and Audasa's prices name stations such as Santiago, Sigüeiro and Pontevedra that cover several exits, including Santiago – Santiago and Sigüeiro – Sigüeiro, and no source says which exits; Audasa's map places plazas only around Ferrol and A Coruña; left out until a source places every station), Bizkaia's Supersur (Interbiak's prices name Bilbao Este, Bilbao Sur and Arrigorriaga, which no exit sign or toll booth in OSM names), the M-12 and the R-2's open plazas (their booths in OSM carry no names), and Bidegi's Zarautz E / Orio – Donostia prices (the sheet doesn't say where Zarautz E is).
 
 ## Things to know
 

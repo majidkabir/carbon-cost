@@ -3,7 +3,8 @@ the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL), the Liefkenshoektunnel (BE),
 the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB), the Túnel
-d'Envalira (AD), the Faroe Islands' subsea tunnels (FO).
+d'Envalira (AD), the Faroe Islands' subsea tunnels (FO), the Vaðlaheiðargöng
+tunnel and the Ring Road through Hornafjörður (IS).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -688,6 +689,78 @@ def faroe(fetched, out):
                 "rows": []}, "fo-tunnels")
 
 
+IS_MONTHS_EN = {m: i + 1 for i, m in enumerate(("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"))}
+IS_MONTHS_IS = {"janúar": 1, "febrúar": 2, "mars": 3, "apríl": 4, "maí": 5, "júní": 6, "júlí": 7, "ágúst": 8, "september": 9, "október": 10, "nóvember": 11, "desember": 12}
+
+
+def iceland(fetched, out):
+    """Iceland's two tolls, single trips for vehicles over 3.5 t (none
+    charges by direction): the Vaðlaheiðargöng tunnel (Vaðlaheiðargöng hf.'s
+    price list, is-veggjald.html) at the middle of its OpenStreetMap way, and
+    the new Ring Road (1) through Hornafjörður (Spölur's price list,
+    is-spolur.html; the start from Vegagerðin's notice,
+    is-vegagerdin-hornafjordur.html) at the longest bridge of the ways
+    OpenStreetMap tags toll=yes there, the one over Hornafjarðarfljót
+    (is-tolls-osm.json)."""
+    try:
+        d = json.load(open(os.path.join(fetched, "is-tolls-osm.json")))
+        vhg = text(os.path.join(fetched, "is-veggjald.html"))
+        sp = text(os.path.join(fetched, "is-spolur.html"))
+        vg = text(os.path.join(fetched, "is-vegagerdin-hornafjordur.html")).replace("\xad", "")
+    except (OSError, ValueError):
+        print("Iceland tolls: a page or OpenStreetMap not fetched; not built")
+        return
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    kr = r"(\d{1,2}\.\d{3}) kr\."
+    m = re.search(r"Verðskrá gildir frá (\d+)\. ?(\w+) (\d{4}) .{0,400}?"
+                  rf"Ökutæki 3\.5 - 7\.5 tonn Stök ferð greidd á veggjald\.is / tunnel\.is {kr} .{{0,80}}?"
+                  rf"Ökutæki 7\.5 tonn og yfir Stök ferð greidd á veggjald\.is / tunnel\.is {kr} .{{0,120}}?(\d+)% VSK er innifalin í veggjöldum", vhg)
+    if not m or m.group(2).lower() not in IS_MONTHS_IS:
+        sys.exit("Vaðlaheiðargöng: prices not read")
+    vfrom = f"{m.group(3)}-{IS_MONTHS_IS[m.group(2).lower()]:02d}-{int(m.group(1)):02d}"
+    v_mid, v_heavy, vat = int(m.group(4).replace(".", "")), int(m.group(5).replace(".", "")), m.group(6)
+    s = re.search(rf"Ökutæki 3,5 - 7,5 tonn Fjöldi ferða Verð Stök ferð {kr} .{{0,200}}?Ökutæki yfir 7,5 tonn Fjöldi ferða Verð Stök ferð {kr}", sp)
+    g = re.search(r"(\d+) ágúst (\d{4}) Horna ?fjörður Ring road tolls collected from September (\d+)\w* onwards .{0,1500}?"
+                  r"between 3\.5 and 7\.5 tonnes will be charged (\d,\d{3}) ISK, and large vehicles over 7\.5 tonnes will be charged (\d,\d{3}) ISK", vg)
+    if not s or not g:
+        sys.exit("Hornafjörður: prices or start not read")
+    h_mid, h_heavy = int(s.group(1).replace(".", "")), int(s.group(2).replace(".", ""))
+    if (h_mid, h_heavy) != (int(g.group(4).replace(",", "")), int(g.group(5).replace(",", ""))):
+        sys.exit(f"Hornafjörður: Spölur's prices {h_mid}/{h_heavy} differ from Vegagerðin's notice {g.group(4)}/{g.group(5)}")
+    hfrom = f"{g.group(2)}-09-{int(g.group(3)):02d}"
+    tunnel = longest(d, r"^Vaðlaheiðargöng$")
+    bridges = [e for e in d["elements"] if e["type"] == "way" and e.get("tags", {}).get("toll") == "yes" and e["tags"].get("bridge") == "yes" and e["tags"].get("ref") == "1"]
+    if not tunnel or not bridges:
+        sys.exit("Iceland tolls: Vaðlaheiðargöng or the tolled Hornafjörður section not in OpenStreetMap")
+    bridge = max(bridges, key=lambda e: sum(km((a["lat"], a["lon"]), (b["lat"], b["lon"])) for a, b in zip(e["geometry"], e["geometry"][1:])))
+    tl, tn, _ = middle(tunnel)
+    bl, bn, _ = middle(bridge)
+    write(out, {"country": "IS", "currency": "ISK", "valid_from": vfrom, "crossings": True, "osm_extract": stamp,
+                "name": "Vaðlaheiðargöng tunnel",
+                "law": (f"Vaðlaheiðargöng hf.'s price list in force from {vfrom}, single trips: vehicles of 3.5-7.5 t ISK {v_mid}, of 7.5 t and over ISK {v_heavy}, each direction ({vat}% VAT included). "
+                        "Free-flow (number plates); placed at the middle of the tunnel's way in OpenStreetMap. Prepaid trips and subscriptions (for vehicles under 3.5 t) aren't modelled."),
+                "sources": [{"title": "Vaðlaheiðargöng: Verð & greiðsluleiðir", "url": "https://www.veggjald.is/verd-greidsluleidir"}],
+                "vehicles": "Vehicles over 3.5 t", "min_kg": 3501,
+                "tolled_roads": "Vaðlaheiðargöng, Ring Road (1) east of Akureyri.",
+                "point_match_km": 0.15,
+                "toll_points": [{"name": "Vaðlaheiðargöng", "lat": tl, "lon": tn, "rate": 0,
+                                 "classes": [{"min_kg": 3501, "max_kg": 7499, "rate": v_mid}, {"min_kg": 7500, "rate": v_heavy}]}],
+                "rows": []}, "is-vadlaheidargong")
+    write(out, {"country": "IS", "currency": "ISK", "valid_from": hfrom, "crossings": True, "osm_extract": stamp,
+                "name": "Ring Road (1) through Hornafjörður",
+                "law": (f"Spölur ehf.'s price list for the new Ring Road (1) section through Hornafjörður, single trips: vehicles of 3.5-7.5 t ISK {h_mid}, over 7.5 t ISK {h_heavy}, by the total weight in the vehicle register; "
+                        f"Vegagerðin's notice of {int(g.group(1))} August {g.group(2)}: collected from {hfrom}, the same prices. Free-flow (cameras at the section's ends); "
+                        "placed at the longest bridge of the ways OpenStreetMap tags toll=yes there (the one over Hornafjarðarfljót), which a trip through the section crosses. Monthly discounts (for vehicles up to 7.5 t) aren't modelled."),
+                "sources": [{"title": "Spölur: Verðskrá", "url": "https://www.spolur.is/verdskra"},
+                            {"title": "Vegagerðin: Hornafjörður Ring road tolls collected from September 1st onwards", "url": "https://www.vegagerdin.is/en/about-us/operation/news/gjaldtaka-a-hringvegi-1-um-hornafjord-hefst-i-september"}],
+                "vehicles": "Vehicles over 3.5 t", "min_kg": 3501,
+                "tolled_roads": "The new Ring Road (1) section through Hornafjörður, with its bridge over Hornafjarðarfljót.",
+                "point_match_km": 0.1,
+                "toll_points": [{"name": "Hornafjörður (Ring Road 1)", "lat": bl, "lon": bn, "rate": 0,
+                                 "classes": [{"min_kg": 3501, "max_kg": 7500, "rate": h_mid}, {"min_kg": 7501, "rate": h_heavy}]}],
+                "rows": []}, "is-hornafjordur")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
@@ -709,6 +782,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     bridges(browser, fetched, out)
     envalira(fetched, out)
     faroe(fetched, out)
+    iceland(fetched, out)
 
 
 if __name__ == "__main__":

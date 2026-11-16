@@ -1,0 +1,81 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-is/2026-01-01",
+  "scheme": {
+   "id": "fuelco2-is",
+   "name": "Kolefnisgjald on gas and diesel oil",
+   "country": "IS"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "ISK",
+  "timezone": "Atlantic/Reykjavik",
+  "license": "MIT",
+  "method": "Lög um umhverfis- og auðlindaskatta nr. 129/2009, 1. gr. (kolefnisgjald, the carbon tax on fossil fuel): 28.30 kr. per litre of gas and diesel oil, as amended by L. 100/2025, 29. gr. (in force 2026-01-01), in Alþingi's lagasafn útgáfa 158a (1. október 2026). The importer or producer pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-is-2026-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Alþingi lagasafn útgáfa 158a (1 October 2026): Lög um umhverfis- og auðlindaskatta nr. 129/2009, the kolefnisgjald per litre of gas and diesel oil (the Internet Archive's copy)",
+   "url": "https://www.althingi.is/lagas/158a/2009129.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "IS"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Kolefnisgjald on gas and diesel oil",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["28.3"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

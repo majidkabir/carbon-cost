@@ -1562,6 +1562,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("LU %s: %+v", d, l)
 		}
 	}
+	// Iceland's kolefnisgjald on gas and diesel oil: ISK 13.45, 21.40 and
+	// 28.30 per litre in 2024, 2025 and 2026.
+	for d, want := range map[string]float64{"2024-06-01": 13.45, "2025-06-01": 21.4, "2026-11-03": 28.3} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "IS", DieselL: 100, FX: map[string]float64{"ISK": 140}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "IS", rates.CO2); !ok || l.Rate != want || l.RateUnit != "ISK/l" || math.Abs(l.Amount-100*want) > 0.01 || math.Abs(l.AmountEUR-100*want/140) > 0.01 {
+			t.Errorf("IS %s: %+v", d, l)
+		}
+	}
 	// Sweden's koldioxidskatt on diesel per litre: SEK 2.811 in 2025, cut to
 	// 0.411 from 1 July to 30 November 2026.
 	for d, want := range map[string]float64{"2025-06-01": 2.811, "2026-11-03": 0.411, "2026-12-15": 2.811, "2024-06-01": 2.723} {

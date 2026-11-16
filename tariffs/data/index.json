@@ -1479,6 +1479,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-is/2024-01-01",
+   "scheme": "fuelco2-is",
+   "country": "IS",
+   "file": "is/fuelco2-is-2024-01-01.orct.json",
+   "name": "Kolefnisgjald on gas and diesel oil",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-12-31",
+   "sha256": "a896a83dbc0d4d46087e2e7932aa261d559b100b5c6ad61a1b74abf2b479c7ee",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-is/2025-01-01",
+   "scheme": "fuelco2-is",
+   "country": "IS",
+   "file": "is/fuelco2-is-2025-01-01.orct.json",
+   "name": "Kolefnisgjald on gas and diesel oil",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "2bedaf0c5eb637f73b33736929aceb015f0d4710ddaaa3f955f0a5d8e480983e",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-is/2026-01-01",
+   "scheme": "fuelco2-is",
+   "country": "IS",
+   "file": "is/fuelco2-is-2026-01-01.orct.json",
+   "name": "Kolefnisgjald on gas and diesel oil",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "535090ec37bb97c27821ed2b2a458b603a5c0775414b9b702eaf8a53e2ef639e",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/it/2026-01-01",
    "scheme": "it",
    "country": "IT",

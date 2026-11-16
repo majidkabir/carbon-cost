@@ -560,6 +560,48 @@ def luxembourg(fetched, out, srcs):
                     "sources": [src(srcs, sid)]})
 
 
+IS_VERSIONS = ("is-althingi-129-2009-154b", "is-althingi-129-2009-156b", "is-althingi-129-2009-158a")
+IS_MONTHS = {"jan": 1, "feb": 2, "mars": 3, "mar": 3, "apr": 4, "apríl": 4, "maí": 5, "júní": 6, "jún": 6, "júlí": 7, "júl": 7,
+             "ágúst": 8, "ág": 8, "sept": 9, "sep": 9, "okt": 10, "nóv": 11, "des": 12}
+
+
+def iceland(fetched, out, srcs):
+    """Kolefnisgjald on gas and diesel oil, from three versions of Lög um
+    umhverfis- og auðlindaskatta nr. 129/2009 in Alþingi's lagasafn: each
+    gives the amount, the law that set it (the footnote) and that law's
+    entry into force (the "Breytt með" list)."""
+    found = []
+    for sid in IS_VERSIONS:
+        t = text(os.path.join(fetched, sid + ".html"))
+        v = re.search(r"Íslensk lög (\d+\. \w+ \d{4})\. Útgáfa (\w+)\.", t)
+        # The amount is in 1. gr.: the article that follows it is 2. gr. (Gjaldskyldir aðilar).
+        m = re.search(r"Fjárhæð kolefnisgjalds skal vera \[(\d+,\d+) kr\.\] ?1\) á hvern lítra af gas- og dísilolíu.{0,400}?1\) ?L\. (\d+/\d{4}), (\d+)\. gr\..{0,60}?Gjaldskyldir aðilar\. 2\. gr\.", t)
+        if not v or not m:
+            sys.exit(f"Lög nr. 129/2009 ({sid}): kolefnisgjald on gas and diesel oil not read")
+        law = m.group(2)
+        f = re.search(rf"L\. {re.escape(law)} \(tók[iu] gildi (\d+)\. (\w+)\.? (\d{{4}})", t)
+        if not f or f.group(2).lower() not in IS_MONTHS:
+            sys.exit(f"Lög nr. 129/2009 ({sid}): entry into force of L. {law} not read")
+        start = datetime.date(int(f.group(3)), IS_MONTHS[f.group(2).lower()], int(f.group(1)))
+        found.append((start, float(m.group(1).replace(",", ".")), law, m.group(3), v.group(2), v.group(1), sid))
+    found = sorted(set(found))
+    for i, (start, rate, law, art, ver, asof, sid) in enumerate(found):
+        if i and found[i - 1][1] == rate:
+            sys.exit(f"Lög nr. 129/2009: {ver} gives the same amount as {found[i - 1][4]}")
+        end = found[i + 1][0] - datetime.timedelta(days=1) if i + 1 < len(found) else None
+        if end and end < datetime.date(2024, 1, 1):
+            continue
+        f = {"country": "IS", "currency": "ISK", "valid_from": start.isoformat(),
+             "name": "Kolefnisgjald on gas and diesel oil", "rate_per_l": rate,
+             "law": f"Lög um umhverfis- og auðlindaskatta nr. 129/2009, 1. gr. (kolefnisgjald, the carbon tax on fossil fuel): {rate:.2f} kr. per litre of gas and diesel oil, as amended by L. {law}, {art}. gr. (in force {start}), in Alþingi's lagasafn útgáfa {ver} ({asof}). "
+                    "The importer or producer pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                    "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+             "sources": [src(srcs, sid)]}
+        if end:
+            f["valid_to"] = end.isoformat()
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -574,6 +616,7 @@ def main(fetched, out):
     finland(fetched, out, srcs)
     lithuania(fetched, out, srcs)
     luxembourg(fetched, out, srcs)
+    iceland(fetched, out, srcs)
 
 
 if __name__ == "__main__":

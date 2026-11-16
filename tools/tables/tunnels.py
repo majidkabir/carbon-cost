@@ -3,7 +3,7 @@ the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL), the Liefkenshoektunnel (BE),
 the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB), the Túnel
-d'Envalira (AD).
+d'Envalira (AD), the Faroe Islands' subsea tunnels (FO).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -633,6 +633,61 @@ def envalira(fetched, out):
                 "rows": []}, "ad-envalira")
 
 
+def faroe(fetched, out):
+    """The Faroe Islands' subsea tunnels: Tunnil's one-way prices for
+    vehicles over 3,500 kg (fo-tunnil.html), at the middle of each tunnel's
+    longest way in OpenStreetMap (fo-tunnels-osm.json). Vágatunnilin and
+    Norðoyatunnilin charge only one way (from Vágar, from Klaksvík: the
+    price covers the return); Sandoyartunnilin either way; Eysturoyartunnilin
+    Streymoy-Eysturoy at the middle of its longest branch (the Streymoy one)
+    either way."""
+    try:
+        d = json.load(open(os.path.join(fetched, "fo-tunnels-osm.json")))
+        t = text(os.path.join(fetched, "fo-tunnil.html"))
+    except (OSError, ValueError):
+        print("Faroe tunnels: page or OpenStreetMap not fetched; not built")
+        return
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    dkk = r"DKK (\d+)\*?"
+    m = re.search(r"Prices - one way .{0,200}?Heavy vehicles Vehicles more than 3,500 kg .{0,40}?"
+                  rf"Vágatunnilin \*You are charged for both ways when driving from Vágar {dkk} {dkk} \S+ "
+                  rf"Norðoyatunnilin \*You are charged for both ways when driving from Klaksvík {dkk} {dkk} \S+ "
+                  rf"Sandoyartunnilin {dkk} {dkk} {dkk} Eysturoyartunnilin Stremoy - Eysturoy {dkk} {dkk} {dkk} "
+                  rf"Eysturoyartunnilin Strendur - Runavík {dkk} {dkk} {dkk}", t)
+    if not m:
+        sys.exit("Faroe tunnels: prices not read")
+    g = [int(x) for x in m.groups()]
+    vaga, nordoy, sandoy, eystur, skala = g[1], g[3], g[5], g[8], g[11]
+    ways = {n: longest(d, rf"^{n}$") for n in ("Vágatunnilin", "Norðoyatunnilin", "Sandoyartunnilin", "Eysturoyartunnilin")}
+    if not all(ways.values()):
+        sys.exit(f"Faroe tunnels: not all in OpenStreetMap ({[n for n, w in ways.items() if not w]})")
+
+    def point(name, rate, towards=None):
+        w = ways[name]
+        lat, lon, _ = middle(w)
+        p = {"name": name, "lat": lat, "lon": lon, "rate": 0, "classes": [{"min_kg": 3501, "rate": rate}]}
+        if towards:
+            # Charged one way: from the end on the given side (W or E) to the other.
+            a, b = (w["geometry"][0]["lat"], w["geometry"][0]["lon"]), (w["geometry"][-1]["lat"], w["geometry"][-1]["lon"])
+            if (towards == "E") != (a[1] < b[1]):
+                a, b = b, a
+            p["heading"] = bearing(a, b)
+        return p
+
+    write(out, {"country": "FO", "currency": "DKK", "valid_from": "2026-11-16", "crossings": True, "osm_extract": stamp,
+                "name": "Faroe Islands subsea tunnels",
+                "law": (f"Tunnil's one-way prices for vehicles over 3,500 kg (the Faroese tunnel company; tunnels under løgtingslóg um undirsjóvartunlar): Vágatunnilin DKK {vaga} and Norðoyatunnilin DKK {nordoy}, charged only driving from Vágar and from Klaksvík (the price covers the return); "
+                        f"Sandoyartunnilin DKK {sandoy} and Eysturoyartunnilin Streymoy–Eysturoy DKK {eystur} each way. Eysturoyartunnilin's Strendur–Runavík trips (DKK {skala}), which don't use its Streymoy branch, aren't modelled. "
+                        "Free-flow (number plates); each charge is placed at the middle of the tunnel's longest way in OpenStreetMap (Eysturoyartunnilin: the Streymoy branch). The page gives no date: valid_from is the day it was first read."),
+                "sources": [{"title": "Tunnil: Prices - one way", "url": "https://www.tunnil.fo/english"}],
+                "vehicles": "Vehicles over 3,500 kg", "min_kg": 3501,
+                "tolled_roads": "Vágatunnilin (Vágar–Streymoy), Norðoyatunnilin (Borðoy–Eysturoy), Sandoyartunnilin (Streymoy–Sandoy), Eysturoyartunnilin (Streymoy–Eysturoy).",
+                "point_match_km": 0.15,
+                "toll_points": [point("Vágatunnilin", vaga, towards="E"), point("Norðoyatunnilin", nordoy, towards="W"),
+                                point("Sandoyartunnilin", sandoy), point("Eysturoyartunnilin", eystur)],
+                "rows": []}, "fo-tunnels")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
@@ -653,6 +708,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     thames(browser, fetched, out)
     bridges(browser, fetched, out)
     envalira(fetched, out)
+    faroe(fetched, out)
 
 
 if __name__ == "__main__":

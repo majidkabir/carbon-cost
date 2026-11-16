@@ -116,6 +116,8 @@ def criteria_of(r, motor_axles=False):
     c = {mass: rng(r.get("min_kg"), r.get("max_kg")), axles: rng(r.get("min_axles"), r.get("max_axles"))}
     if r.get("energy"):
         c["energy"] = r["energy"]
+    if "trailer" in r:
+        c["trailer"] = bool(r["trailer"])
     if r.get("min_length_m") or r.get("max_length_m"):
         c["train_length_m"] = rng(hi=r.get("max_length_m"), gt=r.get("min_length_m"))
     if r.get("euro"):
@@ -308,7 +310,7 @@ def convert_table(t, path):
         b.rule("factor", row_charges.get(s["component"], []), {"object": oid, "factor": dec(Decimal(repr(s["factor"])) + 1),
                                                               "note": s.get("law", "")})
 
-    systems = {s["name"]: convert_system(b, i, s) for i, s in enumerate(t.get("closed_systems", []), 1)}
+    systems = {s["name"]: convert_system(b, i, s, motor) for i, s in enumerate(t.get("closed_systems", []), 1)}
     convert_points(b, t, systems, motor)
     if t.get("sections"):
         convert_sections(b, t["sections"], row_charges)
@@ -408,7 +410,7 @@ def convert_rows(b, t, motor):
     return out
 
 
-def convert_system(b, i, s):
+def convert_system(b, i, s, motor=False):
     cid = f"system{i}"
     stations = {}
     for st in s["stations"]:
@@ -420,7 +422,7 @@ def convert_system(b, i, s):
             loc["match_m"] = round(s["station_match_km"] * 1000)
         stations[st["name"]] = b.obj({"id": f"st{i}:{st['name']}", "type": "station", "name": st["name"], "location": loc})
     names = [g["name"] for g in s["groups"]]
-    gid = dict(zip(names, b.class_set(f"sys{i}-", [(criteria_of(g), g["name"], g.get("base")) for g in s["groups"]])))
+    gid = dict(zip(names, b.class_set(f"sys{i}-", [(criteria_of(g, motor), g["name"], g.get("base")) for g in s["groups"]])))
     etc, night = s.get("etc_prices") or {}, s.get("night_prices") or {}
     tnight = b.time_class(f"sys{i}-night", times=hours(s["night_hours"]), label="Night tariff") if s.get("night_hours") else None
     rows, odd, unplaced = [], {}, set()

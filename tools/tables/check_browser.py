@@ -27,6 +27,7 @@ RULES = {
     "gb-tamar": (None, 183),
     "nl-kiltunnel": (None, 183),
     "md-evinieta": (None, 183),
+    "by-mintrans-42-2026": ("08-15", 366),  # BelToll tariffs have changed on 1 September
 }
 
 

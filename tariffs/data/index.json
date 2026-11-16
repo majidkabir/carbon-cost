@@ -379,6 +379,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/by/2026-09-01",
+   "scheme": "by",
+   "country": "BY",
+   "file": "by/by-2026-09-01.orct.json",
+   "name": "BelToll",
+   "valid_from": "2026-09-01",
+   "valid_to": null,
+   "sha256": "1ecf7ddf247da2c37eaba9ad6b238f938a1dcfa39e70535e4954839c914b983c",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/ch/2024-01-01",
    "scheme": "ch",
    "country": "CH",

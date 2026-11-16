@@ -2629,3 +2629,28 @@ func TestIcelandKmFee(t *testing.T) {
 		t.Error("motor_mass_kg without motor_axles accepted")
 	}
 }
+
+// Belarus's BelToll from 1 September 2026 (Mintrans resolution No. 42):
+// EUR 0.121, 0.152 and 0.182 per km for 2, 3 and 4+ axles (trailers
+// included); 100 km on toll roads.
+func TestBelarus(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"BY": 100}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, c := range []struct {
+		truck rates.Truck
+		want  float64
+	}{{truck40, 18.2}, {rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 12.1}, {rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 15.2}} {
+		r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: c.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, RoadToll, "BY", rates.Toll); !ok || l.Amount != c.want || l.Currency != "EUR" {
+			t.Errorf("%d axles: %+v", c.truck.Axles, l)
+		}
+	}
+	// Before 1 September 2026 nothing is priced (no earlier dataset).
+	r, _ := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
+	if _, ok := line(r, RoadToll, "BY", rates.Toll); ok {
+		t.Error("BY priced before 2026-09-01")
+	}
+}

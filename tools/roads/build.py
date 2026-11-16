@@ -53,12 +53,17 @@ RULES = {
     # ref, as "operator|ref", in "ops" and "mwop" (an index into ops per mw
     # line, -1 for none).
     "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True, "operator": True},
+    # Belarus: the BelToll roads (the list of the Regulation approved by
+    # Council of Ministers resolution No. 340), the motorway, trunk and
+    # primary ways tagged toll=yes or toll:hgv=yes.
+    "BY": {"mw": r"^$a", "mw_highway": [], "nat": r"^$a", "toll": True, "toll_highway": ["motorway", "trunk", "primary"]},
 }
 
 
 def classify(rule, tags):
     if rule.get("toll"):
-        return "mw" if tags.get("highway") == "motorway" and tags.get("toll") == "yes" else None
+        tolled = tags.get("toll") == "yes" or tags.get("toll:hgv") == "yes"
+        return "mw" if tags.get("highway") in rule.get("toll_highway", ["motorway"]) and tolled else None
     refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
     if tags.get("highway") in rule["mw_highway"] or any(re.match(rule["mw"], r) for r in refs):
         return "mw"
@@ -132,6 +137,19 @@ SPLITS = {"IT": [
 ]}
 
 
+# Concession motorway stretches a country's toll law leaves to their
+# operators (Poland's e-TOLL doesn't charge them: www.gov.pl/web/infrastruktura/
+# platnosci-za-przejazdy-drogowe): the ways of the ref between two motorway
+# junctions (the mean position of the junction nodes of each name in its
+# box; None: the motorway's end in the country, the state border) are left
+# out. The stretch runs along the axis on which its ends lie further apart.
+FREE = {"PL": [
+    ("A4", "Murckowska", (18.95, 50.15, 19.15, 50.30), "Balice I", (19.70, 50.0, 19.90, 50.15), "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)"),
+    ("A2", None, (14.50, 52.2, 14.75, 52.45), "Modła", (18.05, 52.15, 18.35, 52.35), "A2 Świecko-Konin (Autostrada Wielkopolska)"),
+    ("A1", "Rusocin", (18.45, 54.15, 18.75, 54.35), "Toruń Południe", (18.50, 52.90, 18.80, 53.05), "A1 Rusocin-Toruń (AmberOne)"),
+]}
+
+
 class Junctions(osmium.SimpleHandler):
     def __init__(self, splits):
         super().__init__()
@@ -144,6 +162,7 @@ class Junctions(osmium.SimpleHandler):
         for key, name, (a, b, c, d), label in self.splits:
             if n.tags.get("name") == name and a <= x <= c and b <= y <= d:
                 self.found.setdefault(key, []).append(x)
+                self.found.setdefault(key + "@", []).append((x, y))
 
 
 class Ways(osmium.SimpleHandler):
@@ -157,6 +176,8 @@ class Ways(osmium.SimpleHandler):
         self.refs = Counter()
         self.ops, self.op_index, self.mwop, self.op_km = [], {}, [], Counter()
         self.split_at = {}
+        # FREE stretches: (ref, axis, low, high, label); km left out by label.
+        self.free, self.free_km = [], Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -178,6 +199,13 @@ class Ways(osmium.SimpleHandler):
         if len(coords) < 2:
             return
         ls = LineString(coords)
+        if c == "mw" and self.free:
+            refs = [r.strip() for r in (tags.get("ref") or "").split(";")]
+            p = ls.centroid
+            hit = [lab for ref, axis, lo, hi, lab in self.free if ref in refs and lo <= (p.x, p.y)[axis] <= hi]
+            if hit:
+                self.free_km[hit[0]] += ls.length * 111.32 * 0.68
+                return
         pieces = [ls]
         if c == "nat" and self.urban is not None and ls.intersects(self.urban):
             rest = ls.difference(self.urban)
@@ -230,7 +258,36 @@ def main(cc, src, dst, areas=None):
                 sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
             h.split_at[key] = (sum(xs) / len(xs), label)
             print(cc, "split", key, "east of", name, round(sum(xs) / len(xs), 4))
+    if FREE.get(cc):
+        spec = [(f"{ref}|{i}", name, box, label) for ref, n1, b1, n2, b2, label in FREE[cc] for i, name, box in ((0, n1, b1), (1, n2, b2)) if name]
+        j = Junctions(spec)
+        j.apply_file(src)
+        for ref, n1, b1, n2, b2, label in FREE[cc]:
+            ends = []
+            for i, name, box in ((0, n1, b1), (1, n2, b2)):
+                if name is None:
+                    ends.append(None)
+                    continue
+                pts = j.found.get(f"{ref}|{i}@")
+                if not pts:
+                    sys.exit(f"{cc}: junction {name!r} not found (end of {label})")
+                ends.append((sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)))
+            known = [e for e in ends if e]
+            if len(known) == 2:
+                axis = 0 if abs(known[0][0] - known[1][0]) * 0.65 > abs(known[0][1] - known[1][1]) else 1
+                lo, hi = sorted((known[0][axis], known[1][axis]))
+            else:
+                # One end is the border: the box of the other end says which way.
+                (e,) = known
+                bx = b1 if ends[0] is None else b2
+                mid = ((bx[0] + bx[2]) / 2, (bx[1] + bx[3]) / 2)
+                axis = 0 if abs(mid[0] - e[0]) * 0.65 > abs(mid[1] - e[1]) else 1
+                lo, hi = sorted((e[axis], -1e9 if mid[axis] < e[axis] else 1e9))
+            h.free.append((ref, axis, lo, hi, label))
+            print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
     h.apply_file(src, locations=True)
+    for label, km in h.free_km.items():
+        print(cc, "left out km (both carriageways):", label, round(km))
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}

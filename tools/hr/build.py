@@ -34,8 +34,9 @@ ALIAS = {
     ("a4", "Brez. Hum"): "Breznički Hum",
     ("a4", "Varaž. Toplice"): "Varaždinske Toplice",
     ("a2", "Začretje"): "Sveti Križ Začretje",
-    ("bina", "Vodnjan Sjever"): "Vodnjan - sjever",
-    ("bina", "Vodnjan Jug"): "Vodnjan - jug",
+    # OpenStreetMap's junctions were renamed "Vodnjan sjever" and "Vodnjan jug" in November 2026.
+    ("bina", "Vodnjan Sjever"): ("Vodnjan - sjever", "Vodnjan sjever"),
+    ("bina", "Vodnjan Jug"): ("Vodnjan - jug", "Vodnjan jug"),
     ("bina", "Nova Vas"): "Novigrad",
     ("bina", "Tunel Učka"): ("Tunel Učka", "Učka (portal Kvarner)"),
 }

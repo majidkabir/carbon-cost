@@ -6,7 +6,7 @@ image means new prices to transcribe.
 
 Usage: python3 check_transcribed.py fetched/ tools/fr/transcribed/
 """
-import glob, json, os, sys
+import base64, glob, hashlib, json, os, re, sys
 
 
 def main(fetched, folder):
@@ -18,6 +18,12 @@ def main(fetched, folder):
         if f is not None and f.get("status", 200) != 200:
             f = None
         name = os.path.basename(path)
+        if f is not None and src.get("embedded"):
+            # An image the page embeds as a data URI: its decoded bytes.
+            page = open(os.path.join(fetched, f["file"]), encoding="utf-8", errors="replace").read()
+            imgs = [base64.b64decode(re.sub(r"\s", "", b)) for b in re.findall(r"data:image/[a-z]+;base64,([A-Za-z0-9+/=\s]+)", page)]
+            hashes = {hashlib.sha256(b).hexdigest() for b in imgs}
+            f = {"sha256": src["sha256"] if src["sha256"] in hashes else f"none of the page's {len(imgs)} images"}
         if f is None:
             print(f"::warning title={name}::image not fetched ({src['url']})")
         elif f["sha256"] == src["sha256"]:

@@ -43,6 +43,8 @@ CASES = [
     ("price", set_(["charges", 0, "rates", 0, "amount"], 1.3), False),
     ("station name", set_(["charge_objects", 0, "name"], "B"), False),
     ("station gone", set_(["charge_objects"], []), False),
+    ("station unplaced", set_(["charge_objects", 0, "location", "geometry", "coordinates"], []), False),
+    ("station without location", set_(["charge_objects", 0, "location"], {}), False),
 ]
 
 if __name__ == "__main__":

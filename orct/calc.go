@@ -231,12 +231,62 @@ type Calc struct {
 	held       map[string]bool
 }
 
+// Derive returns the vehicle with the values clause 6.6.1 derives where the
+// usage does not give them, until none is left to derive: without a trailer,
+// trailer_mass_kg and trailer_axles are 0 and the train values the motor
+// vehicle's; trailer_axles is train_axles - axles; trailer follows from
+// trailer_axles or trailer_mass_kg.
+func Derive(vehicle map[string]any) map[string]any {
+	v := map[string]any{}
+	for k, x := range vehicle {
+		v[k] = x
+	}
+	setDefault := func(k string, x any) bool {
+		if _, ok := v[k]; ok {
+			return false
+		}
+		v[k] = x
+		return true
+	}
+	for {
+		changed := false
+		if t, ok := v["trailer"].(bool); ok && !t {
+			changed = setDefault("trailer_mass_kg", float64(0)) || changed
+			changed = setDefault("trailer_axles", float64(0)) || changed
+			if m, ok := v["mass_kg"]; ok {
+				changed = setDefault("train_mass_kg", m) || changed
+			}
+			if a, ok := v["axles"]; ok {
+				changed = setDefault("train_axles", a) || changed
+			}
+		}
+		if _, ok := v["trailer_axles"]; !ok {
+			ta, ok1 := num(v["train_axles"])
+			a, ok2 := num(v["axles"])
+			if ok1 && ok2 {
+				v["trailer_axles"] = ta - a
+				changed = true
+			}
+		}
+		if _, ok := v["trailer"]; !ok {
+			ta, okA := num(v["trailer_axles"])
+			tm, okM := num(v["trailer_mass_kg"])
+			switch {
+			case (okA && ta > 0) || (okM && tm > 0):
+				v["trailer"], changed = true, true
+			case okA && ta == 0:
+				v["trailer"], changed = false, true
+			}
+		}
+		if !changed {
+			return v
+		}
+	}
+}
+
 // Calculate prices a usage (clause 8).
 func Calculate(datasets []*Dataset, usage *Usage) *Statement {
-	c := &Calc{ds: map[string]*Dataset{}, usage: usage, vehicle: usage.Vehicle, complete: true}
-	if c.vehicle == nil {
-		c.vehicle = map[string]any{}
-	}
+	c := &Calc{ds: map[string]*Dataset{}, usage: usage, vehicle: Derive(usage.Vehicle), complete: true}
 	for _, d := range datasets {
 		c.ds[d.ID] = d
 	}
@@ -1515,7 +1565,7 @@ func (c *Calc) statement() *Statement {
 		totals[l.Currency] = totals[l.Currency].Add(l.Amount)
 	}
 	sort.Strings(curs)
-	st := &Statement{ORCTStatement: "0.2", Complete: c.complete, Lines: c.lines, Issues: c.issues}
+	st := &Statement{ORCTStatement: "0.3", Complete: c.complete, Lines: c.lines, Issues: c.issues}
 	if st.Lines == nil {
 		st.Lines = []*Line{}
 	}

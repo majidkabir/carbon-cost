@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "derived_from": {
   "url": "https://github.com/majidkabir/carbon-cost"
  },
@@ -12,7 +12,7 @@
    "name": "chain",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "1a7eff4b5a6cc4f8d190f7344b87cc40f41292d2b5d890cd61ca50c3e0cf19a4",
+   "sha256": "78917afee0e7a70e6011efa7e6b019fa9e46c05fdab59201bd3b84845ff78480",
    "coverage": "partial"
   }
  ]

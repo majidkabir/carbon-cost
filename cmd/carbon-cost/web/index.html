@@ -75,6 +75,9 @@
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
     <label>Truck tare, kg (for ferries)<input name="tare_kg" type="number" min="0" placeholder="e.g. 15000"></label>
+    <label>Tractor axles (LT, IS)<input name="motor_axles" type="number" min="2" max="10" placeholder="e.g. 2"></label>
+    <label>Tractor max mass, kg (IS)<input name="motor_mass_kg" type="number" min="0" placeholder="e.g. 19000"></label>
+    <label>Trailer max mass, kg (IS)<input name="trailer_mass_kg" type="number" min="0" placeholder="e.g. 35000"></label>
     <label>Length, m (for bridges)<input name="length_m" type="number" min="0" max="50" step="0.01" placeholder="16.5"></label>
     <label>Euro class<select name="euro">
       <option value="6" selected>Euro VI</option><option value="5">Euro V / EEV</option><option value="4">Euro IV</option>
@@ -85,6 +88,7 @@
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
     <label>Fuel bought in (country code; blank: along the route)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
+    <label>Diesel burnt on the road, litres (blank: from the CO2)<input name="diesel_l" type="number" min="0" step="any"></label>
     <label class="check"><input name="driver_rest" type="checkbox" checked> Driver breaks and rests in passage times (Reg. 561/2006)</label>
     <label class="check"><input name="etc" type="checkbox"> Pays by toll box or agreement (operators' discounts)</label>
     <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
@@ -207,9 +211,11 @@ f.addEventListener("submit", async (e) => {
     from: place(f.from), to: place(f.to), date: f.date.value || undefined, time: f.time.value || undefined,
     cargo_kg: +f.cargo_kg.value,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
-             tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined },
+             tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined,
+             motor_axles: +f.motor_axles.value || undefined, motor_mass_kg: +f.motor_mass_kg.value || undefined,
+             trailer_mass_kg: +f.trailer_mass_kg.value || undefined },
     etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
-    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined,
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined, diesel_l: +f.diesel_l.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
   $("go").disabled = true; $("error").hidden = true;

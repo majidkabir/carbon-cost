@@ -159,6 +159,10 @@ type PointClass struct {
 	// length with trailer (Truck.Length), where the price goes by length.
 	MinLengthM float64 `json:"min_length_m,omitempty"`
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
+	// Trailer, where set, limits the class to trucks with (true) or
+	// without (false) a trailer (Poland's concession motorways' categories
+	// go by the motor vehicle's axles and whether it tows one).
+	Trailer *bool   `json:"trailer,omitempty"`
 	Rate       float64 `json:"rate"`
 	ETCRate    float64 `json:"etc_rate,omitempty"`
 	// HighRate is the price on the point's HighSeason days; HighETCRate
@@ -281,6 +285,9 @@ type Group struct {
 	MaxLengthM float64 `json:"max_length_m,omitempty"` // up to this
 	// Euro: the EURO classes the group is for (any if empty).
 	Euro []int `json:"euro,omitempty"`
+	// Trailer, where set: only trucks with (true) or without (false) a
+	// trailer. In a MotorAxles table the axles are the motor vehicle's.
+	Trailer *bool `json:"trailer,omitempty"`
 	// Base: the group whose price a pair has when it has none for this
 	// one (an operator that prices by EURO class in a system where the
 	// others don't).

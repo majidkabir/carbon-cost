@@ -104,10 +104,14 @@ def main(fetched, out):
          "law": f"Nařízení vlády č. 240/2014 Sb., Annexes 1 and 2 as worded by čl. I bod 13 of nařízení vlády č. 40/2024 Sb., in force 25 March to 31 December 2024: {what}.",
          "sources": src, "rows": rows_of(t[2], "motorway", G28) + rows_of(t[3], "other", G28)})
     t = [x for x in tables(os.path.join(fetched, "cz-nv-299-2024.html")) if len(x[0][1]) == 28]
-    assert len(t) == 2, len(t)
+    src299 = {"title": "Nařízení vlády č. 299/2024 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/299"}
+    if len(t) != 2:
+        # epravo.cz's page lost the annexes (November 2026): the Sbírka's PDF.
+        t = pdf_sb(os.path.join(fetched, "cz-nv-299-2024-pdf.pdf"), "Toto nařízení nabývá účinnosti dnem 1. ledna 2025.")
+        src299 = {"title": "Nařízení vlády č. 299/2024 Sb., Sbírka zákonů PDF", "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_299_PZZ.pdf"}
     save(out, "cz-2025-01-01.json", {**BASE, "valid_from": "2025-01-01", "valid_to": "2025-12-31",
          "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as worded by nařízení vlády č. 299/2024 Sb., in force 1 January 2025: one rate per km by road category, maximum permissible mass, axles, CO2 emission class and, in CO2 class 1, EURO class; the regulation gives no separate CO2 part.",
-         "sources": [{"title": "Nařízení vlády č. 299/2024 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/299"}, SRC240],
+         "sources": [src299, SRC240],
          "rows": rows_of(t[0], "motorway", G28) + rows_of(t[1], "other", G28)})
     t = pdf_327(fetched)
     save(out, "cz-2026-01-01.json", {"country": "CZ", "currency": "CZK", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "name": BASE["name"],
@@ -144,6 +148,26 @@ def annexes_40(fetched):
             assert list(g["rows"]) == list(MASS), list(g["rows"])
             out.append([(m, [float(v.replace(",", ".")) for v in g["rows"][m].split()]) for m in MASS])
     return out
+
+
+def rates28(part):
+    """The three rows of 28 rates (four decimals) in part of a PDF text."""
+    rows = [[float(x.replace(",", ".")) for x in re.findall(r"\b\d,\d{4}\b", ln)] for ln in part.splitlines()]
+    rows = [r for r in rows if r]
+    assert all(len(r) == 28 for r in rows) and len(rows) == 3, [len(r) for r in rows]
+    return list(zip(MASS, rows))
+
+
+def pdf_sb(path, effective):
+    """Annexes 1 and 2 of 240/2014 from a Sbírka PDF of an amending
+    regulation in force on the given words' day: from the consolidated text
+    of 240/2014 printed with it (Úplné znění)."""
+    text = pdf_text(path)
+    assert effective in flat(text), effective
+    full = text.index("Úplné znění aktu č. 240/2014 Sb.")
+    c1 = text.index("Příloha č. 1", text.index("§7", full))
+    c2, c3 = text.index("Příloha č. 2", c1), text.index("Příloha č. 3", c1)
+    return [rates28(text[c1:c2]), rates28(text[c2:c3])]
 
 
 def pdf_327(fetched):

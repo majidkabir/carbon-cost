@@ -8,6 +8,10 @@ name: History data
 on:
   push:
     branches: [history-data]
+  # Daily (03:41 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "41 3 * * *"
 permissions:
   contents: write
 # A new push replaces a run still going.
@@ -43,28 +47,39 @@ jobs:
         # A capture never changes; the archive often refuses requests.
         run: |
           python3 tools/history/reuse.py tools/history/sources.json out prev
-          rm -rf prev todo.json
-      - name: OpenStreetMap extracts
+          rm -f todo.json
+      - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data
-        # workflow last fetched them (removed before the push).
+        # workflow last fetched them, and the current tables (removed
+        # before the push).
         run: |
           mkdir -p out/osm
           git fetch -q --depth 1 origin tables-out
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # The current tables the other data workflows built, which some
+          # builders take their structure from (tools/history/committed.py).
+          mkdir -p out/current
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
+          git fetch -q --depth 1 origin hr-out
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
           # The French station inputs, as the France data workflow last fetched them.
           git fetch -q --depth 1 origin fr-out
           mkdir -p out/fr-in
           git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/fr-in
       - name: Archived operator pages (tools/history/wayback.json)
-        # Left out when the run's commit says [no-wayback] (it takes long).
-        if: "!contains(github.event.head_commit.message, '[no-wayback]')"
+        # The copies the last run saved are used again (a capture never
+        # changes); only missing ones are asked for, and none when the run's
+        # commit says [no-wayback].
         env:
           MSG: ${{ github.event.head_commit.message }}
         run: |
-          # "[wayback=a,b]" in the run's commit message limits it to those sets.
+          # "[wayback=a,b]" in the run's commit message limits it to those
+          # sets; [wayback=probes] (or probes:<group>) lists moved pages.
           export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
-          timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
+          case "$MSG" in *"[no-wayback]"*) export WAYBACK_OFFLINE=1;; esac
+          timeout 30m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out prev || echo "::error title=wayback::failed or timed out"
           find out -path 'out/wb-*' -name '*-osm*' -delete
+          rm -rf prev
       - name: Build
         run: |
           mkdir -p out/tables
@@ -77,7 +92,7 @@ jobs:
           python3 tools/orct/check_lossless.py out/tables out/orct
       - name: Compare
         run: |
-          rm -rf out/osm out/fr-in
+          rm -rf out/osm out/fr-in out/current
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |

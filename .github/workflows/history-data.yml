@@ -44,13 +44,20 @@ jobs:
         run: |
           python3 tools/history/reuse.py tools/history/sources.json out prev
           rm -rf prev todo.json
-      - name: OpenStreetMap extracts
+      - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data
-        # workflow last fetched them (removed before the push).
+        # workflow last fetched them, and the current tables (removed
+        # before the push).
         run: |
           mkdir -p out/osm
           git fetch -q --depth 1 origin tables-out
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # The current tables the other data workflows built, which some
+          # builders take their structure from (tools/history/committed.py).
+          mkdir -p out/current
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
+          git fetch -q --depth 1 origin hr-out
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
           # The French station inputs, as the France data workflow last fetched them.
           git fetch -q --depth 1 origin fr-out
           mkdir -p out/fr-in
@@ -77,7 +84,7 @@ jobs:
           python3 tools/orct/check_lossless.py out/tables out/orct
       - name: Compare
         run: |
-          rm -rf out/osm out/fr-in
+          rm -rf out/osm out/fr-in out/current
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |

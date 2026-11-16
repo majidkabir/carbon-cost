@@ -19,6 +19,7 @@ read from the copy CNAIR publishes on eToll.
 
 Usage: python3 build_ro.py fetched/ out-dir"""
 import html, json, os, re, subprocess, sys
+import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -132,12 +133,12 @@ def main(fetched, out):
         path = os.path.join(out, f"ro-{p['valid_from']}.json")
         json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
         print(path, {r["rate"] for r in rows}, seen)
-    tollro(out)
+    tollro(fetched, out)
 
 
-def tollro(out):
+def tollro(fetched, out):
     """TollRo 1-7 October 2026: the 8 October table's combustion rates."""
-    cur = json.load(open(os.path.join(HERE, "..", "..", "rates", "data", "ro-2026-10-08.json"), encoding="utf-8"))
+    cur = committed.template("ro-2026-10-08.json", fetched)
     if "959/2026 of 8 October 2026" not in cur["law"]:
         sys.exit("ro-2026-10-08 isn't the OMTI 959/2026 table")
     rows = []

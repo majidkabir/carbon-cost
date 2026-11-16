@@ -54,7 +54,7 @@ def rows(page):
 
 
 def main(fetched, out):
-    cur = committed.template("hr-2026-01-01.json")
+    cur = committed.template("hr-2026-01-01.json", fetched)
     hac = [s for s in cur["closed_systems"] if "Bina-Istra" not in s["name"]]
     a1 = next(s for s in hac if s["name"].startswith("A1,"))
     srcs = {s["id"]: s["url"] for s in json.load(open(os.path.join(HERE, "sources.json"), encoding="utf-8"))["sources"]}

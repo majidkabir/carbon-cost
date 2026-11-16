@@ -10,13 +10,22 @@ Usage: python3 build_be.py fetched/ out-dir
 Each table has a row per mass band (3.5-12 t, 12-32 t, over 32 t) and
 EURO class, and zero-emission rows (CO2 class 5), as the July 2026 tables.
 """
-import copy, hashlib, html, json, os, re, sys
+import copy, html, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 BANDS = [{"min_kg": 3501, "max_kg": 12000}, {"min_kg": 12001, "max_kg": 32000}, {"min_kg": 32001}]
 REGION = {"BE-VLG": "be-vlg", "BE-BRU": "be-bru", "BE-WAL": "be-wal"}
 NAMES = {"BE-VLG": "Flanders", "BE-BRU": "Brussels, highway and urban area (all local and regional roads that are not highway)", "BE-WAL": "Wallonia (SOFICO), excluding VAT"}
+VEHICLES = "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)"
+META = {  # each table's fields besides its dates, law, sources and rows
+    "BE-VLG": {"vehicles": VEHICLES, "min_kg": 3501, "region": "BE-VLG", "name": "Belgian kilometre charge, Flemish Region",
+               "tolled_roads": "The Flemish toll road network (motorways and listed regional and local roads)."},
+    "BE-BRU": {"vehicles": VEHICLES, "min_kg": 3501, "region": "BE-BRU", "name": "Belgian kilometre charge, Brussels-Capital Region",
+               "tolled_roads": "All roads in the Brussels-Capital Region: highway and urban-area rates."},
+    "BE-WAL": {"vehicles": VEHICLES, "min_kg": 3501, "region": "BE-WAL", "name": "Belgian kilometre charge, Walloon Region (SOFICO)",
+               "tolled_roads": "The Walloon toll road network (SOFICO motorways and listed regional roads)."},
+}
 # (region, from, to, grid id or page, zero-emission page)
 PERIODS = [
     ("BE-VLG", "2024-01-01", "2024-06-30", "be-vp-2024-01-table", None),
@@ -86,9 +95,7 @@ def main(fetched, out):
     assert wallonia(fetched, "be-vp-wal-2025") == grids["be-vp-2025-07-table"]["BE-WAL"]
     assert grids["be-vp-2024-01-table"]["BE-WAL"] == grids["be-vp-2024-07-table"]["BE-WAL"]
     for region, frm, to, src, zpage in PERIODS:
-        tmpl = json.load(open(os.path.join(ROOT, "rates", "data", f"{REGION[region]}-2026-07-01.json"), encoding="utf-8"))
-        tb = {k: copy.deepcopy(v) for k, v in tmpl.items() if k not in ("rows", "law", "sources")}
-        tb["valid_from"], tb["valid_to"] = frm, to
+        tb = {"country": "BE", "currency": "EUR", "valid_from": frm, "valid_to": to, **META[region]}
         keys = ["BE-BRU motorway", "BE-BRU other"] if region == "BE-BRU" else [region]
         if src in grids:
             g = grids[src]

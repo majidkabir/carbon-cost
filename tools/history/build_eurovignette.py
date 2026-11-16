@@ -221,7 +221,7 @@ def denmark(fetched, out):
         "rows": flat_day(int(m[1])),
     })
     # 2025: the rows of 2026, checked against the 2025 report.
-    cur = committed.template("dk-2026-01-01.json")
+    cur = committed.template("dk-2026-01-01.json", fetched)
     rep = open(os.path.join(fetched, "dk-trm-2025.txt"), encoding="utf-8").read()
     tables = []
     for t in ("Tabel 1", "Tabel 2", "Tabel 3"):

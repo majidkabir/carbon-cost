@@ -20,7 +20,8 @@ from the fetched law texts (sources.json, table fuelco2-*):
   into force (point I, and point III's later date) until the next one;
 - Denmark, the CO2 tax on gas and diesel oil (CO2-afgiftsloven § 2, stk.
   1, indexed under stk. 7), per litre at day temperature, for the two
-  years Skatteministeriet's rate table gives;
+  years Skatteministeriet's rate table gives, and 2024 and 2025 from the
+  Internet Archive's copy of its 2025 table;
 - Sweden, the koldioxidskatt on unmarked diesel of environmental class 1
   (lag (1994:1776) om skatt på energi, 2 kap. 1 §), per cubic metre, for
   each period on Skatteverket's rate page from 2024 (consecutive periods
@@ -374,24 +375,38 @@ def slovenia(fetched, out, srcs):
         write(out, f)
 
 
-def denmark(fetched, out, srcs):
-    t = text(os.path.join(fetched, "dk-svmn-co2afgift.html"))
-    head = re.search(r"Afgiftssatser Grundbeløb i 2015 niveau (\d{4}) (\d{4})", t)
+def dk_rates(path):
+    """{year: (day temperature, 15 °C, 2015 base)} from a copy of the
+    ministry's CO2-afgiftsloven rate table (two years a page)."""
+    t = text(path)
+    head = re.search(r"Afgiftssatser Grundbeløb i 2015 niveau ?(?:\d\) )?(\d{4}) (\d{4})", t)
     # The row's first line is the rate at day temperature, the second
-    # ("afgiftssatsen ved 15 C udgør") at 15 °C.
-    m = re.search(r"Gas- og dieselolie ?- ?afgiftssatsen ved 15 C udgør øre/l (\d+,\d) (\d+,\d) (\d+,\d) øre/l (\d+,\d) (\d+,\d) (\d+,\d)", t)
+    # ("afgiftssatsen ved 15 C udgør") at 15 °C; a cell may add a figure in
+    # brackets with a note.
+    v = r"(\d+,\d)(?: / \(\d+,\d\) ?\d?\)?)?"
+    m = re.search(rf"Gas- og dieselolie ?- ?afgiftssatsen ved 15 C udgør øre/l {v} {v} {v} øre/l {v} {v} {v}", t)
     if not head or not m:
-        sys.exit("CO2-afgiftsloven: no rate table for gas and diesel oil")
-    v = [float(x.replace(",", ".")) for x in m.groups()]
-    if not (v[0] > v[3] and v[1] > v[4] and v[2] > v[5]):
-        sys.exit(f"CO2-afgiftsloven: day-temperature rates not above the 15 °C ones: {v}")
-    for y, day, c15 in ((head.group(1), v[1], v[4]), (head.group(2), v[2], v[5])):
+        sys.exit(f"CO2-afgiftsloven: no rate table for gas and diesel oil in {os.path.basename(path)}")
+    x = [float(g.replace(",", ".")) for g in m.groups()]
+    if not (x[0] > x[3] and x[1] > x[4] and x[2] > x[5]):
+        sys.exit(f"CO2-afgiftsloven: day-temperature rates not above the 15 °C ones: {x}")
+    return {int(head.group(1)): (x[1], x[4], x[0]), int(head.group(2)): (x[2], x[5], x[0])}
+
+
+def denmark(fetched, out, srcs):
+    # The current table (this year and next), then the Internet Archive's
+    # copy of the 2025 one (2024 and 2025).
+    rates = {}
+    for sid in ("dk-svmn-co2afgift", "dk-skm-co2afgift-2025"):
+        for y, r in dk_rates(os.path.join(fetched, sid + ".html")).items():
+            rates.setdefault(y, (r, sid))
+    for y, ((day, c15, base), sid) in sorted(rates.items()):
         write(out, {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
                     "name": "CO2-afgift on gas and diesel oil", "rate_per_l": round(day / 100, 4),
-                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {v[0]:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
+                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {base:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
                            "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel; diesel blended with 6.8 or 7.6% biofuel pays a little less per litre of blend. "
                            "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
-                    "sources": [src(srcs, "dk-svmn-co2afgift")]})
+                    "sources": [src(srcs, sid)]})
 
 
 SV_MONTHS = {m: i + 1 for i, m in enumerate(["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"])}

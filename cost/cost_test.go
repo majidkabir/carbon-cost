@@ -1496,6 +1496,17 @@ func TestPrice_FuelCountry(t *testing.T) {
 	if l, ok := line(r, FuelCO2, "DK", rates.CO2); !ok || l.Litres != 100 || math.Abs(l.Amount-228.4) > 0.01 {
 		t.Errorf("DK fuel line with diesel_l %+v", l)
 	}
+	// 51.9 øre in 2024, 226.1 in 2025 (the archived table).
+	for d, want := range map[string]float64{"2024-06-01": 0.519, "2025-06-01": 2.261} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DK", DieselL: 100}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "DK", rates.CO2); !ok || l.Rate != want {
+			t.Errorf("DK %s: %+v", d, l)
+		}
+	}
 	// Norway's CO2-avgift on mineral oil per litre: NOK 3.79 in 2025, 4.42 in
 	// 2026 but 3.09 on road diesel from 1 May to 31 August.
 	for d, want := range map[string]float64{"2024-06-01": 3.17, "2025-06-01": 3.79, "2026-06-01": 3.09, "2026-11-03": 4.42} {

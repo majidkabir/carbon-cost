@@ -1,0 +1,1463 @@
+{
+ "about": "Official texts the historical rate tables (from 1 January 2024) come from. tools/tables/fetch.py saves them as fetched, with a manifest; the tables are built or checked from the saved copies.",
+ "sources": [
+  {
+   "id": "se-sfs-2023-599",
+   "table": "se-2024-01-01",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2023-10/SFS2023-599.pdf",
+   "what": "Förordning (2023:599): vägavgift amounts for 2024"
+  },
+  {
+   "id": "se-sfs-2024-953",
+   "table": "se-2025-01-01",
+   "url": "https://www.svenskforfattningssamling.se/sites/default/files/sfs/2024-10/SFS2024-953.pdf",
+   "what": "Förordning (2024:953): vägavgift amounts for 2025 as first issued"
+  },
+  {
+   "id": "se-sfs-2025-46",
+   "table": "se-2025-03-25",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-02/SFS2025-46.pdf",
+   "what": "Förordning (2025:46): 2025 amounts by CO2 class, in force 25 March 2025"
+  },
+  {
+   "id": "lu-rgd-2019-jo",
+   "table": "lu-2024-01-01",
+   "url": "https://legilux.public.lu/filestore/eli/etat/leg/rgd/2019/05/21/a353/jo/fr/html/eli-etat-leg-rgd-2019-05-21-a353-jo-fr-html.html",
+   "what": "RGD du 21 mai 2019 as published (Mémorial A 353): droit d'usage amounts before 25 March 2025"
+  },
+  {
+   "id": "nl-bzm-2025-03-25",
+   "table": "nl-2025-03-25",
+   "url": "https://wetten.overheid.nl/BWBR0007678/2025-03-25",
+   "what": "Wet belasting zware motorrijtuigen as in force on 25 March 2025"
+  },
+  {
+   "id": "nl-stb-2025-41",
+   "table": "nl-2025-03-25",
+   "url": "https://zoek.officielebekendmakingen.nl/stb-2025-41.pdf",
+   "what": "Besluit of 10 February 2025 (Stb. 2025, 41): the new Eurovignette tariff structure in force 25 March 2025; the Protocol's tariffs prevail"
+  },
+  {
+   "id": "nl-stb-2024-240",
+   "table": "nl-2025-03-25",
+   "url": "https://zoek.officielebekendmakingen.nl/stb-2024-240.pdf",
+   "what": "Wet of 26 June 2024 (Stb. 2024, 240): approval of the Eurovignette Protocol and the amended Wet BZM tariffs"
+  },
+  {
+   "id": "dk-vejal-2020",
+   "table": "dk-2024-01-01",
+   "url": "https://www.retsinformation.dk/eli/lta/2020/174/pdf",
+   "what": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020 (§ 3: the charge per day, week, month and year)"
+  },
+  {
+   "id": "dk-trm-2025",
+   "table": "dk-2025-01-01",
+   "url": "https://www.trm.dk/media/q2wpgmh0/afrapportering-vedr-vej-og-infrastrukturafgifter-i-danmark2-a.pdf",
+   "what": "Transportministeriet, 25 March 2025: report on road charges in Denmark (the vejafgift rates and components in force in 2025)"
+  },
+  {
+   "id": "de-bfstrmg-anlage-11-buzer",
+   "table": "de-2023-12-01",
+   "url": "https://www.buzer.de/gesetz/16122/a304559.htm",
+   "what": "Drittes Gesetz zur Änderung mautrechtlicher Vorschriften, Artikel 2 (buzer.de): § 14 Abs. 10 and Anlage 11 BFStrMG, the rates from 1 December 2023 to 30 June 2024"
+  },
+  {
+   "id": "nl-bzm-2024",
+   "table": "nl-2019-07-01",
+   "url": "https://wetten.overheid.nl/jci1.3:c:BWBR0007678&g=2024-01-01&z=2024-01-01",
+   "what": "Wet belasting zware motorrijtuigen as in force on 1 January 2024 (art. 10: tariffs)"
+  },
+  {
+   "id": "cz-nv-479-2020",
+   "table": "cz-2021-01-01",
+   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479",
+   "what": "Nařízení vlády č. 479/2020 Sb.: the toll rates in force from 1 January 2021 to 29 February 2024"
+  },
+  {
+   "id": "cz-nv-40-2024",
+   "table": "cz-2024-03-01",
+   "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_40_PZZ.pdf",
+   "what": "Nařízení vlády č. 40/2024 Sb.: rates with the CO2 component, 1-24 March 2024 and from 25 March 2024"
+  },
+  {
+   "id": "cz-nv-299-2024",
+   "table": "cz-2025-01-01",
+   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/299",
+   "what": "Nařízení vlády č. 299/2024 Sb.: the toll rates from 1 January 2025"
+  },
+  {
+   "id": "pl-mp-2023-1459",
+   "table": "pl-2024-01-01",
+   "url": "https://eli.gov.pl/eli/MP/2023/1459/ogl/pol/pdf",
+   "what": "Obwieszczenie Ministra Infrastruktury z 20 grudnia 2023 r. (M.P. 2023 poz. 1459): electronic toll rates for 2024"
+  },
+  {
+   "id": "pl-mp-2024-1037",
+   "table": "pl-2025-01-01",
+   "url": "https://eli.gov.pl/api/acts/MP/2024/1037/text/O/M20241037.pdf",
+   "what": "Obwieszczenie Ministra Infrastruktury (M.P. 2024 poz. 1037): electronic toll rates for 2025"
+  },
+  {
+   "id": "pl-mp-2025-1244",
+   "table": "pl-2026-01-01",
+   "url": "https://eli.gov.pl/api/acts/MP/2025/1244/text/O/M20251244.pdf",
+   "what": "Obwieszczenie Ministra Infrastruktury z 3 grudnia 2025 r. (M.P. 2025 poz. 1244): electronic toll rates for 2026 (before Dz.U. 2026 poz. 33)"
+  },
+  {
+   "id": "at-mtv-2024",
+   "table": "at-2025-01-01",
+   "url": "https://gw-world.com/fileadmin/Corporate_Documents/BGBLA_2024_II_410.pdf",
+   "what": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024 (in force 1 January 2025), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS refuses scripted requests (503)"
+  },
+  {
+   "id": "ch-svav-2024",
+   "table": "ch-2017-01-01",
+   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2000/226/20240101/de/pdf-a/fedlex-data-admin-ch-eli-cc-2000-226-20240101-de-pdf-a.pdf",
+   "what": "Schwerverkehrsabgabeverordnung (SVAV) of 6 March 2000, as in force on 1 January 2024 (Fedlex)"
+  },
+  {
+   "id": "sk-nv-497-2013-2024",
+   "table": "sk-2024-01-01",
+   "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20240101.html",
+   "what": "Nariadenie vlády SR č. 497/2013 Z. z. as in force on 1 January 2024 (Slov-Lex)"
+  },
+  {
+   "id": "cz-nv-40-2024",
+   "table": "cz-2024-03-01",
+   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40",
+   "what": "Nařízení vlády č. 40/2024 Sb. as tabulated by epravo.cz (the Sbírka PDF has its annexes as images)"
+  },
+  {
+   "id": "ch-lsva-2025-media",
+   "table": "ch-2024-01-01",
+   "url": "https://www.newsd.admin.ch/newsd/message/attachments/84723.pdf",
+   "what": "Federal Council media release attachment (BAV-052.1-21/30): LSVA tariffs per category until 31.12.2024 and from 1.1.2025, and the categories (EURO 0-V in 1, EURO VI in 3)"
+  },
+  {
+   "id": "sk-nv-497-2013",
+   "table": "sk-2020-07-01",
+   "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20200701.html",
+   "what": "Nariadenie vlády SR č. 497/2013 Z. z., the version in force 1 July 2020 to 30 June 2025 (Slov-Lex)"
+  },
+  {
+   "id": "gb-levy-guide-2024-02",
+   "table": "gb-2023-08-01",
+   "url": "https://web.archive.org/web/20240215000000id_/https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
+   "what": "GOV.UK guidance 'How to use the HGV levy service' as archived by the Internet Archive in February 2024 (the rates then in force)"
+  },
+  {
+   "id": "gb-levy-guide-2024-06",
+   "table": "gb-2024-04-01",
+   "url": "https://web.archive.org/web/20240615000000id_/https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
+   "what": "The same guidance as archived in June 2024"
+  },
+  {
+   "id": "gb-levy-guide-2025-06",
+   "table": "gb-2025-04-01",
+   "url": "https://web.archive.org/web/20250615000000id_/https://www.gov.uk/guidance/how-to-use-the-hgv-levy-service",
+   "what": "The same guidance as archived in June 2025"
+  },
+  {
+   "id": "no-nvdb-45-hist",
+   "table": "no-2024-01-01",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?inkluder=egenskaper,lokasjon,geometri,metadata&srid=4326&antall=1000&alle_versjoner=true",
+   "what": "NVDB: every version of every toll station (Bomstasjon), with its dates"
+  },
+  {
+   "id": "be-vp-news",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/",
+   "what": "Viapass news list (links to each rate change)"
+  },
+  {
+   "id": "be-vp-2024-01",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-what-will-change-on-january-1st.html",
+   "what": "Viapass: changes from 1 January 2024 (rate grid)"
+  },
+  {
+   "id": "be-vp-2024-07",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-what-will-change-on-july-1st.html",
+   "what": "Viapass: changes from 1 July 2024 (rate grid)"
+  },
+  {
+   "id": "be-vp-2025-07",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2025.html",
+   "what": "Viapass: changes from 1 July 2025 (rate grid)"
+  },
+  {
+   "id": "lv-357477",
+   "table": "lv-2025-01-01",
+   "url": "https://likumi.lv/ta/id/357477",
+   "what": "Grozījumi Autoceļu lietošanas nodevas likumā, 4 December 2024: annex 2 from 1 January 2025"
+  },
+  {
+   "id": "be-vp-2024-01-table",
+   "table": "be-*",
+   "url": "https://viapass.be/files/Image/news/2023/TABLE-01-24-EN-1.png",
+   "what": "Viapass rate grid from 1 January 2024 (image)"
+  },
+  {
+   "id": "be-vp-2024-07-table",
+   "table": "be-*",
+   "url": "https://viapass.be/files/Image/news/2024/Tables-1-juli-2024-EN.jpg",
+   "what": "Viapass rate grid from 1 July 2024 (image)"
+  },
+  {
+   "id": "be-vp-2025-07-table",
+   "table": "be-*",
+   "url": "https://viapass.be/files/Image/news/2025/Tables-1-july-2025-EN.png",
+   "what": "Viapass rate grid from 1 July 2025 (image)"
+  },
+  {
+   "id": "be-vp-wal-2025",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/indexation-of-the-kilometer-charge-in-wallonia-on-jan-1-2025.html",
+   "what": "Viapass: Wallonia indexation from 1 January 2025"
+  },
+  {
+   "id": "be-vp-wal-2026",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/indexation-of-the-kilometer-charge-in-wallonia-on-jan-1-2026.html",
+   "what": "Viapass: Wallonia indexation from 1 January 2026"
+  },
+  {
+   "id": "be-vp-zev-2026",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/rates-zero-emission-vehicles-on-january-1-2006.html",
+   "what": "Viapass: zero-emission rates in Flanders and Brussels from 1 January 2026"
+  },
+  {
+   "id": "be-vp-2026-07",
+   "table": "be-*",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html",
+   "what": "Viapass: changes from 1 July 2026 (the current grid, for comparison)"
+  },
+  {
+   "id": "at-mtv-2023",
+   "table": "at-2024-01-01",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.pdf",
+   "what": "Mauttarifverordnung 2023, BGBl. II Nr. 331/2023 (in force 1 January 2024), the signed BGBl PDF (RIS)"
+  },
+  {
+   "id": "at-asfinag-2024",
+   "table": "at-2024-01-01",
+   "url": "https://www.go-maut.at/media/dxwhuwjm/go-maut-tarife-2024_en.pdf",
+   "what": "ASFINAG: GO toll rates 2024 (km tariffs by axles, CO2 and EURO class, with the air, noise and CO2 parts), under the Mauttarifverordnung 2023"
+  },
+  {
+   "id": "at-asfinag-2024-sections",
+   "table": "at-2024-01-01",
+   "url": "https://www.go-maut.at/media/zsocruyi/go-maut-tarife-2024_streckenmaut_en.pdf",
+   "what": "ASFINAG: GO toll rates 2024 on the special toll sections"
+  },
+  {
+   "id": "at-mtv-2022",
+   "table": "at-2024-01-01",
+   "url": "https://www.itf-oecd.org/sites/default/files/docs/a-toll-rate-ordinance_0.pdf",
+   "what": "Mauttarifverordnung 2022, BGBl. II Nr. 448/2022, RIS consolidated text (Fassung vom 06.02.2023) as published by the ITF/OECD: the infrastructure tariffs of the special toll sections, which BStMG § 9 (BGBl. I Nr. 142/2023) kept for 2024"
+  },
+  {
+   "id": "pt-imt-2024",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240720160849id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagem.aspx",
+   "what": "IMT: Taxas de Portagem de 2024, index page (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a1",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241008131704id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA1.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A1 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a2",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060158id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagem%20A2.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A2 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a3",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060159id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA3.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A3 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a4",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060157id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA4.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A4 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a5",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060154id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA5.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A5 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a6",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060201id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA6.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A6 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a8",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060154id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA8.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A8 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a9",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060200id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA9.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A9 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a10",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060201id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA10.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A10 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a12",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060156id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA12.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A12 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a13",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060156id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA13.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A13 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a14",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060153id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA14.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A14 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a15",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060155id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA15.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A15 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a17-ic1",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060159id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA17_IC1.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A17_IC1 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-lusoponte-ponte25deabrilepontevascodagama",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241007105420id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemLusoponte_Ponte25deAbrilePonteVascodaGama.aspx",
+   "what": "IMT: Taxas de Portagem 2024, Lusoponte_Ponte25deAbrilePonteVascodaGama (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a21",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060159id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA21.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A21 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a23",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060201id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA23.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A23 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a41-ic24",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060156id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA41_IC24.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A41_IC24 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-a43-ic29",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060151id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemA43_IC29.aspx",
+   "what": "IMT: Taxas de Portagem 2024, A43_IC29 (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2024-tuneldomarao",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240204060158id_/https://www.imt-ip.pt/sites/IMTT/Portugues/InfraestruturasRodoviarias/RedeRodoviaria/Paginas/TaxasdePortagemTuneldoMarao.aspx",
+   "what": "IMT: Taxas de Portagem 2024, TuneldoMarao (Internet Archive copy)"
+  },
+  {
+   "id": "pt-imt-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250416205451id_/https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/",
+   "what": "IMT: Taxas de Portagem de 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "dk-storebaelt-2024",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240522234440id_/https://storebaelt.dk/priser-rabatter/erhverv/",
+   "what": "Storebælt: Prisliste 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "dk-storebaelt-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250318232925id_/https://storebaelt.dk/priser-rabatter/erhverv/",
+   "what": "Storebælt: Prisliste 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "dk-oresund-2024",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241102145716id_/https://www.oresundsbron.com/da/erhverv/lastbil",
+   "what": "Øresundsbron: business prices as of November 2024 (Internet Archive copy; the same as in February 2024)"
+  },
+  {
+   "id": "dk-oresund-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250906010130id_/https://www.oresundsbron.com/da/erhverv/lastbil",
+   "what": "Øresundsbron: business prices as of September 2025 (Internet Archive copy; the same as in March 2025)"
+  },
+  {
+   "id": "fr-frejus-2024",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241226172500id_/https://www.sftrf.fr/wp-content/uploads/2024/03/tarifs_tunnel_2024_france.pdf",
+   "what": "SFTRF: Fréjus tunnel prices 2024, French platform (Internet Archive copy; linked from sftrf.fr/tarifs-tunnel/ in May 2024)"
+  },
+  {
+   "id": "fr-frejus-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250715123420id_/https://www.sftrf.fr/wp-content/uploads/2025/01/Tarifs_tunnel_2025_France.pdf",
+   "what": "SFTRF: Fréjus tunnel prices 2025, French platform (Internet Archive copy; linked from sftrf.fr/tarifs-tunnel/ in May 2025)"
+  },
+  {
+   "id": "hu-25-2013-v20",
+   "table": "hu-2024-01-01",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.20",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2024-01-01 to 2024-03-31 (time state 20)"
+  },
+  {
+   "id": "hu-25-2013-v21",
+   "table": "hu-2024-04-01",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.21",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2024-04-01 to 2024-08-31 (time state 21)"
+  },
+  {
+   "id": "hu-25-2013-v22",
+   "table": "hu-2024-09-01",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.22",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2024-09-01 to 2025-06-07 (time state 22)"
+  },
+  {
+   "id": "hu-25-2013-v23",
+   "table": "hu-2025-06-08",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.23",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2025-06-08 to 2025-12-31 (time state 23)"
+  },
+  {
+   "id": "hu-25-2013-v24",
+   "table": "hu-2026-01-01",
+   "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W.24",
+   "what": "Nemzeti Jogszabálytár: 25/2013. (V. 31.) NFM rendelet as in force 2026-01-01 to 2026-06-30 (time state 24)"
+  },
+  {
+   "id": "bg-dv-142-2022",
+   "table": "bg-2024-01-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=174365",
+   "what": "Държавен вестник бр. 49 от 30.06.2022: ПМС № 142 от 24.06.2022 amending the Тарифа (ПМС 370/2019); чл. 25, ал. 1, т. 2 holds the toll rates in force from 1 July 2023"
+  },
+  {
+   "id": "bg-dv-495-2022",
+   "table": "bg-2024-01-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=182660",
+   "what": "Държавен вестник бр. 104 от 30.12.2022: ПМС № 495 от 29.12.2022, which moved the start of чл. 25, ал. 1, т. 2 from 1 January to 1 July 2023"
+  },
+  {
+   "id": "bg-iisda-tarifa",
+   "table": "bg-2024-01-01",
+   "url": "https://iisda.government.bg/adm_services/service_regulatory_file/22321_97892",
+   "what": "Административен регистър (iisda.government.bg): consolidated text of the Тарифа (ПМС 370/2019) with its amendment history, as an RTF"
+  },
+  {
+   "id": "si-cenik-npb3",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/21918255/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18, 74/18, 85/20 in 105/20), NPB 3, text (JSON)"
+  },
+  {
+   "id": "si-cenik-npb3-priloga",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/349732048",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18, 74/18, 85/20 in 105/20), NPB 3, annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-cenik-npb4",
+   "table": "si-2024-07-15",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/114449399/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18 ... 57/24), NPB 4, text (JSON)"
+  },
+  {
+   "id": "si-cenik-npb4-priloga",
+   "table": "si-2024-07-15",
+   "url": "https://pisrs.si/api/datoteke/integracije/359046490",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 14/18 ... 57/24), NPB 4, annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-cenik-47-25",
+   "table": "si-2025-07-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/299801447/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 47/25), text (JSON)"
+  },
+  {
+   "id": "si-cenik-47-25-priloga",
+   "table": "si-2025-07-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/358799018",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 47/25), annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-cenik-76-25",
+   "table": "si-2025-11-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/364858397/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25), text (JSON)"
+  },
+  {
+   "id": "si-cenik-76-25-priloga",
+   "table": "si-2025-11-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/365428696",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25), annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-cenik-76-25-npb1",
+   "table": "si-2026-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/414059459/details",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25 in 102/25), NPB 1, text (JSON)"
+  },
+  {
+   "id": "si-cenik-76-25-npb1-priloga",
+   "table": "si-2026-01-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/537170320",
+   "what": "PISRS: Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25 in 102/25), NPB 1, annex (Priloga) of section prices, PDF"
+  },
+  {
+   "id": "si-pribitek-npb6",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/16600869/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 6 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb7",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/175774901/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 7 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb8",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/297007789/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 8 (JSON)"
+  },
+  {
+   "id": "si-pribitek-npb9",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/363904440/details",
+   "what": "PISRS: Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest, NPB 9 (JSON)"
+  },
+  {
+   "id": "si-karavanke-14-18-npb6",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/8731697/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 14/18 ...), NPB 6 (JSON)"
+  },
+  {
+   "id": "si-karavanke-14-18-npb7",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/107377149/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 14/18 ...), NPB 7 (JSON)"
+  },
+  {
+   "id": "si-karavanke-109-24-npb0",
+   "table": "si-2025-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/190067456/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24 ...), Osnovni (JSON)"
+  },
+  {
+   "id": "si-karavanke-109-24-npb1",
+   "table": "si-2025-01-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/363857534/details",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24 ...), NPB 1 (JSON)"
+  },
+  {
+   "id": "si-zbirka-tari209",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/TARI209",
+   "what": "PISRS: Cenik cestnine (14/18): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-anjp178",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP178",
+   "what": "PISRS: Cenik cestnine (47/25): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-akt-1550",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/AKT_1550",
+   "what": "PISRS: Cenik cestnine (76/25): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle11574",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE11574",
+   "what": "PISRS: Sklep o uvedbi pribitka: its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured7728",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED7728",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (14/18): its versions (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured9295",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED9295",
+   "what": "PISRS: Uredba o cestnini za uporabo cestnega predora Karavanke (109/24): its versions (JSON)"
+  },
+  {
+   "id": "bg-dv-20-2025",
+   "table": "bg-2025-04-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233823",
+   "what": "Държавен вестник бр. 28 от 01.04.2025: ПМС № 20 от 31.03.2025 amending the Тарифа; чл. 25, ал. 1, т. 1 (1 April 2025) and т. 2 (1 September 2025) toll rates"
+  },
+  {
+   "id": "bg-dv-208-2025",
+   "table": "bg-2026-01-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=238097",
+   "what": "Държавен вестник бр. 85 от 14.10.2025: ПМС № 208 от 09.10.2025 amending the Тарифа; чл. 25, ал. 1 toll rates in euros from 1 January 2026"
+  },
+  {
+   "id": "si-zbirka-anjp30",
+   "table": "si-2024-07-15",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP30",
+   "what": "PISRS: Spremembe Cenika cestnine (57/24): register data, in force from (JSON)"
+  },
+  {
+   "id": "si-zbirka-akt-1561",
+   "table": "si-2026-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/AKT_1561",
+   "what": "PISRS: Spremembe cenika cestnine (102/25): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle13467",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE13467",
+   "what": "PISRS: Sklep o spremembah Sklepa o uvedbi pribitka (118/23): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle13808",
+   "table": "si-2025-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE13808",
+   "what": "PISRS: Sklep o spremembah Sklepa o uvedbi pribitka (100/24): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle14028",
+   "table": "si-2025-07-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE14028",
+   "what": "PISRS: Sklep o spremembi Sklepa o uvedbi pribitka (46/25): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-skle14128",
+   "table": "si-2026-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE14128",
+   "what": "PISRS: Sklep o spremembah Sklepa o uvedbi pribitka (76/25): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured8997",
+   "table": "si-2024-01-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED8997",
+   "what": "PISRS: Uredba o spremembah Uredbe o cestnini za uporabo cestnega predora Karavanke (132/23): register data (JSON)"
+  },
+  {
+   "id": "si-zbirka-ured9145",
+   "table": "si-2024-07-15",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED9145",
+   "what": "PISRS: Uredba o spremembi Uredbe o cestnini za uporabo cestnega predora Karavanke (53/24): register data (JSON)"
+  },
+  {
+   "id": "tr-20240407-2024izmir-aydin-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133337id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Izmir-Aydin_TR.pdf",
+   "what": "KGM toll tariff 2024Izmir-Aydin_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024kmo-anadoluotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133338id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AnadoluOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024KMO_AnadoluOtoyolu_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024anadoluotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133339id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AnadoluOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024AnadoluOtoyolu_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024cukurovaotoyollari-nigde-mersin-adan",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133339id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari-Nigde-Mersin-Adana_TR.pdf",
+   "what": "KGM toll tariff 2024CukurovaOtoyollari-Nigde-Mersin-Adana_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024kmo-avrupaotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133339id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AvrupaOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024KMO_AvrupaOtoyolu_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024cukurovaotoyollari-gaziantep-urfa-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133340id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Gaziantep_Urfa_TR.pdf",
+   "what": "KGM toll tariff 2024CukurovaOtoyollari_Gaziantep_Urfa_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024yavuzsultanselimvekuzeycevre-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133340id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024YavuzSultanSelimveKuzeyCevre_TR.pdf",
+   "what": "KGM toll tariff 2024YavuzSultanSelimveKuzeyCevre_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024cukurovaotoyollari-adana-gaziantep-t",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133341id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Adana_Gaziantep_TR.pdf",
+   "what": "KGM toll tariff 2024CukurovaOtoyollari_Adana_Gaziantep_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024malkara-canakkale-tur",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133341id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Malkara-Canakkale_TUR.pdf",
+   "what": "KGM toll tariff 2024Malkara-Canakkale_TUR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024avrupaotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133342id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024AvrupaOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024AvrupaOtoyolu_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024aydin-denizlitr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133342id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Aydin-DenizliTr.pdf",
+   "what": "KGM toll tariff 2024Aydin-DenizliTr (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024gebzeorhangaziizmit-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133342id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024GebzeOrhangaziIzmit_TR.pdf",
+   "what": "KGM toll tariff 2024GebzeOrhangaziIzmit_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240407-2024menemen-aliaga-candarli-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240407133343id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Menemen_Aliaga_Candarli_TR.pdf",
+   "what": "KGM toll tariff 2024Menemen_Aliaga_Candarli_TR (Internet Archive copy of 20240407; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgmanadoluotoyolu-camlica-akinci-kesimi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515103250id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGMAnadoluOtoyolu(%C3%87aml%C4%B1ca-Ak%C4%B1nc%C4%B1%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGMAnadoluOtoyolu(Çamlıca-Akıncı Kesimi) Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgm-cukurova-otoyollari-nigde-mersin-ada",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515103301id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGM%20%C3%87ukurova%20Otoyollar%C4%B1%20(Ni%C4%9Fde%20-%20Mersin%20-%20Adana%20Bat%C4%B1%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Çukurova Otoyolları (Niğde - Mersin - Adana Batı Kesimi) Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024cukurovaotoyollari-adana-gaziantep-t",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515103335id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024CukurovaOtoyollari_Adana_Gaziantep_TR.pdf",
+   "what": "KGM toll tariff 2024CukurovaOtoyollari_Adana_Gaziantep_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgm-cukurova-otoyollari-gaziantep-dogu-s",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515104758id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGM%20%C3%87ukurova%20Otoyollar%C4%B1%20(Gaziantep%20Do%C4%9Fu-%C5%9Eanl%C4%B1urfa%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Çukurova Otoyolları (Gaziantep Doğu-Şanlıurfa Kesimi) Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgm-i-zmir-aydin-otoyolu-gecis-ucretleri",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515104801id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGM%20%C4%B0zmir%20-%20Ayd%C4%B1n%20Otoyolu%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM İzmir - Aydın Otoyolu Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgm-i-zmir-cesme-otoyolu-gecis-ucretleri",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515104803id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGM%20%C4%B0zmir-%C3%87e%C5%9Fme%20Otoyolu%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM İzmir-Çeşme Otoyolu Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-kgm-avrupa-otoyolu-mahmutbey-edirne-kesi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515105208id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGM%20Avrupa%20Otoyolu%20(Mahmutbey%20-%20Edirne%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Avrupa Otoyolu (Mahmutbey - Edirne Kesimi) Geçiş Ücretleri (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024kmo-anadoluotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515105223id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AnadoluOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024KMO_AnadoluOtoyolu_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024gebzeorhangaziizmit-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515105232id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024GebzeOrhangaziIzmit_TR.pdf",
+   "what": "KGM toll tariff 2024GebzeOrhangaziIzmit_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024ankara-nigdeotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515105430id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Ankara-NigdeOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024Ankara-NigdeOtoyolu_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024malkara-canakkale-tur",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515105807id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Malkara-Canakkale_TUR.pdf",
+   "what": "KGM toll tariff 2024Malkara-Canakkale_TUR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024menemen-aliaga-candarli-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515112143id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Menemen_Aliaga_Candarli_TR.pdf",
+   "what": "KGM toll tariff 2024Menemen_Aliaga_Candarli_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024yavuzsultanselimvekuzeycevre-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515112338id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024YavuzSultanSelimveKuzeyCevre_TR.pdf",
+   "what": "KGM toll tariff 2024YavuzSultanSelimveKuzeyCevre_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024kmo-avrupaotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515112443id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AvrupaOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024KMO_AvrupaOtoyolu_TR (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240515-2024aydin-denizlitr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240515112452id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024Aydin-DenizliTr.pdf",
+   "what": "KGM toll tariff 2024Aydin-DenizliTr (Internet Archive copy of 20240515; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20240816-2024gebzeorhangaziizmit-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240816051045id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024GebzeOrhangaziIzmit_TR.pdf",
+   "what": "KGM toll tariff 2024GebzeOrhangaziIzmit_TR (Internet Archive copy of 20240816; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20241125-kgmanadoluotoyolu-camlica-akinci-kesimi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241125132634id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/KGMAnadoluOtoyolu(%C3%87aml%C4%B1ca-Ak%C4%B1nc%C4%B1%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGMAnadoluOtoyolu(Çamlıca-Akıncı Kesimi) Geçiş Ücretleri (Internet Archive copy of 20241125; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20241127-2024kmo-anadoluotoyolu-tr",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241127004205id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2024Gecis_Ucret/2024KMO_AnadoluOtoyolu_TR.pdf",
+   "what": "KGM toll tariff 2024KMO_AnadoluOtoyolu_TR (Internet Archive copy of 20241127; KGM list of 2024 tariffs)"
+  },
+  {
+   "id": "tr-20250113-kgmco-adana-dogu",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113215205id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%C3%87O-Adana%20Dogu.pdf",
+   "what": "KGM toll tariff KGMÇO-Adana Dogu (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-mac-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113220322id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/MA%C3%87_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff MAÇ_TUR_13.01.2025 (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-kgm-avrupa-otoyolu-mahmutbey-edirne-kesi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113220653id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%20Avrupa%20Otoyolu%20(Mahmutbey%20-%20Edirne%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Avrupa Otoyolu (Mahmutbey - Edirne Kesimi) Geçiş Ücretleri (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-kgm-i-zmir-cesme-otoyolu-gecis-ucretleri",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113222429id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%20%C4%B0zmir%20-%20%C3%87e%C5%9Fme%20Otoyolu%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM İzmir - Çeşme Otoyolu Geçiş Ücretleri (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-ado-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113224323id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/ADO_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff ADO_TUR_13.01.2025 (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-kgm-cukurova-otoyollari-nigde-mersin-ada",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113224728id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%20%C3%87ukurova%20Otoyollar%C4%B1%20(Ni%C4%9Fde%20-%20Mersin%20-%20Adana%20Bat%C4%B1%20Kesimi)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Çukurova Otoyolları (Niğde - Mersin - Adana Batı Kesimi) Geçiş Ücretleri (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-kgm-anadolu-otoyolu-camlica-i-stasyonu-a",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113231816id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%20Anadolu%20Otoyolu%20(%C3%87aml%C4%B1ca%20%C4%B0stasyonu%20-%20Ak%C4%B1nc%C4%B1%20Kesimi%20)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM Anadolu Otoyolu (Çamlıca İstasyonu - Akıncı Kesimi ) Geçiş Ücretleri (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-osmangazi-koprusu-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113233312id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/OSMANGAZ%C4%B0%20K%C3%96PR%C3%9CS%C3%9C_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff OSMANGAZİ KÖPRÜSÜ_TUR_13.01.2025 (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250113-cok-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250113233630id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/%C3%87OK_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff ÇOK_TUR_13.01.2025 (Internet Archive copy of 20250113; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250114-1915-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250114003856id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/1915_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff 1915_TUR_13.01.2025 (Internet Archive copy of 20250114; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250114-ano-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250114170810id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/ANO_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff ANO_TUR_13.01.2025 (Internet Archive copy of 20250114; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250114-kgmantepdogu-surfabati",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250114183821id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGMAntepdogu-surfabat%C4%B1.pdf",
+   "what": "KGM toll tariff KGMAntepdogu-surfabatı (Internet Archive copy of 20250114; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250116-goi-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250116123942id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/GO%C4%B0_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff GOİ_TUR_13.01.2025 (Internet Archive copy of 20250116; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250116-15-temmuz-sehitler-ve-fatih-sultan-mehme",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250116125505id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/15%20Temmuz%20%C5%9Eehitler%20ve%20Fatih%20Sultan%20Mehmet%20K%C3%B6pr%C3%BCleri%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri%20Tarifesi.pdf",
+   "what": "KGM toll tariff 15 Temmuz Şehitler ve Fatih Sultan Mehmet Köprüleri Geçiş Ücretleri Tarifesi (Internet Archive copy of 20250116; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250117-yss-koprusu-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250117001551id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/YSS%20K%C3%96PR%C3%9CS%C3%9C_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff YSS KÖPRÜSÜ_TUR_13.01.2025 (Internet Archive copy of 20250117; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250117-kgm-i-zmir-aydin-otoyolu-isikkent-aydin",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250117021328id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KGM%20%C4%B0zmir%20-%20Ayd%C4%B1n%20Otoyolu%20(I%C5%9F%C4%B1kkent%20-%20Ayd%C4%B1n%20Bat%C4%B1%20Kesimi%20)%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri.pdf",
+   "what": "KGM toll tariff KGM İzmir - Aydın Otoyolu (Işıkkent - Aydın Batı Kesimi ) Geçiş Ücretleri (Internet Archive copy of 20250117; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250117-kmo-anadolu-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250117040044id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KMO_ANADOLU_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff KMO_ANADOLU_TUR_13.01.2025 (Internet Archive copy of 20250117; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250117-kmo-yss-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250117042433id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KMO_YSS_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff KMO_YSS_TUR_13.01.2025 (Internet Archive copy of 20250117; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250117-kmo-avrupa-tur-13-01-2025",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250117155906id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/KMO%20AVRUPA_TUR_13.01.2025.pdf",
+   "what": "KGM toll tariff KMO AVRUPA_TUR_13.01.2025 (Internet Archive copy of 20250117; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20250204-15-temmuz-sehitler-ve-fatih-sultan-mehme",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250204114039id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2025Gecis_Ucret/15%20Temmuz%20%C5%9Eehitler%20ve%20Fatih%20Sultan%20Mehmet%20K%C3%B6pr%C3%BCleri%20Ge%C3%A7i%C5%9F%20%C3%9Ccretleri%20Tarifesi.pdf",
+   "what": "KGM toll tariff 15 Temmuz Şehitler ve Fatih Sultan Mehmet Köprüleri Geçiş Ücretleri Tarifesi (Internet Archive copy of 20250204; KGM list of 2025 tariffs)"
+  },
+  {
+   "id": "tr-20251231-17-ankara-nigde",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061751id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/17-Ankara-Nigde.pdf",
+   "what": "KGM toll tariff 17-Ankara-Nigde (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-14-kmoavrupakinali-odayeri",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061807id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/14-KMOAvrupaKinali-Odayeri.pdf",
+   "what": "KGM toll tariff 14-KMOAvrupaKinali-Odayeri (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-19-aydin-denizli",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061822id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/19-Aydin-Denizli.pdf",
+   "what": "KGM toll tariff 19-Aydin-Denizli (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-4-1915canakkale",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061825id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/4-1915Canakkale.pdf",
+   "what": "KGM toll tariff 4-1915Canakkale (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-5-anadoluotoyolucamlica-akinci",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061828id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/5-AnadoluOtoyoluCamlica-Akinci.pdf",
+   "what": "KGM toll tariff 5-AnadoluOtoyoluCamlica-Akinci (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-6-izmir-cesme",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061845id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/6-Izmir-Cesme.pdf",
+   "what": "KGM toll tariff 6-Izmir-Cesme (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-12-gebze-orhangazi-izmir",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061900id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/12-Gebze-Orhangazi-Izmir.pdf",
+   "what": "KGM toll tariff 12-Gebze-Orhangazi-Izmir (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-2-osmangazi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061929id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/2-Osmangazi.pdf",
+   "what": "KGM toll tariff 2-Osmangazi (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-13-ysskuzeycevreyolu",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061930id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/13-YSSKuzeyCevreYolu.pdf",
+   "what": "KGM toll tariff 13-YSSKuzeyCevreYolu (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-18-malkara-canakkale",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061939id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/18-Malkara-Canakkale.pdf",
+   "what": "KGM toll tariff 18-Malkara-Canakkale (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-15-kmoanadolukurtkoy-akyazi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061941id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/15-KMOAnadoluKurtkoy-Akyazi.pdf",
+   "what": "KGM toll tariff 15-KMOAnadoluKurtkoy-Akyazi (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-1-15temmuz-fsm",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231061946id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/1-15Temmuz-FSM.pdf",
+   "what": "KGM toll tariff 1-15Temmuz-FSM (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-9-cukurovaotoyolugaziantep-sanliurfa",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062002id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/9-CukurovaOtoyoluGaziantep-Sanliurfa.pdf",
+   "what": "KGM toll tariff 9-CukurovaOtoyoluGaziantep-Sanliurfa (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-7-izmir-aydin",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062004id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/7-Izmir-Aydin.pdf",
+   "what": "KGM toll tariff 7-Izmir-Aydin (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-10-cukurovaotoyolunigde-mersin-adana",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062011id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/10-CukurovaOtoyoluNigde-Mersin-Adana.pdf",
+   "what": "KGM toll tariff 10-CukurovaOtoyoluNigde-Mersin-Adana (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-11-avrupaotoyolumahmutbey-edirne",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062018id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/11-AvrupaOtoyoluMahmutbey-Edirne.pdf",
+   "what": "KGM toll tariff 11-AvrupaOtoyoluMahmutbey-Edirne (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-16-menemen-aliaga-candarli",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062019id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/16-Menemen-Aliaga-Candarli.pdf",
+   "what": "KGM toll tariff 16-Menemen-Aliaga-Candarli (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-3-ysskoprusu",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062022id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/3-YSSKoprusu.pdf",
+   "what": "KGM toll tariff 3-YSSKoprusu (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20251231-8-cukurovaotoyoluadana-gaziantep",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251231062022id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/8-CukurovaOtoyoluAdana-Gaziantep.pdf",
+   "what": "KGM toll tariff 8-CukurovaOtoyoluAdana-Gaziantep (Internet Archive copy of 20251231; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260317-12-gebze-orhangazi-izmir",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260317154016id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/12-Gebze-Orhangazi-Izmir.pdf",
+   "what": "KGM toll tariff 12-Gebze-Orhangazi-Izmir (Internet Archive copy of 20260317; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260410-15-kmoanadolukurtkoy-akyazi",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260410161905id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/15-KMOAnadoluKurtkoy-Akyazi.pdf",
+   "what": "KGM toll tariff 15-KMOAnadoluKurtkoy-Akyazi (Internet Archive copy of 20260410; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260410-13-ysskuzeycevreyolu",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260410165904id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/13-YSSKuzeyCevreYolu.pdf",
+   "what": "KGM toll tariff 13-YSSKuzeyCevreYolu (Internet Archive copy of 20260410; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260410-14-kmoavrupakinali-odayeri",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260410170109id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/14-KMOAvrupaKinali-Odayeri.pdf",
+   "what": "KGM toll tariff 14-KMOAvrupaKinali-Odayeri (Internet Archive copy of 20260410; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260415-17-ankara-nigde",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260415175019id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/17-Ankara-Nigde.pdf",
+   "what": "KGM toll tariff 17-Ankara-Nigde (Internet Archive copy of 20260415; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "tr-20260415-18-malkara-canakkale",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20260415175019id_/https://www.kgm.gov.tr/SiteCollectionDocuments/KGMdocuments/Otoyollar/OtoyolKopruUcret/2026Gecis_Ucret/18-Malkara-Canakkale.pdf",
+   "what": "KGM toll tariff 18-Malkara-Canakkale (Internet Archive copy of 20260415; KGM list of 2026 tariffs)"
+  },
+  {
+   "id": "gr-olympia-20240227",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240227212356id_/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "what": "Olympia Odos: Τιμές διοδίων (Internet Archive copy of 20240227)"
+  },
+  {
+   "id": "gr-olympia-20241208",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241208185527id_/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "what": "Olympia Odos: Τιμές διοδίων (Internet Archive copy of 20241208)"
+  },
+  {
+   "id": "gr-olympia-20250214",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250214215455id_/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "what": "Olympia Odos: Τιμές διοδίων (Internet Archive copy of 20250214)"
+  },
+  {
+   "id": "gr-olympia-20251217",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251217071829id_/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/",
+   "what": "Olympia Odos: Τιμές διοδίων (Internet Archive copy of 20251217)"
+  },
+  {
+   "id": "gr-neaodos-20240302",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240302075109id_/https://www.neaodos.gr/highways/tolls/",
+   "what": "Nea Odos: Διόδια Τέλη (Internet Archive copy of 20240302)"
+  },
+  {
+   "id": "gr-neaodos-20241208",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241208194044id_/https://www.neaodos.gr/highways/tolls/",
+   "what": "Nea Odos: Διόδια Τέλη (Internet Archive copy of 20241208)"
+  },
+  {
+   "id": "gr-neaodos-20250428",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250428000825id_/https://www.neaodos.gr/highways/tolls/",
+   "what": "Nea Odos: Διόδια Τέλη (Internet Archive copy of 20250428)"
+  },
+  {
+   "id": "gr-neaodos-20251123",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251123021248id_/https://www.neaodos.gr/highways/tolls/",
+   "what": "Nea Odos: Διόδια Τέλη (Internet Archive copy of 20251123)"
+  },
+  {
+   "id": "gr-kentriki-20240526",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240526150208id_/https://www.kentrikiodos.gr/highways/toll-fees/",
+   "what": "Kentriki Odos: Διόδια Τέλη (Internet Archive copy of 20240526)"
+  },
+  {
+   "id": "gr-kentriki-20241110",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241110182045id_/https://www.kentrikiodos.gr/highways/toll-fees/",
+   "what": "Kentriki Odos: Διόδια Τέλη (Internet Archive copy of 20241110)"
+  },
+  {
+   "id": "gr-kentriki-20250421",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250421204440id_/https://www.kentrikiodos.gr/highways/toll-fees/",
+   "what": "Kentriki Odos: Διόδια Τέλη (Internet Archive copy of 20250421)"
+  },
+  {
+   "id": "gr-kentriki-20251206",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251206172556id_/https://www.kentrikiodos.gr/highways/toll-fees/",
+   "what": "Kentriki Odos: Διόδια Τέλη (Internet Archive copy of 20251206)"
+  },
+  {
+   "id": "gr-moreas-20240225",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240225020056id_/https://www.moreas.com.gr/leitourgia/diodia",
+   "what": "Moreas: Διόδια (Internet Archive copy of 20240225)"
+  },
+  {
+   "id": "gr-moreas-20241211",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20241211153658id_/https://www.moreas.com.gr/leitourgia/diodia",
+   "what": "Moreas: Διόδια (Internet Archive copy of 20241211)"
+  },
+  {
+   "id": "gr-moreas-20250207",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250207110558id_/https://www.moreas.com.gr/leitourgia/diodia",
+   "what": "Moreas: Διόδια (Internet Archive copy of 20250207)"
+  },
+  {
+   "id": "gr-moreas-20251216",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20251216205541id_/https://www.moreas.com.gr/leitourgia/diodia",
+   "what": "Moreas: Διόδια (Internet Archive copy of 20251216)"
+  },
+  {
+   "id": "gr-gefyra-20240303",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240303060529id_/https://www.gefyra.gr/prices/Times-Diodion/",
+   "what": "Gefyra (Rio–Antirrio bridge): Τιμές Διοδίων (Internet Archive copy of 20240303)"
+  },
+  {
+   "id": "gr-gefyra-20240524",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240524040750id_/https://www.gefyra.gr/prices/Times-Diodion/",
+   "what": "Gefyra (Rio–Antirrio bridge): Τιμές Διοδίων (Internet Archive copy of 20240524)"
+  },
+  {
+   "id": "gr-gefyra-20250120",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250120075907id_/https://www.gefyra.gr/prices/Times-Diodion/",
+   "what": "Gefyra (Rio–Antirrio bridge): Τιμές Διοδίων (Internet Archive copy of 20250120)"
+  },
+  {
+   "id": "gr-aegean-en-20240513",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20240513235022id_/https://www.aegeanmotorway.gr/en/travel-info/tolls/toll-prices/",
+   "what": "Aegean Motorway: Toll prices (English page) (Internet Archive copy of 20240513)"
+  },
+  {
+   "id": "gr-aegean-en-20250530",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250530053435id_/https://www.aegeanmotorway.gr/en/travel-info/tolls/toll-prices/",
+   "what": "Aegean Motorway: Toll prices (English page) (Internet Archive copy of 20250530)"
+  },
+  {
+   "id": "gr-aegean-en-20250830",
+   "table": "archived",
+   "url": "https://web.archive.org/web/20250830161919id_/https://www.aegeanmotorway.gr/en/travel-info/tolls/toll-prices/",
+   "what": "Aegean Motorway: Toll prices (English page) (Internet Archive copy of 20250830)"
+  },
+  {
+   "id": "rs-cene-20241214",
+   "table": "rs",
+   "url": "https://web.archive.org/web/20241214061306id_/https://www.putevi-srbije.rs/images/pdf/cene_putarina_lat.pdf",
+   "what": "JP Putevi Srbije: toll price list (cene_putarina_lat.pdf), Internet Archive copy of 20241214"
+  },
+  {
+   "id": "rs-cene-20260517",
+   "table": "rs",
+   "url": "https://web.archive.org/web/20260517181557id_/https://www.putevi-srbije.rs/images/pdf/cene_putarina_lat.pdf",
+   "what": "JP Putevi Srbije: toll price list (cene_putarina_lat.pdf), Internet Archive copy of 20260517"
+  },
+  {
+   "id": "hr-hac-a1-20240530",
+   "table": "hr",
+   "url": "https://web.archive.org/web/20240530142621id_/https://www.hac.hr/en/toll/toll-rates/a1",
+   "what": "Hrvatske autoceste: toll rates A1 (entry Zagreb), Internet Archive copy of 20240530"
+  },
+  {
+   "id": "hr-hac-a1-20251205",
+   "table": "hr",
+   "url": "https://web.archive.org/web/20251205184318id_/https://www.hac.hr/en/toll/toll-rates/a1",
+   "what": "Hrvatske autoceste: toll rates A1 (entry Zagreb), Internet Archive copy of 20251205"
+  },
+  {
+   "id": "es-seitt-2025-ap36",
+   "table": "es-seitt-2025-01-01",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas_ap36_2025.pdf",
+   "what": "SEITT: 2025 tariffs of the AP-36 Ocaña – La Roda toll motorway (PDF)"
+  },
+  {
+   "id": "es-seitt-2025-ap7cv",
+   "table": "es-seitt-2025-01-01",
+   "url": "https://cdn.transportes.gob.es/portal-web-seitt/media/document/tarifas-ap7cv-seitt_2025.pdf",
+   "what": "SEITT: 2025 tariffs of the AP-7 Cartagena – Vera toll motorway (PDF)"
+  },
+  {
+   "id": "ro-og15-20231216",
+   "table": "ro-2024-01-01",
+   "url": "https://web.archive.org/web/20240424152455id_/https://legislatie.just.ro/Public/DetaliiDocument/269498",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 16.12.2023 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20240129",
+   "table": "ro-2024-01-01",
+   "url": "https://web.archive.org/web/20240424155900id_/https://legislatie.just.ro/Public/DetaliiDocument/269983",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 29.01.2024 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20240311",
+   "table": "ro-2024-01-01",
+   "url": "https://web.archive.org/web/20240324151646id_/https://legislatie.just.ro/Public/DetaliiDocument/279873",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 11.03.2024 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20250728",
+   "table": "ro-2025-08-01",
+   "url": "https://web.archive.org/web/20250810072308id_/https://legislatie.just.ro/Public/DetaliiDocument/298839",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 28.07.2025, Legea nr. 141/2025 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-og15-20250908",
+   "table": "ro-2025-09-08",
+   "url": "https://web.archive.org/web/20251215073420id_/https://legislatie.just.ro/Public/DetaliiDocument/301686",
+   "what": "Portal Legislativ: OG 15/2002, consolidation of 08.09.2025, OG nr. 23/2025 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-l141-2025",
+   "table": "ro-2025-08-01",
+   "url": "https://web.archive.org/web/20251029222437id_/https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf",
+   "what": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025): 21% VAT from 1 August 2025, OG 15/2002 Anexa nr. 1 from 1 September 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-cnadnr-tabele",
+   "table": "ro-2025-09-08",
+   "url": "https://web.archive.org/web/20250907021509id_/https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf",
+   "what": "CNAIR: rovinieta and peaj tariffs from 8 September 2025 under OG 23/2025 (Internet Archive copy)"
+  },
+  {
+   "id": "ro-etoll-l226",
+   "table": "ro-2026-10-01",
+   "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania",
+   "what": "CNAIR eToll: Legea nr. 226/2023 as published on the Acte normative page (PDF)"
+  },
+  {
+   "id": "fr-2023-aprr",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20230204155422id_/https://voyage.aprr.fr/sites/default/files/2023-02/tarifs_aprr_2023.pdf",
+   "what": "APRR tariffs 2023 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2023-area",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20230321181824id_/https://voyage.aprr.fr/sites/default/files/2023-02/tarifs_area_2023.pdf",
+   "what": "AREA tariffs 2023 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2023-asf-guide",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20230202114620id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf-vf/Tarifs-guide-ASF-2023.pdf",
+   "what": "ASF tariff guide 2023 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2023-cofiroute",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20230201182321id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Cofiroute-vf/Tarifs-guide-Cofiroute-2023.pdf",
+   "what": "Cofiroute tariff guide 2023 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-aprr",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240301132217id_/https://voyage.aprr.fr/sites/default/files/2024-02/TARIFS_APRR_2024.pdf",
+   "what": "APRR tariffs 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-aprr-v2",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240424115216id_/https://voyage.aprr.fr/sites/default/files/2024-04/TARIFS_APRR_2024_V2.pdf",
+   "what": "APRR tariffs 2024, second version (April 2024) (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-area",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240301151436id_/https://voyage.aprr.fr/sites/default/files/2024-02/TARIFS_AREA_2024.pdf",
+   "what": "AREA tariffs 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-asf-c3",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240202232322id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C3-TARIFS-WEB-2024.pdf",
+   "what": "ASF class 3 grid 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-asf-c4",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240213210315id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/C4-TARIFS-WEB-2024.pdf",
+   "what": "ASF class 4 grid 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-escota",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240201154405id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Escota/Escota-Grilles-tarifaires-2024_provisoires.pdf",
+   "what": "Escota tariff grids 2024 (provisional) (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2025-cofiroute",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20251117151318id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Cofiroute/Cofiroute-Guide-tarifaire-2025-V2.pdf",
+   "what": "Cofiroute tariff guide 2025 (V2) (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2025-escota",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20250209144904id_/https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Escota/Escota-tarifs-2025-provisoires.pdf",
+   "what": "Escota tariffs 2025 (provisional) (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2025-albea",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20250625035240id_/https://www.a150-albea.fr/wp-content/uploads/2025/01/tarifs-peage-albea-au-01-02-2025.pdf",
+   "what": "ALBEA tariffs from 1 February 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2025-aprr",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20250907111317id_/https://voyage.aprr.fr/sites/default/files/2025-01/TARIFS_APRR.pdf",
+   "what": "APRR tariffs 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2025-area",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20250207054857id_/https://voyage.aprr.fr/sites/default/files/2025-01/TARIF_AREA.pdf",
+   "what": "AREA tariffs 2025 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2023-aliae",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240703143332id_/https://www.aliae.com/files/live/sites/aliae/files/Mediatheque/PDF/ALIAE_tarifs_2023.pdf",
+   "what": "ALIAE tariffs 2023 (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-aliae-v2",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240812132406id_/https://www.aliae.com/files/live/sites/aliae/files/Documents/TARIFS_ALIAE_2024_V2.pdf",
+   "what": "ALIAE tariffs 2024, second version (Internet Archive copy)"
+  },
+  {
+   "id": "fr-2024-alienor",
+   "table": "fr-history",
+   "url": "https://web.archive.org/web/20240813044744id_/https://www.a65-alienor.com/sites/alienor/files/2024-01/2024%2002%2001%20-%20Affiches%20Tarifs%20internet%20A65_0.pdf",
+   "what": "A'liénor (A65) tariffs from 1 February 2024 (Internet Archive copy)"
+  }
+ ]
+}

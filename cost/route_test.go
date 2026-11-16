@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/majidkabir/carbon-cost/ferries"
@@ -59,7 +60,7 @@ func TestRoadKmSums(t *testing.T) {
 	runs := []Run{{Kind: "road", Country: "HU", Points: [][2]float64{{18.83, 47.47}, {18.80, 47.49}}}}
 	path, ok := rx.Classify("HU", runs[0].Points)
 	k := RoadKm(rx, runs)["HU"]
-	if !ok || k != path {
+	if !ok || !reflect.DeepEqual(k, path) {
 		t.Errorf("RoadKm %+v, Classify %+v", k, path)
 	}
 }

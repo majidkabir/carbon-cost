@@ -1,0 +1,144 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-ausol/2026-04-13",
+  "scheme": {
+   "id": "es-ausol",
+   "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), normal season",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-04-13",
+  "valid_to": "2026-05-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "Tariffs of Autopista del Sol, Concesionaria Española, approved by Orden Ministerial of 18 December 2025, 2026: per troncal barrier (Calahonda, San Pedro, Manilva), Pesados 1 (two or three axles) and Pesados 2 (four or more), excluding 21% IVA; the normal season. The lateral barriers on the ramps aren't priced: a trip joining or leaving at one is priced as through traffic.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-ausol-2026-04-13.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ausol: tarifas",
+   "url": "https://www.ausol.es/es/tarifas-y-descuentos/tarifas"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Pesados 1 (two or three axles) and Pesados 2 (four or more)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "AP-7 Calahonda",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-4.717858, 36.505733]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "AP-7 San Pedro",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-5.008749, 36.499382]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "AP-7 Manilva",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-5.265471, 36.38047]
+    },
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "7.6446"],
+    ["pt1", "pt-1.2", "9.3802"],
+    ["pt2", "pt-1.1", "5.1653"],
+    ["pt2", "pt-1.2", "6.3636"],
+    ["pt3", "pt-1.1", "3.0165"],
+    ["pt3", "pt-1.2", "3.9669"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-12"
+  }
+ }
+}

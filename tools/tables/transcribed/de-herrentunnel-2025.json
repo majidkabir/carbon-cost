@@ -1,0 +1,15 @@
+{
+ "operator": "Herrentunnel Lübeck GmbH & Co. KG",
+ "about": "Germany: the Herrentunnel's toll (B 104/B 75, Lübeck), set under the Fernstraßenbauprivatfinanzierungsgesetz and published by the operator only as an image (Gebührentabelle, gültig ab 01.03.2025) linked from its Gebührentabelle page. Transcribed by hand; tools/tables fetches the image again and says if it has changed (sha256). Classes by height over the front axle (over 130 cm) and axles: B 2, C 3, D 4 and more. Barpreis is the price at the plaza; Quick-Box/RFID the price with the operator's tag (no basic fee). The Plus tariff (with a monthly fee per fleet) isn't used.",
+ "source": {
+  "url": "https://www.herrentunnel.de/public/img/content/Gebuehrentabelle_2025.png",
+  "sha256": "6e8b48c64de0979bb8e7cb3caf779734efad111399b7c8879581f356e716f1cc",
+  "page": "https://www.herrentunnel.de/index.php/maut-tarife/maut-tarife-2.html"
+ },
+ "valid_from": "2025-03-01",
+ "classes": [
+  {"class": "B", "axles": 2, "cash": 4.30, "tag": 3.52},
+  {"class": "C", "axles": 3, "cash": 11.10, "tag": 9.15},
+  {"class": "D", "axles": "4 und mehr", "cash": 17.60, "tag": 14.60}
+ ]
+}

@@ -61,6 +61,7 @@ def main(fetched, out):
         print(f"{name}: {rate} kr at {lat:.5f},{lon:.5f} ({len(gs)} gantries); {pick[0]}")
     tb = {
         "country": "SE", "currency": "SEK", "valid_from": date,
+        "osm_extract": osm,
         "name": "Swedish bridge infrastructure charges (broavgift)",
         "law": "Lag (2024:172) om infrastrukturavgifter på väg; Förordning (2014:1564) 4 §: a charge per passage of the bridges over Motalaviken, Sundsvallsfjärden and Skurusundet, at the amounts Transportstyrelsen publishes (heavy trucks over 3.5 t where they differ). Charged at each bridge's charging station (OpenStreetMap toll gantries), either direction. Swedish and foreign vehicles alike.",
         "sources": [{"title": "Transportstyrelsen: Broavgift på Motalabron", "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/"},

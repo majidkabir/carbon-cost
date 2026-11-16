@@ -1,0 +1,167 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-catalonia-c16/2026-01-01",
+  "scheme": {
+   "id": "es-catalonia-c16",
+   "name": "Catalonia: C-16 tolls (Túnel del Cadí, Túnels de Vallvidrera, les Fonts, Sant Vicenç de Castellet)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The Generalitat de Catalunya's toll rates for 2026 (yearly revision by Resolució under Decret 465/2004), category 4 (trucks with more than four wheels, or three axles; trucks over 3.5 t are taken to be), per passage either way, excluding 21% IVA: the Túnel del Cadí; the Túnels de Vallvidrera at the off-peak price (weekdays 7:30-10:30 and 17:00-21:00 cost more, priced off-peak with a note); the C-16 barriers of les Fonts (the weekday price only with Via-T or Satelise, so `etc`; else and at weekends the full price) and Sant Vicenç de Castellet (weekday and weekend prices; public holidays aren't modelled). The C-16 Manresa barrier and the C-32 barriers have no named booths in OpenStreetMap and aren't priced.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-catalonia-c16-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Generalitat de Catalunya: Tarifes de peatges 2026",
+   "url": "https://territori.gencat.cat/ca/03_infraestructures_i_mobilitat/carreteres/peatges-tarifes-descomptes/tarifes-peatges/"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Category 4 (here trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "high-season",
+   "label": "High season",
+   "days": [
+    {
+     "weekdays": [6, 7]
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "C-16 Túnel del Cadí",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [1.839159, 42.340173]
+    },
+    "match_m": 200
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "C-16 Túnels de Vallvidrera",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [2.075248, 41.437192]
+    },
+    "match_m": 200
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "C-16 les Fonts",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [2.030133, 41.517896]
+    },
+    "match_m": 200
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "C-16 Sant Vicenç de Castellet",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [1.864713, 41.651767]
+    },
+    "match_m": 200
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "time_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, "31.4959"],
+    ["pt2", "pt-1.1", null, null, "8.0992"],
+    ["pt3", "pt-1.1", null, null, "5.8264"],
+    ["pt3", "pt-1.1", "electronic", null, "3.2066"],
+    ["pt3", "pt-1.1", null, "high-season", "5.8264"],
+    ["pt3", "pt-1.1", "electronic", "high-season", "5.8264"],
+    ["pt4", "pt-1.1", null, null, "4.2231"],
+    ["pt4", "pt-1.1", null, "high-season", "7.0909"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

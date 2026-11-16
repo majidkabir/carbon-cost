@@ -1,11 +1,12 @@
 """Builds roads/data/<cc>.json.gz from an OpenStreetMap extract.
 
-Usage: python3 build.py CC roads.osm.pbf out.json.gz
+Usage: OSM_EXTRACT=<extract timestamp> python3 build.py CC roads.osm.pbf out.json.gz
 
 roads.osm.pbf: the extract filtered to highway=motorway, trunk and
 primary ways (and, for Hungary, the toll section relations tagged
 ref:HU:edid with their ways). Each way goes in a class by the rule for
-its country (RULES): "mw" are the roads a toll law prices at the
+its country (RULES; in Italy the motorways tagged toll=yes, each with its
+operator tag): "mw" are the roads a toll law prices at the
 motorway rate, "nat" the other national roads it tolls. In Hungary a way
 in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
@@ -46,10 +47,18 @@ RULES = {
     # Romania, OMT 1925/2025: autostrăzi and drumuri expres (A, DEx) vs
     # drumuri naționale.
     "RO": {"mw": r"^(A|DEx)\s?\d", "mw_highway": ["motorway"], "nat": r"^(DN\s?)?\d{1,3}[A-Z]{0,2}$"},
+    # Italy: the toll motorways (autostrade a pedaggio), the ways tagged
+    # toll=yes; the toll-free ones (A2, A19, A29, ring roads) aren't.
+    # Each line keeps its way's operator tag (the concession) and first
+    # ref, as "operator|ref", in "ops" and "mwop" (an index into ops per mw
+    # line, -1 for none).
+    "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True, "operator": True},
 }
 
 
 def classify(rule, tags):
+    if rule.get("toll"):
+        return "mw" if tags.get("highway") == "motorway" and tags.get("toll") == "yes" else None
     refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
     if tags.get("highway") in rule["mw_highway"] or any(re.match(rule["mw"], r) for r in refs):
         return "mw"
@@ -111,6 +120,32 @@ class Urban(osmium.SimpleHandler):
         return unary_union(parts) if parts else None
 
 
+# Stretches a concession prices apart from the rest of its motorway: the
+# ways of an operator key east of a named motorway junction (the mean
+# longitude of the junction nodes of that name in the box) get the key
+# "operator|ref|label". SATAP's A4 charges its tariff B from Novara Est to
+# Milan; CAV's A4 is the stretch Padova Est-A4/A57 interchange and, east
+# of the interchange (OSM "A57 Venezia"), the Passante di Mestre.
+SPLITS = {"IT": [
+    ("SATAP S.p.A.|A4", "Novara Est", (8.6, 45.4, 8.8, 45.55), "Novara Est-Milano"),
+    ("CAV S.p.A.|A4", "A57 Venezia", (12.0, 45.4, 12.15, 45.5), "Passante"),
+]}
+
+
+class Junctions(osmium.SimpleHandler):
+    def __init__(self, splits):
+        super().__init__()
+        self.splits, self.found = splits, {}
+
+    def node(self, n):
+        if n.tags.get("highway") != "motorway_junction":
+            return
+        x, y = n.location.lon, n.location.lat
+        for key, name, (a, b, c, d), label in self.splits:
+            if n.tags.get("name") == name and a <= x <= c and b <= y <= d:
+                self.found.setdefault(key, []).append(x)
+
+
 class Ways(osmium.SimpleHandler):
     def __init__(self, rule, sections, urban=None):
         super().__init__()
@@ -120,6 +155,8 @@ class Ways(osmium.SimpleHandler):
         self.shares = {"mw": [], "nat": []}
         self.km = Counter()
         self.refs = Counter()
+        self.ops, self.op_index, self.mwop, self.op_km = [], {}, [], Counter()
+        self.split_at = {}
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -153,6 +190,17 @@ class Ways(osmium.SimpleHandler):
                 self.lines[c].append([v for p in pts for v in p])
                 self.shares[c].append(round(f, 3))
                 self.km[c] += piece.length * 111.32 * 0.68
+                if c == "mw" and self.rule.get("operator"):
+                    op = (tags.get("operator") or "").strip()
+                    ref = (tags.get("ref") or "").split(";")[0].strip()
+                    op = f"{op}|{ref}" if op else ""
+                    if op in self.split_at and piece.centroid.x > self.split_at[op][0]:
+                        op = f"{op}|{self.split_at[op][1]}"
+                    if op and op not in self.op_index:
+                        self.op_index[op] = len(self.ops)
+                        self.ops.append(op)
+                    self.mwop.append(self.op_index.get(op, -1))
+                    self.op_km[op] += piece.length * 111.32 * 0.68
 
 
 def main(cc, src, dst, areas=None):
@@ -173,12 +221,28 @@ def main(cc, src, dst, areas=None):
         sections = h.ways
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
     h = Ways(rule, sections, urban)
+    if SPLITS.get(cc):
+        j = Junctions(SPLITS[cc])
+        j.apply_file(src)
+        for key, name, box, label in SPLITS[cc]:
+            xs = j.found.get(key)
+            if not xs:
+                sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
+            h.split_at[key] = (sum(xs) / len(xs), label)
+            print(cc, "split", key, "east of", name, round(sum(xs) / len(xs), 4))
     h.apply_file(src, locations=True)
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
+    # The extract's date (the workflow passes its osmosis_replication_timestamp).
+    if os.environ.get("OSM_EXTRACT"):
+        out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
     if sections:
         out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]
+    if rule.get("operator"):
+        out["ops"], out["mwop"] = h.ops, h.mwop
+        for op, km in h.op_km.most_common():
+            print("  operator", repr(op), round(km))
     with gzip.open(dst, "wt", encoding="utf-8") as fo:
         json.dump(out, fo, separators=(",", ":"))
     print(cc, {k: len(v) for k, v in h.lines.items()}, {k: round(v) for k, v in h.km.items()})

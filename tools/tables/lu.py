@@ -66,11 +66,13 @@ def main(fetched, out):
         "country": "LU", "currency": "EUR", "valid_from": valid_from,
         "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
         "law": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 2°, as amended by the RGD of 18 December 2024: from 25 March 2025, for vehicles over 12 t, a charge per day, week, month or year, administrative costs included, by CO2 emission class, EURO class (CO2 class 1) and axles (three at most, four at least). The table keeps the daily amount (one calendar day).",
-        "sources": [{"title": "RGD du 21 mai 2019, consolidated (Legilux)", "url": "https://legilux.public.lu/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224"}],
+        "sources": [{"title": "RGD du 21 mai 2019, consolidated (Legilux)", "url": "https://legilux.public.lu/eli/etat/leg/rgd/2019/05/21/a353/consolide/20241224"},
+                    {"title": "Guichet.lu: Eurovignette, droit d'usage routier pour poids-lourds (a day's charge is a calendar day, 00:00 to 24:00)", "url": "https://guichet.public.lu/fr/entreprises/import-export/transit/transit-ue/e-vignette-poids-lourds.html"}],
         "vehicles": "Goods vehicles over 12 t maximum mass",
         "min_kg": 12001,
         "tolled_roads": "The motorways and similar roads in the annex: " + ", ".join(roads) + ".",
         "per_day": True,
+        "day": "calendar",
         "rows": out_rows,
     }
     os.makedirs(out, exist_ok=True)

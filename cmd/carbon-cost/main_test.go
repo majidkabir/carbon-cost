@@ -36,6 +36,8 @@ func TestHandler(t *testing.T) {
 		{"GET", "/healthz", "", 200, "ok"},
 		{"GET", "/", "", 200, "v1/carbon-cost"},
 		{"GET", "/v1/rates", "", 200, `"country": "DK"`},
+		{"GET", "/v1/rates/dk/dk-2026-01-01.orct.json", "", 200, `"orct": "0.2"`},
+		{"GET", "/v1/rates/dk/nope.orct.json", "", 404, "no such dataset"},
 		{"GET", "/", "", 200, `const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";`},
 		{"GET", "/leaflet/leaflet.js", "", 200, "Leaflet"},
 		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},
@@ -69,5 +71,29 @@ func TestFlagsParsing(t *testing.T) {
 	}
 	if _, err := byCountry("DE"); err == nil {
 		t.Error("DE without a number: want an error")
+	}
+}
+
+// Sootcase limiting or refusing this server isn't the caller's fault.
+func TestHandlerSootcaseStatus(t *testing.T) {
+	status := 0
+	fake := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(status)
+		w.Write([]byte(`{"error":"x"}`))
+	}))
+	defer fake.Close()
+	c, err := calculator(&sootcase.Client{BaseURL: fake.URL})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := Handler(c, "none")
+	body := `{"from": {"code": "DKCPH"}, "to": {"code": "DEHAM"}, "cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 1}}`
+	for in, want := range map[int]int{400: 400, 422: 400, 401: 502, 403: 502, 429: 503, 500: 502} {
+		status = in
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost", strings.NewReader(body)))
+		if rec.Code != want {
+			t.Errorf("sootcase %d: got %d, want %d", in, rec.Code, want)
+		}
 	}
 }

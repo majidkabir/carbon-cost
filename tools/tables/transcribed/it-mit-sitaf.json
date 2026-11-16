@@ -1,0 +1,28 @@
+{
+ "operator": "SITAF (A32)",
+ "about": "Italy: the concession's unit toll rates per km (euro, VAT excluded) by vehicle class, as the concessionaire's tariff sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them for 2025. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: B two axles over 1.30 m at the front axle, 3, 4 and 5 (five or more) axles. anas is the surcharge per km for ANAS (law 102/2009 art. 19 c. 9-bis: 0.006 classes A and B, 0.018 classes 3 to 5) where the sheet gives the rate without it; null where the sheet's rate already includes it or states none. Stretch: mountain. Note: Avigliana; Salbertrand 0.34837.",
+ "source": {
+  "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SITAF.pdf",
+  "sha256": "049196db0f4c63a610e5362a0376be451b03121ad430331f7bcda5179b13a55f",
+  "page": 3
+ },
+ "valid_from": "2025-01-01",
+ "rates": {
+  "B": {
+   "unit": 0.14595,
+   "anas": 0.006
+  },
+  "3": {
+   "unit": 0.22875,
+   "anas": 0.018
+  },
+  "4": {
+   "unit": 0.30433,
+   "anas": 0.018
+  },
+  "5": {
+   "unit": 0.35506,
+   "anas": 0.018
+  }
+ }
+}

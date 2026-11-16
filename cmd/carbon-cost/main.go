@@ -16,9 +16,12 @@ import (
 	"fmt"
 	"io/fs"
 	"log/slog"
+	"maps"
 	"net/http"
 	"net/url"
 	"os"
+	"runtime/debug"
+	"slices"
 	"strconv"
 	"strings"
 	"text/tabwriter"
@@ -27,17 +30,36 @@ import (
 	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
-	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
+
+// version is the release, set at build time with -ldflags "-X
+// main.version=v0.28.0" (the Dockerfile and release workflow do).
+var version = "dev"
+
+// buildVersion is version, with the commit when built from a checkout.
+func buildVersion() string {
+	if version != "dev" {
+		return version
+	}
+	if bi, ok := debug.ReadBuildInfo(); ok {
+		for _, s := range bi.Settings {
+			if s.Key == "vcs.revision" && len(s.Value) >= 7 {
+				return "dev+" + s.Value[:7]
+			}
+		}
+	}
+	return version
+}
 
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
   calc   price one trip
-  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates)
+  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates, GET /v1/rates/{file})
   rates  list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
@@ -81,7 +103,7 @@ func envOr(k, def string) string {
 }
 
 func calculator(sc *sootcase.Client) (cost.Calculator, error) {
-	tbs, err := rates.All()
+	set, err := tariffs.Load()
 	if err != nil {
 		return cost.Calculator{}, err
 	}
@@ -98,7 +120,7 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get}, nil
+	return cost.Calculator{Sootcase: *sc, Tariffs: set, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
 func calc(args []string) error {
@@ -119,6 +141,7 @@ func calc(args []string) error {
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
+	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -127,6 +150,9 @@ func calc(args []string) error {
 	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
 	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
 	fs.BoolVar(&req.ETC, "etc", false, "pays tolls by electronic toll device or agreement (operators' discounts)")
+	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
+	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
+	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	fs.Parse(args)
@@ -235,6 +261,9 @@ func printResult(r cost.Response) {
 		if l.TonnesCO2 > 0 {
 			basis = fmt.Sprintf("%.3f t CO2e", l.TonnesCO2)
 		}
+		if l.Days > 0 {
+			basis = fmt.Sprintf("%d day(s)", l.Days)
+		}
 		where := l.Country
 		if l.Region != "" {
 			where = l.Region
@@ -273,20 +302,41 @@ func printResult(r cost.Response) {
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)
 	}
+	p := r.Provenance
+	fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	for _, t := range p.Tables {
+		osm := ""
+		if t.OSMExtract != "" {
+			osm = ", OpenStreetMap " + t.OSMExtract
+		}
+		fmt.Printf("- %s: %s (tariffs/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
+	}
+	for _, cc := range slices.Sorted(maps.Keys(p.RoadClasses)) {
+		fmt.Printf("- %s road classes: %s\n", cc, p.RoadClasses[cc])
+	}
+	if p.FerryMRV != "" {
+		fmt.Println("- Ferry: " + p.FerryMRV)
+	}
+	for _, f := range p.FX {
+		fmt.Println("- " + f)
+	}
+	for _, a := range p.Assumed {
+		fmt.Println("- Assumed " + a)
+	}
 }
 
 func listRates() error {
-	tbs, err := rates.All()
+	set, err := tariffs.Load()
 	if err != nil {
 		return err
 	}
-	for _, tb := range tbs {
-		to := tb.ValidTo
+	for _, d := range set.All {
+		to := d.ValidTo
 		if to == "" {
 			to = "until replaced"
 		}
-		fmt.Printf("%s  %s  %s to %s  (%s)\n", tb.Area(), tb.Name, tb.ValidFrom, to, tb.Law)
-		for _, s := range tb.Sources {
+		fmt.Printf("%s  %s  %s to %s  (%s)\n", d.Area(), d.Name, d.ValidFrom, to, d.File)
+		for _, s := range d.Sources() {
 			fmt.Printf("    %s\n    %s\n", s.Title, s.URL)
 		}
 	}
@@ -304,7 +354,8 @@ func serve(args []string) error {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second}
+	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
@@ -352,7 +403,16 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
-	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tables) })
+	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tariffs.Summaries()) })
+	mux.HandleFunc("GET /v1/rates/{cc}/{file}", func(w http.ResponseWriter, r *http.Request) {
+		b, ok := c.Tariffs.Raw(r.PathValue("cc") + "/" + r.PathValue("file"))
+		if !ok {
+			writeJSON(w, http.StatusNotFound, map[string]string{"error": "no such dataset"})
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(b)
+	})
 	mux.HandleFunc("GET /v1/places", func(w http.ResponseWriter, r *http.Request) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))
 		if len(q) < 2 || len(q) > 100 {
@@ -380,10 +440,17 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		res, err := c.Calculate(r.Context(), req)
 		if err != nil {
-			// Bad input (ours or Sootcase's 4xx) is the caller's; anything
-			// else from Sootcase is a bad gateway.
+			// Bad input (ours, or Sootcase refusing the request itself) is
+			// the caller's; Sootcase failing, limiting or refusing this
+			// server is a bad gateway (busy: unavailable).
 			status := http.StatusBadRequest
-			if msg := err.Error(); strings.HasPrefix(msg, "sootcase") && !strings.HasPrefix(msg, "sootcase: HTTP 4") {
+			var he *sootcase.HTTPError
+			switch {
+			case errors.As(err, &he) && he.Status == http.StatusTooManyRequests:
+				status = http.StatusServiceUnavailable
+			case errors.As(err, &he) && !he.CallerError():
+				status = http.StatusBadGateway
+			case he == nil && strings.HasPrefix(err.Error(), "sootcase"):
 				status = http.StatusBadGateway
 			}
 			writeJSON(w, status, map[string]string{"error": err.Error()})

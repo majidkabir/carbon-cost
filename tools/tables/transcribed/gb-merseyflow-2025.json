@@ -1,0 +1,27 @@
+{
+ "operator": "Halton Borough Council (Mersey Gateway Crossings Board; tolls collected by merseyflow)",
+ "about": "England: the toll charges of the Mersey Gateway and Silver Jubilee bridges (Runcorn–Widnes) from 1 April 2025, set by Halton Borough Council's Road User Charging Scheme Order, as merseyflow's summary of the change gives them, a table published only as an image in that PDF. Transcribed by hand; tools/tables fetches the PDF again and says if it has changed (sha256). Per crossing, either bridge, either way, free-flow. Class 3: vehicles of 3.5-12 tonnes (and buses under 5 t); class 4: over 12 tonnes (and buses over 5 t).",
+ "source": {
+  "url": "https://assets-eu-01.kc-usercontent.com/b8de78b4-ca83-013e-5a94-3f6e455b08ad/87803a1c-6386-4414-9200-51e438ca3cb8/25793%20Toll_Charge_Change_A4_post1April%20(1).pdf",
+  "sha256": "12dc09174674c907125ea1bc67f42bad93838b24f8fec43af889a26b1e2f217b",
+  "page": "https://www.merseyflow.co.uk/toll-charges"
+ },
+ "valid_from": "2025-04-01",
+ "classes": [
+  {
+   "class": "3",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "sticker": 6.5,
+   "video": 6.85,
+   "unregistered": 7.2
+  },
+  {
+   "class": "4",
+   "min_kg": 12001,
+   "sticker": 8.65,
+   "video": 9.1,
+   "unregistered": 9.6
+  }
+ ]
+}

@@ -64,6 +64,8 @@ def lancos(path):
                 continue
             if len(c) >= 6 and all(re.fullmatch(r"\d+(,\d+)?", x) for x in c[-5:]):
                 lead = c[:-5]
+                if lead[-1] == "Total":
+                    continue  # a table's total line (until 2025 also the Lusoponte table's)
                 m = re.match(r"^(A\s*\d+)", lead[0]) if lead else None
                 if m:
                     road = m.group(1).replace(" ", "")
@@ -298,6 +300,7 @@ def main(fetched, out):
     osm = open(os.path.join(fetched, "pt-osm-timestamp.txt")).read().strip()[:10]
     tb = {
         "country": "PT", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
+        "osm_extract": osm,
         "name": "Portuguese motorway tolls (portagens)",
         "law": f"IMT, Taxas de Portagem de {year}: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of {osm}). {len(dropped)} lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
         "sources": [{"title": f"IMT: Taxas de Portagem de {year}", "url": "https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/"},

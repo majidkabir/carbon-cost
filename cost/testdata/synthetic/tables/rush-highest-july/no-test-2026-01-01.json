@@ -1,0 +1,70 @@
+{
+ "country": "NO",
+ "currency": "NOK",
+ "valid_from": "2026-01-01",
+ "name": "test",
+ "law": "test law",
+ "sources": [
+  {
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "vehicles": "",
+ "min_kg": 0,
+ "tolled_roads": "",
+ "toll_points": [
+  {
+   "name": "A",
+   "lat": 60,
+   "lon": 10,
+   "rate": 100,
+   "peak_rate": 150,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
+   "group": 1,
+   "group_minutes": 60,
+   "group_pays": "highest"
+  },
+  {
+   "name": "B",
+   "lat": 60.1,
+   "lon": 10,
+   "rate": 100,
+   "peak_rate": 150,
+   "rush": {
+    "hours": [
+     [
+      "06:30",
+      "08:59"
+     ],
+     [
+      "15:00",
+      "16:59"
+     ]
+    ],
+    "free_days": [
+     "norwegian_holidays",
+     "july"
+    ]
+   },
+   "group": 1,
+   "group_minutes": 60,
+   "group_pays": "highest"
+  }
+ ]
+}

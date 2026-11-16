@@ -1,0 +1,127 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/ro/2025-08-01",
+  "scheme": {
+   "id": "ro",
+   "name": "Romanian road user charge (rovinieta)",
+   "country": "RO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-08-01",
+  "valid_to": "2025-09-07",
+  "currency": "EUR",
+  "timezone": "Europe/Bucharest",
+  "license": "MIT",
+  "method": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 1 (Legea nr. 141/2025 replaced the annex from 1 September 2025 with the same tariffs for these categories): the rovinieta is a time-based charge in euro, including VAT, for periods from 1 day to 12 months, by the maximum authorised mass of the vehicle or combination and its axles: C 4 euro a day, D 7 euro a day, E 9 euro a day, F 11 euro a day (C over 3.5 to 7.5 t, D over 7.5 to under 12 t, E 12 t and over with up to 3 axles, F 12 t and over with 4 or more). A day runs from 00:00 to 24:00 (art. 1 alin. (8)). Paid in lei at the BNR rate of the month before (art. 6). Rates here exclude 21% VAT. Bridge tolls (tarif de trecere: Fetești–Cernavodă, Giurgeni–Vadu Oii, Giurgiu–Ruse) aren't included.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ro-2025-08-01.json"
+  },
+  "required_features": ["type.period"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Portal Legislativ: OG 15/2002, consolidation of 28.07.2025, Legea nr. 141/2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20250810072308id_/https://legislatie.just.ro/Public/DetaliiDocument/298839"
+  },
+  {
+   "id": "s2",
+   "title": "ANAF: Legea nr. 141/2025 (Monitorul Oficial nr. 699/2025): 21% VAT from 1 August 2025, OG 15/2002 Anexa nr. 1 from 1 September 2025 (Internet Archive copy)",
+   "url": "https://web.archive.org/web/20251029222437id_/https://static.anaf.ro/static/10/Anaf/legislatie/L_141_2025.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods vehicles over 3.5 t maximum authorised mass (the vehicle or combination)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7500
+      }
+     }
+    },
+    {
+     "id": "toll-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7501,
+       "max": 11999
+      }
+     }
+    },
+    {
+     "id": "toll-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "toll-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "National roads, expressways and motorways, except national roads inside municipalities (between the town entry and exit signs)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "period",
+   "component": "unspecified",
+   "unit": "product",
+   "component_label": "toll",
+   "day_basis": "calendar",
+   "columns": ["object", "vehicle_class", "product", "amount"],
+   "rows": [["roads", "toll-1.1", "P1D", "3.3058"], ["roads", "toll-1.2", "P1D", "5.7851"], ["roads", "toll-1.3", "P1D", "7.438"], ["roads", "toll-1.4", "P1D", "9.0909"]],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

@@ -122,12 +122,6 @@
    "what": "Nariadenie vlády SR č. 497/2013 Z. z. as in force on 1 January 2024 (Slov-Lex)"
   },
   {
-   "id": "cz-nv-40-2024",
-   "table": "cz-2024-03-01",
-   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40",
-   "what": "Nařízení vlády č. 40/2024 Sb. as tabulated by epravo.cz (the Sbírka PDF has its annexes as images)"
-  },
-  {
    "id": "ch-lsva-2025-media",
    "table": "ch-2024-01-01",
    "url": "https://www.newsd.admin.ch/newsd/message/attachments/84723.pdf",
@@ -1496,12 +1490,6 @@
    "what": "Liechtenstein: Schwerverkehrsabgabeverordnung (SVAV), LGBl. 2024 Nr. 452, consolidated"
   },
   {
-   "id": "cz-nv-327-2025",
-   "table": "cz-2026-01-01",
-   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327",
-   "what": "Nařízení vlády č. 327/2025 Sb. (epravo.cz): toll rates from 1 January 2026"
-  },
-  {
    "id": "dk-svmn-vejafgift",
    "table": "dk-2026-01-01",
    "url": "https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven",
@@ -1608,6 +1596,12 @@
    "table": "si-2026-04-01",
    "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/501166443/details",
    "what": "Sklep o določitvi višine pristojbine za zunanje stroške (130/26)"
+  },
+  {
+   "id": "si-cenik-dopolnitev-1771-26",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/658710137/details",
+   "what": "PISRS: Dopolnitev Cenika cestnine za uporabo cestninskih cest (Uradni list RS, št. 1771/26), from 26 October 2026 (JSON)"
   },
   {
    "id": "si-cenik-76-25-npb3-priloga",

@@ -4,7 +4,7 @@ Gesetz zur Änderung mautrechtlicher Vorschriften (BGBl. 2023 I Nr. 315),
 from buzer.de's text of that article (gesetze-im-internet.de times out
 for the workflow).
 
-Usage: python3 build_de.py fetched/ out-dir -> out-dir/de-2023-12-01.json
+Usage: python3 build_de.py fetched/ out-dir -> out-dir/de-2023-12-01.json, de-2024-07-01.json
 
 The toll then applied from 7.5 t (§ 1 before 1 July 2024). Anlage 11
 gives per km: 1. the infrastructure part by mass and axles; 2. the air
@@ -87,6 +87,77 @@ def main(fetched, out):
     path = os.path.join(out, "de-2023-12-01.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, len(rows), "rows")
+
+    current(fetched, out)
+
+
+MONTHS = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
+EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+M5 = [(3501, 7499, 0, 0)] + COLS4  # Anlage 1 from 1 July 2024: from 3.5 t
+M6 = [(3501, 7499, 0, 0)] + COLS5
+
+
+def lines(path):
+    t = open(path, encoding="utf-8", errors="replace").read()
+    t = html.unescape(re.sub(r"<[^>]+>", "\n", t)).replace("\xa0", " ")
+    return [x.strip() for x in t.split("\n") if x.strip()]
+
+
+def current(fetched, out):
+    """From 1 July 2024 (the toll from 3.5 t): BFStrMG Anlage 1 as in force,
+    buzer.de's text; and § 1 Abs. 2 Nr. 7, emission-free trucks' exemption."""
+    L = lines(os.path.join(fetched, "de-bfstrmg-anlage-1-buzer.html"))
+    a = L[next(k for k, x in enumerate(L) if x.startswith("Mautteilsatz für die Infrastrukturkosten je Kilometer")):]
+    a = a[:a.index("Text in der Fassung des")]
+    nums = lambda seg: [num(x) for x in seg if re.fullmatch(r"\d+,\d+|0", x)]
+    # 1. infrastructure: "... 0,052 Euro,"
+    infra = [num(m) for m in re.findall(r"(\d+,\d+) Euro", " ".join(a[:a.index("2.")]))]
+    assert len(infra) == 5, infra
+    rows = [row("infrastructure", c, v) for c, v in zip(M5, infra)]
+    # 2. air pollution, categories A-G; G (cleaner than A) has one rate over 18 t.
+    k = a.index("Kategorie", a.index("2."))
+    for cat in "ABCDEFG":
+        j = a.index(cat, k)
+        vals = nums(a[j + 1:j + 6])
+        assert len(vals) == 5, (cat, vals)
+        if cat == "G":
+            assert vals[3] == vals[4], vals
+            rows += [row("air", c, v, co2_class=[5]) for c, v in zip(M5[:3] + [(18001, 0, 0, 0)], vals[:4])]
+        else:
+            rows += [row("air", c, v, euro=AIR[cat], co2_class=[1, 2, 3, 4]) for c, v in zip(M5, vals)]
+    for want in ("Kategorie A Fahrzeuge der Schadstoffklasse EURO VI,", "Kategorie G Umweltfreundlichere Fahrzeuge als Kategorie A."):
+        assert want in a, want
+    # 3. noise.
+    j = a.index("3.")
+    noise = nums(a[j:a.index("4.", j)])[-5:]
+    rows += [row("noise", c, v) for c, v in zip(M5, noise)]
+    # 4. CO2: class 1 by EURO group, then classes 2-5.
+    j = a.index("4.", j)
+    vals = nums(a[j:a.index("b)", j)])
+    assert len(vals) == 6 * 8, len(vals)
+    for g in range(4):
+        rows += [row("co2", c, v, euro=CO2_EURO[g], co2_class=[1]) for c, v in zip(M6, vals[g * 6:g * 6 + 6])]
+    for cls in range(2, 6):
+        rows += [row("co2", c, int(v) if v == 0 else v, co2_class=[cls]) for c, v in zip(M6, vals[24 + (cls - 2) * 6:24 + (cls - 1) * 6])]
+    one = " ".join(lines(os.path.join(fetched, "de-bfstrmg-1-buzer.html")))
+    m = re.search(r"7\. emissionsfreie schwere Nutzfahrzeuge im Sinne des Artikels 2 Absatz 1 Nummer 29 Buchstabe a der Richtlinie 1999/62/EG .*? bis (\d+)\. (\w+) (\d{4}),", one)
+    until = f"{m.group(3)}-{MONTHS.index(m.group(2)) + 1:02d}-{int(m.group(1)):02d}"
+    day = f"{int(m.group(1))} {EN[MONTHS.index(m.group(2))]} {m.group(3)}"
+    tb = {
+        "country": "DE", "currency": "EUR", "valid_from": "2024-07-01", "valid_to": "",
+        "name": "German HGV toll (Lkw-Maut)",
+        "law": "Bundesfernstraßenmautgesetz (BFStrMG) § 3 and Anlage 1 (BGBl. 2023 I Nr. 315)",
+        "sources": [{"title": "BFStrMG Anlage 1: Mautteilsätze (infrastructure, air pollution, noise, CO2)", "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html"},
+                    {"title": f"BFStrMG § 1 Abs. 2 Nr. 7: emission-free trucks exempt until {day} (Viertes Gesetz zur Änderung mautrechtlicher Vorschriften, in force 1 December 2025)", "url": "https://www.gesetze-im-internet.de/bfstrmg/__1.html"}],
+        "vehicles": "Vehicles and combinations over 3.5 t technically permissible maximum mass used for goods transport",
+        "min_kg": 3501,
+        "tolled_roads": "Federal motorways (Bundesautobahnen) and federal roads (Bundesstraßen).",
+        "exemptions": [{"co2_class": [5], "until": until, "note": f"Emission-free trucks (CO2 class 5) pay no toll until {day}."}],
+        "rows": rows,
+    }
+    path = os.path.join(out, "de-2024-07-01.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, len(rows), "rows; emission-free exempt until", until)
 
 
 if __name__ == "__main__":

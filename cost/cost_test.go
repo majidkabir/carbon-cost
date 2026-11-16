@@ -2625,6 +2625,20 @@ func TestIcelandKmFee(t *testing.T) {
 	if got, _ := sum(r); got != 0 || !strings.Contains(strings.Join(r.Notes, " "), "truck.motor_mass_kg") {
 		t.Errorf("without masses: %v; %v", got, r.Notes)
 	}
+	// 2025, Lög nr. 87/2004: each vehicle of 10 t or more by its own mass,
+	// no maximum by axles: 19 t ISK 7.05, 35 t 17.84 per km; a 9 t truck none.
+	d25 := time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC)
+	if r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tr, FX: map[string]float64{"ISK": 140}}, d25); err != nil {
+		t.Fatal(err)
+	} else if got, n := sum(r); got != 705+1784 || n != 2 {
+		t.Errorf("2025: %v in %d lines; %+v %v", got, n, r.Lines, r.Notes)
+	}
+	light := rates.Truck{MaxMassKg: 9000, Axles: 2, MotorAxles: 2, MotorMassKg: 9000, Euro: 6, CO2Class: 1}
+	if r, err := Price(trip, all(t), Request{CargoKg: 3000, Truck: light, FX: map[string]float64{"ISK": 140}}, d25); err != nil {
+		t.Fatal(err)
+	} else if got, _ := sum(r); got != 0 {
+		t.Errorf("2025, 9 t: %v; %+v %v", got, r.Lines, r.Notes)
+	}
 	if err := (rates.Truck{MaxMassKg: 40000, Axles: 5, MotorMassKg: 19000, Euro: 6, CO2Class: 1}).Validate(); err == nil {
 		t.Error("motor_mass_kg without motor_axles accepted")
 	}

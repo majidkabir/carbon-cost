@@ -1556,6 +1556,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/is/2024-01-01",
+   "scheme": "is",
+   "country": "IS",
+   "file": "is/is-2024-01-01.orct.json",
+   "name": "Kílómetragjald (km fee on trucks and trailers of 10 t or more)",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-12-31",
+   "sha256": "abb881fa0ab29e139e9f1b2182c5c1eaadd2c1e75cacea3d15e690785c196845",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/is/2025-01-01",
+   "scheme": "is",
+   "country": "IS",
+   "file": "is/is-2025-01-01.orct.json",
+   "name": "Kílómetragjald (km fee on trucks and trailers of 10 t or more)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "afa09c659f966390e746b7d98ba04c8e25f5fae5642df73c3979f3e1226ade4e",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/is/2026-01-01",
    "scheme": "is",
    "country": "IS",

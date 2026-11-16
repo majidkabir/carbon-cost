@@ -17,7 +17,6 @@ var historyGaps = map[string]string{
 	"ES": "SEITT's 2024 tariffs (and the AP-41's of 2025) are neither served nor archived any more",
 	"RS": "JP Putevi Srbije's price lists of April 2023 (to 9 July 2024), 10 January 2025 and 4 July 2025 weren't archived",
 	"MD": "e-Vinieta publishes the current vignette amounts without a date; earlier ones aren't archived",
-	"IS": "the kílómetragjald starts on 1 January 2026 (Lög nr. 100/2025); the km fee on trucks over 10 t before it (Lög nr. 87/2004) isn't built",
 	"IT": "the estimate reads Autostrade per l'Italia's current unit rates (from 1 January 2026); earlier years' rates aren't fetched",
 }
 

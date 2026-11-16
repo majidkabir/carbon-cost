@@ -1472,12 +1472,6 @@
    "what": "Viapass: CO2 surcharge in Flanders from 1 July 2026"
   },
   {
-   "id": "at-mtv-2025",
-   "table": "at-2026-01-01",
-   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.pdf",
-   "what": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025 (RIS, authentic PDF)"
-  },
-  {
    "id": "at-wko-2026",
    "table": "at-2026-01-01",
    "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf",
@@ -1522,19 +1516,19 @@
   {
    "id": "nl-stcrt-2026-3872",
    "table": "nl-2026-07-01",
-   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-3872.pdf",
+   "url": "https://repository.overheid.nl/frbr/officielepublicaties/stcrt/2026/stcrt-2026-3872/1/pdf/stcrt-2026-3872.pdf",
    "what": "Staatscourant 2026, nr. 3872: Regeling vrachtwagenheffing, indexed amounts"
   },
   {
    "id": "nl-stcrt-2026-18058",
    "table": "nl-2026-09-01",
-   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-18058.pdf",
+   "url": "https://repository.overheid.nl/frbr/officielepublicaties/stcrt/2026/stcrt-2026-18058/1/pdf/stcrt-2026-18058.pdf",
    "what": "Staatscourant 2026, nr. 18058: temporary reduced rates, 1 September - 31 December 2026"
   },
   {
    "id": "nl-stcrt-2026-33659",
    "table": "nl-2027-01-01",
-   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-33659.pdf",
+   "url": "https://repository.overheid.nl/frbr/officielepublicaties/stcrt/2026/stcrt-2026-33659/1/pdf/stcrt-2026-33659.pdf",
    "what": "Staatscourant 2026, nr. 33659: Regeling vrachtwagenheffing, amounts from 1 January 2027"
   },
   {
@@ -1598,52 +1592,10 @@
    "what": "BFStrMG § 1 (toll liability, exemptions), as in force (buzer.de)"
   },
   {
-   "id": "at-mtv-2025-rtf",
-   "table": "at-2026-01-01",
-   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf",
-   "what": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025 (RIS, RTF)"
-  },
-  {
-   "id": "cz-nv-40-2024-zpl",
-   "table": "cz-2024-03-01",
-   "url": "https://www.zakonyprolidi.cz/cs/2024-40",
-   "what": "Nařízení vlády č. 40/2024 Sb. (zakonyprolidi.cz, text of the Sbírka zákonů)"
-  },
-  {
-   "id": "cz-nv-299-2024-zpl",
-   "table": "cz-2025-01-01",
-   "url": "https://www.zakonyprolidi.cz/cs/2024-299",
-   "what": "Nařízení vlády č. 299/2024 Sb. (zakonyprolidi.cz)"
-  },
-  {
-   "id": "cz-nv-327-2025-zpl",
-   "table": "cz-2026-01-01",
-   "url": "https://www.zakonyprolidi.cz/cs/2025-327",
-   "what": "Nařízení vlády č. 327/2025 Sb. (zakonyprolidi.cz)"
-  },
-  {
-   "id": "cz-nv-40-2024-ia",
-   "table": "cz-2024-03-01",
-   "url": "https://web.archive.org/web/2025id_/https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40",
-   "what": "Nařízení vlády č. 40/2024 Sb. (epravo.cz, Internet Archive copy)"
-  },
-  {
-   "id": "cz-nv-327-2025-ia",
-   "table": "cz-2026-01-01",
-   "url": "https://web.archive.org/web/2026id_/https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327",
-   "what": "Nařízení vlády č. 327/2025 Sb. (epravo.cz, Internet Archive copy)"
-  },
-  {
    "id": "si-cenik-76-25-npb3",
    "table": "si-2026-04-01",
    "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/659284398/details",
    "what": "Cenik cestnine za uporabo cestninskih cest (76/25), NPB 3"
-  },
-  {
-   "id": "si-cenik-76-25-npb2",
-   "table": "si-2026-04-01",
-   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/516362895/details",
-   "what": "Cenik cestnine za uporabo cestninskih cest (76/25), NPB 2 (from 1 April 2026)"
   },
   {
    "id": "si-uredba-9382-npb2",
@@ -1656,6 +1608,24 @@
    "table": "si-2026-04-01",
    "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/501166443/details",
    "what": "Sklep o določitvi višine pristojbine za zunanje stroške (130/26)"
+  },
+  {
+   "id": "si-cenik-76-25-npb3-priloga",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/659867315",
+   "what": "Cenik cestnine (76/25), NPB 3: Priloga: Cestninski odseki"
+  },
+  {
+   "id": "si-uredba-9382-npb2-priloga",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/datoteke/integracije/659646606",
+   "what": "Uredba o cestninskih cestah in cestnini, NPB 2: Priloga: Obvezne in izbirne cestninske ceste in njihovi odseki ter prevozne razdalje"
+  },
+  {
+   "id": "cz-nv-327-2025-pdf",
+   "table": "cz-2026-01-01",
+   "url": "https://epravo.cz/_dataPublic/sbirky/2025/Sb_2025_327_PZZ.pdf",
+   "what": "Nařízení vlády č. 327/2025 Sb., Sbírka zákonů PDF"
   }
  ]
 }

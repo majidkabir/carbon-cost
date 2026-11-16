@@ -2,7 +2,8 @@
 regulations to nařízení vlády č. 240/2014 Sb.: 479/2020 and 299/2024 as
 tabulated on epravo.cz; 40/2024 from the Sbírka's PDF, whose annexes are
 images, copied in transcribed/cz-40-2024.json (used only for the PDF with
-the sha256 given there); 327/2025 from the Sbírka's PDF text.
+the sha256 given there), and 299/2024 likewise (transcribed/cz-299-2024.json)
+when epravo.cz's page has no tables; 327/2025 from the Sbírka's PDF text.
 
 Usage: python3 build_cz.py fetched/ out-dir
 
@@ -106,8 +107,9 @@ def main(fetched, out):
     t = [x for x in tables(os.path.join(fetched, "cz-nv-299-2024.html")) if len(x[0][1]) == 28]
     src299 = {"title": "Nařízení vlády č. 299/2024 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/299"}
     if len(t) != 2:
-        # epravo.cz's page lost the annexes (November 2026): the Sbírka's PDF.
-        t = pdf_sb(os.path.join(fetched, "cz-nv-299-2024-pdf.pdf"), "Toto nařízení nabývá účinnosti dnem 1. ledna 2025.")
+        # epravo.cz's page lost the annexes (November 2026): the Sbírka's
+        # PDF, whose annexes are images, as transcribed.
+        t = annexes_299(fetched)
         src299 = {"title": "Nařízení vlády č. 299/2024 Sb., Sbírka zákonů PDF", "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_299_PZZ.pdf"}
     save(out, "cz-2025-01-01.json", {**BASE, "valid_from": "2025-01-01", "valid_to": "2025-12-31",
          "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as worded by nařízení vlády č. 299/2024 Sb., in force 1 January 2025: one rate per km by road category, maximum permissible mass, axles, CO2 emission class and, in CO2 class 1, EURO class; the regulation gives no separate CO2 part.",
@@ -150,24 +152,23 @@ def annexes_40(fetched):
     return out
 
 
-def rates28(part):
-    """The three rows of 28 rates (four decimals) in part of a PDF text."""
-    rows = [[float(x.replace(",", ".")) for x in re.findall(r"\b\d,\d{4}\b", ln)] for ln in part.splitlines()]
-    rows = [r for r in rows if r]
-    assert all(len(r) == 28 for r in rows) and len(rows) == 3, [len(r) for r in rows]
-    return list(zip(MASS, rows))
-
-
-def pdf_sb(path, effective):
-    """Annexes 1 and 2 of 240/2014 from a Sbírka PDF of an amending
-    regulation in force on the given words' day: from the consolidated text
-    of 240/2014 printed with it (Úplné znění)."""
-    text = pdf_text(path)
-    assert effective in flat(text), effective
-    full = text.index("Úplné znění aktu č. 240/2014 Sb.")
-    c1 = text.index("Příloha č. 1", text.index("§7", full))
-    c2, c3 = text.index("Příloha č. 2", c1), text.index("Příloha č. 3", c1)
-    return [rates28(text[c1:c2]), rates28(text[c2:c3])]
+def annexes_299(fetched):
+    """299/2024's Annexes 1 and 2, as transcribed from its PDF's images, for
+    the PDF fetched."""
+    tr = json.load(open(os.path.join(HERE, "transcribed", "cz-299-2024.json"), encoding="utf-8"))
+    files = {f["url"]: f for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
+    f = files.get(tr["source"]["url"])
+    if f is None or f["sha256"] != tr["source"]["sha256"]:
+        sys.exit("cz-299-2024: the fetched PDF isn't the one transcribed")
+    text = flat(pdf_text(os.path.join(fetched, f["file"])))
+    for want in ("Přílohy č. 1 a 2 k nařízení vlády č. 240/2014 Sb.", "včetně nadpisů znějí:", "Toto nařízení nabývá účinnosti dnem 1. ledna 2025."):
+        assert want in text, want
+    out = []
+    for annex, road in ((1, "motorway"), (2, "other")):
+        g = next(x for x in tr["tables"] if (x["annex"], x["road"]) == (annex, road))
+        assert list(g["rows"]) == list(MASS), list(g["rows"])
+        out.append([(m, [float(v.replace(",", ".")) for v in g["rows"][m].split()]) for m in MASS])
+    return out
 
 
 def pdf_327(fetched):

@@ -282,7 +282,7 @@ def sheet_user(d, cl, stretch=""):
     return round((r[cl]["unit"] + (r[cl]["anas"] or 0)) * VAT, 5)
 
 
-def operator_rows(transcribed, fetched, year):
+def operator_rows(transcribed, fetched, year, own_tables=(CAS,)):
     rows, used, pages = [], {}, {}
     for pid, row, keys in PAGES:
         vals, why = page_rates(fetched, pid, row, year)
@@ -318,7 +318,7 @@ def operator_rows(transcribed, fetched, year):
     # The Consorzio per le Autostrade Siciliane's A18 and A20 are priced by
     # entry and exit in their own table (it_cas.py), Milan's ring roads at
     # their barriers (it_barriers.py): nothing here.
-    for key in [CAS] + [f"{MISE}|{r}" for r in ("A50", "A51", "A52")]:
+    for key in list(own_tables) + [f"{MISE}|{r}" for r in ("A50", "A51", "A52")]:
         for lo, hi, cl in AXLES:
             rows.append(row_for(key, lo, hi, 0))
     for op, ref, sheet, stretch in OPS:
@@ -383,7 +383,45 @@ MONTHS = {"gennaio": 1, "febbraio": 2, "marzo": 3, "aprile": 4, "maggio": 5, "gi
           "agosto": 8, "settembre": 9, "ottobre": 10, "novembre": 11, "dicembre": 12}
 
 
+def write(out, valid_from, pl, mo, ops, used, transcribed, fetched, text):
+    """The table: Autostrade per l'Italia's rates (pl, mo: plain and
+    mountain, classes A, B, 3, 4, 5) by axles, then each concession's."""
+    rows = [
+        {"component": "toll", "road": "motorway", "min_kg": 3501, "max_axles": 2, "rate": pl[1]},
+        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": pl[2]},
+        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 4, "max_axles": 4, "rate": pl[3]},
+        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 5, "rate": pl[4]},
+    ]
+    up = round(100 * (mo[4] / pl[4] - 1))
+    rows += ops
+    tb = {
+        "country": "IT", "currency": "EUR", "valid_from": valid_from, "valid_to": f"{valid_from[:4]}-12-31",
+        "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
+        "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). "
+               "No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: "
+               + (f"{', '.join(PAGE_NAMES[k[5:]] for k in used if k.startswith('page:'))} at the {valid_from[:4]} rates their own pages give (with VAT and the ANAS fee); " if any(k.startswith("page:") for k in used) else "")
+               + text["own"]
+               + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them {text['sheets']}, each concession's plain-stretch rate unless it has only mountain stretches; "
+               f"{text['aspi']}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
+               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+        "sources": [text["aspi_source"]]
+        + [{"title": TITLES[d.removeprefix("inc:")], "url": page_url(fetched, d.removeprefix("inc:"))} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
+        + [{"title": IMAGE_TITLES[d[6:]], "url": image_url(transcribed, d[6:])} for k, d in used.items() if k.startswith("page:image:")]
+        + [{"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]} for k, d in used.items() if not k.startswith("page:")],
+        "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",
+        "min_kg": 3501,
+        "tolled_roads": "The toll motorways (autostrade a pedaggio) of all concessions, as OpenStreetMap tags them (toll=yes); not the toll-free ones (A2, A19, A29, ring roads) nor the Alpine tunnels, which have their own tables.",
+        "motorway_share": 1,
+        "rows": rows,
+    }
+    os.makedirs(out, exist_ok=True)
+    path = os.path.join(out, f"it-{valid_from}.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, pl, mo)
+
+
 def main(transcribed, fetched, out):
+    """The current table: Autostrade per l'Italia's rates from its page."""
     p = os.path.join(fetched, "it-aspi-tariffe.html")
     t = open(p, encoding="utf-8", errors="replace").read()
     t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
@@ -399,39 +437,31 @@ def main(transcribed, fetched, out):
     valid_from = f"{upd.group(3)}-{MONTHS[upd.group(2)]:02d}-{int(upd.group(1)):02d}"
     pl = [float(v.replace(",", ".")) for v in plain.groups()]
     mo = [float(v.replace(",", ".")) for v in mountain.groups()]
-    rows = [
-        {"component": "toll", "road": "motorway", "min_kg": 3501, "max_axles": 2, "rate": pl[1]},
-        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": pl[2]},
-        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 4, "max_axles": 4, "rate": pl[3]},
-        {"component": "toll", "road": "motorway", "min_kg": 3501, "min_axles": 5, "rate": pl[4]},
-    ]
-    up = round(100 * (mo[4] / pl[4] - 1))
     ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]))
-    rows += ops
-    tb = {
-        "country": "IT", "currency": "EUR", "valid_from": valid_from, "valid_to": f"{valid_from[:4]}-12-31",
-        "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
-        "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). "
-               "No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: "
-               + (f"{', '.join(PAGE_NAMES[k[5:]] for k in used if k.startswith('page:'))} at the {valid_from[:4]} rates their own pages give (with VAT and the ANAS fee); " if any(k.startswith("page:") for k in used) else "")
-               + "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; "
-               + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change), each concession's plain-stretch rate unless it has only mountain stretches; "
-               f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
-               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
-        "sources": [{"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"}]
-        + [{"title": TITLES[d.removeprefix("inc:")], "url": page_url(fetched, d.removeprefix("inc:"))} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
-        + [{"title": IMAGE_TITLES[d[6:]], "url": image_url(transcribed, d[6:])} for k, d in used.items() if k.startswith("page:image:")]
-        + [{"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]} for k, d in used.items() if not k.startswith("page:")],
-        "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",
-        "min_kg": 3501,
-        "tolled_roads": "The toll motorways (autostrade a pedaggio) of all concessions, as OpenStreetMap tags them (toll=yes); not the toll-free ones (A2, A19, A29, ring roads) nor the Alpine tunnels, which have their own tables.",
-        "motorway_share": 1,
-        "rows": rows,
-    }
-    os.makedirs(out, exist_ok=True)
-    path = os.path.join(out, f"it-{valid_from}.json")
-    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
-    print(path, pl, mo)
+    write(out, valid_from, pl, mo, ops, used, transcribed, fetched, {
+        "aspi": f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}",
+        "aspi_source": {"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"},
+        "sheets": "(the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change)",
+        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; "})
+
+
+def sheets(transcribed, out, year):
+    """A past year's table from the Ministry's sheets alone (the 2025
+    sheets, published March 2025): Autostrade per l'Italia's plain and
+    mountain rates from its own sheet, with the ANAS fee and VAT; the
+    Consorzio per le Autostrade Siciliane's A18 and A20 at those too (its
+    tables for the year weren't archived)."""
+    d = json.load(open(os.path.join(transcribed, "it-mit-aspi.json"), encoding="utf-8"))
+    if d["valid_from"][:4] != str(year):
+        sys.exit(f"it-mit-aspi: the sheet is for {d['valid_from'][:4]}, not {year}")
+    pl = [None] + [sheet_user(d, cl) for cl in "B345"]
+    mo = [None] + [round((d["mountain"][cl]["unit"] + d["mountain"][cl]["anas"]) * VAT, 5) for cl in "B345"]
+    ops, used = operator_rows(transcribed, os.devnull, year, own_tables=())
+    write(out, f"{year}-01-01", pl, mo, ops, used, transcribed, os.devnull, {
+        "aspi": f"Autostrade per l'Italia's network, the Consorzio per le Autostrade Siciliane's A18 and A20 (its {year} tables weren't archived) and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate for {year} as its sheet gives it, with the ANAS surcharge and VAT",
+        "aspi_source": {"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]},
+        "sheets": f"(changes during {year} aren't followed: SAT's sheet gives its rates from 1 February {year}, and its +11.32% from 1 September {year} isn't applied)",
+        "own": "Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; "})
 
 
 if __name__ == "__main__":

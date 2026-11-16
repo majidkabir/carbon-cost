@@ -88,6 +88,13 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp pt.pbf > out/pt-osm-timestamp.txt
           osmium tags-filter -O -o pt-m.pbf pt.pbf w/highway=motorway,motorway_link n/highway=motorway_junction,toll_gantry n/barrier=toll_booth w/barrier=toll_booth
           osmium export -O -f geojsonseq -a type,id -o out/pt-osm.geojsonseq pt-m.pbf
+      - name: Serbian toll booths (OpenStreetMap)
+        run: |
+          keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf || { keep rs-osm.geojsonseq rs-osm-timestamp.txt; exit 0; }
+          osmium fileinfo -g header.option.osmosis_replication_timestamp rs.pbf > out/rs-osm-timestamp.txt
+          osmium tags-filter -O -o rs-b.pbf rs.pbf n/barrier=toll_booth
+          osmium export -O -f geojsonseq -o out/rs-osm.geojsonseq rs-b.pbf
       - name: Build
         run: |
           python3 tools/tables/ro.py out out/tables
@@ -133,6 +140,7 @@ jobs:
           python3 tools/tables/es_radials.py out out/tables
           python3 tools/tables/es_basque_ap8.py out out/tables
           python3 tools/tables/es_ap68.py out out/tables
+          python3 tools/tables/rs.py out out/tables
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).
@@ -144,14 +152,8 @@ jobs:
       - name: Compare with the committed datasets
         run: |
           cmp -s out/tables/hu-annex1.json tools/roads/hu-annex1.json && echo "hu-annex1.json: same as committed" || echo "::warning title=hu-annex1.json::differs from tools/roads/hu-annex1.json"
-          cd out/orct
-          for f in */*.orct.json; do
-            c=../../tariffs/data/$f
-            if [ ! -f "$c" ]; then echo "::warning title=$f::new dataset (no committed $c)"
-            elif cmp -s "$f" "$c"; then echo "$f: same as committed"
-            else echo "::warning title=$f::differs from the committed $c"; diff "$c" "$f" | head -40; fi
-          done | tee ../tables/compare.txt
-          cd ../tables
+          sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
+          cd out/tables
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
       - name: Push

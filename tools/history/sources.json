@@ -1458,6 +1458,186 @@
    "table": "fr-history",
    "url": "https://web.archive.org/web/20240813044744id_/https://www.a65-alienor.com/sites/alienor/files/2024-01/2024%2002%2001%20-%20Affiches%20Tarifs%20internet%20A65_0.pdf",
    "what": "A'liénor (A65) tariffs from 1 February 2024 (Internet Archive copy)"
+  },
+  {
+   "id": "be-vp-2026-07-table",
+   "table": "be-*",
+   "url": "https://viapass.be/files/Image/news/2026/2026-07-01-rates-EN.jpg",
+   "what": "Viapass: kilometer charge rate grid from 1 July 2026 (image, ed. 01/07/2026)"
+  },
+  {
+   "id": "be-vp-2026-07-co2",
+   "table": "be-*",
+   "url": "https://viapass.be/files/Image/news/2026/C02.png",
+   "what": "Viapass: Flanders' CO2 surcharge from 1 July 2026 (image)"
+  },
+  {
+   "id": "be-vp-co2-vlg",
+   "table": "be-*",
+   "url": "https://www.viapass.be/en/news/surcharge-co2-emissions-flanders.html",
+   "what": "Viapass: CO2 surcharge in Flanders from 1 July 2026"
+  },
+  {
+   "id": "at-mtv-2025",
+   "table": "at-2026-01-01",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.pdf",
+   "what": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025 (RIS, authentic PDF)"
+  },
+  {
+   "id": "at-wko-2026",
+   "table": "at-2026-01-01",
+   "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf",
+   "what": "WKO: Lkw- und Bus-Maut in Österreich 2026 (totals per tariff group)"
+  },
+  {
+   "id": "bg-dv-64-2026",
+   "table": "bg-2026-06-01",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642",
+   "what": "Държавен вестник бр. 49/2026: Постановление № 64 от 26 май 2026 г. (toll tariff from 1 June 2026)"
+  },
+  {
+   "id": "ch-svav-2025",
+   "table": "ch-2025-01-01",
+   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2024/150/20251001/de/pdf-a/fedlex-data-admin-ch-eli-cc-2024-150-20251001-de-pdf-a.pdf",
+   "what": "Schwerverkehrsabgabeverordnung (SVAV, SR 641.811), consolidated as of 1 October 2025"
+  },
+  {
+   "id": "ch-svav-2025-0101",
+   "table": "ch-2025-01-01",
+   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2024/150/20250101/de/pdf-a/fedlex-data-admin-ch-eli-cc-2024-150-20250101-de-pdf-a.pdf",
+   "what": "Schwerverkehrsabgabeverordnung (SVAV, SR 641.811), consolidated as of 1 January 2025"
+  },
+  {
+   "id": "li-svav-2024-452",
+   "table": "li-2025-01-01",
+   "url": "https://www.gesetze.li/konso/pdf/2024452000",
+   "what": "Liechtenstein: Schwerverkehrsabgabeverordnung (SVAV), LGBl. 2024 Nr. 452, consolidated"
+  },
+  {
+   "id": "cz-nv-327-2025",
+   "table": "cz-2026-01-01",
+   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327",
+   "what": "Nařízení vlády č. 327/2025 Sb. (epravo.cz): toll rates from 1 January 2026"
+  },
+  {
+   "id": "de-bfstrmg-anlage-1",
+   "table": "de-2024-07-01",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html",
+   "what": "BFStrMG Anlage 1 (Mautteilsätze), gesetze-im-internet.de"
+  },
+  {
+   "id": "de-bfstrmg-1",
+   "table": "de-2024-07-01",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/__1.html",
+   "what": "BFStrMG § 1 (toll liability and exemptions), gesetze-im-internet.de"
+  },
+  {
+   "id": "de-bfstrmg-xml",
+   "table": "de-2024-07-01",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/xml.zip",
+   "what": "BFStrMG, gesetze-im-internet.de XML"
+  },
+  {
+   "id": "dk-svmn-vejafgift",
+   "table": "dk-2026-01-01",
+   "url": "https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven",
+   "what": "Skatteministeriet: Vejafgiftsloven, afgiftssatser"
+  },
+  {
+   "id": "dk-lbk-647-2025",
+   "table": "dk-2026-01-01",
+   "url": "https://www.retsinformation.dk/eli/lta/2025/647/pdf",
+   "what": "Lov om vejafgift, LBK nr. 647 af 28. maj 2025"
+  },
+  {
+   "id": "fr-mont-blanc-2024",
+   "table": "fr-mont-blanc",
+   "url": "https://web.archive.org/web/20241006143512id_/https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/",
+   "what": "ATMB: Mont Blanc tunnel prices for heavy vehicles (Internet Archive copy of 20241006)"
+  },
+  {
+   "id": "fr-mont-blanc-2025",
+   "table": "fr-mont-blanc",
+   "url": "https://web.archive.org/web/20250803150948id_/https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/",
+   "what": "ATMB: Mont Blanc tunnel prices for heavy vehicles (Internet Archive copy of 20250803)"
+  },
+  {
+   "id": "lv-185656-20240414",
+   "table": "lv-2017-08-22",
+   "url": "https://web.archive.org/web/20240414145630id_/https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums",
+   "what": "Autoceļu lietošanas nodevas likums, consolidated (likumi.lv, Internet Archive copy of 20240414)"
+  },
+  {
+   "id": "nl-stcrt-2026-3872",
+   "table": "nl-2026-07-01",
+   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-3872.html",
+   "what": "Staatscourant 2026, nr. 3872: Regeling vrachtwagenheffing, indexed amounts"
+  },
+  {
+   "id": "nl-stcrt-2026-18058",
+   "table": "nl-2026-09-01",
+   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-18058.html",
+   "what": "Staatscourant 2026, nr. 18058: temporary reduced rates, 1 September - 31 December 2026"
+  },
+  {
+   "id": "nl-stcrt-2026-33659",
+   "table": "nl-2027-01-01",
+   "url": "https://zoek.officielebekendmakingen.nl/stcrt-2026-33659.html",
+   "what": "Staatscourant 2026, nr. 33659: Regeling vrachtwagenheffing, amounts from 1 January 2027"
+  },
+  {
+   "id": "nl-wvh",
+   "table": "nl-2026-07-01",
+   "url": "https://wetten.overheid.nl/BWBR0046135/2026-07-01",
+   "what": "Wet vrachtwagenheffing (wetten.overheid.nl), as of 1 July 2026"
+  },
+  {
+   "id": "pl-du-2026-33",
+   "table": "pl-2026-02-01",
+   "url": "https://eli.gov.pl/api/acts/DU/2026/33/text/O/D20260033.pdf",
+   "what": "Dz. U. 2026 poz. 33 (e-TOLL network and rates from 1 February 2026)"
+  },
+  {
+   "id": "sk-nv-418-2024",
+   "table": "sk-2025-07-01",
+   "url": "https://static.slov-lex.sk/static/SK/ZZ/2024/418/20250701.html",
+   "what": "NV 418/2024 Z. z. (Slov-Lex, version from 1 July 2025)"
+  },
+  {
+   "id": "sk-nv-418-2024-p3",
+   "table": "sk-2025-07-01",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704373-2.pdf",
+   "what": "NV 418/2024 Z. z., Annex 3"
+  },
+  {
+   "id": "sk-nv-418-2024-p5",
+   "table": "sk-2025-07-01",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704381-2.pdf",
+   "what": "NV 418/2024 Z. z., Annex 5"
+  },
+  {
+   "id": "sk-nv-418-2024-p6",
+   "table": "sk-2025-07-01",
+   "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704385-2.pdf",
+   "what": "NV 418/2024 Z. z., Annex 6"
+  },
+  {
+   "id": "si-zbirka-anjp333",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP333",
+   "what": "PISRS: Cenik cestnine, NPB 3 (register data)"
+  },
+  {
+   "id": "si-zbirka-ured9382",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/URED9382",
+   "what": "PISRS: Uredba o cestninskih cestah in cestnini (register data)"
+  },
+  {
+   "id": "si-zbirka-skle14332",
+   "table": "si-2026-04-01",
+   "url": "https://pisrs.si/api/rezultat/zbirka/id/SKLE14332",
+   "what": "PISRS: Sklep o določitvi višine pristojbine za zunanje stroške (register data)"
   }
  ]
 }

@@ -71,7 +71,7 @@ def prices(path):
 
 
 def main(fetched, out):
-    cur = committed.template("rs-2026-07-01.json")
+    cur = committed.template("rs-2026-07-01.json", fetched)
     pts = {(s["name"], st["name"]): st["points"] for s in cur["closed_systems"] for st in s["stations"]}
     canon = {(s["name"], plain(st["name"]).lower()): st["name"] for s in cur["closed_systems"] for st in s["stations"]}
 

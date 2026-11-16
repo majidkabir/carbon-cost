@@ -102,7 +102,7 @@ def check_asfinag(fetched, frm, tb):
 
 
 def main(fetched, out):
-    tmpl = committed.template("at-2026-01-01.json")
+    tmpl = committed.template("at-2026-01-01.json", fetched)
     for f, frm, to, title, bgbl, url in YEARS:
         # The fetched text, else one read in a browser (tools/history/browser/,
         # for RIS, which refuses scripted requests).

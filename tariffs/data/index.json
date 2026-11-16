@@ -924,8 +924,19 @@
    "file": "fr/fr-2026-02-01.orct.json",
    "name": "French motorway tolls",
    "valid_from": "2026-02-01",
+   "valid_to": "2026-04-30",
+   "sha256": "d089a8e2881dbf7d37ddd956acff52188af283fcc7e9c22dbc81cba576aa66ae",
+   "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/fr/2026-05-01",
+   "scheme": "fr",
+   "country": "FR",
+   "file": "fr/fr-2026-05-01.orct.json",
+   "name": "French motorway tolls",
+   "valid_from": "2026-05-01",
    "valid_to": "2026-05-31",
-   "sha256": "96857d1205f95a3b4a23d2e6a3c14eba61ea73f0208743088f47f599ba50e3db",
+   "sha256": "630699d4a3528934a0ebd1afcb26758a962568a3b072ae5c1688bb2219742fe7",
    "coverage": "partial"
   },
   {

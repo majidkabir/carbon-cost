@@ -109,7 +109,7 @@ def karavanke(fetched, sid):
 
 
 def main(fetched, out):
-    cur = committed.template("si-2026-04-01.json")
+    cur = committed.template("si-2026-04-01.json", fetched)
     geo = {key(s["name"]): s for s in cur["sections"]["list"] if s["id"] != "karavanke"}
     kv0 = next(s for s in cur["sections"]["list"] if s["id"] == "karavanke")
     rail0 = next(p for p in cur["sections"]["per_km"] if p["component"] == "rail_surcharge")

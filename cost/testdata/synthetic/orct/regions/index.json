@@ -1,0 +1,30 @@
+{
+ "orct": "0.2",
+ "derived_from": {
+  "url": "https://github.com/majidkabir/carbon-cost"
+ },
+ "datasets": [
+  {
+   "id": "carbon-cost/be-vlg/2026-01-01",
+   "scheme": "be-vlg",
+   "country": "BE",
+   "file": "be/be-vlg-2026-01-01.orct.json",
+   "name": "BE-VLG",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "0a472b9f24aa65e889a7276e29e1db6bc7fecfb745803fea59c545336965214b",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/be-wal/2026-01-01",
+   "scheme": "be-wal",
+   "country": "BE",
+   "file": "be/be-wal-2026-01-01.orct.json",
+   "name": "BE-WAL",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "4a44a3feabeb68343621739e9b2c577c0ef9bb48508c64dbc144249e0ddf9c96",
+   "coverage": "complete"
+  }
+ ]
+}

@@ -1,0 +1,36 @@
+{
+ "description": "A user class held by contract (emergency services) exempts the distance charge.",
+ "clauses": [
+  "6.8",
+  "6.11"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "mw",
+    "time": "2026-11-16T10:00:00+01:00",
+    "km": 100
+   }
+  ],
+  "user_classes": {
+   "orct-tests/synthetic/2026-01-01": [
+    "emergency"
+   ]
+  }
+ },
+ "expected": {
+  "complete": true,
+  "totals": []
+ }
+}

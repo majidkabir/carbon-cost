@@ -77,6 +77,56 @@ func round5(p [2]float64) [2]float64 {
 	return [2]float64{math.Round(p[0]*1e5) / 1e5, math.Round(p[1]*1e5) / 1e5}
 }
 
+// MapPoints is about the most route points a response's runs keep for
+// drawing; pricing uses the full route.
+const MapPoints = 2000
+
+// thinRuns keeps about limit points across the runs, evenly by index
+// within each run, with each run's first and last.
+func thinRuns(runs []Run, limit int) []Run {
+	total := 0
+	for _, r := range runs {
+		total += len(r.Points)
+	}
+	if total <= limit {
+		return runs
+	}
+	out := make([]Run, len(runs))
+	for i, r := range runs {
+		n := max(2, len(r.Points)*limit/total)
+		if len(r.Points) > n {
+			pts := make([][2]float64, 0, n)
+			step := float64(len(r.Points)-1) / float64(n-1)
+			for k := 0; k < n; k++ {
+				pts = append(pts, r.Points[int(math.Round(float64(k)*step))])
+			}
+			r.Points = pts
+		}
+		out[i] = r
+	}
+	return out
+}
+
+// Spans are each country's road stretches of the runs, as [from, to] km
+// along the route.
+func Spans(runs []Run) map[string][][2]float64 {
+	out := map[string][][2]float64{}
+	pos := 0.0
+	for _, r := range runs {
+		if r.Kind == "road" && r.Country != "" {
+			s := out[r.Country]
+			if n := len(s); n > 0 && s[n-1][1] == pos {
+				s[n-1][1] = pos + r.Km
+			} else {
+				s = append(s, [2]float64{pos, pos + r.Km})
+			}
+			out[r.Country] = s
+		}
+		pos += r.Km
+	}
+	return out
+}
+
 // RoadKm sums each country's road runs by road class, for the countries
 // rx has ways for.
 func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
@@ -90,7 +140,14 @@ func RoadKm(rx *roads.Index, runs []Run) map[string]roads.Km {
 			t.Motorway += k.Motorway
 			t.National += k.National
 			t.Local += k.Local
+			t.Uncertain += k.Uncertain
 			t.MotorwayKnown += k.MotorwayKnown
+			for op, km := range k.MotorwayOp {
+				if t.MotorwayOp == nil {
+					t.MotorwayOp = map[string]float64{}
+				}
+				t.MotorwayOp[op] += km
+			}
 			t.NationalKnown += k.NationalKnown
 			t.MotorwaySub += k.MotorwaySub
 			t.NationalSub += k.NationalSub

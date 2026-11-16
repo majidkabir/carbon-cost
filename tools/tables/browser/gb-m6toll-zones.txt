@@ -1,0 +1,19 @@
+# M6toll zones: Midland Expressway Ltd (operator), journey planner on the pricing page.
+# Page: https://www.m6toll.co.uk/pricing/ ("Find out more about how zones work on the M6toll": the zone map, its junction icons' zone and entry/exit by direction).
+# The map is drawn by the page's script, so the workflow's copy (gb-m6toll.html) lacks it; it was opened in Chrome and read on 2026-11-13.
+# Prices and vehicle classes come from the workflow's gb-m6toll.html (data-price-table, "Vehicle classifications explained").
+M6toll zones explained
+The M6toll is split into three zones, and costs are calculated based on how many zones you pass through. The map below shows you how the road is sectioned so you can see how many zones you might pass through on your journey.
+Junction | Zone | Entry South | Entry North | Exit South | Exit North
+M6(N) J11/11A | 3 | ✓ | ✗ | ✗ | ✓
+T8 | 3 | ✓ | ✗ | ✗ | ✓
+T7 | 3 | ✓ | ✗ | ✗ | ✓
+T6 | 2 | ✓ | ✓ | ✓ | ✓
+T5 | 2 | ✗ | ✓ | ✓ | ✗
+T4 | 2 | ✓ | ✓ | ✓ | ✓
+T3 | 2 | ✓ | ✓ | ✓ | ✓
+T2 | 1 | ✗ | ✗ | ✓ | ✗
+T1 | 1 | ✗ | ✓ | ✗ | ✗
+M6(S) / M42 | 1 | ✗ | ✓ | ✓ | ✗
+Where do I pay?
+There are main carriageway ('mainline') toll plazas between junctions T6 and T7 (northbound), and between junctions T4 and T3 (southbound). If you are exiting at junctions T3, T4, T5 or T6, the ('junction') toll plazas are situated just after you leave the main carriageway.

@@ -14,6 +14,13 @@ that its script fills from /ajax/njtGetBlock.json, given the document id
 and the placeholder's range. Those parts are fetched too, as
 <id>-block-<n>.html.
 
+PISRS (pisrs.si) answers from its API: /api/rezultat/... as JSON (saved
+as <id>.json), /api/datoteke/integracije/<n> with the file (a PDF is saved
+as <id>.pdf).
+
+Uradni list (uradni-list.si) pages link their annexes as PDFs under
+/files/; those are fetched too, as <id>-att-<n>.pdf.
+
 Riigi Teataja (riigiteataja.ee) pages are built by script from its public
 API: /public-api/api/v1/akt/<id>?leiaKehtiv=true names the version in
 force (kehtivId, saved as <id>.json), whose text is
@@ -27,9 +34,35 @@ as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
 (as <id>-links-<n>.json): their geometry runs in the road's metering
 direction, which a station's charged direction refers to.
 """
-import gzip, hashlib, html, json, os, re, sys, time, urllib.parse, urllib.request
+import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
+
+
+def read(req):
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return r.status, r.read()
+
+
+def within(f, seconds):
+    """f() in a daemon thread, given up after seconds (the socket timeout
+    is per read, so a server that trickles could hold a run for hours)."""
+    box = {}
+
+    def run():
+        try:
+            box["v"] = f()
+        except BaseException as e:  # noqa: BLE001  (re-raised below)
+            box["e"] = e
+
+    t = threading.Thread(target=run, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"no answer within {seconds} s")
+    if "e" in box:
+        raise box["e"]
+    return box["v"]
 
 
 def get(url, accept=None):
@@ -41,12 +74,11 @@ def get(url, accept=None):
     last = None
     for i in range(3):
         try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=60) as r:
-                body = r.read()
-                # Some servers send gzip unasked.
-                if body[:2] == b"\x1f\x8b":
-                    body = gzip.decompress(body)
-                return r.status, body
+            status, body = within(lambda: read(urllib.request.Request(url, headers=h)), 300)
+            # Some servers send gzip unasked.
+            if body[:2] == b"\x1f\x8b":
+                body = gzip.decompress(body)
+            return status, body
         except urllib.error.HTTPError as e:
             return e.code, e.read()
         except Exception as e:
@@ -129,16 +161,56 @@ def nvdb(out, manifest, sid, url, body):
         save(out, manifest, f"{sid}-links-{k // 50 + 1}.json", q, status, b)
 
 
+def uradni_list(out, manifest, sid, page_url, page):
+    # A Uradni list page links its annexes (Priloga) as PDFs under /files/;
+    # each is saved as <id>-att-<n>.pdf, in page order.
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = []
+    for u in re.findall(r"""href=["']([^"']*/files/RS_[^"']+\.pdf)["']""", text, re.I):
+        u = urllib.parse.urljoin(page_url, u)
+        if u not in seen:
+            seen.append(u)
+    for n, u in enumerate(seen, 1):
+        status, body = get(u)
+        save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
+
+
+def overpass_failed(status, body):
+    if status != 200:
+        return False
+    try:
+        d = json.loads(body)
+    except ValueError:
+        return False
+    # A remark with elements is an answer cut short (a runtime error or a
+    # timeout part way): incomplete, so failed too.
+    r = d.get("remark") or ""
+    return bool(r) and (not d.get("elements") or "error" in r.lower() or "timed out" in r.lower())
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     for s in json.load(open(src, encoding="utf-8"))["sources"]:
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
+            # Overpass answers 429/502/504 when busy and asks for backoff; a
+            # 200 with an error "remark" is a query that timed out or ran out
+            # of memory (with no or part of its elements): also retried, then an error (so the last
+            # run's copy is kept).
+            for wait in (30, 60, 120, 240):
+                if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):
+                    break
+                time.sleep(wait)
+                status, body = get(s["url"])
+            if "/api/interpreter" in s["url"] and overpass_failed(status, body):
+                raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"]:
+            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json") else ".html"), s["url"], status, body)
+            if body[:4] == b"%PDF":
+                ext = ".pdf"
+            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:
                 riigiteataja(out, manifest, s["id"], body)
             if "nvdbapiles" in s["url"] and status == 200:
@@ -147,6 +219,8 @@ def main(src, out):
                 tollro(out, manifest, s["url"], body)
             if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
                 njt(out, manifest, s["id"], s["url"], body)
+            if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
+                uradni_list(out, manifest, s["id"], s["url"], body)
         except Exception as e:
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)

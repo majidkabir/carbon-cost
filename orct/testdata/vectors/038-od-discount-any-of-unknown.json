@@ -1,0 +1,44 @@
+{
+ "description": "Euro VI without a CO2 class: one alternative fails and the other can't be decided, so the discount is unknown and the statement incomplete.",
+ "clauses": [
+  "6.6.2",
+  "8.9"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6"
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-a",
+    "time": "2026-11-16T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-b",
+    "time": "2026-11-16T11:00:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": false,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "10.00"
+   }
+  ],
+  "issues": [
+   "missing_parameter"
+  ]
+ }
+}

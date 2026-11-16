@@ -1,0 +1,32 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "name": "test",
+ "law": "test law",
+ "sources": [
+  {
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "vehicles": "",
+ "min_kg": 0,
+ "tolled_roads": "",
+ "toll_points": [
+  {
+   "name": "old",
+   "lat": 50,
+   "lon": 10,
+   "rate": 4,
+   "valid_to": "2026-11-04"
+  },
+  {
+   "name": "new",
+   "lat": 50,
+   "lon": 10,
+   "rate": 6,
+   "valid_from": "2026-11-05"
+  }
+ ]
+}

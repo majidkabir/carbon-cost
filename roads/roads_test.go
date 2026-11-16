@@ -56,3 +56,24 @@ func TestDefault(t *testing.T) {
 		}
 	}
 }
+
+// Km counted as local but within NearM of a tolled road are uncertain;
+// the extract date is read from the file.
+func TestUncertain(t *testing.T) {
+	fsys := fstest.MapFS{"data/cz.json.gz": {Data: gz(t, `{"country":"cz","osm_extract":"2026-11-08","mw":[[1400000,5000000,1410000,5000000]],"nat":[]}`)}}
+	ix, err := load(fsys)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if ix.Extract("CZ") != "2026-11-08" || ix.Extract("PL") != "" {
+		t.Errorf("extract %q", ix.Extract("CZ"))
+	}
+	near, _ := ix.Classify("CZ", [][2]float64{{14.01, 50.0009}, {14.05, 50.0009}}) // 100 m off
+	far, _ := ix.Classify("CZ", [][2]float64{{14.01, 50.005}, {14.05, 50.005}})    // 550 m off
+	if near.Motorway != 0 || near.Uncertain < 2.8 || near.Uncertain != near.Local {
+		t.Errorf("near %+v", near)
+	}
+	if far.Uncertain != 0 || far.Local < 2.8 {
+		t.Errorf("far %+v", far)
+	}
+}

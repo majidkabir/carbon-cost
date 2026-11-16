@@ -1,0 +1,1248 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/at/2026-01-01",
+  "scheme": {
+   "id": "at",
+   "name": "Austrian HGV toll (GO-Maut)",
+   "country": "AT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Vienna",
+  "license": "MIT",
+  "method": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025, §§ 1-2, 7-9 (in force 1 January 2026)",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "at-2026-01-01.json"
+  },
+  "required_features": ["rule.factor", "time_classes", "type.distance", "type.section"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025 (RIS)",
+   "url": "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.rtf"
+  },
+  {
+   "id": "s2",
+   "title": "WKO: Lkw- und Bus-Maut in Österreich 2026 (totals per tariff group)",
+   "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Motor vehicles over 3.5 t maximum permissible mass, by number of axles (vehicle and trailer)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "infrastructure-1",
+   "classes": [
+    {
+     "id": "infrastructure-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "infrastructure-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "infrastructure-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "infrastructure-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "infrastructure-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "infrastructure-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    }
+   ]
+  },
+  {
+   "id": "air_noise-1",
+   "classes": [
+    {
+     "id": "air_noise-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air_noise-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "euro_class": ["0", "1", "2", "3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air_noise-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "euro_class": ["0", "1", "2", "3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air_noise-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air_noise-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["0", "1", "2", "3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    }
+   ]
+  },
+  {
+   "id": "co2-1",
+   "classes": [
+    {
+     "id": "co2-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [1]
+     }
+    }
+   ]
+  },
+  {
+   "id": "sec-1",
+   "classes": [
+    {
+     "id": "sec-1.E-2-axles",
+     "label": "E 2 axles",
+     "criteria": {
+      "train_axles": {
+       "max": 2
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sec-1.E-3-axles",
+     "label": "E 3 axles",
+     "criteria": {
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sec-1.E-4+-axles",
+     "label": "E 4+ axles",
+     "criteria": {
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sec-1.A-2-axles",
+     "label": "A 2 axles",
+     "criteria": {
+      "train_axles": {
+       "max": 2
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "sec-1.A-3-axles",
+     "label": "A 3 axles",
+     "criteria": {
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "sec-1.A-4+-axles",
+     "label": "A 4+ axles",
+     "criteria": {
+      "train_axles": {
+       "min": 4
+      },
+      "co2_class": [1, 2, 3, 4]
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "night-22-05",
+   "label": "Night",
+   "times": [["22:00", "05:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "Motorways and expressways (A and S roads). On the special toll sections (§ 4: parts of A 9, A 10, A 11, A 13 Brenner, S 16 Arlberg) the infrastructure part is a fixed amount per section, recognised on the route; § 3 adds 25% to the infrastructure tariff on the A 12 Kufstein–Innsbruck."
+   }
+  },
+  {
+   "id": "stretch:a12",
+   "type": "network",
+   "name": "A 12, Staatsgrenze Kufstein – Kn Innsbruck/Amras",
+   "location": {
+    "geometry": {
+     "type": "LineString",
+     "coordinates": [
+      [12.187, 47.607],
+      [12.1756, 47.5965],
+      [12.1408, 47.5675],
+      [12.0941, 47.5333],
+      [12.0572, 47.495],
+      [12.0235, 47.4838],
+      [11.8842, 47.4411],
+      [11.8032, 47.4028],
+      [11.7016, 47.3577],
+      [11.6792, 47.3307],
+      [11.5838, 47.2998],
+      [11.5015, 47.2739],
+      [11.4764, 47.271],
+      [11.4385, 47.2606],
+      [11.4202, 47.2547]
+     ]
+    },
+    "point_names": [
+     "Staatsgrenze Kufstein (approx.)",
+     "Kufstein-Nord",
+     "Kufstein Süd",
+     "Kirchbichl",
+     "Wörgl Ost",
+     "Wörgl West",
+     "Kramsach",
+     "Wiesing",
+     "Schwaz",
+     "Vomp",
+     "Wattens",
+     "Hall-Mitte",
+     "Hall-West",
+     "Innsbruck Ost",
+     "Kn Innsbruck/Amras"
+    ]
+   }
+  },
+  {
+   "id": "own-toll-sections",
+   "type": "network",
+   "parents": ["roads"],
+   "name": "Sections with a toll of their own (no per-km infrastructure charge on them)"
+  },
+  {
+   "id": "sec:a",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 9, ASt Spital/Pyhrn – ASt Ardning/Admont",
+   "road": "A 9",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.3324, 47.6475]
+    },
+    "name": "ASt Spital/Pyhrn"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.3157, 47.5751]
+    },
+    "name": "ASt Ardning/Admont"
+   }
+  },
+  {
+   "id": "sec:b",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 9, Kn St. Michael – ASt Übelbach",
+   "road": "A 9",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [15.01, 47.338]
+    },
+    "name": "Kn St. Michael"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [15.2646, 47.2159]
+    },
+    "name": "ASt Übelbach"
+   }
+  },
+  {
+   "id": "sec:c",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 10, ASt Flachau – ASt Flachauwinkl",
+   "road": "A 10",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.3973, 47.3604]
+    },
+    "name": "ASt Flachau"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.3944, 47.2959]
+    },
+    "name": "ASt Flachauwinkl"
+   }
+  },
+  {
+   "id": "sec:d",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 10, ASt Flachauwinkl – HASt Zederhaus",
+   "road": "A 10",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.3944, 47.2959]
+    },
+    "name": "ASt Flachauwinkl"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.4826, 47.1605]
+    },
+    "name": "HASt Zederhaus"
+   }
+  },
+  {
+   "id": "sec:e",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 10, HASt Zederhaus – ASt St. Michael/Lungau",
+   "road": "A 10",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.4826, 47.1605]
+    },
+    "name": "HASt Zederhaus"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.6094, 47.0935]
+    },
+    "name": "ASt St. Michael/Lungau"
+   }
+  },
+  {
+   "id": "sec:f",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 10, ASt St. Michael/Lungau – ASt Rennweg/Katschberg",
+   "road": "A 10",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.6094, 47.0935]
+    },
+    "name": "ASt St. Michael/Lungau"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.6103, 47.0224]
+    },
+    "name": "ASt Rennweg/Katschberg"
+   }
+  },
+  {
+   "id": "sec:g",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 11, ASt St. Jakob/Rosental – Staatsgrenze Karawankentunnel (approx., mid-tunnel)",
+   "road": "A 11",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.0061, 46.5583]
+    },
+    "name": "ASt St. Jakob/Rosental"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.02, 46.5]
+    },
+    "name": "Staatsgrenze Karawankentunnel (approx., mid-tunnel)"
+   }
+  },
+  {
+   "id": "sec:h",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, Kn Innsbruck/Amras – ASt Innsbruck/Süd",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4202, 47.2547]
+    },
+    "name": "Kn Innsbruck/Amras"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3905, 47.2396]
+    },
+    "name": "ASt Innsbruck/Süd"
+   }
+  },
+  {
+   "id": "sec:i",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, Kn Innsbruck/Wilten – ASt Innsbruck/Süd",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3813, 47.2533]
+    },
+    "name": "Kn Innsbruck/Wilten"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3905, 47.2396]
+    },
+    "name": "ASt Innsbruck/Süd"
+   }
+  },
+  {
+   "id": "sec:j",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Innsbruck/Süd – ASt Zenzenhof",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3905, 47.2396]
+    },
+    "name": "ASt Innsbruck/Süd"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3934, 47.2276]
+    },
+    "name": "ASt Zenzenhof"
+   }
+  },
+  {
+   "id": "sec:k",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Zenzenhof – ASt Patsch/Igls",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3934, 47.2276]
+    },
+    "name": "ASt Zenzenhof"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.403, 47.2082]
+    },
+    "name": "ASt Patsch/Igls"
+   }
+  },
+  {
+   "id": "sec:l",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Patsch/Igls – ASt Schönberg/Stubaital",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.403, 47.2082]
+    },
+    "name": "ASt Patsch/Igls"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3982, 47.1841]
+    },
+    "name": "ASt Schönberg/Stubaital"
+   }
+  },
+  {
+   "id": "sec:m",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Schönberg/Stubaital – ASt Matrei/Steinach",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.3982, 47.1841]
+    },
+    "name": "ASt Schönberg/Stubaital"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4497, 47.1195]
+    },
+    "name": "ASt Matrei/Steinach"
+   }
+  },
+  {
+   "id": "sec:n",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Matrei/Steinach – ASt Nösslach",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4497, 47.1195]
+    },
+    "name": "ASt Matrei/Steinach"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4801, 47.0615]
+    },
+    "name": "ASt Nösslach"
+   }
+  },
+  {
+   "id": "sec:o",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Nösslach – ASt Brennersee",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4801, 47.0615]
+    },
+    "name": "ASt Nösslach"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.5065, 47.0152]
+    },
+    "name": "ASt Brennersee"
+   }
+  },
+  {
+   "id": "sec:p",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "A 13, ASt Brennersee – Staatsgrenze Brennerpass (approx.)",
+   "road": "A 13",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.5065, 47.0152]
+    },
+    "name": "ASt Brennersee"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.508, 47.003]
+    },
+    "name": "Staatsgrenze Brennerpass (approx.)"
+   }
+  },
+  {
+   "id": "sec:q",
+   "type": "section",
+   "parents": ["own-toll-sections"],
+   "name": "S 16, ASt St. Anton/Arlberg – ASt Langen/Arlberg",
+   "road": "S 16",
+   "from": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.3162, 47.1417]
+    },
+    "name": "ASt St. Anton/Arlberg"
+   },
+   "to": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.114, 47.1301]
+    },
+    "name": "ASt Langen/Arlberg"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "infrastructure",
+   "type": "distance",
+   "component": "infrastructure",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "infrastructure-1.1", "0.0547"],
+    ["roads", "infrastructure-1.2", "0.2186"],
+    ["roads", "infrastructure-1.3", "0.0766"],
+    ["roads", "infrastructure-1.4", "0.306"],
+    ["roads", "infrastructure-1.5", "0.1149"],
+    ["roads", "infrastructure-1.6", "0.4591"],
+    ["own-toll-sections", null, "0"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "air_noise",
+   "type": "distance",
+   "component": "air_pollution_noise",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "air_noise-1.1", "0.004"],
+    ["roads", "air_noise-1.2", "0.006"],
+    ["roads", "air_noise-1.3", "0.021"],
+    ["roads", "air_noise-1.4", "0.04"],
+    ["roads", "air_noise-1.5", "0.056"],
+    ["roads", "air_noise-1.6", "0.004"],
+    ["roads", "air_noise-1.7", "0.009"],
+    ["roads", "air_noise-1.8", "0.032"],
+    ["roads", "air_noise-1.9", "0.053"],
+    ["roads", "air_noise-1.10", "0.077"],
+    ["roads", "air_noise-1.11", "0.004"],
+    ["roads", "air_noise-1.12", "0.01"],
+    ["roads", "air_noise-1.13", "0.04"],
+    ["roads", "air_noise-1.14", "0.07"],
+    ["roads", "air_noise-1.15", "0.103"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "co2",
+   "type": "distance",
+   "component": "co2",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "co2-1.1", "0"],
+    ["roads", "co2-1.2", "0"],
+    ["roads", "co2-1.3", "0"],
+    ["roads", "co2-1.4", "0.024"],
+    ["roads", "co2-1.5", "0.029"],
+    ["roads", "co2-1.6", "0.04"],
+    ["roads", "co2-1.7", "0.0478"],
+    ["roads", "co2-1.8", "0.0638"],
+    ["roads", "co2-1.9", "0.0934"],
+    ["roads", "co2-1.10", "0.0494"],
+    ["roads", "co2-1.11", "0.066"],
+    ["roads", "co2-1.12", "0.0966"],
+    ["roads", "co2-1.13", "0.0528"],
+    ["roads", "co2-1.14", "0.0706"],
+    ["roads", "co2-1.15", "0.1033"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "sections",
+   "type": "section",
+   "component": "infrastructure",
+   "unit": "use",
+   "method": "Mauttarifverordnung 2025, BGBl. II Nr. 298/2025, § 4 (Mautabschnitts-Teiltarife for infrastructure, EUR per section) and § 5 (A 13, 22:00-05:00, 4+ axles); they replace the per-km infrastructure tariff on those sections (§ 9 Abs. 11 BStMG). Section ends: OpenStreetMap motorway junctions (ODbL); border points approximate. E = CO2 class 5, A = other classes; values for 2, 3 and 4+ axles",
+   "columns": ["object", "vehicle_class", "time_class", "amount"],
+   "rows": [
+    ["sec:a", "sec-1.E-2-axles", null, "1.2389"],
+    ["sec:a", "sec-1.E-3-axles", null, "1.7347"],
+    ["sec:a", "sec-1.E-4+-axles", null, "2.6015"],
+    ["sec:a", "sec-1.A-2-axles", null, "4.9536"],
+    ["sec:a", "sec-1.A-3-axles", null, "6.9346"],
+    ["sec:a", "sec-1.A-4+-axles", null, "10.4029"],
+    ["sec:b", "sec-1.E-2-axles", null, "3.0175"],
+    ["sec:b", "sec-1.E-3-axles", null, "4.225"],
+    ["sec:b", "sec-1.E-4+-axles", null, "6.3363"],
+    ["sec:b", "sec-1.A-2-axles", null, "12.0653"],
+    ["sec:b", "sec-1.A-3-axles", null, "16.8904"],
+    ["sec:b", "sec-1.A-4+-axles", null, "25.338"],
+    ["sec:c", "sec-1.E-2-axles", null, "0.8266"],
+    ["sec:c", "sec-1.E-3-axles", null, "1.1574"],
+    ["sec:c", "sec-1.E-4+-axles", null, "1.7361"],
+    ["sec:c", "sec-1.A-2-axles", null, "3.3071"],
+    ["sec:c", "sec-1.A-3-axles", null, "4.6303"],
+    ["sec:c", "sec-1.A-4+-axles", null, "6.945"],
+    ["sec:d", "sec-1.E-2-axles", null, "2.0831"],
+    ["sec:d", "sec-1.E-3-axles", null, "2.9167"],
+    ["sec:d", "sec-1.E-4+-axles", null, "4.3751"],
+    ["sec:d", "sec-1.A-2-axles", null, "8.3342"],
+    ["sec:d", "sec-1.A-3-axles", null, "11.6686"],
+    ["sec:d", "sec-1.A-4+-axles", null, "17.5021"],
+    ["sec:e", "sec-1.E-2-axles", null, "1.3744"],
+    ["sec:e", "sec-1.E-3-axles", null, "1.9244"],
+    ["sec:e", "sec-1.E-4+-axles", null, "2.8866"],
+    ["sec:e", "sec-1.A-2-axles", null, "5.4988"],
+    ["sec:e", "sec-1.A-3-axles", null, "7.6988"],
+    ["sec:e", "sec-1.A-4+-axles", null, "11.5477"],
+    ["sec:f", "sec-1.E-2-axles", null, "1.0076"],
+    ["sec:f", "sec-1.E-3-axles", null, "1.4108"],
+    ["sec:f", "sec-1.E-4+-axles", null, "2.1162"],
+    ["sec:f", "sec-1.A-2-axles", null, "4.0313"],
+    ["sec:f", "sec-1.A-3-axles", null, "5.6442"],
+    ["sec:f", "sec-1.A-4+-axles", null, "8.4659"],
+    ["sec:g", "sec-1.E-2-axles", null, "2.3588"],
+    ["sec:g", "sec-1.E-3-axles", null, "3.3023"],
+    ["sec:g", "sec-1.E-4+-axles", null, "4.9535"],
+    ["sec:g", "sec-1.A-2-axles", null, "9.4333"],
+    ["sec:g", "sec-1.A-3-axles", null, "13.2064"],
+    ["sec:g", "sec-1.A-4+-axles", null, "19.81"],
+    ["sec:h", "sec-1.E-2-axles", null, "0.5543"],
+    ["sec:h", "sec-1.E-3-axles", null, "0.7762"],
+    ["sec:h", "sec-1.E-4+-axles", null, "1.164"],
+    ["sec:h", "sec-1.E-4+-axles", "night-22-05", "2.328"],
+    ["sec:h", "sec-1.A-2-axles", null, "2.2177"],
+    ["sec:h", "sec-1.A-3-axles", null, "3.1049"],
+    ["sec:h", "sec-1.A-4+-axles", null, "4.6574"],
+    ["sec:h", "sec-1.A-4+-axles", "night-22-05", "9.3148"],
+    ["sec:i", "sec-1.E-2-axles", null, "0.3608"],
+    ["sec:i", "sec-1.E-3-axles", null, "0.5052"],
+    ["sec:i", "sec-1.E-4+-axles", null, "0.7575"],
+    ["sec:i", "sec-1.E-4+-axles", "night-22-05", "1.515"],
+    ["sec:i", "sec-1.A-2-axles", null, "1.4433"],
+    ["sec:i", "sec-1.A-3-axles", null, "2.0207"],
+    ["sec:i", "sec-1.A-4+-axles", null, "3.0311"],
+    ["sec:i", "sec-1.A-4+-axles", "night-22-05", "6.0622"],
+    ["sec:j", "sec-1.E-2-axles", null, "0.2635"],
+    ["sec:j", "sec-1.E-3-axles", null, "0.369"],
+    ["sec:j", "sec-1.E-4+-axles", null, "0.5534"],
+    ["sec:j", "sec-1.E-4+-axles", "night-22-05", "1.1068"],
+    ["sec:j", "sec-1.A-2-axles", null, "1.0543"],
+    ["sec:j", "sec-1.A-3-axles", null, "1.4761"],
+    ["sec:j", "sec-1.A-4+-axles", null, "2.2142"],
+    ["sec:j", "sec-1.A-4+-axles", "night-22-05", "4.4284"],
+    ["sec:k", "sec-1.E-2-axles", null, "0.4871"],
+    ["sec:k", "sec-1.E-3-axles", null, "0.6821"],
+    ["sec:k", "sec-1.E-4+-axles", null, "1.0228"],
+    ["sec:k", "sec-1.E-4+-axles", "night-22-05", "2.0456"],
+    ["sec:k", "sec-1.A-2-axles", null, "1.9487"],
+    ["sec:k", "sec-1.A-3-axles", null, "2.7282"],
+    ["sec:k", "sec-1.A-4+-axles", null, "4.0924"],
+    ["sec:k", "sec-1.A-4+-axles", "night-22-05", "8.1848"],
+    ["sec:l", "sec-1.E-2-axles", null, "0.5271"],
+    ["sec:l", "sec-1.E-3-axles", null, "0.7381"],
+    ["sec:l", "sec-1.E-4+-axles", null, "1.1067"],
+    ["sec:l", "sec-1.E-4+-axles", "night-22-05", "2.2134"],
+    ["sec:l", "sec-1.A-2-axles", null, "2.1087"],
+    ["sec:l", "sec-1.A-3-axles", null, "2.9522"],
+    ["sec:l", "sec-1.A-4+-axles", null, "4.4283"],
+    ["sec:l", "sec-1.A-4+-axles", "night-22-05", "8.8566"],
+    ["sec:m", "sec-1.E-2-axles", null, "1.663"],
+    ["sec:m", "sec-1.E-3-axles", null, "2.3287"],
+    ["sec:m", "sec-1.E-4+-axles", null, "3.4919"],
+    ["sec:m", "sec-1.E-4+-axles", "night-22-05", "6.9838"],
+    ["sec:m", "sec-1.A-2-axles", null, "6.6532"],
+    ["sec:m", "sec-1.A-3-axles", null, "9.3147"],
+    ["sec:m", "sec-1.A-4+-axles", null, "13.9721"],
+    ["sec:m", "sec-1.A-4+-axles", "night-22-05", "27.9442"],
+    ["sec:n", "sec-1.E-2-axles", null, "1.3377"],
+    ["sec:n", "sec-1.E-3-axles", null, "1.8731"],
+    ["sec:n", "sec-1.E-4+-axles", null, "2.8088"],
+    ["sec:n", "sec-1.E-4+-axles", "night-22-05", "5.6176"],
+    ["sec:n", "sec-1.A-2-axles", null, "5.3516"],
+    ["sec:n", "sec-1.A-3-axles", null, "7.4925"],
+    ["sec:n", "sec-1.A-4+-axles", null, "11.2387"],
+    ["sec:n", "sec-1.A-4+-axles", "night-22-05", "22.4774"],
+    ["sec:o", "sec-1.E-2-axles", null, "1.2005"],
+    ["sec:o", "sec-1.E-3-axles", null, "1.681"],
+    ["sec:o", "sec-1.E-4+-axles", null, "2.5206"],
+    ["sec:o", "sec-1.E-4+-axles", "night-22-05", "5.0412"],
+    ["sec:o", "sec-1.A-2-axles", null, "4.8027"],
+    ["sec:o", "sec-1.A-3-axles", null, "6.7239"],
+    ["sec:o", "sec-1.A-4+-axles", null, "10.0858"],
+    ["sec:o", "sec-1.A-4+-axles", "night-22-05", "20.1716"],
+    ["sec:p", "sec-1.E-2-axles", null, "0.2374"],
+    ["sec:p", "sec-1.E-3-axles", null, "0.3324"],
+    ["sec:p", "sec-1.E-4+-axles", null, "0.4984"],
+    ["sec:p", "sec-1.E-4+-axles", "night-22-05", "0.9968"],
+    ["sec:p", "sec-1.A-2-axles", null, "0.9496"],
+    ["sec:p", "sec-1.A-3-axles", null, "1.3295"],
+    ["sec:p", "sec-1.A-4+-axles", null, "1.9943"],
+    ["sec:p", "sec-1.A-4+-axles", "night-22-05", "3.9886"],
+    ["sec:q", "sec-1.E-2-axles", null, "2.3341"],
+    ["sec:q", "sec-1.E-3-axles", null, "3.2684"],
+    ["sec:q", "sec-1.E-4+-axles", null, "4.901"],
+    ["sec:q", "sec-1.A-2-axles", null, "9.338"],
+    ["sec:q", "sec-1.A-3-axles", null, "13.0736"],
+    ["sec:q", "sec-1.A-4+-axles", null, "19.6103"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "factor",
+   "applies_to": ["infrastructure"],
+   "params": {
+    "object": "stretch:a12",
+    "factor": "1.25",
+    "note": "Mauttarifverordnung 2025 § 3: the § 2 infrastructure tariff +25% on this stretch. Stretch: OpenStreetMap motorway junctions (ODbL); km counted between consecutive junctions the route passes."
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

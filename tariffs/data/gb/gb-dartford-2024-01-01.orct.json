@@ -1,0 +1,162 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/gb-dartford/2024-01-01",
+  "scheme": {
+   "id": "gb-dartford",
+   "name": "Dartford Crossing charge (Dart Charge)",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-01-01",
+  "valid_to": "2025-08-31",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "The A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013 (S.I. 2013/2249), Schedule 2 column 4 (free-flow charging): class C (goods vehicles with two axles) and D (more than two axles), per crossing either way, from 6am to 10pm (GOV.UK).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-dartford-2024-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "S.I. 2013/2249, the A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013",
+   "url": "https://www.legislation.gov.uk/uksi/2013/2249/made"
+  },
+  {
+   "id": "s2",
+   "title": "GOV.UK: Dartford Crossing charges",
+   "url": "https://www.gov.uk/pay-dartford-crossing-charge/charges"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods vehicles, by axles (here: over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "free",
+   "label": "No charge",
+   "times": [["22:00", "06:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Dartford Crossing",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [0.257598, 51.464529]
+    },
+    "heading": 29.2,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Dartford Crossing",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [0.258914, 51.464813]
+    },
+    "heading": 209.1,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Dartford Crossing",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [0.257355, 51.464641]
+    },
+    "heading": 29.2,
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, "3"],
+    ["pt1", "pt-1.2", null, null, "6"],
+    ["pt1", null, "free", 2, "0"],
+    ["pt2", "pt-1.1", null, null, "3"],
+    ["pt2", "pt-1.2", null, null, "6"],
+    ["pt2", null, "free", 2, "0"],
+    ["pt3", "pt-1.1", null, null, "3"],
+    ["pt3", "pt-1.2", null, null, "6"],
+    ["pt3", null, "free", 2, "0"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-11"
+  }
+ }
+}

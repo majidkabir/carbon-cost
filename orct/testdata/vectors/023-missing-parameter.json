@@ -1,0 +1,30 @@
+{
+ "description": "The vehicle has no axle count, which the classes test: unpriced, never guessed.",
+ "clauses": [
+  "6.6.2",
+  "8.9"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "gate",
+    "time": "2026-11-16T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": false,
+  "totals": [],
+  "issues": [
+   "missing_parameter"
+  ]
+ }
+}

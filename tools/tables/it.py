@@ -75,6 +75,7 @@ IMAGES = [
     ("it-cav-2026", "A4", ["CAV S.p.A."]),
     ("it-cav-2026", "A57", ["CAV S.p.A.|A57"]),
     ("it-cav-2026", "Passante", ["CAV S.p.A.|A4|Passante"]),
+    ("it-a4bspd-2026", "A4", ["Autostrada Brescia Verona Vicenza Padova S.p.A."]),
 ]
 TITLES = {
     "it-satap-a4": "SATAP: A4 Torino-Milano toll information (unit tariffs for users, VAT and ANAS fee included)",
@@ -85,8 +86,9 @@ TITLES = {
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
     "it-autovia-padana": "Autovia Padana: A21 Piacenza-Brescia toll information (unit tariffs for users, the 'A' fares)",
 }
-IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)"}
-PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
+IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)",
+                "it-a4bspd-2026": "Autostrada Brescia Verona Vicenza Padova: unit rates per km from 1 January (A4, A31; excluding VAT, ANAS quota apart; an image in the page, transcribed)"}
+PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:it-a4bspd-2026": "Brescia-Padova (A4 Brescia-Padova, A31)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
               "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)",
               "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)"}
 CAS = "Consorzio per le Autostrade Siciliane"
@@ -191,7 +193,9 @@ def operator_rows(transcribed, fetched, year):
         if d["valid_from"][:4] != str(year):
             print(name, "rates for", d["valid_from"])
             continue
-        vals = [d["rates"][section][c]["user"] for c in "AB345"]
+        # "user" with VAT and the ANAS fee, or unit and ANAS fee without VAT.
+        vals = [r["user"] if "user" in r else round((r["unit"] + r["anas"]) * VAT, 5)
+                for r in (d["rates"][section][c] for c in "AB345")]
         print(name, section, vals)
         for k in keys:
             pages[k] = ("image:" + name, vals)

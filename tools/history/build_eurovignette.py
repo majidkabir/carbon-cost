@@ -29,7 +29,6 @@ Usage: python3 build_eurovignette.py fetched/ out-dir
   Transportministeriet's report of 25 March 2025 (tables 1-3).
 """
 import html, json, os, re, sys
-import committed  # noqa: E402
 
 EURO = {"0": [0], "I": [1], "II": [2], "III": [3], "IV": [4], "V": [5], "VI": [6]}
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -202,6 +201,59 @@ def netherlands(fetched, out):
                "rows": out_rows})
 
 
+DK_BANDS = [{"min_kg": 12000, "max_kg": 17999}, {"min_kg": 18000, "max_kg": 32000}, {"min_kg": 32001}]
+
+
+def dk_table(text, heading):
+    """{CO2 class: [three rates]} of the first table of five classes after a heading."""
+    seg = text[text.index(heading):]
+    vals = re.findall(r"CO2 ?-emissionsklasse (\d) (\d,\d\d) (\d,\d\d) (\d,\d\d)", seg)[:5]
+    out = {int(c): [float(x.replace(",", ".")) for x in v] for c, *v in vals}
+    if sorted(out) != [1, 2, 3, 4, 5]:
+        sys.exit(f"{heading}: {out}")
+    return out
+
+
+def denmark_2026(fetched, out):
+    """From 1 January 2026: Skatteministeriet's rates (Tabel 1, 2026 and 2027;
+    Tabel 2, the environmental zone surcharge) and their split into the
+    infrastructure charge and external costs (CO2; air pollution and noise)
+    of § 5 stk. 3 of LBK nr. 647 af 28/05/2025."""
+    import subprocess
+    page = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", open(os.path.join(fetched, "dk-svmn-vejafgift.html"), encoding="utf-8").read())))
+    page = page.replace("CO 2 -", "CO2-")
+    total = dk_table(page, "Tabel 1: Almindelig sats, 2026 og 2027")
+    zone = dk_table(page, "Tabel 2: Tillæg ved kørsel i miljøzoner")
+    lbk = subprocess.run(["pdftotext", "-f", "1", "-l", "3", os.path.join(fetched, "dk-lbk-647-2025.pdf"), "-"], capture_output=True, text=True, check=True).stdout
+    lbk = re.sub(r"\s+", " ", lbk)
+    if "Nr. 647" not in lbk or "Stk. 3. Satserne i stk. 1 udgør den samlede værdi" not in lbk:
+        sys.exit("dk-lbk-647-2025: not LBK nr. 647, § 5 stk. 3")
+    co2 = dk_table(lbk, "Eksterne omkostninger (CO2-udledning)")
+    air = dk_table(lbk, "Eksterne omkostninger (luftforurening og støj)")
+    # The law's infrastructure charge: one rate per class for all masses.
+    infra_law = {}  # the law's infrastructure charge is one rate per class for all masses (its table and the rates' interleave in the text)
+    for c, v in re.findall(r"CO2-emissionsklasse (\d) (\d,\d\d) \2 \2", lbk[lbk.index("C. Afgiftskomponenter"):lbk.index("Eksterne omkostninger (CO2-udledning)")]):
+        infra_law.setdefault(int(c), set()).add(float(v.replace(",", ".")))
+    rows = {"infrastructure": [], "co2": [], "air_noise": [], "env_zone_surcharge": []}
+    for c in range(1, 6):
+        for i, band in enumerate(DK_BANDS):
+            infra = round(total[c][i] - co2[c][i] - air[c][i], 2)
+            if infra not in infra_law.get(c, ()):
+                sys.exit(f"class {c}: infrastructure {infra}, not in the law's {infra_law.get(c)}")
+            for comp, v in (("infrastructure", infra), ("co2", co2[c][i]), ("air_noise", air[c][i]), ("env_zone_surcharge", zone[c][i])):
+                rows[comp].append({"component": comp, **band, "co2_class": [c], "rate": int(v) if v == 0 else v})
+    tb = {"country": "DK", "currency": "DKK", "valid_from": "2026-01-01", "valid_to": "2027-12-31",
+          "name": "Danish km-based road toll (vejafgift)", "law": "Lov om vejafgift, LBK nr. 647 af 28. maj 2025, § 5 stk. 1-3",
+          "sources": [{"title": "Skatteministeriet: Vejafgiftsloven, afgiftssatser (Tabel 1: almindelig sats, 2026 og 2027; Tabel 2: tillæg i miljøzoner)", "url": "https://svmn.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/vejafgiftsloven"},
+                      {"title": "Vejafgiftsloven, LBK nr. 647 af 28/05/2025, § 4-5 (split of the rate into infrastructure charge and external costs, § 5 stk. 3)", "url": "https://lovkompas.dk/lovgivning/vejafgiftsloven"}],
+          "vehicles": "Goods vehicles and combinations with technically permissible maximum mass of 12 t or more", "min_kg": 12000,
+          "tolled_roads": "Road segments listed in the law's Annex 1 (about 10,900 km in 2025-2027: state roads incl. motorways, and parts of municipal roads). From 1 January 2028 the whole public road network (about 75,000 km).",
+          "env_zone_surcharge": "Added on Annex 1 segments in environmental zones, except segments on the TEN-T network or motorways (§ 4).",
+          "rows": [r for comp in rows.values() for r in comp]}
+    save(out, dict(tb, _file="dk-2026-01-01.json"))
+    return tb
+
+
 def denmark(fetched, out):
     import subprocess
     pdf = os.path.join(fetched, "dk-vejal-2020.pdf")
@@ -221,7 +273,7 @@ def denmark(fetched, out):
         "rows": flat_day(int(m[1])),
     })
     # 2025: the rows of 2026, checked against the 2025 report.
-    cur = committed.template("dk-2026-01-01.json", fetched)
+    cur = denmark_2026(fetched, out)
     rep = open(os.path.join(fetched, "dk-trm-2025.txt"), encoding="utf-8").read()
     tables = []
     for t in ("Tabel 1", "Tabel 2", "Tabel 3"):

@@ -1,5 +1,5 @@
-"""Builds Belgium's kilometre charge tables from 1 January 2024 to 30 June
-2026, by region, from Viapass's rate grids: the images transcribed in
+"""Builds Belgium's kilometre charge tables from 1 January 2024, by region,
+from Viapass's rate grids: the images transcribed in
 tools/history/transcribed/be-grids.json (checked here against the fetched
 images' sha256), and the Viapass pages giving Wallonia's 2025 and 2026
 indexed rates and Flanders' and Brussels' 2026 zero-emission rates as
@@ -83,6 +83,62 @@ def rows_of(grid, road=None):
     return rows
 
 
+JULY_2026_LAW = {
+    "BE-VLG": "Viapass rate grid ed. 01/07/2026, Flanders (with the CO2 class element from 1 July 2026). The published rates are totals: the CO2 part is not shown separately.",
+    "BE-BRU": "Viapass rate grid ed. 01/07/2026, Brussels, highway and urban area (all local and regional roads that are not highway). No CO2 element.",
+    "BE-WAL": "Viapass rate grid ed. 01/07/2026, Wallonia, excluding VAT. No CO2 element; zero-emission trucks pay the Euro VI rate.",
+}
+
+
+def grouped(grid, road=None):
+    """The rows of a grid of EURO 0-5 (CO2 class 1), EURO 6 in CO2 classes
+    1-4 and ZEV: EURO classes with the same rates in every band share a
+    row (for CO2 classes 1-4, as the grid's EURO 0-5 rates hold for each),
+    EURO 6 has a row per CO2 class unless they're all the same."""
+    rows = []
+
+    def add(rates, **sel):
+        for band, r in zip(BANDS, rates):
+            row = {"component": "km_charge", **band, **sel, "rate": r}
+            if road:
+                row["road"] = road
+            rows.append(row)
+    groups = []
+    for euro, rates in enumerate(grid[:6]):
+        if groups and groups[-1][1] == rates:
+            groups[-1][0].append(euro)
+        else:
+            groups.append(([euro], rates))
+    six = grid[6:10]
+    if all(r == six[0] for r in six):
+        groups.append(([6], six[0]))
+    for euros, rates in groups:
+        add(rates, co2_class=[1, 2, 3, 4], euro=euros)
+    if not all(r == six[0] for r in six):
+        for c, rates in enumerate(six, 1):
+            add(rates, co2_class=[c], euro=[6])
+    add(grid[10], co2_class=[5])
+    return rows
+
+
+def july2026(fetched, out, g):
+    """The tables from 1 July 2026: Viapass's grid of that edition."""
+    page = text(os.path.join(fetched, "be-vp-co2-vlg.html"))
+    if "As from July 1st, 2026, a surcharge for CO2 emissions will be applied to the rates of the kilometer charge in Flanders" not in page:
+        sys.exit("be-vp-co2-vlg: not the CO2 surcharge from 1 July 2026")
+    for region in ("BE-VLG", "BE-BRU", "BE-WAL"):
+        keys = ["BE-BRU motorway", "BE-BRU other"] if region == "BE-BRU" else [region]
+        tb = {"country": "BE", "currency": "EUR", "valid_from": "2026-07-01", "valid_to": "2026-12-31", **META[region],
+              "law": JULY_2026_LAW[region],
+              "sources": [{"title": "Viapass: kilometer charge rates from 1 July 2026 (rate grid, ed. 01/07/2026)", "url": g["page"]},
+                          {"title": "Viapass: CO2 surcharge in Flanders from 1 July 2026", "url": "https://www.viapass.be/en/news/surcharge-co2-emissions-flanders.html"}],
+              "rows": [r for k in keys for r in grouped(g[k], {"BE-BRU motorway": "motorway", "BE-BRU other": "other"}.get(k))]}
+        os.makedirs(out, exist_ok=True)
+        path = os.path.join(out, f"{REGION[region]}-2026-07-01.json")
+        json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+        print(path, len(tb["rows"]), "rows")
+
+
 def main(fetched, out):
     tr = json.load(open(os.path.join(HERE, "transcribed", "be-grids.json"), encoding="utf-8"))
     grids = {g["id"]: g for g in tr["grids"]}
@@ -94,6 +150,7 @@ def main(fetched, out):
     # Wallonia's indexation pages agree with the grids that show them.
     assert wallonia(fetched, "be-vp-wal-2025") == grids["be-vp-2025-07-table"]["BE-WAL"]
     assert grids["be-vp-2024-01-table"]["BE-WAL"] == grids["be-vp-2024-07-table"]["BE-WAL"]
+    july2026(fetched, out, grids["be-vp-2026-07-table"])
     for region, frm, to, src, zpage in PERIODS:
         tb = {"country": "BE", "currency": "EUR", "valid_from": frm, "valid_to": to, **META[region]}
         keys = ["BE-BRU motorway", "BE-BRU other"] if region == "BE-BRU" else [region]

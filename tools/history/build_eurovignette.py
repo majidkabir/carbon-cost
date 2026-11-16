@@ -24,7 +24,8 @@ Usage: python3 build_eurovignette.py fetched/ out-dir
   on 1 January 2025.
 - Denmark, 2025: lov om vejafgift § 5 as worded by lov nr. 1489 af
   10/12/2024, in force 1 January 2025: the rates and their components
-  equal those of templates/dk-2026-01-01.json, which is checked against
+  equal those of the 2026 table (LBK nr. 647 af 28/05/2025, built
+  first), which is checked against
   the rates, the environmental zone surcharges and the CO2 component in
   Transportministeriet's report of 25 March 2025 (tables 1-3).
 """

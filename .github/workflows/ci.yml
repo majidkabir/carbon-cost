@@ -15,13 +15,10 @@ jobs:
       - run: go vet ./...
       - run: go test ./...
   tables:
-    # The converter: the history builders' templates convert to the
-    # committed datasets, the test tables to the test datasets.
+    # The converter: the test tables convert to the test datasets.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/orct/check_templates.py
-      - run: python3 tools/orct/check_lossless.py tools/history/templates tariffs/data
       - run: |
           for d in cost/testdata/synthetic/tables/*/; do
             v=$(basename "$d")

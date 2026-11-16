@@ -1743,6 +1743,61 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-no/2024-01-01",
+   "scheme": "fuelco2-no",
+   "country": "NO",
+   "file": "no/fuelco2-no-2024-01-01.orct.json",
+   "name": "CO2-avgift on mineral oil",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-12-31",
+   "sha256": "36c1950e3006d347db28274215d299c7de486865cc39c1d55cf4b487b5b6894b",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-no/2025-01-01",
+   "scheme": "fuelco2-no",
+   "country": "NO",
+   "file": "no/fuelco2-no-2025-01-01.orct.json",
+   "name": "CO2-avgift on mineral oil",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "babd148a4a74aab9d93d64e1d55d6ed91c8f39c81887b0a60d26841d24bf50c5",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-no/2026-01-01",
+   "scheme": "fuelco2-no",
+   "country": "NO",
+   "file": "no/fuelco2-no-2026-01-01.orct.json",
+   "name": "CO2-avgift on mineral oil",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-04-30",
+   "sha256": "8b6eefb41a859d3ffb9a8c5d39e4ff197d85f19bfe567c80631bf66209977c44",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-no/2026-05-01",
+   "scheme": "fuelco2-no",
+   "country": "NO",
+   "file": "no/fuelco2-no-2026-05-01.orct.json",
+   "name": "CO2-avgift on mineral oil",
+   "valid_from": "2026-05-01",
+   "valid_to": "2026-08-31",
+   "sha256": "cddbc801caba478c50ba00ce545561d2460232cbd8f948d732656a963a4e2ff1",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-no/2026-09-01",
+   "scheme": "fuelco2-no",
+   "country": "NO",
+   "file": "no/fuelco2-no-2026-09-01.orct.json",
+   "name": "CO2-avgift on mineral oil",
+   "valid_from": "2026-09-01",
+   "valid_to": "2026-12-31",
+   "sha256": "f629acb2cca9bfad4a187421f5d7102c061f5efc7dab30b1f9f27c1e4f7de378",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/no/2024-01-01",
    "scheme": "no",
    "country": "NO",

@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-no/2025-01-01",
+  "scheme": {
+   "id": "fuelco2-no",
+   "name": "CO2-avgift on mineral oil",
+   "country": "NO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "NOK",
+  "timezone": "Europe/Oslo",
+  "license": "MIT",
+  "method": "Stortingets vedtak om CO2-avgift på mineralske produkter (under særavgiftsloven): the CO2-avgift on mineral oil, generell sats, kr 3.79 per litre from 2025-01-01 to 2025-12-31, as the Ministry of Finance's tables and press release give it. The importer or producer pays it and passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-no-2025-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Finansdepartementet: Avgiftssatser 2025 (the 2024 rules and the 2025 budget agreement), incl. the CO2-avgift on mineral oil per litre (the Internet Archive's copy; regjeringen.no refuses the workflow)",
+   "url": "https://www.regjeringen.no/no/tema/okonomi-og-budsjett/skatter-og-avgifter/avgiftssatser-2025/id3057881/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "NO"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "CO2-avgift on mineral oil",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["3.79"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

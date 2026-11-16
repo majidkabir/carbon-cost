@@ -24,7 +24,13 @@ from the fetched law texts (sources.json, table fuelco2-*):
 - Sweden, the koldioxidskatt on unmarked diesel of environmental class 1
   (lag (1994:1776) om skatt på energi, 2 kap. 1 §), per cubic metre, for
   each period on Skatteverket's rate page from 2024 (consecutive periods
-  at the same rate joined).
+  at the same rate joined);
+- Norway, the CO2-avgift on mineral oil (Stortingets vedtak om CO2-avgift
+  på mineralske produkter, generell sats; særavgiftsloven), per litre:
+  2024 and 2025 from the Finance Ministry's 2025 rate table, 2026 from its
+  2026 table, with the temporary reduction for road diesel from 1 May to
+  31 August 2026 from its press release (the Internet Archive's copies:
+  regjeringen.no refuses the workflow).
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
@@ -415,6 +421,47 @@ def sweden(fetched, out, srcs):
         write(out, f)
 
 
+NO_MONTHS = {m: i + 1 for i, m in enumerate(["januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"])}
+
+
+def norway(fetched, out, srcs):
+    rates = {}
+    for sid in ("no-avgiftssatser-2025", "no-avgiftssatser-2026"):
+        t = text(os.path.join(fetched, sid + ".html"))
+        h = re.search(r"Avgiftskategori (\d{4})-regler \D*?(\d{4})", t)
+        m = re.search(r"CO2-avgift på mineralske produkter Bensin, kr/liter [\d,]+ [\d,]+ [-\d,]+ Mineralolje, kr/liter generell sats (\d,\d\d) (\d,\d\d)", t)
+        if not h or not m:
+            sys.exit(f"{sid}: no CO2-avgift on mineral oil")
+        for y, v in zip(h.groups(), m.groups()):
+            v = float(v.replace(",", "."))
+            if rates.get(int(y), (v,))[0] != v:
+                sys.exit(f"{sid}: {y} CO2-avgift {v}, the other table {rates[int(y)][0]}")
+            rates.setdefault(int(y), (v, sid))
+    t = text(os.path.join(fetched, "no-co2-mai-2026.html"))
+    m = re.search(r"Avgiftssatser (\d{4})\. Sats før 1\. (\w+) Sats fra 1\. (\w+) Sats fra 1\. (\w+) .{0,200}?Autodiesel, kr/liter (\d,\d\d) (\d,\d\d) (\d,\d\d)", t)
+    if not m or int(m.group(1)) not in rates or m.group(3) != m.group(2) or m.group(3) not in NO_MONTHS or m.group(4) not in NO_MONTHS:
+        sys.exit("no-co2-mai-2026: no road diesel rates by date")
+    y = int(m.group(1))
+    before, cut, after = (float(v.replace(",", ".")) for v in m.groups()[4:])
+    if before != rates[y][0] or after != rates[y][0]:
+        sys.exit(f"no-co2-mai-2026: {before}/{after}, the {y} table {rates[y][0]}")
+    cut_from = datetime.date(y, NO_MONTHS[m.group(3)], 1)
+    cut_to = datetime.date(y, NO_MONTHS[m.group(4)], 1)
+    periods = [(datetime.date(yy, 1, 1), datetime.date(yy, 12, 31), v, [sid]) for yy, (v, sid) in sorted(rates.items()) if yy != y]
+    periods += [(datetime.date(y, 1, 1), cut_from - datetime.timedelta(days=1), before, [rates[y][1]]),
+                (cut_from, cut_to - datetime.timedelta(days=1), cut, [rates[y][1], "no-co2-mai-2026"]),
+                (cut_to, datetime.date(y, 12, 31), after, [rates[y][1], "no-co2-mai-2026"])]
+    for s, e, v, sids in periods:
+        write(out, {"country": "NO", "currency": "NOK", "valid_from": s.isoformat(), "valid_to": e.isoformat(),
+                    "name": "CO2-avgift on mineral oil", "rate_per_l": v,
+                    "law": "Stortingets vedtak om CO2-avgift på mineralske produkter (under særavgiftsloven): "
+                           + (f"the CO2-avgift on road diesel (autodiesel), temporarily reduced by regulation to kr {cut:.2f} per litre from {s} to {e} (the generell sats on mineral oil: kr {before:.2f})"
+                              if s == cut_from else f"the CO2-avgift on mineral oil, generell sats, kr {v:.2f} per litre from {s} to {e}")
+                           + ", as the Ministry of Finance's tables and press release give it. The importer or producer pays it and passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                           "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+                    "sources": [src(srcs, sid) for sid in sids]})
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -425,6 +472,7 @@ def main(fetched, out):
     slovenia(fetched, out, srcs)
     denmark(fetched, out, srcs)
     sweden(fetched, out, srcs)
+    norway(fetched, out, srcs)
 
 
 if __name__ == "__main__":

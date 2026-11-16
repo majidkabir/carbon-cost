@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Converts the rate tables carbon-cost's builders write (tools/tables,
-tools/history, tools/fr, tools/hr: one JSON table each) to ORCT 0.2, the
+tools/history, tools/fr, tools/hr: one JSON table each) to ORCT 0.3, the
 only form carbon-cost keeps and prices with.
 
 Usage: convert.py <tables dir> <out dir> [--commit SHA]
@@ -99,14 +99,23 @@ def hours(h):
     return [[h[0], plus_minute(h[1])]]
 
 
+UNIT_PARAMS = {"": ("train_mass_kg", "train_axles"), "motor": ("mass_kg", "axles"), "trailer": ("trailer_mass_kg", "trailer_axles")}
+
+
 def criteria_of(r, motor_axles=False):
     """carbon-cost row, group or point-class bounds as ORCT criteria.
 
     carbon-cost classifies by one mass, the technically permissible maximum
     mass of the truck with its trailer, and by the combination's axles unless
-    the table counts the motor vehicle's (motor_axles)."""
-    c = {"train_mass_kg": rng(r.get("min_kg"), r.get("max_kg")),
-         ("axles" if motor_axles else "train_axles"): rng(r.get("min_axles"), r.get("max_axles"))}
+    the table counts the motor vehicle's (motor_axles); a row with a
+    vehicle_unit ("motor" or "trailer") bounds that vehicle's own mass and
+    axles instead (a charge each vehicle of a combination pays)."""
+    mass, axles = UNIT_PARAMS[r.get("vehicle_unit", "")]
+    if motor_axles and not r.get("vehicle_unit"):
+        axles = "axles"
+    c = {mass: rng(r.get("min_kg"), r.get("max_kg")), axles: rng(r.get("min_axles"), r.get("max_axles"))}
+    if r.get("energy"):
+        c["energy"] = r["energy"]
     if r.get("min_length_m") or r.get("max_length_m"):
         c["train_length_m"] = rng(hi=r.get("max_length_m"), gt=r.get("min_length_m"))
     if r.get("euro"):
@@ -256,7 +265,7 @@ class Builder:
         header = clean(self.header)
         header["required_features"] = sorted(self.features)
         out = {
-            "orct": "0.2",
+            "orct": "0.3",
             "dataset": header,
             "sources": self.sources,
             "tax": {"basis": "unknown", "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."},
@@ -359,10 +368,10 @@ def convert_rows(b, t, motor):
             oid = area_obj(area)
         else:
             oid = roads
-        groups.setdefault(r["component"], {}).setdefault(oid, []).append(r)
+        groups.setdefault((r["component"], r.get("vehicle_unit", "")), {}).setdefault(oid, []).append(r)
 
     out = {}
-    for comp, by_obj in groups.items():
+    for (comp, unit), by_obj in groups.items():
         orct_comp, label = component(comp)
         rows = []
         for oid, rs in by_obj.items():
@@ -375,11 +384,14 @@ def convert_rows(b, t, motor):
                     continue
                 seen[k] = r["rate"]
                 uniq.append(r)
-            ids = b.class_set(comp + "-", [(criteria_of(r, motor), None, None) for r in uniq])
+            ids = b.class_set(comp + ("-" + unit if unit else "") + "-", [(criteria_of(r, motor), None, None) for r in uniq])
             rows += [{"object": oid, "vehicle_class": cid, "amount": dec(r["rate"])} for cid, r in zip(ids, uniq)]
-        ch = {"id": comp, "type": "distance", "component": orct_comp, "unit": "km"}
+        ch = {"id": comp + ("-" + unit if unit else ""), "type": "distance", "component": orct_comp, "unit": "km"}
         if label:
             ch["component_label"] = label
+        if unit == "trailer":
+            # A vehicle without a trailer, or with one lighter than the rows, owes nothing for it.
+            ch["unmatched"] = "free"
         if t.get("per_tonne_km"):
             ch["unit"], ch["mass_basis"] = "tkm", "train_mass_kg"
             if t.get("max_chargeable_kg"):
@@ -905,6 +917,8 @@ def check(t, name):
     bad += [f"suburban_share[{k}] must be 0-1" for k, v in (t.get("suburban_share") or {}).items() if not 0 <= v <= 1]
     bad += [f"bad area {r['area']!r}" for r in rows if r.get("area", "") not in ("", "suburban", "interurban")]
     bad += [f"negative rate in {r}" for r in rows if r.get("rate", 0) < 0]
+    bad += [f"vehicle_unit must be motor or trailer in {r}" for r in rows if r.get("vehicle_unit", "") not in ("", "motor", "trailer")]
+    bad += [f"bad energy in {r}" for r in rows if set(r.get("energy") or []) - {"diesel", "petrol", "lpg", "cng", "lng", "electric", "hydrogen", "hybrid", "other"}]
     for sy in systems:
         if sy.get("free_hours") and not is_hours(sy["free_hours"]):
             bad.append(f"{sy['name']}: free_hours must be [from, to] (HH:MM)")
@@ -947,7 +961,7 @@ def write_index(out, commit=None):
     dup = sorted({i for i in ids if ids.count(i) > 1})
     if dup:
         raise SystemExit(f"duplicate dataset ids: {dup}")
-    head = {"orct": "0.2", "derived_from": {"url": REPO}}
+    head = {"orct": "0.3", "derived_from": {"url": REPO}}
     if commit:
         head["derived_from"]["commit"] = commit
     with open(os.path.join(out, "index.json"), "w", encoding="utf-8") as fh:

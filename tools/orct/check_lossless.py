@@ -32,7 +32,7 @@ def check(t, d):
 
     # Rate rows: same component charge, a row with an equal amount.
     for r in t.get("rows", []):
-        ch = charges.get(r["component"])
+        ch = charges.get(r["component"] + ("-" + r["vehicle_unit"] if r.get("vehicle_unit") else ""))
         if not ch or not any(D(x["amount"]) == D(r["rate"]) for x in rows_of(ch)):
             misses.append(f"row {r['component']} {r['rate']}")
 

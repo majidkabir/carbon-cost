@@ -1,4 +1,4 @@
-// Package orct reads ORCT 0.2 datasets (Open Road Charging Tariffs) and
+// Package orct reads ORCT 0.3 datasets (Open Road Charging Tariffs) and
 // prices usages with them as the specification's clause 8 says. It follows
 // the reference calculator (tools/orct_calc.py in the ORCT repository)
 // step by step, with the same decimal arithmetic, so the two give the same

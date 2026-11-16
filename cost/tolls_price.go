@@ -153,7 +153,15 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 		case "partial_coverage", "outside_validity":
 			continue
 		}
-		p.note("%s: %s not fully priced (%s: %s).", cc, ds.Name, i.Code, i.Message)
+		hint := ""
+		if i.Code == "missing_parameter" {
+			for param, field := range map[string]string{"vehicle parameter mass_kg ": "truck.motor_mass_kg", "vehicle parameter trailer_mass_kg ": "truck.trailer_mass_kg"} {
+				if strings.Contains(i.Message, param) {
+					hint = fmt.Sprintf(" Give %s (and truck.motor_axles): the charge goes by each vehicle's own permissible mass.", field)
+				}
+			}
+		}
+		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
 	}
 }
 

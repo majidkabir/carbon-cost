@@ -2569,3 +2569,63 @@ func TestAP68(t *testing.T) {
 		}
 	}
 }
+
+// Iceland's kílómetragjald (Lög nr. 100/2025) on 100 km: the motor vehicle
+// and the trailer each pay by their own gjaldþyngd, capped by axles (a
+// 2-axle tractor at 18,000 kg: ISK 26.25 per km; a 3-axle semi-trailer at
+// 24,000 kg: 33.79), the trailer at 60 % in 2026, 80 % in 2027, in full from
+// 2030 (100 % in 2028-2029 too), a zero-emission truck and its trailer at
+// 20 % in 2026-2029.
+func TestIcelandKmFee(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"IS": 100}}}}
+	tr := rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, MotorMassKg: 19000, TrailerMassKg: 35000, Euro: 6, CO2Class: 1}
+	sum := func(r Response) (float64, int) {
+		s, n := 0.0, 0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IS" {
+				s, n = s+l.Amount, n+1
+			}
+		}
+		return math.Round(s*100) / 100, n
+	}
+	for _, c := range []struct {
+		date string
+		co2  int
+		want float64
+	}{
+		{"2026-11-04", 1, 2625 + 2027.4}, {"2027-06-01", 1, 2625 + 2703.2}, {"2029-06-01", 1, 2625 + 3379}, {"2030-06-01", 1, 2625 + 3379},
+		{"2026-11-04", 5, 525 + 675.8}, {"2030-06-01", 5, 2625 + 3379},
+	} {
+		date, _ := time.Parse("2006-01-02", c.date)
+		tc := tr
+		tc.CO2Class = c.co2
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tc, FX: map[string]float64{"ISK": 140}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got, n := sum(r); got != c.want || n != 2 {
+			t.Errorf("%s co2 class %d: %v in %d lines, want %v; %+v %v", c.date, c.co2, got, n, c.want, r.Lines, r.Notes)
+		}
+	}
+	// A solo truck of 18 t: no trailer line. Without the vehicles' own masses
+	// the fee isn't priced, and the note says what to give.
+	solo := rates.Truck{MaxMassKg: 18000, Axles: 2, MotorAxles: 2, MotorMassKg: 18000, Euro: 6, CO2Class: 1}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: solo, FX: map[string]float64{"ISK": 140}}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, n := sum(r); got != 2625 || n != 1 {
+		t.Errorf("solo truck: %v in %d lines; %+v", got, n, r.Lines)
+	}
+	r, err = Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"ISK": 140}}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got, _ := sum(r); got != 0 || !strings.Contains(strings.Join(r.Notes, " "), "truck.motor_mass_kg") {
+		t.Errorf("without masses: %v; %v", got, r.Notes)
+	}
+	if err := (rates.Truck{MaxMassKg: 40000, Axles: 5, MotorMassKg: 19000, Euro: 6, CO2Class: 1}).Validate(); err == nil {
+		t.Error("motor_mass_kg without motor_axles accepted")
+	}
+}

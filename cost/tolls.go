@@ -28,8 +28,21 @@ func vehicleOf(t rates.Truck) map[string]any {
 	if t.MotorAxles > 0 {
 		axles = t.MotorAxles
 	}
-	return map[string]any{"train_mass_kg": float64(t.MaxMassKg), "train_axles": float64(t.Axles), "axles": float64(axles),
-		"euro_class": strconv.Itoa(t.Euro), "co2_class": float64(t.CO2Class), "train_length_m": t.Length()}
+	// carbon-cost prices road fuel as diesel; a zero-emission truck (CO2
+	// class 5) counts as electric.
+	energy := "diesel"
+	if t.CO2Class == 5 {
+		energy = "electric"
+	}
+	v := map[string]any{"train_mass_kg": float64(t.MaxMassKg), "train_axles": float64(t.Axles), "axles": float64(axles),
+		"euro_class": strconv.Itoa(t.Euro), "co2_class": float64(t.CO2Class), "train_length_m": t.Length(), "energy": energy}
+	if t.MotorMassKg > 0 {
+		v["mass_kg"] = float64(t.MotorMassKg)
+	}
+	if t.TrailerMassKg > 0 {
+		v["trailer_mass_kg"] = float64(t.TrailerMassKg)
+	}
+	return v
 }
 
 // lineMeta is what a Line takes from the use an event stands for.
@@ -154,7 +167,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 	if len(b.events) == 0 && len(b.quants) == 0 {
 		return &orct.Statement{}, nil
 	}
-	u := &orct.Usage{ORCTUsage: "0.2", Vehicle: p.vehicle, Payment: p.payment, Events: b.events, Quantities: b.quants}
+	u := &orct.Usage{ORCTUsage: "0.3", Vehicle: p.vehicle, Payment: p.payment, Events: b.events, Quantities: b.quants}
 	st := orct.Calculate([]*orct.Dataset{b.ds.Dataset}, u)
 	cur := b.ds.Doc.Header.Currency
 	var lines []*Line

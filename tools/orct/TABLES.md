@@ -2,7 +2,7 @@
 
 The builders under `tools/tables`, `tools/history`, `tools/fr`, `tools/hr`
 and `tools/rs` write one JSON file per table. A table is not data
-carbon-cost keeps: `tools/orct/convert.py` turns it into an ORCT 0.2
+carbon-cost keeps: `tools/orct/convert.py` turns it into an ORCT 0.3
 dataset right after it is built, and only the datasets are committed
 (`tariffs/data`) and priced with.
 
@@ -52,6 +52,14 @@ type Row struct {
 	// operator, "operator" or "operator|ref" as roads.Km.MotorwayOp keys
 	// them; rows without one apply to the other operators' km.
 	Operator string  `json:"operator,omitempty"`
+	// VehicleUnit is set where each vehicle of a combination pays on its
+	// own ("motor" or "trailer", Iceland's kílómetragjald): MinKg, MaxKg and
+	// the axle bounds apply to that vehicle's own mass and axles (ORCT
+	// mass_kg and axles, or trailer_mass_kg and trailer_axles), and each unit
+	// is its own charge; a trailer's is free where no row matches.
+	VehicleUnit string `json:"vehicle_unit,omitempty"`
+	// Energy limits the row to trucks of these energies (ORCT energy).
+	Energy []string `json:"energy,omitempty"`
 	Rate     float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
 }
 

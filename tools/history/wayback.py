@@ -36,7 +36,7 @@ UA = {"User-Agent": "carbon-cost history (github.com/majidkabir/carbon-cost)"}
 
 
 # Pages a bot check or an error served instead of the content.
-NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One moment, please|Just a moment\.\.\.|Access denied", re.I)
+NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One moment, please|Just a moment\.\.\.|Access denied|Internet Archive services are temporarily offline", re.I)
 
 
 def get(url):

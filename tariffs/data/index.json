@@ -5,6 +5,17 @@
  },
  "datasets": [
   {
+   "id": "carbon-cost/ad-envalira/2026-11-16",
+   "scheme": "ad-envalira",
+   "country": "AD",
+   "file": "ad/ad-envalira-2026-11-16.orct.json",
+   "name": "Túnel d'Envalira toll",
+   "valid_from": "2026-11-16",
+   "valid_to": null,
+   "sha256": "c42f60f330d5598b2935fefb7003ec4154827b340f9c1b99bf2b7ef0cec0f589",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/al/2026-11-13",
    "scheme": "al",
    "country": "AL",

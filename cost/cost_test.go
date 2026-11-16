@@ -2216,8 +2216,9 @@ func TestCataloniaC16(t *testing.T) {
 
 // Bridges and tunnels added from the operators' pages: the Humber Bridge
 // (3+ axles GBP 15), the Tamar Bridge (4+ axles GBP 16.50 eastbound only),
-// the Mersey Gateway (over 12 t GBP 9.60), the Kiltunnel (EUR 5) and the
-// AP-15 Marcilla barrier (Pesados II EUR 5.45 with IVA, 4.50 without).
+// the Mersey Gateway (over 12 t GBP 9.60), the Kiltunnel (EUR 5), the
+// AP-15 Marcilla barrier (Pesados II EUR 5.45 with IVA, 4.50 without) and
+// the Túnel d'Envalira (more than two axles EUR 20.30).
 func TestMoreCrossings(t *testing.T) {
 	fx := map[string]float64{"GBP": 0.84}
 	cross := func(lat, lon, dlat, dlon float64) [][2]float64 {
@@ -2234,6 +2235,7 @@ func TestMoreCrossings(t *testing.T) {
 		{"Mersey Gateway Bridge", "GB", cross(53.352052, -2.712029, 0.003, 0.003), 9.6},
 		{"Kiltunnel", "NL", cross(51.7726, 4.638273, 0.002, 0.002), 5},
 		{"AP-15 Marcilla", "ES", cross(42.331205, -1.726227, 0.003, 0), 4.5},
+		{"Túnel d'Envalira (5 axles)", "AD", cross(42.549016, 1.697136, 0.001, 0.003), 20.3},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{tc.country: 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: fx}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

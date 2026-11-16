@@ -2,7 +2,8 @@
 the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL), the Liefkenshoektunnel (BE),
 the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
-Tyne Tunnels and the Blackwall and Silvertown tunnels (GB).
+Tyne Tunnels and the Blackwall and Silvertown tunnels (GB), the Túnel
+d'Envalira (AD).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -597,6 +598,41 @@ def bridges(browser, fetched, out):
                     "rows": []}, "nl-kiltunnel")
 
 
+def envalira(fetched, out):
+    """Andorra's Túnel d'Envalira: the concessionaire's published fares per
+    passage (ad-envalira.html), at the toll plaza OpenStreetMap places by
+    the tunnel (ad-envalira-osm.json: the booths within 3 km of its
+    middle)."""
+    try:
+        d = json.load(open(os.path.join(fetched, "ad-envalira-osm.json")))
+        t = text(os.path.join(fetched, "ad-envalira.html"))
+    except (OSError, ValueError):
+        print("Envalira: page or OpenStreetMap not fetched; not built")
+        return
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    m3 = re.search(r"CATEGORY 3 Heavy vehicles and coaches\. Over 3 metres in height or over 3\.5 tonnes maximum permissible weight and two axles ([\d.,]+) ?€", t)
+    m4 = re.search(r"CATEGORY 4 Heavy vehicles and coaches\. Over 3 metres in height or over 3\.5 tonnes maximum permissible weight and more than two axles ([\d.,]+) ?€", t)
+    w = longest(d, r"^Túnel d'Envalira$")
+    if not (m3 and m4 and w):
+        sys.exit(f"Envalira: fares or tunnel not read ({bool(m3)}, {bool(m4)}, {bool(w)})")
+    mid = middle(w)[:2]
+    booths = [e for e in d["elements"] if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and km(mid, (e["lat"], e["lon"])) < 3]
+    if not booths or max(km((a["lat"], a["lon"]), (b["lat"], b["lon"])) for a in booths for b in booths) > 0.2:
+        sys.exit(f"Envalira: {len(booths)} toll booths by the tunnel, not one plaza")
+    lat, lon = centre(booths)
+    c3, c4 = float(m3.group(1).replace(",", ".")), float(m4.group(1).replace(",", "."))
+    write(out, {"country": "AD", "currency": "EUR", "valid_from": "2026-11-16", "crossings": True, "osm_extract": stamp,
+                "name": "Túnel d'Envalira toll",
+                "law": (f"Túnel d'Envalira's fares per passage, either way, set under its concession from the Government of Andorra and published by the concessionaire Túnel d'Envalira S.A.U.: category 3 (heavy vehicles over 3 m high or over 3.5 t, two axles) EUR {c3:.2f}, "
+                        f"category 4 (more than two axles) EUR {c4:.2f}. The dangerous goods supplement isn't modelled. The page gives no date: valid_from is the day it was first read."),
+                "sources": [{"title": "Túnel d'Envalira: rates", "url": "https://tuneldenvalira.com/en"}],
+                "vehicles": "Vehicles over 3.5 t, by axles", "min_kg": 3501,
+                "tolled_roads": "The Túnel d'Envalira (CG-2, Grau Roig–Pas de la Casa), charged at its toll plaza either way.", "point_match_km": 0.15,
+                "toll_points": [{"name": "Túnel d'Envalira", "lat": lat, "lon": lon, "rate": 0, "classes": [
+                    {"min_kg": 3501, "max_axles": 2, "rate": c3}, {"min_kg": 3501, "min_axles": 3, "rate": c4}]}],
+                "rows": []}, "ad-envalira")
+
+
 def prev_day(d):
     import datetime
     return (datetime.date.fromisoformat(d) - datetime.timedelta(days=1)).isoformat()
@@ -616,6 +652,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     tyne(fetched, out)
     thames(browser, fetched, out)
     bridges(browser, fetched, out)
+    envalira(fetched, out)
 
 
 if __name__ == "__main__":

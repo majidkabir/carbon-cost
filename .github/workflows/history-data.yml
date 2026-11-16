@@ -8,6 +8,10 @@ name: History data
 on:
   push:
     branches: [history-data]
+  # Daily (03:41 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "41 3 * * *"
 permissions:
   contents: write
 # A new push replaces a run still going.

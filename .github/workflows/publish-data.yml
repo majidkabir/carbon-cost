@@ -1,0 +1,60 @@
+name: Publish data
+# After a data workflow succeeds, publishes to tariffs/data (on main) its
+# datasets that differ only in what OpenStreetMap gives: positions, booth
+# names and headings, and the extract's date (tools/orct/publish.py).
+# A dataset with any other change, or a new one, is listed in the run's
+# summary for review and not published. Run it by hand to go over all four
+# workflows' last output.
+on:
+  workflow_run:
+    workflows: [Tables data, History data, Croatia data, France data]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publish-data
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Publish
+        env:
+          WORKFLOW: ${{ github.event.workflow_run.name }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+        run: |
+          case "$WORKFLOW" in
+            "Tables data") branches=tables-out;;
+            "History data") branches=history-out;;
+            "Croatia data") branches=hr-out;;
+            "France data") branches=fr-out;;
+            *) branches="tables-out history-out hr-out fr-out";;
+          esac
+          publish() {
+            : > report.txt
+            for b in $branches; do
+              rm -rf new && mkdir new
+              git fetch -q --depth 1 origin "$b" && git archive FETCH_HEAD orct | tar -x -C new
+              python3 tools/orct/publish.py new/orct tariffs/data | tee -a report.txt
+            done
+          }
+          # Main may move meanwhile: start again from it if the push fails.
+          for i in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard FETCH_HEAD
+            publish
+            git add tariffs/data
+            if git diff --cached --quiet; then echo "nothing to publish"; break; fi
+            n=$(grep -c '^published' report.txt)
+            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n datasets with OpenStreetMap's newer positions (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, and the extract date changed (tools/orct/publish.py)."
+            git push -q origin HEAD:main && break
+            [ $i = 3 ] && exit 1; sleep 10
+          done
+          p=$(grep '^published' report.txt | sed 's/^published /- /' || true)
+          w=$(grep '^::warning' report.txt | sed 's/^::warning title=\([^:]*\)::/- \1: /' || true)
+          printf '## Published (OpenStreetMap only)\n%s\n## For review (not published)\n%s\n' "${p:-nothing}" "${w:-nothing}" >> "$GITHUB_STEP_SUMMARY"

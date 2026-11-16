@@ -1622,6 +1622,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/it/2025-01-01",
+   "scheme": "it",
+   "country": "IT",
+   "file": "it/it-2025-01-01.orct.json",
+   "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "96affe69c5b8d493f4dd1555e7f244463222f66b7cc6929e1d4e794fa6eb27a1",
+   "coverage": "partial"
+  },
+  {
    "id": "carbon-cost/it/2026-01-01",
    "scheme": "it",
    "country": "IT",
@@ -1631,6 +1642,17 @@
    "valid_to": "2026-12-31",
    "sha256": "ce313511210e5ea3a4d3527e5a90901b2686ed9a39cfdebacf748c8f3a7f46b9",
    "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/it-barriers/2025-01-01",
+   "scheme": "it-barriers",
+   "country": "IT",
+   "file": "it/it-barriers-2025-01-01.orct.json",
+   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "27af0df538cb49c88d1673260bed4f45fb09a1be4b275e34c2a954fd02080120",
+   "coverage": "complete"
   },
   {
    "id": "carbon-cost/it-barriers/2026-01-01",

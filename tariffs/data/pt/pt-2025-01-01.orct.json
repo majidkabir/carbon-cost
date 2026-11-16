@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/pt/2025-01-01",
   "scheme": {
@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Lisbon",
   "license": "MIT",
-  "method": "IMT, Taxas de Portagem de 2025: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-08). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2025 pages.",
+  "method": "IMT, Taxas de Portagem de 2025: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-15). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2025 pages.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "pt-2025-01-01.json"
@@ -4027,7 +4027,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-08"
+   "osm_extract": "2026-11-15"
   }
  }
 }

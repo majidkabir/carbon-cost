@@ -8,6 +8,10 @@ name: History data
 on:
   push:
     branches: [history-data]
+  # Daily (03:41 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "41 3 * * *"
 permissions:
   contents: write
 # A new push replaces a run still going.
@@ -79,7 +83,7 @@ jobs:
       - name: Build
         run: |
           mkdir -p out/tables
-          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
+          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || { echo "::error title=$b::failed"; echo "$b" >> out/build-errors.txt; }; }; done
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).
@@ -96,3 +100,7 @@ jobs:
           git init -q -b history-out && git add -A
           git -c user.name=actions -c user.email=actions@github.com commit -qm "History sources and tables"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" history-out
+      - name: Builders that failed
+        # The others' tables were still built and pushed.
+        if: always()
+        run: if [ -s out/build-errors.txt ]; then cat out/build-errors.txt; exit 1; fi

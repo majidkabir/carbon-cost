@@ -26,11 +26,14 @@ BARRIERS = [
 CLASSES = ["A", "B", "3", "4", "5"]
 
 
-def tolls(text):
-    """The latest year's tolls to the user by class; the year."""
+def tolls(text, year=None):
+    """The latest year's tolls to the user by class (or the given year's:
+    the tables cover several); the year."""
     marks = [(int(m.group(1)), m.end()) for m in re.finditer(r"Tabella pedaggi 1\s*°\s*gennaio\s+(\d{4})", text, re.I)]
+    if year:
+        marks = [mk for mk in marks if mk[0] == year]
     if not marks:
-        sys.exit("barrier table: no 'Tabella pedaggi 1° gennaio <year>'")
+        sys.exit(f"barrier table: no 'Tabella pedaggi 1° gennaio {year or '<year>'}'")
     year, at = max(marks)
     m = re.search(r"Pedaggio\s+all.{1,2}utenza\s+" + r"\s+".join([r"(\d+,\d\d)"] * 5), text[at:], re.I)
     if not m:
@@ -65,10 +68,13 @@ def main(fetched, out):
         print(name, t, round(lat, 6), round(lon, 6))
     if len(years) != 1:
         sys.exit(f"barrier tables of different years {sorted(years)}")
-    year = years.pop()
+    write(out, years.pop(), points, notes, osm.get("osm3s", {}).get("timestamp_osm_base", "")[:10])
+
+
+def write(out, year, points, notes, osm_extract):
     tb = {
         "country": "IT", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True,
-        "osm_extract": osm.get("osm3s", {}).get("timestamp_osm_base", "")[:10],
+        "osm_extract": osm_extract,
         "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
         "law": (f"Milano Serravalle - Milano Tangenziali's tolls from 1 January {year} at the barriers of its semi-closed ring roads, a fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included: "
                 + "; ".join(notes) + ". Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction). "

@@ -6,6 +6,10 @@ name: Croatia data
 on:
   push:
     branches: [hr-data]
+  # Daily (02:37 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "37 2 * * *"
 permissions:
   contents: write
 jobs:

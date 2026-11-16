@@ -10,6 +10,10 @@ name: Tables data
 on:
   push:
     branches: [tables-data]
+  # Daily (01:23 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "23 1 * * *"
 permissions:
   contents: write
 jobs:
@@ -96,51 +100,59 @@ jobs:
           osmium tags-filter -O -o rs-b.pbf rs.pbf n/barrier=toll_booth
           osmium export -O -f geojsonseq -o out/rs-osm.geojsonseq rs-b.pbf
       - name: Build
+        # A builder that fails (an Overpass answer short of booths, a page that
+        # changed) is reported and the others still run; the run fails at the end.
         run: |
-          python3 tools/tables/ro.py out out/tables
-          python3 tools/tables/dk_bridges.py out out/tables
-          python3 tools/tables/hu.py out out/tables
-          python3 tools/tables/frejus.py out out/tables
-          python3 tools/tables/mont_blanc.py out out/tables
-          python3 tools/tables/lv.py out out/tables
-          python3 tools/tables/ee.py out out/tables
-          python3 tools/tables/se.py out out/tables
-          python3 tools/tables/lu.py out out/tables
-          python3 tools/tables/gb.py out out/tables
-          python3 tools/tables/no.py out out/tables
-          python3 tools/tables/ie.py out out/tables
-          python3 tools/tables/se_bridges.py out out/tables
-          python3 tools/tables/se_congestion.py out out/tables
-          python3 tools/tables/mk.py tools/tables/transcribed/mk-2025.json out out/tables
-          python3 tools/tables/me.py out out/tables
-          python3 tools/tables/gr.py out out/tables
-          python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
-          python3 tools/tables/tr.py out out/tables
-          python3 tools/tables/pt.py out out/tables
-          python3 tools/tables/es_seitt.py out out/tables
-          python3 tools/tables/fuel_co2.py out out/tables
-          python3 tools/tables/tunnels.py tools/tables/transcribed out out/tables
-          python3 tools/tables/es_ausol.py out out/tables
-          python3 tools/tables/gb_london.py out out/tables
-          python3 tools/tables/ro_bridges.py out out/tables
-          python3 tools/tables/es_castellana.py out out/tables
-          python3 tools/tables/es_aulesa.py out out/tables
-          python3 tools/tables/it.py tools/tables/transcribed out out/tables
-          python3 tools/tables/it_cas.py out out/tables
-          python3 tools/tables/it_barriers.py out out/tables
-          python3 tools/tables/es_ministry.py out out/tables
-          python3 tools/tables/m6toll.py out out/tables
-          python3 tools/tables/ba.py out out/tables
-          python3 tools/tables/al.py out out/tables
-          python3 tools/tables/ba_rs.py tools/tables/transcribed out out/tables
-          python3 tools/tables/md.py out out/tables
-          python3 tools/tables/es_regional.py out out/tables
-          python3 tools/tables/es_basque.py out out/tables
-          python3 tools/tables/es_ap53.py out out/tables
-          python3 tools/tables/es_radials.py out out/tables
-          python3 tools/tables/es_basque_ap8.py out out/tables
-          python3 tools/tables/es_ap68.py out out/tables
-          python3 tools/tables/rs.py out out/tables
+          run() { "$@" || { echo "::error title=$2::failed"; echo "$2" >> out/build-errors.txt; }; }
+          run python3 tools/tables/ro.py out out/tables
+          run python3 tools/tables/dk_bridges.py out out/tables
+          run python3 tools/tables/hu.py out out/tables
+          run python3 tools/tables/frejus.py out out/tables
+          run python3 tools/tables/mont_blanc.py out out/tables
+          run python3 tools/tables/lv.py out out/tables
+          run python3 tools/tables/ee.py out out/tables
+          run python3 tools/tables/se.py out out/tables
+          run python3 tools/tables/lu.py out out/tables
+          run python3 tools/tables/gb.py out out/tables
+          run python3 tools/tables/no.py out out/tables
+          run python3 tools/tables/ie.py out out/tables
+          run python3 tools/tables/se_bridges.py out out/tables
+          run python3 tools/tables/se_congestion.py out out/tables
+          run python3 tools/tables/mk.py tools/tables/transcribed/mk-2025.json out out/tables
+          run python3 tools/tables/me.py out out/tables
+          run python3 tools/tables/gr.py out out/tables
+          run python3 tools/tables/lt.py tools/tables/browser/lt-447.txt out/tables
+          run python3 tools/tables/tr.py out out/tables
+          run python3 tools/tables/pt.py out out/tables
+          run python3 tools/tables/es_seitt.py out out/tables
+          run python3 tools/tables/fuel_co2.py out out/tables
+          run python3 tools/tables/is_km.py out out/tables
+          run python3 tools/tables/by.py out out/tables
+          run python3 tools/tables/pl_a4.py out out/tables
+          run python3 tools/tables/pl_a1.py out out/tables
+          run python3 tools/tables/pl_a2.py out out/tables
+          run python3 tools/tables/tunnels.py tools/tables/transcribed out out/tables
+          run python3 tools/tables/es_ausol.py out out/tables
+          run python3 tools/tables/gb_london.py out out/tables
+          run python3 tools/tables/ro_bridges.py out out/tables
+          run python3 tools/tables/es_castellana.py out out/tables
+          run python3 tools/tables/es_aulesa.py out out/tables
+          run python3 tools/tables/it.py tools/tables/transcribed out out/tables
+          run python3 tools/tables/it_cas.py out out/tables
+          run python3 tools/tables/it_barriers.py out out/tables
+          run python3 tools/tables/es_ministry.py out out/tables
+          run python3 tools/tables/m6toll.py out out/tables
+          run python3 tools/tables/ba.py out out/tables
+          run python3 tools/tables/al.py out out/tables
+          run python3 tools/tables/ba_rs.py tools/tables/transcribed out out/tables
+          run python3 tools/tables/md.py out out/tables
+          run python3 tools/tables/es_regional.py out out/tables
+          run python3 tools/tables/es_basque.py out out/tables
+          run python3 tools/tables/es_ap53.py out out/tables
+          run python3 tools/tables/es_radials.py out out/tables
+          run python3 tools/tables/es_basque_ap8.py out out/tables
+          run python3 tools/tables/es_ap68.py out out/tables
+          run python3 tools/tables/rs.py out out/tables
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).
@@ -163,3 +175,6 @@ jobs:
           git init -q -b tables-out && git add -A
           git -c user.name=actions -c user.email=actions@github.com commit -qm "Rate table sources"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" tables-out
+      - name: Builders that failed
+        if: always()
+        run: if [ -s out/build-errors.txt ]; then cat out/build-errors.txt; exit 1; fi

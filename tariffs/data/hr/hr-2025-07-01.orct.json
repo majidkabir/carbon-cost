@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/hr/2025-07-01",
   "scheme": {
@@ -378,9 +378,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.53225, 44.24013], [15.53229, 44.24003], [15.53252, 44.23899], [15.52971, 44.23827]]
+     "coordinates": [[15.53227, 44.24011], [15.53252, 44.23899], [15.52971, 44.23827]]
     },
-    "point_names": ["booth", "booth", "junction", "junction"]
+    "point_names": ["booth", "junction", "junction"]
    }
   },
   {

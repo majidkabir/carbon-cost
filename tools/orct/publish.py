@@ -35,6 +35,10 @@ def osm_only(a, b, path=()):
     if type(a) is not type(b):
         return False
     if isinstance(a, dict):
+        if len(path) == 3 and path[0] == "charge_objects" and path[2] == "location":
+            # OpenStreetMap's parts may come or go (headings, booth names).
+            a = {k: v for k, v in a.items() if k not in OSM_LOCATION}
+            b = {k: v for k, v in b.items() if k not in OSM_LOCATION}
         return a.keys() == b.keys() and all(osm_only(a[k], b[k], path + (k,)) for k in a)
     if isinstance(a, list):
         return len(a) == len(b) and all(osm_only(x, y, path + (i,)) for i, (x, y) in enumerate(zip(a, b)))

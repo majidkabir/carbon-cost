@@ -43,7 +43,7 @@ jobs:
         # A capture never changes; the archive often refuses requests.
         run: |
           python3 tools/history/reuse.py tools/history/sources.json out prev
-          rm -rf prev todo.json
+          rm -f todo.json
       - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data
         # workflow last fetched them, and the current tables (removed
@@ -63,15 +63,19 @@ jobs:
           mkdir -p out/fr-in
           git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/fr-in
       - name: Archived operator pages (tools/history/wayback.json)
-        # Left out when the run's commit says [no-wayback] (it takes long).
-        if: "!contains(github.event.head_commit.message, '[no-wayback]')"
+        # The copies the last run saved are used again (a capture never
+        # changes); only missing ones are asked for, and none when the run's
+        # commit says [no-wayback].
         env:
           MSG: ${{ github.event.head_commit.message }}
         run: |
-          # "[wayback=a,b]" in the run's commit message limits it to those sets.
+          # "[wayback=a,b]" in the run's commit message limits it to those
+          # sets; [wayback=probes] (or probes:<group>) lists moved pages.
           export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
-          timeout 50m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out || echo "::error title=wayback::failed or timed out"
+          case "$MSG" in *"[no-wayback]"*) export WAYBACK_OFFLINE=1;; esac
+          timeout 30m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out prev || echo "::error title=wayback::failed or timed out"
           find out -path 'out/wb-*' -name '*-osm*' -delete
+          rm -rf prev
       - name: Build
         run: |
           mkdir -p out/tables

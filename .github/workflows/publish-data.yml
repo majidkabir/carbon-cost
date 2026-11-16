@@ -24,6 +24,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
       - name: Publish
         env:
           WORKFLOW: ${{ github.event.workflow_run.name }}
@@ -50,6 +53,8 @@ jobs:
             publish
             git add tariffs/data
             if git diff --cached --quiet; then echo "nothing to publish"; break; fi
+            # The tool's tests read tariffs/data; a push from here doesn't run CI.
+            go test ./... >/dev/null
             n=$(grep -c '^published' report.txt)
             git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n datasets with OpenStreetMap's newer positions (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, and the extract date changed (tools/orct/publish.py)."
             git push -q origin HEAD:main && break

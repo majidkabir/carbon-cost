@@ -373,9 +373,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.53225, 44.24013], [15.53229, 44.24003], [15.53252, 44.23899], [15.52971, 44.23827]]
+     "coordinates": [[15.53227, 44.24011], [15.53252, 44.23899], [15.52971, 44.23827]]
     },
-    "point_names": ["booth", "booth", "junction", "junction"]
+    "point_names": ["booth", "junction", "junction"]
    }
   },
   {
@@ -1093,7 +1093,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.72175, 45.21542], [13.7252, 45.21545], [13.72254, 45.2191], [13.72361, 45.21613]]
+     "coordinates": [[13.72175, 45.21542], [13.72518, 45.21542], [13.72257, 45.2191], [13.72365, 45.216]]
     },
     "point_names": ["booth", "booth", "junction", "junction"]
    }
@@ -1174,7 +1174,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.74068, 45.14936], [13.74204, 45.15122], [13.74441, 45.1488], [13.74235, 45.14996]]
+     "coordinates": [[13.74067, 45.14938], [13.74203, 45.15123], [13.74452, 45.14871], [13.74228, 45.15001]]
     },
     "point_names": ["booth", "booth", "junction", "junction"]
    }
@@ -1258,9 +1258,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.86498, 44.94879], [13.8727, 44.95116], [13.87213, 44.95286]]
+     "coordinates": []
     },
-    "point_names": ["booth", "junction", "junction"]
+    "point_names": []
    }
   },
   {
@@ -1270,9 +1270,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.84521, 44.98327], [13.84458, 44.98827], [13.84679, 44.98641]]
+     "coordinates": []
     },
-    "point_names": ["booth", "junction", "junction"]
+    "point_names": []
    }
   },
   {

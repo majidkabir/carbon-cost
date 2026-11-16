@@ -651,7 +651,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.027362, 43.21353]]
+     "coordinates": [[-2.027363, 43.21353]]
     },
     "point_names": ["between Andoain Cruz Roja and Andoain sur"],
     "headings": [250.2],
@@ -665,10 +665,10 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.02548, 43.222605]]
+     "coordinates": [[-2.02548, 43.222604]]
     },
     "point_names": ["between Andoain Cruz Roja and Andoain norte"],
-    "headings": [349.2],
+    "headings": [349.7],
     "match_m": 100
    }
   },
@@ -679,7 +679,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.025647, 43.222582]]
+     "coordinates": [[-2.025647, 43.222581]]
     },
     "point_names": ["between Andoain norte and Andoain Cruz Roja"],
     "headings": [169.2],
@@ -693,7 +693,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.027607, 43.241979]]
+     "coordinates": [[-2.027608, 43.241978]]
     },
     "point_names": ["between Andoain norte and Lasarte-Oria sur"],
     "headings": [51.4],
@@ -721,7 +721,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.030182, 43.241861]]
+     "coordinates": [[-2.030183, 43.24186]]
     },
     "point_names": ["between Lasarte-Oria sur and Andoain norte"],
     "headings": [206.9],
@@ -735,7 +735,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.017673, 43.263306]]
+     "coordinates": [[-2.017673, 43.263305]]
     },
     "point_names": ["between Lasarte-Oria sur and Lasarte-Oria centro y norte"],
     "headings": [359.3],
@@ -749,7 +749,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-2.017812, 43.26333]]
+     "coordinates": [[-2.017812, 43.263329]]
     },
     "point_names": ["between Lasarte-Oria centro y norte and Lasarte-Oria sur"],
     "headings": [181.4],
@@ -2434,7 +2434,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-13"
+   "osm_extract": "2026-11-16"
   }
  }
 }

@@ -108,6 +108,7 @@ TITLES = {
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
     "it-autovia-padana": "Autovia Padana: A21 Piacenza-Brescia toll information (unit tariffs for users, the 'A' fares)",
     "it-sat-pedaggio": "SAT: toll page, unit rates per km from 1 January (A12 Livorno-Civitavecchia, mountain; ANAS fee and VAT included)",
+    "it-brebemi-pedaggi": "Brebemi: toll page, unit rates per km from 1 January (A35, plain; VAT and ANAS fee included) and the yearly increases",
     "it-pedemontana-rates": "Autostrada Pedemontana Lombarda: rates (per section, company rate and ANAS fee, VAT excluded)",
     "it-adf-tariffe": "Autostrada dei Fiori (A6): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
     "it-salt-tariffe": "SALT (A15): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
@@ -123,6 +124,7 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
               "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)",
               "it-pedemontana-rates": "Pedemontana Lombarda (A36, A59, A60)",
               "it-sat-pedaggio": "SAT (A12 Livorno-Civitavecchia)",
+              "it-brebemi-pedaggi": "Brebemi (A35)",
               "inc:it-adf-tariffe": "Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states)",
               "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
               "inc:it-sitaf-tariffe": "SITAF (A32; its 2025 unit rate raised by the change its notice states)",
@@ -216,16 +218,30 @@ PED_SECTIONS = {"A36-A": r"Section A \(A36\)", "A59": r"Tang\. Como \(A59\)", "A
 CLS4 = r"Class ?1 ?Class ?2 ?Class ?3 ?Class ?4 ?"
 
 
-def sat_page(fetched, year):
-    """SAT's rates for classes A, B, 3, 4, 5 (ANAS fee and VAT included)
-    from its toll page, if it gives them for the year; else None."""
-    path = os.path.join(fetched, "it-sat-pedaggio.html")
+# Concessions whose toll page gives the year's rates for classes A, B, 3,
+# 4, 5 as text, ANAS fee and VAT included: fetch.py's file, the heading
+# naming the year, the rates (five groups), the operator key.
+N5 = " ".join([r"(\d,\d{5})"] * 5)
+TEXT_PAGES = [
+    ("it-sat-pedaggio",
+     r"TARIFFE UNITARIE SAT \(comprensive di importo di competenza ANAS legge 102/2009 e 122/2010 e di IVA\) 1° gennaio (\d{4})",
+     r"CLASSI DI VEICOLO A B 3 4 5 Tariffa di montagna €/Km " + N5, "SAT p.A."),
+    ("it-brebemi-pedaggi",
+     r"il valore della tariffa unitaria valida dal 1 gennaio (\d{4}) suddivisa nelle 5 classi veicolari",
+     r"Classi Tariffe da applicare dal \d\d/\d\d/\d{4} \(€/km con IVA\) A (\d,\d{5}) B (\d,\d{5}) 3 (\d,\d{5}) 4 (\d,\d{5}) 5 (\d,\d{5})",
+     "Società di Progetto Brebemi S.p.A"),
+]
+
+
+def text_page(fetched, pid, head, rates, year):
+    """A TEXT_PAGES page's rates for classes A, B, 3, 4, 5, if it gives
+    them for the year; else None."""
+    path = os.path.join(fetched, pid + ".html")
     if not os.path.exists(path):
         return None
     t = text_of(path)
-    h = re.search(r"TARIFFE UNITARIE SAT \(comprensive di importo di competenza ANAS legge 102/2009 e 122/2010 e di IVA\) 1° gennaio (\d{4})", t)
-    m = re.search(r"CLASSI DI VEICOLO A B 3 4 5 Tariffa di montagna €/Km " + " ".join([r"(\d,\d{5})"] * 5), t)
-    print("it-sat-pedaggio", h.group(1) if h else "no heading", m.groups() if m else "no rates")
+    h, m = re.search(head, t), re.search(rates, t)
+    print(pid, h.group(1) if h else "no heading", m.groups() if m else "no rates")
     if not h or not m or h.group(1) != str(year):
         return None
     return [float(x.replace(",", ".")) for x in m.groups()]
@@ -275,9 +291,10 @@ def operator_rows(transcribed, fetched, year):
             for k in keys:
                 pages[k] = (pid, vals)
     ped = pedemontana_page(fetched, year)
-    sat = sat_page(fetched, year)
-    if sat:
-        pages["SAT p.A."] = ("it-sat-pedaggio", sat)
+    for pid, head, rates, key in TEXT_PAGES:
+        vals = text_page(fetched, pid, head, rates, year)
+        if vals:
+            pages[key] = (pid, vals)
     inc = {}
     for pid, stmt, head, keys in INCREASES:
         path = os.path.join(fetched, pid + ".html")

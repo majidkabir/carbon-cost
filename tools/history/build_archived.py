@@ -15,8 +15,9 @@ Usage: python3 build_archived.py fetched/ out-dir
 The builder runs with the OpenStreetMap extracts the workflow copies into
 fetched/osm. Each table built names the archived copies it was built from,
 and gets valid_to the day before the next table for the same file prefix
-(here or in rates/data) when it has none or a later one."""
+(here or in tariffs/data) when it has none or a later one."""
 import datetime, glob, importlib, json, os, re, shutil, sys, tempfile
+import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -32,7 +33,7 @@ def prefix(name):
     return re.sub(r"-\d{4}-\d\d-\d\d\.json$", "", name)
 
 
-def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
+def main(fetched, out):
     srcs = {s["id"]: s for s in json.load(open(os.path.join(HERE, "sources.json"), encoding="utf-8"))["sources"]}
     made = []
     for b in json.load(open(os.path.join(HERE, "archived.json"), encoding="utf-8"))["builds"]:
@@ -92,7 +93,7 @@ def main(fetched, out, data=os.path.join(ROOT, "rates", "data")):
             tb["law"] += f" Built from the Internet Archive's copies of the {b['year']} pages." + (" " + b["note"] if b.get("note") else "")
             made.append((f, tb))
     starts = {}
-    for name, tb in made + [(os.path.basename(f), json.load(open(f))) for f in glob.glob(os.path.join(data, "*.json"))]:
+    for name, tb in made + committed.tables():
         starts.setdefault(prefix(name), set()).add(tb["valid_from"])
     os.makedirs(out, exist_ok=True)
     for name, tb in made:

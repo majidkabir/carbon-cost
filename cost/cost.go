@@ -3,7 +3,7 @@
 // EU ETS on ferry crossings, and ETS2 on road fuel from 2028.
 //
 // Distances by country and emissions come from Sootcase; rates come from
-// the official tables in package rates. Nothing here is fitted to data:
+// the official tables in package tariffs (ORCT datasets). Nothing here is fitted to data:
 // every number is a published rate, a price the user gives, or Sootcase's
 // GLEC/ISO 14083 result.
 package cost
@@ -11,13 +11,11 @@ package cost
 import (
 	"context"
 	"fmt"
-	"maps"
 	"math"
 	"regexp"
 	"slices"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
@@ -25,6 +23,7 @@ import (
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -228,7 +227,7 @@ type TableUsed struct {
 // Calculator prices trips.
 type Calculator struct {
 	Sootcase sootcase.Client
-	Tables   []rates.Table
+	Tariffs  *tariffs.Set
 	Ferries  *ferries.Data  // nil: ferry crossings use Sootcase's default
 	Borders  *borders.Index // nil: no Route in the response
 	// Roads tells motorway, national and local km apart (with Borders);
@@ -301,7 +300,7 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			}
 		}
 	}
-	out, err := PriceWith(res, c.Tables, c.Ferries, req, date)
+	out, err := PriceWith(res, c.Tariffs, c.Ferries, req, date)
 	if err != nil {
 		return out, err
 	}
@@ -392,14 +391,14 @@ func check(req Request) error {
 
 // Price prices a trip from Sootcase's result, with ferry crossings at
 // Sootcase's default factor.
-func Price(res sootcase.Result, tables []rates.Table, req Request, date time.Time) (Response, error) {
-	return PriceWith(res, tables, nil, req, date)
+func Price(res sootcase.Result, set *tariffs.Set, req Request, date time.Time) (Response, error) {
+	return PriceWith(res, set, nil, req, date)
 }
 
 // PriceWith prices a trip from Sootcase's result; a recognised ferry
 // crossing uses its ships' MRV data from fd when the truck's tare is
 // given.
-func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req Request, date time.Time) (Response, error) {
+func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Request, date time.Time) (Response, error) {
 	if err := check(req); err != nil {
 		return Response{}, err
 	}
@@ -442,16 +441,6 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			out.Provenance.Assumed = append(out.Provenance.Assumed, "driver_rest: one driver, 45 min break after 4.5 h and 11 h rest after 9 h driving (Regulation (EC) No 561/2006)")
 		}
 	}
-	seenTable := map[string]bool{}
-	useTable := func(tb rates.Table) {
-		k := tb.File + tb.Area() + tb.ValidFrom
-		if seenTable[k] {
-			return
-		}
-		seenTable[k] = true
-		out.Provenance.Tables = append(out.Provenance.Tables, TableUsed{Name: tb.Name, Area: tb.Area(), ValidFrom: tb.ValidFrom,
-			ValidTo: tb.ValidTo, File: tb.File, OSMExtract: tb.OSMExtract})
-	}
 	seenFX := map[string]bool{}
 	eurPer := map[string]float64{"EUR": 1, "DKK": 1 / DKKPerEUR}
 	if req.DKKPerEUR > 0 {
@@ -462,11 +451,7 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			eurPer[c] = 1 / v
 		}
 	}
-	var lineSrc []rates.Source // the sources of the table being priced
 	add := func(l Line) error {
-		if l.Sources == nil {
-			l.Sources = lineSrc
-		}
 		f, ok := eurPer[l.Currency]
 		if ok && l.Currency != "EUR" && !seenFX[l.Currency] {
 			seenFX[l.Currency] = true
@@ -500,294 +485,29 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 		}
 		return nil
 	}
-	seenSrc := map[string]bool{}
-	addSources := func(ss []rates.Source) {
-		for _, s := range ss {
-			if !seenSrc[s.URL] {
-				seenSrc[s.URL] = true
-				out.Sources = append(out.Sources, s)
-			}
-		}
-	}
-
 	var path [][2]float64
 	for _, l := range res.Legs {
 		path = append(path, l.Path...)
 	}
 	route := newTrack(path)
+	p := newPricer(req, date, &out, add)
 	// Road tolls, area by area: countries, or their regions where tolls
 	// are set by region.
-	for _, a := range areas(&out, tables) {
-		cc, km := a.code, a.km
-		tb, ok := rates.Find(tables, a.code, date)
-		lineSrc = tb.Sources
+	for _, a := range areas(&out, set) {
+		ds, ok := set.Find(a.code, date)
 		if !ok {
-			if km >= 0.5 {
+			if a.km >= 0.5 {
 				out.NoRates = append(out.NoRates, a.code)
 			}
 			continue
 		}
-		share, shareGiven := 1.0, false
-		for _, k := range []string{a.code, a.country} {
-			if v, ok := req.TolledShare[k]; ok {
-				share, shareGiven = v, true
-				break
-			}
-		}
-		tolledKm := km * share
-		// Road classes along the route, where the rates differ by road:
-		// motorway km at the motorway rate, other national roads at the
-		// other-road rate, local roads untolled.
-		rk, byRoute := req.roadKm[a.country]
-		byRoute = byRoute && a.region == "" && rk.Total() > 0 && len(tb.Roads()) > 0
-		if byRoute && !shareGiven {
-			tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
-		}
-		useTable(tb)
-		if byRoute {
-			if out.Provenance.RoadClasses == nil {
-				out.Provenance.RoadClasses = map[string]string{}
-			}
-			d := req.roadOSM[a.country]
-			if d == "" {
-				d = "date not recorded"
-			}
-			out.Provenance.RoadClasses[a.country] = "OpenStreetMap " + d
-			if rk.Uncertain >= 0.5 {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %.1f km counted as untolled local roads pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
-					cc, rk.Uncertain, roads.NearM, cc))
-			}
-		}
-		rs, exempt, ok := tb.Rates(req.Truck, date)
-		switch {
-		case !ok:
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: no toll for this truck (%s).", cc, tb.Vehicles))
-			continue
-		case exempt != "":
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s", cc, exempt))
-			addSources(tb.Sources)
-			continue
-		}
-		addSources(tb.Sources)
-		if tb.PerDay {
-			if tolledKm < 0.5 {
-				continue
-			}
-			days, note := tripDays(tb, a.country, req, date)
-			for _, r := range rs {
-				if r.PerKm == 0 {
-					continue // e.g. Latvia's zero-emission trucks
-				}
-				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Carbon: r.Component == rates.CO2,
-					Km: round3(tolledKm), Days: days, Rate: r.PerKm, RateUnit: tb.Currency + "/day", Currency: tb.Currency,
-					Amount: r.PerKm * float64(days), Source: tb.Law}); err != nil {
-					return Response{}, err
-				}
-			}
-			out.Notes = append(out.Notes, cc+": "+note)
-			if tb.MotorAxles && req.Truck.MotorAxles == 0 {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles))
-			}
-			continue
-		}
-		// Km by road type, where the rates differ by road: motorway_share
-		// of the tolled km on motorways, the rest on other roads.
-		type part struct {
-			road string
-			km   float64
-		}
-		parts := []part{{"", tolledKm}}
-		if roads := tb.Roads(); len(roads) > 0 {
-			mw, given := 0.0, false
-			for _, k := range []string{a.code, a.country} {
-				if v, ok := req.MotorwayShare[k]; ok {
-					mw, given = v, true
-					break
-				}
-			}
-			switch {
-			case given && byRoute && !shareGiven:
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %.0f%% of the %.1f km are on local roads by OpenStreetMap along the route, which aren't tolled.", cc, 100*rk.Local/rk.Total(), km))
-			case given:
-			case byRoute:
-				if t := rk.Motorway + rk.National; t > 0 {
-					mw = rk.Motorway / t
-				}
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
-					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(),
-					map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven], cc, cc))
-			default:
-				mw = tb.MotorwayShare
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",
-					cc, mw*100, tolledKm, cc))
-			}
-			parts = []part{{rates.Motorway, tolledKm * mw}, {rates.OtherRoad, tolledKm * (1 - mw)}}
-		}
-		// Fixed-charge sections on the route: their km pay the section
-		// charge instead of the per-km infrastructure rate.
-		secs, secKm := onRoute(tb, route)
-		// Where the motorway rates differ by operator (Italy's concessions),
-		// the motorway km split by the operators of the ways they're on.
-		type opPart struct {
-			road, op string
-			km       float64
-		}
-		var ops []opPart
-		for _, pt := range parts {
-			if pt.road == rates.Motorway && byRoute && tb.ByOperator() && rk.Motorway > 0 && pt.km > 0 {
-				keys := make([]string, 0, len(rk.MotorwayOp))
-				on := 0.0
-				for k, v := range rk.MotorwayOp {
-					keys = append(keys, k)
-					on += v
-				}
-				sort.Strings(keys)
-				for _, k := range keys {
-					ops = append(ops, opPart{pt.road, k, pt.km * rk.MotorwayOp[k] / rk.Motorway})
-				}
-				if rest := rk.Motorway - on; rest > 1e-9 {
-					ops = append(ops, opPart{pt.road, "", pt.km * rest / rk.Motorway})
-				}
-				continue
-			}
-			ops = append(ops, opPart{pt.road, "", pt.km})
-		}
-		for _, pt := range ops {
-			if pt.km <= 0 && pt.road != "" {
-				continue
-			}
-			prs := rs
-			if pt.road != "" {
-				prs, _, _ = tb.RatesFor(req.Truck, date, pt.road, pt.op)
-			}
-			section := ""
-			if pt.op != "" {
-				section = opName(pt.op)
-			}
-			for _, r := range prs {
-				if r.PerKm == 0 {
-					continue // e.g. Bulgaria's CO2 part for zero-emission trucks
-				}
-				km := pt.km
-				if r.Component == rates.Infrastructure && secKm > 0 {
-					km = math.Max(0, km-secKm)
-				}
-				if r.Area != "" {
-					sh := suburbanShare(tb, rk, byRoute, pt.road)
-					if r.Area == rates.Interurban {
-						sh = 1 - sh
-					}
-					km *= sh
-				}
-				l := Line{Charge: RoadToll, Country: a.country, Region: a.region, Road: pt.road, Area: r.Area, Component: r.Component, Section: section,
-					Carbon: r.Component == rates.CO2, Km: round3(km), Rate: r.PerKm, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
-					Amount: km * r.PerKm, Source: tb.Law}
-				if tb.PerTonneKm {
-					l.Tonnes, l.Rate, l.RateUnit = r.Tonnes, r.PerTonneKm, tb.Currency+"/tkm"
-				}
-				if err := add(l); err != nil {
-					return Response{}, err
-				}
-			}
-		}
-		for _, s := range secs {
-			v := s.sec.Amount(req.Truck, req.Night)
-			if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.Infrastructure, Section: s.sec.Name,
-				Km: round3(s.km), Rate: v, RateUnit: tb.Currency + "/section", Currency: tb.Currency, Amount: v, Source: tb.Sections.Law}); err != nil {
-				return Response{}, err
-			}
-			for _, pk := range tb.Sections.PerKm {
-				r, ok := pk.Rate(req.Truck, s.sec)
-				if !ok || r == 0 {
-					continue
-				}
-				km := s.sec.Km
-				if km == 0 {
-					km = s.km
-				}
-				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: pk.Component, Section: s.sec.Name,
-					Km: round3(km), Rate: r, RateUnit: tb.Currency + "/km", Currency: tb.Currency, Amount: km * r, Source: pk.Law}); err != nil {
-					return Response{}, err
-				}
-			}
-		}
-		for _, sc := range tb.Surcharges {
-			var km float64
-			for i := 0; i+1 < len(sc.Points); i++ {
-				if k, ok := along(route, sc.Points[i], sc.Points[i+1]); ok {
-					km += k
-				}
-			}
-			if km == 0 {
-				continue
-			}
-			for _, r := range rs {
-				if r.Component != sc.Component {
-					continue
-				}
-				if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: r.Component, Section: sc.Name,
-					Km: round3(km), Rate: r.PerKm * sc.Factor, RateUnit: tb.Currency + "/km", Currency: tb.Currency,
-					Amount: km * r.PerKm * sc.Factor, Source: sc.Law}); err != nil {
-					return Response{}, err
-				}
-			}
-		}
-		zkm := req.EnvZoneKm[a.code]
-		if a.region != "" && zkm == 0 {
-			zkm = req.EnvZoneKm[a.country]
-		}
-		if zkm > 0 {
-			zr := tb.EnvZoneRate(req.Truck)
-			if zr == 0 {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: env_zone_km given, but %s has no environmental zone surcharge.", cc, tb.Name))
-			} else if err := add(Line{Charge: RoadToll, Country: a.country, Region: a.region, Component: rates.EnvZoneSurcharge, Km: zkm, Rate: zr,
-				RateUnit: tb.Currency + "/km", Currency: tb.Currency, Amount: zkm * zr, Source: tb.Law}); err != nil {
-				return Response{}, err
-			}
-		}
-		sp := spans{}
-		closedAny, err := priceClosed(tb, a.country, a.region, route, req, date, &out, add, sp)
-		if err != nil {
+		if err := p.priceArea(ds, a, route); err != nil {
 			return Response{}, err
-		}
-		pointsAny, err := priceTollPoints(tb, a.country, route, req, date, &out, add, sp)
-		if err != nil {
-			return Response{}, err
-		}
-		if len(tb.TollPoints) > 0 && !pointsAny && km >= 1 {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the toll stations.", cc))
-		}
-		if len(tb.Closed) > 0 && len(tb.Rows) == 0 && !closedAny && km >= 1 {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route uses none of the tolled motorways.", cc))
-		}
-		if tb.Sections != nil && len(tb.Rows) == 0 && len(secs) == 0 && km >= 1 {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route passes none of the tolled sections.", cc))
-		}
-		if !shareGiven && !byRoute && len(tb.Rows) > 0 {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
-				cc, km, cc, tb.TolledRoads))
 		}
 	}
-
 	// Fixed-charge crossings (bridges) wherever the route passes them.
-	for _, tb := range tables {
-		if !tb.Crossings || !tb.Covers(date) || req.Truck.MaxMassKg < tb.MinKg {
-			continue
-		}
-		lineSrc = tb.Sources
-		sp := spans{}
-		used, err := priceClosed(tb, tb.Country, "", route, req, date, &out, add, sp)
-		if err != nil {
-			return Response{}, err
-		}
-		usedPoints, err := priceTollPoints(tb, tb.Country, route, req, date, &out, add, sp)
-		if err != nil {
-			return Response{}, err
-		}
-		if used || usedPoints {
-			addSources(tb.Sources)
-			useTable(tb)
-		}
+	if err := p.priceCrossings(set, route); err != nil {
+		return Response{}, err
 	}
 
 	// EU ETS on ferry crossings.
@@ -830,14 +550,14 @@ func PriceWith(res sootcase.Result, tables []rates.Table, fd *ferries.Data, req 
 			out.Notes = append(out.Notes, "ETS2: fuel suppliers pay it and pass it on in the fuel price; this is that cost for this trip's fuel.")
 		}
 	}
-	if err := fuelCO2(&out, req, date, (res.TTWKg-ferryTTW)/1000, add); err != nil {
+	if err := p.priceFuel(set, (res.TTWKg-ferryTTW)/1000); err != nil {
 		return Response{}, err
 	}
-	if err := areaCharges(&out, req, date, route, add); err != nil {
+	if err := p.priceZones(set, route); err != nil {
 		return Response{}, err
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
-	if err := compare(&out, res, tables, fd, req, date, ferryTTW); err != nil {
+	if err := compare(&out, res, set, fd, req, date, ferryTTW); err != nil {
 		return Response{}, err
 	}
 	for k, v := range out.CountryKm {
@@ -859,7 +579,7 @@ type area struct {
 // whose tolls are set by region into their regions (from region_km).
 // A regional country without region_km is kept whole: it has no table,
 // so it is reported under no_rates with a note.
-func areas(out *Response, tables []rates.Table) []area {
+func areas(out *Response, set *tariffs.Set) []area {
 	countries := make([]string, 0, len(out.CountryKm))
 	for k := range out.CountryKm {
 		countries = append(countries, k)
@@ -867,7 +587,7 @@ func areas(out *Response, tables []rates.Table) []area {
 	sort.Strings(countries)
 	var as []area
 	for _, cc := range countries {
-		if !rates.Regional(tables, cc) {
+		if !set.Regional(cc) {
 			as = append(as, area{code: cc, country: cc, km: out.CountryKm[cc]})
 			continue
 		}
@@ -895,7 +615,7 @@ func areas(out *Response, tables []rates.Table) []area {
 // compare prices the trip again for each of req.CompareCO2Classes. The
 // route and the cargo's emissions stay the same, except that a CO2 class
 // 5 (zero-emission) truck burns no road fuel, so pays no ETS2.
-func compare(out *Response, res sootcase.Result, tables []rates.Table, fd *ferries.Data, req Request, date time.Time, ferryTTW float64) error {
+func compare(out *Response, res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Request, date time.Time, ferryTTW float64) error {
 	if len(req.CompareCO2Classes) == 0 {
 		return nil
 	}
@@ -909,7 +629,7 @@ func compare(out *Response, res sootcase.Result, tables []rates.Table, fd *ferri
 		} else if cls != req.Truck.CO2Class {
 			sameEmissions = true
 		}
-		r, err := PriceWith(altRes, tables, fd, alt, date)
+		r, err := PriceWith(altRes, set, fd, alt, date)
 		if err != nil {
 			return fmt.Errorf("compare co2_class %d: %w", cls, err)
 		}
@@ -998,28 +718,6 @@ func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request,
 	return in.GPerTNm * grossT * nm / 1e6, basis, true
 }
 
-type sectionOnRoute struct {
-	sec rates.Section
-	km  float64
-}
-
-// onRoute lists the table's fixed-charge sections the route passes and
-// their total km along the route.
-func onRoute(tb rates.Table, route *track) ([]sectionOnRoute, float64) {
-	if tb.Sections == nil || len(route.pts) < 2 {
-		return nil, 0
-	}
-	var out []sectionOnRoute
-	var total float64
-	for _, s := range tb.Sections.List {
-		if km, ok := along(route, s.From, s.To); ok {
-			out = append(out, sectionOnRoute{s, km})
-			total += km
-		}
-	}
-	return out, total
-}
-
 // SectionMatchKm is how close a route must pass to both ends of a
 // section to count as driving it.
 const SectionMatchKm = 0.5
@@ -1046,27 +744,6 @@ func haversine(lat1, lon1, lat2, lon2 float64) float64 {
 	dLat, dLon := (lat2-lat1)*rad, (lon2-lon1)*rad
 	h := math.Sin(dLat/2)*math.Sin(dLat/2) + math.Cos(lat1*rad)*math.Cos(lat2*rad)*math.Sin(dLon/2)*math.Sin(dLon/2)
 	return 2 * r * math.Asin(math.Min(1, math.Sqrt(h)))
-}
-
-// suburbanShare is the share of km on suburban roads of a road type:
-// from the route's toll sections where it matched them, the table's
-// network share for the rest.
-func suburbanShare(tb rates.Table, rk roads.Km, byRoute bool, road string) float64 {
-	def, ok := tb.SuburbanShare[road]
-	if !ok {
-		def = tb.SuburbanShare[""]
-	}
-	if !byRoute {
-		return def
-	}
-	km, sub, known := rk.Motorway, rk.MotorwaySub, rk.MotorwayKnown
-	if road == rates.OtherRoad {
-		km, sub, known = rk.National, rk.NationalSub, rk.NationalKnown
-	}
-	if km <= 0 {
-		return def
-	}
-	return math.Min(1, (sub+math.Max(0, km-known)*def)/km)
 }
 
 // DefaultAvgSpeedKmh is the average truck speed taken to tell when a
@@ -1118,56 +795,6 @@ func withRest(d float64) float64 {
 	return el
 }
 
-// tripDays is how many days of a time-based charge a trip pays in a
-// country, from the passage times of its stretches there, and a note
-// saying how.
-func tripDays(tb rates.Table, country string, req Request, date time.Time) (int, string) {
-	sp := req.spans[country]
-	switch {
-	case tb.Day == "":
-		return 1, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period."
-	case req.Time == "" || len(sp) == 0:
-		return 1, "a time-based charge, priced at one day's rate; give time (the departure) to count the days the trip spends there."
-	}
-	n := 0
-	if tb.Day == "calendar" {
-		seen := map[string]bool{}
-		for _, s := range sp {
-			a, _ := passage(req, date, s[0], country)
-			b, _ := passage(req, date, s[1], country)
-			last := time.Date(b.Year(), b.Month(), b.Day(), 0, 0, 0, 0, time.UTC)
-			for d := time.Date(a.Year(), a.Month(), a.Day(), 0, 0, 0, 0, time.UTC); !d.After(last); d = d.AddDate(0, 0, 1) {
-				if k := d.Format(time.DateOnly); !seen[k] {
-					seen[k] = true
-					n++
-				}
-			}
-		}
-	} else {
-		var until time.Time
-		for _, s := range sp {
-			a, _ := passage(req, date, s[0], country)
-			b, _ := passage(req, date, s[1], country)
-			if n == 0 || !a.Before(until) {
-				n, until = n+1, a.Add(24*time.Hour)
-			}
-			for b.After(until) {
-				n, until = n+1, until.Add(24*time.Hour)
-			}
-		}
-	}
-	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[tb.Day]
-	if n != 1 {
-		unit += "s"
-	}
-	rest := ""
-	if !req.DriverRest {
-		rest = " without driver rests (give driver_rest for them)"
-	}
-	return n, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s; a longer period may cost less.",
-		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[tb.Day], n, unit, rest)
-}
-
 // etsSources link the EU ETS Directive (consolidated) and Sootcase,
 // which gives the emissions.
 var etsSources = []rates.Source{
@@ -1179,608 +806,12 @@ var etsSources = []rates.Source{
 // junction or booth to count as using it.
 const StationMatchKm = 0.5
 
-// stationMatch is how near a route passes a station of the system.
-func stationMatch(sys rates.TollSystem) float64 {
-	if sys.StationMatchKm > 0 {
-		return sys.StationMatchKm
-	}
-	return StationMatchKm
-}
-
-// stationPass is how near the route passes the station (its nearest
-// point, in the point's heading where it has one), and where along it.
-func stationPass(sys rates.TollSystem, st rates.Station, route *track) (float64, float64) {
-	best, bestPos := math.Inf(1), 0.0
-	for _, p := range st.Points {
-		pos, d, h := route.project(p)
-		if p.Heading != nil && math.Abs(math.Mod(h-*p.Heading+540, 360)-180) > 60 {
-			continue
-		}
-		if d < best {
-			best, bestPos = d, pos
-		}
-	}
-	return best, bestPos
-}
-
-type systemUse struct {
-	entry, exit string
-	km          float64
-	from        float64 // km along the route where it starts (chained systems)
-}
-
-// usesSystem finds where a route enters and leaves a closed toll system:
-// the first and last of its stations the route passes.
-func usesSystem(sys rates.TollSystem, route *track) (systemUse, bool) {
-	if len(route.pts) < 2 {
-		return systemUse{}, false
-	}
-	first, last := math.Inf(1), math.Inf(-1)
-	var u systemUse
-	for _, st := range sys.Stations {
-		best, bestPos := stationPass(sys, st, route)
-		if best > stationMatch(sys) {
-			continue
-		}
-		if bestPos < first {
-			first, u.entry = bestPos, st.Name
-		}
-		if bestPos > last {
-			last, u.exit = bestPos, st.Name
-		}
-	}
-	if u.entry == "" {
-		return u, false
-	}
-	u.km, u.from = last-first, first
-	if u.entry == u.exit {
-		_, open := sys.Prices[u.entry+"|"+u.entry]
-		return u, open
-	}
-	return u, true
-}
-
-// priceClosed adds a line for each closed toll system of the table the
-// route uses, and says whether it used any.
-// spans: where along the route each closed system's tickets start and
-// end (km), by system name.
-type spans map[string][][2]float64
-
-func priceClosed(tb rates.Table, country, region string, route *track, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
-	used := false
-	for _, sys := range tb.Closed {
-		var uses []systemUse
-		if sys.Chain {
-			uses = chainUses(sys, route, req.Truck, req.ETC)
-		} else if u, ok := usesSystem(sys, route); ok {
-			uses = []systemUse{u}
-		}
-		for _, u := range uses {
-			used = true
-			if at, ok := passage(req, date, u.from, country); ok && len(sys.FreeHours) == 2 {
-				if free, err := rates.Within(at.Format("15:04"), sys.FreeHours[0], sys.FreeHours[1]); err == nil && free {
-					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is free from %s to %s (entered about %s).", country, sys.Name, sys.FreeHours[0], sys.FreeHours[1], at.Format("15:04")))
-					continue
-				}
-			}
-			if sp != nil {
-				sp[sys.Name] = append(sp[sys.Name], [2]float64{u.from, u.from + u.km})
-			}
-			g := sys.GroupOf(req.Truck)
-			p, ok := sys.Price(u.entry, u.exit, g, req.ETC)
-			if len(sys.NightHours) == 2 {
-				if at, timed := passage(req, date, u.from, country); !timed {
-					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is cheaper from %s to %s; priced at the day tariff. Give a departure time.", country, sys.Name, sys.NightHours[0], sys.NightHours[1]))
-				} else if night, err := rates.Within(at.Format("15:04"), sys.NightHours[0], sys.NightHours[1]); err == nil && night {
-					n := sys
-					n.Prices, n.ETCPrices = sys.NightPrices, nil
-					p, ok = n.Price(u.entry, u.exit, g, false)
-					out.Notes = append(out.Notes, fmt.Sprintf("%s: %s at the night tariff (entered about %s).", country, sys.Name, at.Format("15:04")))
-				}
-			}
-			if !ok {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s has no price from %s to %s for group %s.", country, sys.Name, u.entry, u.exit, g))
-				continue
-			}
-			var pct float64
-			var names []string
-			for _, d := range sys.Discounts {
-				if d.Applies(req.Truck, req.ETC) {
-					pct += d.Percent
-					names = append(names, fmt.Sprintf("%s %g%%", d.Name, d.Percent))
-				}
-			}
-			if pct > 0 {
-				p = round2(p * (1 - pct/100))
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s with %s off.", country, sys.Name, strings.Join(names, " and ")))
-			}
-			if req.Truck.LengthM == 0 && slices.ContainsFunc(sys.Groups, func(g rates.Group) bool { return g.MaxLengthM > 0 }) {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is priced by length; %g m assumed (group %s). Give the truck's length_m.", country, sys.Name, rates.DefaultLengthM, g))
-			}
-			name := sys.Name + ": " + u.entry
-			if u.exit != u.entry {
-				name += " – " + u.exit
-			}
-			if err := add(Line{Charge: RoadToll, Country: country, Region: region, Component: rates.Toll, Section: name,
-				Km: round3(u.km), Rate: p, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: p, Source: sys.Law}); err != nil {
-				return used, err
-			}
-		}
-	}
-	return used, nil
-}
-
-// chainUses splits a route's passes through a chained toll system into
-// tickets: the pairs with a published price, one after another along the
-// route, that together cover the most km (on a tie, the fewest tickets).
-// That is the longest pair from the first station passed, then again
-// after its exit, except where a station beside the route (an exit's
-// toll booth the route only drives past) would make a short ticket that
-// blocks a longer one.
 // sameKm: stations this close along the route are at the same place.
 const sameKm = 0.3
-
-func chainUses(sys rates.TollSystem, route *track, t rates.Truck, etc bool) []systemUse {
-	type pass struct {
-		name     string
-		pos, off float64 // km along the route, and from it
-	}
-	var passes []pass
-	for _, st := range sys.Stations {
-		best, bestPos := stationPass(sys, st, route)
-		if best <= stationMatch(sys) {
-			passes = append(passes, pass{st.Name, bestPos, best})
-		}
-	}
-	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	g := sys.GroupOf(t)
-	n := len(passes)
-	priced := func(i, j int) bool {
-		if passes[j].name == passes[i].name {
-			return false
-		}
-		_, ok := sys.Price(passes[i].name, passes[j].name, g, etc)
-		return ok
-	}
-	// After a ticket's exit j the next may start at any other station at
-	// the same place (where one concession's network meets the next's,
-	// each names its station its own way): from cont(i, j), skipping j.
-	cont := func(i, j int) int {
-		k := j
-		for k > i+1 && passes[j].pos-passes[k-1].pos <= sameKm {
-			k--
-		}
-		return k
-	}
-	type best struct {
-		cover   float64 // km
-		tickets int
-		off     float64 // km the tickets' stations lie off the route
-		exit    int     // the ticket from this pass, -1 for none
-	}
-	// Covers within sameKm count as equal; then fewer tickets, then
-	// stations on the road (a barrier across it rather than an exit's
-	// booth beside it), then more km.
-	better := func(a, b best) bool {
-		if math.Abs(a.cover-b.cover) > sameKm {
-			return a.cover > b.cover
-		}
-		if a.tickets != b.tickets {
-			return a.tickets < b.tickets
-		}
-		if math.Abs(a.off-b.off) > 1e-6 {
-			return a.off < b.off
-		}
-		return a.cover > b.cover+1e-9
-	}
-	type key struct{ k, skip int }
-	memo := map[key]best{}
-	// from(k, skip): the best from pass k on, never entering at pass skip.
-	var from func(k, skip int) best
-	from = func(k, skip int) best {
-		if k >= n {
-			return best{exit: -1}
-		}
-		if skip < k {
-			skip = -1
-		}
-		if b, ok := memo[key{k, skip}]; ok {
-			return b
-		}
-		b := from(k+1, skip)
-		b.exit = -1
-		if k != skip {
-			for j := k + 1; j < n; j++ {
-				if !priced(k, j) {
-					continue
-				}
-				r := from(cont(k, j), j)
-				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].off + passes[j].off + r.off, j}); better(c, b) {
-					b = c
-				}
-			}
-		}
-		memo[key{k, skip}] = b
-		return b
-	}
-	for i := n - 1; i >= 0; i-- { // fill from the end, keeping the recursion shallow
-		from(i, -1)
-	}
-	var out []systemUse
-	for i, skip := 0, -1; i < n; {
-		b := from(i, skip)
-		if b.exit < 0 {
-			i++
-			continue
-		}
-		j := b.exit
-		out = append(out, systemUse{entry: passes[i].name, exit: passes[j].name, km: passes[j].pos - passes[i].pos, from: passes[i].pos})
-		i, skip = cont(i, j), j
-	}
-	// A barrier across an open section is priced on its own (its pair
-	// with itself): passing it pays, unless a ticket's trip covers it.
-	var spans [][2]float64
-	for _, u := range out {
-		spans = append(spans, [2]float64{u.from, u.from + u.km})
-	}
-	for _, p := range passes {
-		if _, ok := sys.Price(p.name, p.name, g, etc); !ok {
-			continue
-		}
-		inside := false
-		for _, sp := range spans {
-			inside = inside || (p.pos > sp[0]+sameKm && p.pos < sp[1]-sameKm)
-		}
-		if !inside {
-			out = append(out, systemUse{entry: p.name, exit: p.name, from: p.pos})
-		}
-	}
-	sort.SliceStable(out, func(a, b int) bool { return out[a].from < out[b].from })
-	return out
-}
 
 // DefaultPointMatchKm is how close the route must pass a toll point
 // when its table doesn't say.
 const DefaultPointMatchKm = 0.05
-
-// priceTollPoints adds a line for each toll point the route passes in a
-// direction that pays, and says whether it passed any. Under an hour
-// rule only the first passage of a group pays: the route is taken to
-// pass a group's stations within its time limit.
-func priceTollPoints(tb rates.Table, country string, route *track, req Request, date time.Time, out *Response, add func(Line) error, sp spans) (bool, error) {
-	match := tb.PointMatchKm
-	if match == 0 {
-		match = DefaultPointMatchKm
-	}
-	type pass struct {
-		tp  rates.TollPoint
-		pos float64
-	}
-	var passes []pass
-	for _, tp := range tb.TollPoints {
-		if !tp.InForce(date) {
-			continue
-		}
-		pos, d, h := route.project(rates.Place{Lat: tp.Lat, Lon: tp.Lon})
-		if d > match {
-			continue
-		}
-		if tp.Heading != nil {
-			diff := math.Abs(math.Mod(h-*tp.Heading+540, 360) - 180)
-			if diff > 90 {
-				continue
-			}
-		}
-		passes = append(passes, pass{tp, pos})
-	}
-	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	type window struct {
-		at     time.Time // when the group was paid
-		amount float64   // the most a passage within its minutes has paid
-	}
-	paid := map[int]window{} // each hour-rule group's latest paid window
-	untimedFree := false
-	nightUntimed := map[string][]string{}
-	last := map[string]float64{} // where each station was last paid, km along the route
-	free, peak, peakUntimed := 0, 0, 0
-	var cg struct {
-		noTime, offHours, multi, freeHours int
-		why                                string
-		capped, windowAmt                  float64
-		window                             time.Time
-		day                                map[string]float64
-	}
-	cg.day = map[string]float64{}
-	for _, p := range passes {
-		// One station mapped as several booths (a lane, a carriageway):
-		// passing them together pays once.
-		if at, ok := last[p.tp.Name]; ok && p.pos-at < 1 {
-			continue
-		}
-		if p.tp.Within != "" && slices.ContainsFunc(sp[p.tp.Within], func(s [2]float64) bool { return s[0] < p.pos && p.pos < s[1] }) {
-			last[p.tp.Name] = p.pos
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is included in the %s ticket.", country, p.tp.Name, p.tp.Within))
-			continue
-		}
-		at, timed := passage(req, date, p.pos, country)
-		if p.tp.Schedule != "" {
-			c := tb.Congestion
-			last[p.tp.Name] = p.pos
-			if !timed {
-				cg.noTime++
-				continue
-			}
-			if taxed, why := c.Taxed(at); !taxed {
-				cg.why = why + " (" + at.Format(time.DateOnly) + ")"
-				continue
-			}
-			amt, err := c.Amount(p.tp.Schedule, at, at.Format("15:04"))
-			if err != nil {
-				return true, err
-			}
-			if amt == 0 {
-				cg.offHours++
-				continue
-			}
-			// Passages within MultiPassMinutes of a taxed one pay once, the
-			// highest amount among them: only what exceeds the window's
-			// amount so far is added.
-			if c.MultiPassMinutes > 0 && !cg.window.IsZero() && at.Sub(cg.window) < time.Duration(c.MultiPassMinutes)*time.Minute {
-				if amt <= cg.windowAmt {
-					cg.multi++
-					continue
-				}
-				amt, cg.windowAmt = amt-cg.windowAmt, amt
-				cg.multi++
-			} else if c.MultiPassMinutes > 0 {
-				cg.window, cg.windowAmt = at, amt
-			}
-			day := at.Format(time.DateOnly)
-			if dayCap := c.Cap(at); dayCap > 0 && cg.day[day]+amt > dayCap {
-				amt = dayCap - cg.day[day]
-				cg.capped = dayCap
-				if amt <= 0 {
-					continue
-				}
-			}
-			cg.day[day] += amt
-			if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: p.tp.Name + " (" + at.Format("15:04") + ")",
-				Rate: amt, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: amt, Source: tb.Law}); err != nil {
-				return true, err
-			}
-			continue
-		}
-		if timed && len(p.tp.FreeHours) == 2 {
-			if free, err := rates.Within(at.Format("15:04"), p.tp.FreeHours[0], p.tp.FreeHours[1]); err == nil && free {
-				last[p.tp.Name] = p.pos
-				cg.freeHours++
-				continue
-			}
-		}
-		day := date
-		if timed {
-			day = at
-		}
-		rate, ok := p.tp.PriceOn(req.Truck, req.ETC, day)
-		if !ok || rate == 0 {
-			continue
-		}
-		if len(p.tp.NightHours) == 2 {
-			if nr, has := p.tp.NightPrice(req.Truck, req.ETC); has && nr != rate {
-				if !timed {
-					nightUntimed[p.tp.Name] = p.tp.NightHours
-				} else if night, err := rates.Within(at.Format("15:04"), p.tp.NightHours[0], p.tp.NightHours[1]); err == nil && night {
-					rate = nr
-				}
-			}
-		}
-		rush := ""
-		if p.tp.PeakRate > rate && len(p.tp.Classes) == 0 {
-			switch {
-			case p.tp.Rush == nil:
-				peak++
-			case !timed:
-				peakUntimed++
-			default:
-				in, _, err := p.tp.Rush.In(at)
-				if err != nil {
-					return true, err
-				}
-				if in {
-					rate, rush = p.tp.PeakRate, " (rush hour, "+at.Format("15:04")+")"
-				}
-			}
-		}
-		name := p.tp.Name
-		if p.tp.Project != "" {
-			name = p.tp.Project + ": " + name
-		}
-		amount := rate
-		if p.tp.Group != 0 {
-			// The hour rule: after a paid passage the group's stations are
-			// free for GroupMinutes, or charge only what their price exceeds
-			// the window's where the group pays the highest price; without
-			// times the trip is taken to pass them all within it.
-			mins := p.tp.GroupMinutes
-			if mins == 0 {
-				mins = 60
-			}
-			if w, ok := paid[p.tp.Group]; ok && (!timed || at.Sub(w.at) < time.Duration(mins)*time.Minute) {
-				if p.tp.GroupPays != "highest" || rate <= w.amount {
-					free++
-					untimedFree = untimedFree || !timed
-					continue
-				}
-				amount = rate - w.amount
-				name += fmt.Sprintf(" (the hour's highest price: %g less %g paid within the hour)", rate, w.amount)
-				w.amount = rate
-				paid[p.tp.Group] = w
-			} else {
-				paid[p.tp.Group] = window{at, rate}
-			}
-		}
-		last[p.tp.Name] = p.pos
-		if err := add(Line{Charge: RoadToll, Country: country, Component: rates.Toll, Section: name + rush,
-			Rate: amount, RateUnit: tb.Currency + "/passage", Currency: tb.Currency, Amount: amount, Source: tb.Law}); err != nil {
-			return true, err
-		}
-	}
-	for _, n := range slices.Sorted(maps.Keys(nightUntimed)) {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s is cheaper from %s to %s; priced at the day price. Give a departure time.", country, n, nightUntimed[n][0], nightUntimed[n][1]))
-	}
-	if free > 0 {
-		how := " (by the passage times)"
-		if untimedFree {
-			how = " (without a departure time the route is taken to pass them within the hour)"
-		}
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d more toll station passage(s) free: their group charges once within its time (the hour rule)%s.", country, free, how))
-	}
-	if peak > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: priced at the off-peak rate; %d of the stations charge more in rush hours.", country, peak))
-	}
-	if peakUntimed > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d station passage(s) charge more in rush hours; priced at the off-peak rate. Give a departure time.", country, peakUntimed))
-	}
-	switch {
-	case cg.noTime > 0:
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s not priced: give time (HH:MM, local departure) to price its %d station passage(s).", country, tb.Name, cg.noTime))
-	case cg.why != "":
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: %s.", country, tb.Name, cg.why))
-	}
-	if cg.offHours > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: no tax at the time the trip reaches %d station(s).", country, tb.Name, cg.offHours))
-	}
-	if cg.freeHours > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %d toll station passage(s) free at the time the trip reaches them.", country, cg.freeHours))
-	}
-	if cg.multi > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: %d more passage(s) within %d minutes pay once, at the highest amount.", country, tb.Name, cg.multi, tb.Congestion.MultiPassMinutes))
-	}
-	if cg.capped > 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("%s: %s: capped at %g %s a day.", country, tb.Name, cg.capped, tb.Currency))
-	}
-	return len(passes) > 0, nil
-}
-
-var (
-	fuelOnce   sync.Once
-	fuelPrices []rates.FuelCO2
-	fuelErr    error
-)
-
-// fuelCO2 adds the national CO2 prices on the trip's road fuel: roadT
-// tonnes of CO2 (the cargo's share of the road tank-to-wheel emissions),
-// at the price of the country the fuel is bought in.
-func fuelCO2(out *Response, req Request, date time.Time, roadT float64, add func(Line) error) error {
-	if roadT <= 0 {
-		return nil
-	}
-	fuelOnce.Do(func() { fuelPrices, fuelErr = rates.FuelCO2All() })
-	if fuelErr != nil {
-		return fuelErr
-	}
-	share := map[string]float64{}
-	if req.FuelCountry != "" {
-		share[req.FuelCountry] = 1
-	} else {
-		var total float64
-		for _, km := range out.CountryKm {
-			total += km
-		}
-		for cc, km := range out.CountryKm {
-			if total > 0 {
-				share[cc] = km / total
-			}
-		}
-	}
-	ccs := make([]string, 0, len(share))
-	for cc := range share {
-		ccs = append(ccs, cc)
-	}
-	sort.Strings(ccs)
-	priced := false
-	for _, cc := range ccs {
-		f, ok := rates.FindFuelCO2(fuelPrices, cc, date)
-		if !ok || share[cc] <= 0 {
-			continue
-		}
-		t := roadT * share[cc]
-		l := Line{Charge: FuelCO2, Country: cc, Component: rates.CO2, Carbon: true, TonnesCO2: round3(t), Rate: f.RatePerT,
-			RateUnit: f.Currency + "/t CO2", Currency: f.Currency, Amount: t * f.RatePerT, Source: f.Name + " (" + f.File + ")", Sources: f.Sources}
-		if req.FuelCountry == "" {
-			l.Km = round3(out.CountryKm[cc])
-		}
-		if err := add(l); err != nil {
-			return err
-		}
-		priced = true
-	}
-	switch {
-	case priced && req.FuelCountry == "":
-		out.Notes = append(out.Notes, "Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
-	case priced:
-		out.Notes = append(out.Notes, "Fuel CO2: the national CO2 price on diesel of "+req.FuelCountry+", where the fuel is bought, on this trip's road fuel.")
-	}
-	return nil
-}
-
-var (
-	zoneOnce sync.Once
-	zoneList []rates.Zone
-	zoneErr  error
-)
-
-// areaCharges adds a day's charge for each zone the route drives into
-// (rates.Zone), when it is there in the charging hours: with a departure
-// time, at the times each point in the zone is reached; without one, the
-// charge is assumed.
-func areaCharges(out *Response, req Request, date time.Time, route *track, add func(Line) error) error {
-	zoneOnce.Do(func() { zoneList, zoneErr = rates.ZonesAll() })
-	if zoneErr != nil {
-		return zoneErr
-	}
-	for _, z := range zoneList {
-		if !z.Covers(date) || req.Truck.MaxMassKg < z.MinKg {
-			continue
-		}
-		var in []int
-		for i, p := range route.pts {
-			if z.Contains(p) {
-				in = append(in, i)
-			}
-		}
-		if len(in) == 0 {
-			continue
-		}
-		if z.ExemptEuro > 0 && req.Truck.Euro >= z.ExemptEuro {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: the route enters the %s; a Euro %d truck pays nothing there.", z.Country, z.Name, req.Truck.Euro))
-			continue
-		}
-		charged := true
-		if req.Time != "" {
-			charged = false
-			for _, i := range in {
-				if at, ok := passage(req, date, route.cum[i], z.Country); ok && z.Charging(at) {
-					charged = true
-					break
-				}
-			}
-			if !charged {
-				out.Notes = append(out.Notes, fmt.Sprintf("%s: the route is in the %s outside its charging hours.", z.Country, z.Name))
-				continue
-			}
-		} else if len(z.Weekdays) > 0 || len(z.Weekends) > 0 {
-			out.Notes = append(out.Notes, fmt.Sprintf("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", z.Country, z.Name))
-		}
-		km := route.cum[in[len(in)-1]] - route.cum[in[0]]
-		charge := z.ChargeFor(req.Truck.Euro)
-		if err := add(Line{Charge: AreaCharge, Country: z.Country, Component: rates.Toll, Section: z.Name, Km: round3(km), Days: 1,
-			Rate: charge, RateUnit: z.Currency + "/day", Currency: z.Currency, Amount: charge, Source: z.Law + " (" + z.File + ")", Sources: z.Sources}); err != nil {
-			return err
-		}
-	}
-	return nil
-}
 
 // opName is an operator key ("operator|ref") as a line's section:
 // "operator (ref)".

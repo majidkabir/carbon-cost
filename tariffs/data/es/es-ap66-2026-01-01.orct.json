@@ -1,0 +1,170 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-ap66/2026-01-01",
+  "scheme": {
+   "id": "es-ap66",
+   "name": "AP-66 Campomanes–León (Aucalsa)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-66 Campomanes–León (Aucalsa), by pair of stations either way: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), excluding 21% IVA, with the heavy-vehicle reductions of RD 1341/2024 the table applies. Stations placed at the concessionaire's own map of its toll plazas and accesses.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-ap66-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-66 CAMPOMANES - LEON (2026)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-66,-campomanes---leon-2026.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Aucalsa (AP-66 concessionaire): its interactive map's accesses and toll plazas (the Google My Maps it embeds, as KML)",
+   "url": "https://www.aucalsa.com/la-autopista/mapa-interactivo/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.Pesados-1",
+     "label": "Pesados 1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.Pesados-2",
+     "label": "Pesados 2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:CAMPOMANES",
+   "type": "station",
+   "name": "CAMPOMANES",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.818985, 43.113572]]
+    },
+    "point_names": ["ACCESO CAMPOMANES"]
+   }
+  },
+  {
+   "id": "st1:OBLANCA",
+   "type": "station",
+   "name": "OBLANCA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.889635, 42.907362]]
+    },
+    "point_names": ["PEAJE VILLABLINO - BARRIOS DE LUNA"]
+   }
+  },
+  {
+   "id": "st1:LA MAGDALENA",
+   "type": "station",
+   "name": "LA MAGDALENA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.786743, 42.783047], [-5.784028, 42.782791]]
+    },
+    "point_names": ["PEAJE TRONCAL DE LA MAGDALENA", "PEAJE RAMAL DE LA MAGDALENA"]
+   }
+  },
+  {
+   "id": "st1:LEON",
+   "type": "station",
+   "name": "LEON",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.668162, 42.578911]]
+    },
+    "point_names": ["ACCESO LEÓN - ASTORGA"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "AP-66 Campomanes–León (Aucalsa)",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-66 Campomanes–León (Aucalsa), by pair of stations either way: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), excluding 21% IVA, with the heavy-vehicle reductions of RD 1341/2024 the table applies. Stations placed at the concessionaire's own map of its toll plazas and accesses.",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:CAMPOMANES", "st1:LA MAGDALENA", "sys1-1.Pesados-1", "6.0744"],
+    ["st1:CAMPOMANES", "st1:LA MAGDALENA", "sys1-1.Pesados-2", "7.7273"],
+    ["st1:CAMPOMANES", "st1:LEON", "sys1-1.Pesados-1", "9.6694"],
+    ["st1:CAMPOMANES", "st1:LEON", "sys1-1.Pesados-2", "12.438"],
+    ["st1:CAMPOMANES", "st1:OBLANCA", "sys1-1.Pesados-1", "3.5124"],
+    ["st1:CAMPOMANES", "st1:OBLANCA", "sys1-1.Pesados-2", "4.5041"],
+    ["st1:LA MAGDALENA", "st1:LEON", "sys1-1.Pesados-1", "3.7603"],
+    ["st1:LA MAGDALENA", "st1:LEON", "sys1-1.Pesados-2", "4.7934"],
+    ["st1:OBLANCA", "st1:LA MAGDALENA", "sys1-1.Pesados-1", "2.562"],
+    ["st1:OBLANCA", "st1:LA MAGDALENA", "sys1-1.Pesados-2", "3.2231"],
+    ["st1:OBLANCA", "st1:LEON", "sys1-1.Pesados-1", "6.157"],
+    ["st1:OBLANCA", "st1:LEON", "sys1-1.Pesados-2", "7.9339"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

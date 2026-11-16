@@ -24,11 +24,12 @@ Usage: python3 build_eurovignette.py fetched/ out-dir
   on 1 January 2025.
 - Denmark, 2025: lov om vejafgift § 5 as worded by lov nr. 1489 af
   10/12/2024, in force 1 January 2025: the rates and their components
-  equal those of rates/data/dk-2026-01-01.json, which is checked against
+  equal those of templates/dk-2026-01-01.json, which is checked against
   the rates, the environmental zone surcharges and the CO2 component in
   Transportministeriet's report of 25 March 2025 (tables 1-3).
 """
 import html, json, os, re, sys
+import committed  # noqa: E402
 
 EURO = {"0": [0], "I": [1], "II": [2], "III": [3], "IV": [4], "V": [5], "VI": [6]}
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -220,7 +221,7 @@ def denmark(fetched, out):
         "rows": flat_day(int(m[1])),
     })
     # 2025: the rows of 2026, checked against the 2025 report.
-    cur = json.load(open(os.path.join(ROOT, "rates", "data", "dk-2026-01-01.json"), encoding="utf-8"))
+    cur = committed.template("dk-2026-01-01.json")
     rep = open(os.path.join(fetched, "dk-trm-2025.txt"), encoding="utf-8").read()
     tables = []
     for t in ("Tabel 1", "Tabel 2", "Tabel 3"):

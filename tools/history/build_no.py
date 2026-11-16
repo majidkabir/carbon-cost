@@ -1,5 +1,5 @@
 """Builds the Norwegian toll stations from 1 January 2024 to the day
-before the current table (rates/data/no-<date>.json) from every version of
+before the current dataset (tariffs/data/no/no-<date>.orct.json) from every version of
 NVDB's Bomstasjon objects (type 45), as fetch.py saved them with
 alle_versjoner=true (no-nvdb-45-hist*.json and the road link sequences
 no-nvdb-45-hist-links-*.json).
@@ -13,13 +13,13 @@ import datetime, glob, json, os, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tables"))
 import no  # noqa: E402
+import committed  # noqa: E402
 
 FROM = "2024-01-01"
 
 
-def main(fetched, out, data="rates/data"):
-    cur = max(json.load(open(f))["valid_from"] for f in glob.glob(os.path.join(data, "no-*.json"))
-              if json.load(open(f))["valid_from"] > FROM)
+def main(fetched, out):
+    cur = max(v for v in committed.starts("no") if v > FROM)
     to = (datetime.date.fromisoformat(cur) - datetime.timedelta(days=1)).isoformat()
     objs, seqs = [], {}
     for f in sorted(glob.glob(os.path.join(fetched, "no-nvdb-45-hist*.json"))):

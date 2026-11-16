@@ -1,0 +1,74 @@
+{
+ "description": "A day cap of 20 for night uses only: the two night uses (24) are capped at 20, the day use (12) is not. Section uses 32, plus 3 x 1.25 per km: 35.75.",
+ "clauses": [
+  "6.11"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "sec1",
+    "time": "2026-11-17T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "sec1",
+    "time": "2026-11-17T22:30:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "sec1",
+    "time": "2026-11-17T23:30:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "35.75"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "sec",
+    "amount": "12"
+   },
+   {
+    "charge": "sec",
+    "amount": "12"
+   },
+   {
+    "charge": "sec",
+    "amount": "12"
+   },
+   {
+    "charge": "seckm",
+    "amount": "1.25"
+   },
+   {
+    "charge": "seckm",
+    "amount": "1.25"
+   },
+   {
+    "charge": "seckm",
+    "amount": "1.25"
+   },
+   {
+    "charge": "sec",
+    "amount": "-4"
+   }
+  ]
+ }
+}

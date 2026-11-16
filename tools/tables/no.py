@@ -58,7 +58,7 @@ RUSH = {
     "Ferde AS - Bomringen i Kristiansand": {
         "hours": [("06:30", "09:00"), ("14:30", "17:00")], "free_days": [], "pays": "first",
         "check": {"no-rush-kristiansand": ["Rushtid (06:30-", "09:00 og 14:30-17:00)"],
-                  "no-rush-kristiansand-days": ["mandag til fredag unntatt for offentlige fri og helligdager"]}},
+                  "no-rush-kristiansand-days": ["Mandag til fredag i rushtiden kl. 06:30–09:00 og 14:30–17:00", "lørdag, søndag og helligdager"]}},
     "Vegamot AS": {
         "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": ["norwegian_eves"], "pays": "first",
         "check": {"no-rush-vegamot": ["07:00 til 09:00, og 15:00-17:00", "lørdag, søndag eller helligdager", "julaften, nyttårsaften og onsdag før påske"]}},

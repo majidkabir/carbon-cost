@@ -1,0 +1,122 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/no-test/2026-01-01",
+  "scheme": {
+   "id": "no-test",
+   "name": "test",
+   "country": "NO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "NOK",
+  "timezone": "Europe/Oslo",
+  "license": "MIT",
+  "method": "test law",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "no-test-2026-01-01.json"
+  },
+  "required_features": ["rule.passage_group", "time_classes", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "rush",
+   "label": "Rush hours, Monday to Friday except public holidays",
+   "days": [
+    {
+     "weekdays": [1, 2, 3, 4, 5],
+     "exclude": {
+      "dates": ["01-01", "05-01", "05-17", "12-25", "12-26"],
+      "easter": [[-3, -2], [1, 1], [39, 39], [50, 50]]
+     }
+    }
+   ],
+   "times": [["06:30", "09:00"], ["15:00", "17:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "A",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10, 60]
+    }
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "B",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10, 60.1]
+    }
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "time_class", "amount"],
+   "rows": [["pt1", null, "100"], ["pt1", "rush", "150"], ["pt2", null, "100"], ["pt2", "rush", "150"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "passage_group",
+   "applies_to": ["points"],
+   "params": {
+    "objects": ["pt1", "pt2"],
+    "minutes": 60,
+    "pays": "highest"
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

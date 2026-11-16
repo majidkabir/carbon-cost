@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-pt/2024-09-09",
+  "scheme": {
+   "id": "fuelco2-pt",
+   "name": "Adicionamento sobre as emissões de CO2 (carbon tax on road diesel)",
+   "country": "PT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-09-09",
+  "valid_to": "2024-09-15",
+  "currency": "EUR",
+  "timezone": "Europe/Lisbon",
+  "license": "MIT",
+  "method": "Código dos Impostos Especiais de Consumo art. 92.º-A: the adicionamento sobre as emissões de CO2 is 74.429 euro per tonne of CO2, from Portaria 203-A/2024/1 (published 2024-09-08, in force the next working day). It is charged with the ISP on gasóleo rodoviário, the product's CO2 factor times this rate, and passed on in the fuel price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-pt-2024-09-09.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Autoridade Tributária: Portaria 203 A 2024/1 (adicionamento sobre as emissões de CO2)",
+   "url": "https://info-aduaneiro.portaldasfinancas.gov.pt/pt/legislacao_aduaneira/iec_doclib/Documents/Portaria_203_A_2024_1.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "PT"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Adicionamento sobre as emissões de CO2 (carbon tax on road diesel)",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["74.429"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

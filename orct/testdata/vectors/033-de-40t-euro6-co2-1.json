@@ -1,0 +1,35 @@
+{
+ "description": "German HGV toll, 40t-euro6-co2-1, 100 km: 34.80. Sum of the BFStrMG Anlage 1 parts over 100 km, as carbon-cost's TestGermanyTotals asserts them.",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "data/carbon-cost/de/de-2024-07-01.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "carbon-cost/de/2024-07-01",
+    "object": "roads",
+    "time": "2026-11-03T10:00:00+01:00",
+    "km": 100
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "34.80"
+   }
+  ]
+ }
+}

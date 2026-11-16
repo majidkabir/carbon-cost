@@ -1,0 +1,52 @@
+{
+ "description": "Per-km rate by mass class; an operator's own row beats the network row (object column, ancestor rank).",
+ "clauses": [
+  "6.10.3",
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "mw",
+    "time": "2026-11-16T10:00:00+01:00",
+    "km": 100
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "op-x",
+    "time": "2026-11-16T10:00:00+01:00",
+    "km": 10
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "28.00"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "dist",
+    "amount": "25"
+   },
+   {
+    "charge": "dist",
+    "amount": "3"
+   }
+  ]
+ }
+}

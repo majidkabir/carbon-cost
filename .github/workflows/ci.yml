@@ -14,6 +14,20 @@ jobs:
       - run: test -z "$(gofmt -l .)"
       - run: go vet ./...
       - run: go test ./...
+  tables:
+    # The converter: the history builders' templates convert to the
+    # committed datasets, the test tables to the test datasets.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/orct/check_templates.py
+      - run: python3 tools/orct/check_lossless.py tools/history/templates tariffs/data
+      - run: |
+          for d in cost/testdata/synthetic/tables/*/; do
+            v=$(basename "$d")
+            python3 tools/orct/convert.py "$d" "/tmp/synthetic/$v" > /dev/null
+            diff -r "/tmp/synthetic/$v" "cost/testdata/synthetic/orct/$v"
+          done
   docker:
     runs-on: ubuntu-latest
     steps:

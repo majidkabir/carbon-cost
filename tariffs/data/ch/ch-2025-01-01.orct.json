@@ -20,7 +20,7 @@
   "method": "Schwerverkehrsabgabeverordnung (SVAV, SR 641.811) of 27 March 2024, Art. 8 para. 1 as amended 20 September 2024 (AS 2024 522), in force 1 January 2025: 3.26 / 2.82 / 2.39 Rappen per tonne-km for fee categories 1 / 2 / 3; Annex 1: EURO VI in category 3, EURO 0-V in category 1; Art. 6 para. 3: chargeable weight at most 40 t.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ch-2025-01-01.json"
+   "path": "ch-2025-01-01.json"
   },
   "required_features": ["rule.exemption", "type.distance"]
  },

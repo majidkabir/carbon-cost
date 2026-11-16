@@ -19,7 +19,7 @@
   "method": "The Ministry of Transport's tolls in force from 1 January 2026 on the AP-68: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; Bilbao – Zaragoza EUR 84.15 with IVA), excluding 21% IVA. Heavy vehicles between Ziorraga and Altube are exempt (the Diputación Foral de Álava's convenio). Paying by tag (sistema dinámico, `etc`): the Haro–Alfaro tolls after Real Decreto 584/2014's 50% (Cenicero–Agoncillo free) and the Zambrana–Tudela Pesados 2 tolls after Real Decreto 757/2019's 75%, where lower. Stations: each carriageway's stretch between two consecutive entries/exits, at the OpenStreetMap junctions whose exits are signposted to them in the table's order, Altube, Subijana, Recajo by elimination (the only numbered junction between their neighbours), Bilbao and Zaragoza at the motorway's ends. Bilbao's service area – Arrigorriaga-Bilbao ramp isn't built.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap68-2026-01-01.json"
+   "path": "es-ap68-2026-01-01.json"
   },
   "required_features": ["type.od", "user_classes"]
  },

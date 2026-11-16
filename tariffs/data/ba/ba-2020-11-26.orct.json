@@ -20,7 +20,7 @@
   "method": "Uredba o naplati naknade za korištenje autoceste A1 (SN 54/15) article 3 as replaced by the Uredba of 26 November 2020 (SN 86/20, in force the day after publication; valid_from is the day it was adopted): per direction from each toll station to each other, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. Stations at JP Autoceste FBiH's OSM toll booths.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ba-2020-11-26.json"
+   "path": "ba-2020-11-26.json"
   },
   "required_features": ["type.od", "type.point"]
  },

@@ -20,7 +20,7 @@
   "method": "Tunnel du Mont Blanc (TMB-GEIE): ATMB's prices for heavy vehicles from 2026-01-01, one way, France to Italy, EUR including 20% VAT, here excluding it; class 3 (two axles) and 4 (three or more). The Italy to France price is the same before Italy's 22% VAT. Goods vehicles over 3.5 t of EURO 0 to 4 aren't admitted.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "mont-blanc-2026-01-01.json"
+   "path": "mont-blanc-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

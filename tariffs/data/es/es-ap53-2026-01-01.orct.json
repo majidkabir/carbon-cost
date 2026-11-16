@@ -19,7 +19,7 @@
   "method": "The Ministry of Transport's tolls in force from 1 January 2026 on the AP-53, with Real Decreto-ley 20/2022 and the heavy-vehicle bonuses of Real Decreto 276/2025 applied: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; Santiago – Alto de Santo Domingo EUR 7.25 with IVA), excluding 21% IVA. Stations: each carriageway's stretch between two consecutive entries/exits; Ribadulla and Silleda at the junctions nearest OpenStreetMap's toll booths of their name, the others at the junctions whose exits are signposted to them, Alto de Santo Domingo at the motorway's end.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap53-2026-01-01.json"
+   "path": "es-ap53-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

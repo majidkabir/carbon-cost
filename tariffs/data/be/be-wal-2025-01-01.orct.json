@@ -21,7 +21,7 @@
   "method": "SOFICO's indexed rates from 2025-01-01 as published by Viapass, Wallonia (SOFICO), excluding VAT. Zero-emission trucks pay the Euro VI rate.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-wal-2025-01-01.json"
+   "path": "be-wal-2025-01-01.json"
   },
   "required_features": ["type.distance"]
  },

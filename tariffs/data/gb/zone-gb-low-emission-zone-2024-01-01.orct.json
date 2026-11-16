@@ -19,7 +19,7 @@
   "method": "Greater London Low Emission Zone Charging Order 2006, as varied (Euro VI standard for heavy vehicles from 2021-03-01): lorries over 3.5 t that don't meet Euro VI (NOx and PM) pay GBP 100 a day if they meet Euro IV (PM), GBP 300 if not; charging days run midnight to midnight, every day (TfL). Euro IV and V are taken as meeting Euro IV (PM).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "zone-gb-low-emission-zone-2024-01-01.json"
+   "path": "zone-gb-low-emission-zone-2024-01-01.json"
   },
   "required_features": ["type.area"]
  },

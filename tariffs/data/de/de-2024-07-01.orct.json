@@ -19,7 +19,7 @@
   "method": "Bundesfernstraßenmautgesetz (BFStrMG) § 3 and Anlage 1 (BGBl. 2023 I Nr. 315)",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "de-2024-07-01.json"
+   "path": "de-2024-07-01.json"
   },
   "required_features": ["rule.exemption", "type.distance"]
  },

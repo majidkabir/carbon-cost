@@ -72,7 +72,9 @@ jobs:
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).
-        run: python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
+        run: |
+          python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
+          python3 tools/orct/check_lossless.py out/tables out/orct
       - name: Compare
         run: |
           rm -rf out/osm out/fr-in

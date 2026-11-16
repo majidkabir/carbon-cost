@@ -20,7 +20,7 @@
   "method": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 (in force from 12 June 2019 until Службен весник 88/2025 replaced it on 1 May 2025; the table here starts on 1 January 2024): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction. Stations with no toll booth in OpenStreetMap aren't priced: Миравци (Клучка Миравци-Клучка Демир Капија); Миравци (Клучка Миравци-Клучка Гевгелија); Смоквица (Клучка Смоквица - КлучкаГевгелија); Смоквица (Клучка Смоквица -Клучка Демир Капија).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "mk-2024-01-01.json"
+   "path": "mk-2024-01-01.json"
   },
   "required_features": ["type.point"]
  },

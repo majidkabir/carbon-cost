@@ -20,7 +20,7 @@
   "method": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 1 as replaced by OG nr. 23/2025 (Monitorul Oficial nr. 808 of 29 August 2025) from 8 September 2025: the rovinieta is a time-based charge in euro, including VAT, for periods from 1 day to 12 months, by the maximum authorised mass of the vehicle or combination and its axles: C 7.5 euro a day, D 13 euro a day, E 17 euro a day, F 28.5 euro a day (C over 3.5 to 7.5 t, D over 7.5 to under 12 t, E 12 t and over with up to 3 axles, F 12 t and over with 4 or more). A day runs from 00:00 to 24:00 (art. 1 alin. (8)). Paid in lei at the BNR rate of the month before (art. 6). Rates here exclude 21% VAT. Bridge tolls (tarif de trecere: Fetești–Cernavodă, Giurgeni–Vadu Oii, Giurgiu–Ruse) aren't included. Legea nr. 226/2023 (art. 24, art. 29, as prorogued by Legea nr. 103/2026) repealed the ordinance and started TollRo on 1 October 2026.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ro-2025-09-08.json"
+   "path": "ro-2025-09-08.json"
   },
   "required_features": ["type.period"]
  },

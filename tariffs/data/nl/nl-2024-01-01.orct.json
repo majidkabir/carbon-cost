@@ -20,7 +20,7 @@
   "method": "Wet belasting zware motorrijtuigen, art. 10 (as in force on 1 January 2024, unchanged until 25 March 2025): the tax for a day is € 12 for every vehicle. Replaced on 25 March 2025 by the amounts by CO2 class.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-2024-01-01.json"
+   "path": "nl-2024-01-01.json"
   },
   "required_features": ["type.period"]
  },

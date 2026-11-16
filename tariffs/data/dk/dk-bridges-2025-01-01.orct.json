@@ -20,7 +20,7 @@
   "method": "Fixed price per crossing by vehicle length, on top of the km-based vejafgift: Storebælt (A/S Storebælt) and Øresund (Øresundsbro Konsortiet) price lists for 2025. Built from the Internet Archive's copies of the 2025 pages. Øresundsbron's page gives no year: the copies of March and September 2025 show the same prices.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "dk-bridges-2025-01-01.json"
+   "path": "dk-bridges-2025-01-01.json"
   },
   "required_features": ["rounding", "rule.discount", "type.od", "user_classes"]
  },

@@ -20,7 +20,7 @@
   "method": "25/2013. (V. 31.) NFM rendelet (in force from 1 July 2026): § 1 (2)-(4a) as set by 46/2025. (XII. 23.) ÉKM gives the infrastructure charge in HUF/km including 27% VAT by category (J2-J5 by axles, 209/2013. (VI. 18.) Korm. rendelet § 2) and road level (expressway or main road); annex 2 gives the external-cost charge in eurocent/km excluding VAT (air and noise for suburban and interurban roads by EURO class, CO2 by EURO class, low- and zero-emission); annex 1 as set by 34/2025. (XI. 30.) ÉKM lists the 2,639 tolled elementary sections with their level and suburban share. Rates here exclude VAT: the infrastructure charge is divided by 1.27; the external-cost charge is converted at 388.60 HUF/EUR (ECB rate of 2 October 2023, kept because later 1 October rates moved it by 5% or less, 209/2013 § 3/A (2)-(3)), rounded to 0.01 HUF.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "hu-2026-07-01.json"
+   "path": "hu-2026-07-01.json"
   },
   "required_features": ["type.distance"]
  },

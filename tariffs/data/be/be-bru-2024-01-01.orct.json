@@ -21,7 +21,7 @@
   "method": "Viapass rate grid from 1 January 2024, Brussels, highway and urban area (all local and regional roads that are not highway).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-bru-2024-01-01.json"
+   "path": "be-bru-2024-01-01.json"
   },
   "required_features": ["type.distance"]
  },

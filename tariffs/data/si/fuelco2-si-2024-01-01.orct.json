@@ -20,7 +20,7 @@
   "method": "Uredba o okoljski dajatvi za onesnaževanje zraka z emisijo ogljikovega dioksida (Uradni list RS 48/18) art. 3: the charge is an amount per unit of burden, one tonne of CO2; for plinsko olje (diesel) it is 17.3 euro, from Uredba 48/18 (until the government's sklep). Fuel suppliers pay it and pass it on in the fuel price.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "fuelco2-si-2024-01-01.json"
+   "path": "fuelco2-si-2024-01-01.json"
   },
   "required_features": ["type.quantity"]
  },

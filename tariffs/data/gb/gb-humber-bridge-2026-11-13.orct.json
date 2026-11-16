@@ -19,7 +19,7 @@
   "method": "Humber Bridge Board's tolls (Humber Bridge Acts 1959 and 2013) per crossing, either way, as published: two-axle vehicles of 3.5-7 t GBP 5.00, three axles or more over 7.5 t GBP 15.00; with `etc` the account price (4.00, 12.00). Two-axle trucks over 7 t are taken at the two-axle price. The page gives no date: valid_from is the day it was first read.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-humber-bridge-2026-11-13.json"
+   "path": "gb-humber-bridge-2026-11-13.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

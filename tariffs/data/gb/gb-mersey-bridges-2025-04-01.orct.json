@@ -19,7 +19,7 @@
   "method": "Halton Borough Council's Road User Charging Scheme Order, toll charges from 1 April 2025 (merseyflow's summary; a table published as an image, transcribed in tools/tables/transcribed/gb-merseyflow-2025.json): per crossing of either bridge, either way, class 3 (3.5-12 t) GBP 7.20, class 4 (over 12 t) GBP 9.60 unregistered; with `etc` the sticker-registered price (6.50, 8.65).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-mersey-bridges-2025-04-01.json"
+   "path": "gb-mersey-bridges-2025-04-01.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

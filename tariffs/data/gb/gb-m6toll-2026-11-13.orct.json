@@ -19,7 +19,7 @@
   "method": "The M6 Toll (Birmingham Northern Relief Road, operated by Midland Expressway Ltd under its concession): prices by the number of zones a trip passes through, as the operator's pricing page publishes them, class 4 (two axles) and 5 (three or more; class 6 over six axles costs the same), 1.3 m or over at the first axle (trucks over 3.5 t are taken to be): class 5 GBP 20.90 for all three zones, 18.20 for two, 15.70 within zone 2, VAT included on the page and excluded here (20%); `etc` the breeze account price. Zones by junction from the page's zone map (read in Chrome); a trip within zone 1 or zone 3 passes no plaza and pays nothing. Stations: the middle of each carriageway's stretch between junctions (OSM), passed in its direction.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-m6toll-2026-11-13.json"
+   "path": "gb-m6toll-2026-11-13.json"
   },
   "required_features": ["type.od", "user_classes"]
  },

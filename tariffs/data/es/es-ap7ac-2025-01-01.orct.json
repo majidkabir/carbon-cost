@@ -20,7 +20,7 @@
   "method": "The Ministry of Transport's tolls in force from 2025-01-01 on the AP-7 Alicante–Cartagena, per barrier (Troncal de Los Montesinos, Acceso de La Zenia, Troncal de La Zenia): Pesados 1 (two or three axles) EUR 4.0083 and Pesados 2 (four axles or more) 5.1240 in the low season, 4.6694 and 5.7025 in the high season, excluding 21% IVA. High season: June to September and the 17 days of Semana Santa (from the Friday before it to the Sunday after it); regular users pay the low season's tolls all year (not modelled). Barriers placed at OpenStreetMap's toll plazas on the motorway, in the table's order from north to south.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap7ac-2025-01-01.json"
+   "path": "es-ap7ac-2025-01-01.json"
   },
   "required_features": ["time_classes", "type.point"]
  },

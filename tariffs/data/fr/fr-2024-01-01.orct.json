@@ -20,7 +20,7 @@
   "method": "Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts, as published by each operator: their tariffs in force from 1 February 2023, as the Internet Archive kept them, for ALIAE, APRR, AREA, ASF, Cofiroute. The other operators' documents of that year weren't archived, so their motorways aren't priced. A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "fr-2024-01-01.json"
+   "path": "fr-2024-01-01.json"
   },
   "required_features": ["type.od"]
  },

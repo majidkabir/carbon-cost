@@ -19,7 +19,7 @@
   "method": "The Milot–Morinë motorway concession contract (clauses 11.4.3 and 11.4.4), as ATRAKO, the state concessions agency, publishes it: EUR 5 with VAT per passage times the class's coefficient, class 4 (G: three axles, or commercial vehicles over 2.70 m) EUR 16.25, class 5 (H: four axles or more) EUR 22.5; trucks over 3.5 t with two or three axles are taken to be over 2.70 m. Excluding 20% VAT. Charged at the toll plaza by the Thirrë tunnel, either way. The page gives no date: valid_from is the day it was first read.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "al-2026-11-13.json"
+   "path": "al-2026-11-13.json"
   },
   "required_features": ["type.point"]
  },

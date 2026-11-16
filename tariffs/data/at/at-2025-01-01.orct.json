@@ -20,7 +20,7 @@
   "method": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024, §§ 1-2, 7-9 (in force 2025-01-01)",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "at-2025-01-01.json"
+   "path": "at-2025-01-01.json"
   },
   "required_features": ["rule.factor", "time_classes", "type.distance", "type.section"]
  },
@@ -655,7 +655,7 @@
    }
   },
   {
-   "id": "sections",
+   "id": "own-toll-sections",
    "type": "network",
    "parents": ["roads"],
    "name": "Sections with a toll of their own (no per-km infrastructure charge on them)"
@@ -663,7 +663,7 @@
   {
    "id": "sec:a",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 9, ASt Spital/Pyhrn – ASt Ardning/Admont",
    "road": "A 9",
    "from": {
@@ -684,7 +684,7 @@
   {
    "id": "sec:b",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 9, Kn St. Michael – ASt Übelbach",
    "road": "A 9",
    "from": {
@@ -705,7 +705,7 @@
   {
    "id": "sec:c",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 10, ASt Flachau – ASt Flachauwinkl",
    "road": "A 10",
    "from": {
@@ -726,7 +726,7 @@
   {
    "id": "sec:d",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 10, ASt Flachauwinkl – HASt Zederhaus",
    "road": "A 10",
    "from": {
@@ -747,7 +747,7 @@
   {
    "id": "sec:e",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 10, HASt Zederhaus – ASt St. Michael/Lungau",
    "road": "A 10",
    "from": {
@@ -768,7 +768,7 @@
   {
    "id": "sec:f",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 10, ASt St. Michael/Lungau – ASt Rennweg/Katschberg",
    "road": "A 10",
    "from": {
@@ -789,7 +789,7 @@
   {
    "id": "sec:g",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 11, ASt St. Jakob/Rosental – Staatsgrenze Karawankentunnel (approx., mid-tunnel)",
    "road": "A 11",
    "from": {
@@ -810,7 +810,7 @@
   {
    "id": "sec:h",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, Kn Innsbruck/Amras – ASt Innsbruck/Süd",
    "road": "A 13",
    "from": {
@@ -831,7 +831,7 @@
   {
    "id": "sec:i",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, Kn Innsbruck/Wilten – ASt Innsbruck/Süd",
    "road": "A 13",
    "from": {
@@ -852,7 +852,7 @@
   {
    "id": "sec:j",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Innsbruck/Süd – ASt Zenzenhof",
    "road": "A 13",
    "from": {
@@ -873,7 +873,7 @@
   {
    "id": "sec:k",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Zenzenhof – ASt Patsch/Igls",
    "road": "A 13",
    "from": {
@@ -894,7 +894,7 @@
   {
    "id": "sec:l",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Patsch/Igls – ASt Schönberg/Stubaital",
    "road": "A 13",
    "from": {
@@ -915,7 +915,7 @@
   {
    "id": "sec:m",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Schönberg/Stubaital – ASt Matrei/Steinach",
    "road": "A 13",
    "from": {
@@ -936,7 +936,7 @@
   {
    "id": "sec:n",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Matrei/Steinach – ASt Nösslach",
    "road": "A 13",
    "from": {
@@ -957,7 +957,7 @@
   {
    "id": "sec:o",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Nösslach – ASt Brennersee",
    "road": "A 13",
    "from": {
@@ -978,7 +978,7 @@
   {
    "id": "sec:p",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "A 13, ASt Brennersee – Staatsgrenze Brennerpass (approx.)",
    "road": "A 13",
    "from": {
@@ -999,7 +999,7 @@
   {
    "id": "sec:q",
    "type": "section",
-   "parents": ["sections"],
+   "parents": ["own-toll-sections"],
    "name": "S 16, ASt St. Anton/Arlberg – ASt Langen/Arlberg",
    "road": "S 16",
    "from": {
@@ -1032,7 +1032,7 @@
     ["roads", "infrastructure-1.4", "0.2186"],
     ["roads", "infrastructure-1.5", "0.306"],
     ["roads", "infrastructure-1.6", "0.4591"],
-    ["sections", null, "0"]
+    ["own-toll-sections", null, "0"]
    ],
    "sources": ["s1"],
    "basis": "transcribed"

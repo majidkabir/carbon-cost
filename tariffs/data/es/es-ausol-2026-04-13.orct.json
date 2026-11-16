@@ -20,7 +20,7 @@
   "method": "Tariffs of Autopista del Sol, Concesionaria Española, approved by Orden Ministerial of 18 December 2025, 2026: per troncal barrier (Calahonda, San Pedro, Manilva), Pesados 1 (two or three axles) and Pesados 2 (four or more), excluding 21% IVA; the normal season. The lateral barriers on the ramps aren't priced: a trip joining or leaving at one is priced as through traffic.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ausol-2026-04-13.json"
+   "path": "es-ausol-2026-04-13.json"
   },
   "required_features": ["type.point"]
  },

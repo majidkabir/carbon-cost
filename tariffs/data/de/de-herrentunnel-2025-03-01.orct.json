@@ -19,7 +19,7 @@
   "method": "Fernstraßenbauprivatfinanzierungsgesetz: the toll of the Herrentunnel Lübeck GmbH & Co. KG, as its Gebührentabelle (valid from 1 March 2025) gives it per passage, by height over the front axle (over 130 cm) and axles: class B (2 axles), C (3), D (4 or more); the cash price, with `etc` the Quick-Box/RFID price. Trucks over 3.5 t are taken to be over 130 cm.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "de-herrentunnel-2025-03-01.json"
+   "path": "de-herrentunnel-2025-03-01.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

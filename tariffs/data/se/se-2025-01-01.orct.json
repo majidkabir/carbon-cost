@@ -20,7 +20,7 @@
   "method": "Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for 2025 from Förordning (2024:953) as first issued: per calendar day, week, month or year by axles and EURO class; the day's amount is 138 kronor for all. Its amendment SFS 2025:46 applies from 25 March 2025. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "se-2025-01-01.json"
+   "path": "se-2025-01-01.json"
   },
   "required_features": ["type.period"]
  },

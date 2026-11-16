@@ -1,4 +1,4 @@
-"""Builds rates/data/hr-2026-01-01.json from fetch.py's hr-prices.json and
+"""Builds the table hr-2026-01-01.json (converted to tariffs/data/hr/) from fetch.py's hr-prices.json and
 hr-booths.json (OpenStreetMap toll booths and motorway junctions).
 
 Usage: python3 build.py hr-prices.json hr-booths.json out.json

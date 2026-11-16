@@ -152,7 +152,7 @@ class Builder:
             "timezone": TZ[t["country"]],
             "license": "MIT",
             "method": t.get("law", ""),
-            "derived_from": {"url": REPO, "table": os.path.basename(path)},
+            "derived_from": {"url": REPO, "path": os.path.basename(path)},  # the table, as the builders write it
         }
         self.sources = [{"id": f"s{i + 1}", "title": s["title"], "url": s["url"]} for i, s in enumerate(t.get("sources", []))]
         if not self.sources:
@@ -700,7 +700,7 @@ def convert_sections(b, secs, row_charges):
     secnet = None
     if row_charges:
         base = "roads"
-        secnet = b.obj({"id": "sections", "type": "network", "parents": [base],
+        secnet = b.obj({"id": "own-toll-sections", "type": "network", "parents": [base],
                         "name": "Sections with a toll of their own (no per-km infrastructure charge on them)"})
         for cid in row_charges.get("infrastructure", []):
             ch = next(c for c in b.charges if c["id"] == cid)
@@ -847,6 +847,80 @@ def dumps(x, ind=0):
     return json.dumps(x, ensure_ascii=False)
 
 
+def is_day(s):
+    try:
+        return bool(s) and date.fromisoformat(s).isoformat() == s
+    except ValueError:
+        return False
+
+
+def is_hours(h):
+    return isinstance(h, list) and len(h) == 2 and all(isinstance(x, str) and re.fullmatch(r"([01]\d|2[0-3]):[0-5]\d", x) for x in h)
+
+
+def check(t, name):
+    """The checks a table must pass before it is converted (what carbon-cost
+    checked when it read the tables); a list of what is wrong."""
+    bad = []
+    if not is_day(t.get("valid_from")) or (t.get("valid_to") and not is_day(t["valid_to"])):
+        bad.append("bad valid_from or valid_to")
+    if not t.get("country") or not t.get("currency") or not t.get("sources"):
+        bad.append("country, currency and sources are required")
+    if t.get("valid_to") and is_day(t.get("valid_from")) and is_day(t["valid_to"]) and t["valid_to"] < t["valid_from"]:
+        bad.append("valid_to before valid_from")
+    if name.startswith("zone-"):
+        if not re.fullmatch(rf"zone-{t.get('country', '').lower()}-[a-z0-9-]+-{t.get('valid_from')}\.json", name):
+            bad.append("the name must be zone-<cc>-<zone>-<valid_from>.json")
+        if not (t.get("name") and t.get("law") and t.get("charge", 0) > 0 and t.get("polygons") and t.get("osm_extract")):
+            bad.append("name, law, charge, polygons and osm_extract are required")
+        bad += [f"{k} must be [from, to] (HH:MM)" for k in ("weekdays", "weekends") if t.get(k) and not is_hours(t[k])]
+        if t.get("no_charge") and len(t["no_charge"]) != 2:
+            bad.append("no_charge must be [from, to] (MM-DD)")
+        return bad
+    if name.startswith("fuelco2-"):
+        if name != f"fuelco2-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
+            bad.append("the name must be fuelco2-<cc>-<valid_from>.json")
+        if not t.get("law") or t.get("rate_per_t", -1) < 0:
+            bad.append("law and rate_per_t are required")
+        return bad
+    if t.get("day", "") not in ("", "calendar", "24h"):
+        bad.append(f"day must be calendar or 24h, not {t['day']!r}")
+    if t.get("day") and not t.get("per_day"):
+        bad.append("day is only for per_day tables")
+    if any(not is_day(e.get("until")) for e in t.get("exemptions") or []):
+        bad.append("bad exemption date")
+    if t.get("region") and not t["region"].startswith(t.get("country", "") + "-"):
+        bad.append(f"region {t['region']} is not in country {t.get('country')}")
+    rows, systems, points = t.get("rows") or [], t.get("closed_systems") or [], t.get("toll_points") or []
+    if not (rows or t.get("sections") or systems or points):
+        bad.append("rows (or sections, toll systems or toll points) are required")
+    if not 0 <= t.get("motorway_share", 0) <= 1:
+        bad.append("motorway_share must be 0-1")
+    if t.get("crossings") and (rows or not (systems or points)):
+        bad.append("a crossings table has closed systems or toll points, and no rows")
+    bad += [f"suburban_share[{k}] must be 0-1" for k, v in (t.get("suburban_share") or {}).items() if not 0 <= v <= 1]
+    bad += [f"bad area {r['area']!r}" for r in rows if r.get("area", "") not in ("", "suburban", "interurban")]
+    bad += [f"negative rate in {r}" for r in rows if r.get("rate", 0) < 0]
+    for sy in systems:
+        if sy.get("free_hours") and not is_hours(sy["free_hours"]):
+            bad.append(f"{sy['name']}: free_hours must be [from, to] (HH:MM)")
+        if (sy.get("night_hours") or sy.get("night_prices")) and not (is_hours(sy.get("night_hours")) and sy.get("night_prices")):
+            bad.append(f"{sy['name']}: night_hours must be [from, to] (HH:MM), with night_prices")
+    names = {sy["name"] for sy in systems}
+    schedules = (t.get("congestion") or {}).get("schedules", {})
+    for p in points:
+        if p.get("within") and p["within"] not in names:
+            bad.append(f"toll point {p['name']}: no closed system {p['within']!r} in the table")
+        bad += [f"toll point {p['name']}: {k} must be [from, to] (HH:MM)" for k in ("free_hours", "night_hours") if p.get(k) and not is_hours(p[k])]
+        if any(p.get(k) and not is_day(p[k]) for k in ("valid_from", "valid_to")):
+            bad.append(f"toll point {p['name']}: bad date")
+        elif p.get("valid_from") and p.get("valid_to") and p["valid_to"] < p["valid_from"]:
+            bad.append(f"toll point {p['name']}: valid_to before valid_from")
+        if p.get("schedule") and p["schedule"] not in schedules:
+            bad.append(f"toll point {p['name']}: no congestion schedule {p['schedule']!r} in the table")
+    return bad
+
+
 def write_index(out, commit=None):
     """index.json: every dataset under out, as written."""
     index = []
@@ -896,6 +970,9 @@ def main():
         path = os.path.join(data, name)
         with open(path) as fh:
             t = json.load(fh)
+        bad = check(t, name)
+        if bad:
+            raise SystemExit(f"{name}: " + "; ".join(bad))
         if name.startswith("zone-"):
             doc = convert_zone(t, path)
         elif name.startswith("fuelco2-"):

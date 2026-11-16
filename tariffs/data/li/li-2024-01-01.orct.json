@@ -20,7 +20,7 @@
   "method": "Liechtenstein's Schwerverkehrsabgabeverordnung (LGBl. 2000 Nr. 275) as in force in 2024, applying the Swiss tariff under the customs treaty: 3.10 / 2.69 / 2.28 Rappen per tonne-km for fee categories 1 / 2 / 3 until 31 December 2024; EURO 0-V in category 1, EURO VI in category 3; chargeable weight at most 40 t.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "li-2024-01-01.json"
+   "path": "li-2024-01-01.json"
   },
   "required_features": ["rule.exemption", "type.distance"]
  },

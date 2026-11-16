@@ -20,7 +20,7 @@
   "method": "Greater London (Central Zone) Congestion Charging Order 2004, as varied: a charge per day for driving in the zone 07:00-18:00 Monday to Friday and 12:00-18:00 at weekends and on bank holidays (bank holidays are taken as weekdays here), none from Christmas Day to New Year's Day (TfL); the charge paid on the day or in advance, GBP 15 (before 2026-01-02, the Gazette notice).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "zone-gb-congestion-charge-2024-01-01.json"
+   "path": "zone-gb-congestion-charge-2024-01-01.json"
   },
   "required_features": ["time_classes", "type.area"]
  },

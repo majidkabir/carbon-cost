@@ -20,7 +20,7 @@
   "method": "Kelių priežiūros ir plėtros programos finansavimo įstatymas; Government resolution No 447 of 21 April 2005, annex point 1 (consolidated edition in force 2025-07-01 to 2025-12-31, read in a browser into tools/history/browser/lt-447-2025-07-01.txt): a time-based charge in euro for a year, a month, a week or a day, by category (N2 over 3.5 to 12 t, N3 over 12 t), the motor vehicle's own axles (no more than three, or four or more; point 2.2) and EURO class. The table keeps the daily rate. Paid as an e-vignette, without VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "lt-2025-07-01.json"
+   "path": "lt-2025-07-01.json"
   },
   "required_features": ["type.period"]
  },

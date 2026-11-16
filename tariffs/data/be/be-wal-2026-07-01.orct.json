@@ -21,7 +21,7 @@
   "method": "Viapass rate grid ed. 01/07/2026, Wallonia, excluding VAT. No CO2 element; zero-emission trucks pay the Euro VI rate.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-wal-2026-07-01.json"
+   "path": "be-wal-2026-07-01.json"
   },
   "required_features": ["type.distance"]
  },

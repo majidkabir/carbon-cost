@@ -20,7 +20,7 @@
   "method": "Wet belasting zware motorrijtuigen, art. 10 fourth paragraph, as worded by the Wet of 26 June 2024 (Stb. 2024, 240) in force 25 March 2025 (Stb. 2025, 41), and corrected with retroactive effect to that date by Stb. 2025, 445 (the Eurovignette protocol's amounts prevail): the tax for a day by CO2 emission class, EURO class (CO2 class 1) and axles (at most three, at least four, with the trailer). The law lapsed on 1 July 2026 when the vrachtwagenheffing started. Not subject to VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-2025-03-25.json"
+   "path": "nl-2025-03-25.json"
   },
   "required_features": ["type.period"]
  },

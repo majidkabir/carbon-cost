@@ -309,7 +309,7 @@ func printResult(r cost.Response) {
 		if t.OSMExtract != "" {
 			osm = ", OpenStreetMap " + t.OSMExtract
 		}
-		fmt.Printf("- %s: %s (rates/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
+		fmt.Printf("- %s: %s (tariffs/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
 	}
 	for _, cc := range slices.Sorted(maps.Keys(p.RoadClasses)) {
 		fmt.Printf("- %s road classes: %s\n", cc, p.RoadClasses[cc])

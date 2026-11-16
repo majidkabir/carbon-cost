@@ -20,7 +20,7 @@
   "method": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013, 122/2014, 96/2017, 151/2022, 88/2024 and 110/2025): toll from entry to exit station on HAC's closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are HAC's, unchanged for these groups since their conversion to euros on 1 January 2023 (NN 151/2022, art. 3), as the current table has them (checked against the Internet Archive's copies of HAC's A1 price page: 20240530 (35 prices), 20251205 (40 prices)), excluding 25% VAT. ENC discounts from 1 July 2025: 21.74%, and 3% more for EURO V/EEV and 7% more for EURO VI (HAC's announcement of 27 June 2025; Pravilnik o cestarini art. 10(5) as amended by NN 110/2025). Bina-Istra's Istrian Y (A8, A9) isn't included: its prices of that time weren't archived.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "hr-2025-07-01.json"
+   "path": "hr-2025-07-01.json"
   },
   "required_features": ["rounding", "rule.discount", "type.od"]
  },

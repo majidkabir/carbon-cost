@@ -20,7 +20,7 @@
   "method": "BEHG § 10 (2): fixed price of 45 euro per certificate (one tonne of CO2) in 2024. Fuel suppliers buy a certificate for each tonne of CO2 their fuel emits and pass the cost on in the fuel price.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "fuelco2-de-2024-01-01.json"
+   "path": "fuelco2-de-2024-01-01.json"
   },
   "required_features": ["type.quantity"]
  },

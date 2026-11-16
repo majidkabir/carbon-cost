@@ -19,7 +19,7 @@
   "method": "Lag (2004:629) om trängselskatt, bilaga 2: per passage of a charging station, by time of day; passages within 60 minutes pay once; at most 60 SEK a day; weekdays, not the day before a public holiday nor in July. Foreign-registered vehicles pay too (4 §). Stations: Transportstyrelsen's gantries in OpenStreetMap; the Backa stations (taxed only with a control point within 30 minutes) are left out.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "se-congestion-goteborg-2020-01-01.json"
+   "path": "se-congestion-goteborg-2020-01-01.json"
   },
   "required_features": ["calendars", "rule.cap", "rule.passage_group", "time_classes", "type.point"]
  },

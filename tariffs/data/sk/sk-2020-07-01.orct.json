@@ -20,7 +20,7 @@
   "method": "Nariadenie vlády SR č. 497/2013 Z. z. as in force 1 July 2020 to 30 June 2025: Annex 1 (motorways and expressways; Annex 2 part 1 repeats it for class I roads parallel to them) and Annex 2 part 2 (other tolled class I roads), EUR/km excluding VAT by vehicle category (3.5-12 t any axles; 12 t or more by 2, 3, 4, 5 axles) and EURO group (0-II; III, IV; V, VI, EEV).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "sk-2020-07-01.json"
+   "path": "sk-2020-07-01.json"
   },
   "required_features": ["type.distance"]
  },

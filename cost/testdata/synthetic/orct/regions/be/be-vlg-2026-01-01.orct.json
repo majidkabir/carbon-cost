@@ -20,7 +20,7 @@
   "method": "BE-VLG law",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-vlg-2026-01-01.json"
+   "path": "be-vlg-2026-01-01.json"
   },
   "required_features": ["type.distance"]
  },

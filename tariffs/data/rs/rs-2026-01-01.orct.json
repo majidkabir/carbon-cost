@@ -20,7 +20,7 @@
   "method": "JP Putevi Srbije's price list in force from 2026-01-01 (EUR column, at NBS rate list 118 of 24.06.2024.), as the Internet Archive kept it (20260517): toll from entry to exit station on the A1, A2, A3 and A4, by vehicle category; in force until 2026-06-30 (the next list). The list gives prices from BEOGRAD, DIMITROVGRAD, OBRENOVAC, PREŠEVO, STARA PAZOVA, ŠID to every station on their sections; other pairs aren't published there. Stations placed as in the current table.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "rs-2026-01-01.json"
+   "path": "rs-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

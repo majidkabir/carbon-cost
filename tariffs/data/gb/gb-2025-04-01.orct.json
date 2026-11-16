@@ -20,7 +20,7 @@
   "method": "HGV Road User Levy Act 2013, section 6 and Schedule 1 (Tables 1, 1A and 1B) as amended: a non-UK HGV of 12,000 kg or more pays the daily rate for each day it uses a main road, by band of maximum permitted (revenue) weight of the combination and by whether it meets Euro 6. Rates as tabulated by the Department for Transport's guidance. Zero-emission HGVs are exempt. The table keeps the daily rate.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-2025-04-01.json"
+   "path": "gb-2025-04-01.json"
   },
   "required_features": ["type.period"]
  },

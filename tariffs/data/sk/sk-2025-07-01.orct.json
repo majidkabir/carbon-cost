@@ -20,7 +20,7 @@
   "method": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "sk-2025-07-01.json"
+   "path": "sk-2025-07-01.json"
   },
   "required_features": ["type.distance"]
  },

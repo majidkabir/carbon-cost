@@ -19,7 +19,7 @@
   "method": "Tyne and Wear Act 1976 s. 13 and the River Tyne (Tunnels) Order 2005: the River Tyne (Tunnels) (Revision of Toll) Order 2025 (S.I. 2025/449), in force from 2025-05-01: class 3 (vehicles other than motorcycles and those up to 3.5 t) per passage either way; with `etc` the permit holder's price after discount.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-tyne-tunnels-2025-05-01.json"
+   "path": "gb-tyne-tunnels-2025-05-01.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

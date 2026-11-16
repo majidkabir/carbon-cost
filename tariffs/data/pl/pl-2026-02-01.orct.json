@@ -20,7 +20,7 @@
   "method": "Rozporządzenie Rady Ministrów z dnia 8 stycznia 2026 r. (Dz. U. 2026 poz. 33), amending the regulation of 22 March 2011 on national roads subject to the electronic toll and its rates; Annexes 3 (class A and S roads) and 4 (class GP and G roads), in force 1 February 2026. Rates by permissible total mass (with trailer: over 3.5 t and under 12 t; 12 t or more) and EURO class (max. EURO 2, EURO 3, EURO 4, min. EURO 5); no CO2 component.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "pl-2026-02-01.json"
+   "path": "pl-2026-02-01.json"
   },
   "required_features": ["type.distance"]
  },

@@ -20,7 +20,7 @@
   "method": "Audenasa's tariffs 2026 (the Gobierno de Navarra's concession of the AP-15): per passage of each barrier, either way, Pesados I (two or three axles) and II (four or more), excluding 21% IVA. Not placed (no named OSM booth), so not priced: Oriz-Tiebas, Marcilla Enlace.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap15-2026-01-01.json"
+   "path": "es-ap15-2026-01-01.json"
   },
   "required_features": ["type.point"]
  },

@@ -19,7 +19,7 @@
   "method": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: per direction from each toll station to each other, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. Stations at JP Autoceste FBiH's OSM toll booths; not placed, so not priced: Tešanj, Usora, Žepče.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ba-2026-11-01.json"
+   "path": "ba-2026-11-01.json"
   },
   "required_features": ["type.od", "type.point"]
  },

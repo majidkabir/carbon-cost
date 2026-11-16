@@ -20,7 +20,7 @@
   "method": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "hr-2026-01-01.json"
+   "path": "hr-2026-01-01.json"
   },
   "required_features": ["rounding", "rule.discount", "type.od"]
  },

@@ -20,7 +20,7 @@
   "method": "The Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026 by entry and exit station and class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, either way: A18 Messina-Catania (Messina Sud - Catania Nord class 5 EUR 10.90); A20 Messina-Palermo (Messina Nord - Buonfornello class 5 EUR 25.40). Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths) beyond the end stations, the others at the junctions whose exits are signposted to them. The A20's Villafranca barrier (an open-system fixed toll for the Villafranca exit) isn't modelled.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "it-cas-2026-01-01.json"
+   "path": "it-cas-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

@@ -1,4 +1,4 @@
-"""Builds the national CO2 prices on road fuel (rates/data/fuelco2-*.json)
+"""Builds the national CO2 prices on road fuel (fuelco2-*.json tables)
 from the fetched law texts (sources.json, table fuelco2-*):
 
 - Germany, BEHG § 10 (2): the fixed certificate price of 2024 and 2025,

@@ -20,7 +20,7 @@
   "method": "BE-WAL law",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-wal-2026-01-01.json"
+   "path": "be-wal-2026-01-01.json"
   },
   "required_features": ["type.distance"]
  },

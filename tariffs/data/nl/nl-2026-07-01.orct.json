@@ -20,7 +20,7 @@
   "method": "Wet vrachtwagenheffing art. 5 lid 1, amounts indexed by Regeling IENW/BSK-2026/20152 (Staatscourant 2026, 3872)",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-2026-07-01.json"
+   "path": "nl-2026-07-01.json"
   },
   "required_features": ["type.distance"]
  },

@@ -20,7 +20,7 @@
   "method": "Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25), with its annex: infrastructure charge per toll section, toll class and EURO class, in euros excluding VAT (22% VAT is charged on the toll); Sklep o uvedbi pribitka k cestnini na določenih odsekih cestninskih cest (... 46/25), NPB 8, art. 2 and 3; Uredba o cestnini za uporabo cestnega predora Karavanke (Uradni list RS, št. 109/24), art. 3. Read from PISRS (pisrs.si); each act's date of application from its register data. Section places and lengths as in the 2026 table (Uredba o cestninskih cestah in cestnini, Annex).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "si-2025-11-01.json"
+   "path": "si-2025-11-01.json"
   },
   "required_features": ["type.section"]
  },

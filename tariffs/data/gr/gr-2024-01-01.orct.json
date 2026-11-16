@@ -20,7 +20,7 @@
   "method": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2024 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included. Built from the Internet Archive's copies of the 2024 pages. Each operator's page as the Internet Archive kept it in 2024 (Olympia Odos's copies of February and December 2024 show the same prices; Moreas's only readable copy is of February 2024). Aegean Motorway's Greek price page has no copy of 2024, so its stations aren't priced.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gr-2024-01-01.json"
+   "path": "gr-2024-01-01.json"
   },
   "required_features": ["type.point"]
  },

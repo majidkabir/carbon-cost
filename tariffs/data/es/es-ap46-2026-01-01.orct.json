@@ -20,7 +20,7 @@
   "method": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-46 Alto de las Pedrizas–Málaga, per barrier (Troncal de Casabermeja): Pesados 1 (two or three axles) EUR 4.9587 and Pesados 2 (four axles or more) 7.1901 in the low season, 6.2810 and 9.3802 in the high season, excluding 21% IVA; free for trucks from 22:00 to 08:00. High season: May to October, every Saturday and Sunday, and the 17 days from Viernes de Dolores to the Sunday after Easter. Barriers placed at OpenStreetMap's toll plazas on the motorway, its only plaza.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap46-2026-01-01.json"
+   "path": "es-ap46-2026-01-01.json"
   },
   "required_features": ["time_classes", "type.point"]
  },

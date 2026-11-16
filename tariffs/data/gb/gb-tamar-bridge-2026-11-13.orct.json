@@ -19,7 +19,7 @@
   "method": "Tamar Bridge and Torpoint Ferry Joint Committee's tolls (Tamar Bridge Acts), payable one way, Saltash (Cornwall) to Plymouth (Devon): vehicles over 3.5 t with 2 axles GBP 7.3, 3 axles 12.0, 4 or more 16.5 (the 'Single' price; towing a trailer costs double, not modelled); with `etc` the TamarTag price. The page gives no date: valid_from is the day it was first read.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-tamar-bridge-2026-11-13.json"
+   "path": "gb-tamar-bridge-2026-11-13.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

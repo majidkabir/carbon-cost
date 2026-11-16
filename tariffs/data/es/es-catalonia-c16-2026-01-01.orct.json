@@ -20,7 +20,7 @@
   "method": "The Generalitat de Catalunya's toll rates for 2026 (yearly revision by Resolució under Decret 465/2004), category 4 (trucks with more than four wheels, or three axles; trucks over 3.5 t are taken to be), per passage either way, excluding 21% IVA: the Túnel del Cadí; the Túnels de Vallvidrera at the off-peak price (weekdays 7:30-10:30 and 17:00-21:00 cost more, priced off-peak with a note); the C-16 barriers of les Fonts (the weekday price only with Via-T or Satelise, so `etc`; else and at weekends the full price) and Sant Vicenç de Castellet (weekday and weekend prices; public holidays aren't modelled). The C-16 Manresa barrier and the C-32 barriers have no named booths in OpenStreetMap and aren't priced.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-catalonia-c16-2026-01-01.json"
+   "path": "es-catalonia-c16-2026-01-01.json"
   },
   "required_features": ["time_classes", "type.point", "user_classes"]
  },

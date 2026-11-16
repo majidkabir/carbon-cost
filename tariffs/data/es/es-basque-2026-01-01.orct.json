@@ -20,7 +20,7 @@
   "method": "Norma Foral 5/2021, de 3 de diciembre (Gipuzkoa), as amended by Norma Foral 6/2022: a canon on the N-I and A-15 along their whole length in Gipuzkoa, charged by free-flow gantries to goods vehicles over 3.5 t, Pesados 1 under 12 t and Pesados 2 from 12 t (article 7), by entry and exit, at Bidegi's 2026 tariffs (Pesados 2 from the Navarra border at Etzegarate to Lasarte-Oria EUR 13.31 with IVA), excluding 21% IVA here; 80% for EURO 6 and 85% for EURO 5 trucks registered with Bidegi with a TAG (article 8; 75% for electric, hybrid and gas trucks and the frequency discounts of article 8 bis are not modelled). Stations: each carriageway's stretch between two of the tariff's entries and exits, at its middle and in its direction; the entries and exits placed at their PK along the OpenStreetMap carriageways, the PK fitted to the junctions' exit numbers, or at the junction itself where its exit number is the station's alone.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-basque-2026-01-01.json"
+   "path": "es-basque-2026-01-01.json"
   },
   "required_features": ["rule.discount", "type.od"]
  },

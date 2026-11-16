@@ -20,7 +20,7 @@
   "method": "Tunnel routier du Fréjus: SFTRF's prices on the French platform from 2024-01-01, one way, EUR including 20% VAT, here excluding it; class 3 (two axles) and 4 (three or more), over 3 m high. Truck prices are given for EURO 5 and 6. Built from the Internet Archive's copies of the 2024 pages.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "frejus-2024-01-01.json"
+   "path": "frejus-2024-01-01.json"
   },
   "required_features": ["type.od"]
  },

@@ -20,7 +20,7 @@
   "method": "BEHG § 10 (2): 2026 certificates are auctioned in a corridor of 55 to 65 euro. This is the volume-weighted clearing price of the 11 auctions EEX held (01.07.2026 to 09.09.2026; clearing prices 65 euro). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "fuelco2-de-2026-01-01.json"
+   "path": "fuelco2-de-2026-01-01.json"
   },
   "required_features": ["type.quantity"]
  },

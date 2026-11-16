@@ -20,7 +20,7 @@
   "method": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 4° as published: the daily charge, administrative costs included, is 12 euros for every category of vehicle from 1 July 2019, for goods vehicles of 12 t or more. Replaced on 25 March 2025 by the amounts by CO2 class (RGD of 18 December 2024).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "lu-2019-07-01.json"
+   "path": "lu-2019-07-01.json"
   },
   "required_features": ["type.period"]
  },

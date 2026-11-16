@@ -20,7 +20,7 @@
   "method": "Schwerverkehrsabgabeverordnung (SVAV, SR 641.811) of 6 March 2000, Art. 14 and Annex 1 as in force in 2024: 3.10 / 2.69 / 2.28 Rappen per tonne-km for fee categories 1 / 2 / 3 until 31 December 2024; EURO 0-V in category 1, EURO VI in category 3; chargeable weight at most 40 t.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ch-2024-01-01.json"
+   "path": "ch-2024-01-01.json"
   },
   "required_features": ["rule.exemption", "type.distance"]
  },

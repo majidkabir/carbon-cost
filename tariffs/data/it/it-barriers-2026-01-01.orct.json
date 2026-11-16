@@ -20,7 +20,7 @@
   "method": "Milano Serravalle - Milano Tangenziali's tolls from 1 January 2026 at the barriers of its semi-closed ring roads, a fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction). The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "it-barriers-2026-01-01.json"
+   "path": "it-barriers-2026-01-01.json"
   },
   "required_features": ["type.point"]
  },

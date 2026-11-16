@@ -21,7 +21,7 @@
   "method": "Viapass rate grid ed. 01/07/2026, Flanders (with the CO2 class element from 1 July 2026). The published rates are totals: the CO2 part is not shown separately.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-vlg-2026-07-01.json"
+   "path": "be-vlg-2026-07-01.json"
   },
   "required_features": ["type.distance"]
  },

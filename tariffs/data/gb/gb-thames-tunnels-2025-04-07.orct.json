@@ -20,7 +20,7 @@
   "method": "The Silvertown Tunnel Order 2018 (user charges set by TfL): heavy goods vehicles (N2, N3) pay GBP 10.00 per crossing either way, 06:00-22:00 every day except Christmas Day, paid online or by phone; with `etc` the Auto Pay off-peak price, GBP 5.00 (Auto Pay's peak, weekdays 06:00-10:00 northbound and 16:00-19:00 southbound, is the full price, not modelled). From the tunnel's opening; TfL's press release of 23 July 2026 gives these as the charges before 21 September 2026.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-thames-tunnels-2025-04-07.json"
+   "path": "gb-thames-tunnels-2025-04-07.json"
   },
   "required_features": ["time_classes", "type.point", "user_classes"]
  },

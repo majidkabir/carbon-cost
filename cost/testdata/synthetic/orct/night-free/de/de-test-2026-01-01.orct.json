@@ -19,7 +19,7 @@
   "method": "test law",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "de-test-2026-01-01.json"
+   "path": "de-test-2026-01-01.json"
   },
   "required_features": ["time_classes", "type.point"]
  },

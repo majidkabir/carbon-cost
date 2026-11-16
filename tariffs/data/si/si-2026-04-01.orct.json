@@ -20,7 +20,7 @@
   "method": "Cenik cestnine za uporabo cestninskih cest (Uradni list RS, št. 76/25, 102/25, 139/26 in 1771/26), Annex: infrastructure charge per toll section, toll class and EURO / CO2 class, in euros excluding VAT (22% VAT is charged on the toll).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "si-2026-04-01.json"
+   "path": "si-2026-04-01.json"
   },
   "required_features": ["type.section"]
  },

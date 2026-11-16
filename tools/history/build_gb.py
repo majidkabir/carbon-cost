@@ -6,7 +6,7 @@ Those copies don't say "Levy rates from"; the page's own update history
 dates the rates: "1 August 2023 First published" (the reformed levy) and
 "1 April 2025 Levy rates increased in line with UK inflation". A copy's
 rates start at its latest such entry; a table ends the day before the
-next one starts (the current table, from 1 April 2026, is in rates/data).
+next one starts (the current dataset, from 1 April 2026, is in tariffs/data).
 
 Usage: python3 build_gb.py fetched/ out-dir
 """

@@ -20,7 +20,7 @@
   "method": "Nařízení vlády č. 240/2014 Sb., Annexes 1 and 2 as worded by čl. I bod 13 of nařízení vlády č. 40/2024 Sb., in force 25 March to 31 December 2024: one rate per km by road category, maximum permissible mass, axles, CO2 emission class and, in CO2 class 1, EURO class (0-IV; V and EEV; VI); the regulation gives no separate CO2 part.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "cz-2024-03-25.json"
+   "path": "cz-2024-03-25.json"
   },
   "required_features": ["type.distance"]
  },

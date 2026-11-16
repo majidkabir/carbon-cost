@@ -21,7 +21,7 @@
   "method": "Viapass rate grid from 1 January 2024, Wallonia (SOFICO), excluding VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-wal-2024-01-01.json"
+   "path": "be-wal-2024-01-01.json"
   },
   "required_features": ["type.distance"]
  },

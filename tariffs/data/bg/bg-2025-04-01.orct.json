@@ -20,7 +20,7 @@
   "method": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, т. 1 as amended by Постановление № 20 от 31 март 2025 г. (ДВ бр. 28 от 01.04.2025), in force 1 April to 31 August 2025 (§ 5: т. 2 from 1 September 2025): BGN/km by vehicle category, EURO class and road class. No VAT is charged.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "bg-2025-04-01.json"
+   "path": "bg-2025-04-01.json"
   },
   "required_features": ["type.distance"]
  },

@@ -20,7 +20,7 @@
   "method": "Bundesfernstraßenmautgesetz (BFStrMG) § 14 Abs. 10 and Anlage 11, as inserted by Artikel 2 of the Drittes Gesetz zur Änderung mautrechtlicher Vorschriften (BGBl. 2023 I Nr. 315): the toll rates from 1 December 2023 to 30 June 2024, for vehicles of 7.5 t or more (the toll covered lighter trucks only from 1 July 2024).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "de-2023-12-01.json"
+   "path": "de-2023-12-01.json"
   },
   "required_features": ["rule.exemption", "type.distance"]
  },

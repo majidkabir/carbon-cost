@@ -19,7 +19,7 @@
   "method": "Tunnel du Grand-Saint-Bernard (SISEX SA, Swiss side; SITRASB S.p.A., Italian side): one-way tariff from 2026-02-01, paid at the plaza where the trip enters, in CHF on the Swiss side and EUR on the Italian side: trucks over 3 m high with 2 axles (class B2), 3 axles (3A) or 4 or more (4). Trucks over 3.5 t are taken to be over 3 m high.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "it-great-st-bernard-2026-02-01.json"
+   "path": "it-great-st-bernard-2026-02-01.json"
   },
   "required_features": ["type.point"]
  },

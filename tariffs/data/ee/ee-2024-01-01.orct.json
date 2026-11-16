@@ -20,7 +20,7 @@
   "method": "Liiklusseadus § 190^1-190^13; rates in § 190^3 (as amended, RT I, 22.12.2023, 1): a time-based charge in euro for 24 hours, 7, 30, 90 or 365 days, by the summed maximum masses of the truck and trailer (over 3.5 to 12 t, over 12 t), their total axles and the truck's EURO class; the zero-emission rates came into force on 2026-01-01; until then zero-emission trucks paid by EURO class. The table keeps the 24-hour rate. A fee, without VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ee-2024-01-01.json"
+   "path": "ee-2024-01-01.json"
   },
   "required_features": ["type.period"]
  },

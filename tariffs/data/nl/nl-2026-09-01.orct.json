@@ -20,7 +20,7 @@
   "method": "Goedkeurend beleidsbesluit tijdelijke verlaging tarieven Wet vrachtwagenheffing, IENW/BSK-2026/84850, art. 1 (Staatscourant 2026, 18058): 22.3% below the statutory rates",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-2026-09-01.json"
+   "path": "nl-2026-09-01.json"
   },
   "required_features": ["type.distance"]
  },

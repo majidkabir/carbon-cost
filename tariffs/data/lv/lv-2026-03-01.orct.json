@@ -19,7 +19,7 @@
   "method": "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "lv-2026-03-01.json"
+   "path": "lv-2026-03-01.json"
   },
   "required_features": ["type.period"]
  },

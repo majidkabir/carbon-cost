@@ -21,7 +21,7 @@
   "method": "Viapass rate grid Viapass ed. 01/07/2025, Flanders; zero-emission rates from 1 January 2026 (80% of the infrastructure part).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "be-vlg-2026-01-01.json"
+   "path": "be-vlg-2026-01-01.json"
   },
   "required_features": ["type.distance"]
  },

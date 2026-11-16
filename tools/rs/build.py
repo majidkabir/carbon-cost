@@ -1,4 +1,4 @@
-"""Builds rates/data/rs-2026-07-01.json from JP Putevi Srbije's toll price
+"""Builds the table rs-2026-07-01.json (converted to tariffs/data/rs/) from JP Putevi Srbije's toll price
 list (cene_putarina_lat.pdf, as pdftotext -layout text) and Serbia's
 OpenStreetMap toll booths (osmium geojsonseq).
 

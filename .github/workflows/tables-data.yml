@@ -138,7 +138,9 @@ jobs:
         # (tariffs/data).
         run: |
           mkdir -p tables-only && cp out/tables/*.json tables-only/ && rm -f tables-only/hu-annex1.json
-          python3 tools/orct/convert.py tables-only out/orct --commit "$GITHUB_SHA" && rm -rf tables-only
+          python3 tools/orct/convert.py tables-only out/orct --commit "$GITHUB_SHA"
+          python3 tools/orct/check_lossless.py tables-only out/orct
+          rm -rf tables-only
       - name: Compare with the committed datasets
         run: |
           cmp -s out/tables/hu-annex1.json tools/roads/hu-annex1.json && echo "hu-annex1.json: same as committed" || echo "::warning title=hu-annex1.json::differs from tools/roads/hu-annex1.json"

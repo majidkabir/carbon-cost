@@ -19,7 +19,7 @@
   "method": "Uredba o visini putarine (Službeni glasnik Republike Srpske 89/19), article 4(1), as JP Autoputevi Republike Srpske's price list at each toll station gives it (published as images, uploaded 2 October 2024, transcribed by hand): by entry and exit station either way, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. valid_from is the price lists' upload date.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ba-rs-2024-10-02.json"
+   "path": "ba-rs-2024-10-02.json"
   },
   "required_features": ["type.od"]
  },

@@ -20,7 +20,7 @@
   "method": "Ustawa o drogach publicznych, art. 13ha; the rates for 2025 announced in M.P. 2024 poz. 1037: annex 1 (class A and S roads) and annex 2 (class GP and G roads), by permissible total mass (with trailer: over 3.5 t and under 12 t; 12 t or more) and EURO class (max. EURO 2, EURO 3, EURO 4, min. EURO 5); no CO2 component.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "pl-2025-01-01.json"
+   "path": "pl-2025-01-01.json"
   },
   "required_features": ["type.distance"]
  },

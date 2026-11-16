@@ -1,8 +1,7 @@
 {
  "orct": "0.2",
  "derived_from": {
-  "url": "https://github.com/majidkabir/carbon-cost",
-  "commit": null
+  "url": "https://github.com/majidkabir/carbon-cost"
  },
  "datasets": [
   {
@@ -13,7 +12,7 @@
    "name": "test",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "a7b570d546b900c90a46779aa91bcb11a345d593c8d7a6ae8a5d7463632d8d67",
+   "sha256": "989963da68c00388e98f9c03f5829a301b2beacc03070263c279b9fddfc8dd7d",
    "coverage": "complete"
   }
  ]

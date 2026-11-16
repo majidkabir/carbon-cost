@@ -20,7 +20,7 @@
   "method": "The concessionaire's tariffs in force from 1 January 2026, as its tariff sheet gives them by entry and exit: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), the single tariff, excluding 21% IVA. Stations placed at OpenStreetMap's motorway junctions of the exit numbers the sheet's map gives them; Ávila (the AP-51's end) is priced as Vicolozano, at the same prices.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-castellana-2026-01-01.json"
+   "path": "es-castellana-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

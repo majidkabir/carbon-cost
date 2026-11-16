@@ -19,7 +19,7 @@
   "method": "The Kiltunnel's toll (Dordrecht–Hoeksche Waard) per passage, either way, for vehicles over 2.30 m high including load (trucks over 3.5 t are taken to be): EUR 5 cash, with `etc` the Telecard price, EUR 3.8. The page gives no date: valid_from is the day it was first read.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-kiltunnel-2026-11-13.json"
+   "path": "nl-kiltunnel-2026-11-13.json"
   },
   "required_features": ["type.point", "user_classes"]
  },

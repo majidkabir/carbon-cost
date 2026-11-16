@@ -20,7 +20,7 @@
   "method": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-66 Campomanes–León (Aucalsa), by pair of stations either way: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), excluding 21% IVA, with the heavy-vehicle reductions of RD 1341/2024 the table applies. Stations placed at the concessionaire's own map of its toll plazas and accesses.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-ap66-2026-01-01.json"
+   "path": "es-ap66-2026-01-01.json"
   },
   "required_features": ["type.od"]
  },

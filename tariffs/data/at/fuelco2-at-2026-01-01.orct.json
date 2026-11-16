@@ -20,7 +20,7 @@
   "method": "NEHG 2022 § 10: certificate value of 55 euro per tonne of CO2 in 2026, as the Federal Ministry of Finance gives it for the fixed-price phase (the law's table ends at 2025). Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "fuelco2-at-2026-01-01.json"
+   "path": "fuelco2-at-2026-01-01.json"
   },
   "required_features": ["type.quantity"]
  },

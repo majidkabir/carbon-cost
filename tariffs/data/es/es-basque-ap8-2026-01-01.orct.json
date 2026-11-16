@@ -20,7 +20,7 @@
   "method": "Bidegi's tariff sheet in force from 1 January 2026 (Interbiak's and Bidegi's AP-8 and AP-1, Pesados 1 and 2, VAT included; Pesados 2 from Bilbao's western access to Zarautz's main plaza towards Donostia EUR 30.38): by entry and exit, either way, excluding 21% VAT. Stations: each carriageway's stretch between two consecutive entries/exits, placed at the OpenStreetMap junctions whose exits are signposted to them, Bilbao's western access and Etxabarri-Ibiña at the motorways' ends, Zarautz's main plaza and Donostia's eastern plaza at the toll booths on the carriageway; not placed (a trip from or to one priced from the next station): Luko, Oñaurre. AP-636: each section's price (either way) at the first Bidegi gantry on it going from Beasain (OpenStreetMap's gantries named Beasain, Ezkio, Deskarga); the sheet's Legazpi/Urretxu – Antzuola price by tag isn't modelled (a trip from Legazpi to Antzuola is charged Legazpi – Bergara, one from Antzuola to Bergara nothing). Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-basque-ap8-2026-01-01.json"
+   "path": "es-basque-ap8-2026-01-01.json"
   },
   "required_features": ["type.od", "type.point"]
  },

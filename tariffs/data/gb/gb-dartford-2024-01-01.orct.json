@@ -20,7 +20,7 @@
   "method": "The A282 Trunk Road (Dartford-Thurrock Crossing Charging Scheme) Order 2013 (S.I. 2013/2249), Schedule 2 column 4 (free-flow charging): class C (goods vehicles with two axles) and D (more than two axles), per crossing either way, from 6am to 10pm (GOV.UK).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "gb-dartford-2024-01-01.json"
+   "path": "gb-dartford-2024-01-01.json"
   },
   "required_features": ["time_classes", "type.point"]
  },

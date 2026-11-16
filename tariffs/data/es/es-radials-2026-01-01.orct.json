@@ -20,7 +20,7 @@
   "method": "Acuerdo del Consejo de Ministros de 9 de diciembre de 2025 (BOE 18/12/2025) and the Secretaría General de Transporte Terrestre's resolution of 10 December 2025: SEITT's 2026 tariffs by entry and exit, Pesados 1 (two or three axles) and Pesados 2 (four or more), cash prices, tag prices for trucks paying by Vía-T (etc), excluding 21% IVA; free from 00:00 to 06:00. Stations: each carriageway's stretch between two consecutive entries/exits, the entries/exits placed at the OpenStreetMap junctions whose exits are signposted to the places and roads they're named after, in the tariff's order; not placed (a trip from or to one priced from the next placed station): R-4 Madrid – Ocaña: Pinto-Parla; R-4 Madrid – Ocaña: Villaseca Sagra (CM 4001); R-4 Madrid – Ocaña: Ontígola; open plazas not built: R-2 Madrid – Guadalajara: Aeropuerto; R-2 Madrid – Guadalajara: Alcobendas.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-radials-2026-01-01.json"
+   "path": "es-radials-2026-01-01.json"
   },
   "required_features": ["time_classes", "type.od", "user_classes"]
  },

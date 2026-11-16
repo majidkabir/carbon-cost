@@ -20,7 +20,7 @@
   "method": "Legea nr. 226/2023 (TollRo from 1 October 2026, art. 29 as prorogued by Legea nr. 103/2026): TollRo is the unit rate times the km driven on the SETRE România network. Unit rates in lei/km including 21% VAT from Ordinul MTI nr. 1.925/2025 (Monitorul Oficial nr. 940/2025), by maximum authorised mass (I over 3.5 to 7.5 t, II over 7.5 to under 12 t, III 12 t and over), road category (motorways and expressways, or national roads) and EURO class. Ordinul MTI nr. 959/2026 replaced the annex from 8 October 2026 keeping these rates and adding a rate for electric trucks; the 1.925/2025 annex had none, so electric trucks are priced at the EURO VI rate here. Rates here exclude VAT (divided by 1.21).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ro-2026-10-01.json"
+   "path": "ro-2026-10-01.json"
   },
   "required_features": ["type.distance"]
  },

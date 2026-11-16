@@ -20,7 +20,7 @@
   "method": "The concessionaire's tariffs in force from 1 January 2026, as its tariff sheet gives them by entry and exit: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), the day tariff (07:00 to 23:00) and the night tariff (23:00 to 07:00, by the time the trip enters), excluding 21% IVA. Stations placed at OpenStreetMap's junctions of the exit numbers the sheet's map gives them, and León at the motorway's eastern end; Astorga is priced as San Justo de la Vega (same prices).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "es-aulesa-2026-01-01.json"
+   "path": "es-aulesa-2026-01-01.json"
   },
   "required_features": ["time_classes", "type.od"]
  },

@@ -19,7 +19,7 @@
   "method": "Wet vrachtwagenheffing art. 5 lid 1, amounts indexed for 2027 by Regeling IENW/BSK-2026/181678 (Staatscourant 2026, 33659): the rates of 1 July 2026 times the 2027 tabelcorrectiefactor (2.6%); the temporary 22.3% reduction ended on 31 December 2026",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "nl-2027-01-01.json"
+   "path": "nl-2027-01-01.json"
   },
   "required_features": ["type.distance"]
  },

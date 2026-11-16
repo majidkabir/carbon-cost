@@ -20,7 +20,7 @@
   "method": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 3 (A2 bridges between Fetești and Cernavodă; DN2A bridge between Giurgeni and Vadu Oii), tariffs from 8 September 2025 (OG nr. 23/2025) as CNAIR publishes them: one crossing either way, category 2 (over 3.5 to under 12 t), 3 (12 t and over, up to 3 axles), 4 (4 axles or more), lei excluding 21% VAT. OG 15/2002 was repealed when TollRo started on 1 October 2026. The Giurgiu–Ruse bridge (towards Ruse only) isn't priced.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "ro-danube-bridges-2025-09-08.json"
+   "path": "ro-danube-bridges-2025-09-08.json"
   },
   "required_features": ["type.point"]
  },

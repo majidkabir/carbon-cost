@@ -19,7 +19,7 @@
   "method": "Lag (2024:172) om infrastrukturavgifter på väg; Förordning (2014:1564) 4 §: a charge per passage of the bridges over Motalaviken, Sundsvallsfjärden and Skurusundet, at the amounts Transportstyrelsen publishes (heavy trucks over 3.5 t where they differ). Charged at each bridge's charging station (OpenStreetMap toll gantries), either direction. Swedish and foreign vehicles alike.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "table": "se-bridges-2024-05-01.json"
+   "path": "se-bridges-2024-05-01.json"
   },
   "required_features": ["type.point"]
  },

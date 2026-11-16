@@ -26,12 +26,22 @@ EXT = "io.github.majidkabir.carboncost"
 OSM_DATE = re.compile(r"(OpenStreetMap[^.;]{0,120}?)\d{4}-\d\d-\d\d(?:T[\d:]+Z)?")
 
 
+def placed(loc):
+    """Whether a location has a point to match routes to."""
+    g = (loc or {}).get("geometry") or {}
+    return bool(g.get("coordinates"))
+
+
 def osm_only(a, b, path=()):
-    """True if a and b differ only in OpenStreetMap's parts."""
+    """True if a and b (the committed dataset and the new one) differ only in
+    OpenStreetMap's parts. An object that loses its place (OpenStreetMap no
+    longer has its booths) is not: that is for review."""
     if path == ("extensions", EXT, "osm_extract"):
         return True
     if len(path) == 4 and path[0] == "charge_objects" and path[2] == "location" and path[3] in OSM_LOCATION:
         return True
+    if len(path) == 3 and path[0] == "charge_objects" and path[2] == "location" and placed(a) and not placed(b):
+        return False
     if type(a) is not type(b):
         return False
     if isinstance(a, dict):

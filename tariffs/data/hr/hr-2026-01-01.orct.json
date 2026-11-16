@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/hr/2026-01-01",
   "scheme": {
@@ -1258,9 +1258,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": []
+     "coordinates": [[13.86498, 44.94879], [13.8727, 44.95116], [13.87213, 44.95286]]
     },
-    "point_names": []
+    "point_names": ["booth", "junction", "junction"]
    }
   },
   {
@@ -1270,9 +1270,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": []
+     "coordinates": [[13.84521, 44.98327], [13.84458, 44.98827], [13.84679, 44.98641]]
     },
-    "point_names": []
+    "point_names": ["booth", "junction", "junction"]
    }
   },
   {

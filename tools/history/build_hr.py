@@ -1,8 +1,8 @@
 """Builds Croatia's toll tables from 1 January 2024 to 31 December 2025
 for Hrvatske autoceste's (HAC) motorways.
 
-The prices are the current ones (templates/hr-2026-01-01.json, HAC's
-price list): HAC hasn't changed its tolls for groups III and IV since
+The prices are the current ones (hr-2026-01-01.json as the HR data
+workflow builds it from HAC's price list): HAC hasn't changed its tolls for groups III and IV since
 they were converted to euros on 1 January 2023 (Pravilnik o izmjenama i
 dopunama Pravilnika o cestarini, NN 151/2022, art. 3: the converted
 price of each section is its unit price). The builder checks that: each

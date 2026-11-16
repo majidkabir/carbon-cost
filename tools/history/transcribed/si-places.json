@@ -1,0 +1,1812 @@
+{
+ "about": "Where Slovenia's toll sections start and end (section ends at motorway junctions, border points approximate), placed in November 2026, and each section's display name: the Uredba o cestninskih cestah in cestnini annex's name, in title case. In the annex's order, the Karavanke tunnel first. Everything else, prices, lengths and suburban/interurban type, comes from the official texts (build_si.py).",
+ "sections": [
+  {
+   "id": "karavanke",
+   "road": "A2",
+   "name": "Karavanke tunnel (Slovenian part)",
+   "from": {
+    "name": "State border in the Karavanke tunnel (approx., mid-tunnel)",
+    "lat": 46.5,
+    "lon": 14.02
+   },
+   "to": {
+    "name": "Hrušica",
+    "lat": 46.4454,
+    "lon": 14.0121
+   }
+  },
+  {
+   "id": "a1-001",
+   "name": "Meja Avstrija–Šentilj",
+   "from": {
+    "name": "Meja Avstrija",
+    "lat": 46.69294,
+    "lon": 15.64062
+   },
+   "to": {
+    "name": "Šentilj",
+    "lat": 46.6819,
+    "lon": 15.6512
+   }
+  },
+  {
+   "id": "a1-002",
+   "name": "Šentilj–Pesnica",
+   "from": {
+    "name": "Šentilj",
+    "lat": 46.6819,
+    "lon": 15.6512
+   },
+   "to": {
+    "name": "Pesnica",
+    "lat": 46.6007,
+    "lon": 15.6644
+   }
+  },
+  {
+   "id": "a1-003",
+   "name": "Pesnica–Dragučova",
+   "from": {
+    "name": "Pesnica",
+    "lat": 46.6007,
+    "lon": 15.6644
+   },
+   "to": {
+    "name": "Dragučova",
+    "lat": 46.5856,
+    "lon": 15.6879
+   }
+  },
+  {
+   "id": "a1-004",
+   "name": "Dragučova–MB (Zrkovska)",
+   "from": {
+    "name": "Dragučova",
+    "lat": 46.5856,
+    "lon": 15.6879
+   },
+   "to": {
+    "name": "Mb (Zrkovska)",
+    "lat": 46.5459,
+    "lon": 15.6944
+   }
+  },
+  {
+   "id": "a1-005",
+   "name": "MB (Zrkovska–Ptujska)",
+   "from": {
+    "name": "Mb (Zrkovska)",
+    "lat": 46.5459,
+    "lon": 15.6944
+   },
+   "to": {
+    "name": "Mb (Ptujska)",
+    "lat": 46.5205,
+    "lon": 15.6859
+   }
+  },
+  {
+   "id": "a1-006",
+   "name": "MB (Ptujska)–Rogoza",
+   "from": {
+    "name": "Mb (Ptujska)",
+    "lat": 46.5205,
+    "lon": 15.6859
+   },
+   "to": {
+    "name": "Rogoza",
+    "lat": 46.5005,
+    "lon": 15.6697
+   }
+  },
+  {
+   "id": "a1-007",
+   "name": "Rogoza–Slivnica",
+   "from": {
+    "name": "Rogoza",
+    "lat": 46.5005,
+    "lon": 15.6697
+   },
+   "to": {
+    "name": "Slivnica",
+    "lat": 46.4821,
+    "lon": 15.6581
+   }
+  },
+  {
+   "id": "a1-008",
+   "name": "Slivnica–Fram",
+   "from": {
+    "name": "Slivnica",
+    "lat": 46.4821,
+    "lon": 15.6581
+   },
+   "to": {
+    "name": "Fram",
+    "lat": 46.4501,
+    "lon": 15.6503
+   }
+  },
+  {
+   "id": "a1-009",
+   "name": "Fram–Sl. Bistrica Sever",
+   "from": {
+    "name": "Fram",
+    "lat": 46.4501,
+    "lon": 15.6503
+   },
+   "to": {
+    "name": "Sl. Bistrica Sever",
+    "lat": 46.3963,
+    "lon": 15.5997
+   }
+  },
+  {
+   "id": "a1-010",
+   "name": "Sl. Bistrica Sever–Sl. Bistrica Jug",
+   "from": {
+    "name": "Sl. Bistrica Sever",
+    "lat": 46.3963,
+    "lon": 15.5997
+   },
+   "to": {
+    "name": "Sl. Bistrica Jug",
+    "lat": 46.383,
+    "lon": 15.5728
+   }
+  },
+  {
+   "id": "a1-011",
+   "name": "Sl. Bistrica Jug–Sl. Konjice",
+   "from": {
+    "name": "Sl. Bistrica Jug",
+    "lat": 46.383,
+    "lon": 15.5728
+   },
+   "to": {
+    "name": "Sl. Konjice",
+    "lat": 46.34,
+    "lon": 15.4773
+   }
+  },
+  {
+   "id": "a1-012",
+   "name": "Sl. Konjice–Dramlje",
+   "from": {
+    "name": "Sl. Konjice",
+    "lat": 46.34,
+    "lon": 15.4773
+   },
+   "to": {
+    "name": "Dramlje",
+    "lat": 46.2634,
+    "lon": 15.3918
+   }
+  },
+  {
+   "id": "a1-013",
+   "name": "Dramlje–Ljubečna",
+   "from": {
+    "name": "Dramlje",
+    "lat": 46.2634,
+    "lon": 15.3918
+   },
+   "to": {
+    "name": "Ljubečna",
+    "lat": 46.2543,
+    "lon": 15.3114
+   }
+  },
+  {
+   "id": "a1-014",
+   "name": "Ljubečna–Celje",
+   "from": {
+    "name": "Ljubečna",
+    "lat": 46.2543,
+    "lon": 15.3114
+   },
+   "to": {
+    "name": "Celje",
+    "lat": 46.2546,
+    "lon": 15.2832
+   }
+  },
+  {
+   "id": "a1-015",
+   "name": "Celje–Celje Zahod",
+   "from": {
+    "name": "Celje",
+    "lat": 46.2546,
+    "lon": 15.2832
+   },
+   "to": {
+    "name": "Celje Zahod",
+    "lat": 46.2626,
+    "lon": 15.2199
+   }
+  },
+  {
+   "id": "a1-016",
+   "name": "Celje Zahod–Arja Vas",
+   "from": {
+    "name": "Celje Zahod",
+    "lat": 46.2626,
+    "lon": 15.2199
+   },
+   "to": {
+    "name": "Arja Vas",
+    "lat": 46.2682,
+    "lon": 15.1909
+   }
+  },
+  {
+   "id": "a1-017",
+   "name": "Arja Vas–Šempeter",
+   "from": {
+    "name": "Arja Vas",
+    "lat": 46.2682,
+    "lon": 15.1909
+   },
+   "to": {
+    "name": "Šempeter",
+    "lat": 46.2597,
+    "lon": 15.099
+   }
+  },
+  {
+   "id": "a1-018",
+   "name": "Šempeter–Šentrupert",
+   "from": {
+    "name": "Šempeter",
+    "lat": 46.2597,
+    "lon": 15.099
+   },
+   "to": {
+    "name": "Šentrupert",
+    "lat": 46.2593,
+    "lon": 15.0717
+   }
+  },
+  {
+   "id": "a1-019",
+   "name": "Šentrupert–Vransko",
+   "from": {
+    "name": "Šentrupert",
+    "lat": 46.2593,
+    "lon": 15.0717
+   },
+   "to": {
+    "name": "Vransko",
+    "lat": 46.2508,
+    "lon": 14.9718
+   }
+  },
+  {
+   "id": "a1-020",
+   "name": "Vransko–Trojane",
+   "from": {
+    "name": "Vransko",
+    "lat": 46.2508,
+    "lon": 14.9718
+   },
+   "to": {
+    "name": "Trojane",
+    "lat": 46.1924,
+    "lon": 14.9007
+   }
+  },
+  {
+   "id": "a1-021",
+   "name": "Trojane–Blagovica",
+   "from": {
+    "name": "Trojane",
+    "lat": 46.1924,
+    "lon": 14.9007
+   },
+   "to": {
+    "name": "Blagovica",
+    "lat": 46.1732,
+    "lon": 14.7897
+   }
+  },
+  {
+   "id": "a1-022",
+   "name": "Blagovica–Lukovica",
+   "from": {
+    "name": "Blagovica",
+    "lat": 46.1732,
+    "lon": 14.7897
+   },
+   "to": {
+    "name": "Lukovica",
+    "lat": 46.1664,
+    "lon": 14.6915
+   }
+  },
+  {
+   "id": "a1-023",
+   "name": "Lukovica–Krtina",
+   "from": {
+    "name": "Lukovica",
+    "lat": 46.1664,
+    "lon": 14.6915
+   },
+   "to": {
+    "name": "Krtina",
+    "lat": 46.1536,
+    "lon": 14.6499
+   }
+  },
+  {
+   "id": "a1-024",
+   "name": "Krtina–Domžale",
+   "from": {
+    "name": "Krtina",
+    "lat": 46.1536,
+    "lon": 14.6499
+   },
+   "to": {
+    "name": "Domžale",
+    "lat": 46.1349,
+    "lon": 14.6163
+   }
+  },
+  {
+   "id": "a1-025",
+   "name": "Domžale–Šentjakob",
+   "from": {
+    "name": "Domžale",
+    "lat": 46.1349,
+    "lon": 14.6163
+   },
+   "to": {
+    "name": "Šentjakob",
+    "lat": 46.0912,
+    "lon": 14.5868
+   }
+  },
+  {
+   "id": "a1-026",
+   "name": "Šentjakob–Sneberje",
+   "from": {
+    "name": "Šentjakob",
+    "lat": 46.0912,
+    "lon": 14.5868
+   },
+   "to": {
+    "name": "Sneberje",
+    "lat": 46.0818,
+    "lon": 14.5826
+   }
+  },
+  {
+   "id": "a1-027",
+   "name": "Sneberje–LJ (Zadobrova)",
+   "from": {
+    "name": "Sneberje",
+    "lat": 46.0818,
+    "lon": 14.5826
+   },
+   "to": {
+    "name": "Lj (Zadobrova)",
+    "lat": 46.0676,
+    "lon": 14.5766
+   }
+  },
+  {
+   "id": "a1-028",
+   "name": "LJ (Zadobrova–Zaloška)",
+   "from": {
+    "name": "Lj (Zadobrova)",
+    "lat": 46.0676,
+    "lon": 14.5766
+   },
+   "to": {
+    "name": "Lj (Zaloška)",
+    "lat": 46.0546,
+    "lon": 14.5739
+   }
+  },
+  {
+   "id": "a1-029",
+   "name": "LJ (Zaloška–Litijska)",
+   "from": {
+    "name": "Lj (Zaloška)",
+    "lat": 46.0546,
+    "lon": 14.5739
+   },
+   "to": {
+    "name": "Lj (Litijska)",
+    "lat": 46.0435,
+    "lon": 14.5766
+   }
+  },
+  {
+   "id": "a1-030",
+   "name": "LJ (Litijska–Malence)",
+   "from": {
+    "name": "Lj (Litijska)",
+    "lat": 46.0435,
+    "lon": 14.5766
+   },
+   "to": {
+    "name": "Lj (Malence)",
+    "lat": 46.0145,
+    "lon": 14.5557
+   }
+  },
+  {
+   "id": "a1-031",
+   "name": "LJ (Malence–Peruzzijeva)",
+   "from": {
+    "name": "Lj (Malence)",
+    "lat": 46.0145,
+    "lon": 14.5557
+   },
+   "to": {
+    "name": "Lj (Peruzzijeva)",
+    "lat": 46.0177,
+    "lon": 14.5238
+   }
+  },
+  {
+   "id": "a1-032",
+   "name": "LJ (Peruzzijeva–Barjanska)",
+   "from": {
+    "name": "Lj (Peruzzijeva)",
+    "lat": 46.0177,
+    "lon": 14.5238
+   },
+   "to": {
+    "name": "Lj (Barjanska)",
+    "lat": 46.0258,
+    "lon": 14.4973
+   }
+  },
+  {
+   "id": "a1-033",
+   "name": "LJ (Barjanska–Kozarje)",
+   "from": {
+    "name": "Lj (Barjanska)",
+    "lat": 46.0258,
+    "lon": 14.4973
+   },
+   "to": {
+    "name": "Lj (Kozarje)",
+    "lat": 46.037,
+    "lon": 14.4522
+   }
+  },
+  {
+   "id": "a1-034",
+   "name": "LJ (Kozarje)–Brezovica",
+   "from": {
+    "name": "Lj (Kozarje)",
+    "lat": 46.037,
+    "lon": 14.4522
+   },
+   "to": {
+    "name": "Brezovica",
+    "lat": 46.0253,
+    "lon": 14.4322
+   }
+  },
+  {
+   "id": "a1-035",
+   "name": "Brezovica–Dragomer",
+   "from": {
+    "name": "Brezovica",
+    "lat": 46.0253,
+    "lon": 14.4322
+   },
+   "to": {
+    "name": "Dragomer",
+    "lat": 46.0195,
+    "lon": 14.4008
+   }
+  },
+  {
+   "id": "a1-036",
+   "name": "Dragomer–Vrhnika",
+   "from": {
+    "name": "Dragomer",
+    "lat": 46.0195,
+    "lon": 14.4008
+   },
+   "to": {
+    "name": "Vrhnika",
+    "lat": 45.968,
+    "lon": 14.3048
+   }
+  },
+  {
+   "id": "a1-037",
+   "name": "Vrhnika–Logatec",
+   "from": {
+    "name": "Vrhnika",
+    "lat": 45.968,
+    "lon": 14.3048
+   },
+   "to": {
+    "name": "Logatec",
+    "lat": 45.9079,
+    "lon": 14.2576
+   }
+  },
+  {
+   "id": "a1-038",
+   "name": "Logatec–Unec",
+   "from": {
+    "name": "Logatec",
+    "lat": 45.9079,
+    "lon": 14.2576
+   },
+   "to": {
+    "name": "Unec",
+    "lat": 45.8248,
+    "lon": 14.2876
+   }
+  },
+  {
+   "id": "a1-039",
+   "name": "Unec–Postojna",
+   "from": {
+    "name": "Unec",
+    "lat": 45.8248,
+    "lon": 14.2876
+   },
+   "to": {
+    "name": "Postojna",
+    "lat": 45.7605,
+    "lon": 14.1985
+   }
+  },
+  {
+   "id": "a1-040",
+   "name": "Postojna–Razdrto",
+   "from": {
+    "name": "Postojna",
+    "lat": 45.7605,
+    "lon": 14.1985
+   },
+   "to": {
+    "name": "Razdrto",
+    "lat": 45.7593,
+    "lon": 14.075
+   }
+  },
+  {
+   "id": "a1-041",
+   "name": "Razdrto–Razcep Nanos",
+   "from": {
+    "name": "Razdrto",
+    "lat": 45.7593,
+    "lon": 14.075
+   },
+   "to": {
+    "name": "Razcep Nanos",
+    "lat": 45.7588,
+    "lon": 14.0574
+   }
+  },
+  {
+   "id": "a1-042",
+   "name": "Razcep Nanos–Senožeče",
+   "from": {
+    "name": "Razcep Nanos",
+    "lat": 45.7588,
+    "lon": 14.0574
+   },
+   "to": {
+    "name": "Senožeče",
+    "lat": 45.7225,
+    "lon": 14.0104
+   }
+  },
+  {
+   "id": "a1-043",
+   "name": "Senožeče–Gabrk",
+   "from": {
+    "name": "Senožeče",
+    "lat": 45.7225,
+    "lon": 14.0104
+   },
+   "to": {
+    "name": "Gabrk",
+    "lat": 45.6962,
+    "lon": 13.9809
+   }
+  },
+  {
+   "id": "a1-044",
+   "name": "Gabrk–Divača",
+   "from": {
+    "name": "Gabrk",
+    "lat": 45.6962,
+    "lon": 13.9809
+   },
+   "to": {
+    "name": "Divača",
+    "lat": 45.6664,
+    "lon": 13.9676
+   }
+  },
+  {
+   "id": "a1-045",
+   "name": "Divača–Kozina",
+   "from": {
+    "name": "Divača",
+    "lat": 45.6664,
+    "lon": 13.9676
+   },
+   "to": {
+    "name": "Kozina",
+    "lat": 45.6128,
+    "lon": 13.9366
+   }
+  },
+  {
+   "id": "a1-046",
+   "name": "Kozina–Kastelec",
+   "from": {
+    "name": "Kozina",
+    "lat": 45.6128,
+    "lon": 13.9366
+   },
+   "to": {
+    "name": "Kastelec",
+    "lat": 45.5727,
+    "lon": 13.8704
+   }
+  },
+  {
+   "id": "a1-047",
+   "name": "Kastelec–Črni Kal",
+   "from": {
+    "name": "Kastelec",
+    "lat": 45.5727,
+    "lon": 13.8704
+   },
+   "to": {
+    "name": "Črni Kal",
+    "lat": 45.5539,
+    "lon": 13.8559
+   }
+  },
+  {
+   "id": "a1-048",
+   "name": "Črni Kal–Srmin",
+   "from": {
+    "name": "Črni Kal",
+    "lat": 45.5539,
+    "lon": 13.8559
+   },
+   "to": {
+    "name": "Srmin",
+    "lat": 45.5551,
+    "lon": 13.7783
+   }
+  },
+  {
+   "id": "a2-049",
+   "name": "Hrušica–Lipce",
+   "from": {
+    "name": "Hrušica",
+    "lat": 46.4454,
+    "lon": 14.0121
+   },
+   "to": {
+    "name": "Lipce",
+    "lat": 46.4158,
+    "lon": 14.0927
+   }
+  },
+  {
+   "id": "a2-050",
+   "name": "Lipce–Lesce",
+   "from": {
+    "name": "Lipce",
+    "lat": 46.4158,
+    "lon": 14.0927
+   },
+   "to": {
+    "name": "Lesce",
+    "lat": 46.3681,
+    "lon": 14.1606
+   }
+  },
+  {
+   "id": "a2-051",
+   "name": "Lesce–Radovljica",
+   "from": {
+    "name": "Lesce",
+    "lat": 46.3681,
+    "lon": 14.1606
+   },
+   "to": {
+    "name": "Radovljica",
+    "lat": 46.3393,
+    "lon": 14.191
+   }
+  },
+  {
+   "id": "a2-052",
+   "name": "Radovljica–Brezje",
+   "from": {
+    "name": "Radovljica",
+    "lat": 46.3393,
+    "lon": 14.191
+   },
+   "to": {
+    "name": "Brezje",
+    "lat": 46.3269,
+    "lon": 14.2189
+   }
+  },
+  {
+   "id": "a2-053",
+   "name": "Brezje–Podtabor",
+   "from": {
+    "name": "Brezje",
+    "lat": 46.3269,
+    "lon": 14.2189
+   },
+   "to": {
+    "name": "Podtabor",
+    "lat": 46.3088,
+    "lon": 14.2799
+   }
+  },
+  {
+   "id": "a2-054",
+   "name": "Podtabor–Naklo",
+   "from": {
+    "name": "Podtabor",
+    "lat": 46.3088,
+    "lon": 14.2799
+   },
+   "to": {
+    "name": "Naklo",
+    "lat": 46.2802,
+    "lon": 14.2959
+   }
+  },
+  {
+   "id": "a2-055",
+   "name": "Naklo–Kranj Zahod",
+   "from": {
+    "name": "Naklo",
+    "lat": 46.2802,
+    "lon": 14.2959
+   },
+   "to": {
+    "name": "Kranj Zahod",
+    "lat": 46.2667,
+    "lon": 14.3379
+   }
+  },
+  {
+   "id": "a2-056",
+   "name": "Kranj Zahod–Kranj Vzhod",
+   "from": {
+    "name": "Kranj Zahod",
+    "lat": 46.2667,
+    "lon": 14.3379
+   },
+   "to": {
+    "name": "Kranj Vzhod",
+    "lat": 46.2394,
+    "lon": 14.401
+   }
+  },
+  {
+   "id": "a2-057",
+   "name": "Kranj Vzhod–Brnik",
+   "from": {
+    "name": "Kranj Vzhod",
+    "lat": 46.2394,
+    "lon": 14.401
+   },
+   "to": {
+    "name": "Brnik",
+    "lat": 46.2194,
+    "lon": 14.4375
+   }
+  },
+  {
+   "id": "a2-058",
+   "name": "Brnik–Vodice",
+   "from": {
+    "name": "Brnik",
+    "lat": 46.2194,
+    "lon": 14.4375
+   },
+   "to": {
+    "name": "Vodice",
+    "lat": 46.1831,
+    "lon": 14.4836
+   }
+  },
+  {
+   "id": "a2-059",
+   "name": "Vodice–LJ (Šmartno)",
+   "from": {
+    "name": "Vodice",
+    "lat": 46.1831,
+    "lon": 14.4836
+   },
+   "to": {
+    "name": "Lj (Šmartno)",
+    "lat": 46.1227,
+    "lon": 14.4811
+   }
+  },
+  {
+   "id": "a2-060",
+   "name": "LJ (Šmartno–Šentvid)",
+   "from": {
+    "name": "Lj (Šmartno)",
+    "lat": 46.1227,
+    "lon": 14.4811
+   },
+   "to": {
+    "name": "Lj (Šentvid)",
+    "lat": 46.0975,
+    "lon": 14.4635
+   }
+  },
+  {
+   "id": "a2-061",
+   "name": "LJ (Šentvid–Koseze)",
+   "from": {
+    "name": "Lj (Šentvid)",
+    "lat": 46.0975,
+    "lon": 14.4635
+   },
+   "to": {
+    "name": "Lj (Koseze)",
+    "lat": 46.0686,
+    "lon": 14.4579
+   }
+  },
+  {
+   "id": "a2-062",
+   "name": "LJ (Koseze–Brdo)",
+   "from": {
+    "name": "Lj (Koseze)",
+    "lat": 46.0686,
+    "lon": 14.4579
+   },
+   "to": {
+    "name": "Lj (Brdo)",
+    "lat": 46.0545,
+    "lon": 14.4526
+   }
+  },
+  {
+   "id": "a2-063",
+   "name": "LJ (Brdo–Kozarje)",
+   "from": {
+    "name": "Lj (Brdo)",
+    "lat": 46.0545,
+    "lon": 14.4526
+   },
+   "to": {
+    "name": "Lj (Kozarje)",
+    "lat": 46.039,
+    "lon": 14.4518
+   }
+  },
+  {
+   "id": "a2-064",
+   "name": "LJ (Malence)–Šmarje-Sap",
+   "from": {
+    "name": "Lj (Malence)",
+    "lat": 46.0125,
+    "lon": 14.5584
+   },
+   "to": {
+    "name": "Šmarje-Sap",
+    "lat": 45.9782,
+    "lon": 14.6084
+   }
+  },
+  {
+   "id": "a2-065",
+   "name": "Šmarje-Sap–Cikava",
+   "from": {
+    "name": "Šmarje-Sap",
+    "lat": 45.9782,
+    "lon": 14.6084
+   },
+   "to": {
+    "name": "Cikava",
+    "lat": 45.9738,
+    "lon": 14.6252
+   }
+  },
+  {
+   "id": "a2-066",
+   "name": "Cikava–Grosuplje",
+   "from": {
+    "name": "Cikava",
+    "lat": 45.9738,
+    "lon": 14.6252
+   },
+   "to": {
+    "name": "Grosuplje",
+    "lat": 45.969,
+    "lon": 14.6569
+   }
+  },
+  {
+   "id": "a2-067",
+   "name": "Grosuplje–Višnja Gora",
+   "from": {
+    "name": "Grosuplje",
+    "lat": 45.969,
+    "lon": 14.6569
+   },
+   "to": {
+    "name": "Višnja Gora",
+    "lat": 45.9601,
+    "lon": 14.736
+   }
+  },
+  {
+   "id": "a2-068",
+   "name": "Višnja Gora–Ivančna Gorica",
+   "from": {
+    "name": "Višnja Gora",
+    "lat": 45.9601,
+    "lon": 14.736
+   },
+   "to": {
+    "name": "Ivančna Gorica",
+    "lat": 45.9348,
+    "lon": 14.8058
+   }
+  },
+  {
+   "id": "a2-069",
+   "name": "Ivančna Gorica–Bič",
+   "from": {
+    "name": "Ivančna Gorica",
+    "lat": 45.9348,
+    "lon": 14.8058
+   },
+   "to": {
+    "name": "Bič",
+    "lat": 45.9237,
+    "lon": 14.8884
+   }
+  },
+  {
+   "id": "a2-070",
+   "name": "Bič–Trebnje Zahod",
+   "from": {
+    "name": "Bič",
+    "lat": 45.9237,
+    "lon": 14.8884
+   },
+   "to": {
+    "name": "Trebnje Zahod",
+    "lat": 45.9098,
+    "lon": 14.9675
+   }
+  },
+  {
+   "id": "a2-071",
+   "name": "Trebnje Zahod–Trebnje Vzhod",
+   "from": {
+    "name": "Trebnje Zahod",
+    "lat": 45.9098,
+    "lon": 14.9675
+   },
+   "to": {
+    "name": "Trebnje Vzhod",
+    "lat": 45.8975,
+    "lon": 15.0557
+   }
+  },
+  {
+   "id": "a2-072",
+   "name": "Trebnje Vzhod–Mirna Peč",
+   "from": {
+    "name": "Trebnje Vzhod",
+    "lat": 45.8975,
+    "lon": 15.0557
+   },
+   "to": {
+    "name": "Mirna Peč",
+    "lat": 45.8735,
+    "lon": 15.1003
+   }
+  },
+  {
+   "id": "a2-073",
+   "name": "Mirna Peč–Novo Mesto Zahod",
+   "from": {
+    "name": "Mirna Peč",
+    "lat": 45.8735,
+    "lon": 15.1003
+   },
+   "to": {
+    "name": "Novo Mesto Zahod",
+    "lat": 45.8427,
+    "lon": 15.1556
+   }
+  },
+  {
+   "id": "a2-074",
+   "name": "Novo Mesto Zahod–Novo Mesto Vzhod",
+   "from": {
+    "name": "Novo Mesto Zahod",
+    "lat": 45.8427,
+    "lon": 15.1556
+   },
+   "to": {
+    "name": "Novo Mesto Vzhod",
+    "lat": 45.8305,
+    "lon": 15.178
+   }
+  },
+  {
+   "id": "a2-075",
+   "name": "Novo Mesto Vzhod–Kronovo",
+   "from": {
+    "name": "Novo Mesto Vzhod",
+    "lat": 45.8305,
+    "lon": 15.178
+   },
+   "to": {
+    "name": "Kronovo",
+    "lat": 45.8538,
+    "lon": 15.2488
+   }
+  },
+  {
+   "id": "a2-076",
+   "name": "Kronovo–Dobruška Vas",
+   "from": {
+    "name": "Kronovo",
+    "lat": 45.8538,
+    "lon": 15.2488
+   },
+   "to": {
+    "name": "Dobruška Vas",
+    "lat": 45.8833,
+    "lon": 15.3078
+   }
+  },
+  {
+   "id": "a2-077",
+   "name": "Dobruška Vas–Smednik",
+   "from": {
+    "name": "Dobruška Vas",
+    "lat": 45.8833,
+    "lon": 15.3078
+   },
+   "to": {
+    "name": "Smednik",
+    "lat": 45.9073,
+    "lon": 15.3703
+   }
+  },
+  {
+   "id": "a2-078",
+   "name": "Smednik–Drnovo",
+   "from": {
+    "name": "Smednik",
+    "lat": 45.9073,
+    "lon": 15.3703
+   },
+   "to": {
+    "name": "Drnovo",
+    "lat": 45.9126,
+    "lon": 15.468
+   }
+  },
+  {
+   "id": "a2-079",
+   "name": "Drnovo–Brežice",
+   "from": {
+    "name": "Drnovo",
+    "lat": 45.9126,
+    "lon": 15.468
+   },
+   "to": {
+    "name": "Brežice",
+    "lat": 45.8891,
+    "lon": 15.6113
+   }
+  },
+  {
+   "id": "a2-080",
+   "name": "Brežice–Obrežje",
+   "from": {
+    "name": "Brežice",
+    "lat": 45.8891,
+    "lon": 15.6113
+   },
+   "to": {
+    "name": "Obrežje",
+    "lat": 45.8561,
+    "lon": 15.6845
+   }
+  },
+  {
+   "id": "a2-081",
+   "name": "Obrežje–MP Obrežje",
+   "from": {
+    "name": "Obrežje",
+    "lat": 45.8561,
+    "lon": 15.6845
+   },
+   "to": {
+    "name": "Mp Obrežje",
+    "lat": 45.8665,
+    "lon": 15.6717
+   }
+  },
+  {
+   "id": "a3-082",
+   "name": "Gabrk–Sežana Vzhod",
+   "from": {
+    "name": "Gabrk",
+    "lat": 45.6927,
+    "lon": 13.9732
+   },
+   "to": {
+    "name": "Sežana Vzhod",
+    "lat": 45.7135,
+    "lon": 13.8821
+   }
+  },
+  {
+   "id": "a3-083",
+   "name": "Sežana Vzhod–Sežana Zahod",
+   "from": {
+    "name": "Sežana Vzhod",
+    "lat": 45.7135,
+    "lon": 13.8821
+   },
+   "to": {
+    "name": "Sežana Zahod",
+    "lat": 45.7085,
+    "lon": 13.8521
+   }
+  },
+  {
+   "id": "a3-084",
+   "name": "Sežana Zahod–MP Fernetiči",
+   "from": {
+    "name": "Sežana Zahod",
+    "lat": 45.7085,
+    "lon": 13.8521
+   },
+   "to": {
+    "name": "Mp Fernetiči",
+    "lat": 45.7148,
+    "lon": 13.8701
+   }
+  },
+  {
+   "id": "a4-085",
+   "name": "Slivnica–Letališče Maribor",
+   "from": {
+    "name": "Slivnica",
+    "lat": 46.479,
+    "lon": 15.662
+   },
+   "to": {
+    "name": "Letališče Maribor",
+    "lat": 46.4698,
+    "lon": 15.6841
+   }
+  },
+  {
+   "id": "a4-086",
+   "name": "Letališče Maribor–Marjeta",
+   "from": {
+    "name": "Letališče Maribor",
+    "lat": 46.4698,
+    "lon": 15.6841
+   },
+   "to": {
+    "name": "Marjeta",
+    "lat": 46.458,
+    "lon": 15.7263
+   }
+  },
+  {
+   "id": "a4-087",
+   "name": "Marjeta–Zlatoličje",
+   "from": {
+    "name": "Marjeta",
+    "lat": 46.458,
+    "lon": 15.7263
+   },
+   "to": {
+    "name": "Zlatoličje",
+    "lat": 46.4415,
+    "lon": 15.781
+   }
+  },
+  {
+   "id": "a4-088",
+   "name": "Zlatoličje–Hajdina",
+   "from": {
+    "name": "Zlatoličje",
+    "lat": 46.4415,
+    "lon": 15.781
+   },
+   "to": {
+    "name": "Hajdina",
+    "lat": 46.4111,
+    "lon": 15.8123
+   }
+  },
+  {
+   "id": "a4-089",
+   "name": "Hajdina–Draženci",
+   "from": {
+    "name": "Hajdina",
+    "lat": 46.4111,
+    "lon": 15.8123
+   },
+   "to": {
+    "name": "Draženci",
+    "lat": 46.3913,
+    "lon": 15.858
+   }
+  },
+  {
+   "id": "a4-090",
+   "name": "Draženci–Lancova Vas",
+   "from": {
+    "name": "Draženci",
+    "lat": 46.3913,
+    "lon": 15.858
+   },
+   "to": {
+    "name": "Lancova Vas",
+    "lat": 46.3686,
+    "lon": 15.8664
+   }
+  },
+  {
+   "id": "a4-091",
+   "name": "Lancova Vas–Podlehnik",
+   "from": {
+    "name": "Lancova Vas",
+    "lat": 46.3686,
+    "lon": 15.8664
+   },
+   "to": {
+    "name": "Podlehnik",
+    "lat": 46.34,
+    "lon": 15.8754
+   }
+  },
+  {
+   "id": "a4-092",
+   "name": "Podlehnik–Stanošina",
+   "from": {
+    "name": "Podlehnik",
+    "lat": 46.34,
+    "lon": 15.8754
+   },
+   "to": {
+    "name": "Stanošina",
+    "lat": 46.305,
+    "lon": 15.86
+   }
+  },
+  {
+   "id": "a4-093",
+   "name": "Stanošina–RH Meja",
+   "from": {
+    "name": "Stanošina",
+    "lat": 46.305,
+    "lon": 15.86
+   },
+   "to": {
+    "name": "Rh Meja",
+    "lat": 46.3401,
+    "lon": 15.8756
+   }
+  },
+  {
+   "id": "a5-094",
+   "name": "Dragučova–Pernica",
+   "from": {
+    "name": "Dragučova",
+    "lat": 46.5894,
+    "lon": 15.6902
+   },
+   "to": {
+    "name": "Pernica",
+    "lat": 46.5748,
+    "lon": 15.7498
+   }
+  },
+  {
+   "id": "a5-095",
+   "name": "Pernica–Lenart",
+   "from": {
+    "name": "Pernica",
+    "lat": 46.5748,
+    "lon": 15.7498
+   },
+   "to": {
+    "name": "Lenart",
+    "lat": 46.5757,
+    "lon": 15.8109
+   }
+  },
+  {
+   "id": "a5-096",
+   "name": "Lenart–Sv. Trojica",
+   "from": {
+    "name": "Lenart",
+    "lat": 46.5757,
+    "lon": 15.8109
+   },
+   "to": {
+    "name": "Sv. Trojica",
+    "lat": 46.5607,
+    "lon": 15.8682
+   }
+  },
+  {
+   "id": "a5-097",
+   "name": "Sv. Trojica–Cerkvenjak",
+   "from": {
+    "name": "Sv. Trojica",
+    "lat": 46.5607,
+    "lon": 15.8682
+   },
+   "to": {
+    "name": "Cerkvenjak",
+    "lat": 46.563,
+    "lon": 15.924
+   }
+  },
+  {
+   "id": "a5-098",
+   "name": "Cerkvenjak–Sv. Jurij Ob Ščavnici",
+   "from": {
+    "name": "Cerkvenjak",
+    "lat": 46.563,
+    "lon": 15.924
+   },
+   "to": {
+    "name": "Sv. Jurij Ob Ščavnici",
+    "lat": 46.5842,
+    "lon": 16.0075
+   }
+  },
+  {
+   "id": "a5-099",
+   "name": "Sv. Jurij Ob Ščavnici–Vučja Vas",
+   "from": {
+    "name": "Sv. Jurij Ob Ščavnici",
+    "lat": 46.5842,
+    "lon": 16.0075
+   },
+   "to": {
+    "name": "Vučja Vas",
+    "lat": 46.593,
+    "lon": 16.1077
+   }
+  },
+  {
+   "id": "a5-100",
+   "name": "Vučja Vas–Murska Sobota",
+   "from": {
+    "name": "Vučja Vas",
+    "lat": 46.593,
+    "lon": 16.1077
+   },
+   "to": {
+    "name": "Murska Sobota",
+    "lat": 46.6349,
+    "lon": 16.1618
+   }
+  },
+  {
+   "id": "a5-101",
+   "name": "Murska Sobota–Lipovci",
+   "from": {
+    "name": "Murska Sobota",
+    "lat": 46.6349,
+    "lon": 16.1618
+   },
+   "to": {
+    "name": "Lipovci",
+    "lat": 46.6348,
+    "lon": 16.2081
+   }
+  },
+  {
+   "id": "a5-102",
+   "name": "Lipovci–Gančani",
+   "from": {
+    "name": "Lipovci",
+    "lat": 46.6348,
+    "lon": 16.2081
+   },
+   "to": {
+    "name": "Gančani",
+    "lat": 46.6389,
+    "lon": 16.2595
+   }
+  },
+  {
+   "id": "a5-103",
+   "name": "Gančani–Turnišče",
+   "from": {
+    "name": "Gančani",
+    "lat": 46.6389,
+    "lon": 16.2595
+   },
+   "to": {
+    "name": "Turnišče",
+    "lat": 46.6102,
+    "lon": 16.3174
+   }
+  },
+  {
+   "id": "a5-104",
+   "name": "Turnišče–Dolga Vas",
+   "from": {
+    "name": "Turnišče",
+    "lat": 46.6102,
+    "lon": 16.3174
+   },
+   "to": {
+    "name": "Dolga Vas",
+    "lat": 46.588,
+    "lon": 16.4279
+   }
+  },
+  {
+   "id": "a5-105",
+   "name": "Dolga Vas–Lendava",
+   "from": {
+    "name": "Dolga Vas",
+    "lat": 46.588,
+    "lon": 16.4279
+   },
+   "to": {
+    "name": "Lendava",
+    "lat": 46.5555,
+    "lon": 16.4438
+   }
+  },
+  {
+   "id": "a5-106",
+   "name": "Lendava–MP Pince",
+   "from": {
+    "name": "Lendava",
+    "lat": 46.5555,
+    "lon": 16.4438
+   },
+   "to": {
+    "name": "Mp Pince",
+    "lat": 46.5217,
+    "lon": 16.5193
+   }
+  },
+  {
+   "id": "h3-107",
+   "name": "LJ (Zadobrova–Šmartinska)",
+   "from": {
+    "name": "Lj (Zadobrova)",
+    "lat": 46.0677,
+    "lon": 14.5715
+   },
+   "to": {
+    "name": "Lj (Šmartinska)",
+    "lat": 46.0691,
+    "lon": 14.554
+   }
+  },
+  {
+   "id": "h3-108",
+   "name": "LJ (Šmartinska–Tomačevo)",
+   "from": {
+    "name": "Lj (Šmartinska)",
+    "lat": 46.0691,
+    "lon": 14.554
+   },
+   "to": {
+    "name": "Lj (Tomačevo)",
+    "lat": 46.0808,
+    "lon": 14.5284
+   }
+  },
+  {
+   "id": "h3-109",
+   "name": "LJ (Tomačevo–Dunajska)",
+   "from": {
+    "name": "Lj (Tomačevo)",
+    "lat": 46.0808,
+    "lon": 14.5284
+   },
+   "to": {
+    "name": "Lj (Dunajska)",
+    "lat": 46.0835,
+    "lon": 14.5146
+   }
+  },
+  {
+   "id": "h3-110",
+   "name": "LJ (Dunajska–Celovška)",
+   "from": {
+    "name": "Lj (Dunajska)",
+    "lat": 46.0835,
+    "lon": 14.5146
+   },
+   "to": {
+    "name": "Lj (Celovška)",
+    "lat": 46.0789,
+    "lon": 14.4807
+   }
+  },
+  {
+   "id": "h3-111",
+   "name": "LJ (Celovška–Koseze)",
+   "from": {
+    "name": "Lj (Celovška)",
+    "lat": 46.0789,
+    "lon": 14.4807
+   },
+   "to": {
+    "name": "Lj (Koseze)",
+    "lat": 46.0709,
+    "lon": 14.4602
+   }
+  },
+  {
+   "id": "h4-112",
+   "name": "Nanos–Vipava",
+   "from": {
+    "name": "Nanos",
+    "lat": 45.7573,
+    "lon": 14.052
+   },
+   "to": {
+    "name": "Vipava",
+    "lat": 45.8357,
+    "lon": 13.9544
+   }
+  },
+  {
+   "id": "h4-113",
+   "name": "Vipava–Ajdovščina",
+   "from": {
+    "name": "Vipava",
+    "lat": 45.8357,
+    "lon": 13.9544
+   },
+   "to": {
+    "name": "Ajdovščina",
+    "lat": 45.8796,
+    "lon": 13.9035
+   }
+  },
+  {
+   "id": "h4-114",
+   "name": "Ajdovščina–Selo",
+   "from": {
+    "name": "Ajdovščina",
+    "lat": 45.8796,
+    "lon": 13.9035
+   },
+   "to": {
+    "name": "Selo",
+    "lat": 45.8953,
+    "lon": 13.7889
+   }
+  },
+  {
+   "id": "h4-115",
+   "name": "Selo–Vogrsko",
+   "from": {
+    "name": "Selo",
+    "lat": 45.8953,
+    "lon": 13.7889
+   },
+   "to": {
+    "name": "Vogrsko",
+    "lat": 45.9182,
+    "lon": 13.7112
+   }
+  },
+  {
+   "id": "h4-116",
+   "name": "Vogrsko–Šempeter",
+   "from": {
+    "name": "Vogrsko",
+    "lat": 45.9182,
+    "lon": 13.7112
+   },
+   "to": {
+    "name": "Šempeter",
+    "lat": 45.9211,
+    "lon": 13.649
+   }
+  },
+  {
+   "id": "h4-117",
+   "name": "Šempeter–MP Vrtojba",
+   "from": {
+    "name": "Šempeter",
+    "lat": 45.9211,
+    "lon": 13.649
+   },
+   "to": {
+    "name": "Mp Vrtojba",
+    "lat": 45.9155,
+    "lon": 13.6768
+   }
+  },
+  {
+   "id": "h7-118",
+   "name": "A5–Dolga Vas",
+   "from": {
+    "name": "A5",
+    "lat": 46.5883,
+    "lon": 16.4312
+   },
+   "to": {
+    "name": "Dolga Vas",
+    "lat": 46.5921,
+    "lon": 16.4363
+   }
+  },
+  {
+   "id": "h7-119",
+   "name": "Dolga Vas–Rondo Dolga Vas",
+   "from": {
+    "name": "Dolga Vas",
+    "lat": 46.5921,
+    "lon": 16.4363
+   },
+   "to": {
+    "name": "Rondo Dolga Vas",
+    "lat": 46.5927,
+    "lon": 16.4588
+   }
+  },
+  {
+   "id": "r2-430-120",
+   "name": "Pesnica–Maribor Center",
+   "from": {
+    "name": "Pesnica",
+    "lat": 46.5958,
+    "lon": 15.6702
+   },
+   "to": {
+    "name": "Maribor Center",
+    "lat": 46.5607,
+    "lon": 15.6616
+   }
+  },
+  {
+   "id": "r2-430-121",
+   "name": "Maribor (Center–Pobrežje)",
+   "from": {
+    "name": "Maribor (Center)",
+    "lat": 46.5607,
+    "lon": 15.6616
+   },
+   "to": {
+    "name": "Maribor (Pobrežje)",
+    "lat": 46.5474,
+    "lon": 15.6616
+   }
+  },
+  {
+   "id": "r2-430-122",
+   "name": "Maribor (Pobrežje–Tezno)",
+   "from": {
+    "name": "Maribor (Pobrežje)",
+    "lat": 46.5474,
+    "lon": 15.6616
+   },
+   "to": {
+    "name": "Maribor (Tezno)",
+    "lat": 46.5577,
+    "lon": 15.6607
+   }
+  },
+  {
+   "id": "g1-11-123",
+   "name": "MP Škofije–Škofije",
+   "from": {
+    "name": "Mp Škofije",
+    "lat": 45.5496,
+    "lon": 13.7718
+   },
+   "to": {
+    "name": "Škofije",
+    "lat": 45.5667,
+    "lon": 13.784
+   }
+  },
+  {
+   "id": "g1-11-124",
+   "name": "Škofije–Srmin",
+   "from": {
+    "name": "Škofije",
+    "lat": 45.5667,
+    "lon": 13.784
+   },
+   "to": {
+    "name": "Srmin",
+    "lat": 45.5562,
+    "lon": 13.782
+   }
+  },
+  {
+   "id": "g1-11-125",
+   "name": "Srmin–Bertoki",
+   "from": {
+    "name": "Srmin",
+    "lat": 45.5562,
+    "lon": 13.782
+   },
+   "to": {
+    "name": "Bertoki",
+    "lat": 45.5469,
+    "lon": 13.7635
+   }
+  },
+  {
+   "id": "g1-11-126",
+   "name": "Bertoki–Koper (Škocjan)",
+   "from": {
+    "name": "Bertoki",
+    "lat": 45.5469,
+    "lon": 13.7635
+   },
+   "to": {
+    "name": "Koper (Škocjan)",
+    "lat": 45.5592,
+    "lon": 13.7859
+   }
+  },
+  {
+   "id": "g2-111-127",
+   "name": "Koper (Slavček–Semedela)",
+   "from": {
+    "name": "Koper (Slavček)",
+    "lat": 45.5375,
+    "lon": 13.7349
+   },
+   "to": {
+    "name": "Koper (Semedela)",
+    "lat": 45.5413,
+    "lon": 13.7218
+   }
+  },
+  {
+   "id": "g2-111-128",
+   "name": "Koper (Semedela)–Izola",
+   "from": {
+    "name": "Koper (Semedela)",
+    "lat": 45.5413,
+    "lon": 13.7218
+   },
+   "to": {
+    "name": "Izola",
+    "lat": 45.5346,
+    "lon": 13.674
+   }
+  }
+ ]
+}

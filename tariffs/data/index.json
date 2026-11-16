@@ -1123,7 +1123,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2025-04-07",
    "valid_to": "2026-09-20",
-   "sha256": "42b79c838c7c2067bfbfb6e24947e8d0ec12db2ef237f6ea3c74f31cae4c3075",
+   "sha256": "fa924edf600c8d602f07aea5a56be0b6c93419f82b45b2e835cc841fe6252fc0",
    "coverage": "complete"
   },
   {
@@ -1134,7 +1134,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2026-09-21",
    "valid_to": null,
-   "sha256": "c50f0fd3d5a35f361681a62cea2fb9129ae45d189f987524ecca9fe7a77f608d",
+   "sha256": "34bf1004e37331ef6d44e4015167387b8bc799e051cefc4c61649347fd8c630f",
    "coverage": "complete"
   },
   {
@@ -1431,7 +1431,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "986f091f9d90749dac8d64f7b79409ab24a00dbdbfbba763e801035fc9f76a7e",
+   "sha256": "08d51e32afd40390a3c0639fc42b34d6c3c031fac85f1bfd997cc80496c3ce47",
    "coverage": "complete"
   },
   {
@@ -1981,7 +1981,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
-   "sha256": "354fe63d268d3e34637de7a66913237a937351645375ddc9cabc3cf0a6259a47",
+   "sha256": "caaf26f549f4b7caaca66900387eda2426986e6f40a185dafbc241a6972f826b",
    "coverage": "complete"
   },
   {

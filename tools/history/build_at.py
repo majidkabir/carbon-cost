@@ -12,12 +12,11 @@ for 4+ axles on the A 13; § 8 the air pollution and noise tariff by EURO
 group (E zero-emission, A EURO VI, B V/EEV, C IV, D 0-III); § 9 b) the
 CO2 tariff by CO2 class (for vehicles other than buses).
 
-The sections' ends and the A 12 stretch are those of
-templates/at-2026-01-01.json (OpenStreetMap junctions); the script
-checks that each year names the same sections.
+The sections' ends and the A 12 stretch are in transcribed/
+at-sections.json (OpenStreetMap junctions); the script checks that each
+year names the same sections.
 """
 import copy, json, os, re, sys
-import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -32,7 +31,7 @@ def nums(line):
     return [float(x.replace(",", ".")) for x in re.findall(r"\d+,\d+", line)]
 
 
-def build(txt, tmpl, frm, to, title, bgbl, url):
+def build(txt, tmpl, frm, to, title, bgbl, url, since=None, more_sources=()):
     par = lambda n: txt.index(f"§ {n}.")
     tb = copy.deepcopy(tmpl)
     rows = []
@@ -77,8 +76,8 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
         s["night_kat4"] = {"E": e, "A": a}
     assert "um einen Aufschlag in der Höhe von 25 %" in re.sub(r"\s+", " ", txt[par(3):par(4)])
     tb.update({"valid_from": frm, "valid_to": to,
-               "law": f"{title}, {bgbl}, §§ 1-2, 7-9 (in force {frm})",
-               "sources": [{"title": f"{title}, {bgbl} (RIS)", "url": url}]})
+               "law": f"{title}, {bgbl}, §§ 1-2, 7-9 (in force {since or frm})",
+               "sources": [{"title": f"{title}, {bgbl} (RIS)", "url": url}, *more_sources]})
     tb["sections"]["law"] = re.sub(r"Mauttarifverordnung \d{4}, BGBl\. II Nr\. \d+/\d{4}", f"{title}, {bgbl}", tb["sections"]["law"])
     for sc in tb.get("surcharges", []):
         sc["law"] = re.sub(r"Mauttarifverordnung \d{4}", title, sc["law"])
@@ -101,16 +100,32 @@ def check_asfinag(fetched, frm, tb):
     print("ASFINAG totals agree:", want)
 
 
+def skeleton():
+    """A table's fields but its rows and prices: transcribed/at-sections.json."""
+    p = json.load(open(os.path.join(HERE, "transcribed", "at-sections.json"), encoding="utf-8"))
+    secs = []
+    for s in p["sections"]["list"]:
+        d = {k: s[k] for k in ("id", "road", "name", "from", "to")} | {"tariff": {}}
+        if s.get("night"):
+            d["night_kat4"] = {"E": None, "A": None}
+        secs.append(d)
+    t = p["table"]
+    return {"country": t["country"], "currency": t["currency"], "valid_from": None, "valid_to": None, "name": t["name"], "law": None, "sources": None,
+            "vehicles": t["vehicles"], "min_kg": t["min_kg"], "tolled_roads": t["tolled_roads"], "rows": None,
+            "sections": {"law": p["sections"]["law"], "tariff_groups": p["sections"]["tariff_groups"], "list": secs},
+            "surcharges": p["surcharges"]}
+
+
 def main(fetched, out):
-    tmpl = committed.template("at-2026-01-01.json", fetched)
-    for f, frm, to, title, bgbl, url in YEARS:
+    tmpl = skeleton()
+    for f, frm, to, title, bgbl, url, *more in YEARS:
         # The fetched text, else one read in a browser (tools/history/browser/,
         # for RIS, which refuses scripted requests).
         p = next((x for x in (os.path.join(fetched, f + ".txt"), os.path.join(HERE, "browser", f + ".txt")) if os.path.exists(x)), "")
         if not p:
             print("missing", f)
             continue
-        tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url)
+        tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url, *more)
         if os.path.dirname(p) != fetched:
             tb["law"] += f"; the text read in a browser into tools/history/browser/{f}.txt"
         check_asfinag(fetched, frm, tb)

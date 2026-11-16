@@ -1,7 +1,7 @@
 """Builds Croatia's toll tables from 1 January 2024 to 31 December 2025
 for Hrvatske autoceste's (HAC) motorways.
 
-The prices are the current ones (rates/data/hr-2026-01-01.json, HAC's
+The prices are the current ones (templates/hr-2026-01-01.json, HAC's
 price list): HAC hasn't changed its tolls for groups III and IV since
 they were converted to euros on 1 January 2023 (Pravilnik o izmjenama i
 dopunama Pravilnika o cestarini, NN 151/2022, art. 3: the converted
@@ -23,6 +23,7 @@ Bina-Istra's Istrian Y (A8, A9) has no archived price list for 2024 and
 
 Usage: python3 build_hr.py fetched/ out-dir"""
 import copy, glob, html, json, os, re, sys
+import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -53,7 +54,7 @@ def rows(page):
 
 
 def main(fetched, out):
-    cur = json.load(open(os.path.join(ROOT, "rates", "data", "hr-2026-01-01.json"), encoding="utf-8"))
+    cur = committed.template("hr-2026-01-01.json")
     hac = [s for s in cur["closed_systems"] if "Bina-Istra" not in s["name"]]
     a1 = next(s for s in hac if s["name"].startswith("A1,"))
     srcs = {s["id"]: s["url"] for s in json.load(open(os.path.join(HERE, "sources.json"), encoding="utf-8"))["sources"]}

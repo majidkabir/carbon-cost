@@ -13,10 +13,11 @@ group (E zero-emission, A EURO VI, B V/EEV, C IV, D 0-III); § 9 b) the
 CO2 tariff by CO2 class (for vehicles other than buses).
 
 The sections' ends and the A 12 stretch are those of
-rates/data/at-2026-01-01.json (OpenStreetMap junctions); the script
+templates/at-2026-01-01.json (OpenStreetMap junctions); the script
 checks that each year names the same sections.
 """
 import copy, json, os, re, sys
+import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -101,7 +102,7 @@ def check_asfinag(fetched, frm, tb):
 
 
 def main(fetched, out):
-    tmpl = json.load(open(os.path.join(ROOT, "rates", "data", "at-2026-01-01.json"), encoding="utf-8"))
+    tmpl = committed.template("at-2026-01-01.json")
     for f, frm, to, title, bgbl, url in YEARS:
         # The fetched text, else one read in a browser (tools/history/browser/,
         # for RIS, which refuses scripted requests).

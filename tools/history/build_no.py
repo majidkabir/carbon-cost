@@ -1,5 +1,5 @@
 """Builds the Norwegian toll stations from 1 January 2024 to the day
-before the current table (rates/data/no-<date>.json) from every version of
+before the current dataset (tariffs/data/no/no-<date>.orct.json) from every version of
 NVDB's Bomstasjon objects (type 45), as fetch.py saved them with
 alle_versjoner=true (no-nvdb-45-hist*.json and the road link sequences
 no-nvdb-45-hist-links-*.json).
@@ -13,13 +13,13 @@ import datetime, glob, json, os, sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tables"))
 import no  # noqa: E402
+import committed  # noqa: E402
 
 FROM = "2024-01-01"
 
 
-def main(fetched, out, data="rates/data"):
-    cur = max(json.load(open(f))["valid_from"] for f in glob.glob(os.path.join(data, "no-*.json"))
-              if json.load(open(f))["valid_from"] > FROM)
+def main(fetched, out):
+    cur = max(v for v in committed.starts("no") if v > FROM)
     to = (datetime.date.fromisoformat(cur) - datetime.timedelta(days=1)).isoformat()
     objs, seqs = [], {}
     for f in sorted(glob.glob(os.path.join(fetched, "no-nvdb-45-hist*.json"))):
@@ -61,8 +61,8 @@ def main(fetched, out, data="rates/data"):
     tb = {
         "country": "NO", "currency": "NOK", "valid_from": FROM, "valid_to": to,
         "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
-        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given). A station's version is the one in force on the trip's date. Rush-hour prices are higher at some stations: the off-peak price is used. Tolls carry no VAT.",
-        "sources": [{"title": "NVDB API: Bomstasjon (Statens vegvesen), all versions", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?alle_versjoner=true"}],
+        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), every version of each station with the dates it was registered for, with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). A station's version is the one in force on the trip's date. Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Tolls carry no VAT.",
+        "sources": [{"title": "NVDB API: Bomstasjon (Statens vegvesen), all versions", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45?alle_versjoner=true"}] + no.rush_sources(),
         "vehicles": "Vehicles over 3,500 kg (takstgruppe 2)",
         "min_kg": 3501,
         "tolled_roads": "AutoPASS toll stations, each charged when the route passes it in a charged direction while the version is in force.",

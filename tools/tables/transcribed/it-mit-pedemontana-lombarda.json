@@ -1,0 +1,40 @@
+{
+ "operator": "Autostrada Pedemontana Lombarda",
+ "about": "Italy: Autostrada Pedemontana Lombarda's unit toll rates per km for 2025 (euro, VAT excluded), plain stretches (it has no mountain ones), by its own free-flow classes, as its sheet published by the Ministry of Infrastructure and Transport (MIT, Direzione generale per le autostrade) states them. Transcribed by hand from the PDF; tools/tables says if the PDF has changed (sha256). Classes: 1 motorcycles and cars, 2 cars with trailer and vans, 3 vans, trucks and buses (Furgoni, Camion e Pullman), 4 articulated trucks and class 3 with trailer (TIR e veicoli di classe 3 con rimorchio). anas is the ANAS surcharge per km the sheet gives (Quota ANAS); VAT 22%. Stretches: A36-A, A36-B1, A59, A60.",
+ "source": {
+  "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Pedemontana_Lombarda.pdf",
+  "sha256": "a21157c20c7934443be4e0bce3a0b4bd251de4b788953f1d7b71d8cb5095fc84",
+  "page": 3
+ },
+ "valid_from": "2025-01-01",
+ "rates": {
+  "1": {
+   "A36-A": 0.1273,
+   "A36-B1": 0.14245,
+   "A59": 0.12123,
+   "A60": 0.12123,
+   "anas": 0.006
+  },
+  "2": {
+   "A36-A": 0.16104,
+   "A36-B1": 0.18022,
+   "A59": 0.15338,
+   "A60": 0.15338,
+   "anas": 0.006
+  },
+  "3": {
+   "A36-A": 0.21137,
+   "A36-B1": 0.23654,
+   "A59": 0.20131,
+   "A60": 0.20131,
+   "anas": 0.018
+  },
+  "4": {
+   "A36-A": 0.2315,
+   "A36-B1": 0.25906,
+   "A59": 0.22048,
+   "A60": 0.22048,
+   "anas": 0.018
+  }
+ }
+}

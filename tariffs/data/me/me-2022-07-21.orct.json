@@ -1,0 +1,235 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/me/2022-07-21",
+  "scheme": {
+   "id": "me",
+   "name": "Montenegrin road tolls (putarina): motorway Smokovac–Mateševo and the Sozina tunnel",
+   "country": "ME"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2022-07-21",
+  "currency": "EUR",
+  "timezone": "Europe/Podgorica",
+  "license": "MIT",
+  "method": "Zakon o putevima; prices published by Monteput d.o.o.: on the motorway Bar–Boljare (Smokovac–Mateševo), from entry to exit station, category IV (over 3,500 kg, two or three axles) and V (four or more axles); in the Sozina tunnel per passage. The pages carry no date: the table runs from the start of toll collection on the motorway (21 July 2022). Stations placed with OpenStreetMap's toll booths.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "me-2022-07-21.json"
+  },
+  "required_features": ["type.od", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Monteput: Cjenovnik Autoput Bar-Boljare",
+   "url": "https://monteput.me/cjenovnik-autoput-bar-boljare/"
+  },
+  {
+   "id": "s2",
+   "title": "Monteput: Cjenovnik Tunel Sozina",
+   "url": "https://monteput.me/cjenovnik-tunel-sozina/"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/montenegro.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3,500 kg (categories IV and V)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.IV",
+     "label": "IV",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.V",
+     "label": "V",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Smokovac",
+   "type": "station",
+   "name": "Smokovac",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.298984, 42.472802], [19.299125, 42.472767]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Pelev Brijeg",
+   "type": "station",
+   "name": "Pelev Brijeg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.394746, 42.592399]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Veruša",
+   "type": "station",
+   "name": "Veruša",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.461707, 42.644202]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Mateševo",
+   "type": "station",
+   "name": "Mateševo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.544086, 42.752857], [19.544338, 42.752631]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Tunel Sozina",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [19.052024, 42.20058]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Autoput Bar–Boljare (Smokovac–Mateševo)",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Monteput price list: from entry to exit station, categories IV and V.",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Mateševo", "st1:Pelev Brijeg", "sys1-1.IV", "6"],
+    ["st1:Mateševo", "st1:Pelev Brijeg", "sys1-1.V", "10"],
+    ["st1:Mateševo", "st1:Smokovac", "sys1-1.IV", "10.5"],
+    ["st1:Mateševo", "st1:Smokovac", "sys1-1.V", "17"],
+    ["st1:Mateševo", "st1:Veruša", "sys1-1.IV", "4.5"],
+    ["st1:Mateševo", "st1:Veruša", "sys1-1.V", "7"],
+    ["st1:Pelev Brijeg", "st1:Mateševo", "sys1-1.IV", "6"],
+    ["st1:Pelev Brijeg", "st1:Mateševo", "sys1-1.V", "10"],
+    ["st1:Pelev Brijeg", "st1:Smokovac", "sys1-1.IV", "4.5"],
+    ["st1:Pelev Brijeg", "st1:Smokovac", "sys1-1.V", "7"],
+    ["st1:Pelev Brijeg", "st1:Veruša", "sys1-1.IV", "1.5"],
+    ["st1:Pelev Brijeg", "st1:Veruša", "sys1-1.V", "3"],
+    ["st1:Smokovac", "st1:Mateševo", "sys1-1.IV", "10.5"],
+    ["st1:Smokovac", "st1:Mateševo", "sys1-1.V", "17"],
+    ["st1:Smokovac", "st1:Pelev Brijeg", "sys1-1.IV", "4.5"],
+    ["st1:Smokovac", "st1:Pelev Brijeg", "sys1-1.V", "7"],
+    ["st1:Smokovac", "st1:Veruša", "sys1-1.IV", "6"],
+    ["st1:Smokovac", "st1:Veruša", "sys1-1.V", "10"],
+    ["st1:Veruša", "st1:Mateševo", "sys1-1.IV", "4.5"],
+    ["st1:Veruša", "st1:Mateševo", "sys1-1.V", "7"],
+    ["st1:Veruša", "st1:Pelev Brijeg", "sys1-1.IV", "1.5"],
+    ["st1:Veruša", "st1:Pelev Brijeg", "sys1-1.V", "3"],
+    ["st1:Veruša", "st1:Smokovac", "sys1-1.IV", "6"],
+    ["st1:Veruša", "st1:Smokovac", "sys1-1.V", "10"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "10"], ["pt1", "pt-1.2", "18"]],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-08"
+  }
+ }
+}

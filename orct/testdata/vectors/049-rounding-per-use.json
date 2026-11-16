@@ -1,0 +1,40 @@
+{
+ "description": "Rounded per use before the rules: 2.345 is 2.35, less 10 % is 2.115, total 2.12 (rounded after the rules it would be 2.11).",
+ "clauses": [
+  "8.7"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "pier",
+    "time": "2026-11-16T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "2.12"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "pier-fee",
+    "amount": "2.115"
+   }
+  ]
+ }
+}

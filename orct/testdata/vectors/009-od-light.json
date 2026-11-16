@@ -1,0 +1,41 @@
+{
+ "description": "A light vehicle falls to the catch-all group B.",
+ "clauses": [
+  "6.6.3"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 7500,
+   "train_axles": 2,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-a",
+    "time": "2026-11-16T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-b",
+    "time": "2026-11-16T11:00:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "4.00"
+   }
+  ]
+ }
+}

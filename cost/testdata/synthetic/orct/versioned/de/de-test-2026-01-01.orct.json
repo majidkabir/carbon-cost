@@ -1,0 +1,106 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/de-test/2026-01-01",
+  "scheme": {
+   "id": "de-test",
+   "name": "test",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "test law",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "de-test-2026-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "old",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10, 50]
+    }
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "new",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10, 50]
+    }
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points@..2026-11-04",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "valid_to": "2026-11-04",
+   "columns": ["object", "amount"],
+   "rows": [["pt1", "4"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points@2026-11-05..",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "valid_from": "2026-11-05",
+   "columns": ["object", "amount"],
+   "rows": [["pt2", "6"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

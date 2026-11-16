@@ -1,0 +1,46 @@
+{
+ "description": "Discounts of 10% (CO2 class 4) and 20% (electronic) add up to 30%: 9.50 less 30% is 6.65, rounded per line to 0.10 half up: 6.70. (Applied one after the other they would give 6.84, rounded 6.80.)",
+ "clauses": [
+  "6.11",
+  "8.6",
+  "8.7"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 4
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-a",
+    "time": "2026-11-16T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-b",
+    "time": "2026-11-16T11:00:00+01:00",
+    "role": "exit"
+   }
+  ],
+  "payment": [
+   "electronic"
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "6.70"
+   }
+  ]
+ }
+}

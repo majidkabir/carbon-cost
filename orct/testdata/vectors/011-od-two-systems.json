@@ -1,0 +1,63 @@
+{
+ "description": "Two closed systems meet at C3: the trip pays C1 to C3 in the first (20) and C3 to C4 in the second (6).",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "c1",
+    "time": "2026-11-16T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "c2",
+    "time": "2026-11-16T10:20:00+01:00",
+    "role": "pass"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "c3",
+    "time": "2026-11-16T10:40:00+01:00",
+    "role": "pass"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "c4",
+    "time": "2026-11-16T11:00:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "26.00"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "odc",
+    "amount": "20.00"
+   },
+   {
+    "charge": "odc2",
+    "amount": "6.00"
+   }
+  ]
+ }
+}

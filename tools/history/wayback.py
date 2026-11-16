@@ -11,7 +11,7 @@ are copied from out/osm (the workflow puts them there). Then it runs the
 set's builders with fetched=out/wb-<set>, writes their tables to
 out/tables, and replaces each source URL a table names with the archived
 copy it was built from. A table without valid_to gets the day before the
-next table for the same file prefix (built here or in rates/data)."""
+next table for the same file prefix (built here or in tariffs/data)."""
 import datetime
 import glob
 import hashlib
@@ -25,6 +25,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import committed  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "tables"))
@@ -149,9 +150,9 @@ def prefix(name):
     return re.sub(r"-\d{4}-\d\d-\d\d\.json$", "", name)
 
 
-def close(tables, data):
+def close(tables):
     starts = {}
-    for name, tb in tables + [(os.path.basename(f), json.load(open(f))) for f in glob.glob(os.path.join(data, "*.json"))]:
+    for name, tb in tables + committed.tables():
         starts.setdefault(prefix(name), set()).add(tb["valid_from"])
     for name, tb in tables:
         nxt = sorted(v for v in starts[prefix(name)] if v > tb["valid_from"])
@@ -161,7 +162,7 @@ def close(tables, data):
                 tb["valid_to"] = end
 
 
-def main(cfg, sources, out, data="rates/data"):
+def main(cfg, sources, out):
     urls = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     tables = []
     conf = json.load(open(cfg, encoding="utf-8"))
@@ -176,7 +177,7 @@ def main(cfg, sources, out, data="rates/data"):
             for f in glob.glob(os.path.join(out, "osm", "*")):
                 os.remove(os.path.join(d, os.path.basename(f)))
         # Written after each set, so a run cut short keeps what it built.
-        write(tables, out, data)
+        write(tables, out)
     # Probes list the archived URLs under a prefix, to find where a page
     # was before it moved; they build nothing. "probes:<group>" in
     # WAYBACK_SETS runs only the probes of that group.
@@ -195,13 +196,13 @@ def main(cfg, sources, out, data="rates/data"):
                 f.write(f"ERROR {p['url']}: {e}\n")
 
 
-def write(tables, out, data):
+def write(tables, out):
     # The same table from two sets (a page unchanged across years) is kept once.
     uniq = {}
     for name, tb in tables:
         uniq.setdefault(name, tb)
     tables = sorted(uniq.items())
-    close(tables, data)
+    close(tables)
     os.makedirs(os.path.join(out, "tables"), exist_ok=True)
     for name, tb in tables:
         json.dump(tb, open(os.path.join(out, "tables", name), "w"), ensure_ascii=False, indent=1)

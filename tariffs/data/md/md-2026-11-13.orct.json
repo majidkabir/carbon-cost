@@ -1,0 +1,98 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/md/2026-11-13",
+  "scheme": {
+   "id": "md",
+   "name": "Moldova vignette (vinieta), trucks not registered in Moldova",
+   "country": "MD"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-13",
+  "currency": "EUR",
+  "timezone": "Europe/Chisinau",
+  "license": "MIT",
+  "method": "Codul fiscal, Titlul IX (taxele rutiere), Anexa nr. 2, item 4: the charge for using Moldova's roads by vehicles not registered in Moldova, trucks and road tractors by total mass: over 3.5 t up to 10 t EUR 8 a day (32 for 7 days, 640 for 12 months), over 10 t up to 40 t EUR 11 a day (55 for 7 days, 1120 for 12 months). The table keeps the 1-day amount; trucks registered in Moldova pay instead a yearly road fee, not modelled. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "md-2026-11-13.json"
+  },
+  "required_features": ["type.period"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "e-Vinieta (S.A. Administrația Națională a Drumurilor): Legislația",
+   "url": "https://evinieta.gov.md/Home/Legislation"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks and road tractors not registered in Moldova, over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 10000
+      }
+     }
+    },
+    {
+     "id": "toll-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 10001
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "All public roads of the Republic of Moldova."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "period",
+   "component": "unspecified",
+   "unit": "product",
+   "component_label": "toll",
+   "columns": ["object", "vehicle_class", "product", "amount"],
+   "rows": [["roads", "toll-1.1", "P1D", "8"], ["roads", "toll-1.2", "P1D", "11"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "toll",
+   "status": "partial",
+   "reason": "the sources don't say whether a day is a calendar day or 24 hours"
+  }
+ ]
+}

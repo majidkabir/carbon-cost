@@ -1,0 +1,49 @@
+{
+ "description": "Four days of use: one week product (40) is cheaper than four days (48).",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "vnet",
+    "time": "2026-11-16T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "vnet",
+    "time": "2026-11-17T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "vnet",
+    "time": "2026-11-18T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "vnet",
+    "time": "2026-11-19T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "40.00"
+   }
+  ]
+ }
+}

@@ -1,0 +1,87 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-de/2026-01-01",
+  "scheme": {
+   "id": "fuelco2-de",
+   "name": "Brennstoffemissionshandel (nEHS) certificate price",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "BEHG § 10 (2): 2026 certificates are auctioned in a corridor of 55 to 65 euro. This is the volume-weighted clearing price of the 11 auctions EEX held (01.07.2026 to 09.09.2026; clearing prices 65 euro). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-de-2026-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "BEHG § 10 (gesetze-im-internet.de, as the Internet Archive last kept it; the site times out to the workflow): fixed certificate prices to 2025 and the 2026 price corridor",
+   "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/behg/__10.html"
+  },
+  {
+   "id": "s2",
+   "title": "EEX nEHS auction results (CSV; the Internet Archive's latest copy, as EEX refuses the workflow): each 2026 auction's clearing price and volume",
+   "url": "https://web.archive.org/web/20261231id_/https://public.eex-group.com/eex/nehs-reporting/nEHS_Auction_Reporting.csv"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "DE"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Brennstoffemissionshandel (nEHS) certificate price",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["65"]],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

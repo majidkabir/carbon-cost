@@ -1,6 +1,7 @@
 name: France data
 # Fetches the French toll tariffs and toll stations listed in
-# tools/fr/sources.json (tools/fr/fetch.py) and pushes them, with a
+# tools/fr/sources.json (tools/fr/fetch.py), builds the table, converts it
+# to ORCT, compares it with tariffs/data, and pushes it all, with a
 # manifest, to the fr-out branch. Push to the fr-data branch to run it.
 on:
   push:
@@ -28,6 +29,19 @@ jobs:
           gares=$(ls out/stations/Gares-Peage_20* | sort | tail -1)
           python3 tools/fr/stations.py out/pairs.csv "$gares" tools/fr/aliases.json out/osm-booths.geojsonseq out/stations.json | tee out/stations-report.txt
           python3 tools/fr/build.py out/pairs.csv out/stations.json out/manifest.json out/fr.json | tee out/build-report.txt
+      - name: Convert to ORCT and compare
+        # The table becomes an ORCT dataset right away; only that is kept
+        # (tariffs/data/fr).
+        run: |
+          mkdir -p out/tables
+          # One table per tariff period of the year (each prices the
+          # documents in force on its first day); the last is fr.json.
+          python3 tools/fr/build.py --periods out/pairs.csv out/stations.json out/manifest.json out/tables | tee -a out/build-report.txt
+          v=$(python3 -c "import json; print(json.load(open('out/fr.json'))['valid_from'])")
+          cmp out/fr.json "out/tables/fr-$v.json"
+          python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
+          python3 tools/orct/check_lossless.py out/tables out/orct
+          sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |
           cd out

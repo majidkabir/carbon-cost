@@ -17,7 +17,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    # A run with a failed builder still pushed the others' datasets.
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -60,6 +61,8 @@ jobs:
             git push -q origin HEAD:main && break
             [ $i = 3 ] && exit 1; sleep 10
           done
+          f=$(for b in $branches; do git fetch -q --depth 1 origin "$b" && git show FETCH_HEAD:build-errors.txt 2>/dev/null | sed "s|^|- $b: |"; done || true)
+          printf '## Builders that failed\n%s\n' "${f:-none}" >> "$GITHUB_STEP_SUMMARY"
           p=$(grep '^published' report.txt | sed 's/^published /- /' || true)
           w=$(grep '^::warning' report.txt | sed 's/^::warning title=\([^:]*\)::/- \1: /' || true)
           printf '## Published (OpenStreetMap only)\n%s\n## For review (not published)\n%s\n' "${p:-nothing}" "${w:-nothing}" >> "$GITHUB_STEP_SUMMARY"

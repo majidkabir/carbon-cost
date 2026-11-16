@@ -2648,9 +2648,16 @@ func TestBelarus(t *testing.T) {
 			t.Errorf("%d axles: %+v", c.truck.Axles, l)
 		}
 	}
-	// Before 1 September 2026 nothing is priced (no earlier dataset).
-	r, _ := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
-	if _, ok := line(r, RoadToll, "BY", rates.Toll); ok {
-		t.Error("BY priced before 2026-09-01")
+	// Earlier tariffs, as BelToll announced them: 0.152 (from 1 June 2023),
+	// 0.171 (20 September 2024), 0.176 (1 September 2025) for 4+ axles.
+	for d, want := range map[string]float64{"2024-06-01": 15.2, "2025-01-01": 17.1, "2026-06-01": 17.6} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, RoadToll, "BY", rates.Toll); !ok || l.Amount != want {
+			t.Errorf("%s: %+v", d, l)
+		}
 	}
 }

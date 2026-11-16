@@ -379,6 +379,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/by/2024-01-01",
+   "scheme": "by",
+   "country": "BY",
+   "file": "by/by-2024-01-01.orct.json",
+   "name": "BelToll",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-09-19",
+   "sha256": "4527a6f6322f10f73abb4b6f0a373c0b80123b72014b2ffe4683cf7e2c70fad0",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/by/2024-09-20",
+   "scheme": "by",
+   "country": "BY",
+   "file": "by/by-2024-09-20.orct.json",
+   "name": "BelToll",
+   "valid_from": "2024-09-20",
+   "valid_to": "2025-08-31",
+   "sha256": "e761f54fc814cda90bc667635657e1105b7264e84b09f8425d8f2ed2727c19db",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/by/2025-09-01",
+   "scheme": "by",
+   "country": "BY",
+   "file": "by/by-2025-09-01.orct.json",
+   "name": "BelToll",
+   "valid_from": "2025-09-01",
+   "valid_to": "2026-08-31",
+   "sha256": "7810bfb988af7ad18476764b6a2de2d281dbe94e2aad41e5626d88c505054e4f",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/by/2026-09-01",
    "scheme": "by",
    "country": "BY",

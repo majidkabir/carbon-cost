@@ -1520,6 +1520,25 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("FI %s: %+v", d, l)
 		}
 	}
+	// Lithuania's CO2 component of the excise on gas oils: EUR 53.6 per
+	// 1,000 litres from 2025, none before.
+	for d, want := range map[string]float64{"2025-06-01": 0.0536, "2026-11-03": 0.0536} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "LT", DieselL: 1000}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "LT", rates.CO2); !ok || l.Rate != want || math.Abs(l.AmountEUR-53.6) > 0.01 {
+			t.Errorf("LT %s: %+v", d, l)
+		}
+	}
+	r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "LT"}, time.Date(2024, 6, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := line(r, FuelCO2, "LT", rates.CO2); ok {
+		t.Error("LT fuel line in 2024")
+	}
 	// Sweden's koldioxidskatt on diesel per litre: SEK 2.811 in 2025, cut to
 	// 0.411 from 1 July to 30 November 2026.
 	for d, want := range map[string]float64{"2025-06-01": 2.811, "2026-11-03": 0.411, "2026-12-15": 2.811, "2024-06-01": 2.723} {

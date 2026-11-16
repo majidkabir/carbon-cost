@@ -1512,6 +1512,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-lt/2025-01-01",
+   "scheme": "fuelco2-lt",
+   "country": "LT",
+   "file": "lt/fuelco2-lt-2025-01-01.orct.json",
+   "name": "CO2 dedamoji of the excise duty on gas oils",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "9d671b0f8227a8375cca71227b01e16713a108d7663e605e0f0d2f04dec6c875",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-lt/2026-01-01",
+   "scheme": "fuelco2-lt",
+   "country": "LT",
+   "file": "lt/fuelco2-lt-2026-01-01.orct.json",
+   "name": "CO2 dedamoji of the excise duty on gas oils",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "d15512d4d9dcac452c759ee3cb2b95b76034f870ba70bea7ac379b67feba8c91",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/lt/2024-01-01",
    "scheme": "lt",
    "country": "LT",

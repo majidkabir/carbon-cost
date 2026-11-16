@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-lt/2026-01-01",
+  "scheme": {
+   "id": "fuelco2-lt",
+   "name": "CO2 dedamoji of the excise duty on gas oils",
+   "country": "LT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Vilnius",
+  "license": "MIT",
+  "method": "Akcizų įstatymas Nr. IX-569, 37 straipsnio 1 dalis and 3 priedas: the excise duty on gas oils (diesel) has a fixed part and a variable CO2 part (CO2 dedamoji), EUR 53.6 per 1,000 litres in 2026 (kept at the 2025 amount by law XV-679 instead of rising), as the customs department's notice gives it. The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-lt-2026-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Muitinės departamentas: Dėl Akcizų įstatymo tam tikrų nuostatų pasikeitimo nuo 2026-01-01 (notice): the CO2 component of the excise duty on gas oils kept in 2026 at its 2025 amount, per 1,000 litres",
+   "url": "https://muitine.lrv.lt/public/canonical/1772694030/1834/1_AkzicIstatKor_20260226.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "LT"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "CO2 dedamoji of the excise duty on gas oils",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["0.0536"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

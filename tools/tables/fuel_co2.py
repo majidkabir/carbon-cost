@@ -35,7 +35,11 @@ from the fetched law texts (sources.json, table fuelco2-*):
   liquid fuels excise tax act's table (laki nestemäisten polttoaineiden
   valmisteverosta 1472/1994, liite), per litre, for each period of
   Verohallinto's tax tables from 2024 (consecutive periods at the same
-  rate joined).
+  rate joined);
+- Lithuania, the CO2 dedamoji (component) of the excise duty on gas oils
+  (Akcizų įstatymas Nr. IX-569, 37 str. 1 d. and 3 priedas), per 1,000
+  litres, from its introduction on 1 January 2025: the customs notice
+  that 2026 keeps the 2025 amount (law XV-679).
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
@@ -498,6 +502,22 @@ def finland(fetched, out, srcs):
                     "sources": [src(srcs, "fi-vero-verotaulukot")]})
 
 
+def lithuania(fetched, out, srcs):
+    t = re.sub(r"\s+", " ", open(os.path.join(fetched, "lt-muitine-akcizai-2026.txt"), encoding="utf-8", errors="replace").read())
+    m = re.search(r"laikinai, t\. ?y\. (\d{4}) metais, nebus didinama anglies dioksido.{0,600}?bus taikoma (\d{4}) metais galiojusi CO2 dedamoji: .{0,3}gazoliams ir šildymui skirtiems gazoliams ?[–-] ?(\d+,\d+) euro už 1 000 litrų", t)
+    if not m or int(m.group(1)) != int(m.group(2)) + 1:
+        sys.exit("Lithuanian customs notice: no CO2 component for gas oils")
+    v = float(m.group(3).replace(",", "."))
+    for y in (m.group(2), m.group(1)):
+        write(out, {"country": "LT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+                    "name": "CO2 dedamoji of the excise duty on gas oils", "rate_per_l": round(v / 1000, 5),
+                    "law": f"Akcizų įstatymas Nr. IX-569, 37 straipsnio 1 dalis and 3 priedas: the excise duty on gas oils (diesel) has a fixed part and a variable CO2 part (CO2 dedamoji), EUR {v:.1f} per 1,000 litres in {y}"
+                           + (f" (introduced on 1 January {y})" if y == m.group(2) else f" (kept at the {m.group(2)} amount by law XV-679 instead of rising)")
+                           + ", as the customs department's notice gives it. The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                           "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+                    "sources": [src(srcs, "lt-muitine-akcizai-2026")]})
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -510,6 +530,7 @@ def main(fetched, out):
     sweden(fetched, out, srcs)
     norway(fetched, out, srcs)
     finland(fetched, out, srcs)
+    lithuania(fetched, out, srcs)
 
 
 if __name__ == "__main__":

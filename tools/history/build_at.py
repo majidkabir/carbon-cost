@@ -23,6 +23,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 YEARS = [  # (file, valid_from, valid_to, title, BGBl, RIS URL)
     ("at-mtv-2023", "2024-01-01", "2024-12-31", "Mauttarifverordnung 2023", "BGBl. II Nr. 331/2023", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.html"),
     ("at-mtv-2024", "2025-01-01", "2025-12-31", "Mauttarifverordnung 2024", "BGBl. II Nr. 410/2024", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2024_II_410/BGBLA_2024_II_410.pdf"),
+    ("at-mtv-2025", "2026-01-01", "2026-12-31", "Mauttarifverordnung 2025", "BGBl. II Nr. 298/2025", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.html", "1 January 2026",
+     [{"title": "WKO: Lkw- und Bus-Maut in Österreich 2026 (totals per tariff group)", "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf"}]),
 ]
 AXLES = [{"min_axles": 2, "max_axles": 2}, {"min_axles": 3, "max_axles": 3}, {"min_axles": 4}]
 
@@ -50,8 +52,9 @@ def build(txt, tmpl, frm, to, title, bgbl, url, since=None, more_sources=()):
             sel = {"co2_class": [5]} if e is None else {"co2_class": [1, 2, 3, 4], "euro": e}
             rows.append({"component": "air_noise", "min_kg": 3501, **a, "rate": round(v / 100, 6)} | sel)
     # § 9 b) CO2, cents, other vehicles than buses.
-    # MTV 2024 on: b) for vehicles other than buses; MTV 2023: one table.
-    seg = txt[txt.index("b) andere Kraftfahrzeuge", par(9)):] if "b) andere Kraftfahrzeuge" in txt else txt[par(9):par(10)]
+    # MTV 2024 on: b) (2. in RIS's HTML) for vehicles other than buses; MTV 2023: one table.
+    m = re.compile(r"^\s*(?:b\)|2\.)\s*andere Kraftfahrzeuge", re.M).search(txt, par(9))
+    seg = txt[m.start():par(10)] if m else txt[par(9):par(10)]
     for c in (5, 4, 3, 2, 1):
         vals = nums(re.search(rf"^\s*{c}\s+([\d,\s]+)$", seg, re.M).group(1))
         for a, v in zip(AXLES, vals):
@@ -59,7 +62,7 @@ def build(txt, tmpl, frm, to, title, bgbl, url, since=None, more_sources=()):
     tb["rows"] = rows
     # § 4 sections, euros.
     seg = txt[par(4):par(5)]
-    blocks = re.split(r"\n\s*([a-q])\) ", seg)[1:]
+    blocks = re.split(r"\n\s*([a-q])\) ?", seg)[1:]
     secs = {blocks[i]: blocks[i + 1] for i in range(0, len(blocks), 2)}
     for s in tb["sections"]["list"]:
         b = secs[s["id"]]

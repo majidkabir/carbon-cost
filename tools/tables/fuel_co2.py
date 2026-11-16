@@ -20,14 +20,18 @@ from the fetched law texts (sources.json, table fuelco2-*):
   into force (point I, and point III's later date) until the next one;
 - Denmark, the CO2 tax on gas and diesel oil (CO2-afgiftsloven § 2, stk.
   1, indexed under stk. 7), per litre at day temperature, for the two
-  years Skatteministeriet's rate table gives.
+  years Skatteministeriet's rate table gives;
+- Sweden, the koldioxidskatt on unmarked diesel of environmental class 1
+  (lag (1994:1776) om skatt på energi, 2 kap. 1 §), per cubic metre, for
+  each period on Skatteverket's rate page from 2024 (consecutive periods
+  at the same rate joined).
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
 unless the request gives the litres.
 
 Usage: python3 fuel_co2.py fetched/ out-dir"""
-import html, json, os, re, sys
+import datetime, html, json, os, re, sys
 
 
 def text(path):
@@ -371,6 +375,46 @@ def denmark(fetched, out, srcs):
                     "sources": [src(srcs, "dk-svmn-co2afgift")]})
 
 
+SV_MONTHS = {m: i + 1 for i, m in enumerate(["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"])}
+
+
+def sweden(fetched, out, srcs):
+    t = text(os.path.join(fetched, "se-skv-bransle.html"))
+    periods = []
+    for part in t.split("Skattesatser på bränsle från ")[1:]:
+        d = re.match(r"(\d+) (\w+)(?: (\d{4}))?(?: till (\d+) (\w+) (\d{4}))? ", part)
+        m = re.search(r"som inte har försetts med märk- och färgämnen och ger minst 85 volymprocent destillat vid 350 grader C, tillhörig miljöklass 1\.? ?([\d ]+) kronor per kubikmeter ([\d ]+) kronor per kubikmeter", part)
+        if not d or not m or d.group(2) not in SV_MONTHS:
+            continue  # a link to the section, not the section
+        y1 = d.group(3) or d.group(6)
+        start = f"{y1}-{SV_MONTHS[d.group(2)]:02d}-{int(d.group(1)):02d}"
+        end = f"{d.group(6)}-{SV_MONTHS[d.group(5)]:02d}-{int(d.group(4)):02d}" if d.group(4) else None
+        periods.append((start, end, int(m.group(2).replace(" ", ""))))
+    periods = sorted(set(periods))
+    if not any(e is None for _, e, _ in periods) or len(periods) < 4:
+        sys.exit(f"Skatteverket's rate page: periods not found ({periods})")
+    # From 2024, consecutive periods at the same rate joined.
+    joined = []
+    for s, e, r in periods:
+        if (e or "9999") < "2024-01-01":
+            continue
+        if joined and joined[-1][2] == r and joined[-1][1] and (datetime.date.fromisoformat(joined[-1][1]) + datetime.timedelta(days=1)).isoformat() == s:
+            joined[-1] = (joined[-1][0], e, r)
+        else:
+            joined.append((s, e, r))
+    for s, e, r in joined:
+        f = {"country": "SE", "currency": "SEK", "valid_from": s,
+             "name": "Koldioxidskatt on diesel (environmental class 1)", "rate_per_l": r / 1000,
+             "law": f"Lag (1994:1776) om skatt på energi, 2 kap. 1 §: the koldioxidskatt on unmarked diesel of environmental class 1, {r:,} kronor per cubic metre".replace(f"{r:,}", f"{r:,}".replace(",", " "))
+                    + f" from {s}{' to ' + e if e else ''}, as Skatteverket's rate page gives it (the law's amounts, recalculated each year with the consumer price index, and the temporary reductions set by Parliament). "
+                    "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                    "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+             "sources": [src(srcs, "se-skv-bransle")]}
+        if e:
+            f["valid_to"] = e
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -380,6 +424,7 @@ def main(fetched, out):
     portugal(fetched, out, srcs)
     slovenia(fetched, out, srcs)
     denmark(fetched, out, srcs)
+    sweden(fetched, out, srcs)
 
 
 if __name__ == "__main__":

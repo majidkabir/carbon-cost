@@ -2007,6 +2007,61 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-se/2024-01-01",
+   "scheme": "fuelco2-se",
+   "country": "SE",
+   "file": "se/fuelco2-se-2024-01-01.orct.json",
+   "name": "Koldioxidskatt on diesel (environmental class 1)",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-12-31",
+   "sha256": "5074f0b5990801d4beada6d35d55926cd59ee7aca21d6e82fa5f84cc4727bbbd",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-se/2025-01-01",
+   "scheme": "fuelco2-se",
+   "country": "SE",
+   "file": "se/fuelco2-se-2025-01-01.orct.json",
+   "name": "Koldioxidskatt on diesel (environmental class 1)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2026-06-30",
+   "sha256": "6e44edd69880288e6fcbfef2a8cd6a637193d1af7b9795cf9ebb5c2ab61965dc",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-se/2026-07-01",
+   "scheme": "fuelco2-se",
+   "country": "SE",
+   "file": "se/fuelco2-se-2026-07-01.orct.json",
+   "name": "Koldioxidskatt on diesel (environmental class 1)",
+   "valid_from": "2026-07-01",
+   "valid_to": "2026-11-30",
+   "sha256": "69b28699cd1a42366779783a91fa548e43a4a1985b07055e64e60212c431dc41",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-se/2026-12-01",
+   "scheme": "fuelco2-se",
+   "country": "SE",
+   "file": "se/fuelco2-se-2026-12-01.orct.json",
+   "name": "Koldioxidskatt on diesel (environmental class 1)",
+   "valid_from": "2026-12-01",
+   "valid_to": "2026-12-31",
+   "sha256": "148efbc3684027565afcf3157f13d28a38d8be44d688e50deb8ece47fa554353",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-se/2027-01-01",
+   "scheme": "fuelco2-se",
+   "country": "SE",
+   "file": "se/fuelco2-se-2027-01-01.orct.json",
+   "name": "Koldioxidskatt on diesel (environmental class 1)",
+   "valid_from": "2027-01-01",
+   "valid_to": null,
+   "sha256": "c5d4f348d23a5ac32cbd2e8b03a2c040bd6f68721ece30b8905d20654f14ee2d",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/se/2024-01-01",
    "scheme": "se",
    "country": "SE",

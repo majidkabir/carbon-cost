@@ -1,0 +1,1960 @@
+{
+ "country": "IT",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "osm_extract": "2026-11-15",
+ "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
+ "law": "The Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026 by entry and exit station and class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, either way: A18 Messina-Catania (Messina Sud - Catania Nord class 5 EUR 10.90); A20 Messina-Palermo (Messina Nord - Buonfornello class 5 EUR 25.40). Stations: each carriageway's stretch between two consecutive entries/exits; the terminal barriers at OpenStreetMap's toll plazas (clusters of toll booths) beyond the end stations, the others at the junctions whose exits are signposted to them. The A20's Villafranca barrier (an open-system fixed toll for the Villafranca exit) isn't modelled.",
+ "sources": [
+  {
+   "title": "Consorzio per le Autostrade Siciliane: tariffe pedaggio in vigore dal 1 gennaio 2026, A18 Messina-Catania",
+   "url": "https://www.autostradesiciliane.it/files/upload/PortaleNews/allegati/a18%20tariffe%201%20gen%202026.pdf"
+  },
+  {
+   "title": "Consorzio per le Autostrade Siciliane: tariffe pedaggio in vigore dal 1 gennaio 2026, A20 Messina-Palermo",
+   "url": "https://www.autostradesiciliane.it/files/upload/PortaleNews/allegati/a20%20tariffe%201%20gen%202026.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): A18 and A20 carriageways, junctions, signposted links and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Classes B (two axles), 3, 4 and 5 (five axles or more)",
+ "min_kg": 3501,
+ "tolled_roads": "A18 Messina Sud - Catania Nord and A20 Messina Nord - Buonfornello.",
+ "closed_systems": [
+  {
+   "name": "A18 Messina-Catania",
+   "law": "Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026: by entry and exit, either way, VAT included.",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "5",
+     "min_kg": 3501,
+     "min_axles": 5
+    },
+    {
+     "name": "4",
+     "min_kg": 3501,
+     "min_axles": 4
+    },
+    {
+     "name": "3",
+     "min_kg": 3501,
+     "min_axles": 3
+    },
+    {
+     "name": "B",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Acireale > Catania Nord",
+     "points": [
+      {
+       "name": "between Acireale and Catania Nord",
+       "lat": 37.590231,
+       "lon": 15.127916,
+       "heading": 201.1
+      }
+     ]
+    },
+    {
+     "name": "Acireale > Giarre",
+     "points": [
+      {
+       "name": "between Acireale and Giarre",
+       "lat": 37.662441,
+       "lon": 15.149945,
+       "heading": 0.7
+      }
+     ]
+    },
+    {
+     "name": "Catania Nord > Acireale",
+     "points": [
+      {
+       "name": "between Catania Nord and Acireale",
+       "lat": 37.590179,
+       "lon": 15.128031,
+       "heading": 20.7
+      }
+     ]
+    },
+    {
+     "name": "Fiumefreddo > Giardini Naxos",
+     "points": [
+      {
+       "name": "between Fiumefreddo and Giardini Naxos",
+       "lat": 37.816059,
+       "lon": 15.224088,
+       "heading": 87.8
+      }
+     ]
+    },
+    {
+     "name": "Fiumefreddo > Giarre",
+     "points": [
+      {
+       "name": "between Fiumefreddo and Giarre",
+       "lat": 37.751799,
+       "lon": 15.175536,
+       "heading": 201.7
+      }
+     ]
+    },
+    {
+     "name": "Giardini Naxos > Fiumefreddo",
+     "points": [
+      {
+       "name": "between Giardini Naxos and Fiumefreddo",
+       "lat": 37.816156,
+       "lon": 15.223973,
+       "heading": 266.8
+      }
+     ]
+    },
+    {
+     "name": "Giardini Naxos > Taormina",
+     "points": [
+      {
+       "name": "between Giardini Naxos and Taormina",
+       "lat": 37.85017,
+       "lon": 15.276031,
+       "heading": 44.3
+      }
+     ]
+    },
+    {
+     "name": "Giarre > Acireale",
+     "points": [
+      {
+       "name": "between Giarre and Acireale",
+       "lat": 37.662472,
+       "lon": 15.149818,
+       "heading": 180.8
+      }
+     ]
+    },
+    {
+     "name": "Giarre > Fiumefreddo",
+     "points": [
+      {
+       "name": "between Giarre and Fiumefreddo",
+       "lat": 37.751759,
+       "lon": 15.175645,
+       "heading": 21.3
+      }
+     ]
+    },
+    {
+     "name": "Messina Sud > Roccalumera",
+     "points": [
+      {
+       "name": "between Messina Sud and Roccalumera",
+       "lat": 38.043021,
+       "lon": 15.458764,
+       "heading": 225.3
+      }
+     ]
+    },
+    {
+     "name": "Roccalumera > Messina Sud",
+     "points": [
+      {
+       "name": "between Roccalumera and Messina Sud",
+       "lat": 38.042977,
+       "lon": 15.458897,
+       "heading": 45.1
+      }
+     ]
+    },
+    {
+     "name": "Roccalumera > Taormina",
+     "points": [
+      {
+       "name": "between Roccalumera and Taormina",
+       "lat": 37.916972,
+       "lon": 15.343013,
+       "heading": 201.1
+      }
+     ]
+    },
+    {
+     "name": "Taormina > Giardini Naxos",
+     "points": [
+      {
+       "name": "between Taormina and Giardini Naxos",
+       "lat": 37.850251,
+       "lon": 15.275704,
+       "heading": 223.2
+      }
+     ]
+    },
+    {
+     "name": "Taormina > Roccalumera",
+     "points": [
+      {
+       "name": "between Taormina and Roccalumera",
+       "lat": 37.916885,
+       "lon": 15.343202,
+       "heading": 20.5
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Acireale > Catania Nord|Acireale > Catania Nord": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.3,
+     "5": 1.4
+    },
+    "Acireale > Giarre|Acireale > Giarre": {
+     "B": 0.7,
+     "3": 1.2,
+     "4": 1.5,
+     "5": 1.7
+    },
+    "Acireale > Giarre|Fiumefreddo > Giardini Naxos": {
+     "B": 1.6,
+     "3": 2.8,
+     "4": 3.5,
+     "5": 3.9
+    },
+    "Acireale > Giarre|Giardini Naxos > Taormina": {
+     "B": 1.9,
+     "3": 3.3,
+     "4": 4.2,
+     "5": 4.7
+    },
+    "Acireale > Giarre|Giarre > Fiumefreddo": {
+     "B": 1.2,
+     "3": 2.1,
+     "4": 2.7,
+     "5": 3.0
+    },
+    "Acireale > Giarre|Roccalumera > Messina Sud": {
+     "B": 4.2,
+     "3": 7.3,
+     "4": 9.2,
+     "5": 10.5
+    },
+    "Acireale > Giarre|Taormina > Roccalumera": {
+     "B": 2.8,
+     "3": 4.9,
+     "4": 6.1,
+     "5": 7.0
+    },
+    "Catania Nord > Acireale|Acireale > Giarre": {
+     "B": 0.9,
+     "3": 1.5,
+     "4": 1.9,
+     "5": 2.2
+    },
+    "Catania Nord > Acireale|Catania Nord > Acireale": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.3,
+     "5": 1.4
+    },
+    "Catania Nord > Acireale|Fiumefreddo > Giardini Naxos": {
+     "B": 1.7,
+     "3": 3.1,
+     "4": 3.8,
+     "5": 4.3
+    },
+    "Catania Nord > Acireale|Giardini Naxos > Taormina": {
+     "B": 2.0,
+     "3": 3.6,
+     "4": 4.5,
+     "5": 5.1
+    },
+    "Catania Nord > Acireale|Giarre > Fiumefreddo": {
+     "B": 1.4,
+     "3": 2.4,
+     "4": 3.0,
+     "5": 3.4
+    },
+    "Catania Nord > Acireale|Roccalumera > Messina Sud": {
+     "B": 4.3,
+     "3": 7.6,
+     "4": 9.6,
+     "5": 10.9
+    },
+    "Catania Nord > Acireale|Taormina > Roccalumera": {
+     "B": 2.9,
+     "3": 5.2,
+     "4": 6.5,
+     "5": 7.4
+    },
+    "Fiumefreddo > Giardini Naxos|Fiumefreddo > Giardini Naxos": {
+     "B": 0.5,
+     "3": 0.8,
+     "4": 1.0,
+     "5": 1.1
+    },
+    "Fiumefreddo > Giardini Naxos|Giardini Naxos > Taormina": {
+     "B": 0.8,
+     "3": 1.4,
+     "4": 1.7,
+     "5": 1.9
+    },
+    "Fiumefreddo > Giardini Naxos|Roccalumera > Messina Sud": {
+     "B": 3.1,
+     "3": 5.3,
+     "4": 6.8,
+     "5": 7.7
+    },
+    "Fiumefreddo > Giardini Naxos|Taormina > Roccalumera": {
+     "B": 1.7,
+     "3": 2.9,
+     "4": 3.7,
+     "5": 4.2
+    },
+    "Fiumefreddo > Giarre|Acireale > Catania Nord": {
+     "B": 1.4,
+     "3": 2.4,
+     "4": 3.0,
+     "5": 3.4
+    },
+    "Fiumefreddo > Giarre|Fiumefreddo > Giarre": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.2,
+     "5": 1.4
+    },
+    "Fiumefreddo > Giarre|Giarre > Acireale": {
+     "B": 1.2,
+     "3": 2.1,
+     "4": 2.7,
+     "5": 3.0
+    },
+    "Giardini Naxos > Fiumefreddo|Acireale > Catania Nord": {
+     "B": 1.7,
+     "3": 3.1,
+     "4": 3.8,
+     "5": 4.3
+    },
+    "Giardini Naxos > Fiumefreddo|Fiumefreddo > Giarre": {
+     "B": 0.9,
+     "3": 1.7,
+     "4": 2.1,
+     "5": 2.3
+    },
+    "Giardini Naxos > Fiumefreddo|Giardini Naxos > Fiumefreddo": {
+     "B": 0.5,
+     "3": 0.8,
+     "4": 1.0,
+     "5": 1.1
+    },
+    "Giardini Naxos > Fiumefreddo|Giarre > Acireale": {
+     "B": 1.6,
+     "3": 2.8,
+     "4": 3.5,
+     "5": 3.9
+    },
+    "Giardini Naxos > Taormina|Giardini Naxos > Taormina": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.2,
+     "5": 1.4
+    },
+    "Giardini Naxos > Taormina|Roccalumera > Messina Sud": {
+     "B": 2.9,
+     "3": 4.9,
+     "4": 6.3,
+     "5": 7.1
+    },
+    "Giardini Naxos > Taormina|Taormina > Roccalumera": {
+     "B": 1.5,
+     "3": 2.5,
+     "4": 3.2,
+     "5": 3.6
+    },
+    "Giarre > Acireale|Acireale > Catania Nord": {
+     "B": 0.9,
+     "3": 1.5,
+     "4": 1.9,
+     "5": 2.2
+    },
+    "Giarre > Acireale|Giarre > Acireale": {
+     "B": 0.7,
+     "3": 1.2,
+     "4": 1.5,
+     "5": 1.7
+    },
+    "Giarre > Fiumefreddo|Fiumefreddo > Giardini Naxos": {
+     "B": 0.9,
+     "3": 1.7,
+     "4": 2.1,
+     "5": 2.3
+    },
+    "Giarre > Fiumefreddo|Giardini Naxos > Taormina": {
+     "B": 1.2,
+     "3": 2.2,
+     "4": 2.8,
+     "5": 3.1
+    },
+    "Giarre > Fiumefreddo|Giarre > Fiumefreddo": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.2,
+     "5": 1.4
+    },
+    "Giarre > Fiumefreddo|Roccalumera > Messina Sud": {
+     "B": 3.6,
+     "3": 6.2,
+     "4": 7.8,
+     "5": 8.9
+    },
+    "Giarre > Fiumefreddo|Taormina > Roccalumera": {
+     "B": 2.1,
+     "3": 3.8,
+     "4": 4.7,
+     "5": 5.4
+    },
+    "Messina Sud > Roccalumera|Acireale > Catania Nord": {
+     "B": 4.3,
+     "3": 7.6,
+     "4": 9.6,
+     "5": 10.9
+    },
+    "Messina Sud > Roccalumera|Fiumefreddo > Giarre": {
+     "B": 3.6,
+     "3": 6.2,
+     "4": 7.8,
+     "5": 8.9
+    },
+    "Messina Sud > Roccalumera|Giardini Naxos > Fiumefreddo": {
+     "B": 3.1,
+     "3": 5.3,
+     "4": 6.8,
+     "5": 7.7
+    },
+    "Messina Sud > Roccalumera|Giarre > Acireale": {
+     "B": 4.2,
+     "3": 7.3,
+     "4": 9.2,
+     "5": 10.5
+    },
+    "Messina Sud > Roccalumera|Messina Sud > Roccalumera": {
+     "B": 1.5,
+     "3": 2.6,
+     "4": 3.3,
+     "5": 3.8
+    },
+    "Messina Sud > Roccalumera|Roccalumera > Taormina": {
+     "B": 2.4,
+     "3": 4.2,
+     "4": 5.3,
+     "5": 6.0
+    },
+    "Messina Sud > Roccalumera|Taormina > Giardini Naxos": {
+     "B": 2.9,
+     "3": 4.9,
+     "4": 6.3,
+     "5": 7.1
+    },
+    "Roccalumera > Messina Sud|Roccalumera > Messina Sud": {
+     "B": 1.5,
+     "3": 2.6,
+     "4": 3.3,
+     "5": 3.8
+    },
+    "Roccalumera > Taormina|Acireale > Catania Nord": {
+     "B": 2.9,
+     "3": 5.2,
+     "4": 6.5,
+     "5": 7.4
+    },
+    "Roccalumera > Taormina|Fiumefreddo > Giarre": {
+     "B": 2.1,
+     "3": 3.8,
+     "4": 4.7,
+     "5": 5.4
+    },
+    "Roccalumera > Taormina|Giardini Naxos > Fiumefreddo": {
+     "B": 1.7,
+     "3": 2.9,
+     "4": 3.7,
+     "5": 4.2
+    },
+    "Roccalumera > Taormina|Giarre > Acireale": {
+     "B": 2.8,
+     "3": 4.9,
+     "4": 6.1,
+     "5": 7.0
+    },
+    "Roccalumera > Taormina|Roccalumera > Taormina": {
+     "B": 1.0,
+     "3": 1.7,
+     "4": 2.2,
+     "5": 2.5
+    },
+    "Roccalumera > Taormina|Taormina > Giardini Naxos": {
+     "B": 1.5,
+     "3": 2.5,
+     "4": 3.2,
+     "5": 3.6
+    },
+    "Taormina > Giardini Naxos|Acireale > Catania Nord": {
+     "B": 2.0,
+     "3": 3.6,
+     "4": 4.5,
+     "5": 5.1
+    },
+    "Taormina > Giardini Naxos|Fiumefreddo > Giarre": {
+     "B": 1.2,
+     "3": 2.2,
+     "4": 2.8,
+     "5": 3.1
+    },
+    "Taormina > Giardini Naxos|Giardini Naxos > Fiumefreddo": {
+     "B": 0.8,
+     "3": 1.4,
+     "4": 1.7,
+     "5": 1.9
+    },
+    "Taormina > Giardini Naxos|Giarre > Acireale": {
+     "B": 1.9,
+     "3": 3.3,
+     "4": 4.2,
+     "5": 4.7
+    },
+    "Taormina > Giardini Naxos|Taormina > Giardini Naxos": {
+     "B": 0.6,
+     "3": 1.0,
+     "4": 1.2,
+     "5": 1.4
+    },
+    "Taormina > Roccalumera|Roccalumera > Messina Sud": {
+     "B": 2.4,
+     "3": 4.2,
+     "4": 5.3,
+     "5": 6.0
+    },
+    "Taormina > Roccalumera|Taormina > Roccalumera": {
+     "B": 1.0,
+     "3": 1.7,
+     "4": 2.2,
+     "5": 2.5
+    }
+   }
+  },
+  {
+   "name": "A20 Messina-Palermo",
+   "law": "Consorzio per le Autostrade Siciliane's tolls in force from 1 January 2026: by entry and exit, either way, VAT included.",
+   "directed": true,
+   "station_match_km": 0.1,
+   "groups": [
+    {
+     "name": "5",
+     "min_kg": 3501,
+     "min_axles": 5
+    },
+    {
+     "name": "4",
+     "min_kg": 3501,
+     "min_axles": 4
+    },
+    {
+     "name": "3",
+     "min_kg": 3501,
+     "min_axles": 3
+    },
+    {
+     "name": "B",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Barcellona > Falcone",
+     "points": [
+      {
+       "name": "between Barcellona and Falcone",
+       "lat": 38.129902,
+       "lon": 15.131453,
+       "heading": 233.0
+      }
+     ]
+    },
+    {
+     "name": "Barcellona > Milazzo",
+     "points": [
+      {
+       "name": "between Barcellona and Milazzo",
+       "lat": 38.171857,
+       "lon": 15.232167,
+       "heading": 65.5
+      }
+     ]
+    },
+    {
+     "name": "Brolo > Patti",
+     "points": [
+      {
+       "name": "between Brolo and Patti",
+       "lat": 38.160903,
+       "lon": 14.911576,
+       "heading": 67.2
+      }
+     ]
+    },
+    {
+     "name": "Brolo > Rocca di Caprileone",
+     "points": [
+      {
+       "name": "between Brolo and Rocca di Caprileone",
+       "lat": 38.145688,
+       "lon": 14.75727,
+       "heading": 239.8
+      }
+     ]
+    },
+    {
+     "name": "Buonfornello > Cefalu'",
+     "points": [
+      {
+       "name": "between Buonfornello and Cefalu'",
+       "lat": 37.995897,
+       "lon": 13.912531,
+       "heading": 65.9
+      }
+     ]
+    },
+    {
+     "name": "Castelbuono > Cefalu'",
+     "points": [
+      {
+       "name": "between Castelbuono and Cefalu'",
+       "lat": 38.022876,
+       "lon": 14.042308,
+       "heading": 314.3
+      }
+     ]
+    },
+    {
+     "name": "Castelbuono > Tusa",
+     "points": [
+      {
+       "name": "between Castelbuono and Tusa",
+       "lat": 38.008725,
+       "lon": 14.173106,
+       "heading": 97.7
+      }
+     ]
+    },
+    {
+     "name": "Cefalu' > Buonfornello",
+     "points": [
+      {
+       "name": "between Cefalu' and Buonfornello",
+       "lat": 37.996103,
+       "lon": 13.912521,
+       "heading": 245.1
+      }
+     ]
+    },
+    {
+     "name": "Cefalu' > Castelbuono",
+     "points": [
+      {
+       "name": "between Cefalu' and Castelbuono",
+       "lat": 38.022518,
+       "lon": 14.042171,
+       "heading": 133.6
+      }
+     ]
+    },
+    {
+     "name": "Falcone > Barcellona",
+     "points": [
+      {
+       "name": "between Falcone and Barcellona",
+       "lat": 38.129716,
+       "lon": 15.131519,
+       "heading": 52.8
+      }
+     ]
+    },
+    {
+     "name": "Falcone > Patti",
+     "points": [
+      {
+       "name": "between Falcone and Patti",
+       "lat": 38.141795,
+       "lon": 15.045154,
+       "heading": 306.3
+      }
+     ]
+    },
+    {
+     "name": "Messina Nord > Rometta",
+     "points": [
+      {
+       "name": "between Messina Nord and Rometta",
+       "lat": 38.236498,
+       "lon": 15.437347,
+       "heading": 224.0
+      }
+     ]
+    },
+    {
+     "name": "Milazzo > Barcellona",
+     "points": [
+      {
+       "name": "between Milazzo and Barcellona",
+       "lat": 38.172016,
+       "lon": 15.232061,
+       "heading": 246.1
+      }
+     ]
+    },
+    {
+     "name": "Milazzo > Rometta",
+     "points": [
+      {
+       "name": "between Milazzo and Rometta",
+       "lat": 38.206251,
+       "lon": 15.350847,
+       "heading": 87.3
+      }
+     ]
+    },
+    {
+     "name": "Patti > Brolo",
+     "points": [
+      {
+       "name": "between Patti and Brolo",
+       "lat": 38.161137,
+       "lon": 14.911525,
+       "heading": 247.9
+      }
+     ]
+    },
+    {
+     "name": "Patti > Falcone",
+     "points": [
+      {
+       "name": "between Patti and Falcone",
+       "lat": 38.141524,
+       "lon": 15.045061,
+       "heading": 126.1
+      }
+     ]
+    },
+    {
+     "name": "Rocca di Caprileone > Brolo",
+     "points": [
+      {
+       "name": "between Rocca di Caprileone and Brolo",
+       "lat": 38.14552,
+       "lon": 14.757529,
+       "heading": 59.2
+      }
+     ]
+    },
+    {
+     "name": "Rocca di Caprileone > S.Agata di Militello",
+     "points": [
+      {
+       "name": "between Rocca di Caprileone and S.Agata di Militello",
+       "lat": 38.079409,
+       "lon": 14.668021,
+       "heading": 243.0
+      }
+     ]
+    },
+    {
+     "name": "Rometta > Messina Nord",
+     "points": [
+      {
+       "name": "between Rometta and Messina Nord",
+       "lat": 38.236295,
+       "lon": 15.437402,
+       "heading": 44.3
+      }
+     ]
+    },
+    {
+     "name": "Rometta > Milazzo",
+     "points": [
+      {
+       "name": "between Rometta and Milazzo",
+       "lat": 38.206425,
+       "lon": 15.350694,
+       "heading": 267.1
+      }
+     ]
+    },
+    {
+     "name": "S.Agata di Militello > Rocca di Caprileone",
+     "points": [
+      {
+       "name": "between S.Agata di Militello and Rocca di Caprileone",
+       "lat": 38.079303,
+       "lon": 14.668045,
+       "heading": 63.1
+      }
+     ]
+    },
+    {
+     "name": "S.Agata di Militello > S.Stefano di Camastra",
+     "points": [
+      {
+       "name": "between S.Agata di Militello and S.Stefano di Camastra",
+       "lat": 38.026035,
+       "lon": 14.475703,
+       "heading": 276.8
+      }
+     ]
+    },
+    {
+     "name": "S.Stefano di Camastra > S.Agata di Militello",
+     "points": [
+      {
+       "name": "between S.Stefano di Camastra and S.Agata di Militello",
+       "lat": 38.02588,
+       "lon": 14.47575,
+       "heading": 96.9
+      }
+     ]
+    },
+    {
+     "name": "S.Stefano di Camastra > Tusa",
+     "points": [
+      {
+       "name": "between S.Stefano di Camastra and Tusa",
+       "lat": 37.999009,
+       "lon": 14.277864,
+       "heading": 255.9
+      }
+     ]
+    },
+    {
+     "name": "Tusa > Castelbuono",
+     "points": [
+      {
+       "name": "between Tusa and Castelbuono",
+       "lat": 38.009195,
+       "lon": 14.173109,
+       "heading": 277.7
+      }
+     ]
+    },
+    {
+     "name": "Tusa > S.Stefano di Camastra",
+     "points": [
+      {
+       "name": "between Tusa and S.Stefano di Camastra",
+       "lat": 37.99856,
+       "lon": 14.277791,
+       "heading": 74.9
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Barcellona > Falcone|Barcellona > Falcone": {
+     "B": 0.9,
+     "3": 1.2,
+     "4": 1.8,
+     "5": 2.1
+    },
+    "Barcellona > Falcone|Brolo > Rocca di Caprileone": {
+     "B": 3.3,
+     "3": 4.6,
+     "4": 6.8,
+     "5": 7.9
+    },
+    "Barcellona > Falcone|Castelbuono > Cefalu'": {
+     "B": 7.3,
+     "3": 10.1,
+     "4": 14.9,
+     "5": 17.5
+    },
+    "Barcellona > Falcone|Cefalu' > Buonfornello": {
+     "B": 8.2,
+     "3": 11.3,
+     "4": 16.7,
+     "5": 19.6
+    },
+    "Barcellona > Falcone|Falcone > Patti": {
+     "B": 1.6,
+     "3": 2.2,
+     "4": 3.2,
+     "5": 3.7
+    },
+    "Barcellona > Falcone|Patti > Brolo": {
+     "B": 2.5,
+     "3": 3.5,
+     "4": 5.1,
+     "5": 6.0
+    },
+    "Barcellona > Falcone|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 3.9,
+     "3": 5.4,
+     "4": 8.0,
+     "5": 9.4
+    },
+    "Barcellona > Falcone|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 5.4,
+     "3": 7.4,
+     "4": 11.0,
+     "5": 12.9
+    },
+    "Barcellona > Falcone|S.Stefano di Camastra > Tusa": {
+     "B": 6.0,
+     "3": 8.2,
+     "4": 12.1,
+     "5": 14.2
+    },
+    "Barcellona > Falcone|Tusa > Castelbuono": {
+     "B": 6.7,
+     "3": 9.2,
+     "4": 13.7,
+     "5": 16.0
+    },
+    "Barcellona > Milazzo|Barcellona > Milazzo": {
+     "B": 0.7,
+     "3": 1.0,
+     "4": 1.4,
+     "5": 1.7
+    },
+    "Barcellona > Milazzo|Milazzo > Rometta": {
+     "B": 1.6,
+     "3": 2.1,
+     "4": 3.2,
+     "5": 3.7
+    },
+    "Barcellona > Milazzo|Rometta > Messina Nord": {
+     "B": 2.7,
+     "3": 3.7,
+     "4": 5.5,
+     "5": 6.4
+    },
+    "Brolo > Patti|Barcellona > Milazzo": {
+     "B": 2.9,
+     "3": 4.0,
+     "4": 6.0,
+     "5": 7.0
+    },
+    "Brolo > Patti|Brolo > Patti": {
+     "B": 1.4,
+     "3": 1.9,
+     "4": 2.8,
+     "5": 3.3
+    },
+    "Brolo > Patti|Falcone > Barcellona": {
+     "B": 2.5,
+     "3": 3.5,
+     "4": 5.1,
+     "5": 6.0
+    },
+    "Brolo > Patti|Milazzo > Rometta": {
+     "B": 3.8,
+     "3": 5.2,
+     "4": 7.7,
+     "5": 9.1
+    },
+    "Brolo > Patti|Patti > Falcone": {
+     "B": 1.7,
+     "3": 2.4,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "Brolo > Patti|Rometta > Messina Nord": {
+     "B": 4.9,
+     "3": 6.8,
+     "4": 10.0,
+     "5": 11.8
+    },
+    "Brolo > Rocca di Caprileone|Brolo > Rocca di Caprileone": {
+     "B": 1.0,
+     "3": 1.4,
+     "4": 2.1,
+     "5": 2.4
+    },
+    "Brolo > Rocca di Caprileone|Castelbuono > Cefalu'": {
+     "B": 5.0,
+     "3": 6.9,
+     "4": 10.2,
+     "5": 12.0
+    },
+    "Brolo > Rocca di Caprileone|Cefalu' > Buonfornello": {
+     "B": 5.9,
+     "3": 8.1,
+     "4": 12.0,
+     "5": 14.1
+    },
+    "Brolo > Rocca di Caprileone|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 1.6,
+     "3": 2.2,
+     "4": 3.3,
+     "5": 3.8
+    },
+    "Brolo > Rocca di Caprileone|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 3.1,
+     "3": 4.2,
+     "4": 6.3,
+     "5": 7.4
+    },
+    "Brolo > Rocca di Caprileone|S.Stefano di Camastra > Tusa": {
+     "B": 3.7,
+     "3": 5.0,
+     "4": 7.4,
+     "5": 8.7
+    },
+    "Brolo > Rocca di Caprileone|Tusa > Castelbuono": {
+     "B": 4.4,
+     "3": 6.0,
+     "4": 8.9,
+     "5": 10.5
+    },
+    "Buonfornello > Cefalu'|Barcellona > Milazzo": {
+     "B": 8.6,
+     "3": 11.9,
+     "4": 17.6,
+     "5": 20.6
+    },
+    "Buonfornello > Cefalu'|Brolo > Patti": {
+     "B": 7.1,
+     "3": 9.7,
+     "4": 14.4,
+     "5": 16.9
+    },
+    "Buonfornello > Cefalu'|Buonfornello > Cefalu'": {
+     "B": 0.9,
+     "3": 1.3,
+     "4": 1.9,
+     "5": 2.3
+    },
+    "Buonfornello > Cefalu'|Castelbuono > Tusa": {
+     "B": 2.6,
+     "3": 3.5,
+     "4": 5.2,
+     "5": 6.1
+    },
+    "Buonfornello > Cefalu'|Cefalu' > Castelbuono": {
+     "B": 2.0,
+     "3": 2.7,
+     "4": 4.0,
+     "5": 4.7
+    },
+    "Buonfornello > Cefalu'|Falcone > Barcellona": {
+     "B": 8.2,
+     "3": 11.3,
+     "4": 16.7,
+     "5": 19.6
+    },
+    "Buonfornello > Cefalu'|Milazzo > Rometta": {
+     "B": 9.5,
+     "3": 13.0,
+     "4": 19.3,
+     "5": 22.7
+    },
+    "Buonfornello > Cefalu'|Patti > Falcone": {
+     "B": 7.4,
+     "3": 10.2,
+     "4": 15.1,
+     "5": 17.7
+    },
+    "Buonfornello > Cefalu'|Rocca di Caprileone > Brolo": {
+     "B": 5.9,
+     "3": 8.1,
+     "4": 12.0,
+     "5": 14.1
+    },
+    "Buonfornello > Cefalu'|Rometta > Messina Nord": {
+     "B": 10.6,
+     "3": 14.6,
+     "4": 21.6,
+     "5": 25.4
+    },
+    "Buonfornello > Cefalu'|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 5.1,
+     "3": 7.0,
+     "4": 10.3,
+     "5": 12.1
+    },
+    "Buonfornello > Cefalu'|S.Stefano di Camastra > S.Agata di Militello": {
+     "B": 4.5,
+     "3": 6.2,
+     "4": 9.2,
+     "5": 10.8
+    },
+    "Buonfornello > Cefalu'|Tusa > S.Stefano di Camastra": {
+     "B": 3.2,
+     "3": 4.3,
+     "4": 6.4,
+     "5": 7.5
+    },
+    "Castelbuono > Cefalu'|Castelbuono > Cefalu'": {
+     "B": 1.1,
+     "3": 1.5,
+     "4": 2.3,
+     "5": 2.6
+    },
+    "Castelbuono > Cefalu'|Cefalu' > Buonfornello": {
+     "B": 2.0,
+     "3": 2.7,
+     "4": 4.0,
+     "5": 4.7
+    },
+    "Castelbuono > Tusa|Barcellona > Milazzo": {
+     "B": 7.1,
+     "3": 9.8,
+     "4": 14.5,
+     "5": 17.0
+    },
+    "Castelbuono > Tusa|Brolo > Patti": {
+     "B": 5.6,
+     "3": 7.7,
+     "4": 11.3,
+     "5": 13.3
+    },
+    "Castelbuono > Tusa|Castelbuono > Tusa": {
+     "B": 1.1,
+     "3": 1.5,
+     "4": 2.2,
+     "5": 2.6
+    },
+    "Castelbuono > Tusa|Falcone > Barcellona": {
+     "B": 6.7,
+     "3": 9.2,
+     "4": 13.7,
+     "5": 16.0
+    },
+    "Castelbuono > Tusa|Milazzo > Rometta": {
+     "B": 8.0,
+     "3": 11.0,
+     "4": 16.3,
+     "5": 19.1
+    },
+    "Castelbuono > Tusa|Patti > Falcone": {
+     "B": 5.9,
+     "3": 8.1,
+     "4": 12.0,
+     "5": 14.1
+    },
+    "Castelbuono > Tusa|Rocca di Caprileone > Brolo": {
+     "B": 4.4,
+     "3": 6.0,
+     "4": 8.9,
+     "5": 10.5
+    },
+    "Castelbuono > Tusa|Rometta > Messina Nord": {
+     "B": 9.1,
+     "3": 12.5,
+     "4": 18.6,
+     "5": 21.8
+    },
+    "Castelbuono > Tusa|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 3.6,
+     "3": 4.9,
+     "4": 7.3,
+     "5": 8.6
+    },
+    "Castelbuono > Tusa|S.Stefano di Camastra > S.Agata di Militello": {
+     "B": 3.0,
+     "3": 4.2,
+     "4": 6.2,
+     "5": 7.2
+    },
+    "Castelbuono > Tusa|Tusa > S.Stefano di Camastra": {
+     "B": 1.7,
+     "3": 2.3,
+     "4": 3.4,
+     "5": 3.9
+    },
+    "Cefalu' > Buonfornello|Cefalu' > Buonfornello": {
+     "B": 0.9,
+     "3": 1.3,
+     "4": 1.9,
+     "5": 2.3
+    },
+    "Cefalu' > Castelbuono|Barcellona > Milazzo": {
+     "B": 7.8,
+     "3": 10.7,
+     "4": 15.8,
+     "5": 18.5
+    },
+    "Cefalu' > Castelbuono|Brolo > Patti": {
+     "B": 6.2,
+     "3": 8.5,
+     "4": 12.6,
+     "5": 14.8
+    },
+    "Cefalu' > Castelbuono|Castelbuono > Tusa": {
+     "B": 1.7,
+     "3": 2.3,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "Cefalu' > Castelbuono|Cefalu' > Castelbuono": {
+     "B": 1.1,
+     "3": 1.5,
+     "4": 2.3,
+     "5": 2.6
+    },
+    "Cefalu' > Castelbuono|Falcone > Barcellona": {
+     "B": 7.3,
+     "3": 10.1,
+     "4": 14.9,
+     "5": 17.5
+    },
+    "Cefalu' > Castelbuono|Milazzo > Rometta": {
+     "B": 8.6,
+     "3": 11.8,
+     "4": 17.5,
+     "5": 20.6
+    },
+    "Cefalu' > Castelbuono|Patti > Falcone": {
+     "B": 6.6,
+     "3": 9.0,
+     "4": 13.3,
+     "5": 15.6
+    },
+    "Cefalu' > Castelbuono|Rocca di Caprileone > Brolo": {
+     "B": 5.0,
+     "3": 6.9,
+     "4": 10.2,
+     "5": 12.0
+    },
+    "Cefalu' > Castelbuono|Rometta > Messina Nord": {
+     "B": 9.8,
+     "3": 13.4,
+     "4": 19.9,
+     "5": 23.3
+    },
+    "Cefalu' > Castelbuono|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 4.2,
+     "3": 5.8,
+     "4": 8.5,
+     "5": 10.0
+    },
+    "Cefalu' > Castelbuono|S.Stefano di Camastra > S.Agata di Militello": {
+     "B": 3.7,
+     "3": 5.0,
+     "4": 7.4,
+     "5": 8.7
+    },
+    "Cefalu' > Castelbuono|Tusa > S.Stefano di Camastra": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.4
+    },
+    "Falcone > Barcellona|Barcellona > Milazzo": {
+     "B": 1.3,
+     "3": 1.8,
+     "4": 2.7,
+     "5": 3.1
+    },
+    "Falcone > Barcellona|Falcone > Barcellona": {
+     "B": 0.9,
+     "3": 1.2,
+     "4": 1.8,
+     "5": 2.1
+    },
+    "Falcone > Barcellona|Milazzo > Rometta": {
+     "B": 2.2,
+     "3": 3.0,
+     "4": 4.4,
+     "5": 5.2
+    },
+    "Falcone > Barcellona|Rometta > Messina Nord": {
+     "B": 3.3,
+     "3": 4.5,
+     "4": 6.7,
+     "5": 7.9
+    },
+    "Falcone > Patti|Brolo > Rocca di Caprileone": {
+     "B": 2.5,
+     "3": 3.5,
+     "4": 5.2,
+     "5": 6.1
+    },
+    "Falcone > Patti|Castelbuono > Cefalu'": {
+     "B": 6.6,
+     "3": 9.0,
+     "4": 13.3,
+     "5": 15.6
+    },
+    "Falcone > Patti|Cefalu' > Buonfornello": {
+     "B": 7.4,
+     "3": 10.2,
+     "4": 15.1,
+     "5": 17.7
+    },
+    "Falcone > Patti|Falcone > Patti": {
+     "B": 0.8,
+     "3": 1.1,
+     "4": 1.6,
+     "5": 1.8
+    },
+    "Falcone > Patti|Patti > Brolo": {
+     "B": 1.7,
+     "3": 2.4,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "Falcone > Patti|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 3.1,
+     "3": 4.3,
+     "4": 6.4,
+     "5": 7.5
+    },
+    "Falcone > Patti|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 4.6,
+     "3": 6.3,
+     "4": 9.4,
+     "5": 11.0
+    },
+    "Falcone > Patti|S.Stefano di Camastra > Tusa": {
+     "B": 5.2,
+     "3": 7.1,
+     "4": 10.5,
+     "5": 12.3
+    },
+    "Falcone > Patti|Tusa > Castelbuono": {
+     "B": 5.9,
+     "3": 8.1,
+     "4": 12.0,
+     "5": 14.1
+    },
+    "Messina Nord > Rometta|Barcellona > Falcone": {
+     "B": 3.3,
+     "3": 4.5,
+     "4": 6.7,
+     "5": 7.9
+    },
+    "Messina Nord > Rometta|Brolo > Rocca di Caprileone": {
+     "B": 5.8,
+     "3": 7.9,
+     "4": 11.7,
+     "5": 13.7
+    },
+    "Messina Nord > Rometta|Castelbuono > Cefalu'": {
+     "B": 9.8,
+     "3": 13.4,
+     "4": 19.9,
+     "5": 23.3
+    },
+    "Messina Nord > Rometta|Cefalu' > Buonfornello": {
+     "B": 10.6,
+     "3": 14.6,
+     "4": 21.6,
+     "5": 25.4
+    },
+    "Messina Nord > Rometta|Falcone > Patti": {
+     "B": 4.0,
+     "3": 5.5,
+     "4": 8.1,
+     "5": 9.5
+    },
+    "Messina Nord > Rometta|Messina Nord > Rometta": {
+     "B": 1.2,
+     "3": 1.7,
+     "4": 2.5,
+     "5": 2.9
+    },
+    "Messina Nord > Rometta|Milazzo > Barcellona": {
+     "B": 2.7,
+     "3": 3.7,
+     "4": 5.5,
+     "5": 6.4
+    },
+    "Messina Nord > Rometta|Patti > Brolo": {
+     "B": 4.9,
+     "3": 6.8,
+     "4": 10.0,
+     "5": 11.8
+    },
+    "Messina Nord > Rometta|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 6.4,
+     "3": 8.7,
+     "4": 12.9,
+     "5": 15.1
+    },
+    "Messina Nord > Rometta|Rometta > Milazzo": {
+     "B": 2.1,
+     "3": 2.8,
+     "4": 4.2,
+     "5": 4.9
+    },
+    "Messina Nord > Rometta|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 7.9,
+     "3": 10.8,
+     "4": 16.0,
+     "5": 18.8
+    },
+    "Messina Nord > Rometta|S.Stefano di Camastra > Tusa": {
+     "B": 8.4,
+     "3": 11.5,
+     "4": 17.1,
+     "5": 20.0
+    },
+    "Messina Nord > Rometta|Tusa > Castelbuono": {
+     "B": 9.1,
+     "3": 12.5,
+     "4": 18.6,
+     "5": 21.8
+    },
+    "Milazzo > Barcellona|Barcellona > Falcone": {
+     "B": 1.3,
+     "3": 1.8,
+     "4": 2.7,
+     "5": 3.1
+    },
+    "Milazzo > Barcellona|Brolo > Rocca di Caprileone": {
+     "B": 3.8,
+     "3": 5.2,
+     "4": 7.6,
+     "5": 9.0
+    },
+    "Milazzo > Barcellona|Castelbuono > Cefalu'": {
+     "B": 7.8,
+     "3": 10.7,
+     "4": 15.8,
+     "5": 18.5
+    },
+    "Milazzo > Barcellona|Cefalu' > Buonfornello": {
+     "B": 8.6,
+     "3": 11.9,
+     "4": 17.6,
+     "5": 20.6
+    },
+    "Milazzo > Barcellona|Falcone > Patti": {
+     "B": 2.0,
+     "3": 2.7,
+     "4": 4.1,
+     "5": 4.8
+    },
+    "Milazzo > Barcellona|Milazzo > Barcellona": {
+     "B": 0.7,
+     "3": 1.0,
+     "4": 1.4,
+     "5": 1.7
+    },
+    "Milazzo > Barcellona|Patti > Brolo": {
+     "B": 2.9,
+     "3": 4.0,
+     "4": 6.0,
+     "5": 7.0
+    },
+    "Milazzo > Barcellona|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 4.4,
+     "3": 6.0,
+     "4": 8.9,
+     "5": 10.4
+    },
+    "Milazzo > Barcellona|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 5.8,
+     "3": 8.0,
+     "4": 11.9,
+     "5": 13.9
+    },
+    "Milazzo > Barcellona|S.Stefano di Camastra > Tusa": {
+     "B": 6.4,
+     "3": 8.8,
+     "4": 13.0,
+     "5": 15.3
+    },
+    "Milazzo > Barcellona|Tusa > Castelbuono": {
+     "B": 7.1,
+     "3": 9.8,
+     "4": 14.5,
+     "5": 17.0
+    },
+    "Milazzo > Rometta|Milazzo > Rometta": {
+     "B": 0.9,
+     "3": 1.3,
+     "4": 1.9,
+     "5": 2.2
+    },
+    "Milazzo > Rometta|Rometta > Messina Nord": {
+     "B": 2.1,
+     "3": 2.8,
+     "4": 4.2,
+     "5": 4.9
+    },
+    "Patti > Brolo|Brolo > Rocca di Caprileone": {
+     "B": 2.2,
+     "3": 3.0,
+     "4": 4.5,
+     "5": 5.2
+    },
+    "Patti > Brolo|Castelbuono > Cefalu'": {
+     "B": 6.2,
+     "3": 8.5,
+     "4": 12.6,
+     "5": 14.8
+    },
+    "Patti > Brolo|Cefalu' > Buonfornello": {
+     "B": 7.1,
+     "3": 9.7,
+     "4": 14.4,
+     "5": 16.9
+    },
+    "Patti > Brolo|Patti > Brolo": {
+     "B": 1.4,
+     "3": 1.9,
+     "4": 2.8,
+     "5": 3.3
+    },
+    "Patti > Brolo|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 2.8,
+     "3": 3.8,
+     "4": 5.7,
+     "5": 6.7
+    },
+    "Patti > Brolo|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 4.3,
+     "3": 5.9,
+     "4": 8.7,
+     "5": 10.2
+    },
+    "Patti > Brolo|S.Stefano di Camastra > Tusa": {
+     "B": 4.8,
+     "3": 6.6,
+     "4": 9.8,
+     "5": 11.5
+    },
+    "Patti > Brolo|Tusa > Castelbuono": {
+     "B": 5.6,
+     "3": 7.7,
+     "4": 11.3,
+     "5": 13.3
+    },
+    "Patti > Falcone|Barcellona > Milazzo": {
+     "B": 2.0,
+     "3": 2.7,
+     "4": 4.1,
+     "5": 4.8
+    },
+    "Patti > Falcone|Falcone > Barcellona": {
+     "B": 1.6,
+     "3": 2.2,
+     "4": 3.2,
+     "5": 3.7
+    },
+    "Patti > Falcone|Milazzo > Rometta": {
+     "B": 2.9,
+     "3": 3.9,
+     "4": 5.8,
+     "5": 6.8
+    },
+    "Patti > Falcone|Patti > Falcone": {
+     "B": 0.8,
+     "3": 1.1,
+     "4": 1.6,
+     "5": 1.8
+    },
+    "Patti > Falcone|Rometta > Messina Nord": {
+     "B": 4.0,
+     "3": 5.5,
+     "4": 8.1,
+     "5": 9.5
+    },
+    "Rocca di Caprileone > Brolo|Barcellona > Milazzo": {
+     "B": 3.8,
+     "3": 5.2,
+     "4": 7.6,
+     "5": 9.0
+    },
+    "Rocca di Caprileone > Brolo|Brolo > Patti": {
+     "B": 2.2,
+     "3": 3.0,
+     "4": 4.5,
+     "5": 5.2
+    },
+    "Rocca di Caprileone > Brolo|Falcone > Barcellona": {
+     "B": 3.3,
+     "3": 4.6,
+     "4": 6.8,
+     "5": 7.9
+    },
+    "Rocca di Caprileone > Brolo|Milazzo > Rometta": {
+     "B": 4.6,
+     "3": 6.3,
+     "4": 9.4,
+     "5": 11.0
+    },
+    "Rocca di Caprileone > Brolo|Patti > Falcone": {
+     "B": 2.5,
+     "3": 3.5,
+     "4": 5.2,
+     "5": 6.1
+    },
+    "Rocca di Caprileone > Brolo|Rocca di Caprileone > Brolo": {
+     "B": 1.0,
+     "3": 1.4,
+     "4": 2.1,
+     "5": 2.4
+    },
+    "Rocca di Caprileone > Brolo|Rometta > Messina Nord": {
+     "B": 5.8,
+     "3": 7.9,
+     "4": 11.7,
+     "5": 13.7
+    },
+    "Rocca di Caprileone > S.Agata di Militello|Castelbuono > Cefalu'": {
+     "B": 4.2,
+     "3": 5.8,
+     "4": 8.5,
+     "5": 10.0
+    },
+    "Rocca di Caprileone > S.Agata di Militello|Cefalu' > Buonfornello": {
+     "B": 5.1,
+     "3": 7.0,
+     "4": 10.3,
+     "5": 12.1
+    },
+    "Rocca di Caprileone > S.Agata di Militello|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 0.8,
+     "3": 1.1,
+     "4": 1.6,
+     "5": 1.9
+    },
+    "Rocca di Caprileone > S.Agata di Militello|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.5
+    },
+    "Rocca di Caprileone > S.Agata di Militello|S.Stefano di Camastra > Tusa": {
+     "B": 2.8,
+     "3": 3.9,
+     "4": 5.8,
+     "5": 6.8
+    },
+    "Rocca di Caprileone > S.Agata di Militello|Tusa > Castelbuono": {
+     "B": 3.6,
+     "3": 4.9,
+     "4": 7.3,
+     "5": 8.6
+    },
+    "Rometta > Messina Nord|Rometta > Messina Nord": {
+     "B": 1.2,
+     "3": 1.7,
+     "4": 2.5,
+     "5": 2.9
+    },
+    "Rometta > Milazzo|Barcellona > Falcone": {
+     "B": 2.2,
+     "3": 3.0,
+     "4": 4.4,
+     "5": 5.2
+    },
+    "Rometta > Milazzo|Brolo > Rocca di Caprileone": {
+     "B": 4.6,
+     "3": 6.3,
+     "4": 9.4,
+     "5": 11.0
+    },
+    "Rometta > Milazzo|Castelbuono > Cefalu'": {
+     "B": 8.6,
+     "3": 11.8,
+     "4": 17.5,
+     "5": 20.6
+    },
+    "Rometta > Milazzo|Cefalu' > Buonfornello": {
+     "B": 9.5,
+     "3": 13.0,
+     "4": 19.3,
+     "5": 22.7
+    },
+    "Rometta > Milazzo|Falcone > Patti": {
+     "B": 2.9,
+     "3": 3.9,
+     "4": 5.8,
+     "5": 6.8
+    },
+    "Rometta > Milazzo|Milazzo > Barcellona": {
+     "B": 1.6,
+     "3": 2.1,
+     "4": 3.2,
+     "5": 3.7
+    },
+    "Rometta > Milazzo|Patti > Brolo": {
+     "B": 3.8,
+     "3": 5.2,
+     "4": 7.7,
+     "5": 9.1
+    },
+    "Rometta > Milazzo|Rocca di Caprileone > S.Agata di Militello": {
+     "B": 5.2,
+     "3": 7.2,
+     "4": 10.6,
+     "5": 12.4
+    },
+    "Rometta > Milazzo|Rometta > Milazzo": {
+     "B": 0.9,
+     "3": 1.3,
+     "4": 1.9,
+     "5": 2.2
+    },
+    "Rometta > Milazzo|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 6.7,
+     "3": 9.2,
+     "4": 13.6,
+     "5": 16.0
+    },
+    "Rometta > Milazzo|S.Stefano di Camastra > Tusa": {
+     "B": 7.3,
+     "3": 10.0,
+     "4": 14.7,
+     "5": 17.3
+    },
+    "Rometta > Milazzo|Tusa > Castelbuono": {
+     "B": 8.0,
+     "3": 11.0,
+     "4": 16.3,
+     "5": 19.1
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Barcellona > Milazzo": {
+     "B": 4.4,
+     "3": 6.0,
+     "4": 8.9,
+     "5": 10.4
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Brolo > Patti": {
+     "B": 2.8,
+     "3": 3.8,
+     "4": 5.7,
+     "5": 6.7
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Falcone > Barcellona": {
+     "B": 3.9,
+     "3": 5.4,
+     "4": 8.0,
+     "5": 9.4
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Milazzo > Rometta": {
+     "B": 5.2,
+     "3": 7.2,
+     "4": 10.6,
+     "5": 12.4
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Patti > Falcone": {
+     "B": 3.1,
+     "3": 4.3,
+     "4": 6.4,
+     "5": 7.5
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Rocca di Caprileone > Brolo": {
+     "B": 1.6,
+     "3": 2.2,
+     "4": 3.3,
+     "5": 3.8
+    },
+    "S.Agata di Militello > Rocca di Caprileone|Rometta > Messina Nord": {
+     "B": 6.4,
+     "3": 8.7,
+     "4": 12.9,
+     "5": 15.1
+    },
+    "S.Agata di Militello > Rocca di Caprileone|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 0.8,
+     "3": 1.1,
+     "4": 1.6,
+     "5": 1.9
+    },
+    "S.Agata di Militello > S.Stefano di Camastra|Castelbuono > Cefalu'": {
+     "B": 3.7,
+     "3": 5.0,
+     "4": 7.4,
+     "5": 8.7
+    },
+    "S.Agata di Militello > S.Stefano di Camastra|Cefalu' > Buonfornello": {
+     "B": 4.5,
+     "3": 6.2,
+     "4": 9.2,
+     "5": 10.8
+    },
+    "S.Agata di Militello > S.Stefano di Camastra|S.Agata di Militello > S.Stefano di Camastra": {
+     "B": 1.7,
+     "3": 2.4,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "S.Agata di Militello > S.Stefano di Camastra|S.Stefano di Camastra > Tusa": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.5
+    },
+    "S.Agata di Militello > S.Stefano di Camastra|Tusa > Castelbuono": {
+     "B": 3.0,
+     "3": 4.2,
+     "4": 6.2,
+     "5": 7.2
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Barcellona > Milazzo": {
+     "B": 5.8,
+     "3": 8.0,
+     "4": 11.9,
+     "5": 13.9
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Brolo > Patti": {
+     "B": 4.3,
+     "3": 5.9,
+     "4": 8.7,
+     "5": 10.2
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Falcone > Barcellona": {
+     "B": 5.4,
+     "3": 7.4,
+     "4": 11.0,
+     "5": 12.9
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Milazzo > Rometta": {
+     "B": 6.7,
+     "3": 9.2,
+     "4": 13.6,
+     "5": 16.0
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Patti > Falcone": {
+     "B": 4.6,
+     "3": 6.3,
+     "4": 9.4,
+     "5": 11.0
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Rocca di Caprileone > Brolo": {
+     "B": 3.1,
+     "3": 4.2,
+     "4": 6.3,
+     "5": 7.4
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|Rometta > Messina Nord": {
+     "B": 7.9,
+     "3": 10.8,
+     "4": 16.0,
+     "5": 18.8
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.5
+    },
+    "S.Stefano di Camastra > S.Agata di Militello|S.Stefano di Camastra > S.Agata di Militello": {
+     "B": 1.7,
+     "3": 2.4,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "S.Stefano di Camastra > Tusa|Castelbuono > Cefalu'": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.4
+    },
+    "S.Stefano di Camastra > Tusa|Cefalu' > Buonfornello": {
+     "B": 3.2,
+     "3": 4.3,
+     "4": 6.4,
+     "5": 7.5
+    },
+    "S.Stefano di Camastra > Tusa|S.Stefano di Camastra > Tusa": {
+     "B": 0.9,
+     "3": 1.2,
+     "4": 1.8,
+     "5": 2.2
+    },
+    "S.Stefano di Camastra > Tusa|Tusa > Castelbuono": {
+     "B": 1.7,
+     "3": 2.3,
+     "4": 3.4,
+     "5": 3.9
+    },
+    "Tusa > Castelbuono|Castelbuono > Cefalu'": {
+     "B": 1.7,
+     "3": 2.3,
+     "4": 3.5,
+     "5": 4.1
+    },
+    "Tusa > Castelbuono|Cefalu' > Buonfornello": {
+     "B": 2.6,
+     "3": 3.5,
+     "4": 5.2,
+     "5": 6.1
+    },
+    "Tusa > Castelbuono|Tusa > Castelbuono": {
+     "B": 1.1,
+     "3": 1.5,
+     "4": 2.2,
+     "5": 2.6
+    },
+    "Tusa > S.Stefano di Camastra|Barcellona > Milazzo": {
+     "B": 6.4,
+     "3": 8.8,
+     "4": 13.0,
+     "5": 15.3
+    },
+    "Tusa > S.Stefano di Camastra|Brolo > Patti": {
+     "B": 4.8,
+     "3": 6.6,
+     "4": 9.8,
+     "5": 11.5
+    },
+    "Tusa > S.Stefano di Camastra|Falcone > Barcellona": {
+     "B": 6.0,
+     "3": 8.2,
+     "4": 12.1,
+     "5": 14.2
+    },
+    "Tusa > S.Stefano di Camastra|Milazzo > Rometta": {
+     "B": 7.3,
+     "3": 10.0,
+     "4": 14.7,
+     "5": 17.3
+    },
+    "Tusa > S.Stefano di Camastra|Patti > Falcone": {
+     "B": 5.2,
+     "3": 7.1,
+     "4": 10.5,
+     "5": 12.3
+    },
+    "Tusa > S.Stefano di Camastra|Rocca di Caprileone > Brolo": {
+     "B": 3.7,
+     "3": 5.0,
+     "4": 7.4,
+     "5": 8.7
+    },
+    "Tusa > S.Stefano di Camastra|Rometta > Messina Nord": {
+     "B": 8.4,
+     "3": 11.5,
+     "4": 17.1,
+     "5": 20.0
+    },
+    "Tusa > S.Stefano di Camastra|S.Agata di Militello > Rocca di Caprileone": {
+     "B": 2.8,
+     "3": 3.9,
+     "4": 5.8,
+     "5": 6.8
+    },
+    "Tusa > S.Stefano di Camastra|S.Stefano di Camastra > S.Agata di Militello": {
+     "B": 2.3,
+     "3": 3.1,
+     "4": 4.6,
+     "5": 5.5
+    },
+    "Tusa > S.Stefano di Camastra|Tusa > S.Stefano di Camastra": {
+     "B": 0.9,
+     "3": 1.2,
+     "4": 1.8,
+     "5": 2.2
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1981,10 +1981,10 @@ func TestItalyEstimate(t *testing.T) {
 	}
 }
 
-// Italy by concession: km on Autostrada del Brennero's A22 at its own
-// 2025 unit rate (class 5 0.12635, the sheet's rate with the ANAS
-// surcharge, x 1.22 VAT = 0.15415), km on ASPI's A1 at ASPI's 2026 rate
-// (0.19034); the A22 line names the operator.
+// Italy by concession: km on Autostrada del Brennero's A22 at its 2026
+// plain-stretch rate from its tariff PDF (class 5 0.15607, VAT and ANAS
+// quotas included), km on ASPI's A1 at ASPI's 2026 rate (0.19034); the
+// A22 line names the operator.
 func TestItalyOperators(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
@@ -2006,12 +2006,12 @@ func TestItalyOperators(t *testing.T) {
 	for _, l := range r.Lines {
 		if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll {
 			got[l.Rate] += l.Km
-			if l.Rate == 0.15415 && !strings.Contains(l.Section, "Autostrada del Brennero") {
+			if l.Rate == 0.15607 && !strings.Contains(l.Section, "Autostrada del Brennero") {
 				t.Errorf("A22 line section %q", l.Section)
 			}
 		}
 	}
-	if got[0.19034] < 6 || got[0.15415] < 5 || len(got) != 2 {
+	if got[0.19034] < 6 || got[0.15607] < 5 || len(got) != 2 {
 		t.Errorf("IT km by rate %v, lines %v", got, r.Lines)
 	}
 }
@@ -2466,6 +2466,75 @@ func TestGipuzkoaNIA15(t *testing.T) {
 // The AP-53 (Ministry of Transport's tolls in force 2026, IVA included):
 // Pesados 2 from Santiago to Alto de Santo Domingo 7.25, Ribadulla to
 // Silleda 2.45 (Pesados 1: 2.05). The paths run through the stretches' middles,
+// Milan's ring roads: a fixed toll at each barrier (Milano Serravalle,
+// 2026, VAT included), class 5: Terrazzano 8.40, Vimercate 4.90, Sesto San
+// Giovanni 6.30; class B at Terrazzano 3.60. The paths cross each barrier.
+func TestMilanBarriers(t *testing.T) {
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Terrazzano", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, truck40, 8.40},
+		{"Terrazzano, class B", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, light, 3.60},
+		{"Vimercate", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 4.90},
+		{"Sesto San Giovanni", [][2]float64{{9.2590, 45.5510}, {9.263721, 45.55137}, {9.2680, 45.5517}}, truck40, 6.30},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "barrier") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
+// Sicily's A18 and A20 (Consorzio per le Autostrade Siciliane, 2026, VAT
+// included): class 5 Messina Sud to Catania Nord 10.90, Roccalumera to
+// Taormina 2.50; Messina Nord to Buonfornello 25.40 (class B 10.60). The
+// paths run through the stretches' middles, 300 m either side.
+func TestSicilyCAS(t *testing.T) {
+	a18 := [][2]float64{{15.461201, 38.044921}, {15.458766, 38.043023}, {15.456331, 38.041125}, {15.344244, 37.919489}, {15.343013, 37.916972}, {15.341782, 37.914455}, {15.278043, 37.852218}, {15.275704, 37.850251}, {15.273365, 37.848284}, {15.227383, 37.816307}, {15.223973, 37.816156}, {15.220563, 37.816005}, {15.176798, 37.754306}, {15.175536, 37.751799}, {15.174274, 37.749292}, {15.149866, 37.665170}, {15.149818, 37.662472}, {15.149770, 37.659774}, {15.129159, 37.592785}, {15.127933, 37.590268}, {15.126707, 37.587751}}
+	a20 := [][2]float64{{15.439733, 38.238439}, {15.437347, 38.236498}, {15.434961, 38.234557}, {15.354123, 38.206561}, {15.350694, 38.206425}, {15.347265, 38.206289}, {15.235198, 38.173109}, {15.232061, 38.172016}, {15.228924, 38.170923}, {15.134192, 38.131526}, {15.131453, 38.129902}, {15.128714, 38.128278}, {15.047919, 38.140198}, {15.045154, 38.141795}, {15.042389, 38.143392}, {14.914704, 38.162152}, {14.911525, 38.161137}, {14.908346, 38.160122}, {14.760235, 38.147045}, {14.757270, 38.145688}, {14.754305, 38.144331}, {14.671075, 38.080634}, {14.668021, 38.079409}, {14.664967, 38.078184}, {14.479104, 38.025716}, {14.475703, 38.026035}, {14.472302, 38.026354}, {14.281184, 37.999666}, {14.277864, 37.999009}, {14.274544, 37.998352}, {14.176502, 38.008834}, {14.173109, 38.009195}, {14.169716, 38.009556}, {14.044759, 38.020992}, {14.042308, 38.022876}, {14.039857, 38.024760}, {13.915626, 37.997239}, {13.912521, 37.996103}, {13.909416, 37.994967}}
+	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"A18 Messina Sud to Catania Nord", a18, truck40, 10.90},
+		{"A18 Roccalumera to Taormina", a18[3:6], truck40, 2.50},
+		{"A20 Messina Nord to Buonfornello", a20, truck40, 25.40},
+		{"A20 Messina Nord to Buonfornello, class B", a20, light, 10.60},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"IT": 100}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A18") || strings.Contains(l.Section, "A20") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
 // 300 m either side along each stretch.
 func TestAP53(t *testing.T) {
 	south := [][2]float64{{-8.482406, 42.805564}, {-8.483561, 42.803003}, {-8.484716, 42.800442}, {-8.387161, 42.747675}, {-8.383600, 42.747013}, {-8.380039, 42.746351}, {-8.292354, 42.717730}, {-8.288770, 42.718319}, {-8.285186, 42.718908}, {-8.200645, 42.693912}, {-8.197127, 42.693141}, {-8.193609, 42.692370}, {-8.142676, 42.660453}, {-8.141011, 42.658049}, {-8.139346, 42.655645}, {-8.119122, 42.629105}, {-8.116951, 42.626931}, {-8.114780, 42.624757}, {-8.091521, 42.599924}, {-8.088980, 42.597980}, {-8.086439, 42.596036}}

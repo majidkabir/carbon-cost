@@ -83,10 +83,20 @@ IMAGES = [
 # and the operator keys. The 2025 sheet's unit rate times (1 + increase),
 # to 5 decimals, gives the year's: Brescia-Padova's 2026 image bears that
 # rule out exactly.
+ASTM_HEAD = r"Dal 1° gennaio (\d{4}) entrano in vigore gli adeguamenti delle tariffe di pedaggio autostradale"
 INCREASES = [
     ("it-serravalle-pedaggio",
      r"le tariffe autostradali unitarie chilometriche di competenza di Milano Serravalle Milano Tangenziali S\.p\.A\. subiranno un aumento corrispondente all.indice di inflazione programmatico pari a (\d+,\d+)%",
      r"ADEGUAMENTO TARIFFARIO DAL 1° GENNAIO (\d{4})", ["Milano Serravalle - Milano Tangenziali S.p.A.|A7"]),
+    # ASTM group's notices to users ("Comunicato all'utenza - tariffe <year>").
+    ("it-adf-tariffe", r"Per la Società Autostrada dei Fiori S\.p\.A\. la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
+     ASTM_HEAD, ["Autostrada dei Fiori S.p.A."]),
+    ("it-salt-tariffe", r"Per la Società Autostrada Ligure Toscana p\.a\. la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
+     ASTM_HEAD, ["Società Autostrada Ligure Toscana p.a.|A15"]),
+    ("it-sitaf-tariffe", r"Per SITAF S\.p\.A\. . A32 . la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
+     ASTM_HEAD, ["SITAF S.p.A.|A32"]),
+    ("it-te-tariffe", r"Per Tangenziale Esterna S\.p\.A\. \(A58-TEEM\) la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
+     ASTM_HEAD, ["Tangenziale Esterna S.p.A."]),
 ]
 TITLES = {
     "it-satap-a4": "SATAP: A4 Torino-Milano toll information (unit tariffs for users, VAT and ANAS fee included)",
@@ -96,6 +106,11 @@ TITLES = {
     "it-sav": "SAV: A5 Quincinetto-Aosta toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
     "it-autovia-padana": "Autovia Padana: A21 Piacenza-Brescia toll information (unit tariffs for users, the 'A' fares)",
+    "it-pedemontana-rates": "Autostrada Pedemontana Lombarda: rates (per section, company rate and ANAS fee, VAT excluded)",
+    "it-adf-tariffe": "Autostrada dei Fiori (A6): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
+    "it-salt-tariffe": "SALT (A15): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
+    "it-sitaf-tariffe": "SITAF (A32): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
+    "it-te-tariffe": "Tangenziale Esterna (A58): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
     "it-serravalle-pedaggio": "Milano Serravalle: toll page, the year's increase of the unit rates (MIT communication of 31/12/2025 prot. 40030)",
 }
 IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)",
@@ -103,6 +118,11 @@ IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, A
 PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:it-a4bspd-2026": "Brescia-Padova (A4 Brescia-Padova, A31)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
               "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)",
               "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)",
+              "it-pedemontana-rates": "Pedemontana Lombarda (A36, A59, A60)",
+              "inc:it-adf-tariffe": "Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states)",
+              "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
+              "inc:it-sitaf-tariffe": "SITAF (A32; its 2025 unit rate raised by the change its notice states)",
+              "inc:it-te-tariffe": "Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states)",
               "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
@@ -185,6 +205,38 @@ VAT = 1.22
 
 
 USERS_ONLY = set()
+# Pedemontana Lombarda's rates page: per section, its classes 1-4: the
+# company rate and the ANAS fee (VAT excluded), and their sum "in
+# application to the user since 1/1/<year>".
+PED_SECTIONS = {"A36-A": r"Section A \(A36\)", "A59": r"Tang\. Como \(A59\)", "A60": r"Tang\. Varese \(A60\)"}
+CLS4 = r"Class ?1 ?Class ?2 ?Class ?3 ?Class ?4 ?"
+
+
+def pedemontana_page(fetched, year):
+    """The sheet's rates shape ({class: {section: unit, "anas": fee}})
+    from Pedemontana's page, if it gives them for the year."""
+    path = os.path.join(fetched, "it-pedemontana-rates.html")
+    if not os.path.exists(path):
+        return None
+    t = text_of(path)
+    n4 = " ?".join([r"(\d,\d{5})"] * 4)
+    out = {str(k): {} for k in range(1, 5)}
+    for sec, label in PED_SECTIONS.items():
+        m = re.search(label + r".{0,400}?" + CLS4 + n4 + r" ?Fee pursuant.{0,80}?" + CLS4 + n4
+                      + r" ?Rate in application to the user since 1/1/(\d{4}) ?" + CLS4 + n4, t)
+        if not m:
+            print("it-pedemontana-rates:", sec, "not found")
+            return None
+        v = [float(x.replace(",", ".")) for x in m.groups()[:8] + m.groups()[9:]]
+        if m.group(9) != str(year):
+            print("it-pedemontana-rates: rates since", m.group(9))
+            return None
+        for k in range(4):
+            assert round(v[k] + v[4 + k], 5) == v[8 + k], (sec, v)  # company rate + fee = the user's
+            out[str(k + 1)][sec] = v[k]
+            out[str(k + 1)]["anas"] = v[4 + k]
+    print("it-pedemontana-rates", year, out)
+    return out
 
 
 def sheet_user(d, cl, stretch=""):
@@ -201,6 +253,7 @@ def operator_rows(transcribed, fetched, year):
         if vals:
             for k in keys:
                 pages[k] = (pid, vals)
+    ped = pedemontana_page(fetched, year)
     inc = {}
     for pid, stmt, head, keys in INCREASES:
         path = os.path.join(fetched, pid + ".html")
@@ -246,6 +299,13 @@ def operator_rows(transcribed, fetched, year):
             continue
         d = json.load(open(os.path.join(transcribed, f"it-mit-{sheet}.json"), encoding="utf-8"))
         used[sheet] = d
+        if sheet == "pedemontana-lombarda" and ped:
+            used.pop(sheet)  # the page's rates, not the sheet's
+            used["page:it-pedemontana-rates"] = "it-pedemontana-rates"
+            for lo, hi, cl in AXLES:
+                r = ped[PEDEMONTANA[cl]]
+                rows.append(row_for(key, lo, hi, round((r[stretch] + r["anas"]) * VAT, 5)))
+            continue
         if key in inc:
             pid, x = inc[key]
             used["page:inc:" + pid] = "inc:" + pid

@@ -482,16 +482,18 @@ const FuelCO2Prefix = "fuelco2-"
 
 // FuelCO2 is a country's CO2 price on road diesel in force for a period:
 // a national emissions trading system's certificate price (Germany's
-// BEHG, Austria's NEHG 2022) or a carbon tax, per tonne of CO2. The fuel
-// supplier pays it and passes it on in the price of the fuel, so a trip
-// pays it where its fuel is bought.
+// BEHG, Austria's NEHG 2022) or a carbon tax, per tonne of CO2, or a CO2
+// tax per litre of diesel (Denmark's, Sweden's...). The fuel supplier pays
+// it and passes it on in the price of the fuel, so a trip pays it where
+// its fuel is bought.
 type FuelCO2 struct {
 	Country   string   `json:"country"` // ISO 3166-1 alpha-2
 	Currency  string   `json:"currency"`
 	ValidFrom string   `json:"valid_from"`         // inclusive, YYYY-MM-DD
 	ValidTo   string   `json:"valid_to,omitempty"` // inclusive; "" = until replaced
 	Name      string   `json:"name"`
-	RatePerT  float64  `json:"rate_per_t"` // per tonne of CO2
+	RatePerT  float64  `json:"rate_per_t,omitempty"` // per tonne of CO2, or
+	RatePerL  float64  `json:"rate_per_l,omitempty"` // per litre of diesel (ORCT unit "litre")
 	Law       string   `json:"law"`
 	Sources   []Source `json:"sources"`
 	File      string   `json:"-"`

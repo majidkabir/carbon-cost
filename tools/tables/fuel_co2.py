@@ -17,7 +17,14 @@ from the fetched law texts (sources.json, table fuelco2-*):
 - Slovenia, the okoljska dajatev za onesnaževanje zraka z emisijo CO2 on
   plinsko olje (diesel): 17.3 euro per unit (1 tonne of CO2) under Uredba
   48/18 until the government's first sklep, then each sklep from its entry
-  into force (point I, and point III's later date) until the next one.
+  into force (point I, and point III's later date) until the next one;
+- Denmark, the CO2 tax on gas and diesel oil (CO2-afgiftsloven § 2, stk.
+  1, indexed under stk. 7), per litre at day temperature, for the two
+  years Skatteministeriet's rate table gives.
+
+Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
+calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
+unless the request gives the litres.
 
 Usage: python3 fuel_co2.py fetched/ out-dir"""
 import html, json, os, re, sys
@@ -37,7 +44,7 @@ def src(srcs, sid):
 def write(out, f):
     path = os.path.join(out, f"fuelco2-{f['country'].lower()}-{f['valid_from']}.json")
     json.dump(f, open(path, "w"), ensure_ascii=False, indent=1)
-    print(path, f["rate_per_t"])
+    print(path, f.get("rate_per_t", f.get("rate_per_l")))
 
 
 def germany(fetched, out, srcs):
@@ -344,6 +351,26 @@ def slovenia(fetched, out, srcs):
         write(out, f)
 
 
+def denmark(fetched, out, srcs):
+    t = text(os.path.join(fetched, "dk-svmn-co2afgift.html"))
+    head = re.search(r"Afgiftssatser Grundbeløb i 2015 niveau (\d{4}) (\d{4})", t)
+    # The row's first line is the rate at day temperature, the second
+    # ("afgiftssatsen ved 15 C udgør") at 15 °C.
+    m = re.search(r"Gas- og dieselolie ?- ?afgiftssatsen ved 15 C udgør øre/l (\d+,\d) (\d+,\d) (\d+,\d) øre/l (\d+,\d) (\d+,\d) (\d+,\d)", t)
+    if not head or not m:
+        sys.exit("CO2-afgiftsloven: no rate table for gas and diesel oil")
+    v = [float(x.replace(",", ".")) for x in m.groups()]
+    if not (v[0] > v[3] and v[1] > v[4] and v[2] > v[5]):
+        sys.exit(f"CO2-afgiftsloven: day-temperature rates not above the 15 °C ones: {v}")
+    for y, day, c15 in ((head.group(1), v[1], v[4]), (head.group(2), v[2], v[5])):
+        write(out, {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+                    "name": "CO2-afgift on gas and diesel oil", "rate_per_l": round(day / 100, 4),
+                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {v[0]:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
+                           "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel; diesel blended with 6.8 or 7.6% biofuel pays a little less per litre of blend. "
+                           "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+                    "sources": [src(srcs, "dk-svmn-co2afgift")]})
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -352,6 +379,7 @@ def main(fetched, out):
     ireland(fetched, out, srcs)
     portugal(fetched, out, srcs)
     slovenia(fetched, out, srcs)
+    denmark(fetched, out, srcs)
 
 
 if __name__ == "__main__":

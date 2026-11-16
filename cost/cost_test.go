@@ -83,6 +83,9 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 		{FerryETS, "", "", 2.25, 2.25, true},
 		// BEHG: the DE road km's share of the road fuel, 0.11 t x EUR 65.
 		{FuelCO2, "DE", rates.CO2, 7.18, 7.18, true},
+		// CO2-afgift: the DK road km's share, 0.1096 t / 2.67 kg per
+		// litre = 41.05 l x DKK 2.284.
+		{FuelCO2, "DK", rates.CO2, 93.76, 12.57, true},
 	} {
 		l, ok := line(r, tc.charge, tc.country, tc.comp)
 		if !ok {
@@ -94,11 +97,11 @@ func TestPrice_CopenhagenHamburg(t *testing.T) {
 				tc.charge, tc.country, tc.comp, l.Amount, l.Currency, l.AmountEUR, l.Carbon, tc.amount, tc.eur, tc.carbon)
 		}
 	}
-	if len(r.Lines) != 9 {
-		t.Errorf("%d lines, want 9", len(r.Lines))
+	if len(r.Lines) != 10 {
+		t.Errorf("%d lines, want 10", len(r.Lines))
 	}
-	if r.CarbonEUR != 42.97 || math.Abs(r.TotalEUR-79.15) > 1e-9 {
-		t.Errorf("total EUR %v, carbon EUR %v; want 79.15 and 42.97", r.TotalEUR, r.CarbonEUR)
+	if r.CarbonEUR != 55.54 || math.Abs(r.TotalEUR-91.72) > 1e-9 {
+		t.Errorf("total EUR %v, carbon EUR %v; want 91.72 and 55.54", r.TotalEUR, r.CarbonEUR)
 	}
 	if r.FerryKm != 19 || r.CountryKm["DK"] != 140 || len(r.Sources) < 3 || len(r.NoRates) != 0 {
 		t.Errorf("response %+v", r)
@@ -195,7 +198,7 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if r.Date != "2026-11-03" || len(r.Lines) != 8 {
+	if r.Date != "2026-11-03" || len(r.Lines) != 9 {
 		t.Errorf("date %s, %d lines", r.Date, len(r.Lines))
 	}
 	if len(got.Legs) != 1 || got.Legs[0].VehicleType != DefaultVehicleType || got.WeightKg != 20000 || got.AddRoadLegs == nil || *got.AddRoadLegs {
@@ -207,13 +210,13 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	}
 }
 
-// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 79.15):
+// Worked by hand from TestPrice_CopenhagenHamburg (class 1: EUR 91.72):
 //
 //	class 4: DK 140 km x (0.22 + 0.30 + 0.06) DKK = EUR 4.13 + 5.63 + 1.13
 //	         DE 141 km x (0.155 + 0.023 + 0.012 + 0.079) = EUR 21.86 + 3.24 + 1.69 + 11.14
-//	         ferry EUR 2.25, fuel CO2 EUR 7.18; total 58.25, tolls 48.82, saving 20.90
+//	         ferry EUR 2.25, fuel CO2 EUR 7.18 + 12.57; total 70.82, tolls 48.82, saving 20.90
 //	class 5: DK 140 km x (0.11 + 0 + 0.02) DKK = EUR 2.06 + 0 + 0.38; DE exempt
-//	         ferry EUR 2.25, no road fuel; total 4.69, tolls 2.44, saving 74.46
+//	         ferry EUR 2.25, no road fuel; total 4.69, tolls 2.44, saving 87.03
 func TestPrice_Compare(t *testing.T) {
 	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, CompareCO2Classes: []int{1, 4, 5}, TripsPerYear: 200}
 	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
@@ -221,9 +224,9 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := []Comparison{
-		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 79.15, CarbonEUR: 42.97},
-		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 58.25, CarbonEUR: 26.2, SavingEUR: 20.90, SavingPerYearEUR: 4180},
-		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 74.46, SavingPerYearEUR: 14892},
+		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 91.72, CarbonEUR: 55.54},
+		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 70.82, CarbonEUR: 38.77, SavingEUR: 20.90, SavingPerYearEUR: 4180},
+		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 87.03, SavingPerYearEUR: 17406},
 	}
 	if len(r.Compare) != len(want) {
 		t.Fatalf("compare %+v", r.Compare)
@@ -234,7 +237,7 @@ func TestPrice_Compare(t *testing.T) {
 		}
 	}
 	// The requested truck's own lines are unchanged by the comparison.
-	if r.TotalEUR != 79.15 || len(r.Lines) != 9 {
+	if r.TotalEUR != 91.72 || len(r.Lines) != 10 {
 		t.Errorf("total %v with %d lines", r.TotalEUR, len(r.Lines))
 	}
 
@@ -1476,13 +1479,22 @@ func TestPrice_FuelCountry(t *testing.T) {
 	if !ok || l.Rate != 65 || l.Km != 0 || l.TonnesCO2 <= 0.11 {
 		t.Errorf("fuel line %+v", l)
 	}
-	// Bought in Denmark (no per-tonne price here): no fuel line.
+	// Bought in Denmark: the CO2 tax per litre (2.284 DKK in 2026) on the
+	// road fuel's litres, the CO2 at 2.67 kg per litre, or as given.
 	r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DK"}, d)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if _, ok := line(r, FuelCO2, "DK", rates.CO2); ok {
-		t.Error("DK fuel line")
+	l, ok = line(r, FuelCO2, "DK", rates.CO2)
+	if !ok || l.Rate != 2.284 || l.RateUnit != "DKK/l" || l.TonnesCO2 != 0 || math.Abs(l.Litres-l.Amount/2.284) > 0.01 || l.Litres < 40 {
+		t.Errorf("DK fuel line %+v", l)
+	}
+	r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "DK", DieselL: 100}, d)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if l, ok := line(r, FuelCO2, "DK", rates.CO2); !ok || l.Litres != 100 || math.Abs(l.Amount-228.4) > 0.01 {
+		t.Errorf("DK fuel line with diesel_l %+v", l)
 	}
 	// The 2024 and 2025 prices are fixed in BEHG § 10 (2).
 	for y, want := range map[int]float64{2024: 45, 2025: 55} {

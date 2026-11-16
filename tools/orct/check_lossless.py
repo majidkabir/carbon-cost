@@ -97,8 +97,8 @@ def check(t, d):
         got = {D(x["amount"]) for x in rows_of(charges["zone-charge"])}
         want = [t["charge"]] + [e["charge"] for e in t.get("euro_charges", [])] + ([0] if t.get("exempt_euro") else [])
         misses += [f"zone {w}" for w in want if D(w) not in got]
-    if "rate_per_t" in t:
-        if D(rows_of(charges["fuel-co2"])[0]["amount"]) != D(t["rate_per_t"]):
+    for k, unit in (("rate_per_t", "t_co2"), ("rate_per_l", "litre")):
+        if k in t and (D(rows_of(charges["fuel-co2"])[0]["amount"]) != D(t[k]) or charges["fuel-co2"]["unit"] != unit):
             misses.append("fuel rate")
     return misses
 

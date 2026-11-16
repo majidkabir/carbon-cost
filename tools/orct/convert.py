@@ -821,10 +821,12 @@ def convert_zone(z, path):
 
 def convert_fuel(f, path):
     b = Builder(f, path)
-    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t"}
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t", "rate_per_l"}
     oid = b.obj({"id": "country", "type": "jurisdiction", "jurisdiction": {"country": f["country"]}})
-    b.charge({"id": "fuel-co2", "name": f["name"], "type": "quantity", "component": "carbon_price", "unit": "t_co2",
-              "objects": [oid]}, [{"amount": dec(f["rate_per_t"])}])
+    # A price per tonne of CO2, or a tax per litre of diesel.
+    unit, rate = ("litre", f["rate_per_l"]) if "rate_per_l" in f else ("t_co2", f["rate_per_t"])
+    b.charge({"id": "fuel-co2", "name": f["name"], "type": "quantity", "component": "carbon_price", "unit": unit,
+              "objects": [oid]}, [{"amount": dec(rate)}])
     for k in sorted(set(f) - used):
         b.keep(k, f[k], f"{k} is kept as an extension (no ORCT field yet)")
     return b.doc({"description": "CO2 from fuel bought in the country", "criteria": {}})
@@ -880,8 +882,8 @@ def check(t, name):
     if name.startswith("fuelco2-"):
         if name != f"fuelco2-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
             bad.append("the name must be fuelco2-<cc>-<valid_from>.json")
-        if not t.get("law") or t.get("rate_per_t", -1) < 0:
-            bad.append("law and rate_per_t are required")
+        if not t.get("law") or ("rate_per_t" in t) == ("rate_per_l" in t) or t.get("rate_per_t", t.get("rate_per_l", -1)) < 0:
+            bad.append("law and one of rate_per_t, rate_per_l are required")
         return bad
     if t.get("day", "") not in ("", "calendar", "24h"):
         bad.append(f"day must be calendar or 24h, not {t['day']!r}")

@@ -1149,7 +1149,7 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 			}
 		}
 	}
-	priced := false
+	priced, perLitre := false, false
 	for _, cc := range sortedKeys(share) {
 		if share[cc] <= 0 {
 			continue
@@ -1174,8 +1174,19 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 		if req.FuelCountry == "" {
 			m.km, m.hasKm = out.CountryKm[cc], true
 		}
+		unit, v := "t_co2", t
+		if len(ds.Doc.Charges) > 0 && ds.Doc.Charges[0].Unit == "litre" {
+			// A tax per litre: the litres given, or the CO2's at the
+			// standard factor.
+			unit, v = "litre", t*1000/DieselKgCO2PerL
+			if req.DieselL > 0 {
+				v = req.DieselL * share[cc]
+			} else {
+				perLitre = true
+			}
+		}
 		b := &batch{ds: ds}
-		b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: "t_co2", Value: orct.FloatStr(t), Ref: m})
+		b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
 		if _, err := p.price(b, ds.Name+" ("+ds.File+")", nil); err != nil {
 			return err
 		}
@@ -1186,6 +1197,9 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 		p.note("Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
 	case priced:
 		p.note("Fuel CO2: the national CO2 price on diesel of %s, where the fuel is bought, on this trip's road fuel.", req.FuelCountry)
+	}
+	if perLitre {
+		p.note("Fuel CO2: taxes per litre are on the road part's tank-to-wheel CO2 at %.2f kg CO2e per litre of diesel (EN 16258:2012, Annex A). Give diesel_l for the litres the truck burns.", DieselKgCO2PerL)
 	}
 	return nil
 }

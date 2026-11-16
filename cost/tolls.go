@@ -220,7 +220,11 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		case "area":
 			l.RateUnit, l.Days = cur+"/day", 1
 		case "quantity":
-			l.RateUnit, l.TonnesCO2 = cur+"/t CO2", ol.Quantity.Float()
+			if ch.Unit == "litre" {
+				l.RateUnit, l.Litres = cur+"/l", ol.Quantity.Float()
+			} else {
+				l.RateUnit, l.TonnesCO2 = cur+"/t CO2", ol.Quantity.Float()
+			}
 		}
 		if ol.Unit == "rule" {
 			// A rule's adjustment (a cap, a minimum): it adds to the line
@@ -274,6 +278,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 		l.Km = round3(l.Km)
 		l.TonnesCO2 = round3(l.TonnesCO2)
+		l.Litres = round3(l.Litres)
 		if err := p.add(*l); err != nil {
 			return st, err
 		}

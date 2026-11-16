@@ -599,6 +599,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-dk/2026-01-01",
+   "scheme": "fuelco2-dk",
+   "country": "DK",
+   "file": "dk/fuelco2-dk-2026-01-01.orct.json",
+   "name": "CO2-afgift on gas and diesel oil",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "3bdff01c744d3f96fae89e5afb57e7c71988aa325ebaf7e3bda11808fe25940f",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-dk/2027-01-01",
+   "scheme": "fuelco2-dk",
+   "country": "DK",
+   "file": "dk/fuelco2-dk-2027-01-01.orct.json",
+   "name": "CO2-afgift on gas and diesel oil",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "d7d63119f1bafd6351fe602d9b827db5eb2a8269b8d0c93d43a719911c41ef04",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/ee/2024-01-01",
    "scheme": "ee",
    "country": "EE",

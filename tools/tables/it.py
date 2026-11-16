@@ -66,6 +66,7 @@ PAGES = [
     ("it-asti-cuneo", r"RATE B \(mountains\)", ["Autostrada Asti-Cuneo S.p.A."]),
     ("it-sav", r"MOUNTAIN TARIFF", ["Società Autostrade Valdostane S.p.A."]),
     ("it-a22", r"pianura", ["Autostrada del Brennero S.p.A."]),
+    ("it-autovia-padana", r"A21 PIACENZA-BRESCIA AND FIORENZUOLA D.ARDA BRANCH .A. FARES", ["Autovia Padana S.p.A."]),
 ]
 # Concessions whose rates for the year are published only as an image,
 # transcribed (transcribed/<file>.json, "user" rates with VAT and ANAS fee):
@@ -82,10 +83,12 @@ TITLES = {
     "it-asti-cuneo": "Asti-Cuneo: A33 toll information (unit rates for users, VAT and ANAS fee included)",
     "it-sav": "SAV: A5 Quincinetto-Aosta toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
+    "it-autovia-padana": "Autovia Padana: A21 Piacenza-Brescia toll information (unit tariffs for users, the 'A' fares)",
 }
 IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)"}
 PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
-              "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)"}
+              "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)",
+              "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
@@ -147,7 +150,12 @@ def page_rates(fetched, pid, row, year):
         if not m or not all(re.search(rf"\b{y} (?:Increase )?0,00%", t) for y in range(int(m.group(1)) + 1, year + 1)):
             return None, f"rates not for {year}"
     if not re.search(r"VAT \(22%\).{0,40}ANAS fee", t):
-        return None, "VAT and ANAS fee not stated as included"
+        # "Unit tariffs for users" with no statement of what they include:
+        # taken as VAT and ANAS fee included only if they're within a few
+        # per cent of the Ministry's 2025 sheet at that (operator_rows).
+        if not re.search(r"UNIT TARIFFS FOR USERS \(€/KM", t, re.I):
+            return None, "VAT and ANAS fee not stated as included"
+        USERS_ONLY.add(pid)
     r = re.search(row + r"[^0-9–]*?" + " ".join([NUM] * 5), t[head.end():head.end() + 2000], re.I)
     if not r:
         return None, "row not found"
@@ -159,6 +167,15 @@ def page_rates(fetched, pid, row, year):
 # with trailer.
 PEDEMONTANA = {"B": "3", "3": "3", "4": "4", "5": "4"}
 VAT = 1.22
+
+
+USERS_ONLY = set()
+
+
+def sheet_user(d, cl, stretch=""):
+    """The 2025 sheet's rate for a class with the ANAS fee and VAT."""
+    r = d["rates"][stretch] if stretch else d["rates"]
+    return round((r[cl]["unit"] + (r[cl]["anas"] or 0)) * VAT, 5)
 
 
 def operator_rows(transcribed, fetched, year):
@@ -186,6 +203,13 @@ def operator_rows(transcribed, fetched, year):
             rows.append(row_for(key, lo, hi, 0))
     for op, ref, sheet, stretch in OPS:
         key = f"{op}|{ref}" if ref else op
+        if key in pages and pages[key][0] in USERS_ONLY and sheet:
+            pid, vals = pages[key]
+            d = json.load(open(os.path.join(transcribed, f"it-mit-{sheet}.json"), encoding="utf-8"))
+            ratio = [v / sheet_user(d, cl, stretch) for (lo, hi, cl), v in zip(AXLES, vals[1:])]
+            if not all(0.97 < x < 1.08 for x in ratio):
+                print(pid, "rates aren't the 2025 sheet's with VAT and the ANAS fee, moved by a yearly change:", ratio)
+                del pages[key]
         if key in pages:
             pid, vals = pages[key]
             used["page:" + pid] = pid

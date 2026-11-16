@@ -78,11 +78,7 @@ jobs:
       - name: Compare
         run: |
           rm -rf out/osm out/fr-in
-          cd out/orct
-          for f in */*.orct.json; do
-            [ -e "$f" ] || continue
-            if [ -f "../../tariffs/data/$f" ] && cmp -s "$f" "../../tariffs/data/$f"; then echo "$f: same as committed"; else echo "::warning title=$f::new or differs from tariffs/data"; fi
-          done | tee ../tables/compare.txt
+          sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |
           cd out

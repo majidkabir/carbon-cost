@@ -602,6 +602,46 @@ def iceland(fetched, out, srcs):
         write(out, f)
 
 
+PL_TEXTS = (("pl-dzu-2024-54", "2024-01-01", "Dz.U. 2024 poz. 54"), ("pl-dzu-2025-647", "2025-05-09", "Dz.U. 2025 poz. 647"))
+
+
+def poland(fetched, out, srcs):
+    """Opłata emisyjna on diesel (Prawo ochrony środowiska, art. 321f), from
+    the consolidated texts of 2024 and 2025: one table while the amount is
+    the same."""
+    found = []
+    for sid, frm, cite in PL_TEXTS:
+        p = os.path.join(fetched, sid + ".txt")
+        if not os.path.exists(p):
+            print(f"Poland: {sid} not fetched")
+            return
+        t = re.sub(r"\s+", " ", open(p, encoding="utf-8", errors="replace").read())
+        m = re.search(r"Art\. 321f\.\S* ?Stawka opłaty emisyjnej dla: ?1\) ?benzyn silnikowych ?[–-] ?wynosi (\d+) zł za 1000 litrów; ?"
+                      r"2\) ?olejów napędowych ?[–-] ?wynosi (\d+) zł za 1000 litrów", t)
+        if not m:
+            # Not fatal: the other countries' tables are still built.
+            print(f"::warning title=fuel_co2 Poland::art. 321f not read in {sid}; no Polish table")
+            return
+        found.append((frm, int(m.group(2)), cite, sid))
+    tables = []
+    for frm, v, cite, sid in found:
+        if tables and tables[-1][1] == v:
+            tables[-1][2].append((cite, sid))
+        else:
+            tables.append((frm, v, [(cite, sid)]))
+    for i, (frm, v, cites) in enumerate(tables):
+        f = {"country": "PL", "currency": "PLN", "valid_from": max(frm, "2024-01-01"),
+             "name": "Opłata emisyjna on diesel", "rate_per_l": round(v / 1000, 4),
+             "law": (f"Ustawa Prawo ochrony środowiska, art. 321f pkt 2: the opłata emisyjna (emission fee) on diesel oil, PLN {v} per 1,000 litres, "
+                     f"in the consolidated texts {' and '.join(c for c, _ in cites)}. It is a fixed amount per litre, not priced on CO2; the producer or importer pays it "
+                     "with the excise duty and passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                     "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012)."),
+             "sources": [src(srcs, sid) for _, sid in cites]}
+        if i + 1 < len(tables):
+            f["valid_to"] = (datetime.date.fromisoformat(tables[i + 1][0]) - datetime.timedelta(days=1)).isoformat()
+        write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -617,6 +657,7 @@ def main(fetched, out):
     lithuania(fetched, out, srcs)
     luxembourg(fetched, out, srcs)
     iceland(fetched, out, srcs)
+    poland(fetched, out, srcs)
 
 
 if __name__ == "__main__":

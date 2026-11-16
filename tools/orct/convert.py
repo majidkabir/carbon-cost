@@ -32,6 +32,8 @@ TZ = {
     "MK": "Europe/Skopje", "NL": "Europe/Amsterdam", "NO": "Europe/Oslo", "PL": "Europe/Warsaw",
     "PT": "Europe/Lisbon", "RO": "Europe/Bucharest", "RS": "Europe/Belgrade", "SE": "Europe/Stockholm",
     "SI": "Europe/Ljubljana", "SK": "Europe/Bratislava", "TR": "Europe/Istanbul",
+    "FI": "Europe/Helsinki", "IS": "Atlantic/Reykjavik", "AD": "Europe/Andorra", "FO": "Atlantic/Faroe",
+    "BY": "Europe/Minsk",
 }
 COMPONENT = {
     "infrastructure": "infrastructure", "air": "air_pollution", "noise": "noise",

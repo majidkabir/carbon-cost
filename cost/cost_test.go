@@ -1508,6 +1508,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("NO %s: %+v", d, l)
 		}
 	}
+	// Finland's hiilidioksidivero on diesel oil: EUR 0.1978 per litre in 2024
+	// and 2025, 0.1812 from 2026.
+	for d, want := range map[string]float64{"2024-06-01": 0.1978, "2025-12-31": 0.1978, "2026-11-03": 0.1812} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "FI", DieselL: 100}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "FI", rates.CO2); !ok || l.Rate != want || l.RateUnit != "EUR/l" || math.Abs(l.AmountEUR-100*want) > 0.01 {
+			t.Errorf("FI %s: %+v", d, l)
+		}
+	}
 	// Sweden's koldioxidskatt on diesel per litre: SEK 2.811 in 2025, cut to
 	// 0.411 from 1 July to 30 November 2026.
 	for d, want := range map[string]float64{"2025-06-01": 2.811, "2026-11-03": 0.411, "2026-12-15": 2.811, "2024-06-01": 2.723} {

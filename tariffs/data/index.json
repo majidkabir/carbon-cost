@@ -907,6 +907,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-fi/2024-01-01",
+   "scheme": "fuelco2-fi",
+   "country": "FI",
+   "file": "fi/fuelco2-fi-2024-01-01.orct.json",
+   "name": "Hiilidioksidivero on diesel oil",
+   "valid_from": "2024-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "602021fb35d8ede78eede5640e7567cdbc348e12acc9d8661e8c5c612e6bc116",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-fi/2026-01-01",
+   "scheme": "fuelco2-fi",
+   "country": "FI",
+   "file": "fi/fuelco2-fi-2026-01-01.orct.json",
+   "name": "Hiilidioksidivero on diesel oil",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "958b34213ec58a46b379848b7b9b5993fc13d6d031afde68f92ddedc0caad931",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fr/2024-01-01",
    "scheme": "fr",
    "country": "FR",

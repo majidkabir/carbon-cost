@@ -30,7 +30,12 @@ from the fetched law texts (sources.json, table fuelco2-*):
   2024 and 2025 from the Finance Ministry's 2025 rate table, 2026 from its
   2026 table, with the temporary reduction for road diesel from 1 May to
   31 August 2026 from its press release (the Internet Archive's copies:
-  regjeringen.no refuses the workflow).
+  regjeringen.no refuses the workflow);
+- Finland, the hiilidioksidivero on diesel oil (product group 50) in the
+  liquid fuels excise tax act's table (laki nestemäisten polttoaineiden
+  valmisteverosta 1472/1994, liite), per litre, for each period of
+  Verohallinto's tax tables from 2024 (consecutive periods at the same
+  rate joined).
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
@@ -462,6 +467,37 @@ def norway(fetched, out, srcs):
                     "sources": [src(srcs, sid) for sid in sids]})
 
 
+def finland(fetched, out, srcs):
+    t = text(os.path.join(fetched, "fi-vero-verotaulukot.html"))
+    periods = []
+    for part in re.split(r"(?=Verotaulukko \d)", t):
+        h = re.match(r"Verotaulukko 1a?: (\d+)\.(\d+)\.(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
+        m = re.search(r"\b50 Dieselöljy (\d+,\d+) (\d+,\d+) ", part)
+        if not h or not m:
+            continue  # a link to the table, or table 2 (combined heat and power)
+        s = datetime.date(int(h.group(3) or h.group(6)), int(h.group(2)), int(h.group(1)))
+        e = datetime.date(int(h.group(6)), int(h.group(5)), int(h.group(4)))
+        periods.append((s, e, round(float(m.group(2).replace(",", ".")), 2)))
+    periods = sorted(set(periods))
+    if len(periods) < 3:
+        sys.exit(f"Verohallinto's tax tables: periods not found ({periods})")
+    joined = []
+    for s, e, v in periods:
+        if e < datetime.date(2024, 1, 1):
+            continue
+        if joined and joined[-1][2] == v and joined[-1][1] + datetime.timedelta(days=1) == s:
+            joined[-1] = (joined[-1][0], e, v)
+        else:
+            joined.append((s, e, v))
+    for s, e, v in joined:
+        write(out, {"country": "FI", "currency": "EUR", "valid_from": s.isoformat(), "valid_to": e.isoformat(),
+                    "name": "Hiilidioksidivero on diesel oil", "rate_per_l": round(v / 100, 4),
+                    "law": f"Laki nestemäisten polttoaineiden valmisteverosta (1472/1994), liite (tax table): the hiilidioksidivero (carbon dioxide tax) on diesel oil, product group 50, {v:.2f} cents per litre from {s} to {e}, as Verohallinto's tax tables give it. "
+                           "The excise warehouse keeper pays it on the fuel it releases and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel oil; blends with renewable diesel pay less. "
+                           "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+                    "sources": [src(srcs, "fi-vero-verotaulukot")]})
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -473,6 +509,7 @@ def main(fetched, out):
     denmark(fetched, out, srcs)
     sweden(fetched, out, srcs)
     norway(fetched, out, srcs)
+    finland(fetched, out, srcs)
 
 
 if __name__ == "__main__":

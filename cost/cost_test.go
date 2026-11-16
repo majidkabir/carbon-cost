@@ -1539,6 +1539,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 	if _, ok := line(r, FuelCO2, "LT", rates.CO2); ok {
 		t.Error("LT fuel line in 2024")
 	}
+	// Luxembourg's taxe CO2 on gas oil motor fuel: EUR 120.86, 132.55 and
+	// 144.60 per 1,000 litres in 2024, 2025 and 2026.
+	for d, want := range map[string]float64{"2024-06-01": 0.12086, "2025-06-01": 0.13255, "2026-11-03": 0.1446} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "LU", DieselL: 1000}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "LU", rates.CO2); !ok || l.Rate != want || math.Abs(l.AmountEUR-1000*want) > 0.01 {
+			t.Errorf("LU %s: %+v", d, l)
+		}
+	}
 	// Sweden's koldioxidskatt on diesel per litre: SEK 2.811 in 2025, cut to
 	// 0.411 from 1 July to 30 November 2026.
 	for d, want := range map[string]float64{"2025-06-01": 2.811, "2026-11-03": 0.411, "2026-12-15": 2.811, "2024-06-01": 2.723} {

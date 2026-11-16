@@ -39,7 +39,11 @@ from the fetched law texts (sources.json, table fuelco2-*):
 - Lithuania, the CO2 dedamoji (component) of the excise duty on gas oils
   (Akcizų įstatymas Nr. IX-569, 37 str. 1 d. and 3 priedas), per 1,000
   litres, from its introduction on 1 January 2025: the customs notice
-  that 2026 keeps the 2025 amount (law XV-679).
+  that 2026 keeps the 2025 amount (law XV-679);
+- Luxembourg, the droit d'accise autonome « taxe CO2 » on gas oil used as
+  motor fuel (règlement grand-ducal modifié du 17 décembre 2010, art. 3),
+  per 1,000 litres, from the customs' yearly rate sheets (the row's parts
+  checked to add up to its total).
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
@@ -518,6 +522,29 @@ def lithuania(fetched, out, srcs):
                     "sources": [src(srcs, "lt-muitine-akcizai-2026")]})
 
 
+LU_SHEETS = ["lu-douanes-taux-2024", "lu-douanes-taux-2025", "lu-douanes-taux-2026"]
+
+
+def luxembourg(fetched, out, srcs):
+    for sid in LU_SHEETS:
+        t = re.sub(r"\s+", " ", open(os.path.join(fetched, sid + ".txt"), encoding="utf-8", errors="replace").read())
+        y = re.search(r"Taux d'accises applicables pour l'année (\d{4})", t)
+        # UEBL, ¹ accise autonome, total, VAT; ² contribution sociale; ³ taxe CO2.
+        m = re.search(r"Gasoil /1000 l.{0,300}?contenant ≤ 10 mg/kg soufre (\d+,\d{4}) € \D{0,3}(\d+,\d{4}) € (\d+,\d{4}) € 17%.{0,300}?(\d+,\d{4}) €.{0,300}?(\d+,\d{4}) €", t)
+        if not y or not m:
+            sys.exit(f"{sid}: no gas oil motor fuel row")
+        uebl, auto, total, social, co2 = (float(v.replace(",", ".")) for v in m.groups())
+        if abs(uebl + auto + social + co2 - total) > 0.001:
+            sys.exit(f"{sid}: gas oil parts {uebl} + {auto} + {social} + {co2} don't make {total}")
+        yr = y.group(1)
+        write(out, {"country": "LU", "currency": "EUR", "valid_from": f"{yr}-01-01", "valid_to": f"{yr}-12-31",
+                    "name": "Taxe CO2 on gas oil used as motor fuel", "rate_per_l": round(co2 / 1000, 5),
+                    "law": f"Règlement grand-ducal modifié du 17 décembre 2010 fixant les taux applicables en matière de droits d'accise autonomes sur les produits énergétiques, art. 3: the droit d'accise autonome additionnel « taxe CO2 » on gas oil used as motor fuel, EUR {co2:.2f} per 1,000 litres at 15 °C in {yr}, as the customs' rate sheet for {yr} gives it (part of EUR {total:.2f} of excise in all). "
+                           "The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. "
+                           "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+                    "sources": [src(srcs, sid)]})
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
@@ -531,6 +558,7 @@ def main(fetched, out):
     norway(fetched, out, srcs)
     finland(fetched, out, srcs)
     lithuania(fetched, out, srcs)
+    luxembourg(fetched, out, srcs)
 
 
 if __name__ == "__main__":

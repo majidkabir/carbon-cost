@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-lu/2026-01-01",
+  "scheme": {
+   "id": "fuelco2-lu",
+   "name": "Taxe CO2 on gas oil used as motor fuel",
+   "country": "LU"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Luxembourg",
+  "license": "MIT",
+  "method": "Règlement grand-ducal modifié du 17 décembre 2010 fixant les taux applicables en matière de droits d'accise autonomes sur les produits énergétiques, art. 3: the droit d'accise autonome additionnel « taxe CO2 » on gas oil used as motor fuel, EUR 144.60 per 1,000 litres at 15 °C in 2026, as the customs' rate sheet for 2026 gives it (part of EUR 421.87 of excise in all). The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-lu-2026-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Administration des douanes et accises: taux d'accises applicables pour l'année 2026 (from 1 July 2026), incl. gas oil used as motor fuel per 1,000 litres (UEBL excise, accise autonome, contribution sociale, taxe CO2)",
+   "url": "https://douanes.public.lu/content/dam/douanes/fr/accises/taux-accises-lu-01072026.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "LU"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Taxe CO2 on gas oil used as motor fuel",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["0.1446"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

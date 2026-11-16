@@ -1611,6 +1611,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-lu/2024-01-01",
+   "scheme": "fuelco2-lu",
+   "country": "LU",
+   "file": "lu/fuelco2-lu-2024-01-01.orct.json",
+   "name": "Taxe CO2 on gas oil used as motor fuel",
+   "valid_from": "2024-01-01",
+   "valid_to": "2024-12-31",
+   "sha256": "16e1201d2139b256732f0a75bf2e6e1532f71355f8cdbfc0f173d59c1485e537",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-lu/2025-01-01",
+   "scheme": "fuelco2-lu",
+   "country": "LU",
+   "file": "lu/fuelco2-lu-2025-01-01.orct.json",
+   "name": "Taxe CO2 on gas oil used as motor fuel",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "b261ee35a4acffc57baa3dbfbbc089a2e389ea8a4e2800b50ef50031481b7089",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-lu/2026-01-01",
+   "scheme": "fuelco2-lu",
+   "country": "LU",
+   "file": "lu/fuelco2-lu-2026-01-01.orct.json",
+   "name": "Taxe CO2 on gas oil used as motor fuel",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "0607011dfcd324c8719bae84c8266a27c42f1199943bc3f68bdc93533ae21bf5",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/lu/2019-07-01",
    "scheme": "lu",
    "country": "LU",

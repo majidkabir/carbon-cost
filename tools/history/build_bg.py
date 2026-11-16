@@ -151,6 +151,71 @@ def main(fetched, out):
         json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
         print(path, len(rows), "rows")
 
+    june2026(fetched, out)
+
+
+def june2026(fetched, out):
+    """From 1 June 2026 (Постановление № 64 от 26 май 2026 г.): the toll
+    table by CO2 class, with its parts (infrastructure, air, noise, CO2) per
+    road class. CO2 classes 2-4 are EURO VI's; class 5 is zero-emission."""
+    p = Tables()
+    p.feed(open(os.path.join(fetched, "bg-dv-64-2026.html"), "rb").read().decode("utf-8", "replace"))
+    tabs = [t for t in p.tables if "Клас емисии CO2" in " ".join(" ".join(r) for r in t)]
+    if len(tabs) != 1:
+        sys.exit(f"bg-dv-64-2026: {len(tabs)} toll tables by CO2 class")
+    raw = open(os.path.join(fetched, "bg-dv-64-2026.html"), "rb").read().decode("utf-8", "replace")
+    page = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", raw)))
+    if "Постановление № 64 от 26 май 2026 г." not in page or "Постановлението влиза в сила от 1 юни 2026 г." not in page:
+        sys.exit("bg-dv-64-2026: not Постановление № 64 in force 1 June 2026")
+    vals = {}  # (CO2 class, category, EURO group) -> [(infr, air, noise, co2, total)] for АМ, I, II
+    cls = cat = None
+    for r in tabs[0]:
+        cells = [re.sub(r"\s+", " ", c).strip() for c in r if c.strip()]
+        for c in cells:
+            if m := re.fullmatch(r"Клас ([1-5])", c):
+                cls = int(m.group(1))
+            if c.startswith("Товарен автомобил") or c.startswith("Автобус"):
+                cat = (1 if "2 – 3 оси" in c else 2 if "4 и повече оси" in c else 0) if c.startswith("Товарен") else None
+        nums = [num(c) for c in cells if re.fullmatch(r"\d+,\d+", c)]
+        if cat is None or len(nums) != 15:
+            continue
+        label = next(c for c in cells if re.search(r"(ЕВРО|EBPO|EURO|ZEV)", c))
+        e = "ZEV" if label == "ZEV" else next(j for j, (k, _) in enumerate(EURO) if re.search(r"\b" + k + r"\b", label.replace(",", " ")))
+        parts = [nums[i:i + 5] for i in (0, 5, 10)]
+        for x in parts:
+            if round(sum(x[:4]), 2) != x[4]:
+                sys.exit(f"bg-dv-64-2026: {x} doesn't add up")
+        vals[(cls, cat, e)] = parts
+    want = 3 * 4 + 3 * 3 + 3
+    if len(vals) != want:
+        sys.exit(f"bg-dv-64-2026: {len(vals)} goods-vehicle rows, want {want}")
+    rows = []
+
+    def add(road, col, bounds, sel, x):
+        inf, air, noise, co2, _ = x[col]
+        for comp, v in (("infrastructure", inf), ("air", air), ("noise", noise), ("co2", co2)):
+            if comp in ("infrastructure", "co2") or v:
+                rows.append({"component": comp, "road": road, **bounds, **sel, "rate": v})
+    for road, col in (("motorway", 0), ("other", 1)):
+        for cls in (5, 4, 3, 2):
+            for ci, (_, bounds) in enumerate(CATS):
+                x = vals[(cls, ci, "ZEV" if cls == 5 else 0)]
+                add(road, col, bounds, {"co2_class": [cls]} if cls == 5 else {"co2_class": [cls], "euro": [6]}, x)
+        for ci, (_, bounds) in enumerate(CATS):
+            for ei, (_, euro) in enumerate(EURO):
+                add(road, col, bounds, {"euro": euro}, vals[(1, ci, ei)])
+    tb = {"country": "BG", "currency": "EUR", "valid_from": "2026-06-01", "valid_to": "2026-12-31",
+          "name": "Bulgarian distance toll (BG TOLL)",
+          "law": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, as amended by Постановление № 64 от 26 май 2026 г. (ДВ бр. 49 от 29.05.2026), in force 1 June 2026: EUR/km by CO2 class, vehicle category, EURO class and road class (motorway, class I, class II), split into infrastructure, air, noise and CO2. No VAT is charged.",
+          "sources": [{"title": "Държавен вестник бр. 49/2026: Постановление № 64 (toll tariff from 1 June 2026)", "url": DV + "243642"}],
+          "vehicles": "Goods vehicles over 3.5 t technically permissible maximum mass (buses have their own rates)",
+          "min_kg": 3501,
+          "tolled_roads": "Motorways and class I roads (about 3,115 km), and tolled class II roads. Km off motorways are priced at the class I rate; class II rates are 0.01 EUR/km lower.",
+          "motorway_share": 1, "rows": rows}
+    path = os.path.join(out, "bg-2026-06-01.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, len(rows), "rows")
+
 
 if __name__ == "__main__":
     main(*sys.argv[1:])

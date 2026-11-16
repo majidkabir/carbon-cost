@@ -36,6 +36,8 @@ func TestHandler(t *testing.T) {
 		{"GET", "/healthz", "", 200, "ok"},
 		{"GET", "/", "", 200, "v1/carbon-cost"},
 		{"GET", "/v1/rates", "", 200, `"country": "DK"`},
+		{"GET", "/v1/rates/dk/dk-2026-01-01.orct.json", "", 200, `"orct": "0.2"`},
+		{"GET", "/v1/rates/dk/nope.orct.json", "", 404, "no such dataset"},
 		{"GET", "/", "", 200, `const TILES = "https://tile.openstreetmap.org/{z}/{x}/{y}.png";`},
 		{"GET", "/leaflet/leaflet.js", "", 200, "Leaflet"},
 		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},

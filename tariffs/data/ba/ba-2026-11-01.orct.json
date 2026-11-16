@@ -1,0 +1,538 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/ba/2026-11-01",
+  "scheme": {
+   "id": "ba",
+   "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
+   "country": "BA"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-01",
+  "currency": "EUR",
+  "timezone": "Europe/Sarajevo",
+  "license": "MIT",
+  "method": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: per direction from each toll station to each other, class III (two or three axles) and IV (four or more), excluding 17% VAT, converted at the convertible mark's fixed 1.95583 KM per euro. Stations at JP Autoceste FBiH's OSM toll booths; not placed, so not priced: Tešanj, Usora, Žepče.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "ba-2026-11-01.json"
+  },
+  "required_features": ["type.od", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "JP Autoceste FBiH: price list from 1 November 2026 (up to 15% over the decree's, under its article 6)",
+   "url": "https://www.jpautoceste.ba/wp-content/uploads/2026/11/Cjenovnik-od-1.11.2026.-godine.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "JP Autoceste FBiH: Pricelist and vehicle category",
+   "url": "https://www.jpautoceste.ba/en/pricelist/"
+  },
+  {
+   "id": "s3",
+   "title": "Zakon o Centralnoj banci Bosne i Hercegovine, article 32 (1 EUR = 1.95583 KM)",
+   "url": "https://www.cbbh.ba/content/read/915"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Overpass API): JP Autoceste FBiH's toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Classes III and IV (over 1.3 m at the first axle; here trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.III",
+     "label": "III",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.IV",
+     "label": "IV",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Kakanj",
+   "type": "station",
+   "name": "Kakanj",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.100574, 44.124616]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Kakanj I",
+   "type": "station",
+   "name": "Kakanj I",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.110811, 44.080897]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Kakanj II",
+   "type": "station",
+   "name": "Kakanj II",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.107402, 44.097542]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Lašva",
+   "type": "station",
+   "name": "Lašva",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.98448, 44.131606]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Podlugovi",
+   "type": "station",
+   "name": "Podlugovi",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.251882, 43.970949], [18.251997, 43.970976]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Sarajevo sjever",
+   "type": "station",
+   "name": "Sarajevo sjever",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.321171, 43.911507], [18.320963, 43.911417]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Visoko",
+   "type": "station",
+   "name": "Visoko",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.166477, 44.001398]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st1:Zenica jug",
+   "type": "station",
+   "name": "Zenica jug",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.969721, 44.18181], [17.969535, 44.181742]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st1:Zenica sjever",
+   "type": "station",
+   "name": "Zenica sjever",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.900994, 44.237468]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:Bradina",
+   "type": "station",
+   "name": "Bradina",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.028045, 43.741694], [18.027995, 43.741582]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Lepenica",
+   "type": "station",
+   "name": "Lepenica",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.143133, 43.866182]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:Sarajevo zapad",
+   "type": "station",
+   "name": "Sarajevo zapad",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.212609, 43.868922], [18.212684, 43.869119]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:Tarčin",
+   "type": "station",
+   "name": "Tarčin",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.086035, 43.793065], [18.085742, 43.793267]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Ljubuški",
+   "type": "station",
+   "name": "Ljubuški",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.590375, 43.140766], [17.590605, 43.140682]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:Međugorje",
+   "type": "station",
+   "name": "Međugorje",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.659209, 43.159881]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st3:Čapljina",
+   "type": "station",
+   "name": "Čapljina",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.770985, 43.154096], [17.771058, 43.154195]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "A1 Svilaj–Odžak: Svilaj",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [18.284385, 45.090308]
+    },
+    "match_m": 200
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "A1 Svilaj–Odžak: Svilaj",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [18.284216, 45.090383]
+    },
+    "match_m": 200
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "A1 Sarajevo–Žepče",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Sarajevo - Žepče and Žepče - Sarajevo.",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Kakanj II", "st1:Kakanj", "sys1-1.III", "0.4807"],
+    ["st1:Kakanj II", "st1:Kakanj", "sys1-1.IV", "0.7429"],
+    ["st1:Kakanj II", "st1:Lašva", "sys1-1.III", "2.4909"],
+    ["st1:Kakanj II", "st1:Lašva", "sys1-1.IV", "3.2338"],
+    ["st1:Kakanj II", "st1:Zenica jug", "sys1-1.III", "3.496"],
+    ["st1:Kakanj II", "st1:Zenica jug", "sys1-1.IV", "4.7633"],
+    ["st1:Kakanj II", "st1:Zenica sjever", "sys1-1.III", "5.1129"],
+    ["st1:Kakanj II", "st1:Zenica sjever", "sys1-1.IV", "6.992"],
+    ["st1:Kakanj I", "st1:Kakanj", "sys1-1.III", "0.9614"],
+    ["st1:Kakanj I", "st1:Kakanj", "sys1-1.IV", "1.2236"],
+    ["st1:Kakanj I", "st1:Lašva", "sys1-1.III", "2.7094"],
+    ["st1:Kakanj I", "st1:Lašva", "sys1-1.IV", "3.7145"],
+    ["st1:Kakanj I", "st1:Zenica jug", "sys1-1.III", "3.7582"],
+    ["st1:Kakanj I", "st1:Zenica jug", "sys1-1.IV", "5.0255"],
+    ["st1:Kakanj I", "st1:Zenica sjever", "sys1-1.III", "5.4625"],
+    ["st1:Kakanj I", "st1:Zenica sjever", "sys1-1.IV", "7.429"],
+    ["st1:Kakanj", "st1:Kakanj I", "sys1-1.III", "0.9614"],
+    ["st1:Kakanj", "st1:Kakanj I", "sys1-1.IV", "1.2236"],
+    ["st1:Kakanj", "st1:Lašva", "sys1-1.III", "1.9665"],
+    ["st1:Kakanj", "st1:Lašva", "sys1-1.IV", "2.4909"],
+    ["st1:Kakanj", "st1:Podlugovi", "sys1-1.III", "4.4574"],
+    ["st1:Kakanj", "st1:Podlugovi", "sys1-1.IV", "5.8995"],
+    ["st1:Kakanj", "st1:Sarajevo sjever", "sys1-1.III", "6.2054"],
+    ["st1:Kakanj", "st1:Sarajevo sjever", "sys1-1.IV", "8.0845"],
+    ["st1:Kakanj", "st1:Visoko", "sys1-1.III", "3.0153"],
+    ["st1:Kakanj", "st1:Visoko", "sys1-1.IV", "4.0204"],
+    ["st1:Kakanj", "st1:Zenica jug", "sys1-1.III", "3.0153"],
+    ["st1:Kakanj", "st1:Zenica jug", "sys1-1.IV", "4.0204"],
+    ["st1:Kakanj", "st1:Zenica sjever", "sys1-1.III", "4.5011"],
+    ["st1:Kakanj", "st1:Zenica sjever", "sys1-1.IV", "6.0306"],
+    ["st1:Lašva", "st1:Kakanj", "sys1-1.III", "1.9665"],
+    ["st1:Lašva", "st1:Kakanj", "sys1-1.IV", "2.4909"],
+    ["st1:Lašva", "st1:Kakanj I", "sys1-1.III", "2.7094"],
+    ["st1:Lašva", "st1:Kakanj I", "sys1-1.IV", "3.7145"],
+    ["st1:Lašva", "st1:Podlugovi", "sys1-1.III", "5.8995"],
+    ["st1:Lašva", "st1:Podlugovi", "sys1-1.IV", "7.866"],
+    ["st1:Lašva", "st1:Sarajevo sjever", "sys1-1.III", "8.0408"],
+    ["st1:Lašva", "st1:Sarajevo sjever", "sys1-1.IV", "10.7065"],
+    ["st1:Lašva", "st1:Visoko", "sys1-1.III", "4.7633"],
+    ["st1:Lašva", "st1:Visoko", "sys1-1.IV", "6.5113"],
+    ["st1:Podlugovi", "st1:Kakanj", "sys1-1.III", "4.4574"],
+    ["st1:Podlugovi", "st1:Kakanj", "sys1-1.IV", "5.8995"],
+    ["st1:Podlugovi", "st1:Lašva", "sys1-1.III", "5.8995"],
+    ["st1:Podlugovi", "st1:Lašva", "sys1-1.IV", "7.866"],
+    ["st1:Podlugovi", "st1:Sarajevo sjever", "sys1-1.III", "1.748"],
+    ["st1:Podlugovi", "st1:Sarajevo sjever", "sys1-1.IV", "2.4909"],
+    ["st1:Podlugovi", "st1:Visoko", "sys1-1.III", "1.4858"],
+    ["st1:Podlugovi", "st1:Visoko", "sys1-1.IV", "1.9665"],
+    ["st1:Podlugovi", "st1:Zenica jug", "sys1-1.III", "7.5164"],
+    ["st1:Podlugovi", "st1:Zenica jug", "sys1-1.IV", "9.7888"],
+    ["st1:Podlugovi", "st1:Zenica sjever", "sys1-1.III", "9.0459"],
+    ["st1:Podlugovi", "st1:Zenica sjever", "sys1-1.IV", "12.0175"],
+    ["st1:Sarajevo sjever", "st1:Kakanj", "sys1-1.III", "6.2054"],
+    ["st1:Sarajevo sjever", "st1:Kakanj", "sys1-1.IV", "8.0845"],
+    ["st1:Sarajevo sjever", "st1:Lašva", "sys1-1.III", "8.0408"],
+    ["st1:Sarajevo sjever", "st1:Lašva", "sys1-1.IV", "10.7065"],
+    ["st1:Sarajevo sjever", "st1:Podlugovi", "sys1-1.III", "1.748"],
+    ["st1:Sarajevo sjever", "st1:Podlugovi", "sys1-1.IV", "2.4909"],
+    ["st1:Sarajevo sjever", "st1:Visoko", "sys1-1.III", "3.2338"],
+    ["st1:Sarajevo sjever", "st1:Visoko", "sys1-1.IV", "4.4574"],
+    ["st1:Sarajevo sjever", "st1:Zenica jug", "sys1-1.III", "9.177"],
+    ["st1:Sarajevo sjever", "st1:Zenica jug", "sys1-1.IV", "12.236"],
+    ["st1:Sarajevo sjever", "st1:Zenica sjever", "sys1-1.III", "10.488"],
+    ["st1:Sarajevo sjever", "st1:Zenica sjever", "sys1-1.IV", "13.9841"],
+    ["st1:Visoko", "st1:Kakanj", "sys1-1.III", "3.0153"],
+    ["st1:Visoko", "st1:Kakanj", "sys1-1.IV", "4.0204"],
+    ["st1:Visoko", "st1:Lašva", "sys1-1.III", "4.7633"],
+    ["st1:Visoko", "st1:Lašva", "sys1-1.IV", "6.5113"],
+    ["st1:Visoko", "st1:Podlugovi", "sys1-1.III", "1.4858"],
+    ["st1:Visoko", "st1:Podlugovi", "sys1-1.IV", "1.9665"],
+    ["st1:Visoko", "st1:Sarajevo sjever", "sys1-1.III", "3.2338"],
+    ["st1:Visoko", "st1:Sarajevo sjever", "sys1-1.IV", "4.4574"],
+    ["st1:Visoko", "st1:Zenica jug", "sys1-1.III", "5.8995"],
+    ["st1:Visoko", "st1:Zenica jug", "sys1-1.IV", "7.866"],
+    ["st1:Visoko", "st1:Zenica sjever", "sys1-1.III", "7.5164"],
+    ["st1:Visoko", "st1:Zenica sjever", "sys1-1.IV", "10.051"],
+    ["st1:Zenica jug", "st1:Kakanj", "sys1-1.III", "3.0153"],
+    ["st1:Zenica jug", "st1:Kakanj", "sys1-1.IV", "4.0204"],
+    ["st1:Zenica jug", "st1:Kakanj I", "sys1-1.III", "3.7582"],
+    ["st1:Zenica jug", "st1:Kakanj I", "sys1-1.IV", "5.0255"],
+    ["st1:Zenica jug", "st1:Podlugovi", "sys1-1.III", "7.5164"],
+    ["st1:Zenica jug", "st1:Podlugovi", "sys1-1.IV", "9.7888"],
+    ["st1:Zenica jug", "st1:Sarajevo sjever", "sys1-1.III", "9.177"],
+    ["st1:Zenica jug", "st1:Sarajevo sjever", "sys1-1.IV", "12.236"],
+    ["st1:Zenica jug", "st1:Visoko", "sys1-1.III", "5.8995"],
+    ["st1:Zenica jug", "st1:Visoko", "sys1-1.IV", "7.866"],
+    ["st1:Zenica jug", "st1:Zenica sjever", "sys1-1.III", "1.5295"],
+    ["st1:Zenica jug", "st1:Zenica sjever", "sys1-1.IV", "2.185"],
+    ["st1:Zenica sjever", "st1:Kakanj", "sys1-1.III", "4.5011"],
+    ["st1:Zenica sjever", "st1:Kakanj", "sys1-1.IV", "6.0306"],
+    ["st1:Zenica sjever", "st1:Kakanj I", "sys1-1.III", "5.4625"],
+    ["st1:Zenica sjever", "st1:Kakanj I", "sys1-1.IV", "7.429"],
+    ["st1:Zenica sjever", "st1:Podlugovi", "sys1-1.III", "9.0459"],
+    ["st1:Zenica sjever", "st1:Podlugovi", "sys1-1.IV", "12.0175"],
+    ["st1:Zenica sjever", "st1:Sarajevo sjever", "sys1-1.III", "10.488"],
+    ["st1:Zenica sjever", "st1:Sarajevo sjever", "sys1-1.IV", "13.9841"],
+    ["st1:Zenica sjever", "st1:Visoko", "sys1-1.III", "7.5164"],
+    ["st1:Zenica sjever", "st1:Visoko", "sys1-1.IV", "10.051"],
+    ["st1:Zenica sjever", "st1:Zenica jug", "sys1-1.III", "1.5295"],
+    ["st1:Zenica sjever", "st1:Zenica jug", "sys1-1.IV", "2.185"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "A1 Sarajevo–Bradina",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Sarajevo - Bradina and Bradina - Sarajevo.",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Bradina", "st2:Lepenica", "sys1-1.III", "3.496"],
+    ["st2:Bradina", "st2:Lepenica", "sys1-1.IV", "4.5011"],
+    ["st2:Bradina", "st2:Sarajevo zapad", "sys1-1.III", "5.244"],
+    ["st2:Bradina", "st2:Sarajevo zapad", "sys1-1.IV", "6.992"],
+    ["st2:Bradina", "st2:Tarčin", "sys1-1.III", "1.4858"],
+    ["st2:Bradina", "st2:Tarčin", "sys1-1.IV", "2.0102"],
+    ["st2:Lepenica", "st2:Bradina", "sys1-1.III", "3.496"],
+    ["st2:Lepenica", "st2:Bradina", "sys1-1.IV", "4.5011"],
+    ["st2:Lepenica", "st2:Sarajevo zapad", "sys1-1.III", "2.0102"],
+    ["st2:Lepenica", "st2:Sarajevo zapad", "sys1-1.IV", "2.4909"],
+    ["st2:Lepenica", "st2:Tarčin", "sys1-1.III", "2.0102"],
+    ["st2:Lepenica", "st2:Tarčin", "sys1-1.IV", "2.4909"],
+    ["st2:Sarajevo zapad", "st2:Bradina", "sys1-1.III", "5.244"],
+    ["st2:Sarajevo zapad", "st2:Bradina", "sys1-1.IV", "6.992"],
+    ["st2:Sarajevo zapad", "st2:Lepenica", "sys1-1.III", "2.0102"],
+    ["st2:Sarajevo zapad", "st2:Lepenica", "sys1-1.IV", "2.4909"],
+    ["st2:Sarajevo zapad", "st2:Tarčin", "sys1-1.III", "3.7582"],
+    ["st2:Sarajevo zapad", "st2:Tarčin", "sys1-1.IV", "5.0255"],
+    ["st2:Tarčin", "st2:Bradina", "sys1-1.III", "1.4858"],
+    ["st2:Tarčin", "st2:Bradina", "sys1-1.IV", "2.0102"],
+    ["st2:Tarčin", "st2:Lepenica", "sys1-1.III", "2.0102"],
+    ["st2:Tarčin", "st2:Lepenica", "sys1-1.IV", "2.4909"],
+    ["st2:Tarčin", "st2:Sarajevo zapad", "sys1-1.III", "3.7582"],
+    ["st2:Tarčin", "st2:Sarajevo zapad", "sys1-1.IV", "5.0255"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "A1 Ljubuški–Čapljina",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "JP Autoceste FBiH's price list from 1 November 2026, raised by up to 15% over the prices of the Uredba o naplati naknade za korištenje autoceste A1 (SN 63/24 and 74/26) under its article 6: directions Ljubuški - Čapljina and Čapljina - Ljubuški.",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Ljubuški", "st3:Međugorje", "sys1-1.III", "1.4858"],
+    ["st3:Ljubuški", "st3:Međugorje", "sys1-1.IV", "1.9665"],
+    ["st3:Ljubuški", "st3:Čapljina", "sys1-1.III", "3.2338"],
+    ["st3:Ljubuški", "st3:Čapljina", "sys1-1.IV", "4.5011"],
+    ["st3:Međugorje", "st3:Ljubuški", "sys1-1.III", "1.4858"],
+    ["st3:Međugorje", "st3:Ljubuški", "sys1-1.IV", "1.9665"],
+    ["st3:Međugorje", "st3:Čapljina", "sys1-1.III", "1.748"],
+    ["st3:Međugorje", "st3:Čapljina", "sys1-1.IV", "2.4909"],
+    ["st3:Čapljina", "st3:Ljubuški", "sys1-1.III", "3.2338"],
+    ["st3:Čapljina", "st3:Ljubuški", "sys1-1.IV", "4.5011"],
+    ["st3:Čapljina", "st3:Međugorje", "sys1-1.III", "1.748"],
+    ["st3:Čapljina", "st3:Međugorje", "sys1-1.IV", "2.4909"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "1.7043"], ["pt1", "pt-1.2", "2.4909"], ["pt2", "pt-1.1", "1.7043"], ["pt2", "pt-1.2", "2.4909"]],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

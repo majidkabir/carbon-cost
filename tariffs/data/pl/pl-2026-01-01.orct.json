@@ -1,0 +1,193 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/pl/2026-01-01",
+  "scheme": {
+   "id": "pl",
+   "name": "Polish electronic toll (e-TOLL)",
+   "country": "PL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-01-31",
+  "currency": "PLN",
+  "timezone": "Europe/Warsaw",
+  "license": "MIT",
+  "method": "Ustawa o drogach publicznych, art. 13ha; the rates for 2026 announced in M.P. 2025 poz. 1244 (obwieszczenie of 3 December 2025): annex 1 (class A and S roads) and annex 2 (class GP and G roads), by permissible total mass (with trailer: over 3.5 t and under 12 t; 12 t or more) and EURO class (max. EURO 2, EURO 3, EURO 4, min. EURO 5); no CO2 component.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "pl-2026-01-01.json"
+  },
+  "required_features": ["type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Monitor Polski: M.P. 2025 poz. 1244 (obwieszczenie of 3 December 2025)",
+   "url": "https://eli.gov.pl/api/acts/MP/2025/1244/text/O/M20251244.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Motor vehicles and combinations over 3.5 t permissible total mass (with trailer), and buses",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 11999
+      },
+      "euro_class": ["0", "1", "2"]
+     }
+    },
+    {
+     "id": "toll-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 11999
+      },
+      "euro_class": ["3"]
+     }
+    },
+    {
+     "id": "toll-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 11999
+      },
+      "euro_class": ["4"]
+     }
+    },
+    {
+     "id": "toll-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 11999
+      }
+     }
+    },
+    {
+     "id": "toll-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "euro_class": ["0", "1", "2"]
+     }
+    },
+    {
+     "id": "toll-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "euro_class": ["3"]
+     }
+    },
+    {
+     "id": "toll-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "euro_class": ["4"]
+     }
+    },
+    {
+     "id": "toll-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "e-TOLL sections of national roads: motorways and expressways (class A, S) and main roads (GP, G). Not included: the concession motorway sections (A1 Rusocin-Toruń, A2 Świecko-Konin, A4 Katowice-Kraków), charged by their operators."
+   }
+  },
+  {
+   "id": "road:motorway",
+   "type": "network",
+   "parents": ["roads"],
+   "network": {
+    "road_types": ["motorway"]
+   }
+  },
+  {
+   "id": "road:other",
+   "type": "network",
+   "parents": ["roads"],
+   "network": {
+    "road_types": ["other"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "km",
+   "component_label": "toll",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["road:motorway", "toll-1.1", "0.6"],
+    ["road:motorway", "toll-1.2", "0.52"],
+    ["road:motorway", "toll-1.3", "0.43"],
+    ["road:motorway", "toll-1.4", "0.31"],
+    ["road:motorway", "toll-1.5", "0.8"],
+    ["road:motorway", "toll-1.6", "0.69"],
+    ["road:motorway", "toll-1.7", "0.56"],
+    ["road:motorway", "toll-1.8", "0.42"],
+    ["road:other", "toll-1.1", "0.49"],
+    ["road:other", "toll-1.2", "0.43"],
+    ["road:other", "toll-1.3", "0.35"],
+    ["road:other", "toll-1.4", "0.25"],
+    ["road:other", "toll-1.5", "0.62"],
+    ["road:other", "toll-1.6", "0.56"],
+    ["road:other", "toll-1.7", "0.45"],
+    ["road:other", "toll-1.8", "0.32"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "motorway_share": 1
+  }
+ }
+}

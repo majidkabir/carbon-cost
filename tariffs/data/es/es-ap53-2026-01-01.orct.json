@@ -1,0 +1,392 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-ap53/2026-01-01",
+  "scheme": {
+   "id": "es-ap53",
+   "name": "AP-53 Santiago de Compostela – Alto de Santo Domingo",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The Ministry of Transport's tolls in force from 1 January 2026 on the AP-53, with Real Decreto-ley 20/2022 and the heavy-vehicle bonuses of Real Decreto 276/2025 applied: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; Santiago – Alto de Santo Domingo EUR 7.25 with IVA), excluding 21% IVA. Stations: each carriageway's stretch between two consecutive entries/exits; Ribadulla and Silleda at the junctions nearest OpenStreetMap's toll booths of their name, the others at the junctions whose exits are signposted to them, Alto de Santo Domingo at the motorway's end.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "es-ap53-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ministerio de Transportes: peajes vigentes AP-53 2026",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-53,-santiago---alto-de-santo-domingo-2026.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): AP-53 carriageways, junctions, signposted links and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.P2",
+     "label": "P2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "sys1-1.P1",
+     "label": "P1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Alto de Santo Domingo > Lalín Este",
+   "type": "station",
+   "name": "Alto de Santo Domingo > Lalín Este",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.088985, 42.598102]]
+    },
+    "point_names": ["between Alto de Santo Domingo and Lalín Este"],
+    "headings": [317.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bandeira > Ribadulla",
+   "type": "station",
+   "name": "Bandeira > Ribadulla",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.383552, 42.74713]]
+    },
+    "point_names": ["between Bandeira and Ribadulla"],
+    "headings": [284.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bandeira > Silleda",
+   "type": "station",
+   "name": "Bandeira > Silleda",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.28877, 42.718319]]
+    },
+    "point_names": ["between Bandeira and Silleda"],
+    "headings": [77.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Centro > Lalín Este",
+   "type": "station",
+   "name": "Lalín Centro > Lalín Este",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.116951, 42.626931]]
+    },
+    "point_names": ["between Lalín Centro and Lalín Este"],
+    "headings": [143.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Centro > Lalín Oeste",
+   "type": "station",
+   "name": "Lalín Centro > Lalín Oeste",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.140909, 42.658091]]
+    },
+    "point_names": ["between Lalín Centro and Lalín Oeste"],
+    "headings": [334.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Este > Alto de Santo Domingo",
+   "type": "station",
+   "name": "Lalín Este > Alto de Santo Domingo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.08898, 42.59798]]
+    },
+    "point_names": ["between Lalín Este and Alto de Santo Domingo"],
+    "headings": [136.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Este > Lalín Centro",
+   "type": "station",
+   "name": "Lalín Este > Lalín Centro",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.116825, 42.626944]]
+    },
+    "point_names": ["between Lalín Este and Lalín Centro"],
+    "headings": [321.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Oeste > Lalín Centro",
+   "type": "station",
+   "name": "Lalín Oeste > Lalín Centro",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.141011, 42.658049]]
+    },
+    "point_names": ["between Lalín Oeste and Lalín Centro"],
+    "headings": [153.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Lalín Oeste > Silleda",
+   "type": "station",
+   "name": "Lalín Oeste > Silleda",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.197007, 42.693222]]
+    },
+    "point_names": ["between Lalín Oeste and Silleda"],
+    "headings": [289.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Ribadulla > Bandeira",
+   "type": "station",
+   "name": "Ribadulla > Bandeira",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.3836, 42.747013]]
+    },
+    "point_names": ["between Ribadulla and Bandeira"],
+    "headings": [104.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Ribadulla > Santiago",
+   "type": "station",
+   "name": "Ribadulla > Santiago",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.483376, 42.803063]]
+    },
+    "point_names": ["between Ribadulla and Santiago"],
+    "headings": [17.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Santiago > Ribadulla",
+   "type": "station",
+   "name": "Santiago > Ribadulla",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.483561, 42.803003]]
+    },
+    "point_names": ["between Santiago and Ribadulla"],
+    "headings": [198.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Silleda > Bandeira",
+   "type": "station",
+   "name": "Silleda > Bandeira",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.288669, 42.718445]]
+    },
+    "point_names": ["between Silleda and Bandeira"],
+    "headings": [259.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Silleda > Lalín Oeste",
+   "type": "station",
+   "name": "Silleda > Lalín Oeste",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-8.197127, 42.693141]]
+    },
+    "point_names": ["between Silleda and Lalín Oeste"],
+    "headings": [106.6],
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "AP-53",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Ministry of Transport's tolls in force: by entry and exit, either way.",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Bandeira > Ribadulla", "sys1-1.P1", "3.719"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Bandeira > Ribadulla", "sys1-1.P2", "4.4215"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Lalín Oeste > Silleda", "sys1-1.P1", "2.0661"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Lalín Oeste > Silleda", "sys1-1.P2", "2.4793"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Ribadulla > Santiago", "sys1-1.P1", "5.0413"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Ribadulla > Santiago", "sys1-1.P2", "5.9917"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Silleda > Bandeira", "sys1-1.P1", "2.9339"],
+    ["st1:Alto de Santo Domingo > Lalín Este", "st1:Silleda > Bandeira", "sys1-1.P2", "3.5124"],
+    ["st1:Bandeira > Ribadulla", "st1:Bandeira > Ribadulla", "sys1-1.P1", "0.9504"],
+    ["st1:Bandeira > Ribadulla", "st1:Bandeira > Ribadulla", "sys1-1.P2", "1.1157"],
+    ["st1:Bandeira > Ribadulla", "st1:Ribadulla > Santiago", "sys1-1.P1", "2.2727"],
+    ["st1:Bandeira > Ribadulla", "st1:Ribadulla > Santiago", "sys1-1.P2", "2.7273"],
+    ["st1:Bandeira > Silleda", "st1:Bandeira > Silleda", "sys1-1.P1", "0.9091"],
+    ["st1:Bandeira > Silleda", "st1:Bandeira > Silleda", "sys1-1.P2", "1.0744"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Centro > Lalín Este", "sys1-1.P1", "2.9339"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Centro > Lalín Este", "sys1-1.P2", "3.5124"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P1", "2.9339"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P2", "3.5124"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P1", "2.9339"],
+    ["st1:Bandeira > Silleda", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P2", "3.5124"],
+    ["st1:Bandeira > Silleda", "st1:Silleda > Lalín Oeste", "sys1-1.P1", "2.9339"],
+    ["st1:Bandeira > Silleda", "st1:Silleda > Lalín Oeste", "sys1-1.P2", "3.5124"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Bandeira > Ribadulla", "sys1-1.P1", "3.719"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Bandeira > Ribadulla", "sys1-1.P2", "4.4215"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Lalín Oeste > Silleda", "sys1-1.P1", "2.0661"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Lalín Oeste > Silleda", "sys1-1.P2", "2.4793"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Ribadulla > Santiago", "sys1-1.P1", "5.0413"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Ribadulla > Santiago", "sys1-1.P2", "5.9917"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Silleda > Bandeira", "sys1-1.P1", "2.9339"],
+    ["st1:Lalín Centro > Lalín Oeste", "st1:Silleda > Bandeira", "sys1-1.P2", "3.5124"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Bandeira > Ribadulla", "sys1-1.P1", "3.719"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Bandeira > Ribadulla", "sys1-1.P2", "4.4215"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Lalín Oeste > Silleda", "sys1-1.P1", "2.0661"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Lalín Oeste > Silleda", "sys1-1.P2", "2.4793"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Ribadulla > Santiago", "sys1-1.P1", "5.0413"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Ribadulla > Santiago", "sys1-1.P2", "5.9917"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Silleda > Bandeira", "sys1-1.P1", "2.9339"],
+    ["st1:Lalín Este > Lalín Centro", "st1:Silleda > Bandeira", "sys1-1.P2", "3.5124"],
+    ["st1:Lalín Oeste > Silleda", "st1:Bandeira > Ribadulla", "sys1-1.P1", "3.719"],
+    ["st1:Lalín Oeste > Silleda", "st1:Bandeira > Ribadulla", "sys1-1.P2", "4.4215"],
+    ["st1:Lalín Oeste > Silleda", "st1:Lalín Oeste > Silleda", "sys1-1.P1", "2.0661"],
+    ["st1:Lalín Oeste > Silleda", "st1:Lalín Oeste > Silleda", "sys1-1.P2", "2.4793"],
+    ["st1:Lalín Oeste > Silleda", "st1:Ribadulla > Santiago", "sys1-1.P1", "5.0413"],
+    ["st1:Lalín Oeste > Silleda", "st1:Ribadulla > Santiago", "sys1-1.P2", "5.9917"],
+    ["st1:Lalín Oeste > Silleda", "st1:Silleda > Bandeira", "sys1-1.P1", "2.9339"],
+    ["st1:Lalín Oeste > Silleda", "st1:Silleda > Bandeira", "sys1-1.P2", "3.5124"],
+    ["st1:Ribadulla > Bandeira", "st1:Bandeira > Silleda", "sys1-1.P1", "1.6942"],
+    ["st1:Ribadulla > Bandeira", "st1:Bandeira > Silleda", "sys1-1.P2", "2.0248"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Centro > Lalín Este", "sys1-1.P1", "3.719"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Centro > Lalín Este", "sys1-1.P2", "4.4215"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P1", "3.719"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P2", "4.4215"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P1", "3.719"],
+    ["st1:Ribadulla > Bandeira", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P2", "4.4215"],
+    ["st1:Ribadulla > Bandeira", "st1:Ribadulla > Bandeira", "sys1-1.P1", "0.9504"],
+    ["st1:Ribadulla > Bandeira", "st1:Ribadulla > Bandeira", "sys1-1.P2", "1.1157"],
+    ["st1:Ribadulla > Bandeira", "st1:Silleda > Lalín Oeste", "sys1-1.P1", "3.719"],
+    ["st1:Ribadulla > Bandeira", "st1:Silleda > Lalín Oeste", "sys1-1.P2", "4.4215"],
+    ["st1:Ribadulla > Santiago", "st1:Ribadulla > Santiago", "sys1-1.P1", "1.3636"],
+    ["st1:Ribadulla > Santiago", "st1:Ribadulla > Santiago", "sys1-1.P2", "1.6529"],
+    ["st1:Santiago > Ribadulla", "st1:Bandeira > Silleda", "sys1-1.P1", "3.0165"],
+    ["st1:Santiago > Ribadulla", "st1:Bandeira > Silleda", "sys1-1.P2", "3.595"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Centro > Lalín Este", "sys1-1.P1", "5.0413"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Centro > Lalín Este", "sys1-1.P2", "5.9917"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P1", "5.0413"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P2", "5.9917"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P1", "5.0413"],
+    ["st1:Santiago > Ribadulla", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P2", "5.9917"],
+    ["st1:Santiago > Ribadulla", "st1:Ribadulla > Bandeira", "sys1-1.P1", "2.2727"],
+    ["st1:Santiago > Ribadulla", "st1:Ribadulla > Bandeira", "sys1-1.P2", "2.7273"],
+    ["st1:Santiago > Ribadulla", "st1:Santiago > Ribadulla", "sys1-1.P1", "1.3636"],
+    ["st1:Santiago > Ribadulla", "st1:Santiago > Ribadulla", "sys1-1.P2", "1.6529"],
+    ["st1:Santiago > Ribadulla", "st1:Silleda > Lalín Oeste", "sys1-1.P1", "5.0413"],
+    ["st1:Santiago > Ribadulla", "st1:Silleda > Lalín Oeste", "sys1-1.P2", "5.9917"],
+    ["st1:Silleda > Bandeira", "st1:Bandeira > Ribadulla", "sys1-1.P1", "1.6942"],
+    ["st1:Silleda > Bandeira", "st1:Bandeira > Ribadulla", "sys1-1.P2", "2.0248"],
+    ["st1:Silleda > Bandeira", "st1:Ribadulla > Santiago", "sys1-1.P1", "3.0165"],
+    ["st1:Silleda > Bandeira", "st1:Ribadulla > Santiago", "sys1-1.P2", "3.595"],
+    ["st1:Silleda > Bandeira", "st1:Silleda > Bandeira", "sys1-1.P1", "0.9091"],
+    ["st1:Silleda > Bandeira", "st1:Silleda > Bandeira", "sys1-1.P2", "1.0744"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Centro > Lalín Este", "sys1-1.P1", "2.0661"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Centro > Lalín Este", "sys1-1.P2", "2.4793"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P1", "2.0661"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Este > Alto de Santo Domingo", "sys1-1.P2", "2.4793"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P1", "2.0661"],
+    ["st1:Silleda > Lalín Oeste", "st1:Lalín Oeste > Lalín Centro", "sys1-1.P2", "2.4793"],
+    ["st1:Silleda > Lalín Oeste", "st1:Silleda > Lalín Oeste", "sys1-1.P1", "2.0661"],
+    ["st1:Silleda > Lalín Oeste", "st1:Silleda > Lalín Oeste", "sys1-1.P2", "2.4793"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-14"
+  }
+ }
+}

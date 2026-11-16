@@ -1,0 +1,90 @@
+{
+ "country": "FR",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "name": "chain",
+ "law": "test law",
+ "sources": [
+  {
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "vehicles": "",
+ "min_kg": 3501,
+ "tolled_roads": "",
+ "rows": null,
+ "closed_systems": [
+  {
+   "name": "test",
+   "law": "",
+   "chain": true,
+   "groups": [
+    {
+     "name": "4",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "R",
+     "points": [
+      {
+       "name": "p",
+       "lat": 45.001,
+       "lon": 0
+      }
+     ]
+    },
+    {
+     "name": "B",
+     "points": [
+      {
+       "name": "p",
+       "lat": 45,
+       "lon": 0.02
+      }
+     ]
+    },
+    {
+     "name": "P",
+     "points": [
+      {
+       "name": "p",
+       "lat": 45,
+       "lon": 0.3
+      }
+     ]
+    },
+    {
+     "name": "N",
+     "points": [
+      {
+       "name": "p",
+       "lat": 45,
+       "lon": 2
+      }
+     ]
+    },
+    {
+     "name": "P2",
+     "points": [
+      {
+       "name": "p",
+       "lat": 45,
+       "lon": 0.3
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "B|P": {
+     "4": 5
+    },
+    "P2|N": {
+     "4": 30
+    }
+   }
+  }
+ ]
+}

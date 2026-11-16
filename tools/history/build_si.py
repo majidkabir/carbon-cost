@@ -19,7 +19,7 @@ The prices before November 2025 have four EURO groups per class (E 0-3,
 E4, E5, EEV/E6); the table keeps the current nine columns (EURO 0-III,
 IV, V, EEV, VI with CO2 classes 1-5), EURO VI's price in all its CO2
 columns. The sections' places and lengths come from the current table
-(rates/data/si-2026-04-01.json, from the Uredba o cestninskih cestah in
+(templates/si-2026-04-01.json, from the Uredba o cestninskih cestah in
 cestnini annex); the 2024 section Brezovica–Vrhnika, split at Dragomer
 from July 2025, joins its two halves. There's no external-cost charge
 before April 2026.
@@ -31,6 +31,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 import si_annex  # noqa: E402
+import committed  # noqa: E402
 
 NPB = "https://pisrs.si/pregledNpb?idPredpisa=%s&idPredpisaChng=%s"
 ACT = "https://pisrs.si/pregledPredpisa?id=%s"
@@ -108,7 +109,7 @@ def karavanke(fetched, sid):
 
 
 def main(fetched, out):
-    cur = json.load(open(os.path.join(ROOT, "rates", "data", "si-2026-04-01.json"), encoding="utf-8"))
+    cur = committed.template("si-2026-04-01.json")
     geo = {key(s["name"]): s for s in cur["sections"]["list"] if s["id"] != "karavanke"}
     kv0 = next(s for s in cur["sections"]["list"] if s["id"] == "karavanke")
     rail0 = next(p for p in cur["sections"]["per_km"] if p["component"] == "rail_surcharge")

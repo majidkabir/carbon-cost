@@ -1,0 +1,40 @@
+{
+ "description": "A barrier priced from itself to itself: one passage is a trip of one station (2).",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "c5",
+    "time": "2026-11-16T09:40:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "2.00"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "odc2",
+    "amount": "2.00"
+   }
+  ]
+ }
+}

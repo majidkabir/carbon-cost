@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-de/2025-01-01",
+  "scheme": {
+   "id": "fuelco2-de",
+   "name": "Brennstoffemissionshandel (nEHS) certificate price",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "BEHG § 10 (2): fixed price of 55 euro per certificate (one tonne of CO2) in 2025. Fuel suppliers buy a certificate for each tonne of CO2 their fuel emits and pass the cost on in the fuel price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "fuelco2-de-2025-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "BEHG § 10 (gesetze-im-internet.de, as the Internet Archive last kept it; the site times out to the workflow): fixed certificate prices to 2025 and the 2026 price corridor",
+   "url": "https://web.archive.org/web/20261231id_/https://www.gesetze-im-internet.de/behg/__10.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "DE"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Brennstoffemissionshandel (nEHS) certificate price",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["55"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

@@ -1,0 +1,152 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/de-warnowtunnel/2026-11-01",
+  "scheme": {
+   "id": "de-warnowtunnel",
+   "name": "Warnowtunnel toll (Rostock)",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-01",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "Warnow-QuerungMautHVO M-V (Anlage as newly set by the Verordnung of 22. September 2026, GVOBl. M-V S. 1123, valid from 01.11.2026): the toll per passage of the Warnow-Querung (B 105, Rostock), VAT included, for vehicles 2.60 m high or more by axles: category 3 (2 axles), 4 (3), 5 (4 or more); the winter price (1 November - 30 April), the summer price (1 May - 31 October) as the high season, and the '360 Tage' price as `etc`. Trucks over 3.5 t are taken to be 2.60 m high or more.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "de-warnowtunnel-2026-11-01.json"
+  },
+  "required_features": ["time_classes", "type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Landesrecht Mecklenburg-Vorpommern: Warnow-QuerungMautHVO M-V, Gesamtausgabe (read in Chrome: tools/tables/browser/de-warnow-mauthvo.txt)",
+   "url": "https://www.landesrecht-mv.de/bsmv/document/jlr-NNLMV0000717F"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles 2.60 m high or more (here: trucks over 3.5 t), by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "high-season",
+   "label": "High season",
+   "days": [
+    {
+     "months": [5, 6, 7, 8, 9, 10]
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Warnowtunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.107553, 54.13545]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "time_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, "11.3"],
+    ["pt1", "pt-1.1", "electronic", null, "10.16"],
+    ["pt1", "pt-1.1", null, "high-season", "14.7"],
+    ["pt1", "pt-1.2", null, null, "15.4"],
+    ["pt1", "pt-1.2", "electronic", null, "13.56"],
+    ["pt1", "pt-1.2", null, "high-season", "21.1"],
+    ["pt1", "pt-1.3", null, null, "20.3"],
+    ["pt1", "pt-1.3", "electronic", null, "17.07"],
+    ["pt1", "pt-1.3", null, "high-season", "23"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

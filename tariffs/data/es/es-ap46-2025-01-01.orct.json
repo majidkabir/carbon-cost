@@ -1,0 +1,146 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-ap46/2025-01-01",
+  "scheme": {
+   "id": "es-ap46",
+   "name": "AP-46 Alto de las Pedrizas–Málaga",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The Ministry of Transport's tolls in force from 2025-01-01 on the AP-46 Alto de las Pedrizas–Málaga, per barrier (Troncal de Casabermeja): Pesados 1 (two or three axles) EUR 4.7521 and Pesados 2 (four axles or more) 6.8595 in the low season, 6.0331 and 8.9669 in the high season, excluding 21% IVA; free for trucks from 22:00 to 08:00. High season: May to October, every Saturday and Sunday, and the 17 days from Viernes de Dolores to the Sunday after Easter. Barriers placed at OpenStreetMap's toll plazas on the motorway, its only plaza.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "es-ap46-2025-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-46 ALTO-DE-LAS-PEDRIZAS - MALAGA (2025)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-46,-alto-de-las-pedrizas---malaga-2025.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API), toll booths",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "high-season",
+   "label": "High season",
+   "days": [
+    {
+     "months": [5, 6, 7, 8, 9, 10]
+    },
+    {
+     "weekdays": [6, 7]
+    },
+    {
+     "easter": [[-9, 7]]
+    }
+   ]
+  },
+  {
+   "id": "free",
+   "label": "No charge",
+   "times": [["22:00", "08:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Troncal de Casabermeja",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-4.457906, 36.90258]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, "4.7521"],
+    ["pt1", "pt-1.1", "high-season", null, "6.0331"],
+    ["pt1", "pt-1.2", null, null, "6.8595"],
+    ["pt1", "pt-1.2", "high-season", null, "8.9669"],
+    ["pt1", null, "free", 2, "0"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

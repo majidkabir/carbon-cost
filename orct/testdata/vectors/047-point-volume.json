@@ -1,0 +1,55 @@
+{
+ "description": "Price by volume: with 2 crossings earlier this year, the next two are the 3rd (10.00) and the 4th (5.00 from the 4th on).",
+ "clauses": [
+  "6.10.3",
+  "9.1"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "tunnel",
+    "time": "2026-11-16T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "tunnel",
+    "time": "2026-11-16T12:00:00+01:00"
+   }
+  ],
+  "prior_uses": {
+   "orct-tests/synthetic/2026-01-01": {
+    "tunnel-fee": 2
+   }
+  }
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "15.00"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "tunnel-fee",
+    "amount": "10.00"
+   },
+   {
+    "charge": "tunnel-fee",
+    "amount": "5.00"
+   }
+  ]
+ }
+}

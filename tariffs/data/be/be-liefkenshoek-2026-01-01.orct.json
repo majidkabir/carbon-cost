@@ -1,0 +1,118 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/be-liefkenshoek/2026-01-01",
+  "scheme": {
+   "id": "be-liefkenshoek",
+   "name": "Liefkenshoektunnel toll (Antwerp)",
+   "country": "BE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Brussels",
+  "license": "MIT",
+  "method": "NV Tunnel Liefkenshoek's tariffs 2026: category 2 (vehicles 3 m high or more; trucks over 3.5 t are taken to be) per passage either way, VAT included: EUR 25.00 cash (standaardtarief) 06:01-21:59 and 8.00 22:00-06:00; `etc` the Teletolbadge & OBU price, 17.60 and 4.40 (bank, fuel or credit card: 21.90 and 6.20, not modelled). Without a departure time, the day price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "be-liefkenshoek-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "NV Tunnel Liefkenshoek: Tarieven & abonnement, and Veelgestelde vragen (categories) (read in Chrome: tools/tables/browser/be-liefkenshoek.txt)",
+   "url": "https://www.liefkenshoektunnel.be/nl/tarieven-abonnementen"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Category 2: vehicles 3 m high or more (here: trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "night",
+   "label": "Night",
+   "times": [["22:00", "06:01"]]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Liefkenshoektunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [4.289465, 51.286289]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, null, "25"],
+    ["pt1", "pt-1.1", "electronic", null, null, "17.6"],
+    ["pt1", "pt-1.1", null, "night", 1, "8"],
+    ["pt1", "pt-1.1", "electronic", "night", 1, "4.4"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

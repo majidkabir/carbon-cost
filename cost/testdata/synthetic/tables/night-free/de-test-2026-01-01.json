@@ -1,0 +1,29 @@
+{
+ "country": "DE",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "name": "test",
+ "law": "test law",
+ "sources": [
+  {
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "vehicles": "",
+ "min_kg": 0,
+ "tolled_roads": "",
+ "rows": null,
+ "toll_points": [
+  {
+   "name": "night-free",
+   "lat": 50,
+   "lon": 10,
+   "rate": 5,
+   "free_hours": [
+    "22:00",
+    "05:59"
+   ]
+  }
+ ]
+}

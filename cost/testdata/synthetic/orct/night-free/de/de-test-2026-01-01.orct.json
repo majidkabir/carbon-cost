@@ -1,0 +1,90 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/de-test/2026-01-01",
+  "scheme": {
+   "id": "de-test",
+   "name": "test",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "test law",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "de-test-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "free",
+   "label": "No charge",
+   "times": [["22:00", "06:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "night-free",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10, 50]
+    }
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "time_class", "priority", "amount"],
+   "rows": [["pt1", null, null, "5"], ["pt1", "free", 2, "0"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

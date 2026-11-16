@@ -1,8 +1,9 @@
 name: History data
 # Fetches the ECB's euro reference rates since 1999 and the official texts
 # behind the historical rate tables (tools/history/sources.json), builds
-# fx/data/ecb-hist.csv and the historical tables, and pushes them with the
-# fetched texts and their manifest to the history-out branch. Push to the
+# fx/data/ecb-hist.csv and the historical tables, converts those to ORCT
+# datasets (tools/orct/convert.py), and pushes them with the fetched texts
+# and their manifest to the history-out branch. Push to the
 # history-data branch to run it.
 on:
   push:
@@ -68,14 +69,18 @@ jobs:
         run: |
           mkdir -p out/tables
           for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || echo "::error title=$b::failed"; }; done
+      - name: Convert to ORCT
+        # The tables become ORCT datasets right away; only those are kept
+        # (tariffs/data).
+        run: python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
       - name: Compare
         run: |
           rm -rf out/osm out/fr-in
-          for f in out/tables/*.json; do
+          cd out/orct
+          for f in */*.orct.json; do
             [ -e "$f" ] || continue
-            n=$(basename "$f")
-            if [ -f "rates/data/$n" ] && cmp -s "$f" "rates/data/$n"; then echo "$n: same as committed"; else echo "::warning title=$n::new or differs from rates/data"; fi
-          done | tee out/tables/compare.txt
+            if [ -f "../../tariffs/data/$f" ] && cmp -s "$f" "../../tariffs/data/$f"; then echo "$f: same as committed"; else echo "::warning title=$f::new or differs from tariffs/data"; fi
+          done | tee ../tables/compare.txt
       - name: Push
         run: |
           cd out

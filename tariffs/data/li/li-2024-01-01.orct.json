@@ -1,0 +1,107 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/li/2024-01-01",
+  "scheme": {
+   "id": "li",
+   "name": "Liechtenstein performance-related heavy vehicle fee (LSVA, as in Switzerland)",
+   "country": "LI"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-01-01",
+  "valid_to": "2024-12-31",
+  "currency": "CHF",
+  "timezone": "Europe/Vaduz",
+  "license": "MIT",
+  "method": "Liechtenstein's Schwerverkehrsabgabeverordnung (LGBl. 2000 Nr. 275) as in force in 2024, applying the Swiss tariff under the customs treaty: 3.10 / 2.69 / 2.28 Rappen per tonne-km for fee categories 1 / 2 / 3 until 31 December 2024; EURO 0-V in category 1, EURO VI in category 3; chargeable weight at most 40 t.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "li-2024-01-01.json"
+  },
+  "required_features": ["rule.exemption", "type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Federal Council media release attachment (BAV): LSVA tariffs until 31.12.2024 and from 1.1.2025",
+   "url": "https://www.newsd.admin.ch/newsd/message/attachments/84723.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Motor vehicles and trailers over 3.5 t total weight used for goods transport, Swiss or foreign",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "distance_fee-1",
+   "classes": [
+    {
+     "id": "distance_fee-1.1",
+     "criteria": {
+      "euro_class": ["6"]
+     }
+    },
+    {
+     "id": "distance_fee-1.2",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "All public roads: the fee is per km driven anywhere in Switzerland and Liechtenstein."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "distance_fee",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "tkm",
+   "component_label": "distance_fee",
+   "mass_basis": "train_mass_kg",
+   "mass_cap_kg": 40000,
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["roads", "distance_fee-1.1", "0.0228"], ["roads", "distance_fee-1.2", "0.031"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "exemption",
+   "applies_to": ["distance_fee"],
+   "params": {
+    "criteria": {
+     "co2_class": [5]
+    },
+    "until": "2024-12-31",
+    "note": "Motor vehicles with electric drive are exempt."
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

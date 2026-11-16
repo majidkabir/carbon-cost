@@ -1,0 +1,1212 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-basque-ap8/2026-01-01",
+  "scheme": {
+   "id": "es-basque-ap8",
+   "name": "AP-8, AP-1 and AP-636, Basque Country (Interbiak, Bidegi)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "Bidegi's tariff sheet in force from 1 January 2026 (Interbiak's and Bidegi's AP-8 and AP-1, Pesados 1 and 2, VAT included; Pesados 2 from Bilbao's western access to Zarautz's main plaza towards Donostia EUR 30.38): by entry and exit, either way, excluding 21% VAT. Stations: each carriageway's stretch between two consecutive entries/exits, placed at the OpenStreetMap junctions whose exits are signposted to them, Bilbao's western access and Etxabarri-Ibiña at the motorways' ends, Zarautz's main plaza and Donostia's eastern plaza at the toll booths on the carriageway; not placed (a trip from or to one priced from the next station): Luko, Oñaurre. AP-636: each section's price (either way) at the first Bidegi gantry on it going from Beasain (OpenStreetMap's gantries named Beasain, Ezkio, Deskarga); the sheet's Legazpi/Urretxu – Antzuola price by tag isn't modelled (a trip from Legazpi to Antzuola is charged Legazpi – Bergara, one from Antzuola to Bergara nothing). Not built: the sheet's prices from Zarautz E and Orio to Donostia's exits.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "es-basque-ap8-2026-01-01.json"
+  },
+  "required_features": ["type.od", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Bidegi: AP-8, AP-1 and AP-636 tariffs 2026",
+   "url": "https://www.bidegi.eus/documents/42696171/0/2026__AP-8_AP-1_AP-636_tarifak.pdf/0c9dbcf3-f3e7-e6f6-709b-8cbb7d9da9d5"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): the Basque motorways, junctions, signposted links and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.Pesados-2",
+     "label": "Pesados 2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "sys1-1.Pesados-1",
+     "label": "Pesados 1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Abadiño > Ermua",
+   "type": "station",
+   "name": "Abadiño > Ermua",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.55797, 43.167285]]
+    },
+    "point_names": ["between Abadiño and Ermua"],
+    "headings": [84.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Abadiño > Iurreta",
+   "type": "station",
+   "name": "Abadiño > Iurreta",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.620637, 43.176921]]
+    },
+    "point_names": ["between Abadiño and Iurreta"],
+    "headings": [303.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano",
+   "type": "station",
+   "name": "Acceso Oeste (Bilbao) > Amorebieta-Etxano",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.753926, 43.230732]]
+    },
+    "point_names": ["between Acceso Oeste (Bilbao) and Amorebieta-Etxano"],
+    "headings": [96.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)",
+   "type": "station",
+   "name": "Amorebieta-Etxano > Acceso Oeste (Bilbao)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.753156, 43.230777]]
+    },
+    "point_names": ["between Amorebieta-Etxano and Acceso Oeste (Bilbao)"],
+    "headings": [279.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Amorebieta-Etxano > Iurreta",
+   "type": "station",
+   "name": "Amorebieta-Etxano > Iurreta",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.695202, 43.200524]]
+    },
+    "point_names": ["between Amorebieta-Etxano and Iurreta"],
+    "headings": [138.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Arrasate-Mondragon > Bergara H/S",
+   "type": "station",
+   "name": "Arrasate-Mondragon > Bergara H/S",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.44867, 43.078485]]
+    },
+    "point_names": ["between Arrasate-Mondragon and Bergara H/S"],
+    "headings": [53.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Arrasate-Mondragon > Eskoriatza",
+   "type": "station",
+   "name": "Arrasate-Mondragon > Eskoriatza",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.496983, 43.04786]]
+    },
+    "point_names": ["between Arrasate-Mondragon and Eskoriatza"],
+    "headings": [223.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bergara H/S > Arrasate-Mondragon",
+   "type": "station",
+   "name": "Bergara H/S > Arrasate-Mondragon",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.44895, 43.078562]]
+    },
+    "point_names": ["between Bergara H/S and Arrasate-Mondragon"],
+    "headings": [233.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bergara H/S > Bergara I/N",
+   "type": "station",
+   "name": "Bergara H/S > Bergara I/N",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.432141, 43.110856]]
+    },
+    "point_names": ["between Bergara H/S and Bergara I/N"],
+    "headings": [33.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bergara I/N > Bergara H/S",
+   "type": "station",
+   "name": "Bergara I/N > Bergara H/S",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.432498, 43.110862]]
+    },
+    "point_names": ["between Bergara I/N and Bergara H/S"],
+    "headings": [213.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Bergara I/N > Eibar",
+   "type": "station",
+   "name": "Bergara I/N > Eibar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.426606, 43.162054]]
+    },
+    "point_names": ["between Bergara I/N and Eibar"],
+    "headings": [6.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Eibar > Bergara I/N",
+   "type": "station",
+   "name": "Eibar > Bergara I/N",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.426807, 43.162807]]
+    },
+    "point_names": ["between Eibar and Bergara I/N"],
+    "headings": [186.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Eibar > Elgoibar",
+   "type": "station",
+   "name": "Eibar > Elgoibar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.416493, 43.208906]]
+    },
+    "point_names": ["between Eibar and Elgoibar"],
+    "headings": [19.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Eibar > Ermua",
+   "type": "station",
+   "name": "Eibar > Ermua",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.479589, 43.181317]]
+    },
+    "point_names": ["between Eibar and Ermua"],
+    "headings": [265.7],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Elgoibar > Eibar",
+   "type": "station",
+   "name": "Elgoibar > Eibar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.416614, 43.208957]]
+    },
+    "point_names": ["between Elgoibar and Eibar"],
+    "headings": [201.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Elgoibar > Itziar",
+   "type": "station",
+   "name": "Elgoibar > Itziar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.371645, 43.265962]]
+    },
+    "point_names": ["between Elgoibar and Itziar"],
+    "headings": [19.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Ermua > Abadiño",
+   "type": "station",
+   "name": "Ermua > Abadiño",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.557913, 43.167393]]
+    },
+    "point_names": ["between Ermua and Abadiño"],
+    "headings": [264.3],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Ermua > Eibar",
+   "type": "station",
+   "name": "Ermua > Eibar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.479566, 43.181242]]
+    },
+    "point_names": ["between Ermua and Eibar"],
+    "headings": [85.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Eskoriatza > Arrasate-Mondragon",
+   "type": "station",
+   "name": "Eskoriatza > Arrasate-Mondragon",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.496823, 43.047839]]
+    },
+    "point_names": ["between Eskoriatza and Arrasate-Mondragon"],
+    "headings": [43.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)",
+   "type": "station",
+   "name": "Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.620022, 42.957316]]
+    },
+    "point_names": ["between Eskoriatza and Etxabarri-Ibiña (Vitoria-Gasteiz)"],
+    "headings": [240.2],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza",
+   "type": "station",
+   "name": "Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.619808, 42.957215]]
+    },
+    "point_names": ["between Etxabarri-Ibiña (Vitoria-Gasteiz) and Eskoriatza"],
+    "headings": [60.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Itziar > Elgoibar",
+   "type": "station",
+   "name": "Itziar > Elgoibar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.373815, 43.266973]]
+    },
+    "point_names": ["between Itziar and Elgoibar"],
+    "headings": [206.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Itziar > Zestoa-Zumaia",
+   "type": "station",
+   "name": "Itziar > Zestoa-Zumaia",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.302003, 43.267917]]
+    },
+    "point_names": ["between Itziar and Zestoa-Zumaia"],
+    "headings": [132.1],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Iurreta > Abadiño",
+   "type": "station",
+   "name": "Iurreta > Abadiño",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.620696, 43.176787]]
+    },
+    "point_names": ["between Iurreta and Abadiño"],
+    "headings": [122.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Iurreta > Amorebieta-Etxano",
+   "type": "station",
+   "name": "Iurreta > Amorebieta-Etxano",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.695118, 43.20065]]
+    },
+    "point_names": ["between Iurreta and Amorebieta-Etxano"],
+    "headings": [317.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)",
+   "type": "station",
+   "name": "Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.137112, 43.283114]]
+    },
+    "point_names": ["between Zarautz M/O and Zarautz nagusia (Donostia, Astigarraga, Hernani)"],
+    "headings": [88.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Zarautz M/O > Zestoa-Zumaia",
+   "type": "station",
+   "name": "Zarautz M/O > Zestoa-Zumaia",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.219132, 43.285211]]
+    },
+    "point_names": ["between Zarautz M/O and Zestoa-Zumaia"],
+    "headings": [298.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O",
+   "type": "station",
+   "name": "Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.139335, 43.283398]]
+    },
+    "point_names": ["between Zarautz nagusia (Donostia, Astigarraga, Hernani) and Zarautz M/O"],
+    "headings": [280.6],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Zestoa-Zumaia > Itziar",
+   "type": "station",
+   "name": "Zestoa-Zumaia > Itziar",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.30202, 43.268054]]
+    },
+    "point_names": ["between Zestoa-Zumaia and Itziar"],
+    "headings": [312.4],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st1:Zestoa-Zumaia > Zarautz M/O",
+   "type": "station",
+   "name": "Zestoa-Zumaia > Zarautz M/O",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-2.218878, 43.28499]]
+    },
+    "point_names": ["between Zestoa-Zumaia and Zarautz M/O"],
+    "headings": [122.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Behobia > Irun Ventas",
+   "type": "station",
+   "name": "Behobia > Irun Ventas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.766786, 43.336315]]
+    },
+    "point_names": ["between Behobia and Irun Ventas"],
+    "headings": [238.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun",
+   "type": "station",
+   "name": "Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.872776, 43.311956]]
+    },
+    "point_names": ["between Donostia SS E (Hernani, Astigarraga, Lasarte) and Oiartzun"],
+    "headings": [35.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Irun M/O > Irun Ventas",
+   "type": "station",
+   "name": "Irun M/O > Irun Ventas",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.806285, 43.328004]]
+    },
+    "point_names": ["between Irun M/O and Irun Ventas"],
+    "headings": [70.0],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Irun M/O > Oiartzun",
+   "type": "station",
+   "name": "Irun M/O > Oiartzun",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.84503, 43.31749]]
+    },
+    "point_names": ["between Irun M/O and Oiartzun"],
+    "headings": [285.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Irun Ventas > Behobia",
+   "type": "station",
+   "name": "Irun Ventas > Behobia",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.766743, 43.336221]]
+    },
+    "point_names": ["between Irun Ventas and Behobia"],
+    "headings": [58.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Irun Ventas > Irun M/O",
+   "type": "station",
+   "name": "Irun Ventas > Irun M/O",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.806326, 43.328094]]
+    },
+    "point_names": ["between Irun Ventas and Irun M/O"],
+    "headings": [247.9],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)",
+   "type": "station",
+   "name": "Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.872846, 43.312105]]
+    },
+    "point_names": ["between Oiartzun and Donostia SS E (Hernani, Astigarraga, Lasarte)"],
+    "headings": [215.8],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "st2:Oiartzun > Irun M/O",
+   "type": "station",
+   "name": "Oiartzun > Irun M/O",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-1.844964, 43.317341]]
+    },
+    "point_names": ["between Oiartzun and Irun M/O"],
+    "headings": [108.5],
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "AP-636 Beasain - Ormaiztegi (Beasain gantry)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-2.233916, 43.047667]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "AP-636 Ormaiztegi - Zumarraga (Ezkio gantry)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-2.299179, 43.077171]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "AP-636 Legazpi/Urretxu - Bergara (Deskarga gantry)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-2.339413, 43.084813]
+    },
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "AP-8/AP-1 Bilbao – Zarautz – Vitoria-Gasteiz",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Bidegi's 2026 tariff sheet: by entry and exit, either way, excluding 21% VAT; stations not placed (priced from the next one): Luko",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Abadiño > Ermua", "st1:Abadiño > Ermua", "sys1-1.Pesados-1", "1.157"],
+    ["st1:Abadiño > Ermua", "st1:Abadiño > Ermua", "sys1-1.Pesados-2", "1.3223"],
+    ["st1:Abadiño > Ermua", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "10.2727"],
+    ["st1:Abadiño > Ermua", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "11.876"],
+    ["st1:Abadiño > Ermua", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "7.9669"],
+    ["st1:Abadiño > Ermua", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "9.1983"],
+    ["st1:Abadiño > Ermua", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "7.1322"],
+    ["st1:Abadiño > Ermua", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "8.1322"],
+    ["st1:Abadiño > Ermua", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "5.7769"],
+    ["st1:Abadiño > Ermua", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "6.7025"],
+    ["st1:Abadiño > Ermua", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "4.9587"],
+    ["st1:Abadiño > Ermua", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "5.8017"],
+    ["st1:Abadiño > Ermua", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "6.9174"],
+    ["st1:Abadiño > Ermua", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "8.0248"],
+    ["st1:Abadiño > Ermua", "st1:Ermua > Eibar", "sys1-1.Pesados-1", "3.6777"],
+    ["st1:Abadiño > Ermua", "st1:Ermua > Eibar", "sys1-1.Pesados-2", "4.1736"],
+    ["st1:Abadiño > Ermua", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "17.4959"],
+    ["st1:Abadiño > Ermua", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "20.3884"],
+    ["st1:Abadiño > Ermua", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "8.281"],
+    ["st1:Abadiño > Ermua", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "9.5785"],
+    ["st1:Abadiño > Ermua", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "14.2231"],
+    ["st1:Abadiño > Ermua", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "16.5207"],
+    ["st1:Abadiño > Ermua", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "10.3058"],
+    ["st1:Abadiño > Ermua", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "12.0579"],
+    ["st1:Abadiño > Iurreta", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "7.1074"],
+    ["st1:Abadiño > Iurreta", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "8.0992"],
+    ["st1:Abadiño > Iurreta", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "7.1074"],
+    ["st1:Abadiño > Iurreta", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "8.0992"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Abadiño > Ermua", "sys1-1.Pesados-1", "8.3058"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Abadiño > Ermua", "sys1-1.Pesados-2", "9.4215"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "sys1-1.Pesados-1", "1.9008"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "sys1-1.Pesados-2", "2.1074"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Amorebieta-Etxano > Iurreta", "sys1-1.Pesados-1", "5.0826"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Amorebieta-Etxano > Iurreta", "sys1-1.Pesados-2", "5.7025"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "17.9091"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "20.4628"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "15.6033"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "17.7851"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "16.719"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "13.4132"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "15.2893"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "12.595"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "14.3884"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "14.5537"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "16.6116"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Ermua > Eibar", "sys1-1.Pesados-1", "11.314"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Ermua > Eibar", "sys1-1.Pesados-2", "12.7603"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "25.1322"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "28.9752"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "15.9174"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "18.1653"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Iurreta > Abadiño", "sys1-1.Pesados-1", "7.1074"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Iurreta > Abadiño", "sys1-1.Pesados-2", "8.0992"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "21.8595"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "25.1074"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "17.9421"],
+    ["st1:Acceso Oeste (Bilbao) > Amorebieta-Etxano", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "20.6446"],
+    ["st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "1.9008"],
+    ["st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "2.1074"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Abadiño > Ermua", "sys1-1.Pesados-1", "8.3058"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Abadiño > Ermua", "sys1-1.Pesados-2", "9.4215"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Amorebieta-Etxano > Iurreta", "sys1-1.Pesados-1", "5.0826"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Amorebieta-Etxano > Iurreta", "sys1-1.Pesados-2", "5.7025"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "17.9091"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "20.4628"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "15.6033"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "17.7851"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "16.719"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "13.4132"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "15.2893"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "12.595"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "14.3884"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "14.5537"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "16.6116"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Ermua > Eibar", "sys1-1.Pesados-1", "11.314"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Ermua > Eibar", "sys1-1.Pesados-2", "12.7603"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "25.1322"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "28.9752"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "15.9174"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "18.1653"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Iurreta > Abadiño", "sys1-1.Pesados-1", "7.1074"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Iurreta > Abadiño", "sys1-1.Pesados-2", "8.0992"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "21.8595"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "25.1074"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "17.9421"],
+    ["st1:Amorebieta-Etxano > Iurreta", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "20.6446"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "9.2149"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "10.5702"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "15.6033"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "17.7851"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-1", "1.2149"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-2", "1.4132"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-1", "4.6116"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-2", "5.3884"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "5.6364"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "6.5702"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "5.876"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "6.843"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "7.6694"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "8.8099"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "7.9669"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "9.1983"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "8.8926"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "10.3471"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "15.6033"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "17.7851"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "17.3884"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "10.9587"],
+    ["st1:Arrasate-Mondragon > Bergara H/S", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "12.8512"],
+    ["st1:Arrasate-Mondragon > Eskoriatza", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "2.4298"],
+    ["st1:Arrasate-Mondragon > Eskoriatza", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "2.8347"],
+    ["st1:Arrasate-Mondragon > Eskoriatza", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "9.686"],
+    ["st1:Arrasate-Mondragon > Eskoriatza", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "11.3471"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "3.4628"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "4.0579"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "1.2149"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "1.4132"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "10.719"],
+    ["st1:Bergara H/S > Arrasate-Mondragon", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "12.562"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "8.3802"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "9.5041"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "16.719"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-1", "3.7769"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-2", "4.3223"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "4.8017"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "5.5041"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "5.0413"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "5.7769"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "6.8347"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "7.7438"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "7.1322"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "8.1322"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "8.0579"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "9.281"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "16.719"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "13.9339"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "16.3223"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "10.124"],
+    ["st1:Bergara H/S > Bergara I/N", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "11.7851"],
+    ["st1:Bergara I/N > Eibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "7.0248"],
+    ["st1:Bergara I/N > Eibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "8.0744"],
+    ["st1:Bergara I/N > Eibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "13.4132"],
+    ["st1:Bergara I/N > Eibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "15.2893"],
+    ["st1:Bergara I/N > Eibar", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-1", "2.4215"],
+    ["st1:Bergara I/N > Eibar", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-2", "2.8926"],
+    ["st1:Bergara I/N > Eibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "3.4463"],
+    ["st1:Bergara I/N > Eibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "4.0744"],
+    ["st1:Bergara I/N > Eibar", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "3.686"],
+    ["st1:Bergara I/N > Eibar", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "4.3471"],
+    ["st1:Bergara I/N > Eibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "5.4793"],
+    ["st1:Bergara I/N > Eibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "6.314"],
+    ["st1:Bergara I/N > Eibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "5.7769"],
+    ["st1:Bergara I/N > Eibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "6.7025"],
+    ["st1:Bergara I/N > Eibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "6.7025"],
+    ["st1:Bergara I/N > Eibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "7.8512"],
+    ["st1:Bergara I/N > Eibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "13.4132"],
+    ["st1:Bergara I/N > Eibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "15.2893"],
+    ["st1:Bergara I/N > Eibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "12.5785"],
+    ["st1:Bergara I/N > Eibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "14.8926"],
+    ["st1:Bergara I/N > Eibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "8.7686"],
+    ["st1:Bergara I/N > Eibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "10.3554"],
+    ["st1:Eibar > Bergara I/N", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "6.9174"],
+    ["st1:Eibar > Bergara I/N", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "8.0661"],
+    ["st1:Eibar > Bergara I/N", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "4.6116"],
+    ["st1:Eibar > Bergara I/N", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "5.3884"],
+    ["st1:Eibar > Bergara I/N", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "3.7769"],
+    ["st1:Eibar > Bergara I/N", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "4.3223"],
+    ["st1:Eibar > Bergara I/N", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "2.4215"],
+    ["st1:Eibar > Bergara I/N", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "2.8926"],
+    ["st1:Eibar > Bergara I/N", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "14.1405"],
+    ["st1:Eibar > Bergara I/N", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "16.5785"],
+    ["st1:Eibar > Elgoibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "1.5785"],
+    ["st1:Eibar > Elgoibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "1.8678"],
+    ["st1:Eibar > Elgoibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "3.6116"],
+    ["st1:Eibar > Elgoibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "4.2727"],
+    ["st1:Eibar > Elgoibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "4.8017"],
+    ["st1:Eibar > Elgoibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "5.5785"],
+    ["st1:Eibar > Elgoibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "10.6612"],
+    ["st1:Eibar > Elgoibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "12.6116"],
+    ["st1:Eibar > Elgoibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "6.9504"],
+    ["st1:Eibar > Elgoibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "8.2231"],
+    ["st1:Eibar > Ermua", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "4.9256"],
+    ["st1:Eibar > Ermua", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "5.5455"],
+    ["st1:Eibar > Ermua", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "11.314"],
+    ["st1:Eibar > Ermua", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "12.7603"],
+    ["st1:Eibar > Ermua", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "1.5868"],
+    ["st1:Eibar > Ermua", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "1.8182"],
+    ["st1:Eibar > Ermua", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "3.6777"],
+    ["st1:Eibar > Ermua", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "4.1736"],
+    ["st1:Eibar > Ermua", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "11.314"],
+    ["st1:Eibar > Ermua", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "12.7603"],
+    ["st1:Elgoibar > Eibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "6.2066"],
+    ["st1:Elgoibar > Eibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "7.1736"],
+    ["st1:Elgoibar > Eibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "12.595"],
+    ["st1:Elgoibar > Eibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "14.3884"],
+    ["st1:Elgoibar > Eibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "7.9421"],
+    ["st1:Elgoibar > Eibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "9.2479"],
+    ["st1:Elgoibar > Eibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "5.6364"],
+    ["st1:Elgoibar > Eibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "6.5702"],
+    ["st1:Elgoibar > Eibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "4.8017"],
+    ["st1:Elgoibar > Eibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "5.5041"],
+    ["st1:Elgoibar > Eibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "3.4463"],
+    ["st1:Elgoibar > Eibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "4.0744"],
+    ["st1:Elgoibar > Eibar", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "2.8678"],
+    ["st1:Elgoibar > Eibar", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "3.4463"],
+    ["st1:Elgoibar > Eibar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-1", "1.5785"],
+    ["st1:Elgoibar > Eibar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-2", "1.8678"],
+    ["st1:Elgoibar > Eibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "4.9587"],
+    ["st1:Elgoibar > Eibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "5.8017"],
+    ["st1:Elgoibar > Eibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "15.1653"],
+    ["st1:Elgoibar > Eibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "17.7603"],
+    ["st1:Elgoibar > Eibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "12.595"],
+    ["st1:Elgoibar > Eibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "14.3884"],
+    ["st1:Elgoibar > Itziar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "2.2479"],
+    ["st1:Elgoibar > Itziar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "2.719"],
+    ["st1:Elgoibar > Itziar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "3.5372"],
+    ["st1:Elgoibar > Itziar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "4.0083"],
+    ["st1:Elgoibar > Itziar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "9.5372"],
+    ["st1:Elgoibar > Itziar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "11.0826"],
+    ["st1:Elgoibar > Itziar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "5.7851"],
+    ["st1:Elgoibar > Itziar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "6.6612"],
+    ["st1:Ermua > Abadiño", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "3.2231"],
+    ["st1:Ermua > Abadiño", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "3.719"],
+    ["st1:Ermua > Abadiño", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "8.3058"],
+    ["st1:Ermua > Abadiño", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "9.4215"],
+    ["st1:Ermua > Abadiño", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "1.157"],
+    ["st1:Ermua > Abadiño", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "1.3223"],
+    ["st1:Ermua > Abadiño", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "8.3058"],
+    ["st1:Ermua > Abadiño", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "9.4215"],
+    ["st1:Ermua > Eibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "8.1818"],
+    ["st1:Ermua > Eibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "9.5207"],
+    ["st1:Ermua > Eibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "5.876"],
+    ["st1:Ermua > Eibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "6.843"],
+    ["st1:Ermua > Eibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "5.0413"],
+    ["st1:Ermua > Eibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "5.7769"],
+    ["st1:Ermua > Eibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "3.686"],
+    ["st1:Ermua > Eibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "4.3471"],
+    ["st1:Ermua > Eibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "2.8678"],
+    ["st1:Ermua > Eibar", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "3.4463"],
+    ["st1:Ermua > Eibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "4.8264"],
+    ["st1:Ermua > Eibar", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "5.6694"],
+    ["st1:Ermua > Eibar", "st1:Ermua > Eibar", "sys1-1.Pesados-1", "1.5868"],
+    ["st1:Ermua > Eibar", "st1:Ermua > Eibar", "sys1-1.Pesados-2", "1.8182"],
+    ["st1:Ermua > Eibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "15.405"],
+    ["st1:Ermua > Eibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "18.0331"],
+    ["st1:Ermua > Eibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "6.1901"],
+    ["st1:Ermua > Eibar", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "7.2231"],
+    ["st1:Ermua > Eibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "12.1322"],
+    ["st1:Ermua > Eibar", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "14.1653"],
+    ["st1:Ermua > Eibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "8.2149"],
+    ["st1:Ermua > Eibar", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "9.7025"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "11.5207"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "13.2479"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "17.9091"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "20.4628"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-1", "3.4628"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-2", "4.0579"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-1", "6.9174"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-2", "8.0661"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "7.9421"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "9.2479"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "8.1818"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "9.5207"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "9.9752"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "11.4876"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "10.2727"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "11.876"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eskoriatza > Arrasate-Mondragon", "sys1-1.Pesados-1", "2.4298"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Eskoriatza > Arrasate-Mondragon", "sys1-1.Pesados-2", "2.8347"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "11.1983"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "13.0248"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "17.9091"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "20.4628"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "17.0744"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "20.0661"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "13.2645"],
+    ["st1:Eskoriatza > Arrasate-Mondragon", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "15.5289"],
+    ["st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "7.3802"],
+    ["st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "8.6281"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "18.7438"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "21.7603"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "25.1322"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "28.9752"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-1", "10.719"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Arrasate-Mondragon > Bergara H/S", "sys1-1.Pesados-2", "12.562"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-1", "14.1405"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Bergara I/N > Eibar", "sys1-1.Pesados-2", "16.5785"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "15.1653"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "17.7603"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "15.405"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "18.0331"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "17.1983"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "20"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "17.4959"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "20.3884"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eskoriatza > Arrasate-Mondragon", "sys1-1.Pesados-1", "9.686"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Eskoriatza > Arrasate-Mondragon", "sys1-1.Pesados-2", "11.3471"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "sys1-1.Pesados-1", "7.3802"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "sys1-1.Pesados-2", "8.6281"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "18.4215"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "21.5372"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "25.1322"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "28.9752"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "24.2975"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "28.5785"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "20.4876"],
+    ["st1:Etxabarri-Ibiña (Vitoria-Gasteiz) > Eskoriatza", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "24.0413"],
+    ["st1:Itziar > Elgoibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "8.1653"],
+    ["st1:Itziar > Elgoibar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "9.3967"],
+    ["st1:Itziar > Elgoibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "14.5537"],
+    ["st1:Itziar > Elgoibar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "16.6116"],
+    ["st1:Itziar > Elgoibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "9.9752"],
+    ["st1:Itziar > Elgoibar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "11.4876"],
+    ["st1:Itziar > Elgoibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "7.6694"],
+    ["st1:Itziar > Elgoibar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "8.8099"],
+    ["st1:Itziar > Elgoibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "6.8347"],
+    ["st1:Itziar > Elgoibar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "7.7438"],
+    ["st1:Itziar > Elgoibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "5.4793"],
+    ["st1:Itziar > Elgoibar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "6.314"],
+    ["st1:Itziar > Elgoibar", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "4.8264"],
+    ["st1:Itziar > Elgoibar", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "5.6694"],
+    ["st1:Itziar > Elgoibar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-1", "3.6116"],
+    ["st1:Itziar > Elgoibar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-2", "4.2727"],
+    ["st1:Itziar > Elgoibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "6.9174"],
+    ["st1:Itziar > Elgoibar", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "8.0248"],
+    ["st1:Itziar > Elgoibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "17.1983"],
+    ["st1:Itziar > Elgoibar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "20"],
+    ["st1:Itziar > Elgoibar", "st1:Itziar > Elgoibar", "sys1-1.Pesados-1", "2.2479"],
+    ["st1:Itziar > Elgoibar", "st1:Itziar > Elgoibar", "sys1-1.Pesados-2", "2.719"],
+    ["st1:Itziar > Elgoibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "14.5537"],
+    ["st1:Itziar > Elgoibar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "16.6116"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "1.4876"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "1.7107"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "7.4711"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "8.7438"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "3.686"],
+    ["st1:Itziar > Zestoa-Zumaia", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "4.4132"],
+    ["st1:Iurreta > Abadiño", "st1:Abadiño > Ermua", "sys1-1.Pesados-1", "3.2231"],
+    ["st1:Iurreta > Abadiño", "st1:Abadiño > Ermua", "sys1-1.Pesados-2", "3.719"],
+    ["st1:Iurreta > Abadiño", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "11.5207"],
+    ["st1:Iurreta > Abadiño", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "13.2479"],
+    ["st1:Iurreta > Abadiño", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "9.2149"],
+    ["st1:Iurreta > Abadiño", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "10.5702"],
+    ["st1:Iurreta > Abadiño", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "8.3802"],
+    ["st1:Iurreta > Abadiño", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "9.5041"],
+    ["st1:Iurreta > Abadiño", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "7.0248"],
+    ["st1:Iurreta > Abadiño", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "8.0744"],
+    ["st1:Iurreta > Abadiño", "st1:Eibar > Elgoibar", "sys1-1.Pesados-1", "6.2066"],
+    ["st1:Iurreta > Abadiño", "st1:Eibar > Elgoibar", "sys1-1.Pesados-2", "7.1736"],
+    ["st1:Iurreta > Abadiño", "st1:Elgoibar > Itziar", "sys1-1.Pesados-1", "8.1653"],
+    ["st1:Iurreta > Abadiño", "st1:Elgoibar > Itziar", "sys1-1.Pesados-2", "9.3967"],
+    ["st1:Iurreta > Abadiño", "st1:Ermua > Eibar", "sys1-1.Pesados-1", "4.9256"],
+    ["st1:Iurreta > Abadiño", "st1:Ermua > Eibar", "sys1-1.Pesados-2", "5.5455"],
+    ["st1:Iurreta > Abadiño", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "18.7438"],
+    ["st1:Iurreta > Abadiño", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "21.7603"],
+    ["st1:Iurreta > Abadiño", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-1", "9.5289"],
+    ["st1:Iurreta > Abadiño", "st1:Itziar > Zestoa-Zumaia", "sys1-1.Pesados-2", "10.9504"],
+    ["st1:Iurreta > Abadiño", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "15.4711"],
+    ["st1:Iurreta > Abadiño", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "17.8926"],
+    ["st1:Iurreta > Abadiño", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "11.5537"],
+    ["st1:Iurreta > Abadiño", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "13.4298"],
+    ["st1:Iurreta > Amorebieta-Etxano", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "5.0826"],
+    ["st1:Iurreta > Amorebieta-Etxano", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "5.7025"],
+    ["st1:Iurreta > Amorebieta-Etxano", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "5.0826"],
+    ["st1:Iurreta > Amorebieta-Etxano", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "5.7025"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "11.5537"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "13.4298"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "17.9421"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "20.6446"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "13.2645"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "15.5289"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "10.9587"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "12.8512"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "10.124"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "11.7851"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "8.7686"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "10.3554"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "8.2149"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "9.7025"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Elgoibar > Eibar", "sys1-1.Pesados-1", "6.9504"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Elgoibar > Eibar", "sys1-1.Pesados-2", "8.2231"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "10.3058"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "12.0579"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "20.4876"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "24.0413"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Itziar > Elgoibar", "sys1-1.Pesados-1", "5.7851"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Itziar > Elgoibar", "sys1-1.Pesados-2", "6.6612"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "17.9421"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "20.6446"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Zarautz M/O > Zestoa-Zumaia", "sys1-1.Pesados-1", "2.405"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Zarautz M/O > Zestoa-Zumaia", "sys1-1.Pesados-2", "2.9504"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-1", "3.686"],
+    ["st1:Zarautz M/O > Zestoa-Zumaia", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-2", "4.4132"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "15.4711"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "17.8926"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "21.8595"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "25.1074"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "17.0744"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "20.0661"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "14.7686"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "17.3884"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "13.9339"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "16.3223"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "12.5785"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "14.8926"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "12.1322"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "14.1653"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Elgoibar > Eibar", "sys1-1.Pesados-1", "10.6612"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Elgoibar > Eibar", "sys1-1.Pesados-2", "12.6116"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "14.2231"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "16.5207"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "24.2975"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "28.5785"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Itziar > Elgoibar", "sys1-1.Pesados-1", "9.5372"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Itziar > Elgoibar", "sys1-1.Pesados-2", "11.0826"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "21.8595"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "25.1074"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Zarautz M/O > Zestoa-Zumaia", "sys1-1.Pesados-1", "6.3967"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Zarautz M/O > Zestoa-Zumaia", "sys1-1.Pesados-2", "7.3388"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-1", "7.4711"],
+    ["st1:Zarautz nagusia (Donostia, Astigarraga, Hernani) > Zarautz M/O", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-2", "8.7438"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-1", "9.5289"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Abadiño > Iurreta", "sys1-1.Pesados-2", "10.9504"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-1", "15.9174"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Amorebieta-Etxano > Acceso Oeste (Bilbao)", "sys1-1.Pesados-2", "18.1653"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-1", "11.1983"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Arrasate-Mondragon > Eskoriatza", "sys1-1.Pesados-2", "13.0248"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-1", "8.8926"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Bergara H/S > Arrasate-Mondragon", "sys1-1.Pesados-2", "10.3471"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-1", "8.0579"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Bergara I/N > Bergara H/S", "sys1-1.Pesados-2", "9.281"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-1", "6.7025"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eibar > Bergara I/N", "sys1-1.Pesados-2", "7.8512"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eibar > Ermua", "sys1-1.Pesados-1", "6.1901"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eibar > Ermua", "sys1-1.Pesados-2", "7.2231"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-1", "4.8017"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Elgoibar > Eibar", "sys1-1.Pesados-2", "5.5785"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Ermua > Abadiño", "sys1-1.Pesados-1", "8.281"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Ermua > Abadiño", "sys1-1.Pesados-2", "9.5785"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-1", "18.4215"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Eskoriatza > Etxabarri-Ibiña (Vitoria-Gasteiz)", "sys1-1.Pesados-2", "21.5372"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Itziar > Elgoibar", "sys1-1.Pesados-1", "3.5372"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Itziar > Elgoibar", "sys1-1.Pesados-2", "4.0083"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-1", "15.9174"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Iurreta > Amorebieta-Etxano", "sys1-1.Pesados-2", "18.1653"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-1", "1.4876"],
+    ["st1:Zestoa-Zumaia > Itziar", "st1:Zestoa-Zumaia > Itziar", "sys1-1.Pesados-2", "1.7107"],
+    ["st1:Zestoa-Zumaia > Zarautz M/O", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-1", "6.3967"],
+    ["st1:Zestoa-Zumaia > Zarautz M/O", "st1:Zarautz M/O > Zarautz nagusia (Donostia, Astigarraga, Hernani)", "sys1-1.Pesados-2", "7.3388"],
+    ["st1:Zestoa-Zumaia > Zarautz M/O", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-1", "2.405"],
+    ["st1:Zestoa-Zumaia > Zarautz M/O", "st1:Zestoa-Zumaia > Zarautz M/O", "sys1-1.Pesados-2", "2.9504"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "AP-8 Donostia – Behobia",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Bidegi's 2026 tariff sheet: by entry and exit, either way, excluding 21% VAT; stations not placed (priced from the next one): Oñaurre",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Behobia > Irun Ventas", "st2:Behobia > Irun Ventas", "sys1-1.Pesados-1", "1.6529"],
+    ["st2:Behobia > Irun Ventas", "st2:Behobia > Irun Ventas", "sys1-1.Pesados-2", "1.8678"],
+    ["st2:Behobia > Irun Ventas", "st2:Irun M/O > Oiartzun", "sys1-1.Pesados-1", "4.5041"],
+    ["st2:Behobia > Irun Ventas", "st2:Irun M/O > Oiartzun", "sys1-1.Pesados-2", "5.3967"],
+    ["st2:Behobia > Irun Ventas", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-1", "4.5041"],
+    ["st2:Behobia > Irun Ventas", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-2", "5.3967"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "sys1-1.Pesados-1", "2.1901"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "sys1-1.Pesados-2", "2.5289"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-1", "4.5041"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-2", "5.3967"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Oiartzun > Irun M/O", "sys1-1.Pesados-1", "3.1653"],
+    ["st2:Donostia SS E (Hernani, Astigarraga, Lasarte) > Oiartzun", "st2:Oiartzun > Irun M/O", "sys1-1.Pesados-2", "3.7769"],
+    ["st2:Irun M/O > Oiartzun", "st2:Irun M/O > Oiartzun", "sys1-1.Pesados-1", "3.1653"],
+    ["st2:Irun M/O > Oiartzun", "st2:Irun M/O > Oiartzun", "sys1-1.Pesados-2", "3.7769"],
+    ["st2:Irun M/O > Oiartzun", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-1", "3.1653"],
+    ["st2:Irun M/O > Oiartzun", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-2", "3.7769"],
+    ["st2:Irun Ventas > Behobia", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-1", "1.6529"],
+    ["st2:Irun Ventas > Behobia", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-2", "1.8678"],
+    ["st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-1", "2.1901"],
+    ["st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "st2:Oiartzun > Donostia SS E (Hernani, Astigarraga, Lasarte)", "sys1-1.Pesados-2", "2.5289"],
+    ["st2:Oiartzun > Irun M/O", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-1", "4.5041"],
+    ["st2:Oiartzun > Irun M/O", "st2:Irun Ventas > Behobia", "sys1-1.Pesados-2", "5.3967"],
+    ["st2:Oiartzun > Irun M/O", "st2:Oiartzun > Irun M/O", "sys1-1.Pesados-1", "3.1653"],
+    ["st2:Oiartzun > Irun M/O", "st2:Oiartzun > Irun M/O", "sys1-1.Pesados-2", "3.7769"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "0.7107"],
+    ["pt1", "pt-1.2", "0.5537"],
+    ["pt2", "pt-1.1", "1.3554"],
+    ["pt2", "pt-1.2", "1.0826"],
+    ["pt3", "pt-1.1", "2.6198"],
+    ["pt3", "pt-1.2", "2.1074"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

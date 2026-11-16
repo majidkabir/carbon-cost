@@ -1,0 +1,215 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/es-aulesa/2025-01-01",
+  "scheme": {
+   "id": "es-aulesa",
+   "name": "AP-71 León–Astorga (Aulesa)",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The concessionaire's tariffs in force from 1 January 2025, as its tariff sheet gives them by entry and exit: Pesados 1 (two or three axles) and Pesados 2 (four axles or more), the day tariff (07:00 to 23:00) and the night tariff (23:00 to 07:00, by the time the trip enters), excluding 21% IVA. Stations placed at OpenStreetMap's junctions of the exit numbers the sheet's map gives them, and León at the motorway's eastern end; Astorga is priced as San Justo de la Vega (same prices).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "es-aulesa-2025-01-01.json"
+  },
+  "required_features": ["time_classes", "type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Abertis Autopistas: AP-71 León–Astorga tariffs 2025",
+   "url": "https://www.autopistas.com/sites/publica/files/documentos/tramos/25_002_Aulesa_AP71_Leon-Astorga_T25.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API), motorway junctions",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.Pesados-1",
+     "label": "Pesados 1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "sys1-1.Pesados-2",
+     "label": "Pesados 2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "sys1-night",
+   "label": "Night tariff",
+   "times": [["23:00", "07:00"]]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:León",
+   "type": "station",
+   "name": "León",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.639884, 42.57088]]
+    },
+    "point_names": ["end of the AP-71"]
+   }
+  },
+  {
+   "id": "st1:Villadangos",
+   "type": "station",
+   "name": "Villadangos",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.74975, 42.527119], [-5.757384, 42.520977]]
+    },
+    "point_names": ["junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Hospital de Órbigo",
+   "type": "station",
+   "name": "Hospital de Órbigo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.894253, 42.452951]]
+    },
+    "point_names": ["junction"]
+   }
+  },
+  {
+   "id": "st1:San Justo de la Vega",
+   "type": "station",
+   "name": "San Justo de la Vega",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.017108, 42.439394]]
+    },
+    "point_names": ["junction"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "AP-71",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Aulesa tariffs 2025, including 21% IVA, here excluding it; night tariff 23:00 to 07:00",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st1:Hospital de Órbigo", "st1:León", "sys1-1.Pesados-1", null, null, "4.3388"],
+    ["st1:Hospital de Órbigo", "st1:León", "sys1-1.Pesados-2", null, null, "5.2893"],
+    ["st1:Hospital de Órbigo", "st1:San Justo de la Vega", "sys1-1.Pesados-1", null, null, "2.5207"],
+    ["st1:Hospital de Órbigo", "st1:San Justo de la Vega", "sys1-1.Pesados-2", null, null, "3.0579"],
+    ["st1:Hospital de Órbigo", "st1:Villadangos", "sys1-1.Pesados-1", null, null, "2.686"],
+    ["st1:Hospital de Órbigo", "st1:Villadangos", "sys1-1.Pesados-2", null, null, "3.2231"],
+    ["st1:León", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", null, null, "4.3388"],
+    ["st1:León", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", null, null, "5.2893"],
+    ["st1:León", "st1:San Justo de la Vega", "sys1-1.Pesados-1", null, null, "6.6529"],
+    ["st1:León", "st1:San Justo de la Vega", "sys1-1.Pesados-2", null, null, "8.0579"],
+    ["st1:León", "st1:Villadangos", "sys1-1.Pesados-1", null, null, "1.8595"],
+    ["st1:León", "st1:Villadangos", "sys1-1.Pesados-2", null, null, "2.2727"],
+    ["st1:San Justo de la Vega", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", null, null, "2.5207"],
+    ["st1:San Justo de la Vega", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", null, null, "3.0579"],
+    ["st1:San Justo de la Vega", "st1:León", "sys1-1.Pesados-1", null, null, "6.6529"],
+    ["st1:San Justo de la Vega", "st1:León", "sys1-1.Pesados-2", null, null, "8.0579"],
+    ["st1:San Justo de la Vega", "st1:Villadangos", "sys1-1.Pesados-1", null, null, "4.9587"],
+    ["st1:San Justo de la Vega", "st1:Villadangos", "sys1-1.Pesados-2", null, null, "6.0331"],
+    ["st1:Villadangos", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", null, null, "2.686"],
+    ["st1:Villadangos", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", null, null, "3.2231"],
+    ["st1:Villadangos", "st1:León", "sys1-1.Pesados-1", null, null, "1.8595"],
+    ["st1:Villadangos", "st1:León", "sys1-1.Pesados-2", null, null, "2.2727"],
+    ["st1:Villadangos", "st1:San Justo de la Vega", "sys1-1.Pesados-1", null, null, "4.9587"],
+    ["st1:Villadangos", "st1:San Justo de la Vega", "sys1-1.Pesados-2", null, null, "6.0331"],
+    ["st1:Hospital de Órbigo", "st1:León", "sys1-1.Pesados-1", "sys1-night", 1, "2.1901"],
+    ["st1:Hospital de Órbigo", "st1:León", "sys1-1.Pesados-2", "sys1-night", 1, "2.6446"],
+    ["st1:Hospital de Órbigo", "st1:San Justo de la Vega", "sys1-1.Pesados-1", "sys1-night", 1, "1.281"],
+    ["st1:Hospital de Órbigo", "st1:San Justo de la Vega", "sys1-1.Pesados-2", "sys1-night", 1, "1.5289"],
+    ["st1:Hospital de Órbigo", "st1:Villadangos", "sys1-1.Pesados-1", "sys1-night", 1, "1.3223"],
+    ["st1:Hospital de Órbigo", "st1:Villadangos", "sys1-1.Pesados-2", "sys1-night", 1, "1.6116"],
+    ["st1:León", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", "sys1-night", 1, "2.1901"],
+    ["st1:León", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", "sys1-night", 1, "2.6446"],
+    ["st1:León", "st1:San Justo de la Vega", "sys1-1.Pesados-1", "sys1-night", 1, "3.3058"],
+    ["st1:León", "st1:San Justo de la Vega", "sys1-1.Pesados-2", "sys1-night", 1, "4.0496"],
+    ["st1:León", "st1:Villadangos", "sys1-1.Pesados-1", "sys1-night", 1, "0.9504"],
+    ["st1:León", "st1:Villadangos", "sys1-1.Pesados-2", "sys1-night", 1, "1.1157"],
+    ["st1:San Justo de la Vega", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", "sys1-night", 1, "1.281"],
+    ["st1:San Justo de la Vega", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", "sys1-night", 1, "1.5289"],
+    ["st1:San Justo de la Vega", "st1:León", "sys1-1.Pesados-1", "sys1-night", 1, "3.3058"],
+    ["st1:San Justo de la Vega", "st1:León", "sys1-1.Pesados-2", "sys1-night", 1, "4.0496"],
+    ["st1:San Justo de la Vega", "st1:Villadangos", "sys1-1.Pesados-1", "sys1-night", 1, "2.4793"],
+    ["st1:San Justo de la Vega", "st1:Villadangos", "sys1-1.Pesados-2", "sys1-night", 1, "3.0165"],
+    ["st1:Villadangos", "st1:Hospital de Órbigo", "sys1-1.Pesados-1", "sys1-night", 1, "1.3223"],
+    ["st1:Villadangos", "st1:Hospital de Órbigo", "sys1-1.Pesados-2", "sys1-night", 1, "1.6116"],
+    ["st1:Villadangos", "st1:León", "sys1-1.Pesados-1", "sys1-night", 1, "0.9504"],
+    ["st1:Villadangos", "st1:León", "sys1-1.Pesados-2", "sys1-night", 1, "1.1157"],
+    ["st1:Villadangos", "st1:San Justo de la Vega", "sys1-1.Pesados-1", "sys1-night", 1, "2.4793"],
+    ["st1:Villadangos", "st1:San Justo de la Vega", "sys1-1.Pesados-2", "sys1-night", 1, "3.0165"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-13"
+  }
+ }
+}

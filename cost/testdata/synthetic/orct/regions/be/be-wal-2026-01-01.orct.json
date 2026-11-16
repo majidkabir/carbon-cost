@@ -1,0 +1,95 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/be-wal/2026-01-01",
+  "scheme": {
+   "id": "be-wal",
+   "name": "BE-WAL",
+   "country": "BE",
+   "region": "BE-WAL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Brussels",
+  "license": "MIT",
+  "method": "BE-WAL law",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "be-wal-2026-01-01.json"
+  },
+  "required_features": ["type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-1",
+   "classes": [
+    {
+     "id": "toll-1.1",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": ""
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "km",
+   "component_label": "toll",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["roads", "toll-1.1", "0.17"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "co2",
+   "type": "distance",
+   "component": "co2",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["roads", "toll-1.1", "0"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

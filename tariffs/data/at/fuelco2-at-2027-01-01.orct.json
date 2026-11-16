@@ -1,0 +1,82 @@
+{
+ "orct": "0.2",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-at/2027-01-01",
+  "scheme": {
+   "id": "fuelco2-at",
+   "name": "Nationaler Emissionszertifikatehandel certificate value",
+   "country": "AT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2027-01-01",
+  "valid_to": "2027-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Vienna",
+  "license": "MIT",
+  "method": "NEHG 2022 § 10: certificate value of 55 euro per tonne of CO2 in 2027, as the Federal Ministry of Finance gives it for the fixed-price phase (the law's table ends at 2025). Fuel suppliers pay it for the CO2 their fuel emits and pass it on in the fuel price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "table": "fuelco2-at-2027-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Federal Ministry of Finance (Austria): information on the NEHG 2022, the fixed certificate price by calendar year (EUR 55 for 2025 to 2027)",
+   "url": "https://www.bmf.gv.at/en/topics/climate-policy/initial_nehg_2022_en.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "AT"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Nationaler Emissionszertifikatehandel certificate value",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["55"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

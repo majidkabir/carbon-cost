@@ -1,0 +1,27 @@
+{
+ "country": "BE",
+ "region": "BE-WAL",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "name": "BE-WAL",
+ "law": "BE-WAL law",
+ "sources": [
+  {
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "vehicles": "",
+ "min_kg": 3501,
+ "tolled_roads": "",
+ "rows": [
+  {
+   "component": "toll",
+   "rate": 0.17
+  },
+  {
+   "component": "co2",
+   "rate": 0
+  }
+ ]
+}

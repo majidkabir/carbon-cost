@@ -97,9 +97,9 @@ jobs:
       - name: Push
         run: |
           # GitHub's push protection reads a Mapbox token pattern inside
-          # this PDF (in its binary streams) and refuses the whole push:
-          # only its text (pdftotext) is kept.
-          rm -f out/is-veggjald-2025.pdf
+          # these PDFs (in their binary streams) and refuses the whole push:
+          # only their text (pdftotext) is kept.
+          rm -f out/is-veggjald-*.pdf
           cd out
           git init -q -b history-out && git add -A
           git -c user.name=actions -c user.email=actions@github.com commit -qm "History sources and tables"

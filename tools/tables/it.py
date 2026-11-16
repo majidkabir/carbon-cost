@@ -77,6 +77,17 @@ IMAGES = [
     ("it-cav-2026", "Passante", ["CAV S.p.A.|A4|Passante"]),
     ("it-a4bspd-2026", "A4", ["Autostrada Brescia Verona Vicenza Padova S.p.A."]),
 ]
+# Concessions whose own page states the year's increase of the unit
+# rates (the Ministry's adjustment, applied to the unit rate without the
+# ANAS fee): fetch.py's file, the statement (its rate), the year's heading,
+# and the operator keys. The 2025 sheet's unit rate times (1 + increase),
+# to 5 decimals, gives the year's: Brescia-Padova's 2026 image bears that
+# rule out exactly.
+INCREASES = [
+    ("it-serravalle-pedaggio",
+     r"le tariffe autostradali unitarie chilometriche di competenza di Milano Serravalle Milano Tangenziali S\.p\.A\. subiranno un aumento corrispondente all.indice di inflazione programmatico pari a (\d+,\d+)%",
+     r"ADEGUAMENTO TARIFFARIO DAL 1° GENNAIO (\d{4})", ["Milano Serravalle - Milano Tangenziali S.p.A.|A7"]),
+]
 TITLES = {
     "it-satap-a4": "SATAP: A4 Torino-Milano toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-itp-a21": "Ivrea Torino Piacenza: A21 toll information (unit rates, VAT and ANAS fee included)",
@@ -85,12 +96,14 @@ TITLES = {
     "it-sav": "SAV: A5 Quincinetto-Aosta toll information (unit tariffs for users, VAT and ANAS fee included)",
     "it-a22": "Autostrada del Brennero: A22 toll tariffs in force from 1 January (PDF)",
     "it-autovia-padana": "Autovia Padana: A21 Piacenza-Brescia toll information (unit tariffs for users, the 'A' fares)",
+    "it-serravalle-pedaggio": "Milano Serravalle: toll page, the year's increase of the unit rates (MIT communication of 31/12/2025 prot. 40030)",
 }
 IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)",
                 "it-a4bspd-2026": "Autostrada Brescia Verona Vicenza Padova: unit rates per km from 1 January (A4, A31; excluding VAT, ANAS quota apart; an image in the page, transcribed)"}
 PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:it-a4bspd-2026": "Brescia-Padova (A4 Brescia-Padova, A31)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
               "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)",
-              "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)"}
+              "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)",
+              "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
@@ -188,6 +201,15 @@ def operator_rows(transcribed, fetched, year):
         if vals:
             for k in keys:
                 pages[k] = (pid, vals)
+    inc = {}
+    for pid, stmt, head, keys in INCREASES:
+        path = os.path.join(fetched, pid + ".html")
+        t = text_of(path) if os.path.exists(path) else ""
+        h, m = re.search(head, t), re.search(stmt, t)
+        print(pid, h.group(1) if h else "no year", m.group(1) if m else "no increase stated")
+        if h and m and h.group(1) == str(year):
+            for k in keys:
+                inc[k] = (pid, float(m.group(1).replace(",", ".")) / 100)
     for name, section, keys in IMAGES:
         d = json.load(open(os.path.join(transcribed, name + ".json"), encoding="utf-8"))
         if d["valid_from"][:4] != str(year):
@@ -224,6 +246,13 @@ def operator_rows(transcribed, fetched, year):
             continue
         d = json.load(open(os.path.join(transcribed, f"it-mit-{sheet}.json"), encoding="utf-8"))
         used[sheet] = d
+        if key in inc:
+            pid, x = inc[key]
+            used["page:inc:" + pid] = "inc:" + pid
+            r = d["rates"][stretch] if stretch else d["rates"]
+            for lo, hi, cl in AXLES:
+                rows.append(row_for(key, lo, hi, round((round(r[cl]["unit"] * (1 + x), 5) + r[cl]["anas"]) * VAT, 5)))
+            continue
         for lo, hi, cl in AXLES:
             if sheet == "pedemontana-lombarda":
                 r = d["rates"][PEDEMONTANA[cl]]
@@ -278,13 +307,13 @@ def main(transcribed, fetched, out):
         "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
         "law": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). "
                "No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: "
-               + (f"{', '.join(PAGE_NAMES[k[5:]] for k in used if k.startswith('page:'))} at the unit rates for users (VAT and ANAS fee included) their own pages give for {valid_from[:4]}; " if any(k.startswith("page:") for k in used) else "")
+               + (f"{', '.join(PAGE_NAMES[k[5:]] for k in used if k.startswith('page:'))} at the {valid_from[:4]} rates their own pages give (with VAT and the ANAS fee); " if any(k.startswith("page:") for k in used) else "")
                + "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; "
-               + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the 2026 change, 1.5% on most networks, isn't applied to them: the Ministry's note couldn't be found and their pages give no rates as text), each concession's plain-stretch rate unless it has only mountain stretches; "
+               + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their pages give neither the rates as text nor the increase), each concession's plain-stretch rate unless it has only mountain stretches; "
                f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
                f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
         "sources": [{"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"}]
-        + [{"title": TITLES[d], "url": page_url(fetched, d)} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
+        + [{"title": TITLES[d.removeprefix("inc:")], "url": page_url(fetched, d.removeprefix("inc:"))} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
         + [{"title": IMAGE_TITLES[d[6:]], "url": json.load(open(os.path.join(transcribed, d[6:] + ".json"), encoding="utf-8"))["source"]["page"]} for k, d in used.items() if k.startswith("page:image:")]
         + [{"title": f"MIT: {d['operator']}, tariff sheet (Directive (EU) 2022/362 art. 11), p. {d['source']['page']}", "url": d["source"]["url"]} for k, d in used.items() if not k.startswith("page:")],
         "vehicles": "Vehicles by class: two axles over 1.30 m at the front axle (class B), three, four, five or more axles (classes 3, 4, 5); the tool prices trucks over 3.5 t",

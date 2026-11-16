@@ -3,6 +3,9 @@ manifest (URL, sha256, size, fetch time, HTTP status, errors).
 
 Usage: python3 fetch.py sources.json out-dir
 
+A source may name what its answer must hold ("expect", strings); one
+without them is asked for again, then counts as failed.
+
 For the CNAIR page it also follows the resource URLs the page's scripts
 use (Liferay portlet resource requests, p_p_lifecycle=2), and asks the
 TollRo one for the active pricing offer (rest_path
@@ -205,6 +208,17 @@ def main(src, out):
                 status, body = get(s["url"])
             if "/api/interpreter" in s["url"] and overpass_failed(status, body):
                 raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
+            # A source's "expect": what its answer must hold (Overpass at
+            # times answers a query without the toll booths near the road):
+            # asked again, then an error, so the last run's copy is kept.
+            missing = lambda b: [x for x in s.get("expect", []) if x.encode() not in b]
+            for wait in (60, 120, 240):
+                if status != 200 or not missing(body):
+                    break
+                time.sleep(wait)
+                status, body = get(s["url"])
+            if status == 200 and missing(body):
+                raise RuntimeError(f"the answer lacks {missing(body)}")
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
             if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"

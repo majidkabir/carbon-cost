@@ -1,0 +1,141 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ro-danube-bridges/2025-09-08",
+  "scheme": {
+   "id": "ro-danube-bridges",
+   "name": "Romania's Danube bridge tolls (tarif de trecere)",
+   "country": "RO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-09-08",
+  "valid_to": "2026-09-30",
+  "currency": "RON",
+  "timezone": "Europe/Bucharest",
+  "license": "MIT",
+  "method": "Ordonanța Guvernului nr. 15/2002, art. 1 and Anexa nr. 3 (A2 bridges between Fetești and Cernavodă; DN2A bridge between Giurgeni and Vadu Oii), tariffs from 8 September 2025 (OG nr. 23/2025) as CNAIR publishes them: one crossing either way, category 2 (over 3.5 to under 12 t), 3 (12 t and over, up to 3 axles), 4 (4 axles or more), lei excluding 21% VAT. OG 15/2002 was repealed when TollRo started on 1 October 2026. The Giurgiu–Ruse bridge (towards Ruse only) isn't priced.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ro-danube-bridges-2025-09-08.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "CNAIR: Tabele ROVINIETA PEAJ (OG 23/2025), the Internet Archive's copy",
+   "url": "https://www.cnadnr.ro/sites/default/files/comunicate-de-presa/Tabele%20ROVINIETA%20PEAJ%20_0.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by mass and axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 11999
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Danube bridge Fetești–Cernavodă",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [28.018083, 44.339525]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Danube bridge Giurgeni–Vadu Oii",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [27.876715, 44.754203]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "57.0248"],
+    ["pt1", "pt-1.2", "77.686"],
+    ["pt1", "pt-1.3", "109.9174"],
+    ["pt2", "pt-1.1", "31.405"],
+    ["pt2", "pt-1.2", "52.0661"],
+    ["pt2", "pt-1.3", "77.686"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-16"
+  }
+ }
+}

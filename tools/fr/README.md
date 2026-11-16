@@ -1,6 +1,6 @@
 # French motorway tolls: how the data is gathered
 
-Everything here runs in the **France data** workflow (`.github/workflows/fr-data.yml`, started by pushing to the `fr-data` branch). Its output goes to the `fr-out` branch, and `fr.json` from there is copied to `rates/data/fr-<date>.json`.
+Everything here runs in the **France data** workflow (`.github/workflows/fr-data.yml`, started by pushing to the `fr-data` branch). Its output goes to the `fr-out` branch, and `build.py --periods` makes one table per tariff period of the year (`fr-<start>.json`: a period starts where a document comes into force, and prices the documents in force on its first day; the last is `fr.json`), converted to ORCT (`tools/orct/convert.py`) and compared with `tariffs/data/fr/`.
 
 1. **Sources** (`sources.json`). France has no national price list: each motorway concessionaire publishes its own tariffs. The operators and their tariff pages come from the list the transport ministry sends the European Commission under article 11 of Directive 1999/62/EC (`source_index`). The legal basis is in `legal`.
 2. **Fetch** (`fetch.py`). Downloads each page and the tariff documents linked from it, plus the ministry's toll station dataset from data.gouv.fr. PDFs are converted to text with `pdftotext -layout`. `manifest.json` records every file's URL, sha256, size and fetch time, and any errors.

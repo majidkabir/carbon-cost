@@ -1,0 +1,57 @@
+{
+ "operator": "Autostrada Brescia Verona Vicenza Padova S.p.A.",
+ "about": "Italy: the unit toll rates per km for 2026 of the A4 Brescia-Padova and the A31 Valdastico, as the operator publishes them on its Tolls and payments page only as an image embedded in the page (a PNG data URI under 'La tariffa unitaria chilometrica di pedaggio applicabile dal 01/01/2026 è la seguente'): 'Tariffe unitarie/km di pedaggio riconosciute da Ente Concedente a Soc. BS VR VI PD e quota ANAS ... al netto IVA 22%', plain (pianura), applicable from 01/01/2026. Transcribed by hand; tools/tables fetches the page again and says if the image has changed (sha256 of the decoded image). Per section and class: unit, the Tariffa Unitaria; anas, the Quota ANAS; both excluding VAT (22%).",
+ "source": {
+  "url": "https://inviaggio.autobspd.it/pedaggi-e-pagamenti",
+  "embedded": "png",
+  "sha256": "2eb958cc39cd36ffab80ab3d6c0ae78d731cbc664d8327a5da1d724659159488",
+  "page": "https://inviaggio.autobspd.it/pedaggi-e-pagamenti"
+ },
+ "valid_from": "2026-01-01",
+ "rates": {
+  "A4": {
+   "A": {
+    "unit": 0.05143,
+    "anas": 0.006
+   },
+   "B": {
+    "unit": 0.05271,
+    "anas": 0.006
+   },
+   "3": {
+    "unit": 0.06062,
+    "anas": 0.018
+   },
+   "4": {
+    "unit": 0.10018,
+    "anas": 0.018
+   },
+   "5": {
+    "unit": 0.12125,
+    "anas": 0.018
+   }
+  },
+  "A31": {
+   "A": {
+    "unit": 0.05143,
+    "anas": 0.006
+   },
+   "B": {
+    "unit": 0.05271,
+    "anas": 0.006
+   },
+   "3": {
+    "unit": 0.06062,
+    "anas": 0.018
+   },
+   "4": {
+    "unit": 0.10018,
+    "anas": 0.018
+   },
+   "5": {
+    "unit": 0.12125,
+    "anas": 0.018
+   }
+  }
+ }
+}

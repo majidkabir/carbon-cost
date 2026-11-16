@@ -1,0 +1,133 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/se-bridges/2024-05-01",
+  "scheme": {
+   "id": "se-bridges",
+   "name": "Swedish bridge infrastructure charges (broavgift)",
+   "country": "SE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-05-01",
+  "currency": "SEK",
+  "timezone": "Europe/Stockholm",
+  "license": "MIT",
+  "method": "Lag (2024:172) om infrastrukturavgifter på väg; Förordning (2014:1564) 4 §: a charge per passage of the bridges over Motalaviken, Sundsvallsfjärden and Skurusundet, at the amounts Transportstyrelsen publishes (heavy trucks over 3.5 t where they differ). Charged at each bridge's charging station (OpenStreetMap toll gantries), either direction. Swedish and foreign vehicles alike.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "se-bridges-2024-05-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Transportstyrelsen: Broavgift på Motalabron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-motala/"
+  },
+  {
+   "id": "s2",
+   "title": "Transportstyrelsen: Broavgift på Sundsvallsbron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-sundsvall/"
+  },
+  {
+   "id": "s3",
+   "title": "Transportstyrelsen: Broavgift på Skurubron",
+   "url": "https://www.transportstyrelsen.se/sv/vagtrafik/fordon/skatter-och-avgifter/infrastrukturavgift/broavgift-skurubron/"
+  },
+  {
+   "id": "s4",
+   "title": "Förordning (2014:1564), consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-2014-1564.text"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Motalabron",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [15.017296, 58.539313]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Sundsvallsbron",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [17.352235, 62.381901]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Skurubron",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [18.225953, 59.31378]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "amount"],
+   "rows": [["pt1", "11"], ["pt2", "20"], ["pt3", "4"]],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-15"
+  }
+ }
+}

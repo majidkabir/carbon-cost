@@ -1,0 +1,37 @@
+{
+ "description": "2.5 t CO2 at 55.50 a tonne.",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [],
+  "quantities": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "country",
+    "unit": "t_co2",
+    "value": "2.5",
+    "time": "2026-11-16T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "138.75"
+   }
+  ]
+ }
+}

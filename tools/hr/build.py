@@ -1,4 +1,4 @@
-"""Builds rates/data/hr-2026-01-01.json from fetch.py's hr-prices.json and
+"""Builds the table hr-2026-01-01.json (converted to tariffs/data/hr/) from fetch.py's hr-prices.json and
 hr-booths.json (OpenStreetMap toll booths and motorway junctions).
 
 Usage: python3 build.py hr-prices.json hr-booths.json out.json
@@ -34,8 +34,9 @@ ALIAS = {
     ("a4", "Brez. Hum"): "Breznički Hum",
     ("a4", "Varaž. Toplice"): "Varaždinske Toplice",
     ("a2", "Začretje"): "Sveti Križ Začretje",
-    ("bina", "Vodnjan Sjever"): "Vodnjan - sjever",
-    ("bina", "Vodnjan Jug"): "Vodnjan - jug",
+    # OpenStreetMap's junctions were renamed "Vodnjan sjever" and "Vodnjan jug" in November 2026.
+    ("bina", "Vodnjan Sjever"): ("Vodnjan - sjever", "Vodnjan sjever"),
+    ("bina", "Vodnjan Jug"): ("Vodnjan - jug", "Vodnjan jug"),
     ("bina", "Nova Vas"): "Novigrad",
     ("bina", "Tunel Učka"): ("Tunel Učka", "Učka (portal Kvarner)"),
 }

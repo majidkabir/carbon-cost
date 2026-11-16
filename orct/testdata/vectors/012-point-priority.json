@@ -1,0 +1,34 @@
+{
+ "description": "On Sunday the priority row (free) beats the class row.",
+ "clauses": [
+  "6.10.3"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "gate",
+    "time": "2026-11-15T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "0.00"
+   }
+  ]
+ }
+}

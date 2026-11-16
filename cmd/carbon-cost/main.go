@@ -30,9 +30,9 @@ import (
 	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
-	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -59,7 +59,7 @@ const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
   calc   price one trip
-  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates)
+  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates, GET /v1/rates/{file})
   rates  list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
@@ -103,7 +103,7 @@ func envOr(k, def string) string {
 }
 
 func calculator(sc *sootcase.Client) (cost.Calculator, error) {
-	tbs, err := rates.All()
+	set, err := tariffs.Load()
 	if err != nil {
 		return cost.Calculator{}, err
 	}
@@ -120,7 +120,7 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	if err != nil {
 		return cost.Calculator{}, err
 	}
-	return cost.Calculator{Sootcase: *sc, Tables: tbs, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
+	return cost.Calculator{Sootcase: *sc, Tariffs: set, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
 func calc(args []string) error {
@@ -137,11 +137,15 @@ func calc(args []string) error {
 	fs.IntVar(&req.Truck.Euro, "euro", 6, "Euro emission standard 0-6 (EEV = 5)")
 	fs.IntVar(&req.Truck.CO2Class, "co2-class", 1, "EU CO2 emission class 1-5 (5 = zero-emission)")
 	fs.IntVar(&req.Truck.TareKg, "tare-kg", 0, "truck's own weight with trailer, kg (lets ferries use their MRV data)")
+	fs.IntVar(&req.Truck.MotorAxles, "motor-axles", 0, "the motor vehicle's own axles (e.g. 2 for a tractor; Lithuania, Iceland)")
+	fs.IntVar(&req.Truck.MotorMassKg, "motor-mass-kg", 0, "the motor vehicle's own permissible maximum mass, kg (Iceland's km fee)")
+	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
+	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the road part burns, for taxes per litre (DK); default the road CO2 at 2.67 kg per litre")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -309,7 +313,7 @@ func printResult(r cost.Response) {
 		if t.OSMExtract != "" {
 			osm = ", OpenStreetMap " + t.OSMExtract
 		}
-		fmt.Printf("- %s: %s (rates/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
+		fmt.Printf("- %s: %s (tariffs/data/%s, from %s%s)\n", t.Area, t.Name, t.File, t.ValidFrom, osm)
 	}
 	for _, cc := range slices.Sorted(maps.Keys(p.RoadClasses)) {
 		fmt.Printf("- %s road classes: %s\n", cc, p.RoadClasses[cc])
@@ -326,17 +330,17 @@ func printResult(r cost.Response) {
 }
 
 func listRates() error {
-	tbs, err := rates.All()
+	set, err := tariffs.Load()
 	if err != nil {
 		return err
 	}
-	for _, tb := range tbs {
-		to := tb.ValidTo
+	for _, d := range set.All {
+		to := d.ValidTo
 		if to == "" {
 			to = "until replaced"
 		}
-		fmt.Printf("%s  %s  %s to %s  (%s)\n", tb.Area(), tb.Name, tb.ValidFrom, to, tb.Law)
-		for _, s := range tb.Sources {
+		fmt.Printf("%s  %s  %s to %s  (%s)\n", d.Area(), d.Name, d.ValidFrom, to, d.File)
+		for _, s := range d.Sources() {
 			fmt.Printf("    %s\n    %s\n", s.Title, s.URL)
 		}
 	}
@@ -403,7 +407,16 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
-	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tables) })
+	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tariffs.Summaries()) })
+	mux.HandleFunc("GET /v1/rates/{cc}/{file}", func(w http.ResponseWriter, r *http.Request) {
+		b, ok := c.Tariffs.Raw(r.PathValue("cc") + "/" + r.PathValue("file"))
+		if !ok {
+			writeJSON(w, http.StatusNotFound, map[string]string{"error": "no such dataset"})
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(b)
+	})
 	mux.HandleFunc("GET /v1/places", func(w http.ResponseWriter, r *http.Request) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))
 		if len(q) < 2 || len(q) > 100 {

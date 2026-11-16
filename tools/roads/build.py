@@ -53,12 +53,17 @@ RULES = {
     # ref, as "operator|ref", in "ops" and "mwop" (an index into ops per mw
     # line, -1 for none).
     "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True, "operator": True},
+    # Belarus: the BelToll roads (the list of the Regulation approved by
+    # Council of Ministers resolution No. 340), the motorway, trunk and
+    # primary ways tagged toll=yes or toll:hgv=yes.
+    "BY": {"mw": r"^$a", "mw_highway": [], "nat": r"^$a", "toll": True, "toll_highway": ["motorway", "trunk", "primary"]},
 }
 
 
 def classify(rule, tags):
     if rule.get("toll"):
-        return "mw" if tags.get("highway") == "motorway" and tags.get("toll") == "yes" else None
+        tolled = tags.get("toll") == "yes" or tags.get("toll:hgv") == "yes"
+        return "mw" if tags.get("highway") in rule.get("toll_highway", ["motorway"]) and tolled else None
     refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
     if tags.get("highway") in rule["mw_highway"] or any(re.match(rule["mw"], r) for r in refs):
         return "mw"

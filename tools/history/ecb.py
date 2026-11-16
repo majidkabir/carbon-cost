@@ -10,7 +10,7 @@ and "N/A" where a currency had no rate.
 import csv, sys
 
 FROM = "2024-01-01"
-CURRENCIES = ["CHF", "CZK", "DKK", "GBP", "HUF", "NOK", "PLN", "RON", "SEK", "TRY", "BGN"]
+CURRENCIES = ["CHF", "CZK", "DKK", "GBP", "HUF", "NOK", "PLN", "RON", "SEK", "TRY", "BGN", "ISK"]
 
 
 def main(src, out):

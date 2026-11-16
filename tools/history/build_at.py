@@ -12,9 +12,9 @@ for 4+ axles on the A 13; § 8 the air pollution and noise tariff by EURO
 group (E zero-emission, A EURO VI, B V/EEV, C IV, D 0-III); § 9 b) the
 CO2 tariff by CO2 class (for vehicles other than buses).
 
-The sections' ends and the A 12 stretch are those of
-rates/data/at-2026-01-01.json (OpenStreetMap junctions); the script
-checks that each year names the same sections.
+The sections' ends and the A 12 stretch are in transcribed/
+at-sections.json (OpenStreetMap junctions); the script checks that each
+year names the same sections.
 """
 import copy, json, os, re, sys
 
@@ -23,6 +23,8 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 YEARS = [  # (file, valid_from, valid_to, title, BGBl, RIS URL)
     ("at-mtv-2023", "2024-01-01", "2024-12-31", "Mauttarifverordnung 2023", "BGBl. II Nr. 331/2023", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2023_II_331/BGBLA_2023_II_331.html"),
     ("at-mtv-2024", "2025-01-01", "2025-12-31", "Mauttarifverordnung 2024", "BGBl. II Nr. 410/2024", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2024_II_410/BGBLA_2024_II_410.pdf"),
+    ("at-mtv-2025", "2026-01-01", "2026-12-31", "Mauttarifverordnung 2025", "BGBl. II Nr. 298/2025", "https://ris.bka.gv.at/Dokumente/BgblAuth/BGBLA_2025_II_298/BGBLA_2025_II_298.html", "1 January 2026",
+     [{"title": "WKO: Lkw- und Bus-Maut in Österreich 2026 (totals per tariff group)", "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf"}]),
 ]
 AXLES = [{"min_axles": 2, "max_axles": 2}, {"min_axles": 3, "max_axles": 3}, {"min_axles": 4}]
 
@@ -31,7 +33,7 @@ def nums(line):
     return [float(x.replace(",", ".")) for x in re.findall(r"\d+,\d+", line)]
 
 
-def build(txt, tmpl, frm, to, title, bgbl, url):
+def build(txt, tmpl, frm, to, title, bgbl, url, since=None, more_sources=()):
     par = lambda n: txt.index(f"§ {n}.")
     tb = copy.deepcopy(tmpl)
     rows = []
@@ -50,8 +52,9 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
             sel = {"co2_class": [5]} if e is None else {"co2_class": [1, 2, 3, 4], "euro": e}
             rows.append({"component": "air_noise", "min_kg": 3501, **a, "rate": round(v / 100, 6)} | sel)
     # § 9 b) CO2, cents, other vehicles than buses.
-    # MTV 2024 on: b) for vehicles other than buses; MTV 2023: one table.
-    seg = txt[txt.index("b) andere Kraftfahrzeuge", par(9)):] if "b) andere Kraftfahrzeuge" in txt else txt[par(9):par(10)]
+    # MTV 2024 on: b) (2. in RIS's HTML) for vehicles other than buses; MTV 2023: one table.
+    m = re.compile(r"^\s*(?:b\)|2\.)\s*andere Kraftfahrzeuge", re.M).search(txt, par(9))
+    seg = txt[m.start():par(10)] if m else txt[par(9):par(10)]
     for c in (5, 4, 3, 2, 1):
         vals = nums(re.search(rf"^\s*{c}\s+([\d,\s]+)$", seg, re.M).group(1))
         for a, v in zip(AXLES, vals):
@@ -59,7 +62,7 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
     tb["rows"] = rows
     # § 4 sections, euros.
     seg = txt[par(4):par(5)]
-    blocks = re.split(r"\n\s*([a-q])\) ", seg)[1:]
+    blocks = re.split(r"\n\s*([a-q])\) ?", seg)[1:]
     secs = {blocks[i]: blocks[i + 1] for i in range(0, len(blocks), 2)}
     for s in tb["sections"]["list"]:
         b = secs[s["id"]]
@@ -76,8 +79,8 @@ def build(txt, tmpl, frm, to, title, bgbl, url):
         s["night_kat4"] = {"E": e, "A": a}
     assert "um einen Aufschlag in der Höhe von 25 %" in re.sub(r"\s+", " ", txt[par(3):par(4)])
     tb.update({"valid_from": frm, "valid_to": to,
-               "law": f"{title}, {bgbl}, §§ 1-2, 7-9 (in force {frm})",
-               "sources": [{"title": f"{title}, {bgbl} (RIS)", "url": url}]})
+               "law": f"{title}, {bgbl}, §§ 1-2, 7-9 (in force {since or frm})",
+               "sources": [{"title": f"{title}, {bgbl} (RIS)", "url": url}, *more_sources]})
     tb["sections"]["law"] = re.sub(r"Mauttarifverordnung \d{4}, BGBl\. II Nr\. \d+/\d{4}", f"{title}, {bgbl}", tb["sections"]["law"])
     for sc in tb.get("surcharges", []):
         sc["law"] = re.sub(r"Mauttarifverordnung \d{4}", title, sc["law"])
@@ -100,16 +103,32 @@ def check_asfinag(fetched, frm, tb):
     print("ASFINAG totals agree:", want)
 
 
+def skeleton():
+    """A table's fields but its rows and prices: transcribed/at-sections.json."""
+    p = json.load(open(os.path.join(HERE, "transcribed", "at-sections.json"), encoding="utf-8"))
+    secs = []
+    for s in p["sections"]["list"]:
+        d = {k: s[k] for k in ("id", "road", "name", "from", "to")} | {"tariff": {}}
+        if s.get("night"):
+            d["night_kat4"] = {"E": None, "A": None}
+        secs.append(d)
+    t = p["table"]
+    return {"country": t["country"], "currency": t["currency"], "valid_from": None, "valid_to": None, "name": t["name"], "law": None, "sources": None,
+            "vehicles": t["vehicles"], "min_kg": t["min_kg"], "tolled_roads": t["tolled_roads"], "rows": None,
+            "sections": {"law": p["sections"]["law"], "tariff_groups": p["sections"]["tariff_groups"], "list": secs},
+            "surcharges": p["surcharges"]}
+
+
 def main(fetched, out):
-    tmpl = json.load(open(os.path.join(ROOT, "rates", "data", "at-2026-01-01.json"), encoding="utf-8"))
-    for f, frm, to, title, bgbl, url in YEARS:
+    tmpl = skeleton()
+    for f, frm, to, title, bgbl, url, *more in YEARS:
         # The fetched text, else one read in a browser (tools/history/browser/,
         # for RIS, which refuses scripted requests).
         p = next((x for x in (os.path.join(fetched, f + ".txt"), os.path.join(HERE, "browser", f + ".txt")) if os.path.exists(x)), "")
         if not p:
             print("missing", f)
             continue
-        tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url)
+        tb = build(open(p, encoding="utf-8").read(), tmpl, frm, to, title, bgbl, url, *more)
         if os.path.dirname(p) != fetched:
             tb["law"] += f"; the text read in a browser into tools/history/browser/{f}.txt"
         check_asfinag(fetched, frm, tb)

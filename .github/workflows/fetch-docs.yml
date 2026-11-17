@@ -11,20 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Felbertauern, Greek tunnels, Norwegian ferry tariffs
+      - name: Felbertauern Mautordnung pages as images, Norwegian ferry tariffs 2026
         run: |
           mkdir -p out
-          get() { curl -fsSL --retry 3 -A "Mozilla/5.0 (carbon-cost docs fetch)" -o "out/$1" "$2" && echo "ok $1 $(wc -c < out/$1)" || echo "FAILED $1 $2"; }
-          get at-felbertauern-tickets.html "https://www.felbertauernstrasse.at/tickets/"
-          get at-felbertauern-mautordnung.pdf "https://assets.felbertauernstrasse.at/2025/05/Mautordnung.pdf"
-          get no-ferje-takster-side.html "https://www.vegvesen.no/fag/trafikk/ferje/ferjetakster/"
-          get no-ferje-side.html "https://www.vegvesen.no/trafikkinformasjon/reiseinformasjon/ferje/"
-          get no-autopass-reg-2025.pdf "https://vegvesen.no/globalassets/fag/trafikk/ferje/n-autopass-reg-takst-gjeldende-fra-01.01.2025.pdf"
-          get no-riksreg-2024.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/riksregulativ-for-ferjetakster-gjeldende-fra-01.03.2024.pdf"
-          get gr-aktio.html "https://www.aktio-preveza.gr/"
-          get gr-moreas.html "https://www.moreas.com.gr/"
-          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
-          curl -fsSL --retry 3 -o out/osm-felbertauern.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2847.0%2C12.4%2C47.3%2C12.6%29%3Bway%5B%22highway%22%5D%5B%22tunnel%22%5D%5B%22name%22~%22Felbertauern%22%5D%2847.0%2C12.4%2C47.3%2C12.6%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2838.9%2C20.7%2C39.0%2C20.8%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2837.55%2C22.5%2C37.7%2C22.7%29%3B%29%3Bout%20geom%3B" || echo "FAILED osm"
+          get() { curl -fsSL --retry 3 -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36" -o "out/$1" "$2" && echo "ok $1 $(wc -c < out/$1)" || echo "FAILED $1 $2"; }
+          get at-felbertauern-mautordnung-2025.pdf "https://assets.felbertauernstrasse.at/2025/05/Mautordnung.pdf"
+          get at-felbertauern-mautordnung-2016.pdf "https://www.felbertauernstrasse.at/wp-content/uploads/2016/04/mautordnung-1.pdf"
+          get no-autopass-reg-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf"
+          get no-autopass-pris-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf"
+          get no-markedsoversikt-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/markedsoversikt-for-ferje-per-1.-januar-2026.pdf"
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; pdfinfo "$f" | grep Pages; done
+          for f in out/at-felbertauern-mautordnung-*.pdf; do pdftoppm -r 80 -f 1 -l 4 -png "$f" "${f%.pdf}-p" || true; done
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

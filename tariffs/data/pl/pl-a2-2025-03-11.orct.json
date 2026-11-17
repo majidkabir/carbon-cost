@@ -17,7 +17,7 @@
   "currency": "PLN",
   "timezone": "Europe/Warsaw",
   "license": "MIT",
-  "method": "Autostrada Wielkopolska's price list (cennik przejazdów) from 2025-03-11 for the A2 Świecko-Nowy Tomyśl-Konin (Autostrada Wielkopolska II and Autostrada Wielkopolska), the price from station to station paid at the plazas: category 2 (two axles with twin wheels, or two axles with trailers) PLN 220 Konin Modła-Świecko, category 3 (three axles, or two axles with twin wheels with trailers) PLN 316, category 4 (more than three axles, or three axles with trailers) PLN 454. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The Poznań ring between Poznań Zachód and Poznań Wschód is free. The e-TOLL doesn't charge this stretch. The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. Videotolling prices (Poznań-Konin) aren't modelled. Rebuilt from the Internet Archive's copies of these pages (2025). Autostrada Wielkopolska's next price list (from 11 September 2025) isn't complete in the Internet Archive (no category 4 table), so this table ends the day before it.",
+  "method": "Autostrada Wielkopolska's price list (cennik przejazdów) from 2025-03-11 for the A2 Świecko-Nowy Tomyśl-Konin (Autostrada Wielkopolska II and Autostrada Wielkopolska), the price from station to station paid at the plazas: category 2 (two axles with twin wheels, or two axles with trailers) PLN 220 Konin Modła-Świecko, category 3 (three axles, or two axles with twin wheels with trailers) PLN 316, category 4 (more than three axles, or three axles with trailers) PLN 454. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The Poznań ring between Poznań Zachód and Poznań Wschód is free. The e-TOLL doesn't charge this stretch. The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. Videotolling prices (Poznań-Konin) aren't modelled. Rebuilt from the Internet Archive's copies of these pages (2025).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "pl-a2-2025-03-11.json"
@@ -32,7 +32,7 @@
   },
   {
    "id": "s2",
-   "title": "Autostrada Wielkopolska: Change of toll rates for A2 Motorway in Nowy Tomyśl - Konin section (as of 11 March 2025)",
+   "title": "Autostrada Wielkopolska: Change of toll rates for A2 Motorway in Nowy Tomyśl – Konin section (from 11 March 2025)",
    "url": "https://web.archive.org/web/20250522090702/https://www.autostrada-a2.pl/en/news/change-of-toll-rates-for-a2-motorway-in-nowy-tomysl-konin-section/"
   },
   {
@@ -54,11 +54,6 @@
    "id": "s6",
    "title": "OpenStreetMap (Overpass API): A2 junctions and toll booths",
    "url": "https://www.openstreetmap.org/"
-  },
-  {
-   "id": "s7",
-   "title": "Autostrada Wielkopolska's next price list (from 11 September 2025) isn't complete in the Internet Archive (no category 4 table), so this table ends the day before it",
-   "url": "https://web.archive.org/web/2025*/https://www.autostrada-a2.pl/wp-content/uploads/2025/09/*"
   }
  ],
  "tax": {
@@ -1389,7 +1384,7 @@
     ["st1:Września", "st1:Trzciel", "sys1-1.4", "283"],
     ["st1:Września", "st1:Trzciel", "sys1-1.4-3-axles-with-trailer", "283"]
    ],
-   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7"],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
   }
  ],

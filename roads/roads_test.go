@@ -3,6 +3,7 @@ package roads
 import (
 	"bytes"
 	"compress/gzip"
+	"strings"
 	"testing"
 	"testing/fstest"
 )
@@ -102,5 +103,22 @@ func TestPolandConcessionsLeftOut(t *testing.T) {
 		if (k.Motorway > 0) != c.mw {
 			t.Errorf("%s: %+v, want motorway km %v", c.name, k, c.mw)
 		}
+	}
+}
+
+// The data names the stretches it leaves out, for the road-class note.
+func TestPolandLeftOutNamed(t *testing.T) {
+	ix, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	got := strings.Join(ix.LeftOut("PL"), "; ")
+	for _, want := range []string{"A1 Rusocin-Toruń", "A2 Świecko-Konin", "A4 Katowice-Kraków"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("PL left out %q, want %s", got, want)
+		}
+	}
+	if l := ix.LeftOut("CZ"); len(l) != 0 {
+		t.Errorf("CZ left out %v", l)
 	}
 }

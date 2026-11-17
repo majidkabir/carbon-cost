@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/si/2026-04-01",
   "scheme": {
@@ -32,7 +32,7 @@
   },
   {
    "id": "s2",
-   "title": "Uredba o cestninskih cestah in cestnini (Uradni list RS, št. 46/25, 102/25, 129/26 in 1746/26), Annex: toll sections, their lengths and suburban/interurban type",
+   "title": "Uredba o cestninskih cestah in cestnini (Uradni list RS, št. 46/25, 102/25 in 129/26), NPB 2, Annex: toll sections, their lengths and suburban/interurban type",
    "url": "https://pisrs.si/pregledPredpisa?id=URED9382"
   },
   {

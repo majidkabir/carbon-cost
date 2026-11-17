@@ -6,6 +6,10 @@ name: France data
 on:
   push:
     branches: [fr-data]
+  # Daily (02:49 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "49 2 * * *"
 permissions:
   contents: write
 jobs:

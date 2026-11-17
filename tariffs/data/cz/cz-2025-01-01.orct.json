@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/cz/2025-01-01",
   "scheme": {
@@ -27,8 +27,8 @@
  "sources": [
   {
    "id": "s1",
-   "title": "Nařízení vlády č. 299/2024 Sb. (epravo.cz)",
-   "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/299"
+   "title": "Nařízení vlády č. 299/2024 Sb., Sbírka zákonů PDF",
+   "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_299_PZZ.pdf"
   },
   {
    "id": "s2",

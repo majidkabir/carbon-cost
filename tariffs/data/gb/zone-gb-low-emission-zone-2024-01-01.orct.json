@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/zone-gb-low-emission-zone/2024-01-01",
   "scheme": {
@@ -13846,7 +13846,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-12"
+   "osm_extract": "2026-11-16"
   }
  }
 }

@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/gb-thames-tunnels/2026-09-21",
   "scheme": {
@@ -110,7 +110,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [0.011221, 51.501149]
+     "coordinates": [0.011215, 51.501146]
     },
     "heading": 232.4,
     "match_m": 150
@@ -123,7 +123,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [0.010812, 51.501226]
+     "coordinates": [0.010808, 51.501224]
     },
     "heading": 52.5,
     "match_m": 150
@@ -164,7 +164,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-12"
+   "osm_extract": "2026-11-16"
   }
  }
 }

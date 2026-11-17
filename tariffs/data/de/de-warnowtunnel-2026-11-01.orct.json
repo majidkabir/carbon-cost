@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/de-warnowtunnel/2026-11-01",
   "scheme": {
@@ -146,7 +146,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-13"
+   "osm_extract": "2026-11-16"
   }
  }
 }

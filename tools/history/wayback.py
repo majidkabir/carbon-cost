@@ -1,12 +1,15 @@
 """Fetch earlier copies of official pages from the Wayback Machine and
 rebuild rate tables from them with the tools/tables builders.
 
-    python3 tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out
+    python3 tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out [prev]
 
 For each set in wayback.json and each id, it asks the Wayback CDX API for
 the last capture with HTTP 200 between the set's from and to dates, saves
 the unmodified copy (the id_ form) as out/wb-<set>/<id>.<ext> and records
-it in out/wb-<set>/manifest.json. OpenStreetMap extracts the builders need
+it in out/wb-<set>-manifest.json. A capture never changes: a copy the
+last run saved (prev, the history-out branch) for the same id, URL and
+window is used again without asking the archive, which often refuses
+requests; WAYBACK_OFFLINE=1 asks it nothing. OpenStreetMap extracts the builders need
 are copied from out/osm (the workflow puts them there). Then it runs the
 set's builders with fetched=out/wb-<set>, writes their tables to
 out/tables, and replaces each source URL a table names with the archived
@@ -33,7 +36,7 @@ UA = {"User-Agent": "carbon-cost history (github.com/majidkabir/carbon-cost)"}
 
 
 # Pages a bot check or an error served instead of the content.
-NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One moment, please|Just a moment\.\.\.|Access denied", re.I)
+NOT_CONTENT = re.compile(rb"Please wait while your request is being verified|One moment, please|Just a moment\.\.\.|Access denied|Internet Archive services are temporarily offline", re.I)
 
 
 def get(url):
@@ -66,12 +69,33 @@ def captures(url, frm, to, match=None, regex=None, collapse=None):
     return [tuple(r[:2]) for r in rows[1:]]
 
 
-def fetch(s, urls, out):
+def kept(s, prev):
+    """The copies the last run saved for this set: {id: (manifest entry, path)}."""
+    if not prev:
+        return {}
+    try:
+        old = json.load(open(os.path.join(prev, f"wb-{s['set']}-manifest.json")))
+    except (FileNotFoundError, ValueError):
+        return {}
+    d = os.path.join(prev, s.get("dir", "wb-" + s["set"]))
+    out = {}
+    for m in old:
+        if not m.get("capture"):
+            continue
+        path = next((p for p in (os.path.join(d, m["id"] + e) for e in (".html", ".pdf")) if os.path.exists(p)), None)
+        if path and hashlib.sha256(open(path, "rb").read()).hexdigest() == m["sha256"]:
+            out[m["id"]] = (m, path)
+    return out
+
+
+def fetch(s, urls, out, prev=None):
     # A set with "dir" saves its copies there (under out) for the
     # build_*.py scripts, which read out/.
     d = os.path.join(out, s.get("dir", "wb-" + s["set"]))
     os.makedirs(d, exist_ok=True)
     manifest = []
+    old = kept(s, prev)
+    offline = os.environ.get("WAYBACK_OFFLINE") == "1"
     for sid in s["ids"]:
         # An id's URL, or where its earlier copies are: {"url", "match",
         # "regex"} (the latest URL matching).
@@ -80,6 +104,18 @@ def fetch(s, urls, out):
             where = {"url": where}
         url = where["url"]
         must = s.get("must", {}).get(sid)
+        m = old.get(sid, (None, None))[0]
+        if m and m["url"] == url and where.get("from", s["from"]) <= m["capture"][:8] <= where.get("to", s["to"]):
+            body = open(old[sid][1], "rb").read()
+            if not (NOT_CONTENT.search(body[:20000]) or (must and not re.search(must.encode(), body))):
+                save(d, sid, body)
+                manifest.append(dict(m, reused=True))
+                print("reused", m["capture"], sid, flush=True)
+                continue
+        if offline:
+            print("no copy kept", sid)
+            manifest.append({"id": sid, "url": url, "capture": None})
+            continue
         try:
             body = None
             for ts, orig in reversed(captures(url, where.get("from", s["from"]), where.get("to", s["to"]), where.get("match"), where.get("regex"))[-8:]):
@@ -94,12 +130,7 @@ def fetch(s, urls, out):
                 print("no capture", sid, url)
                 manifest.append({"id": sid, "url": url, "capture": None})
                 continue
-            ext = ".pdf" if body[:4] == b"%PDF" else ".html"
-            path = os.path.join(d, sid + ext)
-            open(path, "wb").write(body)
-            if ext == ".pdf":
-                subprocess.run(["pdftotext", "-layout", path, path[:-4] + ".txt"], check=False)
-                subprocess.run(["pdftotext", "-bbox", path, path[:-4] + ".bbox.html"], check=False)
+            save(d, sid, body)
             manifest.append({"id": sid, "url": url, "capture": ts, "original": orig, "archived": f"https://web.archive.org/web/{ts}/{orig}",
                              "size": len(body), "sha256": hashlib.sha256(body).hexdigest()})
             print(ts, len(body), sid, flush=True)
@@ -111,6 +142,15 @@ def fetch(s, urls, out):
             shutil.copy(f, d)
     json.dump(manifest, open(os.path.join(out, f"wb-{s['set']}-manifest.json"), "w"), indent=1)
     return d, manifest
+
+
+def save(d, sid, body):
+    ext = ".pdf" if body[:4] == b"%PDF" else ".html"
+    path = os.path.join(d, sid + ext)
+    open(path, "wb").write(body)
+    if ext == ".pdf":
+        subprocess.run(["pdftotext", "-layout", path, path[:-4] + ".txt"], check=False)
+        subprocess.run(["pdftotext", "-bbox", path, path[:-4] + ".bbox.html"], check=False)
 
 
 def build(s, d, manifest, out):
@@ -162,7 +202,7 @@ def close(tables):
                 tb["valid_to"] = end
 
 
-def main(cfg, sources, out):
+def main(cfg, sources, out, prev=None):
     urls = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     tables = []
     conf = json.load(open(cfg, encoding="utf-8"))
@@ -170,7 +210,7 @@ def main(cfg, sources, out):
     for s in conf["sets"]:
         if only and s["set"] not in only:
             continue
-        d, manifest = fetch(s, urls, out)
+        d, manifest = fetch(s, urls, out, prev)
         if s.get("builders"):
             tables += build(s, d, manifest, out)
         if "dir" not in s:
@@ -179,10 +219,13 @@ def main(cfg, sources, out):
         # Written after each set, so a run cut short keeps what it built.
         write(tables, out)
     # Probes list the archived URLs under a prefix, to find where a page
-    # was before it moved; they build nothing. "probes:<group>" in
-    # WAYBACK_SETS runs only the probes of that group.
+    # was before it moved; they build nothing, and run only when asked:
+    # "probes" in WAYBACK_SETS runs them all, "probes:<group>" a group's.
+    # Otherwise the last run's list is kept.
     groups = [x.split(":", 1)[1] for x in only if x.startswith("probes:")]
-    if only and not groups:
+    if "probes" not in only and not groups:
+        if prev and os.path.exists(os.path.join(prev, "wayback-probes.txt")):
+            shutil.copy(os.path.join(prev, "wayback-probes.txt"), out)
         return
     with open(os.path.join(out, "wayback-probes.txt"), "w") as f:
         for p in conf.get("probes", []):

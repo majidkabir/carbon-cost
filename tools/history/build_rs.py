@@ -5,8 +5,8 @@ tools/rs/build.py reads the current one: prices in EUR from Beograd,
 Dimitrovgrad, Preševo, Šid, Stara Pazova and Obrenovac to each station,
 categories 3 and 4. Each list's first day is its heading's "važi od";
 it ends the day before the next list. The stations are placed as in the
-current table (templates/rs-2026-07-01.json, from OpenStreetMap's toll
-booths); a station the current table doesn't have isn't placed.
+current table (rs-2026-07-01.json as the tables workflow builds it,
+from OpenStreetMap's toll booths); a station the current table doesn't have isn't placed.
 
 The lists of 1 April 2023 (in force until 9 July 2024), 10 January 2025
 and 4 July 2025 weren't archived, so those periods have no table.
@@ -71,7 +71,7 @@ def prices(path):
 
 
 def main(fetched, out):
-    cur = committed.template("rs-2026-07-01.json")
+    cur = committed.template("rs-2026-07-01.json", fetched)
     pts = {(s["name"], st["name"]): st["points"] for s in cur["closed_systems"] for st in s["stations"]}
     canon = {(s["name"], plain(st["name"]).lower()): st["name"] for s in cur["closed_systems"] for st in s["stations"]}
 

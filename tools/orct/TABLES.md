@@ -2,7 +2,7 @@
 
 The builders under `tools/tables`, `tools/history`, `tools/fr`, `tools/hr`
 and `tools/rs` write one JSON file per table. A table is not data
-carbon-cost keeps: `tools/orct/convert.py` turns it into an ORCT 0.2
+carbon-cost keeps: `tools/orct/convert.py` turns it into an ORCT 0.3
 dataset right after it is built, and only the datasets are committed
 (`tariffs/data`) and priced with.
 
@@ -52,6 +52,14 @@ type Row struct {
 	// operator, "operator" or "operator|ref" as roads.Km.MotorwayOp keys
 	// them; rows without one apply to the other operators' km.
 	Operator string  `json:"operator,omitempty"`
+	// VehicleUnit is set where each vehicle of a combination pays on its
+	// own ("motor" or "trailer", Iceland's kílómetragjald): MinKg, MaxKg and
+	// the axle bounds apply to that vehicle's own mass and axles (ORCT
+	// mass_kg and axles, or trailer_mass_kg and trailer_axles), and each unit
+	// is its own charge; a trailer's is free where no row matches.
+	VehicleUnit string `json:"vehicle_unit,omitempty"`
+	// Energy limits the row to trucks of these energies (ORCT energy).
+	Energy []string `json:"energy,omitempty"`
 	Rate     float64 `json:"rate"` // currency per km, per tonne-km in a PerTonneKm table, per day in a PerDay table
 }
 
@@ -151,6 +159,10 @@ type PointClass struct {
 	// length with trailer (Truck.Length), where the price goes by length.
 	MinLengthM float64 `json:"min_length_m,omitempty"`
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
+	// Trailer, where set, limits the class to trucks with (true) or
+	// without (false) a trailer (Poland's concession motorways' categories
+	// go by the motor vehicle's axles and whether it tows one).
+	Trailer *bool   `json:"trailer,omitempty"`
 	Rate       float64 `json:"rate"`
 	ETCRate    float64 `json:"etc_rate,omitempty"`
 	// HighRate is the price on the point's HighSeason days; HighETCRate
@@ -273,6 +285,9 @@ type Group struct {
 	MaxLengthM float64 `json:"max_length_m,omitempty"` // up to this
 	// Euro: the EURO classes the group is for (any if empty).
 	Euro []int `json:"euro,omitempty"`
+	// Trailer, where set: only trucks with (true) or without (false) a
+	// trailer. In a MotorAxles table the axles are the motor vehicle's.
+	Trailer *bool `json:"trailer,omitempty"`
 	// Base: the group whose price a pair has when it has none for this
 	// one (an operator that prices by EURO class in a system where the
 	// others don't).
@@ -482,16 +497,18 @@ const FuelCO2Prefix = "fuelco2-"
 
 // FuelCO2 is a country's CO2 price on road diesel in force for a period:
 // a national emissions trading system's certificate price (Germany's
-// BEHG, Austria's NEHG 2022) or a carbon tax, per tonne of CO2. The fuel
-// supplier pays it and passes it on in the price of the fuel, so a trip
-// pays it where its fuel is bought.
+// BEHG, Austria's NEHG 2022) or a carbon tax, per tonne of CO2, or a CO2
+// tax per litre of diesel (Denmark's, Sweden's...). The fuel supplier pays
+// it and passes it on in the price of the fuel, so a trip pays it where
+// its fuel is bought.
 type FuelCO2 struct {
 	Country   string   `json:"country"` // ISO 3166-1 alpha-2
 	Currency  string   `json:"currency"`
 	ValidFrom string   `json:"valid_from"`         // inclusive, YYYY-MM-DD
 	ValidTo   string   `json:"valid_to,omitempty"` // inclusive; "" = until replaced
 	Name      string   `json:"name"`
-	RatePerT  float64  `json:"rate_per_t"` // per tonne of CO2
+	RatePerT  float64  `json:"rate_per_t,omitempty"` // per tonne of CO2, or
+	RatePerL  float64  `json:"rate_per_l,omitempty"` // per litre of diesel (ORCT unit "litre")
 	Law       string   `json:"law"`
 	Sources   []Source `json:"sources"`
 	File      string   `json:"-"`

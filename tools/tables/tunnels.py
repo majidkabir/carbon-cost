@@ -668,7 +668,7 @@ def faroe(fetched, out):
     if eystur < skala:
         sys.exit("Faroe tunnels: Eysturoyartunnilin's Streymoy price is below Strendur-Runavík's; the passage group would overcharge")
     # Eysturoyartunnilin's Eysturoy branches: its two ways of 1 km or more
-    # north of the roundabout, the western one to Strendur, the eastern one
+    # reaching north of the roundabout, the western one to Strendur, the eastern one
     # to Runavík; the Streymoy branch is the tunnel's longest way.
     rb = [e for e in d["elements"] if e["type"] == "way" and e.get("tags", {}).get("name") == "Eysturoyartunnilin" and e.get("tags", {}).get("junction") == "roundabout"]
     if len(rb) != 1:
@@ -676,7 +676,7 @@ def faroe(fetched, out):
     rlat = sum(p["lat"] for p in rb[0]["geometry"]) / len(rb[0]["geometry"])
     seg = lambda e: sum(km((a["lat"], a["lon"]), (b["lat"], b["lon"])) for a, b in zip(e["geometry"], e["geometry"][1:]))
     north = sorted((e for e in d["elements"] if e["type"] == "way" and e.get("tags", {}).get("name") == "Eysturoyartunnilin" and len(e.get("geometry", [])) > 1
-                    and seg(e) >= 1 and middle(e)[0] > rlat + 0.003), key=lambda e: middle(e)[1])
+                    and seg(e) >= 1 and max(q["lat"] for q in e["geometry"]) > rlat + 0.005), key=lambda e: middle(e)[1])
     if len(north) != 2:
         sys.exit(f"Faroe tunnels: Eysturoyartunnilin's Eysturoy branches not two ways of 1 km or more in OpenStreetMap ({[e['id'] for e in north]})")
     ways["Strendur"], ways["Runavík"] = north

@@ -179,6 +179,32 @@ def uradni_list(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
 
 
+# Overpass instances serving the same OpenStreetMap data: a query goes to
+# its own first, then to the others when that one can't be reached, is
+# busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
+
+
+def ask_overpass(url):
+    """An Overpass query's answer, from the first instance that gives one: (status, body, url asked)."""
+    base, query = url.split("?", 1)
+    last = None
+    for host in [base] + [h for h in OVERPASS if h != base]:
+        for wait in (0, 30, 60):
+            time.sleep(wait)
+            try:
+                status, body = get(host + "?" + query, tries=1)
+            except Exception as e:
+                last = f"{host}: {e}"
+                break
+            if status == 200 and not overpass_failed(status, body):
+                return status, body, host + "?" + query
+            last = f"{host}: {status} " + ((json.loads(body).get("remark") or "")[:200] if overpass_failed(status, body) else "")
+            if status not in (429, 502, 503, 504) and not overpass_failed(status, body):
+                break
+    raise RuntimeError(f"Overpass: no instance answered (last: {last})")
+
+
 def overpass_failed(status, body):
     if status != 200:
         return False
@@ -200,10 +226,11 @@ def main(src, out):
     # archive refuses connections when asked too fast, so those it refused
     # are asked again after a pause, with retries. Five refusals in a row
     # mean it is down: the rest wait for the second round, which stops
-    # likewise (the last run's copies are kept). An Overpass query that
-    # can't connect is asked again in that second round too, with retries.
+    # likewise (the last run's copies are kept). Three Overpass queries in
+    # a row that no instance answers mean Overpass is down: the rest keep
+    # the last run's copies.
     sources.sort(key=lambda s: "web.archive.org/" in s["url"])
-    queue, later, refused = sources + [None], [], 0
+    queue, later, refused, dead = sources + [None], [], 0, 0
     while queue:
         s = queue.pop(0)
         if s is None:
@@ -215,6 +242,10 @@ def main(src, out):
         if archive and not s.get("again") and refused >= 5:
             later.append(dict(s, again=True))  # the archive seems down: asked after the pause
             continue
+        if overpass and dead >= 3:
+            errors.append(f"{s['id']}: Overpass is down (three queries in a row unanswered)")
+            print("ERROR", s["id"], "Overpass is down")
+            continue
         if archive and s.get("again") and refused >= 5:
             errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
             print("ERROR", s["id"], "the Internet Archive keeps refusing")
@@ -222,23 +253,17 @@ def main(src, out):
         try:
             if archive:
                 status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
-            elif overpass and s.get("again"):
-                status, body = get(s["url"], tries=3, pause=30)
+            elif overpass:
+                try:
+                    status, body, asked = ask_overpass(s["url"])
+                    dead = 0
+                except Exception:
+                    dead += 1
+                    raise
             else:
                 status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             if archive:
                 refused = 0
-            # Overpass answers 429/502/504 when busy and asks for backoff; a
-            # 200 with an error "remark" is a query that timed out or ran out
-            # of memory (with no or part of its elements): also retried, then an error (so the last
-            # run's copy is kept).
-            for wait in (30, 60, 120, 240):
-                if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):
-                    break
-                time.sleep(wait)
-                status, body = get(s["url"])
-            if "/api/interpreter" in s["url"] and overpass_failed(status, body):
-                raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
             # A source's "expect": what its answer must hold (Overpass at
             # times answers a query without the toll booths near the road):
             # asked again, then an error, so the last run's copy is kept.
@@ -247,7 +272,7 @@ def main(src, out):
                 if status != 200 or not missing(body):
                     break
                 time.sleep(wait)
-                status, body = get(s["url"])
+                status, body = ask_overpass(s["url"])[:2] if overpass else get(s["url"])
             if status == 200 and missing(body):
                 raise RuntimeError(f"the answer lacks {missing(body)}")
             # The Internet Archive's outage page instead of a capture: an
@@ -259,7 +284,7 @@ def main(src, out):
                 ext = ".json"
             if body[:4] == b"%PDF":
                 ext = ".pdf"
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), s["url"], status, body)
+            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), asked if overpass else s["url"], status, body)
             if "riigiteataja.ee/public-api/" in s["url"]:
                 riigiteataja(out, manifest, s["id"], body)
             if "nvdbapiles" in s["url"] and status == 200:
@@ -273,7 +298,7 @@ def main(src, out):
         except Exception as e:
             if archive:
                 refused += 1
-            if (archive or overpass) and not s.get("again"):
+            if archive and not s.get("again"):
                 print("refused, asked again later:", s["id"], e)
                 later.append(dict(s, again=True))
                 continue

@@ -24,9 +24,9 @@ the first quay it passes and leaves at the last, so a crossing that calls
 at a quay on the way is priced from end to end. Stretches with no car
 ferry line in OpenStreetMap (a route can't take them) aren't priced.
 
-Prices exclude the 12% VAT. Moss-Horten has a regulativ of its own and
-isn't built; the toll (bompenger) charged on board Mortavika-Arsvågen
-isn't included.
+Moss-Horten has a regulativ of its own: its price list (no-ferje-mh-pris.txt,
+the operator's fares for the year) by length. Prices exclude the 12% VAT.
+The toll (bompenger) charged on board Mortavika-Arsvågen isn't included.
 
 Usage: python3 no_ferries.py <fetched dir> <out dir>
 """
@@ -45,6 +45,7 @@ HEADER = "<6m 6,01-8m 8,01-10m 10,01-12,5m 12,51-14,5m 14,51-17,5m 17,51-19,5m 1
 MONTHS = {m: i + 1 for i, m in enumerate(("januar", "februar", "mars", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "desember"))}
 URLS = {"price": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf",
         "rules": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf",
+        "mh": "https://cdn.sanity.io/files/ufla9djl/production/5620c5955d8c702afa5cb2b98fae987d75981e97.pdf",
         "answer": "https://www.stortinget.no/globalassets/pdf/dokumentserien/2025-2026/dok15-202526-0699-vedlegg.pdf"}
 
 
@@ -107,6 +108,45 @@ def off(p, line):
     return best
 
 
+def quays_of(route, quays):
+    """A route's quays: name -> (lat, lon), from its NVDB Ferjekai children."""
+    ids = [i for b in (route.get("relasjoner") or {}).get("barn", []) if b.get("type", {}).get("id") == 64 for i in b["vegobjekter"]]
+    qs = {}
+    for i in ids:
+        q = quays.get(i)
+        if q and where(q):
+            qs[re.sub(r"\s+(ferjekai|kai)$", "", prop(q, "Navn") or "", flags=re.I)] = where(q)
+    return qs
+
+
+def quay_points(route, qs, lines):
+    """Each quay's points out on the car ferry lines to the route's other quays."""
+    joins = {}
+    for wid, ln in lines:
+        ends = []
+        for end in (ln[0], ln[-1]):
+            near = sorted((km(end, q), n) for n, q in qs.items())
+            ends.append(near[0][1] if near and near[0][0] <= QUAY_KM else None)
+        if None not in ends and ends[0] != ends[1]:
+            joins.setdefault(frozenset(ends), []).append((wid, ln, ends))
+    points = {}
+    mine = {wid for ws in joins.values() for wid, _, _ in ws}
+    others = [l for i, l in lines if i not in mine]
+    for ws in joins.values():
+        for wid, ln, ends in ws:
+            for q, line in ((ends[0], ln), (ends[1], ln[::-1])):
+                d = POINT_KM
+                while True:
+                    p = along(line, d)
+                    if p is None or km(p, line[-1]) < POINT_KM:
+                        sys.exit(f"Norwegian ferries: {route}: no clear point on the line {wid} from {q}")
+                    if all(off(p, l) > CLEAR_KM for l in others):
+                        break
+                    d += 0.1
+                points.setdefault(q, []).append({"name": f"{q} ferry quay, {round(d, 1)} km out on the line to {ends[1] if q == ends[0] else ends[0]} (OSM way {wid})", "lat": p[0], "lon": p[1]})
+    return points
+
+
 def main(fetched, out):
     try:
         price = open(os.path.join(fetched, "no-ferje-autopass-pris.txt"), encoding="utf-8").read()
@@ -114,6 +154,7 @@ def main(fetched, out):
         answer = open(os.path.join(fetched, "no-stortinget-699.txt"), encoding="utf-8").read()
         routes, quays = objects(fetched, "no-nvdb-770"), {o["id"]: o for o in objects(fetched, "no-nvdb-64")}
         osm = json.load(open(os.path.join(fetched, "no-ferry-ways.json")))
+        mh = open(os.path.join(fetched, "no-ferje-mh-pris.txt"), encoding="utf-8").read()
     except (OSError, ValueError):
         print("Norwegian ferries: a source wasn't fetched; not built")
         return
@@ -157,36 +198,8 @@ def main(fetched, out):
             o = next((v for k, v in by_name.items() if sorted(k.split("-")) == sorted(key(route).split("-"))), None)
         if not o:
             sys.exit(f"Norwegian ferries: {route} isn't a national road ferry route in NVDB")
-        ids = [i for b in (o.get("relasjoner") or {}).get("barn", []) if b.get("type", {}).get("id") == 64 for i in b["vegobjekter"]]
-        qs = {}
-        for i in ids:
-            q = quays.get(i)
-            if q and where(q):
-                qs[re.sub(r"\s+(ferjekai|kai)$", "", prop(q, "Navn") or "", flags=re.I)] = where(q)
-        # The car ferry lines between two of the route's quays, by the quays they join.
-        joins = {}
-        for wid, ln in lines:
-            ends = []
-            for end in (ln[0], ln[-1]):
-                near = sorted((km(end, q), n) for n, q in qs.items())
-                ends.append(near[0][1] if near and near[0][0] <= QUAY_KM else None)
-            if None not in ends and ends[0] != ends[1]:
-                joins.setdefault(frozenset(ends), []).append((wid, ln, ends))
-        points = {}
-        mine = {wid for ws in joins.values() for wid, _, _ in ws}
-        others = [l for i, l in lines if i not in mine]
-        for pair, ws in joins.items():
-            for wid, ln, ends in ws:
-                for q, line in ((ends[0], ln), (ends[1], ln[::-1])):
-                    d, p = POINT_KM, None
-                    while True:
-                        p = along(line, d)
-                        if p is None or km(p, line[-1]) < POINT_KM:
-                            sys.exit(f"Norwegian ferries: {route}: no clear point on the line {wid} from {q}")
-                        if all(off(p, l) > CLEAR_KM for l in others):
-                            break
-                        d += 0.1
-                    points.setdefault(q, []).append({"name": f"{q} ferry quay, {round(d, 1)} km out on the line to {ends[1] if q == ends[0] else ends[0]} (OSM way {wid})", "lat": p[0], "lon": p[1]})
+        qs = quays_of(o, quays)
+        points = quay_points(route, qs, lines)
         stations, prices = {}, {}
         for stretch, zone, ap1_2025, toll in rows:
             ends = stretch.split("–")
@@ -230,21 +243,61 @@ def main(fetched, out):
                         "stations": [{"name": n, "points": pts} for n, pts in sorted(stations.items())], "station_match_km": MATCH_KM,
                         "prices": prices, "discounts": [{"name": "AutoPASS ferry account, business, prepaid (40%)", "etc": True, "percent": 40}]})
         print(route, {k: v["AP6"] for k, v in prices.items()}, {n: len(p) for n, p in stations.items()})
+    # Moss-Horten: its own price list (the operator's, under its own AutoPASS-regulativ), by length.
+    head = re.search(r"Fares (\d\d)\.(\d\d)\.(\d{4}) - (\d\d)\.(\d\d)\.(\d{4})", mh)
+    for needle in ("RV.19 Moss - Horten", "All fares are in Norwegian kroner and include 12% VAT.", "To obtain a 30% discount, you must have a valid AutoPASS-chip",
+                   "Double fare for vehicles with a width of more than 2,6 meters", "has a trailer, the vehicle is assessed according to the total lenght including cargo"):
+        if needle not in re.sub(r"\s+", " ", mh):
+            sys.exit(f"Norwegian ferries: Moss-Horten's price list no longer says {needle!r}")
+    if not head:
+        sys.exit("Norwegian ferries: Moss-Horten's price list has no dates")
+    mh_from, mh_to = f"{head.group(3)}-{head.group(2)}-{head.group(1)}", f"{head.group(6)}-{head.group(5)}-{head.group(4)}"
+    mh_groups, mh_full, mh_etc = [], {}, {}
+    for m in re.finditer(r"^AP(\d) (Inntil [\d,]+|[\d,]+ - [\d,]+|Over [\d,]+) meters\s+(\d+),(\d\d)\s+(\d+),(\d\d)\s+(\d+),(\d\d)", mh, re.M):
+        name, span = f"AP{m.group(1)}", m.group(2).replace(",", ".")
+        full, tag, deal = (int(m.group(k)) + int(m.group(k + 1)) / 100 for k in (3, 5, 7))
+        if abs(full * 0.9 - tag) > 0.01 or abs(full * 0.7 - deal) > 0.01:
+            sys.exit(f"Norwegian ferries: Moss-Horten {name}: {tag} and {deal} aren't 10% and 30% off {full}")
+        g = {"name": name}
+        if span.startswith("Inntil "):
+            g["max_length_m"] = float(span.split()[1])
+        elif span.startswith("Over "):
+            g["min_length_m"] = float(span.split()[1])
+        else:
+            lo, hi = span.split(" - ")
+            g["min_length_m"], g["max_length_m"] = round(float(lo) - 0.01, 2), float(hi)
+        mh_groups.append(g)
+        mh_full[name], mh_etc[name] = round(full / VAT, 2), round(deal / VAT, 2)
+    if [g["name"] for g in mh_groups] != [f"AP{k}" for k in range(1, 10)]:
+        sys.exit(f"Norwegian ferries: Moss-Horten's length groups not read ({[g['name'] for g in mh_groups]})")
+    o = by_name.get(key("Moss - Horten"))
+    qs = quays_of(o, quays) if o else {}
+    points = quay_points("Moss-Horten", qs, lines)
+    if sorted(points) != ["Horten", "Moss"]:
+        sys.exit(f"Norwegian ferries: Moss-Horten's quays or car ferry line not found ({sorted(qs)}, {sorted(points)})")
+    systems.append({"name": "Moss–Horten ferry", "law": f"Rv. 19 Moss-Horten's price list {mh_from} to {mh_to} (its own AutoPASS-regulativ): the full price by length; `etc` with an AutoPASS tag and a prepaid Moss-Horten agreement (30% off)",
+                    "groups": mh_groups, "stations": [{"name": n, "points": pts} for n, pts in sorted(points.items())], "station_match_km": MATCH_KM,
+                    "prices": {"Moss|Horten": mh_full}, "etc_prices": {"Moss|Horten": mh_etc}})
+    print("Moss–Horten", mh_full["AP6"], mh_etc["AP6"], {n: len(p) for n, p in points.items()})
+    start = max(start, mh_from)
     t = {"country": "NO", "currency": "NOK", "valid_from": start, "crossings": True,
          "name": "Norwegian national road ferries (riksvegferjer)",
          "law": (f"AutoPASS-regulativ for ferjetakster from {start} (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's "
                  "total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, "
                  "the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). "
                  "Electric and hydrogen vehicles registered as such pay half (AP2-AP9), which isn't applied here. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting "
-                 "of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. Moss-Horten (a regulativ of its own) isn't priced. "
+                 "of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. "
+                 f"Moss-Horten has a regulativ of its own: the operator's price list from {mh_from} to {mh_to}, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), "
+                 "double for vehicles wider than 2.6 m (not applied). "
                  + " ".join(f"{n}." for n in notes)),
          "sources": [{"title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster, takster (fullpris) fra 1. januar 2026", "url": URLS["price"]},
                      {"title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster fra 1. januar 2026", "url": URLS["rules"]},
                      {"title": "Samferdselsministeren: svar på skriftleg spørsmål nr. 699 (2025-2026), billettpris og takstsone for riksvegferjesambanda", "url": URLS["answer"]},
                      {"title": "NVDB (Statens vegvesen): Ferjesamband (770) and Ferjekai (64)", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/770"},
+                     {"title": f"Rv. 19 Moss-Horten: fares {mh_from} to {mh_to} (Torghatten / Bastø Fosen)", "url": URLS["mh"]},
                      {"title": "OpenStreetMap (Overpass API): car ferry lines (route=ferry) by the quays", "url": "https://www.openstreetmap.org/"}],
          "vehicles": "Vehicles over 3.5 t, by total length with trailer and load (give truck.length_m; 16.5 m assumed)", "min_kg": 3501,
-         "tolled_roads": "Norway's national road ferry routes (riksvegferjesamband) priced by the AutoPASS-regulativ, from quay to quay.",
+         "tolled_roads": "Norway's national road ferry routes (riksvegferjesamband), from quay to quay: those priced by the AutoPASS-regulativ and Moss-Horten.",
          "closed_systems": systems, "rows": []}
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, f"no-ferries-{start}.json")

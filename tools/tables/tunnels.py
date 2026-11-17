@@ -794,18 +794,21 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
     d = json.load(open(p))
     osm = d["elements"]
     stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
-    herrentunnel(transcribed, out, osm, stamp)
-    warnow(browser, out, osm, stamp)
-    westerschelde(fetched, out, osm, stamp)
-    liefkenshoek(browser, out, osm, stamp)
-    gsb(fetched, out, osm, stamp)
-    dartford(fetched, out, osm, stamp)
-    tyne(fetched, out)
-    thames(browser, fetched, out)
-    bridges(browser, fetched, out)
-    envalira(fetched, out)
-    faroe(fetched, out)
-    iceland(fetched, out)
+    # One crossing's source failing doesn't stop the others; the builder
+    # still fails at the end, naming them.
+    failed = []
+    for name, build in (("herrentunnel", lambda: herrentunnel(transcribed, out, osm, stamp)), ("warnow", lambda: warnow(browser, out, osm, stamp)),
+                        ("westerschelde", lambda: westerschelde(fetched, out, osm, stamp)), ("liefkenshoek", lambda: liefkenshoek(browser, out, osm, stamp)),
+                        ("gsb", lambda: gsb(fetched, out, osm, stamp)), ("dartford", lambda: dartford(fetched, out, osm, stamp)),
+                        ("tyne", lambda: tyne(fetched, out)), ("thames", lambda: thames(browser, fetched, out)), ("bridges", lambda: bridges(browser, fetched, out)),
+                        ("envalira", lambda: envalira(fetched, out)), ("faroe", lambda: faroe(fetched, out)), ("iceland", lambda: iceland(fetched, out))):
+        try:
+            build()
+        except (SystemExit, Exception) as e:  # a missing copy raises OSError
+            print(f"{name}: {e}", file=sys.stderr, flush=True)
+            failed.append(name)
+    if failed:
+        sys.exit("crossings: not built for " + ", ".join(failed))
 
 
 if __name__ == "__main__":

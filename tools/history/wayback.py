@@ -44,7 +44,15 @@ def get(url):
     for i in range(3):
         try:
             with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
+                # The archive answers a capture it can't serve by redirecting
+                # to another (of another day): that isn't the capture asked for.
+                want = re.search(r"/web/(\d{14})id_/", url)
+                got = re.search(r"/web/(\d{14})id_/", r.geturl())
+                if want and got and want.group(1)[:8] != got.group(1)[:8]:
+                    raise LookupError(f"redirected to the capture of {got.group(1)}")
                 return r.read()
+        except LookupError:
+            raise
         except Exception as e:
             last = e
             # The archive refuses connections when asked too fast.
@@ -119,7 +127,11 @@ def fetch(s, urls, out, prev=None):
         try:
             body = None
             for ts, orig in reversed(captures(url, where.get("from", s["from"]), where.get("to", s["to"]), where.get("match"), where.get("regex"))[-8:]):
-                b = get(f"https://web.archive.org/web/{ts}id_/{orig}")
+                try:
+                    b = get(f"https://web.archive.org/web/{ts}id_/{orig}")
+                except LookupError as e:
+                    print("not the capture", sid, ts, e)
+                    continue
                 time.sleep(3)
                 if NOT_CONTENT.search(b[:20000]) or (must and not re.search(must.encode(), b)):
                     print("not the content", sid, ts)

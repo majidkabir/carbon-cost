@@ -969,7 +969,7 @@
    "name": "Spanish state toll motorways (SEITT)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "d4a2d805f434dc48d514ce3425454b3542969d94c0942f260e4afdcc46e9364c",
+   "sha256": "266b67728b66db981f1f061061137d8b92ea7a234479b35b0a424c8562726c5d",
    "coverage": "complete"
   },
   {
@@ -1003,6 +1003,17 @@
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
    "sha256": "d94c6af3645ea90b0518b7f517bf8ac1bc6648d0be63d9ad5cb7e9c11daafe63",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fo-tunnels/2026-11-16",
+   "scheme": "fo-tunnels",
+   "country": "FO",
+   "file": "fo/fo-tunnels-2026-11-16.orct.json",
+   "name": "Faroe Islands subsea tunnels",
+   "valid_from": "2026-11-16",
+   "valid_to": null,
+   "sha256": "b6f4c39d141138a13d1aba5e9384c5ba54f866cf1639ddbe3f97ad7112404c85",
    "coverage": "complete"
   },
   {
@@ -1332,7 +1343,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "a393958578f0f79a7f89b3d82093481ee25675474c7642cdb5704dd3d829b9e6",
+   "sha256": "221afb8e2f85ee39b6a6855b4033814aba7164d1075ece537c80a56b1d6f1b1e",
    "coverage": "complete"
   },
   {
@@ -1343,7 +1354,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "0b2b346a4a2026cead617b8f5ddaec514817665c9706f10fe195e667673b7144",
+   "sha256": "46d6e7e57d98ceca963f385b499b81109f5bf9b99ec2c899e1f31ad7c0c556d0",
    "coverage": "complete"
   },
   {
@@ -1497,7 +1508,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "190e3e16d8e050a4f1e17badfb6f634895e7a7b2946603c9f3100c45741c94be",
+   "sha256": "c97627f8d5202d754c5ff288690727d0d7a4c97ab74eef393831f74749873871",
    "coverage": "complete"
   },
   {
@@ -1508,7 +1519,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "a379e76e820d292cbfbd9a60a0cbb2c6635ba6d313a29db58132d1826df57687",
+   "sha256": "e06ce6c49334db66d23e975f5eb58b6eccb57773390b0522bb142ca8751f5a18",
    "coverage": "complete"
   },
   {
@@ -1622,6 +1633,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/is-hornafjordur/2026-09-01",
+   "scheme": "is-hornafjordur",
+   "country": "IS",
+   "file": "is/is-hornafjordur-2026-09-01.orct.json",
+   "name": "Ring Road (1) through Hornafjörður",
+   "valid_from": "2026-09-01",
+   "valid_to": null,
+   "sha256": "c2db3db0f1f857d96d7e107d3b78fc432f939f51558830b50339a6d4da5c89ec",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/is-vadlaheidargong/2026-03-02",
+   "scheme": "is-vadlaheidargong",
+   "country": "IS",
+   "file": "is/is-vadlaheidargong-2026-03-02.orct.json",
+   "name": "Vaðlaheiðargöng tunnel",
+   "valid_from": "2026-03-02",
+   "valid_to": null,
+   "sha256": "c3e084b0c5a16bf17a380d926a645659c02a1503b6fe3e334fd005e6c2eb911c",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/it/2025-01-01",
    "scheme": "it",
    "country": "IT",
@@ -1651,7 +1684,7 @@
    "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "27af0df538cb49c88d1673260bed4f45fb09a1be4b275e34c2a954fd02080120",
+   "sha256": "194c07e1d29d9c3148aafc597c909b1227bea61b63dc24d911775c01fc758e73",
    "coverage": "complete"
   },
   {
@@ -1926,7 +1959,7 @@
    "name": "North Macedonian road tolls (патарина)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-04-30",
-   "sha256": "3f61f877d1f63fe6cee7cf90692aa66f43e1dcd9d86976d60d27b10c38261845",
+   "sha256": "4e7a1d7d69715ad4675ebb339654a5c2a9d046ddd4e431df12c4b9d01e5e58d9",
    "coverage": "complete"
   },
   {
@@ -2245,7 +2278,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "ed3a40b230cb10af81d1a9ca42e55766a820b42c819437bbf2cb74aed759abb0",
+   "sha256": "5b779416fd183769fee6ba86dba39487569b9835368292b744c307692ac96f07",
    "coverage": "complete"
   },
   {
@@ -2256,7 +2289,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "89f5cf308f5aa49c541cee04ff1ff7747094e72255e1e12ecc444d3b6a2e6fb2",
+   "sha256": "bc4c9bfb13871596f05089c5af92516e27d9c2168494103e5420bb7e71320ad0",
    "coverage": "complete"
   },
   {
@@ -2344,7 +2377,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2024-07-10",
    "valid_to": "2025-01-09",
-   "sha256": "53ecfe73093ca8ac786a0affa89a10a85c6d9423858bdc9018145c75347aa278",
+   "sha256": "d12960f7a3fdeecd74ef916c5689bd439cadbe2e4dfb47eedd1f566eacaf1ed6",
    "coverage": "complete"
   },
   {
@@ -2355,7 +2388,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "e03dac33e7ce2f422f5a34b97fcc1ea38fc4d65ec9ac1b5ff7bccb17f59cbf0d",
+   "sha256": "5343e7b5e076986b1ba298a75d20a3f487249f1b26abe92d4dbb6ac33a92809b",
    "coverage": "complete"
   },
   {
@@ -2685,7 +2718,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-05-14",
-   "sha256": "ee084fe08a646f57b5b31460d68bccd2f361db11481ef45283018b8a6788d7ec",
+   "sha256": "015cd89ec7d7a89802bb2002f99f80407e9b26bc2c4b44c58468afa3831d02ef",
    "coverage": "complete"
   },
   {
@@ -2696,7 +2729,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-05-15",
    "valid_to": "2024-08-15",
-   "sha256": "a9354f20638a6a8e19ebe1b32f4368c144b6b6c94291df207c7a998cd6d46f54",
+   "sha256": "c118fed7f355d263ee1a77d93d6ef36b53dbad3323093205d19c276a66b8ea1a",
    "coverage": "complete"
   },
   {
@@ -2707,7 +2740,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-08-16",
    "valid_to": "2025-01-12",
-   "sha256": "7408b45a202299a879d5f4cc46b899e1d8ac9eef716b648b9c932b8c926399ed",
+   "sha256": "f3bc2921cb7a6a93e3ffb65dedce5d5f0d5caaaedb963fdd956b29e134dfa6bd",
    "coverage": "complete"
   },
   {
@@ -2718,7 +2751,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2025-01-13",
    "valid_to": "2025-12-31",
-   "sha256": "cc0d59293a102bc82a441458c9c309ad0ab64c228b8093609857f08fd5eaa1c1",
+   "sha256": "6ddb092e26cf0325d1806992cb9862159d14151ced52c80cc666e3a48a7d94a3",
    "coverage": "complete"
   },
   {
@@ -2729,7 +2762,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "6721ffc26bcfa2ac90bee8f018f3737c7905e33f449d41f5937630f933dd557f",
+   "sha256": "9ac5fb8eef09cbb2860361a733ff45c2c7d70ab1273fbffa673e197b5b5bd62e",
    "coverage": "complete"
   },
   {

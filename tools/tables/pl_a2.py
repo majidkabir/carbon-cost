@@ -26,7 +26,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pl_osm  # noqa: E402
 
 URL = "https://www.autostrada-a2.pl/oplaty/"
-PDF = "https://www.autostrada-a2.pl/wp-content/uploads/2026/09/AW-tabele-oplat-09.2026_0{}.pdf"
+# A price list's tables, by its first day: uploads/<year>/<month>/AW-tabele-oplat-<month>.<year>_0<category>.pdf
+PDF = "https://www.autostrada-a2.pl/wp-content/uploads/{y}/{m}/AW-tabele-oplat-{m}.{y}_0{n}.pdf"
 STATIONS = ["Konin Modła", "Sługocin", "Słupca", "Września", "Poznań Wschód", "Poznań Krzesiny", "Poznań Luboń", "Poznań Komorniki",
             "Poznań Zachód", "Buk", "Nowy Tomyśl", "Trzciel", "Jordanowo", "Torzym", "Rzepin", "Świecko"]
 # OpenStreetMap's names where they differ: the junction names without the town, the plazas' booths.
@@ -69,6 +70,7 @@ def main(fetched, out):
     if not (head and cats):
         sys.exit("A2 Świecko-Konin: the price list's date or categories not read")
     start = f"{head.group(3)}-{head.group(2)}-{head.group(1)}"
+    pdf = lambda n: PDF.format(y=head.group(3), m=head.group(2), n=n)
     tables = {}
     for n in ("2", "3", "4"):
         sub = re.search(r'href="(/oplaty/cennik-kategoria-' + n + r'/|https://www\.autostrada-a2\.pl/oplaty/cennik-kategoria-' + n + r'/)"', page)
@@ -78,8 +80,8 @@ def main(fetched, out):
     # The category pages' PDFs must be the ones fetched (a new price list has new files).
     for n in ("2", "3", "4"):
         p = os.path.join(fetched, f"pl-a2-cat{n}-page.html")
-        if os.path.exists(p) and os.path.basename(PDF.format(n)) not in open(p, encoding="utf-8", errors="replace").read():
-            sys.exit(f"A2 Świecko-Konin: category {n}'s page links to another PDF than {PDF.format(n)}")
+        if os.path.exists(p) and os.path.basename(pdf(n)) not in open(p, encoding="utf-8", errors="replace").read():
+            sys.exit(f"A2 Świecko-Konin: category {n}'s page links to another PDF than {pdf(n)}")
     prices = {}
     for i, a in enumerate(STATIONS):
         for j, b in enumerate(STATIONS):
@@ -112,7 +114,7 @@ def main(fetched, out):
                  "truck's axles count) and whether it tows a trailer. The Poznań ring between Poznań Zachód and Poznań Wschód is free. The e-TOLL doesn't charge this stretch. "
                  "The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. Videotolling prices (Poznań-Konin) aren't modelled."),
          "sources": [{"title": "Autostrada Wielkopolska: Cennik przejazdów", "url": URL}]
-         + [{"title": f"Autostrada Wielkopolska: tabela opłat, kategoria {n}", "url": PDF.format(n)} for n in ("2", "3", "4")]
+         + [{"title": f"Autostrada Wielkopolska: tabela opłat, kategoria {n}", "url": pdf(n)} for n in ("2", "3", "4")]
          + [{"title": "OpenStreetMap (Overpass API): A2 junctions and toll booths", "url": "https://www.openstreetmap.org/"}],
          "vehicles": "Vehicles over 3.5 t (categories 2-4)", "min_kg": 3501,
          "tolled_roads": "A2 Świecko (German border) - Konin (Modła), 255 km; free between Poznań Zachód and Poznań Wschód.",

@@ -19,6 +19,10 @@ jobs:
           curl -fsSL $H -o out/nvdb-64.json "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/64?inkluder=egenskaper,relasjoner,geometri,lokasjon,metadata&srid=4326&antall=1000" || echo FAILED 64
           curl -fsSL $H -o out/nvdb-type-64.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper/64" || true
           curl -fsSL -A "Mozilla/5.0" -o out/stortinget-699.pdf "https://www.stortinget.no/globalassets/pdf/dokumentserien/2025-2026/dok15-202526-0699-vedlegg.pdf" && pdftotext -layout out/stortinget-699.pdf out/stortinget-699.txt || echo FAILED stortinget
+          get() { curl -fsSL --retry 3 -A "Mozilla/5.0" -o "out/$1" "$2" && echo "ok $1" || echo "FAILED $1 $2"; }
+          get no-ferje-autopass-pris.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf"
+          get no-ferje-autopass-reg.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf"
+          for f in out/no-ferje-*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
           python3 - <<'PY'
           import json
           for f in ("out/nvdb-770.json", "out/nvdb-64.json"):

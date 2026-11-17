@@ -3,9 +3,9 @@
 for ending a historical table the day before the next version starts.
 
 The builders that rebuild an older version from the current table's
-structure (stations, sections, rows) take it from templates/: the current
-table as it was built, which tools/orct/check_templates.py keeps equal,
-once converted, to the committed dataset.
+structure (stations, sections, rows) take it as the data workflow that
+builds it last did: the history workflow copies those tables (tables-out,
+hr-out) into fetched/current.
 """
 import json
 import os
@@ -14,7 +14,6 @@ import re
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 INDEX = os.path.join(ROOT, "tariffs", "data", "index.json")
-TEMPLATES = os.path.join(HERE, "templates")
 
 
 def tables(index=INDEX):
@@ -35,7 +34,12 @@ def starts(scheme, index=INDEX):
     return sorted(tb["valid_from"] for name, tb in tables(index) if prefix(name) == scheme)
 
 
-def template(name):
-    """The current table a builder takes its structure from."""
-    with open(os.path.join(TEMPLATES, name), encoding="utf-8") as fh:
+def template(name, fetched=None):
+    """The current table a builder takes its structure from, as a data
+    workflow last built it (the history workflow puts those in
+    fetched/current)."""
+    path = os.path.join(fetched or "", "current", name)
+    if not os.path.exists(path):
+        raise SystemExit(f"no current table {name} in fetched/current (the tables and HR data workflows build it)")
+    with open(path, encoding="utf-8") as fh:
         return json.load(fh)

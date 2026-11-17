@@ -35,6 +35,12 @@ const DefaultVehicleType = "glec/road/eu_sa/artic_34_40t/diesel"
 // default for converting DKK amounts to EUR.
 const DKKPerEUR = 7.46038
 
+// DieselKgCO2PerL is the tank-to-wheel CO2 of a litre of diesel (EN
+// 16258:2012, Annex A, Table A.1: 3.21 kg CO2e per kg at 0.832 kg per
+// litre), for the national taxes charged per litre when the request
+// doesn't give diesel_l.
+const DieselKgCO2PerL = 2.67
+
 // Charge kinds.
 const (
 	RoadToll = "road_toll"
@@ -103,6 +109,11 @@ type Request struct {
 	// alpha-2), for national CO2 prices on fuel. "": bought along the
 	// route, each country's share in proportion to its road km.
 	FuelCountry string `json:"fuel_country,omitempty"`
+	// DieselL is the litres of diesel the trip's road part burns, for the
+	// national taxes charged per litre (Denmark's, Sweden's, Norway's
+	// CO2 taxes...). 0: the road part's tank-to-wheel CO2 divided by
+	// DieselKgCO2PerL.
+	DieselL float64 `json:"diesel_l,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
 	// FX converts other currencies to EUR, in units per euro, e.g.
@@ -155,6 +166,7 @@ type Line struct {
 	Carbon    bool    `json:"carbon"` // a charge on CO2
 	Km        float64 `json:"km,omitempty"`
 	TonnesCO2 float64 `json:"t_co2e,omitempty"`
+	Litres    float64 `json:"litres,omitempty"` // fuel, for taxes per litre
 	Tonnes    float64 `json:"tonnes,omitempty"` // chargeable weight, for rates per tonne-km
 	Rate      float64 `json:"rate"`
 	RateUnit  string  `json:"rate_unit"` // e.g. "DKK/km", "CHF/tkm", "EUR/t CO2e"
@@ -383,7 +395,7 @@ func check(req Request) error {
 	if req.FuelCountry != "" && !regexp.MustCompile(`^[A-Z]{2}$`).MatchString(req.FuelCountry) {
 		return fmt.Errorf("fuel_country %q: give an ISO 3166-1 alpha-2 code, e.g. DE", req.FuelCountry)
 	}
-	if req.EUAEurPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
+	if req.EUAEurPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.DieselL < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
 		return fmt.Errorf("prices, rates and shares can't be negative (ferry_ets_share is 0-1)")
 	}
 	return nil

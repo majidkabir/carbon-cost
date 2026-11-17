@@ -55,8 +55,14 @@ type Truck struct {
 	// MotorAxles is the motor vehicle's own axles, optional: Lithuania's
 	// charge counts those (a tractor's, without the semi-trailer's).
 	MotorAxles int `json:"motor_axles,omitempty"`
-	Euro       int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
-	CO2Class   int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
+	// MotorMassKg and TrailerMassKg are the motor vehicle's and the
+	// trailer's own technically permissible maximum mass, optional:
+	// Iceland's km fee charges each vehicle of a combination on its own.
+	// They need MotorAxles.
+	MotorMassKg   int `json:"motor_mass_kg,omitempty"`
+	TrailerMassKg int `json:"trailer_mass_kg,omitempty"`
+	Euro          int `json:"euro"`      // emission standard 0-6 (EEV counts as 5)
+	CO2Class      int `json:"co2_class"` // EU CO2 emission class 1-5 (5 = zero-emission)
 	// TareKg is the truck's own weight (with trailer), optional: ferries
 	// report freight emissions per tonne of vehicle and cargo.
 	TareKg int `json:"tare_kg,omitempty"`
@@ -94,6 +100,12 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("tare_kg must be >= 0 and below max_mass_kg")
 	case t.LengthM < 0 || t.LengthM > 50:
 		return fmt.Errorf("length_m must be 0-50")
+	case t.MotorMassKg < 0 || t.MotorMassKg > t.MaxMassKg || t.TrailerMassKg < 0 || t.TrailerMassKg > t.MaxMassKg:
+		return fmt.Errorf("motor_mass_kg and trailer_mass_kg must be 0 to max_mass_kg")
+	case (t.MotorMassKg > 0 || t.TrailerMassKg > 0) && t.MotorAxles == 0:
+		return fmt.Errorf("motor_axles is needed with motor_mass_kg or trailer_mass_kg")
+	case t.TrailerMassKg > 0 && t.MotorAxles == t.Axles:
+		return fmt.Errorf("trailer_mass_kg needs a trailer: motor_axles below axles")
 	}
 	return nil
 }

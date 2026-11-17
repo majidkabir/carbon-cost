@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/tr/2024-01-01",
   "scheme": {
@@ -17,7 +17,7 @@
   "currency": "TRY",
   "timezone": "Europe/Istanbul",
   "license": "MIT",
-  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-08); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
+  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-15); 31 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM's tariffs from 1 January 2024, as the Internet Archive kept them in April 2024. İzmir–Çeşme's and Ankara–Niğde's January 2024 tariffs weren't archived, so they aren't priced. The bridges' own 2024 tariffs weren't archived: the 15 Temmuz Şehitler, Fatih Sultan Mehmet and Yavuz Sultan Selim bridges aren't priced alone (Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge); the Osmangazi bridge is priced at Gebze–Bursa's price for it and the 1915 Çanakkale bridge as a station of Malkara–Çanakkale.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "tr-2024-01-01.json"
@@ -6431,7 +6431,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-08"
+   "osm_extract": "2026-11-15"
   }
  }
 }

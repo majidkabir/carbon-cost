@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/gb-tyne-tunnels/2025-05-01",
   "scheme": {
@@ -113,7 +113,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-12"
+   "osm_extract": "2026-11-16"
   }
  }
 }

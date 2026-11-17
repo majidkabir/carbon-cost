@@ -1,5 +1,5 @@
 // Package tariffs holds the rate tables carbon-cost prices with, as ORCT
-// 0.2 datasets (package orct), embedded from data/: each toll scheme,
+// 0.3 datasets (package orct), embedded from data/: each toll scheme,
 // crossing, zone and national CO2 price on fuel, one dataset per version.
 // The workflows build them from the official sources and convert them
 // (tools/orct/convert.py); nothing else is read.

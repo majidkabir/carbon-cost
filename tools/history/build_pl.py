@@ -11,7 +11,7 @@ with the trailer), and buses, by EURO class (max. EURO 2, EURO 3, EURO 4,
 min. EURO 5). The 2026 rates held until Dz.U. 2026 poz. 33 replaced them
 on 1 February 2026.
 """
-import json, os, re, sys
+import json, os, re, subprocess, sys
 
 YEARS = [  # (file, valid_from, valid_to, M.P. reference, URL)
     ("pl-mp-2023-1459", "2024-01-01", "2024-12-31", "M.P. 2023 poz. 1459 (obwieszczenie of 20 December 2023)", "https://eli.gov.pl/eli/MP/2023/1459/ogl/pol/pdf"),
@@ -21,22 +21,56 @@ YEARS = [  # (file, valid_from, valid_to, M.P. reference, URL)
 EURO = [[0, 1, 2], [3], [4], None]  # min. EURO 5: any other class
 
 
+def rows_of(txt, f):
+    """The rows of the two rate annexes: lines of four rates (EURO classes),
+    over 3.5 t and under 12 t, 12 t or more, buses, for class A/S roads and
+    then for GP/G roads."""
+    lines = [[float(x.replace(",", ".")) for x in re.findall(r"\b\d,\d\d\b", l)] for l in txt.splitlines()]
+    lines = [l for l in lines if len(l) == 4]
+    assert len(lines) == 6, (f, lines)
+    rows = []
+    for road, (light, heavy) in (("motorway", lines[0:2]), ("other", lines[3:5])):
+        for (lo, hi), vals in (((3501, 11999), light), ((12000, 0), heavy)):
+            for e, v in zip(EURO, vals):
+                r = {"component": "toll", "road": road, "min_kg": lo}
+                if hi:
+                    r["max_kg"] = hi
+                if e:
+                    r["euro"] = e
+                rows.append(r | {"rate": v})
+    return rows
+
+
+def du_2026_33(fetched, out):
+    """From 1 February 2026: Dz. U. 2026 poz. 33, Annexes 3 and 4 (its
+    rates hold until the next year's obwieszczenie)."""
+    path = os.path.join(fetched, "pl-du-2026-33.pdf")
+    subprocess.run(["pdftotext", "-layout", path, path[:-4] + ".txt"], check=True)
+    txt = open(path[:-4] + ".txt", encoding="utf-8").read()
+    if "Rozporządzenie wchodzi w życie z dniem 1 lutego 2026 r." not in txt:
+        sys.exit("pl-du-2026-33: not in force from 1 February 2026")
+    txt = txt[txt.index("Załącznik nr 3"):]
+    tb = {
+        "country": "PL", "currency": "PLN", "valid_from": "2026-02-01", "valid_to": "2026-12-31",
+        "name": "Polish electronic toll (e-TOLL)",
+        "law": "Rozporządzenie Rady Ministrów z dnia 8 stycznia 2026 r. (Dz. U. 2026 poz. 33), amending the regulation of 22 March 2011 on national roads subject to the electronic toll and its rates; Annexes 3 (class A and S roads) and 4 (class GP and G roads), in force 1 February 2026. Rates by permissible total mass (with trailer: over 3.5 t and under 12 t; 12 t or more) and EURO class (max. EURO 2, EURO 3, EURO 4, min. EURO 5); no CO2 component.",
+        "sources": [{"title": "Dz. U. 2026 poz. 33 (e-TOLL network and rates from 1 February 2026)", "url": "https://eli.gov.pl/eli/DU/2026/33/ogl/pol/pdf"},
+                    {"title": "KAS: changes in e-TOLL from 1 February 2026", "url": "https://www.gov.pl/web/kss/zmiany-w-systemie-e-toll-od-1-lutego-2026-r"}],
+        "vehicles": "Motor vehicles and combinations over 3.5 t permissible total mass (with trailer), and buses",
+        "min_kg": 3501,
+        "tolled_roads": "e-TOLL sections of national roads: motorways and expressways (class A, S) and main roads (GP, G), about 5,870 km. Not included: the concession motorway sections (A1 Rusocin-Toruń, A2 Świecko-Konin, A4 Katowice-Kraków), charged by their operators.",
+        "motorway_share": 1,
+        "rows": rows_of(txt, "pl-du-2026-33"),
+    }
+    path = os.path.join(out, "pl-2026-02-01.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, len(tb["rows"]), "rows")
+
+
 def main(fetched, out):
     for f, frm, to, ref, url in YEARS:
         txt = open(os.path.join(fetched, f + ".txt"), encoding="utf-8").read()
-        lines = [[float(x.replace(",", ".")) for x in re.findall(r"\b\d,\d\d\b", l)] for l in txt.splitlines()]
-        lines = [l for l in lines if len(l) == 4]
-        assert len(lines) == 6, (f, lines)
-        rows = []
-        for road, (light, heavy) in (("motorway", lines[0:2]), ("other", lines[3:5])):
-            for (lo, hi), vals in (((3501, 11999), light), ((12000, 0), heavy)):
-                for e, v in zip(EURO, vals):
-                    r = {"component": "toll", "road": road, "min_kg": lo}
-                    if hi:
-                        r["max_kg"] = hi
-                    if e:
-                        r["euro"] = e
-                    rows.append(r | {"rate": v})
+        rows = rows_of(txt, f)
         tb = {
             "country": "PL", "currency": "PLN", "valid_from": frm, "valid_to": to,
             "name": "Polish electronic toll (e-TOLL)",
@@ -52,6 +86,7 @@ def main(fetched, out):
         path = os.path.join(out, f"pl-{frm}.json")
         json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
         print(path, len(rows), "rows")
+    du_2026_33(fetched, out)
 
 
 if __name__ == "__main__":

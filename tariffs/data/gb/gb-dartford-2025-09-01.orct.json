@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/gb-dartford/2025-09-01",
   "scheme": {
@@ -173,7 +173,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-11"
+   "osm_extract": "2026-11-16"
   }
  }
 }

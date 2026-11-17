@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "carbon-cost/gr/2025-01-01",
   "scheme": {
@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Athens",
   "license": "MIT",
-  "method": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2025 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths; Egnatia Odos and Attiki Odos aren't included. Built from the Internet Archive's copies of the 2025 pages. Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced.",
+  "method": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2025 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths. Egnatia Odos isn't included. Attiki Odos isn't included. Built from the Internet Archive's copies of the 2025 pages. Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "gr-2025-01-01.json"
@@ -1614,7 +1614,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-09"
+   "osm_extract": "2026-11-15"
   }
  }
 }

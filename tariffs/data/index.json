@@ -60,6 +60,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/at-felbertauern/2026-01-01",
+   "scheme": "at-felbertauern",
+   "country": "AT",
+   "file": "at/at-felbertauern-2026-01-01.orct.json",
+   "name": "Felbertauerntunnel toll (Felbertauernstraße)",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "006c0efd4b0b51507d7a7e7d0c9a6a1e84a833302de4ec37e3d0994cbaebb293",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fuelco2-at/2024-01-01",
    "scheme": "fuelco2-at",
    "country": "AT",
@@ -2125,6 +2136,17 @@
    "valid_from": "2026-11-12",
    "valid_to": null,
    "sha256": "f3139738f76b1b46a7fae0279884814feca2cfaa8df01d2930896ad7c4f4b7b6",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/no-ferries/2026-01-01",
+   "scheme": "no-ferries",
+   "country": "NO",
+   "file": "no/no-ferries-2026-01-01.orct.json",
+   "name": "Norwegian national road ferries (riksvegferjer)",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "c89757db99991fc54a1ca1065089c691e5190fad279779bb6d89a7185556deea",
    "coverage": "complete"
   },
   {

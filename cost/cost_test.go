@@ -2972,3 +2972,102 @@ func TestPolandA4History(t *testing.T) {
 		}
 	}
 }
+
+// The Felbertauerntunnel's toll plaza south of the tunnel, per passage
+// either way, VAT included (Mauttarife from 1 January 2026): over 3.5 t
+// with 2 axles 36 EUR, 3 axles 54, 4 or more 72.
+func TestFelbertauern(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	path := [][2]float64{{12.50, 47.10}, {12.504675, 47.11759}, {12.51, 47.14}}
+	for _, tc := range []struct {
+		truck rates.Truck
+		want  float64
+	}{
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 36},
+		{rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 54},
+		{truck40, 72},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 10, CountryKm: map[string]float64{"AT": 10}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Felbertauern") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%+v: %.2f, want %.2f: %v", tc.truck, got, tc.want, r.Lines)
+		}
+	}
+}
+
+// Norway's national road ferries, 2026 AutoPASS-regulativ less 12% VAT:
+// Halsa-Kanestraum is zone 6, 441 NOK for 14.51-17.5 m (16.5 m assumed),
+// 579 over 22 m, 40% off with a business ferry account; Vangsnes to
+// Dragsvik by way of Hella is one ticket, zone 6; Bodø-Moskenes zone 95,
+// 2,252; Skipavik-Nesvik is free (no line); a road past both Molde-Vestnes
+// quays that doesn't take the ferry pays nothing. Moss-Horten's own list:
+// 1,371 NOK for 14.01-17.5 m, 959.70 with a Moss-Horten agreement.
+func TestNorwayFerries(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	join := func(parts ...[][2]float64) [][2]float64 {
+		var out [][2]float64
+		for _, p := range parts {
+			out = append(out, p...)
+		}
+		return out
+	}
+	// The OpenStreetMap car ferry lines (ways 23112418, 14329891 and
+	// 1375717924, 23212730 reversed, 43767530), with a road at each end.
+	halsa := join([][2]float64{{8.10, 63.05}}, [][2]float64{{8.12524, 63.05325}, {8.12811, 63.05385}, {8.22562, 63.06815}, {8.22699, 63.06833}}, [][2]float64{{8.24, 63.075}})
+	vangsnesDragsvik := join([][2]float64{{6.66, 61.17}},
+		[][2]float64{{6.63755, 61.17512}, {6.63783, 61.17522}, {6.63808, 61.17537}, {6.63826, 61.17553}, {6.6383, 61.17566}, {6.63818, 61.17594}, {6.63797, 61.17621}, {6.63755, 61.17647}, {6.59353, 61.2015}, {6.59079, 61.20344}, {6.59017, 61.20432}, {6.58984, 61.20515}, {6.58993, 61.20597}, {6.59023, 61.20669}, {6.59069, 61.20718}, {6.59172, 61.20754}, {6.59284, 61.2077}, {6.5937, 61.20773}, {6.59588, 61.2077}, {6.59752, 61.20756}},
+		[][2]float64{{6.59589, 61.20775}, {6.59414, 61.20803}, {6.59026, 61.20877}, {6.57677, 61.2122}, {6.56982, 61.21388}, {6.56691, 61.21452}}, [][2]float64{{6.55, 61.22}})
+	bodoMoskenes := join([][2]float64{{14.40, 67.285}}, [][2]float64{{14.39369, 67.28836}, {14.39261, 67.28866}, {14.39181, 67.28881}, {14.39098, 67.28891}, {14.38976, 67.28891}, {14.38856, 67.28884}, {14.38634, 67.28853}, {14.37719, 67.28725}, {14.37163, 67.28645}, {14.36136, 67.28497}, {14.35574, 67.28408}, {14.33116, 67.27962}, {14.32825, 67.27915}, {14.32537, 67.2788}, {14.30855, 67.27708}, {14.30546, 67.27688}, {14.30156, 67.2767}, {14.29721, 67.27666}, {14.29068, 67.27666}, {14.28264, 67.27704}, {14.27765, 67.2776}, {14.2755, 67.27816}, {14.2736, 67.27888}, {14.2719, 67.27984}, {14.26999, 67.28159}, {14.2679, 67.28417}, {14.25785, 67.30903}, {14.25343, 67.31701}, {14.24799, 67.32387}, {14.23802, 67.33187}, {14.22667, 67.33713}, {14.21232, 67.34295}, {14.18444, 67.35251}, {14.16693, 67.35737}, {14.13202, 67.36626}, {14.10205, 67.37405}, {14.05235, 67.38659}, {14.00891, 67.39754}, {14.00368, 67.40001}, {14.00168, 67.40364}, {14.0035, 67.40863}, {14.00867, 67.4193}, {14.01117, 67.42902}, {14.01034, 67.43248}, {14.00742, 67.43489}, {14.00274, 67.4364}, {13.99454, 67.43845}, {13.98953, 67.44034}, {13.97811, 67.44584}, {13.85504, 67.50695}, {13.63384, 67.61182}, {13.27458, 67.78453}, {13.18915, 67.82872}, {13.08186, 67.87785}, {13.05361, 67.88966}, {13.04807, 67.89243}, {13.04288, 67.89505}, {13.0399, 67.89645}, {13.03903, 67.89722}, {13.03924, 67.89803}, {13.03973, 67.89871}, {13.04046, 67.89918}, {13.04188, 67.89957}, {13.0438, 67.89983}}, [][2]float64{{13.05, 67.905}})
+	skipavikNesvik := join([][2]float64{{6.08, 59.25}}, [][2]float64{{6.09531, 59.25306}, {6.09585, 59.25309}, {6.09674, 59.25311}, {6.09761, 59.25309}, {6.09902, 59.25294}, {6.10162, 59.25274}, {6.10299, 59.25269}, {6.10513, 59.25268}, {6.10718, 59.25271}, {6.11123, 59.25306}, {6.14803, 59.25718}, {6.15267, 59.2578}, {6.15668, 59.25853}, {6.15842, 59.25888}, {6.15915, 59.2591}, {6.16006, 59.25944}, {6.16035, 59.25965}, {6.16051, 59.25993}, {6.16055, 59.26026}, {6.16043, 59.26043}, {6.16012, 59.26071}, {6.15925, 59.26154}}, [][2]float64{{6.165, 59.265}})
+	mossHorten := join([][2]float64{{10.67, 59.435}}, [][2]float64{{10.65425, 59.42944}, {10.65393, 59.42782}, {10.65345, 59.42646}, {10.6526, 59.4252}, {10.65066, 59.42344}, {10.64779, 59.42152}, {10.64459, 59.41958}, {10.63775, 59.41641}, {10.62495, 59.41207}, {10.60398, 59.41068}, {10.58273, 59.41043}, {10.56147, 59.41019}, {10.54022, 59.40994}, {10.51896, 59.40969}, {10.50001, 59.41088}, {10.49088, 59.41213}, {10.48938, 59.41214}}, [][2]float64{{10.47, 59.41}}) // OSM way 228431771
+	byRoad := [][2]float64{{7.18, 62.74}, {7.169748, 62.737084}, {7.30, 62.60}, {7.085033, 62.651616}, {7.0, 62.66}}
+	ferry := func(r Response) (float64, int) {
+		var sum float64
+		var n int
+		for _, l := range r.Lines {
+			if l.Component == rates.Toll && strings.Contains(l.Section, " ferry: ") {
+				sum += l.Amount
+				n++
+			}
+		}
+		return sum, n
+	}
+	long := truck40
+	long.LengthM = 25.25
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		etc   bool
+		want  float64
+		lines int
+	}{
+		{"Halsa-Kanestraum", halsa, truck40, false, 393.75, 1},
+		{"Halsa-Kanestraum over 22 m", halsa, long, false, 516.96, 1},
+		{"Halsa-Kanestraum, business account", halsa, truck40, true, 236.25, 1},
+		{"Vangsnes-Hella-Dragsvik", vangsnesDragsvik, truck40, false, 393.75, 1},
+		{"Bodø-Moskenes", bodoMoskenes, truck40, false, 2010.71, 1},
+		{"Skipavik-Nesvik", skipavikNesvik, truck40, false, 0, 0}, // a 0 ticket adds no line
+		{"by road past Molde and Furneset", byRoad, truck40, false, 0, 0},
+		{"Moss-Horten", mossHorten, truck40, false, 1224.11, 1},
+		{"Moss-Horten, agreement", mossHorten, truck40, true, 856.88, 1},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"NO": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: tc.etc, FX: map[string]float64{"NOK": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if got, n := ferry(r); math.Abs(got-tc.want) > 0.011 || n != tc.lines {
+			t.Errorf("%s: %.2f NOK in %d lines, want %.2f in %d: %v", tc.name, got, n, tc.want, tc.lines, r.Notes)
+		}
+	}
+}

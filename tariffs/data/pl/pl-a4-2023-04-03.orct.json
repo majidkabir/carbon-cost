@@ -1,0 +1,170 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/pl-a4/2023-04-03",
+  "scheme": {
+   "id": "pl-a4",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "country": "PL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2023-04-03",
+  "valid_to": "2024-01-15",
+  "currency": "PLN",
+  "timezone": "Europe/Warsaw",
+  "license": "MIT",
+  "method": "Stalexport Autostrada Małopolska's tolls (cennik) from 2023-04-03, collected at each of the two toll plazas (Mysłowice and Balice), either way, as the price paid at the plaza: category 2 (two axles with twin wheels, or two axles with trailers) PLN 27, category 3 (three axles, or two axles with twin wheels with trailers) PLN 27, category 4 (more than three axles, or three axles with trailers) PLN 46. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. The e-TOLL doesn't charge this stretch. The plazas are placed at their named toll booths in OpenStreetMap. Discounts for automatic payment (A4Go, videotolling) aren't modelled. Rebuilt from the Internet Archive's copies of these pages (2023).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "pl-a4-2023-04-03.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Stalexport Autostrada Małopolska: press release of 30.03.2023, the tolls from 2023-04-03 at each toll plaza",
+   "url": "https://www.autostrada-a4.com.pl/en/o-nas/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): toll booths of the Mysłowice (Brzęczkowice) and Balice plazas",
+   "url": "https://www.openstreetmap.org/"
+  },
+  {
+   "id": "s3",
+   "title": "Internet Archive copy of https://www.autostrada-a4.com.pl/en/about-us/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551 (20250211)",
+   "url": "https://web.archive.org/web/20250211190901/https://www.autostrada-a4.com.pl/en/about-us/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "axles": {
+       "min": 3,
+       "max": 3
+      },
+      "trailer": true
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "axles": {
+       "min": 3,
+       "max": 3
+      },
+      "trailer": false
+     }
+    },
+    {
+     "id": "pt-1.4",
+     "criteria": {
+      "axles": {
+       "max": 2
+      },
+      "trailer": true
+     }
+    },
+    {
+     "id": "pt-1.5",
+     "criteria": {
+      "axles": {
+       "max": 2
+      },
+      "trailer": false
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "A4 Mysłowice toll plaza",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [19.185826, 50.196736]
+    },
+    "match_m": 300
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "A4 Balice toll plaza",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [19.791352, 50.08319]
+    },
+    "match_m": 300
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "46"],
+    ["pt1", "pt-1.2", "46"],
+    ["pt1", "pt-1.3", "27"],
+    ["pt1", "pt-1.4", "27"],
+    ["pt1", "pt-1.5", "27"],
+    ["pt2", "pt-1.1", "46"],
+    ["pt2", "pt-1.2", "46"],
+    ["pt2", "pt-1.3", "27"],
+    ["pt2", "pt-1.4", "27"],
+    ["pt2", "pt-1.5", "27"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

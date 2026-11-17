@@ -2911,6 +2911,7 @@ func TestPolandA4History(t *testing.T) {
 		day        time.Time
 		cat3, cat4 float64
 	}{
+		{time.Date(2024, 1, 10, 0, 0, 0, 0, time.UTC), 54, 92}, // the tolls of 3 April 2023 (Stalexport's press release)
 		{time.Date(2024, 2, 1, 0, 0, 0, 0, time.UTC), 54, 92},
 		{time.Date(2024, 6, 1, 0, 0, 0, 0, time.UTC), 58, 98},
 		{time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC), 60, 104},

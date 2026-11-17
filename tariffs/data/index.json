@@ -2260,6 +2260,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/pl-a4/2023-04-03",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2023-04-03.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2023-04-03",
+   "valid_to": "2024-01-15",
+   "sha256": "3cacafd7c79cdeefd34e68fda0142e053da212e1b4018b63e3aab279ad129085",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl-a4/2024-01-16",
    "scheme": "pl-a4",
    "country": "PL",

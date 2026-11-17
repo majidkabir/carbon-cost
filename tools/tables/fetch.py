@@ -190,7 +190,7 @@ def ask_overpass(url):
     base, query = url.split("?", 1)
     last = None
     for host in [base] + [h for h in OVERPASS if h != base]:
-        for wait in (0, 30, 60):
+        for wait in (0, 30, 60, 120) if host == base else (0, 30):
             time.sleep(wait)
             try:
                 status, body = get(host + "?" + query, tries=1)
@@ -226,9 +226,10 @@ def main(src, out):
     # archive refuses connections when asked too fast, so those it refused
     # are asked again after a pause, with retries. Five refusals in a row
     # mean it is down: the rest wait for the second round, which stops
-    # likewise (the last run's copies are kept). Three Overpass queries in
-    # a row that no instance answers mean Overpass is down: the rest keep
-    # the last run's copies.
+    # likewise (the last run's copies are kept). An Overpass query no
+    # instance answers is asked again in that second round; three in a row
+    # mean Overpass is down, and the rest wait for the second round too,
+    # which stops likewise.
     sources.sort(key=lambda s: "web.archive.org/" in s["url"])
     queue, later, refused, dead = sources + [None], [], 0, 0
     while queue:
@@ -236,13 +237,16 @@ def main(src, out):
         if s is None:
             if later:
                 time.sleep(120)
-                queue, later, refused = later, [], 0
+                queue, later, refused, dead = later, [], 0, 0
             continue
         archive, overpass = "web.archive.org/" in s["url"], "/api/interpreter" in s["url"]
         if archive and not s.get("again") and refused >= 5:
             later.append(dict(s, again=True))  # the archive seems down: asked after the pause
             continue
         if overpass and dead >= 3:
+            if not s.get("again"):
+                later.append(dict(s, again=True))  # Overpass seems down: asked after the pause
+                continue
             errors.append(f"{s['id']}: Overpass is down (three queries in a row unanswered)")
             print("ERROR", s["id"], "Overpass is down")
             continue
@@ -298,7 +302,7 @@ def main(src, out):
         except Exception as e:
             if archive:
                 refused += 1
-            if archive and not s.get("again"):
+            if (archive or overpass) and not s.get("again"):
                 print("refused, asked again later:", s["id"], e)
                 later.append(dict(s, again=True))
                 continue

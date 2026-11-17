@@ -463,7 +463,7 @@
    "name": "Czech electronic toll (Mýto CZ)",
    "valid_from": "2021-01-01",
    "valid_to": "2024-02-29",
-   "sha256": "ab57502a091abdba4e700e7f0163c24a121bcd5766a1c1d8ab8ad0ca9f3760e6",
+   "sha256": "b8b62dbc75780ca797be20ac2e5fd7f64bc08eff79718d7884d99408e05c12e9",
    "coverage": "complete"
   },
   {
@@ -2125,6 +2125,17 @@
    "valid_from": "2026-11-12",
    "valid_to": null,
    "sha256": "f3139738f76b1b46a7fae0279884814feca2cfaa8df01d2930896ad7c4f4b7b6",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-pl/2024-01-01",
+   "scheme": "fuelco2-pl",
+   "country": "PL",
+   "file": "pl/fuelco2-pl-2024-01-01.orct.json",
+   "name": "Opłata emisyjna on diesel",
+   "valid_from": "2024-01-01",
+   "valid_to": null,
+   "sha256": "67958d706a83c576acfabecb81d0f33692f43e53c88c739c081ec6539a43cced",
    "coverage": "complete"
   },
   {

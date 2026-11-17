@@ -871,6 +871,43 @@ func TestAlpineTunnels(t *testing.T) {
 	}
 }
 
+// The Maurice-Lemaire tunnel (APRR, barrier at Lusse) and the Puymorens
+// tunnel (ASF): class 3 (two axles) 19.00 and 26.40 EUR with VAT, class 4
+// 31.90 and 43.50 (APRR's TML sheet of 1 February 2026, ASF's guide of 1
+// June 2026); priced without the 20% VAT.
+func TestFrenchTunnels(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	lusse := [][2]float64{{7.05, 48.29}, {7.08457, 48.29216}, {7.12, 48.27}}
+	puymorens := [][2]float64{{1.80, 42.56}, {1.82396, 42.53961}, {1.85, 42.52}}
+	rigid := rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		path  [][2]float64
+		name  string
+		truck rates.Truck
+		want  float64
+	}{
+		{lusse, "Lusse", truck40, 31.90 / 1.2},
+		{lusse, "Lusse", rigid, 19.00 / 1.2},
+		{puymorens, "Puymorens", truck40, 43.50 / 1.2},
+		{puymorens, "Puymorens", rigid, 26.40 / 1.2},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"FR": 20}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, tc.name) {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s %+v: %.2f, want %.2f: %v", tc.name, tc.truck, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Atlandes prices its two A63 barriers by EURO class; the pairs of the
 // other French operators fall back on classes 3 and 4.
 func TestAtlandesEuro(t *testing.T) {

@@ -1,0 +1,107 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/is-vadlaheidargong/2026-03-02",
+  "scheme": {
+   "id": "is-vadlaheidargong",
+   "name": "Vaðlaheiðargöng tunnel",
+   "country": "IS"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-03-02",
+  "currency": "ISK",
+  "timezone": "Atlantic/Reykjavik",
+  "license": "MIT",
+  "method": "Vaðlaheiðargöng hf.'s price list in force from 2026-03-02, single trips: vehicles of 3.5-7.5 t ISK 3087, of 7.5 t and over ISK 6505, each direction (11% VAT included). Free-flow (number plates); placed at the middle of the tunnel's way in OpenStreetMap. Prepaid trips and subscriptions (for vehicles under 3.5 t) aren't modelled.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "is-vadlaheidargong-2026-03-02.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Vaðlaheiðargöng: Verð & greiðsluleiðir",
+   "url": "https://www.veggjald.is/verd-greidsluleidir"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Vaðlaheiðargöng",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-17.986043, 65.711112]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "3087"], ["pt1", "pt-1.2", "6505"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

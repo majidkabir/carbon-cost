@@ -1,6 +1,7 @@
 """Builds the A2 Świecko-Konin concession toll (pl-a2-<date>.json) from
 Autostrada Wielkopolska's price list: its page (pl-a2-tolls.html: the date
-the price list holds from and the links to the tables) and the tables of
+the price list holds from, or, for lists before the page gave it, the
+operator's announcement in pl-a2-news.html, and the links to the tables) and the tables of
 categories 2, 3 and 4 (pl-a2-cat2.txt, pl-a2-cat3.txt, pl-a2-cat4.txt,
 pdftotext -layout of the PDFs): the price from each of the sixteen
 stations to each other, standard (manual) prices.
@@ -26,7 +27,11 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pl_osm  # noqa: E402
 
 URL = "https://www.autostrada-a2.pl/oplaty/"
-PDF = "https://www.autostrada-a2.pl/wp-content/uploads/2026/09/AW-tabele-oplat-09.2026_0{}.pdf"
+# A price list's tables, by its first day: uploads/<year>/<month>/AW-tabele-oplat-<month>.<year>_0<category>.pdf
+PDF = "https://www.autostrada-a2.pl/wp-content/uploads/{y}/{m}/AW-tabele-oplat-{m}.{y}_0{n}.pdf"
+# The announcement of the price list of 11 March 2025 (the page then gave no date).
+NEWS = "https://www.autostrada-a2.pl/en/news/change-of-toll-rates-for-a2-motorway-in-nowy-tomysl-konin-section/"
+MONTHS = {m: f"{i + 1:02d}" for i, m in enumerate(["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"])}
 STATIONS = ["Konin Modła", "Sługocin", "Słupca", "Września", "Poznań Wschód", "Poznań Krzesiny", "Poznań Luboń", "Poznań Komorniki",
             "Poznań Zachód", "Buk", "Nowy Tomyśl", "Trzciel", "Jordanowo", "Torzym", "Rzepin", "Świecko"]
 # OpenStreetMap's names where they differ: the junction names without the town, the plazas' booths.
@@ -63,23 +68,70 @@ def main(fetched, out):
         return
     text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", page)))
     head = re.search(r"cennik obowiązuje od (\d\d)\.(\d\d)\.(\d{4}) roku", text)
+    news, announced = None, {}
+    if head:
+        head = head.groups()
+    else:
+        # Until mid-2025 the page gave no date: Autostrada Wielkopolska's
+        # announcement of the change (pl-a2-news.html) does.
+        try:
+            raw = open(os.path.join(fetched, "pl-a2-news.html"), encoding="utf-8", errors="replace").read()
+        except OSError:
+            raw = ""
+        # The announcement's summary (its description) names the day: "As of
+        # 11 March 2025, toll rates will change", "effective on 11 March 2026".
+        desc = re.search(r'<meta name="description" content="([^"]*)"', raw)
+        body = desc.group(1) if desc else re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S))
+        m = re.search(r"(?:[Aa]s of|[Ee]ffective(?: on)?) (\d{1,2}) (" + "|".join(MONTHS) + r") (\d{4})", re.sub(r"\s+", " ", html.unescape(body)))
+        if m:
+            head = (f"{int(m.group(1)):02d}", MONTHS[m.group(2)], m.group(3))
+            link = re.search(r'<link rel="canonical" href="([^"]+)"', raw)
+            title = re.search(r"<h1[^>]*>(.*?)</h1>", raw, re.S)
+            title = html.unescape(re.sub(r"<[^>]+>|\s+", " ", title.group(1))).strip() if title else "announcement"
+            news = {"title": f"Autostrada Wielkopolska: {title} (from {m.group(1)} {m.group(2)} {m.group(3)})",
+                    "url": link.group(1) if link else NEWS}
+            # The rate it gives for each 50 km section between Nowy Tomyśl
+            # and Konin, by category: "PLN 118 – class 4", "PLN 146 – Cat. 4".
+            text_news = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S))))
+            for amount, cat in re.findall(r"PLN (\d+) [–-] (?:[Cc]lass|Cat\.|[Cc]ategory) ([2-4])\b", text_news):
+                announced.setdefault(cat, set()).add(float(amount))
     cats = re.search(r"Pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze oraz pojazdy samochodowe o dwóch osiach z przyczepami .{0,60}?"
                      r"Pojazdy samochodowe o trzech osiach oraz pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze z przyczepami .{0,60}?"
                      r"Pojazdy samochodowe o więcej niż trzech osiach oraz pojazdy samochodowe o trzech osiach z przyczepami", text)
     if not (head and cats):
         sys.exit("A2 Świecko-Konin: the price list's date or categories not read")
-    start = f"{head.group(3)}-{head.group(2)}-{head.group(1)}"
+    start = f"{head[2]}-{head[1]}-{head[0]}"
+    # The tables' files: as the Wayback runs fetched them (an old list's
+    # files aren't always in its month's folder), else by the list's date.
+    try:
+        got = {e["id"]: e["url"] for e in json.load(open(os.path.join(fetched, "wb-manifest.json"))) if e.get("url")}
+    except (OSError, ValueError):
+        got = {}
+    pdf = lambda n: got.get(f"pl-a2-cat{n}") or PDF.format(y=head[2], m=head[1], n=n)
+    named = all(pdf(n).endswith(f"AW-tabele-oplat-{head[1]}.{head[2]}_0{n}.pdf") for n in ("2", "3", "4"))
     tables = {}
     for n in ("2", "3", "4"):
         sub = re.search(r'href="(/oplaty/cennik-kategoria-' + n + r'/|https://www\.autostrada-a2\.pl/oplaty/cennik-kategoria-' + n + r'/)"', page)
         if not sub:
             sys.exit(f"A2 Świecko-Konin: no link to category {n}'s price list")
         tables[n] = matrix(os.path.join(fetched, f"pl-a2-cat{n}.txt"))
+    # The announcement's rate per section is the table's Konin Modła -
+    # Września price (one section). A table whose file isn't named for its
+    # list (the March 2024 list kept the 2023 files' names) is taken only
+    # when the announcement confirms every category.
+    for n in ("2", "3", "4"):
+        one = tables[n][0][STATIONS.index("Września")]
+        if n in announced and one not in announced[n]:
+            sys.exit(f"A2 Świecko-Konin: category {n}'s table has PLN {one:g} a section, the announcement {sorted(announced[n])}")
+    if not named and not all(n in announced for n in ("2", "3", "4")):
+        sys.exit(f"A2 Świecko-Konin: the tables' files aren't named for the list of {start} and no announcement confirms them")
+    if announced:
+        print("A2 Świecko-Konin: the announced rates per section agree:", {n: sorted(v) for n, v in sorted(announced.items())})
     # The category pages' PDFs must be the ones fetched (a new price list has new files).
     for n in ("2", "3", "4"):
         p = os.path.join(fetched, f"pl-a2-cat{n}-page.html")
-        if os.path.exists(p) and os.path.basename(PDF.format(n)) not in open(p, encoding="utf-8", errors="replace").read():
-            sys.exit(f"A2 Świecko-Konin: category {n}'s page links to another PDF than {PDF.format(n)}")
+        if os.path.exists(p) and os.path.basename(pdf(n)) not in open(p, encoding="utf-8", errors="replace").read():
+            sys.exit(f"A2 Świecko-Konin: category {n}'s page links to another PDF than {pdf(n)}")
     prices = {}
     for i, a in enumerate(STATIONS):
         for j, b in enumerate(STATIONS):
@@ -111,8 +163,8 @@ def main(fetched, out):
                  "A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the "
                  "truck's axles count) and whether it tows a trailer. The Poznań ring between Poznań Zachód and Poznań Wschód is free. The e-TOLL doesn't charge this stretch. "
                  "The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. Videotolling prices (Poznań-Konin) aren't modelled."),
-         "sources": [{"title": "Autostrada Wielkopolska: Cennik przejazdów", "url": URL}]
-         + [{"title": f"Autostrada Wielkopolska: tabela opłat, kategoria {n}", "url": PDF.format(n)} for n in ("2", "3", "4")]
+         "sources": [{"title": "Autostrada Wielkopolska: Cennik przejazdów", "url": URL}] + ([news] if news else [])
+         + [{"title": f"Autostrada Wielkopolska: tabela opłat, kategoria {n}", "url": pdf(n)} for n in ("2", "3", "4")]
          + [{"title": "OpenStreetMap (Overpass API): A2 junctions and toll booths", "url": "https://www.openstreetmap.org/"}],
          "vehicles": "Vehicles over 3.5 t (categories 2-4)", "min_kg": 3501,
          "tolled_roads": "A2 Świecko (German border) - Konin (Modła), 255 km; free between Poznań Zachód and Poznań Wschód.",

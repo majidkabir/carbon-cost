@@ -169,8 +169,16 @@ jobs:
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
       - name: Push
-        if: always()
+        # Also when a builder failed, but not when the run was cancelled or
+        # timed out before the datasets were converted: a partial out/
+        # would replace the last full tables-out the other workflows read.
+        if: ${{ !cancelled() }}
         run: |
+          [ -d out/orct ] || { echo "::error title=Push::no datasets converted; tables-out kept as it was"; exit 1; }
+          # Pages that carry a Mapbox access token (pk. or sk.) in their scripts (veggjald.is):
+          # GitHub's push protection refuses the push, so the token is cut
+          # from the copy (the builders don't read it).
+          grep -rlZaE '[ps]k\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+' out | xargs -0 -r sed -i -E 's/([ps]k)\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/\1.[token removed]/g'
           cd out
           git init -q -b tables-out && git add -A
           git -c user.name=actions -c user.email=actions@github.com commit -qm "Rate table sources"

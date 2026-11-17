@@ -1006,6 +1006,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fo-tunnels/2026-11-16",
+   "scheme": "fo-tunnels",
+   "country": "FO",
+   "file": "fo/fo-tunnels-2026-11-16.orct.json",
+   "name": "Faroe Islands subsea tunnels",
+   "valid_from": "2026-11-16",
+   "valid_to": null,
+   "sha256": "b6f4c39d141138a13d1aba5e9384c5ba54f866cf1639ddbe3f97ad7112404c85",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fr/2024-01-01",
    "scheme": "fr",
    "country": "FR",
@@ -1619,6 +1630,28 @@
    "valid_from": "2030-01-01",
    "valid_to": null,
    "sha256": "9d6be837b5006bc43f0a33da19aca9233a0fd06a13c2dde6fb38d704a009b575",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/is-hornafjordur/2026-09-01",
+   "scheme": "is-hornafjordur",
+   "country": "IS",
+   "file": "is/is-hornafjordur-2026-09-01.orct.json",
+   "name": "Ring Road (1) through Hornafjörður",
+   "valid_from": "2026-09-01",
+   "valid_to": null,
+   "sha256": "c2db3db0f1f857d96d7e107d3b78fc432f939f51558830b50339a6d4da5c89ec",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/is-vadlaheidargong/2026-03-02",
+   "scheme": "is-vadlaheidargong",
+   "country": "IS",
+   "file": "is/is-vadlaheidargong-2026-03-02.orct.json",
+   "name": "Vaðlaheiðargöng tunnel",
+   "valid_from": "2026-03-02",
+   "valid_to": null,
+   "sha256": "c3e084b0c5a16bf17a380d926a645659c02a1503b6fe3e334fd005e6c2eb911c",
    "coverage": "complete"
   },
   {

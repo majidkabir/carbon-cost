@@ -2765,3 +2765,71 @@ func TestPolandA2(t *testing.T) {
 		}
 	}
 }
+
+// The Faroe Islands' Eysturoyartunnilin: DKK 800 between Streymoy and
+// Eysturoy, DKK 200 between Strendur and Runavík (its two Eysturoy
+// branches), once per trip through two branches.
+func TestFaroeEysturoyartunnilin(t *testing.T) {
+	streymoy, strendur, runavik := [2]float64{-6.78065, 62.04672}, [2]float64{-6.75575, 62.11292}, [2]float64{-6.73299, 62.11045}
+	mid := map[string][2]float64{"S": {-6.783747, 62.075172}, "N": {-6.762666, 62.106337}, "R": {-6.737624, 62.101623}}
+	rb := [2]float64{-6.75758, 62.09865}
+	for _, c := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Streymoy-Strendur", [][2]float64{streymoy, mid["S"], rb, mid["N"], strendur}, 800},
+		{"Strendur-Runavík", [][2]float64{strendur, mid["N"], rb, mid["R"], runavik}, 200},
+		{"Runavík-Streymoy", [][2]float64{runavik, mid["R"], rb, mid["S"], streymoy}, 800},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 10, CountryKm: map[string]float64{"FO": 10}, Path: c.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"DKK": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Eysturoyartunnilin") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("%s: %v, want %v: %+v", c.name, got, c.want, r.Lines)
+		}
+	}
+}
+
+// Iceland's tunnel tolls: Vaðlaheiðargöng ISK 3,087 (3.5-7.5 t) / 6,505
+// (7.5 t and over), Hornafjörður ISK 2,100 (to 7.5 t) / 4,500 (over 7.5 t).
+func TestIcelandCrossings(t *testing.T) {
+	for _, c := range []struct {
+		name    string
+		section string
+		at      [2]float64
+		massKg  int
+		want    float64
+	}{
+		{"Vaðlaheiðargöng 40 t", "Vaðlaheiðargöng", [2]float64{-17.986043, 65.711112}, 40000, 6505},
+		{"Vaðlaheiðargöng 7 t", "Vaðlaheiðargöng", [2]float64{-17.986043, 65.711112}, 7000, 3087},
+		{"Hornafjörður 40 t", "Hornafjörður", [2]float64{-15.337318, 64.293665}, 40000, 4500},
+		{"Hornafjörður 7.5 t", "Hornafjörður", [2]float64{-15.337318, 64.293665}, 7500, 2100},
+	} {
+		path := [][2]float64{{c.at[0] - 0.02, c.at[1]}, c.at, {c.at[0] + 0.02, c.at[1]}}
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2, CountryKm: map[string]float64{"IS": 2}, Path: path}}}
+		tr := truck40
+		tr.MaxMassKg = c.massKg
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tr, FX: map[string]float64{"ISK": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, c.section) {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("%s: %v, want %v: %+v", c.name, got, c.want, r.Lines)
+		}
+	}
+}

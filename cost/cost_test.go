@@ -2833,3 +2833,37 @@ func TestIcelandCrossings(t *testing.T) {
 		}
 	}
 }
+
+// The A4 Katowice-Kraków's earlier price lists: a 2-axle tractor with a
+// semi-trailer (category 3) and a 3-axle one with a trailer (category 4)
+// at both plazas.
+func TestPolandA4History(t *testing.T) {
+	path := [][2]float64{{19.10, 50.20}, {19.18585, 50.19675}, {19.40, 50.15}, {19.79135, 50.0832}, {19.85, 50.08}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"PL": 60}, Path: path}}}
+	for _, c := range []struct {
+		day        time.Time
+		cat3, cat4 float64
+	}{
+		{time.Date(2024, 2, 1, 0, 0, 0, 0, time.UTC), 54, 92},
+		{time.Date(2024, 6, 1, 0, 0, 0, 0, time.UTC), 58, 98},
+		{time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC), 60, 104},
+	} {
+		for motor, want := range map[int]float64{2: c.cat3, 3: c.cat4} {
+			tr := truck40
+			tr.MotorAxles = motor
+			r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tr, FX: map[string]float64{"PLN": 1}}, c.day)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var got float64
+			for _, l := range r.Lines {
+				if strings.Contains(l.Section, "A4 ") {
+					got += l.Amount
+				}
+			}
+			if math.Abs(got-want) > 0.001 {
+				t.Errorf("%s motor axles %d: %v, want %v", c.day.Format("2006-01-02"), motor, got, want)
+			}
+		}
+	}
+}

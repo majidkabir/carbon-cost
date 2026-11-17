@@ -2194,6 +2194,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/pl-a4/2024-01-16",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2024-01-16.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2024-01-16",
+   "valid_to": "2024-03-31",
+   "sha256": "04d98d93b53f77f4670a6320b595d8b64a25a4cc247beaca43e7610b3f9997f3",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/pl-a4/2024-04-01",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2024-04-01.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2024-04-01",
+   "valid_to": "2025-03-31",
+   "sha256": "c7676188e6717d4905eb43f366fb295da648150d393e59ea3cec330d5c211f25",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/pl-a4/2025-04-01",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2025-04-01.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2025-04-01",
+   "valid_to": "2026-03-31",
+   "sha256": "6377f66e3966b29d02614683dff5ea37aa0fd33d1f95e071a8fc5121d30335d9",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl-a4/2026-04-01",
    "scheme": "pl-a4",
    "country": "PL",

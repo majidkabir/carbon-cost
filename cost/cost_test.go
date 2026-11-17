@@ -2778,6 +2778,37 @@ func TestPolandA2(t *testing.T) {
 	}
 }
 
+// The A2's price list of 11 March 2025 (to 10 September 2025): Konin
+// Modła-Świecko PLN 220, 316 and 454 in categories 2, 3 and 4.
+func TestPolandA2History(t *testing.T) {
+	path := [][2]float64{{14.80, 52.33}, {14.8736, 52.3328}, {14.9035, 52.3348}, {15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589},
+		{16.5667, 52.3765}, {16.7318, 52.3506}, {16.7766, 52.3505}, {17.1212, 52.3199}, {17.1512, 52.3106}, {17.5300, 52.3159}, {17.8138, 52.2552}, {17.9515, 52.2219},
+		{18.0199, 52.2054}, {18.2152, 52.1622}, {18.30, 52.15}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 250, CountryKm: map[string]float64{"PL": 250}, Path: path}}}
+	for _, c := range []struct {
+		tr   rates.Truck
+		want float64
+	}{
+		{truck40, 454},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, 316},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 220},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: c.tr, FX: map[string]float64{"PLN": 1}}, time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A2 Świecko") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("A2 2025 %+v: %v, want %v", c.tr, got, c.want)
+		}
+	}
+}
+
 // The Faroe Islands' Eysturoyartunnilin: DKK 800 between Streymoy and
 // Eysturoy, DKK 200 between Strendur and Runavík (its two Eysturoy
 // branches), once per trip through two branches.

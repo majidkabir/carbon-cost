@@ -78,11 +78,17 @@ def main(fetched, out):
             raw = open(os.path.join(fetched, "pl-a2-news.html"), encoding="utf-8", errors="replace").read()
         except OSError:
             raw = ""
-        m = re.search(r"As of (\d{1,2}) (" + "|".join(MONTHS) + r") (\d{4}),? toll rates will change", re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", raw))))
+        # The announcement's summary (its description) names the day: "As of
+        # 11 March 2025, toll rates will change", "effective on 11 March 2026".
+        desc = re.search(r'<meta name="description" content="([^"]*)"', raw)
+        body = desc.group(1) if desc else re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S))
+        m = re.search(r"(?:[Aa]s of|[Ee]ffective(?: on)?) (\d{1,2}) (" + "|".join(MONTHS) + r") (\d{4})", re.sub(r"\s+", " ", html.unescape(body)))
         if m:
             head = (f"{int(m.group(1)):02d}", MONTHS[m.group(2)], m.group(3))
             link = re.search(r'<link rel="canonical" href="([^"]+)"', raw)
-            news = {"title": f"Autostrada Wielkopolska: Change of toll rates for A2 Motorway in Nowy Tomyśl - Konin section (as of {m.group(1)} {m.group(2)} {m.group(3)})",
+            title = re.search(r"<h1[^>]*>(.*?)</h1>", raw, re.S)
+            title = html.unescape(re.sub(r"<[^>]+>|\s+", " ", title.group(1))).strip() if title else "announcement"
+            news = {"title": f"Autostrada Wielkopolska: {title} (from {m.group(1)} {m.group(2)} {m.group(3)})",
                     "url": link.group(1) if link else NEWS}
     cats = re.search(r"Pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze oraz pojazdy samochodowe o dwóch osiach z przyczepami .{0,60}?"
                      r"Pojazdy samochodowe o trzech osiach oraz pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze z przyczepami .{0,60}?"
@@ -90,7 +96,16 @@ def main(fetched, out):
     if not (head and cats):
         sys.exit("A2 Świecko-Konin: the price list's date or categories not read")
     start = f"{head[2]}-{head[1]}-{head[0]}"
-    pdf = lambda n: PDF.format(y=head[2], m=head[1], n=n)
+    # The tables' files: as the Wayback runs fetched them (an old list's
+    # files aren't always in its month's folder), else by the list's date.
+    try:
+        got = {e["id"]: e["url"] for e in json.load(open(os.path.join(fetched, "wb-manifest.json"))) if e.get("url")}
+    except (OSError, ValueError):
+        got = {}
+    pdf = lambda n: got.get(f"pl-a2-cat{n}") or PDF.format(y=head[2], m=head[1], n=n)
+    for n in ("2", "3", "4"):
+        if not pdf(n).endswith(f"AW-tabele-oplat-{head[1]}.{head[2]}_0{n}.pdf"):
+            sys.exit(f"A2 Świecko-Konin: {pdf(n)} isn't the list of {start}'s table")
     tables = {}
     for n in ("2", "3", "4"):
         sub = re.search(r'href="(/oplaty/cennik-kategoria-' + n + r'/|https://www\.autostrada-a2\.pl/oplaty/cennik-kategoria-' + n + r'/)"', page)

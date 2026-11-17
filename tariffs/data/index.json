@@ -2194,6 +2194,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/pl-a2/2025-03-11",
+   "scheme": "pl-a2",
+   "country": "PL",
+   "file": "pl/pl-a2-2025-03-11.orct.json",
+   "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
+   "valid_from": "2025-03-11",
+   "valid_to": "2025-09-10",
+   "sha256": "1ba5e3e594916a6d77d661de860324b8dcd657b8aa949b11df9e2553bb2bf4b1",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl-a2/2026-09-11",
    "scheme": "pl-a2",
    "country": "PL",

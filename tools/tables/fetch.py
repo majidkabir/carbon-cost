@@ -219,6 +219,10 @@ def main(src, out):
                 status, body = get(s["url"])
             if status == 200 and missing(body):
                 raise RuntimeError(f"the answer lacks {missing(body)}")
+            # The Internet Archive's outage page instead of a capture: an
+            # error, so the last run's copy is kept.
+            if "web.archive.org/" in s["url"] and b"Internet Archive services are temporarily offline" in body[:20000]:
+                raise RuntimeError("the Internet Archive is temporarily offline")
             ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
             if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
                 ext = ".json"

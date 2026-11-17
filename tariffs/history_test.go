@@ -17,7 +17,7 @@ var historyGaps = map[string]string{
 	"ES": "SEITT's 2024 tariffs (and the AP-41's of 2025) are neither served nor archived any more",
 	"RS": "JP Putevi Srbije's price lists of April 2023 (to 9 July 2024), 10 January 2025 and 4 July 2025 weren't archived",
 	"MD": "e-Vinieta publishes the current vignette amounts without a date; earlier ones aren't archived",
-	"IT": "the estimate reads Autostrade per l'Italia's current unit rates (from 1 January 2026); earlier years' rates aren't fetched",
+	"IT": "the Ministry's sheets of each concession's unit rates (directive 2022/362 art. 11) start with 2025; 2024's rates aren't published with them",
 }
 
 // gaps are an area's uncovered days from HistoryFrom to the end of 2026,

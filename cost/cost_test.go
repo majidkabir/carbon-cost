@@ -2675,3 +2675,93 @@ func TestBelarus(t *testing.T) {
 		}
 	}
 }
+
+// Poland's A4 Katowice-Kraków: PLN at each of its two plazas, by the motor
+// vehicle's axles and the trailer: a 2-axle tractor with a semi-trailer is
+// category 3 (32), a 3-axle one category 4 (55); without motor_axles all 5
+// axles count (55).
+func TestPolandA4(t *testing.T) {
+	path := [][2]float64{{19.10, 50.20}, {19.18585, 50.19675}, {19.40, 50.15}, {19.79135, 50.0832}, {19.85, 50.08}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"PL": 60}, Path: path}}}
+	for _, c := range []struct {
+		motor int
+		want  float64
+	}{{0, 110}, {2, 64}, {3, 110}} {
+		tr := truck40
+		tr.MotorAxles = c.motor
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tr, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A4 ") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("motor axles %d: %v, want %v: %+v", c.motor, got, c.want, r.Lines)
+		}
+	}
+}
+
+// Poland's A1 Rusocin-Toruń (AmberOne): a closed system, PLN 71 including
+// VAT from Rusocin to Nowa Wieś for categories 2-4; Pelplin-Grudziądz 28.
+func TestPolandA1(t *testing.T) {
+	full := [][2]float64{{18.60, 54.24}, {18.61234, 54.22681}, {18.6943, 54.0997}, {18.6743, 54.0349}, {18.6429, 53.9302}, {18.6333, 53.7387},
+		{18.6175, 53.6034}, {18.6176, 53.4740}, {18.6928, 53.4257}, {18.7078, 53.2900}, {18.7555, 53.0927}, {18.7376, 53.0356}, {18.7345, 53.0098}, {18.70, 52.98}}
+	part := [][2]float64{{18.6409, 53.9329}, {18.6333, 53.7387}, {18.6175, 53.6034}, {18.6176, 53.4740}, {18.6928, 53.4257}, {18.70, 53.42}}
+	for _, c := range []struct {
+		path [][2]float64
+		want float64
+	}{{full, 71}, {part, 28}} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{"PL": 150}, Path: c.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A1 Rusocin") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("A1: %v, want %v: %+v", got, c.want, r.Lines)
+		}
+	}
+}
+
+// Poland's A2 Świecko-Konin (Autostrada Wielkopolska), Rzepin to Konin Modła:
+// category 4 (5 axles counted, or a 3-axle tractor with a trailer) 535,
+// category 3 (2-axle tractor with a semi-trailer) 364, category 2 (2-axle
+// rigid) 253.
+func TestPolandA2(t *testing.T) {
+	path := [][2]float64{{14.80, 52.33}, {14.8736, 52.3328}, {14.9035, 52.3348}, {15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589},
+		{16.5667, 52.3765}, {16.7318, 52.3506}, {16.7766, 52.3505}, {17.1212, 52.3199}, {17.1512, 52.3106}, {17.5300, 52.3159}, {17.8138, 52.2552}, {17.9515, 52.2219},
+		{18.0199, 52.2054}, {18.2152, 52.1622}, {18.30, 52.15}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 250, CountryKm: map[string]float64{"PL": 250}, Path: path}}}
+	for _, c := range []struct {
+		tr   rates.Truck
+		want float64
+	}{
+		{truck40, 535},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, 364},
+		{rates.Truck{MaxMassKg: 40000, Axles: 6, MotorAxles: 3, Euro: 6, CO2Class: 1}, 535},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 253},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: c.tr, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A2 Świecko") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("A2 %+v: %v, want %v: %+v", c.tr, got, c.want, r.Lines)
+		}
+	}
+}

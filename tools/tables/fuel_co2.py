@@ -383,7 +383,7 @@ def dk_rates(path):
     # The row's first line is the rate at day temperature, the second
     # ("afgiftssatsen ved 15 C udgør") at 15 °C; a cell may add a figure in
     # brackets with a note.
-    v = r"(\d+,\d)(?: / \(\d+,\d\) ?\d?\)?)?"
+    v = r"(\d+,\d)(?: / \(\d+,\d\) ?\d? ?\)?)?"
     m = re.search(rf"Gas- og dieselolie ?- ?afgiftssatsen ved 15 C udgør øre/l {v} {v} {v} øre/l {v} {v} {v}", t)
     if not head or not m:
         sys.exit(f"CO2-afgiftsloven: no rate table for gas and diesel oil in {os.path.basename(path)}")
@@ -457,7 +457,7 @@ def norway(fetched, out, srcs):
     for sid in ("no-avgiftssatser-2025", "no-avgiftssatser-2026"):
         t = text(os.path.join(fetched, sid + ".html"))
         h = re.search(r"Avgiftskategori (\d{4})-regler \D*?(\d{4})", t)
-        m = re.search(r"CO2-avgift på mineralske produkter Bensin, kr/liter [\d,]+ [\d,]+ [-\d,]+ Mineralolje, kr/liter generell sats (\d,\d\d) (\d,\d\d)", t)
+        m = re.search(r"CO ?2 ?-avgift på mineralske produkter Bensin, kr/liter [\d,]+ [\d,]+ [-\d,]+ Mineralolje, kr/liter generell sats (\d,\d\d) (\d,\d\d)", t)
         if not h or not m:
             sys.exit(f"{sid}: no CO2-avgift on mineral oil")
         for y, v in zip(h.groups(), m.groups()):
@@ -645,20 +645,17 @@ def poland(fetched, out, srcs):
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
-    germany(fetched, out, srcs)
-    austria(fetched, out, srcs)
-    ireland(fetched, out, srcs)
-    portugal(fetched, out, srcs)
-    slovenia(fetched, out, srcs)
-    denmark(fetched, out, srcs)
-    sweden(fetched, out, srcs)
-    norway(fetched, out, srcs)
-    finland(fetched, out, srcs)
-    lithuania(fetched, out, srcs)
-    luxembourg(fetched, out, srcs)
-    iceland(fetched, out, srcs)
-    poland(fetched, out, srcs)
-
+    # One country's source failing doesn't stop the others; the builder
+    # still fails at the end, naming them.
+    failed = []
+    for country in (germany, austria, ireland, portugal, slovenia, denmark, sweden, norway, finland, lithuania, luxembourg, iceland, poland):
+        try:
+            country(fetched, out, srcs)
+        except (SystemExit, Exception) as e:  # a missing copy raises OSError
+            print(f"{country.__name__}: {type(e).__name__ if not isinstance(e, SystemExit) else ''} {e}".replace("  ", " "), file=sys.stderr, flush=True)
+            failed.append(country.__name__)
+    if failed:
+        sys.exit("fuel CO2: not built for " + ", ".join(failed))
 
 if __name__ == "__main__":
     main(*sys.argv[1:])

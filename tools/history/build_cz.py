@@ -87,12 +87,18 @@ def save(out, name, tb):
 
 def main(fetched, out):
     # 479/2020: tables in order: Annex 1 day, Annex 1 night, Annex 2 day, Annex 2 night, then buses.
+    # Since November 2026 epravo.cz's pages show only a regulation's start:
+    # without its tables the 2021 table isn't built (the others still are).
     t = tables(os.path.join(fetched, "cz-nv-479-2020.html"))
-    assert all(len(x[0][1]) == 16 for x in t[:4]), [len(x[0][1]) for x in t]
-    save(out, "cz-2021-01-01.json", {**BASE, "valid_from": "2021-01-01", "valid_to": "2024-02-29",
-         "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as worded by nařízení vlády č. 479/2020 Sb., in force 1 January 2021 to 29 February 2024: one rate per km by road category, maximum permissible mass, axles and EURO class (0-IV; V and EEV; VI). The table keeps the rates for 5:00-22:00; from 22:00 to 5:00 they are about 0.5% higher. Euro VI vehicles on natural gas or biomethane had lower rates, not in the table.",
-         "sources": [{"title": "Nařízení vlády č. 479/2020 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479"}, SRC240],
-         "rows": rows_of(t[0], "motorway", G16) + rows_of(t[2], "other", G16)})
+    failed = []
+    if len(t) < 4 or not all(len(x[0][1]) == 16 for x in t[:4]):
+        print("cz-2021-01-01: epravo.cz's page of 479/2020 has no annex tables; not built", file=sys.stderr)
+        failed.append("cz-2021-01-01")
+    else:
+        save(out, "cz-2021-01-01.json", {**BASE, "valid_from": "2021-01-01", "valid_to": "2024-02-29",
+             "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as worded by nařízení vlády č. 479/2020 Sb., in force 1 January 2021 to 29 February 2024: one rate per km by road category, maximum permissible mass, axles and EURO class (0-IV; V and EEV; VI). The table keeps the rates for 5:00-22:00; from 22:00 to 5:00 they are about 0.5% higher. Euro VI vehicles on natural gas or biomethane had lower rates, not in the table.",
+             "sources": [{"title": "Nařízení vlády č. 479/2020 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479"}, SRC240],
+             "rows": rows_of(t[0], "motorway", G16) + rows_of(t[2], "other", G16)})
     # 40/2024: Annexes 1-2 for 1-24 March, then for 25 March on (Annexes 3-4 are buses).
     t = annexes_40(fetched)
     src = [{"title": "Nařízení vlády č. 40/2024 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2024/40"},
@@ -121,6 +127,8 @@ def main(fetched, out):
          "sources": [{"title": "Nařízení vlády č. 327/2025 Sb. (2026 toll rates, Annexes 1-2)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327"}, SRC240],
          **{k: BASE[k] for k in ("vehicles", "min_kg", "tolled_roads", "motorway_share")},
          "rows": rows_of(t[0], "motorway", G28) + rows_of(t[1], "other", G28)})
+    if failed:
+        sys.exit("not built: " + ", ".join(failed))
 
 
 def flat(s):

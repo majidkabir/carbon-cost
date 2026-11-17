@@ -58,6 +58,17 @@ func (k Km) Total() float64 { return k.Motorway + k.National + k.Local }
 type Index struct {
 	countries map[string]*grid
 	extract   map[string]string
+	leftOut   map[string][]string
+}
+
+// LeftOut names the stretches of a country's motorway class its toll law
+// leaves to others (Poland's concession motorways): their km count as
+// local roads.
+func (ix *Index) LeftOut(country string) []string {
+	if ix == nil {
+		return nil
+	}
+	return ix.leftOut[strings.ToUpper(country)]
 }
 
 // Extract is the date of the OpenStreetMap extract a country's ways come
@@ -95,7 +106,7 @@ func Default() (*Index, error) {
 }
 
 func load(fsys fs.FS) (*Index, error) {
-	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}}
+	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}, leftOut: map[string][]string{}}
 	files, err := fs.Glob(fsys, "data/*.json.gz")
 	if err != nil {
 		return nil, err
@@ -119,6 +130,7 @@ func load(fsys fs.FS) (*Index, error) {
 			NatF    []float64 `json:"natf"`
 			Ops     []string  `json:"ops"`
 			MWOp    []int     `json:"mwop"`
+			LeftOut []string  `json:"left_out"`
 		}
 		err = json.NewDecoder(zr).Decode(&d)
 		r.Close()
@@ -149,6 +161,9 @@ func load(fsys fs.FS) (*Index, error) {
 		ix.countries[strings.ToUpper(d.Country)] = g
 		if d.Extract != "" {
 			ix.extract[strings.ToUpper(d.Country)] = d.Extract
+			if len(d.LeftOut) > 0 {
+				ix.leftOut[strings.ToUpper(d.Country)] = d.LeftOut
+			}
 		}
 	}
 	return ix, nil

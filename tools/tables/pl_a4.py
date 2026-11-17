@@ -1,5 +1,7 @@
 """Builds the A4 Katowice-Kraków concession toll (pl-a4-<date>.json) from
-Stalexport Autostrada Małopolska's price list (pl-a4-tolls.html, the Polish page): the toll
+Stalexport Autostrada Małopolska's price list (pl-a4-tolls.html, the Polish page; for the
+list of 3 April 2023, of which no copy of the page is kept, the operator's
+press release, pl-a4-news.html): the toll
 by vehicle category, collected at each of its two toll plazas, Mysłowice
 (PPO Brzęczkowice) and Balice, in both directions. The plazas are placed at
 their named toll booths in OpenStreetMap (pl-concessions-osm.json).
@@ -23,6 +25,10 @@ MONTHS = {m: i + 1 for i, m in enumerate(("stycznia", "lutego", "marca", "kwietn
                                           "września", "października", "listopada", "grudnia"))}
 URL = "https://www.autostrada-a4.com.pl/pl/oplaty/oplaty-i-sposoby-wnoszenia-oplat-cennik"
 PLAZAS = (("Mysłowice", r"^PPO ?Brzęczkowice$"), ("Balice", r"^PPO ?Balice$"))
+# The press release of the tolls from 3 April 2023 (the page then held no copy of the list).
+NEWS = "https://autostrada-a4.com.pl/en/about-us/komunikaty-prasowe/New-toll-rates-on-the-A4-Katowice-Krakow-motorway-do-not-apply-to-everyone--you-may-still-be-allowed-to-pay-the-previous-rate-at-the-toll-plaza/idn:2551"
+EN = {m: i + 1 for i, m in enumerate(("January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                                      "November", "December"))}
 
 
 def text(path):
@@ -37,6 +43,11 @@ def main(fetched, out):
     except (OSError, ValueError):
         print("A4 Katowice-Kraków: OpenStreetMap not fetched; not built")
         return
+    # Before 2024 no copy of the price list page holds the list: the
+    # operator's press release of the change gives every category's toll.
+    news = os.path.join(fetched, "pl-a4-news.html")
+    if not os.path.exists(os.path.join(fetched, "pl-a4-tolls.html")) and os.path.exists(news):
+        return from_news(d, news, out)
     # The text read in Chrome stands in only in the tables workflow's
     # fetched/ (it has fetch.py's manifest.json), never for an archived copy.
     p = os.path.join(fetched, "pl-a4-tolls.html")
@@ -64,6 +75,30 @@ def main(fetched, out):
         sys.exit("A4 Katowice-Kraków: price list not read")
     start = f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
     c2, c3, c4 = (int(x) for x in m.groups()[3:6])
+    source = {"title": "Stalexport Autostrada Małopolska: Opłaty i sposoby wnoszenia opłat (cennik)" + (" (read in Chrome: tools/tables/browser/pl-a4-cennik.txt)" if how == "browser" else ""), "url": URL}
+    build(d, start, c2, c3, c4, inv, source, out)
+
+
+def from_news(d, path, out):
+    """The tolls from Stalexport's press release of a change ("Starting from
+    3 April this year ... PLN 27 for categories 2 and 3 ... PLN 46 for
+    categories 4 and 5"), dated by the release (30 03 2023)."""
+    raw = open(path, encoding="utf-8", errors="replace").read()
+    t = text(path)
+    day = re.search(r"\b(\d\d) (\d\d) (\d{4}) #Press", t)
+    m = re.search(r"Starting from (\d{1,2}) (" + "|".join(EN) + r") this year, all vehicle categories .{0,200}?"
+                  r"PLN (\d+) for category 1\b.{0,60}?PLN (\d+) for categories 2 and 3\b.{0,80}?PLN (\d+) for categories 4 and 5\b", t)
+    if not (day and m):
+        sys.exit("A4 Katowice-Kraków: the press release's date or tolls not read")
+    start = f"{day.group(3)}-{EN[m.group(2)]:02d}-{int(m.group(1)):02d}"
+    c3, c4 = int(m.group(4)), int(m.group(5))
+    link = re.search(r'<link rel="canonical" href="([^"]+)"', raw)
+    source = {"title": f"Stalexport Autostrada Małopolska: press release of {day.group(1)}.{day.group(2)}.{day.group(3)}, the tolls from {start} at each toll plaza",
+              "url": link.group(1) if link else NEWS}
+    build(d, start, c3, c3, c4, False, source, out)
+
+
+def build(d, start, c2, c3, c4, inv, source, out):
     stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
     points = []
     for name, pat in PLAZAS:
@@ -88,7 +123,7 @@ def main(fetched, out):
                   f"category 4 (more than three axles, or three axles with trailers) PLN {c4}. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). "
                   "The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. "
                   "The e-TOLL doesn't charge this stretch. The plazas are placed at their named toll booths in OpenStreetMap. Discounts for automatic payment (A4Go, videotolling) aren't modelled."),
-          "sources": [{"title": "Stalexport Autostrada Małopolska: Opłaty i sposoby wnoszenia opłat (cennik)" + (" (read in Chrome: tools/tables/browser/pl-a4-cennik.txt)" if how == "browser" else ""), "url": URL},
+          "sources": [source,
                       {"title": "OpenStreetMap (Overpass API): toll booths of the Mysłowice (Brzęczkowice) and Balice plazas", "url": "https://www.openstreetmap.org/"}],
           "vehicles": "Vehicles over 3.5 t", "min_kg": 3501,
           "tolled_roads": "A4 Katowice (Murckowska) - Kraków (Balice), km 340.2-401.1: toll plazas at Mysłowice (Brzęczkowice) and Balice.",

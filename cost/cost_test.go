@@ -1550,6 +1550,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 	if _, ok := line(r, FuelCO2, "LT", rates.CO2); ok {
 		t.Error("LT fuel line in 2024")
 	}
+	// Poland's opłata emisyjna on diesel oil: PLN 80 per 1,000 litres
+	// (Prawo ochrony środowiska art. 321f pkt 2), a fixed fee per litre.
+	for _, d := range []string{"2024-06-01", "2026-11-03"} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "PL", DieselL: 1000, FX: map[string]float64{"PLN": 4.25}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "PL", rates.CO2); !ok || l.Rate != 0.08 || l.RateUnit != "PLN/l" || math.Abs(l.Amount-80) > 0.01 || math.Abs(l.AmountEUR-80/4.25) > 0.01 {
+			t.Errorf("PL %s: %+v", d, l)
+		}
+	}
 	// Luxembourg's taxe CO2 on gas oil motor fuel: EUR 120.86, 132.55 and
 	// 144.60 per 1,000 litres in 2024, 2025 and 2026.
 	for d, want := range map[string]float64{"2024-06-01": 0.12086, "2025-06-01": 0.13255, "2026-11-03": 0.1446} {
@@ -2672,6 +2684,253 @@ func TestBelarus(t *testing.T) {
 		}
 		if l, ok := line(r, RoadToll, "BY", rates.Toll); !ok || l.Amount != want {
 			t.Errorf("%s: %+v", d, l)
+		}
+	}
+}
+
+// Poland's A4 Katowice-Kraków: PLN at each of its two plazas, by the motor
+// vehicle's axles and the trailer: a 2-axle tractor with a semi-trailer is
+// category 3 (32), a 3-axle one category 4 (55); without motor_axles all 5
+// axles count (55).
+func TestPolandA4(t *testing.T) {
+	path := [][2]float64{{19.10, 50.20}, {19.18585, 50.19675}, {19.40, 50.15}, {19.79135, 50.0832}, {19.85, 50.08}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"PL": 60}, Path: path}}}
+	for _, c := range []struct {
+		motor int
+		want  float64
+	}{{0, 110}, {2, 64}, {3, 110}} {
+		tr := truck40
+		tr.MotorAxles = c.motor
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tr, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A4 ") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("motor axles %d: %v, want %v: %+v", c.motor, got, c.want, r.Lines)
+		}
+	}
+}
+
+// Poland's A1 Rusocin-Toruń (AmberOne): a closed system, PLN 71 including
+// VAT from Rusocin to Nowa Wieś for categories 2-4; Pelplin-Grudziądz 28.
+func TestPolandA1(t *testing.T) {
+	full := [][2]float64{{18.60, 54.24}, {18.61234, 54.22681}, {18.6943, 54.0997}, {18.6743, 54.0349}, {18.6429, 53.9302}, {18.6333, 53.7387},
+		{18.6175, 53.6034}, {18.6176, 53.4740}, {18.6928, 53.4257}, {18.7078, 53.2900}, {18.7555, 53.0927}, {18.7376, 53.0356}, {18.7345, 53.0098}, {18.70, 52.98}}
+	part := [][2]float64{{18.6409, 53.9329}, {18.6333, 53.7387}, {18.6175, 53.6034}, {18.6176, 53.4740}, {18.6928, 53.4257}, {18.70, 53.42}}
+	for _, c := range []struct {
+		path [][2]float64
+		want float64
+	}{{full, 71}, {part, 28}} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 150, CountryKm: map[string]float64{"PL": 150}, Path: c.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A1 Rusocin") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("A1: %v, want %v: %+v", got, c.want, r.Lines)
+		}
+	}
+}
+
+// Poland's A2 Świecko-Konin (Autostrada Wielkopolska), Rzepin to Konin Modła:
+// category 4 (5 axles counted, or a 3-axle tractor with a trailer) 535,
+// category 3 (2-axle tractor with a semi-trailer) 364, category 2 (2-axle
+// rigid) 253.
+func TestPolandA2(t *testing.T) {
+	path := [][2]float64{{14.80, 52.33}, {14.8736, 52.3328}, {14.9035, 52.3348}, {15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589},
+		{16.5667, 52.3765}, {16.7318, 52.3506}, {16.7766, 52.3505}, {17.1212, 52.3199}, {17.1512, 52.3106}, {17.5300, 52.3159}, {17.8138, 52.2552}, {17.9515, 52.2219},
+		{18.0199, 52.2054}, {18.2152, 52.1622}, {18.30, 52.15}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 250, CountryKm: map[string]float64{"PL": 250}, Path: path}}}
+	for _, c := range []struct {
+		tr   rates.Truck
+		want float64
+	}{
+		{truck40, 535},
+		{rates.Truck{MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, 364},
+		{rates.Truck{MaxMassKg: 40000, Axles: 6, MotorAxles: 3, Euro: 6, CO2Class: 1}, 535},
+		{rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 253},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: c.tr, FX: map[string]float64{"PLN": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "A2 Świecko") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("A2 %+v: %v, want %v: %+v", c.tr, got, c.want, r.Lines)
+		}
+	}
+}
+
+// On the A2 the road classes count the concession as local road (the
+// e-TOLL doesn't charge it): the note says so, naming the stretches.
+func TestPolandLeftOutNote(t *testing.T) {
+	path := [][2]float64{{15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"PL": 70}, Path: path}}}
+	rk := RoadKm(rx, []Run{{Kind: "road", Country: "PL", Points: path}})
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, FX: map[string]float64{"PLN": 4.3}, roadKm: rk, roadLeftOut: map[string][]string{"PL": rx.LeftOut("PL")}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "PL: by OpenStreetMap along the route") {
+			if !strings.Contains(n, "including the motorways this toll leaves to their operators: A1 Rusocin-Toruń (AmberOne), A2 Świecko-Konin") {
+				t.Errorf("note %q", n)
+			}
+			return
+		}
+	}
+	t.Errorf("no road-class note for PL: %v", r.Notes)
+}
+
+// The A2's earlier price lists, Konin Modła-Świecko in categories 2, 3
+// and 4: PLN 193, 274, 394 from 11 March 2024; 205, 292, 421 from 11 September 2024; 220, 316, 454 from 11
+// March 2025; 229, 328, 478 from 11 September 2025; 247, 355, 520 from 11
+// March 2026.
+func TestPolandA2History(t *testing.T) {
+	path := [][2]float64{{14.80, 52.33}, {14.8736, 52.3328}, {14.9035, 52.3348}, {15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589},
+		{16.5667, 52.3765}, {16.7318, 52.3506}, {16.7766, 52.3505}, {17.1212, 52.3199}, {17.1512, 52.3106}, {17.5300, 52.3159}, {17.8138, 52.2552}, {17.9515, 52.2219},
+		{18.0199, 52.2054}, {18.2152, 52.1622}, {18.30, 52.15}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 250, CountryKm: map[string]float64{"PL": 250}, Path: path}}}
+	trucks := []rates.Truck{{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, {MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, truck40}
+	for d, want := range map[string][3]float64{"2024-06-01": {193, 274, 394}, "2024-12-01": {205, 292, 421}, "2025-06-01": {220, 316, 454}, "2025-12-01": {229, 328, 478}, "2026-06-01": {247, 355, 520}} {
+		day, _ := time.Parse("2006-01-02", d)
+		for i, tr := range trucks {
+			r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: tr, FX: map[string]float64{"PLN": 1}}, day)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var got float64
+			for _, l := range r.Lines {
+				if strings.Contains(l.Section, "A2 Świecko") {
+					got += l.Amount
+				}
+			}
+			if math.Abs(got-want[i]) > 0.001 {
+				t.Errorf("A2 %s category %d: %v, want %v", d, i+2, got, want[i])
+			}
+		}
+	}
+}
+
+// The Faroe Islands' Eysturoyartunnilin: DKK 800 between Streymoy and
+// Eysturoy, DKK 200 between Strendur and Runavík (its two Eysturoy
+// branches), once per trip through two branches.
+func TestFaroeEysturoyartunnilin(t *testing.T) {
+	streymoy, strendur, runavik := [2]float64{-6.78065, 62.04672}, [2]float64{-6.75575, 62.11292}, [2]float64{-6.73299, 62.11045}
+	mid := map[string][2]float64{"S": {-6.783747, 62.075172}, "N": {-6.762666, 62.106337}, "R": {-6.737624, 62.101623}}
+	rb := [2]float64{-6.75758, 62.09865}
+	for _, c := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Streymoy-Strendur", [][2]float64{streymoy, mid["S"], rb, mid["N"], strendur}, 800},
+		{"Strendur-Runavík", [][2]float64{strendur, mid["N"], rb, mid["R"], runavik}, 200},
+		{"Runavík-Streymoy", [][2]float64{runavik, mid["R"], rb, mid["S"], streymoy}, 800},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 10, CountryKm: map[string]float64{"FO": 10}, Path: c.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40, FX: map[string]float64{"DKK": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Eysturoyartunnilin") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("%s: %v, want %v: %+v", c.name, got, c.want, r.Lines)
+		}
+	}
+}
+
+// Iceland's tunnel tolls: Vaðlaheiðargöng ISK 3,087 (3.5-7.5 t) / 6,505
+// (7.5 t and over), Hornafjörður ISK 2,100 (to 7.5 t) / 4,500 (over 7.5 t).
+func TestIcelandCrossings(t *testing.T) {
+	for _, c := range []struct {
+		name    string
+		section string
+		at      [2]float64
+		massKg  int
+		want    float64
+	}{
+		{"Vaðlaheiðargöng 40 t", "Vaðlaheiðargöng", [2]float64{-17.986043, 65.711112}, 40000, 6505},
+		{"Vaðlaheiðargöng 7 t", "Vaðlaheiðargöng", [2]float64{-17.986043, 65.711112}, 7000, 3087},
+		{"Hornafjörður 40 t", "Hornafjörður", [2]float64{-15.337318, 64.293665}, 40000, 4500},
+		{"Hornafjörður 7.5 t", "Hornafjörður", [2]float64{-15.337318, 64.293665}, 7500, 2100},
+	} {
+		path := [][2]float64{{c.at[0] - 0.02, c.at[1]}, c.at, {c.at[0] + 0.02, c.at[1]}}
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2, CountryKm: map[string]float64{"IS": 2}, Path: path}}}
+		tr := truck40
+		tr.MaxMassKg = c.massKg
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tr, FX: map[string]float64{"ISK": 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, c.section) {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-c.want) > 0.001 {
+			t.Errorf("%s: %v, want %v: %+v", c.name, got, c.want, r.Lines)
+		}
+	}
+}
+
+// The A4 Katowice-Kraków's earlier price lists: a 2-axle tractor with a
+// semi-trailer (category 3) and a 3-axle one with a trailer (category 4)
+// at both plazas.
+func TestPolandA4History(t *testing.T) {
+	path := [][2]float64{{19.10, 50.20}, {19.18585, 50.19675}, {19.40, 50.15}, {19.79135, 50.0832}, {19.85, 50.08}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 60, CountryKm: map[string]float64{"PL": 60}, Path: path}}}
+	for _, c := range []struct {
+		day        time.Time
+		cat3, cat4 float64
+	}{
+		{time.Date(2024, 2, 1, 0, 0, 0, 0, time.UTC), 54, 92},
+		{time.Date(2024, 6, 1, 0, 0, 0, 0, time.UTC), 58, 98},
+		{time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC), 60, 104},
+	} {
+		for motor, want := range map[int]float64{2: c.cat3, 3: c.cat4} {
+			tr := truck40
+			tr.MotorAxles = motor
+			r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: tr, FX: map[string]float64{"PLN": 1}}, c.day)
+			if err != nil {
+				t.Fatal(err)
+			}
+			var got float64
+			for _, l := range r.Lines {
+				if strings.Contains(l.Section, "A4 ") {
+					got += l.Amount
+				}
+			}
+			if math.Abs(got-want) > 0.001 {
+				t.Errorf("%s motor axles %d: %v, want %v", c.day.Format("2006-01-02"), motor, got, want)
+			}
 		}
 	}
 }

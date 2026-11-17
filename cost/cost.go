@@ -126,6 +126,9 @@ type Request struct {
 	roadKm map[string]roads.Km
 	// roadOSM is the OSM extract date of each country's road classes.
 	roadOSM map[string]string
+	// roadLeftOut names, by country, the stretches of the motorway class
+	// left out of the road classes (counted as local roads).
+	roadLeftOut map[string][]string
 	// spans are each country's stretches of the route, as [from, to] km
 	// along it, set by Calculate from the route split by country.
 	spans map[string][][2]float64
@@ -306,9 +309,12 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		}
 		if c.Roads != nil {
 			req.roadKm = RoadKm(c.Roads, runs)
-			req.roadOSM = map[string]string{}
+			req.roadOSM, req.roadLeftOut = map[string]string{}, map[string][]string{}
 			for cc := range req.roadKm {
 				req.roadOSM[cc] = c.Roads.Extract(cc)
+				if l := c.Roads.LeftOut(cc); len(l) > 0 {
+					req.roadLeftOut[cc] = l
+				}
 			}
 		}
 	}

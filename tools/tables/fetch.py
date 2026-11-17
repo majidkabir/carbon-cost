@@ -68,14 +68,14 @@ def within(f, seconds):
     return box["v"]
 
 
-def get(url, accept=None):
+def get(url, accept=None, tries=3, pause=5):
     h = dict(UA)
     if accept:
         h["Accept"] = accept
     if "nvdbapiles" in url:
         h["X-Client"] = "carbon-cost tables fetch"  # the NVDB API asks clients to name themselves
     last = None
-    for i in range(3):
+    for i in range(tries):
         try:
             status, body = within(lambda: read(urllib.request.Request(url, headers=h)), 300)
             # Some servers send gzip unasked.
@@ -86,7 +86,8 @@ def get(url, accept=None):
             return e.code, e.read()
         except Exception as e:
             last = e
-            time.sleep(5)
+            if i + 1 < tries:
+                time.sleep(pause * (i + 1))
     raise RuntimeError(f"{url}: {last}")
 
 
@@ -194,9 +195,36 @@ def overpass_failed(status, body):
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
-    for s in json.load(open(src, encoding="utf-8"))["sources"]:
+    sources = json.load(open(src, encoding="utf-8"))["sources"]
+    # The Internet Archive's copies are fetched last, each asked once; the
+    # archive refuses connections when asked too fast, so those it refused
+    # are asked again after a pause, with retries. Five refusals in a row
+    # mean it is down: the rest wait for the second round, which stops
+    # likewise (the last run's copies are kept).
+    sources.sort(key=lambda s: "web.archive.org/" in s["url"])
+    queue, later, refused = sources + [None], [], 0
+    while queue:
+        s = queue.pop(0)
+        if s is None:
+            if later:
+                time.sleep(120)
+                queue, later, refused = later, [], 0
+            continue
+        archive = "web.archive.org/" in s["url"]
+        if archive and not s.get("again") and refused >= 5:
+            later.append(dict(s, again=True))  # the archive seems down: asked after the pause
+            continue
+        if s.get("again") and refused >= 5:
+            errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
+            print("ERROR", s["id"], "the Internet Archive keeps refusing")
+            continue
         try:
-            status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
+            if archive:
+                status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
+            else:
+                status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
+            if archive:
+                refused = 0
             # Overpass answers 429/502/504 when busy and asks for backoff; a
             # 200 with an error "remark" is a query that timed out or ran out
             # of memory (with no or part of its elements): also retried, then an error (so the last
@@ -240,6 +268,12 @@ def main(src, out):
             if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
                 uradni_list(out, manifest, s["id"], s["url"], body)
         except Exception as e:
+            if archive:
+                refused += 1
+            if archive and not s.get("again"):
+                print("refused, asked again later:", s["id"], e)
+                later.append(dict(s, again=True))
+                continue
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)
     json.dump({"files": manifest, "errors": errors}, open(os.path.join(out, "manifest.json"), "w"), indent=1)

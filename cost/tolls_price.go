@@ -190,9 +190,13 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			if t := rk.Motorway + rk.National; t > 0 {
 				mw = rk.Motorway / t
 			}
+			local := map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven]
+			if l := req.roadLeftOut[a.country]; len(l) > 0 {
+				// The motorway stretches the toll leaves to their operators count here.
+				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
+			}
 			p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
-				cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(),
-				map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven], cc, cc)
+				cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
 		default:
 			ds.Ext("motorway_share", &mw)
 			p.note("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",

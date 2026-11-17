@@ -296,6 +296,10 @@ def main(cc, src, dst, areas=None):
         out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
     if sections:
         out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]
+    if h.free:
+        # The stretches left out, by name: the tool says the km it counts
+        # as local roads include them.
+        out["left_out"] = sorted({label for *_, label in h.free})
     if rule.get("operator"):
         out["ops"], out["mwop"] = h.ops, h.mwop
         for op, km in h.op_km.most_common():

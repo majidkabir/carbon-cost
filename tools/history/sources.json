@@ -86,6 +86,13 @@
    "what": "Nařízení vlády č. 299/2024 Sb.: the toll rates from 1 January 2025"
   },
   {
+   "id": "cz-esbirka-479-2020-0",
+   "table": "cz-2021-01-01",
+   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2020%2F479%2F2021-01-01/fragmenty?cisloStranky=0",
+   "page": "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01",
+   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (one page: the API gives the page count, pocetStranek), the annexes' rate tables among them; used when epravo.cz's page has no tables"
+  },
+  {
    "id": "cz-nv-299-2024-pdf",
    "table": "cz-2025-01-01",
    "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_299_PZZ.pdf",
@@ -1672,8 +1679,9 @@
   {
    "id": "is-skatturinn-km",
    "table": "is-2024-01-01",
-   "url": "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
-   "what": "Skatturinn: Kílómetragjald á vörubifreiðar og eftirvagna, the km fee of Lög nr. 87/2004 by permissible weight for 2025 (Almennt) and earlier years (Fjárhæðir fyrri ára)"
+   "url": "https://web.archive.org/web/20251217030201id_/https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
+   "page": "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
+   "what": "Skatturinn: Kílómetragjald á vörubifreiðar og eftirvagna, the km fee of Lög nr. 87/2004 by permissible weight for 2025 (Almennt) and earlier years (Fjárhæðir fyrri ára); the Internet Archive's copy of 17 December 2025 (the page now shows the 2026 law only)"
   },
   {
    "id": "is-veggjald-2024",

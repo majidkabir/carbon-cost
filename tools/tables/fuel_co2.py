@@ -491,10 +491,19 @@ def norway(fetched, out, srcs):
 
 
 def finland(fetched, out, srcs):
-    t = text(os.path.join(fetched, "fi-vero-verotaulukot.html"))
+    raw = open(os.path.join(fetched, "fi-vero-verotaulukot.html"), encoding="utf-8", errors="replace").read()
+    # Since November 2026 the page gives each table as JSON in an attribute
+    # ({"column_0": {"text": "50 Dieselöljy"}, "column_1": ..., "column_2": ...});
+    # before, as an HTML table. Both: the headings' text, then the table's rows
+    # as "50 Dieselöljy <energy> <CO2> ".
+    raw = html.unescape(raw)
+    # (A row's first cell closes the tag the JSON sits in, so the rows stay as text.)
+    raw = re.sub(r'\{"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: "> " + m.group(1) + " ", raw)
+    raw = re.sub(r',"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: " " + m.group(1) + " ", raw)
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S)))
     periods = []
     for part in re.split(r"(?=Verotaulukko \d)", t):
-        h = re.match(r"Verotaulukko 1a?: (\d+)\.(\d+)\.(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
+        h = re.match(r"Verotaulukko 1a?: (\d+)\. ?(\d+)? ?\.? ?(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
         m = re.search(r"\b50 Dieselöljy (\d+,\d+) (\d+,\d+) ", part)
         if not h or not m:
             continue  # a link to the table, or table 2 (combined heat and power)

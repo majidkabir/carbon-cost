@@ -1,0 +1,34 @@
+{
+ "description": "Milan ring road barrier vimercate: 4.90. Official 2026 barrier tariff, as carbon-cost's TestMilanBarriers asserts it.",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "data/carbon-cost/it/it-barriers-2026-01-01.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "carbon-cost/it-barriers/2026-01-01",
+    "object": "pt2",
+    "time": "2026-11-20T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "4.90"
+   }
+  ]
+ }
+}

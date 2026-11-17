@@ -17,7 +17,8 @@ var zones = map[string]string{
 	"ME": "Europe/Podgorica", "MK": "Europe/Skopje", "NL": "Europe/Amsterdam", "NO": "Europe/Oslo",
 	"PL": "Europe/Warsaw", "PT": "Europe/Lisbon", "RO": "Europe/Bucharest", "RS": "Europe/Belgrade",
 	"SE": "Europe/Stockholm", "SI": "Europe/Ljubljana", "SK": "Europe/Bratislava", "TR": "Europe/Istanbul",
-	"UA": "Europe/Kyiv", "XK": "Europe/Belgrade",
+	"UA": "Europe/Kyiv", "XK": "Europe/Belgrade", "IS": "Atlantic/Reykjavik", "AD": "Europe/Andorra",
+	"FO": "Atlantic/Faroe", "BY": "Europe/Minsk",
 }
 
 // zone is the country's time zone, UTC if not known.

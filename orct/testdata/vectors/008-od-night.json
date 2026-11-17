@@ -1,0 +1,42 @@
+{
+ "description": "Entry at night without electronic payment: the night row; the time class is read at entry (time_basis).",
+ "clauses": [
+  "6.7",
+  "6.10.1"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.2",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-a",
+    "time": "2026-11-16T23:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "st-b",
+    "time": "2026-11-17T00:30:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "5.00"
+   }
+  ]
+ }
+}

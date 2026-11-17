@@ -1,0 +1,119 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gb-tyne-tunnels/2025-05-01",
+  "scheme": {
+   "id": "gb-tyne-tunnels",
+   "name": "Tyne Tunnels toll",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-05-01",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "Tyne and Wear Act 1976 s. 13 and the River Tyne (Tunnels) Order 2005: the River Tyne (Tunnels) (Revision of Toll) Order 2025 (S.I. 2025/449), in force from 2025-05-01: class 3 (vehicles other than motorcycles and those up to 3.5 t) per passage either way; with `etc` the permit holder's price after discount.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-tyne-tunnels-2025-05-01.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "S.I. 2025/449, the River Tyne (Tunnels) Revision of Toll Order 2025",
+   "url": "https://www.legislation.gov.uk/uksi/2025/449/made"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t (class 3)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Tyne Tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-1.486078, 54.984689]
+    },
+    "heading": 358.5,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Tyne Tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-1.484379, 54.988309]
+    },
+    "heading": 189.4,
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [["pt1", "pt-1.1", null, "5"], ["pt1", "pt-1.1", "electronic", "4.5"], ["pt2", "pt-1.1", null, "5"], ["pt2", "pt-1.1", "electronic", "4.5"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

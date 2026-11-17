@@ -1,0 +1,15 @@
+{
+ "operator": "CAV S.p.A.",
+ "about": "Italy: CAV's unit toll rates per km for 2026 by section and class, published by the operator only as an image (file name tool_rates_2026.jpg) on its Toll rates page ('Unit rates for users on the CAV network (including the Concession Fee paid to ANAS and VAT)'). Transcribed by hand; tools/tables fetches the image again and says if it has changed (sha256). Per section: kur, the Kilometre Unit Rate; anas, the fee under art. 15 paragraph 4 letter B Law 122/2010; user, the user kilometre rate including VAT (22%), euro per km. Sections: A4 (Padova Est - Conn. A4/A13 - Conn. A4/A57), A57 (Conn. A4/A57 - Mirano-Dolo - Mira-Oriago - Venezia Mestre), Passante (Section A4 (Bypass): Conn. A4/A57 - Spinea - Martellago-Scorzè - Preganziol - Conn. A4/A27 - Conn. A57/A4).",
+ "source": {
+  "url": "https://www.cavspa.it/documents/37529/1094729/tool_rates_2026.jpg/214e3639-fe95-fee2-c453-ced7f5cd3a92",
+  "sha256": "ec0d49250035e7db84716ae7da002a15846a2c42384feb9b6527a74995f3f3ad",
+  "page": "https://www.cavspa.it/en/general-information-on-the-use-and-management-of-infrastructure-and-services/toll-rates"
+ },
+ "valid_from": "2026-01-01",
+ "rates": {
+  "A4": {"A": {"kur": 0.04791, "anas": 0.006, "user": 0.06577}, "B": {"kur": 0.04911, "anas": 0.006, "user": 0.06723}, "3": {"kur": 0.05651, "anas": 0.018, "user": 0.09090}, "4": {"kur": 0.09335, "anas": 0.018, "user": 0.13585}, "5": {"kur": 0.11300, "anas": 0.018, "user": 0.15982}},
+  "A57": {"A": {"kur": 0.04969, "anas": 0.006, "user": 0.06794}, "B": {"kur": 0.05098, "anas": 0.006, "user": 0.06952}, "3": {"kur": 0.05863, "anas": 0.018, "user": 0.09349}, "4": {"kur": 0.09683, "anas": 0.018, "user": 0.14009}, "5": {"kur": 0.11722, "anas": 0.018, "user": 0.16497}},
+  "Passante": {"A": {"kur": 0.10196, "anas": 0.006, "user": 0.13171}, "B": {"kur": 0.10450, "anas": 0.006, "user": 0.13481}, "3": {"kur": 0.12747, "anas": 0.018, "user": 0.17747}, "4": {"kur": 0.20283, "anas": 0.018, "user": 0.26941}, "5": {"kur": 0.24304, "anas": 0.018, "user": 0.31847}}
+ }
+}

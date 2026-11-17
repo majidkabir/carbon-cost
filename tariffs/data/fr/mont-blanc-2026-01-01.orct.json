@@ -1,0 +1,116 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/mont-blanc/2026-01-01",
+  "scheme": {
+   "id": "mont-blanc",
+   "name": "Mont Blanc tunnel toll",
+   "country": "FR"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Paris",
+  "license": "MIT",
+  "method": "Tunnel du Mont Blanc (TMB-GEIE): ATMB's prices for heavy vehicles from 2026-01-01, one way, France to Italy, EUR including 20% VAT, here excluding it; class 3 (two axles) and 4 (three or more). The Italy to France price is the same before Italy's 22% VAT. Goods vehicles over 3.5 t of EURO 0 to 4 aren't admitted.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "mont-blanc-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "ATMB: Mont Blanc tunnel prices for heavy vehicles from 2026-01-01",
+   "url": "https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.3",
+     "label": "3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "sys1-1.4",
+     "label": "4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Tunnel du Mont Blanc",
+   "type": "station",
+   "name": "Tunnel du Mont Blanc",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.86072, 45.901]]
+    },
+    "point_names": ["toll plaza"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Mont Blanc tunnel",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "ATMB/TMB-GEIE price for heavy vehicles, one way, EUR including 20% VAT, here excluding it.",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [["st1:Tunnel du Mont Blanc", "st1:Tunnel du Mont Blanc", "sys1-1.3", "167.92"], ["st1:Tunnel du Mont Blanc", "st1:Tunnel du Mont Blanc", "sys1-1.4", "337.33"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "about": "Annexes 1 and 2 of nařízení vlády č. 299/2024 Sb. (čl. I), which the Sbírka's PDF gives as images (pages 3 and 4, the tables turned on their side), copied number by number: each row is one mass band's 28 rates in Kč/km, in the annex's column order (EURO 0-IV, EURO V/EEV and EURO VI in CO2 class 1, then CO2 classes 2-5; 2, 3, 4 and 5 or more axles each). Read by OCR (pages rendered at 400 dpi and turned upright, tesseract --psm 6; one rate read without its comma, 3,5775) and checked against the rates read earlier from epravo.cz's text of the regulation (until November 2026, when its page stopped showing the annexes): all 168 agree. build_cz.py uses them only for the PDF whose sha256 is given, when epravo.cz's page has no tables.",
+ "source": {
+  "url": "https://epravo.cz/_dataPublic/sbirky/2024/Sb_2024_299_PZZ.pdf",
+  "sha256": "57ac3368c51d773c7b3da2fa6fc8c3895f1ccfc0e08320b7d68fd548b69d6bcb"
+ },
+ "tables": [
+  {
+   "annex": 1,
+   "page": 3,
+   "road": "motorway",
+   "rows": {
+    "více než 3,5 tuny a méně než 7,5 tuny": "0,8270 1,0221 1,5554 1,8100 0,8184 1,0106 1,5408 1,7922 0,8152 1,0062 1,5352 1,7855 0,7983 0,9850 1,4981 1,7412 0,7813 0,9638 1,4611 1,6970 0,6456 0,7942 1,1643 1,3427 0,4506 0,5508 0,7510 0,8512",
+    "nejméně 7,5 tuny a méně než 12 tun": "1,5473 2,0481 2,8001 3,3875 1,3697 1,8094 2,4973 3,0197 1,3026 1,7192 2,3668 2,8589 1,2857 1,6980 2,3297 2,8146 1,2687 1,6767 2,2927 2,7704 1,1331 1,5072 1,9959 2,4162 0,8601 1,1563 1,4657 1,7821",
+    "nejméně 12 tun": "3,5013 4,5898 5,8088 6,8249 3,0364 4,0458 5,3367 6,3846 2,8007 3,6985 4,8717 5,8954 2,7838 3,6773 4,8346 5,8511 2,7668 3,6561 4,7976 5,8069 2,6311 3,4865 4,5008 5,4527 2,2538 3,0277 3,8422 4,6572"
+   }
+  },
+  {
+   "annex": 2,
+   "page": 4,
+   "road": "other",
+   "rows": {
+    "více než 3,5 tuny a méně než 7,5 tuny": "0,4196 0,5444 0,8751 1,0582 0,4110 0,5329 0,8605 1,0404 0,4078 0,5285 0,8549 1,0337 0,3987 0,5170 0,8308 1,0050 0,3894 0,5055 0,8068 0,9763 0,3159 0,4136 0,6143 0,7463 0,2106 0,2808 0,3510 0,4312",
+    "nejméně 7,5 tuny a méně než 12 tun": "0,9511 1,2609 1,7891 2,1627 0,7735 1,0222 1,4863 1,7949 0,7064 0,9320 1,3558 1,6341 0,6973 0,9205 1,3316 1,6053 0,6881 0,9090 1,3077 1,5767 0,6146 0,8171 1,1151 1,3467 0,4403 0,5916 0,7507 0,9116",
+    "nejméně 12 tun": "2,1896 2,8425 3,5775 4,1209 1,7247 2,2985 3,1054 3,6806 1,4890 1,9512 2,6404 3,1914 1,4799 1,9398 2,6163 3,1626 1,4706 1,9282 2,5923 3,1339 1,3971 1,8363 2,3998 2,9040 1,1526 1,5486 1,9651 2,3779"
+   }
+  }
+ ]
+}

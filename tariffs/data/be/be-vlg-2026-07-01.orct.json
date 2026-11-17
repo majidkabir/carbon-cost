@@ -1,0 +1,435 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/be-vlg/2026-07-01",
+  "scheme": {
+   "id": "be-vlg",
+   "name": "Belgian kilometre charge, Flemish Region",
+   "country": "BE",
+   "region": "BE-VLG"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-07-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Brussels",
+  "license": "MIT",
+  "method": "Viapass rate grid ed. 01/07/2026, Flanders (with the CO2 class element from 1 July 2026). The published rates are totals: the CO2 part is not shown separately.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "be-vlg-2026-07-01.json"
+  },
+  "required_features": ["type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Viapass: kilometer charge rates from 1 July 2026 (rate grid, ed. 01/07/2026)",
+   "url": "https://viapass.be/en/news/kilometer-charge-changes-planned-from-july-1-2026-1.html"
+  },
+  {
+   "id": "s2",
+   "title": "Viapass: CO2 surcharge in Flanders from 1 July 2026",
+   "url": "https://www.viapass.be/en/news/surcharge-co2-emissions-flanders.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t maximum authorised mass for goods transport, by mass band (3.5-12 t, 12-32 t, over 32 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "km_charge-1",
+   "classes": [
+    {
+     "id": "km_charge-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["0"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["0"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["0"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["1", "2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["1", "2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["1", "2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "km_charge-1.16",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "km_charge-1.17",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "km_charge-1.18",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "km_charge-1.19",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["6"],
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "km_charge-1.20",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["6"],
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "km_charge-1.21",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["6"],
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "km_charge-1.22",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["6"],
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "km_charge-1.23",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["6"],
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "km_charge-1.24",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["6"],
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "km_charge-1.25",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "euro_class": ["6"],
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "km_charge-1.26",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "euro_class": ["6"],
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "km_charge-1.27",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "euro_class": ["6"],
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "km_charge-1.28",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 12000
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "km_charge-1.29",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12001,
+       "max": 32000
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "km_charge-1.30",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 32001
+      },
+      "co2_class": [5]
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "The Flemish toll road network (motorways and listed regional and local roads)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "km_charge",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "km",
+   "component_label": "km_charge",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "km_charge-1.1", "0.205"],
+    ["roads", "km_charge-1.2", "0.342"],
+    ["roads", "km_charge-1.3", "0.395"],
+    ["roads", "km_charge-1.4", "0.199"],
+    ["roads", "km_charge-1.5", "0.333"],
+    ["roads", "km_charge-1.6", "0.384"],
+    ["roads", "km_charge-1.7", "0.172"],
+    ["roads", "km_charge-1.8", "0.306"],
+    ["roads", "km_charge-1.9", "0.358"],
+    ["roads", "km_charge-1.10", "0.13"],
+    ["roads", "km_charge-1.11", "0.262"],
+    ["roads", "km_charge-1.12", "0.314"],
+    ["roads", "km_charge-1.13", "0.114"],
+    ["roads", "km_charge-1.14", "0.246"],
+    ["roads", "km_charge-1.15", "0.299"],
+    ["roads", "km_charge-1.16", "0.101"],
+    ["roads", "km_charge-1.17", "0.233"],
+    ["roads", "km_charge-1.18", "0.285"],
+    ["roads", "km_charge-1.19", "0.099"],
+    ["roads", "km_charge-1.20", "0.23"],
+    ["roads", "km_charge-1.21", "0.281"],
+    ["roads", "km_charge-1.22", "0.097"],
+    ["roads", "km_charge-1.23", "0.226"],
+    ["roads", "km_charge-1.24", "0.277"],
+    ["roads", "km_charge-1.25", "0.082"],
+    ["roads", "km_charge-1.26", "0.203"],
+    ["roads", "km_charge-1.27", "0.245"],
+    ["roads", "km_charge-1.28", "0.009"],
+    ["roads", "km_charge-1.29", "0.031"],
+    ["roads", "km_charge-1.30", "0.038"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

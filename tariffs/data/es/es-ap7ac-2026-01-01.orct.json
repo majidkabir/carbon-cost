@@ -1,0 +1,169 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/es-ap7ac/2026-01-01",
+  "scheme": {
+   "id": "es-ap7ac",
+   "name": "AP-7 Alicante–Cartagena",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "The Ministry of Transport's tolls in force from 2026-01-01 on the AP-7 Alicante–Cartagena, per barrier (Troncal de Los Montesinos, Acceso de La Zenia, Troncal de La Zenia): Pesados 1 (two or three axles) EUR 4.2149 and Pesados 2 (four axles or more) 5.3719 in the low season, 4.9174 and 5.9504 in the high season, excluding 21% IVA. High season: June to September and the 17 days of Semana Santa (from the Friday before it to the Sunday after it); regular users pay the low season's tolls all year (not modelled). Barriers placed at OpenStreetMap's toll plazas on the motorway, in the table's order from north to south.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-ap7ac-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Ministerio de Transportes: peajes vigentes en la AP-7 ALICANTE - CARTAGENA (2026)",
+   "url": "https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-7,-alicante---cartagena-2026.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API), toll booths",
+   "url": "https://www.openstreetmap.org/copyright"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t (Pesados 1 and 2)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "high-season",
+   "label": "High season",
+   "days": [
+    {
+     "months": [6, 7, 8, 9]
+    },
+    {
+     "easter": [[-9, 7]]
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Troncal de Los Montesinos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.782622, 38.008606]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Acceso de La Zenia",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.737382, 37.925935]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Troncal de La Zenia",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.741711, 37.920565]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "time_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, "4.2149"],
+    ["pt1", "pt-1.1", "high-season", "4.9174"],
+    ["pt1", "pt-1.2", null, "5.3719"],
+    ["pt1", "pt-1.2", "high-season", "5.9504"],
+    ["pt2", "pt-1.1", null, "4.2149"],
+    ["pt2", "pt-1.1", "high-season", "4.9174"],
+    ["pt2", "pt-1.2", null, "5.3719"],
+    ["pt2", "pt-1.2", "high-season", "5.9504"],
+    ["pt3", "pt-1.1", null, "4.2149"],
+    ["pt3", "pt-1.1", "high-season", "4.9174"],
+    ["pt3", "pt-1.2", null, "5.3719"],
+    ["pt3", "pt-1.2", "high-season", "5.9504"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

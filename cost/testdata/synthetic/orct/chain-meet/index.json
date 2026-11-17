@@ -1,0 +1,19 @@
+{
+ "orct": "0.3",
+ "derived_from": {
+  "url": "https://github.com/majidkabir/carbon-cost"
+ },
+ "datasets": [
+  {
+   "id": "carbon-cost/fr-chain/2026-01-01",
+   "scheme": "fr-chain",
+   "country": "FR",
+   "file": "fr/fr-chain-2026-01-01.orct.json",
+   "name": "chain",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "78917afee0e7a70e6011efa7e6b019fa9e46c05fdab59201bd3b84845ff78480",
+   "coverage": "partial"
+  }
+ ]
+}

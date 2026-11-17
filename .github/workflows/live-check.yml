@@ -58,6 +58,13 @@ jobs:
             maps: europe/luxembourg
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
+          # The Polish concession motorways (each operator's own tolls).
+          - name: pl-a4
+            maps: europe/poland/slaskie europe/poland/malopolskie
+          - name: pl-a2
+            maps: europe/poland/wielkopolskie europe/poland/lubuskie
+          - name: pl-a1
+            maps: europe/poland/pomorskie europe/poland/kujawsko-pomorskie
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -75,7 +82,7 @@ jobs:
           sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
           mkdir -p maps && cd maps
           for r in ${{ matrix.maps }}; do
-            curl -fsSL -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
+            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
           done
           if [ "$(ls *.osm.pbf | wc -l)" -gt 1 ]; then osmium merge -o region.osm.pbf *.osm.pbf; else mv *.osm.pbf region.osm.pbf; fi
           ls -la
@@ -130,6 +137,16 @@ jobs:
           elif [ "${{ matrix.name }}" = pl ]; then
             run wroclaw-gliwice -from 51.1079,17.0385 -to 50.2945,18.6714
             run wroclaw-gliwice-10t-euro3 -from 51.1079,17.0385 -to 50.2945,18.6714 -mass-kg 10000 -axles 2 -euro 3
+          elif [ "${{ matrix.name }}" = pl-a4 ]; then
+            run katowice-krakow -from 50.2649,19.0238 -to 50.0647,19.9450
+            run katowice-krakow-2axles-trailer -from 50.2649,19.0238 -to 50.0647,19.9450 -motor-axles 2
+            run katowice-krakow-2024 -from 50.2649,19.0238 -to 50.0647,19.9450 -date 2024-01-10
+          elif [ "${{ matrix.name }}" = pl-a2 ]; then
+            run poznan-swiecko -from 52.4064,16.9252 -to 52.3150,14.6030
+            run poznan-konin -from 52.4064,16.9252 -to 52.2230,18.2511
+            run poznan-konin-2025 -from 52.4064,16.9252 -to 52.2230,18.2511 -date 2025-06-01
+          elif [ "${{ matrix.name }}" = pl-a1 ]; then
+            run gdansk-torun -from 54.3520,18.6466 -to 53.0138,18.5984
           elif [ "${{ matrix.name }}" = sk ]; then
             run bratislava-zilina -from 48.1486,17.1077 -to 49.2231,18.7394
             run bratislava-zilina-co2class4 -from 48.1486,17.1077 -to 49.2231,18.7394 -co2-class 4
@@ -212,6 +229,9 @@ jobs:
             fr-sw) trip="-from 44.5530,-0.2490 -to 43.2951,-0.3708" ;;
             fr-normandy) trip="-from 49.4431,1.0993 -to 49.1829,-0.3707" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
+            pl-a4) trip="-from 50.2649,19.0238 -to 50.0647,19.9450" ;;
+            pl-a2) trip="-from 52.4064,16.9252 -to 52.3150,14.6030" ;;
+            pl-a1) trip="-from 54.3520,18.6466 -to 53.0138,18.5984" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac
           ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json

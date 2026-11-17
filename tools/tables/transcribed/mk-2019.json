@@ -1,0 +1,219 @@
+{
+ "operator": "Јавно претпријатие за државни патишта (PESR)",
+ "about": "North Macedonia: the Government decision on tolls (Службен весник 118/2019, art. 5) gives the tolls per toll station only as images on page 4 of its PDF (euro, paid in cash). Transcribed by hand from that table, in its order; tools/tables fetches the PDF again and says if it has changed (sha256). Columns: vehicle categories IA, IБ, II, III, IV. Art. 5 was first changed by Службен весник 88/2025 (its preamble names 118/19 alone), so this table applies until 30 April 2025. The 2019 table prints Романовци for the station OpenStreetMap and the 2025 table name Романовце.",
+ "source": {
+  "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf",
+  "sha256": "4fb2e69db60deedc050499dab8c7fcecd8a4bdbc48f99b0859beecd593f7ca72",
+  "page": "4 (ПАТАРИНА ВО ЕВРА)"
+ },
+ "valid_from": "2024-01-01",
+ "valid_to": "2025-04-30",
+ "law": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 (in force from 12 June 2019 until Службен весник 88/2025 replaced it on 1 May 2025; the table here starts on 1 January 2024): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
+ "columns": [
+  "IA",
+  "I",
+  "II",
+  "III",
+  "IV"
+ ],
+ "stations": [
+  {
+   "station": "Романовце",
+   "section": "Куманово – Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.5,
+    4.0
+   ]
+  },
+  {
+   "station": "Петровец",
+   "section": "Скопје - Петровец и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Сопот",
+   "section": "Петровец – Велес",
+   "eur": [
+    1.0,
+    1.5,
+    2.0,
+    4.0,
+    5.5
+   ]
+  },
+  {
+   "station": "Отовица",
+   "section": "Велес - Петровец",
+   "eur": [
+    1.0,
+    1.5,
+    2.0,
+    4.0,
+    5.5
+   ]
+  },
+  {
+   "station": "Стоби",
+   "section": "Велес - Градско и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    2.0,
+    3.0,
+    4.5
+   ]
+  },
+  {
+   "station": "Миладиновци",
+   "section": "Скопје - Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    2.5
+   ]
+  },
+  {
+   "station": "Тетово",
+   "section": "Тетово - Гостивар и обратно",
+   "eur": [
+    0.5,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+   ]
+  },
+  {
+   "station": "Гостивар",
+   "section": "Тетово - Гостивар и обратно",
+   "eur": [
+    0.5,
+    0.5,
+    1.0,
+    1.5,
+    2.0
+   ]
+  },
+  {
+   "station": "Глумово",
+   "section": "Скопје - Тетово и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Желино",
+   "section": "Скопје - Тетово и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Демир Капија",
+   "section": "Градско – Демир Капија и обратно",
+   "eur": [
+    1.0,
+    1.5,
+    2.5,
+    4.0,
+    6.0
+   ]
+  },
+  {
+   "station": "Гевгелија",
+   "section": "Демир Капија – Гевгелија и обратно",
+   "eur": [
+    1.0,
+    2.0,
+    3.0,
+    5.0,
+    7.0
+   ]
+  },
+  {
+   "station": "Кадрифаково",
+   "section": "Штип – Св. Николе и обратно",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.5,
+    4.0
+   ]
+  },
+  {
+   "station": "Преод",
+   "section": "Св. Николе – Миладиновци и обратно",
+   "eur": [
+    0.5,
+    1.5,
+    2.0,
+    3.0,
+    4.5
+   ]
+  },
+  {
+   "station": "Миравци",
+   "section": "Клучка Миравци-Клучка Демир Капија",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.5,
+    4.0
+   ]
+  },
+  {
+   "station": "Миравци",
+   "section": "Клучка Миравци-Клучка Гевгелија",
+   "eur": [
+    0.5,
+    1.0,
+    1.5,
+    2.0,
+    3.0
+   ]
+  },
+  {
+   "station": "Смоквица",
+   "section": "Клучка Смоквица - КлучкаГевгелија",
+   "eur": [
+    0.5,
+    0.5,
+    1.0,
+    1.5,
+    2.5
+   ]
+  },
+  {
+   "station": "Смоквица",
+   "section": "Клучка Смоквица -Клучка Демир Капија",
+   "eur": [
+    0.5,
+    1.5,
+    2.0,
+    3.5,
+    5.0
+   ]
+  }
+ ]
+}

@@ -1,0 +1,184 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/it-barriers/2026-01-01",
+  "scheme": {
+   "id": "it-barriers",
+   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "country": "IT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Rome",
+  "license": "MIT",
+  "method": "Milano Serravalle - Milano Tangenziali's tolls from 1 January 2026 at the barriers of its semi-closed ring roads, a fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction). The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "it-barriers-2026-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Terrazzano (A50)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Terrazzano_Tang_OVEST_MI2.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Vimercate (A51)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Vimercate_Tang_EST_MI6.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "Milano Serravalle: tariffe e pedaggi 2022-2026, barriera di Sesto San Giovanni (A52)",
+   "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Sesto_SG_Tang_NORD_MI1.pdf"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Overpass API): toll booths and the Vimercate junctions around Milan",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Classes B (two axles), 3, 4 and 5 (five axles or more)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 5
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "A50 Tangenziale Ovest di Milano, Terrazzano barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.058708, 45.541039]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "A51 Tangenziale Est di Milano, Vimercate barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.357957, 45.608418]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.263721, 45.55137]
+    },
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "8.4"],
+    ["pt1", "pt-1.2", "7"],
+    ["pt1", "pt-1.3", "4.6"],
+    ["pt1", "pt-1.4", "3.6"],
+    ["pt2", "pt-1.1", "4.9"],
+    ["pt2", "pt-1.2", "4.1"],
+    ["pt2", "pt-1.3", "2.6"],
+    ["pt2", "pt-1.4", "2.1"],
+    ["pt3", "pt-1.1", "6.3"],
+    ["pt3", "pt-1.2", "5.2"],
+    ["pt3", "pt-1.3", "3.3"],
+    ["pt3", "pt-1.4", "2.7"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

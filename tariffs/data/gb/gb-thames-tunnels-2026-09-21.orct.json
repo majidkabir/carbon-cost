@@ -1,0 +1,170 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gb-thames-tunnels/2026-09-21",
+  "scheme": {
+   "id": "gb-thames-tunnels",
+   "name": "Blackwall and Silvertown tunnels charge",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-09-21",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "The Silvertown Tunnel Order 2018 (user charges set by TfL): heavy goods vehicles (N2, N3) pay GBP 10.50 per crossing either way, 06:00-22:00 every day except Christmas Day, paid online or by phone; with `etc` the Auto Pay off-peak price, GBP 5.25 (Auto Pay's peak, weekdays 06:00-10:00 northbound and 16:00-19:00 southbound, is the full price, not modelled). From 2026-09-21 (TfL).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-thames-tunnels-2026-09-21.json"
+  },
+  "required_features": ["time_classes", "type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Transport for London: paying the Blackwall and Silvertown tunnels charge (read in Chrome, as TfL refuses the workflow)",
+   "url": "https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges"
+  },
+  {
+   "id": "s2",
+   "title": "TfL press release PN-215 (23 July 2026): current and new user charges",
+   "url": "https://tfl-newsroom.prgloo.com/news/new-report-shows-one-year-old-silvertown-tunnel-cuts-congestion-and-boosts-bus-use-alongside-improved-air-quality"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Heavy goods vehicles (N2, N3: over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "free",
+   "label": "No charge",
+   "times": [["22:00", "06:00"]]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Blackwall and Silvertown tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.001316, 51.505044]
+    },
+    "heading": 130.1,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Blackwall and Silvertown tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-0.004038, 51.503838]
+    },
+    "heading": 306.3,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Blackwall and Silvertown tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [0.011215, 51.501146]
+    },
+    "heading": 232.4,
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "Blackwall and Silvertown tunnels",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [0.010808, 51.501224]
+    },
+    "heading": 52.5,
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, null, null, "10.5"],
+    ["pt1", "pt-1.1", "electronic", null, null, "5.25"],
+    ["pt1", null, null, "free", 2, "0"],
+    ["pt2", "pt-1.1", null, null, null, "10.5"],
+    ["pt2", "pt-1.1", "electronic", null, null, "5.25"],
+    ["pt2", null, null, "free", 2, "0"],
+    ["pt3", "pt-1.1", null, null, null, "10.5"],
+    ["pt3", "pt-1.1", "electronic", null, null, "5.25"],
+    ["pt3", null, null, "free", 2, "0"],
+    ["pt4", "pt-1.1", null, null, null, "10.5"],
+    ["pt4", "pt-1.1", "electronic", null, null, "5.25"],
+    ["pt4", null, null, "free", 2, "0"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

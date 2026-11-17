@@ -1,0 +1,81 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-ie/2025-10-08",
+  "scheme": {
+   "id": "fuelco2-ie",
+   "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel",
+   "country": "IE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-10-08",
+  "currency": "EUR",
+  "timezone": "Europe/Dublin",
+  "license": "MIT",
+  "method": "Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges 71.00 euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-ie-2025-10-08.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Revenue (Ireland): energy excise duty rates, Mineral Oil Tax with its carbon component and the amount charged per tonne of CO2, with previous rates",
+   "url": "https://www.revenue.ie/en/tax-professionals/tdm/excise/excise-duty-rates/energy-excise-duty-rates.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "IE"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["71"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

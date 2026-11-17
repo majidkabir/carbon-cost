@@ -1,10 +1,15 @@
 name: Croatia data
 # Fetches HAC's toll price lists and Croatia's OpenStreetMap toll booths
-# and motorway junctions, and pushes them to the hr-out branch. Push to
-# the hr-data branch to run it.
+# and motorway junctions, builds the table (tools/hr/build.py), converts it
+# to ORCT, compares it with tariffs/data, and pushes it all to the hr-out
+# branch. Push to the hr-data branch to run it.
 on:
   push:
     branches: [hr-data]
+  # Daily (02:37 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "37 2 * * *"
 permissions:
   contents: write
 jobs:
@@ -13,14 +18,26 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done
       - name: Fetch
         run: |
           mkdir -p out
-          curl -fsSL -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
+          # Geofabrik refuses connections from GitHub's runners for minutes at a time: retry for ~10 minutes.
+          curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
           osmium tags-filter -O -o b.pbf hr.pbf n/barrier=toll_booth n/highway=motorway_junction
           osmium export -O -f geojsonseq -o booths.geojsonseq b.pbf
           python3 tools/hr/fetch.py booths.geojsonseq out
+      - name: Build, convert to ORCT and compare
+        # The table (tools/hr/build.py) becomes an ORCT dataset right away;
+        # only that is kept (tariffs/data/hr).
+        run: |
+          mkdir -p out/tables
+          python3 tools/hr/build.py out/hr-prices.json out/hr-booths.json out/hr-table.json out/bina-istra.json | tee out/build-report.txt
+          v=$(python3 -c "import json; print(json.load(open('out/hr-table.json'))['valid_from'])")
+          mv out/hr-table.json "out/tables/hr-$v.json"
+          python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
+          python3 tools/orct/check_lossless.py out/tables out/orct
+          sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |
           cd out

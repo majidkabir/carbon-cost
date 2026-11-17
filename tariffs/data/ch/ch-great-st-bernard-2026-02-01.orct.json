@@ -1,0 +1,125 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ch-great-st-bernard/2026-02-01",
+  "scheme": {
+   "id": "ch-great-st-bernard",
+   "name": "Great St Bernard tunnel toll, Bourg-Saint-Pierre (southbound)",
+   "country": "CH"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-02-01",
+  "currency": "CHF",
+  "timezone": "Europe/Zurich",
+  "license": "MIT",
+  "method": "Tunnel du Grand-Saint-Bernard (SISEX SA, Swiss side; SITRASB S.p.A., Italian side): one-way tariff from 2026-02-01, paid at the plaza where the trip enters, in CHF on the Swiss side and EUR on the Italian side: trucks over 3 m high with 2 axles (class B2), 3 axles (3A) or 4 or more (4). Trucks over 3.5 t are taken to be over 3 m high.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ch-great-st-bernard-2026-02-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Tunnel du Grand-Saint-Bernard: tariffs",
+   "url": "https://www.letunnel.com/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3 m high (here: over 3.5 t), by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Great St Bernard tunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.193653, 45.899798]
+    },
+    "heading": 205.1,
+    "match_m": 200
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "87"], ["pt1", "pt-1.2", "127"], ["pt1", "pt-1.3", "192.5"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

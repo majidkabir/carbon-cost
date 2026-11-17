@@ -1,0 +1,82 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-si/2026-03-24",
+  "scheme": {
+   "id": "fuelco2-si",
+   "name": "Okoljska dajatev za onesnaževanje zraka z emisijo CO2 on diesel",
+   "country": "SI"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-03-24",
+  "valid_to": "2026-05-11",
+  "currency": "EUR",
+  "timezone": "Europe/Ljubljana",
+  "license": "MIT",
+  "method": "Uredba o okoljski dajatvi za onesnaževanje zraka z emisijo ogljikovega dioksida (Uradni list RS 48/18) art. 3: the charge is an amount per unit of burden, one tonne of CO2; for plinsko olje (diesel) it is 0 euro, from the government's sklep in Uradni list RS 103/2026. Fuel suppliers pay it and pass it on in the fuel price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-si-2026-03-24.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Uradni list RS 103/2026: Sklep o višini okoljske dajatve za onesnaževanje zraka z emisijo ogljikovega dioksida",
+   "url": "https://pisrs.si/api/uradni-list/objava/u20260103.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "SI"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Okoljska dajatev za onesnaževanje zraka z emisijo CO2 on diesel",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "t_co2",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["0"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

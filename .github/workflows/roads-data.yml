@@ -12,20 +12,20 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && pip install -q shapely osmium
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q shapely osmium
       - name: Build
         run: |
           mkdir -p out
           # tools/roads/ONLY lists the countries to rebuild; the others are
           # kept from the roads-out branch.
-          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania"
+          list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania IT:italy"
           if [ -f tools/roads/ONLY ]; then
             git fetch -q origin roads-out && git archive FETCH_HEAD | tar -x -C out
             list=$(cat tools/roads/ONLY)
           fi
           for x in $list; do
             cc=${x%%:*}; name=${x#*:}
-            curl -fsSL -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
+            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name-latest.osm.pbf"
             export OSM_EXTRACT=$(osmium fileinfo -g header.option.osmosis_replication_timestamp in.pbf)
             osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             extra=""

@@ -37,11 +37,16 @@ def main(transcribed, fetched, out):
             booths.setdefault(p["name"][len("Патарина "):], []).append(tuple(g["coordinates"]))
         elif p.get("highway") and g["type"] == "LineString":
             ways.append((p.get("oneway") == "yes", [tuple(c) for c in g["coordinates"]]))
-    points = []
+    points, unplaced = [], []
     for st in tr["stations"]:
         bs = booths.get(st["station"])
         if not bs:
-            sys.exit(f"{st['station']}: no toll booth named Патарина {st['station']} in OpenStreetMap")
+            # Until 2025 the ramp stations at the Miravci and Smokvica
+            # junctions, which OpenStreetMap no longer has.
+            if not tr.get("valid_to"):
+                sys.exit(f"{st['station']}: no toll booth named Патарина {st['station']} in OpenStreetMap")
+            unplaced.append(f"{st['station']} ({st['section']})")
+            continue
         price = dict(zip(cols, st["eur"]))
         classes = [{"min_kg": 3501, "max_axles": 3, "rate": price["III"]}, {"min_kg": 3501, "min_axles": 4, "rate": price["IV"]}]
         headed, both = [], []
@@ -68,7 +73,7 @@ def main(transcribed, fetched, out):
         "country": "MK", "currency": "EUR", "valid_from": tr["valid_from"],
         "osm_extract": open(os.path.join(fetched, "mk-osm-timestamp.txt")).read().strip()[:10],
         "name": "North Macedonian road tolls (патарина)",
-        "law": "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 as replaced by Службен весник 88/2025 (in force 1 May 2025): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
+        "law": tr.get("law") or "Закон за јавните патишта, член 58; Одлука за висината и начинот на наплата на надоместокот за употреба на пат (Службен весник 118/2019), art. 5 as replaced by Службен весник 88/2025 (in force 1 May 2025): a toll per toll station, by category (trucks: III with two or three axles, IV with four or more). The price in euro paid in cash; electronic payment by card or tag earns a discount on top-ups. Stations placed with OpenStreetMap's toll booths, a booth on a one-way carriageway charging that direction.",
         "sources": [{"title": "Службен весник 88/2025: Одлука за изменување на Одлуката за патарина (PESR)", "url": tr["source"]["url"]},
                     {"title": "Службен весник 118/2019: Одлука за патарина (PESR)", "url": "https://roads.org.mk/wp-content/uploads/2023/01/odluka-za-patarina-2019-1.pdf"},
                     {"title": "OpenStreetMap (Geofabrik extract), toll booths", "url": "https://download.geofabrik.de/europe/macedonia.html"}],
@@ -79,6 +84,11 @@ def main(transcribed, fetched, out):
         "toll_points": points,
         "rows": [],
     }
+    if tr.get("valid_to"):
+        tb["valid_to"] = tr["valid_to"]
+        tb["sources"] = [{"title": "Службен весник 118/2019: Одлука за патарина (PESR)", "url": tr["source"]["url"]}, tb["sources"][2]]
+    if unplaced:
+        tb["law"] += " Stations with no toll booth in OpenStreetMap aren't priced: " + "; ".join(unplaced) + "."
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, f"mk-{tr['valid_from']}.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)

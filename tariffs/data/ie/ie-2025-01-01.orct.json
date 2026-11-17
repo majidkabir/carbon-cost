@@ -1,0 +1,322 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ie/2025-01-01",
+  "scheme": {
+   "id": "ie",
+   "name": "Irish national road tolls (M50 and the PPP toll roads)",
+   "country": "IE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Dublin",
+  "license": "MIT",
+  "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2025 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-16T21:22:36Z). From TII's pages as the Internet Archive kept them, read in a browser into tools/history/browser/ie-2025.json.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ie-2025-01-01.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "TII: M1 Gormanston to Monasterboice (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250818011152/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/"
+  },
+  {
+   "id": "s2",
+   "title": "TII: M3 Clonee Kells (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250910232858/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/"
+  },
+  {
+   "id": "s3",
+   "title": "TII: M3 Between Clonee and Dunshaughlin (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250715033035/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/"
+  },
+  {
+   "id": "s4",
+   "title": "TII: M4 Kilcock Enfield Kinnegad (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712065817/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/"
+  },
+  {
+   "id": "s5",
+   "title": "TII: N6 Galway Ballinasloe (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250911000234/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/"
+  },
+  {
+   "id": "s6",
+   "title": "TII: M7-M8 Portlaoise Castletown Portlaoise Cullahill (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712060620/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7-m8-portlaoise-castletown-portlaoise-cullahill/"
+  },
+  {
+   "id": "s7",
+   "title": "TII: N8 Rathcormac Fermoy Bypass (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20251108210607/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/"
+  },
+  {
+   "id": "s8",
+   "title": "TII: Limerick Tunnel (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250808142831/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/"
+  },
+  {
+   "id": "s9",
+   "title": "TII: N25 Waterford City Bypass (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250910231418/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/"
+  },
+  {
+   "id": "s10",
+   "title": "TII: M50 Barrier Free Tolling (Applicable Tolls 2025), Internet Archive copy",
+   "url": "https://web.archive.org/web/20250712062825/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/"
+  },
+  {
+   "id": "s11",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/ireland-and-northern-ireland.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods vehicles over 3,500 kg (M50: over 2,000 kg)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-2",
+   "classes": [
+    {
+     "id": "pt-2.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 2001,
+       "max": 10000
+      }
+     }
+    },
+    {
+     "id": "pt-2.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 10001
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "M1 Gormanston to Monasterboice",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.3303, 53.662852]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "M3 Clonee Kells",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.775738, 53.672403]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "M3 Between Clonee and Dunshaughlin",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.482601, 53.453751]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "M4 Kilcock Enfield Kinnegad",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.739993, 53.410308]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "N6 Galway Ballinasloe",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.413455, 53.282212]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "M7-M8 Portlaoise Castletown Portlaoise Cullahill",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.393453, 53.000441]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "N8 Rathcormac Fermoy Bypass",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.328118, 52.02701]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "Limerick Tunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.700088, 52.669569]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "N25 Waterford City Bypass",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.158746, 52.273883]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "M50 Barrier Free Tolling",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.37846, 53.369438]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, "4.7154"],
+    ["pt1", "pt-1.2", null, "6.0163"],
+    ["pt2", "pt-1.1", null, "2.8455"],
+    ["pt2", "pt-1.2", null, "3.4959"],
+    ["pt3", "pt-1.1", null, "2.8455"],
+    ["pt3", "pt-1.2", null, "3.4959"],
+    ["pt4", "pt-1.1", null, "5.6911"],
+    ["pt4", "pt-1.2", null, "6.9919"],
+    ["pt5", "pt-1.1", null, "4.7154"],
+    ["pt5", "pt-1.2", null, "6.0163"],
+    ["pt6", "pt-1.1", null, "4.7154"],
+    ["pt6", "pt-1.2", null, "6.0163"],
+    ["pt7", "pt-1.1", null, "4.7154"],
+    ["pt7", "pt-1.2", null, "6.0163"],
+    ["pt8", "pt-1.1", null, "4.7154"],
+    ["pt8", "pt-1.2", null, "6.0163"],
+    ["pt9", "pt-1.1", null, "4.7154"],
+    ["pt9", "pt-1.2", null, "6.0163"],
+    ["pt10", "pt-2.1", null, "6.4"],
+    ["pt10", "pt-2.1", "electronic", "5.1"],
+    ["pt10", "pt-2.2", null, "7.7"],
+    ["pt10", "pt-2.2", "electronic", "6.4"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-16"
+  }
+ }
+}

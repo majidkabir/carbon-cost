@@ -1,0 +1,1236 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/de/2024-07-01",
+  "scheme": {
+   "id": "de",
+   "name": "German HGV toll (Lkw-Maut)",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-07-01",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "Bundesfernstraßenmautgesetz (BFStrMG) § 3 and Anlage 1 (BGBl. 2023 I Nr. 315)",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "de-2024-07-01.json"
+  },
+  "required_features": ["rule.exemption", "type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "BFStrMG Anlage 1: Mautteilsätze (infrastructure, air pollution, noise, CO2)",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/anlage_1.html"
+  },
+  {
+   "id": "s2",
+   "title": "BFStrMG § 1 Abs. 2 Nr. 7: emission-free trucks exempt until 30 June 2031 (Viertes Gesetz zur Änderung mautrechtlicher Vorschriften, in force 1 December 2025)",
+   "url": "https://www.gesetze-im-internet.de/bfstrmg/__1.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles and combinations over 3.5 t technically permissible maximum mass used for goods transport",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "infrastructure-1",
+   "classes": [
+    {
+     "id": "infrastructure-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      }
+     }
+    },
+    {
+     "id": "infrastructure-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      }
+     }
+    },
+    {
+     "id": "infrastructure-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      }
+     }
+    },
+    {
+     "id": "infrastructure-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "infrastructure-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "air-1",
+   "classes": [
+    {
+     "id": "air-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["6"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["5", "EEV"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["4"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.16",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.17",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.18",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.19",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.20",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["3"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.21",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.22",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.23",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.24",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.25",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["2"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.26",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.27",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.28",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.29",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.30",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1, 2, 3, 4]
+     }
+    },
+    {
+     "id": "air-1.31",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air-1.32",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air-1.33",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "air-1.34",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "co2_class": [5]
+     }
+    }
+   ]
+  },
+  {
+   "id": "co2-1",
+   "classes": [
+    {
+     "id": "co2-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.5",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.6",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "euro_class": ["0", "1"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.7",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.8",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.9",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.10",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.11",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.12",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "euro_class": ["2", "3"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.13",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.14",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.15",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.16",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.17",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.18",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "euro_class": ["4", "5", "EEV"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.19",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.20",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.21",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.22",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.23",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.24",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "euro_class": ["6"],
+      "co2_class": [1]
+     }
+    },
+    {
+     "id": "co2-1.25",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.26",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.27",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.28",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.29",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.30",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "co2_class": [2]
+     }
+    },
+    {
+     "id": "co2-1.31",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.32",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.33",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.34",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.35",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.36",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "co2_class": [3]
+     }
+    },
+    {
+     "id": "co2-1.37",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.38",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.39",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.40",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.41",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.42",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "co2_class": [4]
+     }
+    },
+    {
+     "id": "co2-1.43",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501,
+       "max": 7499
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.44",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 7500,
+       "max": 11999
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.45",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 12000,
+       "max": 18000
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.46",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "max": 3
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.47",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "co2-1.48",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 18001
+      },
+      "train_axles": {
+       "min": 5
+      },
+      "co2_class": [5]
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "Federal motorways (Bundesautobahnen) and federal roads (Bundesstraßen)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "infrastructure",
+   "type": "distance",
+   "component": "infrastructure",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "infrastructure-1.1", "0.052"],
+    ["roads", "infrastructure-1.2", "0.066"],
+    ["roads", "infrastructure-1.3", "0.107"],
+    ["roads", "infrastructure-1.4", "0.141"],
+    ["roads", "infrastructure-1.5", "0.155"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "air",
+   "type": "distance",
+   "component": "air_pollution",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "air-1.1", "0.011"],
+    ["roads", "air-1.2", "0.015"],
+    ["roads", "air-1.3", "0.015"],
+    ["roads", "air-1.4", "0.022"],
+    ["roads", "air-1.5", "0.023"],
+    ["roads", "air-1.6", "0.043"],
+    ["roads", "air-1.7", "0.043"],
+    ["roads", "air-1.8", "0.052"],
+    ["roads", "air-1.9", "0.062"],
+    ["roads", "air-1.10", "0.062"],
+    ["roads", "air-1.11", "0.055"],
+    ["roads", "air-1.12", "0.059"],
+    ["roads", "air-1.13", "0.063"],
+    ["roads", "air-1.14", "0.08"],
+    ["roads", "air-1.15", "0.087"],
+    ["roads", "air-1.16", "0.079"],
+    ["roads", "air-1.17", "0.088"],
+    ["roads", "air-1.18", "0.101"],
+    ["roads", "air-1.19", "0.134"],
+    ["roads", "air-1.20", "0.149"],
+    ["roads", "air-1.21", "0.098"],
+    ["roads", "air-1.22", "0.113"],
+    ["roads", "air-1.23", "0.121"],
+    ["roads", "air-1.24", "0.164"],
+    ["roads", "air-1.25", "0.182"],
+    ["roads", "air-1.26", "0.102"],
+    ["roads", "air-1.27", "0.114"],
+    ["roads", "air-1.28", "0.123"],
+    ["roads", "air-1.29", "0.169"],
+    ["roads", "air-1.30", "0.187"],
+    ["roads", "air-1.31", "0.001"],
+    ["roads", "air-1.32", "0.001"],
+    ["roads", "air-1.33", "0.001"],
+    ["roads", "air-1.34", "0.001"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "noise",
+   "type": "distance",
+   "component": "noise",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "infrastructure-1.1", "0.014"],
+    ["roads", "infrastructure-1.2", "0.016"],
+    ["roads", "infrastructure-1.3", "0.016"],
+    ["roads", "infrastructure-1.4", "0.016"],
+    ["roads", "infrastructure-1.5", "0.012"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "co2",
+   "type": "distance",
+   "component": "co2",
+   "unit": "km",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "co2-1.1", "0.08"],
+    ["roads", "co2-1.2", "0.08"],
+    ["roads", "co2-1.3", "0.104"],
+    ["roads", "co2-1.4", "0.158"],
+    ["roads", "co2-1.5", "0.158"],
+    ["roads", "co2-1.6", "0.162"],
+    ["roads", "co2-1.7", "0.08"],
+    ["roads", "co2-1.8", "0.08"],
+    ["roads", "co2-1.9", "0.104"],
+    ["roads", "co2-1.10", "0.138"],
+    ["roads", "co2-1.11", "0.138"],
+    ["roads", "co2-1.12", "0.162"],
+    ["roads", "co2-1.13", "0.08"],
+    ["roads", "co2-1.14", "0.08"],
+    ["roads", "co2-1.15", "0.1"],
+    ["roads", "co2-1.16", "0.134"],
+    ["roads", "co2-1.17", "0.134"],
+    ["roads", "co2-1.18", "0.16"],
+    ["roads", "co2-1.19", "0.074"],
+    ["roads", "co2-1.20", "0.08"],
+    ["roads", "co2-1.21", "0.1"],
+    ["roads", "co2-1.22", "0.124"],
+    ["roads", "co2-1.23", "0.134"],
+    ["roads", "co2-1.24", "0.158"],
+    ["roads", "co2-1.25", "0.07"],
+    ["roads", "co2-1.26", "0.076"],
+    ["roads", "co2-1.27", "0.096"],
+    ["roads", "co2-1.28", "0.118"],
+    ["roads", "co2-1.29", "0.128"],
+    ["roads", "co2-1.30", "0.15"],
+    ["roads", "co2-1.31", "0.067"],
+    ["roads", "co2-1.32", "0.072"],
+    ["roads", "co2-1.33", "0.09"],
+    ["roads", "co2-1.34", "0.111"],
+    ["roads", "co2-1.35", "0.12"],
+    ["roads", "co2-1.36", "0.142"],
+    ["roads", "co2-1.37", "0.037"],
+    ["roads", "co2-1.38", "0.04"],
+    ["roads", "co2-1.39", "0.05"],
+    ["roads", "co2-1.40", "0.063"],
+    ["roads", "co2-1.41", "0.068"],
+    ["roads", "co2-1.42", "0.079"],
+    ["roads", "co2-1.43", "0"],
+    ["roads", "co2-1.44", "0"],
+    ["roads", "co2-1.45", "0"],
+    ["roads", "co2-1.46", "0"],
+    ["roads", "co2-1.47", "0"],
+    ["roads", "co2-1.48", "0"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "exemption",
+   "applies_to": ["air", "co2", "infrastructure", "noise"],
+   "params": {
+    "criteria": {
+     "co2_class": [5]
+    },
+    "until": "2031-06-30",
+    "note": "Emission-free trucks (CO2 class 5) pay no toll until 30 June 2031."
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

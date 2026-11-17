@@ -1,0 +1,130 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/es-ap15/2026-01-01",
+  "scheme": {
+   "id": "es-ap15",
+   "name": "AP-15 Navarra (Audenasa) barriers",
+   "country": "ES"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Madrid",
+  "license": "MIT",
+  "method": "Audenasa's tariffs 2026 (the Gobierno de Navarra's concession of the AP-15): per passage of each barrier, either way, Pesados I (two or three axles) and II (four or more), excluding 21% IVA. Not placed (no named OSM booth), so not priced: Oriz-Tiebas, Marcilla Enlace.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "es-ap15-2026-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Audenasa: Tarifas y Recorrido 2026",
+   "url": "https://www.audenasa.es/storage/Tarifas-2026-Recorrido.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Pesados I and II (trucks over 3.5 t)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "AP-15 Sarasa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-1.748438, 42.867689]
+    },
+    "match_m": 200
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "AP-15 Marcilla Tronco",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-1.726227, 42.331205]
+    },
+    "match_m": 200
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "1.4876"], ["pt1", "pt-1.2", "1.7355"], ["pt2", "pt-1.1", "3.9669"], ["pt2", "pt-1.2", "4.5041"]],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-17"
+  }
+ }
+}

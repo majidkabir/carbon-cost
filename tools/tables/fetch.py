@@ -198,8 +198,9 @@ def main(src, out):
     sources = json.load(open(src, encoding="utf-8"))["sources"]
     # The Internet Archive's copies are fetched last, each asked once; the
     # archive refuses connections when asked too fast, so those it refused
-    # are asked again after a pause, with longer waits, until it has
-    # refused five in a row (it is down: the last run's copies are kept).
+    # are asked again after a pause, with retries. Five refusals in a row
+    # mean it is down: the rest wait for the second round, which stops
+    # likewise (the last run's copies are kept).
     sources.sort(key=lambda s: "web.archive.org/" in s["url"])
     queue, later, refused = sources + [None], [], 0
     while queue:
@@ -207,9 +208,12 @@ def main(src, out):
         if s is None:
             if later:
                 time.sleep(120)
-                queue, later = later, []
+                queue, later, refused = later, [], 0
             continue
         archive = "web.archive.org/" in s["url"]
+        if archive and not s.get("again") and refused >= 5:
+            later.append(dict(s, again=True))  # the archive seems down: asked after the pause
+            continue
         if s.get("again") and refused >= 5:
             errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
             print("ERROR", s["id"], "the Internet Archive keeps refusing")
@@ -219,7 +223,7 @@ def main(src, out):
                 status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
             else:
                 status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
-            if s.get("again"):
+            if archive:
                 refused = 0
             # Overpass answers 429/502/504 when busy and asks for backoff; a
             # 200 with an error "remark" is a query that timed out or ran out
@@ -264,12 +268,12 @@ def main(src, out):
             if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
                 uradni_list(out, manifest, s["id"], s["url"], body)
         except Exception as e:
-            if "web.archive.org/" in s["url"] and not s.get("again"):
+            if archive:
+                refused += 1
+            if archive and not s.get("again"):
                 print("refused, asked again later:", s["id"], e)
                 later.append(dict(s, again=True))
                 continue
-            if s.get("again"):
-                refused += 1
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)
     json.dump({"files": manifest, "errors": errors}, open(os.path.join(out, "manifest.json"), "w"), indent=1)

@@ -68,7 +68,7 @@ def main(fetched, out):
         return
     text = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", page)))
     head = re.search(r"cennik obowiązuje od (\d\d)\.(\d\d)\.(\d{4}) roku", text)
-    news = None
+    news, announced = None, {}
     if head:
         head = head.groups()
     else:
@@ -90,6 +90,11 @@ def main(fetched, out):
             title = html.unescape(re.sub(r"<[^>]+>|\s+", " ", title.group(1))).strip() if title else "announcement"
             news = {"title": f"Autostrada Wielkopolska: {title} (from {m.group(1)} {m.group(2)} {m.group(3)})",
                     "url": link.group(1) if link else NEWS}
+            # The rate it gives for each 50 km section between Nowy Tomyśl
+            # and Konin, by category: "PLN 118 – class 4", "PLN 146 – Cat. 4".
+            text_news = re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S))))
+            for amount, cat in re.findall(r"PLN (\d+) [–-] (?:[Cc]lass|Cat\.|[Cc]ategory) ([2-4])\b", text_news):
+                announced.setdefault(cat, set()).add(float(amount))
     cats = re.search(r"Pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze oraz pojazdy samochodowe o dwóch osiach z przyczepami .{0,60}?"
                      r"Pojazdy samochodowe o trzech osiach oraz pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koła bliźniacze z przyczepami .{0,60}?"
                      r"Pojazdy samochodowe o więcej niż trzech osiach oraz pojazdy samochodowe o trzech osiach z przyczepami", text)
@@ -103,15 +108,25 @@ def main(fetched, out):
     except (OSError, ValueError):
         got = {}
     pdf = lambda n: got.get(f"pl-a2-cat{n}") or PDF.format(y=head[2], m=head[1], n=n)
-    for n in ("2", "3", "4"):
-        if not pdf(n).endswith(f"AW-tabele-oplat-{head[1]}.{head[2]}_0{n}.pdf"):
-            sys.exit(f"A2 Świecko-Konin: {pdf(n)} isn't the list of {start}'s table")
+    named = all(pdf(n).endswith(f"AW-tabele-oplat-{head[1]}.{head[2]}_0{n}.pdf") for n in ("2", "3", "4"))
     tables = {}
     for n in ("2", "3", "4"):
         sub = re.search(r'href="(/oplaty/cennik-kategoria-' + n + r'/|https://www\.autostrada-a2\.pl/oplaty/cennik-kategoria-' + n + r'/)"', page)
         if not sub:
             sys.exit(f"A2 Świecko-Konin: no link to category {n}'s price list")
         tables[n] = matrix(os.path.join(fetched, f"pl-a2-cat{n}.txt"))
+    # The announcement's rate per section is the table's Konin Modła -
+    # Września price (one section). A table whose file isn't named for its
+    # list (the March 2024 list kept the 2023 files' names) is taken only
+    # when the announcement confirms every category.
+    for n in ("2", "3", "4"):
+        one = tables[n][0][STATIONS.index("Września")]
+        if n in announced and one not in announced[n]:
+            sys.exit(f"A2 Świecko-Konin: category {n}'s table has PLN {one:g} a section, the announcement {sorted(announced[n])}")
+    if not named and not all(n in announced for n in ("2", "3", "4")):
+        sys.exit(f"A2 Świecko-Konin: the tables' files aren't named for the list of {start} and no announcement confirms them")
+    if announced:
+        print("A2 Świecko-Konin: the announced rates per section agree:", {n: sorted(v) for n, v in sorted(announced.items())})
     # The category pages' PDFs must be the ones fetched (a new price list has new files).
     for n in ("2", "3", "4"):
         p = os.path.join(fetched, f"pl-a2-cat{n}-page.html")

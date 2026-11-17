@@ -2194,6 +2194,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/pl-a2/2024-03-11",
+   "scheme": "pl-a2",
+   "country": "PL",
+   "file": "pl/pl-a2-2024-03-11.orct.json",
+   "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
+   "valid_from": "2024-03-11",
+   "valid_to": "2024-09-10",
+   "sha256": "82929dbe6e1b215086c051842e5a23a877d227561172f4d84580c192964e52f6",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl-a2/2024-09-11",
    "scheme": "pl-a2",
    "country": "PL",
@@ -2465,7 +2476,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2024-07-10",
    "valid_to": "2025-01-09",
-   "sha256": "8f2df265aa39465fd2bbf47ccdb31c312dfd8dadaa4bfe519b01fe9353e11eba",
+   "sha256": "973c90d3fcd10bbbdfefbe67036a1fb6f8648e506102f1fdb4cb9bd4bd56a0fd",
    "coverage": "complete"
   },
   {
@@ -2476,7 +2487,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "1dea97ab789b80616d269fdc44703b230f30c82b7d4ddfbb947792dff496c59a",
+   "sha256": "e2088b3e6ad8a8d17da44cbf417396636ffd297f9db640d10f51b96911977975",
    "coverage": "complete"
   },
   {

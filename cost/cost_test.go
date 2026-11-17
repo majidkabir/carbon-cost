@@ -2779,7 +2779,7 @@ func TestPolandA2(t *testing.T) {
 }
 
 // The A2's earlier price lists, Konin Modła-Świecko in categories 2, 3
-// and 4: PLN 205, 292, 421 from 11 September 2024; 220, 316, 454 from 11
+// and 4: PLN 193, 274, 394 from 11 March 2024; 205, 292, 421 from 11 September 2024; 220, 316, 454 from 11
 // March 2025; 229, 328, 478 from 11 September 2025; 247, 355, 520 from 11
 // March 2026.
 func TestPolandA2History(t *testing.T) {
@@ -2788,7 +2788,7 @@ func TestPolandA2History(t *testing.T) {
 		{18.0199, 52.2054}, {18.2152, 52.1622}, {18.30, 52.15}}
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 250, CountryKm: map[string]float64{"PL": 250}, Path: path}}}
 	trucks := []rates.Truck{{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, {MaxMassKg: 40000, Axles: 5, MotorAxles: 2, Euro: 6, CO2Class: 1}, truck40}
-	for d, want := range map[string][3]float64{"2024-12-01": {205, 292, 421}, "2025-06-01": {220, 316, 454}, "2025-12-01": {229, 328, 478}, "2026-06-01": {247, 355, 520}} {
+	for d, want := range map[string][3]float64{"2024-06-01": {193, 274, 394}, "2024-12-01": {205, 292, 421}, "2025-06-01": {220, 316, 454}, "2025-12-01": {229, 328, 478}, "2026-06-01": {247, 355, 520}} {
 		day, _ := time.Parse("2006-01-02", d)
 		for i, tr := range trucks {
 			r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: tr, FX: map[string]float64{"PLN": 1}}, day)

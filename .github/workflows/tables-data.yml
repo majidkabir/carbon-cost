@@ -169,8 +169,12 @@ jobs:
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
       - name: Push
-        if: always()
+        # Also when a builder failed, but not when the run was cancelled or
+        # timed out before the datasets were converted: a partial out/
+        # would replace the last full tables-out the other workflows read.
+        if: ${{ !cancelled() }}
         run: |
+          [ -d out/orct ] || { echo "::error title=Push::no datasets converted; tables-out kept as it was"; exit 1; }
           # Pages that carry a Mapbox access token (pk. or sk.) in their scripts (veggjald.is):
           # GitHub's push protection refuses the push, so the token is cut
           # from the copy (the builders don't read it).

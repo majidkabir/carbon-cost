@@ -2778,6 +2778,31 @@ func TestPolandA2(t *testing.T) {
 	}
 }
 
+// On the A2 the road classes count the concession as local road (the
+// e-TOLL doesn't charge it): the note says so, naming the stretches.
+func TestPolandLeftOutNote(t *testing.T) {
+	path := [][2]float64{{15.0874, 52.3252}, {15.5504, 52.3236}, {15.8728, 52.3291}, {16.1008, 52.3589}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"PL": 70}, Path: path}}}
+	rk := RoadKm(rx, []Run{{Kind: "road", Country: "PL", Points: path}})
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, FX: map[string]float64{"PLN": 4.3}, roadKm: rk, roadLeftOut: map[string][]string{"PL": rx.LeftOut("PL")}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "PL: by OpenStreetMap along the route") {
+			if !strings.Contains(n, "including the motorways this toll leaves to their operators: A1 Rusocin-Toruń (AmberOne), A2 Świecko-Konin") {
+				t.Errorf("note %q", n)
+			}
+			return
+		}
+	}
+	t.Errorf("no road-class note for PL: %v", r.Notes)
+}
+
 // The A2's earlier price lists, Konin Modła-Świecko in categories 2, 3
 // and 4: PLN 193, 274, 394 from 11 March 2024; 205, 292, 421 from 11 September 2024; 220, 316, 454 from 11
 // March 2025; 229, 328, 478 from 11 September 2025; 247, 355, 520 from 11

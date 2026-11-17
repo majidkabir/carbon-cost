@@ -1550,6 +1550,18 @@ func TestPrice_FuelCountry(t *testing.T) {
 	if _, ok := line(r, FuelCO2, "LT", rates.CO2); ok {
 		t.Error("LT fuel line in 2024")
 	}
+	// Poland's opłata emisyjna on diesel oil: PLN 80 per 1,000 litres
+	// (Prawo ochrony środowiska art. 321f pkt 2), a fixed fee per litre.
+	for _, d := range []string{"2024-06-01", "2026-11-03"} {
+		date, _ := time.Parse("2006-01-02", d)
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "PL", DieselL: 1000, FX: map[string]float64{"PLN": 4.25}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "PL", rates.CO2); !ok || l.Rate != 0.08 || l.RateUnit != "PLN/l" || math.Abs(l.Amount-80) > 0.01 || math.Abs(l.AmountEUR-80/4.25) > 0.01 {
+			t.Errorf("PL %s: %+v", d, l)
+		}
+	}
 	// Luxembourg's taxe CO2 on gas oil motor fuel: EUR 120.86, 132.55 and
 	// 144.60 per 1,000 litres in 2024, 2025 and 2026.
 	for d, want := range map[string]float64{"2024-06-01": 0.12086, "2025-06-01": 0.13255, "2026-11-03": 0.1446} {

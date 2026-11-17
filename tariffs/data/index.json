@@ -2128,6 +2128,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-pl/2024-01-01",
+   "scheme": "fuelco2-pl",
+   "country": "PL",
+   "file": "pl/fuelco2-pl-2024-01-01.orct.json",
+   "name": "Opłata emisyjna on diesel",
+   "valid_from": "2024-01-01",
+   "valid_to": null,
+   "sha256": "67958d706a83c576acfabecb81d0f33692f43e53c88c739c081ec6539a43cced",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl/2024-01-01",
    "scheme": "pl",
    "country": "PL",

@@ -37,21 +37,29 @@ def main(fetched, out):
     except (OSError, ValueError):
         print("A4 Katowice-Kraków: OpenStreetMap not fetched; not built")
         return
+    # The text read in Chrome stands in only in the tables workflow's
+    # fetched/ (it has fetch.py's manifest.json), never for an archived copy.
     p = os.path.join(fetched, "pl-a4-tolls.html")
+    workflow = os.path.exists(os.path.join(fetched, "manifest.json"))
+    if not os.path.exists(p) and not workflow:
+        print("A4 Katowice-Kraków: price list not fetched; not built")
+        return
     t = text(p) if os.path.exists(p) else ""
     how = "fetched"
-    if "za przejazd autostradą A4 Katowice-Kraków obowiązujące od" not in t:
-        # The workflow's copy is missing or not the price list: the text read in Chrome.
+    if not re.search(r"za przejazd autostradą A4 Katowice-Kraków,? (?:które obowiązują|obowiązujące) od", t):
+        # The workflow's copy isn't the price list (a bot check): the text read in Chrome.
         cap = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "pl-a4-cennik.txt")
         t = re.sub(r"\s+", " ", "\n".join(l for l in open(cap, encoding="utf-8") if not l.startswith("#")))
         how = "browser"
         print("A4 Katowice-Kraków: read from", cap)
-    m = re.search(r"Opłaty\* za przejazd autostradą A4 Katowice-Kraków obowiązujące od (\d+) (\w+) (\d{4}) r\. .{0,200}?"
-                  r"2 pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koło bliźniacze i pojazdy samochodowe o dwóch osiach z przyczepami (\d+) zł "
+    # The page's wording as it has been since 2023 (a comma here and there, "które obowiązują").
+    m = re.search(r"Opłaty\* za przejazd autostradą A4 Katowice-Kraków,? (?:które obowiązują|obowiązujące) od (\d+) (\w+) (\d{4}) r\. .{0,200}?"
+                  r"2 pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koło bliźniacze,? i pojazdy samochodowe o dwóch osiach z przyczepami (\d+) zł "
                   r"3 pojazdy samochodowe o trzech osiach i pojazdy samochodowe o dwóch osiach, z których co najmniej jedna wyposażona jest w koło bliźniacze z przyczepami (\d+) zł "
                   r"4 pojazdy samochodowe o więcej niż trzech osiach, pojazdy samochodowe o trzech osiach z przyczepami, i pojazdy samochodowe o więcej niż trzech osiach z przyczepami (\d+) zł "
                   r".{0,300}?Powyższe opłaty pobierane są na każdym Placu Poboru Opłat, tj\. w Mysłowicach oraz w Balicach", t)
-    inv = "bilet jednorazowy wystawiany przez inkasenta na Placu Poboru Opłat jest fakturą" in t
+    inv = ("bilet jednorazowy wystawiany przez inkasenta na Placu Poboru Opłat jest fakturą" in t
+           or "fakturą dokumentującą przejazd autostradą płatną jest bilet jednorazowy" in t)
     if not m or m.group(2) not in MONTHS:
         sys.exit("A4 Katowice-Kraków: price list not read")
     start = f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
@@ -75,7 +83,7 @@ def main(fetched, out):
     tb = {"country": "PL", "currency": "PLN", "valid_from": start, "crossings": True, "motor_axles": True, "osm_extract": stamp,
           "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
           "law": (f"Stalexport Autostrada Małopolska's tolls (cennik) from {start}, collected at each of the two toll plazas (Mysłowice and Balice), either way, as the price paid at the plaza"
-                  + (" (VAT included: the plaza's ticket is the VAT invoice, rozporządzenie Ministra Finansów of 29 October 2021, Dz.U. 2021 poz. 1979, § 3 pkt 4)" if inv else "") + ": "
+                  + (" (VAT included: the plaza's ticket is the VAT invoice, rozporządzenie Ministra Finansów of 29 October 2021, Dz.U. 2021 poz. 1979, § 3)" if inv else "") + ": "
                   f"category 2 (two axles with twin wheels, or two axles with trailers) PLN {c2}, category 3 (three axles, or two axles with twin wheels with trailers) PLN {c3}, "
                   f"category 4 (more than three axles, or three axles with trailers) PLN {c4}. A semi-trailer counts as a trailer (Prawo o ruchu drogowym art. 2 pkt 44). "
                   "The category goes by the motor vehicle's own axles (give truck.motor_axles; without it all the truck's axles count) and whether it tows a trailer. "

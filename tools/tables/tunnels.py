@@ -639,9 +639,12 @@ def faroe(fetched, out):
     vehicles over 3,500 kg (fo-tunnil.html), at the middle of each tunnel's
     longest way in OpenStreetMap (fo-tunnels-osm.json). Vágatunnilin and
     Norðoyatunnilin charge only one way (from Vágar, from Klaksvík: the
-    price covers the return); Sandoyartunnilin either way; Eysturoyartunnilin
-    Streymoy-Eysturoy at the middle of its longest branch (the Streymoy one)
-    either way."""
+    price covers the return); Sandoyartunnilin either way. Eysturoyartunnilin
+    has three branches from its undersea roundabout: a point at the middle of
+    each, Streymoy at the Streymoy-Eysturoy price, Strendur and Runavík at
+    the Strendur-Runavík one, in a passage group that pays the highest of the
+    passages within 10 minutes: a trip through two branches pays its route's
+    price once."""
     try:
         d = json.load(open(os.path.join(fetched, "fo-tunnels-osm.json")))
         t = text(os.path.join(fetched, "fo-tunnil.html"))
@@ -662,11 +665,28 @@ def faroe(fetched, out):
     ways = {n: longest(d, rf"^{n}$") for n in ("Vágatunnilin", "Norðoyatunnilin", "Sandoyartunnilin", "Eysturoyartunnilin")}
     if not all(ways.values()):
         sys.exit(f"Faroe tunnels: not all in OpenStreetMap ({[n for n, w in ways.items() if not w]})")
+    if eystur < skala:
+        sys.exit("Faroe tunnels: Eysturoyartunnilin's Streymoy price is below Strendur-Runavík's; the passage group would overcharge")
+    # Eysturoyartunnilin's Eysturoy branches: its two ways of 1 km or more
+    # north of the roundabout, the western one to Strendur, the eastern one
+    # to Runavík; the Streymoy branch is the tunnel's longest way.
+    rb = [e for e in d["elements"] if e["type"] == "way" and e.get("tags", {}).get("name") == "Eysturoyartunnilin" and e.get("tags", {}).get("junction") == "roundabout"]
+    if len(rb) != 1:
+        sys.exit("Faroe tunnels: Eysturoyartunnilin's roundabout not in OpenStreetMap")
+    rlat = sum(p["lat"] for p in rb[0]["geometry"]) / len(rb[0]["geometry"])
+    seg = lambda e: sum(km((a["lat"], a["lon"]), (b["lat"], b["lon"])) for a, b in zip(e["geometry"], e["geometry"][1:]))
+    north = sorted((e for e in d["elements"] if e["type"] == "way" and e.get("tags", {}).get("name") == "Eysturoyartunnilin" and len(e.get("geometry", [])) > 1
+                    and seg(e) >= 1 and middle(e)[0] > rlat + 0.003), key=lambda e: middle(e)[1])
+    if len(north) != 2:
+        sys.exit(f"Faroe tunnels: Eysturoyartunnilin's Eysturoy branches not two ways of 1 km or more in OpenStreetMap ({[e['id'] for e in north]})")
+    ways["Strendur"], ways["Runavík"] = north
 
-    def point(name, rate, towards=None):
-        w = ways[name]
+    def point(name, rate, towards=None, way=None):
+        w = ways[way or name]
         lat, lon, _ = middle(w)
         p = {"name": name, "lat": lat, "lon": lon, "rate": 0, "classes": [{"min_kg": 3501, "rate": rate}]}
+        if name.startswith("Eysturoyartunnilin"):
+            p |= {"group": 1, "group_minutes": 10, "group_pays": "highest"}
         if towards:
             # Charged one way: from the end on the given side (W or E) to the other.
             a, b = (w["geometry"][0]["lat"], w["geometry"][0]["lon"]), (w["geometry"][-1]["lat"], w["geometry"][-1]["lon"])
@@ -678,14 +698,17 @@ def faroe(fetched, out):
     write(out, {"country": "FO", "currency": "DKK", "valid_from": "2026-11-16", "crossings": True, "osm_extract": stamp,
                 "name": "Faroe Islands subsea tunnels",
                 "law": (f"Tunnil's one-way prices for vehicles over 3,500 kg (the Faroese tunnel company; tunnels under løgtingslóg um undirsjóvartunlar): Vágatunnilin DKK {vaga} and Norðoyatunnilin DKK {nordoy}, charged only driving from Vágar and from Klaksvík (the price covers the return); "
-                        f"Sandoyartunnilin DKK {sandoy} and Eysturoyartunnilin Streymoy–Eysturoy DKK {eystur} each way. Eysturoyartunnilin's Strendur–Runavík trips (DKK {skala}), which don't use its Streymoy branch, aren't modelled. "
-                        "Free-flow (number plates); each charge is placed at the middle of the tunnel's longest way in OpenStreetMap (Eysturoyartunnilin: the Streymoy branch). The page gives no date: valid_from is the day it was first read."),
+                        f"Sandoyartunnilin DKK {sandoy} each way; Eysturoyartunnilin Streymoy–Eysturoy DKK {eystur} and Strendur–Runavík DKK {skala} each way. "
+                        "Free-flow (number plates); each charge is placed at the middle of the tunnel's longest way in OpenStreetMap; Eysturoyartunnilin's at the middle of each of its three branches "
+                        f"(Streymoy DKK {eystur}, Strendur and Runavík DKK {skala}), a trip through two branches paying the higher once. The page gives no date: valid_from is the day it was first read."),
                 "sources": [{"title": "Tunnil: Prices - one way", "url": "https://www.tunnil.fo/english"}],
                 "vehicles": "Vehicles over 3,500 kg", "min_kg": 3501,
-                "tolled_roads": "Vágatunnilin (Vágar–Streymoy), Norðoyatunnilin (Borðoy–Eysturoy), Sandoyartunnilin (Streymoy–Sandoy), Eysturoyartunnilin (Streymoy–Eysturoy).",
+                "tolled_roads": "Vágatunnilin (Vágar–Streymoy), Norðoyatunnilin (Borðoy–Eysturoy), Sandoyartunnilin (Streymoy–Sandoy), Eysturoyartunnilin (Streymoy–Strendur–Runavík).",
                 "point_match_km": 0.15,
                 "toll_points": [point("Vágatunnilin", vaga, towards="E"), point("Norðoyatunnilin", nordoy, towards="W"),
-                                point("Sandoyartunnilin", sandoy), point("Eysturoyartunnilin", eystur)],
+                                point("Sandoyartunnilin", sandoy), point("Eysturoyartunnilin (Streymoy branch)", eystur, way="Eysturoyartunnilin"),
+                                point("Eysturoyartunnilin (Strendur branch)", skala, way="Strendur"),
+                                point("Eysturoyartunnilin (Runavík branch)", skala, way="Runavík")],
                 "rows": []}, "fo-tunnels")
 
 

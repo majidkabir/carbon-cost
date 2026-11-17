@@ -1,5 +1,5 @@
 {
- "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself.",
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices, the A4 Katowice-Kraków's price lists since 2023 (Stalexport Autostrada Małopolska's page, each window ending the day before the next list) and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself.",
  "sets": [
   {
    "set": "laws",
@@ -52,6 +52,62 @@
    "builders": [
     "mont_blanc"
    ]
+  },
+  {
+   "set": "pl-a4-2023",
+   "from": "20231201",
+   "to": "20231231",
+   "ids": [
+    "pl-a4-tolls"
+   ],
+   "builders": [
+    "pl_a4"
+   ],
+   "must": {
+    "pl-a4-tolls": "Stawka za przejazd"
+   }
+  },
+  {
+   "set": "pl-a4-2024a",
+   "from": "20240116",
+   "to": "20240331",
+   "ids": [
+    "pl-a4-tolls"
+   ],
+   "builders": [
+    "pl_a4"
+   ],
+   "must": {
+    "pl-a4-tolls": "Stawka za przejazd"
+   }
+  },
+  {
+   "set": "pl-a4-2024",
+   "from": "20240401",
+   "to": "20250331",
+   "ids": [
+    "pl-a4-tolls"
+   ],
+   "builders": [
+    "pl_a4"
+   ],
+   "must": {
+    "pl-a4-tolls": "Stawka za przejazd"
+   }
+  },
+  {
+   "set": "pl-a4-2025",
+   "from": "20250401",
+   "to": "20260331",
+   "ids": [
+    "pl-a4-tolls"
+   ],
+   "builders": [
+    "pl_a4"
+   ],
+   "must": {
+    "pl-a4-tolls": "Stawka za przejazd"
+   }
   }
  ],
  "probes": [

@@ -496,7 +496,7 @@
    "name": "Czech electronic toll (Mýto CZ)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "836cd99e0b9ef03a29487e31b33e668c4f5bdfb59f5c8da4617f81fe493529a1",
+   "sha256": "d6b83be92eb8f9e4c6050534742bba79e982c98ba737dde3a22a89eec16ec066",
    "coverage": "complete"
   },
   {
@@ -1622,6 +1622,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/it/2025-01-01",
+   "scheme": "it",
+   "country": "IT",
+   "file": "it/it-2025-01-01.orct.json",
+   "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "96affe69c5b8d493f4dd1555e7f244463222f66b7cc6929e1d4e794fa6eb27a1",
+   "coverage": "partial"
+  },
+  {
    "id": "carbon-cost/it/2026-01-01",
    "scheme": "it",
    "country": "IT",
@@ -1631,6 +1642,17 @@
    "valid_to": "2026-12-31",
    "sha256": "ce313511210e5ea3a4d3527e5a90901b2686ed9a39cfdebacf748c8f3a7f46b9",
    "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/it-barriers/2025-01-01",
+   "scheme": "it-barriers",
+   "country": "IT",
+   "file": "it/it-barriers-2025-01-01.orct.json",
+   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "27af0df538cb49c88d1673260bed4f45fb09a1be4b275e34c2a954fd02080120",
+   "coverage": "complete"
   },
   {
    "id": "carbon-cost/it-barriers/2026-01-01",
@@ -2289,7 +2311,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2024-07-10",
    "valid_to": "2025-01-09",
-   "sha256": "8271d383c86f5a1cc8d49ddb45f643cfa1041b26c4c67b3cc694e85e5dc162c2",
+   "sha256": "53ecfe73093ca8ac786a0affa89a10a85c6d9423858bdc9018145c75347aa278",
    "coverage": "complete"
   },
   {
@@ -2300,7 +2322,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "7ad036dcac3d942b1e82cd5416d560a6e901bdd0b0c33f4e731c96b616564a4a",
+   "sha256": "e03dac33e7ce2f422f5a34b97fcc1ea38fc4d65ec9ac1b5ff7bccb17f59cbf0d",
    "coverage": "complete"
   },
   {

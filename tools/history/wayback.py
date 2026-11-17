@@ -6,7 +6,10 @@ rebuild rate tables from them with the tools/tables builders.
 For each set in wayback.json and each id, it asks the Wayback CDX API for
 the last capture with HTTP 200 between the set's from and to dates, saves
 the unmodified copy (the id_ form) as out/wb-<set>/<id>.<ext> and records
-it in out/wb-<set>-manifest.json. A capture never changes: a copy the
+it in out/wb-<set>-manifest.json (and, for the builders, in
+out/wb-<set>/wb-manifest.json). An id whose urls entry has "live": true is
+a file its publisher still serves: it is fetched from there, the last
+run's copy standing in when the site doesn't answer. A capture never changes: a copy the
 last run saved (prev, the history-out branch) for the same id, URL and
 window is used again without asking the archive, which often refuses
 requests; WAYBACK_OFFLINE=1 asks it nothing. OpenStreetMap extracts the builders need
@@ -88,7 +91,7 @@ def kept(s, prev):
     d = os.path.join(prev, s.get("dir", "wb-" + s["set"]))
     out = {}
     for m in old:
-        if not m.get("capture"):
+        if not (m.get("capture") or m.get("live")):
             continue
         path = next((p for p in (os.path.join(d, m["id"] + e) for e in (".html", ".pdf")) if os.path.exists(p)), None)
         if path and hashlib.sha256(open(path, "rb").read()).hexdigest() == m["sha256"]:
@@ -113,7 +116,28 @@ def fetch(s, urls, out, prev=None):
         url = where["url"]
         must = s.get("must", {}).get(sid)
         m = old.get(sid, (None, None))[0]
-        if m and m["url"] == url and where.get("from", s["from"]) <= m["capture"][:8] <= where.get("to", s["to"]):
+        if where.get("live"):
+            # A file its publisher still serves: fetched from there each run
+            # (the last run's copy stands in when the site doesn't answer).
+            try:
+                if offline:
+                    raise RuntimeError("offline")
+                body = get(url)
+                if NOT_CONTENT.search(body[:20000]) or (must and not re.search(must.encode(), body)):
+                    raise RuntimeError("not the content")
+                entry = {"id": sid, "url": url, "live": True, "fetched": datetime.date.today().isoformat(), "size": len(body), "sha256": hashlib.sha256(body).hexdigest()}
+                print("live", len(body), sid, flush=True)
+            except Exception as e:
+                if not (m and m.get("live") and m["url"] == url):
+                    print("ERROR", sid, e)
+                    manifest.append({"id": sid, "url": url, "error": str(e)})
+                    continue
+                body, entry = open(old[sid][1], "rb").read(), dict(m, reused=True)
+                print("reused live copy", m["fetched"], sid, e, flush=True)
+            save(d, sid, body)
+            manifest.append(entry)
+            continue
+        if m and m.get("capture") and m["url"] == url and where.get("from", s["from"]) <= m["capture"][:8] <= where.get("to", s["to"]):
             body = open(old[sid][1], "rb").read()
             if not (NOT_CONTENT.search(body[:20000]) or (must and not re.search(must.encode(), body))):
                 save(d, sid, body)
@@ -153,6 +177,9 @@ def fetch(s, urls, out, prev=None):
         for f in glob.glob(os.path.join(out, "osm", "*")):
             shutil.copy(f, d)
     json.dump(manifest, open(os.path.join(out, f"wb-{s['set']}-manifest.json"), "w"), indent=1)
+    if "dir" not in s:
+        # For the builders: the URL each copy is of.
+        json.dump(manifest, open(os.path.join(d, "wb-manifest.json"), "w"), indent=1)
     return d, manifest
 
 
@@ -187,7 +214,12 @@ def build(s, d, manifest, out):
         for m in caps:
             if m["id"].split("-")[0] == tb["country"].lower() and m["archived"] not in have:
                 tb.setdefault("sources", []).append({"title": f"Internet Archive copy of {m['original']} ({m['capture'][:8]})", "url": m["archived"]})
-        tb["law"] += f" Rebuilt from the Internet Archive's copies of these pages ({s['from'][:4]})."
+        live = [m for m in manifest if m.get("live")]
+        for m in live:
+            if m["url"] not in have:
+                tb.setdefault("sources", []).append({"title": f"{m['url']} (as served on {m['fetched']})", "url": m["url"]})
+        tb["law"] += (f" Rebuilt from the Internet Archive's copies of these pages and the files their publisher still serves ({s['from'][:4]})." if live
+                      else f" Rebuilt from the Internet Archive's copies of these pages ({s['from'][:4]}).")
         # A table the set ends earlier: [valid_to, why, source URL].
         end = s.get("valid_to", {}).get(os.path.basename(f))
         if end:

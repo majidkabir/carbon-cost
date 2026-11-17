@@ -11,22 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: NVDB ferry object types
+      - name: NVDB ferry routes and quays, Stortinget's answer on ferry zones
         run: |
           mkdir -p out
-          curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-types.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper" || echo FAILED types
+          H='-H X-Client:carbon-cost-docs-fetch -H Accept:application/json'
+          curl -fsSL $H -o out/nvdb-770.json "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/770?inkluder=egenskaper,relasjoner,metadata&antall=1000" || echo FAILED 770
+          curl -fsSL $H -o out/nvdb-64.json "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/64?inkluder=egenskaper,relasjoner,geometri,lokasjon,metadata&srid=4326&antall=1000" || echo FAILED 64
+          curl -fsSL $H -o out/nvdb-type-64.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper/64" || true
+          curl -fsSL -A "Mozilla/5.0" -o out/stortinget-699.pdf "https://www.stortinget.no/globalassets/pdf/dokumentserien/2025-2026/dok15-202526-0699-vedlegg.pdf" && pdftotext -layout out/stortinget-699.pdf out/stortinget-699.txt || echo FAILED stortinget
           python3 - <<'PY'
           import json
-          d = json.load(open("out/nvdb-types.json"))
-          for t in d:
-              if "erje" in t.get("navn", "") or "Takst" in t.get("navn", ""):
-                  print(t["id"], t["navn"])
+          for f in ("out/nvdb-770.json", "out/nvdb-64.json"):
+              d = json.load(open(f))
+              print(f, len(d.get("objekter", [])), d.get("metadata", {}).get("returnert"), d.get("metadata", {}).get("neste", {}).get("href"))
+          t = json.load(open("out/nvdb-type-64.json"))
+          print([e.get("navn") for e in t.get("egenskapstyper", [])])
+          d = json.load(open("out/nvdb-770.json"))
+          for o in d["objekter"][:3]:
+              print(json.dumps(o, ensure_ascii=False)[:1500])
           PY
-          for id in $(python3 -c "import json;print(' '.join(str(t['id']) for t in json.load(open('out/nvdb-types.json')) if 'erje' in t.get('navn','')))"); do
-            curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-type-$id.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper/$id" || true
-            python3 -c "import json;d=json.load(open('out/nvdb-type-$id.json'));print($id, d.get('navn'), [e.get('navn') for e in d.get('egenskapstyper',[])])"
-            curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-objs-$id.json "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/$id?inkluder=egenskaper,metadata&antall=5" || true
-          done
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

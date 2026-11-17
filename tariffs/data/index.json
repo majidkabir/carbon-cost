@@ -1255,7 +1255,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2025-04-07",
    "valid_to": "2026-09-20",
-   "sha256": "d31dd453140babcbaa04f2015ec6ba0524263abf07eb199b2f9e841cbb7dc2c2",
+   "sha256": "78ed18e7d011fc904144fc868d8bcfcaf5105c7e433a97913e34fcc911a72034",
    "coverage": "complete"
   },
   {
@@ -1266,7 +1266,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2026-09-21",
    "valid_to": null,
-   "sha256": "6afa4658b58986519e1e96b850c3890c5d272e8484a71f006190891a97fcc2ba",
+   "sha256": "93a0bbe41285c2958f57ba6c9f2cce70ad76ea81403fafb53fc36efc912548de",
    "coverage": "complete"
   },
   {
@@ -2509,7 +2509,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
-   "sha256": "5cafdf0a00dab94e197927d3c07084a44ea063e99d614acd108c9afbb4e93bae",
+   "sha256": "219b18de800b3b0deac8a6d262f56df1c0f397ffafbce91d89987a68d907919b",
    "coverage": "complete"
   },
   {

@@ -200,7 +200,8 @@ def main(src, out):
     # archive refuses connections when asked too fast, so those it refused
     # are asked again after a pause, with retries. Five refusals in a row
     # mean it is down: the rest wait for the second round, which stops
-    # likewise (the last run's copies are kept).
+    # likewise (the last run's copies are kept). An Overpass query that
+    # can't connect is asked again in that second round too, with retries.
     sources.sort(key=lambda s: "web.archive.org/" in s["url"])
     queue, later, refused = sources + [None], [], 0
     while queue:
@@ -210,17 +211,19 @@ def main(src, out):
                 time.sleep(120)
                 queue, later, refused = later, [], 0
             continue
-        archive = "web.archive.org/" in s["url"]
+        archive, overpass = "web.archive.org/" in s["url"], "/api/interpreter" in s["url"]
         if archive and not s.get("again") and refused >= 5:
             later.append(dict(s, again=True))  # the archive seems down: asked after the pause
             continue
-        if s.get("again") and refused >= 5:
+        if archive and s.get("again") and refused >= 5:
             errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
             print("ERROR", s["id"], "the Internet Archive keeps refusing")
             continue
         try:
             if archive:
                 status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
+            elif overpass and s.get("again"):
+                status, body = get(s["url"], tries=3, pause=30)
             else:
                 status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             if archive:
@@ -270,7 +273,7 @@ def main(src, out):
         except Exception as e:
             if archive:
                 refused += 1
-            if archive and not s.get("again"):
+            if (archive or overpass) and not s.get("again"):
                 print("refused, asked again later:", s["id"], e)
                 later.append(dict(s, again=True))
                 continue

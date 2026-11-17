@@ -23,11 +23,16 @@ jobs:
         run: |
           mkdir -p out
           python3 tools/fr/fetch.py tools/fr/sources.json out
-          # Geofabrik refuses connections from GitHub's runners for minutes at a time: retry for ~10 minutes.
-          curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf
-          osmium tags-filter -O -o booths.pbf fr.pbf n/barrier=toll_booth n/highway=motorway_junction
-          osmium export -O -f geojsonseq -o out/osm-booths.geojsonseq booths.pbf
-          rm fr.pbf booths.pbf
+          # Geofabrik refuses connections from GitHub's runners for minutes at a time: retry for ~10 minutes;
+          # a download that stalls stops after 30 minutes, and the last run's toll booths are used.
+          if curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors --max-time 1800 -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf; then
+            osmium tags-filter -O -o booths.pbf fr.pbf n/barrier=toll_booth n/highway=motorway_junction
+            osmium export -O -f geojsonseq -o out/osm-booths.geojsonseq booths.pbf
+            rm fr.pbf booths.pbf
+          else
+            echo "::warning title=Geofabrik::the France extract wasn't downloaded: the last run's toll booths (fr-out) are used"
+            git fetch -q --depth 1 origin fr-out && git show FETCH_HEAD:osm-booths.geojsonseq > out/osm-booths.geojsonseq
+          fi
       - name: Parse and build
         run: |
           python3 tools/fr/parse.py tools/fr/documents.json out out/pairs.csv

@@ -91,13 +91,21 @@ def main(fetched, out):
     # without its tables the 2021 table isn't built (the others still are).
     t = tables(os.path.join(fetched, "cz-nv-479-2020.html"))
     failed = []
+    src479 = {"title": "Nařízení vlády č. 479/2020 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479"}
     if len(t) < 4 or not all(len(x[0][1]) == 16 for x in t[:4]):
-        print("cz-2021-01-01: epravo.cz's page of 479/2020 has no annex tables; not built", file=sys.stderr)
+        # epravo.cz's page no longer shows the tables: the Sbírka's částka 195/2020.
+        try:
+            t = annexes_479(fetched)
+            src479 = {"title": "Sbírka zákonů, částka 195/2020 (nařízení vlády č. 479/2020 Sb.)", "url": URL479}
+        except (AssertionError, OSError, ValueError, subprocess.CalledProcessError) as e:
+            print(f"cz-2021-01-01: 479/2020's annexes not read ({e}); not built", file=sys.stderr)
+            t = None
+    if t is None:
         failed.append("cz-2021-01-01")
     else:
         save(out, "cz-2021-01-01.json", {**BASE, "valid_from": "2021-01-01", "valid_to": "2024-02-29",
              "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as worded by nařízení vlády č. 479/2020 Sb., in force 1 January 2021 to 29 February 2024: one rate per km by road category, maximum permissible mass, axles and EURO class (0-IV; V and EEV; VI). The table keeps the rates for 5:00-22:00; from 22:00 to 5:00 they are about 0.5% higher. Euro VI vehicles on natural gas or biomethane had lower rates, not in the table.",
-             "sources": [{"title": "Nařízení vlády č. 479/2020 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479"}, SRC240],
+             "sources": [src479, SRC240],
              "rows": rows_of(t[0], "motorway", G16) + rows_of(t[2], "other", G16)})
     # 40/2024: Annexes 1-2 for 1-24 March, then for 25 March on (Annexes 3-4 are buses).
     t = annexes_40(fetched)
@@ -137,6 +145,30 @@ def flat(s):
 
 def pdf_text(path):
     return subprocess.run(["pdftotext", "-layout", path, "-"], capture_output=True, text=True, check=True).stdout
+
+
+URL479 = "http://aplikace.mvcr.cz/sbirka-zakonu/ViewFile.aspx?type=c&id=38990"
+
+
+def annexes_479(fetched):
+    """479/2020's Annexes 1 and 2 from the Sbírka's částka 195/2020 (the
+    Ministry of the Interior's PDF, text): each annex has a table for
+    5:00-22:00 and one for 22:00-5:00, three rows of 16 rates each; as
+    epravo.cz's tables, in order: Annex 1 day, Annex 1 night, Annex 2 day,
+    Annex 2 night."""
+    text = pdf_text(os.path.join(fetched, "cz-nv-479-2020-pdf.pdf"))
+    assert "Toto nařízení nabývá účinnosti dnem 1. ledna 2021." in flat(text), "not 479/2020's částka"
+    start = text.index("NAŘÍZENÍ VLÁDY", text.index("479"))
+    out = []
+    for n in (1, 2):
+        a = text.index(f"Příloha č. {n} zní:", start)
+        b = text.index(f"Příloha č. {n + 1} zní:", a)
+        rows = [re.findall(r"\b\d,\d{3}\b", ln) for ln in text[a:b].splitlines()]
+        rows = [r for r in rows if r]
+        assert [len(r) for r in rows] == [16] * 6, [len(r) for r in rows]
+        vals = [[float(v.replace(",", ".")) for v in r] for r in rows]
+        out += [list(zip(MASS, vals[:3])), list(zip(MASS, vals[3:]))]
+    return out
 
 
 def annexes_40(fetched):

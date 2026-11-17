@@ -1706,7 +1706,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "018111510e3ad9a1fb809dbf33fd0c225d9419b5dd9f6668e6f05ae9ad54443a",
+   "sha256": "ebdd6f78cb9b296d76344612b2532ea9c78cdd978dcd92fa6813b95c4ef9766d",
    "coverage": "complete"
   },
   {
@@ -2194,6 +2194,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/pl-a4/2024-01-16",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2024-01-16.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2024-01-16",
+   "valid_to": "2024-03-31",
+   "sha256": "04d98d93b53f77f4670a6320b595d8b64a25a4cc247beaca43e7610b3f9997f3",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/pl-a4/2024-04-01",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2024-04-01.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2024-04-01",
+   "valid_to": "2025-03-31",
+   "sha256": "c7676188e6717d4905eb43f366fb295da648150d393e59ea3cec330d5c211f25",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/pl-a4/2025-04-01",
+   "scheme": "pl-a4",
+   "country": "PL",
+   "file": "pl/pl-a4-2025-04-01.orct.json",
+   "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
+   "valid_from": "2025-04-01",
+   "valid_to": "2026-03-31",
+   "sha256": "6377f66e3966b29d02614683dff5ea37aa0fd33d1f95e071a8fc5121d30335d9",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/pl-a4/2026-04-01",
    "scheme": "pl-a4",
    "country": "PL",
@@ -2399,7 +2432,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
-   "sha256": "33e0da429eb802a36e3a45ab7990eb501f83b9e6bcbb899e745f3cf8a3197e63",
+   "sha256": "f4f6127bdbfa95a3741c2ff15e16568a88e688bef3e8ac9f5265ad089f11b8c1",
    "coverage": "complete"
   },
   {

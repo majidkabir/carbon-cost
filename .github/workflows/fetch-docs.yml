@@ -11,18 +11,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Felbertauern Mautordnung pages as images, Norwegian ferry tariffs 2026
+      - name: NVDB ferry object types
         run: |
           mkdir -p out
-          get() { curl -fsSL --retry 3 -A "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36" -o "out/$1" "$2" && echo "ok $1 $(wc -c < out/$1)" || echo "FAILED $1 $2"; }
-          get at-felbertauern-mautordnung.pdf "https://www.felbertauernstrasse.at/wp-content/uploads/2026/10/Mautordnung-per-01.11.2026.pdf"
-          get at-felbertauern-mauttarife.pdf "https://www.felbertauernstrasse.at/wp-content/uploads/2025/12/Mauttarife-per-01.01.2026.pdf"
-          get at-felbertauern-downloads.html "https://www.felbertauernstrasse.at/downloads/"
-          get no-autopass-reg-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf"
-          get no-autopass-pris-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf"
-          get no-markedsoversikt-2026.pdf "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/markedsoversikt-for-ferje-per-1.-januar-2026.pdf"
-          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; pdfinfo "$f" | grep Pages; done
-          for f in out/at-felbertauern-*.pdf; do pdftoppm -r 80 -f 1 -l 4 -png "$f" "${f%.pdf}-p" || true; done
+          curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-types.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper" || echo FAILED types
+          python3 - <<'PY'
+          import json
+          d = json.load(open("out/nvdb-types.json"))
+          for t in d:
+              if "erje" in t.get("navn", "") or "Takst" in t.get("navn", ""):
+                  print(t["id"], t["navn"])
+          PY
+          for id in $(python3 -c "import json;print(' '.join(str(t['id']) for t in json.load(open('out/nvdb-types.json')) if 'erje' in t.get('navn','')))"); do
+            curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-type-$id.json "https://nvdbapiles.atlas.vegvesen.no/datakatalog/api/v1/vegobjekttyper/$id" || true
+            python3 -c "import json;d=json.load(open('out/nvdb-type-$id.json'));print($id, d.get('navn'), [e.get('navn') for e in d.get('egenskapstyper',[])])"
+            curl -fsSL -H "X-Client: carbon-cost docs fetch" -H "Accept: application/json" -o out/nvdb-objs-$id.json "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/$id?inkluder=egenskaper,metadata&antall=5" || true
+          done
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

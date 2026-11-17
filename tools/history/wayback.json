@@ -1,5 +1,5 @@
 {
- "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices, the A4 Katowice-Kraków's price lists since 16 January 2024 (each set's copy must give its list's date) (Stalexport Autostrada Małopolska's page, each window ending the day before the next list) and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself; the A2 Świecko-Konin's price list of 11 March 2025 (its page and the category tables).",
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices, the A4 Katowice-Kraków's price lists since 16 January 2024 (each set's copy must give its list's date) (Stalexport Autostrada Małopolska's page, each window ending the day before the next list) and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself. Also the A2 Świecko-Konin's price list of 11 March 2025: its page (which then gave no date), the operator's announcement of the change (the date) and the category tables.",
  "sets": [
   {
    "set": "laws",
@@ -101,11 +101,22 @@
    "to": "20250910",
    "ids": [
     "pl-a2-tolls",
+    "pl-a2-news",
     "pl-a2-cat2",
     "pl-a2-cat3",
     "pl-a2-cat4"
    ],
    "urls": {
+    "pl-a2-tolls": {
+     "url": "https://www.autostrada-a2.pl/oplaty/",
+     "from": "20250311",
+     "to": "20250731"
+    },
+    "pl-a2-news": {
+     "url": "https://www.autostrada-a2.pl/en/news/change-of-toll-rates-for-a2-motorway-in-nowy-tomysl-konin-section/",
+     "from": "20250201",
+     "to": "20261231"
+    },
     "pl-a2-cat2": {
      "url": "https://www.autostrada-a2.pl/wp-content/uploads/2025/03/AW-tabele-oplat-03.2025_02.pdf",
      "from": "20250301",
@@ -123,7 +134,8 @@
     }
    },
    "must": {
-    "pl-a2-tolls": "cennik obowi.{1,4}zuje od 11\\.03\\.2025",
+    "pl-a2-tolls": "cennik-kategoria-4/",
+    "pl-a2-news": "As of 11 March 2025, toll rates will change",
     "pl-a2-cat2": "%PDF",
     "pl-a2-cat3": "%PDF",
     "pl-a2-cat4": "%PDF"

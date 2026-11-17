@@ -1,6 +1,6 @@
 """Builds Czechia's toll tables from the annexes of the amending
 regulations to nařízení vlády č. 240/2014 Sb.: 479/2020 and 299/2024 as
-tabulated on epravo.cz; 40/2024 from the Sbírka's PDF, whose annexes are
+tabulated on epravo.cz (479/2020 from e-Sbírka when epravo.cz has no tables); 40/2024 from the Sbírka's PDF, whose annexes are
 images, copied in transcribed/cz-40-2024.json (used only for the PDF with
 the sha256 given there), and 299/2024 likewise (transcribed/cz-299-2024.json)
 when epravo.cz's page has no tables; 327/2025 from the Sbírka's PDF text.
@@ -32,8 +32,11 @@ G28 = [{"co2_class": [1], "euro": [0, 1, 2, 3, 4]}, {"co2_class": [1], "euro": [
 
 def tables(path):
     """The rate tables of an epravo page, in order: lists of (mass label,
-    numbers) rows, and the text before each table."""
-    t = open(path, encoding="utf-8", errors="replace").read()
+    numbers) rows."""
+    return tables_of(open(path, encoding="utf-8", errors="replace").read())
+
+
+def tables_of(t):
     s = html.unescape(re.sub(r"<(td|th)[^>]*>", " | ", re.sub(r"</tr>", "\n", t)))
     s = re.sub(r"<[^>]+>", "", s).replace("\xa0", " ")
     lines = [re.sub(r"\s+", " ", x).strip() for x in s.split("\n") if x.strip()]
@@ -93,11 +96,11 @@ def main(fetched, out):
     failed = []
     src479 = {"title": "Nařízení vlády č. 479/2020 Sb. (epravo.cz)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2020/479"}
     if len(t) < 4 or not all(len(x[0][1]) == 16 for x in t[:4]):
-        # epravo.cz's page no longer shows the tables: the Sbírka's částka 195/2020.
+        # epravo.cz's page no longer shows the tables: e-Sbírka, the official Collection of Laws.
         try:
             t = annexes_479(fetched)
-            src479 = {"title": "Sbírka zákonů, částka 195/2020 (nařízení vlády č. 479/2020 Sb.)", "url": URL479}
-        except (AssertionError, OSError, ValueError, subprocess.CalledProcessError) as e:
+            src479 = {"title": "Nařízení vlády č. 479/2020 Sb. (e-Sbírka, version of 1 January 2021)", "url": ESBIRKA479}
+        except (AssertionError, OSError, ValueError, KeyError) as e:
             print(f"cz-2021-01-01: 479/2020's annexes not read ({e}); not built", file=sys.stderr)
             t = None
     if t is None:
@@ -147,27 +150,32 @@ def pdf_text(path):
     return subprocess.run(["pdftotext", "-layout", path, "-"], capture_output=True, text=True, check=True).stdout
 
 
-URL479 = "http://aplikace.mvcr.cz/sbirka-zakonu/ViewFile.aspx?type=c&id=38990"
+ESBIRKA479 = "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01"
 
 
 def annexes_479(fetched):
-    """479/2020's Annexes 1 and 2 from the Sbírka's částka 195/2020 (the
-    Ministry of the Interior's PDF, text): each annex has a table for
-    5:00-22:00 and one for 22:00-5:00, three rows of 16 rates each; as
-    epravo.cz's tables, in order: Annex 1 day, Annex 1 night, Annex 2 day,
-    Annex 2 night."""
-    text = pdf_text(os.path.join(fetched, "cz-nv-479-2020-pdf.pdf"))
-    assert "Toto nařízení nabývá účinnosti dnem 1. ledna 2021." in flat(text), "not 479/2020's částka"
-    start = text.index("NAŘÍZENÍ VLÁDY", text.index("479"))
+    """479/2020's Annexes 1 and 2 from e-Sbírka, the official Collection of
+    Laws: its fragments API gives the regulation's text, the annexes' tables
+    as HTML. Each annex has a table for 5:00-22:00 and one for 22:00-5:00,
+    three rows of 16 rates each; in order, as epravo.cz's tables: Annex 1
+    day, Annex 1 night, Annex 2 day, Annex 2 night."""
+    d = json.load(open(os.path.join(fetched, "cz-esbirka-479-2020-0.html"), encoding="utf-8"))
+    assert d.get("pocetStranek") == 1, f"e-Sbírka lists {d.get('pocetStranek')} pages"
+    frags = d["seznam"]
+    text = flat(" ".join(re.sub(r"<[^>]+>", " ", html.unescape(f.get("xhtml") or "")) for f in frags))
+    assert "NAŘÍZENÍ VLÁDY ze dne 16. listopadu 2020" in text and "nabývá účinnosti dnem 1. ledna 2021" in text, "not 479/2020"
+    annex, by = None, {1: "", 2: ""}
+    for f in frags:
+        m = re.search(r"Příloha č\. (\d+) k nařízení vlády č\. 240/2014", f.get("xhtml") or "")
+        if f["kodTypuFragmentu"] == "Hlavicka_priloha" and m:
+            annex = int(m.group(1))
+        elif f["kodTypuFragmentu"] == "Tabulka" and annex in by:
+            by[annex] += f["xhtml"] + "\n"
     out = []
     for n in (1, 2):
-        a = text.index(f"Příloha č. {n} zní:", start)
-        b = text.index(f"Příloha č. {n + 1} zní:", a)
-        rows = [re.findall(r"\b\d,\d{3}\b", ln) for ln in text[a:b].splitlines()]
-        rows = [r for r in rows if r]
-        assert [len(r) for r in rows] == [16] * 6, [len(r) for r in rows]
-        vals = [[float(v.replace(",", ".")) for v in r] for r in rows]
-        out += [list(zip(MASS, vals[:3])), list(zip(MASS, vals[3:]))]
+        t = tables_of(by[n])
+        assert [(len(x), len(x[0][1])) for x in t] == [(3, 16), (3, 16)], (n, [(len(x), len(x[0][1])) for x in t])
+        out += t
     return out
 
 

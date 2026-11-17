@@ -491,10 +491,19 @@ def norway(fetched, out, srcs):
 
 
 def finland(fetched, out, srcs):
-    t = text(os.path.join(fetched, "fi-vero-verotaulukot.html"))
+    raw = open(os.path.join(fetched, "fi-vero-verotaulukot.html"), encoding="utf-8", errors="replace").read()
+    # Since November 2026 the page gives each table as JSON in an attribute
+    # ({"column_0": {"text": "50 Dieselöljy"}, "column_1": ..., "column_2": ...});
+    # before, as an HTML table. Both: the headings' text, then the table's rows
+    # as "50 Dieselöljy <energy> <CO2> ".
+    raw = html.unescape(raw)
+    # (A row's first cell closes the tag the JSON sits in, so the rows stay as text.)
+    raw = re.sub(r'\{"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: "> " + m.group(1) + " ", raw)
+    raw = re.sub(r',"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: " " + m.group(1) + " ", raw)
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S)))
     periods = []
     for part in re.split(r"(?=Verotaulukko \d)", t):
-        h = re.match(r"Verotaulukko 1a?: (\d+)\.(\d+)\.(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
+        h = re.match(r"Verotaulukko 1a?: (\d+)\. ?(\d+)? ?\.? ?(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
         m = re.search(r"\b50 Dieselöljy (\d+,\d+) (\d+,\d+) ", part)
         if not h or not m:
             continue  # a link to the table, or table 2 (combined heat and power)
@@ -522,7 +531,15 @@ def finland(fetched, out, srcs):
 
 
 def lithuania(fetched, out, srcs):
-    t = re.sub(r"\s+", " ", open(os.path.join(fetched, "lt-muitine-akcizai-2026.txt"), encoding="utf-8", errors="replace").read())
+    p = os.path.join(fetched, "lt-muitine-akcizai-2026.txt")
+    t = re.sub(r"\s+", " ", open(p, encoding="utf-8", errors="replace").read()) if os.path.exists(p) else ""
+    source = src(srcs, "lt-muitine-akcizai-2026")
+    if "anglies dioksido" not in t:
+        # The workflow's copy is the site's bot check: the paragraph read in Chrome.
+        cap = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "lt-muitine-akcizai-2026.txt")
+        t = re.sub(r"\s+", " ", "\n".join(l for l in open(cap, encoding="utf-8") if not l.startswith("#")))
+        source = dict(source, title=source["title"] + " (read in Chrome: tools/tables/browser/lt-muitine-akcizai-2026.txt)")
+        print("Lithuanian customs notice: read from", cap)
     m = re.search(r"laikinai, t\. ?y\. (\d{4}) metais, nebus didinama anglies dioksido.{0,600}?bus taikoma (\d{4}) metais galiojusi CO2 dedamoji: .{0,3}gazoliams ir šildymui skirtiems gazoliams ?[–-] ?(\d+,\d+) euro už 1 000 litrų", t)
     if not m or int(m.group(1)) != int(m.group(2)) + 1:
         sys.exit("Lithuanian customs notice: no CO2 component for gas oils")
@@ -534,7 +551,7 @@ def lithuania(fetched, out, srcs):
                            + (f" (introduced on 1 January {y})" if y == m.group(2) else f" (kept at the {m.group(2)} amount by law XV-679 instead of rising)")
                            + ", as the customs department's notice gives it. The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. "
                            "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
-                    "sources": [src(srcs, "lt-muitine-akcizai-2026")]})
+                    "sources": [source]})
 
 
 LU_SHEETS = ["lu-douanes-taux-2024", "lu-douanes-taux-2025", "lu-douanes-taux-2026"]

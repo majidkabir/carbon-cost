@@ -90,34 +90,7 @@
    "table": "cz-2021-01-01",
    "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2020%2F479%2F2021-01-01/fragmenty?cisloStranky=0",
    "page": "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01",
-   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (page 0 of the API's list), the annexes' rate tables among them"
-  },
-  {
-   "id": "cz-esbirka-479-2020-1",
-   "table": "cz-2021-01-01",
-   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2020%2F479%2F2021-01-01/fragmenty?cisloStranky=1",
-   "page": "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01",
-   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (page 1 of the API's list), the annexes' rate tables among them"
-  },
-  {
-   "id": "cz-esbirka-479-2020-2",
-   "table": "cz-2021-01-01",
-   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2020%2F479%2F2021-01-01/fragmenty?cisloStranky=2",
-   "page": "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01",
-   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (page 2 of the API's list), the annexes' rate tables among them"
-  },
-  {
-   "id": "cz-esbirka-479-2020-3",
-   "table": "cz-2021-01-01",
-   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2020%2F479%2F2021-01-01/fragmenty?cisloStranky=3",
-   "page": "https://e-sbirka.gov.cz/sb/2020/479/2021-01-01",
-   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (page 3 of the API's list), the annexes' rate tables among them"
-  },
-  {
-   "id": "cz-nv-479-2020-pdf",
-   "table": "cz-2021-01-01",
-   "url": "http://aplikace.mvcr.cz/sbirka-zakonu/ViewFile.aspx?type=c&id=38990",
-   "what": "Sbírka zákonů, částka 195/2020 (the Ministry of the Interior's PDF): nařízení vlády č. 479/2020 Sb., the toll rates from 1 January 2021 (epravo.cz's page no longer shows the annexes)"
+   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 479/2020 Sb. as published, its text fragments (one page: the API gives the page count, pocetStranek), the annexes' rate tables among them; used when epravo.cz's page has no tables"
   },
   {
    "id": "cz-nv-299-2024-pdf",

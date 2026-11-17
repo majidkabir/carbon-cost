@@ -98,10 +98,10 @@ jobs:
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
       - name: Push
         run: |
-          # Pages that carry a Mapbox access token in their scripts (veggjald.is,
+          # Pages that carry a Mapbox access token (pk. or sk.) in their scripts (veggjald.is,
           # also in its 404 page saved under a .pdf name): GitHub's push
           # protection refuses the push, so the token is cut from the copy.
-          grep -rlZaE 'sk\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+' out | xargs -0 -r sed -i -E 's/sk\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/sk.[token removed]/g'
+          grep -rlZaE '[ps]k\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+' out | xargs -0 -r sed -i -E 's/([ps]k)\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/\1.[token removed]/g'
           rm -f out/is-veggjald-*.pdf
           cd out
           git init -q -b history-out && git add -A

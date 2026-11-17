@@ -1,5 +1,5 @@
 {
- "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices, the A4 Katowice-Kraków's price lists since 16 January 2024 (each set's copy must give its list's date) (Stalexport Autostrada Małopolska's page, each window ending the day before the next list) and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. An urls entry with live: true is a file its publisher still serves, fetched from there. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself. Also the A2 Świecko-Konin's price lists of 11 September 2024, 11 March and 11 September 2025 and 11 March 2026: its page (which then gave no date; for a list with no copy of its own, the nearest copy, for the categories and the links to their tables), the operator's announcement of the change (the date) and the category tables (the files Autostrada Wielkopolska still serves, or the archive's).",
+ "about": "Earlier copies of the official pages in tools/tables/sources.json, from the Internet Archive's Wayback Machine, for the tables no pinned copy builds: the Mont Blanc tunnel's 2024 and 2025 prices, the A4 Katowice-Kraków's price lists since 16 January 2024 (each set's copy must give its list's date) (Stalexport Autostrada Małopolska's page, each window ending the day before the next list) and Latvia's vignette law before 2025 (the other past years are built by build_archived.py from the copies pinned in sources.json). For each set and id, wayback.py takes the last capture with HTTP 200 between from and to (UTC, YYYYMMDD) that is the page itself (not a bot check, and matching the set's must pattern for the id), saves it under out/wb-<set>/, then runs the named tools/tables builders on it. A capture never changes, so a copy the last run saved (the history-out branch) is used again without asking the archive. A set's urls give an id's earlier address: a URL, or {url, match: prefix, regex} for the latest archived URL under a prefix. An urls entry with live: true is a file its publisher still serves, fetched from there. Each table built names the archived copies it used. Probes list archived URLs under a prefix (out/wayback-probes.txt), to find moved pages; they run only when asked ([wayback=probes] or [wayback=probes:<group>] in the run's commit message). A set with dir saves its copies there under out/ (for the build_*.py scripts) and builds nothing itself. Also the A2 Świecko-Konin's price lists of 11 March and 11 September 2024, 11 March and 11 September 2025 and 11 March 2026: its page (which then gave no date; for a list with no copy of its own, the nearest copy, for the categories and the links to their tables), the operator's announcement of the change (the date) and the category tables (the files Autostrada Wielkopolska still serves, or the archive's; the March 2024 list kept the 2023 files' names, so the announcement's rate per section must confirm each category).",
  "sets": [
   {
    "set": "laws",
@@ -94,6 +94,51 @@
    "must": {
     "pl-a4-tolls": "od 1 kwietnia 2025 r"
    }
+  },
+  {
+   "set": "pl-a2-2024-03",
+   "from": "20240311",
+   "to": "20240910",
+   "ids": [
+    "pl-a2-tolls",
+    "pl-a2-news",
+    "pl-a2-cat2",
+    "pl-a2-cat3",
+    "pl-a2-cat4"
+   ],
+   "urls": {
+    "pl-a2-tolls": {
+     "url": "https://www.autostrada-a2.pl/oplaty/",
+     "from": "20231201",
+     "to": "20250430"
+    },
+    "pl-a2-news": {
+     "url": "https://www.autostrada-a2.pl/en/news/indexation-of-toll-rates-for-a2-motorway-in-nowy-tomysl-konin-section/",
+     "live": true
+    },
+    "pl-a2-cat2": {
+     "url": "https://www.autostrada-a2.pl/wp-content/uploads/2023/03/2023-AW-tabele-oplat_02.pdf",
+     "live": true
+    },
+    "pl-a2-cat3": {
+     "url": "https://www.autostrada-a2.pl/wp-content/uploads/2023/03/2023-AW-tabele-oplat_03.pdf",
+     "live": true
+    },
+    "pl-a2-cat4": {
+     "url": "https://www.autostrada-a2.pl/wp-content/uploads/2023/03/2023-AW-tabele-oplat_04.pdf",
+     "live": true
+    }
+   },
+   "must": {
+    "pl-a2-tolls": "cennik-kategoria-4/",
+    "pl-a2-news": "As of 11 March 2024",
+    "pl-a2-cat2": "%PDF",
+    "pl-a2-cat3": "%PDF",
+    "pl-a2-cat4": "%PDF"
+   },
+   "builders": [
+    "pl_a2"
+   ]
   },
   {
    "set": "pl-a2-2024-09",

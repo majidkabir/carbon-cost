@@ -86,7 +86,8 @@ def get(url, accept=None):
             return e.code, e.read()
         except Exception as e:
             last = e
-            time.sleep(5)
+            # The Internet Archive refuses connections when asked too fast.
+            time.sleep(30 * (i + 1) if "web.archive.org/" in url else 5)
     raise RuntimeError(f"{url}: {last}")
 
 
@@ -194,7 +195,18 @@ def overpass_failed(status, body):
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
-    for s in json.load(open(src, encoding="utf-8"))["sources"]:
+    sources = json.load(open(src, encoding="utf-8"))["sources"]
+    # The Internet Archive's copies are fetched last, and those it refused
+    # are asked again once more after a pause.
+    sources.sort(key=lambda s: "web.archive.org/" in s["url"])
+    queue, later = sources + [None], []
+    while queue:
+        s = queue.pop(0)
+        if s is None:
+            if later:
+                time.sleep(120)
+                queue, later = later, []
+            continue
         try:
             status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
             # Overpass answers 429/502/504 when busy and asks for backoff; a
@@ -240,6 +252,10 @@ def main(src, out):
             if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
                 uradni_list(out, manifest, s["id"], s["url"], body)
         except Exception as e:
+            if "web.archive.org/" in s["url"] and not s.get("again"):
+                print("refused, asked again later:", s["id"], e)
+                later.append(dict(s, again=True))
+                continue
             errors.append(f"{s['id']}: {e}")
             print("ERROR", s["id"], e)
     json.dump({"files": manifest, "errors": errors}, open(os.path.join(out, "manifest.json"), "w"), indent=1)

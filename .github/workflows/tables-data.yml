@@ -115,6 +115,7 @@ jobs:
           run python3 tools/tables/lu.py out out/tables
           run python3 tools/tables/gb.py out out/tables
           run python3 tools/tables/no.py out out/tables
+          run python3 tools/tables/no_ferries.py out out/tables
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables

@@ -1,29 +1,26 @@
-import re, sys, json, time, urllib.request, html
+import re, sys, json, time, urllib.request, html, os
 UA = {"User-Agent": "Mozilla/5.0"}
-def get(u):
+def get(u, binary=False):
     for i in range(3):
         try:
-            return urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read().decode("utf-8", "replace")
+            b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read()
+            return b if binary else b.decode("utf-8", "replace")
         except Exception as e:
             print("retry", u, e); time.sleep(5)
-    return ""
-seen, out = set(), []
-start = ["https://www.jadrolinija.hr/hr/putovanja", "https://www.jadrolinija.hr/hr/putovanja/lokalne-linije", "https://www.jadrolinija.hr/hr/obavijesti-za-putnike"]
-queue = list(start)
-pages = {}
-while queue and len(seen) < 150:
-    u = queue.pop(0)
-    if u in seen: continue
-    seen.add(u)
-    h = get(u)
-    pages[u] = h
-    for m in re.finditer(r'href="(https://www\.jadrolinija\.hr/hr/putovanja[^"#?]*)"', h):
-        if m.group(1) not in seen: queue.append(m.group(1))
-    for m in re.finditer(r'<a[^>]+href="([^"]*download/[0-9a-f]{32})"[^>]*>([\s\S]{0,300}?)</a>', h):
-        out.append({"page": u, "url": m.group(1), "text": re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(2)))).strip()})
-    t = re.search(r"<title>([\s\S]*?)</title>", h)
-    print(u, len(h), t.group(1).strip()[:80] if t else "")
-json.dump(out, open("out/jadro-links.json", "w"), ensure_ascii=False, indent=1)
-for u, h in pages.items():
-    open("out/jadro-" + re.sub(r"[^a-z_]", "-", u.split("/hr/")[-1])[:60] + ".html", "w").write(h)
-print(len(out), "download links")
+    return b"" if binary else ""
+h = get("https://www.jadrolinija.hr/hr/putovanja/lokalne_linije")
+lines = sorted(set(re.findall(r'href="(https://www\.jadrolinija\.hr/hr/putovanje/[^"]+)"', h)))
+out = []
+os.makedirs("out/lines", exist_ok=True)
+for u in lines:
+    p = get(u)
+    slug = u.rsplit("/", 1)[-1]
+    open(f"out/lines/{slug[:80]}.html", "w").write(p)
+    t = re.search(r"<h1[^>]*>([\s\S]*?)</h1>", p)
+    links = [(m.group(1), re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", m.group(2)))).strip()) for m in re.finditer(r'<a[^>]+href="([^"]*download/[0-9a-f]{32}[^"]*)"[^>]*>([\s\S]{0,400}?)</a>', p)]
+    out.append({"url": u, "title": re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", t.group(1)))).strip() if t else "", "links": links})
+    print(u, out[-1]["title"], links)
+    for k, (l, txt) in enumerate(links):
+        b = get(l if l.startswith("http") else "https://www.jadrolinija.hr" + l, binary=True)
+        open(f"out/lines/{slug[:60]}-{k}.pdf", "wb").write(b)
+json.dump(out, open("out/jadro-lines.json", "w"), ensure_ascii=False, indent=1)

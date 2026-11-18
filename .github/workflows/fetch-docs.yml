@@ -16,7 +16,8 @@ jobs:
         run: |
           mkdir -p out
           python3 tools/scratch/jadro_crawl.py | tail -160
-          ls -la out
+          for f in out/lines/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
+          du -sh out
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

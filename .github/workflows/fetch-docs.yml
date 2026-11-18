@@ -30,7 +30,8 @@ jobs:
           get rs-sg-107-2024.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=44027ec0-5ae2-4088-b30e-07beb4047b5d"
           get rs-sg-58-2025.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=ef5d2388-51f8-430a-85c3-90e3cac5a347"
           get rs-sg-120-2025.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=6f685da3-bddd-4a26-9298-f28f4da8d068"
-          for f in out/rs-sg-*.pdf; do head -c 8 "$f" | od -c | head -1; pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
+          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && pip install -q opencv-python-headless pytesseract pymupdf
+          for k in 119-2023 107-2024 58-2025 58-2024; do python3 tools/history/rs_gazette.py out/rs-sg-$k.pdf out/rs-sg-$k.json || echo "FAILED ocr $k"; done
           get rs-obilaznica.pdf "https://www.putevi-srbije.rs/images/pdf/cene_putarina_obilaznica_lat.pdf"
           get rs-cene-cyr.pdf "https://www.putevi-srbije.rs/images/pdf/cene_putarina.pdf"
           for f in out/rs-*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done

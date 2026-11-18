@@ -1,5 +1,5 @@
 {
- "orct": "0.2",
+ "orct": "0.3",
  "dataset": {
   "id": "orct-tests/synthetic/2026-01-01",
   "scheme": {"id": "synthetic", "name": "Synthetic scheme exercising every ORCT feature (not a real tariff)", "country": "FR"},
@@ -15,7 +15,7 @@
                         "type.distance", "type.od", "type.period", "type.point", "type.quantity",
                         "type.section", "user_classes", "volume"]
  },
- "sources": [{"id": "s1", "title": "ORCT specification 0.2, clause 8", "url": "https://github.com/majidkabir/orct/blob/main/spec/orct-0.2.md"}],
+ "sources": [{"id": "s1", "title": "ORCT specification 0.3, clause 8", "url": "https://github.com/majidkabir/orct/blob/main/spec/orct-0.2.md"}],
  "tax": {"basis": "included", "rate": "0.20", "name": "TVA"},
  "liable_vehicles": {"description": "Goods vehicles over 3.5 t", "criteria": {"train_mass_kg": {"min": 3501}}},
  "vehicle_class_sets": [
@@ -30,6 +30,18 @@
    {"id": "g5", "label": "5 axles", "criteria": {"train_axles": {"min": 5}}},
    {"id": "g4", "label": "4 axles", "criteria": {"train_axles": {"min": 4}}},
    {"id": "gB", "label": "B", "criteria": {}}
+  ]},
+  {"id": "motor", "name": "Motor vehicle by its own mass", "classes": [
+   {"id": "um18", "criteria": {"mass_kg": {"max": 18000}}},
+   {"id": "um26", "criteria": {"mass_kg": {"gt": 18000}}}
+  ]},
+  {"id": "towed", "name": "Towed vehicle by its own mass", "classes": [
+   {"id": "ut10", "criteria": {"trailer_mass_kg": {"gt": 0, "max": 10000}}},
+   {"id": "ut24", "criteria": {"trailer_mass_kg": {"gt": 10000}}}
+  ]},
+  {"id": "cap", "name": "Ferry fares by load capacity", "classes": [
+   {"id": "cap5", "criteria": {"load_capacity_kg": {"max": 5000}}},
+   {"id": "capt", "criteria": {"load_capacity_kg": {"gt": 5000}}}
   ]}
  ],
  "time_classes": [
@@ -52,6 +64,8 @@
   {"id": "st-a", "type": "station", "name": "A", "location": {"geometry": {"type": "Point", "coordinates": [2.3, 48.8]}}},
   {"id": "st-b", "type": "station", "name": "B", "location": {"geometry": {"type": "Point", "coordinates": [2.4, 48.9]}}},
   {"id": "st-d", "type": "station", "name": "D", "location": {"geometry": {"type": "Point", "coordinates": [2.5, 49.0]}}},
+  {"id": "quay-a", "type": "station", "name": "Quay A", "location": {"geometry": {"type": "Point", "coordinates": [3.1, 47.9]}}},
+  {"id": "quay-b", "type": "station", "name": "Quay B", "location": {"geometry": {"type": "Point", "coordinates": [3.2, 47.8]}}},
   {"id": "c1", "type": "station", "name": "C1", "location": {"geometry": {"type": "Point", "coordinates": [3.0, 48.0]}}},
   {"id": "c2", "type": "station", "name": "C2", "location": {"geometry": {"type": "Point", "coordinates": [3.1, 48.1]}}},
   {"id": "c3", "type": "station", "name": "C3", "location": {"geometry": {"type": "Point", "coordinates": [3.2, 48.2]}}},
@@ -65,7 +79,8 @@
   {"id": "express", "type": "point", "name": "Express lane priced in real time", "location": {"geometry": {"type": "Point", "coordinates": [3.4, 48.4]}}},
   {"id": "sec1", "type": "section", "name": "Section 1", "length_km": 12.5, "from": {"geometry": {"type": "Point", "coordinates": [2.0, 47.0]}}, "to": {"geometry": {"type": "Point", "coordinates": [2.1, 47.1]}}},
   {"id": "city", "type": "area", "name": "City zone", "location": {"geometry": {"type": "Polygon", "coordinates": [[[2.3, 48.8], [2.4, 48.8], [2.4, 48.9], [2.3, 48.9], [2.3, 48.8]]]}}},
-  {"id": "country", "type": "jurisdiction", "jurisdiction": {"country": "FR"}}
+  {"id": "country", "type": "jurisdiction", "jurisdiction": {"country": "FR"}},
+  {"id": "uni", "type": "network", "name": "Roads charged per vehicle of a combination"}
  ],
  "charges": [
   {"id": "dist", "type": "distance", "component": "infrastructure", "unit": "km", "basis": "official", "sources": ["s1"],
@@ -120,7 +135,15 @@
   {"id": "vig", "type": "period", "component": "infrastructure", "unit": "product", "day_basis": "calendar", "basis": "official",
    "sources": ["s1"], "objects": ["vnet"], "columns": ["product", "amount"], "rows": [["P1D", "12"], ["P2D", "24"], ["P7D", "40"]]},
   {"id": "fuel", "type": "quantity", "component": "carbon_price", "unit": "t_co2", "basis": "official", "sources": ["s1"],
-   "objects": ["country"], "columns": ["amount"], "rows": [["55.50"]]}
+   "objects": ["country"], "columns": ["amount"], "rows": [["55.50"]]},
+  {"id": "motor-km", "type": "distance", "component": "unspecified", "unit": "km", "basis": "official", "sources": ["s1"],
+   "objects": ["uni"], "columns": ["vehicle_class", "amount"], "rows": [["um18", "0.12"], ["um26", "0.18"]]},
+  {"id": "trailer-km", "type": "distance", "component": "unspecified", "unit": "km", "unmatched": "free", "basis": "official", "sources": ["s1"],
+   "objects": ["uni"], "columns": ["vehicle_class", "amount"], "rows": [["ut10", "0.04"], ["ut24", "0.09"]]},
+  {"id": "ferry", "type": "od", "component": "unspecified", "unit": "trip", "unmatched": "free", "basis": "official", "sources": ["s1"],
+   "columns": ["entry", "exit", "vehicle_class", "amount"], "rows": [["quay-a", "quay-b", "cap5", "45.70"]]},
+  {"id": "ferry-t", "type": "od", "component": "unspecified", "unit": "t", "mass_basis": "load_capacity_kg", "unmatched": "free", "basis": "official", "sources": ["s1"],
+   "columns": ["entry", "exit", "vehicle_class", "amount"], "rows": [["quay-a", "quay-b", "capt", "9.80"]]}
  ],
  "rules": [
   {"id": "r-exempt", "kind": "exemption", "applies_to": ["dist"], "params": {"criteria": {"co2_class": [5]}, "until": "2031-06-30"}},

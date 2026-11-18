@@ -42,6 +42,9 @@ func vehicleOf(t rates.Truck) map[string]any {
 	if t.TrailerMassKg > 0 {
 		v["trailer_mass_kg"] = float64(t.TrailerMassKg)
 	}
+	if t.CapacityKg > 0 {
+		v["load_capacity_kg"] = float64(t.CapacityKg)
+	}
 	return v
 }
 

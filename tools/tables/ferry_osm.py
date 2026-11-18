@@ -9,11 +9,17 @@ than CLEAR_KM from every line of another system, so that a trip on another
 route doesn't pass it. Routes that share a line (a ship calling on the
 way), or whose lines run together from a port so that no such point can be
 found (ships taking the same sound or harbour mouth), are one system,
-priced from the first port passed to the last.
+priced from the first port passed to the last. Where no one line goes
+between two ports (lines mapped leg by leg), the shortest way along lines
+that meet (ends within JOIN_KM) is taken, if it isn't more than DETOUR
+times the distance between the ports. A ferry line of no route
+priced here that blocks a system's points the same way (another operator's,
+a passenger line, a line mapped twice) is taken as the system's own.
 """
-import math
+import heapq, math
 
 POINT_KM, CLEAR_KM, MATCH_KM, QUAY_KM = 0.5, 0.3, 0.15, 0.8
+JOIN_KM, DETOUR = 0.05, 2.5
 
 
 def km(a, b):
@@ -81,6 +87,58 @@ class Blocked(Exception):
     pass
 
 
+def network_path(lines, a, b):
+    """The shortest way from a to b along ferry lines that meet, joined to
+    the lines within QUAY_KM of each: (way ids, points, way at a, way at b) or None."""
+    nodes, adj = {}, {}
+
+    def node(p):
+        return nodes.setdefault((round(p[0], 6), round(p[1], 6)), len(nodes))
+
+    def edge(u, v, w, way):
+        adj.setdefault(u, []).append((v, w, way))
+        adj.setdefault(v, []).append((u, w, way))
+    ends = []
+    for i, ln in lines:
+        ids = [node(p) for p in ln]
+        for (u, p), (v, q) in zip(zip(ids, ln), zip(ids[1:], ln[1:])):
+            edge(u, v, km(p, q), i)
+        ends += [(ids[0], ln[0]), (ids[-1], ln[-1])]
+    for k, (u, p) in enumerate(ends):
+        for v, q in ends[k + 1:]:
+            if u != v and km(p, q) <= JOIN_KM:
+                edge(u, v, km(p, q), None)
+    pt = {v: k for k, v in nodes.items()}
+    src, dst = -1, -2
+    for s, p in ((src, a), (dst, b)):
+        for i, ln in lines:
+            j, d = nearest(ln, p)
+            if d <= QUAY_KM:
+                edge(s, node(ln[j]), d, i)
+    pt[src], pt[dst] = a, b
+    dist, prev, heap = {src: 0.0}, {}, [(0.0, src)]
+    while heap:
+        d, u = heapq.heappop(heap)
+        if u == dst:
+            break
+        if d > dist.get(u, math.inf):
+            continue
+        for v, w, way in adj.get(u, []):
+            if d + w < dist.get(v, math.inf):
+                dist[v], prev[v] = d + w, (u, way)
+                heapq.heappush(heap, (d + w, v))
+    if dst not in dist or dist[dst] > DETOUR * km(a, b):
+        return None
+    seq, u = [], dst
+    while u != src:
+        u, way = prev[u]
+        seq.append((u, way))
+    seq.reverse()  # (node, way into the next node), from src's first hop
+    ways = [w for _, w in seq if w is not None]
+    points = [pt[u] for u, _ in seq[1:]]
+    return frozenset(ways), points, ways[0], ways[-1]
+
+
 def systems(routes, pos, lines, permit, fail):
     """routes: {route: [(port, port), ...]} in order; pos: {port: (lat, lon)}.
     -> (systems as [(routes, {port: points}, [(route, a, b), ...])], notes).
@@ -91,35 +149,44 @@ def systems(routes, pos, lines, permit, fail):
             if a not in pos or b not in pos:
                 notes.append(f"{a}–{b}: {'/'.join(x for x in (a, b) if x not in pos)} not found in OpenStreetMap, not priced")
                 continue
-            hit = [(i, ln) for i, ln in lines if nearest(ln, pos[a])[1] <= QUAY_KM and nearest(ln, pos[b])[1] <= QUAY_KM]
+            hit = [(frozenset([i]), ln, i, i) for i, ln in lines if nearest(ln, pos[a])[1] <= QUAY_KM and nearest(ln, pos[b])[1] <= QUAY_KM]
+            if not hit and any(nearest(ln, pos[a])[1] <= QUAY_KM and nearest(ln, pos[b])[1] <= QUAY_KM for _, ln in permit):
+                notes.append(f"{a}–{b}: motor vehicles only with a permit there (OpenStreetMap), not priced")
+                continue
             if not hit:
-                why = ("motor vehicles only with a permit there (OpenStreetMap)" if any(
-                    nearest(ln, pos[a])[1] <= QUAY_KM and nearest(ln, pos[b])[1] <= QUAY_KM for _, ln in permit)
-                    else "no car ferry line between them in OpenStreetMap")
-                notes.append(f"{a}–{b}: {why}, not priced")
+                path = network_path(lines, pos[a], pos[b])
+                if path and len(path[1]) > 1:
+                    hit = [path]
+            if not hit:
+                notes.append(f"{a}–{b}: no car ferry line between them in OpenStreetMap, not priced")
                 continue
             pair_lines[(r, a, b)] = hit
     sysof = {r: frozenset([r]) for r in routes}
+    absorbed = {}  # lines of no route that run with a system's: taken as its own
 
     def merge(rs):
-        m = frozenset().union(*(sysof[r] for r in rs))
+        parts = {sysof[r] for r in rs}
+        m = frozenset().union(*parts)
         for r in m:
             sysof[r] = m
+        got = set().union(*(absorbed.get(p, set()) for p in parts)) if parts else set()
+        if got:
+            absorbed[m] = got
     for (r1, _, _), h1 in pair_lines.items():
         for (r2, _, _), h2 in pair_lines.items():
-            if r1 != r2 and {i for i, _ in h1} & {i for i, _ in h2}:
+            if r1 != r2 and frozenset().union(*(x[0] for x in h1)) & frozenset().union(*(x[0] for x in h2)):
                 merge([r1, r2])
 
     def place(rs):
-        mine = {i for k, h in pair_lines.items() if k[0] in rs for i, _ in h}
+        mine = {i for k, h in pair_lines.items() if k[0] in rs for ids, *_ in h for i in ids} | absorbed.get(rs, set())
         others = [(i, ln) for i, ln in lines + permit if i not in mine]
         stations = {}
         for (r, a, b), hit in pair_lines.items():
             if r not in rs:
                 continue
-            for i, ln in hit:
+            for _, ln, wa, wb in hit:
                 ia, ib = nearest(ln, pos[a])[0], nearest(ln, pos[b])[0]
-                for q, x, y, to in ((a, ia, ib, b), (b, ib, ia, a)):
+                for q, x, y, to, i in ((a, ia, ib, b, wa), (b, ib, ia, a, wb)):
                     part = ln[x:y + 1] if x < y else ln[y:x + 1][::-1]
                     length = sum(km(u, w) for u, w in zip(part, part[1:]))
                     d, blocking = min(POINT_KM, length / 4), set()
@@ -142,10 +209,16 @@ def systems(routes, pos, lines, permit, fail):
             try:
                 place(rs)
             except Blocked as e:
-                with_ = {k[0] for k, h in pair_lines.items() for i, _ in h if i in e.args[0]} - set(rs)
-                if not with_:
-                    fail(f"{sorted(rs)}: no clear point on its lines (blocked by OpenStreetMap ways {sorted(e.args[0])}, of no route)")
-                merge(set(rs) | with_)
+                with_ = {k[0] for k, h in pair_lines.items() for ids, *_ in h if ids & e.args[0]} - set(rs)
+                if with_:
+                    merge(set(rs) | with_)
+                else:
+                    # Ferry lines of no route priced here (another operator's, a
+                    # passenger line, a line mapped twice) along the same water.
+                    stray = set(e.args[0]) - absorbed.get(rs, set())
+                    if not stray:
+                        fail(f"{sorted(rs)}: no clear point on its lines")
+                    absorbed[rs] = absorbed.get(rs, set()) | stray
                 changed = True
                 break
         if not changed:

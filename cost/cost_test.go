@@ -816,6 +816,34 @@ func TestSerbia(t *testing.T) {
 	}
 }
 
+// Serbia's past tolls in RSD, from the decision's tables in Službeni
+// glasnik: Beograd to Niš jug, category 4, 6130 RSD from 1 January 2024
+// (119/2023), 6760 from 10 January 2025 (107/2024), 7040 from 10 July 2025
+// (58/2025); category 3 3520 then.
+func TestSerbiaGazette(t *testing.T) {
+	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"RS": 300}, Path: bgNis}}}
+	for _, tc := range []struct {
+		date  string
+		truck rates.Truck
+		want  float64
+	}{
+		{"2024-03-01", truck40, 6130},
+		{"2025-03-01", truck40, 6760},
+		{"2025-09-01", truck40, 7040},
+		{"2025-09-01", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3520},
+	} {
+		date, _ := time.Parse(time.DateOnly, tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"RSD": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.want) > 0.011 {
+			t.Errorf("%s %+v: %.2f RSD, want %.2f: %v %v", tc.date, tc.truck, r.TotalEUR, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
 // France, chained: Allaines to Ambérieu on APRR, class 4, 190.70 EUR
 // with VAT (158.92 without); class 3 143.00 (119.17).
 func TestFrance(t *testing.T) {
@@ -3077,5 +3105,59 @@ func TestNorwayFerries(t *testing.T) {
 		if got, n := ferry(r); math.Abs(got-tc.want) > 0.011 || n != tc.lines {
 			t.Errorf("%s: %.2f NOK in %d lines, want %.2f in %d: %v", tc.name, got, n, tc.want, tc.lines, r.Notes)
 		}
+	}
+}
+
+// The Belgrade bypass from 1 April 2026: category 4 (four or more axles)
+// pays per section, by direction, in RSD (Putevi Srbije's list: 340, 120,
+// 120, 290, 480, 390, 130 from Batajnica to Bubanj Potok); three axles
+// pay nothing, nor does a truck driving the other way past a point.
+func TestBelgradeBypass(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	whole := [][2]float64{{20.26037, 44.874}, {20.259242, 44.872908}, {20.258114, 44.871816}, {20.251545, 44.825299}, {20.251937, 44.823972}, {20.252329, 44.822645}, {20.25855, 44.788923}, {20.259379, 44.787703}, {20.260208, 44.786483}, {20.301908, 44.751828}, {20.303378, 44.750971}, {20.304848, 44.750114}, {20.364598, 44.712395}, {20.366174, 44.71164}, {20.36775, 44.710885}, {20.446828, 44.719668}, {20.448605, 44.720141}, {20.450382, 44.720614}, {20.508692, 44.716821}, {20.510529, 44.716486}, {20.512366, 44.716151}}
+	one := [][2]float64{{20.364598, 44.712395}, {20.366174, 44.71164}, {20.36775, 44.710885}}
+	back := [][2]float64{{20.36775, 44.710885}, {20.366174, 44.71164}, {20.364598, 44.712395}}
+	three := rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Batajnica to Bubanj Potok", whole, truck40, 1870},
+		{"Ostružnica to Orlovača", one, truck40, 480},
+		{"three axles", one, three, 0},
+		{"the other way past the point", back, truck40, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"RS": 40}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: true, FX: map[string]float64{"RSD": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Obilaznica") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f RSD, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+	// Without a rate given, the dinar is converted at the NBS's official
+	// middle rate of the day (117.6013 on 4 November 2026; the ECB has none).
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"RS": 40}, Path: one}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, ETC: true}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	eur := 0.0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Obilaznica") {
+			eur += l.AmountEUR
+		}
+	}
+	if want := math.Round(480/117.6013*100) / 100; eur != want || !strings.Contains(strings.Join(r.Provenance.FX, " "), "National Bank of Serbia") {
+		t.Errorf("Ostružnica to Orlovača: %.2f EUR, want %.2f: %v", eur, want, r.Provenance.FX)
 	}
 }

@@ -1694,6 +1694,51 @@
    "table": "is-vadlaheidargong-2025-01-02",
    "url": "https://veggjald.is/static/files/verdskra/vhg-price-2.1.2025.pdf",
    "what": "Vaðlaheiðargöng hf.: price list valid from 2 January 2025"
+  },
+  {
+   "id": "rs-sg-119-2023",
+   "table": "rs",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=12d856fe-62e5-423b-bfd7-320f8e8e1376",
+   "what": "Službeni glasnik RS 119/2023, 29 December 2023 (the issue, as pravno-informacioni-sistem.rs serves it): the amendment of the Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), its tables scanned",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "rs-sg-107-2024",
+   "table": "rs",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=44027ec0-5ae2-4088-b30e-07beb4047b5d",
+   "what": "Službeni glasnik RS 107/2024, 30 December 2024 (the issue, as pravno-informacioni-sistem.rs serves it): the amendment of the Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), its tables scanned",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "rs-sg-58-2025",
+   "table": "rs",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=ef5d2388-51f8-430a-85c3-90e3cac5a347",
+   "what": "Službeni glasnik RS 58/2025, 3 July 2025 (the issue, as pravno-informacioni-sistem.rs serves it): the amendment of the Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), its tables scanned",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "rs-sg-58-2024",
+   "table": "rs",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=8359a1f7-bdb4-482e-95e0-51fa20fbf191",
+   "what": "Službeni glasnik RS 58/2024, 5 July 2024 (the issue, as pravno-informacioni-sistem.rs serves it): the amendment of the Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), its tables scanned",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "rs-sg-120-2025",
+   "table": "rs",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=6f685da3-bddd-4a26-9298-f28f4da8d068",
+   "what": "Službeni glasnik RS 120/2025, 30 December 2025 (the issue, as pravno-informacioni-sistem.rs serves it): the amendment of the Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), its tables scanned",
+   "expect": [
+    "%PDF"
+   ]
   }
  ]
 }

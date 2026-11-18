@@ -483,16 +483,24 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			}
 		}
 		if !ok {
-			v := req.ecb.PerEUR[l.Currency]
+			v, src, day := req.ecb.PerEUR[l.Currency], fx.Source, req.ecb.Date
+			if v == 0 && l.Currency == "RSD" {
+				// The ECB publishes no dinar rate: the NBS's official middle rate.
+				var in bool
+				if v, day, in = fx.RSDOnDate(date); !in {
+					v = 0
+				}
+				src = fx.NBSSource
+			}
 			if v == 0 {
 				return fmt.Errorf("no exchange rate for %s: give fx.%s (%s per euro)", l.Currency, l.Currency, l.Currency)
 			}
 			f = 1 / v
 			eurPer[l.Currency] = f
 			seenFX[l.Currency] = true
-			out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("%s: %g per EUR (%s, %s)", l.Currency, v, fx.Source, req.ecb.Date))
+			out.Provenance.FX = append(out.Provenance.FX, fmt.Sprintf("%s: %g per EUR (%s, %s)", l.Currency, v, src, day))
 			out.Notes = append(out.Notes, fmt.Sprintf("%s converted at %g %s per euro (%s, %s); give fx.%s to use another rate.",
-				l.Currency, v, l.Currency, fx.Source, req.ecb.Date, l.Currency))
+				l.Currency, v, l.Currency, src, day, l.Currency))
 		}
 		l.Amount = round2(l.Amount)
 		l.AmountEUR = round2(l.Amount * f)

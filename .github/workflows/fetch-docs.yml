@@ -12,21 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: CalMac commercial vehicle fares, Jadrolinija price lists
+      - name: Scottish ferry lines and terminals (Overpass)
         run: |
           mkdir -p out
-          get() { curl -fsSL --retry 3 -A "Mozilla/5.0" -o "out/$1" "$2" && echo "ok $1" || echo "FAILED $1 $2"; }
-          get calmac-cv-2026.pdf "https://assets.calmac.co.uk/media/dhylsra5/cv-fares-table-from-27th-march-2026-updated-030426.pdf"
-          get calmac-cv-page.html "https://www.calmac.co.uk/faqs/commercial-vehicles/commercial-vehicle-rates"
-          get calmac-uig-tarbert-s26.pdf "https://assets.calmac.co.uk/media/hctnsn1e/uig-tarbert-s26.pdf"
-          get calmac-coll-tiree-s26.pdf "https://assets.calmac.co.uk/media/zbbfp5rw/coll-tiree-s26.pdf"
-          get calmac-credit.html "https://www.calmac.co.uk/faqs/commercial-vehicles"
-          get jadro-supetar-split.pdf "https://www.jadrolinija.hr/download/300e981f36a3892143a0d9bc412ae498"
-          get jadro-vis-split.pdf "https://www.jadrolinija.hr/download/b4d27ce7fa60ea98238d8976fc10a665"
-          get jadro-stari-grad-split.pdf "https://www.jadrolinija.hr/download/82a2bb77f351100a74e7cf4fc24d1fad"
-          get jadro-cjenici.html "https://www.jadrolinija.hr/cjenici"
-          get jadro-home.html "https://www.jadrolinija.hr/"
-          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
+          curl -fsSL --retry 3 -A "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)" -o out/sct-ferries.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3Brelation%5B%22route%22%3D%22ferry%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3B%29%3Bout%20geom%20tags%3B" && echo ok || echo FAILED
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

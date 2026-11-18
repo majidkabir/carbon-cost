@@ -788,8 +788,10 @@ func TestCroatiaDiscounts(t *testing.T) {
 	}
 }
 
-// Serbia: Beograd to Niš jug, category 4, 60.50 EUR; Dimitrovgrad to
-// Beograd 93.00; category 3 Beograd to Niš jug 30.50.
+// Serbia, from the decision (Službeni glasnik 57/2026): Beograd to Niš jug,
+// category 4, 7080 RSD; Dimitrovgrad to Beograd 10830; category 3 Beograd
+// to Niš jug 3540; Smederevo to Niš jug, a pair Putevi Srbije's price list
+// doesn't print, 5680. At the NBS's middle rate of the day (117.6013).
 func TestSerbia(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	trip := func(path [][2]float64) sootcase.Result {
@@ -797,29 +799,32 @@ func TestSerbia(t *testing.T) {
 	}
 	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
 	dimBg := [][2]float64{{22.75, 43.01}, {22.73643, 43.02192}, {21.9, 43.35}, {20.61189, 44.66423}, {20.60, 44.70}}
+	smNis := [][2]float64{{20.95, 44.60}, {20.95723, 44.58996}, {21.81577, 43.32747}, {21.85, 43.30}}
 	for _, tc := range []struct {
 		path  [][2]float64
 		truck rates.Truck
-		total float64
+		rsd   float64
 	}{
-		{bgNis, truck40, 60.5},
-		{dimBg, truck40, 93},
-		{bgNis, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 30.5},
+		{bgNis, truck40, 7080},
+		{dimBg, truck40, 10830},
+		{bgNis, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3540},
+		{smNis, truck40, 5680},
 	} {
 		r, err := Price(trip(tc.path), all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
-			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, tc.total, r.Notes)
+		if want := math.Round(tc.rsd/117.6013*100) / 100; math.Abs(r.TotalEUR-want) > 0.011 {
+			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, want, r.Notes)
 		}
 	}
 }
 
 // Serbia's past tolls in RSD, from the decision's tables in Službeni
 // glasnik: Beograd to Niš jug, category 4, 6130 RSD from 1 January 2024
-// (119/2023), 6760 from 10 January 2025 (107/2024), 7040 from 10 July 2025
-// (58/2025); category 3 3520 then.
+// (119/2023), 6760 from 10 July 2024 (58/2024, kept by 107/2024 from 10
+// January 2025), 7040 from 10 July 2025 (58/2025; category 3 3520), 7080
+// from 1 January 2026 (120/2025).
 func TestSerbiaGazette(t *testing.T) {
 	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"RS": 300}, Path: bgNis}}}
@@ -829,7 +834,9 @@ func TestSerbiaGazette(t *testing.T) {
 		want  float64
 	}{
 		{"2024-03-01", truck40, 6130},
+		{"2024-09-01", truck40, 6760},
 		{"2025-03-01", truck40, 6760},
+		{"2026-03-01", truck40, 7080},
 		{"2025-09-01", truck40, 7040},
 		{"2025-09-01", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3520},
 	} {

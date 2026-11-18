@@ -22,7 +22,7 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
@@ -51,6 +51,22 @@ jobs:
         run: |
           python3 tools/history/reuse.py tools/history/sources.json out prev
           rm -f todo.json
+      - name: Serbian toll decision's tables (OCR)
+        # tools/history/rs_gazette.py reads the decision's scanned tables out
+        # of the Official Gazette issues; an issue the last run read (the
+        # same content) is taken from it.
+        run: |
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          for f in out/rs-sg-*.pdf; do
+            b=$(basename "$f" .pdf)
+            d=$(python3 tools/history/rs_gazette.py --digest "$f")
+            if [ -f "prev/$b.json" ] && grep -q "\"digest\": \"$d\"" "prev/$b.json"; then cp "prev/$b.json" "out/$b.json"; continue; fi
+            if ! command -v tesseract >/dev/null; then
+              for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+              pip install -q opencv-python-headless pytesseract
+            fi
+            python3 tools/history/rs_gazette.py "$f" "out/$b.json" || echo "::error title=rs_gazette::$f not read"
+          done
       - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data
         # workflow last fetched them, and the current tables (removed

@@ -14,6 +14,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"html"
 	"io/fs"
 	"log/slog"
 	"maps"
@@ -31,6 +32,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/roads"
+	"github.com/majidkabir/carbon-cost/site"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
@@ -352,13 +354,18 @@ func serve(args []string) error {
 	sc := sootcaseFlags(fs)
 	addr := fs.String("addr", envOr("ADDR", ":8090"), "listen address (env ADDR)")
 	tiles := fs.String("tiles", envOr("TILE_URL", DefaultTiles), "map tile URL template, {z}/{x}/{y}; \"none\" for no base map (env TILE_URL)")
+	public := fs.String("public-url", envOr("PUBLIC_URL", site.DefaultBase), "the service's public URL, for the toll pages' links, canonical URLs and sitemap (env PUBLIC_URL)")
 	fs.Parse(args)
 	c, err := calculator(sc)
 	if err != nil {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+	h, err := HandlerAt(c, *tiles, *public)
+	if err != nil {
+		return err
+	}
+	srv := &http.Server{Addr: *addr, Handler: h, ReadHeaderTimeout: 10 * time.Second,
 		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
@@ -375,9 +382,24 @@ var leafletFS embed.FS
 // with attribution; a busy deployment should set its own tile server.
 const DefaultTiles = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 
-// Handler serves the web page and the HTTP API. tiles is the map's tile
-// URL template ("" or "none": no base map).
+// Handler serves the web page and the HTTP API, and the toll pages at
+// DefaultBase. tiles is the map's tile URL template ("" or "none": no
+// base map).
 func Handler(c cost.Calculator, tiles string) http.Handler {
+	h, err := HandlerAt(c, tiles, site.DefaultBase)
+	if err != nil {
+		panic(err)
+	}
+	return h
+}
+
+// HandlerAt is Handler for a service whose public URL is public: the toll
+// pages (package site) link, and give canonical URLs, under it.
+func HandlerAt(c cost.Calculator, tiles, public string) (http.Handler, error) {
+	pages, err := site.New(c.Tariffs, public, c.Now)
+	if err != nil {
+		return nil, err
+	}
 	if tiles == "none" {
 		tiles = ""
 	}
@@ -392,6 +414,13 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 	}
 	tj, _ := json.Marshal(tiles)
 	page := strings.Replace(indexHTML, "const TILES = \"\";", "const TILES = "+string(tj)+";", 1)
+	pub := html.EscapeString(strings.TrimRight(public, "/"))
+	page = strings.Replace(page, "<!--meta-->", `<link rel="canonical" href="`+pub+`/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="carbon-cost: what a truck trip pays for carbon and tolls">
+<meta property="og:url" content="`+pub+`/">
+<meta property="og:image" content="`+pub+`/tolls.png">
+<meta name="twitter:card" content="summary_large_image">`, 1)
 	csp := "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src " + imgSrc +
 		"; connect-src 'self'; form-action 'none'; base-uri 'none'"
 	mux := http.NewServeMux()
@@ -462,7 +491,8 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		writeJSON(w, http.StatusOK, res)
 	})
-	return mux
+	pages.Register(mux)
+	return mux, nil
 }
 
 func writeJSON(w http.ResponseWriter, status int, v any) {

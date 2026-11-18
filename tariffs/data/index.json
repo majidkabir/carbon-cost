@@ -1413,6 +1413,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/hr-jadrolinija/2026-01-01",
+   "scheme": "hr-jadrolinija",
+   "country": "HR",
+   "file": "hr/hr-jadrolinija-2026-01-01.orct.json",
+   "name": "Jadrolinija's state ferry lines, goods vehicles",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "6608fd1df48318ca94f32115b2de695c2941ee28bbe4b0bcc15c94f942d7295a",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/hu/2024-01-01",
    "scheme": "hu",
    "country": "HU",
@@ -1717,7 +1728,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "8af9c425091d003f9eb18ea4b913e4cffd178acce832ed61643472fea1437130",
+   "sha256": "ae9e0cb3a714d5e88af0ad1a4dd0099962eb809ce725119596d61781bec760f6",
    "coverage": "complete"
   },
   {

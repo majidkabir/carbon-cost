@@ -1,0 +1,57 @@
+{{define "country.html"}}{{template "head" .Head}}
+<h1>{{.H1}}</h1>
+<p class="lead">{{.Lead}}</p>
+<a class="cta" href="{{.Trip}}">Price your trip{{if .TripName}}: {{.TripName}}{{end}}</a>
+{{range .Schemes}}
+<h2>{{.Name}}{{if .Upcoming}} (from {{.From}}){{end}}</h2>
+<p><b>How it charges:</b> {{.How}}. <b>Who pays:</b> {{.Liable}}. <b>In force:</b> from {{.From}}{{if .To}} to {{.To}}{{end}}.</p>
+{{if .Example}}<p class="example">{{.Example}}</p>{{end}}
+{{if .Roads}}<h3>What a 40 t Euro VI truck pays per km</h3>
+<div class="scroll"><table><thead><tr><th>Road</th><th class="n">Per km</th><th class="n co2">of which CO2</th><th class="n co2">CO2 share</th>{{if ne .Cur "EUR"}}<th class="n">Per km, EUR</th>{{end}}</tr></thead><tbody>
+{{range .Roads}}<tr{{if .Highlight}} class="hl"{{end}}><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td><td class="n co2">{{.Share}}</td>{{if .EUR}}<td class="n">{{.EUR}}</td>{{end}}</tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByMass}}<h3>By weight (Euro VI, CO2 class 1)</h3>
+<div class="scroll"><table><thead><tr><th>Truck</th><th class="n">Per km</th><th class="n co2">of which CO2</th><th class="n co2">CO2 share</th></tr></thead><tbody>
+{{range .ByMass}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td><td class="n co2">{{.Share}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByCO2}}<h3>By CO2 class (40 t, 5 axles, Euro VI)</h3>
+<div class="scroll"><table><thead><tr><th>CO2 class</th><th class="n">Per km</th><th class="n co2">of which CO2</th></tr></thead><tbody>
+{{range .ByCO2}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByEuro}}<h3>By Euro class (40 t, 5 axles, CO2 class 1)</h3>
+<div class="scroll"><table><thead><tr><th>Euro class</th><th class="n">Per km</th><th class="n co2">of which CO2</th></tr></thead><tbody>
+{{range .ByEuro}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ZE}}<p class="ze"><b>Zero-emission trucks:</b> {{.ZE}}</p>{{end}}
+{{if .Fares}}<h3>Examples for a 40 t Euro VI truck</h3>
+<div class="scroll"><table><thead><tr><th>Trip or place</th><th class="n">Fare</th></tr></thead><tbody>
+{{range .Fares}}<tr><td>{{.What}}</td><td class="n">{{.Total}}</td></tr>
+{{end}}</tbody></table></div>{{if .FareNote}}<p class="note">{{.FareNote}}The dearest shown; every one is in the rate table below and the dataset.</p>{{end}}{{end}}
+{{if .Products}}<h3>Vignettes for a 40 t Euro VI truck</h3>
+<div class="scroll"><table><thead><tr><th>Valid for</th><th class="n">Price</th></tr></thead><tbody>
+{{range .Products}}<tr><td>{{.What}}</td><td class="n">{{.Total}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Versions}}<h3>Rate history and changes to come</h3>
+<div class="scroll"><table><thead><tr><th>From</th><th>To</th>{{if (index .Versions 0).Rate}}<th class="n">40 t Euro VI per km</th><th class="n co2">CO2 part</th>{{end}}<th>Law</th><th>Data</th></tr></thead><tbody>
+{{range .Versions}}<tr{{if .Upcoming}} class="up"{{else if .Current}} class="hl"{{end}}><td>{{.From}}{{if .Upcoming}} (to come){{else if .Current}} (in force){{end}}</td><td>{{.To}}</td>{{if .Rate}}<td class="n">{{.Rate}}</td><td class="n co2">{{.CO2}}</td>{{end}}<td>{{.Law}}</td><td><a href="{{$.Prefix}}/v1/rates/{{.File}}">JSON</a></td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Tables}}<details><summary>Full rate table ({{len .Tables}} {{if eq (len .Tables) 1}}charge{{else}}charges{{end}}), straight from the dataset</summary>
+{{range .Tables}}<h3{{if .CO2}} style="color:var(--carbon)"{{end}}>{{.Name}} ({{.Unit}})</h3>
+<div class="scroll"><table><thead><tr>{{range .Head}}<th>{{.}}</th>{{end}}</tr></thead><tbody>
+{{range .Rows}}<tr{{if .CO2}} class="co2"{{end}}>{{range .Cells}}<td>{{.}}</td>{{end}}</tr>
+{{end}}</tbody></table></div>{{if gt .Total (len .Rows)}}<p class="note">{{len .Rows}} of {{.Total}} rows shown; the dataset has them all.</p>{{end}}
+{{end}}</details>{{end}}
+<p class="note"><b>Law:</b> {{.Method}}</p>
+{{if .Sources}}<ul class="src">{{range .Sources}}<li><a href="{{.URL}}" rel="nofollow">{{.Title}}</a></li>{{end}}</ul>{{end}}
+{{end}}
+{{range .Fuel}}
+<h2>CO2 price on diesel: {{.Name}}</h2>
+<div class="tiles"><div class="tile"><span>The law's rate</span><b>{{.Rate}}</b></div><div class="tile co2"><span>Per litre of diesel</span><b>{{.PerLitre}}</b></div></div>
+<p class="note">In force from {{.From}}. {{.Law}}</p>
+{{if .Versions}}<div class="scroll"><table><thead><tr><th>From</th><th>To</th><th class="n">Rate</th><th class="n co2">Per litre</th><th>Data</th></tr></thead><tbody>
+{{range .Versions}}<tr{{if .Upcoming}} class="up"{{else if .Current}} class="hl"{{end}}><td>{{.From}}{{if .Upcoming}} (to come){{end}}</td><td>{{.To}}</td><td class="n">{{.Rate}}</td><td class="n co2">{{.CO2}}</td><td><a href="{{$.Prefix}}/v1/rates/{{.File}}">JSON</a></td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Sources}}<ul class="src">{{range .Sources}}<li><a href="{{.URL}}" rel="nofollow">{{.Title}}</a></li>{{end}}</ul>{{end}}
+{{end}}
+<p><a class="cta" href="{{.Trip}}">Price your trip{{if .TripName}}: {{.TripName}}{{end}}</a></p>
+{{template "foot" .}}{{end}}

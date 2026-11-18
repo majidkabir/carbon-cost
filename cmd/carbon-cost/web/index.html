@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>carbon-cost: what a truck trip pays for carbon and tolls</title>
+<meta name="description" content="Price a truck trip's road tolls, their CO2 part, ferry ETS, ETS2 and national CO2 taxes on fuel, from the laws, across 40 European countries.">
+<!--meta-->
 <link rel="stylesheet" href="leaflet/leaflet.css">
 <script src="leaflet/leaflet.js"></script>
 <style>
@@ -64,7 +66,7 @@
 <body>
 <main>
   <h1>What does a truck trip pay for carbon and tolls?</h1>
-  <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws; routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
+  <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (<a href="tolls">truck toll rates by country</a>); routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
 
   <form id="f">
     <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
@@ -126,6 +128,16 @@ const TILES = "";
 const f = $("f");
 f.date.value = new Date().toISOString().slice(0, 10);
 f.time.value = new Date().toTimeString().slice(0, 5);
+
+// A trip from a link (the toll pages' "price your trip"): ?from=lat,lon&from_name=…&to=…&to_name=…
+{
+  const q = new URLSearchParams(location.search);
+  for (const k of ["from", "to"]) {
+    const v = q.get(k), name = q.get(k + "_name"), m = v && v.trim().match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
+    if (m && name) { f[k].value = name; f[k].dataset.label = name; f[k].dataset.lat = m[1]; f[k].dataset.lon = m[2]; }
+    else if (v) f[k].value = v;
+  }
+}
 
 const LATLON = /^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/;
 function place(input) {

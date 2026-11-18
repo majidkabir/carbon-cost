@@ -3,7 +3,8 @@ and Hebrides ferry services run for the Scottish Government) as toll
 systems (gb-calmac-<date>.json), from
 
 - the commercial vehicle single rates table (gb-calmac-cv.pdf, linked from
-  CalMac's commercial vehicle rates page, gb-calmac-cv-page.html): for each
+  CalMac's commercial vehicle rates page, gb-calmac-cv-page.html, else the
+  Internet Archive's latest copy, gb-calmac-cv-page-ia.html): for each
   route a fixed base rate (on some), the price per 0.5 m of the vehicle's
   length, and the fares from 6 to 17 m worked out. The table is an image:
   read by OCR (Tesseract), and each route's base and price per 0.5 m must
@@ -97,7 +98,6 @@ PORTS = {
     "Ullapool": ("terminal", "Ullapool Ferry Terminal"), "Stornoway": ("terminal", "Stornoway Ferry Terminal"),
     "Wemyss Bay": ("terminal", "Wemyss Bay"), "Rothesay": ("terminal", "Rothesay Ferry Terminal"),
 }
-PAGE = "https://www.calmac.co.uk/faqs/commercial-vehicles/commercial-vehicle-rates"
 
 
 # The fares table, read by OCR.
@@ -205,9 +205,12 @@ def places(osm):
 def main(fetched, out):
     try:
         osm = json.load(open(os.path.join(fetched, "gb-calmac-osm.json")))
-        page = open(os.path.join(fetched, "gb-calmac-cv-page.html"), encoding="utf-8", errors="replace").read()
+        # The page, else the Internet Archive's latest copy of it (it
+        # refuses the workflow at times).
+        page_id = next(i for i in ("gb-calmac-cv-page", "gb-calmac-cv-page-ia") if os.path.exists(os.path.join(fetched, i + ".html")))
+        page = open(os.path.join(fetched, page_id + ".html"), encoding="utf-8", errors="replace").read()
         route_page = re.sub(r"\s+", " ", open(os.path.join(fetched, "gb-calmac-uig-tarbert.txt"), encoding="utf-8").read())
-    except (OSError, ValueError):
+    except (OSError, ValueError, StopIteration):
         print("CalMac: a source wasn't fetched; not built")
         return
     src = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json")))["sources"]
@@ -267,7 +270,8 @@ def main(fetched, out):
                  "(a ship calling on the way) are one system, priced from the first port passed to the last. Wide loads (dearer) aren't priced. "
                  + " ".join(f"{n}." for n in notes)),
          "sources": [{"title": f"CalMac: commercial vehicle single rates from {start}", "url": cv_url},
-                     {"title": "CalMac: commercial vehicle rates", "url": PAGE},
+                     {"title": "CalMac: commercial vehicle rates" + (" (the Internet Archive's latest copy, as the page refuses the workflow at times)" if page_id.endswith("-ia") else ""),
+                      "url": next(s["url"] for s in src if s["id"] == page_id)},
                      {"title": "CalMac: Uig – Tarbert fares (commercial vehicles by length in 0.5 m increments, excluding VAT)",
                       "url": next(s["url"] for s in src if s["id"] == "gb-calmac-uig-tarbert")},
                      {"title": "OpenStreetMap (Overpass API): ferry lines and terminals on Scotland's west coast", "url": "https://www.openstreetmap.org/"}],

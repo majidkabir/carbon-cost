@@ -31,8 +31,12 @@ Trip on 2026-11-03: 300.0 km (19.0 km by ferry)
   road_toll       DK             co2      140.0 km     0.6 DKK/km  84.00 DKK  11.26
   road_toll       DK       air_noise      140.0 km    0.06 DKK/km   8.40 DKK   1.13
   ferry_ets                      co2  0.030 t CO2e  75 EUR/t CO2e   2.25 EUR   2.25
-Total: EUR 71.97, of which carbon EUR 35.79
+   fuel_co2       DE             co2  0.110 t CO2e   65 EUR/t CO2   7.18 EUR   7.18
+   fuel_co2       DK             co2      140.0 km    2.284 DKK/l  93.76 DKK  12.57
+Total: EUR 91.72, of which carbon EUR 55.54
 ```
+
+The `fuel_co2` lines are the national CO2 prices on diesel (Germany's BEHG, Denmark's CO2-afgift), on the fuel taken as bought along the route in proportion to each country's road km (`-fuel-country` for where the truck fills up). A live run gives a different total: Sootcase's real route and emissions replace this fixed 300 km trip.
 
 The numbers are this repo's worked test case (`cost/cost_test.go`).
 
@@ -44,12 +48,12 @@ The numbers are this repo's worked test case (`cost/cost_test.go`).
 $ carbon-cost calc -from DKCPH -to DEHAM -cargo-kg 20000 -eua 75 -compare 1,4,5 -trips-per-year 200
 ...
   CO2 class  Tolls EUR  Total EUR  Carbon EUR  Saving/trip  Saving/year
-          1      69.72      71.97       35.79         0.00
-          4      48.82      51.07       19.02        20.90      4180.00
-          5       2.44       4.69        2.25        67.28     13456.00
+          1      69.72      91.72       55.54         0.00
+          4      48.82      70.82       38.77        20.90      4180.00
+          5       2.44       4.69        2.25        87.03     17406.00
 ```
 
-The route and the cargo's emissions stay the same. The exception is a class 5 (zero-emission) truck, which burns no road fuel and so pays no ETS2. In 2026 the class 5 truck pays only the DK class 5 rate, because Germany exempts it.
+The route and the cargo's emissions stay the same. The exception is a class 5 (zero-emission) truck, which burns no road fuel and so pays no fuel CO2 prices or ETS2. In 2026 the class 5 truck pays only the DK class 5 rate, because Germany exempts it.
 
 ## Rates included
 

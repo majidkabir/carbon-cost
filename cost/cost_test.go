@@ -3079,3 +3079,41 @@ func TestNorwayFerries(t *testing.T) {
 		}
 	}
 }
+
+// The Belgrade bypass from 1 April 2026: category 4 (four or more axles)
+// pays per section, by direction, in RSD (Putevi Srbije's list: 340, 120,
+// 120, 290, 480, 390, 130 from Batajnica to Bubanj Potok); three axles
+// pay nothing, nor does a truck driving the other way past a point.
+func TestBelgradeBypass(t *testing.T) {
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	whole := [][2]float64{{20.26037, 44.874}, {20.259242, 44.872908}, {20.258114, 44.871816}, {20.251545, 44.825299}, {20.251937, 44.823972}, {20.252329, 44.822645}, {20.25855, 44.788923}, {20.259379, 44.787703}, {20.260208, 44.786483}, {20.301908, 44.751828}, {20.303378, 44.750971}, {20.304848, 44.750114}, {20.364598, 44.712395}, {20.366174, 44.71164}, {20.36775, 44.710885}, {20.446828, 44.719668}, {20.448605, 44.720141}, {20.450382, 44.720614}, {20.508692, 44.716821}, {20.510529, 44.716486}, {20.512366, 44.716151}}
+	one := [][2]float64{{20.364598, 44.712395}, {20.366174, 44.71164}, {20.36775, 44.710885}}
+	back := [][2]float64{{20.36775, 44.710885}, {20.366174, 44.71164}, {20.364598, 44.712395}}
+	three := rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Batajnica to Bubanj Potok", whole, truck40, 1870},
+		{"Ostružnica to Orlovača", one, truck40, 480},
+		{"three axles", one, three, 0},
+		{"the other way past the point", back, truck40, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"RS": 40}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: true, FX: map[string]float64{"RSD": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Obilaznica") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f RSD, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
+		}
+	}
+}

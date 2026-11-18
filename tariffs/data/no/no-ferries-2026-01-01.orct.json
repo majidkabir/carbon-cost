@@ -1,0 +1,1451 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/no-ferries/2026-01-01",
+  "scheme": {
+   "id": "no-ferries",
+   "name": "Norwegian national road ferries (riksvegferjer)",
+   "country": "NO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "NOK",
+  "timezone": "Europe/Oslo",
+  "license": "MIT",
+  "method": "AutoPASS-regulativ for ferjetakster from 2026-01-01 (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). Electric and hydrogen vehicles registered as such pay half (AP2-AP9), which isn't applied here. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. Moss-Horten has a regulativ of its own: the operator's price list from 2026-01-01 to 2026-12-31, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), double for vehicles wider than 2.6 m (not applied). Mortavika–Arsvågen: the toll (bompenger) charged on board isn't included. Skipavik–Hjelmeland is free (priced 0 in the Minister's table). Skipavik–Nesvik is free (priced 0 in the Minister's table). Balestrand–Dragsvik: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Hella: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Vangsnes: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Bodø–Røst is free (priced 0 in the Minister's table). Bodø–Værøy is free (priced 0 in the Minister's table). Moskenes–Røst is free (priced 0 in the Minister's table). Moskenes–Værøy is free (priced 0 in the Minister's table). Værøy–Røst is free (priced 0 in the Minister's table).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "no-ferries-2026-01-01.json"
+  },
+  "required_features": ["rounding", "rule.discount", "type.od", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster, takster (fullpris) fra 1. januar 2026",
+   "url": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/pris---autopass-regulativ---fullpris---01.01.2026.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster fra 1. januar 2026",
+   "url": "https://www.vegvesen.no/globalassets/fag/trafikk/ferje/autopass-reg.-for-ferje-fra-01.01.2026.pdf"
+  },
+  {
+   "id": "s3",
+   "title": "Samferdselsministeren: svar på skriftleg spørsmål nr. 699 (2025-2026), billettpris og takstsone for riksvegferjesambanda",
+   "url": "https://www.stortinget.no/globalassets/pdf/dokumentserien/2025-2026/dok15-202526-0699-vedlegg.pdf"
+  },
+  {
+   "id": "s4",
+   "title": "NVDB (Statens vegvesen): Ferjesamband (770) and Ferjekai (64)",
+   "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/770"
+  },
+  {
+   "id": "s5",
+   "title": "Rv. 19 Moss-Horten: fares 2026-01-01 to 2026-12-31 (Torghatten / Bastø Fosen)",
+   "url": "https://cdn.sanity.io/files/ufla9djl/production/5620c5955d8c702afa5cb2b98fae987d75981e97.pdf"
+  },
+  {
+   "id": "s6",
+   "title": "OpenStreetMap (Overpass API): car ferry lines (route=ferry) by the quays",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t, by total length with trailer and load (give truck.length_m; 16.5 m assumed)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.AP1",
+     "label": "AP1",
+     "criteria": {
+      "train_length_m": {
+       "max": 6.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP2",
+     "label": "AP2",
+     "criteria": {
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 8.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP3",
+     "label": "AP3",
+     "criteria": {
+      "train_length_m": {
+       "gt": 8.0,
+       "max": 10.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP4",
+     "label": "AP4",
+     "criteria": {
+      "train_length_m": {
+       "gt": 10.0,
+       "max": 12.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP5",
+     "label": "AP5",
+     "criteria": {
+      "train_length_m": {
+       "gt": 12.5,
+       "max": 14.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP6",
+     "label": "AP6",
+     "criteria": {
+      "train_length_m": {
+       "gt": 14.5,
+       "max": 17.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP7",
+     "label": "AP7",
+     "criteria": {
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 19.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP8",
+     "label": "AP8",
+     "criteria": {
+      "train_length_m": {
+       "gt": 19.5,
+       "max": 22.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.AP9",
+     "label": "AP9",
+     "criteria": {
+      "train_length_m": {
+       "gt": 22.0
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "sys16-1",
+   "classes": [
+    {
+     "id": "sys16-1.AP1",
+     "label": "AP1",
+     "criteria": {
+      "train_length_m": {
+       "max": 6.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP2",
+     "label": "AP2",
+     "criteria": {
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 8.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP3",
+     "label": "AP3",
+     "criteria": {
+      "train_length_m": {
+       "gt": 8.0,
+       "max": 10.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP4",
+     "label": "AP4",
+     "criteria": {
+      "train_length_m": {
+       "gt": 10.0,
+       "max": 12.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP5",
+     "label": "AP5",
+     "criteria": {
+      "train_length_m": {
+       "gt": 12.0,
+       "max": 14.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP6",
+     "label": "AP6",
+     "criteria": {
+      "train_length_m": {
+       "gt": 14.0,
+       "max": 17.5
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP7",
+     "label": "AP7",
+     "criteria": {
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 19.5
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP8",
+     "label": "AP8",
+     "criteria": {
+      "train_length_m": {
+       "gt": 19.5,
+       "max": 22.0
+      }
+     }
+    },
+    {
+     "id": "sys16-1.AP9",
+     "label": "AP9",
+     "criteria": {
+      "train_length_m": {
+       "gt": 22.0
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Arsvågen",
+   "type": "station",
+   "name": "Arsvågen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.462171, 59.171673], [5.46221, 59.171623], [5.461456, 59.171829]]
+    },
+    "point_names": [
+     "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 4762432)",
+     "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 1238872247)",
+     "Arsvågen ferry quay, 0.5 km out on the line to Mortavika (OSM way 1238872248)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Mortavika",
+   "type": "station",
+   "name": "Mortavika",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.590686, 59.141796], [5.590676, 59.141718], [5.591303, 59.141728]]
+    },
+    "point_names": [
+     "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 4762432)",
+     "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 1238872247)",
+     "Mortavika ferry quay, 0.5 km out on the line to Arsvågen (OSM way 1238872248)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Hjelmeland",
+   "type": "station",
+   "name": "Hjelmeland",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.165658, 59.238928], [6.165561, 59.238928], [6.160271, 59.237762]]
+    },
+    "point_names": [
+     "Hjelmeland ferry quay, 0.5 km out on the line to Nesvik (OSM way 23294306)",
+     "Hjelmeland ferry quay, 0.5 km out on the line to Nesvik (OSM way 1351532019)",
+     "Hjelmeland ferry quay, 0.5 km out on the line to Skipavik (OSM way 43767532)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Nesvik",
+   "type": "station",
+   "name": "Nesvik",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.162637, 59.257421], [6.162635, 59.257206], [6.156285, 59.258461], [6.155419, 59.258345]]
+    },
+    "point_names": [
+     "Nesvik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 23294306)",
+     "Nesvik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 1351532019)",
+     "Nesvik ferry quay, 0.5 km out on the line to Skipavik (OSM way 43767530)",
+     "Nesvik ferry quay, 0.5 km out on the line to Skipavik (OSM way 1351532020)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Skipavik",
+   "type": "station",
+   "name": "Skipavik",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.104039, 59.252681], [6.104054, 59.252725], [6.103553, 59.251727]]
+    },
+    "point_names": [
+     "Skipavik ferry quay, 0.5 km out on the line to Nesvik (OSM way 43767530)",
+     "Skipavik ferry quay, 0.5 km out on the line to Nesvik (OSM way 1351532020)",
+     "Skipavik ferry quay, 0.5 km out on the line to Hjelmeland (OSM way 43767532)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Halhjem",
+   "type": "station",
+   "name": "Halhjem",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.426593, 60.130535]]
+    },
+    "point_names": ["Halhjem ferry quay, 1.7 km out on the line to Sandvikvåg (OSM way 781847955)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Sandvikvåg",
+   "type": "station",
+   "name": "Sandvikvåg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.33536, 59.977416]]
+    },
+    "point_names": ["Sandvikvåg ferry quay, 1.0 km out on the line to Halhjem (OSM way 781847955)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:Anda",
+   "type": "station",
+   "name": "Anda",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.081818, 61.850945]]
+    },
+    "point_names": ["Anda ferry quay, 0.5 km out on the line to Lote (OSM way 8117881)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:Lote",
+   "type": "station",
+   "name": "Lote",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.083494, 61.860314]]
+    },
+    "point_names": ["Lote ferry quay, 0.5 km out on the line to Anda (OSM way 8117881)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:Lavik",
+   "type": "station",
+   "name": "Lavik",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.503677, 61.100684], [5.503743, 61.100586]]
+    },
+    "point_names": ["Lavik ferry quay, 0.5 km out on the line to Oppedal (OSM way 4689332)", "Lavik ferry quay, 0.5 km out on the line to Oppedal (OSM way 1018197298)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:Oppedal",
+   "type": "station",
+   "name": "Oppedal",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[5.500738, 61.058881], [5.500878, 61.058938]]
+    },
+    "point_names": ["Oppedal ferry quay, 0.5 km out on the line to Lavik (OSM way 4689332)", "Oppedal ferry quay, 0.5 km out on the line to Lavik (OSM way 1018197298)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Dragsvik",
+   "type": "station",
+   "name": "Dragsvik",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.575107, 61.212366], [6.575309, 61.212553]]
+    },
+    "point_names": ["Dragsvik ferry quay, 0.5 km out on the line to Hella (OSM way 38086827)", "Dragsvik ferry quay, 0.5 km out on the line to Hella (OSM way 1375717924)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Hella",
+   "type": "station",
+   "name": "Hella",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.594277, 61.204435], [6.590019, 61.206186], [6.588818, 61.208938], [6.588811, 61.209141]]
+    },
+    "point_names": [
+     "Hella ferry quay, 0.5 km out on the line to Vangsnes (OSM way 10120194)",
+     "Hella ferry quay, 0.5 km out on the line to Vangsnes (OSM way 14329891)",
+     "Hella ferry quay, 0.5 km out on the line to Dragsvik (OSM way 38086827)",
+     "Hella ferry quay, 0.5 km out on the line to Dragsvik (OSM way 1375717924)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Vangsnes",
+   "type": "station",
+   "name": "Vangsnes",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.635542, 61.178981], [6.633634, 61.178697]]
+    },
+    "point_names": ["Vangsnes ferry quay, 0.5 km out on the line to Hella (OSM way 10120194)", "Vangsnes ferry quay, 0.5 km out on the line to Hella (OSM way 14329891)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:Fodnes",
+   "type": "station",
+   "name": "Fodnes",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.373906, 61.148813]]
+    },
+    "point_names": ["Fodnes ferry quay, 0.5 km out on the line to Mannheller (OSM way 5081186)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:Mannheller",
+   "type": "station",
+   "name": "Mannheller",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.337458, 61.155833]]
+    },
+    "point_names": ["Mannheller ferry quay, 0.5 km out on the line to Fodnes (OSM way 5081186)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:Festøya",
+   "type": "station",
+   "name": "Festøya",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.339157, 62.381225]]
+    },
+    "point_names": ["Festøya ferry quay, 0.9 km out on the line to Solavågen (OSM way 23101179)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:Solavågen",
+   "type": "station",
+   "name": "Solavågen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.330575, 62.409353]]
+    },
+    "point_names": ["Solavågen ferry quay, 0.5 km out on the line to Festøya (OSM way 23101179)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:Furneset",
+   "type": "station",
+   "name": "Furneset",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.086223, 62.656269]]
+    },
+    "point_names": ["Furneset ferry quay, 0.5 km out on the line to Molde (OSM way 16797483)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:Molde",
+   "type": "station",
+   "name": "Molde",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.123759, 62.725794]]
+    },
+    "point_names": ["Molde ferry quay, 2.7 km out on the line to Furneset (OSM way 16797483)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:Folkestad",
+   "type": "station",
+   "name": "Folkestad",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.036698, 62.123987]]
+    },
+    "point_names": ["Folkestad ferry quay, 0.5 km out on the line to Volda (OSM way 270302770)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:Volda",
+   "type": "station",
+   "name": "Volda",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[6.057246, 62.137073]]
+    },
+    "point_names": ["Volda ferry quay, 1.0 km out on the line to Folkestad (OSM way 270302770)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:Halsa",
+   "type": "station",
+   "name": "Halsa",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[8.217532, 63.066962]]
+    },
+    "point_names": ["Halsa ferry quay, 0.5 km out on the line to Kanestraum (OSM way 23112418)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:Kanestraum",
+   "type": "station",
+   "name": "Kanestraum",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[8.134546, 63.054794]]
+    },
+    "point_names": ["Kanestraum ferry quay, 0.5 km out on the line to Halsa (OSM way 23112418)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Bodø",
+   "type": "station",
+   "name": "Bodø",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.339777, 67.281185], [14.335878, 67.279812], [14.3378, 67.280503]]
+    },
+    "point_names": [
+     "Bodø ferry quay, 2.5 km out on the line to Moskenes (OSM way 23212730)",
+     "Bodø ferry quay, 2.7 km out on the line to Røst (OSM way 38285558)",
+     "Bodø ferry quay, 2.6 km out on the line to Værøy (OSM way 550211397)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Moskenes",
+   "type": "station",
+   "name": "Moskenes",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[13.040182, 67.896322], [13.039447, 67.896654]]
+    },
+    "point_names": ["Moskenes ferry quay, 0.5 km out on the line to Bodø (OSM way 23212730)", "Moskenes ferry quay, 0.5 km out on the line to Værøy (OSM way 37454739)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Røst",
+   "type": "station",
+   "name": "Røst",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.060855, 67.502768], [12.060411, 67.503123]]
+    },
+    "point_names": ["Røst ferry quay, 0.5 km out on the line to Værøy (OSM way 37454740)", "Røst ferry quay, 0.5 km out on the line to Bodø (OSM way 38285558)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Værøy",
+   "type": "station",
+   "name": "Værøy",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.718585, 67.650179], [12.717925, 67.649738], [12.718248, 67.649942]]
+    },
+    "point_names": [
+     "Værøy ferry quay, 0.5 km out on the line to Moskenes (OSM way 37454739)",
+     "Værøy ferry quay, 0.5 km out on the line to Røst (OSM way 37454740)",
+     "Værøy ferry quay, 0.5 km out on the line to Bodø (OSM way 550211397)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:Bognes",
+   "type": "station",
+   "name": "Bognes",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.084427, 68.230622]]
+    },
+    "point_names": ["Bognes ferry quay, 0.9 km out on the line to Lødingen (OSM way 19095068)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:Lødingen",
+   "type": "station",
+   "name": "Lødingen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.005417, 68.419539]]
+    },
+    "point_names": ["Lødingen ferry quay, 0.5 km out on the line to Bognes (OSM way 19095068)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:Drag",
+   "type": "station",
+   "name": "Drag",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.085049, 68.051925]]
+    },
+    "point_names": ["Drag ferry quay, 0.5 km out on the line to Kjøpsvik (OSM way 37041651)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:Kjøpsvik",
+   "type": "station",
+   "name": "Kjøpsvik",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.34564, 68.092036]]
+    },
+    "point_names": ["Kjøpsvik ferry quay, 0.5 km out on the line to Drag (OSM way 37041651)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:Bognes",
+   "type": "station",
+   "name": "Bognes",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.089761, 68.228243]]
+    },
+    "point_names": ["Bognes ferry quay, 0.7 km out on the line to Skarberget (OSM way 5070108)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:Skarberget",
+   "type": "station",
+   "name": "Skarberget",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.239808, 68.236658]]
+    },
+    "point_names": ["Skarberget ferry quay, 0.5 km out on the line to Bognes (OSM way 5070108)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:Horten",
+   "type": "station",
+   "name": "Horten",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.497964, 59.41116]]
+    },
+    "point_names": ["Horten ferry quay, 0.5 km out on the line to Moss (OSM way 228431771)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:Moss",
+   "type": "station",
+   "name": "Moss",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.652453, 59.425061]]
+    },
+    "point_names": ["Moss ferry quay, 0.5 km out on the line to Horten (OSM way 228431771)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Mortavika–Arsvågen ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Mortavika–Arsvågen, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP1", "92.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP2", "206.25"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP3", "283.93"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP4", "342.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP5", "399.11"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP6", "467.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP7", "494.64"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP8", "543.75"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP9", "597.32"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Hjelmeland–Skipavik–Nesvik ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Hjelmeland–Skipavik–Nesvik, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP1", "56.25"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP2", "127.68"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP3", "184.82"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP4", "233.04"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP5", "280.36"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP6", "338.39"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP7", "366.07"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP8", "414.29"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP9", "455.36"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP1", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP2", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP3", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP4", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP5", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP6", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP7", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP8", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP9", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP1", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP2", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP3", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP4", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP5", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP6", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP7", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP8", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP9", "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "Halhjem–Sandvikvåg ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Halhjem–Sandvikvåg, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP1", "157.14"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP2", "341.07"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP3", "452.68"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP4", "535.71"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP5", "604.46"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP6", "683.04"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP7", "721.43"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP8", "766.96"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP9", "843.75"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system4",
+   "name": "Anda–Lote ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Anda–Lote, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st4:Anda", "st4:Lote", "sys1-1.AP1", "56.25"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP2", "127.68"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP3", "184.82"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP4", "233.04"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP5", "280.36"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP6", "338.39"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP7", "366.07"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP8", "414.29"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP9", "455.36"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system5",
+   "name": "Lavik–Oppedal ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Lavik–Oppedal, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP1", "72.32"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP2", "160.71"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP3", "226.79"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP4", "280.36"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP5", "330.36"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP6", "393.75"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP7", "425"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP8", "470.54"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP9", "516.96"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system6",
+   "name": "Vangsnes–Hella–Dragsvik ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Vangsnes–Hella–Dragsvik, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP1", "50.89"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP2", "116.07"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP3", "170.54"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP4", "216.96"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP5", "261.61"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP6", "319.64"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP7", "349.11"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP8", "397.32"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP9", "437.5"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP1", "66.96"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP2", "149.11"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP3", "213.39"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP4", "267.86"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP5", "311.61"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP6", "375"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP7", "407.14"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP8", "453.57"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP9", "499.11"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP1", "72.32"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP2", "160.71"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP3", "226.79"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP4", "280.36"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP5", "330.36"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP6", "393.75"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP7", "425"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP8", "470.54"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP9", "516.96"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system7",
+   "name": "Mannheller–Fodnes ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Mannheller–Fodnes, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP1", "61.61"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP2", "138.39"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP3", "199.11"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP4", "249.11"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP5", "292.86"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP6", "357.14"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP7", "383.93"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP8", "431.25"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP9", "474.11"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system8",
+   "name": "Festøya–Solavågen ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Festøya–Solavågen, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP1", "66.96"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP2", "149.11"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP3", "213.39"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP4", "267.86"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP5", "311.61"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP6", "375"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP7", "407.14"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP8", "453.57"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP9", "499.11"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system9",
+   "name": "Molde–Vestnes ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Molde–Vestnes, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP1", "103.57"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP2", "229.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP3", "314.29"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP4", "379.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP5", "430.36"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP6", "504.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP7", "535.71"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP8", "582.14"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP9", "641.07"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system10",
+   "name": "Volda–Folkestad ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Volda–Folkestad, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP1", "61.61"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP2", "138.39"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP3", "199.11"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP4", "249.11"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP5", "292.86"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP6", "357.14"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP7", "383.93"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP8", "431.25"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP9", "474.11"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system11",
+   "name": "Halsa–Kanestraum ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Halsa–Kanestraum, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP1", "72.32"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP2", "160.71"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP3", "226.79"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP4", "280.36"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP5", "330.36"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP6", "393.75"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP7", "425"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP8", "470.54"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP9", "516.96"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system12",
+   "name": "Bodø–Værøy–Røst–Moskenes ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Bodø–Værøy–Røst–Moskenes, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP1", "540.18"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP2", "1162.5"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP3", "1497.32"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP4", "1700.89"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP5", "1862.5"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP6", "2010.71"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP7", "2077.68"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP8", "2133.04"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP9", "2346.43"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP8", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP9", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP1", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP2", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP3", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP4", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP5", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP6", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP7", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP8", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP9", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP8", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP9", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP1", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP2", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP3", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP4", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP5", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP6", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP7", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP8", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP9", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP8", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP9", "0"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system13",
+   "name": "Bognes–Lødingen ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Bognes–Lødingen, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP1", "166.96"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP2", "365.18"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP3", "483.04"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP4", "566.96"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP5", "641.07"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP6", "719.64"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP7", "756.25"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP8", "806.25"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP9", "886.61"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system14",
+   "name": "Drag–Kjøpsvik ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Drag–Kjøpsvik, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP1", "129.46"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP2", "286.61"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP3", "386.61"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP4", "454.46"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP5", "516.96"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP6", "590.18"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP7", "628.57"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP8", "677.68"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP9", "744.64"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system15",
+   "name": "Bognes–Skarberget ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AutoPASS-regulativ for ferjetakster: Bognes–Skarberget, by stretch (zone)",
+   "rounding": {
+    "increment": "0.01",
+    "mode": "half_up",
+    "stage": "line"
+   },
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP1", "92.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP2", "206.25"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP3", "283.93"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP4", "342.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP5", "399.11"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP6", "467.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP7", "494.64"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP8", "543.75"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP9", "597.32"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system16",
+   "name": "Moss–Horten ferry",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Rv. 19 Moss-Horten's price list 2026-01-01 to 2026-12-31 (its own AutoPASS-regulativ): the full price by length; `etc` with an AutoPASS tag and a prepaid Moss-Horten agreement (30% off)",
+   "columns": ["entry", "exit", "vehicle_class", "user_class", "amount"],
+   "rows": [
+    ["st16:Moss", "st16:Horten", "sys16-1.AP1", null, "271.43"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP2", null, "602.68"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP3", null, "818.75"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP4", null, "970.54"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP5", null, "1120.54"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP6", null, "1224.11"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP7", null, "1379.46"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP8", null, "1566.07"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP9", null, "1722.32"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP1", "electronic", "190"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP2", "electronic", "421.87"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP3", "electronic", "573.12"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP4", "electronic", "679.37"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP5", "electronic", "784.37"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP6", "electronic", "856.88"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP7", "electronic", "965.62"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP8", "electronic", "1096.25"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP9", "electronic", "1205.62"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
+   "basis": "transcribed"
+  }
+ ],
+ "rules": [
+  {
+   "id": "r1",
+   "kind": "discount",
+   "applies_to": ["system1"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r2",
+   "kind": "discount",
+   "applies_to": ["system2"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r3",
+   "kind": "discount",
+   "applies_to": ["system3"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r4",
+   "kind": "discount",
+   "applies_to": ["system4"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r5",
+   "kind": "discount",
+   "applies_to": ["system5"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r6",
+   "kind": "discount",
+   "applies_to": ["system6"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r7",
+   "kind": "discount",
+   "applies_to": ["system7"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r8",
+   "kind": "discount",
+   "applies_to": ["system8"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r9",
+   "kind": "discount",
+   "applies_to": ["system9"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r10",
+   "kind": "discount",
+   "applies_to": ["system10"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r11",
+   "kind": "discount",
+   "applies_to": ["system11"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r12",
+   "kind": "discount",
+   "applies_to": ["system12"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r13",
+   "kind": "discount",
+   "applies_to": ["system13"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r14",
+   "kind": "discount",
+   "applies_to": ["system14"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  },
+  {
+   "id": "r15",
+   "kind": "discount",
+   "applies_to": ["system15"],
+   "params": {
+    "name": "AutoPASS ferry account, business, prepaid (40%)",
+    "percent": "40",
+    "payment": ["electronic"]
+   }
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

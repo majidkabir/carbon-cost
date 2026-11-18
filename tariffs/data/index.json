@@ -60,6 +60,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/at-felbertauern/2026-01-01",
+   "scheme": "at-felbertauern",
+   "country": "AT",
+   "file": "at/at-felbertauern-2026-01-01.orct.json",
+   "name": "Felbertauerntunnel toll (Felbertauernstraße)",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "006c0efd4b0b51507d7a7e7d0c9a6a1e84a833302de4ec37e3d0994cbaebb293",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fuelco2-at/2024-01-01",
    "scheme": "fuelco2-at",
    "country": "AT",
@@ -1255,7 +1266,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2025-04-07",
    "valid_to": "2026-09-20",
-   "sha256": "d31dd453140babcbaa04f2015ec6ba0524263abf07eb199b2f9e841cbb7dc2c2",
+   "sha256": "78ed18e7d011fc904144fc868d8bcfcaf5105c7e433a97913e34fcc911a72034",
    "coverage": "complete"
   },
   {
@@ -1266,7 +1277,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2026-09-21",
    "valid_to": null,
-   "sha256": "6afa4658b58986519e1e96b850c3890c5d272e8484a71f006190891a97fcc2ba",
+   "sha256": "93a0bbe41285c2958f57ba6c9f2cce70ad76ea81403fafb53fc36efc912548de",
    "coverage": "complete"
   },
   {
@@ -2128,6 +2139,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/no-ferries/2026-01-01",
+   "scheme": "no-ferries",
+   "country": "NO",
+   "file": "no/no-ferries-2026-01-01.orct.json",
+   "name": "Norwegian national road ferries (riksvegferjer)",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "c89757db99991fc54a1ca1065089c691e5190fad279779bb6d89a7185556deea",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fuelco2-pl/2024-01-01",
    "scheme": "fuelco2-pl",
    "country": "PL",
@@ -2509,7 +2531,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
-   "sha256": "5cafdf0a00dab94e197927d3c07084a44ea063e99d614acd108c9afbb4e93bae",
+   "sha256": "219b18de800b3b0deac8a6d262f56df1c0f397ffafbce91d89987a68d907919b",
    "coverage": "complete"
   },
   {

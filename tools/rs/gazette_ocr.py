@@ -26,8 +26,8 @@ between 1.85 and 2.15 (1.6 and 2.5 under 300 RSD). A shaded or hatched cell (no
 price: the pair isn't a trip, e.g. Novi Sad north towards Belgrade) has
 none. The others are listed as unread and left out.
 
-Usage: python3 rs_gazette.py issue.pdf out.json
-       python3 rs_gazette.py --digest issue.pdf   (the issue's content digest,
+Usage: python3 gazette_ocr.py issue.pdf out.json
+       python3 gazette_ocr.py --digest issue.pdf   (the issue's content digest,
        which out.json records)
 Needs tesseract with the srp language, opencv, pytesseract, pymupdf.
 """

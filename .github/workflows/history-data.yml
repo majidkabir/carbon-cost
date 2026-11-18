@@ -52,7 +52,7 @@ jobs:
           python3 tools/history/reuse.py tools/history/sources.json out prev
           rm -f todo.json
       - name: Serbian toll decision's tables (OCR)
-        # tools/history/rs_gazette.py reads the decision's scanned tables out
+        # tools/rs/gazette_ocr.py reads the decision's scanned tables out
         # of the Official Gazette issues; an issue the last run read (the
         # same content) is taken from it.
         run: |
@@ -61,9 +61,9 @@ jobs:
           pip install -q opencv-python-headless pytesseract
           for f in out/rs-sg-*.pdf; do
             b=$(basename "$f" .pdf)
-            d=$(python3 tools/history/rs_gazette.py --digest "$f")
+            d=$(python3 tools/rs/gazette_ocr.py --digest "$f")
             if [ -f "prev/$b.json" ] && grep -q "\"digest\": \"$d\"" "prev/$b.json"; then cp "prev/$b.json" "out/$b.json"; continue; fi
-            python3 tools/history/rs_gazette.py "$f" "out/$b.json" || echo "::error title=rs_gazette::$f not read"
+            python3 tools/rs/gazette_ocr.py "$f" "out/$b.json" || echo "::error title=gazette_ocr::$f not read"
           done
       - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data

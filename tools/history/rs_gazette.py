@@ -142,8 +142,8 @@ def read_cells(args):
         row = []
         for c, d in zip(xs[1:], xs[2:]):
             cell = img[a + 4:b - 3, c + 4:d - 3]
-            inner = cell[cell.shape[0] // 4:-(cell.shape[0] // 4) or None, cell.shape[1] // 4:-(cell.shape[1] // 4) or None]
-            shaded = float(np.median(inner)) < 215
+            # Shaded: even its lightest pixels are grey (a white cell's, around its digits, are white).
+            shaded = float(np.percentile(cell, 90)) < 200
             row.append({"reads": [] if shaded else digits(cell), "shaded": shaded})
         out.append(row)
     return out

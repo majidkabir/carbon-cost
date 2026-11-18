@@ -91,12 +91,18 @@ def get(url, accept=None, tries=3, pause=5):
     raise RuntimeError(f"{url}: {last}")
 
 
+# Guards the manifest and the error list: the Overpass queries are fetched
+# on threads of their own (overpass_all).
+LOCK = threading.Lock()
+
+
 def save(out, manifest, name, url, status, body):
     with open(os.path.join(out, name), "wb") as f:
         f.write(body)
-    manifest.append({"file": name, "url": url, "status": status, "size": len(body),
-                     "sha256": hashlib.sha256(body).hexdigest(), "fetched": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
-    print(status, len(body), name, url)
+    with LOCK:
+        manifest.append({"file": name, "url": url, "status": status, "size": len(body),
+                         "sha256": hashlib.sha256(body).hexdigest(), "fetched": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
+        print(status, len(body), name, url, flush=True)
 
 
 def tollro(out, manifest, page_url, page):
@@ -179,6 +185,35 @@ def uradni_list(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
 
 
+# Overpass instances serving the same OpenStreetMap data: a query goes to
+# its own first, then to the others when that one can't be reached, is
+# busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
+
+
+def ask_overpass(url, prefer=None):
+    """An Overpass query's answer, from the first instance that gives one: (status, body, url asked).
+    A query written for overpass-api.de goes to `prefer` first when given; one
+    written for another instance goes to that one first."""
+    base, query = url.split("?", 1)
+    first = prefer if prefer and base == OVERPASS[0] else base
+    last = None
+    for host in [first] + [h for h in OVERPASS if h != first]:
+        for wait in (0, 30, 60, 120) if host == first else (0, 30):
+            time.sleep(wait)
+            try:
+                status, body = get(host + "?" + query, tries=1)
+            except Exception as e:
+                last = f"{host}: {e}"
+                break
+            if status == 200 and not overpass_failed(status, body):
+                return status, body, host + "?" + query
+            last = f"{host}: {status} " + ((json.loads(body).get("remark") or "")[:200] if overpass_failed(status, body) else "")
+            if status not in (429, 502, 503, 504) and not overpass_failed(status, body):
+                break
+    raise RuntimeError(f"Overpass: no instance answered (last: {last})")
+
+
 def overpass_failed(status, body):
     if status != 200:
         return False
@@ -192,16 +227,113 @@ def overpass_failed(status, body):
     return bool(r) and (not d.get("elements") or "error" in r.lower() or "timed out" in r.lower())
 
 
+def store(out, manifest, s, status, body, asked):
+    """Saves a source's answer (and what it leads to) under its id."""
+    ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
+    if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
+        ext = ".json"
+    if body[:4] == b"%PDF":
+        ext = ".pdf"
+    save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), asked, status, body)
+    if "riigiteataja.ee/public-api/" in s["url"]:
+        riigiteataja(out, manifest, s["id"], body)
+    if "nvdbapiles" in s["url"] and status == 200:
+        nvdb(out, manifest, s["id"], s["url"], body)
+    if s["id"] == "ro-tollro":
+        tollro(out, manifest, s["url"], body)
+    if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
+        njt(out, manifest, s["id"], s["url"], body)
+    if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
+        uradni_list(out, manifest, s["id"], s["url"], body)
+
+
+def checked(s, status, body, again):
+    """A source's answer once it holds what the source expects ("expect"; Overpass at
+    times answers a query without the toll booths near the road): asked again,
+    then an error, so the last run's copy is kept."""
+    missing = lambda b: [x for x in s.get("expect", []) if x.encode() not in b]
+    for wait in (60, 120, 240):
+        if status != 200 or not missing(body):
+            break
+        time.sleep(wait)
+        status, body = again()
+    if status == 200 and missing(body):
+        raise RuntimeError(f"the answer lacks {missing(body)}")
+    return status, body
+
+
+def overpass_all(items, out, manifest, errors):
+    """The Overpass queries, on two threads that ask different instances first
+    (overpass-api.de and overpass.private.coffee), so a busy one doesn't hold up
+    the rest. A query no instance answers is asked again in a second round
+    after a pause; three in a row unanswered mean Overpass is down, and the
+    rest wait for that round too, which stops likewise (the last run's copies
+    are kept)."""
+    rounds, state, lock = [list(items), []], {"dead": 0}, threading.Lock()
+
+    def worker(prefer, queue, later, last_round):
+        while True:
+            with lock:
+                if not queue:
+                    return
+                s = queue.pop(0)
+                down = state["dead"] >= 3
+            if down:
+                if last_round:
+                    with LOCK:
+                        errors.append(f"{s['id']}: Overpass is down (three queries in a row unanswered)")
+                    print(f"ERROR {s['id']} Overpass is down", flush=True)
+                else:
+                    with lock:
+                        later.append(s)
+                continue
+            try:
+                status, body, asked = ask_overpass(s["url"], prefer)
+                status, body = checked(s, status, body, lambda: ask_overpass(s["url"], prefer)[:2])
+                with lock:
+                    state["dead"] = 0
+                store(out, manifest, s, status, body, asked)
+            except Exception as e:
+                with lock:
+                    state["dead"] += 1
+                    if not last_round:
+                        later.append(s)
+                if last_round:
+                    with LOCK:
+                        errors.append(f"{s['id']}: {e}")
+                    print(f"ERROR {s['id']} {e}", flush=True)
+                else:
+                    print(f"refused, asked again later: {s['id']} {e}", flush=True)
+
+    for n in (0, 1):
+        queue, later = rounds[n], []
+        if not queue:
+            break
+        if n:
+            time.sleep(120)
+            state["dead"] = 0
+        threads = [threading.Thread(target=worker, args=(h, queue, later, n == 1)) for h in OVERPASS[:2]]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        if n == 0:
+            rounds[1] = later
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     sources = json.load(open(src, encoding="utf-8"))["sources"]
-    # The Internet Archive's copies are fetched last, each asked once; the
+    # The Overpass queries run alongside the rest (overpass_all). The
+    # Internet Archive's copies are fetched last, each asked once; the
     # archive refuses connections when asked too fast, so those it refused
     # are asked again after a pause, with retries. Five refusals in a row
     # mean it is down: the rest wait for the second round, which stops
     # likewise (the last run's copies are kept).
-    sources.sort(key=lambda s: "web.archive.org/" in s["url"])
+    osm = threading.Thread(target=overpass_all, args=([s for s in sources if "/api/interpreter" in s["url"]], out, manifest, errors))
+    osm.start()
+    sources = sorted((s for s in sources if "/api/interpreter" not in s["url"]), key=lambda s: "web.archive.org/" in s["url"])
     queue, later, refused = sources + [None], [], 0
     while queue:
         s = queue.pop(0)
@@ -214,69 +346,37 @@ def main(src, out):
         if archive and not s.get("again") and refused >= 5:
             later.append(dict(s, again=True))  # the archive seems down: asked after the pause
             continue
-        if s.get("again") and refused >= 5:
-            errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
-            print("ERROR", s["id"], "the Internet Archive keeps refusing")
+        if archive and s.get("again") and refused >= 5:
+            with LOCK:
+                errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
+            print(f"ERROR {s['id']} the Internet Archive keeps refusing", flush=True)
             continue
         try:
+            accept = "application/json" if "nvdbapiles" in s["url"] else None
             if archive:
                 status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
-            else:
-                status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
-            if archive:
                 refused = 0
-            # Overpass answers 429/502/504 when busy and asks for backoff; a
-            # 200 with an error "remark" is a query that timed out or ran out
-            # of memory (with no or part of its elements): also retried, then an error (so the last
-            # run's copy is kept).
-            for wait in (30, 60, 120, 240):
-                if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):
-                    break
-                time.sleep(wait)
-                status, body = get(s["url"])
-            if "/api/interpreter" in s["url"] and overpass_failed(status, body):
-                raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
-            # A source's "expect": what its answer must hold (Overpass at
-            # times answers a query without the toll booths near the road):
-            # asked again, then an error, so the last run's copy is kept.
-            missing = lambda b: [x for x in s.get("expect", []) if x.encode() not in b]
-            for wait in (60, 120, 240):
-                if status != 200 or not missing(body):
-                    break
-                time.sleep(wait)
-                status, body = get(s["url"])
-            if status == 200 and missing(body):
-                raise RuntimeError(f"the answer lacks {missing(body)}")
+            else:
+                status, body = get(s["url"], accept)
+            status, body = checked(s, status, body, lambda: get(s["url"], accept))
             # The Internet Archive's outage page instead of a capture: an
             # error, so the last run's copy is kept.
-            if "web.archive.org/" in s["url"] and b"Internet Archive services are temporarily offline" in body[:20000]:
+            if archive and b"Internet Archive services are temporarily offline" in body[:20000]:
                 raise RuntimeError("the Internet Archive is temporarily offline")
-            ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
-                ext = ".json"
-            if body[:4] == b"%PDF":
-                ext = ".pdf"
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), s["url"], status, body)
-            if "riigiteataja.ee/public-api/" in s["url"]:
-                riigiteataja(out, manifest, s["id"], body)
-            if "nvdbapiles" in s["url"] and status == 200:
-                nvdb(out, manifest, s["id"], s["url"], body)
-            if s["id"] == "ro-tollro":
-                tollro(out, manifest, s["url"], body)
-            if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
-                njt(out, manifest, s["id"], s["url"], body)
-            if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
-                uradni_list(out, manifest, s["id"], s["url"], body)
+            store(out, manifest, s, status, body, s["url"])
         except Exception as e:
             if archive:
                 refused += 1
             if archive and not s.get("again"):
-                print("refused, asked again later:", s["id"], e)
+                print(f"refused, asked again later: {s['id']} {e}", flush=True)
                 later.append(dict(s, again=True))
                 continue
-            errors.append(f"{s['id']}: {e}")
-            print("ERROR", s["id"], e)
-    json.dump({"files": manifest, "errors": errors}, open(os.path.join(out, "manifest.json"), "w"), indent=1)
+            with LOCK:
+                errors.append(f"{s['id']}: {e}")
+            print(f"ERROR {s['id']} {e}", flush=True)
+    osm.join()
+    manifest.sort(key=lambda f: f.get("file", ""))
+    json.dump({"files": manifest, "errors": sorted(errors)}, open(os.path.join(out, "manifest.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":

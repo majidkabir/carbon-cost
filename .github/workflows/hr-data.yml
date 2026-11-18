@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir -p out
           # Geofabrik refuses connections from GitHub's runners for minutes at a time: retry for ~10 minutes.
-          curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
+          timeout 1500 curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors --max-time 900 -o hr.pbf https://download.geofabrik.de/europe/croatia-latest.osm.pbf
           osmium tags-filter -O -o b.pbf hr.pbf n/barrier=toll_booth n/highway=motorway_junction
           osmium export -O -f geojsonseq -o booths.geojsonseq b.pbf
           python3 tools/hr/fetch.py booths.geojsonseq out

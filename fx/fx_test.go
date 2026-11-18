@@ -113,3 +113,27 @@ func TestCacheSingleFlight(t *testing.T) {
 	close(block)
 	<-done
 }
+
+// The NBS's middle rate on a day: a weekend's is Friday's list; before
+// 2024 there is none; after the last day embedded, the last one.
+func TestRSDOnDate(t *testing.T) {
+	for _, tc := range []struct {
+		day, from string
+		want      float64
+		ok        bool
+	}{
+		{"2024-01-01", "2024-01-01", 117.1737, true},
+		{"2024-01-06", "2024-01-06", 117.2343, true},
+		{"2026-11-18", "2026-11-18", 117.6240, true},
+		{"2023-12-31", "", 0, false},
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.day)
+		v, from, ok := RSDOnDate(d)
+		if v != tc.want || from != tc.from || ok != tc.ok {
+			t.Errorf("%s: %v %s %v, want %v %s %v", tc.day, v, from, ok, tc.want, tc.from, tc.ok)
+		}
+	}
+	if _, from, ok := RSDOnDate(time.Date(2099, 1, 1, 0, 0, 0, 0, time.UTC)); !ok || from < "2026-11-18" {
+		t.Errorf("after the last day: %s %v", from, ok)
+	}
+}

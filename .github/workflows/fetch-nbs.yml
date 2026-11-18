@@ -9,7 +9,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: NBS middle rates
         run: |
-          python3 tools/history/nbs.py nbs.csv
-          echo "=====CSV"
-          cat nbs.csv
-          echo "=====END"
+          U="https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate/IndexPeriod?isSearchExecuted=true&CurrencyCode=978&ExchangeRateListTypeID=3"
+          for q in "DateFrom=01.01.2024.&DateTo=31.01.2024.&WorkingDays=1" "DateFrom=01.01.2024.&DateTo=31.01.2024.&WorkingDays=2" "DateFrom=01.01.2024.&DateTo=31.12.2024.&WorkingDays=1"; do
+            echo "===== $q"
+            curl -sS -A "Mozilla/5.0" "$U&$q" -o r.html -w "%{http_code} %{size_download}\n"
+            python3 - <<'PY'
+          import re, html
+          h = html.unescape(open("r.html", encoding="utf-8").read())
+          i = h.find("<table")
+          t = h[i:h.find("</table>", i) + 8] if i >= 0 else ""
+          print(len(re.findall(r"<tr", t)), "rows")
+          print(re.sub(r"\s+", " ", t)[:1500])
+          print(re.sub(r"\s+", " ", t)[-800:])
+          for m in re.finditer(r"(?i)(page|страна|pagination)[^<]{0,80}", h):
+              print("PAG", m.group(0)[:100])
+          PY
+          done

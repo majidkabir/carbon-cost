@@ -6,21 +6,26 @@ jobs:
   nbs:
     runs-on: ubuntu-latest
     steps:
-      - name: NBS exchange rate web app forms
+      - name: NBS exchange rate web app, period search
         run: |
-          U=https://webappcenter.nbs.rs/ExchangeRateWebApp
-          for p in "ExchangeRate/IndexPeriod?isSearchExecuted=false" "ExchangeRate/IndexByDate?isSearchExecuted=false" "ExchangeRate/CurrentMiddleRate"; do
-            echo "===== $p"
-            curl -sS -c jar -b jar -A "Mozilla/5.0" "$U/$p" -o page.html -w "%{http_code} %{content_type}\n"
-            python3 - <<'PY'
+          U=https://webappcenter.nbs.rs/ExchangeRateWebApp/ExchangeRate/IndexPeriod
+          curl -sS -A "Mozilla/5.0" "$U?isSearchExecuted=false" -o page.html
+          python3 - <<'PY'
           import re
-          h = open("page.html", encoding="utf-8", errors="replace").read()
-          for m in re.finditer(r"<form[\s\S]*?</form>", h):
-              f = m.group(0)
-              print(re.sub(r"\s+", " ", re.sub(r"<option[^>]*>[^<]*</option>", "", f))[:6000])
-          for m in re.finditer(r"<a [^>]*href=\"([^\"]*(?:Export|Xml|xml|Csv|csv|Excel|Pdf|Print)[^\"]*)\"", h):
+          h = open("page.html", encoding="utf-8").read()
+          for name in ("CurrencyCode", "ExchangeRateListTypeID", "WorkingDays"):
+              m = re.search(r'<select[^>]*name="%s"[^>]*>([\s\S]*?)</select>' % name, h)
+              print(name, re.findall(r'<option[^>]*value="([^"]*)"[^>]*>([^<]*)<', m.group(1))[:60])
+          PY
+          for t in 1 2 3; do
+            echo "===== type $t"
+            curl -sS -A "Mozilla/5.0" "$U?isSearchExecuted=true&DateFrom=28.12.2023.&DateTo=05.01.2024.&CurrencyCode=978&ExchangeRateListTypeID=$t&WorkingDays=true" -o r$t.html -w "%{http_code}\n"
+            python3 - r$t.html <<'PY'
+          import re, sys
+          h = open(sys.argv[1], encoding="utf-8").read()
+          i = h.find("<table")
+          print(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " | ", h[i:i + 6000]))[:3000] if i >= 0 else "no table")
+          for m in re.finditer(r'href="([^"]*(?:Export|Excel|Csv|Xml|Pdf|Print)[^"]*)"', h, re.I):
               print("LINK", m.group(1))
-          for m in re.finditer(r"<script[^>]*src=\"([^\"]+)\"", h):
-              print("SCRIPT", m.group(1))
           PY
           done

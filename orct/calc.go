@@ -588,6 +588,8 @@ func (c *Calc) uses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {
 					}
 					q = q.Mul(massDec(c.vehicle[basis], m, capKg)).Quo(DecInt(1000))
 				}
+			} else if ch.Type == "point" && ch.Unit == "t" {
+				q = c.tonnes(ch)
 			} else if ch.Type == "section" && ch.Unit == "km" {
 				o := ds.objects[e.Object]
 				if o == nil || o.LengthKm == nil {
@@ -679,6 +681,20 @@ func firstOr(s, def string) string {
 	return s
 }
 
+// tonnes is a `t` charge's quantity: the mass parameter mass_basis in
+// tonnes (8.4).
+func (c *Calc) tonnes(ch *Charge) Dec {
+	basis := ch.MassBasis
+	if basis == "" {
+		basis = "train_mass_kg"
+	}
+	m, ok := num(c.vehicle[basis])
+	if !ok {
+		panic(unknown{"vehicle parameter " + basis + " is missing", "missing_parameter"})
+	}
+	return massDec(c.vehicle[basis], m, m).Quo(DecInt(1000))
+}
+
 func (c *Calc) odUses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {
 	evs := append([]*Event(nil), events...)
 	sort.SliceStable(evs, func(i, j int) bool { return evs[i].Time < evs[j].Time })
@@ -706,7 +722,11 @@ func (c *Calc) odUses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {
 			when, ev = b.Time, b
 		}
 		t := [2]string{a.Time, b.Time}
-		out = append(out, &pricedUse{use: &Use{Entry: a.Object, Exit: b.Object, Time: ds.local(when), trip: &t}, q: DecInt(1),
+		q := DecInt(1)
+		if ch.Unit == "t" {
+			q = c.tonnes(ch)
+		}
+		out = append(out, &pricedUse{use: &Use{Entry: a.Object, Exit: b.Object, Time: ds.local(when), trip: &t}, q: q,
 			objs: []string{a.Object, b.Object}, event: ev})
 	}
 	return out

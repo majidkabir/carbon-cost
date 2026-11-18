@@ -1,5 +1,5 @@
 {
- "description": "Danish HGV toll 2026, 40t-co2-1: 110.00 DKK. Vejafgiftsloven rates for 2026 (Skatteministeriet's rate table), as carbon-cost's TestDenmarkTotals asserts them; 100 km.",
+ "description": "Danish HGV toll 2026, 40t-co2-5: 13.00 DKK. Vejafgiftsloven rates for 2026 (Skatteministeriet's rate table), as carbon-cost's TestDenmarkTotals asserts them; 100 km.",
  "clauses": [
   "8.4"
  ],
@@ -7,14 +7,14 @@
   "data/carbon-cost/dk/dk-2026-01-01.orct.json"
  ],
  "usage": {
-  "orct_usage": "0.2",
+  "orct_usage": "0.3",
   "vehicle": {
    "train_mass_kg": 40000,
    "mass_kg": 40000,
    "train_axles": 5,
    "axles": 2,
    "euro_class": "6",
-   "co2_class": 1
+   "co2_class": 5
   },
   "events": [
    {
@@ -30,7 +30,7 @@
   "totals": [
    {
     "currency": "DKK",
-    "amount": "110.00"
+    "amount": "13.00"
    }
   ]
  }

@@ -25,9 +25,10 @@ Small Isles, Iona), isn't priced.
 
 Usage: python3 gb_calmac.py <fetched dir> <out dir>
 """
-import json, math, os, re, sys
+import json, os, re, sys
 
-POINT_KM, CLEAR_KM, MATCH_KM, QUAY_KM = 0.5, 0.3, 0.15, 0.8
+from ferry_osm import MATCH_KM, QUAY_KM, features, km, lines_of, systems as place_systems
+
 LONGEST_M = 25.5  # length groups to this length, in 0.5 m
 MONTHS = {m: i + 1 for i, m in enumerate(("january", "february", "march", "april", "may", "june", "july", "august",
                                           "september", "october", "november", "december"))}
@@ -97,40 +98,6 @@ PORTS = {
     "Wemyss Bay": ("terminal", "Wemyss Bay"), "Rothesay": ("terminal", "Rothesay Ferry Terminal"),
 }
 PAGE = "https://www.calmac.co.uk/faqs/commercial-vehicles/commercial-vehicle-rates"
-
-
-def km(a, b):
-    la1, lo1, la2, lo2 = map(math.radians, (a[0], a[1], b[0], b[1]))
-    h = math.sin((la2 - la1) / 2) ** 2 + math.cos(la1) * math.cos(la2) * math.sin((lo2 - lo1) / 2) ** 2
-    return 2 * 6371.0088 * math.asin(math.sqrt(h))
-
-
-def along(line, d):
-    """The point d km along a line of (lat, lon) points, or None past its end."""
-    for a, b in zip(line, line[1:]):
-        s = km(a, b)
-        if s >= d and s > 0:
-            f = d / s
-            return round(a[0] + f * (b[0] - a[0]), 6), round(a[1] + f * (b[1] - a[1]), 6)
-        d -= s
-    return None
-
-
-def off(p, line):
-    """The distance in km from p to a line of (lat, lon) points."""
-    cos = math.cos(math.radians(p[0]))
-    best = math.inf
-    for a, b in zip(line, line[1:]):
-        ax, ay, bx, by = (a[1] - p[1]) * cos * 111.2, (a[0] - p[0]) * 111.2, (b[1] - p[1]) * cos * 111.2, (b[0] - p[0]) * 111.2
-        dx, dy = bx - ax, by - ay
-        u = max(0.0, min(1.0, -(ax * dx + ay * dy) / (dx * dx + dy * dy))) if dx or dy else 0.0
-        best = min(best, math.hypot(ax + u * dx, ay + u * dy))
-    return best
-
-
-def nearest(line, p):
-    """The index of the line's point nearest p, and its distance in km."""
-    return min(((km(q, p), i) for i, q in enumerate(line)), key=lambda t: t[0])[::-1]
 
 
 # The fares table, read by OCR.
@@ -221,17 +188,7 @@ def route_of(name):
 
 def places(osm):
     """Each port's place."""
-    feats = []
-    for e in osm.get("elements", []):
-        t = e.get("tags", {})
-        if e["type"] == "node":
-            p = (e["lat"], e["lon"])
-        elif e.get("bounds"):
-            b = e["bounds"]
-            p = ((b["minlat"] + b["maxlat"]) / 2, (b["minlon"] + b["maxlon"]) / 2)
-        else:
-            continue
-        feats.append((t, p))
+    feats = features(osm)
     out = {}
     for port, (kind, name) in PORTS.items():
         if kind == "terminal":
@@ -273,14 +230,7 @@ def main(fetched, out):
         fares[r] = (base, rate)
     if sorted(fares) != sorted(ROUTES):
         sys.exit(f"CalMac: routes not in the table: {sorted(set(ROUTES) - set(fares))}")
-    # Car ferry lines: route=ferry ways a motor vehicle may take freely.
-    lines, permit = [], []
-    for w in osm.get("elements", []):
-        t = w.get("tags", {})
-        if w["type"] != "way" or t.get("route") != "ferry" or len(w.get("geometry", [])) < 2 or t.get("motor_vehicle") == "no":
-            continue
-        ln = (w["id"], [(g["lat"], g["lon"]) for g in w["geometry"]])
-        (permit if t.get("motor_vehicle") in ("private", "permit", "destination") else lines).append(ln)
+    lines, permit = lines_of(osm)
     pos = places(osm)
     for port, (kind, other) in PORTS.items():
         if kind == "end" and other in pos:
@@ -288,92 +238,15 @@ def main(fetched, out):
                     if min(km(ln[0], pos[other]), km(ln[-1], pos[other])) <= QUAY_KM]
             if len(ends) == 1:
                 pos[port] = ends[0]
-    notes = []
-    # Each pair's lines: those passing both ports.
-    pair_lines = {}
-    for r, pairs in ROUTES.items():
-        for a, b in pairs:
-            if a not in pos or b not in pos:
-                notes.append(f"{a}–{b}: {'/'.join(x for x in (a, b) if x not in pos)} not found in OpenStreetMap, not priced")
-                continue
-            hit = [(i, ln) for i, ln in lines if nearest(ln, pos[a])[1] <= QUAY_KM and nearest(ln, pos[b])[1] <= QUAY_KM]
-            if not hit:
-                why = "motor vehicles only with a permit there (OpenStreetMap)" if any(nearest(ln, pos[a])[1] <= QUAY_KM or nearest(ln, pos[b])[1] <= QUAY_KM for _, ln in permit) else "no car ferry line between them in OpenStreetMap"
-                notes.append(f"{a}–{b}: {why}, not priced")
-                continue
-            pair_lines[(r, a, b)] = hit
     groups = [{"name": "6 m", "min_kg": 3501, "max_length_m": 6.0}]
     halves = list(range(13, int(LONGEST_M * 2) + 1))
     for n in halves:
         groups.append({"name": f"{n / 2:g} m", "min_kg": 3501, "min_length_m": (n - 1) / 2, "max_length_m": n / 2})
-    line_of = dict(lines + permit)
-    # Systems: routes that share a line are one (a ship calling on the way),
-    # and so are routes whose lines run together from a port (the ships
-    # take the same sound): a point only one of them passes can't be found.
-    sysof = {r: frozenset([r]) for r in ROUTES}
-
-    def merge(rs):
-        m = frozenset().union(*(sysof[r] for r in rs))
-        for r in m:
-            sysof[r] = m
-    for (r1, _, _), h1 in pair_lines.items():
-        for (r2, _, _), h2 in pair_lines.items():
-            if r1 != r2 and {i for i, _ in h1} & {i for i, _ in h2}:
-                merge([r1, r2])
-
-    def place(rs):
-        """The system's stations, or the routes whose lines leave no clear point."""
-        mine = {i for k, h in pair_lines.items() if k[0] in rs for i, _ in h}
-        others = [(i, ln) for i, ln in lines + permit if i not in mine]
-        stations = {}
-        for (r, a, b), hit in pair_lines.items():
-            if r not in rs:
-                continue
-            for i, ln in hit:
-                ia, ib = nearest(ln, pos[a])[0], nearest(ln, pos[b])[0]
-                for q, x, y, to in ((a, ia, ib, b), (b, ib, ia, a)):
-                    part = ln[x:y + 1] if x < y else ln[y:x + 1][::-1]
-                    length = sum(km(u, w) for u, w in zip(part, part[1:]))
-                    # A short crossing: a quarter of the way out.
-                    d, blocking = min(POINT_KM, length / 4), set()
-                    while True:
-                        pt = along(part, d)
-                        if pt is None or d > length / 2:
-                            return None, blocking
-                        near = {j for j, l in others if off(pt, l) <= CLEAR_KM}
-                        if not near:
-                            break
-                        blocking |= near
-                        d += 0.1
-                    pts = stations.setdefault(q, [])
-                    if all(km(pt, (o["lat"], o["lon"])) > 0.05 for o in pts):
-                        pts.append({"name": f"{q} ferry terminal, {round(d, 1)} km out on the line to {to} (OSM way {i})", "lat": pt[0], "lon": pt[1]})
-        return stations, None
-    while True:
-        changed = False
-        for rs in {sysof[r] for r in ROUTES if any(k[0] == r for k in pair_lines)}:
-            stations, blocking = place(rs)
-            if stations is None:
-                with_ = {k[0] for k, h in pair_lines.items() for i, _ in h if i in blocking} - set(rs)
-                if not with_:
-                    sys.exit(f"CalMac: {sorted(rs)}: no clear point on its lines (blocked by lines {sorted(blocking)}, of no route)")
-                merge(set(rs) | with_)
-                changed = True
-                break
-        if not changed:
-            break
-    systems_routes = []
-    for r in ROUTES:
-        s = sorted(sysof[r], key=list(ROUTES).index)
-        if s not in systems_routes and any(k[0] in s for k in pair_lines):
-            systems_routes.append(s)
+    placed, notes = place_systems(ROUTES, pos, lines, permit, lambda m: sys.exit(f"CalMac: {m}"))
     systems = []
-    for rs in systems_routes:
-        stations, _ = place(frozenset(rs))
+    for rs, stations, pairs in placed:
         prices = {}
-        for (r, a, b), hit in pair_lines.items():
-            if r not in rs:
-                continue
+        for r, a, b in pairs:
             base, rate = fares[r]
             p = {"6 m": round((base or 0) + rate * 12, 2)}
             for n in halves:

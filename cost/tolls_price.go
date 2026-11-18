@@ -160,6 +160,9 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 					hint = fmt.Sprintf(" Give %s (and truck.motor_axles): the charge goes by each vehicle's own permissible mass.", field)
 				}
 			}
+			if strings.Contains(i.Message, "vehicle parameter load_capacity_kg ") {
+				hint = " Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by the tonne of it."
+			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
 	}

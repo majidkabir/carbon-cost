@@ -17,15 +17,17 @@ jobs:
               m = re.search(r'<select[^>]*name="%s"[^>]*>([\s\S]*?)</select>' % name, h)
               print(name, re.findall(r'<option[^>]*value="([^"]*)"[^>]*>([^<]*)<', m.group(1))[:60])
           PY
-          for t in 1 2 3; do
-            echo "===== type $t"
-            curl -sS -A "Mozilla/5.0" "$U?isSearchExecuted=true&DateFrom=28.12.2023.&DateTo=05.01.2024.&CurrencyCode=978&ExchangeRateListTypeID=$t&WorkingDays=true" -o r$t.html -w "%{http_code}\n"
-            python3 - r$t.html <<'PY'
-          import re, sys
-          h = open(sys.argv[1], encoding="utf-8").read()
-          i = h.find("<table")
-          print(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " | ", h[i:i + 6000]))[:3000] if i >= 0 else "no table")
-          for m in re.finditer(r'href="([^"]*(?:Export|Excel|Csv|Xml|Pdf|Print)[^"]*)"', h, re.I):
-              print("LINK", m.group(1))
+          curl -sS -A "Mozilla/5.0" "$U?isSearchExecuted=true&DateFrom=28.12.2023.&DateTo=05.01.2024.&CurrencyCode=978&ExchangeRateListTypeID=3&WorkingDays=2" -o r.html -w "%{http_code} %{size_download}\n"
+          python3 - <<'PY'
+          import re
+          h = open("r.html", encoding="utf-8").read()
+          for m in re.finditer(r"11[0-9],[0-9]{4}", h):
+              print("AT", m.start(), re.sub(r"\s+", " ", h[max(0, m.start() - 600):m.start() + 200]))
+              break
+          print(len(re.findall(r"11[0-9],[0-9]{4}", h)), "rates")
+          i = h.find("searchParamForm")
+          print(re.sub(r"\s+", " ", h[i:i + 200]))
+          for m in re.finditer(r'(?:href|action|url)\s*[=:]\s*["\']([^"\']+)["\']', h):
+              if "Export" in m.group(1) or "Excel" in m.group(1) or "Print" in m.group(1) or "Pdf" in m.group(1) or "Csv" in m.group(1) or "Xml" in m.group(1):
+                  print("LINK", m.group(1))
           PY
-          done

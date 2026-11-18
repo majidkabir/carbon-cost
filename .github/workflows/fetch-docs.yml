@@ -10,6 +10,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
       - name: NVDB ferry routes and quays, Stortinget's answer on ferry zones
         run: |

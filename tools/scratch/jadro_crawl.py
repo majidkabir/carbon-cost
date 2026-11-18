@@ -24,4 +24,6 @@ while queue and len(seen) < 150:
     t = re.search(r"<title>([\s\S]*?)</title>", h)
     print(u, len(h), t.group(1).strip()[:80] if t else "")
 json.dump(out, open("out/jadro-links.json", "w"), ensure_ascii=False, indent=1)
+for u, h in pages.items():
+    open("out/jadro-" + re.sub(r"[^a-z_]", "-", u.split("/hr/")[-1])[:60] + ".html", "w").write(h)
 print(len(out), "download links")

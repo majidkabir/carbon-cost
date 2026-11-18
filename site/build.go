@@ -514,6 +514,8 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 		}
 		// Trips, passages and vignettes.
 		var fares []fare
+		var notes []string
+		sumSt, sumTrips, nOD, sumPlaces := 0, 0, 0, 0
 		for i := range ds.Doc.Charges {
 			ch := &ds.Doc.Charges[i]
 			switch ch.Type {
@@ -521,7 +523,8 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 				fs, st, pairs := odFares(ds, ch, truck40, pday, 10)
 				fares = append(fares, fs...)
 				if st > 0 {
-					sv.FareNote += fmt.Sprintf("%s: %s stations, %s trips priced. ", nameOr(ch), thousands(st), thousands(pairs))
+					notes = append(notes, fmt.Sprintf("%s: %s stations, %s trips priced. ", nameOr(ch), thousands(st), thousands(pairs)))
+					sumSt, sumTrips, nOD = sumSt+st, sumTrips+pairs, nOD+1
 					if sc.Kind == tariffs.Toll {
 						nSt, nTrips = nSt+st, nTrips+pairs
 					}
@@ -533,7 +536,8 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 				fs, n := pointFares(ds, ch, truck40, pday, 12)
 				fares = append(fares, fs...)
 				if n > 0 {
-					sv.FareNote += fmt.Sprintf("%s: %s %s. ", nameOr(ch), thousands(n), map[bool]string{true: "places", false: "place"}[n != 1])
+					notes = append(notes, fmt.Sprintf("%s: %s %s. ", nameOr(ch), thousands(n), map[bool]string{true: "places", false: "place"}[n != 1]))
+					sumPlaces += n
 					nPlaces += n
 				}
 			case "period":
@@ -547,6 +551,19 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 			if ch.Type != "quantity" {
 				sv.Tables = append(sv.Tables, fullTable(ds, ch, 200))
 			}
+		}
+		if len(notes) <= 3 {
+			sv.FareNote = strings.Join(notes, "")
+		} else {
+			if nOD > 0 {
+				sv.FareNote += fmt.Sprintf("%d closed systems: %s stations, %s trips priced. ", nOD, thousands(sumSt), thousands(sumTrips))
+			}
+			if sumPlaces > 0 {
+				sv.FareNote += fmt.Sprintf("%s places priced. ", thousands(sumPlaces))
+			}
+		}
+		if len(fares) > 0 && classesTest(ds, "load_capacity_kg") {
+			sv.FareNote += "Priced for 25 t of load capacity (the semi-trailer's). "
 		}
 		sort.SliceStable(fares, func(i, j int) bool { return fares[i].Rate.Total > fares[j].Rate.Total })
 		if len(fares) > 0 && sc.Kind == tariffs.Toll && sc.Current != nil && top == nil {
@@ -679,6 +696,17 @@ func thousands(n int) string {
 		s = s[:i] + "," + s[i:]
 	}
 	return s
+}
+
+func classesTest(ds *tariffs.Dataset, param string) bool {
+	for _, s := range ds.Doc.Sets {
+		for _, cl := range s.Classes {
+			if _, ok := cl.Criteria[param]; ok {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func nameOr(ch *orct.Charge) string {

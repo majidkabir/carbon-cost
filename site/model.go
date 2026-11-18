@@ -106,7 +106,9 @@ func group(set *tariffs.Set, day string) []*country {
 
 // Reference trucks.
 var (
-	truck40 = rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}
+	// truck40 is a tractor with semi-trailer: 25 t of load capacity is
+	// what Croatia's state ferries charge it by.
+	truck40 = rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1, CapacityKg: 25000}
 	byMass  = []struct {
 		Label string
 		Truck rates.Truck
@@ -594,7 +596,7 @@ func zeRule(ds *tariffs.Dataset) (until, note string, ok bool) {
 }
 
 // zeTruck is the 40 t truck, zero-emission.
-var zeTruck = rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}
+var zeTruck = rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5, CapacityKg: 25000}
 
 // tableRow is a rate table row as text.
 type tableRow struct {

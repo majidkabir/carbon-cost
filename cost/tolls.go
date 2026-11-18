@@ -23,6 +23,10 @@ import (
 // each statement line becomes a Line.
 
 // vehicleOf is the truck as ORCT vehicle parameters.
+// Vehicle is a truck as the rate tables' vehicle parameters (ORCT 6.6),
+// as the calculator prices it.
+func Vehicle(t rates.Truck) map[string]any { return vehicleOf(t) }
+
 func vehicleOf(t rates.Truck) map[string]any {
 	axles := t.Axles
 	if t.MotorAxles > 0 {

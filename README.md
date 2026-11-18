@@ -181,7 +181,7 @@ Not covered yet, for want of an official source the tool can read and place repe
 ```
 go install github.com/majidkabir/carbon-cost/cmd/carbon-cost@latest
 carbon-cost calc -h
-carbon-cost serve -addr :8090   # web page at /, POST /v1/carbon-cost, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
+carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
 ```
 
 Or with Docker (images are published for each release tag):
@@ -191,6 +191,10 @@ docker run -p 8090:8090 -e SOOTCASE_URL=https://sootcase.org -e SOOTCASE_API_KEY
 ```
 
 Release binaries for Linux, macOS and Windows are on the [releases page](https://github.com/majidkabir/carbon-cost/releases). To release, change the version in `RELEASE`; merging that to main publishes it.
+
+### Toll pages
+
+`serve` also publishes a page per country (`/tolls/<cc>`, e.g. `/tolls/de`), an overview (`/tolls`) and three pages across countries (`/tolls/zero-emission-trucks`, `/tolls/ets2-diesel`, `/tolls/co2-tax-diesel`), with `/sitemap.xml` and `/robots.txt`. Package `site` renders them with Go templates from `tariffs/data`: each rate is priced by the calculator's own code for reference trucks (a 40 t, 5-axle Euro VI truck, by weight, Euro and CO2 class), with the full rate table, the history and the versions to come, zero-emission rules, a worked example and the law behind each version. When the workflows commit new rates, a release updates the pages; nothing is written by hand. Each page has a meta description, a canonical URL, schema.org `Dataset` markup (with the datasets as downloads) and a share image (`/tolls/<cc>.png`, drawn with Inter: `tools/site/font_atlas.py`, `site/font/OFL.txt`). Set `PUBLIC_URL` (or `-public-url`) to the service's public address, default `https://sootcase.org/carbon-cost`: the links, canonical URLs and the sitemap use it. Behind a path (`/carbon-cost`), crawlers read `robots.txt` at the host's root only, so list `Sitemap: <PUBLIC_URL>/sitemap.xml` there or in Google Search Console.
 
 `calc` and `serve` call `https://sootcase.org` by default. Set `SOOTCASE_URL` to use another server, and set `SOOTCASE_API_KEY` to send an API key. The server must run Sootcase v0.9.0 or later, which adds `country_km`.
 

@@ -53,15 +53,15 @@ type fuelView struct {
 
 type countryView struct {
 	Head
-	C        *country
-	H1, Lead string
-	Schemes  []schemeView
-	Fuel     []fuelView
-	Trip     string // the calculator, with a trip in the country
-	TripName string
-	Others   []link
-	Sources  []tariffs.Source
-	Updated  string
+	C                 *country
+	H1, Lead          string
+	Schemes           []schemeView
+	Fuel              []fuelView
+	Trip              string // the calculator, with a trip in the country
+	TripName          string
+	Others, Countries []link
+	Sources           []tariffs.Source
+	Updated           string
 }
 
 type overviewRow struct {
@@ -70,10 +70,10 @@ type overviewRow struct {
 
 type overviewView struct {
 	Head
-	Rows    []overviewRow
-	FXNote  string
-	Updated string
-	Others  []link
+	Rows              []overviewRow
+	FXNote            string
+	Updated           string
+	Others, Countries []link
 }
 
 type crossRow struct {
@@ -84,14 +84,14 @@ type crossRow struct {
 
 type crossView struct {
 	Head
-	H1, Lead string
-	Cols     []string
-	Rows     []crossRow
-	Body     []template.HTML
-	Notes    []string
-	Sources  []tariffs.Source
-	Others   []link
-	Updated  string
+	H1, Lead          string
+	Cols              []string
+	Rows              []crossRow
+	Body              []template.HTML
+	Notes             []string
+	Sources           []tariffs.Source
+	Others, Countries []link
+	Updated           string
 }
 
 // Cross-country pages.
@@ -225,7 +225,7 @@ func (s *Site) build(day string) *built {
 	}
 	for _, c := range cs {
 		v, row, cd, mod := s.countryPage(c, day, today, year)
-		v.Others = crossPages
+		v.Others, v.Countries = crossPages, countryLinks
 		path := "/tolls/" + c.Slug
 		b.pages[path] = s.render("country.html", v)
 		b.cards[path] = cd
@@ -257,7 +257,7 @@ func (s *Site) build(day string) *built {
 		f    func([]*country, string, time.Time) (crossView, card)
 	}{{"/tolls/zero-emission-trucks", s.zePage}, {"/tolls/ets2-diesel", s.ets2Page}, {"/tolls/co2-tax-diesel", s.fuelPage}} {
 		v, cd := p.f(cs, day, today)
-		v.Others = crossPages
+		v.Others, v.Countries = crossPages, countryLinks
 		b.pages[p.path] = s.render("cross.html", v)
 		b.cards[p.path] = cd
 		b.paths = append(b.paths, p.path)

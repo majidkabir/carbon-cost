@@ -108,7 +108,7 @@ func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
 		return
 	case p == "/robots.txt":
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		fmt.Fprintf(w, "User-agent: *\nAllow: /\nDisallow: /v1/\nSitemap: %s/sitemap.xml\n", s.base)
+		fmt.Fprintf(w, "User-agent: *\nAllow: /\nDisallow: %[1]s/v1/places\nDisallow: %[1]s/v1/carbon-cost\nSitemap: %[2]s/sitemap.xml\n", s.prefix, s.base)
 		return
 	case strings.HasSuffix(p, ".png"):
 		img, ok := s.image(b, strings.TrimSuffix(p, ".png"))

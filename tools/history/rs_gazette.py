@@ -40,6 +40,9 @@ import fitz
 import numpy as np
 import pytesseract
 
+# One thread a Tesseract call: the cells are read in parallel processes
+# (Tesseract's own threads would only contend with them).
+os.environ.setdefault("OMP_THREAD_LIMIT", "1")
 TESS = os.environ.get("TESSDATA_DIR")
 TESS = f"--tessdata-dir {TESS}" if TESS else ""
 

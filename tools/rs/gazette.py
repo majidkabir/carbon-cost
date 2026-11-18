@@ -142,6 +142,9 @@ def tables(g, pdf, sid, issue, url, start, nxt, later, bs):
             sys.exit(f"{sid}: {system}: two stations read alike: {names}")
         systems.append({"system": system, "names": names, "points": points, "III": s["III"], "IV": s["IV"]})
         unread += len(s["unread"])
+    have = sorted(sy["system"] for sy in systems)
+    if have != sorted(n for _, n, _ in SECTIONS):
+        sys.exit(f"{sid}: the sections read are {have}, not the decision's four")
     print(sid, "names:", {k: v for k, v in mapping.items() if rs.key(clean(k).lower()) != v})
     out = []
     for first, last, excl in periods(start, nxt, later):

@@ -816,6 +816,34 @@ func TestSerbia(t *testing.T) {
 	}
 }
 
+// Serbia's past tolls in RSD, from the decision's tables in Službeni
+// glasnik: Beograd to Niš jug, category 4, 6130 RSD from 1 January 2024
+// (119/2023), 6760 from 10 January 2025 (107/2024), 7040 from 10 July 2025
+// (58/2025); category 3 3520 then.
+func TestSerbiaGazette(t *testing.T) {
+	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"RS": 300}, Path: bgNis}}}
+	for _, tc := range []struct {
+		date  string
+		truck rates.Truck
+		want  float64
+	}{
+		{"2024-03-01", truck40, 6130},
+		{"2025-03-01", truck40, 6760},
+		{"2025-09-01", truck40, 7040},
+		{"2025-09-01", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3520},
+	} {
+		date, _ := time.Parse(time.DateOnly, tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"RSD": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if math.Abs(r.TotalEUR-tc.want) > 0.011 {
+			t.Errorf("%s %+v: %.2f RSD, want %.2f: %v %v", tc.date, tc.truck, r.TotalEUR, tc.want, r.Lines, r.Notes)
+		}
+	}
+}
+
 // France, chained: Allaines to Ambérieu on APRR, class 4, 190.70 EUR
 // with VAT (158.92 without); class 3 143.00 (119.17).
 func TestFrance(t *testing.T) {

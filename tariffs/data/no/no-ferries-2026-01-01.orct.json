@@ -16,7 +16,7 @@
   "currency": "NOK",
   "timezone": "Europe/Oslo",
   "license": "MIT",
-  "method": "AutoPASS-regulativ for ferjetakster from 2026-01-01 (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). Electric and hydrogen vehicles registered as such pay half (AP2-AP9), which isn't applied here. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. Moss-Horten has a regulativ of its own: the operator's price list from 2026-01-01 to 2026-12-31, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), double for vehicles wider than 2.6 m (not applied). Mortavika–Arsvågen: the toll (bompenger) charged on board isn't included. Skipavik–Hjelmeland is free (priced 0 in the Minister's table). Skipavik–Nesvik is free (priced 0 in the Minister's table). Balestrand–Dragsvik: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Hella: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Vangsnes: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Bodø–Røst is free (priced 0 in the Minister's table). Bodø–Værøy is free (priced 0 in the Minister's table). Moskenes–Røst is free (priced 0 in the Minister's table). Moskenes–Værøy is free (priced 0 in the Minister's table). Værøy–Røst is free (priced 0 in the Minister's table).",
+  "method": "AutoPASS-regulativ for ferjetakster from 2026-01-01 (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). Zero-emission trucks (CO2 class 5; the regulativ: registered with fuel code 5, electric, or 6, hydrogen, in the Norwegian register, or for a foreign one in AutoPASS's own routine, else full price) pay 70% (AP1) or 50% (AP2-AP9) of their group's price, to the krone, and the discounts apply on that. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. Moss-Horten has a regulativ of its own: the operator's price list from 2026-01-01 to 2026-12-31, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), its electric and hydrogen prices for zero-emission trucks, double for vehicles wider than 2.6 m (not applied). Mortavika–Arsvågen: the toll (bompenger) charged on board isn't included. Skipavik–Hjelmeland is free (priced 0 in the Minister's table). Skipavik–Nesvik is free (priced 0 in the Minister's table). Balestrand–Dragsvik: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Hella: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Balestrand–Vangsnes: OpenStreetMap has no car ferry line from Balestrand, so it isn't priced. Bodø–Røst is free (priced 0 in the Minister's table). Bodø–Værøy is free (priced 0 in the Minister's table). Moskenes–Røst is free (priced 0 in the Minister's table). Moskenes–Værøy is free (priced 0 in the Minister's table). Værøy–Røst is free (priced 0 in the Minister's table).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "no-ferries-2026-01-01.json"
@@ -71,6 +71,103 @@
   {
    "id": "sys1-1",
    "classes": [
+    {
+     "id": "sys1-1.AP1-zero-emission",
+     "label": "AP1 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "max": 6.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP2-zero-emission",
+     "label": "AP2 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 8.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP3-zero-emission",
+     "label": "AP3 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 8.0,
+       "max": 10.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP4-zero-emission",
+     "label": "AP4 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 10.0,
+       "max": 12.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP5-zero-emission",
+     "label": "AP5 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 12.5,
+       "max": 14.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP6-zero-emission",
+     "label": "AP6 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 14.5,
+       "max": 17.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP7-zero-emission",
+     "label": "AP7 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 19.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP8-zero-emission",
+     "label": "AP8 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 19.5,
+       "max": 22.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys1-1.AP9-zero-emission",
+     "label": "AP9 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 22.0
+      },
+      "co2_class": [5]
+     }
+    },
     {
      "id": "sys1-1.AP1",
      "label": "AP1",
@@ -164,6 +261,103 @@
   {
    "id": "sys16-1",
    "classes": [
+    {
+     "id": "sys16-1.AP1-zero-emission",
+     "label": "AP1 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "max": 6.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP2-zero-emission",
+     "label": "AP2 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 8.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP3-zero-emission",
+     "label": "AP3 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 8.0,
+       "max": 10.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP4-zero-emission",
+     "label": "AP4 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 10.0,
+       "max": 12.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP5-zero-emission",
+     "label": "AP5 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 12.0,
+       "max": 14.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP6-zero-emission",
+     "label": "AP6 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 14.0,
+       "max": 17.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP7-zero-emission",
+     "label": "AP7 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 19.5
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP8-zero-emission",
+     "label": "AP8 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 19.5,
+       "max": 22.0
+      },
+      "co2_class": [5]
+     }
+    },
+    {
+     "id": "sys16-1.AP9-zero-emission",
+     "label": "AP9 zero-emission",
+     "criteria": {
+      "train_length_m": {
+       "gt": 22.0
+      },
+      "co2_class": [5]
+     }
+    },
     {
      "id": "sys16-1.AP1",
      "label": "AP1",
@@ -782,14 +976,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP1", "92.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP1-zero-emission", "65.18"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP2", "206.25"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP2-zero-emission", "103.57"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP3", "283.93"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP3-zero-emission", "141.96"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP4", "342.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP4-zero-emission", "171.43"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP5", "399.11"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP5-zero-emission", "200"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP6", "467.86"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP6-zero-emission", "233.93"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP7", "494.64"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP7-zero-emission", "247.32"],
     ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP8", "543.75"],
-    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP9", "597.32"]
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP8-zero-emission", "272.32"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP9", "597.32"],
+    ["st1:Mortavika", "st1:Arsvågen", "sys1-1.AP9-zero-emission", "299.11"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -809,32 +1012,59 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP1", "56.25"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP1-zero-emission", "39.29"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP2", "127.68"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP2-zero-emission", "64.29"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP3", "184.82"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP3-zero-emission", "92.86"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP4", "233.04"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP4-zero-emission", "116.96"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP5", "280.36"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP5-zero-emission", "140.18"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP6", "338.39"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP6-zero-emission", "169.64"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP7", "366.07"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP7-zero-emission", "183.04"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP8", "414.29"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP8-zero-emission", "207.14"],
     ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP9", "455.36"],
+    ["st2:Hjelmeland", "st2:Nesvik", "sys1-1.AP9-zero-emission", "227.68"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP1", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP1-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP2", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP2-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP3", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP3-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP4", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP4-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP5", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP5-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP6", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP6-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP7", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP7-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP8", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP8-zero-emission", "0"],
     ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP9", "0"],
+    ["st2:Skipavik", "st2:Hjelmeland", "sys1-1.AP9-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP1", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP1-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP2", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP2-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP3", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP3-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP4", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP4-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP5", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP5-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP6", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP6-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP7", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP7-zero-emission", "0"],
     ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP8", "0"],
-    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP9", "0"]
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP8-zero-emission", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP9", "0"],
+    ["st2:Skipavik", "st2:Nesvik", "sys1-1.AP9-zero-emission", "0"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -854,14 +1084,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP1", "157.14"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP1-zero-emission", "109.82"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP2", "341.07"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP2-zero-emission", "170.54"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP3", "452.68"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP3-zero-emission", "226.79"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP4", "535.71"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP4-zero-emission", "267.86"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP5", "604.46"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP5-zero-emission", "302.68"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP6", "683.04"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP6-zero-emission", "341.96"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP7", "721.43"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP7-zero-emission", "360.71"],
     ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP8", "766.96"],
-    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP9", "843.75"]
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP8-zero-emission", "383.93"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP9", "843.75"],
+    ["st3:Halhjem", "st3:Sandvikvåg", "sys1-1.AP9-zero-emission", "422.32"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -881,14 +1120,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st4:Anda", "st4:Lote", "sys1-1.AP1", "56.25"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP1-zero-emission", "39.29"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP2", "127.68"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP2-zero-emission", "64.29"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP3", "184.82"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP3-zero-emission", "92.86"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP4", "233.04"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP4-zero-emission", "116.96"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP5", "280.36"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP5-zero-emission", "140.18"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP6", "338.39"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP6-zero-emission", "169.64"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP7", "366.07"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP7-zero-emission", "183.04"],
     ["st4:Anda", "st4:Lote", "sys1-1.AP8", "414.29"],
-    ["st4:Anda", "st4:Lote", "sys1-1.AP9", "455.36"]
+    ["st4:Anda", "st4:Lote", "sys1-1.AP8-zero-emission", "207.14"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP9", "455.36"],
+    ["st4:Anda", "st4:Lote", "sys1-1.AP9-zero-emission", "227.68"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -908,14 +1156,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP1", "72.32"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP1-zero-emission", "50.89"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP2", "160.71"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP2-zero-emission", "80.36"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP3", "226.79"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP3-zero-emission", "113.39"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP4", "280.36"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP4-zero-emission", "140.18"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP5", "330.36"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP5-zero-emission", "165.18"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP6", "393.75"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP6-zero-emission", "197.32"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP7", "425"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP7-zero-emission", "212.5"],
     ["st5:Lavik", "st5:Oppedal", "sys1-1.AP8", "470.54"],
-    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP9", "516.96"]
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP8-zero-emission", "235.71"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP9", "516.96"],
+    ["st5:Lavik", "st5:Oppedal", "sys1-1.AP9-zero-emission", "258.93"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -935,32 +1192,59 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP1", "50.89"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP1-zero-emission", "35.71"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP2", "116.07"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP2-zero-emission", "58.04"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP3", "170.54"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP3-zero-emission", "85.71"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP4", "216.96"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP4-zero-emission", "108.93"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP5", "261.61"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP5-zero-emission", "131.25"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP6", "319.64"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP6-zero-emission", "159.82"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP7", "349.11"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP7-zero-emission", "175"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP8", "397.32"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP8-zero-emission", "199.11"],
     ["st6:Hella", "st6:Dragsvik", "sys1-1.AP9", "437.5"],
+    ["st6:Hella", "st6:Dragsvik", "sys1-1.AP9-zero-emission", "218.75"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP1", "66.96"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP1-zero-emission", "47.32"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP2", "149.11"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP2-zero-emission", "75"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP3", "213.39"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP3-zero-emission", "107.14"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP4", "267.86"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP4-zero-emission", "133.93"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP5", "311.61"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP5-zero-emission", "156.25"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP6", "375"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP6-zero-emission", "187.5"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP7", "407.14"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP7-zero-emission", "203.57"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP8", "453.57"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP8-zero-emission", "226.79"],
     ["st6:Hella", "st6:Vangsnes", "sys1-1.AP9", "499.11"],
+    ["st6:Hella", "st6:Vangsnes", "sys1-1.AP9-zero-emission", "250"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP1", "72.32"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP1-zero-emission", "50.89"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP2", "160.71"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP2-zero-emission", "80.36"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP3", "226.79"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP3-zero-emission", "113.39"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP4", "280.36"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP4-zero-emission", "140.18"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP5", "330.36"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP5-zero-emission", "165.18"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP6", "393.75"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP6-zero-emission", "197.32"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP7", "425"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP7-zero-emission", "212.5"],
     ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP8", "470.54"],
-    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP9", "516.96"]
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP8-zero-emission", "235.71"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP9", "516.96"],
+    ["st6:Vangsnes", "st6:Dragsvik", "sys1-1.AP9-zero-emission", "258.93"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -980,14 +1264,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP1", "61.61"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP1-zero-emission", "42.86"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP2", "138.39"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP2-zero-emission", "69.64"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP3", "199.11"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP3-zero-emission", "100"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP4", "249.11"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP4-zero-emission", "125"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP5", "292.86"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP5-zero-emission", "146.43"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP6", "357.14"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP6-zero-emission", "178.57"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP7", "383.93"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP7-zero-emission", "191.96"],
     ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP8", "431.25"],
-    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP9", "474.11"]
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP8-zero-emission", "216.07"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP9", "474.11"],
+    ["st7:Mannheller", "st7:Fodnes", "sys1-1.AP9-zero-emission", "237.5"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1007,14 +1300,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP1", "66.96"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP1-zero-emission", "47.32"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP2", "149.11"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP2-zero-emission", "75"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP3", "213.39"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP3-zero-emission", "107.14"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP4", "267.86"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP4-zero-emission", "133.93"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP5", "311.61"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP5-zero-emission", "156.25"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP6", "375"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP6-zero-emission", "187.5"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP7", "407.14"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP7-zero-emission", "203.57"],
     ["st8:Festøya", "st8:Solavågen", "sys1-1.AP8", "453.57"],
-    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP9", "499.11"]
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP8-zero-emission", "226.79"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP9", "499.11"],
+    ["st8:Festøya", "st8:Solavågen", "sys1-1.AP9-zero-emission", "250"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1034,14 +1336,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st9:Molde", "st9:Furneset", "sys1-1.AP1", "103.57"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP1-zero-emission", "72.32"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP2", "229.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP2-zero-emission", "115.18"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP3", "314.29"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP3-zero-emission", "157.14"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP4", "379.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP4-zero-emission", "190.18"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP5", "430.36"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP5-zero-emission", "215.18"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP6", "504.46"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP6-zero-emission", "252.68"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP7", "535.71"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP7-zero-emission", "267.86"],
     ["st9:Molde", "st9:Furneset", "sys1-1.AP8", "582.14"],
-    ["st9:Molde", "st9:Furneset", "sys1-1.AP9", "641.07"]
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP8-zero-emission", "291.07"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP9", "641.07"],
+    ["st9:Molde", "st9:Furneset", "sys1-1.AP9-zero-emission", "320.54"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1061,14 +1372,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP1", "61.61"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP1-zero-emission", "42.86"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP2", "138.39"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP2-zero-emission", "69.64"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP3", "199.11"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP3-zero-emission", "100"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP4", "249.11"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP4-zero-emission", "125"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP5", "292.86"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP5-zero-emission", "146.43"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP6", "357.14"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP6-zero-emission", "178.57"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP7", "383.93"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP7-zero-emission", "191.96"],
     ["st10:Volda", "st10:Folkestad", "sys1-1.AP8", "431.25"],
-    ["st10:Volda", "st10:Folkestad", "sys1-1.AP9", "474.11"]
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP8-zero-emission", "216.07"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP9", "474.11"],
+    ["st10:Volda", "st10:Folkestad", "sys1-1.AP9-zero-emission", "237.5"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1088,14 +1408,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP1", "72.32"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP1-zero-emission", "50.89"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP2", "160.71"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP2-zero-emission", "80.36"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP3", "226.79"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP3-zero-emission", "113.39"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP4", "280.36"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP4-zero-emission", "140.18"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP5", "330.36"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP5-zero-emission", "165.18"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP6", "393.75"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP6-zero-emission", "197.32"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP7", "425"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP7-zero-emission", "212.5"],
     ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP8", "470.54"],
-    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP9", "516.96"]
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP8-zero-emission", "235.71"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP9", "516.96"],
+    ["st11:Halsa", "st11:Kanestraum", "sys1-1.AP9-zero-emission", "258.93"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1115,59 +1444,113 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP1", "540.18"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP1-zero-emission", "378.57"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP2", "1162.5"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP2-zero-emission", "581.25"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP3", "1497.32"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP3-zero-emission", "749.11"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP4", "1700.89"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP4-zero-emission", "850.89"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP5", "1862.5"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP5-zero-emission", "931.25"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP6", "2010.71"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP6-zero-emission", "1005.36"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP7", "2077.68"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP7-zero-emission", "1039.29"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP8", "2133.04"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP8-zero-emission", "1066.96"],
     ["st12:Bodø", "st12:Moskenes", "sys1-1.AP9", "2346.43"],
+    ["st12:Bodø", "st12:Moskenes", "sys1-1.AP9-zero-emission", "1173.21"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP1-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP2-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP3-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP4-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP5-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP6-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP7-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP8", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP8-zero-emission", "0"],
     ["st12:Bodø", "st12:Røst", "sys1-1.AP9", "0"],
+    ["st12:Bodø", "st12:Røst", "sys1-1.AP9-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP1", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP1-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP2", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP2-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP3", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP3-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP4", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP4-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP5", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP5-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP6", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP6-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP7", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP7-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP8", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP8-zero-emission", "0"],
     ["st12:Bodø", "st12:Værøy", "sys1-1.AP9", "0"],
+    ["st12:Bodø", "st12:Værøy", "sys1-1.AP9-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP1-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP2-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP3-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP4-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP5-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP6-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP7-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP8", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP8-zero-emission", "0"],
     ["st12:Moskenes", "st12:Røst", "sys1-1.AP9", "0"],
+    ["st12:Moskenes", "st12:Røst", "sys1-1.AP9-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP1", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP1-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP2", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP2-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP3", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP3-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP4", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP4-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP5", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP5-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP6", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP6-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP7", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP7-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP8", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP8-zero-emission", "0"],
     ["st12:Moskenes", "st12:Værøy", "sys1-1.AP9", "0"],
+    ["st12:Moskenes", "st12:Værøy", "sys1-1.AP9-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP1", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP1-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP2", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP2-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP3", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP3-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP4", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP4-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP5", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP5-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP6", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP6-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP7", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP7-zero-emission", "0"],
     ["st12:Værøy", "st12:Røst", "sys1-1.AP8", "0"],
-    ["st12:Værøy", "st12:Røst", "sys1-1.AP9", "0"]
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP8-zero-emission", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP9", "0"],
+    ["st12:Værøy", "st12:Røst", "sys1-1.AP9-zero-emission", "0"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1187,14 +1570,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP1", "166.96"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP1-zero-emission", "116.96"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP2", "365.18"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP2-zero-emission", "183.04"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP3", "483.04"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP3-zero-emission", "241.96"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP4", "566.96"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP4-zero-emission", "283.93"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP5", "641.07"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP5-zero-emission", "320.54"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP6", "719.64"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP6-zero-emission", "359.82"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP7", "756.25"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP7-zero-emission", "378.57"],
     ["st13:Bognes", "st13:Lødingen", "sys1-1.AP8", "806.25"],
-    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP9", "886.61"]
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP8-zero-emission", "403.57"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP9", "886.61"],
+    ["st13:Bognes", "st13:Lødingen", "sys1-1.AP9-zero-emission", "443.75"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1214,14 +1606,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP1", "129.46"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP1-zero-emission", "91.07"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP2", "286.61"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP2-zero-emission", "143.75"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP3", "386.61"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP3-zero-emission", "193.75"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP4", "454.46"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP4-zero-emission", "227.68"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP5", "516.96"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP5-zero-emission", "258.93"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP6", "590.18"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP6-zero-emission", "295.54"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP7", "628.57"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP7-zero-emission", "314.29"],
     ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP8", "677.68"],
-    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP9", "744.64"]
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP8-zero-emission", "339.29"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP9", "744.64"],
+    ["st14:Drag", "st14:Kjøpsvik", "sys1-1.AP9-zero-emission", "372.32"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1241,14 +1642,23 @@
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP1", "92.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP1-zero-emission", "65.18"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP2", "206.25"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP2-zero-emission", "103.57"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP3", "283.93"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP3-zero-emission", "141.96"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP4", "342.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP4-zero-emission", "171.43"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP5", "399.11"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP5-zero-emission", "200"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP6", "467.86"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP6-zero-emission", "233.93"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP7", "494.64"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP7-zero-emission", "247.32"],
     ["st15:Bognes", "st15:Skarberget", "sys1-1.AP8", "543.75"],
-    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP9", "597.32"]
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP8-zero-emission", "272.32"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP9", "597.32"],
+    ["st15:Bognes", "st15:Skarberget", "sys1-1.AP9-zero-emission", "299.11"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"
@@ -1263,23 +1673,41 @@
    "columns": ["entry", "exit", "vehicle_class", "user_class", "amount"],
    "rows": [
     ["st16:Moss", "st16:Horten", "sys16-1.AP1", null, "271.43"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP1-zero-emission", null, "190.18"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP2", null, "602.68"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP2-zero-emission", null, "301.79"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP3", null, "818.75"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP3-zero-emission", null, "409.82"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP4", null, "970.54"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP4-zero-emission", null, "485.71"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP5", null, "1120.54"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP5-zero-emission", null, "560.71"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP6", null, "1224.11"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP6-zero-emission", null, "612.5"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP7", null, "1379.46"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP7-zero-emission", null, "690.18"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP8", null, "1566.07"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP8-zero-emission", null, "783.04"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP9", null, "1722.32"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP9-zero-emission", null, "861.61"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP1", "electronic", "190"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP1-zero-emission", "electronic", "133.12"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP2", "electronic", "421.87"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP2-zero-emission", "electronic", "211.25"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP3", "electronic", "573.12"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP3-zero-emission", "electronic", "286.88"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP4", "electronic", "679.37"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP4-zero-emission", "electronic", "340"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP5", "electronic", "784.37"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP5-zero-emission", "electronic", "392.5"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP6", "electronic", "856.88"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP6-zero-emission", "electronic", "428.75"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP7", "electronic", "965.62"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP7-zero-emission", "electronic", "483.12"],
     ["st16:Moss", "st16:Horten", "sys16-1.AP8", "electronic", "1096.25"],
-    ["st16:Moss", "st16:Horten", "sys16-1.AP9", "electronic", "1205.62"]
+    ["st16:Moss", "st16:Horten", "sys16-1.AP8-zero-emission", "electronic", "548.12"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP9", "electronic", "1205.62"],
+    ["st16:Moss", "st16:Horten", "sys16-1.AP9-zero-emission", "electronic", "603.12"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6"],
    "basis": "transcribed"

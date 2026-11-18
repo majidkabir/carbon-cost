@@ -6,7 +6,7 @@ The ECB publishes no dinar rate; the NBS's official middle rate is the one
 Serbian law uses (Zakon o deviznom poslovanju, art. 41: for bookkeeping,
 statistics, customs duty and other import fees). Its exchange rate web app
 gives a period's lists (ExchangeRate/IndexPeriod: EUR, middle rate,
-working days; at most 366 days a query), a year at a time here.
+working days), a month at a time here.
 
 Usage: python3 nbs.py out.csv
 """
@@ -34,20 +34,24 @@ def page(url):
 def main(out):
     today = datetime.date.today()
     rows = {}
-    for year in range(FROM, today.year + 1):
-        end = min(datetime.date(year, 12, 31), today)
-        h = page(URL.format(a=f"01.01.{year}.", b=end.strftime("%d.%m.%Y.")))
+    # A month a query (the app shows a page of some fifty lists).
+    start = datetime.date(FROM, 1, 1)
+    while start <= today:
+        nxt = (start.replace(day=28) + datetime.timedelta(days=4)).replace(day=1)
+        end = min(nxt - datetime.timedelta(days=1), today)
+        h = page(URL.format(a=start.strftime("%d.%m.%Y."), b=end.strftime("%d.%m.%Y.")))
         if "СРЕДЊИ КУРС" not in h.upper():
-            sys.exit(f"nbs: {year}: not the middle rate table")
+            sys.exit(f"nbs: {start:%Y-%m}: not the middle rate table")
         got = ROW.findall(h)
-        # Lists are formed each working day: some 250 a year.
-        if len(got) < (end - datetime.date(year, 1, 1)).days * 0.6:
-            sys.exit(f"nbs: {year}: only {len(got)} lists")
+        # Lists are formed each working day.
+        if len(got) < (end - start).days * 0.5:
+            sys.exit(f"nbs: {start:%Y-%m}: only {len(got)} lists")
         for fd, fm, fy, ad, am, ay, whole, frac in got:
             rate = float(f"{whole}.{frac}")
             if not 100 < rate < 130:
                 sys.exit(f"nbs: {ay}-{am}-{ad}: {rate} dinars per euro")
             rows[f"{ay}-{am}-{ad}"] = f"{whole}.{frac}"
+        start = nxt
     days = sorted(rows)
     for a, b in zip(days, days[1:]):
         if (datetime.date.fromisoformat(b) - datetime.date.fromisoformat(a)).days > 6:

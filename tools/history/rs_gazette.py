@@ -12,8 +12,8 @@ station (row) to each other (column). Only categories III and IV are kept
 
 Each table's grid is found from its ruling lines: a table spans the rows
 its column rules cross, and a band as tall as a header starts the next
-table. A table printed across the page is turned upright first (the
-orientation in which the table is square and its first column reads as
+table. A table printed across the page (or upside down) is turned upright
+first (the orientation in which the table is square and its first column reads as
 Cyrillic words). Station names are read with Tesseract's Serbian (Cyrillic)
 model; each price cell is read as digits four ways (the grey scan at
 three scales, and binarised with Otsu). A matrix is symmetric, so every
@@ -164,8 +164,18 @@ def table_of(v, run):
         xs = groups([x for x in range(band.shape[1]) if cover[x] > least])
         widths = sorted(b - a for a, b in zip(xs, xs[1:]))
         return [x for k, x in enumerate(xs) if k == 0 or x - xs[k - 1] > widths[len(widths) // 2] / 2] if widths else xs
+    def edged(xs):
+        # A table cut at the scan's edge has no rule there: the edge is its border.
+        if len(xs) < 3 or len(xs) - 2 != len(rows) - 2:
+            return xs
+        width = sorted(b - a for a, b in zip(xs, xs[1:]))[(len(xs) - 1) // 2]
+        if band.shape[1] - 1 - xs[-1] > 0.6 * width:
+            return xs + [band.shape[1] - 1]
+        if xs[0] > 0.6 * width:
+            return [0] + xs
+        return xs
     for least in (0.6, 0.45, 0.3):
-        xs = columns(least)
+        xs = edged(columns(least))
         if len(xs) - 2 == len(rows) - 1:
             break
     else:
@@ -211,7 +221,7 @@ def upright(img):
     a table is square (a row per station, a column per station besides the
     names) and its first column reads as Cyrillic words."""
     best = None
-    for k in (0, 3, 1):
+    for k in (0, 3, 1, 2):
         im = np.ascontiguousarray(np.rot90(img, k)) if k else img
         ts = tables_of(im)
         if not ts:
@@ -297,9 +307,14 @@ def tables_in(pdf, doc, first):
         for k, img in enumerate(ims):
             up = upright(img)
             if up is None:
-                sys.exit(f"{pdf}: page {pno + 1}, scan {k + 1}: no table read")
+                # A picture that isn't a table (a logo, a signature): a
+                # matrix missed would show in the checks of each section.
+                print(f"{pdf}: page {pno + 1}, scan {k + 1}: no table", file=sys.stderr)
+                continue
             im, ts = up
             for top, rows, xs in ts:
+                if len(rows) < 4:
+                    continue
                 title = text(im[top + 4:rows[0] - 4, xs[0] + 4:xs[1] - 4])
                 section = re.sub(r"\s*[–—-]+\s*", "–", re.split(r"\s(?:\S+\s)?категорија", title)[0]).strip()
                 labels = [text(im[a + 4:b - 4, xs[0] + 4:xs[1] - 4]) for a, b in zip(rows, rows[1:])]
@@ -346,8 +361,11 @@ def digest(pdf):
 
 def main(pdf, out):
     doc = fitz.open(pdf)
-    first = next((i for i, p in enumerate(doc) if "путарина" in p.get_text() and "Надзорни одбор Јавног предузећа" in p.get_text()
-                  and "карактеристичне деонице ауто-пута" in p.get_text().replace("\n", " ")), None)
+    # The amendment's page: it replaces the decision's paragraph 1 (the
+    # tables "by vehicle category and characteristic motorway section").
+    norm = lambda p: re.sub(r"\s+", " ", p.get_text())
+    first = next((i for i, p in enumerate(doc) if "Одлуке о висини посебне накнаде" in norm(p) and "путарина" in norm(p)
+                  and "карактеристичне деонице ауто-пута" in norm(p)), None)
     if first is None:
         sys.exit(f"{pdf}: the toll decision isn't in this issue")
     head = re.sub(r"\s+", " ", doc[first].get_text())

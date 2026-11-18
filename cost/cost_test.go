@@ -3116,4 +3116,20 @@ func TestBelgradeBypass(t *testing.T) {
 			t.Errorf("%s: %.2f RSD, want %.2f: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
 		}
 	}
+	// Without a rate given, the dinar is converted at the NBS's official
+	// middle rate of the day (117.6013 on 4 November 2026; the ECB has none).
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 40, CountryKm: map[string]float64{"RS": 40}, Path: one}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, ETC: true}, date)
+	if err != nil {
+		t.Fatal(err)
+	}
+	eur := 0.0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Obilaznica") {
+			eur += l.AmountEUR
+		}
+	}
+	if want := math.Round(480/117.6013*100) / 100; eur != want || !strings.Contains(strings.Join(r.Provenance.FX, " "), "National Bank of Serbia") {
+		t.Errorf("Ostružnica to Orlovača: %.2f EUR, want %.2f: %v", eur, want, r.Provenance.FX)
+	}
 }

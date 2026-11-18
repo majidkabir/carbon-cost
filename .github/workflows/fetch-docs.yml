@@ -12,10 +12,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Scottish ferry lines and terminals (Overpass)
+      - name: Jadrolinija's line pages and price lists
         run: |
           mkdir -p out
-          curl -fsSL --retry 3 -A "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)" -o out/sct-ferries.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3Brelation%5B%22route%22%3D%22ferry%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2855.5%2C-7.8%2C58.6%2C-4.6%29%3B%29%3Bout%20geom%20tags%3B" && echo ok || echo FAILED
+          python3 tools/scratch/jadro_crawl.py | tail -160
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

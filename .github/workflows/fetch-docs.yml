@@ -12,17 +12,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Serbian gazette issues' toll tables (OCR)
+      - name: Serbian gazette issues of 2026
         run: |
           mkdir -p out
           get() { curl -fsSL --retry 3 -A "Mozilla/5.0" -o "out/$1" "$2" && echo "ok $1" || echo "FAILED $1 $2"; }
-          get rs-sg-119-2023.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=12d856fe-62e5-423b-bfd7-320f8e8e1376"
-          get rs-sg-58-2024.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=8359a1f7-bdb4-482e-95e0-51fa20fbf191"
-          get rs-sg-107-2024.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=44027ec0-5ae2-4088-b30e-07beb4047b5d"
-          get rs-sg-58-2025.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=ef5d2388-51f8-430a-85c3-90e3cac5a347"
-          sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && pip install -q opencv-python-headless pytesseract pymupdf
-          for k in 119-2023 58-2024 107-2024 58-2025; do (time python3 tools/history/rs_gazette.py out/rs-sg-$k.pdf out/rs-sg-$k.json) 2>&1 | grep -v -i warning || echo "FAILED ocr $k"; done
-          rm -f out/*.pdf
+          get rs-sg-120-2025.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=6f685da3-bddd-4a26-9298-f28f4da8d068"
+          get rs-sg-30-2026.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=4be4a3d8-e607-463d-9f18-662884d76059"
+          get rs-sg-57-2026.pdf "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=f53f31ab-c0d8-4d1f-a057-b7576ef451ea"
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt"; done
           ls -la out
       - name: Push the texts to the docs-out branch
         run: |

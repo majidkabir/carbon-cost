@@ -12,11 +12,10 @@ station (row) to each other (column). Only categories III and IV are kept
 Each table's grid is found from its ruling lines; a table printed across
 the page is turned upright first (the orientation whose title cell reads
 "Деоница"). Station names are read with Tesseract's Serbian (Cyrillic)
-model; each price cell is read as digits three ways (the scan upscaled
-three times, binarised with Otsu, read whole and as a single line at two
-scales). A matrix is symmetric, so every price is printed twice: a pair's
+model; each price cell is read as digits four ways (the grey scan at
+three scales, and binarised with Otsu). A matrix is symmetric, so every price is printed twice: a pair's
 price is the value most of the six readings give, kept only when both
-cells' readings agree on it (a strict majority of the six, and each cell
+cells' readings agree on it (more than half the readings, and each cell
 has it at least once). Where they don't, category IV, about twice III,
 decides: the one pair of values both cells' readings hold whose ratio is
 between 1.85 and 2.15 (1.6 and 2.5 under 300 RSD). A shaded cell (no
@@ -111,14 +110,16 @@ def text(img):
 
 
 def digits(cell):
-    """A price cell's readings: three ways of reading the digits."""
+    """A price cell's readings: four ways of reading the digits (the grey
+    scan at three scales, and binarised with Otsu)."""
     _, bw = cv2.threshold(cell, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
     out = []
-    for im, psm in ((bw, 7), (bw, 8), (cv2.resize(bw, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC), 7)):
+    for im in (cell, cv2.resize(cell, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC),
+               cv2.resize(cell, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_AREA), bw):
         im = cv2.copyMakeBorder(im, 20, 20, 20, 20, cv2.BORDER_CONSTANT, value=255)
-        s = pytesseract.image_to_string(im, lang="eng", config=f"{TESS} --psm {psm} -c tessedit_char_whitelist=0123456789.").strip()
-        s = s.replace(".", "")
-        out.append(int(s) if re.fullmatch(r"\d{2,5}", s) and not s.startswith("0") else None)
+        s = pytesseract.image_to_string(im, lang="eng", config=f"{TESS} --psm 7 -c tessedit_char_whitelist=0123456789.").strip()
+        ok = re.fullmatch(r"[1-9]\d{0,2}(\.\d{3})*", s) or re.fullmatch(r"[1-9]\d{1,4}", s)
+        out.append(int(s.replace(".", "")) if ok else None)
     return out
 
 
@@ -155,30 +156,37 @@ def ratio_ok(v3, v4):
 
 
 def resolve(c3, c4, n):
-    """A pair's III and IV prices from both cells' readings in both matrices."""
+    """A pair's III and IV prices from both cells' readings in both matrices:
+    each the value most readings give when that's more than half of them
+    and both cells have it; else, from the values both cells have, the one
+    pair of III and IV whose ratio fits."""
     prices3, prices4, unread = {}, {}, []
     for i in range(n):
         for j in range(i + 1, n):
             cells = {3: (c3[i][j], c3[j][i]), 4: (c4[i][j], c4[j][i])}
             if all(x["shaded"] for k in cells for x in cells[k]):
                 continue
-            pick = {}
-            both = {}
+            pick, both = {}, {}
             for k, (a, b) in cells.items():
                 ra, rb = [x for x in a["reads"] if x], [x for x in b["reads"] if x]
                 votes = Counter(ra + rb)
                 both[k] = [v for v, _ in votes.most_common() if v in ra and v in rb]
                 v, cnt = votes.most_common(1)[0] if votes else (None, 0)
-                if v is not None and cnt >= 4 and v in ra and v in rb:
+                if v is not None and cnt > (len(a["reads"]) + len(b["reads"])) / 2 and v in ra and v in rb:
                     pick[k] = v
-            if 3 in pick and 4 in pick and ratio_ok(pick[3], pick[4]):
-                prices3[f"{i}|{j}"], prices4[f"{i}|{j}"] = pick[3], pick[4]
-                continue
-            combos = [(v3, v4) for v3 in ([pick[3]] if 3 in pick else both[3]) for v4 in ([pick[4]] if 4 in pick else both[4]) if ratio_ok(v3, v4)]
-            if len(combos) == 1:
-                prices3[f"{i}|{j}"], prices4[f"{i}|{j}"] = combos[0]
-            else:
-                unread.append([i, j, [x["reads"] for x in cells[3]], [x["reads"] for x in cells[4]]])
+            if 3 in pick and 4 in pick and not ratio_ok(pick[3], pick[4]):
+                pick = {}
+            if not (3 in pick and 4 in pick):
+                combos = {(v3, v4) for v3 in ([pick[3]] if 3 in pick else both[3]) for v4 in ([pick[4]] if 4 in pick else both[4]) if ratio_ok(v3, v4)}
+                if len(combos) == 1:
+                    pick[3], pick[4] = next(iter(combos))
+            key = f"{i}|{j}"
+            if 3 in pick:
+                prices3[key] = pick[3]
+            if 4 in pick:
+                prices4[key] = pick[4]
+            if 3 not in pick or 4 not in pick:
+                unread.append([i, j, [x["reads"] for x in cells[3]], [x["reads"] for x in cells[4]], sorted(pick)])
     return prices3, prices4, unread
 
 
@@ -225,7 +233,7 @@ def main(pdf, out):
             sys.exit(f"{pdf}: {s['section']}: the last two matrices aren't III and IV (IV/III {r[len(r) // 2] if r else None})")
         result["sections"].append({"section": s["section"], "matrices": len(s["tables"]), "pages": [t3["page"], t4["page"]],
                                    "stations": t3["labels"], "III": p3, "IV": p4, "unread": unread})
-        print(f"{s['section']}: {len(t3['labels'])} stations, {len(p3)} pairs read, {len(unread)} not")
+        print(f"{s['section']}: {len(t3['labels'])} stations, III {len(p3)} and IV {len(p4)} pairs read, {len(unread)} pairs not wholly")
     json.dump(result, open(out, "w"), ensure_ascii=False, indent=1)
 
 

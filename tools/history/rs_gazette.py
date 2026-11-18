@@ -1,6 +1,7 @@
 """Reads the Serbian toll decision's price tables out of an issue of the
 Official Gazette (Službeni glasnik RS, as the state's legal information
-system serves it: one scanned image per page) into matrices.
+system serves it: its tables are scans, a page each or a table each) into
+matrices.
 
 The Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela
 i putnog objekta (putarina) prints, for each characteristic motorway
@@ -9,23 +10,26 @@ IV in that order; some sections start at I): the toll in RSD from each
 station (row) to each other (column). Only categories III and IV are kept
 (the section's last two matrices, checked: IV is about twice III).
 
-Each table's grid is found from its ruling lines; a table printed across
-the page is turned upright first (the orientation whose title cell reads
-"Деоница"). Station names are read with Tesseract's Serbian (Cyrillic)
+Each table's grid is found from its ruling lines: a table spans the rows
+its column rules cross, and a band as tall as a header starts the next
+table. A table printed across the page is turned upright first (the
+orientation in which the table is square and its first column reads as
+Cyrillic words). Station names are read with Tesseract's Serbian (Cyrillic)
 model; each price cell is read as digits four ways (the grey scan at
-three scales, and binarised with Otsu). A matrix is symmetric, so every price is printed twice: a pair's
+three scales, and binarised with Otsu). A matrix is symmetric, so every
+price is printed twice: a pair's
 price is the value most of the six readings give, kept only when both
 cells' readings agree on it (more than half the readings, and each cell
 has it at least once). Where they don't, category IV, about twice III,
 decides: the one pair of values both cells' readings hold whose ratio is
-between 1.85 and 2.15 (1.6 and 2.5 under 300 RSD). A shaded cell (no
+between 1.85 and 2.15 (1.6 and 2.5 under 300 RSD). A shaded or hatched cell (no
 price: the pair isn't a trip, e.g. Novi Sad north towards Belgrade) has
 none. The others are listed as unread and left out.
 
 Usage: python3 rs_gazette.py issue.pdf out.json
 Needs tesseract with the srp language, opencv, pytesseract, pymupdf.
 """
-import json, os, re, sys
+import difflib, json, os, re, sys
 from collections import Counter
 from concurrent.futures import ProcessPoolExecutor
 
@@ -38,16 +42,20 @@ TESS = os.environ.get("TESSDATA_DIR")
 TESS = f"--tessdata-dir {TESS}" if TESS else ""
 
 
-def page_img(doc, pno):
-    """The page's scan at three times its own resolution (the gazette's
-    tables are one image per page), else the page rendered at 300 dpi."""
-    imgs = doc[pno].get_images(full=True)
-    if len(imgs) == 1:
-        raw = doc.extract_image(imgs[0][0])["image"]
-        im = cv2.imdecode(np.frombuffer(raw, np.uint8), cv2.IMREAD_GRAYSCALE)
-        return cv2.resize(im, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)
-    pix = doc[pno].get_pixmap(dpi=300, colorspace=fitz.csGRAY)
-    return np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width).copy()
+def scans(doc, pno):
+    """The page's table scans in reading order (down the left column, then
+    the right), each at three times its own resolution: the gazette prints a
+    page of tables as one scan, or each table as a scan of its own."""
+    page = doc[pno]
+    out = []
+    for x in page.get_images(full=True):
+        rects = page.get_image_rects(x[0])
+        if x[2] < 300 or x[3] < 150 or not rects:
+            continue
+        im = cv2.imdecode(np.frombuffer(doc.extract_image(x[0])["image"], np.uint8), cv2.IMREAD_GRAYSCALE)
+        key = (rects[0].x0 > page.rect.width / 2 - 20, rects[0].y0)
+        out.append((key, cv2.resize(im, None, fx=3, fy=3, interpolation=cv2.INTER_CUBIC)))
+    return [im for _, im in sorted(out, key=lambda t: t[0])]
 
 
 def groups(vals, gap=4):
@@ -68,45 +76,111 @@ def rules(img):
 
 
 def tables_of(img):
-    """Each table on the image: (top, row rules, column rules)."""
+    """Each table on the image: (top, row rules, column rules).
+
+    A table spans the rows its column rules cross; tables printed one under
+    the other are told apart by the gap where no column rule runs, and a
+    table whose bottom or top rule didn't print ends or starts where its
+    column rules do."""
     h, v = rules(img)
     ys = groups([y for y in range(h.shape[0]) if h[y].sum() > 255 * img.shape[1] * 0.3])
-    # A band between two rules is inside a table when column rules cross it.
-    inside = [v[a + 3:b - 3].sum() > 255 * (b - a - 6) * 3 for a, b in zip(ys, ys[1:])]
-    res, i = [], 0
-    while i < len(inside):
-        if not inside[i]:
-            i += 1
+    on = (v > 0).sum(axis=1) >= 3
+    spans, y, n = [], 0, len(on)
+    while y < n:
+        if not on[y]:
+            y += 1
             continue
-        j = i
-        while j < len(inside) and inside[j]:
-            j += 1
-        top, rows = ys[i], ys[i + 1:j + 1]
-        band = v[rows[0] + 5:rows[-1] - 5]
-        xs = groups([x for x in range(band.shape[1]) if band[:, x].sum() > 255 * band.shape[0] * 0.6])
-        # A header whose top rule didn't come out: the band above the first
-        # rule is a row like the others, and the header starts where the
-        # column rules start.
-        gaps = sorted(b - a for a, b in zip(rows, rows[1:]))
-        if gaps and rows[0] - top < 1.5 * gaps[len(gaps) // 2] and len(xs) >= 3:
-            starts = []
-            for x in xs[1:]:
-                col = v[:top, max(0, x - 3):x + 4].any(axis=1)
-                y = top
-                while y > 0 and col[y - 1]:
-                    y -= 1
-                starts.append(y)
-            head = int(np.median(starts))
-            if top - head > 1.5 * gaps[len(gaps) // 2]:
-                rows, top = [top] + rows, head
-        if len(rows) >= 2 and len(xs) >= 3:
-            res.append((top, rows, xs))
-        i = j
+        s = y
+        while y < n:
+            if on[y]:
+                y += 1
+                continue
+            g = y
+            while g < n and not on[g] and g - y < 12:
+                g += 1
+            if g < n and on[g]:
+                y = g
+                continue
+            break
+        spans.append((s, y))
+    res = []
+    for s, e in spans:
+        run = [y for y in ys if s - 10 <= y <= e + 10]
+        if len(run) < 2 and e - s < 200:
+            continue
+        if not run or run[-1] < e - 10:
+            run.append(e)
+        if run[0] > s + 10:
+            run.insert(0, s)
+        # Tables printed with no gap between them: a band as tall as a header
+        # (several rows tall) starts the next table.
+        bands = [b - a for a, b in zip(run[1:], run[2:])]
+        row = sorted(bands)[len(bands) // 2] if bands else 0
+        cut = [0] + [k + 1 for k, b in enumerate(bands) if k and b > 3.5 * row] + [len(run) - 1]
+        for a, b in zip(cut, cut[1:]):
+            got = table_of(v, run[a:b + 1])
+            if got:
+                res.append(got)
     return res
 
 
+def table_of(v, run):
+    """A table's (top, row rules, column rules) from its horizontal rules."""
+    if len(run) < 3:
+        return None
+    top, rows = run[0], run[1:]
+    gaps = sorted(b - a for a, b in zip(rows, rows[1:]))
+    if gaps:
+        row = gaps[len(gaps) // 2]
+        # A rule inside the header (under the title): the header ends at the
+        # rule under its tall band.
+        while len(rows) > 2 and rows[1] - rows[0] > 2.5 * row:
+            rows = rows[1:]
+        # A rule right under another (a double line, or the column rules
+        # running on past the bottom rule) is the same rule.
+        rows = [y for k, y in enumerate(rows) if k == 0 or y - rows[k - 1] > 0.7 * row]
+        # Rows are all as tall: a band two or three rows tall is rows whose
+        # rule didn't come out (beside a shaded row).
+        out = rows[:1]
+        for a, b in zip(rows, rows[1:]):
+            k = round((b - a) / row)
+            if k in (2, 3) and abs((b - a) / k - row) < 0.15 * row:
+                out += [round(a + (b - a) * i / k) for i in range(1, k)]
+            out.append(b)
+        rows = out
+    if len(rows) < 2:
+        return None
+    band = v[rows[0] + 5:rows[-1] - 5]
+    cover = band.sum(axis=0) / 255 / max(1, band.shape[0])
+    # Column rules run the table's height; one beside shaded cells comes out
+    # in part: the table is square (a column per station besides the names).
+    # A double line (the table's outer border) is one rule.
+    def columns(least):
+        xs = groups([x for x in range(band.shape[1]) if cover[x] > least])
+        widths = sorted(b - a for a, b in zip(xs, xs[1:]))
+        return [x for k, x in enumerate(xs) if k == 0 or x - xs[k - 1] > widths[len(widths) // 2] / 2] if widths else xs
+    for least in (0.6, 0.45, 0.3):
+        xs = columns(least)
+        if len(xs) - 2 == len(rows) - 1:
+            break
+    else:
+        xs = columns(0.6)
+    return (top, rows, xs) if len(xs) >= 3 else None
+
+
 def text(img):
+    if img.size == 0 or min(img.shape) < 5:
+        return ""
     return re.sub(r"\s+", " ", pytesseract.image_to_string(img, lang="srp", config=TESS + " --psm 6")).strip()
+
+
+def confidence(img):
+    """Tesseract's mean word confidence reading the image as Serbian text."""
+    if img.size == 0 or min(img.shape) < 5:
+        return 0
+    d = pytesseract.image_to_data(img, lang="srp", config=TESS + " --psm 6", output_type=pytesseract.Output.DICT)
+    cs = [float(x) for x, w in zip(d["conf"], d["text"]) if w.strip() and float(x) >= 0]
+    return sum(cs) / len(cs) if cs else 0
 
 
 def digits(cell):
@@ -123,16 +197,27 @@ def digits(cell):
     return out
 
 
+CYRILLIC = re.compile(r"[а-яђјљњћџ]{3,}", re.I)
+
+
 def upright(img):
-    """The image turned so its tables' titles read: (image, its tables), or None."""
+    """The image turned so its tables' station names read (a table printed
+    across the page is turned): (image, its tables), or None. Turned right,
+    a table is square (a row per station, a column per station besides the
+    names) and its first column reads as Cyrillic words."""
+    best = None
     for k in (0, 3, 1):
         im = np.ascontiguousarray(np.rot90(img, k)) if k else img
         ts = tables_of(im)
-        if ts:
-            top, rows, xs = ts[0]
-            if "еоница" in text(im[top + 4:rows[0] - 4, xs[0] + 4:xs[1] - 4]):
-                return im, ts
-    return None
+        if not ts:
+            continue
+        top, rows, xs = ts[0]
+        names = text(im[rows[0] + 4:rows[-1] - 4, xs[0] + 4:xs[1] - 4])
+        cyrillic = sum(map(len, CYRILLIC.findall(names))) / (len(rows) - 1)
+        score = (cyrillic >= 3, len(rows) - 1 == len(xs) - 2, cyrillic)
+        if best is None or score > best[0]:
+            best = (score, im, ts)
+    return (best[1], best[2]) if best and best[0][0] else None
 
 
 def read_cells(args):
@@ -143,8 +228,10 @@ def read_cells(args):
         row = []
         for c, d in zip(xs[1:], xs[2:]):
             cell = img[a + 4:b - 3, c + 4:d - 3]
-            # Shaded: even its lightest pixels are grey (a white cell's, around its digits, are white).
-            shaded = float(np.percentile(cell, 90)) < 200
+            # Shaded: even its lightest pixels are grey (a white cell's, around
+            # its digits, are white), or hatched (half of it dark; digits are
+            # far less).
+            shaded = float(np.percentile(cell, 90)) < 200 or float((cell < 128).mean()) > 0.3
             row.append({"reads": [] if shaded else digits(cell), "shaded": shaded})
         out.append(row)
     return out
@@ -190,6 +277,55 @@ def resolve(c3, c4, n):
     return prices3, prices4, unread
 
 
+def tables_in(pdf, doc, first):
+    """The decision's tables, from its first page up to the next page with
+    no table scans."""
+    found, pno = [], first
+    while pno < len(doc):
+        ims = scans(doc, pno)
+        if not ims:
+            # A page of text after the tables ends them.
+            if found:
+                break
+            pno += 1
+            continue
+        for k, img in enumerate(ims):
+            up = upright(img)
+            if up is None:
+                sys.exit(f"{pdf}: page {pno + 1}, scan {k + 1}: no table read")
+            im, ts = up
+            for top, rows, xs in ts:
+                title = text(im[top + 4:rows[0] - 4, xs[0] + 4:xs[1] - 4])
+                section = re.sub(r"\s*[–—-]+\s*", "–", re.split(r"\s(?:\S+\s)?категорија", title)[0]).strip()
+                labels = [text(im[a + 4:b - 4, xs[0] + 4:xs[1] - 4]) for a, b in zip(rows, rows[1:])]
+                found.append({"page": pno + 1, "section": section, "labels": labels, "img": im, "rows": rows, "xs": xs})
+        pno += 1
+    return found
+
+
+def same(a, b):
+    """Two tables' station names alike: the names, row by row, read about the
+    same (a scan's names can read badly; another section's are different)."""
+    norm = lambda s: re.sub(r"[^а-яђјљњћџ]", "", s.lower())
+    return len(a["labels"]) == len(b["labels"]) and sum(
+        difflib.SequenceMatcher(None, norm(x), norm(y)).ratio() for x, y in zip(a["labels"], b["labels"])) / len(a["labels"]) > 0.5
+
+
+def sections_of(pdf, found):
+    """The sections in order, each with its matrices (consecutive tables with
+    the same stations); III and IV are its last two."""
+    sections = []
+    for t in found:
+        if sections and any(same(t, u) for u in sections[-1]["tables"]):
+            sections[-1]["tables"].append(t)
+        else:
+            sections.append({"section": t["section"], "tables": [t]})
+    for s in sections:
+        if len(s["tables"]) < 2:
+            sys.exit(f"{pdf}: {s['section']!r} (page {s['tables'][0]['page']}): one matrix, not III and IV")
+    return sections
+
+
 def main(pdf, out):
     doc = fitz.open(pdf)
     first = next((i for i, p in enumerate(doc) if "путарина" in p.get_text() and "Надзорни одбор Јавног предузећа" in p.get_text()
@@ -197,29 +333,20 @@ def main(pdf, out):
     if first is None:
         sys.exit(f"{pdf}: the toll decision isn't in this issue")
     head = re.sub(r"\s+", " ", doc[first].get_text())
-    found, pno = [], first
-    while pno < len(doc):
-        up = upright(page_img(doc, pno))
-        if up is None:
-            if pno > first:
-                break
-            pno += 1
-            continue
-        im, ts = up
-        for top, rows, xs in ts:
-            title = text(im[top + 4:rows[0] - 4, xs[0] + 4:xs[1] - 4])
-            section = re.sub(r"\s*[–—-]\s*", "–", re.split(r"\s(?:\S+\s)?категорија", title)[0]).strip()
-            labels = [text(im[a + 4:b - 4, xs[0] + 4:xs[1] - 4]) for a, b in zip(rows, rows[1:])]
-            found.append({"page": pno + 1, "section": section, "labels": labels, "img": im, "rows": rows, "xs": xs})
-        pno += 1
-    # The sections in order, each with its matrices; III and IV are its last two.
-    sections = []
-    for t in found:
-        key = re.sub(r"[^а-яђјљњћџ]", "", t["section"].lower())[:20]
-        if sections and sections[-1]["key"] == key and len(t["labels"]) == len(sections[-1]["tables"][0]["labels"]):
-            sections[-1]["tables"].append(t)
-        else:
-            sections.append({"key": key, "section": t["section"], "tables": [t]})
+    found = tables_in(pdf, doc, first)
+    if os.environ.get("RS_GAZETTE_DRY") == "2":
+        for t in found:
+            print(t["page"], len(t["labels"]), t["section"][:40], t["labels"])
+    sections = sections_of(pdf, found)
+    if os.environ.get("RS_GAZETTE_DRY"):
+        for s in sections:
+            print(s["section"], [t["page"] for t in s["tables"]], len(s["tables"][0]["labels"]), s["tables"][0]["labels"])
+        return
+    json.dump(read(pdf, head, sections), open(out, "w"), ensure_ascii=False, indent=1)
+
+
+def read(pdf, head, sections):
+    """Each section's III and IV prices, read and checked."""
     wanted = [(s, s["tables"][-2], "III") for s in sections] + [(s, s["tables"][-1], "IV") for s in sections]
     with ProcessPoolExecutor() as pool:
         cells = list(pool.map(read_cells, [(t["img"], t["rows"], t["xs"]) for _, t, _ in wanted]))
@@ -234,7 +361,7 @@ def main(pdf, out):
         result["sections"].append({"section": s["section"], "matrices": len(s["tables"]), "pages": [t3["page"], t4["page"]],
                                    "stations": t3["labels"], "III": p3, "IV": p4, "unread": unread})
         print(f"{s['section']}: {len(t3['labels'])} stations, III {len(p3)} and IV {len(p4)} pairs read, {len(unread)} pairs not wholly")
-    json.dump(result, open(out, "w"), ensure_ascii=False, indent=1)
+    return result
 
 
 if __name__ == "__main__":

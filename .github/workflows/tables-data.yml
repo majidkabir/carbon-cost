@@ -92,13 +92,17 @@ jobs:
           osmium fileinfo -g header.option.osmosis_replication_timestamp pt.pbf > out/pt-osm-timestamp.txt
           osmium tags-filter -O -o pt-m.pbf pt.pbf w/highway=motorway,motorway_link n/highway=motorway_junction,toll_gantry n/barrier=toll_booth w/barrier=toll_booth
           osmium export -O -f geojsonseq -a type,id -o out/pt-osm.geojsonseq pt-m.pbf
-      - name: Serbian toll booths (OpenStreetMap)
+      - name: Serbian toll booths and the Belgrade bypass (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf || { keep rs-osm.geojsonseq rs-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf || { keep rs-osm.geojsonseq rs-osm-timestamp.txt rs-bypass-osm.geojsonseq; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp rs.pbf > out/rs-osm-timestamp.txt
           osmium tags-filter -O -o rs-b.pbf rs.pbf n/barrier=toll_booth
           osmium export -O -f geojsonseq -o out/rs-osm.geojsonseq rs-b.pbf
+          # The Belgrade bypass: motorways and junctions by Belgrade (rs_bypass.py).
+          osmium extract -O -b 20.2,44.65,20.6,44.95 rs.pbf -o rs-bg.pbf
+          osmium tags-filter -O -o rs-bg-m.pbf rs-bg.pbf w/highway=motorway n/highway=motorway_junction
+          osmium export -O -f geojsonseq -a type,id -o out/rs-bypass-osm.geojsonseq rs-bg-m.pbf
       - name: Build
         # A builder that fails (an Overpass answer short of booths, a page that
         # changed) is reported and the others still run; the run fails at the end.
@@ -154,6 +158,7 @@ jobs:
           run python3 tools/tables/es_basque_ap8.py out out/tables
           run python3 tools/tables/es_ap68.py out out/tables
           run python3 tools/tables/rs.py out out/tables
+          run python3 tools/tables/rs_bypass.py out out/tables
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).

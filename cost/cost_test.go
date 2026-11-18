@@ -3010,7 +3010,9 @@ func TestFelbertauern(t *testing.T) {
 // Dragsvik by way of Hella is one ticket, zone 6; Bodø-Moskenes zone 95,
 // 2,252; Skipavik-Nesvik is free (no line); a road past both Molde-Vestnes
 // quays that doesn't take the ferry pays nothing. Moss-Horten's own list:
-// 1,371 NOK for 14.01-17.5 m, 959.70 with a Moss-Horten agreement.
+// 1,371 NOK for 14.01-17.5 m, 959.70 with a Moss-Horten agreement. A
+// zero-emission truck pays half, to the krone (Halsa 221, Moss-Horten
+// 686), and the discounts apply on that (Moss-Horten's list: 480.20).
 func TestNorwayFerries(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	join := func(parts ...[][2]float64) [][2]float64 {
@@ -3043,6 +3045,8 @@ func TestNorwayFerries(t *testing.T) {
 	}
 	long := truck40
 	long.LengthM = 25.25
+	zev := truck40
+	zev.CO2Class = 5
 	for _, tc := range []struct {
 		name  string
 		path  [][2]float64
@@ -3060,6 +3064,10 @@ func TestNorwayFerries(t *testing.T) {
 		{"by road past Molde and Furneset", byRoad, truck40, false, 0, 0},
 		{"Moss-Horten", mossHorten, truck40, false, 1224.11, 1},
 		{"Moss-Horten, agreement", mossHorten, truck40, true, 856.88, 1},
+		{"Halsa-Kanestraum, zero-emission", halsa, zev, false, 197.32, 1},
+		{"Halsa-Kanestraum, zero-emission, business account", halsa, zev, true, 118.39, 1},
+		{"Moss-Horten, zero-emission", mossHorten, zev, false, 612.50, 1},
+		{"Moss-Horten, zero-emission, agreement", mossHorten, zev, true, 428.75, 1},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"NO": 30}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, ETC: tc.etc, FX: map[string]float64{"NOK": 1}}, date)

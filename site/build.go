@@ -382,6 +382,8 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 	var lo, hi, shLo, shHi float64
 	lo = -1
 	kmScheme := false
+	nSt, nTrips, nPlaces := 0, 0, 0
+	var top *fare
 	for _, sc := range c.Schemes {
 		ds := sc.latest()
 		all = append(all, ds)
@@ -519,7 +521,10 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 				fs, st, pairs := odFares(ds, ch, truck40, pday, 10)
 				fares = append(fares, fs...)
 				if st > 0 {
-					sv.FareNote += fmt.Sprintf("%s: %d stations, %d trips priced. ", nameOr(ch), st, pairs)
+					sv.FareNote += fmt.Sprintf("%s: %s stations, %s trips priced. ", nameOr(ch), thousands(st), thousands(pairs))
+					if sc.Kind == tariffs.Toll {
+						nSt, nTrips = nSt+st, nTrips+pairs
+					}
 				}
 			case "point", "section":
 				if ch.Unit == "km" {
@@ -528,7 +533,8 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 				fs, n := pointFares(ds, ch, truck40, pday, 12)
 				fares = append(fares, fs...)
 				if n > 0 {
-					sv.FareNote += fmt.Sprintf("%s: %d %s. ", nameOr(ch), n, map[bool]string{true: "places", false: "place"}[n != 1])
+					sv.FareNote += fmt.Sprintf("%s: %s %s. ", nameOr(ch), thousands(n), map[bool]string{true: "places", false: "place"}[n != 1])
+					nPlaces += n
 				}
 			case "period":
 				for _, f := range products(ds, ch, truck40) {
@@ -543,6 +549,9 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 			}
 		}
 		sort.SliceStable(fares, func(i, j int) bool { return fares[i].Rate.Total > fares[j].Rate.Total })
+		if len(fares) > 0 && sc.Kind == tariffs.Toll && sc.Current != nil && top == nil {
+			top = &fares[0]
+		}
 		if sv.Example == "" && len(fares) > 0 {
 			f := fares[0]
 			if strings.Contains(f.What, " – ") {
@@ -599,10 +608,32 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 	} else {
 		v.H1 = fmt.Sprintf("%s truck tolls %d%s: %s for trucks over 3.5 t", c.Name, year, local, row.How)
 	}
-	desc := fmt.Sprintf("%s's truck tolls in %d from the law: %s.", c.Name, year, row.How)
+	var size []string
+	if nSt > 0 {
+		size = append(size, fmt.Sprintf("%s toll stations and %s trips", thousands(nSt), thousands(nTrips)))
+	}
+	if nPlaces > 0 {
+		size = append(size, fmt.Sprintf("%s toll points, bridges and tunnels", thousands(nPlaces)))
+	}
+	desc := fmt.Sprintf("%s truck tolls %d%s for trucks over 3.5 t: %s", c.Name, year, local, row.How)
+	if len(size) > 0 {
+		desc += ", " + strings.Join(size, " and ")
+	}
+	desc += ", from the law and the official tariffs."
+	if top != nil {
+		desc += fmt.Sprintf(" A 40 t Euro VI truck pays up to %s for one trip or passage.", money(top.Rate.Total, top.Rate.Cur))
+	}
+	desc += " Full rate tables, history, changes to come and the law behind each rate."
+	if row.How == "CO2 price on fuel only" && len(v.Fuel) > 0 {
+		desc = fmt.Sprintf("%s's CO2 tax on diesel in %d from the law: %s (%s per litre), its history and the changes to come.", c.Name, year, v.Fuel[0].Rate, v.Fuel[0].PerLitre)
+	}
 	if kmScheme {
-		desc = fmt.Sprintf("%s truck toll %d%s: a 40 t Euro VI truck pays %s per km (CO2 part %s). Rates by weight, Euro and CO2 class, history and upcoming changes, with the law behind each rate.",
-			c.Name, year, local, row.Rate, row.Share)
+		co2 := ""
+		if shHi > 0 {
+			co2 = " (CO2 part " + row.Share + ")"
+		}
+		desc = fmt.Sprintf("%s truck toll %d%s: a 40 t Euro VI truck pays %s per km%s. Rates by weight, Euro and CO2 class, history and upcoming changes, with the law behind each rate.",
+			c.Name, year, local, row.Rate, co2)
 	}
 	v.Lead = desc
 	v.Trip, v.TripName = s.trip(c.Code)
@@ -624,6 +655,9 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 	if cd.Big == "" {
 		cd.Big = capital(row.How)
 		cd.BigNote = "Rates for trucks over 3.5 t, from the law"
+		if len(size) > 0 {
+			cd.Accent = capital(strings.Join(size, ", "))
+		}
 	}
 	return v, row, cd, mod
 }
@@ -634,6 +668,15 @@ func lowerWord(s string) string {
 	r := []rune(s)
 	if len(r) > 1 && unicode.IsUpper(r[0]) && unicode.IsLower(r[1]) && !strings.Contains(s, "S.p.A") {
 		return string(unicode.ToLower(r[0])) + string(r[1:])
+	}
+	return s
+}
+
+// thousands writes n with thousands separators: 27,915.
+func thousands(n int) string {
+	s := fmt.Sprint(n)
+	for i := len(s) - 3; i > 0; i -= 3 {
+		s = s[:i] + "," + s[i:]
 	}
 	return s
 }

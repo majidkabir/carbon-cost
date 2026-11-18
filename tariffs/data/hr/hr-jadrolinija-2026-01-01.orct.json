@@ -1,0 +1,3490 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/hr-jadrolinija/2026-01-01",
+  "scheme": {
+   "id": "hr-jadrolinija",
+   "name": "Jadrolinija's state ferry lines, goods vehicles",
+   "country": "HR"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Zagreb",
+  "license": "MIT",
+  "method": "Jadrolinija's price lists for 2026, line by line (state ferry lines, the fares the Agency for Coastal Line Traffic approves): goods vehicles and trailers by load capacity (nosivost): up to 3 t, 3.01-4 t and 4.01-5 t a fare each, from 5.01 t a fare per tonne of it, for each vehicle on its own, but a tractor with semi-trailer per tonne of the semi-trailer's (give truck.capacity_kg; without it the fare isn't priced). Off-season and season prices by the season's days in each price list (or one price for the year). The prices include port dues and VAT; VAT is taken out at Croatia's standard 25% (the rate Jadrolinija's price lists named until 2024), the port dues stay in. Island residents' and public services' prices aren't used. The ports are OpenStreetMap's ferry terminals (else the place), priced where a line goes out on OpenStreetMap's car ferry line from them; lines that share a ferry line or a harbour mouth are one system, priced from the first port passed to the last. PREMUDA–IST: no car ferry line between them in OpenStreetMap, not priced.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "hr-jadrolinija-2026-01-01.json"
+  },
+  "required_features": ["time_classes", "type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Jadrolinija: line 332, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5654f58094b9dae6edf30d60ab644891"
+  },
+  {
+   "id": "s2",
+   "title": "Jadrolinija: line 334, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/81f23f7a652f735091a0e42f12a19fd0"
+  },
+  {
+   "id": "s3",
+   "title": "Jadrolinija: line 335, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b65b8c092fb6807891140d4d195acf82"
+  },
+  {
+   "id": "s4",
+   "title": "Jadrolinija: line 338, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/215ccb6d596679819c4920191e648122"
+  },
+  {
+   "id": "s5",
+   "title": "Jadrolinija: line 401, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+  },
+  {
+   "id": "s6",
+   "title": "Jadrolinija: line 431, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/2af5e0d51acd4ceda24b526f4549766c"
+  },
+  {
+   "id": "s7",
+   "title": "Jadrolinija: line 432, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/71598cc1bc6c126e6b97bec0bd6a7497"
+  },
+  {
+   "id": "s8",
+   "title": "Jadrolinija: line 433, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+  },
+  {
+   "id": "s9",
+   "title": "Jadrolinija: line 434, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/132167cf67094c10716af73f934e625d"
+  },
+  {
+   "id": "s10",
+   "title": "Jadrolinija: line 435, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+  },
+  {
+   "id": "s11",
+   "title": "Jadrolinija: line 532, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+  },
+  {
+   "id": "s12",
+   "title": "Jadrolinija: line 602, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b4d27ce7fa60ea98238d8976fc10a665"
+  },
+  {
+   "id": "s13",
+   "title": "Jadrolinija: line 604, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/984062e9182a906cc2cdf39238b38cec"
+  },
+  {
+   "id": "s14",
+   "title": "Jadrolinija: line 606, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/32b38ebc75f18571222f4689206f7cbd"
+  },
+  {
+   "id": "s15",
+   "title": "Jadrolinija: line 631, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/63303845a2afce053e77bf2b39319b04"
+  },
+  {
+   "id": "s16",
+   "title": "Jadrolinija: line 632, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/69cb877c1652c9a45c997d6b3f103b74"
+  },
+  {
+   "id": "s17",
+   "title": "Jadrolinija: line 633, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/8a51318725234350c295f15ae85c523b"
+  },
+  {
+   "id": "s18",
+   "title": "Jadrolinija: line 634, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/7321c0f9b33c02ac4b12851c4e2e2191"
+  },
+  {
+   "id": "s19",
+   "title": "Jadrolinija: line 635, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/775ebd972f9f1b2609ecd4023f04ce96"
+  },
+  {
+   "id": "s20",
+   "title": "Jadrolinija: line 636, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5d825fa68da13ab3a14bb9251b1eb43a"
+  },
+  {
+   "id": "s21",
+   "title": "Jadrolinija: line 638, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5942b05660e59c66e7c53fbd392e9a7a"
+  },
+  {
+   "id": "s22",
+   "title": "Jadrolinija: line 831, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/7c405c1e2fe6cb106d506172ccd6fd6c"
+  },
+  {
+   "id": "s23",
+   "title": "Jadrolinija: line 832, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b7de514704b98e8de65759c1f81a609a"
+  },
+  {
+   "id": "s24",
+   "title": "Jadrolinija: local lines",
+   "url": "https://www.jadrolinija.hr/hr/putovanja/lokalne_linije"
+  },
+  {
+   "id": "s25",
+   "title": "OpenStreetMap (Overpass API): ferry lines, ferry terminals and places on the Croatian coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods vehicles over 3.5 t, by load capacity (give truck.capacity_kg: the semi-trailer's for a tractor with semi-trailer)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.load-capacity-up-to-3-t",
+     "label": "load capacity up to 3 t",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "load_capacity_kg": {
+       "max": 3000
+      }
+     }
+    },
+    {
+     "id": "sys1-1.load-capacity-3-01-4-t",
+     "label": "load capacity 3.01-4 t",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "load_capacity_kg": {
+       "gt": 3000,
+       "max": 4000
+      }
+     }
+    },
+    {
+     "id": "sys1-1.load-capacity-4-01-5-t",
+     "label": "load capacity 4.01-5 t",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "load_capacity_kg": {
+       "gt": 4000,
+       "max": 5000
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "sys2-1",
+   "classes": [
+    {
+     "id": "sys2-1.per-tonne-of-load-capacity-over-5-t",
+     "label": "per tonne of load capacity over 5 t",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "load_capacity_kg": {
+       "gt": 5000
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "time_classes": [
+  {
+   "id": "sys5-season",
+   "label": "Season",
+   "days": [
+    {
+     "date_ranges": [["2026-05-29", "2026-09-27"]]
+    }
+   ]
+  },
+  {
+   "id": "sys25-season",
+   "label": "Season",
+   "days": [
+    {
+     "date_ranges": [["2026-05-01", "2026-09-27"]]
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:MERAG",
+   "type": "station",
+   "name": "MERAG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.449625, 44.984412]]
+    },
+    "point_names": ["MERAG port, 0.5 km out on the line to VALBISKA (OSM way 146474160)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:VALBISKA",
+   "type": "station",
+   "name": "VALBISKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.493876, 45.01919]]
+    },
+    "point_names": ["VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:MERAG",
+   "type": "station",
+   "name": "MERAG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.449625, 44.984412]]
+    },
+    "point_names": ["MERAG port, 0.5 km out on the line to VALBISKA (OSM way 146474160)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:VALBISKA",
+   "type": "station",
+   "name": "VALBISKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.493876, 45.01919]]
+    },
+    "point_names": ["VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:BRESTOVA",
+   "type": "station",
+   "name": "BRESTOVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.229818, 45.143364]]
+    },
+    "point_names": ["BRESTOVA port, 0.5 km out on the line to POROZINA (OSM way 8100884)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:POROZINA",
+   "type": "station",
+   "name": "POROZINA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.279953, 45.131262]]
+    },
+    "point_names": ["POROZINA port, 0.5 km out on the line to BRESTOVA (OSM way 8100884)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:BRESTOVA",
+   "type": "station",
+   "name": "BRESTOVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.229818, 45.143364]]
+    },
+    "point_names": ["BRESTOVA port, 0.5 km out on the line to POROZINA (OSM way 8100884)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:POROZINA",
+   "type": "station",
+   "name": "POROZINA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.279953, 45.131262]]
+    },
+    "point_names": ["POROZINA port, 0.5 km out on the line to BRESTOVA (OSM way 8100884)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:PRIZNA",
+   "type": "station",
+   "name": "PRIZNA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.96522, 44.599993]]
+    },
+    "point_names": ["PRIZNA port, 0.5 km out on the line to ŽIGLJEN (OSM way 23446604)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:ŽIGLJEN",
+   "type": "station",
+   "name": "ŽIGLJEN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.952443, 44.58422]]
+    },
+    "point_names": ["ŽIGLJEN port, 0.5 km out on the line to PRIZNA (OSM way 23446604)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:PRIZNA",
+   "type": "station",
+   "name": "PRIZNA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.96522, 44.599993]]
+    },
+    "point_names": ["PRIZNA port, 0.5 km out on the line to ŽIGLJEN (OSM way 23446604)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:ŽIGLJEN",
+   "type": "station",
+   "name": "ŽIGLJEN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.952443, 44.58422]]
+    },
+    "point_names": ["ŽIGLJEN port, 0.5 km out on the line to PRIZNA (OSM way 23446604)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:LOPAR",
+   "type": "station",
+   "name": "LOPAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.707416, 44.849093]]
+    },
+    "point_names": ["LOPAR port, 1.7 km out on the line to VALBISKA (OSM way 8100818)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:VALBISKA",
+   "type": "station",
+   "name": "VALBISKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.499334, 45.019743]]
+    },
+    "point_names": ["VALBISKA port, 1.0 km out on the line to LOPAR (OSM way 8100818)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:LOPAR",
+   "type": "station",
+   "name": "LOPAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.707416, 44.849093]]
+    },
+    "point_names": ["LOPAR port, 1.7 km out on the line to VALBISKA (OSM way 8100818)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:VALBISKA",
+   "type": "station",
+   "name": "VALBISKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.499334, 45.019743]]
+    },
+    "point_names": ["VALBISKA port, 1.0 km out on the line to LOPAR (OSM way 8100818)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:BRBINJ",
+   "type": "station",
+   "name": "BRBINJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.99292, 44.087569]]
+    },
+    "point_names": ["BRBINJ port, 0.5 km out on the line to ZADAR (OSM way 620626313)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:BRŠANJ",
+   "type": "station",
+   "name": "BRŠANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.164511, 44.024649], [15.168018, 43.992649]]
+    },
+    "point_names": ["BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:IST",
+   "type": "station",
+   "name": "IST",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.768508, 44.267217]]
+    },
+    "point_names": ["IST port, 0.5 km out on the line to ZADAR (OSM way 179041208)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:MALA RAVA",
+   "type": "station",
+   "name": "MALA RAVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.05155, 44.033845]]
+    },
+    "point_names": ["MALA RAVA port, 0.5 km out on the line to ZADAR (OSM way 1151047124)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:MALI LOŠINJ",
+   "type": "station",
+   "name": "MALI LOŠINJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.416452, 44.551159], [14.417171, 44.551928]]
+    },
+    "point_names": ["MALI LOŠINJ port, 5.4 km out on the line to PREMUDA (OSM way 178995980)", "MALI LOŠINJ port, 4.8 km out on the line to SILBA (OSM way 178637592)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:MOLAT",
+   "type": "station",
+   "name": "MOLAT",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.867246, 44.209338], [14.866787, 44.209657]]
+    },
+    "point_names": ["MOLAT port, 0.5 km out on the line to ZADAR (OSM way 179012787)", "MOLAT port, 0.5 km out on the line to RIVANJ (OSM way 179012787)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:OLIB",
+   "type": "station",
+   "name": "OLIB",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.769119, 44.379781], [14.769104, 44.380621]]
+    },
+    "point_names": ["OLIB port, 0.5 km out on the line to ZADAR (OSM way 620626314)", "OLIB port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070398)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:OŠLJAK",
+   "type": "station",
+   "name": "OŠLJAK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.205794, 44.08001], [15.212223, 44.082355], [15.203505, 44.075981], [15.20328, 44.07987]]
+    },
+    "point_names": [
+     "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 119280397)",
+     "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+     "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 119280395)",
+     "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 335800136)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:PREKO",
+   "type": "station",
+   "name": "PREKO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.199887, 44.078619], [15.197376, 44.077137], [15.197306, 44.077666]]
+    },
+    "point_names": [
+     "PREKO port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+     "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 119280395)",
+     "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 335800136)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:PREMUDA",
+   "type": "station",
+   "name": "PREMUDA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.588045, 44.339906], [14.587764, 44.339442]]
+    },
+    "point_names": ["PREMUDA port, 0.5 km out on the line to ZADAR (OSM way 154070386)", "PREMUDA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 178995980)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:RAVA",
+   "type": "station",
+   "name": "RAVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.05631, 44.019352]]
+    },
+    "point_names": ["RAVA port, 0.5 km out on the line to ZADAR (OSM way 179002607)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:RIVANJ",
+   "type": "station",
+   "name": "RIVANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.027642, 44.149767], [15.026811, 44.150195]]
+    },
+    "point_names": ["RIVANJ port, 0.5 km out on the line to ZADAR (OSM way 335795665)", "RIVANJ port, 0.5 km out on the line to SESTRUNJ (OSM way 179027678)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:SESTRUNJ",
+   "type": "station",
+   "name": "SESTRUNJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.013285, 44.134495], [15.011706, 44.134075], [15.011081, 44.133979]]
+    },
+    "point_names": [
+     "SESTRUNJ port, 0.5 km out on the line to ZADAR (OSM way 179012793)",
+     "SESTRUNJ port, 0.5 km out on the line to MOLAT (OSM way 179012793)",
+     "SESTRUNJ port, 0.5 km out on the line to ZVERINAC (OSM way 179751586)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:SILBA",
+   "type": "station",
+   "name": "SILBA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.687166, 44.370564], [14.685963, 44.37241], [14.686168, 44.371459]]
+    },
+    "point_names": [
+     "SILBA port, 0.5 km out on the line to ZADAR (OSM way 154070394)",
+     "SILBA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070394)",
+     "SILBA port, 0.5 km out on the line to PREMUDA (OSM way 154070394)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:ZADAR",
+   "type": "station",
+   "name": "ZADAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.250546, 44.091748], [15.250933, 44.091343], [15.253832, 44.092742]]
+    },
+    "point_names": [
+     "ZADAR port, 0.5 km out on the line to PREMUDA (OSM way 335795665)",
+     "ZADAR port, 0.5 km out on the line to IST (OSM way 119280397)",
+     "ZADAR port, 0.5 km out on the line to BRŠANJ (OSM way 179001802)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:ZVERINAC",
+   "type": "station",
+   "name": "ZVERINAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.914412, 44.155953], [14.910142, 44.158372]]
+    },
+    "point_names": ["ZVERINAC port, 0.5 km out on the line to ZADAR (OSM way 179012787)", "ZVERINAC port, 0.5 km out on the line to MOLAT (OSM way 179012787)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:BRBINJ",
+   "type": "station",
+   "name": "BRBINJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.99292, 44.087569]]
+    },
+    "point_names": ["BRBINJ port, 0.5 km out on the line to ZADAR (OSM way 620626313)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:BRŠANJ",
+   "type": "station",
+   "name": "BRŠANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.164511, 44.024649], [15.168018, 43.992649]]
+    },
+    "point_names": ["BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:IST",
+   "type": "station",
+   "name": "IST",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.768508, 44.267217]]
+    },
+    "point_names": ["IST port, 0.5 km out on the line to ZADAR (OSM way 179041208)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:MALA RAVA",
+   "type": "station",
+   "name": "MALA RAVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.05155, 44.033845]]
+    },
+    "point_names": ["MALA RAVA port, 0.5 km out on the line to ZADAR (OSM way 1151047124)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:MALI LOŠINJ",
+   "type": "station",
+   "name": "MALI LOŠINJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.416452, 44.551159], [14.417171, 44.551928]]
+    },
+    "point_names": ["MALI LOŠINJ port, 5.4 km out on the line to PREMUDA (OSM way 178995980)", "MALI LOŠINJ port, 4.8 km out on the line to SILBA (OSM way 178637592)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:MOLAT",
+   "type": "station",
+   "name": "MOLAT",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.867246, 44.209338], [14.866787, 44.209657]]
+    },
+    "point_names": ["MOLAT port, 0.5 km out on the line to ZADAR (OSM way 179012787)", "MOLAT port, 0.5 km out on the line to RIVANJ (OSM way 179012787)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:OLIB",
+   "type": "station",
+   "name": "OLIB",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.769119, 44.379781], [14.769104, 44.380621]]
+    },
+    "point_names": ["OLIB port, 0.5 km out on the line to ZADAR (OSM way 620626314)", "OLIB port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070398)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:OŠLJAK",
+   "type": "station",
+   "name": "OŠLJAK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.205794, 44.08001], [15.212223, 44.082355], [15.203505, 44.075981], [15.20328, 44.07987]]
+    },
+    "point_names": [
+     "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 119280397)",
+     "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+     "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 119280395)",
+     "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 335800136)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:PREKO",
+   "type": "station",
+   "name": "PREKO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.199887, 44.078619], [15.197376, 44.077137], [15.197306, 44.077666]]
+    },
+    "point_names": [
+     "PREKO port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+     "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 119280395)",
+     "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 335800136)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:PREMUDA",
+   "type": "station",
+   "name": "PREMUDA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.588045, 44.339906], [14.587764, 44.339442]]
+    },
+    "point_names": ["PREMUDA port, 0.5 km out on the line to ZADAR (OSM way 154070386)", "PREMUDA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 178995980)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:RAVA",
+   "type": "station",
+   "name": "RAVA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.05631, 44.019352]]
+    },
+    "point_names": ["RAVA port, 0.5 km out on the line to ZADAR (OSM way 179002607)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:RIVANJ",
+   "type": "station",
+   "name": "RIVANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.027642, 44.149767], [15.026811, 44.150195]]
+    },
+    "point_names": ["RIVANJ port, 0.5 km out on the line to ZADAR (OSM way 335795665)", "RIVANJ port, 0.5 km out on the line to SESTRUNJ (OSM way 179027678)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:SESTRUNJ",
+   "type": "station",
+   "name": "SESTRUNJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.013285, 44.134495], [15.011706, 44.134075], [15.011081, 44.133979]]
+    },
+    "point_names": [
+     "SESTRUNJ port, 0.5 km out on the line to ZADAR (OSM way 179012793)",
+     "SESTRUNJ port, 0.5 km out on the line to MOLAT (OSM way 179012793)",
+     "SESTRUNJ port, 0.5 km out on the line to ZVERINAC (OSM way 179751586)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:SILBA",
+   "type": "station",
+   "name": "SILBA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.687166, 44.370564], [14.685963, 44.37241], [14.686168, 44.371459]]
+    },
+    "point_names": [
+     "SILBA port, 0.5 km out on the line to ZADAR (OSM way 154070394)",
+     "SILBA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070394)",
+     "SILBA port, 0.5 km out on the line to PREMUDA (OSM way 154070394)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:ZADAR",
+   "type": "station",
+   "name": "ZADAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.250546, 44.091748], [15.250933, 44.091343], [15.253832, 44.092742]]
+    },
+    "point_names": [
+     "ZADAR port, 0.5 km out on the line to PREMUDA (OSM way 335795665)",
+     "ZADAR port, 0.5 km out on the line to IST (OSM way 119280397)",
+     "ZADAR port, 0.5 km out on the line to BRŠANJ (OSM way 179001802)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:ZVERINAC",
+   "type": "station",
+   "name": "ZVERINAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.914412, 44.155953], [14.910142, 44.158372]]
+    },
+    "point_names": ["ZVERINAC port, 0.5 km out on the line to ZADAR (OSM way 179012787)", "ZVERINAC port, 0.5 km out on the line to MOLAT (OSM way 179012787)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:BIOGRAD NA MORU",
+   "type": "station",
+   "name": "BIOGRAD NA MORU",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.433819, 43.937955]]
+    },
+    "point_names": ["BIOGRAD NA MORU port, 0.5 km out on the line to TKON (OSM way 41714525)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:TKON",
+   "type": "station",
+   "name": "TKON",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.422042, 43.928936], [15.421342, 43.928064]]
+    },
+    "point_names": ["TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 41714525)", "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 941535200)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:BIOGRAD NA MORU",
+   "type": "station",
+   "name": "BIOGRAD NA MORU",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.433819, 43.937955]]
+    },
+    "point_names": ["BIOGRAD NA MORU port, 0.5 km out on the line to TKON (OSM way 41714525)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:TKON",
+   "type": "station",
+   "name": "TKON",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.422042, 43.928936], [15.421342, 43.928064]]
+    },
+    "point_names": ["TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 41714525)", "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 941535200)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:KAPRIJE",
+   "type": "station",
+   "name": "KAPRIJE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.702558, 43.68829]]
+    },
+    "point_names": ["KAPRIJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:OBONJAN",
+   "type": "station",
+   "name": "OBONJAN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.777993, 43.683848], [15.779107, 43.683705], [15.770201, 43.677507], [15.771744, 43.676895]]
+    },
+    "point_names": [
+     "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+     "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+     "OBONJAN port, 0.5 km out on the line to KAPRIJE (OSM way 179054358)",
+     "OBONJAN port, 0.5 km out on the line to ŽIRJE (OSM way 179054359)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:ZLARIN",
+   "type": "station",
+   "name": "ZLARIN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.841376, 43.718269], [15.841815, 43.717735], [15.830625, 43.71386], [15.831139, 43.713215]]
+    },
+    "point_names": [
+     "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+     "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+     "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054358)",
+     "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054359)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:ŠIBENIK",
+   "type": "station",
+   "name": "ŠIBENIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.88549, 43.729564]]
+    },
+    "point_names": ["ŠIBENIK port, 0.7 km out on the line to OBONJAN (OSM way 179054358)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:ŽIRJE",
+   "type": "station",
+   "name": "ŽIRJE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.654941, 43.666104]]
+    },
+    "point_names": ["ŽIRJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:KAPRIJE",
+   "type": "station",
+   "name": "KAPRIJE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.702558, 43.68829]]
+    },
+    "point_names": ["KAPRIJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:OBONJAN",
+   "type": "station",
+   "name": "OBONJAN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.777993, 43.683848], [15.779107, 43.683705], [15.770201, 43.677507], [15.771744, 43.676895]]
+    },
+    "point_names": [
+     "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+     "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+     "OBONJAN port, 0.5 km out on the line to KAPRIJE (OSM way 179054358)",
+     "OBONJAN port, 0.5 km out on the line to ŽIRJE (OSM way 179054359)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:ZLARIN",
+   "type": "station",
+   "name": "ZLARIN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.841376, 43.718269], [15.841815, 43.717735], [15.830625, 43.71386], [15.831139, 43.713215]]
+    },
+    "point_names": [
+     "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+     "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+     "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054358)",
+     "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054359)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:ŠIBENIK",
+   "type": "station",
+   "name": "ŠIBENIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.88549, 43.729564]]
+    },
+    "point_names": ["ŠIBENIK port, 0.7 km out on the line to OBONJAN (OSM way 179054358)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:ŽIRJE",
+   "type": "station",
+   "name": "ŽIRJE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.654941, 43.666104]]
+    },
+    "point_names": ["ŽIRJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:ROGAČ",
+   "type": "station",
+   "name": "ROGAČ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.303265, 43.400669], [16.30322, 43.399809]]
+    },
+    "point_names": ["ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 26661268)", "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 229050289)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:SPLIT",
+   "type": "station",
+   "name": "SPLIT",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.433463, 43.5002], [16.434624, 43.498295], [16.434506, 43.500217], [16.433094, 43.500775], [16.434485, 43.503233]]
+    },
+    "point_names": [
+     "SPLIT port, 0.5 km out on the line to VIS (OSM way 73102583)",
+     "SPLIT port, 0.5 km out on the line to SUPETAR (OSM way 12307574)",
+     "SPLIT port, 0.5 km out on the line to STARI GRAD (OSM way 29500693)",
+     "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 26661268)",
+     "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 229050289)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:STARI GRAD",
+   "type": "station",
+   "name": "STARI GRAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.572899, 43.185182]]
+    },
+    "point_names": ["STARI GRAD port, 0.5 km out on the line to SPLIT (OSM way 29500693)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:SUPETAR",
+   "type": "station",
+   "name": "SUPETAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.551522, 43.389463]]
+    },
+    "point_names": ["SUPETAR port, 0.5 km out on the line to SPLIT (OSM way 12307574)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:UBLI",
+   "type": "station",
+   "name": "UBLI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.820807, 42.748651]]
+    },
+    "point_names": ["UBLI port, 0.5 km out on the line to SPLIT (OSM way 39531072)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:VELA LUKA",
+   "type": "station",
+   "name": "VELA LUKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.435676, 43.164294], [16.6703, 42.962329]]
+    },
+    "point_names": ["VELA LUKA port, 33.5 km out on the line to SPLIT (OSM way 58946165)", "VELA LUKA port, 3.0 km out on the line to UBLI (OSM way 39531072)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:VIS",
+   "type": "station",
+   "name": "VIS",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.209189, 43.07871]]
+    },
+    "point_names": ["VIS port, 3.0 km out on the line to SPLIT (OSM way 73102583)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:ROGAČ",
+   "type": "station",
+   "name": "ROGAČ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.303265, 43.400669], [16.30322, 43.399809]]
+    },
+    "point_names": ["ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 26661268)", "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 229050289)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:SPLIT",
+   "type": "station",
+   "name": "SPLIT",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.433463, 43.5002], [16.434624, 43.498295], [16.434506, 43.500217], [16.433094, 43.500775], [16.434485, 43.503233]]
+    },
+    "point_names": [
+     "SPLIT port, 0.5 km out on the line to VIS (OSM way 73102583)",
+     "SPLIT port, 0.5 km out on the line to SUPETAR (OSM way 12307574)",
+     "SPLIT port, 0.5 km out on the line to STARI GRAD (OSM way 29500693)",
+     "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 26661268)",
+     "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 229050289)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:STARI GRAD",
+   "type": "station",
+   "name": "STARI GRAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.572899, 43.185182]]
+    },
+    "point_names": ["STARI GRAD port, 0.5 km out on the line to SPLIT (OSM way 29500693)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:SUPETAR",
+   "type": "station",
+   "name": "SUPETAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.551522, 43.389463]]
+    },
+    "point_names": ["SUPETAR port, 0.5 km out on the line to SPLIT (OSM way 12307574)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:UBLI",
+   "type": "station",
+   "name": "UBLI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.820807, 42.748651]]
+    },
+    "point_names": ["UBLI port, 0.5 km out on the line to SPLIT (OSM way 39531072)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:VELA LUKA",
+   "type": "station",
+   "name": "VELA LUKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.435676, 43.164294], [16.6703, 42.962329]]
+    },
+    "point_names": ["VELA LUKA port, 33.5 km out on the line to SPLIT (OSM way 58946165)", "VELA LUKA port, 3.0 km out on the line to UBLI (OSM way 39531072)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:VIS",
+   "type": "station",
+   "name": "VIS",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.209189, 43.07871]]
+    },
+    "point_names": ["VIS port, 3.0 km out on the line to SPLIT (OSM way 73102583)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st17:DRVENIK MALI",
+   "type": "station",
+   "name": "DRVENIK MALI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.09603, 43.450586]]
+    },
+    "point_names": ["DRVENIK MALI port, 0.5 km out on the line to TROGIR (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st17:DRVENIK VELI",
+   "type": "station",
+   "name": "DRVENIK VELI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.139086, 43.451739]]
+    },
+    "point_names": ["DRVENIK VELI port, 0.5 km out on the line to TROGIR (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st17:TROGIR",
+   "type": "station",
+   "name": "TROGIR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.237272, 43.513334]]
+    },
+    "point_names": ["TROGIR port, 0.5 km out on the line to DRVENIK VELI (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st18:DRVENIK MALI",
+   "type": "station",
+   "name": "DRVENIK MALI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.09603, 43.450586]]
+    },
+    "point_names": ["DRVENIK MALI port, 0.5 km out on the line to TROGIR (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st18:DRVENIK VELI",
+   "type": "station",
+   "name": "DRVENIK VELI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.139086, 43.451739]]
+    },
+    "point_names": ["DRVENIK VELI port, 0.5 km out on the line to TROGIR (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st18:TROGIR",
+   "type": "station",
+   "name": "TROGIR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.237272, 43.513334]]
+    },
+    "point_names": ["TROGIR port, 0.5 km out on the line to DRVENIK VELI (OSM way 192129897)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st19:DRVENIK",
+   "type": "station",
+   "name": "DRVENIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.245633, 43.151228]]
+    },
+    "point_names": ["DRVENIK port, 0.5 km out on the line to SUĆURAJ (OSM way 29893858)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st19:SUĆURAJ",
+   "type": "station",
+   "name": "SUĆURAJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.194856, 43.122615]]
+    },
+    "point_names": ["SUĆURAJ port, 0.5 km out on the line to DRVENIK (OSM way 29893858)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st20:DRVENIK",
+   "type": "station",
+   "name": "DRVENIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.245633, 43.151228]]
+    },
+    "point_names": ["DRVENIK port, 0.5 km out on the line to SUĆURAJ (OSM way 29893858)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st20:SUĆURAJ",
+   "type": "station",
+   "name": "SUĆURAJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.194856, 43.122615]]
+    },
+    "point_names": ["SUĆURAJ port, 0.5 km out on the line to DRVENIK (OSM way 29893858)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st21:PLOČE",
+   "type": "station",
+   "name": "PLOČE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.427825, 43.051754]]
+    },
+    "point_names": ["PLOČE port, 0.5 km out on the line to TRPANJ (OSM way 144985254)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st21:TRPANJ",
+   "type": "station",
+   "name": "TRPANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.264528, 43.012773]]
+    },
+    "point_names": ["TRPANJ port, 0.5 km out on the line to PLOČE (OSM way 144985254)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st22:PLOČE",
+   "type": "station",
+   "name": "PLOČE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.427825, 43.051754]]
+    },
+    "point_names": ["PLOČE port, 0.5 km out on the line to TRPANJ (OSM way 144985254)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st22:TRPANJ",
+   "type": "station",
+   "name": "TRPANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.264528, 43.012773]]
+    },
+    "point_names": ["TRPANJ port, 0.5 km out on the line to PLOČE (OSM way 144985254)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st23:DOMINČE",
+   "type": "station",
+   "name": "DOMINČE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.15, 42.954703]]
+    },
+    "point_names": ["DOMINČE port, 0.5 km out on the line to OREBIĆ (OSM way 29971850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st23:OREBIĆ",
+   "type": "station",
+   "name": "OREBIĆ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.169747, 42.971828]]
+    },
+    "point_names": ["OREBIĆ port, 0.5 km out on the line to DOMINČE (OSM way 29971850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st24:DOMINČE",
+   "type": "station",
+   "name": "DOMINČE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.15, 42.954703]]
+    },
+    "point_names": ["DOMINČE port, 0.5 km out on the line to OREBIĆ (OSM way 29971850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st24:OREBIĆ",
+   "type": "station",
+   "name": "OREBIĆ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.169747, 42.971828]]
+    },
+    "point_names": ["OREBIĆ port, 0.5 km out on the line to DOMINČE (OSM way 29971850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st25:MAKARSKA",
+   "type": "station",
+   "name": "MAKARSKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.014206, 43.29006]]
+    },
+    "point_names": ["MAKARSKA port, 0.5 km out on the line to SUMARTIN (OSM way 29893191)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st25:SUMARTIN",
+   "type": "station",
+   "name": "SUMARTIN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.870261, 43.280973]]
+    },
+    "point_names": ["SUMARTIN port, 0.5 km out on the line to MAKARSKA (OSM way 29893191)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st26:MAKARSKA",
+   "type": "station",
+   "name": "MAKARSKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.014206, 43.29006]]
+    },
+    "point_names": ["MAKARSKA port, 0.5 km out on the line to SUMARTIN (OSM way 29893191)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st26:SUMARTIN",
+   "type": "station",
+   "name": "SUMARTIN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[16.870261, 43.280973]]
+    },
+    "point_names": ["SUMARTIN port, 0.5 km out on the line to MAKARSKA (OSM way 29893191)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st27:DUBROVNIK",
+   "type": "station",
+   "name": "DUBROVNIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.081793, 42.66123], [18.08212, 42.660572]]
+    },
+    "point_names": ["DUBROVNIK port, 0.5 km out on the line to SUĐURAĐ (OSM way 60295883)", "DUBROVNIK port, 0.5 km out on the line to KOLOČEP (OSM way 174921703)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st27:KOLOČEP",
+   "type": "station",
+   "name": "KOLOČEP",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.999547, 42.682037], [18.012068, 42.68444], [18.012336, 42.684858], [17.998986, 42.681312]]
+    },
+    "point_names": [
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 174921703)",
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178630799)",
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178657278)",
+     "KOLOČEP port, 0.5 km out on the line to SUĐURAĐ (OSM way 174921703)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st27:SUĐURAĐ",
+   "type": "station",
+   "name": "SUĐURAĐ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.917291, 42.709153]]
+    },
+    "point_names": ["SUĐURAĐ port, 0.5 km out on the line to DUBROVNIK (OSM way 178708098)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st28:DUBROVNIK",
+   "type": "station",
+   "name": "DUBROVNIK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.081793, 42.66123], [18.08212, 42.660572]]
+    },
+    "point_names": ["DUBROVNIK port, 0.5 km out on the line to SUĐURAĐ (OSM way 60295883)", "DUBROVNIK port, 0.5 km out on the line to KOLOČEP (OSM way 174921703)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st28:KOLOČEP",
+   "type": "station",
+   "name": "KOLOČEP",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.999547, 42.682037], [18.012068, 42.68444], [18.012336, 42.684858], [17.998986, 42.681312]]
+    },
+    "point_names": [
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 174921703)",
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178630799)",
+     "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178657278)",
+     "KOLOČEP port, 0.5 km out on the line to SUĐURAĐ (OSM way 174921703)"
+    ],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st28:SUĐURAĐ",
+   "type": "station",
+   "name": "SUĐURAĐ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.917291, 42.709153]]
+    },
+    "point_names": ["SUĐURAĐ port, 0.5 km out on the line to DUBROVNIK (OSM way 178708098)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st29:PRAPRATNO",
+   "type": "station",
+   "name": "PRAPRATNO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.674913, 42.807971]]
+    },
+    "point_names": ["PRAPRATNO port, 0.5 km out on the line to SOBRA (OSM way 60441554)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st29:SOBRA",
+   "type": "station",
+   "name": "SOBRA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.622694, 42.746736]]
+    },
+    "point_names": ["SOBRA port, 1.1 km out on the line to PRAPRATNO (OSM way 60441554)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st30:PRAPRATNO",
+   "type": "station",
+   "name": "PRAPRATNO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.674913, 42.807971]]
+    },
+    "point_names": ["PRAPRATNO port, 0.5 km out on the line to SOBRA (OSM way 60441554)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st30:SOBRA",
+   "type": "station",
+   "name": "SOBRA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[17.622694, 42.746736]]
+    },
+    "point_names": ["SOBRA port, 1.1 km out on the line to PRAPRATNO (OSM way 60441554)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Jadrolinija 332, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 332: goods vehicles and trailers up to 5 t of load capacity (one price for the year)",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:VALBISKA", "st1:MERAG", "sys1-1.load-capacity-3-01-4-t", "23.92"],
+    ["st1:VALBISKA", "st1:MERAG", "sys1-1.load-capacity-4-01-5-t", "29.44"],
+    ["st1:VALBISKA", "st1:MERAG", "sys1-1.load-capacity-up-to-3-t", "18.32"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "Jadrolinija 332, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 332: goods vehicles and trailers per tonne over 5 t of load capacity (one price for the year)",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [["st2:VALBISKA", "st2:MERAG", "sys2-1.per-tonne-of-load-capacity-over-5-t", "6.4"]],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "Jadrolinija 334, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 334: goods vehicles and trailers up to 5 t of load capacity (one price for the year)",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:POROZINA", "st3:BRESTOVA", "sys1-1.load-capacity-3-01-4-t", "23.92"],
+    ["st3:POROZINA", "st3:BRESTOVA", "sys1-1.load-capacity-4-01-5-t", "29.44"],
+    ["st3:POROZINA", "st3:BRESTOVA", "sys1-1.load-capacity-up-to-3-t", "18.32"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system4",
+   "name": "Jadrolinija 334, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 334: goods vehicles and trailers per tonne over 5 t of load capacity (one price for the year)",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [["st4:POROZINA", "st4:BRESTOVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "6.4"]],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system5",
+   "name": "Jadrolinija 335, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 335: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-3-01-4-t", null, null, "15.04"],
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-4-01-5-t", null, null, "18.56"],
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-up-to-3-t", null, null, "11.52"],
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "20.32"],
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "24.96"],
+    ["st5:PRIZNA", "st5:ŽIGLJEN", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "15.68"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system6",
+   "name": "Jadrolinija 335, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 335: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st6:PRIZNA", "st6:ŽIGLJEN", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4"],
+    ["st6:PRIZNA", "st6:ŽIGLJEN", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "5.52"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system7",
+   "name": "Jadrolinija 338, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 338: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "27.84"],
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "34.4"],
+    ["st7:LOPAR", "st7:VALBISKA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "21.36"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system8",
+   "name": "Jadrolinija 338, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 338: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st8:LOPAR", "st8:VALBISKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st8:LOPAR", "st8:VALBISKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.44"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system9",
+   "name": "Jadrolinija 401 (1) / 401 (2) / 401 (3) / 431 / 433 (1) / 433 (2) / 434 / 435 (1) / 435 (2), goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 401 (1); line 401 (2); line 401 (3); line 431; line 433 (1); line 433 (2); line 434; line 435 (1); line 435 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-3-01-4-t", null, null, "34.56"],
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-4-01-5-t", null, null, "42.8"],
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-up-to-3-t", null, null, "26.4"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-3-01-4-t", null, null, "23.84"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-4-01-5-t", null, null, "29.28"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-up-to-3-t", null, null, "18.32"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-3-01-4-t", null, null, "44.4"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-4-01-5-t", null, null, "55.28"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-up-to-3-t", null, null, "33.52"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-3-01-4-t", null, null, "23.84"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-4-01-5-t", null, null, "29.28"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-up-to-3-t", null, null, "18.32"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-3-01-4-t", null, null, "23.84"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-4-01-5-t", null, null, "29.28"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-up-to-3-t", null, null, "18.32"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", null, null, "30.4"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", null, null, "37.76"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", null, null, "23.04"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", null, null, "27.12"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", null, null, "33.6"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", null, null, "20.56"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", null, null, "19.2"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", null, null, "23.68"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", null, null, "14.64"],
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:BRBINJ", "st9:ZADAR", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:BRŠANJ", "st9:MALA RAVA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:BRŠANJ", "st9:RAVA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:MALI LOŠINJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:MALI LOŠINJ", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:MALI LOŠINJ", "st9:PREMUDA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:MALI LOŠINJ", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:MOLAT", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "23.84"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "29.28"],
+    ["st9:PREKO", "st9:OŠLJAK", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "18.32"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "22.4"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "27.36"],
+    ["st9:PREMUDA", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "17.52"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "22.4"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "27.36"],
+    ["st9:PREMUDA", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "17.52"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:RIVANJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:RIVANJ", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:RIVANJ", "st9:SESTRUNJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:RIVANJ", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:SESTRUNJ", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:SESTRUNJ", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:SESTRUNJ", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:BRŠANJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:MALA RAVA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "54.64"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "67.84"],
+    ["st9:ZADAR", "st9:MALI LOŠINJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "41.44"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:ZADAR", "st9:OLIB", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "23.84"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "29.28"],
+    ["st9:ZADAR", "st9:OŠLJAK", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "18.32"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "23.84"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "29.28"],
+    ["st9:ZADAR", "st9:PREKO", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "18.32"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:ZADAR", "st9:PREMUDA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:RAVA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:RIVANJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:SESTRUNJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "38.8"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "48"],
+    ["st9:ZADAR", "st9:SILBA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "29.52"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "34.56"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "42.8"],
+    ["st9:ZADAR", "st9:ZVERINAC", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "26.4"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:ZVERINAC", "st9:IST", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "25.28"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "31.04"],
+    ["st9:ZVERINAC", "st9:MOLAT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "19.36"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system10",
+   "name": "Jadrolinija 401 (1) / 401 (2) / 401 (3) / 431 / 433 (1) / 433 (2) / 434 / 435 (1) / 435 (2), goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 401 (1); line 401 (2); line 401 (3); line 431; line 433 (1); line 433 (2); line 434; line 435 (1); line 435 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st10:BRBINJ", "st10:ZADAR", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "9.2"],
+    ["st10:BRŠANJ", "st10:MALA RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:BRŠANJ", "st10:RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:MALI LOŠINJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:MALI LOŠINJ", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:MALI LOŠINJ", "st10:PREMUDA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:MALI LOŠINJ", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:MOLAT", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:PREKO", "st10:OŠLJAK", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.4"],
+    ["st10:PREMUDA", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:PREMUDA", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:RIVANJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:RIVANJ", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:RIVANJ", "st10:SESTRUNJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:RIVANJ", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:SESTRUNJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:SESTRUNJ", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:SESTRUNJ", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:ZADAR", "st10:BRŠANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:MALA RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:MALI LOŠINJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "11.36"],
+    ["st10:ZADAR", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:ZADAR", "st10:OŠLJAK", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.4"],
+    ["st10:ZADAR", "st10:PREKO", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.4"],
+    ["st10:ZADAR", "st10:PREMUDA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:ZADAR", "st10:RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:RIVANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:SESTRUNJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZADAR", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st10:ZADAR", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.04"],
+    ["st10:ZVERINAC", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:ZVERINAC", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.04"],
+    ["st10:BRBINJ", "st10:ZADAR", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:BRŠANJ", "st10:MALA RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:BRŠANJ", "st10:RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:MALI LOŠINJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:MALI LOŠINJ", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:MALI LOŠINJ", "st10:PREMUDA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:MALI LOŠINJ", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:MOLAT", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:PREKO", "st10:OŠLJAK", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.4"],
+    ["st10:PREMUDA", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.28"],
+    ["st10:PREMUDA", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.28"],
+    ["st10:RIVANJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:RIVANJ", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:RIVANJ", "st10:SESTRUNJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:RIVANJ", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:SESTRUNJ", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:SESTRUNJ", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:SESTRUNJ", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:ZADAR", "st10:BRŠANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:MALA RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:MALI LOŠINJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "14.16"],
+    ["st10:ZADAR", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:OLIB", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:ZADAR", "st10:OŠLJAK", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.4"],
+    ["st10:ZADAR", "st10:PREKO", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.4"],
+    ["st10:ZADAR", "st10:PREMUDA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:ZADAR", "st10:RAVA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:RIVANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:SESTRUNJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZADAR", "st10:SILBA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "11.12"],
+    ["st10:ZADAR", "st10:ZVERINAC", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "9.2"],
+    ["st10:ZVERINAC", "st10:IST", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"],
+    ["st10:ZVERINAC", "st10:MOLAT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.8"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system11",
+   "name": "Jadrolinija 432, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 432: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-3-01-4-t", null, null, "16.32"],
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-4-01-5-t", null, null, "20.24"],
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-up-to-3-t", null, null, "12.48"],
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "21.04"],
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "25.84"],
+    ["st11:TKON", "st11:BIOGRAD NA MORU", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "16.16"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system12",
+   "name": "Jadrolinija 432, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 432: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st12:TKON", "st12:BIOGRAD NA MORU", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4.32"],
+    ["st12:TKON", "st12:BIOGRAD NA MORU", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "5.68"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system13",
+   "name": "Jadrolinija 532 (1) / 532 (2), goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 532 (1); line 532 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", null, null, "22.56"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", null, null, "28"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", null, null, "17.12"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-3-01-4-t", null, null, "25.68"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-4-01-5-t", null, null, "31.84"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-up-to-3-t", null, null, "19.44"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", null, null, "25.68"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", null, null, "31.84"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", null, null, "19.44"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", null, null, "25.68"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", null, null, "31.84"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", null, null, "19.44"],
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:KAPRIJE", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:KAPRIJE", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:OBONJAN", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:ZLARIN", "st13:KAPRIJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:ZLARIN", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:ZLARIN", "st13:ŠIBENIK", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.72"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "35.52"],
+    ["st13:ZLARIN", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "32.72"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "40.48"],
+    ["st13:ŠIBENIK", "st13:KAPRIJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "24.96"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "32.72"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "40.48"],
+    ["st13:ŠIBENIK", "st13:OBONJAN", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "24.96"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "32.72"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "40.48"],
+    ["st13:ŠIBENIK", "st13:ŽIRJE", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "24.96"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system14",
+   "name": "Jadrolinija 532 (1) / 532 (2), goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 532 (1); line 532 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st14:KAPRIJE", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:KAPRIJE", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:OBONJAN", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:ZLARIN", "st14:KAPRIJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:ZLARIN", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:ZLARIN", "st14:ŠIBENIK", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:ZLARIN", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "5.84"],
+    ["st14:ŠIBENIK", "st14:KAPRIJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.64"],
+    ["st14:ŠIBENIK", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.64"],
+    ["st14:ŠIBENIK", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.64"],
+    ["st14:KAPRIJE", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:KAPRIJE", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:OBONJAN", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:ZLARIN", "st14:KAPRIJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:ZLARIN", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:ZLARIN", "st14:ŠIBENIK", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:ZLARIN", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.6"],
+    ["st14:ŠIBENIK", "st14:KAPRIJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.72"],
+    ["st14:ŠIBENIK", "st14:OBONJAN", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.72"],
+    ["st14:ŠIBENIK", "st14:ŽIRJE", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.72"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system15",
+   "name": "Jadrolinija 602 / 604 (1) / 604 (2) / 631 / 635 / 636, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 602; line 604 (1); line 604 (2); line 631; line 635; line 636: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", null, null, "22.96"],
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", null, null, "28.48"],
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", null, null, "17.44"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-3-01-4-t", null, null, "56.56"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-4-01-5-t", null, null, "70.4"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-up-to-3-t", null, null, "42.64"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-3-01-4-t", null, null, "56.56"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-4-01-5-t", null, null, "70.4"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-up-to-3-t", null, null, "42.64"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", null, null, "32.72"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", null, null, "40.64"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", null, null, "24.72"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", null, null, "29.6"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", null, null, "36.56"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", null, null, "22.64"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-3-01-4-t", null, null, "23.84"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-4-01-5-t", null, null, "29.52"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-up-to-3-t", null, null, "18.08"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", null, null, "42.08"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", null, null, "52.32"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", null, null, "31.76"],
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.32"],
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "34.96"],
+    ["st15:ROGAČ", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "21.68"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "70.08"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "87.12"],
+    ["st15:SPLIT", "st15:UBLI", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "53.04"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "70.08"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "87.12"],
+    ["st15:SPLIT", "st15:VELA LUKA", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "53.04"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "41.12"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "50.96"],
+    ["st15:STARI GRAD", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "31.28"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "29.6"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "36.56"],
+    ["st15:SUPETAR", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22.64"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "30.88"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "38.08"],
+    ["st15:VELA LUKA", "st15:UBLI", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "23.6"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "50.96"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "63.2"],
+    ["st15:VIS", "st15:SPLIT", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "38.64"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system16",
+   "name": "Jadrolinija 602 / 604 (1) / 604 (2) / 631 / 635 / 636, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 602; line 604 (1); line 604 (2); line 631; line 635; line 636: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st16:ROGAČ", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6"],
+    ["st16:SPLIT", "st16:UBLI", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "13.92"],
+    ["st16:SPLIT", "st16:VELA LUKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "13.92"],
+    ["st16:STARI GRAD", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "8.4"],
+    ["st16:SUPETAR", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "7.84"],
+    ["st16:VELA LUKA", "st16:UBLI", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.16"],
+    ["st16:VIS", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "10.72"],
+    ["st16:ROGAČ", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.52"],
+    ["st16:SPLIT", "st16:UBLI", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "17.6"],
+    ["st16:SPLIT", "st16:VELA LUKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "17.6"],
+    ["st16:STARI GRAD", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "10.72"],
+    ["st16:SUPETAR", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.84"],
+    ["st16:VELA LUKA", "st16:UBLI", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.16"],
+    ["st16:VIS", "st16:SPLIT", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "13.2"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system17",
+   "name": "Jadrolinija 606 (1) / 606 (2), goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 606 (1); line 606 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-3-01-4-t", null, null, "17.28"],
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-4-01-5-t", null, null, "21.36"],
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-up-to-3-t", null, null, "13.2"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-3-01-4-t", null, null, "24.32"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-4-01-5-t", null, null, "30.08"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-up-to-3-t", null, null, "18.48"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-3-01-4-t", null, null, "24.32"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-4-01-5-t", null, null, "30.08"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-up-to-3-t", null, null, "18.48"],
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "22.88"],
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "28.16"],
+    ["st17:DRVENIK VELI", "st17:DRVENIK MALI", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "17.68"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "31.28"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "38.64"],
+    ["st17:TROGIR", "st17:DRVENIK MALI", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "23.92"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "31.28"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "38.64"],
+    ["st17:TROGIR", "st17:DRVENIK VELI", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "23.92"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system18",
+   "name": "Jadrolinija 606 (1) / 606 (2), goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 606 (1); line 606 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st18:DRVENIK VELI", "st18:DRVENIK MALI", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4.56"],
+    ["st18:TROGIR", "st18:DRVENIK MALI", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.32"],
+    ["st18:TROGIR", "st18:DRVENIK VELI", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.32"],
+    ["st18:DRVENIK VELI", "st18:DRVENIK MALI", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.16"],
+    ["st18:TROGIR", "st18:DRVENIK MALI", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.32"],
+    ["st18:TROGIR", "st18:DRVENIK VELI", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "8.32"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system19",
+   "name": "Jadrolinija 632, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 632: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-3-01-4-t", null, null, "15.92"],
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-4-01-5-t", null, null, "19.68"],
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-up-to-3-t", null, null, "12.16"],
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "20.8"],
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "25.52"],
+    ["st19:SUĆURAJ", "st19:DRVENIK", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "16"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system20",
+   "name": "Jadrolinija 632, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 632: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st20:SUĆURAJ", "st20:DRVENIK", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4.16"],
+    ["st20:SUĆURAJ", "st20:DRVENIK", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "5.6"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system21",
+   "name": "Jadrolinija 633, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 633: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-3-01-4-t", null, null, "18.72"],
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-4-01-5-t", null, null, "23.12"],
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-up-to-3-t", null, null, "14.24"],
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "23.84"],
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "29.36"],
+    ["st21:PLOČE", "st21:TRPANJ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "18.32"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system22",
+   "name": "Jadrolinija 633, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 633: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st22:PLOČE", "st22:TRPANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4.88"],
+    ["st22:PLOČE", "st22:TRPANJ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "6.4"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system23",
+   "name": "Jadrolinija 634, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 634: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-3-01-4-t", null, null, "15.44"],
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-4-01-5-t", null, null, "19.36"],
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-up-to-3-t", null, null, "11.84"],
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "20.56"],
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "25.28"],
+    ["st23:DOMINČE", "st23:OREBIĆ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "15.92"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system24",
+   "name": "Jadrolinija 634, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 634: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st24:DOMINČE", "st24:OREBIĆ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "4.08"],
+    ["st24:DOMINČE", "st24:OREBIĆ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "5.6"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system25",
+   "name": "Jadrolinija 638, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 638: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-01 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-3-01-4-t", null, null, "24.32"],
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-4-01-5-t", null, null, "30.16"],
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-up-to-3-t", null, null, "18.48"],
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-3-01-4-t", "sys25-season", 1, "31.28"],
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-4-01-5-t", "sys25-season", 1, "38.64"],
+    ["st25:SUMARTIN", "st25:MAKARSKA", "sys1-1.load-capacity-up-to-3-t", "sys25-season", 1, "23.92"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system26",
+   "name": "Jadrolinija 638, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 638: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-01 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st26:SUMARTIN", "st26:MAKARSKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.32"],
+    ["st26:SUMARTIN", "st26:MAKARSKA", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys25-season", 1, "8.32"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system27",
+   "name": "Jadrolinija 831, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 831: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-3-01-4-t", null, null, "22.96"],
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-4-01-5-t", null, null, "28.48"],
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-up-to-3-t", null, null, "17.44"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-3-01-4-t", null, null, "22.96"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-4-01-5-t", null, null, "28.48"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-up-to-3-t", null, null, "17.44"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-3-01-4-t", null, null, "22.96"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-4-01-5-t", null, null, "28.48"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-up-to-3-t", null, null, "17.44"],
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "29.6"],
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "36.56"],
+    ["st27:DUBROVNIK", "st27:KOLOČEP", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22.64"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "29.6"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "36.56"],
+    ["st27:DUBROVNIK", "st27:SUĐURAĐ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22.64"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "29.6"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "36.56"],
+    ["st27:KOLOČEP", "st27:SUĐURAĐ", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "22.64"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system28",
+   "name": "Jadrolinija 831, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 831: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st28:DUBROVNIK", "st28:KOLOČEP", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6"],
+    ["st28:DUBROVNIK", "st28:SUĐURAĐ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6"],
+    ["st28:KOLOČEP", "st28:SUĐURAĐ", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6"],
+    ["st28:DUBROVNIK", "st28:KOLOČEP", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.84"],
+    ["st28:DUBROVNIK", "st28:SUĐURAĐ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.84"],
+    ["st28:KOLOČEP", "st28:SUĐURAĐ", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.84"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system29",
+   "name": "Jadrolinija 832, goods vehicles up to 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 832: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-3-01-4-t", null, null, "23.36"],
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-4-01-5-t", null, null, "28.96"],
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-up-to-3-t", null, null, "17.76"],
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-3-01-4-t", "sys5-season", 1, "28.08"],
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-4-01-5-t", "sys5-season", 1, "34.56"],
+    ["st29:SOBRA", "st29:PRAPRATNO", "sys1-1.load-capacity-up-to-3-t", "sys5-season", 1, "21.52"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system30",
+   "name": "Jadrolinija 832, goods vehicles per tonne over 5 t",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg",
+   "unmatched": "free",
+   "method": "Jadrolinija's 2026 price list, line 832: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
+   "rows": [
+    ["st30:SOBRA", "st30:PRAPRATNO", "sys2-1.per-tonne-of-load-capacity-over-5-t", null, null, "6.08"],
+    ["st30:SOBRA", "st30:PRAPRATNO", "sys2-1.per-tonne-of-load-capacity-over-5-t", "sys5-season", 1, "7.52"]
+   ],
+   "sources": [
+    "s1",
+    "s2",
+    "s3",
+    "s4",
+    "s5",
+    "s6",
+    "s7",
+    "s8",
+    "s9",
+    "s10",
+    "s11",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s22",
+    "s23",
+    "s24",
+    "s25"
+   ],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

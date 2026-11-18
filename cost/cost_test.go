@@ -3168,3 +3168,51 @@ func TestBelgradeBypass(t *testing.T) {
 		t.Errorf("Ostružnica to Orlovača: %.2f EUR, want %.2f: %v", eur, want, r.Provenance.FX)
 	}
 }
+
+// Jadrolinija's state ferry lines (2026 price lists, VAT 25% out): a goods
+// vehicle up to 5 t of load capacity pays a flat fare, over 5 t a fare per
+// tonne of it. Split-Supetar (line 631) has one price for the year: 9.80
+// EUR per tonne, 7.84 net; Split-Stari Grad (line 635) 10.50 off-season
+// and 13.40 in the season (29 May to 27 September), 8.40 and 10.72 net.
+// The path runs through the stations' points out on OpenStreetMap's car
+// ferry lines (ways 12307574 and 29500693).
+func TestJadrolinija(t *testing.T) {
+	split := [][2]float64{{16.440, 43.505}, {16.434624, 43.498295}}
+	supetar := append(append([][2]float64{}, split...), [2]float64{16.551522, 43.389463}, [2]float64{16.555, 43.383})
+	stariGrad := [][2]float64{{16.440, 43.505}, {16.434506, 43.500217}, {16.572899, 43.185182}, {16.58, 43.18}}
+	big := truck40
+	big.CapacityKg = 25000
+	small := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1, CapacityKg: 4500}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		want  float64
+	}{
+		{"Split-Supetar, 25 t of capacity", supetar, big, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 196.00},
+		{"Split-Supetar, 25 t, summer", supetar, big, time.Date(2026, 7, 15, 0, 0, 0, 0, time.UTC), 196.00},
+		{"Split-Supetar, 4.5 t of capacity", supetar, small, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 36.56},
+		{"Split-Stari Grad, 25 t, off-season", stariGrad, big, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 210.00},
+		{"Split-Stari Grad, 25 t, season", stariGrad, big, time.Date(2026, 7, 15, 0, 0, 0, 0, time.UTC), 268.00},
+		{"no load capacity given", supetar, truck40, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"HR": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Jadrolinija") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+		if tc.truck.CapacityKg == 0 && !strings.Contains(strings.Join(r.Notes, " "), "capacity_kg") {
+			t.Errorf("%s: no note asks for truck.capacity_kg: %v", tc.name, r.Notes)
+		}
+	}
+}

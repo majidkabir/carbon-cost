@@ -57,14 +57,12 @@ jobs:
         # same content) is taken from it.
         run: |
           ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          pip install -q opencv-python-headless pytesseract
           for f in out/rs-sg-*.pdf; do
             b=$(basename "$f" .pdf)
             d=$(python3 tools/history/rs_gazette.py --digest "$f")
             if [ -f "prev/$b.json" ] && grep -q "\"digest\": \"$d\"" "prev/$b.json"; then cp "prev/$b.json" "out/$b.json"; continue; fi
-            if ! command -v tesseract >/dev/null; then
-              for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
-              pip install -q opencv-python-headless pytesseract
-            fi
             python3 tools/history/rs_gazette.py "$f" "out/$b.json" || echo "::error title=rs_gazette::$f not read"
           done
       - name: OpenStreetMap extracts and current tables

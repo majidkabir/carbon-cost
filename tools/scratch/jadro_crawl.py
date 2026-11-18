@@ -1,9 +1,9 @@
-import re, sys, json, time, urllib.request, html, os
+import re, sys, json, time, urllib.request, urllib.parse, html, os
 UA = {"User-Agent": "Mozilla/5.0"}
 def get(u, binary=False):
     for i in range(3):
         try:
-            b = urllib.request.urlopen(urllib.request.Request(u, headers=UA), timeout=60).read()
+            b = urllib.request.urlopen(urllib.request.Request(urllib.parse.quote(u, safe=":/?=&%"), headers=UA), timeout=60).read()
             return b if binary else b.decode("utf-8", "replace")
         except Exception as e:
             print("retry", u, e); time.sleep(5)
@@ -12,6 +12,7 @@ h = get("https://www.jadrolinija.hr/hr/putovanja/lokalne_linije")
 lines = sorted(set(re.findall(r'href="(https://www\.jadrolinija\.hr/hr/putovanje/[^"]+)"', h)))
 out = []
 os.makedirs("out/lines", exist_ok=True)
+lines = [u for u in lines if "–" in u or "split_–_vis" in u]
 for u in lines:
     p = get(u)
     slug = u.rsplit("/", 1)[-1]

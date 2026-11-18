@@ -23,7 +23,7 @@
    "name": "A1 Rruga e Kombit toll (Milot–Morinë)",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "16fc96006c49fdf680a6514639c87b4f6a3348e668541bdb2a72671a00631af2",
+   "sha256": "9b60a940812ab152652091b9f3ba2abe16b37ae854de2ba39aa83b0a9369cdba",
    "coverage": "complete"
   },
   {
@@ -2509,7 +2509,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-07-09",
-   "sha256": "b7797458e8a2670cc588b0860fc44216ba7f413bd9066c8058e50b81b2cf30b3",
+   "sha256": "fc5c903eac0ab11f4440ff75eae9ebead820708dd48403733128ba4b6ad945a8",
    "coverage": "complete"
   },
   {
@@ -2520,7 +2520,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2024-07-10",
    "valid_to": "2025-01-09",
-   "sha256": "2e8386f83083d395f67ec2034eef748a1d99a93cca8dba27b93e697aee039198",
+   "sha256": "8127668e6903cd98130f198fab7d384fad39a749ff096f823cef7800e99ecaee",
    "coverage": "complete"
   },
   {
@@ -2531,7 +2531,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2025-01-10",
    "valid_to": "2025-07-03",
-   "sha256": "c58faf3a0ce0585c68e595b782811be2e94902b90302f591ca01cb165c442c54",
+   "sha256": "8d50dfed5a1e91e0e8bb5c8387ac8c101a23121842b086e7ed86d67afbbc17d0",
    "coverage": "complete"
   },
   {
@@ -2542,7 +2542,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2025-07-04",
    "valid_to": "2025-07-09",
-   "sha256": "b3a4a93d14bfccaec8b035968bd6d34697888e1008a2c947bc4b587ded10f0c3",
+   "sha256": "01bf50fb7ccb7cd6efe3a2683efd81f87bca906a7ce3cef779e9fc38fae5557b",
    "coverage": "complete"
   },
   {
@@ -2553,7 +2553,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2025-07-10",
    "valid_to": "2025-12-31",
-   "sha256": "dff3d22e8dde5e1403308e01790da0fb41fbf07e765a8acb44e41791e827e659",
+   "sha256": "e4039786345361331fc7e82eab30bae01fadda72cd531aece41c3f507eaf9d49",
    "coverage": "complete"
   },
   {
@@ -2563,8 +2563,19 @@
    "file": "rs/rs-2026-01-01.orct.json",
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-01-01",
+   "valid_to": "2026-01-13",
+   "sha256": "6d43da1be897f1a32b34399c28738db5238f79c66cd77f82cff004da6c9032aa",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/rs/2026-01-14",
+   "scheme": "rs",
+   "country": "RS",
+   "file": "rs/rs-2026-01-14.orct.json",
+   "name": "Serbian motorway toll (putarina)",
+   "valid_from": "2026-01-14",
    "valid_to": "2026-06-30",
-   "sha256": "9919d116a5cce54500c9b2df5a712986a2f2272b27b95c2dc629a910090f6b69",
+   "sha256": "2f9b1394fe5ba96af39150a0090192d5a72f6a8ebf37043a491e6fdc6ac8158e",
    "coverage": "complete"
   },
   {
@@ -2574,8 +2585,8 @@
    "file": "rs/rs-2026-07-01.orct.json",
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
-   "valid_to": "2026-12-31",
-   "sha256": "f8fa077bdabe82ad88e847e075c629fe11615845c76639fd7dd2ef2a66adb9e7",
+   "valid_to": null,
+   "sha256": "2d6a37cf6f250741ee3f5fbfb293f8bcffbbf16a82dcc84bbd50d78efe75b637",
    "coverage": "complete"
   },
   {

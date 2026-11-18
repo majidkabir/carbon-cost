@@ -313,7 +313,8 @@ def tables_in(pdf, doc, first):
                 continue
             im, ts = up
             for top, rows, xs in ts:
-                if len(rows) < 4:
+                # A matrix: a row per station and a column per station besides the names.
+                if len(rows) < 4 or len(rows) - 1 != len(xs) - 2:
                     continue
                 title = text(im[top + 4:rows[0] - 4, xs[0] + 4:xs[1] - 4])
                 section = re.sub(r"\s*[–—-]+\s*", "–", re.split(r"\s(?:\S+\s)?категорија", title)[0]).strip()
@@ -340,10 +341,13 @@ def sections_of(pdf, found):
             sections[-1]["tables"].append(t)
         else:
             sections.append({"section": t["section"], "tables": [t]})
+    # A lone table isn't a section's (a section prints a matrix per
+    # category): it is passed over, and a section it should have been
+    # missing shows in the tables built (tools/rs/gazette.py).
     for s in sections:
         if len(s["tables"]) < 2:
-            sys.exit(f"{pdf}: {s['section']!r} (page {s['tables'][0]['page']}): one matrix, not III and IV")
-    return sections
+            print(f"{pdf}: {s['section']!r} (page {s['tables'][0]['page']}): one matrix, passed over", file=sys.stderr)
+    return [s for s in sections if len(s["tables"]) >= 2]
 
 
 def digest(pdf):

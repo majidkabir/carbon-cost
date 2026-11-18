@@ -39,6 +39,17 @@ import sys
 
 POINT_KM, CLEAR_KM, MATCH_KM, QUAY_KM = 0.5, 0.3, 0.15, 0.8
 VAT = 1.12
+ZE = "zero-emission"  # the groups of zero-emission trucks (CO2 class 5), before the others
+
+
+def krone(x):
+    """Rounded to the nearest whole krone (half up), as the regulativ rounds the zero-emission price."""
+    return int(x + 0.5 + 1e-9)
+
+
+def ze_groups(groups):
+    """The zero-emission groups (CO2 class 5) ahead of the others: the first group a truck matches is its group."""
+    return [dict(g, name=f"{g['name']} {ZE}", co2_class=[5]) for g in groups] + groups
 LENGTHS = [("AP1", None, 6.0), ("AP2", 6.0, 8.0), ("AP3", 8.0, 10.0), ("AP4", 10.0, 12.5), ("AP5", 12.5, 14.5),
            ("AP6", 14.5, 17.5), ("AP7", 17.5, 19.5), ("AP8", 19.5, 22.0), ("AP9", 22.0, None)]
 HEADER = "<6m 6,01-8m 8,01-10m 10,01-12,5m 12,51-14,5m 14,51-17,5m 17,51-19,5m 19,51-22m >22m"
@@ -172,7 +183,8 @@ def main(fetched, out):
         sys.exit(f"Norwegian ferries: the price table's zones not read ({len(zones)})")
     # The rules: priced by total length with trailer and load; 40% off with a business account.
     for needle in ("Kjøretøy takstberegnes etter kjøretøyets målte totallengde", "Kjøretøy over 6 meter og med tilhenger takseres som ett kjøretøy",
-                   "Bedriftskunder kan oppnå 40 % rabatt"):
+                   "Bedriftskunder kan oppnå 40 % rabatt",
+                   "drivstoffkode 6 (hydrogen), betaler en takst som er 70% (AP1) eller 50% (AP2-AP9 og MC) av prisen i den takstgruppe som kjøretøyet blir målt til å tilhøre, avrundet til nærmeste hele krone. Det ytes ordinære rabatter på denne taksten"):
         if needle not in rules:
             sys.exit(f"Norwegian ferries: the regulativ no longer says {needle!r}")
     # The Minister's answer: zone and 2025 AP1 full price by stretch.
@@ -226,7 +238,12 @@ def main(fetched, out):
                 notes.append(f"{stretch}: the toll (bompenger) charged on board isn't included")
             for e in found:
                 stations[e] = points[e]
-            prices[f"{found[0]}|{found[1]}"] = {g: (0 if free else round(zones[zone][k] / VAT, 2)) for k, (g, _, _) in enumerate(LENGTHS)}
+            p = {}
+            for k, (g, _, _) in enumerate(LENGTHS):
+                p[g] = 0 if free else round(zones[zone][k] / VAT, 2)
+                # Zero-emission: 70% (AP1) or 50% of the full price, to the krone; the discounts apply on it.
+                p[f"{g} {ZE}"] = 0 if free else round(krone(zones[zone][k] * (0.7 if k == 0 else 0.5)) / VAT, 2)
+            prices[f"{found[0]}|{found[1]}"] = p
             if free:
                 notes.append(f"{stretch} is free (priced 0 in the Minister's table)")
         if not prices:
@@ -239,7 +256,7 @@ def main(fetched, out):
             if hi:
                 gg["max_length_m"] = hi
             groups.append(gg)
-        systems.append({"name": f"{route} ferry", "law": f"AutoPASS-regulativ for ferjetakster: {route}, by stretch (zone)", "groups": groups,
+        systems.append({"name": f"{route} ferry", "law": f"AutoPASS-regulativ for ferjetakster: {route}, by stretch (zone)", "groups": ze_groups(groups),
                         "stations": [{"name": n, "points": pts} for n, pts in sorted(stations.items())], "station_match_km": MATCH_KM,
                         "prices": prices, "discounts": [{"name": "AutoPASS ferry account, business, prepaid (40%)", "etc": True, "percent": 40}]})
         print(route, {k: v["AP6"] for k, v in prices.items()}, {n: len(p) for n, p in stations.items()})
@@ -253,11 +270,15 @@ def main(fetched, out):
         sys.exit("Norwegian ferries: Moss-Horten's price list has no dates")
     mh_from, mh_to = f"{head.group(3)}-{head.group(2)}-{head.group(1)}", f"{head.group(6)}-{head.group(5)}-{head.group(4)}"
     mh_groups, mh_full, mh_etc = [], {}, {}
-    for m in re.finditer(r"^AP(\d) (Inntil [\d,]+|[\d,]+ - [\d,]+|Over [\d,]+) meters\s+(\d+),(\d\d)\s+(\d+),(\d\d)\s+(\d+),(\d\d)", mh, re.M):
+    if "Electric and Hydrogen vehicle" not in mh or "registered in the Norwegian Vehicle Register with fuel code 5 (electric) and fuel code 6 (hydrogen)" not in re.sub(r"\s+", " ", mh):
+        sys.exit("Norwegian ferries: Moss-Horten's price list no longer has the electric and hydrogen columns")
+    for m in re.finditer(r"^AP(\d) (Inntil [\d,]+|[\d,]+ - [\d,]+|Over [\d,]+) meters" + r"\s+(\d+),(\d\d)" * 6, mh, re.M):
         name, span = f"AP{m.group(1)}", m.group(2).replace(",", ".")
-        full, tag, deal = (int(m.group(k)) + int(m.group(k + 1)) / 100 for k in (3, 5, 7))
+        full, tag, deal, ze_full, ze_tag, ze_deal = (int(m.group(k)) + int(m.group(k + 1)) / 100 for k in range(3, 15, 2))
         if abs(full * 0.9 - tag) > 0.01 or abs(full * 0.7 - deal) > 0.01:
             sys.exit(f"Norwegian ferries: Moss-Horten {name}: {tag} and {deal} aren't 10% and 30% off {full}")
+        if ze_full != krone(full * (0.7 if name == "AP1" else 0.5)) or abs(ze_full * 0.9 - ze_tag) > 0.01 or abs(ze_full * 0.7 - ze_deal) > 0.01:
+            sys.exit(f"Norwegian ferries: Moss-Horten {name}: the electric and hydrogen prices {ze_full}, {ze_tag}, {ze_deal} don't follow from {full}")
         g = {"name": name}
         if span.startswith("Inntil "):
             g["max_length_m"] = float(span.split()[1])
@@ -268,6 +289,7 @@ def main(fetched, out):
             g["min_length_m"], g["max_length_m"] = round(float(lo) - 0.01, 2), float(hi)
         mh_groups.append(g)
         mh_full[name], mh_etc[name] = round(full / VAT, 2), round(deal / VAT, 2)
+        mh_full[f"{name} {ZE}"], mh_etc[f"{name} {ZE}"] = round(ze_full / VAT, 2), round(ze_deal / VAT, 2)
     if [g["name"] for g in mh_groups] != [f"AP{k}" for k in range(1, 10)]:
         sys.exit(f"Norwegian ferries: Moss-Horten's length groups not read ({[g['name'] for g in mh_groups]})")
     o = by_name.get(key("Moss - Horten"))
@@ -276,7 +298,7 @@ def main(fetched, out):
     if sorted(points) != ["Horten", "Moss"]:
         sys.exit(f"Norwegian ferries: Moss-Horten's quays or car ferry line not found ({sorted(qs)}, {sorted(points)})")
     systems.append({"name": "Moss–Horten ferry", "law": f"Rv. 19 Moss-Horten's price list {mh_from} to {mh_to} (its own AutoPASS-regulativ): the full price by length; `etc` with an AutoPASS tag and a prepaid Moss-Horten agreement (30% off)",
-                    "groups": mh_groups, "stations": [{"name": n, "points": pts} for n, pts in sorted(points.items())], "station_match_km": MATCH_KM,
+                    "groups": ze_groups(mh_groups), "stations": [{"name": n, "points": pts} for n, pts in sorted(points.items())], "station_match_km": MATCH_KM,
                     "prices": {"Moss|Horten": mh_full}, "etc_prices": {"Moss|Horten": mh_etc}})
     print("Moss–Horten", mh_full["AP6"], mh_etc["AP6"], {n: len(p) for n, p in points.items()})
     start = max(start, mh_from)
@@ -285,9 +307,10 @@ def main(fetched, out):
          "law": (f"AutoPASS-regulativ for ferjetakster from {start} (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's "
                  "total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, "
                  "the prices here exclude it. Paying by AutoPASS tag with a prepaid business ferry account (`etc`) takes 40% off (a central AutoPASS agreement alone, 10%). "
-                 "Electric and hydrogen vehicles registered as such pay half (AP2-AP9), which isn't applied here. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting "
+                 "Zero-emission trucks (CO2 class 5; the regulativ: registered with fuel code 5, electric, or 6, hydrogen, in the Norwegian register, or for a foreign one in AutoPASS's own routine, else full price) "
+                 "pay 70% (AP1) or 50% (AP2-AP9) of their group's price, to the krone, and the discounts apply on that. Each national road ferry route's zone by stretch from the Minister of Transport's answer to the Storting "
                  "of 11 December 2025 (written question 699), checked against the table; the quays from NVDB, matched where a route goes out on OpenStreetMap's car ferry line from them. "
-                 f"Moss-Horten has a regulativ of its own: the operator's price list from {mh_from} to {mh_to}, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), "
+                 f"Moss-Horten has a regulativ of its own: the operator's price list from {mh_from} to {mh_to}, by length (AP4 10.01-12 m, AP5 12.01-14 m, AP6 14.01-17.5 m), 30% off with a prepaid Moss-Horten agreement (`etc`), its electric and hydrogen prices for zero-emission trucks, "
                  "double for vehicles wider than 2.6 m (not applied). "
                  + " ".join(f"{n}." for n in notes)),
          "sources": [{"title": "Statens vegvesen: AutoPASS-regulativ for ferjetakster, takster (fullpris) fra 1. januar 2026", "url": URLS["price"]},

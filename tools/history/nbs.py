@@ -53,7 +53,7 @@ def main(out):
     if not days or days[0] != f"{FROM}-01-01" or len(days) != want or (today - datetime.date.fromisoformat(days[-1])).days > 4:
         sys.exit(f"nbs: {len(days)} days from {days[:1]} to {days[-1:]}, not every day to {today}")
     with open(out, "w", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["date", "RSD"])
         w.writerows([d, rows[d]] for d in days)
     print(len(days), "days from", days[0], "to", days[-1])

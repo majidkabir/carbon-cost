@@ -103,6 +103,22 @@ jobs:
           osmium extract -O -b 20.2,44.65,20.6,44.95 rs.pbf -o rs-bg.pbf
           osmium tags-filter -O -o rs-bg-m.pbf rs-bg.pbf w/highway=motorway n/highway=motorway_junction
           osmium export -O -f geojsonseq -a type,id -o out/rs-bypass-osm.geojsonseq rs-bg-m.pbf
+      - name: Serbian toll decision's tables (OCR)
+        # tools/rs/gazette_ocr.py reads the scanned tables of the putarina
+        # decision's amendment in force (tools/tables/rs.py); the last run's
+        # reading is kept while the issue's content is the same.
+        run: |
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          pip install -q opencv-python-headless pytesseract pymupdf
+          git fetch -q --depth 1 origin tables-out
+          for f in out/rs-sg-*.pdf; do
+            b=$(basename "$f" .pdf)
+            d=$(python3 tools/rs/gazette_ocr.py --digest "$f")
+            if git show "FETCH_HEAD:$b.json" > prev.json 2>/dev/null && grep -q "\"digest\": \"$d\"" prev.json; then mv prev.json "out/$b.json"; continue; fi
+            python3 tools/rs/gazette_ocr.py "$f" "out/$b.json" || echo "::error title=gazette_ocr::$f not read"
+          done
+          rm -f prev.json
       - name: Build
         # A builder that fails (an Overpass answer short of booths, a page that
         # changed) is reported and the others still run; the run fails at the end.

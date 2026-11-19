@@ -2,28 +2,40 @@
  "about": "x",
  "sources": [
   {
-   "id": "fdb-js-samband",
+   "id": "polsca-tt-karlshamn",
    "table": "x",
-   "url": "https://ferjedatabanken.no/_next/static/chunks/pages/samband-c8bf5c5ad24a1e79.js",
-   "what": "fdb-js-samband"
+   "url": "https://www.unityline.eu/__data/assets/pdf_file/0017/27017/Timetable-_KARLSHAMN_Polsca_22.12.2026.pdf",
+   "what": "polsca-tt-karlshamn"
   },
   {
-   "id": "fdb-js-app",
+   "id": "polsca-tt-ystad",
    "table": "x",
-   "url": "https://ferjedatabanken.no/_next/static/chunks/pages/_app-d07f14bcda105991.js",
-   "what": "fdb-js-app"
+   "url": "https://www.unityline.eu/__data/assets/pdf_file/0025/27871/Timetable-_YSTAD_16.11..2026.pdf",
+   "what": "polsca-tt-ystad"
   },
   {
-   "id": "fdb-js-115",
+   "id": "polsca-tt-trelleborg",
    "table": "x",
-   "url": "https://ferjedatabanken.no/_next/static/chunks/115-34671d76bd53300e.js",
-   "what": "fdb-js-115"
+   "url": "https://www.unityline.eu/__data/assets/pdf_file/0027/27873/Timetable-_TRELLEBORG_16.11.2026.pdf",
+   "what": "polsca-tt-trelleborg"
   },
   {
-   "id": "fdb-js-730",
+   "id": "polsca-tt-nynashamn",
    "table": "x",
-   "url": "https://ferjedatabanken.no/_next/static/chunks/730-58bcbd2a49ca809e.js",
-   "what": "fdb-js-730"
+   "url": "https://www.unityline.eu/__data/assets/pdf_file/0028/27874/Timetable-Nynashamn_01.11.2026.pdf",
+   "what": "polsca-tt-nynashamn"
+  },
+  {
+   "id": "bornholm-faerger-da",
+   "table": "x",
+   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger",
+   "what": "bornholm-faerger-da"
+  },
+  {
+   "id": "unity-ferries-pl",
+   "table": "x",
+   "url": "https://www.unityline.pl/cargo/promy",
+   "what": "unity-ferries-pl"
   }
  ]
 }

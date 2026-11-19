@@ -2,45 +2,21 @@
  "about": "x",
  "sources": [
   {
-   "id": "po-dover-calais",
+   "id": "dfds-routes",
    "table": "x",
-   "url": "https://www.pofreight.com/route/dover-calais-freight",
+   "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules",
    "what": "x"
   },
   {
-   "id": "po-hull-europoort",
+   "id": "dfds-klaipeda-karlshamn",
    "table": "x",
-   "url": "https://www.pofreight.com/route/hull-europoort-freight",
+   "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/klaipeda-karlshamn",
    "what": "x"
   },
   {
-   "id": "po-hull-zeebrugge",
+   "id": "dfds-tt",
    "table": "x",
-   "url": "https://www.pofreight.com/route/hull-zeebrugge-freight",
-   "what": "x"
-  },
-  {
-   "id": "po-larne-cairnryan",
-   "table": "x",
-   "url": "https://www.pofreight.com/route/larne-cairnryan-freight",
-   "what": "x"
-  },
-  {
-   "id": "po-tilbury-zeebrugge",
-   "table": "x",
-   "url": "https://www.pofreight.com/route/tilbury-zeebrugge-freight",
-   "what": "x"
-  },
-  {
-   "id": "po-tilbury-europoort",
-   "table": "x",
-   "url": "https://www.pofreight.com/route/tilbury-europoort-freight",
-   "what": "x"
-  },
-  {
-   "id": "po-routes",
-   "table": "x",
-   "url": "https://www.pofreight.com/routes",
+   "url": "https://www.dfds.com/api/timetable?dateFrom=2026-11-19T00%3A00%3A00.000Z&dateTo=2026-12-03T00%3A00%3A00.000Z&portOfDischarge=SEKAN&portOfLoading=LTKLJ",
    "what": "x"
   }
  ]

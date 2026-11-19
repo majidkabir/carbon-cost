@@ -138,7 +138,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.263641, 45.551447]
+     "coordinates": [9.263721, 45.55137]
     },
     "match_m": 100
    }
@@ -178,7 +178,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-06-01"
+   "osm_extract": "2026-11-19"
   }
  }
 }

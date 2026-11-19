@@ -1,29 +1,56 @@
 {
- "about": "FRS Elbfähre sources for the fetch-docs run",
+ "about": "Danish island ferries for the fetch-docs run",
  "sources": [
   {
-   "id": "frs-elbe-trucks",
-   "table": "de_elbfaehre",
-   "url": "https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
-   "what": "FRS Elbfähre Glückstadt–Wischhafen: fares for trucks and cargo",
+   "id": "dk-aeroe-prices",
+   "table": "dk-ferries",
+   "url": "https://www.aeroe-ferry.dk/en/prices/single-prices-3-1-2026-4-1-2027",
+   "what": "Ærøfærgerne: single prices",
    "expect": [
-    "18.35"
+    "Lorry"
    ]
   },
   {
-   "id": "frs-elbe-special",
-   "table": "de_elbfaehre",
-   "url": "https://www.frs-elbfaehre.de/en/fahrpreise/special-regulations",
-   "what": "FRS Elbfähre: special regulations",
+   "id": "dk-aeroe-prices-da",
+   "table": "dk-ferries",
+   "url": "https://www.aeroe-ferry.dk/da/priser",
+   "what": "Ærøfærgerne: priser (Danish)",
+   "expect": [
+    "astbil"
+   ]
+  },
+  {
+   "id": "dk-aeroe-prices-en",
+   "table": "dk-ferries",
+   "url": "https://www.aeroe-ferry.dk/en/prices",
+   "what": "Ærøfærgerne: prices",
+   "expect": [
+    "rice"
+   ]
+  },
+  {
+   "id": "dk-laesoe-prices",
+   "table": "dk-ferries",
+   "url": "https://www.laesoe.dk/p/Fartplan-og-prisliste-2026-L%C3%A6s%C3%B8f%C3%A6rgen.pdf",
+   "what": "Læsøfærgen: timetable and price list 2026",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "dk-aeroexpressen-prices",
+   "table": "dk-ferries",
+   "url": "https://aeroexpressen.dk/en/priser/",
+   "what": "ÆrøXpressen: prices",
    "expect": [
     "meter"
    ]
   },
   {
-   "id": "frs-elbe-osm",
-   "table": "de_elbfaehre",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2853.70%2C9.30%2C53.85%2C9.55%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2853.70%2C9.30%2C53.85%2C9.55%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "OpenStreetMap (Overpass API): the Elbe ferry Glückstadt–Wischhafen and its terminals",
+   "id": "dk-ferries-osm",
+   "table": "dk-ferries",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.8%2C8.3%2C57.5%2C11.4%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.8%2C8.3%2C57.5%2C11.4%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
    "expect": [
     "\"route\": \"ferry\""
    ]

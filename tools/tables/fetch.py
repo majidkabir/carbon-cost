@@ -36,6 +36,12 @@ as <id>-<n>.json, until a page returns no objects. For toll stations
 as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
 (as <id>-links-<n>.json): their geometry runs in the road's metering
 direction, which a station's charged direction refers to.
+
+Scandlines' freight pages (freight.scandlines.com) link their PDFs, whose
+names carry a hash that changes with each new edition: the tariffs page's
+freight tariffs are saved as <id>-<the file's name, less the hash>.pdf
+(e.g. scl-tariffs-scandlines-freight-tariff-2026-germany-denmark-10m-2026-01-01-until-recall.pdf),
+the surcharges page's monthly notices (English) as <id>-<yyyy>-<mm>.pdf.
 """
 import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
@@ -190,6 +196,27 @@ def uradni_list(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
 
 
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def scandlines(out, manifest, sid, page_url, page):
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"']+\.pdf)(?:\?[^"']*)?["']""", text):
+        u = urllib.parse.urljoin(page_url, u)
+        name = os.path.basename(urllib.parse.urlparse(u).path)
+        m = re.match(r"(\d\d)_Scandlines_surcharges_([A-Za-z]+)_(\d{4})_ENG_[0-9a-f]+\.pdf$", name)
+        if m and m.group(2) in MONTHS:
+            seen.setdefault(f"{sid}-{m.group(3)}-{MONTHS.index(m.group(2)) + 1:02d}.pdf", u)
+            continue
+        m = re.match(r"((?:Scandlines|Oresundslinjen)_Freight_Tariff_.+?)_[0-9a-f]{8,}\.pdf$", name)
+        if m:
+            seen.setdefault(f"{sid}-" + m.group(1).lower().replace("_", "-") + ".pdf", u)
+    for name, u in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name, u, status, body)
+
+
 # Overpass instances serving the same OpenStreetMap data: a query goes to
 # its own first, then to the others when that one can't be reached, is
 # busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
@@ -250,6 +277,8 @@ def store(out, manifest, s, status, body, asked):
         njt(out, manifest, s["id"], s["url"], body)
     if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
         uradni_list(out, manifest, s["id"], s["url"], body)
+    if "freight.scandlines.com/freight-conditions/" in s["url"] and status == 200:
+        scandlines(out, manifest, s["id"], s["url"], body)
 
 
 def checked(s, status, body, again):

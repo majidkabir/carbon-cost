@@ -2,33 +2,45 @@
  "about": "x",
  "sources": [
   {
-   "id": "irish-dover-calais",
+   "id": "po-dover-calais",
    "table": "x",
-   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dover-calais/",
+   "url": "https://www.pofreight.com/route/dover-calais-freight",
    "what": "x"
   },
   {
-   "id": "irish-dublin-holyhead",
+   "id": "po-hull-europoort",
    "table": "x",
-   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-holyhead/",
+   "url": "https://www.pofreight.com/route/hull-europoort-freight",
    "what": "x"
   },
   {
-   "id": "irish-rosslare-pembroke",
+   "id": "po-hull-zeebrugge",
    "table": "x",
-   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/rosslare-pembroke/",
+   "url": "https://www.pofreight.com/route/hull-zeebrugge-freight",
    "what": "x"
   },
   {
-   "id": "irish-dublin-cherbourg",
+   "id": "po-larne-cairnryan",
    "table": "x",
-   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-cherbourg/",
+   "url": "https://www.pofreight.com/route/larne-cairnryan-freight",
    "what": "x"
   },
   {
-   "id": "brittany-timetables",
+   "id": "po-tilbury-zeebrugge",
    "table": "x",
-   "url": "https://www.brittanyferriesfreight.co.uk/en/ferry-routes/timetables",
+   "url": "https://www.pofreight.com/route/tilbury-zeebrugge-freight",
+   "what": "x"
+  },
+  {
+   "id": "po-tilbury-europoort",
+   "table": "x",
+   "url": "https://www.pofreight.com/route/tilbury-europoort-freight",
+   "what": "x"
+  },
+  {
+   "id": "po-routes",
+   "table": "x",
+   "url": "https://www.pofreight.com/routes",
    "what": "x"
   }
  ]

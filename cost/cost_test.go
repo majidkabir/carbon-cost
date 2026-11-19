@@ -343,10 +343,10 @@ func TestPrice_FerryETSByLaw(t *testing.T) {
 		t.Errorf("Ystad-Rønne: %+v", ls)
 	}
 	// Dover-Calais: a port outside the EU, half the emissions (40 kg x
-	// 0.5 x 75 EUR/t), its ships not named.
+	// 0.5 x 75 EUR/t, without the tare: Sootcase's part).
 	dover := [][2]float64{{1.30, 51.13}, {1.332393, 51.123741}, {1.857771, 50.967324}, {1.88, 50.96}}
 	r, _ = PriceWith(trip(dover, sootcase.Part{Kind: "ferry", DistanceKm: 40, TTWKg: 40}), all(t), &fd, req, nov26)
-	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Dover–Calais" || ls[0].Amount != 1.5 || !hasNote(r, "ships aren't known") {
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Dover–Calais" || ls[0].Amount != 1.5 {
 		t.Errorf("Dover-Calais: %+v, notes %v", ls, r.Notes)
 	}
 	// Belfast-Cairnryan: no EU ETS (two UK ports); the UK ETS on half its

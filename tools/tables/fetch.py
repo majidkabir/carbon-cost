@@ -46,6 +46,14 @@ the surcharges page's monthly notices (English) as <id>-<yyyy>-<mm>.pdf.
 POLSCA Baltic Ferries' documents pages on unityline.eu link their PDFs
 (freight tariffs, BES and ETS announcements): saved as <id>-<the file's
 name, lower case>.pdf (e.g. polsca-tariff-polsca-freight-tariff-22.06.2026.pdf).
+
+DFDS's freight routes page (dfds.com/en/freight-ferries-and-logistics/
+routes-and-schedules) links each route's page, saved as <id>-<route>.html,
+whose data names the route's two terminals by UN/LOCODE ("portOfLoading":
+{"name": "Klaipeda", "terminalId": "LTKLJ"}). The page's timetable comes
+from DFDS's API (/api/timetable?dateFrom=..&dateTo=..&portOfDischarge=..
+&portOfLoading=..), which names each departure's ship and its IMO number:
+the 14 days from the day of the fetch are saved as <id>-<route>.json.
 """
 import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
@@ -236,6 +244,24 @@ def polsca(out, manifest, sid, page_url, page):
         save(out, manifest, name, u, status, body)
 
 
+def dfds(out, manifest, sid, page_url, page):
+    text = html.unescape(page.decode("utf-8", "replace"))
+    routes = sorted({m.group(1) for m in re.finditer(r"""href=["'](?:https://www\.dfds\.com)?/en/freight-ferries-and-logistics/routes-and-schedules/([a-z0-9-]+)/?["']""", text)})
+    day = datetime.datetime.now(datetime.timezone.utc).date()
+    for r in routes:
+        u = f"https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/{r}"
+        status, body = get(u)
+        save(out, manifest, f"{sid}-{r}.html", u, status, body)
+        m = re.search(r'"route":\{"portOfDischarge":\{.*?"terminalId":"([A-Z0-9]{5})"\},"portOfLoading":\{.*?"terminalId":"([A-Z0-9]{5})"\}',
+                      body.decode("utf-8", "replace").replace('\\"', '"'))
+        if status != 200 or not m:
+            continue
+        q = urllib.parse.urlencode({"dateFrom": f"{day}T00:00:00.000Z", "dateTo": f"{day + datetime.timedelta(days=14)}T00:00:00.000Z",
+                                    "portOfDischarge": m.group(1), "portOfLoading": m.group(2)})
+        status, body = get("https://www.dfds.com/api/timetable?" + q, accept="application/json")
+        save(out, manifest, f"{sid}-{r}.json", "https://www.dfds.com/api/timetable?" + q, status, body)
+
+
 def follow(out, manifest, s, page):
     """The pages or files a source links that match its "follow" pattern (a
     regular expression on the absolute URL), saved as <id>-<last path
@@ -342,6 +368,8 @@ def store(out, manifest, s, status, body, asked):
         polsca(out, manifest, s["id"], s["url"], body)
     if s.get("follow") and status == 200:
         follow(out, manifest, s, body)
+    if s["url"] == "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules" and status == 200:
+        dfds(out, manifest, s["id"], s["url"], body)
 
 
 def checked(s, status, body, again):

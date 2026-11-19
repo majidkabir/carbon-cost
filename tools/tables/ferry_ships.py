@@ -32,6 +32,10 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   its routes page): the ports in the page's address, the ships in its "Our
   Fleet" section (IMO numbers where it gives them); when its sailing tables
   name ships ("13:40 Pioneer"), only those;
+- DFDS's freight route pages (dfds-routes-<route>.html, linked from its
+  routes page) and their timetables (dfds-routes-<route>.json, DFDS's API
+  for the 14 days from the fetch): the page's two terminals, the ship and
+  its IMO number of each departure;
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -101,6 +105,13 @@ PORTS = {
     "Helsinki": ("FI", ["Helsinki"], (60.17, 24.94)), "Nynäshamn": ("SE", ["Nynäshamn"], (58.90, 17.95)),
     "Travemünde": ("DE", ["Travemünde"], (53.96, 10.87)), "Rostock": ("DE", ["Rostock"], (54.09, 12.13)),
     "Trelleborg": ("SE", ["Trelleborg"], (55.38, 13.16)), "Świnoujście": ("PL", ["Świnoujście"], (53.91, 14.25)),
+    # DFDS's routes
+    "Klaipėda": ("LT", ["Klaipėda", "Klaipeda"], (55.71, 21.13)), "Karlshamn": ("SE", ["Karlshamn"], (56.17, 14.86)),
+    "Fredericia": ("DK", ["Fredericia"], (55.57, 9.75)), "Køge": ("DK", ["Køge"], (55.46, 12.18)),
+    "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
+    "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
+    "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
+    "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
     # ports outside the EU and the EEA, and the ports across from them
     "Dover": ("GB", ["Dover", "Douvres"], (51.12, 1.33)), "Newhaven": ("GB", ["Newhaven"], (50.79, 0.05)),
     "Portsmouth": ("GB", ["Portsmouth"], (50.81, -1.09)), "Poole": ("GB", ["Poole"], (50.71, -1.98)),
@@ -135,7 +146,8 @@ PORTS = {
     "Bar": ("ME", ["Bar"], (42.10, 19.09)),
     "Çeşme": ("TR", ["Çeşme", "Cesme"], (38.32, 26.30)), "Ayvalık": ("TR", ["Ayvalık", "Ayvalik"], (39.32, 26.69)),
     "Pendik": ("TR", ["Pendik"], (40.87, 29.25)), "Ambarlı": ("TR", ["Ambarlı", "Ambarli"], (40.97, 28.69)),
-    "Mersin": ("TR", ["Mersin"], (36.80, 34.63)),
+    "Mersin": ("TR", ["Mersin"], (36.80, 34.63)), "Yalova": ("TR", ["Yalova"], (40.66, 29.27)),
+    "Martaş": ("TR", ["Martaş", "Martas"], (40.97, 27.96)), "Damietta": ("EG", ["Damietta", "Dumyat"], (31.42, 31.81)),
     "Algeciras": ("ES", ["Algeciras"], (36.13, -5.44)), "Tarifa": ("ES", ["Tarifa"], (36.01, -5.60)),
     "Almería": ("ES", ["Almería", "Almeria"], (36.83, -2.46)), "Motril": ("ES", ["Motril"], (36.72, -3.52)),
     "Málaga": ("ES", ["Málaga", "Malaga"], (36.72, -4.42)), "Barcelona": ("ES", ["Barcelona"], (41.38, 2.17)),
@@ -156,7 +168,7 @@ PORTS = {
 REGION = {"Belfast": "GB-NIR", "Larne": "GB-NIR", "Cairnryan": "GB-SCT", "Aberdeen": "GB-SCT", "Kirkwall": "GB-SCT",
           "Lerwick": "GB-SCT"}
 # Other names the pages give a port.
-PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland", "europoort": "Rotterdam"}
+PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland", "jersey": "St Helier"}
 # The EU and the EEA EFTA states (ferries.go's eea).
 EEA = {"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL",
        "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO"}
@@ -166,6 +178,14 @@ SHIP = re.compile(rf"(?:^|\s{{2,}})([{UPPER}][^\W\d_]+(?: [{UPPER}][^\W\d_]+)*)\
 
 def ascii(s):
     return unicodedata.normalize("NFKD", s.replace("ø", "o").replace("Ø", "O").replace("ı", "i")).encode("ascii", "ignore").decode().lower()
+
+
+def ship_names():
+    """{IMO number: name} of the MRV ship lists (the latest year's name)."""
+    names = {}
+    for p in sorted(glob.glob(os.path.join(MRV, "mrv-ships-*.json"))):
+        names.update({s["imo"]: s["name"] for s in json.load(open(p, encoding="utf-8"))["ships"]})
+    return names
 
 
 def imos():
@@ -265,12 +285,17 @@ def ttline(t):
 
 
 def port_of(name, where):
+    """The port of a name, or of one of its other names (PORTS: Dunkirk is
+    Dunkerque, Vuosaari Helsinki)."""
     k = ascii(name).strip()
     for p in PORTS:
         if ascii(p) == k:
             return p
     if k in PAGE_PORT:
         return PAGE_PORT[k]
+    for p, (_, names, _) in PORTS.items():
+        if k in {ascii(x) for x in names}:
+            return p
     sys.exit(f"ferry ships: {where}: the port {name!r} isn't known (PORTS)")
 
 
@@ -408,6 +433,47 @@ def poferries(pages):
     return out
 
 
+def imo_number(s):
+    """Whether s is an IMO ship number: 7 digits, the last the check digit."""
+    return bool(re.fullmatch(r"\d{7}", s or "")) and sum(int(s[i]) * (7 - i) for i in range(6)) % 10 == int(s[6])
+
+
+def dfds(pages, names):
+    """[(ports, {ship: IMO number}, heading, file)] from DFDS's freight route
+    pages and their timetables (dfds-routes-<route>.html and .json): the
+    page's terminals ("portOfLoading": {"name": "Klaipeda", "terminalId":
+    "LTKLJ"}) and the ship and IMO number of each departure in the
+    timetable (DFDS's API: "vehicleName", "vehicleId"); a departure without
+    them (a space charter partner's sailing on Dover–Calais) is left out,
+    and a ship the timetable gives only by IMO number is named as the MRV
+    ship lists name it (names). The terminals' own names stand for their
+    ports (Muuga, Vuosaari, not Tallinn and Helsinki: OpenStreetMap's lines
+    between the cities are the passenger ferries')."""
+    out = []
+    for path, t in pages:
+        name = os.path.basename(path)
+        m = re.search(r'"route":\{"portOfDischarge":\{.*?"name":"([^"]+)","terminalId":"[A-Z0-9]{5}"\},'
+                      r'"portOfLoading":\{.*?"name":"([^"]+)","terminalId":"[A-Z0-9]{5}"\}', t.replace('\\"', '"'))
+        tt = path[:-len(".html")] + ".json"
+        if not m or not os.path.exists(tt):
+            print(f"ferry ships: {name}: no route or timetable: not built")
+            continue
+        ships, unnamed = {}, 0
+        for d in json.load(open(tt, encoding="utf-8")):
+            imo, ship = d.get("vehicleId"), (d.get("vehicleName") or "").strip() or names.get(d.get("vehicleId"))
+            if imo_number(imo) and ship:
+                ships[ship] = imo
+            else:
+                unnamed += 1
+        if not ships:
+            print(f"ferry ships: {name}: no ship in its timetable: not built")
+            continue
+        ports = (port_of(m.group(2), name), port_of(m.group(1), name))
+        heading = "–".join(ports) + ", its ferries in its timetable" + (" (its sailings without a named ship left out)" if unnamed else "")
+        out.append((ports, ships, heading, path))
+    return out
+
+
 def osm_query():
     """The Overpass queries of ferry-ships-osm (lines named after a port,
     crossing the North Sea, the Channel or the Baltic: a line to a port
@@ -471,6 +537,7 @@ def main(fetched, out):
         fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
         ipages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "irishferries-routes-*.html")))]
         ppages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "po-routes-*.html")))]
+        dpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "dfds-routes-*.html")))]
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
         for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
@@ -543,11 +610,12 @@ def main(fetched, out):
         crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title, "url": turl}, ids))
 
     # Stena Line and Finnlines
-    if not spages or not fpages or not ipages or not ppages:
-        sys.exit(f"ferry ships: {len(spages)} Stena Line, {len(fpages)} Finnlines, {len(ipages)} Irish Ferries and {len(ppages)} P&O Freight route pages")
+    if not spages or not fpages or not ipages or not ppages or not dpages:
+        sys.exit(f"ferry ships: {len(spages)} Stena Line, {len(fpages)} Finnlines, {len(ipages)} Irish Ferries, {len(ppages)} P&O Freight "
+                 f"and {len(dpages)} DFDS route pages")
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
-                             ("P&O Ferries", poferries(ppages))):
+                             ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names()))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

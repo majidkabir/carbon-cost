@@ -1574,7 +1574,7 @@
    "name": "Humber Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "e5009bfd3d13b21f47c3700a42b3eaeea98d784aa69a992e71bbce329946f46b",
+   "sha256": "86de5ad26a627b5e0006bdf04b92871be051b0124bc2f54dd7e7095f8a5d6bf3",
    "coverage": "complete"
   },
   {
@@ -1596,7 +1596,7 @@
    "name": "Mersey Gateway and Silver Jubilee bridges toll",
    "valid_from": "2025-04-01",
    "valid_to": null,
-   "sha256": "b124564d4ceecfed48f8d9ae919f7de320274227dc0dc013ce3d6e84d7f59784",
+   "sha256": "9ccc581cf7813cc9413b7feb8d28b8551d60109d879596407c21f4e7097a2720",
    "coverage": "complete"
   },
   {
@@ -1607,7 +1607,7 @@
    "name": "Tamar Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "c88158b0368043f7686865146a269b7487f40706e9dd2750456e37af7a2b241e",
+   "sha256": "b95af19d41f16d3b27c0bcbdc7a102c3c2ca5bbb8bd7bd6c33c38b8278e78d08",
    "coverage": "complete"
   },
   {
@@ -1640,7 +1640,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-01-01",
    "valid_to": "2024-04-30",
-   "sha256": "2ef82a0d85f2f57d6704db66e30590771353d22ce870556053ddca9d2d69f068",
+   "sha256": "7a394c4d38ee4705089256f285d882b9ec020524bbc85593c4f2c59e8f3c94cb",
    "coverage": "complete"
   },
   {
@@ -1651,7 +1651,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-05-01",
    "valid_to": "2025-04-30",
-   "sha256": "c2636380560092ed40d199cef3d9aa7ac0459dc18e22b80e08f120cbd27178a8",
+   "sha256": "e9b961616929f66ab6c8a5d13a6df2edf37b5e43e33587520fe1c2a54bbe3e53",
    "coverage": "complete"
   },
   {
@@ -1662,7 +1662,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2025-05-01",
    "valid_to": null,
-   "sha256": "18ea242f840e43c4a14e8d88ee45c9f43e271c6acf78d341388199b992cceded",
+   "sha256": "8c0ff8933a04029bcba0294fb604d0015952d50aa9b993f8717f72fe3db3723b",
    "coverage": "complete"
   },
   {
@@ -1772,7 +1772,7 @@
    "name": "Jadrolinija's state ferry lines, goods vehicles",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "23fa6b2fc3de4432d2f872bf9bd77d21591041c3c8ab8c53ef1ee0457c23f236",
+   "sha256": "22c92bc27909c9ad7100eb9a6d3939c3334d4c86f7cecc5c35ee78b42bd8a810",
    "coverage": "complete"
   },
   {
@@ -2421,7 +2421,7 @@
    "name": "Kiltunnel toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "56e9d9b4c3342d7148691e5cd35e9dd1b718a96baa25630cb04dbdf72b7f8f67",
+   "sha256": "b21da87fafe93c599a51aef82d37feeb6780955a373c9088afa95c784d484e0c",
    "coverage": "complete"
   },
   {

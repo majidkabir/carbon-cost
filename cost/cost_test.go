@@ -3400,6 +3400,8 @@ func TestScandlines(t *testing.T) {
 	}{
 		{"Puttgarden-Rødby, 16.5 m, November", pr, truck40, nov, 265.30 + 17*(1.64+0.88)},
 		{"Puttgarden-Rødby, 16.5 m, June", pr, truck40, jun, 265.30 + 17*(1.38+0.88)},
+		{"Puttgarden-Rødby, 16.5 m, January", pr, truck40, time.Date(2026, 1, 20, 0, 0, 0, 0, time.UTC), 265.30 + 17*(0.79+0.88)},
+		{"Helsingør-Helsingborg, 16.5 m, January", hh, truck40, time.Date(2026, 1, 20, 0, 0, 0, 0, time.UTC), 169.30 + 17*(0.88+0.30)},
 		{"Puttgarden-Rødby, road train", pr, length(18.75), nov, 297.60 + 19*(1.64+0.88)},
 		{"Puttgarden-Rødby, 10 m", pr, length(10), nov, 156.10 + 10*(1.64+0.88)},
 		{"Rostock-Gedser, 16.5 m", rg, truck40, nov, 236.20 + 17*(4.59+1.66)},

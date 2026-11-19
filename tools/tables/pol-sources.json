@@ -2,46 +2,46 @@
  "about": "x",
  "sources": [
   {
-   "id": "frs-elbe-fuel-20260411",
+   "id": "frs-t-20260411",
    "table": "x",
-   "url": "https://web.archive.org/web/20260411082544id_/https://www.frs-elbfaehre.de/en/fuel-surcharge",
-   "what": "frs-elbe-fuel-20260411"
+   "url": "https://web.archive.org/web/20260411080448id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
+   "what": "frs-t-20260411"
   },
   {
-   "id": "frs-elbe-fuel-20260609",
+   "id": "frs-t-20260609",
    "table": "x",
-   "url": "https://web.archive.org/web/20260609023946id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
-   "what": "frs-elbe-fuel-20260609"
+   "url": "https://web.archive.org/web/20260609030229id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-t-20260609"
   },
   {
-   "id": "frs-elbe-fuel-20260714",
+   "id": "frs-t-20260714",
    "table": "x",
-   "url": "https://web.archive.org/web/20260714222558id_/https://www.frs-elbfaehre.de/en/fuel-surcharge",
-   "what": "frs-elbe-fuel-20260714"
+   "url": "https://web.archive.org/web/20260714220626id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
+   "what": "frs-t-20260714"
   },
   {
-   "id": "frs-elbe-fuel-20260801",
+   "id": "frs-t-20260801",
    "table": "x",
-   "url": "https://web.archive.org/web/20260801115356id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
-   "what": "frs-elbe-fuel-20260801"
+   "url": "https://web.archive.org/web/20260801115354id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-t-20260801"
   },
   {
-   "id": "frs-elbe-fuel-20261108",
+   "id": "frs-t-20261108",
    "table": "x",
-   "url": "https://web.archive.org/web/20261108222321id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
-   "what": "frs-elbe-fuel-20261108"
+   "url": "https://web.archive.org/web/20261108222310id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-t-20261108"
   },
   {
-   "id": "frs-elbe-trucks-de-20251110",
+   "id": "frs-t-20260212",
    "table": "x",
-   "url": "https://web.archive.org/web/20251110140449id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
-   "what": "frs-elbe-trucks-de-20251110"
+   "url": "https://web.archive.org/web/20260212170219id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
+   "what": "frs-t-20260212"
   },
   {
-   "id": "frs-elbe-trucks-de-20260308",
+   "id": "frs-t-20260115",
    "table": "x",
-   "url": "https://web.archive.org/web/20260308075450id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
-   "what": "frs-elbe-trucks-de-20260308"
+   "url": "https://web.archive.org/web/20260115204148id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
+   "what": "frs-t-20260115"
   }
  ]
 }

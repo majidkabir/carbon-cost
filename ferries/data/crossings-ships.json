@@ -54,6 +54,582 @@
    }
   },
   {
+   "id": "adamantas-athinios",
+   "name": "Adamantas–Athinios",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Adamantas",
+     "lat": 36.723457,
+     "lon": 24.444882,
+     "country": "GR"
+    },
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THIRA, THIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Milos - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971711318"
+   }
+  },
+  {
+   "id": "adamantas-folegandros",
+   "name": "Adamantas–Folegandros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Adamantas",
+     "lat": 36.723457,
+     "lon": 24.444882,
+     "country": "GR"
+    },
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: FOLEGANDROS, FOLEGANDROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Milos - Folegandros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/344649666"
+   }
+  },
+  {
+   "id": "adamantas-kamares",
+   "name": "Adamantas–Kamares",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Adamantas",
+     "lat": 36.723457,
+     "lon": 24.444882,
+     "country": "GR"
+    },
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SIFNOS, KAMARES, SIFNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Sifnos - Milos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/289406740"
+   }
+  },
+  {
+   "id": "adamantas-kimolos",
+   "name": "Adamantas–Kimolos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Adamantas",
+     "lat": 36.723457,
+     "lon": 24.444882,
+     "country": "GR"
+    },
+    {
+     "name": "Kimolos",
+     "lat": 36.785235,
+     "lon": 24.580568,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KIMOLOS, KIMOLOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Milos - Kimolos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/289406736"
+   }
+  },
+  {
+   "id": "aegiali-astypalaia",
+   "name": "Aegiali–Astypalaia",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Aegiali",
+     "lat": 36.902427,
+     "lon": 25.97523,
+     "country": "GR"
+    },
+    {
+     "name": "Astypalaia",
+     "lat": 36.572896,
+     "lon": 26.340961,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ASTYPALAIA, ASTYPALAIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Amorgos (Aegiale) - Astypalaia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/948020813"
+   }
+  },
+  {
+   "id": "aegiali-donousa",
+   "name": "Aegiali–Donousa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Aegiali",
+     "lat": 36.902427,
+     "lon": 25.97523,
+     "country": "GR"
+    },
+    {
+     "name": "Donousa",
+     "lat": 37.099131,
+     "lon": 25.794067,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: DONOUSA, DONOUSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Amorgos (Aegiale) - Donousa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/82306643"
+   }
+  },
+  {
+   "id": "aegiali-katapola",
+   "name": "Aegiali–Katapola",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Aegiali",
+     "lat": 36.902427,
+     "lon": 25.97523,
+     "country": "GR"
+    },
+    {
+     "name": "Katapola",
+     "lat": 36.827448,
+     "lon": 25.862726,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AMORGOS, KATAPOLA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Amorgos - Amorgos (Aegiale) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/82302938"
+   }
+  },
+  {
+   "id": "agathonisi-lipsi",
+   "name": "Agathonisi–Lipsi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agathonisi",
+     "lat": 37.45678,
+     "lon": 26.966923,
+     "country": "GR"
+    },
+    {
+     "name": "Lipsi",
+     "lat": 37.295397,
+     "lon": 26.763403,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIPSI, LIPSI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Leipsoi - Agathonisi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976363366"
+   }
+  },
+  {
+   "id": "agathonisi-pythagoreio",
+   "name": "Agathonisi–Pythagoreio",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agathonisi",
+     "lat": 37.45678,
+     "lon": 26.966923,
+     "country": "GR"
+    },
+    {
+     "name": "Pythagoreio",
+     "lat": 37.687481,
+     "lon": 26.94491,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, PYTHAGOREIO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Agathonisi - Samos (Pythagoreio) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972059457"
+   }
+  },
+  {
+   "id": "agia-marina-aegina-souvala",
+   "name": "Agia Marina (Aegina)–Souvala",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agia Marina (Aegina)",
+     "lat": 37.743172,
+     "lon": 23.538466,
+     "country": "GR"
+    },
+    {
+     "name": "Souvala",
+     "lat": 37.773149,
+     "lon": 23.487732,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AEGINA, SOUVALA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Aegina (Souvala) - Aegina (Agia Marina) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972051364"
+   }
+  },
+  {
+   "id": "agios-efstratios-myrina",
+   "name": "Agios Efstratios–Myrina",
+   "operator": "Seajets",
+   "terminals": [
+    {
+     "name": "Agios Efstratios",
+     "lat": 39.540523,
+     "lon": 24.986168,
+     "country": "GR"
+    },
+    {
+     "name": "Myrina",
+     "lat": 39.87106,
+     "lon": 25.054855,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIMNOS, MYRINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Agios Efstratios - Lemnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/857913155"
+   }
+  },
+  {
+   "id": "agios-kirykos-chios",
+   "name": "Agios Kirykos–Chios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    },
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: CHIOS, CHIOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios - Ikaria (Agios Kirykos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/349921274"
+   }
+  },
+  {
+   "id": "agios-kirykos-fournoi",
+   "name": "Agios Kirykos–Fournoi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    },
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: FOURNI KORSEON, FOURNI KORSEON)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Fournoi - Ikaria (Agios Kirykos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/339507312"
+   }
+  },
+  {
+   "id": "agios-kirykos-karlovasi",
+   "name": "Agios Kirykos–Karlovasi",
+   "operator": "PANAGIA THEOTOKOS",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.614899,
+     "lon": 26.296202,
+     "country": "GR"
+    },
+    {
+     "name": "Karlovasi",
+     "lat": 37.795309,
+     "lon": 26.683416,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, KARLOVASI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ikaria (Agios Kirykos) - Samos (Karlovasi) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/370757926"
+   }
+  },
+  {
+   "id": "agios-kirykos-mykonos",
+   "name": "Agios Kirykos–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ikaria (Agios Kirykos) - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973623215"
+   }
+  },
+  {
+   "id": "agios-kirykos-patmos",
+   "name": "Agios Kirykos–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ikaria (Agios Kirykos) - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973625572"
+   }
+  },
+  {
+   "id": "agios-kirykos-tinos",
+   "name": "Agios Kirykos–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ikaria (Agios Kirykos) - Tinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/349915682"
+   }
+  },
+  {
+   "id": "agnontas-alonnisos",
+   "name": "Agnontas–Alonnisos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Agnontas",
+     "lat": 39.082869,
+     "lon": 23.710558,
+     "country": "GR"
+    },
+    {
+     "name": "Alonnisos",
+     "lat": 39.143953,
+     "lon": 23.864964,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ALONNISOS, ALONNISOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Skopelos (Agnontas) - Alonnisos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974827946"
+   }
+  },
+  {
    "id": "al-hoceima-motril",
    "name": "Al Hoceima–Motril",
    "operator": "",
@@ -110,6 +686,38 @@
    }
   },
   {
+   "id": "alexandroupolis-samothraki",
+   "name": "Alexandroupolis–Samothraki",
+   "operator": "FAST FERRIES",
+   "terminals": [
+    {
+     "name": "Alexandroupolis",
+     "lat": 40.841783,
+     "lon": 25.879146,
+     "country": "GR"
+    },
+    {
+     "name": "Samothraki",
+     "lat": 40.47428,
+     "lon": 25.471503,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOTHRAKI, SAMOTHRAKI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Alexandroupolis - Samothrace (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/302589937"
+   }
+  },
+  {
    "id": "alger-alicante",
    "name": "Alger–Alicante",
    "operator": "",
@@ -131,6 +739,422 @@
    "source": {
     "title": "OpenStreetMap: Alger (DZ) الجزائر - Alacant / Alicante (E) (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/309897408"
+   }
+  },
+  {
+   "id": "anafi-athinios",
+   "name": "Anafi–Athinios",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Anafi",
+     "lat": 36.343752,
+     "lon": 25.768742,
+     "country": "GR"
+    },
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THIRA, THIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Santorini (Athinios) - Anafi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/118108544"
+   }
+  },
+  {
+   "id": "anafi-kasos",
+   "name": "Anafi–Kasos",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Anafi",
+     "lat": 36.343752,
+     "lon": 25.768742,
+     "country": "GR"
+    },
+    {
+     "name": "Kasos",
+     "lat": 35.418401,
+     "lon": 26.924219,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KASOS, KASOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Anafi - Kasos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1314891233"
+   }
+  },
+  {
+   "id": "astakos-kastos",
+   "name": "Astakos–Kastos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Astakos",
+     "lat": 38.534227,
+     "lon": 21.082975,
+     "country": "GR"
+    },
+    {
+     "name": "Kastos",
+     "lat": 38.567931,
+     "lon": 20.911134,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KASTOS, KASTOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kastos - Astakos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972676286"
+   }
+  },
+  {
+   "id": "astakos-pisaetos",
+   "name": "Astakos–Pisaetos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Astakos",
+     "lat": 38.534227,
+     "lon": 21.082975,
+     "country": "GR"
+    },
+    {
+     "name": "Pisaetos",
+     "lat": 38.34801,
+     "lon": 20.684571,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ITHAKI, PISAETOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ithaca (Pisaetos) - Astakos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974114208"
+   }
+  },
+  {
+   "id": "astypalaia-athinios",
+   "name": "Astypalaia–Athinios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Astypalaia",
+     "lat": 36.572896,
+     "lon": 26.340961,
+     "country": "GR"
+    },
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THIRA, THIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Santorini (Athinios) - Astypalaia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/125107424"
+   }
+  },
+  {
+   "id": "astypalaia-kalymnos",
+   "name": "Astypalaia–Kalymnos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Astypalaia",
+     "lat": 36.547194,
+     "lon": 26.35541,
+     "country": "GR"
+    },
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KALYMNOS, KALYMNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Astypalaia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974481088"
+   }
+  },
+  {
+   "id": "astypalaia-kos",
+   "name": "Astypalaia–Kos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Astypalaia",
+     "lat": 36.547194,
+     "lon": 26.35541,
+     "country": "GR"
+    },
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOS, KOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Astypalaia - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972695198"
+   }
+  },
+  {
+   "id": "athinios-folegandros",
+   "name": "Athinios–Folegandros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: FOLEGANDROS, FOLEGANDROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Folegandros - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972938980"
+   }
+  },
+  {
+   "id": "athinios-ios",
+   "name": "Athinios–Ios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: IOS, IOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ios - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/5038751"
+   }
+  },
+  {
+   "id": "athinios-katapola",
+   "name": "Athinios–Katapola",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Katapola",
+     "lat": 36.826772,
+     "lon": 25.863805,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AMORGOS, KATAPOLA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Amorgos - Santorini (Athinios); Santorini (Athinios) - Amorgos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972358978"
+   }
+  },
+  {
+   "id": "athinios-kos",
+   "name": "Athinios–Kos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOS, KOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Santorini (Athinios) - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/223003168"
+   }
+  },
+  {
+   "id": "athinios-naxos",
+   "name": "Athinios–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52579316"
+   }
+  },
+  {
+   "id": "athinios-paros",
+   "name": "Athinios–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Paros - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976468760"
    }
   },
   {
@@ -499,6 +1523,326 @@
    }
   },
   {
+   "id": "chalki-karpathos",
+   "name": "Chalki–Karpathos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chalki",
+     "lat": 36.222023,
+     "lon": 27.612855,
+     "country": "GR"
+    },
+    {
+     "name": "Karpathos",
+     "lat": 35.510524,
+     "lon": 27.214331,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KARPATHOS, KARPATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Karpathos - Chalki (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974837212"
+   }
+  },
+  {
+   "id": "chalki-rhodes",
+   "name": "Chalki–Rhodes",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Chalki",
+     "lat": 36.222023,
+     "lon": 27.612855,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rhodes - Chalki (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975717239"
+   }
+  },
+  {
+   "id": "chalki-symi",
+   "name": "Chalki–Symi",
+   "operator": "Saos Ferries",
+   "terminals": [
+    {
+     "name": "Chalki",
+     "lat": 36.222023,
+     "lon": 27.612855,
+     "country": "GR"
+    },
+    {
+     "name": "Symi",
+     "lat": 36.61746,
+     "lon": 27.838243,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SYMI, SYMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Symi - Chalki (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974428318"
+   }
+  },
+  {
+   "id": "chalki-tilos",
+   "name": "Chalki–Tilos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chalki",
+     "lat": 36.222023,
+     "lon": 27.612855,
+     "country": "GR"
+    },
+    {
+     "name": "Tilos",
+     "lat": 36.417194,
+     "lon": 27.386414,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TILOS, TILOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chalki - Tilos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972912981"
+   }
+  },
+  {
+   "id": "chios-karlovasi",
+   "name": "Chios–Karlovasi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Karlovasi",
+     "lat": 37.795309,
+     "lon": 26.683416,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, KARLOVASI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios - Samos (Karlovasi) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/43620620"
+   }
+  },
+  {
+   "id": "chios-mykonos",
+   "name": "Chios–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mykonos - Chios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/46039916"
+   }
+  },
+  {
+   "id": "chios-mytilene",
+   "name": "Chios–Mytilene",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Mytilene",
+     "lat": 39.104334,
+     "lon": 26.563056,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LESVOS, MYTILINI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mytilini - Chios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/46041702"
+   }
+  },
+  {
+   "id": "chios-oinousses",
+   "name": "Chios–Oinousses",
+   "operator": "Σύλλογος «Φίλοι Οινουσσών»",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Oinousses",
+     "lat": 38.512742,
+     "lon": 26.219255,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: INOUSSES, INOUSSES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios - Oinousses (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/30603364"
+   }
+  },
+  {
+   "id": "chios-psara",
+   "name": "Chios–Psara",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Psara",
+     "lat": 38.539034,
+     "lon": 25.566206,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PSARA, PSARA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios - Psara (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/346741479"
+   }
+  },
+  {
+   "id": "chios-vathy",
+   "name": "Chios–Vathy",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    },
+    {
+     "name": "Vathy",
+     "lat": 37.755417,
+     "lon": 26.963501,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, VATHY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios - Samos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972004801"
+   }
+  },
+  {
    "id": "cirkewwa-mgarr",
    "name": "Ċirkewwa–Mġarr",
    "operator": "Gozo Channel",
@@ -653,6 +1997,70 @@
    "source": {
     "title": "DFDS: Dieppe–Newhaven, its ferries in its timetable",
     "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/dieppe-newhaven"
+   }
+  },
+  {
+   "id": "donousa-koufonisi",
+   "name": "Donousa–Koufonisi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Donousa",
+     "lat": 37.099852,
+     "lon": 25.794807,
+     "country": "GR"
+    },
+    {
+     "name": "Koufonisi",
+     "lat": 36.929449,
+     "lon": 25.600723,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOUFONISI, KOUFONISIA, CYCLADES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Donousa - Koufonisi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/448335226"
+   }
+  },
+  {
+   "id": "donousa-naxos",
+   "name": "Donousa–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Donousa",
+     "lat": 37.099131,
+     "lon": 25.794067,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Donousa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976496918"
    }
   },
   {
@@ -988,6 +2396,518 @@
    }
   },
   {
+   "id": "ermioni-hydra",
+   "name": "Ermioni–Hydra",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermioni",
+     "lat": 37.386206,
+     "lon": 23.24959,
+     "country": "GR"
+    },
+    {
+     "name": "Hydra",
+     "lat": 37.369143,
+     "lon": 23.365406,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: YDRA, YDRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Hydra - Ermioni (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255688298"
+   }
+  },
+  {
+   "id": "ermioni-spetses",
+   "name": "Ermioni–Spetses",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermioni",
+     "lat": 37.386206,
+     "lon": 23.24959,
+     "country": "GR"
+    },
+    {
+     "name": "Spetses",
+     "lat": 37.347432,
+     "lon": 23.28506,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SPETSES, SPETSES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ermioni - Spetses (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/45745891"
+   }
+  },
+  {
+   "id": "ermoupoli-kythnos",
+   "name": "Ermoupoli–Kythnos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    },
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KYTHNOS, KYTHNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Syros - Kythnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255883209"
+   }
+  },
+  {
+   "id": "ermoupoli-mykonos",
+   "name": "Ermoupoli–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Syros - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/51768304"
+   }
+  },
+  {
+   "id": "ermoupoli-paros",
+   "name": "Ermoupoli–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Syros - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/26295527"
+   }
+  },
+  {
+   "id": "ermoupoli-patmos",
+   "name": "Ermoupoli–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Syros - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52697544"
+   }
+  },
+  {
+   "id": "ermoupoli-tinos",
+   "name": "Ermoupoli–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Syros - Tinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52577756"
+   }
+  },
+  {
+   "id": "evdilos-fournoi",
+   "name": "Evdilos–Fournoi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Evdilos",
+     "lat": 37.632944,
+     "lon": 26.181083,
+     "country": "GR"
+    },
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: FOURNI KORSEON, FOURNI KORSEON)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Fournoi - Ikaria (Evdilos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/443071901"
+   }
+  },
+  {
+   "id": "evdilos-karlovasi",
+   "name": "Evdilos–Karlovasi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Evdilos",
+     "lat": 37.632944,
+     "lon": 26.181083,
+     "country": "GR"
+    },
+    {
+     "name": "Karlovasi",
+     "lat": 37.795063,
+     "lon": 26.680318,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, KARLOVASI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos (Karlovasi) - Ikaria (Evdilos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975109162"
+   }
+  },
+  {
+   "id": "evdilos-mykonos",
+   "name": "Evdilos–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Evdilos",
+     "lat": 37.632944,
+     "lon": 26.181083,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ikaria (Evdilos) - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971793408"
+   }
+  },
+  {
+   "id": "evdilos-naxos",
+   "name": "Evdilos–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Evdilos",
+     "lat": 37.632944,
+     "lon": 26.181083,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Ikaria (Evdilos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/540190305"
+   }
+  },
+  {
+   "id": "folegandros-ios",
+   "name": "Folegandros–Ios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    },
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: IOS, IOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Folegandros - Ios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/289406735"
+   }
+  },
+  {
+   "id": "folegandros-kamares",
+   "name": "Folegandros–Kamares",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    },
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SIFNOS, KAMARES, SIFNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Folegandros - Sifnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/344647811"
+   }
+  },
+  {
+   "id": "folegandros-kimolos",
+   "name": "Folegandros–Kimolos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    },
+    {
+     "name": "Kimolos",
+     "lat": 36.785235,
+     "lon": 24.580568,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KIMOLOS, KIMOLOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kimolos - Folegandros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/345834457"
+   }
+  },
+  {
+   "id": "folegandros-naxos",
+   "name": "Folegandros–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Folegandros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/5038752"
+   }
+  },
+  {
+   "id": "folegandros-sikinos",
+   "name": "Folegandros–Sikinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Folegandros",
+     "lat": 36.614355,
+     "lon": 24.950333,
+     "country": "GR"
+    },
+    {
+     "name": "Sikinos",
+     "lat": 36.674545,
+     "lon": 25.143698,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SIKINOS, SIKINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Folegandros - Sikinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/118642741"
+   }
+  },
+  {
    "id": "formia-ponza",
    "name": "Formia–Ponza",
    "operator": "",
@@ -1017,6 +2937,262 @@
    "source": {
     "title": "OpenStreetMap: Formia - Ponza (its ships not named)",
     "url": "https://www.openstreetmap.org/way/30475121"
+   }
+  },
+  {
+   "id": "fournoi-karlovasi",
+   "name": "Fournoi–Karlovasi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    },
+    {
+     "name": "Karlovasi",
+     "lat": 37.795063,
+     "lon": 26.680318,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, KARLOVASI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos (Karlovasi) - Fournoi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/339507320"
+   }
+  },
+  {
+   "id": "fournoi-patmos",
+   "name": "Fournoi–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Fournoi - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972948827"
+   }
+  },
+  {
+   "id": "fournoi-pythagoreio",
+   "name": "Fournoi–Pythagoreio",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    },
+    {
+     "name": "Pythagoreio",
+     "lat": 37.687481,
+     "lon": 26.94491,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, PYTHAGOREIO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos (Pythagoreio) - Fournoi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975106358"
+   }
+  },
+  {
+   "id": "fournoi-vathy",
+   "name": "Fournoi–Vathy",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Fournoi",
+     "lat": 37.577838,
+     "lon": 26.478953,
+     "country": "GR"
+    },
+    {
+     "name": "Vathy",
+     "lat": 37.7526,
+     "lon": 26.959808,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, VATHY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Fourni - Samos (Vathy) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1314947321"
+   }
+  },
+  {
+   "id": "frikes-kastos",
+   "name": "Frikes–Kastos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Frikes",
+     "lat": 38.459043,
+     "lon": 20.664976,
+     "country": "GR"
+    },
+    {
+     "name": "Kastos",
+     "lat": 38.567931,
+     "lon": 20.911134,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KASTOS, KASTOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kastos - Ithaca (Frikes) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975013113"
+   }
+  },
+  {
+   "id": "frikes-sami",
+   "name": "Frikes–Sami",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Frikes",
+     "lat": 38.459043,
+     "lon": 20.664976,
+     "country": "GR"
+    },
+    {
+     "name": "Sami",
+     "lat": 38.252322,
+     "lon": 20.645943,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, SAMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ithaca (Frikes) - Cephalonia (Sami) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973870013"
+   }
+  },
+  {
+   "id": "galatas-poros",
+   "name": "Galatas–Poros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Galatas",
+     "lat": 37.497299,
+     "lon": 23.448363,
+     "country": "GR"
+    },
+    {
+     "name": "Poros",
+     "lat": 37.503055,
+     "lon": 23.453938,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: POROS, POROS, TRIZINIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Galatas - Poros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/222727415"
+   }
+  },
+  {
+   "id": "gavrio-tinos",
+   "name": "Gavrio–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Gavrio",
+     "lat": 37.884669,
+     "lon": 24.735624,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Andros - Tinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/46050345"
    }
   },
   {
@@ -1123,6 +3299,70 @@
    }
   },
   {
+   "id": "glossa-skiathos",
+   "name": "Glossa–Skiathos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Glossa",
+     "lat": 39.165847,
+     "lon": 23.613322,
+     "country": "GR"
+    },
+    {
+     "name": "Skiathos",
+     "lat": 39.162811,
+     "lon": 23.491319,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKIATHOS, SKIATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Skopelos (Glossa) - Skiathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974787858"
+   }
+  },
+  {
+   "id": "glyfa-skiathos",
+   "name": "Glyfa–Skiathos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Glyfa",
+     "lat": 38.952177,
+     "lon": 22.969239,
+     "country": "GR"
+    },
+    {
+     "name": "Skiathos",
+     "lat": 39.162811,
+     "lon": 23.491319,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKIATHOS, SKIATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Glyfa - Skiathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972966207"
+   }
+  },
+  {
    "id": "gothenburg-frederikshavn",
    "name": "Gothenburg–Frederikshavn",
    "operator": "Stena Line",
@@ -1186,6 +3426,70 @@
    "source": {
     "title": "Stena Line: Gothenburg – Kiel, its ferries",
     "url": "https://stenalinefreight.com/routes/gothenburg-kiel/"
+   }
+  },
+  {
+   "id": "heraklion-anafi",
+   "name": "Heraklion–Anafi",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Heraklion",
+     "lat": 35.343865,
+     "lon": 25.14278,
+     "country": "GR"
+    },
+    {
+     "name": "Anafi",
+     "lat": 36.343752,
+     "lon": 25.768742,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ANAFI, ANAFI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Heraklion - Anafi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1011917986"
+   }
+  },
+  {
+   "id": "heraklion-athinios",
+   "name": "Heraklion–Athinios",
+   "operator": "SeaJets",
+   "terminals": [
+    {
+     "name": "Heraklion",
+     "lat": 35.341998,
+     "lon": 25.141116,
+     "country": "GR"
+    },
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THIRA, THIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Santorini (Athinios) - Heraklion (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/692382997"
    }
   },
   {
@@ -1312,6 +3616,102 @@
    }
   },
   {
+   "id": "igoumenitsa-lefkimmi",
+   "name": "Igoumenitsa–Lefkimmi",
+   "operator": "Lefkimmi Lines",
+   "terminals": [
+    {
+     "name": "Igoumenitsa",
+     "lat": 39.49786,
+     "lon": 20.263004,
+     "country": "GR"
+    },
+    {
+     "name": "Lefkimmi",
+     "lat": 39.413933,
+     "lon": 20.097225,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KERKYRA, LEFKIMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Corfu (Lefkimmi) - Igoumenitsa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/173483057"
+   }
+  },
+  {
+   "id": "igoumenitsa-paxoi",
+   "name": "Igoumenitsa–Paxoi",
+   "operator": "Kerkyra Seaways",
+   "terminals": [
+    {
+     "name": "Igoumenitsa",
+     "lat": 39.49786,
+     "lon": 20.263004,
+     "country": "GR"
+    },
+    {
+     "name": "Paxoi",
+     "lat": 39.203285,
+     "lon": 20.18992,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAXI, PAXI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Igoumenitsa - Paxoi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/516662518"
+   }
+  },
+  {
+   "id": "igoumenitsa-sami",
+   "name": "Igoumenitsa–Sami",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Igoumenitsa",
+     "lat": 39.49786,
+     "lon": 20.263004,
+     "country": "GR"
+    },
+    {
+     "name": "Sami",
+     "lat": 38.252322,
+     "lon": 20.645943,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, SAMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Cephalonia (Sami) - Igoumenitsa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972908086"
+   }
+  },
+  {
    "id": "ijmuiden-newcastle",
    "name": "IJmuiden–Newcastle",
    "operator": "DFDS",
@@ -1345,6 +3745,934 @@
    }
   },
   {
+   "id": "ios-katapola",
+   "name": "Ios–Katapola",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    },
+    {
+     "name": "Katapola",
+     "lat": 36.827448,
+     "lon": 25.862726,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AMORGOS, KATAPOLA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ios - Amorgos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973795753"
+   }
+  },
+  {
+   "id": "ios-mykonos",
+   "name": "Ios–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mykonos - Ios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976481739"
+   }
+  },
+  {
+   "id": "ios-naxos",
+   "name": "Ios–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ios",
+     "lat": 36.715745,
+     "lon": 25.262641,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ios - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52578956"
+   }
+  },
+  {
+   "id": "ios-paros",
+   "name": "Ios–Paros",
+   "operator": "GA Ferries",
+   "terminals": [
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Paros - Ios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/45353987"
+   }
+  },
+  {
+   "id": "ios-sikinos",
+   "name": "Ios–Sikinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ios",
+     "lat": 36.723515,
+     "lon": 25.272273,
+     "country": "GR"
+    },
+    {
+     "name": "Sikinos",
+     "lat": 36.674545,
+     "lon": 25.143698,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SIKINOS, SIKINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Sikinos - Ios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/289406731"
+   }
+  },
+  {
+   "id": "irakleia-naxos",
+   "name": "Irakleia–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Irakleia",
+     "lat": 36.863301,
+     "lon": 25.470448,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Irakleia - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/82303689"
+   }
+  },
+  {
+   "id": "irakleia-schoinousa",
+   "name": "Irakleia–Schoinousa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Irakleia",
+     "lat": 36.863301,
+     "lon": 25.470448,
+     "country": "GR"
+    },
+    {
+     "name": "Schoinousa",
+     "lat": 36.870498,
+     "lon": 25.51005,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SCHINOUSSA, SCHINOUSSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Schoinousa - Irakleia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/339165742"
+   }
+  },
+  {
+   "id": "kalymnos-karlovasi",
+   "name": "Kalymnos–Karlovasi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Karlovasi",
+     "lat": 37.795063,
+     "lon": 26.680318,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, KARLOVASI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos (Karlovasi) - Kalymnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52522354"
+   }
+  },
+  {
+   "id": "kalymnos-karpathos",
+   "name": "Kalymnos–Karpathos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Karpathos",
+     "lat": 35.510524,
+     "lon": 27.214331,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KARPATHOS, KARPATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Karpathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974766386"
+   }
+  },
+  {
+   "id": "kalymnos-kos",
+   "name": "Kalymnos–Kos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOS, KOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52522779"
+   }
+  },
+  {
+   "id": "kalymnos-lakki",
+   "name": "Kalymnos–Lakki",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Lakki",
+     "lat": 37.127811,
+     "lon": 26.84955,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LEROS, LAKKI, LEROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Leros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52782245"
+   }
+  },
+  {
+   "id": "kalymnos-lipsi",
+   "name": "Kalymnos–Lipsi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Lipsi",
+     "lat": 37.295397,
+     "lon": 26.763403,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIPSI, LIPSI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Leipsoi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976376012"
+   }
+  },
+  {
+   "id": "kalymnos-paros",
+   "name": "Kalymnos–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Paros - Kalymnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/462380497"
+   }
+  },
+  {
+   "id": "kalymnos-rhodes",
+   "name": "Kalymnos–Rhodes",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kalymnos",
+     "lat": 36.948715,
+     "lon": 26.987258,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kalymnos - Rhodes (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974772578"
+   }
+  },
+  {
+   "id": "kamares-kimolos",
+   "name": "Kamares–Kimolos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    },
+    {
+     "name": "Kimolos",
+     "lat": 36.785235,
+     "lon": 24.580568,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KIMOLOS, KIMOLOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Sifnos - Kimolos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/289406745"
+   }
+  },
+  {
+   "id": "kamares-paros",
+   "name": "Kamares–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Paros - Sifnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976413197"
+   }
+  },
+  {
+   "id": "kamares-serifos",
+   "name": "Kamares–Serifos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    },
+    {
+     "name": "Serifos",
+     "lat": 37.141697,
+     "lon": 24.518925,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SERIFOS, SERIFOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Serifos - Sifnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/53718081"
+   }
+  },
+  {
+   "id": "karlovasi-vathy",
+   "name": "Karlovasi–Vathy",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Karlovasi",
+     "lat": 37.795309,
+     "lon": 26.683416,
+     "country": "GR"
+    },
+    {
+     "name": "Vathy",
+     "lat": 37.7526,
+     "lon": 26.959808,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, VATHY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos - Samos (Karlovasi) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/168888786"
+   }
+  },
+  {
+   "id": "karpathos-kasos",
+   "name": "Karpathos–Kasos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Karpathos",
+     "lat": 35.510524,
+     "lon": 27.214331,
+     "country": "GR"
+    },
+    {
+     "name": "Kasos",
+     "lat": 35.418401,
+     "lon": 26.924219,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KASOS, KASOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kasos - Karpathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/186819688"
+   }
+  },
+  {
+   "id": "karpathos-patmos",
+   "name": "Karpathos–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Karpathos",
+     "lat": 35.510524,
+     "lon": 27.214331,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Patmos - Karpathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976404684"
+   }
+  },
+  {
+   "id": "karpathos-rhodes",
+   "name": "Karpathos–Rhodes",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Karpathos",
+     "lat": 35.510524,
+     "lon": 27.214331,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Karpathos - Rhodes (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/42819390"
+   }
+  },
+  {
+   "id": "kasos-lakki",
+   "name": "Kasos–Lakki",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kasos",
+     "lat": 35.418401,
+     "lon": 26.924219,
+     "country": "GR"
+    },
+    {
+     "name": "Lakki",
+     "lat": 37.127811,
+     "lon": 26.84955,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LEROS, LAKKI, LEROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kasos - Leros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974802626"
+   }
+  },
+  {
+   "id": "kasos-rhodes",
+   "name": "Kasos–Rhodes",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kasos",
+     "lat": 35.418401,
+     "lon": 26.924219,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kasos - Rhodes (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974833006"
+   }
+  },
+  {
+   "id": "kastelorizo-rhodes",
+   "name": "Kastelorizo–Rhodes",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Kastelorizo",
+     "lat": 36.15052,
+     "lon": 29.592327,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rhodes - Kastelorizo (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52782960"
+   }
+  },
+  {
+   "id": "katapola-koufonisi",
+   "name": "Katapola–Koufonisi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Katapola",
+     "lat": 36.827448,
+     "lon": 25.862726,
+     "country": "GR"
+    },
+    {
+     "name": "Koufonisi",
+     "lat": 36.929449,
+     "lon": 25.600723,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOUFONISI, KOUFONISIA, CYCLADES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Amorgos - Koufonisi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/82303675"
+   }
+  },
+  {
+   "id": "kavala-myrina",
+   "name": "Kavala–Myrina",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kavala",
+     "lat": 40.933016,
+     "lon": 24.411855,
+     "country": "GR"
+    },
+    {
+     "name": "Myrina",
+     "lat": 39.87106,
+     "lon": 25.054855,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIMNOS, MYRINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lemnos - Kavala (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/324161508"
+   }
+  },
+  {
+   "id": "kavala-prinos",
+   "name": "Kavala–Prinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kavala",
+     "lat": 40.933366,
+     "lon": 24.411707,
+     "country": "GR"
+    },
+    {
+     "name": "Prinos",
+     "lat": 40.758959,
+     "lon": 24.577142,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THASOS, PRINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kavala - Thassos (Prinos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/205958407"
+   }
+  },
+  {
+   "id": "kea-kythnos",
+   "name": "Kea–Kythnos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kea",
+     "lat": 37.66091,
+     "lon": 24.312634,
+     "country": "GR"
+    },
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KYTHNOS, KYTHNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kythnos - Kea (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255882773"
+   }
+  },
+  {
+   "id": "keramoti-thasos",
+   "name": "Keramoti–Thasos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Keramoti",
+     "lat": 40.857193,
+     "lon": 24.702451,
+     "country": "GR"
+    },
+    {
+     "name": "Thasos",
+     "lat": 40.779916,
+     "lon": 24.702548,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THASOS, THASOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Keramoti - Thassos (Limenas) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/59804720"
+   }
+  },
+  {
    "id": "kirkwall-lerwick",
    "name": "Kirkwall–Lerwick",
    "operator": "NorthLink Ferries",
@@ -1368,6 +4696,38 @@
    "source": {
     "title": "OpenStreetMap: Kirkwall - Lerwick (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/137947177"
+   }
+  },
+  {
+   "id": "kissamos-antikythira",
+   "name": "Kissamos–Antikythira",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kissamos",
+     "lat": 35.517578,
+     "lon": 23.637397,
+     "country": "GR"
+    },
+    {
+     "name": "Antikythira",
+     "lat": 35.882396,
+     "lon": 23.289969,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ANTIKYTHIRA, POTAMOS, ANTIKYTHIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Antikythira - Kissamos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/589593645"
    }
   },
   {
@@ -1560,6 +4920,518 @@
    }
   },
   {
+   "id": "kos-lakki",
+   "name": "Kos–Lakki",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    },
+    {
+     "name": "Lakki",
+     "lat": 37.127811,
+     "lon": 26.84955,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LEROS, LAKKI, LEROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Leros - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/462392779"
+   }
+  },
+  {
+   "id": "kos-nisyros",
+   "name": "Kos–Nisyros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    },
+    {
+     "name": "Nisyros",
+     "lat": 36.613795,
+     "lon": 27.138996,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NISYROS, NISYROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Nisyros - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52957742"
+   }
+  },
+  {
+   "id": "kos-rhodes",
+   "name": "Kos–Rhodes",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kos - Rhodes (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/223003167"
+   }
+  },
+  {
+   "id": "kos-symi",
+   "name": "Kos–Symi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    },
+    {
+     "name": "Symi",
+     "lat": 36.617792,
+     "lon": 27.839139,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SYMI, SYMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Symi - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/223003166"
+   }
+  },
+  {
+   "id": "kos-vathy",
+   "name": "Kos–Vathy",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Kos",
+     "lat": 36.898559,
+     "lon": 27.29045,
+     "country": "GR"
+    },
+    {
+     "name": "Vathy",
+     "lat": 37.7526,
+     "lon": 26.959808,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, VATHY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samos (Vathy) - Kos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1314886912"
+   }
+  },
+  {
+   "id": "kosta-spetses",
+   "name": "Kosta–Spetses",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kosta",
+     "lat": 37.294451,
+     "lon": 23.163944,
+     "country": "GR"
+    },
+    {
+     "name": "Spetses",
+     "lat": 37.267975,
+     "lon": 23.156729,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SPETSES, SPETSES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kosta - Spetses (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/254838680"
+   }
+  },
+  {
+   "id": "koufonisi-naxos",
+   "name": "Koufonisi–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Koufonisi",
+     "lat": 36.929449,
+     "lon": 25.600723,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Koufonisi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976495192"
+   }
+  },
+  {
+   "id": "koufonisi-schoinousa",
+   "name": "Koufonisi–Schoinousa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Koufonisi",
+     "lat": 36.929449,
+     "lon": 25.600723,
+     "country": "GR"
+    },
+    {
+     "name": "Schoinousa",
+     "lat": 36.870498,
+     "lon": 25.51005,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SCHINOUSSA, SCHINOUSSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Koufonisi - Schoinousa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/462397074"
+   }
+  },
+  {
+   "id": "kyllini-pisaetos",
+   "name": "Kyllini–Pisaetos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kyllini",
+     "lat": 37.937819,
+     "lon": 21.148992,
+     "country": "GR"
+    },
+    {
+     "name": "Pisaetos",
+     "lat": 38.34801,
+     "lon": 20.684571,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ITHAKI, PISAETOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kyllini - Ithaca (Pisaetos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975029712"
+   }
+  },
+  {
+   "id": "kyllini-poros-kefallonia",
+   "name": "Kyllini–Poros (Kefallonia)",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kyllini",
+     "lat": 37.937819,
+     "lon": 21.148992,
+     "country": "GR"
+    },
+    {
+     "name": "Poros (Kefallonia)",
+     "lat": 38.14795,
+     "lon": 20.783091,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, POROS, KEFALLONIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Cephalonia (Poros) - Kyllini (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52491604"
+   }
+  },
+  {
+   "id": "kyllini-zakynthos",
+   "name": "Kyllini–Zakynthos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kyllini",
+     "lat": 37.937819,
+     "lon": 21.148992,
+     "country": "GR"
+    },
+    {
+     "name": "Zakynthos",
+     "lat": 37.779854,
+     "lon": 20.902049,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ZAKYNTHOS, ZAKYNTHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kyllini - Zakynthos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/275175558"
+   }
+  },
+  {
+   "id": "kymi-linaria",
+   "name": "Kymi–Linaria",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kymi",
+     "lat": 38.629467,
+     "lon": 24.126642,
+     "country": "GR"
+    },
+    {
+     "name": "Linaria",
+     "lat": 38.842261,
+     "lon": 24.536726,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKYROS, LINARIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Skyros - Kymi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/455579568"
+   }
+  },
+  {
+   "id": "kythnos-paros",
+   "name": "Kythnos–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kythnos - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975058660"
+   }
+  },
+  {
+   "id": "kythnos-serifos",
+   "name": "Kythnos–Serifos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    },
+    {
+     "name": "Serifos",
+     "lat": 37.141697,
+     "lon": 24.518925,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SERIFOS, SERIFOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Kythnos - Serifos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/203708770"
+   }
+  },
+  {
+   "id": "lakki-lipsi",
+   "name": "Lakki–Lipsi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lakki",
+     "lat": 37.127811,
+     "lon": 26.84955,
+     "country": "GR"
+    },
+    {
+     "name": "Lipsi",
+     "lat": 37.295397,
+     "lon": 26.763403,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIPSI, LIPSI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Leros - Leipsoi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976367207"
+   }
+  },
+  {
+   "id": "lakki-patmos",
+   "name": "Lakki–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lakki",
+     "lat": 37.127811,
+     "lon": 26.84955,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Patmos - Leros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52697661"
+   }
+  },
+  {
    "id": "larne-cairnryan",
    "name": "Larne–Cairnryan",
    "operator": "P&O Ferries",
@@ -1592,6 +5464,358 @@
    "source": {
     "title": "P&O Ferries: Larne–Cairnryan, its ferries in its sailing tables",
     "url": "https://www.pofreight.com/route/larne-cairnryan-freight"
+   }
+  },
+  {
+   "id": "lavrio-agios-efstratios",
+   "name": "Lavrio–Agios Efstratios",
+   "operator": "Seajets",
+   "terminals": [
+    {
+     "name": "Lavrio",
+     "lat": 37.71209,
+     "lon": 24.063015,
+     "country": "GR"
+    },
+    {
+     "name": "Agios Efstratios",
+     "lat": 39.540523,
+     "lon": 24.986168,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AGIOS EFSTRATIOS, AGIOS EFSTRATIOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lavrio - Agios Efstratios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1228524267"
+   }
+  },
+  {
+   "id": "lavrio-kea",
+   "name": "Lavrio–Kea",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lavrio",
+     "lat": 37.71209,
+     "lon": 24.063015,
+     "country": "GR"
+    },
+    {
+     "name": "Kea",
+     "lat": 37.66091,
+     "lon": 24.312634,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEA, KEA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lavrio - Kea (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255882230"
+   }
+  },
+  {
+   "id": "lavrio-kythnos",
+   "name": "Lavrio–Kythnos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lavrio",
+     "lat": 37.71209,
+     "lon": 24.063015,
+     "country": "GR"
+    },
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KYTHNOS, KYTHNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lavrio - Kythnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/518347511"
+   }
+  },
+  {
+   "id": "lavrio-mesta",
+   "name": "Lavrio–Mesta",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lavrio",
+     "lat": 37.71209,
+     "lon": 24.063015,
+     "country": "GR"
+    },
+    {
+     "name": "Mesta",
+     "lat": 38.28882,
+     "lon": 25.930473,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: CHIOS, MESTA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios (Mesta) - Lavrio (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972925453"
+   }
+  },
+  {
+   "id": "lipsi-patmos",
+   "name": "Lipsi–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Lipsi",
+     "lat": 37.295397,
+     "lon": 26.763403,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Leipsoi - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976370909"
+   }
+  },
+  {
+   "id": "mantoudi-agnontas",
+   "name": "Mantoudi–Agnontas",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mantoudi",
+     "lat": 38.808847,
+     "lon": 23.524338,
+     "country": "GR"
+    },
+    {
+     "name": "Agnontas",
+     "lat": 39.082869,
+     "lon": 23.710558,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKOPELOS, GLOSSA/AGNONTAS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mantoudi - Skopelos (Agnontas) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976415051"
+   }
+  },
+  {
+   "id": "mantoudi-alonnisos",
+   "name": "Mantoudi–Alonnisos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mantoudi",
+     "lat": 38.808847,
+     "lon": 23.524338,
+     "country": "GR"
+    },
+    {
+     "name": "Alonnisos",
+     "lat": 39.143953,
+     "lon": 23.864964,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ALONNISOS, ALONNISOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Alonnisos - Mantoudi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972343370"
+   }
+  },
+  {
+   "id": "mantoudi-glossa",
+   "name": "Mantoudi–Glossa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mantoudi",
+     "lat": 38.808847,
+     "lon": 23.524338,
+     "country": "GR"
+    },
+    {
+     "name": "Glossa",
+     "lat": 39.165847,
+     "lon": 23.613322,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKOPELOS, GLOSSA/AGNONTAS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Skopelos (Glossa) - Mantoudi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/974797283"
+   }
+  },
+  {
+   "id": "mantoudi-skiathos",
+   "name": "Mantoudi–Skiathos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mantoudi",
+     "lat": 38.808847,
+     "lon": 23.524338,
+     "country": "GR"
+    },
+    {
+     "name": "Skiathos",
+     "lat": 39.162811,
+     "lon": 23.491319,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKIATHOS, SKIATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mantoudi - Skiathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976405424"
+   }
+  },
+  {
+   "id": "mesta-mytilene",
+   "name": "Mesta–Mytilene",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mesta",
+     "lat": 38.28882,
+     "lon": 25.930473,
+     "country": "GR"
+    },
+    {
+     "name": "Mytilene",
+     "lat": 39.104334,
+     "lon": 26.563056,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LESVOS, MYTILINI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mytilini - Chios (Mesta) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1030454483"
+   }
+  },
+  {
+   "id": "methana-poros",
+   "name": "Methana–Poros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Methana",
+     "lat": 37.580672,
+     "lon": 23.393238,
+     "country": "GR"
+    },
+    {
+     "name": "Poros",
+     "lat": 37.503545,
+     "lon": 23.454521,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: POROS, POROS, TRIZINIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Methana - Poros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255038889"
    }
   },
   {
@@ -1677,6 +5901,198 @@
    "source": {
     "title": "DFDS: Muuga–Vuosaari, its ferries in its timetable",
     "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/muuga-vuosaari"
+   }
+  },
+  {
+   "id": "mykonos-naxos",
+   "name": "Mykonos–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mykonos - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/184793322"
+   }
+  },
+  {
+   "id": "mykonos-paros",
+   "name": "Mykonos–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mykonos - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/625388587"
+   }
+  },
+  {
+   "id": "mykonos-patmos",
+   "name": "Mykonos–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Patmos - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976400899"
+   }
+  },
+  {
+   "id": "mykonos-tinos",
+   "name": "Mykonos–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Tinos - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52577757"
+   }
+  },
+  {
+   "id": "myrina-mytilene",
+   "name": "Myrina–Mytilene",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Myrina",
+     "lat": 39.87106,
+     "lon": 25.054855,
+     "country": "GR"
+    },
+    {
+     "name": "Mytilene",
+     "lat": 39.104361,
+     "lon": 26.561744,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LESVOS, MYTILINI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lemnos - Mytilini (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/772715682"
+   }
+  },
+  {
+   "id": "myrina-samothraki",
+   "name": "Myrina–Samothraki",
+   "operator": "FAST FERRIES",
+   "terminals": [
+    {
+     "name": "Myrina",
+     "lat": 39.87106,
+     "lon": 25.054855,
+     "country": "GR"
+    },
+    {
+     "name": "Samothraki",
+     "lat": 40.47428,
+     "lon": 25.471503,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOTHRAKI, SAMOTHRAKI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Samothrace - Lemnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975102557"
    }
   },
   {
@@ -1848,6 +6264,134 @@
    }
   },
   {
+   "id": "naxos-paros",
+   "name": "Naxos–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52577564"
+   }
+  },
+  {
+   "id": "naxos-patmos",
+   "name": "Naxos–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Naxos - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/349909447"
+   }
+  },
+  {
+   "id": "naxos-tinos",
+   "name": "Naxos–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Tinos - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/349912771"
+   }
+  },
+  {
+   "id": "nisyros-tilos",
+   "name": "Nisyros–Tilos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Nisyros",
+     "lat": 36.613795,
+     "lon": 27.138996,
+     "country": "GR"
+    },
+    {
+     "name": "Tilos",
+     "lat": 36.417194,
+     "lon": 27.386414,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TILOS, TILOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Tilos - Nisyros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52957741"
+   }
+  },
+  {
    "id": "nynashamn-ventspils",
    "name": "Nynäshamn–Ventspils",
    "operator": "Stena Line",
@@ -1923,6 +6467,38 @@
    "source": {
     "title": "Destination Gotland: our ferries (each one's route)",
     "url": "https://www.destinationgotland.se/en/all-about-the-trip/our-ferries/"
+   }
+  },
+  {
+   "id": "oinousses-psara",
+   "name": "Oinousses–Psara",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Oinousses",
+     "lat": 38.512742,
+     "lon": 26.219255,
+     "country": "GR"
+    },
+    {
+     "name": "Psara",
+     "lat": 38.539034,
+     "lon": 25.566206,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PSARA, PSARA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Oinousses - Psara (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971704803"
    }
   },
   {
@@ -2152,6 +6728,102 @@
    }
   },
   {
+   "id": "paros-serifos",
+   "name": "Paros–Serifos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    },
+    {
+     "name": "Serifos",
+     "lat": 37.141697,
+     "lon": 24.518925,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SERIFOS, SERIFOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Serifos - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/53718082"
+   }
+  },
+  {
+   "id": "patmos-pythagoreio",
+   "name": "Patmos–Pythagoreio",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    },
+    {
+     "name": "Pythagoreio",
+     "lat": 37.687481,
+     "lon": 26.94491,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, PYTHAGOREIO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Patmos - Samos (Pythagoreio) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/37351757"
+   }
+  },
+  {
+   "id": "patras-sami",
+   "name": "Patras–Sami",
+   "operator": "Levante Ferries",
+   "terminals": [
+    {
+     "name": "Patras",
+     "lat": 38.249474,
+     "lon": 21.733635,
+     "country": "GR"
+    },
+    {
+     "name": "Sami",
+     "lat": 38.254424,
+     "lon": 20.647748,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, SAMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Patra - Kefalonia (Sami) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1283657568"
+   }
+  },
+  {
    "id": "pendik-yalova",
    "name": "Pendik–Yalova",
    "operator": "İDO",
@@ -2173,6 +6845,38 @@
    "source": {
     "title": "OpenStreetMap: Pendik-Yalova Hızlı Feribot Güzergahı (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/124967155"
+   }
+  },
+  {
+   "id": "perama-paloukia",
+   "name": "Perama–Paloukia",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Perama",
+     "lat": 37.963834,
+     "lon": 23.55684,
+     "country": "GR"
+    },
+    {
+     "name": "Paloukia",
+     "lat": 37.964187,
+     "lon": 23.555764,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SALAMINA, PALOUKIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Perama - Salamina (Paloukia) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/45373835"
    }
   },
   {
@@ -2272,6 +6976,806 @@
    }
   },
   {
+   "id": "piraeus-adamantas",
+   "name": "Piraeus–Adamantas",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942809,
+     "lon": 23.64256,
+     "country": "GR"
+    },
+    {
+     "name": "Adamantas",
+     "lat": 36.723457,
+     "lon": 24.444882,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MILOS, ADAMANTAS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Milos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/394511845"
+   }
+  },
+  {
+   "id": "piraeus-aegina",
+   "name": "Piraeus–Aegina",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.944062,
+     "lon": 23.643194,
+     "country": "GR"
+    },
+    {
+     "name": "Aegina",
+     "lat": 37.745728,
+     "lon": 23.427128,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AEGINA, AEGINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Aegina (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976377977"
+   }
+  },
+  {
+   "id": "piraeus-agios-kirykos",
+   "name": "Piraeus–Agios Kirykos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Agios Kirykos",
+     "lat": 37.613146,
+     "lon": 26.295557,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: IKARIA, EVDILOS / AGIOS KYRIKOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Ikaria (Agios Kirykos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976131025"
+   }
+  },
+  {
+   "id": "piraeus-astypalaia",
+   "name": "Piraeus–Astypalaia",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.945259,
+     "lon": 23.641675,
+     "country": "GR"
+    },
+    {
+     "name": "Astypalaia",
+     "lat": 36.547194,
+     "lon": 26.35541,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ASTYPALAIA, ASTYPALAIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Astypalea; Piraeus - Astypalea (Agios Andreas) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971028737"
+   }
+  },
+  {
+   "id": "piraeus-athinios",
+   "name": "Piraeus–Athinios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942261,
+     "lon": 23.624703,
+     "country": "GR"
+    },
+    {
+     "name": "Athinios",
+     "lat": 36.386598,
+     "lon": 25.429321,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: THIRA, THIRA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Santorini (Athinios) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/345734626"
+   }
+  },
+  {
+   "id": "piraeus-chios",
+   "name": "Piraeus–Chios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.941626,
+     "lon": 23.632866,
+     "country": "GR"
+    },
+    {
+     "name": "Chios",
+     "lat": 38.372215,
+     "lon": 26.137742,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: CHIOS, CHIOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Chios (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/300407598"
+   }
+  },
+  {
+   "id": "piraeus-ermoupoli",
+   "name": "Piraeus–Ermoupoli",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.941626,
+     "lon": 23.632866,
+     "country": "GR"
+    },
+    {
+     "name": "Ermoupoli",
+     "lat": 37.440901,
+     "lon": 24.941402,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SYROS, ERMOUPOLI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Syros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/255883210"
+   }
+  },
+  {
+   "id": "piraeus-kamares",
+   "name": "Piraeus–Kamares",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942603,
+     "lon": 23.640909,
+     "country": "GR"
+    },
+    {
+     "name": "Kamares",
+     "lat": 36.990307,
+     "lon": 24.674159,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SIFNOS, KAMARES, SIFNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Sifnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/345734630"
+   }
+  },
+  {
+   "id": "piraeus-katapola",
+   "name": "Piraeus–Katapola",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.945259,
+     "lon": 23.641675,
+     "country": "GR"
+    },
+    {
+     "name": "Katapola",
+     "lat": 36.827448,
+     "lon": 25.862726,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AMORGOS, KATAPOLA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Amorgos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971769231"
+   }
+  },
+  {
+   "id": "piraeus-koufonisi",
+   "name": "Piraeus–Koufonisi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Koufonisi",
+     "lat": 36.929449,
+     "lon": 25.600723,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KOUFONISI, KOUFONISIA, CYCLADES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Koufonisi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976092324"
+   }
+  },
+  {
+   "id": "piraeus-kythnos",
+   "name": "Piraeus–Kythnos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942603,
+     "lon": 23.640909,
+     "country": "GR"
+    },
+    {
+     "name": "Kythnos",
+     "lat": 37.390746,
+     "lon": 24.39645,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KYTHNOS, KYTHNOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Kythnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/345734628"
+   }
+  },
+  {
+   "id": "piraeus-lipsi",
+   "name": "Piraeus–Lipsi",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942261,
+     "lon": 23.624703,
+     "country": "GR"
+    },
+    {
+     "name": "Lipsi",
+     "lat": 37.295397,
+     "lon": 26.763403,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIPSI, LIPSI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Lipsi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1314947322"
+   }
+  },
+  {
+   "id": "piraeus-mesta",
+   "name": "Piraeus–Mesta",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.944929,
+     "lon": 23.636275,
+     "country": "GR"
+    },
+    {
+     "name": "Mesta",
+     "lat": 38.28882,
+     "lon": 25.930473,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: CHIOS, MESTA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Chios (Mesta) - Piraeus (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1030446705"
+   }
+  },
+  {
+   "id": "piraeus-mykonos",
+   "name": "Piraeus–Mykonos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Mykonos",
+     "lat": 37.464006,
+     "lon": 25.324737,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: MYKONOS, MYKONOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Mykonos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976098197"
+   }
+  },
+  {
+   "id": "piraeus-naxos",
+   "name": "Piraeus–Naxos",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976083605"
+   }
+  },
+  {
+   "id": "piraeus-paros",
+   "name": "Piraeus–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942451,
+     "lon": 23.625145,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Paros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/45353989"
+   }
+  },
+  {
+   "id": "piraeus-patmos",
+   "name": "Piraeus–Patmos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Patmos",
+     "lat": 37.323828,
+     "lon": 26.54469,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PATMOS, PATMOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Patmos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976074755"
+   }
+  },
+  {
+   "id": "piraeus-psara",
+   "name": "Piraeus–Psara",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Psara",
+     "lat": 38.539034,
+     "lon": 25.566206,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PSARA, PSARA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Psara (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971697928"
+   }
+  },
+  {
+   "id": "piraeus-rhodes",
+   "name": "Piraeus–Rhodes",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: RHODES, RHODES)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Rhodes (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976053779"
+   }
+  },
+  {
+   "id": "piraeus-serifos",
+   "name": "Piraeus–Serifos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.945324,
+     "lon": 23.638548,
+     "country": "GR"
+    },
+    {
+     "name": "Serifos",
+     "lat": 37.141697,
+     "lon": 24.518925,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SERIFOS, SERIFOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Serifos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/344870260"
+   }
+  },
+  {
+   "id": "piraeus-souvala",
+   "name": "Piraeus–Souvala",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.944062,
+     "lon": 23.643194,
+     "country": "GR"
+    },
+    {
+     "name": "Souvala",
+     "lat": 37.773149,
+     "lon": 23.487732,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: AEGINA, SOUVALA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Aegina (Souvala) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/614074817"
+   }
+  },
+  {
+   "id": "piraeus-tinos",
+   "name": "Piraeus–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.947334,
+     "lon": 23.64152,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Tinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975816636"
+   }
+  },
+  {
+   "id": "piraeus-vathy",
+   "name": "Piraeus–Vathy",
+   "operator": "Blue Star Ferries",
+   "terminals": [
+    {
+     "name": "Piraeus",
+     "lat": 37.942261,
+     "lon": 23.624703,
+     "country": "GR"
+    },
+    {
+     "name": "Vathy",
+     "lat": 37.7526,
+     "lon": 26.959808,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SAMOS, VATHY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piraeus - Samos (Vathy) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1314886913"
+   }
+  },
+  {
+   "id": "pisaetos-poros-kefallonia",
+   "name": "Pisaetos–Poros (Kefallonia)",
+   "operator": "Levante Ferries",
+   "terminals": [
+    {
+     "name": "Pisaetos",
+     "lat": 38.34801,
+     "lon": 20.684571,
+     "country": "GR"
+    },
+    {
+     "name": "Poros (Kefallonia)",
+     "lat": 38.14795,
+     "lon": 20.783091,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, POROS, KEFALLONIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ithaca (Pisaetos) - Cephalonia (Poros) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/275175557"
+   }
+  },
+  {
+   "id": "pisaetos-sami",
+   "name": "Pisaetos–Sami",
+   "operator": "Levante Ferries",
+   "terminals": [
+    {
+     "name": "Pisaetos",
+     "lat": 38.34801,
+     "lon": 20.684571,
+     "country": "GR"
+    },
+    {
+     "name": "Sami",
+     "lat": 38.252322,
+     "lon": 20.645943,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, SAMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Cephalonia (Sami) - Ithaca (Pisaetos) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/275175556"
+   }
+  },
+  {
    "id": "plymouth-roscoff",
    "name": "Plymouth–Roscoff",
    "operator": "Brittany Ferries",
@@ -2317,6 +7821,70 @@
    "source": {
     "title": "OpenStreetMap: Plymouth (UK) - Santander (E) (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/587547089"
+   }
+  },
+  {
+   "id": "poros-kefallonia-sami",
+   "name": "Poros (Kefallonia)–Sami",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Poros (Kefallonia)",
+     "lat": 38.14795,
+     "lon": 20.783091,
+     "country": "GR"
+    },
+    {
+     "name": "Sami",
+     "lat": 38.252322,
+     "lon": 20.645943,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KEFALLONIA, SAMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Cephalonia (Poros) - Cephalonia (Sami) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972704000"
+   }
+  },
+  {
+   "id": "poros-kefallonia-zakynthos",
+   "name": "Poros (Kefallonia)–Zakynthos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Poros (Kefallonia)",
+     "lat": 38.14795,
+     "lon": 20.783091,
+     "country": "GR"
+    },
+    {
+     "name": "Zakynthos",
+     "lat": 37.779854,
+     "lon": 20.902049,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ZAKYNTHOS, ZAKYNTHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Zante - Cephalonia (Poros) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/717379394"
    }
   },
   {
@@ -2568,6 +8136,198 @@
    }
   },
   {
+   "id": "rafina-gavrio",
+   "name": "Rafina–Gavrio",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Rafina",
+     "lat": 38.023883,
+     "lon": 24.011023,
+     "country": "GR"
+    },
+    {
+     "name": "Gavrio",
+     "lat": 37.884669,
+     "lon": 24.735624,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ANDROS, GAVRIO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rafina - Andros (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/32687656"
+   }
+  },
+  {
+   "id": "rafina-naxos",
+   "name": "Rafina–Naxos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Rafina",
+     "lat": 38.023292,
+     "lon": 24.010992,
+     "country": "GR"
+    },
+    {
+     "name": "Naxos",
+     "lat": 37.10619,
+     "lon": 25.371443,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: NAXOS, NAXOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rafina - Naxos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/349903398"
+   }
+  },
+  {
+   "id": "rafina-paros",
+   "name": "Rafina–Paros",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Rafina",
+     "lat": 38.023062,
+     "lon": 24.01099,
+     "country": "GR"
+    },
+    {
+     "name": "Paros",
+     "lat": 37.087212,
+     "lon": 25.149352,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: PAROS, PAROS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Paros - Rafina (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/976473166"
+   }
+  },
+  {
+   "id": "rafina-tinos",
+   "name": "Rafina–Tinos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Rafina",
+     "lat": 38.023565,
+     "lon": 24.010994,
+     "country": "GR"
+    },
+    {
+     "name": "Tinos",
+     "lat": 37.538635,
+     "lon": 25.156502,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TINOS, TINOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rafina - Tinos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/975721861"
+   }
+  },
+  {
+   "id": "rhodes-symi",
+   "name": "Rhodes–Symi",
+   "operator": "Blue Star",
+   "terminals": [
+    {
+     "name": "Rhodes",
+     "lat": 36.443012,
+     "lon": 28.236799,
+     "country": "GR"
+    },
+    {
+     "name": "Symi",
+     "lat": 36.620877,
+     "lon": 27.846583,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SYMI, SYMI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rhodes - Symi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1033916658"
+   }
+  },
+  {
+   "id": "rhodes-tilos",
+   "name": "Rhodes–Tilos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Rhodes",
+     "lat": 36.445003,
+     "lon": 28.232012,
+     "country": "GR"
+    },
+    {
+     "name": "Tilos",
+     "lat": 36.417194,
+     "lon": 27.386414,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TILOS, TILOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Rhodes - Tilos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/52959210"
+   }
+  },
+  {
    "id": "rosslare-dunkerque",
    "name": "Rosslare–Dunkerque",
    "operator": "DFDS",
@@ -2794,6 +8554,70 @@
    }
   },
   {
+   "id": "sitia-anafi",
+   "name": "Sitia–Anafi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Sitia",
+     "lat": 35.212189,
+     "lon": 26.111639,
+     "country": "GR"
+    },
+    {
+     "name": "Anafi",
+     "lat": 36.343752,
+     "lon": 25.768742,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: ANAFI, ANAFI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Anafi - Sitia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/972378686"
+   }
+  },
+  {
+   "id": "sitia-kasos",
+   "name": "Sitia–Kasos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Sitia",
+     "lat": 35.212189,
+     "lon": 26.111639,
+     "country": "GR"
+    },
+    {
+     "name": "Kasos",
+     "lat": 35.418401,
+     "lon": 26.924219,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: KASOS, KASOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Sitia - Kasos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/40852738"
+   }
+  },
+  {
    "id": "skikda-genova",
    "name": "Skikda–Genova",
    "operator": "",
@@ -2953,6 +8777,38 @@
    "source": {
     "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
     "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "symi-tilos",
+   "name": "Symi–Tilos",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Symi",
+     "lat": 36.615852,
+     "lon": 27.838852,
+     "country": "GR"
+    },
+    {
+     "name": "Tilos",
+     "lat": 36.417194,
+     "lon": 27.386414,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: TILOS, TILOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Tilos - Symi (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/971686434"
    }
   },
   {
@@ -3121,6 +8977,70 @@
    "source": {
     "title": "OpenStreetMap: Zeebrugge - Teesport (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/96053700"
+   }
+  },
+  {
+   "id": "thessaloniki-myrina",
+   "name": "Thessaloniki–Myrina",
+   "operator": "Blue Star Ferries-Hellenic Seaways (joint service)",
+   "terminals": [
+    {
+     "name": "Thessaloniki",
+     "lat": 40.635217,
+     "lon": 22.932795,
+     "country": "GR"
+    },
+    {
+     "name": "Myrina",
+     "lat": 39.87106,
+     "lon": 25.054855,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: LIMNOS, MYRINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Thessaloniki - Lemnos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973874964"
+   }
+  },
+  {
+   "id": "thessaloniki-skiathos",
+   "name": "Thessaloniki–Skiathos",
+   "operator": "Seajets",
+   "terminals": [
+    {
+     "name": "Thessaloniki",
+     "lat": 40.635217,
+     "lon": 22.932795,
+     "country": "GR"
+    },
+    {
+     "name": "Skiathos",
+     "lat": 39.162811,
+     "lon": 23.491319,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Greece: SKIATHOS, SKIATHOS)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Thessaloniki - Skiathos (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/973872919"
    }
   },
   {

@@ -61,9 +61,10 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - for the island ports of the Decision in Spain (Ibiza, Formentera,
   Menorca), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
   Lipari, Pantelleria, Lampedusa, Favignana, Ustica, Ponza) and Malta
-  (Gozo) that PORTS has (ISLANDS), the OpenStreetMap ferry lines between
-  one of them and another port of its Member State: the ships aren't named;
-  the derogation is in force until 31 December 2030;
+  (Gozo) that PORTS has (ISLANDS), and of Greece (GREECE, by the English
+  names of OpenStreetMap's lines in gr-ferries-osm.json), the OpenStreetMap
+  ferry lines between one of them and another port of its Member State: the
+  ships aren't named; the derogation is in force until 31 December 2030;
 - for ports outside the EU and the EEA (the UK, the Isle of Man, the
   Channel Islands, the Faroes; Morocco, Algeria, Tunisia, Albania,
   Montenegro and Turkey), the OpenStreetMap ferry lines between one of
@@ -192,6 +193,76 @@ PORTS = {
     "Patras": ("GR", ["Patras", "Patra", "Πάτρα"], (38.25, 21.73)), "Lavrio": ("GR", ["Lavrio", "Λαύριο"], (37.71, 24.06)),
     "Chios": ("GR", ["Chios", "Χίος"], (38.37, 26.14)), "Mytilene": ("GR", ["Mytilene", "Lesvos", "Μυτιλήνη"], (39.10, 26.55)),
 }
+# Greece's ports, by the English names OpenStreetMap's lines give them
+# (name:en, "Chios (Mesta) - Lavrio"): {port: ([names], (lat, lon) of the
+# port, (island, port) of the Decision's list for Greece or None)}. A
+# line is read port by port, each part of its name one of these names; a
+# part naming another of an island's ports ("Corfu", "Kos (Kardamaina)")
+# isn't one of these, and its line isn't built.
+GREECE = {
+    # ports on the mainland, on Crete and on Evia (not in the list)
+    "Piraeus": (["Piraeus"], (37.94, 23.63), None), "Rafina": (["Rafina"], (38.02, 24.01), None),
+    "Kavala": (["Kavala"], (40.93, 24.41), None), "Keramoti": (["Keramoti"], (40.86, 24.70), None),
+    "Thessaloniki": (["Thessaloniki"], (40.63, 22.93), None), "Alexandroupolis": (["Alexandroupolis", "Alexandroupoli"], (40.84, 25.87), None),
+    "Volos": (["Volos"], (39.36, 22.94), None), "Agios Konstantinos": (["Agios Konstantinos"], (38.76, 22.86), None),
+    "Kymi": (["Kymi"], (38.63, 24.12), None), "Mantoudi": (["Mantoudi"], (38.80, 23.48), None), "Glyfa": (["Glyfa"], (38.94, 22.95), None),
+    "Kyllini": (["Kyllini"], (37.94, 21.15), None), "Astakos": (["Astakos"], (38.53, 21.08), None),
+    "Neapoli": (["Neapoli"], (36.51, 23.06), None), "Gythio": (["Gythio"], (36.76, 22.57), None),
+    "Heraklion": (["Heraklion"], (35.34, 25.14), None), "Souda": (["Chania (Souda)", "Souda"], (35.49, 24.07), None),
+    "Sitia": (["Sitia"], (35.21, 26.10), None), "Kissamos": (["Kissamos"], (35.50, 23.66), None), "Rethymno": (["Rethymno"], (35.37, 24.48), None),
+    "Perama": (["Perama"], (37.96, 23.57), None), "Perama Megaridos": (["Perama Megaridos"], (37.97, 23.40), None),
+    "Methana": (["Methana"], (37.58, 23.39), None), "Ermioni": (["Ermioni"], (37.39, 23.25), None), "Galatas": (["Galatas"], (37.50, 23.45), None),
+    "Kosta": (["Kosta"], (37.29, 23.13), None), "Marmari": (["Marmari"], (38.05, 24.32), None), "Nea Styra": (["Nea Styra"], (38.17, 24.23), None),
+    # island ports in the list
+    "Aegina": (["Aegina"], (37.75, 23.43), ("AEGINA", "AEGINA")), "Souvala": (["Aegina (Souvala)"], (37.76, 23.48), ("AEGINA", "SOUVALA")),
+    "Agia Marina (Aegina)": (["Aegina (Agia Marina)"], (37.74, 23.53), ("AEGINA", "AGIA MARINA, AEGINA")),
+    "Agathonisi": (["Agathonisi"], (37.46, 26.97), ("AGATHONISI", "AGATHONISI")),
+    "Agios Efstratios": (["Agios Efstratios"], (39.53, 24.99), ("AGIOS EFSTRATIOS", "AGIOS EFSTRATIOS")),
+    "Alonnisos": (["Alonnisos", "Alonnissos"], (39.15, 23.87), ("ALONNISOS", "ALONNISOS")),
+    "Katapola": (["Amorgos", "Amorgos (Katapola)"], (36.83, 25.86), ("AMORGOS", "KATAPOLA")),
+    "Aegiali": (["Amorgos (Aegiale)", "Amorgos (Aigiali)"], (36.90, 25.98), ("AMORGOS", "AGIALI")),
+    "Anafi": (["Anafi"], (36.35, 25.77), ("ANAFI", "ANAFI")), "Gavrio": (["Andros", "Andros (Gavrio)"], (37.89, 24.73), ("ANDROS", "GAVRIO")),
+    "Antikythira": (["Antikythira"], (35.89, 23.30), ("ANTIKYTHIRA", "POTAMOS, ANTIKYTHIRA")),
+    "Astypalaia": (["Astypalaia", "Astypalea", "Astypalaia (Agios Andreas)", "Astypalea (Agios Andreas)"], (36.55, 26.35), ("ASTYPALAIA", "ASTYPALAIA")),
+    "Chalki": (["Chalki"], (36.22, 27.61), ("HALKI", "HALKI")), "Mesta": (["Chios (Mesta)"], (38.26, 25.93), ("CHIOS", "MESTA")),
+    "Donousa": (["Donousa"], (37.10, 25.81), ("DONOUSA", "DONOUSA")), "Folegandros": (["Folegandros"], (36.62, 24.92), ("FOLEGANDROS", "FOLEGANDROS")),
+    "Fournoi": (["Fournoi", "Fourni"], (37.58, 26.48), ("FOURNI KORSEON", "FOURNI KORSEON")), "Gavdos": (["Gavdos"], (34.84, 24.12), ("GAVDOS", "GAVDOS")),
+    "Agios Kirykos": (["Ikaria (Agios Kirykos)"], (37.61, 26.30), ("IKARIA", "EVDILOS / AGIOS KYRIKOS")),
+    "Evdilos": (["Ikaria (Evdilos)"], (37.63, 26.18), ("IKARIA", "EVDILOS / AGIOS KYRIKOS")),
+    "Ios": (["Ios"], (36.72, 25.28), ("IOS", "IOS")), "Irakleia": (["Irakleia"], (36.84, 25.45), ("IRAKLEIA", "IRAKLEIA")),
+    "Frikes": (["Ithaca (Frikes)"], (38.46, 20.66), ("ITHAKI", "FRIKES")), "Pisaetos": (["Ithaca (Pisaetos)"], (38.38, 20.64), ("ITHAKI", "PISAETOS")),
+    "Kalymnos": (["Kalymnos"], (36.95, 26.98), ("KALYMNOS", "KALYMNOS")), "Karpathos": (["Karpathos"], (35.51, 27.21), ("KARPATHOS", "KARPATHOS")),
+    "Kasos": (["Kasos"], (35.42, 26.92), ("KASOS", "KASOS")), "Kastos": (["Kastos"], (38.57, 20.91), ("KASTOS", "KASTOS")),
+    "Kea": (["Kea"], (37.66, 24.32), ("KEA", "KEA")),
+    "Sami": (["Cephalonia (Sami)", "Kefalonia (Sami)"], (38.25, 20.65), ("KEFALLONIA", "SAMI")),
+    "Poros (Kefallonia)": (["Cephalonia (Poros)", "Kefalonia (Poros)"], (38.15, 20.77), ("KEFALLONIA", "POROS, KEFALLONIA")),
+    "Lefkimmi": (["Corfu (Lefkimmi)"], (39.42, 20.07), ("KERKYRA", "LEFKIMI")), "Kimolos": (["Kimolos"], (36.79, 24.57), ("KIMOLOS", "KIMOLOS")),
+    "Kos": (["Kos"], (36.89, 27.29), ("KOS", "KOS")), "Mastichari": (["Kos (Mastichari)"], (36.85, 27.08), ("KOS", "MASTICHARI")),
+    "Koufonisi": (["Koufonisi"], (36.93, 25.60), ("KOUFONISI", "KOUFONISIA, CYCLADES")), "Kythnos": (["Kythnos"], (37.39, 24.43), ("KYTHNOS", "KYTHNOS")),
+    "Lakki": (["Leros"], (37.13, 26.85), ("LEROS", "LAKKI, LEROS")), "Myrina": (["Lemnos"], (39.87, 25.06), ("LIMNOS", "MYRINA")),
+    "Lipsi": (["Leipsoi", "Lipsi"], (37.30, 26.76), ("LIPSI", "LIPSI")), "Meganisi": (["Meganisi (Spilia)"], (38.66, 20.78), ("MEGANISI", "MEGANISI")),
+    "Kastelorizo": (["Kastelorizo"], (36.15, 29.59), ("MEGISTI", "KASTELORIZO")), "Adamantas": (["Milos"], (36.73, 24.43), ("MILOS", "ADAMANTAS")),
+    "Mykonos": (["Mykonos"], (37.45, 25.33), ("MYKONOS", "MYKONOS")), "Naxos": (["Naxos"], (37.11, 25.37), ("NAXOS", "NAXOS")),
+    "Nisyros": (["Nisyros"], (36.61, 27.16), ("NISYROS", "NISYROS")), "Oinousses": (["Oinousses"], (38.51, 26.22), ("INOUSSES", "INOUSSES")),
+    "Paros": (["Paros"], (37.09, 25.15), ("PAROS", "PAROS")), "Paxoi": (["Paxoi"], (39.20, 20.19), ("PAXI", "PAXI")),
+    "Patmos": (["Patmos"], (37.32, 26.55), ("PATMOS", "PATMOS")), "Poros": (["Poros"], (37.50, 23.46), ("POROS", "POROS, TRIZINIA")),
+    "Psara": (["Psara"], (38.54, 25.56), ("PSARA", "PSARA")), "Rhodes": (["Rhodes"], (36.45, 28.23), ("RHODES", "RHODES")),
+    "Paloukia": (["Salamina (Paloukia)"], (37.96, 23.55), ("SALAMINA", "PALOUKIA")),
+    "Faneromeni": (["Salamina (Faneromeni)"], (37.97, 23.43), ("SALAMINA", "FANEROMENI")),
+    "Vathy": (["Samos", "Samos (Vathy)"], (37.76, 26.98), ("SAMOS", "VATHY")), "Karlovasi": (["Samos (Karlovasi)"], (37.80, 26.70), ("SAMOS", "KARLOVASI")),
+    "Pythagoreio": (["Samos (Pythagoreio)"], (37.69, 26.95), ("SAMOS", "PYTHAGOREIO")),
+    "Samothraki": (["Samothrace"], (40.47, 25.47), ("SAMOTHRAKI", "SAMOTHRAKI")), "Schoinousa": (["Schoinousa"], (36.87, 25.52), ("SCHINOUSSA", "SCHINOUSSA")),
+    "Serifos": (["Serifos"], (37.14, 24.51), ("SERIFOS", "SERIFOS")), "Kamares": (["Sifnos"], (36.97, 24.68), ("SIFNOS", "KAMARES, SIFNOS")),
+    "Sikinos": (["Sikinos"], (36.68, 25.12), ("SIKINOS", "SIKINOS")), "Skiathos": (["Skiathos"], (39.16, 23.49), ("SKIATHOS", "SKIATHOS")),
+    "Glossa": (["Skopelos (Glossa)", "Glossa"], (39.17, 23.62), ("SKOPELOS", "GLOSSA/AGNONTAS")),
+    "Agnontas": (["Skopelos (Agnontas)"], (39.08, 23.71), ("SKOPELOS", "GLOSSA/AGNONTAS")),
+    "Linaria": (["Skyros"], (38.84, 24.54), ("SKYROS", "LINARIA")), "Spetses": (["Spetses"], (37.26, 23.16), ("SPETSES", "SPETSES")),
+    "Symi": (["Symi"], (36.62, 27.84), ("SYMI", "SYMI")), "Ermoupoli": (["Syros"], (37.44, 24.94), ("SYROS", "ERMOUPOLI")),
+    "Prinos": (["Thassos (Prinos)"], (40.76, 24.60), ("THASOS", "PRINOS")), "Thasos": (["Thassos (Limenas)"], (40.78, 24.71), ("THASOS", "THASOS")),
+    "Athinios": (["Santorini (Athinios)"], (36.39, 25.43), ("THIRA", "THIRA")), "Thymaina": (["Thymaina"], (37.58, 26.51), ("THYMAINA", "THYMAINA")),
+    "Tilos": (["Tilos"], (36.42, 27.38), ("TILOS", "TILOS")), "Tinos": (["Tinos"], (37.54, 25.16), ("TINOS", "TINOS")),
+    "Hydra": (["Hydra"], (37.35, 23.47), ("YDRA", "YDRA")), "Zakynthos": (["Zakynthos", "Zante"], (37.78, 20.90), ("ZAKYNTHOS", "ZAKYNTHOS")),
+}
 # The island ports of Implementing Decision (EU) 2023/2895, Annex I, that
 # PORTS has: (Member State, island, port) as the Decision lists them.
 ISLANDS = {"Eivissa": ("SPAIN", "IBIZA", "EIVISSA"), "Sant Antoni": ("SPAIN", "IBIZA", "SANT ANTONI DE PORTMANY"),
@@ -204,7 +275,14 @@ ISLANDS = {"Eivissa": ("SPAIN", "IBIZA", "EIVISSA"), "Sant Antoni": ("SPAIN", "I
            "Carloforte": ("ITALY", "ISOLA DI SAN PIETRO", "CARLOFORTE"), "Lipari": ("ITALY", "LIPARI", "LIPARI"),
            "Pantelleria": ("ITALY", "PANTELLERIA", "PANTELLERIA"), "Lampedusa": ("ITALY", "LAMPEDUSA", "LAMPEDUSA"),
            "Favignana": ("ITALY", "FAVIGNANA", "FAVIGNANA"), "Isola del Giglio": ("ITALY", "ISOLA DEL GIGLIO", "ISOLA DEL GIGLIO"),
-           "Ustica": ("ITALY", "USTICA", "USTICA"), "Ponza": ("ITALY", "PONZA", "PONZA"), "Mġarr": ("MALTA", "GOZO", "MGARR")}
+           "Ustica": ("ITALY", "USTICA", "USTICA"), "Ponza": ("ITALY", "PONZA", "PONZA"), "Mġarr": ("MALTA", "GOZO", "MGARR"),
+           "Chios": ("GREECE", "CHIOS", "CHIOS"), "Mytilene": ("GREECE", "LESVOS", "MYTILINI")}
+QUERIED = set(PORTS)  # the ports whose names ferry-ships-osm and -osm-2 ask for
+PORTS["Mytilene"][1].extend(["Mytilini", "Lesvos (Mytilene)"])
+for _p, (_names, _at, _listed) in GREECE.items():
+    PORTS[_p] = ("GR", _names, _at)
+    if _listed:
+        ISLANDS[_p] = ("GREECE",) + _listed
 # The UK nation of the UK ports where the UK ETS's rules differ: Northern
 # Ireland (50% to and from Great Britain) and Scotland (its ferry services
 # between points in Scotland are outside).
@@ -536,7 +614,7 @@ def osm_query():
     further off, Santander or Tórshavn, passes through it) and -osm-2 (the
     Mediterranean), as sources.json has them."""
     import urllib.parse
-    names = "|".join(sorted({x for _, xs, _ in PORTS.values() for x in xs}))
+    names = "|".join(sorted({x for p, (_, xs, _) in PORTS.items() if p in QUERIED for x in xs if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
     lines = ['[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]{bbox};out geom tags;'
              for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)")]
     return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in lines]
@@ -589,6 +667,7 @@ def main(fetched, out):
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
         gpage = open(os.path.join(fetched, "gotland-ferries.html"), encoding="utf-8").read()
+        grosm = json.load(open(os.path.join(fetched, "gr-ferries-osm.json"), encoding="utf-8"))
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
         fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
@@ -729,7 +808,7 @@ def main(fetched, out):
         if w["type"] != "way" or w["id"] not in car:
             continue
         ports = named_ports(w.get("tags", {}).get("name", ""))
-        if len(ports) == 2 and any(p in ISLANDS for p in ports) and PORTS[ports[0]][0] == PORTS[ports[1]][0]:
+        if len(ports) == 2 and any(p in ISLANDS for p in ports) and PORTS[ports[0]][0] == PORTS[ports[1]][0] != "GR":
             islands.setdefault(frozenset(ports), []).append(w)
     for key, ways in sorted(islands.items(), key=lambda kv: sorted(kv[0])):
         if key in have:
@@ -742,6 +821,37 @@ def main(fetched, out):
         COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} ({ISLANDS[p][0].title()}: {ISLANDS[p][1]}, {ISLANDS[p][2]})", "url": DECISION[1]}
               for p in (a, b) if p in ISLANDS][:1]
+        ops = sorted({w["tags"]["operator"] for w in trucks or ways if w["tags"].get("operator")})
+        cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
+        c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {
+            "title": "OpenStreetMap: " + "; ".join(sorted({w["tags"]["name"] for w in trucks or ways})) + " (its ships not named)",
+            "url": f"https://www.openstreetmap.org/way/{min(w['id'] for w in trucks or ways)}"}, ids, ex)
+        crossings.append(c)
+        have[key] = c
+
+    # Greece: OpenStreetMap's lines (gr-ferries-osm) by their English names,
+    # each part of the name one of a port's names in GREECE.
+    folded = {fold(x): p for p in GREECE for x in PORTS[p][1]} | {fold(x): p for p in ("Chios", "Mytilene", "Lavrio", "Igoumenitsa", "Patras")
+                                                                  for x in PORTS[p][1]}
+    en = {"elements": [{**w, "tags": {**w.get("tags", {}), "name": w.get("tags", {}).get("name:en") or w.get("tags", {}).get("name", "")}}
+                       for w in grosm.get("elements", []) if w["type"] == "way"]}
+    gcar = {i for i, _ in lines_of(en)[0]} | {w["id"] for w in en["elements"] if w["tags"].get("hgv") in ("yes", "designated")}
+    gr = {}
+    for w in en["elements"]:
+        parts = [folded.get(fold(x.strip())) for x in re.split(r"\s+[-–]\s+", w["tags"]["name"])]
+        if w["id"] in gcar and len(parts) == 2 and all(parts) and parts[0] != parts[1] and any(p in ISLANDS for p in parts):
+            gr.setdefault(frozenset(parts), []).append(w)
+    for key, ways in sorted(gr.items(), key=lambda kv: sorted(kv[0])):
+        if key in have:
+            continue
+        a, b = sorted(key, key=lambda p: (p in ISLANDS, p))
+        trucks = [w for w in ways if w["tags"].get("motor_vehicle") in ("yes", "designated") or w["tags"].get("hgv") in ("yes", "designated")]
+        pos = osm_place({"elements": trucks or ways}, a, b, "")
+        if not pos:
+            continue
+        COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
+        ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Greece: {ISLANDS[p][1]}, {ISLANDS[p][2]})", "url": DECISION[1]}
+              for p in (b, a) if p in ISLANDS][:1]
         ops = sorted({w["tags"]["operator"] for w in trucks or ways if w["tags"].get("operator")})
         cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
         c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {

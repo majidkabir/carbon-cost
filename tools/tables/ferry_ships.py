@@ -12,6 +12,11 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Bornholmslinjen's ferries page (bornholm-ferries.html): each ferry's
   crossing times ("Rønne - Køge", "Rønne-Ystad") and description ("på
   ruten mellem Rønne og Ystad") name its routes;
+- Destination Gotland's ferries page (gotland-ferries.html): each ferry's
+  route ("M/S Drotten operates the Visby–Nynäshamn/Oskarshamn route"), its
+  terminals on OpenStreetMap's lines (ferry-ships-osm.json). Gotland's port
+  Visby is under the island derogation (Directive 2003/87/EC, Art.
+  12(3-d)) for voyages to a port in Sweden until 31 December 2030;
 - TT-Line's freight timetable (browser/ttline-timetable.txt: the site
   refuses scripted requests, so its text was read in Chrome): the ship of
   each departure, by its initials, which the page names ("PP = Peter
@@ -46,9 +51,9 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   has one), each port at the end nearest its town (PORTS); a line trucks may take (hgv=yes) counts though cars may not. A
   route with no such line isn't built: no route can take it;
 - Commission Implementing Decision (EU) 2023/2895, Annex I
-  (ets-islands-2023-2895.html): Bornholm's port Rønne is under the island
-  derogation (Directive 2003/87/EC, Art. 12(3-d)) for voyages to a port in
-  Denmark until 31 December 2030;
+  (ets-islands-2023-2895.html): Bornholm's port Rønne and Gotland's Visby are
+  under the island derogation (Directive 2003/87/EC, Art. 12(3-d)) for
+  voyages to a port in their country until 31 December 2030;
 - the EU MRV reports' ship lists (ferries/data/mrv-ships-<year>.json): a
   ship's IMO number, by its name (letters such as Å read as A), when one
   ship of that name is listed.
@@ -111,7 +116,8 @@ PORTS = {
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
     "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
-    "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
+    "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Visby": ("SE", ["Visby"], (57.64, 18.29)),
+    "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
     # ports outside the EU and the EEA, and the ports across from them
     "Dover": ("GB", ["Dover", "Douvres"], (51.12, 1.33)), "Newhaven": ("GB", ["Newhaven"], (50.79, 0.05)),
     "Portsmouth": ("GB", ["Portsmouth"], (50.81, -1.09)), "Poole": ("GB", ["Poole"], (50.71, -1.98)),
@@ -264,6 +270,19 @@ def bornholm(page):
                 for m in re.finditer(rf"Rønne ?- ?{port}|Rønne og {port}", html.unescape(re.sub(r"<[^>]+>", " ", s))):
                     for f in ferry[:1]:
                         routes.setdefault(f, set()).add(m.group(1) or m.group(2))
+    return routes
+
+
+def gotland(page):
+    """{ferry: {(mainland port, Visby)}} from Destination Gotland's ferries
+    page ("M/S Drotten operates the Visby–Nynäshamn/Oskarshamn route")."""
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", page, flags=re.S)))
+    routes = {}
+    for m in re.finditer(r"M/S (\w[\w ]*?) operates the (\w+)\s*[–-]\s*(\w+(?:\s*/\s*\w+)*) route", flat):
+        island = port_of(m.group(2), "gotland-ferries.html")
+        routes.setdefault(m.group(1), set()).update((port_of(p, "gotland-ferries.html"), island) for p in re.split(r"\s*/\s*", m.group(3)))
+    if not routes:
+        sys.exit("ferry ships: Destination Gotland's page names no ferry's route")
     return routes
 
 
@@ -532,6 +551,7 @@ def main(fetched, out):
         bosm = json.load(open(os.path.join(fetched, "dk-bornholm-osm.json"), encoding="utf-8"))
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
+        gpage = open(os.path.join(fetched, "gotland-ferries.html"), encoding="utf-8").read()
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
         fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
@@ -588,6 +608,21 @@ def main(fetched, out):
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Denmark: Bornholm, Rønne)", "url": DECISION[1]}] if {COUNTRY[p] for p in ports} == {"DK"} else []
         crossings.append(crossing(cid, ports, pos, "Bornholmslinjen", ships,
                                   {"title": "Bornholmslinjen: the ferries (each one's crossings)", "url": src["bornholm-ferries"]["url"]}, ids, ex))
+
+    # Destination Gotland
+    if " SWEDEN GOTLAND VISBY " not in decision[decision.find(" SWEDEN "):]:
+        sys.exit("ferry ships: the Decision doesn't list Gotland, Visby")
+    groutes = gotland(gpage)
+    for ports in sorted({ps for r in groutes.values() for ps in r}):
+        ships = {f for f, r in groutes.items() if ports in r}
+        pos = osm_place(gosm, *ports, "Destination Gotland")
+        if not pos:
+            sys.exit(f"ferry ships: {'–'.join(ports)}: no OpenStreetMap line between its ports")
+        COUNTRY.update({p: PORTS[p][0] for p in ports})
+        cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in ports)
+        ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Sweden: Gotland, Visby)", "url": DECISION[1]}] if {COUNTRY[p] for p in ports} == {"SE"} else []
+        crossings.append(crossing(cid, ports, pos, "Destination Gotland", ships,
+                                  {"title": "Destination Gotland: our ferries (each one's route)", "url": src["gotland-ferries"]["url"]}, ids, ex))
 
     # TT-Line
     troutes, turl, tday = ttline(tcap)

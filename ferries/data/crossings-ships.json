@@ -1369,6 +1369,51 @@
    }
   },
   {
+   "id": "nynashamn-visby",
+   "name": "Nynäshamn–Visby",
+   "operator": "Destination Gotland",
+   "terminals": [
+    {
+     "name": "Nynäshamn",
+     "lat": 58.903378,
+     "lon": 17.955891,
+     "country": "SE"
+    },
+    {
+     "name": "Visby",
+     "lat": 57.634678,
+     "lon": 18.279407,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9223796",
+     "name": "DROTTEN"
+    },
+    {
+     "imo": "9783071",
+     "name": "GOTLAND"
+    },
+    {
+     "imo": "9763655",
+     "name": "VISBY"
+    }
+   ],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Sweden: Gotland, Visby)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Destination Gotland: our ferries (each one's route)",
+    "url": "https://www.destinationgotland.se/en/all-about-the-trip/our-ferries/"
+   }
+  },
+  {
    "id": "oran-alicante",
    "name": "Oran–Alicante",
    "operator": "",
@@ -1390,6 +1435,51 @@
    "source": {
     "title": "OpenStreetMap: Alacant / Alicante (E) - Oran (DZ) وهران (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/369719959"
+   }
+  },
+  {
+   "id": "oskarshamn-visby",
+   "name": "Oskarshamn–Visby",
+   "operator": "Destination Gotland",
+   "terminals": [
+    {
+     "name": "Oskarshamn",
+     "lat": 57.263896,
+     "lon": 16.458179,
+     "country": "SE"
+    },
+    {
+     "name": "Visby",
+     "lat": 57.633489,
+     "lon": 18.277286,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9223796",
+     "name": "DROTTEN"
+    },
+    {
+     "imo": "9783071",
+     "name": "GOTLAND"
+    },
+    {
+     "imo": "9763655",
+     "name": "VISBY"
+    }
+   ],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Sweden: Gotland, Visby)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Destination Gotland: our ferries (each one's route)",
+    "url": "https://www.destinationgotland.se/en/all-about-the-trip/our-ferries/"
    }
   },
   {

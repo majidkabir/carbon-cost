@@ -1,0 +1,562 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/polsca/2026-03-30",
+  "scheme": {
+   "id": "polsca",
+   "name": "POLSCA Baltic Ferries' (Polferries, Unity Line) ferries Świnoujście–Ystad, Świnoujście–Trelleborg and Gdańsk–Nynäshamn, trucks",
+   "country": "PL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-03-30",
+  "valid_to": "2026-03-31",
+  "currency": "EUR",
+  "timezone": "Europe/Warsaw",
+  "license": "MIT",
+  "method": "POLSCA Baltic Ferries' (Polferries and Unity Line) freight tariff valid from 2026-03-30, one way, EUR net, the same both ways: Świnoujście–Ystad and Świnoujście–Trelleborg: trucks up to 7 m EUR 125 and over 7 to 9 m EUR 150 per unit, heavy goods vehicles over 9 m EUR 25 per commenced metre; Gdańsk–Nynäshamn: trucks up to 7 m EUR 250 and over 7 to 9 m EUR 300 per unit, heavy goods vehicles over 9 m EUR 39 per commenced metre, including one driver, a cabin place and two meals; by the truck's length in whole metres up. With the bunker-environmental surcharge (BES) per commenced metre: Świnoujście–Ystad and Świnoujście–Trelleborg EUR 7.5 (from 2026-03-30), Gdańsk–Nynäshamn EUR 16.59 (from 2026-03-30). The ETS surcharge isn't added: carbon-cost prices the EU ETS on a crossing from the ships' MRV data. The weight and width surcharges (general cargo, over-standard vehicles) aren't applied. TT-Line sails Świnoujście–Trelleborg too; its freight rates aren't published, so that crossing is priced at POLSCA's. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "polsca-2026-03-30.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "POLSCA Baltic Ferries (Unity Line): freight tariff",
+   "url": "https://www.unityline.eu/cargo/documents-polsca/freight-tariff"
+  },
+  {
+   "id": "s2",
+   "title": "POLSCA Baltic Ferries (Unity Line): BES announcements",
+   "url": "https://www.unityline.eu/cargo/documents-polsca/bs-bunker-surcharge-announcement"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Overpass API): ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-4-m",
+     "label": "up to 4 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 4
+      }
+     }
+    },
+    {
+     "id": "sys1-1.4-5-m",
+     "label": "4-5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 4,
+       "max": 5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.5-6-m",
+     "label": "5-6 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 5,
+       "max": 6
+      }
+     }
+    },
+    {
+     "id": "sys1-1.6-7-m",
+     "label": "6-7 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6,
+       "max": 7
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-8-m",
+     "label": "7-8 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7,
+       "max": 8
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-9-m",
+     "label": "8-9 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8,
+       "max": 9
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-10-m",
+     "label": "9-10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9,
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-11-m",
+     "label": "10-11 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 11
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-12-m",
+     "label": "11-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-13-m",
+     "label": "12-13 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 13
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-14-m",
+     "label": "13-14 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13,
+       "max": 14
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-15-m",
+     "label": "14-15 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14,
+       "max": 15
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-16-m",
+     "label": "15-16 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15,
+       "max": 16
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-17-m",
+     "label": "16-17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16,
+       "max": 17
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-18-m",
+     "label": "17-18 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17,
+       "max": 18
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-19-m",
+     "label": "18-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18,
+       "max": 19
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-20-m",
+     "label": "19-20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19,
+       "max": 20
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-21-m",
+     "label": "20-21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20,
+       "max": 21
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-22-m",
+     "label": "21-22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21,
+       "max": 22
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-23-m",
+     "label": "22-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22,
+       "max": 23
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-24-m",
+     "label": "23-24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23,
+       "max": 24
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-25-m",
+     "label": "24-25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24,
+       "max": 25
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-26-m",
+     "label": "25-26 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25,
+       "max": 26
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Ystad",
+   "type": "station",
+   "name": "Ystad",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[13.796019, 55.396026]]
+    },
+    "point_names": ["Ystad port, 3.9 km out on the line to Świnoujście (OSM way 30349022)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Świnoujście",
+   "type": "station",
+   "name": "Świnoujście",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.235081, 54.075278]]
+    },
+    "point_names": ["Świnoujście port, 20.8 km out on the line to Ystad (OSM way 30349022)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Trelleborg",
+   "type": "station",
+   "name": "Trelleborg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[13.14058, 55.33321]]
+    },
+    "point_names": ["Trelleborg port, 4.4 km out on the line to Świnoujście (OSM way 139931346)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Świnoujście",
+   "type": "station",
+   "name": "Świnoujście",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[14.028139, 54.27659]]
+    },
+    "point_names": ["Świnoujście port, 46.9 km out on the line to Trelleborg (OSM way 139931346)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Gdańsk",
+   "type": "station",
+   "name": "Gdańsk",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.78442, 54.520945]]
+    },
+    "point_names": ["Gdańsk port, 17.3 km out on the line to Nynäshamn (OSM way 34394208)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Nynäshamn",
+   "type": "station",
+   "name": "Nynäshamn",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.058986, 58.83697]]
+    },
+    "point_names": ["Nynäshamn port, 11.8 km out on the line to Gdańsk (OSM way 34394208)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "POLSCA Baltic Ferries: Świnoujście–Ystad",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "POLSCA Baltic Ferries' freight tariff and BES, accompanied",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.10-11-m", "357.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.11-12-m", "390"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.12-13-m", "422.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.13-14-m", "455"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.14-15-m", "487.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.15-16-m", "520"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.16-17-m", "552.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.17-18-m", "585"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.18-19-m", "617.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.19-20-m", "650"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.20-21-m", "682.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.21-22-m", "715"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.22-23-m", "747.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.23-24-m", "780"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.24-25-m", "812.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.25-26-m", "845"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.4-5-m", "162.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.5-6-m", "170"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.6-7-m", "177.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.7-8-m", "210"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.8-9-m", "217.5"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.9-10-m", "325"],
+    ["st1:Świnoujście", "st1:Ystad", "sys1-1.up-to-4-m", "155"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "POLSCA Baltic Ferries: Świnoujście–Trelleborg",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "POLSCA Baltic Ferries' freight tariff and BES, accompanied",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.10-11-m", "357.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.11-12-m", "390"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.12-13-m", "422.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.13-14-m", "455"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.14-15-m", "487.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.15-16-m", "520"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.16-17-m", "552.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.17-18-m", "585"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.18-19-m", "617.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.19-20-m", "650"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.20-21-m", "682.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.21-22-m", "715"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.22-23-m", "747.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.23-24-m", "780"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.24-25-m", "812.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.25-26-m", "845"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.4-5-m", "162.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.5-6-m", "170"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.6-7-m", "177.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.7-8-m", "210"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.8-9-m", "217.5"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.9-10-m", "325"],
+    ["st2:Świnoujście", "st2:Trelleborg", "sys1-1.up-to-4-m", "155"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "POLSCA Baltic Ferries: Gdańsk–Nynäshamn",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "POLSCA Baltic Ferries' freight tariff and BES, accompanied",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.10-11-m", "611.49"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.11-12-m", "667.08"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.12-13-m", "722.67"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.13-14-m", "778.26"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.14-15-m", "833.85"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.15-16-m", "889.44"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.16-17-m", "945.03"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.17-18-m", "1000.62"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.18-19-m", "1056.21"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.19-20-m", "1111.8"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.20-21-m", "1167.39"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.21-22-m", "1222.98"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.22-23-m", "1278.57"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.23-24-m", "1334.16"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.24-25-m", "1389.75"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.25-26-m", "1445.34"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.4-5-m", "332.95"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.5-6-m", "349.54"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.6-7-m", "366.13"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.7-8-m", "432.72"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.8-9-m", "449.31"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.9-10-m", "555.9"],
+    ["st3:Gdańsk", "st3:Nynäshamn", "sys1-1.up-to-4-m", "316.36"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

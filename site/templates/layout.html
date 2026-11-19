@@ -1,13 +1,16 @@
 {{define "head"}}<!DOCTYPE html>
-<html lang="en">
+<html lang="{{.Lang}}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{.Title}}</title>
 <meta name="description" content="{{.Description}}">
 <link rel="canonical" href="{{.Canonical}}">
-<meta property="og:type" content="website">
+{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
+{{end}}{{range .Alternates}}{{if eq .Lang "en"}}<link rel="alternate" hreflang="x-default" href="{{.Href}}">
+{{end}}{{end}}<meta property="og:type" content="website">
 <meta property="og:site_name" content="carbon-cost">
+<meta property="og:locale" content="{{.Lang}}">
 <meta property="og:title" content="{{.Title}}">
 <meta property="og:description" content="{{.Description}}">
 <meta property="og:url" content="{{.Canonical}}">
@@ -25,8 +28,9 @@
   * { box-sizing: border-box; }
   body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
   main { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; }
-  nav.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+  nav.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
   nav.crumbs a { color: var(--accent); text-decoration: none; }
+  nav.langs a, nav.langs b { margin-left: 8px; }
   h1 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; }
   h2 { font-size: 18px; margin: 28px 0 6px; }
   h3 { font-size: 15px; margin: 18px 0 4px; }
@@ -62,14 +66,14 @@
 </head>
 <body>
 <main>
-{{if .Crumbs}}<nav class="crumbs">{{range $i, $c := .Crumbs}}{{if $i}} › {{end}}<a href="{{$c.Href}}">{{$c.Name}}</a>{{end}}</nav>{{end}}
+<nav class="crumbs"><span>{{range $i, $c := .Crumbs}}{{if $i}} › {{end}}<a href="{{$c.Href}}">{{$c.Name}}</a>{{end}}</span>{{if .Alternates}}<span class="langs">{{range .Alternates}}{{if eq .Lang $.Lang}}<b>{{.Name}}</b>{{else}}<a href="{{.Path}}" hreflang="{{.Lang}}" lang="{{.Lang}}">{{.Name}}</a>{{end}} {{end}}</span>{{end}}</nav>
 {{end}}
 
 {{define "foot"}}
 <footer>
-  {{if .Others}}<p class="others">{{range .Others}}<a href="{{$.Prefix}}{{.Href}}">{{.Name}}</a>{{end}}</p>{{end}}
-  {{if .Countries}}<p class="others">Truck tolls by country: {{range .Countries}}<a href="{{.Href}}">{{.Name}}</a> {{end}}</p>{{end}}
-  <p>Rates from the laws and official tariffs, built and checked by the workflows of <a href="https://github.com/majidkabir/carbon-cost">carbon-cost</a> (MIT) as <a href="https://github.com/majidkabir/orct">ORCT</a> rate tables, updated as the laws change{{if .Updated}}; this page as of {{.Updated}}{{end}}. Not legal advice: the law and the toll charger's own terms decide what is due. <a href="{{.Prefix}}/">Price a trip</a> · <a href="{{.Prefix}}/tolls">All countries</a> · <a href="{{.Prefix}}/v1/rates">Datasets (JSON)</a></p>
+  {{if .Others}}<p class="others">{{range .Others}}<a href="{{.Href}}">{{.Name}}</a>{{end}}</p>{{end}}
+  {{if .Countries}}<p class="others">{{.L.T "nav.countries"}} {{range .Countries}}<a href="{{.Href}}">{{.Name}}</a> {{end}}</p>{{end}}
+  <p>{{.L.T "foot.text" "date" .Updated}} <a href="https://github.com/majidkabir/carbon-cost">carbon-cost</a> (MIT) · <a href="https://github.com/majidkabir/orct">ORCT</a> · <a href="{{.Prefix}}/">{{.L.T "foot.price"}}</a> · <a href="{{.Prefix}}{{if ne .Lang "en"}}/{{.Lang}}{{end}}/tolls">{{.L.T "foot.all"}}</a> · <a href="{{.Prefix}}/v1/rates">{{.L.T "foot.data"}}</a></p>
 </footer>
 </main>
 </body>

@@ -5,7 +5,6 @@ import (
 	"math"
 	"regexp"
 	"sort"
-	"strconv"
 	"strings"
 	"time"
 
@@ -126,7 +125,7 @@ const truck40Label = "40 t, 5 axles, Euro VI, CO2 class 1"
 
 // part is a component of an amount.
 type part struct {
-	Name   string
+	Charge *orct.Charge // the first charge of the component
 	Amount float64
 	CO2    bool
 }
@@ -191,13 +190,12 @@ func calc(ds *tariffs.Dataset, t rates.Truck, events []orct.Event) amount {
 			continue
 		}
 		v := l.Amount.Float()
-		name := componentName(ch)
 		co2 := ch.Component == "co2"
-		i, ok := idx[name]
+		i, ok := idx[ch.Component]
 		if !ok {
 			i = len(a.Parts)
-			idx[name] = i
-			a.Parts = append(a.Parts, part{Name: name, CO2: co2})
+			idx[ch.Component] = i
+			a.Parts = append(a.Parts, part{Charge: ch, CO2: co2})
 		}
 		a.Parts[i].Amount += v
 		a.Total += v
@@ -325,7 +323,7 @@ func perKm(ds *tariffs.Dataset, obj string, t rates.Truck, day string) amount {
 
 // roadRate is a road's per-km rate for the reference truck.
 type roadRate struct {
-	Road string
+	Obj  string // the road's object
 	Rate amount
 	Full bool // all the km charges price it
 }
@@ -337,16 +335,17 @@ func kmRates(ds *tariffs.Dataset, t rates.Truck, day string) []roadRate {
 	for _, o := range objs {
 		a := perKm(ds, o, t, day)
 		if a.OK {
-			out = append(out, roadRate{objectName(ds, o), a, full[o]})
+			out = append(out, roadRate{o, a, full[o]})
 		}
 	}
 	return out
 }
 
-// fare is an example trip or passage.
+// fare is an example trip (From, To), passage (From) or vignette
+// (Period, an ISO 8601 period).
 type fare struct {
-	What string
-	Rate amount
+	From, To, Period string
+	Rate             amount
 }
 
 // classRows are the rows of a charge for the truck's classes, each with
@@ -467,7 +466,7 @@ func odFares(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck, day string, n 
 		done[k] = true
 		a := calc(ds, t, []orct.Event{{Dataset: ds.ID, Object: c.a, Time: when, Role: "entry"}, {Dataset: ds.ID, Object: c.b, Time: when, Role: "exit"}})
 		if a.OK && a.Total > 0 {
-			fares = append(fares, fare{objectName(ds, c.a) + " – " + objectName(ds, c.b), a})
+			fares = append(fares, fare{From: c.a, To: c.b, Rate: a})
 			used[c.a], used[c.b] = true, true
 		}
 	}
@@ -525,7 +524,7 @@ func pointFares(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck, day string,
 		}
 		a := calc(ds, t, []orct.Event{{Dataset: ds.ID, Object: o, Time: when}})
 		if a.OK && a.Total > 0 {
-			out = append(out, fare{objectName(ds, o), a})
+			out = append(out, fare{From: o, Rate: a})
 		}
 	}
 	return out, len(all)
@@ -534,17 +533,15 @@ func pointFares(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck, day string,
 var durRe = regexp.MustCompile(`^P(\d+)([DWMY])$`)
 
 // productName says an ISO 8601 period: "1 day", "30 days", "1 year".
-func productName(p string) string {
+func (l *Loc) productName(p string) string {
 	m := durRe.FindStringSubmatch(p)
 	if m == nil {
 		return p
 	}
-	n, _ := strconv.Atoi(m[1])
-	unit := map[string]string{"D": "day", "W": "week", "M": "month", "Y": "year"}[m[2]]
-	if n != 1 {
-		unit += "s"
+	if m[1] == "1" {
+		return l.T("per." + m[2] + "1")
 	}
-	return fmt.Sprintf("%d %s", n, unit)
+	return l.T("per."+m[2], "n", m[1])
 }
 
 // products are a period charge's products for the truck, cheapest first.
@@ -572,7 +569,7 @@ func products(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck) []fare {
 	}
 	var out []fare
 	for _, p := range order {
-		out = append(out, fare{productName(p), amount{Total: best[p].v, Cur: ds.Doc.Header.Currency, OK: true}})
+		out = append(out, fare{Period: p, Rate: amount{Total: best[p].v, Cur: ds.Doc.Header.Currency, OK: true}})
 	}
 	sort.SliceStable(out, func(i, j int) bool { return out[i].Rate.Total < out[j].Rate.Total })
 	return out
@@ -613,21 +610,15 @@ type rateTable struct {
 	Total      int
 }
 
-var colNames = map[string]string{"object": "Road or place", "vehicle_class": "Vehicles", "time_class": "When", "entry": "From",
-	"exit": "To", "product": "Vignette", "payment": "Payment", "user_class": "Users", "amount": "Rate"}
-
-func fullTable(ds *tariffs.Dataset, ch *orct.Charge, max int) rateTable {
-	t := rateTable{Name: ch.Name, Unit: unitName(ch.Unit), CO2: ch.Component == "co2" || ch.Component == "carbon_price", Total: len(ch.Rows)}
-	if t.Name == "" {
-		t.Name = componentName(ch)
-	}
+func (l *Loc) fullTable(ds *tariffs.Dataset, ch *orct.Charge, max int) rateTable {
+	t := rateTable{Name: l.chargeName(ch), Unit: l.unitName(ch.Unit), CO2: ch.Component == "co2" || ch.Component == "carbon_price", Total: len(ch.Rows)}
 	for _, c := range ch.Columns {
-		h := colNames[c]
-		if h == "" {
+		h := l.T("colh." + c)
+		if h == "colh."+c {
 			h = strings.ReplaceAll(c, "_", " ")
 		}
 		if c == "amount" {
-			h = ds.Doc.Header.Currency + " " + unitName(ch.Unit)
+			h = ds.Doc.Header.Currency + " " + l.unitName(ch.Unit)
 		}
 		t.Head = append(t.Head, h)
 	}
@@ -643,9 +634,9 @@ func fullTable(ds *tariffs.Dataset, ch *orct.Charge, max int) rateTable {
 			case v == nil:
 				s = "–"
 			case c == "object" || c == "entry" || c == "exit":
-				s = objectName(ds, fmt.Sprint(v))
+				s = l.objectName(ds, fmt.Sprint(v))
 			case c == "vehicle_class":
-				s = className(ds, fmt.Sprint(v))
+				s = l.className(ds, fmt.Sprint(v))
 			case c == "time_class":
 				if tc := ds.TimeClass(fmt.Sprint(v)); tc != nil && tc.Label != "" {
 					s = tc.Label
@@ -653,7 +644,13 @@ func fullTable(ds *tariffs.Dataset, ch *orct.Charge, max int) rateTable {
 					s = fmt.Sprint(v)
 				}
 			case c == "product":
-				s = productName(fmt.Sprint(v))
+				s = l.productName(fmt.Sprint(v))
+			case c == "amount":
+				if f, ok := num(v); ok {
+					s = l.num(f, 0, 6)
+				} else {
+					s = fmt.Sprint(v)
+				}
 			default:
 				s = fmt.Sprint(v)
 			}

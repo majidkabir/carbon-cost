@@ -39,6 +39,7 @@ type Site struct {
 	set    *tariffs.Set
 	now    func() time.Time
 	tmpl   *template.Template
+	locs   map[string]*Loc
 
 	mu    sync.Mutex
 	day   string
@@ -69,11 +70,22 @@ func New(set *tariffs.Set, base string, now func() time.Time) (*Site, error) {
 	}
 	t, err := template.New("").Funcs(template.FuncMap{
 		"json": func(v any) template.JS { b, _ := json.Marshal(v); return template.JS(b) },
+		// stop ends a sentence, unless it ends in a date's own full stop ("1. srpnja 2024.").
+		"stop": func(s string) string {
+			if strings.HasSuffix(s, ".") {
+				return s
+			}
+			return s + "."
+		},
 	}).ParseFS(templateFS, "templates/*.html")
 	if err != nil {
 		return nil, err
 	}
-	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, now: now, tmpl: t}, nil
+	locs, err := loadLocs()
+	if err != nil {
+		return nil, err
+	}
+	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, now: now, tmpl: t, locs: locs}, nil
 }
 
 // Register adds the pages to the mux.
@@ -84,6 +96,14 @@ func (s *Site) Register(mux *http.ServeMux) {
 		http.Redirect(w, r, s.prefix+"/tolls", http.StatusMovedPermanently)
 	})
 	mux.HandleFunc("GET /tolls/{name}", s.serve)
+	for code := range s.locs {
+		if code == "en" {
+			continue
+		}
+		mux.HandleFunc("GET /"+code+"/tolls", s.serve)
+		mux.HandleFunc("GET /"+code+"/tolls.png", s.serve)
+		mux.HandleFunc("GET /"+code+"/tolls/{name}", s.serve)
+	}
 	mux.HandleFunc("GET /sitemap.xml", s.serve)
 	mux.HandleFunc("GET /robots.txt", s.serve)
 }
@@ -147,18 +167,24 @@ func (s *Site) image(b *built, path string) ([]byte, bool) {
 	return img, true
 }
 
-// head is what every page's <head> says.
+// Head is what every page's <head> says, and its language.
 type Head struct {
 	Title, Description, Canonical, Image, Prefix, Path string
 	Crumbs                                             []link
 	LD, CrumbLD                                        any
+	L                                                  *Loc
+	Lang                                               string
+	Alternates                                         []alt // the page in other languages (hreflang)
 }
 
 type link struct{ Name, Href string }
 
-func (s *Site) mkHead(path, title, desc string, ld any, crumbs ...link) Head {
+// alt is a page in a language.
+type alt struct{ Lang, Name, Href, Path string }
+
+func (s *Site) mkHead(l *Loc, path, title, desc string, ld any, crumbs ...link) Head {
 	h := Head{Title: title, Description: desc, Canonical: s.base + path, Image: s.base + path + ".png", Prefix: s.prefix, Path: path,
-		Crumbs: crumbs, LD: ld}
+		Crumbs: crumbs, LD: ld, L: l, Lang: l.Code}
 	var items []map[string]any
 	for i, c := range crumbs {
 		items = append(items, map[string]any{"@type": "ListItem", "position": i + 1, "name": c.Name, "item": s.base + strings.TrimPrefix(c.Href, s.prefix)})

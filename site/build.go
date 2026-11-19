@@ -9,11 +9,348 @@ import (
 	"unicode"
 
 	"github.com/majidkabir/carbon-cost/cost"
-	"github.com/majidkabir/carbon-cost/orct"
+	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/tariffs"
 )
 
-// Page data: figures as text, ready for the templates.
+// The pages are priced once a day (countryData, by the calculator's code)
+// and written in each language (countryView).
+
+// ---- Priced data ----
+
+type massRate struct {
+	Truck rates.Truck
+	A     amount
+}
+
+type euroRate struct {
+	Euro int
+	A    amount
+}
+
+type zeData struct {
+	Kind       string // "free" (exempt), "less", "same" or ""
+	Until      string
+	After      string // the day after the exemption
+	AfterRate  amount
+	AfterOK    bool
+	ZE, Diesel amount
+	Road       string
+}
+
+type versionData struct {
+	Ds      *tariffs.Dataset
+	Rate    amount
+	HasRate bool
+}
+
+type schemeData struct {
+	Sc                        *scheme
+	Ds                        *tariffs.Dataset
+	Hows                      []string
+	Roads                     []roadRate
+	ByMass                    []massRate
+	ByCO2                     []amount // CO2 class 1 to 5
+	ByEuro                    []euroRate
+	ZE                        zeData
+	Fares                     []fare // dearest first, 12 at most
+	NOD, NSt, NTrips, NPlaces int
+	Cap                       bool
+	Products                  []fare
+	Versions                  []versionData
+	ExampleKind               string // "km", "od", "point", "vignette"
+}
+
+type fuelRateT struct {
+	V         float64
+	Unit, Cur string
+	PerL      float64 // in Cur
+	PerLEUR   float64
+	OK, EUROK bool
+}
+
+type fuelVersion struct {
+	Ds   *tariffs.Dataset
+	Rate fuelRateT
+}
+
+type fuelData struct {
+	Sc       *scheme
+	Ds       *tariffs.Dataset
+	Rate     fuelRateT
+	Versions []fuelVersion
+}
+
+type countryData struct {
+	C                  *country
+	Schemes            []*schemeData
+	Fuel               []*fuelData
+	KmScheme           bool
+	Lo, Hi, ShLo, ShHi float64
+	ZEKind             string
+	ZEUntil            string
+	ZEPct              float64
+	FuelPerL           *fuelRateT
+	NSt, NTrips, NPl   int
+	Top                *fare
+	First              *roadRate // the card's figure
+	FirstDs            *tariffs.Dataset
+	Mod                string
+	Files              []string
+	All                []*tariffs.Dataset
+}
+
+// kindHows are a scheme's ways of charging (message ids).
+func kindHows(ds *tariffs.Dataset) []string {
+	seen := map[string]bool{}
+	var hows []string
+	for i := range ds.Doc.Charges {
+		ch := &ds.Doc.Charges[i]
+		var h string
+		switch {
+		case ch.Type == "distance" && ch.Unit == "tkm":
+			h = "how.tkm"
+		case ch.Type == "distance":
+			h = "how.km"
+		case ch.Type == "section":
+			h = "how.section"
+		case ch.Type == "od":
+			h = "how.od"
+		case ch.Type == "point":
+			h = "how.point"
+		case ch.Type == "period":
+			h = "how.period"
+		case ch.Type == "area":
+			h = "how.area"
+		case ch.Type == "quantity":
+			h = "how.fuel"
+		default:
+			continue
+		}
+		if !seen[h] {
+			seen[h] = true
+			hows = append(hows, h)
+		}
+	}
+	return hows
+}
+
+func classesTest(ds *tariffs.Dataset, param string) bool {
+	for _, s := range ds.Doc.Sets {
+		for _, cl := range s.Classes {
+			if _, ok := cl.Criteria[param]; ok {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// fuelRateOf is a fuel CO2 dataset's rate, and per litre of diesel.
+func fuelRateOf(ds *tariffs.Dataset, day time.Time) fuelRateT {
+	for i := range ds.Doc.Charges {
+		ch := &ds.Doc.Charges[i]
+		if ch.Type != "quantity" || len(ch.Rows) == 0 {
+			continue
+		}
+		r := fuelRateT{V: rowAmount(ch, ch.Rows[0]), Unit: ch.Unit, Cur: ds.Doc.Header.Currency, OK: true}
+		switch ch.Unit {
+		case "t_co2":
+			r.PerL = r.V * cost.DieselKgCO2PerL / 1000
+		case "litre":
+			r.PerL = r.V
+		default:
+			return r
+		}
+		r.PerLEUR, r.EUROK = toEUR(r.PerL, r.Cur, day)
+		return r
+	}
+	return fuelRateT{}
+}
+
+// price works out a country's figures on the day.
+func price(c *country, day string, today time.Time) *countryData {
+	d := &countryData{C: c, Lo: -1}
+	for _, sc := range c.Schemes {
+		ds := sc.latest()
+		d.All = append(d.All, ds)
+		d.Files = append(d.Files, ds.File)
+		for _, x := range append(append([]*tariffs.Dataset{ds}, sc.Past...), sc.Upcoming...) {
+			if x.ValidFrom <= day && x.ValidFrom > d.Mod {
+				d.Mod = x.ValidFrom
+			}
+		}
+		if sc.Kind == tariffs.FuelCO2 {
+			f := &fuelData{Sc: sc, Ds: ds, Rate: fuelRateOf(ds, today)}
+			for _, v := range history(sc) {
+				f.Versions = append(f.Versions, fuelVersion{v, fuelRateOf(v, today)})
+			}
+			d.Fuel = append(d.Fuel, f)
+			if sc.Current != nil && d.FuelPerL == nil && f.Rate.EUROK {
+				d.FuelPerL = &f.Rate
+			}
+			continue
+		}
+		pday := priceDay(ds, day)
+		sd := &schemeData{Sc: sc, Ds: ds, Hows: kindHows(ds)}
+		sd.Roads = kmRates(ds, truck40, pday)
+		current := sc.Current != nil && sc.Kind == tariffs.Toll
+		for _, r := range sd.Roads {
+			if e, ok := toEUR(r.Rate.Total, r.Rate.Cur, today); ok && r.Full && current {
+				d.KmScheme = true
+				if d.Lo < 0 || e < d.Lo {
+					d.Lo = e
+				}
+				d.Hi = max(d.Hi, e)
+				sh := r.Rate.share()
+				if d.ShLo == 0 && d.ShHi == 0 || sh < d.ShLo {
+					d.ShLo = sh
+				}
+				d.ShHi = max(d.ShHi, sh)
+			}
+		}
+		if len(sd.Roads) > 0 {
+			obj := sd.Roads[0].Obj
+			for _, m := range byMass {
+				if a := perKm(ds, obj, m.Truck, pday); a.OK {
+					sd.ByMass = append(sd.ByMass, massRate{m.Truck, a})
+				}
+			}
+			for cl := 1; cl <= 5; cl++ {
+				t := truck40
+				t.CO2Class = cl
+				if a := perKm(ds, obj, t, pday); a.OK {
+					sd.ByCO2 = append(sd.ByCO2, a)
+				}
+			}
+			for _, e := range []int{6, 5, 4, 3, 2, 1, 0} {
+				t := truck40
+				t.Euro = e
+				if a := perKm(ds, obj, t, pday); a.OK {
+					sd.ByEuro = append(sd.ByEuro, euroRate{e, a})
+				}
+			}
+			if sameAll(len(sd.ByMass), func(i int) amount { return sd.ByMass[i].A }) {
+				sd.ByMass = nil
+			}
+			if len(sd.ByCO2) != 5 || sameAll(len(sd.ByCO2), func(i int) amount { return sd.ByCO2[i] }) {
+				sd.ByCO2 = nil
+			}
+			if sameAll(len(sd.ByEuro), func(i int) amount { return sd.ByEuro[i].A }) {
+				sd.ByEuro = nil
+			}
+			sd.ExampleKind = "km"
+			// Zero-emission.
+			r := sd.Roads[0]
+			ze := perKm(ds, obj, zeTruck, pday)
+			z := zeData{ZE: ze, Diesel: r.Rate, Road: obj}
+			until, _, ok := zeRule(ds)
+			switch {
+			case ok && ze.Total == 0:
+				z.Kind, z.Until, z.After = "free", until, dayAfter(until)
+				if ds.ValidTo == "" || ds.ValidTo >= z.After {
+					z.AfterRate = perKm(ds, obj, zeTruck, z.After)
+					z.AfterOK = z.AfterRate.OK
+				}
+			case ze.OK && ze.Total < r.Rate.Total:
+				z.Kind = "less"
+			case ze.OK:
+				z.Kind = "same"
+			}
+			sd.ZE = z
+			if current {
+				switch {
+				case z.Kind == "free":
+					d.ZEKind, d.ZEUntil = "free", until
+				case z.Kind == "less" && d.ZEKind == "":
+					d.ZEKind, d.ZEPct = "less", (r.Rate.Total-ze.Total)/r.Rate.Total
+				case z.Kind == "same" && d.ZEKind == "":
+					d.ZEKind = "none"
+				}
+			}
+			if d.First == nil && sc.Kind == tariffs.Toll {
+				d.First, d.FirstDs = &sd.Roads[0], ds
+			}
+		}
+		// Trips, passages and vignettes.
+		var fares []fare
+		for i := range ds.Doc.Charges {
+			ch := &ds.Doc.Charges[i]
+			switch ch.Type {
+			case "od":
+				fs, st, pairs := odFares(ds, ch, truck40, pday, 10)
+				fares = append(fares, fs...)
+				if st > 0 {
+					sd.NOD, sd.NSt, sd.NTrips = sd.NOD+1, sd.NSt+st, sd.NTrips+pairs
+				}
+			case "point", "section":
+				if ch.Unit == "km" {
+					continue
+				}
+				fs, n := pointFares(ds, ch, truck40, pday, 12)
+				fares = append(fares, fs...)
+				sd.NPlaces += n
+			case "period":
+				sd.Products = append(sd.Products, products(ds, ch, truck40)...)
+			}
+		}
+		sort.SliceStable(fares, func(i, j int) bool { return fares[i].Rate.Total > fares[j].Rate.Total })
+		if len(fares) > 12 {
+			fares = fares[:12]
+		}
+		sd.Fares = fares
+		sd.Cap = len(fares) > 0 && classesTest(ds, "load_capacity_kg")
+		if sd.ExampleKind == "" {
+			switch {
+			case len(fares) > 0 && fares[0].To != "":
+				sd.ExampleKind = "od"
+			case len(fares) > 0:
+				sd.ExampleKind = "point"
+			case len(sd.Products) > 0:
+				sd.ExampleKind = "vignette"
+			}
+		}
+		if sc.Kind == tariffs.Toll {
+			d.NSt, d.NTrips, d.NPl = d.NSt+sd.NSt, d.NTrips+sd.NTrips, d.NPl+sd.NPlaces
+			if len(fares) > 0 && sc.Current != nil && d.Top == nil {
+				d.Top = &sd.Fares[0]
+			}
+		}
+		for _, v := range history(sc) {
+			vd := versionData{Ds: v}
+			if rs := kmRates(v, truck40, priceDay(v, day)); len(rs) > 0 {
+				vd.Rate, vd.HasRate = rs[0].Rate, true
+			}
+			sd.Versions = append(sd.Versions, vd)
+		}
+		d.Schemes = append(d.Schemes, sd)
+	}
+	return d
+}
+
+// sameAll says whether the n amounts are all the same.
+func sameAll(n int, at func(int) amount) bool {
+	for i := 1; i < n; i++ {
+		if round4(at(i).Total) != round4(at(0).Total) || round4(at(i).CO2) != round4(at(0).CO2) {
+			return false
+		}
+	}
+	return true
+}
+
+// history is a scheme's versions, newest first.
+func history(sc *scheme) []*tariffs.Dataset {
+	var all []*tariffs.Dataset
+	for i := len(sc.Upcoming) - 1; i >= 0; i-- {
+		all = append(all, sc.Upcoming[i])
+	}
+	if sc.Current != nil {
+		all = append(all, sc.Current)
+	}
+	return append(all, sc.Past...)
+}
+
+// ---- Views ----
 
 type figRow struct {
 	Label, Total, CO2, Share, EUR string
@@ -21,7 +358,7 @@ type figRow struct {
 }
 
 type fareRow struct {
-	What, Total, CO2 string
+	What, Total string
 }
 
 type versionRow struct {
@@ -30,19 +367,20 @@ type versionRow struct {
 }
 
 type schemeView struct {
-	Name, Kind, How, From, To, Method, File, Cur string
-	Liable                                       string
-	Roads                                        []figRow // the 40 t truck per km, by road
-	ByMass, ByCO2, ByEuro                        []figRow
-	ZE                                           string
-	Fares                                        []fareRow
-	FareNote                                     string
-	Products                                     []fareRow
-	Tables                                       []rateTable
-	Versions                                     []versionRow
-	Example                                      string
-	Sources                                      []tariffs.Source
-	Upcoming                                     bool
+	Name, How, From, To, Method, File, Cur string
+	Liable                                 string
+	Roads                                  []figRow
+	ByMass, ByCO2, ByEuro                  []figRow
+	ZE                                     string
+	Fares                                  []fareRow
+	FareNote                               string
+	Products                               []fareRow
+	Tables                                 []rateTable
+	Versions                               []versionRow
+	HasRate                                bool
+	Example                                string
+	Sources                                []tariffs.Source
+	Upcoming                               bool
 }
 
 type fuelView struct {
@@ -53,11 +391,10 @@ type fuelView struct {
 
 type countryView struct {
 	Head
-	C                 *country
 	H1, Lead          string
 	Schemes           []schemeView
 	Fuel              []fuelView
-	Trip              string // the calculator, with a trip in the country
+	Trip              string
 	TripName          string
 	Others, Countries []link
 	Sources           []tariffs.Source
@@ -70,6 +407,7 @@ type overviewRow struct {
 
 type overviewView struct {
 	Head
+	H1, Lead          string
 	Rows              []overviewRow
 	FXNote            string
 	Updated           string
@@ -79,7 +417,6 @@ type overviewView struct {
 type crossRow struct {
 	Cells []string
 	Href  string
-	Note  string
 }
 
 type crossView struct {
@@ -94,11 +431,11 @@ type crossView struct {
 	Updated           string
 }
 
-// Cross-country pages.
-var crossPages = []link{
-	{"Zero-emission truck toll exemptions in Europe", "/tolls/zero-emission-trucks"},
-	{"ETS2: the cost per litre of diesel from 2028", "/tolls/ets2-diesel"},
-	{"National CO2 taxes on diesel by country", "/tolls/co2-tax-diesel"},
+// Cross-country pages: their paths and title messages.
+var crossPages = []struct{ Path, Title string }{
+	{"/tolls/zero-emission-trucks", "x.ze.link"},
+	{"/tolls/ets2-diesel", "x.ets2.link"},
+	{"/tolls/co2-tax-diesel", "x.fuel.link"},
 }
 
 // trips are a trip in each country for the calculator's "price your trip".
@@ -145,52 +482,43 @@ var trips = map[string][2][3]any{
 	"TR": {{"Istanbul", 41.008, 28.978}, {"Ankara", 39.934, 32.860}},
 }
 
-func (s *Site) trip(cc string) (href, name string) {
+func (s *Site) trip(l *Loc, cc string) (href, name string) {
 	t, ok := trips[cc]
-	if !ok || t[0][0] == nil {
+	if !ok {
 		return s.prefix + "/", ""
 	}
-	q := fmt.Sprintf("from=%v,%v&from_name=%s&to=%v,%v&to_name=%s", t[0][1], t[0][2], urlq(t[0][0]), t[1][1], t[1][2], urlq(t[1][0]))
-	return s.prefix + "/?" + q, fmt.Sprintf("%v to %v", t[0][0], t[1][0])
-}
-
-func urlq(v any) string { return strings.ReplaceAll(templateURL(fmt.Sprint(v)), "+", "%20") }
-
-func templateURL(s string) string { return template.URLQueryEscaper(s) }
-
-// kindHow says how a scheme charges.
-func kindHow(ds *tariffs.Dataset) string {
-	seen := map[string]bool{}
-	var hows []string
-	for i := range ds.Doc.Charges {
-		ch := &ds.Doc.Charges[i]
-		var h string
-		switch {
-		case ch.Type == "distance" && ch.Unit == "tkm":
-			h = "per km by weight"
-		case ch.Type == "distance":
-			h = "per km"
-		case ch.Type == "section":
-			h = "per section"
-		case ch.Type == "od":
-			h = "per trip, by entry and exit"
-		case ch.Type == "point":
-			h = "per passage"
-		case ch.Type == "period":
-			h = "time-based vignette"
-		case ch.Type == "area":
-			h = "per day in a zone"
-		case ch.Type == "quantity":
-			h = "CO2 price on fuel"
-		default:
-			h = ch.Type
-		}
-		if !seen[h] {
-			seen[h] = true
-			hows = append(hows, h)
+	a, b := fmt.Sprint(t[0][0]), fmt.Sprint(t[1][0])
+	// The country's own languages say its places' own names.
+	for _, x := range local[cc] {
+		if x == l.Code {
+			a, b = endonym(a), endonym(b)
 		}
 	}
-	return strings.Join(hows, "; ")
+	q := fmt.Sprintf("from=%v,%v&from_name=%s&to=%v,%v&to_name=%s", t[0][1], t[0][2], urlq(a), t[1][1], t[1][2], urlq(b))
+	return s.prefix + "/?" + q, l.T("cta.trip", "from", a, "to", b)
+}
+
+// localWords are a toll's own name in its own script, where the
+// English page spells it in Latin letters.
+var localWords = map[[2]string]string{{"GR", "el"}: "διόδια"}
+
+// endonyms are the trips' places in their own language.
+var endonyms = map[string]string{
+	"Vienna": "Wien", "Antwerp": "Antwerpen", "Sofia": "София", "Plovdiv": "Пловдив", "Brest": "Брест", "Minsk": "Минск",
+	"Prague": "Praha", "Munich": "München", "Copenhagen": "København", "Athens": "Αθήνα", "Thessaloniki": "Θεσσαλονίκη",
+	"Milan": "Milano", "Riga": "Rīga", "Skopje": "Скопје", "Gevgelija": "Гевгелија", "Warsaw": "Warszawa", "Lisbon": "Lisboa",
+	"Bucharest": "București", "Belgrade": "Beograd", "Gothenburg": "Göteborg", "Istanbul": "İstanbul", "Tirana": "Tiranë",
+}
+
+func endonym(s string) string {
+	if e, ok := endonyms[s]; ok {
+		return e
+	}
+	return s
+}
+
+func urlq(v any) string {
+	return strings.ReplaceAll(template.URLQueryEscaper(fmt.Sprint(v)), "+", "%20")
 }
 
 func short(s string, n int) string {
@@ -203,128 +531,6 @@ func short(s string, n int) string {
 		cut = cut[:i]
 	}
 	return strings.TrimRight(cut, " ,;:") + "…"
-}
-
-func dateName(d string) string {
-	t, err := time.Parse(time.DateOnly, d)
-	if err != nil {
-		return d
-	}
-	return t.Format("2 January 2006")
-}
-
-func (s *Site) build(day string) *built {
-	today, _ := time.Parse(time.DateOnly, day)
-	cs := group(s.set, day)
-	b := &built{pages: map[string][]byte{}, cards: map[string]card{}, images: map[string][]byte{}, mod: map[string]string{}}
-	year := today.Year()
-	var rows []overviewRow
-	countryLinks := []link{}
-	for _, c := range cs {
-		countryLinks = append(countryLinks, link{c.Name, s.prefix + "/tolls/" + c.Slug})
-	}
-	for _, c := range cs {
-		v, row, cd, mod := s.countryPage(c, day, today, year)
-		v.Others, v.Countries = crossPages, countryLinks
-		path := "/tolls/" + c.Slug
-		b.pages[path] = s.render("country.html", v)
-		b.cards[path] = cd
-		b.paths = append(b.paths, path)
-		b.mod[path] = mod
-		rows = append(rows, row)
-	}
-	// Overview.
-	ov := overviewView{Rows: rows, Updated: day, Others: crossPages}
-	if r, ok := fxDate(today); ok {
-		ov.FXNote = "Rates in other currencies are converted to euros at the ECB reference rate of " + dateName(r) +
-			" (DKK at the ERM II central rate, RSD at the National Bank of Serbia's middle rate)."
-	}
-	ld := s.datasetLD("/tolls", fmt.Sprintf("Truck tolls in Europe %d", year),
-		"Road tolls for trucks over 3.5 t in "+fmt.Sprint(len(cs))+" European countries, as ORCT rate tables built from the laws and official tariffs, with each charge's CO2 part.",
-		"Europe", nil, "")
-	ov.Head = s.mkHead("/tolls", fmt.Sprintf("Truck tolls in Europe %d: rates per km by country, with the CO2 part", year),
-		fmt.Sprintf("Truck tolls in %d European countries for a 40 t Euro VI truck: how each country charges, the rate per km and its CO2 share. From the laws, updated by workflows.", len(cs)),
-		ld, link{"Truck tolls", s.prefix + "/tolls"})
-	b.pages["/tolls"] = s.render("overview.html", ov)
-	b.cards["/tolls"] = card{Kicker: "carbon-cost · truck tolls", Title: fmt.Sprintf("Truck tolls in Europe %d", year),
-		Big: fmt.Sprintf("%d countries", len(cs)), BigNote: "Rates per km by weight, Euro and CO2 class, from the law",
-		Footer: hostPath(s.base) + "/tolls"}
-	b.paths = append(b.paths, "/tolls")
-	b.mod["/tolls"] = day
-	// Across countries.
-	for _, p := range []struct {
-		path string
-		f    func([]*country, string, time.Time) (crossView, card)
-	}{{"/tolls/zero-emission-trucks", s.zePage}, {"/tolls/ets2-diesel", s.ets2Page}, {"/tolls/co2-tax-diesel", s.fuelPage}} {
-		v, cd := p.f(cs, day, today)
-		v.Others, v.Countries = crossPages, countryLinks
-		b.pages[p.path] = s.render("cross.html", v)
-		b.cards[p.path] = cd
-		b.paths = append(b.paths, p.path)
-		b.mod[p.path] = day
-	}
-	b.paths = append(b.paths, "/")
-	b.pages["/sitemap.xml"] = sitemap(s.base, b.paths, b.mod)
-	return b
-}
-
-func hostPath(base string) string {
-	return strings.TrimPrefix(strings.TrimPrefix(base, "https://"), "http://")
-}
-
-func fxDate(day time.Time) (string, bool) {
-	r, ok := fxOnDate(day)
-	return r, ok
-}
-
-// datasetLD is schema.org Dataset markup for a page.
-func (s *Site) datasetLD(path, name, desc, area string, files []string, from string) map[string]any {
-	ld := map[string]any{
-		"@context": "https://schema.org", "@type": "Dataset", "name": name, "description": desc,
-		"url": s.base + path, "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true,
-		"creator":              map[string]any{"@type": "Organization", "name": "carbon-cost", "url": "https://github.com/majidkabir/carbon-cost"},
-		"spatialCoverage":      map[string]any{"@type": "Place", "name": area},
-		"measurementTechnique": "Transcribed from the laws and official tariffs by repeatable workflows; ORCT 0.3 rate tables",
-		"keywords":             []string{"truck toll", "HGV toll", "road charges", "CO2 class", "Eurovignette", "ORCT"},
-	}
-	if from != "" {
-		ld["temporalCoverage"] = from + "/.."
-	}
-	var dist []map[string]any
-	for _, f := range files {
-		dist = append(dist, map[string]any{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": s.base + "/v1/rates/" + f})
-	}
-	if len(dist) > 0 {
-		ld["distribution"] = dist
-	}
-	return ld
-}
-
-// versions lists a scheme's versions with the truck's rate per km.
-func versions(sc *scheme, today string, perKmOf func(*tariffs.Dataset) (string, string)) []versionRow {
-	var all []*tariffs.Dataset
-	for i := len(sc.Past) - 1; i >= 0; i-- {
-		all = append(all, sc.Past[i])
-	}
-	if sc.Current != nil {
-		all = append(all, sc.Current)
-	}
-	all = append(all, sc.Upcoming...)
-	var out []versionRow
-	for _, d := range all {
-		r, co2 := perKmOf(d)
-		to := d.ValidTo
-		if to == "" {
-			to = "until replaced"
-		}
-		out = append(out, versionRow{From: d.ValidFrom, To: to, Rate: r, CO2: co2, Law: short(lawOnly(d.Method()), 160), File: d.File,
-			Upcoming: d.ValidFrom > today, Current: d == sc.Current})
-	}
-	// Newest first.
-	for i, j := 0, len(out)-1; i < j; i, j = i+1, j-1 {
-		out[i], out[j] = out[j], out[i]
-	}
-	return out
 }
 
 // lawOnly is a method's text without its clauses on how the workflows
@@ -356,308 +562,269 @@ func sources(ds ...*tariffs.Dataset) []tariffs.Source {
 	return out
 }
 
-func fig(a amount, label string, day time.Time) figRow {
-	r := figRow{Label: label, Total: money(a.Total, a.Cur), CO2: "–", Share: "–"}
+func hostPath(base string) string {
+	return strings.TrimPrefix(strings.TrimPrefix(base, "https://"), "http://")
+}
+
+func (l *Loc) fig(a amount, label string, day time.Time) figRow {
+	r := figRow{Label: label, Total: l.Money(a.Total, a.Cur), CO2: "–", Share: "–"}
 	if a.CO2 > 0 {
-		r.CO2, r.Share = money(a.CO2, a.Cur), pct(a.CO2, a.Total)
+		r.CO2, r.Share = l.Money(a.CO2, a.Cur), l.Pct(a.CO2, a.Total)
 	} else if a.Total > 0 {
-		r.CO2, r.Share = money(0, a.Cur), "0%"
+		r.CO2, r.Share = l.Money(0, a.Cur), l.PctOf(0)
 	}
 	if a.Cur != "EUR" {
 		if e, ok := toEUR(a.Total, a.Cur, day); ok {
-			r.EUR = money(e, "EUR")
+			r.EUR = l.Money(e, "EUR")
 		}
 	}
 	return r
 }
 
-func (s *Site) countryPage(c *country, day string, today time.Time, year int) (countryView, overviewRow, card, string) {
-	v := countryView{C: c}
-	row := overviewRow{Name: c.Name, Href: s.prefix + "/tolls/" + c.Slug, Rate: "–", Share: "–", ZE: "–", Fuel: "–"}
-	var all []*tariffs.Dataset
-	var hows []string
-	var files []string
-	var cd card
-	mod := ""
-	var lo, hi, shLo, shHi float64
-	lo = -1
-	kmScheme := false
-	nSt, nTrips, nPlaces := 0, 0, 0
-	var top *fare
-	for _, sc := range c.Schemes {
-		ds := sc.latest()
-		all = append(all, ds)
-		files = append(files, ds.File)
-		for _, d := range append(append([]*tariffs.Dataset{}, sc.Past...), sc.Upcoming...) {
-			if d.ValidFrom <= day && d.ValidFrom > mod {
-				mod = d.ValidFrom
-			}
-		}
-		if ds.ValidFrom <= day && ds.ValidFrom > mod {
-			mod = ds.ValidFrom
-		}
-		if sc.Kind == tariffs.FuelCO2 {
-			fv := fuelView{Name: ds.Name, From: ds.ValidFrom, Law: ds.Method(), Sources: ds.Sources()}
-			fv.Rate, fv.PerLitre = fuelRate(ds, today)
-			fv.Versions = versions(sc, day, func(d *tariffs.Dataset) (string, string) { r, l := fuelRate(d, today); return r, l })
-			v.Fuel = append(v.Fuel, fv)
-			if sc.Current != nil {
-				row.Fuel = fv.PerLitre
-			}
+// lower lowercases a name's first letter inside a sentence, unless it
+// starts an acronym ("CO2", "A1") or the language capitalises nouns.
+func (l *Loc) lower(s string) string {
+	if l.Code == "de" {
+		return s
+	}
+	return lowerWord(s)
+}
+
+// lowerWord lowercases a name's first letter, unless it starts an
+// acronym ("CO2", "A1").
+func lowerWord(s string) string {
+	r := []rune(s)
+	if len(r) > 1 && strings.ToUpper(string(r[0])) == string(r[0]) && strings.ToLower(string(r[1])) == string(r[1]) && strings.ToUpper(string(r[1])) != string(r[1]) {
+		return strings.ToLower(string(r[0])) + string(r[1:])
+	}
+	return s
+}
+
+func (l *Loc) fareName(ds *tariffs.Dataset, f fare) string {
+	switch {
+	case f.Period != "":
+		return l.productName(f.Period)
+	case f.To != "":
+		return l.objectName(ds, f.From) + " – " + l.objectName(ds, f.To)
+	}
+	return l.objectName(ds, f.From)
+}
+
+func (l *Loc) hows(ids []string) string {
+	var out []string
+	for _, h := range ids {
+		out = append(out, l.T(h))
+	}
+	return strings.Join(out, "; ")
+}
+
+// countryHows are a country's ways of charging, tolls and crossings.
+func countryHows(d *countryData) []string {
+	seen := map[string]bool{}
+	var out []string
+	for _, sd := range d.Schemes {
+		if sd.Sc.Kind != tariffs.Toll && sd.Sc.Kind != tariffs.Crossings {
 			continue
 		}
-		pday := priceDay(ds, day)
-		sv := schemeView{Name: ds.Name, Kind: sc.Kind, How: kindHow(ds), From: ds.ValidFrom, To: ds.ValidTo, Method: ds.Method(), File: ds.File,
-			Cur: ds.Doc.Header.Currency, Liable: ds.Doc.Liable.Description, Sources: ds.Sources(), Upcoming: sc.Current == nil}
-		if sc.Kind == tariffs.Toll || sc.Kind == tariffs.Crossings {
-			hows = append(hows, kindHow(ds))
+		for _, h := range sd.Hows {
+			if !seen[h] {
+				seen[h] = true
+				out = append(out, h)
+			}
 		}
-		// Per km.
-		roads := kmRates(ds, truck40, pday)
-		for i, r := range roads {
-			f := fig(r.Rate, r.Road, today)
+	}
+	return out
+}
+
+func (l *Loc) sizeWords(d *countryData) []string {
+	var size []string
+	if d.NSt > 0 {
+		size = append(size, l.T("c.size.od", "stations", l.Int(d.NSt), "trips", l.Int(d.NTrips)))
+	}
+	if d.NPl > 0 {
+		size = append(size, l.T("c.size.points", "n", l.Int(d.NPl)))
+	}
+	return size
+}
+
+func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, year int) (countryView, overviewRow, card) {
+	c := d.C
+	name := l.Country(c.Code)
+	path := s.pagePath(l.Code, "/tolls/"+c.Slug)
+	v := countryView{}
+	row := overviewRow{Name: name, Href: s.prefix + path, Rate: "–", Share: "–", ZE: "–", Fuel: "–"}
+	for _, f := range d.Fuel {
+		fv := fuelView{Name: f.Ds.Name, From: l.Date(f.Ds.ValidFrom), Law: lawOnly(f.Ds.Method()), Sources: f.Ds.Sources()}
+		fv.Rate, fv.PerLitre = l.fuelText(f.Rate)
+		for _, x := range f.Versions {
+			r, pl := l.fuelText(x.Rate)
+			fv.Versions = append(fv.Versions, l.versionRow(x.Ds, f.Sc, day, r, pl))
+		}
+		v.Fuel = append(v.Fuel, fv)
+	}
+	if d.FuelPerL != nil {
+		row.Fuel = l.Money(d.FuelPerL.PerLEUR, "EUR")
+	}
+	for _, sd := range d.Schemes {
+		ds := sd.Ds
+		sv := schemeView{Name: ds.Name, How: l.hows(sd.Hows), From: l.Date(ds.ValidFrom), Method: lawOnly(ds.Method()), File: ds.File,
+			Cur: ds.Doc.Header.Currency, Sources: ds.Sources(), Upcoming: sd.Sc.Current == nil}
+		if ds.ValidTo != "" {
+			sv.To = l.Date(ds.ValidTo)
+		}
+		sv.Liable = ds.Doc.Liable.Description
+		if l.Code != "en" && len(ds.Doc.Liable.Criteria) > 0 {
+			sv.Liable = l.criteria(ds.Doc.Liable.Criteria)
+			if r := []rune(sv.Liable); len(r) > 0 && !unicode.IsLetter(r[0]) {
+				sv.Liable = l.T("cr.vehicles", "x", sv.Liable)
+			}
+		}
+		for i, r := range sd.Roads {
+			f := l.fig(r.Rate, l.objectName(ds, r.Obj), today)
 			f.Highlight = i == 0
 			sv.Roads = append(sv.Roads, f)
-			if e, ok := toEUR(r.Rate.Total, r.Rate.Cur, today); ok && r.Full && sc.Current != nil && sc.Kind == tariffs.Toll {
-				kmScheme = true
-				if lo < 0 || e < lo {
-					lo = e
-				}
-				if e > hi {
-					hi = e
-				}
-				sh := r.Rate.share()
-				if shLo == 0 && shHi == 0 || sh < shLo {
-					shLo = sh
-				}
-				if sh > shHi {
-					shHi = sh
-				}
-			}
 		}
-		if len(roads) > 0 {
-			obj, _ := kmRoads(ds, pday)
-			obj0 := obj[0]
-			for _, m := range byMass {
-				a := perKm(ds, obj0, m.Truck, pday)
-				if a.OK {
-					sv.ByMass = append(sv.ByMass, fig(a, m.Label, today))
+		for _, m := range sd.ByMass {
+			sv.ByMass = append(sv.ByMass, l.fig(m.A, l.T("mass.label", "t", l.Dec(float64(m.Truck.MaxMassKg)/1000), "axles", m.Truck.Axles), today))
+		}
+		for i, a := range sd.ByCO2 {
+			label := l.T("co2.label", "n", i+1)
+			if i == 4 {
+				label = l.T("cr.ze")
+			}
+			sv.ByCO2 = append(sv.ByCO2, l.fig(a, label, today))
+		}
+		for _, e := range sd.ByEuro {
+			sv.ByEuro = append(sv.ByEuro, l.fig(e.A, "Euro "+roman[fmt.Sprint(e.Euro)], today))
+		}
+		switch z := sd.ZE; z.Kind {
+		case "free":
+			sv.ZE = l.T("c.ze.free", "date", l.Date(z.Until))
+			if z.AfterOK {
+				sv.ZE += " " + l.T("c.ze.after", "date", l.Date(z.After), "amount", l.Money(z.AfterRate.Total, z.AfterRate.Cur), "road", l.lower(l.objectName(ds, z.Road)))
+			}
+		case "less":
+			sv.ZE = l.T("c.ze.less", "amount", l.Money(z.ZE.Total, z.ZE.Cur), "road", l.lower(l.objectName(ds, z.Road)), "pct", l.Pct(z.Diesel.Total-z.ZE.Total, z.Diesel.Total))
+		case "same":
+			sv.ZE = l.T("c.ze.same")
+		}
+		switch sd.ExampleKind {
+		case "km":
+			r := sd.Roads[0]
+			a := r.Rate.scaled(100)
+			sv.Example = l.T("c.ex.km", "road", l.lower(l.objectName(ds, r.Obj)), "amount", l.Money(a.Total, a.Cur))
+			if len(a.Parts) > 1 {
+				var ps []string
+				for _, p := range a.Parts {
+					ps = append(ps, l.lower(l.componentName(p.Charge))+" "+l.Money(p.Amount, a.Cur))
 				}
-			}
-			for cl := 1; cl <= 5; cl++ {
-				t := truck40
-				t.CO2Class = cl
-				a := perKm(ds, obj0, t, pday)
-				label := fmt.Sprintf("CO2 class %d", cl)
-				if cl == 5 {
-					label += " (zero-emission)"
-				}
-				if a.OK {
-					sv.ByCO2 = append(sv.ByCO2, fig(a, label, today))
-				}
-			}
-			for _, e := range []int{6, 5, 4, 3, 2, 1, 0} {
-				t := truck40
-				t.Euro = e
-				a := perKm(ds, obj0, t, pday)
-				if a.OK {
-					sv.ByEuro = append(sv.ByEuro, fig(a, "Euro "+roman[fmt.Sprint(e)], today))
-				}
-			}
-			if same(sv.ByCO2) {
-				sv.ByCO2 = nil
-			}
-			if same(sv.ByEuro) {
-				sv.ByEuro = nil
-			}
-			if same(sv.ByMass) {
-				sv.ByMass = nil
-			}
-			r := roads[0]
-			var ps []string
-			for _, p := range r.Rate.scaled(100).Parts {
-				ps = append(ps, lowerWord(p.Name)+" "+money(p.Amount, r.Rate.Cur))
-			}
-			sv.Example = fmt.Sprintf("A 40 t, 5-axle Euro VI diesel truck (CO2 class 1) driving 100 km on %s pays %s", lowerWord(r.Road), money(r.Rate.Total*100, r.Rate.Cur))
-			if len(ps) > 1 {
-				sv.Example += ": " + strings.Join(ps, ", ")
+				sv.Example += l.T("c.ex.parts", "parts", strings.Join(ps, ", "))
 			}
 			sv.Example += "."
-			// Zero-emission.
-			ze := perKm(ds, obj0, zeTruck, pday)
-			until, note, ok := zeRule(ds)
-			switch {
-			case ok && ze.Total == 0:
-				sv.ZE = note
-				after := dayAfter(until)
-				if ds.ValidTo == "" || ds.ValidTo >= after {
-					if za := perKm(ds, obj0, zeTruck, after); za.OK {
-						sv.ZE += fmt.Sprintf(" From %s, as the law stands, a zero-emission 40 t truck pays %s per km on %s.", dateName(after), money(za.Total, za.Cur), lowerWord(r.Road))
-					}
-				}
-			case ze.OK && ze.Total < r.Rate.Total:
-				sv.ZE = fmt.Sprintf("A zero-emission 40 t truck (CO2 class 5) pays %s per km on %s, %s less than the diesel truck.",
-					money(ze.Total, ze.Cur), lowerWord(r.Road), pct(r.Rate.Total-ze.Total, r.Rate.Total))
-			case ze.OK:
-				sv.ZE = "Zero-emission trucks pay the same as diesel trucks."
-			}
-			if sc.Current != nil && sc.Kind == tariffs.Toll {
-				switch {
-				case ok && ze.Total == 0:
-					row.ZE = "Free until " + until[:4]
-				case ze.OK && ze.Total < r.Rate.Total:
-					row.ZE = pct(r.Rate.Total-ze.Total, r.Rate.Total) + " less"
-				case ze.OK && row.ZE == "–":
-					row.ZE = "No reduction"
-				}
-			}
+		case "od":
+			f := sd.Fares[0]
+			sv.Example = l.T("c.ex.od", "amount", l.Money(f.Rate.Total, f.Rate.Cur), "from", l.objectName(ds, f.From), "to", l.objectName(ds, f.To))
+		case "point":
+			f := sd.Fares[0]
+			sv.Example = l.T("c.ex.point", "amount", l.Money(f.Rate.Total, f.Rate.Cur), "place", l.objectName(ds, f.From))
+		case "vignette":
+			f := sd.Products[0]
+			sv.Example = l.T("c.ex.vignette", "amount", l.Money(f.Rate.Total, f.Rate.Cur), "period", l.productName(f.Period))
 		}
-		// Trips, passages and vignettes.
-		var fares []fare
+		for _, f := range sd.Fares {
+			sv.Fares = append(sv.Fares, fareRow{l.fareName(ds, f), l.Money(f.Rate.Total, f.Rate.Cur)})
+		}
 		var notes []string
-		sumSt, sumTrips, nOD, sumPlaces := 0, 0, 0, 0
+		if sd.NOD > 0 {
+			notes = append(notes, l.T("c.fares.od", "systems", l.Int(sd.NOD), "stations", l.Int(sd.NSt), "trips", l.Int(sd.NTrips)))
+		}
+		if sd.NPlaces > 0 {
+			notes = append(notes, l.T("c.fares.points", "n", l.Int(sd.NPlaces)))
+		}
+		if sd.Cap {
+			notes = append(notes, l.T("c.fares.cap"))
+		}
+		sv.FareNote = strings.Join(notes, " ")
+		for _, p := range sd.Products {
+			sv.Products = append(sv.Products, fareRow{l.productName(p.Period), l.Money(p.Rate.Total, p.Rate.Cur)})
+		}
 		for i := range ds.Doc.Charges {
-			ch := &ds.Doc.Charges[i]
-			switch ch.Type {
-			case "od":
-				fs, st, pairs := odFares(ds, ch, truck40, pday, 10)
-				fares = append(fares, fs...)
-				if st > 0 {
-					notes = append(notes, fmt.Sprintf("%s: %s stations, %s trips priced. ", nameOr(ch), thousands(st), thousands(pairs)))
-					sumSt, sumTrips, nOD = sumSt+st, sumTrips+pairs, nOD+1
-					if sc.Kind == tariffs.Toll {
-						nSt, nTrips = nSt+st, nTrips+pairs
-					}
-				}
-			case "point", "section":
-				if ch.Unit == "km" {
-					continue
-				}
-				fs, n := pointFares(ds, ch, truck40, pday, 12)
-				fares = append(fares, fs...)
-				if n > 0 {
-					notes = append(notes, fmt.Sprintf("%s: %s %s. ", nameOr(ch), thousands(n), map[bool]string{true: "places", false: "place"}[n != 1]))
-					sumPlaces += n
-					nPlaces += n
-				}
-			case "period":
-				for _, f := range products(ds, ch, truck40) {
-					sv.Products = append(sv.Products, fareRow{f.What, money(f.Rate.Total, f.Rate.Cur), ""})
-				}
-				if sv.Example == "" && len(sv.Products) > 0 {
-					sv.Example = fmt.Sprintf("A 40 t, 5-axle Euro VI truck pays %s for a vignette of %s.", sv.Products[0].Total, sv.Products[0].What)
-				}
-			}
-			if ch.Type != "quantity" {
-				sv.Tables = append(sv.Tables, fullTable(ds, ch, 200))
+			if ch := &ds.Doc.Charges[i]; ch.Type != "quantity" {
+				sv.Tables = append(sv.Tables, l.fullTable(ds, ch, 200))
 			}
 		}
-		if len(notes) <= 3 {
-			sv.FareNote = strings.Join(notes, "")
-		} else {
-			if nOD > 0 {
-				sv.FareNote += fmt.Sprintf("%d closed systems: %s stations, %s trips priced. ", nOD, thousands(sumSt), thousands(sumTrips))
+		for _, x := range sd.Versions {
+			r, co2 := "", ""
+			if x.HasRate {
+				r, co2 = l.Money(x.Rate.Total, x.Rate.Cur), l.Money(x.Rate.CO2, x.Rate.Cur)
+				sv.HasRate = true
 			}
-			if sumPlaces > 0 {
-				sv.FareNote += fmt.Sprintf("%s places priced. ", thousands(sumPlaces))
-			}
+			sv.Versions = append(sv.Versions, l.versionRow(x.Ds, sd.Sc, day, r, co2))
 		}
-		if len(fares) > 0 && classesTest(ds, "load_capacity_kg") {
-			sv.FareNote += "Priced for 25 t of load capacity (the semi-trailer's). "
-		}
-		sort.SliceStable(fares, func(i, j int) bool { return fares[i].Rate.Total > fares[j].Rate.Total })
-		if len(fares) > 0 && sc.Kind == tariffs.Toll && sc.Current != nil && top == nil {
-			top = &fares[0]
-		}
-		if sv.Example == "" && len(fares) > 0 {
-			f := fares[0]
-			if strings.Contains(f.What, " – ") {
-				sv.Example = fmt.Sprintf("A 40 t, 5-axle Euro VI truck pays %s from %s.", money(f.Rate.Total, f.Rate.Cur), strings.Replace(f.What, " – ", " to ", 1))
-			} else {
-				sv.Example = fmt.Sprintf("A 40 t, 5-axle Euro VI truck pays %s at %s.", money(f.Rate.Total, f.Rate.Cur), f.What)
-			}
-		}
-		for i, f := range fares {
-			if i == 12 {
-				break
-			}
-			sv.Fares = append(sv.Fares, fareRow{f.What, money(f.Rate.Total, f.Rate.Cur), ""})
-		}
-		sv.Versions = versions(sc, day, func(d *tariffs.Dataset) (string, string) {
-			rs := kmRates(d, truck40, priceDay(d, day))
-			if len(rs) == 0 {
-				return "", ""
-			}
-			return money(rs[0].Rate.Total, rs[0].Rate.Cur), money(rs[0].Rate.CO2, rs[0].Rate.Cur)
-		})
 		v.Schemes = append(v.Schemes, sv)
-		if cd.Title == "" && len(roads) > 0 && sc.Kind == tariffs.Toll {
-			r := roads[0].Rate
-			cd = card{Big: money(r.Total, r.Cur) + " per km", BigNote: truck40Label + ", " + lowerWord(roads[0].Road)}
-			if r.CO2 > 0 {
-				cd.Accent, cd.AccentCO = fmt.Sprintf("CO2 part: %s per km (%s)", money(r.CO2, r.Cur), pct(r.CO2, r.Total)), "carbon"
-			}
+	}
+	// The overview's row.
+	if d.KmScheme {
+		row.Rate = l.Money(d.Lo, "EUR")
+		if d.Hi-d.Lo > 0.0005 {
+			row.Rate += "–" + l.Money(d.Hi, "EUR")
+		}
+		row.Share = l.PctOf(d.ShLo)
+		if d.ShHi-d.ShLo > 0.005 {
+			row.Share = l.PctOf(d.ShLo) + "–" + l.PctOf(d.ShHi)
 		}
 	}
-	if kmScheme {
-		row.Rate = money(lo, "EUR")
-		if hi-lo > 0.0005 {
-			row.Rate += "–" + money(hi, "EUR")
-		}
-		row.Share = fmt.Sprintf("%.0f%%", shLo*100)
-		if shHi-shLo > 0.005 {
-			row.Share = fmt.Sprintf("%.0f–%.0f%%", shLo*100, shHi*100)
-		}
+	switch d.ZEKind {
+	case "free":
+		row.ZE = l.T("ze.free.until", "year", d.ZEUntil[:4])
+	case "less":
+		row.ZE = l.T("ze.less", "pct", l.PctOf(d.ZEPct))
+	case "none":
+		row.ZE = l.T("ze.none")
 	}
-	row.How = strings.Join(dedupe(hows), "; ")
-	if row.How == "" {
-		row.How = "CO2 price on fuel only"
+	hows := countryHows(d)
+	row.How = l.hows(hows)
+	fuelOnly := len(hows) == 0
+	if fuelOnly {
+		row.How = l.T("how.fuelonly")
 	}
 	// Words.
-	local := ""
-	if c.Local != "" {
-		local = " (" + c.Local + ")"
+	loc := ""
+	// The toll's own name, unless the language's words say it already.
+	local := c.Local
+	if w, ok := localWords[[2]string{c.Code, l.Code}]; ok {
+		local = w
 	}
-	if kmScheme {
-		v.H1 = fmt.Sprintf("%s truck toll %d%s: rates per km by weight, Euro and CO2 class", c.Name, year, local)
-	} else if row.How == "CO2 price on fuel only" {
-		v.H1 = fmt.Sprintf("%s CO2 tax on diesel %d: the rate per litre for trucks", c.Name, year)
-	} else {
-		v.H1 = fmt.Sprintf("%s truck tolls %d%s: %s for trucks over 3.5 t", c.Name, year, local, row.How)
+	if local != "" && !strings.Contains(strings.ToLower(l.T("c.h1.km", "country", name, "year", year, "local", "")), strings.ToLower(local)) {
+		loc = " (" + local + ")"
 	}
-	var size []string
-	if nSt > 0 {
-		size = append(size, fmt.Sprintf("%s toll stations and %s trips", thousands(nSt), thousands(nTrips)))
-	}
-	if nPlaces > 0 {
-		size = append(size, fmt.Sprintf("%s toll points, bridges and tunnels", thousands(nPlaces)))
-	}
-	desc := fmt.Sprintf("%s truck tolls %d%s for trucks over 3.5 t: %s", c.Name, year, local, row.How)
-	if len(size) > 0 {
-		desc += ", " + strings.Join(size, " and ")
-	}
-	desc += ", from the law and the official tariffs."
-	if top != nil {
-		desc += fmt.Sprintf(" A 40 t Euro VI truck pays up to %s for one trip or passage.", money(top.Rate.Total, top.Rate.Cur))
-	}
-	desc += " Full rate tables, history, changes to come and the law behind each rate."
-	if row.How == "CO2 price on fuel only" && len(v.Fuel) > 0 {
-		desc = fmt.Sprintf("%s's CO2 tax on diesel in %d from the law: %s (%s per litre), its history and the changes to come.", c.Name, year, v.Fuel[0].Rate, v.Fuel[0].PerLitre)
-	}
-	if kmScheme {
+	switch {
+	case d.KmScheme:
+		v.H1 = l.T("c.h1.km", "country", name, "year", year, "local", loc)
 		co2 := ""
-		if shHi > 0 {
-			co2 = " (CO2 part " + row.Share + ")"
+		if d.ShHi > 0 {
+			co2 = l.T("c.desc.co2", "share", row.Share)
 		}
-		desc = fmt.Sprintf("%s truck toll %d%s: a 40 t Euro VI truck pays %s per km%s. Rates by weight, Euro and CO2 class, history and upcoming changes, with the law behind each rate.",
-			c.Name, year, local, row.Rate, co2)
+		v.Lead = l.T("c.desc.km", "country", name, "year", year, "local", loc, "rate", row.Rate, "co2", co2)
+	case fuelOnly && len(v.Fuel) > 0:
+		v.H1 = l.T("c.h1.fuel", "country", name, "year", year)
+		v.Lead = l.T("c.desc.fuel", "country", name, "year", year, "rate", v.Fuel[0].Rate, "perl", v.Fuel[0].PerLitre)
+	default:
+		v.H1 = l.T("c.h1.other", "country", name, "year", year, "local", loc, "how", row.How)
+		sz := ""
+		if size := l.sizeWords(d); len(size) > 0 {
+			sz = ", " + strings.Join(size, l.T("cr.and"))
+		}
+		top := ""
+		if d.Top != nil {
+			top = " " + l.T("c.top", "amount", l.Money(d.Top.Rate.Total, d.Top.Rate.Cur))
+		}
+		v.Lead = l.T("c.desc.other", "country", name, "year", year, "local", loc, "how", row.How, "size", sz, "top", top)
 	}
-	v.Lead = desc
-	v.Trip, v.TripName = s.trip(c.Code)
-	v.Sources = sources(all...)
-	v.Updated = mod
-	path := "/tolls/" + c.Slug
-	ld := s.datasetLD(path, fmt.Sprintf("%s truck tolls %d", c.Name, year), desc+" ORCT rate tables, one per scheme and version.", c.Name, files, mod)
+	v.Trip, v.TripName = s.trip(l, c.Code)
+	v.Sources = sources(d.All...)
+	v.Updated = l.Date(d.Mod)
+	ld := s.datasetLD(path, l.T("c.ld.name", "country", name, "year", year), v.Lead+" "+l.T("c.ld.more"), name, d.Files, d.Mod, l.Code)
 	var basedOn []string
 	for _, src := range v.Sources {
 		basedOn = append(basedOn, src.URL)
@@ -665,103 +832,200 @@ func (s *Site) countryPage(c *country, day string, today time.Time, year int) (c
 	if len(basedOn) > 0 {
 		ld["isBasedOn"] = basedOn
 	}
-	title := v.H1
-	v.Head = s.mkHead(path, title, short(desc, 300), ld, link{"Truck tolls", s.prefix + "/tolls"}, link{c.Name, s.prefix + path})
-	cd.Kicker, cd.Footer = "carbon-cost · truck tolls", hostPath(s.base)+path
-	cd.Title = fmt.Sprintf("%s truck toll%s %d%s", c.Name, map[bool]string{true: "", false: "s"}[kmScheme], year, local)
-	if cd.Big == "" {
+	v.Head = s.mkHead(l, path, v.H1, short(v.Lead, 300), ld, link{l.T("nav.tolls"), s.prefix + s.pagePath(l.Code, "/tolls")}, link{name, s.prefix + path})
+	// The share image.
+	cd := card{Kicker: l.T("site.kicker"), Footer: hostPath(s.base) + path}
+	if d.KmScheme {
+		cd.Title = l.T("card.title.km", "country", name, "year", year, "local", loc)
+	} else {
+		cd.Title = l.T("card.title.other", "country", name, "year", year, "local", loc)
+	}
+	if f := d.First; f != nil {
+		cd.Big = l.T("card.km", "amount", l.Money(f.Rate.Total, f.Rate.Cur))
+		cd.BigNote = l.T("card.km.note", "road", l.lower(l.objectName(d.FirstDs, f.Obj)))
+		if f.Rate.CO2 > 0 {
+			cd.Accent, cd.AccentCO = l.T("card.co2", "amount", l.Money(f.Rate.CO2, f.Rate.Cur), "pct", l.Pct(f.Rate.CO2, f.Rate.Total)), "carbon"
+		}
+	} else {
 		cd.Big = capital(row.How)
-		cd.BigNote = "Rates for trucks over 3.5 t, from the law"
-		if len(size) > 0 {
+		cd.BigNote = l.T("card.other.note")
+		if size := l.sizeWords(d); len(size) > 0 {
 			cd.Accent = capital(strings.Join(size, ", "))
 		}
 	}
-	return v, row, cd, mod
+	return v, row, cd
 }
 
-// lowerWord lowercases a name's first letter, unless it starts an
-// acronym ("CO2", "A1") or a proper name the data spells so.
-func lowerWord(s string) string {
-	r := []rune(s)
-	if len(r) > 1 && unicode.IsUpper(r[0]) && unicode.IsLower(r[1]) && !strings.Contains(s, "S.p.A") {
-		return string(unicode.ToLower(r[0])) + string(r[1:])
+func (l *Loc) versionRow(ds *tariffs.Dataset, sc *scheme, day, rate, co2 string) versionRow {
+	to := l.T("hist.untilreplaced")
+	if ds.ValidTo != "" {
+		to = l.Date(ds.ValidTo)
 	}
-	return s
+	return versionRow{From: l.Date(ds.ValidFrom), To: to, Rate: rate, CO2: co2, Law: short(lawOnly(ds.Method()), 160), File: ds.File,
+		Upcoming: ds.ValidFrom > day, Current: ds == sc.Current}
 }
 
-// thousands writes n with thousands separators: 27,915.
-func thousands(n int) string {
-	s := fmt.Sprint(n)
-	for i := len(s) - 3; i > 0; i -= 3 {
-		s = s[:i] + "," + s[i:]
+func (l *Loc) fuelText(r fuelRateT) (rate, perL string) {
+	if !r.OK {
+		return "–", "–"
 	}
-	return s
+	rate = l.Money(r.V, r.Cur) + " " + l.unitName(r.Unit)
+	switch {
+	case r.EUROK:
+		perL = l.Money(r.PerLEUR, "EUR")
+	case r.Unit == "litre" || r.Unit == "t_co2":
+		perL = l.Money(r.PerL, r.Cur)
+	default:
+		perL = "–"
+	}
+	return rate, perL
 }
 
-func classesTest(ds *tariffs.Dataset, param string) bool {
-	for _, s := range ds.Doc.Sets {
-		for _, cl := range s.Classes {
-			if _, ok := cl.Criteria[param]; ok {
+// allLanguages makes every page in every language; without it a language
+// has the pages of the countries it is spoken in and the overview, and
+// the pages across countries are in English.
+var allLanguages = false
+
+func (s *Site) build(day string) *built {
+	today, _ := time.Parse(time.DateOnly, day)
+	year := today.Year()
+	cs := group(s.set, day)
+	b := &built{pages: map[string][]byte{}, cards: map[string]card{}, images: map[string][]byte{}, mod: map[string]string{}}
+	data := map[string]*countryData{}
+	for _, c := range cs {
+		data[c.Code] = price(c, day, today)
+	}
+	langs := sortedLangs(s.locs)
+	has := func(lang, cc string) bool {
+		if lang == "en" || allLanguages {
+			return true
+		}
+		for _, x := range langsOf(cc, s.locs) {
+			if x == lang {
 				return true
 			}
 		}
+		return false
 	}
-	return false
-}
-
-func nameOr(ch *orct.Charge) string {
-	if ch.Name != "" {
-		return ch.Name
-	}
-	return componentName(ch)
-}
-
-func same(rs []figRow) bool {
-	for _, r := range rs[min(1, len(rs)):] {
-		if r.Total != rs[0].Total || r.CO2 != rs[0].CO2 {
-			return false
-		}
-	}
-	return true
-}
-
-func dedupe(xs []string) []string {
-	seen := map[string]bool{}
-	var out []string
-	for _, x := range xs {
-		for _, p := range strings.Split(x, "; ") {
-			if p != "" && !seen[p] {
-				seen[p] = true
-				out = append(out, p)
+	crossIn := func(lang string) bool { return lang == "en" || allLanguages }
+	for _, lang := range langs {
+		l := s.locs[lang]
+		var rows []overviewRow
+		var countryLinks, others []link
+		for _, c := range cs {
+			cl := lang
+			if !has(lang, c.Code) {
+				cl = "en"
 			}
+			countryLinks = append(countryLinks, link{l.Country(c.Code), s.prefix + s.pagePath(cl, "/tolls/"+c.Slug)})
 		}
+		for _, x := range crossPages {
+			cl := lang
+			if !crossIn(lang) {
+				cl = "en"
+			}
+			others = append(others, link{l.T(x.Title), s.prefix + s.pagePath(cl, x.Path)})
+		}
+		for _, c := range cs {
+			v, row, cd := s.countryView(l, data[c.Code], day, today, year)
+			if !has(lang, c.Code) {
+				row.Href = s.prefix + "/tolls/" + c.Slug
+				rows = append(rows, row)
+				continue
+			}
+			rows = append(rows, row)
+			v.Others, v.Countries = others, countryLinks
+			v.Alternates = s.alternates(langs, "/tolls/"+c.Slug, func(x string) bool { return has(x, c.Code) })
+			path := s.pagePath(lang, "/tolls/"+c.Slug)
+			b.pages[path] = s.render("country.html", v)
+			b.cards[path] = cd
+			b.paths = append(b.paths, path)
+			b.mod[path] = data[c.Code].Mod
+		}
+		sort.SliceStable(rows, func(i, j int) bool { return rows[i].Name < rows[j].Name })
+		// Overview.
+		ov := overviewView{Rows: rows, Updated: l.Date(day), Others: others, Countries: countryLinks}
+		ov.H1 = l.T("ov.h1", "year", year)
+		ov.Lead = l.T("ov.lead")
+		if r, ok := fxOnDate(today); ok {
+			ov.FXNote = l.T("ov.fx", "date", l.Date(r))
+		}
+		path := s.pagePath(lang, "/tolls")
+		desc := l.T("ov.desc", "n", len(cs))
+		ld := s.datasetLD(path, l.T("ov.ld.name", "year", year), desc, "Europe", nil, "", lang)
+		ov.Head = s.mkHead(l, path, ov.H1, desc, ld, link{l.T("nav.tolls"), s.prefix + path})
+		ov.Alternates = s.alternates(langs, "/tolls", func(string) bool { return true })
+		b.pages[path] = s.render("overview.html", ov)
+		b.cards[path] = card{Kicker: l.T("site.kicker"), Title: l.T("ov.card.title", "year", year), Big: l.T("ov.card.big", "n", len(cs)),
+			BigNote: l.T("ov.card.note"), Footer: hostPath(s.base) + path}
+		b.paths = append(b.paths, path)
+		b.mod[path] = day
+		if !crossIn(lang) {
+			continue
+		}
+		for _, p := range []struct {
+			path string
+			f    func(*Loc, []*country, map[string]*countryData, string, time.Time) (crossView, card)
+		}{{"/tolls/zero-emission-trucks", s.zePage}, {"/tolls/ets2-diesel", s.ets2Page}, {"/tolls/co2-tax-diesel", s.fuelPage}} {
+			v, cd := p.f(l, cs, data, day, today)
+			v.Others, v.Countries = others, countryLinks
+			v.Alternates = s.alternates(langs, p.path, crossIn)
+			path := s.pagePath(lang, p.path)
+			b.pages[path] = s.render("cross.html", v)
+			b.cards[path] = cd
+			b.paths = append(b.paths, path)
+			b.mod[path] = day
+		}
+	}
+	b.paths = append(b.paths, "/")
+	b.pages["/sitemap.xml"] = sitemap(s.base, b.paths, b.mod)
+	return b
+}
+
+// pagePath is a page's path in a language: English at the root, others
+// under their code ("/de/tolls/at").
+func (s *Site) pagePath(lang, p string) string {
+	if lang == "en" {
+		return p
+	}
+	return "/" + lang + p
+}
+
+// alternates are a page's versions in the languages that have it.
+func (s *Site) alternates(langs []string, p string, has func(string) bool) []alt {
+	var out []alt
+	for _, x := range langs {
+		if has(x) {
+			out = append(out, alt{Lang: x, Name: s.locs[x].Name, Href: s.base + s.pagePath(x, p), Path: s.prefix + s.pagePath(x, p)})
+		}
+	}
+	if len(out) < 2 {
+		return nil
 	}
 	return out
 }
 
-// fuelRate is a fuel CO2 dataset's rate as the law says it, and per litre
-// of diesel in euros.
-func fuelRate(ds *tariffs.Dataset, day time.Time) (string, string) {
-	for i := range ds.Doc.Charges {
-		ch := &ds.Doc.Charges[i]
-		if ch.Type != "quantity" || len(ch.Rows) == 0 {
-			continue
-		}
-		v := rowAmount(ch, ch.Rows[0])
-		cur := ds.Doc.Header.Currency
-		rate := money(v, cur) + " " + unitName(ch.Unit)
-		perL := v
-		if ch.Unit == "t_co2" {
-			perL = v * cost.DieselKgCO2PerL / 1000
-		} else if ch.Unit != "litre" {
-			return rate, "–"
-		}
-		if e, ok := toEUR(perL, cur, day); ok {
-			return rate, money(e, "EUR")
-		}
-		return rate, money(perL, cur)
+// datasetLD is schema.org Dataset markup for a page.
+func (s *Site) datasetLD(path, name, desc, area string, files []string, from, lang string) map[string]any {
+	ld := map[string]any{
+		"@context": "https://schema.org", "@type": "Dataset", "name": name, "description": desc, "inLanguage": lang,
+		"url": s.base + path, "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true,
+		"creator":              map[string]any{"@type": "Organization", "name": "carbon-cost", "url": "https://github.com/majidkabir/carbon-cost"},
+		"spatialCoverage":      map[string]any{"@type": "Place", "name": area},
+		"measurementTechnique": "Transcribed from the laws and official tariffs by repeatable workflows; ORCT 0.3 rate tables",
+		"keywords":             []string{"truck toll", "HGV toll", "road charges", "CO2 class", "Eurovignette", "ORCT"},
 	}
-	return "–", "–"
+	if from != "" {
+		ld["temporalCoverage"] = from + "/.."
+	}
+	var dist []map[string]any
+	for _, f := range files {
+		dist = append(dist, map[string]any{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": s.base + "/v1/rates/" + f})
+	}
+	if len(dist) > 0 {
+		ld["distribution"] = dist
+	}
+	return ld
 }
 
 func sortRows(rows []crossRow) {

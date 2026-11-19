@@ -1,7 +1,6 @@
 package site
 
 import (
-	"fmt"
 	"html/template"
 	"strings"
 	"time"
@@ -28,13 +27,13 @@ func dayAfter(d string) string {
 
 // zePage: what a zero-emission 40 t truck pays per km against a diesel
 // one, in each country with a km toll, now and as the laws change it.
-func (s *Site) zePage(cs []*country, day string, today time.Time) (crossView, card) {
-	v := crossView{H1: "Zero-emission truck toll exemptions and discounts in Europe",
-		Cols: []string{"Country", "Diesel truck per km", "Zero-emission truck per km", "Saving", "What the law says"}}
+func (s *Site) zePage(l *Loc, cs []*country, data map[string]*countryData, day string, today time.Time) (crossView, card) {
+	v := crossView{H1: l.T("x.ze.h1"), Cols: []string{l.T("ov.col.country"), l.T("x.ze.col.diesel"), l.T("x.ze.col.ze"), l.T("x.ze.col.saving"), l.T("x.ze.col.law")}}
 	var all []*tariffs.Dataset
 	free := 0
 	for _, c := range cs {
-		for _, sc := range c.of(tariffs.Toll) {
+		tolls := c.of(tariffs.Toll)
+		for _, sc := range tolls {
 			if sc.Current == nil {
 				continue
 			}
@@ -50,17 +49,17 @@ func (s *Site) zePage(cs []*country, day string, today time.Time) (crossView, ca
 				continue
 			}
 			all = append(all, ds)
-			name := c.Name
-			if len(c.of(tariffs.Toll)) > 1 {
+			name := l.Country(c.Code)
+			if len(tolls) > 1 {
 				name += " (" + ds.Name + ")"
 			}
-			law := ""
-			if until, note, ok := zeRule(ds); ok {
-				law = note
+			var law []string
+			if until, _, ok := zeRule(ds); ok {
+				law = append(law, l.T("c.ze.free", "date", l.Date(until)))
 				after := dayAfter(until)
 				if ds.ValidTo == "" || ds.ValidTo >= after {
 					if za := perKm(ds, obj, zeTruck, after); za.OK {
-						law += fmt.Sprintf(" From %s, as the law stands: %s per km.", dateName(after), money(za.Total, za.Cur))
+						law = append(law, l.T("x.ze.after", "date", l.Date(after), "amount", l.Money(za.Total, za.Cur)))
 					}
 				}
 			}
@@ -69,96 +68,93 @@ func (s *Site) zePage(cs []*country, day string, today time.Time) (crossView, ca
 				if len(uo) == 0 {
 					continue
 				}
-				zu := perKm(up, uo[0], zeTruck, up.ValidFrom)
-				du := perKm(up, uo[0], truck40, up.ValidFrom)
+				zu, du := perKm(up, uo[0], zeTruck, up.ValidFrom), perKm(up, uo[0], truck40, up.ValidFrom)
 				if zu.OK && du.OK {
-					law += fmt.Sprintf(" From %s: %s per km (diesel %s).", dateName(up.ValidFrom), money(zu.Total, zu.Cur), money(du.Total, du.Cur))
+					law = append(law, l.T("x.ze.from", "date", l.Date(up.ValidFrom), "amount", l.Money(zu.Total, zu.Cur), "diesel", l.Money(du.Total, du.Cur)))
 				}
 			}
-			saving := pct(d.Total-z.Total, d.Total)
+			saving := l.Pct(d.Total-z.Total, d.Total)
 			if z.Total == 0 {
 				free++
-				saving = "100% (free)"
+				saving = l.T("x.ze.free")
 			}
-			v.Rows = append(v.Rows, crossRow{Cells: []string{name, money(d.Total, d.Cur), money(z.Total, z.Cur), saving, strings.TrimSpace(law)},
-				Href: s.prefix + "/tolls/" + c.Slug})
+			v.Rows = append(v.Rows, crossRow{Cells: []string{name, l.Money(d.Total, d.Cur), l.Money(z.Total, z.Cur), saving, strings.Join(law, " ")},
+				Href: s.prefix + s.pagePath(l.Code, "/tolls/"+c.Slug)})
 		}
 	}
-	v.Lead = fmt.Sprintf("What a zero-emission 40 t, 5-axle truck (CO2 class 5) pays per km against a Euro VI diesel truck (CO2 class 1) in the %d European km tolls, on %s, and what changes as the laws stand. %d of them charge zero-emission trucks nothing today.",
-		len(v.Rows), dateName(day), free)
-	v.Notes = []string{"Rates on each country's main tolled network (the first road type of its rate table), in its own currency. Each figure is priced from the law's rate table by the same code as the calculator.",
-		"Vignette countries, closed toll systems, bridges and tunnels mostly don't distinguish zero-emission trucks; see each country's page."}
+	v.Lead = l.T("x.ze.lead", "n", len(v.Rows), "date", l.Date(day), "free", free)
+	v.Notes = []string{l.T("x.ze.note1"), l.T("x.ze.note2")}
 	v.Sources = sources(all...)
-	ld := s.datasetLD("/tolls/zero-emission-trucks", "Zero-emission truck toll exemptions in Europe", v.Lead, "Europe", nil, "")
-	v.Head = s.mkHead("/tolls/zero-emission-trucks", fmt.Sprintf("Zero-emission truck toll exemptions in Europe %d: what electric trucks pay per km", today.Year()),
-		short(v.Lead, 300), ld, link{"Truck tolls", s.prefix + "/tolls"}, link{"Zero-emission trucks", s.prefix + "/tolls/zero-emission-trucks"})
-	v.Updated = day
-	cd := card{Kicker: "carbon-cost · truck tolls", Title: "Zero-emission truck tolls in Europe", Big: fmt.Sprintf("%d of %d free", free, len(v.Rows)),
-		BigNote: "km tolls that charge a zero-emission 40 t truck nothing today", Footer: hostPath(s.base) + "/tolls/zero-emission-trucks"}
+	p := s.pagePath(l.Code, "/tolls/zero-emission-trucks")
+	ld := s.datasetLD(p, l.T("x.ze.link"), v.Lead, "Europe", nil, "", l.Code)
+	v.Head = s.mkHead(l, p, l.T("x.ze.title", "year", today.Year()), short(v.Lead, 300), ld,
+		link{l.T("nav.tolls"), s.prefix + s.pagePath(l.Code, "/tolls")}, link{l.T("x.ze.link"), s.prefix + p})
+	v.Updated = l.Date(day)
+	cd := card{Kicker: l.T("site.kicker"), Title: l.T("x.ze.link"), Big: l.T("x.ze.card.big", "free", free, "n", len(v.Rows)),
+		BigNote: l.T("x.ze.card.note"), Footer: hostPath(s.base) + p}
 	return v, cd
 }
 
 // ets2Page: the ETS2 price per litre of diesel.
-func (s *Site) ets2Page(cs []*country, day string, today time.Time) (crossView, card) {
+func (s *Site) ets2Page(l *Loc, cs []*country, data map[string]*countryData, day string, today time.Time) (crossView, card) {
 	k := cost.DieselKgCO2PerL
-	v := crossView{H1: "ETS2 from 2028: the cost per litre of diesel",
-		Cols: []string{"ETS2 allowance price", "Per litre of diesel", "Per 1,000 litres"}}
+	v := crossView{H1: l.T("x.ets2.h1"), Cols: []string{l.T("x.ets2.col.price"), l.T("x.ets2.col.perl"), l.T("x.ets2.col.per1000")}}
 	for _, p := range []float64{30, 45, 60, 80, 100, 150} {
 		perL := p * k / 1000
-		v.Rows = append(v.Rows, crossRow{Cells: []string{money(p, "EUR") + " per t CO2", money(perL, "EUR"), money(perL*1000, "EUR")}})
+		v.Rows = append(v.Rows, crossRow{Cells: []string{l.Money(p, "EUR") + " " + l.unitName("t_co2"), l.Money(perL, "EUR"), l.Money(perL*1000, "EUR")}})
 	}
-	v.Lead = fmt.Sprintf("From 2028 the EU's second emissions trading system (ETS2) puts a price on the CO2 of road fuel: fuel suppliers buy an allowance per tonne of CO2 their fuel emits and pass it on in the price. At %.2f kg CO2 per litre of diesel, each €10 per tonne adds %s per litre.",
-		k, money(10*k/1000, "EUR"))
+	v.Lead = l.T("x.ets2.lead", "kg", l.Dec(k), "per10", l.Money(10*k/1000, "EUR"))
+	link1 := `<a href="https://eur-lex.europa.eu/eli/dir/2003/87/oj">` + template.HTMLEscapeString(l.T("x.ets2.directive")) + `</a>`
+	link2 := `<a href="` + s.prefix + s.pagePath(l.Code, "/tolls/co2-tax-diesel") + `">` + template.HTMLEscapeString(l.T("x.fuel.link")) + `</a>`
 	v.Body = []template.HTML{
-		template.HTML(`ETS2 is Chapter IVa of the <a href="https://eur-lex.europa.eu/eli/dir/2003/87/oj">EU ETS Directive (2003/87/EC)</a>, added by Directive (EU) 2023/959. It covers fuel released for consumption for road transport, buildings and further sectors. The amended European Climate Law, adopted by the Council on 5 March 2026, moved its start from 2027 to 2028.`),
-		template.HTML(fmt.Sprintf(`The price is set by the market; the table works it out for a range of prices. Per litre: price × %.2f kg ÷ 1,000. The %.2f kg is diesel's tank-to-wheel CO2 per litre in EN 16258:2012, Annex A, the factor the calculator uses for taxes per litre.`, k, k)),
-		template.HTML(`For the CO2 prices on diesel that countries charge today, see <a href="` + s.prefix + `/tolls/co2-tax-diesel">national CO2 taxes on diesel</a>.`),
+		template.HTML(strings.ReplaceAll(template.HTMLEscapeString(l.T("x.ets2.body1")), "{directive}", link1)),
+		template.HTML(template.HTMLEscapeString(l.T("x.ets2.body2", "kg", l.Dec(k)))),
+		template.HTML(strings.ReplaceAll(template.HTMLEscapeString(l.T("x.ets2.body3")), "{link}", link2)),
 	}
-	v.Notes = []string{"The calculator prices ETS2 on a trip's road fuel from 2028 at the price you give (ets2_eur_per_t)."}
+	v.Notes = []string{l.T("x.ets2.note")}
 	v.Sources = []tariffs.Source{{Title: "Directive 2003/87/EC (EU ETS), consolidated: Chapter IVa (ETS2)", URL: "https://eur-lex.europa.eu/eli/dir/2003/87/oj"},
 		{Title: "European Commission: ETS2: buildings, road transport and additional sectors", URL: "https://climate.ec.europa.eu/eu-action/carbon-markets/ets2-buildings-road-transport-and-additional-sectors_en"}}
-	ld := s.datasetLD("/tolls/ets2-diesel", "ETS2 cost per litre of diesel", v.Lead, "European Union", nil, "2028-01-01")
-	v.Head = s.mkHead("/tolls/ets2-diesel", "ETS2 from 2028: what it adds per litre of diesel", short(v.Lead, 300), ld,
-		link{"Truck tolls", s.prefix + "/tolls"}, link{"ETS2 per litre of diesel", s.prefix + "/tolls/ets2-diesel"})
-	v.Updated = day
-	cd := card{Kicker: "carbon-cost · fuel CO2", Title: "ETS2 from 2028: the cost per litre of diesel", Big: money(45*k/1000, "EUR") + " per litre",
-		BigNote: "at €45 per tonne of CO2", Accent: fmt.Sprintf("%s per litre for each €10/t", money(10*k/1000, "EUR")), AccentCO: "carbon",
-		Footer: hostPath(s.base) + "/tolls/ets2-diesel"}
+	p := s.pagePath(l.Code, "/tolls/ets2-diesel")
+	ld := s.datasetLD(p, l.T("x.ets2.link"), v.Lead, "European Union", nil, "2028-01-01", l.Code)
+	v.Head = s.mkHead(l, p, l.T("x.ets2.title"), short(v.Lead, 300), ld,
+		link{l.T("nav.tolls"), s.prefix + s.pagePath(l.Code, "/tolls")}, link{l.T("x.ets2.link"), s.prefix + p})
+	v.Updated = l.Date(day)
+	cd := card{Kicker: l.T("site.kicker.fuel"), Title: l.T("x.ets2.h1"), Big: l.T("x.ets2.card.big", "amount", l.Money(45*k/1000, "EUR")),
+		BigNote: l.T("x.ets2.card.note"), Accent: l.T("x.ets2.card.accent", "amount", l.Money(10*k/1000, "EUR")), AccentCO: "carbon",
+		Footer: hostPath(s.base) + p}
 	return v, cd
 }
 
 // fuelPage: each country's national CO2 price on diesel, per litre.
-func (s *Site) fuelPage(cs []*country, day string, today time.Time) (crossView, card) {
-	v := crossView{H1: "National CO2 taxes on diesel by country",
-		Cols: []string{"Country", "What the law charges", "Per litre of diesel", "In force from", "Coming"}}
+func (s *Site) fuelPage(l *Loc, cs []*country, data map[string]*countryData, day string, today time.Time) (crossView, card) {
+	v := crossView{H1: l.T("x.fuel.h1"), Cols: []string{l.T("ov.col.country"), l.T("x.fuel.col.law"), l.T("x.fuel.col.perl"), l.T("x.fuel.col.from"), l.T("x.fuel.col.coming")}}
 	var all []*tariffs.Dataset
 	for _, c := range cs {
-		for _, sc := range c.of(tariffs.FuelCO2) {
-			ds := sc.Current
-			if ds == nil {
+		for _, f := range data[c.Code].Fuel {
+			if f.Sc.Current == nil {
 				continue
 			}
-			all = append(all, ds)
-			rate, perL := fuelRate(ds, today)
+			all = append(all, f.Ds)
+			rate, perL := l.fuelText(f.Rate)
 			var coming []string
-			for _, up := range sc.Upcoming {
-				r, l := fuelRate(up, today)
-				coming = append(coming, fmt.Sprintf("%s: %s (%s per litre)", dateName(up.ValidFrom), r, l))
+			for _, up := range f.Sc.Upcoming {
+				r, pl := l.fuelText(fuelRateOf(up, today))
+				coming = append(coming, l.T("x.fuel.coming", "date", l.Date(up.ValidFrom), "rate", r, "perl", pl))
 			}
-			v.Rows = append(v.Rows, crossRow{Cells: []string{c.Name + ": " + ds.Name, rate, perL, dateName(ds.ValidFrom), strings.Join(coming, "; ")},
-				Href: s.prefix + "/tolls/" + c.Slug})
+			v.Rows = append(v.Rows, crossRow{Cells: []string{l.Country(c.Code) + ": " + f.Ds.Name, rate, perL, l.Date(f.Ds.ValidFrom), strings.Join(coming, "; ")},
+				Href: s.prefix + s.pagePath(l.Code, "/tolls/"+c.Slug)})
 		}
 	}
-	v.Lead = fmt.Sprintf("%d European countries put a CO2 price on diesel of their own, on top of fuel excise duty: per tonne of CO2 or per litre. The rates in force on %s, per litre of diesel in euros.", len(v.Rows), dateName(day))
-	v.Notes = []string{fmt.Sprintf("Per tonne of CO2 converts to per litre at %.2f kg CO2 per litre of diesel (EN 16258:2012, Annex A). Other currencies at the ECB reference rate (DKK at its ERM II central rate).", cost.DieselKgCO2PerL),
-		"The calculator charges these on the fuel a trip burns in each country (or where you say the fuel is bought)."}
-	v.Sources = sources(all...)
-	ld := s.datasetLD("/tolls/co2-tax-diesel", "National CO2 taxes on diesel in Europe", v.Lead, "Europe", nil, "")
-	v.Head = s.mkHead("/tolls/co2-tax-diesel", fmt.Sprintf("CO2 taxes on diesel by country %d: the rate per litre", today.Year()), short(v.Lead, 300), ld,
-		link{"Truck tolls", s.prefix + "/tolls"}, link{"CO2 taxes on diesel", s.prefix + "/tolls/co2-tax-diesel"})
-	v.Updated = day
 	sortRows(v.Rows)
-	cd := card{Kicker: "carbon-cost · fuel CO2", Title: "National CO2 taxes on diesel", Big: fmt.Sprintf("%d countries", len(v.Rows)),
-		BigNote: "the CO2 price per litre of diesel, from the law", Footer: hostPath(s.base) + "/tolls/co2-tax-diesel"}
+	v.Lead = l.T("x.fuel.lead", "n", len(v.Rows), "date", l.Date(day))
+	v.Notes = []string{l.T("x.fuel.note1", "kg", l.Dec(cost.DieselKgCO2PerL)), l.T("x.fuel.note2")}
+	v.Sources = sources(all...)
+	p := s.pagePath(l.Code, "/tolls/co2-tax-diesel")
+	ld := s.datasetLD(p, l.T("x.fuel.link"), v.Lead, "Europe", nil, "", l.Code)
+	v.Head = s.mkHead(l, p, l.T("x.fuel.title", "year", today.Year()), short(v.Lead, 300), ld,
+		link{l.T("nav.tolls"), s.prefix + s.pagePath(l.Code, "/tolls")}, link{l.T("x.fuel.link"), s.prefix + p})
+	v.Updated = l.Date(day)
+	cd := card{Kicker: l.T("site.kicker.fuel"), Title: l.T("x.fuel.link"), Big: l.T("ov.card.big", "n", len(v.Rows)),
+		BigNote: l.T("x.fuel.card.note"), Footer: hostPath(s.base) + p}
 	return v, cd
 }

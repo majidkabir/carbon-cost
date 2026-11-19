@@ -12,7 +12,9 @@ from PIL import Image, ImageDraw, ImageFont
 
 FACES = {"bold-112": ("Inter-Bold.otf", 112), "bold-64": ("Inter-Bold.otf", 64), "bold-44": ("Inter-Bold.otf", 44),
          "regular-32": ("Inter-Regular.otf", 32), "regular-28": ("Inter-Regular.otf", 28)}
-CHARS = "".join(chr(c) for c in range(32, 127)) + "".join(chr(c) for c in range(0xA0, 0x180)) + "€–—·₂’“”…−≤≥"
+CHARS = ("".join(chr(c) for c in range(32, 127)) + "".join(chr(c) for c in range(0xA0, 0x180)) + "".join(chr(c) for c in range(0x218, 0x21C))
+         + "".join(chr(c) for c in range(0x384, 0x3CF) if c not in (0x38B, 0x38D, 0x3A2)) + "".join(chr(c) for c in range(0x400, 0x460))
+         + "€–—·₂’“”„‚‘«»…−≤≥")
 WIDTH = 2048
 
 

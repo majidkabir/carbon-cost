@@ -74,6 +74,7 @@ func TestCoverage(t *testing.T) {
 		{"esbjerg-nordby", "2026-11-20", 0, "under 5000 GT"},
 		{"bojden-fynshav", "2026-11-20", 1, "Member States"},
 		{"hr-split-supetar", "2026-11-20", 0, "Croatia: Brač, Supetar"},
+		{"virtsu-kuivastu", "2026-11-20", 0, "under 5000 GT"},
 		{"hr-merag-valbiska", "2026-11-20", 0, "Croatia: Cres, Merag"},
 	} {
 		c, ok := byID[tc.id]

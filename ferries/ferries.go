@@ -386,7 +386,7 @@ func (y ListedYear) lists(s Ship) bool {
 }
 
 func normName(s string) string {
-	r := strings.NewReplacer("Ø", "O", "Æ", "AE", "Å", "AA", "Ö", "O", "Ä", "A", "Ü", "U", "É", "E")
+	r := strings.NewReplacer("Ø", "O", "Æ", "AE", "Å", "AA", "Ö", "O", "Õ", "O", "Ä", "A", "Ü", "U", "É", "E")
 	return strings.Join(strings.Fields(r.Replace(strings.ToUpper(s))), " ")
 }
 

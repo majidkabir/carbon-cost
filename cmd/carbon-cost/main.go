@@ -361,7 +361,7 @@ func serve(args []string) error {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	h, err := HandlerAt(c, *tiles, *public)
+	h, err := handlerAt(c, *tiles, *public, true)
 	if err != nil {
 		return err
 	}
@@ -396,6 +396,12 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 // HandlerAt is Handler for a service whose public URL is public: the toll
 // pages (package site) link, and give canonical URLs, under it.
 func HandlerAt(c cost.Calculator, tiles, public string) (http.Handler, error) {
+	return handlerAt(c, tiles, public, false)
+}
+
+// handlerAt is HandlerAt; warm builds the toll pages at once, in the
+// background, rather than on the first visit.
+func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler, error) {
 	pages, err := site.New(c.Tariffs, public, c.Now)
 	if err != nil {
 		return nil, err
@@ -492,6 +498,9 @@ func HandlerAt(c cost.Calculator, tiles, public string) (http.Handler, error) {
 		writeJSON(w, http.StatusOK, res)
 	})
 	pages.Register(mux)
+	if warm {
+		pages.Warm()
+	}
 	return mux, nil
 }
 

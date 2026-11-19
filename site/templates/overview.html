@@ -1,10 +1,10 @@
 {{define "overview.html"}}{{template "head" .Head}}
-<h1>Truck tolls in Europe {{.Updated | printf "%.4s"}}: rates per km by country, with the CO2 part</h1>
-<p class="lead">How each country charges trucks over 3.5 t, what a 40 t, 5-axle Euro VI diesel truck (CO2 class 1) pays per km where the toll is by distance, and how much of it is the CO2 charge. Every rate comes from the law or the official tariff; follow a country for its full rate table, history, upcoming changes and sources.</p>
-<a class="cta" href="{{.Prefix}}/">Price your trip</a>
+<h1>{{.H1}}</h1>
+<p class="lead">{{.Lead}}</p>
+<a class="cta" href="{{.Prefix}}/">{{.L.T "cta.price"}}</a>
 <div class="scroll"><table>
-<thead><tr><th>Country</th><th>How trucks pay</th><th class="n">40 t Euro VI, per km</th><th class="n co2">CO2 part</th><th>Zero-emission trucks</th><th class="n">CO2 tax on diesel, per litre</th></tr></thead>
+<thead><tr><th>{{.L.T "ov.col.country"}}</th><th>{{.L.T "ov.col.how"}}</th><th class="n">{{.L.T "ov.col.rate"}}</th><th class="n co2">{{.L.T "ov.col.co2"}}</th><th>{{.L.T "ov.col.ze"}}</th><th class="n">{{.L.T "ov.col.fuel"}}</th></tr></thead>
 <tbody>{{range .Rows}}<tr><td><a href="{{.Href}}">{{.Name}}</a></td><td>{{.How}}</td><td class="n">{{.Rate}}</td><td class="n co2">{{.Share}}</td><td>{{.ZE}}</td><td class="n">{{.Fuel}}</td></tr>
 {{end}}</tbody></table></div>
-<p class="note">Per km: on each country's tolled network today, in euros; a range where road types differ. CO2 part: the share of the toll that is the CO2 charge under Directive (EU) 2022/362 (the Eurovignette Directive). {{.FXNote}}</p>
+<p class="note">{{.L.T "ov.note"}} {{.FXNote}}</p>
 {{template "foot" .}}{{end}}

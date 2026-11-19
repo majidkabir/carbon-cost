@@ -10,10 +10,12 @@ package site
 
 import (
 	"bytes"
+	"compress/gzip"
 	"embed"
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"net/url"
 	"sort"
@@ -39,17 +41,19 @@ type Site struct {
 	set    *tariffs.Set
 	now    func() time.Time
 	tmpl   *template.Template
+	locs   map[string]*Loc
 
-	mu    sync.Mutex
-	day   string
-	built *built
+	mu       sync.Mutex
+	day      string
+	built    *built
+	building bool
 }
 
 type built struct {
-	pages  map[string][]byte // by path under the root, e.g. "/tolls/de"
+	pages  map[string][]byte // gzipped, by path under the root, e.g. "/tolls/de"
 	cards  map[string]card   // share images, by path
-	images map[string][]byte
-	paths  []string // the sitemap's
+	images map[string][]byte // the share images drawn so far (at most maxImages)
+	paths  []string          // the sitemap's
 	mod    map[string]string
 }
 
@@ -69,11 +73,22 @@ func New(set *tariffs.Set, base string, now func() time.Time) (*Site, error) {
 	}
 	t, err := template.New("").Funcs(template.FuncMap{
 		"json": func(v any) template.JS { b, _ := json.Marshal(v); return template.JS(b) },
+		// stop ends a sentence, unless it ends in a date's own full stop ("1. srpnja 2024.").
+		"stop": func(s string) string {
+			if strings.HasSuffix(s, ".") {
+				return s
+			}
+			return s + "."
+		},
 	}).ParseFS(templateFS, "templates/*.html")
 	if err != nil {
 		return nil, err
 	}
-	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, now: now, tmpl: t}, nil
+	locs, err := loadLocs()
+	if err != nil {
+		return nil, err
+	}
+	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, now: now, tmpl: t, locs: locs}, nil
 }
 
 // Register adds the pages to the mux.
@@ -84,6 +99,14 @@ func (s *Site) Register(mux *http.ServeMux) {
 		http.Redirect(w, r, s.prefix+"/tolls", http.StatusMovedPermanently)
 	})
 	mux.HandleFunc("GET /tolls/{name}", s.serve)
+	for code := range s.locs {
+		if code == "en" {
+			continue
+		}
+		mux.HandleFunc("GET /"+code+"/tolls", s.serve)
+		mux.HandleFunc("GET /"+code+"/tolls.png", s.serve)
+		mux.HandleFunc("GET /"+code+"/tolls/{name}", s.serve)
+	}
 	mux.HandleFunc("GET /sitemap.xml", s.serve)
 	mux.HandleFunc("GET /robots.txt", s.serve)
 }
@@ -92,10 +115,49 @@ func (s *Site) get() *built {
 	day := s.now().UTC().Format(time.DateOnly)
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.built == nil || s.day != day {
+	if s.built == nil {
 		s.built, s.day = s.build(day), day
+	} else if s.day != day && !s.building {
+		// A new day: keep serving the day before while the new pages build.
+		s.building = true
+		go func() {
+			b := s.build(day)
+			s.mu.Lock()
+			s.built, s.day, s.building = b, day, false
+			s.mu.Unlock()
+		}()
 	}
 	return s.built
+}
+
+// Warm builds the pages in the background, so the first visitor doesn't
+// wait for them.
+func (s *Site) Warm() { go s.get() }
+
+// gz compresses a page; pages are kept compressed.
+func gz(b []byte) []byte {
+	var out bytes.Buffer
+	w, _ := gzip.NewWriterLevel(&out, gzip.BestCompression)
+	w.Write(b)
+	w.Close()
+	return out.Bytes()
+}
+
+// writePage sends a gzipped page as is to clients that take gzip, else
+// unzipped.
+func writePage(w http.ResponseWriter, r *http.Request, page []byte) {
+	w.Header().Add("Vary", "Accept-Encoding")
+	if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+		w.Header().Set("Content-Encoding", "gzip")
+		w.Write(page)
+		return
+	}
+	zr, err := gzip.NewReader(bytes.NewReader(page))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	io.Copy(w, zr)
 }
 
 func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
@@ -104,7 +166,7 @@ func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case p == "/sitemap.xml":
 		w.Header().Set("Content-Type", "application/xml; charset=utf-8")
-		w.Write(b.pages[p])
+		writePage(w, r, b.pages[p])
 		return
 	case p == "/robots.txt":
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -129,7 +191,7 @@ func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Cache-Control", "public, max-age=3600")
 	w.Header().Set("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'")
-	w.Write(page)
+	writePage(w, r, page)
 }
 
 func (s *Site) image(b *built, path string) ([]byte, bool) {
@@ -143,22 +205,35 @@ func (s *Site) image(b *built, path string) ([]byte, bool) {
 		return nil, false
 	}
 	img := c.render()
+	if len(b.images) >= maxImages {
+		clear(b.images)
+	}
 	b.images[path] = img
 	return img, true
 }
 
-// head is what every page's <head> says.
+// maxImages bounds the share images kept drawn; the rest are drawn again
+// when asked for (crawlers and caches keep them a day).
+const maxImages = 200
+
+// Head is what every page's <head> says, and its language.
 type Head struct {
 	Title, Description, Canonical, Image, Prefix, Path string
 	Crumbs                                             []link
 	LD, CrumbLD                                        any
+	L                                                  *Loc
+	Lang                                               string
+	Alternates                                         []alt // the page in other languages (hreflang)
 }
 
 type link struct{ Name, Href string }
 
-func (s *Site) mkHead(path, title, desc string, ld any, crumbs ...link) Head {
+// alt is a page in a language.
+type alt struct{ Lang, Name, Href, Path string }
+
+func (s *Site) mkHead(l *Loc, path, title, desc string, ld any, crumbs ...link) Head {
 	h := Head{Title: title, Description: desc, Canonical: s.base + path, Image: s.base + path + ".png", Prefix: s.prefix, Path: path,
-		Crumbs: crumbs, LD: ld}
+		Crumbs: crumbs, LD: ld, L: l, Lang: l.Code}
 	var items []map[string]any
 	for i, c := range crumbs {
 		items = append(items, map[string]any{"@type": "ListItem", "position": i + 1, "name": c.Name, "item": s.base + strings.TrimPrefix(c.Href, s.prefix)})

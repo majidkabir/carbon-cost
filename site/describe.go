@@ -11,9 +11,10 @@ import (
 	"github.com/majidkabir/carbon-cost/tariffs"
 )
 
-// Words for what the rate tables hold, for the pages.
+// Words for what the rate tables hold, in a page's language.
 
-// countries are the names of the countries the tables cover.
+// countries are the countries' English names (each language's are in
+// locales.json, from the CLDR).
 var countries = map[string]string{
 	"AD": "Andorra", "AL": "Albania", "AT": "Austria", "BA": "Bosnia and Herzegovina", "BE": "Belgium", "BG": "Bulgaria",
 	"BY": "Belarus", "CH": "Switzerland", "CZ": "Czechia", "DE": "Germany", "DK": "Denmark", "EE": "Estonia", "ES": "Spain",
@@ -68,12 +69,10 @@ func list(v any) []string {
 	return out
 }
 
-func tonnes(kg float64) string {
-	return strconv.FormatFloat(kg/1000, 'f', -1, 64) + " t"
-}
+func (l *Loc) tonnes(kg float64) string { return l.Dec(kg/1000) + " " + l.T("sym.t") }
 
 // massRange says a {min, max} of kilograms: "> 3.5 t", "≤ 18 t".
-func massRange(v any) string {
+func (l *Loc) massRange(v any) string {
 	m, ok := v.(map[string]any)
 	if !ok {
 		return fmt.Sprint(v)
@@ -81,52 +80,58 @@ func massRange(v any) string {
 	var parts []string
 	if lo, ok := num(m["min"]); ok {
 		if math.Mod(lo, 1000) == 1 || math.Mod(lo, 500) == 1 {
-			parts = append(parts, "> "+tonnes(lo-1))
+			parts = append(parts, "> "+l.tonnes(lo-1))
 		} else {
-			parts = append(parts, "≥ "+tonnes(lo))
+			parts = append(parts, "≥ "+l.tonnes(lo))
 		}
+	}
+	if gt, ok := num(m["gt"]); ok {
+		parts = append(parts, "> "+l.tonnes(gt))
 	}
 	if hi, ok := num(m["max"]); ok {
 		if math.Mod(hi+1, 500) == 0 {
-			parts = append(parts, "< "+tonnes(hi+1))
+			parts = append(parts, "< "+l.tonnes(hi+1))
 		} else {
-			parts = append(parts, "≤ "+tonnes(hi))
+			parts = append(parts, "≤ "+l.tonnes(hi))
 		}
 	}
 	return strings.Join(parts, ", ")
 }
 
-func countRange(v any, unit string) string {
+func (l *Loc) countRange(v any) string {
 	m, ok := v.(map[string]any)
 	if !ok {
-		return strings.Join(list(v), ", ") + " " + unit
+		return strings.Join(list(v), ", ")
 	}
 	lo, hasLo := num(m["min"])
 	hi, hasHi := num(m["max"])
 	switch {
 	case hasLo && hasHi && lo == hi:
-		return fmt.Sprintf("%g %s", lo, unit)
+		return l.Dec(lo)
 	case hasLo && hasHi:
-		return fmt.Sprintf("%g–%g %s", lo, hi, unit)
+		return l.Dec(lo) + "–" + l.Dec(hi)
 	case hasLo:
-		return fmt.Sprintf("%g+ %s", lo, unit)
+		return l.Dec(lo) + "+"
 	case hasHi:
-		return fmt.Sprintf("≤ %g %s", hi, unit)
+		return "≤ " + l.Dec(hi)
 	}
 	return ""
 }
 
-func numRange(v any, unit string) string {
+func (l *Loc) numRange(v any, unit string) string {
 	m, ok := v.(map[string]any)
 	if !ok {
 		return fmt.Sprint(v) + " " + unit
 	}
 	var parts []string
 	if lo, ok := num(m["min"]); ok {
-		parts = append(parts, fmt.Sprintf("≥ %g %s", lo, unit))
+		parts = append(parts, "≥ "+l.Dec(lo)+" "+unit)
+	}
+	if gt, ok := num(m["gt"]); ok {
+		parts = append(parts, "> "+l.Dec(gt)+" "+unit)
 	}
 	if hi, ok := num(m["max"]); ok {
-		parts = append(parts, fmt.Sprintf("≤ %g %s", hi, unit))
+		parts = append(parts, "≤ "+l.Dec(hi)+" "+unit)
 	}
 	return strings.Join(parts, ", ")
 }
@@ -136,9 +141,9 @@ var critOrder = []string{"category", "train_mass_kg", "mass_kg", "trailer_mass_k
 	"trailer_axles", "trailer", "train_length_m", "euro_class", "co2_class", "energy"}
 
 // criteria says what vehicles meet the criteria.
-func criteria(c map[string]any) string {
+func (l *Loc) criteria(c map[string]any) string {
 	if len(c) == 0 {
-		return "All vehicles"
+		return l.T("cr.all")
 	}
 	keys := make([]string, 0, len(c))
 	for k := range c {
@@ -163,26 +168,26 @@ func criteria(c map[string]any) string {
 		v := c[k]
 		switch k {
 		case "train_mass_kg":
-			parts = append(parts, massRange(v))
+			parts = append(parts, l.massRange(v))
 		case "mass_kg":
-			parts = append(parts, "motor vehicle "+massRange(v))
+			parts = append(parts, l.T("cr.motor", "x", l.massRange(v)))
 		case "trailer_mass_kg":
-			parts = append(parts, "trailer "+massRange(v))
+			parts = append(parts, l.T("cr.trailer", "x", l.massRange(v)))
 		case "load_capacity_kg":
-			parts = append(parts, "load capacity "+massRange(v))
+			parts = append(parts, l.T("cr.cap", "x", l.massRange(v)))
 		case "train_axles":
-			parts = append(parts, countRange(v, "axles"))
+			parts = append(parts, l.T("cr.axles", "n", l.countRange(v)))
 		case "axles":
-			parts = append(parts, "motor vehicle "+countRange(v, "axles"))
+			parts = append(parts, l.T("cr.motor", "x", l.T("cr.axles", "n", l.countRange(v))))
 		case "trailer_axles":
-			parts = append(parts, "trailer "+countRange(v, "axles"))
+			parts = append(parts, l.T("cr.trailer", "x", l.T("cr.axles", "n", l.countRange(v))))
 		case "train_length_m":
-			parts = append(parts, "length "+numRange(v, "m"))
+			parts = append(parts, l.T("cr.length", "x", l.numRange(v, "m")))
 		case "trailer":
 			if b, _ := v.(bool); b {
-				parts = append(parts, "with trailer")
+				parts = append(parts, l.T("cr.withtrailer"))
 			} else {
-				parts = append(parts, "without trailer")
+				parts = append(parts, l.T("cr.notrailer"))
 			}
 		case "euro_class":
 			var es []string
@@ -195,27 +200,24 @@ func criteria(c map[string]any) string {
 			}
 			parts = append(parts, strings.Join(es, ", "))
 		case "co2_class":
-			parts = append(parts, co2Classes(list(v)))
-		case "energy":
-			parts = append(parts, strings.Join(list(v), ", "))
-		case "category":
+			parts = append(parts, l.co2Classes(list(v)))
+		case "energy", "category":
 			parts = append(parts, strings.Join(list(v), ", "))
 		case "any_of":
 			var alts []string
 			if xs, ok := v.([]any); ok {
 				for _, x := range xs {
 					if m, ok := x.(map[string]any); ok {
-						alts = append(alts, criteria(m))
+						alts = append(alts, l.criteria(m))
 					}
 				}
 			}
-			parts = append(parts, "("+strings.Join(alts, " or ")+")")
+			parts = append(parts, "("+strings.Join(alts, l.T("cr.or"))+")")
 		default:
 			parts = append(parts, fmt.Sprintf("%s: %v", strings.ReplaceAll(k, "_", " "), v))
 		}
 	}
-	s := strings.Join(parts, ", ")
-	return capital(s)
+	return capital(strings.Join(parts, ", "))
 }
 
 // capital is s with its first letter capitalised.
@@ -227,9 +229,9 @@ func capital(s string) string {
 	return strings.ToUpper(string(r[0])) + string(r[1:])
 }
 
-func co2Classes(cs []string) string {
+func (l *Loc) co2Classes(cs []string) string {
 	if len(cs) == 1 && cs[0] == "5" {
-		return "CO2 class 5 (zero-emission)"
+		return l.T("cr.ze")
 	}
 	if len(cs) > 2 {
 		ok := true
@@ -239,35 +241,35 @@ func co2Classes(cs []string) string {
 			ok = ok && b == a+1
 		}
 		if ok {
-			return "CO2 class " + cs[0] + "–" + cs[len(cs)-1]
+			return l.T("cr.co2", "x", cs[0]+"–"+cs[len(cs)-1])
 		}
 	}
-	return "CO2 class " + strings.Join(cs, ", ")
+	return l.T("cr.co2", "x", strings.Join(cs, ", "))
 }
 
-// className says a vehicle class: its label, else its criteria.
-func className(ds *tariffs.Dataset, id string) string {
+// className says a vehicle class: in English its label, else (and in
+// other languages) its criteria.
+func (l *Loc) className(ds *tariffs.Dataset, id string) string {
 	c := ds.Class(id)
 	if c == nil {
 		return id
 	}
-	if c.Label != "" {
+	if c.Label != "" && (l.Code == "en" || len(c.Criteria) == 0) {
 		return c.Label
 	}
-	return criteria(c.Criteria)
+	return l.criteria(c.Criteria)
 }
 
-var objWords = map[string]string{"motorway": "motorways", "other": "other roads", "interurban": "interurban", "suburban": "suburban",
-	"urban": "urban", "roads": "toll roads", "main": "main roads", "expressway": "expressways", "trunk": "trunk roads"}
+var objWords = []string{"motorway", "other", "interurban", "suburban", "urban", "main", "expressway", "trunk"}
 
 // objectName says a charge object: its name, else what its id says.
-func objectName(ds *tariffs.Dataset, id string) string {
+func (l *Loc) objectName(ds *tariffs.Dataset, id string) string {
 	o := ds.Object(id)
 	if o != nil && o.Name != "" {
 		return o.Name
 	}
 	if id == "roads" {
-		return "Toll roads"
+		return l.T("obj.roads")
 	}
 	head, rest, ok := strings.Cut(id, ":")
 	if !ok {
@@ -278,71 +280,41 @@ func objectName(ds *tariffs.Dataset, id string) string {
 	}
 	var ws []string
 	for _, p := range strings.Split(rest, ":") {
-		if w, ok := objWords[p]; ok {
-			ws = append(ws, w)
-		} else {
+		known := false
+		for _, w := range objWords {
+			if p == w {
+				ws, known = append(ws, l.T("obj."+w)), true
+				break
+			}
+		}
+		if !known {
 			ws = append(ws, strings.ReplaceAll(p, "_", " "))
 		}
 	}
-	s := strings.Join(ws, ", ")
-	return capital(s)
+	return capital(strings.Join(ws, ", "))
 }
 
-var units = map[string]string{"km": "per km", "tkm": "per tonne-km", "trip": "per trip", "passage": "per passage", "use": "per use",
-	"product": "per vignette", "day": "per day", "t_co2": "per t CO2", "litre": "per litre", "t": "per tonne", "entry": "per entry"}
-
-func unitName(u string) string {
-	if s, ok := units[u]; ok {
+func (l *Loc) unitName(u string) string {
+	if s := l.T("unit." + u); s != "unit."+u {
 		return s
 	}
-	return "per " + u
+	return "/ " + u
 }
 
-var components = map[string]string{"infrastructure": "Infrastructure", "air_pollution": "Air pollution", "noise": "Noise",
-	"air_pollution_noise": "Air pollution and noise", "co2": "CO2", "carbon_price": "CO2 price", "congestion": "Congestion",
-	"access": "Access", "other": "Other", "unspecified": "Toll"}
-
-func componentName(ch *orct.Charge) string {
+func (l *Loc) componentName(ch *orct.Charge) string {
+	if s := l.T("comp." + ch.Component); s != "comp."+ch.Component {
+		return s
+	}
 	if ch.ComponentLabel != "" {
 		return ch.ComponentLabel
-	}
-	if s, ok := components[ch.Component]; ok {
-		return s
 	}
 	return ch.Component
 }
 
-var symbols = map[string]string{"EUR": "€", "GBP": "£"}
-
-// money says an amount: "€0.348", "1.21 DKK"; per-km rates keep their
-// third and fourth decimals.
-func money(v float64, cur string) string {
-	var s string
-	switch a := math.Abs(v); {
-	case a == 0:
-		s = "0"
-	case a < 10:
-		s = strconv.FormatFloat(v, 'f', 4, 64)
-		s = strings.TrimRight(s, "0")
-		if i := strings.IndexByte(s, '.'); i < 0 {
-			s += ".00"
-		} else if len(s)-i-1 < 2 {
-			s += strings.Repeat("0", 2-(len(s)-i-1))
-		}
-	case a < 100000:
-		s = strconv.FormatFloat(v, 'f', 2, 64)
-	default:
-		s = strconv.FormatFloat(v, 'f', 0, 64)
+// chargeName is a charge's name: its own in English, else its component.
+func (l *Loc) chargeName(ch *orct.Charge) string {
+	if l.Code == "en" && ch.Name != "" {
+		return ch.Name
 	}
-	if sym, ok := symbols[cur]; ok {
-		return sym + s
-	}
-	return s + " " + cur
-}
-
-func pct(part, whole float64) string {
-	if whole == 0 {
-		return ""
-	}
-	return strconv.FormatFloat(math.Round(part/whole*100), 'f', 0, 64) + "%"
+	return l.componentName(ch)
 }

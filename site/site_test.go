@@ -1,6 +1,9 @@
 package site
 
 import (
+	"bytes"
+	"compress/gzip"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -45,6 +48,8 @@ func TestDump(t *testing.T) {
 	b := s.get()
 	t.Logf("built in %v", time.Since(start))
 	for p, page := range b.pages {
+		zr, _ := gzip.NewReader(bytes.NewReader(page))
+		page, _ = io.ReadAll(zr)
 		f := filepath.Join(dir, strings.TrimPrefix(p, "/"))
 		if !strings.Contains(filepath.Base(f), ".") {
 			f += ".html"
@@ -112,5 +117,93 @@ func TestPages(t *testing.T) {
 	}
 	if _, rb := get(t, h, "/robots.txt"); !strings.Contains(rb, "Sitemap: https://example.org/carbon-cost/sitemap.xml") {
 		t.Errorf("robots.txt: %s", rb)
+	}
+}
+
+// TestLocalPages checks the pages in other languages: a country's page in
+// its own language, every page in every language, and the links between
+// them.
+func TestLocalPages(t *testing.T) {
+	_, h := testSite(t)
+	code, de := get(t, h, "/de/tolls/de")
+	if code != 200 {
+		t.Fatalf("/de/tolls/de: %d", code)
+	}
+	for _, want := range []string{
+		`<html lang="de">`,
+		`<link rel="canonical" href="https://example.org/carbon-cost/de/tolls/de">`,
+		`<link rel="alternate" hreflang="en" href="https://example.org/carbon-cost/tolls/de">`,
+		`<link rel="alternate" hreflang="de" href="https://example.org/carbon-cost/de/tolls/de">`,
+		`<link rel="alternate" hreflang="x-default" href="https://example.org/carbon-cost/tolls/de">`,
+		"<h1>Lkw-Maut Deutschland 2026: Mautsätze pro km nach Gewicht, Euro- und CO2-Klasse</h1>",
+		"34,80\u00a0€",
+		"zahlen bis 30. Juni 2031 keine Maut",
+		"Fahrt berechnen: Hamburg nach München",
+		`<meta property="og:image" content="https://example.org/carbon-cost/de/tolls/de.png">`,
+	} {
+		if !strings.Contains(de, want) {
+			t.Errorf("/de/tolls/de lacks %q", want)
+		}
+	}
+	// The English page links to its German one.
+	if _, en := get(t, h, "/tolls/de"); !strings.Contains(en, `hreflang="de" href="https://example.org/carbon-cost/de/tolls/de"`) {
+		t.Errorf("/tolls/de lacks its German alternate")
+	}
+	// Each country in its own languages: Belarus in Russian, Croatia in Croatian, Belgium in three.
+	for p, want := range map[string]string{
+		"/ru/tolls/by": "Беларусь", "/hr/tolls/hr": "Hrvatska", "/nl/tolls/be": "België", "/fr/tolls/be": "Belgique", "/de/tolls/be": "Belgien",
+		"/el/tolls/gr": "Ελλάδα", "/fi/tolls/fi": "Suomi", "/sv/tolls/fi": "Finland",
+	} {
+		if code, body := get(t, h, p); code != 200 || !strings.Contains(body, want) {
+			t.Errorf("%s: %d, wants %q", p, code, want)
+		}
+	}
+	// Every page is in every language too, the pages across countries included.
+	for p, want := range map[string]string{
+		"/de/tolls/fr": "Frankreich", "/ja/tolls/fr": "", "/pl/tolls/ets2-diesel": "0,1201\u00a0€", "/fi/tolls/zero-emission-trucks": "Päästöttömien",
+		"/el/tolls/co2-tax-diesel": "πετρέλαιο",
+	} {
+		code, body := get(t, h, p)
+		if want == "" {
+			if code != 404 {
+				t.Errorf("%s: %d, want 404", p, code)
+			}
+			continue
+		}
+		if code != 200 || !strings.Contains(body, want) {
+			t.Errorf("%s: %d, wants %q", p, code, want)
+		}
+	}
+	code, ov := get(t, h, "/de/tolls")
+	if code != 200 || !strings.Contains(ov, `href="/carbon-cost/de/tolls/fr"`) || !strings.Contains(ov, `href="/carbon-cost/de/tolls/ets2-diesel"`) {
+		t.Errorf("/de/tolls: %d, or its links are wrong", code)
+	}
+	if _, fr := get(t, h, "/tolls/fr"); strings.Count(fr, `<link rel="alternate" hreflang=`) != 33 {
+		t.Errorf("/tolls/fr: %d alternates, want English, 31 others and x-default", strings.Count(fr, `<link rel="alternate" hreflang=`))
+	}
+	// Pages go gzipped to clients that take it.
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/de/tolls/de", nil)
+	req.Header.Set("Accept-Encoding", "gzip, br")
+	h.ServeHTTP(rec, req)
+	if rec.Header().Get("Content-Encoding") != "gzip" || !strings.HasPrefix(rec.Body.String(), "\x1f\x8b") {
+		t.Errorf("gzip: %q", rec.Header().Get("Content-Encoding"))
+	}
+	// The overview is in every language.
+	for _, l := range []string{"bg", "ca", "fo", "is", "mk", "sq", "tr"} {
+		if code, body := get(t, h, "/"+l+"/tolls"); code != 200 || !strings.Contains(body, `<html lang="`+l+`">`) {
+			t.Errorf("/%s/tolls: %d", l, code)
+		}
+	}
+	for _, p := range []string{"/de/tolls/de.png", "/ru/tolls/by.png", "/el/tolls.png"} {
+		if code, img := get(t, h, p); code != 200 || !strings.HasPrefix(img, "\x89PNG") {
+			t.Errorf("%s: %d", p, code)
+		}
+	}
+	_, sm := get(t, h, "/sitemap.xml")
+	for _, want := range []string{"<loc>https://example.org/carbon-cost/de/tolls/de</loc>", "<loc>https://example.org/carbon-cost/ru/tolls</loc>"} {
+		if !strings.Contains(sm, want) {
+			t.Errorf("sitemap lacks %s", want)
+		}
 	}
 }

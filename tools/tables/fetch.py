@@ -42,6 +42,10 @@ names carry a hash that changes with each new edition: the tariffs page's
 freight tariffs are saved as <id>-<the file's name, less the hash>.pdf
 (e.g. scl-tariffs-scandlines-freight-tariff-2026-germany-denmark-10m-2026-01-01-until-recall.pdf),
 the surcharges page's monthly notices (English) as <id>-<yyyy>-<mm>.pdf.
+
+POLSCA Baltic Ferries' documents pages on unityline.eu link their PDFs
+(freight tariffs, BES and ETS announcements): saved as <id>-<the file's
+name, lower case>.pdf (e.g. polsca-tariff-polsca-freight-tariff-22.06.2026.pdf).
 """
 import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
@@ -217,6 +221,21 @@ def scandlines(out, manifest, sid, page_url, page):
         save(out, manifest, name, u, status, body)
 
 
+def polsca(out, manifest, sid, page_url, page):
+    """The PDFs a POLSCA Baltic Ferries documents page on unityline.eu links
+    (freight tariffs, surcharge announcements), saved as <id>-<file name,
+    lower case>.pdf."""
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"']*/__data/assets/pdf_file/[^"']+\.pdf)(?:\?[^"']*)?["']""", text):
+        u = urllib.parse.urljoin(page_url, u)
+        name = os.path.basename(urllib.parse.urlparse(u).path)
+        seen.setdefault(f"{sid}-" + re.sub(r"[^a-z0-9.]+", "-", name.lower()), u)
+    for name, u in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name, u, status, body)
+
+
 # Overpass instances serving the same OpenStreetMap data: a query goes to
 # its own first, then to the others when that one can't be reached, is
 # busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
@@ -279,6 +298,8 @@ def store(out, manifest, s, status, body, asked):
         uradni_list(out, manifest, s["id"], s["url"], body)
     if "freight.scandlines.com/freight-conditions/" in s["url"] and status == 200:
         scandlines(out, manifest, s["id"], s["url"], body)
+    if "unityline.eu/cargo/documents-polsca/" in s["url"] and status == 200:
+        polsca(out, manifest, s["id"], s["url"], body)
 
 
 def checked(s, status, body, again):

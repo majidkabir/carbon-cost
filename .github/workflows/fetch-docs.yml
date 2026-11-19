@@ -26,7 +26,7 @@ jobs:
           get tilsamsoe-gods.html https://www.tilsamsoe.dk/erhverv-og-gods/
           for f in out/*.html; do html2text -utf8 "$f" > "${f%.html}.txt" 2>/dev/null || true; done
           ov() { for w in 30 60 120 240 480; do curl -sS -A "$UA" -m 300 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2"; head -c 1 "out/$1" | grep -q '{' && return; sleep $w; done; }
-          ov dk-ferries-osm.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.8%2C8.3%2C56.0%2C11.3%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.8%2C8.3%2C56.0%2C11.3%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Kalundborg%7CBallen%7CB%C3%B8jden%7CFynshav%7CEsbjerg%7CNordby%7CSpodsbjerg%7CT%C3%A5rs%7CHou%7CS%C3%A6lvig%29%24%22%5D%2854.8%2C8.3%2C56.0%2C11.3%29%3B%29%3Bout%20geom%20tags%3B"
+          ov dk-ferries-osm.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.8%2C8.3%2C56.3%2C11.4%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.8%2C8.3%2C56.3%2C11.4%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Kalundborg%7CBallen%7CB%C3%B8jden%7CFynshav%7CEsbjerg%7CNordby%7CSpodsbjerg%7CT%C3%A5rs%7CHou%7CS%C3%A6lvig%7CAarhus%7CEbeltoft%7CSj%C3%A6llands%20Odde%29%24%22%5D%2854.8%2C8.3%2C56.3%2C11.4%29%3B%29%3Bout%20geom%20tags%3B"
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

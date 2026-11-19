@@ -250,29 +250,36 @@
    }
   },
   {
-   "id": "cairnryan-larne",
-   "name": "Cairnryan–Larne",
-   "operator": "P&O Ferries",
+   "id": "brevik-immingham",
+   "name": "Brevik–Immingham",
+   "operator": "DFDS",
    "terminals": [
     {
-     "name": "Cairnryan",
-     "lat": 54.961562,
-     "lon": -5.014064,
-     "country": "GB",
-     "region": "GB-SCT"
+     "name": "Brevik",
+     "lat": 59.066329,
+     "lon": 9.699645,
+     "country": "NO"
     },
     {
-     "name": "Larne",
-     "lat": 54.846449,
-     "lon": -5.79753,
-     "country": "GB",
-     "region": "GB-NIR"
+     "name": "Immingham",
+     "lat": 53.630532,
+     "lon": -0.201523,
+     "country": "GB"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9262089",
+     "name": "BEGONIA SEAWAYS"
+    },
+    {
+     "imo": "9274848",
+     "name": "FREESIA SEAWAYS"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Larne - Cairnryan (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/481313220"
+    "title": "DFDS: Brevik–Immingham, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/brevik-immingham"
    }
   },
   {
@@ -297,6 +304,35 @@
    "source": {
     "title": "OpenStreetMap: Χίος - Τσεσμέ / Sakız - Çeşme (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/282791811"
+   }
+  },
+  {
+   "id": "dieppe-newhaven",
+   "name": "Dieppe–Newhaven",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Dieppe",
+     "lat": 49.933605,
+     "lon": 1.088089,
+     "country": "FR"
+    },
+    {
+     "name": "Newhaven",
+     "lat": 50.788359,
+     "lon": 0.055558,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9320130",
+     "name": "SEVEN SISTERS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Dieppe–Newhaven, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/dieppe-newhaven"
    }
   },
   {
@@ -326,7 +362,7 @@
   {
    "id": "dover-calais",
    "name": "Dover–Calais",
-   "operator": "Irish Ferries",
+   "operator": "Irish Ferries; P&O Ferries; DFDS",
    "terminals": [
     {
      "name": "Dover",
@@ -343,16 +379,40 @@
    ],
    "ships": [
     {
+     "imo": "9858321",
+     "name": "COTE D'OPALE"
+    },
+    {
+     "imo": "9232527",
+     "name": "COTE DES DUNES"
+    },
+    {
+     "imo": "9305843",
+     "name": "COTE DES FLANDRES"
+    },
+    {
      "imo": "9142605",
      "name": "ISLE OF INISHMORE"
     },
     {
      "imo": "9524231",
      "name": "OSCAR WILDE"
+    },
+    {
+     "imo": "9895173",
+     "name": "P&O LIBERTÉ"
+    },
+    {
+     "imo": "9895161",
+     "name": "P&O PIONEER"
+    },
+    {
+     "imo": "9533816",
+     "name": "SPIRIT OF FRANCE"
     }
    ],
    "source": {
-    "title": "Irish Ferries: Dover–Calais, its ferries; OpenStreetMap's lines also name DFDS, P & O, P&O, whose ships aren't in it",
+    "title": "Irish Ferries: Dover–Calais, its ferries; P&O Ferries: Dover–Calais, its ferries in its sailing tables (its Space Charter sailings' ships not named) (https://www.pofreight.com/route/dover-calais-freight); DFDS: Dover–Calais, its ferries in its timetable (its sailings without a named ship left out) (https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/dover-calais)",
     "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dover-calais/"
    }
   },
@@ -374,10 +434,23 @@
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9293088",
+     "name": "DELFT SEAWAYS"
+    },
+    {
+     "imo": "9318345",
+     "name": "DOVER SEAWAYS"
+    },
+    {
+     "imo": "9293076",
+     "name": "DUNKERQUE SEAWAYS"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Dover (UK) - Dunkerque (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/23637666"
+    "title": "DFDS: Dover–Dunkerque, its ferries in its timetable (its sailings without a named ship left out)",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/dover-dunkirk"
    }
   },
   {
@@ -839,10 +912,52 @@
      "country": "NL"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9208629",
+     "name": "PRIDE OF HULL"
+    },
+    {
+     "imo": "9208617",
+     "name": "PRIDE OF ROTTERDAM"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Hull - Rotterdam (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/32340204"
+    "title": "P&O Ferries: Hull–Rotterdam, its ferries",
+    "url": "https://www.pofreight.com/route/hull-europoort-freight"
+   }
+  },
+  {
+   "id": "ijmuiden-newcastle",
+   "name": "IJmuiden–Newcastle",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "IJmuiden",
+     "lat": 52.462631,
+     "lon": 4.584395,
+     "country": "NL"
+    },
+    {
+     "name": "Newcastle",
+     "lat": 54.991951,
+     "lon": -1.449894,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "8502406",
+     "name": "KING SEAWAYS"
+    },
+    {
+     "imo": "8502391",
+     "name": "PRINCESS SEAWAYS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: IJmuiden–Newcastle, its ferries in its timetable; OpenStreetMap's lines also name Det Forenede Dampskibs-Selskab A, whose ships aren't in it",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/amsterdam-newcastle"
    }
   },
   {
@@ -869,6 +984,154 @@
    "source": {
     "title": "OpenStreetMap: Kirkwall - Lerwick (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/137947177"
+   }
+  },
+  {
+   "id": "klaipeda-fredericia",
+   "name": "Klaipėda–Fredericia",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Klaipėda",
+     "lat": 55.68392,
+     "lon": 21.138441,
+     "country": "LT"
+    },
+    {
+     "name": "Fredericia",
+     "lat": 55.557942,
+     "lon": 9.747321,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "8917390",
+     "name": "PATRIA SEAWAYS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Klaipėda–Fredericia, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/klaipeda-fredericia"
+   }
+  },
+  {
+   "id": "klaipeda-karlshamn",
+   "name": "Klaipėda–Karlshamn",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Klaipėda",
+     "lat": 55.68392,
+     "lon": 21.138441,
+     "country": "LT"
+    },
+    {
+     "name": "Karlshamn",
+     "lat": 56.159245,
+     "lon": 14.81731,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9851036",
+     "name": "AURA SEAWAYS"
+    },
+    {
+     "imo": "9869722",
+     "name": "CIUDAD DE VALENCIA"
+    },
+    {
+     "imo": "9087465",
+     "name": "NILS DACKE"
+    },
+    {
+     "imo": "9865685",
+     "name": "NILS HOLGERSSON"
+    },
+    {
+     "imo": "9087477",
+     "name": "ROBIN HOOD"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Klaipėda–Karlshamn, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/klaipeda-karlshamn"
+   }
+  },
+  {
+   "id": "klaipeda-kiel",
+   "name": "Klaipėda–Kiel",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Klaipėda",
+     "lat": 55.684454,
+     "lon": 21.13879,
+     "country": "LT"
+    },
+    {
+     "name": "Kiel",
+     "lat": 54.336676,
+     "lon": 10.169522,
+     "country": "DE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9851048",
+     "name": "LUNA SEAWAYS"
+    },
+    {
+     "imo": "9458535",
+     "name": "REGINA SEAWAYS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Klaipėda–Kiel, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/klaipeda-kiel"
+   }
+  },
+  {
+   "id": "klaipeda-travemunde",
+   "name": "Klaipėda–Travemünde",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Klaipėda",
+     "lat": 55.657925,
+     "lon": 21.157293,
+     "country": "LT"
+    },
+    {
+     "name": "Travemünde",
+     "lat": 53.940491,
+     "lon": 10.862189,
+     "country": "DE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9019080",
+     "name": "MARCO POLO"
+    },
+    {
+     "imo": "9087465",
+     "name": "NILS DACKE"
+    },
+    {
+     "imo": "9865685",
+     "name": "NILS HOLGERSSON"
+    },
+    {
+     "imo": "9087477",
+     "name": "ROBIN HOOD"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Klaipėda–Travemünde, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/klaipeda-travemunde"
    }
   },
   {
@@ -913,6 +1176,41 @@
    }
   },
   {
+   "id": "larne-cairnryan",
+   "name": "Larne–Cairnryan",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Larne",
+     "lat": 54.846449,
+     "lon": -5.79753,
+     "country": "GB",
+     "region": "GB-NIR"
+    },
+    {
+     "name": "Cairnryan",
+     "lat": 54.961562,
+     "lon": -5.014064,
+     "country": "GB",
+     "region": "GB-SCT"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9208394",
+     "name": "EUROPEAN CAUSEWAY"
+    },
+    {
+     "imo": "9244116",
+     "name": "EUROPEAN HIGHLANDER"
+    }
+   ],
+   "source": {
+    "title": "P&O Ferries: Larne–Cairnryan, its ferries in its sailing tables",
+    "url": "https://www.pofreight.com/route/larne-cairnryan-freight"
+   }
+  },
+  {
    "id": "mostaganem-alicante",
    "name": "Mostaganem–Alicante",
    "operator": "",
@@ -934,6 +1232,35 @@
    "source": {
     "title": "OpenStreetMap: Mostaganem (DZ) مستغانم - Alacant / Alicante (E) (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/965088959"
+   }
+  },
+  {
+   "id": "muuga-vuosaari",
+   "name": "Muuga–Vuosaari",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Muuga",
+     "lat": 59.490136,
+     "lon": 24.965645,
+     "country": "EE"
+    },
+    {
+     "name": "Vuosaari",
+     "lat": 60.208892,
+     "lon": 25.192809,
+     "country": "FI"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9181106",
+     "name": "FINBO CARGO"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Muuga–Vuosaari, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/muuga-vuosaari"
    }
   },
   {
@@ -1009,54 +1336,6 @@
    }
   },
   {
-   "id": "newcastle-ijmuiden",
-   "name": "Newcastle–IJmuiden",
-   "operator": "Det Forenede Dampskibs-Selskab A/S",
-   "terminals": [
-    {
-     "name": "Newcastle",
-     "lat": 54.991951,
-     "lon": -1.449894,
-     "country": "GB"
-    },
-    {
-     "name": "IJmuiden",
-     "lat": 52.462631,
-     "lon": 4.584395,
-     "country": "NL"
-    }
-   ],
-   "ships": [],
-   "source": {
-    "title": "OpenStreetMap: Newcastle - IJmuiden (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/239651906"
-   }
-  },
-  {
-   "id": "newhaven-dieppe",
-   "name": "Newhaven–Dieppe",
-   "operator": "DFDS Seaways",
-   "terminals": [
-    {
-     "name": "Newhaven",
-     "lat": 50.788359,
-     "lon": 0.055558,
-     "country": "GB"
-    },
-    {
-     "name": "Dieppe",
-     "lat": 49.933605,
-     "lon": 1.088089,
-     "country": "FR"
-    }
-   ],
-   "ships": [],
-   "source": {
-    "title": "OpenStreetMap: Newhaven (UK) - Dieppe (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/210008655"
-   }
-  },
-  {
    "id": "nynashamn-ventspils",
    "name": "Nynäshamn–Ventspils",
    "operator": "Stena Line",
@@ -1111,6 +1390,59 @@
    "source": {
     "title": "OpenStreetMap: Alacant / Alicante (E) - Oran (DZ) وهران (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/369719959"
+   }
+  },
+  {
+   "id": "paldiski-kapellskar",
+   "name": "Paldiski–Kapellskär",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Paldiski",
+     "lat": 59.352572,
+     "lon": 24.044917,
+     "country": "EE"
+    },
+    {
+     "name": "Kapellskär",
+     "lat": 59.7219,
+     "lon": 19.066332,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9212163",
+     "name": "SIRENA SEAWAYS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Paldiski–Kapellskär, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/paldiski-kapellskar"
+   }
+  },
+  {
+   "id": "pendik-yalova",
+   "name": "Pendik–Yalova",
+   "operator": "İDO",
+   "terminals": [
+    {
+     "name": "Pendik",
+     "lat": 40.874612,
+     "lon": 29.236362,
+     "country": "TR"
+    },
+    {
+     "name": "Yalova",
+     "lat": 40.660263,
+     "lon": 29.279805,
+     "country": "TR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Pendik-Yalova Hızlı Feribot Güzergahı (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/124967155"
    }
   },
   {
@@ -1282,6 +1614,39 @@
    }
   },
   {
+   "id": "rosslare-dunkerque",
+   "name": "Rosslare–Dunkerque",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Rosslare",
+     "lat": 52.253827,
+     "lon": -6.336566,
+     "country": "IE"
+    },
+    {
+     "name": "Dunkerque",
+     "lat": 51.017271,
+     "lon": 2.18502,
+     "country": "FR"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9350680",
+     "name": "ATHENA SEAWAYS"
+    },
+    {
+     "imo": "9350721",
+     "name": "VICTORIA SEAWAYS"
+    }
+   ],
+   "source": {
+    "title": "DFDS: Rosslare–Dunkerque, its ferries in its timetable",
+    "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/rosslare-dunkirk"
+   }
+  },
+  {
    "id": "rosslare-fishguard",
    "name": "Rosslare–Fishguard",
    "operator": "Stena Line",
@@ -1403,7 +1768,7 @@
   {
    "id": "rotterdam-immingham",
    "name": "Rotterdam–Immingham",
-   "operator": "Stena Line",
+   "operator": "Stena Line; DFDS",
    "terminals": [
     {
      "name": "Rotterdam",
@@ -1420,6 +1785,14 @@
    ],
    "ships": [
     {
+     "imo": "9832585",
+     "name": "HOLLANDIA SEAWAYS"
+    },
+    {
+     "imo": "9864681",
+     "name": "SCANDIA SEAWAYS"
+    },
+    {
      "imo": "9227259",
      "name": "STENA FORERUNNER"
     },
@@ -1429,7 +1802,7 @@
     }
    ],
    "source": {
-    "title": "Stena Line: Rotterdam – Immingham, its ferries; OpenStreetMap's lines also name DFDS Tor Line, whose ships aren't in it",
+    "title": "Stena Line: Rotterdam – Immingham, its ferries; DFDS: Rotterdam–Immingham, its ferries in its timetable (https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/rotterdam-immingham)",
     "url": "https://stenalinefreight.com/routes/rotterdam-immingham/"
    }
   },
@@ -1814,10 +2187,19 @@
      "country": "BE"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9186182",
+     "name": "NORSKY"
+    },
+    {
+     "imo": "9186194",
+     "name": "NORSTREAM"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Tilbury - Zeebrugge; Zeebrugge - Tilbury (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/1235920594"
+    "title": "P&O Ferries: Tilbury–Zeebrugge, its ferries",
+    "url": "https://www.pofreight.com/route/tilbury-zeebrugge-freight"
    }
   },
   {

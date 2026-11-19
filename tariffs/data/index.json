@@ -1640,7 +1640,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-01-01",
    "valid_to": "2024-04-30",
-   "sha256": "7a394c4d38ee4705089256f285d882b9ec020524bbc85593c4f2c59e8f3c94cb",
+   "sha256": "2ef82a0d85f2f57d6704db66e30590771353d22ce870556053ddca9d2d69f068",
    "coverage": "complete"
   },
   {
@@ -1651,7 +1651,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-05-01",
    "valid_to": "2025-04-30",
-   "sha256": "e9b961616929f66ab6c8a5d13a6df2edf37b5e43e33587520fe1c2a54bbe3e53",
+   "sha256": "c2636380560092ed40d199cef3d9aa7ac0459dc18e22b80e08f120cbd27178a8",
    "coverage": "complete"
   },
   {
@@ -1662,7 +1662,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2025-05-01",
    "valid_to": null,
-   "sha256": "8c0ff8933a04029bcba0294fb604d0015952d50aa9b993f8717f72fe3db3723b",
+   "sha256": "18ea242f840e43c4a14e8d88ee45c9f43e271c6acf78d341388199b992cceded",
    "coverage": "complete"
   },
   {
@@ -1772,7 +1772,7 @@
    "name": "Jadrolinija's state ferry lines, goods vehicles",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "e77758cb76b3bad1d36417826e77b510bc22c70bc6a910a9d17e141fb7d8500a",
+   "sha256": "23fa6b2fc3de4432d2f872bf9bd77d21591041c3c8ab8c53ef1ee0457c23f236",
    "coverage": "complete"
   },
   {
@@ -2080,7 +2080,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "0943eb92de03d3510e2431a00cef347ea8e4e89e16f116b0babcf2fb8e95a5df",
+   "sha256": "a425d9b745fbae2115f99e7d74f6914202c7b724d66bb9f7229577b053c0a4de",
    "coverage": "complete"
   },
   {

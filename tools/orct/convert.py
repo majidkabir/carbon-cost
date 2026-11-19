@@ -458,6 +458,9 @@ def convert_system(b, i, s, motor=False):
     if s.get("unit") == "t":
         # A fare per tonne of a mass (Jadrolinija: of the load capacity).
         ch["unit"], ch["mass_basis"] = "t", s.get("mass_basis", "train_mass_kg")
+        if s.get("mass_step_kg"):
+            # Per started step (the Elbe ferry: per started 1,000 kg of load).
+            ch["mass_step_kg"] = s["mass_step_kg"]
     if s.get("unmatched"):
         ch["unmatched"] = s["unmatched"]
     if s.get("law"):

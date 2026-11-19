@@ -3485,6 +3485,43 @@ func TestScandlines(t *testing.T) {
 	}
 }
 
+// TestElbfaehre prices the Elbe ferry Glückstadt-Wischhafen: the truck by
+// length at the net fare plus the fuel surcharge, and the load per started
+// 1,000 kg (ORCT unit t on load_kg in steps of 1,000 kg).
+func TestElbfaehre(t *testing.T) {
+	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	day := func(s string) time.Time { d, _ := time.Parse(time.DateOnly, s); return d }
+	for _, tc := range []struct {
+		name  string
+		truck rates.Truck
+		cargo float64
+		date  string
+		eur   float64
+	}{
+		{"16.5 m, 20 t, November 2026", truck40, 20000, "2026-11-20", 37.82 + 2.40 + 20*1.26},
+		{"road train, 20.5 t, November 2026", length(18.75), 20500, "2026-11-20", 39.08 + 4.20 + 2.40 + 21*1.26},
+		{"16.5 m, 20 t, April 2026", truck40, 20000, "2026-04-01", 36.13 + 1.80 + 20*1.26},
+		{"16.5 m, 20 t, before the fuel surcharge", truck40, 20000, "2026-03-01", 36.13 + 20*1.26},
+		{"16.5 m, 999 kg, 2025", truck40, 999, "2025-06-01", 34.45 + 1*1.18},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DE": 50}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: tc.cargo, Truck: tc.truck}, day(tc.date))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Elbfähre") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
 // TestPOLSCA prices POLSCA Baltic Ferries' crossings (Polferries and Unity
 // Line) from the freight tariff (per unit to 9 m, per commenced metre over
 // 9 m) and the BES per commenced metre in force on the day (not the ETS

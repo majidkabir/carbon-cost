@@ -74,6 +74,7 @@
  "c.fares.od": "{systems} sistemas cerrados con {stations} estaciones y {trips} recorridos con tarifa.",
  "c.fares.points": "{n} puntos con tarifa.",
  "c.fares.cap": "Calculado para 25 t de carga útil (la del semirremolque).",
+ "c.fares.load": "Calculado con una carga de 25 t.",
  "c.fares.note": "Se muestran los más caros; todos están en la tabla tarifaria de abajo y en el conjunto de datos.",
  "c.vig.h": "Viñetas para un camión de 40 t Euro VI",
  "c.hist.h": "Historial de tarifas y cambios previstos",

@@ -174,8 +174,16 @@ func priceDay(ds *tariffs.Dataset, today string) string {
 }
 
 // calc prices events for the truck, as the calculator does.
+// exampleLoadKg is the load the examples carry, for fares by the load's
+// weight: the example semi-trailer's load capacity (c.fares.load).
+const exampleLoadKg = 25000
+
 func calc(ds *tariffs.Dataset, t rates.Truck, events []orct.Event) amount {
-	u := &orct.Usage{ORCTUsage: "0.3", Vehicle: cost.Vehicle(t), Events: events}
+	v := cost.Vehicle(t)
+	if t.CapacityKg > 0 {
+		v["load_kg"] = float64(exampleLoadKg) // a fare by the load: the example's full load
+	}
+	u := &orct.Usage{ORCTUsage: "0.3", Vehicle: v, Events: events}
 	st := orct.Calculate([]*orct.Dataset{ds.Dataset}, u)
 	a := amount{Cur: ds.Doc.Header.Currency, OK: true}
 	for _, is := range st.Issues {

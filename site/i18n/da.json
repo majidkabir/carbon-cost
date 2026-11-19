@@ -74,6 +74,7 @@
  "c.fares.od": "{systems} lukkede systemer med {stations} stationer og {trips} prissatte strækninger.",
  "c.fares.points": "{n} prissatte steder.",
  "c.fares.cap": "Beregnet for 25 t lasteevne (sættevognens).",
+ "c.fares.load": "Beregnet med en last på 25 t.",
  "c.fares.note": "De dyreste vises; alle står i taksttabellen nedenfor og i datasættet.",
  "c.vig.h": "Vignetter for en 40 t Euro VI-lastbil",
  "c.hist.h": "Satsernes historik og kommende ændringer",

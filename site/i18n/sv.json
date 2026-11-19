@@ -74,6 +74,7 @@
  "c.fares.od": "{systems} slutna system med {stations} stationer och {trips} prissatta sträckor.",
  "c.fares.points": "{n} prissatta punkter.",
  "c.fares.cap": "Beräknat för 25 t lastförmåga (påhängsvagnens).",
+ "c.fares.load": "Beräknat med en last på 25 t.",
  "c.fares.note": "De dyraste visas; alla finns i taxetabellen nedan och i datasetet.",
  "c.vig.h": "Vinjetter för en 40 t Euro VI-lastbil",
  "c.hist.h": "Avgifternas historik och kommande ändringar",

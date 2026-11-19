@@ -74,6 +74,7 @@
  "c.fares.od": "{systems} closed systems with {stations} stations and {trips} trips priced.",
  "c.fares.points": "{n} places priced.",
  "c.fares.cap": "Priced for 25 t of load capacity (the semi-trailer's).",
+ "c.fares.load": "Priced with a load of 25 t.",
  "c.fares.note": "The dearest shown; every one is in the rate table below and the dataset.",
  "c.vig.h": "Vignettes for a 40 t Euro VI truck",
  "c.hist.h": "Rate history and changes to come",

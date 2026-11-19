@@ -236,6 +236,24 @@ def polsca(out, manifest, sid, page_url, page):
         save(out, manifest, name, u, status, body)
 
 
+def follow(out, manifest, s, page):
+    """The pages or files a source links that match its "follow" pattern (a
+    regular expression on the absolute URL), saved as <id>-<last path
+    segment, lower case>.<html or pdf>: an operator's route pages from its
+    route list, say."""
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"'#]+)["']""", text):
+        u = urllib.parse.urljoin(s["url"], u)
+        if re.fullmatch(s["follow"], u):
+            last = [x for x in urllib.parse.urlparse(u).path.split("/") if x][-1].lower()
+            name, ext = os.path.splitext(last)
+            seen.setdefault(f"{s['id']}-" + re.sub(r"[^a-z0-9.]+", "-", name).strip("-"), (u, ext))
+    for name, (u, ext) in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name + (".pdf" if body[:4] == b"%PDF" else ".html"), u, status, body)
+
+
 # Overpass instances serving the same OpenStreetMap data: a query goes to
 # its own first, then to the others when that one can't be reached, is
 # busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
@@ -300,6 +318,8 @@ def store(out, manifest, s, status, body, asked):
         scandlines(out, manifest, s["id"], s["url"], body)
     if ("unityline.eu/cargo/documents-polsca/" in s["url"] or "unityline.eu/cargo/timetables" in s["url"]) and status == 200:
         polsca(out, manifest, s["id"], s["url"], body)
+    if s.get("follow") and status == 200:
+        follow(out, manifest, s, body)
 
 
 def checked(s, status, body, again):

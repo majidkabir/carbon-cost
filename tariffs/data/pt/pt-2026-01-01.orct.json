@@ -1,0 +1,4033 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/pt/2026-01-01",
+  "scheme": {
+   "id": "pt",
+   "name": "Portuguese motorway tolls (portagens)",
+   "country": "PT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Lisbon",
+  "license": "MIT",
+  "method": "IMT, Taxas de Portagem de 2026: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-18). 19 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "pt-2026-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "IMT: Taxas de Portagem de 2026",
+   "url": "https://www.imt-ip.pt/rodoviario/infraestruturas-rodoviarias/rede-rodoviaria/taxas-de-portagem/"
+  },
+  {
+   "id": "s2",
+   "title": "Polígrafo: Lusoponte bridge tolls carry the reduced 6% IVA",
+   "url": "http://poligrafo.sapo.pt/fact-check/portagens-das-pontes-25-de-abril-e-vasco-da-gama-tem-taxa-reduzida-6-de-iva-ao-contrario-do-resto-do-pais/"
+  },
+  {
+   "id": "s3",
+   "title": "Decreto-Lei n.º 294/97 (Brisa concession bases), consolidated: tolls plus IVA",
+   "url": "https://diariodarepublica.pt/dr/legislacao-consolidada/decreto-lei/2008-168384077"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Geofabrik extract), motorways",
+   "url": "https://download.geofabrik.de/europe/portugal.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks of two or more axles (classes 2 to 4)",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_axles": {
+       "min": 2,
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "A1 Alverca (A1/A9) / V.Franca de Xira II",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.020462, 38.918032]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "A1 Alverca (A1/A9) / V.Franca de Xira II",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.021244, 38.917452]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "A1 V.Franca de Xira II / V.Franca de Xira I",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.99042, 38.957952]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "A1 V.Franca de Xira II / V.Franca de Xira I",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.990684, 38.957744]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "A1 V.Franca de Xira I / Castanheira do Ribatejo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.971184, 38.986815]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "A1 V.Franca de Xira I / Castanheira do Ribatejo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.9705, 38.988264]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "A1 Castanheira do Ribatejo/ A1/A10",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.966666, 39.00722]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "A1 Castanheira do Ribatejo/ A1/A10",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.967004, 39.006516]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "A1 A1/A10 / Carregado",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.96586, 39.017411]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "A1 A1/A10 / Carregado",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.965876, 39.017306]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt11",
+   "type": "point",
+   "name": "A1 Carregado / Aveiras de Cima",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.930216, 39.085747]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt12",
+   "type": "point",
+   "name": "A1 Carregado / Aveiras de Cima",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.930164, 39.08588]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt13",
+   "type": "point",
+   "name": "A1 Aveiras de Cima / Cartaxo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.843214, 39.173369]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt14",
+   "type": "point",
+   "name": "A1 Aveiras de Cima / Cartaxo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.843886, 39.173041]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt15",
+   "type": "point",
+   "name": "A1 Cartaxo / Santarém",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.765272, 39.232014]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt16",
+   "type": "point",
+   "name": "A1 Cartaxo / Santarém",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.76546, 39.231748]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt17",
+   "type": "point",
+   "name": "A1 Santarém / A1/A15",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.732731, 39.26069]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt18",
+   "type": "point",
+   "name": "A1 Santarém / A1/A15",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.732892, 39.260498]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt19",
+   "type": "point",
+   "name": "A1 A1/A15 / Torres Novas (A1/A23)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.637511, 39.358024]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt20",
+   "type": "point",
+   "name": "A1 A1/A15 / Torres Novas (A1/A23)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.637265, 39.35823]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt21",
+   "type": "point",
+   "name": "A1 Torres Novas (A1/A23) / Fátima",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.662013, 39.54485]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt22",
+   "type": "point",
+   "name": "A1 Torres Novas (A1/A23) / Fátima",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.661937, 39.545345]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt23",
+   "type": "point",
+   "name": "A1 Fátima / Leiria",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.68924, 39.688666]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt24",
+   "type": "point",
+   "name": "A1 Fátima / Leiria",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.689298, 39.688448]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt25",
+   "type": "point",
+   "name": "A1 Leiria / Pombal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.720545, 39.837869]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt26",
+   "type": "point",
+   "name": "A1 Leiria / Pombal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.720771, 39.83775]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt27",
+   "type": "point",
+   "name": "A1 Pombal – Soure",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.623918, 39.98436]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt28",
+   "type": "point",
+   "name": "A1 Pombal – Soure",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.624004, 39.984272]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt29",
+   "type": "point",
+   "name": "A1 Soure / Condeixa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.536517, 40.084683]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt30",
+   "type": "point",
+   "name": "A1 Soure / Condeixa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.536423, 40.084852]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt31",
+   "type": "point",
+   "name": "A1 Condeixa / Coimbra Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.494294, 40.161573]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt32",
+   "type": "point",
+   "name": "A1 Condeixa / Coimbra Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.494138, 40.162096]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt33",
+   "type": "point",
+   "name": "A1 Coimbra Sul / Coimbra Norte (A1/A14)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.486882, 40.232116]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt34",
+   "type": "point",
+   "name": "A1 Coimbra Sul / Coimbra Norte (A1/A14)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.487072, 40.232064]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt35",
+   "type": "point",
+   "name": "A1 Coimbra Norte (A1/A14) / Mealhada",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.490319, 40.318318]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt36",
+   "type": "point",
+   "name": "A1 Coimbra Norte (A1/A14) / Mealhada",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.490362, 40.318453]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt37",
+   "type": "point",
+   "name": "A1 Mealhada / Aveiro Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.521446, 40.469541]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt38",
+   "type": "point",
+   "name": "A1 Mealhada / Aveiro Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.521374, 40.468756]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt39",
+   "type": "point",
+   "name": "A1 Aveiro Sul / Albergaria (A1/IP5)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.536031, 40.625414]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt40",
+   "type": "point",
+   "name": "A1 Aveiro Sul / Albergaria (A1/IP5)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.535838, 40.625859]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt41",
+   "type": "point",
+   "name": "A1 Albergaria (A1/IP5) / Estarreja",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.522753, 40.731425]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt42",
+   "type": "point",
+   "name": "A1 Albergaria (A1/IP5) / Estarreja",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.522673, 40.731048]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt43",
+   "type": "point",
+   "name": "A1 Estarreja / Feira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.557397, 40.848653]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt44",
+   "type": "point",
+   "name": "A1 Estarreja / Feira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.557632, 40.848703]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt45",
+   "type": "point",
+   "name": "A1 Feira / Espinho (IC24)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.56831, 40.966456]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt46",
+   "type": "point",
+   "name": "A1 Feira / Espinho (IC24)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.568615, 40.966962]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt47",
+   "type": "point",
+   "name": "A1 Espinho (IC24) / Carvalhos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.570181, 41.03863]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt48",
+   "type": "point",
+   "name": "A1 Espinho (IC24) / Carvalhos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.570403, 41.038575]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt49",
+   "type": "point",
+   "name": "A2 Fogueteiro / Coina",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.060637, 38.589157]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt50",
+   "type": "point",
+   "name": "A2 Fogueteiro / Coina",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.060691, 38.588969]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt51",
+   "type": "point",
+   "name": "A2 Coina / Palmela",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.947477, 38.584248]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt52",
+   "type": "point",
+   "name": "A2 Coina / Palmela",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.948457, 38.584219]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt53",
+   "type": "point",
+   "name": "A2 Palmela / A2/A12",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.870685, 38.581358]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt54",
+   "type": "point",
+   "name": "A2 Palmela / A2/A12",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.870711, 38.581225]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt55",
+   "type": "point",
+   "name": "A2 A2/A12 / Marateca",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.762702, 38.590409]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt56",
+   "type": "point",
+   "name": "A2 A2/A12 / Marateca",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.762915, 38.590214]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt57",
+   "type": "point",
+   "name": "A2 Marateca / A2/A6/A13",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.655793, 38.602428]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt58",
+   "type": "point",
+   "name": "A2 Marateca / A2/A6/A13",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.655498, 38.602294]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt59",
+   "type": "point",
+   "name": "A2 A2/A6/A13 / Alcácer do Sal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.579566, 38.507874]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt60",
+   "type": "point",
+   "name": "A2 A2/A6/A13 / Alcácer do Sal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.580023, 38.508087]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt61",
+   "type": "point",
+   "name": "A2 Alcácer do Sal / Grândola Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.507473, 38.323317]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt62",
+   "type": "point",
+   "name": "A2 Alcácer do Sal / Grândola Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.507441, 38.324055]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt63",
+   "type": "point",
+   "name": "A2 Grândola Norte / Grândola Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.484977, 38.162109]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt64",
+   "type": "point",
+   "name": "A2 Grândola Norte / Grândola Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.484497, 38.161751]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt65",
+   "type": "point",
+   "name": "A2 Grândola Sul / Aljustrel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.287477, 38.026809]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt66",
+   "type": "point",
+   "name": "A2 Grândola Sul / Aljustrel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.286784, 38.025891]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt67",
+   "type": "point",
+   "name": "A2 Aljustrel / Castro Verde",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.211536, 37.775675]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt68",
+   "type": "point",
+   "name": "A2 Aljustrel / Castro Verde",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.212079, 37.776091]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt69",
+   "type": "point",
+   "name": "A2 Castro Verde / Almodôvar",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.176124, 37.594472]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt70",
+   "type": "point",
+   "name": "A2 Castro Verde / Almodôvar",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.176265, 37.594673]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt71",
+   "type": "point",
+   "name": "A2 Almodôvar / S.B.Messines",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.260338, 37.396059]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt72",
+   "type": "point",
+   "name": "A2 Almodôvar / S.B.Messines",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.260496, 37.395952]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt73",
+   "type": "point",
+   "name": "A2 S.B.Messines / Paderne (A22)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.234111, 37.204823]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt74",
+   "type": "point",
+   "name": "A2 S.B.Messines / Paderne (A22)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.234411, 37.205228]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt75",
+   "type": "point",
+   "name": "A3 Maia / Santo Tirso",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.550269, 41.289657]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt76",
+   "type": "point",
+   "name": "A3 Maia / Santo Tirso",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.55047, 41.289746]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt77",
+   "type": "point",
+   "name": "A3 Santo Tirso / Famalicão",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.505091, 41.355601]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt78",
+   "type": "point",
+   "name": "A3 Santo Tirso / Famalicão",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.505301, 41.355402]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt79",
+   "type": "point",
+   "name": "A3 Famalicão / Cruz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.494673, 41.414149]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt80",
+   "type": "point",
+   "name": "A3 Famalicão / Cruz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.494735, 41.414003]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt81",
+   "type": "point",
+   "name": "A3 Cruz / Braga Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.459538, 41.476832]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt82",
+   "type": "point",
+   "name": "A3 Cruz / Braga Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.459475, 41.476912]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt83",
+   "type": "point",
+   "name": "A3 Braga Sul / Braga Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.482788, 41.522698]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt84",
+   "type": "point",
+   "name": "A3 Braga Sul / Braga Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.482649, 41.521299]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt85",
+   "type": "point",
+   "name": "A3 Braga Oeste / EN 201",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.549791, 41.606356]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt86",
+   "type": "point",
+   "name": "A3 Braga Oeste / EN 201",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.549934, 41.60639]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt87",
+   "type": "point",
+   "name": "A3 EN 201 / Ponte de Lima Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.558807, 41.726353]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt88",
+   "type": "point",
+   "name": "A3 EN 201 / Ponte de Lima Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.558503, 41.726159]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt89",
+   "type": "point",
+   "name": "A3 Ponte de Lima Sul / Ponte de Lima Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.55858, 41.771542]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt90",
+   "type": "point",
+   "name": "A3 Ponte de Lima Sul / Ponte de Lima Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.558506, 41.771867]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt91",
+   "type": "point",
+   "name": "A3 Ponte de Lima Norte / EN 303",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.617091, 41.850153]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt92",
+   "type": "point",
+   "name": "A3 Ponte de Lima Norte / EN 303",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.616885, 41.850002]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt93",
+   "type": "point",
+   "name": "A3 EN 303 / Valença",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.672531, 41.953637]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt94",
+   "type": "point",
+   "name": "A3 EN 303 / Valença",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.672709, 41.953631]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt95",
+   "type": "point",
+   "name": "A4 Ermesinde / Valongo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.535832, 41.201893]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt96",
+   "type": "point",
+   "name": "A4 Ermesinde / Valongo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.536245, 41.201809]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt97",
+   "type": "point",
+   "name": "A4 Valongo / Campo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.483883, 41.193855]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt98",
+   "type": "point",
+   "name": "A4 Valongo / Campo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.483997, 41.19379]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt99",
+   "type": "point",
+   "name": "A4 Campo / Baltar",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.42704, 41.17296]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt100",
+   "type": "point",
+   "name": "A4 Campo / Baltar",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.426868, 41.173003]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt101",
+   "type": "point",
+   "name": "A4 Baltar / Paredes",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.373936, 41.183328]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt102",
+   "type": "point",
+   "name": "A4 Baltar / Paredes",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.373719, 41.183286]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt103",
+   "type": "point",
+   "name": "A4 Paredes / Guilhufe",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.33185, 41.197747]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt104",
+   "type": "point",
+   "name": "A4 Paredes / Guilhufe",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.331772, 41.197617]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt105",
+   "type": "point",
+   "name": "A4 Guilhufe / Penafiel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.304177, 41.202429]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt106",
+   "type": "point",
+   "name": "A4 Guilhufe / Penafiel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.303954, 41.202497]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt107",
+   "type": "point",
+   "name": "A4 Penafiel / Castelões (A4/IP9)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.252243, 41.219405]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt108",
+   "type": "point",
+   "name": "A4 Penafiel / Castelões (A4/IP9)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.252617, 41.21938]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt109",
+   "type": "point",
+   "name": "A4 Castelões (A4/IP9) / Geraldes",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.141299, 41.224896]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt110",
+   "type": "point",
+   "name": "A4 Castelões (A4/IP9) / Geraldes",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.141208, 41.224714]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt111",
+   "type": "point",
+   "name": "A5 Estádio Nacional / Oeiras",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.203537, 38.721357]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt112",
+   "type": "point",
+   "name": "A5 Estádio Nacional / Oeiras",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.203546, 38.721492]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt113",
+   "type": "point",
+   "name": "A5 Oeiras / Carcavelos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.258209, 38.713495]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt114",
+   "type": "point",
+   "name": "A5 Oeiras / Carcavelos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.258063, 38.713497]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt115",
+   "type": "point",
+   "name": "A5 Carcavelos / Estoril",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.346264, 38.708168]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt116",
+   "type": "point",
+   "name": "A5 Carcavelos / Estoril",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.346398, 38.708201]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt117",
+   "type": "point",
+   "name": "A5 Estoril / Cascais",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.412907, 38.725503]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt118",
+   "type": "point",
+   "name": "A5 Estoril / Cascais",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.413, 38.725611]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt119",
+   "type": "point",
+   "name": "A6 A2/A6/A13 / Vendas Novas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.540741, 38.632749]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt120",
+   "type": "point",
+   "name": "A6 A2/A6/A13 / Vendas Novas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.540201, 38.632861]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt121",
+   "type": "point",
+   "name": "A6 Vendas Novas / Montemor-o-Novo Poente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.327453, 38.636295]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt122",
+   "type": "point",
+   "name": "A6 Vendas Novas / Montemor-o-Novo Poente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.327775, 38.636305]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt123",
+   "type": "point",
+   "name": "A6 Montemor-o-Novo Poente / Montemor-o-Novo Nascente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.205395, 38.670592]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt124",
+   "type": "point",
+   "name": "A6 Montemor-o-Novo Nascente / Évora Poente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.109002, 38.628313]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt125",
+   "type": "point",
+   "name": "A6 Montemor-o-Novo Nascente / Évora Poente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.109879, 38.628558]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt126",
+   "type": "point",
+   "name": "A6 Évora Poente / Évora Nascente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.95039, 38.630707]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt127",
+   "type": "point",
+   "name": "A6 Évora Poente / Évora Nascente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.947962, 38.630665]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt128",
+   "type": "point",
+   "name": "A6 Évora Nascente / Estremoz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.748763, 38.742598]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt129",
+   "type": "point",
+   "name": "A6 Évora Nascente / Estremoz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.748443, 38.742697]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt130",
+   "type": "point",
+   "name": "A6 Estremoz / Borba",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.54714, 38.811187]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt131",
+   "type": "point",
+   "name": "A6 Estremoz / Borba",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.546954, 38.81113]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt132",
+   "type": "point",
+   "name": "A6 Borba / Elvas Poente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.356358, 38.84966]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt133",
+   "type": "point",
+   "name": "A8 Loures – CREL",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.169952, 38.846168]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt134",
+   "type": "point",
+   "name": "A8 Loures – CREL",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.169783, 38.846206]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt135",
+   "type": "point",
+   "name": "A8 CREL – Lousa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.200633, 38.875163]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt136",
+   "type": "point",
+   "name": "A8 CREL – Lousa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.201051, 38.874482]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt137",
+   "type": "point",
+   "name": "A8 Lousa – Malveira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.21101, 38.916444]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt138",
+   "type": "point",
+   "name": "A8 Lousa – Malveira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.210989, 38.916871]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt139",
+   "type": "point",
+   "name": "A8 Malveira – Enxara",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.214031, 38.955648]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt140",
+   "type": "point",
+   "name": "A8 Malveira – Enxara",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.213866, 38.955886]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt141",
+   "type": "point",
+   "name": "A8 Enxara – Torres Vedras Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.216761, 39.025739]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt142",
+   "type": "point",
+   "name": "A8 Enxara – Torres Vedras Sul",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.216617, 39.025806]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt143",
+   "type": "point",
+   "name": "A8 Torres Vedras Sul – Torres Vedras Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.231809, 39.083519]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt144",
+   "type": "point",
+   "name": "A8 Torres Vedras Sul – Torres Vedras Norte",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.231662, 39.083479]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt145",
+   "type": "point",
+   "name": "A8 Torres Vedras Norte – Ramalhal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.249983, 39.113899]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt146",
+   "type": "point",
+   "name": "A8 Torres Vedras Norte – Ramalhal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.25044, 39.11413]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt147",
+   "type": "point",
+   "name": "A8 Ramalhal – Campelos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.227464, 39.157003]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt148",
+   "type": "point",
+   "name": "A8 Ramalhal – Campelos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.227478, 39.156839]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt149",
+   "type": "point",
+   "name": "A8 Campelos – Bombarral",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.186479, 39.223784]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt150",
+   "type": "point",
+   "name": "A8 Campelos – Bombarral",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.186355, 39.223529]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt151",
+   "type": "point",
+   "name": "A9 Estádio Nacional (A5/A9) / Queluz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.275001, 38.732855]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt152",
+   "type": "point",
+   "name": "A9 Estádio Nacional (A5/A9) / Queluz",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.275118, 38.733063]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt153",
+   "type": "point",
+   "name": "A9 Queluz / A9/A16",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.27024, 38.759628]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt154",
+   "type": "point",
+   "name": "A9 Queluz / A9/A16",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.270175, 38.759937]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt155",
+   "type": "point",
+   "name": "A9 A9/A16 / Radial da Pontinha",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.249873, 38.777146]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt156",
+   "type": "point",
+   "name": "A9 A9/A16 / Radial da Pontinha",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.250029, 38.777197]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt157",
+   "type": "point",
+   "name": "A9 Radial Pontinha / Radial Odivelas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.229646, 38.809226]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt158",
+   "type": "point",
+   "name": "A9 Radial Pontinha / Radial Odivelas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.231855, 38.809019]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt159",
+   "type": "point",
+   "name": "A9 Radial Odivelas / A8/A9",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.189075, 38.835966]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt160",
+   "type": "point",
+   "name": "A9 Radial Odivelas / A8/A9",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.188953, 38.836437]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt161",
+   "type": "point",
+   "name": "A9 A8/A9 / Bucelas (Zambujal)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.162697, 38.858404]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt162",
+   "type": "point",
+   "name": "A9 A8/A9 / Bucelas (Zambujal)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.162565, 38.858481]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt163",
+   "type": "point",
+   "name": "A9 Bucelas (Zambujal) / A9/A10",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.119629, 38.894746]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt164",
+   "type": "point",
+   "name": "A9 Bucelas (Zambujal) / A9/A10",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.119736, 38.89486]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt165",
+   "type": "point",
+   "name": "A9 A9/A10 / Alverca",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.060934, 38.905732]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt166",
+   "type": "point",
+   "name": "A9 A9/A10 / Alverca",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.060447, 38.905578]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt167",
+   "type": "point",
+   "name": "A10 A9/A10 / Arruda dos Vinhos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.069171, 38.940622]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt168",
+   "type": "point",
+   "name": "A10 A9/A10 / Arruda dos Vinhos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.06894, 38.940451]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt169",
+   "type": "point",
+   "name": "A10 Arruda dos Vinhos / Carregado (A1/A10)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.016081, 38.999634]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt170",
+   "type": "point",
+   "name": "A10 Arruda dos Vinhos / Carregado (A1/A10)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.016106, 38.999527]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt171",
+   "type": "point",
+   "name": "A10 Carregado / Benavente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.898516, 38.994869]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt172",
+   "type": "point",
+   "name": "A10 Carregado / Benavente",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.899117, 38.995486]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt173",
+   "type": "point",
+   "name": "A10 Benavente / A10/A13",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.817958, 38.93248]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt174",
+   "type": "point",
+   "name": "A10 Benavente / A10/A13",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.818091, 38.932405]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt175",
+   "type": "point",
+   "name": "A12 Montijo / Pinhal Novo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.903245, 38.698754]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt176",
+   "type": "point",
+   "name": "A12 Montijo / Pinhal Novo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.902952, 38.698128]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt177",
+   "type": "point",
+   "name": "A12 Pinhal Novo / Nó da A2/A12",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.866959, 38.624992]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt178",
+   "type": "point",
+   "name": "A12 Pinhal Novo / Nó da A2/A12",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.867037, 38.624645]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt179",
+   "type": "point",
+   "name": "A12 Nó da A2/A12/ Setúbal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.867898, 38.561292]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt180",
+   "type": "point",
+   "name": "A12 Nó da A2/A12/ Setúbal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.867798, 38.561011]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt181",
+   "type": "point",
+   "name": "A14 Santa Eulália / Montemor-o-Velho",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.695082, 40.191641]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt182",
+   "type": "point",
+   "name": "A14 Santa Eulália / Montemor-o-Velho",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.695398, 40.19138]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt183",
+   "type": "point",
+   "name": "A14 Montemor-o-Velho / EN335",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.661151, 40.238673]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt184",
+   "type": "point",
+   "name": "A14 Montemor-o-Velho / EN335",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.661706, 40.237485]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt185",
+   "type": "point",
+   "name": "A14 EN335 / Ançã",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.577599, 40.284011]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt186",
+   "type": "point",
+   "name": "A14 EN335 / Ançã",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.577741, 40.283946]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt187",
+   "type": "point",
+   "name": "A14 Ançã / Coimbra Norte (A14/A1)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.502671, 40.272934]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt188",
+   "type": "point",
+   "name": "A14 Ançã / Coimbra Norte (A14/A1)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.502701, 40.272813]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt189",
+   "type": "point",
+   "name": "A15 Arnoia – A-dos-Negros",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.108609, 39.364325]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt190",
+   "type": "point",
+   "name": "A15 A-dos-Negros – A-dos-Francos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.03974, 39.353126]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt191",
+   "type": "point",
+   "name": "A15 A-dos-Negros – A-dos-Francos",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.040152, 39.353402]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt192",
+   "type": "point",
+   "name": "A15 A-dos-Francos – Rio Maior Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.971218, 39.321238]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt193",
+   "type": "point",
+   "name": "A15 A-dos-Francos – Rio Maior Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.971163, 39.3211]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt194",
+   "type": "point",
+   "name": "A15 Rio Maior Oeste – Rio Maior Este",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.927899, 39.304201]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt195",
+   "type": "point",
+   "name": "A15 Rio Maior Oeste – Rio Maior Este",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.92926, 39.303938]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt196",
+   "type": "point",
+   "name": "A15 Rio Maior Este – Malaqueijo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.871156, 39.298218]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt197",
+   "type": "point",
+   "name": "A15 Rio Maior Este – Malaqueijo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.869102, 39.298524]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt198",
+   "type": "point",
+   "name": "A15 Malaqueijo – Nó A1/ A15",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.781545, 39.275105]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt199",
+   "type": "point",
+   "name": "A15 Malaqueijo – Nó A1/ A15",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.781668, 39.275178]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt200",
+   "type": "point",
+   "name": "A17 Leiria Norte – Monte Real",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.834243, 39.833566]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt201",
+   "type": "point",
+   "name": "A17 Leiria Norte – Monte Real",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.834199, 39.833419]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt202",
+   "type": "point",
+   "name": "A17 Monte Real – Monte Redondo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.822338, 39.875672]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt203",
+   "type": "point",
+   "name": "A17 Monte Real – Monte Redondo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.822429, 39.875554]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt204",
+   "type": "point",
+   "name": "A17 Monte Redondo – Guia",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.790798, 39.922914]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt205",
+   "type": "point",
+   "name": "A17 Monte Redondo – Guia",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.790598, 39.923025]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt206",
+   "type": "point",
+   "name": "A17 Guia – Louriçal (IC8)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.780962, 39.969331]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt207",
+   "type": "point",
+   "name": "A17 Guia – Louriçal (IC8)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.780889, 39.969221]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt208",
+   "type": "point",
+   "name": "A17 Louriçal (IC8) – Marinha das Ondas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.810142, 40.016912]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt209",
+   "type": "point",
+   "name": "A17 Louriçal (IC8) – Marinha das Ondas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.810254, 40.017041]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt210",
+   "type": "point",
+   "name": "A17 Marinha das Ondas – A14",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.750285, 40.100367]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt211",
+   "type": "point",
+   "name": "A17 Marinha das Ondas – A14",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.750105, 40.100134]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt212",
+   "type": "point",
+   "name": "A17 A14 – Quiaios",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.811777, 40.188724]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt213",
+   "type": "point",
+   "name": "A17 A14 – Quiaios",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.811585, 40.188832]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt214",
+   "type": "point",
+   "name": "A17 Quiaios – Tocha",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.758039, 40.27462]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt215",
+   "type": "point",
+   "name": "A17 Quiaios – Tocha",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.758219, 40.274233]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt216",
+   "type": "point",
+   "name": "A17 Tocha – Mira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.707385, 40.370346]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt217",
+   "type": "point",
+   "name": "A17 Tocha – Mira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.707242, 40.370093]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt218",
+   "type": "point",
+   "name": "A17 Mira – Mira PV",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.704791, 40.433863]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt219",
+   "type": "point",
+   "name": "A17 Mira – Mira PV",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.70484, 40.433693]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt220",
+   "type": "point",
+   "name": "A21 Ericeira – Mafra Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.382144, 38.950529]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt221",
+   "type": "point",
+   "name": "A21 Ericeira – Mafra Oeste",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.38198, 38.950494]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt222",
+   "type": "point",
+   "name": "A21 Mafra Oeste – Mafra Este",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.333581, 38.919015]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt223",
+   "type": "point",
+   "name": "A21 Mafra Oeste – Mafra Este",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.333452, 38.919042]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt224",
+   "type": "point",
+   "name": "A21 Mafra Este – Malveira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.274883, 38.936398]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt225",
+   "type": "point",
+   "name": "A21 Mafra Este – Malveira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.274968, 38.936262]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt226",
+   "type": "point",
+   "name": "A21 Malveira – Venda do Pinheiro",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.231195, 38.938402]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt227",
+   "type": "point",
+   "name": "A21 Malveira – Venda do Pinheiro",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.230991, 38.937988]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt228",
+   "type": "point",
+   "name": "A32 EN 224 – EN227",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.436904, 40.867486]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt229",
+   "type": "point",
+   "name": "A32 EN 224 – EN227",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.438693, 40.866238]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt230",
+   "type": "point",
+   "name": "A32 EN 227 – Feira-Mansores",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.4495, 40.910452]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt231",
+   "type": "point",
+   "name": "A32 EN 227 – Feira-Mansores",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.449322, 40.909864]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt232",
+   "type": "point",
+   "name": "A32 Feira-Mansores – Gião-Louredo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.469144, 40.966992]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt233",
+   "type": "point",
+   "name": "A32 Feira-Mansores – Gião-Louredo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.469188, 40.967271]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt234",
+   "type": "point",
+   "name": "A32 Gião-Louredo – Canedo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.466534, 41.002256]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt235",
+   "type": "point",
+   "name": "A32 Gião-Louredo – Canedo",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.466244, 41.002001]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt236",
+   "type": "point",
+   "name": "A32 Canedo – A32/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.480026, 41.027099]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt237",
+   "type": "point",
+   "name": "A32 Canedo – A32/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.479686, 41.026794]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt238",
+   "type": "point",
+   "name": "A32 A32/A41 – Olival",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.506281, 41.048365]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt239",
+   "type": "point",
+   "name": "A32 A32/A41 – Olival",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.506581, 41.048464]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt240",
+   "type": "point",
+   "name": "A32 Olival – A32/A1",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.544073, 41.07911]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt241",
+   "type": "point",
+   "name": "A32 Olival – A32/A1",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.542549, 41.078803]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt242",
+   "type": "point",
+   "name": "A41 Argoncilhe – Sandim",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.529441, 41.01376]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt243",
+   "type": "point",
+   "name": "A41 Argoncilhe – Sandim",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.529535, 41.013913]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt244",
+   "type": "point",
+   "name": "A41 Sandim – A32/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.49497, 41.03047]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt245",
+   "type": "point",
+   "name": "A41 Sandim – A32/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.495158, 41.030473]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt246",
+   "type": "point",
+   "name": "A41 A32/A41 – Medas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.474221, 41.051259]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt247",
+   "type": "point",
+   "name": "A41 A32/A41 – Medas",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.473923, 41.051583]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt248",
+   "type": "point",
+   "name": "A41 Medas – A41/A43",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.452922, 41.078993]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt249",
+   "type": "point",
+   "name": "A41 Medas – A41/A43",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.453167, 41.079157]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt250",
+   "type": "point",
+   "name": "A41 A41/A43 – Aguiar de Sousa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.43274, 41.109643]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt251",
+   "type": "point",
+   "name": "A41 A41/A43 – Aguiar de Sousa",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.432797, 41.109558]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt252",
+   "type": "point",
+   "name": "A41 Aguiar de Sousa – Z.I.C.",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.432665, 41.150725]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt253",
+   "type": "point",
+   "name": "A41 Aguiar de Sousa – Z.I.C.",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.432757, 41.150854]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt254",
+   "type": "point",
+   "name": "A41 Z.I.C. – A4/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.449242, 41.168133]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt255",
+   "type": "point",
+   "name": "A41 Z.I.C. – A4/A41",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.449417, 41.168092]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt256",
+   "type": "point",
+   "name": "A41 A4/A41 – Gandra",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.455819, 41.191267]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt257",
+   "type": "point",
+   "name": "A41 A4/A41 – Gandra",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.455976, 41.19129]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt258",
+   "type": "point",
+   "name": "A41 Gandra – A41/A42",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.451436, 41.217661]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt259",
+   "type": "point",
+   "name": "A41 Gandra – A41/A42",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.451589, 41.217702]
+    },
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt260",
+   "type": "point",
+   "name": "Ponte 25 de Abril",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.178004, 38.69396]
+    },
+    "heading": 350.2,
+    "match_m": 50
+   }
+  },
+  {
+   "id": "pt261",
+   "type": "point",
+   "name": "Ponte Vasco da Gama",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-9.036765, 38.757609]
+    },
+    "heading": 313.7,
+    "match_m": 50
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "0.6911"],
+    ["pt1", "pt-1.2", "0.8943"],
+    ["pt1", "pt-1.3", "1.0163"],
+    ["pt2", "pt-1.1", "0.6911"],
+    ["pt2", "pt-1.2", "0.8943"],
+    ["pt2", "pt-1.3", "1.0163"],
+    ["pt3", "pt-1.1", "0.4065"],
+    ["pt3", "pt-1.2", "0.4878"],
+    ["pt3", "pt-1.3", "0.5691"],
+    ["pt4", "pt-1.1", "0.4065"],
+    ["pt4", "pt-1.2", "0.4878"],
+    ["pt4", "pt-1.3", "0.5691"],
+    ["pt5", "pt-1.1", "0.6911"],
+    ["pt5", "pt-1.2", "0.8943"],
+    ["pt5", "pt-1.3", "1.0163"],
+    ["pt6", "pt-1.1", "0.6911"],
+    ["pt6", "pt-1.2", "0.8943"],
+    ["pt6", "pt-1.3", "1.0163"],
+    ["pt7", "pt-1.1", "0.2033"],
+    ["pt7", "pt-1.2", "0.2846"],
+    ["pt7", "pt-1.3", "0.3252"],
+    ["pt8", "pt-1.1", "0.2033"],
+    ["pt8", "pt-1.2", "0.2846"],
+    ["pt8", "pt-1.3", "0.3252"],
+    ["pt9", "pt-1.1", "0.1626"],
+    ["pt9", "pt-1.2", "0.2033"],
+    ["pt9", "pt-1.3", "0.2439"],
+    ["pt10", "pt-1.1", "0.1626"],
+    ["pt10", "pt-1.2", "0.2033"],
+    ["pt10", "pt-1.3", "0.2439"],
+    ["pt11", "pt-1.1", "1.5854"],
+    ["pt11", "pt-1.2", "2.0325"],
+    ["pt11", "pt-1.3", "2.2764"],
+    ["pt12", "pt-1.1", "1.5854"],
+    ["pt12", "pt-1.2", "2.0325"],
+    ["pt12", "pt-1.3", "2.2764"],
+    ["pt13", "pt-1.1", "1.4228"],
+    ["pt13", "pt-1.2", "1.8293"],
+    ["pt13", "pt-1.3", "2.0325"],
+    ["pt14", "pt-1.1", "1.4228"],
+    ["pt14", "pt-1.2", "1.8293"],
+    ["pt14", "pt-1.3", "2.0325"],
+    ["pt15", "pt-1.1", "1.0163"],
+    ["pt15", "pt-1.2", "1.3008"],
+    ["pt15", "pt-1.3", "1.4634"],
+    ["pt16", "pt-1.1", "1.0163"],
+    ["pt16", "pt-1.2", "1.3008"],
+    ["pt16", "pt-1.3", "1.4634"],
+    ["pt17", "pt-1.1", "0.1626"],
+    ["pt17", "pt-1.2", "0.2439"],
+    ["pt17", "pt-1.3", "0.2439"],
+    ["pt18", "pt-1.1", "0.1626"],
+    ["pt18", "pt-1.2", "0.2439"],
+    ["pt18", "pt-1.3", "0.2439"],
+    ["pt19", "pt-1.1", "3.7805"],
+    ["pt19", "pt-1.2", "4.8374"],
+    ["pt19", "pt-1.3", "5.3659"],
+    ["pt20", "pt-1.1", "3.7805"],
+    ["pt20", "pt-1.2", "4.8374"],
+    ["pt20", "pt-1.3", "5.3659"],
+    ["pt21", "pt-1.1", "2.8862"],
+    ["pt21", "pt-1.2", "3.7398"],
+    ["pt21", "pt-1.3", "4.1463"],
+    ["pt22", "pt-1.1", "2.8862"],
+    ["pt22", "pt-1.2", "3.7398"],
+    ["pt22", "pt-1.3", "4.1463"],
+    ["pt23", "pt-1.1", "2.0325"],
+    ["pt23", "pt-1.2", "2.6423"],
+    ["pt23", "pt-1.3", "2.9268"],
+    ["pt24", "pt-1.1", "2.0325"],
+    ["pt24", "pt-1.2", "2.6423"],
+    ["pt24", "pt-1.3", "2.9268"],
+    ["pt25", "pt-1.1", "3.4553"],
+    ["pt25", "pt-1.2", "4.4309"],
+    ["pt25", "pt-1.3", "4.9187"],
+    ["pt26", "pt-1.1", "3.4553"],
+    ["pt26", "pt-1.2", "4.4309"],
+    ["pt26", "pt-1.3", "4.9187"],
+    ["pt27", "pt-1.1", "2.0732"],
+    ["pt27", "pt-1.2", "2.6829"],
+    ["pt27", "pt-1.3", "2.9675"],
+    ["pt28", "pt-1.1", "2.0732"],
+    ["pt28", "pt-1.2", "2.6829"],
+    ["pt28", "pt-1.3", "2.9675"],
+    ["pt29", "pt-1.1", "1.7886"],
+    ["pt29", "pt-1.2", "2.3171"],
+    ["pt29", "pt-1.3", "2.561"],
+    ["pt30", "pt-1.1", "1.7886"],
+    ["pt30", "pt-1.2", "2.3171"],
+    ["pt30", "pt-1.3", "2.561"],
+    ["pt31", "pt-1.1", "0.6911"],
+    ["pt31", "pt-1.2", "0.8943"],
+    ["pt31", "pt-1.3", "0.9756"],
+    ["pt32", "pt-1.1", "0.6911"],
+    ["pt32", "pt-1.2", "0.8943"],
+    ["pt32", "pt-1.3", "0.9756"],
+    ["pt33", "pt-1.1", "0.813"],
+    ["pt33", "pt-1.2", "1.0569"],
+    ["pt33", "pt-1.3", "1.1382"],
+    ["pt34", "pt-1.1", "0.813"],
+    ["pt34", "pt-1.2", "1.0569"],
+    ["pt34", "pt-1.3", "1.1382"],
+    ["pt35", "pt-1.1", "1.1789"],
+    ["pt35", "pt-1.2", "1.5447"],
+    ["pt35", "pt-1.3", "1.7073"],
+    ["pt36", "pt-1.1", "1.1789"],
+    ["pt36", "pt-1.2", "1.5447"],
+    ["pt36", "pt-1.3", "1.7073"],
+    ["pt37", "pt-1.1", "3.0081"],
+    ["pt37", "pt-1.2", "3.8618"],
+    ["pt37", "pt-1.3", "4.2683"],
+    ["pt38", "pt-1.1", "3.0081"],
+    ["pt38", "pt-1.2", "3.8618"],
+    ["pt38", "pt-1.3", "4.2683"],
+    ["pt39", "pt-1.1", "1.7886"],
+    ["pt39", "pt-1.2", "2.3171"],
+    ["pt39", "pt-1.3", "2.561"],
+    ["pt40", "pt-1.1", "1.7886"],
+    ["pt40", "pt-1.2", "2.3171"],
+    ["pt40", "pt-1.3", "2.561"],
+    ["pt41", "pt-1.1", "1.3821"],
+    ["pt41", "pt-1.2", "1.748"],
+    ["pt41", "pt-1.3", "1.9512"],
+    ["pt42", "pt-1.1", "1.3821"],
+    ["pt42", "pt-1.2", "1.748"],
+    ["pt42", "pt-1.3", "1.9512"],
+    ["pt43", "pt-1.1", "2.0325"],
+    ["pt43", "pt-1.2", "2.6423"],
+    ["pt43", "pt-1.3", "2.9268"],
+    ["pt44", "pt-1.1", "2.0325"],
+    ["pt44", "pt-1.2", "2.6423"],
+    ["pt44", "pt-1.3", "2.9268"],
+    ["pt45", "pt-1.1", "1.3821"],
+    ["pt45", "pt-1.2", "1.748"],
+    ["pt45", "pt-1.3", "1.9512"],
+    ["pt46", "pt-1.1", "1.3821"],
+    ["pt46", "pt-1.2", "1.748"],
+    ["pt46", "pt-1.3", "1.9512"],
+    ["pt47", "pt-1.1", "1.0163"],
+    ["pt47", "pt-1.2", "1.3008"],
+    ["pt47", "pt-1.3", "1.4634"],
+    ["pt48", "pt-1.1", "1.0163"],
+    ["pt48", "pt-1.2", "1.3008"],
+    ["pt48", "pt-1.3", "1.4634"],
+    ["pt49", "pt-1.1", "1.2602"],
+    ["pt49", "pt-1.2", "1.626"],
+    ["pt49", "pt-1.3", "1.7886"],
+    ["pt50", "pt-1.1", "1.2602"],
+    ["pt50", "pt-1.2", "1.626"],
+    ["pt50", "pt-1.3", "1.7886"],
+    ["pt51", "pt-1.1", "1.2195"],
+    ["pt51", "pt-1.2", "1.5447"],
+    ["pt51", "pt-1.3", "1.7073"],
+    ["pt52", "pt-1.1", "1.2195"],
+    ["pt52", "pt-1.2", "1.5447"],
+    ["pt52", "pt-1.3", "1.7073"],
+    ["pt53", "pt-1.1", "0.122"],
+    ["pt53", "pt-1.2", "0.1626"],
+    ["pt53", "pt-1.3", "0.2033"],
+    ["pt54", "pt-1.1", "0.122"],
+    ["pt54", "pt-1.2", "0.1626"],
+    ["pt54", "pt-1.3", "0.2033"],
+    ["pt55", "pt-1.1", "2.6423"],
+    ["pt55", "pt-1.2", "3.374"],
+    ["pt55", "pt-1.3", "3.7398"],
+    ["pt56", "pt-1.1", "2.6423"],
+    ["pt56", "pt-1.2", "3.374"],
+    ["pt56", "pt-1.3", "3.7398"],
+    ["pt57", "pt-1.1", "0.3659"],
+    ["pt57", "pt-1.2", "0.4472"],
+    ["pt57", "pt-1.3", "0.5285"],
+    ["pt58", "pt-1.1", "0.3659"],
+    ["pt58", "pt-1.2", "0.4472"],
+    ["pt58", "pt-1.3", "0.5285"],
+    ["pt59", "pt-1.1", "3.8618"],
+    ["pt59", "pt-1.2", "4.9593"],
+    ["pt59", "pt-1.3", "5.5285"],
+    ["pt60", "pt-1.1", "3.8618"],
+    ["pt60", "pt-1.2", "4.9593"],
+    ["pt60", "pt-1.3", "5.5285"],
+    ["pt61", "pt-1.1", "3.4146"],
+    ["pt61", "pt-1.2", "4.3902"],
+    ["pt61", "pt-1.3", "4.878"],
+    ["pt62", "pt-1.1", "3.4146"],
+    ["pt62", "pt-1.2", "4.3902"],
+    ["pt62", "pt-1.3", "4.878"],
+    ["pt63", "pt-1.1", "2.3171"],
+    ["pt63", "pt-1.2", "3.0081"],
+    ["pt63", "pt-1.3", "3.3333"],
+    ["pt64", "pt-1.1", "2.3171"],
+    ["pt64", "pt-1.2", "3.0081"],
+    ["pt64", "pt-1.3", "3.3333"],
+    ["pt65", "pt-1.1", "4.9187"],
+    ["pt65", "pt-1.2", "6.3415"],
+    ["pt65", "pt-1.3", "7.0325"],
+    ["pt66", "pt-1.1", "4.9187"],
+    ["pt66", "pt-1.2", "6.3415"],
+    ["pt66", "pt-1.3", "7.0325"],
+    ["pt67", "pt-1.1", "4.187"],
+    ["pt67", "pt-1.2", "5.3659"],
+    ["pt67", "pt-1.3", "5.9756"],
+    ["pt68", "pt-1.1", "4.187"],
+    ["pt68", "pt-1.2", "5.3659"],
+    ["pt68", "pt-1.3", "5.9756"],
+    ["pt69", "pt-1.1", "2.6016"],
+    ["pt69", "pt-1.2", "3.3333"],
+    ["pt69", "pt-1.3", "3.6992"],
+    ["pt70", "pt-1.1", "2.6016"],
+    ["pt70", "pt-1.2", "3.3333"],
+    ["pt70", "pt-1.3", "3.6992"],
+    ["pt71", "pt-1.1", "5.0813"],
+    ["pt71", "pt-1.2", "6.5447"],
+    ["pt71", "pt-1.3", "7.2764"],
+    ["pt72", "pt-1.1", "5.0813"],
+    ["pt72", "pt-1.2", "6.5447"],
+    ["pt72", "pt-1.3", "7.2764"],
+    ["pt73", "pt-1.1", "1.8699"],
+    ["pt73", "pt-1.2", "2.3984"],
+    ["pt73", "pt-1.3", "2.6829"],
+    ["pt74", "pt-1.1", "1.8699"],
+    ["pt74", "pt-1.2", "2.3984"],
+    ["pt74", "pt-1.3", "2.6829"],
+    ["pt75", "pt-1.1", "1.6667"],
+    ["pt75", "pt-1.2", "2.1138"],
+    ["pt75", "pt-1.3", "2.3577"],
+    ["pt76", "pt-1.1", "1.6667"],
+    ["pt76", "pt-1.2", "2.1138"],
+    ["pt76", "pt-1.3", "2.3577"],
+    ["pt77", "pt-1.1", "0.6911"],
+    ["pt77", "pt-1.2", "0.8943"],
+    ["pt77", "pt-1.3", "1.0163"],
+    ["pt78", "pt-1.1", "0.6911"],
+    ["pt78", "pt-1.2", "0.8943"],
+    ["pt78", "pt-1.3", "1.0163"],
+    ["pt79", "pt-1.1", "1.0976"],
+    ["pt79", "pt-1.2", "1.3821"],
+    ["pt79", "pt-1.3", "1.5447"],
+    ["pt80", "pt-1.1", "1.0976"],
+    ["pt80", "pt-1.2", "1.3821"],
+    ["pt80", "pt-1.3", "1.5447"],
+    ["pt81", "pt-1.1", "1.0976"],
+    ["pt81", "pt-1.2", "1.4228"],
+    ["pt81", "pt-1.3", "1.5854"],
+    ["pt82", "pt-1.1", "1.0976"],
+    ["pt82", "pt-1.2", "1.4228"],
+    ["pt82", "pt-1.3", "1.5854"],
+    ["pt83", "pt-1.1", "0.6911"],
+    ["pt83", "pt-1.2", "0.8943"],
+    ["pt83", "pt-1.3", "0.9756"],
+    ["pt84", "pt-1.1", "0.6911"],
+    ["pt84", "pt-1.2", "0.8943"],
+    ["pt84", "pt-1.3", "0.9756"],
+    ["pt85", "pt-1.1", "3.0894"],
+    ["pt85", "pt-1.2", "3.9837"],
+    ["pt85", "pt-1.3", "4.4309"],
+    ["pt86", "pt-1.1", "3.0894"],
+    ["pt86", "pt-1.2", "3.9837"],
+    ["pt86", "pt-1.3", "4.4309"],
+    ["pt87", "pt-1.1", "1.5447"],
+    ["pt87", "pt-1.2", "1.9919"],
+    ["pt87", "pt-1.3", "2.2358"],
+    ["pt88", "pt-1.1", "1.5447"],
+    ["pt88", "pt-1.2", "1.9919"],
+    ["pt88", "pt-1.3", "2.2358"],
+    ["pt89", "pt-1.1", "0.122"],
+    ["pt89", "pt-1.2", "0.1626"],
+    ["pt89", "pt-1.3", "0.1626"],
+    ["pt90", "pt-1.1", "0.122"],
+    ["pt90", "pt-1.2", "0.1626"],
+    ["pt90", "pt-1.3", "0.1626"],
+    ["pt91", "pt-1.1", "3.2114"],
+    ["pt91", "pt-1.2", "4.1057"],
+    ["pt91", "pt-1.3", "4.5528"],
+    ["pt92", "pt-1.1", "3.2114"],
+    ["pt92", "pt-1.2", "4.1057"],
+    ["pt92", "pt-1.3", "4.5528"],
+    ["pt93", "pt-1.1", "1.2195"],
+    ["pt93", "pt-1.2", "1.5854"],
+    ["pt93", "pt-1.3", "1.748"],
+    ["pt94", "pt-1.1", "1.2195"],
+    ["pt94", "pt-1.2", "1.5854"],
+    ["pt94", "pt-1.3", "1.748"],
+    ["pt95", "pt-1.1", "0.5691"],
+    ["pt95", "pt-1.2", "0.7317"],
+    ["pt95", "pt-1.3", "0.813"],
+    ["pt96", "pt-1.1", "0.5691"],
+    ["pt96", "pt-1.2", "0.7317"],
+    ["pt96", "pt-1.3", "0.813"],
+    ["pt97", "pt-1.1", "0.5285"],
+    ["pt97", "pt-1.2", "0.6911"],
+    ["pt97", "pt-1.3", "0.7724"],
+    ["pt98", "pt-1.1", "0.5285"],
+    ["pt98", "pt-1.2", "0.6911"],
+    ["pt98", "pt-1.3", "0.7724"],
+    ["pt99", "pt-1.1", "0.935"],
+    ["pt99", "pt-1.2", "1.2195"],
+    ["pt99", "pt-1.3", "1.3821"],
+    ["pt100", "pt-1.1", "0.935"],
+    ["pt100", "pt-1.2", "1.2195"],
+    ["pt100", "pt-1.3", "1.3821"],
+    ["pt101", "pt-1.1", "0.6911"],
+    ["pt101", "pt-1.2", "0.8943"],
+    ["pt101", "pt-1.3", "0.9756"],
+    ["pt102", "pt-1.1", "0.6911"],
+    ["pt102", "pt-1.2", "0.8943"],
+    ["pt102", "pt-1.3", "0.9756"],
+    ["pt103", "pt-1.1", "0.4065"],
+    ["pt103", "pt-1.2", "0.5285"],
+    ["pt103", "pt-1.3", "0.5691"],
+    ["pt104", "pt-1.1", "0.4065"],
+    ["pt104", "pt-1.2", "0.5285"],
+    ["pt104", "pt-1.3", "0.5691"],
+    ["pt105", "pt-1.1", "0.2846"],
+    ["pt105", "pt-1.2", "0.3659"],
+    ["pt105", "pt-1.3", "0.4065"],
+    ["pt106", "pt-1.1", "0.2846"],
+    ["pt106", "pt-1.2", "0.3659"],
+    ["pt106", "pt-1.3", "0.4065"],
+    ["pt107", "pt-1.1", "1.0569"],
+    ["pt107", "pt-1.2", "1.3821"],
+    ["pt107", "pt-1.3", "1.5447"],
+    ["pt108", "pt-1.1", "1.0569"],
+    ["pt108", "pt-1.2", "1.3821"],
+    ["pt108", "pt-1.3", "1.5447"],
+    ["pt109", "pt-1.1", "2.2358"],
+    ["pt109", "pt-1.2", "2.8862"],
+    ["pt109", "pt-1.3", "3.1707"],
+    ["pt110", "pt-1.1", "2.2358"],
+    ["pt110", "pt-1.2", "2.8862"],
+    ["pt110", "pt-1.3", "3.1707"],
+    ["pt111", "pt-1.1", "0.6098"],
+    ["pt111", "pt-1.2", "0.6098"],
+    ["pt111", "pt-1.3", "0.6098"],
+    ["pt112", "pt-1.1", "0.6098"],
+    ["pt112", "pt-1.2", "0.6098"],
+    ["pt112", "pt-1.3", "0.6098"],
+    ["pt113", "pt-1.1", "1.0976"],
+    ["pt113", "pt-1.2", "1.0976"],
+    ["pt113", "pt-1.3", "1.0976"],
+    ["pt114", "pt-1.1", "1.0976"],
+    ["pt114", "pt-1.2", "1.0976"],
+    ["pt114", "pt-1.3", "1.0976"],
+    ["pt115", "pt-1.1", "1.4228"],
+    ["pt115", "pt-1.2", "1.4228"],
+    ["pt115", "pt-1.3", "1.4228"],
+    ["pt116", "pt-1.1", "1.4228"],
+    ["pt116", "pt-1.2", "1.4228"],
+    ["pt116", "pt-1.3", "1.4228"],
+    ["pt117", "pt-1.1", "0.7724"],
+    ["pt117", "pt-1.2", "0.7724"],
+    ["pt117", "pt-1.3", "0.7724"],
+    ["pt118", "pt-1.1", "0.7724"],
+    ["pt118", "pt-1.2", "0.7724"],
+    ["pt118", "pt-1.3", "0.7724"],
+    ["pt119", "pt-1.1", "3.0488"],
+    ["pt119", "pt-1.2", "3.9024"],
+    ["pt119", "pt-1.3", "4.3496"],
+    ["pt120", "pt-1.1", "3.0488"],
+    ["pt120", "pt-1.2", "3.9024"],
+    ["pt120", "pt-1.3", "4.3496"],
+    ["pt121", "pt-1.1", "2.9268"],
+    ["pt121", "pt-1.2", "3.7398"],
+    ["pt121", "pt-1.3", "4.187"],
+    ["pt122", "pt-1.1", "2.9268"],
+    ["pt122", "pt-1.2", "3.7398"],
+    ["pt122", "pt-1.3", "4.187"],
+    ["pt123", "pt-1.1", "0.935"],
+    ["pt123", "pt-1.2", "1.1789"],
+    ["pt123", "pt-1.3", "1.3008"],
+    ["pt124", "pt-1.1", "2.3577"],
+    ["pt124", "pt-1.2", "3.0081"],
+    ["pt124", "pt-1.3", "3.3333"],
+    ["pt125", "pt-1.1", "2.3577"],
+    ["pt125", "pt-1.2", "3.0081"],
+    ["pt125", "pt-1.3", "3.3333"],
+    ["pt126", "pt-1.1", "2.4797"],
+    ["pt126", "pt-1.2", "3.1707"],
+    ["pt126", "pt-1.3", "3.5366"],
+    ["pt127", "pt-1.1", "2.4797"],
+    ["pt127", "pt-1.2", "3.1707"],
+    ["pt127", "pt-1.3", "3.5366"],
+    ["pt128", "pt-1.1", "4.5935"],
+    ["pt128", "pt-1.2", "5.8943"],
+    ["pt128", "pt-1.3", "6.5447"],
+    ["pt129", "pt-1.1", "4.5935"],
+    ["pt129", "pt-1.2", "5.8943"],
+    ["pt129", "pt-1.3", "6.5447"],
+    ["pt130", "pt-1.1", "1.8293"],
+    ["pt130", "pt-1.2", "2.3577"],
+    ["pt130", "pt-1.3", "2.6423"],
+    ["pt131", "pt-1.1", "1.8293"],
+    ["pt131", "pt-1.2", "2.3577"],
+    ["pt131", "pt-1.3", "2.6423"],
+    ["pt132", "pt-1.1", "3.4146"],
+    ["pt132", "pt-1.2", "4.3902"],
+    ["pt132", "pt-1.3", "4.8374"],
+    ["pt133", "pt-1.1", "0"],
+    ["pt133", "pt-1.2", "0"],
+    ["pt133", "pt-1.3", "0"],
+    ["pt134", "pt-1.1", "0"],
+    ["pt134", "pt-1.2", "0"],
+    ["pt134", "pt-1.3", "0"],
+    ["pt135", "pt-1.1", "1.0976"],
+    ["pt135", "pt-1.2", "1.3821"],
+    ["pt135", "pt-1.3", "1.5447"],
+    ["pt136", "pt-1.1", "1.0976"],
+    ["pt136", "pt-1.2", "1.3821"],
+    ["pt136", "pt-1.3", "1.5447"],
+    ["pt137", "pt-1.1", "0.2846"],
+    ["pt137", "pt-1.2", "0.3659"],
+    ["pt137", "pt-1.3", "0.4065"],
+    ["pt138", "pt-1.1", "0.2846"],
+    ["pt138", "pt-1.2", "0.3659"],
+    ["pt138", "pt-1.3", "0.4065"],
+    ["pt139", "pt-1.1", "1.2195"],
+    ["pt139", "pt-1.2", "1.5854"],
+    ["pt139", "pt-1.3", "1.748"],
+    ["pt140", "pt-1.1", "1.2195"],
+    ["pt140", "pt-1.2", "1.5854"],
+    ["pt140", "pt-1.3", "1.748"],
+    ["pt141", "pt-1.1", "1.4634"],
+    ["pt141", "pt-1.2", "1.9106"],
+    ["pt141", "pt-1.3", "2.1138"],
+    ["pt142", "pt-1.1", "1.4634"],
+    ["pt142", "pt-1.2", "1.9106"],
+    ["pt142", "pt-1.3", "2.1138"],
+    ["pt143", "pt-1.1", "0.8943"],
+    ["pt143", "pt-1.2", "1.1382"],
+    ["pt143", "pt-1.3", "1.3008"],
+    ["pt144", "pt-1.1", "0.8943"],
+    ["pt144", "pt-1.2", "1.1382"],
+    ["pt144", "pt-1.3", "1.3008"],
+    ["pt145", "pt-1.1", "0.3252"],
+    ["pt145", "pt-1.2", "0.4472"],
+    ["pt145", "pt-1.3", "0.4878"],
+    ["pt146", "pt-1.1", "0.3252"],
+    ["pt146", "pt-1.2", "0.4472"],
+    ["pt146", "pt-1.3", "0.4878"],
+    ["pt147", "pt-1.1", "1.4634"],
+    ["pt147", "pt-1.2", "1.8699"],
+    ["pt147", "pt-1.3", "2.1138"],
+    ["pt148", "pt-1.1", "1.4634"],
+    ["pt148", "pt-1.2", "1.8699"],
+    ["pt148", "pt-1.3", "2.1138"],
+    ["pt149", "pt-1.1", "1.2195"],
+    ["pt149", "pt-1.2", "1.5854"],
+    ["pt149", "pt-1.3", "1.748"],
+    ["pt150", "pt-1.1", "1.2195"],
+    ["pt150", "pt-1.2", "1.5854"],
+    ["pt150", "pt-1.3", "1.748"],
+    ["pt151", "pt-1.1", "0.5285"],
+    ["pt151", "pt-1.2", "0.6911"],
+    ["pt151", "pt-1.3", "0.7724"],
+    ["pt152", "pt-1.1", "0.5285"],
+    ["pt152", "pt-1.2", "0.6911"],
+    ["pt152", "pt-1.3", "0.7724"],
+    ["pt153", "pt-1.1", "0.4472"],
+    ["pt153", "pt-1.2", "0.5691"],
+    ["pt153", "pt-1.3", "0.6504"],
+    ["pt154", "pt-1.1", "0.4472"],
+    ["pt154", "pt-1.2", "0.5691"],
+    ["pt154", "pt-1.3", "0.6504"],
+    ["pt155", "pt-1.1", "0.4878"],
+    ["pt155", "pt-1.2", "0.6098"],
+    ["pt155", "pt-1.3", "0.6911"],
+    ["pt156", "pt-1.1", "0.4878"],
+    ["pt156", "pt-1.2", "0.6098"],
+    ["pt156", "pt-1.3", "0.6911"],
+    ["pt157", "pt-1.1", "1.0569"],
+    ["pt157", "pt-1.2", "1.3821"],
+    ["pt157", "pt-1.3", "1.5041"],
+    ["pt158", "pt-1.1", "1.0569"],
+    ["pt158", "pt-1.2", "1.3821"],
+    ["pt158", "pt-1.3", "1.5041"],
+    ["pt159", "pt-1.1", "0.5285"],
+    ["pt159", "pt-1.2", "0.6911"],
+    ["pt159", "pt-1.3", "0.7724"],
+    ["pt160", "pt-1.1", "0.5285"],
+    ["pt160", "pt-1.2", "0.6911"],
+    ["pt160", "pt-1.3", "0.7724"],
+    ["pt161", "pt-1.1", "0.5285"],
+    ["pt161", "pt-1.2", "0.6911"],
+    ["pt161", "pt-1.3", "0.7724"],
+    ["pt162", "pt-1.1", "0.5285"],
+    ["pt162", "pt-1.2", "0.6911"],
+    ["pt162", "pt-1.3", "0.7724"],
+    ["pt163", "pt-1.1", "1.3008"],
+    ["pt163", "pt-1.2", "1.6667"],
+    ["pt163", "pt-1.3", "1.8699"],
+    ["pt164", "pt-1.1", "1.3008"],
+    ["pt164", "pt-1.2", "1.6667"],
+    ["pt164", "pt-1.3", "1.8699"],
+    ["pt165", "pt-1.1", "0.4878"],
+    ["pt165", "pt-1.2", "0.6098"],
+    ["pt165", "pt-1.3", "0.6504"],
+    ["pt166", "pt-1.1", "0.4878"],
+    ["pt166", "pt-1.2", "0.6098"],
+    ["pt166", "pt-1.3", "0.6504"],
+    ["pt167", "pt-1.1", "1.0569"],
+    ["pt167", "pt-1.2", "1.3415"],
+    ["pt167", "pt-1.3", "1.5041"],
+    ["pt168", "pt-1.1", "1.0569"],
+    ["pt168", "pt-1.2", "1.3415"],
+    ["pt168", "pt-1.3", "1.5041"],
+    ["pt169", "pt-1.1", "1.6667"],
+    ["pt169", "pt-1.2", "2.1545"],
+    ["pt169", "pt-1.3", "2.3984"],
+    ["pt170", "pt-1.1", "1.6667"],
+    ["pt170", "pt-1.2", "2.1545"],
+    ["pt170", "pt-1.3", "2.3984"],
+    ["pt171", "pt-1.1", "2.1951"],
+    ["pt171", "pt-1.2", "2.8455"],
+    ["pt171", "pt-1.3", "3.1301"],
+    ["pt172", "pt-1.1", "2.1951"],
+    ["pt172", "pt-1.2", "2.8455"],
+    ["pt172", "pt-1.3", "3.1301"],
+    ["pt173", "pt-1.1", "1.1382"],
+    ["pt173", "pt-1.2", "1.4634"],
+    ["pt173", "pt-1.3", "1.626"],
+    ["pt174", "pt-1.1", "1.1382"],
+    ["pt174", "pt-1.2", "1.4634"],
+    ["pt174", "pt-1.3", "1.626"],
+    ["pt175", "pt-1.1", "1.5854"],
+    ["pt175", "pt-1.2", "2.0325"],
+    ["pt175", "pt-1.3", "2.2358"],
+    ["pt176", "pt-1.1", "1.5854"],
+    ["pt176", "pt-1.2", "2.0325"],
+    ["pt176", "pt-1.3", "2.2358"],
+    ["pt177", "pt-1.1", "1.4634"],
+    ["pt177", "pt-1.2", "1.8699"],
+    ["pt177", "pt-1.3", "2.0732"],
+    ["pt178", "pt-1.1", "1.4634"],
+    ["pt178", "pt-1.2", "1.8699"],
+    ["pt178", "pt-1.3", "2.0732"],
+    ["pt179", "pt-1.1", "0.5285"],
+    ["pt179", "pt-1.2", "0.6911"],
+    ["pt179", "pt-1.3", "0.7724"],
+    ["pt180", "pt-1.1", "0.5285"],
+    ["pt180", "pt-1.2", "0.6911"],
+    ["pt180", "pt-1.3", "0.7724"],
+    ["pt181", "pt-1.1", "0.7317"],
+    ["pt181", "pt-1.2", "0.935"],
+    ["pt181", "pt-1.3", "1.0569"],
+    ["pt182", "pt-1.1", "0.7317"],
+    ["pt182", "pt-1.2", "0.935"],
+    ["pt182", "pt-1.3", "1.0569"],
+    ["pt183", "pt-1.1", "1.2195"],
+    ["pt183", "pt-1.2", "1.5854"],
+    ["pt183", "pt-1.3", "1.748"],
+    ["pt184", "pt-1.1", "1.2195"],
+    ["pt184", "pt-1.2", "1.5854"],
+    ["pt184", "pt-1.3", "1.748"],
+    ["pt185", "pt-1.1", "1.4634"],
+    ["pt185", "pt-1.2", "1.9106"],
+    ["pt185", "pt-1.3", "2.1138"],
+    ["pt186", "pt-1.1", "1.4634"],
+    ["pt186", "pt-1.2", "1.9106"],
+    ["pt186", "pt-1.3", "2.1138"],
+    ["pt187", "pt-1.1", "0.6911"],
+    ["pt187", "pt-1.2", "0.8537"],
+    ["pt187", "pt-1.3", "0.9756"],
+    ["pt188", "pt-1.1", "0.6911"],
+    ["pt188", "pt-1.2", "0.8537"],
+    ["pt188", "pt-1.3", "0.9756"],
+    ["pt189", "pt-1.1", "0.6098"],
+    ["pt189", "pt-1.2", "0.7724"],
+    ["pt189", "pt-1.3", "0.8943"],
+    ["pt190", "pt-1.1", "1.3821"],
+    ["pt190", "pt-1.2", "1.748"],
+    ["pt190", "pt-1.3", "1.9512"],
+    ["pt191", "pt-1.1", "1.3821"],
+    ["pt191", "pt-1.2", "1.748"],
+    ["pt191", "pt-1.3", "1.9512"],
+    ["pt192", "pt-1.1", "0.8943"],
+    ["pt192", "pt-1.2", "1.1382"],
+    ["pt192", "pt-1.3", "1.2602"],
+    ["pt193", "pt-1.1", "0.8943"],
+    ["pt193", "pt-1.2", "1.1382"],
+    ["pt193", "pt-1.3", "1.2602"],
+    ["pt194", "pt-1.1", "0.5285"],
+    ["pt194", "pt-1.2", "0.6504"],
+    ["pt194", "pt-1.3", "0.7317"],
+    ["pt195", "pt-1.1", "0.5285"],
+    ["pt195", "pt-1.2", "0.6504"],
+    ["pt195", "pt-1.3", "0.7317"],
+    ["pt196", "pt-1.1", "1.1382"],
+    ["pt196", "pt-1.2", "1.4634"],
+    ["pt196", "pt-1.3", "1.626"],
+    ["pt197", "pt-1.1", "1.1382"],
+    ["pt197", "pt-1.2", "1.4634"],
+    ["pt197", "pt-1.3", "1.626"],
+    ["pt198", "pt-1.1", "1.6667"],
+    ["pt198", "pt-1.2", "2.1138"],
+    ["pt198", "pt-1.3", "2.3577"],
+    ["pt199", "pt-1.1", "1.6667"],
+    ["pt199", "pt-1.2", "2.1138"],
+    ["pt199", "pt-1.3", "2.3577"],
+    ["pt200", "pt-1.1", "0.6911"],
+    ["pt200", "pt-1.2", "0.8943"],
+    ["pt200", "pt-1.3", "0.9756"],
+    ["pt201", "pt-1.1", "0.6911"],
+    ["pt201", "pt-1.2", "0.8943"],
+    ["pt201", "pt-1.3", "0.9756"],
+    ["pt202", "pt-1.1", "0.813"],
+    ["pt202", "pt-1.2", "1.0569"],
+    ["pt202", "pt-1.3", "1.1789"],
+    ["pt203", "pt-1.1", "0.813"],
+    ["pt203", "pt-1.2", "1.0569"],
+    ["pt203", "pt-1.3", "1.1789"],
+    ["pt204", "pt-1.1", "1.0163"],
+    ["pt204", "pt-1.2", "1.3008"],
+    ["pt204", "pt-1.3", "1.4634"],
+    ["pt205", "pt-1.1", "1.0163"],
+    ["pt205", "pt-1.2", "1.3008"],
+    ["pt205", "pt-1.3", "1.4634"],
+    ["pt206", "pt-1.1", "0.8537"],
+    ["pt206", "pt-1.2", "1.0976"],
+    ["pt206", "pt-1.3", "1.2195"],
+    ["pt207", "pt-1.1", "0.8537"],
+    ["pt207", "pt-1.2", "1.0976"],
+    ["pt207", "pt-1.3", "1.2195"],
+    ["pt208", "pt-1.1", "1.0163"],
+    ["pt208", "pt-1.2", "1.3008"],
+    ["pt208", "pt-1.3", "1.4228"],
+    ["pt209", "pt-1.1", "1.0163"],
+    ["pt209", "pt-1.2", "1.3008"],
+    ["pt209", "pt-1.3", "1.4228"],
+    ["pt210", "pt-1.1", "2.5203"],
+    ["pt210", "pt-1.2", "3.2114"],
+    ["pt210", "pt-1.3", "3.5772"],
+    ["pt211", "pt-1.1", "2.5203"],
+    ["pt211", "pt-1.2", "3.2114"],
+    ["pt211", "pt-1.3", "3.5772"],
+    ["pt212", "pt-1.1", "1.3415"],
+    ["pt212", "pt-1.2", "1.7073"],
+    ["pt212", "pt-1.3", "1.9106"],
+    ["pt213", "pt-1.1", "1.3415"],
+    ["pt213", "pt-1.2", "1.7073"],
+    ["pt213", "pt-1.3", "1.9106"],
+    ["pt214", "pt-1.1", "2.1951"],
+    ["pt214", "pt-1.2", "2.8455"],
+    ["pt214", "pt-1.3", "3.1301"],
+    ["pt215", "pt-1.1", "2.1951"],
+    ["pt215", "pt-1.2", "2.8455"],
+    ["pt215", "pt-1.3", "3.1301"],
+    ["pt216", "pt-1.1", "1.5854"],
+    ["pt216", "pt-1.2", "2.0325"],
+    ["pt216", "pt-1.3", "2.2764"],
+    ["pt217", "pt-1.1", "1.5854"],
+    ["pt217", "pt-1.2", "2.0325"],
+    ["pt217", "pt-1.3", "2.2764"],
+    ["pt218", "pt-1.1", "0.6911"],
+    ["pt218", "pt-1.2", "0.8537"],
+    ["pt218", "pt-1.3", "0.9756"],
+    ["pt219", "pt-1.1", "0.6911"],
+    ["pt219", "pt-1.2", "0.8537"],
+    ["pt219", "pt-1.3", "0.9756"],
+    ["pt220", "pt-1.1", "0.813"],
+    ["pt220", "pt-1.2", "1.0163"],
+    ["pt220", "pt-1.3", "1.1382"],
+    ["pt221", "pt-1.1", "0.813"],
+    ["pt221", "pt-1.2", "1.0163"],
+    ["pt221", "pt-1.3", "1.1382"],
+    ["pt222", "pt-1.1", "1.0569"],
+    ["pt222", "pt-1.2", "1.3415"],
+    ["pt222", "pt-1.3", "1.5041"],
+    ["pt223", "pt-1.1", "1.0569"],
+    ["pt223", "pt-1.2", "1.3415"],
+    ["pt223", "pt-1.3", "1.5041"],
+    ["pt224", "pt-1.1", "0.813"],
+    ["pt224", "pt-1.2", "1.0569"],
+    ["pt224", "pt-1.3", "1.1789"],
+    ["pt225", "pt-1.1", "0.813"],
+    ["pt225", "pt-1.2", "1.0569"],
+    ["pt225", "pt-1.3", "1.1789"],
+    ["pt226", "pt-1.1", "0.5285"],
+    ["pt226", "pt-1.2", "0.6911"],
+    ["pt226", "pt-1.3", "0.7317"],
+    ["pt227", "pt-1.1", "0.5285"],
+    ["pt227", "pt-1.2", "0.6911"],
+    ["pt227", "pt-1.3", "0.7317"],
+    ["pt228", "pt-1.1", "0.3252"],
+    ["pt228", "pt-1.2", "0.4065"],
+    ["pt228", "pt-1.3", "0.4472"],
+    ["pt229", "pt-1.1", "0.3252"],
+    ["pt229", "pt-1.2", "0.4065"],
+    ["pt229", "pt-1.3", "0.4472"],
+    ["pt230", "pt-1.1", "1.3008"],
+    ["pt230", "pt-1.2", "1.6667"],
+    ["pt230", "pt-1.3", "1.8699"],
+    ["pt231", "pt-1.1", "1.3008"],
+    ["pt231", "pt-1.2", "1.6667"],
+    ["pt231", "pt-1.3", "1.8699"],
+    ["pt232", "pt-1.1", "0.813"],
+    ["pt232", "pt-1.2", "1.0569"],
+    ["pt232", "pt-1.3", "1.1789"],
+    ["pt233", "pt-1.1", "0.813"],
+    ["pt233", "pt-1.2", "1.0569"],
+    ["pt233", "pt-1.3", "1.1789"],
+    ["pt234", "pt-1.1", "0.5691"],
+    ["pt234", "pt-1.2", "0.7317"],
+    ["pt234", "pt-1.3", "0.813"],
+    ["pt235", "pt-1.1", "0.5691"],
+    ["pt235", "pt-1.2", "0.7317"],
+    ["pt235", "pt-1.3", "0.813"],
+    ["pt236", "pt-1.1", "0.4878"],
+    ["pt236", "pt-1.2", "0.6098"],
+    ["pt236", "pt-1.3", "0.6911"],
+    ["pt237", "pt-1.1", "0.4878"],
+    ["pt237", "pt-1.2", "0.6098"],
+    ["pt237", "pt-1.3", "0.6911"],
+    ["pt238", "pt-1.1", "0.5691"],
+    ["pt238", "pt-1.2", "0.7317"],
+    ["pt238", "pt-1.3", "0.813"],
+    ["pt239", "pt-1.1", "0.5691"],
+    ["pt239", "pt-1.2", "0.7317"],
+    ["pt239", "pt-1.3", "0.813"],
+    ["pt240", "pt-1.1", "0.8943"],
+    ["pt240", "pt-1.2", "1.1382"],
+    ["pt240", "pt-1.3", "1.2602"],
+    ["pt241", "pt-1.1", "0.8943"],
+    ["pt241", "pt-1.2", "1.1382"],
+    ["pt241", "pt-1.3", "1.2602"],
+    ["pt242", "pt-1.1", "0.8943"],
+    ["pt242", "pt-1.2", "1.1789"],
+    ["pt242", "pt-1.3", "1.3008"],
+    ["pt243", "pt-1.1", "0.8943"],
+    ["pt243", "pt-1.2", "1.1789"],
+    ["pt243", "pt-1.3", "1.3008"],
+    ["pt244", "pt-1.1", "0.2033"],
+    ["pt244", "pt-1.2", "0.2439"],
+    ["pt244", "pt-1.3", "0.2846"],
+    ["pt245", "pt-1.1", "0.2033"],
+    ["pt245", "pt-1.2", "0.2439"],
+    ["pt245", "pt-1.3", "0.2846"],
+    ["pt246", "pt-1.1", "0.7724"],
+    ["pt246", "pt-1.2", "0.9756"],
+    ["pt246", "pt-1.3", "1.0976"],
+    ["pt247", "pt-1.1", "0.7724"],
+    ["pt247", "pt-1.2", "0.9756"],
+    ["pt247", "pt-1.3", "1.0976"],
+    ["pt248", "pt-1.1", "0.4472"],
+    ["pt248", "pt-1.2", "0.5691"],
+    ["pt248", "pt-1.3", "0.6504"],
+    ["pt249", "pt-1.1", "0.4472"],
+    ["pt249", "pt-1.2", "0.5691"],
+    ["pt249", "pt-1.3", "0.6504"],
+    ["pt250", "pt-1.1", "0.935"],
+    ["pt250", "pt-1.2", "1.2195"],
+    ["pt250", "pt-1.3", "1.3415"],
+    ["pt251", "pt-1.1", "0.935"],
+    ["pt251", "pt-1.2", "1.2195"],
+    ["pt251", "pt-1.3", "1.3415"],
+    ["pt252", "pt-1.1", "0.5285"],
+    ["pt252", "pt-1.2", "0.6504"],
+    ["pt252", "pt-1.3", "0.7317"],
+    ["pt253", "pt-1.1", "0.5285"],
+    ["pt253", "pt-1.2", "0.6504"],
+    ["pt253", "pt-1.3", "0.7317"],
+    ["pt254", "pt-1.1", "0.2439"],
+    ["pt254", "pt-1.2", "0.3252"],
+    ["pt254", "pt-1.3", "0.3659"],
+    ["pt255", "pt-1.1", "0.2439"],
+    ["pt255", "pt-1.2", "0.3252"],
+    ["pt255", "pt-1.3", "0.3659"],
+    ["pt256", "pt-1.1", "0.6098"],
+    ["pt256", "pt-1.2", "0.7724"],
+    ["pt256", "pt-1.3", "0.8537"],
+    ["pt257", "pt-1.1", "0.6098"],
+    ["pt257", "pt-1.2", "0.7724"],
+    ["pt257", "pt-1.3", "0.8537"],
+    ["pt258", "pt-1.1", "0.3659"],
+    ["pt258", "pt-1.2", "0.4472"],
+    ["pt258", "pt-1.3", "0.5285"],
+    ["pt259", "pt-1.1", "0.3659"],
+    ["pt259", "pt-1.2", "0.4472"],
+    ["pt259", "pt-1.3", "0.5285"],
+    ["pt260", "pt-1.1", "4.5755"],
+    ["pt260", "pt-1.2", "6.1792"],
+    ["pt260", "pt-1.3", "7.9717"],
+    ["pt261", "pt-1.1", "7.1226"],
+    ["pt261", "pt-1.2", "10.4717"],
+    ["pt261", "pt-1.3", "13.3962"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-18"
+  }
+ }
+}

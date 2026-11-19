@@ -1,0 +1,50 @@
+{
+ "description": "Zone charged once per weekday in charging hours; not on a public holiday or a Saturday.",
+ "clauses": [
+  "6.7",
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.3",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "city",
+    "time": "2026-11-16T08:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "city",
+    "time": "2026-11-16T17:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "city",
+    "time": "2026-12-25T10:00:00+01:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "city",
+    "time": "2026-11-21T10:00:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "15.00"
+   }
+  ]
+ }
+}

@@ -1,0 +1,166 @@
+{
+ "about": "TII's Toll Locations and Charges pages for 2025 as the Internet Archive kept them (the capture each URL names), read in a browser (the archive refuses the workflow's requests often): each page's name, its APPLICABLE TOLLS heading and the goods-vehicle rows, as on the page.",
+ "year": "2025",
+ "pages": {
+  "m1": {
+   "name": "M1 Gormanston to Monasterboice",
+   "archived": "https://web.archive.org/web/20250818011152/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m1-gormanston-to-monaster/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "m3": {
+   "name": "M3 Clonee Kells",
+   "archived": "https://web.archive.org/web/20250910232858/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-clonee-kells/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or more axles",
+     "€3.50"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having four or more",
+     "€4.30"
+    ]
+   ]
+  },
+  "m3-blackbull": {
+   "name": "M3 Between Clonee and Dunshaughlin",
+   "archived": "https://web.archive.org/web/20250715033035/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m3-between-clonee-and-dunshaughlin/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or more axles",
+     "€3.50"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having four or more",
+     "€4.30"
+    ]
+   ]
+  },
+  "m4": {
+   "name": "M4 Kilcock Enfield Kinnegad",
+   "archived": "https://web.archive.org/web/20250712065817/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m4-kilcock-enfield-kinnegad/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€7.00"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€8.60"
+    ]
+   ]
+  },
+  "n6": {
+   "name": "N6 Galway Ballinasloe",
+   "archived": "https://web.archive.org/web/20250911000234/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n6-galway-ballinasloe/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "m7m8": {
+   "name": "M7-M8 Portlaoise Castletown Portlaoise Cullahill",
+   "archived": "https://web.archive.org/web/20250712060620/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m7-m8-portlaoise-castletown-portlaoise-cullahill/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "n8": {
+   "name": "N8 Rathcormac Fermoy Bypass",
+   "archived": "https://web.archive.org/web/20251108210607/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n8-rathcormac-fermoy-bypass/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "limerick": {
+   "name": "Limerick Tunnel",
+   "archived": "https://web.archive.org/web/20250808142831/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/limerick-tunnel/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "n25": {
+   "name": "N25 Waterford City Bypass",
+   "archived": "https://web.archive.org/web/20250910231418/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/n25-waterford-city-bypass/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "rows": [
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 2 or 3 axles",
+     "€5.80"
+    ],
+    [
+     "Goods Vehicles with a design gross vehicle weight exceeding 3,500 kilograms and having 4 or more axles",
+     "€7.40"
+    ]
+   ]
+  },
+  "m50": {
+   "name": "M50 Barrier Free Tolling",
+   "archived": "https://web.archive.org/web/20250712062825/https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/m50-barrier-free-tolling/",
+   "heading": "APPLICABLE TOLLS 2025",
+   "columns": [
+    "Vehicle Category",
+    "Tag",
+    "Video",
+    "Unreg"
+   ],
+   "rows": [
+    [
+     "Goods vehicles between 2,000kg and 10,000kg",
+     "€5.10",
+     "€5.80",
+     "€6.40"
+    ],
+    [
+     "Goods vehicles exceeding 10,000kg",
+     "€6.40",
+     "€7.00",
+     "€7.70"
+    ]
+   ]
+  }
+ }
+}

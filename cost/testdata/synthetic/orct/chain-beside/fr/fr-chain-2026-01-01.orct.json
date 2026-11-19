@@ -1,0 +1,136 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fr-chain/2026-01-01",
+  "scheme": {
+   "id": "fr-chain",
+   "name": "chain",
+   "country": "FR"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Paris",
+  "license": "MIT",
+  "method": "test law",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fr-chain-2026-01-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "test",
+   "url": "https://example.org"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.4",
+     "label": "4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:R",
+   "type": "station",
+   "name": "R",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[0, 45.001]]
+    },
+    "point_names": ["p"]
+   }
+  },
+  {
+   "id": "st1:B",
+   "type": "station",
+   "name": "B",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[0.02, 45]]
+    },
+    "point_names": ["p"]
+   }
+  },
+  {
+   "id": "st1:P",
+   "type": "station",
+   "name": "P",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[0.3, 45]]
+    },
+    "point_names": ["p"]
+   }
+  },
+  {
+   "id": "st1:N",
+   "type": "station",
+   "name": "N",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[2, 45]]
+    },
+    "point_names": ["p"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "test",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [["st1:B", "st1:N", "sys1-1.4", "52.17"], ["st1:P", "st1:N", "sys1-1.4", "39.25"], ["st1:R", "st1:B", "sys1-1.4", "2.25"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "system1",
+   "status": "partial",
+   "reason": "carbon-cost splits a trip through several concessions into tickets by a rule of its own that no source states; here a trip is priced from its first station to its last, which only pairs the tariff prices"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "chain_systems": ["system1"]
+  }
+ }
+}

@@ -1,0 +1,19 @@
+# Monteput: Cjenovnik Autoput Bar-Boljare. Page: https://monteput.me/cjenovnik-autoput-bar-boljare/, opened in Chrome and read on 2026-11-18
+# (the fallback when the workflow's own copy, me-autoput.html, is a bot check). The toll calculator's data (the page's script, var items),
+# one entry-exit pair a line, then the category descriptions as the page shows them.
+var items = [
+{ from: 'smokovac', to: 'matesevo', tip1: 1.5, tip2: 3.5, tip3: 6, tip4: 10.5, tip5: 17 },
+{ from: 'smokovac', to: 'verusa', tip1: 1, tip2: 2, tip3: 3.5, tip4: 6, tip5: 10 },
+{ from: 'smokovac', to: 'pelevbrijeg', tip1: 0.5, tip2: 1.5, tip3: 2.5, tip4: 4.5, tip5: 7 },
+{ from: 'matesevo', to: 'smokovac', tip1: 1.5, tip2: 3.5, tip3: 6, tip4: 10.5, tip5: 17 },
+{ from: 'matesevo', to: 'pelevbrijeg', tip1: 1, tip2: 2, tip3: 3.5, tip4: 6, tip5: 10 },
+{ from: 'matesevo', to: 'verusa', tip1: 0.5, tip2: 1.5, tip3: 2.5, tip4: 4.5, tip5: 7 },
+{ from: 'verusa', to: 'pelevbrijeg', tip1: 0.5, tip2: 0.5, tip3: 1, tip4: 1.5, tip5: 3 },
+{ from: 'verusa', to: 'smokovac', tip1: 1, tip2: 2, tip3: 3.5, tip4: 6, tip5: 10 },
+{ from: 'verusa', to: 'matesevo', tip1: 0.5, tip2: 1.5, tip3: 2.5, tip4: 4.5, tip5: 7 },
+{ from: 'pelevbrijeg', to: 'smokovac', tip1: 0.5, tip2: 1.5, tip3: 2.5, tip4: 4.5, tip5: 7 },
+{ from: 'pelevbrijeg', to: 'verusa', tip1: 0.5, tip2: 0.5, tip3: 1, tip4: 1.5, tip5: 3 },
+{ from: 'pelevbrijeg', to: 'matesevo', tip1: 1, tip2: 2, tip3: 3.5, tip4: 6, tip5: 10 },
+];
+Četvrta kategorija Cijena a) Motorna vozila sa dvije ili tri osovine, visine veće od 1.30m mjereno kod prve osovine, a čija najveća dozvoljena masa prelazi 3.500 kg
+Peta kategorija Cijena a) Motorna vozila sa četiri ili više osovina, visine veće od 1.

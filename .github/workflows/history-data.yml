@@ -1,0 +1,130 @@
+name: History data
+# Fetches the ECB's euro reference rates since 1999, the National Bank of
+# Serbia's dinar rates since 2024 and the official texts behind the
+# historical rate tables (tools/history/sources.json), builds
+# fx/data/ecb-hist.csv, fx/data/nbs-eur-rsd.csv and the historical tables, converts those to ORCT
+# datasets (tools/orct/convert.py), and pushes them with the fetched texts
+# and their manifest to the history-out branch. Push to the
+# history-data branch to run it.
+on:
+  push:
+    branches: [history-data]
+  # Daily (03:41 UTC); Publish data then publishes what changed only in
+  # OpenStreetMap's positions.
+  schedule:
+    - cron: "41 3 * * *"
+permissions:
+  contents: write
+# A new push replaces a run still going.
+concurrency:
+  group: history-data
+  cancel-in-progress: true
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
+      - name: ECB reference rates, the NBS's dinar rates
+        run: |
+          mkdir -p out/fx
+          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
+          sha256sum ecb.zip > out/fx/ecb-hist.zip.sha256
+          unzip -o ecb.zip eurofxref-hist.csv
+          python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
+          # The dinar's rates (the ECB has none): the NBS's official middle rate.
+          python3 tools/history/nbs.py out/fx/nbs-eur-rsd.csv || echo "::warning title=nbs::the NBS's rates weren't fetched"
+      - name: Fetch
+        # Internet Archive copies the last run fetched aren't asked for again
+        # (a capture never changes); the next step takes them from it.
+        run: |
+          mkdir -p prev
+          if git fetch -q --depth 1 origin history-out; then git archive FETCH_HEAD | tar -x -C prev; fi
+          python3 tools/history/reuse.py todo tools/history/sources.json prev todo.json
+          python3 tools/tables/fetch.py todo.json out
+          # Some servers send a PDF from a URL without .pdf.
+          for f in out/*.html; do [ "$(head -c 4 "$f")" = "%PDF" ] && mv "$f" "${f%.html}.pdf"; done; true
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "::warning::$f is not a PDF"; done
+      - name: Reuse Internet Archive copies
+        # A capture never changes; the archive often refuses requests.
+        run: |
+          python3 tools/history/reuse.py tools/history/sources.json out prev
+          rm -f todo.json
+      - name: Serbian toll decision's tables (OCR)
+        # tools/rs/gazette_ocr.py reads the decision's scanned tables out
+        # of the Official Gazette issues; an issue the last run read (the
+        # same content) is taken from it.
+        run: |
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          pip install -q opencv-python-headless pytesseract
+          for f in out/rs-sg-*.pdf; do
+            b=$(basename "$f" .pdf)
+            d=$(python3 tools/rs/gazette_ocr.py --digest "$f")
+            if [ -f "prev/$b.json" ] && grep -q "\"digest\": \"$d\"" "prev/$b.json"; then cp "prev/$b.json" "out/$b.json"; continue; fi
+            python3 tools/rs/gazette_ocr.py "$f" "out/$b.json" || echo "::error title=gazette_ocr::$f not read"
+          done
+      - name: OpenStreetMap extracts and current tables
+        # The extracts placing the toll stations, as the tables-data
+        # workflow last fetched them, and the current tables (removed
+        # before the push).
+        run: |
+          mkdir -p out/osm
+          git fetch -q --depth 1 origin tables-out
+          git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
+          # Overpass answers some builders place their stations from.
+          for f in pl-concessions-osm.json; do git show FETCH_HEAD:$f > out/osm/$f 2>/dev/null || rm -f out/osm/$f; done
+          # The current tables the other data workflows built, which some
+          # builders take their structure from (tools/history/committed.py).
+          mkdir -p out/current
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
+          git fetch -q --depth 1 origin hr-out
+          git archive FETCH_HEAD tables | tar -x -C out/current --strip-components=1 --wildcards 'tables/*.json'
+          # The French station inputs, as the France data workflow last fetched them.
+          git fetch -q --depth 1 origin fr-out
+          mkdir -p out/fr-in
+          git archive FETCH_HEAD osm-booths.geojsonseq $(git ls-tree --name-only FETCH_HEAD stations/ | grep 'Gares-Peage_20' | grep -v shp | sort | tail -1) | tar -x -C out/fr-in
+      - name: Archived operator pages (tools/history/wayback.json)
+        # The copies the last run saved are used again (a capture never
+        # changes); only missing ones are asked for, and none when the run's
+        # commit says [no-wayback].
+        env:
+          MSG: ${{ github.event.head_commit.message }}
+        run: |
+          # "[wayback=a,b]" in the run's commit message limits it to those
+          # sets; [wayback=probes] (or probes:<group>) lists moved pages.
+          export WAYBACK_SETS=$(echo "$MSG" | sed -n 's/.*\[wayback=\([^]]*\)\].*/\1/p')
+          case "$MSG" in *"[no-wayback]"*) export WAYBACK_OFFLINE=1;; esac
+          timeout 30m python3 -u tools/history/wayback.py tools/history/wayback.json tools/tables/sources.json out prev || echo "::error title=wayback::failed or timed out"
+          find out -path 'out/wb-*' -name '*-osm*' -delete
+          rm -rf prev
+      - name: Build
+        run: |
+          mkdir -p out/tables
+          for b in tools/history/build_*.py; do [ -e "$b" ] && { python3 "$b" out out/tables || { echo "::error title=$b::failed"; echo "$b" >> out/build-errors.txt; }; }; done
+      - name: Convert to ORCT
+        # The tables become ORCT datasets right away; only those are kept
+        # (tariffs/data).
+        run: |
+          python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
+          python3 tools/orct/check_lossless.py out/tables out/orct
+      - name: Compare
+        run: |
+          rm -rf out/osm out/fr-in out/current
+          sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
+      - name: Push
+        run: |
+          # Pages that carry a Mapbox access token (pk. or sk.) in their scripts (veggjald.is,
+          # also in its 404 page saved under a .pdf name): GitHub's push
+          # protection refuses the push, so the token is cut from the copy.
+          grep -rlZaE '[ps]k\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+' out | xargs -0 -r sed -i -E 's/([ps]k)\.eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/\1.[token removed]/g'
+          rm -f out/is-veggjald-*.pdf
+          cd out
+          git init -q -b history-out && git add -A
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "History sources and tables"
+          git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" history-out
+      - name: Builders that failed
+        # The others' tables were still built and pushed.
+        if: always()
+        run: if [ -s out/build-errors.txt ]; then cat out/build-errors.txt; exit 1; fi

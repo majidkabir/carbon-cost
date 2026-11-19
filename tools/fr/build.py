@@ -2,6 +2,8 @@
 (stations.py) and the fetch manifest.
 
 Usage: python3 build.py pairs.csv stations.json manifest.json fr.json
+       python3 build.py --periods pairs.csv stations.json manifest.json out-dir
+         (one table per tariff period of the year, out-dir/fr-<start>.json)
 
 All documents' pairs go in one chained toll system (rates.TollSystem
 with chain): along the route, a truck pays for the published entry-exit
@@ -10,15 +12,20 @@ pairs, one after another, that together cover the most of the route
 two documents publish the same pair, the first in documents.json
 counts. Rows to or from "Système Ouvert" (the open sections) aren't used.
 """
-import csv, json, math, sys
+import csv, json, math, os, sys
+from datetime import date, timedelta
 
 VAT = 1.20
 
 
-def main(pairs_path, stations_path, manifest_path, out):
+def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to="2027-01-31"):
+    """upto: only the documents in force on that day (their valid_from known
+    and not later), and the table from that day."""
     stations = json.load(open(stations_path, encoding="utf-8"))
     prices, docs, conflicts, skipped, by_euro = {}, {}, 0, 0, False
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
+        if upto and not ("" < r["valid_from"] <= upto):
+            continue
         docs.setdefault(r["url"], r)
         if r.get("url4"):
             docs.setdefault(r["url4"], dict(r, sha256=r["sha256_4"]))
@@ -36,7 +43,7 @@ def main(pairs_path, stations_path, manifest_path, out):
         prices[k] = p
     names = sorted({n for k in prices for n in k.split("|")})
     st = [{"name": n, "points": [{"name": p["gare"], "lat": p["lat"], "lon": p["lon"]} for p in stations[n]]} for n in names if n in stations]
-    valid_from = max(d["valid_from"] for d in docs.values())
+    valid_from = upto or max(d["valid_from"] for d in docs.values())
     ops = sorted({d["operator"] for d in docs.values()})
     system = {
         "name": "French motorways (" + ", ".join(ops) + ")",
@@ -52,7 +59,7 @@ def main(pairs_path, stations_path, manifest_path, out):
         "prices": prices,
     }
     t = {
-        "country": "FR", "currency": "EUR", "valid_from": valid_from, "valid_to": "2027-01-31",
+        "country": "FR", "currency": "EUR", "valid_from": valid_from, "valid_to": valid_to,
         "name": "French motorway tolls",
         "law": "Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts and the arrêtés of 28 January 2026 relatifs aux péages applicables sur les réseaux autoroutiers concédés, as published by each operator (" + ", ".join(ops) + "). A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.",
         "sources": [{"title": f"{d['operator']} tariffs from {d['valid_from']} (sha256 {d['sha256'][:12]})", "url": u} for u, d in docs.items()]
@@ -77,5 +84,22 @@ def main(pairs_path, stations_path, manifest_path, out):
     print(f"{len(prices)} pairs ({conflicts} conflicting duplicates, {skipped} open-system rows left out), {len(st)} of {len(names)} stations placed, valid from {valid_from}")
 
 
+
+def periods(pairs_path, stations_path, manifest_path, out_dir, year_from="2026-02-01"):
+    """One table per tariff period of the year: a period starts where a
+    document comes into force (from year_from, when the yearly tariffs
+    change) and runs to the day before the next; each prices only the
+    documents in force on its first day (a document with no date only the
+    last period). Writes out_dir/fr-<start>.json."""
+    starts = sorted({r["valid_from"] for r in csv.DictReader(open(pairs_path, encoding="utf-8")) if r["valid_from"] >= year_from})
+    for i, start in enumerate(starts):
+        last = i == len(starts) - 1
+        end = "2027-01-31" if last else (date.fromisoformat(starts[i + 1]) - timedelta(days=1)).isoformat()
+        main(pairs_path, stations_path, manifest_path, os.path.join(out_dir, f"fr-{start}.json"), None if last else start, end)
+
+
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    if sys.argv[1] == "--periods":
+        periods(*sys.argv[2:])
+    else:
+        main(*sys.argv[1:])

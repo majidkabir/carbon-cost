@@ -1,0 +1,371 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/pl-a1/2012-02-11",
+  "scheme": {
+   "id": "pl-a1",
+   "name": "A1 Rusocin-Toruń (AmberOne, Gdańsk Transport Company)",
+   "country": "PL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2012-02-11",
+  "currency": "PLN",
+  "timezone": "Europe/Warsaw",
+  "license": "MIT",
+  "method": "AmberOne's tolls including VAT, in force from 2012-02-11 (the per-km rates set by the Minister of Infrastructure): a closed system of twelve toll stations, priced from the station of entry to that of exit, the same for categories 2, 3 and 4 (two, three, or more than three axles, at least one with twin wheels): PLN 71 Rusocin-Nowa Wieś. The e-TOLL doesn't charge this stretch. The stations are placed at the motorway junctions of their names and their toll booths in OpenStreetMap. AmberGO automatic payment changes nothing in the price.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "pl-a1-2012-02-11.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "AmberOne Autostrada A1: Kalkulator opłat i planowanie podróży (tabela opłat, system poboru, klasyfikacja pojazdów)",
+   "url": "https://a1.com.pl/kalkulator-oplat-i-planowanie-podrozy/"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): A1 junctions and toll booths",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t (categories 2-4)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.2-4",
+     "label": "2-4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Rusocin",
+   "type": "station",
+   "name": "Rusocin",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.61205, 54.22679], [18.61263, 54.22684], [18.60865, 54.2352], [18.60888, 54.2352]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Stanisławie",
+   "type": "station",
+   "name": "Stanisławie",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.69492, 54.09963], [18.69508, 54.09963], [18.6923, 54.1009], [18.69229, 54.10588]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Swarożyn",
+   "type": "station",
+   "name": "Swarożyn",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.67451, 54.03487], [18.67436, 54.03488], [18.67053, 54.02966], [18.67057, 54.03068]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Pelplin",
+   "type": "station",
+   "name": "Pelplin",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.64294, 53.93024], [18.64311, 53.93021], [18.64085, 53.93294], [18.64091, 53.93163]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Kopytkowo",
+   "type": "station",
+   "name": "Kopytkowo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.63316, 53.73874], [18.63332, 53.73872], [18.62918, 53.73446], [18.62911, 53.73513]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Warlubie",
+   "type": "station",
+   "name": "Warlubie",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.61749, 53.60336], [18.61738, 53.60341], [18.62347, 53.60585], [18.62358, 53.60621]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Nowe Marzy",
+   "type": "station",
+   "name": "Nowe Marzy",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.61443, 53.46813], [18.61469, 53.4682], [18.61771, 53.47397], [18.61744, 53.47432]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Grudziądz",
+   "type": "station",
+   "name": "Grudziądz",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.69837, 53.42842], [18.69844, 53.42829], [18.69289, 53.42638], [18.69271, 53.42503]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Lisewo",
+   "type": "station",
+   "name": "Lisewo",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.70492, 53.29069], [18.70476, 53.29068], [18.70935, 53.2853], [18.70782, 53.29001]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Turzno",
+   "type": "station",
+   "name": "Turzno",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.75554, 53.0927], [18.75543, 53.0928], [18.75028, 53.08928], [18.75071, 53.08742]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Lubicz",
+   "type": "station",
+   "name": "Lubicz",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.73763, 53.03564], [18.73748, 53.03545], [18.7314, 53.03229], [18.7322, 53.03689]]
+    },
+    "point_names": ["booth", "booth", "junction", "junction"]
+   }
+  },
+  {
+   "id": "st1:Nowa Wieś",
+   "type": "station",
+   "name": "Nowa Wieś",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[18.73478, 53.00975], [18.73427, 53.00981]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "A1 Rusocin-Toruń (AmberOne)",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "AmberOne's tabela opłat, categories 2-4, PLN including VAT",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Grudziądz", "st1:Kopytkowo", "sys1-1.2-4", "18.6"],
+    ["st1:Grudziądz", "st1:Lisewo", "sys1-1.2-4", "7.4"],
+    ["st1:Grudziądz", "st1:Lubicz", "sys1-1.2-4", "20.8"],
+    ["st1:Grudziądz", "st1:Nowa Wieś", "sys1-1.2-4", "25.5"],
+    ["st1:Grudziądz", "st1:Nowe Marzy", "sys1-1.2-4", "3.7"],
+    ["st1:Grudziądz", "st1:Pelplin", "sys1-1.2-4", "28"],
+    ["st1:Grudziądz", "st1:Rusocin", "sys1-1.2-4", "45.5"],
+    ["st1:Grudziądz", "st1:Stanisławie", "sys1-1.2-4", "37.2"],
+    ["st1:Grudziądz", "st1:Swarożyn", "sys1-1.2-4", "33.9"],
+    ["st1:Grudziądz", "st1:Turzno", "sys1-1.2-4", "17.9"],
+    ["st1:Grudziądz", "st1:Warlubie", "sys1-1.2-4", "10.5"],
+    ["st1:Kopytkowo", "st1:Grudziądz", "sys1-1.2-4", "18.6"],
+    ["st1:Kopytkowo", "st1:Lisewo", "sys1-1.2-4", "26"],
+    ["st1:Kopytkowo", "st1:Lubicz", "sys1-1.2-4", "39.4"],
+    ["st1:Kopytkowo", "st1:Nowa Wieś", "sys1-1.2-4", "44.1"],
+    ["st1:Kopytkowo", "st1:Nowe Marzy", "sys1-1.2-4", "14.9"],
+    ["st1:Kopytkowo", "st1:Pelplin", "sys1-1.2-4", "9.4"],
+    ["st1:Kopytkowo", "st1:Rusocin", "sys1-1.2-4", "26.9"],
+    ["st1:Kopytkowo", "st1:Stanisławie", "sys1-1.2-4", "18.6"],
+    ["st1:Kopytkowo", "st1:Swarożyn", "sys1-1.2-4", "15.3"],
+    ["st1:Kopytkowo", "st1:Turzno", "sys1-1.2-4", "36.5"],
+    ["st1:Kopytkowo", "st1:Warlubie", "sys1-1.2-4", "8.1"],
+    ["st1:Lisewo", "st1:Grudziądz", "sys1-1.2-4", "7.4"],
+    ["st1:Lisewo", "st1:Kopytkowo", "sys1-1.2-4", "26"],
+    ["st1:Lisewo", "st1:Lubicz", "sys1-1.2-4", "13.4"],
+    ["st1:Lisewo", "st1:Nowa Wieś", "sys1-1.2-4", "18.1"],
+    ["st1:Lisewo", "st1:Nowe Marzy", "sys1-1.2-4", "11.1"],
+    ["st1:Lisewo", "st1:Pelplin", "sys1-1.2-4", "35.4"],
+    ["st1:Lisewo", "st1:Rusocin", "sys1-1.2-4", "52.9"],
+    ["st1:Lisewo", "st1:Stanisławie", "sys1-1.2-4", "44.6"],
+    ["st1:Lisewo", "st1:Swarożyn", "sys1-1.2-4", "41.3"],
+    ["st1:Lisewo", "st1:Turzno", "sys1-1.2-4", "10.5"],
+    ["st1:Lisewo", "st1:Warlubie", "sys1-1.2-4", "17.9"],
+    ["st1:Lubicz", "st1:Grudziądz", "sys1-1.2-4", "20.8"],
+    ["st1:Lubicz", "st1:Kopytkowo", "sys1-1.2-4", "39.4"],
+    ["st1:Lubicz", "st1:Lisewo", "sys1-1.2-4", "13.4"],
+    ["st1:Lubicz", "st1:Nowa Wieś", "sys1-1.2-4", "4.7"],
+    ["st1:Lubicz", "st1:Nowe Marzy", "sys1-1.2-4", "24.5"],
+    ["st1:Lubicz", "st1:Pelplin", "sys1-1.2-4", "48.8"],
+    ["st1:Lubicz", "st1:Rusocin", "sys1-1.2-4", "66.3"],
+    ["st1:Lubicz", "st1:Stanisławie", "sys1-1.2-4", "58"],
+    ["st1:Lubicz", "st1:Swarożyn", "sys1-1.2-4", "54.7"],
+    ["st1:Lubicz", "st1:Turzno", "sys1-1.2-4", "2.9"],
+    ["st1:Lubicz", "st1:Warlubie", "sys1-1.2-4", "31.3"],
+    ["st1:Nowa Wieś", "st1:Grudziądz", "sys1-1.2-4", "25.5"],
+    ["st1:Nowa Wieś", "st1:Kopytkowo", "sys1-1.2-4", "44.1"],
+    ["st1:Nowa Wieś", "st1:Lisewo", "sys1-1.2-4", "18.1"],
+    ["st1:Nowa Wieś", "st1:Lubicz", "sys1-1.2-4", "4.7"],
+    ["st1:Nowa Wieś", "st1:Nowe Marzy", "sys1-1.2-4", "29.2"],
+    ["st1:Nowa Wieś", "st1:Pelplin", "sys1-1.2-4", "53.5"],
+    ["st1:Nowa Wieś", "st1:Rusocin", "sys1-1.2-4", "71"],
+    ["st1:Nowa Wieś", "st1:Stanisławie", "sys1-1.2-4", "62.7"],
+    ["st1:Nowa Wieś", "st1:Swarożyn", "sys1-1.2-4", "59.4"],
+    ["st1:Nowa Wieś", "st1:Turzno", "sys1-1.2-4", "7.6"],
+    ["st1:Nowa Wieś", "st1:Warlubie", "sys1-1.2-4", "36"],
+    ["st1:Nowe Marzy", "st1:Grudziądz", "sys1-1.2-4", "3.7"],
+    ["st1:Nowe Marzy", "st1:Kopytkowo", "sys1-1.2-4", "14.9"],
+    ["st1:Nowe Marzy", "st1:Lisewo", "sys1-1.2-4", "11.1"],
+    ["st1:Nowe Marzy", "st1:Lubicz", "sys1-1.2-4", "24.5"],
+    ["st1:Nowe Marzy", "st1:Nowa Wieś", "sys1-1.2-4", "29.2"],
+    ["st1:Nowe Marzy", "st1:Pelplin", "sys1-1.2-4", "24.3"],
+    ["st1:Nowe Marzy", "st1:Rusocin", "sys1-1.2-4", "41.8"],
+    ["st1:Nowe Marzy", "st1:Stanisławie", "sys1-1.2-4", "33.5"],
+    ["st1:Nowe Marzy", "st1:Swarożyn", "sys1-1.2-4", "30.2"],
+    ["st1:Nowe Marzy", "st1:Turzno", "sys1-1.2-4", "21.6"],
+    ["st1:Nowe Marzy", "st1:Warlubie", "sys1-1.2-4", "6.8"],
+    ["st1:Pelplin", "st1:Grudziądz", "sys1-1.2-4", "28"],
+    ["st1:Pelplin", "st1:Kopytkowo", "sys1-1.2-4", "9.4"],
+    ["st1:Pelplin", "st1:Lisewo", "sys1-1.2-4", "35.4"],
+    ["st1:Pelplin", "st1:Lubicz", "sys1-1.2-4", "48.8"],
+    ["st1:Pelplin", "st1:Nowa Wieś", "sys1-1.2-4", "53.5"],
+    ["st1:Pelplin", "st1:Nowe Marzy", "sys1-1.2-4", "24.3"],
+    ["st1:Pelplin", "st1:Rusocin", "sys1-1.2-4", "17.5"],
+    ["st1:Pelplin", "st1:Stanisławie", "sys1-1.2-4", "9.2"],
+    ["st1:Pelplin", "st1:Swarożyn", "sys1-1.2-4", "5.9"],
+    ["st1:Pelplin", "st1:Turzno", "sys1-1.2-4", "45.9"],
+    ["st1:Pelplin", "st1:Warlubie", "sys1-1.2-4", "17.5"],
+    ["st1:Rusocin", "st1:Grudziądz", "sys1-1.2-4", "45.5"],
+    ["st1:Rusocin", "st1:Kopytkowo", "sys1-1.2-4", "26.9"],
+    ["st1:Rusocin", "st1:Lisewo", "sys1-1.2-4", "52.9"],
+    ["st1:Rusocin", "st1:Lubicz", "sys1-1.2-4", "66.3"],
+    ["st1:Rusocin", "st1:Nowa Wieś", "sys1-1.2-4", "71"],
+    ["st1:Rusocin", "st1:Nowe Marzy", "sys1-1.2-4", "41.8"],
+    ["st1:Rusocin", "st1:Pelplin", "sys1-1.2-4", "17.5"],
+    ["st1:Rusocin", "st1:Stanisławie", "sys1-1.2-4", "8.3"],
+    ["st1:Rusocin", "st1:Swarożyn", "sys1-1.2-4", "11.6"],
+    ["st1:Rusocin", "st1:Turzno", "sys1-1.2-4", "63.4"],
+    ["st1:Rusocin", "st1:Warlubie", "sys1-1.2-4", "35"],
+    ["st1:Stanisławie", "st1:Grudziądz", "sys1-1.2-4", "37.2"],
+    ["st1:Stanisławie", "st1:Kopytkowo", "sys1-1.2-4", "18.6"],
+    ["st1:Stanisławie", "st1:Lisewo", "sys1-1.2-4", "44.6"],
+    ["st1:Stanisławie", "st1:Lubicz", "sys1-1.2-4", "58"],
+    ["st1:Stanisławie", "st1:Nowa Wieś", "sys1-1.2-4", "62.7"],
+    ["st1:Stanisławie", "st1:Nowe Marzy", "sys1-1.2-4", "33.5"],
+    ["st1:Stanisławie", "st1:Pelplin", "sys1-1.2-4", "9.2"],
+    ["st1:Stanisławie", "st1:Rusocin", "sys1-1.2-4", "8.3"],
+    ["st1:Stanisławie", "st1:Swarożyn", "sys1-1.2-4", "3.3"],
+    ["st1:Stanisławie", "st1:Turzno", "sys1-1.2-4", "55.1"],
+    ["st1:Stanisławie", "st1:Warlubie", "sys1-1.2-4", "26.7"],
+    ["st1:Swarożyn", "st1:Grudziądz", "sys1-1.2-4", "33.9"],
+    ["st1:Swarożyn", "st1:Kopytkowo", "sys1-1.2-4", "15.3"],
+    ["st1:Swarożyn", "st1:Lisewo", "sys1-1.2-4", "41.3"],
+    ["st1:Swarożyn", "st1:Lubicz", "sys1-1.2-4", "54.7"],
+    ["st1:Swarożyn", "st1:Nowa Wieś", "sys1-1.2-4", "59.4"],
+    ["st1:Swarożyn", "st1:Nowe Marzy", "sys1-1.2-4", "30.2"],
+    ["st1:Swarożyn", "st1:Pelplin", "sys1-1.2-4", "5.9"],
+    ["st1:Swarożyn", "st1:Rusocin", "sys1-1.2-4", "11.6"],
+    ["st1:Swarożyn", "st1:Stanisławie", "sys1-1.2-4", "3.3"],
+    ["st1:Swarożyn", "st1:Turzno", "sys1-1.2-4", "51.8"],
+    ["st1:Swarożyn", "st1:Warlubie", "sys1-1.2-4", "23.4"],
+    ["st1:Turzno", "st1:Grudziądz", "sys1-1.2-4", "17.9"],
+    ["st1:Turzno", "st1:Kopytkowo", "sys1-1.2-4", "36.5"],
+    ["st1:Turzno", "st1:Lisewo", "sys1-1.2-4", "10.5"],
+    ["st1:Turzno", "st1:Lubicz", "sys1-1.2-4", "2.9"],
+    ["st1:Turzno", "st1:Nowa Wieś", "sys1-1.2-4", "7.6"],
+    ["st1:Turzno", "st1:Nowe Marzy", "sys1-1.2-4", "21.6"],
+    ["st1:Turzno", "st1:Pelplin", "sys1-1.2-4", "45.9"],
+    ["st1:Turzno", "st1:Rusocin", "sys1-1.2-4", "63.4"],
+    ["st1:Turzno", "st1:Stanisławie", "sys1-1.2-4", "55.1"],
+    ["st1:Turzno", "st1:Swarożyn", "sys1-1.2-4", "51.8"],
+    ["st1:Turzno", "st1:Warlubie", "sys1-1.2-4", "28.4"],
+    ["st1:Warlubie", "st1:Grudziądz", "sys1-1.2-4", "10.5"],
+    ["st1:Warlubie", "st1:Kopytkowo", "sys1-1.2-4", "8.1"],
+    ["st1:Warlubie", "st1:Lisewo", "sys1-1.2-4", "17.9"],
+    ["st1:Warlubie", "st1:Lubicz", "sys1-1.2-4", "31.3"],
+    ["st1:Warlubie", "st1:Nowa Wieś", "sys1-1.2-4", "36"],
+    ["st1:Warlubie", "st1:Nowe Marzy", "sys1-1.2-4", "6.8"],
+    ["st1:Warlubie", "st1:Pelplin", "sys1-1.2-4", "17.5"],
+    ["st1:Warlubie", "st1:Rusocin", "sys1-1.2-4", "35"],
+    ["st1:Warlubie", "st1:Stanisławie", "sys1-1.2-4", "26.7"],
+    ["st1:Warlubie", "st1:Swarożyn", "sys1-1.2-4", "23.4"],
+    ["st1:Warlubie", "st1:Turzno", "sys1-1.2-4", "28.4"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-19"
+  }
+ }
+}

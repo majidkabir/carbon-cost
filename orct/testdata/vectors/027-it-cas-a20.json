@@ -1,0 +1,41 @@
+{
+ "description": "A20 Messina Nord to Buonfornello, class 5: 25.40. Official amount from the CAS 2026 tariff, as carbon-cost's TestSicilyCAS asserts it.",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "data/carbon-cost/it/it-cas-2026-01-01.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.3",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "carbon-cost/it-cas/2026-01-01",
+    "object": "st2:Messina Nord > Rometta",
+    "time": "2026-11-20T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "carbon-cost/it-cas/2026-01-01",
+    "object": "st2:Cefalu' > Buonfornello",
+    "time": "2026-11-20T11:00:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "25.40"
+   }
+  ]
+ }
+}

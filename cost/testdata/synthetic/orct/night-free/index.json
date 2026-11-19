@@ -1,0 +1,19 @@
+{
+ "orct": "0.3",
+ "derived_from": {
+  "url": "https://github.com/majidkabir/carbon-cost"
+ },
+ "datasets": [
+  {
+   "id": "carbon-cost/de-test/2026-01-01",
+   "scheme": "de-test",
+   "country": "DE",
+   "file": "de/de-test-2026-01-01.orct.json",
+   "name": "test",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "9e758afa2961daff2b07755ab054a16dcdc679b2f86330bace8f7d79bb8758e8",
+   "coverage": "complete"
+  }
+ ]
+}

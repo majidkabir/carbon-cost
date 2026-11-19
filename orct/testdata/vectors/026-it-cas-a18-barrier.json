@@ -1,0 +1,35 @@
+{
+ "description": "A18 Roccalumera to Taormina (an open barrier, priced from itself to itself): 2.50. Official amount from the CAS 2026 tariff, as carbon-cost's TestSicilyCAS asserts it.",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "data/carbon-cost/it/it-cas-2026-01-01.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.3",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "carbon-cost/it-cas/2026-01-01",
+    "object": "st1:Roccalumera > Taormina",
+    "time": "2026-11-20T10:00:00+01:00",
+    "role": "entry"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "2.50"
+   }
+  ]
+ }
+}

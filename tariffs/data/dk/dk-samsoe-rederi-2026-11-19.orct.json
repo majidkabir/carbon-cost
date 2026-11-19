@@ -1,0 +1,166 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/dk-samsoe-rederi/2026-11-19",
+  "scheme": {
+   "id": "dk-samsoe-rederi",
+   "name": "Samsø Rederi's ferries Hou–Sælvig, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-19",
+  "currency": "DKK",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "Samsø Rederi's prices for trucks on Hou–Sælvig per single trip with driver, after the state's freight subsidy: Max 10 m DKK 561.31 including VAT of 112.26 (before the subsidy 1192); 10-12 m DKK 605.96 including VAT of 121.19 (before the subsidy 1379); 12-17 m DKK 694.16 including VAT of 138.83 (before the subsidy 1840); 17-19 m DKK 721.00 including VAT of 144.20 (before the subsidy 1948); taken without the VAT: DKK up to 10 m 449.05, 10-12 m 484.77, 12-17 m 555.33, 17-19 m 576.8. The page gives no date: valid_from is the day it was first read. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "dk-samsoe-rederi-2026-11-19.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Samsø Rederi: freight prices",
+   "url": "https://www.tilsamsoe.dk/priser-lastbiler/"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-10-m",
+     "label": "up to 10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-12-m",
+     "label": "10-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-17-m",
+     "label": "12-17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 17
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-19-m",
+     "label": "17-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17,
+       "max": 19
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Hou",
+   "type": "station",
+   "name": "Hou",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.34828, 55.92655]]
+    },
+    "point_names": ["Hou port, 6.3 km out on the line to Sælvig (OSM way 38192155)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Sælvig",
+   "type": "station",
+   "name": "Sælvig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[10.548473, 55.868734]]
+    },
+    "point_names": ["Sælvig port, 0.5 km out on the line to Hou (OSM way 38192155)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Samsø Rederi: Hou–Sælvig",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Samsø Rederi's freight prices: Hou–Sælvig",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Hou", "st1:Sælvig", "sys1-1.10-12-m", "484.77"],
+    ["st1:Hou", "st1:Sælvig", "sys1-1.12-17-m", "555.33"],
+    ["st1:Hou", "st1:Sælvig", "sys1-1.17-19-m", "576.8"],
+    ["st1:Hou", "st1:Sælvig", "sys1-1.up-to-10-m", "449.05"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

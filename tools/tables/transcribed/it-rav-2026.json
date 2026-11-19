@@ -1,0 +1,29 @@
+{
+ "operator": "RAV Raccordo Autostradale Valle d'Aosta S.p.A.",
+ "about": "Italy: RAV's unit toll rates per km for 2026 (A5 Aosta-Courmayeur, all mountain), as its Carta dei Servizi 2026 (PDF, edition 05/2026, page 11) states them: 'TARIFFE UNITARIE DI RAV al 1° gennaio 2026', Tariffa montagna €/km by class; its note 2: 'Le tariffe indicate sono comprensive dell'IVA (22%) e della quota ad esclusivo appannaggio del concedente' (VAT and the ANAS fee included). Its page 12 states the 2026 increase, 1.50%. Transcribed by hand (the PDF's text layer scrambles the table); tools/tables fetches the PDF again and says if it has changed (sha256). Per class: user, euro per km, VAT and ANAS fee included, as printed (4 decimals). Note: the Ministry's 2025 sheet for RAV gives its rates in the same terms (VAT and ANAS fee included): the 2025 rates raised by 1.5% on the part net of VAT and ANAS fee give these.",
+ "source": {
+  "url": "https://www.ravspa.it/wp-content/uploads/2026/07/RAV_CARTADEISERVIZI_PDF_WEB.pdf",
+  "sha256": "3f10130664436881f9bce2643ddc9280e81f8b7dda4d01e963f43364bda7a56f",
+  "page": 11
+ },
+ "valid_from": "2026-01-01",
+ "rates": {
+  "A5": {
+   "A": {
+    "user": 0.2935
+   },
+   "B": {
+    "user": 0.3907
+   },
+   "3": {
+    "user": 0.5203
+   },
+   "4": {
+    "user": 0.8271
+   },
+   "5": {
+    "user": 0.9613
+   }
+  }
+ }
+}

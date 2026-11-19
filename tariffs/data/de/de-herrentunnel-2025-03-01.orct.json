@@ -1,0 +1,143 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/de-herrentunnel/2025-03-01",
+  "scheme": {
+   "id": "de-herrentunnel",
+   "name": "Herrentunnel toll (Lübeck)",
+   "country": "DE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-03-01",
+  "currency": "EUR",
+  "timezone": "Europe/Berlin",
+  "license": "MIT",
+  "method": "Fernstraßenbauprivatfinanzierungsgesetz: the toll of the Herrentunnel Lübeck GmbH & Co. KG, as its Gebührentabelle (valid from 1 March 2025) gives it per passage, by height over the front axle (over 130 cm) and axles: class B (2 axles), C (3), D (4 or more); the cash price, with `etc` the Quick-Box/RFID price. Trucks over 3.5 t are taken to be over 130 cm.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "de-herrentunnel-2025-03-01.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Herrentunnel: Gebührentabelle (gültig ab 01.03.2025)",
+   "url": "https://www.herrentunnel.de/index.php/maut-tarife/maut-tarife-2.html"
+  },
+  {
+   "id": "s2",
+   "title": "Herrentunnel: the toll table image, as transcribed in tools/tables/transcribed/de-herrentunnel-2025.json",
+   "url": "https://www.herrentunnel.de/public/img/content/Gebuehrentabelle_2025.png"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 130 cm high at the front axle (here: trucks over 3.5 t), by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Herrentunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.759392, 53.898345]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, "4.3"],
+    ["pt1", "pt-1.1", "electronic", "3.52"],
+    ["pt1", "pt-1.2", null, "11.1"],
+    ["pt1", "pt-1.2", "electronic", "9.15"],
+    ["pt1", "pt-1.3", null, "17.6"],
+    ["pt1", "pt-1.3", "electronic", "14.6"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-19"
+  }
+ }
+}

@@ -2,9 +2,12 @@ package fx
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -57,5 +60,80 @@ func TestCache(t *testing.T) {
 	clock, fail = clock.Add(7*time.Hour), true
 	if r, err := c.Get(context.Background()); err != nil || r.Date != "2026-11-03" || calls != 2 {
 		t.Errorf("stale rates should be kept when a refresh fails: %v %v, %d calls", r, err, calls)
+	}
+}
+
+func TestCacheSingleFlight(t *testing.T) {
+	var calls atomic.Int32
+	release := make(chan struct{})
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		calls.Add(1)
+		<-release
+		w.Write([]byte(sample))
+	}))
+	defer srv.Close()
+	clock := time.Date(2026, 11, 4, 12, 0, 0, 0, time.UTC)
+	c := &Cache{URL: srv.URL, now: func() time.Time { return clock }}
+	var wg sync.WaitGroup
+	errs := make(chan error, 10)
+	for range 10 {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if r, err := c.Get(context.Background()); err != nil || r.Date == "" {
+				errs <- fmt.Errorf("%v %v", r, err)
+			}
+		}()
+	}
+	time.Sleep(50 * time.Millisecond)
+	close(release)
+	wg.Wait()
+	close(errs)
+	for err := range errs {
+		t.Error(err)
+	}
+	if n := calls.Load(); n != 1 {
+		t.Errorf("fetched %d times, want 1", n)
+	}
+
+	// While a refresh of stale rates runs, callers get the stale rates at once.
+	clock = clock.Add(7 * time.Hour)
+	block := make(chan struct{})
+	srv.Config.Handler = http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		<-block
+		w.Write([]byte(sample))
+	})
+	done := make(chan struct{})
+	go func() { c.Get(context.Background()); close(done) }()
+	time.Sleep(50 * time.Millisecond)
+	start := time.Now()
+	if r, err := c.Get(context.Background()); err != nil || r.Date != "2026-11-03" || time.Since(start) > time.Second {
+		t.Errorf("want stale rates without waiting: %v %v", r, err)
+	}
+	close(block)
+	<-done
+}
+
+// The NBS's middle rate on a day: a weekend's is Friday's list; before
+// 2024 there is none; after the last day embedded, the last one.
+func TestRSDOnDate(t *testing.T) {
+	for _, tc := range []struct {
+		day, from string
+		want      float64
+		ok        bool
+	}{
+		{"2024-01-01", "2024-01-01", 117.1737, true},
+		{"2024-01-06", "2024-01-06", 117.2343, true},
+		{"2026-11-18", "2026-11-18", 117.6240, true},
+		{"2023-12-31", "", 0, false},
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.day)
+		v, from, ok := RSDOnDate(d)
+		if v != tc.want || from != tc.from || ok != tc.ok {
+			t.Errorf("%s: %v %s %v, want %v %s %v", tc.day, v, from, ok, tc.want, tc.from, tc.ok)
+		}
+	}
+	if _, from, ok := RSDOnDate(time.Date(2099, 1, 1, 0, 0, 0, 0, time.UTC)); !ok || from < "2026-11-18" {
+		t.Errorf("after the last day: %s %v", from, ok)
 	}
 }

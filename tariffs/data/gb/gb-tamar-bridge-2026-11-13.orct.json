@@ -1,0 +1,139 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gb-tamar-bridge/2026-11-13",
+  "scheme": {
+   "id": "gb-tamar-bridge",
+   "name": "Tamar Bridge toll",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-13",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "Tamar Bridge and Torpoint Ferry Joint Committee's tolls (Tamar Bridge Acts), payable one way, Saltash (Cornwall) to Plymouth (Devon): vehicles over 3.5 t with 2 axles GBP 7.3, 3 axles 12.0, 4 or more 16.5 (the 'Single' price; towing a trailer costs double, not modelled); with `etc` the TamarTag price. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-tamar-bridge-2026-11-13.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Tamar Crossings: Tamar Bridge Tolls",
+   "url": "https://www.tamarcrossings.org.uk/prices/tamar-bridge-tolls/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t, by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Tamar Bridge",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-4.203564, 50.408203]
+    },
+    "heading": 98.0,
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, "7.3"],
+    ["pt1", "pt-1.1", "electronic", "3.65"],
+    ["pt1", "pt-1.2", null, "12"],
+    ["pt1", "pt-1.2", "electronic", "6"],
+    ["pt1", "pt-1.3", null, "16.5"],
+    ["pt1", "pt-1.3", "electronic", "8.25"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-19"
+  }
+ }
+}

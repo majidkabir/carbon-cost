@@ -10,13 +10,15 @@
      "name": "Aberdeen",
      "lat": 57.145287,
      "lon": -2.09175,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     },
     {
      "name": "Kirkwall",
      "lat": 58.999691,
      "lon": -2.974082,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     }
    ],
    "ships": [],
@@ -34,13 +36,15 @@
      "name": "Aberdeen",
      "lat": 57.145287,
      "lon": -2.09175,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     },
     {
      "name": "Lerwick",
      "lat": 60.163032,
      "lon": -1.156712,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     }
    ],
    "ships": [],
@@ -154,13 +158,15 @@
      "name": "Belfast",
      "lat": 54.636557,
      "lon": -5.879398,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-NIR"
     },
     {
      "name": "Cairnryan",
      "lat": 54.985017,
      "lon": -5.036792,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     }
    ],
    "ships": [
@@ -185,7 +191,8 @@
      "name": "Belfast",
      "lat": 54.627824,
      "lon": -5.890863,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-NIR"
     },
     {
      "name": "Heysham",
@@ -216,7 +223,8 @@
      "name": "Belfast",
      "lat": 54.628983,
      "lon": -5.888938,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-NIR"
     },
     {
      "name": "Liverpool",
@@ -250,13 +258,15 @@
      "name": "Cairnryan",
      "lat": 54.961562,
      "lon": -5.014064,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     },
     {
      "name": "Larne",
      "lat": 54.846449,
      "lon": -5.79753,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-NIR"
     }
    ],
    "ships": [],
@@ -790,13 +800,15 @@
      "name": "Kirkwall",
      "lat": 58.999691,
      "lon": -2.974082,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     },
     {
      "name": "Lerwick",
      "lat": 60.16292,
      "lon": -1.157663,
-     "country": "GB"
+     "country": "GB",
+     "region": "GB-SCT"
     }
    ],
    "ships": [],

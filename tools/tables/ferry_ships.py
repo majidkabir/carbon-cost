@@ -143,6 +143,11 @@ PORTS = {
     "Patras": ("GR", ["Patras", "Patra", "Πάτρα"], (38.25, 21.73)), "Lavrio": ("GR", ["Lavrio", "Λαύριο"], (37.71, 24.06)),
     "Chios": ("GR", ["Chios", "Χίος"], (38.37, 26.14)), "Mytilene": ("GR", ["Mytilene", "Lesvos", "Μυτιλήνη"], (39.10, 26.55)),
 }
+# The UK nation of the UK ports where the UK ETS's rules differ: Northern
+# Ireland (50% to and from Great Britain) and Scotland (its ferry services
+# between points in Scotland are outside).
+REGION = {"Belfast": "GB-NIR", "Larne": "GB-NIR", "Cairnryan": "GB-SCT", "Aberdeen": "GB-SCT", "Kirkwall": "GB-SCT",
+          "Lerwick": "GB-SCT"}
 # Other names the pages give a port.
 PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland"}
 # The EU and the EEA EFTA states (ferries.go's eea).
@@ -389,7 +394,8 @@ def osm_place(osm, a, b, operator):
 
 def crossing(cid, ports, pos, operator, ships, source, ids, exemptions=()):
     return {"id": cid, "name": "–".join(ports), "operator": operator,
-            "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p]} for p in ports],
+            "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p],
+                           **({"region": REGION[p]} if p in REGION else {})} for p in ports],
             "ships": [{**({"imo": ids[ascii(s).upper()]} if ascii(s).upper() in ids else {}), "name": s.upper()} for s in sorted(ships)],
             **({"exemptions": list(exemptions)} if exemptions else {}), "source": source}
 

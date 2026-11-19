@@ -3,6 +3,7 @@ package orct
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"regexp"
 	"sort"
 	"strconv"
@@ -582,11 +583,12 @@ func (c *Calc) uses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {
 					if !ok {
 						panic(unknown{"vehicle parameter " + basis + " is missing", "missing_parameter"})
 					}
+					m = stepUp(ch, m)
 					capKg := m
 					if ch.MassCapKg != nil && *ch.MassCapKg != 0 {
 						capKg = *ch.MassCapKg
 					}
-					q = q.Mul(massDec(c.vehicle[basis], m, capKg)).Quo(DecInt(1000))
+					q = q.Mul(massDec(m, m, capKg)).Quo(DecInt(1000))
 				}
 			} else if ch.Type == "point" && ch.Unit == "t" {
 				q = c.tonnes(ch)
@@ -692,7 +694,19 @@ func (c *Calc) tonnes(ch *Charge) Dec {
 	if !ok {
 		panic(unknown{"vehicle parameter " + basis + " is missing", "missing_parameter"})
 	}
-	return massDec(c.vehicle[basis], m, m).Quo(DecInt(1000))
+	m = stepUp(ch, m)
+	return massDec(m, m, m).Quo(DecInt(1000))
+}
+
+// stepUp counts a mass in whole steps of the charge's mass_step_kg, any
+// part of a step as a whole one (8.4): 20,500 kg in steps of 1,000 kg is
+// 21,000 kg.
+func stepUp(ch *Charge, m float64) float64 {
+	if ch.MassStepKg == nil || *ch.MassStepKg <= 0 {
+		return m
+	}
+	s := *ch.MassStepKg
+	return math.Ceil(m/s-1e-9) * s
 }
 
 func (c *Calc) odUses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {

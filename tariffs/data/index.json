@@ -544,6 +544,72 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/de-elbfaehre/2025-01-01",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2025-01-01.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2025-01-01",
+   "valid_to": "2025-12-31",
+   "sha256": "7ecebfee82c948bb91f1989d5fab32886dabe5c453916527ec6b9ac746f5549f",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-01-01",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-01-01.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-03-22",
+   "sha256": "93d5260400cbda87c1e53f83cf8403b5c1eb56d7665bd065cd7d54a674690a2c",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-03-23",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-03-23.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-03-23",
+   "valid_to": "2026-05-05",
+   "sha256": "f651bc03930099f0fbf46f9a0af35d9ce4aef99a3ae06a2dd965f3346da23c55",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-05-06",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-05-06.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-05-06",
+   "valid_to": "2026-09-16",
+   "sha256": "4263d21fd323d10be707d8375b313a1fd964c87bb979cd53b73a06ff5a8414e3",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-09-17",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-09-17.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-09-17",
+   "valid_to": "2026-11-18",
+   "sha256": "a53a593c9a6855ff234ea266bf1b682dfeca092584a07339fec70faa9360a909",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-11-19",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-11-19.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-11-19",
+   "valid_to": "2026-12-31",
+   "sha256": "b6281da08bc6a5bfa1e2fac7f9ecd89f66c312a9cf1692823ab2683300bdb991",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/de-herrentunnel/2025-03-01",
    "scheme": "de-herrentunnel",
    "country": "DE",
@@ -1706,7 +1772,7 @@
    "name": "Jadrolinija's state ferry lines, goods vehicles",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "6608fd1df48318ca94f32115b2de695c2941ee28bbe4b0bcc15c94f942d7295a",
+   "sha256": "e77758cb76b3bad1d36417826e77b510bc22c70bc6a910a9d17e141fb7d8500a",
    "coverage": "complete"
   },
   {
@@ -2014,7 +2080,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "0943eb92de03d3510e2431a00cef347ea8e4e89e16f116b0babcf2fb8e95a5df",
+   "sha256": "a6a85c07e3cb03cb1303efc53784eda568a3bd24055736e7a2141e3b80388e3a",
    "coverage": "complete"
   },
   {

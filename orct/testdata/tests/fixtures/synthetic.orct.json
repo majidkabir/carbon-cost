@@ -66,6 +66,8 @@
   {"id": "st-d", "type": "station", "name": "D", "location": {"geometry": {"type": "Point", "coordinates": [2.5, 49.0]}}},
   {"id": "quay-a", "type": "station", "name": "Quay A", "location": {"geometry": {"type": "Point", "coordinates": [3.1, 47.9]}}},
   {"id": "quay-b", "type": "station", "name": "Quay B", "location": {"geometry": {"type": "Point", "coordinates": [3.2, 47.8]}}},
+  {"id": "bank-a", "type": "station", "name": "Bank A", "location": {"geometry": {"type": "Point", "coordinates": [3.3, 47.7]}}},
+  {"id": "bank-b", "type": "station", "name": "Bank B", "location": {"geometry": {"type": "Point", "coordinates": [3.4, 47.6]}}},
   {"id": "c1", "type": "station", "name": "C1", "location": {"geometry": {"type": "Point", "coordinates": [3.0, 48.0]}}},
   {"id": "c2", "type": "station", "name": "C2", "location": {"geometry": {"type": "Point", "coordinates": [3.1, 48.1]}}},
   {"id": "c3", "type": "station", "name": "C3", "location": {"geometry": {"type": "Point", "coordinates": [3.2, 48.2]}}},
@@ -143,7 +145,9 @@
   {"id": "ferry", "type": "od", "component": "unspecified", "unit": "trip", "unmatched": "free", "basis": "official", "sources": ["s1"],
    "columns": ["entry", "exit", "vehicle_class", "amount"], "rows": [["quay-a", "quay-b", "cap5", "45.70"]]},
   {"id": "ferry-t", "type": "od", "component": "unspecified", "unit": "t", "mass_basis": "load_capacity_kg", "unmatched": "free", "basis": "official", "sources": ["s1"],
-   "columns": ["entry", "exit", "vehicle_class", "amount"], "rows": [["quay-a", "quay-b", "capt", "9.80"]]}
+   "columns": ["entry", "exit", "vehicle_class", "amount"], "rows": [["quay-a", "quay-b", "capt", "9.80"]]},
+  {"id": "river-load", "type": "od", "component": "unspecified", "unit": "t", "mass_basis": "load_kg", "mass_step_kg": 1000, "basis": "official", "sources": ["s1"],
+   "columns": ["entry", "exit", "amount"], "rows": [["bank-a", "bank-b", "1.26"]]}
  ],
  "rules": [
   {"id": "r-exempt", "kind": "exemption", "applies_to": ["dist"], "params": {"criteria": {"co2_class": [5]}, "until": "2031-06-30"}},

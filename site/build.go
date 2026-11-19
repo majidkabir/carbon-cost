@@ -57,6 +57,7 @@ type schemeData struct {
 	Fares                     []fare // dearest first, 12 at most
 	NOD, NSt, NTrips, NPlaces int
 	Cap                       bool
+	Load                      bool // fares by the load's weight, priced with exampleLoadKg
 	Products                  []fare
 	Versions                  []versionData
 	ExampleKind               string // "km", "od", "point", "vignette"
@@ -295,12 +296,20 @@ func price(c *country, day string, today time.Time) *countryData {
 				sd.Products = append(sd.Products, products(ds, ch, truck40)...)
 			}
 		}
+		byLoad := false
+		for i := range ds.Doc.Charges {
+			byLoad = byLoad || ds.Doc.Charges[i].MassBasis == "load_kg"
+		}
+		if byLoad {
+			fares = sumByPlaces(ds, fares) // the truck's fare and its load's, one trip
+		}
 		sort.SliceStable(fares, func(i, j int) bool { return fares[i].Rate.Total > fares[j].Rate.Total })
 		if len(fares) > 12 {
 			fares = fares[:12]
 		}
 		sd.Fares = fares
 		sd.Cap = len(fares) > 0 && classesTest(ds, "load_capacity_kg")
+		sd.Load = len(fares) > 0 && byLoad
 		if sd.ExampleKind == "" {
 			switch {
 			case len(fares) > 0 && fares[0].To != "":
@@ -745,6 +754,9 @@ func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, 
 		if sd.Cap {
 			notes = append(notes, l.T("c.fares.cap"))
 		}
+		if sd.Load {
+			notes = append(notes, l.T("c.fares.load"))
+		}
 		sv.FareNote = strings.Join(notes, " ")
 		for _, p := range sd.Products {
 			sv.Products = append(sv.Products, fareRow{l.productName(p.Period), l.Money(p.Rate.Total, p.Rate.Cur)})
@@ -1058,4 +1070,28 @@ func (s *Site) datasetLD(path, name, desc, area string, files []string, from, la
 
 func sortRows(rows []crossRow) {
 	sort.SliceStable(rows, func(i, j int) bool { return rows[i].Cells[0] < rows[j].Cells[0] })
+}
+
+// sumByPlaces adds up fares between the same places in different charges
+// (a ferry's fare for the truck and its fare for the load).
+func sumByPlaces(ds *tariffs.Dataset, fares []fare) []fare {
+	name := func(id string) string {
+		if o := ds.Object(id); o != nil && o.Name != "" {
+			return o.Name
+		}
+		return id
+	}
+	var out []fare
+	at := map[[3]string]int{}
+	for _, f := range fares {
+		k := [3]string{name(f.From), name(f.To), f.Period}
+		if i, ok := at[k]; ok && out[i].Rate.Cur == f.Rate.Cur {
+			out[i].Rate.Total += f.Rate.Total
+			out[i].Rate.CO2 += f.Rate.CO2
+			continue
+		}
+		at[k] = len(out)
+		out = append(out, f)
+	}
+	return out
 }

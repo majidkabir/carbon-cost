@@ -101,6 +101,11 @@ type pricer struct {
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
 	p := &pricer{req: req, date: date, out: out, add: add, vehicle: vehicleOf(req.Truck)}
+	// The load carried on the trip, for fares per tonne of it (the Elbe
+	// ferry's per started 1,000 kg).
+	if req.CargoKg > 0 {
+		p.vehicle["load_kg"] = req.CargoKg
+	}
 	if req.ETC {
 		p.payment = []string{"electronic"}
 	}

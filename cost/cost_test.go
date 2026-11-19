@@ -3379,6 +3379,50 @@ func TestBornholm(t *testing.T) {
 	}
 }
 
+// TestScandlines prices Scandlines' crossings and Øresundslinjen's
+// Helsingør–Helsingborg from their gross freight tariffs (loaded, by the
+// metre up) and the month's surcharges per commencing metre (BAF and GIR;
+// energy and green on Helsingør–Helsingborg; not the ETS surcharge), and
+// a trip over both crossings at the transit ticket.
+func TestScandlines(t *testing.T) {
+	pr := [][2]float64{{11.22, 54.49}, {11.231603, 54.506517}, {11.34562, 54.650674}, {11.35, 54.66}}
+	rg := [][2]float64{{12.10, 54.15}, {12.026699, 54.293513}, {11.927163, 54.569509}, {11.93, 54.58}}
+	hh := [][2]float64{{12.61, 56.03}, {12.623761, 56.034108}, {12.685027, 56.040775}, {12.70, 56.045}}
+	both := append(append(append([][2]float64{}, pr...), [2]float64{12.0, 55.3}, [2]float64{12.5, 55.9}), hh...)
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	nov, jun := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 6, 15, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		eur   float64
+	}{
+		{"Puttgarden-Rødby, 16.5 m, November", pr, truck40, nov, 265.30 + 17*(1.64+0.88)},
+		{"Puttgarden-Rødby, 16.5 m, June", pr, truck40, jun, 265.30 + 17*(1.38+0.88)},
+		{"Puttgarden-Rødby, road train", pr, length(18.75), nov, 297.60 + 19*(1.64+0.88)},
+		{"Puttgarden-Rødby, 10 m", pr, length(10), nov, 156.10 + 10*(1.64+0.88)},
+		{"Rostock-Gedser, 16.5 m", rg, truck40, nov, 236.20 + 17*(4.59+1.66)},
+		{"Helsingør-Helsingborg, 16.5 m", hh, truck40, nov, 169.30 + 17*(1.18+0.45)},
+		{"Puttgarden-Rødby and Helsingør-Helsingborg: transit", both, truck40, nov, 403.70 + 17*(1.64+0.88+1.18+0.45)},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, CountryKm: map[string]float64{"DK": 200}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Scandlines") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
 // TestDanishFerries prices Denmark's domestic car ferries by the truck's
 // length, from each line's freight page (dk_ferries.py), without VAT:
 // SAMSØLINJEN's price per started metre over 20 m, ALSLINJEN's,

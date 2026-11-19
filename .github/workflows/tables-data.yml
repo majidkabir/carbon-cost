@@ -143,6 +143,7 @@ jobs:
           run python3 tools/tables/it_messina.py out out/tables
           run python3 tools/tables/dk_bornholm.py out out/tables
           run python3 tools/tables/dk_ferries.py out out/tables
+          run python3 tools/tables/scandlines.py out out/tables
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables

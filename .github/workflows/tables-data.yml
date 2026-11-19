@@ -132,6 +132,7 @@ jobs:
           run python3 tools/tables/mont_blanc.py out out/tables
           run python3 tools/tables/lv.py out out/tables
           run python3 tools/tables/ee.py out out/tables
+          run python3 tools/tables/ee_ferries.py out out/tables
           run python3 tools/tables/se.py out out/tables
           run python3 tools/tables/lu.py out out/tables
           run python3 tools/tables/gb.py out out/tables

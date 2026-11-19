@@ -731,6 +731,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/ee-ferries/2025-02-01",
+   "scheme": "ee-ferries",
+   "country": "EE",
+   "file": "ee/ee-ferries-2025-02-01.orct.json",
+   "name": "Estonia's state ferries to Muhu, Saaremaa and Hiiumaa, trucks",
+   "valid_from": "2025-02-01",
+   "valid_to": null,
+   "sha256": "d9f1a08a4ad6e0c0e90ff8f32f92fae0ef8b058ae5f9e07cc2919ba47d3476ad",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/es-ap15/2026-01-01",
    "scheme": "es-ap15",
    "country": "ES",

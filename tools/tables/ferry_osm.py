@@ -83,6 +83,29 @@ def features(osm):
     return out
 
 
+def port_places(osm, lines, ports):
+    """Each port's place: its ferry terminal (amenity=ferry_terminal) or
+    place by name (or English name), at the nearest car ferry line's
+    nearest point within 3 km. ports: {port: ("terminal"|"place", name)}."""
+    feats = features(osm)
+    out = {}
+    for port, (kind, name) in ports.items():
+        if kind == "terminal":
+            hit = [p for t, p in feats if t.get("amenity") == "ferry_terminal" and t.get("name") == name]
+        else:
+            hit = [p for t, p in feats if t.get("place") and name in (t.get("name"), t.get("name:en"))]
+        best = None
+        for p in hit:
+            for _, ln in lines:
+                for q in ln:
+                    d = km(p, q)
+                    if d <= 3 and (best is None or d < best[0]):
+                        best = (d, q)
+        if best:
+            out[port] = best[1]
+    return out
+
+
 class Blocked(Exception):
     pass
 

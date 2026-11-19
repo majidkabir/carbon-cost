@@ -3254,3 +3254,46 @@ func TestCalMac(t *testing.T) {
 		}
 	}
 }
+
+// Estonia's state ferries (regulation nr 120, annex and § 6): a truck over
+// 3.5 t pays 16 EUR on Virtsu-Kuivastu and 18 EUR on Rohuküla-Heltermaa,
+// × 1.2 towards the islands on Fridays from 13:00 and back on Sundays from
+// 13:00 (19.20 and 21.60); Sõru-Triigi 22 EUR. The path runs through the
+// stations' points on OpenStreetMap's ferry lines.
+func TestEstoniaFerries(t *testing.T) {
+	toMuhu := [][2]float64{{23.51, 58.574}, {23.494629, 58.576471}, {23.409212, 58.573992}, {23.39, 58.573}}
+	back := [][2]float64{{23.39, 58.573}, {23.409212, 58.573992}, {23.494629, 58.576471}, {23.51, 58.574}}
+	toHiiumaa := [][2]float64{{23.43, 58.906}, {23.401957, 58.907899}, {23.056169, 58.867514}, {23.03, 58.865}}
+	soru := [][2]float64{{22.73, 58.59}, {22.723359, 58.595062}, {22.523353, 58.687367}, {22.505, 58.70}}
+	wed, fri, sun := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 22, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		date time.Time
+		at   string
+		want float64
+	}{
+		{"Virtsu-Kuivastu, Wednesday", toMuhu, wed, "14:00", 16},
+		{"Virtsu-Kuivastu, Friday 14:00", toMuhu, fri, "14:00", 19.2},
+		{"Virtsu-Kuivastu, Friday 10:00", toMuhu, fri, "10:00", 16},
+		{"Kuivastu-Virtsu, Friday 14:00", back, fri, "14:00", 16},
+		{"Kuivastu-Virtsu, Sunday 14:00", back, sun, "14:00", 19.2},
+		{"Rohuküla-Heltermaa, Friday 14:00", toHiiumaa, fri, "14:00", 21.6},
+		{"Triigi-Sõru, Friday 14:00", soru, fri, "14:00", 22},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"EE": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Estonia's state ferries") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+	}
+}

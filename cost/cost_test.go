@@ -3335,3 +3335,46 @@ func TestMessina(t *testing.T) {
 		}
 	}
 }
+
+// Bornholmslinjen's freight prices (loaded, excluding VAT): 2026 Køge-Rønne
+// 1,013 DKK for a semi-trailer to 17 m (1,078 in 2027), Ystad-Rønne 1,065
+// DKK for a road train to 19 m, Rønne-Sassnitz 2,495 DKK; a 12 m rigid
+// truck, a lorry over 10 m, 703 DKK on Køge-Rønne.
+func TestBornholm(t *testing.T) {
+	koge := [][2]float64{{12.19, 55.456}, {12.202263, 55.454895}, {14.625569, 55.087042}, {14.69, 55.10}}
+	ystad := [][2]float64{{13.826, 55.427}, {13.801016, 55.395578}, {14.627326, 55.08976}, {14.69, 55.10}}
+	sassnitz := [][2]float64{{14.69, 55.10}, {14.638178, 55.081728}, {13.591477, 54.480362}, {13.588, 54.484}}
+	train := truck40
+	train.LengthM = 18.75
+	rigid := truck40
+	rigid.LengthM = 12
+	d26, d27 := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), time.Date(2027, 3, 3, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		dkk   float64
+	}{
+		{"Køge-Rønne, semi-trailer, 2026", koge, truck40, d26, 1013},
+		{"Køge-Rønne, semi-trailer, 2027", koge, truck40, d27, 1078},
+		{"Køge-Rønne, 12 m lorry, 2026", koge, rigid, d26, 703},
+		{"Ystad-Rønne, road train, 2026", ystad, train, d26, 1065},
+		{"Rønne-Sassnitz, semi-trailer, 2026", sassnitz, truck40, d26, 2495},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DK": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Bornholmslinjen") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.dkk) > 0.011 {
+			t.Errorf("%s: %.2f DKK, want %.0f: %v", tc.name, got, tc.dkk, r.Notes)
+		}
+	}
+}

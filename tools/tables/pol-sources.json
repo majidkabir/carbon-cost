@@ -1,58 +1,31 @@
 {
- "about": "Danish island ferries for the fetch-docs run",
+ "about": "Wayback lookups",
  "sources": [
   {
-   "id": "dk-aeroe-prices",
-   "table": "dk-ferries",
-   "url": "https://www.aeroe-ferry.dk/en/prices/single-prices-3-1-2026-4-1-2027",
-   "what": "Ærøfærgerne: single prices",
+   "id": "cdx-scl-assets",
+   "table": "x",
+   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/assets/&matchType=prefix&filter=original:.*urcharges.*&output=json&fl=timestamp,original,statuscode,mimetype",
+   "what": "Wayback CDX: Scandlines' surcharge notices",
    "expect": [
-    "Lorry"
+    "timestamp"
    ]
   },
   {
-   "id": "dk-aeroe-prices-da",
-   "table": "dk-ferries",
-   "url": "https://www.aeroe-ferry.dk/da/priser",
-   "what": "Ærøfærgerne: priser (Danish)",
+   "id": "cdx-scl-page",
+   "table": "x",
+   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/freight-conditions/fuel-surcharges/&output=json&fl=timestamp,original,statuscode,digest&from=2025",
+   "what": "Wayback CDX: Scandlines' surcharges page",
    "expect": [
-    "astbil"
+    "timestamp"
    ]
   },
   {
-   "id": "dk-aeroe-prices-en",
-   "table": "dk-ferries",
-   "url": "https://www.aeroe-ferry.dk/en/prices",
-   "what": "Ærøfærgerne: prices",
+   "id": "cdx-scl-tariffs",
+   "table": "x",
+   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/freight-conditions/freight-tariffs/&output=json&fl=timestamp,original,statuscode,digest&from=2025",
+   "what": "Wayback CDX: Scandlines' tariffs page",
    "expect": [
-    "rice"
-   ]
-  },
-  {
-   "id": "dk-laesoe-prices",
-   "table": "dk-ferries",
-   "url": "https://www.laesoe.dk/p/Fartplan-og-prisliste-2026-L%C3%A6s%C3%B8f%C3%A6rgen.pdf",
-   "what": "Læsøfærgen: timetable and price list 2026",
-   "expect": [
-    "%PDF"
-   ]
-  },
-  {
-   "id": "dk-aeroexpressen-prices",
-   "table": "dk-ferries",
-   "url": "https://aeroexpressen.dk/en/priser/",
-   "what": "ÆrøXpressen: prices",
-   "expect": [
-    "meter"
-   ]
-  },
-  {
-   "id": "dk-ferries-osm",
-   "table": "dk-ferries",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.8%2C8.3%2C57.5%2C11.4%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.8%2C8.3%2C57.5%2C11.4%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
-   "expect": [
-    "\"route\": \"ferry\""
+    "timestamp"
    ]
   }
  ]

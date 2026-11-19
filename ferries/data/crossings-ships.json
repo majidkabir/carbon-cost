@@ -109,6 +109,59 @@
    }
   },
   {
+   "id": "rostock-trelleborg",
+   "name": "Rostock–Trelleborg",
+   "operator": "TT-Line",
+   "terminals": [
+    {
+     "name": "Rostock",
+     "lat": 54.149253,
+     "lon": 12.101819,
+     "country": "DE"
+    },
+    {
+     "name": "Trelleborg",
+     "lat": 55.371509,
+     "lon": 13.154178,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "8618358",
+     "name": "HUCKLEBERRY FINN"
+    },
+    {
+     "imo": "9019080",
+     "name": "MARCO POLO"
+    },
+    {
+     "imo": "9087465",
+     "name": "NILS DACKE"
+    },
+    {
+     "imo": "9880946",
+     "name": "PETER PAN"
+    },
+    {
+     "imo": "9087477",
+     "name": "ROBIN HOOD"
+    },
+    {
+     "imo": "9217242",
+     "name": "TINKER BELL"
+    },
+    {
+     "imo": "8703232",
+     "name": "TOM SAWYER"
+    }
+   ],
+   "source": {
+    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt); Stena Line's ships on it aren't named here",
+    "url": "https://www.ttline.com/en/freight/timetable/"
+   }
+  },
+  {
    "id": "sassnitz-ronne",
    "name": "Sassnitz–Rønne",
    "operator": "Bornholmslinjen",
@@ -144,7 +197,7 @@
   {
    "id": "swinoujscie-trelleborg",
    "name": "Świnoujście–Trelleborg",
-   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
+   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line); TT-Line",
    "terminals": [
     {
      "name": "Świnoujście",
@@ -165,16 +218,36 @@
      "name": "EPSILON"
     },
     {
+     "imo": "8618358",
+     "name": "HUCKLEBERRY FINN"
+    },
+    {
      "imo": "9989895",
      "name": "JANTAR UNITY"
     },
     {
      "imo": "9010814",
      "name": "MAZOVIA"
+    },
+    {
+     "imo": "9087465",
+     "name": "NILS DACKE"
+    },
+    {
+     "imo": "9880946",
+     "name": "PETER PAN"
+    },
+    {
+     "imo": "9217242",
+     "name": "TINKER BELL"
+    },
+    {
+     "imo": "8703232",
+     "name": "TOM SAWYER"
     }
    ],
    "source": {
-    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
+    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure); TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt)",
     "url": "https://www.unityline.eu/cargo/timetables"
    }
   },
@@ -220,6 +293,59 @@
    "source": {
     "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
     "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "travemunde-trelleborg",
+   "name": "Travemünde–Trelleborg",
+   "operator": "TT-Line",
+   "terminals": [
+    {
+     "name": "Travemünde",
+     "lat": 53.942122,
+     "lon": 10.859805,
+     "country": "DE"
+    },
+    {
+     "name": "Trelleborg",
+     "lat": 55.371509,
+     "lon": 13.154178,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "8618358",
+     "name": "HUCKLEBERRY FINN"
+    },
+    {
+     "imo": "9087465",
+     "name": "NILS DACKE"
+    },
+    {
+     "imo": "9865685",
+     "name": "NILS HOLGERSSON"
+    },
+    {
+     "imo": "9880946",
+     "name": "PETER PAN"
+    },
+    {
+     "imo": "9087477",
+     "name": "ROBIN HOOD"
+    },
+    {
+     "imo": "9217242",
+     "name": "TINKER BELL"
+    },
+    {
+     "imo": "8703232",
+     "name": "TOM SAWYER"
+    }
+   ],
+   "source": {
+    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt)",
+    "url": "https://www.ttline.com/en/freight/timetable/"
    }
   },
   {

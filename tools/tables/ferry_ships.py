@@ -12,8 +12,15 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Bornholmslinjen's ferries page (bornholm-ferries.html): each ferry's
   crossing times ("Rønne - Køge", "Rønne-Ystad") and description ("på
   ruten mellem Rønne og Ystad") name its routes;
-- OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json): the terminals,
-  as polsca.py and dk_bornholm.py place them;
+- TT-Line's freight timetable (browser/ttline-timetable.txt: the site
+  refuses scripted requests, so its text was read in Chrome): the ship of
+  each departure, by its initials, which the page names ("PP = Peter
+  Pan"). Its ships join POLSCA's on Świnoujście–Trelleborg; on
+  Rostock–Trelleborg Stena Line's ships, which no page here names, aren't
+  among them;
+- OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
+  the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
+  Travemünde and Rostock at the far end of its lines from Trelleborg;
 - Commission Implementing Decision (EU) 2023/2895, Annex I
   (ets-islands-2023-2895.html): Bornholm's port Rønne is under the island
   derogation (Directive 2003/87/EC, Art. 12(3-d)) for voyages to a port in
@@ -33,11 +40,19 @@ from ferry_osm import lines_of, port_places
 HERE = os.path.dirname(os.path.abspath(__file__))
 MRV = os.path.join(HERE, "..", "..", "ferries", "data")
 COUNTRY = {"Świnoujście": "PL", "Gdańsk": "PL", "Ystad": "SE", "Trelleborg": "SE", "Nynäshamn": "SE", "Karlshamn": "SE",
+           "Travemünde": "DE", "Rostock": "DE",
            "Rønne": "DK", "Køge": "DK", "Sassnitz": "DE"}
 # (id, ports): the crossings, by the ports' names in polsca.PORTS and dk_bornholm.PORTS.
 POLSCA = [("swinoujscie-ystad", ("Świnoujście", "Ystad")), ("swinoujscie-trelleborg", ("Świnoujście", "Trelleborg")),
           ("gdansk-nynashamn", ("Gdańsk", "Nynäshamn")), ("gdansk-karlshamn", ("Gdańsk", "Karlshamn"))]
 BORNHOLM = [("koge-ronne", ("Køge", "Rønne")), ("ystad-ronne", ("Ystad", "Rønne")), ("sassnitz-ronne", ("Sassnitz", "Rønne"))]
+# TT-Line: (id, ports, the timetable's route); its ports on its own lines.
+TTLINE = [("travemunde-trelleborg", ("Travemünde", "Trelleborg"), "Travemünde - Trelleborg"),
+          ("rostock-trelleborg", ("Rostock", "Trelleborg"), "Rostock - Trelleborg"),
+          ("swinoujscie-trelleborg", ("Świnoujście", "Trelleborg"), "Świnoujście - Trelleborg")]
+TTLINE_PORTS = {"Trelleborg": ("place", "Trelleborg"), "Travemünde": ("end", "Travemünde (D) – Trelleborg (SE)", "Trelleborg"),
+                "Rostock": ("end", "Rostock (D) - Trelleborg (SE)", "Trelleborg")}
+TTLINE_FILE = os.path.join(HERE, "browser", "ttline-timetable.txt")
 UPPER = "A-ZĄĆĘŁŃÓŚŹŻÅÄÖ"
 SHIP = re.compile(rf"(?:^|\s{{2,}})([{UPPER}][^\W\d_]+(?: [{UPPER}][^\W\d_]+)*)\s{{2,}}(?=\d\d[.:]\d\d|-{{3,}}|stoppage)")
 
@@ -125,6 +140,23 @@ def bornholm(page):
     return routes
 
 
+def ttline(t):
+    """({route: {ships}}, page URL, day read) from the capture of TT-Line's timetable."""
+    legend = dict(re.findall(r"([A-Z]{2}) = ([A-Z][\w ]+?)(?=;|$)", next((l for l in t.splitlines() if " = " in l), ""), re.M))
+    url = re.search(r"^# Page: (\S+)", t, re.M)
+    day = re.search(r"read on (\d{4}-\d\d-\d\d)", t)
+    if not legend or not url or not day:
+        sys.exit("ferry ships: TT-Line's capture: the header not read")
+    routes = {}
+    for line in t.splitlines():
+        m = re.search(r"\d{1,2}:\d\d ([A-Z]{2}) (\S+ - \S+) ", line)
+        if m and not line.startswith("#"):
+            if m.group(1) not in legend:
+                sys.exit(f"ferry ships: TT-Line's capture: {m.group(1)} not named")
+            routes.setdefault(m.group(2), set()).add(legend[m.group(1)].upper())
+    return routes, url.group(1), day.group(1)
+
+
 def crossing(cid, ports, pos, operator, ships, source, ids, exemptions=()):
     return {"id": cid, "name": "–".join(ports), "operator": operator,
             "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p]} for p in ports],
@@ -140,6 +172,8 @@ def main(fetched, out):
         posm = json.load(open(os.path.join(fetched, "polsca-osm.json"), encoding="utf-8"))
         bosm = json.load(open(os.path.join(fetched, "dk-bornholm-osm.json"), encoding="utf-8"))
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
+        tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
+        tcap = open(TTLINE_FILE, encoding="utf-8").read()
     except (OSError, ValueError) as e:
         print(f"ferry ships: not built ({e})")
         return
@@ -185,6 +219,27 @@ def main(fetched, out):
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Denmark: Bornholm, Rønne)", "url": DECISION[1]}] if {COUNTRY[p] for p in ports} == {"DK"} else []
         crossings.append(crossing(cid, ports, pos, "Bornholmslinjen", ships,
                                   {"title": "Bornholmslinjen: the ferries (each one's crossings)", "url": src["bornholm-ferries"]["url"]}, ids, ex))
+
+    # TT-Line
+    troutes, turl, tday = ttline(tcap)
+    lines, _ = lines_of(tosm)
+    pos = port_places(tosm, lines, TTLINE_PORTS)
+    have = {c["id"]: c for c in crossings}
+    title = f"TT-Line: freight timetable, the ship of each departure (read in Chrome on {tday}, tools/tables/browser/ttline-timetable.txt)"
+    for cid, ports, route in TTLINE:
+        ships = troutes.get(route)
+        if not ships:
+            sys.exit(f"ferry ships: TT-Line's capture has no {route}")
+        if cid in have:
+            c = have[cid]
+            c["operator"] += "; TT-Line"
+            c["ships"] = crossing(cid, ports, {p: (0, 0) for p in ports}, "", {s["name"] for s in c["ships"]} | ships, None, ids)["ships"]
+            c["source"]["title"] += f"; {title}"
+            continue
+        if any(p not in pos for p in ports):
+            sys.exit(f"ferry ships: {'–'.join(ports)}: ports not placed")
+        note = "; Stena Line's ships on it aren't named here" if cid == "rostock-trelleborg" else ""
+        crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title + note, "url": turl}, ids))
 
     crossings.sort(key=lambda c: c["id"])
     os.makedirs(out, exist_ok=True)

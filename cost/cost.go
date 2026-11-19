@@ -99,8 +99,10 @@ type Request struct {
 	// ferry crossings. 0: ferry ETS is not priced.
 	EUAEurPerT float64 `json:"eua_eur_per_t,omitempty"`
 	// FerryETSShare is the share of a crossing's emissions under the EU
-	// ETS: 1 between two EU/EEA ports (default), 0.5 to or from a port
-	// outside.
+	// ETS for a crossing this tool doesn't know: 1 between two EU/EEA
+	// ports (default), 0.5 to or from a port outside. A known crossing's
+	// share comes from its ports, its ships' size and the derogations in
+	// force.
 	FerryETSShare float64 `json:"ferry_ets_share,omitempty"`
 	// ETS2EurPerT is the ETS2 allowance price (EUR per t CO2e), for trips
 	// from 2028. 0: ETS2 is not priced.
@@ -186,7 +188,7 @@ type Response struct {
 	Date       string  `json:"date"`
 	DistanceKm float64 `json:"distance_km"`
 	FerryKm    float64 `json:"ferry_km,omitempty"`
-	// FerryCrossing is the crossing the route uses, when recognised.
+	// FerryCrossing names the crossings the route uses, when recognised.
 	FerryCrossing string             `json:"ferry_crossing,omitempty"`
 	CountryKm     map[string]float64 `json:"country_km"`
 	RegionKm      map[string]float64 `json:"region_km,omitempty"`
@@ -542,22 +544,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		case req.EUAEurPerT == 0:
 			out.Notes = append(out.Notes, "Ferry: give eua_eur_per_t to price the EU ETS on the crossing.")
 		default:
-			share := maritimeETSShare(date)
-			if req.FerryETSShare > 0 {
-				share *= req.FerryETSShare
-			}
-			crossingT, basis := ferryTTW/1000, "Sootcase ferry part (GLEC ro-pax default)"
-			if t, b, ok := mrvFerry(&out, res, fd, req, date); ok {
-				crossingT, basis = t, b
-			}
-			t := crossingT * share
-			if err := add(Line{Charge: FerryETS, Carbon: true, Km: round3(out.FerryKm), TonnesCO2: round3(t), Rate: req.EUAEurPerT,
-				RateUnit: "EUR/t CO2e", Currency: "EUR", Amount: t * req.EUAEurPerT,
-				Source: "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb; emissions: " + basis, Sources: etsSources}); err != nil {
+			if err := priceFerryETS(&out, res, fd, req, date, add); err != nil {
 				return Response{}, err
 			}
-			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the ETS cost of this cargo's share of the crossing's emissions (%.0f%% of them under the ETS in %d). A ferry line's own surcharge follows its ships' real emissions and its pricing.",
-				share*100, date.Year()))
 		}
 	}
 
@@ -698,25 +687,118 @@ func maritimeETSShare(date time.Time) float64 {
 func round2(v float64) float64 { return math.Round(v*100) / 100 }
 func round3(v float64) float64 { return math.Round(v*1000) / 1000 }
 
-// mrvFerry is the crossing's CO2e (tonnes) from its ships' MRV data: their
-// freight intensity x (truck tare + cargo) x the ferry distance. ok is
-// false, with a note, when the crossing isn't recognised, has no MRV data
-// or the truck's tare isn't given.
-func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time) (float64, string, bool) {
-	if fd == nil {
-		return 0, "", false
-	}
-	var route [][2]float64
+// ferryPart is one ferry part of a leg: its km and Sootcase's default
+// tank-to-wheel emissions for it, and the crossing it is, when known.
+type ferryPart struct {
+	km, ttwKg float64
+	crossing  *ferries.Crossing
+}
+
+// ferryParts are the trip's ferry parts, each matched to a crossing in fd
+// found on its leg: the ferry part whose length is nearest the route's km
+// between the crossing's terminals (within 2 km or 30%), so a crossing
+// whose terminals the route only passes near isn't taken for another.
+func ferryParts(res sootcase.Result, fd *ferries.Data) []ferryPart {
+	var out []ferryPart
 	for _, l := range res.Legs {
-		route = append(route, l.Path...)
+		var ps []ferryPart
+		for _, p := range l.Parts {
+			if p.Kind == "ferry" {
+				ps = append(ps, ferryPart{km: p.DistanceKm, ttwKg: p.TTWKg})
+			}
+		}
+		if len(ps) == 1 && l.RouteParts["ferry"] > 0 {
+			ps[0].km = l.RouteParts["ferry"]
+		}
+		if fd != nil && len(ps) > 0 {
+			cs := fd.DetectAll(l.Path)
+			tr := newTrack(l.Path)
+			for k := range cs {
+				c := &cs[k]
+				if len(c.Terminals) != 2 {
+					continue
+				}
+				a, _, _ := tr.project(rates.Place{Lat: c.Terminals[0].Lat, Lon: c.Terminals[0].Lon})
+				b, _, _ := tr.project(rates.Place{Lat: c.Terminals[1].Lat, Lon: c.Terminals[1].Lon})
+				along, best, bi := math.Abs(b-a), math.Inf(1), -1
+				for i, p := range ps {
+					if d := math.Abs(p.km - along); p.crossing == nil && d < best && d <= math.Max(2, 0.3*along) {
+						best, bi = d, i
+					}
+				}
+				if bi >= 0 {
+					ps[bi].crossing = c
+				}
+			}
+		}
+		out = append(out, ps...)
 	}
-	c, ok := fd.Detect(route)
-	if !ok {
-		out.Notes = append(out.Notes, "Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor.")
-		return 0, "", false
+	return out
+}
+
+// priceFerryETS adds a ferry ETS line for each crossing on the trip: the
+// cargo's share of the crossing's emissions (its ships' MRV data when the
+// crossing is known and the truck's tare given, else Sootcase's part),
+// times the share of them under the EU ETS by law, times the phase-in.
+func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time, add func(Line) error) error {
+	phase := maritimeETSShare(date)
+	var names []string
+	for _, p := range ferryParts(res, fd) {
+		emT, basis, section := p.ttwKg/1000, "Sootcase ferry part (GLEC ro-pax default)", ""
+		cover, coverBasis := 1.0, ""
+		if p.crossing == nil {
+			if req.FerryETSShare > 0 {
+				cover, coverBasis = req.FerryETSShare, fmt.Sprintf("%.0f%% of its emissions (ferry_ets_share)", req.FerryETSShare*100)
+			}
+			out.Notes = append(out.Notes, "Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor and counts all its emissions under the ETS (ships under 5,000 GT and island derogations aren't known for it; give ferry_ets_share for a voyage to or from a port outside the EU/EEA).")
+		} else {
+			c := p.crossing
+			section = c.Name
+			names = append(names, c.Name)
+			cov, ok := fd.Coverage(*c, date)
+			if !ok {
+				cov = ferries.Coverage{Share: 1, Basis: "all of its emissions"}
+			}
+			if cov.Note != "" {
+				out.Notes = append(out.Notes, "Ferry: "+c.Name+": "+cov.Note+".")
+			}
+			if cov.Share == 0 {
+				out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: no EU ETS cost: %s.", c.Name, cov.Basis))
+				continue
+			}
+			cover, coverBasis = cov.Share, cov.Basis
+			if t, b, ok := mrvFerry(out, fd, c, p.km, req, date); ok {
+				emT, basis = t, b
+			}
+		}
+		share := phase * cover
+		t := emT * share
+		src := "Directive 2003/87/EC as amended by (EU) 2023/959, Art. 3gb"
+		if coverBasis != "" {
+			src += "; " + coverBasis
+		}
+		if err := add(Line{Charge: FerryETS, Carbon: true, Section: section, Km: round3(p.km), TonnesCO2: round3(t), Rate: req.EUAEurPerT,
+			RateUnit: "EUR/t CO2e", Currency: "EUR", Amount: t * req.EUAEurPerT,
+			Source: src + "; emissions: " + basis, Sources: etsSources}); err != nil {
+			return err
+		}
+		what := "the crossing's"
+		if section != "" {
+			what = section + "'s"
+		}
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the ETS cost of this cargo's share of %s emissions (%.0f%% of them under the ETS in %d). A ferry line's own surcharge follows its ships' real emissions and its pricing.",
+			what, share*100, date.Year()))
 	}
-	out.FerryCrossing = c.Name
-	in, ok := fd.Intensity(c, date.Year())
+	out.FerryCrossing = strings.Join(names, ", ")
+	return nil
+}
+
+// mrvFerry is a crossing's CO2e (tonnes) for km on it from its ships' MRV
+// data: their freight intensity x (truck tare + cargo) x the distance. ok
+// is false, with a note, when the crossing has no MRV data or the truck's
+// tare isn't given.
+func mrvFerry(out *Response, fd *ferries.Data, c *ferries.Crossing, km float64, req Request, date time.Time) (float64, string, bool) {
+	in, ok := fd.Intensity(*c, date.Year())
 	if ok && req.Truck.TareKg > 0 {
 		out.Provenance.FerryMRV = fmt.Sprintf("EU MRV %d, %s", in.Year.ReportingPeriod, in.Year.Version)
 	}
@@ -730,7 +812,7 @@ func mrvFerry(out *Response, res sootcase.Result, fd *ferries.Data, req Request,
 		return 0, "", false
 	}
 	grossT := (float64(req.Truck.TareKg) + req.CargoKg) / 1000
-	nm := out.FerryKm * ferries.NmPerKm
+	nm := km * ferries.NmPerKm
 	names := make([]string, len(in.Ships))
 	for i, s := range in.Ships {
 		names[i] = s.Name

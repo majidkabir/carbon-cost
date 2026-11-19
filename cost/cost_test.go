@@ -298,6 +298,66 @@ func TestPrice_FerryMRV(t *testing.T) {
 	}
 }
 
+// Ferry ETS by law: Køge-Rønne is under the Bornholm derogation
+// (Implementing Decision (EU) 2023/2895), Esbjerg-Nordby's ferries are
+// under 5,000 GT, and a trip over two crossings gets a line for each.
+func TestPrice_FerryETSByLaw(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	nov26 := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	trip := func(path [][2]float64, parts ...sootcase.Part) sootcase.Result {
+		var km, ttw float64
+		for _, p := range parts {
+			km += p.DistanceKm
+			ttw += p.TTWKg
+		}
+		return sootcase.Result{TTWKg: 100 + ttw, Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 100 + ttw,
+			RouteParts: map[string]float64{"ferry": km}, CountryKm: map[string]float64{"DK": 200 - km}, Path: path, Parts: parts}}}
+	}
+	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}
+	ferryLines := func(r Response) []Line {
+		var out []Line
+		for _, l := range r.Lines {
+			if l.Charge == FerryETS {
+				out = append(out, l)
+			}
+		}
+		return out
+	}
+	// Køge-Rønne: no ETS cost.
+	koge := [][2]float64{{12.15, 55.46}, {12.19494, 55.456}, {14.69132, 55.09977}, {14.70, 55.10}}
+	r, _ := PriceWith(trip(koge, sootcase.Part{Kind: "ferry", DistanceKm: 165, TTWKg: 300}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 0 || !hasNote(r, "2023/2895") || r.FerryCrossing != "Køge–Rønne" {
+		t.Errorf("Køge-Rønne: lines %+v, crossing %q, notes %v", ls, r.FerryCrossing, r.Notes)
+	}
+	// Esbjerg-Nordby: ships under 5,000 GT.
+	fano := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.40845, 55.45018}, {8.40, 55.45}}
+	r, _ = PriceWith(trip(fano, sootcase.Part{Kind: "ferry", DistanceKm: 2.3, TTWKg: 4}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 0 || !hasNote(r, "under 5000 GT") {
+		t.Errorf("Esbjerg-Nordby: lines %+v, notes %v", ls, r.Notes)
+	}
+	// Rødby-Puttgarden and Helsingør-Helsingborg: a line each, at the
+	// default parts' emissions (no tare): 30 kg and 8 kg x 75 EUR/t.
+	both := [][2]float64{{10.9, 54.2}, {11.2276, 54.5001}, {11.355, 54.66}, {12.3, 55.6}, {12.61414, 56.03305}, {12.69152, 56.04331}, {12.8, 56.1}}
+	r, _ = PriceWith(trip(both, sootcase.Part{Kind: "ferry", DistanceKm: 19, TTWKg: 30}, sootcase.Part{Kind: "ferry", DistanceKm: 4.5, TTWKg: 8}), all(t), &fd, req, nov26)
+	ls := ferryLines(r)
+	if len(ls) != 2 || ls[0].Section != "Rødby–Puttgarden" || ls[0].Amount != 2.25 || ls[1].Section != "Helsingør–Helsingborg" || ls[1].Amount != 0.6 {
+		t.Errorf("two crossings: %+v", ls)
+	}
+	if r.FerryCrossing != "Rødby–Puttgarden, Helsingør–Helsingborg" {
+		t.Errorf("crossings %q", r.FerryCrossing)
+	}
+	// A route passing near Esbjerg's terminals but crossing elsewhere
+	// isn't taken for Esbjerg-Nordby: the part's length doesn't fit.
+	near := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.42, 55.452}, {9.9, 57.6}, {8.0, 58.1}}
+	r, _ = PriceWith(trip(near, sootcase.Part{Kind: "ferry", DistanceKm: 130, TTWKg: 200}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Amount != 15 || r.FerryCrossing != "" {
+		t.Errorf("near Esbjerg: %+v, crossing %q", ls, r.FerryCrossing)
+	}
+}
+
 // A Belgian trip on the real Viapass tables, by hand (>32 t Euro VI,
 // class 1): VLG 60 km x 0.285 = 17.10; WAL 38 km x 0.205 = 7.79;
 // BRU 2 km, half on the motorway: 1 x 0.171 + 1 x 0.271 = 0.17 + 0.27.

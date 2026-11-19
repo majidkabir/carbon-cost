@@ -1,6 +1,9 @@
 package site
 
 import (
+	"bytes"
+	"compress/gzip"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -45,6 +48,8 @@ func TestDump(t *testing.T) {
 	b := s.get()
 	t.Logf("built in %v", time.Since(start))
 	for p, page := range b.pages {
+		zr, _ := gzip.NewReader(bytes.NewReader(page))
+		page, _ = io.ReadAll(zr)
 		f := filepath.Join(dir, strings.TrimPrefix(p, "/"))
 		if !strings.Contains(filepath.Base(f), ".") {
 			f += ".html"
@@ -115,8 +120,9 @@ func TestPages(t *testing.T) {
 	}
 }
 
-// TestLocalPages checks a country's page in its own language, the
-// overview in every language, and the links between the languages.
+// TestLocalPages checks the pages in other languages: a country's page in
+// its own language, every page in every language, and the links between
+// them.
 func TestLocalPages(t *testing.T) {
 	_, h := testSite(t)
 	code, de := get(t, h, "/de/tolls/de")
@@ -152,13 +158,36 @@ func TestLocalPages(t *testing.T) {
 			t.Errorf("%s: %d, wants %q", p, code, want)
 		}
 	}
-	// Not a local language: no page yet, so no link to one.
-	if code, _ := get(t, h, "/de/tolls/fr"); code != 404 {
-		t.Errorf("/de/tolls/fr: %d, want 404", code)
+	// Every page is in every language too, the pages across countries included.
+	for p, want := range map[string]string{
+		"/de/tolls/fr": "Frankreich", "/ja/tolls/fr": "", "/pl/tolls/ets2-diesel": "0,1201\u00a0€", "/fi/tolls/zero-emission-trucks": "Päästöttömien",
+		"/el/tolls/co2-tax-diesel": "πετρέλαιο",
+	} {
+		code, body := get(t, h, p)
+		if want == "" {
+			if code != 404 {
+				t.Errorf("%s: %d, want 404", p, code)
+			}
+			continue
+		}
+		if code != 200 || !strings.Contains(body, want) {
+			t.Errorf("%s: %d, wants %q", p, code, want)
+		}
 	}
 	code, ov := get(t, h, "/de/tolls")
-	if code != 200 || !strings.Contains(ov, `href="/carbon-cost/de/tolls/de"`) || !strings.Contains(ov, `href="/carbon-cost/tolls/fr"`) {
-		t.Errorf("/de/tolls: %d, or its country links are wrong", code)
+	if code != 200 || !strings.Contains(ov, `href="/carbon-cost/de/tolls/fr"`) || !strings.Contains(ov, `href="/carbon-cost/de/tolls/ets2-diesel"`) {
+		t.Errorf("/de/tolls: %d, or its links are wrong", code)
+	}
+	if _, fr := get(t, h, "/tolls/fr"); strings.Count(fr, `<link rel="alternate" hreflang=`) != 33 {
+		t.Errorf("/tolls/fr: %d alternates, want English, 31 others and x-default", strings.Count(fr, `<link rel="alternate" hreflang=`))
+	}
+	// Pages go gzipped to clients that take it.
+	rec := httptest.NewRecorder()
+	req := httptest.NewRequest("GET", "/de/tolls/de", nil)
+	req.Header.Set("Accept-Encoding", "gzip, br")
+	h.ServeHTTP(rec, req)
+	if rec.Header().Get("Content-Encoding") != "gzip" || !strings.HasPrefix(rec.Body.String(), "\x1f\x8b") {
+		t.Errorf("gzip: %q", rec.Header().Get("Content-Encoding"))
 	}
 	// The overview is in every language.
 	for _, l := range []string{"bg", "ca", "fo", "is", "mk", "sq", "tr"} {

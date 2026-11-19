@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 	"unicode"
 
@@ -884,101 +885,128 @@ func (l *Loc) fuelText(r fuelRateT) (rate, perL string) {
 // allLanguages makes every page in every language; without it a language
 // has the pages of the countries it is spoken in and the overview, and
 // the pages across countries are in English.
-var allLanguages = false
+var allLanguages = true
 
 func (s *Site) build(day string) *built {
 	today, _ := time.Parse(time.DateOnly, day)
 	year := today.Year()
 	cs := group(s.set, day)
-	b := &built{pages: map[string][]byte{}, cards: map[string]card{}, images: map[string][]byte{}, mod: map[string]string{}}
 	data := map[string]*countryData{}
 	for _, c := range cs {
 		data[c.Code] = price(c, day, today)
 	}
 	langs := sortedLangs(s.locs)
-	has := func(lang, cc string) bool {
-		if lang == "en" || allLanguages {
-			return true
-		}
-		for _, x := range langsOf(cc, s.locs) {
-			if x == lang {
-				return true
-			}
-		}
-		return false
+	// Each language's pages are built on their own; the data they read is
+	// only read.
+	outs := make([]*built, len(langs))
+	var wg sync.WaitGroup
+	for i, lang := range langs {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			outs[i] = s.buildLang(lang, langs, cs, data, day, today, year)
+		}()
 	}
-	crossIn := func(lang string) bool { return lang == "en" || allLanguages }
-	for _, lang := range langs {
-		l := s.locs[lang]
-		var rows []overviewRow
-		var countryLinks, others []link
-		for _, c := range cs {
-			cl := lang
-			if !has(lang, c.Code) {
-				cl = "en"
-			}
-			countryLinks = append(countryLinks, link{l.Country(c.Code), s.prefix + s.pagePath(cl, "/tolls/"+c.Slug)})
+	wg.Wait()
+	b := &built{pages: map[string][]byte{}, cards: map[string]card{}, images: map[string][]byte{}, mod: map[string]string{}}
+	for _, o := range outs {
+		for p, page := range o.pages {
+			b.pages[p] = page
 		}
-		for _, x := range crossPages {
-			cl := lang
-			if !crossIn(lang) {
-				cl = "en"
-			}
-			others = append(others, link{l.T(x.Title), s.prefix + s.pagePath(cl, x.Path)})
+		for p, cd := range o.cards {
+			b.cards[p] = cd
 		}
-		for _, c := range cs {
-			v, row, cd := s.countryView(l, data[c.Code], day, today, year)
-			if !has(lang, c.Code) {
-				row.Href = s.prefix + "/tolls/" + c.Slug
-				rows = append(rows, row)
-				continue
-			}
-			rows = append(rows, row)
-			v.Others, v.Countries = others, countryLinks
-			v.Alternates = s.alternates(langs, "/tolls/"+c.Slug, func(x string) bool { return has(x, c.Code) })
-			path := s.pagePath(lang, "/tolls/"+c.Slug)
-			b.pages[path] = s.render("country.html", v)
-			b.cards[path] = cd
-			b.paths = append(b.paths, path)
-			b.mod[path] = data[c.Code].Mod
+		for p, m := range o.mod {
+			b.mod[p] = m
 		}
-		sort.SliceStable(rows, func(i, j int) bool { return rows[i].Name < rows[j].Name })
-		// Overview.
-		ov := overviewView{Rows: rows, Updated: l.Date(day), Others: others, Countries: countryLinks}
-		ov.H1 = l.T("ov.h1", "year", year)
-		ov.Lead = l.T("ov.lead")
-		if r, ok := fxOnDate(today); ok {
-			ov.FXNote = l.T("ov.fx", "date", l.Date(r))
-		}
-		path := s.pagePath(lang, "/tolls")
-		desc := l.T("ov.desc", "n", len(cs))
-		ld := s.datasetLD(path, l.T("ov.ld.name", "year", year), desc, "Europe", nil, "", lang)
-		ov.Head = s.mkHead(l, path, ov.H1, desc, ld, link{l.T("nav.tolls"), s.prefix + path})
-		ov.Alternates = s.alternates(langs, "/tolls", func(string) bool { return true })
-		b.pages[path] = s.render("overview.html", ov)
-		b.cards[path] = card{Kicker: l.T("site.kicker"), Title: l.T("ov.card.title", "year", year), Big: l.T("ov.card.big", "n", len(cs)),
-			BigNote: l.T("ov.card.note"), Footer: hostPath(s.base) + path}
-		b.paths = append(b.paths, path)
-		b.mod[path] = day
-		if !crossIn(lang) {
-			continue
-		}
-		for _, p := range []struct {
-			path string
-			f    func(*Loc, []*country, map[string]*countryData, string, time.Time) (crossView, card)
-		}{{"/tolls/zero-emission-trucks", s.zePage}, {"/tolls/ets2-diesel", s.ets2Page}, {"/tolls/co2-tax-diesel", s.fuelPage}} {
-			v, cd := p.f(l, cs, data, day, today)
-			v.Others, v.Countries = others, countryLinks
-			v.Alternates = s.alternates(langs, p.path, crossIn)
-			path := s.pagePath(lang, p.path)
-			b.pages[path] = s.render("cross.html", v)
-			b.cards[path] = cd
-			b.paths = append(b.paths, path)
-			b.mod[path] = day
-		}
+		b.paths = append(b.paths, o.paths...)
 	}
 	b.paths = append(b.paths, "/")
-	b.pages["/sitemap.xml"] = sitemap(s.base, b.paths, b.mod)
+	b.pages["/sitemap.xml"] = gz(sitemap(s.base, b.paths, b.mod))
+	return b
+}
+
+// has says whether a language has a country's page: English and the
+// country's own languages always, every language with allLanguages.
+func (s *Site) has(lang, cc string) bool {
+	if lang == "en" || allLanguages {
+		return true
+	}
+	for _, x := range langsOf(cc, s.locs) {
+		if x == lang {
+			return true
+		}
+	}
+	return false
+}
+
+func crossIn(lang string) bool { return lang == "en" || allLanguages }
+
+// buildLang builds a language's pages, kept gzipped.
+func (s *Site) buildLang(lang string, langs []string, cs []*country, data map[string]*countryData, day string, today time.Time, year int) *built {
+	b := &built{pages: map[string][]byte{}, cards: map[string]card{}, mod: map[string]string{}}
+	add := func(path string, page []byte, cd card, mod string) {
+		b.pages[path] = gz(page)
+		b.cards[path] = cd
+		b.paths = append(b.paths, path)
+		b.mod[path] = mod
+	}
+	l := s.locs[lang]
+	var rows []overviewRow
+	var countryLinks, others []link
+	for _, c := range cs {
+		cl := lang
+		if !s.has(lang, c.Code) {
+			cl = "en"
+		}
+		countryLinks = append(countryLinks, link{l.Country(c.Code), s.prefix + s.pagePath(cl, "/tolls/"+c.Slug)})
+	}
+	for _, x := range crossPages {
+		cl := lang
+		if !crossIn(lang) {
+			cl = "en"
+		}
+		others = append(others, link{l.T(x.Title), s.prefix + s.pagePath(cl, x.Path)})
+	}
+	for _, c := range cs {
+		v, row, cd := s.countryView(l, data[c.Code], day, today, year)
+		if !s.has(lang, c.Code) {
+			row.Href = s.prefix + "/tolls/" + c.Slug
+			rows = append(rows, row)
+			continue
+		}
+		rows = append(rows, row)
+		v.Others, v.Countries = others, countryLinks
+		v.Alternates = s.alternates(langs, "/tolls/"+c.Slug, func(x string) bool { return s.has(x, c.Code) })
+		add(s.pagePath(lang, "/tolls/"+c.Slug), s.render("country.html", v), cd, data[c.Code].Mod)
+	}
+	sort.SliceStable(rows, func(i, j int) bool { return rows[i].Name < rows[j].Name })
+	// Overview.
+	ov := overviewView{Rows: rows, Updated: l.Date(day), Others: others, Countries: countryLinks}
+	ov.H1 = l.T("ov.h1", "year", year)
+	ov.Lead = l.T("ov.lead")
+	if r, ok := fxOnDate(today); ok {
+		ov.FXNote = l.T("ov.fx", "date", l.Date(r))
+	}
+	path := s.pagePath(lang, "/tolls")
+	desc := l.T("ov.desc", "n", len(cs))
+	ld := s.datasetLD(path, l.T("ov.ld.name", "year", year), desc, "Europe", nil, "", lang)
+	ov.Head = s.mkHead(l, path, ov.H1, desc, ld, link{l.T("nav.tolls"), s.prefix + path})
+	ov.Alternates = s.alternates(langs, "/tolls", func(string) bool { return true })
+	add(path, s.render("overview.html", ov), card{Kicker: l.T("site.kicker"), Title: l.T("ov.card.title", "year", year), Big: l.T("ov.card.big", "n", len(cs)),
+		BigNote: l.T("ov.card.note"), Footer: hostPath(s.base) + path}, day)
+	if !crossIn(lang) {
+		return b
+	}
+	for _, p := range []struct {
+		path string
+		f    func(*Loc, []*country, map[string]*countryData, string, time.Time) (crossView, card)
+	}{{"/tolls/zero-emission-trucks", s.zePage}, {"/tolls/ets2-diesel", s.ets2Page}, {"/tolls/co2-tax-diesel", s.fuelPage}} {
+		v, cd := p.f(l, cs, data, day, today)
+		v.Others, v.Countries = others, countryLinks
+		v.Alternates = s.alternates(langs, p.path, crossIn)
+		add(s.pagePath(lang, p.path), s.render("cross.html", v), cd, day)
+	}
 	return b
 }
 

@@ -10,10 +10,12 @@ package site
 
 import (
 	"bytes"
+	"compress/gzip"
 	"embed"
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"net/url"
 	"sort"
@@ -41,16 +43,17 @@ type Site struct {
 	tmpl   *template.Template
 	locs   map[string]*Loc
 
-	mu    sync.Mutex
-	day   string
-	built *built
+	mu       sync.Mutex
+	day      string
+	built    *built
+	building bool
 }
 
 type built struct {
-	pages  map[string][]byte // by path under the root, e.g. "/tolls/de"
+	pages  map[string][]byte // gzipped, by path under the root, e.g. "/tolls/de"
 	cards  map[string]card   // share images, by path
-	images map[string][]byte
-	paths  []string // the sitemap's
+	images map[string][]byte // the share images drawn so far (at most maxImages)
+	paths  []string          // the sitemap's
 	mod    map[string]string
 }
 
@@ -112,10 +115,49 @@ func (s *Site) get() *built {
 	day := s.now().UTC().Format(time.DateOnly)
 	s.mu.Lock()
 	defer s.mu.Unlock()
-	if s.built == nil || s.day != day {
+	if s.built == nil {
 		s.built, s.day = s.build(day), day
+	} else if s.day != day && !s.building {
+		// A new day: keep serving the day before while the new pages build.
+		s.building = true
+		go func() {
+			b := s.build(day)
+			s.mu.Lock()
+			s.built, s.day, s.building = b, day, false
+			s.mu.Unlock()
+		}()
 	}
 	return s.built
+}
+
+// Warm builds the pages in the background, so the first visitor doesn't
+// wait for them.
+func (s *Site) Warm() { go s.get() }
+
+// gz compresses a page; pages are kept compressed.
+func gz(b []byte) []byte {
+	var out bytes.Buffer
+	w, _ := gzip.NewWriterLevel(&out, gzip.BestCompression)
+	w.Write(b)
+	w.Close()
+	return out.Bytes()
+}
+
+// writePage sends a gzipped page as is to clients that take gzip, else
+// unzipped.
+func writePage(w http.ResponseWriter, r *http.Request, page []byte) {
+	w.Header().Add("Vary", "Accept-Encoding")
+	if strings.Contains(r.Header.Get("Accept-Encoding"), "gzip") {
+		w.Header().Set("Content-Encoding", "gzip")
+		w.Write(page)
+		return
+	}
+	zr, err := gzip.NewReader(bytes.NewReader(page))
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	io.Copy(w, zr)
 }
 
 func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
@@ -124,7 +166,7 @@ func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
 	switch {
 	case p == "/sitemap.xml":
 		w.Header().Set("Content-Type", "application/xml; charset=utf-8")
-		w.Write(b.pages[p])
+		writePage(w, r, b.pages[p])
 		return
 	case p == "/robots.txt":
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -149,7 +191,7 @@ func (s *Site) serve(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.Header().Set("Cache-Control", "public, max-age=3600")
 	w.Header().Set("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; img-src 'self'; base-uri 'none'; form-action 'none'")
-	w.Write(page)
+	writePage(w, r, page)
 }
 
 func (s *Site) image(b *built, path string) ([]byte, bool) {
@@ -163,9 +205,16 @@ func (s *Site) image(b *built, path string) ([]byte, bool) {
 		return nil, false
 	}
 	img := c.render()
+	if len(b.images) >= maxImages {
+		clear(b.images)
+	}
 	b.images[path] = img
 	return img, true
 }
+
+// maxImages bounds the share images kept drawn; the rest are drawn again
+// when asked for (crawlers and caches keep them a day).
+const maxImages = 200
 
 // Head is what every page's <head> says, and its language.
 type Head struct {

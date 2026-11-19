@@ -92,7 +92,16 @@ func TestCoverage(t *testing.T) {
 		{"tanger-med-algeciras", "2026-11-20", 0.5, "one outside"},
 		{"durres-bari", "2026-11-20", 0.5, "one outside"},
 		{"klaipeda-karlshamn", "2026-11-20", 1, "Member States"},
+		{"nynashamn-visby", "2026-11-20", 0, "Sweden: Gotland, Visby"},
+		{"piombino-portoferraio", "2026-11-20", 0, "Italy: ISOLA D’ELBA, PORTOFERRAIO"},
+		{"denia-eivissa", "2026-11-20", 0, "Spain: IBIZA, EIVISSA"},
+		{"cirkewwa-mgarr", "2026-11-20", 0, "Malta: GOZO, MGARR"},
+		{"barcelona-mao", "2031-01-01", 1, "Member States"},
+		{"piraeus-chios", "2026-11-20", 0, "Greece: CHIOS, CHIOS"},
+		{"igoumenitsa-lefkimmi", "2026-11-20", 0, "Greece: KERKYRA, LEFKIMI"},
+		{"oskarshamn-visby", "2031-01-01", 1, "Member States"},
 		{"paldiski-kapellskar", "2026-11-20", 1, "Member States"},
+		{"tallinn-helsinki", "2026-11-20", 1, "Member States"},
 		{"ijmuiden-newcastle", "2026-11-20", 0.5, "one outside"},
 	} {
 		c, ok := byID[tc.id]
@@ -102,6 +111,13 @@ func TestCoverage(t *testing.T) {
 		cov, ok := d.Coverage(c, day(tc.day))
 		if !ok || cov.Share != tc.share || !strings.Contains(cov.Basis, tc.basis) {
 			t.Errorf("%s on %s: %v %q, want %v (%s)", tc.id, tc.day, cov.Share, cov.Basis, tc.share, tc.basis)
+		}
+	}
+	// Corfu's town port isn't in the Decision's list (Lefkimmi is): no
+	// Igoumenitsa–Corfu crossing under the derogation.
+	for id := range byID {
+		if strings.Contains(id, "corfu") {
+			t.Errorf("crossing %s: Corfu's town port isn't under the island derogation", id)
 		}
 	}
 	// A crossing whose ships aren't named says so.

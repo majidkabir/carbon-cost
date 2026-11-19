@@ -329,8 +329,11 @@ func (d Data) Coverage(c Crossing, day time.Time) (Coverage, bool) {
 		return Coverage{Basis: fmt.Sprintf("its ships are under %d GT, outside the EU ETS (Directive 2003/87/EC, Annex I): %s", ETSMinGT, why)}, true
 	}
 	cov, ok := c.portCoverage(day)
-	if small > 0 {
+	switch {
+	case small > 0:
 		cov.Note = fmt.Sprintf("some of its ships are under %d GT (%s): a crossing on one of them is outside the EU ETS", ETSMinGT, why)
+	case len(c.Ships) == 0 && cov.Share > 0:
+		cov.Note = fmt.Sprintf("its ships aren't known here: a crossing on one under %d GT is outside the EU ETS", ETSMinGT)
 	}
 	return cov, ok
 }

@@ -2,6 +2,54 @@
  "note": "Ferry crossings with the ships their operators' timetables and pages name, built by tools/tables/ferry_ships.py; IMO numbers from the EU MRV reports' ship lists.",
  "crossings": [
   {
+   "id": "aberdeen-kirkwall",
+   "name": "Aberdeen–Kirkwall",
+   "operator": "NorthLink Ferries",
+   "terminals": [
+    {
+     "name": "Aberdeen",
+     "lat": 57.145287,
+     "lon": -2.09175,
+     "country": "GB"
+    },
+    {
+     "name": "Kirkwall",
+     "lat": 58.999691,
+     "lon": -2.974082,
+     "country": "GB"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Aberdeen - Kirkwall (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/589930638"
+   }
+  },
+  {
+   "id": "aberdeen-lerwick",
+   "name": "Aberdeen–Lerwick",
+   "operator": "NorthLink Ferries",
+   "terminals": [
+    {
+     "name": "Aberdeen",
+     "lat": 57.145287,
+     "lon": -2.09175,
+     "country": "GB"
+    },
+    {
+     "name": "Lerwick",
+     "lat": 60.163032,
+     "lon": -1.156712,
+     "country": "GB"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Aberdeen-Lerwick (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/173031954"
+   }
+  },
+  {
    "id": "belfast-cairnryan",
    "name": "Belfast–Cairnryan",
    "operator": "Stena Line",
@@ -95,6 +143,102 @@
    "source": {
     "title": "Stena Line: Belfast – Liverpool, its ferries",
     "url": "https://stenalinefreight.com/routes/belfast-liverpool/"
+   }
+  },
+  {
+   "id": "cairnryan-larne",
+   "name": "Cairnryan–Larne",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Cairnryan",
+     "lat": 54.961562,
+     "lon": -5.014064,
+     "country": "GB"
+    },
+    {
+     "name": "Larne",
+     "lat": 54.846449,
+     "lon": -5.79753,
+     "country": "GB"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Larne - Cairnryan (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/481313220"
+   }
+  },
+  {
+   "id": "douglas-heysham",
+   "name": "Douglas–Heysham",
+   "operator": "Isle of Man Steam Packet Company",
+   "terminals": [
+    {
+     "name": "Douglas",
+     "lat": 54.147138,
+     "lon": -4.472776,
+     "country": "IM"
+    },
+    {
+     "name": "Heysham",
+     "lat": 54.033704,
+     "lon": -2.913543,
+     "country": "GB"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Douglas - Heysham (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/26695667"
+   }
+  },
+  {
+   "id": "dover-calais",
+   "name": "Dover–Calais",
+   "operator": "P & O; P&O / DFDS / Irish Ferries; P&O;Irish Ferries",
+   "terminals": [
+    {
+     "name": "Dover",
+     "lat": 51.123741,
+     "lon": 1.332393,
+     "country": "GB"
+    },
+    {
+     "name": "Calais",
+     "lat": 50.966748,
+     "lon": 1.849689,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Douvres - Calais; Dover (UK) - Calais (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/28591383"
+   }
+  },
+  {
+   "id": "dover-dunkerque",
+   "name": "Dover–Dunkerque",
+   "operator": "DFDS",
+   "terminals": [
+    {
+     "name": "Dover",
+     "lat": 51.126805,
+     "lon": 1.338059,
+     "country": "GB"
+    },
+    {
+     "name": "Dunkerque",
+     "lat": 51.02021,
+     "lon": 2.189764,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Dover (UK) - Dunkerque (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/23637666"
    }
   },
   {
@@ -332,6 +476,30 @@
    }
   },
   {
+   "id": "heysham-dublin",
+   "name": "Heysham–Dublin",
+   "operator": "CLdn",
+   "terminals": [
+    {
+     "name": "Heysham",
+     "lat": 54.034624,
+     "lon": -2.913397,
+     "country": "GB"
+    },
+    {
+     "name": "Dublin",
+     "lat": 53.347963,
+     "lon": -6.192777,
+     "country": "IE"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Dublin - Heysham (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/182012854"
+   }
+  },
+  {
    "id": "hoek-van-holland-harwich",
    "name": "Hoek van Holland–Harwich",
    "operator": "Stena Line",
@@ -398,6 +566,54 @@
    }
   },
   {
+   "id": "hull-rotterdam",
+   "name": "Hull–Rotterdam",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Hull",
+     "lat": 53.740781,
+     "lon": -0.279467,
+     "country": "GB"
+    },
+    {
+     "name": "Rotterdam",
+     "lat": 51.944958,
+     "lon": 4.131561,
+     "country": "NL"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Hull - Rotterdam (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/32340204"
+   }
+  },
+  {
+   "id": "kirkwall-lerwick",
+   "name": "Kirkwall–Lerwick",
+   "operator": "NorthLink Ferries",
+   "terminals": [
+    {
+     "name": "Kirkwall",
+     "lat": 58.999691,
+     "lon": -2.974082,
+     "country": "GB"
+    },
+    {
+     "name": "Lerwick",
+     "lat": 60.16292,
+     "lon": -1.157663,
+     "country": "GB"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Kirkwall - Lerwick (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/137947177"
+   }
+  },
+  {
    "id": "koge-ronne",
    "name": "Køge–Rønne",
    "operator": "Bornholmslinjen",
@@ -439,6 +655,54 @@
    }
   },
   {
+   "id": "newcastle-ijmuiden",
+   "name": "Newcastle–IJmuiden",
+   "operator": "Det Forenede Dampskibs-Selskab A/S",
+   "terminals": [
+    {
+     "name": "Newcastle",
+     "lat": 54.991951,
+     "lon": -1.449894,
+     "country": "GB"
+    },
+    {
+     "name": "IJmuiden",
+     "lat": 52.462631,
+     "lon": 4.584395,
+     "country": "NL"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Newcastle - IJmuiden (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/239651906"
+   }
+  },
+  {
+   "id": "newhaven-dieppe",
+   "name": "Newhaven–Dieppe",
+   "operator": "DFDS Seaways",
+   "terminals": [
+    {
+     "name": "Newhaven",
+     "lat": 50.788359,
+     "lon": 0.055558,
+     "country": "GB"
+    },
+    {
+     "name": "Dieppe",
+     "lat": 49.933605,
+     "lon": 1.088089,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Newhaven (UK) - Dieppe (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/210008655"
+   }
+  },
+  {
    "id": "nynashamn-ventspils",
    "name": "Nynäshamn–Ventspils",
    "operator": "Stena Line",
@@ -469,6 +733,198 @@
    "source": {
     "title": "Stena Line: Nynäshamn – Ventspils, its ferries",
     "url": "https://stenalinefreight.com/routes/nynashamn-ventspils/"
+   }
+  },
+  {
+   "id": "pembroke-rosslare",
+   "name": "Pembroke–Rosslare",
+   "operator": "Irish Ferries",
+   "terminals": [
+    {
+     "name": "Pembroke",
+     "lat": 51.69828,
+     "lon": -4.953057,
+     "country": "GB"
+    },
+    {
+     "name": "Rosslare",
+     "lat": 52.253551,
+     "lon": -6.337105,
+     "country": "IE"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Pembroke Dock to Rosslare (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/4642313"
+   }
+  },
+  {
+   "id": "plymouth-roscoff",
+   "name": "Plymouth–Roscoff",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Plymouth",
+     "lat": 50.364307,
+     "lon": -4.156643,
+     "country": "GB"
+    },
+    {
+     "name": "Roscoff",
+     "lat": 48.721543,
+     "lon": -3.963765,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Plymouth (UK) – Roscoff (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/150212384"
+   }
+  },
+  {
+   "id": "plymouth-santander",
+   "name": "Plymouth–Santander",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Plymouth",
+     "lat": 50.364307,
+     "lon": -4.156643,
+     "country": "GB"
+    },
+    {
+     "name": "Santander",
+     "lat": 43.458947,
+     "lon": -3.805612,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Plymouth (UK) - Santander (E) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/587547089"
+   }
+  },
+  {
+   "id": "portsmouth-bilbao",
+   "name": "Portsmouth–Bilbao",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Portsmouth",
+     "lat": 50.811194,
+     "lon": -1.09507,
+     "country": "GB"
+    },
+    {
+     "name": "Bilbao",
+     "lat": 43.354894,
+     "lon": -3.067861,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Portsmouth - Bilbao (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/432548283"
+   }
+  },
+  {
+   "id": "portsmouth-caen",
+   "name": "Portsmouth–Caen",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Portsmouth",
+     "lat": 50.811194,
+     "lon": -1.09507,
+     "country": "GB"
+    },
+    {
+     "name": "Caen",
+     "lat": 49.289338,
+     "lon": -0.247788,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Portsmouth (UK) - Ouistreham (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/420041114"
+   }
+  },
+  {
+   "id": "portsmouth-cherbourg",
+   "name": "Portsmouth–Cherbourg",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Portsmouth",
+     "lat": 50.811194,
+     "lon": -1.09507,
+     "country": "GB"
+    },
+    {
+     "name": "Cherbourg",
+     "lat": 49.643776,
+     "lon": -1.61537,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Portsmouth (UK) - Cherbourg-en-Cotentin (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/10936354"
+   }
+  },
+  {
+   "id": "portsmouth-saint-malo",
+   "name": "Portsmouth–Saint-Malo",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Portsmouth",
+     "lat": 50.811194,
+     "lon": -1.09507,
+     "country": "GB"
+    },
+    {
+     "name": "Saint-Malo",
+     "lat": 48.641158,
+     "lon": -2.027719,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Portsmouth (UK) - Saint-Malo (F) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/378235005"
+   }
+  },
+  {
+   "id": "portsmouth-santander",
+   "name": "Portsmouth–Santander",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Portsmouth",
+     "lat": 50.811194,
+     "lon": -1.09507,
+     "country": "GB"
+    },
+    {
+     "name": "Santander",
+     "lat": 43.458947,
+     "lon": -3.805612,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Portsmouth - Santander (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/201337669"
    }
   },
   {
@@ -763,6 +1219,102 @@
    "source": {
     "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
     "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "teesport-rotterdam",
+   "name": "Teesport–Rotterdam",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Teesport",
+     "lat": 54.598956,
+     "lon": -1.148742,
+     "country": "GB"
+    },
+    {
+     "name": "Rotterdam",
+     "lat": 51.943331,
+     "lon": 4.127801,
+     "country": "NL"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Europoort - Teesport (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/96109913"
+   }
+  },
+  {
+   "id": "teesport-zeebrugge",
+   "name": "Teesport–Zeebrugge",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Teesport",
+     "lat": 54.598956,
+     "lon": -1.148742,
+     "country": "GB"
+    },
+    {
+     "name": "Zeebrugge",
+     "lat": 51.340972,
+     "lon": 3.189665,
+     "country": "BE"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Zeebrugge - Teesport (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/96053700"
+   }
+  },
+  {
+   "id": "tilbury-zeebrugge",
+   "name": "Tilbury–Zeebrugge",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Tilbury",
+     "lat": 51.451668,
+     "lon": 0.384445,
+     "country": "GB"
+    },
+    {
+     "name": "Zeebrugge",
+     "lat": 51.331455,
+     "lon": 3.192985,
+     "country": "BE"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Tilbury - Zeebrugge; Zeebrugge - Tilbury (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/1235920594"
+   }
+  },
+  {
+   "id": "torshavn-hirtshals",
+   "name": "Tórshavn–Hirtshals",
+   "operator": "Smyril Line",
+   "terminals": [
+    {
+     "name": "Tórshavn",
+     "lat": 62.007902,
+     "lon": -6.766673,
+     "country": "FO"
+    },
+    {
+     "name": "Hirtshals",
+     "lat": 57.59589,
+     "lon": 9.975589,
+     "country": "DK"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Hirtshals - Tórshavn (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/447886765"
    }
   },
   {

@@ -266,7 +266,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[14.493876, 45.01919]]
+     "coordinates": [[14.493868, 45.019177]]
     },
     "point_names": ["VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)"],
     "match_m": 150
@@ -292,7 +292,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[14.493876, 45.01919]]
+     "coordinates": [[14.493868, 45.019177]]
     },
     "point_names": ["VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)"],
     "match_m": 150
@@ -422,9 +422,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[14.499334, 45.019743]]
+     "coordinates": [[14.49841, 45.020341]]
     },
-    "point_names": ["VALBISKA port, 1.0 km out on the line to LOPAR (OSM way 8100818)"],
+    "point_names": ["VALBISKA port, 0.8 km out on the line to LOPAR (OSM way 8100818)"],
     "match_m": 150
    }
   },
@@ -448,9 +448,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[14.499334, 45.019743]]
+     "coordinates": [[14.49841, 45.020341]]
     },
-    "point_names": ["VALBISKA port, 1.0 km out on the line to LOPAR (OSM way 8100818)"],
+    "point_names": ["VALBISKA port, 0.8 km out on the line to LOPAR (OSM way 8100818)"],
     "match_m": 150
    }
   },

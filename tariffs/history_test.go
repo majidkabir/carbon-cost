@@ -150,7 +150,16 @@ func TestNorwegianHolidays(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	ds := dataset(t, s, "no/no-2026-11-12.orct.json")
+	// The current toll stations: the latest no/no-<date> dataset.
+	var ds *Dataset
+	for _, d := range s.All {
+		if strings.HasPrefix(d.File, "no/no-2") && (ds == nil || d.File > ds.File) {
+			ds = d
+		}
+	}
+	if ds == nil {
+		t.Fatal("no Norwegian toll dataset")
+	}
 	oslo, err := time.LoadLocation("Europe/Oslo")
 	if err != nil {
 		t.Fatal(err)

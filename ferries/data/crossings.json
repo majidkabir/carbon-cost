@@ -114,38 +114,6 @@
    }
   },
   {
-   "id": "koge-ronne",
-   "name": "Køge–Rønne",
-   "operator": "Bornholmslinjen",
-   "terminals": [
-    {
-     "name": "Køge",
-     "lat": 55.456,
-     "lon": 12.19494,
-     "country": "DK"
-    },
-    {
-     "name": "Rønne",
-     "lat": 55.09977,
-     "lon": 14.69132,
-     "country": "DK"
-    }
-   ],
-   "ships": [],
-   "exemptions": [
-    {
-     "from": "2024-01-01",
-     "until": "2030-12-31",
-     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Denmark: Bornholm, Rønne)",
-     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
-    }
-   ],
-   "source": {
-    "title": "Bornholmslinjen: the ferries",
-    "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
-   }
-  },
-  {
    "id": "hou-saelvig",
    "name": "Hou–Sælvig",
    "operator": "Samsø Rederi",
@@ -243,6 +211,96 @@
    "source": {
     "title": "FANØLINJEN: the ferries (M/F Fenja and M/F Menja, its two car ferries, completed in 1998; Fenja IMO 9189378)",
     "url": "https://www.fanoelinjen.dk/om-fanoelinjen/faerger"
+   }
+  },
+  {
+   "id": "virtsu-kuivastu",
+   "name": "Virtsu–Kuivastu",
+   "operator": "TS Laevad",
+   "terminals": [
+    {
+     "name": "Virtsu",
+     "lat": 58.57506,
+     "lon": 23.5083,
+     "country": "EE"
+    },
+    {
+     "name": "Kuivastu",
+     "lat": 58.57312,
+     "lon": 23.39438,
+     "country": "EE"
+    }
+   ],
+   "ships": [
+    {
+     "name": "LEIGER",
+     "since": 2017
+    },
+    {
+     "name": "TIIU",
+     "since": 2017
+    },
+    {
+     "name": "TÕLL",
+     "since": 2017
+    },
+    {
+     "name": "PIRET",
+     "since": 2017
+    },
+    {
+     "name": "REGULA",
+     "since": 1971
+    }
+   ],
+   "source": {
+    "title": "TS Laevad (praamid.ee): our ferries (Leiger, Regula, Piret, Tõll, Tiiu, the five on the Virtsu–Kuivastu and Rohuküla–Heltermaa routes; built 2015–2017, Regula 1971)",
+    "url": "https://www.praamid.ee/en/ferries/"
+   }
+  },
+  {
+   "id": "rohukula-heltermaa",
+   "name": "Rohuküla–Heltermaa",
+   "operator": "TS Laevad",
+   "terminals": [
+    {
+     "name": "Rohuküla",
+     "lat": 58.90651,
+     "lon": 23.42282,
+     "country": "EE"
+    },
+    {
+     "name": "Heltermaa",
+     "lat": 58.86634,
+     "lon": 23.04801,
+     "country": "EE"
+    }
+   ],
+   "ships": [
+    {
+     "name": "LEIGER",
+     "since": 2017
+    },
+    {
+     "name": "TIIU",
+     "since": 2017
+    },
+    {
+     "name": "TÕLL",
+     "since": 2017
+    },
+    {
+     "name": "PIRET",
+     "since": 2017
+    },
+    {
+     "name": "REGULA",
+     "since": 1971
+    }
+   ],
+   "source": {
+    "title": "TS Laevad (praamid.ee): our ferries (Leiger, Regula, Piret, Tõll, Tiiu, the five on the Virtsu–Kuivastu and Rohuküla–Heltermaa routes; built 2015–2017, Regula 1971)",
+    "url": "https://www.praamid.ee/en/ferries/"
    }
   }
  ]

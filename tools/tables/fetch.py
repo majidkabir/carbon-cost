@@ -222,9 +222,9 @@ def scandlines(out, manifest, sid, page_url, page):
 
 
 def polsca(out, manifest, sid, page_url, page):
-    """The PDFs a POLSCA Baltic Ferries documents page on unityline.eu links
-    (freight tariffs, surcharge announcements), saved as <id>-<file name,
-    lower case>.pdf."""
+    """The PDFs a POLSCA Baltic Ferries documents or timetables page on
+    unityline.eu links (freight tariffs, surcharge announcements,
+    timetables), saved as <id>-<file name, lower case>.pdf."""
     text = html.unescape(page.decode("utf-8", "replace"))
     seen = {}
     for u in re.findall(r"""href=["']([^"']*/__data/assets/pdf_file/[^"']+\.pdf)(?:\?[^"']*)?["']""", text):
@@ -298,7 +298,7 @@ def store(out, manifest, s, status, body, asked):
         uradni_list(out, manifest, s["id"], s["url"], body)
     if "freight.scandlines.com/freight-conditions/" in s["url"] and status == 200:
         scandlines(out, manifest, s["id"], s["url"], body)
-    if "unityline.eu/cargo/documents-polsca/" in s["url"] and status == 200:
+    if ("unityline.eu/cargo/documents-polsca/" in s["url"] or "unityline.eu/cargo/timetables" in s["url"]) and status == 200:
         polsca(out, manifest, s["id"], s["url"], body)
 
 

@@ -632,6 +632,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/dk-alslinjen/2026-01-01",
+   "scheme": "dk-alslinjen",
+   "country": "DK",
+   "file": "dk/dk-alslinjen-2026-01-01.orct.json",
+   "name": "ALSLINJEN's ferries Bøjden–Fynshav, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "04ac979dfca4426619ca047ebfc8997f1aaa62ce30477867d915c0caae13f2a5",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-alslinjen/2027-01-01",
+   "scheme": "dk-alslinjen",
+   "country": "DK",
+   "file": "dk/dk-alslinjen-2027-01-01.orct.json",
+   "name": "ALSLINJEN's ferries Bøjden–Fynshav, trucks",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "44dd96b419031053c0c891d762a8938f55425340555c1818714a31a7a352174e",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/dk-bornholm/2026-01-01",
    "scheme": "dk-bornholm",
    "country": "DK",
@@ -684,6 +706,72 @@
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
    "sha256": "24833735b0ef5e299251070c2035ee0df8377f2980f909f5edc6d8ee7c5c29d7",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-fanoelinjen/2026-01-01",
+   "scheme": "dk-fanoelinjen",
+   "country": "DK",
+   "file": "dk/dk-fanoelinjen-2026-01-01.orct.json",
+   "name": "FANØLINJEN's ferries Esbjerg–Nordby, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "cb2b16167196f8a88a3917e8931633db751851150a235c2b6b9f10181de06b6c",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-langelandslinjen/2026-01-01",
+   "scheme": "dk-langelandslinjen",
+   "country": "DK",
+   "file": "dk/dk-langelandslinjen-2026-01-01.orct.json",
+   "name": "LANGELANDSLINJEN's ferries Spodsbjerg–Tårs, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "825eac5e9cd3e6f71859ec7408b068758db4bce1a923ea657e6ae040f65f1bab",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-molslinjen/2026-11-19",
+   "scheme": "dk-molslinjen",
+   "country": "DK",
+   "file": "dk/dk-molslinjen-2026-11-19.orct.json",
+   "name": "MOLSLINJEN's ferries Aarhus–Odden, Ebeltoft–Odden, trucks",
+   "valid_from": "2026-11-19",
+   "valid_to": null,
+   "sha256": "d4bc9a250c2c9d27ba9232b6d50fb71162ba64977cecdece85f44d5008fa1eb2",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-samsoe-rederi/2026-11-19",
+   "scheme": "dk-samsoe-rederi",
+   "country": "DK",
+   "file": "dk/dk-samsoe-rederi-2026-11-19.orct.json",
+   "name": "Samsø Rederi's ferries Hou–Sælvig, trucks",
+   "valid_from": "2026-11-19",
+   "valid_to": null,
+   "sha256": "57e2d1cc93167303ac0c6c717a3971f5cd36ddfeeea438d6d5f1a7bac74ff0aa",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-samsoelinjen/2026-01-01",
+   "scheme": "dk-samsoelinjen",
+   "country": "DK",
+   "file": "dk/dk-samsoelinjen-2026-01-01.orct.json",
+   "name": "SAMSØLINJEN's ferries Kalundborg–Ballen, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "6f4d9677930e66ce74f4e3aab98f6783b467b5e9d711b6f0d349bec4f7b84a4a",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-samsoelinjen/2027-01-01",
+   "scheme": "dk-samsoelinjen",
+   "country": "DK",
+   "file": "dk/dk-samsoelinjen-2027-01-01.orct.json",
+   "name": "SAMSØLINJEN's ferries Kalundborg–Ballen, trucks",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "16f93ebdd8eeb557297fa25d0121e29fe9eed6f71fa4dfb611c4e022fa43e297",
    "coverage": "complete"
   },
   {

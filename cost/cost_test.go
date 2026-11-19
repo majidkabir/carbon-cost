@@ -3378,3 +3378,57 @@ func TestBornholm(t *testing.T) {
 		}
 	}
 }
+
+// TestDanishFerries prices Denmark's domestic car ferries by the truck's
+// length, from each line's freight page (dk_ferries.py), without VAT:
+// SAMSØLINJEN's price per started metre over 20 m, ALSLINJEN's,
+// FANØLINJEN's and LANGELANDSLINJEN's prices less 25% VAT, MOLSLINJEN's
+// without its ETS fee, Samsø Rederi's less the VAT it states.
+func TestDanishFerries(t *testing.T) {
+	kalundborg := [][2]float64{{11.10, 55.68}, {11.088593, 55.672809}, {10.650119, 55.810439}, {10.64, 55.80}}
+	fynshav := [][2]float64{{10.09, 55.11}, {10.075224, 55.106418}, {9.989193, 55.000434}, {9.98, 54.99}}
+	nordby := [][2]float64{{8.45, 55.47}, {8.434987, 55.457539}, {8.413289, 55.453699}, {8.40, 55.45}}
+	tars := [][2]float64{{10.82, 54.93}, {10.840707, 54.934061}, {11.021733, 54.875419}, {11.03, 54.87}}
+	aarhus := [][2]float64{{10.24, 56.15}, {10.256237, 56.15617}, {11.265266, 55.968235}, {11.30, 55.97}}
+	ebeltoft := [][2]float64{{10.67, 56.16}, {10.661377, 56.151544}, {11.267878, 55.970718}, {11.30, 55.97}}
+	hou := [][2]float64{{10.26, 55.91}, {10.34828, 55.92655}, {10.548473, 55.868734}, {10.55, 55.86}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	d26, d27 := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2027, 3, 3, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name, op string
+		path     [][2]float64
+		truck    rates.Truck
+		date     time.Time
+		dkk      float64
+	}{
+		{"Kalundborg-Ballen, semi-trailer, 2026", "SAMSØLINJEN", kalundborg, truck40, d26, 293},
+		{"Kalundborg-Ballen, semi-trailer, 2027", "SAMSØLINJEN", kalundborg, truck40, d27, 300},
+		{"Kalundborg-Ballen, 10 m lorry, 2026", "SAMSØLINJEN", kalundborg, length(10), d26, 191},
+		{"Kalundborg-Ballen, 25.25 m, 2026", "SAMSØLINJEN", kalundborg, length(25.25), d26, 293 + 6*17},
+		{"Bøjden-Fynshav, semi-trailer, 2026", "ALSLINJEN", fynshav, truck40, d26, 958 / 1.25},
+		{"Bøjden-Fynshav, 12 m lorry, 2027", "ALSLINJEN", fynshav, length(12), d27, 721 / 1.25},
+		{"Esbjerg-Nordby, semi-trailer", "FANØLINJEN", nordby, truck40, d26, 1625 / 1.25},
+		{"Esbjerg-Nordby, road train", "FANØLINJEN", nordby, length(18.75), d26, 1805 / 1.25},
+		{"Spodsbjerg-Tårs, semi-trailer", "LANGELANDSLINJEN", tars, truck40, d26, 1330 / 1.25},
+		{"Spodsbjerg-Tårs, 25.25 m", "LANGELANDSLINJEN", tars, length(25.25), d26, 1993 / 1.25},
+		{"Aarhus-Odden, semi-trailer", "MOLSLINJEN", aarhus, truck40, d26, 1500},
+		{"Aarhus-Odden, 12 m lorry", "MOLSLINJEN", aarhus, length(12), d26, 1100},
+		{"Ebeltoft-Odden, road train", "MOLSLINJEN", ebeltoft, length(18.75), d26, 1500},
+		{"Hou-Sælvig, semi-trailer", "Samsø Rederi", hou, truck40, d26, 694.16 - 138.83},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DK": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, tc.op) {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.dkk) > 0.011 {
+			t.Errorf("%s: %.2f DKK, want %.2f: %v", tc.name, got, tc.dkk, r.Notes)
+		}
+	}
+}

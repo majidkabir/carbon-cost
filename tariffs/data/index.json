@@ -67,7 +67,7 @@
    "name": "Felbertauerntunnel toll (Felbertauernstraße)",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "59c1ea1bf911e5c680f681256832fd2be2a536d21871a76d0019013eb2f171a4",
+   "sha256": "982b338de2b36eb743d48c722d5fcbd9d318f59fd59a9ec8ccb20d4938c77a04",
    "coverage": "complete"
   },
   {
@@ -1574,7 +1574,7 @@
    "name": "Humber Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "86de5ad26a627b5e0006bdf04b92871be051b0124bc2f54dd7e7095f8a5d6bf3",
+   "sha256": "e5009bfd3d13b21f47c3700a42b3eaeea98d784aa69a992e71bbce329946f46b",
    "coverage": "complete"
   },
   {
@@ -1596,7 +1596,7 @@
    "name": "Mersey Gateway and Silver Jubilee bridges toll",
    "valid_from": "2025-04-01",
    "valid_to": null,
-   "sha256": "9ccc581cf7813cc9413b7feb8d28b8551d60109d879596407c21f4e7097a2720",
+   "sha256": "b124564d4ceecfed48f8d9ae919f7de320274227dc0dc013ce3d6e84d7f59784",
    "coverage": "complete"
   },
   {
@@ -1607,7 +1607,7 @@
    "name": "Tamar Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "b95af19d41f16d3b27c0bcbdc7a102c3c2ca5bbb8bd7bd6c33c38b8278e78d08",
+   "sha256": "c88158b0368043f7686865146a269b7487f40706e9dd2750456e37af7a2b241e",
    "coverage": "complete"
   },
   {
@@ -2069,7 +2069,7 @@
    "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "8ba093a90f810247cc491ce8c2235edbed934089f2289663dcd84bd4b9247333",
+   "sha256": "6509f75f04d8268c4f2e385609a29a818e7d940802f20b1225a7875b97f72299",
    "coverage": "complete"
   },
   {
@@ -2421,7 +2421,7 @@
    "name": "Kiltunnel toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "b21da87fafe93c599a51aef82d37feeb6780955a373c9088afa95c784d484e0c",
+   "sha256": "56e9d9b4c3342d7148691e5cd35e9dd1b718a96baa25630cb04dbdf72b7f8f67",
    "coverage": "complete"
   },
   {

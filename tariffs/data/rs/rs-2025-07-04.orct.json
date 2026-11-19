@@ -17,7 +17,7 @@
   "currency": "RSD",
   "timezone": "Europe/Belgrade",
   "license": "MIT",
-  "method": "JP Putevi Srbije's Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), with the Government's consent, as amended in Službeni glasnik RS 58/2025 (applying from 2025-07-04, Lučani and Prilipac from 2025-07-10): the toll in RSD from entry to exit station on each characteristic section, by vehicle category; in force until 2025-07-09. The decision's tables are scans: read by OCR (tools/history/rs_gazette.py), each price checked against its mirror cell and category IV against III; 17 pairs where a category couldn't be read for certain have no price for it. Stations placed at OpenStreetMap's toll booths of their name.",
+  "method": "JP Putevi Srbije's Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), with the Government's consent, as amended in Službeni glasnik RS 58/2025 (applying from 2025-07-04, Lučani and Prilipac from 2025-07-10): the toll in RSD from entry to exit station on each characteristic section, by vehicle category; in force until 2025-07-09. The decision's tables are scans: read by OCR (tools/rs/gazette_ocr.py), each price checked against its mirror cell and category IV against III; 17 pairs where a category couldn't be read for certain have no price for it. Stations placed at OpenStreetMap's toll booths of their name. The Belgrade bypass (category IV per section) is its own table.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "rs-2025-07-04.json"

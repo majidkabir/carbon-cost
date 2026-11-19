@@ -170,6 +170,7 @@ type Charge struct {
 	Unmatched      string                `json:"unmatched,omitempty"`
 	MassBasis      string                `json:"mass_basis,omitempty"`
 	MassCapKg      *float64              `json:"mass_cap_kg,omitempty"`
+	MassStepKg     *float64              `json:"mass_step_kg,omitempty"`
 	TimeBasis      string                `json:"time_basis,omitempty"`
 	Directed       bool                  `json:"directed,omitempty"`
 	DayBasis       string                `json:"day_basis,omitempty"`

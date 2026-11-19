@@ -147,6 +147,19 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 }
 
 // unpriced notes what the statement couldn't price.
+// classesTest says whether any vehicle class of the dataset tests the
+// parameter.
+func classesTest(ds *tariffs.Dataset, param string) bool {
+	for _, s := range ds.Doc.Sets {
+		for _, c := range s.Classes {
+			if _, ok := c.Criteria[param]; ok {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 	for _, i := range st.Issues {
 		switch i.Code {
@@ -159,6 +172,9 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 				if strings.Contains(i.Message, param) {
 					hint = fmt.Sprintf(" Give %s (and truck.motor_axles): the charge goes by each vehicle's own permissible mass.", field)
 				}
+			}
+			if strings.Contains(i.Message, "vehicle parameter load_capacity_kg ") {
+				hint = " Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by the tonne of it."
 			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
@@ -791,6 +807,11 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 		}
 		l := priced[u.meta]
 		if l == nil {
+			if _, given := p.vehicle["load_capacity_kg"]; !given && classesTest(ds, "load_capacity_kg") {
+				p.note("%s: %s from %s to %s not priced. Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by it.",
+					country, ch.Name, u.use.entry.Name, u.use.exit.Name)
+				continue
+			}
 			group := p.groupOf(ds, ch)
 			p.note("%s: %s has no price from %s to %s for group %s.", country, ch.Name, u.use.entry.Name, u.use.exit.Name, group)
 			continue

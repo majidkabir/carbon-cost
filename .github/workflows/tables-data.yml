@@ -103,14 +103,15 @@ jobs:
           osmium extract -O -b 20.2,44.65,20.6,44.95 rs.pbf -o rs-bg.pbf
           osmium tags-filter -O -o rs-bg-m.pbf rs-bg.pbf w/highway=motorway n/highway=motorway_junction
           osmium export -O -f geojsonseq -a type,id -o out/rs-bypass-osm.geojsonseq rs-bg-m.pbf
-      - name: Serbian toll decision's tables (OCR)
-        # tools/rs/gazette_ocr.py reads the scanned tables of the putarina
-        # decision's amendment in force (tools/tables/rs.py); the last run's
-        # reading is kept while the issue's content is the same.
+      - name: OCR tools, and the Serbian toll decision's tables
+        # Tesseract reads tables published only as scans or images: CalMac's
+        # fares (gb_calmac.py, in Build) and the putarina decision's
+        # amendment in force (tools/rs/gazette_ocr.py, here; tools/tables/rs.py),
+        # whose last run's reading is kept while the issue's content is the same.
         run: |
-          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
-          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng tesseract-ocr-srp >/dev/null && break; sleep 30; done
           pip install -q opencv-python-headless pytesseract pymupdf
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
           git fetch -q --depth 1 origin tables-out
           for f in out/rs-sg-*.pdf; do
             b=$(basename "$f" .pdf)
@@ -131,11 +132,22 @@ jobs:
           run python3 tools/tables/mont_blanc.py out out/tables
           run python3 tools/tables/lv.py out out/tables
           run python3 tools/tables/ee.py out out/tables
+          run python3 tools/tables/ee_ferries.py out out/tables
           run python3 tools/tables/se.py out out/tables
           run python3 tools/tables/lu.py out out/tables
           run python3 tools/tables/gb.py out out/tables
           run python3 tools/tables/no.py out out/tables
           run python3 tools/tables/no_ferries.py out out/tables
+          run python3 tools/tables/gb_calmac.py out out/tables
+          run python3 tools/tables/hr_jadrolinija.py out out/tables
+          run python3 tools/tables/it_messina.py out out/tables
+          run python3 tools/tables/dk_bornholm.py out out/tables
+          run python3 tools/tables/dk_ferries.py out out/tables
+          run python3 tools/tables/scandlines.py out out/tables
+          run python3 tools/tables/polsca.py out out/tables
+          run python3 tools/tables/de_elbfaehre.py out out/tables
+          run python3 tools/tables/ets_islands.py out out/ferries
+          run python3 tools/tables/ferry_ships.py out out/ferries
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables
@@ -186,6 +198,8 @@ jobs:
       - name: Compare with the committed datasets
         run: |
           cmp -s out/tables/hu-annex1.json tools/roads/hu-annex1.json && echo "hu-annex1.json: same as committed" || echo "::warning title=hu-annex1.json::differs from tools/roads/hu-annex1.json"
+          cmp -s out/ferries/crossings-islands.json ferries/data/crossings-islands.json && echo "crossings-islands.json: same as committed" || echo "::warning title=crossings-islands.json::differs from ferries/data/crossings-islands.json"
+          cmp -s out/ferries/crossings-ships.json ferries/data/crossings-ships.json && echo "crossings-ships.json: same as committed" || echo "::warning title=crossings-ships.json::differs from ferries/data/crossings-ships.json"
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
           cd out/tables
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt

@@ -1,0 +1,10 @@
+{{define "overview.html"}}{{template "head" .Head}}
+<h1>{{.H1}}</h1>
+<p class="lead">{{.Lead}}</p>
+<a class="cta" href="{{.Prefix}}/">{{.L.T "cta.price"}}</a>
+<div class="scroll"><table>
+<thead><tr><th>{{.L.T "ov.col.country"}}</th><th>{{.L.T "ov.col.how"}}</th><th class="n">{{.L.T "ov.col.rate"}}</th><th class="n co2">{{.L.T "ov.col.co2"}}</th><th>{{.L.T "ov.col.ze"}}</th><th class="n">{{.L.T "ov.col.fuel"}}</th></tr></thead>
+<tbody>{{range .Rows}}<tr><td><a href="{{.Href}}">{{.Name}}</a></td><td>{{.How}}</td><td class="n">{{.Rate}}</td><td class="n co2">{{.Share}}</td><td>{{.ZE}}</td><td class="n">{{.Fuel}}</td></tr>
+{{end}}</tbody></table></div>
+<p class="note">{{.L.T "ov.note"}} {{.FXNote}}</p>
+{{template "foot" .}}{{end}}

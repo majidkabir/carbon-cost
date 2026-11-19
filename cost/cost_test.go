@@ -298,6 +298,76 @@ func TestPrice_FerryMRV(t *testing.T) {
 	}
 }
 
+// Ferry ETS by law: Køge-Rønne is under the Bornholm derogation
+// (Implementing Decision (EU) 2023/2895), Esbjerg-Nordby's ferries are
+// under 5,000 GT, and a trip over two crossings gets a line for each.
+func TestPrice_FerryETSByLaw(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	nov26 := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	trip := func(path [][2]float64, parts ...sootcase.Part) sootcase.Result {
+		var km, ttw float64
+		for _, p := range parts {
+			km += p.DistanceKm
+			ttw += p.TTWKg
+		}
+		return sootcase.Result{TTWKg: 100 + ttw, Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 100 + ttw,
+			RouteParts: map[string]float64{"ferry": km}, CountryKm: map[string]float64{"DK": 200 - km}, Path: path, Parts: parts}}}
+	}
+	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}
+	ferryLines := func(r Response) []Line {
+		var out []Line
+		for _, l := range r.Lines {
+			if l.Charge == FerryETS {
+				out = append(out, l)
+			}
+		}
+		return out
+	}
+	// Køge-Rønne: no ETS cost.
+	koge := [][2]float64{{12.15, 55.46}, {12.19494, 55.456}, {14.69132, 55.09977}, {14.70, 55.10}}
+	r, _ := PriceWith(trip(koge, sootcase.Part{Kind: "ferry", DistanceKm: 165, TTWKg: 300}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 0 || !hasNote(r, "2023/2895") || r.FerryCrossing != "Køge–Rønne" {
+		t.Errorf("Køge-Rønne: lines %+v, crossing %q, notes %v", ls, r.FerryCrossing, r.Notes)
+	}
+	// Ystad-Rønne with the truck's tare: its ships' (Express 1 and
+	// Express 5, as Bornholmslinjen names them) MRV data for 2025.
+	tare := req
+	tare.Truck.TareKg = 15000
+	ystad := [][2]float64{{13.80, 55.43}, {13.824636, 55.425923}, {14.691324, 55.099769}, {14.70, 55.10}}
+	r, _ = PriceWith(trip(ystad, sootcase.Part{Kind: "ferry", DistanceKm: 68, TTWKg: 120}), all(t), &fd, tare, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Ystad–Rønne" || !strings.Contains(ls[0].Source, "EU MRV 2025") ||
+		!strings.Contains(ls[0].Source, "EXPRESS 1, EXPRESS 5") {
+		t.Errorf("Ystad-Rønne: %+v", ls)
+	}
+	// Esbjerg-Nordby: ships under 5,000 GT.
+	fano := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.40845, 55.45018}, {8.40, 55.45}}
+	r, _ = PriceWith(trip(fano, sootcase.Part{Kind: "ferry", DistanceKm: 2.3, TTWKg: 4}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 0 || !hasNote(r, "under 5000 GT") {
+		t.Errorf("Esbjerg-Nordby: lines %+v, notes %v", ls, r.Notes)
+	}
+	// Rødby-Puttgarden and Helsingør-Helsingborg: a line each, at the
+	// default parts' emissions (no tare): 30 kg and 8 kg x 75 EUR/t.
+	both := [][2]float64{{10.9, 54.2}, {11.2276, 54.5001}, {11.355, 54.66}, {12.3, 55.6}, {12.61414, 56.03305}, {12.69152, 56.04331}, {12.8, 56.1}}
+	r, _ = PriceWith(trip(both, sootcase.Part{Kind: "ferry", DistanceKm: 19, TTWKg: 30}, sootcase.Part{Kind: "ferry", DistanceKm: 4.5, TTWKg: 8}), all(t), &fd, req, nov26)
+	ls := ferryLines(r)
+	if len(ls) != 2 || ls[0].Section != "Rødby–Puttgarden" || ls[0].Amount != 2.25 || ls[1].Section != "Helsingør–Helsingborg" || ls[1].Amount != 0.6 {
+		t.Errorf("two crossings: %+v", ls)
+	}
+	if r.FerryCrossing != "Rødby–Puttgarden, Helsingør–Helsingborg" {
+		t.Errorf("crossings %q", r.FerryCrossing)
+	}
+	// A route passing near Esbjerg's terminals but crossing elsewhere
+	// isn't taken for Esbjerg-Nordby: the part's length doesn't fit.
+	near := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.42, 55.452}, {9.9, 57.6}, {8.0, 58.1}}
+	r, _ = PriceWith(trip(near, sootcase.Part{Kind: "ferry", DistanceKm: 130, TTWKg: 200}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Amount != 15 || r.FerryCrossing != "" {
+		t.Errorf("near Esbjerg: %+v, crossing %q", ls, r.FerryCrossing)
+	}
+}
+
 // A Belgian trip on the real Viapass tables, by hand (>32 t Euro VI,
 // class 1): VLG 60 km x 0.285 = 17.10; WAL 38 km x 0.205 = 7.79;
 // BRU 2 km, half on the motorway: 1 x 0.171 + 1 x 0.271 = 0.17 + 0.27.
@@ -788,8 +858,10 @@ func TestCroatiaDiscounts(t *testing.T) {
 	}
 }
 
-// Serbia: Beograd to Niš jug, category 4, 60.50 EUR; Dimitrovgrad to
-// Beograd 93.00; category 3 Beograd to Niš jug 30.50.
+// Serbia, from the decision (Službeni glasnik 57/2026): Beograd to Niš jug,
+// category 4, 7080 RSD; Dimitrovgrad to Beograd 10830; category 3 Beograd
+// to Niš jug 3540; Smederevo to Niš jug, a pair Putevi Srbije's price list
+// doesn't print, 5680. At the NBS's middle rate of the day (117.6013).
 func TestSerbia(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	trip := func(path [][2]float64) sootcase.Result {
@@ -797,29 +869,32 @@ func TestSerbia(t *testing.T) {
 	}
 	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
 	dimBg := [][2]float64{{22.75, 43.01}, {22.73643, 43.02192}, {21.9, 43.35}, {20.61189, 44.66423}, {20.60, 44.70}}
+	smNis := [][2]float64{{20.95, 44.60}, {20.95723, 44.58996}, {21.81577, 43.32747}, {21.85, 43.30}}
 	for _, tc := range []struct {
 		path  [][2]float64
 		truck rates.Truck
-		total float64
+		rsd   float64
 	}{
-		{bgNis, truck40, 60.5},
-		{dimBg, truck40, 93},
-		{bgNis, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 30.5},
+		{bgNis, truck40, 7080},
+		{dimBg, truck40, 10830},
+		{bgNis, rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3540},
+		{smNis, truck40, 5680},
 	} {
 		r, err := Price(trip(tc.path), all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if math.Abs(r.TotalEUR-tc.total) > 0.011 {
-			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, tc.total, r.Notes)
+		if want := math.Round(tc.rsd/117.6013*100) / 100; math.Abs(r.TotalEUR-want) > 0.011 {
+			t.Errorf("%v %+v: total %.2f, want %.2f: %v", tc.path[1], tc.truck, r.TotalEUR, want, r.Notes)
 		}
 	}
 }
 
 // Serbia's past tolls in RSD, from the decision's tables in Službeni
 // glasnik: Beograd to Niš jug, category 4, 6130 RSD from 1 January 2024
-// (119/2023), 6760 from 10 January 2025 (107/2024), 7040 from 10 July 2025
-// (58/2025); category 3 3520 then.
+// (119/2023), 6760 from 10 July 2024 (58/2024, kept by 107/2024 from 10
+// January 2025), 7040 from 10 July 2025 (58/2025; category 3 3520), 7080
+// from 1 January 2026 (120/2025).
 func TestSerbiaGazette(t *testing.T) {
 	bgNis := [][2]float64{{20.60, 44.70}, {20.61189, 44.66423}, {21.81577, 43.32747}, {21.85, 43.30}}
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"RS": 300}, Path: bgNis}}}
@@ -829,7 +904,9 @@ func TestSerbiaGazette(t *testing.T) {
 		want  float64
 	}{
 		{"2024-03-01", truck40, 6130},
+		{"2024-09-01", truck40, 6760},
 		{"2025-03-01", truck40, 6760},
+		{"2026-03-01", truck40, 7080},
 		{"2025-09-01", truck40, 7040},
 		{"2025-09-01", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 3520},
 	} {
@@ -3159,5 +3236,406 @@ func TestBelgradeBypass(t *testing.T) {
 	}
 	if want := math.Round(480/117.6013*100) / 100; eur != want || !strings.Contains(strings.Join(r.Provenance.FX, " "), "National Bank of Serbia") {
 		t.Errorf("Ostružnica to Orlovača: %.2f EUR, want %.2f: %v", eur, want, r.Provenance.FX)
+	}
+}
+
+// Jadrolinija's state ferry lines (2026 price lists, VAT 25% out): a goods
+// vehicle up to 5 t of load capacity pays a flat fare, over 5 t a fare per
+// tonne of it. Split-Supetar (line 631) has one price for the year: 9.80
+// EUR per tonne, 7.84 net; Split-Stari Grad (line 635) 10.50 off-season
+// and 13.40 in the season (29 May to 27 September), 8.40 and 10.72 net.
+// The path runs through the stations' points out on OpenStreetMap's car
+// ferry lines (ways 12307574 and 29500693).
+func TestJadrolinija(t *testing.T) {
+	split := [][2]float64{{16.440, 43.505}, {16.434624, 43.498295}}
+	supetar := append(append([][2]float64{}, split...), [2]float64{16.551522, 43.389463}, [2]float64{16.555, 43.383})
+	stariGrad := [][2]float64{{16.440, 43.505}, {16.434506, 43.500217}, {16.572899, 43.185182}, {16.58, 43.18}}
+	big := truck40
+	big.CapacityKg = 25000
+	small := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1, CapacityKg: 4500}
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		want  float64
+	}{
+		{"Split-Supetar, 25 t of capacity", supetar, big, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 196.00},
+		{"Split-Supetar, 25 t, summer", supetar, big, time.Date(2026, 7, 15, 0, 0, 0, 0, time.UTC), 196.00},
+		{"Split-Supetar, 4.5 t of capacity", supetar, small, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 36.56},
+		{"Split-Stari Grad, 25 t, off-season", stariGrad, big, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 210.00},
+		{"Split-Stari Grad, 25 t, season", stariGrad, big, time.Date(2026, 7, 15, 0, 0, 0, 0, time.UTC), 268.00},
+		{"no load capacity given", supetar, truck40, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"HR": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Jadrolinija") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+		if tc.truck.CapacityKg == 0 && !strings.Contains(strings.Join(r.Notes, " "), "capacity_kg") {
+			t.Errorf("%s: no note asks for truck.capacity_kg: %v", tc.name, r.Notes)
+		}
+	}
+}
+
+// CalMac's commercial vehicle single rates from 27 March 2026 (excluding
+// VAT): Uig-Tarbert £50.14 plus £6.58 per 0.5 m, £267.28 at 16.5 m and £208.06 at 12 m; Wemyss
+// Bay-Rothesay £175.56 at 16.5 m, as the table prints them. The path runs
+// through the stations' points on OpenStreetMap's car ferry lines.
+func TestCalMac(t *testing.T) {
+	date := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	uig := [][2]float64{{-6.36, 57.585}, {-6.373818, 57.58159}, {-6.792356, 57.894463}, {-6.80, 57.898}}
+	wemyss := [][2]float64{{-4.89, 55.876}, {-4.898381, 55.874457}, {-5.050433, 55.842912}, {-5.055, 55.836}}
+	rigid := truck40
+	rigid.LengthM = 12
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"Uig-Tarbert, 16.5 m", uig, truck40, 267.28},
+		{"Uig-Tarbert, 12 m", uig, rigid, 208.06},
+		{"Wemyss Bay-Rothesay, 16.5 m", wemyss, truck40, 175.56},
+		{"Uig-Lochmaddy, 16.5 m", [][2]float64{{-6.36, 57.585}, {-6.373818, 57.58159}, {-7.150063, 57.596799}, {-7.16, 57.60}}, truck40, 267.28},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"GB": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"GBP": 1}}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "CalMac") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: £%.2f, want £%.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+	}
+}
+
+// Estonia's state ferries (regulation nr 120, annex and § 6): a truck over
+// 3.5 t pays 16 EUR on Virtsu-Kuivastu and 18 EUR on Rohuküla-Heltermaa,
+// × 1.2 towards the islands on Fridays from 13:00 and back on Sundays from
+// 13:00 (19.20 and 21.60); Sõru-Triigi 22 EUR. The path runs through the
+// stations' points on OpenStreetMap's ferry lines.
+func TestEstoniaFerries(t *testing.T) {
+	toMuhu := [][2]float64{{23.51, 58.574}, {23.494629, 58.576471}, {23.409212, 58.573992}, {23.39, 58.573}}
+	back := [][2]float64{{23.39, 58.573}, {23.409212, 58.573992}, {23.494629, 58.576471}, {23.51, 58.574}}
+	toHiiumaa := [][2]float64{{23.43, 58.906}, {23.401957, 58.907899}, {23.056169, 58.867514}, {23.03, 58.865}}
+	soru := [][2]float64{{22.73, 58.59}, {22.723359, 58.595062}, {22.523353, 58.687367}, {22.505, 58.70}}
+	wed, fri, sun := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 22, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		date time.Time
+		at   string
+		want float64
+	}{
+		{"Virtsu-Kuivastu, Wednesday", toMuhu, wed, "14:00", 16},
+		{"Virtsu-Kuivastu, Friday 14:00", toMuhu, fri, "14:00", 19.2},
+		{"Virtsu-Kuivastu, Friday 10:00", toMuhu, fri, "10:00", 16},
+		{"Kuivastu-Virtsu, Friday 14:00", back, fri, "14:00", 16},
+		{"Kuivastu-Virtsu, Sunday 14:00", back, sun, "14:00", 19.2},
+		{"Rohuküla-Heltermaa, Friday 14:00", toHiiumaa, fri, "14:00", 21.6},
+		{"Triigi-Sõru, Friday 14:00", soru, fri, "14:00", 22},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"EE": 30}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Estonia's state ferries") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+	}
+}
+
+// The Strait of Messina (Caronte & Tourist's commercial vehicle fares,
+// November 2026): 15.51-16.50 m one way 165.60 EUR Messina-Villa San
+// Giovanni and 224.30 back, plus 4.30 EUR per trip for the port company's
+// services; 12 m (11.51-12.50) 141.60 and 197.40.
+func TestMessina(t *testing.T) {
+	date := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	toCalabria := [][2]float64{{15.522, 38.130}, {15.529591, 38.136352}, {15.615476, 38.213285}, {15.635, 38.218}}
+	toSicily := [][2]float64{{15.635, 38.218}, {15.615476, 38.213285}, {15.529591, 38.136352}, {15.522, 38.130}}
+	rigid := truck40
+	rigid.LengthM = 12
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"to Calabria, 16.5 m", toCalabria, truck40, 169.90},
+		{"to Sicily, 16.5 m", toSicily, truck40, 228.60},
+		{"to Calabria, 12 m", toCalabria, rigid, 145.90},
+		{"to Sicily, 12 m", toSicily, rigid, 201.70},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"IT": 20}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Strait of Messina") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+	}
+}
+
+// Bornholmslinjen's freight prices (loaded, excluding VAT): 2026 Køge-Rønne
+// 1,013 DKK for a semi-trailer to 17 m (1,078 in 2027), Ystad-Rønne 1,065
+// DKK for a road train to 19 m, Rønne-Sassnitz 2,495 DKK; a 12 m rigid
+// truck, a lorry over 10 m, 703 DKK on Køge-Rønne.
+func TestBornholm(t *testing.T) {
+	koge := [][2]float64{{12.19, 55.456}, {12.202263, 55.454895}, {14.625569, 55.087042}, {14.69, 55.10}}
+	ystad := [][2]float64{{13.826, 55.427}, {13.801016, 55.395578}, {14.627326, 55.08976}, {14.69, 55.10}}
+	sassnitz := [][2]float64{{14.69, 55.10}, {14.638178, 55.081728}, {13.591477, 54.480362}, {13.588, 54.484}}
+	train := truck40
+	train.LengthM = 18.75
+	rigid := truck40
+	rigid.LengthM = 12
+	d26, d27 := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), time.Date(2027, 3, 3, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		dkk   float64
+	}{
+		{"Køge-Rønne, semi-trailer, 2026", koge, truck40, d26, 1013},
+		{"Køge-Rønne, semi-trailer, 2027", koge, truck40, d27, 1078},
+		{"Køge-Rønne, 12 m lorry, 2026", koge, rigid, d26, 703},
+		{"Ystad-Rønne, road train, 2026", ystad, train, d26, 1065},
+		{"Rønne-Sassnitz, semi-trailer, 2026", sassnitz, truck40, d26, 2495},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DK": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Bornholmslinjen") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.dkk) > 0.011 {
+			t.Errorf("%s: %.2f DKK, want %.0f: %v", tc.name, got, tc.dkk, r.Notes)
+		}
+	}
+}
+
+// TestScandlines prices Scandlines' crossings and Øresundslinjen's
+// Helsingør–Helsingborg from their gross freight tariffs (loaded, by the
+// metre up) and the month's surcharges per commencing metre (BAF and GIR;
+// energy and green on Helsingør–Helsingborg; not the ETS surcharge), and
+// a trip over both crossings at the transit ticket.
+func TestScandlines(t *testing.T) {
+	pr := [][2]float64{{11.22, 54.49}, {11.231603, 54.506517}, {11.34562, 54.650674}, {11.35, 54.66}}
+	rg := [][2]float64{{12.10, 54.15}, {12.026699, 54.293513}, {11.927163, 54.569509}, {11.93, 54.58}}
+	hh := [][2]float64{{12.61, 56.03}, {12.623761, 56.034108}, {12.685027, 56.040775}, {12.70, 56.045}}
+	both := append(append(append([][2]float64{}, pr...), [2]float64{12.0, 55.3}, [2]float64{12.5, 55.9}), hh...)
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	nov, jun := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 6, 15, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		eur   float64
+	}{
+		{"Puttgarden-Rødby, 16.5 m, November", pr, truck40, nov, 265.30 + 17*(1.64+0.88)},
+		{"Puttgarden-Rødby, 16.5 m, June", pr, truck40, jun, 265.30 + 17*(1.38+0.88)},
+		{"Puttgarden-Rødby, 16.5 m, January", pr, truck40, time.Date(2026, 1, 20, 0, 0, 0, 0, time.UTC), 265.30 + 17*(0.79+0.88)},
+		{"Helsingør-Helsingborg, 16.5 m, January", hh, truck40, time.Date(2026, 1, 20, 0, 0, 0, 0, time.UTC), 169.30 + 17*(0.88+0.30)},
+		{"Puttgarden-Rødby, road train", pr, length(18.75), nov, 297.60 + 19*(1.64+0.88)},
+		{"Puttgarden-Rødby, 10 m", pr, length(10), nov, 156.10 + 10*(1.64+0.88)},
+		{"Rostock-Gedser, 16.5 m", rg, truck40, nov, 236.20 + 17*(4.59+1.66)},
+		{"Helsingør-Helsingborg, 16.5 m", hh, truck40, nov, 169.30 + 17*(1.18+0.45)},
+		{"Puttgarden-Rødby and Helsingør-Helsingborg: transit", both, truck40, nov, 403.70 + 17*(1.64+0.88+1.18+0.45)},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, CountryKm: map[string]float64{"DK": 200}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Scandlines") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
+// TestElbfaehre prices the Elbe ferry Glückstadt-Wischhafen: the truck by
+// length at the net fare plus the fuel surcharge, and the load per started
+// 1,000 kg (ORCT unit t on load_kg in steps of 1,000 kg).
+func TestElbfaehre(t *testing.T) {
+	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	day := func(s string) time.Time { d, _ := time.Parse(time.DateOnly, s); return d }
+	for _, tc := range []struct {
+		name  string
+		truck rates.Truck
+		cargo float64
+		date  string
+		eur   float64
+	}{
+		{"16.5 m, 20 t, November 2026", truck40, 20000, "2026-11-20", 37.82 + 2.40 + 20*1.26},
+		{"road train, 20.5 t, November 2026", length(18.75), 20500, "2026-11-20", 39.08 + 4.20 + 2.40 + 21*1.26},
+		{"16.5 m, 20 t, April 2026", truck40, 20000, "2026-04-01", 36.13 + 1.80 + 20*1.26},
+		{"16.5 m, 20 t, before the fuel surcharge", truck40, 20000, "2026-03-01", 36.13 + 20*1.26},
+		{"16.5 m, 999 kg, 2025", truck40, 999, "2025-06-01", 34.45 + 1*1.18},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DE": 50}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: tc.cargo, Truck: tc.truck}, day(tc.date))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Elbfähre") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
+// TestPOLSCA prices POLSCA Baltic Ferries' crossings (Polferries and Unity
+// Line) from the freight tariff (per unit to 9 m, per commenced metre over
+// 9 m) and the BES per commenced metre in force on the day (not the ETS
+// surcharge); Gdańsk–Karlshamn only from its opening.
+func TestPOLSCA(t *testing.T) {
+	sy := [][2]float64{{14.25, 53.90}, {14.235081, 54.075278}, {13.796019, 55.396026}, {13.83, 55.42}}
+	st := [][2]float64{{14.25, 53.90}, {14.028139, 54.27659}, {13.14058, 55.33321}, {13.15, 55.37}}
+	gn := [][2]float64{{18.68, 54.40}, {18.78442, 54.520945}, {18.058986, 58.83697}, {17.95, 58.90}}
+	gk := [][2]float64{{18.68, 54.40}, {18.781135, 54.522891}, {14.904184, 56.07921}, {14.82, 56.16}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	nov, apr, jun := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 4, 15, 0, 0, 0, 0, time.UTC), time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		date  time.Time
+		eur   float64
+	}{
+		{"Świnoujście-Ystad, 16.5 m, November", sy, truck40, nov, 17 * (25 + 13.00)},
+		{"Świnoujście-Ystad, 16.5 m, April", sy, truck40, apr, 17 * (25 + 10.30)},
+		{"Świnoujście-Trelleborg, 16.5 m", st, truck40, nov, 17 * (25 + 13.00)},
+		{"Świnoujście-Ystad, 7.5 m", sy, length(7.5), nov, 150 + 8*13.00},
+		{"Świnoujście-Ystad, 6 m", sy, length(6), nov, 125 + 6*13.00},
+		{"Gdańsk-Nynäshamn, 16.5 m", gn, truck40, nov, 17 * (39 + 25.80)},
+		{"Gdańsk-Karlshamn, road train", gk, length(18.75), nov, 19 * (30 + 16.36)},
+		{"Gdańsk-Karlshamn before it opened", gk, truck40, jun, 0},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"PL": 150, "SE": 150}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"PLN": 4.25, "SEK": 11}}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "POLSCA") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
+// TestDanishFerries prices Denmark's domestic car ferries by the truck's
+// length, from each line's freight page (dk_ferries.py), without VAT:
+// SAMSØLINJEN's price per started metre over 20 m, ALSLINJEN's,
+// FANØLINJEN's and LANGELANDSLINJEN's prices less 25% VAT, MOLSLINJEN's
+// without its ETS fee, Samsø Rederi's less the VAT it states.
+func TestDanishFerries(t *testing.T) {
+	kalundborg := [][2]float64{{11.10, 55.68}, {11.088593, 55.672809}, {10.650119, 55.810439}, {10.64, 55.80}}
+	fynshav := [][2]float64{{10.09, 55.11}, {10.075224, 55.106418}, {9.989193, 55.000434}, {9.98, 54.99}}
+	nordby := [][2]float64{{8.45, 55.47}, {8.434987, 55.457539}, {8.413289, 55.453699}, {8.40, 55.45}}
+	tars := [][2]float64{{10.82, 54.93}, {10.840707, 54.934061}, {11.021733, 54.875419}, {11.03, 54.87}}
+	aarhus := [][2]float64{{10.24, 56.15}, {10.256237, 56.15617}, {11.265266, 55.968235}, {11.30, 55.97}}
+	ebeltoft := [][2]float64{{10.67, 56.16}, {10.661377, 56.151544}, {11.267878, 55.970718}, {11.30, 55.97}}
+	hou := [][2]float64{{10.26, 55.91}, {10.34828, 55.92655}, {10.548473, 55.868734}, {10.55, 55.86}}
+	aeroeskoebing := [][2]float64{{10.62, 55.06}, {10.615322, 55.053579}, {10.417527, 54.894893}, {10.41, 54.89}}
+	faaborg := [][2]float64{{10.24, 55.09}, {10.232745, 55.051317}, {10.255098, 54.954831}, {10.26, 54.94}}
+	soeby := [][2]float64{{10.26, 54.94}, {10.250415, 54.953796}, {9.992822, 54.99676}, {9.985, 54.994}}
+	marstal := [][2]float64{{10.52, 54.855}, {10.521825, 54.860785}, {10.660906, 54.912043}, {10.70, 54.937}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	d26, d27 := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2027, 3, 3, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name, op string
+		path     [][2]float64
+		truck    rates.Truck
+		date     time.Time
+		dkk      float64
+	}{
+		{"Kalundborg-Ballen, semi-trailer, 2026", "SAMSØLINJEN", kalundborg, truck40, d26, 293},
+		{"Kalundborg-Ballen, semi-trailer, 2027", "SAMSØLINJEN", kalundborg, truck40, d27, 300},
+		{"Kalundborg-Ballen, 10 m lorry, 2026", "SAMSØLINJEN", kalundborg, length(10), d26, 191},
+		{"Kalundborg-Ballen, 25.25 m, 2026", "SAMSØLINJEN", kalundborg, length(25.25), d26, 293 + 6*17},
+		{"Bøjden-Fynshav, semi-trailer, 2026", "ALSLINJEN", fynshav, truck40, d26, 958 / 1.25},
+		{"Bøjden-Fynshav, 12 m lorry, 2027", "ALSLINJEN", fynshav, length(12), d27, 721 / 1.25},
+		{"Esbjerg-Nordby, semi-trailer", "FANØLINJEN", nordby, truck40, d26, 1625 / 1.25},
+		{"Esbjerg-Nordby, road train", "FANØLINJEN", nordby, length(18.75), d26, 1805 / 1.25},
+		{"Spodsbjerg-Tårs, semi-trailer", "LANGELANDSLINJEN", tars, truck40, d26, 1330 / 1.25},
+		{"Spodsbjerg-Tårs, 25.25 m", "LANGELANDSLINJEN", tars, length(25.25), d26, 1993 / 1.25},
+		{"Aarhus-Odden, semi-trailer", "MOLSLINJEN", aarhus, truck40, d26, 1500},
+		{"Aarhus-Odden, 12 m lorry", "MOLSLINJEN", aarhus, length(12), d26, 1100},
+		{"Ebeltoft-Odden, road train", "MOLSLINJEN", ebeltoft, length(18.75), d26, 1500},
+		{"Hou-Sælvig, semi-trailer", "Samsø Rederi", hou, truck40, d26, 694.16 - 138.83},
+		{"Svendborg-Ærøskøbing, semi-trailer", "Ærøfærgerne", aeroeskoebing, truck40, d26, 905 - 167.40},
+		{"Svendborg-Ærøskøbing, 10 m lorry", "Ærøfærgerne", aeroeskoebing, length(10), d26, 588 - 104},
+		{"Faaborg-Søby, 25.25 m", "Ærøfærgerne", faaborg, length(25.25), d26, 905 - 167.40 + 7*(35-7)},
+		{"Søby-Fynshav, road train", "Ærøfærgerne", soeby, length(18.75), d26, 905 - 167.40},
+		{"Marstal-Rudkøbing, semi-trailer, November", "ÆrøXpressen", marstal, truck40, d26, (1025 + 20) / 1.25},
+		{"Marstal-Rudkøbing, 8 m lorry, May", "ÆrøXpressen", marstal, length(8), time.Date(2026, 5, 4, 0, 0, 0, 0, time.UTC), 575 / 1.25},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DK": 50}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, tc.op) {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.dkk) > 0.011 {
+			t.Errorf("%s: %.2f DKK, want %.2f: %v", tc.name, got, tc.dkk, r.Notes)
+		}
 	}
 }

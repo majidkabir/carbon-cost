@@ -14,6 +14,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"html"
 	"io/fs"
 	"log/slog"
 	"maps"
@@ -31,6 +32,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/roads"
+	"github.com/majidkabir/carbon-cost/site"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
@@ -142,7 +144,7 @@ func calc(args []string) error {
 	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
-	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
+	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the road part burns, for taxes per litre (DK); default the road CO2 at 2.67 kg per litre")
@@ -352,13 +354,18 @@ func serve(args []string) error {
 	sc := sootcaseFlags(fs)
 	addr := fs.String("addr", envOr("ADDR", ":8090"), "listen address (env ADDR)")
 	tiles := fs.String("tiles", envOr("TILE_URL", DefaultTiles), "map tile URL template, {z}/{x}/{y}; \"none\" for no base map (env TILE_URL)")
+	public := fs.String("public-url", envOr("PUBLIC_URL", site.DefaultBase), "the service's public URL, for the toll pages' links, canonical URLs and sitemap (env PUBLIC_URL)")
 	fs.Parse(args)
 	c, err := calculator(sc)
 	if err != nil {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+	h, err := handlerAt(c, *tiles, *public, true)
+	if err != nil {
+		return err
+	}
+	srv := &http.Server{Addr: *addr, Handler: h, ReadHeaderTimeout: 10 * time.Second,
 		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
@@ -375,9 +382,30 @@ var leafletFS embed.FS
 // with attribution; a busy deployment should set its own tile server.
 const DefaultTiles = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 
-// Handler serves the web page and the HTTP API. tiles is the map's tile
-// URL template ("" or "none": no base map).
+// Handler serves the web page and the HTTP API, and the toll pages at
+// DefaultBase. tiles is the map's tile URL template ("" or "none": no
+// base map).
 func Handler(c cost.Calculator, tiles string) http.Handler {
+	h, err := HandlerAt(c, tiles, site.DefaultBase)
+	if err != nil {
+		panic(err)
+	}
+	return h
+}
+
+// HandlerAt is Handler for a service whose public URL is public: the toll
+// pages (package site) link, and give canonical URLs, under it.
+func HandlerAt(c cost.Calculator, tiles, public string) (http.Handler, error) {
+	return handlerAt(c, tiles, public, false)
+}
+
+// handlerAt is HandlerAt; warm builds the toll pages at once, in the
+// background, rather than on the first visit.
+func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler, error) {
+	pages, err := site.New(c.Tariffs, public, c.Now)
+	if err != nil {
+		return nil, err
+	}
 	if tiles == "none" {
 		tiles = ""
 	}
@@ -392,6 +420,13 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 	}
 	tj, _ := json.Marshal(tiles)
 	page := strings.Replace(indexHTML, "const TILES = \"\";", "const TILES = "+string(tj)+";", 1)
+	pub := html.EscapeString(strings.TrimRight(public, "/"))
+	page = strings.Replace(page, "<!--meta-->", `<link rel="canonical" href="`+pub+`/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="carbon-cost: what a truck trip pays for carbon and tolls">
+<meta property="og:url" content="`+pub+`/">
+<meta property="og:image" content="`+pub+`/tolls.png">
+<meta name="twitter:card" content="summary_large_image">`, 1)
 	csp := "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src " + imgSrc +
 		"; connect-src 'self'; form-action 'none'; base-uri 'none'"
 	mux := http.NewServeMux()
@@ -462,7 +497,11 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		writeJSON(w, http.StatusOK, res)
 	})
-	return mux
+	pages.Register(mux)
+	if warm {
+		pages.Warm()
+	}
+	return mux, nil
 }
 
 func writeJSON(w http.ResponseWriter, status int, v any) {

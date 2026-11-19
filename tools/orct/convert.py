@@ -120,6 +120,8 @@ def criteria_of(r, motor_axles=False):
         c["trailer"] = bool(r["trailer"])
     if r.get("min_length_m") or r.get("max_length_m"):
         c["train_length_m"] = rng(hi=r.get("max_length_m"), gt=r.get("min_length_m"))
+    if r.get("min_capacity_kg") is not None or r.get("max_capacity_kg"):
+        c["load_capacity_kg"] = rng(hi=r.get("max_capacity_kg"), gt=r.get("min_capacity_kg"))
     if r.get("euro"):
         c["euro_class"] = euro_list(r["euro"])
     if r.get("co2_class"):
@@ -425,9 +427,16 @@ def convert_system(b, i, s, motor=False):
     gid = dict(zip(names, b.class_set(f"sys{i}-", [(criteria_of(g, motor), g["name"], g.get("base")) for g in s["groups"]])))
     etc, night = s.get("etc_prices") or {}, s.get("night_prices") or {}
     tnight = b.time_class(f"sys{i}-night", times=hours(s["night_hours"]), label="Night tariff") if s.get("night_hours") else None
+    season = s.get("season_prices") or {}
+    tseason = b.time_class(f"sys{i}-season", days=[{"date_ranges": s["season"]}], label="Season") if s.get("season") else None
+    # Prices of weekdays' hours (Estonia's ferries: Friday from 13:00 to the islands).
+    timed = [(tp["prices"], {"time_class": b.time_class(f"sys{i}-t{k}", days=[{"weekdays": tp["weekdays"]}], times=tp["times"],
+                                                         label=tp.get("label")), "priority": 1})
+             for k, tp in enumerate(s.get("time_prices") or [], 1)]
     rows, odd, unplaced = [], {}, set()
-    # At night the night prices replace both the prices and the electronic prices.
-    for table, extra in ((s["prices"], {}), (etc, {"user_class": "electronic"}), (night, {"time_class": tnight, "priority": 1})):
+    # At night the night prices replace both the prices and the electronic prices; in the season the season's.
+    for table, extra in ((s["prices"], {}), (etc, {"user_class": "electronic"}), (night, {"time_class": tnight, "priority": 1}),
+                         (season, {"time_class": tseason, "priority": 1}), *timed):
         if table is etc and etc:
             b.electronic()
         for key in sorted(table):
@@ -446,6 +455,14 @@ def convert_system(b, i, s, motor=False):
         tfree = b.time_class(f"sys{i}-free", times=hours(s["free_hours"]), label="No charge")
         rows.append({"time_class": tfree, "priority": 2, "amount": "0"})
     ch = {"id": cid, "name": s["name"], "type": "od", "component": "unspecified", "unit": "trip"}
+    if s.get("unit") == "t":
+        # A fare per tonne of a mass (Jadrolinija: of the load capacity).
+        ch["unit"], ch["mass_basis"] = "t", s.get("mass_basis", "train_mass_kg")
+        if s.get("mass_step_kg"):
+            # Per started step (the Elbe ferry: per started 1,000 kg of load).
+            ch["mass_step_kg"] = s["mass_step_kg"]
+    if s.get("unmatched"):
+        ch["unmatched"] = s["unmatched"]
     if s.get("law"):
         ch["method"] = s["law"]
     if s.get("directed"):

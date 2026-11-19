@@ -1,0 +1,50 @@
+{
+ "description": "A ferry fare per started 1,000 kg of the load (unit t, mass_basis load_kg, mass_step_kg 1000): 20,500 kg counts 21 t × 1.26.",
+ "clauses": [
+  "6.6.1",
+  "6.10.2",
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.3",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1,
+   "load_kg": 20500
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "bank-a",
+    "time": "2026-11-16T10:00:00+01:00",
+    "role": "entry"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "bank-b",
+    "time": "2026-11-16T10:30:00+01:00",
+    "role": "exit"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "26.46"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "river-load",
+    "amount": "26.46"
+   }
+  ]
+ }
+}

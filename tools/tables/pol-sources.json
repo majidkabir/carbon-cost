@@ -2,22 +2,46 @@
  "about": "x",
  "sources": [
   {
-   "id": "cdx-frs-fuel",
+   "id": "frs-elbe-fuel-20260411",
    "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=frs-elbfaehre.de/*&matchType=domain&filter=original:.*(fuel|treibstoff|Treibstoff|zuschlag).*&output=json&fl=timestamp,original,statuscode,digest&from=2026",
-   "what": "x",
-   "expect": [
-    "timestamp"
-   ]
+   "url": "https://web.archive.org/web/20260411082544id_/https://www.frs-elbfaehre.de/en/fuel-surcharge",
+   "what": "frs-elbe-fuel-20260411"
   },
   {
-   "id": "cdx-frs-trucks",
+   "id": "frs-elbe-fuel-20260609",
    "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=frs-elbfaehre.de/*&matchType=domain&filter=original:.*(lkw|trucks).*&output=json&fl=timestamp,original,statuscode,digest&from=2025",
-   "what": "x",
-   "expect": [
-    "timestamp"
-   ]
+   "url": "https://web.archive.org/web/20260609023946id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
+   "what": "frs-elbe-fuel-20260609"
+  },
+  {
+   "id": "frs-elbe-fuel-20260714",
+   "table": "x",
+   "url": "https://web.archive.org/web/20260714222558id_/https://www.frs-elbfaehre.de/en/fuel-surcharge",
+   "what": "frs-elbe-fuel-20260714"
+  },
+  {
+   "id": "frs-elbe-fuel-20260801",
+   "table": "x",
+   "url": "https://web.archive.org/web/20260801115356id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
+   "what": "frs-elbe-fuel-20260801"
+  },
+  {
+   "id": "frs-elbe-fuel-20261108",
+   "table": "x",
+   "url": "https://web.archive.org/web/20261108222321id_/https://www.frs-elbfaehre.de/treibstoffzuschlag",
+   "what": "frs-elbe-fuel-20261108"
+  },
+  {
+   "id": "frs-elbe-trucks-de-20251110",
+   "table": "x",
+   "url": "https://web.archive.org/web/20251110140449id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-elbe-trucks-de-20251110"
+  },
+  {
+   "id": "frs-elbe-trucks-de-20260308",
+   "table": "x",
+   "url": "https://web.archive.org/web/20260308075450id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-elbe-trucks-de-20260308"
   }
  ]
 }

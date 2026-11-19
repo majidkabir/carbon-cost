@@ -1,0 +1,2713 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gb-calmac/2026-03-27",
+  "scheme": {
+   "id": "gb-calmac",
+   "name": "CalMac ferries (Clyde and Hebrides), commercial vehicles",
+   "country": "GB"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-03-27",
+  "currency": "GBP",
+  "timezone": "Europe/London",
+  "license": "MIT",
+  "method": "CalMac's commercial vehicle single rates from 2026-03-27 (until further notice): per route, its fixed base rate (Coll–Tiree, Tiree–Castlebay, Uig's and Ullapool's routes) plus its price per 0.5 m of the vehicle's length, for each started 0.5 m and 6 m at least, one way; vehicles over 3.5 t (the route fare pages: commercial vehicles are charged by length in 0.5 metre increments, and the fares exclude VAT, which is left out here too). Length groups to 25.5 m. The table is an image, read by OCR: each route's base and price per 0.5 m give its fares from 6 to 17 m as printed. The ports are OpenStreetMap's ferry terminals, priced where a route goes out on OpenStreetMap's car ferry line from them; routes sharing a line (a ship calling on the way) are one system, priced from the first port passed to the last. Wide loads (dearer) aren't priced. Castlebay–Lochboisdale: no car ferry line between them in OpenStreetMap, not priced. Fionnphort–Iona: motor vehicles only with a permit there (OpenStreetMap), not priced. Lochmaddy–Tarbert (Harris): Lochmaddy not found in OpenStreetMap, not priced. Mallaig–Canna: no car ferry line between them in OpenStreetMap, not priced. Mallaig–Eigg: motor vehicles only with a permit there (OpenStreetMap), not priced. Mallaig–Muck: Muck not found in OpenStreetMap, not priced. Mallaig–Rum: no car ferry line between them in OpenStreetMap, not priced. Uig–Lochmaddy: Lochmaddy not found in OpenStreetMap, not priced.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gb-calmac-2026-03-27.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "CalMac: commercial vehicle single rates from 2026-03-27",
+   "url": "https://assets.calmac.co.uk/media/dhylsra5/cv-fares-table-from-27th-march-2026-updated-030426.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "CalMac: commercial vehicle rates (the Internet Archive's latest copy, as the page refuses the workflow at times)",
+   "url": "https://web.archive.org/web/20261231id_/https://www.calmac.co.uk/faqs/commercial-vehicles/commercial-vehicle-rates"
+  },
+  {
+   "id": "s3",
+   "title": "CalMac: Uig – Tarbert fares (commercial vehicles by length in 0.5 m increments, excluding VAT)",
+   "url": "https://assets.calmac.co.uk/media/hctnsn1e/uig-tarbert-s26.pdf"
+  },
+  {
+   "id": "s4",
+   "title": "OpenStreetMap (Overpass API): ferry lines and terminals on Scotland's west coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Commercial vehicles over 3.5 t, by length (give truck.length_m; 16.5 m assumed)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.6-m",
+     "label": "6 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 6.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.6-5-m",
+     "label": "6.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 6.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-m",
+     "label": "7 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6.5,
+       "max": 7.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-5-m",
+     "label": "7.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7.0,
+       "max": 7.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-m",
+     "label": "8 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7.5,
+       "max": 8.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-5-m",
+     "label": "8.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8.0,
+       "max": 8.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-m",
+     "label": "9 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8.5,
+       "max": 9.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-5-m",
+     "label": "9.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9.0,
+       "max": 9.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-m",
+     "label": "10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9.5,
+       "max": 10.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-5-m",
+     "label": "10.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10.0,
+       "max": 10.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-m",
+     "label": "11 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10.5,
+       "max": 11.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-5-m",
+     "label": "11.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11.0,
+       "max": 11.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-m",
+     "label": "12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11.5,
+       "max": 12.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-5-m",
+     "label": "12.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12.0,
+       "max": 12.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-m",
+     "label": "13 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12.5,
+       "max": 13.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-5-m",
+     "label": "13.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13.0,
+       "max": 13.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-m",
+     "label": "14 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13.5,
+       "max": 14.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-5-m",
+     "label": "14.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14.0,
+       "max": 14.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-m",
+     "label": "15 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14.5,
+       "max": 15.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-5-m",
+     "label": "15.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15.0,
+       "max": 15.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-m",
+     "label": "16 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15.5,
+       "max": 16.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-5-m",
+     "label": "16.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16.0,
+       "max": 16.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-m",
+     "label": "17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16.5,
+       "max": 17.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-5-m",
+     "label": "17.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17.0,
+       "max": 17.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-m",
+     "label": "18 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 18.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-5-m",
+     "label": "18.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18.0,
+       "max": 18.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-m",
+     "label": "19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18.5,
+       "max": 19.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-5-m",
+     "label": "19.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19.0,
+       "max": 19.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-m",
+     "label": "20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19.5,
+       "max": 20.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-5-m",
+     "label": "20.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20.0,
+       "max": 20.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-m",
+     "label": "21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20.5,
+       "max": 21.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-5-m",
+     "label": "21.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21.0,
+       "max": 21.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-m",
+     "label": "22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21.5,
+       "max": 22.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-5-m",
+     "label": "22.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22.0,
+       "max": 22.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-m",
+     "label": "23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22.5,
+       "max": 23.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-5-m",
+     "label": "23.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23.0,
+       "max": 23.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-m",
+     "label": "24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23.5,
+       "max": 24.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-5-m",
+     "label": "24.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24.0,
+       "max": 24.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-m",
+     "label": "25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24.5,
+       "max": 25.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-5-m",
+     "label": "25.5 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25.0,
+       "max": 25.5
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Ardmhor",
+   "type": "station",
+   "name": "Ardmhor",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.398237, 57.011761]]
+    },
+    "point_names": ["Ardmhor port, 0.5 km out on the line to Eriskay (OSM way 4905020)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Eriskay",
+   "type": "station",
+   "name": "Eriskay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.313736, 57.070548]]
+    },
+    "point_names": ["Eriskay port, 0.5 km out on the line to Ardmhor (OSM way 4905020)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Ardrossan",
+   "type": "station",
+   "name": "Ardrossan",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.830325, 55.641162]]
+    },
+    "point_names": ["Ardrossan port, 0.5 km out on the line to Brodick (OSM way 232580862)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Brodick",
+   "type": "station",
+   "name": "Brodick",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.132467, 55.581024], [-5.131801, 55.58073]]
+    },
+    "point_names": ["Brodick port, 0.5 km out on the line to Ardrossan (OSM way 232580862)", "Brodick port, 0.5 km out on the line to Troon (OSM way 1246889027)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st2:Troon",
+   "type": "station",
+   "name": "Troon",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.684771, 55.552708]]
+    },
+    "point_names": ["Troon port, 0.5 km out on the line to Brodick (OSM way 1246889027)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Berneray",
+   "type": "station",
+   "name": "Berneray",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.173795, 57.700788]]
+    },
+    "point_names": ["Berneray port, 0.5 km out on the line to Leverburgh (OSM way 24920773)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st3:Leverburgh",
+   "type": "station",
+   "name": "Leverburgh",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.032865, 57.765117]]
+    },
+    "point_names": ["Leverburgh port, 0.5 km out on the line to Berneray (OSM way 24920773)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:Claonaig",
+   "type": "station",
+   "name": "Claonaig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.382981, 55.747432]]
+    },
+    "point_names": ["Claonaig port, 0.5 km out on the line to Lochranza (OSM way 26604112)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:Lochranza",
+   "type": "station",
+   "name": "Lochranza",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.306029, 55.711062], [-5.301382, 55.712328]]
+    },
+    "point_names": ["Lochranza port, 0.5 km out on the line to Claonaig (OSM way 26604112)", "Lochranza port, 0.5 km out on the line to Tarbert (Loch Fyne) (OSM way 744137517)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st4:Tarbert (Loch Fyne)",
+   "type": "station",
+   "name": "Tarbert (Loch Fyne)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.380528, 55.866405]]
+    },
+    "point_names": ["Tarbert (Loch Fyne) port, 1.5 km out on the line to Lochranza (OSM way 744137517)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:Colintraive",
+   "type": "station",
+   "name": "Colintraive",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.15474, 55.923115]]
+    },
+    "point_names": ["Colintraive port, 0.1 km out on the line to Rhubodach (OSM way 4233844)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st5:Rhubodach",
+   "type": "station",
+   "name": "Rhubodach",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.157399, 55.921844]]
+    },
+    "point_names": ["Rhubodach port, 0.1 km out on the line to Colintraive (OSM way 4233844)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Castlebay",
+   "type": "station",
+   "name": "Castlebay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.453201, 56.932097]]
+    },
+    "point_names": ["Castlebay port, 3.9 km out on the line to Oban (OSM way 439911852)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Coll",
+   "type": "station",
+   "name": "Coll",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.516579, 56.611531]]
+    },
+    "point_names": ["Coll port, 0.5 km out on the line to Tiree (OSM way 165022552)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Colonsay",
+   "type": "station",
+   "name": "Colonsay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.176936, 56.069073], [-6.176893, 56.068568]]
+    },
+    "point_names": ["Colonsay port, 0.5 km out on the line to Oban (OSM way 172129035)", "Colonsay port, 0.5 km out on the line to Kennacraig (OSM way 25604793)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Craignure",
+   "type": "station",
+   "name": "Craignure",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.699732, 56.474347]]
+    },
+    "point_names": ["Craignure port, 0.5 km out on the line to Oban (OSM way 23471991)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Fishnish",
+   "type": "station",
+   "name": "Fishnish",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.80642, 56.518198]]
+    },
+    "point_names": ["Fishnish port, 0.5 km out on the line to Lochaline (OSM way 42368972)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Kennacraig",
+   "type": "station",
+   "name": "Kennacraig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.491135, 55.805984], [-5.491243, 55.806446]]
+    },
+    "point_names": ["Kennacraig port, 0.5 km out on the line to Port Ellen (OSM way 26508102)", "Kennacraig port, 0.5 km out on the line to Port Askaig (OSM way 26508013)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Lismore",
+   "type": "station",
+   "name": "Lismore",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.490099, 56.508247]]
+    },
+    "point_names": ["Lismore port, 0.5 km out on the line to Oban (OSM way 35085611)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Lochaline",
+   "type": "station",
+   "name": "Lochaline",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.774306, 56.533006]]
+    },
+    "point_names": ["Lochaline port, 0.5 km out on the line to Fishnish (OSM way 42368972)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Lochboisdale",
+   "type": "station",
+   "name": "Lochboisdale",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.222159, 57.140548]]
+    },
+    "point_names": ["Lochboisdale port, 5.2 km out on the line to Oban (OSM way 1147905340)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Oban",
+   "type": "station",
+   "name": "Oban",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.482216, 56.415077], [-5.482528, 56.414549]]
+    },
+    "point_names": ["Oban port, 0.5 km out on the line to Castlebay (OSM way 439911852)", "Oban port, 0.5 km out on the line to Craignure (OSM way 23471991)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Port Askaig",
+   "type": "station",
+   "name": "Port Askaig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.095786, 55.845284], [-6.101224, 55.852371]]
+    },
+    "point_names": ["Port Askaig port, 0.8 km out on the line to Kennacraig (OSM way 26508013)", "Port Askaig port, 0.5 km out on the line to Oban (OSM way 25604793)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Port Ellen",
+   "type": "station",
+   "name": "Port Ellen",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.196612, 55.6257]]
+    },
+    "point_names": ["Port Ellen port, 0.5 km out on the line to Kennacraig (OSM way 26508102)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st6:Tiree",
+   "type": "station",
+   "name": "Tiree",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.695807, 56.529068]]
+    },
+    "point_names": ["Tiree port, 7.2 km out on the line to Coll (OSM way 165022552)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:Cumbrae Slip",
+   "type": "station",
+   "name": "Cumbrae Slip",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.891198, 55.7893]]
+    },
+    "point_names": ["Cumbrae Slip port, 0.5 km out on the line to Largs (OSM way 19212318)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st7:Largs",
+   "type": "station",
+   "name": "Largs",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.878212, 55.794879]]
+    },
+    "point_names": ["Largs port, 0.5 km out on the line to Cumbrae Slip (OSM way 19212318)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:Armadale",
+   "type": "station",
+   "name": "Armadale",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.887126, 57.065671]]
+    },
+    "point_names": ["Armadale port, 0.5 km out on the line to Mallaig (OSM way 4904837)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st8:Mallaig",
+   "type": "station",
+   "name": "Mallaig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.828761, 57.02119]]
+    },
+    "point_names": ["Mallaig port, 1.7 km out on the line to Armadale (OSM way 4904837)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:Lochboisdale",
+   "type": "station",
+   "name": "Lochboisdale",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.22108, 57.143334]]
+    },
+    "point_names": ["Lochboisdale port, 5.2 km out on the line to Mallaig (OSM way 251232841)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st9:Mallaig",
+   "type": "station",
+   "name": "Mallaig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.833599, 57.0185]]
+    },
+    "point_names": ["Mallaig port, 1.7 km out on the line to Lochboisdale (OSM way 251232841)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:Raasay",
+   "type": "station",
+   "name": "Raasay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.086595, 57.346152]]
+    },
+    "point_names": ["Raasay port, 0.5 km out on the line to Sconser (OSM way 33875625)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st10:Sconser",
+   "type": "station",
+   "name": "Sconser",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.105175, 57.316092]]
+    },
+    "point_names": ["Sconser port, 0.5 km out on the line to Raasay (OSM way 33875625)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:Portavadie",
+   "type": "station",
+   "name": "Portavadie",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.324702, 55.876188]]
+    },
+    "point_names": ["Portavadie port, 0.5 km out on the line to Tarbert (Loch Fyne) (OSM way 26603850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st11:Tarbert (Loch Fyne)",
+   "type": "station",
+   "name": "Tarbert (Loch Fyne)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.380463, 55.869184]]
+    },
+    "point_names": ["Tarbert (Loch Fyne) port, 1.5 km out on the line to Portavadie (OSM way 26603850)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Gigha",
+   "type": "station",
+   "name": "Gigha",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.726801, 55.675226]]
+    },
+    "point_names": ["Gigha port, 0.5 km out on the line to Tayinloan (OSM way 62271489)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st12:Tayinloan",
+   "type": "station",
+   "name": "Tayinloan",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.677771, 55.659753]]
+    },
+    "point_names": ["Tayinloan port, 0.5 km out on the line to Gigha (OSM way 62271489)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:Castlebay",
+   "type": "station",
+   "name": "Castlebay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-7.455842, 56.929717]]
+    },
+    "point_names": ["Castlebay port, 3.9 km out on the line to Tiree (OSM way 400016994)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st13:Tiree",
+   "type": "station",
+   "name": "Tiree",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.701735, 56.53016]]
+    },
+    "point_names": ["Tiree port, 7.1 km out on the line to Castlebay (OSM way 400016994)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:Kilchoan",
+   "type": "station",
+   "name": "Kilchoan",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.088865, 56.685515]]
+    },
+    "point_names": ["Kilchoan port, 0.5 km out on the line to Tobermory (OSM way 3263412)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st14:Tobermory",
+   "type": "station",
+   "name": "Tobermory",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.056802, 56.629169]]
+    },
+    "point_names": ["Tobermory port, 0.8 km out on the line to Kilchoan (OSM way 3263412)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:Tarbert (Harris)",
+   "type": "station",
+   "name": "Tarbert (Harris)",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.792357, 57.894463]]
+    },
+    "point_names": ["Tarbert (Harris) port, 0.5 km out on the line to Uig (OSM way 4910859)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st15:Uig",
+   "type": "station",
+   "name": "Uig",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.410419, 57.586692]]
+    },
+    "point_names": ["Uig port, 2.9 km out on the line to Tarbert (Harris) (OSM way 4910859)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:Stornoway",
+   "type": "station",
+   "name": "Stornoway",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-6.387819, 58.201974]]
+    },
+    "point_names": ["Stornoway port, 0.5 km out on the line to Ullapool (OSM way 24959813)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st16:Ullapool",
+   "type": "station",
+   "name": "Ullapool",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.160669, 57.890547]]
+    },
+    "point_names": ["Ullapool port, 0.5 km out on the line to Stornoway (OSM way 24959813)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st17:Rothesay",
+   "type": "station",
+   "name": "Rothesay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-5.050433, 55.842912]]
+    },
+    "point_names": ["Rothesay port, 0.5 km out on the line to Wemyss Bay (OSM way 4796214)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st17:Wemyss Bay",
+   "type": "station",
+   "name": "Wemyss Bay",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[-4.898381, 55.874457]]
+    },
+    "point_names": ["Wemyss Bay port, 0.5 km out on the line to Rothesay (OSM way 4796214)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "CalMac Ardmhor (Barra)-Eriskay",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Ardmhor (Barra)-Eriskay: £8.41 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.10-m", "168.2"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.10-5-m", "176.61"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.11-m", "185.02"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.11-5-m", "193.43"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.12-m", "201.84"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.12-5-m", "210.25"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.13-m", "218.66"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.13-5-m", "227.07"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.14-m", "235.48"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.14-5-m", "243.89"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.15-m", "252.3"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.15-5-m", "260.71"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.16-m", "269.12"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.16-5-m", "277.53"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.17-m", "285.94"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.17-5-m", "294.35"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.18-m", "302.76"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.18-5-m", "311.17"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.19-m", "319.58"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.19-5-m", "327.99"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.20-m", "336.4"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.20-5-m", "344.81"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.21-m", "353.22"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.21-5-m", "361.63"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.22-m", "370.04"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.22-5-m", "378.45"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.23-m", "386.86"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.23-5-m", "395.27"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.24-m", "403.68"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.24-5-m", "412.09"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.25-m", "420.5"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.25-5-m", "428.91"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.6-m", "100.92"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.6-5-m", "109.33"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.7-m", "117.74"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.7-5-m", "126.15"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.8-m", "134.56"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.8-5-m", "142.97"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.9-m", "151.38"],
+    ["st1:Ardmhor", "st1:Eriskay", "sys1-1.9-5-m", "159.79"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "CalMac Ardrossan/Troon-Brodick",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Ardrossan/Troon-Brodick: £8.57 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.10-m", "171.4"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.10-5-m", "179.97"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.11-m", "188.54"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.11-5-m", "197.11"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.12-m", "205.68"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.12-5-m", "214.25"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.13-m", "222.82"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.13-5-m", "231.39"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.14-m", "239.96"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.14-5-m", "248.53"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.15-m", "257.1"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.15-5-m", "265.67"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.16-m", "274.24"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.16-5-m", "282.81"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.17-m", "291.38"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.17-5-m", "299.95"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.18-m", "308.52"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.18-5-m", "317.09"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.19-m", "325.66"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.19-5-m", "334.23"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.20-m", "342.8"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.20-5-m", "351.37"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.21-m", "359.94"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.21-5-m", "368.51"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.22-m", "377.08"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.22-5-m", "385.65"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.23-m", "394.22"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.23-5-m", "402.79"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.24-m", "411.36"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.24-5-m", "419.93"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.25-m", "428.5"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.25-5-m", "437.07"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.6-m", "102.84"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.6-5-m", "111.41"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.7-m", "119.98"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.7-5-m", "128.55"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.8-m", "137.12"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.8-5-m", "145.69"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.9-m", "154.26"],
+    ["st2:Ardrossan", "st2:Brodick", "sys1-1.9-5-m", "162.83"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.10-m", "171.4"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.10-5-m", "179.97"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.11-m", "188.54"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.11-5-m", "197.11"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.12-m", "205.68"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.12-5-m", "214.25"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.13-m", "222.82"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.13-5-m", "231.39"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.14-m", "239.96"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.14-5-m", "248.53"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.15-m", "257.1"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.15-5-m", "265.67"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.16-m", "274.24"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.16-5-m", "282.81"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.17-m", "291.38"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.17-5-m", "299.95"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.18-m", "308.52"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.18-5-m", "317.09"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.19-m", "325.66"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.19-5-m", "334.23"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.20-m", "342.8"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.20-5-m", "351.37"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.21-m", "359.94"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.21-5-m", "368.51"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.22-m", "377.08"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.22-5-m", "385.65"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.23-m", "394.22"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.23-5-m", "402.79"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.24-m", "411.36"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.24-5-m", "419.93"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.25-m", "428.5"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.25-5-m", "437.07"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.6-m", "102.84"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.6-5-m", "111.41"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.7-m", "119.98"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.7-5-m", "128.55"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.8-m", "137.12"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.8-5-m", "145.69"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.9-m", "154.26"],
+    ["st2:Troon", "st2:Brodick", "sys1-1.9-5-m", "162.83"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system3",
+   "name": "CalMac Berneray-Leverburgh",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Berneray-Leverburgh: £12.01 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.10-m", "240.2"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.10-5-m", "252.21"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.11-m", "264.22"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.11-5-m", "276.23"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.12-m", "288.24"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.12-5-m", "300.25"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.13-m", "312.26"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.13-5-m", "324.27"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.14-m", "336.28"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.14-5-m", "348.29"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.15-m", "360.3"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.15-5-m", "372.31"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.16-m", "384.32"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.16-5-m", "396.33"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.17-m", "408.34"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.17-5-m", "420.35"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.18-m", "432.36"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.18-5-m", "444.37"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.19-m", "456.38"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.19-5-m", "468.39"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.20-m", "480.4"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.20-5-m", "492.41"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.21-m", "504.42"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.21-5-m", "516.43"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.22-m", "528.44"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.22-5-m", "540.45"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.23-m", "552.46"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.23-5-m", "564.47"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.24-m", "576.48"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.24-5-m", "588.49"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.25-m", "600.5"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.25-5-m", "612.51"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.6-m", "144.12"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.6-5-m", "156.13"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.7-m", "168.14"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.7-5-m", "180.15"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.8-m", "192.16"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.8-5-m", "204.17"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.9-m", "216.18"],
+    ["st3:Berneray", "st3:Leverburgh", "sys1-1.9-5-m", "228.19"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system4",
+   "name": "CalMac Claonaig/Tarbert(*)-Lochranza",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Claonaig/Tarbert(*)-Lochranza: £6.34 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.10-m", "126.8"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.10-5-m", "133.14"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.11-m", "139.48"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.11-5-m", "145.82"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.12-m", "152.16"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.12-5-m", "158.5"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.13-m", "164.84"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.13-5-m", "171.18"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.14-m", "177.52"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.14-5-m", "183.86"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.15-m", "190.2"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.15-5-m", "196.54"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.16-m", "202.88"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.16-5-m", "209.22"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.17-m", "215.56"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.17-5-m", "221.9"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.18-m", "228.24"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.18-5-m", "234.58"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.19-m", "240.92"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.19-5-m", "247.26"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.20-m", "253.6"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.20-5-m", "259.94"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.21-m", "266.28"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.21-5-m", "272.62"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.22-m", "278.96"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.22-5-m", "285.3"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.23-m", "291.64"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.23-5-m", "297.98"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.24-m", "304.32"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.24-5-m", "310.66"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.25-m", "317"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.25-5-m", "323.34"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.6-m", "76.08"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.6-5-m", "82.42"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.7-m", "88.76"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.7-5-m", "95.1"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.8-m", "101.44"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.8-5-m", "107.78"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.9-m", "114.12"],
+    ["st4:Claonaig", "st4:Lochranza", "sys1-1.9-5-m", "120.46"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.10-m", "126.8"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.10-5-m", "133.14"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.11-m", "139.48"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.11-5-m", "145.82"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.12-m", "152.16"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.12-5-m", "158.5"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.13-m", "164.84"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.13-5-m", "171.18"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.14-m", "177.52"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.14-5-m", "183.86"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.15-m", "190.2"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.15-5-m", "196.54"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.16-m", "202.88"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.16-5-m", "209.22"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.17-m", "215.56"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.17-5-m", "221.9"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.18-m", "228.24"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.18-5-m", "234.58"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.19-m", "240.92"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.19-5-m", "247.26"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.20-m", "253.6"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.20-5-m", "259.94"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.21-m", "266.28"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.21-5-m", "272.62"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.22-m", "278.96"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.22-5-m", "285.3"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.23-m", "291.64"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.23-5-m", "297.98"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.24-m", "304.32"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.24-5-m", "310.66"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.25-m", "317"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.25-5-m", "323.34"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.6-m", "76.08"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.6-5-m", "82.42"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.7-m", "88.76"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.7-5-m", "95.1"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.8-m", "101.44"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.8-5-m", "107.78"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.9-m", "114.12"],
+    ["st4:Tarbert (Loch Fyne)", "st4:Lochranza", "sys1-1.9-5-m", "120.46"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system5",
+   "name": "CalMac Colintraive-Rhubodach",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Colintraive-Rhubodach: £1.91 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.10-m", "38.2"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.10-5-m", "40.11"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.11-m", "42.02"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.11-5-m", "43.93"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.12-m", "45.84"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.12-5-m", "47.75"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.13-m", "49.66"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.13-5-m", "51.57"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.14-m", "53.48"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.14-5-m", "55.39"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.15-m", "57.3"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.15-5-m", "59.21"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.16-m", "61.12"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.16-5-m", "63.03"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.17-m", "64.94"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.17-5-m", "66.85"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.18-m", "68.76"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.18-5-m", "70.67"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.19-m", "72.58"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.19-5-m", "74.49"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.20-m", "76.4"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.20-5-m", "78.31"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.21-m", "80.22"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.21-5-m", "82.13"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.22-m", "84.04"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.22-5-m", "85.95"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.23-m", "87.86"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.23-5-m", "89.77"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.24-m", "91.68"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.24-5-m", "93.59"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.25-m", "95.5"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.25-5-m", "97.41"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.6-m", "22.92"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.6-5-m", "24.83"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.7-m", "26.74"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.7-5-m", "28.65"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.8-m", "30.56"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.8-5-m", "32.47"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.9-m", "34.38"],
+    ["st5:Colintraive", "st5:Rhubodach", "sys1-1.9-5-m", "36.29"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system6",
+   "name": "CalMac Coll-Tiree / Kennacraig-Port Ellen/Port Askaig / Lochaline-Fishnish / Oban-Castlebay/Lochboisdale / Oban-Coll/Tiree / Oban-Craignure / Oban-Lismore / Oban/Kennacraig-Colonsay / Oban-Port Askaig / Port Askaig-Colonsay",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Coll-Tiree: £31.54 plus £3.30 per 0.5 m; Kennacraig-Port Ellen/Port Askaig: £13.02 per 0.5 m; Lochaline-Fishnish: £5.38 per 0.5 m; Oban-Castlebay/Lochboisdale: £18.13 per 0.5 m; Oban-Coll/Tiree: £14.54 per 0.5 m; Oban-Craignure: £9.19 per 0.5 m; Oban-Lismore: £7.16 per 0.5 m; Oban/Kennacraig-Colonsay: £18.23 per 0.5 m; Oban-Port Askaig: £18.57 per 0.5 m; Port Askaig-Colonsay: £6.80 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st6:Coll", "st6:Tiree", "sys1-1.10-m", "97.54"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.10-5-m", "100.84"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.11-m", "104.14"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.11-5-m", "107.44"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.12-m", "110.74"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.12-5-m", "114.04"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.13-m", "117.34"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.13-5-m", "120.64"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.14-m", "123.94"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.14-5-m", "127.24"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.15-m", "130.54"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.15-5-m", "133.84"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.16-m", "137.14"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.16-5-m", "140.44"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.17-m", "143.74"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.17-5-m", "147.04"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.18-m", "150.34"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.18-5-m", "153.64"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.19-m", "156.94"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.19-5-m", "160.24"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.20-m", "163.54"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.20-5-m", "166.84"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.21-m", "170.14"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.21-5-m", "173.44"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.22-m", "176.74"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.22-5-m", "180.04"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.23-m", "183.34"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.23-5-m", "186.64"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.24-m", "189.94"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.24-5-m", "193.24"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.25-m", "196.54"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.25-5-m", "199.84"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.6-m", "71.14"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.6-5-m", "74.44"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.7-m", "77.74"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.7-5-m", "81.04"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.8-m", "84.34"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.8-5-m", "87.64"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.9-m", "90.94"],
+    ["st6:Coll", "st6:Tiree", "sys1-1.9-5-m", "94.24"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.10-m", "364.6"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.10-5-m", "382.83"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.11-m", "401.06"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.11-5-m", "419.29"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.12-m", "437.52"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.12-5-m", "455.75"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.13-m", "473.98"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.13-5-m", "492.21"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.14-m", "510.44"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.14-5-m", "528.67"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.15-m", "546.9"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.15-5-m", "565.13"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.16-m", "583.36"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.16-5-m", "601.59"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.17-m", "619.82"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.17-5-m", "638.05"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.18-m", "656.28"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.18-5-m", "674.51"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.19-m", "692.74"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.19-5-m", "710.97"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.20-m", "729.2"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.20-5-m", "747.43"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.21-m", "765.66"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.21-5-m", "783.89"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.22-m", "802.12"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.22-5-m", "820.35"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.23-m", "838.58"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.23-5-m", "856.81"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.24-m", "875.04"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.24-5-m", "893.27"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.25-m", "911.5"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.25-5-m", "929.73"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.6-m", "218.76"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.6-5-m", "236.99"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.7-m", "255.22"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.7-5-m", "273.45"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.8-m", "291.68"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.8-5-m", "309.91"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.9-m", "328.14"],
+    ["st6:Kennacraig", "st6:Colonsay", "sys1-1.9-5-m", "346.37"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.10-m", "260.4"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.10-5-m", "273.42"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.11-m", "286.44"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.11-5-m", "299.46"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.12-m", "312.48"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.12-5-m", "325.5"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.13-m", "338.52"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.13-5-m", "351.54"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.14-m", "364.56"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.14-5-m", "377.58"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.15-m", "390.6"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.15-5-m", "403.62"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.16-m", "416.64"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.16-5-m", "429.66"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.17-m", "442.68"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.17-5-m", "455.7"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.18-m", "468.72"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.18-5-m", "481.74"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.19-m", "494.76"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.19-5-m", "507.78"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.20-m", "520.8"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.20-5-m", "533.82"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.21-m", "546.84"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.21-5-m", "559.86"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.22-m", "572.88"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.22-5-m", "585.9"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.23-m", "598.92"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.23-5-m", "611.94"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.24-m", "624.96"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.24-5-m", "637.98"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.25-m", "651"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.25-5-m", "664.02"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.6-m", "156.24"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.6-5-m", "169.26"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.7-m", "182.28"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.7-5-m", "195.3"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.8-m", "208.32"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.8-5-m", "221.34"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.9-m", "234.36"],
+    ["st6:Kennacraig", "st6:Port Askaig", "sys1-1.9-5-m", "247.38"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.10-m", "260.4"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.10-5-m", "273.42"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.11-m", "286.44"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.11-5-m", "299.46"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.12-m", "312.48"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.12-5-m", "325.5"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.13-m", "338.52"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.13-5-m", "351.54"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.14-m", "364.56"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.14-5-m", "377.58"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.15-m", "390.6"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.15-5-m", "403.62"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.16-m", "416.64"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.16-5-m", "429.66"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.17-m", "442.68"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.17-5-m", "455.7"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.18-m", "468.72"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.18-5-m", "481.74"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.19-m", "494.76"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.19-5-m", "507.78"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.20-m", "520.8"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.20-5-m", "533.82"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.21-m", "546.84"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.21-5-m", "559.86"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.22-m", "572.88"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.22-5-m", "585.9"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.23-m", "598.92"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.23-5-m", "611.94"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.24-m", "624.96"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.24-5-m", "637.98"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.25-m", "651"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.25-5-m", "664.02"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.6-m", "156.24"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.6-5-m", "169.26"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.7-m", "182.28"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.7-5-m", "195.3"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.8-m", "208.32"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.8-5-m", "221.34"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.9-m", "234.36"],
+    ["st6:Kennacraig", "st6:Port Ellen", "sys1-1.9-5-m", "247.38"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.10-m", "107.6"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.10-5-m", "112.98"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.11-m", "118.36"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.11-5-m", "123.74"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.12-m", "129.12"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.12-5-m", "134.5"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.13-m", "139.88"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.13-5-m", "145.26"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.14-m", "150.64"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.14-5-m", "156.02"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.15-m", "161.4"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.15-5-m", "166.78"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.16-m", "172.16"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.16-5-m", "177.54"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.17-m", "182.92"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.17-5-m", "188.3"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.18-m", "193.68"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.18-5-m", "199.06"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.19-m", "204.44"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.19-5-m", "209.82"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.20-m", "215.2"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.20-5-m", "220.58"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.21-m", "225.96"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.21-5-m", "231.34"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.22-m", "236.72"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.22-5-m", "242.1"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.23-m", "247.48"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.23-5-m", "252.86"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.24-m", "258.24"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.24-5-m", "263.62"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.25-m", "269"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.25-5-m", "274.38"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.6-m", "64.56"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.6-5-m", "69.94"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.7-m", "75.32"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.7-5-m", "80.7"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.8-m", "86.08"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.8-5-m", "91.46"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.9-m", "96.84"],
+    ["st6:Lochaline", "st6:Fishnish", "sys1-1.9-5-m", "102.22"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.10-m", "362.6"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.10-5-m", "380.73"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.11-m", "398.86"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.11-5-m", "416.99"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.12-m", "435.12"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.12-5-m", "453.25"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.13-m", "471.38"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.13-5-m", "489.51"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.14-m", "507.64"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.14-5-m", "525.77"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.15-m", "543.9"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.15-5-m", "562.03"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.16-m", "580.16"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.16-5-m", "598.29"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.17-m", "616.42"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.17-5-m", "634.55"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.18-m", "652.68"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.18-5-m", "670.81"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.19-m", "688.94"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.19-5-m", "707.07"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.20-m", "725.2"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.20-5-m", "743.33"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.21-m", "761.46"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.21-5-m", "779.59"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.22-m", "797.72"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.22-5-m", "815.85"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.23-m", "833.98"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.23-5-m", "852.11"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.24-m", "870.24"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.24-5-m", "888.37"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.25-m", "906.5"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.25-5-m", "924.63"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.6-m", "217.56"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.6-5-m", "235.69"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.7-m", "253.82"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.7-5-m", "271.95"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.8-m", "290.08"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.8-5-m", "308.21"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.9-m", "326.34"],
+    ["st6:Oban", "st6:Castlebay", "sys1-1.9-5-m", "344.47"],
+    ["st6:Oban", "st6:Coll", "sys1-1.10-m", "290.8"],
+    ["st6:Oban", "st6:Coll", "sys1-1.10-5-m", "305.34"],
+    ["st6:Oban", "st6:Coll", "sys1-1.11-m", "319.88"],
+    ["st6:Oban", "st6:Coll", "sys1-1.11-5-m", "334.42"],
+    ["st6:Oban", "st6:Coll", "sys1-1.12-m", "348.96"],
+    ["st6:Oban", "st6:Coll", "sys1-1.12-5-m", "363.5"],
+    ["st6:Oban", "st6:Coll", "sys1-1.13-m", "378.04"],
+    ["st6:Oban", "st6:Coll", "sys1-1.13-5-m", "392.58"],
+    ["st6:Oban", "st6:Coll", "sys1-1.14-m", "407.12"],
+    ["st6:Oban", "st6:Coll", "sys1-1.14-5-m", "421.66"],
+    ["st6:Oban", "st6:Coll", "sys1-1.15-m", "436.2"],
+    ["st6:Oban", "st6:Coll", "sys1-1.15-5-m", "450.74"],
+    ["st6:Oban", "st6:Coll", "sys1-1.16-m", "465.28"],
+    ["st6:Oban", "st6:Coll", "sys1-1.16-5-m", "479.82"],
+    ["st6:Oban", "st6:Coll", "sys1-1.17-m", "494.36"],
+    ["st6:Oban", "st6:Coll", "sys1-1.17-5-m", "508.9"],
+    ["st6:Oban", "st6:Coll", "sys1-1.18-m", "523.44"],
+    ["st6:Oban", "st6:Coll", "sys1-1.18-5-m", "537.98"],
+    ["st6:Oban", "st6:Coll", "sys1-1.19-m", "552.52"],
+    ["st6:Oban", "st6:Coll", "sys1-1.19-5-m", "567.06"],
+    ["st6:Oban", "st6:Coll", "sys1-1.20-m", "581.6"],
+    ["st6:Oban", "st6:Coll", "sys1-1.20-5-m", "596.14"],
+    ["st6:Oban", "st6:Coll", "sys1-1.21-m", "610.68"],
+    ["st6:Oban", "st6:Coll", "sys1-1.21-5-m", "625.22"],
+    ["st6:Oban", "st6:Coll", "sys1-1.22-m", "639.76"],
+    ["st6:Oban", "st6:Coll", "sys1-1.22-5-m", "654.3"],
+    ["st6:Oban", "st6:Coll", "sys1-1.23-m", "668.84"],
+    ["st6:Oban", "st6:Coll", "sys1-1.23-5-m", "683.38"],
+    ["st6:Oban", "st6:Coll", "sys1-1.24-m", "697.92"],
+    ["st6:Oban", "st6:Coll", "sys1-1.24-5-m", "712.46"],
+    ["st6:Oban", "st6:Coll", "sys1-1.25-m", "727"],
+    ["st6:Oban", "st6:Coll", "sys1-1.25-5-m", "741.54"],
+    ["st6:Oban", "st6:Coll", "sys1-1.6-m", "174.48"],
+    ["st6:Oban", "st6:Coll", "sys1-1.6-5-m", "189.02"],
+    ["st6:Oban", "st6:Coll", "sys1-1.7-m", "203.56"],
+    ["st6:Oban", "st6:Coll", "sys1-1.7-5-m", "218.1"],
+    ["st6:Oban", "st6:Coll", "sys1-1.8-m", "232.64"],
+    ["st6:Oban", "st6:Coll", "sys1-1.8-5-m", "247.18"],
+    ["st6:Oban", "st6:Coll", "sys1-1.9-m", "261.72"],
+    ["st6:Oban", "st6:Coll", "sys1-1.9-5-m", "276.26"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.10-m", "364.6"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.10-5-m", "382.83"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.11-m", "401.06"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.11-5-m", "419.29"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.12-m", "437.52"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.12-5-m", "455.75"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.13-m", "473.98"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.13-5-m", "492.21"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.14-m", "510.44"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.14-5-m", "528.67"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.15-m", "546.9"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.15-5-m", "565.13"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.16-m", "583.36"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.16-5-m", "601.59"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.17-m", "619.82"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.17-5-m", "638.05"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.18-m", "656.28"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.18-5-m", "674.51"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.19-m", "692.74"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.19-5-m", "710.97"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.20-m", "729.2"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.20-5-m", "747.43"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.21-m", "765.66"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.21-5-m", "783.89"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.22-m", "802.12"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.22-5-m", "820.35"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.23-m", "838.58"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.23-5-m", "856.81"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.24-m", "875.04"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.24-5-m", "893.27"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.25-m", "911.5"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.25-5-m", "929.73"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.6-m", "218.76"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.6-5-m", "236.99"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.7-m", "255.22"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.7-5-m", "273.45"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.8-m", "291.68"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.8-5-m", "309.91"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.9-m", "328.14"],
+    ["st6:Oban", "st6:Colonsay", "sys1-1.9-5-m", "346.37"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.10-m", "183.8"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.10-5-m", "192.99"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.11-m", "202.18"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.11-5-m", "211.37"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.12-m", "220.56"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.12-5-m", "229.75"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.13-m", "238.94"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.13-5-m", "248.13"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.14-m", "257.32"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.14-5-m", "266.51"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.15-m", "275.7"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.15-5-m", "284.89"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.16-m", "294.08"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.16-5-m", "303.27"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.17-m", "312.46"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.17-5-m", "321.65"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.18-m", "330.84"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.18-5-m", "340.03"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.19-m", "349.22"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.19-5-m", "358.41"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.20-m", "367.6"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.20-5-m", "376.79"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.21-m", "385.98"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.21-5-m", "395.17"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.22-m", "404.36"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.22-5-m", "413.55"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.23-m", "422.74"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.23-5-m", "431.93"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.24-m", "441.12"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.24-5-m", "450.31"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.25-m", "459.5"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.25-5-m", "468.69"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.6-m", "110.28"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.6-5-m", "119.47"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.7-m", "128.66"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.7-5-m", "137.85"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.8-m", "147.04"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.8-5-m", "156.23"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.9-m", "165.42"],
+    ["st6:Oban", "st6:Craignure", "sys1-1.9-5-m", "174.61"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.10-m", "143.2"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.10-5-m", "150.36"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.11-m", "157.52"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.11-5-m", "164.68"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.12-m", "171.84"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.12-5-m", "179"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.13-m", "186.16"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.13-5-m", "193.32"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.14-m", "200.48"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.14-5-m", "207.64"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.15-m", "214.8"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.15-5-m", "221.96"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.16-m", "229.12"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.16-5-m", "236.28"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.17-m", "243.44"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.17-5-m", "250.6"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.18-m", "257.76"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.18-5-m", "264.92"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.19-m", "272.08"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.19-5-m", "279.24"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.20-m", "286.4"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.20-5-m", "293.56"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.21-m", "300.72"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.21-5-m", "307.88"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.22-m", "315.04"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.22-5-m", "322.2"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.23-m", "329.36"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.23-5-m", "336.52"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.24-m", "343.68"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.24-5-m", "350.84"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.25-m", "358"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.25-5-m", "365.16"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.6-m", "85.92"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.6-5-m", "93.08"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.7-m", "100.24"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.7-5-m", "107.4"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.8-m", "114.56"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.8-5-m", "121.72"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.9-m", "128.88"],
+    ["st6:Oban", "st6:Lismore", "sys1-1.9-5-m", "136.04"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.10-m", "362.6"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.10-5-m", "380.73"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.11-m", "398.86"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.11-5-m", "416.99"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.12-m", "435.12"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.12-5-m", "453.25"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.13-m", "471.38"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.13-5-m", "489.51"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.14-m", "507.64"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.14-5-m", "525.77"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.15-m", "543.9"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.15-5-m", "562.03"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.16-m", "580.16"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.16-5-m", "598.29"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.17-m", "616.42"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.17-5-m", "634.55"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.18-m", "652.68"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.18-5-m", "670.81"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.19-m", "688.94"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.19-5-m", "707.07"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.20-m", "725.2"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.20-5-m", "743.33"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.21-m", "761.46"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.21-5-m", "779.59"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.22-m", "797.72"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.22-5-m", "815.85"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.23-m", "833.98"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.23-5-m", "852.11"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.24-m", "870.24"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.24-5-m", "888.37"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.25-m", "906.5"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.25-5-m", "924.63"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.6-m", "217.56"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.6-5-m", "235.69"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.7-m", "253.82"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.7-5-m", "271.95"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.8-m", "290.08"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.8-5-m", "308.21"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.9-m", "326.34"],
+    ["st6:Oban", "st6:Lochboisdale", "sys1-1.9-5-m", "344.47"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.10-m", "371.4"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.10-5-m", "389.97"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.11-m", "408.54"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.11-5-m", "427.11"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.12-m", "445.68"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.12-5-m", "464.25"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.13-m", "482.82"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.13-5-m", "501.39"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.14-m", "519.96"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.14-5-m", "538.53"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.15-m", "557.1"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.15-5-m", "575.67"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.16-m", "594.24"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.16-5-m", "612.81"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.17-m", "631.38"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.17-5-m", "649.95"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.18-m", "668.52"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.18-5-m", "687.09"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.19-m", "705.66"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.19-5-m", "724.23"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.20-m", "742.8"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.20-5-m", "761.37"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.21-m", "779.94"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.21-5-m", "798.51"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.22-m", "817.08"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.22-5-m", "835.65"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.23-m", "854.22"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.23-5-m", "872.79"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.24-m", "891.36"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.24-5-m", "909.93"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.25-m", "928.5"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.25-5-m", "947.07"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.6-m", "222.84"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.6-5-m", "241.41"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.7-m", "259.98"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.7-5-m", "278.55"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.8-m", "297.12"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.8-5-m", "315.69"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.9-m", "334.26"],
+    ["st6:Oban", "st6:Port Askaig", "sys1-1.9-5-m", "352.83"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.10-m", "290.8"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.10-5-m", "305.34"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.11-m", "319.88"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.11-5-m", "334.42"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.12-m", "348.96"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.12-5-m", "363.5"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.13-m", "378.04"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.13-5-m", "392.58"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.14-m", "407.12"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.14-5-m", "421.66"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.15-m", "436.2"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.15-5-m", "450.74"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.16-m", "465.28"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.16-5-m", "479.82"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.17-m", "494.36"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.17-5-m", "508.9"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.18-m", "523.44"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.18-5-m", "537.98"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.19-m", "552.52"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.19-5-m", "567.06"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.20-m", "581.6"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.20-5-m", "596.14"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.21-m", "610.68"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.21-5-m", "625.22"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.22-m", "639.76"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.22-5-m", "654.3"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.23-m", "668.84"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.23-5-m", "683.38"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.24-m", "697.92"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.24-5-m", "712.46"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.25-m", "727"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.25-5-m", "741.54"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.6-m", "174.48"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.6-5-m", "189.02"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.7-m", "203.56"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.7-5-m", "218.1"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.8-m", "232.64"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.8-5-m", "247.18"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.9-m", "261.72"],
+    ["st6:Oban", "st6:Tiree", "sys1-1.9-5-m", "276.26"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.10-m", "136"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.10-5-m", "142.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.11-m", "149.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.11-5-m", "156.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.12-m", "163.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.12-5-m", "170"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.13-m", "176.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.13-5-m", "183.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.14-m", "190.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.14-5-m", "197.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.15-m", "204"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.15-5-m", "210.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.16-m", "217.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.16-5-m", "224.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.17-m", "231.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.17-5-m", "238"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.18-m", "244.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.18-5-m", "251.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.19-m", "258.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.19-5-m", "265.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.20-m", "272"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.20-5-m", "278.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.21-m", "285.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.21-5-m", "292.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.22-m", "299.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.22-5-m", "306"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.23-m", "312.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.23-5-m", "319.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.24-m", "326.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.24-5-m", "333.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.25-m", "340"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.25-5-m", "346.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.6-m", "81.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.6-5-m", "88.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.7-m", "95.2"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.7-5-m", "102"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.8-m", "108.8"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.8-5-m", "115.6"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.9-m", "122.4"],
+    ["st6:Port Askaig", "st6:Colonsay", "sys1-1.9-5-m", "129.2"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system7",
+   "name": "CalMac Largs-Cumbrae Slip",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Largs-Cumbrae Slip: £4.33 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.10-m", "86.6"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.10-5-m", "90.93"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.11-m", "95.26"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.11-5-m", "99.59"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.12-m", "103.92"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.12-5-m", "108.25"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.13-m", "112.58"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.13-5-m", "116.91"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.14-m", "121.24"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.14-5-m", "125.57"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.15-m", "129.9"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.15-5-m", "134.23"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.16-m", "138.56"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.16-5-m", "142.89"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.17-m", "147.22"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.17-5-m", "151.55"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.18-m", "155.88"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.18-5-m", "160.21"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.19-m", "164.54"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.19-5-m", "168.87"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.20-m", "173.2"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.20-5-m", "177.53"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.21-m", "181.86"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.21-5-m", "186.19"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.22-m", "190.52"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.22-5-m", "194.85"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.23-m", "199.18"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.23-5-m", "203.51"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.24-m", "207.84"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.24-5-m", "212.17"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.25-m", "216.5"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.25-5-m", "220.83"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.6-m", "51.96"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.6-5-m", "56.29"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.7-m", "60.62"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.7-5-m", "64.95"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.8-m", "69.28"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.8-5-m", "73.61"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.9-m", "77.94"],
+    ["st7:Largs", "st7:Cumbrae Slip", "sys1-1.9-5-m", "82.27"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system8",
+   "name": "CalMac Mallaig-Armadale",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Mallaig-Armadale: £4.24 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.10-m", "84.8"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.10-5-m", "89.04"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.11-m", "93.28"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.11-5-m", "97.52"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.12-m", "101.76"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.12-5-m", "106"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.13-m", "110.24"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.13-5-m", "114.48"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.14-m", "118.72"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.14-5-m", "122.96"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.15-m", "127.2"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.15-5-m", "131.44"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.16-m", "135.68"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.16-5-m", "139.92"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.17-m", "144.16"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.17-5-m", "148.4"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.18-m", "152.64"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.18-5-m", "156.88"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.19-m", "161.12"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.19-5-m", "165.36"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.20-m", "169.6"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.20-5-m", "173.84"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.21-m", "178.08"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.21-5-m", "182.32"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.22-m", "186.56"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.22-5-m", "190.8"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.23-m", "195.04"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.23-5-m", "199.28"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.24-m", "203.52"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.24-5-m", "207.76"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.25-m", "212"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.25-5-m", "216.24"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.6-m", "50.88"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.6-5-m", "55.12"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.7-m", "59.36"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.7-5-m", "63.6"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.8-m", "67.84"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.8-5-m", "72.08"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.9-m", "76.32"],
+    ["st8:Mallaig", "st8:Armadale", "sys1-1.9-5-m", "80.56"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system9",
+   "name": "CalMac Mallaig-Lochboisdale",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Mallaig-Lochboisdale: £14.06 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.10-m", "281.2"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.10-5-m", "295.26"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.11-m", "309.32"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.11-5-m", "323.38"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.12-m", "337.44"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.12-5-m", "351.5"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.13-m", "365.56"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.13-5-m", "379.62"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.14-m", "393.68"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.14-5-m", "407.74"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.15-m", "421.8"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.15-5-m", "435.86"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.16-m", "449.92"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.16-5-m", "463.98"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.17-m", "478.04"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.17-5-m", "492.1"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.18-m", "506.16"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.18-5-m", "520.22"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.19-m", "534.28"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.19-5-m", "548.34"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.20-m", "562.4"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.20-5-m", "576.46"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.21-m", "590.52"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.21-5-m", "604.58"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.22-m", "618.64"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.22-5-m", "632.7"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.23-m", "646.76"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.23-5-m", "660.82"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.24-m", "674.88"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.24-5-m", "688.94"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.25-m", "703"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.25-5-m", "717.06"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.6-m", "168.72"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.6-5-m", "182.78"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.7-m", "196.84"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.7-5-m", "210.9"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.8-m", "224.96"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.8-5-m", "239.02"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.9-m", "253.08"],
+    ["st9:Mallaig", "st9:Lochboisdale", "sys1-1.9-5-m", "267.14"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system10",
+   "name": "CalMac Sconser-Raasay",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Sconser-Raasay: £6.48 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st10:Sconser", "st10:Raasay", "sys1-1.10-m", "129.6"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.10-5-m", "136.08"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.11-m", "142.56"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.11-5-m", "149.04"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.12-m", "155.52"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.12-5-m", "162"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.13-m", "168.48"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.13-5-m", "174.96"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.14-m", "181.44"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.14-5-m", "187.92"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.15-m", "194.4"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.15-5-m", "200.88"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.16-m", "207.36"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.16-5-m", "213.84"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.17-m", "220.32"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.17-5-m", "226.8"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.18-m", "233.28"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.18-5-m", "239.76"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.19-m", "246.24"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.19-5-m", "252.72"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.20-m", "259.2"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.20-5-m", "265.68"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.21-m", "272.16"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.21-5-m", "278.64"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.22-m", "285.12"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.22-5-m", "291.6"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.23-m", "298.08"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.23-5-m", "304.56"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.24-m", "311.04"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.24-5-m", "317.52"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.25-m", "324"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.25-5-m", "330.48"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.6-m", "77.76"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.6-5-m", "84.24"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.7-m", "90.72"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.7-5-m", "97.2"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.8-m", "103.68"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.8-5-m", "110.16"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.9-m", "116.64"],
+    ["st10:Sconser", "st10:Raasay", "sys1-1.9-5-m", "123.12"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system11",
+   "name": "CalMac Tarbert-Portavadie",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Tarbert-Portavadie: £5.10 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.10-m", "102"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.10-5-m", "107.1"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.11-m", "112.2"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.11-5-m", "117.3"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.12-m", "122.4"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.12-5-m", "127.5"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.13-m", "132.6"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.13-5-m", "137.7"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.14-m", "142.8"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.14-5-m", "147.9"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.15-m", "153"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.15-5-m", "158.1"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.16-m", "163.2"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.16-5-m", "168.3"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.17-m", "173.4"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.17-5-m", "178.5"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.18-m", "183.6"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.18-5-m", "188.7"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.19-m", "193.8"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.19-5-m", "198.9"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.20-m", "204"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.20-5-m", "209.1"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.21-m", "214.2"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.21-5-m", "219.3"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.22-m", "224.4"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.22-5-m", "229.5"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.23-m", "234.6"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.23-5-m", "239.7"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.24-m", "244.8"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.24-5-m", "249.9"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.25-m", "255"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.25-5-m", "260.1"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.6-m", "61.2"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.6-5-m", "66.3"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.7-m", "71.4"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.7-5-m", "76.5"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.8-m", "81.6"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.8-5-m", "86.7"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.9-m", "91.8"],
+    ["st11:Tarbert (Loch Fyne)", "st11:Portavadie", "sys1-1.9-5-m", "96.9"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system12",
+   "name": "CalMac Tayinloan-Gigha",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Tayinloan-Gigha: £6.19 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.10-m", "123.8"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.10-5-m", "129.99"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.11-m", "136.18"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.11-5-m", "142.37"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.12-m", "148.56"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.12-5-m", "154.75"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.13-m", "160.94"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.13-5-m", "167.13"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.14-m", "173.32"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.14-5-m", "179.51"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.15-m", "185.7"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.15-5-m", "191.89"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.16-m", "198.08"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.16-5-m", "204.27"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.17-m", "210.46"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.17-5-m", "216.65"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.18-m", "222.84"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.18-5-m", "229.03"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.19-m", "235.22"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.19-5-m", "241.41"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.20-m", "247.6"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.20-5-m", "253.79"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.21-m", "259.98"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.21-5-m", "266.17"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.22-m", "272.36"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.22-5-m", "278.55"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.23-m", "284.74"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.23-5-m", "290.93"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.24-m", "297.12"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.24-5-m", "303.31"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.25-m", "309.5"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.25-5-m", "315.69"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.6-m", "74.28"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.6-5-m", "80.47"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.7-m", "86.66"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.7-5-m", "92.85"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.8-m", "99.04"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.8-5-m", "105.23"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.9-m", "111.42"],
+    ["st12:Tayinloan", "st12:Gigha", "sys1-1.9-5-m", "117.61"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system13",
+   "name": "CalMac Tiree-Castlebay",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Tiree-Castlebay: £50.14 plus £10.84 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.10-m", "266.94"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.10-5-m", "277.78"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.11-m", "288.62"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.11-5-m", "299.46"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.12-m", "310.3"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.12-5-m", "321.14"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.13-m", "331.98"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.13-5-m", "342.82"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.14-m", "353.66"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.14-5-m", "364.5"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.15-m", "375.34"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.15-5-m", "386.18"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.16-m", "397.02"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.16-5-m", "407.86"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.17-m", "418.7"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.17-5-m", "429.54"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.18-m", "440.38"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.18-5-m", "451.22"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.19-m", "462.06"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.19-5-m", "472.9"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.20-m", "483.74"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.20-5-m", "494.58"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.21-m", "505.42"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.21-5-m", "516.26"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.22-m", "527.1"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.22-5-m", "537.94"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.23-m", "548.78"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.23-5-m", "559.62"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.24-m", "570.46"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.24-5-m", "581.3"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.25-m", "592.14"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.25-5-m", "602.98"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.6-m", "180.22"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.6-5-m", "191.06"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.7-m", "201.9"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.7-5-m", "212.74"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.8-m", "223.58"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.8-5-m", "234.42"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.9-m", "245.26"],
+    ["st13:Tiree", "st13:Castlebay", "sys1-1.9-5-m", "256.1"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system14",
+   "name": "CalMac Tobermory-Kilchoan",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Tobermory-Kilchoan: £6.34 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.10-m", "126.8"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.10-5-m", "133.14"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.11-m", "139.48"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.11-5-m", "145.82"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.12-m", "152.16"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.12-5-m", "158.5"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.13-m", "164.84"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.13-5-m", "171.18"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.14-m", "177.52"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.14-5-m", "183.86"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.15-m", "190.2"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.15-5-m", "196.54"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.16-m", "202.88"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.16-5-m", "209.22"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.17-m", "215.56"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.17-5-m", "221.9"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.18-m", "228.24"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.18-5-m", "234.58"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.19-m", "240.92"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.19-5-m", "247.26"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.20-m", "253.6"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.20-5-m", "259.94"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.21-m", "266.28"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.21-5-m", "272.62"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.22-m", "278.96"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.22-5-m", "285.3"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.23-m", "291.64"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.23-5-m", "297.98"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.24-m", "304.32"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.24-5-m", "310.66"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.25-m", "317"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.25-5-m", "323.34"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.6-m", "76.08"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.6-5-m", "82.42"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.7-m", "88.76"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.7-5-m", "95.1"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.8-m", "101.44"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.8-5-m", "107.78"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.9-m", "114.12"],
+    ["st14:Tobermory", "st14:Kilchoan", "sys1-1.9-5-m", "120.46"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system15",
+   "name": "CalMac Uig-Tarbert",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Uig-Tarbert: £50.14 plus £6.58 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.10-m", "181.74"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.10-5-m", "188.32"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.11-m", "194.9"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.11-5-m", "201.48"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.12-m", "208.06"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.12-5-m", "214.64"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.13-m", "221.22"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.13-5-m", "227.8"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.14-m", "234.38"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.14-5-m", "240.96"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.15-m", "247.54"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.15-5-m", "254.12"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.16-m", "260.7"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.16-5-m", "267.28"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.17-m", "273.86"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.17-5-m", "280.44"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.18-m", "287.02"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.18-5-m", "293.6"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.19-m", "300.18"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.19-5-m", "306.76"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.20-m", "313.34"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.20-5-m", "319.92"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.21-m", "326.5"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.21-5-m", "333.08"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.22-m", "339.66"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.22-5-m", "346.24"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.23-m", "352.82"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.23-5-m", "359.4"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.24-m", "365.98"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.24-5-m", "372.56"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.25-m", "379.14"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.25-5-m", "385.72"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.6-m", "129.1"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.6-5-m", "135.68"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.7-m", "142.26"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.7-5-m", "148.84"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.8-m", "155.42"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.8-5-m", "162"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.9-m", "168.58"],
+    ["st15:Uig", "st15:Tarbert (Harris)", "sys1-1.9-5-m", "175.16"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system16",
+   "name": "CalMac Ullapool-Stornoway",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Ullapool-Stornoway: £50.14 plus £11.75 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.10-m", "285.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.10-5-m", "296.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.11-m", "308.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.11-5-m", "320.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.12-m", "332.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.12-5-m", "343.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.13-m", "355.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.13-5-m", "367.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.14-m", "379.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.14-5-m", "390.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.15-m", "402.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.15-5-m", "414.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.16-m", "426.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.16-5-m", "437.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.17-m", "449.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.17-5-m", "461.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.18-m", "473.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.18-5-m", "484.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.19-m", "496.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.19-5-m", "508.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.20-m", "520.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.20-5-m", "531.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.21-m", "543.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.21-5-m", "555.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.22-m", "567.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.22-5-m", "578.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.23-m", "590.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.23-5-m", "602.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.24-m", "614.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.24-5-m", "625.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.25-m", "637.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.25-5-m", "649.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.6-m", "191.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.6-5-m", "202.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.7-m", "214.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.7-5-m", "226.39"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.8-m", "238.14"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.8-5-m", "249.89"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.9-m", "261.64"],
+    ["st16:Ullapool", "st16:Stornoway", "sys1-1.9-5-m", "273.39"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system17",
+   "name": "CalMac Wemyss Bay-Rothesay",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "CalMac commercial vehicle single rates from 2026-03-27: Wemyss Bay-Rothesay: £5.32 per 0.5 m",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.10-m", "106.4"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.10-5-m", "111.72"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.11-m", "117.04"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.11-5-m", "122.36"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.12-m", "127.68"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.12-5-m", "133"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.13-m", "138.32"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.13-5-m", "143.64"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.14-m", "148.96"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.14-5-m", "154.28"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.15-m", "159.6"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.15-5-m", "164.92"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.16-m", "170.24"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.16-5-m", "175.56"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.17-m", "180.88"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.17-5-m", "186.2"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.18-m", "191.52"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.18-5-m", "196.84"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.19-m", "202.16"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.19-5-m", "207.48"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.20-m", "212.8"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.20-5-m", "218.12"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.21-m", "223.44"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.21-5-m", "228.76"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.22-m", "234.08"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.22-5-m", "239.4"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.23-m", "244.72"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.23-5-m", "250.04"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.24-m", "255.36"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.24-5-m", "260.68"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.25-m", "266"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.25-5-m", "271.32"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.6-m", "63.84"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.6-5-m", "69.16"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.7-m", "74.48"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.7-5-m", "79.8"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.8-m", "85.12"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.8-5-m", "90.44"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.9-m", "95.76"],
+    ["st17:Wemyss Bay", "st17:Rothesay", "sys1-1.9-5-m", "101.08"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

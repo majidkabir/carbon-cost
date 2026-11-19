@@ -114,20 +114,27 @@ type Data struct {
 // Load reads the embedded data.
 func Load() (Data, error) {
 	var d Data
-	var cs struct {
-		Crossings []Crossing `json:"crossings"`
-	}
-	b, err := files.ReadFile("data/crossings.json")
-	if err != nil {
-		return d, err
-	}
-	if err := json.Unmarshal(b, &cs); err != nil {
-		return d, fmt.Errorf("crossings.json: %w", err)
-	}
-	d.Crossings = cs.Crossings
 	ents, err := files.ReadDir("data")
 	if err != nil {
 		return d, err
+	}
+	// crossings.json (by hand, with sources) and crossings-*.json (built,
+	// such as crossings-islands.json by tools/tables/ets_islands.py).
+	for _, e := range ents {
+		if e.Name() != "crossings.json" && !strings.HasPrefix(e.Name(), "crossings-") {
+			continue
+		}
+		var cs struct {
+			Crossings []Crossing `json:"crossings"`
+		}
+		b, err := files.ReadFile(path.Join("data", e.Name()))
+		if err != nil {
+			return d, err
+		}
+		if err := json.Unmarshal(b, &cs); err != nil {
+			return d, fmt.Errorf("%s: %w", e.Name(), err)
+		}
+		d.Crossings = append(d.Crossings, cs.Crossings...)
 	}
 	for _, e := range ents {
 		if strings.HasPrefix(e.Name(), "mrv-ships-") {

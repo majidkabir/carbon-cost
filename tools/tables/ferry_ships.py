@@ -58,6 +58,12 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   ship's IMO number, by its name (letters such as Å read as A), when one
   ship of that name is listed.
 
+- for the island ports of the Decision in Spain (Ibiza, Formentera,
+  Menorca), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
+  Lipari, Pantelleria, Lampedusa, Favignana, Ustica, Ponza) and Malta
+  (Gozo) that PORTS has (ISLANDS), the OpenStreetMap ferry lines between
+  one of them and another port of its Member State: the ships aren't named;
+  the derogation is in force until 31 December 2030;
 - for ports outside the EU and the EEA (the UK, the Isle of Man, the
   Channel Islands, the Faroes; Morocco, Algeria, Tunisia, Albania,
   Montenegro and Turkey), the OpenStreetMap ferry lines between one of
@@ -117,7 +123,25 @@ PORTS = {
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
     "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
     "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Visby": ("SE", ["Visby"], (57.64, 18.29)),
-    "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
+    "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)),
+    # Island ports under the derogation (ISLANDS) and the ports across from them
+    "Eivissa": ("ES", ["Eivissa", "Ibiza"], (38.91, 1.44)), "Sant Antoni": ("ES", ["Sant Antoni de Portmany", "Sant Antoni", "San Antonio"], (38.98, 1.30)),
+    "La Savina": ("ES", ["La Savina", "Formentera"], (38.73, 1.42)), "Ciutadella": ("ES", ["Ciutadella", "Ciudadela", "Ciutadella de Menorca"], (40.00, 3.84)),
+    "Maó": ("ES", ["Maó", "Mahón", "Mahon", "Maó-Mahón"], (39.89, 4.27)), "Dénia": ("ES", ["Dénia", "Denia"], (38.84, 0.11)),
+    "Palma": ("ES", ["Palma", "Palma de Mallorca"], (39.57, 2.65)), "Alcúdia": ("ES", ["Alcúdia", "Alcudia"], (39.85, 3.12)),
+    "Portoferraio": ("IT", ["Portoferraio"], (42.81, 10.32)), "Rio Marina": ("IT", ["Rio Marina"], (42.81, 10.43)),
+    "Cavo": ("IT", ["Cavo"], (42.86, 10.42)), "Piombino": ("IT", ["Piombino"], (42.93, 10.53)),
+    "Ischia": ("IT", ["Ischia", "Ischia Porto", "Porto d'Ischia"], (40.74, 13.94)), "Casamicciola": ("IT", ["Casamicciola", "Casamicciola Terme"], (40.75, 13.91)),
+    "Forio": ("IT", ["Forio"], (40.74, 13.86)), "Procida": ("IT", ["Procida"], (40.76, 14.03)), "Capri": ("IT", ["Capri"], (40.56, 14.24)),
+    "Napoli": ("IT", ["Napoli", "Naples"], (40.84, 14.25)), "Pozzuoli": ("IT", ["Pozzuoli"], (40.82, 14.12)),
+    "La Maddalena": ("IT", ["La Maddalena"], (41.21, 9.41)), "Palau": ("IT", ["Palau"], (41.18, 9.38)),
+    "Carloforte": ("IT", ["Carloforte"], (39.14, 8.31)), "Portovesme": ("IT", ["Portovesme"], (39.20, 8.39)), "Calasetta": ("IT", ["Calasetta"], (39.11, 8.37)),
+    "Lipari": ("IT", ["Lipari"], (38.47, 14.96)), "Milazzo": ("IT", ["Milazzo"], (38.22, 15.24)),
+    "Pantelleria": ("IT", ["Pantelleria"], (36.83, 11.94)), "Lampedusa": ("IT", ["Lampedusa"], (35.50, 12.61)),
+    "Porto Empedocle": ("IT", ["Porto Empedocle"], (37.29, 13.53)), "Favignana": ("IT", ["Favignana"], (37.93, 12.33)),
+    "Isola del Giglio": ("IT", ["Isola del Giglio", "Giglio Porto"], (42.36, 10.92)), "Porto Santo Stefano": ("IT", ["Porto Santo Stefano"], (42.44, 11.12)),
+    "Ustica": ("IT", ["Ustica"], (38.71, 13.19)), "Ponza": ("IT", ["Ponza"], (40.90, 12.96)), "Formia": ("IT", ["Formia"], (41.26, 13.61)),
+    "Mġarr": ("MT", ["Mġarr", "Mgarr", "Imġarr"], (36.02, 14.30)), "Ċirkewwa": ("MT", ["Ċirkewwa", "Cirkewwa"], (35.99, 14.33)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
     # ports outside the EU and the EEA, and the ports across from them
     "Dover": ("GB", ["Dover", "Douvres"], (51.12, 1.33)), "Newhaven": ("GB", ["Newhaven"], (50.79, 0.05)),
     "Portsmouth": ("GB", ["Portsmouth"], (50.81, -1.09)), "Poole": ("GB", ["Poole"], (50.71, -1.98)),
@@ -168,6 +192,19 @@ PORTS = {
     "Patras": ("GR", ["Patras", "Patra", "Πάτρα"], (38.25, 21.73)), "Lavrio": ("GR", ["Lavrio", "Λαύριο"], (37.71, 24.06)),
     "Chios": ("GR", ["Chios", "Χίος"], (38.37, 26.14)), "Mytilene": ("GR", ["Mytilene", "Lesvos", "Μυτιλήνη"], (39.10, 26.55)),
 }
+# The island ports of Implementing Decision (EU) 2023/2895, Annex I, that
+# PORTS has: (Member State, island, port) as the Decision lists them.
+ISLANDS = {"Eivissa": ("SPAIN", "IBIZA", "EIVISSA"), "Sant Antoni": ("SPAIN", "IBIZA", "SANT ANTONI DE PORTMANY"),
+           "La Savina": ("SPAIN", "FORMENTERA", "LA SAVINA"), "Ciutadella": ("SPAIN", "MENORCA", "CIUDADELA"),
+           "Maó": ("SPAIN", "MENORCA", "MAÓ"), "Portoferraio": ("ITALY", "ISOLA D’ELBA", "PORTOFERRAIO"),
+           "Rio Marina": ("ITALY", "ISOLA D’ELBA", "RIO MARINA"), "Cavo": ("ITALY", "ISOLA D’ELBA", "CAVO"),
+           "Ischia": ("ITALY", "ISOLA DI ISCHIA", "ISCHIA"), "Casamicciola": ("ITALY", "ISOLA DI ISCHIA", "CASAMICCIOLA TERME"),
+           "Forio": ("ITALY", "ISOLA DI ISCHIA", "FORIO"), "Procida": ("ITALY", "PROCIDA", "PROCIDA"),
+           "Capri": ("ITALY", "CAPRI", "CAPRI MARINA GRANDE"), "La Maddalena": ("ITALY", "LA MADDALENA", "LA MADDALENA"),
+           "Carloforte": ("ITALY", "ISOLA DI SAN PIETRO", "CARLOFORTE"), "Lipari": ("ITALY", "LIPARI", "LIPARI"),
+           "Pantelleria": ("ITALY", "PANTELLERIA", "PANTELLERIA"), "Lampedusa": ("ITALY", "LAMPEDUSA", "LAMPEDUSA"),
+           "Favignana": ("ITALY", "FAVIGNANA", "FAVIGNANA"), "Isola del Giglio": ("ITALY", "ISOLA DEL GIGLIO", "ISOLA DEL GIGLIO"),
+           "Ustica": ("ITALY", "USTICA", "USTICA"), "Ponza": ("ITALY", "PONZA", "PONZA"), "Mġarr": ("MALTA", "GOZO", "MGARR")}
 # The UK nation of the UK ports where the UK ETS's rules differ: Northern
 # Ireland (50% to and from Great Britain) and Scotland (its ferry services
 # between points in Scotland are outside).
@@ -528,7 +565,7 @@ def osm_place(osm, a, b, operator):
             print(f"ferry ships: {a}–{b}: OpenStreetMap's line doesn't reach {p}")
             return None
         pos[p] = best[1]
-    if km(pos[a], pos[b]) < 5:
+    if pos[a] == pos[b]:
         print(f"ferry ships: {a}–{b}: both ports at one end of OpenStreetMap's line")
         return None
     return pos
@@ -674,10 +711,48 @@ def main(fetched, out):
             crossings.append(c)
             have[frozenset(ports)] = c
 
+    car = {i for i, _ in lines_of(gosm)[0]} | {w["id"] for w in gosm["elements"] if w.get("tags", {}).get("hgv") in ("yes", "designated")}
+
+    # Crossings between an island port under the derogation and another
+    # port of its Member State, by OpenStreetMap's lines (a line naming two
+    # ports; one naming more calls on the way and isn't built): their ships
+    # aren't named; the derogation is in force until 31 December 2030.
+    states = {}
+    for p, (state, island, port) in ISLANDS.items():
+        part = decision[decision.find(f" {state} "):]
+        part = part[:min([i for i in (part.find(f" {x} ", 2) for x in ("GREECE", "SPAIN", "CROATIA", "ITALY", "MALTA", "SWEDEN", "ANNEX II")) if i > 0] or [len(part)])]
+        if f" {island} " not in part + " " or f" {port} " not in part + " ":
+            sys.exit(f"ferry ships: the Decision doesn't list {state}: {island}, {port}")
+        states[p] = state
+    islands = {}
+    for w in gosm["elements"]:
+        if w["type"] != "way" or w["id"] not in car:
+            continue
+        ports = named_ports(w.get("tags", {}).get("name", ""))
+        if len(ports) == 2 and any(p in ISLANDS for p in ports) and PORTS[ports[0]][0] == PORTS[ports[1]][0]:
+            islands.setdefault(frozenset(ports), []).append(w)
+    for key, ways in sorted(islands.items(), key=lambda kv: sorted(kv[0])):
+        if key in have:
+            continue
+        a, b = sorted(key, key=lambda p: (p in ISLANDS, p))
+        trucks = [w for w in ways if w["tags"].get("motor_vehicle") in ("yes", "designated") or w["tags"].get("hgv") in ("yes", "designated")]
+        pos = osm_place({"elements": trucks or ways}, a, b, "")
+        if not pos:
+            continue
+        COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
+        ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} ({ISLANDS[p][0].title()}: {ISLANDS[p][1]}, {ISLANDS[p][2]})", "url": DECISION[1]}
+              for p in (a, b) if p in ISLANDS][:1]
+        ops = sorted({w["tags"]["operator"] for w in trucks or ways if w["tags"].get("operator")})
+        cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
+        c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {
+            "title": "OpenStreetMap: " + "; ".join(sorted({w["tags"]["name"] for w in trucks or ways})) + " (its ships not named)",
+            "url": f"https://www.openstreetmap.org/way/{min(w['id'] for w in trucks or ways)}"}, ids, ex)
+        crossings.append(c)
+        have[key] = c
+
     # Crossings to and from ports outside the EU and the EEA, by
     # OpenStreetMap's lines: their ships aren't named, but the ports' countries
     # give the share of the emissions under the EU ETS.
-    car = {i for i, _ in lines_of(gosm)[0]} | {w["id"] for w in gosm["elements"] if w.get("tags", {}).get("hgv") in ("yes", "designated")}
     pairs = {}
     for w in gosm["elements"]:
         if w["type"] != "way" or w["id"] not in car:

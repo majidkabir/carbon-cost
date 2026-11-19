@@ -78,6 +78,38 @@
    }
   },
   {
+   "id": "alcudia-ciutadella",
+   "name": "Alcúdia–Ciutadella",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Alcúdia",
+     "lat": 39.834907,
+     "lon": 3.139817,
+     "country": "ES"
+    },
+    {
+     "name": "Ciutadella",
+     "lat": 39.988285,
+     "lon": 3.827039,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: MENORCA, CIUDADELA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ciutadella - Alcúdia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/128215533"
+   }
+  },
+  {
    "id": "alger-alicante",
    "name": "Alger–Alicante",
    "operator": "",
@@ -123,6 +155,102 @@
    "source": {
     "title": "OpenStreetMap: Μυτιλήνη - Ayvalık (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/262166873"
+   }
+  },
+  {
+   "id": "barcelona-ciutadella",
+   "name": "Barcelona–Ciutadella",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Barcelona",
+     "lat": 41.369567,
+     "lon": 2.177073,
+     "country": "ES"
+    },
+    {
+     "name": "Ciutadella",
+     "lat": 39.988429,
+     "lon": 3.828569,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: MENORCA, CIUDADELA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Barcelona – Ciutadella (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1192631338"
+   }
+  },
+  {
+   "id": "barcelona-eivissa",
+   "name": "Barcelona–Eivissa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Barcelona",
+     "lat": 41.369567,
+     "lon": 2.177073,
+     "country": "ES"
+    },
+    {
+     "name": "Eivissa",
+     "lat": 38.904314,
+     "lon": 1.452189,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, EIVISSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Barcelona – Eivissa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/309900357"
+   }
+  },
+  {
+   "id": "barcelona-mao",
+   "name": "Barcelona–Maó",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Barcelona",
+     "lat": 41.369567,
+     "lon": 2.177073,
+     "country": "ES"
+    },
+    {
+     "name": "Maó",
+     "lat": 39.894302,
+     "lon": 4.261874,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: MENORCA, MAÓ)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Barcelona - Maó (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/345754189"
    }
   },
   {
@@ -283,6 +411,70 @@
    }
   },
   {
+   "id": "calasetta-carloforte",
+   "name": "Calasetta–Carloforte",
+   "operator": "Delcomar",
+   "terminals": [
+    {
+     "name": "Calasetta",
+     "lat": 39.112265,
+     "lon": 8.373188,
+     "country": "IT"
+    },
+    {
+     "name": "Carloforte",
+     "lat": 39.144453,
+     "lon": 8.307827,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA DI SAN PIETRO, CARLOFORTE)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Carloforte - Calasetta (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/177904327"
+   }
+  },
+  {
+   "id": "capri-ischia",
+   "name": "Capri–Ischia",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Capri",
+     "lat": 40.556043,
+     "lon": 14.240371,
+     "country": "IT"
+    },
+    {
+     "name": "Ischia",
+     "lat": 40.744135,
+     "lon": 13.939384,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: CAPRI, CAPRI MARINA GRANDE)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ischia-Capri (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/272578417"
+   }
+  },
+  {
    "id": "cesme-chios",
    "name": "Çeşme–Chios",
    "operator": "",
@@ -304,6 +496,134 @@
    "source": {
     "title": "OpenStreetMap: Χίος - Τσεσμέ / Sakız - Çeşme (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/282791811"
+   }
+  },
+  {
+   "id": "cirkewwa-mgarr",
+   "name": "Ċirkewwa–Mġarr",
+   "operator": "Gozo Channel",
+   "terminals": [
+    {
+     "name": "Ċirkewwa",
+     "lat": 35.989092,
+     "lon": 14.329084,
+     "country": "MT"
+    },
+    {
+     "name": "Mġarr",
+     "lat": 36.023673,
+     "lon": 14.298835,
+     "country": "MT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Malta: GOZO, MGARR)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Iċ-Ċirkewwa (Malta) - L-Imġarr (Għawdex) (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/625508807"
+   }
+  },
+  {
+   "id": "denia-eivissa",
+   "name": "Dénia–Eivissa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Dénia",
+     "lat": 38.844295,
+     "lon": 0.114078,
+     "country": "ES"
+    },
+    {
+     "name": "Eivissa",
+     "lat": 38.907783,
+     "lon": 1.451722,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, EIVISSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Dénia - Eivissa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/309920246"
+   }
+  },
+  {
+   "id": "denia-la-savina",
+   "name": "Dénia–La Savina",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Dénia",
+     "lat": 38.844295,
+     "lon": 0.114078,
+     "country": "ES"
+    },
+    {
+     "name": "La Savina",
+     "lat": 38.734574,
+     "lon": 1.417679,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: FORMENTERA, LA SAVINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Dènia - Formentera (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/133868351"
+   }
+  },
+  {
+   "id": "denia-sant-antoni",
+   "name": "Dénia–Sant Antoni",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Dénia",
+     "lat": 38.844295,
+     "lon": 0.114078,
+     "country": "ES"
+    },
+    {
+     "name": "Sant Antoni",
+     "lat": 38.976927,
+     "lon": 1.298621,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, SANT ANTONI DE PORTMANY)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Dénia - Sant Antoni de Portmany (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/133872929"
    }
   },
   {
@@ -633,6 +953,70 @@
    "source": {
     "title": "OpenStreetMap: Trieste - Durrës (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/256301211"
+   }
+  },
+  {
+   "id": "eivissa-la-savina",
+   "name": "Eivissa–La Savina",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Eivissa",
+     "lat": 38.912435,
+     "lon": 1.435247,
+     "country": "ES"
+    },
+    {
+     "name": "La Savina",
+     "lat": 38.734574,
+     "lon": 1.417679,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, EIVISSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Formentera - Eivissa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/25617017"
+   }
+  },
+  {
+   "id": "formia-ponza",
+   "name": "Formia–Ponza",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Formia",
+     "lat": 41.256131,
+     "lon": 13.61103,
+     "country": "IT"
+    },
+    {
+     "name": "Ponza",
+     "lat": 40.895346,
+     "lon": 12.965028,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: PONZA, PONZA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Formia - Ponza (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/30475121"
    }
   },
   {
@@ -1211,6 +1595,38 @@
    }
   },
   {
+   "id": "milazzo-lipari",
+   "name": "Milazzo–Lipari",
+   "operator": "Liberty Lines",
+   "terminals": [
+    {
+     "name": "Milazzo",
+     "lat": 38.218325,
+     "lon": 15.241428,
+     "country": "IT"
+    },
+    {
+     "name": "Lipari",
+     "lat": 38.471384,
+     "lon": 14.955692,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: LIPARI, LIPARI)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Lipari-Milazzo (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/723330144"
+   }
+  },
+  {
    "id": "mostaganem-alicante",
    "name": "Mostaganem–Alicante",
    "operator": "",
@@ -1333,6 +1749,102 @@
    "source": {
     "title": "OpenStreetMap: Sète – Nador (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/309968169"
+   }
+  },
+  {
+   "id": "napoli-capri",
+   "name": "Napoli–Capri",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Napoli",
+     "lat": 40.84288,
+     "lon": 14.261177,
+     "country": "IT"
+    },
+    {
+     "name": "Capri",
+     "lat": 40.556275,
+     "lon": 14.241998,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: CAPRI, CAPRI MARINA GRANDE)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Napoli - Capri (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/525627687"
+   }
+  },
+  {
+   "id": "napoli-ischia",
+   "name": "Napoli–Ischia",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Napoli",
+     "lat": 40.837352,
+     "lon": 14.25475,
+     "country": "IT"
+    },
+    {
+     "name": "Ischia",
+     "lat": 40.744135,
+     "lon": 13.939384,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA DI ISCHIA, ISCHIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Ischia Porto - Napoli; Napoli - Ischia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/179606503"
+   }
+  },
+  {
+   "id": "napoli-procida",
+   "name": "Napoli–Procida",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Napoli",
+     "lat": 40.837352,
+     "lon": 14.25475,
+     "country": "IT"
+    },
+    {
+     "name": "Procida",
+     "lat": 40.765929,
+     "lon": 14.02639,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: PROCIDA, PROCIDA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Napoli - Procida (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/37900767"
    }
   },
   {
@@ -1483,6 +1995,38 @@
    }
   },
   {
+   "id": "palau-la-maddalena",
+   "name": "Palau–La Maddalena",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Palau",
+     "lat": 41.181528,
+     "lon": 9.385652,
+     "country": "IT"
+    },
+    {
+     "name": "La Maddalena",
+     "lat": 41.212044,
+     "lon": 9.406888,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: LA MADDALENA, LA MADDALENA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Palau - La Maddalena (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/171752601"
+   }
+  },
+  {
    "id": "paldiski-kapellskar",
    "name": "Paldiski–Kapellskär",
    "operator": "DFDS",
@@ -1512,6 +2056,102 @@
    }
   },
   {
+   "id": "palermo-ustica",
+   "name": "Palermo–Ustica",
+   "operator": "Liberty Lines; Siremar",
+   "terminals": [
+    {
+     "name": "Palermo",
+     "lat": 38.126475,
+     "lon": 13.364582,
+     "country": "IT"
+    },
+    {
+     "name": "Ustica",
+     "lat": 38.708018,
+     "lon": 13.196081,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: USTICA, USTICA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Palermo - Ustica (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/1128353795"
+   }
+  },
+  {
+   "id": "palma-eivissa",
+   "name": "Palma–Eivissa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Palma",
+     "lat": 39.553896,
+     "lon": 2.633841,
+     "country": "ES"
+    },
+    {
+     "name": "Eivissa",
+     "lat": 38.906399,
+     "lon": 1.45206,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, EIVISSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Palma - Eivissa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/309900356"
+   }
+  },
+  {
+   "id": "palma-mao",
+   "name": "Palma–Maó",
+   "operator": "Trasmed",
+   "terminals": [
+    {
+     "name": "Palma",
+     "lat": 39.559925,
+     "lon": 2.63601,
+     "country": "ES"
+    },
+    {
+     "name": "Maó",
+     "lat": 39.894302,
+     "lon": 4.261874,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: MENORCA, MAÓ)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Palma - Maó (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/188594378"
+   }
+  },
+  {
    "id": "pendik-yalova",
    "name": "Pendik–Yalova",
    "operator": "İDO",
@@ -1533,6 +2173,102 @@
    "source": {
     "title": "OpenStreetMap: Pendik-Yalova Hızlı Feribot Güzergahı (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/124967155"
+   }
+  },
+  {
+   "id": "piombino-cavo",
+   "name": "Piombino–Cavo",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piombino",
+     "lat": 42.928563,
+     "lon": 10.546613,
+     "country": "IT"
+    },
+    {
+     "name": "Cavo",
+     "lat": 42.860215,
+     "lon": 10.423966,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA D’ELBA, CAVO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piombino - Cavo (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/112571816"
+   }
+  },
+  {
+   "id": "piombino-portoferraio",
+   "name": "Piombino–Portoferraio",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piombino",
+     "lat": 42.929238,
+     "lon": 10.549112,
+     "country": "IT"
+    },
+    {
+     "name": "Portoferraio",
+     "lat": 42.812438,
+     "lon": 10.323126,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA D’ELBA, PORTOFERRAIO)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piombino - Portoferraio (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/834476068"
+   }
+  },
+  {
+   "id": "piombino-rio-marina",
+   "name": "Piombino–Rio Marina",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Piombino",
+     "lat": 42.928784,
+     "lon": 10.546475,
+     "country": "IT"
+    },
+    {
+     "name": "Rio Marina",
+     "lat": 42.815362,
+     "lon": 10.431036,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA D’ELBA, RIO MARINA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Piombino - Rio Marina (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/33273272"
    }
   },
   {
@@ -1581,6 +2317,70 @@
    "source": {
     "title": "OpenStreetMap: Plymouth (UK) - Santander (E) (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/587547089"
+   }
+  },
+  {
+   "id": "porto-empedocle-lampedusa",
+   "name": "Porto Empedocle–Lampedusa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Porto Empedocle",
+     "lat": 37.287544,
+     "lon": 13.529799,
+     "country": "IT"
+    },
+    {
+     "name": "Lampedusa",
+     "lat": 35.49715,
+     "lon": 12.604885,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: LAMPEDUSA, LAMPEDUSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Porto Empedocle - Linosa - Lampedusa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/24259593"
+   }
+  },
+  {
+   "id": "portovesme-carloforte",
+   "name": "Portovesme–Carloforte",
+   "operator": "Delcomar",
+   "terminals": [
+    {
+     "name": "Portovesme",
+     "lat": 39.198647,
+     "lon": 8.391024,
+     "country": "IT"
+    },
+    {
+     "name": "Carloforte",
+     "lat": 39.145001,
+     "lon": 8.307967,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA DI SAN PIETRO, CARLOFORTE)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Carloforte - Portovesme (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/177904324"
    }
   },
   {
@@ -1701,6 +2501,70 @@
    "source": {
     "title": "OpenStreetMap: Portsmouth - Santander (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/201337669"
+   }
+  },
+  {
+   "id": "pozzuoli-ischia",
+   "name": "Pozzuoli–Ischia",
+   "operator": "GesTour, Caremar, Medmar",
+   "terminals": [
+    {
+     "name": "Pozzuoli",
+     "lat": 40.823711,
+     "lon": 14.117935,
+     "country": "IT"
+    },
+    {
+     "name": "Ischia",
+     "lat": 40.744214,
+     "lon": 13.939262,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: ISOLA DI ISCHIA, ISCHIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Pozzuoli - Ischia (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/30778468"
+   }
+  },
+  {
+   "id": "pozzuoli-procida",
+   "name": "Pozzuoli–Procida",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Pozzuoli",
+     "lat": 40.823711,
+     "lon": 14.117935,
+     "country": "IT"
+    },
+    {
+     "name": "Procida",
+     "lat": 40.765929,
+     "lon": 14.02639,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: PROCIDA, PROCIDA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Pozzuoli - Procida (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/417363297"
    }
   },
   {
@@ -2317,6 +3181,102 @@
    }
   },
   {
+   "id": "trapani-favignana",
+   "name": "Trapani–Favignana",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Trapani",
+     "lat": 38.013161,
+     "lon": 12.511863,
+     "country": "IT"
+    },
+    {
+     "name": "Favignana",
+     "lat": 37.933298,
+     "lon": 12.325264,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: FAVIGNANA, FAVIGNANA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Trapani - Favignana (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/38984496"
+   }
+  },
+  {
+   "id": "trapani-pantelleria",
+   "name": "Trapani–Pantelleria",
+   "operator": "Liberty Lines",
+   "terminals": [
+    {
+     "name": "Trapani",
+     "lat": 38.013996,
+     "lon": 12.506583,
+     "country": "IT"
+    },
+    {
+     "name": "Pantelleria",
+     "lat": 36.83419,
+     "lon": 11.941225,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: PANTELLERIA, PANTELLERIA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Trapani - Pantelleria (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/40062595"
+   }
+  },
+  {
+   "id": "trapani-ustica",
+   "name": "Trapani–Ustica",
+   "operator": "Ustica Lines",
+   "terminals": [
+    {
+     "name": "Trapani",
+     "lat": 38.013219,
+     "lon": 12.510912,
+     "country": "IT"
+    },
+    {
+     "name": "Ustica",
+     "lat": 38.708018,
+     "lon": 13.196081,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Italy: USTICA, USTICA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Trapani - Ustica (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/364679117"
+   }
+  },
+  {
    "id": "travemunde-helsinki",
    "name": "Travemünde–Helsinki",
    "operator": "Finnlines",
@@ -2502,6 +3462,38 @@
    "source": {
     "title": "OpenStreetMap: Salerno - Tunisi (its ships not named; the ports' countries)",
     "url": "https://www.openstreetmap.org/way/355802036"
+   }
+  },
+  {
+   "id": "valencia-eivissa",
+   "name": "Valencia–Eivissa",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Valencia",
+     "lat": 39.456411,
+     "lon": -0.32563,
+     "country": "ES"
+    },
+    {
+     "name": "Eivissa",
+     "lat": 38.907783,
+     "lon": 1.451722,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Spain: IBIZA, EIVISSA)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: València – Eivissa (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/133872930"
    }
   },
   {

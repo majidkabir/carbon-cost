@@ -144,6 +144,7 @@ func calc(args []string) error {
 	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
+	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")

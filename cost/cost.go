@@ -45,7 +45,9 @@ const DieselKgCO2PerL = 2.67
 const (
 	RoadToll = "road_toll"
 	FerryETS = "ferry_ets"
-	ETS2     = "ets2"
+	// FerryUKETS is the UK ETS on a crossing between UK ports.
+	FerryUKETS = "ferry_uk_ets"
+	ETS2       = "ets2"
 	// FuelCO2 is a national CO2 price on road fuel (Germany's BEHG,
 	// Austria's NEHG 2022), paid where the fuel is bought.
 	FuelCO2 = "fuel_co2"
@@ -98,6 +100,9 @@ type Request struct {
 	// EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for
 	// ferry crossings. 0: ferry ETS is not priced.
 	EUAEurPerT float64 `json:"eua_eur_per_t,omitempty"`
+	// UKAGbpPerT is the UK ETS allowance price (GBP per t CO2e), for
+	// crossings between UK ports from 1 July 2026. 0: not priced.
+	UKAGbpPerT float64 `json:"uka_gbp_per_t,omitempty"`
 	// FerryETSShare is the share of a crossing's emissions under the EU
 	// ETS for a crossing this tool doesn't know: 1 between two EU/EEA
 	// ports (default), 0.5 to or from a port outside. A known crossing's
@@ -403,7 +408,7 @@ func check(req Request) error {
 	if req.FuelCountry != "" && !regexp.MustCompile(`^[A-Z]{2}$`).MatchString(req.FuelCountry) {
 		return fmt.Errorf("fuel_country %q: give an ISO 3166-1 alpha-2 code, e.g. DE", req.FuelCountry)
 	}
-	if req.EUAEurPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.DieselL < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
+	if req.EUAEurPerT < 0 || req.UKAGbpPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.DieselL < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
 		return fmt.Errorf("prices, rates and shares can't be negative (ferry_ets_share is 0-1)")
 	}
 	return nil
@@ -547,6 +552,13 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			if err := priceFerryETS(&out, res, fd, req, date, add); err != nil {
 				return Response{}, err
 			}
+		}
+	}
+
+	// UK ETS on crossings between UK ports.
+	if ferryTTW > 0 {
+		if err := priceFerryUKETS(&out, res, fd, req, date, add); err != nil {
+			return Response{}, err
 		}
 	}
 
@@ -791,6 +803,57 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Req
 	}
 	out.FerryCrossing = strings.Join(names, ", ")
 	return nil
+}
+
+// priceFerryUKETS adds a UK ETS line for each crossing between two UK
+// ports on the trip: the cargo's share of the crossing's emissions (as for
+// the EU ETS) times the share of them under the UK ETS by law, at the UK
+// allowance price.
+func priceFerryUKETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time, add func(Line) error) error {
+	asked := false
+	for _, p := range ferryParts(res, fd) {
+		if p.crossing == nil {
+			continue
+		}
+		c := p.crossing
+		cov, applies := fd.UKCoverage(*c, date)
+		if !applies {
+			continue
+		}
+		if !strings.Contains(out.FerryCrossing, c.Name) {
+			out.FerryCrossing = strings.TrimPrefix(out.FerryCrossing+", "+c.Name, ", ")
+		}
+		if cov.Share == 0 {
+			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: no UK ETS cost: %s.", c.Name, cov.Basis))
+			continue
+		}
+		if req.UKAGbpPerT == 0 {
+			if !asked {
+				out.Notes = append(out.Notes, "Ferry: give uka_gbp_per_t to price the UK ETS on a crossing between UK ports.")
+				asked = true
+			}
+			continue
+		}
+		if cov.Note != "" {
+			out.Notes = append(out.Notes, "Ferry: "+c.Name+": "+cov.Note+".")
+		}
+		emT, basis := p.ttwKg/1000, "Sootcase ferry part (GLEC ro-pax default)"
+		if t, b, ok := mrvFerry(out, fd, c, p.km, req, date); ok {
+			emT, basis = t, b
+		}
+		t := emT * cov.Share
+		if err := add(Line{Charge: FerryUKETS, Carbon: true, Section: c.Name, Km: round3(p.km), TonnesCO2: round3(t), Rate: req.UKAGbpPerT,
+			RateUnit: "GBP/t CO2e", Currency: "GBP", Amount: t * req.UKAGbpPerT,
+			Source: ferries.UKETSLaw + "; " + cov.Basis + "; emissions: " + basis, Sources: ukETSSources}); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+var ukETSSources = []rates.Source{
+	{Title: "The Greenhouse Gas Emissions Trading Scheme (Amendment) (Extension to Maritime Activities) Order 2026 (SI 2026/392)", URL: "https://www.legislation.gov.uk/uksi/2026/392/made"},
+	{Title: "Sootcase (route and emissions)", URL: "https://sootcase.org"},
 }
 
 // mrvFerry is a crossing's CO2e (tonnes) for km on it from its ships' MRV

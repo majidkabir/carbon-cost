@@ -105,6 +105,27 @@ func TestCoverage(t *testing.T) {
 	if cov, _ := d.Coverage(byID["dover-calais"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
 		t.Errorf("dover-calais note %q", cov.Note)
 	}
+	// The UK ETS: from 1 July 2026, half between Northern Ireland and
+	// Great Britain, none on a Scottish ferry service; not between the UK
+	// and France.
+	for _, tc := range []struct {
+		id, day string
+		share   float64
+		basis   string
+	}{
+		{"belfast-cairnryan", "2026-06-30", 0, "from 1 July 2026"},
+		{"belfast-cairnryan", "2026-07-01", 0.5, "para 15(1)(a)"},
+		{"belfast-liverpool", "2026-11-20", 0.5, "para 15(1)(a)"},
+		{"aberdeen-lerwick", "2026-11-20", 0, "Scottish ferry service"},
+	} {
+		cov, ok := d.UKCoverage(byID[tc.id], day(tc.day))
+		if !ok || cov.Share != tc.share || !strings.Contains(cov.Basis, tc.basis) {
+			t.Errorf("UK ETS %s on %s: %v %q, want %v (%s)", tc.id, tc.day, cov.Share, cov.Basis, tc.share, tc.basis)
+		}
+	}
+	if _, ok := d.UKCoverage(byID["dover-calais"], day("2026-11-20")); ok {
+		t.Error("UK ETS on Dover-Calais")
+	}
 	// One port outside the EU/EEA: half the emissions.
 	c := Crossing{Name: "x", Terminals: []Point{{Country: "FR"}, {Country: "GB"}}}
 	if cov, _ := d.Coverage(c, day("2026-01-01")); cov.Share != 0.5 {

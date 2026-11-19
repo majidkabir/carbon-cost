@@ -342,6 +342,32 @@ func TestPrice_FerryETSByLaw(t *testing.T) {
 		!strings.Contains(ls[0].Source, "EXPRESS 1, EXPRESS 5") {
 		t.Errorf("Ystad-Rønne: %+v", ls)
 	}
+	// Dover-Calais: a port outside the EU, half the emissions (40 kg x
+	// 0.5 x 75 EUR/t), its ships not named.
+	dover := [][2]float64{{1.30, 51.13}, {1.332393, 51.123741}, {1.857771, 50.967324}, {1.88, 50.96}}
+	r, _ = PriceWith(trip(dover, sootcase.Part{Kind: "ferry", DistanceKm: 40, TTWKg: 40}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Dover–Calais" || ls[0].Amount != 1.5 || !hasNote(r, "ships aren't known") {
+		t.Errorf("Dover-Calais: %+v, notes %v", ls, r.Notes)
+	}
+	// Belfast-Cairnryan: no EU ETS (two UK ports); the UK ETS on half its
+	// emissions with uka_gbp_per_t (30 kg x 0.5 x 50 GBP/t = GBP 0.75).
+	nir := [][2]float64{{-5.90, 54.63}, {-5.879398, 54.636557}, {-5.036792, 54.985017}, {-5.03, 54.99}}
+	uk := req
+	uk.UKAGbpPerT = 50
+	uk.FX = map[string]float64{"GBP": 0.85}
+	r, err = PriceWith(trip(nir, sootcase.Part{Kind: "ferry", DistanceKm: 60, TTWKg: 30}), all(t), &fd, uk, nov26)
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ukl []Line
+	for _, l := range r.Lines {
+		if l.Charge == FerryUKETS {
+			ukl = append(ukl, l)
+		}
+	}
+	if ls := ferryLines(r); len(ls) != 0 || len(ukl) != 1 || ukl[0].Currency != "GBP" || ukl[0].Amount != 0.75 || !strings.Contains(ukl[0].Source, "para 15(1)(a)") {
+		t.Errorf("Belfast-Cairnryan: EU %+v, UK %+v, notes %v", ls, ukl, r.Notes)
+	}
 	// Esbjerg-Nordby: ships under 5,000 GT.
 	fano := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.40845, 55.45018}, {8.40, 55.45}}
 	r, _ = PriceWith(trip(fano, sootcase.Part{Kind: "ferry", DistanceKm: 2.3, TTWKg: 4}), all(t), &fd, req, nov26)

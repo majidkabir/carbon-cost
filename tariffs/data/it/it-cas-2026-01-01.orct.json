@@ -113,7 +113,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.127933, 37.590268]]
+     "coordinates": [[15.127916, 37.590231]]
     },
     "point_names": ["between Acireale and Catania Nord"],
     "headings": [201.1],
@@ -141,7 +141,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.128048, 37.590214]]
+     "coordinates": [[15.128031, 37.590179]]
     },
     "point_names": ["between Catania Nord and Acireale"],
     "headings": [20.7],
@@ -239,7 +239,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.458766, 38.043023]]
+     "coordinates": [[15.458764, 38.043021]]
     },
     "point_names": ["between Messina Sud and Roccalumera"],
     "headings": [225.3],
@@ -253,7 +253,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.458898, 38.042978]]
+     "coordinates": [[15.458897, 38.042977]]
     },
     "point_names": ["between Roccalumera and Messina Sud"],
     "headings": [45.1],
@@ -1658,7 +1658,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-18"
+   "osm_extract": "2026-11-19"
   }
  }
 }

@@ -25,7 +25,7 @@ Usage: python3 hr_jadrolinija.py <fetched dir> <out dir>
 """
 import datetime, json, os, re, sys
 
-from ferry_osm import MATCH_KM, features, km, lines_of, systems as place_systems
+from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 
 VAT = 1.25
 E = r"(\d{1,4}),(\d\d) EUR"
@@ -147,24 +147,7 @@ def parse(text, line):
 
 
 def places(osm, lines):
-    """Each port's place: its terminal or place, at the nearest car ferry line's nearest point within 3 km."""
-    feats = features(osm)
-    out = {}
-    for port, (kind, name) in PORTS.items():
-        if kind == "terminal":
-            hit = [p for t, p in feats if t.get("amenity") == "ferry_terminal" and t.get("name") == name]
-        else:
-            hit = [p for t, p in feats if t.get("place") and t.get("name") == name]
-        best = None
-        for p in hit:
-            for _, ln in lines:
-                for q in ln:
-                    d = km(p, q)
-                    if d <= 3 and (best is None or d < best[0]):
-                        best = (d, q)
-        if best:
-            out[port] = best[1]
-    return out
+    return port_places(osm, lines, PORTS)
 
 
 def main(fetched, out):

@@ -429,10 +429,14 @@ def convert_system(b, i, s, motor=False):
     tnight = b.time_class(f"sys{i}-night", times=hours(s["night_hours"]), label="Night tariff") if s.get("night_hours") else None
     season = s.get("season_prices") or {}
     tseason = b.time_class(f"sys{i}-season", days=[{"date_ranges": s["season"]}], label="Season") if s.get("season") else None
+    # Prices of weekdays' hours (Estonia's ferries: Friday from 13:00 to the islands).
+    timed = [(tp["prices"], {"time_class": b.time_class(f"sys{i}-t{k}", days=[{"weekdays": tp["weekdays"]}], times=tp["times"],
+                                                         label=tp.get("label")), "priority": 1})
+             for k, tp in enumerate(s.get("time_prices") or [], 1)]
     rows, odd, unplaced = [], {}, set()
     # At night the night prices replace both the prices and the electronic prices; in the season the season's.
     for table, extra in ((s["prices"], {}), (etc, {"user_class": "electronic"}), (night, {"time_class": tnight, "priority": 1}),
-                         (season, {"time_class": tseason, "priority": 1})):
+                         (season, {"time_class": tseason, "priority": 1}), *timed):
         if table is etc and etc:
             b.electronic()
         for key in sorted(table):

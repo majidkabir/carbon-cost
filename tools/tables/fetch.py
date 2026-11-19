@@ -146,6 +146,11 @@ def riigiteataja(out, manifest, sid, body):
     url = f"https://www.riigiteataja.ee/public-api/api/v1/akt/{d['kehtivId']}/blob-html"
     status, text = get(url)
     save(out, manifest, f"{sid}-text.html", url, status, text)
+    # The act's annexes (lisa) are PDFs it links.
+    for k, a in enumerate(sorted(set(re.findall(r"/aktilisa/[0-9/]+[^\"'#<>\s]*\.pdf", text.decode("utf-8", "replace")))), 1):
+        u = "https://www.riigiteataja.ee" + a
+        status, b = get(u)
+        save(out, manifest, f"{sid}-lisa-{k}.pdf", u, status, b)
 
 
 def nvdb(out, manifest, sid, url, body):

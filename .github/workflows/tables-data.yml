@@ -132,6 +132,7 @@ jobs:
           run python3 tools/tables/mont_blanc.py out out/tables
           run python3 tools/tables/lv.py out out/tables
           run python3 tools/tables/ee.py out out/tables
+          run python3 tools/tables/ee_ferries.py out out/tables
           run python3 tools/tables/se.py out out/tables
           run python3 tools/tables/lu.py out out/tables
           run python3 tools/tables/gb.py out out/tables
@@ -139,6 +140,7 @@ jobs:
           run python3 tools/tables/no_ferries.py out out/tables
           run python3 tools/tables/gb_calmac.py out out/tables
           run python3 tools/tables/hr_jadrolinija.py out out/tables
+          run python3 tools/tables/it_messina.py out out/tables
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables

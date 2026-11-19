@@ -342,6 +342,13 @@ func TestPrice_FerryETSByLaw(t *testing.T) {
 		!strings.Contains(ls[0].Source, "EXPRESS 1, EXPRESS 5") {
 		t.Errorf("Ystad-Rønne: %+v", ls)
 	}
+	// Dover-Calais: a port outside the EU, half the emissions (40 kg x
+	// 0.5 x 75 EUR/t), its ships not named.
+	dover := [][2]float64{{1.30, 51.13}, {1.332393, 51.123741}, {1.857771, 50.967324}, {1.88, 50.96}}
+	r, _ = PriceWith(trip(dover, sootcase.Part{Kind: "ferry", DistanceKm: 40, TTWKg: 40}), all(t), &fd, req, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Dover–Calais" || ls[0].Amount != 1.5 || !hasNote(r, "ships aren't known") {
+		t.Errorf("Dover-Calais: %+v, notes %v", ls, r.Notes)
+	}
 	// Esbjerg-Nordby: ships under 5,000 GT.
 	fano := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.40845, 55.45018}, {8.40, 55.45}}
 	r, _ = PriceWith(trip(fano, sootcase.Part{Kind: "ferry", DistanceKm: 2.3, TTWKg: 4}), all(t), &fd, req, nov26)

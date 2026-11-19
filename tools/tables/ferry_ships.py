@@ -63,7 +63,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   ship of that name is listed.
 
 - for the island ports of the Decision in Spain (Ibiza, Formentera,
-  Menorca), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
+  Menorca), Croatia (Rab's Mišnjak: Jadrolinija's ports are
+  ets_islands.py's), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
   Lipari, Pantelleria, Lampedusa, Favignana, Ustica, Ponza) and Malta
   (Gozo) that PORTS has (ISLANDS), and of Greece (GREECE, by the English
   names of OpenStreetMap's lines in gr-ferries-osm.json), the OpenStreetMap
@@ -147,6 +148,7 @@ PORTS = {
     "Porto Empedocle": ("IT", ["Porto Empedocle"], (37.29, 13.53)), "Favignana": ("IT", ["Favignana"], (37.93, 12.33)),
     "Isola del Giglio": ("IT", ["Isola del Giglio", "Giglio Porto"], (42.36, 10.92)), "Porto Santo Stefano": ("IT", ["Porto Santo Stefano"], (42.44, 11.12)),
     "Ustica": ("IT", ["Ustica"], (38.71, 13.19)), "Ponza": ("IT", ["Ponza"], (40.90, 12.96)), "Formia": ("IT", ["Formia"], (41.26, 13.61)),
+    "Mišnjak": ("HR", ["Mišnjak"], (44.71, 14.86)), "Stinica": ("HR", ["Stinica"], (44.72, 14.89)),
     "Mġarr": ("MT", ["Mġarr", "Mgarr", "Imġarr"], (36.02, 14.30)), "Ċirkewwa": ("MT", ["Ċirkewwa", "Cirkewwa"], (35.99, 14.33)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
     # ports outside the EU and the EEA, and the ports across from them
     "Dover": ("GB", ["Dover", "Douvres"], (51.12, 1.33)), "Newhaven": ("GB", ["Newhaven"], (50.79, 0.05)),
@@ -281,7 +283,7 @@ ISLANDS = {"Eivissa": ("SPAIN", "IBIZA", "EIVISSA"), "Sant Antoni": ("SPAIN", "I
            "Pantelleria": ("ITALY", "PANTELLERIA", "PANTELLERIA"), "Lampedusa": ("ITALY", "LAMPEDUSA", "LAMPEDUSA"),
            "Favignana": ("ITALY", "FAVIGNANA", "FAVIGNANA"), "Isola del Giglio": ("ITALY", "ISOLA DEL GIGLIO", "ISOLA DEL GIGLIO"),
            "Ustica": ("ITALY", "USTICA", "USTICA"), "Ponza": ("ITALY", "PONZA", "PONZA"), "Mġarr": ("MALTA", "GOZO", "MGARR"),
-           "Chios": ("GREECE", "CHIOS", "CHIOS"), "Mytilene": ("GREECE", "LESVOS", "MYTILINI")}
+           "Mišnjak": ("CROATIA", "RAB", "MIŠNJAK"), "Chios": ("GREECE", "CHIOS", "CHIOS"), "Mytilene": ("GREECE", "LESVOS", "MYTILINI")}
 QUERIED = set(PORTS)  # the ports whose names ferry-ships-osm and -osm-2 ask for
 PORTS["Mytilene"][1].extend(["Mytilini", "Lesvos (Mytilene)"])
 for _p, (_names, _at, _listed) in GREECE.items():

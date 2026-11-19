@@ -8642,6 +8642,38 @@
    }
   },
   {
+   "id": "stinica-misnjak",
+   "name": "Stinica–Mišnjak",
+   "operator": "Rapska Plovidba d.d.",
+   "terminals": [
+    {
+     "name": "Stinica",
+     "lat": 44.720005,
+     "lon": 14.891449,
+     "country": "HR"
+    },
+    {
+     "name": "Mišnjak",
+     "lat": 44.706313,
+     "lon": 14.86082,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: RAB, MIŠNJAK)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "OpenStreetMap: Mišnjak - Stinica (its ships not named)",
+    "url": "https://www.openstreetmap.org/way/25626587"
+   }
+  },
+  {
    "id": "swinoujscie-malmo",
    "name": "Świnoujście–Malmö",
    "operator": "Finnlines",

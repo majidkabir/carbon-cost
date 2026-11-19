@@ -10,8 +10,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   ("the departures of the ferry Galileusz from 6.11.2026 until further
   notice have been cancelled") is left out;
 - Bornholmslinjen's ferries page (bornholm-ferries.html): each ferry's
-  crossing times ("Rønne - Køge") and description ("på ruten mellem Rønne
-  og Ystad") name its routes;
+  crossing times ("Rønne - Køge", "Rønne-Ystad") and description ("på
+  ruten mellem Rønne og Ystad") name its routes;
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json): the terminals,
   as polsca.py and dk_bornholm.py place them;
 - Commission Implementing Decision (EU) 2023/2895, Annex I
@@ -113,7 +113,7 @@ def bornholm(page):
         if "ferrySpecifications" in v and "erpId" in v:
             name = a[v["name"]]
             for s in strings(v["ferrySpecifications"]):
-                m = re.fullmatch(rf"Rønne - {port}", s.strip())
+                m = re.fullmatch(rf"Rønne ?[-–] ?{port}", s.strip())
                 if m:
                     routes.setdefault(name, set()).add(m.group(1))
         if "ferry" in v and "description" in v:

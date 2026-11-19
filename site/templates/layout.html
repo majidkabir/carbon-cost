@@ -30,7 +30,14 @@
   main { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; }
   nav.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
   nav.crumbs a { color: var(--accent); text-decoration: none; }
-  nav.langs a, nav.langs b { margin-left: 8px; }
+  details.langs { position: relative; }
+  details.langs summary { cursor: pointer; list-style: none; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 2px 10px; background: #fff; user-select: none; }
+  details.langs summary::-webkit-details-marker { display: none; }
+  details.langs summary::after { content: " \25BE"; color: var(--muted); }
+  details.langs ul { position: absolute; right: 0; z-index: 10; margin: 4px 0 0; padding: 6px 0; list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.12); max-height: 70vh; overflow-y: auto; min-width: 180px; }
+  details.langs li a, details.langs li b { display: block; padding: 4px 14px; white-space: nowrap; }
+  details.langs li b { color: var(--ink); background: var(--bg); }
+  details.langs li a:hover { background: var(--bg); }
   h1 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; }
   h2 { font-size: 18px; margin: 28px 0 6px; }
   h3 { font-size: 15px; margin: 18px 0 4px; }
@@ -66,7 +73,7 @@
 </head>
 <body>
 <main>
-<nav class="crumbs"><span>{{range $i, $c := .Crumbs}}{{if $i}} › {{end}}<a href="{{$c.Href}}">{{$c.Name}}</a>{{end}}</span>{{if .Alternates}}<span class="langs">{{range .Alternates}}{{if eq .Lang $.Lang}}<b>{{.Name}}</b>{{else}}<a href="{{.Path}}" hreflang="{{.Lang}}" lang="{{.Lang}}">{{.Name}}</a>{{end}} {{end}}</span>{{end}}</nav>
+<nav class="crumbs"><span>{{range $i, $c := .Crumbs}}{{if $i}} › {{end}}<a href="{{$c.Href}}">{{$c.Name}}</a>{{end}}</span>{{if .Alternates}}<details class="langs"><summary aria-label="Language">{{.L.Name}}</summary><ul>{{range .Alternates}}<li>{{if eq .Lang $.Lang}}<b>{{.Name}}</b>{{else}}<a href="{{.Path}}" hreflang="{{.Lang}}" lang="{{.Lang}}">{{.Name}}</a>{{end}}</li>{{end}}</ul></details>{{end}}</nav>
 {{end}}
 
 {{define "foot"}}

@@ -2,46 +2,64 @@
  "about": "x",
  "sources": [
   {
-   "id": "frs-t-20260411",
+   "id": "op-2895-pdf",
    "table": "x",
-   "url": "https://web.archive.org/web/20260411080448id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
-   "what": "frs-t-20260411"
+   "url": "https://op.europa.eu/o/opportal-service/download-handler?identifier=5e9502a6-a06c-11ee-b164-01aa75ed71a1&format=pdf&language=en&productionSystem=cellar&part=",
+   "what": "op-2895-pdf"
   },
   {
-   "id": "frs-t-20260609",
+   "id": "cellar-2895-1",
    "table": "x",
-   "url": "https://web.archive.org/web/20260609030229id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
-   "what": "frs-t-20260609"
+   "url": "https://publications.europa.eu/resource/cellar/5e9502a6-a06c-11ee-b164-01aa75ed71a1.0006.03/DOC_1",
+   "what": "cellar-2895-1"
   },
   {
-   "id": "frs-t-20260714",
+   "id": "cellar-2895-2",
    "table": "x",
-   "url": "https://web.archive.org/web/20260714220626id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
-   "what": "frs-t-20260714"
+   "url": "https://publications.europa.eu/resource/cellar/5e9502a6-a06c-11ee-b164-01aa75ed71a1.0006.01/DOC_1",
+   "what": "cellar-2895-2"
   },
   {
-   "id": "frs-t-20260801",
+   "id": "eurlex-html-2895",
    "table": "x",
-   "url": "https://web.archive.org/web/20260801115354id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
-   "what": "frs-t-20260801"
+   "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202302895",
+   "what": "eurlex-html-2895"
   },
   {
-   "id": "frs-t-20261108",
+   "id": "eurlex-celex-2895",
    "table": "x",
-   "url": "https://web.archive.org/web/20261108222310id_/https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
-   "what": "frs-t-20261108"
+   "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023D2895",
+   "what": "eurlex-celex-2895"
   },
   {
-   "id": "frs-t-20260212",
+   "id": "cdx-2895",
    "table": "x",
-   "url": "https://web.archive.org/web/20260212170219id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
-   "what": "frs-t-20260212"
+   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/eli/dec_impl/2023/2895*&output=json&fl=timestamp,original,statuscode&limit=20",
+   "what": "cdx-2895"
   },
   {
-   "id": "frs-t-20260115",
+   "id": "cdx-2924",
    "table": "x",
-   "url": "https://web.archive.org/web/20260115204148id_/https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
-   "what": "frs-t-20260115"
+   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/eli/dec_impl/2024/2924*&output=json&fl=timestamp,original,statuscode&limit=20",
+   "what": "cdx-2924"
+  },
+  {
+   "id": "cdx-consol",
+   "table": "x",
+   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/legal-content/EN/TXT/*02023D2895*&output=json&fl=timestamp,original,statuscode&limit=20",
+   "what": "cdx-consol"
+  },
+  {
+   "id": "tslaevad-en",
+   "table": "x",
+   "url": "https://www.tslaevad.ee/en/",
+   "what": "tslaevad-en"
+  },
+  {
+   "id": "praamid-en",
+   "table": "x",
+   "url": "https://www.praamid.ee/en/",
+   "what": "praamid-en"
   }
  ]
 }

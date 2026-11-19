@@ -14,7 +14,8 @@ surcharges Scandlines gives), from
   Øresundslinjen's own tariff for Helsingør–Helsingborg (trucks up to 8,
   13, 16 and 26 m, for a calendar year);
 - each month's surcharges notice (scl-surcharges-<yyyy>-<mm>.pdf, as
-  text): per commencing metre, at least 7 m, the bunker surcharge (BAF),
+  text; those the surcharges page no longer links, January to May 2026,
+  from the Internet Archive's copies of the PDFs): per commencing metre, at least 7 m, the bunker surcharge (BAF),
   the ETS surcharge and the Green Investment Rate (GIR) on Scandlines'
   routes, and Øresundslinjen's energy and green surcharges;
 - OpenStreetMap (scl-osm.json, Overpass): the ferry lines and terminals.

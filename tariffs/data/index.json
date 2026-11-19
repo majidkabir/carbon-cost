@@ -632,6 +632,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/dk-aeroefaergerne/2026-01-03",
+   "scheme": "dk-aeroefaergerne",
+   "country": "DK",
+   "file": "dk/dk-aeroefaergerne-2026-01-03.orct.json",
+   "name": "Ærøfærgerne's ferries Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav, trucks",
+   "valid_from": "2026-01-03",
+   "valid_to": "2027-01-04",
+   "sha256": "7d8083c6e576a4c0a4b2c21ea7b464e395b216708289433202d58ddfb6d9e338",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-aeroexpressen/2026-01-01",
+   "scheme": "dk-aeroexpressen",
+   "country": "DK",
+   "file": "dk/dk-aeroexpressen-2026-01-01.orct.json",
+   "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-06-14",
+   "sha256": "696d1ccebb682f02a67009968548d5c24dcc71626993914420bab25b3c2602a6",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-aeroexpressen/2026-06-15",
+   "scheme": "dk-aeroexpressen",
+   "country": "DK",
+   "file": "dk/dk-aeroexpressen-2026-06-15.orct.json",
+   "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+   "valid_from": "2026-06-15",
+   "valid_to": "2026-12-31",
+   "sha256": "6fe89baf460123bf77e222041dc7a8d650dfb3451bce69a6b4efe8563ac4ed3c",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/dk-alslinjen/2026-01-01",
    "scheme": "dk-alslinjen",
    "country": "DK",
@@ -816,6 +849,61 @@
    "valid_from": "2027-01-01",
    "valid_to": "2027-12-31",
    "sha256": "8f0a2db928311dee02d358205bbe0be678bcdf6ec9d318e7e5ce4108970fd1bf",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-01-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-01-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-01-31",
+   "sha256": "b09ebdb9e7c0b90bc9eb6c8a256dc35f059d34b2dc53da5315a021f0dd5d42ca",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-02-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-02-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-02-01",
+   "valid_to": "2026-02-28",
+   "sha256": "cabd255ab5a644bce9ff85fa81f5dcfa65400890f816d4de8c109e44d94cd3e9",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-03-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-03-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-03-01",
+   "valid_to": "2026-03-31",
+   "sha256": "403aa9ba3155eae978d55075eba94147d3f4c754397f072f9f0a5ec864bf5004",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-04-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-04-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-04-01",
+   "valid_to": "2026-04-30",
+   "sha256": "abf0a10444083881aab7aa3c39028e6b1fab938d4ff83e089c0f53ec53f0af61",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-05-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-05-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-05-01",
+   "valid_to": "2026-05-31",
+   "sha256": "c73cb96e6f8d059dbb41561f4bd07403f1553a60ab4233ee72a59de2888f4ec0",
    "coverage": "complete"
   },
   {
@@ -1178,7 +1266,7 @@
    "name": "Spanish state toll motorways (SEITT)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "6508318895e7ec86792e44dec51ea9394e1eb44bf9b81028e71c72ebe66f597b",
+   "sha256": "68e480835bb5574d46691649691321e78a83993bea76de9c456c012816dd39e5",
    "coverage": "complete"
   },
   {
@@ -1618,7 +1706,7 @@
    "name": "Jadrolinija's state ferry lines, goods vehicles",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "e77758cb76b3bad1d36417826e77b510bc22c70bc6a910a9d17e141fb7d8500a",
+   "sha256": "6608fd1df48318ca94f32115b2de695c2941ee28bbe4b0bcc15c94f942d7295a",
    "coverage": "complete"
   },
   {
@@ -1926,7 +2014,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "a425d9b745fbae2115f99e7d74f6914202c7b724d66bb9f7229577b053c0a4de",
+   "sha256": "0943eb92de03d3510e2431a00cef347ea8e4e89e16f116b0babcf2fb8e95a5df",
    "coverage": "complete"
   },
   {

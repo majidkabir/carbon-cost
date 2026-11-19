@@ -1,0 +1,528 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/scandlines/2026-02-01",
+  "scheme": {
+   "id": "scandlines",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "country": "DK"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-02-01",
+  "valid_to": "2026-02-28",
+  "currency": "EUR",
+  "timezone": "Europe/Copenhagen",
+  "license": "MIT",
+  "method": "Scandlines' gross freight tariffs per single crossing, excluding VAT, loaded (Germany–Denmark from 10 m, valid from 2026-01-01; small units to 9 m, valid from 2026-01-01; transit Germany–Sweden North, valid from 2026-01-01), and Øresundslinjen's freight tariff Helsingør–Helsingborg (2026-01-01 to 2026-12-31: trucks to 8 m EUR 91.4, to 13 m EUR 145.9, to 16 m EUR 157.9, to 26 m EUR 169.3); by the truck's length in whole metres up. With the surcharges per commencing metre (at least 7) as from 2026-02-01: Puttgarden–Rødby BAF 0.77 and GIR 0.88, Rostock–Gedser BAF 2.06 and GIR 1.66, Helsingør–Helsingborg energy 0.83 and green 0.46 EUR. Scandlines' ETS surcharge (0.14 and 0.43 EUR per metre) isn't added: carbon-cost prices the EU ETS on a crossing from the ships' MRV data. A trip over Puttgarden–Rødby or Rostock–Gedser and Helsingør–Helsingborg pays the transit ticket. Over-length (over 26 m), over-width and over-weight surcharges aren't applied. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "scandlines-2026-02-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Scandlines Freight: freight tariffs",
+   "url": "https://freight.scandlines.com/freight-conditions/freight-tariffs/"
+  },
+  {
+   "id": "s2",
+   "title": "Scandlines Freight: surcharges",
+   "url": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Overpass API): ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-7-m",
+     "label": "up to 7 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 7
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-8-m",
+     "label": "7-8 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7,
+       "max": 8
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-9-m",
+     "label": "8-9 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8,
+       "max": 9
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-10-m",
+     "label": "9-10 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9,
+       "max": 10
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-11-m",
+     "label": "10-11 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10,
+       "max": 11
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-12-m",
+     "label": "11-12 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11,
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-13-m",
+     "label": "12-13 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12,
+       "max": 13
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-14-m",
+     "label": "13-14 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13,
+       "max": 14
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-15-m",
+     "label": "14-15 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14,
+       "max": 15
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-16-m",
+     "label": "15-16 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15,
+       "max": 16
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-17-m",
+     "label": "16-17 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16,
+       "max": 17
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-18-m",
+     "label": "17-18 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17,
+       "max": 18
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-19-m",
+     "label": "18-19 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18,
+       "max": 19
+      }
+     }
+    },
+    {
+     "id": "sys1-1.19-20-m",
+     "label": "19-20 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 19,
+       "max": 20
+      }
+     }
+    },
+    {
+     "id": "sys1-1.20-21-m",
+     "label": "20-21 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 20,
+       "max": 21
+      }
+     }
+    },
+    {
+     "id": "sys1-1.21-22-m",
+     "label": "21-22 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 21,
+       "max": 22
+      }
+     }
+    },
+    {
+     "id": "sys1-1.22-23-m",
+     "label": "22-23 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 22,
+       "max": 23
+      }
+     }
+    },
+    {
+     "id": "sys1-1.23-24-m",
+     "label": "23-24 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 23,
+       "max": 24
+      }
+     }
+    },
+    {
+     "id": "sys1-1.24-25-m",
+     "label": "24-25 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 24,
+       "max": 25
+      }
+     }
+    },
+    {
+     "id": "sys1-1.25-26-m",
+     "label": "25-26 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 25,
+       "max": 26
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Gedser",
+   "type": "station",
+   "name": "Gedser",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[11.927163, 54.569509]]
+    },
+    "point_names": ["Gedser port, 0.5 km out on the line to Rostock (OSM way 1349018822)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Helsingborg",
+   "type": "station",
+   "name": "Helsingborg",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.685027, 56.040775]]
+    },
+    "point_names": ["Helsingborg port, 0.5 km out on the line to Helsingør (OSM way 4066778)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Helsingør",
+   "type": "station",
+   "name": "Helsingør",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.623761, 56.034108], [12.624016, 56.033558]]
+    },
+    "point_names": ["Helsingør port, 0.5 km out on the line to Helsingborg (OSM way 4066778)", "Helsingør port, 0.5 km out on the line to Helsingborg (OSM way 1476699074)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Puttgarden",
+   "type": "station",
+   "name": "Puttgarden",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[11.231603, 54.506517]]
+    },
+    "point_names": ["Puttgarden port, 0.5 km out on the line to Rødby (OSM way 47681503)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Rostock",
+   "type": "station",
+   "name": "Rostock",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[12.026699, 54.293513]]
+    },
+    "point_names": ["Rostock port, 16.5 km out on the line to Gedser (OSM way 1349018822)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Rødby",
+   "type": "station",
+   "name": "Rødby",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[11.34562, 54.650674]]
+    },
+    "point_names": ["Rødby port, 0.5 km out on the line to Puttgarden (OSM way 47681503)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Scandlines and Øresundslinjen: Puttgarden–Rødby / Rostock–Gedser / Helsingør–Helsingborg",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Scandlines' and Øresundslinjen's freight tariffs and surcharges, loaded",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.10-11-m", "160.09"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.11-12-m", "161.38"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.12-13-m", "162.67"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.13-14-m", "175.96"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.14-15-m", "177.25"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.15-16-m", "178.54"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.16-17-m", "191.23"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.17-18-m", "192.52"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.18-19-m", "193.81"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.19-20-m", "195.1"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.20-21-m", "196.39"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.21-22-m", "197.68"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.22-23-m", "198.97"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.23-24-m", "200.26"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.24-25-m", "201.55"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.25-26-m", "202.84"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.7-8-m", "101.72"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.8-9-m", "157.51"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.9-10-m", "158.8"],
+    ["st1:Helsingør", "st1:Helsingborg", "sys1-1.up-to-7-m", "100.43"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.10-11-m", "301.84"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.11-12-m", "325.48"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.12-13-m", "347.32"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.13-14-m", "367.86"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.14-15-m", "395.8"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.15-16-m", "422.64"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.16-17-m", "453.68"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.17-18-m", "477.32"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.18-19-m", "501.16"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.19-20-m", "521.8"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.20-21-m", "540.34"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.21-22-m", "558.88"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.22-23-m", "577.42"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.23-24-m", "595.96"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.24-25-m", "616.6"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.25-26-m", "633.04"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.7-8-m", "166.62"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.8-9-m", "169.56"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.9-10-m", "281.2"],
+    ["st1:Puttgarden", "st1:Helsingborg", "sys1-1.up-to-7-m", "163.68"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.10-11-m", "190.85"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.11-12-m", "207"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.12-13-m", "225.35"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.13-14-m", "242.6"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.14-15-m", "258.85"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.15-16-m", "277.1"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.16-17-m", "293.35"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.17-18-m", "311.7"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.18-19-m", "328.95"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.19-20-m", "346.1"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.20-21-m", "363.45"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.21-22-m", "380.7"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.22-23-m", "397.85"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.23-24-m", "415.2"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.24-25-m", "432.45"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.25-26-m", "449.7"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.7-8-m", "120.5"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.8-9-m", "122.15"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.9-10-m", "172.6"],
+    ["st1:Puttgarden", "st1:Rødby", "sys1-1.up-to-7-m", "118.85"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.10-11-m", "192.82"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.11-12-m", "211.14"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.12-13-m", "228.36"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.13-14-m", "245.68"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.14-15-m", "263.9"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.15-16-m", "281.12"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.16-17-m", "299.44"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.17-18-m", "316.66"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.18-19-m", "333.98"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.19-20-m", "352.2"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.20-21-m", "369.42"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.21-22-m", "386.74"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.22-23-m", "404.96"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.23-24-m", "421.08"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.24-25-m", "439.5"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.25-26-m", "457.82"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.7-8-m", "133.96"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.8-9-m", "137.68"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.9-10-m", "176.6"],
+    ["st1:Rostock", "st1:Gedser", "sys1-1.up-to-7-m", "130.24"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.10-11-m", "314.21"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.11-12-m", "337.92"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.12-13-m", "360.63"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.13-14-m", "384.34"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.14-15-m", "411.15"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.15-16-m", "440.06"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.16-17-m", "473.27"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.17-18-m", "496.98"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.18-19-m", "522.79"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.19-20-m", "544.5"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.20-21-m", "563.01"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.21-22-m", "584.62"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.22-23-m", "603.13"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.23-24-m", "622.74"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.24-25-m", "645.45"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.25-26-m", "661.86"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.7-8-m", "178.08"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.8-9-m", "183.09"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.9-10-m", "291.5"],
+    ["st1:Rostock", "st1:Helsingborg", "sys1-1.up-to-7-m", "173.07"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

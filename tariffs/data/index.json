@@ -632,6 +632,28 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/dk-bornholm/2026-01-01",
+   "scheme": "dk-bornholm",
+   "country": "DK",
+   "file": "dk/dk-bornholm-2026-01-01.orct.json",
+   "name": "Bornholmslinjen's ferries to Bornholm, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-12-31",
+   "sha256": "3c8f7aa9f318bf5dc2e187706d61da2a019d854151da1780926672e7683d5a2c",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-bornholm/2027-01-01",
+   "scheme": "dk-bornholm",
+   "country": "DK",
+   "file": "dk/dk-bornholm-2027-01-01.orct.json",
+   "name": "Bornholmslinjen's ferries to Bornholm, trucks",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "cc9b3b18c4734c26cd5902629d165f303fdcfb5737fadb8af783f8607ab20a44",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/dk-bridges/2024-01-01",
    "scheme": "dk-bridges",
    "country": "DK",

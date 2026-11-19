@@ -3223,7 +3223,7 @@ func TestJadrolinija(t *testing.T) {
 // through the stations' points on OpenStreetMap's car ferry lines.
 func TestCalMac(t *testing.T) {
 	date := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
-	uig := [][2]float64{{-6.40, 57.585}, {-6.410419, 57.586692}, {-6.792357, 57.894463}, {-6.80, 57.898}}
+	uig := [][2]float64{{-6.36, 57.585}, {-6.373818, 57.58159}, {-6.792356, 57.894463}, {-6.80, 57.898}}
 	wemyss := [][2]float64{{-4.89, 55.876}, {-4.898381, 55.874457}, {-5.050433, 55.842912}, {-5.055, 55.836}}
 	rigid := truck40
 	rigid.LengthM = 12
@@ -3236,6 +3236,7 @@ func TestCalMac(t *testing.T) {
 		{"Uig-Tarbert, 16.5 m", uig, truck40, 267.28},
 		{"Uig-Tarbert, 12 m", uig, rigid, 208.06},
 		{"Wemyss Bay-Rothesay, 16.5 m", wemyss, truck40, 175.56},
+		{"Uig-Lochmaddy, 16.5 m", [][2]float64{{-6.36, 57.585}, {-6.373818, 57.58159}, {-7.150063, 57.596799}, {-7.16, 57.60}}, truck40, 267.28},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"GB": 30}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"GBP": 1}}, date)

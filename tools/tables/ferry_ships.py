@@ -16,12 +16,25 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   refuses scripted requests, so its text was read in Chrome): the ship of
   each departure, by its initials, which the page names ("PP = Peter
   Pan"). Its ships join POLSCA's on Świnoujście–Trelleborg;
-- Stena Line Freight's Trelleborg–Rostock page (stena-freight-tre-ros.html):
-  its ships ("Our two ships are ... MV “Skåne” ... and MV
-  “Mecklenburg-Vorpommern”") join TT-Line's on Rostock–Trelleborg;
+- Stena Line Freight's route pages (stena-routes-<route>.html, linked
+  from its route list): each page's heading names the ports ("Gdynia –
+  Karlskrona") and its "Vessels" section the ships;
+- Finnlines' route pages (finnlines-schedules-<route>.html, linked from its
+  freight schedules page): the heading and "Ferries on the route"; for a
+  route whose page has no such section, its master schedule
+  (finnlines-schedules-*master-schedule*.txt: "Travemünde – Helsinki ...
+  Finnstar/ Finnmaid/ Finnlady 7/7"). A route with a call on the way
+  (Kapellskär–Långnäs–Naantali) isn't built;
+- one operator's ships join another's on the same two ports (TT-Line's and
+  Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
   the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
   Travemünde and Rostock at the far end of its lines from Trelleborg;
+  Stena Line's and Finnlines' (ferry-ships-osm.json, ferry-ships-places.json)
+  at the ends of the car ferry line whose name has both ports (the
+  operator's, when it has one), each port at the end nearer a place of its
+  name; a line trucks may take (hgv=yes) counts though cars may not. A
+  route with no such line isn't built: no route can take it;
 - Commission Implementing Decision (EU) 2023/2895, Annex I
   (ets-islands-2023-2895.html): Bornholm's port Rønne is under the island
   derogation (Directive 2003/87/EC, Art. 12(3-d)) for voyages to a port in
@@ -55,6 +68,20 @@ TTLINE = [("travemunde-trelleborg", ("Travemünde", "Trelleborg"), "Travemünde 
 TTLINE_PORTS = {"Trelleborg": ("place", "Trelleborg"), "Travemünde": ("end", "Travemünde (D) – Trelleborg (SE)", "Trelleborg"),
                 "Rostock": ("end", "Rostock (D) - Trelleborg (SE)", "Trelleborg")}
 TTLINE_FILE = os.path.join(HERE, "browser", "ttline-timetable.txt")
+# The ports Stena Line's and Finnlines' pages name: country, and the names
+# OpenStreetMap gives their places and lines.
+PORTS = {"Belfast": ("GB", ["Belfast"]), "Cairnryan": ("GB", ["Cairnryan"]), "Heysham": ("GB", ["Heysham"]),
+         "Liverpool": ("GB", ["Liverpool", "Birkenhead"]), "Dublin": ("IE", ["Dublin"]), "Holyhead": ("GB", ["Holyhead"]),
+         "Gdynia": ("PL", ["Gdynia"]), "Karlskrona": ("SE", ["Karlskrona"]), "Gothenburg": ("SE", ["Göteborg", "Gothenburg"]),
+         "Kiel": ("DE", ["Kiel"]), "Frederikshavn": ("DK", ["Frederikshavn"]),
+         "Hoek van Holland": ("NL", ["Hoek van Holland", "Hook of Holland"]), "Harwich": ("GB", ["Harwich"]),
+         "Immingham": ("GB", ["Immingham", "Killingholme"]), "Ventspils": ("LV", ["Ventspils"]), "Rosslare": ("IE", ["Rosslare"]),
+         "Fishguard": ("GB", ["Fishguard"]), "Rotterdam": ("NL", ["Rotterdam", "Europoort", "Maasvlakte"]),
+         "Liepāja": ("LV", ["Liepāja", "Liepaja"]), "Malmö": ("SE", ["Malmö"]), "Helsinki": ("FI", ["Helsinki"]),
+         "Nynäshamn": ("SE", ["Nynäshamn"]), "Travemünde": ("DE", ["Travemünde"]), "Rostock": ("DE", ["Rostock"]),
+         "Trelleborg": ("SE", ["Trelleborg"]), "Świnoujście": ("PL", ["Świnoujście"])}
+# Other names the pages give a port.
+PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland"}
 UPPER = "A-ZĄĆĘŁŃÓŚŹŻÅÄÖ"
 SHIP = re.compile(rf"(?:^|\s{{2,}})([{UPPER}][^\W\d_]+(?: [{UPPER}][^\W\d_]+)*)\s{{2,}}(?=\d\d[.:]\d\d|-{{3,}}|stoppage)")
 
@@ -159,6 +186,106 @@ def ttline(t):
     return routes, url.group(1), day.group(1)
 
 
+def port_of(name, where):
+    k = ascii(name).strip()
+    for p in PORTS:
+        if ascii(p) == k:
+            return p
+    if k in PAGE_PORT:
+        return PAGE_PORT[k]
+    sys.exit(f"ferry ships: {where}: the port {name!r} isn't known (PORTS)")
+
+
+def page_text(s):
+    return html.unescape(re.sub(r"<[^>]+>", " ", s)).strip()
+
+
+def stena(pages):
+    """[(ports, {ships}, heading, file)] from Stena Line Freight's route pages."""
+    out = []
+    for path, t in pages:
+        h1 = re.findall(r"<h1[^>]*>(.*?)</h1>", t, re.S)
+        parts = re.split(r"\s+[–-]\s+", page_text(h1[0])) if h1 else []
+        i = t.find('id="vessels"')
+        ships = [page_text(x) for x in re.findall(r'<h3 class="heading">([^<]+)<', t[i:t.find("</section>", i)])] if i >= 0 else []
+        if len(parts) != 2 or not ships:
+            sys.exit(f"ferry ships: {os.path.basename(path)}: the route or its vessels not read")
+        out.append((tuple(port_of(p, os.path.basename(path)) for p in parts), set(ships), page_text(h1[0]), path))
+    return out
+
+
+def finnlines(pages, schedule):
+    """[(ports, {ships}, heading, file)] from Finnlines' route pages, and the
+    master schedule for a page that doesn't name its ferries."""
+    out = []
+    for path, t in pages:
+        h1 = re.findall(r"<h1[^>]*>(.*?)</h1>", t, re.S)
+        parts = re.split(r"\s*[–-]\s*", page_text(h1[0])) if h1 else []
+        name = os.path.basename(path)
+        if len(parts) > 2:
+            print(f"ferry ships: {name}: {page_text(h1[0])} calls on the way: not built")
+            continue
+        if len(parts) != 2:
+            sys.exit(f"ferry ships: {name}: the route not read")
+        ports = tuple(port_of(p, name) for p in parts)
+        ships = set()
+        i = t.find("Ferries on the route")
+        if i >= 0:
+            # The ferries' headings follow, up to the first that isn't a
+            # ship's name ("Latest offers on the route").
+            for h in re.findall(r"<h[2-4][^>]*>(.*?)</h[2-4]>", t[i:], re.S):
+                names = re.split(r"\s*&\s*", page_text(h))
+                if not all(re.fullmatch(r"[A-Z][\w-]*(?: [A-Z][\w-]*){0,2}", s) for s in names):
+                    break
+                ships.update(names)
+        else:
+            lines = schedule.splitlines()
+            for k, line in enumerate(lines):
+                m = re.fullmatch(r"\s*(\S[^–]*?)\s+–\s+(\S.*?)\s*", line)
+                if m and {ascii(x) for x in m.groups()} == {ascii(p) for p in ports}:
+                    for nxt in lines[k + 1:k + 10]:
+                        f = re.search(r"([A-Z][a-z]+(?:\s*/\s*[A-Z][a-z]+)+)\s+\d/7", nxt)
+                        if f:
+                            ships = {s.strip() for s in f.group(1).split("/")}
+                            break
+                    break
+        if not ships:
+            sys.exit(f"ferry ships: {name}: no ferries named for {page_text(h1[0])}")
+        out.append((ports, ships, page_text(h1[0]), path))
+    return out
+
+
+def osm_place(osm, a, b, operator):
+    """{port: (lat, lon)}: the ends of the ferry line (for cars or trucks)
+    whose name has both ports (the operator's, if one is), each port at the
+    end nearer a place of its name; None when OpenStreetMap has no such
+    line, or one that doesn't reach a port."""
+    from ferry_osm import km
+    car = {i for i, _ in lines_of(osm)[0]} | {w["id"] for w in osm.get("elements", []) if w.get("tags", {}).get("hgv") in ("yes", "designated")}
+    has = lambda name, p: any(ascii(x) in ascii(name) for x in PORTS[p][1])
+    ways = [w for w in osm.get("elements", []) if w["type"] == "way" and w["id"] in car and has(w.get("tags", {}).get("name", ""), a)
+            and has(w.get("tags", {}).get("name", ""), b)]
+    own = [w for w in ways if ascii(operator) in ascii(w.get("tags", {}).get("operator", ""))]
+    ways = own or ways
+    if not ways:
+        print(f"ferry ships: {a}–{b}: OpenStreetMap has no ferry line named after both")
+        return None
+    ends = [(g["lat"], g["lon"]) for w in ways for g in (w["geometry"][0], w["geometry"][-1])]
+    places = {p: [(e["lat"], e["lon"]) for e in osm["elements"] if e["type"] == "node" and e.get("tags", {}).get("place")
+                  and ascii(e["tags"].get("name", "")) in {ascii(x) for x in PORTS[p][1]}] for p in (a, b)}
+    pos = {}
+    for p in (a, b):
+        best = min(((km(e, q), e) for e in ends for q in places[p]), default=None)
+        if not best or best[0] > 40:
+            print(f"ferry ships: {a}–{b}: OpenStreetMap's line doesn't reach {p}")
+            return None
+        pos[p] = best[1]
+    if km(pos[a], pos[b]) < 5:
+        print(f"ferry ships: {a}–{b}: both ports at one end of OpenStreetMap's line")
+        return None
+    return pos
+
+
 def crossing(cid, ports, pos, operator, ships, source, ids, exemptions=()):
     return {"id": cid, "name": "–".join(ports), "operator": operator,
             "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p]} for p in ports],
@@ -176,7 +303,12 @@ def main(fetched, out):
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
-        stena = html.unescape(re.sub(r"<[^>]+>", " ", open(os.path.join(fetched, "stena-freight-tre-ros.html"), encoding="utf-8").read()))
+        spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
+        fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
+        fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
+        gosm = json.load(open(os.path.join(fetched, "ferry-ships-osm.json"), encoding="utf-8"))
+        gosm["elements"] += json.load(open(os.path.join(fetched, "ferry-ships-places.json"), encoding="utf-8"))["elements"]
+        urls = {f["file"]: f["url"] for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     except (OSError, ValueError) as e:
         print(f"ferry ships: not built ({e})")
         return
@@ -243,15 +375,29 @@ def main(fetched, out):
             sys.exit(f"ferry ships: {'–'.join(ports)}: ports not placed")
         crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title, "url": turl}, ids))
 
-    # Stena Line, Trelleborg–Rostock
-    m = re.search(r"Our (?:two|three|\w+) ships are (.{0,400}?)\. ", re.sub(r"\s+", " ", stena))
-    ships = set(re.findall(r"MV “([^”]+)”", m.group(1))) if m else set()
-    if len(ships) < 2:
-        sys.exit("ferry ships: Stena Line Freight's Trelleborg–Rostock page: its ships not read")
-    c = next(c for c in crossings if c["id"] == "rostock-trelleborg")
-    c["operator"] += "; Stena Line"
-    c["ships"] = crossing(c["id"], ("Rostock", "Trelleborg"), {"Rostock": (0, 0), "Trelleborg": (0, 0)}, "", {s["name"] for s in c["ships"]} | ships, None, ids)["ships"]
-    c["source"]["title"] += f"; Stena Line Freight: Trelleborg–Rostock ({src['stena-freight-tre-ros']['url']}, its ships)"
+    # Stena Line and Finnlines
+    if not spages or not fpages:
+        sys.exit(f"ferry ships: {len(spages)} Stena Line and {len(fpages)} Finnlines route pages")
+    have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
+    for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched))):
+        for ports, ships, heading, path in routes:
+            url = urls.get(os.path.basename(path), "")
+            title = f"{operator}: {heading}, its ferries"
+            c = have.get(frozenset(ports))
+            if c:
+                c["operator"] += f"; {operator}"
+                c["ships"] = crossing(c["id"], ports, {p: (0, 0) for p in ports}, "", {s["name"] for s in c["ships"]} | {s.upper() for s in ships}, None, ids)["ships"]
+                c["source"]["title"] += f"; {title} ({url})"
+                continue
+            pos = osm_place(gosm, *ports, operator)
+            if not pos:
+                print(f"ferry ships: {'–'.join(ports)}: not built (no OpenStreetMap line between its ports)")
+                continue
+            COUNTRY.update({p: PORTS[p][0] for p in ports})
+            cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in ports)
+            c = crossing(cid, ports, pos, operator, ships, {"title": title, "url": url}, ids)
+            crossings.append(c)
+            have[frozenset(ports)] = c
 
     crossings.sort(key=lambda c: c["id"])
     os.makedirs(out, exist_ok=True)

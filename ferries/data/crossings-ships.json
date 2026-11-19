@@ -2,6 +2,167 @@
  "note": "Ferry crossings with the ships their operators' timetables and pages name, built by tools/tables/ferry_ships.py; IMO numbers from the EU MRV reports' ship lists.",
  "crossings": [
   {
+   "id": "belfast-cairnryan",
+   "name": "Belfast–Cairnryan",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Belfast",
+     "lat": 54.636557,
+     "lon": -5.879398,
+     "country": "GB"
+    },
+    {
+     "name": "Cairnryan",
+     "lat": 54.985017,
+     "lon": -5.036792,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "name": "STENA SUPERFAST VII"
+    },
+    {
+     "name": "STENA SUPERFAST VIII"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Belfast – Cairnryan, its ferries",
+    "url": "https://stenalinefreight.com/routes/belfast-cairnryan/"
+   }
+  },
+  {
+   "id": "belfast-heysham",
+   "name": "Belfast–Heysham",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Belfast",
+     "lat": 54.627824,
+     "lon": -5.890863,
+     "country": "GB"
+    },
+    {
+     "name": "Heysham",
+     "lat": 54.034971,
+     "lon": -2.913663,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "name": "STENA CONNECTA"
+    },
+    {
+     "name": "STENA FUTURA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Belfast – Heysham, its ferries",
+    "url": "https://stenalinefreight.com/routes/belfast-heysham/"
+   }
+  },
+  {
+   "id": "belfast-liverpool",
+   "name": "Belfast–Liverpool",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Belfast",
+     "lat": 54.628983,
+     "lon": -5.888938,
+     "country": "GB"
+    },
+    {
+     "name": "Liverpool",
+     "lat": 53.400134,
+     "lon": -3.00994,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "name": "STENA EDDA"
+    },
+    {
+     "name": "STENA EMBLA"
+    },
+    {
+     "name": "STENA FORWARDER"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Belfast – Liverpool, its ferries",
+    "url": "https://stenalinefreight.com/routes/belfast-liverpool/"
+   }
+  },
+  {
+   "id": "dublin-holyhead",
+   "name": "Dublin–Holyhead",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Dublin",
+     "lat": 53.347653,
+     "lon": -6.198855,
+     "country": "IE"
+    },
+    {
+     "name": "Holyhead",
+     "lat": 53.317869,
+     "lon": -4.619843,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9235529",
+     "name": "STENA ADVENTURER"
+    },
+    {
+     "imo": "9807293",
+     "name": "STENA ESTRID"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Dublin – Holyhead, its ferries",
+    "url": "https://stenalinefreight.com/routes/dublin-holyhead/"
+   }
+  },
+  {
+   "id": "dublin-liverpool",
+   "name": "Dublin–Liverpool",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Dublin",
+     "lat": 53.347683,
+     "lon": -6.223579,
+     "country": "IE"
+    },
+    {
+     "name": "Liverpool",
+     "lat": 53.445064,
+     "lon": -3.008363,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9121637",
+     "name": "STENA HIBERNIA"
+    },
+    {
+     "name": "STENA SCOTIA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Dublin – Liverpool, its ferries",
+    "url": "https://stenalinefreight.com/routes/dublin-liverpool/"
+   }
+  },
+  {
    "id": "gdansk-karlshamn",
    "name": "Gdańsk–Karlshamn",
    "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
@@ -68,6 +229,175 @@
    }
   },
   {
+   "id": "gdynia-karlskrona",
+   "name": "Gdynia–Karlskrona",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Gdynia",
+     "lat": 54.532554,
+     "lon": 18.540791,
+     "country": "PL"
+    },
+    {
+     "name": "Karlskrona",
+     "lat": 56.166049,
+     "lon": 15.629764,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9863003",
+     "name": "STENA EBBA"
+    },
+    {
+     "imo": "9862994",
+     "name": "STENA ESTELLE"
+    },
+    {
+     "imo": "7907661",
+     "name": "STENA SPIRIT"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Gdynia – Karlskrona, its ferries",
+    "url": "https://stenalinefreight.com/routes/gdynia-karlskrona/"
+   }
+  },
+  {
+   "id": "gothenburg-frederikshavn",
+   "name": "Gothenburg–Frederikshavn",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Gothenburg",
+     "lat": 57.701716,
+     "lon": 11.945139,
+     "country": "SE"
+    },
+    {
+     "name": "Frederikshavn",
+     "lat": 57.43489,
+     "lon": 10.542955,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "7907245",
+     "name": "STENA DANICA"
+    },
+    {
+     "imo": "9125944",
+     "name": "STENA JUTLANDICA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Gothenburg Masthugget – Frederikshavn, its ferries",
+    "url": "https://stenalinefreight.com/routes/gothenburg-masthugget-frederikshavn/"
+   }
+  },
+  {
+   "id": "gothenburg-kiel",
+   "name": "Gothenburg–Kiel",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Gothenburg",
+     "lat": 57.695832,
+     "lon": 11.914393,
+     "country": "SE"
+    },
+    {
+     "name": "Kiel",
+     "lat": 54.319211,
+     "lon": 10.139547,
+     "country": "DE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9145176",
+     "name": "STENA GERMANICA"
+    },
+    {
+     "imo": "9235517",
+     "name": "STENA SCANDINAVICA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Gothenburg – Kiel, its ferries",
+    "url": "https://stenalinefreight.com/routes/gothenburg-kiel/"
+   }
+  },
+  {
+   "id": "hoek-van-holland-harwich",
+   "name": "Hoek van Holland–Harwich",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Hoek van Holland",
+     "lat": 51.973444,
+     "lon": 4.131342,
+     "country": "NL"
+    },
+    {
+     "name": "Harwich",
+     "lat": 51.948377,
+     "lon": 1.252671,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9419175",
+     "name": "STENA BRITANNICA"
+    },
+    {
+     "imo": "9419163",
+     "name": "STENA HOLLANDICA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Hoek Van Holland – Harwich, its ferries",
+    "url": "https://stenalinefreight.com/routes/hoek-van-holland-harwich/"
+   }
+  },
+  {
+   "id": "hoek-van-holland-immingham",
+   "name": "Hoek van Holland–Immingham",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Hoek van Holland",
+     "lat": 51.972126,
+     "lon": 4.13453,
+     "country": "NL"
+    },
+    {
+     "name": "Immingham",
+     "lat": 53.667923,
+     "lon": -0.23199,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9469388",
+     "name": "STENA TRANSIT"
+    },
+    {
+     "imo": "9469376",
+     "name": "STENA TRANSPORTER"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Hoek Van Holland – Immingham, its ferries",
+    "url": "https://stenalinefreight.com/routes/hoek-van-holland-immingham/"
+   }
+  },
+  {
    "id": "koge-ronne",
    "name": "Køge–Rønne",
    "operator": "Bornholmslinjen",
@@ -106,6 +436,68 @@
    "source": {
     "title": "Bornholmslinjen: the ferries (each one's crossings)",
     "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  },
+  {
+   "id": "nynashamn-ventspils",
+   "name": "Nynäshamn–Ventspils",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Nynäshamn",
+     "lat": 58.939811,
+     "lon": 17.978687,
+     "country": "SE"
+    },
+    {
+     "name": "Ventspils",
+     "lat": 57.399029,
+     "lon": 21.574664,
+     "country": "LV"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9329851",
+     "name": "STENA BALTICA"
+    },
+    {
+     "imo": "9329849",
+     "name": "STENA SCANDICA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Nynäshamn – Ventspils, its ferries",
+    "url": "https://stenalinefreight.com/routes/nynashamn-ventspils/"
+   }
+  },
+  {
+   "id": "rosslare-fishguard",
+   "name": "Rosslare–Fishguard",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Rosslare",
+     "lat": 52.253551,
+     "lon": -6.337105,
+     "country": "IE"
+    },
+    {
+     "name": "Fishguard",
+     "lat": 52.009915,
+     "lon": -4.985964,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9215505",
+     "name": "STENA NORDICA"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Rosslare – Fishguard, its ferries",
+    "url": "https://stenalinefreight.com/routes/rosslare-fishguard/"
    }
   },
   {
@@ -165,8 +557,41 @@
     }
    ],
    "source": {
-    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt); Stena Line Freight: Trelleborg–Rostock (https://www.stenalinefreight.com/routes/trelleborg-rostock/, its ships)",
+    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt); Stena Line: Trelleborg – Rostock, its ferries (https://stenalinefreight.com/routes/trelleborg-rostock/)",
     "url": "https://www.ttline.com/en/freight/timetable/"
+   }
+  },
+  {
+   "id": "rotterdam-immingham",
+   "name": "Rotterdam–Immingham",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Rotterdam",
+     "lat": 51.905404,
+     "lon": 4.361959,
+     "country": "NL"
+    },
+    {
+     "name": "Immingham",
+     "lat": 53.630532,
+     "lon": -0.201523,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9227259",
+     "name": "STENA FORERUNNER"
+    },
+    {
+     "imo": "9214666",
+     "name": "STENA FORETELLER"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Rotterdam – Immingham, its ferries",
+    "url": "https://stenalinefreight.com/routes/rotterdam-immingham/"
    }
   },
   {
@@ -200,6 +625,43 @@
    "source": {
     "title": "Bornholmslinjen: the ferries (each one's crossings)",
     "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  },
+  {
+   "id": "swinoujscie-malmo",
+   "name": "Świnoujście–Malmö",
+   "operator": "Finnlines",
+   "terminals": [
+    {
+     "name": "Świnoujście",
+     "lat": 53.8956,
+     "lon": 14.272125,
+     "country": "PL"
+    },
+    {
+     "name": "Malmö",
+     "lat": 55.627017,
+     "lon": 12.990574,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9145164",
+     "name": "FINNFELLOW"
+    },
+    {
+     "imo": "9010163",
+     "name": "FINNPARTNER"
+    },
+    {
+     "imo": "9017769",
+     "name": "FINNTRADER"
+    }
+   ],
+   "source": {
+    "title": "Finnlines: Świnoujście–Malmö, its ferries",
+    "url": "https://www.finnlines.com/routes/swinoujscie-malmo/"
    }
   },
   {
@@ -301,6 +763,117 @@
    "source": {
     "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
     "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "travemunde-helsinki",
+   "name": "Travemünde–Helsinki",
+   "operator": "Finnlines",
+   "terminals": [
+    {
+     "name": "Travemünde",
+     "lat": 53.941418,
+     "lon": 10.860482,
+     "country": "DE"
+    },
+    {
+     "name": "Helsinki",
+     "lat": 60.220037,
+     "lon": 25.196558,
+     "country": "FI"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9336268",
+     "name": "FINNLADY"
+    },
+    {
+     "imo": "9319466",
+     "name": "FINNMAID"
+    },
+    {
+     "imo": "9319442",
+     "name": "FINNSTAR"
+    }
+   ],
+   "source": {
+    "title": "Finnlines: Travemünde–Helsinki, its ferries",
+    "url": "https://www.finnlines.com/routes/travemunde-helsinki/"
+   }
+  },
+  {
+   "id": "travemunde-liepaja",
+   "name": "Travemünde–Liepāja",
+   "operator": "Stena Line",
+   "terminals": [
+    {
+     "name": "Travemünde",
+     "lat": 53.940491,
+     "lon": 10.862189,
+     "country": "DE"
+    },
+    {
+     "name": "Liepāja",
+     "lat": 56.527623,
+     "lon": 20.99603,
+     "country": "LV"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9417919",
+     "name": "STENA FLAVIA"
+    },
+    {
+     "imo": "9332559",
+     "name": "STENA HORIZON"
+    }
+   ],
+   "source": {
+    "title": "Stena Line: Travemünde – Liepaja, its ferries",
+    "url": "https://stenalinefreight.com/routes/travemunde-liepaja/"
+   }
+  },
+  {
+   "id": "travemunde-malmo",
+   "name": "Travemünde–Malmö",
+   "operator": "Finnlines",
+   "terminals": [
+    {
+     "name": "Travemünde",
+     "lat": 53.942122,
+     "lon": 10.859805,
+     "country": "DE"
+    },
+    {
+     "name": "Malmö",
+     "lat": 55.627301,
+     "lon": 12.990011,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9145164",
+     "name": "FINNFELLOW"
+    },
+    {
+     "imo": "9010163",
+     "name": "FINNPARTNER"
+    },
+    {
+     "imo": "9336256",
+     "name": "FINNSWAN"
+    },
+    {
+     "imo": "9017769",
+     "name": "FINNTRADER"
+    }
+   ],
+   "source": {
+    "title": "Finnlines: Travemünde–Malmö, its ferries",
+    "url": "https://www.finnlines.com/routes/malmo-travemunde/"
    }
   },
   {

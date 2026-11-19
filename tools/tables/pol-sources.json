@@ -1,65 +1,35 @@
 {
- "about": "ferry ship lists",
+ "about": "Elbe ferry",
  "sources": [
   {
-   "id": "ships-alslinjen",
+   "id": "frs-elbe-trucks",
    "table": "x",
-   "url": "https://www.alslinjen.dk/om-alslinjen/faerger",
-   "what": "ships-alslinjen"
+   "url": "https://www.frs-elbfaehre.de/en/fares/trucks-and-cargo",
+   "what": "frs-elbe-trucks"
   },
   {
-   "id": "ships-fanoelinjen",
+   "id": "frs-elbe-trucks-de",
    "table": "x",
-   "url": "https://www.fanoelinjen.dk/om-fanoelinjen/faerger",
-   "what": "ships-fanoelinjen"
+   "url": "https://www.frs-elbfaehre.de/fahrpreise/lkw-und-fracht",
+   "what": "frs-elbe-trucks-de"
   },
   {
-   "id": "ships-langelandslinjen",
+   "id": "frs-elbe-passengers",
    "table": "x",
-   "url": "https://www.langelandslinjen.dk/om-langelandslinjen/faerger",
-   "what": "ships-langelandslinjen"
+   "url": "https://www.frs-elbfaehre.de/en/fahrpreise/passengers-and-vehicles",
+   "what": "frs-elbe-passengers"
   },
   {
-   "id": "ships-samsoelinjen",
+   "id": "frs-elbe-fuel",
    "table": "x",
-   "url": "https://www.samsoelinjen.dk/om-samsoelinjen/faerger",
-   "what": "ships-samsoelinjen"
+   "url": "https://www.frs-elbfaehre.de/en/fuel-surcharge",
+   "what": "frs-elbe-fuel"
   },
   {
-   "id": "ships-molslinjen",
+   "id": "frs-elbe-osm",
    "table": "x",
-   "url": "https://www.molslinjen.dk/om-molslinjen/faerger",
-   "what": "ships-molslinjen"
-  },
-  {
-   "id": "ships-bornholmslinjen",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger",
-   "what": "ships-bornholmslinjen"
-  },
-  {
-   "id": "ships-oresundslinjen",
-   "table": "x",
-   "url": "https://www.oresundslinjen.dk/om-oresundslinjen/faerger",
-   "what": "ships-oresundslinjen"
-  },
-  {
-   "id": "ships-tilsamsoe",
-   "table": "x",
-   "url": "https://www.tilsamsoe.dk/",
-   "what": "ships-tilsamsoe"
-  },
-  {
-   "id": "ets-lexaris-2895",
-   "table": "x",
-   "url": "https://lexaris.de/book/version/documentflat/head/4647008",
-   "what": "ets-lexaris-2895"
-  },
-  {
-   "id": "ets-op-2895",
-   "table": "x",
-   "url": "https://publications.europa.eu/resource/celex/32023D2895",
-   "what": "ets-op-2895"
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2853.70%2C9.30%2C53.85%2C9.55%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2853.70%2C9.30%2C53.85%2C9.55%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "frs-elbe-osm"
   }
  ]
 }

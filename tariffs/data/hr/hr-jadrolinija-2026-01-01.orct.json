@@ -474,9 +474,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.164511, 44.024649], [15.168018, 43.992649]]
+     "coordinates": [[15.151341, 44.026651], [15.151918, 44.026126]]
     },
-    "point_names": ["BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)"],
+    "point_names": ["BRŠANJ port, 0.5 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 0.5 km out on the line to RAVA (OSM way 179002607)"],
     "match_m": 150
    }
   },
@@ -703,9 +703,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.164511, 44.024649], [15.168018, 43.992649]]
+     "coordinates": [[15.151341, 44.026651], [15.151918, 44.026126]]
     },
-    "point_names": ["BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)"],
+    "point_names": ["BRŠANJ port, 0.5 km out on the line to ZADAR (OSM way 179001802)", "BRŠANJ port, 0.5 km out on the line to RAVA (OSM way 179002607)"],
     "match_m": 150
    }
   },

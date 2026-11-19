@@ -194,12 +194,20 @@ def places(osm):
         if kind == "terminal":
             hit = [p for t, p in feats if t.get("amenity") == "ferry_terminal" and t.get("name") == name]
         elif kind == "place":
-            hit = [p for t, p in feats if t.get("place") and t.get("name") == name]
+            hit = [p for t, p in feats if t.get("place") and name in (t.get("name"), t.get("name:en"))]
         else:
             continue
         if hit:
             out[port] = hit[0]
     return out
+
+
+def table_start(name):
+    """The day a table's file name says it applies from ("...-from-27th-march-2026...")."""
+    m = re.search(r"from-(\d{1,2})(?:st|nd|rd|th)?-([a-z]+)-(\d{4})", name)
+    if not m or m.group(2) not in MONTHS:
+        return None
+    return f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
 
 
 def main(fetched, out):
@@ -215,8 +223,13 @@ def main(fetched, out):
         return
     src = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json")))["sources"]
     cv_url = next(s["url"] for s in src if s["id"] == "gb-calmac-cv")
-    if cv_url.split("/media/")[-1] not in page:
-        sys.exit(f"CalMac: the commercial vehicle rates page links another table than {cv_url}: a new table, for tools/tables/sources.json")
+    # The page must link the table, or (its archived copy, kept before a
+    # revision) a table of the same start; none from a later day.
+    linked = set(re.findall(r"/media/[a-z0-9]+/([a-z0-9-]*(?:commercial-vehicle|cv-fares)[a-z0-9-]*\.pdf)", page))
+    starts = {table_start(n) for n in linked} - {None}
+    ours = table_start(cv_url)
+    if not linked or ours is None or (cv_url.split("/")[-1] not in linked and ours not in starts) or any(s > ours for s in starts):
+        sys.exit(f"CalMac: the commercial vehicle rates page links {sorted(linked)}, not {cv_url} or a table from its day: a new table, for tools/tables/sources.json")
     for needle in ("Fares are exclusive of VAT", "in 0.5 metre increments", "Commercial Vehicle"):
         if needle not in route_page:
             sys.exit(f"CalMac: the route's fare page no longer says {needle!r}")

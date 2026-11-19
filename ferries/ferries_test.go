@@ -86,6 +86,9 @@ func TestCoverage(t *testing.T) {
 		{"hoek-van-holland-harwich", "2026-11-20", 0.5, "one outside"},
 		{"belfast-cairnryan", "2026-11-20", 0, "outside the EU and the EEA"},
 		{"travemunde-helsinki", "2026-11-20", 1, "Member States"},
+		{"dover-calais", "2026-11-20", 0.5, "one outside"},
+		{"aberdeen-lerwick", "2026-11-20", 0, "outside the EU and the EEA"},
+		{"torshavn-hirtshals", "2026-11-20", 0.5, "one outside"},
 	} {
 		c, ok := byID[tc.id]
 		if !ok {
@@ -95,6 +98,10 @@ func TestCoverage(t *testing.T) {
 		if !ok || cov.Share != tc.share || !strings.Contains(cov.Basis, tc.basis) {
 			t.Errorf("%s on %s: %v %q, want %v (%s)", tc.id, tc.day, cov.Share, cov.Basis, tc.share, tc.basis)
 		}
+	}
+	// A crossing whose ships aren't named says so.
+	if cov, _ := d.Coverage(byID["dover-calais"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
+		t.Errorf("dover-calais note %q", cov.Note)
 	}
 	// One port outside the EU/EEA: half the emissions.
 	c := Crossing{Name: "x", Terminals: []Point{{Country: "FR"}, {Country: "GB"}}}

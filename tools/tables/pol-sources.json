@@ -1,83 +1,65 @@
 {
- "about": "ETS crossing facts",
+ "about": "ferry ship lists",
  "sources": [
   {
-   "id": "eu-2023-2895",
+   "id": "ships-alslinjen",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj/eng",
-   "what": "eu-2023-2895"
+   "url": "https://www.alslinjen.dk/om-alslinjen/faerger",
+   "what": "ships-alslinjen"
   },
   {
-   "id": "eu-2023-2895-pdf",
+   "id": "ships-fanoelinjen",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj/eng/pdf",
-   "what": "eu-2023-2895-pdf"
+   "url": "https://www.fanoelinjen.dk/om-fanoelinjen/faerger",
+   "what": "ships-fanoelinjen"
   },
   {
-   "id": "eu-2024-2924-pdf",
+   "id": "ships-langelandslinjen",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/eli/dec_impl/2024/2924/oj/eng/pdf",
-   "what": "eu-2024-2924-pdf"
+   "url": "https://www.langelandslinjen.dk/om-langelandslinjen/faerger",
+   "what": "ships-langelandslinjen"
   },
   {
-   "id": "eu-2024-1113-pdf",
+   "id": "ships-samsoelinjen",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/eli/dec_impl/2024/1113/oj/eng/pdf",
-   "what": "eu-2024-1113-pdf"
+   "url": "https://www.samsoelinjen.dk/om-samsoelinjen/faerger",
+   "what": "ships-samsoelinjen"
   },
   {
-   "id": "eu-2023-2895-all",
+   "id": "ships-molslinjen",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32023D2895",
-   "what": "eu-2023-2895-all"
+   "url": "https://www.molslinjen.dk/om-molslinjen/faerger",
+   "what": "ships-molslinjen"
   },
   {
-   "id": "aeroe-ship-aeroskobing",
+   "id": "ships-bornholmslinjen",
    "table": "x",
-   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-aeroskobing-en",
-   "what": "aeroe-ship-aeroskobing"
+   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger",
+   "what": "ships-bornholmslinjen"
   },
   {
-   "id": "aeroe-ship-marstal",
+   "id": "ships-oresundslinjen",
    "table": "x",
-   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-marstal-en",
-   "what": "aeroe-ship-marstal"
+   "url": "https://www.oresundslinjen.dk/om-oresundslinjen/faerger",
+   "what": "ships-oresundslinjen"
   },
   {
-   "id": "aeroe-ship-skjoldnaes",
+   "id": "ships-tilsamsoe",
    "table": "x",
-   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-skjoldnaes-2-en",
-   "what": "aeroe-ship-skjoldnaes"
+   "url": "https://www.tilsamsoe.dk/",
+   "what": "ships-tilsamsoe"
   },
   {
-   "id": "aeroe-ship-ellen",
+   "id": "ets-lexaris-2895",
    "table": "x",
-   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/ef-ellen-de-2-en",
-   "what": "aeroe-ship-ellen"
+   "url": "https://lexaris.de/book/version/documentflat/head/4647008",
+   "what": "ets-lexaris-2895"
   },
   {
-   "id": "oresund-frakt",
+   "id": "ets-op-2895",
    "table": "x",
-   "url": "https://oresundslinjen.se/frakt",
-   "what": "oresund-frakt"
-  },
-  {
-   "id": "oresund-dk",
-   "table": "x",
-   "url": "https://www.oresundslinjen.dk/",
-   "what": "oresund-dk"
-  },
-  {
-   "id": "bornholm-dk",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.dk/",
-   "what": "bornholm-dk"
-  },
-  {
-   "id": "aeroexpressen",
-   "table": "x",
-   "url": "https://aeroexpressen.dk/en/faergens-historie/",
-   "what": "aeroexpressen"
+   "url": "https://publications.europa.eu/resource/celex/32023D2895",
+   "what": "ets-op-2895"
   }
  ]
 }

@@ -2,64 +2,40 @@
  "about": "x",
  "sources": [
   {
-   "id": "polsca-timetables-timetable-karlshamn-polsca-22.12.2026",
+   "id": "ttl-std-swi",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0017/27017/Timetable-_KARLSHAMN_Polsca_22.12.2026.pdf",
-   "what": "x"
+   "url": "https://www.ttline.com/globalassets/freight/images/pdf-timetable/standard-timetable-2026_swi.pdf",
+   "what": "ttl-std-swi"
   },
   {
-   "id": "polsca-timetables-timetable-ystad-16.11..2026",
+   "id": "ttl-std-ros",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0025/27871/Timetable-_YSTAD_16.11..2026.pdf",
-   "what": "x"
+   "url": "https://www.ttline.com/globalassets/freight/images/pdf-timetable/standard-timetable-2026_ros.pdf",
+   "what": "ttl-std-ros"
   },
   {
-   "id": "polsca-timetables-timetable-ystad-15.12.2026",
+   "id": "ttl-std-tra",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0026/27872/Timetable-_YSTAD_15.12.2026.pdf",
-   "what": "x"
+   "url": "https://www.ttline.com/globalassets/freight/images/pdf-timetable/standard-timetable-2026_tra.pdf",
+   "what": "ttl-std-tra"
   },
   {
-   "id": "polsca-timetables-timetable-ystad-23.12.2026-11.01.2027",
+   "id": "ttl-freight-timetable",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0026/27881/Timetable_YSTAD_23.12.2026_11.01.2027.pdf",
-   "what": "x"
+   "url": "https://www.ttline.com/en/freight/timetable/",
+   "what": "ttl-freight-timetable"
   },
   {
-   "id": "polsca-timetables-timetable-trelleborg-16.11.2026",
+   "id": "ttl-route-swi",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0027/27873/Timetable-_TRELLEBORG_16.11.2026.pdf",
-   "what": "x"
+   "url": "https://ttline.com/en/freight/routes/swinoujscie-trelleborg",
+   "what": "ttl-route-swi"
   },
   {
-   "id": "polsca-timetables-timetable-trelleborg-23.12.2026-11.01.2027",
+   "id": "ttl-ships",
    "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0027/27882/Timetable_TRELLEBORG_23.12.2026_11.01.2027.pdf",
-   "what": "x"
-  },
-  {
-   "id": "polsca-timetables-timetable-nynashamn-01.11.2026",
-   "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0028/27874/Timetable-Nynashamn_01.11.2026.pdf",
-   "what": "x"
-  },
-  {
-   "id": "polsca-timetables-timetable-nynashamn-20.12.2026",
-   "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0029/27875/Timetable-Nynashamn_20.12.2026.pdf",
-   "what": "x"
-  },
-  {
-   "id": "polsca-timetables-timetable-nynashamn-02.01.2027",
-   "table": "x",
-   "url": "https://www.unityline.eu/__data/assets/pdf_file/0032/27878/Timetable-Nynashamn_02.01.2027.pdf",
-   "what": "x"
-  },
-  {
-   "id": "polsca-timetables-page",
-   "table": "x",
-   "url": "https://www.unityline.eu/cargo/timetables",
-   "what": "x"
+   "url": "https://www.ttline.com/en/ttline/ships/",
+   "what": "ttl-ships"
   }
  ]
 }

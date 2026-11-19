@@ -2,30 +2,12 @@
  "about": "POLSCA's sources for the fetch-docs run",
  "sources": [
   {
-   "id": "polsca-tariff",
+   "id": "polsca-tariff-2026-03-30",
    "table": "polsca",
-   "url": "https://www.unityline.eu/cargo/documents-polsca/freight-tariff",
-   "what": "POLSCA Baltic Ferries (Unity Line): the freight tariff page (links each edition)",
+   "url": "https://www.unityline.eu/__data/assets/pdf_file/0014/25241/POLSCA_Freight-Tariff_30.03.2026.pdf",
+   "what": "POLSCA Baltic Ferries: the freight tariff valid from 30 March 2026 (no longer linked from the tariff page)",
    "expect": [
-    "pdf"
-   ]
-  },
-  {
-   "id": "polsca-bes",
-   "table": "polsca",
-   "url": "https://www.unityline.eu/cargo/documents-polsca/bs-bunker-surcharge-announcement",
-   "what": "POLSCA Baltic Ferries (Unity Line): the bunker-environmental surcharge announcements",
-   "expect": [
-    "pdf"
-   ]
-  },
-  {
-   "id": "polsca-ets",
-   "table": "polsca",
-   "url": "https://www.unityline.eu/cargo/documents-polsca/ets-surcharge-announcement",
-   "what": "POLSCA Baltic Ferries (Unity Line): the ETS surcharge announcements (not priced)",
-   "expect": [
-    "pdf"
+    "FREIGHT TARIFF"
    ]
   }
  ]

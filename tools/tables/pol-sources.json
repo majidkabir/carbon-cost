@@ -2,64 +2,76 @@
  "about": "x",
  "sources": [
   {
-   "id": "op-2895-pdf",
+   "id": "praamid-ferries",
    "table": "x",
-   "url": "https://op.europa.eu/o/opportal-service/download-handler?identifier=5e9502a6-a06c-11ee-b164-01aa75ed71a1&format=pdf&language=en&productionSystem=cellar&part=",
-   "what": "op-2895-pdf"
+   "url": "https://www.praamid.ee/en/ferries/",
+   "what": "praamid-ferries"
   },
   {
-   "id": "cellar-2895-1",
+   "id": "praamid-leiger",
    "table": "x",
-   "url": "https://publications.europa.eu/resource/cellar/5e9502a6-a06c-11ee-b164-01aa75ed71a1.0006.03/DOC_1",
-   "what": "cellar-2895-1"
+   "url": "https://www.praamid.ee/en/ferries/leiger/",
+   "what": "praamid-leiger"
   },
   {
-   "id": "cellar-2895-2",
+   "id": "praamid-tiiu",
    "table": "x",
-   "url": "https://publications.europa.eu/resource/cellar/5e9502a6-a06c-11ee-b164-01aa75ed71a1.0006.01/DOC_1",
-   "what": "cellar-2895-2"
+   "url": "https://www.praamid.ee/en/ferries/tiiu/",
+   "what": "praamid-tiiu"
   },
   {
-   "id": "eurlex-html-2895",
+   "id": "praamid-toll",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202302895",
-   "what": "eurlex-html-2895"
+   "url": "https://www.praamid.ee/en/ferries/toll/",
+   "what": "praamid-toll"
   },
   {
-   "id": "eurlex-celex-2895",
+   "id": "praamid-piret",
    "table": "x",
-   "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32023D2895",
-   "what": "eurlex-celex-2895"
+   "url": "https://www.praamid.ee/en/ferries/piret/",
+   "what": "praamid-piret"
   },
   {
-   "id": "cdx-2895",
+   "id": "praamid-about",
    "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/eli/dec_impl/2023/2895*&output=json&fl=timestamp,original,statuscode&limit=20",
-   "what": "cdx-2895"
+   "url": "https://www.praamid.ee/en/about-our-company/",
+   "what": "praamid-about"
   },
   {
-   "id": "cdx-2924",
+   "id": "unity-ferries",
    "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/eli/dec_impl/2024/2924*&output=json&fl=timestamp,original,statuscode&limit=20",
-   "what": "cdx-2924"
+   "url": "https://www.unityline.eu/cargo/ferries",
+   "what": "unity-ferries"
   },
   {
-   "id": "cdx-consol",
+   "id": "unity-timetables",
    "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=eur-lex.europa.eu/legal-content/EN/TXT/*02023D2895*&output=json&fl=timestamp,original,statuscode&limit=20",
-   "what": "cdx-consol"
+   "url": "https://www.unityline.eu/cargo/timetables",
+   "what": "unity-timetables"
   },
   {
-   "id": "tslaevad-en",
+   "id": "polferries-fleet",
    "table": "x",
-   "url": "https://www.tslaevad.ee/en/",
-   "what": "tslaevad-en"
+   "url": "https://polferries.com/about-us/fleet.html",
+   "what": "polferries-fleet"
   },
   {
-   "id": "praamid-en",
+   "id": "bornholm-express1",
    "table": "x",
-   "url": "https://www.praamid.ee/en/",
-   "what": "praamid-en"
+   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/express-1",
+   "what": "bornholm-express1"
+  },
+  {
+   "id": "bornholm-express5",
+   "table": "x",
+   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/express-5",
+   "what": "bornholm-express5"
+  },
+  {
+   "id": "bornholm-hammershus",
+   "table": "x",
+   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/hammershus",
+   "what": "bornholm-hammershus"
   }
  ]
 }

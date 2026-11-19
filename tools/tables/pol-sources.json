@@ -2,13 +2,22 @@
  "about": "x",
  "sources": [
   {
-   "id": "gr-ferries-osm",
+   "id": "tallink-cargo-timetables",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3Bway%5B%22route%22%3D%22ferry%22%5D%2834.5%2C19.0%2C41.8%2C29.7%29%3Bout%20geom%20tags%3B",
-   "what": "x",
-   "expect": [
-    "\"route\": \"ferry\""
-   ]
+   "url": "https://image.tallink.com/image/upload/cargo/terms-and-conditions/timetables-cargo-2026.pdf",
+   "what": "x"
+  },
+  {
+   "id": "tallink-fleet",
+   "table": "x",
+   "url": "https://freight.tallink.com/services/timetables-and-fleet",
+   "what": "x"
+  },
+  {
+   "id": "eckero-cargo",
+   "table": "x",
+   "url": "https://www.eckeroline.fi/cargo",
+   "what": "x"
   }
  ]
 }

@@ -50,6 +50,102 @@
    }
   },
   {
+   "id": "al-hoceima-motril",
+   "name": "Al Hoceima–Motril",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Al Hoceima",
+     "lat": 35.246358,
+     "lon": -3.923425,
+     "country": "MA"
+    },
+    {
+     "name": "Motril",
+     "lat": 36.722928,
+     "lon": -3.522925,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: عبّارة موتريل (Motril) - الحسيمة (Al Hoceima) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/286118901"
+   }
+  },
+  {
+   "id": "alger-alicante",
+   "name": "Alger–Alicante",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Alger",
+     "lat": 36.780161,
+     "lon": 3.063065,
+     "country": "DZ"
+    },
+    {
+     "name": "Alicante",
+     "lat": 38.325631,
+     "lon": -0.501216,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Alger (DZ) الجزائر - Alacant / Alicante (E) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/309897408"
+   }
+  },
+  {
+   "id": "ayvalik-mytilene",
+   "name": "Ayvalık–Mytilene",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Ayvalık",
+     "lat": 39.328365,
+     "lon": 26.695944,
+     "country": "TR"
+    },
+    {
+     "name": "Mytilene",
+     "lat": 39.103777,
+     "lon": 26.560152,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Μυτιλήνη - Ayvalık (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/262166873"
+   }
+  },
+  {
+   "id": "bejaia-marseille",
+   "name": "Béjaïa–Marseille",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Béjaïa",
+     "lat": 36.752277,
+     "lon": 5.088574,
+     "country": "DZ"
+    },
+    {
+     "name": "Marseille",
+     "lat": 43.312259,
+     "lon": 5.364165,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Marseille - Béjaïa (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/346914012"
+   }
+  },
+  {
    "id": "belfast-cairnryan",
    "name": "Belfast–Cairnryan",
    "operator": "Stena Line",
@@ -170,6 +266,30 @@
    }
   },
   {
+   "id": "cesme-chios",
+   "name": "Çeşme–Chios",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Çeşme",
+     "lat": 38.322791,
+     "lon": 26.297631,
+     "country": "TR"
+    },
+    {
+     "name": "Chios",
+     "lat": 38.372224,
+     "lon": 26.14101,
+     "country": "GR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Χίος - Τσεσμέ / Sakız - Çeşme (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/282791811"
+   }
+  },
+  {
    "id": "douglas-heysham",
    "name": "Douglas–Heysham",
    "operator": "Isle of Man Steam Packet Company",
@@ -206,8 +326,8 @@
     },
     {
      "name": "Calais",
-     "lat": 50.966748,
-     "lon": 1.849689,
+     "lat": 50.967324,
+     "lon": 1.857771,
      "country": "FR"
     }
    ],
@@ -304,6 +424,78 @@
    "source": {
     "title": "Stena Line: Dublin – Liverpool, its ferries",
     "url": "https://stenalinefreight.com/routes/dublin-liverpool/"
+   }
+  },
+  {
+   "id": "durres-ancona",
+   "name": "Durrës–Ancona",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Durrës",
+     "lat": 41.314465,
+     "lon": 19.454822,
+     "country": "AL"
+    },
+    {
+     "name": "Ancona",
+     "lat": 43.621109,
+     "lon": 13.509078,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Ancona - Durrës (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/176391972"
+   }
+  },
+  {
+   "id": "durres-bari",
+   "name": "Durrës–Bari",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Durrës",
+     "lat": 41.314328,
+     "lon": 19.455413,
+     "country": "AL"
+    },
+    {
+     "name": "Bari",
+     "lat": 41.133322,
+     "lon": 16.866655,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Bari - Durrës (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/69744874"
+   }
+  },
+  {
+   "id": "durres-trieste",
+   "name": "Durrës–Trieste",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Durrës",
+     "lat": 41.31463,
+     "lon": 19.454158,
+     "country": "AL"
+    },
+    {
+     "name": "Trieste",
+     "lat": 45.633652,
+     "lon": 13.766257,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Trieste - Durrës (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/256301211"
    }
   },
   {
@@ -655,6 +847,102 @@
    }
   },
   {
+   "id": "mostaganem-alicante",
+   "name": "Mostaganem–Alicante",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Mostaganem",
+     "lat": 35.936864,
+     "lon": 0.079471,
+     "country": "DZ"
+    },
+    {
+     "name": "Alicante",
+     "lat": 38.325631,
+     "lon": -0.501216,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Mostaganem (DZ) مستغانم - Alacant / Alicante (E) (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/965088959"
+   }
+  },
+  {
+   "id": "nador-almeria",
+   "name": "Nador–Almería",
+   "operator": "Baleria, Naviera Armas, Grandi Navi Veloci",
+   "terminals": [
+    {
+     "name": "Nador",
+     "lat": 35.270334,
+     "lon": -2.925586,
+     "country": "MA"
+    },
+    {
+     "name": "Almería",
+     "lat": 36.833029,
+     "lon": -2.466769,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Almería - Nador (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/34573787"
+   }
+  },
+  {
+   "id": "nador-motril",
+   "name": "Nador–Motril",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Nador",
+     "lat": 35.271959,
+     "lon": -2.927076,
+     "country": "MA"
+    },
+    {
+     "name": "Motril",
+     "lat": 36.722928,
+     "lon": -3.522925,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Motril (E) - Nador (MA) موتريل - الناظور (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/309961845"
+   }
+  },
+  {
+   "id": "nador-sete",
+   "name": "Nador–Sète",
+   "operator": "Grandi Navi Veloci",
+   "terminals": [
+    {
+     "name": "Nador",
+     "lat": 35.270334,
+     "lon": -2.925586,
+     "country": "MA"
+    },
+    {
+     "name": "Sète",
+     "lat": 43.4006,
+     "lon": 3.703616,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Sète – Nador (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/309968169"
+   }
+  },
+  {
    "id": "newcastle-ijmuiden",
    "name": "Newcastle–IJmuiden",
    "operator": "Det Forenede Dampskibs-Selskab A/S",
@@ -733,6 +1021,30 @@
    "source": {
     "title": "Stena Line: Nynäshamn – Ventspils, its ferries",
     "url": "https://stenalinefreight.com/routes/nynashamn-ventspils/"
+   }
+  },
+  {
+   "id": "oran-alicante",
+   "name": "Oran–Alicante",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Oran",
+     "lat": 35.709443,
+     "lon": -0.645202,
+     "country": "DZ"
+    },
+    {
+     "name": "Alicante",
+     "lat": 38.325631,
+     "lon": -0.501216,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Alacant / Alicante (E) - Oran (DZ) وهران (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/369719959"
    }
   },
   {
@@ -827,8 +1139,8 @@
    ],
    "ships": [],
    "source": {
-    "title": "OpenStreetMap: Portsmouth - Bilbao (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/432548283"
+    "title": "OpenStreetMap: Portsmouth - Bilbao; Portsmouth-Bilbao (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/432548282"
    }
   },
   {
@@ -1084,6 +1396,30 @@
    }
   },
   {
+   "id": "skikda-genova",
+   "name": "Skikda–Genova",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Skikda",
+     "lat": 36.886281,
+     "lon": 6.90743,
+     "country": "DZ"
+    },
+    {
+     "name": "Genova",
+     "lat": 44.410508,
+     "lon": 8.910308,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Genova - Skikda (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/999679765"
+   }
+  },
+  {
    "id": "swinoujscie-malmo",
    "name": "Świnoujście–Malmö",
    "operator": "Finnlines",
@@ -1219,6 +1555,126 @@
    "source": {
     "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
     "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "tanger-med-algeciras",
+   "name": "Tanger Med–Algeciras",
+   "operator": "Balearia / Trasmediterranea / FRS / Inter Shipping / AML",
+   "terminals": [
+    {
+     "name": "Tanger Med",
+     "lat": 35.876912,
+     "lon": -5.51899,
+     "country": "MA"
+    },
+    {
+     "name": "Algeciras",
+     "lat": 36.131312,
+     "lon": -5.438272,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Algeciras - Tánger Med / طنجة المتوسط - الجزيرة الخضراء (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/39729370"
+   }
+  },
+  {
+   "id": "tanger-med-marseille",
+   "name": "Tanger Med–Marseille",
+   "operator": "La méridionale",
+   "terminals": [
+    {
+     "name": "Tanger Med",
+     "lat": 35.876912,
+     "lon": -5.51899,
+     "country": "MA"
+    },
+    {
+     "name": "Marseille",
+     "lat": 43.33901,
+     "lon": 5.343002,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Marseille - Tánger Med (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/1239419340"
+   }
+  },
+  {
+   "id": "tanger-med-sete",
+   "name": "Tanger Med–Sète",
+   "operator": "Grandi Navi Veloci",
+   "terminals": [
+    {
+     "name": "Tanger Med",
+     "lat": 35.876912,
+     "lon": -5.51899,
+     "country": "MA"
+    },
+    {
+     "name": "Sète",
+     "lat": 43.40024,
+     "lon": 3.702909,
+     "country": "FR"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Sète – Tanger Med / طنجة – سيت (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/309885392"
+   }
+  },
+  {
+   "id": "tanger-motril",
+   "name": "Tanger–Motril",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Tanger",
+     "lat": 35.790329,
+     "lon": -5.803939,
+     "country": "MA"
+    },
+    {
+     "name": "Motril",
+     "lat": 36.722928,
+     "lon": -3.522925,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Motril (E) - Tanger-Medina (MA) طنجة المدينة (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/1359801907"
+   }
+  },
+  {
+   "id": "tanger-tarifa",
+   "name": "Tanger–Tarifa",
+   "operator": "DFDS / FRS; FRS / Inter Shipping",
+   "terminals": [
+    {
+     "name": "Tanger",
+     "lat": 35.790971,
+     "lon": -5.802663,
+     "country": "MA"
+    },
+    {
+     "name": "Tarifa",
+     "lat": 36.010066,
+     "lon": -5.60202,
+     "country": "ES"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Tanger - Tarifa / طنجة - طريفة (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/362003444"
    }
   },
   {
@@ -1479,6 +1935,54 @@
    "source": {
     "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt)",
     "url": "https://www.ttline.com/en/freight/timetable/"
+   }
+  },
+  {
+   "id": "tunis-salerno",
+   "name": "Tunis–Salerno",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Tunis",
+     "lat": 36.809997,
+     "lon": 10.300504,
+     "country": "TN"
+    },
+    {
+     "name": "Salerno",
+     "lat": 40.670267,
+     "lon": 14.741449,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Salerno - Tunisi (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/355802036"
+   }
+  },
+  {
+   "id": "vlore-brindisi",
+   "name": "Vlorë–Brindisi",
+   "operator": "",
+   "terminals": [
+    {
+     "name": "Vlorë",
+     "lat": 40.449615,
+     "lon": 19.480891,
+     "country": "AL"
+    },
+    {
+     "name": "Brindisi",
+     "lat": 40.647019,
+     "lon": 17.961561,
+     "country": "IT"
+    }
+   ],
+   "ships": [],
+   "source": {
+    "title": "OpenStreetMap: Brindisi - Vlorë (its ships not named; the ports' countries)",
+    "url": "https://www.openstreetmap.org/way/69055275"
    }
   },
   {

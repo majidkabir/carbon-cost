@@ -30,10 +30,9 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
   the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
   Travemünde and Rostock at the far end of its lines from Trelleborg;
-  Stena Line's and Finnlines' (ferry-ships-osm.json, ferry-ships-places*.json)
-  at the ends of the car ferry line whose name has both ports (the
-  operator's, when it has one), each port at the end nearer a place of its
-  name; a line trucks may take (hgv=yes) counts though cars may not. A
+  Stena Line's and Finnlines' (ferry-ships-osm.json, -osm-2.json) at the
+  ends of the ferry line whose name has both ports (the operator's, when it
+  has one), each port at the end nearest its town (PORTS); a line trucks may take (hgv=yes) counts though cars may not. A
   route with no such line isn't built: no route can take it;
 - Commission Implementing Decision (EU) 2023/2895, Annex I
   (ets-islands-2023-2895.html): Bornholm's port Rønne is under the island
@@ -44,8 +43,9 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   ship of that name is listed.
 
 - for ports outside the EU and the EEA (the UK, the Isle of Man, the
-  Channel Islands, the Faroes), the OpenStreetMap ferry lines between one
-  of them and a port in PORTS: the ships aren't named, but the ports'
+  Channel Islands, the Faroes; Morocco, Algeria, Tunisia, Albania,
+  Montenegro and Turkey), the OpenStreetMap ferry lines between one of
+  them and a port in PORTS: the ships aren't named, but the ports'
   countries give the share of the EU ETS (Directive 2003/87/EC, Art.
   3ga(1)): 50% with a port in the EU or the EEA, none between two outside.
 
@@ -75,9 +75,9 @@ TTLINE = [("travemunde-trelleborg", ("Travemünde", "Trelleborg"), "Travemünde 
 TTLINE_PORTS = {"Trelleborg": ("place", "Trelleborg"), "Travemünde": ("end", "Travemünde (D) – Trelleborg (SE)", "Trelleborg"),
                 "Rostock": ("end", "Rostock (D) - Trelleborg (SE)", "Trelleborg")}
 TTLINE_FILE = os.path.join(HERE, "browser", "ttline-timetable.txt")
-# The ports: country, the names OpenStreetMap gives their places and lines,
-# and where to look for the places (lat, lon: within 0.3° of latitude and
-# 0.5° of longitude; only the Overpass query uses it, --osm-query).
+# The ports: country, the names OpenStreetMap's lines give them, and where
+# the town is (lat, lon, to tell a line's ends apart: the end nearest it,
+# within 40 km).
 PORTS = {
     # Stena Line's and Finnlines' routes
     "Belfast": ("GB", ["Belfast"], (54.60, -5.93)), "Cairnryan": ("GB", ["Cairnryan"], (54.97, -5.02)),
@@ -114,6 +114,34 @@ PORTS = {
     "Santander": ("ES", ["Santander"], (43.46, -3.80)), "Bilbao": ("ES", ["Bilbao", "Santurtzi"], (43.35, -3.04)),
     "Esbjerg": ("DK", ["Esbjerg"], (55.47, 8.44)), "Hirtshals": ("DK", ["Hirtshals"], (57.59, 9.96)),
     "Seyðisfjörður": ("IS", ["Seyðisfjörður", "Seydisfjordur"], (65.26, -14.01)),
+    # the Mediterranean: Morocco, Algeria, Tunisia, Albania, Montenegro and
+    # Turkey, and the EU ports across from them
+    "Tanger Med": ("MA", ["Tanger Med", "Tanger-Med", "Tangier Med", "Ksar Sghir"], (35.89, -5.50)),
+    "Tanger": ("MA", ["Tanger", "Tangier", "Tánger", "Tangeri", "Tanger Ville"], (35.78, -5.81)),
+    "Nador": ("MA", ["Nador", "Beni Ansar", "Beni Enzar"], (35.20, -2.93)), "Al Hoceima": ("MA", ["Al Hoceima"], (35.25, -3.93)),
+    "Alger": ("DZ", ["Alger", "Algiers", "Algeri"], (36.77, 3.06)), "Oran": ("DZ", ["Oran"], (35.70, -0.64)),
+    "Béjaïa": ("DZ", ["Béjaïa", "Bejaia"], (36.75, 5.08)), "Skikda": ("DZ", ["Skikda"], (36.88, 6.91)),
+    "Annaba": ("DZ", ["Annaba"], (36.90, 7.76)), "Mostaganem": ("DZ", ["Mostaganem"], (35.93, 0.09)),
+    "Ghazaouet": ("DZ", ["Ghazaouet"], (35.10, -1.86)),
+    "Tunis": ("TN", ["Tunis", "Tunisi", "La Goulette", "Halq al Wadi"], (36.81, 10.25)), "Zarzis": ("TN", ["Zarzis"], (33.50, 11.11)),
+    "Durrës": ("AL", ["Durrës", "Durres", "Durazzo"], (41.31, 19.45)), "Vlorë": ("AL", ["Vlorë", "Vlora", "Valona"], (40.47, 19.49)),
+    "Bar": ("ME", ["Bar"], (42.10, 19.09)),
+    "Çeşme": ("TR", ["Çeşme", "Cesme"], (38.32, 26.30)), "Ayvalık": ("TR", ["Ayvalık", "Ayvalik"], (39.32, 26.69)),
+    "Pendik": ("TR", ["Pendik"], (40.87, 29.25)), "Ambarlı": ("TR", ["Ambarlı", "Ambarli"], (40.97, 28.69)),
+    "Mersin": ("TR", ["Mersin"], (36.80, 34.63)),
+    "Algeciras": ("ES", ["Algeciras"], (36.13, -5.44)), "Tarifa": ("ES", ["Tarifa"], (36.01, -5.60)),
+    "Almería": ("ES", ["Almería", "Almeria"], (36.83, -2.46)), "Motril": ("ES", ["Motril"], (36.72, -3.52)),
+    "Málaga": ("ES", ["Málaga", "Malaga"], (36.72, -4.42)), "Barcelona": ("ES", ["Barcelona"], (41.38, 2.17)),
+    "Valencia": ("ES", ["Valencia", "València"], (39.45, -0.33)), "Alicante": ("ES", ["Alicante", "Alacant"], (38.34, -0.48)),
+    "Sète": ("FR", ["Sète", "Sete"], (43.40, 3.70)), "Marseille": ("FR", ["Marseille", "Marsiglia"], (43.30, 5.37)),
+    "Toulon": ("FR", ["Toulon"], (43.12, 5.93)),
+    "Genova": ("IT", ["Genova", "Genoa", "Gênes"], (44.41, 8.92)), "Civitavecchia": ("IT", ["Civitavecchia"], (42.09, 11.79)),
+    "Salerno": ("IT", ["Salerno"], (40.68, 14.76)), "Palermo": ("IT", ["Palermo"], (38.12, 13.36)),
+    "Trapani": ("IT", ["Trapani"], (38.02, 12.51)), "Bari": ("IT", ["Bari"], (41.12, 16.87)),
+    "Ancona": ("IT", ["Ancona"], (43.62, 13.51)), "Brindisi": ("IT", ["Brindisi"], (40.64, 17.94)),
+    "Trieste": ("IT", ["Trieste"], (45.65, 13.77)), "Igoumenitsa": ("GR", ["Igoumenitsa", "Ηγουμενίτσα"], (39.50, 20.26)),
+    "Patras": ("GR", ["Patras", "Patra", "Πάτρα"], (38.25, 21.73)), "Lavrio": ("GR", ["Lavrio", "Λαύριο"], (37.71, 24.06)),
+    "Chios": ("GR", ["Chios", "Χίος"], (38.37, 26.14)), "Mytilene": ("GR", ["Mytilene", "Lesvos", "Μυτιλήνη"], (39.10, 26.55)),
 }
 # Other names the pages give a port.
 PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland"}
@@ -125,7 +153,7 @@ SHIP = re.compile(rf"(?:^|\s{{2,}})([{UPPER}][^\W\d_]+(?: [{UPPER}][^\W\d_]+)*)\
 
 
 def ascii(s):
-    return unicodedata.normalize("NFKD", s.replace("ø", "o").replace("Ø", "O")).encode("ascii", "ignore").decode().lower()
+    return unicodedata.normalize("NFKD", s.replace("ø", "o").replace("Ø", "O").replace("ı", "i")).encode("ascii", "ignore").decode().lower()
 
 
 def imos():
@@ -293,32 +321,48 @@ def finnlines(pages, schedule):
     return out
 
 
+def fold(s):
+    """Lower case without accents, other scripts kept (Πάτρα: πατρα)."""
+    s = unicodedata.normalize("NFKD", s.replace("ø", "o").replace("Ø", "O").replace("ı", "i"))
+    return "".join(ch for ch in s if not unicodedata.combining(ch)).lower()
+
+
+def spans(name, p):
+    """Where the port's names stand in a line's name, as words."""
+    return [m.span() for x in PORTS[p][1] for m in re.finditer(rf"(?<!\w){re.escape(fold(x))}(?!\w)", fold(name))]
+
+
 def named(name, p):
     """Whether a line's name has one of the port's names (as a word)."""
-    return any(re.search(rf"(?<![a-z]){re.escape(ascii(x))}(?![a-z])", ascii(name)) for x in PORTS[p][1])
+    return bool(spans(name, p))
+
+
+def named_ports(name):
+    """The ports a line's name has; a name inside another port's longer
+    name (Tanger in Tanger Med) doesn't count."""
+    found = {p: spans(name, p) for p in PORTS}
+    found = {p: s for p, s in found.items() if s}
+    return [p for p, ss in found.items() if not all(any(q != p and a <= x and y <= b and (b - a) > (y - x)
+                                                        for q, qs in found.items() for a, b in qs) for x, y in ss)]
 
 
 def osm_query():
     """The Overpass queries of ferry-ships-osm (lines named after a port,
     crossing the North Sea, the Channel or the Baltic: a line to a port
-    further off, Santander or Tórshavn, passes through it) and
-    ferry-ships-places and -places-2 (the ports' places, in two halves), as
-    sources.json has them."""
+    further off, Santander or Tórshavn, passes through it) and -osm-2 (the
+    Mediterranean), as sources.json has them."""
     import urllib.parse
-    names = sorted({x for _, xs, _ in PORTS.values() for x in xs})
-    lines = ('[out:json][timeout:300];way["route"="ferry"]["name"~"' + "|".join(names) + '"](49.0,-11.0,61.0,26.0);out geom tags;')
-    stmts = [f'node["place"]["name"="{x}"]({la - 0.3:.1f},{lo - 0.5:.1f},{la + 0.3:.1f},{lo + 0.5:.1f});'
-             for _, xs, (la, lo) in PORTS.values() for x in xs]
-    half = (len(stmts) + 1) // 2
-    places = ["[out:json][timeout:180];(" + "".join(part) + ");out;" for part in (stmts[:half], stmts[half:])]
-    return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in [lines] + places]
+    names = "|".join(sorted({x for _, xs, _ in PORTS.values() for x in xs}))
+    lines = ['[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]{bbox};out geom tags;'
+             for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)")]
+    return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in lines]
 
 
 def osm_place(osm, a, b, operator):
     """{port: (lat, lon)}: the ends of the ferry line (for cars or trucks)
     whose name has both ports (the operator's, if one is), each port at the
-    end nearer a place of its name; None when OpenStreetMap has no such
-    line, or one that doesn't reach a port."""
+    end nearest its town (PORTS); None when OpenStreetMap has no such line,
+    or one that doesn't come within 40 km of a port's town."""
     from ferry_osm import km
     car = {i for i, _ in lines_of(osm)[0]} | {w["id"] for w in osm.get("elements", []) if w.get("tags", {}).get("hgv") in ("yes", "designated")}
     has = lambda name, p: named(name, p)
@@ -330,12 +374,10 @@ def osm_place(osm, a, b, operator):
         print(f"ferry ships: {a}–{b}: OpenStreetMap has no ferry line named after both")
         return None
     ends = [(g["lat"], g["lon"]) for w in ways for g in (w["geometry"][0], w["geometry"][-1])]
-    places = {p: [(e["lat"], e["lon"]) for e in osm["elements"] if e["type"] == "node" and e.get("tags", {}).get("place")
-                  and ascii(e["tags"].get("name", "")) in {ascii(x) for x in PORTS[p][1]}] for p in (a, b)}
     pos = {}
     for p in (a, b):
-        best = min(((km(e, q), e) for e in ends for q in places[p]), default=None)
-        if not best or best[0] > 40:
+        best = min((km(e, PORTS[p][2]), e) for e in ends)
+        if best[0] > 40:
             print(f"ferry ships: {a}–{b}: OpenStreetMap's line doesn't reach {p}")
             return None
         pos[p] = best[1]
@@ -365,8 +407,8 @@ def main(fetched, out):
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
         fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
-        gosm = json.load(open(os.path.join(fetched, "ferry-ships-osm.json"), encoding="utf-8"))
-        for p in ("ferry-ships-places.json", "ferry-ships-places-2.json"):
+        gosm = {"elements": []}
+        for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
             gosm["elements"] += json.load(open(os.path.join(fetched, p), encoding="utf-8"))["elements"]
         urls = {f["file"]: f["url"] for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     except (OSError, ValueError) as e:
@@ -468,7 +510,7 @@ def main(fetched, out):
         if w["type"] != "way" or w["id"] not in car:
             continue
         name = w.get("tags", {}).get("name", "")
-        ports = [p for p in PORTS if named(name, p)]
+        ports = named_ports(name)
         if len(ports) != 2 or all(PORTS[p][0] in EEA for p in ports):
             continue
         pairs.setdefault(frozenset(ports), []).append(w)

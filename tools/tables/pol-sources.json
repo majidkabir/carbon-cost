@@ -2,9 +2,13 @@
  "about": "x",
  "sources": [
   {
-   "id": "stena-freight-tre-ros",
+   "id": "ttline-osm",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Travem%C3%BCnde%7CRostock%7CTrelleborg%29%24%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3B%29%3Bout%20geom%20tags%3B",
+   "expect": [
+    "\"route\": \"ferry\"",
+    "Travemünde (D) – Trelleborg (SE)"
+   ],
    "table": "x",
-   "url": "https://www.stenalinefreight.com/routes/trelleborg-rostock/",
    "what": "x"
   }
  ]

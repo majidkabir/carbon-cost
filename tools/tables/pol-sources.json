@@ -2,33 +2,135 @@
  "about": "x",
  "sources": [
   {
-   "id": "stena-routes",
+   "id": "stena-belfast-cairnryan",
    "table": "x",
-   "url": "https://www.stenalinefreight.com/routes/",
+   "url": "https://www.stenalinefreight.com/routes/belfast-cairnryan/",
    "what": "x"
   },
   {
-   "id": "finnlines-freight",
+   "id": "stena-belfast-heysham",
    "table": "x",
-   "url": "https://www.finnlines.com/freight/",
+   "url": "https://www.stenalinefreight.com/routes/belfast-heysham/",
    "what": "x"
   },
   {
-   "id": "finnlines-ships",
+   "id": "stena-belfast-liverpool",
    "table": "x",
-   "url": "https://www.finnlines.com/about-us/ships/",
+   "url": "https://www.stenalinefreight.com/routes/belfast-liverpool/",
    "what": "x"
   },
   {
-   "id": "dfds-freight-routes",
+   "id": "stena-dublin-holyhead",
    "table": "x",
-   "url": "https://www.dfds.com/en/freight-shipping/routes",
+   "url": "https://www.stenalinefreight.com/routes/dublin-holyhead/",
    "what": "x"
   },
   {
-   "id": "finnlines-schedules",
+   "id": "stena-dublin-liverpool",
    "table": "x",
-   "url": "https://www.finnlines.com/freight/schedules/",
+   "url": "https://www.stenalinefreight.com/routes/dublin-liverpool/",
+   "what": "x"
+  },
+  {
+   "id": "stena-gdynia-karlskrona",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/gdynia-karlskrona/",
+   "what": "x"
+  },
+  {
+   "id": "stena-gothenburg-kiel",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/gothenburg-kiel/",
+   "what": "x"
+  },
+  {
+   "id": "stena-gothenburg-masthugget-frederikshavn",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/gothenburg-masthugget-frederikshavn/",
+   "what": "x"
+  },
+  {
+   "id": "stena-hoek-van-holland-harwich",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/hoek-van-holland-harwich/",
+   "what": "x"
+  },
+  {
+   "id": "stena-hoek-van-holland-immingham",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/hoek-van-holland-immingham/",
+   "what": "x"
+  },
+  {
+   "id": "stena-nynashamn-ventspils",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/nynashamn-ventspils/",
+   "what": "x"
+  },
+  {
+   "id": "stena-rosslare-fishguard",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/rosslare-fishguard/",
+   "what": "x"
+  },
+  {
+   "id": "stena-rotterdam-harwich",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/rotterdam-harwich/",
+   "what": "x"
+  },
+  {
+   "id": "stena-rotterdam-immingham",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/rotterdam-immingham/",
+   "what": "x"
+  },
+  {
+   "id": "stena-travemunde-liepaja",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/travemunde-liepaja/",
+   "what": "x"
+  },
+  {
+   "id": "stena-trelleborg-rostock",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/trelleborg-rostock/",
+   "what": "x"
+  },
+  {
+   "id": "stena-vessels",
+   "table": "x",
+   "url": "https://www.stenalinefreight.com/routes/vessels/",
+   "what": "x"
+  },
+  {
+   "id": "finn-malmo-travemunde",
+   "table": "x",
+   "url": "https://www.finnlines.com/routes/malmo-travemunde/",
+   "what": "x"
+  },
+  {
+   "id": "finn-naantali-kapellskar",
+   "table": "x",
+   "url": "https://www.finnlines.com/routes/naantali-kapellskar/",
+   "what": "x"
+  },
+  {
+   "id": "finn-swinoujscie-malmo",
+   "table": "x",
+   "url": "https://www.finnlines.com/routes/swinoujscie-malmo/",
+   "what": "x"
+  },
+  {
+   "id": "finn-travemunde-helsinki",
+   "table": "x",
+   "url": "https://www.finnlines.com/routes/travemunde-helsinki/",
+   "what": "x"
+  },
+  {
+   "id": "finn-master",
+   "table": "x",
+   "url": "https://www.finnlines.com/wp-content/uploads/2025/06/finnlines-master-schedule-august-2026.pdf",
    "what": "x"
   }
  ]

@@ -47,7 +47,7 @@ POLSCA Baltic Ferries' documents pages on unityline.eu link their PDFs
 (freight tariffs, BES and ETS announcements): saved as <id>-<the file's
 name, lower case>.pdf (e.g. polsca-tariff-polsca-freight-tariff-22.06.2026.pdf).
 """
-import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
+import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
 
@@ -263,7 +263,10 @@ OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private
 def ask_overpass(url, prefer=None):
     """An Overpass query's answer, from the first instance that gives one: (status, body, url asked).
     A query written for overpass-api.de goes to `prefer` first when given; one
-    written for another instance goes to that one first."""
+    written for another instance goes to that one first. An instance whose
+    data is more than STALE_DAYS old (overpass.kumi.systems and
+    overpass.private.coffee have answered with data of months before) is
+    passed over."""
     base, query = url.split("?", 1)
     first = prefer if prefer and base == OVERPASS[0] else base
     last = None
@@ -276,11 +279,30 @@ def ask_overpass(url, prefer=None):
                 last = f"{host}: {e}"
                 break
             if status == 200 and not overpass_failed(status, body):
-                return status, body, host + "?" + query
+                stale = overpass_stale(body)
+                if not stale:
+                    return status, body, host + "?" + query
+                last = f"{host}: its data is of {stale}"
+                break
             last = f"{host}: {status} " + ((json.loads(body).get("remark") or "")[:200] if overpass_failed(status, body) else "")
             if status not in (429, 502, 503, 504) and not overpass_failed(status, body):
                 break
     raise RuntimeError(f"Overpass: no instance answered (last: {last})")
+
+
+# An instance whose data is older than this is behind OpenStreetMap: its
+# answer is put aside for another instance's (or the last run's copy).
+STALE_DAYS = 14
+
+
+def overpass_stale(body):
+    """The date of an answer's data when it's more than STALE_DAYS old, else ''."""
+    try:
+        base = json.loads(body).get("osm3s", {}).get("timestamp_osm_base", "")
+        day = datetime.datetime.strptime(base[:10], "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    except (ValueError, AttributeError):
+        return ""
+    return base[:10] if datetime.datetime.now(datetime.timezone.utc) - day > datetime.timedelta(days=STALE_DAYS) else ""
 
 
 def overpass_failed(status, body):

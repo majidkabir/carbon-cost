@@ -3297,3 +3297,41 @@ func TestEstoniaFerries(t *testing.T) {
 		}
 	}
 }
+
+// The Strait of Messina (Caronte & Tourist's commercial vehicle fares,
+// November 2026): 15.51-16.50 m one way 165.60 EUR Messina-Villa San
+// Giovanni and 224.30 back, plus 4.30 EUR per trip for the port company's
+// services; 12 m (11.51-12.50) 141.60 and 197.40.
+func TestMessina(t *testing.T) {
+	date := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	toCalabria := [][2]float64{{15.522, 38.130}, {15.529591, 38.136352}, {15.615476, 38.213285}, {15.635, 38.218}}
+	toSicily := [][2]float64{{15.635, 38.218}, {15.615476, 38.213285}, {15.529591, 38.136352}, {15.522, 38.130}}
+	rigid := truck40
+	rigid.LengthM = 12
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		want  float64
+	}{
+		{"to Calabria, 16.5 m", toCalabria, truck40, 169.90},
+		{"to Sicily, 16.5 m", toSicily, truck40, 228.60},
+		{"to Calabria, 12 m", toCalabria, rigid, 145.90},
+		{"to Sicily, 12 m", toSicily, rigid, 201.70},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"IT": 20}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Strait of Messina") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.want, r.Notes)
+		}
+	}
+}

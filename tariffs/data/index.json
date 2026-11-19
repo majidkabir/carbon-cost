@@ -1765,6 +1765,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/it-messina/2026-11-01",
+   "scheme": "it-messina",
+   "country": "IT",
+   "file": "it/it-messina-2026-11-01.orct.json",
+   "name": "Strait of Messina ferry (Caronte & Tourist), trucks",
+   "valid_from": "2026-11-01",
+   "valid_to": null,
+   "sha256": "3c0ff7c0dbacc799763354ed330168a7902a678d68138828d858375249a82e23",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/li/2024-01-01",
    "scheme": "li",
    "country": "LI",

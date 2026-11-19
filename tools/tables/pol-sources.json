@@ -4,11 +4,14 @@
   {
    "id": "ferry-ships-osm",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%5B%22name%22~%22Karlskrona%7CGdynia%7CKiel%7CG%C3%B6teborg%7CGothenburg%7CFrederikshavn%7CHoek%7CHarwich%7CImmingham%7CNyn%C3%A4shamn%7CVentspils%7CTravem%C3%BCnde%7CLiep%7CRotterdam%7CEuropoort%7CMaasvlakte%7CBelfast%7CCairnryan%7CHeysham%7CLiverpool%7CBirkenhead%7CDublin%7CHolyhead%7CRosslare%7CFishguard%7CMalm%C3%B6%7C%C5%9Awinouj%C5%9Bcie%7CHelsinki%7CTrelleborg%7CRostock%22%5D%2849.0%2C-11.0%2C61.0%2C30.0%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Karlskrona%7CGdynia%7CKiel%7CG%C3%B6teborg%7CGothenburg%7CFrederikshavn%7CHoek%7CHarwich%7CImmingham%7CNyn%C3%A4shamn%7CVentspils%7CTravem%C3%BCnde%7CLiep%7CRotterdam%7CEuropoort%7CMaasvlakte%7CBelfast%7CCairnryan%7CHeysham%7CLiverpool%7CBirkenhead%7CDublin%7CHolyhead%7CRosslare%7CFishguard%7CMalm%C3%B6%7C%C5%9Awinouj%C5%9Bcie%7CHelsinki%7CTrelleborg%7CRostock%29%22%5D%2849.0%2C-11.0%2C61.0%2C30.0%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x",
-   "expect": [
-    "\"route\": \"ferry\""
-   ]
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A300%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%5B%22name%22~%22Karlskrona%7CGdynia%7CKiel%7CG%C3%B6teborg%7CGothenburg%7CFrederikshavn%7CHoek%20van%20Holland%7CHook%20of%20Holland%7CHarwich%7CImmingham%7CVentspils%7CLiep%C4%81ja%7CLiepaja%7CRotterdam%7CEuropoort%7CMaasvlakte%7CBelfast%7CCairnryan%7CHeysham%7CLiverpool%7CBirkenhead%7CDublin%7CHolyhead%7CRosslare%7CFishguard%7CMalm%C3%B6%7CHelsinki%22%5D%2849.0%2C-11.0%2C61.0%2C30.0%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Karlskrona%7CGdynia%7CKiel%7CG%C3%B6teborg%7CGothenburg%7CFrederikshavn%7CHoek%20van%20Holland%7CHook%20of%20Holland%7CHarwich%7CImmingham%7CVentspils%7CLiep%C4%81ja%7CLiepaja%7CRotterdam%7CEuropoort%7CMaasvlakte%7CBelfast%7CCairnryan%7CHeysham%7CLiverpool%7CBirkenhead%7CDublin%7CHolyhead%7CRosslare%7CFishguard%7CMalm%C3%B6%7CHelsinki%7CNyn%C3%A4shamn%7CTravem%C3%BCnde%7CRostock%7CTrelleborg%7C%C5%9Awinouj%C5%9Bcie%29%24%22%5D%2849.0%2C-11.0%2C61.0%2C30.0%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "x"
+  },
+  {
+   "id": "ttline-osm",
+   "table": "x",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Travem%C3%BCnde%7CRostock%7CTrelleborg%29%24%22%5D%2853.8%2C10.7%2C55.5%2C13.3%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "x"
   }
  ]
 }

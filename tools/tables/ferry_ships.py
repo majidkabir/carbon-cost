@@ -15,9 +15,10 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - TT-Line's freight timetable (browser/ttline-timetable.txt: the site
   refuses scripted requests, so its text was read in Chrome): the ship of
   each departure, by its initials, which the page names ("PP = Peter
-  Pan"). Its ships join POLSCA's on Świnoujście–Trelleborg; on
-  Rostock–Trelleborg Stena Line's ships, which no page here names, aren't
-  among them;
+  Pan"). Its ships join POLSCA's on Świnoujście–Trelleborg;
+- Stena Line Freight's Trelleborg–Rostock page (stena-freight-tre-ros.html):
+  its ships ("Our two ships are ... MV “Skåne” ... and MV
+  “Mecklenburg-Vorpommern”") join TT-Line's on Rostock–Trelleborg;
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
   the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
   Travemünde and Rostock at the far end of its lines from Trelleborg;
@@ -26,7 +27,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   derogation (Directive 2003/87/EC, Art. 12(3-d)) for voyages to a port in
   Denmark until 31 December 2030;
 - the EU MRV reports' ship lists (ferries/data/mrv-ships-<year>.json): a
-  ship's IMO number, by its name, when one ship of that name is listed.
+  ship's IMO number, by its name (letters such as Å read as A), when one
+  ship of that name is listed.
 
 Usage: python3 ferry_ships.py <fetched dir> <out dir>
 """
@@ -66,7 +68,7 @@ def imos():
     seen = {}
     for p in sorted(glob.glob(os.path.join(MRV, "mrv-ships-*.json"))):
         for s in json.load(open(p, encoding="utf-8"))["ships"]:
-            seen.setdefault(s["name"], set()).add(s["imo"])
+            seen.setdefault(ascii(s["name"]).upper(), set()).add(s["imo"])
     return {n: next(iter(i)) for n, i in seen.items() if len(i) == 1}
 
 
@@ -160,7 +162,7 @@ def ttline(t):
 def crossing(cid, ports, pos, operator, ships, source, ids, exemptions=()):
     return {"id": cid, "name": "–".join(ports), "operator": operator,
             "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p]} for p in ports],
-            "ships": [{**({"imo": ids[s.upper()]} if s.upper() in ids else {}), "name": s.upper()} for s in sorted(ships)],
+            "ships": [{**({"imo": ids[ascii(s).upper()]} if ascii(s).upper() in ids else {}), "name": s.upper()} for s in sorted(ships)],
             **({"exemptions": list(exemptions)} if exemptions else {}), "source": source}
 
 
@@ -174,6 +176,7 @@ def main(fetched, out):
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
+        stena = html.unescape(re.sub(r"<[^>]+>", " ", open(os.path.join(fetched, "stena-freight-tre-ros.html"), encoding="utf-8").read()))
     except (OSError, ValueError) as e:
         print(f"ferry ships: not built ({e})")
         return
@@ -238,8 +241,17 @@ def main(fetched, out):
             continue
         if any(p not in pos for p in ports):
             sys.exit(f"ferry ships: {'–'.join(ports)}: ports not placed")
-        note = "; Stena Line's ships on it aren't named here" if cid == "rostock-trelleborg" else ""
-        crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title + note, "url": turl}, ids))
+        crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title, "url": turl}, ids))
+
+    # Stena Line, Trelleborg–Rostock
+    m = re.search(r"Our (?:two|three|\w+) ships are (.{0,400}?)\. ", re.sub(r"\s+", " ", stena))
+    ships = set(re.findall(r"MV “([^”]+)”", m.group(1))) if m else set()
+    if len(ships) < 2:
+        sys.exit("ferry ships: Stena Line Freight's Trelleborg–Rostock page: its ships not read")
+    c = next(c for c in crossings if c["id"] == "rostock-trelleborg")
+    c["operator"] += "; Stena Line"
+    c["ships"] = crossing(c["id"], ("Rostock", "Trelleborg"), {"Rostock": (0, 0), "Trelleborg": (0, 0)}, "", {s["name"] for s in c["ships"]} | ships, None, ids)["ships"]
+    c["source"]["title"] += f"; Stena Line Freight: Trelleborg–Rostock ({src['stena-freight-tre-ros']['url']}, its ships)"
 
     crossings.sort(key=lambda c: c["id"])
     os.makedirs(out, exist_ok=True)

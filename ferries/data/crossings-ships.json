@@ -111,7 +111,7 @@
   {
    "id": "rostock-trelleborg",
    "name": "Rostock–Trelleborg",
-   "operator": "TT-Line",
+   "operator": "TT-Line; Stena Line",
    "terminals": [
     {
      "name": "Rostock",
@@ -136,6 +136,10 @@
      "name": "MARCO POLO"
     },
     {
+     "imo": "9131797",
+     "name": "MECKLENBURG-VORPOMMERN"
+    },
+    {
      "imo": "9087465",
      "name": "NILS DACKE"
     },
@@ -148,6 +152,10 @@
      "name": "ROBIN HOOD"
     },
     {
+     "imo": "9133915",
+     "name": "SKÅNE"
+    },
+    {
      "imo": "9217242",
      "name": "TINKER BELL"
     },
@@ -157,7 +165,7 @@
     }
    ],
    "source": {
-    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt); Stena Line's ships on it aren't named here",
+    "title": "TT-Line: freight timetable, the ship of each departure (read in Chrome on 2026-11-19, tools/tables/browser/ttline-timetable.txt); Stena Line Freight: Trelleborg–Rostock (https://www.stenalinefreight.com/routes/trelleborg-rostock/, its ships)",
     "url": "https://www.ttline.com/en/freight/timetable/"
    }
   },

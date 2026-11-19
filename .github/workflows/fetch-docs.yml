@@ -12,17 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Bornholmslinjen's freight prices
+      - name: OpenStreetMap ferry lines around Bornholm
         run: |
           mkdir -p out
           UA="carbon-cost tables fetch (+https://github.com/majidkabir/carbon-cost)"
-          g() { curl -sS -L -A "$UA" -m 120 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2" || echo "FAIL $1"; }
-          g bornholm-freight.html "https://bornholmslinjen.com/practical-information/freight"
-          g bornholm-freight-da.html "https://bornholmslinjen.dk/praktisk-information/fragt"
-          g bornholm-fragtpriser-2026-eng.pdf "https://cdn.molslinjen.dk/1uxbpblk/fragtpriser-2026-eng.pdf"
-          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
-          grep -o 'https://cdn.molslinjen.dk/[^"]*\.pdf' out/bornholm-freight*.html | sort -u
-          cat out/bornholm-fragtpriser-2026-eng.txt | head -150
+          ov() { for w in 30 60 120 240 480; do curl -sS -A "$UA" -m 300 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2"; head -c 1 "out/$1" | grep -q '{' && return; sleep $w; done; }
+          ov bornholm-osm.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.4%2C12.0%2C55.6%2C15.3%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.4%2C12.0%2C55.6%2C15.3%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28R%C3%B8nne%7CYstad%7CK%C3%B8ge%7CSassnitz%7CMukran%29%24%22%5D%2854.4%2C12.0%2C55.6%2C15.3%29%3B%29%3Bout%20geom%20tags%3B"
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

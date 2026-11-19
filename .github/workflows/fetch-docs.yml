@@ -12,25 +12,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Estonia's state ferry prices, the Strait of Messina's truck fares, Læsø's price list
+      - name: Estonia's state ferry price annex, the Strait of Messina's Italian freight pages
         run: |
           mkdir -p out
           UA="carbon-cost tables fetch (+https://github.com/majidkabir/carbon-cost)"
           g() { curl -sS -L -A "$UA" -m 120 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2" || echo "FAIL $1"; }
-          g ee-ferries.json "https://www.riigiteataja.ee/public-api/api/v1/akt/123022022002?leiaKehtiv=true"
-          id=$(python3 -c "import json;print(json.load(open('out/ee-ferries.json'))['kehtivId'])" || true)
-          g ee-ferries-text.html "https://www.riigiteataja.ee/public-api/api/v1/akt/$id/blob-html"
-          html2text -utf8 out/ee-ferries-text.html > out/ee-ferries-text.txt || true
-          for u in $(grep -o 'https://www.riigiteataja.ee/aktilisa/[^"]*\.pdf' out/ee-ferries-text.html | sort -u); do n=$(basename "$u"); g "ee-lisa-$n" "$u"; pdftotext -layout "out/ee-lisa-$n" "out/ee-lisa-$n.txt" || true; done
-          python3 -c "import json;d=json.load(open('out/ee-ferries.json'));p=d['aktiParameetrid'];print(p['pealkiri'],p['kehtivuseAlgus'],p['kehtivuseLopp'],p['lisaAadress'])" || true
-          for pg in rates-commercial-vehicle rates-van adr-vehicle rates-exceptional-vehicles; do
-            g "ct-en-$pg.html" "https://www.carontetourist.it/en/strait-messina/freight/$pg"
-            html2text -utf8 "out/ct-en-$pg.html" > "out/ct-en-$pg.txt" || true
+          g ee-lisa.pdf "https://www.riigiteataja.ee/aktilisa/1150/9202/6002/MM_m109_lisa.pdf"
+          pdftotext -layout out/ee-lisa.pdf out/ee-lisa.txt || true
+          cat out/ee-lisa.txt | head -80
+          for pg in tariffe-veicolo-commerciale condizioni-di-trasporto; do
+            g "ct-it-$pg.html" "https://www.carontetourist.it/it/stretto-di-messina/merci/$pg"
+            html2text -utf8 "out/ct-it-$pg.html" > "out/ct-it-$pg.txt" || true
           done
-          g ct-freight.html "https://www.carontetourist.it/en/strait-messina/freight"
-          g laeso-2026.pdf "https://www.laesoe.dk/p/Fartplan-og-prisliste-2026-L%C3%A6s%C3%B8f%C3%A6rgen.pdf"
-          pdftotext -layout out/laeso-2026.pdf out/laeso-2026.txt || true
-          ls -la out
+          g ct-it-merci.html "https://www.carontetourist.it/it/stretto-di-messina/merci"
+          grep -o 'href="/it/stretto-di-messina/merci/[^"]*"' out/ct-it-merci.html | sort -u | head -40
+          grep -o 'href="[^"]*\.pdf[^"]*"' out/ct-it-merci.html out/ct-freight.html 2>/dev/null | sort -u | head -20
+          grep -i -o '.\{60\}IVA.\{60\}' out/ct-it-*.txt | head -10
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

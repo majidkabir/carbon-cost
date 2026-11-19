@@ -332,6 +332,16 @@ func TestPrice_FerryETSByLaw(t *testing.T) {
 	if ls := ferryLines(r); len(ls) != 0 || !hasNote(r, "2023/2895") || r.FerryCrossing != "Køge–Rønne" {
 		t.Errorf("Køge-Rønne: lines %+v, crossing %q, notes %v", ls, r.FerryCrossing, r.Notes)
 	}
+	// Ystad-Rønne with the truck's tare: its ships' (Express 1 and
+	// Express 5, as Bornholmslinjen names them) MRV data for 2025.
+	tare := req
+	tare.Truck.TareKg = 15000
+	ystad := [][2]float64{{13.80, 55.43}, {13.824636, 55.425923}, {14.691324, 55.099769}, {14.70, 55.10}}
+	r, _ = PriceWith(trip(ystad, sootcase.Part{Kind: "ferry", DistanceKm: 68, TTWKg: 120}), all(t), &fd, tare, nov26)
+	if ls := ferryLines(r); len(ls) != 1 || ls[0].Section != "Ystad–Rønne" || !strings.Contains(ls[0].Source, "EU MRV 2025") ||
+		!strings.Contains(ls[0].Source, "EXPRESS 1, EXPRESS 5") {
+		t.Errorf("Ystad-Rønne: %+v", ls)
+	}
 	// Esbjerg-Nordby: ships under 5,000 GT.
 	fano := [][2]float64{{8.46, 55.47}, {8.44007, 55.46088}, {8.40845, 55.45018}, {8.40, 55.45}}
 	r, _ = PriceWith(trip(fano, sootcase.Part{Kind: "ferry", DistanceKm: 2.3, TTWKg: 4}), all(t), &fd, req, nov26)

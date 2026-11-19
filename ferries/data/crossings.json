@@ -114,38 +114,6 @@
    }
   },
   {
-   "id": "koge-ronne",
-   "name": "Køge–Rønne",
-   "operator": "Bornholmslinjen",
-   "terminals": [
-    {
-     "name": "Køge",
-     "lat": 55.456,
-     "lon": 12.19494,
-     "country": "DK"
-    },
-    {
-     "name": "Rønne",
-     "lat": 55.09977,
-     "lon": 14.69132,
-     "country": "DK"
-    }
-   ],
-   "ships": [],
-   "exemptions": [
-    {
-     "from": "2024-01-01",
-     "until": "2030-12-31",
-     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Denmark: Bornholm, Rønne)",
-     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
-    }
-   ],
-   "source": {
-    "title": "Bornholmslinjen: the ferries",
-    "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
-   }
-  },
-  {
    "id": "hou-saelvig",
    "name": "Hou–Sælvig",
    "operator": "Samsø Rederi",

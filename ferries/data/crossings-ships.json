@@ -1,0 +1,255 @@
+{
+ "note": "Ferry crossings with the ships their operators' timetables and pages name, built by tools/tables/ferry_ships.py; IMO numbers from the EU MRV reports' ship lists.",
+ "crossings": [
+  {
+   "id": "gdansk-karlshamn",
+   "name": "Gdańsk–Karlshamn",
+   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
+   "terminals": [
+    {
+     "name": "Gdańsk",
+     "lat": 54.403664,
+     "lon": 18.680164,
+     "country": "PL"
+    },
+    {
+     "name": "Karlshamn",
+     "lat": 56.160031,
+     "lon": 14.816815,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9031703",
+     "name": "COPERNICUS"
+    },
+    {
+     "imo": "9086588",
+     "name": "SKANIA"
+    }
+   ],
+   "source": {
+    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
+    "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "gdansk-nynashamn",
+   "name": "Gdańsk–Nynäshamn",
+   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
+   "terminals": [
+    {
+     "name": "Gdańsk",
+     "lat": 54.403664,
+     "lon": 18.680164,
+     "country": "PL"
+    },
+    {
+     "name": "Nynäshamn",
+     "lat": 58.900995,
+     "lon": 17.953058,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9462067",
+     "name": "NOVA STAR"
+    },
+    {
+     "imo": "7814462",
+     "name": "WAWEL"
+    }
+   ],
+   "source": {
+    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
+    "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "koge-ronne",
+   "name": "Køge–Rønne",
+   "operator": "Bornholmslinjen",
+   "terminals": [
+    {
+     "name": "Køge",
+     "lat": 55.455995,
+     "lon": 12.19494,
+     "country": "DK"
+    },
+    {
+     "name": "Rønne",
+     "lat": 55.099769,
+     "lon": 14.691324,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9812107",
+     "name": "HAMMERSHUS"
+    },
+    {
+     "imo": "7633143",
+     "name": "POVL ANKER"
+    }
+   ],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Denmark: Bornholm, Rønne)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Bornholmslinjen: the ferries (each one's crossings)",
+    "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  },
+  {
+   "id": "sassnitz-ronne",
+   "name": "Sassnitz–Rønne",
+   "operator": "Bornholmslinjen",
+   "terminals": [
+    {
+     "name": "Sassnitz",
+     "lat": 54.484222,
+     "lon": 13.587526,
+     "country": "DE"
+    },
+    {
+     "name": "Rønne",
+     "lat": 55.099769,
+     "lon": 14.691324,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9812107",
+     "name": "HAMMERSHUS"
+    },
+    {
+     "imo": "7633143",
+     "name": "POVL ANKER"
+    }
+   ],
+   "source": {
+    "title": "Bornholmslinjen: the ferries (each one's crossings)",
+    "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  },
+  {
+   "id": "swinoujscie-trelleborg",
+   "name": "Świnoujście–Trelleborg",
+   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
+   "terminals": [
+    {
+     "name": "Świnoujście",
+     "lat": 53.899698,
+     "lon": 14.256932,
+     "country": "PL"
+    },
+    {
+     "name": "Trelleborg",
+     "lat": 55.371571,
+     "lon": 13.154463,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9539054",
+     "name": "EPSILON"
+    },
+    {
+     "imo": "9989895",
+     "name": "JANTAR UNITY"
+    },
+    {
+     "imo": "9010814",
+     "name": "MAZOVIA"
+    }
+   ],
+   "source": {
+    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure)",
+    "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "swinoujscie-ystad",
+   "name": "Świnoujście–Ystad",
+   "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
+   "terminals": [
+    {
+     "name": "Świnoujście",
+     "lat": 53.899698,
+     "lon": 14.256932,
+     "country": "PL"
+    },
+    {
+     "name": "Ystad",
+     "lat": 55.424858,
+     "lon": 13.828656,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "name": "BURSZTYN UNITY"
+    },
+    {
+     "imo": "9010814",
+     "name": "MAZOVIA"
+    },
+    {
+     "imo": "9108350",
+     "name": "POLONIA"
+    },
+    {
+     "imo": "9990480",
+     "name": "VARSOVIA"
+    }
+   ],
+   "source": {
+    "title": "POLSCA Baltic Ferries: timetables (the ferry of each departure); Galileusz left out, its departures cancelled from 6.11.2026 until further notice",
+    "url": "https://www.unityline.eu/cargo/timetables"
+   }
+  },
+  {
+   "id": "ystad-ronne",
+   "name": "Ystad–Rønne",
+   "operator": "Bornholmslinjen",
+   "terminals": [
+    {
+     "name": "Ystad",
+     "lat": 55.425923,
+     "lon": 13.824636,
+     "country": "SE"
+    },
+    {
+     "name": "Rønne",
+     "lat": 55.099769,
+     "lon": 14.691324,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9501590",
+     "name": "EXPRESS 1"
+    },
+    {
+     "imo": "9913286",
+     "name": "EXPRESS 5"
+    }
+   ],
+   "source": {
+    "title": "Bornholmslinjen: the ferries (each one's crossings)",
+    "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  }
+ ]
+}

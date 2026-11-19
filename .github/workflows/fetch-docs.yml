@@ -12,21 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: Scandlines' and Øresundslinjen's freight tariffs and surcharges
+      - name: Scandlines' freight tariffs and surcharges, through fetch.py
         run: |
           mkdir -p out
-          UA="carbon-cost tables fetch (+https://github.com/majidkabir/carbon-cost)"
-          get() { curl -sS -L -A "$UA" -m 120 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2" || true; }
-          get scl-tariffs.html https://freight.scandlines.com/freight-conditions/freight-tariffs/
-          get scl-surcharges.html https://freight.scandlines.com/freight-conditions/fuel-surcharges/
-          get scl-de-dk-10m.pdf https://freight.scandlines.com/assets/Scandlines_Freight_Tariff_2026_Germany_Denmark_10m_2026_01_01_until_recall_6a109ca4de.pdf
-          get scl-small.pdf https://freight.scandlines.com/assets/Scandlines_Freight_Tariff_2026_Small_Freight_Units_7_9m_All_Routes_2026_01_01_until_recall_0eff8dd96e.pdf
-          get scl-transit-10m.pdf https://freight.scandlines.com/assets/Scandlines_Freight_Tariff_2026_Transit_Sweden_Oeresundslinjen_10m_2026_01_01_until_recall_76b1459caf.pdf
-          get oresund.pdf https://freight.scandlines.com/assets/Oresundslinjen_Freight_Tariff_Helsingborg_Helsingor_2026_EUR_4e69167574.pdf
-          get scl-sur-2026-09.pdf https://freight.scandlines.com/assets/09_Scandlines_surcharges_September_2026_ENG_0113afc41b.pdf
+          python3 tools/tables/fetch.py tools/tables/scl-sources.json out || true
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
-          for f in out/*.html; do html2text -utf8 "$f" > "${f%.html}.txt" 2>/dev/null || true; done
-          grep -o 'href="[^"]*\.pdf[^"]*"' out/scl-surcharges.html | head -40 > out/scl-surcharges-links.txt || true
+          ls -la out
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

@@ -1,0 +1,31 @@
+{
+ "sources": [
+  {
+   "id": "scl-tariffs",
+   "table": "scandlines",
+   "url": "https://freight.scandlines.com/freight-conditions/freight-tariffs/",
+   "what": "Scandlines: the freight tariffs page (links the freight tariffs: Germany–Denmark from 10 m, small units to 9 m, transit to Sweden, and Øresundslinjen's Helsingør–Helsingborg)",
+   "expect": [
+    "Freight_Tariff"
+   ]
+  },
+  {
+   "id": "scl-surcharges",
+   "table": "scandlines",
+   "url": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges page (links each month's notice of BAF, ETS and GIR, and Øresundslinjen's energy and green surcharges, per commencing metre)",
+   "expect": [
+    "surcharges"
+   ]
+  },
+  {
+   "id": "scl-osm",
+   "table": "scandlines",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2854.0%2C10.9%2C56.2%2C12.9%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2854.0%2C10.9%2C56.2%2C12.9%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "OpenStreetMap (Overpass API): the ferry lines and terminals of the western Baltic and the Øresund",
+   "expect": [
+    "\"route\": \"ferry\""
+   ]
+  }
+ ]
+}

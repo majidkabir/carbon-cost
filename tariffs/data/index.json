@@ -2497,19 +2497,19 @@
    "file": "no/no-2024-01-01.orct.json",
    "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
    "valid_from": "2024-01-01",
-   "valid_to": "2026-11-11",
-   "sha256": "b0df352582db40fb0e0cc6a42a64317fee798c7d0d636d368764a107dfdaf691",
+   "valid_to": "2026-11-17",
+   "sha256": "4f83a68899fae96995d23a7c1dfb4ff7b5e88aa79386eaae420dc338d82b45c6",
    "coverage": "complete"
   },
   {
-   "id": "carbon-cost/no/2026-11-12",
+   "id": "carbon-cost/no/2026-11-18",
    "scheme": "no",
    "country": "NO",
-   "file": "no/no-2026-11-12.orct.json",
+   "file": "no/no-2026-11-18.orct.json",
    "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
-   "valid_from": "2026-11-12",
+   "valid_from": "2026-11-18",
    "valid_to": null,
-   "sha256": "f3139738f76b1b46a7fae0279884814feca2cfaa8df01d2930896ad7c4f4b7b6",
+   "sha256": "af21b374f21c3d6337515ff4cfc0d7954da6d21e8cbe3289dca851e5acdb5e80",
    "coverage": "complete"
   },
   {

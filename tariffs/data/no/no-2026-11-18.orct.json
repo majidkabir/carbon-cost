@@ -1,7 +1,7 @@
 {
  "orct": "0.3",
  "dataset": {
-  "id": "carbon-cost/no/2026-11-12",
+  "id": "carbon-cost/no/2026-11-18",
   "scheme": {
    "id": "no",
    "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
@@ -12,14 +12,14 @@
    "role": "third_party",
    "url": "https://github.com/majidkabir/carbon-cost"
   },
-  "valid_from": "2026-11-12",
+  "valid_from": "2026-11-18",
   "currency": "NOK",
   "timezone": "Europe/Oslo",
   "license": "MIT",
   "method": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Tolls carry no VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
-   "path": "no-2026-11-12.json"
+   "path": "no-2026-11-18.json"
   },
   "required_features": ["rule.passage_group", "time_classes", "type.point"]
  },
@@ -5152,18 +5152,6 @@
   {
    "id": "pt400",
    "type": "point",
-   "name": "Rv. 4 Lygna",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [10.640002, 60.46522]
-    }
-   },
-   "note": "Toll project: Vegfinans Rv4 Oppland AS"
-  },
-  {
-   "id": "pt401",
-   "type": "point",
    "name": "E39_Storemyr",
    "location": {
     "geometry": {
@@ -5174,7 +5162,7 @@
    "note": "Toll project: Ferde AS - E39 Kristiansand Vest - Lyngdal Vest"
   },
   {
-   "id": "pt402",
+   "id": "pt401",
    "type": "point",
    "name": "E39 Herdal",
    "location": {
@@ -5186,7 +5174,7 @@
    "note": "Toll project: Ferde AS - E39 Kristiansand Vest- Lyngdal Vest"
   },
   {
-   "id": "pt403",
+   "id": "pt402",
    "type": "point",
    "name": "Fv4852 Salhusvegen",
    "location": {
@@ -5198,7 +5186,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt404",
+   "id": "pt403",
    "type": "point",
    "name": "Fv554 T-forbindelsen",
    "location": {
@@ -5210,7 +5198,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt405",
+   "id": "pt404",
    "type": "point",
    "name": "E134 Karmsundgata/Norheim",
    "location": {
@@ -5222,7 +5210,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt406",
+   "id": "pt405",
    "type": "point",
    "name": "Fv47 Karmsundgata",
    "location": {
@@ -5234,7 +5222,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt407",
+   "id": "pt406",
    "type": "point",
    "name": "Fv4856 Skjoldavegen",
    "location": {
@@ -5246,7 +5234,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt408",
+   "id": "pt407",
    "type": "point",
    "name": "Fv4862 Skeisvollvegen",
    "location": {
@@ -5258,7 +5246,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt409",
+   "id": "pt408",
    "type": "point",
    "name": "Fv4802 Spannavegen/Spannakalven",
    "location": {
@@ -5270,7 +5258,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt410",
+   "id": "pt409",
    "type": "point",
    "name": "E134 Raglamyr/Biltema",
    "location": {
@@ -5282,7 +5270,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt411",
+   "id": "pt410",
    "type": "point",
    "name": "Fv4848 Vormedalsvegen",
    "location": {
@@ -5294,7 +5282,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt412",
+   "id": "pt411",
    "type": "point",
    "name": "Fv4802 Spannavegen/Hemningstad",
    "location": {
@@ -5306,7 +5294,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt413",
+   "id": "pt412",
    "type": "point",
    "name": "Fv47 Tittelsnesvegen",
    "location": {
@@ -5318,7 +5306,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt414",
+   "id": "pt413",
    "type": "point",
    "name": "E6 Forbordsfjelltunnelen",
    "location": {
@@ -5329,7 +5317,7 @@
    }
   },
   {
-   "id": "pt415",
+   "id": "pt414",
    "type": "point",
    "name": "Rv.70 Nordsundbrua",
    "location": {
@@ -5341,7 +5329,7 @@
    "note": "Toll project: Bypakke Kristiansund"
   },
   {
-   "id": "pt416",
+   "id": "pt415",
    "type": "point",
    "name": "Rv.70 Omsundbrua",
    "location": {
@@ -5353,7 +5341,7 @@
    "note": "Toll project: Bypakke Kristiansund"
   },
   {
-   "id": "pt417",
+   "id": "pt416",
    "type": "point",
    "name": "Fv. 300 Auli",
    "location": {
@@ -5365,7 +5353,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt418",
+   "id": "pt417",
    "type": "point",
    "name": "Fv. 308 Kanalbrua",
    "location": {
@@ -5377,7 +5365,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt419",
+   "id": "pt418",
    "type": "point",
    "name": "Fv. 311 Presterødbakken",
    "location": {
@@ -5390,7 +5378,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt420",
+   "id": "pt419",
    "type": "point",
    "name": "Fv. 3160 Velleveien",
    "location": {
@@ -5402,7 +5390,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt421",
+   "id": "pt420",
    "type": "point",
    "name": "Fv. 311 Presterødbakken",
    "location": {
@@ -5415,7 +5403,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt422",
+   "id": "pt421",
    "type": "point",
    "name": "Fv. 325 Gressbanen",
    "location": {
@@ -5427,7 +5415,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt423",
+   "id": "pt422",
    "type": "point",
    "name": "Fv. 308 Jarlsberglinna",
    "location": {
@@ -5439,7 +5427,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt424",
+   "id": "pt423",
    "type": "point",
    "name": "Fv. 44 Forussletta, mot Nord - Forus",
    "location": {
@@ -5452,7 +5440,7 @@
    "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
   },
   {
-   "id": "pt425",
+   "id": "pt424",
    "type": "point",
    "name": "Fv. Skaret",
    "location": {
@@ -5465,7 +5453,7 @@
    "note": "Toll project: Fv. Skaret"
   },
   {
-   "id": "pt426",
+   "id": "pt425",
    "type": "point",
    "name": "E6 Åsen (Felt 1 og 2)",
    "location": {
@@ -5477,7 +5465,7 @@
    }
   },
   {
-   "id": "pt427",
+   "id": "pt426",
    "type": "point",
    "name": "E6 Åsen (Felt 3 og 4)",
    "location": {
@@ -5672,8 +5660,8 @@
     ["pt111", "rush-3", "48"],
     ["pt112", null, "38"],
     ["pt112", "rush-3", "48"],
-    ["pt113", null, "110"],
-    ["pt114", null, "110"],
+    ["pt113", null, "116"],
+    ["pt114", null, "116"],
     ["pt115", null, "32"],
     ["pt116", null, "63"],
     ["pt117", null, "76"],
@@ -6053,17 +6041,17 @@
     ["pt389", null, "65"],
     ["pt390", null, "91"],
     ["pt391", null, "187"],
-    ["pt392", null, "110"],
+    ["pt392", null, "116"],
     ["pt393", null, "90"],
-    ["pt394", null, "102"],
-    ["pt395", null, "102"],
+    ["pt394", null, "114"],
+    ["pt395", null, "114"],
     ["pt396", null, "70"],
-    ["pt397", null, "102"],
+    ["pt397", null, "114"],
     ["pt398", null, "76"],
     ["pt399", null, "76"],
-    ["pt400", null, "110"],
-    ["pt401", null, "81"],
-    ["pt402", null, "111"],
+    ["pt400", null, "81"],
+    ["pt401", null, "111"],
+    ["pt402", null, "31"],
     ["pt403", null, "31"],
     ["pt404", null, "31"],
     ["pt405", null, "31"],
@@ -6074,21 +6062,20 @@
     ["pt410", null, "31"],
     ["pt411", null, "31"],
     ["pt412", null, "31"],
-    ["pt413", null, "31"],
-    ["pt414", null, "104"],
+    ["pt413", null, "104"],
+    ["pt414", null, "68"],
     ["pt415", null, "68"],
-    ["pt416", null, "68"],
+    ["pt416", null, "42"],
     ["pt417", null, "42"],
     ["pt418", null, "42"],
     ["pt419", null, "42"],
     ["pt420", null, "42"],
     ["pt421", null, "42"],
     ["pt422", null, "42"],
-    ["pt423", null, "42"],
-    ["pt424", null, "76"],
-    ["pt425", null, "102"],
-    ["pt426", null, "21"],
-    ["pt427", null, "21"]
+    ["pt423", null, "76"],
+    ["pt424", null, "114"],
+    ["pt425", null, "21"],
+    ["pt426", null, "21"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
@@ -6144,7 +6131,7 @@
      "pt373",
      "pt398",
      "pt399",
-     "pt424"
+     "pt423"
     ],
     "minutes": 60,
     "pays": "first"

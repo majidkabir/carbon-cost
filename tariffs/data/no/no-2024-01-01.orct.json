@@ -13,7 +13,7 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2024-01-01",
-  "valid_to": "2026-11-11",
+  "valid_to": "2026-11-17",
   "currency": "NOK",
   "timezone": "Europe/Oslo",
   "license": "MIT",
@@ -13531,6 +13531,17 @@
   {
    "id": "pt1070",
    "type": "point",
+   "name": "Ranheim",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.554037, 63.422291]
+    }
+   }
+  },
+  {
+   "id": "pt1071",
+   "type": "point",
    "name": "NVDB 1025249143",
    "location": {
     "geometry": {
@@ -13540,7 +13551,7 @@
    }
   },
   {
-   "id": "pt1071",
+   "id": "pt1072",
    "type": "point",
    "name": "E6 Søberg",
    "location": {
@@ -13550,18 +13561,6 @@
     }
    },
    "note": "Toll project: E6 Ulsberg-Melhus"
-  },
-  {
-   "id": "pt1072",
-   "type": "point",
-   "name": "Rv. 7 Brekkebygda",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [9.749497, 60.28603]
-    }
-   },
-   "note": "Toll project: Vegfinans Hallingporten AS"
   },
   {
    "id": "pt1073",
@@ -13578,6 +13577,18 @@
   {
    "id": "pt1074",
    "type": "point",
+   "name": "Rv. 7 Brekkebygda",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.749497, 60.28603]
+    }
+   },
+   "note": "Toll project: Vegfinans Hallingporten AS"
+  },
+  {
+   "id": "pt1075",
+   "type": "point",
    "name": "Rv. 4 Lygna",
    "location": {
     "geometry": {
@@ -13588,7 +13599,7 @@
    "note": "Toll project: Vegfinans Rv4 Oppland AS"
   },
   {
-   "id": "pt1075",
+   "id": "pt1076",
    "type": "point",
    "name": "Rv. 4 Lygna",
    "location": {
@@ -13600,7 +13611,7 @@
    "note": "Toll project: Vegfinans Rv4 Oppland AS"
   },
   {
-   "id": "pt1076",
+   "id": "pt1077",
    "type": "point",
    "name": "Fv. 353 Hafraker",
    "location": {
@@ -13612,7 +13623,7 @@
    "note": "Toll project: Fv. 353Rugtvedt Surtebogen"
   },
   {
-   "id": "pt1077",
+   "id": "pt1078",
    "type": "point",
    "name": "E16 Skaret",
    "location": {
@@ -13624,7 +13635,7 @@
    "note": "Toll project: E16 Bjørum - Skaret"
   },
   {
-   "id": "pt1078",
+   "id": "pt1079",
    "type": "point",
    "name": "E16 Skaret",
    "location": {
@@ -13637,7 +13648,7 @@
    "note": "Toll project: E16 Bjørum - Skaret"
   },
   {
-   "id": "pt1079",
+   "id": "pt1080",
    "type": "point",
    "name": "Fv. Skaret",
    "location": {
@@ -13649,7 +13660,7 @@
    "note": "Toll project: Fv. Skaret"
   },
   {
-   "id": "pt1080",
+   "id": "pt1081",
    "type": "point",
    "name": "E16 Avtjerna",
    "location": {
@@ -13662,7 +13673,7 @@
    "note": "Toll project: E16 Avtjerna"
   },
   {
-   "id": "pt1081",
+   "id": "pt1082",
    "type": "point",
    "name": "NVDB 1026090503",
    "location": {
@@ -13673,7 +13684,7 @@
    }
   },
   {
-   "id": "pt1082",
+   "id": "pt1083",
    "type": "point",
    "name": "Fv. Avtjerna",
    "location": {
@@ -13684,19 +13695,6 @@
     "heading": 174.8
    },
    "note": "Toll project: E16 Bjørum - Skaret"
-  },
-  {
-   "id": "pt1083",
-   "type": "point",
-   "name": "FV44 Gausel mot sør (bussvei)",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [5.726395, 58.912516]
-    },
-    "heading": 152.7
-   },
-   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
   },
   {
    "id": "pt1084",
@@ -13714,13 +13712,13 @@
   {
    "id": "pt1085",
    "type": "point",
-   "name": "FV44 Gausel mot sør (bilvei)",
+   "name": "FV44 Gausel mot sør (bussvei)",
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [5.726343, 58.912333]
+     "coordinates": [5.726395, 58.912516]
     },
-    "heading": 157.8
+    "heading": 152.7
    },
    "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
   },
@@ -13740,6 +13738,19 @@
   {
    "id": "pt1087",
    "type": "point",
+   "name": "FV44 Gausel mot sør (bilvei)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [5.726343, 58.912333]
+    },
+    "heading": 157.8
+   },
+   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
+  },
+  {
+   "id": "pt1088",
+   "type": "point",
    "name": "Rv. 4 Lygna",
    "location": {
     "geometry": {
@@ -13748,18 +13759,6 @@
     }
    },
    "note": "Toll project: Vegfinans Rv4 Oppland AS"
-  },
-  {
-   "id": "pt1088",
-   "type": "point",
-   "name": "E39_Storemyr",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [7.860738, 58.12288]
-    }
-   },
-   "note": "Toll project: Ferde AS - E39 Kristiansand Vest - Lyngdal Vest"
   },
   {
    "id": "pt1089",
@@ -13776,14 +13775,14 @@
   {
    "id": "pt1090",
    "type": "point",
-   "name": "E39 Herdal",
+   "name": "E39_Storemyr",
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [7.135212, 58.15658]
+     "coordinates": [7.860738, 58.12288]
     }
    },
-   "note": "Toll project: Ferde AS - E39 Kristiansand Vest- Lyngdal Vest"
+   "note": "Toll project: Ferde AS - E39 Kristiansand Vest - Lyngdal Vest"
   },
   {
    "id": "pt1091",
@@ -13800,6 +13799,18 @@
   {
    "id": "pt1092",
    "type": "point",
+   "name": "E39 Herdal",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.135212, 58.15658]
+    }
+   },
+   "note": "Toll project: Ferde AS - E39 Kristiansand Vest- Lyngdal Vest"
+  },
+  {
+   "id": "pt1093",
+   "type": "point",
    "name": "Fv4852 Salhusvegen",
    "location": {
     "geometry": {
@@ -13810,7 +13821,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1093",
+   "id": "pt1094",
    "type": "point",
    "name": "Fv554 T-forbindelsen",
    "location": {
@@ -13822,7 +13833,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1094",
+   "id": "pt1095",
    "type": "point",
    "name": "E134 Karmsundgata/Norheim",
    "location": {
@@ -13834,7 +13845,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1095",
+   "id": "pt1096",
    "type": "point",
    "name": "Fv47 Karmsundgata",
    "location": {
@@ -13846,7 +13857,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1096",
+   "id": "pt1097",
    "type": "point",
    "name": "Fv4856 Skjoldavegen",
    "location": {
@@ -13858,7 +13869,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1097",
+   "id": "pt1098",
    "type": "point",
    "name": "Fv4862 Skeisvollvegen",
    "location": {
@@ -13870,7 +13881,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1098",
+   "id": "pt1099",
    "type": "point",
    "name": "Fv4802 Spannavegen/Spannakalven",
    "location": {
@@ -13882,7 +13893,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1099",
+   "id": "pt1100",
    "type": "point",
    "name": "E134 Raglamyr/Biltema",
    "location": {
@@ -13894,7 +13905,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1100",
+   "id": "pt1101",
    "type": "point",
    "name": "Fv4848 Vormedalsvegen",
    "location": {
@@ -13906,7 +13917,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1101",
+   "id": "pt1102",
    "type": "point",
    "name": "Fv4802 Spannavegen/Hemningstad",
    "location": {
@@ -13918,7 +13929,7 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1102",
+   "id": "pt1103",
    "type": "point",
    "name": "Fv47 Tittelsnesvegen",
    "location": {
@@ -13930,7 +13941,18 @@
    "note": "Toll project: Bypakke Haugesund og fastlands-Karmøy"
   },
   {
-   "id": "pt1103",
+   "id": "pt1104",
+   "type": "point",
+   "name": "E6 Forbordsfjelltunnelen",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.883473, 63.496188]
+    }
+   }
+  },
+  {
+   "id": "pt1105",
    "type": "point",
    "name": "Rv.70 Nordsundbrua",
    "location": {
@@ -13942,7 +13964,7 @@
    "note": "Toll project: Bypakke Kristiansund"
   },
   {
-   "id": "pt1104",
+   "id": "pt1106",
    "type": "point",
    "name": "Rv.70 Omsundbrua",
    "location": {
@@ -13954,7 +13976,7 @@
    "note": "Toll project: Bypakke Kristiansund"
   },
   {
-   "id": "pt1105",
+   "id": "pt1107",
    "type": "point",
    "name": "Fv. 300 Auli",
    "location": {
@@ -13966,7 +13988,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1106",
+   "id": "pt1108",
    "type": "point",
    "name": "Fv. 308 Kanalbrua",
    "location": {
@@ -13978,7 +14000,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1107",
+   "id": "pt1109",
    "type": "point",
    "name": "Fv. 311 Presterødbakken",
    "location": {
@@ -13991,7 +14013,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1108",
+   "id": "pt1110",
    "type": "point",
    "name": "Fv. 3160 Velleveien",
    "location": {
@@ -14003,7 +14025,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1109",
+   "id": "pt1111",
    "type": "point",
    "name": "Fv. 311 Presterødbakken",
    "location": {
@@ -14016,7 +14038,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1110",
+   "id": "pt1112",
    "type": "point",
    "name": "Fv. 325 Gressbanen",
    "location": {
@@ -14028,7 +14050,7 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1111",
+   "id": "pt1113",
    "type": "point",
    "name": "Fv. 308 Jarlsberglinna",
    "location": {
@@ -14040,33 +14062,33 @@
    "note": "Toll project: Vegfinans Bypakke Tønsberg-regionen"
   },
   {
-   "id": "pt1112",
-   "type": "point",
-   "name": "Fv. 44 Forussletta, mot Nord - Forus",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [5.724869, 58.875214]
-    },
-    "heading": 351.2
-   },
-   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
-  },
-  {
-   "id": "pt1113",
-   "type": "point",
-   "name": "Fv. 44 Forussletta, mot Nord - Forus",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [5.724869, 58.875214]
-    },
-    "heading": 351.2
-   },
-   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
-  },
-  {
    "id": "pt1114",
+   "type": "point",
+   "name": "Fv. 44 Forussletta, mot Nord - Forus",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [5.724869, 58.875214]
+    },
+    "heading": 351.2
+   },
+   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
+  },
+  {
+   "id": "pt1115",
+   "type": "point",
+   "name": "Fv. 44 Forussletta, mot Nord - Forus",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [5.724869, 58.875214]
+    },
+    "heading": 351.2
+   },
+   "note": "Toll project: Ferde AS - Bymiljøpakken Nord Jæren"
+  },
+  {
+   "id": "pt1116",
    "type": "point",
    "name": "Fv. Skaret",
    "location": {
@@ -14077,6 +14099,30 @@
     "heading": 157.7
    },
    "note": "Toll project: Fv. Skaret"
+  },
+  {
+   "id": "pt1117",
+   "type": "point",
+   "name": "E6 Åsen (Felt 1 og 2)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.049688, 63.600552]
+    },
+    "heading": 205.1
+   }
+  },
+  {
+   "id": "pt1118",
+   "type": "point",
+   "name": "E6 Åsen (Felt 3 og 4)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.049727, 63.600169]
+    },
+    "heading": 25.1
+   }
   }
  ],
  "charges": [
@@ -16048,8 +16094,8 @@
     ["pt317", "110"],
     ["pt320", "110"],
     ["pt328", "16"],
-    ["pt1070", "65"],
-    ["pt1071", "91"]
+    ["pt1071", "65"],
+    ["pt1072", "91"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
@@ -16073,7 +16119,7 @@
    "valid_from": "2025-11-07",
    "valid_to": "2026-10-26",
    "columns": ["object", "amount"],
-   "rows": [["pt1072", "179"]],
+   "rows": [["pt1073", "179"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16085,7 +16131,7 @@
    "valid_from": "2025-11-24",
    "valid_to": "2026-01-15",
    "columns": ["object", "amount"],
-   "rows": [["pt1074", "110"]],
+   "rows": [["pt1075", "110"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16096,7 +16142,7 @@
    "unit": "passage",
    "valid_from": "2025-12-03",
    "columns": ["object", "amount"],
-   "rows": [["pt1076", "90"]],
+   "rows": [["pt1077", "90"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16107,7 +16153,7 @@
    "unit": "passage",
    "valid_from": "2025-12-18",
    "columns": ["object", "amount"],
-   "rows": [["pt1081", "70"]],
+   "rows": [["pt1082", "70"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16118,7 +16164,7 @@
    "unit": "passage",
    "valid_from": "2025-12-19",
    "columns": ["object", "amount"],
-   "rows": [["pt1080", "102"], ["pt1082", "102"]],
+   "rows": [["pt1081", "102"], ["pt1083", "102"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16130,7 +16176,7 @@
    "valid_from": "2025-12-19",
    "valid_to": "2026-11-02",
    "columns": ["object", "amount"],
-   "rows": [["pt1077", "102"], ["pt1079", "102"]],
+   "rows": [["pt1078", "102"], ["pt1080", "102"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16220,7 +16266,7 @@
    "unit": "passage",
    "valid_from": "2026-01-16",
    "columns": ["object", "amount"],
-   "rows": [["pt1075", "110"]],
+   "rows": [["pt1076", "110"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16254,7 +16300,19 @@
    "unit": "passage",
    "valid_from": "2026-02-02",
    "columns": ["object", "amount"],
-   "rows": [["pt1041", "87"], ["pt1043", "87"], ["pt1069", "121"]],
+   "rows": [["pt1041", "87"], ["pt1043", "87"]],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points@2026-02-02..2026-11-11",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "valid_from": "2026-02-02",
+   "valid_to": "2026-11-11",
+   "columns": ["object", "amount"],
+   "rows": [["pt1069", "121"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16266,7 +16324,7 @@
    "valid_from": "2026-02-09",
    "valid_to": "2026-08-03",
    "columns": ["object", "amount"],
-   "rows": [["pt1083", "71"], ["pt1085", "71"]],
+   "rows": [["pt1084", "71"], ["pt1086", "71"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16277,7 +16335,7 @@
    "unit": "passage",
    "valid_from": "2026-02-26",
    "columns": ["object", "amount"],
-   "rows": [["pt1087", "110"]],
+   "rows": [["pt1088", "110"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16505,7 +16563,7 @@
    "valid_from": "2026-03-30",
    "valid_to": "2026-05-20",
    "columns": ["object", "amount"],
-   "rows": [["pt1088", "79"], ["pt1090", "106"]],
+   "rows": [["pt1089", "79"], ["pt1091", "106"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16517,7 +16575,6 @@
    "valid_from": "2026-04-28",
    "columns": ["object", "amount"],
    "rows": [
-    ["pt1092", "31"],
     ["pt1093", "31"],
     ["pt1094", "31"],
     ["pt1095", "31"],
@@ -16527,7 +16584,8 @@
     ["pt1099", "31"],
     ["pt1100", "31"],
     ["pt1101", "31"],
-    ["pt1102", "31"]
+    ["pt1102", "31"],
+    ["pt1103", "31"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
@@ -16621,8 +16679,8 @@
     ["pt858", "81"],
     ["pt862", "91"],
     ["pt1065", "111"],
-    ["pt1089", "81"],
-    ["pt1091", "111"]
+    ["pt1090", "81"],
+    ["pt1092", "111"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
@@ -16710,7 +16768,7 @@
    "unit": "passage",
    "valid_from": "2026-06-08",
    "columns": ["object", "amount"],
-   "rows": [["pt1103", "68"], ["pt1104", "68"]],
+   "rows": [["pt1105", "68"], ["pt1106", "68"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16721,7 +16779,7 @@
    "unit": "passage",
    "valid_from": "2026-07-01",
    "columns": ["object", "amount"],
-   "rows": [["pt1105", "42"], ["pt1106", "42"], ["pt1107", "42"], ["pt1108", "42"], ["pt1109", "42"], ["pt1110", "42"], ["pt1111", "42"]],
+   "rows": [["pt1107", "42"], ["pt1108", "42"], ["pt1109", "42"], ["pt1110", "42"], ["pt1111", "42"], ["pt1112", "42"], ["pt1113", "42"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16769,8 +16827,8 @@
     ["pt471", "76"],
     ["pt770", "76"],
     ["pt1039", "76"],
-    ["pt1084", "76"],
-    ["pt1086", "76"]
+    ["pt1085", "76"],
+    ["pt1087", "76"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
@@ -16783,7 +16841,7 @@
    "valid_from": "2026-08-04",
    "valid_to": "2026-08-04",
    "columns": ["object", "amount"],
-   "rows": [["pt1112", "71"]],
+   "rows": [["pt1114", "71"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16794,7 +16852,7 @@
    "unit": "passage",
    "valid_from": "2026-08-05",
    "columns": ["object", "amount"],
-   "rows": [["pt1113", "76"]],
+   "rows": [["pt1115", "76"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16827,7 +16885,7 @@
    "unit": "passage",
    "valid_from": "2026-10-27",
    "columns": ["object", "amount"],
-   "rows": [["pt735", "119"], ["pt737", "119"], ["pt821", "119"], ["pt1073", "187"]],
+   "rows": [["pt735", "119"], ["pt737", "119"], ["pt821", "119"], ["pt1074", "187"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   },
@@ -16838,7 +16896,18 @@
    "unit": "passage",
    "valid_from": "2026-11-03",
    "columns": ["object", "amount"],
-   "rows": [["pt1078", "102"], ["pt1114", "102"]],
+   "rows": [["pt1079", "102"], ["pt1116", "102"]],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "points@2026-11-12..",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "valid_from": "2026-11-12",
+   "columns": ["object", "amount"],
+   "rows": [["pt1070", "127"], ["pt1104", "104"], ["pt1117", "21"], ["pt1118", "21"]],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11"],
    "basis": "transcribed"
   }
@@ -16955,6 +17024,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -16977,7 +17047,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -17160,12 +17231,12 @@
      "pt1037",
      "pt1038",
      "pt1039",
-     "pt1083",
      "pt1084",
      "pt1085",
      "pt1086",
-     "pt1112",
-     "pt1113"
+     "pt1087",
+     "pt1114",
+     "pt1115"
     ],
     "minutes": 60,
     "pays": "first"
@@ -17282,6 +17353,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -17304,7 +17376,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -17448,6 +17521,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -17470,7 +17544,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt87", "pt88", "pt89", "pt519", "pt520", "pt521", "pt669", "pt670", "pt671"],
@@ -17589,6 +17664,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -17611,7 +17687,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt84", "pt85", "pt86", "pt986", "pt987", "pt988", "pt989", "pt990", "pt991"],
@@ -17730,6 +17807,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -17752,7 +17830,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -17908,6 +17987,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -17930,7 +18010,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt81", "pt82", "pt83"],
@@ -18049,6 +18130,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18071,7 +18153,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt139", "pt140", "pt141", "pt142", "pt143", "pt144", "pt151", "pt152", "pt153"],
@@ -18190,6 +18273,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18212,7 +18296,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt136", "pt137", "pt138", "pt309", "pt310", "pt311", "pt312", "pt313", "pt314"],
@@ -18331,6 +18416,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18353,7 +18439,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt130", "pt131", "pt132", "pt133", "pt134", "pt135"],
@@ -18472,6 +18559,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18494,7 +18582,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt55", "pt56", "pt57", "pt58", "pt59", "pt60", "pt61", "pt62", "pt63", "pt64", "pt65", "pt66", "pt67", "pt68", "pt69", "pt70", "pt71", "pt72"],
@@ -18613,6 +18702,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18635,7 +18725,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -18795,6 +18886,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -18817,7 +18909,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -19071,6 +19164,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19093,7 +19187,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -19257,6 +19352,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19279,7 +19375,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -19489,6 +19586,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19511,7 +19609,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt212", "pt213", "pt214", "pt215", "pt216", "pt217", "pt522", "pt523"],
@@ -19630,6 +19729,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19652,7 +19752,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -19828,6 +19929,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19850,7 +19952,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt92", "pt93", "pt94", "pt95", "pt96", "pt97", "pt98", "pt99"],
@@ -19969,6 +20072,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -19991,7 +20095,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt117"],
@@ -20110,6 +20215,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20132,7 +20238,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt121", "pt122", "pt123", "pt124"],
@@ -20251,6 +20358,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20273,7 +20381,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt865", "pt866", "pt867", "pt871", "pt872", "pt876", "pt877", "pt878"],
@@ -20392,6 +20501,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20414,7 +20524,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": ["pt179", "pt180", "pt181", "pt182", "pt183", "pt184", "pt185", "pt186", "pt187", "pt188", "pt189", "pt190"],
@@ -20533,6 +20644,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20555,7 +20667,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -20707,6 +20820,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20729,7 +20843,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -20875,6 +20990,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -20897,7 +21013,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -21037,6 +21154,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -21059,7 +21177,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [
@@ -21199,6 +21318,7 @@
     "points@2026-02-01..",
     "points@2026-02-01..2026-03-09",
     "points@2026-02-02..",
+    "points@2026-02-02..2026-11-11",
     "points@2026-02-09..2026-08-03",
     "points@2026-02-26..",
     "points@2026-03-05..",
@@ -21221,7 +21341,8 @@
     "points@2026-10-05..",
     "points@2026-10-15..",
     "points@2026-10-27..",
-    "points@2026-11-03.."
+    "points@2026-11-03..",
+    "points@2026-11-12.."
    ],
    "params": {
     "objects": [

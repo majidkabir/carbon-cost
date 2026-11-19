@@ -12,14 +12,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get -qq update && sudo apt-get -qq install -y poppler-utils html2text >/dev/null
-      - name: OpenStreetMap ferry lines around Estonia's islands and the Strait of Messina
+      - name: Bornholmslinjen's freight prices
         run: |
           mkdir -p out
           UA="carbon-cost tables fetch (+https://github.com/majidkabir/carbon-cost)"
-          ov() { for w in 30 60 120 240 480; do curl -sS -A "$UA" -m 300 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2"; head -c 1 "out/$1" | grep -q '{' && return; sleep $w; done; }
-          ov ee-ferries-osm.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2858.0%2C21.5%2C59.3%2C24.0%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2858.0%2C21.5%2C59.3%2C24.0%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Virtsu%7CKuivastu%7CRohuk%C3%BCla%7CHeltermaa%7CS%C3%B5ru%7CTriigi%29%24%22%5D%2858.0%2C21.5%2C59.3%2C24.0%29%3B%29%3Bout%20geom%20tags%3B"
-          sleep 20
-          ov it-messina-osm.json "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2837.9%2C15.4%2C38.4%2C15.8%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2837.9%2C15.4%2C38.4%2C15.8%29%3Bnode%5B%22place%22%5D%5B%22name%22~%22%5E%28Villa%20San%20Giovanni%7CTremestieri%7CMessina%29%24%22%5D%2837.9%2C15.4%2C38.4%2C15.8%29%3B%29%3Bout%20geom%20tags%3B"
+          g() { curl -sS -L -A "$UA" -m 120 -o "out/$1" -w "%{http_code} %{size_download} $1\n" "$2" || echo "FAIL $1"; }
+          g bornholm-freight.html "https://bornholmslinjen.com/practical-information/freight"
+          g bornholm-freight-da.html "https://bornholmslinjen.dk/praktisk-information/fragt"
+          g bornholm-fragtpriser-2026-eng.pdf "https://cdn.molslinjen.dk/1uxbpblk/fragtpriser-2026-eng.pdf"
+          for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
+          grep -o 'https://cdn.molslinjen.dk/[^"]*\.pdf' out/bornholm-freight*.html | sort -u
+          cat out/bornholm-fragtpriser-2026-eng.txt | head -150
       - name: Push the texts to the docs-out branch
         run: |
           cd out && git init -q && git checkout -q -b docs-out && git add -A

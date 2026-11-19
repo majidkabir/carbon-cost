@@ -86,10 +86,20 @@ def features(osm):
 def port_places(osm, lines, ports):
     """Each port's place: its ferry terminal (amenity=ferry_terminal) or
     place by name (or English name), at the nearest car ferry line's
-    nearest point within 3 km. ports: {port: ("terminal"|"place", name)}."""
+    nearest point within 3 km; or, for a port whose terminal has no name,
+    the end of a car ferry line (by its name) away from the other port.
+    ports: {port: ("terminal"|"place", name) or ("end", line name, other port)}."""
     feats = features(osm)
     out = {}
-    for port, (kind, name) in ports.items():
+    for port, (kind, name, *rest) in sorted(ports.items(), key=lambda x: x[1][0] == "end"):
+        if kind == "end":
+            other = out.get(rest[0])
+            ids = {i for i, _ in lines}
+            ends = [(g[0]["lat"], g[0]["lon"]) for w in osm.get("elements", []) if w["type"] == "way" and w["id"] in ids
+                    and w.get("tags", {}).get("name") == name for g in (w["geometry"], w["geometry"][::-1])]
+            if other and ends:
+                out[port] = max(ends, key=lambda q: km(q, other))
+            continue
         if kind == "terminal":
             hit = [p for t, p in feats if t.get("amenity") == "ferry_terminal" and t.get("name") == name]
         else:

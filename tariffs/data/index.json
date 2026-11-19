@@ -632,6 +632,39 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/dk-aeroefaergerne/2026-01-03",
+   "scheme": "dk-aeroefaergerne",
+   "country": "DK",
+   "file": "dk/dk-aeroefaergerne-2026-01-03.orct.json",
+   "name": "Ærøfærgerne's ferries Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav, trucks",
+   "valid_from": "2026-01-03",
+   "valid_to": "2027-01-04",
+   "sha256": "7d8083c6e576a4c0a4b2c21ea7b464e395b216708289433202d58ddfb6d9e338",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-aeroexpressen/2026-01-01",
+   "scheme": "dk-aeroexpressen",
+   "country": "DK",
+   "file": "dk/dk-aeroexpressen-2026-01-01.orct.json",
+   "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+   "valid_from": "2026-01-01",
+   "valid_to": "2026-06-14",
+   "sha256": "696d1ccebb682f02a67009968548d5c24dcc71626993914420bab25b3c2602a6",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/dk-aeroexpressen/2026-06-15",
+   "scheme": "dk-aeroexpressen",
+   "country": "DK",
+   "file": "dk/dk-aeroexpressen-2026-06-15.orct.json",
+   "name": "ÆrøXpressen's ferries Marstal–Rudkøbing, trucks",
+   "valid_from": "2026-06-15",
+   "valid_to": "2026-12-31",
+   "sha256": "6fe89baf460123bf77e222041dc7a8d650dfb3451bce69a6b4efe8563ac4ed3c",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/dk-alslinjen/2026-01-01",
    "scheme": "dk-alslinjen",
    "country": "DK",

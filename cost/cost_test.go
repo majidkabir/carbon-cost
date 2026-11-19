@@ -3480,6 +3480,10 @@ func TestDanishFerries(t *testing.T) {
 	aarhus := [][2]float64{{10.24, 56.15}, {10.256237, 56.15617}, {11.265266, 55.968235}, {11.30, 55.97}}
 	ebeltoft := [][2]float64{{10.67, 56.16}, {10.661377, 56.151544}, {11.267878, 55.970718}, {11.30, 55.97}}
 	hou := [][2]float64{{10.26, 55.91}, {10.34828, 55.92655}, {10.548473, 55.868734}, {10.55, 55.86}}
+	aeroeskoebing := [][2]float64{{10.62, 55.06}, {10.615322, 55.053579}, {10.417527, 54.894893}, {10.41, 54.89}}
+	faaborg := [][2]float64{{10.24, 55.09}, {10.232745, 55.051317}, {10.255098, 54.954831}, {10.26, 54.94}}
+	soeby := [][2]float64{{10.26, 54.94}, {10.250415, 54.953796}, {9.992822, 54.99676}, {9.985, 54.994}}
+	marstal := [][2]float64{{10.52, 54.855}, {10.521825, 54.860785}, {10.660906, 54.912043}, {10.70, 54.937}}
 	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
 	d26, d27 := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2027, 3, 3, 0, 0, 0, 0, time.UTC)
 	for _, tc := range []struct {
@@ -3503,6 +3507,12 @@ func TestDanishFerries(t *testing.T) {
 		{"Aarhus-Odden, 12 m lorry", "MOLSLINJEN", aarhus, length(12), d26, 1100},
 		{"Ebeltoft-Odden, road train", "MOLSLINJEN", ebeltoft, length(18.75), d26, 1500},
 		{"Hou-Sælvig, semi-trailer", "Samsø Rederi", hou, truck40, d26, 694.16 - 138.83},
+		{"Svendborg-Ærøskøbing, semi-trailer", "Ærøfærgerne", aeroeskoebing, truck40, d26, 905 - 167.40},
+		{"Svendborg-Ærøskøbing, 10 m lorry", "Ærøfærgerne", aeroeskoebing, length(10), d26, 588 - 104},
+		{"Faaborg-Søby, 25.25 m", "Ærøfærgerne", faaborg, length(25.25), d26, 905 - 167.40 + 7*(35-7)},
+		{"Søby-Fynshav, road train", "Ærøfærgerne", soeby, length(18.75), d26, 905 - 167.40},
+		{"Marstal-Rudkøbing, semi-trailer, November", "ÆrøXpressen", marstal, truck40, d26, (1025 + 20) / 1.25},
+		{"Marstal-Rudkøbing, 8 m lorry, May", "ÆrøXpressen", marstal, length(8), time.Date(2026, 5, 4, 0, 0, 0, 0, time.UTC), 575 / 1.25},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DK": 50}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck}, tc.date)

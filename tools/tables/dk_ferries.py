@@ -10,7 +10,11 @@ price list (dk-<line>-<from>.json), from
   without VAT; MOLSLINJEN (Aarhus–Odden, Ebeltoft–Odden), its prices
   without VAT and without a date, plus an ETS fee; and Samsø Rederi
   (Hou–Sælvig, the municipality's line), its prices with VAT and the VAT
-  amount, without a date;
+  amount, without a date; Ærøfærgerne (Svendborg–Ærøskøbing, Faaborg–
+  Søby, Søby–Fynshav, Ærø municipality's), its prices with VAT and the VAT
+  amount for the dates it gives (to 12 m, 12-19 m, and per metre over
+  19 m); and ÆrøXpressen (Marstal–Rudkøbing, private), its prices for the
+  year with VAT, and the surcharge for trucks from the day it gives;
 - OpenStreetMap (dk-ferries-osm.json, Overpass): the ferry lines and the
   ferry terminals.
 
@@ -25,7 +29,7 @@ line is a closed system on OpenStreetMap's car ferry lines (ferry_osm.py).
 
 Usage: python3 dk_ferries.py <fetched dir> <out dir>
 """
-import html, json, math, os, re, sys
+import datetime, html, json, math, os, re, sys
 
 from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 
@@ -55,8 +59,18 @@ LINES = {
     "samsoe-rederi": {"op": "Samsø Rederi", "src": "dk-samsoe-rederi-freight", "url": "https://www.tilsamsoe.dk/priser-lastbiler/",
                       "ports": {"Hou": ("terminal", "Samsø - Hou"), "Sælvig": ("terminal", "Hou")},
                       "routes": {"Hou–Sælvig": [("Hou", "Sælvig")]}},
+    "aeroefaergerne": {"op": "Ærøfærgerne", "src": "dk-aeroe-freight", "url": "https://www.aeroe-ferry.dk/da/priser",
+                       "ports": {"Svendborg": ("terminal", "Svendborg-Ærøskøbing"), "Ærøskøbing": ("end", "Svendborg - Ærøskøbing", "Svendborg"),
+                                 "Søby": ("terminal", "Søby Havn"), "Faaborg": ("end", "Søby - Faaborg", "Søby"), "Fynshav": ("terminal", "Fynshav")},
+                       "routes": {"Svendborg–Ærøskøbing": [("Svendborg", "Ærøskøbing")], "Faaborg–Søby": [("Faaborg", "Søby")],
+                                  "Søby–Fynshav": [("Søby", "Fynshav")]}},
+    "aeroexpressen": {"op": "ÆrøXpressen", "src": "dk-aeroexpressen-freight", "url": "https://aeroexpressen.dk/en/priser/",
+                      "ports": {"Marstal": ("terminal", "Marstal Færgehavn"), "Rudkøbing": ("terminal", "Terminal Ærø")},
+                      "routes": {"Marstal–Rudkøbing": [("Marstal", "Rudkøbing")]}},
 }
 NUM = r"(\d[\d.]*(?:,\d\d)?)"
+DA_MONTHS = ["januar", "februar", "marts", "april", "maj", "juni", "juli", "august", "september", "oktober", "november", "december"]
+EN_MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
 
 def text(path):
@@ -165,6 +179,36 @@ def samsoe_rederi(page):
     return out, items
 
 
+def aeroefaergerne(page):
+    """((from, to), bands, items) from Ærøfærgerne's prices: trucks with driver up to 12 m, 12-19 m and per metre over 19 m,
+    each including VAT and the VAT amount."""
+    m = re.search(r"Priser DKK pr\. (\d{1,2})\. (\w+) (\d{4}) - (\d{1,2})\. (\w+) (\d{4})", page)
+    if not m or m.group(2) not in DA_MONTHS or m.group(5) not in DA_MONTHS:
+        sys.exit("Ærøfærgerne: the prices' dates not found")
+    vf = f"{m.group(3)}-{DA_MONTHS.index(m.group(2)) + 1:02d}-{int(m.group(1)):02d}"
+    vt = f"{m.group(6)}-{DA_MONTHS.index(m.group(5)) + 1:02d}-{int(m.group(4)):02d}"
+    i = page.find("Lastbil inkl. fører (priserne er incl. moms)")
+    rows = re.findall(r"Lastbil (indtil 12|12-19|over 19) meter(?: - tillæg pr\. meter)? \(heraf moms " + NUM + r"\) kr\. " + NUM, page[i:i + 600])
+    if i < 0 or [r[0] for r in rows] != ["indtil 12", "12-19", "over 19"]:
+        sys.exit(f"Ærøfærgerne: the trucks' prices not found ({[r[0] for r in rows]})")
+    net = {k: round(dkk(p) - dkk(v), 2) for k, v, p in rows}
+    b = bands([("Lastbil", "maks", 12, net["indtil 12"]), ("Lastbil", "maks", 19, net["12-19"])], over=(19, net["over 19"]))
+    return (vf, vt), b, [(k, dkk(p), dkk(v)) for k, v, p in rows]
+
+
+def aeroexpressen(page):
+    """(year, bands, items, surcharge (from, DKK)) from ÆrøXpressen's prices: lorries with driver by length, including VAT."""
+    i = page.find("SINGLE TICKET - TRUCKS")
+    m = re.search(r"LORRIES PRICES FOR (\d{4}) 0-8 meter incl\. driver " + NUM + r" DKK 8 -12 meters incl\. driver " + NUM
+                  + r" DKK 12-19 meters incl\. driver " + NUM + " DKK", page[i:i + 400])
+    if i < 0 or not m or "All prices include sales tax" not in page:
+        sys.exit("ÆrøXpressen: the lorries' prices (including VAT) not found")
+    s = re.search(r"Starting (\w+) (\d{1,2}), (\d{4}), a surcharge of .{0,200}?(\d+) kr\. to buses and trucks", page)
+    sur = (f"{s.group(3)}-{EN_MONTHS.index(s.group(1)) + 1:02d}-{int(s.group(2)):02d}", float(s.group(4))) if s else None
+    items = [(8, dkk(m.group(2))), (12, dkk(m.group(3))), (19, dkk(m.group(4)))]
+    return m.group(1), items, sur
+
+
 def group_name(lo, hi):
     return f"up to {hi} m" if lo == 0 else f"{lo}-{hi} m"
 
@@ -227,6 +271,26 @@ def main(fetched, out):
                    + "; ".join(f"{band} m DKK {p:.2f} including VAT of {v:.2f} (before the subsidy {q:g})" for band, p, q, v in items)
                    + f"; taken without the VAT: DKK {band_text(b)}. The page gives no date: valid_from is the day it was first read.")
             build(line, cfg, b, START, None, law, osm, lines, permit, out)
+        elif line == "aeroefaergerne":
+            (vf, vt), b, items = aeroefaergerne(page)
+            law = (f"Ærøfærgerne's prices from {vf} to {vt} per single trip for a truck with driver on {routes}: "
+                   + "; ".join(f"{'per metre over 19 m' if k == 'over 19' else k.replace('indtil', 'up to') + ' m'} DKK {p:.2f} including VAT of {v:.2f}"
+                               for k, p, v in items)
+                   + f"; taken without the VAT, each started metre over 19 m added: DKK {band_text(b)}. Each crossing is priced on its own.")
+            build(line, cfg, b, vf, vt, law, osm, lines, permit, out)
+        elif line == "aeroexpressen":
+            y, items, sur = aeroexpressen(page)
+            periods = [(f"{y}-01-01", f"{y}-12-31", 0.0)]
+            if sur and sur[0].startswith(y):
+                end = (datetime.date.fromisoformat(sur[0]) - datetime.timedelta(days=1)).isoformat()
+                periods = [(f"{y}-01-01", end, 0.0), (sur[0], f"{y}-12-31", sur[1])]
+            for vf, vt, add in periods:
+                b = bands([("Lastbil", "maks", m, round((p + add) / 1.25, 2)) for m, p in items])
+                law = (f"ÆrøXpressen's (a private company's) prices for {y} per single trip for a lorry with driver on {routes}, including VAT, fuel and "
+                       "service charges: " + "; ".join(f"to {m} m DKK {p:g}" for m, p in items)
+                       + (f", with the surcharge of DKK {add:g} for trucks from {vf}" if add else "")
+                       + f"; taken without the VAT (25%): DKK {band_text(b)}. Lorries over 19 m aren't priced.")
+                build(line, cfg, b, vf, vt, law, osm, lines, permit, out)
         else:
             for y, (b, vat, items, per) in molslinjen_family(page, cfg["op"]).items():
                 law = (f"{cfg['op']}'s freight prices for {y} per single trip ({vat}) on {routes}: "

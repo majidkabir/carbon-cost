@@ -3423,6 +3423,46 @@ func TestScandlines(t *testing.T) {
 	}
 }
 
+// TestPolferries prices Polferries' crossings from its freight tariff (per
+// unit to 9 m, per commenced metre over 9 m) and the BES per commenced
+// metre (not the ETS surcharge).
+func TestPolferries(t *testing.T) {
+	sy := [][2]float64{{14.25, 53.90}, {14.235081, 54.075278}, {13.796019, 55.396026}, {13.83, 55.42}}
+	st := [][2]float64{{14.25, 53.90}, {14.028139, 54.27659}, {13.14058, 55.33321}, {13.15, 55.37}}
+	gn := [][2]float64{{18.68, 54.40}, {18.78442, 54.520945}, {18.058986, 58.83697}, {17.95, 58.90}}
+	gk := [][2]float64{{18.68, 54.40}, {18.781135, 54.522891}, {14.904184, 56.07921}, {14.82, 56.16}}
+	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
+	day := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
+	for _, tc := range []struct {
+		name  string
+		path  [][2]float64
+		truck rates.Truck
+		eur   float64
+	}{
+		{"Świnoujście-Ystad, 16.5 m", sy, truck40, 17 * (25 + 12.51)},
+		{"Świnoujście-Trelleborg, 16.5 m", st, truck40, 17 * (25 + 12.51)},
+		{"Świnoujście-Ystad, 7.5 m", sy, length(7.5), 150 + 8*12.51},
+		{"Świnoujście-Ystad, 6 m", sy, length(6), 125 + 6*12.51},
+		{"Gdańsk-Nynäshamn, 16.5 m", gn, truck40, 17 * (39 + 24.81)},
+		{"Gdańsk-Karlshamn, road train", gk, length(18.75), 19 * (30 + 15.74)},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"PL": 150, "SE": 150}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, FX: map[string]float64{"PLN": 4.25, "SEK": 11}}, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Polferries") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.eur) > 0.011 {
+			t.Errorf("%s: %.2f EUR, want %.2f: %v", tc.name, got, tc.eur, r.Notes)
+		}
+	}
+}
+
 // TestDanishFerries prices Denmark's domestic car ferries by the truck's
 // length, from each line's freight page (dk_ferries.py), without VAT:
 // SAMSØLINJEN's price per started metre over 20 m, ALSLINJEN's,

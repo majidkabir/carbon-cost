@@ -2557,6 +2557,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/polferries/2026-11-19",
+   "scheme": "polferries",
+   "country": "PL",
+   "file": "pl/polferries-2026-11-19.orct.json",
+   "name": "Polferries' ferries Świnoujście–Ystad, Świnoujście–Trelleborg, Gdańsk–Nynäshamn and Gdańsk–Karlshamn, trucks",
+   "valid_from": "2026-11-19",
+   "valid_to": null,
+   "sha256": "4da74b07637b1a1b93fe643c74af6cc83c75aa65ae2b2d865ccd61be67ab3ab9",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fuelco2-pt/2024-01-01",
    "scheme": "fuelco2-pt",
    "country": "PT",

@@ -133,13 +133,13 @@ func ferryShips(rows [][]string) ([]Listed, error) {
 		return nil, fmt.Errorf("no header row")
 	}
 	cIMO, cName, cType := -1, -1, -1
-	for i, name := range rows[h] {
+	for i, name := range rows[h] { // the first column of each
 		switch n := strings.TrimSpace(name); {
-		case n == "IMO Number":
+		case n == "IMO Number" && cIMO < 0:
 			cIMO = i
-		case n == "Name":
+		case strings.HasPrefix(n, "Name") && cName < 0:
 			cName = i
-		case strings.HasPrefix(n, "Ship type"):
+		case strings.HasPrefix(n, "Ship type") && cType < 0:
 			cType = i
 		}
 	}

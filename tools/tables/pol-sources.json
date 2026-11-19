@@ -1,55 +1,83 @@
 {
- "about": "Scandlines' notices January–May 2026",
+ "about": "ETS crossing facts",
  "sources": [
   {
-   "id": "scl-surcharges-2026-01",
-   "table": "scandlines",
-   "url": "https://web.archive.org/web/20260106190454id_/https://freight.scandlines.com/assets/01_Scandlines_surcharges_January_2026_ENG_7f99c1892f.pdf",
-   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
-   "what": "Scandlines: the surcharges notice for January 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
-   "expect": [
-    "%PDF"
-   ]
+   "id": "eu-2023-2895",
+   "table": "x",
+   "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj/eng",
+   "what": "eu-2023-2895"
   },
   {
-   "id": "scl-surcharges-2026-02",
-   "table": "scandlines",
-   "url": "https://web.archive.org/web/20260216170651id_/https://freight.scandlines.com/assets/02_Scandlines_surcharges_February_2026_ENG_1e76c6ebae.pdf",
-   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
-   "what": "Scandlines: the surcharges notice for February 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
-   "expect": [
-    "%PDF"
-   ]
+   "id": "eu-2023-2895-pdf",
+   "table": "x",
+   "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj/eng/pdf",
+   "what": "eu-2023-2895-pdf"
   },
   {
-   "id": "scl-surcharges-2026-03",
-   "table": "scandlines",
-   "url": "https://web.archive.org/web/20260421051232id_/https://freight.scandlines.com/assets/03_Scandlines_surcharges_March_2026_ENG_e96a3e405a.pdf",
-   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
-   "what": "Scandlines: the surcharges notice for March 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
-   "expect": [
-    "%PDF"
-   ]
+   "id": "eu-2024-2924-pdf",
+   "table": "x",
+   "url": "https://eur-lex.europa.eu/eli/dec_impl/2024/2924/oj/eng/pdf",
+   "what": "eu-2024-2924-pdf"
   },
   {
-   "id": "scl-surcharges-2026-04",
-   "table": "scandlines",
-   "url": "https://web.archive.org/web/20260421050741id_/https://freight.scandlines.com/assets/04_Scandlines_surcharges_April_2026_ENG_ed0d3b063c.pdf",
-   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
-   "what": "Scandlines: the surcharges notice for April 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
-   "expect": [
-    "%PDF"
-   ]
+   "id": "eu-2024-1113-pdf",
+   "table": "x",
+   "url": "https://eur-lex.europa.eu/eli/dec_impl/2024/1113/oj/eng/pdf",
+   "what": "eu-2024-1113-pdf"
   },
   {
-   "id": "scl-surcharges-2026-05",
-   "table": "scandlines",
-   "url": "https://web.archive.org/web/20260514205308id_/https://freight.scandlines.com/assets/05_Scandlines_surcharges_May_2026_ENG_2fd9340da7.pdf",
-   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
-   "what": "Scandlines: the surcharges notice for May 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
-   "expect": [
-    "%PDF"
-   ]
+   "id": "eu-2023-2895-all",
+   "table": "x",
+   "url": "https://eur-lex.europa.eu/legal-content/EN/ALL/?uri=CELEX:32023D2895",
+   "what": "eu-2023-2895-all"
+  },
+  {
+   "id": "aeroe-ship-aeroskobing",
+   "table": "x",
+   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-aeroskobing-en",
+   "what": "aeroe-ship-aeroskobing"
+  },
+  {
+   "id": "aeroe-ship-marstal",
+   "table": "x",
+   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-marstal-en",
+   "what": "aeroe-ship-marstal"
+  },
+  {
+   "id": "aeroe-ship-skjoldnaes",
+   "table": "x",
+   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/m-f-skjoldnaes-2-en",
+   "what": "aeroe-ship-skjoldnaes"
+  },
+  {
+   "id": "aeroe-ship-ellen",
+   "table": "x",
+   "url": "https://www.aeroe-ferry.dk/en/aerofaergerne/ferries-en/ef-ellen-de-2-en",
+   "what": "aeroe-ship-ellen"
+  },
+  {
+   "id": "oresund-frakt",
+   "table": "x",
+   "url": "https://oresundslinjen.se/frakt",
+   "what": "oresund-frakt"
+  },
+  {
+   "id": "oresund-dk",
+   "table": "x",
+   "url": "https://www.oresundslinjen.dk/",
+   "what": "oresund-dk"
+  },
+  {
+   "id": "bornholm-dk",
+   "table": "x",
+   "url": "https://www.bornholmslinjen.dk/",
+   "what": "bornholm-dk"
+  },
+  {
+   "id": "aeroexpressen",
+   "table": "x",
+   "url": "https://aeroexpressen.dk/en/faergens-historie/",
+   "what": "aeroexpressen"
   }
  ]
 }

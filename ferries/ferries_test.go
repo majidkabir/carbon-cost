@@ -117,11 +117,16 @@ func TestCoverage(t *testing.T) {
 		{"belfast-cairnryan", "2026-07-01", 0.5, "para 15(1)(a)"},
 		{"belfast-liverpool", "2026-11-20", 0.5, "para 15(1)(a)"},
 		{"aberdeen-lerwick", "2026-11-20", 0, "Scottish ferry service"},
+		{"larne-cairnryan", "2026-11-20", 0.5, "para 15(1)(a)"},
 	} {
 		cov, ok := d.UKCoverage(byID[tc.id], day(tc.day))
 		if !ok || cov.Share != tc.share || !strings.Contains(cov.Basis, tc.basis) {
 			t.Errorf("UK ETS %s on %s: %v %q, want %v (%s)", tc.id, tc.day, cov.Share, cov.Basis, tc.share, tc.basis)
 		}
+	}
+	// P&O Freight's page names Larne–Cairnryan's ships.
+	if cov, _ := d.UKCoverage(byID["larne-cairnryan"], day("2026-11-20")); cov.Note != "" {
+		t.Errorf("larne-cairnryan UK ETS note %q", cov.Note)
 	}
 	if _, ok := d.UKCoverage(byID["dover-calais"], day("2026-11-20")); ok {
 		t.Error("UK ETS on Dover-Calais")

@@ -28,6 +28,10 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Irish Ferries Freight's route pages (irishferries-routes-<route>.html,
   linked from its home page): the ports in the page's address, the ships
   and their IMO numbers in its vessel specifications;
+- P&O Freight's route pages (po-routes-<route>-freight.html, linked from
+  its routes page): the ports in the page's address, the ships in its "Our
+  Fleet" section (IMO numbers where it gives them); when its sailing tables
+  name ships ("13:40 Pioneer"), only those;
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -152,7 +156,7 @@ PORTS = {
 REGION = {"Belfast": "GB-NIR", "Larne": "GB-NIR", "Cairnryan": "GB-SCT", "Aberdeen": "GB-SCT", "Kirkwall": "GB-SCT",
           "Lerwick": "GB-SCT"}
 # Other names the pages give a port.
-PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland"}
+PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland", "europoort": "Rotterdam"}
 # The EU and the EEA EFTA states (ferries.go's eea).
 EEA = {"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL",
        "PL", "PT", "RO", "SK", "SI", "ES", "SE", "IS", "LI", "NO"}
@@ -374,6 +378,36 @@ def irishferries(pages):
     return out
 
 
+def poferries(pages):
+    """[(ports, {ship: IMO number or None}, heading, file)] from P&O Freight's
+    route pages: the ports from the page's address (route/dover-calais-freight),
+    the ships from its "Our Fleet" section, with the IMO numbers it gives
+    ("IMO Number - 9244116"). When the page's sailing tables name ships
+    ("13:40 Pioneer"), only those: the section also names ships no longer on
+    the route."""
+    out = []
+    for path, t in pages:
+        name = os.path.basename(path)
+        parts = re.sub(r"^po-routes-|-freight\.html$", "", name).split("-")
+        i = t.find('id="accordionFerries"')
+        fleet = {}
+        for card in re.split(r"(?=<button[^>]*data-target=\"#collapse-)", t[i:])[1:] if i >= 0 else []:
+            names = [x.strip() for x in re.split(r"\s+(?:and|&)\s+", page_text(card[card.find(">") + 1:card.find("</button>")])) if x.strip()]
+            imo = re.search(r"IMO (?:Number|number)\s*-\s*(\d{7})", page_text(card).replace("\xa0", " "))
+            fleet.update({n: imo.group(1) if imo and len(names) == 1 else None for n in names})
+        tables = " ".join(page_text(x) for x in re.findall(r"<table\b.*?</table>", t, re.S)).replace("\xa0", " ")
+        short = lambda n: re.sub(r"^P&O\s+", "", n)
+        sailing = {n: imo for n, imo in fleet.items() if re.search(rf"(?<!\w){re.escape(fold(short(n)))}(?!\w)", fold(tables))}
+        if len(parts) != 2 or not fleet:
+            sys.exit(f"ferry ships: {name}: the route or its fleet not read")
+        ports = tuple(port_of(p, name) for p in parts)
+        heading = "–".join(ports) + (", its ferries in its sailing tables" if sailing else "")
+        if "Space Charter" in tables:
+            heading += " (its Space Charter sailings' ships not named)"
+        out.append((ports, sailing or fleet, heading, path))
+    return out
+
+
 def osm_query():
     """The Overpass queries of ferry-ships-osm (lines named after a port,
     crossing the North Sea, the Channel or the Baltic: a line to a port
@@ -436,6 +470,7 @@ def main(fetched, out):
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
         fpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*.html")))]
         ipages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "irishferries-routes-*.html")))]
+        ppages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "po-routes-*.html")))]
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
         for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
@@ -508,17 +543,18 @@ def main(fetched, out):
         crossings.append(crossing(cid, ports, pos, "TT-Line", ships, {"title": title, "url": turl}, ids))
 
     # Stena Line and Finnlines
-    if not spages or not fpages or not ipages:
-        sys.exit(f"ferry ships: {len(spages)} Stena Line, {len(fpages)} Finnlines and {len(ipages)} Irish Ferries route pages")
+    if not spages or not fpages or not ipages or not ppages:
+        sys.exit(f"ferry ships: {len(spages)} Stena Line, {len(fpages)} Finnlines, {len(ipages)} Irish Ferries and {len(ppages)} P&O Freight route pages")
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
-    for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages))):
+    for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
+                             ("P&O Ferries", poferries(ppages))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers
-                ids = {**ids, **{ascii(s).upper(): imo for s, imo in ships.items()}}
+                ids = {**ids, **{ascii(s).upper(): imo for s, imo in ships.items() if imo}}
                 ships = set(ships)
             url = urls.get(os.path.basename(path), "")
-            title = f"{operator}: {heading}, its ferries"
+            title = f"{operator}: {heading}" + ("" if "its ferries" in heading else ", its ferries")
             c = have.get(frozenset(ports))
             if c:
                 c["operator"] += f"; {operator}"
@@ -553,7 +589,8 @@ def main(fetched, out):
             # An operator's page named this crossing's ships: say which other
             # operators OpenStreetMap's lines name, whose ships aren't in it.
             ops = sorted({o.strip() for w in ways for o in re.split(r"[;/,]", w["tags"].get("operator", "")) if o.strip()})
-            others = [o for o in ops if not any(fold(x) in fold(o) or fold(o) in fold(x) for x in re.split(r";\s*", have[key]["operator"]))]
+            same = lambda x: re.sub(r"\s*&\s*", "&", fold(x))
+            others = [o for o in ops if not any(same(x) in same(o) or same(o) in same(x) for x in re.split(r";\s*", have[key]["operator"]))]
             if others and "also name" not in have[key]["source"]["title"]:
                 have[key]["source"]["title"] += f"; OpenStreetMap's lines also name {', '.join(others)}, whose ships aren't in it"
             continue

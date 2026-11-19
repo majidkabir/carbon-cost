@@ -250,32 +250,6 @@
    }
   },
   {
-   "id": "cairnryan-larne",
-   "name": "Cairnryan–Larne",
-   "operator": "P&O Ferries",
-   "terminals": [
-    {
-     "name": "Cairnryan",
-     "lat": 54.961562,
-     "lon": -5.014064,
-     "country": "GB",
-     "region": "GB-SCT"
-    },
-    {
-     "name": "Larne",
-     "lat": 54.846449,
-     "lon": -5.79753,
-     "country": "GB",
-     "region": "GB-NIR"
-    }
-   ],
-   "ships": [],
-   "source": {
-    "title": "OpenStreetMap: Larne - Cairnryan (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/481313220"
-   }
-  },
-  {
    "id": "cesme-chios",
    "name": "Çeşme–Chios",
    "operator": "",
@@ -326,7 +300,7 @@
   {
    "id": "dover-calais",
    "name": "Dover–Calais",
-   "operator": "Irish Ferries",
+   "operator": "Irish Ferries; P&O Ferries",
    "terminals": [
     {
      "name": "Dover",
@@ -349,10 +323,22 @@
     {
      "imo": "9524231",
      "name": "OSCAR WILDE"
+    },
+    {
+     "imo": "9895173",
+     "name": "P&O LIBERTÉ"
+    },
+    {
+     "imo": "9895161",
+     "name": "P&O PIONEER"
+    },
+    {
+     "imo": "9533816",
+     "name": "SPIRIT OF FRANCE"
     }
    ],
    "source": {
-    "title": "Irish Ferries: Dover–Calais, its ferries; OpenStreetMap's lines also name DFDS, P & O, P&O, whose ships aren't in it",
+    "title": "Irish Ferries: Dover–Calais, its ferries; P&O Ferries: Dover–Calais, its ferries in its sailing tables (its Space Charter sailings' ships not named) (https://www.pofreight.com/route/dover-calais-freight); OpenStreetMap's lines also name DFDS, whose ships aren't in it",
     "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dover-calais/"
    }
   },
@@ -839,10 +825,19 @@
      "country": "NL"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9208629",
+     "name": "PRIDE OF HULL"
+    },
+    {
+     "imo": "9208617",
+     "name": "PRIDE OF ROTTERDAM"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Hull - Rotterdam (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/32340204"
+    "title": "P&O Ferries: Hull–Rotterdam, its ferries",
+    "url": "https://www.pofreight.com/route/hull-europoort-freight"
    }
   },
   {
@@ -910,6 +905,41 @@
    "source": {
     "title": "Bornholmslinjen: the ferries (each one's crossings)",
     "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger"
+   }
+  },
+  {
+   "id": "larne-cairnryan",
+   "name": "Larne–Cairnryan",
+   "operator": "P&O Ferries",
+   "terminals": [
+    {
+     "name": "Larne",
+     "lat": 54.846449,
+     "lon": -5.79753,
+     "country": "GB",
+     "region": "GB-NIR"
+    },
+    {
+     "name": "Cairnryan",
+     "lat": 54.961562,
+     "lon": -5.014064,
+     "country": "GB",
+     "region": "GB-SCT"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9208394",
+     "name": "EUROPEAN CAUSEWAY"
+    },
+    {
+     "imo": "9244116",
+     "name": "EUROPEAN HIGHLANDER"
+    }
+   ],
+   "source": {
+    "title": "P&O Ferries: Larne–Cairnryan, its ferries in its sailing tables",
+    "url": "https://www.pofreight.com/route/larne-cairnryan-freight"
    }
   },
   {
@@ -1814,10 +1844,19 @@
      "country": "BE"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9186182",
+     "name": "NORSKY"
+    },
+    {
+     "imo": "9186194",
+     "name": "NORSTREAM"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Tilbury - Zeebrugge; Zeebrugge - Tilbury (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/1235920594"
+    "title": "P&O Ferries: Tilbury–Zeebrugge, its ferries",
+    "url": "https://www.pofreight.com/route/tilbury-zeebrugge-freight"
    }
   },
   {

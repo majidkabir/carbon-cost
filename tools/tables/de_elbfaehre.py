@@ -14,7 +14,8 @@
   Archive's copy of 10 November 2025;
 - the fuel surcharge page (frs-elbe-fuel*.html; earlier states from the
   Internet Archive's copies): a surcharge per truck, with the date of each
-  state ("Stand"); the first applies to tickets bought from 23 March 2026;
+  state ("Stand"); the first applies to tickets bought from 23 March 2026,
+  and a state that leaves the trucks' surcharge unchanged isn't a version;
 - OpenStreetMap (frs-elbe-osm.json, Overpass): the ferry line and its
   terminals.
 
@@ -36,7 +37,7 @@ from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 FIRST_READ = {"2026": "2026-11-19"}
 # The editions: the fetched page for each, the earliest first within a year.
 EDITIONS = [("2025", "frs-elbe-trucks-2025"), ("2026", "frs-elbe-trucks-2026-01"), ("2026", "frs-elbe-trucks")]
-FUEL = ["frs-elbe-fuel-2026-03", "frs-elbe-fuel-2026-05", "frs-elbe-fuel"]
+FUEL = ["frs-elbe-fuel-2026-03", "frs-elbe-fuel-2026-05", "frs-elbe-fuel-2026-09", "frs-elbe-fuel"]
 PORTS = {"Glückstadt": ("terminal", "Glückstadt"), "Wischhafen": ("terminal", "Wischhafen")}
 ROUTES = {"Glückstadt–Wischhafen": [("Glückstadt", "Wischhafen")]}
 MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
@@ -96,7 +97,9 @@ def fuel(name, t):
 def main(fetched, out):
     try:
         pages = {sid: text(os.path.join(fetched, sid + ".html")) for _, sid in EDITIONS}
-        fuels = sorted(fuel(sid, text(os.path.join(fetched, sid + ".html"))) for sid in FUEL)
+        states = sorted(fuel(sid, text(os.path.join(fetched, sid + ".html"))) for sid in FUEL)
+        # A new state that leaves the trucks' surcharge as it was isn't a change for them.
+        fuels = [s for k, s in enumerate(states) if k == 0 or s[1] != states[k - 1][1]]
         osm = json.load(open(os.path.join(fetched, "frs-elbe-osm.json"), encoding="utf-8"))
     except (OSError, ValueError) as e:
         print(f"Elbfähre: not built ({e})")

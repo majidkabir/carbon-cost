@@ -102,8 +102,8 @@ func TestCoverage(t *testing.T) {
 		}
 	}
 	// A crossing whose ships aren't named says so.
-	if cov, _ := d.Coverage(byID["dover-calais"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
-		t.Errorf("dover-calais note %q", cov.Note)
+	if cov, _ := d.Coverage(byID["portsmouth-caen"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
+		t.Errorf("portsmouth-caen note %q", cov.Note)
 	}
 	// The UK ETS: from 1 July 2026, half between Northern Ireland and
 	// Great Britain, none on a Scottish ferry service; not between the UK

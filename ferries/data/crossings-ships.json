@@ -326,7 +326,7 @@
   {
    "id": "dover-calais",
    "name": "Dover–Calais",
-   "operator": "P & O; P&O / DFDS / Irish Ferries; P&O;Irish Ferries",
+   "operator": "Irish Ferries",
    "terminals": [
     {
      "name": "Dover",
@@ -336,15 +336,24 @@
     },
     {
      "name": "Calais",
-     "lat": 50.967324,
-     "lon": 1.857771,
+     "lat": 50.967206,
+     "lon": 1.854074,
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9142605",
+     "name": "ISLE OF INISHMORE"
+    },
+    {
+     "imo": "9524231",
+     "name": "OSCAR WILDE"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Douvres - Calais; Dover (UK) - Calais (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/28591383"
+    "title": "Irish Ferries: Dover–Calais, its ferries; OpenStreetMap's lines also name DFDS, P & O, P&O, whose ships aren't in it",
+    "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dover-calais/"
    }
   },
   {
@@ -372,9 +381,42 @@
    }
   },
   {
+   "id": "dublin-cherbourg",
+   "name": "Dublin–Cherbourg",
+   "operator": "Irish Ferries",
+   "terminals": [
+    {
+     "name": "Dublin",
+     "lat": 53.344997,
+     "lon": -6.196103,
+     "country": "IE"
+    },
+    {
+     "name": "Cherbourg",
+     "lat": 49.649264,
+     "lon": -1.612941,
+     "country": "FR"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9181091",
+     "name": "ISLE OF INISHEER"
+    },
+    {
+     "imo": "9809679",
+     "name": "W.B. YEATS"
+    }
+   ],
+   "source": {
+    "title": "Irish Ferries: Dublin–Cherbourg, its ferries",
+    "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-cherbourg/"
+   }
+  },
+  {
    "id": "dublin-holyhead",
    "name": "Dublin–Holyhead",
-   "operator": "Stena Line",
+   "operator": "Stena Line; Irish Ferries",
    "terminals": [
     {
      "name": "Dublin",
@@ -391,16 +433,28 @@
    ],
    "ships": [
     {
+     "imo": "9243227",
+     "name": "DUBLIN SWIFT"
+    },
+    {
+     "imo": "9364722",
+     "name": "JAMES JOYCE"
+    },
+    {
      "imo": "9235529",
      "name": "STENA ADVENTURER"
     },
     {
      "imo": "9807293",
      "name": "STENA ESTRID"
+    },
+    {
+     "imo": "9214991",
+     "name": "ULYSSES"
     }
    ],
    "source": {
-    "title": "Stena Line: Dublin – Holyhead, its ferries",
+    "title": "Stena Line: Dublin – Holyhead, its ferries; Irish Ferries: Dublin–Holyhead, its ferries (https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-holyhead/)",
     "url": "https://stenalinefreight.com/routes/dublin-holyhead/"
    }
   },
@@ -432,7 +486,7 @@
     }
    ],
    "source": {
-    "title": "Stena Line: Dublin – Liverpool, its ferries",
+    "title": "Stena Line: Dublin – Liverpool, its ferries; OpenStreetMap's lines also name Seatruck Ferries Limited, whose ships aren't in it",
     "url": "https://stenalinefreight.com/routes/dublin-liverpool/"
    }
   },
@@ -1060,30 +1114,6 @@
    }
   },
   {
-   "id": "pembroke-rosslare",
-   "name": "Pembroke–Rosslare",
-   "operator": "Irish Ferries",
-   "terminals": [
-    {
-     "name": "Pembroke",
-     "lat": 51.69828,
-     "lon": -4.953057,
-     "country": "GB"
-    },
-    {
-     "name": "Rosslare",
-     "lat": 52.253551,
-     "lon": -6.337105,
-     "country": "IE"
-    }
-   ],
-   "ships": [],
-   "source": {
-    "title": "OpenStreetMap: Pembroke Dock to Rosslare (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/4642313"
-   }
-  },
-  {
    "id": "plymouth-roscoff",
    "name": "Plymouth–Roscoff",
    "operator": "Brittany Ferries",
@@ -1281,6 +1311,35 @@
    }
   },
   {
+   "id": "rosslare-pembroke",
+   "name": "Rosslare–Pembroke",
+   "operator": "Irish Ferries",
+   "terminals": [
+    {
+     "name": "Rosslare",
+     "lat": 52.253551,
+     "lon": -6.337105,
+     "country": "IE"
+    },
+    {
+     "name": "Pembroke",
+     "lat": 51.69828,
+     "lon": -4.953057,
+     "country": "GB"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "8908466",
+     "name": "ISLE OF INNISFREE"
+    }
+   ],
+   "source": {
+    "title": "Irish Ferries: Rosslare–Pembroke, its ferries",
+    "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/rosslare-pembroke/"
+   }
+  },
+  {
    "id": "rostock-trelleborg",
    "name": "Rostock–Trelleborg",
    "operator": "TT-Line; Stena Line",
@@ -1370,7 +1429,7 @@
     }
    ],
    "source": {
-    "title": "Stena Line: Rotterdam – Immingham, its ferries",
+    "title": "Stena Line: Rotterdam – Immingham, its ferries; OpenStreetMap's lines also name DFDS Tor Line, whose ships aren't in it",
     "url": "https://stenalinefreight.com/routes/rotterdam-immingham/"
    }
   },

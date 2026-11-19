@@ -2,16 +2,28 @@
  "about": "x",
  "sources": [
   {
-   "id": "fdb-samband-l",
+   "id": "fdb-js-samband",
    "table": "x",
-   "url": "https://ferjedatabanken.no/samband",
-   "what": "fdb-samband-l"
+   "url": "https://ferjedatabanken.no/_next/static/chunks/pages/samband-c8bf5c5ad24a1e79.js",
+   "what": "fdb-js-samband"
   },
   {
-   "id": "fdb-info",
+   "id": "fdb-js-app",
    "table": "x",
-   "url": "https://ferjedatabanken.no/info",
-   "what": "fdb-info"
+   "url": "https://ferjedatabanken.no/_next/static/chunks/pages/_app-d07f14bcda105991.js",
+   "what": "fdb-js-app"
+  },
+  {
+   "id": "fdb-js-115",
+   "table": "x",
+   "url": "https://ferjedatabanken.no/_next/static/chunks/115-34671d76bd53300e.js",
+   "what": "fdb-js-115"
+  },
+  {
+   "id": "fdb-js-730",
+   "table": "x",
+   "url": "https://ferjedatabanken.no/_next/static/chunks/730-58bcbd2a49ca809e.js",
+   "what": "fdb-js-730"
   }
  ]
 }

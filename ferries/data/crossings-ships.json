@@ -5877,7 +5877,7 @@
   {
    "id": "muuga-vuosaari",
    "name": "Muuga–Vuosaari",
-   "operator": "DFDS",
+   "operator": "DFDS; Eckerö Line",
    "terminals": [
     {
      "name": "Muuga",
@@ -5899,7 +5899,7 @@
     }
    ],
    "source": {
-    "title": "DFDS: Muuga–Vuosaari, its ferries in its timetable",
+    "title": "DFDS: Muuga–Vuosaari, its ferries in its timetable; Eckerö Line: Vuosaari–Muuga, its ferries (https://www.eckeroline.fi/cargo)",
     "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/muuga-vuosaari"
    }
   },
@@ -8809,6 +8809,47 @@
    "source": {
     "title": "OpenStreetMap: Tilos - Symi (its ships not named)",
     "url": "https://www.openstreetmap.org/way/971686434"
+   }
+  },
+  {
+   "id": "tallinn-helsinki",
+   "name": "Tallinn–Helsinki",
+   "operator": "Tallink; Eckerö Line",
+   "terminals": [
+    {
+     "name": "Tallinn",
+     "lat": 59.443955,
+     "lon": 24.770046,
+     "country": "EE"
+    },
+    {
+     "name": "Helsinki",
+     "lat": 60.151958,
+     "lon": 24.919691,
+     "country": "FI"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9214379",
+     "name": "FINLANDIA"
+    },
+    {
+     "imo": "9773064",
+     "name": "MEGASTAR"
+    },
+    {
+     "imo": "9892690",
+     "name": "MYSTAR"
+    },
+    {
+     "imo": "9281281",
+     "name": "VICTORIA I"
+    }
+   ],
+   "source": {
+    "title": "Tallink: Tallinn-Helsinki, its ferries; Eckerö Line: Helsinki–Tallinn, its ferries (https://www.eckeroline.fi/cargo)",
+    "url": "https://freight.tallink.com/services/timetables-and-fleet"
    }
   },
   {

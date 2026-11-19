@@ -41,6 +41,10 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   routes page) and their timetables (dfds-routes-<route>.json, DFDS's API
   for the 14 days from the fetch): the page's two terminals, the ship and
   its IMO number of each departure;
+- Tallink's freight timetables and fleet page (tallink-fleet.html): each
+  route's heading ("Tallinn-Helsinki") and its ships; Eckerö Line's cargo
+  page (eckero-cargo.html): its ships' crossings, as its cargo CO2 figures
+  name them ("M/S Finbo Cargo (Helsinki, Vuosaari – Tallinn, Muuga)");
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -121,7 +125,8 @@ PORTS = {
     "Klaipėda": ("LT", ["Klaipėda", "Klaipeda"], (55.71, 21.13)), "Karlshamn": ("SE", ["Karlshamn"], (56.17, 14.86)),
     "Fredericia": ("DK", ["Fredericia"], (55.57, 9.75)), "Køge": ("DK", ["Køge"], (55.46, 12.18)),
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
-    "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
+    "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
+    "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
     "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
     "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Visby": ("SE", ["Visby"], (57.64, 18.29)),
     "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)),
@@ -608,6 +613,41 @@ def dfds(pages, names):
     return out
 
 
+def tallink(page):
+    """[(ports, {ships}, heading, file)] from Tallink's freight timetables and
+    fleet page: each route's heading ("Tallinn-Helsinki") and its ships'
+    headings after it."""
+    out = []
+    path, t = page
+    for m in re.finditer(r"<h3[^>]*>([^<]+)</h3>(.*?)(?=<h3|$)", t, re.S):
+        parts = re.split(r"\s*[–-]\s*", page_text(m.group(1)))
+        ships = {page_text(x) for x in re.findall(r"<h4[^>]*>([^<]+)</h4>", m.group(2))}
+        if len(parts) == 2 and ships:
+            out.append((tuple(port_of(p, os.path.basename(path)) for p in parts), ships, page_text(m.group(1)), path))
+    if not out:
+        sys.exit("ferry ships: Tallink's fleet page names no route's ships")
+    return out
+
+
+def eckero(page):
+    """[(ports, {ships}, heading, file)] from Eckerö Line's cargo page: its
+    ships' crossings in its cargo CO2 figures ("M/S Finbo Cargo (Helsinki,
+    Vuosaari – Tallinn, Muuga)"), a terminal named after its port
+    (Vuosaari, Muuga) standing for it, else the city."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    routes = {}
+    for m in re.finditer(r"M/S (\w[\w ]*?) \((\w+), ([^–()]+?) – (\w+), ([^()]+?)\)", flat):
+        ports = []
+        for city, terminal in ((m.group(2), m.group(3)), (m.group(4), m.group(5))):
+            k = ascii(terminal.strip())
+            ports.append(next((p for p in PORTS if k in {ascii(x) for x in PORTS[p][1]}), None) or port_of(city, os.path.basename(path)))
+        routes.setdefault(tuple(ports), set()).add(m.group(1))
+    if not routes:
+        sys.exit("ferry ships: Eckerö Line's cargo page names no ship's crossing")
+    return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
+
+
 def osm_query():
     """The Overpass queries of ferry-ships-osm (lines named after a port,
     crossing the North Sea, the Channel or the Baltic: a line to a port
@@ -674,6 +714,8 @@ def main(fetched, out):
         ipages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "irishferries-routes-*.html")))]
         ppages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "po-routes-*.html")))]
         dpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "dfds-routes-*.html")))]
+        tpage = (os.path.join(fetched, "tallink-fleet.html"), open(os.path.join(fetched, "tallink-fleet.html"), encoding="utf-8").read())
+        epage = (os.path.join(fetched, "eckero-cargo.html"), open(os.path.join(fetched, "eckero-cargo.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
         for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
@@ -766,7 +808,8 @@ def main(fetched, out):
                  f"and {len(dpages)} DFDS route pages")
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
-                             ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names()))):
+                             ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
+                             ("Eckerö Line", eckero(epage))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

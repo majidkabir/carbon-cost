@@ -2,34 +2,16 @@
  "about": "x",
  "sources": [
   {
-   "id": "fdb-samband",
+   "id": "fdb-samband-l",
    "table": "x",
-   "url": "https://ferjedatabanken.no/Samband",
-   "what": "fdb-samband"
+   "url": "https://ferjedatabanken.no/samband",
+   "what": "fdb-samband-l"
   },
   {
-   "id": "fdb-root",
+   "id": "fdb-info",
    "table": "x",
-   "url": "https://ferjedatabanken.no/",
-   "what": "fdb-root"
-  },
-  {
-   "id": "fdb-fartoy",
-   "table": "x",
-   "url": "https://ferjedatabanken.no/Fartoy",
-   "what": "fdb-fartoy"
-  },
-  {
-   "id": "fdb-fartoy2",
-   "table": "x",
-   "url": "https://ferjedatabanken.no/Fart\u00f8y",
-   "what": "fdb-fartoy2"
-  },
-  {
-   "id": "bornholm-faerger-en",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.com/about-bornholmslinjen/ferries",
-   "what": "bornholm-faerger-en"
+   "url": "https://ferjedatabanken.no/info",
+   "what": "fdb-info"
   }
  ]
 }

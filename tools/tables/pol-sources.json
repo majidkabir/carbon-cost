@@ -1,0 +1,41 @@
+{
+ "about": "Polferries' sources for the fetch-docs run",
+ "sources": [
+  {
+   "id": "pol-tariff",
+   "table": "polferries",
+   "url": "https://polferries.com/cargo/freight-tariff.html",
+   "what": "Polferries: the freight tariff (Świnoujście–Ystad/Trelleborg, Gdańsk–Nynäshamn, Gdańsk–Karlshamn), EUR net, per unit or per commenced metre",
+   "expect": [
+    "Nyn"
+   ]
+  },
+  {
+   "id": "pol-bes",
+   "table": "polferries",
+   "url": "https://polferries.com/cargo/bes-surcharge.html",
+   "what": "Polferries: the bunker-environmental surcharge (BES) per commenced metre, by route, with the dates it applies from",
+   "expect": [
+    "BES"
+   ]
+  },
+  {
+   "id": "pol-ets",
+   "table": "polferries",
+   "url": "https://polferries.com/cargo/ets-surcharge.html",
+   "what": "Polferries: the ETS surcharge per commenced metre (not added: carbon-cost prices the EU ETS from MRV data)",
+   "expect": [
+    "ETS"
+   ]
+  },
+  {
+   "id": "pol-osm",
+   "table": "polferries",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3B%28way%5B%22route%22%3D%22ferry%22%5D%2853.8%2C12.9%2C59.0%2C19.0%29%3Bnwr%5B%22amenity%22%3D%22ferry_terminal%22%5D%2853.8%2C12.9%2C59.0%2C19.0%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "OpenStreetMap (Overpass API): the ferry lines and terminals of the southern Baltic between Poland and Sweden",
+   "expect": [
+    "\"route\": \"ferry\""
+   ]
+  }
+ ]
+}

@@ -89,6 +89,8 @@ func TestCoverage(t *testing.T) {
 		{"dover-calais", "2026-11-20", 0.5, "one outside"},
 		{"aberdeen-lerwick", "2026-11-20", 0, "outside the EU and the EEA"},
 		{"torshavn-hirtshals", "2026-11-20", 0.5, "one outside"},
+		{"tanger-med-algeciras", "2026-11-20", 0.5, "one outside"},
+		{"durres-bari", "2026-11-20", 0.5, "one outside"},
 	} {
 		c, ok := byID[tc.id]
 		if !ok {

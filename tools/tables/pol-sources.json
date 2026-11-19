@@ -1,31 +1,54 @@
 {
- "about": "Wayback lookups",
+ "about": "Scandlines' notices January–May 2026",
  "sources": [
   {
-   "id": "cdx-scl-assets",
-   "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/assets/&matchType=prefix&filter=original:.*urcharges.*&output=json&fl=timestamp,original,statuscode,mimetype",
-   "what": "Wayback CDX: Scandlines' surcharge notices",
+   "id": "scl-surcharges-2026-01",
+   "table": "scandlines",
+   "url": "https://web.archive.org/web/20260106190454id_/https://freight.scandlines.com/assets/01_Scandlines_surcharges_January_2026_ENG_7f99c1892f.pdf",
+   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges notice for January 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
    "expect": [
-    "timestamp"
+    "%PDF"
    ]
   },
   {
-   "id": "cdx-scl-page",
-   "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/freight-conditions/fuel-surcharges/&output=json&fl=timestamp,original,statuscode,digest&from=2025",
-   "what": "Wayback CDX: Scandlines' surcharges page",
+   "id": "scl-surcharges-2026-02",
+   "table": "scandlines",
+   "url": "https://web.archive.org/web/20260216170651id_/https://freight.scandlines.com/assets/02_Scandlines_surcharges_February_2026_ENG_1e76c6ebae.pdf",
+   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges notice for February 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
    "expect": [
-    "timestamp"
+    "%PDF"
    ]
   },
   {
-   "id": "cdx-scl-tariffs",
-   "table": "x",
-   "url": "https://web.archive.org/cdx/search/cdx?url=freight.scandlines.com/freight-conditions/freight-tariffs/&output=json&fl=timestamp,original,statuscode,digest&from=2025",
-   "what": "Wayback CDX: Scandlines' tariffs page",
+   "id": "scl-surcharges-2026-03",
+   "table": "scandlines",
+   "url": "https://web.archive.org/web/20260421051232id_/https://freight.scandlines.com/assets/03_Scandlines_surcharges_March_2026_ENG_e96a3e405a.pdf",
+   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges notice for March 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
    "expect": [
-    "timestamp"
+    "%PDF"
+   ]
+  },
+  {
+   "id": "scl-surcharges-2026-04",
+   "table": "scandlines",
+   "url": "https://web.archive.org/web/20260421050741id_/https://freight.scandlines.com/assets/04_Scandlines_surcharges_April_2026_ENG_ed0d3b063c.pdf",
+   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges notice for April 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
+   "expect": [
+    "%PDF"
+   ]
+  },
+  {
+   "id": "scl-surcharges-2026-05",
+   "table": "scandlines",
+   "url": "https://web.archive.org/web/20260514205308id_/https://freight.scandlines.com/assets/05_Scandlines_surcharges_May_2026_ENG_2fd9340da7.pdf",
+   "page": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+   "what": "Scandlines: the surcharges notice for May 2026 (no longer linked from the surcharges page; the Internet Archive's copy)",
+   "expect": [
+    "%PDF"
    ]
   }
  ]

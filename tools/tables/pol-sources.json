@@ -2,76 +2,34 @@
  "about": "x",
  "sources": [
   {
-   "id": "praamid-ferries",
+   "id": "fdb-samband",
    "table": "x",
-   "url": "https://www.praamid.ee/en/ferries/",
-   "what": "praamid-ferries"
+   "url": "https://ferjedatabanken.no/Samband",
+   "what": "fdb-samband"
   },
   {
-   "id": "praamid-leiger",
+   "id": "fdb-root",
    "table": "x",
-   "url": "https://www.praamid.ee/en/ferries/leiger/",
-   "what": "praamid-leiger"
+   "url": "https://ferjedatabanken.no/",
+   "what": "fdb-root"
   },
   {
-   "id": "praamid-tiiu",
+   "id": "fdb-fartoy",
    "table": "x",
-   "url": "https://www.praamid.ee/en/ferries/tiiu/",
-   "what": "praamid-tiiu"
+   "url": "https://ferjedatabanken.no/Fartoy",
+   "what": "fdb-fartoy"
   },
   {
-   "id": "praamid-toll",
+   "id": "fdb-fartoy2",
    "table": "x",
-   "url": "https://www.praamid.ee/en/ferries/toll/",
-   "what": "praamid-toll"
+   "url": "https://ferjedatabanken.no/Fart\u00f8y",
+   "what": "fdb-fartoy2"
   },
   {
-   "id": "praamid-piret",
+   "id": "bornholm-faerger-en",
    "table": "x",
-   "url": "https://www.praamid.ee/en/ferries/piret/",
-   "what": "praamid-piret"
-  },
-  {
-   "id": "praamid-about",
-   "table": "x",
-   "url": "https://www.praamid.ee/en/about-our-company/",
-   "what": "praamid-about"
-  },
-  {
-   "id": "unity-ferries",
-   "table": "x",
-   "url": "https://www.unityline.eu/cargo/ferries",
-   "what": "unity-ferries"
-  },
-  {
-   "id": "unity-timetables",
-   "table": "x",
-   "url": "https://www.unityline.eu/cargo/timetables",
-   "what": "unity-timetables"
-  },
-  {
-   "id": "polferries-fleet",
-   "table": "x",
-   "url": "https://polferries.com/about-us/fleet.html",
-   "what": "polferries-fleet"
-  },
-  {
-   "id": "bornholm-express1",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/express-1",
-   "what": "bornholm-express1"
-  },
-  {
-   "id": "bornholm-express5",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/express-5",
-   "what": "bornholm-express5"
-  },
-  {
-   "id": "bornholm-hammershus",
-   "table": "x",
-   "url": "https://www.bornholmslinjen.dk/om-bornholmslinjen/faerger/hammershus",
-   "what": "bornholm-hammershus"
+   "url": "https://www.bornholmslinjen.com/about-bornholmslinjen/ferries",
+   "what": "bornholm-faerger-en"
   }
  ]
 }

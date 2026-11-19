@@ -2,15 +2,33 @@
  "about": "x",
  "sources": [
   {
-   "id": "uk-ets-maritime-2026-392",
+   "id": "irish-dover-calais",
    "table": "x",
-   "url": "https://www.legislation.gov.uk/uksi/2026/392/made/data.pdf",
+   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dover-calais/",
    "what": "x"
   },
   {
-   "id": "uk-ets-maritime-2026-392-html",
+   "id": "irish-dublin-holyhead",
    "table": "x",
-   "url": "https://www.legislation.gov.uk/uksi/2026/392/made",
+   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-holyhead/",
+   "what": "x"
+  },
+  {
+   "id": "irish-rosslare-pembroke",
+   "table": "x",
+   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/rosslare-pembroke/",
+   "what": "x"
+  },
+  {
+   "id": "irish-dublin-cherbourg",
+   "table": "x",
+   "url": "https://www.irishferriesfreight.com/uk-en/freight/route-information/dublin-cherbourg/",
+   "what": "x"
+  },
+  {
+   "id": "brittany-timetables",
+   "table": "x",
+   "url": "https://www.brittanyferriesfreight.co.uk/en/ferry-routes/timetables",
    "what": "x"
   }
  ]

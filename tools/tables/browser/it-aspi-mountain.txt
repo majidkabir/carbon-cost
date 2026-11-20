@@ -1,6 +1,7 @@
 # Autostrade per l'Italia: the class-5 toll and km its route calculator gives between neighbouring stations, to tell its mountain stretches (class 5 0.22437 per km) from its plain ones (0.19034), as no list of them is published (tools/roads/build.py MOUNTAIN, tools/tables/it.py FILE_RATES).
 # Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il tuo percorso e il relativo pedaggio", 5 Assi, real-time traffic off, tab "Pedaggio"; "Km di autostrada utili per il calcolo del pedaggio").
 # The page's toll service refuses scripted requests (status 403), so the page was opened in Chrome and the routes read on 2026-11-20.
+# A7 Binasco-Casei Gerola is Milano Serravalle's own stretch, a check of its rate (class 5 0.16987 per km).
 # Columns: road, departure, arrival, km, class-5 toll in euro, euro per km, reading (mountain, plain or mixed).
 road departure arrival km 5 per-km reading
 A1 Valsamoggia Sasso-Marconi-Nord 16 3.40 0.2125 mixed
@@ -17,3 +18,14 @@ A26 Vercelli-Est Romagnano-Sesia-Ghemme 30 5.70 0.1900 plain
 A23 Udine-Nord Gemona-Osoppo 20 3.80 0.1900 plain
 A23 Gemona-Osoppo Carnia 16 3.00 0.1875 plain
 A23 Carnia Pontebba 35 7.90 0.2257 mountain
+A16 Tufino Avellino-Ovest 19 4.10 0.2158 mixed
+A16 Avellino-Est Grottaminarda 33 7.40 0.2242 mountain
+A16 Grottaminarda Lacedonia 30 6.70 0.2233 mountain
+A16 Lacedonia Cerignola-Ovest 51 10.30 0.2020 mixed
+A27 Treviso-Nord Vittorio-Veneto-Sud 30 6.10 0.2033 mixed
+A27 Vittorio-Veneto-Sud Fadalto-Lago-Santa-Croce 16 3.60 0.2250 mountain
+A27 Belluno Vittorio-Veneto-Sud 31 7.00 0.2258 mountain
+A7 Binasco Casei-Gerola 40 6.80 0.1700 plain
+A1 Firenze-Sud Orte 193 36.70 0.1902 plain
+A1 Valmontone Caianello 115 21.90 0.1904 plain
+A14 Ancona-Sud Pescara-Nord 135 25.70 0.1904 plain

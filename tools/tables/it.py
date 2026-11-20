@@ -130,8 +130,11 @@ CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 SITAF = "SITAF S.p.A."
 # Open systems priced at their barriers (it_barriers.py): Autostrade per
-# l'Italia's A8 Milano-Varese and A9 Lainate-Como, the Tangenziale di Torino.
-OPEN = ("Autostrade per l'Italia S.p.A.|A8", "Autostrade per l'Italia S.p.A.|A9", "Ivrea Torino Piacenza S.p.A.|A55")
+# l'Italia's A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia
+# (the roads data splits it from the A12 Genova-Sestri Levante), the
+# Tangenziale di Torino.
+OPEN = ("Autostrade per l'Italia S.p.A.|A8", "Autostrade per l'Italia S.p.A.|A9", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia",
+        "Ivrea Torino Piacenza S.p.A.|A55")
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
 
 
@@ -446,7 +449,7 @@ def main(transcribed, fetched, out):
         "aspi": f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}",
         "aspi_source": {"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"},
         "sheets": "(the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change)",
-        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and the open systems of Milan's ring roads (A50, A51, A52), SITAF's A32 Torino-Bardonecchia, Autostrade per l'Italia's A8 Milano-Varese and A9 Lainate-Como, and the Tangenziale di Torino (A55) at their barriers (it-barriers), not here; "})
+        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and the open systems of Milan's ring roads (A50, A51, A52), SITAF's A32 Torino-Bardonecchia, Autostrade per l'Italia's A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, and the Tangenziale di Torino (A55) at their barriers (it-barriers), not here; "})
 
 
 def sheets(transcribed, out, year):

@@ -130,10 +130,14 @@ class Urban(osmium.SimpleHandler):
 # longitude of the junction nodes of that name in the box) get the key
 # "operator|ref|label". SATAP's A4 charges its tariff B from Novara Est to
 # Milan; CAV's A4 is the stretch Padova Est-A4/A57 interchange and, east
-# of the interchange (OSM "A57 Venezia"), the Passante di Mestre.
+# of the interchange (OSM "A57 Venezia"), the Passante di Mestre. Autostrade
+# per l'Italia's A12 east of the Civitavecchia Porto junction is the open
+# Roma-Civitavecchia, charged at its barriers (its other A12 is Genova-
+# Sestri Levante, a closed system).
 SPLITS = {"IT": [
     ("SATAP S.p.A.|A4", "Novara Est", (8.6, 45.4, 8.8, 45.55), "Novara Est-Milano"),
     ("CAV S.p.A.|A4", "A57 Venezia", (12.0, 45.4, 12.15, 45.5), "Passante"),
+    ("Autostrade per l'Italia S.p.A.|A12", "Civitavecchia Porto", (11.78, 42.15, 11.80, 42.18), "Roma-Civitavecchia"),
 ]}
 
 

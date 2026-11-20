@@ -2,9 +2,9 @@
  "about": "x",
  "sources": [
   {
-   "id": "it-gap-brennero",
+   "id": "it-a22-affi-junctions",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2846.87%2C11.4%2C47.01%2C11.52%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2846.87%2C11.4%2C47.01%2C11.52%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%3B%28node%5B%22highway%22%3D%22motorway_junction%22%5D%2845.50%2C10.70%2C45.62%2C10.90%29%3B%29%3Bout%3B",
    "what": "x"
   }
  ]

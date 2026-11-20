@@ -202,12 +202,16 @@ TOLLED = {"IT": [
 # from Genova Voltri to Alessandria Sud (Ovada-Alessandria Sud 33 km EUR
 # 7.40; Vercelli Est-Romagnano 30 km EUR 5.70, the plain rate), the A23
 # from Carnia to Tarvisio (Carnia-Pontebba 35 km EUR 7.90; Gemona-Carnia
-# 16 km EUR 3.00, the plain rate). Its A7, A10 and A12 by Genoa are mountain
+# 16 km EUR 3.00, the plain rate), the A16 from Baiano to Candela (Avellino
+# Est-Grottaminarda 33 km EUR 7.40, Grottaminarda-Lacedonia 30 km EUR
+# 6.70; Tufino-Avellino Ovest and Lacedonia-Cerignola Ovest mixed). Its
+# A7, A10 and A12 by Genoa are mountain
 # throughout and priced so by key (tools/tables/it.py).
 MOUNTAIN = {"IT": [
     ("Autostrade per l'Italia S.p.A.|A1", (11.0, 43.855, 11.40, 44.50), "A1 Bologna-Calenzano"),
     ("Autostrade per l'Italia S.p.A.|A26", (8.40, 44.40, 8.80, 44.874), "A26 Genova Voltri-Alessandria Sud"),
     ("Autostrade per l'Italia S.p.A.|A23", (12.90, 46.37, 13.70, 46.56), "A23 Carnia-Tarvisio"),
+    ("Autostrade per l'Italia S.p.A.|A16", (14.60, 40.80, 15.527, 41.25), "A16 Baiano-Candela"),
 ]}
 
 # Free stretches before a closed system's barrier that OSM tags toll=yes:

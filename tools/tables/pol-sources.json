@@ -2,9 +2,21 @@
  "about": "x",
  "sources": [
   {
-   "id": "helsinki-katajanokka",
+   "id": "bf-routes",
    "table": "x",
-   "url": "https://www.portofhelsinki.fi/en/passengers/passenger-terminals/katajanokka-terminal/shipping-company-katajanokka-terminal/",
+   "url": "https://www.brittanyferriesfreight.com/api/routes",
+   "what": "x"
+  },
+  {
+   "id": "bf-tt",
+   "table": "x",
+   "url": "https://www.brittanyferriesfreight.com/api/timetables?country=GB&departurePortCode=GBPME&arrivalPortCode=FROUI",
+   "what": "x"
+  },
+  {
+   "id": "bf-page",
+   "table": "x",
+   "url": "https://www.brittanyferriesfreight.com/en/ferry-routes/timetables",
    "what": "x"
   }
  ]

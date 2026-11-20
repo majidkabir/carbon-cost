@@ -1,0 +1,9 @@
+# Autostrade per l'Italia: the toll km its route calculator charges on two Rome branches whose open stretch OSM tags toll=no in places (tools/roads/build.py, TOLLED).
+# Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il tuo percorso e il relativo pedaggio", 5 Assi, tab "Pedaggio"; "Km di autostrada utili per il calcolo del pedaggio").
+# The page's toll service refuses scripted requests (status 403), so the page was opened in Chrome and the routes read on 2026-11-20.
+# A1dir Diramazione Roma Nord: from Settebagni (at the GRA) the only toll is the Roma Nord barrier's, and it counts the km from the GRA: Roma Nord-Ponzano Romano-Soratte is 37 km, EUR 7.00 = 37 x the A1's class-5 rate (0.19034, viabilita.autostrade.it/json/tariffe.json) to 10 cents.
+# A24 Roma-L'Aquila: from Settecamini the only toll is the Roma Est barrier's, and it counts the km from the GRA: Roma Est-Tivoli is 21 km, EUR 5.30 = 21 x Strada dei Parchi's class-5 rate (0.25161) to 10 cents.
+# Columns: departure, arrival, the calculator's toll stretch, its km, its class-5 toll in euro.
+departure arrival stretch km 5
+A1-Settebagni A1-Ponzano-Romano-Soratte Roma-Nord-Ponzano-Romano-Soratte 37 7.00
+A24-Settecamini A24-Tivoli Roma-Est-Tivoli 21 5.30

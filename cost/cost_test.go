@@ -2610,6 +2610,8 @@ func TestMilanBarriers(t *testing.T) {
 		{"A55 Trofarello", [][2]float64{{7.7330, 44.9650}, {7.73692, 44.96596}, {7.7410, 44.9670}}, truck40, 4.90},
 		// The Tangenziale's Settimo Torinese toll, collected at the A5's Torino Nord barrier.
 		{"A5 Torino Nord", [][2]float64{{7.7330, 45.1440}, {7.73537, 45.14557}, {7.7380, 45.1470}}, truck40, 3.40},
+		// The A21's open Torino-Villanova stretch, collected at the Villanova barrier.
+		{"A21 Villanova", [][2]float64{{7.9180, 44.9535}, {7.92318, 44.95303}, {7.9280, 44.9525}}, truck40, 2.90},
 		{"A12 Roma Ovest", [][2]float64{{12.2290, 41.8880}, {12.22674, 41.89122}, {12.2245, 41.8945}}, truck40, 6.20},
 		{"A12 Aurelia", [][2]float64{{11.8250, 42.0560}, {11.82428, 42.05929}, {11.8235, 42.0625}}, truck40, 6.20},
 		{"A3 Napoli Sud", [][2]float64{{14.3240, 40.8435}, {14.32797, 40.84184}, {14.3315, 40.8405}}, truck40, 6.10},

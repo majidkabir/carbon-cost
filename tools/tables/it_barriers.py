@@ -12,7 +12,8 @@ a fixed toll per passage at a barrier across the motorway:
   Aurelia), Salerno Pompei Napoli's A3 (Napoli Sud, Nocera), and the
   Tangenziale di Torino's (Ivrea Torino Piacenza: Bruere, Falchera,
   Beinasco, Trofarello, and its Settimo Torinese toll, collected at the
-  A5's Torino Nord barrier), from
+  A5's Torino Nord barrier) and the A21's open Torino-Villanova stretch
+  (collected at the Villanova barrier), from
   Autostrade per l'Italia's station-to-station toll form, read in Chrome
   (browser/it-aspi-barriers.txt: its toll service refuses scripted
   requests).
@@ -68,8 +69,10 @@ ASPI = {
 # network and station, the barrier's network and station, name). The
 # Tangenziale di Torino's Settimo Torinese toll is collected at the A5's
 # Torino Nord barrier (a closed system's barrier, type BC), where its toll
-# points are.
-AT = [((9, 419), (1, 401), "A5 Torino-Quincinetto, Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll)")]
+# points are; the A21's open Torino-Villanova stretch's (Villanova, network
+# 34) at the A21's Villanova barrier.
+AT = [((9, 419), (1, 401), "A5 Torino-Quincinetto, Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll)"),
+      ((34, 446), (1, 445), "A21 Torino-Piacenza, Villanova barrier (the open Torino-Villanova stretch's toll)")]
 ASPI_FORM = "https://viabilita.autostrade.it/it/viabilita/traffico"
 CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-barriers.txt")
 
@@ -171,7 +174,7 @@ def main(fetched, out):
         lon, lat = aspi_place(stations, at, ("BC",))
         t = form[key][1]
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(t)})
-        aspi.append(f"the Tangenziale's Settimo Torinese toll at the A5's Torino Nord barrier class 5 EUR {t['5']:.2f}")
+        aspi.append(f"{name.split(', ')[1]} class 5 EUR {t['5']:.2f}")
         print(name, t, round(lat, 6), round(lon, 6))
     if len(years) != 1:
         sys.exit(f"barrier tables of different years {sorted(years)}")
@@ -199,10 +202,10 @@ def write(out, year, points, notes, a32=(), aspi=()):
         roads += "; A32 Torino-Bardonecchia: the barriers of Avigliana and Salbertrand"
     if aspi:
         law += ("Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): "
-                + "; ".join(aspi) + ". Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll). ")
+                + "; ".join(aspi) + ". Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)", "url": ASPI_FORM})
         name += ", A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino"
-        roads += "; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier"
+        roads += "; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier; A21 Torino-Villanova: its toll at the Villanova barrier"
     law += "Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5)."
     sources.append({"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"})
     tb = {

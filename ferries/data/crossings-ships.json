@@ -9052,7 +9052,7 @@
   {
    "id": "tallinn-helsinki",
    "name": "Tallinn–Helsinki",
-   "operator": "Tallink; Eckerö Line",
+   "operator": "Tallink; Eckerö Line; Viking Line",
    "terminals": [
     {
      "name": "Tallinn",
@@ -9083,10 +9083,14 @@
     {
      "imo": "9281281",
      "name": "VICTORIA I"
+    },
+    {
+     "imo": "9375654",
+     "name": "VIKING XPRS"
     }
    ],
    "source": {
-    "title": "Tallink: Tallinn-Helsinki, its ferries; Eckerö Line: Helsinki–Tallinn, its ferries (https://www.eckeroline.fi/cargo)",
+    "title": "Tallink: Tallinn-Helsinki, its ferries; Eckerö Line: Helsinki–Tallinn, its ferries (https://www.eckeroline.fi/cargo); Viking Line: Helsinki–Tallinn, its ferries as the Port of Helsinki's Katajanokka terminal page names its regular connections (https://www.portofhelsinki.fi/en/passengers/passenger-terminals/katajanokka-terminal/shipping-company-katajanokka-terminal/)",
     "url": "https://freight.tallink.com/services/timetables-and-fleet"
    }
   },

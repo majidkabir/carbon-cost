@@ -2084,6 +2084,50 @@ func TestItalyOperators(t *testing.T) {
 	}
 }
 
+// Italy: the Superstrada Pedemontana Veneta at its own rate (class 5 EUR
+// 0.43824/km, from Autostrade per l'Italia's toll calculator file), and the
+// open A9 and A12 Roma-Civitavecchia's km at 0 (they're charged at their
+// barriers; these paths pass none).
+func TestItalyOpenSystemsAndSPV(t *testing.T) {
+	date := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
+	spv := [][2]float64{{11.42126, 45.64400}, {11.41409, 45.64137}, {11.40974, 45.63931}, {11.40688, 45.63772}, {11.40447, 45.63620}, {11.40094, 45.63365}, {11.39801, 45.63112}, {11.39582, 45.62890}, {11.39427, 45.62713}, {11.39202, 45.62416}, {11.38972, 45.62026}, {11.38785, 45.61563}, {11.38471, 45.60472}}
+	a9 := [][2]float64{{9.04862, 45.77229}, {9.04486, 45.75946}, {9.04371, 45.75673}, {9.04177, 45.75372}, {9.03770, 45.74871}}
+	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, tc := range []struct {
+		name, op string
+		path     [][2]float64
+		km, rate float64
+	}{{"SPV", "Superstrada Pedemontana Veneta S.p.A.|SPV", spv, 5.4, 0.43824},
+		{"A9", "Autostrade per l'Italia S.p.A.|A9", a9, 2.7, 0},
+		{"A12 Roma-Civitavecchia", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia", a12, 7.3, 0}} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
+		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
+		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {
+			t.Errorf("%s: the roads data puts %v on %s", tc.name, rk["IT"].MotorwayOp, tc.op)
+		}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var km, amount float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IT" {
+				amount += l.Amount
+				if l.Component == rates.Toll && l.Rate == tc.rate {
+					km += l.Km
+				}
+			}
+		}
+		if (tc.rate > 0 && km < tc.km-0.5) || math.Abs(amount-tc.rate*km) > 0.05 {
+			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
+		}
+	}
+}
+
 // London's Low Emission Zone: lorries over 3.5 t below Euro VI pay GBP 100
 // a day (Euro IV or V) or 300 (older), any hour; Euro VI pays nothing.
 func TestLondonLEZ(t *testing.T) {

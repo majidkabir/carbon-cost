@@ -4,6 +4,7 @@
 # Stations as the site's station file names them (https://viabilita.autostrade.it/json/caselli.json): network c_ret, station c_stz, road; then the arrival's network and station. Tolls in euro by class (A, B, 3, 4, 5 axles), as the form shows them.
 # Each barrier charges a fixed toll for the free stretch on its other side and more: Milano Sud-Lodi is EUR 6.20 for class 5, 32.6 km at the A1's rate, where the stations are 13.4 km apart (their km in the station file); Autostrade per l'Italia's route calculator gives the same from the free side (San Giuliano-Lodi: "Milano Sud - Lodi 6.2 EUR - 33 km"), and the form gives Milano Sud-Casalpusterlengo, 28.9 km on, as EUR 9.20 (3.65 + 28.9 x 0.19034 = 9.15).
 # Belluno's tolls are the route calculator's (form "Calcola il tuo percorso e il relativo pedaggio", from "A27, Ponte nelle Alpi, Belluno" to Vittorio Veneto Sud, each class in turn: "Belluno - Vittorio Veneto Sud", 31 km), as this form gives N.D. for every pair from Belluno; the station file has them 22.9 km apart.
+# Venezia Mestre-Padova Est is CAV's Padova-Venezia toll, the same from Mirano Dolo (the route calculator's Mirano Dolo-Padova Est: EUR 7.50, 29 km: Autostrade per l'Italia EUR 0.35, CAV EUR 6.3, Alto Adriatico EUR 0.85), where Venezia Mestre-Mira Oriago is EUR 0 for every class and the calculator's Spinea-Venezia Mestre runs on the A57 from Mira-Oriago for "0 EUR - 0 km"; Padova Ovest-Preganziol is EUR 12.00, 49 km (Brescia-Padova 12 km EUR 2.04, CAV EUR 9.96: 11 km at its A4 rate, 26 km on the Passante).
 network station road name to_network to_station to_name A B 3 4 5
 1 1 A01 Milano Sud 1 2 Lodi 2.6 2.6 3.5 5.2 6.2
 1 201 A07 Milano Ovest 1 202 Binasco 1.5 1.5 2.1 3.1 3.7
@@ -19,3 +20,4 @@ network station road name to_network to_station to_name A B 3 4 5
 1 351 A06 Barriera Di Torino 1 352 Carmagnola 2.8 2.9 4.2 6.3 7.2
 1 545 A23 Ugovizza-Tarvisio 1 544 Pontebba 2.6 2.7 3.4 5.3 6.3
 1 528 A27 Belluno 1 525 Vittorio Veneto Sud 2.9 3.0 3.8 5.9 7.0
+1 601 A57 Venezia Mestre 1 604 Padova Est 3.1 3.2 4.3 6.4 7.5

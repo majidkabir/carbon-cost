@@ -100,6 +100,19 @@ CLOSED = [
     ((1, 545), "Autostrade per l'Italia S.p.A.|A23|mountain", "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier"),
     ((1, 528), "Autostrade per l'Italia S.p.A.|A27|mountain", "A27 Venezia-Belluno, Belluno barrier"),
 ]
+# CAV's Padova-Venezia toll: Autostrade per l'Italia's form and route
+# calculator charge one toll from the A4's Padova Est to each of the A57's
+# stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier; "29 km",
+# EUR 7.50 for class 5, Padova Ovest-Venezia Mestre EUR 9.30 with the
+# Brescia-Padova's 12 km) and none between them (Venezia Mestre-Mira Oriago
+# EUR 0). The A57 west of the barrier isn't charged by the km
+# (tools/roads/build.py, UNTOLLED); a toll point on it by the A4/Passante
+# junction charges the form's toll (browser/it-aspi-closed-barriers.txt)
+# less CAV's A4 from Padova Est to the junction, the 11 km the route
+# calculator charges at its A4 rate on Padova Ovest-Preganziol (with 26 km on
+# the Passante, which the point is 0.6 km from): (the toll's departure in the
+# capture, the A4's operator key, km, the point, name).
+INTERCHANGE = [((1, 601), "CAV S.p.A.", 11, (12.09900, 45.45130), "A57 Padova-Venezia, Mirano Dolo junction (CAV's Padova Est-Venezia toll)")]
 CLOSED_CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-closed-barriers.txt")
 
 
@@ -265,10 +278,21 @@ def main(fetched, out):
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
         closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} (EUR {t['5']:.2f} to {b['description']}, {km:.1f} km on)")
         print(name, extra, round(km, 1), round(lat, 6), round(lon, 6))
-    write(out, year, points, notes, a32, aspi, closed)
+    inter = []
+    for key, op, km, (lon, lat), name in INTERCHANGE:
+        if key not in cform:
+            sys.exit(f"it-aspi-closed-barriers: no tolls for {key} {name}")
+        _, to, t = cform[key]
+        extra = {c: round(t[c] - km * table_rate(rows, op, n), 2) for c, n in (("B", 2), ("3", 3), ("4", 4), ("5", 5))}
+        if min(extra.values()) < 0:
+            sys.exit(f"it-aspi-closed-barriers: {name}'s toll {t} is less than {km} km at {op}'s rates")
+        points.append({"name": name, "lat": lat, "lon": lon, "rate": 0, "classes": classes(extra)})
+        inter.append(f"class 5 EUR {extra['5']:.2f} (EUR {t['5']:.2f} from {stations[to]['description']}, {km} km of it on CAV's A4)")
+        print(name, extra)
+    write(out, year, points, notes, a32, aspi, closed, inter)
 
 
-def write(out, year, points, notes, a32=(), aspi=(), closed=()):
+def write(out, year, points, notes, a32=(), aspi=(), closed=(), inter=()):
     """The table: Milan's barriers (notes), and SITAF's (a32) and those read
     from Autostrade per l'Italia's form (aspi) where given (a past year's
     table has Milan's only)."""
@@ -299,6 +323,11 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=()):
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
         name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
+    if inter:
+        law += ("CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: "
+                + "; ".join(inter) + ". ")
+        name += ", CAV's Padova-Venezia toll"
+        roads += "; A57 Padova-Venezia: CAV's toll at the A4/Passante junction"
     law += "Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5)."
     sources.append({"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"})
     tb = {

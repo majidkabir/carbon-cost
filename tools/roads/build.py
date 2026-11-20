@@ -238,6 +238,7 @@ UNTOLLED = {"IT": [
     # Mestre via Mira-Oriago "0 EUR - 0 km"); one toll from Padova Est to
     # any of them, charged at a point by the junction (it-barriers).
     ("CAV S.p.A.|A57", (12.08, 45.44, 12.20, 45.48), "A57 Mirano Dolo-Venezia Mestre barrier"),
+    ("Società Autostrade Alto Adriatico S.p.A.|A57", (12.30, 45.55, 12.3350, 45.58), "A57 Mestre-Venezia Est barrier"),
 ]}
 
 

@@ -2,16 +2,13 @@
  "about": "x",
  "sources": [
   {
-   "id": "bf-runtime",
-   "table": "x",
-   "url": "https://www.brittanyferriesfreight.com/runtime.561661b643d33c17.js",
-   "what": "x"
-  },
-  {
-   "id": "bf-tt-fr",
-   "table": "x",
-   "url": "https://www.brittanyferriesfreight.com/api/timetables?country=FR&departurePortCode=FRCER&arrivalPortCode=IEROE",
-   "what": "x"
+   "id": "bf-routes",
+   "table": "ferry-ships",
+   "url": "https://www.brittanyferriesfreight.com/api/routes",
+   "what": "Brittany Ferries freight: its routes (its API), each route's timetable for a year ahead with each sailing's ship code (saved as bf-routes-<from>-<to>.json), and the site's ship names (bf-routes-ships.js)",
+   "expect": [
+    "departureCountry"
+   ]
   }
  ]
 }

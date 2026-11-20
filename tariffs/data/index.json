@@ -2047,7 +2047,7 @@
    "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "42c6acdbbd8e0f7676afe53eddb5b58db54e285a7a7f67fec43f3acc16e6c23c",
+   "sha256": "b9759ef97c19277adb31e4afc2992cc4ebb70e5d10560cce391ec65703108229",
    "coverage": "partial"
   },
   {
@@ -2066,10 +2066,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Rome, Florence, Taranto, Venice)",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "abccb3a6678a0a11cd7a352ecc1b3e85ae67dc92fb9a0fd5827c79165c105305",
+   "sha256": "ed1d85d8eda20dd05c86bbd9b83de41d9f599136ea8950607a0a5496dbef2fa5",
    "coverage": "complete"
   },
   {

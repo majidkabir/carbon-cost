@@ -11,6 +11,7 @@
 # A24 Teramo: from Mosciano Sant'Angelo the only toll is the Teramo barrier's (A24 km 146.1), and it counts 21 km to San Gabriele Colledara (km 136.6): EUR 5.30 = 21 x Strada dei Parchi's class-5 rate; the A24's free stretch from the barrier towards the coast is the rest.
 # A34: from Gorizia the only toll is the Villesse barrier's (A34 km 0.6), and it counts 48 km to Latisana (A4 km 467.7, about 31 km by the A4): EUR 9.10 = 48 x Alto Adriatico's class-5 rate (0.18898); the A34 to Gorizia is the rest.
 # A4 Trieste: from Sistiana the only toll is the Trieste Lisert barrier's (km 515.1), and it counts 58 km to Latisana (km 467.7): EUR 11.00 = 58 x 0.18898; the A4 from the barrier to Sistiana is most of the rest.
+# A22 Autostrada del Brennero: its mountain rate (class 5 0.18378, its 2026 tariff PDF) from the Brenner to Affi, its plain rate (0.15607) south of Affi: Ala Avio-Affi 28 km EUR 5.10 (28 x 0.18378 = 5.15), Affi-Verona Nord 17 km EUR 2.70 (17 x 0.15607 = 2.65), Verona Nord-Mantova Nord 36 km EUR 5.70 (36 x 0.15607 = 5.62).
 # Columns: departure, arrival, the calculator's toll stretch, its km, its class-5 toll in euro.
 departure arrival stretch km 5
 A1-Settebagni A1-Ponzano-Romano-Soratte Roma-Nord-Ponzano-Romano-Soratte 37 7.00
@@ -23,3 +24,6 @@ A1-Napoli A1-Capua Napoli-Nord-Capua 47 7.90
 Mosciano-Sant'Angelo A24-San-Gabriele-Colledara Teramo-San-Gabriele-Colledara 21 5.30
 Gorizia A4-Latisana Barriera-Di-Villesse-Latisana 48 9.10
 Sistiana A4-Latisana Trieste-Lisert-Latisana 58 11.00
+A22-Ala-Avio A22-Affi Ala-Avio-Affi 28 5.10
+A22-Affi A22-Verona-Nord Affi-Verona-Nord 17 2.70
+A22-Verona-Nord A22-Mantova-Nord Verona-Nord-Mantova-Nord 36 5.70

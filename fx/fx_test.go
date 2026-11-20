@@ -137,3 +137,27 @@ func TestRSDOnDate(t *testing.T) {
 		t.Errorf("after the last day: %s %v", from, ok)
 	}
 }
+
+// The Bank of Albania's official rate: 1 January 2024 (a holiday) has the
+// last working day's, 29 December 2023 (103.88); a Saturday Friday's; an
+// unknown currency none.
+func TestALLOnDate(t *testing.T) {
+	for _, tc := range []struct {
+		cur, day string
+		want     float64
+		ok       bool
+	}{
+		{"ALL", "2024-01-01", 103.88, true},
+		{"ALL", "2024-01-03", 103.24, true},
+		{"ALL", "2026-11-14", 90.71, true},
+		{"ALL", "2026-11-20", 89.78, true},
+		{"ALL", "2023-12-31", 0, false},
+		{"XYZ", "2026-11-20", 0, false},
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.day)
+		v, _, src, ok := NationalOnDate(tc.cur, d)
+		if v != tc.want || ok != tc.ok || (ok && src != BoASource) {
+			t.Errorf("%s %s: %v %v %q, want %v %v", tc.cur, tc.day, v, ok, src, tc.want, tc.ok)
+		}
+	}
+}

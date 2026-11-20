@@ -27,6 +27,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/al-llogara/2025-10-02",
+   "scheme": "al-llogara",
+   "country": "AL",
+   "file": "al/al-llogara-2025-10-02.orct.json",
+   "name": "Llogara tunnel toll",
+   "valid_from": "2025-10-02",
+   "valid_to": null,
+   "sha256": "28c15e09a32c10a6d2de98f267ade95e576e99be24235ca3fbea173b01104f06",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/at/2024-01-01",
    "scheme": "at",
    "country": "AT",

@@ -491,13 +491,12 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 		if !ok {
 			v, src, day := req.ecb.PerEUR[l.Currency], fx.Source, req.ecb.Date
-			if v == 0 && l.Currency == "RSD" {
-				// The ECB publishes no dinar rate: the NBS's official middle rate.
-				var in bool
-				if v, day, in = fx.RSDOnDate(date); !in {
-					v = 0
+			if v == 0 {
+				// A currency the ECB publishes no rate for (RSD, ALL): its
+				// central bank's official rate.
+				if nv, nday, nsrc, in := fx.NationalOnDate(l.Currency, date); in {
+					v, day, src = nv, nday, nsrc
 				}
-				src = fx.NBSSource
 			}
 			if v == 0 {
 				return fmt.Errorf("no exchange rate for %s: give fx.%s (%s per euro)", l.Currency, l.Currency, l.Currency)

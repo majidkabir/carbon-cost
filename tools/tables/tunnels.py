@@ -4,7 +4,7 @@ route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldet
 the Great St Bernard tunnel (CH and IT), the Felbertauerntunnel (AT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB), the Túnel
 d'Envalira (AD), the Faroe Islands' subsea tunnels (FO), the Vaðlaheiðargöng
-tunnel and the Ring Road through Hornafjörður (IS).
+tunnel and the Ring Road through Hornafjörður (IS), the Llogara tunnel (AL).
 
 Usage: python3 tunnels.py transcribed/ fetched/ out-dir -> out-dir/<cc>-<crossing>-<date>.json
 
@@ -634,6 +634,70 @@ def envalira(fetched, out):
                 "rows": []}, "ad-envalira")
 
 
+LLOGARA_SHA256 = "c5c2f243d0f3520f39a723e9baa29376bd44d7b926e9f82ea879660e2c29d1cd"  # as QBZ gives it
+
+
+def llogara(fetched, browser, out):
+    """Albania's Llogara tunnel (SH8 Dukat–Palasë): Udhëzim i përbashkët
+    nr. 4, datë 12.9.2025 (Fletorja Zyrtare nr. 177/2025, published
+    2 October 2025, in force on publication), Shtojca I: the tariff per
+    passage by axles, with VAT, which is divided out. Its text is QBZ's PDF
+    (al-llogara.pdf, as pdftotext reads it; the file's sha256 must be the
+    one QBZ gives), else the copy read in Chrome (browser/al-llogara.txt).
+    Charged at the middle of the tunnel's longest way in OpenStreetMap
+    (al-llogara-osm.json), either way."""
+    try:
+        d = json.load(open(os.path.join(fetched, "al-llogara-osm.json")))
+    except (OSError, ValueError):
+        print("Llogara: OpenStreetMap not fetched; not built")
+        return
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    t, how = None, None
+    pdf, txt = os.path.join(fetched, "al-llogara.pdf"), os.path.join(fetched, "al-llogara.txt")
+    if os.path.exists(pdf) and os.path.exists(txt):
+        import hashlib
+        if hashlib.sha256(open(pdf, "rb").read()).hexdigest() == LLOGARA_SHA256:
+            t, how = re.sub(r"\s+", " ", open(txt, encoding="utf-8", errors="replace").read()), "fetched"
+        else:
+            print("Llogara: the fetched PDF is not the act QBZ published (sha256 differs)")
+    if t is None:
+        t, how = re.sub(r"\s+", " ", " ".join(l for l in open(os.path.join(browser, "al-llogara.txt"), encoding="utf-8") if not l.startswith("# "))), "browser"
+    if not re.search(r"Nr\. 4, datë 12\.9\.2025", t) or "Tarifat (me TVSH)" not in t:
+        sys.exit("Llogara: not the instruction, or its tariffs not read")
+    lek = lambda pat: re.search(pat + r": (\d+) lekë", t)
+    a2, a3 = lek(r"Automjete të ulëta me 3 akse dhe automjete të larta me 2 akse"), lek(r"Automjete të ulëta me 4 akse dhe automjete të larta me 3 akse")
+    a4, a5 = lek(r"Automjete të ulëta me 5 akse dhe automjete të larta me 4 akse"), lek(r"Automjete të ulëta me 6 akse dhe automjete të larta me 5 akse")
+    a6, a7 = lek(r"Automjete të larta me 6 akse"), lek(r"Të gjitha automjetet me 7 ose më shumë akse")
+    if not all((a2, a3, a4, a5, a6, a7)):
+        sys.exit("Llogara: tariffs by axles not read")
+    two, three = int(a2.group(1)), int(a3.group(1))
+    heavy = {int(m.group(1)) for m in (a4, a5, a6, a7)}
+    if len(heavy) != 1:
+        sys.exit(f"Llogara: 4 or more axles not one tariff ({sorted(heavy)})")
+    four = heavy.pop()
+    w = longest(d, r"^Tuneli i Llogarasë$")
+    if not w or "tunnel" not in w.get("tags", {}):
+        sys.exit("Llogara: the tunnel not in OpenStreetMap")
+    lat, lon, _ = middle(w)
+    vat = 1.2
+    write(out, {"country": "AL", "currency": "ALL", "valid_from": "2025-10-02", "crossings": True, "osm_extract": stamp,
+                "name": "Llogara tunnel toll",
+                "law": (f"Udhëzim i përbashkët nr. 4, datë 12.9.2025, of the Minister of Infrastructure and Energy and the Minister of Finance, Fletorja Zyrtare nr. 177/2025, "
+                        "in force on its publication on 2 October 2025: the tariff for using the Llogara tunnel (Shtojca I, with VAT): high vehicles with 2 axles "
+                        f"ALL {two}, with 3 axles ALL {three}, with 4, 5, 6 or 7 and more axles ALL {four}. Trucks over 3.5 t are taken to be high vehicles (the "
+                        "instruction gives no height). Excluding 20% VAT. Charged per passage, either way, at the middle of the tunnel's way in OpenStreetMap. "
+                        "Prepaid (subscription) tariffs aren't modelled; vehicles carrying dangerous goods may not use the tunnel."),
+                "sources": [{"title": "Udhëzim i përbashkët nr. 4, datë 12.9.2025, Për përcaktimin e tarifave për përdorimin e Tunelit të Llogorasë nga përdoruesit e rrugës (Qendra e Botimeve Zyrtare)"
+                             + (" (read in Chrome: tools/tables/browser/al-llogara.txt)" if how == "browser" else ""),
+                             "url": "https://qbz.gov.al/eli/udhezim/2025/09/12/4"}],
+                "vehicles": "Vehicles over 3.5 t, by axles", "min_kg": 3501,
+                "tolled_roads": "The Llogara tunnel (SH8, Dukat–Palasë), charged per passage either way.", "point_match_km": 0.15,
+                "toll_points": [{"name": "Tuneli i Llogarasë", "lat": lat, "lon": lon, "rate": 0, "classes": [
+                    {"min_kg": 3501, "max_axles": 2, "rate": round(two / vat, 4)}, {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": round(three / vat, 4)},
+                    {"min_kg": 3501, "min_axles": 4, "rate": round(four / vat, 4)}]}],
+                "rows": []}, "al-llogara")
+
+
 FELBERTAUERN = {"sheet": "https://www.felbertauernstrasse.at/wp-content/uploads/2025/12/Mauttarife-per-01.01.2026.pdf",
                 "order": "https://www.felbertauernstrasse.at/wp-content/uploads/2026/10/Mautordnung-per-01.11.2026.pdf",
                 "downloads": "https://www.felbertauernstrasse.at/downloads/"}
@@ -865,7 +929,8 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
                         ("westerschelde", lambda: westerschelde(fetched, out, osm, stamp)), ("liefkenshoek", lambda: liefkenshoek(browser, out, osm, stamp)),
                         ("gsb", lambda: gsb(fetched, out, osm, stamp)), ("dartford", lambda: dartford(fetched, out, osm, stamp)),
                         ("tyne", lambda: tyne(fetched, out)), ("thames", lambda: thames(browser, fetched, out)), ("bridges", lambda: bridges(browser, fetched, out)),
-                        ("envalira", lambda: envalira(fetched, out)), ("felbertauern", lambda: felbertauern(fetched, out)), ("faroe", lambda: faroe(fetched, out)), ("iceland", lambda: iceland(fetched, out))):
+                        ("envalira", lambda: envalira(fetched, out)), ("felbertauern", lambda: felbertauern(fetched, out)), ("faroe", lambda: faroe(fetched, out)), ("iceland", lambda: iceland(fetched, out)),
+                        ("llogara", lambda: llogara(fetched, browser, out))):
         try:
             build()
         except (SystemExit, Exception) as e:  # a missing copy raises OSError

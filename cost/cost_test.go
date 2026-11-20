@@ -2113,6 +2113,7 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	// the A1 by Barberino di Mugello and the A7 by Serravalle Scrivia.
 	a1mtn := [][2]float64{{11.20924, 43.95354}, {11.20977, 43.95267}, {11.21134, 43.95075}, {11.22037, 43.94238}, {11.22179, 43.94060}, {11.22251, 43.93942}, {11.22348, 43.93703}, {11.22381, 43.93490}, {11.22375, 43.93269}, {11.22313, 43.93011}, {11.22255, 43.92879}, {11.22163, 43.92722}, {11.21938, 43.92454}, {11.20941, 43.91389}, {11.19523, 43.89908}, {11.19330, 43.89730}, {11.19117, 43.89573}}
 	a7 := [][2]float64{{8.89839, 44.69257}, {8.90021, 44.69038}, {8.90053, 44.68985}, {8.90168, 44.68653}, {8.90417, 44.68312}, {8.90426, 44.68227}, {8.90388, 44.68111}, {8.90383, 44.68035}, {8.90507, 44.67652}, {8.90513, 44.67577}, {8.90500, 44.67431}, {8.90573, 44.67163}, {8.90609, 44.67073}, {8.90745, 44.66836}, {8.90986, 44.66581}}
+	a16 := [][2]float64{{14.94193, 41.07350}, {14.94694, 41.07235}, {14.94857, 41.07216}, {14.95000, 41.07223}, {14.95445, 41.07293}, {14.96275, 41.07276}, {14.97253, 41.07102}, {14.97367, 41.07104}, {14.97522, 41.07129}, {14.97874, 41.07248}}
 	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
 	rx, err := roads.Default()
 	if err != nil {
@@ -2135,7 +2136,8 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		{"A34 from the Villesse barrier", "Società Autostrade Alto Adriatico S.p.A.|A34", a34, 15.2, 0.18898},
 		{"A22 Brennero-Affi", "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", a22, 2.4, 0.18378},
 		{"A1 Bologna-Calenzano, mountain", "Autostrade per l'Italia S.p.A.|A1|mountain", a1mtn, 7.2, 0.22437},
-		{"A7 Serravalle-Genova, mountain", "Autostrade per l'Italia S.p.A.|A7", a7, 3, 0.22437}} {
+		{"A7 Serravalle-Genova, mountain", "Autostrade per l'Italia S.p.A.|A7", a7, 3, 0.22437},
+		{"A16 Baiano-Candela, mountain", "Autostrade per l'Italia S.p.A.|A16|mountain", a16, 3, 0.22437}} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
 		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
 		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {

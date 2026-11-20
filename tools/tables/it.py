@@ -32,6 +32,8 @@ OPS = [
     ("Autostrade per l'Italia S.p.A.", "A1|mountain", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A26|mountain", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A23|mountain", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A16|mountain", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A27|mountain", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A7", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A10", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A12", "", ""),
@@ -98,6 +100,8 @@ FILE_RATES = [
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A1|mountain", 6, 1, "tarM"),
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A26|mountain", 6, 1, "tarM"),
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A23|mountain", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A16|mountain", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A27|mountain", 6, 1, "tarM"),
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A7", 6, 1, "tarM"),
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A10", 6, 1, "tarM"),
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A12", 6, 1, "tarM"),
@@ -161,7 +165,7 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
               "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
               "inc:it-te-tariffe": "Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states)",
               "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)",
-              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta and Autostrade per l'Italia's mountain stretches as its route calculator prices them (the A1 Bologna-Calenzano, A7 Serravalle-Genova, A10 Genova-Savona, A12 Genova-Sestri Levante, A23 Carnia-Tarvisio, A26 Genova Voltri-Alessandria Sud and Gravellona Toce-Lago Maggiore; their rates in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own plain rates as its page does)"}
+              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta and Autostrade per l'Italia's mountain stretches as its route calculator prices them (the A1 Bologna-Calenzano, A7 Serravalle-Genova, A10 Genova-Savona, A12 Genova-Sestri Levante, A16 Baiano-Candela, A23 Carnia-Tarvisio, A26 Genova Voltri-Alessandria Sud and Gravellona Toce-Lago Maggiore, A27 Conegliano-Belluno; their rates in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own plain rates as its page does)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 SITAF = "SITAF S.p.A."

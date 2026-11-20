@@ -2092,8 +2092,9 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	date := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
 	spv := [][2]float64{{11.42126, 45.64400}, {11.41409, 45.64137}, {11.40974, 45.63931}, {11.40688, 45.63772}, {11.40447, 45.63620}, {11.40094, 45.63365}, {11.39801, 45.63112}, {11.39582, 45.62890}, {11.39427, 45.62713}, {11.39202, 45.62416}, {11.38972, 45.62026}, {11.38785, 45.61563}, {11.38471, 45.60472}}
 	a9 := [][2]float64{{9.04862, 45.77229}, {9.04486, 45.75946}, {9.04371, 45.75673}, {9.04177, 45.75372}, {9.03770, 45.74871}}
-	// The carriageways OSM tags toll=no that the Roma Nord and Roma Est
-	// barriers charge (tools/tables/browser/it-aspi-routes.txt).
+	// The carriageways OSM tags toll=no that the Roma Nord and Roma Sud
+	// barriers charge (tools/tables/browser/it-aspi-routes.txt), and the
+	// A24's before the Roma Est barrier, which charges a fixed toll.
 	d18 := [][2]float64{{12.60621, 42.14118}, {12.60455, 42.13872}, {12.58287, 42.10178}, {12.58177, 42.10038}, {12.56149, 42.08463}, {12.55999, 42.08362}, {12.54203, 42.07549}, {12.54038, 42.07437}, {12.53832, 42.07257}, {12.53691, 42.07081}, {12.53630, 42.06974}, {12.53544, 42.06766}, {12.53516, 42.06638}, {12.52728, 41.99400}, {12.52667, 41.98915}, {12.52621, 41.98700}}
 	d19 := [][2]float64{{12.65002, 41.83416}, {12.62672, 41.84261}, {12.60342, 41.85105}}
 	a24 := [][2]float64{{12.69094, 41.92513}, {12.68637, 41.92410}, {12.66565, 41.91876}, {12.66368, 41.91842}, {12.66112, 41.91834}, {12.65836, 41.91870}, {12.65537, 41.91964}, {12.65327, 41.92079}}
@@ -2103,6 +2104,8 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	a26 := [][2]float64{{8.52587, 45.87515}, {8.53100, 45.87514}, {8.53448, 45.87434}, {8.53769, 45.87240}, {8.53955, 45.86962}, {8.54021, 45.86715}, {8.54044, 45.86472}, {8.54000, 45.86101}, {8.53882, 45.85841}, {8.53501, 45.85291}, {8.53422, 45.85082}, {8.53389, 45.84883}, {8.53425, 45.84529}, {8.53698, 45.83832}, {8.53741, 45.83571}, {8.53732, 45.83201}, {8.53528, 45.81102}, {8.53401, 45.80918}, {8.53040, 45.80608}, {8.52890, 45.80421}, {8.52816, 45.80239}}
 	a4 := [][2]float64{{7.96377, 45.23950}, {7.94828, 45.23385}, {7.89636, 45.21258}, {7.84918, 45.19210}, {7.71771, 45.12662}, {7.71468, 45.12426}, {7.71131, 45.11932}}
 	a1 := [][2]float64{{14.32052, 40.84595}, {14.31728, 40.84753}, {14.31627, 40.84938}, {14.31656, 40.85080}, {14.31835, 40.85379}, {14.31827, 40.85640}, {14.32146, 40.86867}, {14.32133, 40.87060}, {14.32037, 40.87505}, {14.31759, 40.88641}, {14.31749, 40.88860}, {14.32774, 40.95543}, {14.32782, 40.95822}, {14.32650, 40.97333}}
+	teramo := [][2]float64{{13.71677, 42.59674}, {13.71396, 42.59985}, {13.71346, 42.60339}, {13.71463, 42.60623}, {13.71807, 42.60906}, {13.72154, 42.61020}, {13.72448, 42.61041}, {13.72767, 42.60996}, {13.73647, 42.60737}, {13.74015, 42.60702}, {13.74501, 42.60752}, {13.74855, 42.60865}, {13.75310, 42.61139}, {13.75587, 42.61436}, {13.75735, 42.61728}, {13.75767, 42.61922}, {13.75727, 42.62163}, {13.75495, 42.62588}, {13.74640, 42.63498}, {13.73632, 42.64166}, {13.72554, 42.65267}, {13.72363, 42.65562}, {13.72321, 42.65793}, {13.72394, 42.65995}, {13.72756, 42.66319}, {13.72954, 42.66586}, {13.73237, 42.66733}, {13.73665, 42.66755}}
+	a34 := [][2]float64{{13.43648, 45.86547}, {13.45741, 45.87684}, {13.46058, 45.87977}, {13.47062, 45.89087}, {13.47317, 45.89288}, {13.49408, 45.90069}, {13.50052, 45.90187}, {13.52317, 45.90112}, {13.53671, 45.90317}, {13.58469, 45.90476}, {13.58887, 45.90610}, {13.60216, 45.91533}, {13.60761, 45.91774}}
 	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
 	rx, err := roads.Default()
 	if err != nil {
@@ -2117,11 +2120,12 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		{"A12 Roma-Civitavecchia", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia", a12, 7.3, 0},
 		{"A1dir to the Roma Nord barrier", "Autostrade per l'Italia S.p.A.|A1dir", d18, 19, 0.19034},
 		{"A1dir to the Roma Sud barrier", "Autostrade per l'Italia S.p.A.|A1dir", d19, 4.2, 0.19034},
-		{"A24 to the Roma Est barrier", "Strada dei Parchi S.p.A.|A24", a24, 3.2, 0.25161},
 		{"A14dir to the Ravenna barrier", "Autostrade per l'Italia S.p.A.|A14dir", a14dir, 20.5, 0.19034},
 		{"A26 to the Lago Maggiore station", "Autostrade per l'Italia S.p.A.|A26|Lago Maggiore", a26, 9, 0.22437},
 		{"A4 Torino to the Rondissone barrier", "SATAP S.p.A.|A4", a4, 23.8, 0.33006},
-		{"A1 Napoli to the Napoli Nord barrier", "Autostrade per l'Italia S.p.A.|A1", a1, 14.3, 0.19034}} {
+		{"A1 Napoli to the Napoli Nord barrier", "Autostrade per l'Italia S.p.A.|A1", a1, 14.3, 0.19034},
+		{"A24 from the Teramo barrier", "Strada dei Parchi S.p.A.|A24", teramo, 12.3, 0.25161},
+		{"A34 from the Villesse barrier", "Società Autostrade Alto Adriatico S.p.A.|A34", a34, 15.2, 0.18898}} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
 		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
 		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {
@@ -2143,6 +2147,10 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		if (tc.rate > 0 && km < tc.km-0.5) || math.Abs(amount-tc.rate*km) > 0.05 {
 			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
 		}
+	}
+	// The A24 before the Roma Est barrier is free: the barrier charges it.
+	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a24}}); rk["IT"].MotorwayOp["Strada dei Parchi S.p.A.|A24"] > 0.5 {
+		t.Errorf("A24 before the Roma Est barrier: %v", rk["IT"].MotorwayOp)
 	}
 }
 
@@ -2634,6 +2642,15 @@ func TestMilanBarriers(t *testing.T) {
 		{"A12 Aurelia", [][2]float64{{11.8250, 42.0560}, {11.82428, 42.05929}, {11.8235, 42.0625}}, truck40, 6.20},
 		{"A3 Napoli Sud", [][2]float64{{14.3240, 40.8435}, {14.32797, 40.84184}, {14.3315, 40.8405}}, truck40, 6.10},
 		{"A3 Nocera", [][2]float64{{14.6380, 40.7375}, {14.64118, 40.73637}, {14.6445, 40.7352}}, truck40, 6.10},
+		// Closed-system barriers: the form's toll to the next station less
+		// the stations' km apart at the motorway's rate (Milano Sud-Lodi
+		// 6.20 = 3.65 + 13.4 km x 0.19034, to the cent).
+		{"A1 Milano Sud", [][2]float64{{9.3070, 45.3520}, {9.30982, 45.34934}, {9.3125, 45.3465}}, truck40, 3.65},
+		{"A7 Milano Ovest", [][2]float64{{9.1405, 45.3925}, {9.13876, 45.38911}, {9.1370, 45.3858}}, truck40, 2.61},
+		{"A4 Milano Ghisolfa", [][2]float64{{9.0570, 45.5122}, {9.06107, 45.51246}, {9.0650, 45.5127}}, truck40, 3.25},
+		{"A4 Milano Est", [][2]float64{{9.2645, 45.5560}, {9.26845, 45.5562}, {9.2725, 45.5564}}, truck40, 2.70},
+		{"A24 Roma Est", [][2]float64{{12.6995, 41.9258}, {12.70355, 41.92609}, {12.7075, 41.9263}}, truck40, 4.17},
+		{"A27 Venezia", [][2]float64{{12.2830, 45.5730}, {12.28397, 45.57661}, {12.2850, 45.5800}}, truck40, 5.20},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

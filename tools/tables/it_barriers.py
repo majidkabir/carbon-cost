@@ -75,6 +75,25 @@ AT = [((9, 419), (1, 401), "A5 Torino-Quincinetto, Torino Nord barrier (the Tang
       ((34, 446), (1, 445), "A21 Torino-Piacenza, Villanova barrier (the open Torino-Villanova stretch's toll)")]
 ASPI_FORM = "https://viabilita.autostrade.it/it/viabilita/traffico"
 CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-barriers.txt")
+# Closed-system barriers whose toll to the next station is more than that
+# station's km at the closed side's rate: (the barrier's network and
+# station, the operator key the roads data gives the closed side, name).
+# The barrier's toll point charges the difference by class: the form's
+# toll (browser/it-aspi-closed-barriers.txt) less the two stations' km
+# apart in the station file times the motorway table's rate for that key
+# (it-<date>.json, built first); the free stretch on its other side isn't
+# charged (tools/roads/build.py, UNTOLLED).
+CLOSED = [
+    ((1, 1), "Autostrade per l'Italia S.p.A.|A1", "A1 Milano-Napoli, Milano Sud barrier"),
+    ((1, 201), "Milano Serravalle - Milano Tangenziali S.p.A.|A7", "A7 Milano-Serravalle, Milano Ovest barrier"),
+    ((1, 443), "SATAP S.p.A.|A4|Novara Est-Milano", "A4 Torino-Milano, Milano Ghisolfa barrier"),
+    ((1, 654), "Autostrade per l'Italia S.p.A.|A4", "A4 Milano-Brescia, Milano Est barrier"),
+    ((1, 801), "Strada dei Parchi S.p.A.|A24", "A24 Roma-L'Aquila, Roma Est barrier"),
+    ((1, 333), "Autostrade per l'Italia S.p.A.|A11", "A11 Firenze-Pisa, Firenze Ovest barrier"),
+    ((1, 742), "Autostrade per l'Italia S.p.A.|A14", "A14 Bologna-Taranto, Taranto Nord barrier"),
+    ((1, 521), "Autostrade per l'Italia S.p.A.|A27", "A27 Venezia-Belluno, Venezia barrier"),
+]
+CLOSED_CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-closed-barriers.txt")
 
 
 def tolls(text, year=None):
@@ -122,6 +141,47 @@ def capture(path=CAPTURE):
         if r:
             out[(int(r.group(1)), int(r.group(2)))] = (r.group(3), dict(zip(CLASSES, map(float, r.groups()[3:]))))
     return out, int(m.group(1))
+
+
+def closed_capture(path=CLOSED_CAPTURE):
+    """The form's barrier-to-station tolls: (network, station) -> (name,
+    the arrival's (network, station), tolls by class); the year read."""
+    lines = open(path, encoding="utf-8").read().splitlines()
+    m = next((re.search(r"read on (\d{4})-\d\d-\d\d", l) for l in lines if l.startswith("#") and "read on" in l), None)
+    if not m:
+        sys.exit("it-aspi-closed-barriers: no 'read on <date>' line")
+    out = {}
+    for l in lines:
+        r = re.fullmatch(r"(\d+) (\d+) \S+ (.+?) (\d+) (\d+) (.+?) " + " ".join([r"(\d+(?:\.\d)?)"] * 5), l)
+        if r:
+            out[(int(r.group(1)), int(r.group(2)))] = (r.group(3), (int(r.group(4)), int(r.group(5))), dict(zip(CLASSES, map(float, r.groups()[6:]))))
+    return out, int(m.group(1))
+
+
+def table_rate(rows, key, axles):
+    """The motorway table's rate for an operator key and axle count, as the
+    cost engine picks it: the key, then its first two parts, then its
+    operator, then the default."""
+    parts = key.split("|")
+    for k in ["|".join(parts[:n]) for n in range(len(parts), 0, -1)] + [None]:
+        for r in rows:
+            if r.get("operator") == k and r.get("min_axles", 2) <= axles <= r.get("max_axles", 99):
+                return r["rate"]
+    sys.exit(f"it table: no rate for {key}, {axles} axles")
+
+
+def closed_place(stations, key):
+    """A closed-system barrier's toll point (type BC): of its toll points in
+    ASPI's station file, the one nearest the station's own position."""
+    x = stations.get(key)
+    e = (x or {}).get("entrata") or {}
+    ps = [(t["lon"], t["lat"]) for t in (x or {}).get("tollingIntersections", [])]
+    if e.get("type") != "BC" or not ps:
+        sys.exit(f"it-aspi-caselli: station {key} isn't a closed-system barrier with a toll point")
+    p = min(ps, key=lambda q: m6toll.km(q, (e["lon"], e["lat"])))
+    if m6toll.km(p, (e["lon"], e["lat"])) > 3:
+        sys.exit(f"it-aspi-caselli: station {key}'s toll point is {m6toll.km(p, (e['lon'], e['lat'])):.1f} km from it")
+    return p
 
 
 def aspi_place(stations, key, types=("BA",)):
@@ -176,12 +236,32 @@ def main(fetched, out):
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(t)})
         aspi.append(f"{name.split(', ')[1]} class 5 EUR {t['5']:.2f}")
         print(name, t, round(lat, 6), round(lon, 6))
+    cform, year = closed_capture()
+    years.add(year)
     if len(years) != 1:
         sys.exit(f"barrier tables of different years {sorted(years)}")
-    write(out, years.pop(), points, notes, a32, aspi)
+    year = years.pop()
+    rows = json.load(open(os.path.join(out, f"it-{year}-01-01.json"), encoding="utf-8"))["rows"]
+    closed = []
+    for key, op, name in CLOSED:
+        if key not in cform:
+            sys.exit(f"it-aspi-closed-barriers: no tolls for {key} {name}")
+        _, to, t = cform[key]
+        a, b = stations.get(key), stations.get(to)
+        if not a or not b or a["c_ram"] != b["c_ram"]:
+            sys.exit(f"it-aspi-caselli: {key} and {to} aren't on one road")
+        km = abs(a["n_prg_km"] - b["n_prg_km"])
+        extra = {c: round(t[c] - km * table_rate(rows, op, n), 2) for c, n in (("B", 2), ("3", 3), ("4", 4), ("5", 5))}
+        if min(extra.values()) < 0:
+            sys.exit(f"it-aspi-closed-barriers: {name}'s toll {t} is less than {km:.1f} km at {op}'s rates")
+        lon, lat = closed_place(stations, key)
+        points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
+        closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} (EUR {t['5']:.2f} to {b['description']}, {km:.1f} km on)")
+        print(name, extra, round(km, 1), round(lat, 6), round(lon, 6))
+    write(out, year, points, notes, a32, aspi, closed)
 
 
-def write(out, year, points, notes, a32=(), aspi=()):
+def write(out, year, points, notes, a32=(), aspi=(), closed=()):
     """The table: Milan's barriers (notes), and SITAF's (a32) and those read
     from Autostrade per l'Italia's form (aspi) where given (a past year's
     table has Milan's only)."""
@@ -206,6 +286,12 @@ def write(out, year, points, notes, a32=(), aspi=()):
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)", "url": ASPI_FORM})
         name += ", A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino"
         roads += "; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier; A21 Torino-Villanova: its toll at the Villanova barrier"
+    if closed:
+        law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
+                + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
+        sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
+        name += ", closed-system barriers (Milan, Rome, Florence, Taranto, Venice)"
+        roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     law += "Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5)."
     sources.append({"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"})
     tb = {

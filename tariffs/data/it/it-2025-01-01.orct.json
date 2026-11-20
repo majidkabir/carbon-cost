@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (changes during 2025 aren't followed: SAT's sheet gives its rates from 1 February 2025, and its +11.32% from 1 September 2025 isn't applied), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network, the Consorzio per le Autostrade Siciliane's A18 and A20 (its 2025 tables weren't archived) and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate for 2025 as its sheet gives it, with the ANAS surcharge and VAT: class B 0.07853, 3 0.10383, 4 0.15725, 5 0.18571 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.21881), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (changes during 2025 aren't followed: SAT's sheet gives its rates from 1 February 2025, and its +11.32% from 1 September 2025 isn't applied), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network, the Consorzio per le Autostrade Siciliane's A18 and A20 (its 2025 tables weren't archived) and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate for 2025 as its sheet gives it, with the ANAS surcharge and VAT: class B 0.07853, 3 0.10383, 4 0.15725, 5 0.18571 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.21881), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); the other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-2025-01-01.json"
@@ -239,6 +239,21 @@
    "type": "network",
    "parents": ["road:motorway"],
    "operator": "Autostrada del Brennero S.p.A."
+  },
+  {
+   "id": "op:Autostrada del Brennero S.p.A.|A22",
+   "type": "network",
+   "parents": ["op:Autostrada del Brennero S.p.A."],
+   "operator": "Autostrada del Brennero S.p.A.",
+   "road": "A22"
+  },
+  {
+   "id": "op:Autostrada del Brennero S.p.A.|A22|Brennero-Affi",
+   "type": "network",
+   "parents": ["op:Autostrada del Brennero S.p.A.|A22"],
+   "operator": "Autostrada del Brennero S.p.A.",
+   "road": "A22",
+   "name": "Brennero-Affi"
   },
   {
    "id": "op:Autostrada Asti-Cuneo S.p.A.",
@@ -471,6 +486,10 @@
     ["op:Autostrada del Brennero S.p.A.", "toll-1.2", "0.08805"],
     ["op:Autostrada del Brennero S.p.A.", "toll-1.3", "0.13117"],
     ["op:Autostrada del Brennero S.p.A.", "toll-1.4", "0.15415"],
+    ["op:Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "toll-1.1", "0.07669"],
+    ["op:Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "toll-1.2", "0.10174"],
+    ["op:Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "toll-1.3", "0.15372"],
+    ["op:Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "toll-1.4", "0.18145"],
     ["op:Autostrada Asti-Cuneo S.p.A.", "toll-1.1", "0.16642"],
     ["op:Autostrada Asti-Cuneo S.p.A.", "toll-1.2", "0.27099"],
     ["op:Autostrada Asti-Cuneo S.p.A.", "toll-1.3", "0.35397"],

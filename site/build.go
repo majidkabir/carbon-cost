@@ -442,10 +442,14 @@ type crossView struct {
 }
 
 // Cross-country pages: their paths and title messages.
-var crossPages = []struct{ Path, Title string }{
-	{"/tolls/zero-emission-trucks", "x.ze.link"},
-	{"/tolls/ets2-diesel", "x.ets2.link"},
-	{"/tolls/co2-tax-diesel", "x.fuel.link"},
+var crossPages = []struct {
+	Path, Title string
+	EnglishOnly bool
+}{
+	{"/tolls/zero-emission-trucks", "x.ze.link", false},
+	{"/tolls/ets2-diesel", "x.ets2.link", false},
+	{"/tolls/co2-tax-diesel", "x.fuel.link", false},
+	{ferryPath, "x.ferry.link", true},
 }
 
 // trips are a trip in each country for the calculator's "price your trip".
@@ -975,7 +979,7 @@ func (s *Site) buildLang(lang string, langs []string, cs []*country, data map[st
 	}
 	for _, x := range crossPages {
 		cl := lang
-		if !crossIn(lang) {
+		if !crossIn(lang) || x.EnglishOnly {
 			cl = "en"
 		}
 		others = append(others, link{l.T(x.Title), s.prefix + s.pagePath(cl, x.Path)})
@@ -1018,6 +1022,11 @@ func (s *Site) buildLang(lang string, langs []string, cs []*country, data map[st
 		v.Others, v.Countries = others, countryLinks
 		v.Alternates = s.alternates(langs, p.path, crossIn)
 		add(s.pagePath(lang, p.path), s.render("cross.html", v), cd, day)
+	}
+	if lang == "en" {
+		v, cd := s.ferryPage(l, day, today)
+		v.Others, v.Countries = others, countryLinks
+		add(ferryPath, s.render("cross.html", v), cd, day)
 	}
 	return b
 }

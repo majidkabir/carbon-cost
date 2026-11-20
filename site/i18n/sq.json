@@ -217,5 +217,6 @@
  "x.fuel.note1": "Tarifat për ton CO2 konvertohen për litër me {kg} kg CO2 për litër naftë (EN 16258:2012, shtojca A). Monedhat e tjera me kursin e referencës së BQE-së (DKK me kursin qendror të ERM II).",
  "x.fuel.note2": "Llogaritësi i aplikon ato mbi karburantin që një udhëtim djeg në çdo vend (ose aty ku tregoni se blihet karburanti).",
  "x.fuel.card.note": "çmimi i CO2 për litër naftë, nga ligji",
- "cr.vehicles": "Mjetet {x}"
+ "cr.vehicles": "Mjetet {x}",
+ "x.ferry.link": "EU ETS dhe UK ETS në linjat e trageteve"
 }

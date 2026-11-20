@@ -217,5 +217,6 @@
  "x.fuel.note1": "Per tonn CO2 er regnet om til per liter med {kg} kg CO2 per liter diesel (EN 16258:2012, vedlegg A). Andre valutaer etter ECBs referansekurs (DKK etter ERM II-sentralkursen).",
  "x.fuel.note2": "Kalkulatoren legger dem på drivstoffet en tur bruker i hvert land (eller der du oppgir at drivstoffet kjøpes).",
  "x.fuel.card.note": "CO2-prisen per liter diesel, fra loven",
- "cr.vehicles": "Kjøretøy {x}"
+ "cr.vehicles": "Kjøretøy {x}",
+ "x.ferry.link": "EU ETS og UK ETS på fergeoverfarter"
 }

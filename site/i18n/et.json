@@ -217,5 +217,6 @@
  "x.fuel.note1": "CO2 tonni kohta määrad on ümber arvutatud liitri kohta, arvestades {kg} kg CO2 diislikütuse liitri kohta (EN 16258:2012, lisa A). Muud valuutad EKP viitekursiga (DKK ERM II keskkursiga).",
  "x.fuel.note2": "Kalkulaator arvestab need kütusele, mille sõit igas riigis kulutab (või seal, kus märgite kütuse ostu).",
  "x.fuel.card.note": "diislikütuse CO2-hind liitri kohta, seadusest",
- "cr.vehicles": "Sõidukid {x}"
+ "cr.vehicles": "Sõidukid {x}",
+ "x.ferry.link": "EU ETS ja UK ETS parvlaevaliinidel"
 }

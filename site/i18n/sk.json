@@ -217,5 +217,6 @@
  "x.fuel.note1": "Sadzby za tonu CO2 sú prepočítané na liter pri {kg} kg CO2 na liter nafty (EN 16258:2012, príloha A). Iné meny referenčným kurzom ECB (DKK centrálnou paritou ERM II).",
  "x.fuel.note2": "Kalkulačka ich započíta do paliva, ktoré jazda spotrebuje v každej krajine (alebo tam, kde uvediete, že sa palivo kupuje).",
  "x.fuel.card.note": "cena CO2 za liter nafty, zo zákona",
- "cr.vehicles": "Vozidlá {x}"
+ "cr.vehicles": "Vozidlá {x}",
+ "x.ferry.link": "EU ETS a UK ETS na trajektových linkách"
 }

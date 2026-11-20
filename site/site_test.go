@@ -96,6 +96,21 @@ func TestPages(t *testing.T) {
 			t.Errorf("%s: %d", p, code)
 		}
 	}
+	// The ferry crossings: the EU ETS share by law, the island derogation,
+	// the UK ETS; in English only, linked from the other languages.
+	if code, fe := get(t, h, "/tolls/ferry-ets"); code != 200 {
+		t.Errorf("/tolls/ferry-ets: %d", code)
+	} else {
+		for _, want := range []string{`<link rel="canonical" href="https://example.org/carbon-cost/tolls/ferry-ets">`, "Dover–Calais", "Piraeus–Chios",
+			"Annex I (Greece: CHIOS, CHIOS)", "para 15(1)(a)", "P&amp;O PIONEER (IMO 9895161)"} {
+			if !strings.Contains(fe, want) {
+				t.Errorf("/tolls/ferry-ets lacks %q", want)
+			}
+		}
+	}
+	if _, de := get(t, h, "/de/tolls/de"); !strings.Contains(de, `href="/carbon-cost/tolls/ferry-ets">EU-ETS und UK-ETS auf Fährverbindungen</a>`) {
+		t.Errorf("/de/tolls/de: no link to the English ferry page")
+	}
 	if _, ets := get(t, h, "/tolls/ets2-diesel"); !strings.Contains(ets, "€0.1201") {
 		t.Errorf("ets2: €45/t × 2.67 kg/l = €0.1201 per litre not shown")
 	}

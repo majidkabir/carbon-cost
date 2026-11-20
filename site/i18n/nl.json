@@ -217,5 +217,6 @@
  "x.fuel.note1": "Per ton CO2 is omgerekend naar per liter met {kg} kg CO2 per liter diesel (EN 16258:2012, bijlage A). Andere valuta tegen de ECB-referentiekoers (DKK tegen de ERM II-spilkoers).",
  "x.fuel.note2": "De rekenmodule rekent ze op de brandstof die een rit in elk land verbruikt (of waar je de aankoop opgeeft).",
  "x.fuel.card.note": "de CO2-prijs per liter diesel, uit de wet",
- "cr.vehicles": "Voertuigen {x}"
+ "cr.vehicles": "Voertuigen {x}",
+ "x.ferry.link": "EU ETS en UK ETS op veerverbindingen"
 }

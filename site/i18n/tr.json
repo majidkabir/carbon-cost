@@ -217,5 +217,6 @@
  "x.fuel.note1": "Ton CO2 başına ücretler, litre motorin başına {kg} kg CO2 ile litreye çevrilmiştir (EN 16258:2012, Ek A). Diğer para birimleri ECB referans kuruyla (DKK, ERM II merkezî kuruyla).",
  "x.fuel.note2": "Hesaplayıcı bunları bir yolculuğun her ülkede yaktığı yakıta uygular (veya yakıtın alındığını belirttiğiniz yerde).",
  "x.fuel.card.note": "litre motorin başına CO2 fiyatı, yasadan",
- "cr.vehicles": "Araçlar {x}"
+ "cr.vehicles": "Araçlar {x}",
+ "x.ferry.link": "Feribot hatlarında EU ETS ve UK ETS"
 }

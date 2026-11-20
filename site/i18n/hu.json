@@ -217,5 +217,6 @@
  "x.fuel.note1": "A CO2-tonnánkénti díjak literre vannak átszámítva, liter gázolajonként {kg} kg CO2-vel (EN 16258:2012, A. melléklet). Más pénznemek az EKB referencia-árfolyamán (DKK az ERM II középárfolyamán).",
  "x.fuel.note2": "A kalkulátor ezeket az út során az egyes országokban elhasznált üzemanyagra számítja fel (vagy ott, ahol megadja a tankolás helyét).",
  "x.fuel.card.note": "a gázolaj literenkénti CO2-ára, a jogszabályból",
- "cr.vehicles": "Járművek ({x})"
+ "cr.vehicles": "Járművek ({x})",
+ "x.ferry.link": "EU ETS és UK ETS a kompjáratokon"
 }

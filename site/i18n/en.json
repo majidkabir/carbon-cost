@@ -218,5 +218,21 @@
  "x.fuel.note2": "The calculator charges these on the fuel a trip burns in each country (or where you say the fuel is bought).",
  "x.fuel.card.note": "the CO2 price per litre of diesel, from the law",
  "cr.vehicles": "Vehicles {x}",
- "sym.t": "t"
+ "sym.t": "t",
+ "x.ferry.link": "EU and UK ETS on ferry crossings",
+ "x.ferry.title": "EU ETS and UK ETS on ferry crossings {year}: the share of each crossing by law",
+ "x.ferry.h1": "The EU ETS and the UK ETS on ferry crossings",
+ "x.ferry.col.crossing": "Crossing",
+ "x.ferry.col.eu": "EU ETS",
+ "x.ferry.col.uk": "UK ETS",
+ "x.ferry.col.basis": "Why",
+ "x.ferry.col.ships": "Ships",
+ "x.ferry.col.operator": "Operator",
+ "x.ferry.unknown": "the ports' countries aren't known",
+ "x.ferry.lead": "{n} ferry crossings the calculator knows, and the share of each crossing's emissions under the EU ETS on {date} by law: all of them on {full}, half on {half}, none on {none}; on the crossings between UK ports, the UK ETS's share too. The ships are those the operators' timetables and pages name; each crossing links its source.",
+ "x.ferry.note1": "EU ETS (Directive 2003/87/EC): ships of 5,000 GT and above (Annex I); 100% of a voyage's emissions between ports of the EU and the EEA, 50% between one of them and a port outside, none between two ports outside (Art. 3ga); none to or from an island port the Commission lists under Art. 12(3-d) (Implementing Decision (EU) 2023/2895), from a port of the same Member State, until 31 December 2030. Shipping companies surrender allowances for 40% of their verified emissions of 2024, 70% of 2025's and all of them from 2026.",
+ "x.ferry.note2": "UK ETS (Greenhouse Gas Emissions Trading Scheme Order 2020, Schedule 2A, inserted by SI 2026/392): from 1 July 2026, ships of 5,000 GT and above; 100% of a voyage between UK ports, 50% between Northern Ireland and Great Britain, none on a Scottish ferry service between points in Scotland. Voyages to the Isle of Man and the Channel Islands aren't between UK ports.",
+ "x.ferry.note3": "A crossing whose ships aren't named is under the ETS only on a ship of 5,000 GT or more. A crossing not listed here counts all its emissions in the calculator, which says so.",
+ "x.ferry.card.big": "{n} crossings",
+ "x.ferry.card.note": "ferry crossings and their EU and UK ETS shares, by law"
 }

@@ -52,6 +52,12 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Fjord Line's ships page (fjordline-ships.html, its Markdown): a ship it
   puts between two ports ("Fjord FSTR ... between Hirtshals and
   Kristiansand");
+- Brittany Ferries freight's timetables (bf-routes-<from>-<to>.json, from its
+  API) and its ship names (bf-routes-ships.js): the ships of the year's
+  sailings;
+- the Port of Helsinki's page on its Katajanokka terminal
+  (helsinki-katajanokka.html): Viking Line's regular connections and their
+  ships ("Viking XPRS to Tallinn");
 - Wasaline's cargo page (wasaline-cargo.html): its route ("between Vaasa in
   Finland and Umeå in Sweden") and its ship;
 - one operator's ships join another's on the same two ports (TT-Line's and
@@ -310,6 +316,10 @@ for _p, (_names, _at, _listed) in GREECE.items():
 # between points in Scotland are outside).
 REGION = {"Belfast": "GB-NIR", "Larne": "GB-NIR", "Cairnryan": "GB-SCT", "Aberdeen": "GB-SCT", "Kirkwall": "GB-SCT",
           "Lerwick": "GB-SCT"}
+# Brittany Ferries' ports by UN/LOCODE (its API's port codes).
+LOCODE = {"GBPME": "Portsmouth", "GBPOO": "Poole", "GBPLY": "Plymouth", "FRLEH": "Le Havre", "FRCER": "Cherbourg",
+          "FRSML": "Saint-Malo", "FROUI": "Caen", "FRROS": "Roscoff", "ESBIO": "Bilbao", "ESSDR": "Santander",
+          "IEROE": "Rosslare", "IEORK": "Cork"}
 # Other names the pages give a port.
 PAGE_PORT = {"gothenburg masthugget": "Gothenburg", "hoek van holland": "Hoek van Holland", "jersey": "St Helier"}
 # The EU and the EEA EFTA states (ferries.go's eea).
@@ -331,12 +341,19 @@ def ship_names():
     return names
 
 
+def ship_key(name):
+    """A ship's name as the MRV lists and the operators' pages are matched:
+    letters without accents, upper case, without full stops ("MONT ST.
+    MICHEL" is Mont St Michel)."""
+    return re.sub(r"\s+", " ", ascii(name).upper().replace(".", " ")).strip()
+
+
 def imos():
     """{name: IMO number} of the names the MRV ship lists give one IMO number."""
     seen = {}
     for p in sorted(glob.glob(os.path.join(MRV, "mrv-ships-*.json"))):
         for s in json.load(open(p, encoding="utf-8"))["ships"]:
-            seen.setdefault(ascii(s["name"]).upper(), set()).add(s["imo"])
+            seen.setdefault(ship_key(s["name"]), set()).add(s["imo"])
     return {n: next(iter(i)) for n, i in seen.items() if len(i) == 1}
 
 
@@ -692,6 +709,61 @@ def fjordline(page):
     return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
 
 
+def brittany(files, names):
+    """[(ports, {ships}, heading, file)] from Brittany Ferries freight's
+    timetables (bf-routes-<from>-<to>.json, its API: each sailing's date and
+    ship code, for the year ahead) and the site's ship names
+    (bf-routes-ships.js: ship:{GN: "Guillaume de Normandie", ...}): the ships
+    of the year's sailings, so that a route sailed in summer only keeps its
+    ships in winter; a ship whose code the site doesn't name is left out.
+    The UK's port comes first (the crossing's id is as before, when only
+    OpenStreetMap's lines named it)."""
+    m = re.search(r'ship:\{((?:[A-Z]{2}:"[^"]+",?)+)\}', names)
+    if not m:
+        sys.exit("ferry ships: Brittany Ferries' site names no ships")
+    ship = dict(re.findall(r'([A-Z]{2}):"([^"]+)"', m.group(1)))
+    out = []
+    for path in files:
+        name = os.path.basename(path)
+        codes, ports = set(), None
+        for month in json.load(open(path, encoding="utf-8")):
+            for r in month.get("routes", []):
+                ports = ports or (r["departurePortCode"], r["arrivalPortCode"])
+                codes |= {c["ship"] for x in r.get("scheduleCrossings", []) for c in x.get("crossings", [])}
+        if not codes:
+            print(f"ferry ships: {name}: no sailing in its timetable: not built")
+            continue
+        # A code the site doesn't name (its page shows "core.ship.CI") is left out.
+        unnamed = sorted(codes - set(ship))
+        if not codes - set(unnamed):
+            print(f"ferry ships: {name}: the site names none of its ships ({', '.join(unnamed)}): not built")
+            continue
+        pair = tuple(sorted((port_of(LOCODE[c], name) for c in ports), key=lambda p: (PORTS[p][0] in EEA, p)))
+        out.append((pair, {ship[c] for c in codes if c in ship}, "–".join(pair) + ", its ferries in its timetable for the year ahead"
+                    + (f" (the sailings of {', '.join(unnamed)}, ships the site doesn't name, left out)" if unnamed else ""), path))
+    if not out:
+        sys.exit("ferry ships: no Brittany Ferries timetable")
+    return out
+
+
+def katajanokka(page):
+    """[(ports, {ships}, heading, file)] from the Port of Helsinki's page on
+    Viking Line at its Katajanokka terminal ("Katajanokka Terminal has a
+    regular ferry connections: Viking XPRS to Tallinn and MS Gabriella and
+    Viking Cinderella to Stockholm"): the regular connections only, not the
+    summer's added sailings."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    m = re.search(r"regular ferry connections: ([^.]+)\.", flat)
+    out = []
+    for ships, city in re.findall(r"(.+?) to (\w+)(?: and |$)", m.group(1)) if m else []:
+        names = {re.sub(r"^(?:MS|M/S) ", "", n.strip()) for n in re.split(r"\s+and\s+", ships)}
+        out.append((("Helsinki", port_of(city, os.path.basename(path))), names, f"Helsinki–{city}, its ferries as the Port of Helsinki's Katajanokka terminal page names its regular connections", path))
+    if not out:
+        sys.exit("ferry ships: the Port of Helsinki's Katajanokka page names no regular connection")
+    return out
+
+
 def wasaline(page):
     """[(ports, {ships}, heading, file)] from Wasaline's cargo page ("We
     operate the route between Vaasa in Finland and Umeå in Sweden ...
@@ -781,7 +853,7 @@ def crossing(cid, ports, pos, operator, ships, source, ids, exemptions=()):
     return {"id": cid, "name": "–".join(ports), "operator": operator,
             "terminals": [{"name": p, "lat": round(pos[p][0], 6), "lon": round(pos[p][1], 6), "country": COUNTRY[p],
                            **({"region": REGION[p]} if p in REGION else {})} for p in ports],
-            "ships": [{**({"imo": ids[ascii(s).upper()]} if ascii(s).upper() in ids else {}), "name": s.upper()} for s in sorted(ships)],
+            "ships": [{**({"imo": ids[ship_key(s)]} if ship_key(s) in ids else {}), "name": s.upper()} for s in sorted(ships)],
             **({"exemptions": list(exemptions)} if exemptions else {}), "source": source}
 
 
@@ -808,6 +880,9 @@ def main(fetched, out):
         cpage = (os.path.join(fetched, "colorline-routes.html"), open(os.path.join(fetched, "colorline-routes.html"), encoding="utf-8").read())
         jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
         wpage = (os.path.join(fetched, "wasaline-cargo.html"), open(os.path.join(fetched, "wasaline-cargo.html"), encoding="utf-8").read())
+        kpage = (os.path.join(fetched, "helsinki-katajanokka.html"), open(os.path.join(fetched, "helsinki-katajanokka.html"), encoding="utf-8").read())
+        bfiles = sorted(glob.glob(os.path.join(fetched, "bf-routes-*-*.json")))
+        bnames = open(os.path.join(fetched, "bf-routes-ships.js"), encoding="utf-8").read()
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm, seen = {"elements": []}, set()
         for sid, _ in OSM_BOXES:
@@ -919,11 +994,12 @@ def main(fetched, out):
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
                              ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
                              ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage)),
-                             ("Wasaline", wasaline(wpage))):
+                             ("Wasaline", wasaline(wpage)), ("Viking Line", katajanokka(kpage)),
+                             ("Brittany Ferries", brittany(bfiles, bnames))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers
-                ids = {**ids, **{ascii(s).upper(): imo for s, imo in ships.items() if imo}}
+                ids = {**ids, **{ship_key(s): imo for s, imo in ships.items() if imo}}
                 ships = set(ships)
             url = urls.get(os.path.basename(path), "")
             title = f"{operator}: {heading}" + ("" if "its ferries" in heading else ", its ferries")

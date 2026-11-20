@@ -217,5 +217,6 @@
  "x.fuel.note1": "Pro Tonne CO2 ist mit {kg} kg CO2 pro Liter Diesel (EN 16258:2012, Anhang A) in pro Liter umgerechnet. Andere Währungen zum EZB-Referenzkurs (DKK zum WKM-II-Leitkurs).",
  "x.fuel.note2": "Der Rechner berechnet diese auf den Kraftstoff, den eine Fahrt in jedem Land verbraucht (oder dort, wo Sie den Kauf angeben).",
  "x.fuel.card.note": "der CO2-Preis pro Liter Diesel, aus dem Gesetz",
- "cr.vehicles": "Fahrzeuge {x}"
+ "cr.vehicles": "Fahrzeuge {x}",
+ "x.ferry.link": "EU-ETS und UK-ETS auf Fährverbindungen"
 }

@@ -56,6 +56,14 @@ from DFDS's API (/api/timetable?dateFrom=..&dateTo=..&portOfDischarge=..
 the 28 days from the day of the fetch are saved as <id>-<route>.json (four
 weeks: a ship on a route sailed weekly, or one of a partner's that takes
 turns, is in it).
+
+Brittany Ferries' freight site answers from its API: /api/routes lists its
+routes by UN/LOCODE, /api/timetables?country=..&departurePortCode=..
+&arrivalPortCode=.. each sailing's date and ship, by a two-letter code,
+for a year ahead (one direction of each route is saved, as
+<id>-<from>-<to>.json). The codes' ship names are in the site's English
+texts, one of the script chunks its runtime script names
+(ship:{GN:"Guillaume de Normandie",...}): saved as <id>-ships.js.
 """
 import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
@@ -264,6 +272,38 @@ def dfds(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-{r}.json", "https://www.dfds.com/api/timetable?" + q, status, body)
 
 
+BF = "https://www.brittanyferriesfreight.com"
+
+
+def brittany(out, manifest, sid, body):
+    country = {"GBR": "GB", "FRA": "FR", "ESP": "ES", "IRL": "IE"}
+    seen = set()
+    for group in json.loads(body):
+        for r in group.get("routes", []):
+            a, b = r["departure"], r["arrival"]
+            if frozenset((a["code"], b["code"])) in seen:
+                continue
+            seen.add(frozenset((a["code"], b["code"])))
+            u = f"{BF}/api/timetables?" + urllib.parse.urlencode({"country": country.get(a["country"], a["country"][:2]),
+                                                                  "departurePortCode": a["code"], "arrivalPortCode": b["code"]})
+            status, t = get(u, accept="application/json")
+            save(out, manifest, f"{sid}-{a['code'].lower()}-{b['code'].lower()}.json", u, status, t)
+    status, page = get(f"{BF}/en/ferry-routes/timetables")
+    m = re.search(r'src="(runtime\.[0-9a-f]+\.js)"', page.decode("utf-8", "replace"))
+    if not m:
+        return
+    status, rt = get(f"{BF}/{m.group(1)}")
+    rt = rt.decode("utf-8", "replace")
+    named = dict(re.findall(r'(\d+)===e\?"(\w+)"', rt))
+    hashes = re.search(r'\+"\."\+(\{(?:\d+:"[0-9a-f]+",?)+\})\[e\]', rt)
+    for n, h in re.findall(r'(\d+):"([0-9a-f]+)"', hashes.group(1)) if hashes else []:
+        u = f"{BF}/{named.get(n, n)}.{h}.js"
+        status, js = get(u)
+        if status == 200 and re.search(rb'ship:\{(?:[A-Z]{2}:"[^"]+",?)+\}', js):
+            save(out, manifest, f"{sid}-ships.js", u, status, js)
+            return
+
+
 def follow(out, manifest, s, page):
     """The pages or files a source links that match its "follow" pattern (a
     regular expression on the absolute URL), saved as <id>-<last path
@@ -370,6 +410,8 @@ def store(out, manifest, s, status, body, asked):
         polsca(out, manifest, s["id"], s["url"], body)
     if s.get("follow") and status == 200:
         follow(out, manifest, s, body)
+    if s["url"] == f"{BF}/api/routes" and status == 200:
+        brittany(out, manifest, s["id"], body)
     if s["url"] == "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules" and status == 200:
         dfds(out, manifest, s["id"], s["url"], body)
 

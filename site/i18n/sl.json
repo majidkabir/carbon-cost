@@ -217,5 +217,6 @@
  "x.fuel.note1": "Stopnje na tono CO2 so preračunane na liter pri {kg} kg CO2 na liter dizla (EN 16258:2012, priloga A). Druge valute po referenčnem tečaju ECB (DKK po centralnem tečaju ERM II).",
  "x.fuel.note2": "Kalkulator jih zaračuna na gorivo, ki ga vožnja porabi v posamezni državi (ali tam, kjer navedete, da se gorivo kupi).",
  "x.fuel.card.note": "cena CO2 na liter dizla, iz zakona",
- "cr.vehicles": "Vozila {x}"
+ "cr.vehicles": "Vozila {x}",
+ "x.ferry.link": "EU ETS in UK ETS na trajektnih linijah"
 }

@@ -6,6 +6,7 @@
 # A24 Roma-L'Aquila: from Settecamini the only toll is the Roma Est barrier's, and it counts the km from the GRA: Roma Est-Tivoli is 21 km, EUR 5.30 = 21 x Strada dei Parchi's class-5 rate (0.25161) to 10 cents.
 # A14dir Ravenna branch: from Ravenna the only toll is the Ravenna barrier's (OSM: 8 km from the A14), and it counts 38 km to Imola: EUR 7.20 = 38 x 0.19034; the branch east of the barrier is the other 20.
 # A35 Brebemi's Liscate barrier: Liscate-Treviglio is 21 km, EUR 13.10: Brebemi 17 km EUR 10.83 and Tangenziale Esterna 4 km EUR 2.27; Gessate (on the TEEM)-Treviglio is 17 km, EUR 10.30, Brebemi's share 10 km EUR 6.49: from Liscate Brebemi charges 7 km more (tools/tables/it_barriers.py, EXTRA).
+# A35 Brebemi's Castegnato barrier: Castegnato-Chiari Ovest is 24 km, EUR 13.20: "Castegnato - Brescia Ovest" 12 km EUR 5.70 (Autostrade per l'Italia 5 km EUR 0.95, Brebemi 7 km EUR 4.75) and "Chiari Est - Chiari Ovest" 12 km EUR 7.50; the barrier charges Brebemi's 7 km of its link from the A4, which OSM tags toll-free (tools/tables/it_barriers.py, EXTRA).
 # A26 north: from Gravellona Toce the only toll is the Lago Maggiore station's (its km 166.6; Arona's is 165.5, viabilita.autostrade.it/json/caselli.json), and it counts 33 km: EUR 7.40 = 33 x ASPI's class-5 mountain rate (0.22437): the A26's free stretch to Gravellona Toce.
 # A4 Torino-Milano: from the Rondissone barrier (SATAP) to Santhia the calculator counts 46 km, EUR 15.30 = 46 x SATAP's class-5 rate (0.33006) to 10 cents; the barrier is 24 km from Turin by the A4 (OSM).
 # A1 Napoli: from the A1 at Naples to Capua the calculator charges "Napoli Nord - Capua" EUR 7.90, 41.5 km at ASPI's rate, where the Napoli Nord barrier (km 739.7) and Capua (km 720.1) are 19.6 km apart (caselli.json): the barrier charges the A1's km from Naples. (Its route went by the A3's Napoli Sud barrier, charged apart.)
@@ -32,3 +33,4 @@ A22-Verona-Nord A22-Mantova-Nord Verona-Nord-Mantova-Nord 36 5.70
 A6-Carmagnola Savona Carmagnola-Altare 97 23.30
 A35-Liscate A35-Treviglio Liscate-Treviglio 21 13.10
 A58-Gessate A35-Treviglio Gessate-Treviglio 17 10.30
+A4-Castegnato A35-Chiari-Ovest Castegnato-Chiari-Ovest 24 13.20

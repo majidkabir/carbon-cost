@@ -120,9 +120,15 @@ CLOSED = [
 # Autostrade per l'Italia's route calculator gives Liscate-Treviglio as
 # Brebemi 17 km (EUR 10.83 for 5 axles) and the TEEM 4 km, and Gessate (on
 # the TEEM)-Treviglio as Brebemi 10 km (EUR 6.49), so the barrier's toll
-# point charges Brebemi's 7 km more at Brebemi's rates
-# (browser/it-aspi-routes.txt): (station, operator key, km, name).
-EXTRA = [((1, 377), "Società di Progetto Brebemi S.p.A|A35", 7, "A35 Brescia-Milano, Liscate barrier")]
+# point charges Brebemi's 7 km more at Brebemi's rates. Brebemi's Castegnato
+# barrier, on its link from the A4 (0.36 km off the A4's carriageways),
+# charges Brebemi's 7 km of it: the calculator's Castegnato-Chiari Ovest is
+# "Castegnato - Brescia Ovest" (Autostrade per l'Italia 5 km EUR 0.95,
+# Brebemi 7 km EUR 4.75) and Chiari Est-Chiari Ovest (EUR 7.50), and OSM
+# tags the link toll-free (browser/it-aspi-routes.txt): (station, operator
+# key, km, name, what the km are).
+EXTRA = [((1, 377), "Società di Progetto Brebemi S.p.A|A35", 7, "A35 Brescia-Milano, Liscate barrier", "more than from the TEEM"),
+         ((1, 378), "Società di Progetto Brebemi S.p.A|A35", 7, "A35 Brescia-Milano, Castegnato barrier", "of its link from the A4")]
 # CAV's Padova-Venezia toll: Autostrade per l'Italia's form and route
 # calculator charge one toll from the A4's Padova Est to each of the A57's
 # stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier; "29 km",
@@ -301,11 +307,11 @@ def main(fetched, out):
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
         closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} (EUR {t['5']:.2f} to {b['description']}, {km:.1f} km on)")
         print(name, extra, round(km, 1), round(lat, 6), round(lon, 6))
-    for key, op, km, name in EXTRA:
+    for key, op, km, name, what in EXTRA:
         extra = {c: round(km * table_rate(rows, op, n), 2) for c, n in (("B", 2), ("3", 3), ("4", 4), ("5", 5))}
         lon, lat = closed_place(stations, key)
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
-        closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} ({km} km more at {op.split('|')[0]}'s rate than from the next junction, as Autostrade per l'Italia's route calculator charges)")
+        closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} ({km} km {what} at {op.split('|')[0]}'s rate, as Autostrade per l'Italia's route calculator charges)")
         print(name, extra)
     inter = []
     for key, op, km, (lon, lat), name in INTERCHANGE:
@@ -350,7 +356,7 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=(), inter=()):
         law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
                 + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
-        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana)"
+        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana, Castegnato)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     if inter:
         law += ("CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: "

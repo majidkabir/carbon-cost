@@ -283,8 +283,11 @@ def main(fetched, out):
                  "(a ship calling on the way) are one system, priced from the first port passed to the last. Wide loads (dearer) aren't priced. "
                  + " ".join(f"{n}." for n in notes)),
          "sources": [{"title": f"CalMac: commercial vehicle single rates from {start}", "url": cv_url},
-                     {"title": "CalMac: commercial vehicle rates" + (" (the Internet Archive's latest copy, as the page refuses the workflow at times)" if page_id.endswith("-ia") else ""),
-                      "url": next(s["url"] for s in src if s["id"] == page_id)},
+                     # The page itself, whether this run read it or (when it
+                     # refused the workflow) the Internet Archive's latest copy
+                     # (the run's manifest says which): the dataset is the same
+                     # either way, so it doesn't change with the copy read.
+                     {"title": "CalMac: commercial vehicle rates", "url": next(s["url"] for s in src if s["id"] == "gb-calmac-cv-page")},
                      {"title": "CalMac: Uig – Tarbert fares (commercial vehicles by length in 0.5 m increments, excluding VAT)",
                       "url": next(s["url"] for s in src if s["id"] == "gb-calmac-uig-tarbert")},
                      {"title": "OpenStreetMap (Overpass API): ferry lines and terminals on Scotland's west coast", "url": "https://www.openstreetmap.org/"}],

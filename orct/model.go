@@ -38,9 +38,8 @@ type Document struct {
 
 // NoCharge states that the scheme's area levies no charge (ORCT 6.13).
 type NoCharge struct {
-	Description   string   `json:"description"`
-	Sources       []string `json:"sources"`
-	OtherDatasets []string `json:"other_datasets,omitempty"`
+	Description string   `json:"description"`
+	Sources     []string `json:"sources"`
 }
 
 // Header is the dataset member.

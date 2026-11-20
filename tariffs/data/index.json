@@ -27,6 +27,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/al-llogara/2025-10-02",
+   "scheme": "al-llogara",
+   "country": "AL",
+   "file": "al/al-llogara-2025-10-02.orct.json",
+   "name": "Llogara tunnel toll",
+   "valid_from": "2025-10-02",
+   "valid_to": null,
+   "sha256": "28c15e09a32c10a6d2de98f267ade95e576e99be24235ca3fbea173b01104f06",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/at/2024-01-01",
    "scheme": "at",
    "country": "AT",
@@ -1365,7 +1376,7 @@
    "name": "Finland: no road toll or vignette",
    "valid_from": "2026-11-20",
    "valid_to": null,
-   "sha256": "c02be4301a57b0503a3020ffbd37f9056393b2e4788e2de3a5e1bb6a4a564e68",
+   "sha256": "bee042420216e0edf06a8448d5f1a6e064fa14e7b56be480cfc5aa7139314294",
    "coverage": "complete"
   },
   {
@@ -2619,7 +2630,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-09-11",
    "valid_to": "2025-03-10",
-   "sha256": "b5c43344eb07d769e17f39e06fa6b46e9e45a189190b82b524ffda320ca25bf5",
+   "sha256": "cea950ffd7379c981d27e5a2f129d66f2e3b30db558dcdb8692f336edd05281b",
    "coverage": "complete"
   },
   {

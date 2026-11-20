@@ -45,6 +45,11 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   route's heading ("Tallinn-Helsinki") and its ships; Eckerö Line's cargo
   page (eckero-cargo.html): its ships' crossings, as its cargo CO2 figures
   name them ("M/S Finbo Cargo (Helsinki, Vuosaari – Tallinn, Muuga)");
+- Color Line's routes page (colorline-routes.html): each route's ships ("The
+  route Kiel – Oslo is operated by Color Magic and Color Fantasy");
+- Fjord Line's ships page (fjordline-ships.html, its Markdown): a ship it
+  puts between two ports ("Fjord FSTR ... between Hirtshals and
+  Kristiansand");
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -127,7 +132,10 @@ PORTS = {
     "Fredericia": ("DK", ["Fredericia"], (55.57, 9.75)), "Køge": ("DK", ["Køge"], (55.46, 12.18)),
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
-    "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
+    "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)),
+    "Larvik": ("NO", ["Larvik"], (59.05, 10.03)), "Kristiansand": ("NO", ["Kristiansand"], (58.15, 8.00)),
+    "Oslo": ("NO", ["Oslo"], (59.91, 10.75)), "Sandefjord": ("NO", ["Sandefjord"], (59.13, 10.22)),
+    "Strömstad": ("SE", ["Strömstad", "Strømstad"], (58.94, 11.17)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
     "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
     "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Visby": ("SE", ["Visby"], (57.64, 18.29)),
     "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)),
@@ -631,6 +639,44 @@ def tallink(page):
     return out
 
 
+def colorline(page):
+    """[(ports, {ships}, heading, file)] from Color Line's routes page ("The
+    route Hirtshals – Larvik/Kristiansand is operated by SuperSpeed 1 and
+    2"): a route to two ports ("Larvik/Kristiansand") is a crossing to each,
+    with the route's ships."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    out = []
+    for m in re.finditer(r"The route (\w+) [–-] (\w+(?:/\w+)*) is operated by ([^.]+)\.", flat):
+        names = re.split(r"\s*,\s*|\s+and\s+", m.group(3).strip())
+        # "SuperSpeed 1 and 2": the second is SuperSpeed 2.
+        names = [n if not re.fullmatch(r"\d+", n) else re.sub(r"\d+$", n, names[0]) for n in names]
+        a = port_of(m.group(1), os.path.basename(path))
+        for b in m.group(2).split("/"):
+            out.append(((a, port_of(b, os.path.basename(path))), set(names), f"{m.group(1)} – {m.group(2)}", path))
+    if not out:
+        sys.exit("ferry ships: Color Line's routes page names no route's ships")
+    return out
+
+
+def fjordline(page):
+    """[(ports, {ships}, heading, file)] from Fjord Line's ships page (its
+    Markdown: "- [Fjord FSTR](...): ... between Hirtshals and
+    Kristiansand"): a ship the page puts between two ports sails that
+    crossing; one it puts between more ("routes between Hirtshals,
+    Kristiansand, Stavanger and Bergen") isn't placed on any of them."""
+    path, t = page
+    routes = {}
+    for m in re.finditer(r"^- \[([^\]]+)\]\([^)]*\): .*?\bbetween ([^.]+)\.", t, re.M):
+        parts = re.split(r",\s*|\s+and\s+", m.group(2).strip())
+        if len(parts) == 2:
+            ship = re.sub(r"^MS ", "", m.group(1))
+            routes.setdefault(tuple(port_of(p, os.path.basename(path)) for p in parts), set()).add(ship)
+    if not routes:
+        sys.exit("ferry ships: Fjord Line's ships page puts no ship on a crossing")
+    return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
+
+
 def eckero(page):
     """[(ports, {ships}, heading, file)] from Eckerö Line's cargo page: its
     ships' crossings in its cargo CO2 figures ("M/S Finbo Cargo (Helsinki,
@@ -718,6 +764,8 @@ def main(fetched, out):
         dpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "dfds-routes-*.html")))]
         tpage = (os.path.join(fetched, "tallink-fleet.html"), open(os.path.join(fetched, "tallink-fleet.html"), encoding="utf-8").read())
         epage = (os.path.join(fetched, "eckero-cargo.html"), open(os.path.join(fetched, "eckero-cargo.html"), encoding="utf-8").read())
+        cpage = (os.path.join(fetched, "colorline-routes.html"), open(os.path.join(fetched, "colorline-routes.html"), encoding="utf-8").read())
+        jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
         for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
@@ -811,7 +859,7 @@ def main(fetched, out):
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
                              ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
-                             ("Eckerö Line", eckero(epage))):
+                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

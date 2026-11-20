@@ -3517,6 +3517,76 @@
    }
   },
   {
+   "id": "hirtshals-kristiansand",
+   "name": "Hirtshals–Kristiansand",
+   "operator": "Color Line; Fjord Line",
+   "terminals": [
+    {
+     "name": "Hirtshals",
+     "lat": 57.593143,
+     "lon": 9.97153,
+     "country": "DK"
+    },
+    {
+     "name": "Kristiansand",
+     "lat": 58.144283,
+     "lon": 7.985934,
+     "country": "NO"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9837339",
+     "name": "FJORD FSTR"
+    },
+    {
+     "imo": "9374519",
+     "name": "SUPERSPEED 1"
+    },
+    {
+     "imo": "9378682",
+     "name": "SUPERSPEED 2"
+    }
+   ],
+   "source": {
+    "title": "Color Line: Hirtshals – Larvik/Kristiansand, its ferries; Fjord Line: Hirtshals–Kristiansand, its ferries (https://fjordline.com/en/p/our-ships.md)",
+    "url": "https://colorline.com/routes"
+   }
+  },
+  {
+   "id": "hirtshals-larvik",
+   "name": "Hirtshals–Larvik",
+   "operator": "Color Line",
+   "terminals": [
+    {
+     "name": "Hirtshals",
+     "lat": 57.592846,
+     "lon": 9.966869,
+     "country": "DK"
+    },
+    {
+     "name": "Larvik",
+     "lat": 59.041606,
+     "lon": 10.044766,
+     "country": "NO"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9374519",
+     "name": "SUPERSPEED 1"
+    },
+    {
+     "imo": "9378682",
+     "name": "SUPERSPEED 2"
+    }
+   ],
+   "source": {
+    "title": "Color Line: Hirtshals – Larvik/Kristiansand, its ferries",
+    "url": "https://colorline.com/routes"
+   }
+  },
+  {
    "id": "hoek-van-holland-harwich",
    "name": "Hoek van Holland–Harwich",
    "operator": "Stena Line",
@@ -4670,6 +4740,39 @@
    "source": {
     "title": "OpenStreetMap: Keramoti - Thassos (Limenas) (its ships not named)",
     "url": "https://www.openstreetmap.org/way/59804720"
+   }
+  },
+  {
+   "id": "kiel-oslo",
+   "name": "Kiel–Oslo",
+   "operator": "Color Line",
+   "terminals": [
+    {
+     "name": "Kiel",
+     "lat": 54.316804,
+     "lon": 10.139169,
+     "country": "DE"
+    },
+    {
+     "name": "Oslo",
+     "lat": 59.909828,
+     "lon": 10.708791,
+     "country": "NO"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9278234",
+     "name": "COLOR FANTASY"
+    },
+    {
+     "imo": "9349863",
+     "name": "COLOR MAGIC"
+    }
+   ],
+   "source": {
+    "title": "Color Line: Kiel – Oslo, its ferries",
+    "url": "https://colorline.com/routes"
    }
   },
   {

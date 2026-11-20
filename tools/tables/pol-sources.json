@@ -2,9 +2,15 @@
  "about": "x",
  "sources": [
   {
-   "id": "it-a22-affi-junctions",
+   "id": "it-gap-ugovizza",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%3B%28node%5B%22highway%22%3D%22motorway_junction%22%5D%2845.50%2C10.70%2C45.62%2C10.90%29%3B%29%3Bout%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2846.47%2C13.4%2C46.56%2C13.75%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2846.47%2C13.4%2C46.56%2C13.75%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "x"
+  },
+  {
+   "id": "it-gap-ventimiglia",
+   "table": "x",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2843.77%2C7.5%2C43.82%2C7.7%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2843.77%2C7.5%2C43.82%2C7.7%29%3B%29%3Bout%20geom%20tags%3B",
    "what": "x"
   }
  ]

@@ -2650,6 +2650,7 @@ func TestMilanBarriers(t *testing.T) {
 		{"A4 Milano Ghisolfa", [][2]float64{{9.0570, 45.5122}, {9.06107, 45.51246}, {9.0650, 45.5127}}, truck40, 3.25},
 		{"A4 Milano Est", [][2]float64{{9.2645, 45.5560}, {9.26845, 45.5562}, {9.2725, 45.5564}}, truck40, 2.70},
 		{"A24 Roma Est", [][2]float64{{12.6995, 41.9258}, {12.70355, 41.92609}, {12.7075, 41.9263}}, truck40, 4.17},
+		{"A27 Venezia", [][2]float64{{12.2830, 45.5730}, {12.28397, 45.57661}, {12.2850, 45.5800}}, truck40, 5.20},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

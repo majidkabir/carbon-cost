@@ -159,27 +159,46 @@ FREE = {"PL": [
 # count as tolled (with "|suffix" on their operator key when one is given,
 # for a stretch with its own rate). Each is a free stretch at the end of a
 # closed system whose barrier or end station charges its km as closed-
-# system km, as Autostrade per l'Italia's route calculator counts them
-# (tools/tables/browser/it-aspi-routes.txt): Rome's Diramazione Roma Nord
-# ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km" from Settebagni at
-# the GRA) and Diramazione Roma Sud ("Roma Sud - Valmontone 5.7 EUR -
-# 30 km") and the A24 to the Roma Est barrier ("Roma Est - Tivoli 5.3 EUR -
-# 21 km" from Settecamini); the A14's Ravenna branch east of the Ravenna
-# barrier ("Barriera Di Ravenna - Imola 7.2 EUR - 38 km" from Ravenna);
-# the A26 north of the Lago Maggiore station to Gravellona Toce, at ASPI's
-# mountain rate ("Lago Maggiore - Arona 7.4 EUR - 33 km" from Gravellona
-# Toce); SATAP's A4 from Turin to the Rondissone barrier ("Torino
-# Rondissone - Santhia 15.3 EUR - 46 km"); and the A1 from Naples to the
-# Napoli Nord barrier ("Napoli Nord - Capua 7.9 EUR", 41.5 km at ASPI's
-# rate where the stations are 19.6 km apart).
+# system km, as Autostrade per l'Italia's route calculator and toll form
+# count them (tools/tables/browser/it-aspi-routes.txt): Rome's Diramazione
+# Roma Nord ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km" from
+# Settebagni at the GRA) and Diramazione Roma Sud ("Roma Sud - Valmontone
+# 5.7 EUR - 30 km"); the A14's Ravenna branch east of the Ravenna barrier
+# ("Barriera Di Ravenna - Imola 7.2 EUR - 38 km" from Ravenna); the A26
+# north of the Lago Maggiore station to Gravellona Toce, at ASPI's mountain
+# rate ("Lago Maggiore - Arona 7.4 EUR - 33 km" from Gravellona Toce);
+# SATAP's A4 from Turin to the Rondissone barrier ("Torino Rondissone -
+# Santhia 15.3 EUR - 46 km"); the A1 from Naples to the Napoli Nord barrier
+# ("Napoli Nord - Capua 7.9 EUR", 41.5 km at ASPI's rate where the stations
+# are 19.6 km apart); the A24 from the Teramo barrier towards the coast
+# ("Teramo - San Gabriele Colledara 5.3 EUR - 21 km", the stations 9.5 km
+# apart); the A34 from the Villesse barrier to Gorizia ("Barriera Di
+# Villesse - Latisana 9.1 EUR - 48 km", about 31 km by the A4); and the A4
+# from the Trieste Lisert barrier to Sistiana ("Trieste Lisert - Latisana
+# 11 EUR - 58 km", the stations 47.4 km apart).
 TOLLED = {"IT": [
     ("Autostrade per l'Italia S.p.A.|A1dir", (12.50, 41.98, 12.62, 42.145), "A1dir Diramazione Roma Nord, GRA-Roma Nord barrier", None),
     ("Autostrade per l'Italia S.p.A.|A1dir", (12.595, 41.82, 12.66, 41.86), "A1dir Diramazione Roma Sud, GRA-Roma Sud barrier", None),
-    ("Strada dei Parchi S.p.A.|A24", (12.60, 41.91, 12.705, 41.935), "A24 Roma, GRA-Roma Est barrier", None),
     ("Autostrade per l'Italia S.p.A.|A14dir", (11.905, 44.38, 12.16, 44.435), "A14dir Ravenna-Ravenna barrier", None),
     ("Autostrade per l'Italia S.p.A.|A26", (8.42, 45.774, 8.55, 45.96), "A26 Gravellona Toce-Lago Maggiore", "Lago Maggiore"),
     ("SATAP S.p.A.|A4", (7.70, 45.11, 7.97, 45.245), "A4 Torino-Rondissone barrier", None),
     ("Autostrade per l'Italia S.p.A.|A1", (14.28, 40.84, 14.34, 40.98), "A1 Napoli-Napoli Nord barrier", None),
+    ("Strada dei Parchi S.p.A.|A24", (13.716, 42.596, 13.75, 42.67), "A24 Teramo barrier-Teramo", None),
+    ("Società Autostrade Alto Adriatico S.p.A.|A34", (13.43, 45.86, 13.61, 45.92), "A34 Villesse barrier-Gorizia", None),
+    ("Società Autostrade Alto Adriatico S.p.A.|A4", (13.58, 45.77, 13.645, 45.802), "A4 Trieste Lisert barrier-Sistiana", None),
+]}
+
+# Free stretches before a closed system's barrier that OSM tags toll=yes:
+# the motorway ways of an "operator|ref" whose every node lies in the box
+# don't count as toll motorway. Their barriers charge a fixed toll for
+# them and more (it-barriers' closed-system barrier tolls, from
+# Autostrade per l'Italia's toll form: tools/tables/browser/
+# it-aspi-closed-barriers.txt), so their km mustn't be charged again.
+UNTOLLED = {"IT": [
+    ("Autostrade per l'Italia S.p.A.|A1", (9.24, 45.3485, 9.31, 45.42), "A1 Milano-Milano Sud barrier"),
+    ("Milano Serravalle - Milano Tangenziali S.p.A.|A7", (9.13, 45.3885, 9.18, 45.44), "A7 Milano-Milano Ovest barrier"),
+    ("Autostrade per l'Italia S.p.A.|A4", (9.10, 45.50, 9.2688, 45.56), "A4 Milano Ghisolfa-Milano Est barriers"),
+    ("Strada dei Parchi S.p.A.|A24", (12.50, 41.90, 12.7033, 41.935), "A24 Roma-Roma Est barrier"),
 ]}
 
 
@@ -211,8 +230,10 @@ class Ways(osmium.SimpleHandler):
         self.split_at = {}
         # FREE stretches: (ref, axis, low, high, label); km left out by label.
         self.free, self.free_km = [], Counter()
-        # TOLLED: (operator|ref, box, label); km counted in by label.
+        # TOLLED: (operator|ref, box, label, suffix); km counted in by label.
         self.tolled, self.tolled_km = [], Counter()
+        # UNTOLLED: (operator|ref, box, label); km left out by label.
+        self.untolled_boxes, self.untolled_km = [], Counter()
         # Toll-rule countries: km of motorway tagged toll=no by operator|ref
         # and 0.05-degree cell, reported where the operator tolls elsewhere.
         self.untolled = Counter()
@@ -240,6 +261,19 @@ class Ways(osmium.SimpleHandler):
                     if hit and len(pts) >= 2:
                         c, suffix = "mw", hit[0][1]
                         self.tolled_km[hit[0][0]] += LineString(pts).length * 111.32 * 0.68
+            if c == "mw" and self.untolled_boxes:
+                key = f"{(tags.get('operator') or '').strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
+                boxes = [(box, lab) for k, box, lab in self.untolled_boxes if k == key]
+                if boxes:
+                    try:
+                        pts = [(n.lon, n.lat) for n in w.nodes]
+                    except osmium.InvalidLocationError:
+                        return
+                    hit = [lab for (a, b, x1, y1), lab in boxes if pts and all(a <= x <= x1 and b <= y <= y1 for x, y in pts)]
+                    if hit:
+                        if len(pts) >= 2:
+                            self.untolled_km[hit[0]] += LineString(pts).length * 111.32 * 0.68
+                        return
             if c is None and hw == "motorway" and self.rule.get("operator") and tags.get("toll") == "no" and tags.get("operator"):
                 try:
                     ls = LineString([(n.lon, n.lat) for n in w.nodes])
@@ -347,6 +381,7 @@ def main(cc, src, dst, areas=None):
             h.free.append((ref, axis, lo, hi, label))
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
     h.tolled = list(TOLLED.get(cc, []))
+    h.untolled_boxes = list(UNTOLLED.get(cc, []))
     h.apply_file(src, locations=True)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
@@ -356,6 +391,8 @@ def main(cc, src, dst, areas=None):
         if not h.tolled_km[label]:
             sys.exit(f"{cc}: no toll=no ways of {key} in {box} ({label})")
         print(cc, "counted as toll motorway (both carriageways):", label, round(h.tolled_km[label], 1), "km")
+    for key, box, label in h.untolled_boxes:
+        print(cc, "left out as free before a barrier (both carriageways):", label, round(h.untolled_km[label], 1), "km")
     for label, km in h.free_km.items():
         print(cc, "left out km (both carriageways):", label, round(km))
     if urban is not None:

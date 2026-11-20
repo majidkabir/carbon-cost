@@ -154,21 +154,32 @@ FREE = {"PL": [
 ]}
 
 
-# Toll motorway OSM tags toll=no: the motorway ways of an "operator|ref"
-# whose every node lies in the box (lon, lat, lon, lat) count as tolled.
-# Rome's branches whose barrier charges the km from the GRA as closed-
-# system km (Autostrade per l'Italia's route calculator, tools/tables/
-# browser/it-aspi-routes.txt): the Diramazione Roma Nord (A1dir) to the
-# Roma Nord barrier ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km"
-# from Settebagni), most of whose ways OSM tags toll=no; the Diramazione
-# Roma Sud (A1dir) to the Roma Sud barrier ("Roma Sud - Valmontone 5.7 EUR
-# - 30 km") and the A24 to the Roma Est barrier ("Roma Est - Tivoli 5.3 EUR
-# - 21 km" from Settecamini), one carriageway of each tagged toll=no for
-# 3-4 km.
+# Toll motorway OSM tags toll=no: the motorway ways tagged toll=no of an
+# "operator|ref" whose every node lies in the box (lon, lat, lon, lat)
+# count as tolled (with "|suffix" on their operator key when one is given,
+# for a stretch with its own rate). Each is a free stretch at the end of a
+# closed system whose barrier or end station charges its km as closed-
+# system km, as Autostrade per l'Italia's route calculator counts them
+# (tools/tables/browser/it-aspi-routes.txt): Rome's Diramazione Roma Nord
+# ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km" from Settebagni at
+# the GRA) and Diramazione Roma Sud ("Roma Sud - Valmontone 5.7 EUR -
+# 30 km") and the A24 to the Roma Est barrier ("Roma Est - Tivoli 5.3 EUR -
+# 21 km" from Settecamini); the A14's Ravenna branch east of the Ravenna
+# barrier ("Barriera Di Ravenna - Imola 7.2 EUR - 38 km" from Ravenna);
+# the A26 north of the Lago Maggiore station to Gravellona Toce, at ASPI's
+# mountain rate ("Lago Maggiore - Arona 7.4 EUR - 33 km" from Gravellona
+# Toce); SATAP's A4 from Turin to the Rondissone barrier ("Torino
+# Rondissone - Santhia 15.3 EUR - 46 km"); and the A1 from Naples to the
+# Napoli Nord barrier ("Napoli Nord - Capua 7.9 EUR", 41.5 km at ASPI's
+# rate where the stations are 19.6 km apart).
 TOLLED = {"IT": [
-    ("Autostrade per l'Italia S.p.A.|A1dir", (12.50, 41.98, 12.62, 42.145), "A1dir Diramazione Roma Nord, GRA-Roma Nord barrier"),
-    ("Autostrade per l'Italia S.p.A.|A1dir", (12.595, 41.82, 12.66, 41.86), "A1dir Diramazione Roma Sud, GRA-Roma Sud barrier"),
-    ("Strada dei Parchi S.p.A.|A24", (12.60, 41.91, 12.705, 41.935), "A24 Roma, GRA-Roma Est barrier"),
+    ("Autostrade per l'Italia S.p.A.|A1dir", (12.50, 41.98, 12.62, 42.145), "A1dir Diramazione Roma Nord, GRA-Roma Nord barrier", None),
+    ("Autostrade per l'Italia S.p.A.|A1dir", (12.595, 41.82, 12.66, 41.86), "A1dir Diramazione Roma Sud, GRA-Roma Sud barrier", None),
+    ("Strada dei Parchi S.p.A.|A24", (12.60, 41.91, 12.705, 41.935), "A24 Roma, GRA-Roma Est barrier", None),
+    ("Autostrade per l'Italia S.p.A.|A14dir", (11.905, 44.38, 12.16, 44.435), "A14dir Ravenna-Ravenna barrier", None),
+    ("Autostrade per l'Italia S.p.A.|A26", (8.42, 45.774, 8.55, 45.96), "A26 Gravellona Toce-Lago Maggiore", "Lago Maggiore"),
+    ("SATAP S.p.A.|A4", (7.70, 45.11, 7.97, 45.245), "A4 Torino-Rondissone barrier", None),
+    ("Autostrade per l'Italia S.p.A.|A1", (14.28, 40.84, 14.34, 40.98), "A1 Napoli-Napoli Nord barrier", None),
 ]}
 
 
@@ -210,24 +221,25 @@ class Ways(osmium.SimpleHandler):
         tags = {t.k: t.v for t in w.tags}
         hw = tags.get("highway", "")
         sec = self.sections.get(w.id)
+        suffix = None
         if sec:
             c, f = sec
         else:
             if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary"):
                 return
             c, f = classify(self.rule, tags), -1
-            if c is None and hw == "motorway" and self.tolled:
+            if c is None and hw == "motorway" and self.tolled and tags.get("toll") == "no":
                 key = f"{(tags.get('operator') or '').strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
-                boxes = [(box, lab) for k, box, lab in self.tolled if k == key]
+                boxes = [(box, lab, suf) for k, box, lab, suf in self.tolled if k == key]
                 if boxes:
                     try:
                         pts = [(n.lon, n.lat) for n in w.nodes]
                     except osmium.InvalidLocationError:
                         return
-                    hit = [lab for (a, b, x1, y1), lab in boxes if pts and all(a <= x <= x1 and b <= y <= y1 for x, y in pts)]
+                    hit = [(lab, suf) for (a, b, x1, y1), lab, suf in boxes if pts and all(a <= x <= x1 and b <= y <= y1 for x, y in pts)]
                     if hit and len(pts) >= 2:
-                        c = "mw"
-                        self.tolled_km[hit[0]] += LineString(pts).length * 111.32 * 0.68
+                        c, suffix = "mw", hit[0][1]
+                        self.tolled_km[hit[0][0]] += LineString(pts).length * 111.32 * 0.68
             if c is None and hw == "motorway" and self.rule.get("operator") and tags.get("toll") == "no" and tags.get("operator"):
                 try:
                     ls = LineString([(n.lon, n.lat) for n in w.nodes])
@@ -269,7 +281,9 @@ class Ways(osmium.SimpleHandler):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
                     op = f"{op}|{ref}" if op else ""
-                    if op in self.split_at and piece.centroid.x > self.split_at[op][0]:
+                    if op and suffix:
+                        op = f"{op}|{suffix}"
+                    elif op in self.split_at and piece.centroid.x > self.split_at[op][0]:
                         op = f"{op}|{self.split_at[op][1]}"
                     if op and op not in self.op_index:
                         self.op_index[op] = len(self.ops)
@@ -338,7 +352,7 @@ def main(cc, src, dst, areas=None):
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:
             print(cc, "motorway tagged toll=no of a tolling operator:", key, f"near {y:.2f},{x:.2f}", round(km, 1), "km")
-    for key, box, label in h.tolled:
+    for key, box, label, suffix in h.tolled:
         if not h.tolled_km[label]:
             sys.exit(f"{cc}: no toll=no ways of {key} in {box} ({label})")
         print(cc, "counted as toll motorway (both carriageways):", label, round(h.tolled_km[label], 1), "km")

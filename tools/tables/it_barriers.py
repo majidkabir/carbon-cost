@@ -98,6 +98,7 @@ CLOSED = [
     ((1, 681), "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "A22 Brennero-Modena, Brennero barrier"),
     ((1, 351), "Autostrada dei Fiori S.p.A.|A6", "A6 Torino-Savona, Barriera di Torino barrier"),
     ((1, 545), "Autostrade per l'Italia S.p.A.|A23|mountain", "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier"),
+    ((1, 528), "Autostrade per l'Italia S.p.A.|A27|mountain", "A27 Venezia-Belluno, Belluno barrier"),
 ]
 CLOSED_CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-closed-barriers.txt")
 
@@ -296,7 +297,7 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=()):
         law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
                 + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
-        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio)"
+        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     law += "Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5)."
     sources.append({"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"})

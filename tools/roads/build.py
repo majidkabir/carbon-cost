@@ -201,6 +201,7 @@ UNTOLLED = {"IT": [
     ("Strada dei Parchi S.p.A.|A24", (12.50, 41.90, 12.7033, 41.935), "A24 Roma-Roma Est barrier"),
     ("Autostrade per l'Italia S.p.A.|A16", (14.32, 40.90, 14.4705, 40.93), "A16 Napoli-Napoli Est barrier"),
     ("Autostrade per l'Italia S.p.A.|A30", (14.7273, 40.76, 14.79, 40.7725), "A30 Salerno barrier-Salerno"),
+    ("Autostrada del Brennero S.p.A.|A22", (11.42, 46.8856, 11.52, 47.006), "A22 Brenner Pass-Brennero barrier"),
 ]}
 
 

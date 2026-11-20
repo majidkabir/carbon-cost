@@ -1,0 +1,21 @@
+{
+ "files": [
+  {
+   "file": "al-gap-llogara.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2840.12%2C19.45%2C40.30%2C19.70%29%3Bnode%5B%22highway%22%3D%22toll_gantry%22%5D%2840.12%2C19.45%2C40.30%2C19.70%29%3Bway%5B%22tunnel%22%5D%5B%22highway%22%5D%2840.12%2C19.45%2C40.30%2C19.70%29%3Bway%5B%22highway%22~%22trunk%7Cprimary%22%5D%2840.17%2C19.52%2C40.25%2C19.62%29%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 103575,
+   "sha256": "094d1763e0a5b70f70da759da8f6057865dba076b3a98f7e5da0d7c7bdf2e96c",
+   "fetched": "2026-11-20T16:16:44Z"
+  },
+  {
+   "file": "al-gap-thumane.json",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2841.30%2C19.60%2C41.50%2C19.82%29%3Bnode%5B%22highway%22%3D%22toll_gantry%22%5D%2841.30%2C19.60%2C41.50%2C19.82%29%3Bway%5B%22highway%22~%22motorway%7Cmotorway_link%7Ctrunk%22%5D%2841.30%2C19.60%2C41.50%2C19.82%29%3B%29%3Bout%20geom%20tags%3B",
+   "status": 200,
+   "size": 358336,
+   "sha256": "c0ee17500b7e8569cc57c9f28ef10ef705c8e9001c77d94ea403f71b41a444fd",
+   "fetched": "2026-11-20T16:13:18Z"
+  }
+ ],
+ "errors": []
+}

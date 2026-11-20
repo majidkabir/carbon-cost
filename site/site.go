@@ -1,7 +1,8 @@
 // Package site renders public pages on truck tolls from the rate tables
 // (package tariffs): a page per country (/tolls/<cc>), an overview
 // (/tolls), pages across countries (zero-emission trucks, ETS2 per litre
-// of diesel, national CO2 taxes on diesel), share images, a sitemap and
+// of diesel, national CO2 taxes on diesel, the EU and UK ETS on ferry
+// crossings), share images, a sitemap and
 // robots.txt. Every figure comes from the embedded datasets, priced by the
 // calculator's own code (package orct), so the pages follow the data the
 // workflows commit. Pages are built for the day of the request (rates in
@@ -24,6 +25,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/cost"
+	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/tariffs"
 )
@@ -39,6 +41,7 @@ type Site struct {
 	base   string // public URL of the service's root, without a trailing slash
 	prefix string // its path, e.g. "/carbon-cost"
 	set    *tariffs.Set
+	fd     ferries.Data
 	now    func() time.Time
 	tmpl   *template.Template
 	locs   map[string]*Loc
@@ -88,7 +91,11 @@ func New(set *tariffs.Set, base string, now func() time.Time) (*Site, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, now: now, tmpl: t, locs: locs}, nil
+	fd, err := ferries.Load()
+	if err != nil {
+		return nil, err
+	}
+	return &Site{base: base, prefix: strings.TrimRight(u.Path, "/"), set: set, fd: fd, now: now, tmpl: t, locs: locs}, nil
 }
 
 // Register adds the pages to the mux.

@@ -179,6 +179,7 @@ jobs:
           run python3 tools/tables/al.py out out/tables
           run python3 tools/tables/ba_rs.py tools/tables/transcribed out out/tables
           run python3 tools/tables/md.py out out/tables
+          run python3 tools/tables/no_charge.py out out/tables
           run python3 tools/tables/es_regional.py out out/tables
           run python3 tools/tables/es_basque.py out out/tables
           run python3 tools/tables/es_ap53.py out out/tables

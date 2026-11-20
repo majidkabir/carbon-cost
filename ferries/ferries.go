@@ -31,6 +31,9 @@ type Point struct {
 	// Country is the port's state (ISO 3166-1 alpha-2), for the share
 	// of a voyage's emissions under the EU ETS.
 	Country string `json:"country,omitempty"`
+	// Region is the UK nation of a UK port (ISO 3166-2: GB-NIR, GB-SCT),
+	// for the UK ETS's share and its Scottish ferry services.
+	Region string `json:"region,omitempty"`
 }
 
 // Ship is a ship on a crossing.
@@ -318,6 +321,42 @@ type Coverage struct {
 // DirectiveURL is the EU ETS Directive, consolidated.
 const DirectiveURL = "https://eur-lex.europa.eu/eli/dir/2003/87/oj"
 
+// UKETSStart is when the UK ETS covers domestic maritime voyages (The
+// Greenhouse Gas Emissions Trading Scheme (Amendment) (Extension to
+// Maritime Activities) Order 2026, SI 2026/392, art. 1).
+var UKETSStart = time.Date(2026, 7, 1, 0, 0, 0, 0, time.UTC)
+
+// UKETSLaw names the UK ETS's maritime provisions.
+const UKETSLaw = "Greenhouse Gas Emissions Trading Scheme Order 2020, Schedule 2A, as inserted by SI 2026/392"
+
+// UKCoverage is the crossing's share of a voyage's emissions under the UK
+// ETS on day, for a crossing between two UK ports (applies is false
+// otherwise): from 1 July 2026, 100% of a domestic voyage and 50% of one
+// between Northern Ireland and Great Britain (Schedule 2A, para 15(1));
+// none on a ship that operates a Scottish ferry service, between points in
+// Scotland (para 5(1)(k), (3)), or one under 5,000 GT (para 5(1)), which
+// the EU MRV reports can't tell for a voyage within the UK.
+func (d Data) UKCoverage(c Crossing, day time.Time) (cov Coverage, applies bool) {
+	if len(c.Terminals) != 2 || c.Terminals[0].Country != "GB" || c.Terminals[1].Country != "GB" {
+		return Coverage{}, false
+	}
+	a, b := c.Terminals[0].Region, c.Terminals[1].Region
+	switch {
+	case day.Before(UKETSStart):
+		return Coverage{Basis: "the UK ETS covers maritime emissions from 1 July 2026 (SI 2026/392)"}, true
+	case a == "GB-SCT" && b == "GB-SCT":
+		return Coverage{Basis: "a Scottish ferry service, between points in Scotland, is outside the UK ETS (" + UKETSLaw + ", para 5(1)(k))"}, true
+	case (a == "GB-NIR") != (b == "GB-NIR"):
+		cov = Coverage{Share: 0.5, Basis: "50% of its emissions: a voyage between Northern Ireland and Great Britain (" + UKETSLaw + ", para 15(1)(a))"}
+	default:
+		cov = Coverage{Share: 1, Basis: "100% of its emissions: a voyage between UK ports (" + UKETSLaw + ", para 15(1)(b))"}
+	}
+	if len(c.Ships) == 0 {
+		cov.Note = fmt.Sprintf("its ships aren't known here: a crossing on one under %d GT is outside the UK ETS", ETSMinGT)
+	}
+	return cov, true
+}
+
 // Coverage is the crossing's ETS coverage for a voyage on day: none on
 // ships under 5,000 GT (Annex I) or under a derogation in force; 100%
 // between two ports under the jurisdiction of a Member State (EU or EEA),
@@ -329,8 +368,11 @@ func (d Data) Coverage(c Crossing, day time.Time) (Coverage, bool) {
 		return Coverage{Basis: fmt.Sprintf("its ships are under %d GT, outside the EU ETS (Directive 2003/87/EC, Annex I): %s", ETSMinGT, why)}, true
 	}
 	cov, ok := c.portCoverage(day)
-	if small > 0 {
+	switch {
+	case small > 0:
 		cov.Note = fmt.Sprintf("some of its ships are under %d GT (%s): a crossing on one of them is outside the EU ETS", ETSMinGT, why)
+	case len(c.Ships) == 0 && cov.Share > 0:
+		cov.Note = fmt.Sprintf("its ships aren't known here: a crossing on one under %d GT is outside the EU ETS", ETSMinGT)
 	}
 	return cov, ok
 }

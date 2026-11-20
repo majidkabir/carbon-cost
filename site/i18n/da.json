@@ -36,6 +36,7 @@
  "how.area": "pr. dag i en zone",
  "how.fuel": "CO2-pris på brændstof",
  "how.fuelonly": "kun CO2-pris på brændstof",
+ "how.none": "ingen vejafgift eller vignet",
  "c.h1.km": "Vejafgift for lastbiler i {country} {year}{local}: satser pr. km efter vægt, Euro- og CO2-klasse",
  "c.h1.fuel": "CO2-afgift på diesel i {country} {year}: satsen pr. liter for lastbiler",
  "c.h1.other": "Vejafgift for lastbiler i {country} {year}{local}: {how} for lastbiler over 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2-del {share})",
  "c.desc.other": "Vejafgift for lastbiler over 3,5 t i {country} {year}{local}: {how}{size}, efter loven og de officielle takster.{top} Fulde taksttabeller, historik, kommende ændringer og loven bag hver sats.",
  "c.desc.fuel": "CO2-afgift på diesel i {country} {year} efter loven: {rate} ({perl} pr. liter), historikken og kommende ændringer.",
+ "c.desc.none": "{country} har ingen vejafgift eller vignet for lastbiler i {year}, som den ansvarlige myndighed oplyser: dens udsagn og kilden til det.",
  "c.size.od": "{stations} betalingsstationer og {trips} strækninger",
  "c.size.points": "{n} betalingssteder, broer og tunneler",
  "c.top": "En 40 t Euro VI-lastbil betaler op til {amount} for én tur eller passage.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Pr. ton CO2 er omregnet til pr. liter med {kg} kg CO2 pr. liter diesel (EN 16258:2012, bilag A). Andre valutaer til ECB's referencekurs (DKK til ERM II-centralkursen).",
  "x.fuel.note2": "Beregneren lægger dem på det brændstof, en tur bruger i hvert land (eller hvor du angiver, at brændstoffet købes).",
  "x.fuel.card.note": "CO2-prisen pr. liter diesel, fra loven",
- "cr.vehicles": "Køretøjer {x}"
+ "cr.vehicles": "Køretøjer {x}",
+ "x.ferry.link": "EU ETS og UK ETS på færgeoverfarter"
 }

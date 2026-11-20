@@ -36,6 +36,7 @@
  "how.area": "për ditë në një zonë",
  "how.fuel": "çmimi i CO2 në karburant",
  "how.fuelonly": "vetëm çmimi i CO2 në karburant",
+ "how.none": "pa pagesë rrugore apo vinjetë",
  "c.h1.km": "{country}: pagesa rrugore për kamionët {year}{local} – tarifa për km sipas peshës, klasës Euro dhe klasës CO2",
  "c.h1.fuel": "{country}: taksa e CO2 mbi naftën {year} – tarifa për litër për kamionët",
  "c.h1.other": "{country}: pagesat rrugore për kamionët {year}{local} – {how} për mjetet mbi 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (pjesa e CO2 {share})",
  "c.desc.other": "{country}: pagesat rrugore për kamionët mbi 3,5 t {year}{local} – {how}{size}, sipas ligjit dhe tarifave zyrtare.{top} Tabela të plota tarifore, historiku, ndryshimet e ardhshme dhe ligji pas çdo tarife.",
  "c.desc.fuel": "{country}: taksa e CO2 mbi naftën {year} sipas ligjit – {rate} ({perl} për litër), historiku dhe ndryshimet e ardhshme.",
+ "c.desc.none": "{country} nuk ka pagesë rrugore apo vinjetë për kamionët në {year}, siç deklaron autoriteti përgjegjës: deklarata e tij dhe burimi i saj.",
  "c.size.od": "{stations} stacione pagese dhe {trips} itinerare",
  "c.size.points": "{n} pika pagese, ura dhe tunele",
  "c.top": "Një kamion 40 t Euro VI paguan deri në {amount} për një udhëtim ose kalim.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Tarifat për ton CO2 konvertohen për litër me {kg} kg CO2 për litër naftë (EN 16258:2012, shtojca A). Monedhat e tjera me kursin e referencës së BQE-së (DKK me kursin qendror të ERM II).",
  "x.fuel.note2": "Llogaritësi i aplikon ato mbi karburantin që një udhëtim djeg në çdo vend (ose aty ku tregoni se blihet karburanti).",
  "x.fuel.card.note": "çmimi i CO2 për litër naftë, nga ligji",
- "cr.vehicles": "Mjetet {x}"
+ "cr.vehicles": "Mjetet {x}",
+ "x.ferry.link": "EU ETS dhe UK ETS në linjat e trageteve"
 }

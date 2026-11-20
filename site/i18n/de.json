@@ -36,6 +36,7 @@
  "how.area": "pro Tag in einer Zone",
  "how.fuel": "CO2-Preis auf Kraftstoff",
  "how.fuelonly": "nur CO2-Preis auf Kraftstoff",
+ "how.none": "keine Maut und keine Vignette",
  "c.h1.km": "Lkw-Maut {country} {year}{local}: Mautsätze pro km nach Gewicht, Euro- und CO2-Klasse",
  "c.h1.fuel": "CO2-Steuer auf Diesel {country} {year}: der Satz pro Liter für Lkw",
  "c.h1.other": "Lkw-Maut {country} {year}{local}: {how} für Lkw über 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2-Anteil {share})",
  "c.desc.other": "Lkw-Maut {country} {year}{local} für Lkw über 3,5 t: {how}{size}, aus dem Gesetz und den amtlichen Tarifen.{top} Vollständige Tariftabellen, Geschichte, kommende Änderungen und das Gesetz hinter jedem Satz.",
  "c.desc.fuel": "CO2-Steuer auf Diesel {country} {year} laut Gesetz: {rate} ({perl} pro Liter), ihre Geschichte und kommende Änderungen.",
+ "c.desc.none": "{country} erhebt {year} keine Maut und keine Vignette für Lkw, wie die zuständige Behörde angibt: ihre Angabe und deren Quelle.",
  "c.size.od": "{stations} Mautstellen und {trips} Strecken",
  "c.size.points": "{n} Mautstellen, Brücken und Tunnel",
  "c.top": "Ein 40-t-Lkw Euro VI zahlt bis zu {amount} für eine Fahrt oder Durchfahrt.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Pro Tonne CO2 ist mit {kg} kg CO2 pro Liter Diesel (EN 16258:2012, Anhang A) in pro Liter umgerechnet. Andere Währungen zum EZB-Referenzkurs (DKK zum WKM-II-Leitkurs).",
  "x.fuel.note2": "Der Rechner berechnet diese auf den Kraftstoff, den eine Fahrt in jedem Land verbraucht (oder dort, wo Sie den Kauf angeben).",
  "x.fuel.card.note": "der CO2-Preis pro Liter Diesel, aus dem Gesetz",
- "cr.vehicles": "Fahrzeuge {x}"
+ "cr.vehicles": "Fahrzeuge {x}",
+ "x.ferry.link": "EU-ETS und UK-ETS auf Fährverbindungen"
 }

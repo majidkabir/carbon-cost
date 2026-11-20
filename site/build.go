@@ -3,6 +3,7 @@ package site
 import (
 	"fmt"
 	"html/template"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -104,6 +105,9 @@ type countryData struct {
 
 // kindHows are a scheme's ways of charging (message ids).
 func kindHows(ds *tariffs.Dataset) []string {
+	if ds.Doc.NoCharge != nil {
+		return []string{"how.none"}
+	}
 	seen := map[string]bool{}
 	var hows []string
 	for i := range ds.Doc.Charges {
@@ -442,10 +446,14 @@ type crossView struct {
 }
 
 // Cross-country pages: their paths and title messages.
-var crossPages = []struct{ Path, Title string }{
-	{"/tolls/zero-emission-trucks", "x.ze.link"},
-	{"/tolls/ets2-diesel", "x.ets2.link"},
-	{"/tolls/co2-tax-diesel", "x.fuel.link"},
+var crossPages = []struct {
+	Path, Title string
+	EnglishOnly bool
+}{
+	{"/tolls/zero-emission-trucks", "x.ze.link", false},
+	{"/tolls/ets2-diesel", "x.ets2.link", false},
+	{"/tolls/co2-tax-diesel", "x.fuel.link", false},
+	{ferryPath, "x.ferry.link", true},
 }
 
 // trips are a trip in each country for the calculator's "price your trip".
@@ -643,6 +651,11 @@ func countryHows(d *countryData) []string {
 			}
 		}
 	}
+	// A statement that the roads are free, beside a tunnel's or a bridge's
+	// toll: the tolls are how the country charges.
+	if len(out) > 1 {
+		out = slices.DeleteFunc(out, func(h string) bool { return h == "how.none" })
+	}
 	return out
 }
 
@@ -683,7 +696,9 @@ func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, 
 			sv.To = l.Date(ds.ValidTo)
 		}
 		sv.Liable = ds.Doc.Liable.Description
-		if l.Code != "en" && len(ds.Doc.Liable.Criteria) > 0 {
+		if ds.Doc.NoCharge != nil {
+			sv.Liable = ""
+		} else if l.Code != "en" && len(ds.Doc.Liable.Criteria) > 0 {
 			sv.Liable = l.criteria(ds.Doc.Liable.Criteria)
 			if r := []rune(sv.Liable); len(r) > 0 && !unicode.IsLetter(r[0]) {
 				sv.Liable = l.T("cr.vehicles", "x", sv.Liable)
@@ -819,6 +834,9 @@ func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, 
 			co2 = l.T("c.desc.co2", "share", row.Share)
 		}
 		v.Lead = l.T("c.desc.km", "country", name, "year", year, "local", loc, "rate", row.Rate, "co2", co2)
+	case len(hows) == 1 && hows[0] == "how.none":
+		v.H1 = l.T("c.h1.other", "country", name, "year", year, "local", "", "how", row.How)
+		v.Lead = l.T("c.desc.none", "country", name, "year", year)
 	case fuelOnly && len(v.Fuel) > 0:
 		v.H1 = l.T("c.h1.fuel", "country", name, "year", year)
 		v.Lead = l.T("c.desc.fuel", "country", name, "year", year, "rate", v.Fuel[0].Rate, "perl", v.Fuel[0].PerLitre)
@@ -975,7 +993,7 @@ func (s *Site) buildLang(lang string, langs []string, cs []*country, data map[st
 	}
 	for _, x := range crossPages {
 		cl := lang
-		if !crossIn(lang) {
+		if !crossIn(lang) || x.EnglishOnly {
 			cl = "en"
 		}
 		others = append(others, link{l.T(x.Title), s.prefix + s.pagePath(cl, x.Path)})
@@ -1018,6 +1036,11 @@ func (s *Site) buildLang(lang string, langs []string, cs []*country, data map[st
 		v.Others, v.Countries = others, countryLinks
 		v.Alternates = s.alternates(langs, p.path, crossIn)
 		add(s.pagePath(lang, p.path), s.render("cross.html", v), cd, day)
+	}
+	if lang == "en" {
+		v, cd := s.ferryPage(l, day, today)
+		v.Others, v.Countries = others, countryLinks
+		add(ferryPath, s.render("cross.html", v), cd, day)
 	}
 	return b
 }

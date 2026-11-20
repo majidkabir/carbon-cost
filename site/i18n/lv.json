@@ -36,6 +36,7 @@
  "how.area": "par dienu zonā",
  "how.fuel": "CO2 cena degvielai",
  "how.fuelonly": "tikai CO2 cena degvielai",
+ "how.none": "nav ceļa nodevas vai vinjetes",
  "c.h1.km": "{country}: kravas automašīnu ceļu nodeva {year}{local} – likmes par km pēc masas, Euro klases un CO2 klases",
  "c.h1.fuel": "{country}: CO2 nodoklis dīzeļdegvielai {year} – likme par litru kravas automašīnām",
  "c.h1.other": "{country}: kravas automašīnu ceļu nodevas {year}{local} – {how} transportlīdzekļiem virs 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2 daļa {share})",
  "c.desc.other": "{country}: ceļu nodevas kravas automašīnām virs 3,5 t {year}{local} – {how}{size}, saskaņā ar likumu un oficiālajiem tarifiem.{top} Pilnas tarifu tabulas, vēsture, gaidāmās izmaiņas un likums aiz katras likmes.",
  "c.desc.fuel": "{country}: CO2 nodoklis dīzeļdegvielai {year} saskaņā ar likumu – {rate} ({perl} par litru), tā vēsture un gaidāmās izmaiņas.",
+ "c.desc.none": "{country}: {year}. gadā kravas automašīnām nav ceļa nodevas vai vinjetes, kā norāda atbildīgā iestāde: tās paziņojums un avots.",
  "c.size.od": "maksas punkti: {stations}, maršruti: {trips}",
  "c.size.points": "maksas vietas, tilti un tuneļi: {n}",
  "c.top": "40 t Euro VI kravas automašīna par vienu braucienu vai šķērsošanu maksā līdz {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Likmes par tonnu CO2 pārrēķinātas par litru, pieņemot {kg} kg CO2 uz dīzeļdegvielas litru (EN 16258:2012, A pielikums). Citas valūtas pēc ECB atsauces kursa (DKK pēc ERM II centrālā kursa).",
  "x.fuel.note2": "Kalkulators tās piemēro degvielai, ko brauciens patērē katrā valstī (vai tur, kur norādāt degvielas iegādi).",
  "x.fuel.card.note": "CO2 cena par dīzeļdegvielas litru, no likuma",
- "cr.vehicles": "Transportlīdzekļi {x}"
+ "cr.vehicles": "Transportlīdzekļi {x}",
+ "x.ferry.link": "EU ETS un UK ETS prāmju līnijās"
 }

@@ -36,6 +36,7 @@
  "how.area": "po danu u zoni",
  "how.fuel": "cijena CO2 u gorivu",
  "how.fuelonly": "samo cijena CO2 u gorivu",
+ "how.none": "nema cestarine ni vinjete",
  "c.h1.km": "{country}: cestarina za kamione {year}{local} – iznosi po km prema masi, razredu Euro i razredu CO2",
  "c.h1.fuel": "{country}: porez na CO2 na dizel {year} – iznos po litri za kamione",
  "c.h1.other": "{country}: cestarine za kamione {year}{local} – {how} za vozila iznad 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (udio CO2 {share})",
  "c.desc.other": "{country}: cestarine za kamione iznad 3,5 t {year}{local} – {how}{size}, prema zakonu i službenim cjenicima.{top} Cijele tarifne tablice, povijest, nadolazeće promjene i zakon iza svakog iznosa.",
  "c.desc.fuel": "{country}: porez na CO2 na dizel {year} prema zakonu – {rate} ({perl} po litri), njegova povijest i nadolazeće promjene.",
+ "c.desc.none": "{country} nema cestarinu ni vinjetu za kamione u {year}., kako navodi nadležno tijelo: njegova izjava i izvor.",
  "c.size.od": "naplatne postaje: {stations}, relacije: {trips}",
  "c.size.points": "naplatna mjesta, mostovi i tuneli: {n}",
  "c.top": "Kamion od 40 t Euro VI za jednu vožnju ili prolaz plaća do {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Iznosi po toni CO2 preračunati su po litri uz {kg} kg CO2 po litri dizela (EN 16258:2012, Prilog A). Druge valute po referentnom tečaju ESB-a (DKK po središnjem tečaju ERM II).",
  "x.fuel.note2": "Kalkulator ih obračunava na gorivo koje vožnja potroši u svakoj zemlji (ili ondje gdje navedete da se gorivo kupuje).",
  "x.fuel.card.note": "cijena CO2 po litri dizela, iz zakona",
- "cr.vehicles": "Vozila {x}"
+ "cr.vehicles": "Vozila {x}",
+ "x.ferry.link": "EU ETS i UK ETS na trajektnim linijama"
 }

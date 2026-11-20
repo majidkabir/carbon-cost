@@ -36,6 +36,7 @@
  "how.area": "por dia numa zona",
  "how.fuel": "preço do CO2 no combustível",
  "how.fuelonly": "apenas preço do CO2 no combustível",
+ "how.none": "sem portagens nem vinheta",
  "c.h1.km": "Portagens de camiões {country} {year}{local}: tarifas por km por peso, classe Euro e classe de CO2",
  "c.h1.fuel": "Imposto de CO2 sobre o gasóleo {country} {year}: a tarifa por litro para camiões",
  "c.h1.other": "Portagens de camiões {country} {year}{local}: {how} para camiões com mais de 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (parte de CO2 {share})",
  "c.desc.other": "Portagens de camiões {country} {year}{local} para camiões com mais de 3,5 t: {how}{size}, segundo a lei e os tarifários oficiais.{top} Tabelas tarifárias completas, histórico, alterações previstas e a lei por trás de cada tarifa.",
  "c.desc.fuel": "Imposto de CO2 sobre o gasóleo ({country}, {year}) segundo a lei: {rate} ({perl} por litro), o seu histórico e as alterações previstas.",
+ "c.desc.none": "{country} não tem portagens nem vinheta para camiões em {year}, segundo a autoridade competente: a sua declaração e a fonte.",
  "c.size.od": "{stations} praças de portagem e {trips} percursos",
  "c.size.points": "{n} pontos de portagem, pontes e túneis",
  "c.top": "Um camião de 40 t Euro VI paga até {amount} por uma viagem ou passagem.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "O preço por tonelada de CO2 é convertido por litro a {kg} kg de CO2 por litro de gasóleo (EN 16258:2012, anexo A). Outras moedas à taxa de referência do BCE (DKK à taxa central do MTC II).",
  "x.fuel.note2": "A calculadora aplica-os ao combustível que uma viagem consome em cada país (ou onde indicar que é comprado).",
  "x.fuel.card.note": "o preço do CO2 por litro de gasóleo, segundo a lei",
- "cr.vehicles": "Veículos {x}"
+ "cr.vehicles": "Veículos {x}",
+ "x.ferry.link": "EU ETS e UK ETS nas travessias de ferry"
 }

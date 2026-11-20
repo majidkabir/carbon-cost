@@ -36,6 +36,7 @@
  "how.area": "za deň v zóne",
  "how.fuel": "cena CO2 v palive",
  "how.fuelonly": "iba cena CO2 v palive",
+ "how.none": "žiadne mýto ani diaľničná známka",
  "c.h1.km": "{country}: mýto pre nákladné vozidlá {year}{local} – sadzby za km podľa hmotnosti, triedy Euro a triedy CO2",
  "c.h1.fuel": "{country}: daň z CO2 na naftu {year} – sadzba za liter pre nákladné vozidlá",
  "c.h1.other": "{country}: mýto pre nákladné vozidlá {year}{local} – {how} pre vozidlá nad 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (podiel CO2 {share})",
  "c.desc.other": "{country}: mýto pre nákladné vozidlá nad 3,5 t {year}{local} – {how}{size}, podľa zákona a úradných cenníkov.{top} Úplné tarifné tabuľky, história, pripravované zmeny a zákon za každou sadzbou.",
  "c.desc.fuel": "{country}: daň z CO2 na naftu {year} podľa zákona – {rate} ({perl} za liter), jej história a pripravované zmeny.",
+ "c.desc.none": "{country} nemá v roku {year} pre nákladné vozidlá žiadne mýto ani diaľničnú známku, ako uvádza príslušný úrad: jeho vyhlásenie a zdroj.",
  "c.size.od": "mýtne stanice: {stations}, trasy: {trips}",
  "c.size.points": "mýtne miesta, mosty a tunely: {n}",
  "c.top": "Kamión 40 t Euro VI zaplatí za jednu jazdu alebo prejazd až {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Sadzby za tonu CO2 sú prepočítané na liter pri {kg} kg CO2 na liter nafty (EN 16258:2012, príloha A). Iné meny referenčným kurzom ECB (DKK centrálnou paritou ERM II).",
  "x.fuel.note2": "Kalkulačka ich započíta do paliva, ktoré jazda spotrebuje v každej krajine (alebo tam, kde uvediete, že sa palivo kupuje).",
  "x.fuel.card.note": "cena CO2 za liter nafty, zo zákona",
- "cr.vehicles": "Vozidlá {x}"
+ "cr.vehicles": "Vozidlá {x}",
+ "x.ferry.link": "EU ETS a UK ETS na trajektových linkách"
 }

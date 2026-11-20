@@ -36,6 +36,7 @@
  "how.area": "naponta egy zónában",
  "how.fuel": "CO2-ár az üzemanyagon",
  "how.fuelonly": "csak CO2-ár az üzemanyagon",
+ "how.none": "nincs útdíj és matrica",
  "c.h1.km": "{country}: kamionok útdíja {year}{local} – kilométerenkénti díjak tömeg, Euro- és CO2-osztály szerint",
  "c.h1.fuel": "{country}: a gázolaj CO2-adója {year} – literenkénti díj kamionokra",
  "c.h1.other": "{country}: kamionok útdíja {year}{local} – {how}, 3,5 t feletti járművekre",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2-rész: {share})",
  "c.desc.other": "{country}: 3,5 t feletti kamionok útdíja {year}{local} – {how}{size}, a jogszabály és a hivatalos díjszabások szerint.{top} Teljes díjtáblák, előzmények, várható változások és a jogszabály minden díj mögött.",
  "c.desc.fuel": "{country}: a gázolaj CO2-adója {year} a jogszabály szerint – {rate} (literenként {perl}), előzmények és várható változások.",
+ "c.desc.none": "{country}: {year}-ben nincs útdíj és matrica a kamionokra, ahogy az illetékes hatóság közli: a közlése és annak forrása.",
  "c.size.od": "díjfizető állomások: {stations}, útvonalak: {trips}",
  "c.size.points": "díjköteles pontok, hidak és alagutak: {n}",
  "c.top": "Egy 40 tonnás Euro VI kamion egy útért vagy áthaladásért legfeljebb {amount} összeget fizet.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "A CO2-tonnánkénti díjak literre vannak átszámítva, liter gázolajonként {kg} kg CO2-vel (EN 16258:2012, A. melléklet). Más pénznemek az EKB referencia-árfolyamán (DKK az ERM II középárfolyamán).",
  "x.fuel.note2": "A kalkulátor ezeket az út során az egyes országokban elhasznált üzemanyagra számítja fel (vagy ott, ahol megadja a tankolás helyét).",
  "x.fuel.card.note": "a gázolaj literenkénti CO2-ára, a jogszabályból",
- "cr.vehicles": "Járművek ({x})"
+ "cr.vehicles": "Járművek ({x})",
+ "x.ferry.link": "EU ETS és UK ETS a kompjáratokon"
 }

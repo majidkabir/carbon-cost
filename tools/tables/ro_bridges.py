@@ -72,8 +72,12 @@ def main(fetched, out):
         if length > longest.get((key, tags.get("oneway")), (0,))[0]:
             longest[(key, tags.get("oneway"))] = (length, lat, lon)
     pts = []
-    for (key, _), (length, lat, lon) in sorted(longest.items()):
+    for (key, oneway), (length, lat, lon) in sorted(longest.items()):
         if length < 0.8:
+            # A short piece tagged apart (another oneway) beside the bridge
+            # itself: left out; the bridge must be there.
+            if any(k == key and v[0] >= 0.8 for (k, _), v in longest.items()):
+                continue
             sys.exit(f"{key}: the bridge way is only {length:.2f} km")
         p = prices[key]
         pts.append({"name": f"Danube bridge {key}", "lat": lat, "lon": lon, "rate": 0, "classes": [

@@ -36,6 +36,7 @@
  "how.area": "päeva kohta tsoonis",
  "how.fuel": "kütuse CO2-hind",
  "how.fuelonly": "ainult kütuse CO2-hind",
+ "how.none": "teekasutustasu ega vinjetti pole",
  "c.h1.km": "{country}: veokite teekasutustasu {year}{local} – kilomeetritasud massi, Euro-klassi ja CO2-klassi järgi",
  "c.h1.fuel": "{country}: diislikütuse CO2-maks {year} – määr liitri kohta veokitele",
  "c.h1.other": "{country}: veokite teekasutustasud {year}{local} – {how} üle 3,5-tonnistele sõidukitele",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2 osa {share})",
  "c.desc.other": "{country}: üle 3,5-tonniste veokite teekasutustasud {year}{local} – {how}{size}, seaduse ja ametlike hinnakirjade järgi.{top} Täielikud tariifitabelid, ajalugu, tulevased muudatused ja iga määra aluseks olev seadus.",
  "c.desc.fuel": "{country}: diislikütuse CO2-maks {year} seaduse järgi – {rate} ({perl} liitri kohta), selle ajalugu ja tulevased muudatused.",
+ "c.desc.none": "{country}: {year}. aastal pole veokitele teekasutustasu ega vinjetti, nagu vastutav asutus kinnitab: selle teade ja allikas.",
  "c.size.od": "tasupunkte: {stations}, marsruute: {trips}",
  "c.size.points": "tasupunkte, sildu ja tunneleid: {n}",
  "c.top": "40-tonnine Euro VI veok maksab ühe sõidu või läbisõidu eest kuni {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "CO2 tonni kohta määrad on ümber arvutatud liitri kohta, arvestades {kg} kg CO2 diislikütuse liitri kohta (EN 16258:2012, lisa A). Muud valuutad EKP viitekursiga (DKK ERM II keskkursiga).",
  "x.fuel.note2": "Kalkulaator arvestab need kütusele, mille sõit igas riigis kulutab (või seal, kus märgite kütuse ostu).",
  "x.fuel.card.note": "diislikütuse CO2-hind liitri kohta, seadusest",
- "cr.vehicles": "Sõidukid {x}"
+ "cr.vehicles": "Sõidukid {x}",
+ "x.ferry.link": "EU ETS ja UK ETS parvlaevaliinidel"
 }

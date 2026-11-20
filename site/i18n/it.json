@@ -36,6 +36,7 @@
  "how.area": "al giorno in una zona",
  "how.fuel": "prezzo della CO2 sui carburanti",
  "how.fuelonly": "solo prezzo della CO2 sui carburanti",
+ "how.none": "nessun pedaggio né vignetta",
  "c.h1.km": "Pedaggio camion {country} {year}{local}: tariffe al km per peso, classe Euro e classe CO2",
  "c.h1.fuel": "Tassa CO2 sul gasolio {country} {year}: la tariffa al litro per i camion",
  "c.h1.other": "Pedaggi camion {country} {year}{local}: {how} per i camion oltre 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (quota CO2 {share})",
  "c.desc.other": "Pedaggi camion {country} {year}{local} per i camion oltre 3,5 t: {how}{size}, secondo la legge e i tariffari ufficiali.{top} Tabelle tariffarie complete, storia, modifiche in arrivo e la legge dietro ogni tariffa.",
  "c.desc.fuel": "Tassa CO2 sul gasolio ({country}, {year}) secondo la legge: {rate} ({perl} al litro), la sua storia e le modifiche in arrivo.",
+ "c.desc.none": "{country} non ha pedaggi né vignette per i camion nel {year}, come afferma l'autorità competente: la sua dichiarazione e la fonte.",
  "c.size.od": "{stations} caselli e {trips} percorsi",
  "c.size.points": "{n} punti di pedaggio, ponti e trafori",
  "c.top": "Un camion da 40 t Euro VI paga fino a {amount} per un viaggio o un passaggio.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Il prezzo per tonnellata di CO2 è convertito al litro con {kg} kg di CO2 per litro di gasolio (EN 16258:2012, allegato A). Le altre valute al tasso di riferimento BCE (DKK al tasso centrale AEC II).",
  "x.fuel.note2": "Il calcolatore le applica al carburante che un viaggio consuma in ciascun paese (o dove indichi l'acquisto).",
  "x.fuel.card.note": "il prezzo della CO2 per litro di gasolio, dalla legge",
- "cr.vehicles": "Veicoli {x}"
+ "cr.vehicles": "Veicoli {x}",
+ "x.ferry.link": "EU ETS e UK ETS sulle traversate in traghetto"
 }

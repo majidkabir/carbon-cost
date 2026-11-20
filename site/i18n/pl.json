@@ -36,6 +36,7 @@
  "how.area": "za dzień w strefie",
  "how.fuel": "cena CO2 w paliwie",
  "how.fuelonly": "tylko cena CO2 w paliwie",
+ "how.none": "brak opłat drogowych i winiety",
  "c.h1.km": "{country}: opłata drogowa dla ciężarówek {year}{local} – stawki za km według masy, klasy Euro i klasy CO2",
  "c.h1.fuel": "{country}: podatek CO2 od oleju napędowego {year} – stawka za litr dla ciężarówek",
  "c.h1.other": "{country}: opłaty drogowe dla ciężarówek {year}{local} – {how} dla pojazdów powyżej 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (część CO2: {share})",
  "c.desc.other": "{country}: opłaty drogowe dla ciężarówek powyżej 3,5 t {year}{local} – {how}{size}, według przepisów i oficjalnych taryf.{top} Pełne tabele taryfowe, historia, nadchodzące zmiany i przepis stojący za każdą stawką.",
  "c.desc.fuel": "{country}: podatek CO2 od oleju napędowego {year} według przepisów – {rate} ({perl} za litr), jego historia i nadchodzące zmiany.",
+ "c.desc.none": "{country}: w {year} r. brak opłat drogowych i winiety dla ciężarówek, jak podaje właściwy organ: jego oświadczenie i źródło.",
  "c.size.od": "punkty poboru opłat: {stations}, trasy: {trips}",
  "c.size.points": "punkty poboru opłat, mosty i tunele: {n}",
  "c.top": "Ciężarówka 40 t Euro VI płaci do {amount} za jeden przejazd.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Stawki za tonę CO2 przeliczono na litr przy {kg} kg CO2 na litr oleju napędowego (EN 16258:2012, załącznik A). Inne waluty po kursie referencyjnym EBC (DKK po kursie centralnym ERM II).",
  "x.fuel.note2": "Kalkulator nalicza je od paliwa, które trasa zużywa w każdym kraju (lub tam, gdzie podasz, że paliwo jest kupowane).",
  "x.fuel.card.note": "cena CO2 za litr oleju napędowego, z przepisów",
- "cr.vehicles": "Pojazdy {x}"
+ "cr.vehicles": "Pojazdy {x}",
+ "x.ferry.link": "EU ETS i UK ETS na przeprawach promowych"
 }

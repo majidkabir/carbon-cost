@@ -36,6 +36,7 @@
  "how.area": "fyri hvønn dag í einum øki",
  "how.fuel": "CO2-prísur á brennievni",
  "how.fuelonly": "bert CO2-prísur á brennievni",
+ "how.none": "einki vegagjald ella vignettur",
  "c.h1.km": "{country}: vegagjøld fyri lastbilar {year}{local} – gjøld fyri hvønn km eftir vekt, Euro-flokki og CO2-flokki",
  "c.h1.fuel": "{country}: CO2-avgjald á diesel {year} – gjaldið fyri hvønn litur fyri lastbilar",
  "c.h1.other": "{country}: vegagjøld fyri lastbilar {year}{local} – {how} fyri akfør yvir 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2-partur {share})",
  "c.desc.other": "{country}: vegagjøld fyri lastbilar yvir 3,5 t {year}{local} – {how}{size}, sambært lógini og almennu gjaldskránum.{top} Allar gjaldskrártalvur, søga, komandi broytingar og lógin aftan fyri hvørt gjald.",
  "c.desc.fuel": "{country}: CO2-avgjald á diesel {year} sambært lógini – {rate} ({perl} fyri hvønn litur), søgan og komandi broytingar.",
+ "c.desc.none": "{country}: einki vegagjald ella vignettur fyri lastbilar í {year}, sum ábyrgdarmyndugleikin sigur: frágreiðingin og keldan.",
  "c.size.od": "gjaldstøðir: {stations}, leiðir: {trips}",
  "c.size.points": "gjaldstøð, brýr og tunlar: {n}",
  "c.top": "Ein 40 t Euro VI-lastbilur gjaldar upp í {amount} fyri eina ferð.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Fyri hvørt tons av CO2 er umroknað til fyri hvønn litur við {kg} kg CO2 fyri hvønn litur av diesel (EN 16258:2012, viðhefti A). Onnur gjaldoyru eftir ávísingarkursi ECB (DKK eftir miðkursi ERM II).",
  "x.fuel.note2": "Roknarin leggur tey á brennievnið, sum ein ferð brúkar í hvørjum landi (ella har tú sigur, at brennievnið verður keypt).",
  "x.fuel.card.note": "CO2-prísurin fyri hvønn litur av diesel, úr lógini",
- "cr.vehicles": "Akfør {x}"
+ "cr.vehicles": "Akfør {x}",
+ "x.ferry.link": "EU ETS og UK ETS á ferjuleiðum"
 }

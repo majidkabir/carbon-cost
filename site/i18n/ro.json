@@ -36,6 +36,7 @@
  "how.area": "pe zi într-o zonă",
  "how.fuel": "prețul CO2 la combustibil",
  "how.fuelonly": "doar prețul CO2 la combustibil",
+ "how.none": "fără taxă de drum sau rovinietă",
  "c.h1.km": "{country}: taxa de drum pentru camioane {year}{local} – tarife pe km după masă, clasa Euro și clasa de CO2",
  "c.h1.fuel": "{country}: taxa pe CO2 la motorină {year} – tariful pe litru pentru camioane",
  "c.h1.other": "{country}: taxe de drum pentru camioane {year}{local} – {how} pentru vehicule de peste 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (partea de CO2: {share})",
  "c.desc.other": "{country}: taxe de drum pentru camioane de peste 3,5 t {year}{local} – {how}{size}, conform legii și tarifelor oficiale.{top} Tabele tarifare complete, istoric, modificări viitoare și legea din spatele fiecărui tarif.",
  "c.desc.fuel": "{country}: taxa pe CO2 la motorină {year} conform legii – {rate} ({perl} pe litru), istoricul și modificările viitoare.",
+ "c.desc.none": "{country} nu are taxă de drum sau rovinietă pentru camioane în {year}, după cum declară autoritatea competentă: declarația ei și sursa.",
  "c.size.od": "stații de taxare: {stations}, trasee: {trips}",
  "c.size.points": "puncte de taxare, poduri și tuneluri: {n}",
  "c.top": "Un camion de 40 t Euro VI plătește până la {amount} pentru o cursă sau o trecere.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Tarifele pe tonă de CO2 sunt convertite pe litru la {kg} kg CO2 pe litru de motorină (EN 16258:2012, anexa A). Alte monede la cursul de referință BCE (DKK la cursul central MCS II).",
  "x.fuel.note2": "Calculatorul le aplică combustibilului pe care o cursă îl consumă în fiecare țară (sau acolo unde indicați că este cumpărat).",
  "x.fuel.card.note": "prețul CO2 pe litru de motorină, din lege",
- "cr.vehicles": "Vehicule {x}"
+ "cr.vehicles": "Vehicule {x}",
+ "x.ferry.link": "EU ETS și UK ETS pe rutele de feribot"
 }

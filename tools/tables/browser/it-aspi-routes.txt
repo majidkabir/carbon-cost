@@ -1,0 +1,36 @@
+# Autostrade per l'Italia: the toll km its route calculator charges for the free stretches at the end of closed systems, which OSM tags toll=no (tools/roads/build.py, TOLLED); its calculator covers the other concessions too.
+# Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il tuo percorso e il relativo pedaggio", 5 Assi, tab "Pedaggio"; "Km di autostrada utili per il calcolo del pedaggio").
+# The page's toll service refuses scripted requests (status 403), so the page was opened in Chrome and the routes read on 2026-11-20.
+# A1dir Diramazione Roma Nord: from Settebagni (at the GRA) the only toll is the Roma Nord barrier's, and it counts the km from the GRA: Roma Nord-Ponzano Romano-Soratte is 37 km, EUR 7.00 = 37 x the A1's class-5 rate (0.19034, viabilita.autostrade.it/json/tariffe.json) to 10 cents.
+# A1dir Diramazione Roma Sud: from the Roma Sud barrier to Valmontone the calculator counts 30 km, EUR 5.70 = 30 x 0.19034: the branch's km from the GRA (about 20) and the A1's to Valmontone.
+# A24 Roma-L'Aquila: from Settecamini the only toll is the Roma Est barrier's, and it counts the km from the GRA: Roma Est-Tivoli is 21 km, EUR 5.30 = 21 x Strada dei Parchi's class-5 rate (0.25161) to 10 cents.
+# A14dir Ravenna branch: from Ravenna the only toll is the Ravenna barrier's (OSM: 8 km from the A14), and it counts 38 km to Imola: EUR 7.20 = 38 x 0.19034; the branch east of the barrier is the other 20.
+# A35 Brebemi's Liscate barrier: Liscate-Treviglio is 21 km, EUR 13.10: Brebemi 17 km EUR 10.83 and Tangenziale Esterna 4 km EUR 2.27; Gessate (on the TEEM)-Treviglio is 17 km, EUR 10.30, Brebemi's share 10 km EUR 6.49: from Liscate Brebemi charges 7 km more (tools/tables/it_barriers.py, EXTRA).
+# A35 Brebemi's Castegnato barrier: Castegnato-Chiari Ovest is 24 km, EUR 13.20: "Castegnato - Brescia Ovest" 12 km EUR 5.70 (Autostrade per l'Italia 5 km EUR 0.95, Brebemi 7 km EUR 4.75) and "Chiari Est - Chiari Ovest" 12 km EUR 7.50; the barrier charges Brebemi's 7 km of its link from the A4, which OSM tags toll-free (tools/tables/it_barriers.py, EXTRA).
+# A26 north: from Gravellona Toce the only toll is the Lago Maggiore station's (its km 166.6; Arona's is 165.5, viabilita.autostrade.it/json/caselli.json), and it counts 33 km: EUR 7.40 = 33 x ASPI's class-5 mountain rate (0.22437): the A26's free stretch to Gravellona Toce.
+# A4 Torino-Milano: from the Rondissone barrier (SATAP) to Santhia the calculator counts 46 km, EUR 15.30 = 46 x SATAP's class-5 rate (0.33006) to 10 cents; the barrier is 24 km from Turin by the A4 (OSM).
+# A1 Napoli: from the A1 at Naples to Capua the calculator charges "Napoli Nord - Capua" EUR 7.90, 41.5 km at ASPI's rate, where the Napoli Nord barrier (km 739.7) and Capua (km 720.1) are 19.6 km apart (caselli.json): the barrier charges the A1's km from Naples. (Its route went by the A3's Napoli Sud barrier, charged apart.)
+# A24 Teramo: from Mosciano Sant'Angelo the only toll is the Teramo barrier's (A24 km 146.1), and it counts 21 km to San Gabriele Colledara (km 136.6): EUR 5.30 = 21 x Strada dei Parchi's class-5 rate; the A24's free stretch from the barrier towards the coast is the rest.
+# A34: from Gorizia the only toll is the Villesse barrier's (A34 km 0.6), and it counts 48 km to Latisana (A4 km 467.7, about 31 km by the A4): EUR 9.10 = 48 x Alto Adriatico's class-5 rate (0.18898); the A34 to Gorizia is the rest.
+# A4 Trieste: from Sistiana the only toll is the Trieste Lisert barrier's (km 515.1), and it counts 58 km to Latisana (km 467.7): EUR 11.00 = 58 x 0.18898; the A4 from the barrier to Sistiana is most of the rest.
+# A22 Autostrada del Brennero: its mountain rate (class 5 0.18378, its 2026 tariff PDF) from the Brenner to Affi, its plain rate (0.15607) south of Affi: Ala Avio-Affi 28 km EUR 5.10 (28 x 0.18378 = 5.15), Affi-Verona Nord 17 km EUR 2.70 (17 x 0.15607 = 2.65), Verona Nord-Mantova Nord 36 km EUR 5.70 (36 x 0.15607 = 5.62).
+# A6 Torino-Savona: Carmagnola-Altare 97 km EUR 23.30 = 97 x the A6's class-5 rate (0.23991), so the Barriera di Torino's EUR 7.20 to Carmagnola, 0.1 km on (it-aspi-closed-barriers.txt), is a fixed toll.
+# Columns: departure, arrival, the calculator's toll stretch, its km, its class-5 toll in euro.
+departure arrival stretch km 5
+A1-Settebagni A1-Ponzano-Romano-Soratte Roma-Nord-Ponzano-Romano-Soratte 37 7.00
+A24-Settecamini A24-Tivoli Roma-Est-Tivoli 21 5.30
+A1-Roma-Sud A1-Valmontone Roma-Sud-Valmontone 30 5.70
+A14-Ravenna A14-Imola Barriera-Di-Ravenna-Imola 38 7.20
+Gravellona-Toce A26-Arona Lago-Maggiore-Arona 33 7.40
+A4-Torino-Rondissone A4-Santhia Torino-Rondissone-Santhia 46 15.30
+A1-Napoli A1-Capua Napoli-Nord-Capua 47 7.90
+Mosciano-Sant'Angelo A24-San-Gabriele-Colledara Teramo-San-Gabriele-Colledara 21 5.30
+Gorizia A4-Latisana Barriera-Di-Villesse-Latisana 48 9.10
+Sistiana A4-Latisana Trieste-Lisert-Latisana 58 11.00
+A22-Ala-Avio A22-Affi Ala-Avio-Affi 28 5.10
+A22-Affi A22-Verona-Nord Affi-Verona-Nord 17 2.70
+A22-Verona-Nord A22-Mantova-Nord Verona-Nord-Mantova-Nord 36 5.70
+A6-Carmagnola Savona Carmagnola-Altare 97 23.30
+A35-Liscate A35-Treviglio Liscate-Treviglio 21 13.10
+A58-Gessate A35-Treviglio Gessate-Treviglio 17 10.30
+A4-Castegnato A35-Chiari-Ovest Castegnato-Chiari-Ovest 24 13.20

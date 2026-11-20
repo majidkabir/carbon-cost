@@ -36,6 +36,7 @@
  "how.area": "per dia en una zona",
  "how.fuel": "preu del CO2 al combustible",
  "how.fuelonly": "només preu del CO2 al combustible",
+ "how.none": "sense peatge ni vinyeta",
  "c.h1.km": "Peatge de camions {country} {year}{local}: tarifes per km segons pes, classe Euro i classe de CO2",
  "c.h1.fuel": "Impost de CO2 sobre el gasoil {country} {year}: la tarifa per litre per a camions",
  "c.h1.other": "Peatges de camions {country} {year}{local}: {how} per a camions de més de 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (part de CO2 {share})",
  "c.desc.other": "Peatges de camions {country} {year}{local} per a camions de més de 3,5 t: {how}{size}, segons la llei i les tarifes oficials.{top} Taules tarifàries completes, historial, canvis previstos i la llei darrere de cada tarifa.",
  "c.desc.fuel": "Impost de CO2 sobre el gasoil ({country}, {year}) segons la llei: {rate} ({perl} per litre), el seu historial i els canvis previstos.",
+ "c.desc.none": "{country} no té peatge ni vinyeta per a camions el {year}, segons l'autoritat competent: la seva declaració i la seva font.",
  "c.size.od": "{stations} estacions de peatge i {trips} recorreguts",
  "c.size.points": "{n} punts de peatge, ponts i túnels",
  "c.top": "Un camió de 40 t Euro VI paga fins a {amount} per un viatge o un pas.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "El preu per tona de CO2 es converteix per litre amb {kg} kg de CO2 per litre de gasoil (EN 16258:2012, annex A). Altres monedes al tipus de referència del BCE (DKK al tipus central del MTC II).",
  "x.fuel.note2": "La calculadora els aplica al combustible que un viatge consumeix a cada país (o on indiqueu que es compra).",
  "x.fuel.card.note": "el preu del CO2 per litre de gasoil, segons la llei",
- "cr.vehicles": "Vehicles {x}"
+ "cr.vehicles": "Vehicles {x}",
+ "x.ferry.link": "EU ETS i UK ETS en les travessies en transbordador"
 }

@@ -46,8 +46,26 @@ the surcharges page's monthly notices (English) as <id>-<yyyy>-<mm>.pdf.
 POLSCA Baltic Ferries' documents pages on unityline.eu link their PDFs
 (freight tariffs, BES and ETS announcements): saved as <id>-<the file's
 name, lower case>.pdf (e.g. polsca-tariff-polsca-freight-tariff-22.06.2026.pdf).
+
+DFDS's freight routes page (dfds.com/en/freight-ferries-and-logistics/
+routes-and-schedules) links each route's page, saved as <id>-<route>.html,
+whose data names the route's two terminals by UN/LOCODE ("portOfLoading":
+{"name": "Klaipeda", "terminalId": "LTKLJ"}). The page's timetable comes
+from DFDS's API (/api/timetable?dateFrom=..&dateTo=..&portOfDischarge=..
+&portOfLoading=..), which names each departure's ship and its IMO number:
+the 28 days from the day of the fetch are saved as <id>-<route>.json (four
+weeks: a ship on a route sailed weekly, or one of a partner's that takes
+turns, is in it).
+
+Brittany Ferries' freight site answers from its API: /api/routes lists its
+routes by UN/LOCODE, /api/timetables?country=..&departurePortCode=..
+&arrivalPortCode=.. each sailing's date and ship, by a two-letter code,
+for a year ahead (one direction of each route is saved, as
+<id>-<from>-<to>.json). The codes' ship names are in the site's English
+texts, one of the script chunks its runtime script names
+(ship:{GN:"Guillaume de Normandie",...}): saved as <id>-ships.js.
 """
-import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
+import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
 
@@ -236,6 +254,74 @@ def polsca(out, manifest, sid, page_url, page):
         save(out, manifest, name, u, status, body)
 
 
+def dfds(out, manifest, sid, page_url, page):
+    text = html.unescape(page.decode("utf-8", "replace"))
+    routes = sorted({m.group(1) for m in re.finditer(r"""href=["'](?:https://www\.dfds\.com)?/en/freight-ferries-and-logistics/routes-and-schedules/([a-z0-9-]+)/?["']""", text)})
+    day = datetime.datetime.now(datetime.timezone.utc).date()
+    for r in routes:
+        u = f"https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/{r}"
+        status, body = get(u)
+        save(out, manifest, f"{sid}-{r}.html", u, status, body)
+        m = re.search(r'"route":\{"portOfDischarge":\{.*?"terminalId":"([A-Z0-9]{5})"\},"portOfLoading":\{.*?"terminalId":"([A-Z0-9]{5})"\}',
+                      body.decode("utf-8", "replace").replace('\\"', '"'))
+        if status != 200 or not m:
+            continue
+        q = urllib.parse.urlencode({"dateFrom": f"{day}T00:00:00.000Z", "dateTo": f"{day + datetime.timedelta(days=28)}T00:00:00.000Z",
+                                    "portOfDischarge": m.group(1), "portOfLoading": m.group(2)})
+        status, body = get("https://www.dfds.com/api/timetable?" + q, accept="application/json")
+        save(out, manifest, f"{sid}-{r}.json", "https://www.dfds.com/api/timetable?" + q, status, body)
+
+
+BF = "https://www.brittanyferriesfreight.com"
+
+
+def brittany(out, manifest, sid, body):
+    country = {"GBR": "GB", "FRA": "FR", "ESP": "ES", "IRL": "IE"}
+    seen = set()
+    for group in json.loads(body):
+        for r in group.get("routes", []):
+            a, b = r["departure"], r["arrival"]
+            if frozenset((a["code"], b["code"])) in seen:
+                continue
+            seen.add(frozenset((a["code"], b["code"])))
+            u = f"{BF}/api/timetables?" + urllib.parse.urlencode({"country": country.get(a["country"], a["country"][:2]),
+                                                                  "departurePortCode": a["code"], "arrivalPortCode": b["code"]})
+            status, t = get(u, accept="application/json")
+            save(out, manifest, f"{sid}-{a['code'].lower()}-{b['code'].lower()}.json", u, status, t)
+    status, page = get(f"{BF}/en/ferry-routes/timetables")
+    m = re.search(r'src="(runtime\.[0-9a-f]+\.js)"', page.decode("utf-8", "replace"))
+    if not m:
+        return
+    status, rt = get(f"{BF}/{m.group(1)}")
+    rt = rt.decode("utf-8", "replace")
+    named = dict(re.findall(r'(\d+)===e\?"(\w+)"', rt))
+    hashes = re.search(r'\+"\."\+(\{(?:\d+:"[0-9a-f]+",?)+\})\[e\]', rt)
+    for n, h in re.findall(r'(\d+):"([0-9a-f]+)"', hashes.group(1)) if hashes else []:
+        u = f"{BF}/{named.get(n, n)}.{h}.js"
+        status, js = get(u)
+        if status == 200 and re.search(rb'ship:\{(?:[A-Z]{2}:"[^"]+",?)+\}', js):
+            save(out, manifest, f"{sid}-ships.js", u, status, js)
+            return
+
+
+def follow(out, manifest, s, page):
+    """The pages or files a source links that match its "follow" pattern (a
+    regular expression on the absolute URL), saved as <id>-<last path
+    segment, lower case>.<html or pdf>: an operator's route pages from its
+    route list, say."""
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"'#]+)["']""", text):
+        u = urllib.parse.urljoin(s["url"], u)
+        if re.fullmatch(s["follow"], u):
+            last = [x for x in urllib.parse.urlparse(u).path.split("/") if x][-1].lower()
+            name, ext = os.path.splitext(last)
+            seen.setdefault(f"{s['id']}-" + re.sub(r"[^a-z0-9.]+", "-", name).strip("-"), (u, ext))
+    for name, (u, ext) in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name + (".pdf" if body[:4] == b"%PDF" else ".html"), u, status, body)
+
+
 # Overpass instances serving the same OpenStreetMap data: a query goes to
 # its own first, then to the others when that one can't be reached, is
 # busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
@@ -245,7 +331,10 @@ OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private
 def ask_overpass(url, prefer=None):
     """An Overpass query's answer, from the first instance that gives one: (status, body, url asked).
     A query written for overpass-api.de goes to `prefer` first when given; one
-    written for another instance goes to that one first."""
+    written for another instance goes to that one first. An instance whose
+    data is more than STALE_DAYS old (overpass.kumi.systems and
+    overpass.private.coffee have answered with data of months before) is
+    passed over."""
     base, query = url.split("?", 1)
     first = prefer if prefer and base == OVERPASS[0] else base
     last = None
@@ -258,11 +347,30 @@ def ask_overpass(url, prefer=None):
                 last = f"{host}: {e}"
                 break
             if status == 200 and not overpass_failed(status, body):
-                return status, body, host + "?" + query
+                stale = overpass_stale(body)
+                if not stale:
+                    return status, body, host + "?" + query
+                last = f"{host}: its data is of {stale}"
+                break
             last = f"{host}: {status} " + ((json.loads(body).get("remark") or "")[:200] if overpass_failed(status, body) else "")
             if status not in (429, 502, 503, 504) and not overpass_failed(status, body):
                 break
     raise RuntimeError(f"Overpass: no instance answered (last: {last})")
+
+
+# An instance whose data is older than this is behind OpenStreetMap: its
+# answer is put aside for another instance's (or the last run's copy).
+STALE_DAYS = 14
+
+
+def overpass_stale(body):
+    """The date of an answer's data when it's more than STALE_DAYS old, else ''."""
+    try:
+        base = json.loads(body).get("osm3s", {}).get("timestamp_osm_base", "")
+        day = datetime.datetime.strptime(base[:10], "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    except (ValueError, AttributeError):
+        return ""
+    return base[:10] if datetime.datetime.now(datetime.timezone.utc) - day > datetime.timedelta(days=STALE_DAYS) else ""
 
 
 def overpass_failed(status, body):
@@ -300,6 +408,12 @@ def store(out, manifest, s, status, body, asked):
         scandlines(out, manifest, s["id"], s["url"], body)
     if ("unityline.eu/cargo/documents-polsca/" in s["url"] or "unityline.eu/cargo/timetables" in s["url"]) and status == 200:
         polsca(out, manifest, s["id"], s["url"], body)
+    if s.get("follow") and status == 200:
+        follow(out, manifest, s, body)
+    if s["url"] == f"{BF}/api/routes" and status == 200:
+        brittany(out, manifest, s["id"], body)
+    if s["url"] == "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules" and status == 200:
+        dfds(out, manifest, s["id"], s["url"], body)
 
 
 def checked(s, status, body, again):

@@ -36,6 +36,7 @@
  "how.area": "päivältä vyöhykkeellä",
  "how.fuel": "polttoaineen CO2-hinta",
  "how.fuelonly": "vain polttoaineen CO2-hinta",
+ "how.none": "ei tiemaksuja eikä vinjettiä",
  "c.h1.km": "{country}: kuorma-autojen tiemaksu {year}{local} – kilometrimaksut painon, Euroluokan ja CO2-luokan mukaan",
  "c.h1.fuel": "{country}: dieselin CO2-vero {year} – kuorma-autojen maksu litralta",
  "c.h1.other": "{country}: kuorma-autojen tiemaksut {year}{local} – {how}, yli 3,5 tonnin ajoneuvoille",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (CO2-osuus {share})",
  "c.desc.other": "{country}: yli 3,5 tonnin kuorma-autojen tiemaksut {year}{local} – {how}{size}, lain ja virallisten hinnastojen mukaan.{top} Koko hinnastotaulukot, historia, tulevat muutokset ja laki jokaisen maksun takana.",
  "c.desc.fuel": "{country}: dieselin CO2-vero {year} lain mukaan – {rate} ({perl} litralta), sen historia ja tulevat muutokset.",
+ "c.desc.none": "{country}: kuorma-autoilla ei ole tiemaksuja eikä vinjettiä vuonna {year}, kuten vastuuviranomainen ilmoittaa: sen ilmoitus ja lähde.",
  "c.size.od": "maksuasemia: {stations}, reittejä: {trips}",
  "c.size.points": "maksupisteitä, siltoja ja tunneleita: {n}",
  "c.top": "40 tonnin Euro VI -kuorma-auto maksaa yhdestä matkasta tai ohituksesta enintään {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "CO2-tonnikohtaiset verot on muunnettu litrakohtaisiksi kertoimella {kg} kg CO2:ta dieselin litralta (EN 16258:2012, liite A). Muut valuutat EKP:n viitekurssilla (DKK ERM II -keskuskurssilla).",
  "x.fuel.note2": "Laskuri lisää ne polttoaineeseen, jonka matka kuluttaa kussakin maassa (tai siellä, missä kerrot polttoaineen ostettavan).",
  "x.fuel.card.note": "dieselin CO2-hinta litralta, laista",
- "cr.vehicles": "Ajoneuvot {x}"
+ "cr.vehicles": "Ajoneuvot {x}",
+ "x.ferry.link": "EU ETS ja UK ETS lauttareiteillä"
 }

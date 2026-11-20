@@ -36,6 +36,7 @@
  "how.area": "na dan v območju",
  "how.fuel": "cena CO2 v gorivu",
  "how.fuelonly": "samo cena CO2 v gorivu",
+ "how.none": "brez cestnine in vinjete",
  "c.h1.km": "{country}: cestnina za tovornjake {year}{local} – stopnje na km po masi, razredu Euro in razredu CO2",
  "c.h1.fuel": "{country}: davek CO2 na dizel {year} – stopnja na liter za tovornjake",
  "c.h1.other": "{country}: cestnine za tovornjake {year}{local} – {how} za vozila nad 3,5 t",
@@ -43,6 +44,7 @@
  "c.desc.co2": " (delež CO2 {share})",
  "c.desc.other": "{country}: cestnine za tovornjake nad 3,5 t {year}{local} – {how}{size}, po zakonu in uradnih cenikih.{top} Celotne tarifne tabele, zgodovina, prihodnje spremembe in zakon za vsako stopnjo.",
  "c.desc.fuel": "{country}: davek CO2 na dizel {year} po zakonu – {rate} ({perl} na liter), njegova zgodovina in prihodnje spremembe.",
+ "c.desc.none": "{country}: leta {year} ni cestnine ne vinjete za tovornjake, kot navaja pristojni organ: njegova izjava in vir.",
  "c.size.od": "cestninske postaje: {stations}, poti: {trips}",
  "c.size.points": "cestninska mesta, mostovi in predori: {n}",
  "c.top": "Tovornjak 40 t Euro VI za eno vožnjo ali prehod plača do {amount}.",
@@ -217,5 +219,6 @@
  "x.fuel.note1": "Stopnje na tono CO2 so preračunane na liter pri {kg} kg CO2 na liter dizla (EN 16258:2012, priloga A). Druge valute po referenčnem tečaju ECB (DKK po centralnem tečaju ERM II).",
  "x.fuel.note2": "Kalkulator jih zaračuna na gorivo, ki ga vožnja porabi v posamezni državi (ali tam, kjer navedete, da se gorivo kupi).",
  "x.fuel.card.note": "cena CO2 na liter dizla, iz zakona",
- "cr.vehicles": "Vozila {x}"
+ "cr.vehicles": "Vozila {x}",
+ "x.ferry.link": "EU ETS in UK ETS na trajektnih linijah"
 }

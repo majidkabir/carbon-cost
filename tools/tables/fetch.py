@@ -53,7 +53,9 @@ whose data names the route's two terminals by UN/LOCODE ("portOfLoading":
 {"name": "Klaipeda", "terminalId": "LTKLJ"}). The page's timetable comes
 from DFDS's API (/api/timetable?dateFrom=..&dateTo=..&portOfDischarge=..
 &portOfLoading=..), which names each departure's ship and its IMO number:
-the 14 days from the day of the fetch are saved as <id>-<route>.json.
+the 28 days from the day of the fetch are saved as <id>-<route>.json (four
+weeks: a ship on a route sailed weekly, or one of a partner's that takes
+turns, is in it).
 """
 import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
@@ -256,7 +258,7 @@ def dfds(out, manifest, sid, page_url, page):
                       body.decode("utf-8", "replace").replace('\\"', '"'))
         if status != 200 or not m:
             continue
-        q = urllib.parse.urlencode({"dateFrom": f"{day}T00:00:00.000Z", "dateTo": f"{day + datetime.timedelta(days=14)}T00:00:00.000Z",
+        q = urllib.parse.urlencode({"dateFrom": f"{day}T00:00:00.000Z", "dateTo": f"{day + datetime.timedelta(days=28)}T00:00:00.000Z",
                                     "portOfDischarge": m.group(1), "portOfLoading": m.group(2)})
         status, body = get("https://www.dfds.com/api/timetable?" + q, accept="application/json")
         save(out, manifest, f"{sid}-{r}.json", "https://www.dfds.com/api/timetable?" + q, status, body)

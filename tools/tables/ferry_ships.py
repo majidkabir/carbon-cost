@@ -41,7 +41,7 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   name ships ("13:40 Pioneer"), only those;
 - DFDS's freight route pages (dfds-routes-<route>.html, linked from its
   routes page) and their timetables (dfds-routes-<route>.json, DFDS's API
-  for the 14 days from the fetch): the page's two terminals, the ship and
+  for the 28 days from the fetch): the page's two terminals, the ship and
   its IMO number of each departure;
 - Tallink's freight timetables and fleet page (tallink-fleet.html): each
   route's heading ("Tallinn-Helsinki") and its ships; Eckerö Line's cargo
@@ -52,12 +52,14 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Fjord Line's ships page (fjordline-ships.html, its Markdown): a ship it
   puts between two ports ("Fjord FSTR ... between Hirtshals and
   Kristiansand");
+- Wasaline's cargo page (wasaline-cargo.html): its route ("between Vaasa in
+  Finland and Umeå in Sweden") and its ship;
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
   the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
   Travemünde and Rostock at the far end of its lines from Trelleborg;
-  Stena Line's and Finnlines' (ferry-ships-osm.json, -osm-2.json) at the
+  Stena Line's and Finnlines' (ferry-ships-osm.json, -osm-2, -3, -4: OSM_BOXES) at the
   ends of the ferry line whose name has both ports (the operator's, when it
   has one), each port at the end nearest its town (PORTS); a line trucks may take (hgv=yes) counts though cars may not. A
   route with no such line isn't built: no route can take it;
@@ -135,6 +137,7 @@ PORTS = {
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
     "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)),
+    "Vaasa": ("FI", ["Vaasa", "Vasa"], (63.10, 21.62)), "Umeå": ("SE", ["Umeå", "Holmsund"], (63.83, 20.26)),
     "Odden": ("DK", ["Odden", "Sjællands Odde"], (55.97, 11.37)), "Aarhus": ("DK", ["Aarhus", "Århus"], (56.15, 10.21)),
     "Ebeltoft": ("DK", ["Ebeltoft"], (56.19, 10.68)),
     "Larvik": ("NO", ["Larvik"], (59.05, 10.03)), "Kristiansand": ("NO", ["Kristiansand"], (58.15, 8.00)),
@@ -689,6 +692,20 @@ def fjordline(page):
     return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
 
 
+def wasaline(page):
+    """[(ports, {ships}, heading, file)] from Wasaline's cargo page ("We
+    operate the route between Vaasa in Finland and Umeå in Sweden ...
+    Aurora Botnia is tailored for cargo transportation")."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    route = re.search(r"the route between (\w+) in \w+ and (\w+) in \w+", flat)
+    ships = set(re.findall(r"([A-Z]\w+ [A-Z]\w+) is tailored for cargo", flat))
+    if not route or not ships:
+        sys.exit("ferry ships: Wasaline's cargo page names no route or ship")
+    ports = tuple(port_of(p, os.path.basename(path)) for p in route.groups())
+    return [(ports, ships, "–".join(ports), path)]
+
+
 def eckero(page):
     """[(ports, {ships}, heading, file)] from Eckerö Line's cargo page: its
     ships' crossings in its cargo CO2 figures ("M/S Finbo Cargo (Helsinki,
@@ -708,16 +725,27 @@ def eckero(page):
     return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
 
 
+# The Overpass queries' boxes (south, west, north, east): the North Sea, the
+# Channel and the Baltic; the western and the eastern Mediterranean; the
+# Gulf of Bothnia. Each asks for the lines named after a port within 4
+# degrees of it (a line to a port further off, Santander or Tórshavn, is
+# named after the port in the box it comes from too); several smaller
+# queries, as one large one times out on Overpass.
+OSM_BOXES = [("ferry-ships-osm", (49.0, -11.0, 61.0, 26.0)), ("ferry-ships-osm-2", (30.0, -10.0, 46.5, 12.0)),
+             ("ferry-ships-osm-3", (61.0, 14.0, 66.0, 26.0)), ("ferry-ships-osm-4", (30.0, 12.0, 46.5, 36.0))]
+
+
 def osm_query():
-    """The Overpass queries of ferry-ships-osm (lines named after a port,
-    crossing the North Sea, the Channel or the Baltic: a line to a port
-    further off, Santander or Tórshavn, passes through it) and -osm-2 (the
-    Mediterranean), as sources.json has them."""
+    """The Overpass queries of OSM_BOXES' sources, as sources.json has them."""
     import urllib.parse
-    names = "|".join(sorted({x for p, (_, xs, _) in PORTS.items() if p in QUERIED for x in xs if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
-    lines = ['[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]{bbox};out geom tags;'
-             for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)")]
-    return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in lines]
+    out = []
+    for _, (s, w, n, e) in OSM_BOXES:
+        near = lambda at: s - 4 <= at[0] <= n + 4 and w - 4 <= at[1] <= e + 4
+        names = "|".join(sorted({x for p, (_, xs, at) in PORTS.items() if p in QUERIED and near(at) for x in xs
+                                 if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
+        q = '[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]({s},{w},{n},{e});out geom tags;'
+        out.append("https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe=""))
+    return out
 
 
 def osm_place(osm, a, b, operator):
@@ -779,10 +807,14 @@ def main(fetched, out):
         epage = (os.path.join(fetched, "eckero-cargo.html"), open(os.path.join(fetched, "eckero-cargo.html"), encoding="utf-8").read())
         cpage = (os.path.join(fetched, "colorline-routes.html"), open(os.path.join(fetched, "colorline-routes.html"), encoding="utf-8").read())
         jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
+        wpage = (os.path.join(fetched, "wasaline-cargo.html"), open(os.path.join(fetched, "wasaline-cargo.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
-        gosm = {"elements": []}
-        for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
-            gosm["elements"] += json.load(open(os.path.join(fetched, p), encoding="utf-8"))["elements"]
+        gosm, seen = {"elements": []}, set()
+        for sid, _ in OSM_BOXES:
+            for e in json.load(open(os.path.join(fetched, sid + ".json"), encoding="utf-8"))["elements"]:
+                if (e["type"], e["id"]) not in seen:
+                    seen.add((e["type"], e["id"]))
+                    gosm["elements"].append(e)
         urls = {f["file"]: f["url"] for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     except (OSError, ValueError) as e:
         print(f"ferry ships: not built ({e})")
@@ -886,7 +918,8 @@ def main(fetched, out):
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
                              ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
-                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage))):
+                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage)),
+                             ("Wasaline", wasaline(wpage))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

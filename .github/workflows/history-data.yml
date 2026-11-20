@@ -1,7 +1,8 @@
 name: History data
-# Fetches the ECB's euro reference rates since 1999 and the official texts
-# behind the historical rate tables (tools/history/sources.json), builds
-# fx/data/ecb-hist.csv and the historical tables, converts those to ORCT
+# Fetches the ECB's euro reference rates since 1999, the National Bank of
+# Serbia's dinar rates since 2024 and the official texts behind the
+# historical rate tables (tools/history/sources.json), builds
+# fx/data/ecb-hist.csv, fx/data/nbs-eur-rsd.csv and the historical tables, converts those to ORCT
 # datasets (tools/orct/convert.py), and pushes them with the fetched texts
 # and their manifest to the history-out branch. Push to the
 # history-data branch to run it.
@@ -21,17 +22,19 @@ concurrency:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
-      - name: ECB reference rates
+      - name: ECB reference rates, the NBS's dinar rates
         run: |
           mkdir -p out/fx
           curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
           sha256sum ecb.zip > out/fx/ecb-hist.zip.sha256
           unzip -o ecb.zip eurofxref-hist.csv
           python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
+          # The dinar's rates (the ECB has none): the NBS's official middle rate.
+          python3 tools/history/nbs.py out/fx/nbs-eur-rsd.csv || echo "::warning title=nbs::the NBS's rates weren't fetched"
       - name: Fetch
         # Internet Archive copies the last run fetched aren't asked for again
         # (a capture never changes); the next step takes them from it.
@@ -48,6 +51,20 @@ jobs:
         run: |
           python3 tools/history/reuse.py tools/history/sources.json out prev
           rm -f todo.json
+      - name: Serbian toll decision's tables (OCR)
+        # tools/rs/gazette_ocr.py reads the decision's scanned tables out
+        # of the Official Gazette issues; an issue the last run read (the
+        # same content) is taken from it.
+        run: |
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          pip install -q opencv-python-headless pytesseract
+          for f in out/rs-sg-*.pdf; do
+            b=$(basename "$f" .pdf)
+            d=$(python3 tools/rs/gazette_ocr.py --digest "$f")
+            if [ -f "prev/$b.json" ] && grep -q "\"digest\": \"$d\"" "prev/$b.json"; then cp "prev/$b.json" "out/$b.json"; continue; fi
+            python3 tools/rs/gazette_ocr.py "$f" "out/$b.json" || echo "::error title=gazette_ocr::$f not read"
+          done
       - name: OpenStreetMap extracts and current tables
         # The extracts placing the toll stations, as the tables-data
         # workflow last fetched them, and the current tables (removed

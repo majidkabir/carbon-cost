@@ -28,6 +28,8 @@ RULES = {
     "nl-kiltunnel": (None, 183),
     "md-evinieta": (None, 183),
     "by-mintrans-42-2026": ("08-15", 366),  # BelToll tariffs have changed on 1 September
+    "me-autoput": (None, 183),          # Monteput's pages carry no date; read when the workflow gets a bot check
+    "me-sozina": (None, 183),
 }
 
 

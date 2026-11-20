@@ -23,6 +23,10 @@ import (
 // each statement line becomes a Line.
 
 // vehicleOf is the truck as ORCT vehicle parameters.
+// Vehicle is a truck as the rate tables' vehicle parameters (ORCT 6.6),
+// as the calculator prices it.
+func Vehicle(t rates.Truck) map[string]any { return vehicleOf(t) }
+
 func vehicleOf(t rates.Truck) map[string]any {
 	axles := t.Axles
 	if t.MotorAxles > 0 {
@@ -41,6 +45,9 @@ func vehicleOf(t rates.Truck) map[string]any {
 	}
 	if t.TrailerMassKg > 0 {
 		v["trailer_mass_kg"] = float64(t.TrailerMassKg)
+	}
+	if t.CapacityKg > 0 {
+		v["load_capacity_kg"] = float64(t.CapacityKg)
 	}
 	return v
 }
@@ -94,6 +101,11 @@ type pricer struct {
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
 	p := &pricer{req: req, date: date, out: out, add: add, vehicle: vehicleOf(req.Truck)}
+	// The load carried on the trip, for fares per tonne of it (the Elbe
+	// ferry's per started 1,000 kg).
+	if req.CargoKg > 0 {
+		p.vehicle["load_kg"] = req.CargoKg
+	}
 	if req.ETC {
 		p.payment = []string{"electronic"}
 	}

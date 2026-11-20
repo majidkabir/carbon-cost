@@ -57,71 +57,81 @@
   },
   {
    "id": "s7",
+   "title": "ASF tariffs from 2026-06-01 (sha256 221f3990f98c)",
+   "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-asf/ASF-Guide-tarifaire-2026-maj062026.pdf"
+  },
+  {
+   "id": "s8",
    "title": "Escota tariffs from 2026-02-01 (sha256 ec09a55bf149)",
    "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Escota/Escota-Guide-tarifaire-2026.pdf"
   },
   {
-   "id": "s8",
+   "id": "s9",
    "title": "Cofiroute tariffs from 2026-02-01 (sha256 d8443adcc6f0)",
    "url": "https://public-content.vinci-autoroutes.com/PDF/Tarifs-peage-Cofiroute/Cofiroute-Guide-tarifaire-2026.pdf"
   },
   {
-   "id": "s9",
+   "id": "s10",
    "title": "Sanef tariffs from 2026-02-01 (sha256 373b55bd4f4f)",
    "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-Sanef.pdf"
   },
   {
-   "id": "s10",
+   "id": "s11",
    "title": "SAPN tariffs from 2026-02-01 (sha256 f8a7468306f5)",
    "url": "https://www.autoroutes.sanef.com/sites/default/files/2026-01/2026_02-Grille-SAPN.pdf"
   },
   {
-   "id": "s11",
+   "id": "s12",
    "title": "A'liénor tariffs from 2026-02-01 (sha256 3bfcaffe4602)",
    "url": "http://www.a65-alienor.com/sites/alienor/files/2026-01/2026%2002%2001%20-%20TARIFS%20A65.pdf"
   },
   {
-   "id": "s12",
+   "id": "s13",
+   "title": "APRR tariffs from 2026-02-01 (sha256 aeaeffa50a90)",
+   "url": "https://voyage.aprr.fr/sites/default/files/2026-02/TARIFS_TML.pdf"
+  },
+  {
+   "id": "s14",
    "title": "CEVM tariffs from 2026-02-01 (sha256 07096975502a)",
    "url": "https://www.leviaducdemillau.com/files/live/sites/viaducdemillau/files/Tarifs%20de%20p%c3%a9age%202026.pdf"
   },
   {
-   "id": "s13",
+   "id": "s15",
    "title": "ATMB tariffs from 2026-02-01 (sha256 6d43b25151ea)",
    "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/"
   },
   {
-   "id": "s14",
+   "id": "s16",
    "title": "Atlandes tariffs from 2026-02-01 (sha256 75b05d720148)",
    "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg"
   },
   {
-   "id": "s15",
+   "id": "s17",
    "title": "ALBEA tariffs from 2026-02-01 (sha256 947c53d18b24)",
    "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg"
   },
   {
-   "id": "s16",
+   "id": "s18",
    "title": "SFTRF tariffs from 2026-02-01 (sha256 7ae01282a17f)",
    "url": "https://www.sftrf.fr/wp-content/uploads/2026/02/Tarifs_autoroute_2026_2.pdf"
   },
   {
-   "id": "s17",
+   "id": "s19",
    "title": "Alicorne tariffs from 2025-02-01 (sha256 14f39f2978f6)",
    "url": "https://a88-alicorne.fr/tarifs/"
   },
   {
-   "id": "s18",
+   "id": "s20",
    "title": "ALiS tariffs from  (sha256 f3bce08d5f80)",
    "url": "https://www.alis-sa.com/fr/preparez-votre-voyage/tarifs-alis-a28-rouen-alencon"
   },
   {
-   "id": "s19",
+   "id": "s21",
    "title": "CCI Seine-Estuaire tariffs from 2026-05-01 (sha256 b1104cf53416)",
    "url": "https://www.pontsnormandietancarville.fr/les-tarifs/"
   },
   {
-   "id": "s20",
+   "id": "s22",
    "title": "Ministère de la Transition écologique: Gares de péage du réseau routier national concédé",
    "url": "https://www.data.gouv.fr/datasets/gares-de-peage-du-reseau-routier-national-concede"
   }
@@ -6448,6 +6458,18 @@
    }
   },
   {
+   "id": "st1:Lusse",
+   "type": "station",
+   "name": "Lusse",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.08457, 48.29216]]
+    },
+    "point_names": ["Lusse"]
+   }
+  },
+  {
    "id": "st1:Lézignan",
    "type": "station",
    "name": "Lézignan",
@@ -8637,6 +8659,18 @@
      "coordinates": [[6.6897, 43.45684], [6.68949, 43.45685]]
     },
     "point_names": ["Puget-sur-Argens", "Puget-sur-Argens"]
+   }
+  },
+  {
+   "id": "st1:Puymorens",
+   "type": "station",
+   "name": "Puymorens",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[1.82396, 42.53961]]
+    },
+    "point_names": ["Puymorens A-PO"]
    }
   },
   {
@@ -62807,6 +62841,8 @@
     ["st1:Lunel", "st1:Villefranche-de-Lauragais", "sys1-1.4", "59.1667"],
     ["st1:Lunel", "st1:Vénissieux", "sys1-1.3", "52.6667"],
     ["st1:Lunel", "st1:Vénissieux", "sys1-1.4", "70.4167"],
+    ["st1:Lusse", "st1:Lusse", "sys1-1.3", "15.8333"],
+    ["st1:Lusse", "st1:Lusse", "sys1-1.4", "26.5833"],
     ["st1:Lézignan", "st1:Loriol", "sys1-1.3", "60.4167"],
     ["st1:Lézignan", "st1:Loriol", "sys1-1.4", "76.6667"],
     ["st1:Lézignan", "st1:Lunel", "sys1-1.3", "26.6667"],
@@ -76465,6 +76501,8 @@
     ["st1:Puget-sur-Argens", "st1:Toulon-ouest", "sys1-1.4", "22.8333"],
     ["st1:Puget-sur-Argens", "st1:Villeneuve-Loubet Plage", "sys1-1.3", "14.5833"],
     ["st1:Puget-sur-Argens", "st1:Villeneuve-Loubet Plage", "sys1-1.4", "20"],
+    ["st1:Puymorens", "st1:Puymorens", "sys1-1.3", "22"],
+    ["st1:Puymorens", "st1:Puymorens", "sys1-1.4", "36.25"],
     ["st1:PÉRONNE / VALLEE DE LA SOMME", "st1:COMPIÈGNE OUEST", "sys1-1.3", "8.9167"],
     ["st1:PÉRONNE / VALLEE DE LA SOMME", "st1:COMPIÈGNE OUEST", "sys1-1.4", "12.4167"],
     ["st1:PÉRONNE / VALLEE DE LA SOMME", "st1:PARIS / ROISSY (péage de Chamant)", "sys1-1.3", "18.25"],
@@ -101018,7 +101056,7 @@
     ["st1:YERVILLE", "st1:ST-SAËNS", "sys1-1.3", "5.3333"],
     ["st1:YERVILLE", "st1:ST-SAËNS", "sys1-1.4", "7.5833"]
    ],
-   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s20"],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17", "s18", "s19", "s20", "s21", "s22"],
    "basis": "transcribed"
   }
  ],

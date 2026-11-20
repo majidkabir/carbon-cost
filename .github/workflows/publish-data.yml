@@ -1,7 +1,8 @@
 name: Publish data
 # After a data workflow succeeds, publishes to tariffs/data (on main) its
 # datasets that differ only in what OpenStreetMap gives: positions, booth
-# names and headings, and the extract's date (tools/orct/publish.py).
+# names and headings, and the extract's date (tools/orct/publish.py), and
+# its ferry crossings files that differ only in the terminals' positions.
 # A dataset with any other change, or a new one, is listed in the run's
 # summary for review and not published. Run it by hand to go over all four
 # workflows' last output.
@@ -46,13 +47,17 @@ jobs:
               rm -rf new && mkdir new
               git fetch -q --depth 1 origin "$b" && git archive FETCH_HEAD orct | tar -x -C new
               python3 tools/orct/publish.py new/orct tariffs/data | tee -a report.txt
+              if git cat-file -e FETCH_HEAD:ferries 2>/dev/null; then
+                git archive FETCH_HEAD ferries | tar -x -C new
+                python3 tools/orct/publish.py --crossings new/ferries ferries/data | tee -a report.txt
+              fi
             done
           }
           # Main may move meanwhile: start again from it if the push fails.
           for i in 1 2 3; do
             git fetch -q origin main && git reset -q --hard FETCH_HEAD
             publish
-            git add tariffs/data
+            git add tariffs/data ferries/data
             if git diff --cached --quiet; then echo "nothing to publish"; break; fi
             # The tool's tests read tariffs/data; a push from here doesn't run CI.
             go test ./... >/dev/null

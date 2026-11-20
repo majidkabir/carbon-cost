@@ -1,0 +1,296 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/rs-bypass/2026-04-01",
+  "scheme": {
+   "id": "rs-bypass",
+   "name": "Belgrade bypass toll (Obilaznica oko Beograda), category 4",
+   "country": "RS"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-04-01",
+  "currency": "RSD",
+  "timezone": "Europe/Belgrade",
+  "license": "MIT",
+  "method": "JP Putevi Srbije's price list for the Belgrade bypass from 2026-04-01 (posebna naknada za upotrebu javnog puta, putarina): category 4 (four or more axles, over 3,500 kg) pays per section between two interchanges, in RSD, by TAG without barriers; other categories don't pay. Each section is a toll point in the middle of each carriageway, paid in its direction (placed on OpenStreetMap's A1 bypass carriageways between the interchanges' junctions).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "rs-bypass-2026-04-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "JP Putevi Srbije: Posebna naknada za upotrebu javnog puta (putarina), Obilaznica oko Beograda, važi od 2026-04-01",
+   "url": "https://www.putevi-srbije.rs/images/pdf/cene_putarina_obilaznica_lat.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "JP Putevi Srbije: Kategorizacija vozila/Cenovnik putarine",
+   "url": "https://www.putevi-srbije.rs/index.php/sr/kategorizacija-vozila-cenovnik-putarine"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Geofabrik extract), the bypass's carriageways and junctions",
+   "url": "https://download.geofabrik.de/europe/serbia.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Category 4: four or more axles, over 3,500 kg",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Batajnica – Beograd (towards Beograd, 7.3 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.259242, 44.872908]
+    },
+    "heading": 216.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Batajnica – Beograd (towards Batajnica, 9.2 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.253083, 44.865068]
+    },
+    "heading": 23.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Beograd – Surčin (towards Surčin, 3.9 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.251937, 44.823972]
+    },
+    "heading": 168.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Beograd – Surčin (towards Beograd, 2.5 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.253427, 44.812785]
+    },
+    "heading": 355.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Surčin – Surčin Jug (towards Surčin Jug, 4.2 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.259379, 44.787703]
+    },
+    "heading": 154.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Surčin – Surčin Jug (towards Surčin, 4.3 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.263007, 44.783364]
+    },
+    "heading": 327.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Surčin Jug – Ostružnica (towards Ostružnica, 6.6 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.303378, 44.750971]
+    },
+    "heading": 129.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Surčin Jug – Ostružnica (towards Surčin Jug, 6.2 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.307682, 44.748691]
+    },
+    "heading": 308.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Ostružnica – Orlovača (towards Orlovača, 7.0 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.366174, 44.71164]
+    },
+    "heading": 123.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Ostružnica – Orlovača (towards Ostružnica, 7.8 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.373681, 44.71011]
+    },
+    "heading": 270.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt11",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Orlovača – Avala (towards Avala, 6.8 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.448605, 44.720141]
+    },
+    "heading": 69.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt12",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Orlovača – Avala (towards Orlovača, 6.3 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.458119, 44.720726]
+    },
+    "heading": 290.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt13",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Avala – Bubanj Potok (towards Bubanj Potok, 3.5 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.510529, 44.716486]
+    },
+    "heading": 104.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt14",
+   "type": "point",
+   "name": "Obilaznica oko Beograda, sekcija Avala – Bubanj Potok (towards Avala, 4.9 km)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.525999, 44.715803]
+    },
+    "heading": 263.3,
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "340"],
+    ["pt2", "pt-1.1", "340"],
+    ["pt3", "pt-1.1", "120"],
+    ["pt4", "pt-1.1", "120"],
+    ["pt5", "pt-1.1", "120"],
+    ["pt6", "pt-1.1", "120"],
+    ["pt7", "pt-1.1", "290"],
+    ["pt8", "pt-1.1", "290"],
+    ["pt9", "pt-1.1", "480"],
+    ["pt10", "pt-1.1", "480"],
+    ["pt11", "pt-1.1", "390"],
+    ["pt12", "pt-1.1", "390"],
+    ["pt13", "pt-1.1", "130"],
+    ["pt14", "pt-1.1", "130"]
+   ],
+   "sources": ["s1", "s2", "s3"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-19"
+  }
+ }
+}

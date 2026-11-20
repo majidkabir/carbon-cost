@@ -22,24 +22,34 @@ type Run struct {
 // Route splits a [lon, lat] route into runs by country with the same
 // Natural Earth borders and rule Sootcase uses for country_km: each
 // segment counts for the country its midpoint is in, else the nearest
-// one within borders.NearestKm. The segments between the terminals of a
-// crossing in fd are the ferry.
+// one within borders.NearestKm. The segments between the terminals of
+// each crossing in fd are the ferry.
 func Route(ix *borders.Index, path [][2]float64, fd *ferries.Data) []Run {
 	if ix == nil || len(path) < 2 {
 		return nil
 	}
-	lo, hi := -1, -1
+	var spans [][2]int
 	if fd != nil {
-		if c, ok := fd.Detect(path); ok && len(c.Terminals) == 2 {
-			a, b := nearestIndex(path, c.Terminals[0]), nearestIndex(path, c.Terminals[1])
-			lo, hi = min(a, b), max(a, b)
+		for _, c := range fd.DetectAll(path) {
+			if len(c.Terminals) == 2 {
+				a, b := nearestIndex(path, c.Terminals[0]), nearestIndex(path, c.Terminals[1])
+				spans = append(spans, [2]int{min(a, b), max(a, b)})
+			}
 		}
+	}
+	onFerry := func(k int) bool {
+		for _, s := range spans {
+			if k >= s[0] && k < s[1] {
+				return true
+			}
+		}
+		return false
 	}
 	var runs []Run
 	for k := 0; k+1 < len(path); k++ {
 		seg := path[k : k+2]
 		kind, country := "road", ""
-		if k >= lo && k < hi {
+		if onFerry(k) {
 			kind = "ferry"
 		} else {
 			for c := range ix.SplitKm(seg) {

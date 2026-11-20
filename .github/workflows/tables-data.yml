@@ -19,7 +19,7 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 300
     steps:
       - uses: actions/checkout@v4
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done
@@ -34,42 +34,42 @@ jobs:
       - name: Irish toll booths (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ie.pbf https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf || { keep ie-osm.geojsonseq ie-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o ie.pbf https://download.geofabrik.de/europe/ireland-and-northern-ireland-latest.osm.pbf || { keep ie-osm.geojsonseq ie-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp ie.pbf > out/ie-osm-timestamp.txt
           osmium tags-filter -O -o ie-b.pbf ie.pbf n/barrier=toll_booth n/highway=toll_gantry w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
           osmium export -O -f geojsonseq -o out/ie-osm.geojsonseq ie-b.pbf
       - name: Swedish charged bridges (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o se.pbf https://download.geofabrik.de/europe/sweden-latest.osm.pbf || { keep se-osm.geojsonseq se-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o se.pbf https://download.geofabrik.de/europe/sweden-latest.osm.pbf || { keep se-osm.geojsonseq se-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp se.pbf > out/se-osm-timestamp.txt
           osmium tags-filter -O -o se-b.pbf se.pbf w/name=Sundsvallsbron,Motalabron,Skurubron,"Nya Skurubron" n/highway=toll_gantry n/barrier=toll_booth
           osmium export -O -f geojsonseq -o out/se-osm.geojsonseq se-b.pbf
       - name: North Macedonian toll stations (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o mk.pbf https://download.geofabrik.de/europe/macedonia-latest.osm.pbf || { keep mk-osm.geojsonseq mk-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o mk.pbf https://download.geofabrik.de/europe/macedonia-latest.osm.pbf || { keep mk-osm.geojsonseq mk-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp mk.pbf > out/mk-osm-timestamp.txt
           osmium tags-filter -O -o mk-b.pbf mk.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,primary,motorway_link,trunk_link
           osmium export -O -f geojsonseq -o out/mk-osm.geojsonseq mk-b.pbf
       - name: Montenegrin toll stations (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o me.pbf https://download.geofabrik.de/europe/montenegro-latest.osm.pbf || { keep me-osm.geojsonseq me-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o me.pbf https://download.geofabrik.de/europe/montenegro-latest.osm.pbf || { keep me-osm.geojsonseq me-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp me.pbf > out/me-osm-timestamp.txt
           osmium tags-filter -O -o me-b.pbf me.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction w/name=Sozina "w/name=Tunel Sozina"
           osmium export -O -f geojsonseq -o out/me-osm.geojsonseq me-b.pbf
       - name: Greek toll stations (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o gr.pbf https://download.geofabrik.de/europe/greece-latest.osm.pbf || { keep gr-osm.geojsonseq gr-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o gr.pbf https://download.geofabrik.de/europe/greece-latest.osm.pbf || { keep gr-osm.geojsonseq gr-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp gr.pbf > out/gr-osm-timestamp.txt
           osmium tags-filter -O -o gr-b.pbf gr.pbf n/barrier=toll_booth w/barrier=toll_booth w/highway=motorway,trunk,motorway_link,trunk_link
           osmium export -O -f geojsonseq -o out/gr-osm.geojsonseq gr-b.pbf
       - name: Turkish bridges and toll booths (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o tr.pbf https://download.geofabrik.de/europe/turkey-latest.osm.pbf || { keep tr-osm.geojsonseq tr-osm-booths.geojsonseq tr-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o tr.pbf https://download.geofabrik.de/europe/turkey-latest.osm.pbf || { keep tr-osm.geojsonseq tr-osm-booths.geojsonseq tr-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp tr.pbf > out/tr-osm-timestamp.txt
           osmium tags-filter -O -o tr-b.pbf tr.pbf "w/name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü" "w/bridge:name=15 Temmuz Şehitler Köprüsü,Fatih Sultan Mehmet Köprüsü,Osmangazi Köprüsü,Yavuz Sultan Selim Köprüsü,1915 Çanakkale Köprüsü"
           osmium export -O -f geojsonseq -o out/tr-osm.geojsonseq tr-b.pbf
@@ -79,7 +79,7 @@ jobs:
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
           for r in madrid castilla-la-mancha murcia andalucia; do
-            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o es-$r.pbf https://download.geofabrik.de/europe/spain/$r-latest.osm.pbf || { keep es-osm.geojsonseq es-osm-timestamp.txt; exit 0; }
+            timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o es-$r.pbf https://download.geofabrik.de/europe/spain/$r-latest.osm.pbf || { keep es-osm.geojsonseq es-osm-timestamp.txt; exit 0; }
             osmium tags-filter -O -o es-$r-b.pbf es-$r.pbf n/barrier=toll_booth w/barrier=toll_booth n/highway=motorway_junction,toll_gantry w/highway=motorway_link,motorway
           done
           osmium fileinfo -g header.option.osmosis_replication_timestamp es-madrid.pbf > out/es-osm-timestamp.txt
@@ -88,17 +88,38 @@ jobs:
       - name: Portuguese motorways (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o pt.pbf https://download.geofabrik.de/europe/portugal-latest.osm.pbf || { keep pt-osm.geojsonseq pt-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o pt.pbf https://download.geofabrik.de/europe/portugal-latest.osm.pbf || { keep pt-osm.geojsonseq pt-osm-timestamp.txt; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp pt.pbf > out/pt-osm-timestamp.txt
           osmium tags-filter -O -o pt-m.pbf pt.pbf w/highway=motorway,motorway_link n/highway=motorway_junction,toll_gantry n/barrier=toll_booth w/barrier=toll_booth
           osmium export -O -f geojsonseq -a type,id -o out/pt-osm.geojsonseq pt-m.pbf
-      - name: Serbian toll booths (OpenStreetMap)
+      - name: Serbian toll booths and the Belgrade bypass (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }
-          curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf || { keep rs-osm.geojsonseq rs-osm-timestamp.txt; exit 0; }
+          timeout 1200 curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors --max-time 900 -o rs.pbf https://download.geofabrik.de/europe/serbia-latest.osm.pbf || { keep rs-osm.geojsonseq rs-osm-timestamp.txt rs-bypass-osm.geojsonseq; exit 0; }
           osmium fileinfo -g header.option.osmosis_replication_timestamp rs.pbf > out/rs-osm-timestamp.txt
           osmium tags-filter -O -o rs-b.pbf rs.pbf n/barrier=toll_booth
           osmium export -O -f geojsonseq -o out/rs-osm.geojsonseq rs-b.pbf
+          # The Belgrade bypass: motorways and junctions by Belgrade (rs_bypass.py).
+          osmium extract -O -b 20.2,44.65,20.6,44.95 rs.pbf -o rs-bg.pbf
+          osmium tags-filter -O -o rs-bg-m.pbf rs-bg.pbf w/highway=motorway n/highway=motorway_junction
+          osmium export -O -f geojsonseq -a type,id -o out/rs-bypass-osm.geojsonseq rs-bg-m.pbf
+      - name: OCR tools, and the Serbian toll decision's tables
+        # Tesseract reads tables published only as scans or images: CalMac's
+        # fares (gb_calmac.py, in Build) and the putarina decision's
+        # amendment in force (tools/rs/gazette_ocr.py, here; tools/tables/rs.py),
+        # whose last run's reading is kept while the issue's content is the same.
+        run: |
+          for i in 1 2 3; do sudo apt-get install -y -qq tesseract-ocr tesseract-ocr-eng tesseract-ocr-srp >/dev/null && break; sleep 30; done
+          pip install -q opencv-python-headless pytesseract pymupdf
+          ls out/rs-sg-*.pdf >/dev/null 2>&1 || exit 0
+          git fetch -q --depth 1 origin tables-out
+          for f in out/rs-sg-*.pdf; do
+            b=$(basename "$f" .pdf)
+            d=$(python3 tools/rs/gazette_ocr.py --digest "$f")
+            if git show "FETCH_HEAD:$b.json" > prev.json 2>/dev/null && grep -q "\"digest\": \"$d\"" prev.json; then mv prev.json "out/$b.json"; continue; fi
+            python3 tools/rs/gazette_ocr.py "$f" "out/$b.json" || echo "::error title=gazette_ocr::$f not read"
+          done
+          rm -f prev.json
       - name: Build
         # A builder that fails (an Overpass answer short of booths, a page that
         # changed) is reported and the others still run; the run fails at the end.
@@ -111,10 +132,22 @@ jobs:
           run python3 tools/tables/mont_blanc.py out out/tables
           run python3 tools/tables/lv.py out out/tables
           run python3 tools/tables/ee.py out out/tables
+          run python3 tools/tables/ee_ferries.py out out/tables
           run python3 tools/tables/se.py out out/tables
           run python3 tools/tables/lu.py out out/tables
           run python3 tools/tables/gb.py out out/tables
           run python3 tools/tables/no.py out out/tables
+          run python3 tools/tables/no_ferries.py out out/tables
+          run python3 tools/tables/gb_calmac.py out out/tables
+          run python3 tools/tables/hr_jadrolinija.py out out/tables
+          run python3 tools/tables/it_messina.py out out/tables
+          run python3 tools/tables/dk_bornholm.py out out/tables
+          run python3 tools/tables/dk_ferries.py out out/tables
+          run python3 tools/tables/scandlines.py out out/tables
+          run python3 tools/tables/polsca.py out out/tables
+          run python3 tools/tables/de_elbfaehre.py out out/tables
+          run python3 tools/tables/ets_islands.py out out/ferries
+          run python3 tools/tables/ferry_ships.py out out/ferries
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables
@@ -153,6 +186,7 @@ jobs:
           run python3 tools/tables/es_basque_ap8.py out out/tables
           run python3 tools/tables/es_ap68.py out out/tables
           run python3 tools/tables/rs.py out out/tables
+          run python3 tools/tables/rs_bypass.py out out/tables
       - name: Convert to ORCT
         # The tables become ORCT datasets right away; only those are kept
         # (tariffs/data).
@@ -164,6 +198,8 @@ jobs:
       - name: Compare with the committed datasets
         run: |
           cmp -s out/tables/hu-annex1.json tools/roads/hu-annex1.json && echo "hu-annex1.json: same as committed" || echo "::warning title=hu-annex1.json::differs from tools/roads/hu-annex1.json"
+          cmp -s out/ferries/crossings-islands.json ferries/data/crossings-islands.json && echo "crossings-islands.json: same as committed" || echo "::warning title=crossings-islands.json::differs from ferries/data/crossings-islands.json"
+          cmp -s out/ferries/crossings-ships.json ferries/data/crossings-ships.json && echo "crossings-ships.json: same as committed" || echo "::warning title=crossings-ships.json::differs from ferries/data/crossings-ships.json"
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
           cd out/tables
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt

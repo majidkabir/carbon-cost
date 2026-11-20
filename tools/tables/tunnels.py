@@ -1,7 +1,7 @@
 """Builds the tables of tunnels and bridges charged per passage on top of
 the countries' own tolls (each a "crossings" table, priced wherever a
 route passes it): the Herrentunnel and the Warnowtunnel (DE), the Westerscheldetunnel (NL), the Liefkenshoektunnel (BE),
-the Great St Bernard tunnel (CH and IT), the Dartford Crossing, the
+the Great St Bernard tunnel (CH and IT), the Felbertauerntunnel (AT), the Dartford Crossing, the
 Tyne Tunnels and the Blackwall and Silvertown tunnels (GB), the Túnel
 d'Envalira (AD), the Faroe Islands' subsea tunnels (FO), the Vaðlaheiðargöng
 tunnel and the Ring Road through Hornafjörður (IS).
@@ -634,6 +634,70 @@ def envalira(fetched, out):
                 "rows": []}, "ad-envalira")
 
 
+FELBERTAUERN = {"sheet": "https://www.felbertauernstrasse.at/wp-content/uploads/2025/12/Mauttarife-per-01.01.2026.pdf",
+                "order": "https://www.felbertauernstrasse.at/wp-content/uploads/2026/10/Mautordnung-per-01.11.2026.pdf",
+                "downloads": "https://www.felbertauernstrasse.at/downloads/"}
+GERMAN_MONTHS = {m: i + 1 for i, m in enumerate(("Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"))}
+
+
+def felbertauern(fetched, out):
+    """The Felbertauerntunnel (P1 Felbertauernstraße, Austria):
+    Felbertauernstraße AG's tariff sheet (Mauttarife,
+    at-felbertauern-mauttarife.txt: the normal price per passage, VAT
+    included), its categories over 3.5 t by axles (Mautordnung 2.4,
+    at-felbertauern-mautordnung.txt: C2 two axles, C3 three, C4 four or
+    more; C4's pictures are a tractor with semi-trailer and a truck with
+    trailer, so a combination's axles all count), charged at the toll plaza
+    before the tunnel's south portal (Matrei in Osttirol) either way: the
+    booths OpenStreetMap places within 3 km of the tunnel's south end
+    (at-felbertauern-osm.json). The downloads page must link the sheet
+    fetched (a new year's sheet has a new address)."""
+    try:
+        d = json.load(open(os.path.join(fetched, "at-felbertauern-osm.json")))
+        t = re.sub(r"\s+", " ", open(os.path.join(fetched, "at-felbertauern-mauttarife.txt"), encoding="utf-8").read())
+        o = re.sub(r"\s+", " ", open(os.path.join(fetched, "at-felbertauern-mautordnung.txt"), encoding="utf-8").read())
+        dl = open(os.path.join(fetched, "at-felbertauern-downloads.html"), encoding="utf-8", errors="replace").read()
+    except (OSError, ValueError):
+        print("Felbertauern: tariff sheet, Mautordnung, downloads page or OpenStreetMap not fetched; not built")
+        return
+    for k in ("sheet", "order"):
+        if os.path.basename(FELBERTAUERN[k]) not in dl:
+            sys.exit(f"Felbertauern: the downloads page no longer links {FELBERTAUERN[k]} (a newer document)")
+    day = re.search(r"Gültig ab (\d{1,2})\. (" + "|".join(GERMAN_MONTHS) + r") (\d{4})", t)
+    eur = r"Normaltarif € ([\d.,]+)"
+    c = [re.search(r"LKW über 3,5 t tzGm, " + a + " " + eur, t) for a in ("2 Achsen", "3 Achsen", "4 oder mehr Achsen")]
+    cats = all(s in o for s in ("C2 ≥ 3,5 t tzGm + 2 Achsen", "C3 ≥ 3,5 t tzGm + 3 Achsen", "C4 ≥ 3,5 t tzGm + 4 oder mehr Achsen"))
+    vat = "Alle Preisangaben verstehen sich inklusive der gesetzlichen Mehrwertsteuer" in t
+    if not (day and all(c) and cats and vat):
+        sys.exit(f"Felbertauern: the sheet or the Mautordnung changed (date {bool(day)}, prices {[bool(x) for x in c]}, categories {cats}, VAT {vat})")
+    c2, c3, c4 = (num(x.group(1)) for x in c)
+    start = f"{day.group(3)}-{GERMAN_MONTHS[day.group(2)]:02d}-{int(day.group(1)):02d}"
+    stamp = d.get("osm3s", {}).get("timestamp_osm_base", "")[:10]
+    w = longest(d, r"Felbertauern")
+    if not w:
+        sys.exit("Felbertauern: the tunnel isn't in OpenStreetMap")
+    south = min((w["geometry"][0], w["geometry"][-1]), key=lambda p: p["lat"])
+    booths = [e for e in d["elements"] if e["type"] == "node" and e.get("tags", {}).get("barrier") == "toll_booth" and km((south["lat"], south["lon"]), (e["lat"], e["lon"])) < 3]
+    if not booths:
+        sys.exit("Felbertauern: no toll booths by the south portal in OpenStreetMap")
+    lat, lon = centre(booths)
+    write(out, {"country": "AT", "currency": "EUR", "valid_from": start, "crossings": True, "osm_extract": stamp,
+                "name": "Felbertauerntunnel toll (Felbertauernstraße)",
+                "law": (f"Felbertauernstraße AG's Mauttarife from {start}, under its Mautordnung (the company, owned by the Republic of Austria, the Land Tyrol and municipalities, charges for the tunnel section "
+                        f"of the P1 Felbertauernstraße): the normal price per passage, either way, VAT included: over 3.5 t with 2 axles EUR {c2:.2f}, 3 axles EUR {c3:.2f}, 4 or more axles EUR {c4:.2f}. "
+                        "The Mautordnung's categories count the axles of the vehicle or combination (its pictures of category C4 are a tractor with semi-trailer and a truck with trailer). "
+                        "Discount cards (Rabattkarten) aren't modelled. The plaza is placed at its toll booths in OpenStreetMap, before the tunnel's south portal (Matrei in Osttirol)."),
+                "sources": [{"title": f"Felbertauernstraße AG: Mauttarife, gültig ab {day.group(0)[10:]}", "url": FELBERTAUERN["sheet"]},
+                            {"title": "Felbertauernstraße AG: Mautordnung (2.4 Fahrzeugkategorien)", "url": FELBERTAUERN["order"]},
+                            {"title": "OpenStreetMap (Overpass API): the Felbertauerntunnel and its toll booths", "url": "https://www.openstreetmap.org/"}],
+                "vehicles": "Vehicles over 3.5 t, by the axles of the vehicle or combination", "min_kg": 3501,
+                "tolled_roads": "The Felbertauerntunnel (B 108 / P1 Felbertauernstraße, Mittersill - Matrei in Osttirol), charged at the toll plaza before its south portal either way.",
+                "point_match_km": 0.15,
+                "toll_points": [{"name": "Felbertauerntunnel", "lat": lat, "lon": lon, "rate": 0, "classes": [
+                    {"min_kg": 3501, "max_axles": 2, "rate": c2}, {"min_kg": 3501, "min_axles": 3, "max_axles": 3, "rate": c3}, {"min_kg": 3501, "min_axles": 4, "rate": c4}]}],
+                "rows": []}, "at-felbertauern")
+
+
 def faroe(fetched, out):
     """The Faroe Islands' subsea tunnels: Tunnil's one-way prices for
     vehicles over 3,500 kg (fo-tunnil.html), at the middle of each tunnel's
@@ -801,7 +865,7 @@ def main(transcribed, fetched, out, browser=os.path.join(os.path.dirname(os.path
                         ("westerschelde", lambda: westerschelde(fetched, out, osm, stamp)), ("liefkenshoek", lambda: liefkenshoek(browser, out, osm, stamp)),
                         ("gsb", lambda: gsb(fetched, out, osm, stamp)), ("dartford", lambda: dartford(fetched, out, osm, stamp)),
                         ("tyne", lambda: tyne(fetched, out)), ("thames", lambda: thames(browser, fetched, out)), ("bridges", lambda: bridges(browser, fetched, out)),
-                        ("envalira", lambda: envalira(fetched, out)), ("faroe", lambda: faroe(fetched, out)), ("iceland", lambda: iceland(fetched, out))):
+                        ("envalira", lambda: envalira(fetched, out)), ("felbertauern", lambda: felbertauern(fetched, out)), ("faroe", lambda: faroe(fetched, out)), ("iceland", lambda: iceland(fetched, out))):
         try:
             build()
         except (SystemExit, Exception) as e:  # a missing copy raises OSError

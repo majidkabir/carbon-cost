@@ -14,10 +14,10 @@
   },
   "valid_from": "2024-07-10",
   "valid_to": "2025-01-09",
-  "currency": "EUR",
+  "currency": "RSD",
   "timezone": "Europe/Belgrade",
   "license": "MIT",
-  "method": "JP Putevi Srbije's price list in force from 2024-07-10 (EUR column, at NBS rate list 118 of 24.06.2024.), as the Internet Archive kept it (20241214): toll from entry to exit station on the A1, A2, A3 and A4, by vehicle category; in force until 2025-01-09 (the next list). The list gives prices from BEOGRAD, OBRENOVAC, PREŠEVO, STARA PAZOVA, ŠIMANOVCI to every station on their sections; other pairs aren't published there. Stations placed as in the current table.",
+  "method": "JP Putevi Srbije's Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), with the Government's consent, as amended in Službeni glasnik RS 58/2024 (applying from 2024-07-10): the toll in RSD from entry to exit station on each characteristic section, by vehicle category; in force until 2025-01-09. The decision's tables are scans: read by OCR (tools/rs/gazette_ocr.py), each price checked against its mirror cell and category IV against III; 1 pairs where a category couldn't be read for certain have no price for it. Stations placed at OpenStreetMap's toll booths of their name. The Belgrade bypass (category IV per section) is its own table. Held to Putevi Srbije's price list from 2024-07-10 (its RSD amounts, the Internet Archive's copy): the same on every pair it has but STARA PAZOVA–ŽEDNIK category 4, where the scan is clear.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "rs-2024-07-10.json"
@@ -27,12 +27,22 @@
  "sources": [
   {
    "id": "s1",
-   "title": "JP Putevi Srbije: vehicle categories and toll price list",
-   "url": "https://www.putevi-srbije.rs/index.php/sr/kategorizacija-vozila-cenovnik-putarine"
+   "title": "Službeni glasnik RS 58/2024: Odluka o izmeni i dopuni Odluke o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina)",
+   "url": "https://slgl.pravno-informacioni-sistem.rs/api/prins/viewdoc?uuid=8359a1f7-bdb4-482e-95e0-51fa20fbf191"
   },
   {
    "id": "s2",
-   "title": "Price list (PDF), Internet Archive copy of 20241214",
+   "title": "Pravno-informacioni sistem RS: Odluka o visini posebne naknade ... (putarina), its amendments",
+   "url": "https://pravno-informacioni-sistem.rs/eli/rep/sgrs/drugeorganizacije/odluka/2019/40/1/reg"
+  },
+  {
+   "id": "s3",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/serbia.html"
+  },
+  {
+   "id": "s4",
+   "title": "JP Putevi Srbije's price list from 2024-07-10, Internet Archive copy",
    "url": "https://web.archive.org/web/20241214061306id_/https://www.putevi-srbije.rs/images/pdf/cene_putarina_lat.pdf"
   }
  ],
@@ -41,7 +51,7 @@
   "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
  },
  "liable_vehicles": {
-  "description": "Vehicles over 3.5 t (categories 3 and 4)",
+  "description": "Vehicles over 3.5 t (categories III and IV)",
   "criteria": {
    "train_mass_kg": {
     "min": 3501
@@ -81,499 +91,19 @@
  ],
  "charge_objects": [
   {
-   "id": "st1:ALEKSINAC",
+   "id": "st1:ADAŠEVCI",
    "type": "station",
-   "name": "ALEKSINAC",
+   "name": "ADAŠEVCI",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[21.72212, 43.52613], [21.72216, 43.52622]]
+     "coordinates": [[19.21021, 45.04603], [19.20964, 45.05011]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st1:ALEKSINAČKI RUDNICI",
-   "type": "station",
-   "name": "ALEKSINAČKI RUDNICI",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.68873, 43.55152]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:BATOČINA",
-   "type": "station",
-   "name": "BATOČINA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.11234, 44.15031], [21.11445, 44.15163], [21.11244, 44.15027]]
-    },
-    "point_names": ["booth", "booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:BELA PALANKA",
-   "type": "station",
-   "name": "BELA PALANKA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.31653, 43.23369]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:BEOGRAD",
-   "type": "station",
-   "name": "BEOGRAD",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.61256, 44.66456], [20.61189, 44.66423]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:BRESTOVAC",
-   "type": "station",
-   "name": "BRESTOVAC",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.89265, 43.14984]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:BUJANOVAC jug",
-   "type": "station",
-   "name": "BUJANOVAC jug",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.77762, 42.4532]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:BUJANOVAC sever",
-   "type": "station",
-   "name": "BUJANOVAC sever",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.80868, 42.46689]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:DIMITROVGRAD",
-   "type": "station",
-   "name": "DIMITROVGRAD",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.73636, 43.02172], [22.73643, 43.02192]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:DOLJEVAC SELO",
-   "type": "station",
-   "name": "DOLJEVAC SELO",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.85022, 43.19327]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:GRDELICA",
-   "type": "station",
-   "name": "GRDELICA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.06858, 42.88623]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:JAGODINA",
-   "type": "station",
-   "name": "JAGODINA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.26638, 43.99891], [21.26631, 43.99896]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:KOLARI",
-   "type": "station",
-   "name": "KOLARI",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.89542, 44.57644], [20.89488, 44.57478]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:KOŠEVI",
-   "type": "station",
-   "name": "KOŠEVI",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.23101, 43.58679], [21.23085, 43.5868]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:KRUŠEVAC istok",
-   "type": "station",
-   "name": "KRUŠEVAC istok",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.33422, 43.6052], [21.33453, 43.60521]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:KRUŠEVAC zapad",
-   "type": "station",
-   "name": "KRUŠEVAC zapad",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.30838, 43.60765], [21.3084, 43.60789]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:LAPOVO",
-   "type": "station",
-   "name": "LAPOVO",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.11019, 44.18464], [21.11183, 44.18448], [21.11011, 44.18465], [21.1119, 44.18448]]
-    },
-    "point_names": ["booth", "booth", "booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:LESKOVAC centar",
-   "type": "station",
-   "name": "LESKOVAC centar",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.93833, 43.09009]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:LESKOVAC jug",
-   "type": "station",
-   "name": "LESKOVAC jug",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.03386, 42.97057]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:MALI POŽAREVAC",
-   "type": "station",
-   "name": "MALI POŽAREVAC",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.66962, 44.56306], [20.66944, 44.56307]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:MARKOVAC",
-   "type": "station",
-   "name": "MARKOVAC",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.11958, 44.23722], [21.11962, 44.23717], [21.11673, 44.23953], [21.11666, 44.23954]]
-    },
-    "point_names": ["booth", "booth", "booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:MEROŠINA",
-   "type": "station",
-   "name": "MEROŠINA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.79816, 43.27931]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:NIŠ Malča",
-   "type": "station",
-   "name": "NIŠ Malča",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.0199, 43.31918]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:NIŠ istok",
-   "type": "station",
-   "name": "NIŠ istok",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.93634, 43.34217]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:NIŠ jug",
-   "type": "station",
-   "name": "NIŠ jug",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.81582, 43.32757], [21.81577, 43.32747]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:NIŠ sever",
-   "type": "station",
-   "name": "NIŠ sever",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.85813, 43.34961], [21.85816, 43.34973]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:PARAĆIN",
-   "type": "station",
-   "name": "PARAĆIN",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.43351, 43.85604], [21.43784, 43.85732]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:PIROT istok",
-   "type": "station",
-   "name": "PIROT istok",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.61863, 43.12356]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:PIROT zapad",
-   "type": "station",
-   "name": "PIROT zapad",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.56653, 43.1885], [22.56647, 43.18849]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:POŽAREVAC",
-   "type": "station",
-   "name": "POŽAREVAC",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.98246, 44.58001], [20.98255, 44.57991]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:PREDEJANE",
-   "type": "station",
-   "name": "PREDEJANE",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.12371, 42.82038], [22.12382, 42.82034]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:PREŠEVO",
-   "type": "station",
-   "name": "PREŠEVO",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.70968, 42.30264], [21.70946, 42.30265]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:RAŽANJ",
-   "type": "station",
-   "name": "RAŽANJ",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.54625, 43.68398], [21.54629, 43.68403]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:SMEDEREVO",
-   "type": "station",
-   "name": "SMEDEREVO",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.95723, 44.58996], [20.95732, 44.58997]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:UMČARI",
-   "type": "station",
-   "name": "UMČARI",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.74515, 44.57543], [20.74643, 44.57456], [20.74535, 44.57562]]
-    },
-    "point_names": ["booth", "booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:VELIKA PLANA",
-   "type": "station",
-   "name": "VELIKA PLANA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.08002, 44.33915]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:VLADIČIN HAN",
-   "type": "station",
-   "name": "VLADIČIN HAN",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[22.07237, 42.70351]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:VODANJ",
-   "type": "station",
-   "name": "VODANJ",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[20.81911, 44.58517], [20.82147, 44.58279], [20.82145, 44.58286], [20.81907, 44.58522]]
-    },
-    "point_names": ["booth", "booth", "booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:VRANJE",
-   "type": "station",
-   "name": "VRANJE",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.92814, 42.54404]]
-    },
-    "point_names": ["booth"]
-   }
-  },
-  {
-   "id": "st1:ĆIĆEVAC",
-   "type": "station",
-   "name": "ĆIĆEVAC",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.42099, 43.72267], [21.42076, 43.72274]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st1:ĆUPRIJA",
-   "type": "station",
-   "name": "ĆUPRIJA",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[21.39009, 43.93795], [21.3889, 43.93423]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st2:HRTKOVCI",
+   "id": "st1:HRTKOVCI",
    "type": "station",
    "name": "HRTKOVCI",
    "location": {
@@ -585,7 +115,7 @@
    }
   },
   {
-   "id": "st2:KUZMIN",
+   "id": "st1:KUZMIN",
    "type": "station",
    "name": "KUZMIN",
    "location": {
@@ -597,19 +127,7 @@
    }
   },
   {
-   "id": "st2:MOROVIĆ / ADAŠEVCI",
-   "type": "station",
-   "name": "MOROVIĆ / ADAŠEVCI",
-   "location": {
-    "geometry": {
-     "type": "MultiPoint",
-     "coordinates": [[19.21021, 45.04603], [19.20964, 45.05011]]
-    },
-    "point_names": ["booth", "booth"]
-   }
-  },
-  {
-   "id": "st2:PEĆINCI",
+   "id": "st1:PEĆINCI",
    "type": "station",
    "name": "PEĆINCI",
    "location": {
@@ -621,31 +139,31 @@
    }
   },
   {
-   "id": "st2:RUMA",
+   "id": "st1:RUMA",
    "type": "station",
    "name": "RUMA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.80853, 44.96786], [19.80832, 44.96792]]
+     "coordinates": [[19.80832, 44.96792], [19.80853, 44.96786]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st2:SREMSKA MITROVICA",
+   "id": "st1:SREMSKA MITROVICA",
    "type": "station",
    "name": "SREMSKA MITROVICA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.64502, 44.99545], [19.64502, 44.99531]]
+     "coordinates": [[19.64502, 44.99531], [19.64502, 44.99545]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st2:ŠABAC",
+   "id": "st1:ŠABAC",
    "type": "station",
    "name": "ŠABAC",
    "location": {
@@ -657,7 +175,7 @@
    }
   },
   {
-   "id": "st2:ŠID",
+   "id": "st1:ŠID",
    "type": "station",
    "name": "ŠID",
    "location": {
@@ -669,7 +187,7 @@
    }
   },
   {
-   "id": "st2:ŠIMANOVCI",
+   "id": "st1:ŠIMANOVCI",
    "type": "station",
    "name": "ŠIMANOVCI",
    "location": {
@@ -681,13 +199,97 @@
    }
   },
   {
+   "id": "st2:LAJKOVAC",
+   "type": "station",
+   "name": "LAJKOVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.13098, 44.35984], [20.13089, 44.35987]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:LJIG",
+   "type": "station",
+   "name": "LJIG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.24935, 44.23176]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:OBRENOVAC",
+   "type": "station",
+   "name": "OBRENOVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.19029, 44.57129], [20.19092, 44.57404]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:PAKOVRAĆE",
+   "type": "station",
+   "name": "PAKOVRAĆE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.26156, 43.90299], [20.26158, 43.90313]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:PRELJINA KONJEVIĆI",
+   "type": "station",
+   "name": "PRELJINA KONJEVIĆI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.40846, 43.89862], [20.40869, 43.8985]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st2:TAKOVO",
+   "type": "station",
+   "name": "TAKOVO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.38165, 44.04374]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st2:UB",
+   "type": "station",
+   "name": "UB",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.12153, 44.45491]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
    "id": "st3:BAČKA TOPOLA",
    "type": "station",
    "name": "BAČKA TOPOLA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.68891, 45.82477], [19.68502, 45.82321], [19.68493, 45.82318], [19.68898, 45.82476]]
+     "coordinates": [[19.68493, 45.82318], [19.68898, 45.82476], [19.68891, 45.82477], [19.68502, 45.82321]]
     },
     "point_names": ["booth", "booth", "booth", "booth"]
    }
@@ -699,7 +301,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.09029, 45.13511], [20.09016, 45.13511]]
+     "coordinates": [[20.09016, 45.13511], [20.09029, 45.13511]]
     },
     "point_names": ["booth", "booth"]
    }
@@ -711,7 +313,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.71456, 45.64017], [19.71546, 45.64687], [19.71451, 45.64023], [19.71546, 45.64694]]
+     "coordinates": [[19.71451, 45.64023], [19.71456, 45.64017], [19.71546, 45.64687], [19.71546, 45.64694]]
     },
     "point_names": ["booth", "booth", "booth", "booth"]
    }
@@ -723,7 +325,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.14814, 45.06975], [20.14803, 45.06971]]
+     "coordinates": [[20.14803, 45.06971], [20.14814, 45.06975]]
     },
     "point_names": ["booth", "booth"]
    }
@@ -753,15 +355,27 @@
    }
   },
   {
-   "id": "st3:NOVI SAD",
+   "id": "st3:NOVI SAD - JUG",
    "type": "station",
-   "name": "NOVI SAD",
+   "name": "NOVI SAD - JUG",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.89088, 45.28826], [19.79968, 45.3134], [19.89044, 45.28786], [19.79895, 45.31299]]
+     "coordinates": [[19.89044, 45.28786], [19.89088, 45.28826]]
     },
-    "point_names": ["booth", "booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st3:NOVI SAD - SEVER",
+   "type": "station",
+   "name": "NOVI SAD - SEVER",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[19.79968, 45.3134], [19.79895, 45.31299]]
+    },
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -783,7 +397,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.73385, 46.02108], [19.734, 46.02106]]
+     "coordinates": [[19.734, 46.02106], [19.73385, 46.02108]]
     },
     "point_names": ["booth", "booth"]
    }
@@ -795,7 +409,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.72186, 45.55524], [19.72196, 45.55525], [19.71771, 45.55434], [19.71762, 45.55434]]
+     "coordinates": [[19.71762, 45.55434], [19.72196, 45.55525], [19.72186, 45.55524], [19.71771, 45.55434]]
     },
     "point_names": ["booth", "booth", "booth", "booth"]
    }
@@ -807,7 +421,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[19.73542, 45.44206], [19.7394, 45.44037], [19.7395, 45.44036], [19.7353, 45.44208]]
+     "coordinates": [[19.7395, 45.44036], [19.7394, 45.44037], [19.73542, 45.44206], [19.7353, 45.44208]]
     },
     "point_names": ["booth", "booth", "booth", "booth"]
    }
@@ -825,85 +439,493 @@
    }
   },
   {
-   "id": "st4:LAJKOVAC",
+   "id": "st4:ALEKSINAC",
    "type": "station",
-   "name": "LAJKOVAC",
+   "name": "ALEKSINAC",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.13098, 44.35984], [20.13089, 44.35987]]
+     "coordinates": [[21.72212, 43.52613], [21.72216, 43.52622]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st4:LJIG",
+   "id": "st4:ALEKSINAČKI RUDNICI",
    "type": "station",
-   "name": "LJIG",
+   "name": "ALEKSINAČKI RUDNICI",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.24935, 44.23176]]
+     "coordinates": [[21.68873, 43.55152]]
     },
     "point_names": ["booth"]
    }
   },
   {
-   "id": "st4:OBRENOVAC",
+   "id": "st4:BATOČINA",
    "type": "station",
-   "name": "OBRENOVAC",
+   "name": "BATOČINA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.19092, 44.57404], [20.19029, 44.57129]]
+     "coordinates": [[21.11234, 44.15031], [21.11445, 44.15163], [21.11244, 44.15027]]
+    },
+    "point_names": ["booth", "booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:BELA PALANKA",
+   "type": "station",
+   "name": "BELA PALANKA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.31653, 43.23369]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:BEOGRAD",
+   "type": "station",
+   "name": "BEOGRAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.61256, 44.66456], [20.61189, 44.66423]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st4:PRELJINA JUG",
+   "id": "st4:BRESTOVAC",
    "type": "station",
-   "name": "PRELJINA JUG",
+   "name": "BRESTOVAC",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.40846, 43.89862], [20.40869, 43.8985]]
+     "coordinates": [[21.89265, 43.14984]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:BUJANOVAC JUG",
+   "type": "station",
+   "name": "BUJANOVAC JUG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.77762, 42.4532]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:BUJANOVAC SEVER",
+   "type": "station",
+   "name": "BUJANOVAC SEVER",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.80868, 42.46689]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:DIMITROVGRAD",
+   "type": "station",
+   "name": "DIMITROVGRAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.73643, 43.02192], [22.73636, 43.02172]]
     },
     "point_names": ["booth", "booth"]
    }
   },
   {
-   "id": "st4:TAKOVO",
+   "id": "st4:DOLJEVAC SELO",
    "type": "station",
-   "name": "TAKOVO",
+   "name": "DOLJEVAC SELO",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.38165, 44.04374]]
+     "coordinates": [[21.85022, 43.19327]]
     },
     "point_names": ["booth"]
    }
   },
   {
-   "id": "st4:UB",
+   "id": "st4:GRDELICA",
    "type": "station",
-   "name": "UB",
+   "name": "GRDELICA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.12153, 44.45491]]
+     "coordinates": [[22.06858, 42.88623]]
     },
     "point_names": ["booth"]
    }
   },
   {
-   "id": "st4:ČAČAK (Pakovraće)",
+   "id": "st4:JAGODINA",
    "type": "station",
-   "name": "ČAČAK (Pakovraće)",
+   "name": "JAGODINA",
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[20.26158, 43.90313], [20.26156, 43.90299]]
+     "coordinates": [[21.26631, 43.99896], [21.26638, 43.99891]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:KOLARI",
+   "type": "station",
+   "name": "KOLARI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.89488, 44.57478], [20.89542, 44.57644]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:KOŠEVI",
+   "type": "station",
+   "name": "KOŠEVI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.23085, 43.5868], [21.23101, 43.58679]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:KRUŠEVAC ISTOK",
+   "type": "station",
+   "name": "KRUŠEVAC ISTOK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.33422, 43.6052], [21.33453, 43.60521]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:KRUŠEVAC ZAPAD",
+   "type": "station",
+   "name": "KRUŠEVAC ZAPAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.30838, 43.60765], [21.3084, 43.60789]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:LAPOVO",
+   "type": "station",
+   "name": "LAPOVO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.1119, 44.18448], [21.11183, 44.18448], [21.11019, 44.18464], [21.11011, 44.18465]]
+    },
+    "point_names": ["booth", "booth", "booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:LESKOVAC CENTAR",
+   "type": "station",
+   "name": "LESKOVAC CENTAR",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.93833, 43.09009]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:LESKOVAC JUG",
+   "type": "station",
+   "name": "LESKOVAC JUG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.03386, 42.97057]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:MALI POŽAREVAC",
+   "type": "station",
+   "name": "MALI POŽAREVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.66944, 44.56307], [20.66962, 44.56306]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:MALČA",
+   "type": "station",
+   "name": "MALČA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.0199, 43.31918]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:MARKOVAC",
+   "type": "station",
+   "name": "MARKOVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.11962, 44.23717], [21.11958, 44.23722], [21.11673, 44.23953], [21.11666, 44.23954]]
+    },
+    "point_names": ["booth", "booth", "booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:MEROŠINA",
+   "type": "station",
+   "name": "MEROŠINA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.79816, 43.27931]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:NIŠ ISTOK",
+   "type": "station",
+   "name": "NIŠ ISTOK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.93634, 43.34217]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:NIŠ JUG",
+   "type": "station",
+   "name": "NIŠ JUG",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.81582, 43.32757], [21.81577, 43.32747]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:NIŠ SEVER",
+   "type": "station",
+   "name": "NIŠ SEVER",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.85813, 43.34961], [21.85816, 43.34973]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:PARAĆIN",
+   "type": "station",
+   "name": "PARAĆIN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.43351, 43.85604], [21.43784, 43.85732]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:PIROT ISTOK",
+   "type": "station",
+   "name": "PIROT ISTOK",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.61863, 43.12356]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:PIROT ZAPAD",
+   "type": "station",
+   "name": "PIROT ZAPAD",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.56647, 43.18849], [22.56653, 43.1885]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:POŽAREVAC",
+   "type": "station",
+   "name": "POŽAREVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.98246, 44.58001], [20.98255, 44.57991]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:PREDEJANE",
+   "type": "station",
+   "name": "PREDEJANE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.12382, 42.82034], [22.12371, 42.82038]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:PREŠEVO",
+   "type": "station",
+   "name": "PREŠEVO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.70968, 42.30264], [21.70946, 42.30265]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:RAŽANJ",
+   "type": "station",
+   "name": "RAŽANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.54625, 43.68398], [21.54629, 43.68403]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:SMEDEREVO",
+   "type": "station",
+   "name": "SMEDEREVO",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.95723, 44.58996], [20.95732, 44.58997]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:UMČARI",
+   "type": "station",
+   "name": "UMČARI",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.74515, 44.57543], [20.74643, 44.57456], [20.74535, 44.57562]]
+    },
+    "point_names": ["booth", "booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:VELIKA PLANA",
+   "type": "station",
+   "name": "VELIKA PLANA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.08002, 44.33915]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:VLADIČIN HAN",
+   "type": "station",
+   "name": "VLADIČIN HAN",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[22.07237, 42.70351]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:VODANJ",
+   "type": "station",
+   "name": "VODANJ",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[20.82145, 44.58286], [20.81907, 44.58522], [20.82147, 44.58279], [20.81911, 44.58517]]
+    },
+    "point_names": ["booth", "booth", "booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:VRANJE",
+   "type": "station",
+   "name": "VRANJE",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.92814, 42.54404]]
+    },
+    "point_names": ["booth"]
+   }
+  },
+  {
+   "id": "st4:ĆIĆEVAC",
+   "type": "station",
+   "name": "ĆIĆEVAC",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.42099, 43.72267], [21.42076, 43.72274]]
+    },
+    "point_names": ["booth", "booth"]
+   }
+  },
+  {
+   "id": "st4:ĆUPRIJA",
+   "type": "station",
+   "name": "ĆUPRIJA",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[21.3889, 43.93423], [21.39009, 43.93795]]
     },
     "point_names": ["booth", "booth"]
    }
@@ -912,162 +934,142 @@
  "charges": [
   {
    "id": "system1",
-   "name": "A1, A4 Beograd – Niš – Preševo / Dimitrovgrad",
-   "type": "od",
-   "component": "unspecified",
-   "unit": "trip",
-   "method": "JP Putevi Srbije price list (posebna naknada za upotrebu autoputa, from 2024-07-10, with the Government's consent; Zakon o naknadama za korišćenje javnih dobara): EUR from the listed entry station; vehicle categories 3 (2-3 axles over 3.5 t) and 4 (4 or more axles)",
-   "columns": ["entry", "exit", "vehicle_class", "amount"],
-   "rows": [
-    ["st1:BEOGRAD", "st1:ALEKSINAC", "sys1-1.K3", "26"],
-    ["st1:BEOGRAD", "st1:ALEKSINAC", "sys1-1.K4", "51.5"],
-    ["st1:BEOGRAD", "st1:ALEKSINAČKI RUDNICI", "sys1-1.K3", "25"],
-    ["st1:BEOGRAD", "st1:ALEKSINAČKI RUDNICI", "sys1-1.K4", "50"],
-    ["st1:BEOGRAD", "st1:BATOČINA", "sys1-1.K3", "13"],
-    ["st1:BEOGRAD", "st1:BATOČINA", "sys1-1.K4", "25.5"],
-    ["st1:BEOGRAD", "st1:BELA PALANKA", "sys1-1.K3", "35"],
-    ["st1:BEOGRAD", "st1:BELA PALANKA", "sys1-1.K4", "69.5"],
-    ["st1:BEOGRAD", "st1:BRESTOVAC", "sys1-1.K3", "32.5"],
-    ["st1:BEOGRAD", "st1:BRESTOVAC", "sys1-1.K4", "64"],
-    ["st1:BEOGRAD", "st1:BUJANOVAC jug", "sys1-1.K3", "46"],
-    ["st1:BEOGRAD", "st1:BUJANOVAC jug", "sys1-1.K4", "92"],
-    ["st1:BEOGRAD", "st1:BUJANOVAC sever", "sys1-1.K3", "45.5"],
-    ["st1:BEOGRAD", "st1:BUJANOVAC sever", "sys1-1.K4", "91"],
-    ["st1:BEOGRAD", "st1:DIMITROVGRAD", "sys1-1.K3", "43"],
-    ["st1:BEOGRAD", "st1:DIMITROVGRAD", "sys1-1.K4", "86"],
-    ["st1:BEOGRAD", "st1:DOLJEVAC SELO", "sys1-1.K3", "31.5"],
-    ["st1:BEOGRAD", "st1:DOLJEVAC SELO", "sys1-1.K4", "62.5"],
-    ["st1:BEOGRAD", "st1:GRDELICA", "sys1-1.K3", "36.5"],
-    ["st1:BEOGRAD", "st1:GRDELICA", "sys1-1.K4", "73"],
-    ["st1:BEOGRAD", "st1:JAGODINA", "sys1-1.K3", "16"],
-    ["st1:BEOGRAD", "st1:JAGODINA", "sys1-1.K4", "31.5"],
-    ["st1:BEOGRAD", "st1:KOLARI", "sys1-1.K3", "5"],
-    ["st1:BEOGRAD", "st1:KOLARI", "sys1-1.K4", "10"],
-    ["st1:BEOGRAD", "st1:KOŠEVI", "sys1-1.K3", "24.5"],
-    ["st1:BEOGRAD", "st1:KOŠEVI", "sys1-1.K4", "49"],
-    ["st1:BEOGRAD", "st1:KRUŠEVAC istok", "sys1-1.K3", "23.5"],
-    ["st1:BEOGRAD", "st1:KRUŠEVAC istok", "sys1-1.K4", "47"],
-    ["st1:BEOGRAD", "st1:KRUŠEVAC zapad", "sys1-1.K3", "24"],
-    ["st1:BEOGRAD", "st1:KRUŠEVAC zapad", "sys1-1.K4", "47.5"],
-    ["st1:BEOGRAD", "st1:LAPOVO", "sys1-1.K3", "12.5"],
-    ["st1:BEOGRAD", "st1:LAPOVO", "sys1-1.K4", "24.5"],
-    ["st1:BEOGRAD", "st1:LESKOVAC centar", "sys1-1.K3", "33"],
-    ["st1:BEOGRAD", "st1:LESKOVAC centar", "sys1-1.K4", "66"],
-    ["st1:BEOGRAD", "st1:LESKOVAC jug", "sys1-1.K3", "35"],
-    ["st1:BEOGRAD", "st1:LESKOVAC jug", "sys1-1.K4", "70"],
-    ["st1:BEOGRAD", "st1:MALI POŽAREVAC", "sys1-1.K3", "2.5"],
-    ["st1:BEOGRAD", "st1:MALI POŽAREVAC", "sys1-1.K4", "5"],
-    ["st1:BEOGRAD", "st1:MARKOVAC", "sys1-1.K3", "11.5"],
-    ["st1:BEOGRAD", "st1:MARKOVAC", "sys1-1.K4", "23"],
-    ["st1:BEOGRAD", "st1:MEROŠINA", "sys1-1.K3", "30"],
-    ["st1:BEOGRAD", "st1:MEROŠINA", "sys1-1.K4", "59.5"],
-    ["st1:BEOGRAD", "st1:NIŠ Malča", "sys1-1.K3", "31"],
-    ["st1:BEOGRAD", "st1:NIŠ Malča", "sys1-1.K4", "61.5"],
-    ["st1:BEOGRAD", "st1:NIŠ istok", "sys1-1.K3", "30"],
-    ["st1:BEOGRAD", "st1:NIŠ istok", "sys1-1.K4", "59.5"],
-    ["st1:BEOGRAD", "st1:NIŠ jug", "sys1-1.K3", "29"],
-    ["st1:BEOGRAD", "st1:NIŠ jug", "sys1-1.K4", "58"],
-    ["st1:BEOGRAD", "st1:NIŠ sever", "sys1-1.K3", "29"],
-    ["st1:BEOGRAD", "st1:NIŠ sever", "sys1-1.K4", "57.5"],
-    ["st1:BEOGRAD", "st1:PARAĆIN", "sys1-1.K3", "19"],
-    ["st1:BEOGRAD", "st1:PARAĆIN", "sys1-1.K4", "38"],
-    ["st1:BEOGRAD", "st1:PIROT istok", "sys1-1.K3", "39.5"],
-    ["st1:BEOGRAD", "st1:PIROT istok", "sys1-1.K4", "79"],
-    ["st1:BEOGRAD", "st1:PIROT zapad", "sys1-1.K3", "38"],
-    ["st1:BEOGRAD", "st1:PIROT zapad", "sys1-1.K4", "76"],
-    ["st1:BEOGRAD", "st1:POŽAREVAC", "sys1-1.K3", "6"],
-    ["st1:BEOGRAD", "st1:POŽAREVAC", "sys1-1.K4", "12"],
-    ["st1:BEOGRAD", "st1:PREDEJANE", "sys1-1.K3", "38.5"],
-    ["st1:BEOGRAD", "st1:PREDEJANE", "sys1-1.K4", "76.5"],
-    ["st1:BEOGRAD", "st1:PREŠEVO", "sys1-1.K3", "49"],
-    ["st1:BEOGRAD", "st1:PREŠEVO", "sys1-1.K4", "97.5"],
-    ["st1:BEOGRAD", "st1:RAŽANJ", "sys1-1.K3", "22.5"],
-    ["st1:BEOGRAD", "st1:RAŽANJ", "sys1-1.K4", "44.5"],
-    ["st1:BEOGRAD", "st1:SMEDEREVO", "sys1-1.K3", "6"],
-    ["st1:BEOGRAD", "st1:SMEDEREVO", "sys1-1.K4", "12"],
-    ["st1:BEOGRAD", "st1:UMČARI", "sys1-1.K3", "3.5"],
-    ["st1:BEOGRAD", "st1:UMČARI", "sys1-1.K4", "7"],
-    ["st1:BEOGRAD", "st1:VELIKA PLANA", "sys1-1.K3", "10"],
-    ["st1:BEOGRAD", "st1:VELIKA PLANA", "sys1-1.K4", "20"],
-    ["st1:BEOGRAD", "st1:VLADIČIN HAN", "sys1-1.K3", "40.5"],
-    ["st1:BEOGRAD", "st1:VLADIČIN HAN", "sys1-1.K4", "81"],
-    ["st1:BEOGRAD", "st1:VODANJ", "sys1-1.K3", "4.5"],
-    ["st1:BEOGRAD", "st1:VODANJ", "sys1-1.K4", "8.5"],
-    ["st1:BEOGRAD", "st1:VRANJE", "sys1-1.K3", "43.5"],
-    ["st1:BEOGRAD", "st1:VRANJE", "sys1-1.K4", "87"],
-    ["st1:BEOGRAD", "st1:ĆIĆEVAC", "sys1-1.K3", "21"],
-    ["st1:BEOGRAD", "st1:ĆIĆEVAC", "sys1-1.K4", "42"],
-    ["st1:BEOGRAD", "st1:ĆUPRIJA", "sys1-1.K3", "17.5"],
-    ["st1:BEOGRAD", "st1:ĆUPRIJA", "sys1-1.K4", "35"],
-    ["st1:PREŠEVO", "st1:BELA PALANKA", "sys1-1.K3", "26.5"],
-    ["st1:PREŠEVO", "st1:BELA PALANKA", "sys1-1.K4", "53"],
-    ["st1:PREŠEVO", "st1:BRESTOVAC", "sys1-1.K3", "17"],
-    ["st1:PREŠEVO", "st1:BRESTOVAC", "sys1-1.K4", "33.5"],
-    ["st1:PREŠEVO", "st1:BUJANOVAC jug", "sys1-1.K3", "3"],
-    ["st1:PREŠEVO", "st1:BUJANOVAC jug", "sys1-1.K4", "6"],
-    ["st1:PREŠEVO", "st1:BUJANOVAC sever", "sys1-1.K3", "3.5"],
-    ["st1:PREŠEVO", "st1:BUJANOVAC sever", "sys1-1.K4", "6.5"],
-    ["st1:PREŠEVO", "st1:DIMITROVGRAD", "sys1-1.K3", "35"],
-    ["st1:PREŠEVO", "st1:DIMITROVGRAD", "sys1-1.K4", "69.5"],
-    ["st1:PREŠEVO", "st1:DOLJEVAC SELO", "sys1-1.K3", "18"],
-    ["st1:PREŠEVO", "st1:DOLJEVAC SELO", "sys1-1.K4", "35.5"],
-    ["st1:PREŠEVO", "st1:GRDELICA", "sys1-1.K3", "12.5"],
-    ["st1:PREŠEVO", "st1:GRDELICA", "sys1-1.K4", "24.5"],
-    ["st1:PREŠEVO", "st1:LESKOVAC centar", "sys1-1.K3", "16"],
-    ["st1:PREŠEVO", "st1:LESKOVAC centar", "sys1-1.K4", "31.5"],
-    ["st1:PREŠEVO", "st1:LESKOVAC jug", "sys1-1.K3", "14"],
-    ["st1:PREŠEVO", "st1:LESKOVAC jug", "sys1-1.K4", "27.5"],
-    ["st1:PREŠEVO", "st1:MEROŠINA", "sys1-1.K3", "19"],
-    ["st1:PREŠEVO", "st1:MEROŠINA", "sys1-1.K4", "38"],
-    ["st1:PREŠEVO", "st1:NIŠ Malča", "sys1-1.K3", "22.5"],
-    ["st1:PREŠEVO", "st1:NIŠ Malča", "sys1-1.K4", "45"],
-    ["st1:PREŠEVO", "st1:NIŠ istok", "sys1-1.K3", "21.5"],
-    ["st1:PREŠEVO", "st1:NIŠ istok", "sys1-1.K4", "43"],
-    ["st1:PREŠEVO", "st1:NIŠ jug", "sys1-1.K3", "20"],
-    ["st1:PREŠEVO", "st1:NIŠ jug", "sys1-1.K4", "39.5"],
-    ["st1:PREŠEVO", "st1:NIŠ sever", "sys1-1.K3", "21"],
-    ["st1:PREŠEVO", "st1:NIŠ sever", "sys1-1.K4", "41.5"],
-    ["st1:PREŠEVO", "st1:PIROT istok", "sys1-1.K3", "31.5"],
-    ["st1:PREŠEVO", "st1:PIROT istok", "sys1-1.K4", "62.5"],
-    ["st1:PREŠEVO", "st1:PIROT zapad", "sys1-1.K3", "30"],
-    ["st1:PREŠEVO", "st1:PIROT zapad", "sys1-1.K4", "59.5"],
-    ["st1:PREŠEVO", "st1:PREDEJANE", "sys1-1.K3", "11"],
-    ["st1:PREŠEVO", "st1:PREDEJANE", "sys1-1.K4", "21"],
-    ["st1:PREŠEVO", "st1:VLADIČIN HAN", "sys1-1.K3", "8.5"],
-    ["st1:PREŠEVO", "st1:VLADIČIN HAN", "sys1-1.K4", "16.5"],
-    ["st1:PREŠEVO", "st1:VRANJE", "sys1-1.K3", "5.5"],
-    ["st1:PREŠEVO", "st1:VRANJE", "sys1-1.K4", "10.5"]
-   ],
-   "sources": ["s1", "s2"],
-   "basis": "transcribed"
-  },
-  {
-   "id": "system2",
    "name": "A3 Beograd – Šid",
    "type": "od",
    "component": "unspecified",
    "unit": "trip",
-   "method": "JP Putevi Srbije price list (posebna naknada za upotrebu autoputa, from 2024-07-10, with the Government's consent; Zakon o naknadama za korišćenje javnih dobara): EUR from the listed entry station; vehicle categories 3 (2-3 axles over 3.5 t) and 4 (4 or more axles)",
+   "method": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 58/2024: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
-    ["st2:ŠIMANOVCI", "st2:HRTKOVCI", "sys1-1.K3", "7"],
-    ["st2:ŠIMANOVCI", "st2:HRTKOVCI", "sys1-1.K4", "14"],
-    ["st2:ŠIMANOVCI", "st2:KUZMIN", "sys1-1.K3", "10"],
-    ["st2:ŠIMANOVCI", "st2:KUZMIN", "sys1-1.K4", "19.5"],
-    ["st2:ŠIMANOVCI", "st2:MOROVIĆ / ADAŠEVCI", "sys1-1.K3", "12"],
-    ["st2:ŠIMANOVCI", "st2:MOROVIĆ / ADAŠEVCI", "sys1-1.K4", "23.5"],
-    ["st2:ŠIMANOVCI", "st2:PEĆINCI", "sys1-1.K3", "3.5"],
-    ["st2:ŠIMANOVCI", "st2:PEĆINCI", "sys1-1.K4", "7"],
-    ["st2:ŠIMANOVCI", "st2:RUMA", "sys1-1.K3", "5.5"],
-    ["st2:ŠIMANOVCI", "st2:RUMA", "sys1-1.K4", "10.5"],
-    ["st2:ŠIMANOVCI", "st2:SREMSKA MITROVICA", "sys1-1.K3", "7"],
-    ["st2:ŠIMANOVCI", "st2:SREMSKA MITROVICA", "sys1-1.K4", "14"],
-    ["st2:ŠIMANOVCI", "st2:ŠABAC", "sys1-1.K3", "8.5"],
-    ["st2:ŠIMANOVCI", "st2:ŠABAC", "sys1-1.K4", "17"],
-    ["st2:ŠIMANOVCI", "st2:ŠID", "sys1-1.K3", "13"],
-    ["st2:ŠIMANOVCI", "st2:ŠID", "sys1-1.K4", "26"]
+    ["st1:ADAŠEVCI", "st1:HRTKOVCI", "sys1-1.K3", "960"],
+    ["st1:ADAŠEVCI", "st1:HRTKOVCI", "sys1-1.K4", "1930"],
+    ["st1:ADAŠEVCI", "st1:KUZMIN", "sys1-1.K3", "220"],
+    ["st1:ADAŠEVCI", "st1:KUZMIN", "sys1-1.K4", "430"],
+    ["st1:ADAŠEVCI", "st1:PEĆINCI", "sys1-1.K3", "950"],
+    ["st1:ADAŠEVCI", "st1:PEĆINCI", "sys1-1.K4", "1900"],
+    ["st1:ADAŠEVCI", "st1:RUMA", "sys1-1.K3", "770"],
+    ["st1:ADAŠEVCI", "st1:RUMA", "sys1-1.K4", "1550"],
+    ["st1:ADAŠEVCI", "st1:SREMSKA MITROVICA", "sys1-1.K3", "550"],
+    ["st1:ADAŠEVCI", "st1:SREMSKA MITROVICA", "sys1-1.K4", "1110"],
+    ["st1:ADAŠEVCI", "st1:ŠABAC", "sys1-1.K3", "1140"],
+    ["st1:ADAŠEVCI", "st1:ŠABAC", "sys1-1.K4", "2290"],
+    ["st1:ADAŠEVCI", "st1:ŠIMANOVCI", "sys1-1.K3", "1360"],
+    ["st1:ADAŠEVCI", "st1:ŠIMANOVCI", "sys1-1.K4", "2710"],
+    ["st1:HRTKOVCI", "st1:PEĆINCI", "sys1-1.K3", "400"],
+    ["st1:HRTKOVCI", "st1:PEĆINCI", "sys1-1.K4", "790"],
+    ["st1:HRTKOVCI", "st1:ŠABAC", "sys1-1.K3", "180"],
+    ["st1:HRTKOVCI", "st1:ŠABAC", "sys1-1.K4", "360"],
+    ["st1:HRTKOVCI", "st1:ŠIMANOVCI", "sys1-1.K3", "800"],
+    ["st1:HRTKOVCI", "st1:ŠIMANOVCI", "sys1-1.K4", "1600"],
+    ["st1:KUZMIN", "st1:HRTKOVCI", "sys1-1.K3", "750"],
+    ["st1:KUZMIN", "st1:HRTKOVCI", "sys1-1.K4", "1490"],
+    ["st1:KUZMIN", "st1:PEĆINCI", "sys1-1.K3", "740"],
+    ["st1:KUZMIN", "st1:PEĆINCI", "sys1-1.K4", "1470"],
+    ["st1:KUZMIN", "st1:RUMA", "sys1-1.K3", "560"],
+    ["st1:KUZMIN", "st1:RUMA", "sys1-1.K4", "1110"],
+    ["st1:KUZMIN", "st1:SREMSKA MITROVICA", "sys1-1.K3", "340"],
+    ["st1:KUZMIN", "st1:SREMSKA MITROVICA", "sys1-1.K4", "680"],
+    ["st1:KUZMIN", "st1:ŠABAC", "sys1-1.K3", "930"],
+    ["st1:KUZMIN", "st1:ŠABAC", "sys1-1.K4", "1860"],
+    ["st1:KUZMIN", "st1:ŠIMANOVCI", "sys1-1.K3", "1140"],
+    ["st1:KUZMIN", "st1:ŠIMANOVCI", "sys1-1.K4", "2280"],
+    ["st1:PEĆINCI", "st1:ŠIMANOVCI", "sys1-1.K3", "400"],
+    ["st1:PEĆINCI", "st1:ŠIMANOVCI", "sys1-1.K4", "810"],
+    ["st1:RUMA", "st1:HRTKOVCI", "sys1-1.K3", "220"],
+    ["st1:RUMA", "st1:HRTKOVCI", "sys1-1.K4", "430"],
+    ["st1:RUMA", "st1:PEĆINCI", "sys1-1.K3", "210"],
+    ["st1:RUMA", "st1:PEĆINCI", "sys1-1.K4", "410"],
+    ["st1:RUMA", "st1:ŠABAC", "sys1-1.K3", "400"],
+    ["st1:RUMA", "st1:ŠABAC", "sys1-1.K4", "800"],
+    ["st1:RUMA", "st1:ŠIMANOVCI", "sys1-1.K3", "610"],
+    ["st1:RUMA", "st1:ŠIMANOVCI", "sys1-1.K4", "1220"],
+    ["st1:SREMSKA MITROVICA", "st1:HRTKOVCI", "sys1-1.K3", "410"],
+    ["st1:SREMSKA MITROVICA", "st1:HRTKOVCI", "sys1-1.K4", "820"],
+    ["st1:SREMSKA MITROVICA", "st1:PEĆINCI", "sys1-1.K3", "400"],
+    ["st1:SREMSKA MITROVICA", "st1:PEĆINCI", "sys1-1.K4", "790"],
+    ["st1:SREMSKA MITROVICA", "st1:RUMA", "sys1-1.K3", "220"],
+    ["st1:SREMSKA MITROVICA", "st1:RUMA", "sys1-1.K4", "440"],
+    ["st1:SREMSKA MITROVICA", "st1:ŠABAC", "sys1-1.K3", "590"],
+    ["st1:SREMSKA MITROVICA", "st1:ŠABAC", "sys1-1.K4", "1180"],
+    ["st1:SREMSKA MITROVICA", "st1:ŠIMANOVCI", "sys1-1.K3", "800"],
+    ["st1:SREMSKA MITROVICA", "st1:ŠIMANOVCI", "sys1-1.K4", "1600"],
+    ["st1:ŠABAC", "st1:PEĆINCI", "sys1-1.K3", "580"],
+    ["st1:ŠABAC", "st1:PEĆINCI", "sys1-1.K4", "1150"],
+    ["st1:ŠABAC", "st1:ŠIMANOVCI", "sys1-1.K3", "980"],
+    ["st1:ŠABAC", "st1:ŠIMANOVCI", "sys1-1.K4", "1960"],
+    ["st1:ŠID", "st1:ADAŠEVCI", "sys1-1.K3", "140"],
+    ["st1:ŠID", "st1:ADAŠEVCI", "sys1-1.K4", "270"],
+    ["st1:ŠID", "st1:HRTKOVCI", "sys1-1.K3", "1100"],
+    ["st1:ŠID", "st1:HRTKOVCI", "sys1-1.K4", "2200"],
+    ["st1:ŠID", "st1:KUZMIN", "sys1-1.K3", "350"],
+    ["st1:ŠID", "st1:KUZMIN", "sys1-1.K4", "710"],
+    ["st1:ŠID", "st1:PEĆINCI", "sys1-1.K3", "1090"],
+    ["st1:ŠID", "st1:PEĆINCI", "sys1-1.K4", "2180"],
+    ["st1:ŠID", "st1:RUMA", "sys1-1.K3", "910"],
+    ["st1:ŠID", "st1:RUMA", "sys1-1.K4", "1820"],
+    ["st1:ŠID", "st1:SREMSKA MITROVICA", "sys1-1.K3", "690"],
+    ["st1:ŠID", "st1:SREMSKA MITROVICA", "sys1-1.K4", "1380"],
+    ["st1:ŠID", "st1:ŠABAC", "sys1-1.K3", "1280"],
+    ["st1:ŠID", "st1:ŠABAC", "sys1-1.K4", "2560"],
+    ["st1:ŠID", "st1:ŠIMANOVCI", "sys1-1.K3", "1490"],
+    ["st1:ŠID", "st1:ŠIMANOVCI", "sys1-1.K4", "2990"]
    ],
-   "sources": ["s1", "s2"],
+   "sources": ["s1", "s2", "s3", "s4"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "system2",
+   "name": "A2 Beograd – Požega",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 58/2024: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st2:LAJKOVAC", "st2:LJIG", "sys1-1.K3", "340"],
+    ["st2:LAJKOVAC", "st2:LJIG", "sys1-1.K4", "670"],
+    ["st2:LAJKOVAC", "st2:PAKOVRAĆE", "sys1-1.K3", "1240"],
+    ["st2:LAJKOVAC", "st2:PAKOVRAĆE", "sys1-1.K4", "2490"],
+    ["st2:LAJKOVAC", "st2:PRELJINA KONJEVIĆI", "sys1-1.K3", "1060"],
+    ["st2:LAJKOVAC", "st2:PRELJINA KONJEVIĆI", "sys1-1.K4", "2110"],
+    ["st2:LAJKOVAC", "st2:TAKOVO", "sys1-1.K3", "770"],
+    ["st2:LAJKOVAC", "st2:TAKOVO", "sys1-1.K4", "1540"],
+    ["st2:LJIG", "st2:PAKOVRAĆE", "sys1-1.K3", "910"],
+    ["st2:LJIG", "st2:PAKOVRAĆE", "sys1-1.K4", "1810"],
+    ["st2:LJIG", "st2:PRELJINA KONJEVIĆI", "sys1-1.K3", "720"],
+    ["st2:LJIG", "st2:PRELJINA KONJEVIĆI", "sys1-1.K4", "1440"],
+    ["st2:LJIG", "st2:TAKOVO", "sys1-1.K3", "440"],
+    ["st2:LJIG", "st2:TAKOVO", "sys1-1.K4", "870"],
+    ["st2:OBRENOVAC", "st2:LAJKOVAC", "sys1-1.K3", "620"],
+    ["st2:OBRENOVAC", "st2:LAJKOVAC", "sys1-1.K4", "1240"],
+    ["st2:OBRENOVAC", "st2:LJIG", "sys1-1.K3", "950"],
+    ["st2:OBRENOVAC", "st2:LJIG", "sys1-1.K4", "1910"],
+    ["st2:OBRENOVAC", "st2:PAKOVRAĆE", "sys1-1.K3", "1860"],
+    ["st2:OBRENOVAC", "st2:PAKOVRAĆE", "sys1-1.K4", "3720"],
+    ["st2:OBRENOVAC", "st2:PRELJINA KONJEVIĆI", "sys1-1.K3", "1680"],
+    ["st2:OBRENOVAC", "st2:PRELJINA KONJEVIĆI", "sys1-1.K4", "3350"],
+    ["st2:OBRENOVAC", "st2:TAKOVO", "sys1-1.K3", "1390"],
+    ["st2:OBRENOVAC", "st2:TAKOVO", "sys1-1.K4", "2780"],
+    ["st2:OBRENOVAC", "st2:UB", "sys1-1.K3", "410"],
+    ["st2:OBRENOVAC", "st2:UB", "sys1-1.K4", "830"],
+    ["st2:PRELJINA KONJEVIĆI", "st2:PAKOVRAĆE", "sys1-1.K3", "190"],
+    ["st2:PRELJINA KONJEVIĆI", "st2:PAKOVRAĆE", "sys1-1.K4", "370"],
+    ["st2:TAKOVO", "st2:PAKOVRAĆE", "sys1-1.K3", "470"],
+    ["st2:TAKOVO", "st2:PAKOVRAĆE", "sys1-1.K4", "940"],
+    ["st2:TAKOVO", "st2:PRELJINA KONJEVIĆI", "sys1-1.K3", "280"],
+    ["st2:TAKOVO", "st2:PRELJINA KONJEVIĆI", "sys1-1.K4", "570"],
+    ["st2:UB", "st2:LAJKOVAC", "sys1-1.K3", "210"],
+    ["st2:UB", "st2:LAJKOVAC", "sys1-1.K4", "410"],
+    ["st2:UB", "st2:LJIG", "sys1-1.K3", "540"],
+    ["st2:UB", "st2:LJIG", "sys1-1.K4", "1080"],
+    ["st2:UB", "st2:PAKOVRAĆE", "sys1-1.K3", "1450"],
+    ["st2:UB", "st2:PAKOVRAĆE", "sys1-1.K4", "2900"],
+    ["st2:UB", "st2:PRELJINA KONJEVIĆI", "sys1-1.K3", "1260"],
+    ["st2:UB", "st2:PRELJINA KONJEVIĆI", "sys1-1.K4", "2530"],
+    ["st2:UB", "st2:TAKOVO", "sys1-1.K3", "980"],
+    ["st2:UB", "st2:TAKOVO", "sys1-1.K4", "1960"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4"],
    "basis": "transcribed"
   },
   {
@@ -1076,58 +1078,1777 @@
    "type": "od",
    "component": "unspecified",
    "unit": "trip",
-   "method": "JP Putevi Srbije price list (posebna naknada za upotrebu autoputa, from 2024-07-10, with the Government's consent; Zakon o naknadama za korišćenje javnih dobara): EUR from the listed entry station; vehicle categories 3 (2-3 axles over 3.5 t) and 4 (4 or more axles)",
+   "method": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 58/2024: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
-    ["st3:STARA PAZOVA", "st3:BAČKA TOPOLA", "sys1-1.K3", "16.5"],
-    ["st3:STARA PAZOVA", "st3:BAČKA TOPOLA", "sys1-1.K4", "32.5"],
-    ["st3:STARA PAZOVA", "st3:BEŠKA", "sys1-1.K3", "4"],
-    ["st3:STARA PAZOVA", "st3:BEŠKA", "sys1-1.K4", "7.5"],
-    ["st3:STARA PAZOVA", "st3:FEKETIĆ", "sys1-1.K3", "13.5"],
-    ["st3:STARA PAZOVA", "st3:FEKETIĆ", "sys1-1.K4", "27"],
-    ["st3:STARA PAZOVA", "st3:INĐIJA", "sys1-1.K3", "2.5"],
-    ["st3:STARA PAZOVA", "st3:INĐIJA", "sys1-1.K4", "5"],
-    ["st3:STARA PAZOVA", "st3:KOVILJ", "sys1-1.K3", "5.5"],
-    ["st3:STARA PAZOVA", "st3:KOVILJ", "sys1-1.K4", "11"],
-    ["st3:STARA PAZOVA", "st3:MARADIK", "sys1-1.K3", "3"],
-    ["st3:STARA PAZOVA", "st3:MARADIK", "sys1-1.K4", "6"],
-    ["st3:STARA PAZOVA", "st3:NOVI SAD", "sys1-1.K3", "8.5"],
-    ["st3:STARA PAZOVA", "st3:NOVI SAD", "sys1-1.K4", "16.5"],
-    ["st3:STARA PAZOVA", "st3:SUBOTICA", "sys1-1.K3", "21"],
-    ["st3:STARA PAZOVA", "st3:SUBOTICA", "sys1-1.K4", "41.5"],
-    ["st3:STARA PAZOVA", "st3:VRBAS", "sys1-1.K3", "12"],
-    ["st3:STARA PAZOVA", "st3:VRBAS", "sys1-1.K4", "24"],
-    ["st3:STARA PAZOVA", "st3:ZMAJEVO", "sys1-1.K3", "10.5"],
-    ["st3:STARA PAZOVA", "st3:ZMAJEVO", "sys1-1.K4", "21"],
-    ["st3:STARA PAZOVA", "st3:ŽEDNIK", "sys1-1.K3", "18"],
-    ["st3:STARA PAZOVA", "st3:ŽEDNIK", "sys1-1.K4", "36"]
+    ["st3:BAČKA TOPOLA", "st3:BEŠKA", "sys1-1.K3", "1460"],
+    ["st3:BAČKA TOPOLA", "st3:BEŠKA", "sys1-1.K4", "2930"],
+    ["st3:BAČKA TOPOLA", "st3:FEKETIĆ", "sys1-1.K3", "320"],
+    ["st3:BAČKA TOPOLA", "st3:FEKETIĆ", "sys1-1.K4", "650"],
+    ["st3:BAČKA TOPOLA", "st3:INĐIJA", "sys1-1.K3", "1610"],
+    ["st3:BAČKA TOPOLA", "st3:INĐIJA", "sys1-1.K4", "3210"],
+    ["st3:BAČKA TOPOLA", "st3:KOVILJ", "sys1-1.K3", "1240"],
+    ["st3:BAČKA TOPOLA", "st3:KOVILJ", "sys1-1.K4", "2490"],
+    ["st3:BAČKA TOPOLA", "st3:NOVI SAD - SEVER", "sys1-1.K3", "940"],
+    ["st3:BAČKA TOPOLA", "st3:NOVI SAD - SEVER", "sys1-1.K4", "1880"],
+    ["st3:BAČKA TOPOLA", "st3:STARA PAZOVA", "sys1-1.K3", "1880"],
+    ["st3:BAČKA TOPOLA", "st3:STARA PAZOVA", "sys1-1.K4", "3770"],
+    ["st3:BAČKA TOPOLA", "st3:VRBAS", "sys1-1.K3", "480"],
+    ["st3:BAČKA TOPOLA", "st3:VRBAS", "sys1-1.K4", "960"],
+    ["st3:BAČKA TOPOLA", "st3:ZMAJEVO", "sys1-1.K3", "680"],
+    ["st3:BAČKA TOPOLA", "st3:ZMAJEVO", "sys1-1.K4", "1370"],
+    ["st3:BEŠKA", "st3:INĐIJA", "sys1-1.K3", "140"],
+    ["st3:BEŠKA", "st3:INĐIJA", "sys1-1.K4", "290"],
+    ["st3:BEŠKA", "st3:STARA PAZOVA", "sys1-1.K3", "420"],
+    ["st3:BEŠKA", "st3:STARA PAZOVA", "sys1-1.K4", "840"],
+    ["st3:FEKETIĆ", "st3:BEŠKA", "sys1-1.K3", "1140"],
+    ["st3:FEKETIĆ", "st3:BEŠKA", "sys1-1.K4", "2280"],
+    ["st3:FEKETIĆ", "st3:INĐIJA", "sys1-1.K3", "1280"],
+    ["st3:FEKETIĆ", "st3:INĐIJA", "sys1-1.K4", "2570"],
+    ["st3:FEKETIĆ", "st3:KOVILJ", "sys1-1.K3", "920"],
+    ["st3:FEKETIĆ", "st3:KOVILJ", "sys1-1.K4", "1840"],
+    ["st3:FEKETIĆ", "st3:NOVI SAD - SEVER", "sys1-1.K3", "620"],
+    ["st3:FEKETIĆ", "st3:NOVI SAD - SEVER", "sys1-1.K4", "1230"],
+    ["st3:FEKETIĆ", "st3:STARA PAZOVA", "sys1-1.K3", "1560"],
+    ["st3:FEKETIĆ", "st3:STARA PAZOVA", "sys1-1.K4", "3120"],
+    ["st3:FEKETIĆ", "st3:VRBAS", "sys1-1.K3", "160"],
+    ["st3:FEKETIĆ", "st3:VRBAS", "sys1-1.K4", "320"],
+    ["st3:FEKETIĆ", "st3:ZMAJEVO", "sys1-1.K3", "360"],
+    ["st3:FEKETIĆ", "st3:ZMAJEVO", "sys1-1.K4", "720"],
+    ["st3:INĐIJA", "st3:STARA PAZOVA", "sys1-1.K3", "280"],
+    ["st3:INĐIJA", "st3:STARA PAZOVA", "sys1-1.K4", "550"],
+    ["st3:KOVILJ", "st3:BEŠKA", "sys1-1.K3", "220"],
+    ["st3:KOVILJ", "st3:BEŠKA", "sys1-1.K4", "440"],
+    ["st3:KOVILJ", "st3:INĐIJA", "sys1-1.K3", "360"],
+    ["st3:KOVILJ", "st3:INĐIJA", "sys1-1.K4", "720"],
+    ["st3:KOVILJ", "st3:STARA PAZOVA", "sys1-1.K3", "640"],
+    ["st3:KOVILJ", "st3:STARA PAZOVA", "sys1-1.K4", "1280"],
+    ["st3:MARADIK", "st3:INĐIJA", "sys1-1.K3", "70"],
+    ["st3:MARADIK", "st3:INĐIJA", "sys1-1.K4", "150"],
+    ["st3:MARADIK", "st3:STARA PAZOVA", "sys1-1.K3", "350"],
+    ["st3:MARADIK", "st3:STARA PAZOVA", "sys1-1.K4", "700"],
+    ["st3:NOVI SAD - JUG", "st3:BEŠKA", "sys1-1.K3", "520"],
+    ["st3:NOVI SAD - JUG", "st3:BEŠKA", "sys1-1.K4", "1050"],
+    ["st3:NOVI SAD - JUG", "st3:INĐIJA", "sys1-1.K3", "670"],
+    ["st3:NOVI SAD - JUG", "st3:INĐIJA", "sys1-1.K4", "1330"],
+    ["st3:NOVI SAD - JUG", "st3:KOVILJ", "sys1-1.K3", "300"],
+    ["st3:NOVI SAD - JUG", "st3:KOVILJ", "sys1-1.K4", "610"],
+    ["st3:NOVI SAD - JUG", "st3:STARA PAZOVA", "sys1-1.K3", "940"],
+    ["st3:NOVI SAD - JUG", "st3:STARA PAZOVA", "sys1-1.K4", "1890"],
+    ["st3:SUBOTICA", "st3:BAČKA TOPOLA", "sys1-1.K3", "520"],
+    ["st3:SUBOTICA", "st3:BAČKA TOPOLA", "sys1-1.K4", "1040"],
+    ["st3:SUBOTICA", "st3:BEŠKA", "sys1-1.K3", "1980"],
+    ["st3:SUBOTICA", "st3:BEŠKA", "sys1-1.K4", "3970"],
+    ["st3:SUBOTICA", "st3:FEKETIĆ", "sys1-1.K3", "840"],
+    ["st3:SUBOTICA", "st3:FEKETIĆ", "sys1-1.K4", "1690"],
+    ["st3:SUBOTICA", "st3:INĐIJA", "sys1-1.K3", "2130"],
+    ["st3:SUBOTICA", "st3:INĐIJA", "sys1-1.K4", "4250"],
+    ["st3:SUBOTICA", "st3:KOVILJ", "sys1-1.K3", "1760"],
+    ["st3:SUBOTICA", "st3:KOVILJ", "sys1-1.K4", "3530"],
+    ["st3:SUBOTICA", "st3:NOVI SAD - SEVER", "sys1-1.K3", "1460"],
+    ["st3:SUBOTICA", "st3:NOVI SAD - SEVER", "sys1-1.K4", "2920"],
+    ["st3:SUBOTICA", "st3:STARA PAZOVA", "sys1-1.K3", "2400"],
+    ["st3:SUBOTICA", "st3:STARA PAZOVA", "sys1-1.K4", "4810"],
+    ["st3:SUBOTICA", "st3:VRBAS", "sys1-1.K3", "1000"],
+    ["st3:SUBOTICA", "st3:VRBAS", "sys1-1.K4", "2000"],
+    ["st3:SUBOTICA", "st3:ZMAJEVO", "sys1-1.K3", "1200"],
+    ["st3:SUBOTICA", "st3:ZMAJEVO", "sys1-1.K4", "2400"],
+    ["st3:SUBOTICA", "st3:ŽEDNIK", "sys1-1.K3", "330"],
+    ["st3:SUBOTICA", "st3:ŽEDNIK", "sys1-1.K4", "650"],
+    ["st3:VRBAS", "st3:BEŠKA", "sys1-1.K3", "980"],
+    ["st3:VRBAS", "st3:BEŠKA", "sys1-1.K4", "1960"],
+    ["st3:VRBAS", "st3:INĐIJA", "sys1-1.K3", "1120"],
+    ["st3:VRBAS", "st3:INĐIJA", "sys1-1.K4", "2250"],
+    ["st3:VRBAS", "st3:KOVILJ", "sys1-1.K3", "760"],
+    ["st3:VRBAS", "st3:KOVILJ", "sys1-1.K4", "1530"],
+    ["st3:VRBAS", "st3:NOVI SAD - SEVER", "sys1-1.K3", "460"],
+    ["st3:VRBAS", "st3:NOVI SAD - SEVER", "sys1-1.K4", "920"],
+    ["st3:VRBAS", "st3:STARA PAZOVA", "sys1-1.K3", "1400"],
+    ["st3:VRBAS", "st3:STARA PAZOVA", "sys1-1.K4", "2800"],
+    ["st3:VRBAS", "st3:ZMAJEVO", "sys1-1.K3", "200"],
+    ["st3:VRBAS", "st3:ZMAJEVO", "sys1-1.K4", "400"],
+    ["st3:ZMAJEVO", "st3:BEŠKA", "sys1-1.K3", "780"],
+    ["st3:ZMAJEVO", "st3:BEŠKA", "sys1-1.K4", "1560"],
+    ["st3:ZMAJEVO", "st3:INĐIJA", "sys1-1.K3", "920"],
+    ["st3:ZMAJEVO", "st3:INĐIJA", "sys1-1.K4", "1850"],
+    ["st3:ZMAJEVO", "st3:KOVILJ", "sys1-1.K3", "560"],
+    ["st3:ZMAJEVO", "st3:KOVILJ", "sys1-1.K4", "1120"],
+    ["st3:ZMAJEVO", "st3:NOVI SAD - SEVER", "sys1-1.K3", "260"],
+    ["st3:ZMAJEVO", "st3:NOVI SAD - SEVER", "sys1-1.K4", "520"],
+    ["st3:ZMAJEVO", "st3:STARA PAZOVA", "sys1-1.K3", "1200"],
+    ["st3:ZMAJEVO", "st3:STARA PAZOVA", "sys1-1.K4", "2400"],
+    ["st3:ŽEDNIK", "st3:BAČKA TOPOLA", "sys1-1.K3", "190"],
+    ["st3:ŽEDNIK", "st3:BAČKA TOPOLA", "sys1-1.K4", "390"],
+    ["st3:ŽEDNIK", "st3:BEŠKA", "sys1-1.K3", "1660"],
+    ["st3:ŽEDNIK", "st3:BEŠKA", "sys1-1.K4", "3320"],
+    ["st3:ŽEDNIK", "st3:FEKETIĆ", "sys1-1.K3", "520"],
+    ["st3:ŽEDNIK", "st3:FEKETIĆ", "sys1-1.K4", "1040"],
+    ["st3:ŽEDNIK", "st3:INĐIJA", "sys1-1.K3", "1800"],
+    ["st3:ŽEDNIK", "st3:INĐIJA", "sys1-1.K4", "3600"],
+    ["st3:ŽEDNIK", "st3:KOVILJ", "sys1-1.K3", "1440"],
+    ["st3:ŽEDNIK", "st3:KOVILJ", "sys1-1.K4", "2880"],
+    ["st3:ŽEDNIK", "st3:NOVI SAD - SEVER", "sys1-1.K3", "1130"],
+    ["st3:ŽEDNIK", "st3:NOVI SAD - SEVER", "sys1-1.K4", "2270"],
+    ["st3:ŽEDNIK", "st3:STARA PAZOVA", "sys1-1.K3", "2080"],
+    ["st3:ŽEDNIK", "st3:STARA PAZOVA", "sys1-1.K4", "4150"],
+    ["st3:ŽEDNIK", "st3:VRBAS", "sys1-1.K3", "680"],
+    ["st3:ŽEDNIK", "st3:VRBAS", "sys1-1.K4", "1350"],
+    ["st3:ŽEDNIK", "st3:ZMAJEVO", "sys1-1.K3", "880"],
+    ["st3:ŽEDNIK", "st3:ZMAJEVO", "sys1-1.K4", "1750"]
    ],
-   "sources": ["s1", "s2"],
+   "sources": ["s1", "s2", "s3", "s4"],
    "basis": "transcribed"
   },
   {
    "id": "system4",
-   "name": "A2 Beograd – Požega",
+   "name": "A1, A4 Beograd – Niš – Preševo / Dimitrovgrad",
    "type": "od",
    "component": "unspecified",
    "unit": "trip",
-   "method": "JP Putevi Srbije price list (posebna naknada za upotrebu autoputa, from 2024-07-10, with the Government's consent; Zakon o naknadama za korišćenje javnih dobara): EUR from the listed entry station; vehicle categories 3 (2-3 axles over 3.5 t) and 4 (4 or more axles)",
+   "method": "Odluka o visini posebne naknade za upotrebu javnog puta, njegovog dela i putnog objekta (putarina), as amended in Službeni glasnik RS 58/2024: RSD from entry to exit station; vehicle categories III (2-3 axles over 3.5 t) and IV (4 or more axles)",
    "columns": ["entry", "exit", "vehicle_class", "amount"],
    "rows": [
-    ["st4:OBRENOVAC", "st4:LAJKOVAC", "sys1-1.K3", "5.5"],
-    ["st4:OBRENOVAC", "st4:LAJKOVAC", "sys1-1.K4", "11"],
-    ["st4:OBRENOVAC", "st4:LJIG", "sys1-1.K3", "8.5"],
-    ["st4:OBRENOVAC", "st4:LJIG", "sys1-1.K4", "16.5"],
-    ["st4:OBRENOVAC", "st4:PRELJINA JUG", "sys1-1.K3", "14.5"],
-    ["st4:OBRENOVAC", "st4:PRELJINA JUG", "sys1-1.K4", "29"],
-    ["st4:OBRENOVAC", "st4:TAKOVO", "sys1-1.K3", "12"],
-    ["st4:OBRENOVAC", "st4:TAKOVO", "sys1-1.K4", "24"],
-    ["st4:OBRENOVAC", "st4:UB", "sys1-1.K3", "4"],
-    ["st4:OBRENOVAC", "st4:UB", "sys1-1.K4", "7.5"],
-    ["st4:OBRENOVAC", "st4:ČAČAK (Pakovraće)", "sys1-1.K3", "16"],
-    ["st4:OBRENOVAC", "st4:ČAČAK (Pakovraće)", "sys1-1.K4", "32"]
+    ["st4:ALEKSINAC", "st4:BELA PALANKA", "sys1-1.K3", "1070"],
+    ["st4:ALEKSINAC", "st4:BELA PALANKA", "sys1-1.K4", "2130"],
+    ["st4:ALEKSINAC", "st4:BRESTOVAC", "sys1-1.K3", "730"],
+    ["st4:ALEKSINAC", "st4:BRESTOVAC", "sys1-1.K4", "1470"],
+    ["st4:ALEKSINAC", "st4:BUJANOVAC JUG", "sys1-1.K3", "2370"],
+    ["st4:ALEKSINAC", "st4:BUJANOVAC JUG", "sys1-1.K4", "4730"],
+    ["st4:ALEKSINAC", "st4:BUJANOVAC SEVER", "sys1-1.K3", "2310"],
+    ["st4:ALEKSINAC", "st4:BUJANOVAC SEVER", "sys1-1.K4", "4620"],
+    ["st4:ALEKSINAC", "st4:DIMITROVGRAD", "sys1-1.K3", "2010"],
+    ["st4:ALEKSINAC", "st4:DIMITROVGRAD", "sys1-1.K4", "4020"],
+    ["st4:ALEKSINAC", "st4:DOLJEVAC SELO", "sys1-1.K3", "640"],
+    ["st4:ALEKSINAC", "st4:DOLJEVAC SELO", "sys1-1.K4", "1280"],
+    ["st4:ALEKSINAC", "st4:GRDELICA", "sys1-1.K3", "1270"],
+    ["st4:ALEKSINAC", "st4:GRDELICA", "sys1-1.K4", "2550"],
+    ["st4:ALEKSINAC", "st4:KOŠEVI", "sys1-1.K3", "1060"],
+    ["st4:ALEKSINAC", "st4:KOŠEVI", "sys1-1.K4", "2120"],
+    ["st4:ALEKSINAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "940"],
+    ["st4:ALEKSINAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1870"],
+    ["st4:ALEKSINAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "960"],
+    ["st4:ALEKSINAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1930"],
+    ["st4:ALEKSINAC", "st4:LESKOVAC CENTAR", "sys1-1.K3", "850"],
+    ["st4:ALEKSINAC", "st4:LESKOVAC CENTAR", "sys1-1.K4", "1700"],
+    ["st4:ALEKSINAC", "st4:LESKOVAC JUG", "sys1-1.K3", "1100"],
+    ["st4:ALEKSINAC", "st4:LESKOVAC JUG", "sys1-1.K4", "2200"],
+    ["st4:ALEKSINAC", "st4:MALČA", "sys1-1.K3", "590"],
+    ["st4:ALEKSINAC", "st4:MALČA", "sys1-1.K4", "1180"],
+    ["st4:ALEKSINAC", "st4:MEROŠINA", "sys1-1.K3", "470"],
+    ["st4:ALEKSINAC", "st4:MEROŠINA", "sys1-1.K4", "950"],
+    ["st4:ALEKSINAC", "st4:NIŠ ISTOK", "sys1-1.K3", "470"],
+    ["st4:ALEKSINAC", "st4:NIŠ ISTOK", "sys1-1.K4", "950"],
+    ["st4:ALEKSINAC", "st4:NIŠ JUG", "sys1-1.K3", "380"],
+    ["st4:ALEKSINAC", "st4:NIŠ JUG", "sys1-1.K4", "770"],
+    ["st4:ALEKSINAC", "st4:NIŠ SEVER", "sys1-1.K3", "370"],
+    ["st4:ALEKSINAC", "st4:NIŠ SEVER", "sys1-1.K4", "740"],
+    ["st4:ALEKSINAC", "st4:PIROT ISTOK", "sys1-1.K3", "1620"],
+    ["st4:ALEKSINAC", "st4:PIROT ISTOK", "sys1-1.K4", "3250"],
+    ["st4:ALEKSINAC", "st4:PIROT ZAPAD", "sys1-1.K3", "1450"],
+    ["st4:ALEKSINAC", "st4:PIROT ZAPAD", "sys1-1.K4", "2890"],
+    ["st4:ALEKSINAC", "st4:PREDEJANE", "sys1-1.K3", "1460"],
+    ["st4:ALEKSINAC", "st4:PREDEJANE", "sys1-1.K4", "2930"],
+    ["st4:ALEKSINAC", "st4:PREŠEVO", "sys1-1.K3", "2690"],
+    ["st4:ALEKSINAC", "st4:PREŠEVO", "sys1-1.K4", "5380"],
+    ["st4:ALEKSINAC", "st4:VLADIČIN HAN", "sys1-1.K3", "1730"],
+    ["st4:ALEKSINAC", "st4:VLADIČIN HAN", "sys1-1.K4", "3470"],
+    ["st4:ALEKSINAC", "st4:VRANJE", "sys1-1.K3", "2100"],
+    ["st4:ALEKSINAC", "st4:VRANJE", "sys1-1.K4", "4190"],
+    ["st4:ALEKSINAC", "st4:ĆIĆEVAC", "sys1-1.K3", "660"],
+    ["st4:ALEKSINAC", "st4:ĆIĆEVAC", "sys1-1.K4", "1320"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:ALEKSINAC", "sys1-1.K3", "80"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:ALEKSINAC", "sys1-1.K4", "160"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BELA PALANKA", "sys1-1.K3", "1140"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BELA PALANKA", "sys1-1.K4", "2290"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BRESTOVAC", "sys1-1.K3", "810"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BRESTOVAC", "sys1-1.K4", "1620"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BUJANOVAC JUG", "sys1-1.K3", "2440"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BUJANOVAC JUG", "sys1-1.K4", "4890"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BUJANOVAC SEVER", "sys1-1.K3", "2390"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:BUJANOVAC SEVER", "sys1-1.K4", "4770"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:DIMITROVGRAD", "sys1-1.K3", "2090"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:DIMITROVGRAD", "sys1-1.K4", "4180"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:DOLJEVAC SELO", "sys1-1.K3", "720"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:DOLJEVAC SELO", "sys1-1.K4", "1430"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:GRDELICA", "sys1-1.K3", "1350"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:GRDELICA", "sys1-1.K4", "2700"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KOŠEVI", "sys1-1.K3", "980"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KOŠEVI", "sys1-1.K4", "1970"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "860"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1710"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "890"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1770"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:LESKOVAC CENTAR", "sys1-1.K3", "930"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:LESKOVAC CENTAR", "sys1-1.K4", "1850"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:LESKOVAC JUG", "sys1-1.K3", "1180"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:LESKOVAC JUG", "sys1-1.K4", "2360"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:MALČA", "sys1-1.K3", "670"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:MALČA", "sys1-1.K4", "1340"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:MEROŠINA", "sys1-1.K3", "550"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:MEROŠINA", "sys1-1.K4", "1100"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ ISTOK", "sys1-1.K3", "550"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ ISTOK", "sys1-1.K4", "1100"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ JUG", "sys1-1.K3", "460"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ JUG", "sys1-1.K4", "920"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ SEVER", "sys1-1.K3", "450"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:NIŠ SEVER", "sys1-1.K4", "890"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PIROT ISTOK", "sys1-1.K3", "1700"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PIROT ISTOK", "sys1-1.K4", "3400"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PIROT ZAPAD", "sys1-1.K3", "1520"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PIROT ZAPAD", "sys1-1.K4", "3050"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PREDEJANE", "sys1-1.K3", "1540"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PREDEJANE", "sys1-1.K4", "3080"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PREŠEVO", "sys1-1.K3", "2770"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:PREŠEVO", "sys1-1.K4", "5530"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:VLADIČIN HAN", "sys1-1.K3", "1810"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:VLADIČIN HAN", "sys1-1.K4", "3630"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:VRANJE", "sys1-1.K3", "2170"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:VRANJE", "sys1-1.K4", "4350"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:ĆIĆEVAC", "sys1-1.K3", "580"],
+    ["st4:ALEKSINAČKI RUDNICI", "st4:ĆIĆEVAC", "sys1-1.K4", "1160"],
+    ["st4:BATOČINA", "st4:ALEKSINAC", "sys1-1.K3", "1500"],
+    ["st4:BATOČINA", "st4:ALEKSINAC", "sys1-1.K4", "3010"],
+    ["st4:BATOČINA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "1420"],
+    ["st4:BATOČINA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "2850"],
+    ["st4:BATOČINA", "st4:BELA PALANKA", "sys1-1.K3", "2570"],
+    ["st4:BATOČINA", "st4:BELA PALANKA", "sys1-1.K4", "5140"],
+    ["st4:BATOČINA", "st4:BRESTOVAC", "sys1-1.K3", "2240"],
+    ["st4:BATOČINA", "st4:BRESTOVAC", "sys1-1.K4", "4470"],
+    ["st4:BATOČINA", "st4:BUJANOVAC JUG", "sys1-1.K3", "3870"],
+    ["st4:BATOČINA", "st4:BUJANOVAC JUG", "sys1-1.K4", "7740"],
+    ["st4:BATOČINA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3810"],
+    ["st4:BATOČINA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "7620"],
+    ["st4:BATOČINA", "st4:DIMITROVGRAD", "sys1-1.K3", "3510"],
+    ["st4:BATOČINA", "st4:DIMITROVGRAD", "sys1-1.K4", "7030"],
+    ["st4:BATOČINA", "st4:DOLJEVAC SELO", "sys1-1.K3", "2140"],
+    ["st4:BATOČINA", "st4:DOLJEVAC SELO", "sys1-1.K4", "4280"],
+    ["st4:BATOČINA", "st4:GRDELICA", "sys1-1.K3", "2780"],
+    ["st4:BATOČINA", "st4:GRDELICA", "sys1-1.K4", "5550"],
+    ["st4:BATOČINA", "st4:JAGODINA", "sys1-1.K3", "340"],
+    ["st4:BATOČINA", "st4:JAGODINA", "sys1-1.K4", "680"],
+    ["st4:BATOČINA", "st4:KOŠEVI", "sys1-1.K3", "1360"],
+    ["st4:BATOČINA", "st4:KOŠEVI", "sys1-1.K4", "2730"],
+    ["st4:BATOČINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1240"],
+    ["st4:BATOČINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2470"],
+    ["st4:BATOČINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1260"],
+    ["st4:BATOČINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2530"],
+    ["st4:BATOČINA", "st4:LESKOVAC CENTAR", "sys1-1.K3", "2350"],
+    ["st4:BATOČINA", "st4:LESKOVAC CENTAR", "sys1-1.K4", "4700"],
+    ["st4:BATOČINA", "st4:LESKOVAC JUG", "sys1-1.K3", "2600"],
+    ["st4:BATOČINA", "st4:LESKOVAC JUG", "sys1-1.K4", "5210"],
+    ["st4:BATOČINA", "st4:MALČA", "sys1-1.K3", "2090"],
+    ["st4:BATOČINA", "st4:MALČA", "sys1-1.K4", "4190"],
+    ["st4:BATOČINA", "st4:MEROŠINA", "sys1-1.K3", "1980"],
+    ["st4:BATOČINA", "st4:MEROŠINA", "sys1-1.K4", "3950"],
+    ["st4:BATOČINA", "st4:NIŠ ISTOK", "sys1-1.K3", "1980"],
+    ["st4:BATOČINA", "st4:NIŠ ISTOK", "sys1-1.K4", "3950"],
+    ["st4:BATOČINA", "st4:NIŠ JUG", "sys1-1.K3", "1890"],
+    ["st4:BATOČINA", "st4:NIŠ JUG", "sys1-1.K4", "3770"],
+    ["st4:BATOČINA", "st4:NIŠ SEVER", "sys1-1.K3", "1870"],
+    ["st4:BATOČINA", "st4:NIŠ SEVER", "sys1-1.K4", "3740"],
+    ["st4:BATOČINA", "st4:PARAĆIN", "sys1-1.K3", "710"],
+    ["st4:BATOČINA", "st4:PARAĆIN", "sys1-1.K4", "1430"],
+    ["st4:BATOČINA", "st4:PIROT ISTOK", "sys1-1.K3", "3130"],
+    ["st4:BATOČINA", "st4:PIROT ISTOK", "sys1-1.K4", "6250"],
+    ["st4:BATOČINA", "st4:PIROT ZAPAD", "sys1-1.K3", "2950"],
+    ["st4:BATOČINA", "st4:PIROT ZAPAD", "sys1-1.K4", "5900"],
+    ["st4:BATOČINA", "st4:PREDEJANE", "sys1-1.K3", "2970"],
+    ["st4:BATOČINA", "st4:PREDEJANE", "sys1-1.K4", "5930"],
+    ["st4:BATOČINA", "st4:PREŠEVO", "sys1-1.K3", "4190"],
+    ["st4:BATOČINA", "st4:PREŠEVO", "sys1-1.K4", "8380"],
+    ["st4:BATOČINA", "st4:RAŽANJ", "sys1-1.K3", "1100"],
+    ["st4:BATOČINA", "st4:RAŽANJ", "sys1-1.K4", "2200"],
+    ["st4:BATOČINA", "st4:VLADIČIN HAN", "sys1-1.K3", "3240"],
+    ["st4:BATOČINA", "st4:VLADIČIN HAN", "sys1-1.K4", "6470"],
+    ["st4:BATOČINA", "st4:VRANJE", "sys1-1.K3", "3600"],
+    ["st4:BATOČINA", "st4:VRANJE", "sys1-1.K4", "7200"],
+    ["st4:BATOČINA", "st4:ĆIĆEVAC", "sys1-1.K3", "960"],
+    ["st4:BATOČINA", "st4:ĆIĆEVAC", "sys1-1.K4", "1920"],
+    ["st4:BATOČINA", "st4:ĆUPRIJA", "sys1-1.K3", "540"],
+    ["st4:BATOČINA", "st4:ĆUPRIJA", "sys1-1.K4", "1090"],
+    ["st4:BELA PALANKA", "st4:DIMITROVGRAD", "sys1-1.K3", "950"],
+    ["st4:BELA PALANKA", "st4:DIMITROVGRAD", "sys1-1.K4", "1890"],
+    ["st4:BELA PALANKA", "st4:KOŠEVI", "sys1-1.K3", "2130"],
+    ["st4:BELA PALANKA", "st4:KOŠEVI", "sys1-1.K4", "4250"],
+    ["st4:BELA PALANKA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2000"],
+    ["st4:BELA PALANKA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4000"],
+    ["st4:BELA PALANKA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2030"],
+    ["st4:BELA PALANKA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4060"],
+    ["st4:BELA PALANKA", "st4:PIROT ISTOK", "sys1-1.K3", "560"],
+    ["st4:BELA PALANKA", "st4:PIROT ISTOK", "sys1-1.K4", "1120"],
+    ["st4:BELA PALANKA", "st4:PIROT ZAPAD", "sys1-1.K3", "380"],
+    ["st4:BELA PALANKA", "st4:PIROT ZAPAD", "sys1-1.K4", "760"],
+    ["st4:BELA PALANKA", "st4:ĆIĆEVAC", "sys1-1.K3", "1730"],
+    ["st4:BELA PALANKA", "st4:ĆIĆEVAC", "sys1-1.K4", "3450"],
+    ["st4:BEOGRAD", "st4:ALEKSINAC", "sys1-1.K3", "2990"],
+    ["st4:BEOGRAD", "st4:ALEKSINAC", "sys1-1.K4", "5990"],
+    ["st4:BEOGRAD", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2920"],
+    ["st4:BEOGRAD", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "5830"],
+    ["st4:BEOGRAD", "st4:BATOČINA", "sys1-1.K3", "1490"],
+    ["st4:BEOGRAD", "st4:BATOČINA", "sys1-1.K4", "2980"],
+    ["st4:BEOGRAD", "st4:BELA PALANKA", "sys1-1.K3", "4060"],
+    ["st4:BEOGRAD", "st4:BELA PALANKA", "sys1-1.K4", "8120"],
+    ["st4:BEOGRAD", "st4:BRESTOVAC", "sys1-1.K3", "3730"],
+    ["st4:BEOGRAD", "st4:BRESTOVAC", "sys1-1.K4", "7450"],
+    ["st4:BEOGRAD", "st4:BUJANOVAC JUG", "sys1-1.K3", "5360"],
+    ["st4:BEOGRAD", "st4:BUJANOVAC JUG", "sys1-1.K4", "10720"],
+    ["st4:BEOGRAD", "st4:BUJANOVAC SEVER", "sys1-1.K3", "5300"],
+    ["st4:BEOGRAD", "st4:BUJANOVAC SEVER", "sys1-1.K4", "10600"],
+    ["st4:BEOGRAD", "st4:DIMITROVGRAD", "sys1-1.K3", "5010"],
+    ["st4:BEOGRAD", "st4:DIMITROVGRAD", "sys1-1.K4", "10010"],
+    ["st4:BEOGRAD", "st4:DOLJEVAC SELO", "sys1-1.K3", "3630"],
+    ["st4:BEOGRAD", "st4:DOLJEVAC SELO", "sys1-1.K4", "7260"],
+    ["st4:BEOGRAD", "st4:GRDELICA", "sys1-1.K3", "4270"],
+    ["st4:BEOGRAD", "st4:GRDELICA", "sys1-1.K4", "8530"],
+    ["st4:BEOGRAD", "st4:JAGODINA", "sys1-1.K3", "1830"],
+    ["st4:BEOGRAD", "st4:JAGODINA", "sys1-1.K4", "3670"],
+    ["st4:BEOGRAD", "st4:KOLARI", "sys1-1.K3", "580"],
+    ["st4:BEOGRAD", "st4:KOLARI", "sys1-1.K4", "1170"],
+    ["st4:BEOGRAD", "st4:KOŠEVI", "sys1-1.K3", "2850"],
+    ["st4:BEOGRAD", "st4:KOŠEVI", "sys1-1.K4", "5710"],
+    ["st4:BEOGRAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2730"],
+    ["st4:BEOGRAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "5450"],
+    ["st4:BEOGRAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2760"],
+    ["st4:BEOGRAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "5510"],
+    ["st4:BEOGRAD", "st4:LAPOVO", "sys1-1.K3", "1430"],
+    ["st4:BEOGRAD", "st4:LAPOVO", "sys1-1.K4", "2860"],
+    ["st4:BEOGRAD", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3840"],
+    ["st4:BEOGRAD", "st4:LESKOVAC CENTAR", "sys1-1.K4", "7680"],
+    ["st4:BEOGRAD", "st4:LESKOVAC JUG", "sys1-1.K3", "4090"],
+    ["st4:BEOGRAD", "st4:LESKOVAC JUG", "sys1-1.K4", "8190"],
+    ["st4:BEOGRAD", "st4:MALI POŽAREVAC", "sys1-1.K3", "290"],
+    ["st4:BEOGRAD", "st4:MALI POŽAREVAC", "sys1-1.K4", "580"],
+    ["st4:BEOGRAD", "st4:MALČA", "sys1-1.K3", "3580"],
+    ["st4:BEOGRAD", "st4:MALČA", "sys1-1.K4", "7170"],
+    ["st4:BEOGRAD", "st4:MARKOVAC", "sys1-1.K3", "1330"],
+    ["st4:BEOGRAD", "st4:MARKOVAC", "sys1-1.K4", "2660"],
+    ["st4:BEOGRAD", "st4:MEROŠINA", "sys1-1.K3", "3470"],
+    ["st4:BEOGRAD", "st4:MEROŠINA", "sys1-1.K4", "6930"],
+    ["st4:BEOGRAD", "st4:NIŠ ISTOK", "sys1-1.K3", "3470"],
+    ["st4:BEOGRAD", "st4:NIŠ ISTOK", "sys1-1.K4", "6940"],
+    ["st4:BEOGRAD", "st4:NIŠ JUG", "sys1-1.K3", "3380"],
+    ["st4:BEOGRAD", "st4:NIŠ JUG", "sys1-1.K4", "6760"],
+    ["st4:BEOGRAD", "st4:NIŠ SEVER", "sys1-1.K3", "3360"],
+    ["st4:BEOGRAD", "st4:NIŠ SEVER", "sys1-1.K4", "6730"],
+    ["st4:BEOGRAD", "st4:PARAĆIN", "sys1-1.K3", "2200"],
+    ["st4:BEOGRAD", "st4:PARAĆIN", "sys1-1.K4", "4410"],
+    ["st4:BEOGRAD", "st4:PIROT ISTOK", "sys1-1.K3", "4620"],
+    ["st4:BEOGRAD", "st4:PIROT ISTOK", "sys1-1.K4", "9230"],
+    ["st4:BEOGRAD", "st4:PIROT ZAPAD", "sys1-1.K3", "4440"],
+    ["st4:BEOGRAD", "st4:PIROT ZAPAD", "sys1-1.K4", "8880"],
+    ["st4:BEOGRAD", "st4:POŽAREVAC", "sys1-1.K3", "700"],
+    ["st4:BEOGRAD", "st4:POŽAREVAC", "sys1-1.K4", "1390"],
+    ["st4:BEOGRAD", "st4:PREDEJANE", "sys1-1.K3", "4460"],
+    ["st4:BEOGRAD", "st4:PREDEJANE", "sys1-1.K4", "8910"],
+    ["st4:BEOGRAD", "st4:PREŠEVO", "sys1-1.K3", "5680"],
+    ["st4:BEOGRAD", "st4:PREŠEVO", "sys1-1.K4", "11360"],
+    ["st4:BEOGRAD", "st4:RAŽANJ", "sys1-1.K3", "2590"],
+    ["st4:BEOGRAD", "st4:RAŽANJ", "sys1-1.K4", "5180"],
+    ["st4:BEOGRAD", "st4:SMEDEREVO", "sys1-1.K3", "670"],
+    ["st4:BEOGRAD", "st4:SMEDEREVO", "sys1-1.K4", "1350"],
+    ["st4:BEOGRAD", "st4:UMČARI", "sys1-1.K3", "390"],
+    ["st4:BEOGRAD", "st4:UMČARI", "sys1-1.K4", "790"],
+    ["st4:BEOGRAD", "st4:VELIKA PLANA", "sys1-1.K3", "1150"],
+    ["st4:BEOGRAD", "st4:VELIKA PLANA", "sys1-1.K4", "2300"],
+    ["st4:BEOGRAD", "st4:VLADIČIN HAN", "sys1-1.K3", "4730"],
+    ["st4:BEOGRAD", "st4:VLADIČIN HAN", "sys1-1.K4", "9460"],
+    ["st4:BEOGRAD", "st4:VODANJ", "sys1-1.K3", "490"],
+    ["st4:BEOGRAD", "st4:VODANJ", "sys1-1.K4", "970"],
+    ["st4:BEOGRAD", "st4:VRANJE", "sys1-1.K3", "5090"],
+    ["st4:BEOGRAD", "st4:VRANJE", "sys1-1.K4", "10180"],
+    ["st4:BEOGRAD", "st4:ĆIĆEVAC", "sys1-1.K3", "2450"],
+    ["st4:BEOGRAD", "st4:ĆIĆEVAC", "sys1-1.K4", "4900"],
+    ["st4:BEOGRAD", "st4:ĆUPRIJA", "sys1-1.K3", "2040"],
+    ["st4:BEOGRAD", "st4:ĆUPRIJA", "sys1-1.K4", "4070"],
+    ["st4:BRESTOVAC", "st4:BELA PALANKA", "sys1-1.K3", "1140"],
+    ["st4:BRESTOVAC", "st4:BELA PALANKA", "sys1-1.K4", "2280"],
+    ["st4:BRESTOVAC", "st4:BUJANOVAC JUG", "sys1-1.K3", "1630"],
+    ["st4:BRESTOVAC", "st4:BUJANOVAC JUG", "sys1-1.K4", "3260"],
+    ["st4:BRESTOVAC", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1570"],
+    ["st4:BRESTOVAC", "st4:BUJANOVAC SEVER", "sys1-1.K4", "3150"],
+    ["st4:BRESTOVAC", "st4:DIMITROVGRAD", "sys1-1.K3", "2080"],
+    ["st4:BRESTOVAC", "st4:DIMITROVGRAD", "sys1-1.K4", "4170"],
+    ["st4:BRESTOVAC", "st4:GRDELICA", "sys1-1.K3", "540"],
+    ["st4:BRESTOVAC", "st4:GRDELICA", "sys1-1.K4", "1080"],
+    ["st4:BRESTOVAC", "st4:KOŠEVI", "sys1-1.K3", "1790"],
+    ["st4:BRESTOVAC", "st4:KOŠEVI", "sys1-1.K4", "3590"],
+    ["st4:BRESTOVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1670"],
+    ["st4:BRESTOVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "3340"],
+    ["st4:BRESTOVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1700"],
+    ["st4:BRESTOVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "3390"],
+    ["st4:BRESTOVAC", "st4:LESKOVAC CENTAR", "sys1-1.K3", "110"],
+    ["st4:BRESTOVAC", "st4:LESKOVAC CENTAR", "sys1-1.K4", "230"],
+    ["st4:BRESTOVAC", "st4:LESKOVAC JUG", "sys1-1.K3", "370"],
+    ["st4:BRESTOVAC", "st4:LESKOVAC JUG", "sys1-1.K4", "740"],
+    ["st4:BRESTOVAC", "st4:MALČA", "sys1-1.K3", "660"],
+    ["st4:BRESTOVAC", "st4:MALČA", "sys1-1.K4", "1330"],
+    ["st4:BRESTOVAC", "st4:NIŠ ISTOK", "sys1-1.K3", "550"],
+    ["st4:BRESTOVAC", "st4:NIŠ ISTOK", "sys1-1.K4", "1090"],
+    ["st4:BRESTOVAC", "st4:NIŠ SEVER", "sys1-1.K3", "440"],
+    ["st4:BRESTOVAC", "st4:NIŠ SEVER", "sys1-1.K4", "880"],
+    ["st4:BRESTOVAC", "st4:PIROT ISTOK", "sys1-1.K3", "1700"],
+    ["st4:BRESTOVAC", "st4:PIROT ISTOK", "sys1-1.K4", "3390"],
+    ["st4:BRESTOVAC", "st4:PIROT ZAPAD", "sys1-1.K3", "1520"],
+    ["st4:BRESTOVAC", "st4:PIROT ZAPAD", "sys1-1.K4", "3040"],
+    ["st4:BRESTOVAC", "st4:PREDEJANE", "sys1-1.K3", "730"],
+    ["st4:BRESTOVAC", "st4:PREDEJANE", "sys1-1.K4", "1460"],
+    ["st4:BRESTOVAC", "st4:PREŠEVO", "sys1-1.K3", "1960"],
+    ["st4:BRESTOVAC", "st4:PREŠEVO", "sys1-1.K4", "3910"],
+    ["st4:BRESTOVAC", "st4:VLADIČIN HAN", "sys1-1.K3", "1000"],
+    ["st4:BRESTOVAC", "st4:VLADIČIN HAN", "sys1-1.K4", "2000"],
+    ["st4:BRESTOVAC", "st4:VRANJE", "sys1-1.K3", "1360"],
+    ["st4:BRESTOVAC", "st4:VRANJE", "sys1-1.K4", "2730"],
+    ["st4:BRESTOVAC", "st4:ĆIĆEVAC", "sys1-1.K3", "1390"],
+    ["st4:BRESTOVAC", "st4:ĆIĆEVAC", "sys1-1.K4", "2790"],
+    ["st4:BUJANOVAC JUG", "st4:BELA PALANKA", "sys1-1.K3", "2770"],
+    ["st4:BUJANOVAC JUG", "st4:BELA PALANKA", "sys1-1.K4", "5540"],
+    ["st4:BUJANOVAC JUG", "st4:DIMITROVGRAD", "sys1-1.K3", "3720"],
+    ["st4:BUJANOVAC JUG", "st4:DIMITROVGRAD", "sys1-1.K4", "7430"],
+    ["st4:BUJANOVAC JUG", "st4:KOŠEVI", "sys1-1.K3", "3430"],
+    ["st4:BUJANOVAC JUG", "st4:KOŠEVI", "sys1-1.K4", "6850"],
+    ["st4:BUJANOVAC JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "3300"],
+    ["st4:BUJANOVAC JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "6600"],
+    ["st4:BUJANOVAC JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "3330"],
+    ["st4:BUJANOVAC JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "6660"],
+    ["st4:BUJANOVAC JUG", "st4:MALČA", "sys1-1.K3", "2300"],
+    ["st4:BUJANOVAC JUG", "st4:MALČA", "sys1-1.K4", "4590"],
+    ["st4:BUJANOVAC JUG", "st4:NIŠ ISTOK", "sys1-1.K3", "2180"],
+    ["st4:BUJANOVAC JUG", "st4:NIŠ ISTOK", "sys1-1.K4", "4360"],
+    ["st4:BUJANOVAC JUG", "st4:NIŠ SEVER", "sys1-1.K3", "2070"],
+    ["st4:BUJANOVAC JUG", "st4:NIŠ SEVER", "sys1-1.K4", "4150"],
+    ["st4:BUJANOVAC JUG", "st4:PIROT ISTOK", "sys1-1.K3", "3330"],
+    ["st4:BUJANOVAC JUG", "st4:PIROT ISTOK", "sys1-1.K4", "6660"],
+    ["st4:BUJANOVAC JUG", "st4:PIROT ZAPAD", "sys1-1.K3", "3150"],
+    ["st4:BUJANOVAC JUG", "st4:PIROT ZAPAD", "sys1-1.K4", "6300"],
+    ["st4:BUJANOVAC JUG", "st4:PREŠEVO", "sys1-1.K3", "320"],
+    ["st4:BUJANOVAC JUG", "st4:PREŠEVO", "sys1-1.K4", "650"],
+    ["st4:BUJANOVAC JUG", "st4:ĆIĆEVAC", "sys1-1.K3", "3030"],
+    ["st4:BUJANOVAC JUG", "st4:ĆIĆEVAC", "sys1-1.K4", "6050"],
+    ["st4:BUJANOVAC SEVER", "st4:BELA PALANKA", "sys1-1.K3", "2710"],
+    ["st4:BUJANOVAC SEVER", "st4:BELA PALANKA", "sys1-1.K4", "5430"],
+    ["st4:BUJANOVAC SEVER", "st4:BUJANOVAC JUG", "sys1-1.K3", "60"],
+    ["st4:BUJANOVAC SEVER", "st4:BUJANOVAC JUG", "sys1-1.K4", "110"],
+    ["st4:BUJANOVAC SEVER", "st4:DIMITROVGRAD", "sys1-1.K3", "3660"],
+    ["st4:BUJANOVAC SEVER", "st4:DIMITROVGRAD", "sys1-1.K4", "7320"],
+    ["st4:BUJANOVAC SEVER", "st4:KOŠEVI", "sys1-1.K3", "3370"],
+    ["st4:BUJANOVAC SEVER", "st4:KOŠEVI", "sys1-1.K4", "6740"],
+    ["st4:BUJANOVAC SEVER", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "3240"],
+    ["st4:BUJANOVAC SEVER", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "6490"],
+    ["st4:BUJANOVAC SEVER", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "3270"],
+    ["st4:BUJANOVAC SEVER", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "6540"],
+    ["st4:BUJANOVAC SEVER", "st4:MALČA", "sys1-1.K3", "2240"],
+    ["st4:BUJANOVAC SEVER", "st4:MALČA", "sys1-1.K4", "4480"],
+    ["st4:BUJANOVAC SEVER", "st4:NIŠ ISTOK", "sys1-1.K3", "2120"],
+    ["st4:BUJANOVAC SEVER", "st4:NIŠ ISTOK", "sys1-1.K4", "4240"],
+    ["st4:BUJANOVAC SEVER", "st4:NIŠ SEVER", "sys1-1.K3", "2020"],
+    ["st4:BUJANOVAC SEVER", "st4:NIŠ SEVER", "sys1-1.K4", "4030"],
+    ["st4:BUJANOVAC SEVER", "st4:PIROT ISTOK", "sys1-1.K3", "3270"],
+    ["st4:BUJANOVAC SEVER", "st4:PIROT ISTOK", "sys1-1.K4", "6540"],
+    ["st4:BUJANOVAC SEVER", "st4:PIROT ZAPAD", "sys1-1.K3", "3090"],
+    ["st4:BUJANOVAC SEVER", "st4:PIROT ZAPAD", "sys1-1.K4", "6190"],
+    ["st4:BUJANOVAC SEVER", "st4:PREŠEVO", "sys1-1.K3", "380"],
+    ["st4:BUJANOVAC SEVER", "st4:PREŠEVO", "sys1-1.K4", "760"],
+    ["st4:BUJANOVAC SEVER", "st4:ĆIĆEVAC", "sys1-1.K3", "2970"],
+    ["st4:BUJANOVAC SEVER", "st4:ĆIĆEVAC", "sys1-1.K4", "5940"],
+    ["st4:DIMITROVGRAD", "st4:KOŠEVI", "sys1-1.K3", "3070"],
+    ["st4:DIMITROVGRAD", "st4:KOŠEVI", "sys1-1.K4", "6150"],
+    ["st4:DIMITROVGRAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2950"],
+    ["st4:DIMITROVGRAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "5890"],
+    ["st4:DIMITROVGRAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2980"],
+    ["st4:DIMITROVGRAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "5950"],
+    ["st4:DIMITROVGRAD", "st4:ĆIĆEVAC", "sys1-1.K3", "2670"],
+    ["st4:DIMITROVGRAD", "st4:ĆIĆEVAC", "sys1-1.K4", "5340"],
+    ["st4:DOLJEVAC SELO", "st4:BELA PALANKA", "sys1-1.K3", "1040"],
+    ["st4:DOLJEVAC SELO", "st4:BELA PALANKA", "sys1-1.K4", "2090"],
+    ["st4:DOLJEVAC SELO", "st4:BRESTOVAC", "sys1-1.K3", "90"],
+    ["st4:DOLJEVAC SELO", "st4:BRESTOVAC", "sys1-1.K4", "190"],
+    ["st4:DOLJEVAC SELO", "st4:BUJANOVAC JUG", "sys1-1.K3", "1730"],
+    ["st4:DOLJEVAC SELO", "st4:BUJANOVAC JUG", "sys1-1.K4", "3450"],
+    ["st4:DOLJEVAC SELO", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1670"],
+    ["st4:DOLJEVAC SELO", "st4:BUJANOVAC SEVER", "sys1-1.K4", "3340"],
+    ["st4:DOLJEVAC SELO", "st4:DIMITROVGRAD", "sys1-1.K3", "1990"],
+    ["st4:DOLJEVAC SELO", "st4:DIMITROVGRAD", "sys1-1.K4", "3980"],
+    ["st4:DOLJEVAC SELO", "st4:GRDELICA", "sys1-1.K3", "630"],
+    ["st4:DOLJEVAC SELO", "st4:GRDELICA", "sys1-1.K4", "1270"],
+    ["st4:DOLJEVAC SELO", "st4:KOŠEVI", "sys1-1.K3", "1700"],
+    ["st4:DOLJEVAC SELO", "st4:KOŠEVI", "sys1-1.K4", "3400"],
+    ["st4:DOLJEVAC SELO", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1570"],
+    ["st4:DOLJEVAC SELO", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "3150"],
+    ["st4:DOLJEVAC SELO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1600"],
+    ["st4:DOLJEVAC SELO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "3210"],
+    ["st4:DOLJEVAC SELO", "st4:LESKOVAC CENTAR", "sys1-1.K3", "210"],
+    ["st4:DOLJEVAC SELO", "st4:LESKOVAC CENTAR", "sys1-1.K4", "420"],
+    ["st4:DOLJEVAC SELO", "st4:LESKOVAC JUG", "sys1-1.K3", "460"],
+    ["st4:DOLJEVAC SELO", "st4:LESKOVAC JUG", "sys1-1.K4", "920"],
+    ["st4:DOLJEVAC SELO", "st4:MALČA", "sys1-1.K3", "570"],
+    ["st4:DOLJEVAC SELO", "st4:MALČA", "sys1-1.K4", "1140"],
+    ["st4:DOLJEVAC SELO", "st4:NIŠ ISTOK", "sys1-1.K3", "450"],
+    ["st4:DOLJEVAC SELO", "st4:NIŠ ISTOK", "sys1-1.K4", "910"],
+    ["st4:DOLJEVAC SELO", "st4:NIŠ SEVER", "sys1-1.K3", "350"],
+    ["st4:DOLJEVAC SELO", "st4:NIŠ SEVER", "sys1-1.K4", "700"],
+    ["st4:DOLJEVAC SELO", "st4:PIROT ISTOK", "sys1-1.K3", "1600"],
+    ["st4:DOLJEVAC SELO", "st4:PIROT ISTOK", "sys1-1.K4", "3210"],
+    ["st4:DOLJEVAC SELO", "st4:PIROT ZAPAD", "sys1-1.K3", "1430"],
+    ["st4:DOLJEVAC SELO", "st4:PIROT ZAPAD", "sys1-1.K4", "2850"],
+    ["st4:DOLJEVAC SELO", "st4:PREDEJANE", "sys1-1.K3", "820"],
+    ["st4:DOLJEVAC SELO", "st4:PREDEJANE", "sys1-1.K4", "1650"],
+    ["st4:DOLJEVAC SELO", "st4:PREŠEVO", "sys1-1.K3", "2050"],
+    ["st4:DOLJEVAC SELO", "st4:PREŠEVO", "sys1-1.K4", "4100"],
+    ["st4:DOLJEVAC SELO", "st4:VLADIČIN HAN", "sys1-1.K3", "1100"],
+    ["st4:DOLJEVAC SELO", "st4:VLADIČIN HAN", "sys1-1.K4", "2190"],
+    ["st4:DOLJEVAC SELO", "st4:VRANJE", "sys1-1.K3", "1460"],
+    ["st4:DOLJEVAC SELO", "st4:VRANJE", "sys1-1.K4", "2910"],
+    ["st4:DOLJEVAC SELO", "st4:ĆIĆEVAC", "sys1-1.K3", "1300"],
+    ["st4:DOLJEVAC SELO", "st4:ĆIĆEVAC", "sys1-1.K4", "2600"],
+    ["st4:GRDELICA", "st4:BELA PALANKA", "sys1-1.K3", "1680"],
+    ["st4:GRDELICA", "st4:BELA PALANKA", "sys1-1.K4", "3360"],
+    ["st4:GRDELICA", "st4:BUJANOVAC JUG", "sys1-1.K3", "1090"],
+    ["st4:GRDELICA", "st4:BUJANOVAC JUG", "sys1-1.K4", "2180"],
+    ["st4:GRDELICA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1030"],
+    ["st4:GRDELICA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "2070"],
+    ["st4:GRDELICA", "st4:DIMITROVGRAD", "sys1-1.K3", "2630"],
+    ["st4:GRDELICA", "st4:DIMITROVGRAD", "sys1-1.K4", "5250"],
+    ["st4:GRDELICA", "st4:KOŠEVI", "sys1-1.K3", "2340"],
+    ["st4:GRDELICA", "st4:KOŠEVI", "sys1-1.K4", "4670"],
+    ["st4:GRDELICA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2210"],
+    ["st4:GRDELICA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4420"],
+    ["st4:GRDELICA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2240"],
+    ["st4:GRDELICA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4480"],
+    ["st4:GRDELICA", "st4:MALČA", "sys1-1.K3", "1210"],
+    ["st4:GRDELICA", "st4:MALČA", "sys1-1.K4", "2410"],
+    ["st4:GRDELICA", "st4:NIŠ ISTOK", "sys1-1.K3", "1090"],
+    ["st4:GRDELICA", "st4:NIŠ ISTOK", "sys1-1.K4", "2180"],
+    ["st4:GRDELICA", "st4:NIŠ SEVER", "sys1-1.K3", "980"],
+    ["st4:GRDELICA", "st4:NIŠ SEVER", "sys1-1.K4", "1970"],
+    ["st4:GRDELICA", "st4:PIROT ISTOK", "sys1-1.K3", "2240"],
+    ["st4:GRDELICA", "st4:PIROT ISTOK", "sys1-1.K4", "4480"],
+    ["st4:GRDELICA", "st4:PIROT ZAPAD", "sys1-1.K3", "2060"],
+    ["st4:GRDELICA", "st4:PIROT ZAPAD", "sys1-1.K4", "4120"],
+    ["st4:GRDELICA", "st4:PREDEJANE", "sys1-1.K3", "190"],
+    ["st4:GRDELICA", "st4:PREDEJANE", "sys1-1.K4", "380"],
+    ["st4:GRDELICA", "st4:PREŠEVO", "sys1-1.K3", "1410"],
+    ["st4:GRDELICA", "st4:PREŠEVO", "sys1-1.K4", "2830"],
+    ["st4:GRDELICA", "st4:VLADIČIN HAN", "sys1-1.K3", "460"],
+    ["st4:GRDELICA", "st4:VLADIČIN HAN", "sys1-1.K4", "920"],
+    ["st4:GRDELICA", "st4:VRANJE", "sys1-1.K3", "820"],
+    ["st4:GRDELICA", "st4:VRANJE", "sys1-1.K4", "1640"],
+    ["st4:GRDELICA", "st4:ĆIĆEVAC", "sys1-1.K3", "1930"],
+    ["st4:GRDELICA", "st4:ĆIĆEVAC", "sys1-1.K4", "3870"],
+    ["st4:JAGODINA", "st4:ALEKSINAC", "sys1-1.K3", "1160"],
+    ["st4:JAGODINA", "st4:ALEKSINAC", "sys1-1.K4", "2320"],
+    ["st4:JAGODINA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "1080"],
+    ["st4:JAGODINA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "2160"],
+    ["st4:JAGODINA", "st4:BELA PALANKA", "sys1-1.K3", "2230"],
+    ["st4:JAGODINA", "st4:BELA PALANKA", "sys1-1.K4", "4450"],
+    ["st4:JAGODINA", "st4:BRESTOVAC", "sys1-1.K3", "1890"],
+    ["st4:JAGODINA", "st4:BRESTOVAC", "sys1-1.K4", "3790"],
+    ["st4:JAGODINA", "st4:BUJANOVAC JUG", "sys1-1.K3", "3530"],
+    ["st4:JAGODINA", "st4:BUJANOVAC JUG", "sys1-1.K4", "7050"],
+    ["st4:JAGODINA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3470"],
+    ["st4:JAGODINA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "6940"],
+    ["st4:JAGODINA", "st4:DIMITROVGRAD", "sys1-1.K3", "3170"],
+    ["st4:JAGODINA", "st4:DIMITROVGRAD", "sys1-1.K4", "6340"],
+    ["st4:JAGODINA", "st4:DOLJEVAC SELO", "sys1-1.K3", "1800"],
+    ["st4:JAGODINA", "st4:DOLJEVAC SELO", "sys1-1.K4", "3600"],
+    ["st4:JAGODINA", "st4:GRDELICA", "sys1-1.K3", "2430"],
+    ["st4:JAGODINA", "st4:GRDELICA", "sys1-1.K4", "4870"],
+    ["st4:JAGODINA", "st4:KOŠEVI", "sys1-1.K3", "1020"],
+    ["st4:JAGODINA", "st4:KOŠEVI", "sys1-1.K4", "2040"],
+    ["st4:JAGODINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "890"],
+    ["st4:JAGODINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1790"],
+    ["st4:JAGODINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "920"],
+    ["st4:JAGODINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1840"],
+    ["st4:JAGODINA", "st4:LESKOVAC CENTAR", "sys1-1.K3", "2010"],
+    ["st4:JAGODINA", "st4:LESKOVAC CENTAR", "sys1-1.K4", "4020"],
+    ["st4:JAGODINA", "st4:LESKOVAC JUG", "sys1-1.K3", "2260"],
+    ["st4:JAGODINA", "st4:LESKOVAC JUG", "sys1-1.K4", "4520"],
+    ["st4:JAGODINA", "st4:MALČA", "sys1-1.K3", "1750"],
+    ["st4:JAGODINA", "st4:MALČA", "sys1-1.K4", "3500"],
+    ["st4:JAGODINA", "st4:MEROŠINA", "sys1-1.K3", "1630"],
+    ["st4:JAGODINA", "st4:MEROŠINA", "sys1-1.K4", "3270"],
+    ["st4:JAGODINA", "st4:NIŠ ISTOK", "sys1-1.K3", "1630"],
+    ["st4:JAGODINA", "st4:NIŠ ISTOK", "sys1-1.K4", "3270"],
+    ["st4:JAGODINA", "st4:NIŠ JUG", "sys1-1.K3", "1540"],
+    ["st4:JAGODINA", "st4:NIŠ JUG", "sys1-1.K4", "3090"],
+    ["st4:JAGODINA", "st4:NIŠ SEVER", "sys1-1.K3", "1530"],
+    ["st4:JAGODINA", "st4:NIŠ SEVER", "sys1-1.K4", "3060"],
+    ["st4:JAGODINA", "st4:PARAĆIN", "sys1-1.K3", "370"],
+    ["st4:JAGODINA", "st4:PARAĆIN", "sys1-1.K4", "740"],
+    ["st4:JAGODINA", "st4:PIROT ISTOK", "sys1-1.K3", "2780"],
+    ["st4:JAGODINA", "st4:PIROT ISTOK", "sys1-1.K4", "5570"],
+    ["st4:JAGODINA", "st4:PIROT ZAPAD", "sys1-1.K3", "2610"],
+    ["st4:JAGODINA", "st4:PIROT ZAPAD", "sys1-1.K4", "5210"],
+    ["st4:JAGODINA", "st4:PREDEJANE", "sys1-1.K3", "2620"],
+    ["st4:JAGODINA", "st4:PREDEJANE", "sys1-1.K4", "5250"],
+    ["st4:JAGODINA", "st4:PREŠEVO", "sys1-1.K3", "3850"],
+    ["st4:JAGODINA", "st4:PREŠEVO", "sys1-1.K4", "7700"],
+    ["st4:JAGODINA", "st4:RAŽANJ", "sys1-1.K3", "760"],
+    ["st4:JAGODINA", "st4:RAŽANJ", "sys1-1.K4", "1520"],
+    ["st4:JAGODINA", "st4:VLADIČIN HAN", "sys1-1.K3", "2890"],
+    ["st4:JAGODINA", "st4:VLADIČIN HAN", "sys1-1.K4", "5790"],
+    ["st4:JAGODINA", "st4:VRANJE", "sys1-1.K3", "3260"],
+    ["st4:JAGODINA", "st4:VRANJE", "sys1-1.K4", "6510"],
+    ["st4:JAGODINA", "st4:ĆIĆEVAC", "sys1-1.K3", "620"],
+    ["st4:JAGODINA", "st4:ĆIĆEVAC", "sys1-1.K4", "1240"],
+    ["st4:JAGODINA", "st4:ĆUPRIJA", "sys1-1.K3", "200"],
+    ["st4:JAGODINA", "st4:ĆUPRIJA", "sys1-1.K4", "400"],
+    ["st4:KOLARI", "st4:ALEKSINAC", "sys1-1.K3", "2410"],
+    ["st4:KOLARI", "st4:ALEKSINAC", "sys1-1.K4", "4820"],
+    ["st4:KOLARI", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2330"],
+    ["st4:KOLARI", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "4660"],
+    ["st4:KOLARI", "st4:BATOČINA", "sys1-1.K3", "910"],
+    ["st4:KOLARI", "st4:BATOČINA", "sys1-1.K4", "1810"],
+    ["st4:KOLARI", "st4:BELA PALANKA", "sys1-1.K3", "3470"],
+    ["st4:KOLARI", "st4:BELA PALANKA", "sys1-1.K4", "6950"],
+    ["st4:KOLARI", "st4:BRESTOVAC", "sys1-1.K3", "3140"],
+    ["st4:KOLARI", "st4:BRESTOVAC", "sys1-1.K4", "6280"],
+    ["st4:KOLARI", "st4:BUJANOVAC JUG", "sys1-1.K3", "4770"],
+    ["st4:KOLARI", "st4:BUJANOVAC JUG", "sys1-1.K4", "9550"],
+    ["st4:KOLARI", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4720"],
+    ["st4:KOLARI", "st4:BUJANOVAC SEVER", "sys1-1.K4", "9430"],
+    ["st4:KOLARI", "st4:DIMITROVGRAD", "sys1-1.K3", "4420"],
+    ["st4:KOLARI", "st4:DIMITROVGRAD", "sys1-1.K4", "8840"],
+    ["st4:KOLARI", "st4:DOLJEVAC SELO", "sys1-1.K3", "3050"],
+    ["st4:KOLARI", "st4:DOLJEVAC SELO", "sys1-1.K4", "6100"],
+    ["st4:KOLARI", "st4:GRDELICA", "sys1-1.K3", "3680"],
+    ["st4:KOLARI", "st4:GRDELICA", "sys1-1.K4", "7370"],
+    ["st4:KOLARI", "st4:JAGODINA", "sys1-1.K3", "1250"],
+    ["st4:KOLARI", "st4:JAGODINA", "sys1-1.K4", "2500"],
+    ["st4:KOLARI", "st4:KOŠEVI", "sys1-1.K3", "2270"],
+    ["st4:KOLARI", "st4:KOŠEVI", "sys1-1.K4", "4540"],
+    ["st4:KOLARI", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2140"],
+    ["st4:KOLARI", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4290"],
+    ["st4:KOLARI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2170"],
+    ["st4:KOLARI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4340"],
+    ["st4:KOLARI", "st4:LAPOVO", "sys1-1.K3", "850"],
+    ["st4:KOLARI", "st4:LAPOVO", "sys1-1.K4", "1690"],
+    ["st4:KOLARI", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3260"],
+    ["st4:KOLARI", "st4:LESKOVAC CENTAR", "sys1-1.K4", "6510"],
+    ["st4:KOLARI", "st4:LESKOVAC JUG", "sys1-1.K3", "3510"],
+    ["st4:KOLARI", "st4:LESKOVAC JUG", "sys1-1.K4", "7020"],
+    ["st4:KOLARI", "st4:MALČA", "sys1-1.K3", "3000"],
+    ["st4:KOLARI", "st4:MALČA", "sys1-1.K4", "6000"],
+    ["st4:KOLARI", "st4:MARKOVAC", "sys1-1.K3", "750"],
+    ["st4:KOLARI", "st4:MARKOVAC", "sys1-1.K4", "1490"],
+    ["st4:KOLARI", "st4:MEROŠINA", "sys1-1.K3", "2880"],
+    ["st4:KOLARI", "st4:MEROŠINA", "sys1-1.K4", "5760"],
+    ["st4:KOLARI", "st4:NIŠ ISTOK", "sys1-1.K3", "2880"],
+    ["st4:KOLARI", "st4:NIŠ ISTOK", "sys1-1.K4", "5770"],
+    ["st4:KOLARI", "st4:NIŠ JUG", "sys1-1.K3", "2790"],
+    ["st4:KOLARI", "st4:NIŠ JUG", "sys1-1.K4", "5590"],
+    ["st4:KOLARI", "st4:NIŠ SEVER", "sys1-1.K3", "2780"],
+    ["st4:KOLARI", "st4:NIŠ SEVER", "sys1-1.K4", "5560"],
+    ["st4:KOLARI", "st4:PARAĆIN", "sys1-1.K3", "1620"],
+    ["st4:KOLARI", "st4:PARAĆIN", "sys1-1.K4", "3240"],
+    ["st4:KOLARI", "st4:PIROT ISTOK", "sys1-1.K3", "4030"],
+    ["st4:KOLARI", "st4:PIROT ISTOK", "sys1-1.K4", "8070"],
+    ["st4:KOLARI", "st4:PIROT ZAPAD", "sys1-1.K3", "3860"],
+    ["st4:KOLARI", "st4:PIROT ZAPAD", "sys1-1.K4", "7710"],
+    ["st4:KOLARI", "st4:POŽAREVAC", "sys1-1.K3", "110"],
+    ["st4:KOLARI", "st4:POŽAREVAC", "sys1-1.K4", "220"],
+    ["st4:KOLARI", "st4:PREDEJANE", "sys1-1.K3", "3870"],
+    ["st4:KOLARI", "st4:PREDEJANE", "sys1-1.K4", "7740"],
+    ["st4:KOLARI", "st4:PREŠEVO", "sys1-1.K3", "5100"],
+    ["st4:KOLARI", "st4:PREŠEVO", "sys1-1.K4", "10200"],
+    ["st4:KOLARI", "st4:RAŽANJ", "sys1-1.K3", "2010"],
+    ["st4:KOLARI", "st4:RAŽANJ", "sys1-1.K4", "4020"],
+    ["st4:KOLARI", "st4:SMEDEREVO", "sys1-1.K3", "90"],
+    ["st4:KOLARI", "st4:SMEDEREVO", "sys1-1.K4", "180"],
+    ["st4:KOLARI", "st4:VELIKA PLANA", "sys1-1.K3", "560"],
+    ["st4:KOLARI", "st4:VELIKA PLANA", "sys1-1.K4", "1130"],
+    ["st4:KOLARI", "st4:VLADIČIN HAN", "sys1-1.K3", "4140"],
+    ["st4:KOLARI", "st4:VLADIČIN HAN", "sys1-1.K4", "8290"],
+    ["st4:KOLARI", "st4:VRANJE", "sys1-1.K3", "4500"],
+    ["st4:KOLARI", "st4:VRANJE", "sys1-1.K4", "9010"],
+    ["st4:KOLARI", "st4:ĆIĆEVAC", "sys1-1.K3", "1870"],
+    ["st4:KOLARI", "st4:ĆIĆEVAC", "sys1-1.K4", "3740"],
+    ["st4:KOLARI", "st4:ĆUPRIJA", "sys1-1.K3", "1450"],
+    ["st4:KOLARI", "st4:ĆUPRIJA", "sys1-1.K4", "2900"],
+    ["st4:KRUŠEVAC ISTOK", "st4:KOŠEVI", "sys1-1.K3", "130"],
+    ["st4:KRUŠEVAC ISTOK", "st4:KOŠEVI", "sys1-1.K4", "250"],
+    ["st4:KRUŠEVAC ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "30"],
+    ["st4:KRUŠEVAC ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "60"],
+    ["st4:KRUŠEVAC ZAPAD", "st4:KOŠEVI", "sys1-1.K3", "100"],
+    ["st4:KRUŠEVAC ZAPAD", "st4:KOŠEVI", "sys1-1.K4", "200"],
+    ["st4:LAPOVO", "st4:ALEKSINAC", "sys1-1.K3", "1560"],
+    ["st4:LAPOVO", "st4:ALEKSINAC", "sys1-1.K4", "3120"],
+    ["st4:LAPOVO", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "1480"],
+    ["st4:LAPOVO", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "2970"],
+    ["st4:LAPOVO", "st4:BATOČINA", "sys1-1.K3", "60"],
+    ["st4:LAPOVO", "st4:BATOČINA", "sys1-1.K4", "120"],
+    ["st4:LAPOVO", "st4:BELA PALANKA", "sys1-1.K3", "2630"],
+    ["st4:LAPOVO", "st4:BELA PALANKA", "sys1-1.K4", "5260"],
+    ["st4:LAPOVO", "st4:BRESTOVAC", "sys1-1.K3", "2300"],
+    ["st4:LAPOVO", "st4:BRESTOVAC", "sys1-1.K4", "4590"],
+    ["st4:LAPOVO", "st4:BUJANOVAC JUG", "sys1-1.K3", "3930"],
+    ["st4:LAPOVO", "st4:BUJANOVAC JUG", "sys1-1.K4", "7860"],
+    ["st4:LAPOVO", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3870"],
+    ["st4:LAPOVO", "st4:BUJANOVAC SEVER", "sys1-1.K4", "7740"],
+    ["st4:LAPOVO", "st4:DIMITROVGRAD", "sys1-1.K3", "3570"],
+    ["st4:LAPOVO", "st4:DIMITROVGRAD", "sys1-1.K4", "7150"],
+    ["st4:LAPOVO", "st4:DOLJEVAC SELO", "sys1-1.K3", "2200"],
+    ["st4:LAPOVO", "st4:DOLJEVAC SELO", "sys1-1.K4", "4400"],
+    ["st4:LAPOVO", "st4:GRDELICA", "sys1-1.K3", "2840"],
+    ["st4:LAPOVO", "st4:GRDELICA", "sys1-1.K4", "5670"],
+    ["st4:LAPOVO", "st4:JAGODINA", "sys1-1.K3", "400"],
+    ["st4:LAPOVO", "st4:JAGODINA", "sys1-1.K4", "800"],
+    ["st4:LAPOVO", "st4:KOŠEVI", "sys1-1.K3", "1420"],
+    ["st4:LAPOVO", "st4:KOŠEVI", "sys1-1.K4", "2840"],
+    ["st4:LAPOVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1300"],
+    ["st4:LAPOVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2590"],
+    ["st4:LAPOVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1320"],
+    ["st4:LAPOVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2650"],
+    ["st4:LAPOVO", "st4:LESKOVAC CENTAR", "sys1-1.K3", "2410"],
+    ["st4:LAPOVO", "st4:LESKOVAC CENTAR", "sys1-1.K4", "4820"],
+    ["st4:LAPOVO", "st4:LESKOVAC JUG", "sys1-1.K3", "2660"],
+    ["st4:LAPOVO", "st4:LESKOVAC JUG", "sys1-1.K4", "5330"],
+    ["st4:LAPOVO", "st4:MALČA", "sys1-1.K3", "2150"],
+    ["st4:LAPOVO", "st4:MALČA", "sys1-1.K4", "4310"],
+    ["st4:LAPOVO", "st4:MEROŠINA", "sys1-1.K3", "2040"],
+    ["st4:LAPOVO", "st4:MEROŠINA", "sys1-1.K4", "4070"],
+    ["st4:LAPOVO", "st4:NIŠ ISTOK", "sys1-1.K3", "2040"],
+    ["st4:LAPOVO", "st4:NIŠ ISTOK", "sys1-1.K4", "4070"],
+    ["st4:LAPOVO", "st4:NIŠ JUG", "sys1-1.K3", "1950"],
+    ["st4:LAPOVO", "st4:NIŠ JUG", "sys1-1.K4", "3890"],
+    ["st4:LAPOVO", "st4:NIŠ SEVER", "sys1-1.K3", "1930"],
+    ["st4:LAPOVO", "st4:NIŠ SEVER", "sys1-1.K4", "3860"],
+    ["st4:LAPOVO", "st4:PARAĆIN", "sys1-1.K3", "770"],
+    ["st4:LAPOVO", "st4:PARAĆIN", "sys1-1.K4", "1540"],
+    ["st4:LAPOVO", "st4:PIROT ISTOK", "sys1-1.K3", "3190"],
+    ["st4:LAPOVO", "st4:PIROT ISTOK", "sys1-1.K4", "6370"],
+    ["st4:LAPOVO", "st4:PIROT ZAPAD", "sys1-1.K3", "3010"],
+    ["st4:LAPOVO", "st4:PIROT ZAPAD", "sys1-1.K4", "6020"],
+    ["st4:LAPOVO", "st4:PREDEJANE", "sys1-1.K3", "3030"],
+    ["st4:LAPOVO", "st4:PREDEJANE", "sys1-1.K4", "6050"],
+    ["st4:LAPOVO", "st4:PREŠEVO", "sys1-1.K3", "4250"],
+    ["st4:LAPOVO", "st4:PREŠEVO", "sys1-1.K4", "8500"],
+    ["st4:LAPOVO", "st4:RAŽANJ", "sys1-1.K3", "1160"],
+    ["st4:LAPOVO", "st4:RAŽANJ", "sys1-1.K4", "2320"],
+    ["st4:LAPOVO", "st4:VLADIČIN HAN", "sys1-1.K3", "3300"],
+    ["st4:LAPOVO", "st4:VLADIČIN HAN", "sys1-1.K4", "6590"],
+    ["st4:LAPOVO", "st4:VRANJE", "sys1-1.K3", "3660"],
+    ["st4:LAPOVO", "st4:VRANJE", "sys1-1.K4", "7320"],
+    ["st4:LAPOVO", "st4:ĆIĆEVAC", "sys1-1.K3", "1020"],
+    ["st4:LAPOVO", "st4:ĆIĆEVAC", "sys1-1.K4", "2040"],
+    ["st4:LAPOVO", "st4:ĆUPRIJA", "sys1-1.K3", "600"],
+    ["st4:LAPOVO", "st4:ĆUPRIJA", "sys1-1.K4", "1210"],
+    ["st4:LESKOVAC CENTAR", "st4:BELA PALANKA", "sys1-1.K3", "1250"],
+    ["st4:LESKOVAC CENTAR", "st4:BELA PALANKA", "sys1-1.K4", "2500"],
+    ["st4:LESKOVAC CENTAR", "st4:BUJANOVAC JUG", "sys1-1.K3", "1520"],
+    ["st4:LESKOVAC CENTAR", "st4:BUJANOVAC JUG", "sys1-1.K4", "3040"],
+    ["st4:LESKOVAC CENTAR", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1460"],
+    ["st4:LESKOVAC CENTAR", "st4:BUJANOVAC SEVER", "sys1-1.K4", "2920"],
+    ["st4:LESKOVAC CENTAR", "st4:DIMITROVGRAD", "sys1-1.K3", "2200"],
+    ["st4:LESKOVAC CENTAR", "st4:DIMITROVGRAD", "sys1-1.K4", "4400"],
+    ["st4:LESKOVAC CENTAR", "st4:GRDELICA", "sys1-1.K3", "430"],
+    ["st4:LESKOVAC CENTAR", "st4:GRDELICA", "sys1-1.K4", "850"],
+    ["st4:LESKOVAC CENTAR", "st4:KOŠEVI", "sys1-1.K3", "1910"],
+    ["st4:LESKOVAC CENTAR", "st4:KOŠEVI", "sys1-1.K4", "3820"],
+    ["st4:LESKOVAC CENTAR", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1780"],
+    ["st4:LESKOVAC CENTAR", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "3570"],
+    ["st4:LESKOVAC CENTAR", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1810"],
+    ["st4:LESKOVAC CENTAR", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "3620"],
+    ["st4:LESKOVAC CENTAR", "st4:LESKOVAC JUG", "sys1-1.K3", "250"],
+    ["st4:LESKOVAC CENTAR", "st4:LESKOVAC JUG", "sys1-1.K4", "510"],
+    ["st4:LESKOVAC CENTAR", "st4:MALČA", "sys1-1.K3", "780"],
+    ["st4:LESKOVAC CENTAR", "st4:MALČA", "sys1-1.K4", "1560"],
+    ["st4:LESKOVAC CENTAR", "st4:NIŠ ISTOK", "sys1-1.K3", "660"],
+    ["st4:LESKOVAC CENTAR", "st4:NIŠ ISTOK", "sys1-1.K4", "1320"],
+    ["st4:LESKOVAC CENTAR", "st4:NIŠ SEVER", "sys1-1.K3", "560"],
+    ["st4:LESKOVAC CENTAR", "st4:NIŠ SEVER", "sys1-1.K4", "1110"],
+    ["st4:LESKOVAC CENTAR", "st4:PIROT ISTOK", "sys1-1.K3", "1810"],
+    ["st4:LESKOVAC CENTAR", "st4:PIROT ISTOK", "sys1-1.K4", "3620"],
+    ["st4:LESKOVAC CENTAR", "st4:PIROT ZAPAD", "sys1-1.K3", "1630"],
+    ["st4:LESKOVAC CENTAR", "st4:PIROT ZAPAD", "sys1-1.K4", "3270"],
+    ["st4:LESKOVAC CENTAR", "st4:PREDEJANE", "sys1-1.K3", "620"],
+    ["st4:LESKOVAC CENTAR", "st4:PREDEJANE", "sys1-1.K4", "1230"],
+    ["st4:LESKOVAC CENTAR", "st4:PREŠEVO", "sys1-1.K3", "1840"],
+    ["st4:LESKOVAC CENTAR", "st4:PREŠEVO", "sys1-1.K4", "3680"],
+    ["st4:LESKOVAC CENTAR", "st4:VLADIČIN HAN", "sys1-1.K3", "890"],
+    ["st4:LESKOVAC CENTAR", "st4:VLADIČIN HAN", "sys1-1.K4", "1770"],
+    ["st4:LESKOVAC CENTAR", "st4:VRANJE", "sys1-1.K3", "1250"],
+    ["st4:LESKOVAC CENTAR", "st4:VRANJE", "sys1-1.K4", "2500"],
+    ["st4:LESKOVAC CENTAR", "st4:ĆIĆEVAC", "sys1-1.K3", "1510"],
+    ["st4:LESKOVAC CENTAR", "st4:ĆIĆEVAC", "sys1-1.K4", "3020"],
+    ["st4:LESKOVAC JUG", "st4:BELA PALANKA", "sys1-1.K3", "1510"],
+    ["st4:LESKOVAC JUG", "st4:BELA PALANKA", "sys1-1.K4", "3010"],
+    ["st4:LESKOVAC JUG", "st4:BUJANOVAC JUG", "sys1-1.K3", "1260"],
+    ["st4:LESKOVAC JUG", "st4:BUJANOVAC JUG", "sys1-1.K4", "2530"],
+    ["st4:LESKOVAC JUG", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1210"],
+    ["st4:LESKOVAC JUG", "st4:BUJANOVAC SEVER", "sys1-1.K4", "2410"],
+    ["st4:LESKOVAC JUG", "st4:DIMITROVGRAD", "sys1-1.K3", "2450"],
+    ["st4:LESKOVAC JUG", "st4:DIMITROVGRAD", "sys1-1.K4", "4910"],
+    ["st4:LESKOVAC JUG", "st4:GRDELICA", "sys1-1.K3", "170"],
+    ["st4:LESKOVAC JUG", "st4:GRDELICA", "sys1-1.K4", "350"],
+    ["st4:LESKOVAC JUG", "st4:KOŠEVI", "sys1-1.K3", "2160"],
+    ["st4:LESKOVAC JUG", "st4:KOŠEVI", "sys1-1.K4", "4330"],
+    ["st4:LESKOVAC JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2040"],
+    ["st4:LESKOVAC JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4070"],
+    ["st4:LESKOVAC JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2060"],
+    ["st4:LESKOVAC JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4130"],
+    ["st4:LESKOVAC JUG", "st4:MALČA", "sys1-1.K3", "1030"],
+    ["st4:LESKOVAC JUG", "st4:MALČA", "sys1-1.K4", "2060"],
+    ["st4:LESKOVAC JUG", "st4:NIŠ ISTOK", "sys1-1.K3", "920"],
+    ["st4:LESKOVAC JUG", "st4:NIŠ ISTOK", "sys1-1.K4", "1830"],
+    ["st4:LESKOVAC JUG", "st4:NIŠ SEVER", "sys1-1.K3", "810"],
+    ["st4:LESKOVAC JUG", "st4:NIŠ SEVER", "sys1-1.K4", "1620"],
+    ["st4:LESKOVAC JUG", "st4:PIROT ISTOK", "sys1-1.K3", "2060"],
+    ["st4:LESKOVAC JUG", "st4:PIROT ISTOK", "sys1-1.K4", "4130"],
+    ["st4:LESKOVAC JUG", "st4:PIROT ZAPAD", "sys1-1.K3", "1890"],
+    ["st4:LESKOVAC JUG", "st4:PIROT ZAPAD", "sys1-1.K4", "3780"],
+    ["st4:LESKOVAC JUG", "st4:PREDEJANE", "sys1-1.K3", "360"],
+    ["st4:LESKOVAC JUG", "st4:PREDEJANE", "sys1-1.K4", "720"],
+    ["st4:LESKOVAC JUG", "st4:PREŠEVO", "sys1-1.K3", "1590"],
+    ["st4:LESKOVAC JUG", "st4:PREŠEVO", "sys1-1.K4", "3170"],
+    ["st4:LESKOVAC JUG", "st4:VLADIČIN HAN", "sys1-1.K3", "630"],
+    ["st4:LESKOVAC JUG", "st4:VLADIČIN HAN", "sys1-1.K4", "1270"],
+    ["st4:LESKOVAC JUG", "st4:VRANJE", "sys1-1.K3", "990"],
+    ["st4:LESKOVAC JUG", "st4:VRANJE", "sys1-1.K4", "1990"],
+    ["st4:LESKOVAC JUG", "st4:ĆIĆEVAC", "sys1-1.K3", "1760"],
+    ["st4:LESKOVAC JUG", "st4:ĆIĆEVAC", "sys1-1.K4", "3520"],
+    ["st4:MALI POŽAREVAC", "st4:ALEKSINAC", "sys1-1.K3", "2700"],
+    ["st4:MALI POŽAREVAC", "st4:ALEKSINAC", "sys1-1.K4", "5400"],
+    ["st4:MALI POŽAREVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2620"],
+    ["st4:MALI POŽAREVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "5250"],
+    ["st4:MALI POŽAREVAC", "st4:BATOČINA", "sys1-1.K3", "1200"],
+    ["st4:MALI POŽAREVAC", "st4:BATOČINA", "sys1-1.K4", "2400"],
+    ["st4:MALI POŽAREVAC", "st4:BELA PALANKA", "sys1-1.K3", "3770"],
+    ["st4:MALI POŽAREVAC", "st4:BELA PALANKA", "sys1-1.K4", "7530"],
+    ["st4:MALI POŽAREVAC", "st4:BRESTOVAC", "sys1-1.K3", "3430"],
+    ["st4:MALI POŽAREVAC", "st4:BRESTOVAC", "sys1-1.K4", "6870"],
+    ["st4:MALI POŽAREVAC", "st4:BUJANOVAC JUG", "sys1-1.K3", "5070"],
+    ["st4:MALI POŽAREVAC", "st4:BUJANOVAC JUG", "sys1-1.K4", "10130"],
+    ["st4:MALI POŽAREVAC", "st4:BUJANOVAC SEVER", "sys1-1.K3", "5010"],
+    ["st4:MALI POŽAREVAC", "st4:BUJANOVAC SEVER", "sys1-1.K4", "10020"],
+    ["st4:MALI POŽAREVAC", "st4:DIMITROVGRAD", "sys1-1.K3", "4710"],
+    ["st4:MALI POŽAREVAC", "st4:DIMITROVGRAD", "sys1-1.K4", "9430"],
+    ["st4:MALI POŽAREVAC", "st4:DOLJEVAC SELO", "sys1-1.K3", "3340"],
+    ["st4:MALI POŽAREVAC", "st4:DOLJEVAC SELO", "sys1-1.K4", "6680"],
+    ["st4:MALI POŽAREVAC", "st4:GRDELICA", "sys1-1.K3", "3980"],
+    ["st4:MALI POŽAREVAC", "st4:GRDELICA", "sys1-1.K4", "7950"],
+    ["st4:MALI POŽAREVAC", "st4:JAGODINA", "sys1-1.K3", "1540"],
+    ["st4:MALI POŽAREVAC", "st4:JAGODINA", "sys1-1.K4", "3080"],
+    ["st4:MALI POŽAREVAC", "st4:KOLARI", "sys1-1.K3", "290"],
+    ["st4:MALI POŽAREVAC", "st4:KOLARI", "sys1-1.K4", "580"],
+    ["st4:MALI POŽAREVAC", "st4:KOŠEVI", "sys1-1.K3", "2560"],
+    ["st4:MALI POŽAREVAC", "st4:KOŠEVI", "sys1-1.K4", "5120"],
+    ["st4:MALI POŽAREVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2440"],
+    ["st4:MALI POŽAREVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4870"],
+    ["st4:MALI POŽAREVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2460"],
+    ["st4:MALI POŽAREVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4930"],
+    ["st4:MALI POŽAREVAC", "st4:LAPOVO", "sys1-1.K3", "1140"],
+    ["st4:MALI POŽAREVAC", "st4:LAPOVO", "sys1-1.K4", "2280"],
+    ["st4:MALI POŽAREVAC", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3550"],
+    ["st4:MALI POŽAREVAC", "st4:LESKOVAC CENTAR", "sys1-1.K4", "7100"],
+    ["st4:MALI POŽAREVAC", "st4:LESKOVAC JUG", "sys1-1.K3", "3800"],
+    ["st4:MALI POŽAREVAC", "st4:LESKOVAC JUG", "sys1-1.K4", "7610"],
+    ["st4:MALI POŽAREVAC", "st4:MALČA", "sys1-1.K3", "3290"],
+    ["st4:MALI POŽAREVAC", "st4:MALČA", "sys1-1.K4", "6590"],
+    ["st4:MALI POŽAREVAC", "st4:MARKOVAC", "sys1-1.K3", "1040"],
+    ["st4:MALI POŽAREVAC", "st4:MARKOVAC", "sys1-1.K4", "2080"],
+    ["st4:MALI POŽAREVAC", "st4:MEROŠINA", "sys1-1.K3", "3170"],
+    ["st4:MALI POŽAREVAC", "st4:MEROŠINA", "sys1-1.K4", "6350"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ ISTOK", "sys1-1.K3", "3180"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ ISTOK", "sys1-1.K4", "6350"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ JUG", "sys1-1.K3", "3090"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ JUG", "sys1-1.K4", "6170"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ SEVER", "sys1-1.K3", "3070"],
+    ["st4:MALI POŽAREVAC", "st4:NIŠ SEVER", "sys1-1.K4", "6140"],
+    ["st4:MALI POŽAREVAC", "st4:PARAĆIN", "sys1-1.K3", "1910"],
+    ["st4:MALI POŽAREVAC", "st4:PARAĆIN", "sys1-1.K4", "3820"],
+    ["st4:MALI POŽAREVAC", "st4:PIROT ISTOK", "sys1-1.K3", "4330"],
+    ["st4:MALI POŽAREVAC", "st4:PIROT ISTOK", "sys1-1.K4", "8650"],
+    ["st4:MALI POŽAREVAC", "st4:PIROT ZAPAD", "sys1-1.K3", "4150"],
+    ["st4:MALI POŽAREVAC", "st4:PIROT ZAPAD", "sys1-1.K4", "8300"],
+    ["st4:MALI POŽAREVAC", "st4:POŽAREVAC", "sys1-1.K3", "400"],
+    ["st4:MALI POŽAREVAC", "st4:POŽAREVAC", "sys1-1.K4", "810"],
+    ["st4:MALI POŽAREVAC", "st4:PREDEJANE", "sys1-1.K3", "4160"],
+    ["st4:MALI POŽAREVAC", "st4:PREDEJANE", "sys1-1.K4", "8330"],
+    ["st4:MALI POŽAREVAC", "st4:PREŠEVO", "sys1-1.K3", "5390"],
+    ["st4:MALI POŽAREVAC", "st4:PREŠEVO", "sys1-1.K4", "10780"],
+    ["st4:MALI POŽAREVAC", "st4:RAŽANJ", "sys1-1.K3", "2300"],
+    ["st4:MALI POŽAREVAC", "st4:RAŽANJ", "sys1-1.K4", "4600"],
+    ["st4:MALI POŽAREVAC", "st4:SMEDEREVO", "sys1-1.K3", "380"],
+    ["st4:MALI POŽAREVAC", "st4:SMEDEREVO", "sys1-1.K4", "760"],
+    ["st4:MALI POŽAREVAC", "st4:UMČARI", "sys1-1.K3", "100"],
+    ["st4:MALI POŽAREVAC", "st4:UMČARI", "sys1-1.K4", "200"],
+    ["st4:MALI POŽAREVAC", "st4:VELIKA PLANA", "sys1-1.K3", "860"],
+    ["st4:MALI POŽAREVAC", "st4:VELIKA PLANA", "sys1-1.K4", "1710"],
+    ["st4:MALI POŽAREVAC", "st4:VLADIČIN HAN", "sys1-1.K3", "4440"],
+    ["st4:MALI POŽAREVAC", "st4:VLADIČIN HAN", "sys1-1.K4", "8870"],
+    ["st4:MALI POŽAREVAC", "st4:VODANJ", "sys1-1.K3", "190"],
+    ["st4:MALI POŽAREVAC", "st4:VODANJ", "sys1-1.K4", "390"],
+    ["st4:MALI POŽAREVAC", "st4:VRANJE", "sys1-1.K3", "4800"],
+    ["st4:MALI POŽAREVAC", "st4:VRANJE", "sys1-1.K4", "9590"],
+    ["st4:MALI POŽAREVAC", "st4:ĆIĆEVAC", "sys1-1.K3", "2160"],
+    ["st4:MALI POŽAREVAC", "st4:ĆIĆEVAC", "sys1-1.K4", "4320"],
+    ["st4:MALI POŽAREVAC", "st4:ĆUPRIJA", "sys1-1.K3", "1740"],
+    ["st4:MALI POŽAREVAC", "st4:ĆUPRIJA", "sys1-1.K4", "3490"],
+    ["st4:MALČA", "st4:BELA PALANKA", "sys1-1.K3", "470"],
+    ["st4:MALČA", "st4:BELA PALANKA", "sys1-1.K4", "950"],
+    ["st4:MALČA", "st4:DIMITROVGRAD", "sys1-1.K3", "1420"],
+    ["st4:MALČA", "st4:DIMITROVGRAD", "sys1-1.K4", "2840"],
+    ["st4:MALČA", "st4:KOŠEVI", "sys1-1.K3", "1650"],
+    ["st4:MALČA", "st4:KOŠEVI", "sys1-1.K4", "3310"],
+    ["st4:MALČA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1530"],
+    ["st4:MALČA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "3050"],
+    ["st4:MALČA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1560"],
+    ["st4:MALČA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "3110"],
+    ["st4:MALČA", "st4:PIROT ISTOK", "sys1-1.K3", "1030"],
+    ["st4:MALČA", "st4:PIROT ISTOK", "sys1-1.K4", "2060"],
+    ["st4:MALČA", "st4:PIROT ZAPAD", "sys1-1.K3", "860"],
+    ["st4:MALČA", "st4:PIROT ZAPAD", "sys1-1.K4", "1710"],
+    ["st4:MALČA", "st4:ĆIĆEVAC", "sys1-1.K3", "1250"],
+    ["st4:MALČA", "st4:ĆIĆEVAC", "sys1-1.K4", "2500"],
+    ["st4:MARKOVAC", "st4:ALEKSINAC", "sys1-1.K3", "1660"],
+    ["st4:MARKOVAC", "st4:ALEKSINAC", "sys1-1.K4", "3320"],
+    ["st4:MARKOVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "1580"],
+    ["st4:MARKOVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "3170"],
+    ["st4:MARKOVAC", "st4:BATOČINA", "sys1-1.K3", "160"],
+    ["st4:MARKOVAC", "st4:BATOČINA", "sys1-1.K4", "320"],
+    ["st4:MARKOVAC", "st4:BELA PALANKA", "sys1-1.K3", "2730"],
+    ["st4:MARKOVAC", "st4:BELA PALANKA", "sys1-1.K4", "5460"],
+    ["st4:MARKOVAC", "st4:BRESTOVAC", "sys1-1.K3", "2400"],
+    ["st4:MARKOVAC", "st4:BRESTOVAC", "sys1-1.K4", "4790"],
+    ["st4:MARKOVAC", "st4:BUJANOVAC JUG", "sys1-1.K3", "4030"],
+    ["st4:MARKOVAC", "st4:BUJANOVAC JUG", "sys1-1.K4", "8060"],
+    ["st4:MARKOVAC", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3970"],
+    ["st4:MARKOVAC", "st4:BUJANOVAC SEVER", "sys1-1.K4", "7940"],
+    ["st4:MARKOVAC", "st4:DIMITROVGRAD", "sys1-1.K3", "3670"],
+    ["st4:MARKOVAC", "st4:DIMITROVGRAD", "sys1-1.K4", "7350"],
+    ["st4:MARKOVAC", "st4:DOLJEVAC SELO", "sys1-1.K3", "2300"],
+    ["st4:MARKOVAC", "st4:DOLJEVAC SELO", "sys1-1.K4", "4600"],
+    ["st4:MARKOVAC", "st4:GRDELICA", "sys1-1.K3", "2940"],
+    ["st4:MARKOVAC", "st4:GRDELICA", "sys1-1.K4", "5870"],
+    ["st4:MARKOVAC", "st4:JAGODINA", "sys1-1.K3", "500"],
+    ["st4:MARKOVAC", "st4:JAGODINA", "sys1-1.K4", "1000"],
+    ["st4:MARKOVAC", "st4:KOŠEVI", "sys1-1.K3", "1520"],
+    ["st4:MARKOVAC", "st4:KOŠEVI", "sys1-1.K4", "3040"],
+    ["st4:MARKOVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1400"],
+    ["st4:MARKOVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2790"],
+    ["st4:MARKOVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1420"],
+    ["st4:MARKOVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2850"],
+    ["st4:MARKOVAC", "st4:LAPOVO", "sys1-1.K3", "100"],
+    ["st4:MARKOVAC", "st4:LAPOVO", "sys1-1.K4", "200"],
+    ["st4:MARKOVAC", "st4:LESKOVAC CENTAR", "sys1-1.K3", "2510"],
+    ["st4:MARKOVAC", "st4:LESKOVAC CENTAR", "sys1-1.K4", "5020"],
+    ["st4:MARKOVAC", "st4:LESKOVAC JUG", "sys1-1.K3", "2760"],
+    ["st4:MARKOVAC", "st4:LESKOVAC JUG", "sys1-1.K4", "5530"],
+    ["st4:MARKOVAC", "st4:MALČA", "sys1-1.K3", "2250"],
+    ["st4:MARKOVAC", "st4:MALČA", "sys1-1.K4", "4510"],
+    ["st4:MARKOVAC", "st4:MEROŠINA", "sys1-1.K3", "2140"],
+    ["st4:MARKOVAC", "st4:MEROŠINA", "sys1-1.K4", "4270"],
+    ["st4:MARKOVAC", "st4:NIŠ ISTOK", "sys1-1.K3", "2140"],
+    ["st4:MARKOVAC", "st4:NIŠ ISTOK", "sys1-1.K4", "4270"],
+    ["st4:MARKOVAC", "st4:NIŠ JUG", "sys1-1.K3", "2050"],
+    ["st4:MARKOVAC", "st4:NIŠ JUG", "sys1-1.K4", "4090"],
+    ["st4:MARKOVAC", "st4:NIŠ SEVER", "sys1-1.K3", "2030"],
+    ["st4:MARKOVAC", "st4:NIŠ SEVER", "sys1-1.K4", "4060"],
+    ["st4:MARKOVAC", "st4:PARAĆIN", "sys1-1.K3", "870"],
+    ["st4:MARKOVAC", "st4:PARAĆIN", "sys1-1.K4", "1740"],
+    ["st4:MARKOVAC", "st4:PIROT ISTOK", "sys1-1.K3", "3290"],
+    ["st4:MARKOVAC", "st4:PIROT ISTOK", "sys1-1.K4", "6570"],
+    ["st4:MARKOVAC", "st4:PIROT ZAPAD", "sys1-1.K3", "3110"],
+    ["st4:MARKOVAC", "st4:PIROT ZAPAD", "sys1-1.K4", "6220"],
+    ["st4:MARKOVAC", "st4:PREDEJANE", "sys1-1.K3", "3130"],
+    ["st4:MARKOVAC", "st4:PREDEJANE", "sys1-1.K4", "6250"],
+    ["st4:MARKOVAC", "st4:PREŠEVO", "sys1-1.K3", "4350"],
+    ["st4:MARKOVAC", "st4:PREŠEVO", "sys1-1.K4", "8700"],
+    ["st4:MARKOVAC", "st4:RAŽANJ", "sys1-1.K3", "1260"],
+    ["st4:MARKOVAC", "st4:RAŽANJ", "sys1-1.K4", "2520"],
+    ["st4:MARKOVAC", "st4:VLADIČIN HAN", "sys1-1.K3", "3400"],
+    ["st4:MARKOVAC", "st4:VLADIČIN HAN", "sys1-1.K4", "6790"],
+    ["st4:MARKOVAC", "st4:VRANJE", "sys1-1.K3", "3760"],
+    ["st4:MARKOVAC", "st4:VRANJE", "sys1-1.K4", "7520"],
+    ["st4:MARKOVAC", "st4:ĆIĆEVAC", "sys1-1.K3", "1120"],
+    ["st4:MARKOVAC", "st4:ĆIĆEVAC", "sys1-1.K4", "2240"],
+    ["st4:MARKOVAC", "st4:ĆUPRIJA", "sys1-1.K3", "700"],
+    ["st4:MARKOVAC", "st4:ĆUPRIJA", "sys1-1.K4", "1410"],
+    ["st4:MEROŠINA", "st4:BELA PALANKA", "sys1-1.K3", "880"],
+    ["st4:MEROŠINA", "st4:BELA PALANKA", "sys1-1.K4", "1760"],
+    ["st4:MEROŠINA", "st4:BRESTOVAC", "sys1-1.K3", "260"],
+    ["st4:MEROŠINA", "st4:BRESTOVAC", "sys1-1.K4", "520"],
+    ["st4:MEROŠINA", "st4:BUJANOVAC JUG", "sys1-1.K3", "1890"],
+    ["st4:MEROŠINA", "st4:BUJANOVAC JUG", "sys1-1.K4", "3780"],
+    ["st4:MEROŠINA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1830"],
+    ["st4:MEROŠINA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "3670"],
+    ["st4:MEROŠINA", "st4:DIMITROVGRAD", "sys1-1.K3", "1820"],
+    ["st4:MEROŠINA", "st4:DIMITROVGRAD", "sys1-1.K4", "3650"],
+    ["st4:MEROŠINA", "st4:DOLJEVAC SELO", "sys1-1.K3", "170"],
+    ["st4:MEROŠINA", "st4:DOLJEVAC SELO", "sys1-1.K4", "330"],
+    ["st4:MEROŠINA", "st4:GRDELICA", "sys1-1.K3", "800"],
+    ["st4:MEROŠINA", "st4:GRDELICA", "sys1-1.K4", "1600"],
+    ["st4:MEROŠINA", "st4:KOŠEVI", "sys1-1.K3", "1530"],
+    ["st4:MEROŠINA", "st4:KOŠEVI", "sys1-1.K4", "3070"],
+    ["st4:MEROŠINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1410"],
+    ["st4:MEROŠINA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2820"],
+    ["st4:MEROŠINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1440"],
+    ["st4:MEROŠINA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2870"],
+    ["st4:MEROŠINA", "st4:LESKOVAC CENTAR", "sys1-1.K3", "370"],
+    ["st4:MEROŠINA", "st4:LESKOVAC CENTAR", "sys1-1.K4", "750"],
+    ["st4:MEROŠINA", "st4:LESKOVAC JUG", "sys1-1.K3", "630"],
+    ["st4:MEROŠINA", "st4:LESKOVAC JUG", "sys1-1.K4", "1260"],
+    ["st4:MEROŠINA", "st4:MALČA", "sys1-1.K3", "400"],
+    ["st4:MEROŠINA", "st4:MALČA", "sys1-1.K4", "810"],
+    ["st4:MEROŠINA", "st4:NIŠ ISTOK", "sys1-1.K3", "290"],
+    ["st4:MEROŠINA", "st4:NIŠ ISTOK", "sys1-1.K4", "570"],
+    ["st4:MEROŠINA", "st4:NIŠ SEVER", "sys1-1.K3", "180"],
+    ["st4:MEROŠINA", "st4:NIŠ SEVER", "sys1-1.K4", "360"],
+    ["st4:MEROŠINA", "st4:PIROT ISTOK", "sys1-1.K3", "1440"],
+    ["st4:MEROŠINA", "st4:PIROT ISTOK", "sys1-1.K4", "2870"],
+    ["st4:MEROŠINA", "st4:PIROT ZAPAD", "sys1-1.K3", "1260"],
+    ["st4:MEROŠINA", "st4:PIROT ZAPAD", "sys1-1.K4", "2520"],
+    ["st4:MEROŠINA", "st4:PREDEJANE", "sys1-1.K3", "990"],
+    ["st4:MEROŠINA", "st4:PREDEJANE", "sys1-1.K4", "1980"],
+    ["st4:MEROŠINA", "st4:PREŠEVO", "sys1-1.K3", "2220"],
+    ["st4:MEROŠINA", "st4:PREŠEVO", "sys1-1.K4", "4430"],
+    ["st4:MEROŠINA", "st4:VLADIČIN HAN", "sys1-1.K3", "1260"],
+    ["st4:MEROŠINA", "st4:VLADIČIN HAN", "sys1-1.K4", "2520"],
+    ["st4:MEROŠINA", "st4:VRANJE", "sys1-1.K3", "1620"],
+    ["st4:MEROŠINA", "st4:VRANJE", "sys1-1.K4", "3250"],
+    ["st4:MEROŠINA", "st4:ĆIĆEVAC", "sys1-1.K3", "1130"],
+    ["st4:MEROŠINA", "st4:ĆIĆEVAC", "sys1-1.K4", "2270"],
+    ["st4:NIŠ ISTOK", "st4:BELA PALANKA", "sys1-1.K3", "590"],
+    ["st4:NIŠ ISTOK", "st4:BELA PALANKA", "sys1-1.K4", "1180"],
+    ["st4:NIŠ ISTOK", "st4:DIMITROVGRAD", "sys1-1.K3", "1540"],
+    ["st4:NIŠ ISTOK", "st4:DIMITROVGRAD", "sys1-1.K4", "3080"],
+    ["st4:NIŠ ISTOK", "st4:KOŠEVI", "sys1-1.K3", "1540"],
+    ["st4:NIŠ ISTOK", "st4:KOŠEVI", "sys1-1.K4", "3070"],
+    ["st4:NIŠ ISTOK", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1410"],
+    ["st4:NIŠ ISTOK", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2820"],
+    ["st4:NIŠ ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1440"],
+    ["st4:NIŠ ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2880"],
+    ["st4:NIŠ ISTOK", "st4:MALČA", "sys1-1.K3", "120"],
+    ["st4:NIŠ ISTOK", "st4:MALČA", "sys1-1.K4", "230"],
+    ["st4:NIŠ ISTOK", "st4:PIROT ISTOK", "sys1-1.K3", "1150"],
+    ["st4:NIŠ ISTOK", "st4:PIROT ISTOK", "sys1-1.K4", "2300"],
+    ["st4:NIŠ ISTOK", "st4:PIROT ZAPAD", "sys1-1.K3", "970"],
+    ["st4:NIŠ ISTOK", "st4:PIROT ZAPAD", "sys1-1.K4", "1940"],
+    ["st4:NIŠ ISTOK", "st4:ĆIĆEVAC", "sys1-1.K3", "1130"],
+    ["st4:NIŠ ISTOK", "st4:ĆIĆEVAC", "sys1-1.K4", "2270"],
+    ["st4:NIŠ JUG", "st4:BELA PALANKA", "sys1-1.K3", "790"],
+    ["st4:NIŠ JUG", "st4:BELA PALANKA", "sys1-1.K4", "1580"],
+    ["st4:NIŠ JUG", "st4:BRESTOVAC", "sys1-1.K3", "350"],
+    ["st4:NIŠ JUG", "st4:BRESTOVAC", "sys1-1.K4", "700"],
+    ["st4:NIŠ JUG", "st4:BUJANOVAC JUG", "sys1-1.K3", "1980"],
+    ["st4:NIŠ JUG", "st4:BUJANOVAC JUG", "sys1-1.K4", "3960"],
+    ["st4:NIŠ JUG", "st4:BUJANOVAC SEVER", "sys1-1.K3", "1920"],
+    ["st4:NIŠ JUG", "st4:BUJANOVAC SEVER", "sys1-1.K4", "3850"],
+    ["st4:NIŠ JUG", "st4:DIMITROVGRAD", "sys1-1.K3", "1740"],
+    ["st4:NIŠ JUG", "st4:DIMITROVGRAD", "sys1-1.K4", "3470"],
+    ["st4:NIŠ JUG", "st4:DOLJEVAC SELO", "sys1-1.K3", "250"],
+    ["st4:NIŠ JUG", "st4:DOLJEVAC SELO", "sys1-1.K4", "510"],
+    ["st4:NIŠ JUG", "st4:GRDELICA", "sys1-1.K3", "890"],
+    ["st4:NIŠ JUG", "st4:GRDELICA", "sys1-1.K4", "1780"],
+    ["st4:NIŠ JUG", "st4:KOŠEVI", "sys1-1.K3", "1450"],
+    ["st4:NIŠ JUG", "st4:KOŠEVI", "sys1-1.K4", "2890"],
+    ["st4:NIŠ JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1320"],
+    ["st4:NIŠ JUG", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2640"],
+    ["st4:NIŠ JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1350"],
+    ["st4:NIŠ JUG", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2700"],
+    ["st4:NIŠ JUG", "st4:LESKOVAC CENTAR", "sys1-1.K3", "460"],
+    ["st4:NIŠ JUG", "st4:LESKOVAC CENTAR", "sys1-1.K4", "930"],
+    ["st4:NIŠ JUG", "st4:LESKOVAC JUG", "sys1-1.K3", "720"],
+    ["st4:NIŠ JUG", "st4:LESKOVAC JUG", "sys1-1.K4", "1430"],
+    ["st4:NIŠ JUG", "st4:MALČA", "sys1-1.K3", "320"],
+    ["st4:NIŠ JUG", "st4:MALČA", "sys1-1.K4", "630"],
+    ["st4:NIŠ JUG", "st4:MEROŠINA", "sys1-1.K3", "90"],
+    ["st4:NIŠ JUG", "st4:MEROŠINA", "sys1-1.K4", "180"],
+    ["st4:NIŠ JUG", "st4:NIŠ ISTOK", "sys1-1.K3", "200"],
+    ["st4:NIŠ JUG", "st4:NIŠ ISTOK", "sys1-1.K4", "400"],
+    ["st4:NIŠ JUG", "st4:NIŠ SEVER", "sys1-1.K3", "90"],
+    ["st4:NIŠ JUG", "st4:NIŠ SEVER", "sys1-1.K4", "190"],
+    ["st4:NIŠ JUG", "st4:PIROT ISTOK", "sys1-1.K3", "1350"],
+    ["st4:NIŠ JUG", "st4:PIROT ISTOK", "sys1-1.K4", "2700"],
+    ["st4:NIŠ JUG", "st4:PIROT ZAPAD", "sys1-1.K3", "1170"],
+    ["st4:NIŠ JUG", "st4:PIROT ZAPAD", "sys1-1.K4", "2340"],
+    ["st4:NIŠ JUG", "st4:PREDEJANE", "sys1-1.K3", "1080"],
+    ["st4:NIŠ JUG", "st4:PREDEJANE", "sys1-1.K4", "2160"],
+    ["st4:NIŠ JUG", "st4:PREŠEVO", "sys1-1.K3", "2300"],
+    ["st4:NIŠ JUG", "st4:PREŠEVO", "sys1-1.K4", "4610"],
+    ["st4:NIŠ JUG", "st4:VLADIČIN HAN", "sys1-1.K3", "1350"],
+    ["st4:NIŠ JUG", "st4:VLADIČIN HAN", "sys1-1.K4", "2700"],
+    ["st4:NIŠ JUG", "st4:VRANJE", "sys1-1.K3", "1710"],
+    ["st4:NIŠ JUG", "st4:VRANJE", "sys1-1.K4", "3420"],
+    ["st4:NIŠ JUG", "st4:ĆIĆEVAC", "sys1-1.K3", "1040"],
+    ["st4:NIŠ JUG", "st4:ĆIĆEVAC", "sys1-1.K4", "2090"],
+    ["st4:NIŠ SEVER", "st4:BELA PALANKA", "sys1-1.K3", "700"],
+    ["st4:NIŠ SEVER", "st4:BELA PALANKA", "sys1-1.K4", "1390"],
+    ["st4:NIŠ SEVER", "st4:DIMITROVGRAD", "sys1-1.K3", "1640"],
+    ["st4:NIŠ SEVER", "st4:DIMITROVGRAD", "sys1-1.K4", "3290"],
+    ["st4:NIŠ SEVER", "st4:KOŠEVI", "sys1-1.K3", "1430"],
+    ["st4:NIŠ SEVER", "st4:KOŠEVI", "sys1-1.K4", "2860"],
+    ["st4:NIŠ SEVER", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1300"],
+    ["st4:NIŠ SEVER", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "2610"],
+    ["st4:NIŠ SEVER", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1330"],
+    ["st4:NIŠ SEVER", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "2670"],
+    ["st4:NIŠ SEVER", "st4:MALČA", "sys1-1.K3", "220"],
+    ["st4:NIŠ SEVER", "st4:MALČA", "sys1-1.K4", "440"],
+    ["st4:NIŠ SEVER", "st4:NIŠ ISTOK", "sys1-1.K3", "110"],
+    ["st4:NIŠ SEVER", "st4:NIŠ ISTOK", "sys1-1.K4", "210"],
+    ["st4:NIŠ SEVER", "st4:PIROT ISTOK", "sys1-1.K3", "1250"],
+    ["st4:NIŠ SEVER", "st4:PIROT ISTOK", "sys1-1.K4", "2510"],
+    ["st4:NIŠ SEVER", "st4:PIROT ZAPAD", "sys1-1.K3", "1080"],
+    ["st4:NIŠ SEVER", "st4:PIROT ZAPAD", "sys1-1.K4", "2150"],
+    ["st4:NIŠ SEVER", "st4:ĆIĆEVAC", "sys1-1.K3", "1030"],
+    ["st4:NIŠ SEVER", "st4:ĆIĆEVAC", "sys1-1.K4", "2060"],
+    ["st4:PARAĆIN", "st4:ALEKSINAC", "sys1-1.K3", "790"],
+    ["st4:PARAĆIN", "st4:ALEKSINAC", "sys1-1.K4", "1580"],
+    ["st4:PARAĆIN", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "710"],
+    ["st4:PARAĆIN", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "1420"],
+    ["st4:PARAĆIN", "st4:BELA PALANKA", "sys1-1.K3", "1860"],
+    ["st4:PARAĆIN", "st4:BELA PALANKA", "sys1-1.K4", "3710"],
+    ["st4:PARAĆIN", "st4:BRESTOVAC", "sys1-1.K3", "1520"],
+    ["st4:PARAĆIN", "st4:BRESTOVAC", "sys1-1.K4", "3050"],
+    ["st4:PARAĆIN", "st4:BUJANOVAC JUG", "sys1-1.K3", "3160"],
+    ["st4:PARAĆIN", "st4:BUJANOVAC JUG", "sys1-1.K4", "6310"],
+    ["st4:PARAĆIN", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3100"],
+    ["st4:PARAĆIN", "st4:BUJANOVAC SEVER", "sys1-1.K4", "6200"],
+    ["st4:PARAĆIN", "st4:DIMITROVGRAD", "sys1-1.K3", "2800"],
+    ["st4:PARAĆIN", "st4:DIMITROVGRAD", "sys1-1.K4", "5600"],
+    ["st4:PARAĆIN", "st4:DOLJEVAC SELO", "sys1-1.K3", "1430"],
+    ["st4:PARAĆIN", "st4:DOLJEVAC SELO", "sys1-1.K4", "2860"],
+    ["st4:PARAĆIN", "st4:GRDELICA", "sys1-1.K3", "2060"],
+    ["st4:PARAĆIN", "st4:GRDELICA", "sys1-1.K4", "4130"],
+    ["st4:PARAĆIN", "st4:KOŠEVI", "sys1-1.K3", "650"],
+    ["st4:PARAĆIN", "st4:KOŠEVI", "sys1-1.K4", "1300"],
+    ["st4:PARAĆIN", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "520"],
+    ["st4:PARAĆIN", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1050"],
+    ["st4:PARAĆIN", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "550"],
+    ["st4:PARAĆIN", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1100"],
+    ["st4:PARAĆIN", "st4:LESKOVAC CENTAR", "sys1-1.K3", "1640"],
+    ["st4:PARAĆIN", "st4:LESKOVAC CENTAR", "sys1-1.K4", "3280"],
+    ["st4:PARAĆIN", "st4:LESKOVAC JUG", "sys1-1.K3", "1890"],
+    ["st4:PARAĆIN", "st4:LESKOVAC JUG", "sys1-1.K4", "3780"],
+    ["st4:PARAĆIN", "st4:MALČA", "sys1-1.K3", "1380"],
+    ["st4:PARAĆIN", "st4:MALČA", "sys1-1.K4", "2760"],
+    ["st4:PARAĆIN", "st4:MEROŠINA", "sys1-1.K3", "1260"],
+    ["st4:PARAĆIN", "st4:MEROŠINA", "sys1-1.K4", "2530"],
+    ["st4:PARAĆIN", "st4:NIŠ ISTOK", "sys1-1.K3", "1260"],
+    ["st4:PARAĆIN", "st4:NIŠ ISTOK", "sys1-1.K4", "2530"],
+    ["st4:PARAĆIN", "st4:NIŠ JUG", "sys1-1.K3", "1170"],
+    ["st4:PARAĆIN", "st4:NIŠ JUG", "sys1-1.K4", "2350"],
+    ["st4:PARAĆIN", "st4:NIŠ SEVER", "sys1-1.K3", "1160"],
+    ["st4:PARAĆIN", "st4:NIŠ SEVER", "sys1-1.K4", "2320"],
+    ["st4:PARAĆIN", "st4:PIROT ISTOK", "sys1-1.K3", "2410"],
+    ["st4:PARAĆIN", "st4:PIROT ISTOK", "sys1-1.K4", "4830"],
+    ["st4:PARAĆIN", "st4:PIROT ZAPAD", "sys1-1.K3", "2240"],
+    ["st4:PARAĆIN", "st4:PIROT ZAPAD", "sys1-1.K4", "4470"],
+    ["st4:PARAĆIN", "st4:PREDEJANE", "sys1-1.K3", "2250"],
+    ["st4:PARAĆIN", "st4:PREDEJANE", "sys1-1.K4", "4510"],
+    ["st4:PARAĆIN", "st4:PREŠEVO", "sys1-1.K3", "3480"],
+    ["st4:PARAĆIN", "st4:PREŠEVO", "sys1-1.K4", "6960"],
+    ["st4:PARAĆIN", "st4:RAŽANJ", "sys1-1.K3", "390"],
+    ["st4:PARAĆIN", "st4:RAŽANJ", "sys1-1.K4", "780"],
+    ["st4:PARAĆIN", "st4:VLADIČIN HAN", "sys1-1.K3", "2520"],
+    ["st4:PARAĆIN", "st4:VLADIČIN HAN", "sys1-1.K4", "5050"],
+    ["st4:PARAĆIN", "st4:VRANJE", "sys1-1.K3", "2890"],
+    ["st4:PARAĆIN", "st4:VRANJE", "sys1-1.K4", "5770"],
+    ["st4:PARAĆIN", "st4:ĆIĆEVAC", "sys1-1.K3", "250"],
+    ["st4:PARAĆIN", "st4:ĆIĆEVAC", "sys1-1.K4", "500"],
+    ["st4:PIROT ISTOK", "st4:DIMITROVGRAD", "sys1-1.K3", "390"],
+    ["st4:PIROT ISTOK", "st4:DIMITROVGRAD", "sys1-1.K4", "780"],
+    ["st4:PIROT ISTOK", "st4:KOŠEVI", "sys1-1.K3", "2690"],
+    ["st4:PIROT ISTOK", "st4:KOŠEVI", "sys1-1.K4", "5370"],
+    ["st4:PIROT ISTOK", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2560"],
+    ["st4:PIROT ISTOK", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "5120"],
+    ["st4:PIROT ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2590"],
+    ["st4:PIROT ISTOK", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "5170"],
+    ["st4:PIROT ISTOK", "st4:ĆIĆEVAC", "sys1-1.K3", "2280"],
+    ["st4:PIROT ISTOK", "st4:ĆIĆEVAC", "sys1-1.K4", "4570"],
+    ["st4:PIROT ZAPAD", "st4:DIMITROVGRAD", "sys1-1.K3", "570"],
+    ["st4:PIROT ZAPAD", "st4:DIMITROVGRAD", "sys1-1.K4", "1130"],
+    ["st4:PIROT ZAPAD", "st4:KOŠEVI", "sys1-1.K3", "2510"],
+    ["st4:PIROT ZAPAD", "st4:KOŠEVI", "sys1-1.K4", "5020"],
+    ["st4:PIROT ZAPAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2380"],
+    ["st4:PIROT ZAPAD", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4760"],
+    ["st4:PIROT ZAPAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2410"],
+    ["st4:PIROT ZAPAD", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4820"],
+    ["st4:PIROT ZAPAD", "st4:PIROT ISTOK", "sys1-1.K3", "180"],
+    ["st4:PIROT ZAPAD", "st4:PIROT ISTOK", "sys1-1.K4", "350"],
+    ["st4:PIROT ZAPAD", "st4:ĆIĆEVAC", "sys1-1.K3", "2110"],
+    ["st4:PIROT ZAPAD", "st4:ĆIĆEVAC", "sys1-1.K4", "4210"],
+    ["st4:POŽAREVAC", "st4:ALEKSINAC", "sys1-1.K3", "2300"],
+    ["st4:POŽAREVAC", "st4:ALEKSINAC", "sys1-1.K4", "4590"],
+    ["st4:POŽAREVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2220"],
+    ["st4:POŽAREVAC", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "4440"],
+    ["st4:POŽAREVAC", "st4:BATOČINA", "sys1-1.K3", "790"],
+    ["st4:POŽAREVAC", "st4:BATOČINA", "sys1-1.K4", "1590"],
+    ["st4:POŽAREVAC", "st4:BELA PALANKA", "sys1-1.K3", "3360"],
+    ["st4:POŽAREVAC", "st4:BELA PALANKA", "sys1-1.K4", "6720"],
+    ["st4:POŽAREVAC", "st4:BRESTOVAC", "sys1-1.K3", "3030"],
+    ["st4:POŽAREVAC", "st4:BRESTOVAC", "sys1-1.K4", "6060"],
+    ["st4:POŽAREVAC", "st4:BUJANOVAC JUG", "sys1-1.K3", "4660"],
+    ["st4:POŽAREVAC", "st4:BUJANOVAC JUG", "sys1-1.K4", "9320"],
+    ["st4:POŽAREVAC", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4600"],
+    ["st4:POŽAREVAC", "st4:BUJANOVAC SEVER", "sys1-1.K4", "9210"],
+    ["st4:POŽAREVAC", "st4:DIMITROVGRAD", "sys1-1.K3", "4310"],
+    ["st4:POŽAREVAC", "st4:DIMITROVGRAD", "sys1-1.K4", "8620"],
+    ["st4:POŽAREVAC", "st4:DOLJEVAC SELO", "sys1-1.K3", "2940"],
+    ["st4:POŽAREVAC", "st4:DOLJEVAC SELO", "sys1-1.K4", "5870"],
+    ["st4:POŽAREVAC", "st4:GRDELICA", "sys1-1.K3", "3570"],
+    ["st4:POŽAREVAC", "st4:GRDELICA", "sys1-1.K4", "7140"],
+    ["st4:POŽAREVAC", "st4:JAGODINA", "sys1-1.K3", "1140"],
+    ["st4:POŽAREVAC", "st4:JAGODINA", "sys1-1.K4", "2270"],
+    ["st4:POŽAREVAC", "st4:KOŠEVI", "sys1-1.K3", "2160"],
+    ["st4:POŽAREVAC", "st4:KOŠEVI", "sys1-1.K4", "4310"],
+    ["st4:POŽAREVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2030"],
+    ["st4:POŽAREVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4060"],
+    ["st4:POŽAREVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2060"],
+    ["st4:POŽAREVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4120"],
+    ["st4:POŽAREVAC", "st4:LAPOVO", "sys1-1.K3", "730"],
+    ["st4:POŽAREVAC", "st4:LAPOVO", "sys1-1.K4", "1470"],
+    ["st4:POŽAREVAC", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3140"],
+    ["st4:POŽAREVAC", "st4:LESKOVAC CENTAR", "sys1-1.K4", "6290"],
+    ["st4:POŽAREVAC", "st4:LESKOVAC JUG", "sys1-1.K3", "3400"],
+    ["st4:POŽAREVAC", "st4:LESKOVAC JUG", "sys1-1.K4", "6800"],
+    ["st4:POŽAREVAC", "st4:MALČA", "sys1-1.K3", "2890"],
+    ["st4:POŽAREVAC", "st4:MALČA", "sys1-1.K4", "5780"],
+    ["st4:POŽAREVAC", "st4:MARKOVAC", "sys1-1.K3", "630"],
+    ["st4:POŽAREVAC", "st4:MARKOVAC", "sys1-1.K4", "1270"],
+    ["st4:POŽAREVAC", "st4:MEROŠINA", "sys1-1.K3", "2770"],
+    ["st4:POŽAREVAC", "st4:MEROŠINA", "sys1-1.K4", "5540"],
+    ["st4:POŽAREVAC", "st4:NIŠ ISTOK", "sys1-1.K3", "2770"],
+    ["st4:POŽAREVAC", "st4:NIŠ ISTOK", "sys1-1.K4", "5540"],
+    ["st4:POŽAREVAC", "st4:NIŠ JUG", "sys1-1.K3", "2680"],
+    ["st4:POŽAREVAC", "st4:NIŠ JUG", "sys1-1.K4", "5360"],
+    ["st4:POŽAREVAC", "st4:NIŠ SEVER", "sys1-1.K3", "2670"],
+    ["st4:POŽAREVAC", "st4:NIŠ SEVER", "sys1-1.K4", "5330"],
+    ["st4:POŽAREVAC", "st4:PARAĆIN", "sys1-1.K3", "1510"],
+    ["st4:POŽAREVAC", "st4:PARAĆIN", "sys1-1.K4", "3010"],
+    ["st4:POŽAREVAC", "st4:PIROT ISTOK", "sys1-1.K3", "3920"],
+    ["st4:POŽAREVAC", "st4:PIROT ISTOK", "sys1-1.K4", "7840"],
+    ["st4:POŽAREVAC", "st4:PIROT ZAPAD", "sys1-1.K3", "3740"],
+    ["st4:POŽAREVAC", "st4:PIROT ZAPAD", "sys1-1.K4", "7490"],
+    ["st4:POŽAREVAC", "st4:PREDEJANE", "sys1-1.K3", "3760"],
+    ["st4:POŽAREVAC", "st4:PREDEJANE", "sys1-1.K4", "7520"],
+    ["st4:POŽAREVAC", "st4:PREŠEVO", "sys1-1.K3", "4990"],
+    ["st4:POŽAREVAC", "st4:PREŠEVO", "sys1-1.K4", "9970"],
+    ["st4:POŽAREVAC", "st4:RAŽANJ", "sys1-1.K3", "1900"],
+    ["st4:POŽAREVAC", "st4:RAŽANJ", "sys1-1.K4", "3790"],
+    ["st4:POŽAREVAC", "st4:VELIKA PLANA", "sys1-1.K3", "450"],
+    ["st4:POŽAREVAC", "st4:VELIKA PLANA", "sys1-1.K4", "900"],
+    ["st4:POŽAREVAC", "st4:VLADIČIN HAN", "sys1-1.K3", "4030"],
+    ["st4:POŽAREVAC", "st4:VLADIČIN HAN", "sys1-1.K4", "8060"],
+    ["st4:POŽAREVAC", "st4:VRANJE", "sys1-1.K3", "4390"],
+    ["st4:POŽAREVAC", "st4:VRANJE", "sys1-1.K4", "8790"],
+    ["st4:POŽAREVAC", "st4:ĆIĆEVAC", "sys1-1.K3", "1760"],
+    ["st4:POŽAREVAC", "st4:ĆIĆEVAC", "sys1-1.K4", "3510"],
+    ["st4:POŽAREVAC", "st4:ĆUPRIJA", "sys1-1.K3", "1340"],
+    ["st4:POŽAREVAC", "st4:ĆUPRIJA", "sys1-1.K4", "2680"],
+    ["st4:PREDEJANE", "st4:BELA PALANKA", "sys1-1.K3", "1870"],
+    ["st4:PREDEJANE", "st4:BELA PALANKA", "sys1-1.K4", "3740"],
+    ["st4:PREDEJANE", "st4:BUJANOVAC JUG", "sys1-1.K3", "900"],
+    ["st4:PREDEJANE", "st4:BUJANOVAC JUG", "sys1-1.K4", "1810"],
+    ["st4:PREDEJANE", "st4:BUJANOVAC SEVER", "sys1-1.K3", "850"],
+    ["st4:PREDEJANE", "st4:BUJANOVAC SEVER", "sys1-1.K4", "1690"],
+    ["st4:PREDEJANE", "st4:DIMITROVGRAD", "sys1-1.K3", "2810"],
+    ["st4:PREDEJANE", "st4:DIMITROVGRAD", "sys1-1.K4", "5630"],
+    ["st4:PREDEJANE", "st4:KOŠEVI", "sys1-1.K3", "2520"],
+    ["st4:PREDEJANE", "st4:KOŠEVI", "sys1-1.K4", "5050"],
+    ["st4:PREDEJANE", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2400"],
+    ["st4:PREDEJANE", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4800"],
+    ["st4:PREDEJANE", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2430"],
+    ["st4:PREDEJANE", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4850"],
+    ["st4:PREDEJANE", "st4:MALČA", "sys1-1.K3", "1390"],
+    ["st4:PREDEJANE", "st4:MALČA", "sys1-1.K4", "2790"],
+    ["st4:PREDEJANE", "st4:NIŠ ISTOK", "sys1-1.K3", "1280"],
+    ["st4:PREDEJANE", "st4:NIŠ ISTOK", "sys1-1.K4", "2550"],
+    ["st4:PREDEJANE", "st4:NIŠ SEVER", "sys1-1.K3", "1170"],
+    ["st4:PREDEJANE", "st4:NIŠ SEVER", "sys1-1.K4", "2340"],
+    ["st4:PREDEJANE", "st4:PIROT ISTOK", "sys1-1.K3", "2430"],
+    ["st4:PREDEJANE", "st4:PIROT ISTOK", "sys1-1.K4", "4850"],
+    ["st4:PREDEJANE", "st4:PIROT ZAPAD", "sys1-1.K3", "2250"],
+    ["st4:PREDEJANE", "st4:PIROT ZAPAD", "sys1-1.K4", "4500"],
+    ["st4:PREDEJANE", "st4:PREŠEVO", "sys1-1.K3", "1230"],
+    ["st4:PREDEJANE", "st4:PREŠEVO", "sys1-1.K4", "2450"],
+    ["st4:PREDEJANE", "st4:VLADIČIN HAN", "sys1-1.K3", "270"],
+    ["st4:PREDEJANE", "st4:VLADIČIN HAN", "sys1-1.K4", "540"],
+    ["st4:PREDEJANE", "st4:VRANJE", "sys1-1.K3", "630"],
+    ["st4:PREDEJANE", "st4:VRANJE", "sys1-1.K4", "1270"],
+    ["st4:PREDEJANE", "st4:ĆIĆEVAC", "sys1-1.K3", "2120"],
+    ["st4:PREDEJANE", "st4:ĆIĆEVAC", "sys1-1.K4", "4250"],
+    ["st4:PREŠEVO", "st4:BELA PALANKA", "sys1-1.K3", "3090"],
+    ["st4:PREŠEVO", "st4:BELA PALANKA", "sys1-1.K4", "6190"],
+    ["st4:PREŠEVO", "st4:DIMITROVGRAD", "sys1-1.K3", "4040"],
+    ["st4:PREŠEVO", "st4:DIMITROVGRAD", "sys1-1.K4", "8080"],
+    ["st4:PREŠEVO", "st4:KOŠEVI", "sys1-1.K3", "3750"],
+    ["st4:PREŠEVO", "st4:KOŠEVI", "sys1-1.K4", "7500"],
+    ["st4:PREŠEVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "3620"],
+    ["st4:PREŠEVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "7250"],
+    ["st4:PREŠEVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "3650"],
+    ["st4:PREŠEVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "7300"],
+    ["st4:PREŠEVO", "st4:MALČA", "sys1-1.K3", "2620"],
+    ["st4:PREŠEVO", "st4:MALČA", "sys1-1.K4", "5240"],
+    ["st4:PREŠEVO", "st4:NIŠ ISTOK", "sys1-1.K3", "2500"],
+    ["st4:PREŠEVO", "st4:NIŠ ISTOK", "sys1-1.K4", "5010"],
+    ["st4:PREŠEVO", "st4:NIŠ SEVER", "sys1-1.K3", "2400"],
+    ["st4:PREŠEVO", "st4:NIŠ SEVER", "sys1-1.K4", "4800"],
+    ["st4:PREŠEVO", "st4:PIROT ISTOK", "sys1-1.K3", "3650"],
+    ["st4:PREŠEVO", "st4:PIROT ISTOK", "sys1-1.K4", "7300"],
+    ["st4:PREŠEVO", "st4:PIROT ZAPAD", "sys1-1.K3", "3480"],
+    ["st4:PREŠEVO", "st4:PIROT ZAPAD", "sys1-1.K4", "6950"],
+    ["st4:PREŠEVO", "st4:ĆIĆEVAC", "sys1-1.K3", "3350"],
+    ["st4:PREŠEVO", "st4:ĆIĆEVAC", "sys1-1.K4", "6700"],
+    ["st4:RAŽANJ", "st4:ALEKSINAC", "sys1-1.K3", "400"],
+    ["st4:RAŽANJ", "st4:ALEKSINAC", "sys1-1.K4", "800"],
+    ["st4:RAŽANJ", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "320"],
+    ["st4:RAŽANJ", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "650"],
+    ["st4:RAŽANJ", "st4:BELA PALANKA", "sys1-1.K3", "1470"],
+    ["st4:RAŽANJ", "st4:BELA PALANKA", "sys1-1.K4", "2930"],
+    ["st4:RAŽANJ", "st4:BRESTOVAC", "sys1-1.K3", "1130"],
+    ["st4:RAŽANJ", "st4:BRESTOVAC", "sys1-1.K4", "2270"],
+    ["st4:RAŽANJ", "st4:BUJANOVAC JUG", "sys1-1.K3", "2770"],
+    ["st4:RAŽANJ", "st4:BUJANOVAC JUG", "sys1-1.K4", "5530"],
+    ["st4:RAŽANJ", "st4:BUJANOVAC SEVER", "sys1-1.K3", "2710"],
+    ["st4:RAŽANJ", "st4:BUJANOVAC SEVER", "sys1-1.K4", "5420"],
+    ["st4:RAŽANJ", "st4:DIMITROVGRAD", "sys1-1.K3", "2410"],
+    ["st4:RAŽANJ", "st4:DIMITROVGRAD", "sys1-1.K4", "4830"],
+    ["st4:RAŽANJ", "st4:DOLJEVAC SELO", "sys1-1.K3", "1040"],
+    ["st4:RAŽANJ", "st4:DOLJEVAC SELO", "sys1-1.K4", "2080"],
+    ["st4:RAŽANJ", "st4:GRDELICA", "sys1-1.K3", "1680"],
+    ["st4:RAŽANJ", "st4:GRDELICA", "sys1-1.K4", "3350"],
+    ["st4:RAŽANJ", "st4:KOŠEVI", "sys1-1.K3", "660"],
+    ["st4:RAŽANJ", "st4:KOŠEVI", "sys1-1.K4", "1320"],
+    ["st4:RAŽANJ", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "530"],
+    ["st4:RAŽANJ", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1070"],
+    ["st4:RAŽANJ", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "560"],
+    ["st4:RAŽANJ", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1130"],
+    ["st4:RAŽANJ", "st4:LESKOVAC CENTAR", "sys1-1.K3", "1250"],
+    ["st4:RAŽANJ", "st4:LESKOVAC CENTAR", "sys1-1.K4", "2500"],
+    ["st4:RAŽANJ", "st4:LESKOVAC JUG", "sys1-1.K3", "1500"],
+    ["st4:RAŽANJ", "st4:LESKOVAC JUG", "sys1-1.K4", "3000"],
+    ["st4:RAŽANJ", "st4:MALČA", "sys1-1.K3", "990"],
+    ["st4:RAŽANJ", "st4:MALČA", "sys1-1.K4", "1980"],
+    ["st4:RAŽANJ", "st4:MEROŠINA", "sys1-1.K3", "870"],
+    ["st4:RAŽANJ", "st4:MEROŠINA", "sys1-1.K4", "1750"],
+    ["st4:RAŽANJ", "st4:NIŠ ISTOK", "sys1-1.K3", "880"],
+    ["st4:RAŽANJ", "st4:NIŠ ISTOK", "sys1-1.K4", "1750"],
+    ["st4:RAŽANJ", "st4:NIŠ JUG", "sys1-1.K3", "790"],
+    ["st4:RAŽANJ", "st4:NIŠ JUG", "sys1-1.K4", "1570"],
+    ["st4:RAŽANJ", "st4:NIŠ SEVER", "sys1-1.K3", "770"],
+    ["st4:RAŽANJ", "st4:NIŠ SEVER", "sys1-1.K4", "1540"],
+    ["st4:RAŽANJ", "st4:PIROT ISTOK", "sys1-1.K3", "2020"],
+    ["st4:RAŽANJ", "st4:PIROT ISTOK", "sys1-1.K4", "4050"],
+    ["st4:RAŽANJ", "st4:PIROT ZAPAD", "sys1-1.K3", "1850"],
+    ["st4:RAŽANJ", "st4:PIROT ZAPAD", "sys1-1.K4", "3700"],
+    ["st4:RAŽANJ", "st4:PREDEJANE", "sys1-1.K3", "1860"],
+    ["st4:RAŽANJ", "st4:PREDEJANE", "sys1-1.K4", "3730"],
+    ["st4:RAŽANJ", "st4:PREŠEVO", "sys1-1.K3", "3090"],
+    ["st4:RAŽANJ", "st4:PREŠEVO", "sys1-1.K4", "6180"],
+    ["st4:RAŽANJ", "st4:VLADIČIN HAN", "sys1-1.K3", "2140"],
+    ["st4:RAŽANJ", "st4:VLADIČIN HAN", "sys1-1.K4", "4270"],
+    ["st4:RAŽANJ", "st4:VRANJE", "sys1-1.K3", "2500"],
+    ["st4:RAŽANJ", "st4:VRANJE", "sys1-1.K4", "4990"],
+    ["st4:RAŽANJ", "st4:ĆIĆEVAC", "sys1-1.K3", "260"],
+    ["st4:RAŽANJ", "st4:ĆIĆEVAC", "sys1-1.K4", "520"],
+    ["st4:SMEDEREVO", "st4:ALEKSINAC", "sys1-1.K3", "2320"],
+    ["st4:SMEDEREVO", "st4:ALEKSINAC", "sys1-1.K4", "4640"],
+    ["st4:SMEDEREVO", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2240"],
+    ["st4:SMEDEREVO", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "4480"],
+    ["st4:SMEDEREVO", "st4:BATOČINA", "sys1-1.K3", "820"],
+    ["st4:SMEDEREVO", "st4:BATOČINA", "sys1-1.K4", "1630"],
+    ["st4:SMEDEREVO", "st4:BELA PALANKA", "sys1-1.K3", "3390"],
+    ["st4:SMEDEREVO", "st4:BELA PALANKA", "sys1-1.K4", "6770"],
+    ["st4:SMEDEREVO", "st4:BRESTOVAC", "sys1-1.K3", "3050"],
+    ["st4:SMEDEREVO", "st4:BRESTOVAC", "sys1-1.K4", "6110"],
+    ["st4:SMEDEREVO", "st4:BUJANOVAC JUG", "sys1-1.K3", "4690"],
+    ["st4:SMEDEREVO", "st4:BUJANOVAC JUG", "sys1-1.K4", "9370"],
+    ["st4:SMEDEREVO", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4630"],
+    ["st4:SMEDEREVO", "st4:BUJANOVAC SEVER", "sys1-1.K4", "9260"],
+    ["st4:SMEDEREVO", "st4:DIMITROVGRAD", "sys1-1.K3", "4330"],
+    ["st4:SMEDEREVO", "st4:DIMITROVGRAD", "sys1-1.K4", "8660"],
+    ["st4:SMEDEREVO", "st4:DOLJEVAC SELO", "sys1-1.K3", "2960"],
+    ["st4:SMEDEREVO", "st4:DOLJEVAC SELO", "sys1-1.K4", "5920"],
+    ["st4:SMEDEREVO", "st4:GRDELICA", "sys1-1.K3", "3590"],
+    ["st4:SMEDEREVO", "st4:GRDELICA", "sys1-1.K4", "7190"],
+    ["st4:SMEDEREVO", "st4:JAGODINA", "sys1-1.K3", "1160"],
+    ["st4:SMEDEREVO", "st4:JAGODINA", "sys1-1.K4", "2320"],
+    ["st4:SMEDEREVO", "st4:KOŠEVI", "sys1-1.K3", "2180"],
+    ["st4:SMEDEREVO", "st4:KOŠEVI", "sys1-1.K4", "4360"],
+    ["st4:SMEDEREVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2050"],
+    ["st4:SMEDEREVO", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4110"],
+    ["st4:SMEDEREVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2080"],
+    ["st4:SMEDEREVO", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4160"],
+    ["st4:SMEDEREVO", "st4:LAPOVO", "sys1-1.K3", "760"],
+    ["st4:SMEDEREVO", "st4:LAPOVO", "sys1-1.K4", "1510"],
+    ["st4:SMEDEREVO", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3170"],
+    ["st4:SMEDEREVO", "st4:LESKOVAC CENTAR", "sys1-1.K4", "6340"],
+    ["st4:SMEDEREVO", "st4:LESKOVAC JUG", "sys1-1.K3", "3420"],
+    ["st4:SMEDEREVO", "st4:LESKOVAC JUG", "sys1-1.K4", "6840"],
+    ["st4:SMEDEREVO", "st4:MALČA", "sys1-1.K3", "2910"],
+    ["st4:SMEDEREVO", "st4:MALČA", "sys1-1.K4", "5820"],
+    ["st4:SMEDEREVO", "st4:MARKOVAC", "sys1-1.K3", "660"],
+    ["st4:SMEDEREVO", "st4:MARKOVAC", "sys1-1.K4", "1310"],
+    ["st4:SMEDEREVO", "st4:MEROŠINA", "sys1-1.K3", "2790"],
+    ["st4:SMEDEREVO", "st4:MEROŠINA", "sys1-1.K4", "5590"],
+    ["st4:SMEDEREVO", "st4:NIŠ ISTOK", "sys1-1.K3", "2790"],
+    ["st4:SMEDEREVO", "st4:NIŠ ISTOK", "sys1-1.K4", "5590"],
+    ["st4:SMEDEREVO", "st4:NIŠ JUG", "sys1-1.K3", "2700"],
+    ["st4:SMEDEREVO", "st4:NIŠ JUG", "sys1-1.K4", "5410"],
+    ["st4:SMEDEREVO", "st4:NIŠ SEVER", "sys1-1.K3", "2690"],
+    ["st4:SMEDEREVO", "st4:NIŠ SEVER", "sys1-1.K4", "5380"],
+    ["st4:SMEDEREVO", "st4:PARAĆIN", "sys1-1.K3", "1530"],
+    ["st4:SMEDEREVO", "st4:PARAĆIN", "sys1-1.K4", "3060"],
+    ["st4:SMEDEREVO", "st4:PIROT ISTOK", "sys1-1.K3", "3940"],
+    ["st4:SMEDEREVO", "st4:PIROT ISTOK", "sys1-1.K4", "7890"],
+    ["st4:SMEDEREVO", "st4:PIROT ZAPAD", "sys1-1.K3", "3770"],
+    ["st4:SMEDEREVO", "st4:PIROT ZAPAD", "sys1-1.K4", "7530"],
+    ["st4:SMEDEREVO", "st4:POŽAREVAC", "sys1-1.K3", "20"],
+    ["st4:SMEDEREVO", "st4:POŽAREVAC", "sys1-1.K4", "50"],
+    ["st4:SMEDEREVO", "st4:PREDEJANE", "sys1-1.K3", "3780"],
+    ["st4:SMEDEREVO", "st4:PREŠEVO", "sys1-1.K3", "5010"],
+    ["st4:SMEDEREVO", "st4:PREŠEVO", "sys1-1.K4", "10020"],
+    ["st4:SMEDEREVO", "st4:RAŽANJ", "sys1-1.K3", "1920"],
+    ["st4:SMEDEREVO", "st4:RAŽANJ", "sys1-1.K4", "3840"],
+    ["st4:SMEDEREVO", "st4:VELIKA PLANA", "sys1-1.K3", "480"],
+    ["st4:SMEDEREVO", "st4:VELIKA PLANA", "sys1-1.K4", "950"],
+    ["st4:SMEDEREVO", "st4:VLADIČIN HAN", "sys1-1.K3", "4050"],
+    ["st4:SMEDEREVO", "st4:VLADIČIN HAN", "sys1-1.K4", "8110"],
+    ["st4:SMEDEREVO", "st4:VRANJE", "sys1-1.K3", "4420"],
+    ["st4:SMEDEREVO", "st4:VRANJE", "sys1-1.K4", "8830"],
+    ["st4:SMEDEREVO", "st4:ĆIĆEVAC", "sys1-1.K3", "1780"],
+    ["st4:SMEDEREVO", "st4:ĆIĆEVAC", "sys1-1.K4", "3560"],
+    ["st4:SMEDEREVO", "st4:ĆUPRIJA", "sys1-1.K3", "1360"],
+    ["st4:SMEDEREVO", "st4:ĆUPRIJA", "sys1-1.K4", "2720"],
+    ["st4:UMČARI", "st4:ALEKSINAC", "sys1-1.K3", "2600"],
+    ["st4:UMČARI", "st4:ALEKSINAC", "sys1-1.K4", "5200"],
+    ["st4:UMČARI", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2520"],
+    ["st4:UMČARI", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "5040"],
+    ["st4:UMČARI", "st4:BATOČINA", "sys1-1.K3", "1100"],
+    ["st4:UMČARI", "st4:BATOČINA", "sys1-1.K4", "2190"],
+    ["st4:UMČARI", "st4:BELA PALANKA", "sys1-1.K3", "3670"],
+    ["st4:UMČARI", "st4:BELA PALANKA", "sys1-1.K4", "7330"],
+    ["st4:UMČARI", "st4:BRESTOVAC", "sys1-1.K3", "3330"],
+    ["st4:UMČARI", "st4:BRESTOVAC", "sys1-1.K4", "6670"],
+    ["st4:UMČARI", "st4:BUJANOVAC JUG", "sys1-1.K3", "4970"],
+    ["st4:UMČARI", "st4:BUJANOVAC JUG", "sys1-1.K4", "9930"],
+    ["st4:UMČARI", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4910"],
+    ["st4:UMČARI", "st4:BUJANOVAC SEVER", "sys1-1.K4", "9820"],
+    ["st4:UMČARI", "st4:DIMITROVGRAD", "sys1-1.K3", "4610"],
+    ["st4:UMČARI", "st4:DIMITROVGRAD", "sys1-1.K4", "9220"],
+    ["st4:UMČARI", "st4:DOLJEVAC SELO", "sys1-1.K3", "3240"],
+    ["st4:UMČARI", "st4:DOLJEVAC SELO", "sys1-1.K4", "6480"],
+    ["st4:UMČARI", "st4:GRDELICA", "sys1-1.K3", "3870"],
+    ["st4:UMČARI", "st4:GRDELICA", "sys1-1.K4", "7750"],
+    ["st4:UMČARI", "st4:JAGODINA", "sys1-1.K3", "1440"],
+    ["st4:UMČARI", "st4:JAGODINA", "sys1-1.K4", "2880"],
+    ["st4:UMČARI", "st4:KOLARI", "sys1-1.K3", "190"],
+    ["st4:UMČARI", "st4:KOLARI", "sys1-1.K4", "380"],
+    ["st4:UMČARI", "st4:KOŠEVI", "sys1-1.K3", "2460"],
+    ["st4:UMČARI", "st4:KOŠEVI", "sys1-1.K4", "4920"],
+    ["st4:UMČARI", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2330"],
+    ["st4:UMČARI", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4670"],
+    ["st4:UMČARI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2360"],
+    ["st4:UMČARI", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4720"],
+    ["st4:UMČARI", "st4:LAPOVO", "sys1-1.K3", "1040"],
+    ["st4:UMČARI", "st4:LAPOVO", "sys1-1.K4", "2070"],
+    ["st4:UMČARI", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3450"],
+    ["st4:UMČARI", "st4:LESKOVAC CENTAR", "sys1-1.K4", "6900"],
+    ["st4:UMČARI", "st4:LESKOVAC JUG", "sys1-1.K3", "3700"],
+    ["st4:UMČARI", "st4:LESKOVAC JUG", "sys1-1.K4", "7400"],
+    ["st4:UMČARI", "st4:MALČA", "sys1-1.K3", "3190"],
+    ["st4:UMČARI", "st4:MALČA", "sys1-1.K4", "6380"],
+    ["st4:UMČARI", "st4:MARKOVAC", "sys1-1.K3", "940"],
+    ["st4:UMČARI", "st4:MARKOVAC", "sys1-1.K4", "1870"],
+    ["st4:UMČARI", "st4:MEROŠINA", "sys1-1.K3", "3070"],
+    ["st4:UMČARI", "st4:MEROŠINA", "sys1-1.K4", "6150"],
+    ["st4:UMČARI", "st4:NIŠ ISTOK", "sys1-1.K3", "3070"],
+    ["st4:UMČARI", "st4:NIŠ ISTOK", "sys1-1.K4", "6150"],
+    ["st4:UMČARI", "st4:NIŠ JUG", "sys1-1.K3", "2980"],
+    ["st4:UMČARI", "st4:NIŠ JUG", "sys1-1.K4", "5970"],
+    ["st4:UMČARI", "st4:NIŠ SEVER", "sys1-1.K3", "2970"],
+    ["st4:UMČARI", "st4:NIŠ SEVER", "sys1-1.K4", "5940"],
+    ["st4:UMČARI", "st4:PARAĆIN", "sys1-1.K3", "1810"],
+    ["st4:UMČARI", "st4:PARAĆIN", "sys1-1.K4", "3620"],
+    ["st4:UMČARI", "st4:PIROT ISTOK", "sys1-1.K3", "4220"],
+    ["st4:UMČARI", "st4:PIROT ISTOK", "sys1-1.K4", "8450"],
+    ["st4:UMČARI", "st4:PIROT ZAPAD", "sys1-1.K3", "4050"],
+    ["st4:UMČARI", "st4:PIROT ZAPAD", "sys1-1.K4", "8090"],
+    ["st4:UMČARI", "st4:POŽAREVAC", "sys1-1.K3", "300"],
+    ["st4:UMČARI", "st4:POŽAREVAC", "sys1-1.K4", "610"],
+    ["st4:UMČARI", "st4:PREDEJANE", "sys1-1.K3", "4060"],
+    ["st4:UMČARI", "st4:PREDEJANE", "sys1-1.K4", "8130"],
+    ["st4:UMČARI", "st4:PREŠEVO", "sys1-1.K3", "5290"],
+    ["st4:UMČARI", "st4:PREŠEVO", "sys1-1.K4", "10580"],
+    ["st4:UMČARI", "st4:RAŽANJ", "sys1-1.K3", "2200"],
+    ["st4:UMČARI", "st4:RAŽANJ", "sys1-1.K4", "4400"],
+    ["st4:UMČARI", "st4:SMEDEREVO", "sys1-1.K3", "280"],
+    ["st4:UMČARI", "st4:SMEDEREVO", "sys1-1.K4", "560"],
+    ["st4:UMČARI", "st4:VELIKA PLANA", "sys1-1.K3", "760"],
+    ["st4:UMČARI", "st4:VELIKA PLANA", "sys1-1.K4", "1510"],
+    ["st4:UMČARI", "st4:VLADIČIN HAN", "sys1-1.K3", "4330"],
+    ["st4:UMČARI", "st4:VLADIČIN HAN", "sys1-1.K4", "8670"],
+    ["st4:UMČARI", "st4:VODANJ", "sys1-1.K3", "90"],
+    ["st4:UMČARI", "st4:VODANJ", "sys1-1.K4", "190"],
+    ["st4:UMČARI", "st4:VRANJE", "sys1-1.K3", "4700"],
+    ["st4:UMČARI", "st4:VRANJE", "sys1-1.K4", "9390"],
+    ["st4:UMČARI", "st4:ĆIĆEVAC", "sys1-1.K3", "2060"],
+    ["st4:UMČARI", "st4:ĆIĆEVAC", "sys1-1.K4", "4120"],
+    ["st4:UMČARI", "st4:ĆUPRIJA", "sys1-1.K3", "1640"],
+    ["st4:UMČARI", "st4:ĆUPRIJA", "sys1-1.K4", "3280"],
+    ["st4:VELIKA PLANA", "st4:ALEKSINAC", "sys1-1.K3", "1840"],
+    ["st4:VELIKA PLANA", "st4:ALEKSINAC", "sys1-1.K4", "3690"],
+    ["st4:VELIKA PLANA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "1770"],
+    ["st4:VELIKA PLANA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "3530"],
+    ["st4:VELIKA PLANA", "st4:BATOČINA", "sys1-1.K3", "340"],
+    ["st4:VELIKA PLANA", "st4:BATOČINA", "sys1-1.K4", "680"],
+    ["st4:VELIKA PLANA", "st4:BELA PALANKA", "sys1-1.K3", "2910"],
+    ["st4:VELIKA PLANA", "st4:BELA PALANKA", "sys1-1.K4", "5820"],
+    ["st4:VELIKA PLANA", "st4:BRESTOVAC", "sys1-1.K3", "2580"],
+    ["st4:VELIKA PLANA", "st4:BRESTOVAC", "sys1-1.K4", "5160"],
+    ["st4:VELIKA PLANA", "st4:BUJANOVAC JUG", "sys1-1.K3", "4210"],
+    ["st4:VELIKA PLANA", "st4:BUJANOVAC JUG", "sys1-1.K4", "8420"],
+    ["st4:VELIKA PLANA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4150"],
+    ["st4:VELIKA PLANA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "8310"],
+    ["st4:VELIKA PLANA", "st4:DIMITROVGRAD", "sys1-1.K3", "3860"],
+    ["st4:VELIKA PLANA", "st4:DIMITROVGRAD", "sys1-1.K4", "7710"],
+    ["st4:VELIKA PLANA", "st4:DOLJEVAC SELO", "sys1-1.K3", "2480"],
+    ["st4:VELIKA PLANA", "st4:DOLJEVAC SELO", "sys1-1.K4", "4970"],
+    ["st4:VELIKA PLANA", "st4:GRDELICA", "sys1-1.K3", "3120"],
+    ["st4:VELIKA PLANA", "st4:GRDELICA", "sys1-1.K4", "6240"],
+    ["st4:VELIKA PLANA", "st4:JAGODINA", "sys1-1.K3", "680"],
+    ["st4:VELIKA PLANA", "st4:JAGODINA", "sys1-1.K4", "1370"],
+    ["st4:VELIKA PLANA", "st4:KOŠEVI", "sys1-1.K3", "1700"],
+    ["st4:VELIKA PLANA", "st4:KOŠEVI", "sys1-1.K4", "3410"],
+    ["st4:VELIKA PLANA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "1580"],
+    ["st4:VELIKA PLANA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "3160"],
+    ["st4:VELIKA PLANA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "1610"],
+    ["st4:VELIKA PLANA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "3210"],
+    ["st4:VELIKA PLANA", "st4:LAPOVO", "sys1-1.K3", "280"],
+    ["st4:VELIKA PLANA", "st4:LAPOVO", "sys1-1.K4", "560"],
+    ["st4:VELIKA PLANA", "st4:LESKOVAC CENTAR", "sys1-1.K3", "2690"],
+    ["st4:VELIKA PLANA", "st4:LESKOVAC CENTAR", "sys1-1.K4", "5390"],
+    ["st4:VELIKA PLANA", "st4:LESKOVAC JUG", "sys1-1.K3", "2950"],
+    ["st4:VELIKA PLANA", "st4:LESKOVAC JUG", "sys1-1.K4", "5890"],
+    ["st4:VELIKA PLANA", "st4:MALČA", "sys1-1.K3", "2440"],
+    ["st4:VELIKA PLANA", "st4:MALČA", "sys1-1.K4", "4870"],
+    ["st4:VELIKA PLANA", "st4:MARKOVAC", "sys1-1.K3", "180"],
+    ["st4:VELIKA PLANA", "st4:MARKOVAC", "sys1-1.K4", "360"],
+    ["st4:VELIKA PLANA", "st4:MEROŠINA", "sys1-1.K3", "2320"],
+    ["st4:VELIKA PLANA", "st4:MEROŠINA", "sys1-1.K4", "4640"],
+    ["st4:VELIKA PLANA", "st4:NIŠ ISTOK", "sys1-1.K3", "2320"],
+    ["st4:VELIKA PLANA", "st4:NIŠ ISTOK", "sys1-1.K4", "4640"],
+    ["st4:VELIKA PLANA", "st4:NIŠ JUG", "sys1-1.K3", "2230"],
+    ["st4:VELIKA PLANA", "st4:NIŠ JUG", "sys1-1.K4", "4460"],
+    ["st4:VELIKA PLANA", "st4:NIŠ SEVER", "sys1-1.K3", "2210"],
+    ["st4:VELIKA PLANA", "st4:NIŠ SEVER", "sys1-1.K4", "4430"],
+    ["st4:VELIKA PLANA", "st4:PARAĆIN", "sys1-1.K3", "1050"],
+    ["st4:VELIKA PLANA", "st4:PARAĆIN", "sys1-1.K4", "2110"],
+    ["st4:VELIKA PLANA", "st4:PIROT ISTOK", "sys1-1.K3", "3470"],
+    ["st4:VELIKA PLANA", "st4:PIROT ISTOK", "sys1-1.K4", "6940"],
+    ["st4:VELIKA PLANA", "st4:PIROT ZAPAD", "sys1-1.K3", "3290"],
+    ["st4:VELIKA PLANA", "st4:PIROT ZAPAD", "sys1-1.K4", "6580"],
+    ["st4:VELIKA PLANA", "st4:PREDEJANE", "sys1-1.K3", "3310"],
+    ["st4:VELIKA PLANA", "st4:PREDEJANE", "sys1-1.K4", "6620"],
+    ["st4:VELIKA PLANA", "st4:PREŠEVO", "sys1-1.K3", "4530"],
+    ["st4:VELIKA PLANA", "st4:PREŠEVO", "sys1-1.K4", "9070"],
+    ["st4:VELIKA PLANA", "st4:RAŽANJ", "sys1-1.K3", "1440"],
+    ["st4:VELIKA PLANA", "st4:RAŽANJ", "sys1-1.K4", "2890"],
+    ["st4:VELIKA PLANA", "st4:VLADIČIN HAN", "sys1-1.K3", "3580"],
+    ["st4:VELIKA PLANA", "st4:VLADIČIN HAN", "sys1-1.K4", "7160"],
+    ["st4:VELIKA PLANA", "st4:VRANJE", "sys1-1.K3", "3940"],
+    ["st4:VELIKA PLANA", "st4:VRANJE", "sys1-1.K4", "7880"],
+    ["st4:VELIKA PLANA", "st4:ĆIĆEVAC", "sys1-1.K3", "1300"],
+    ["st4:VELIKA PLANA", "st4:ĆIĆEVAC", "sys1-1.K4", "2610"],
+    ["st4:VELIKA PLANA", "st4:ĆUPRIJA", "sys1-1.K3", "890"],
+    ["st4:VELIKA PLANA", "st4:ĆUPRIJA", "sys1-1.K4", "1770"],
+    ["st4:VLADIČIN HAN", "st4:BELA PALANKA", "sys1-1.K3", "2140"],
+    ["st4:VLADIČIN HAN", "st4:BELA PALANKA", "sys1-1.K4", "4280"],
+    ["st4:VLADIČIN HAN", "st4:BUJANOVAC JUG", "sys1-1.K3", "630"],
+    ["st4:VLADIČIN HAN", "st4:BUJANOVAC JUG", "sys1-1.K4", "1260"],
+    ["st4:VLADIČIN HAN", "st4:BUJANOVAC SEVER", "sys1-1.K3", "570"],
+    ["st4:VLADIČIN HAN", "st4:BUJANOVAC SEVER", "sys1-1.K4", "1150"],
+    ["st4:VLADIČIN HAN", "st4:DIMITROVGRAD", "sys1-1.K3", "3090"],
+    ["st4:VLADIČIN HAN", "st4:DIMITROVGRAD", "sys1-1.K4", "6170"],
+    ["st4:VLADIČIN HAN", "st4:KOŠEVI", "sys1-1.K3", "2800"],
+    ["st4:VLADIČIN HAN", "st4:KOŠEVI", "sys1-1.K4", "5590"],
+    ["st4:VLADIČIN HAN", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2670"],
+    ["st4:VLADIČIN HAN", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "5340"],
+    ["st4:VLADIČIN HAN", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2700"],
+    ["st4:VLADIČIN HAN", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "5400"],
+    ["st4:VLADIČIN HAN", "st4:MALČA", "sys1-1.K3", "1670"],
+    ["st4:VLADIČIN HAN", "st4:MALČA", "sys1-1.K4", "3330"],
+    ["st4:VLADIČIN HAN", "st4:NIŠ ISTOK", "sys1-1.K3", "1550"],
+    ["st4:VLADIČIN HAN", "st4:NIŠ ISTOK", "sys1-1.K4", "3100"],
+    ["st4:VLADIČIN HAN", "st4:NIŠ SEVER", "sys1-1.K3", "1440"],
+    ["st4:VLADIČIN HAN", "st4:NIŠ SEVER", "sys1-1.K4", "2890"],
+    ["st4:VLADIČIN HAN", "st4:PIROT ISTOK", "sys1-1.K3", "2700"],
+    ["st4:VLADIČIN HAN", "st4:PIROT ISTOK", "sys1-1.K4", "5400"],
+    ["st4:VLADIČIN HAN", "st4:PIROT ZAPAD", "sys1-1.K3", "2520"],
+    ["st4:VLADIČIN HAN", "st4:PIROT ZAPAD", "sys1-1.K4", "5040"],
+    ["st4:VLADIČIN HAN", "st4:PREŠEVO", "sys1-1.K3", "950"],
+    ["st4:VLADIČIN HAN", "st4:PREŠEVO", "sys1-1.K4", "1910"],
+    ["st4:VLADIČIN HAN", "st4:VRANJE", "sys1-1.K3", "360"],
+    ["st4:VLADIČIN HAN", "st4:VRANJE", "sys1-1.K4", "720"],
+    ["st4:VLADIČIN HAN", "st4:ĆIĆEVAC", "sys1-1.K3", "2390"],
+    ["st4:VLADIČIN HAN", "st4:ĆIĆEVAC", "sys1-1.K4", "4790"],
+    ["st4:VODANJ", "st4:ALEKSINAC", "sys1-1.K3", "2510"],
+    ["st4:VODANJ", "st4:ALEKSINAC", "sys1-1.K4", "5010"],
+    ["st4:VODANJ", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "2430"],
+    ["st4:VODANJ", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "4860"],
+    ["st4:VODANJ", "st4:BATOČINA", "sys1-1.K3", "1000"],
+    ["st4:VODANJ", "st4:BATOČINA", "sys1-1.K4", "2010"],
+    ["st4:VODANJ", "st4:BELA PALANKA", "sys1-1.K3", "3570"],
+    ["st4:VODANJ", "st4:BELA PALANKA", "sys1-1.K4", "7140"],
+    ["st4:VODANJ", "st4:BRESTOVAC", "sys1-1.K3", "3240"],
+    ["st4:VODANJ", "st4:BRESTOVAC", "sys1-1.K4", "6480"],
+    ["st4:VODANJ", "st4:BUJANOVAC JUG", "sys1-1.K3", "4870"],
+    ["st4:VODANJ", "st4:BUJANOVAC JUG", "sys1-1.K4", "9740"],
+    ["st4:VODANJ", "st4:BUJANOVAC SEVER", "sys1-1.K3", "4810"],
+    ["st4:VODANJ", "st4:BUJANOVAC SEVER", "sys1-1.K4", "9630"],
+    ["st4:VODANJ", "st4:DIMITROVGRAD", "sys1-1.K3", "4520"],
+    ["st4:VODANJ", "st4:DIMITROVGRAD", "sys1-1.K4", "9040"],
+    ["st4:VODANJ", "st4:DOLJEVAC SELO", "sys1-1.K3", "3150"],
+    ["st4:VODANJ", "st4:DOLJEVAC SELO", "sys1-1.K4", "6290"],
+    ["st4:VODANJ", "st4:GRDELICA", "sys1-1.K3", "3780"],
+    ["st4:VODANJ", "st4:GRDELICA", "sys1-1.K4", "7560"],
+    ["st4:VODANJ", "st4:JAGODINA", "sys1-1.K3", "1350"],
+    ["st4:VODANJ", "st4:JAGODINA", "sys1-1.K4", "2690"],
+    ["st4:VODANJ", "st4:KOLARI", "sys1-1.K3", "100"],
+    ["st4:VODANJ", "st4:KOLARI", "sys1-1.K4", "200"],
+    ["st4:VODANJ", "st4:KOŠEVI", "sys1-1.K3", "2370"],
+    ["st4:VODANJ", "st4:KOŠEVI", "sys1-1.K4", "4730"],
+    ["st4:VODANJ", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "2240"],
+    ["st4:VODANJ", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "4480"],
+    ["st4:VODANJ", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "2270"],
+    ["st4:VODANJ", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "4540"],
+    ["st4:VODANJ", "st4:LAPOVO", "sys1-1.K3", "940"],
+    ["st4:VODANJ", "st4:LAPOVO", "sys1-1.K4", "1890"],
+    ["st4:VODANJ", "st4:LESKOVAC CENTAR", "sys1-1.K3", "3350"],
+    ["st4:VODANJ", "st4:LESKOVAC CENTAR", "sys1-1.K4", "6710"],
+    ["st4:VODANJ", "st4:LESKOVAC JUG", "sys1-1.K3", "3610"],
+    ["st4:VODANJ", "st4:LESKOVAC JUG", "sys1-1.K4", "7220"],
+    ["st4:VODANJ", "st4:MALČA", "sys1-1.K3", "3100"],
+    ["st4:VODANJ", "st4:MALČA", "sys1-1.K4", "6200"],
+    ["st4:VODANJ", "st4:MARKOVAC", "sys1-1.K3", "840"],
+    ["st4:VODANJ", "st4:MARKOVAC", "sys1-1.K4", "1690"],
+    ["st4:VODANJ", "st4:MEROŠINA", "sys1-1.K3", "2980"],
+    ["st4:VODANJ", "st4:MEROŠINA", "sys1-1.K4", "5960"],
+    ["st4:VODANJ", "st4:NIŠ ISTOK", "sys1-1.K3", "2980"],
+    ["st4:VODANJ", "st4:NIŠ ISTOK", "sys1-1.K4", "5960"],
+    ["st4:VODANJ", "st4:NIŠ JUG", "sys1-1.K3", "2890"],
+    ["st4:VODANJ", "st4:NIŠ JUG", "sys1-1.K4", "5780"],
+    ["st4:VODANJ", "st4:NIŠ SEVER", "sys1-1.K3", "2880"],
+    ["st4:VODANJ", "st4:NIŠ SEVER", "sys1-1.K4", "5750"],
+    ["st4:VODANJ", "st4:PARAĆIN", "sys1-1.K3", "1720"],
+    ["st4:VODANJ", "st4:PARAĆIN", "sys1-1.K4", "3430"],
+    ["st4:VODANJ", "st4:PIROT ISTOK", "sys1-1.K3", "4130"],
+    ["st4:VODANJ", "st4:PIROT ISTOK", "sys1-1.K4", "8260"],
+    ["st4:VODANJ", "st4:PIROT ZAPAD", "sys1-1.K3", "3950"],
+    ["st4:VODANJ", "st4:PIROT ZAPAD", "sys1-1.K4", "7910"],
+    ["st4:VODANJ", "st4:POŽAREVAC", "sys1-1.K3", "210"],
+    ["st4:VODANJ", "st4:POŽAREVAC", "sys1-1.K4", "420"],
+    ["st4:VODANJ", "st4:PREDEJANE", "sys1-1.K3", "3970"],
+    ["st4:VODANJ", "st4:PREDEJANE", "sys1-1.K4", "7940"],
+    ["st4:VODANJ", "st4:PREŠEVO", "sys1-1.K3", "5200"],
+    ["st4:VODANJ", "st4:PREŠEVO", "sys1-1.K4", "10390"],
+    ["st4:VODANJ", "st4:RAŽANJ", "sys1-1.K3", "2110"],
+    ["st4:VODANJ", "st4:RAŽANJ", "sys1-1.K4", "4210"],
+    ["st4:VODANJ", "st4:SMEDEREVO", "sys1-1.K3", "190"],
+    ["st4:VODANJ", "st4:SMEDEREVO", "sys1-1.K4", "370"],
+    ["st4:VODANJ", "st4:VELIKA PLANA", "sys1-1.K3", "660"],
+    ["st4:VODANJ", "st4:VELIKA PLANA", "sys1-1.K4", "1320"],
+    ["st4:VODANJ", "st4:VLADIČIN HAN", "sys1-1.K3", "4240"],
+    ["st4:VODANJ", "st4:VLADIČIN HAN", "sys1-1.K4", "8480"],
+    ["st4:VODANJ", "st4:VRANJE", "sys1-1.K3", "4600"],
+    ["st4:VODANJ", "st4:VRANJE", "sys1-1.K4", "9210"],
+    ["st4:VODANJ", "st4:ĆIĆEVAC", "sys1-1.K3", "1970"],
+    ["st4:VODANJ", "st4:ĆIĆEVAC", "sys1-1.K4", "3930"],
+    ["st4:VODANJ", "st4:ĆUPRIJA", "sys1-1.K3", "1550"],
+    ["st4:VODANJ", "st4:ĆUPRIJA", "sys1-1.K4", "3100"],
+    ["st4:VRANJE", "st4:BELA PALANKA", "sys1-1.K3", "2500"],
+    ["st4:VRANJE", "st4:BELA PALANKA", "sys1-1.K4", "5000"],
+    ["st4:VRANJE", "st4:BUJANOVAC JUG", "sys1-1.K3", "270"],
+    ["st4:VRANJE", "st4:BUJANOVAC JUG", "sys1-1.K4", "540"],
+    ["st4:VRANJE", "st4:BUJANOVAC SEVER", "sys1-1.K3", "210"],
+    ["st4:VRANJE", "st4:BUJANOVAC SEVER", "sys1-1.K4", "420"],
+    ["st4:VRANJE", "st4:DIMITROVGRAD", "sys1-1.K3", "3450"],
+    ["st4:VRANJE", "st4:DIMITROVGRAD", "sys1-1.K4", "6900"],
+    ["st4:VRANJE", "st4:KOŠEVI", "sys1-1.K3", "3160"],
+    ["st4:VRANJE", "st4:KOŠEVI", "sys1-1.K4", "6310"],
+    ["st4:VRANJE", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "3030"],
+    ["st4:VRANJE", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "6060"],
+    ["st4:VRANJE", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "3060"],
+    ["st4:VRANJE", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "6120"],
+    ["st4:VRANJE", "st4:MALČA", "sys1-1.K3", "2030"],
+    ["st4:VRANJE", "st4:MALČA", "sys1-1.K4", "4050"],
+    ["st4:VRANJE", "st4:NIŠ ISTOK", "sys1-1.K3", "1910"],
+    ["st4:VRANJE", "st4:NIŠ ISTOK", "sys1-1.K4", "3820"],
+    ["st4:VRANJE", "st4:NIŠ SEVER", "sys1-1.K3", "1800"],
+    ["st4:VRANJE", "st4:NIŠ SEVER", "sys1-1.K4", "3610"],
+    ["st4:VRANJE", "st4:PIROT ISTOK", "sys1-1.K3", "3060"],
+    ["st4:VRANJE", "st4:PIROT ISTOK", "sys1-1.K4", "6120"],
+    ["st4:VRANJE", "st4:PIROT ZAPAD", "sys1-1.K3", "2880"],
+    ["st4:VRANJE", "st4:PIROT ZAPAD", "sys1-1.K4", "5760"],
+    ["st4:VRANJE", "st4:PREŠEVO", "sys1-1.K3", "590"],
+    ["st4:VRANJE", "st4:PREŠEVO", "sys1-1.K4", "1190"],
+    ["st4:VRANJE", "st4:ĆIĆEVAC", "sys1-1.K3", "2760"],
+    ["st4:VRANJE", "st4:ĆIĆEVAC", "sys1-1.K4", "5510"],
+    ["st4:ĆIĆEVAC", "st4:KOŠEVI", "sys1-1.K3", "400"],
+    ["st4:ĆIĆEVAC", "st4:KOŠEVI", "sys1-1.K4", "800"],
+    ["st4:ĆIĆEVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "280"],
+    ["st4:ĆIĆEVAC", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "550"],
+    ["st4:ĆIĆEVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "300"],
+    ["st4:ĆIĆEVAC", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "610"],
+    ["st4:ĆUPRIJA", "st4:ALEKSINAC", "sys1-1.K3", "960"],
+    ["st4:ĆUPRIJA", "st4:ALEKSINAC", "sys1-1.K4", "1920"],
+    ["st4:ĆUPRIJA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K3", "880"],
+    ["st4:ĆUPRIJA", "st4:ALEKSINAČKI RUDNICI", "sys1-1.K4", "1760"],
+    ["st4:ĆUPRIJA", "st4:BELA PALANKA", "sys1-1.K3", "2020"],
+    ["st4:ĆUPRIJA", "st4:BELA PALANKA", "sys1-1.K4", "4050"],
+    ["st4:ĆUPRIJA", "st4:BRESTOVAC", "sys1-1.K3", "1690"],
+    ["st4:ĆUPRIJA", "st4:BRESTOVAC", "sys1-1.K4", "3380"],
+    ["st4:ĆUPRIJA", "st4:BUJANOVAC JUG", "sys1-1.K3", "3320"],
+    ["st4:ĆUPRIJA", "st4:BUJANOVAC JUG", "sys1-1.K4", "6650"],
+    ["st4:ĆUPRIJA", "st4:BUJANOVAC SEVER", "sys1-1.K3", "3270"],
+    ["st4:ĆUPRIJA", "st4:BUJANOVAC SEVER", "sys1-1.K4", "6530"],
+    ["st4:ĆUPRIJA", "st4:DIMITROVGRAD", "sys1-1.K3", "2970"],
+    ["st4:ĆUPRIJA", "st4:DIMITROVGRAD", "sys1-1.K4", "5940"],
+    ["st4:ĆUPRIJA", "st4:DOLJEVAC SELO", "sys1-1.K3", "1600"],
+    ["st4:ĆUPRIJA", "st4:DOLJEVAC SELO", "sys1-1.K4", "3190"],
+    ["st4:ĆUPRIJA", "st4:GRDELICA", "sys1-1.K3", "2230"],
+    ["st4:ĆUPRIJA", "st4:GRDELICA", "sys1-1.K4", "4460"],
+    ["st4:ĆUPRIJA", "st4:KOŠEVI", "sys1-1.K3", "820"],
+    ["st4:ĆUPRIJA", "st4:KOŠEVI", "sys1-1.K4", "1640"],
+    ["st4:ĆUPRIJA", "st4:KRUŠEVAC ISTOK", "sys1-1.K3", "690"],
+    ["st4:ĆUPRIJA", "st4:KRUŠEVAC ISTOK", "sys1-1.K4", "1380"],
+    ["st4:ĆUPRIJA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K3", "720"],
+    ["st4:ĆUPRIJA", "st4:KRUŠEVAC ZAPAD", "sys1-1.K4", "1440"],
+    ["st4:ĆUPRIJA", "st4:LESKOVAC CENTAR", "sys1-1.K3", "1810"],
+    ["st4:ĆUPRIJA", "st4:LESKOVAC CENTAR", "sys1-1.K4", "3610"],
+    ["st4:ĆUPRIJA", "st4:LESKOVAC JUG", "sys1-1.K3", "2060"],
+    ["st4:ĆUPRIJA", "st4:LESKOVAC JUG", "sys1-1.K4", "4120"],
+    ["st4:ĆUPRIJA", "st4:MALČA", "sys1-1.K3", "1550"],
+    ["st4:ĆUPRIJA", "st4:MALČA", "sys1-1.K4", "3100"],
+    ["st4:ĆUPRIJA", "st4:MEROŠINA", "sys1-1.K3", "1430"],
+    ["st4:ĆUPRIJA", "st4:MEROŠINA", "sys1-1.K4", "2860"],
+    ["st4:ĆUPRIJA", "st4:NIŠ ISTOK", "sys1-1.K3", "1430"],
+    ["st4:ĆUPRIJA", "st4:NIŠ ISTOK", "sys1-1.K4", "2860"],
+    ["st4:ĆUPRIJA", "st4:NIŠ JUG", "sys1-1.K3", "1340"],
+    ["st4:ĆUPRIJA", "st4:NIŠ JUG", "sys1-1.K4", "2680"],
+    ["st4:ĆUPRIJA", "st4:NIŠ SEVER", "sys1-1.K3", "1330"],
+    ["st4:ĆUPRIJA", "st4:NIŠ SEVER", "sys1-1.K4", "2650"],
+    ["st4:ĆUPRIJA", "st4:PARAĆIN", "sys1-1.K3", "170"],
+    ["st4:ĆUPRIJA", "st4:PARAĆIN", "sys1-1.K4", "340"],
+    ["st4:ĆUPRIJA", "st4:PIROT ISTOK", "sys1-1.K3", "2580"],
+    ["st4:ĆUPRIJA", "st4:PIROT ISTOK", "sys1-1.K4", "5160"],
+    ["st4:ĆUPRIJA", "st4:PIROT ZAPAD", "sys1-1.K3", "2400"],
+    ["st4:ĆUPRIJA", "st4:PIROT ZAPAD", "sys1-1.K4", "4810"],
+    ["st4:ĆUPRIJA", "st4:PREDEJANE", "sys1-1.K3", "2420"],
+    ["st4:ĆUPRIJA", "st4:PREDEJANE", "sys1-1.K4", "4840"],
+    ["st4:ĆUPRIJA", "st4:PREŠEVO", "sys1-1.K3", "3650"],
+    ["st4:ĆUPRIJA", "st4:PREŠEVO", "sys1-1.K4", "7290"],
+    ["st4:ĆUPRIJA", "st4:RAŽANJ", "sys1-1.K3", "560"],
+    ["st4:ĆUPRIJA", "st4:RAŽANJ", "sys1-1.K4", "1110"],
+    ["st4:ĆUPRIJA", "st4:VLADIČIN HAN", "sys1-1.K3", "2690"],
+    ["st4:ĆUPRIJA", "st4:VLADIČIN HAN", "sys1-1.K4", "5390"],
+    ["st4:ĆUPRIJA", "st4:VRANJE", "sys1-1.K3", "3050"],
+    ["st4:ĆUPRIJA", "st4:VRANJE", "sys1-1.K4", "6110"],
+    ["st4:ĆUPRIJA", "st4:ĆIĆEVAC", "sys1-1.K3", "420"],
+    ["st4:ĆUPRIJA", "st4:ĆIĆEVAC", "sys1-1.K4", "830"]
    ],
-   "sources": ["s1", "s2"],
+   "sources": ["s1", "s2", "s3", "s4"],
    "basis": "transcribed"
   }
  ],

@@ -6,6 +6,7 @@
 # Belluno's tolls are the route calculator's (form "Calcola il tuo percorso e il relativo pedaggio", from "A27, Ponte nelle Alpi, Belluno" to Vittorio Veneto Sud, each class in turn: "Belluno - Vittorio Veneto Sud", 31 km), as this form gives N.D. for every pair from Belluno; the station file has them 22.9 km apart.
 # Venezia Mestre-Padova Est is CAV's Padova-Venezia toll, the same from Mirano Dolo (the route calculator's Mirano Dolo-Padova Est: EUR 7.50, 29 km: Autostrade per l'Italia EUR 0.35, CAV EUR 6.3, Alto Adriatico EUR 0.85), where Venezia Mestre-Mira Oriago is EUR 0 for every class and the calculator's Spinea-Venezia Mestre runs on the A57 from Mira-Oriago for "0 EUR - 0 km"; Padova Ovest-Preganziol is EUR 12.00, 49 km (Brescia-Padova 12 km EUR 2.04, CAV EUR 9.96: 11 km at its A4 rate, 26 km on the Passante).
 # Brebemi's Castegnato barrier (A4) isn't read: the form gives Castegnato-Chiari Ovest as EUR 71.80 for class 5, a route the long way round.
+# The A28 from Portogruaro to Cordignano is free: the route calculator's Portogruaro-Godega is EUR 3.80 for 5 axles, 20 km, all of it "Cordignano - Godega".
 network station road name to_network to_station to_name A B 3 4 5
 1 1 A01 Milano Sud 1 2 Lodi 2.6 2.6 3.5 5.2 6.2
 1 201 A07 Milano Ovest 1 202 Binasco 1.5 1.5 2.1 3.1 3.7
@@ -24,3 +25,8 @@ network station road name to_network to_station to_name A B 3 4 5
 1 601 A57 Venezia Mestre 1 604 Padova Est 3.1 3.2 4.3 6.4 7.5
 1 515 A57 Venezia Est 1 513 Meolo - Roncade 3.0 3.1 4.1 6.2 7.3
 1 370 A35 Chiari Est 1 371 Chiari Ovest 2.7 3.2 3.9 6.2 7.5
+1 537 A28 Cordignano 1 538 Godega 1.6 1.6 2.1 3.2 3.8
+1 246 D08 Gallarate Ovest 1 244 Sesto Calende-Vergiate 1.9 1.9 2.5 3.9 4.6
+1 181 A33 Castelletto Stura 1 180 S. Albano 2.0 2.5 4.0 5.3 6.1
+1 302 A12 Rosignano Barriera 1 300 Collesalvetti 7.2 7.4 10.1 15.8 18.3
+1 278 A15 La Spezia 1 156 Aulla 2.8 2.9 4.0 6.2 7.2

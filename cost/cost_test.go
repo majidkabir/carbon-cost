@@ -2437,6 +2437,37 @@ func TestAlbaniaA1(t *testing.T) {
 	}
 }
 
+// Albania's Thumanë–Kashar (G2 Infra): a price per trip between Kashar,
+// Rinas (the airport junction) and Thumanë, four axles or more EUR 8.80,
+// 2.80 and 6.10 with VAT (7.3333, 2.3333 and 5.0833 without).
+func TestAlbaniaThumaneKashar(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Kashar-Thumanë", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7010, 41.4180}, {19.70262, 41.4227}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 7.3333},
+		{"Thumanë-Kashar", [][2]float64{{19.7059, 41.4400}, {19.70498, 41.4350}, {19.70244, 41.4228}, {19.70095, 41.4182}, {19.69653, 41.4050}, {19.6960, 41.4000}}, 7.3333},
+		{"Kashar-Rinas", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7013, 41.4178}, {19.70165, 41.4190}, {19.70358, 41.42003}, {19.70679, 41.41941}, {19.7075, 41.4193}}, 2.3333},
+		{"Rinas-Thumanë", [][2]float64{{19.7075, 41.4193}, {19.70718, 41.41949}, {19.70621, 41.41963}, {19.70479, 41.42012}, {19.70342, 41.42033}, {19.70262, 41.42275}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 5.0833},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 5, CountryKm: map[string]float64{"AL": 5}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Thumanë") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Moldova's vignette for trucks not registered there: over 10 t, EUR 11 a
 // day (one day for a trip).
 func TestMoldovaVignette(t *testing.T) {
@@ -2675,11 +2706,14 @@ func TestMilanBarriers(t *testing.T) {
 		{"A57 Venezia Est", [][2]float64{{12.3320, 45.5685}, {12.33562, 45.56917}, {12.3390, 45.5700}}, truck40, 5.54},
 		{"A35 Chiari Est", [][2]float64{{9.9580, 45.5217}, {9.96128, 45.52207}, {9.9640, 45.5224}}, truck40, 5.36},
 		{"A35 Liscate", [][2]float64{{9.4220, 45.4658}, {9.4254, 45.46587}, {9.4290, 45.4660}}, truck40, 4.52},
+		{"A35 Castegnato", [][2]float64{{10.1120, 45.5440}, {10.11457, 45.54536}, {10.1170, 45.5465}}, truck40, 4.52},
 		{"A28 Cordignano", [][2]float64{{12.4820, 45.9218}, {12.47892, 45.92123}, {12.4760, 45.9206}}, truck40, 2.41},
 		{"A8/A26 Gallarate Ovest", [][2]float64{{8.7800, 45.6890}, {8.77659, 45.68873}, {8.7730, 45.6885}}, truck40, 2.81},
 		{"A33 Castelletto Stura", [][2]float64{{7.6060, 44.4300}, {7.60905, 44.43113}, {7.6120, 44.4322}}, truck40, 2.60},
 		{"A12 Rosignano", [][2]float64{{10.5060, 43.3660}, {10.50425, 43.36937}, {10.5025, 43.3725}}, truck40, 2.64},
 		{"A15 La Spezia", [][2]float64{{9.90499, 44.14547}, {9.90392, 44.1459}, {9.90262, 44.14647}}, truck40, 3.73},
+		{"A58 Pozzuolo Martesana", [][2]float64{{9.4330, 45.5150}, {9.43567, 45.51613}, {9.4380, 45.5170}}, truck40, 0.95},
+		{"not on the TEEM by Pozzuolo", [][2]float64{{9.44066, 45.51229}, {9.44046, 45.51239}, {9.43966, 45.52722}}, truck40, 0},
 		{"A16 Napoli Est", [][2]float64{{14.4670, 40.9155}, {14.47088, 40.91625}, {14.4750, 40.9170}}, truck40, 4.03},
 		{"A22 Brennero", [][2]float64{{11.4335, 46.8880}, {11.4348, 46.88512}, {11.4360, 46.8820}}, truck40, 3.08},
 		{"A6 Barriera di Torino", [][2]float64{{7.7480, 44.8570}, {7.74864, 44.85416}, {7.7493, 44.8512}}, truck40, 7.18},
@@ -3796,5 +3830,27 @@ func TestDanishFerries(t *testing.T) {
 		if math.Abs(got-tc.dkk) > 0.011 {
 			t.Errorf("%s: %.2f DKK, want %.2f: %v", tc.name, got, tc.dkk, r.Notes)
 		}
+	}
+}
+
+// A country that levies no road charge (ORCT no_charge): a note with the
+// authority's statement and its source, no lines, and not in no_rates.
+func TestNoCharge(t *testing.T) {
+	tku := sootcase.Result{TTWKg: 120, WTWKg: 150, Legs: []sootcase.LegResult{{
+		DistanceKm: 165, TTWKg: 120, WTWKg: 150, CountryKm: map[string]float64{"FI": 165}}}}
+	r, err := Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 12, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if slices.ContainsFunc(r.Lines, func(l Line) bool { return l.Charge == RoadToll }) || len(r.NoRates) != 0 || !hasNote(r, "FI: no road toll, vignette or emission sticker for trucks (Traficom") {
+		t.Errorf("lines %v, no_rates %v, notes %v", r.Lines, r.NoRates, r.Notes)
+	}
+	if !slices.ContainsFunc(r.Sources, func(s rates.Source) bool { return strings.Contains(s.URL, "traficom.fi") }) {
+		t.Errorf("sources %v: want Traficom's page", r.Sources)
+	}
+	// Before the statement was read: no dataset, so no rates.
+	r, _ = Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
+	if strings.Join(r.NoRates, ",") != "FI" {
+		t.Errorf("June 2026: no_rates %v, want FI", r.NoRates)
 	}
 }

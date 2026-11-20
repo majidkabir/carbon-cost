@@ -3,6 +3,7 @@ package site
 import (
 	"fmt"
 	"html/template"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -104,6 +105,9 @@ type countryData struct {
 
 // kindHows are a scheme's ways of charging (message ids).
 func kindHows(ds *tariffs.Dataset) []string {
+	if ds.Doc.NoCharge != nil {
+		return []string{"how.none"}
+	}
 	seen := map[string]bool{}
 	var hows []string
 	for i := range ds.Doc.Charges {
@@ -647,6 +651,11 @@ func countryHows(d *countryData) []string {
 			}
 		}
 	}
+	// A statement that the roads are free, beside a tunnel's or a bridge's
+	// toll: the tolls are how the country charges.
+	if len(out) > 1 {
+		out = slices.DeleteFunc(out, func(h string) bool { return h == "how.none" })
+	}
 	return out
 }
 
@@ -687,7 +696,9 @@ func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, 
 			sv.To = l.Date(ds.ValidTo)
 		}
 		sv.Liable = ds.Doc.Liable.Description
-		if l.Code != "en" && len(ds.Doc.Liable.Criteria) > 0 {
+		if ds.Doc.NoCharge != nil {
+			sv.Liable = ""
+		} else if l.Code != "en" && len(ds.Doc.Liable.Criteria) > 0 {
 			sv.Liable = l.criteria(ds.Doc.Liable.Criteria)
 			if r := []rune(sv.Liable); len(r) > 0 && !unicode.IsLetter(r[0]) {
 				sv.Liable = l.T("cr.vehicles", "x", sv.Liable)
@@ -823,6 +834,9 @@ func (s *Site) countryView(l *Loc, d *countryData, day string, today time.Time, 
 			co2 = l.T("c.desc.co2", "share", row.Share)
 		}
 		v.Lead = l.T("c.desc.km", "country", name, "year", year, "local", loc, "rate", row.Rate, "co2", co2)
+	case len(hows) == 1 && hows[0] == "how.none":
+		v.H1 = l.T("c.h1.other", "country", name, "year", year, "local", "", "how", row.How)
+		v.Lead = l.T("c.desc.none", "country", name, "year", year)
 	case fuelOnly && len(v.Fuel) > 0:
 		v.H1 = l.T("c.h1.fuel", "country", name, "year", year)
 		v.Lead = l.T("c.desc.fuel", "country", name, "year", year, "rate", v.Fuel[0].Rate, "perl", v.Fuel[0].PerLitre)

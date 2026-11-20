@@ -20,10 +20,10 @@
    "scheme": "al",
    "country": "AL",
    "file": "al/al-2026-11-13.orct.json",
-   "name": "A1 Rruga e Kombit toll (Milot–Morinë)",
+   "name": "A1 Rruga e Kombit toll (Milot–Morinë) and Thumanë–Kashar",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "42cd0dd690d1866f3087b9ad68c84fe01930088a57a88cbe8f33edafc536acce",
+   "sha256": "afc17f8b1bc21b680f8c3ea934a46d1aa9d8fa90b4c467163e7cf6c0449eeb38",
    "coverage": "complete"
   },
   {
@@ -1358,6 +1358,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/nocharge-fi/2026-11-20",
+   "scheme": "nocharge-fi",
+   "country": "FI",
+   "file": "fi/nocharge-fi-2026-11-20.orct.json",
+   "name": "Finland: no road toll or vignette",
+   "valid_from": "2026-11-20",
+   "valid_to": null,
+   "sha256": "c02be4301a57b0503a3020ffbd37f9056393b2e4788e2de3a5e1bb6a4a564e68",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fo-tunnels/2026-11-16",
    "scheme": "fo-tunnels",
    "country": "FO",
@@ -2066,10 +2077,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia), CAV's Padova-Venezia toll",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana, Castegnato), CAV's Padova-Venezia toll",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "c95f7698e634041c9440743c9a8dafbf7d4f2c480eb81c71a065c1aea4b4db6c",
+   "sha256": "e04594bddd583d11cb23847040196374f84398a848b97f9c2781aafd747ac053",
    "coverage": "complete"
   },
   {
@@ -2080,7 +2091,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "ef082dfa3b2f695615e193ad6b8f1be07cba546be7a71be2232c54d7e2695afd",
+   "sha256": "d1d0520eb00c27773741b0ab7e0f3a9227d609e2c9ff15506e79f6bf6d830f88",
    "coverage": "complete"
   },
   {

@@ -32,7 +32,15 @@ type Document struct {
 	Charges    []Charge        `json:"charges"`
 	Rules      []Rule          `json:"rules,omitempty"`
 	Coverage   []Coverage      `json:"coverage"`
+	NoCharge   *NoCharge       `json:"no_charge,omitempty"`
 	Extensions json.RawMessage `json:"extensions,omitempty"`
+}
+
+// NoCharge states that the scheme's area levies no charge (ORCT 6.13).
+type NoCharge struct {
+	Description   string   `json:"description"`
+	Sources       []string `json:"sources"`
+	OtherDatasets []string `json:"other_datasets,omitempty"`
 }
 
 // Header is the dataset member.
@@ -250,6 +258,9 @@ func New(doc *Document) (*Dataset, error) {
 	ds := &Dataset{Doc: doc, ID: doc.Header.ID, tz: tz, objects: map[string]*Object{}, anc: map[string]map[string]int{},
 		setOf: map[string]string{}, classes: map[string]*Class{}, times: map[string]*TimeClass{}, cals: map[string]*Calendar{},
 		charges: map[string]*Charge{}, partial: map[string]bool{}}
+	if doc.NoCharge != nil && len(doc.Objects)+len(doc.Charges)+len(doc.Rules) > 0 {
+		return nil, fmt.Errorf("%s: a dataset with no_charge has no charge objects, charges or rules", ds.ID)
+	}
 	for i := range doc.Objects {
 		ds.objects[doc.Objects[i].ID] = &doc.Objects[i]
 	}

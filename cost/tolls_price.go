@@ -51,6 +51,14 @@ func tolledRoads(ds *tariffs.Dataset) string {
 // systems and toll points on the route.
 func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	req, cc, km := p.req, a.code, a.km
+	if nc := ds.Doc.NoCharge; nc != nil {
+		// The area levies no road charge (ORCT 6.13); tunnels, bridges or
+		// toll roads it leaves out are crossings, priced on their own.
+		p.useTable(ds)
+		p.note("%s: %s", cc, nc.Description)
+		p.addSources(ds)
+		return nil
+	}
 	share, shareGiven := 1.0, false
 	for _, k := range []string{a.code, a.country} {
 		if v, ok := req.TolledShare[k]; ok {

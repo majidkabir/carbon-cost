@@ -4,7 +4,7 @@
 <a class="cta" href="{{.Trip}}">{{if .TripName}}{{.TripName}}{{else}}{{.L.T "cta.price"}}{{end}}</a>
 {{range .Schemes}}
 <h2>{{.Name}}{{if .Upcoming}} ({{$.L.T "c.upcoming" "date" .From}}){{end}}</h2>
-<p><b>{{$.L.T "c.how"}}</b> {{stop .How}} <b>{{$.L.T "c.who"}}</b> {{stop .Liable}} <b>{{$.L.T "c.inforce"}}</b> {{if .To}}{{stop ($.L.T "c.fromto" "from" .From "to" .To)}}{{else}}{{stop ($.L.T "c.from" "date" .From)}}{{end}}</p>
+<p><b>{{$.L.T "c.how"}}</b> {{stop .How}} {{if .Liable}}<b>{{$.L.T "c.who"}}</b> {{stop .Liable}} {{end}}<b>{{$.L.T "c.inforce"}}</b> {{if .To}}{{stop ($.L.T "c.fromto" "from" .From "to" .To)}}{{else}}{{stop ($.L.T "c.from" "date" .From)}}{{end}}</p>
 {{if .Example}}<p class="example">{{.Example}}</p>{{end}}
 {{if .Roads}}<h3>{{$.L.T "c.km.h"}}</h3>
 <div class="scroll"><table><thead><tr><th>{{$.L.T "col.road"}}</th><th class="n">{{$.L.T "col.perkm"}}</th><th class="n co2">{{$.L.T "col.ofco2"}}</th><th class="n co2">{{$.L.T "col.co2share"}}</th>{{if ne .Cur "EUR"}}<th class="n">{{$.L.T "col.perkm.eur"}}</th>{{end}}</tr></thead><tbody>

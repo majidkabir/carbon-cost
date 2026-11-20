@@ -100,7 +100,16 @@ def check(t, d):
     for k, unit in (("rate_per_t", "t_co2"), ("rate_per_l", "litre")):
         if k in t and (D(rows_of(charges["fuel-co2"])[0]["amount"]) != D(t[k]) or charges["fuel-co2"]["unit"] != unit):
             misses.append("fuel rate")
+    # A statement that nothing is charged: kept, with nothing priced.
+    if "no_charge" in t and not name_is_zone(t):
+        nc = d.get("no_charge") or {}
+        if nc.get("description") != t["no_charge"] or d["charges"] or d["charge_objects"]:
+            misses.append("no_charge statement")
     return misses
+
+
+def name_is_zone(t):
+    return "polygons" in t  # a zone table's no_charge is its free season, not this
 
 
 def main():

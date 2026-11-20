@@ -133,11 +133,16 @@ class Urban(osmium.SimpleHandler):
 # of the interchange (OSM "A57 Venezia"), the Passante di Mestre. Autostrade
 # per l'Italia's A12 east of the Civitavecchia Porto junction is the open
 # Roma-Civitavecchia, charged at its barriers (its other A12 is Genova-
-# Sestri Levante, a closed system).
+# Sestri Levante, a closed system). With a fifth element "N", the ways north
+# of the junction (its mean latitude): the Autostrada del Brennero's A22
+# is a mountain stretch from the Brenner to Affi (Autostrade per l'Italia's
+# route calculator: Ala Avio-Affi "5.1 EUR - 28 km", the A22's mountain
+# rate; Affi-Verona Nord "2.7 EUR - 17 km", its plain rate).
 SPLITS = {"IT": [
     ("SATAP S.p.A.|A4", "Novara Est", (8.6, 45.4, 8.8, 45.55), "Novara Est-Milano"),
     ("CAV S.p.A.|A4", "A57 Venezia", (12.0, 45.4, 12.15, 45.5), "Passante"),
     ("Autostrade per l'Italia S.p.A.|A12", "Civitavecchia Porto", (11.78, 42.15, 11.80, 42.18), "Roma-Civitavecchia"),
+    ("Autostrada del Brennero S.p.A.|A22", "Affi-Lago Di Garda Sud", (10.75, 45.52, 10.82, 45.57), "Brennero-Affi", "N"),
 ]}
 
 
@@ -320,7 +325,7 @@ class Ways(osmium.SimpleHandler):
                     op = f"{op}|{ref}" if op else ""
                     if op and suffix:
                         op = f"{op}|{suffix}"
-                    elif op in self.split_at and piece.centroid.x > self.split_at[op][0]:
+                    elif op in self.split_at and (piece.centroid.y if self.split_at[op][2] else piece.centroid.x) > self.split_at[op][0]:
                         op = f"{op}|{self.split_at[op][1]}"
                     if op and op not in self.op_index:
                         self.op_index[op] = len(self.ops)
@@ -348,14 +353,16 @@ def main(cc, src, dst, areas=None):
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
     h = Ways(rule, sections, urban)
     if SPLITS.get(cc):
-        j = Junctions(SPLITS[cc])
+        j = Junctions([sp[:4] for sp in SPLITS[cc]])
         j.apply_file(src)
-        for key, name, box, label in SPLITS[cc]:
-            xs = j.found.get(key)
-            if not xs:
+        for key, name, box, label, *axis in SPLITS[cc]:
+            pts = j.found.get(key + "@")
+            if not pts:
                 sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
-            h.split_at[key] = (sum(xs) / len(xs), label)
-            print(cc, "split", key, "east of", name, round(sum(xs) / len(xs), 4))
+            north = axis == ["N"]
+            at = sum(p[1 if north else 0] for p in pts) / len(pts)
+            h.split_at[key] = (at, label, north)
+            print(cc, "split", key, "north of" if north else "east of", name, round(at, 4))
     if FREE.get(cc):
         spec = [(f"{ref}|{i}", name, box, label) for ref, n1, b1, n2, b2, label in FREE[cc] for i, name, box in ((0, n1, b1), (1, n2, b2)) if name]
         j = Junctions(spec)

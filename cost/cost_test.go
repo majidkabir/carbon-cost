@@ -2437,6 +2437,37 @@ func TestAlbaniaA1(t *testing.T) {
 	}
 }
 
+// Albania's Thumanë–Kashar (G2 Infra): a price per trip between Kashar,
+// Rinas (the airport junction) and Thumanë, four axles or more EUR 8.80,
+// 2.80 and 6.10 with VAT (7.3333, 2.3333 and 5.0833 without).
+func TestAlbaniaThumaneKashar(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Kashar-Thumanë", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7010, 41.4180}, {19.70262, 41.4227}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 7.3333},
+		{"Thumanë-Kashar", [][2]float64{{19.7059, 41.4400}, {19.70498, 41.4350}, {19.70244, 41.4228}, {19.70095, 41.4182}, {19.69653, 41.4050}, {19.6960, 41.4000}}, 7.3333},
+		{"Kashar-Rinas", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7013, 41.4178}, {19.70165, 41.4190}, {19.70358, 41.42003}, {19.70679, 41.41941}, {19.7075, 41.4193}}, 2.3333},
+		{"Rinas-Thumanë", [][2]float64{{19.7075, 41.4193}, {19.70718, 41.41949}, {19.70621, 41.41963}, {19.70479, 41.42012}, {19.70342, 41.42033}, {19.70262, 41.42275}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 5.0833},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 5, CountryKm: map[string]float64{"AL": 5}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Thumanë") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Moldova's vignette for trucks not registered there: over 10 t, EUR 11 a
 // day (one day for a trip).
 func TestMoldovaVignette(t *testing.T) {

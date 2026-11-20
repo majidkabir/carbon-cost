@@ -16,7 +16,6 @@ jobs:
         run: |
           mkdir -p out
           python3 tools/tables/fetch.py tools/tables/pol-sources.json out || true
-          python3 tools/tables/itp_probe.py out || true
           for f in out/*.html; do html2text -utf8 -width 400 "$f" > "${f%.html}.txt" || true; done
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || true; done
           ls -la out

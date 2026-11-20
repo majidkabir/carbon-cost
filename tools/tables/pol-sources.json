@@ -2,9 +2,9 @@
  "about": "x",
  "sources": [
   {
-   "id": "rome-south-osm",
+   "id": "it-motorway-toll-no-osm",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%5B%22ref%22~%22A1dir%22%5D%2841.78%2C12.50%2C41.92%2C12.80%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2841.78%2C12.50%2C41.92%2C12.80%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2841.78%2C12.50%2C41.92%2C12.80%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A180%5D%3Barea%5B%22ISO3166-1%22%3D%22IT%22%5D%5Badmin_level%3D2%5D-%3E.a%3Bway%5B%22highway%22%3D%22motorway%22%5D%5B%22toll%22%3D%22no%22%5D%5B%22operator%22%5D%28area.a%29%3Bout%20tags%20center%3B",
    "what": "x"
   }
  ]

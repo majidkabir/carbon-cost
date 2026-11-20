@@ -2092,6 +2092,11 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	date := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
 	spv := [][2]float64{{11.42126, 45.64400}, {11.41409, 45.64137}, {11.40974, 45.63931}, {11.40688, 45.63772}, {11.40447, 45.63620}, {11.40094, 45.63365}, {11.39801, 45.63112}, {11.39582, 45.62890}, {11.39427, 45.62713}, {11.39202, 45.62416}, {11.38972, 45.62026}, {11.38785, 45.61563}, {11.38471, 45.60472}}
 	a9 := [][2]float64{{9.04862, 45.77229}, {9.04486, 45.75946}, {9.04371, 45.75673}, {9.04177, 45.75372}, {9.03770, 45.74871}}
+	// The carriageways OSM tags toll=no that the Roma Nord and Roma Est
+	// barriers charge (tools/tables/browser/it-aspi-routes.txt).
+	d18 := [][2]float64{{12.60621, 42.14118}, {12.60455, 42.13872}, {12.58287, 42.10178}, {12.58177, 42.10038}, {12.56149, 42.08463}, {12.55999, 42.08362}, {12.54203, 42.07549}, {12.54038, 42.07437}, {12.53832, 42.07257}, {12.53691, 42.07081}, {12.53630, 42.06974}, {12.53544, 42.06766}, {12.53516, 42.06638}, {12.52728, 41.99400}, {12.52667, 41.98915}, {12.52621, 41.98700}}
+	d19 := [][2]float64{{12.65002, 41.83416}, {12.62672, 41.84261}, {12.60342, 41.85105}}
+	a24 := [][2]float64{{12.69094, 41.92513}, {12.68637, 41.92410}, {12.66565, 41.91876}, {12.66368, 41.91842}, {12.66112, 41.91834}, {12.65836, 41.91870}, {12.65537, 41.91964}, {12.65327, 41.92079}}
 	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
 	rx, err := roads.Default()
 	if err != nil {
@@ -2103,7 +2108,10 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		km, rate float64
 	}{{"SPV", "Superstrada Pedemontana Veneta S.p.A.|SPV", spv, 5.4, 0.43824},
 		{"A9", "Autostrade per l'Italia S.p.A.|A9", a9, 2.7, 0},
-		{"A12 Roma-Civitavecchia", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia", a12, 7.3, 0}} {
+		{"A12 Roma-Civitavecchia", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia", a12, 7.3, 0},
+		{"A1dir to the Roma Nord barrier", "Autostrade per l'Italia S.p.A.|A1dir", d18, 19, 0.19034},
+		{"A1dir to the Roma Sud barrier", "Autostrade per l'Italia S.p.A.|A1dir", d19, 4.2, 0.19034},
+		{"A24 to the Roma Est barrier", "Strada dei Parchi S.p.A.|A24", a24, 3.2, 0.25161}} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
 		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
 		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {

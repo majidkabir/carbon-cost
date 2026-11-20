@@ -242,6 +242,8 @@ UNTOLLED = {"IT": [
     ("Società di Progetto Brebemi S.p.A|A35", (9.9612, 45.50, 9.98, 45.54), "A35 Castegnato link-Chiari Est barrier"),
     ("Società Autostrade Alto Adriatico S.p.A.|A28", (12.4795, 45.79, 12.8245, 45.93), "A28 Portogruaro-Cordignano barrier"),
     ("Autostrade per l'Italia S.p.A.|A8/A26", (8.7763, 45.66, 8.81, 45.70), "A8/A26 Gallarate-Gallarate Ovest barrier"),
+    ("Autostrada Asti-Cuneo S.p.A.|A33", (7.50, 44.35, 7.6089, 44.45), "A33 Cuneo-Castelletto Stura barrier"),
+    ("SAT p.A.|A12", (10.45, 43.30, 10.56, 43.3693), "A12 San Pietro in Palazzi-Rosignano barrier"),
 ]}
 
 

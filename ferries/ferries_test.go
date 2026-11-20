@@ -104,6 +104,8 @@ func TestCoverage(t *testing.T) {
 		{"paldiski-kapellskar", "2026-11-20", 1, "Member States"},
 		{"tallinn-helsinki", "2026-11-20", 1, "Member States"},
 		{"kiel-oslo", "2026-11-20", 1, "Member States"},
+		{"odden-aarhus", "2026-11-20", 1, "Member States"},
+		{"stromstad-sandefjord", "2026-11-20", 1, "Member States"},
 		{"hirtshals-kristiansand", "2026-11-20", 1, "Member States"},
 		{"ijmuiden-newcastle", "2026-11-20", 0.5, "one outside"},
 	} {

@@ -6573,6 +6573,80 @@
    }
   },
   {
+   "id": "odden-aarhus",
+   "name": "Odden–Aarhus",
+   "operator": "Molslinjen",
+   "terminals": [
+    {
+     "name": "Odden",
+     "lat": 55.974562,
+     "lon": 11.299685,
+     "country": "DK"
+    },
+    {
+     "name": "Aarhus",
+     "lat": 56.152028,
+     "lon": 10.253094,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9561356",
+     "name": "EXPRESS 2"
+    },
+    {
+     "imo": "9793064",
+     "name": "EXPRESS 3"
+    },
+    {
+     "imo": "9824564",
+     "name": "EXPRESS 4"
+    }
+   ],
+   "source": {
+    "title": "Molslinjen: the ferries (each one's crossings)",
+    "url": "https://molslinjen.com/about-molslinjen/the-ferries"
+   }
+  },
+  {
+   "id": "odden-ebeltoft",
+   "name": "Odden–Ebeltoft",
+   "operator": "Molslinjen",
+   "terminals": [
+    {
+     "name": "Odden",
+     "lat": 55.974562,
+     "lon": 11.299685,
+     "country": "DK"
+    },
+    {
+     "name": "Ebeltoft",
+     "lat": 56.154227,
+     "lon": 10.667608,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9561356",
+     "name": "EXPRESS 2"
+    },
+    {
+     "imo": "9793064",
+     "name": "EXPRESS 3"
+    },
+    {
+     "imo": "9824564",
+     "name": "EXPRESS 4"
+    }
+   ],
+   "source": {
+    "title": "Molslinjen: the ferries (each one's crossings)",
+    "url": "https://molslinjen.com/about-molslinjen/the-ferries"
+   }
+  },
+  {
    "id": "oinousses-psara",
    "name": "Oinousses–Psara",
    "operator": "",
@@ -8774,6 +8848,35 @@
    "source": {
     "title": "OpenStreetMap: Mišnjak - Stinica (its ships not named)",
     "url": "https://www.openstreetmap.org/way/25626587"
+   }
+  },
+  {
+   "id": "stromstad-sandefjord",
+   "name": "Strömstad–Sandefjord",
+   "operator": "Color Line",
+   "terminals": [
+    {
+     "name": "Strömstad",
+     "lat": 58.933458,
+     "lon": 11.169688,
+     "country": "SE"
+    },
+    {
+     "name": "Sandefjord",
+     "lat": 59.126408,
+     "lon": 10.227319,
+     "country": "NO"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9824289",
+     "name": "COLOR HYBRID"
+    }
+   ],
+   "source": {
+    "title": "Color Line: Strömstad – Sandefjord, its ferries",
+    "url": "https://colorline.com/routes"
    }
   },
   {

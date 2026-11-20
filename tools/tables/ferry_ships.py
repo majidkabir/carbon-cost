@@ -12,6 +12,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Bornholmslinjen's ferries page (bornholm-ferries.html): each ferry's
   crossing times ("Rønne - Køge", "Rønne-Ystad") and description ("på
   ruten mellem Rønne og Ystad") name its routes;
+- Molslinjen's ferries page (mols-ferries.html), as Bornholmslinjen's: each
+  ferry's crossing times ("Odden-Aarhus", "Odden-Ebeltoft");
 - Destination Gotland's ferries page (gotland-ferries.html): each ferry's
   route ("M/S Drotten operates the Visby–Nynäshamn/Oskarshamn route"), its
   terminals on OpenStreetMap's lines (ferry-ships-osm.json). Gotland's port
@@ -133,6 +135,8 @@ PORTS = {
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
     "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)),
+    "Odden": ("DK", ["Odden", "Sjællands Odde"], (55.97, 11.37)), "Aarhus": ("DK", ["Aarhus", "Århus"], (56.15, 10.21)),
+    "Ebeltoft": ("DK", ["Ebeltoft"], (56.19, 10.68)),
     "Larvik": ("NO", ["Larvik"], (59.05, 10.03)), "Kristiansand": ("NO", ["Kristiansand"], (58.15, 8.00)),
     "Oslo": ("NO", ["Oslo"], (59.91, 10.75)), "Sandefjord": ("NO", ["Sandefjord"], (59.13, 10.22)),
     "Strömstad": ("SE", ["Strömstad", "Strømstad"], (58.94, 11.17)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
@@ -368,8 +372,16 @@ def nuxt(page):
 
 def bornholm(page):
     """{ferry: {ports}} from Bornholmslinjen's ferries page."""
+    return nuxt_routes(page, "Rønne", ("Ystad", "Køge", "Sassnitz"))
+
+
+def nuxt_routes(page, hub, others):
+    """{ferry: {ports}} from a ferries page of Molslinjen's sites
+    (Bornholmslinjen's, Molslinjen's): each ferry's crossing times ("Rønne
+    - Køge", "Odden-Aarhus") and description ("på ruten mellem Rønne og
+    Ystad") name the ports it sails to from the hub."""
     a = nuxt(page)
-    port = r"(Ystad|Køge|Sassnitz)"
+    port = "(" + "|".join(others) + ")"
     routes = {}
 
     def strings(i, depth=0):
@@ -391,13 +403,13 @@ def bornholm(page):
         if "ferrySpecifications" in v and "erpId" in v:
             name = a[v["name"]]
             for s in strings(v["ferrySpecifications"]):
-                m = re.fullmatch(rf"Rønne ?[-–] ?{port}", s.strip())
+                m = re.fullmatch(rf"{hub} ?[-–] ?{port}", s.strip())
                 if m:
                     routes.setdefault(name, set()).add(m.group(1))
         if "ferry" in v and "description" in v:
             ferry = [x for x in strings(v["ferry"]) if x in {a[w["name"]] for w in a if isinstance(w, dict) and "erpId" in w}]
             for s in strings(v["description"]):
-                for m in re.finditer(rf"Rønne ?- ?{port}|Rønne og {port}", html.unescape(re.sub(r"<[^>]+>", " ", s))):
+                for m in re.finditer(rf"{hub} ?- ?{port}|{hub} og {port}", html.unescape(re.sub(r"<[^>]+>", " ", s))):
                     for f in ferry[:1]:
                         routes.setdefault(f, set()).add(m.group(1) or m.group(2))
     return routes
@@ -755,6 +767,7 @@ def main(fetched, out):
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
         gpage = open(os.path.join(fetched, "gotland-ferries.html"), encoding="utf-8").read()
+        mpage = open(os.path.join(fetched, "mols-ferries.html"), encoding="utf-8").read()
         grosm = json.load(open(os.path.join(fetched, "gr-ferries-osm.json"), encoding="utf-8"))
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
@@ -831,6 +844,20 @@ def main(fetched, out):
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Sweden: Gotland, Visby)", "url": DECISION[1]}] if {COUNTRY[p] for p in ports} == {"SE"} else []
         crossings.append(crossing(cid, ports, pos, "Destination Gotland", ships,
                                   {"title": "Destination Gotland: our ferries (each one's route)", "url": src["gotland-ferries"]["url"]}, ids, ex))
+
+    # Molslinjen
+    mroutes = nuxt_routes(mpage, "Odden", ("Aarhus", "Ebeltoft"))
+    for other in ("Aarhus", "Ebeltoft"):
+        ships = {f for f, r in mroutes.items() if other in r}
+        if not ships:
+            sys.exit(f"ferry ships: Molslinjen names no ferry on Odden–{other}")
+        ports = ("Odden", other)
+        pos = osm_place(gosm, *ports, "Molslinjen")
+        if not pos:
+            sys.exit(f"ferry ships: Odden–{other}: no OpenStreetMap line between its ports")
+        COUNTRY.update({p: PORTS[p][0] for p in ports})
+        crossings.append(crossing("-".join(ascii(p) for p in ports), ports, pos, "Molslinjen", ships,
+                                  {"title": "Molslinjen: the ferries (each one's crossings)", "url": src["mols-ferries"]["url"]}, ids))
 
     # TT-Line
     troutes, turl, tday = ttline(tcap)

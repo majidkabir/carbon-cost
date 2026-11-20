@@ -99,7 +99,21 @@ CLOSED = [
     ((1, 351), "Autostrada dei Fiori S.p.A.|A6", "A6 Torino-Savona, Barriera di Torino barrier"),
     ((1, 545), "Autostrade per l'Italia S.p.A.|A23|mountain", "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier"),
     ((1, 528), "Autostrade per l'Italia S.p.A.|A27|mountain", "A27 Venezia-Belluno, Belluno barrier"),
+    # Venezia Est is on the A57, Meolo-Roncade on the A4, so the station
+    # file's km don't compare: the km are the roads data's from the
+    # barrier's toll point to Meolo-Roncade, one carriageway (the A57's
+    # 0.5 km and the A4's 8.8; the junction's ramps aren't motorway).
+    ((1, 515), "Società Autostrade Alto Adriatico S.p.A.|A4", "A4 Venezia-Trieste, Venezia Est barrier", 9.3),
+    ((1, 370), "Società di Progetto Brebemi S.p.A|A35", "A35 Brescia-Milano, Chiari Est barrier"),
 ]
+# Barriers whose operator charges more km than from the next junction:
+# Brebemi's Liscate barrier (D35, the link from the Rivoltana to the TEEM).
+# Autostrade per l'Italia's route calculator gives Liscate-Treviglio as
+# Brebemi 17 km (EUR 10.83 for 5 axles) and the TEEM 4 km, and Gessate (on
+# the TEEM)-Treviglio as Brebemi 10 km (EUR 6.49), so the barrier's toll
+# point charges Brebemi's 7 km more at Brebemi's rates
+# (browser/it-aspi-routes.txt): (station, operator key, km, name).
+EXTRA = [((1, 377), "Società di Progetto Brebemi S.p.A|A35", 7, "A35 Brescia-Milano, Liscate barrier")]
 # CAV's Padova-Venezia toll: Autostrade per l'Italia's form and route
 # calculator charge one toll from the A4's Padova Est to each of the A57's
 # stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier; "29 km",
@@ -263,14 +277,14 @@ def main(fetched, out):
     year = years.pop()
     rows = json.load(open(os.path.join(out, f"it-{year}-01-01.json"), encoding="utf-8"))["rows"]
     closed = []
-    for key, op, name in CLOSED:
+    for key, op, name, *given in CLOSED:
         if key not in cform:
             sys.exit(f"it-aspi-closed-barriers: no tolls for {key} {name}")
         _, to, t = cform[key]
         a, b = stations.get(key), stations.get(to)
-        if not a or not b or a["c_ram"] != b["c_ram"]:
+        if not a or not b or (a["c_ram"] != b["c_ram"] and not given):
             sys.exit(f"it-aspi-caselli: {key} and {to} aren't on one road")
-        km = abs(a["n_prg_km"] - b["n_prg_km"])
+        km = given[0] if given else abs(a["n_prg_km"] - b["n_prg_km"])
         extra = {c: round(t[c] - km * table_rate(rows, op, n), 2) for c, n in (("B", 2), ("3", 3), ("4", 4), ("5", 5))}
         if min(extra.values()) < 0:
             sys.exit(f"it-aspi-closed-barriers: {name}'s toll {t} is less than {km:.1f} km at {op}'s rates")
@@ -278,6 +292,12 @@ def main(fetched, out):
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
         closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} (EUR {t['5']:.2f} to {b['description']}, {km:.1f} km on)")
         print(name, extra, round(km, 1), round(lat, 6), round(lon, 6))
+    for key, op, km, name in EXTRA:
+        extra = {c: round(km * table_rate(rows, op, n), 2) for c, n in (("B", 2), ("3", 3), ("4", 4), ("5", 5))}
+        lon, lat = closed_place(stations, key)
+        points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(extra)})
+        closed.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {extra['5']:.2f} ({km} km more at {op.split('|')[0]}'s rate than from the next junction, as Autostrade per l'Italia's route calculator charges)")
+        print(name, extra)
     inter = []
     for key, op, km, (lon, lat), name in INTERCHANGE:
         if key not in cform:
@@ -321,7 +341,7 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=(), inter=()):
         law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
                 + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
-        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno)"
+        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     if inter:
         law += ("CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: "

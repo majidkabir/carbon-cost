@@ -17,6 +17,6 @@
  "vehicle_class_sets": [],
  "charge_objects": [],
  "charges": [],
- "no_charge": {"description": "No time-based road user charge (vignette), distance-based road toll or emission sticker is used.", "sources": ["s1"], "other_datasets": ["orct-tests/synthetic/2026-01-01"]},
+ "no_charge": {"description": "No time-based road user charge (vignette), distance-based road toll or emission sticker is used.", "sources": ["s1"]},
  "coverage": [{"scope": "dataset", "status": "complete"}]
 }

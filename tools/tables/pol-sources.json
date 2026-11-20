@@ -1,11 +1,1 @@
-{
- "about": "x",
- "sources": [
-  {
-   "id": "torino-nord-osm",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%3B%28way%5B%22highway%22~%22%5E%28motorway%7Cmotorway_link%7Ctrunk%7Cprimary%29%24%22%5D%28around%3A250%2C45.14557%2C7.73537%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  }
- ]
-}
+{"about": "x", "sources": []}

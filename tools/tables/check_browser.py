@@ -32,6 +32,7 @@ RULES = {
     "me-sozina": (None, 183),
     "it-aspi-barriers": ("01-01", 366),  # Italian tolls change on 1 January
     "it-aspi-routes": ("01-01", 366),
+    "it-aspi-closed-barriers": ("01-01", 366),
 }
 
 

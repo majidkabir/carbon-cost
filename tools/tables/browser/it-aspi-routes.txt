@@ -8,6 +8,9 @@
 # A26 north: from Gravellona Toce the only toll is the Lago Maggiore station's (its km 166.6; Arona's is 165.5, viabilita.autostrade.it/json/caselli.json), and it counts 33 km: EUR 7.40 = 33 x ASPI's class-5 mountain rate (0.22437): the A26's free stretch to Gravellona Toce.
 # A4 Torino-Milano: from the Rondissone barrier (SATAP) to Santhia the calculator counts 46 km, EUR 15.30 = 46 x SATAP's class-5 rate (0.33006) to 10 cents; the barrier is 24 km from Turin by the A4 (OSM).
 # A1 Napoli: from the A1 at Naples to Capua the calculator charges "Napoli Nord - Capua" EUR 7.90, 41.5 km at ASPI's rate, where the Napoli Nord barrier (km 739.7) and Capua (km 720.1) are 19.6 km apart (caselli.json): the barrier charges the A1's km from Naples. (Its route went by the A3's Napoli Sud barrier, charged apart.)
+# A24 Teramo: from Mosciano Sant'Angelo the only toll is the Teramo barrier's (A24 km 146.1), and it counts 21 km to San Gabriele Colledara (km 136.6): EUR 5.30 = 21 x Strada dei Parchi's class-5 rate; the A24's free stretch from the barrier towards the coast is the rest.
+# A34: from Gorizia the only toll is the Villesse barrier's (A34 km 0.6), and it counts 48 km to Latisana (A4 km 467.7, about 31 km by the A4): EUR 9.10 = 48 x Alto Adriatico's class-5 rate (0.18898); the A34 to Gorizia is the rest.
+# A4 Trieste: from Sistiana the only toll is the Trieste Lisert barrier's (km 515.1), and it counts 58 km to Latisana (km 467.7): EUR 11.00 = 58 x 0.18898; the A4 from the barrier to Sistiana is most of the rest.
 # Columns: departure, arrival, the calculator's toll stretch, its km, its class-5 toll in euro.
 departure arrival stretch km 5
 A1-Settebagni A1-Ponzano-Romano-Soratte Roma-Nord-Ponzano-Romano-Soratte 37 7.00
@@ -17,3 +20,6 @@ A14-Ravenna A14-Imola Barriera-Di-Ravenna-Imola 38 7.20
 Gravellona-Toce A26-Arona Lago-Maggiore-Arona 33 7.40
 A4-Torino-Rondissone A4-Santhia Torino-Rondissone-Santhia 46 15.30
 A1-Napoli A1-Capua Napoli-Nord-Capua 47 7.90
+Mosciano-Sant'Angelo A24-San-Gabriele-Colledara Teramo-San-Gabriele-Colledara 21 5.30
+Gorizia A4-Latisana Barriera-Di-Villesse-Latisana 48 9.10
+Sistiana A4-Latisana Trieste-Lisert-Latisana 58 11.00

@@ -2066,10 +2066,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Rome, Florence, Taranto)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "998c88d92f8f5a5074f40be5424a9fcad55e9dd9ff4463d4780ec5725c48202e",
+   "sha256": "d54be19a5508125f22b08ab493dea6ed033e0a555c30b7abf32895c998b00ccc",
    "coverage": "complete"
   },
   {

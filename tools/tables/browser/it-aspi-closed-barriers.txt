@@ -1,0 +1,15 @@
+# Autostrade per l'Italia: the toll from a closed system's barrier to its next station, from its "Calcola il pedaggio da casello a casello" form (Info viabilità), for the barriers whose toll is more than the km between the two.
+# Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il pedaggio da casello a casello"; the barrier as the departure, the station as the arrival).
+# The form's toll service refuses scripted requests (status 403), so the page was opened in Chrome and the tolls read on 2026-11-20.
+# Stations as the site's station file names them (https://viabilita.autostrade.it/json/caselli.json): network c_ret, station c_stz, road; then the arrival's network and station. Tolls in euro by class (A, B, 3, 4, 5 axles), as the form shows them.
+# Each barrier charges a fixed toll for the free stretch on its other side and more: Milano Sud-Lodi is EUR 6.20 for class 5, 32.6 km at the A1's rate, where the stations are 13.4 km apart (their km in the station file); Autostrade per l'Italia's route calculator gives the same from the free side (San Giuliano-Lodi: "Milano Sud - Lodi 6.2 EUR - 33 km"), and the form gives Milano Sud-Casalpusterlengo, 28.9 km on, as EUR 9.20 (3.65 + 28.9 x 0.19034 = 9.15).
+network station road name to_network to_station to_name A B 3 4 5
+1 1 A01 Milano Sud 1 2 Lodi 2.6 2.6 3.5 5.2 6.2
+1 201 A07 Milano Ovest 1 202 Binasco 1.5 1.5 2.1 3.1 3.7
+1 443 A04 Milano Ghisolfa 1 442 Rho 1.7 1.8 2.2 3.5 4.1
+1 654 A04 Milano Est 1 651 Trezzo 2.6 2.7 3.5 5.3 6.3
+1 801 A24 Roma Est 1 803 Tivoli 2.2 2.3 2.9 4.5 5.3
+1 780 A16 Napoli Est 1 729 Tufino 2.5 2.6 3.5 5.1 6.0
+1 333 A11 Firenze Ovest 1 334 Prato Est 0.8 0.8 1.1 1.6 1.9
+1 742 A14 Taranto Nord 1 741 Mottola-Castellaneta 1.7 1.8 2.3 3.5 4.2
+1 783 A30 Salerno 1 782 Castel San Giorgio 0.9 1.0 1.3 1.9 2.3

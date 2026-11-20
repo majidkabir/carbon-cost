@@ -240,6 +240,7 @@ UNTOLLED = {"IT": [
     ("CAV S.p.A.|A57", (12.08, 45.44, 12.20, 45.48), "A57 Mirano Dolo-Venezia Mestre barrier"),
     ("Società Autostrade Alto Adriatico S.p.A.|A57", (12.30, 45.55, 12.3350, 45.58), "A57 Mestre-Venezia Est barrier"),
     ("Società di Progetto Brebemi S.p.A|A35", (9.9612, 45.50, 9.98, 45.54), "A35 Castegnato link-Chiari Est barrier"),
+    ("Società Autostrade Alto Adriatico S.p.A.|A28", (12.4795, 45.79, 12.8245, 45.93), "A28 Portogruaro-Cordignano barrier"),
 ]}
 
 

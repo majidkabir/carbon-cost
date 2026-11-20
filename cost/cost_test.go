@@ -2593,7 +2593,9 @@ func TestMilanBarriers(t *testing.T) {
 	}{
 		{"Terrazzano", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, truck40, 8.40},
 		{"Terrazzano, class B", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, light, 3.60},
-		{"Vimercate", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 4.90},
+		// Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza (km 19.5).
+		{"Vimercate (Agrate Brianza)", [][2]float64{{9.3315, 45.5585}, {9.33303, 45.561395}, {9.3345, 45.5645}}, truck40, 4.90},
+		{"not at Vimercate Sud", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 0},
 		{"Sesto San Giovanni", [][2]float64{{9.2590, 45.5510}, {9.263721, 45.55137}, {9.2680, 45.5517}}, truck40, 6.30},
 		// SITAF's A32 (2026): Avigliana 15.90 and Salbertrand 21.70 for class 5.
 		{"A32 Avigliana", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, truck40, 15.90},

@@ -2055,10 +2055,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2025-01-01.orct.json",
-   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "name": "Italian open-system barriers: Milan ring roads",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "68aaa8c16b5a4d9dc6fbc1307e3e18dfabb2fd0e2af10d05e516f0f430f8b136",
+   "sha256": "2797fa450e861d6067131bf6f8d914d0040c925b327967b5f53e26c0a0720bb4",
    "coverage": "complete"
   },
   {
@@ -2066,10 +2066,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, Tangenziale di Torino and A32 Torino-Bardonecchia",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, Tangenziale di Torino",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "f3c6e99d788d30030b9f3bf74fa59e151126cb3d58391d470698710e873a612e",
+   "sha256": "e3a385ec4369e34c46b230f51f8040f8dfafe77ae3b70d5e54178a21b95ac1ae",
    "coverage": "complete"
   },
   {

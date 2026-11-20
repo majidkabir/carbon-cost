@@ -4,7 +4,7 @@
   "id": "carbon-cost/it-barriers/2026-01-01",
   "scheme": {
    "id": "it-barriers",
-   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero)",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio)",
    "country": "IT"
   },
   "publisher": {
@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January 2026. Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza) class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. SITAF's tolls at the A32's two barriers, the open motorway's only toll stations (Avigliana for Rivoli-Susa, Salbertrand for Susa-Bardonecchia): Avigliana class 5 EUR 15.90; Salbertrand class 5 EUR 21.70 (Avigliana's are SITAF's unit rate per km, ANAS fee and 22% VAT times the barrier's 34.47 km, rounded to 10 cents). Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, SAT's open A12 Civitavecchia-Tarquinia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): Milano Nord class 5 EUR 4.60; Gallarate Nord class 5 EUR 4.10; Como Grandate class 5 EUR 6.00; Bruere class 5 EUR 2.80; Falchera class 5 EUR 3.90; Beinasco class 5 EUR 4.30; Trofarello class 5 EUR 4.90; Roma Ovest class 5 EUR 6.20; Aurelia class 5 EUR 6.20; Napoli Sud class 5 EUR 6.10; Nocera class 5 EUR 6.10; Tarquinia class 5 EUR 2.90; Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll) class 5 EUR 3.40; Villanova barrier (the open Torino-Villanova stretch's toll) class 5 EUR 2.90. Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: Milano Sud class 5 EUR 3.65 (EUR 6.20 to Lodi, 13.4 km on); Milano Ovest class 5 EUR 2.61 (EUR 3.70 to Binasco, 6.4 km on); Milano Ghisolfa class 5 EUR 3.25 (EUR 4.10 to Rho, 2.5 km on); Milano Est class 5 EUR 2.70 (EUR 6.30 to Trezzo, 18.9 km on); Roma Est class 5 EUR 4.17 (EUR 5.30 to Tivoli, 4.5 km on); Firenze Ovest class 5 EUR 0.99 (EUR 1.90 to Prato Est, 4.8 km on); Taranto Nord class 5 EUR 2.05 (EUR 4.20 to Mottola-Castellaneta, 11.3 km on); Venezia class 5 EUR 5.20 (EUR 6.80 to Treviso Sud, 8.4 km on); Napoli Est class 5 EUR 4.03 (EUR 6.00 to Tufino, 10.3 km on); Salerno class 5 EUR 1.29 (EUR 2.30 to Castel San Giorgio, 5.3 km on); Brennero class 5 EUR 3.08 (EUR 3.10 to Vipiteno, 0.1 km on); Barriera di Torino class 5 EUR 7.18 (EUR 7.20 to Carmagnola, 0.1 km on). The form's tolls are rounded to 10 cents, so these are within 5 cents. Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5).",
+  "method": "A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January 2026. Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza) class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. SITAF's tolls at the A32's two barriers, the open motorway's only toll stations (Avigliana for Rivoli-Susa, Salbertrand for Susa-Bardonecchia): Avigliana class 5 EUR 15.90; Salbertrand class 5 EUR 21.70 (Avigliana's are SITAF's unit rate per km, ANAS fee and 22% VAT times the barrier's 34.47 km, rounded to 10 cents). Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, SAT's open A12 Civitavecchia-Tarquinia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): Milano Nord class 5 EUR 4.60; Gallarate Nord class 5 EUR 4.10; Como Grandate class 5 EUR 6.00; Bruere class 5 EUR 2.80; Falchera class 5 EUR 3.90; Beinasco class 5 EUR 4.30; Trofarello class 5 EUR 4.90; Roma Ovest class 5 EUR 6.20; Aurelia class 5 EUR 6.20; Napoli Sud class 5 EUR 6.10; Nocera class 5 EUR 6.10; Tarquinia class 5 EUR 2.90; Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll) class 5 EUR 3.40; Villanova barrier (the open Torino-Villanova stretch's toll) class 5 EUR 2.90. Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: Milano Sud class 5 EUR 3.65 (EUR 6.20 to Lodi, 13.4 km on); Milano Ovest class 5 EUR 2.61 (EUR 3.70 to Binasco, 6.4 km on); Milano Ghisolfa class 5 EUR 3.25 (EUR 4.10 to Rho, 2.5 km on); Milano Est class 5 EUR 2.70 (EUR 6.30 to Trezzo, 18.9 km on); Roma Est class 5 EUR 4.17 (EUR 5.30 to Tivoli, 4.5 km on); Firenze Ovest class 5 EUR 0.99 (EUR 1.90 to Prato Est, 4.8 km on); Taranto Nord class 5 EUR 2.05 (EUR 4.20 to Mottola-Castellaneta, 11.3 km on); Venezia class 5 EUR 5.20 (EUR 6.80 to Treviso Sud, 8.4 km on); Napoli Est class 5 EUR 4.03 (EUR 6.00 to Tufino, 10.3 km on); Salerno class 5 EUR 1.29 (EUR 2.30 to Castel San Giorgio, 5.3 km on); Brennero class 5 EUR 3.08 (EUR 3.10 to Vipiteno, 0.1 km on); Barriera di Torino class 5 EUR 7.18 (EUR 7.20 to Carmagnola, 0.1 km on); Ugovizza-Tarvisio class 5 EUR 3.86 (EUR 6.30 to Pontebba, 12.8 km on). The form's tolls are rounded to 10 cents, so these are within 5 cents. Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-barriers-2026-01-01.json"
@@ -493,6 +493,18 @@
     },
     "match_m": 100
    }
+  },
+  {
+   "id": "pt32",
+   "type": "point",
+   "name": "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.48088, 46.50684]
+    },
+    "match_m": 100
+   }
   }
  ],
  "charges": [
@@ -626,7 +638,11 @@
     ["pt31", "pt-1.1", "7.18"],
     ["pt31", "pt-1.2", "6.28"],
     ["pt31", "pt-1.3", "4.19"],
-    ["pt31", "pt-1.4", "2.89"]
+    ["pt31", "pt-1.4", "2.89"],
+    ["pt32", "pt-1.1", "3.86"],
+    ["pt32", "pt-1.2", "3.24"],
+    ["pt32", "pt-1.3", "2.04"],
+    ["pt32", "pt-1.4", "1.67"]
    ],
    "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7"],
    "basis": "transcribed"

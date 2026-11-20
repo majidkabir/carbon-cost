@@ -2551,6 +2551,10 @@ func TestMilanBarriers(t *testing.T) {
 		{"Terrazzano, class B", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, light, 3.60},
 		{"Vimercate", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 4.90},
 		{"Sesto San Giovanni", [][2]float64{{9.2590, 45.5510}, {9.263721, 45.55137}, {9.2680, 45.5517}}, truck40, 6.30},
+		// SITAF's A32 (2026): Avigliana 15.90 and Salbertrand 21.70 for class 5.
+		{"A32 Avigliana", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, truck40, 15.90},
+		{"A32 Avigliana, class B", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, light, 6.50},
+		{"A32 Salbertrand", [][2]float64{{6.8710, 45.0600}, {6.866239, 45.058245}, {6.8610, 45.0565}}, truck40, 21.70},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

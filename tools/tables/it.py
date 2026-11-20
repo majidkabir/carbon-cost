@@ -94,8 +94,6 @@ INCREASES = [
      ASTM_HEAD, ["Autostrada dei Fiori S.p.A."]),
     ("it-salt-tariffe", r"Per la Società Autostrada Ligure Toscana p\.a\. la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
      ASTM_HEAD, ["Società Autostrada Ligure Toscana p.a.|A15"]),
-    ("it-sitaf-tariffe", r"Per SITAF S\.p\.A\. . A32 . la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
-     ASTM_HEAD, ["SITAF S.p.A.|A32"]),
     ("it-te-tariffe", r"Per Tangenziale Esterna S\.p\.A\. \(A58-TEEM\) la variazione tariffaria è pari a \+? ?(\d+,\d+)%",
      ASTM_HEAD, ["Tangenziale Esterna S.p.A."]),
 ]
@@ -112,7 +110,6 @@ TITLES = {
     "it-pedemontana-rates": "Autostrada Pedemontana Lombarda: rates (per section, company rate and ANAS fee, VAT excluded)",
     "it-adf-tariffe": "Autostrada dei Fiori (A6): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
     "it-salt-tariffe": "SALT (A15): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
-    "it-sitaf-tariffe": "SITAF (A32): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
     "it-te-tariffe": "Tangenziale Esterna (A58): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
     "it-serravalle-pedaggio": "Milano Serravalle: toll page, the year's increase of the unit rates (MIT communication of 31/12/2025 prot. 40030)",
 }
@@ -127,11 +124,11 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
               "it-brebemi-pedaggi": "Brebemi (A35)",
               "inc:it-adf-tariffe": "Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states)",
               "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
-              "inc:it-sitaf-tariffe": "SITAF (A32; its 2025 unit rate raised by the change its notice states)",
               "inc:it-te-tariffe": "Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states)",
               "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
+SITAF = "SITAF S.p.A."
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
 
 
@@ -316,13 +313,16 @@ def operator_rows(transcribed, fetched, year, own_tables=(CAS,)):
         for k in keys:
             pages[k] = ("image:" + name, vals)
     # The Consorzio per le Autostrade Siciliane's A18 and A20 are priced by
-    # entry and exit in their own table (it_cas.py), Milan's ring roads at
-    # their barriers (it_barriers.py): nothing here.
+    # entry and exit in their own table (it_cas.py), Milan's ring roads and
+    # SITAF's A32 at their barriers (it_barriers.py; with its few ways to
+    # the Fréjus tunnel, whose own table prices it): nothing here.
     for key in list(own_tables) + [f"{MISE}|{r}" for r in ("A50", "A51", "A52")]:
         for lo, hi, cl in AXLES:
             rows.append(row_for(key, lo, hi, 0))
     for op, ref, sheet, stretch in OPS:
         key = f"{op}|{ref}" if ref else op
+        if op in own_tables:
+            continue
         if key in pages and pages[key][0] in USERS_ONLY and sheet:
             pid, vals = pages[key]
             d = json.load(open(os.path.join(transcribed, f"it-mit-{sheet}.json"), encoding="utf-8"))
@@ -403,7 +403,7 @@ def write(out, valid_from, pl, mo, ops, used, transcribed, fetched, text):
                + text["own"]
                + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them {text['sheets']}, each concession's plain-stretch rate unless it has only mountain stretches; "
                f"{text['aspi']}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
-               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); open-system stretches other than Milan's ring roads and the A32 charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
         "sources": [text["aspi_source"]]
         + [{"title": TITLES[d.removeprefix("inc:")], "url": page_url(fetched, d.removeprefix("inc:"))} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
         + [{"title": IMAGE_TITLES[d[6:]], "url": image_url(transcribed, d[6:])} for k, d in used.items() if k.startswith("page:image:")]
@@ -437,12 +437,12 @@ def main(transcribed, fetched, out):
     valid_from = f"{upd.group(3)}-{MONTHS[upd.group(2)]:02d}-{int(upd.group(1)):02d}"
     pl = [float(v.replace(",", ".")) for v in plain.groups()]
     mo = [float(v.replace(",", ".")) for v in mountain.groups()]
-    ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]))
+    ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]), own_tables=(CAS, SITAF))
     write(out, valid_from, pl, mo, ops, used, transcribed, fetched, {
         "aspi": f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}",
         "aspi_source": {"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"},
         "sheets": "(the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change)",
-        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; "})
+        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) and SITAF's A32 Torino-Bardonecchia (an open system: its Avigliana and Salbertrand barriers) at their barriers (it-barriers), not here; "})
 
 
 def sheets(transcribed, out, year):

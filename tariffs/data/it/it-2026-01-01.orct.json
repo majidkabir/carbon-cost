@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Autostrada del Brennero (A22), Asti-Cuneo (A33), Ivrea Torino Piacenza (A5, A55), Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states), Autovia Padana (A21 Piacenza-Brescia), Brebemi (A35), Brescia-Padova (A4 Brescia-Padova, A31), CAV (A4, A57, Passante di Mestre), Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states), Pedemontana Lombarda (A36, A59, A60), RAV (A5 Aosta-Courmayeur), SALT (A15; its 2025 unit rate raised by the change its notice states), SAT (A12 Livorno-Civitavecchia), SATAP (A4 Torino-Milano), Ivrea Torino Piacenza (A21), SAV (A5 Quincinetto-Aosta), SITAF (A32; its 2025 unit rate raised by the change its notice states), Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states) at the 2026 rates their own pages give (with VAT and the ANAS fee); the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap), SITAF's A32 at its Avigliana rate (Salbertrand's is 2% lower), Milan's ring roads and other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Autostrada del Brennero (A22), Asti-Cuneo (A33), Ivrea Torino Piacenza (A5, A55), Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states), Autovia Padana (A21 Piacenza-Brescia), Brebemi (A35), Brescia-Padova (A4 Brescia-Padova, A31), CAV (A4, A57, Passante di Mestre), Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states), Pedemontana Lombarda (A36, A59, A60), RAV (A5 Aosta-Courmayeur), SALT (A15; its 2025 unit rate raised by the change its notice states), SAT (A12 Livorno-Civitavecchia), SATAP (A4 Torino-Milano), Ivrea Torino Piacenza (A21), SAV (A5 Quincinetto-Aosta), Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states) at the 2026 rates their own pages give (with VAT and the ANAS fee); the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) and SITAF's A32 Torino-Bardonecchia (an open system: its Avigliana and Salbertrand barriers) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); open-system stretches other than Milan's ring roads and the A32 charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-2026-01-01.json"
@@ -97,66 +97,56 @@
   },
   {
    "id": "s15",
-   "title": "SITAF (A32): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
-   "url": "https://www.sitaf.it/comunicato-allutenza-tariffe-2026/"
-  },
-  {
-   "id": "s16",
    "title": "Tangenziale Esterna (A58): notice to users, tariffs from 1 January (the year's change of the unit rates, set by the MIT's note)",
    "url": "https://www.tangenziale.esterna.it/comunicato-allutenza-tariffe-2026/"
   },
   {
-   "id": "s17",
+   "id": "s16",
    "title": "Autostrada Brescia Verona Vicenza Padova: unit rates per km from 1 January (A4, A31; excluding VAT, ANAS quota apart; an image in the page, transcribed)",
    "url": "https://inviaggio.autobspd.it/pedaggi-e-pagamenti"
   },
   {
-   "id": "s18",
+   "id": "s17",
    "title": "CAV: toll rates (unit rates per km by section, ANAS fee and VAT included, published as an image; transcribed)",
    "url": "https://www.cavspa.it/en/general-information-on-the-use-and-management-of-infrastructure-and-services/toll-rates"
   },
   {
-   "id": "s19",
+   "id": "s18",
    "title": "RAV: unit rates per km from 1 January (A5 Aosta-Courmayeur, mountain; VAT and ANAS fee included), in its service charter (PDF, page 11; transcribed)",
    "url": "https://www.ravspa.it/wp-content/uploads/2026/07/RAV_CARTADEISERVIZI_PDF_WEB.pdf"
   },
   {
-   "id": "s20",
+   "id": "s19",
    "title": "MIT: Autostrada dei Fiori (A6), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autostrada_dei_Fiori_A6.pdf"
   },
   {
-   "id": "s21",
+   "id": "s20",
    "title": "MIT: Autostrade Alto Adriatico, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Autostrade_Alto_Adriatico.pdf"
   },
   {
-   "id": "s22",
+   "id": "s21",
    "title": "MIT: Concessioni del Tirreno, tariff sheet (Directive (EU) 2022/362 art. 11), p. 5",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/CDT_A10.pdf"
   },
   {
-   "id": "s23",
+   "id": "s22",
    "title": "MIT: Milano Serravalle - Milano Tangenziali, tariff sheet (Directive (EU) 2022/362 art. 11), p. 4",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/MI_Serravalle_-_MI_Tangenziali.pdf"
   },
   {
-   "id": "s24",
+   "id": "s23",
    "title": "MIT: SALT (A15 Autocisa), tariff sheet (Directive (EU) 2022/362 art. 11), p. 6",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SALT_A15.pdf"
   },
   {
-   "id": "s25",
-   "title": "MIT: SITAF (A32), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
-   "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/SITAF.pdf"
-  },
-  {
-   "id": "s26",
+   "id": "s24",
    "title": "MIT: Strada dei Parchi (A24, A25), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Strada_dei_Parchi.pdf"
   },
   {
-   "id": "s27",
+   "id": "s25",
    "title": "MIT: Tangenziale Esterna (A58), tariff sheet (Directive (EU) 2022/362 art. 11), p. 3",
    "url": "https://www.mit.gov.it/nfsmitgov/files/media/documentazione/2025-03/Tangenziale_esterna.pdf"
   }
@@ -247,6 +237,12 @@
    "type": "network",
    "parents": ["road:motorway"],
    "operator": "Consorzio per le Autostrade Siciliane"
+  },
+  {
+   "id": "op:SITAF S.p.A.",
+   "type": "network",
+   "parents": ["road:motorway"],
+   "operator": "SITAF S.p.A."
   },
   {
    "id": "op:Milano Serravalle - Milano Tangenziali S.p.A.",
@@ -458,19 +454,6 @@
    "operator": "Società Autostrade Valdostane S.p.A."
   },
   {
-   "id": "op:SITAF S.p.A.",
-   "type": "network",
-   "parents": ["road:motorway"],
-   "operator": "SITAF S.p.A."
-  },
-  {
-   "id": "op:SITAF S.p.A.|A32",
-   "type": "network",
-   "parents": ["op:SITAF S.p.A."],
-   "operator": "SITAF S.p.A.",
-   "road": "A32"
-  },
-  {
    "id": "op:Strada dei Parchi S.p.A.",
    "type": "network",
    "parents": ["road:motorway"],
@@ -500,6 +483,10 @@
     ["op:Consorzio per le Autostrade Siciliane", "toll-1.2", "0"],
     ["op:Consorzio per le Autostrade Siciliane", "toll-1.3", "0"],
     ["op:Consorzio per le Autostrade Siciliane", "toll-1.4", "0"],
+    ["op:SITAF S.p.A.", "toll-1.1", "0"],
+    ["op:SITAF S.p.A.", "toll-1.2", "0"],
+    ["op:SITAF S.p.A.", "toll-1.3", "0"],
+    ["op:SITAF S.p.A.", "toll-1.4", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.1", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.2", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.3", "0"],
@@ -608,10 +595,6 @@
     ["op:Società Autostrade Valdostane S.p.A.", "toll-1.2", "0.3"],
     ["op:Società Autostrade Valdostane S.p.A.", "toll-1.3", "0.471"],
     ["op:Società Autostrade Valdostane S.p.A.", "toll-1.4", "0.546"],
-    ["op:SITAF S.p.A.|A32", "toll-1.1", "0.18805"],
-    ["op:SITAF S.p.A.|A32", "toll-1.2", "0.30522"],
-    ["op:SITAF S.p.A.|A32", "toll-1.3", "0.39881"],
-    ["op:SITAF S.p.A.|A32", "toll-1.4", "0.46164"],
     ["op:Strada dei Parchi S.p.A.", "toll-1.1", "0.10714"],
     ["op:Strada dei Parchi S.p.A.", "toll-1.2", "0.13682"],
     ["op:Strada dei Parchi S.p.A.", "toll-1.3", "0.21166"],
@@ -646,9 +629,7 @@
     "s22",
     "s23",
     "s24",
-    "s25",
-    "s26",
-    "s27"
+    "s25"
    ],
    "basis": "estimated"
   }

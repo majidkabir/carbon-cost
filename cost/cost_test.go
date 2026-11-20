@@ -2084,6 +2084,50 @@ func TestItalyOperators(t *testing.T) {
 	}
 }
 
+// Italy: the Superstrada Pedemontana Veneta at its own rate (class 5 EUR
+// 0.43824/km, from Autostrade per l'Italia's toll calculator file), and the
+// open A9 and A12 Roma-Civitavecchia's km at 0 (they're charged at their
+// barriers; these paths pass none).
+func TestItalyOpenSystemsAndSPV(t *testing.T) {
+	date := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
+	spv := [][2]float64{{11.42126, 45.64400}, {11.41409, 45.64137}, {11.40974, 45.63931}, {11.40688, 45.63772}, {11.40447, 45.63620}, {11.40094, 45.63365}, {11.39801, 45.63112}, {11.39582, 45.62890}, {11.39427, 45.62713}, {11.39202, 45.62416}, {11.38972, 45.62026}, {11.38785, 45.61563}, {11.38471, 45.60472}}
+	a9 := [][2]float64{{9.04862, 45.77229}, {9.04486, 45.75946}, {9.04371, 45.75673}, {9.04177, 45.75372}, {9.03770, 45.74871}}
+	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, tc := range []struct {
+		name, op string
+		path     [][2]float64
+		km, rate float64
+	}{{"SPV", "Superstrada Pedemontana Veneta S.p.A.|SPV", spv, 5.4, 0.43824},
+		{"A9", "Autostrade per l'Italia S.p.A.|A9", a9, 2.7, 0},
+		{"A12 Roma-Civitavecchia", "Autostrade per l'Italia S.p.A.|A12|Roma-Civitavecchia", a12, 7.3, 0}} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
+		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
+		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {
+			t.Errorf("%s: the roads data puts %v on %s", tc.name, rk["IT"].MotorwayOp, tc.op)
+		}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var km, amount float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IT" {
+				amount += l.Amount
+				if l.Component == rates.Toll && l.Rate == tc.rate {
+					km += l.Km
+				}
+			}
+		}
+		if (tc.rate > 0 && km < tc.km-0.5) || math.Abs(amount-tc.rate*km) > 0.05 {
+			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
+		}
+	}
+}
+
 // London's Low Emission Zone: lorries over 3.5 t below Euro VI pay GBP 100
 // a day (Euro IV or V) or 300 (older), any hour; Euro VI pays nothing.
 func TestLondonLEZ(t *testing.T) {
@@ -2549,8 +2593,29 @@ func TestMilanBarriers(t *testing.T) {
 	}{
 		{"Terrazzano", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, truck40, 8.40},
 		{"Terrazzano, class B", [][2]float64{{9.0585, 45.5370}, {9.058708, 45.541038}, {9.0589, 45.5450}}, light, 3.60},
-		{"Vimercate", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 4.90},
+		// Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza (km 19.5).
+		{"Vimercate (Agrate Brianza)", [][2]float64{{9.3315, 45.5585}, {9.33303, 45.561395}, {9.3345, 45.5645}}, truck40, 4.90},
+		{"not at Vimercate Sud", [][2]float64{{9.3600, 45.6040}, {9.357957, 45.608418}, {9.3560, 45.6120}}, truck40, 0},
 		{"Sesto San Giovanni", [][2]float64{{9.2590, 45.5510}, {9.263721, 45.55137}, {9.2680, 45.5517}}, truck40, 6.30},
+		// SITAF's A32 (2026): Avigliana 15.90 and Salbertrand 21.70 for class 5.
+		{"A32 Avigliana", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, truck40, 15.90},
+		{"A32 Avigliana, class B", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, light, 6.50},
+		{"A32 Salbertrand", [][2]float64{{6.8710, 45.0600}, {6.866239, 45.058245}, {6.8610, 45.0565}}, truck40, 21.70},
+		// Autostrade per l'Italia's form (2026): A8 Milano Nord 4.60, A9 Como
+		// Grandate 6.00, Tangenziale di Torino Bruere 2.80 and Trofarello 4.90.
+		{"A8 Milano Nord", [][2]float64{{9.0650, 45.5450}, {9.06089, 45.54788}, {9.0570, 45.5505}}, truck40, 4.60},
+		{"A9 Como Grandate", [][2]float64{{9.0480, 45.7700}, {9.04939, 45.77392}, {9.0505, 45.7780}}, truck40, 6.00},
+		{"A9 Como Grandate, class B", [][2]float64{{9.0480, 45.7700}, {9.04939, 45.77392}, {9.0505, 45.7780}}, light, 2.50},
+		{"A55 Bruere", [][2]float64{{7.5390, 45.0790}, {7.54072, 45.08232}, {7.5425, 45.0855}}, truck40, 2.80},
+		{"A55 Trofarello", [][2]float64{{7.7330, 44.9650}, {7.73692, 44.96596}, {7.7410, 44.9670}}, truck40, 4.90},
+		// The Tangenziale's Settimo Torinese toll, collected at the A5's Torino Nord barrier.
+		{"A5 Torino Nord", [][2]float64{{7.7330, 45.1440}, {7.73537, 45.14557}, {7.7380, 45.1470}}, truck40, 3.40},
+		// The A21's open Torino-Villanova stretch, collected at the Villanova barrier.
+		{"A21 Villanova", [][2]float64{{7.9180, 44.9535}, {7.92318, 44.95303}, {7.9280, 44.9525}}, truck40, 2.90},
+		{"A12 Roma Ovest", [][2]float64{{12.2290, 41.8880}, {12.22674, 41.89122}, {12.2245, 41.8945}}, truck40, 6.20},
+		{"A12 Aurelia", [][2]float64{{11.8250, 42.0560}, {11.82428, 42.05929}, {11.8235, 42.0625}}, truck40, 6.20},
+		{"A3 Napoli Sud", [][2]float64{{14.3240, 40.8435}, {14.32797, 40.84184}, {14.3315, 40.8405}}, truck40, 6.10},
+		{"A3 Nocera", [][2]float64{{14.6380, 40.7375}, {14.64118, 40.73637}, {14.6445, 40.7352}}, truck40, 6.10},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

@@ -154,6 +154,21 @@ FREE = {"PL": [
 ]}
 
 
+# Toll motorway OSM tags toll=no: the motorway ways of an "operator|ref"
+# whose every node lies in the box (lon, lat, lon, lat) count as tolled.
+# Two Rome branches whose barrier charges the km from the GRA as closed-
+# system km (Autostrade per l'Italia's route calculator, tools/tables/
+# browser/it-aspi-routes.txt): the Diramazione Roma Nord (A1dir) to the
+# Roma Nord barrier ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km"
+# from Settebagni), most of whose ways OSM tags toll=no, and the A24 to the
+# Roma Est barrier ("Roma Est - Tivoli 5.3 EUR - 21 km" from Settecamini),
+# one carriageway of which OSM tags toll=no for 3 km.
+TOLLED = {"IT": [
+    ("Autostrade per l'Italia S.p.A.|A1dir", (12.50, 41.98, 12.62, 42.145), "A1dir Diramazione Roma Nord, GRA-Roma Nord barrier"),
+    ("Strada dei Parchi S.p.A.|A24", (12.60, 41.91, 12.705, 41.935), "A24 Roma, GRA-Roma Est barrier"),
+]}
+
+
 class Junctions(osmium.SimpleHandler):
     def __init__(self, splits):
         super().__init__()
@@ -182,6 +197,8 @@ class Ways(osmium.SimpleHandler):
         self.split_at = {}
         # FREE stretches: (ref, axis, low, high, label); km left out by label.
         self.free, self.free_km = [], Counter()
+        # TOLLED: (operator|ref, box, label); km counted in by label.
+        self.tolled, self.tolled_km = [], Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -193,6 +210,18 @@ class Ways(osmium.SimpleHandler):
             if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary"):
                 return
             c, f = classify(self.rule, tags), -1
+            if c is None and hw == "motorway" and self.tolled:
+                key = f"{(tags.get('operator') or '').strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
+                boxes = [(box, lab) for k, box, lab in self.tolled if k == key]
+                if boxes:
+                    try:
+                        pts = [(n.lon, n.lat) for n in w.nodes]
+                    except osmium.InvalidLocationError:
+                        return
+                    hit = [lab for (a, b, x1, y1), lab in boxes if pts and all(a <= x <= x1 and b <= y <= y1 for x, y in pts)]
+                    if hit and len(pts) >= 2:
+                        c = "mw"
+                        self.tolled_km[hit[0]] += LineString(pts).length * 111.32 * 0.68
         self.refs[(hw, (tags.get("ref") or "")[:6], c, sec is not None)] += 1
         if c is None:
             return
@@ -289,7 +318,12 @@ def main(cc, src, dst, areas=None):
                 lo, hi = sorted((e[axis], -1e9 if mid[axis] < e[axis] else 1e9))
             h.free.append((ref, axis, lo, hi, label))
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
+    h.tolled = list(TOLLED.get(cc, []))
     h.apply_file(src, locations=True)
+    for key, box, label in h.tolled:
+        if not h.tolled_km[label]:
+            sys.exit(f"{cc}: no toll=no ways of {key} in {box} ({label})")
+        print(cc, "counted as toll motorway (both carriageways):", label, round(h.tolled_km[label], 1), "km")
     for label, km in h.free_km.items():
         print(cc, "left out km (both carriageways):", label, round(km))
     if urban is not None:

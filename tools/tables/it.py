@@ -129,6 +129,9 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 SITAF = "SITAF S.p.A."
+# Open systems priced at their barriers (it_barriers.py): Autostrade per
+# l'Italia's A8 Milano-Varese and A9 Lainate-Como, the Tangenziale di Torino.
+OPEN = ("Autostrade per l'Italia S.p.A.|A8", "Autostrade per l'Italia S.p.A.|A9", "Ivrea Torino Piacenza S.p.A.|A55")
 AXLES = [(2, 2, "B"), (3, 3, "3"), (4, 4, "4"), (5, 0, "5")]
 
 
@@ -313,15 +316,16 @@ def operator_rows(transcribed, fetched, year, own_tables=(CAS,)):
         for k in keys:
             pages[k] = ("image:" + name, vals)
     # The Consorzio per le Autostrade Siciliane's A18 and A20 are priced by
-    # entry and exit in their own table (it_cas.py), Milan's ring roads and
-    # SITAF's A32 at their barriers (it_barriers.py; with its few ways to
-    # the Fréjus tunnel, whose own table prices it): nothing here.
+    # entry and exit in their own table (it_cas.py), Milan's ring roads,
+    # SITAF's A32 (with its few ways to the Fréjus tunnel, whose own table
+    # prices it), the A8, A9 and Tangenziale di Torino at their barriers
+    # (it_barriers.py): nothing here.
     for key in list(own_tables) + [f"{MISE}|{r}" for r in ("A50", "A51", "A52")]:
         for lo, hi, cl in AXLES:
             rows.append(row_for(key, lo, hi, 0))
     for op, ref, sheet, stretch in OPS:
         key = f"{op}|{ref}" if ref else op
-        if op in own_tables:
+        if op in own_tables or key in own_tables:
             continue
         if key in pages and pages[key][0] in USERS_ONLY and sheet:
             pid, vals = pages[key]
@@ -403,7 +407,7 @@ def write(out, valid_from, pl, mo, ops, used, transcribed, fetched, text):
                + text["own"]
                + f"the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them {text['sheets']}, each concession's plain-stretch rate unless it has only mountain stretches; "
                f"{text['aspi']}: class B {pl[1]:.5f}, 3 {pl[2]:.5f}, 4 {pl[3]:.5f}, 5 {pl[4]:.5f} euro per km. "
-               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); open-system stretches other than Milan's ring roads and the A32 charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+               f"Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about {up}% more on ASPI's network (class 5 {mo[4]:.5f}), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); the other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
         "sources": [text["aspi_source"]]
         + [{"title": TITLES[d.removeprefix("inc:")], "url": page_url(fetched, d.removeprefix("inc:"))} for k, d in used.items() if k.startswith("page:") and not d.startswith("image:")]
         + [{"title": IMAGE_TITLES[d[6:]], "url": image_url(transcribed, d[6:])} for k, d in used.items() if k.startswith("page:image:")]
@@ -437,12 +441,12 @@ def main(transcribed, fetched, out):
     valid_from = f"{upd.group(3)}-{MONTHS[upd.group(2)]:02d}-{int(upd.group(1)):02d}"
     pl = [float(v.replace(",", ".")) for v in plain.groups()]
     mo = [float(v.replace(",", ".")) for v in mountain.groups()]
-    ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]), own_tables=(CAS, SITAF))
+    ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]), own_tables=(CAS, SITAF) + OPEN)
     write(out, valid_from, pl, mo, ops, used, transcribed, fetched, {
         "aspi": f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}",
         "aspi_source": {"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"},
         "sheets": "(the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change)",
-        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) and SITAF's A32 Torino-Bardonecchia (an open system: its Avigliana and Salbertrand barriers) at their barriers (it-barriers), not here; "})
+        "own": "the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and the open systems of Milan's ring roads (A50, A51, A52), SITAF's A32 Torino-Bardonecchia, Autostrade per l'Italia's A8 Milano-Varese and A9 Lainate-Como, and the Tangenziale di Torino (A55) at their barriers (it-barriers), not here; "})
 
 
 def sheets(transcribed, out, year):

@@ -2047,7 +2047,7 @@
    "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "54602d3951f259732660c2c6203dea0ebf9b34f4ba7bfcc31a827228d40b92b2",
+   "sha256": "f5e01c7a3c848a2f12cab7290effc38a38975f7f7afc7a4ac74e76831084d8fb",
    "coverage": "partial"
   },
   {
@@ -2066,10 +2066,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads (Milano Serravalle - Milano Tangenziali) and the A32 Torino-Bardonecchia (SITAF)",
+   "name": "Italian open-system barriers: Milan ring roads, A8 Milano-Varese, A9 Lainate-Como, Tangenziale di Torino and A32 Torino-Bardonecchia",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "7c0f8e7fa4b3848a948867a7fb007d7193defedfb72a2bd00ebdfdd51c537c21",
+   "sha256": "23fda224c68d40dcdb7fd8ccc0679de3d923e42db1169b7b63a289c2901c47ec",
    "coverage": "complete"
   },
   {

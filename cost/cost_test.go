@@ -2555,6 +2555,13 @@ func TestMilanBarriers(t *testing.T) {
 		{"A32 Avigliana", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, truck40, 15.90},
 		{"A32 Avigliana, class B", [][2]float64{{7.3990, 45.0960}, {7.393959, 45.094598}, {7.3890, 45.0930}}, light, 6.50},
 		{"A32 Salbertrand", [][2]float64{{6.8710, 45.0600}, {6.866239, 45.058245}, {6.8610, 45.0565}}, truck40, 21.70},
+		// Autostrade per l'Italia's form (2026): A8 Milano Nord 4.60, A9 Como
+		// Grandate 6.00, Tangenziale di Torino Bruere 2.80 and Trofarello 4.90.
+		{"A8 Milano Nord", [][2]float64{{9.0650, 45.5450}, {9.06089, 45.54788}, {9.0570, 45.5505}}, truck40, 4.60},
+		{"A9 Como Grandate", [][2]float64{{9.0480, 45.7700}, {9.04939, 45.77392}, {9.0505, 45.7780}}, truck40, 6.00},
+		{"A9 Como Grandate, class B", [][2]float64{{9.0480, 45.7700}, {9.04939, 45.77392}, {9.0505, 45.7780}}, light, 2.50},
+		{"A55 Bruere", [][2]float64{{7.5390, 45.0790}, {7.54072, 45.08232}, {7.5425, 45.0855}}, truck40, 2.80},
+		{"A55 Trofarello", [][2]float64{{7.7330, 44.9650}, {7.73692, 44.96596}, {7.7410, 44.9670}}, truck40, 4.90},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

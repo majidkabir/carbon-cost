@@ -1,22 +1,35 @@
 """Builds Italy's open-system barrier tolls (it-barriers-<date>.json), each
-a fixed toll per passage: the Milan ring roads' barriers (Milano
-Serravalle - Milano Tangenziali: A50 Terrazzano, A51 Vimercate, A52 Sesto
-San Giovanni), from the operator's tables (fetch.py's it-mise-*.txt, PDFs
-as text), and the A32 Torino-Bardonecchia's (SITAF: Avigliana, Salbertrand;
-the motorway's only toll stations, as it is an open system), from SITAF's
-tariffs page (it-sitaf-barriers.html); the barriers' places from OSM
-(it-barriers-osm.json around Milan, it-barriers-osm-to.json around Turin).
+a fixed toll per passage at a barrier across the motorway:
+- the Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali:
+  A50 Terrazzano, A51 Vimercate, A52 Sesto San Giovanni), from the
+  operator's tables (fetch.py's it-mise-*.txt, PDFs as text), placed at
+  their toll booths in OSM (it-barriers-osm.json);
+- the A32 Torino-Bardonecchia's (SITAF: Avigliana, Salbertrand; the
+  motorway's only toll stations, as it is an open system), from SITAF's
+  tariffs page (it-sitaf-barriers.html);
+- Autostrade per l'Italia's A8 Milano-Varese (Milano Nord, Gallarate Nord)
+  and A9 Lainate-Como (Como Grandate), and the Tangenziale di Torino's
+  (Ivrea Torino Piacenza: Bruere, Falchera, Beinasco, Trofarello), from
+  Autostrade per l'Italia's station-to-station toll form, read in Chrome
+  (browser/it-aspi-barriers.txt: its toll service refuses scripted
+  requests).
+The A32's and ASPI's barriers are placed where Autostrade per l'Italia's
+station file (it-aspi-caselli.json, its traffic site's caselli.json) puts
+their toll point; each must be a barrier there (type BA, on both
+one toll point). The open systems' ramp stations (Lainate, Gallarate, Fino
+Mornasco, Vadò, Settimo Torinese) aren't modelled.
 
 Usage: python3 it_barriers.py fetched/ out-dir -> out-dir/it-barriers-<date>.json
 
 Prices: each Milan table's "Pedaggio all'utenza" (the toll the user pays,
-VAT included, as the main Italian table's rates) of its latest year, and
+VAT included, as the main Italian table's rates) of its latest year,
 SITAF's "A32 Toll Tariffs (effective from <date>)" (VAT included: its
 Avigliana amounts are SITAF's unit rate, ANAS fee and 22% VAT times the
-barrier's 34.47 km), classes B, 3, 4 and 5. Places: the centre of the
-barrier's toll booths in OSM, by their name; the A51's Vimercate booths
-carry none, so they are the booths within 1 km of the junction OSM names
-Vimercate Sud.
+barrier's 34.47 km) and the form's tolls (the capture's year; its
+Avigliana must equal SITAF's page), classes B, 3, 4 and 5. Milan's places:
+the centre of the barrier's toll booths in OSM, by their name; the A51's
+Vimercate booths carry none, so they are the booths within 1 km of the
+junction OSM names Vimercate Sud.
 """
 import html, json, os, re, sys
 
@@ -30,12 +43,24 @@ BARRIERS = [
     ("it-mise-sesto", "A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier", "A52", "Sesto San Giovanni", None),
 ]
 CLASSES = ["A", "B", "3", "4", "5"]
-# SITAF's barriers: (name on its page, name, the booths' name in OSM).
+# SITAF's barriers: (name on its page, name, network and station in ASPI's file).
 SITAF = [
-    ("Avigliana", "A32 Torino-Bardonecchia, Avigliana barrier", "Barriera Avigliana"),
-    ("Salbertrand", "A32 Torino-Bardonecchia, Salbertrand barrier", "Barriera Salbertrand"),
+    ("Avigliana", "A32 Torino-Bardonecchia, Avigliana barrier", (24, 191)),
+    ("Salbertrand", "A32 Torino-Bardonecchia, Salbertrand barrier", (24, 192)),
 ]
 SITAF_PAGE = "https://www.sitaf.it/en/tariffs-and-passes-a32/"
+# The barriers read from Autostrade per l'Italia's form: (network, station) -> name.
+ASPI = {
+    (8, 1): "A8 Milano-Varese, Milano Nord barrier",
+    (8, 10): "A8 Milano-Varese, Gallarate Nord barrier",
+    (8, 3): "A9 Lainate-Como, Como Grandate barrier",
+    (9, 417): "Tangenziale di Torino (A55), Bruere barrier",
+    (9, 418): "Tangenziale di Torino (A55), Falchera barrier",
+    (9, 468): "Tangenziale di Torino (A55), Beinasco barrier",
+    (9, 416): "Tangenziale di Torino (A55), Trofarello barrier",
+}
+ASPI_FORM = "https://viabilita.autostrade.it/it/viabilita/traffico"
+CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-barriers.txt")
 
 
 def tolls(text, year=None):
@@ -71,6 +96,30 @@ def sitaf_tolls(page):
     return out, int(m.group(1))
 
 
+def capture(path=CAPTURE):
+    """The form's tolls by (network, station) and class; the year read."""
+    lines = open(path, encoding="utf-8").read().splitlines()
+    m = next((re.search(r"read on (\d{4})-\d\d-\d\d", l) for l in lines if l.startswith("#") and "read on" in l), None)
+    if not m:
+        sys.exit("it-aspi-barriers: no 'read on <date>' line")
+    out = {}
+    for l in lines:
+        r = re.fullmatch(r"(\d+) (\d+) \S+ (.+?) " + " ".join([r"(\d+(?:\.\d)?)"] * 5), l)
+        if r:
+            out[(int(r.group(1)), int(r.group(2)))] = (r.group(3), dict(zip(CLASSES, map(float, r.groups()[3:]))))
+    return out, int(m.group(1))
+
+
+def aspi_place(stations, key):
+    """A barrier's toll point in ASPI's station file: a barrier (type BA)
+    with one toll point."""
+    x = stations.get(key)
+    if not x or (x.get("entrata") or {}).get("type") != "BA" or len(x["tollingIntersections"]) != 1:
+        sys.exit(f"it-aspi-caselli: station {key} isn't a barrier with one toll point")
+    t = x["tollingIntersections"][0]
+    return t["lon"], t["lat"]
+
+
 def classes(t):
     return [{"min_kg": 3501, "min_axles": 5, "rate": t["5"]}, {"min_kg": 3501, "min_axles": 4, "rate": t["4"]},
             {"min_kg": 3501, "min_axles": 3, "rate": t["3"]}, {"min_kg": 3501, "rate": t["B"]}]
@@ -91,8 +140,8 @@ def place(osm, booth, junction):
 
 def main(fetched, out):
     osm = json.load(open(os.path.join(fetched, "it-barriers-osm.json")))
-    osm_to = json.load(open(os.path.join(fetched, "it-barriers-osm-to.json")))
-    points, years, notes, a32 = [], set(), [], []
+    stations = {(x["c_ret"], x["c_stz"]): x for x in json.load(open(os.path.join(fetched, "it-aspi-caselli.json"), encoding="utf-8"))["results"]}
+    points, years, notes, a32, aspi = [], set(), [], [], []
     for fid, name, ref, booth, junction in BARRIERS:
         t, year = tolls(open(os.path.join(fetched, fid + ".txt"), encoding="utf-8").read())
         years.add(year)
@@ -102,36 +151,51 @@ def main(fetched, out):
         print(name, t, round(lat, 6), round(lon, 6))
     st, year = sitaf_tolls(open(os.path.join(fetched, "it-sitaf-barriers.html"), encoding="utf-8", errors="replace").read())
     years.add(year)
-    for b, name, booth in SITAF:
-        lon, lat = place(osm_to, booth, None)
+    for b, name, key in SITAF:
+        lon, lat = aspi_place(stations, key)
         points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(st[b])})
         a32.append(f"{b} class 5 EUR {st[b]['5']:.2f}")
         print(name, st[b], round(lat, 6), round(lon, 6))
+    form, year = capture()
+    years.add(year)
+    if form.get(SITAF[0][2], ("", {}))[1] != st["Avigliana"]:
+        sys.exit(f"it-aspi-barriers: Avigliana {form.get(SITAF[0][2])} isn't SITAF's {st['Avigliana']}")
+    for key, name in ASPI.items():
+        if key not in form:
+            sys.exit(f"it-aspi-barriers: no tolls for {key} {name}")
+        lon, lat = aspi_place(stations, key)
+        t = form[key][1]
+        points.append({"name": name, "lat": round(lat, 6), "lon": round(lon, 6), "rate": 0, "classes": classes(t)})
+        aspi.append(f"{name.split(', ')[1].removesuffix(' barrier')} class 5 EUR {t['5']:.2f}")
+        print(name, t, round(lat, 6), round(lon, 6))
     if len(years) != 1:
         sys.exit(f"barrier tables of different years {sorted(years)}")
-    extract = min(o.get("osm3s", {}).get("timestamp_osm_base", "")[:10] for o in (osm, osm_to))
-    write(out, years.pop(), points, notes, a32, extract)
+    write(out, years.pop(), points, notes, a32, aspi, osm.get("osm3s", {}).get("timestamp_osm_base", "")[:10])
 
 
-def write(out, year, points, notes, a32, osm_extract):
+def write(out, year, points, notes, a32, aspi, osm_extract):
     tb = {
         "country": "IT", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True,
         "osm_extract": osm_extract,
-        "name": "Italian open-system barriers: Milan ring roads (Milano Serravalle - Milano Tangenziali) and the A32 Torino-Bardonecchia (SITAF)",
+        "name": "Italian open-system barriers: Milan ring roads, A8 Milano-Varese, A9 Lainate-Como, Tangenziale di Torino and A32 Torino-Bardonecchia",
         "law": (f"A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January {year}. "
                 f"Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: "
                 + "; ".join(notes) + ". The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. "
                 "SITAF's tolls at the A32's two barriers, the open motorway's only toll stations (Avigliana for Rivoli-Susa, Salbertrand for Susa-Bardonecchia): "
                 + "; ".join(a32) + " (Avigliana's are SITAF's unit rate per km, ANAS fee and 22% VAT times the barrier's 34.47 km, rounded to 10 cents). "
-                "Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction)."),
+                "Autostrade per l'Italia's open A8 Milano-Varese and A9 Lainate-Como and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls its station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): "
+                + "; ".join(aspi) + ". Their ramp stations (Lainate, Gallarate, Fino Mornasco, Vadò, Settimo Torinese) aren't modelled. "
+                "The Milan barriers are placed at the centre of their toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction), the others at the toll point Autostrade per l'Italia's station file gives them."),
         "sources": [{"title": f"Milano Serravalle: tariffe e pedaggi 2022-2026, {n}", "url": u} for n, u in (
             ("barriera di Terrazzano (A50)", "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Terrazzano_Tang_OVEST_MI2.pdf"),
             ("barriera di Vimercate (A51)", "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Vimercate_Tang_EST_MI6.pdf"),
             ("barriera di Sesto San Giovanni (A52)", "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Sesto_SG_Tang_NORD_MI1.pdf"))]
         + [{"title": f"SITAF: A32 tariffs and passes (A32 toll tariffs effective from 01/01/{year})", "url": SITAF_PAGE},
-           {"title": "OpenStreetMap (Overpass API): toll booths and the Vimercate junctions around Milan, toll booths around Turin", "url": "https://www.openstreetmap.org/"}],
+           {"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)", "url": ASPI_FORM},
+           {"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"},
+           {"title": "OpenStreetMap (Overpass API): toll booths and the Vimercate junctions around Milan", "url": "https://www.openstreetmap.org/"}],
         "vehicles": "Classes B (two axles), 3, 4 and 5 (five axles or more)", "min_kg": 3501,
-        "tolled_roads": "A50, A51 and A52 (Milan ring roads): the barriers of Terrazzano, Vimercate and Sesto San Giovanni; A32 Torino-Bardonecchia: the barriers of Avigliana and Salbertrand.",
+        "tolled_roads": "A50, A51 and A52 (Milan ring roads): the barriers of Terrazzano, Vimercate and Sesto San Giovanni; A32 Torino-Bardonecchia: the barriers of Avigliana and Salbertrand; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello.",
         "point_match_km": 0.1, "toll_points": points, "rows": [],
     }
     os.makedirs(out, exist_ok=True)

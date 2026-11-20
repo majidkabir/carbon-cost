@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Autostrada del Brennero (A22), Asti-Cuneo (A33), Ivrea Torino Piacenza (A5, A55), Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states), Autovia Padana (A21 Piacenza-Brescia), Brebemi (A35), Brescia-Padova (A4 Brescia-Padova, A31), CAV (A4, A57, Passante di Mestre), Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states), Pedemontana Lombarda (A36, A59, A60), RAV (A5 Aosta-Courmayeur), SALT (A15; its 2025 unit rate raised by the change its notice states), SAT (A12 Livorno-Civitavecchia), SATAP (A4 Torino-Milano), Ivrea Torino Piacenza (A21), SAV (A5 Quincinetto-Aosta), Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states) at the 2026 rates their own pages give (with VAT and the ANAS fee); the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and Milan's ring roads (A50, A51, A52) and SITAF's A32 Torino-Bardonecchia (an open system: its Avigliana and Salbertrand barriers) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); open-system stretches other than Milan's ring roads and the A32 charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
+  "method": "Estimate. Italian motorway tolls are each concession's unit rate per km, by vehicle class (A, B by height for two axles; 3, 4, 5 by axles) and by plain or mountain stretch, plus the ANAS surcharge (law 102/2009 art. 19 c. 9-bis), times the km between toll stations, plus 22% VAT, rounded to 10 cents (the concession agreements with the Ministry, under the State's laws and CIPE resolutions). No station-to-station table can be fetched, so the route's km on toll motorways (OpenStreetMap ways tagged toll=yes) are priced by the operator OpenStreetMap gives the ways: Autostrada del Brennero (A22), Asti-Cuneo (A33), Ivrea Torino Piacenza (A5, A55), Autostrada dei Fiori (A6; its 2025 unit rate raised by the change its notice states), Autovia Padana (A21 Piacenza-Brescia), Brebemi (A35), Brescia-Padova (A4 Brescia-Padova, A31), CAV (A4, A57, Passante di Mestre), Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states), Pedemontana Lombarda (A36, A59, A60), RAV (A5 Aosta-Courmayeur), SALT (A15; its 2025 unit rate raised by the change its notice states), SAT (A12 Livorno-Civitavecchia), SATAP (A4 Torino-Milano), Ivrea Torino Piacenza (A21), SAV (A5 Quincinetto-Aosta), Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states) at the 2026 rates their own pages give (with VAT and the ANAS fee); the Consorzio per le Autostrade Siciliane's A18 and A20 by entry and exit in their own table (it-cas), and the open systems of Milan's ring roads (A50, A51, A52), SITAF's A32 Torino-Bardonecchia, Autostrade per l'Italia's A8 Milano-Varese and A9 Lainate-Como, and the Tangenziale di Torino (A55) at their barriers (it-barriers), not here; the other concessions with a published sheet at their unit rate for 2025, ANAS surcharge and VAT included, as their sheets sent to the Ministry of Infrastructure and Transport (Directive (EU) 2022/362 art. 11, published March 2025) state them (the year's change, 1.5% on most networks in 2026, isn't applied to them: the Ministry's note couldn't be found, and their own pages state neither the year's rates nor the change), each concession's plain-stretch rate unless it has only mountain stretches; Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from 2026-01-01: class B 0.08054, 3 0.10615, 4 0.16108, 5 0.19034 euro per km. Pedemontana Lombarda's classes are its own (3 trucks up to three axles, 4 articulated or with trailer). Mountain stretches cost about 18% more on ASPI's network (class 5 0.22437), SATAP's A4 east of Novara Est (its tariff B) and CAV's Passante di Mestre and A57 are priced at their own rates (placed by the motorway junctions in OpenStreetMap); the other open-system stretches charge fixed tolls, and the rounding isn't modelled, so the true toll can differ.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-2026-01-01.json"
@@ -245,6 +245,39 @@
    "operator": "SITAF S.p.A."
   },
   {
+   "id": "op:Autostrade per l'Italia S.p.A.",
+   "type": "network",
+   "parents": ["road:motorway"],
+   "operator": "Autostrade per l'Italia S.p.A."
+  },
+  {
+   "id": "op:Autostrade per l'Italia S.p.A.|A8",
+   "type": "network",
+   "parents": ["op:Autostrade per l'Italia S.p.A."],
+   "operator": "Autostrade per l'Italia S.p.A.",
+   "road": "A8"
+  },
+  {
+   "id": "op:Autostrade per l'Italia S.p.A.|A9",
+   "type": "network",
+   "parents": ["op:Autostrade per l'Italia S.p.A."],
+   "operator": "Autostrade per l'Italia S.p.A.",
+   "road": "A9"
+  },
+  {
+   "id": "op:Ivrea Torino Piacenza S.p.A.",
+   "type": "network",
+   "parents": ["road:motorway"],
+   "operator": "Ivrea Torino Piacenza S.p.A."
+  },
+  {
+   "id": "op:Ivrea Torino Piacenza S.p.A.|A55",
+   "type": "network",
+   "parents": ["op:Ivrea Torino Piacenza S.p.A."],
+   "operator": "Ivrea Torino Piacenza S.p.A.",
+   "road": "A55"
+  },
+  {
    "id": "op:Milano Serravalle - Milano Tangenziali S.p.A.",
    "type": "network",
    "parents": ["road:motorway"],
@@ -282,12 +315,6 @@
    "type": "network",
    "parents": ["road:motorway"],
    "operator": "Autostrada Asti-Cuneo S.p.A."
-  },
-  {
-   "id": "op:Ivrea Torino Piacenza S.p.A.",
-   "type": "network",
-   "parents": ["road:motorway"],
-   "operator": "Ivrea Torino Piacenza S.p.A."
   },
   {
    "id": "op:Autostrada dei Fiori S.p.A.",
@@ -487,6 +514,18 @@
     ["op:SITAF S.p.A.", "toll-1.2", "0"],
     ["op:SITAF S.p.A.", "toll-1.3", "0"],
     ["op:SITAF S.p.A.", "toll-1.4", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A8", "toll-1.1", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A8", "toll-1.2", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A8", "toll-1.3", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A8", "toll-1.4", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A9", "toll-1.1", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A9", "toll-1.2", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A9", "toll-1.3", "0"],
+    ["op:Autostrade per l'Italia S.p.A.|A9", "toll-1.4", "0"],
+    ["op:Ivrea Torino Piacenza S.p.A.|A55", "toll-1.1", "0"],
+    ["op:Ivrea Torino Piacenza S.p.A.|A55", "toll-1.2", "0"],
+    ["op:Ivrea Torino Piacenza S.p.A.|A55", "toll-1.3", "0"],
+    ["op:Ivrea Torino Piacenza S.p.A.|A55", "toll-1.4", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.1", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.2", "0"],
     ["op:Milano Serravalle - Milano Tangenziali S.p.A.|A50", "toll-1.3", "0"],

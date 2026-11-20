@@ -1,0 +1,14 @@
+# Autostrade per l'Italia: the toll at Italian open-system barriers, from its "Calcola il pedaggio da casello a casello" form (Info viabilità).
+# Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il pedaggio da casello a casello"; a barrier as the departure, no arrival).
+# The form's toll service (https://d27zlgkawwz6vy.cloudfront.net/sitoaspi-prod/tolling/) refuses scripted requests (status 403), so the page was opened in Chrome and each barrier's tolls read on 2026-11-20.
+# Stations as the site's station file names them (https://viabilita.autostrade.it/json/caselli.json): network c_ret, station c_stz, road. Tolls in euro by class (A, B, 3, 4, 5 axles), as the form shows them.
+# Avigliana (SITAF) is read as a check: SITAF's own tariffs page gives the same amounts.
+network station road name A B 3 4 5
+8 1 A08 Milano Nord 1.9 1.9 2.6 3.9 4.6
+8 10 A08 Gallarate Nord 1.7 1.7 2.3 3.5 4.1
+8 3 A09 Como Grandate 2.5 2.5 3.3 5.1 6.0
+9 417 T03 Bruere 1.5 1.5 1.6 2.4 2.8
+9 418 T03 Falchera 1.5 1.5 2.2 3.4 3.9
+9 468 T05 Beinasco 1.7 1.7 2.5 3.7 4.3
+9 416 T05 Trofarello 1.9 2.0 2.8 4.3 4.9
+24 191 A32 Avigliana 5.5 6.5 10.5 13.7 15.9

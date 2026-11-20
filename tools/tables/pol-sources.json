@@ -2,21 +2,33 @@
  "about": "x",
  "sources": [
   {
-   "id": "bf-routes",
+   "id": "bf-js-main",
    "table": "x",
-   "url": "https://www.brittanyferriesfreight.com/api/routes",
+   "url": "https://www.brittanyferriesfreight.com/main.22c6c92b9bd6282e.js",
    "what": "x"
   },
   {
-   "id": "bf-tt",
+   "id": "bf-js-common",
    "table": "x",
-   "url": "https://www.brittanyferriesfreight.com/api/timetables?country=GB&departurePortCode=GBPME&arrivalPortCode=FROUI",
+   "url": "https://www.brittanyferriesfreight.com/common.d1ba5b6498375d6d.js",
    "what": "x"
   },
   {
-   "id": "bf-page",
+   "id": "bf-js-344",
    "table": "x",
-   "url": "https://www.brittanyferriesfreight.com/en/ferry-routes/timetables",
+   "url": "https://www.brittanyferriesfreight.com/344.57517863daa675da.js",
+   "what": "x"
+  },
+  {
+   "id": "bf-js-427",
+   "table": "x",
+   "url": "https://www.brittanyferriesfreight.com/427.8d9cbcbd21ac1b4f.js",
+   "what": "x"
+  },
+  {
+   "id": "bf-js-430",
+   "table": "x",
+   "url": "https://www.brittanyferriesfreight.com/430.37506ee22ebebebc.js",
    "what": "x"
   }
  ]

@@ -2,6 +2,7 @@
 # Page: https://viabilita.autostrade.it/it/viabilita/traffico (form "Calcola il pedaggio da casello a casello"; a barrier as the departure, no arrival).
 # The form's toll service (https://d27zlgkawwz6vy.cloudfront.net/sitoaspi-prod/tolling/) refuses scripted requests (status 403), so the page was opened in Chrome and each barrier's tolls read on 2026-11-20.
 # Stations as the site's station file names them (https://viabilita.autostrade.it/json/caselli.json): network c_ret, station c_stz, road. Tolls in euro by class (A, B, 3, 4, 5 axles), as the form shows them.
+# Tarquinia (SAT, network 35) is the barrier of SAT's open A12 Civitavecchia-Tarquinia stretch (the station file's road A92); Autostrade per l'Italia's route calculator charges Tarquinia-Cerveteri as "Tarquinia 2.9 EUR - 5 km" and the Aurelia barrier's 6.20 (read 2026-11-20).
 # Avigliana (SITAF) is read as a check: SITAF's own tariffs page gives the same amounts.
 # Settimo Torinese is the Tangenziale di Torino's toll at the A5's Torino Nord barrier (its toll points are there): Ivrea Torino Piacenza's toll calculator (https://www.itpspa.it/en/?p=8466) gives Torino Nord-Settimo Nord exactly these amounts, and Torino Nord-Quincinetto as Settimo Nord-Quincinetto plus these (2026-11-20).
 # Villanova (network 34, the open station beside the A21's closed Villanova barrier) is the toll of the open Torino-Villanova stretch, collected at that barrier: Ivrea Torino Piacenza's toll calculator charges Villanova B.-Asti Ovest class 5 EUR 7.90 (these 2.90 and the km), and Villanova B.-Felizzano as Villanova B.-Asti Ovest plus Asti Ovest-Felizzano, to 10 cents (2026-11-20).
@@ -19,4 +20,5 @@ network station road name A B 3 4 5
 12 3 A12 Aurelia 2.6 2.6 3.5 5.3 6.2
 6 1 A03 Barriera Di Napoli Sud 2.3 2.4 4.2 5.3 6.1
 6 11 A03 Nocera Barriera 2.3 2.4 4.2 5.3 6.1
+35 308 A92 Tarquinia 1.1 1.2 1.6 2.5 2.9
 24 191 A32 Avigliana 5.5 6.5 10.5 13.7 15.9

@@ -64,6 +64,7 @@ ASPI = {
     (12, 3): "A12 Roma-Civitavecchia, Aurelia barrier",
     (6, 1): "A3 Napoli-Salerno, Napoli Sud barrier",
     (6, 11): "A3 Napoli-Salerno, Nocera barrier",
+    (35, 308): "A12 Civitavecchia-Tarquinia, Tarquinia barrier",
 }
 # Tolls read from the form charged at another station's barrier: (tolls'
 # network and station, the barrier's network and station, name). The
@@ -92,6 +93,9 @@ CLOSED = [
     ((1, 333), "Autostrade per l'Italia S.p.A.|A11", "A11 Firenze-Pisa, Firenze Ovest barrier"),
     ((1, 742), "Autostrade per l'Italia S.p.A.|A14", "A14 Bologna-Taranto, Taranto Nord barrier"),
     ((1, 521), "Autostrade per l'Italia S.p.A.|A27", "A27 Venezia-Belluno, Venezia barrier"),
+    ((1, 780), "Autostrade per l'Italia S.p.A.|A16", "A16 Napoli-Canosa, Napoli Est barrier"),
+    ((1, 783), "Autostrade per l'Italia S.p.A.|A30", "A30 Caserta-Salerno, Salerno barrier"),
+    ((1, 681), "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "A22 Brennero-Modena, Brennero barrier"),
 ]
 CLOSED_CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-closed-barriers.txt")
 
@@ -281,16 +285,16 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=()):
         name += ", A32 Torino-Bardonecchia"
         roads += "; A32 Torino-Bardonecchia: the barriers of Avigliana and Salbertrand"
     if aspi:
-        law += ("Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): "
+        law += ("Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, SAT's open A12 Civitavecchia-Tarquinia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): "
                 + "; ".join(aspi) + ". Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)", "url": ASPI_FORM})
-        name += ", A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia, A3 Napoli-Salerno, Tangenziale di Torino"
-        roads += "; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier; A21 Torino-Villanova: its toll at the Villanova barrier"
+        name += ", A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino"
+        roads += "; A8 Milano-Varese: Milano Nord and Gallarate Nord; A9 Lainate-Como: Como Grandate; A12 Roma-Civitavecchia: Roma Ovest and Aurelia; A12 Civitavecchia-Tarquinia (SAT): Tarquinia; A3 Napoli-Salerno: Napoli Sud and Nocera; Tangenziale di Torino (A55): Bruere, Falchera, Beinasco and Trofarello, and its Settimo Torinese toll at the A5's Torino Nord barrier; A21 Torino-Villanova: its toll at the Villanova barrier"
     if closed:
         law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
                 + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
-        name += ", closed-system barriers (Milan, Rome, Florence, Taranto, Venice)"
+        name += ", closed-system barriers (Milan, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     law += "Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5)."
     sources.append({"title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)", "url": "https://viabilita.autostrade.it/json/caselli.json"})

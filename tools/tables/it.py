@@ -30,6 +30,7 @@ OPS = [
     ("Superstrada Pedemontana Veneta S.p.A.", "", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A26|Lago Maggiore", "", ""),
     ("Autostrada del Brennero S.p.A.", "", "a22-brennero", ""),
+    ("Autostrada del Brennero S.p.A.", "A22|Brennero-Affi", "a22-brennero", ""),
     ("Autostrada Asti-Cuneo S.p.A.", "", "asti-cuneo", ""),
     ("Ivrea Torino Piacenza S.p.A.", "", "", ""),
     ("Autostrada dei Fiori S.p.A.", "", "autostrada-dei-fiori-a6", ""),
@@ -69,6 +70,7 @@ PAGES = [
     ("it-asti-cuneo", r"RATE B \(mountains\)", ["Autostrada Asti-Cuneo S.p.A."]),
     ("it-sav", r"MOUNTAIN TARIFF", ["Società Autostrade Valdostane S.p.A."]),
     ("it-a22", r"pianura", ["Autostrada del Brennero S.p.A."]),
+    ("it-a22", r"montagna", ["Autostrada del Brennero S.p.A.|A22|Brennero-Affi"]),
     ("it-autovia-padana", r"A21 PIACENZA-BRESCIA AND FIORENZUOLA D.ARDA BRANCH .A. FARES", ["Autovia Padana S.p.A."]),
 ]
 # Concessions priced at the unit rate Autostrade per l'Italia's toll
@@ -133,7 +135,7 @@ IMAGE_TITLES = {"it-cav-2026": "CAV: toll rates (unit rates per km by section, A
                 "it-rav-2026": "RAV: unit rates per km from 1 January (A5 Aosta-Courmayeur, mountain; VAT and ANAS fee included), in its service charter (PDF, page 11; transcribed)",
                 "it-a4bspd-2026": "Autostrada Brescia Verona Vicenza Padova: unit rates per km from 1 January (A4, A31; excluding VAT, ANAS quota apart; an image in the page, transcribed)"}
 PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:it-rav-2026": "RAV (A5 Aosta-Courmayeur)", "image:it-a4bspd-2026": "Brescia-Padova (A4 Brescia-Padova, A31)", "it-satap-a4": "SATAP (A4 Torino-Milano)", "it-itp-a21": "Ivrea Torino Piacenza (A21)", "it-itp-a5": "Ivrea Torino Piacenza (A5, A55)",
-              "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22)",
+              "it-asti-cuneo": "Asti-Cuneo (A33)", "it-sav": "SAV (A5 Quincinetto-Aosta)", "it-a22": "Autostrada del Brennero (A22; Brennero-Affi at its mountain rate, placed by the Affi junction in OpenStreetMap)",
               "it-autovia-padana": "Autovia Padana (A21 Piacenza-Brescia)",
               "it-pedemontana-rates": "Pedemontana Lombarda (A36, A59, A60)",
               "it-sat-pedaggio": "SAT (A12 Livorno-Civitavecchia)",
@@ -195,7 +197,7 @@ def page_rates(fetched, pid, row, year):
         mo, pl = re.search(r"MONTAGNA", t), re.search(r"PIANURA", t)
         if [r[0] for r in rows] != list("AB345") * 2 or not mo or not pl or mo.start() > pl.start():
             return None, "mountain and plain rows not found"
-        got = {r[0]: float(r[5].replace(",", ".")) for r in rows[5:]}
+        got = {r[0]: float(r[5].replace(",", ".")) for r in (rows[:5] if re.search("montagna", row, re.I) else rows[5:])}
         return [got[c] for c in "AB345"], ""
     head = re.search(r"VEHICLE CLASS(?:ES)? A B 3 4 5", t, re.I)
     if not head:

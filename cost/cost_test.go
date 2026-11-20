@@ -2049,10 +2049,11 @@ func TestItalyEstimate(t *testing.T) {
 	}
 }
 
-// Italy by concession: km on Autostrada del Brennero's A22 at its 2026
-// plain-stretch rate from its tariff PDF (class 5 0.15607, VAT and ANAS
-// quotas included), km on ASPI's A1 at ASPI's 2026 rate (0.19034); the
-// A22 line names the operator.
+// Italy by concession: km on Autostrada del Brennero's A22 south of
+// Bolzano at its 2026 mountain rate from its tariff PDF (class 5 0.18378,
+// VAT and ANAS quotas included: the A22 is a mountain stretch from the
+// Brenner to Affi), km on ASPI's A1 at ASPI's 2026 rate (0.19034); the A22
+// line names the operator.
 func TestItalyOperators(t *testing.T) {
 	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
@@ -2074,12 +2075,12 @@ func TestItalyOperators(t *testing.T) {
 	for _, l := range r.Lines {
 		if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll {
 			got[l.Rate] += l.Km
-			if l.Rate == 0.15607 && !strings.Contains(l.Section, "Autostrada del Brennero") {
+			if l.Rate == 0.18378 && !strings.Contains(l.Section, "Autostrada del Brennero") {
 				t.Errorf("A22 line section %q", l.Section)
 			}
 		}
 	}
-	if got[0.19034] < 6 || got[0.15607] < 5 || len(got) != 2 {
+	if got[0.19034] < 6 || got[0.18378] < 5 || len(got) != 2 {
 		t.Errorf("IT km by rate %v, lines %v", got, r.Lines)
 	}
 }
@@ -2106,6 +2107,8 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	a1 := [][2]float64{{14.32052, 40.84595}, {14.31728, 40.84753}, {14.31627, 40.84938}, {14.31656, 40.85080}, {14.31835, 40.85379}, {14.31827, 40.85640}, {14.32146, 40.86867}, {14.32133, 40.87060}, {14.32037, 40.87505}, {14.31759, 40.88641}, {14.31749, 40.88860}, {14.32774, 40.95543}, {14.32782, 40.95822}, {14.32650, 40.97333}}
 	teramo := [][2]float64{{13.71677, 42.59674}, {13.71396, 42.59985}, {13.71346, 42.60339}, {13.71463, 42.60623}, {13.71807, 42.60906}, {13.72154, 42.61020}, {13.72448, 42.61041}, {13.72767, 42.60996}, {13.73647, 42.60737}, {13.74015, 42.60702}, {13.74501, 42.60752}, {13.74855, 42.60865}, {13.75310, 42.61139}, {13.75587, 42.61436}, {13.75735, 42.61728}, {13.75767, 42.61922}, {13.75727, 42.62163}, {13.75495, 42.62588}, {13.74640, 42.63498}, {13.73632, 42.64166}, {13.72554, 42.65267}, {13.72363, 42.65562}, {13.72321, 42.65793}, {13.72394, 42.65995}, {13.72756, 42.66319}, {13.72954, 42.66586}, {13.73237, 42.66733}, {13.73665, 42.66755}}
 	a34 := [][2]float64{{13.43648, 45.86547}, {13.45741, 45.87684}, {13.46058, 45.87977}, {13.47062, 45.89087}, {13.47317, 45.89288}, {13.49408, 45.90069}, {13.50052, 45.90187}, {13.52317, 45.90112}, {13.53671, 45.90317}, {13.58469, 45.90476}, {13.58887, 45.90610}, {13.60216, 45.91533}, {13.60761, 45.91774}}
+	// The A22 south of the Brennero barrier, its mountain stretch.
+	a22 := [][2]float64{{11.44990, 46.87999}, {11.47687, 46.87052}, {11.47977, 46.86963}}
 	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
 	rx, err := roads.Default()
 	if err != nil {
@@ -2125,7 +2128,8 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		{"A4 Torino to the Rondissone barrier", "SATAP S.p.A.|A4", a4, 23.8, 0.33006},
 		{"A1 Napoli to the Napoli Nord barrier", "Autostrade per l'Italia S.p.A.|A1", a1, 14.3, 0.19034},
 		{"A24 from the Teramo barrier", "Strada dei Parchi S.p.A.|A24", teramo, 12.3, 0.25161},
-		{"A34 from the Villesse barrier", "Società Autostrade Alto Adriatico S.p.A.|A34", a34, 15.2, 0.18898}} {
+		{"A34 from the Villesse barrier", "Società Autostrade Alto Adriatico S.p.A.|A34", a34, 15.2, 0.18898},
+		{"A22 Brennero-Affi", "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", a22, 2.4, 0.18378}} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
 		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
 		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {
@@ -2642,6 +2646,7 @@ func TestMilanBarriers(t *testing.T) {
 		{"A12 Aurelia", [][2]float64{{11.8250, 42.0560}, {11.82428, 42.05929}, {11.8235, 42.0625}}, truck40, 6.20},
 		{"A3 Napoli Sud", [][2]float64{{14.3240, 40.8435}, {14.32797, 40.84184}, {14.3315, 40.8405}}, truck40, 6.10},
 		{"A3 Nocera", [][2]float64{{14.6380, 40.7375}, {14.64118, 40.73637}, {14.6445, 40.7352}}, truck40, 6.10},
+		{"A12 Tarquinia", [][2]float64{{11.7250, 42.2600}, {11.72785, 42.25695}, {11.7305, 42.2540}}, truck40, 2.90},
 		// Closed-system barriers: the form's toll to the next station less
 		// the stations' km apart at the motorway's rate (Milano Sud-Lodi
 		// 6.20 = 3.65 + 13.4 km x 0.19034, to the cent).
@@ -2651,6 +2656,8 @@ func TestMilanBarriers(t *testing.T) {
 		{"A4 Milano Est", [][2]float64{{9.2645, 45.5560}, {9.26845, 45.5562}, {9.2725, 45.5564}}, truck40, 2.70},
 		{"A24 Roma Est", [][2]float64{{12.6995, 41.9258}, {12.70355, 41.92609}, {12.7075, 41.9263}}, truck40, 4.17},
 		{"A27 Venezia", [][2]float64{{12.2830, 45.5730}, {12.28397, 45.57661}, {12.2850, 45.5800}}, truck40, 5.20},
+		{"A16 Napoli Est", [][2]float64{{14.4670, 40.9155}, {14.47088, 40.91625}, {14.4750, 40.9170}}, truck40, 4.03},
+		{"A22 Brennero", [][2]float64{{11.4335, 46.8880}, {11.4348, 46.88512}, {11.4360, 46.8820}}, truck40, 3.08},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

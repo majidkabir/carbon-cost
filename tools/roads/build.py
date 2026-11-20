@@ -183,7 +183,7 @@ TOLLED = {"IT": [
     ("Autostrade per l'Italia S.p.A.|A26", (8.42, 45.774, 8.55, 45.96), "A26 Gravellona Toce-Lago Maggiore", "Lago Maggiore"),
     ("SATAP S.p.A.|A4", (7.70, 45.11, 7.97, 45.245), "A4 Torino-Rondissone barrier", None),
     ("Autostrade per l'Italia S.p.A.|A1", (14.28, 40.84, 14.34, 40.98), "A1 Napoli-Napoli Nord barrier", None),
-    ("Strada dei Parchi S.p.A.|A24", (13.716, 42.596, 13.75, 42.67), "A24 Teramo barrier-Teramo", None),
+    ("Strada dei Parchi S.p.A.|A24", (13.716, 42.596, 13.76, 42.67), "A24 Teramo barrier-Teramo", None),
     ("Società Autostrade Alto Adriatico S.p.A.|A34", (13.43, 45.86, 13.61, 45.92), "A34 Villesse barrier-Gorizia", None),
     ("Società Autostrade Alto Adriatico S.p.A.|A4", (13.58, 45.77, 13.645, 45.802), "A4 Trieste Lisert barrier-Sistiana", None),
 ]}

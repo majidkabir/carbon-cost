@@ -59,7 +59,7 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
   the terminals, as polsca.py and dk_bornholm.py place them; TT-Line's
   Travemünde and Rostock at the far end of its lines from Trelleborg;
-  Stena Line's and Finnlines' (ferry-ships-osm.json, -osm-2.json) at the
+  Stena Line's and Finnlines' (ferry-ships-osm.json, -osm-2, -3, -4: OSM_BOXES) at the
   ends of the ferry line whose name has both ports (the operator's, when it
   has one), each port at the end nearest its town (PORTS); a line trucks may take (hgv=yes) counts though cars may not. A
   route with no such line isn't built: no route can take it;
@@ -725,17 +725,27 @@ def eckero(page):
     return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
 
 
+# The Overpass queries' boxes (south, west, north, east): the North Sea, the
+# Channel and the Baltic; the western and the eastern Mediterranean; the
+# Gulf of Bothnia. Each asks for the lines named after a port within 4
+# degrees of it (a line to a port further off, Santander or Tórshavn, is
+# named after the port in the box it comes from too); several smaller
+# queries, as one large one times out on Overpass.
+OSM_BOXES = [("ferry-ships-osm", (49.0, -11.0, 61.0, 26.0)), ("ferry-ships-osm-2", (30.0, -10.0, 46.5, 12.0)),
+             ("ferry-ships-osm-3", (61.0, 14.0, 66.0, 26.0)), ("ferry-ships-osm-4", (30.0, 12.0, 46.5, 36.0))]
+
+
 def osm_query():
-    """The Overpass queries of ferry-ships-osm (lines named after a port,
-    crossing the North Sea, the Channel or the Baltic: a line to a port
-    further off, Santander or Tórshavn, passes through it), -osm-2 (the
-    Mediterranean) and -osm-3 (the Gulf of Bothnia), as sources.json has
-    them."""
+    """The Overpass queries of OSM_BOXES' sources, as sources.json has them."""
     import urllib.parse
-    names = "|".join(sorted({x for p, (_, xs, _) in PORTS.items() if p in QUERIED for x in xs if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
-    lines = ['[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]{bbox};out geom tags;'
-             for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)", "(61.0,14.0,66.0,26.0)")]
-    return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in lines]
+    out = []
+    for _, (s, w, n, e) in OSM_BOXES:
+        near = lambda at: s - 4 <= at[0] <= n + 4 and w - 4 <= at[1] <= e + 4
+        names = "|".join(sorted({x for p, (_, xs, at) in PORTS.items() if p in QUERIED and near(at) for x in xs
+                                 if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
+        q = '[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]({s},{w},{n},{e});out geom tags;'
+        out.append("https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe=""))
+    return out
 
 
 def osm_place(osm, a, b, operator):
@@ -799,9 +809,12 @@ def main(fetched, out):
         jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
         wpage = (os.path.join(fetched, "wasaline-cargo.html"), open(os.path.join(fetched, "wasaline-cargo.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
-        gosm = {"elements": []}
-        for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json", "ferry-ships-osm-3.json"):
-            gosm["elements"] += json.load(open(os.path.join(fetched, p), encoding="utf-8"))["elements"]
+        gosm, seen = {"elements": []}, set()
+        for sid, _ in OSM_BOXES:
+            for e in json.load(open(os.path.join(fetched, sid + ".json"), encoding="utf-8"))["elements"]:
+                if (e["type"], e["id"]) not in seen:
+                    seen.add((e["type"], e["id"]))
+                    gosm["elements"].append(e)
         urls = {f["file"]: f["url"] for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     except (OSError, ValueError) as e:
         print(f"ferry ships: not built ({e})")

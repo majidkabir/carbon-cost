@@ -2,13 +2,10 @@
  "about": "x",
  "sources": [
   {
-   "id": "dfds-routes",
-   "table": "ferry-ships",
-   "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules",
-   "what": "DFDS: its freight routes page, each route's page (saved as dfds-routes-<route>.html: the route's two terminals) and its timetable from DFDS's API for the 28 days from the fetch (dfds-routes-<route>.json: each departure's ship and IMO number)",
-   "expect": [
-    "routes-and-schedules/klaipeda-karlshamn"
-   ]
+   "id": "wasaline-cargo",
+   "table": "x",
+   "url": "https://www.wasaline.com/en/cargo/",
+   "what": "x"
   }
  ]
 }

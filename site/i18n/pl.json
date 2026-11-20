@@ -217,5 +217,6 @@
  "x.fuel.note1": "Stawki za tonę CO2 przeliczono na litr przy {kg} kg CO2 na litr oleju napędowego (EN 16258:2012, załącznik A). Inne waluty po kursie referencyjnym EBC (DKK po kursie centralnym ERM II).",
  "x.fuel.note2": "Kalkulator nalicza je od paliwa, które trasa zużywa w każdym kraju (lub tam, gdzie podasz, że paliwo jest kupowane).",
  "x.fuel.card.note": "cena CO2 za litr oleju napędowego, z przepisów",
- "cr.vehicles": "Pojazdy {x}"
+ "cr.vehicles": "Pojazdy {x}",
+ "x.ferry.link": "EU ETS i UK ETS na przeprawach promowych"
 }

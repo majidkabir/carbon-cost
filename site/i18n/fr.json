@@ -217,5 +217,6 @@
  "x.fuel.note1": "Les tarifs par tonne de CO2 sont convertis par litre à {kg} kg de CO2 par litre de gazole (EN 16258:2012, annexe A). Autres devises au taux de référence de la BCE (DKK au cours pivot du MCE II).",
  "x.fuel.note2": "Le calculateur les applique au carburant qu'un trajet consomme dans chaque pays (ou là où vous indiquez l'achat).",
  "x.fuel.card.note": "le prix du CO2 par litre de gazole, d'après la loi",
- "cr.vehicles": "Véhicules {x}"
+ "cr.vehicles": "Véhicules {x}",
+ "x.ferry.link": "SEQE-UE et UK ETS sur les traversées en ferry"
 }

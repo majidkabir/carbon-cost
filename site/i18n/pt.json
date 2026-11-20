@@ -217,5 +217,6 @@
  "x.fuel.note1": "O preço por tonelada de CO2 é convertido por litro a {kg} kg de CO2 por litro de gasóleo (EN 16258:2012, anexo A). Outras moedas à taxa de referência do BCE (DKK à taxa central do MTC II).",
  "x.fuel.note2": "A calculadora aplica-os ao combustível que uma viagem consome em cada país (ou onde indicar que é comprado).",
  "x.fuel.card.note": "o preço do CO2 por litro de gasóleo, segundo a lei",
- "cr.vehicles": "Veículos {x}"
+ "cr.vehicles": "Veículos {x}",
+ "x.ferry.link": "EU ETS e UK ETS nas travessias de ferry"
 }

@@ -217,5 +217,6 @@
  "x.fuel.note1": "Likmes par tonnu CO2 pārrēķinātas par litru, pieņemot {kg} kg CO2 uz dīzeļdegvielas litru (EN 16258:2012, A pielikums). Citas valūtas pēc ECB atsauces kursa (DKK pēc ERM II centrālā kursa).",
  "x.fuel.note2": "Kalkulators tās piemēro degvielai, ko brauciens patērē katrā valstī (vai tur, kur norādāt degvielas iegādi).",
  "x.fuel.card.note": "CO2 cena par dīzeļdegvielas litru, no likuma",
- "cr.vehicles": "Transportlīdzekļi {x}"
+ "cr.vehicles": "Transportlīdzekļi {x}",
+ "x.ferry.link": "EU ETS un UK ETS prāmju līnijās"
 }

@@ -217,5 +217,6 @@
  "x.fuel.note1": "CO2-tonnikohtaiset verot on muunnettu litrakohtaisiksi kertoimella {kg} kg CO2:ta dieselin litralta (EN 16258:2012, liite A). Muut valuutat EKP:n viitekurssilla (DKK ERM II -keskuskurssilla).",
  "x.fuel.note2": "Laskuri lisää ne polttoaineeseen, jonka matka kuluttaa kussakin maassa (tai siellä, missä kerrot polttoaineen ostettavan).",
  "x.fuel.card.note": "dieselin CO2-hinta litralta, laista",
- "cr.vehicles": "Ajoneuvot {x}"
+ "cr.vehicles": "Ajoneuvot {x}",
+ "x.ferry.link": "EU ETS ja UK ETS lauttareiteillä"
 }

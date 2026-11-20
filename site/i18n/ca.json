@@ -217,5 +217,6 @@
  "x.fuel.note1": "El preu per tona de CO2 es converteix per litre amb {kg} kg de CO2 per litre de gasoil (EN 16258:2012, annex A). Altres monedes al tipus de referència del BCE (DKK al tipus central del MTC II).",
  "x.fuel.note2": "La calculadora els aplica al combustible que un viatge consumeix a cada país (o on indiqueu que es compra).",
  "x.fuel.card.note": "el preu del CO2 per litre de gasoil, segons la llei",
- "cr.vehicles": "Vehicles {x}"
+ "cr.vehicles": "Vehicles {x}",
+ "x.ferry.link": "EU ETS i UK ETS en les travessies en transbordador"
 }

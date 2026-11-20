@@ -1,5 +1,7 @@
 # carbon-cost
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24396111.svg)](https://doi.org/10.5281/zenodo.24396111)
+
 What carbon and road charges does a truck trip pay? carbon-cost works it out per country and per charge, and shows the carbon part separately:
 
 - **Km-based road tolls:** Denmark (vejafgift), Germany (Lkw-Maut), Austria (GO-Maut), the Netherlands (vrachtwagenheffing), Belgium (kilometerheffing, by region), Switzerland and Liechtenstein (LSVA), Iceland (kílómetragjald, on all roads, the tractor and the trailer each by its own mass: give `motor_axles`, `motor_mass_kg` and `trailer_mass_kg`), Belarus (BelToll), Czechia (mýtné), Poland (e-TOLL), Bulgaria (BG TOLL), Slovenia (DarsGo), Slovakia (mýto), Hungary (HU-GO) and Romania (TollRo), split into their legal parts (infrastructure, air, noise and CO2) where the law gives them.

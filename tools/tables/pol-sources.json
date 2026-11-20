@@ -1,1 +1,11 @@
-{"about": "x", "sources": []}
+{
+ "about": "x",
+ "sources": [
+  {
+   "id": "rome-open-osm",
+   "table": "x",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2841.93%2C12.50%2C42.16%2C12.64%29%3Bway%5B%22highway%22%3D%22motorway%22%5D%2841.90%2C12.60%2C41.95%2C12.75%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2841.90%2C12.50%2C42.16%2C12.75%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "x"
+  }
+ ]
+}

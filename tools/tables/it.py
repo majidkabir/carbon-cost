@@ -28,6 +28,7 @@ import html, json, os, re, sys
 # file (FILE_RATES) does.
 OPS = [
     ("Superstrada Pedemontana Veneta S.p.A.", "", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A26|Lago Maggiore", "", ""),
     ("Autostrada del Brennero S.p.A.", "", "a22-brennero", ""),
     ("Autostrada Asti-Cuneo S.p.A.", "", "asti-cuneo", ""),
     ("Ivrea Torino Piacenza S.p.A.", "", "", ""),
@@ -78,6 +79,9 @@ PAGES = [
 # for the year (main), or it isn't used.
 FILE_RATES = [
     ("it-aspi-unit-rates", "Superstrada Pedemontana Veneta S.p.A.", 41, 32, "tarP"),
+    # The A26 north of the Lago Maggiore station, which charges its km at
+    # ASPI's mountain rate (tools/roads/build.py, TOLLED).
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A26|Lago Maggiore", 6, 1, "tarM"),
 ]
 # Concessions whose rates for the year are published only as an image,
 # transcribed (transcribed/<file>.json, "user" rates with VAT and ANAS fee):
@@ -138,7 +142,7 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
               "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
               "inc:it-te-tariffe": "Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states)",
               "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)",
-              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta (its rate in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own as its page does)"}
+              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta and Autostrade per l'Italia's A26 Gravellona Toce-Lago Maggiore (at ASPI's mountain rate; their rates in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own plain rates as its page does)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 SITAF = "SITAF S.p.A."

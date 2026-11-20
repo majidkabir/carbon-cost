@@ -2164,6 +2164,12 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a24}}); rk["IT"].MotorwayOp["Strada dei Parchi S.p.A.|A24"] > 0.5 {
 		t.Errorf("A24 before the Roma Est barrier: %v", rk["IT"].MotorwayOp)
 	}
+	// The A57 between its stations is free: the junction's point charges
+	// CAV's Padova-Venezia toll.
+	a57 := [][2]float64{{12.13600, 45.45880}, {12.16457, 45.46464}, {12.17535, 45.46685}, {12.18739, 45.46932}}
+	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a57}}); rk["IT"].MotorwayOp["CAV S.p.A.|A57"] > 0.5 {
+		t.Errorf("A57 Mira-Oriago-Venezia Mestre: %v", rk["IT"].MotorwayOp)
+	}
 }
 
 // London's Low Emission Zone: lorries over 3.5 t below Euro VI pay GBP 100
@@ -2665,6 +2671,7 @@ func TestMilanBarriers(t *testing.T) {
 		{"A24 Roma Est", [][2]float64{{12.6995, 41.9258}, {12.70355, 41.92609}, {12.7075, 41.9263}}, truck40, 4.17},
 		{"A27 Venezia", [][2]float64{{12.2830, 45.5730}, {12.28397, 45.57661}, {12.2850, 45.5800}}, truck40, 5.20},
 		{"A27 Belluno", [][2]float64{{12.3170, 46.1530}, {12.31755, 46.14972}, {12.3177, 46.1470}}, truck40, 1.86},
+		{"A57 Mirano Dolo junction", [][2]float64{{12.0960, 45.4507}, {12.0990, 45.4513}, {12.1020, 45.4520}}, truck40, 5.74},
 		{"A16 Napoli Est", [][2]float64{{14.4670, 40.9155}, {14.47088, 40.91625}, {14.4750, 40.9170}}, truck40, 4.03},
 		{"A22 Brennero", [][2]float64{{11.4335, 46.8880}, {11.4348, 46.88512}, {11.4360, 46.8820}}, truck40, 3.08},
 		{"A6 Barriera di Torino", [][2]float64{{7.7480, 44.8570}, {7.74864, 44.85416}, {7.7493, 44.8512}}, truck40, 7.18},
@@ -2677,7 +2684,7 @@ func TestMilanBarriers(t *testing.T) {
 		}
 		var got float64
 		for _, l := range r.Lines {
-			if strings.Contains(l.Section, "barrier") {
+			if strings.Contains(l.Section, "barrier") || strings.Contains(l.Section, "junction") {
 				got += l.Amount
 			}
 		}

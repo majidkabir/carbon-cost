@@ -2,13 +2,16 @@
  "about": "x",
  "sources": [
   {
-   "id": "bf-routes",
-   "table": "ferry-ships",
-   "url": "https://www.brittanyferriesfreight.com/api/routes",
-   "what": "Brittany Ferries freight: its routes (its API), each route's timetable for a year ahead with each sailing's ship code (saved as bf-routes-<from>-<to>.json), and the site's ship names (bf-routes-ships.js)",
-   "expect": [
-    "departureCountry"
-   ]
+   "id": "gl-ancona-igoumenitsa",
+   "table": "x",
+   "url": "https://www.grimaldi-lines.com/en/route/ancona-igoumenitsa/",
+   "what": "x"
+  },
+  {
+   "id": "gl-brindisi-igoumenitsa",
+   "table": "x",
+   "url": "https://www.grimaldi-lines.com/en/route/brindisi-igoumenitsa/",
+   "what": "x"
   }
  ]
 }

@@ -202,6 +202,9 @@ class Ways(osmium.SimpleHandler):
         self.free, self.free_km = [], Counter()
         # TOLLED: (operator|ref, box, label); km counted in by label.
         self.tolled, self.tolled_km = [], Counter()
+        # Toll-rule countries: km of motorway tagged toll=no by operator|ref
+        # and 0.05-degree cell, reported where the operator tolls elsewhere.
+        self.untolled = Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -225,6 +228,14 @@ class Ways(osmium.SimpleHandler):
                     if hit and len(pts) >= 2:
                         c = "mw"
                         self.tolled_km[hit[0]] += LineString(pts).length * 111.32 * 0.68
+            if c is None and hw == "motorway" and self.rule.get("operator") and tags.get("toll") == "no" and tags.get("operator"):
+                try:
+                    ls = LineString([(n.lon, n.lat) for n in w.nodes])
+                except (osmium.InvalidLocationError, ValueError):
+                    return
+                p = ls.centroid
+                key = f"{tags['operator'].strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
+                self.untolled[(key, round(p.x * 20) / 20, round(p.y * 20) / 20)] += ls.length * 111.32 * 0.74
         self.refs[(hw, (tags.get("ref") or "")[:6], c, sec is not None)] += 1
         if c is None:
             return
@@ -323,6 +334,10 @@ def main(cc, src, dst, areas=None):
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
     h.tolled = list(TOLLED.get(cc, []))
     h.apply_file(src, locations=True)
+    tolling = {op.split("|")[0] for op in h.op_km}
+    for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
+        if km >= 1 and key.split("|")[0] in tolling:
+            print(cc, "motorway tagged toll=no of a tolling operator:", key, f"near {y:.2f},{x:.2f}", round(km, 1), "km")
     for key, box, label in h.tolled:
         if not h.tolled_km[label]:
             sys.exit(f"{cc}: no toll=no ways of {key} in {box} ({label})")

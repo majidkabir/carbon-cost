@@ -1,17 +1,1 @@
-{
- "about": "x",
- "sources": [
-  {
-   "id": "it-sitaf-barriers",
-   "table": "x",
-   "url": "https://www.sitaf.it/en/tariffs-and-passes-a32/",
-   "what": "x"
-  },
-  {
-   "id": "it-barriers-osm-to",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A120%5D%3B%28node%5B%22barrier%22%3D%22toll_booth%22%5D%2844.95%2C6.70%2C45.20%2C7.80%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2844.95%2C6.70%2C45.20%2C7.80%29%3B%29%3Bout%3B",
-   "what": "x"
-  }
- ]
-}
+{"about": "x", "sources": []}

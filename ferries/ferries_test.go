@@ -106,6 +106,8 @@ func TestCoverage(t *testing.T) {
 		{"kiel-oslo", "2026-11-20", 1, "Member States"},
 		{"odden-aarhus", "2026-11-20", 1, "Member States"},
 		{"vaasa-umea", "2026-11-20", 1, "Member States"},
+		{"portsmouth-caen", "2026-11-20", 0.5, "one outside"},
+		{"cork-roscoff", "2026-11-20", 1, "Member States"},
 		{"stromstad-sandefjord", "2026-11-20", 1, "Member States"},
 		{"hirtshals-kristiansand", "2026-11-20", 1, "Member States"},
 		{"ijmuiden-newcastle", "2026-11-20", 0.5, "one outside"},
@@ -127,8 +129,8 @@ func TestCoverage(t *testing.T) {
 		}
 	}
 	// A crossing whose ships aren't named says so.
-	if cov, _ := d.Coverage(byID["portsmouth-caen"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
-		t.Errorf("portsmouth-caen note %q", cov.Note)
+	if cov, _ := d.Coverage(byID["tanger-med-algeciras"], day("2026-11-20")); !strings.Contains(cov.Note, "ships aren't known") {
+		t.Errorf("tanger-med-algeciras note %q", cov.Note)
 	}
 	// The UK ETS: from 1 July 2026, half between Northern Ireland and
 	// Great Britain, none on a Scottish ferry service; not between the UK

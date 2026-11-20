@@ -1402,6 +1402,39 @@
    }
   },
   {
+   "id": "bilbao-rosslare",
+   "name": "Bilbao–Rosslare",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Bilbao",
+     "lat": 43.354829,
+     "lon": -3.070421,
+     "country": "ES"
+    },
+    {
+     "name": "Rosslare",
+     "lat": 52.253827,
+     "lon": -6.336566,
+     "country": "IE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9856189",
+     "name": "GALICIA"
+    },
+    {
+     "imo": "9867592",
+     "name": "SALAMANCA"
+    }
+   ],
+   "source": {
+    "title": "Brittany Ferries: Bilbao–Rosslare, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=ES&departurePortCode=ESBIO&arrivalPortCode=IEROE"
+   }
+  },
+  {
    "id": "brevik-immingham",
    "name": "Brevik–Immingham",
    "operator": "DFDS",
@@ -1651,6 +1684,54 @@
    }
   },
   {
+   "id": "cherbourg-rosslare",
+   "name": "Cherbourg–Rosslare",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Cherbourg",
+     "lat": 49.649264,
+     "lon": -1.612941,
+     "country": "FR"
+    },
+    {
+     "name": "Rosslare",
+     "lat": 52.253827,
+     "lon": -6.336566,
+     "country": "IE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "imo": "9007130",
+     "name": "BARFLEUR"
+    },
+    {
+     "name": "CLIPPER"
+    },
+    {
+     "imo": "9856189",
+     "name": "GALICIA"
+    },
+    {
+     "imo": "9056595",
+     "name": "NORBAY"
+    },
+    {
+     "imo": "9867592",
+     "name": "SALAMANCA"
+    }
+   ],
+   "source": {
+    "title": "Brittany Ferries: Cherbourg–Rosslare, its ferries in its timetable for the year ahead (the sailings of WX, ships the site doesn't name, left out)",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=IE&departurePortCode=IEROE&arrivalPortCode=FRCER"
+   }
+  },
+  {
    "id": "chios-karlovasi",
    "name": "Chios–Karlovasi",
    "operator": "",
@@ -1872,6 +1953,39 @@
    "source": {
     "title": "OpenStreetMap: Iċ-Ċirkewwa (Malta) - L-Imġarr (Għawdex) (its ships not named)",
     "url": "https://www.openstreetmap.org/way/625508807"
+   }
+  },
+  {
+   "id": "cork-roscoff",
+   "name": "Cork–Roscoff",
+   "operator": "Brittany Ferries",
+   "terminals": [
+    {
+     "name": "Cork",
+     "lat": 51.831425,
+     "lon": -8.323083,
+     "country": "IE"
+    },
+    {
+     "name": "Roscoff",
+     "lat": 48.721543,
+     "lon": -3.963765,
+     "country": "FR"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "imo": "9268708",
+     "name": "PONT-AVEN"
+    }
+   ],
+   "source": {
+    "title": "Brittany Ferries: Cork–Roscoff, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=IE&departurePortCode=IEORK&arrivalPortCode=FRROS"
    }
   },
   {
@@ -7970,10 +8084,19 @@
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "imo": "9268708",
+     "name": "PONT-AVEN"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Plymouth (UK) – Roscoff (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/150212384"
+    "title": "Brittany Ferries: Plymouth–Roscoff, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=FR&departurePortCode=FRROS&arrivalPortCode=GBPLY"
    }
   },
   {
@@ -7994,10 +8117,15 @@
      "country": "ES"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9268708",
+     "name": "PONT-AVEN"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Plymouth (UK) - Santander (E) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/587547089"
+    "title": "Brittany Ferries: Plymouth–Santander, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=ES&departurePortCode=ESSDR&arrivalPortCode=GBPLY"
    }
   },
   {
@@ -8131,7 +8259,7 @@
   {
    "id": "portsmouth-bilbao",
    "name": "Portsmouth–Bilbao",
-   "operator": "",
+   "operator": "Brittany Ferries",
    "terminals": [
     {
      "name": "Portsmouth",
@@ -8146,10 +8274,23 @@
      "country": "ES"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9007130",
+     "name": "BARFLEUR"
+    },
+    {
+     "imo": "9856189",
+     "name": "GALICIA"
+    },
+    {
+     "imo": "9886847",
+     "name": "SANTONA"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Portsmouth - Bilbao; Portsmouth-Bilbao (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/432548282"
+    "title": "Brittany Ferries: Portsmouth–Bilbao, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=ES&departurePortCode=ESBIO&arrivalPortCode=GBPME"
    }
   },
   {
@@ -8170,16 +8311,29 @@
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "imo": "9946324",
+     "name": "GUILLAUME DE NORMANDIE"
+    },
+    {
+     "imo": "9238337",
+     "name": "MONT ST MICHEL"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Portsmouth (UK) - Ouistreham (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/420041114"
+    "title": "Brittany Ferries: Portsmouth–Caen, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=FR&departurePortCode=FROUI&arrivalPortCode=GBPME"
    }
   },
   {
    "id": "portsmouth-cherbourg",
    "name": "Portsmouth–Cherbourg",
-   "operator": "",
+   "operator": "Brittany Ferries",
    "terminals": [
     {
      "name": "Portsmouth",
@@ -8194,10 +8348,34 @@
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "imo": "9007130",
+     "name": "BARFLEUR"
+    },
+    {
+     "name": "CLIPPER"
+    },
+    {
+     "imo": "9856189",
+     "name": "GALICIA"
+    },
+    {
+     "imo": "9867592",
+     "name": "SALAMANCA"
+    },
+    {
+     "imo": "9886847",
+     "name": "SANTONA"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Portsmouth (UK) - Cherbourg-en-Cotentin (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/10936354"
+    "title": "Brittany Ferries: Portsmouth–Cherbourg, its ferries in its timetable for the year ahead (the sailings of CI, WX, ships the site doesn't name, left out)",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=FR&departurePortCode=FRCER&arrivalPortCode=GBPME"
    }
   },
   {
@@ -8218,10 +8396,21 @@
      "country": "FR"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9364980",
+     "name": "ARMORIQUE"
+    },
+    {
+     "name": "CLIPPER"
+    },
+    {
+     "name": "SAINT MALO"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Portsmouth (UK) - Saint-Malo (F) (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/378235005"
+    "title": "Brittany Ferries: Portsmouth–Saint-Malo, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=FR&departurePortCode=FRSML&arrivalPortCode=GBPME"
    }
   },
   {
@@ -8242,10 +8431,23 @@
      "country": "ES"
     }
    ],
-   "ships": [],
+   "ships": [
+    {
+     "imo": "9946324",
+     "name": "GUILLAUME DE NORMANDIE"
+    },
+    {
+     "imo": "9867592",
+     "name": "SALAMANCA"
+    },
+    {
+     "imo": "9886847",
+     "name": "SANTONA"
+    }
+   ],
    "source": {
-    "title": "OpenStreetMap: Portsmouth - Santander (its ships not named; the ports' countries)",
-    "url": "https://www.openstreetmap.org/way/201337669"
+    "title": "Brittany Ferries: Portsmouth–Santander, its ferries in its timetable for the year ahead",
+    "url": "https://www.brittanyferriesfreight.com/api/timetables?country=ES&departurePortCode=ESSDR&arrivalPortCode=GBPME"
    }
   },
   {

@@ -2,63 +2,27 @@
  "about": "x",
  "sources": [
   {
-   "id": "it-gap-a14dir",
+   "id": "it-gap-milan",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2844.3%2C11.8%2C44.5%2C12.25%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2844.3%2C11.8%2C44.5%2C12.25%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2844.3%2C11.8%2C44.5%2C12.25%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.33%2C9.0%2C45.6%2C9.36%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.33%2C9.0%2C45.6%2C9.36%29%3B%29%3Bout%20geom%20tags%3B",
    "what": "x"
   },
   {
-   "id": "it-gap-a26n",
+   "id": "it-gap-teramo",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.75%2C8.35%2C46.0%2C8.6%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.75%2C8.35%2C46.0%2C8.6%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2845.75%2C8.35%2C46.0%2C8.6%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2842.55%2C13.68%2C42.75%2C14.0%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2842.55%2C13.68%2C42.75%2C14.0%29%3B%29%3Bout%20geom%20tags%3B",
    "what": "x"
   },
   {
-   "id": "it-gap-a4to",
+   "id": "it-gap-villesse",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.05%2C7.65%2C45.3%2C8.0%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.05%2C7.65%2C45.3%2C8.0%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2845.05%2C7.65%2C45.3%2C8.0%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.83%2C13.4%2C45.97%2C13.66%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.83%2C13.4%2C45.97%2C13.66%29%3B%29%3Bout%20geom%20tags%3B",
    "what": "x"
   },
   {
-   "id": "it-gap-a1na",
+   "id": "it-gap-lisert",
    "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2840.8%2C14.2%2C41.0%2C14.4%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2840.8%2C14.2%2C41.0%2C14.4%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2840.8%2C14.2%2C41.0%2C14.4%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-brebemi",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.45%2C9.9%2C45.6%2C10.15%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.45%2C9.9%2C45.6%2C10.15%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2845.45%2C9.9%2C45.6%2C10.15%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-sat",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2842.1%2C11.65%2C42.3%2C11.85%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2842.1%2C11.65%2C42.3%2C11.85%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2842.1%2C11.65%2C42.3%2C11.85%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-a27s",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.5%2C12.2%2C45.6%2C12.35%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.5%2C12.2%2C45.6%2C12.35%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2845.5%2C12.2%2C45.6%2C12.35%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-a27n",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2846.1%2C12.25%2C46.25%2C12.35%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2846.1%2C12.25%2C46.25%2C12.35%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2846.1%2C12.25%2C46.25%2C12.35%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-a13",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2844.75%2C11.5%2C44.85%2C11.65%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2844.75%2C11.5%2C44.85%2C11.65%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2844.75%2C11.5%2C44.85%2C11.65%29%3B%29%3Bout%20geom%20tags%3B",
-   "what": "x"
-  },
-  {
-   "id": "it-gap-a15",
-   "table": "x",
-   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2844.05%2C9.8%2C44.2%2C9.95%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2844.05%2C9.8%2C44.2%2C9.95%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2844.05%2C9.8%2C44.2%2C9.95%29%3B%29%3Bout%20geom%20tags%3B",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%3D%22motorway%22%5D%2845.72%2C13.55%2C45.83%2C13.8%29%3Bnode%5B%22barrier%22%3D%22toll_booth%22%5D%2845.72%2C13.55%2C45.83%2C13.8%29%3B%29%3Bout%20geom%20tags%3B",
    "what": "x"
   }
  ]

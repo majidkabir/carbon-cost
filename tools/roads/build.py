@@ -193,6 +193,23 @@ TOLLED = {"IT": [
     ("Società Autostrade Alto Adriatico S.p.A.|A4", (13.58, 45.77, 13.645, 45.802), "A4 Trieste Lisert barrier-Sistiana", None),
 ]}
 
+# Autostrade per l'Italia's mountain stretches inside a road it also runs
+# on the plain: the ways of an "operator|ref" whose centroid lies in the box
+# get "|mountain" on their key (priced at ASPI's mountain rate). Its route
+# calculator prices them at that rate (tools/tables/browser/
+# it-aspi-mountain.txt): the A1 across the Apennines from Bologna to
+# Calenzano (Sasso Marconi-Barberino di Mugello 55 km EUR 12.30), the A26
+# from Genova Voltri to Alessandria Sud (Ovada-Alessandria Sud 33 km EUR
+# 7.40; Vercelli Est-Romagnano 30 km EUR 5.70, the plain rate), the A23
+# from Carnia to Tarvisio (Carnia-Pontebba 35 km EUR 7.90; Gemona-Carnia
+# 16 km EUR 3.00, the plain rate). Its A7, A10 and A12 by Genoa are mountain
+# throughout and priced so by key (tools/tables/it.py).
+MOUNTAIN = {"IT": [
+    ("Autostrade per l'Italia S.p.A.|A1", (11.0, 43.855, 11.40, 44.50), "A1 Bologna-Calenzano"),
+    ("Autostrade per l'Italia S.p.A.|A26", (8.40, 44.40, 8.80, 44.874), "A26 Genova Voltri-Alessandria Sud"),
+    ("Autostrade per l'Italia S.p.A.|A23", (12.90, 46.37, 13.70, 46.56), "A23 Carnia-Tarvisio"),
+]}
+
 # Free stretches before a closed system's barrier that OSM tags toll=yes:
 # the motorway ways of an "operator|ref" whose every node lies in the box
 # don't count as toll motorway. Their barriers charge a fixed toll for
@@ -243,6 +260,8 @@ class Ways(osmium.SimpleHandler):
         self.tolled, self.tolled_km = [], Counter()
         # UNTOLLED: (operator|ref, box, label); km left out by label.
         self.untolled_boxes, self.untolled_km = [], Counter()
+        # MOUNTAIN: (operator|ref, box, label); km by label.
+        self.mountain, self.mountain_km = [], Counter()
         # Toll-rule countries: km of motorway tagged toll=no by operator|ref
         # and 0.05-degree cell, reported where the operator tolls elsewhere.
         self.untolled = Counter()
@@ -324,8 +343,12 @@ class Ways(osmium.SimpleHandler):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
                     op = f"{op}|{ref}" if op else ""
+                    mtn = [lab for k, (a, b, x1, y1), lab in self.mountain if k == op and a <= piece.centroid.x <= x1 and b <= piece.centroid.y <= y1]
                     if op and suffix:
                         op = f"{op}|{suffix}"
+                    elif mtn:
+                        op = f"{op}|mountain"
+                        self.mountain_km[mtn[0]] += piece.length * 111.32 * 0.68
                     elif op in self.split_at and (piece.centroid.y if self.split_at[op][2] else piece.centroid.x) > self.split_at[op][0]:
                         op = f"{op}|{self.split_at[op][1]}"
                     if op and op not in self.op_index:
@@ -393,6 +416,7 @@ def main(cc, src, dst, areas=None):
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
     h.tolled = list(TOLLED.get(cc, []))
     h.untolled_boxes = list(UNTOLLED.get(cc, []))
+    h.mountain = list(MOUNTAIN.get(cc, []))
     h.apply_file(src, locations=True)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
@@ -402,6 +426,10 @@ def main(cc, src, dst, areas=None):
         if not h.tolled_km[label]:
             sys.exit(f"{cc}: no toll=no ways of {key} in {box} ({label})")
         print(cc, "counted as toll motorway (both carriageways):", label, round(h.tolled_km[label], 1), "km")
+    for key, box, label in h.mountain:
+        if not h.mountain_km[label]:
+            sys.exit(f"{cc}: no ways of {key} in {box} ({label})")
+        print(cc, "mountain stretch (both carriageways):", label, round(h.mountain_km[label], 1), "km")
     for key, box, label in h.untolled_boxes:
         print(cc, "left out as free before a barrier (both carriageways):", label, round(h.untolled_km[label], 1), "km")
     for label, km in h.free_km.items():

@@ -1,1 +1,17 @@
-{"about": "x", "sources": []}
+{
+ "about": "x",
+ "sources": [
+  {
+   "id": "aspi-caselli",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/json/caselli.json",
+   "what": "x"
+  },
+  {
+   "id": "aspi-tariffe",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/json/tariffe.json",
+   "what": "x"
+  }
+ ]
+}

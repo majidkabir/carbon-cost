@@ -238,7 +238,12 @@ def systems(routes, pos, lines, permit, fail):
         return stations
     while True:
         changed = False
-        for rs in {sysof[r] for r in routes if any(k[0] == r for k in pair_lines)}:
+        # In the routes' order: a set of systems would be walked in an order
+        # Python's string hashing changes from run to run, and which system
+        # meets a blocking line first decides what merges, so the same data
+        # gave different systems on different nights.
+        order = list(routes)
+        for rs in sorted({sysof[r] for r in routes if any(k[0] == r for k in pair_lines)}, key=lambda x: min(order.index(r) for r in x)):
             try:
                 place(rs)
             except Blocked as e:

@@ -4,7 +4,7 @@
   "id": "carbon-cost/it-barriers/2026-01-01",
   "scheme": {
    "id": "it-barriers",
-   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia), CAV's Padova-Venezia toll",
    "country": "IT"
   },
   "publisher": {
@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "Milano Serravalle - Milano Tangenziali's tolls from 1 January 2026 at the barriers of its semi-closed ring roads, a fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction). The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one.",
+  "method": "A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January 2026. Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.40; A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza) class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. SITAF's tolls at the A32's two barriers, the open motorway's only toll stations (Avigliana for Rivoli-Susa, Salbertrand for Susa-Bardonecchia): Avigliana class 5 EUR 15.90; Salbertrand class 5 EUR 21.70 (Avigliana's are SITAF's unit rate per km, ANAS fee and 22% VAT times the barrier's 34.47 km, rounded to 10 cents). Autostrade per l'Italia's open A8 Milano-Varese, A9 Lainate-Como and A12 Roma-Civitavecchia, SAT's open A12 Civitavecchia-Tarquinia, Salerno Pompei Napoli's open A3 Napoli-Salerno and Ivrea Torino Piacenza's semi-closed Tangenziale di Torino (A55), the tolls Autostrade per l'Italia's station-to-station toll form gives for each barrier (read in a browser, as its service refuses scripted requests; it gives Avigliana's as SITAF does): Milano Nord class 5 EUR 4.60; Gallarate Nord class 5 EUR 4.10; Como Grandate class 5 EUR 6.00; Bruere class 5 EUR 2.80; Falchera class 5 EUR 3.90; Beinasco class 5 EUR 4.30; Trofarello class 5 EUR 4.90; Roma Ovest class 5 EUR 6.20; Aurelia class 5 EUR 6.20; Napoli Sud class 5 EUR 6.10; Nocera class 5 EUR 6.10; Tarquinia class 5 EUR 2.90; Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll) class 5 EUR 3.40; Villanova barrier (the open Torino-Villanova stretch's toll) class 5 EUR 2.90. Their ramp stations (Lainate, Gallarate, Fino Mornasco, Maccarese, Torrimpietra, Civitavecchia Sud, the A3's thirteen from Ponticelli to Cava de' Tirreni, Vadò) aren't modelled; the Tangenziale's Settimo Torinese toll is collected at the A5's Torino Nord barrier, where it's charged (Ivrea Torino Piacenza's toll calculator gives Torino Nord-Settimo Nord as that toll), and the A21's open Torino-Villanova stretch's at the A21's Villanova barrier (its calculator charges Villanova B.-Asti Ovest as that toll and the km; OSM tags the stretch's own km toll-free). Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: Milano Sud class 5 EUR 3.65 (EUR 6.20 to Lodi, 13.4 km on); Milano Ovest class 5 EUR 2.61 (EUR 3.70 to Binasco, 6.4 km on); Milano Ghisolfa class 5 EUR 3.25 (EUR 4.10 to Rho, 2.5 km on); Milano Est class 5 EUR 2.70 (EUR 6.30 to Trezzo, 18.9 km on); Roma Est class 5 EUR 4.17 (EUR 5.30 to Tivoli, 4.5 km on); Firenze Ovest class 5 EUR 0.99 (EUR 1.90 to Prato Est, 4.8 km on); Taranto Nord class 5 EUR 2.05 (EUR 4.20 to Mottola-Castellaneta, 11.3 km on); Venezia class 5 EUR 5.20 (EUR 6.80 to Treviso Sud, 8.4 km on); Napoli Est class 5 EUR 4.03 (EUR 6.00 to Tufino, 10.3 km on); Salerno class 5 EUR 1.29 (EUR 2.30 to Castel San Giorgio, 5.3 km on); Brennero class 5 EUR 3.08 (EUR 3.10 to Vipiteno, 0.1 km on); Barriera di Torino class 5 EUR 7.18 (EUR 7.20 to Carmagnola, 0.1 km on); Ugovizza-Tarvisio class 5 EUR 3.43 (EUR 6.30 to Pontebba, 12.8 km on); Belluno class 5 EUR 1.86 (EUR 7.00 to Vittorio Veneto Sud, 22.9 km on); Venezia Est class 5 EUR 5.54 (EUR 7.30 to Meolo - Roncade, 9.3 km on); Chiari Est class 5 EUR 5.36 (EUR 7.50 to Chiari Ovest, 3.3 km on); Cordignano class 5 EUR 2.41 (EUR 3.80 to Godega, 7.4 km on); Gallarate Ovest class 5 EUR 2.81 (EUR 4.60 to Sesto Calende-Vergiate, 9.4 km on); Castelletto Stura class 5 EUR 2.60 (EUR 6.10 to S. Albano, 8.4 km on); Rosignano class 5 EUR 2.64 (EUR 18.30 to Collesalvetti, 29.1 km on); La Spezia class 5 EUR 3.73 (EUR 7.20 to Aulla, 10.3 km on); Liscate class 5 EUR 4.52 (7 km more at Società di Progetto Brebemi S.p.A's rate than from the next junction, as Autostrade per l'Italia's route calculator charges). The form's tolls are rounded to 10 cents, so these are within 5 cents. CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: class 5 EUR 5.74 (EUR 7.50 from Padova Est, 11 km of it on CAV's A4). Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-barriers-2026-01-01.json"
@@ -42,8 +42,23 @@
   },
   {
    "id": "s4",
-   "title": "OpenStreetMap (Overpass API): toll booths and the Vimercate junctions around Milan",
-   "url": "https://www.openstreetmap.org/"
+   "title": "SITAF: A32 tariffs and passes (A32 toll tariffs effective from 01/01/2026)",
+   "url": "https://www.sitaf.it/en/tariffs-and-passes-a32/"
+  },
+  {
+   "id": "s5",
+   "title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello (read in a browser; tools/tables/browser/it-aspi-barriers.txt)",
+   "url": "https://viabilita.autostrade.it/it/viabilita/traffico"
+  },
+  {
+   "id": "s6",
+   "title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)",
+   "url": "https://viabilita.autostrade.it/it/viabilita/traffico"
+  },
+  {
+   "id": "s7",
+   "title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)",
+   "url": "https://viabilita.autostrade.it/json/caselli.json"
   }
  ],
  "tax": {
@@ -114,7 +129,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.058708, 45.541039]
+     "coordinates": [9.0587, 45.54103]
     },
     "match_m": 100
    }
@@ -122,11 +137,11 @@
   {
    "id": "pt2",
    "type": "point",
-   "name": "A51 Tangenziale Est di Milano, Vimercate barrier",
+   "name": "A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza)",
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.357957, 45.608418]
+     "coordinates": [9.33303, 45.561395]
     },
     "match_m": 100
    }
@@ -138,7 +153,475 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.263721, 45.55137]
+     "coordinates": [9.26361, 45.55148]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "A32 Torino-Bardonecchia, Avigliana barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.39396, 45.09461]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "A32 Torino-Bardonecchia, Salbertrand barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [6.86618, 45.05822]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "A8 Milano-Varese, Milano Nord barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.06089, 45.54788]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "A8 Milano-Varese, Gallarate Nord barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [8.8037, 45.68449]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "A9 Lainate-Como, Como Grandate barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.04939, 45.77392]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "Tangenziale di Torino (A55), Bruere barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.54072, 45.08232]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "Tangenziale di Torino (A55), Falchera barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.71623, 45.13466]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt11",
+   "type": "point",
+   "name": "Tangenziale di Torino (A55), Beinasco barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.58685, 45.01391]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt12",
+   "type": "point",
+   "name": "Tangenziale di Torino (A55), Trofarello barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.73692, 44.96596]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt13",
+   "type": "point",
+   "name": "A12 Roma-Civitavecchia, Roma Ovest barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.22674, 41.89122]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt14",
+   "type": "point",
+   "name": "A12 Roma-Civitavecchia, Aurelia barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.82428, 42.05929]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt15",
+   "type": "point",
+   "name": "A3 Napoli-Salerno, Napoli Sud barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.32797, 40.84184]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt16",
+   "type": "point",
+   "name": "A3 Napoli-Salerno, Nocera barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.64118, 40.73637]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt17",
+   "type": "point",
+   "name": "A12 Civitavecchia-Tarquinia, Tarquinia barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.72785, 42.25695]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt18",
+   "type": "point",
+   "name": "A5 Torino-Quincinetto, Torino Nord barrier (the Tangenziale di Torino's Settimo Torinese toll)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.73537, 45.14557]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt19",
+   "type": "point",
+   "name": "A21 Torino-Piacenza, Villanova barrier (the open Torino-Villanova stretch's toll)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.92318, 44.95303]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt20",
+   "type": "point",
+   "name": "A1 Milano-Napoli, Milano Sud barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.30982, 45.34934]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt21",
+   "type": "point",
+   "name": "A7 Milano-Serravalle, Milano Ovest barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.13876, 45.38911]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt22",
+   "type": "point",
+   "name": "A4 Torino-Milano, Milano Ghisolfa barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.06107, 45.51246]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt23",
+   "type": "point",
+   "name": "A4 Milano-Brescia, Milano Est barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.26845, 45.5562]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt24",
+   "type": "point",
+   "name": "A24 Roma-L'Aquila, Roma Est barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.70355, 41.92609]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt25",
+   "type": "point",
+   "name": "A11 Firenze-Pisa, Firenze Ovest barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.16179, 43.8261]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt26",
+   "type": "point",
+   "name": "A14 Bologna-Taranto, Taranto Nord barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [16.98818, 40.59812]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt27",
+   "type": "point",
+   "name": "A27 Venezia-Belluno, Venezia barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.28397, 45.57661]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt28",
+   "type": "point",
+   "name": "A16 Napoli-Canosa, Napoli Est barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.47088, 40.91625]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt29",
+   "type": "point",
+   "name": "A30 Caserta-Salerno, Salerno barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [14.727, 40.77256]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt30",
+   "type": "point",
+   "name": "A22 Brennero-Modena, Brennero barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [11.4348, 46.88512]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt31",
+   "type": "point",
+   "name": "A6 Torino-Savona, Barriera di Torino barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.74864, 44.85416]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt32",
+   "type": "point",
+   "name": "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [13.48088, 46.50684]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt33",
+   "type": "point",
+   "name": "A27 Venezia-Belluno, Belluno barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.31755, 46.14972]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt34",
+   "type": "point",
+   "name": "A4 Venezia-Trieste, Venezia Est barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.33562, 45.56917]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt35",
+   "type": "point",
+   "name": "A35 Brescia-Milano, Chiari Est barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.96128, 45.52207]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt36",
+   "type": "point",
+   "name": "A28 Portogruaro-Conegliano, Cordignano barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.47892, 45.92123]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt37",
+   "type": "point",
+   "name": "A8/A26 Gallarate-Gattico, Gallarate Ovest barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [8.77659, 45.68873]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt38",
+   "type": "point",
+   "name": "A33 Asti-Cuneo, Castelletto Stura barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [7.60905, 44.43113]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt39",
+   "type": "point",
+   "name": "A12 Livorno-Rosignano, Rosignano barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [10.50425, 43.36937]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt40",
+   "type": "point",
+   "name": "A15 Parma-La Spezia, La Spezia barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.90392, 44.1459]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt41",
+   "type": "point",
+   "name": "A35 Brescia-Milano, Liscate barrier",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [9.4254, 45.46587]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt42",
+   "type": "point",
+   "name": "A57 Padova-Venezia, Mirano Dolo junction (CAV's Padova Est-Venezia toll)",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [12.099, 45.4513]
     },
     "match_m": 100
    }
@@ -163,9 +646,165 @@
     ["pt3", "pt-1.1", "6.3"],
     ["pt3", "pt-1.2", "5.2"],
     ["pt3", "pt-1.3", "3.3"],
-    ["pt3", "pt-1.4", "2.7"]
+    ["pt3", "pt-1.4", "2.7"],
+    ["pt4", "pt-1.1", "15.9"],
+    ["pt4", "pt-1.2", "13.7"],
+    ["pt4", "pt-1.3", "10.5"],
+    ["pt4", "pt-1.4", "6.5"],
+    ["pt5", "pt-1.1", "21.7"],
+    ["pt5", "pt-1.2", "18.8"],
+    ["pt5", "pt-1.3", "14.4"],
+    ["pt5", "pt-1.4", "8.8"],
+    ["pt6", "pt-1.1", "4.6"],
+    ["pt6", "pt-1.2", "3.9"],
+    ["pt6", "pt-1.3", "2.6"],
+    ["pt6", "pt-1.4", "1.9"],
+    ["pt7", "pt-1.1", "4.1"],
+    ["pt7", "pt-1.2", "3.5"],
+    ["pt7", "pt-1.3", "2.3"],
+    ["pt7", "pt-1.4", "1.7"],
+    ["pt8", "pt-1.1", "6"],
+    ["pt8", "pt-1.2", "5.1"],
+    ["pt8", "pt-1.3", "3.3"],
+    ["pt8", "pt-1.4", "2.5"],
+    ["pt9", "pt-1.1", "2.8"],
+    ["pt9", "pt-1.2", "2.4"],
+    ["pt9", "pt-1.3", "1.6"],
+    ["pt9", "pt-1.4", "1.5"],
+    ["pt10", "pt-1.1", "3.9"],
+    ["pt10", "pt-1.2", "3.4"],
+    ["pt10", "pt-1.3", "2.2"],
+    ["pt10", "pt-1.4", "1.5"],
+    ["pt11", "pt-1.1", "4.3"],
+    ["pt11", "pt-1.2", "3.7"],
+    ["pt11", "pt-1.3", "2.5"],
+    ["pt11", "pt-1.4", "1.7"],
+    ["pt12", "pt-1.1", "4.9"],
+    ["pt12", "pt-1.2", "4.3"],
+    ["pt12", "pt-1.3", "2.8"],
+    ["pt12", "pt-1.4", "2"],
+    ["pt13", "pt-1.1", "6.2"],
+    ["pt13", "pt-1.2", "5.3"],
+    ["pt13", "pt-1.3", "3.5"],
+    ["pt13", "pt-1.4", "2.6"],
+    ["pt14", "pt-1.1", "6.2"],
+    ["pt14", "pt-1.2", "5.3"],
+    ["pt14", "pt-1.3", "3.5"],
+    ["pt14", "pt-1.4", "2.6"],
+    ["pt15", "pt-1.1", "6.1"],
+    ["pt15", "pt-1.2", "5.3"],
+    ["pt15", "pt-1.3", "4.2"],
+    ["pt15", "pt-1.4", "2.4"],
+    ["pt16", "pt-1.1", "6.1"],
+    ["pt16", "pt-1.2", "5.3"],
+    ["pt16", "pt-1.3", "4.2"],
+    ["pt16", "pt-1.4", "2.4"],
+    ["pt17", "pt-1.1", "2.9"],
+    ["pt17", "pt-1.2", "2.5"],
+    ["pt17", "pt-1.3", "1.6"],
+    ["pt17", "pt-1.4", "1.2"],
+    ["pt18", "pt-1.1", "3.4"],
+    ["pt18", "pt-1.2", "3"],
+    ["pt18", "pt-1.3", "2"],
+    ["pt18", "pt-1.4", "1.4"],
+    ["pt19", "pt-1.1", "2.9"],
+    ["pt19", "pt-1.2", "2.4"],
+    ["pt19", "pt-1.3", "1.6"],
+    ["pt19", "pt-1.4", "1.2"],
+    ["pt20", "pt-1.1", "3.65"],
+    ["pt20", "pt-1.2", "3.04"],
+    ["pt20", "pt-1.3", "2.08"],
+    ["pt20", "pt-1.4", "1.52"],
+    ["pt21", "pt-1.1", "2.61"],
+    ["pt21", "pt-1.2", "2.18"],
+    ["pt21", "pt-1.3", "1.49"],
+    ["pt21", "pt-1.4", "1.04"],
+    ["pt22", "pt-1.1", "3.25"],
+    ["pt22", "pt-1.2", "2.79"],
+    ["pt22", "pt-1.3", "1.75"],
+    ["pt22", "pt-1.4", "1.44"],
+    ["pt23", "pt-1.1", "2.7"],
+    ["pt23", "pt-1.2", "2.26"],
+    ["pt23", "pt-1.3", "1.49"],
+    ["pt23", "pt-1.4", "1.18"],
+    ["pt24", "pt-1.1", "4.17"],
+    ["pt24", "pt-1.2", "3.55"],
+    ["pt24", "pt-1.3", "2.28"],
+    ["pt24", "pt-1.4", "1.82"],
+    ["pt25", "pt-1.1", "0.99"],
+    ["pt25", "pt-1.2", "0.83"],
+    ["pt25", "pt-1.3", "0.59"],
+    ["pt25", "pt-1.4", "0.41"],
+    ["pt26", "pt-1.1", "2.05"],
+    ["pt26", "pt-1.2", "1.68"],
+    ["pt26", "pt-1.3", "1.1"],
+    ["pt26", "pt-1.4", "0.89"],
+    ["pt27", "pt-1.1", "5.2"],
+    ["pt27", "pt-1.2", "4.45"],
+    ["pt27", "pt-1.3", "2.91"],
+    ["pt27", "pt-1.4", "2.22"],
+    ["pt28", "pt-1.1", "4.03"],
+    ["pt28", "pt-1.2", "3.44"],
+    ["pt28", "pt-1.3", "2.4"],
+    ["pt28", "pt-1.4", "1.77"],
+    ["pt29", "pt-1.1", "1.29"],
+    ["pt29", "pt-1.2", "1.05"],
+    ["pt29", "pt-1.3", "0.74"],
+    ["pt29", "pt-1.4", "0.57"],
+    ["pt30", "pt-1.1", "3.08"],
+    ["pt30", "pt-1.2", "2.58"],
+    ["pt30", "pt-1.3", "1.79"],
+    ["pt30", "pt-1.4", "1.29"],
+    ["pt31", "pt-1.1", "7.18"],
+    ["pt31", "pt-1.2", "6.28"],
+    ["pt31", "pt-1.3", "4.19"],
+    ["pt31", "pt-1.4", "2.89"],
+    ["pt32", "pt-1.1", "3.43"],
+    ["pt32", "pt-1.2", "2.88"],
+    ["pt32", "pt-1.3", "1.82"],
+    ["pt32", "pt-1.4", "1.48"],
+    ["pt33", "pt-1.1", "1.86"],
+    ["pt33", "pt-1.2", "1.57"],
+    ["pt33", "pt-1.3", "0.98"],
+    ["pt33", "pt-1.4", "0.82"],
+    ["pt34", "pt-1.1", "5.54"],
+    ["pt34", "pt-1.2", "4.71"],
+    ["pt34", "pt-1.3", "3.12"],
+    ["pt34", "pt-1.4", "2.36"],
+    ["pt35", "pt-1.1", "5.36"],
+    ["pt35", "pt-1.2", "4.41"],
+    ["pt35", "pt-1.3", "2.78"],
+    ["pt35", "pt-1.4", "2.28"],
+    ["pt36", "pt-1.1", "2.41"],
+    ["pt36", "pt-1.2", "2.02"],
+    ["pt36", "pt-1.3", "1.32"],
+    ["pt36", "pt-1.4", "1.01"],
+    ["pt37", "pt-1.1", "2.81"],
+    ["pt37", "pt-1.2", "2.39"],
+    ["pt37", "pt-1.3", "1.5"],
+    ["pt37", "pt-1.4", "1.14"],
+    ["pt38", "pt-1.1", "2.6"],
+    ["pt38", "pt-1.2", "2.28"],
+    ["pt38", "pt-1.3", "1.69"],
+    ["pt38", "pt-1.4", "1.08"],
+    ["pt39", "pt-1.1", "2.64"],
+    ["pt39", "pt-1.2", "2.28"],
+    ["pt39", "pt-1.3", "1.49"],
+    ["pt39", "pt-1.4", "1.06"],
+    ["pt40", "pt-1.1", "3.73"],
+    ["pt40", "pt-1.2", "3.19"],
+    ["pt40", "pt-1.3", "2.05"],
+    ["pt40", "pt-1.4", "1.5"],
+    ["pt41", "pt-1.1", "4.52"],
+    ["pt41", "pt-1.2", "3.77"],
+    ["pt41", "pt-1.3", "2.37"],
+    ["pt41", "pt-1.4", "1.94"],
+    ["pt42", "pt-1.1", "5.74"],
+    ["pt42", "pt-1.2", "4.91"],
+    ["pt42", "pt-1.3", "3.3"],
+    ["pt42", "pt-1.4", "2.46"]
    ],
-   "sources": ["s1", "s2", "s3", "s4"],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7"],
    "basis": "transcribed"
   }
  ],
@@ -177,8 +816,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "crossings": true,
-   "osm_extract": "2026-11-20"
+   "crossings": true
   }
  }
 }

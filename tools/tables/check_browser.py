@@ -30,6 +30,10 @@ RULES = {
     "by-mintrans-42-2026": ("08-15", 366),  # BelToll tariffs have changed on 1 September
     "me-autoput": (None, 183),          # Monteput's pages carry no date; read when the workflow gets a bot check
     "me-sozina": (None, 183),
+    "it-aspi-barriers": ("01-01", 366),  # Italian tolls change on 1 January
+    "it-aspi-routes": ("01-01", 366),
+    "it-aspi-closed-barriers": ("01-01", 366),
+    "it-aspi-mountain": ("01-01", 366),
 }
 
 

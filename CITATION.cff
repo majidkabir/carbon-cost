@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use carbon-cost or its tariff data, please cite it as below."
+type: software
+title: "carbon-cost: road tolls and carbon charges per truck trip in Europe"
+abstract: >-
+  carbon-cost works out what a truck trip pays in road tolls and carbon
+  charges, per country and per charge, with the CO2 part shown separately:
+  km-based tolls split into their legal parts (infrastructure, air, noise,
+  CO2), entry-to-exit and per-passage tolls, vignettes, bridge and tunnel
+  tolls, EU ETS on ferry crossings, ETS2 on road fuel from 2028 and national
+  CO2 prices on diesel. Every rate is taken from the law or the official
+  tariff that sets it, fetched by script and stored in the Open Road Charge
+  Tariff (ORCT) format. Routes and emissions come from Sootcase (GLEC
+  Framework, ISO 14083).
+authors:
+  - family-names: Ghafouri
+    given-names: Majid
+repository-code: "https://github.com/majidkabir/carbon-cost"
+url: "https://sootcase.org/carbon-cost/"
+license: MIT
+keywords:
+  - road tolls
+  - road user charges
+  - truck tolls
+  - Eurovignette
+  - CO2 emission class
+  - carbon pricing
+  - EU ETS
+  - ETS2
+  - freight transport
+  - road freight emissions
+  - ORCT

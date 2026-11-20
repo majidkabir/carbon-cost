@@ -112,6 +112,8 @@ CLOSED = [
     ((1, 181), "Autostrada Asti-Cuneo S.p.A.|A33", "A33 Asti-Cuneo, Castelletto Stura barrier"),
     ((1, 302), "SAT p.A.|A12", "A12 Livorno-Rosignano, Rosignano barrier"),
     ((1, 278), "Società Autostrada Ligure Toscana p.a.|A15", "A15 Parma-La Spezia, La Spezia barrier"),
+    # On the ramp from Pozzuolo Martesana, 0.3 km off the TEEM's carriageways.
+    ((1, 382), "Tangenziale Esterna S.p.A.|A58", "A58 Tangenziale Esterna, Pozzuolo Martesana barrier"),
 ]
 # Barriers whose operator charges more km than from the next junction:
 # Brebemi's Liscate barrier (D35, the link from the Rivoltana to the TEEM).
@@ -348,7 +350,7 @@ def write(out, year, points, notes, a32=(), aspi=(), closed=(), inter=()):
         law += ("Closed-system barriers whose toll is more than the km to the next station at the motorway's rate: each charges a fixed toll for the free stretch on its other side and more, so its toll point charges the form's toll to the next station less the two stations' km apart (in Autostrade per l'Italia's station file) at the rate the motorway table gives that stretch, and the free stretch isn't charged by the km: "
                 + "; ".join(closed) + ". The form's tolls are rounded to 10 cents, so these are within 5 cents. ")
         sources.append({"title": "Autostrade per l'Italia: Info viabilità, Calcola il pedaggio da casello a casello, closed-system barriers (read in a browser; tools/tables/browser/it-aspi-closed-barriers.txt)", "url": ASPI_FORM})
-        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia)"
+        name += ", closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana)"
         roads += "; closed-system barriers: " + ", ".join(c.split(" class ")[0] for c in closed)
     if inter:
         law += ("CAV's Padova-Venezia toll: the form and Autostrade per l'Italia's route calculator charge one toll from the A4's Padova Est to each of the A57's stations (Mirano Dolo, Mira-Oriago, the Venezia Mestre barrier) and none between them, so the A57 west of the barrier isn't charged by the km and a toll point on it by the A4/Passante junction charges that toll less CAV's A4 from Padova Est to the junction at its rate: "

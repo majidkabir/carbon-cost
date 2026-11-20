@@ -97,7 +97,7 @@ CLOSED = [
     ((1, 783), "Autostrade per l'Italia S.p.A.|A30", "A30 Caserta-Salerno, Salerno barrier"),
     ((1, 681), "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", "A22 Brennero-Modena, Brennero barrier"),
     ((1, 351), "Autostrada dei Fiori S.p.A.|A6", "A6 Torino-Savona, Barriera di Torino barrier"),
-    ((1, 545), "Autostrade per l'Italia S.p.A.|A23", "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier"),
+    ((1, 545), "Autostrade per l'Italia S.p.A.|A23|mountain", "A23 Palmanova-Tarvisio, Ugovizza-Tarvisio barrier"),
 ]
 CLOSED_CAPTURE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "it-aspi-closed-barriers.txt")
 

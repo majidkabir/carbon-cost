@@ -2109,6 +2109,10 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 	a34 := [][2]float64{{13.43648, 45.86547}, {13.45741, 45.87684}, {13.46058, 45.87977}, {13.47062, 45.89087}, {13.47317, 45.89288}, {13.49408, 45.90069}, {13.50052, 45.90187}, {13.52317, 45.90112}, {13.53671, 45.90317}, {13.58469, 45.90476}, {13.58887, 45.90610}, {13.60216, 45.91533}, {13.60761, 45.91774}}
 	// The A22 south of the Brennero barrier, its mountain stretch.
 	a22 := [][2]float64{{11.44990, 46.87999}, {11.47687, 46.87052}, {11.47977, 46.86963}}
+	// ASPI's mountain stretches (tools/tables/browser/it-aspi-mountain.txt):
+	// the A1 by Barberino di Mugello and the A7 by Serravalle Scrivia.
+	a1mtn := [][2]float64{{11.20924, 43.95354}, {11.20977, 43.95267}, {11.21134, 43.95075}, {11.22037, 43.94238}, {11.22179, 43.94060}, {11.22251, 43.93942}, {11.22348, 43.93703}, {11.22381, 43.93490}, {11.22375, 43.93269}, {11.22313, 43.93011}, {11.22255, 43.92879}, {11.22163, 43.92722}, {11.21938, 43.92454}, {11.20941, 43.91389}, {11.19523, 43.89908}, {11.19330, 43.89730}, {11.19117, 43.89573}}
+	a7 := [][2]float64{{8.89839, 44.69257}, {8.90021, 44.69038}, {8.90053, 44.68985}, {8.90168, 44.68653}, {8.90417, 44.68312}, {8.90426, 44.68227}, {8.90388, 44.68111}, {8.90383, 44.68035}, {8.90507, 44.67652}, {8.90513, 44.67577}, {8.90500, 44.67431}, {8.90573, 44.67163}, {8.90609, 44.67073}, {8.90745, 44.66836}, {8.90986, 44.66581}}
 	a12 := [][2]float64{{12.28999, 41.82963}, {12.28507, 41.83467}, {12.26513, 41.85301}, {12.26402, 41.85459}, {12.26339, 41.85611}, {12.26261, 41.86195}, {12.26184, 41.86383}, {12.26045, 41.86552}, {12.24939, 41.87728}, {12.24812, 41.87827}, {12.24663, 41.87896}, {12.23873, 41.88112}}
 	rx, err := roads.Default()
 	if err != nil {
@@ -2129,7 +2133,9 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 		{"A1 Napoli to the Napoli Nord barrier", "Autostrade per l'Italia S.p.A.|A1", a1, 14.3, 0.19034},
 		{"A24 from the Teramo barrier", "Strada dei Parchi S.p.A.|A24", teramo, 12.3, 0.25161},
 		{"A34 from the Villesse barrier", "Società Autostrade Alto Adriatico S.p.A.|A34", a34, 15.2, 0.18898},
-		{"A22 Brennero-Affi", "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", a22, 2.4, 0.18378}} {
+		{"A22 Brennero-Affi", "Autostrada del Brennero S.p.A.|A22|Brennero-Affi", a22, 2.4, 0.18378},
+		{"A1 Bologna-Calenzano, mountain", "Autostrade per l'Italia S.p.A.|A1|mountain", a1mtn, 7.2, 0.22437},
+		{"A7 Serravalle-Genova, mountain", "Autostrade per l'Italia S.p.A.|A7", a7, 3, 0.22437}} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: tc.km, CountryKm: map[string]float64{"IT": tc.km}, Path: tc.path}}}
 		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: tc.path}})
 		if rk["IT"].MotorwayOp[tc.op] < tc.km-0.5 {
@@ -2659,7 +2665,7 @@ func TestMilanBarriers(t *testing.T) {
 		{"A16 Napoli Est", [][2]float64{{14.4670, 40.9155}, {14.47088, 40.91625}, {14.4750, 40.9170}}, truck40, 4.03},
 		{"A22 Brennero", [][2]float64{{11.4335, 46.8880}, {11.4348, 46.88512}, {11.4360, 46.8820}}, truck40, 3.08},
 		{"A6 Barriera di Torino", [][2]float64{{7.7480, 44.8570}, {7.74864, 44.85416}, {7.7493, 44.8512}}, truck40, 7.18},
-		{"A23 Ugovizza-Tarvisio", [][2]float64{{13.4770, 46.5068}, {13.48088, 46.50684}, {13.4850, 46.5069}}, truck40, 3.86},
+		{"A23 Ugovizza-Tarvisio", [][2]float64{{13.4770, 46.5068}, {13.48088, 46.50684}, {13.4850, 46.5069}}, truck40, 3.43},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1, CountryKm: map[string]float64{"IT": 1}, Path: tc.path}}}
 		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))

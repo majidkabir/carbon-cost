@@ -29,6 +29,12 @@ import html, json, os, re, sys
 OPS = [
     ("Superstrada Pedemontana Veneta S.p.A.", "", "", ""),
     ("Autostrade per l'Italia S.p.A.", "A26|Lago Maggiore", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A1|mountain", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A26|mountain", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A23|mountain", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A7", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A10", "", ""),
+    ("Autostrade per l'Italia S.p.A.", "A12", "", ""),
     ("Autostrada del Brennero S.p.A.", "", "a22-brennero", ""),
     ("Autostrada del Brennero S.p.A.", "A22|Brennero-Affi", "a22-brennero", ""),
     ("Autostrada Asti-Cuneo S.p.A.", "", "asti-cuneo", ""),
@@ -84,6 +90,17 @@ FILE_RATES = [
     # The A26 north of the Lago Maggiore station, which charges its km at
     # ASPI's mountain rate (tools/roads/build.py, TOLLED).
     ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A26|Lago Maggiore", 6, 1, "tarM"),
+    # ASPI's mountain stretches its route calculator prices at that rate
+    # (browser/it-aspi-mountain.txt): those tools/roads/build.py places
+    # (MOUNTAIN), and its A7 Serravalle-Genova, A10 Genova-Savona and A12
+    # Genova-Sestri Levante whole (the A12 Roma-Civitavecchia has its own
+    # key, priced at its barriers).
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A1|mountain", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A26|mountain", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A23|mountain", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A7", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A10", 6, 1, "tarM"),
+    ("it-aspi-unit-rates", "Autostrade per l'Italia S.p.A.|A12", 6, 1, "tarM"),
 ]
 # Concessions whose rates for the year are published only as an image,
 # transcribed (transcribed/<file>.json, "user" rates with VAT and ANAS fee):
@@ -144,7 +161,7 @@ PAGE_NAMES = {"image:it-cav-2026": "CAV (A4, A57, Passante di Mestre)", "image:i
               "inc:it-salt-tariffe": "SALT (A15; its 2025 unit rate raised by the change its notice states)",
               "inc:it-te-tariffe": "Tangenziale Esterna (A58; its 2025 unit rate raised by the change its notice states)",
               "inc:it-serravalle-pedaggio": "Milano Serravalle (A7; its 2025 unit rate raised by the increase its page states)",
-              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta and Autostrade per l'Italia's A26 Gravellona Toce-Lago Maggiore (at ASPI's mountain rate; their rates in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own plain rates as its page does)"}
+              "it-aspi-unit-rates": "Superstrada Pedemontana Veneta and Autostrade per l'Italia's mountain stretches as its route calculator prices them (the A1 Bologna-Calenzano, A7 Serravalle-Genova, A10 Genova-Savona, A12 Genova-Sestri Levante, A23 Carnia-Tarvisio, A26 Genova Voltri-Alessandria Sud and Gravellona Toce-Lago Maggiore; their rates in Autostrade per l'Italia's toll calculator file, which gives Autostrade per l'Italia's own plain rates as its page does)"}
 CAS = "Consorzio per le Autostrade Siciliane"
 MISE = "Milano Serravalle - Milano Tangenziali S.p.A."
 SITAF = "SITAF S.p.A."

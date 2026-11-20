@@ -322,6 +322,49 @@ def file_rates(fetched, aspi_plain):
     return out
 
 
+# The rows the builder checks against Autostrade per l'Italia's toll
+# calculator file: operator key -> company, network and rate there.
+CHECK = {
+    "Autostrada Asti-Cuneo S.p.A.": (43, 1, "tarM"), "Autostrada Brescia Verona Vicenza Padova S.p.A.": (1, 1, "tarP"),
+    "Autostrada del Brennero S.p.A.": (2, 1, "tarP"), "Autostrada dei Fiori S.p.A.": (26, 1, "tarM"),
+    "Autovia Padana S.p.A.": (49, 1, "tarP"), "CAV S.p.A.": (54, 1, "tarM"), "CAV S.p.A.|A4|Passante": (54, 1, "tarP"),
+    "Concessioni del Tirreno S.p.A.": (74, 1, "tarP"), "Concessioni del Tirreno S.p.A.|A10": (75, 1, "tarM"),
+    "Ivrea Torino Piacenza S.p.A.": (98, 1, "tarP"), "Ivrea Torino Piacenza S.p.A.|A21": (97, 1, "tarP"),
+    "Milano Serravalle - Milano Tangenziali S.p.A.|A7": (7, 1, "tarP"), "RAV Raccordo Autostradale Valle d'Aosta S.p.A.": (29, 1, "tarM"),
+    "SAT p.A.": (28, 1, "tarM"), "SATAP S.p.A.|A4": (14, 1, "tarP"), "SATAP S.p.A.|A4|Novara Est-Milano": (14, 1, "tarM"),
+    "Società Autostrada Ligure Toscana p.a.|A15": (11, 1, "tarM"), "Società Autostrade Alto Adriatico S.p.A.": (78, 1, "tarP"),
+    "Società Autostrade Valdostane S.p.A.": (17, 1, "tarM"), "Società di Progetto Brebemi S.p.A": (80, 1, "tarP"),
+    "Strada dei Parchi S.p.A.": (5, 1, "tarM"), "Tangenziale Esterna S.p.A.": (81, 1, "tarP"),
+}
+
+
+def cross_check(fetched, rows):
+    """Warns (GitHub Actions ::warning lines) where a concession's row
+    differs from Autostrade per l'Italia's toll calculator file by more
+    than 0.25%: a year's change missed (mostly 1.5%) shows, while pages
+    giving fewer decimals (SAV's three) and Autovia Padana's 'A' fares
+    (0.15% above the file's) don't."""
+    path = os.path.join(fetched, "it-aspi-unit-rates.json")
+    if not os.path.exists(path):
+        return
+    socs = {(x["cSoc"], x["cRet"]): {c.get("tDesCla"): c for c in x["classi"]} for x in json.load(open(path, encoding="utf-8"))["tariffeUnitarieSocieta"]}
+    n = 0
+    for r in rows:
+        key, cl = r.get("operator"), {None: "B", 3: "3", 4: "4", 5: "5"}[r.get("min_axles")]
+        if key not in CHECK:
+            continue
+        soc, ret, k = CHECK[key]
+        c = socs.get((soc, ret), {}).get(cl)
+        if not c or c[k] <= 0:
+            print(f"::warning::it: {key} isn't in Autostrade per l'Italia's toll calculator file (company {soc}, network {ret})")
+            continue
+        want = round((c[k] + c["tarComA"]) * (1 + c["iva"] / 100), 5)
+        n += 1
+        if abs(r["rate"] / want - 1) > 0.0025:
+            print(f"::warning::it: {key} class {cl} at {r['rate']}, Autostrade per l'Italia's toll calculator file {want}")
+    print("it: rows checked against the toll calculator file:", n)
+
+
 def operator_rows(transcribed, fetched, year, own_tables=(CAS,), aspi_plain=None):
     rows, used, pages = [], {}, {}
     pages.update(file_rates(fetched, aspi_plain))
@@ -483,6 +526,7 @@ def main(transcribed, fetched, out):
     pl = [float(v.replace(",", ".")) for v in plain.groups()]
     mo = [float(v.replace(",", ".")) for v in mountain.groups()]
     ops, used = operator_rows(transcribed, fetched, int(valid_from[:4]), own_tables=(CAS, SITAF) + OPEN, aspi_plain=pl)
+    cross_check(fetched, ops)
     write(out, valid_from, pl, mo, ops, used, transcribed, fetched, {
         "aspi": f"Autostrade per l'Italia's network and the concessions without rates in their sheet at Autostrade per l'Italia's plain-stretch unit rate, VAT included, in force from {valid_from}",
         "aspi_source": {"title": "Autostrade per l'Italia: come si calcola il pedaggio (unit rates per km, VAT included)", "url": "https://www.autostrade.it/it/servizi-al-cliente/pedaggio/come-si-calcola-il-pedaggio"},

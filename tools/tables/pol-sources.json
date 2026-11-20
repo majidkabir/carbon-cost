@@ -2,15 +2,285 @@
  "about": "x",
  "sources": [
   {
-   "id": "aspi-caselli",
+   "id": "aspi-main",
    "table": "x",
-   "url": "https://viabilita.autostrade.it/json/caselli.json",
+   "url": "https://viabilita.autostrade.it/main-7CGC632R.js",
    "what": "x"
   },
   {
-   "id": "aspi-tariffe",
+   "id": "aspi-chunk-JESUGWRR",
    "table": "x",
-   "url": "https://viabilita.autostrade.it/json/tariffe.json",
+   "url": "https://viabilita.autostrade.it/chunk-JESUGWRR.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-AR6AHG6M",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-AR6AHG6M.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-OEVKH35A",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-OEVKH35A.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-UULYUQLH",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-UULYUQLH.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-BZPLJKYX",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-BZPLJKYX.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-DMIMJIVI",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-DMIMJIVI.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-BOQKMLBZ",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-BOQKMLBZ.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-XWJCDS3H",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-XWJCDS3H.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-PWXGC7TO",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-PWXGC7TO.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-3OBDOCUW",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-3OBDOCUW.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-O5YIRJSM",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-O5YIRJSM.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-HGNY2TSA",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-HGNY2TSA.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-FUQYDKL3",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-FUQYDKL3.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-DCNQUIQM",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-DCNQUIQM.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-22DZSWXV",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-22DZSWXV.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-BZBUTBPM",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-BZBUTBPM.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-DWJPOHGL",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-DWJPOHGL.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-YA2YWFCV",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-YA2YWFCV.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-M6BMTPGT",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-M6BMTPGT.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-46YT2JUS",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-46YT2JUS.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-Y6XYU6WB",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-Y6XYU6WB.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-2345JWIW",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-2345JWIW.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-J6S5TTKE",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-J6S5TTKE.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-EKN5ETV4",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-EKN5ETV4.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-4POIROFM",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-4POIROFM.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-5CP4JN7U",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-5CP4JN7U.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-72MHIWWM",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-72MHIWWM.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-6Y4YEW7B",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-6Y4YEW7B.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-4JDBSVFJ",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-4JDBSVFJ.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-ZJ5QEMJA",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-ZJ5QEMJA.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-WCTQF235",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-WCTQF235.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-5R5TMLFS",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-5R5TMLFS.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-7YAA4FY2",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-7YAA4FY2.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-TBCCTUBO",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-TBCCTUBO.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-CB54TC4R",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-CB54TC4R.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-ZBNX6ZBN",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-ZBNX6ZBN.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-CGOBUJDN",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-CGOBUJDN.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-ULOPEUVX",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-ULOPEUVX.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-KGWAZX5A",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-KGWAZX5A.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-QHM3WZFA",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-QHM3WZFA.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-J2E3NYFK",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-J2E3NYFK.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-R5H3YZPV",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-R5H3YZPV.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-V3BTWS7N",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-V3BTWS7N.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-WBPZXK6G",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-WBPZXK6G.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-EANYWJC6",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-EANYWJC6.js",
+   "what": "x"
+  },
+  {
+   "id": "aspi-chunk-LSB6DUMR",
+   "table": "x",
+   "url": "https://viabilita.autostrade.it/chunk-LSB6DUMR.js",
    "what": "x"
   }
  ]

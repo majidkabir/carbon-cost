@@ -23,7 +23,18 @@
    "name": "A1 Rruga e Kombit toll (Milot–Morinë) and Thumanë–Kashar",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "afc17f8b1bc21b680f8c3ea934a46d1aa9d8fa90b4c467163e7cf6c0449eeb38",
+   "sha256": "b069cd36bc5c06f460275a42503610a0678ac6d8916ad13e32026810f78aa3b1",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/al-llogara/2025-10-02",
+   "scheme": "al-llogara",
+   "country": "AL",
+   "file": "al/al-llogara-2025-10-02.orct.json",
+   "name": "Llogara tunnel toll",
+   "valid_from": "2025-10-02",
+   "valid_to": null,
+   "sha256": "cb855fc7d591e837f3537efc67432c1aa5a4fce4329340fe8e2e76ab10a1f3af",
    "coverage": "complete"
   },
   {
@@ -2047,7 +2058,7 @@
    "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "96affe69c5b8d493f4dd1555e7f244463222f66b7cc6929e1d4e794fa6eb27a1",
+   "sha256": "0af295dd678f408f53074bc269e870562206f25f0e3132340380346a6b90ddec",
    "coverage": "partial"
   },
   {
@@ -2619,7 +2630,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-09-11",
    "valid_to": "2025-03-10",
-   "sha256": "b5c43344eb07d769e17f39e06fa6b46e9e45a189190b82b524ffda320ca25bf5",
+   "sha256": "cea950ffd7379c981d27e5a2f129d66f2e3b30db558dcdb8692f336edd05281b",
    "coverage": "complete"
   },
   {

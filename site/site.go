@@ -260,18 +260,17 @@ func (s *Site) render(name string, data any) []byte {
 }
 
 // toEUR converts an amount at the day's rate: the ERM II central rate for
-// DKK, the NBS middle rate for RSD, else the ECB reference rate.
+// DKK, the central bank's official rate for a currency the ECB has none for
+// (RSD, ALL), else the ECB reference rate.
 func toEUR(v float64, cur string, day time.Time) (float64, bool) {
 	switch cur {
 	case "EUR":
 		return v, true
 	case "DKK":
 		return v / cost.DKKPerEUR, true
-	case "RSD":
-		if r, _, ok := fx.RSDOnDate(day); ok {
-			return v / r, true
-		}
-		return 0, false
+	}
+	if r, _, _, ok := fx.NationalOnDate(cur, day); ok {
+		return v / r, true
 	}
 	if r, ok := fx.OnDate(day); ok {
 		if p := r.PerEUR[cur]; p > 0 {

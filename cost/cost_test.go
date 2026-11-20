@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
@@ -2160,6 +2161,25 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
 		}
 	}
+	// In 2025 the A22's mountain stretch takes the mountain rate of the
+	// concession's 2025 sheet (0.14873, VAT excluded): 0.18145.
+	{
+		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a22}})
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2.4, CountryKm: map[string]float64{"IT": 2.4}, Path: a22}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var km float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll && l.Rate == 0.18145 {
+				km += l.Km
+			}
+		}
+		if km < 1.9 {
+			t.Errorf("A22 Brennero-Affi in 2025: %.2f km at 0.18145: %v", km, r.Lines)
+		}
+	}
 	// The A24 before the Roma Est barrier is free: the barrier charges it.
 	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a24}}); rk["IT"].MotorwayOp["Strada dei Parchi S.p.A.|A24"] > 0.5 {
 		t.Errorf("A24 before the Roma Est barrier: %v", rk["IT"].MotorwayOp)
@@ -3852,5 +3872,43 @@ func TestNoCharge(t *testing.T) {
 	r, _ = Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
 	if strings.Join(r.NoRates, ",") != "FI" {
 		t.Errorf("June 2026: no_rates %v, want FI", r.NoRates)
+	}
+}
+
+// The Llogara tunnel (Udhëzim i përbashkët nr. 4, datë 12.9.2025): high
+// vehicles with 2 axles ALL 350, 3 axles 500, 4 or more 5000, with 20% VAT
+// divided out; the lek converted at the Bank of Albania's official rate of
+// the day.
+func TestAlbaniaLlogara(t *testing.T) {
+	path := [][2]float64{{19.5612487, 40.2255910}, {19.570068, 40.206968}, {19.5776600, 40.1909363}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 4, CountryKm: map[string]float64{"AL": 4}, Path: path}}}
+	day := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
+	perEUR, _, _, ok := fx.NationalOnDate("ALL", day)
+	if !ok {
+		t.Fatal("no Bank of Albania rate embedded")
+	}
+	for _, tc := range []struct {
+		name  string
+		truck rates.Truck
+		want  float64
+	}{
+		{"2 axles", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 291.67},
+		{"3 axles", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 416.67},
+		{"5 axles", truck40, 4166.67},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 10000, Truck: tc.truck}, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got, eur float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Llogar") && l.Currency == "ALL" {
+				got += l.Amount
+				eur += l.AmountEUR
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 || math.Abs(eur-round2(tc.want/perEUR)) > 0.011 || !hasNote(r, "Bank of Albania") {
+			t.Errorf("%s: ALL %v (EUR %v), want %v at %v per euro: %v %v", tc.name, got, eur, tc.want, perEUR, r.Lines, r.Notes)
+		}
 	}
 }

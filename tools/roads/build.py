@@ -156,15 +156,18 @@ FREE = {"PL": [
 
 # Toll motorway OSM tags toll=no: the motorway ways of an "operator|ref"
 # whose every node lies in the box (lon, lat, lon, lat) count as tolled.
-# Two Rome branches whose barrier charges the km from the GRA as closed-
+# Rome's branches whose barrier charges the km from the GRA as closed-
 # system km (Autostrade per l'Italia's route calculator, tools/tables/
 # browser/it-aspi-routes.txt): the Diramazione Roma Nord (A1dir) to the
 # Roma Nord barrier ("Roma Nord - Ponzano Romano-Soratte 7 EUR - 37 km"
-# from Settebagni), most of whose ways OSM tags toll=no, and the A24 to the
-# Roma Est barrier ("Roma Est - Tivoli 5.3 EUR - 21 km" from Settecamini),
-# one carriageway of which OSM tags toll=no for 3 km.
+# from Settebagni), most of whose ways OSM tags toll=no; the Diramazione
+# Roma Sud (A1dir) to the Roma Sud barrier ("Roma Sud - Valmontone 5.7 EUR
+# - 30 km") and the A24 to the Roma Est barrier ("Roma Est - Tivoli 5.3 EUR
+# - 21 km" from Settecamini), one carriageway of each tagged toll=no for
+# 3-4 km.
 TOLLED = {"IT": [
     ("Autostrade per l'Italia S.p.A.|A1dir", (12.50, 41.98, 12.62, 42.145), "A1dir Diramazione Roma Nord, GRA-Roma Nord barrier"),
+    ("Autostrade per l'Italia S.p.A.|A1dir", (12.595, 41.82, 12.66, 41.86), "A1dir Diramazione Roma Sud, GRA-Roma Sud barrier"),
     ("Strada dei Parchi S.p.A.|A24", (12.60, 41.91, 12.705, 41.935), "A24 Roma, GRA-Roma Est barrier"),
 ]}
 

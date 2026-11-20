@@ -1358,6 +1358,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/nocharge-fi/2026-11-20",
+   "scheme": "nocharge-fi",
+   "country": "FI",
+   "file": "fi/nocharge-fi-2026-11-20.orct.json",
+   "name": "Finland: no road toll or vignette",
+   "valid_from": "2026-11-20",
+   "valid_to": null,
+   "sha256": "c02be4301a57b0503a3020ffbd37f9056393b2e4788e2de3a5e1bb6a4a564e68",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fo-tunnels/2026-11-16",
    "scheme": "fo-tunnels",
    "country": "FO",

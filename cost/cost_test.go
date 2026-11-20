@@ -3832,3 +3832,25 @@ func TestDanishFerries(t *testing.T) {
 		}
 	}
 }
+
+// A country that levies no road charge (ORCT no_charge): a note with the
+// authority's statement and its source, no lines, and not in no_rates.
+func TestNoCharge(t *testing.T) {
+	tku := sootcase.Result{TTWKg: 120, WTWKg: 150, Legs: []sootcase.LegResult{{
+		DistanceKm: 165, TTWKg: 120, WTWKg: 150, CountryKm: map[string]float64{"FI": 165}}}}
+	r, err := Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 12, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if slices.ContainsFunc(r.Lines, func(l Line) bool { return l.Charge == RoadToll }) || len(r.NoRates) != 0 || !hasNote(r, "FI: no road toll, vignette or emission sticker for trucks (Traficom") {
+		t.Errorf("lines %v, no_rates %v, notes %v", r.Lines, r.NoRates, r.Notes)
+	}
+	if !slices.ContainsFunc(r.Sources, func(s rates.Source) bool { return strings.Contains(s.URL, "traficom.fi") }) {
+		t.Errorf("sources %v: want Traficom's page", r.Sources)
+	}
+	// Before the statement was read: no dataset, so no rates.
+	r, _ = Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
+	if strings.Join(r.NoRates, ",") != "FI" {
+		t.Errorf("June 2026: no_rates %v, want FI", r.NoRates)
+	}
+}

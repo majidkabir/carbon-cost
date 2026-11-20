@@ -52,6 +52,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Fjord Line's ships page (fjordline-ships.html, its Markdown): a ship it
   puts between two ports ("Fjord FSTR ... between Hirtshals and
   Kristiansand");
+- Wasaline's cargo page (wasaline-cargo.html): its route ("between Vaasa in
+  Finland and Umeå in Sweden") and its ship;
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -135,6 +137,7 @@ PORTS = {
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
     "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)),
+    "Vaasa": ("FI", ["Vaasa", "Vasa"], (63.10, 21.62)), "Umeå": ("SE", ["Umeå", "Holmsund"], (63.83, 20.26)),
     "Odden": ("DK", ["Odden", "Sjællands Odde"], (55.97, 11.37)), "Aarhus": ("DK", ["Aarhus", "Århus"], (56.15, 10.21)),
     "Ebeltoft": ("DK", ["Ebeltoft"], (56.19, 10.68)),
     "Larvik": ("NO", ["Larvik"], (59.05, 10.03)), "Kristiansand": ("NO", ["Kristiansand"], (58.15, 8.00)),
@@ -689,6 +692,20 @@ def fjordline(page):
     return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
 
 
+def wasaline(page):
+    """[(ports, {ships}, heading, file)] from Wasaline's cargo page ("We
+    operate the route between Vaasa in Finland and Umeå in Sweden ...
+    Aurora Botnia is tailored for cargo transportation")."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    route = re.search(r"the route between (\w+) in \w+ and (\w+) in \w+", flat)
+    ships = set(re.findall(r"([A-Z]\w+ [A-Z]\w+) is tailored for cargo", flat))
+    if not route or not ships:
+        sys.exit("ferry ships: Wasaline's cargo page names no route or ship")
+    ports = tuple(port_of(p, os.path.basename(path)) for p in route.groups())
+    return [(ports, ships, "–".join(ports), path)]
+
+
 def eckero(page):
     """[(ports, {ships}, heading, file)] from Eckerö Line's cargo page: its
     ships' crossings in its cargo CO2 figures ("M/S Finbo Cargo (Helsinki,
@@ -711,12 +728,13 @@ def eckero(page):
 def osm_query():
     """The Overpass queries of ferry-ships-osm (lines named after a port,
     crossing the North Sea, the Channel or the Baltic: a line to a port
-    further off, Santander or Tórshavn, passes through it) and -osm-2 (the
-    Mediterranean), as sources.json has them."""
+    further off, Santander or Tórshavn, passes through it), -osm-2 (the
+    Mediterranean) and -osm-3 (the Gulf of Bothnia), as sources.json has
+    them."""
     import urllib.parse
     names = "|".join(sorted({x for p, (_, xs, _) in PORTS.items() if p in QUERIED for x in xs if (p, x) not in (("Mytilene", "Mytilini"), ("Mytilene", "Lesvos (Mytilene)"))}))
     lines = ['[out:json][timeout:300];way["route"="ferry"]["name"~"' + names + f'"]{bbox};out geom tags;'
-             for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)")]
+             for bbox in ("(49.0,-11.0,61.0,26.0)", "(30.0,-10.0,46.5,36.0)", "(61.0,14.0,66.0,26.0)")]
     return ["https://overpass-api.de/api/interpreter?data=" + urllib.parse.quote(q, safe="") for q in lines]
 
 
@@ -779,9 +797,10 @@ def main(fetched, out):
         epage = (os.path.join(fetched, "eckero-cargo.html"), open(os.path.join(fetched, "eckero-cargo.html"), encoding="utf-8").read())
         cpage = (os.path.join(fetched, "colorline-routes.html"), open(os.path.join(fetched, "colorline-routes.html"), encoding="utf-8").read())
         jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
+        wpage = (os.path.join(fetched, "wasaline-cargo.html"), open(os.path.join(fetched, "wasaline-cargo.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
-        for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
+        for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json", "ferry-ships-osm-3.json"):
             gosm["elements"] += json.load(open(os.path.join(fetched, p), encoding="utf-8"))["elements"]
         urls = {f["file"]: f["url"] for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     except (OSError, ValueError) as e:
@@ -886,7 +905,8 @@ def main(fetched, out):
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
                              ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
-                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage))):
+                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage)),
+                             ("Wasaline", wasaline(wpage))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

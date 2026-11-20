@@ -9664,6 +9664,35 @@
    }
   },
   {
+   "id": "vaasa-umea",
+   "name": "Vaasa–Umeå",
+   "operator": "Wasaline",
+   "terminals": [
+    {
+     "name": "Vaasa",
+     "lat": 63.0877,
+     "lon": 21.554255,
+     "country": "FI"
+    },
+    {
+     "name": "Umeå",
+     "lat": 63.681495,
+     "lon": 20.340965,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9878319",
+     "name": "AURORA BOTNIA"
+    }
+   ],
+   "source": {
+    "title": "Wasaline: Vaasa–Umeå, its ferries",
+    "url": "https://www.wasaline.com/en/cargo/"
+   }
+  },
+  {
    "id": "valencia-eivissa",
    "name": "Valencia–Eivissa",
    "operator": "",

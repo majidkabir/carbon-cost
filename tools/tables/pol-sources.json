@@ -9,6 +9,12 @@
    "expect": [
     "\"route\": \"ferry\""
    ]
+  },
+  {
+   "id": "fjordline-ships",
+   "table": "x",
+   "url": "https://fjordline.com/en/p/our-ships.md",
+   "what": "x"
   }
  ]
 }

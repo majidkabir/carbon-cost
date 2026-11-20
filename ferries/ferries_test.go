@@ -99,9 +99,14 @@ func TestCoverage(t *testing.T) {
 		{"barcelona-mao", "2031-01-01", 1, "Member States"},
 		{"piraeus-chios", "2026-11-20", 0, "Greece: CHIOS, CHIOS"},
 		{"igoumenitsa-lefkimmi", "2026-11-20", 0, "Greece: KERKYRA, LEFKIMI"},
+		{"stinica-misnjak", "2026-11-20", 0, "Croatia: RAB, MIŠNJAK"},
 		{"oskarshamn-visby", "2031-01-01", 1, "Member States"},
 		{"paldiski-kapellskar", "2026-11-20", 1, "Member States"},
 		{"tallinn-helsinki", "2026-11-20", 1, "Member States"},
+		{"kiel-oslo", "2026-11-20", 1, "Member States"},
+		{"odden-aarhus", "2026-11-20", 1, "Member States"},
+		{"stromstad-sandefjord", "2026-11-20", 1, "Member States"},
+		{"hirtshals-kristiansand", "2026-11-20", 1, "Member States"},
 		{"ijmuiden-newcastle", "2026-11-20", 0.5, "one outside"},
 	} {
 		c, ok := byID[tc.id]

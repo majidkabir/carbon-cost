@@ -12,6 +12,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
 - Bornholmslinjen's ferries page (bornholm-ferries.html): each ferry's
   crossing times ("Rønne - Køge", "Rønne-Ystad") and description ("på
   ruten mellem Rønne og Ystad") name its routes;
+- Molslinjen's ferries page (mols-ferries.html), as Bornholmslinjen's: each
+  ferry's crossing times ("Odden-Aarhus", "Odden-Ebeltoft");
 - Destination Gotland's ferries page (gotland-ferries.html): each ferry's
   route ("M/S Drotten operates the Visby–Nynäshamn/Oskarshamn route"), its
   terminals on OpenStreetMap's lines (ferry-ships-osm.json). Gotland's port
@@ -45,6 +47,11 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   route's heading ("Tallinn-Helsinki") and its ships; Eckerö Line's cargo
   page (eckero-cargo.html): its ships' crossings, as its cargo CO2 figures
   name them ("M/S Finbo Cargo (Helsinki, Vuosaari – Tallinn, Muuga)");
+- Color Line's routes page (colorline-routes.html): each route's ships ("The
+  route Kiel – Oslo is operated by Color Magic and Color Fantasy");
+- Fjord Line's ships page (fjordline-ships.html, its Markdown): a ship it
+  puts between two ports ("Fjord FSTR ... between Hirtshals and
+  Kristiansand");
 - one operator's ships join another's on the same two ports (TT-Line's and
   Stena Line's on Rostock–Trelleborg);
 - OpenStreetMap (polsca-osm.json, dk-bornholm-osm.json, ttline-osm.json):
@@ -63,7 +70,8 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   ship of that name is listed.
 
 - for the island ports of the Decision in Spain (Ibiza, Formentera,
-  Menorca), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
+  Menorca), Croatia (Rab's Mišnjak: Jadrolinija's ports are
+  ets_islands.py's), Italy (Elba, Ischia, Procida, Capri, La Maddalena, San Pietro,
   Lipari, Pantelleria, Lampedusa, Favignana, Ustica, Ponza) and Malta
   (Gozo) that PORTS has (ISLANDS), and of Greece (GREECE, by the English
   names of OpenStreetMap's lines in gr-ferries-osm.json), the OpenStreetMap
@@ -126,7 +134,12 @@ PORTS = {
     "Fredericia": ("DK", ["Fredericia"], (55.57, 9.75)), "Køge": ("DK", ["Køge"], (55.46, 12.18)),
     "Paldiski": ("EE", ["Paldiski"], (59.35, 24.05)), "Kapellskär": ("SE", ["Kapellskär"], (59.72, 19.07)),
     "Muuga": ("EE", ["Muuga"], (59.50, 24.96)), "Tallinn": ("EE", ["Tallinn"], (59.44, 24.77)),
-    "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
+    "Stockholm": ("SE", ["Stockholm", "Värtahamnen"], (59.33, 18.07)),
+    "Odden": ("DK", ["Odden", "Sjællands Odde"], (55.97, 11.37)), "Aarhus": ("DK", ["Aarhus", "Århus"], (56.15, 10.21)),
+    "Ebeltoft": ("DK", ["Ebeltoft"], (56.19, 10.68)),
+    "Larvik": ("NO", ["Larvik"], (59.05, 10.03)), "Kristiansand": ("NO", ["Kristiansand"], (58.15, 8.00)),
+    "Oslo": ("NO", ["Oslo"], (59.91, 10.75)), "Sandefjord": ("NO", ["Sandefjord"], (59.13, 10.22)),
+    "Strömstad": ("SE", ["Strömstad", "Strømstad"], (58.94, 11.17)), "Turku": ("FI", ["Turku", "Åbo"], (60.45, 22.27)), "Vuosaari": ("FI", ["Vuosaari"], (60.21, 25.19)), "Ghent": ("BE", ["Gent", "Ghent"], (51.05, 3.72)),
     "Brevik": ("NO", ["Brevik"], (59.05, 9.70)), "Fredrikstad": ("NO", ["Fredrikstad"], (59.22, 10.93)),
     "Cuxhaven": ("DE", ["Cuxhaven"], (53.87, 8.70)), "Visby": ("SE", ["Visby"], (57.64, 18.29)),
     "Oskarshamn": ("SE", ["Oskarshamn"], (57.26, 16.45)),
@@ -147,6 +160,7 @@ PORTS = {
     "Porto Empedocle": ("IT", ["Porto Empedocle"], (37.29, 13.53)), "Favignana": ("IT", ["Favignana"], (37.93, 12.33)),
     "Isola del Giglio": ("IT", ["Isola del Giglio", "Giglio Porto"], (42.36, 10.92)), "Porto Santo Stefano": ("IT", ["Porto Santo Stefano"], (42.44, 11.12)),
     "Ustica": ("IT", ["Ustica"], (38.71, 13.19)), "Ponza": ("IT", ["Ponza"], (40.90, 12.96)), "Formia": ("IT", ["Formia"], (41.26, 13.61)),
+    "Mišnjak": ("HR", ["Mišnjak"], (44.71, 14.86)), "Stinica": ("HR", ["Stinica"], (44.72, 14.89)),
     "Mġarr": ("MT", ["Mġarr", "Mgarr", "Imġarr"], (36.02, 14.30)), "Ċirkewwa": ("MT", ["Ċirkewwa", "Cirkewwa"], (35.99, 14.33)), "Vilagarcía": ("ES", ["Vilagarcía", "Vilagarcia", "Vilagarcía de Arousa"], (42.60, -8.77)),
     # ports outside the EU and the EEA, and the ports across from them
     "Dover": ("GB", ["Dover", "Douvres"], (51.12, 1.33)), "Newhaven": ("GB", ["Newhaven"], (50.79, 0.05)),
@@ -281,7 +295,7 @@ ISLANDS = {"Eivissa": ("SPAIN", "IBIZA", "EIVISSA"), "Sant Antoni": ("SPAIN", "I
            "Pantelleria": ("ITALY", "PANTELLERIA", "PANTELLERIA"), "Lampedusa": ("ITALY", "LAMPEDUSA", "LAMPEDUSA"),
            "Favignana": ("ITALY", "FAVIGNANA", "FAVIGNANA"), "Isola del Giglio": ("ITALY", "ISOLA DEL GIGLIO", "ISOLA DEL GIGLIO"),
            "Ustica": ("ITALY", "USTICA", "USTICA"), "Ponza": ("ITALY", "PONZA", "PONZA"), "Mġarr": ("MALTA", "GOZO", "MGARR"),
-           "Chios": ("GREECE", "CHIOS", "CHIOS"), "Mytilene": ("GREECE", "LESVOS", "MYTILINI")}
+           "Mišnjak": ("CROATIA", "RAB", "MIŠNJAK"), "Chios": ("GREECE", "CHIOS", "CHIOS"), "Mytilene": ("GREECE", "LESVOS", "MYTILINI")}
 QUERIED = set(PORTS)  # the ports whose names ferry-ships-osm and -osm-2 ask for
 PORTS["Mytilene"][1].extend(["Mytilini", "Lesvos (Mytilene)"])
 for _p, (_names, _at, _listed) in GREECE.items():
@@ -358,8 +372,16 @@ def nuxt(page):
 
 def bornholm(page):
     """{ferry: {ports}} from Bornholmslinjen's ferries page."""
+    return nuxt_routes(page, "Rønne", ("Ystad", "Køge", "Sassnitz"))
+
+
+def nuxt_routes(page, hub, others):
+    """{ferry: {ports}} from a ferries page of Molslinjen's sites
+    (Bornholmslinjen's, Molslinjen's): each ferry's crossing times ("Rønne
+    - Køge", "Odden-Aarhus") and description ("på ruten mellem Rønne og
+    Ystad") name the ports it sails to from the hub."""
     a = nuxt(page)
-    port = r"(Ystad|Køge|Sassnitz)"
+    port = "(" + "|".join(others) + ")"
     routes = {}
 
     def strings(i, depth=0):
@@ -381,13 +403,13 @@ def bornholm(page):
         if "ferrySpecifications" in v and "erpId" in v:
             name = a[v["name"]]
             for s in strings(v["ferrySpecifications"]):
-                m = re.fullmatch(rf"Rønne ?[-–] ?{port}", s.strip())
+                m = re.fullmatch(rf"{hub} ?[-–] ?{port}", s.strip())
                 if m:
                     routes.setdefault(name, set()).add(m.group(1))
         if "ferry" in v and "description" in v:
             ferry = [x for x in strings(v["ferry"]) if x in {a[w["name"]] for w in a if isinstance(w, dict) and "erpId" in w}]
             for s in strings(v["description"]):
-                for m in re.finditer(rf"Rønne ?- ?{port}|Rønne og {port}", html.unescape(re.sub(r"<[^>]+>", " ", s))):
+                for m in re.finditer(rf"{hub} ?- ?{port}|{hub} og {port}", html.unescape(re.sub(r"<[^>]+>", " ", s))):
                     for f in ferry[:1]:
                         routes.setdefault(f, set()).add(m.group(1) or m.group(2))
     return routes
@@ -629,6 +651,44 @@ def tallink(page):
     return out
 
 
+def colorline(page):
+    """[(ports, {ships}, heading, file)] from Color Line's routes page ("The
+    route Hirtshals – Larvik/Kristiansand is operated by SuperSpeed 1 and
+    2"): a route to two ports ("Larvik/Kristiansand") is a crossing to each,
+    with the route's ships."""
+    path, t = page
+    flat = re.sub(r"\s+", " ", page_text(re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)))
+    out = []
+    for m in re.finditer(r"The route (\w+) [–-] (\w+(?:/\w+)*) is operated by ([^.]+)\.", flat):
+        names = re.split(r"\s*,\s*|\s+and\s+", m.group(3).strip())
+        # "SuperSpeed 1 and 2": the second is SuperSpeed 2.
+        names = [n if not re.fullmatch(r"\d+", n) else re.sub(r"\d+$", n, names[0]) for n in names]
+        a = port_of(m.group(1), os.path.basename(path))
+        for b in m.group(2).split("/"):
+            out.append(((a, port_of(b, os.path.basename(path))), set(names), f"{m.group(1)} – {m.group(2)}", path))
+    if not out:
+        sys.exit("ferry ships: Color Line's routes page names no route's ships")
+    return out
+
+
+def fjordline(page):
+    """[(ports, {ships}, heading, file)] from Fjord Line's ships page (its
+    Markdown: "- [Fjord FSTR](...): ... between Hirtshals and
+    Kristiansand"): a ship the page puts between two ports sails that
+    crossing; one it puts between more ("routes between Hirtshals,
+    Kristiansand, Stavanger and Bergen") isn't placed on any of them."""
+    path, t = page
+    routes = {}
+    for m in re.finditer(r"^- \[([^\]]+)\]\([^)]*\): .*?\bbetween ([^.]+)\.", t, re.M):
+        parts = re.split(r",\s*|\s+and\s+", m.group(2).strip())
+        if len(parts) == 2:
+            ship = re.sub(r"^MS ", "", m.group(1))
+            routes.setdefault(tuple(port_of(p, os.path.basename(path)) for p in parts), set()).add(ship)
+    if not routes:
+        sys.exit("ferry ships: Fjord Line's ships page puts no ship on a crossing")
+    return [(ports, ships, "–".join(ports), path) for ports, ships in sorted(routes.items())]
+
+
 def eckero(page):
     """[(ports, {ships}, heading, file)] from Eckerö Line's cargo page: its
     ships' crossings in its cargo CO2 figures ("M/S Finbo Cargo (Helsinki,
@@ -707,6 +767,7 @@ def main(fetched, out):
         decision = text(os.path.join(fetched, "ets-islands-2023-2895.html"))
         tosm = json.load(open(os.path.join(fetched, "ttline-osm.json"), encoding="utf-8"))
         gpage = open(os.path.join(fetched, "gotland-ferries.html"), encoding="utf-8").read()
+        mpage = open(os.path.join(fetched, "mols-ferries.html"), encoding="utf-8").read()
         grosm = json.load(open(os.path.join(fetched, "gr-ferries-osm.json"), encoding="utf-8"))
         tcap = open(TTLINE_FILE, encoding="utf-8").read()
         spages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "stena-routes-*.html")))]
@@ -716,6 +777,8 @@ def main(fetched, out):
         dpages = [(p, open(p, encoding="utf-8").read()) for p in sorted(glob.glob(os.path.join(fetched, "dfds-routes-*.html")))]
         tpage = (os.path.join(fetched, "tallink-fleet.html"), open(os.path.join(fetched, "tallink-fleet.html"), encoding="utf-8").read())
         epage = (os.path.join(fetched, "eckero-cargo.html"), open(os.path.join(fetched, "eckero-cargo.html"), encoding="utf-8").read())
+        cpage = (os.path.join(fetched, "colorline-routes.html"), open(os.path.join(fetched, "colorline-routes.html"), encoding="utf-8").read())
+        jpage = (os.path.join(fetched, "fjordline-ships.html"), open(os.path.join(fetched, "fjordline-ships.html"), encoding="utf-8").read())
         fsched = "".join(open(p, encoding="utf-8").read() for p in sorted(glob.glob(os.path.join(fetched, "finnlines-schedules-*master-schedule*.txt"))))
         gosm = {"elements": []}
         for p in ("ferry-ships-osm.json", "ferry-ships-osm-2.json"):
@@ -782,6 +845,20 @@ def main(fetched, out):
         crossings.append(crossing(cid, ports, pos, "Destination Gotland", ships,
                                   {"title": "Destination Gotland: our ferries (each one's route)", "url": src["gotland-ferries"]["url"]}, ids, ex))
 
+    # Molslinjen
+    mroutes = nuxt_routes(mpage, "Odden", ("Aarhus", "Ebeltoft"))
+    for other in ("Aarhus", "Ebeltoft"):
+        ships = {f for f, r in mroutes.items() if other in r}
+        if not ships:
+            sys.exit(f"ferry ships: Molslinjen names no ferry on Odden–{other}")
+        ports = ("Odden", other)
+        pos = osm_place(gosm, *ports, "Molslinjen")
+        if not pos:
+            sys.exit(f"ferry ships: Odden–{other}: no OpenStreetMap line between its ports")
+        COUNTRY.update({p: PORTS[p][0] for p in ports})
+        crossings.append(crossing("-".join(ascii(p) for p in ports), ports, pos, "Molslinjen", ships,
+                                  {"title": "Molslinjen: the ferries (each one's crossings)", "url": src["mols-ferries"]["url"]}, ids))
+
     # TT-Line
     troutes, turl, tday = ttline(tcap)
     lines, _ = lines_of(tosm)
@@ -809,7 +886,7 @@ def main(fetched, out):
     have = {frozenset(t["name"] for t in c["terminals"]): c for c in crossings}
     for operator, routes in (("Stena Line", stena(spages)), ("Finnlines", finnlines(fpages, fsched)), ("Irish Ferries", irishferries(ipages)),
                              ("P&O Ferries", poferries(ppages)), ("DFDS", dfds(dpages, ship_names())), ("Tallink", tallink(tpage)),
-                             ("Eckerö Line", eckero(epage))):
+                             ("Eckerö Line", eckero(epage)), ("Color Line", colorline(cpage)), ("Fjord Line", fjordline(jpage))):
         for ports, ships, heading, path in routes:
             if isinstance(ships, dict):
                 # the page gives the IMO numbers

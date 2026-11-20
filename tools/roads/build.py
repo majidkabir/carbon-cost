@@ -199,6 +199,8 @@ UNTOLLED = {"IT": [
     ("Milano Serravalle - Milano Tangenziali S.p.A.|A7", (9.13, 45.3885, 9.18, 45.44), "A7 Milano-Milano Ovest barrier"),
     ("Autostrade per l'Italia S.p.A.|A4", (9.10, 45.50, 9.2688, 45.56), "A4 Milano Ghisolfa-Milano Est barriers"),
     ("Strada dei Parchi S.p.A.|A24", (12.50, 41.90, 12.7033, 41.935), "A24 Roma-Roma Est barrier"),
+    ("Autostrade per l'Italia S.p.A.|A16", (14.32, 40.90, 14.4705, 40.93), "A16 Napoli-Napoli Est barrier"),
+    ("Autostrade per l'Italia S.p.A.|A30", (14.7273, 40.76, 14.79, 40.7725), "A30 Salerno barrier-Salerno"),
 ]}
 
 

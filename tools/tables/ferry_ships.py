@@ -41,7 +41,7 @@ operators' own documents (crossings-ships.json, for ferries/data), from
   name ships ("13:40 Pioneer"), only those;
 - DFDS's freight route pages (dfds-routes-<route>.html, linked from its
   routes page) and their timetables (dfds-routes-<route>.json, DFDS's API
-  for the 14 days from the fetch): the page's two terminals, the ship and
+  for the 28 days from the fetch): the page's two terminals, the ship and
   its IMO number of each departure;
 - Tallink's freight timetables and fleet page (tallink-fleet.html): each
   route's heading ("Tallinn-Helsinki") and its ships; Eckerö Line's cargo

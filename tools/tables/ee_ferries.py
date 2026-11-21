@@ -127,7 +127,7 @@ def main(fetched, out):
             s["time_prices"] = timed
         systems.append(s)
         print(" / ".join(rs), base, timed and {k: v for t in timed for k, v in t["prices"].items()})
-    t = {"country": "EE", "currency": "EUR", "valid_from": start, "crossings": True,
+    t = {"country": "EE", "currency": "EUR", "valid_from": start, "crossings": True, "ferry": True,
          "name": "Estonia's state ferries to Muhu, Saaremaa and Hiiumaa, trucks",
          "law": (f"Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, "
                  f"version in force ({p['avaldamiseKuupaev'][:10]} publication), annex in the wording of {wording}: the ticket of a truck over 3,500 kg "

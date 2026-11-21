@@ -10,6 +10,7 @@ What carbon and road charges does a truck trip pay? carbon-cost works it out per
 - **Motorway sections charged per passage:** Portugal's lanços (IMT's table), each in its middle.
 - **Toll stations charged per passage:** Norway's AutoPASS stations (bompenger), in the direction each charges, at rush-hour prices in rush hours and once per hour-rule group; Ireland's toll plazas (M50 and the PPP roads); Sweden's bridge charges (Motala, Sundsvall, Skuru) and the Stockholm and Göteborg congestion taxes by time of day; North Macedonia's toll stations; Montenegro's Sozina tunnel; Greece's motorway toll stations (Olympia Odos, Nea Odos, Kentriki Odos, Moreas, Aegean Motorway) and the Rio–Antirrio bridge; Turkey's KGM bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim).
 - **Bridge tolls:** Storebælt and Øresund, a fixed price per crossing by the truck's length (`length_m`, default 16.5 m).
+- **Ferry fares** (`ferry_fare`): Scandlines (Puttgarden–Rødby, Rostock–Gedser, Helsingør–Helsingborg), POLSCA's Baltic ferries, Bornholmslinjen and the Danish domestic ferries, the Elbe ferry Glückstadt–Wischhafen, Estonia's state ferries, Norway's national road ferries, Jadrolinija, the Strait of Messina and CalMac, from their published freight tariffs, when the route takes the crossing.
 - **Area charges per day** (`area_charge`): London's Congestion Charge, when the route is in the zone in its charging hours (with a departure `time`; without one, assumed).
 - **Tunnels and bridges charged per passage**, on top of the countries' own tolls: the Herrentunnel (Lübeck), the Warnowtunnel (Rostock), the Westerscheldetunnel, the Liefkenshoektunnel (Antwerp), the Great St Bernard tunnel, the Dartford Crossing, the Tyne Tunnels, the M6 Toll, the Humber, Mersey and Tamar bridges and the Kiltunnel, each in the direction it charges.
 - **Electronic toll discounts:** give `etc` when the truck pays by toll box or account agreement: Croatia's ENC (21.74%, plus 3% EURO V/EEV or 7% EURO VI on HAC; 30% on Bina-Istra), Storebælt's Grøn rabat (13%, EURO VI or zero-emission), and ØresundBUSINESS prices.
@@ -198,7 +199,7 @@ carbon-cost calc -h
 carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
 ```
 
-Many trips at once: `calc -csv trips.csv` prices each row of a CSV file whose header names `calc`'s flags without the dash (`from`, `to`, `date`, `cargo-kg`, `mass-kg`, `axles`, `euro`, `co2-class`, `fuel-country`, ...; each row's values on top of the command line's) and prints the rows back with `trip_date`, `distance_km`, `country_km`, `total_eur`, `carbon_eur`, `road_toll_eur`, `fuel_co2_eur`, `ets_eur`, `area_charge_eur`, `complete`, `missing` and `error` added:
+Many trips at once: `calc -csv trips.csv` prices each row of a CSV file whose header names `calc`'s flags without the dash (`from`, `to`, `date`, `cargo-kg`, `mass-kg`, `axles`, `euro`, `co2-class`, `fuel-country`, ...; each row's values on top of the command line's) and prints the rows back with `trip_date`, `distance_km`, `country_km`, `total_eur`, `carbon_eur`, `road_toll_eur`, `fuel_co2_eur`, `ets_eur`, `area_charge_eur`, `ferry_fare_eur`, `complete`, `missing` and `error` added:
 
 ```
 $ cat trips.csv

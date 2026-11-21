@@ -1122,6 +1122,13 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 		if !sm.any && !pm.any {
 			continue
 		}
+		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+			for i := range b.events {
+				if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
+					m.charge = FerryFare
+				}
+			}
+		}
 		st, err := p.price(b, "", nil)
 		if err != nil {
 			return err

@@ -446,6 +446,9 @@ def build(src, sections):
             nb = net_points(c, net, s["ref"], road, s["to"], [] if one and "crosses" in s["to"] else b)
             found = net.path(na, nb, s["ref"]) if na and nb and not set(na) & set(nb) else None
             picked, paths = set(), []
+            if not found:
+                why.append(f"main roads: {len(na)} and {len(nb)} points, {len(set(na) & set(nb))} in both, "
+                           f"{'no path' if na and nb else 'not tried'}; {len(net.adj)} nodes")
             if found:
                 d, nodes, on = found
                 straight = dist_m(c.coords[nodes[0]], c.coords[nodes[-1]])

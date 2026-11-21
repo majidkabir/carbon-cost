@@ -140,7 +140,7 @@ func Generate(root, version string) ([]byte, error) {
 			"/v1/places": map[string]any{"get": map[string]any{
 				"summary":     "Find a place to start or end a trip",
 				"operationId": "places",
-				"parameters": []any{map[string]any{"name": "q", "in": "query", "required": true, "schema": map[string]any{"type": "string", "minLength": 2, "maxLength": 100}, "description": "A city, port, code (UN/LOCODE, IATA) or lat,lon."}},
+				"parameters":  []any{map[string]any{"name": "q", "in": "query", "required": true, "schema": map[string]any{"type": "string", "minLength": 2, "maxLength": 100}, "description": "A city, port, code (UN/LOCODE, IATA) or lat,lon."}},
 				"responses": map[string]any{
 					"200": jsonBody(map[string]any{"type": "object", "properties": map[string]any{"places": map[string]any{"type": "array", "items": place}}}, "Up to 8 places, best first."),
 					"502": errs["502"],

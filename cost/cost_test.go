@@ -3975,3 +3975,56 @@ func TestMissing(t *testing.T) {
 		t.Errorf("UA: complete %v, missing %+v", r.Complete, r.Missing)
 	}
 }
+
+// Germany's rates are the same on its A and B roads: the road classes
+// only take the km off them out of the toll (BFStrMG § 1), and a
+// tolled_share given wins over them.
+func TestGermanyRoadClasses(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"DE": 100}}}}
+	rk := map[string]roads.Km{"DE": {Motorway: 70, National: 20, Local: 10}}
+	left := map[string][]string{"DE": {"A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"}}
+	day := time.Date(2026, 11, 21, 0, 0, 0, 0, time.UTC)
+	tollKm := func(r Response) (km float64) {
+		// Each Mautteilsatz is a line over the same km.
+		for _, l := range r.Lines {
+			if l.Country == "DE" && l.Charge == RoadToll {
+				km = math.Max(km, l.Km)
+			}
+		}
+		return km
+	}
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, roadLeftOut: left}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-90) > 1e-6 {
+		t.Errorf("tolled km %v, want 90: %+v", got, r.Lines)
+	}
+	found := false
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap along the route, 90% of the 100.0 km are on the tolled roads and 10% on other roads") {
+			found = strings.Contains(n, "A 5 Swiss and French borders-Müllheim/Neuenburg") && strings.Contains(n, "Tolled roads: Federal motorways")
+		}
+		if strings.Contains(n, "all 100.0 km are counted as on tolled roads") {
+			t.Errorf("note %q with road classes", n)
+		}
+	}
+	if !found {
+		t.Errorf("no road-class note: %v", r.Notes)
+	}
+	if r.Provenance.RoadClasses["DE"] == "" {
+		t.Errorf("no road classes in provenance")
+	}
+	r, err = Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, TolledShare: map[string]float64{"DE": 0.5}}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-50) > 1e-6 {
+		t.Errorf("tolled_share 0.5: %v km", got)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap") {
+			t.Errorf("note %q with tolled_share", n)
+		}
+	}
+}

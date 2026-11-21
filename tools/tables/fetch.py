@@ -389,7 +389,7 @@ def overpass_failed(status, body):
 def store(out, manifest, s, status, body, asked):
     """Saves a source's answer (and what it leads to) under its id."""
     ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-    if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
+    if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"] or "qbz.gov.al/api/" in s["url"]:
         ext = ".json"
     if body[:4] == b"%PDF":
         ext = ".pdf"

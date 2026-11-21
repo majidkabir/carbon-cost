@@ -2161,6 +2161,25 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
 		}
 	}
+	// In 2025 the A22's mountain stretch takes the mountain rate of the
+	// concession's 2025 sheet (0.14873, VAT excluded): 0.18145.
+	{
+		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a22}})
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2.4, CountryKm: map[string]float64{"IT": 2.4}, Path: a22}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var km float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll && l.Rate == 0.18145 {
+				km += l.Km
+			}
+		}
+		if km < 1.9 {
+			t.Errorf("A22 Brennero-Affi in 2025: %.2f km at 0.18145: %v", km, r.Lines)
+		}
+	}
 	// The A24 before the Roma Est barrier is free: the barrier charges it.
 	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a24}}); rk["IT"].MotorwayOp["Strada dei Parchi S.p.A.|A24"] > 0.5 {
 		t.Errorf("A24 before the Roma Est barrier: %v", rk["IT"].MotorwayOp)

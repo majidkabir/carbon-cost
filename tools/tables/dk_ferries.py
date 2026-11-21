@@ -229,7 +229,7 @@ def build(line, cfg, b, valid_from, valid_to, law, osm, lines, permit, out):
     if "contract" in cfg:
         sources.append({"title": cfg["contract"][0], "url": cfg["contract"][1]})
     sources.append({"title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals", "url": "https://www.openstreetmap.org/"})
-    t = {"country": "DK", "currency": "DKK", "valid_from": valid_from, **({"valid_to": valid_to} if valid_to else {}), "crossings": True,
+    t = {"country": "DK", "currency": "DKK", "valid_from": valid_from, **({"valid_to": valid_to} if valid_to else {}), "crossings": True, "ferry": True,
          "name": f"{cfg['op']}'s ferries {', '.join(cfg['routes'])}, trucks",
          "law": law + " Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line." + "".join(f" {x}." for x in notes),
          "sources": sources, "vehicles": "Trucks over 3.5 t, by length (truck.length_m)", "min_kg": 3501,

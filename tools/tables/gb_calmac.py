@@ -273,7 +273,7 @@ def main(fetched, out):
                         "groups": groups, "stations": [{"name": n, "points": p} for n, p in sorted(stations.items())],
                         "station_match_km": MATCH_KM, "prices": prices})
         print(name, {k: v["16.5 m"] for k, v in prices.items()}, {n: len(p) for n, p in stations.items()})
-    t = {"country": "GB", "currency": "GBP", "valid_from": start, "crossings": True,
+    t = {"country": "GB", "currency": "GBP", "valid_from": start, "crossings": True, "ferry": True,
          "name": "CalMac ferries (Clyde and Hebrides), commercial vehicles",
          "law": (f"CalMac's commercial vehicle single rates from {start} (until further notice): per route, its fixed base rate (Coll–Tiree, Tiree–Castlebay, "
                  "Uig's and Ullapool's routes) plus its price per 0.5 m of the vehicle's length, for each started 0.5 m and 6 m at least, one way; vehicles over 3.5 t "

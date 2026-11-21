@@ -300,7 +300,7 @@ def convert_table(t, path):
     used = {"country", "region", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles",
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
-            "motorway_share", "suburban_share", "crossings", "osm_extract", "env_zone_surcharge"}
+            "motorway_share", "suburban_share", "crossings", "ferry", "osm_extract", "env_zone_surcharge"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -323,7 +323,8 @@ def convert_table(t, path):
         convert_sections(b, t["sections"], row_charges)
 
     # How carbon-cost estimates road types a request doesn't give, and source facts: not tariff rules.
-    for k in ("motorway_share", "suburban_share", "crossings", "osm_extract"):
+    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls.
+    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "osm_extract"):
         if k in t:
             b.keep(k, t[k])
     for k in sorted(set(t) - used):
@@ -961,6 +962,8 @@ def check(t, name):
         bad.append("motorway_share must be 0-1")
     if t.get("crossings") and (rows or not (systems or points)):
         bad.append("a crossings table has closed systems or toll points, and no rows")
+    if t.get("ferry") and not t.get("crossings"):
+        bad.append("a ferry table is a crossings table")
     bad += [f"suburban_share[{k}] must be 0-1" for k, v in (t.get("suburban_share") or {}).items() if not 0 <= v <= 1]
     bad += [f"bad area {r['area']!r}" for r in rows if r.get("area", "") not in ("", "suburban", "interurban")]
     bad += [f"negative rate in {r}" for r in rows if r.get("rate", 0) < 0]

@@ -214,7 +214,7 @@ def main(fetched, out):
                 s["unit"], s["mass_basis"] = "t", "load_capacity_kg"
             systems.append(s)
         print(" / ".join(rs), {k: v for k, v in list(systems[-1]["prices"].items())[:3]}, {p: len(x) for p, x in stations.items()})
-    t = {"country": "HR", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True,
+    t = {"country": "HR", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True, "ferry": True,
          "name": "Jadrolinija's state ferry lines, goods vehicles",
          "law": (f"Jadrolinija's price lists for {year}, line by line (state ferry lines, the fares the Agency for Coastal Line Traffic approves): "
                  "goods vehicles and trailers by load capacity (nosivost): up to 3 t, 3.01-4 t and 4.01-5 t a fare each, from 5.01 t a fare per tonne of it, "

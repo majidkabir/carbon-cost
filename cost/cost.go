@@ -54,6 +54,9 @@ const (
 	// AreaCharge is a charge per day in a zone (London's Congestion
 	// Charge and Low Emission Zone).
 	AreaCharge = "area_charge"
+	// FerryFare is a ferry's fare for the truck: a crossings dataset its
+	// table marks as a ferry (carbon-cost's ORCT extension "ferry").
+	FerryFare = "ferry_fare"
 )
 
 // ETS2Start is when ETS2 covers road transport fuel.
@@ -243,7 +246,7 @@ type Missing struct {
 
 // Message says what is missing, in a sentence.
 func (m Missing) Message() string {
-	what := map[string]string{RoadToll: "tolls", AreaCharge: "area charge", FuelCO2: "CO2 price on diesel"}[m.Charge]
+	what := map[string]string{RoadToll: "tolls", AreaCharge: "area charge", FuelCO2: "CO2 price on diesel", FerryFare: "ferry fare"}[m.Charge]
 	if m.Reason == "ended" {
 		return fmt.Sprintf("%s %s (%s): the rates here ended on %s and the next ones aren't in this release yet", m.Area, what, m.Name, m.Ended)
 	}
@@ -1049,8 +1052,8 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, roadT fl
 				continue
 			}
 			scratch := Response{CountryKm: out.CountryKm, RegionKm: out.RegionKm}
-			n := 0
-			p := newPricer(req, last, &scratch, func(Line) error { n++; return nil })
+			n, lineCharge := 0, ""
+			p := newPricer(req, last, &scratch, func(l Line) error { n++; lineCharge = l.Charge; return nil })
 			one := &tariffs.Set{All: []*tariffs.Dataset{ds}}
 			charge := RoadToll
 			switch kind {
@@ -1062,6 +1065,9 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, roadT fl
 				charge, err = FuelCO2, p.priceFuel(one, roadT)
 			}
 			if err == nil && n > 0 {
+				if lineCharge == FerryFare {
+					charge = FerryFare
+				}
 				ms = append(ms, Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "ended", Ended: ds.ValidTo})
 			}
 		}

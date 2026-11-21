@@ -178,7 +178,7 @@ def main(fetched, out):
                "aren't published, so that crossing is priced at POLSCA's. Ports at OpenStreetMap's ferry terminals, priced where the line goes out "
                "on its car ferry line." + "".join(f" {x}." for x in notes))
         crossings = [n for r in routes for n in ({"SY": ["Świnoujście–Ystad", "Świnoujście–Trelleborg"], "GN": ["Gdańsk–Nynäshamn"], "GK": ["Gdańsk–Karlshamn"]}[r])]
-        d = {"country": "PL", "currency": "EUR", "valid_from": day, **({"valid_to": until} if until else {}), "crossings": True,
+        d = {"country": "PL", "currency": "EUR", "valid_from": day, **({"valid_to": until} if until else {}), "crossings": True, "ferry": True,
              "name": "POLSCA Baltic Ferries' (Polferries, Unity Line) ferries " + ", ".join(crossings[:-1]) + " and " + crossings[-1] + ", trucks",
              "law": law,
              "sources": [{"title": "POLSCA Baltic Ferries (Unity Line): freight tariff", "url": TARIFF_URL},

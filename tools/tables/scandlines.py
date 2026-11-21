@@ -216,7 +216,7 @@ def main(fetched, out):
                + "".join(f" {x}." for x in notes))
         system = {"name": "Scandlines and Øresundslinjen: " + " / ".join(ROUTES), "law": "Scandlines' and Øresundslinjen's freight tariffs and surcharges, loaded",
                   "groups": groups, "stations": [{"name": n, "points": pts} for n, pts in sorted(stations.items())], "station_match_km": MATCH_KM, "prices": prices}
-        t = {"country": "DK", "currency": "EUR", "valid_from": month, **({"valid_to": until} if until else {}), "crossings": True,
+        t = {"country": "DK", "currency": "EUR", "valid_from": month, **({"valid_to": until} if until else {}), "crossings": True, "ferry": True,
              "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
              "law": law,
              "sources": [{"title": "Scandlines Freight: freight tariffs", "url": "https://freight.scandlines.com/freight-conditions/freight-tariffs/"},

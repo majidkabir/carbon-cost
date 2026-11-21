@@ -31,6 +31,7 @@ PLACES = ("city", "town", "village", "hamlet", "suburb", "quarter", "neighbourho
 TWIN_M = 60
 NEAR_PLACE_M = 15000
 NEAR_JUNCTION_M = 3000
+GAP_M = 150
 
 
 def dist_m(a, b):
@@ -119,7 +120,9 @@ class Collect(osmium.SimpleHandler):
 
 
 class Road:
-    """A road's ways as an undirected graph."""
+    """A road's ways as an undirected graph. Its ways' gaps (a way without
+    the ref, a carriageway broken in two) are bridged: each dead end joins
+    the nearest node of another part of the road within GAP_M."""
 
     def __init__(self, ways, coords):
         self.ways, self.coords = ways, coords
@@ -129,8 +132,27 @@ class Road:
                 a, b = ids[i], ids[i + 1]
                 d = dist_m(pts[i], pts[i + 1])
                 self.adj[a][b] = self.adj[b][a] = d
-        self.parts = []
-        seen = set()
+        self.grid = defaultdict(list)
+        for n in self.adj:
+            p = coords[n]
+            self.grid[(int(p[0] * 100), int(p[1] * 100))].append(n)
+        self._parts()
+        part_of = {n: i for i, part in enumerate(self.parts) for n in part}
+        for n in list(self.adj):
+            if len(self.adj[n]) != 1:
+                continue
+            best = None
+            for m in self.near(coords[n], GAP_M):
+                if part_of[m] != part_of[n]:
+                    d = dist_m(coords[n], coords[m])
+                    if best is None or d < best[0]:
+                        best = (d, m)
+            if best:
+                self.adj[n][best[1]] = self.adj[best[1]][n] = best[0]
+        self._parts()
+
+    def _parts(self):
+        self.parts, seen = [], set()
         for n in self.adj:
             if n in seen:
                 continue
@@ -144,9 +166,23 @@ class Road:
             seen |= part
             self.parts.append(part)
 
-    def nearest(self, part, p, within):
-        best = sorted((dist_m(self.coords[n], p), n) for n in part)
-        return [n for d, n in best[:3] if d <= within]
+    def near(self, p, within):
+        """The road's nodes within metres of p (within up to about 1 km)."""
+        k = (int(p[0] * 100), int(p[1] * 100))
+        r = 1 + int(within // 700)
+        out = []
+        for dx in range(-r, r + 1):
+            for dy in range(-r, r + 1):
+                out += [n for n in self.grid.get((k[0] + dx, k[1] + dy), ()) if dist_m(self.coords[n], p) <= within]
+        return out
+
+    def nearest(self, nodes, p, within, slack=500):
+        """Of nodes, those nearest p: within metres, and at most slack
+        further than the nearest."""
+        best = sorted((dist_m(self.coords[n], p), n) for n in nodes)
+        if not best or best[0][0] > within:
+            return []
+        return [n for d, n in best if d <= best[0][0] + slack][:8]
 
     def path(self, src, dst):
         """Shortest path from any of src to any of dst: (metres, nodes)."""
@@ -171,52 +207,75 @@ class Road:
         return None
 
 
-def candidates(c, road, part, pt, junction_index):
-    """The road's nodes in part where a point of a section can be."""
+def junctions_named(road, want, junctions):
+    """The junction nodes on or by the road (NEAR_JUNCTION_M) whose name is
+    the law's: the same, one containing the other, or spelt a little
+    differently ("Tomasz Lubelski")."""
+    want = norm(want)
+    by = [j for j in junctions if j[2] in road.adj or road.near(j[3], NEAR_JUNCTION_M)]
+    for test in (lambda n: n == want, lambda n: want in n.split(" ") or n.endswith(" " + want) or n.startswith(want + " ") or want.endswith(" " + n),
+                 lambda n: SequenceMatcher(None, want, n).ratio() >= 0.85):
+        named = [j for j in by if test(j[0])]
+        if named:
+            return named, by
+    return [], by
+
+
+def candidates(c, road, pt, jx):
+    """The road's nodes where a point of a section can be, and what was
+    looked for when there are none."""
     if "junction" in pt:
-        want = norm(pt["junction"])
-        named = [j for j in junction_index if j[0] == want]
+        named, by = junctions_named(road, pt["junction"], jx)
         if not named:
-            # The law's spelling may differ a little ("Tomasz Lubelski").
-            scored = sorted(((SequenceMatcher(None, want, j[0]).ratio(), j) for j in junction_index), key=lambda x: -x[0])
-            named = [j for r, j in scored if r >= 0.85 and r == scored[0][0]]
-        on = [j[2] for j in named if j[2] in part]
-        if on:
-            return on
-        out = []
+            close = sorted({j[1] for j in by}, key=lambda n: -SequenceMatcher(None, norm(pt["junction"]), norm(n)).ratio())[:6]
+            return [], f"junction {pt['junction']!r} not on the road; its junctions most like it: {close}"
+        out = [j[2] for j in named if j[2] in road.adj]
         for j in named:
-            out += road.nearest(part, j[3], NEAR_JUNCTION_M)
-        return out
+            if j[2] not in road.adj:
+                out += road.nearest(road.near(j[3], NEAR_JUNCTION_M), j[3], NEAR_JUNCTION_M, 200)
+        return out, ""
     if "border" in pt:
         places = c.places.get(pt["border"], [])
-        ends = [(min((dist_m(road.coords[n], p) for p in places), default=math.inf), n) for n in part if len(road.adj[n]) == 1]
+        if not places:
+            return [], f"no place {pt['border']!r}"
+        ends = [(min(dist_m(road.coords[n], p) for p in places), n) for n in road.adj if len(road.adj[n]) == 1]
         ends = [e for e in ends if e[0] <= NEAR_PLACE_M]
         if not ends:
-            return []
+            return [], f"no end of the road within {NEAR_PLACE_M} m of {pt['border']!r}"
         # The road's end nearest the place (both carriageways').
         first = min(ends)[0]
-        return [n for d, n in ends if d <= first + 2000]
+        return [n for d, n in ends if d <= first + 2000], ""
     if "city" in pt:
         city = c.city.get(pt["city"])
         if not city:
-            return []
-        inside = prep(city[1])
-        ins = {n: inside.contains(Point(road.coords[n])) for n in part}
-        return [n for n in part if not ins[n] and any(ins.get(y) for y in road.adj[n])]
+            return [], f"no boundary of {pt['city']!r}"
+        shape = prep(city[1])
+        ins = {n: shape.contains(Point(road.coords[n])) for n in road.adj}
+        out = [n for n in road.adj if not ins[n] and any(ins[y] for y in road.adj[n])]
+        if out:
+            return out, ""
+        # The road ends at the city: its nodes nearest the boundary.
+        near = sorted((city[1].exterior.distance(Point(road.coords[n])) if city[1].geom_type == "Polygon"
+                       else city[1].boundary.distance(Point(road.coords[n])), n) for n in road.adj)
+        near = [(d * 111000, n) for d, n in near[:8] if d * 111000 <= 1500]
+        return [n for d, n in near], "" if near else f"the road neither crosses nor ends at {pt['city']!r}"
     places = c.places.get(pt["place"], [])
-    shared = [n for r in pt["crosses"] for n in c.cross_nodes.get(r, ()) if n in part]
+    shared = {n for r in pt["crosses"] for n in c.cross_nodes.get(r, ()) if n in road.adj}
+    # Where the other road meets or leaves this one, not along a stretch
+    # they share.
+    ends = [n for n in shared if any(y not in shared for y in road.adj[n])]
     if pt.get("street"):
-        # Of the crossings, the one on that street.
-        on = [n for n in shared if n in c.street_nodes.get(street_of(pt["street"]), ())]
-        shared = on or shared
-    if places:
-        # Of the same-named places, the one nearest the road.
-        near = [n for n in shared if min(dist_m(road.coords[n], p) for p in places) <= NEAR_PLACE_M]
-        if near:
-            return near
-        best = min(places, key=lambda p: min(dist_m(road.coords[n], p) for n in part))
-        return road.nearest(part, best, NEAR_PLACE_M)
-    return shared
+        on = [n for n in ends if n in c.street_nodes.get(street_of(pt["street"]), ())]
+        ends = on or ends
+    if not places:
+        return ends, "" if ends else f"no place {pt['place']!r} and no crossing with {pt['crosses']}"
+    # Of the same-named places, the one nearest the road.
+    place = min(places, key=lambda p: dist_m(road.coords[road.nearest(road.adj, p, math.inf, 0)[0]], p) if road.adj else 0)
+    out = road.nearest(ends, place, NEAR_PLACE_M, 1500)
+    if out:
+        return out, ""
+    out = road.nearest(road.adj, place, 5000, 300)
+    return out, "" if out else f"no crossing with {pt['crosses']} by {pt['place']!r}, nor the road within 5 km of it"
 
 
 def build(src, sections):
@@ -234,15 +293,15 @@ def build(src, sections):
     report = []
     for s in sections:
         road = roads[s["ref"]]
-        jx = c.junctions
+        a, wa = candidates(c, road, s["from"], c.junctions)
+        b, wb = candidates(c, road, s["to"], c.junctions)
         picked, km, paths = set(), 0.0, []
-        why = []
+        why = [w for w in (wa, wb) if w]
         for part in road.parts:
-            a = candidates(c, road, part, s["from"], jx)
-            b = candidates(c, road, part, s["to"], jx)
-            if not a or not b:
+            pa, pb = [n for n in a if n in part], [n for n in b if n in part]
+            if not pa or not pb:
                 continue
-            found = road.path(a, b)
+            found = road.path(pa, pb)
             if not found:
                 continue
             d, nodes = found
@@ -254,7 +313,9 @@ def build(src, sections):
             paths.append(nodes)
             km = max(km, d / 1000)
         if km < 0.2:
-            report.append((s["text"], None, "; ".join(why) or ("points not found" if not picked else "the points are one")))
+            if not why:
+                why.append("the points are one" if picked else f"no part of the road has both points ({len(a)} and {len(b)} found)")
+            report.append((s["text"], None, "; ".join(why)))
             continue
         # The other carriageway where both are one part: the road's nodes
         # within TWIN_M of the paths (their points every 20 m).
@@ -284,5 +345,5 @@ def build(src, sections):
                 run = []
             if len(run) >= 2:
                 lines[s["class"]].append(run)
-        report.append((s["text"], km, ""))
+        report.append((s["text"], km, "; ".join(why)))
     return lines, report

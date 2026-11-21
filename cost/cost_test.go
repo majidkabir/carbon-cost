@@ -4028,3 +4028,43 @@ func TestGermanyRoadClasses(t *testing.T) {
 		}
 	}
 }
+
+// A crossings dataset its table marks as a ferry (carbon-cost's ORCT
+// extension "ferry") prices fares, not tolls.
+func TestFerryFare(t *testing.T) {
+	raw, ok := all(t).Raw("de/de-elbfaehre-2026-11-19.orct.json")
+	if !ok {
+		t.Skip("no Elbfähre dataset")
+	}
+	var doc map[string]any
+	if err := json.Unmarshal(raw, &doc); err != nil {
+		t.Fatal(err)
+	}
+	ext, _ := doc["extensions"].(map[string]any)
+	cc, _ := ext["io.github.majidkabir.carboncost"].(map[string]any)
+	cc["ferry"] = true
+	b, _ := json.Marshal(doc)
+	ds, err := tariffs.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	ds.File = "de/de-elbfaehre-2026-11-19.orct.json"
+	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DE": 50}, Path: path}}}
+	r, err := Price(trip, &tariffs.Set{All: []*tariffs.Dataset{ds}}, Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	fare := 0.0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Elbfähre") {
+			if l.Charge != FerryFare {
+				t.Errorf("line %s %s: %s", l.Section, l.Component, l.Charge)
+			}
+			fare += l.Amount
+		}
+	}
+	if math.Abs(fare-(37.82+2.40+20*1.26)) > 0.011 {
+		t.Errorf("fare %.2f", fare)
+	}
+}

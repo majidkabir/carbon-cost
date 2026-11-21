@@ -261,6 +261,12 @@ func printResult(r cost.Response) {
 		fmt.Printf(" (%.1f km by ferry)", r.FerryKm)
 	}
 	fmt.Println()
+	if !r.Complete {
+		fmt.Println("INCOMPLETE: the total leaves out charges this trip meets:")
+		for _, m := range r.Missing {
+			fmt.Println("  - " + m.Message())
+		}
+	}
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
 	fmt.Fprintln(w, "Charge\tCountry\tPart\tBasis\tRate\tAmount\tEUR\t")
 	for _, l := range r.Lines {
@@ -289,7 +295,11 @@ func printResult(r cost.Response) {
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}
 	w.Flush()
-	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f\n", r.TotalEUR, r.CarbonEUR)
+	incomplete := ""
+	if !r.Complete {
+		incomplete = " (incomplete: see above)"
+	}
+	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f%s\n", r.TotalEUR, r.CarbonEUR, incomplete)
 	if len(r.Compare) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
@@ -302,9 +312,6 @@ func printResult(r cost.Response) {
 			fmt.Fprintf(w, "%d\t%.2f\t%.2f\t%.2f\t%.2f\t%s\t\n", c.CO2Class, c.TollEUR, c.TotalEUR, c.CarbonEUR, c.SavingEUR, year)
 		}
 		w.Flush()
-	}
-	if len(r.NoRates) > 0 {
-		fmt.Printf("Not included (no toll table yet): %s\n", strings.Join(r.NoRates, ", "))
 	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)

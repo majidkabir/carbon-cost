@@ -3928,3 +3928,50 @@ func TestAlbaniaLlogara(t *testing.T) {
 		}
 	}
 }
+
+// A result says what it leaves out: an area with no table, and rates that
+// ended with no successor here yet (the next year's not yet published).
+func TestMissing(t *testing.T) {
+	req := Request{CargoKg: 20000, Truck: truck40}
+	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !r.Complete || len(r.Missing) > 0 {
+		t.Errorf("2026: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+	// Austria's GO-Maut table for 2026 ends on 31 December 2026, and
+	// Germany's BEHG price for 2027 comes from its auctions.
+	vieMuc := sootcase.Result{TTWKg: 300, WTWKg: 360, Legs: []sootcase.LegResult{{
+		DistanceKm: 430, TTWKg: 300, WTWKg: 360,
+		CountryKm: map[string]float64{"AT": 300, "DE": 130},
+	}}}
+	r, err = Price(vieMuc, all(t), req, time.Date(2099, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete {
+		t.Error("2099: complete, want missing AT tolls")
+	}
+	got := map[string]Missing{}
+	for _, m := range r.Missing {
+		got[m.Area+" "+m.Charge] = m
+	}
+	if m, ok := got["AT road_toll"]; !ok || m.Reason != "ended" || m.Ended == "" || m.Name == "" {
+		t.Errorf("AT tolls: %+v (missing %+v)", m, r.Missing)
+	}
+	if m, ok := got["DE fuel_co2"]; !ok || m.Reason != "ended" {
+		t.Errorf("DE fuel CO2: %+v (missing %+v)", m, r.Missing)
+	}
+	// A country with no table at all.
+	ua := sootcase.Result{TTWKg: 100, WTWKg: 120, Legs: []sootcase.LegResult{{
+		DistanceKm: 100, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"UA": 100},
+	}}}
+	r, err = Price(ua, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete || len(r.Missing) != 1 || r.Missing[0].Reason != "no_table" || r.Missing[0].Area != "UA" {
+		t.Errorf("UA: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+}

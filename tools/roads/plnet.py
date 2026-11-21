@@ -465,14 +465,22 @@ def build(src, sections):
         # of the road, its alias or a motorway or trunk) within TWIN_M of the
         # paths' points every 20 m.
         for g, nodes in paths:
+            pgrid, cells = defaultdict(list), set()
             for x, y in zip(nodes, nodes[1:]):
                 p, q = c.coords[x], c.coords[y]
                 steps = max(1, int(dist_m(p, q) // 20))
                 for i in range(steps + 1):
                     m = (p[0] + (q[0] - p[0]) * i / steps, p[1] + (q[1] - p[1]) * i / steps)
-                    for n in g.near(m, TWIN_M):
-                        if g is road or any(e[2] or e[1] & set(aliases(s["ref"])) for e in net.adj[n].values()):
-                            picked.add(n)
+                    pgrid[(int(m[0] * 500), int(m[1] * 500))].append(m)
+                    cells.add((int(m[0] * 100), int(m[1] * 100)))
+            near = {n for k in cells for dx in (-1, 0, 1) for dy in (-1, 0, 1) for n in g.grid.get((k[0] + dx, k[1] + dy), ())}
+            for n in near - picked:
+                p = c.coords[n]
+                k = (int(p[0] * 500), int(p[1] * 500))
+                if not any(dist_m(p, q) <= TWIN_M for dx in (-1, 0, 1) for dy in (-1, 0, 1) for q in pgrid.get((k[0] + dx, k[1] + dy), ())):
+                    continue
+                if g is road or any(e[2] or e[1] & set(aliases(s["ref"])) for e in net.adj[n].values()):
+                    picked.add(n)
         ways = road.ways if all(g is road for g, _ in paths) else [(ids, pts) for ids, pts, _, _ in net.ways]
         for ids, wpts in ways:
             run = []

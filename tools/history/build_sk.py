@@ -11,7 +11,7 @@ category (goods vehicles 3.5 to 12 t, any axles; 12 t or more with 2, 3,
 4, 5 axles) and EURO group (0-II; III, IV; V, VI and EEV). Buses are left
 out. As in the current table, km off motorways take the part 2 rate.
 """
-import html, json, os, re, subprocess, sys
+import datetime, html, json, os, re, subprocess, sys
 
 EURO = [[0, 1, 2], [3, 4], [5, 6]]
 CATS = [("3 500 kg - 12 000 kg*", 3501, 11999, {}), ("12 000 kg a viac - 2 nápravy", 12000, 0, {"min_axles": 2, "max_axles": 2}),
@@ -136,9 +136,11 @@ def nv418(fetched, out):
                     rows.append({"component": comp, "road": road, **cat, **COLS418[col], "rate": v})
     base = "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_"
     tb = {
-        "country": "SK", "currency": "EUR", "valid_from": "2025-07-01", "valid_to": "2026-12-31", "name": "Slovak electronic toll (mýto)",
-        "law": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest).",
+        "country": "SK", "currency": "EUR", "valid_from": "2025-07-01", "name": "Slovak electronic toll (mýto)",
+        "law": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest). "
+               "The regulation has no end date, and Slov-Lex has no later version: the table runs until it is amended.",
         "sources": [{"title": "NV 418/2024 Z. z. (Slov-Lex, version from 1 July 2025)", "url": "https://static.slov-lex.sk/static/SK/ZZ/2024/418/20250701.html"},
+                    {"title": "Slov-Lex: the version of NV 418/2024 Z. z. in force on any later date", "url": "https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2024/418/"},
                     {"title": "Annex 3: infrastructure, CO2 and air-pollution charges", "url": base + "5704373-2.pdf"},
                     {"title": "Annex 5: rates on motorways", "url": base + "5704381-2.pdf"},
                     {"title": "Annex 6: rates on class I roads", "url": base + "5704385-2.pdf"}],
@@ -147,9 +149,30 @@ def nv418(fetched, out):
         "motorway_share": 1,
         "rows": rows,
     }
+    last = until(fetched)
+    if last:
+        tb["valid_to"] = last
+        tb["law"] = tb["law"].replace("The regulation has no end date, and Slov-Lex has no later version: the table runs until it is amended.", f"Slov-Lex gives a later version from the day after {last}.")
     path = os.path.join(out, "sk-2025-07-01.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, len(rows), "rows")
+
+
+def until(fetched):
+    """The table's last day: none while the version of 1 July 2025 is the
+    one Slov-Lex gives for any later date (sk-nv-418-2024-latest asks for
+    31 December 2099); else the day before the later version, with a
+    warning."""
+    d = json.load(open(os.path.join(fetched, "sk-nv-418-2024-latest.html"), encoding="utf-8"))
+    iri = [x["iri"] for x in d["docs"]]
+    assert len(iri) == 1 and iri[0].startswith("/SK/ZZ/2024/418/"), iri
+    v = iri[0].rsplit("/", 1)[1]
+    if v == "20250701":
+        return None
+    assert v > "20250701", v
+    last = (datetime.date(int(v[:4]), int(v[4:6]), int(v[6:])) - datetime.timedelta(days=1)).isoformat()
+    print(f"::warning title=build_sk::Slov-Lex has a version of NV 418/2024 from {v}; the table ends on {last}: read it")
+    return last
 
 
 if __name__ == "__main__":

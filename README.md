@@ -195,8 +195,20 @@ Not covered yet, for want of an official source the tool can read and place repe
 ```
 go install github.com/majidkabir/carbon-cost/cmd/carbon-cost@latest
 carbon-cost calc -h
-carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
+carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
 ```
+
+Many trips at once: `calc -csv trips.csv` prices each row of a CSV file whose header names `calc`'s flags without the dash (`from`, `to`, `date`, `cargo-kg`, `mass-kg`, `axles`, `euro`, `co2-class`, `fuel-country`, ...; each row's values on top of the command line's) and prints the rows back with `trip_date`, `distance_km`, `country_km`, `total_eur`, `carbon_eur`, `road_toll_eur`, `fuel_co2_eur`, `ets_eur`, `area_charge_eur`, `complete`, `missing` and `error` added:
+
+```
+$ cat trips.csv
+from,to,date,cargo-kg
+DKCPH,DEHAM,2026-11-03,20000
+NLRTM,ITMIL,2026-11-03,12000
+$ carbon-cost calc -csv trips.csv -eua 75 > priced.csv
+```
+
+The API takes up to 100 trips in one `POST /v1/carbon-cost/batch` (`{"trips": [<request>, ...]}`) and answers `{"results": [{"result": <response>} or {"error": "..."}, ...]}` in the same order; a trip that can't be priced has its error and doesn't fail the others.
 
 Or with Docker (images are published for each release tag):
 

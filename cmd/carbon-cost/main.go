@@ -15,6 +15,7 @@ import (
 	"flag"
 	"fmt"
 	"html"
+	"io"
 	"io/fs"
 	"log/slog"
 	"maps"
@@ -60,8 +61,8 @@ func buildVersion() string {
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
-  calc   price one trip
-  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates, GET /v1/rates/{file})
+  calc   price one trip, or each row of a CSV file (-csv)
+  serve  run the HTTP API (POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates, GET /v1/rates/{file})
   rates  list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
@@ -125,8 +126,11 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	return cost.Calculator{Sootcase: *sc, Tariffs: set, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
-func calc(args []string) error {
-	fs := flag.NewFlagSet("calc", flag.ExitOnError)
+func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, error) {
+	fs := flag.NewFlagSet("calc", errs)
+	if errs == flag.ContinueOnError {
+		fs.SetOutput(io.Discard) // a CSV row's error goes in its row
+	}
 	sc := sootcaseFlags(fs)
 	var req cost.Request
 	from := fs.String("from", "", "origin: UN/LOCODE (DKCPH), IATA code or lat,lon")
@@ -162,33 +166,58 @@ func calc(args []string) error {
 	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
-	fs.Parse(args)
+	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
+	if err := fs.Parse(args); err != nil {
+		return req, calcOpts{}, err
+	}
+	opts := calcOpts{json: *asJSON, csv: *csvIn, sc: sc}
 
 	var err error
+	if *csvIn != "" && (*from == "" || *to == "") {
+		return req, opts, nil // the rows give them
+	}
 	if req.From, err = location(*from); err != nil {
-		return fmt.Errorf("-from: %w", err)
+		return req, opts, fmt.Errorf("-from: %w", err)
 	}
 	if req.To, err = location(*to); err != nil {
-		return fmt.Errorf("-to: %w", err)
+		return req, opts, fmt.Errorf("-to: %w", err)
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
-		return fmt.Errorf("-tolled-share: %w", err)
+		return req, opts, fmt.Errorf("-tolled-share: %w", err)
 	}
 	if req.MotorwayShare, err = byCountry(*mway); err != nil {
-		return fmt.Errorf("-motorway-share: %w", err)
+		return req, opts, fmt.Errorf("-motorway-share: %w", err)
 	}
 	if req.FX, err = byCountry(*fxs); err != nil {
-		return fmt.Errorf("-fx: %w", err)
+		return req, opts, fmt.Errorf("-fx: %w", err)
 	}
 	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
-		return fmt.Errorf("-env-zone-km: %w", err)
+		return req, opts, fmt.Errorf("-env-zone-km: %w", err)
 	}
 	if req.CompareCO2Classes, err = ints(*cmp); err != nil {
-		return fmt.Errorf("-compare: %w", err)
+		return req, opts, fmt.Errorf("-compare: %w", err)
 	}
-	c, err := calculator(sc)
+	return req, opts, nil
+}
+
+// calcOpts are calc's flags that aren't the trip.
+type calcOpts struct {
+	json bool
+	csv  string
+	sc   *sootcase.Client
+}
+
+func calc(args []string) error {
+	req, opts, err := parseCalc(args, flag.ExitOnError)
 	if err != nil {
 		return err
+	}
+	c, err := calculator(opts.sc)
+	if err != nil {
+		return err
+	}
+	if opts.csv != "" {
+		return calcCSV(c, args, opts.csv)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
@@ -196,7 +225,7 @@ func calc(args []string) error {
 	if err != nil {
 		return err
 	}
-	if *asJSON {
+	if opts.json {
 		enc := json.NewEncoder(os.Stdout)
 		enc.SetIndent("", "  ")
 		return enc.Encode(res)
@@ -476,6 +505,20 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		}
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		writeJSON(w, http.StatusOK, map[string]any{"places": ps})
+	})
+	mux.HandleFunc("POST /v1/carbon-cost/batch", func(w http.ResponseWriter, r *http.Request) {
+		var req BatchRequest
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20))
+		dec.DisallowUnknownFields()
+		if err := dec.Decode(&req); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+			return
+		}
+		if len(req.Trips) == 0 || len(req.Trips) > MaxBatch {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("trips: give 1 to %d", MaxBatch)})
+			return
+		}
+		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(r.Context(), c.Calculate, req.Trips)})
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request

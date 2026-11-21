@@ -1644,6 +1644,15 @@
    "what": "Uredba o cestninskih cestah in cestnini, NPB 3: Priloga: Obvezne in izbirne cestninske ceste in njihovi odseki ter prevozne razdalje (with the Serminska vpadnica, G2-114)"
   },
   {
+   "id": "si-g2-114-osm",
+   "table": "si-2026-10-26",
+   "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A90%5D%3B%28way%5B%22highway%22%5D%5B%22ref%22~%22%5E%28114%7CG2-114%7CG2%20114%29%24%22%5D%2845.52%2C13.70%2C45.58%2C13.80%29%3Bway%5B%22highway%22%5D%5B%22name%22~%22Sermin%22%5D%2845.52%2C13.70%2C45.58%2C13.80%29%3Bnode%5B%22highway%22%3D%22motorway_junction%22%5D%2845.52%2C13.70%2C45.58%2C13.80%29%3B%29%3Bout%20geom%20tags%3B",
+   "what": "OpenStreetMap (Overpass API): the G2-114 road (Serminska vpadnica) to the port of Koper and the motorway junctions around it",
+   "expect": [
+    "\"elements\""
+   ]
+  },
+  {
    "id": "cz-nv-327-2025-pdf",
    "table": "cz-2026-01-01",
    "url": "https://epravo.cz/_dataPublic/sbirky/2025/Sb_2025_327_PZZ.pdf",

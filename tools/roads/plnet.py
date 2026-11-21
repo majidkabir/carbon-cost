@@ -27,6 +27,7 @@ from shapely.prepared import prep
 from shapely.geometry import Point
 
 ROADS = ("motorway", "trunk", "primary", "secondary", "tertiary")
+LINKS = ("motorway_link", "trunk_link", "primary_link")
 PLACES = ("city", "town", "village", "hamlet", "suburb", "quarter", "neighbourhood", "isolated_dwelling", "locality")
 TWIN_M = 60
 NEAR_PLACE_M = 15000
@@ -87,9 +88,9 @@ class Collect(osmium.SimpleHandler):
     def way(self, w):
         t = w.tags
         refs = refs_of(t)
-        if not refs and street_of(t.get("name")) not in self.streets:
-            return
         hw = t.get("highway", "")
+        if not refs and street_of(t.get("name")) not in self.streets and hw not in LINKS:
+            return
         try:
             ids = [n.ref for n in w.nodes]
             pts = [(n.lon, n.lat) for n in w.nodes]
@@ -112,6 +113,11 @@ class Collect(osmium.SimpleHandler):
             if hw in ("motorway", "trunk", "primary") or any(r in self.want for r in refs):
                 self.major.append((ids, pts, frozenset(refs), hw in ("motorway", "trunk")))
                 keep = True
+        elif hw in LINKS:
+            # The ramps join the main roads (and a road's own carriageways
+            # where OSM runs it through an interchange's ramps).
+            self.major.append((ids, pts, frozenset(refs), hw in ("motorway_link", "trunk_link")))
+            keep = True
         if keep:
             for i, p in zip(ids, pts):
                 self.coords[i] = p
@@ -311,7 +317,14 @@ def net_points(c, net, road, road_, pt, own):
         if pt.get("street"):
             nodes = (nodes & c.street_nodes.get(street_of(pt["street"]), set())) or nodes
         if places and nodes:
-            place = min(places, key=lambda p: min(dist_m(c.coords[n], p) for n in nodes))
+            # The place of that name nearest the section's road, else the
+            # crossing road.
+            def off(p):
+                near = road_.near(p, NEAR_PLACE_M)
+                return min((dist_m(c.coords[n], p) for n in near), default=math.inf)
+            place = min(places, key=off)
+            if off(place) == math.inf:
+                place = min(places, key=lambda p: min(dist_m(c.coords[n], p) for n in nodes))
             best = min(nodes, key=lambda n: dist_m(c.coords[n], place))
             if dist_m(c.coords[best], place) <= NEAR_PLACE_M:
                 at = [c.coords[best]]
@@ -452,7 +465,9 @@ def build(src, sections):
             if found:
                 d, nodes, on = found
                 straight = dist_m(c.coords[nodes[0]], c.coords[nodes[-1]])
-                if d >= 200 and d <= 3 * straight + 5000 and on >= 0.5 * d:
+                # Mostly on the road, or straight between the points (a
+                # stretch OSM tags by the road it shares).
+                if d >= 200 and d <= 3 * straight + 5000 and (on >= 0.5 * d or d <= 1.3 * straight + 2000):
                     picked.update(nodes)
                     paths.append((net, nodes))
                     km = d / 1000

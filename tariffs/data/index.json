@@ -1826,8 +1826,8 @@
    "file": "hr/hr-2026-01-01.orct.json",
    "name": "Croatian motorway toll (Hrvatske autoceste)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "21862d36968b5569e311397e86e265da820aa3c2fb27366b5afe36c76ade131a",
+   "valid_to": null,
+   "sha256": "27edf50ffe0c76b21e465cb1449817c4fccbd7551bde5ebd98e4df0932217170",
    "coverage": "complete"
   },
   {

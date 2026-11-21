@@ -1,0 +1,42 @@
+{
+ "orct": "0.3",
+ "derived_from": {
+  "url": "https://github.com/majidkabir/carbon-cost",
+  "commit": "5f9a07a4269e552f5b42a57e095f345283bb60de"
+ },
+ "datasets": [
+  {
+   "id": "carbon-cost/fr/2026-02-01",
+   "scheme": "fr",
+   "country": "FR",
+   "file": "fr/fr-2026-02-01.orct.json",
+   "name": "French motorway tolls",
+   "valid_from": "2026-02-01",
+   "valid_to": "2026-04-30",
+   "sha256": "f8c0275afe268cd5e78042b4b4920f4c41801faaa1e86feed909ec48754003bb",
+   "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/fr/2026-05-01",
+   "scheme": "fr",
+   "country": "FR",
+   "file": "fr/fr-2026-05-01.orct.json",
+   "name": "French motorway tolls",
+   "valid_from": "2026-05-01",
+   "valid_to": "2026-05-31",
+   "sha256": "de37ae72384b0be1687fe8562ddf9c0e8d010782fe7bc37b98fb89ebd7f1863b",
+   "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/fr/2026-06-01",
+   "scheme": "fr",
+   "country": "FR",
+   "file": "fr/fr-2026-06-01.orct.json",
+   "name": "French motorway tolls",
+   "valid_from": "2026-06-01",
+   "valid_to": "2027-01-31",
+   "sha256": "59af54f5e0b5bc32d407d89b20bba5a7219d91697c5dcb58622ecd5356a53867",
+   "coverage": "partial"
+  }
+ ]
+}

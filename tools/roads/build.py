@@ -169,7 +169,7 @@ FREE = {"PL": [
     # and French borders to the Müllheim/Neuenburg junction.
     "DE": [
     ("A 6", None, (6.93, 49.17, 7.00, 49.23), "Saarbrücken-Fechingen", (7.03, 49.17, 7.13, 49.24), "A 6 French border-Saarbrücken-Fechingen (BFStrMG § 1 (3) 1)"),
-    ("A 5", None, (7.55, 47.54, 7.66, 47.62), "Müllheim/Neuenburg", (7.53, 47.77, 7.66, 47.85), "A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"),
+    ("A 5", None, (7.55, 47.54, 7.66, 47.62), "Müllheim / Neuenburg", (7.53, 47.77, 7.66, 47.85), "A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"),
 ]}
 
 # Sections of a country's tolled roads that a private operator tolls

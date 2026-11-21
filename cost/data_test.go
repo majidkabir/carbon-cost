@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"github.com/majidkabir/carbon-cost/roads"
 	"math"
 	"strings"
 	"testing"
@@ -375,5 +376,26 @@ func TestSloveniaSerminska(t *testing.T) {
 		if has != want {
 			t.Errorf("SI on %s: Serminska vpadnica %v, want %v", day, has, want)
 		}
+	}
+}
+
+// Germany's road classes (OpenStreetMap, roads/data/de.json.gz): a stretch
+// of motorway south of Hamburg is tolled road, and the A 5 south of the
+// Müllheim/Neuenburg junction isn't (BFStrMG § 1 (3) 2).
+func TestGermanyRoadData(t *testing.T) {
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !rx.Has("DE") || !rx.Has("AT") {
+		t.Skip("no road classes for DE or AT")
+	}
+	k, _ := rx.Classify("DE", [][2]float64{{10.01917, 53.38546}, {10.01689, 53.38369}, {10.01525, 53.3817}, {10.0146, 53.38126}, {10.01312, 53.3807}})
+	if k.Motorway < 0.5 || k.Local > 0 {
+		t.Errorf("motorway by Hamburg: %+v", k)
+	}
+	left := rx.LeftOut("DE")
+	if len(left) < 2 || !strings.Contains(strings.Join(left, ";"), "Müllheim/Neuenburg") {
+		t.Errorf("left out: %v", left)
 	}
 }

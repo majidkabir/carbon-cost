@@ -210,6 +210,53 @@ func (s *Set) Find(area string, date time.Time) (*Dataset, bool) {
 	return nil, false
 }
 
+// Ended is the area's last toll dataset when none is in force on the date
+// and that one ended before it: rates that ended with no successor here
+// yet.
+func (s *Set) Ended(area string, date time.Time) (*Dataset, bool) {
+	if _, ok := s.Find(area, date); ok {
+		return nil, false
+	}
+	day := date.Format(time.DateOnly)
+	var last *Dataset
+	for _, d := range s.All {
+		if d.Kind == Toll && d.Area() == area && d.ValidTo != "" && d.ValidTo < day && (last == nil || d.ValidTo > last.ValidTo) {
+			last = d
+		}
+	}
+	return last, last != nil
+}
+
+// Lapsed lists, for each scheme of the kind with no dataset in force on
+// the date, its last dataset if that ended before the date: rates that
+// ended with no successor here yet. (A scheme that really ends has a
+// successor that says so: a dataset with no_charge.)
+func (s *Set) Lapsed(kind string, date time.Time) []*Dataset {
+	day := date.Format(time.DateOnly)
+	last, inForce := map[string]*Dataset{}, map[string]bool{}
+	for _, d := range s.All {
+		if d.Kind != kind {
+			continue
+		}
+		if d.Covers(date) {
+			inForce[d.Scheme] = true
+		}
+		if d.ValidTo != "" && d.ValidTo < day {
+			if l := last[d.Scheme]; l == nil || d.ValidTo > l.ValidTo {
+				last[d.Scheme] = d
+			}
+		}
+	}
+	var out []*Dataset
+	for sch, d := range last {
+		if !inForce[sch] {
+			out = append(out, d)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].File < out[j].File })
+	return out
+}
+
 // Regional says whether the country's tolls are set by region.
 func (s *Set) Regional(country string) bool {
 	for _, d := range s.All {

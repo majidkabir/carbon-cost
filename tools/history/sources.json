@@ -123,12 +123,6 @@
    "what": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024 (in force 1 January 2025), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS refuses scripted requests (503)"
   },
   {
-   "id": "ch-svav-2024",
-   "table": "ch-2017-01-01",
-   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2000/226/20240101/de/pdf-a/fedlex-data-admin-ch-eli-cc-2000-226-20240101-de-pdf-a.pdf",
-   "what": "Schwerverkehrsabgabeverordnung (SVAV) of 6 March 2000, as in force on 1 January 2024 (Fedlex)"
-  },
-  {
    "id": "sk-nv-497-2013-2024",
    "table": "sk-2024-01-01",
    "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20240101.html",
@@ -259,12 +253,6 @@
    "table": "at-2024-01-01",
    "url": "https://www.go-maut.at/media/zsocruyi/go-maut-tarife-2024_streckenmaut_en.pdf",
    "what": "ASFINAG: GO toll rates 2024 on the special toll sections"
-  },
-  {
-   "id": "at-mtv-2022",
-   "table": "at-2024-01-01",
-   "url": "https://www.itf-oecd.org/sites/default/files/docs/a-toll-rate-ordinance_0.pdf",
-   "what": "Mauttarifverordnung 2022, BGBl. II Nr. 448/2022, RIS consolidated text (Fassung vom 06.02.2023) as published by the ITF/OECD: the infrastructure tariffs of the special toll sections, which BStMG § 9 (BGBl. I Nr. 142/2023) kept for 2024"
   },
   {
    "id": "pt-imt-2024",
@@ -1479,6 +1467,21 @@
    "what": "Viapass: CO2 surcharge in Flanders from 1 July 2026"
   },
   {
+   "id": "be-vp-2027-01",
+   "table": "be-2027-01-01",
+   "url": "https://www.viapass.be/en/news/kilometer-charge-changes-planned-from-january-1-2027.html",
+   "what": "Viapass: the kilometer charge changes from 1 January 2027 (Flemish indexation moved to 1 January, Walloon indexation on the August 2026 CPI, no Brussels indexation, zero-emission rates at 60% of the infrastructure part)",
+   "expect": [
+    "January 1st, 2027"
+   ]
+  },
+  {
+   "id": "be-vp-2027-01-table",
+   "table": "be-2027-01-01",
+   "url": "https://www.viapass.be/files/Image/news/2026/2027-01-01-rates-EN.jpg",
+   "what": "Viapass: kilometer charge rates from 1 January 2027 (rate grid image, ed. 01/01/2027)"
+  },
+  {
    "id": "at-wko-2026",
    "table": "at-2026-01-01",
    "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf",
@@ -1563,6 +1566,16 @@
    "what": "NV 418/2024 Z. z., Annex 6"
   },
   {
+   "id": "sk-nv-418-2024-latest",
+   "table": "sk-2025-07-01",
+   "url": "https://api-gateway.slov-lex.sk/vyhladavanie/predpisZbierky/znenie?zodpovedajucaUcinnost=2099-12-31&predpis=/SK/ZZ/2024/418",
+   "page": "https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2024/418/",
+   "what": "Slov-Lex: the version of nariadenie vlády 418/2024 Z. z. in force on 31 December 2099, i.e. its latest published version (a published amendment shows as a later version)",
+   "expect": [
+    "\"iri\""
+   ]
+  },
+  {
    "id": "si-zbirka-anjp333",
    "table": "si-2026-04-01",
    "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP333",
@@ -1629,10 +1642,32 @@
    "what": "Uredba o cestninskih cestah in cestnini, NPB 2: Priloga: Obvezne in izbirne cestninske ceste in njihovi odseki ter prevozne razdalje"
   },
   {
+   "id": "si-uredba-9382-npb3",
+   "table": "si-2026-10-26",
+   "url": "https://pisrs.si/api/rezultat/neuradno-precisceno-besedilo/659125751/details",
+   "what": "Uredba o cestninskih cestah in cestnini (46/25), NPB 3 (from 26 October 2026, with Uredba o dopolnitvi 1746/26)"
+  },
+  {
+   "id": "si-uredba-9382-npb3-priloga",
+   "table": "si-2026-10-26",
+   "url": "https://pisrs.si/api/datoteke/integracije/659647014",
+   "what": "Uredba o cestninskih cestah in cestnini, NPB 3: Priloga: Obvezne in izbirne cestninske ceste in njihovi odseki ter prevozne razdalje (with the Serminska vpadnica, G2-114)"
+  },
+  {
    "id": "cz-nv-327-2025-pdf",
    "table": "cz-2026-01-01",
    "url": "https://epravo.cz/_dataPublic/sbirky/2025/Sb_2025_327_PZZ.pdf",
    "what": "Nařízení vlády č. 327/2025 Sb., Sbírka zákonů PDF"
+  },
+  {
+   "id": "cz-esbirka-240-2014-zneni",
+   "table": "cz-2026-01-01",
+   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2014%2F240/zneni-ke-srovnani",
+   "page": "https://e-sbirka.gov.cz/sb/2014/240?zalozka=historie",
+   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 240/2014 Sb., its versions (from, to, amending act), a published amendment among them as a later version",
+   "expect": [
+    "dokumentuSbirkyZneniKeSrovnani"
+   ]
   },
   {
    "id": "it-mise-terrazzano",
@@ -1682,18 +1717,6 @@
    "url": "https://web.archive.org/web/20251217030201id_/https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
    "page": "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
    "what": "Skatturinn: Kílómetragjald á vörubifreiðar og eftirvagna, the km fee of Lög nr. 87/2004 by permissible weight for 2025 (Almennt) and earlier years (Fjárhæðir fyrri ára); the Internet Archive's copy of 17 December 2025 (the page now shows the 2026 law only)"
-  },
-  {
-   "id": "is-veggjald-2024",
-   "table": "is-vadlaheidargong-2024-01-02",
-   "url": "https://www.veggjald.is/static/files/verdskra/vhg-verdskra-gildir-fra-2.1.2024-en.pdf",
-   "what": "Vaðlaheiðargöng hf.: price list valid from 2 January 2024 (English)"
-  },
-  {
-   "id": "is-veggjald-2025",
-   "table": "is-vadlaheidargong-2025-01-02",
-   "url": "https://veggjald.is/static/files/verdskra/vhg-price-2.1.2025.pdf",
-   "what": "Vaðlaheiðargöng hf.: price list valid from 2 January 2025"
   },
   {
    "id": "rs-sg-119-2023",

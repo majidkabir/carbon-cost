@@ -365,7 +365,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.912529, 37.995896]]
+     "coordinates": [[13.912531, 37.995897]]
     },
     "point_names": ["between Buonfornello and Cefalu'"],
     "headings": [65.9],
@@ -407,7 +407,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.912518, 37.996102]]
+     "coordinates": [[13.912521, 37.996103]]
     },
     "point_names": ["between Cefalu' and Buonfornello"],
     "headings": [245.1],
@@ -463,7 +463,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.437346, 38.236498]]
+     "coordinates": [[15.437347, 38.236498]]
     },
     "point_names": ["between Messina Nord and Rometta"],
     "headings": [224.0],
@@ -1658,7 +1658,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-20"
+   "osm_extract": "2026-11-21"
   }
  }
 }

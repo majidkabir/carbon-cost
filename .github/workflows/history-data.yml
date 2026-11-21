@@ -1,8 +1,10 @@
 name: History data
 # Fetches the ECB's euro reference rates since 1999, the National Bank of
-# Serbia's dinar rates since 2024 and the official texts behind the
-# historical rate tables (tools/history/sources.json), builds
-# fx/data/ecb-hist.csv, fx/data/nbs-eur-rsd.csv and the historical tables, converts those to ORCT
+# Serbia's dinar rates and the Bank of Albania's lek rates since 2024 and
+# the official texts behind the historical rate tables
+# (tools/history/sources.json), builds fx/data/ecb-hist.csv,
+# fx/data/nbs-eur-rsd.csv, fx/data/boa-eur-all.csv and the historical
+# tables, converts those to ORCT
 # datasets (tools/orct/convert.py), and pushes them with the fetched texts
 # and their manifest to the history-out branch. Push to the
 # history-data branch to run it.
@@ -24,9 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 240
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
-      - name: ECB reference rates, the NBS's dinar rates
+      - name: ECB reference rates, the NBS's dinar rates, the Bank of Albania's lek rates
         run: |
           mkdir -p out/fx
           curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o ecb.zip https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist.zip
@@ -35,6 +37,8 @@ jobs:
           python3 tools/history/ecb.py eurofxref-hist.csv out/fx/ecb-hist.csv
           # The dinar's rates (the ECB has none): the NBS's official middle rate.
           python3 tools/history/nbs.py out/fx/nbs-eur-rsd.csv || echo "::warning title=nbs::the NBS's rates weren't fetched"
+          # The lek's (the ECB has none): the Bank of Albania's official rate.
+          python3 tools/history/boa.py out/fx/boa-eur-all.csv || echo "::warning title=boa::the Bank of Albania's rates weren't fetched"
       - name: Fetch
         # Internet Archive copies the last run fetched aren't asked for again
         # (a capture never changes); the next step takes them from it.

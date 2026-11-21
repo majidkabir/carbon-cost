@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 100
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
       - name: Fetch
         run: |
@@ -25,7 +25,7 @@ jobs:
           python3 tools/fr/fetch.py tools/fr/sources.json out
           # Geofabrik refuses connections from GitHub's runners for minutes at a time: retry for ~10 minutes;
           # the extract is 5 GB (about 35 minutes at times): a try stops after 50 minutes, the whole download after 60, and the last run's toll booths are used.
-          if timeout 3600 curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors --max-time 3000 -o fr.pbf https://download.geofabrik.de/europe/france-latest.osm.pbf; then
+          if timeout 3600 curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors --max-time 3000 -o fr.pbf https://download.geofabrik.de/europe/france/france-latest.osm.pbf; then
             osmium tags-filter -O -o booths.pbf fr.pbf n/barrier=toll_booth n/highway=motorway_junction
             osmium export -O -f geojsonseq -o out/osm-booths.geojsonseq booths.pbf
             rm fr.pbf booths.pbf

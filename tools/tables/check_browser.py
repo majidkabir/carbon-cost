@@ -13,7 +13,8 @@ HERE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser")
 
 # Capture -> (yearly change day as MM-DD or None, maximum age in days).
 RULES = {
-    "al-atrako": (None, 92),           # tariff under review (concessionaire asked for a rise in Oct 2026)
+    "al-atrako": (None, 92),
+    "al-g2infra": (None, 92),            # G2 Infra's price list, no date           # tariff under review (concessionaire asked for a rise in Oct 2026)
     "at-nehg-10": ("01-01", 366),      # NEHG prices by calendar year
     "be-liefkenshoek": ("12-01", 366),  # next year's tariffs appear before 1 January
     "de-warnow-mauthvo": ("10-15", 366),  # the Anlage is reset each autumn, from 1 November

@@ -1,0 +1,22 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "orct-tests/no-charge/2026-01-01",
+  "scheme": {"id": "no-charge", "name": "Road charges for heavy goods vehicles", "country": "FI"},
+  "publisher": {"name": "ORCT tests", "role": "third_party"},
+  "valid_from": "2026-01-01",
+  "currency": "EUR",
+  "timezone": "Europe/Helsinki",
+  "license": "CC0-1.0",
+  "method": "A country that levies no road charge on heavy goods vehicles (a synthetic test dataset).",
+  "required_features": []
+ },
+ "sources": [{"id": "s1", "title": "The road authority's statement that no road toll, user charge or vignette is used", "url": "https://example.org/no-road-charges"}],
+ "tax": {"basis": "not_applicable"},
+ "liable_vehicles": {"description": "Vehicles over 3.5 t", "criteria": {"train_mass_kg": {"gt": 3500}}},
+ "vehicle_class_sets": [],
+ "charge_objects": [],
+ "charges": [],
+ "no_charge": {"description": "No time-based road user charge (vignette), distance-based road toll or emission sticker is used.", "sources": ["s1"]},
+ "coverage": [{"scope": "dataset", "status": "complete"}]
+}

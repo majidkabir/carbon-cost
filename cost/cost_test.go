@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
@@ -1687,6 +1688,22 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("NO %s: %+v", d, l)
 		}
 	}
+	// Albania's taksa e karbonit on gazoil: 3 lekë per litre (ligj 9975/2008,
+	// neni 4 pika 6), converted at the Bank of Albania's rate of the day.
+	for d := range map[string]bool{"2024-06-03": true, "2026-11-03": true} {
+		date, _ := time.Parse("2006-01-02", d)
+		perEUR, _, _, ok := fx.NationalOnDate("ALL", date)
+		if !ok {
+			t.Fatalf("AL %s: no Bank of Albania rate", d)
+		}
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "AL", DieselL: 100}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "AL", rates.CO2); !ok || l.Rate != 3 || l.RateUnit != "ALL/l" || l.Amount != 300 || math.Abs(l.AmountEUR-round2(300/perEUR)) > 0.011 {
+			t.Errorf("AL %s: %+v", d, l)
+		}
+	}
 	// Finland's hiilidioksidivero on diesel oil: EUR 0.1978 per litre in 2024
 	// and 2025, 0.1812 from 2026.
 	for d, want := range map[string]float64{"2024-06-01": 0.1978, "2025-12-31": 0.1978, "2026-11-03": 0.1812} {
@@ -2160,6 +2177,25 @@ func TestItalyOpenSystemsAndSPV(t *testing.T) {
 			t.Errorf("%s: %.2f km at %v, EUR %.2f: %v", tc.name, km, tc.rate, amount, r.Lines)
 		}
 	}
+	// In 2025 the A22's mountain stretch takes the mountain rate of the
+	// concession's 2025 sheet (0.14873, VAT excluded): 0.18145.
+	{
+		rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a22}})
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2.4, CountryKm: map[string]float64{"IT": 2.4}, Path: a22}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, roadKm: rk}, time.Date(2025, 6, 1, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var km float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "IT" && l.Component == rates.Toll && l.Rate == 0.18145 {
+				km += l.Km
+			}
+		}
+		if km < 1.9 {
+			t.Errorf("A22 Brennero-Affi in 2025: %.2f km at 0.18145: %v", km, r.Lines)
+		}
+	}
 	// The A24 before the Roma Est barrier is free: the barrier charges it.
 	if rk := RoadKm(rx, []Run{{Kind: "road", Country: "IT", Points: a24}}); rk["IT"].MotorwayOp["Strada dei Parchi S.p.A.|A24"] > 0.5 {
 		t.Errorf("A24 before the Roma Est barrier: %v", rk["IT"].MotorwayOp)
@@ -2437,6 +2473,37 @@ func TestAlbaniaA1(t *testing.T) {
 	}
 }
 
+// Albania's Thumanë–Kashar (G2 Infra): a price per trip between Kashar,
+// Rinas (the airport junction) and Thumanë, four axles or more EUR 8.80,
+// 2.80 and 6.10 with VAT (7.3333, 2.3333 and 5.0833 without).
+func TestAlbaniaThumaneKashar(t *testing.T) {
+	for _, tc := range []struct {
+		name string
+		path [][2]float64
+		want float64
+	}{
+		{"Kashar-Thumanë", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7010, 41.4180}, {19.70262, 41.4227}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 7.3333},
+		{"Thumanë-Kashar", [][2]float64{{19.7059, 41.4400}, {19.70498, 41.4350}, {19.70244, 41.4228}, {19.70095, 41.4182}, {19.69653, 41.4050}, {19.6960, 41.4000}}, 7.3333},
+		{"Kashar-Rinas", [][2]float64{{19.6961, 41.4000}, {19.69668, 41.4050}, {19.7013, 41.4178}, {19.70165, 41.4190}, {19.70358, 41.42003}, {19.70679, 41.41941}, {19.7075, 41.4193}}, 2.3333},
+		{"Rinas-Thumanë", [][2]float64{{19.7075, 41.4193}, {19.70718, 41.41949}, {19.70621, 41.41963}, {19.70479, 41.42012}, {19.70342, 41.42033}, {19.70262, 41.42275}, {19.70512, 41.4350}, {19.7060, 41.4400}}, 5.0833},
+	} {
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 5, CountryKm: map[string]float64{"AL": 5}, Path: tc.path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Thumanë") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 {
+			t.Errorf("%s: %v, want %v: %v", tc.name, got, tc.want, r.Lines)
+		}
+	}
+}
+
 // Moldova's vignette for trucks not registered there: over 10 t, EUR 11 a
 // day (one day for a trip).
 func TestMoldovaVignette(t *testing.T) {
@@ -2675,6 +2742,14 @@ func TestMilanBarriers(t *testing.T) {
 		{"A57 Venezia Est", [][2]float64{{12.3320, 45.5685}, {12.33562, 45.56917}, {12.3390, 45.5700}}, truck40, 5.54},
 		{"A35 Chiari Est", [][2]float64{{9.9580, 45.5217}, {9.96128, 45.52207}, {9.9640, 45.5224}}, truck40, 5.36},
 		{"A35 Liscate", [][2]float64{{9.4220, 45.4658}, {9.4254, 45.46587}, {9.4290, 45.4660}}, truck40, 4.52},
+		{"A35 Castegnato", [][2]float64{{10.1120, 45.5440}, {10.11457, 45.54536}, {10.1170, 45.5465}}, truck40, 4.52},
+		{"A28 Cordignano", [][2]float64{{12.4820, 45.9218}, {12.47892, 45.92123}, {12.4760, 45.9206}}, truck40, 2.41},
+		{"A8/A26 Gallarate Ovest", [][2]float64{{8.7800, 45.6890}, {8.77659, 45.68873}, {8.7730, 45.6885}}, truck40, 2.81},
+		{"A33 Castelletto Stura", [][2]float64{{7.6060, 44.4300}, {7.60905, 44.43113}, {7.6120, 44.4322}}, truck40, 2.60},
+		{"A12 Rosignano", [][2]float64{{10.5060, 43.3660}, {10.50425, 43.36937}, {10.5025, 43.3725}}, truck40, 2.64},
+		{"A15 La Spezia", [][2]float64{{9.90499, 44.14547}, {9.90392, 44.1459}, {9.90262, 44.14647}}, truck40, 3.73},
+		{"A58 Pozzuolo Martesana", [][2]float64{{9.4330, 45.5150}, {9.43567, 45.51613}, {9.4380, 45.5170}}, truck40, 0.95},
+		{"not on the TEEM by Pozzuolo", [][2]float64{{9.44066, 45.51229}, {9.44046, 45.51239}, {9.43966, 45.52722}}, truck40, 0},
 		{"A16 Napoli Est", [][2]float64{{14.4670, 40.9155}, {14.47088, 40.91625}, {14.4750, 40.9170}}, truck40, 4.03},
 		{"A22 Brennero", [][2]float64{{11.4335, 46.8880}, {11.4348, 46.88512}, {11.4360, 46.8820}}, truck40, 3.08},
 		{"A6 Barriera di Torino", [][2]float64{{7.7480, 44.8570}, {7.74864, 44.85416}, {7.7493, 44.8512}}, truck40, 7.18},
@@ -3790,6 +3865,166 @@ func TestDanishFerries(t *testing.T) {
 		}
 		if math.Abs(got-tc.dkk) > 0.011 {
 			t.Errorf("%s: %.2f DKK, want %.2f: %v", tc.name, got, tc.dkk, r.Notes)
+		}
+	}
+}
+
+// A country that levies no road charge (ORCT no_charge): a note with the
+// authority's statement and its source, no lines, and not in no_rates.
+func TestNoCharge(t *testing.T) {
+	tku := sootcase.Result{TTWKg: 120, WTWKg: 150, Legs: []sootcase.LegResult{{
+		DistanceKm: 165, TTWKg: 120, WTWKg: 150, CountryKm: map[string]float64{"FI": 165}}}}
+	r, err := Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 12, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if slices.ContainsFunc(r.Lines, func(l Line) bool { return l.Charge == RoadToll }) || len(r.NoRates) != 0 || !hasNote(r, "FI: no road toll, vignette or emission sticker for trucks (Traficom") {
+		t.Errorf("lines %v, no_rates %v, notes %v", r.Lines, r.NoRates, r.Notes)
+	}
+	if !slices.ContainsFunc(r.Sources, func(s rates.Source) bool { return strings.Contains(s.URL, "traficom.fi") }) {
+		t.Errorf("sources %v: want Traficom's page", r.Sources)
+	}
+	// Before the statement was read: no dataset, so no rates.
+	r, _ = Price(tku, all(t), Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 6, 1, 0, 0, 0, 0, time.UTC))
+	if strings.Join(r.NoRates, ",") != "FI" {
+		t.Errorf("June 2026: no_rates %v, want FI", r.NoRates)
+	}
+}
+
+// The Llogara tunnel (Udhëzim i përbashkët nr. 4, datë 12.9.2025): high
+// vehicles with 2 axles ALL 350, 3 axles 500, 4 or more 5000, with 20% VAT
+// divided out; the lek converted at the Bank of Albania's official rate of
+// the day.
+func TestAlbaniaLlogara(t *testing.T) {
+	path := [][2]float64{{19.5612487, 40.2255910}, {19.570068, 40.206968}, {19.5776600, 40.1909363}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 4, CountryKm: map[string]float64{"AL": 4}, Path: path}}}
+	day := time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)
+	perEUR, _, _, ok := fx.NationalOnDate("ALL", day)
+	if !ok {
+		t.Fatal("no Bank of Albania rate embedded")
+	}
+	for _, tc := range []struct {
+		name  string
+		truck rates.Truck
+		want  float64
+	}{
+		{"2 axles", rates.Truck{MaxMassKg: 18000, Axles: 2, Euro: 6, CO2Class: 1}, 291.67},
+		{"3 axles", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 6, CO2Class: 1}, 416.67},
+		{"5 axles", truck40, 4166.67},
+	} {
+		r, err := Price(trip, all(t), Request{CargoKg: 10000, Truck: tc.truck}, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got, eur float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Llogar") && l.Currency == "ALL" {
+				got += l.Amount
+				eur += l.AmountEUR
+			}
+		}
+		if math.Abs(got-tc.want) > 0.006 || math.Abs(eur-round2(tc.want/perEUR)) > 0.011 || !hasNote(r, "Bank of Albania") {
+			t.Errorf("%s: ALL %v (EUR %v), want %v at %v per euro: %v %v", tc.name, got, eur, tc.want, perEUR, r.Lines, r.Notes)
+		}
+	}
+}
+
+// A result says what it leaves out: an area with no table, and rates that
+// ended with no successor here yet (the next year's not yet published).
+func TestMissing(t *testing.T) {
+	req := Request{CargoKg: 20000, Truck: truck40}
+	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !r.Complete || len(r.Missing) > 0 {
+		t.Errorf("2026: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+	// Austria's GO-Maut table for 2026 ends on 31 December 2026, and
+	// Germany's BEHG price for 2027 comes from its auctions.
+	vieMuc := sootcase.Result{TTWKg: 300, WTWKg: 360, Legs: []sootcase.LegResult{{
+		DistanceKm: 430, TTWKg: 300, WTWKg: 360,
+		CountryKm: map[string]float64{"AT": 300, "DE": 130},
+	}}}
+	r, err = Price(vieMuc, all(t), req, time.Date(2099, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete {
+		t.Error("2099: complete, want missing AT tolls")
+	}
+	got := map[string]Missing{}
+	for _, m := range r.Missing {
+		got[m.Area+" "+m.Charge] = m
+	}
+	if m, ok := got["AT road_toll"]; !ok || m.Reason != "ended" || m.Ended == "" || m.Name == "" {
+		t.Errorf("AT tolls: %+v (missing %+v)", m, r.Missing)
+	}
+	if m, ok := got["DE fuel_co2"]; !ok || m.Reason != "ended" {
+		t.Errorf("DE fuel CO2: %+v (missing %+v)", m, r.Missing)
+	}
+	// A country with no table at all.
+	ua := sootcase.Result{TTWKg: 100, WTWKg: 120, Legs: []sootcase.LegResult{{
+		DistanceKm: 100, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"UA": 100},
+	}}}
+	r, err = Price(ua, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete || len(r.Missing) != 1 || r.Missing[0].Reason != "no_table" || r.Missing[0].Area != "UA" {
+		t.Errorf("UA: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+}
+
+// Germany's rates are the same on its A and B roads: the road classes
+// only take the km off them out of the toll (BFStrMG § 1), and a
+// tolled_share given wins over them.
+func TestGermanyRoadClasses(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"DE": 100}}}}
+	rk := map[string]roads.Km{"DE": {Motorway: 70, National: 20, Local: 10}}
+	left := map[string][]string{"DE": {"A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"}}
+	day := time.Date(2026, 11, 21, 0, 0, 0, 0, time.UTC)
+	tollKm := func(r Response) (km float64) {
+		// Each Mautteilsatz is a line over the same km.
+		for _, l := range r.Lines {
+			if l.Country == "DE" && l.Charge == RoadToll {
+				km = math.Max(km, l.Km)
+			}
+		}
+		return km
+	}
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, roadLeftOut: left}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-90) > 1e-6 {
+		t.Errorf("tolled km %v, want 90: %+v", got, r.Lines)
+	}
+	found := false
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap along the route, 90% of the 100.0 km are on the tolled roads and 10% on other roads") {
+			found = strings.Contains(n, "A 5 Swiss and French borders-Müllheim/Neuenburg") && strings.Contains(n, "Tolled roads: Federal motorways")
+		}
+		if strings.Contains(n, "all 100.0 km are counted as on tolled roads") {
+			t.Errorf("note %q with road classes", n)
+		}
+	}
+	if !found {
+		t.Errorf("no road-class note: %v", r.Notes)
+	}
+	if r.Provenance.RoadClasses["DE"] == "" {
+		t.Errorf("no road classes in provenance")
+	}
+	r, err = Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, TolledShare: map[string]float64{"DE": 0.5}}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-50) > 1e-6 {
+		t.Errorf("tolled_share 0.5: %v km", got)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap") {
+			t.Errorf("note %q with tolled_share", n)
 		}
 	}
 }

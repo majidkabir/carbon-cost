@@ -283,9 +283,14 @@ class Builder:
             "rules": self.rules,
             "coverage": self.coverage or [{"scope": "dataset", "status": "complete"}],
         }
+        if getattr(self, "no_charge", None):
+            # ORCT 6.13: no objects, charges, rules or class sets.
+            out["vehicle_class_sets"] = []
+            out["no_charge"] = self.no_charge
+            out["tax"] = {"basis": "not_applicable"}
         if self.ext:
             out["extensions"] = {EXT: self.ext}
-        return {k: v for k, v in out.items() if v != [] or k in ("charges", "charge_objects")}
+        return {k: v for k, v in out.items() if v != [] or k in ("charges", "charge_objects", "vehicle_class_sets")}
 
 
 # --- toll tables ---------------------------------------------------------------
@@ -865,6 +870,17 @@ def convert_fuel(f, path):
     return b.doc({"description": "CO2 from fuel bought in the country", "criteria": {}})
 
 
+def convert_no_charge(n, path):
+    """A country that levies no road charge on trucks (ORCT 6.13): the
+    statement and its sources, no charges."""
+    b = Builder(n, path)
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge"}
+    b.no_charge = {"description": n["no_charge"], "sources": b.src}
+    for k in sorted(set(n) - used):
+        b.keep(k, n[k], f"{k} is kept as an extension (no ORCT field yet)")
+    return b.doc({"description": n.get("vehicles", "all vehicles"), "criteria": {}})
+
+
 def dumps(x, ind=0):
     """JSON with one object member per line, but short arrays of scalars (rows, coordinates)
     on one line, so tables stay readable and diffs small."""
@@ -911,6 +927,18 @@ def check(t, name):
         bad += [f"{k} must be [from, to] (HH:MM)" for k in ("weekdays", "weekends") if t.get(k) and not is_hours(t[k])]
         if t.get("no_charge") and len(t["no_charge"]) != 2:
             bad.append("no_charge must be [from, to] (MM-DD)")
+        return bad
+    if name.startswith("nocharge-"):
+        if name != f"nocharge-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
+            bad.append("the name must be nocharge-<cc>-<valid_from>.json")
+        if not (t.get("name") and t.get("law") and t.get("no_charge")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
+            bad.append("name, law and no_charge are required, and no rates")
+        return bad
+    if isinstance(t.get("no_charge"), str):
+        # A scheme's version that charges nothing (a toll repealed): the
+        # statement and its sources, no rates.
+        if not (t.get("name") and t.get("law")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
+            bad.append("name, law and no_charge are required, and no rates")
         return bad
     if name.startswith("fuelco2-"):
         if name != f"fuelco2-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
@@ -1014,6 +1042,8 @@ def main():
             doc = convert_zone(t, path)
         elif name.startswith("fuelco2-"):
             doc = convert_fuel(t, path)
+        elif name.startswith("nocharge-") or isinstance(t.get("no_charge"), str):
+            doc = convert_no_charge(t, path)
         else:
             doc = convert_table(t, path)
         cc = doc["dataset"]["scheme"]["country"].lower()

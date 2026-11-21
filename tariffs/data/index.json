@@ -12,7 +12,7 @@
    "name": "Túnel d'Envalira toll",
    "valid_from": "2026-11-16",
    "valid_to": null,
-   "sha256": "20c059d487fa601bad670c7764393db97399aa8a5d5bb9fc877d4c0c288d98ac",
+   "sha256": "a764976621814149e447e0bd43d189e500136eb1dbf0afa12ebba8a6bea807f7",
    "coverage": "complete"
   },
   {
@@ -20,10 +20,32 @@
    "scheme": "al",
    "country": "AL",
    "file": "al/al-2026-11-13.orct.json",
-   "name": "A1 Rruga e Kombit toll (Milot–Morinë)",
+   "name": "A1 Rruga e Kombit toll (Milot–Morinë) and Thumanë–Kashar",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "42cd0dd690d1866f3087b9ad68c84fe01930088a57a88cbe8f33edafc536acce",
+   "sha256": "e6df4afaf5cb0c77ec79ed03f28f2e54e86c6e8336d651f9d54dc56d88755d9b",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/al-llogara/2025-10-02",
+   "scheme": "al-llogara",
+   "country": "AL",
+   "file": "al/al-llogara-2025-10-02.orct.json",
+   "name": "Llogara tunnel toll",
+   "valid_from": "2025-10-02",
+   "valid_to": null,
+   "sha256": "35935e49992a240457bf2b802c9bf25fc1da5ff1a14df725d8d3cbb6113c36e8",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-al/2024-01-01",
+   "scheme": "fuelco2-al",
+   "country": "AL",
+   "file": "al/fuelco2-al-2024-01-01.orct.json",
+   "name": "Taksa e karbonit on gazoil",
+   "valid_from": "2024-01-01",
+   "valid_to": null,
+   "sha256": "27357c07154b4aa60a1953cb532f8b36eae8b7524a96edfd1afb5214b0e38ccb",
    "coverage": "complete"
   },
   {
@@ -67,7 +89,7 @@
    "name": "Felbertauerntunnel toll (Felbertauernstraße)",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "46279af1e8524103586aed274ac079be668243e3d3f9484962bc8c378504c68d",
+   "sha256": "47bfaacbf8b19bd6f6b25f7047439526fc164cd1174b50bb424f1c05a0c5c85e",
    "coverage": "complete"
   },
   {
@@ -122,7 +144,7 @@
    "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
    "valid_from": "2020-11-26",
    "valid_to": "2024-08-21",
-   "sha256": "ab3f29015d69056447f12acd4a64534831bf96bd845d348eb712e838edb79448",
+   "sha256": "cdb24172b20297101686cd8bc3068d8d6c4a9295d8dbb59114b9db069cd81898",
    "coverage": "complete"
   },
   {
@@ -133,7 +155,7 @@
    "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
    "valid_from": "2024-08-22",
    "valid_to": "2026-10-31",
-   "sha256": "c284a6528df37ae0290c53b443e2289be64a975e9f773fb6c0f0639ea04837bd",
+   "sha256": "c9447d50417959cfc6d6d94c4665d8b5a456781382233c8fd4fc682c520c9c85",
    "coverage": "complete"
   },
   {
@@ -144,7 +166,7 @@
    "name": "A1 motorway tolls (Federation of Bosnia and Herzegovina)",
    "valid_from": "2026-11-01",
    "valid_to": null,
-   "sha256": "03169043fad798250615d180e869c6d3c493febdb3eccde3a70a07e466e7f602",
+   "sha256": "d19686f9cd5025973e3c1ed4aae52687f6695c5aa6ab366a60cc9c9536aa0b9c",
    "coverage": "complete"
   },
   {
@@ -155,7 +177,7 @@
    "name": "Republika Srpska motorway tolls (Autoputevi Republike Srpske)",
    "valid_from": "2024-10-02",
    "valid_to": null,
-   "sha256": "82c54ac86ab1e4634eb10aec5dbc7de1b1f10ec165fa7fdf64498af489e24183",
+   "sha256": "0d6a4d9ed6f35568351eba11b4347db1b0533c9e7be0f6dc4dc5134de9aeabe8",
    "coverage": "complete"
   },
   {
@@ -214,6 +236,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/be-bru/2027-01-01",
+   "scheme": "be-bru",
+   "country": "BE",
+   "file": "be/be-bru-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Brussels-Capital Region",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "9ffe9f64dd23a96633ae20b6a60ad6f91fe4263bef2e79b2c4c7aa87d8d7bac5",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/be-liefkenshoek/2026-01-01",
    "scheme": "be-liefkenshoek",
    "country": "BE",
@@ -221,7 +254,7 @@
    "name": "Liefkenshoektunnel toll (Antwerp)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "807d028d5151b4958cb4fefe396ba389ceaa3e46b8b8ef834e979041c4b507bf",
+   "sha256": "ebed5bd7bcd48caf33277bc08d0c3211efcec9bb72223c519ec4513f64434c71",
    "coverage": "complete"
   },
   {
@@ -232,7 +265,7 @@
    "name": "Liefkenshoektunnel toll (Antwerp)",
    "valid_from": "2027-01-01",
    "valid_to": null,
-   "sha256": "0029d082b04aacf981e3ea52dd3f5161f5f5ab899cb769b68b3969a3fd6745a3",
+   "sha256": "d2d7ff01ee7b03b3c4b057be558c573736fc084c6dbd4487f685bbefd5a268d3",
    "coverage": "complete"
   },
   {
@@ -291,6 +324,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/be-vlg/2027-01-01",
+   "scheme": "be-vlg",
+   "country": "BE",
+   "file": "be/be-vlg-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Flemish Region",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "3f9f97cc10fb32a9789217b399d29878d332018d7c092680d9eb0542472462ca",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/be-wal/2024-01-01",
    "scheme": "be-wal",
    "country": "BE",
@@ -332,6 +376,17 @@
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
    "sha256": "c60aa82320ae9ebd49579abbfc05db9c0cb567ccbfb86b73be78ec2054c01266",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/be-wal/2027-01-01",
+   "scheme": "be-wal",
+   "country": "BE",
+   "file": "be/be-wal-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Walloon Region (SOFICO)",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "8469ca26e08f31239dc6cce198d536660d28796b5a12dc9246146f38f18a3b3a",
    "coverage": "complete"
   },
   {
@@ -385,8 +440,8 @@
    "file": "bg/bg-2026-06-01.orct.json",
    "name": "Bulgarian distance toll (BG TOLL)",
    "valid_from": "2026-06-01",
-   "valid_to": "2026-12-31",
-   "sha256": "d6f92a5e42920476d78aeab60fb618a3ec893c2031ca81503e7258d184599de4",
+   "valid_to": null,
+   "sha256": "a9cd5f3002dc62aac55b851836ab34be69f9daac1b1a6596785498b123f350b3",
    "coverage": "complete"
   },
   {
@@ -463,7 +518,7 @@
    "name": "Great St Bernard tunnel toll, Bourg-Saint-Pierre (southbound)",
    "valid_from": "2026-02-01",
    "valid_to": null,
-   "sha256": "03c67cde08039e2a273782ac0adf935fe390d135277e0845223fe6d3d43578c8",
+   "sha256": "d5633e7c67e16f49e906271e6485e3aa0268c583b1751773ac269fe8ee2d7535",
    "coverage": "complete"
   },
   {
@@ -517,8 +572,8 @@
    "file": "cz/cz-2026-01-01.orct.json",
    "name": "Czech electronic toll (Mýto CZ)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "c03e39d824c13bcbe66d6d10522902a93686f50091124bff96b5e49d58a5eced",
+   "valid_to": null,
+   "sha256": "65449fa2c23812fe0320976add7169e41de88d875ad7782351b3b14fd199bbc2",
    "coverage": "complete"
   },
   {
@@ -617,7 +672,7 @@
    "name": "Herrentunnel toll (Lübeck)",
    "valid_from": "2025-03-01",
    "valid_to": null,
-   "sha256": "00c099cfac904ac370a88e34e26205e8943c9e59e2500442ed18cfc72f952846",
+   "sha256": "06bef9b5aee220a0868660c0d13736d715eb7053bbfa8ba4211567928c1e345d",
    "coverage": "complete"
   },
   {
@@ -628,7 +683,7 @@
    "name": "Warnowtunnel toll (Rostock)",
    "valid_from": "2026-11-01",
    "valid_to": null,
-   "sha256": "d13e35e1fd5d0989f09a9f81c019aa354f5912233cbc2f5f72703215e8b34440",
+   "sha256": "e3fe3dcff7aa009d306f466ec413ade4a8015fca7ea62fa3b5f6f0f23dfeb824",
    "coverage": "complete"
   },
   {
@@ -1079,7 +1134,7 @@
    "name": "AP-15 Navarra (Audenasa) barriers",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "18d44535d85471bfeb3ac7d7118868001ba45dcdba618a95facf9635f7641785",
+   "sha256": "25ee7ee4a24461289d7ea7b03f6e800f55e8f58a1e0a345292609fbd53768ff4",
    "coverage": "complete"
   },
   {
@@ -1090,7 +1145,7 @@
    "name": "AP-46 Alto de las Pedrizas–Málaga",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "86f2c275e49f45832475dc09ebb3f054b3c43e4fe1c65dfc5aaec6d15ef39da0",
+   "sha256": "23d45c2e3ad68451d116ca20ce40eedc35e73b82c64879b258fb62f9df26d186",
    "coverage": "complete"
   },
   {
@@ -1101,7 +1156,7 @@
    "name": "AP-46 Alto de las Pedrizas–Málaga",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "60257b0a66cc84f0d5116c538ee5fb7712660af3aecc3266b7229552cbcf5a99",
+   "sha256": "3ec390e29727a241a728b06269bfd2b5004a9eea3dc17781f9e89a7bff714034",
    "coverage": "complete"
   },
   {
@@ -1112,7 +1167,7 @@
    "name": "AP-53 Santiago de Compostela – Alto de Santo Domingo",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "329ef698828bcc7112158eb35b28b81d48ba991b22d5a192b16e62453979aa51",
+   "sha256": "35be5f59a410d69b306239f0ea7a67a22142faa0c5c09afa4956310b00431fa5",
    "coverage": "complete"
   },
   {
@@ -1145,7 +1200,7 @@
    "name": "AP-68 Bilbao – Zaragoza (Avasa)",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "390609130462c16cec4c25ba6d177e0fe912dd37e591e78b5889c7ee9aa113ef",
+   "sha256": "d6ef50c21c7afb541b450259c4c7cd0c9eec1029f440374d113ad7063171a60f",
    "coverage": "complete"
   },
   {
@@ -1156,7 +1211,7 @@
    "name": "AP-7 Alicante–Cartagena",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "fece6ed5a02714f646a40c62ec3a7e78422ad2680fd1fdf15e355df78ef1d6c0",
+   "sha256": "2e33e5838e5a62a097898f1754ab28edf182cc94c7a981121890f48d9f079176",
    "coverage": "complete"
   },
   {
@@ -1167,7 +1222,7 @@
    "name": "AP-7 Alicante–Cartagena",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "e81448a8ca4a4f6a8fb3a60fdd449a9a737016c7d55c6240d7689ded07c0a892",
+   "sha256": "5bf5d571fa4ff03ece6f126fa4076e096038cd28614f87dc68ef40e58b1c821b",
    "coverage": "complete"
   },
   {
@@ -1178,7 +1233,7 @@
    "name": "AP-71 León–Astorga (Aulesa)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "a90b36eb81e032abad5db58daab3f3c13590ba05b69a4a7a297c4c3ba8c0db21",
+   "sha256": "f609c23319437beb9e2e70e07d0f568bde199c1d136026550e07d514ad0b65ed",
    "coverage": "complete"
   },
   {
@@ -1189,7 +1244,7 @@
    "name": "AP-71 León–Astorga (Aulesa)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "43936012303bd0641c882fafb912f2557aa673d4887d5ecd8cff2eba89e4ba9d",
+   "sha256": "82e8ab6cc4bc112097e2276371a758360543d7049a953ef2ff1e6fb8497669d8",
    "coverage": "complete"
   },
   {
@@ -1200,7 +1255,7 @@
    "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), normal season",
    "valid_from": "2026-01-01",
    "valid_to": "2026-03-26",
-   "sha256": "4fb8c73da3fd6c2a6011758810855933e660bc124f3c11524e54b5209cdebb55",
+   "sha256": "df85bc3fb2c19b25497b7d6c92463b34ba25d2eeb9a56cb3fd2f5854e0557582",
    "coverage": "complete"
   },
   {
@@ -1211,7 +1266,7 @@
    "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), special season",
    "valid_from": "2026-03-27",
    "valid_to": "2026-04-12",
-   "sha256": "7b0b8efaab720092519913be139b537c7c92b69b16ad76291c7bbb323591feac",
+   "sha256": "d3eb0884810f35d9996b7b97463ea0378391d6448ad32de1292ca1d0fa67e530",
    "coverage": "complete"
   },
   {
@@ -1222,7 +1277,7 @@
    "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), normal season",
    "valid_from": "2026-04-13",
    "valid_to": "2026-05-31",
-   "sha256": "aa44eb57b03b7a653e17b7cdd282b86fac08ab7ddbfec51571657571cb9b9da3",
+   "sha256": "39eafb005a740e0699f59ae54ca6de2c10933bea8542130ab9e95e5f67ed3f6b",
    "coverage": "complete"
   },
   {
@@ -1233,7 +1288,7 @@
    "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), special season",
    "valid_from": "2026-06-01",
    "valid_to": "2026-09-30",
-   "sha256": "f348a59ec978f95dcf15be1663906ebce7e3bdeb58d4b9fdda19f210a0a7c353",
+   "sha256": "d55d321875214c9fa22e51a32ab4b9d07db97aa9b2eb9afa889eb002d92bb77a",
    "coverage": "complete"
   },
   {
@@ -1244,7 +1299,7 @@
    "name": "AP-7 Málaga–Estepona–Guadiaro toll (Ausol), normal season",
    "valid_from": "2026-10-01",
    "valid_to": "2026-12-31",
-   "sha256": "64daef67ac5051fba531799796cbee51b0348a3921e1f61379c9b1b81e4e1fd5",
+   "sha256": "27fb1bde6687fd03c3251e422523e28391dd8d011ed2923a17e19a726a9d79a6",
    "coverage": "complete"
   },
   {
@@ -1255,7 +1310,7 @@
    "name": "N-I and A-15 heavy vehicle canon (Gipuzkoa, Bidegi)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "558709a32aec5d102cb7284214f8bead70ce03b1b282b24020d9389c9073f490",
+   "sha256": "dc1ae467281d86ba329dd6ca6d7ce426c4c95d405b4188fe0d59b1dfd0b5446e",
    "coverage": "complete"
   },
   {
@@ -1266,7 +1321,7 @@
    "name": "AP-8, AP-1 and AP-636, Basque Country (Interbiak, Bidegi)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "90f54525ce4c77d6223dd9af1aa817beae751ba14f1f1828397a83a2b1d7d1df",
+   "sha256": "e49f004c92fb6b9414311757fa8dd4183e5ee5fe4df397c29ba49ed33b1f240b",
    "coverage": "complete"
   },
   {
@@ -1277,7 +1332,7 @@
    "name": "AP-6, AP-51 and AP-61 (Castellana de Autopistas, Iberpistas)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "e2e7b7849dfffcf473ef5ee7a8569b8714d9e65180ca3b6863636d45bffa2312",
+   "sha256": "7fd65f0a51129873be3371e0a11e843687fc93ef06eaa96c24c3c2a9df428712",
    "coverage": "complete"
   },
   {
@@ -1288,7 +1343,7 @@
    "name": "AP-6, AP-51 and AP-61 (Castellana de Autopistas, Iberpistas)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "9cd2c2c25d4b6ad2400c272f19ee83492cc943a08933e0e24d736eca5415ac36",
+   "sha256": "62e708b9a5b33b6c91f866a61e42ac377bf738d5f094f7e50f4866b2ac589e99",
    "coverage": "complete"
   },
   {
@@ -1299,7 +1354,7 @@
    "name": "Catalonia: C-16 tolls (Túnel del Cadí, Túnels de Vallvidrera, les Fonts, Sant Vicenç de Castellet)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "3218ce0dab93cda80d62ede6e0604577f65e092c450bc1255ca1633d306a9ea8",
+   "sha256": "851a37be8338f642dbcf64c7ea54d2a90301d0e81918422115cf46c8b3999a0a",
    "coverage": "complete"
   },
   {
@@ -1310,7 +1365,7 @@
    "name": "Madrid radials R-2, R-3, R-4 and R-5 (SEITT)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "5b23e7fd94ac18ac36f310648f575c9fe0cb65c0e75a1ab682248384cb72756e",
+   "sha256": "1b38f03d34f3cf2a7e43f2aa3aa7384133eebacf4fd75fe38c24e13ba9938d1b",
    "coverage": "complete"
   },
   {
@@ -1332,7 +1387,7 @@
    "name": "Spanish state toll motorways (SEITT)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "3dfa970c898e97b39337583e3b82234a03627e06f70a8e7ab9941b0099a13d7e",
+   "sha256": "8a03b96f5e5d9ec7faf14af34ce3a352277916709657f28c863062d09911fbb0",
    "coverage": "complete"
   },
   {
@@ -1358,6 +1413,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/nocharge-fi/2026-11-20",
+   "scheme": "nocharge-fi",
+   "country": "FI",
+   "file": "fi/nocharge-fi-2026-11-20.orct.json",
+   "name": "Finland: no road toll or vignette",
+   "valid_from": "2026-11-20",
+   "valid_to": null,
+   "sha256": "bee042420216e0edf06a8448d5f1a6e064fa14e7b56be480cfc5aa7139314294",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/fo-tunnels/2026-11-16",
    "scheme": "fo-tunnels",
    "country": "FO",
@@ -1365,7 +1431,7 @@
    "name": "Faroe Islands subsea tunnels",
    "valid_from": "2026-11-16",
    "valid_to": null,
-   "sha256": "ef656c6bb82150f84271cfcded1b7f0986ecc983dd0b27157af1aa194282c68a",
+   "sha256": "e1fa03297d5966172733df70d56949a122a776f5b7f2a1e83b8da3c82a0b5e8e",
    "coverage": "complete"
   },
   {
@@ -1552,7 +1618,7 @@
    "name": "Dartford Crossing charge (Dart Charge)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-08-31",
-   "sha256": "c2b0b86e8854ec8a84b56f09f5bc61ef651351fd3a85b76d802c53ad70e2637d",
+   "sha256": "5e86a77edc1cdeb80c062b85b32968b25f7e40f2c837f6d91f481f1c67f586ce",
    "coverage": "complete"
   },
   {
@@ -1563,7 +1629,7 @@
    "name": "Dartford Crossing charge (Dart Charge)",
    "valid_from": "2025-09-01",
    "valid_to": null,
-   "sha256": "9a4b25c8a00b3ab4dc60283e170f3014072a898989dcb0b0d11cd3394d2399d9",
+   "sha256": "29001525809cb0fdce2712a90b00568f60077123129f318672adb38c23665941",
    "coverage": "complete"
   },
   {
@@ -1574,7 +1640,7 @@
    "name": "Humber Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "dac98562753e1050d6db570e0cc07e8915e58ed83c6f4b7c335243957dc3b53e",
+   "sha256": "2144be9a5de21d4b25138cba62fc9976cc6338544d08aa3f5690b090e9c0ba7a",
    "coverage": "complete"
   },
   {
@@ -1585,7 +1651,7 @@
    "name": "M6 Toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "ddb2a0feef6d60ddf08343be7b68683665866f59aa7aacf96b5a62258ac64466",
+   "sha256": "5717bbdc7ab7a92913f4537d9e23b07e89d9e355ffd43a669f0e8286bb44e655",
    "coverage": "complete"
   },
   {
@@ -1596,7 +1662,7 @@
    "name": "Mersey Gateway and Silver Jubilee bridges toll",
    "valid_from": "2025-04-01",
    "valid_to": null,
-   "sha256": "2f70381d155cdb5624c20a1d774be140440f86bcc7d1d295d644859d1e9860df",
+   "sha256": "6f04c6d69b88244994da8c517acb82e1bcdef4cd753f5e90c835a9ae50e46707",
    "coverage": "complete"
   },
   {
@@ -1607,7 +1673,7 @@
    "name": "Tamar Bridge toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "c0f906fb26656e66222a3a61faec16296ab5fad377ae89fab8f7b7329f580937",
+   "sha256": "d7f8170ab424c72e09af88212e77dc114b6aa277352e69937de37956d7417f46",
    "coverage": "complete"
   },
   {
@@ -1618,7 +1684,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2025-04-07",
    "valid_to": "2026-09-20",
-   "sha256": "c524e339decca5ec80a25f934ebbd85d46f98aef1fe8827b51afbc017d4df39a",
+   "sha256": "d40fff7f566ed12a6b6bc6b49f3bd6507e3c958161c3b04462fe310fd76b5e75",
    "coverage": "complete"
   },
   {
@@ -1629,7 +1695,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2026-09-21",
    "valid_to": null,
-   "sha256": "04e1c4d5f87139d15a653b3ae464d908fd8a337672da5d4080a34214529c468c",
+   "sha256": "6714067285b837b92185a2c0270c07843a7ab51f67f0a8dca4ddddf97c25b1db",
    "coverage": "complete"
   },
   {
@@ -1640,7 +1706,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-01-01",
    "valid_to": "2024-04-30",
-   "sha256": "30923f9ea9fb960407a40f3da87824800cc170a761734915e326003ec758aba5",
+   "sha256": "f22e5dd476c5a8a5a49a0b4fd8d7b658b3878d5154326fa34fc4875350fa3361",
    "coverage": "complete"
   },
   {
@@ -1651,7 +1717,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2024-05-01",
    "valid_to": "2025-04-30",
-   "sha256": "74828c0c006967182f29a010835a03ae28153399dfdbac8116ec4bfe03f8b9ea",
+   "sha256": "afe39b650a80feba526c7de8fdb6e73c4e8651daa06c90b7036d783b303cdfc4",
    "coverage": "complete"
   },
   {
@@ -1662,7 +1728,7 @@
    "name": "Tyne Tunnels toll",
    "valid_from": "2025-05-01",
    "valid_to": null,
-   "sha256": "34c274d1772d2a6237e299a1d7d9f059440d4f0366793a8ffca0c6df65917a4d",
+   "sha256": "2df45f956e91bca98e2c23957b55f8cddae34a822761a52defa54b506cbee38c",
    "coverage": "complete"
   },
   {
@@ -1673,7 +1739,7 @@
    "name": "London Congestion Charge",
    "valid_from": "2024-01-01",
    "valid_to": "2026-01-01",
-   "sha256": "65e2eea195206b183960669dd15dc3389dba5f7e7b81b64b5ac78fab0f7e2557",
+   "sha256": "5ebf94a8d11c80c63cfcb176767ba246383ccea7b475c2ff800c3f72e163c1c1",
    "coverage": "complete"
   },
   {
@@ -1684,7 +1750,7 @@
    "name": "London Congestion Charge",
    "valid_from": "2026-01-02",
    "valid_to": null,
-   "sha256": "87a0f88486c6395982d3219db74a11adca0ce1a544549fdc64d3bb70d9c66c2e",
+   "sha256": "fc1eda23d6540d9c6f72f004be8899da7c85bae866703d395d25a3c3cc9f1349",
    "coverage": "complete"
   },
   {
@@ -1695,7 +1761,7 @@
    "name": "London Low Emission Zone",
    "valid_from": "2024-01-01",
    "valid_to": null,
-   "sha256": "ffd0566af71157a0ad4584b3598245af792af6d591aeac6e31c2dcf65af04fc9",
+   "sha256": "92e9644be927684b4f278c31faa815f057223e9a1a029f05401d1866073dc346",
    "coverage": "complete"
   },
   {
@@ -1706,7 +1772,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "5d0fe7058a6606f905cd7e25fe6a6a765c1f4ce625e5fde0f14c621b9c6660c4",
+   "sha256": "415a6e7bec6191e089f4165262c258678e74ba049a765c08a7338d40325447be",
    "coverage": "complete"
   },
   {
@@ -1717,7 +1783,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "566d2ac803dbdd2a5f4437f6be6f3773c234d601e256d5280fe87691c3f6d80f",
+   "sha256": "135985a0368a1ffc7efdf20fb98d4d353b47dd5434249cbbbb0834df90126b68",
    "coverage": "complete"
   },
   {
@@ -1728,7 +1794,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "4023a57e2318561364f94f8d95747376d4660360007355087d9b2d88b2def669",
+   "sha256": "6bff3f6a652d639af756475c3f05d54cc0fb45d29508e62000ea5ea9ce484723",
    "coverage": "complete"
   },
   {
@@ -1739,7 +1805,7 @@
    "name": "Croatian motorway toll (Hrvatske autoceste)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-06-30",
-   "sha256": "acdc777845e5871bbbd64a973072ef5d5c401fe79d1bb5900736900bf8ebfd40",
+   "sha256": "0c3a251e38f3e1b12c670bcd163ecffd2e3462ca894a10cace72589ca6488bc8",
    "coverage": "complete"
   },
   {
@@ -1750,7 +1816,7 @@
    "name": "Croatian motorway toll (Hrvatske autoceste)",
    "valid_from": "2025-07-01",
    "valid_to": "2025-12-31",
-   "sha256": "cf636b944124d1e96127d08f145d1e18eac120c29000e98ab7f7f71c713c0ef5",
+   "sha256": "990229787b12dbff6324138410392ca1ee22b572023cb7f293ef26553c8b7107",
    "coverage": "complete"
   },
   {
@@ -1760,8 +1826,8 @@
    "file": "hr/hr-2026-01-01.orct.json",
    "name": "Croatian motorway toll (Hrvatske autoceste)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "21862d36968b5569e311397e86e265da820aa3c2fb27366b5afe36c76ade131a",
+   "valid_to": null,
+   "sha256": "27edf50ffe0c76b21e465cb1449817c4fccbd7551bde5ebd98e4df0932217170",
    "coverage": "complete"
   },
   {
@@ -1882,7 +1948,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "08825456f502c2967c534dc36623c9be7d35ed905951fc6b48ee721bf32f0156",
+   "sha256": "0d2efa54c5cdf7115668f42190ba71628a332f02551abe21cca925953dc67680",
    "coverage": "complete"
   },
   {
@@ -1893,7 +1959,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "b58e15bdb32ef3aed7b5bd6a19c6253f1ecdc8d13a07cd4cc36e07a21786ab75",
+   "sha256": "22849abce847619d864f48299dcc51e061fa8c9031f23f98919995b46d9c6611",
    "coverage": "complete"
   },
   {
@@ -1904,7 +1970,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "834cf04961fa7da16aba4dc3a05aabdcdbd93ed96caffe4ec5962de4afa6aec6",
+   "sha256": "9b9a8b5435a17bb67fa86dc08c32dd9fc7dd5faeaa851dfe93a3f1e82f1eda1d",
    "coverage": "complete"
   },
   {
@@ -2014,7 +2080,7 @@
    "name": "Ring Road (1) through Hornafjörður",
    "valid_from": "2026-09-01",
    "valid_to": null,
-   "sha256": "c0a09f2d1ee470fa8000596aa0e7d217628e290fb9cfca169e9e50ef3ce77c09",
+   "sha256": "f6943069211a30bf0f38983af2154f7674753035be919730fe583a6db2095e8b",
    "coverage": "complete"
   },
   {
@@ -2025,7 +2091,7 @@
    "name": "Vaðlaheiðargöng tunnel",
    "valid_from": "2026-03-02",
    "valid_to": null,
-   "sha256": "adef98da14db5cc40a60e5b9aef25f9500262f7a79bbdb2b44f5b7b98726d479",
+   "sha256": "a5e0d5796173e549d8c6ca1917dda0cab4e2ccae49a568d757975ff93a6c2359",
    "coverage": "complete"
   },
   {
@@ -2036,7 +2102,7 @@
    "name": "Italian motorway tolls (ESTIMATE: each concession's unit rate per km)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "96affe69c5b8d493f4dd1555e7f244463222f66b7cc6929e1d4e794fa6eb27a1",
+   "sha256": "0af295dd678f408f53074bc269e870562206f25f0e3132340380346a6b90ddec",
    "coverage": "partial"
   },
   {
@@ -2066,10 +2132,10 @@
    "scheme": "it-barriers",
    "country": "IT",
    "file": "it/it-barriers-2026-01-01.orct.json",
-   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate), CAV's Padova-Venezia toll",
+   "name": "Italian open-system barriers: Milan ring roads, A32 Torino-Bardonecchia, A8 Milano-Varese, A9 Lainate-Como, A12 Roma-Civitavecchia and Civitavecchia-Tarquinia, A3 Napoli-Salerno, Tangenziale di Torino, closed-system barriers (Milan, Turin, Rome, Naples, Florence, Taranto, Salerno, Venice, Brennero, Tarvisio, Belluno, Venezia Est, Chiari, Liscate, Cordignano, Gallarate, Castelletto Stura, Rosignano, La Spezia, Pozzuolo Martesana, Castegnato), CAV's Padova-Venezia toll",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "0ec951ae49980d92cdc69ebfc60e46511f433f5c3c4dc28554e8f3408d17b083",
+   "sha256": "e04594bddd583d11cb23847040196374f84398a848b97f9c2781aafd747ac053",
    "coverage": "complete"
   },
   {
@@ -2080,7 +2146,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "ef082dfa3b2f695615e193ad6b8f1be07cba546be7a71be2232c54d7e2695afd",
+   "sha256": "1166de08d77adfbe5d0d00ba960581436ba511a9e20f0ec74d5eb03808f14f25",
    "coverage": "complete"
   },
   {
@@ -2091,7 +2157,7 @@
    "name": "Great St Bernard tunnel toll, Saint-Rhémy (northbound)",
    "valid_from": "2026-02-01",
    "valid_to": null,
-   "sha256": "ec2e29ca80c56cbe1ea3768810dbff57920bbb9fa3afbd6c4e7bdebae10f8627",
+   "sha256": "b25233ba9c540f17217e8e6d4940ba2efc00314fbdb14e50b478a9229aef0a8e",
    "coverage": "complete"
   },
   {
@@ -2333,7 +2399,7 @@
    "name": "Montenegrin road tolls (putarina): motorway Smokovac–Mateševo and the Sozina tunnel",
    "valid_from": "2022-07-21",
    "valid_to": null,
-   "sha256": "5f9f8bb9ca247ccb91fa0f1e62078c014f70641000cee551bb456ee7c7ef55d6",
+   "sha256": "e4be313ddef986b4535c391281eee045ee6df771c8071639dcce44a7e2ebf524",
    "coverage": "complete"
   },
   {
@@ -2344,7 +2410,7 @@
    "name": "North Macedonian road tolls (патарина)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-04-30",
-   "sha256": "e4c915e809afb33d1214f3d59a1886f227c9bd4421f2f879ea9fa2215883252a",
+   "sha256": "85772908565999b4078515261184b729b000d8f6b14b1ffde690de46e98b1d44",
    "coverage": "complete"
   },
   {
@@ -2355,7 +2421,7 @@
    "name": "North Macedonian road tolls (патарина)",
    "valid_from": "2025-05-01",
    "valid_to": null,
-   "sha256": "4454ead8d077df48cdfc98b57fb26f8e223d9ecdd8e8ac7e25e070219d9eb266",
+   "sha256": "709f7636ed73456b9a347be22dd36ad064b23f18f9f3f05fd26cccc8e0b75f95",
    "coverage": "complete"
   },
   {
@@ -2421,7 +2487,7 @@
    "name": "Kiltunnel toll",
    "valid_from": "2026-11-13",
    "valid_to": null,
-   "sha256": "022342b514c5278ae3e5943d625e4942f683c3915eb6d8faf9f0d0b9a200a35d",
+   "sha256": "970c7c6c901579057afc68f183a0225a11a774d3108e0b856ba583f908958454",
    "coverage": "complete"
   },
   {
@@ -2432,7 +2498,7 @@
    "name": "Westerscheldetunnel toll",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "5eb00264b407eb66288282fda3340b1f0b0d0a15ceb97f0d83292ccce8ff1b5f",
+   "sha256": "3e0fe52a3edbf112a9ba775140365f48ab11691e4309b4dab3e45e4604d41459",
    "coverage": "complete"
   },
   {
@@ -2586,7 +2652,7 @@
    "name": "A1 Rusocin-Toruń (AmberOne, Gdańsk Transport Company)",
    "valid_from": "2012-02-11",
    "valid_to": null,
-   "sha256": "fec37d7960a12710c44fd987202e15e4166e6fb24cfe9ae515d301d56b676de2",
+   "sha256": "f90d9a64f6dc967640c84bdfce74628085c351d70ae5ec66b3d590af1becdbbc",
    "coverage": "complete"
   },
   {
@@ -2597,7 +2663,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-03-11",
    "valid_to": "2024-09-10",
-   "sha256": "5186783675bd2c5ba2005e3b9f32f9c30336c4c7f379630f2310f0d85e5ece5b",
+   "sha256": "af27a474817c399b6c9dc24755cc054ccf91e070faa824646f10f813d662f424",
    "coverage": "complete"
   },
   {
@@ -2608,7 +2674,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-09-11",
    "valid_to": "2025-03-10",
-   "sha256": "b5c43344eb07d769e17f39e06fa6b46e9e45a189190b82b524ffda320ca25bf5",
+   "sha256": "bc462264115e831c8c5884341cb6e915971e45bfa4aaa5bc9101ddef4428b170",
    "coverage": "complete"
   },
   {
@@ -2619,7 +2685,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2025-03-11",
    "valid_to": "2025-09-10",
-   "sha256": "7ad9174f82a55e558bcda5be695ae745e8036afd572b899bc5b81ce44e809014",
+   "sha256": "7b8aba03d2fed9ebd72eaf994e9d6c04b2dd7207631bff0283cc96d3ece3ffec",
    "coverage": "complete"
   },
   {
@@ -2630,7 +2696,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2025-09-11",
    "valid_to": "2026-03-10",
-   "sha256": "d669aa2bf39678d3a95900ad56bfd7d77a79bb3b436a79132e831d4b84b2519e",
+   "sha256": "391a815dcea47d1c73e6c63061a8170b2c6b981afe625c52899d69488546197b",
    "coverage": "complete"
   },
   {
@@ -2641,7 +2707,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2026-03-11",
    "valid_to": "2026-09-10",
-   "sha256": "617ac3035eff00dfddcf3a2d792263f8406142db68ce43d1485b01d774b2b2cf",
+   "sha256": "33b534f24a6d624ec65f5910751eac2073b71c09a4018a588fbc4d3e4278e96b",
    "coverage": "complete"
   },
   {
@@ -2652,7 +2718,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2026-09-11",
    "valid_to": null,
-   "sha256": "55976a37e069b20b64a441e1d46ae0d83bd3857c492d832608b341af87341cff",
+   "sha256": "dc1e4567ceeacff7f3e32236d1a9501391eb40f815e600e69f72bc6686f0efac",
    "coverage": "complete"
   },
   {
@@ -2663,7 +2729,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2023-04-03",
    "valid_to": "2024-01-15",
-   "sha256": "f08e98254f4f625b0c4b406fe9aadbb8ea17b08e19599d62a427816fed4ad6f9",
+   "sha256": "19283729e315211d90b2f7742c8e136388af330a58d486f2fc04840d4f3ff44f",
    "coverage": "complete"
   },
   {
@@ -2674,7 +2740,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2024-01-16",
    "valid_to": "2024-03-31",
-   "sha256": "8e9d363e3b40a3173b56ca98d33f6f20b444c70d2482de072566a7c78a7ff5e7",
+   "sha256": "6404692ba95ff612f7ca3a08604af0126be33fd4911a7a10993bfeacb8dd511e",
    "coverage": "complete"
   },
   {
@@ -2685,7 +2751,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2024-04-01",
    "valid_to": "2025-03-31",
-   "sha256": "625698d40c36131cf49d2e8240ba9962ed6324f7d39635aa49aa70fdc6d46d81",
+   "sha256": "fef59301689e0d062e673aed27d3670d61bb27b741baec5e86f3382f6c8d3bb4",
    "coverage": "complete"
   },
   {
@@ -2696,7 +2762,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2025-04-01",
    "valid_to": "2026-03-31",
-   "sha256": "47bd0e81ab62e68f6e3b567e6a9dd023eb616fc213cf21879303b4dc108dbe67",
+   "sha256": "1a26f7bf3d3b27170f189c58f5c163a94c35240a29b9d6e16d0f260874c40dc6",
    "coverage": "complete"
   },
   {
@@ -2707,7 +2773,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2026-04-01",
    "valid_to": null,
-   "sha256": "1fb1e0670f40b5f52965ed17e4a910fe471362ed671e6883a4b4f2aaecffd446",
+   "sha256": "2209a1ce981cdfff9650055efdaff6afce0ccd8c94da0cb3f4e1e4ade1a0f2aa",
    "coverage": "complete"
   },
   {
@@ -2883,7 +2949,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "015d06790c2299d41689538a425575090a6a86d70ec393fde17b7a870b05c977",
+   "sha256": "d3eb40aa24d9371b82f9883e6baec0d61f96de34ca5439462282c426c45721d6",
    "coverage": "complete"
   },
   {
@@ -2894,7 +2960,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "e26e79af391b286f9b960a3d2878094357eae7c38cb16229df65572d05750526",
+   "sha256": "7acf0dde5d7d027b003300bb47cc1a7c38a7479cbcebb15f2b7f0293c52534ce",
    "coverage": "complete"
   },
   {
@@ -2905,7 +2971,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "0732cc53f1239ff76adbe57a6edcbe47ee3285f8d68055ed575e8a15d2bb23ee",
+   "sha256": "98d80d5c5b2a424bd2512816bc51ff25bb50694c144a0975f67518be5202efcc",
    "coverage": "complete"
   },
   {
@@ -2971,7 +3037,7 @@
    "name": "Romania's Danube bridge tolls (tarif de trecere)",
    "valid_from": "2025-09-08",
    "valid_to": "2026-09-30",
-   "sha256": "585eeaec625b553389e140cf868ac3b455d755e3825b3ca028444a2473b3c696",
+   "sha256": "c292ed7b080888d0c1743fb324257e420ec46cb659440fcfe59ec75b74476441",
    "coverage": "complete"
   },
   {
@@ -3059,7 +3125,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": null,
-   "sha256": "b5eae865054c00fe9579299642c70f64937891a8e4a1bd3b8d4b371b9f54c362",
+   "sha256": "b37a803459c9c1ed1d4a5dbefc6d81db1f099030392f833389ea2b3be69a394f",
    "coverage": "complete"
   },
   {
@@ -3070,7 +3136,7 @@
    "name": "Belgrade bypass toll (Obilaznica oko Beograda), category 4",
    "valid_from": "2026-04-01",
    "valid_to": null,
-   "sha256": "e38be5b12e54edc94c577788b4be239b71b1c45d338bf8e890e6c496941392db",
+   "sha256": "f22ce7d3b33f76f4fd96c1a23a8cf0c7838ebc173be8da95ee70e3bb35c5fa69",
    "coverage": "complete"
   },
   {
@@ -3169,7 +3235,18 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "8e5438cceb8ed97a85b3ecdcb73886524a8d27ea660a6a0d39d3297fcdf6b024",
+   "sha256": "c8e1ae0b0ac7ecbfe991f720f609689841597bad3b7cf7e9e2ab0b7188bef3da",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/se/2027-01-01",
+   "scheme": "se",
+   "country": "SE",
+   "file": "se/se-2027-01-01.orct.json",
+   "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "807914579db48955669996da824fb226cc76e27d71134a62bc91288ae2d065ba",
    "coverage": "complete"
   },
   {
@@ -3180,7 +3257,7 @@
    "name": "Swedish bridge infrastructure charges (broavgift)",
    "valid_from": "2024-05-01",
    "valid_to": null,
-   "sha256": "2a4d4a8b4e6034a79a6c85d2cb037275f73cc2e153403996df6a13e24c1c8ee9",
+   "sha256": "06a76c2e0a2ab6e5905e1a4e821639b55a7ff6ba68d1002e0b145921c3a47685",
    "coverage": "complete"
   },
   {
@@ -3191,7 +3268,7 @@
    "name": "Göteborg congestion tax (trängselskatt)",
    "valid_from": "2020-01-01",
    "valid_to": null,
-   "sha256": "ff225f5cca5b036c5fb88411f90aca19c439bad229477b29f3f9ab826c50b9e3",
+   "sha256": "4aa55eb60bd8bad0a28c2f1f3efea95302428f7499919973162f2b9a53a758e1",
    "coverage": "complete"
   },
   {
@@ -3202,7 +3279,7 @@
    "name": "Stockholm congestion tax (trängselskatt)",
    "valid_from": "2020-01-01",
    "valid_to": null,
-   "sha256": "88105c5691be7f17d4965a9c421909e0979058f4d3c0df4dbc9e7f2aff233948",
+   "sha256": "2f30466040411262b72a6bf2c137ef64efe3f5daceb0e26c1d5d202430d719af",
    "coverage": "complete"
   },
   {
@@ -3355,8 +3432,19 @@
    "file": "si/si-2026-04-01.orct.json",
    "name": "Slovenian distance toll (DarsGo)",
    "valid_from": "2026-04-01",
-   "valid_to": "2026-12-31",
-   "sha256": "3646966b596c304af8cf394c9f525d0017fd6587b3b0850b5206a095ed412aa5",
+   "valid_to": "2026-10-25",
+   "sha256": "81b1487b4bfd6621557d3d2fb995a5d8ac26117ca60da5a8b91130bcd6a07ba6",
+   "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/si/2026-10-26",
+   "scheme": "si",
+   "country": "SI",
+   "file": "si/si-2026-10-26.orct.json",
+   "name": "Slovenian distance toll (DarsGo)",
+   "valid_from": "2026-10-26",
+   "valid_to": null,
+   "sha256": "f386f9009f2aa0c52cf6f82de9319b8221648e7b3219c40a97b31097f40a684e",
    "coverage": "partial"
   },
   {
@@ -3377,8 +3465,8 @@
    "file": "sk/sk-2025-07-01.orct.json",
    "name": "Slovak electronic toll (mýto)",
    "valid_from": "2025-07-01",
-   "valid_to": "2026-12-31",
-   "sha256": "ae74397521746557be3c947a599b94dc7bff9946c5b2894ede6b08df11f6dd5c",
+   "valid_to": null,
+   "sha256": "15ad3c5b4c642f1c740108762b992e8aa362682daaa63b97b778ce873488087a",
    "coverage": "complete"
   },
   {
@@ -3389,7 +3477,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-05-14",
-   "sha256": "5e5b38c75d5c79fcc32574308f04742f6c6c783619aeb2d57892b2c3fecc3830",
+   "sha256": "686e316222d44618a4ead08415faf94fd1144d871c27c1760843c491bde0af3d",
    "coverage": "complete"
   },
   {
@@ -3400,7 +3488,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-05-15",
    "valid_to": "2024-08-15",
-   "sha256": "73021178d7eb5eaad59a66ba4d5806f33854530a789395c626ae5cfcd7a09cec",
+   "sha256": "faa5b78e2c84fa4e5b8ddab85dfb57c3df18e943b29930353af1d56b8df61bd5",
    "coverage": "complete"
   },
   {
@@ -3411,7 +3499,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-08-16",
    "valid_to": "2025-01-12",
-   "sha256": "62eee627b0578f80cd419dd2e9c974eeea67b40916e9360a8c83cf4327574bac",
+   "sha256": "da4016613c6a58b6167c7e2197942d88b509b7f7a7959d03fc5418fb73174ed6",
    "coverage": "complete"
   },
   {
@@ -3422,7 +3510,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2025-01-13",
    "valid_to": "2025-12-31",
-   "sha256": "d220facc913ff099f106164edba681042a156cbc9afa23c5f0a6aada73d3a027",
+   "sha256": "fc8da02a3066e730fd22ece8b6b8e9617143ec213eefdf2c27730cefac664a02",
    "coverage": "complete"
   },
   {
@@ -3433,7 +3521,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "3b2848d1d54eb48411bbf25a3b4a2f620f7c1a4f9b13dbfde550f48360d4ba58",
+   "sha256": "f97ccac92f9bd96cc7cd65c840500b032c5cc23c0d5ba05aebe3be78377ddf57",
    "coverage": "complete"
   },
   {
@@ -3444,7 +3532,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2026-07-01",
    "valid_to": null,
-   "sha256": "040500da7eb21090565bf638f208eb69a3347078b51bc1e12cfe094454509314",
+   "sha256": "b839a9a78483d51533e8db4aafa352f91b45e24e03bdf47738ffa78c830f9400",
    "coverage": "complete"
   }
  ]

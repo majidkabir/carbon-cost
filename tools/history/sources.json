@@ -1467,6 +1467,21 @@
    "what": "Viapass: CO2 surcharge in Flanders from 1 July 2026"
   },
   {
+   "id": "be-vp-2027-01",
+   "table": "be-2027-01-01",
+   "url": "https://www.viapass.be/en/news/kilometer-charge-changes-planned-from-january-1-2027.html",
+   "what": "Viapass: the kilometer charge changes from 1 January 2027 (Flemish indexation moved to 1 January, Walloon indexation on the August 2026 CPI, no Brussels indexation, zero-emission rates at 60% of the infrastructure part)",
+   "expect": [
+    "January 1st, 2027"
+   ]
+  },
+  {
+   "id": "be-vp-2027-01-table",
+   "table": "be-2027-01-01",
+   "url": "https://www.viapass.be/files/Image/news/2026/2027-01-01-rates-EN.jpg",
+   "what": "Viapass: kilometer charge rates from 1 January 2027 (rate grid image, ed. 01/01/2027)"
+  },
+  {
    "id": "at-wko-2026",
    "table": "at-2026-01-01",
    "url": "https://www.wko.at/wien/transport-verkehr/kc-m-lkw-und-bus-maut-in-oesterreich-2026.pdf",

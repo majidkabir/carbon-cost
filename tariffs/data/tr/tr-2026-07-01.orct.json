@@ -16,7 +16,7 @@
   "currency": "TRY",
   "timezone": "Europe/Istanbul",
   "license": "MIT",
-  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-15); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2026 tariffs. Bridges (15 Temmuz Şehitler, Fatih Sultan Mehmet, Osmangazi, Yavuz Sultan Selim) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do. Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-20); 29 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff, Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "tr-2026-07-01.json"
@@ -958,9 +958,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[34.710869, 37.96726], [34.710754, 37.967355], [34.710571, 37.96741]]
+     "coordinates": [[34.710869, 37.96726], [34.710754, 37.967355]]
     },
-    "point_names": ["booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -970,9 +970,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[34.744999, 38.037582], [34.744918, 38.037707], [34.74479, 38.037788]]
+     "coordinates": [[34.744999, 38.037582], [34.744918, 38.037707]]
     },
-    "point_names": ["booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -994,9 +994,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[34.605184, 37.779432], [34.605318, 37.779537], [34.605063, 37.779442]]
+     "coordinates": [[34.605184, 37.779432], [34.605318, 37.779537]]
     },
-    "point_names": ["booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -1006,9 +1006,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[34.655735, 37.647881], [34.656001, 37.647659], [34.655608, 37.647908]]
+     "coordinates": [[34.655735, 37.647881], [34.656001, 37.647659]]
     },
-    "point_names": ["booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -1726,9 +1726,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[34.630014, 38.25772], [34.629847, 38.257678], [34.629683, 38.257674]]
+     "coordinates": [[34.630014, 38.25772], [34.629847, 38.257678]]
     },
-    "point_names": ["booth", "booth", "booth"]
+    "point_names": ["booth", "booth"]
    }
   },
   {
@@ -8380,7 +8380,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-15"
+   "osm_extract": "2026-11-20"
   }
  }
 }

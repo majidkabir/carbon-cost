@@ -19,8 +19,12 @@ Parsers (text documents, from pdftotext -layout):
               (transcribed/*.json), by EURO class (Atlandes, ALBEA)
   columns     small tables on a web page, configured in documents.json
               (headings to check, and what each column prices) (ATMB)
+  label       a barrier an operator's guide prices in a box beside its
+              grids: the number right of "after" on each class's page
+              that names "label" (ASF's Puymorens tunnel)
   barrier     a single barrier priced alone: its first five rows of two
-              prices are classes 1 to 5 (Millau)
+              prices are classes 1 to 5 (Millau), or of one price
+              ("prices_per_row": 1; the Maurice-Lemaire tunnel)
 text positions saved from a browser (the Sanef site refuses scripted
 downloads; sanef/extract.js, sanef.py):
   items       Sanef's and SAPN's triangles; the file's header gives the
@@ -44,6 +48,27 @@ GARE_ROW = re.compile(r"^\s*\d{5}\s+(?P<exit>\S.*?)\s{2,}" + r"\s+".join(f"(?P<c
 AXLES = ("2 axles", "3 axles", "4+ axles")
 MONTHS = {"janvier": 1, "février": 2, "mars": 3, "avril": 4, "mai": 5, "juin": 6, "juillet": 7, "août": 8,
           "septembre": 9, "octobre": 10, "novembre": 11, "décembre": 12}
+
+
+def label_prices(path, label, after):
+    """{class: price} from the pages of a PDF that name label: the number
+    right of the word after, on its line, on the page of each "CLASSE n"."""
+    import pymupdf
+    out = {}
+    for page in pymupdf.open(path):
+        text = page.get_text()
+        heading = re.search(r"CLASSE\s+(\d)\b", text)
+        if not heading or label not in re.sub(r"\s+", " ", text):
+            continue
+        words = page.get_text("words")
+        for w in words:
+            if w[4] != after:
+                continue
+            y = (w[1] + w[3]) / 2
+            right = [v for v in words if v[0] > w[2] and abs((v[1] + v[3]) / 2 - y) < 3 and re.fullmatch(r"\d+,\d+", v[4])]
+            if right:
+                out[int(heading.group(1))] = num(min(right, key=lambda v: v[0])[4])
+    return out
 
 
 def num(s):
@@ -242,14 +267,34 @@ def main(docs_path, fetched, out):
                             n += 1
                 else:
                     # A single barrier: its first five price rows are classes
-                    # 1 to 5 (two seasons' prices; trucks pay the same in both).
-                    rows = [re.findall(r"([\d ]+,\d\d) €", line) for line in text.splitlines()]
-                    rows = [r for r in rows if len(r) == 2][:5]
+                    # 1 to 5 (Millau: two seasons' prices, trucks pay the same
+                    # in both; "prices_per_row": 1 for one price a class).
+                    # (A thousands space is one space and three digits: the
+                    # class number a few spaces before a price isn't part of it.)
+                    rows = [re.findall(r"(?<![\d,])(\d{1,3}(?: \d{3})*,\d\d) €", line) for line in text.splitlines()]
+                    rows = [r for r in rows if len(r) == d.get("prices_per_row", 2)][:5]
+                    if len(rows) != 5:
+                        sys.exit(f"{d['file']}: {len(rows)} price rows, not classes 1 to 5")
                     st = d["station"]
                     w.writerow([d["operator"], d["url_from"], src["url"], src["sha256"], "", "", vf, st, st, "",
-                                num(rows[2][1]), num(rows[3][1]), "", ""])
+                                num(rows[2][-1]), num(rows[3][-1]), "", ""])
                     n = 1
                 print(f"{d['file']}: {n} pairs, valid from {vf}")
+                continue
+            if d["parser"] == "label":
+                # A barrier the operator's guide prices in a box beside its
+                # grids (ASF's Puymorens tunnel): on each class's page (its
+                # "CLASSE n" heading) that names the label, the number right
+                # of the word "after" on its line.
+                path = os.path.join(fetched, d["file"])
+                src = manifest[d["file"]]
+                vf = valid_from(open(path[:-4] + ".txt", encoding="utf-8").read())
+                found = label_prices(path, d["label"], d["after"])
+                if 3 not in found or 4 not in found:
+                    sys.exit(f"{d['file']}: {d['label']}'s class 3 and 4 prices not found ({found})")
+                st = d["station"]
+                w.writerow([d["operator"], d["file"], src["url"], src["sha256"], "", "", vf, st, st, "", found[3], found[4], "", ""])
+                print(f"{d['file']}: {d['label']} {found}, valid from {vf}")
                 continue
             if d["parser"] == "grid":
                 for url, sha, url4, sha4, vf, a, b, p3, p4, na, nb in grid_rows(d, fetched, manifest):

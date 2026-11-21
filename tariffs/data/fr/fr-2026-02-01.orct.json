@@ -72,36 +72,41 @@
   },
   {
    "id": "s10",
+   "title": "APRR tariffs from 2026-02-01 (sha256 aeaeffa50a90)",
+   "url": "https://voyage.aprr.fr/sites/default/files/2026-02/TARIFS_TML.pdf"
+  },
+  {
+   "id": "s11",
    "title": "CEVM tariffs from 2026-02-01 (sha256 07096975502a)",
    "url": "https://www.leviaducdemillau.com/files/live/sites/viaducdemillau/files/Tarifs%20de%20p%c3%a9age%202026.pdf"
   },
   {
-   "id": "s11",
+   "id": "s12",
    "title": "ATMB tariffs from 2026-02-01 (sha256 6d43b25151ea)",
    "url": "https://www.atmb.com/telepeage-tarifs/tarifs-peage-autoroute-blanche-a40-poids-lourds/"
   },
   {
-   "id": "s12",
+   "id": "s13",
    "title": "Atlandes tariffs from 2026-02-01 (sha256 75b05d720148)",
    "url": "https://www.a63-atlandes.fr/wp-content/uploads/2026/01/tarifs_2026_valide.jpg"
   },
   {
-   "id": "s13",
+   "id": "s14",
    "title": "ALBEA tariffs from 2026-02-01 (sha256 947c53d18b24)",
    "url": "https://www.a150-albea.fr/wp-content/uploads/2026/01/tarifs-albea-2026.jpg"
   },
   {
-   "id": "s14",
+   "id": "s15",
    "title": "SFTRF tariffs from 2026-02-01 (sha256 7ae01282a17f)",
    "url": "https://www.sftrf.fr/wp-content/uploads/2026/02/Tarifs_autoroute_2026_2.pdf"
   },
   {
-   "id": "s15",
+   "id": "s16",
    "title": "Alicorne tariffs from 2025-02-01 (sha256 14f39f2978f6)",
    "url": "https://a88-alicorne.fr/tarifs/"
   },
   {
-   "id": "s16",
+   "id": "s17",
    "title": "Ministère de la Transition écologique: Gares de péage du réseau routier national concédé",
    "url": "https://www.data.gouv.fr/datasets/gares-de-peage-du-reseau-routier-national-concede"
   }
@@ -3961,6 +3966,18 @@
      "coordinates": [[6.81237, 43.54407], [6.80993, 43.54423], [6.81253, 43.54463], [6.81121, 43.54492]]
     },
     "point_names": ["Les Adrets Sud Entrée", "Les Adrets Sud Sortie", "Les Adrets Nord Sortie", "Les Adrets Nord Entrée"]
+   }
+  },
+  {
+   "id": "st1:Lusse",
+   "type": "station",
+   "name": "Lusse",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[7.08457, 48.29216]]
+    },
+    "point_names": ["Lusse"]
    }
   },
   {
@@ -44827,6 +44844,8 @@
     ["st1:Les Adrets", "st1:Toulon-ouest", "sys1-1.4", "33.3333"],
     ["st1:Les Adrets", "st1:Villeneuve-Loubet Plage", "sys1-1.3", "9.6667"],
     ["st1:Les Adrets", "st1:Villeneuve-Loubet Plage", "sys1-1.4", "13.3333"],
+    ["st1:Lusse", "st1:Lusse", "sys1-1.3", "15.8333"],
+    ["st1:Lusse", "st1:Lusse", "sys1-1.4", "26.5833"],
     ["st1:MACON CENTRE", "st1:AMBERIEU", "sys1-1.3", "13.9167"],
     ["st1:MACON CENTRE", "st1:AMBERIEU", "sys1-1.4", "19.4167"],
     ["st1:MACON CENTRE", "st1:ARLAY", "sys1-1.3", "19.8333"],
@@ -76544,7 +76563,7 @@
     ["st1:YERVILLE", "st1:ST-SAËNS", "sys1-1.3", "5.3333"],
     ["st1:YERVILLE", "st1:ST-SAËNS", "sys1-1.4", "7.5833"]
    ],
-   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16"],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8", "s9", "s10", "s11", "s12", "s13", "s14", "s15", "s16", "s17"],
    "basis": "transcribed"
   }
  ],

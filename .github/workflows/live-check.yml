@@ -11,9 +11,11 @@ permissions:
 jobs:
   live:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: ${{ matrix.timeout || 60 }}
     strategy:
       fail-fast: false
+      # Geofabrik refuses connections when many extracts are asked at once.
+      max-parallel: 4
       matrix:
         include:
           - name: dk-de
@@ -58,9 +60,31 @@ jobs:
             maps: europe/luxembourg
           - name: pl
             maps: europe/poland/dolnoslaskie europe/poland/opolskie europe/poland/slaskie
+          # The Polish concession motorways (each operator's own tolls).
+          - name: pl-a4
+            maps: europe/poland/slaskie europe/poland/malopolskie
+          - name: pl-a2
+            maps: europe/poland/wielkopolskie europe/poland/lubuskie
+          - name: pl-a1
+            maps: europe/poland/pomorskie europe/poland/kujawsko-pomorskie
+          # Italy's barriers and mountain stretches, on real routes.
+          - name: it-nord-est
+            maps: europe/italy/nord-est
+            timeout: 120
+          - name: it-nord-ovest
+            maps: europe/italy/nord-ovest
+            timeout: 120
+          - name: it-centro
+            maps: europe/italy/centro
+            timeout: 120
+          - name: al
+            maps: europe/albania
+          - name: fi
+            maps: europe/finland
+            timeout: 120
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: false
@@ -75,7 +99,7 @@ jobs:
           sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
           mkdir -p maps && cd maps
           for r in ${{ matrix.maps }}; do
-            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r-latest.osm.pbf"
+            curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r/$(basename $r)-latest.osm.pbf"
           done
           if [ "$(ls *.osm.pbf | wc -l)" -gt 1 ]; then osmium merge -o region.osm.pbf *.osm.pbf; else mv *.osm.pbf region.osm.pbf; fi
           ls -la
@@ -130,6 +154,16 @@ jobs:
           elif [ "${{ matrix.name }}" = pl ]; then
             run wroclaw-gliwice -from 51.1079,17.0385 -to 50.2945,18.6714
             run wroclaw-gliwice-10t-euro3 -from 51.1079,17.0385 -to 50.2945,18.6714 -mass-kg 10000 -axles 2 -euro 3
+          elif [ "${{ matrix.name }}" = pl-a4 ]; then
+            run katowice-krakow -from 50.2649,19.0238 -to 50.0647,19.9450
+            run katowice-krakow-2axles-trailer -from 50.2649,19.0238 -to 50.0647,19.9450 -motor-axles 2
+            run katowice-krakow-2024 -from 50.2649,19.0238 -to 50.0647,19.9450 -date 2024-01-10
+          elif [ "${{ matrix.name }}" = pl-a2 ]; then
+            run poznan-swiecko -from 52.4064,16.9252 -to 52.3150,14.6030
+            run poznan-konin -from 52.4064,16.9252 -to 52.2230,18.2511
+            run poznan-konin-2025 -from 52.4064,16.9252 -to 52.2230,18.2511 -date 2025-06-01
+          elif [ "${{ matrix.name }}" = pl-a1 ]; then
+            run gdansk-torun -from 54.3520,18.6466 -to 53.0138,18.5984
           elif [ "${{ matrix.name }}" = sk ]; then
             run bratislava-zilina -from 48.1486,17.1077 -to 49.2231,18.7394
             run bratislava-zilina-co2class4 -from 48.1486,17.1077 -to 49.2231,18.7394 -co2-class 4
@@ -184,6 +218,26 @@ jobs:
             run sofia-plovdiv -from 42.6977,23.3219 -to 42.1354,24.7453
             run sofia-plovdiv-co2class4 -from 42.6977,23.3219 -to 42.1354,24.7453 -co2-class 4
             run sofia-plovdiv-zev -from 42.6977,23.3219 -to 42.1354,24.7453 -co2-class 5
+          elif [ "${{ matrix.name }}" = it-nord-est ]; then
+            run padova-trieste -from 45.4064,11.8768 -to 45.6495,13.7768
+            run treviso-belluno -from 45.6669,12.2430 -to 46.1425,12.2167
+            run brennero-verona -from 46.9990,11.5030 -to 45.4384,10.9916
+            run mestre-padova -from 45.4930,12.2380 -to 45.4064,11.8768
+          elif [ "${{ matrix.name }}" = it-nord-ovest ]; then
+            run torino-milano -from 45.0703,7.6869 -to 45.4642,9.1900
+            run milano-brescia -from 45.4642,9.1900 -to 45.5416,10.2118
+            run cuneo-asti -from 44.3845,7.5427 -to 44.9008,8.2064
+            run milano-varese -from 45.4642,9.1900 -to 45.8206,8.8251
+          elif [ "${{ matrix.name }}" = it-centro ]; then
+            run livorno-grosseto -from 43.5485,10.3106 -to 42.7635,11.1124
+            run firenze-roma -from 43.7696,11.2558 -to 41.9028,12.4964
+          elif [ "${{ matrix.name }}" = al ]; then
+            run tirana-kukes -from 41.3275,19.8187 -to 42.0770,20.4217
+            run shkoder-tirana -from 42.0683,19.5126 -to 41.3275,19.8187
+            run vlore-himare -from 40.4661,19.4914 -to 40.1015,19.7449
+            run vlore-himare-2axles -from 40.4661,19.4914 -to 40.1015,19.7449 -axles 2 -mass-kg 18000
+          elif [ "${{ matrix.name }}" = fi ]; then
+            run helsinki-turku -from 60.1699,24.9384 -to 60.4518,22.2666 -date 2026-11-23
           else
             run antwerp-liege -from BEANR -to BELGG
             run brussels-ghent -from 50.8467,4.3525 -to BEGNE -json
@@ -212,6 +266,14 @@ jobs:
             fr-sw) trip="-from 44.5530,-0.2490 -to 43.2951,-0.3708" ;;
             fr-normandy) trip="-from 49.4431,1.0993 -to 49.1829,-0.3707" ;;
             pl) trip="-from 51.1079,17.0385 -to 50.2945,18.6714" ;;
+            pl-a4) trip="-from 50.2649,19.0238 -to 50.0647,19.9450" ;;
+            pl-a2) trip="-from 52.4064,16.9252 -to 52.3150,14.6030" ;;
+            pl-a1) trip="-from 54.3520,18.6466 -to 53.0138,18.5984" ;;
+            it-nord-est) trip="-from 45.4064,11.8768 -to 45.6495,13.7768" ;;
+            it-nord-ovest) trip="-from 45.0703,7.6869 -to 45.4642,9.1900" ;;
+            it-centro) trip="-from 43.5485,10.3106 -to 42.7635,11.1124" ;;
+            al) trip="-from 40.4661,19.4914 -to 40.1015,19.7449" ;;
+            fi) trip="-from 60.1699,24.9384 -to 60.4518,22.2666" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac
           ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json

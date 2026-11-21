@@ -69,6 +69,12 @@ type Truck struct {
 	// LengthM is the vehicle's length with trailer, optional: bridge tolls
 	// are priced by length (default DefaultLengthM).
 	LengthM float64 `json:"length_m,omitempty"`
+	// CapacityKg is the load capacity (permissible mass less the mass in
+	// running order) a ferry charges by, optional: the semi-trailer's for a
+	// tractor with semi-trailer, else the truck's and its trailer's
+	// together. Croatia's state ferries charge goods vehicles with more than
+	// 5 t of it a fare per tonne of it.
+	CapacityKg int `json:"capacity_kg,omitempty"`
 }
 
 // DefaultLengthM is the length assumed when a truck's isn't given: a
@@ -100,6 +106,8 @@ func (t Truck) Validate() error {
 		return fmt.Errorf("tare_kg must be >= 0 and below max_mass_kg")
 	case t.LengthM < 0 || t.LengthM > 50:
 		return fmt.Errorf("length_m must be 0-50")
+	case t.CapacityKg < 0 || t.CapacityKg > t.MaxMassKg:
+		return fmt.Errorf("capacity_kg must be 0 to max_mass_kg")
 	case t.MotorMassKg < 0 || t.MotorMassKg > t.MaxMassKg || t.TrailerMassKg < 0 || t.TrailerMassKg > t.MaxMassKg:
 		return fmt.Errorf("motor_mass_kg and trailer_mass_kg must be 0 to max_mass_kg")
 	case (t.MotorMassKg > 0 || t.TrailerMassKg > 0) && t.MotorAxles == 0:

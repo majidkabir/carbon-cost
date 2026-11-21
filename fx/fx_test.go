@@ -113,3 +113,51 @@ func TestCacheSingleFlight(t *testing.T) {
 	close(block)
 	<-done
 }
+
+// The NBS's middle rate on a day: a weekend's is Friday's list; before
+// 2024 there is none; after the last day embedded, the last one.
+func TestRSDOnDate(t *testing.T) {
+	for _, tc := range []struct {
+		day, from string
+		want      float64
+		ok        bool
+	}{
+		{"2024-01-01", "2024-01-01", 117.1737, true},
+		{"2024-01-06", "2024-01-06", 117.2343, true},
+		{"2026-11-18", "2026-11-18", 117.6240, true},
+		{"2023-12-31", "", 0, false},
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.day)
+		v, from, ok := RSDOnDate(d)
+		if v != tc.want || from != tc.from || ok != tc.ok {
+			t.Errorf("%s: %v %s %v, want %v %s %v", tc.day, v, from, ok, tc.want, tc.from, tc.ok)
+		}
+	}
+	if _, from, ok := RSDOnDate(time.Date(2099, 1, 1, 0, 0, 0, 0, time.UTC)); !ok || from < "2026-11-18" {
+		t.Errorf("after the last day: %s %v", from, ok)
+	}
+}
+
+// The Bank of Albania's official rate: 1 January 2024 (a holiday) has the
+// last working day's, 29 December 2023 (103.88); a Saturday Friday's; an
+// unknown currency none.
+func TestALLOnDate(t *testing.T) {
+	for _, tc := range []struct {
+		cur, day string
+		want     float64
+		ok       bool
+	}{
+		{"ALL", "2024-01-01", 103.88, true},
+		{"ALL", "2024-01-03", 103.24, true},
+		{"ALL", "2026-11-14", 90.71, true},
+		{"ALL", "2026-11-20", 89.78, true},
+		{"ALL", "2023-12-31", 0, false},
+		{"XYZ", "2026-11-20", 0, false},
+	} {
+		d, _ := time.Parse(time.DateOnly, tc.day)
+		v, _, src, ok := NationalOnDate(tc.cur, d)
+		if v != tc.want || ok != tc.ok || (ok && src != BoASource) {
+			t.Errorf("%s %s: %v %v %q, want %v %v", tc.cur, tc.day, v, ok, src, tc.want, tc.ok)
+		}
+	}
+}

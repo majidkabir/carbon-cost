@@ -57,6 +57,7 @@ func main() {
 	year := flag.Int("year", time.Now().Year()-1, "reporting period")
 	in := flag.String("in", "", "workbook (without -fetch)")
 	out := flag.String("out", "", "output JSON")
+	shipsOut := flag.String("ships-out", "", "output JSON of every passenger, ro-pax and ro-ro ship in the report (IMO, name, type)")
 	flag.Parse()
 
 	var raw []byte
@@ -89,6 +90,81 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("%d ro-pax ships -> %s", len(ships), *out)
+	if *shipsOut != "" {
+		list, err := ferryShips(rows)
+		if err != nil {
+			log.Fatal(err)
+		}
+		sf := ShipsFile{Source: f.Source, ReportingPeriod: *year, Version: version, Ships: list}
+		b, _ := json.MarshalIndent(sf, "", " ")
+		if err := os.WriteFile(*shipsOut, append(b, '\n'), 0o644); err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("%d passenger, ro-pax and ro-ro ships -> %s", len(list), *shipsOut)
+	}
+}
+
+// Listed is a ship in the report: every ship above 5,000 GT on voyages to,
+// from or between EU/EEA ports reports (Regulation (EU) 2015/757, Art. 2).
+type Listed struct {
+	IMO  string `json:"imo"`
+	Name string `json:"name"`
+	Type string `json:"type"`
+}
+
+// ShipsFile is the -ships-out output.
+type ShipsFile struct {
+	Source          string   `json:"source"`
+	ReportingPeriod int      `json:"reporting_period"`
+	Version         string   `json:"version"`
+	Ships           []Listed `json:"ships"`
+}
+
+// ferryShips lists the report's passenger, ro-pax and ro-ro ships.
+func ferryShips(rows [][]string) ([]Listed, error) {
+	h := -1
+	for i, r := range rows {
+		if len(r) > 0 && strings.TrimSpace(r[0]) == "IMO Number" {
+			h = i
+			break
+		}
+	}
+	if h < 0 {
+		return nil, fmt.Errorf("no header row")
+	}
+	cIMO, cName, cType := -1, -1, -1
+	for i, name := range rows[h] { // the first column of each
+		switch n := strings.TrimSpace(name); {
+		case n == "IMO Number" && cIMO < 0:
+			cIMO = i
+		case strings.HasPrefix(n, "Name") && cName < 0:
+			cName = i
+		case strings.HasPrefix(n, "Ship type") && cType < 0:
+			cType = i
+		}
+	}
+	if cIMO < 0 || cName < 0 || cType < 0 {
+		return nil, fmt.Errorf("missing columns in header %q", rows[h])
+	}
+	seen := map[string]bool{}
+	var out []Listed
+	for _, r := range rows[h+1:] {
+		if len(r) <= max(cIMO, cName, cType) {
+			continue
+		}
+		t := strings.TrimSpace(r[cType])
+		if !strings.EqualFold(t, "Passenger ship") && !strings.EqualFold(t, "Ro-pax ship") && !strings.EqualFold(t, "Ro-ro ship") {
+			continue
+		}
+		imo := strings.TrimSpace(r[cIMO])
+		if imo == "" || seen[imo] {
+			continue
+		}
+		seen[imo] = true
+		out = append(out, Listed{IMO: imo, Name: strings.TrimSpace(r[cName]), Type: t})
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].IMO < out[j].IMO })
+	return out, nil
 }
 
 func download(year int) ([]byte, string, error) {

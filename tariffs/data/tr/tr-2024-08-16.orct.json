@@ -17,7 +17,7 @@
   "currency": "TRY",
   "timezone": "Europe/Istanbul",
   "license": "MIT",
-  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-15); 3 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM raised every tariff from 16 August 2024; of those, the Internet Archive kept only Gebze–Orhangazi–İzmir's (with the Osmangazi bridge's price in its Gebze–Bursa table) and Kuzey Marmara Anadolu's, so only those are priced until the 2025 tariffs.",
+  "method": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's 2024 tariffs. Bridges (Osmangazi) per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT). Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of 2026-11-20); 3 stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff (Gebze–Bursa's price for it, its own tariff of that year not being archived), Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them. Built from the Internet Archive's copies of the 2024 pages. KGM raised every tariff from 16 August 2024; of those, the Internet Archive kept only Gebze–Orhangazi–İzmir's (with the Osmangazi bridge's price in its Gebze–Bursa table) and Kuzey Marmara Anadolu's, so only those are priced until the 2025 tariffs.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "tr-2024-08-16.json"
@@ -1834,7 +1834,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-15"
+   "osm_extract": "2026-11-20"
   }
  }
 }

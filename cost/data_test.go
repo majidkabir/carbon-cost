@@ -240,6 +240,26 @@ func TestBelgium(t *testing.T) {
 	if n := len(networkOf(ds).roadTypes); n != 2 {
 		t.Errorf("Brussels road types %d, want motorway and other", n)
 	}
+	// From 1 January 2027 (Viapass grid ed. 01/01/2027): Flanders and
+	// Wallonia indexed, Brussels unchanged but for zero-emission trucks,
+	// which pay 60% of the infrastructure part in Flanders and Brussels.
+	for _, tc := range []struct {
+		area string
+		tr   rates.Truck
+		road string
+		want float64
+	}{
+		{"BE-VLG", e6, "", 0.297},
+		{"BE-VLG", zev, "", 0.078},
+		{"BE-WAL", e6, "", 0.212},
+		{"BE-WAL", zev, "", 0.212},
+		{"BE-BRU", e6, rates.Motorway, 0.171},
+		{"BE-BRU", zev, rates.OtherRoad, 0.103},
+	} {
+		if got, _, _ := rateOf(t, tc.area, tc.tr, "2027-03-01", tc.road); got != tc.want {
+			t.Errorf("2027 %s %+v %s: %v, want %v", tc.area, tc.tr, tc.road, got, tc.want)
+		}
+	}
 }
 
 // The Eurovignette years: a day's charge for a 40 t, 5-axle Euro VI
@@ -252,6 +272,7 @@ func TestEurovignetteHistory(t *testing.T) {
 		{"SE", "2024-06-01", 138}, // SFS 2023:599
 		{"SE", "2025-02-01", 138}, // SFS 2024:953
 		{"SE", "2025-04-01", 147}, // SFS 2025:46
+		{"SE", "2027-06-01", 147}, // SFS 2026:1806
 		{"LU", "2024-06-01", 12},  // RGD 21 May 2019, art. 1er 4°
 		{"NL", "2025-04-01", 13},  // Wet BZM art. 10 (4), Stb. 2025, 445
 		{"DK", "2024-06-01", 89},  // LBK 174/2020 § 3 stk. 4 nr. 5
@@ -331,6 +352,28 @@ func TestCongestionDays(t *testing.T) {
 	for day, high := range map[string]bool{"2026-03-02": true, "2026-06-18": true, "2026-08-14": false, "2026-08-17": true, "2026-11-30": true, "2026-12-01": false} {
 		if got := tax(sto, day); (got == 45) != high {
 			t.Errorf("Stockholm %s at about 07:30: %v SEK; high season %v (45 SEK)", day, got, high)
+		}
+	}
+}
+
+// Slovenia: the Serminska vpadnica (G2-114) to the port of Koper is a
+// toll section from 26 October 2026 (Uredba 1746/26, cenik 1771/26).
+func TestSloveniaSerminska(t *testing.T) {
+	for day, want := range map[string]string{"2026-10-25": "2026-04-01", "2026-10-26": "2026-10-26", "2027-06-01": "2026-10-26"} {
+		if got := found(t, "SI", day); got != want {
+			t.Errorf("SI on %s: the table from %s, want %s", day, got, want)
+		}
+	}
+	for day, want := range map[string]bool{"2026-10-25": false, "2026-11-01": true} {
+		ds, _ := all(t).Find("SI", on(day))
+		has := false
+		for _, o := range ds.Objects() {
+			if strings.Contains(o.ID, "g2-114") {
+				has = true
+			}
+		}
+		if has != want {
+			t.Errorf("SI on %s: Serminska vpadnica %v, want %v", day, has, want)
 		}
 	}
 }

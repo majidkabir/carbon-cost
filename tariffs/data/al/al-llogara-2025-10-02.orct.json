@@ -1,0 +1,124 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/al-llogara/2025-10-02",
+  "scheme": {
+   "id": "al-llogara",
+   "name": "Llogara tunnel toll",
+   "country": "AL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-10-02",
+  "currency": "ALL",
+  "timezone": "Europe/Tirane",
+  "license": "MIT",
+  "method": "Udhëzim i përbashkët nr. 4, datë 12.9.2025, of the Minister of Infrastructure and Energy and the Minister of Finance, Fletorja Zyrtare nr. 177/2025, in force on its publication on 2 October 2025: the tariff for using the Llogara tunnel (Shtojca I, with VAT): high vehicles with 2 axles ALL 350, with 3 axles ALL 500, with 4, 5, 6 or 7 and more axles ALL 5000. Trucks over 3.5 t are taken to be high vehicles (the instruction gives no height). Excluding 20% VAT. Charged per passage, either way, at the middle of the tunnel's way in OpenStreetMap. Prepaid (subscription) tariffs aren't modelled; vehicles carrying dangerous goods may not use the tunnel.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "al-llogara-2025-10-02.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Udhëzim i përbashkët nr. 4, datë 12.9.2025, Për përcaktimin e tarifave për përdorimin e Tunelit të Llogorasë nga përdoruesit e rrugës (Qendra e Botimeve Zyrtare)",
+   "url": "https://qbz.gov.al/eli/udhezim/2025/09/12/4"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t, by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Tuneli i Llogarasë",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [19.570068, 40.206968]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "291.6667"], ["pt1", "pt-1.2", "416.6667"], ["pt1", "pt-1.3", "4166.6667"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-21"
+  }
+ }
+}

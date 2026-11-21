@@ -44,7 +44,11 @@ from the fetched law texts (sources.json, table fuelco2-*):
 - Luxembourg, the droit d'accise autonome « taxe CO2 » on gas oil used as
   motor fuel (règlement grand-ducal modifié du 17 décembre 2010, art. 3),
   per 1,000 litres, from the customs' yearly rate sheets (the row's parts
-  checked to add up to its total).
+  checked to add up to its total);
+- Albania, the taksa e karbonit on gazoil (Ligj nr. 9975/2008 për taksat
+  kombëtare, neni 4 pika 6), per litre, from the Qendra e Botimeve
+  Zyrtare's consolidated versions 7 and 8 (the two in force since 2024),
+  while QBZ lists no later version.
 
 Taxes per litre (rate_per_l) are priced on litres of fossil diesel: the
 calculator divides the trip's tank-to-wheel CO2 by 2.67 kg per litre
@@ -383,7 +387,7 @@ def dk_rates(path):
     # The row's first line is the rate at day temperature, the second
     # ("afgiftssatsen ved 15 C udgør") at 15 °C; a cell may add a figure in
     # brackets with a note.
-    v = r"(\d+,\d)(?: / \(\d+,\d\) ?\d?\)?)?"
+    v = r"(\d+,\d)(?: / \(\d+,\d\) ?\d? ?\)?)?"
     m = re.search(rf"Gas- og dieselolie ?- ?afgiftssatsen ved 15 C udgør øre/l {v} {v} {v} øre/l {v} {v} {v}", t)
     if not head or not m:
         sys.exit(f"CO2-afgiftsloven: no rate table for gas and diesel oil in {os.path.basename(path)}")
@@ -457,7 +461,7 @@ def norway(fetched, out, srcs):
     for sid in ("no-avgiftssatser-2025", "no-avgiftssatser-2026"):
         t = text(os.path.join(fetched, sid + ".html"))
         h = re.search(r"Avgiftskategori (\d{4})-regler \D*?(\d{4})", t)
-        m = re.search(r"CO2-avgift på mineralske produkter Bensin, kr/liter [\d,]+ [\d,]+ [-\d,]+ Mineralolje, kr/liter generell sats (\d,\d\d) (\d,\d\d)", t)
+        m = re.search(r"CO ?2 ?-avgift på mineralske produkter Bensin, kr/liter [\d,]+ [\d,]+ [-\d,]+ Mineralolje, kr/liter generell sats (\d,\d\d) (\d,\d\d)", t)
         if not h or not m:
             sys.exit(f"{sid}: no CO2-avgift on mineral oil")
         for y, v in zip(h.groups(), m.groups()):
@@ -491,10 +495,19 @@ def norway(fetched, out, srcs):
 
 
 def finland(fetched, out, srcs):
-    t = text(os.path.join(fetched, "fi-vero-verotaulukot.html"))
+    raw = open(os.path.join(fetched, "fi-vero-verotaulukot.html"), encoding="utf-8", errors="replace").read()
+    # Since November 2026 the page gives each table as JSON in an attribute
+    # ({"column_0": {"text": "50 Dieselöljy"}, "column_1": ..., "column_2": ...});
+    # before, as an HTML table. Both: the headings' text, then the table's rows
+    # as "50 Dieselöljy <energy> <CO2> ".
+    raw = html.unescape(raw)
+    # (A row's first cell closes the tag the JSON sits in, so the rows stay as text.)
+    raw = re.sub(r'\{"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: "> " + m.group(1) + " ", raw)
+    raw = re.sub(r',"column_\d+":\{"text":"([^"]*)"[^}]*\}', lambda m: " " + m.group(1) + " ", raw)
+    t = re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", re.sub(r"<script.*?</script>|<style.*?</style>", " ", raw, flags=re.S)))
     periods = []
     for part in re.split(r"(?=Verotaulukko \d)", t):
-        h = re.match(r"Verotaulukko 1a?: (\d+)\.(\d+)\.(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
+        h = re.match(r"Verotaulukko 1a?: (\d+)\. ?(\d+)? ?\.? ?(\d{4})? ?[–-] ?(\d+)\.(\d+)\.(\d{4})", part)
         m = re.search(r"\b50 Dieselöljy (\d+,\d+) (\d+,\d+) ", part)
         if not h or not m:
             continue  # a link to the table, or table 2 (combined heat and power)
@@ -522,7 +535,15 @@ def finland(fetched, out, srcs):
 
 
 def lithuania(fetched, out, srcs):
-    t = re.sub(r"\s+", " ", open(os.path.join(fetched, "lt-muitine-akcizai-2026.txt"), encoding="utf-8", errors="replace").read())
+    p = os.path.join(fetched, "lt-muitine-akcizai-2026.txt")
+    t = re.sub(r"\s+", " ", open(p, encoding="utf-8", errors="replace").read()) if os.path.exists(p) else ""
+    source = src(srcs, "lt-muitine-akcizai-2026")
+    if "anglies dioksido" not in t:
+        # The workflow's copy is the site's bot check: the paragraph read in Chrome.
+        cap = os.path.join(os.path.dirname(os.path.abspath(__file__)), "browser", "lt-muitine-akcizai-2026.txt")
+        t = re.sub(r"\s+", " ", "\n".join(l for l in open(cap, encoding="utf-8") if not l.startswith("#")))
+        source = dict(source, title=source["title"] + " (read in Chrome: tools/tables/browser/lt-muitine-akcizai-2026.txt)")
+        print("Lithuanian customs notice: read from", cap)
     m = re.search(r"laikinai, t\. ?y\. (\d{4}) metais, nebus didinama anglies dioksido.{0,600}?bus taikoma (\d{4}) metais galiojusi CO2 dedamoji: .{0,3}gazoliams ir šildymui skirtiems gazoliams ?[–-] ?(\d+,\d+) euro už 1 000 litrų", t)
     if not m or int(m.group(1)) != int(m.group(2)) + 1:
         sys.exit("Lithuanian customs notice: no CO2 component for gas oils")
@@ -534,7 +555,7 @@ def lithuania(fetched, out, srcs):
                            + (f" (introduced on 1 January {y})" if y == m.group(2) else f" (kept at the {m.group(2)} amount by law XV-679 instead of rising)")
                            + ", as the customs department's notice gives it. The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. "
                            "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
-                    "sources": [src(srcs, "lt-muitine-akcizai-2026")]})
+                    "sources": [source]})
 
 
 LU_SHEETS = ["lu-douanes-taux-2024", "lu-douanes-taux-2025", "lu-douanes-taux-2026"]
@@ -642,17 +663,59 @@ def poland(fetched, out, srcs):
         write(out, f)
 
 
+AL_VERSIONS = {7: "8d0003921e21dac195d23ab5752446ffe3127d084dfff35955eeec44c11418ee",
+               8: "b5907d93045650237acd40393290f7e12189d9b62ee3f417533db37139f5dcc7"}  # as QBZ gives them
+
+
+def albania(fetched, out, srcs):
+    """Taksa e karbonit on gazoil (Ligj 9975/2008, neni 4 pika 6), from the
+    consolidated versions in force since 2024 (7: ligj 38/2023; 8: ligj
+    96/2023, whose 15 days to entry into force ran into January 2024). Both
+    must give the same rate; QBZ's list of versions must hold no later one,
+    or the table ends the day before it."""
+    import hashlib
+    vers = json.load(open(os.path.join(fetched, "al-qbz-9975-versions.json"), encoding="utf-8"))
+    rates = {}
+    for n, sha in AL_VERSIONS.items():
+        pdf, txt = os.path.join(fetched, f"al-qbz-9975-v{n}.pdf"), os.path.join(fetched, f"al-qbz-9975-v{n}.txt")
+        if hashlib.sha256(open(pdf, "rb").read()).hexdigest() != sha:
+            sys.exit(f"Ligj 9975 version {n}: the PDF's sha256 is not the one QBZ gives")
+        if not any(v.get("versionNo") == n and (v.get("pdf") or {}).get("sha256") == sha for v in vers):
+            sys.exit(f"Ligj 9975 version {n}: not in QBZ's list of versions")
+        t = re.sub(r"\s+", " ", open(txt, encoding="utf-8", errors="replace").read())
+        # (A page number may fall between the lines: "masën: 4 a) 1,5 lekë".)
+        m = re.search(r"Taksa e karbonit caktohet në masën:? ?(?:\d{1,3} )?(?:a\) ?)?(\d+(?:,\d+)?) lekë për litër për benzinën[;,] ?(?:\d{1,3} )?(?:b\) ?)?(\d+(?:,\d+)?) lekë për litër për gazoilin", t)
+        if not m:
+            sys.exit(f"Ligj 9975 version {n}: neni 4 pika 6 (taksa e karbonit) not read")
+        rates[n] = float(m.group(2).replace(",", "."))
+    if len(set(rates.values())) != 1:
+        sys.exit(f"Ligj 9975: versions 7 and 8 give different rates on gazoil ({rates}); split the table")
+    v = rates[8]
+    f = {"country": "AL", "currency": "ALL", "valid_from": "2024-01-01",
+         "name": "Taksa e karbonit on gazoil", "rate_per_l": v,
+         "law": f"Ligj nr. 9975, datë 28.7.2008, Për taksat kombëtare, neni 4 pika 6 shkronja b: the taksa e karbonit (carbon tax) on gazoil (diesel), {v:g} lekë per litre, "
+                "the same in the consolidated versions 7 (ligj nr. 38/2023) and 8 (ligj nr. 96/2023) that QBZ publishes. It is a fixed amount per litre, not priced on CO2; "
+                "customs collects it on imported gazoil and the tax administration on gazoil produced in Albania (neni 5), and it is passed on in the pump price, so a trip pays it where its fuel is bought. "
+                "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+         "sources": [src(srcs, "al-qbz-9975-v7"), src(srcs, "al-qbz-9975-v8")]}
+    later = sorted((v for v in vers if v.get("versionNo", 0) > max(AL_VERSIONS)), key=lambda v: v["versionNo"])
+    if later:
+        f["valid_to"] = (datetime.date.fromisoformat(later[0]["validFrom"]) - datetime.timedelta(days=1)).isoformat()
+        print(f"::warning title=fuel_co2 Albania::QBZ lists version {later[0]['versionNo']} of ligj 9975 (from {later[0]['validFrom']}); add it to AL_VERSIONS and sources.json")
+    write(out, f)
+
+
 def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     srcs = {s["id"]: s for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"]}
     # One country's source failing doesn't stop the others; the builder
     # still fails at the end, naming them.
     failed = []
-    for country in (germany, austria, ireland, portugal, slovenia, denmark, sweden, norway, finland, lithuania, luxembourg, iceland, poland):
+    for country in (germany, austria, ireland, portugal, slovenia, denmark, sweden, norway, finland, lithuania, luxembourg, iceland, poland, albania):
         try:
             country(fetched, out, srcs)
-        except SystemExit as e:
-            print(f"{country.__name__}: {e}", file=sys.stderr, flush=True)
+        except (SystemExit, Exception) as e:  # a missing copy raises OSError
+            print(f"{country.__name__}: {type(e).__name__ if not isinstance(e, SystemExit) else ''} {e}".replace("  ", " "), file=sys.stderr, flush=True)
             failed.append(country.__name__)
     if failed:
         sys.exit("fuel CO2: not built for " + ", ".join(failed))

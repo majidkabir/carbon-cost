@@ -1,0 +1,2117 @@
+{
+ "note": "Ferry crossings under the EU ETS island derogation (Directive 2003/87/EC, Art. 12(3-d); Implementing Decision (EU) 2023/2895, Annex I), built by tools/tables/ets_islands.py from the Decision and the lines' data.",
+ "crossings": [
+  {
+   "id": "hr-biograd-na-moru-tkon",
+   "name": "Tkon–Biograd Na Moru",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Tkon",
+     "lat": 43.924091,
+     "lon": 15.418664,
+     "country": "HR"
+    },
+    {
+     "name": "Biograd Na Moru",
+     "lat": 43.939368,
+     "lon": 15.439734,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Pašman, Tkon)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 432, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/71598cc1bc6c126e6b97bec0bd6a7497"
+   }
+  },
+  {
+   "id": "hr-brbinj-zadar",
+   "name": "Brbinj–Zadar",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Brbinj",
+     "lat": 44.08412,
+     "lon": 14.996409,
+     "country": "HR"
+    },
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Dugi Otok, Brbinj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 434, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/132167cf67094c10716af73f934e625d"
+   }
+  },
+  {
+   "id": "hr-brestova-porozina",
+   "name": "Porozina–Brestova",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Porozina",
+     "lat": 45.13114,
+     "lon": 14.285364,
+     "country": "HR"
+    },
+    {
+     "name": "Brestova",
+     "lat": 45.144447,
+     "lon": 14.223735,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Cres, Porozina)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 334, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/81f23f7a652f735091a0e42f12a19fd0"
+   }
+  },
+  {
+   "id": "hr-brsanj-mala-rava",
+   "name": "Bršanj–Mala Rava",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Bršanj",
+     "lat": 44.024191,
+     "lon": 15.14649,
+     "country": "HR"
+    },
+    {
+     "name": "Mala Rava",
+     "lat": 44.037472,
+     "lon": 15.055233,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Iž, Bršanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 435, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+   }
+  },
+  {
+   "id": "hr-brsanj-rava",
+   "name": "Bršanj–Rava",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Bršanj",
+     "lat": 44.024191,
+     "lon": 15.14649,
+     "country": "HR"
+    },
+    {
+     "name": "Rava",
+     "lat": 44.022935,
+     "lon": 15.059384,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Iž, Bršanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 435, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+   }
+  },
+  {
+   "id": "hr-brsanj-zadar",
+   "name": "Zadar–Bršanj",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Bršanj",
+     "lat": 44.024191,
+     "lon": 15.14649,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Iž, Bršanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 435, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+   }
+  },
+  {
+   "id": "hr-domince-orebic",
+   "name": "Dominče–Orebić",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Dominče",
+     "lat": 42.953028,
+     "lon": 17.150222,
+     "country": "HR"
+    },
+    {
+     "name": "Orebić",
+     "lat": 42.972827,
+     "lon": 17.174939,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Korčula, Dominče)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 634, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/7321c0f9b33c02ac4b12851c4e2e2191"
+   }
+  },
+  {
+   "id": "hr-drvenik-mali-drvenik-veli",
+   "name": "Drvenik Veli–Drvenik Mali",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Drvenik Veli",
+     "lat": 43.450107,
+     "lon": 16.144766,
+     "country": "HR"
+    },
+    {
+     "name": "Drvenik Mali",
+     "lat": 43.449615,
+     "lon": 16.090148,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Drvenik Mali, Drvenik Mali)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 606, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/32b38ebc75f18571222f4689206f7cbd"
+   }
+  },
+  {
+   "id": "hr-drvenik-mali-trogir",
+   "name": "Trogir–Drvenik Mali",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Trogir",
+     "lat": 43.515353,
+     "lon": 16.242813,
+     "country": "HR"
+    },
+    {
+     "name": "Drvenik Mali",
+     "lat": 43.449615,
+     "lon": 16.090148,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Drvenik Mali, Drvenik Mali)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 606, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/32b38ebc75f18571222f4689206f7cbd"
+   }
+  },
+  {
+   "id": "hr-drvenik-sucuraj",
+   "name": "Sućuraj–Drvenik",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sućuraj",
+     "lat": 43.124193,
+     "lon": 17.189107,
+     "country": "HR"
+    },
+    {
+     "name": "Drvenik",
+     "lat": 43.154776,
+     "lon": 17.248965,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Hvar, Sućuraj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 632, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/69cb877c1652c9a45c997d6b3f103b74"
+   }
+  },
+  {
+   "id": "hr-drvenik-veli-trogir",
+   "name": "Trogir–Drvenik Veli",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Trogir",
+     "lat": 43.515353,
+     "lon": 16.242813,
+     "country": "HR"
+    },
+    {
+     "name": "Drvenik Veli",
+     "lat": 43.450107,
+     "lon": 16.144766,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Drvenik Veli, Drvenik Veliki)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 606, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/32b38ebc75f18571222f4689206f7cbd"
+   }
+  },
+  {
+   "id": "hr-dubrovnik-kolocep",
+   "name": "Dubrovnik–Koločep",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Dubrovnik",
+     "lat": 42.657883,
+     "lon": 18.085739,
+     "country": "HR"
+    },
+    {
+     "name": "Koločep",
+     "lat": 42.679811,
+     "lon": 18.004568,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Koločep, Donje Čelo)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 831, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/7c405c1e2fe6cb106d506172ccd6fd6c"
+   }
+  },
+  {
+   "id": "hr-dubrovnik-sudurad",
+   "name": "Dubrovnik–Suđurađ",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Dubrovnik",
+     "lat": 42.657883,
+     "lon": 18.085739,
+     "country": "HR"
+    },
+    {
+     "name": "Suđurađ",
+     "lat": 42.709817,
+     "lon": 17.91142,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Šipan, Suđurađ)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 831, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/7c405c1e2fe6cb106d506172ccd6fd6c"
+   }
+  },
+  {
+   "id": "hr-ist-mali-losinj",
+   "name": "Mali Lošinj–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Mali Lošinj",
+     "lat": 44.538066,
+     "lon": 14.463634,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-ist-molat",
+   "name": "Molat–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Molat",
+     "lat": 44.212364,
+     "lon": 14.871784,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-ist-premuda",
+   "name": "Premuda–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Premuda",
+     "lat": 44.337189,
+     "lon": 14.592833,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-ist-rivanj",
+   "name": "Rivanj–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Rivanj",
+     "lat": 44.153225,
+     "lon": 15.030266,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-ist-sestrunj",
+   "name": "Sestrunj–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sestrunj",
+     "lat": 44.138427,
+     "lon": 15.010263,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-ist-zadar",
+   "name": "Zadar–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-ist-zverinac",
+   "name": "Zverinac–Ist",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zverinac",
+     "lat": 44.160326,
+     "lon": 14.91562,
+     "country": "HR"
+    },
+    {
+     "name": "Ist",
+     "lat": 44.270871,
+     "lon": 14.766834,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ist, Široka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-kaprije-obonjan",
+   "name": "Kaprije–Obonjan",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Kaprije",
+     "lat": 43.68818,
+     "lon": 15.708378,
+     "country": "HR"
+    },
+    {
+     "name": "Obonjan",
+     "lat": 43.679629,
+     "lon": 15.776482,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Kaprije, Kaprije)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-kaprije-sibenik",
+   "name": "Šibenik–Kaprije",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Šibenik",
+     "lat": 43.733624,
+     "lon": 15.891326,
+     "country": "HR"
+    },
+    {
+     "name": "Kaprije",
+     "lat": 43.68818,
+     "lon": 15.708378,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Kaprije, Kaprije)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-kaprije-zirje",
+   "name": "Kaprije–Žirje",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Kaprije",
+     "lat": 43.68818,
+     "lon": 15.708378,
+     "country": "HR"
+    },
+    {
+     "name": "Žirje",
+     "lat": 43.66212,
+     "lon": 15.656111,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Kaprije, Kaprije)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-kaprije-zlarin",
+   "name": "Zlarin–Kaprije",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zlarin",
+     "lat": 43.715851,
+     "lon": 15.836177,
+     "country": "HR"
+    },
+    {
+     "name": "Kaprije",
+     "lat": 43.68818,
+     "lon": 15.708378,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Kaprije, Kaprije)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-kolocep-sudurad",
+   "name": "Koločep–Suđurađ",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Koločep",
+     "lat": 42.679811,
+     "lon": 18.004568,
+     "country": "HR"
+    },
+    {
+     "name": "Suđurađ",
+     "lat": 42.709817,
+     "lon": 17.91142,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Koločep, Donje Čelo)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 831, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/7c405c1e2fe6cb106d506172ccd6fd6c"
+   }
+  },
+  {
+   "id": "hr-lopar-valbiska",
+   "name": "Lopar–Valbiska",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Lopar",
+     "lat": 44.837769,
+     "lon": 14.721386,
+     "country": "HR"
+    },
+    {
+     "name": "Valbiska",
+     "lat": 45.027882,
+     "lon": 14.496875,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rab, Lopar)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 338, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/215ccb6d596679819c4920191e648122"
+   }
+  },
+  {
+   "id": "hr-makarska-sumartin",
+   "name": "Sumartin–Makarska",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sumartin",
+     "lat": 43.285078,
+     "lon": 16.870598,
+     "country": "HR"
+    },
+    {
+     "name": "Makarska",
+     "lat": 43.293427,
+     "lon": 17.017827,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Brač, Sumartin)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 638, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/5942b05660e59c66e7c53fbd392e9a7a"
+   }
+  },
+  {
+   "id": "hr-mala-rava-zadar",
+   "name": "Zadar–Mala Rava",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Mala Rava",
+     "lat": 44.037472,
+     "lon": 15.055233,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rava, Mala Rava)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 435, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+   }
+  },
+  {
+   "id": "hr-mali-losinj-olib",
+   "name": "Mali Lošinj–Olib",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Mali Lošinj",
+     "lat": 44.538066,
+     "lon": 14.463634,
+     "country": "HR"
+    },
+    {
+     "name": "Olib",
+     "lat": 44.380259,
+     "lon": 14.775375,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lošinj, Mali Lošinj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-mali-losinj-premuda",
+   "name": "Mali Lošinj–Premuda",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Mali Lošinj",
+     "lat": 44.538066,
+     "lon": 14.463634,
+     "country": "HR"
+    },
+    {
+     "name": "Premuda",
+     "lat": 44.337189,
+     "lon": 14.592833,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lošinj, Mali Lošinj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-mali-losinj-silba",
+   "name": "Mali Lošinj–Silba",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Mali Lošinj",
+     "lat": 44.538066,
+     "lon": 14.463634,
+     "country": "HR"
+    },
+    {
+     "name": "Silba",
+     "lat": 44.373537,
+     "lon": 14.691597,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lošinj, Mali Lošinj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-mali-losinj-zadar",
+   "name": "Zadar–Mali Lošinj",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Mali Lošinj",
+     "lat": 44.538066,
+     "lon": 14.463634,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lošinj, Mali Lošinj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-merag-valbiska",
+   "name": "Valbiska–Merag",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Valbiska",
+     "lat": 45.027882,
+     "lon": 14.496875,
+     "country": "HR"
+    },
+    {
+     "name": "Merag",
+     "lat": 44.980162,
+     "lon": 14.448318,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Cres, Merag)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 332, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/5654f58094b9dae6edf30d60ab644891"
+   }
+  },
+  {
+   "id": "hr-molat-rivanj",
+   "name": "Rivanj–Molat",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Rivanj",
+     "lat": 44.153225,
+     "lon": 15.030266,
+     "country": "HR"
+    },
+    {
+     "name": "Molat",
+     "lat": 44.212364,
+     "lon": 14.871784,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Molat, Molat (Lučina))",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-molat-sestrunj",
+   "name": "Sestrunj–Molat",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sestrunj",
+     "lat": 44.138427,
+     "lon": 15.010263,
+     "country": "HR"
+    },
+    {
+     "name": "Molat",
+     "lat": 44.212364,
+     "lon": 14.871784,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Molat, Molat (Lučina))",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-molat-zadar",
+   "name": "Zadar–Molat",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Molat",
+     "lat": 44.212364,
+     "lon": 14.871784,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Molat, Molat (Lučina))",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-molat-zverinac",
+   "name": "Zverinac–Molat",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zverinac",
+     "lat": 44.160326,
+     "lon": 14.91562,
+     "country": "HR"
+    },
+    {
+     "name": "Molat",
+     "lat": 44.212364,
+     "lon": 14.871784,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Molat, Molat (Lučina))",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-obonjan-sibenik",
+   "name": "Šibenik–Obonjan",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Šibenik",
+     "lat": 43.733624,
+     "lon": 15.891326,
+     "country": "HR"
+    },
+    {
+     "name": "Obonjan",
+     "lat": 43.679629,
+     "lon": 15.776482,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Obonjan, Obonjan)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-obonjan-zirje",
+   "name": "Obonjan–Žirje",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Obonjan",
+     "lat": 43.679629,
+     "lon": 15.776482,
+     "country": "HR"
+    },
+    {
+     "name": "Žirje",
+     "lat": 43.66212,
+     "lon": 15.656111,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Obonjan, Obonjan)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-obonjan-zlarin",
+   "name": "Zlarin–Obonjan",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zlarin",
+     "lat": 43.715851,
+     "lon": 15.836177,
+     "country": "HR"
+    },
+    {
+     "name": "Obonjan",
+     "lat": 43.679629,
+     "lon": 15.776482,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Obonjan, Obonjan)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-olib-premuda",
+   "name": "Premuda–Olib",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Premuda",
+     "lat": 44.337189,
+     "lon": 14.592833,
+     "country": "HR"
+    },
+    {
+     "name": "Olib",
+     "lat": 44.380259,
+     "lon": 14.775375,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Olib, Olib)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-olib-zadar",
+   "name": "Zadar–Olib",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Olib",
+     "lat": 44.380259,
+     "lon": 14.775375,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Olib, Olib)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-osljak-preko",
+   "name": "Preko–Ošljak",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Preko",
+     "lat": 44.076439,
+     "lon": 15.194426,
+     "country": "HR"
+    },
+    {
+     "name": "Ošljak",
+     "lat": 44.07608,
+     "lon": 15.206645,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ošljak, Ošljak)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 431, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/2af5e0d51acd4ceda24b526f4549766c"
+   }
+  },
+  {
+   "id": "hr-osljak-zadar",
+   "name": "Zadar–Ošljak",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Ošljak",
+     "lat": 44.07608,
+     "lon": 15.206645,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ošljak, Ošljak)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 431, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/2af5e0d51acd4ceda24b526f4549766c"
+   }
+  },
+  {
+   "id": "hr-prapratno-sobra",
+   "name": "Sobra–Prapratno",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sobra",
+     "lat": 42.739279,
+     "lon": 17.621098,
+     "country": "HR"
+    },
+    {
+     "name": "Prapratno",
+     "lat": 42.811508,
+     "lon": 17.678582,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Mljet, Sobra)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 832, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/b7de514704b98e8de65759c1f81a609a"
+   }
+  },
+  {
+   "id": "hr-preko-zadar",
+   "name": "Zadar–Preko",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Preko",
+     "lat": 44.076439,
+     "lon": 15.194426,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Ugljan, Preko)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 431, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/2af5e0d51acd4ceda24b526f4549766c"
+   }
+  },
+  {
+   "id": "hr-premuda-silba",
+   "name": "Premuda–Silba",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Premuda",
+     "lat": 44.337189,
+     "lon": 14.592833,
+     "country": "HR"
+    },
+    {
+     "name": "Silba",
+     "lat": 44.373537,
+     "lon": 14.691597,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Premuda, Krijal)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-premuda-zadar",
+   "name": "Zadar–Premuda",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Premuda",
+     "lat": 44.337189,
+     "lon": 14.592833,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Premuda, Krijal)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-rava-zadar",
+   "name": "Zadar–Rava",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Rava",
+     "lat": 44.022935,
+     "lon": 15.059384,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rava, Rava)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 435, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+   }
+  },
+  {
+   "id": "hr-rivanj-sestrunj",
+   "name": "Rivanj–Sestrunj",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Rivanj",
+     "lat": 44.153225,
+     "lon": 15.030266,
+     "country": "HR"
+    },
+    {
+     "name": "Sestrunj",
+     "lat": 44.138427,
+     "lon": 15.010263,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rivanj, Rivanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-rivanj-zadar",
+   "name": "Zadar–Rivanj",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Rivanj",
+     "lat": 44.153225,
+     "lon": 15.030266,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rivanj, Rivanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-rivanj-zverinac",
+   "name": "Rivanj–Zverinac",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Rivanj",
+     "lat": 44.153225,
+     "lon": 15.030266,
+     "country": "HR"
+    },
+    {
+     "name": "Zverinac",
+     "lat": 44.160326,
+     "lon": 14.91562,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Rivanj, Rivanj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-rogac-split",
+   "name": "Rogač–Split",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Rogač",
+     "lat": 43.397233,
+     "lon": 16.300622,
+     "country": "HR"
+    },
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Šolta, Rogač)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 636, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/5d825fa68da13ab3a14bb9251b1eb43a"
+   }
+  },
+  {
+   "id": "hr-sestrunj-zadar",
+   "name": "Zadar–Sestrunj",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Sestrunj",
+     "lat": 44.138427,
+     "lon": 15.010263,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Sestrunj, Sestrunj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-sestrunj-zverinac",
+   "name": "Sestrunj–Zverinac",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Sestrunj",
+     "lat": 44.138427,
+     "lon": 15.010263,
+     "country": "HR"
+    },
+    {
+     "name": "Zverinac",
+     "lat": 44.160326,
+     "lon": 14.91562,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Sestrunj, Sestrunj)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-sibenik-zirje",
+   "name": "Šibenik–Žirje",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Šibenik",
+     "lat": 43.733624,
+     "lon": 15.891326,
+     "country": "HR"
+    },
+    {
+     "name": "Žirje",
+     "lat": 43.66212,
+     "lon": 15.656111,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Žirje, Muna)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-silba-zadar",
+   "name": "Zadar–Silba",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Silba",
+     "lat": 44.373537,
+     "lon": 14.691597,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Silba, Žalić)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 401, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+   }
+  },
+  {
+   "id": "hr-split-stari-grad",
+   "name": "Stari Grad–Split",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Stari Grad",
+     "lat": 43.181361,
+     "lon": 16.576122,
+     "country": "HR"
+    },
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Hvar, Stari Grad)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 635, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/775ebd972f9f1b2609ecd4023f04ce96"
+   }
+  },
+  {
+   "id": "hr-split-supetar",
+   "name": "Supetar–Split",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Supetar",
+     "lat": 43.385879,
+     "lon": 16.554873,
+     "country": "HR"
+    },
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Brač, Supetar)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 631, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/63303845a2afce053e77bf2b39319b04"
+   }
+  },
+  {
+   "id": "hr-split-ubli",
+   "name": "Split–Ubli",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    },
+    {
+     "name": "Ubli",
+     "lat": 42.745347,
+     "lon": 16.824633,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lastovo, Ubli)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 604, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/984062e9182a906cc2cdf39238b38cec"
+   }
+  },
+  {
+   "id": "hr-split-vela-luka",
+   "name": "Split–Vela Luka",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    },
+    {
+     "name": "Vela Luka",
+     "lat": 42.959703,
+     "lon": 16.705943,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Korčula, Vela Luka)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 604, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/984062e9182a906cc2cdf39238b38cec"
+   }
+  },
+  {
+   "id": "hr-split-vis",
+   "name": "Vis–Split",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Vis",
+     "lat": 43.061591,
+     "lon": 16.184094,
+     "country": "HR"
+    },
+    {
+     "name": "Split",
+     "lat": 43.506549,
+     "lon": 16.438227,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Vis, Vis)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 602, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/b4d27ce7fa60ea98238d8976fc10a665"
+   }
+  },
+  {
+   "id": "hr-ubli-vela-luka",
+   "name": "Vela Luka–Ubli",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Vela Luka",
+     "lat": 42.959703,
+     "lon": 16.705943,
+     "country": "HR"
+    },
+    {
+     "name": "Ubli",
+     "lat": 42.745347,
+     "lon": 16.824633,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Lastovo, Ubli)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 604, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/984062e9182a906cc2cdf39238b38cec"
+   }
+  },
+  {
+   "id": "hr-zadar-zverinac",
+   "name": "Zadar–Zverinac",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zadar",
+     "lat": 44.092329,
+     "lon": 15.257666,
+     "country": "HR"
+    },
+    {
+     "name": "Zverinac",
+     "lat": 44.160326,
+     "lon": 14.91562,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Zverinac, Zverinac)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 433, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+   }
+  },
+  {
+   "id": "hr-zlarin-sibenik",
+   "name": "Zlarin–Šibenik",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zlarin",
+     "lat": 43.715851,
+     "lon": 15.836177,
+     "country": "HR"
+    },
+    {
+     "name": "Šibenik",
+     "lat": 43.733624,
+     "lon": 15.891326,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Zlarin, Zlarin)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  },
+  {
+   "id": "hr-zlarin-zirje",
+   "name": "Zlarin–Žirje",
+   "operator": "Jadrolinija",
+   "terminals": [
+    {
+     "name": "Zlarin",
+     "lat": 43.715851,
+     "lon": 15.836177,
+     "country": "HR"
+    },
+    {
+     "name": "Žirje",
+     "lat": 43.66212,
+     "lon": 15.656111,
+     "country": "HR"
+    }
+   ],
+   "ships": [],
+   "exemptions": [
+    {
+     "from": "2024-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I (Croatia: Zlarin, Zlarin)",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2023/2895/oj"
+    }
+   ],
+   "source": {
+    "title": "Jadrolinija: line 532, timetable and price list",
+    "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+   }
+  }
+ ]
+}

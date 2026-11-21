@@ -1,11 +1,11 @@
-"""Tests of publish.osm_only: python3 tools/orct/test_publish.py"""
+"""Tests of publish.osm_only and publish.appended_days: python3 tools/orct/test_publish.py"""
 import copy
 import json
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from publish import osm_only  # noqa: E402
+from publish import appended_days, osm_only  # noqa: E402
 
 BASE = {
     "dataset": {"id": "x/2026-01-01", "method": "Stations placed at OpenStreetMap's toll booths (extract of 2026-11-08); law of 2025-12-18."},
@@ -47,8 +47,21 @@ CASES = [
     ("station without location", set_(["charge_objects", 0, "location"], {}), False),
 ]
 
+FX = "date,ALL\n2026-11-19,90.02\n2026-11-20,89.78\n"
+FX_CASES = [
+    ("new days", FX + "2026-11-21,89.78\n2026-11-22,89.78\n", True),
+    ("nothing new", FX, False),
+    ("past rate changed", "date,ALL\n2026-11-19,90.03\n2026-11-20,89.78\n2026-11-21,89.70\n", False),
+    ("currency added", "date,ALL,USD\n2026-11-19,90.02,1\n2026-11-20,89.78,1\n2026-11-21,89.70,1\n", False),
+    ("day removed", "date,ALL\n2026-11-19,90.02\n", False),
+    ("earlier day added", FX + "2026-11-18,90.18\n", False),
+    ("not a day", FX + "total,1\n", False),
+]
+
 if __name__ == "__main__":
     bad = [(n, want) for n, f, want in CASES if changed(f) != want]
+    bad += [("fx " + n, want) for n, b, want in FX_CASES if appended_days(FX, b) != want]
+    CASES += FX_CASES
     for n, want in bad:
         print(f"FAIL {n}: want osm_only={want}")
     print(f"{len(CASES) - len(bad)}/{len(CASES)} ok")

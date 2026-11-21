@@ -1,36 +1,307 @@
 {
- "note": "Truck ferry crossings carbon-cost recognises on a route, with the ships that sail them. A route uses a crossing when it passes within 3 km of both terminals and has a ferry part.",
+ "note": "Truck ferry crossings carbon-cost recognises on a route, with the ships that sail them, their ports' countries and any derogation from the EU ETS. A route uses a crossing when it passes within 3 km of both terminals and has a ferry part as long as the route between them.",
  "crossings": [
   {
    "id": "rodby-puttgarden",
    "name": "Rødby–Puttgarden",
    "operator": "Scandlines",
    "terminals": [
-    {"name": "Rødby Færgehavn", "lat": 54.6556, "lon": 11.3522},
-    {"name": "Puttgarden", "lat": 54.5003, "lon": 11.2275}
+    {
+     "name": "Rødby Færgehavn",
+     "lat": 54.6556,
+     "lon": 11.3522,
+     "country": "DK"
+    },
+    {
+     "name": "Puttgarden",
+     "lat": 54.5003,
+     "lon": 11.2275,
+     "country": "DE"
+    }
    ],
    "ships": [
-    {"imo": "9151541", "name": "DEUTSCHLAND"},
-    {"imo": "9151539", "name": "SCHLESWIG-HOLSTEIN"},
-    {"imo": "9144419", "name": "PRINS RICHARD"},
-    {"imo": "9144421", "name": "PRINSESSE BENEDIKTE"}
+    {
+     "imo": "9151541",
+     "name": "DEUTSCHLAND"
+    },
+    {
+     "imo": "9151539",
+     "name": "SCHLESWIG-HOLSTEIN"
+    },
+    {
+     "imo": "9144419",
+     "name": "PRINS RICHARD"
+    },
+    {
+     "imo": "9144421",
+     "name": "PRINSESSE BENEDIKTE"
+    }
    ],
    "not_in_mrv": "The battery freight ferry The Baltic Whale (in service from March 2026) has no MRV report yet.",
-   "source": {"title": "Scandlines: Our ferries and harbours", "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"}
+   "source": {
+    "title": "Scandlines: Our ferries and harbours",
+    "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"
+   }
   },
   {
    "id": "gedser-rostock",
    "name": "Gedser–Rostock",
    "operator": "Scandlines",
    "terminals": [
-    {"name": "Gedser", "lat": 54.5745, "lon": 11.9292},
-    {"name": "Rostock", "lat": 54.1553, "lon": 12.1105}
+    {
+     "name": "Gedser",
+     "lat": 54.5745,
+     "lon": 11.9292,
+     "country": "DK"
+    },
+    {
+     "name": "Rostock",
+     "lat": 54.1553,
+     "lon": 12.1105,
+     "country": "DE"
+    }
    ],
    "ships": [
-    {"imo": "9587855", "name": "BERLIN"},
-    {"imo": "9587867", "name": "COPENHAGEN"}
+    {
+     "imo": "9587855",
+     "name": "BERLIN"
+    },
+    {
+     "imo": "9587867",
+     "name": "COPENHAGEN"
+    }
    ],
-   "source": {"title": "Scandlines: Our ferries and harbours", "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"}
+   "source": {
+    "title": "Scandlines: Our ferries and harbours",
+    "url": "https://www.scandlines.com/about-us/our-ferries-and-harbours/"
+   }
+  },
+  {
+   "id": "helsingor-helsingborg",
+   "name": "Helsingør–Helsingborg",
+   "operator": "Øresundslinjen",
+   "terminals": [
+    {
+     "name": "Helsingør (Øresundslinjen)",
+     "lat": 56.03305,
+     "lon": 12.61414,
+     "country": "DK"
+    },
+    {
+     "name": "Helsingborg",
+     "lat": 56.04331,
+     "lon": 12.69152,
+     "country": "SE"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9150030",
+     "name": "HAMLET"
+    },
+    {
+     "imo": "9007116",
+     "name": "TYCHO BRAHE"
+    },
+    {
+     "imo": "9007128",
+     "name": "AURORA AF HELSINGBORG"
+    }
+   ],
+   "source": {
+    "title": "Øresundslinjen: Frakt (trucks boarding Hamlet, Tycho Brahe and Aurora af Helsingborg)",
+    "url": "https://oresundslinjen.se/frakt"
+   }
+  },
+  {
+   "id": "hou-saelvig",
+   "name": "Hou–Sælvig",
+   "operator": "Samsø Rederi",
+   "terminals": [
+    {
+     "name": "Hou",
+     "lat": 55.91246,
+     "lon": 10.25911,
+     "country": "DK"
+    },
+    {
+     "name": "Sælvig",
+     "lat": 55.86433,
+     "lon": 10.54889,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9692806",
+     "name": "PRINSESSE ISABELLA"
+    }
+   ],
+   "exemptions": [
+    {
+     "from": "2025-01-01",
+     "until": "2030-12-31",
+     "law": "Directive 2003/87/EC, Art. 12(3-d); Commission Implementing Decision (EU) 2023/2895, Annex I, as amended by Implementing Decision (EU) 2024/2924 (Denmark: Samsø, Sælvig), from 1 January 2025",
+     "url": "https://eur-lex.europa.eu/eli/dec_impl/2024/2924/oj"
+    }
+   ],
+   "source": {
+    "title": "Samsø Rederi (the ferry Prinsesse Isabella)",
+    "url": "https://www.tilsamsoe.dk/"
+   }
+  },
+  {
+   "id": "bojden-fynshav",
+   "name": "Bøjden–Fynshav",
+   "operator": "ALSLINJEN",
+   "terminals": [
+    {
+     "name": "Bøjden",
+     "lat": 55.10484,
+     "lon": 10.08163,
+     "country": "DK"
+    },
+    {
+     "name": "Fynshav",
+     "lat": 54.99463,
+     "lon": 9.98527,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9994357",
+     "name": "NERTHUS"
+    }
+   ],
+   "source": {
+    "title": "ALSLINJEN: the ferries (Nerthus, IMO 9994357)",
+    "url": "https://www.alslinjen.dk/om-alslinjen/faerger"
+   }
+  },
+  {
+   "id": "esbjerg-nordby",
+   "name": "Esbjerg–Nordby",
+   "operator": "FANØLINJEN",
+   "terminals": [
+    {
+     "name": "Esbjerg",
+     "lat": 55.46088,
+     "lon": 8.44007,
+     "country": "DK"
+    },
+    {
+     "name": "Nordby",
+     "lat": 55.45018,
+     "lon": 8.40845,
+     "country": "DK"
+    }
+   ],
+   "ships": [
+    {
+     "imo": "9189378",
+     "name": "FENJA",
+     "since": 1998
+    },
+    {
+     "name": "MENJA",
+     "since": 1998
+    }
+   ],
+   "source": {
+    "title": "FANØLINJEN: the ferries (M/F Fenja and M/F Menja, its two car ferries, completed in 1998; Fenja IMO 9189378)",
+    "url": "https://www.fanoelinjen.dk/om-fanoelinjen/faerger"
+   }
+  },
+  {
+   "id": "virtsu-kuivastu",
+   "name": "Virtsu–Kuivastu",
+   "operator": "TS Laevad",
+   "terminals": [
+    {
+     "name": "Virtsu",
+     "lat": 58.57506,
+     "lon": 23.5083,
+     "country": "EE"
+    },
+    {
+     "name": "Kuivastu",
+     "lat": 58.57312,
+     "lon": 23.39438,
+     "country": "EE"
+    }
+   ],
+   "ships": [
+    {
+     "name": "LEIGER",
+     "since": 2017
+    },
+    {
+     "name": "TIIU",
+     "since": 2017
+    },
+    {
+     "name": "TÕLL",
+     "since": 2017
+    },
+    {
+     "name": "PIRET",
+     "since": 2017
+    },
+    {
+     "name": "REGULA",
+     "since": 1971
+    }
+   ],
+   "source": {
+    "title": "TS Laevad (praamid.ee): our ferries (Leiger, Regula, Piret, Tõll, Tiiu, the five on the Virtsu–Kuivastu and Rohuküla–Heltermaa routes; built 2015–2017, Regula 1971)",
+    "url": "https://www.praamid.ee/en/ferries/"
+   }
+  },
+  {
+   "id": "rohukula-heltermaa",
+   "name": "Rohuküla–Heltermaa",
+   "operator": "TS Laevad",
+   "terminals": [
+    {
+     "name": "Rohuküla",
+     "lat": 58.90651,
+     "lon": 23.42282,
+     "country": "EE"
+    },
+    {
+     "name": "Heltermaa",
+     "lat": 58.86634,
+     "lon": 23.04801,
+     "country": "EE"
+    }
+   ],
+   "ships": [
+    {
+     "name": "LEIGER",
+     "since": 2017
+    },
+    {
+     "name": "TIIU",
+     "since": 2017
+    },
+    {
+     "name": "TÕLL",
+     "since": 2017
+    },
+    {
+     "name": "PIRET",
+     "since": 2017
+    },
+    {
+     "name": "REGULA",
+     "since": 1971
+    }
+   ],
+   "source": {
+    "title": "TS Laevad (praamid.ee): our ferries (Leiger, Regula, Piret, Tõll, Tiiu, the five on the Virtsu–Kuivastu and Rohuküla–Heltermaa routes; built 2015–2017, Regula 1971)",
+    "url": "https://www.praamid.ee/en/ferries/"
+   }
   }
  ]
 }

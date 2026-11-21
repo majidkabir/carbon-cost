@@ -123,12 +123,6 @@
    "what": "Mauttarifverordnung 2024, BGBl. II Nr. 410/2024 (in force 1 January 2025), the signed BGBl PDF as mirrored by Gebrüder Weiss; RIS refuses scripted requests (503)"
   },
   {
-   "id": "ch-svav-2024",
-   "table": "ch-2017-01-01",
-   "url": "https://www.fedlex.admin.ch/filestore/fedlex.data.admin.ch/eli/cc/2000/226/20240101/de/pdf-a/fedlex-data-admin-ch-eli-cc-2000-226-20240101-de-pdf-a.pdf",
-   "what": "Schwerverkehrsabgabeverordnung (SVAV) of 6 March 2000, as in force on 1 January 2024 (Fedlex)"
-  },
-  {
    "id": "sk-nv-497-2013-2024",
    "table": "sk-2024-01-01",
    "url": "https://static.slov-lex.sk/static/SK/ZZ/2013/497/20240101.html",
@@ -259,12 +253,6 @@
    "table": "at-2024-01-01",
    "url": "https://www.go-maut.at/media/zsocruyi/go-maut-tarife-2024_streckenmaut_en.pdf",
    "what": "ASFINAG: GO toll rates 2024 on the special toll sections"
-  },
-  {
-   "id": "at-mtv-2022",
-   "table": "at-2024-01-01",
-   "url": "https://www.itf-oecd.org/sites/default/files/docs/a-toll-rate-ordinance_0.pdf",
-   "what": "Mauttarifverordnung 2022, BGBl. II Nr. 448/2022, RIS consolidated text (Fassung vom 06.02.2023) as published by the ITF/OECD: the infrastructure tariffs of the special toll sections, which BStMG § 9 (BGBl. I Nr. 142/2023) kept for 2024"
   },
   {
    "id": "pt-imt-2024",
@@ -1635,6 +1623,16 @@
    "what": "Nařízení vlády č. 327/2025 Sb., Sbírka zákonů PDF"
   },
   {
+   "id": "cz-esbirka-240-2014-zneni",
+   "table": "cz-2026-01-01",
+   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2014%2F240/zneni-ke-srovnani",
+   "page": "https://e-sbirka.gov.cz/sb/2014/240?zalozka=historie",
+   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 240/2014 Sb., its versions (from, to, amending act), a published amendment among them as a later version",
+   "expect": [
+    "dokumentuSbirkyZneniKeSrovnani"
+   ]
+  },
+  {
    "id": "it-mise-terrazzano",
    "table": "it-barriers-2025-01-01",
    "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Terrazzano_Tang_OVEST_MI2.pdf",
@@ -1682,18 +1680,6 @@
    "url": "https://web.archive.org/web/20251217030201id_/https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
    "page": "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/",
    "what": "Skatturinn: Kílómetragjald á vörubifreiðar og eftirvagna, the km fee of Lög nr. 87/2004 by permissible weight for 2025 (Almennt) and earlier years (Fjárhæðir fyrri ára); the Internet Archive's copy of 17 December 2025 (the page now shows the 2026 law only)"
-  },
-  {
-   "id": "is-veggjald-2024",
-   "table": "is-vadlaheidargong-2024-01-02",
-   "url": "https://www.veggjald.is/static/files/verdskra/vhg-verdskra-gildir-fra-2.1.2024-en.pdf",
-   "what": "Vaðlaheiðargöng hf.: price list valid from 2 January 2024 (English)"
-  },
-  {
-   "id": "is-veggjald-2025",
-   "table": "is-vadlaheidargong-2025-01-02",
-   "url": "https://veggjald.is/static/files/verdskra/vhg-price-2.1.2025.pdf",
-   "what": "Vaðlaheiðargöng hf.: price list valid from 2 January 2025"
   },
   {
    "id": "rs-sg-119-2023",

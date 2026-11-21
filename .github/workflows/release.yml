@@ -26,7 +26,7 @@ jobs:
     outputs:
       v: ${{ steps.v.outputs.v }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - id: v
         run: |
           v="${{ inputs.version }}"
@@ -39,8 +39,8 @@ jobs:
     env:
       VERSION: ${{ needs.version.outputs.v }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: false
@@ -70,7 +70,7 @@ jobs:
     env:
       VERSION: ${{ needs.version.outputs.v }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io

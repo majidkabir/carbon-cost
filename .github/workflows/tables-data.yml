@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 300
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done
       - name: Fetch
         run: |
@@ -31,6 +31,16 @@ jobs:
           # A source that fails this run keeps the copy the last run fetched.
           git fetch -q --depth 1 origin tables-out && mkdir -p prev && git archive FETCH_HEAD | tar -x -C prev
           python3 tools/history/reuse.py tools/tables/sources.json out prev && rm -rf prev
+      - name: Wait for Geofabrik
+        # Geofabrik refuses connections from a runner for a while at busy
+        # times (curl 7 at once); the extract steps below keep the last
+        # run's copy when it does. Wait up to 15 minutes for it first.
+        run: |
+          for i in $(seq 1 15); do
+            curl -fsI --max-time 30 https://download.geofabrik.de/europe/montenegro-latest.osm.pbf > /dev/null && { echo "Geofabrik answers (try $i)"; exit 0; }
+            echo "Geofabrik refuses (try $i); waiting a minute"; sleep 60
+          done
+          echo "::warning::Geofabrik still refuses after 15 minutes"
       - name: Irish toll booths (OpenStreetMap)
         run: |
           keep() { git fetch -q --depth 1 origin tables-out && for f in "$@"; do git show FETCH_HEAD:$f > out/$f; done; echo "::warning::Geofabrik unreachable: keeping the last run's $*"; }

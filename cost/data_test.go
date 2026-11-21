@@ -354,3 +354,25 @@ func TestCongestionDays(t *testing.T) {
 		}
 	}
 }
+
+// Slovenia: the Serminska vpadnica (G2-114) to the port of Koper is a
+// toll section from 26 October 2026 (Uredba 1746/26, cenik 1771/26).
+func TestSloveniaSerminska(t *testing.T) {
+	for day, want := range map[string]string{"2026-10-25": "2026-04-01", "2026-10-26": "2026-10-26", "2027-06-01": "2026-10-26"} {
+		if got := found(t, "SI", day); got != want {
+			t.Errorf("SI on %s: the table from %s, want %s", day, got, want)
+		}
+	}
+	for day, want := range map[string]bool{"2026-10-25": false, "2026-11-01": true} {
+		ds, _ := all(t).Find("SI", on(day))
+		has := false
+		for _, o := range ds.Objects() {
+			if strings.Contains(o.ID, "g2-114") {
+				has = true
+			}
+		}
+		if has != want {
+			t.Errorf("SI on %s: Serminska vpadnica %v, want %v", day, has, want)
+		}
+	}
+}

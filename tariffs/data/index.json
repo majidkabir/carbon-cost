@@ -3410,8 +3410,19 @@
    "file": "si/si-2026-04-01.orct.json",
    "name": "Slovenian distance toll (DarsGo)",
    "valid_from": "2026-04-01",
+   "valid_to": "2026-10-25",
+   "sha256": "81b1487b4bfd6621557d3d2fb995a5d8ac26117ca60da5a8b91130bcd6a07ba6",
+   "coverage": "partial"
+  },
+  {
+   "id": "carbon-cost/si/2026-10-26",
+   "scheme": "si",
+   "country": "SI",
+   "file": "si/si-2026-10-26.orct.json",
+   "name": "Slovenian distance toll (DarsGo)",
+   "valid_from": "2026-10-26",
    "valid_to": null,
-   "sha256": "661a57ac371ba4dbc2db47b5c9630630410727cde03389a549d97d154c4b13c6",
+   "sha256": "f386f9009f2aa0c52cf6f82de9319b8221648e7b3219c40a97b31097f40a684e",
    "coverage": "partial"
   },
   {

@@ -1623,6 +1623,16 @@
    "what": "Nařízení vlády č. 327/2025 Sb., Sbírka zákonů PDF"
   },
   {
+   "id": "cz-esbirka-240-2014-zneni",
+   "table": "cz-2026-01-01",
+   "url": "https://e-sbirka.gov.cz/sbr-cache/dokumenty-sbirky/%2Fsb%2F2014%2F240/zneni-ke-srovnani",
+   "page": "https://e-sbirka.gov.cz/sb/2014/240?zalozka=historie",
+   "what": "e-Sbírka (the official Collection of Laws): nařízení vlády č. 240/2014 Sb., its versions (from, to, amending act), a published amendment among them as a later version",
+   "expect": [
+    "dokumentuSbirkyZneniKeSrovnani"
+   ]
+  },
+  {
    "id": "it-mise-terrazzano",
    "table": "it-barriers-2025-01-01",
    "url": "https://www.serravalle.it/uploads/pagine/Tariffe_e_pedaggi_2022_2026_Terrazzano_Tang_OVEST_MI2.pdf",

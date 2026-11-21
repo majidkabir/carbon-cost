@@ -17,9 +17,10 @@ Usage: python3 build_cz.py fetched/ out-dir
   (EURO 0-IV, V/EEV, VI in CO2 class 1; CO2 classes 2-5), first for 1-24
   March (čl. I bod 12), then from 25 March 2024 (bod 13).
 - 299/2024 Sb.: the same structure from 1 January 2025.
-- 327/2025 Sb.: the same structure from 1 January 2026.
+- 327/2025 Sb.: the same structure from 1 January 2026, until e-Sbírka's
+  list of 240/2014's versions shows a later one (the regulation has no end).
 """
-import html, json, os, re, subprocess, sys
+import datetime, html, json, os, re, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
@@ -133,13 +134,43 @@ def main(fetched, out):
          "sources": [src299, SRC240],
          "rows": rows_of(t[0], "motorway", G28) + rows_of(t[1], "other", G28)})
     t = pdf_327(fetched)
-    save(out, "cz-2026-01-01.json", {"country": "CZ", "currency": "CZK", "valid_from": "2026-01-01", "valid_to": "2026-12-31", "name": BASE["name"],
-         "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as amended by nařízení vlády č. 327/2025 Sb., in force 1 January 2026. One rate per km by road category, maximum permissible mass, axles and EURO / CO2 emission class; the regulation gives no separate CO2 part.",
-         "sources": [{"title": "Nařízení vlády č. 327/2025 Sb. (2026 toll rates, Annexes 1-2)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327"}, SRC240],
-         **{k: BASE[k] for k in ("vehicles", "min_kg", "tolled_roads", "motorway_share")},
-         "rows": rows_of(t[0], "motorway", G28) + rows_of(t[1], "other", G28)})
+    try:
+        last = until(fetched)
+    except (AssertionError, OSError, ValueError, KeyError) as e:
+        print(f"cz-2026-01-01: e-Sbírka's versions of 240/2014 not read ({e}); not built", file=sys.stderr)
+        failed.append("cz-2026-01-01")
+    else:
+        tb = {"country": "CZ", "currency": "CZK", "valid_from": "2026-01-01", "name": BASE["name"],
+              "law": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as amended by nařízení vlády č. 327/2025 Sb., in force 1 January 2026. One rate per km by road category, maximum permissible mass, axles and EURO / CO2 emission class; the regulation gives no separate CO2 part. "
+                     + (f"e-Sbírka gives this version's end as {last}." if last else "The regulation has no end date, and e-Sbírka lists no later version: the table runs until it is amended."),
+              "sources": [{"title": "Nařízení vlády č. 327/2025 Sb. (2026 toll rates, Annexes 1-2)", "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2025/327"}, SRC240,
+                          {"title": "e-Sbírka: nařízení vlády č. 240/2014 Sb., its versions (Historie)", "url": "https://e-sbirka.gov.cz/sb/2014/240?zalozka=historie"}],
+              **{k: BASE[k] for k in ("vehicles", "min_kg", "tolled_roads", "motorway_share")},
+              "rows": rows_of(t[0], "motorway", G28) + rows_of(t[1], "other", G28)}
+        if last:
+            tb["valid_to"] = last
+        save(out, "cz-2026-01-01.json", tb)
     if failed:
         sys.exit("not built: " + ", ".join(failed))
+
+
+def until(fetched):
+    """The 2026 table's last day, from e-Sbírka's list of 240/2014's
+    versions (cz-esbirka-240-2014-zneni): none while the version of 1
+    January 2026 (327/2025 Sb.) has no end and no later one is listed (a
+    published amendment shows as a later, future version); else that day,
+    with a warning."""
+    z = json.load(open(os.path.join(fetched, "cz-esbirka-240-2014-zneni.html"), encoding="utf-8"))["dokumentuSbirkyZneniKeSrovnani"]
+    cur = [v for v in z if v.get("datumUcinnostiZneniOd") == "2026-01-01"]
+    assert len(cur) == 1 and [n["kodDokumentuSbirky"] for n in cur[0]["novely"]] == ["327/2025 Sb."], cur
+    later = sorted(v["datumUcinnostiZneniOd"] for v in z if (v.get("datumUcinnostiZneniOd") or "") > "2026-01-01")
+    ends = [cur[0]["datumUcinnostiZneniDo"]] if cur[0].get("datumUcinnostiZneniDo") else []
+    if later:
+        ends.append((datetime.date.fromisoformat(later[0]) - datetime.timedelta(days=1)).isoformat())
+    if not ends:
+        return None
+    print(f"::warning title=build_cz::240/2014's version of 1 January 2026 ends on {min(ends)} (e-Sbírka); read the amendment")
+    return min(ends)
 
 
 def flat(s):

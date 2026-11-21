@@ -1,0 +1,20 @@
+{
+ "orct": "0.3",
+ "derived_from": {
+  "url": "https://github.com/majidkabir/carbon-cost",
+  "commit": "07e6286829c1a39ec93cc584a02f079ddd5b6b02"
+ },
+ "datasets": [
+  {
+   "id": "carbon-cost/hr/2026-01-01",
+   "scheme": "hr",
+   "country": "HR",
+   "file": "hr/hr-2026-01-01.orct.json",
+   "name": "Croatian motorway toll (Hrvatske autoceste)",
+   "valid_from": "2026-01-01",
+   "valid_to": null,
+   "sha256": "27edf50ffe0c76b21e465cb1449817c4fccbd7551bde5ebd98e4df0932217170",
+   "coverage": "complete"
+  }
+ ]
+}

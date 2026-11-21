@@ -1,0 +1,11 @@
+::warning title=hr/hr-2026-01-01.orct.json::differs from tariffs/data/hr/hr-2026-01-01.orct.json
+16d15
+<   "valid_to": "2026-12-31",
+20c19
+<   "method": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
+---
+>   "method": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. The price lists have no end date: the table runs until they change (the HR data workflow reads them each run). They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
+652c651
+<      "coordinates": [[15.84361, 46.20085], [15.84212, 46.19714], [15.84488, 46.20011], [15.84301, 46.19455], [15.84542, 46.20393]]
+---
+>      "coordinates": [[15.84361, 46.20085], [15.84212, 46.19714], [15.84488, 46.20011], [15.84313, 46.19444], [15.84542, 46.20393]]

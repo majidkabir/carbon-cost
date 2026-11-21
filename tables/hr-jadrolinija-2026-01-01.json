@@ -1,0 +1,3531 @@
+{
+ "country": "HR",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "Jadrolinija's state ferry lines, goods vehicles",
+ "law": "Jadrolinija's price lists for 2026, line by line (state ferry lines, the fares the Agency for Coastal Line Traffic approves): goods vehicles and trailers by load capacity (nosivost): up to 3 t, 3.01-4 t and 4.01-5 t a fare each, from 5.01 t a fare per tonne of it, for each vehicle on its own, but a tractor with semi-trailer per tonne of the semi-trailer's (give truck.capacity_kg; without it the fare isn't priced). Off-season and season prices by the season's days in each price list (or one price for the year). The prices include port dues and VAT; VAT is taken out at Croatia's standard 25% (the rate Jadrolinija's price lists named until 2024), the port dues stay in. Island residents' and public services' prices aren't used. The ports are OpenStreetMap's ferry terminals (else the place), priced where a line goes out on OpenStreetMap's car ferry line from them; lines that share a ferry line or a harbour mouth are one system, priced from the first port passed to the last. PREMUDA–IST: no car ferry line between them in OpenStreetMap, not priced.",
+ "sources": [
+  {
+   "title": "Jadrolinija: line 332, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5654f58094b9dae6edf30d60ab644891"
+  },
+  {
+   "title": "Jadrolinija: line 334, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/81f23f7a652f735091a0e42f12a19fd0"
+  },
+  {
+   "title": "Jadrolinija: line 335, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b65b8c092fb6807891140d4d195acf82"
+  },
+  {
+   "title": "Jadrolinija: line 338, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/215ccb6d596679819c4920191e648122"
+  },
+  {
+   "title": "Jadrolinija: line 401, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/0ca141e5177fb3507ff5fef2e6839804"
+  },
+  {
+   "title": "Jadrolinija: line 431, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/2af5e0d51acd4ceda24b526f4549766c"
+  },
+  {
+   "title": "Jadrolinija: line 432, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/71598cc1bc6c126e6b97bec0bd6a7497"
+  },
+  {
+   "title": "Jadrolinija: line 433, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/18688e6f7ef3d979e170eb769c6cb2cc"
+  },
+  {
+   "title": "Jadrolinija: line 434, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/132167cf67094c10716af73f934e625d"
+  },
+  {
+   "title": "Jadrolinija: line 435, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/c603b755d68318915f5614d2beb53396"
+  },
+  {
+   "title": "Jadrolinija: line 532, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/46ecba03b83ad48c526e907b483ed2bd"
+  },
+  {
+   "title": "Jadrolinija: line 602, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b4d27ce7fa60ea98238d8976fc10a665"
+  },
+  {
+   "title": "Jadrolinija: line 604, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/984062e9182a906cc2cdf39238b38cec"
+  },
+  {
+   "title": "Jadrolinija: line 606, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/32b38ebc75f18571222f4689206f7cbd"
+  },
+  {
+   "title": "Jadrolinija: line 631, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/63303845a2afce053e77bf2b39319b04"
+  },
+  {
+   "title": "Jadrolinija: line 632, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/69cb877c1652c9a45c997d6b3f103b74"
+  },
+  {
+   "title": "Jadrolinija: line 633, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/8a51318725234350c295f15ae85c523b"
+  },
+  {
+   "title": "Jadrolinija: line 634, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/7321c0f9b33c02ac4b12851c4e2e2191"
+  },
+  {
+   "title": "Jadrolinija: line 635, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/775ebd972f9f1b2609ecd4023f04ce96"
+  },
+  {
+   "title": "Jadrolinija: line 636, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5d825fa68da13ab3a14bb9251b1eb43a"
+  },
+  {
+   "title": "Jadrolinija: line 638, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/5942b05660e59c66e7c53fbd392e9a7a"
+  },
+  {
+   "title": "Jadrolinija: line 831, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/7c405c1e2fe6cb106d506172ccd6fd6c"
+  },
+  {
+   "title": "Jadrolinija: line 832, timetable and price list for 2026",
+   "url": "https://www.jadrolinija.hr/download/b7de514704b98e8de65759c1f81a609a"
+  },
+  {
+   "title": "Jadrolinija: local lines",
+   "url": "https://www.jadrolinija.hr/hr/putovanja/lokalne_linije"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): ferry lines, ferry terminals and places on the Croatian coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t, by load capacity (give truck.capacity_kg: the semi-trailer's for a tractor with semi-trailer)",
+ "min_kg": 3501,
+ "tolled_roads": "Jadrolinija's state ferry lines on the Croatian coast, from port to port.",
+ "closed_systems": [
+  {
+   "name": "Jadrolinija 332, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 332: goods vehicles and trailers up to 5 t of load capacity (one price for the year)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "MERAG",
+     "points": [
+      {
+       "name": "MERAG port, 0.5 km out on the line to VALBISKA (OSM way 146474160)",
+       "lat": 44.984412,
+       "lon": 14.449625
+      }
+     ]
+    },
+    {
+     "name": "VALBISKA",
+     "points": [
+      {
+       "name": "VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)",
+       "lat": 45.019177,
+       "lon": 14.493868
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "VALBISKA|MERAG": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.92,
+     "load capacity 4.01-5 t": 29.44
+    }
+   },
+   "unmatched": "free"
+  },
+  {
+   "name": "Jadrolinija 332, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 332: goods vehicles and trailers per tonne over 5 t of load capacity (one price for the year)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "MERAG",
+     "points": [
+      {
+       "name": "MERAG port, 0.5 km out on the line to VALBISKA (OSM way 146474160)",
+       "lat": 44.984412,
+       "lon": 14.449625
+      }
+     ]
+    },
+    {
+     "name": "VALBISKA",
+     "points": [
+      {
+       "name": "VALBISKA port, 1.0 km out on the line to MERAG (OSM way 146474160)",
+       "lat": 45.019177,
+       "lon": 14.493868
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "VALBISKA|MERAG": {
+     "per tonne of load capacity over 5 t": 6.4
+    }
+   },
+   "unmatched": "free",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 334, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 334: goods vehicles and trailers up to 5 t of load capacity (one price for the year)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BRESTOVA",
+     "points": [
+      {
+       "name": "BRESTOVA port, 0.5 km out on the line to POROZINA (OSM way 8100884)",
+       "lat": 45.143364,
+       "lon": 14.229818
+      }
+     ]
+    },
+    {
+     "name": "POROZINA",
+     "points": [
+      {
+       "name": "POROZINA port, 0.5 km out on the line to BRESTOVA (OSM way 8100884)",
+       "lat": 45.131262,
+       "lon": 14.279953
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "POROZINA|BRESTOVA": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.92,
+     "load capacity 4.01-5 t": 29.44
+    }
+   },
+   "unmatched": "free"
+  },
+  {
+   "name": "Jadrolinija 334, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 334: goods vehicles and trailers per tonne over 5 t of load capacity (one price for the year)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BRESTOVA",
+     "points": [
+      {
+       "name": "BRESTOVA port, 0.5 km out on the line to POROZINA (OSM way 8100884)",
+       "lat": 45.143364,
+       "lon": 14.229818
+      }
+     ]
+    },
+    {
+     "name": "POROZINA",
+     "points": [
+      {
+       "name": "POROZINA port, 0.5 km out on the line to BRESTOVA (OSM way 8100884)",
+       "lat": 45.131262,
+       "lon": 14.279953
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "POROZINA|BRESTOVA": {
+     "per tonne of load capacity over 5 t": 6.4
+    }
+   },
+   "unmatched": "free",
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 335, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 335: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PRIZNA",
+     "points": [
+      {
+       "name": "PRIZNA port, 0.5 km out on the line to ŽIGLJEN (OSM way 23446604)",
+       "lat": 44.599993,
+       "lon": 14.96522
+      }
+     ]
+    },
+    {
+     "name": "ŽIGLJEN",
+     "points": [
+      {
+       "name": "ŽIGLJEN port, 0.5 km out on the line to PRIZNA (OSM way 23446604)",
+       "lat": 44.58422,
+       "lon": 14.952443
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "PRIZNA|ŽIGLJEN": {
+     "load capacity up to 3 t": 11.52,
+     "load capacity 3.01-4 t": 15.04,
+     "load capacity 4.01-5 t": 18.56
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "PRIZNA|ŽIGLJEN": {
+     "load capacity up to 3 t": 15.68,
+     "load capacity 3.01-4 t": 20.32,
+     "load capacity 4.01-5 t": 24.96
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 335, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 335: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PRIZNA",
+     "points": [
+      {
+       "name": "PRIZNA port, 0.5 km out on the line to ŽIGLJEN (OSM way 23446604)",
+       "lat": 44.599993,
+       "lon": 14.96522
+      }
+     ]
+    },
+    {
+     "name": "ŽIGLJEN",
+     "points": [
+      {
+       "name": "ŽIGLJEN port, 0.5 km out on the line to PRIZNA (OSM way 23446604)",
+       "lat": 44.58422,
+       "lon": 14.952443
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "PRIZNA|ŽIGLJEN": {
+     "per tonne of load capacity over 5 t": 4.0
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "PRIZNA|ŽIGLJEN": {
+     "per tonne of load capacity over 5 t": 5.52
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 338, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 338: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "LOPAR",
+     "points": [
+      {
+       "name": "LOPAR port, 1.7 km out on the line to VALBISKA (OSM way 8100818)",
+       "lat": 44.849093,
+       "lon": 14.707416
+      }
+     ]
+    },
+    {
+     "name": "VALBISKA",
+     "points": [
+      {
+       "name": "VALBISKA port, 0.8 km out on the line to LOPAR (OSM way 8100818)",
+       "lat": 45.020341,
+       "lon": 14.49841
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "LOPAR|VALBISKA": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "LOPAR|VALBISKA": {
+     "load capacity up to 3 t": 21.36,
+     "load capacity 3.01-4 t": 27.84,
+     "load capacity 4.01-5 t": 34.4
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 338, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 338: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "LOPAR",
+     "points": [
+      {
+       "name": "LOPAR port, 1.7 km out on the line to VALBISKA (OSM way 8100818)",
+       "lat": 44.849093,
+       "lon": 14.707416
+      }
+     ]
+    },
+    {
+     "name": "VALBISKA",
+     "points": [
+      {
+       "name": "VALBISKA port, 0.8 km out on the line to LOPAR (OSM way 8100818)",
+       "lat": 45.020341,
+       "lon": 14.49841
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "LOPAR|VALBISKA": {
+     "per tonne of load capacity over 5 t": 5.84
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "LOPAR|VALBISKA": {
+     "per tonne of load capacity over 5 t": 7.44
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 401 (1) / 401 (2) / 401 (3) / 431 / 433 (1) / 433 (2) / 434 / 435 (1) / 435 (2), goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 401 (1); line 401 (2); line 401 (3); line 431; line 433 (1); line 433 (2); line 434; line 435 (1); line 435 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BRBINJ",
+     "points": [
+      {
+       "name": "BRBINJ port, 0.5 km out on the line to ZADAR (OSM way 620626313)",
+       "lat": 44.087569,
+       "lon": 14.99292
+      }
+     ]
+    },
+    {
+     "name": "BRŠANJ",
+     "points": [
+      {
+       "name": "BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)",
+       "lat": 44.024649,
+       "lon": 15.164511
+      },
+      {
+       "name": "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)",
+       "lat": 43.992649,
+       "lon": 15.168018
+      }
+     ]
+    },
+    {
+     "name": "IST",
+     "points": [
+      {
+       "name": "IST port, 0.5 km out on the line to ZADAR (OSM way 179041208)",
+       "lat": 44.267217,
+       "lon": 14.768508
+      }
+     ]
+    },
+    {
+     "name": "MALA RAVA",
+     "points": [
+      {
+       "name": "MALA RAVA port, 0.5 km out on the line to ZADAR (OSM way 1151047124)",
+       "lat": 44.033845,
+       "lon": 15.05155
+      }
+     ]
+    },
+    {
+     "name": "MALI LOŠINJ",
+     "points": [
+      {
+       "name": "MALI LOŠINJ port, 5.4 km out on the line to PREMUDA (OSM way 178995980)",
+       "lat": 44.551159,
+       "lon": 14.416452
+      },
+      {
+       "name": "MALI LOŠINJ port, 4.8 km out on the line to SILBA (OSM way 178637592)",
+       "lat": 44.551928,
+       "lon": 14.417171
+      }
+     ]
+    },
+    {
+     "name": "MOLAT",
+     "points": [
+      {
+       "name": "MOLAT port, 0.5 km out on the line to ZADAR (OSM way 179012787)",
+       "lat": 44.209338,
+       "lon": 14.867246
+      },
+      {
+       "name": "MOLAT port, 0.5 km out on the line to RIVANJ (OSM way 179012787)",
+       "lat": 44.209657,
+       "lon": 14.866787
+      }
+     ]
+    },
+    {
+     "name": "OLIB",
+     "points": [
+      {
+       "name": "OLIB port, 0.5 km out on the line to ZADAR (OSM way 620626314)",
+       "lat": 44.379781,
+       "lon": 14.769119
+      },
+      {
+       "name": "OLIB port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070398)",
+       "lat": 44.380621,
+       "lon": 14.769104
+      }
+     ]
+    },
+    {
+     "name": "OŠLJAK",
+     "points": [
+      {
+       "name": "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 119280397)",
+       "lat": 44.08001,
+       "lon": 15.205794
+      },
+      {
+       "name": "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+       "lat": 44.082355,
+       "lon": 15.212223
+      },
+      {
+       "name": "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 119280395)",
+       "lat": 44.075981,
+       "lon": 15.203505
+      },
+      {
+       "name": "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 335800136)",
+       "lat": 44.07987,
+       "lon": 15.20328
+      }
+     ]
+    },
+    {
+     "name": "PREKO",
+     "points": [
+      {
+       "name": "PREKO port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+       "lat": 44.078619,
+       "lon": 15.199887
+      },
+      {
+       "name": "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 119280395)",
+       "lat": 44.077137,
+       "lon": 15.197376
+      },
+      {
+       "name": "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 335800136)",
+       "lat": 44.077666,
+       "lon": 15.197306
+      }
+     ]
+    },
+    {
+     "name": "PREMUDA",
+     "points": [
+      {
+       "name": "PREMUDA port, 0.5 km out on the line to ZADAR (OSM way 154070386)",
+       "lat": 44.339906,
+       "lon": 14.588045
+      },
+      {
+       "name": "PREMUDA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 178995980)",
+       "lat": 44.339442,
+       "lon": 14.587764
+      }
+     ]
+    },
+    {
+     "name": "RAVA",
+     "points": [
+      {
+       "name": "RAVA port, 0.5 km out on the line to ZADAR (OSM way 179002607)",
+       "lat": 44.019352,
+       "lon": 15.05631
+      }
+     ]
+    },
+    {
+     "name": "RIVANJ",
+     "points": [
+      {
+       "name": "RIVANJ port, 0.5 km out on the line to ZADAR (OSM way 335795665)",
+       "lat": 44.149767,
+       "lon": 15.027642
+      },
+      {
+       "name": "RIVANJ port, 0.5 km out on the line to SESTRUNJ (OSM way 179027678)",
+       "lat": 44.150195,
+       "lon": 15.026811
+      }
+     ]
+    },
+    {
+     "name": "SESTRUNJ",
+     "points": [
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to ZADAR (OSM way 179012793)",
+       "lat": 44.134495,
+       "lon": 15.013285
+      },
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to MOLAT (OSM way 179012793)",
+       "lat": 44.134075,
+       "lon": 15.011706
+      },
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to ZVERINAC (OSM way 179751586)",
+       "lat": 44.133979,
+       "lon": 15.011081
+      }
+     ]
+    },
+    {
+     "name": "SILBA",
+     "points": [
+      {
+       "name": "SILBA port, 0.5 km out on the line to ZADAR (OSM way 154070394)",
+       "lat": 44.370564,
+       "lon": 14.687166
+      },
+      {
+       "name": "SILBA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070394)",
+       "lat": 44.37241,
+       "lon": 14.685963
+      },
+      {
+       "name": "SILBA port, 0.5 km out on the line to PREMUDA (OSM way 154070394)",
+       "lat": 44.371459,
+       "lon": 14.686168
+      }
+     ]
+    },
+    {
+     "name": "ZADAR",
+     "points": [
+      {
+       "name": "ZADAR port, 0.5 km out on the line to PREMUDA (OSM way 335795665)",
+       "lat": 44.091748,
+       "lon": 15.250546
+      },
+      {
+       "name": "ZADAR port, 0.5 km out on the line to IST (OSM way 119280397)",
+       "lat": 44.091343,
+       "lon": 15.250933
+      },
+      {
+       "name": "ZADAR port, 0.5 km out on the line to BRŠANJ (OSM way 179001802)",
+       "lat": 44.092742,
+       "lon": 15.253832
+      }
+     ]
+    },
+    {
+     "name": "ZVERINAC",
+     "points": [
+      {
+       "name": "ZVERINAC port, 0.5 km out on the line to ZADAR (OSM way 179012787)",
+       "lat": 44.155953,
+       "lon": 14.914412
+      },
+      {
+       "name": "ZVERINAC port, 0.5 km out on the line to MOLAT (OSM way 179012787)",
+       "lat": 44.158372,
+       "lon": 14.910142
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "ZADAR|PREMUDA": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "ZADAR|SILBA": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "ZADAR|OLIB": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "ZADAR|IST": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "MALI LOŠINJ|PREMUDA": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "MALI LOŠINJ|SILBA": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "MALI LOŠINJ|OLIB": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "MALI LOŠINJ|IST": {
+     "load capacity up to 3 t": 23.04,
+     "load capacity 3.01-4 t": 30.4,
+     "load capacity 4.01-5 t": 37.76
+    },
+    "ZADAR|MALI LOŠINJ": {
+     "load capacity up to 3 t": 33.52,
+     "load capacity 3.01-4 t": 44.4,
+     "load capacity 4.01-5 t": 55.28
+    },
+    "PREMUDA|OLIB": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "PREMUDA|SILBA": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "ZADAR|PREKO": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "ZADAR|OŠLJAK": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "PREKO|OŠLJAK": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "ZADAR|RIVANJ": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "ZADAR|SESTRUNJ": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "ZADAR|ZVERINAC": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "ZADAR|MOLAT": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "RIVANJ|SESTRUNJ": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "RIVANJ|MOLAT": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "RIVANJ|ZVERINAC": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "RIVANJ|IST": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "SESTRUNJ|MOLAT": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "SESTRUNJ|ZVERINAC": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "SESTRUNJ|IST": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "ZVERINAC|MOLAT": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "ZVERINAC|IST": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "MOLAT|IST": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "BRBINJ|ZADAR": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|BRŠANJ": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "ZADAR|RAVA": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "ZADAR|MALA RAVA": {
+     "load capacity up to 3 t": 20.56,
+     "load capacity 3.01-4 t": 27.12,
+     "load capacity 4.01-5 t": 33.6
+    },
+    "BRŠANJ|RAVA": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    },
+    "BRŠANJ|MALA RAVA": {
+     "load capacity up to 3 t": 14.64,
+     "load capacity 3.01-4 t": 19.2,
+     "load capacity 4.01-5 t": 23.68
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "ZADAR|PREMUDA": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "ZADAR|SILBA": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "ZADAR|OLIB": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "ZADAR|IST": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "MALI LOŠINJ|PREMUDA": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "MALI LOŠINJ|SILBA": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "MALI LOŠINJ|OLIB": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "MALI LOŠINJ|IST": {
+     "load capacity up to 3 t": 29.52,
+     "load capacity 3.01-4 t": 38.8,
+     "load capacity 4.01-5 t": 48.0
+    },
+    "ZADAR|MALI LOŠINJ": {
+     "load capacity up to 3 t": 41.44,
+     "load capacity 3.01-4 t": 54.64,
+     "load capacity 4.01-5 t": 67.84
+    },
+    "PREMUDA|OLIB": {
+     "load capacity up to 3 t": 17.52,
+     "load capacity 3.01-4 t": 22.4,
+     "load capacity 4.01-5 t": 27.36
+    },
+    "PREMUDA|SILBA": {
+     "load capacity up to 3 t": 17.52,
+     "load capacity 3.01-4 t": 22.4,
+     "load capacity 4.01-5 t": 27.36
+    },
+    "ZADAR|PREKO": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "ZADAR|OŠLJAK": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "PREKO|OŠLJAK": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.28
+    },
+    "ZADAR|RIVANJ": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|SESTRUNJ": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|ZVERINAC": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|MOLAT": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "RIVANJ|SESTRUNJ": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "RIVANJ|MOLAT": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "RIVANJ|ZVERINAC": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "RIVANJ|IST": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "SESTRUNJ|MOLAT": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "SESTRUNJ|ZVERINAC": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "SESTRUNJ|IST": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "ZVERINAC|MOLAT": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "ZVERINAC|IST": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "MOLAT|IST": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "BRBINJ|ZADAR": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|BRŠANJ": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|RAVA": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "ZADAR|MALA RAVA": {
+     "load capacity up to 3 t": 26.4,
+     "load capacity 3.01-4 t": 34.56,
+     "load capacity 4.01-5 t": 42.8
+    },
+    "BRŠANJ|RAVA": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    },
+    "BRŠANJ|MALA RAVA": {
+     "load capacity up to 3 t": 19.36,
+     "load capacity 3.01-4 t": 25.28,
+     "load capacity 4.01-5 t": 31.04
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 401 (1) / 401 (2) / 401 (3) / 431 / 433 (1) / 433 (2) / 434 / 435 (1) / 435 (2), goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 401 (1); line 401 (2); line 401 (3); line 431; line 433 (1); line 433 (2); line 434; line 435 (1); line 435 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BRBINJ",
+     "points": [
+      {
+       "name": "BRBINJ port, 0.5 km out on the line to ZADAR (OSM way 620626313)",
+       "lat": 44.087569,
+       "lon": 14.99292
+      }
+     ]
+    },
+    {
+     "name": "BRŠANJ",
+     "points": [
+      {
+       "name": "BRŠANJ port, 1.6 km out on the line to ZADAR (OSM way 179001802)",
+       "lat": 44.024649,
+       "lon": 15.164511
+      },
+      {
+       "name": "BRŠANJ port, 5.1 km out on the line to RAVA (OSM way 179002607)",
+       "lat": 43.992649,
+       "lon": 15.168018
+      }
+     ]
+    },
+    {
+     "name": "IST",
+     "points": [
+      {
+       "name": "IST port, 0.5 km out on the line to ZADAR (OSM way 179041208)",
+       "lat": 44.267217,
+       "lon": 14.768508
+      }
+     ]
+    },
+    {
+     "name": "MALA RAVA",
+     "points": [
+      {
+       "name": "MALA RAVA port, 0.5 km out on the line to ZADAR (OSM way 1151047124)",
+       "lat": 44.033845,
+       "lon": 15.05155
+      }
+     ]
+    },
+    {
+     "name": "MALI LOŠINJ",
+     "points": [
+      {
+       "name": "MALI LOŠINJ port, 5.4 km out on the line to PREMUDA (OSM way 178995980)",
+       "lat": 44.551159,
+       "lon": 14.416452
+      },
+      {
+       "name": "MALI LOŠINJ port, 4.8 km out on the line to SILBA (OSM way 178637592)",
+       "lat": 44.551928,
+       "lon": 14.417171
+      }
+     ]
+    },
+    {
+     "name": "MOLAT",
+     "points": [
+      {
+       "name": "MOLAT port, 0.5 km out on the line to ZADAR (OSM way 179012787)",
+       "lat": 44.209338,
+       "lon": 14.867246
+      },
+      {
+       "name": "MOLAT port, 0.5 km out on the line to RIVANJ (OSM way 179012787)",
+       "lat": 44.209657,
+       "lon": 14.866787
+      }
+     ]
+    },
+    {
+     "name": "OLIB",
+     "points": [
+      {
+       "name": "OLIB port, 0.5 km out on the line to ZADAR (OSM way 620626314)",
+       "lat": 44.379781,
+       "lon": 14.769119
+      },
+      {
+       "name": "OLIB port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070398)",
+       "lat": 44.380621,
+       "lon": 14.769104
+      }
+     ]
+    },
+    {
+     "name": "OŠLJAK",
+     "points": [
+      {
+       "name": "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 119280397)",
+       "lat": 44.08001,
+       "lon": 15.205794
+      },
+      {
+       "name": "OŠLJAK port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+       "lat": 44.082355,
+       "lon": 15.212223
+      },
+      {
+       "name": "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 119280395)",
+       "lat": 44.075981,
+       "lon": 15.203505
+      },
+      {
+       "name": "OŠLJAK port, 0.3 km out on the line to PREKO (OSM way 335800136)",
+       "lat": 44.07987,
+       "lon": 15.20328
+      }
+     ]
+    },
+    {
+     "name": "PREKO",
+     "points": [
+      {
+       "name": "PREKO port, 0.5 km out on the line to ZADAR (OSM way 335800136)",
+       "lat": 44.078619,
+       "lon": 15.199887
+      },
+      {
+       "name": "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 119280395)",
+       "lat": 44.077137,
+       "lon": 15.197376
+      },
+      {
+       "name": "PREKO port, 0.3 km out on the line to OŠLJAK (OSM way 335800136)",
+       "lat": 44.077666,
+       "lon": 15.197306
+      }
+     ]
+    },
+    {
+     "name": "PREMUDA",
+     "points": [
+      {
+       "name": "PREMUDA port, 0.5 km out on the line to ZADAR (OSM way 154070386)",
+       "lat": 44.339906,
+       "lon": 14.588045
+      },
+      {
+       "name": "PREMUDA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 178995980)",
+       "lat": 44.339442,
+       "lon": 14.587764
+      }
+     ]
+    },
+    {
+     "name": "RAVA",
+     "points": [
+      {
+       "name": "RAVA port, 0.5 km out on the line to ZADAR (OSM way 179002607)",
+       "lat": 44.019352,
+       "lon": 15.05631
+      }
+     ]
+    },
+    {
+     "name": "RIVANJ",
+     "points": [
+      {
+       "name": "RIVANJ port, 0.5 km out on the line to ZADAR (OSM way 335795665)",
+       "lat": 44.149767,
+       "lon": 15.027642
+      },
+      {
+       "name": "RIVANJ port, 0.5 km out on the line to SESTRUNJ (OSM way 179027678)",
+       "lat": 44.150195,
+       "lon": 15.026811
+      }
+     ]
+    },
+    {
+     "name": "SESTRUNJ",
+     "points": [
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to ZADAR (OSM way 179012793)",
+       "lat": 44.134495,
+       "lon": 15.013285
+      },
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to MOLAT (OSM way 179012793)",
+       "lat": 44.134075,
+       "lon": 15.011706
+      },
+      {
+       "name": "SESTRUNJ port, 0.5 km out on the line to ZVERINAC (OSM way 179751586)",
+       "lat": 44.133979,
+       "lon": 15.011081
+      }
+     ]
+    },
+    {
+     "name": "SILBA",
+     "points": [
+      {
+       "name": "SILBA port, 0.5 km out on the line to ZADAR (OSM way 154070394)",
+       "lat": 44.370564,
+       "lon": 14.687166
+      },
+      {
+       "name": "SILBA port, 0.5 km out on the line to MALI LOŠINJ (OSM way 154070394)",
+       "lat": 44.37241,
+       "lon": 14.685963
+      },
+      {
+       "name": "SILBA port, 0.5 km out on the line to PREMUDA (OSM way 154070394)",
+       "lat": 44.371459,
+       "lon": 14.686168
+      }
+     ]
+    },
+    {
+     "name": "ZADAR",
+     "points": [
+      {
+       "name": "ZADAR port, 0.5 km out on the line to PREMUDA (OSM way 335795665)",
+       "lat": 44.091748,
+       "lon": 15.250546
+      },
+      {
+       "name": "ZADAR port, 0.5 km out on the line to IST (OSM way 119280397)",
+       "lat": 44.091343,
+       "lon": 15.250933
+      },
+      {
+       "name": "ZADAR port, 0.5 km out on the line to BRŠANJ (OSM way 179001802)",
+       "lat": 44.092742,
+       "lon": 15.253832
+      }
+     ]
+    },
+    {
+     "name": "ZVERINAC",
+     "points": [
+      {
+       "name": "ZVERINAC port, 0.5 km out on the line to ZADAR (OSM way 179012787)",
+       "lat": 44.155953,
+       "lon": 14.914412
+      },
+      {
+       "name": "ZVERINAC port, 0.5 km out on the line to MOLAT (OSM way 179012787)",
+       "lat": 44.158372,
+       "lon": 14.910142
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "ZADAR|PREMUDA": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "ZADAR|SILBA": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "ZADAR|OLIB": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "ZADAR|IST": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "MALI LOŠINJ|PREMUDA": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "MALI LOŠINJ|SILBA": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "MALI LOŠINJ|OLIB": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "MALI LOŠINJ|IST": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "ZADAR|MALI LOŠINJ": {
+     "per tonne of load capacity over 5 t": 11.36
+    },
+    "PREMUDA|OLIB": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "PREMUDA|SILBA": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "ZADAR|PREKO": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "ZADAR|OŠLJAK": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "PREKO|OŠLJAK": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "ZADAR|RIVANJ": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "ZADAR|SESTRUNJ": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "ZADAR|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "ZADAR|MOLAT": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "RIVANJ|SESTRUNJ": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "RIVANJ|MOLAT": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "RIVANJ|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "RIVANJ|IST": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "SESTRUNJ|MOLAT": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "SESTRUNJ|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "SESTRUNJ|IST": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "ZVERINAC|MOLAT": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "ZVERINAC|IST": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "MOLAT|IST": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "BRBINJ|ZADAR": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|BRŠANJ": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "ZADAR|RAVA": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "ZADAR|MALA RAVA": {
+     "per tonne of load capacity over 5 t": 7.04
+    },
+    "BRŠANJ|RAVA": {
+     "per tonne of load capacity over 5 t": 5.04
+    },
+    "BRŠANJ|MALA RAVA": {
+     "per tonne of load capacity over 5 t": 5.04
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "ZADAR|PREMUDA": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "ZADAR|SILBA": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "ZADAR|OLIB": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "ZADAR|IST": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "MALI LOŠINJ|PREMUDA": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "MALI LOŠINJ|SILBA": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "MALI LOŠINJ|OLIB": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "MALI LOŠINJ|IST": {
+     "per tonne of load capacity over 5 t": 11.12
+    },
+    "ZADAR|MALI LOŠINJ": {
+     "per tonne of load capacity over 5 t": 14.16
+    },
+    "PREMUDA|OLIB": {
+     "per tonne of load capacity over 5 t": 7.28
+    },
+    "PREMUDA|SILBA": {
+     "per tonne of load capacity over 5 t": 7.28
+    },
+    "ZADAR|PREKO": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "ZADAR|OŠLJAK": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "PREKO|OŠLJAK": {
+     "per tonne of load capacity over 5 t": 6.4
+    },
+    "ZADAR|RIVANJ": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|SESTRUNJ": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|MOLAT": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "RIVANJ|SESTRUNJ": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "RIVANJ|MOLAT": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "RIVANJ|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "RIVANJ|IST": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "SESTRUNJ|MOLAT": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "SESTRUNJ|ZVERINAC": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "SESTRUNJ|IST": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "ZVERINAC|MOLAT": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "ZVERINAC|IST": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "MOLAT|IST": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "BRBINJ|ZADAR": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|BRŠANJ": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|RAVA": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "ZADAR|MALA RAVA": {
+     "per tonne of load capacity over 5 t": 9.2
+    },
+    "BRŠANJ|RAVA": {
+     "per tonne of load capacity over 5 t": 6.8
+    },
+    "BRŠANJ|MALA RAVA": {
+     "per tonne of load capacity over 5 t": 6.8
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 432, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 432: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BIOGRAD NA MORU",
+     "points": [
+      {
+       "name": "BIOGRAD NA MORU port, 0.5 km out on the line to TKON (OSM way 41714525)",
+       "lat": 43.937955,
+       "lon": 15.433819
+      }
+     ]
+    },
+    {
+     "name": "TKON",
+     "points": [
+      {
+       "name": "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 41714525)",
+       "lat": 43.928936,
+       "lon": 15.422042
+      },
+      {
+       "name": "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 941535200)",
+       "lat": 43.928064,
+       "lon": 15.421342
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "TKON|BIOGRAD NA MORU": {
+     "load capacity up to 3 t": 12.48,
+     "load capacity 3.01-4 t": 16.32,
+     "load capacity 4.01-5 t": 20.24
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "TKON|BIOGRAD NA MORU": {
+     "load capacity up to 3 t": 16.16,
+     "load capacity 3.01-4 t": 21.04,
+     "load capacity 4.01-5 t": 25.84
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 432, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 432: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "BIOGRAD NA MORU",
+     "points": [
+      {
+       "name": "BIOGRAD NA MORU port, 0.5 km out on the line to TKON (OSM way 41714525)",
+       "lat": 43.937955,
+       "lon": 15.433819
+      }
+     ]
+    },
+    {
+     "name": "TKON",
+     "points": [
+      {
+       "name": "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 41714525)",
+       "lat": 43.928936,
+       "lon": 15.422042
+      },
+      {
+       "name": "TKON port, 0.5 km out on the line to BIOGRAD NA MORU (OSM way 941535200)",
+       "lat": 43.928064,
+       "lon": 15.421342
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "TKON|BIOGRAD NA MORU": {
+     "per tonne of load capacity over 5 t": 4.32
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "TKON|BIOGRAD NA MORU": {
+     "per tonne of load capacity over 5 t": 5.68
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 532 (1) / 532 (2), goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 532 (1); line 532 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "KAPRIJE",
+     "points": [
+      {
+       "name": "KAPRIJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.68829,
+       "lon": 15.702558
+      }
+     ]
+    },
+    {
+     "name": "OBONJAN",
+     "points": [
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.683848,
+       "lon": 15.777993
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.683705,
+       "lon": 15.779107
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to KAPRIJE (OSM way 179054358)",
+       "lat": 43.677507,
+       "lon": 15.770201
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŽIRJE (OSM way 179054359)",
+       "lat": 43.676895,
+       "lon": 15.771744
+      }
+     ]
+    },
+    {
+     "name": "ZLARIN",
+     "points": [
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.718269,
+       "lon": 15.841376
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.717735,
+       "lon": 15.841815
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054358)",
+       "lat": 43.71386,
+       "lon": 15.830625
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054359)",
+       "lat": 43.713215,
+       "lon": 15.831139
+      }
+     ]
+    },
+    {
+     "name": "ŠIBENIK",
+     "points": [
+      {
+       "name": "ŠIBENIK port, 0.7 km out on the line to OBONJAN (OSM way 179054358)",
+       "lat": 43.729564,
+       "lon": 15.88549
+      }
+     ]
+    },
+    {
+     "name": "ŽIRJE",
+     "points": [
+      {
+       "name": "ŽIRJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.666104,
+       "lon": 15.654941
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "ŠIBENIK|OBONJAN": {
+     "load capacity up to 3 t": 19.44,
+     "load capacity 3.01-4 t": 25.68,
+     "load capacity 4.01-5 t": 31.84
+    },
+    "ŠIBENIK|KAPRIJE": {
+     "load capacity up to 3 t": 19.44,
+     "load capacity 3.01-4 t": 25.68,
+     "load capacity 4.01-5 t": 31.84
+    },
+    "ŠIBENIK|ŽIRJE": {
+     "load capacity up to 3 t": 19.44,
+     "load capacity 3.01-4 t": 25.68,
+     "load capacity 4.01-5 t": 31.84
+    },
+    "ZLARIN|ŠIBENIK": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "ZLARIN|OBONJAN": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "ZLARIN|ŽIRJE": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "ZLARIN|KAPRIJE": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "KAPRIJE|OBONJAN": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "KAPRIJE|ŽIRJE": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    },
+    "OBONJAN|ŽIRJE": {
+     "load capacity up to 3 t": 17.12,
+     "load capacity 3.01-4 t": 22.56,
+     "load capacity 4.01-5 t": 28.0
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "ŠIBENIK|OBONJAN": {
+     "load capacity up to 3 t": 24.96,
+     "load capacity 3.01-4 t": 32.72,
+     "load capacity 4.01-5 t": 40.48
+    },
+    "ŠIBENIK|KAPRIJE": {
+     "load capacity up to 3 t": 24.96,
+     "load capacity 3.01-4 t": 32.72,
+     "load capacity 4.01-5 t": 40.48
+    },
+    "ŠIBENIK|ŽIRJE": {
+     "load capacity up to 3 t": 24.96,
+     "load capacity 3.01-4 t": 32.72,
+     "load capacity 4.01-5 t": 40.48
+    },
+    "ZLARIN|ŠIBENIK": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "ZLARIN|OBONJAN": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "ZLARIN|ŽIRJE": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "ZLARIN|KAPRIJE": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "KAPRIJE|OBONJAN": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "KAPRIJE|ŽIRJE": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    },
+    "OBONJAN|ŽIRJE": {
+     "load capacity up to 3 t": 22.0,
+     "load capacity 3.01-4 t": 28.72,
+     "load capacity 4.01-5 t": 35.52
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 532 (1) / 532 (2), goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 532 (1); line 532 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "KAPRIJE",
+     "points": [
+      {
+       "name": "KAPRIJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.68829,
+       "lon": 15.702558
+      }
+     ]
+    },
+    {
+     "name": "OBONJAN",
+     "points": [
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.683848,
+       "lon": 15.777993
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.683705,
+       "lon": 15.779107
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to KAPRIJE (OSM way 179054358)",
+       "lat": 43.677507,
+       "lon": 15.770201
+      },
+      {
+       "name": "OBONJAN port, 0.5 km out on the line to ŽIRJE (OSM way 179054359)",
+       "lat": 43.676895,
+       "lon": 15.771744
+      }
+     ]
+    },
+    {
+     "name": "ZLARIN",
+     "points": [
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054358)",
+       "lat": 43.718269,
+       "lon": 15.841376
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.717735,
+       "lon": 15.841815
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054358)",
+       "lat": 43.71386,
+       "lon": 15.830625
+      },
+      {
+       "name": "ZLARIN port, 0.5 km out on the line to OBONJAN (OSM way 179054359)",
+       "lat": 43.713215,
+       "lon": 15.831139
+      }
+     ]
+    },
+    {
+     "name": "ŠIBENIK",
+     "points": [
+      {
+       "name": "ŠIBENIK port, 0.7 km out on the line to OBONJAN (OSM way 179054358)",
+       "lat": 43.729564,
+       "lon": 15.88549
+      }
+     ]
+    },
+    {
+     "name": "ŽIRJE",
+     "points": [
+      {
+       "name": "ŽIRJE port, 0.5 km out on the line to ŠIBENIK (OSM way 179054359)",
+       "lat": 43.666104,
+       "lon": 15.654941
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "ŠIBENIK|OBONJAN": {
+     "per tonne of load capacity over 5 t": 6.64
+    },
+    "ŠIBENIK|KAPRIJE": {
+     "per tonne of load capacity over 5 t": 6.64
+    },
+    "ŠIBENIK|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 6.64
+    },
+    "ZLARIN|ŠIBENIK": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "ZLARIN|OBONJAN": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "ZLARIN|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "ZLARIN|KAPRIJE": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "KAPRIJE|OBONJAN": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "KAPRIJE|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 5.84
+    },
+    "OBONJAN|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 5.84
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "ŠIBENIK|OBONJAN": {
+     "per tonne of load capacity over 5 t": 8.72
+    },
+    "ŠIBENIK|KAPRIJE": {
+     "per tonne of load capacity over 5 t": 8.72
+    },
+    "ŠIBENIK|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 8.72
+    },
+    "ZLARIN|ŠIBENIK": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "ZLARIN|OBONJAN": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "ZLARIN|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "ZLARIN|KAPRIJE": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "KAPRIJE|OBONJAN": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "KAPRIJE|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 7.6
+    },
+    "OBONJAN|ŽIRJE": {
+     "per tonne of load capacity over 5 t": 7.6
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 602 / 604 (1) / 604 (2) / 631 / 635 / 636, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 602; line 604 (1); line 604 (2); line 631; line 635; line 636: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "ROGAČ",
+     "points": [
+      {
+       "name": "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 26661268)",
+       "lat": 43.400669,
+       "lon": 16.303265
+      },
+      {
+       "name": "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 229050289)",
+       "lat": 43.399809,
+       "lon": 16.30322
+      }
+     ]
+    },
+    {
+     "name": "SPLIT",
+     "points": [
+      {
+       "name": "SPLIT port, 0.5 km out on the line to VIS (OSM way 73102583)",
+       "lat": 43.5002,
+       "lon": 16.433463
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to SUPETAR (OSM way 12307574)",
+       "lat": 43.498295,
+       "lon": 16.434624
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to STARI GRAD (OSM way 29500693)",
+       "lat": 43.500217,
+       "lon": 16.434506
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 26661268)",
+       "lat": 43.500775,
+       "lon": 16.433094
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 229050289)",
+       "lat": 43.503233,
+       "lon": 16.434485
+      }
+     ]
+    },
+    {
+     "name": "STARI GRAD",
+     "points": [
+      {
+       "name": "STARI GRAD port, 0.5 km out on the line to SPLIT (OSM way 29500693)",
+       "lat": 43.185182,
+       "lon": 16.572899
+      }
+     ]
+    },
+    {
+     "name": "SUPETAR",
+     "points": [
+      {
+       "name": "SUPETAR port, 0.5 km out on the line to SPLIT (OSM way 12307574)",
+       "lat": 43.389463,
+       "lon": 16.551522
+      }
+     ]
+    },
+    {
+     "name": "UBLI",
+     "points": [
+      {
+       "name": "UBLI port, 0.5 km out on the line to SPLIT (OSM way 39531072)",
+       "lat": 42.748651,
+       "lon": 16.820807
+      }
+     ]
+    },
+    {
+     "name": "VELA LUKA",
+     "points": [
+      {
+       "name": "VELA LUKA port, 33.5 km out on the line to SPLIT (OSM way 58946165)",
+       "lat": 43.164294,
+       "lon": 16.435676
+      },
+      {
+       "name": "VELA LUKA port, 3.0 km out on the line to UBLI (OSM way 39531072)",
+       "lat": 42.962329,
+       "lon": 16.6703
+      }
+     ]
+    },
+    {
+     "name": "VIS",
+     "points": [
+      {
+       "name": "VIS port, 3.0 km out on the line to SPLIT (OSM way 73102583)",
+       "lat": 43.07871,
+       "lon": 16.209189
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "VIS|SPLIT": {
+     "load capacity up to 3 t": 31.76,
+     "load capacity 3.01-4 t": 42.08,
+     "load capacity 4.01-5 t": 52.32
+    },
+    "SPLIT|VELA LUKA": {
+     "load capacity up to 3 t": 42.64,
+     "load capacity 3.01-4 t": 56.56,
+     "load capacity 4.01-5 t": 70.4
+    },
+    "SPLIT|UBLI": {
+     "load capacity up to 3 t": 42.64,
+     "load capacity 3.01-4 t": 56.56,
+     "load capacity 4.01-5 t": 70.4
+    },
+    "VELA LUKA|UBLI": {
+     "load capacity up to 3 t": 18.08,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.52
+    },
+    "SUPETAR|SPLIT": {
+     "load capacity up to 3 t": 22.64,
+     "load capacity 3.01-4 t": 29.6,
+     "load capacity 4.01-5 t": 36.56
+    },
+    "STARI GRAD|SPLIT": {
+     "load capacity up to 3 t": 24.72,
+     "load capacity 3.01-4 t": 32.72,
+     "load capacity 4.01-5 t": 40.64
+    },
+    "ROGAČ|SPLIT": {
+     "load capacity up to 3 t": 17.44,
+     "load capacity 3.01-4 t": 22.96,
+     "load capacity 4.01-5 t": 28.48
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "VIS|SPLIT": {
+     "load capacity up to 3 t": 38.64,
+     "load capacity 3.01-4 t": 50.96,
+     "load capacity 4.01-5 t": 63.2
+    },
+    "SPLIT|VELA LUKA": {
+     "load capacity up to 3 t": 53.04,
+     "load capacity 3.01-4 t": 70.08,
+     "load capacity 4.01-5 t": 87.12
+    },
+    "SPLIT|UBLI": {
+     "load capacity up to 3 t": 53.04,
+     "load capacity 3.01-4 t": 70.08,
+     "load capacity 4.01-5 t": 87.12
+    },
+    "VELA LUKA|UBLI": {
+     "load capacity up to 3 t": 23.6,
+     "load capacity 3.01-4 t": 30.88,
+     "load capacity 4.01-5 t": 38.08
+    },
+    "SUPETAR|SPLIT": {
+     "load capacity up to 3 t": 22.64,
+     "load capacity 3.01-4 t": 29.6,
+     "load capacity 4.01-5 t": 36.56
+    },
+    "STARI GRAD|SPLIT": {
+     "load capacity up to 3 t": 31.28,
+     "load capacity 3.01-4 t": 41.12,
+     "load capacity 4.01-5 t": 50.96
+    },
+    "ROGAČ|SPLIT": {
+     "load capacity up to 3 t": 21.68,
+     "load capacity 3.01-4 t": 28.32,
+     "load capacity 4.01-5 t": 34.96
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 602 / 604 (1) / 604 (2) / 631 / 635 / 636, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 602; line 604 (1); line 604 (2); line 631; line 635; line 636: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "ROGAČ",
+     "points": [
+      {
+       "name": "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 26661268)",
+       "lat": 43.400669,
+       "lon": 16.303265
+      },
+      {
+       "name": "ROGAČ port, 0.5 km out on the line to SPLIT (OSM way 229050289)",
+       "lat": 43.399809,
+       "lon": 16.30322
+      }
+     ]
+    },
+    {
+     "name": "SPLIT",
+     "points": [
+      {
+       "name": "SPLIT port, 0.5 km out on the line to VIS (OSM way 73102583)",
+       "lat": 43.5002,
+       "lon": 16.433463
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to SUPETAR (OSM way 12307574)",
+       "lat": 43.498295,
+       "lon": 16.434624
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to STARI GRAD (OSM way 29500693)",
+       "lat": 43.500217,
+       "lon": 16.434506
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 26661268)",
+       "lat": 43.500775,
+       "lon": 16.433094
+      },
+      {
+       "name": "SPLIT port, 0.5 km out on the line to ROGAČ (OSM way 229050289)",
+       "lat": 43.503233,
+       "lon": 16.434485
+      }
+     ]
+    },
+    {
+     "name": "STARI GRAD",
+     "points": [
+      {
+       "name": "STARI GRAD port, 0.5 km out on the line to SPLIT (OSM way 29500693)",
+       "lat": 43.185182,
+       "lon": 16.572899
+      }
+     ]
+    },
+    {
+     "name": "SUPETAR",
+     "points": [
+      {
+       "name": "SUPETAR port, 0.5 km out on the line to SPLIT (OSM way 12307574)",
+       "lat": 43.389463,
+       "lon": 16.551522
+      }
+     ]
+    },
+    {
+     "name": "UBLI",
+     "points": [
+      {
+       "name": "UBLI port, 0.5 km out on the line to SPLIT (OSM way 39531072)",
+       "lat": 42.748651,
+       "lon": 16.820807
+      }
+     ]
+    },
+    {
+     "name": "VELA LUKA",
+     "points": [
+      {
+       "name": "VELA LUKA port, 33.5 km out on the line to SPLIT (OSM way 58946165)",
+       "lat": 43.164294,
+       "lon": 16.435676
+      },
+      {
+       "name": "VELA LUKA port, 3.0 km out on the line to UBLI (OSM way 39531072)",
+       "lat": 42.962329,
+       "lon": 16.6703
+      }
+     ]
+    },
+    {
+     "name": "VIS",
+     "points": [
+      {
+       "name": "VIS port, 3.0 km out on the line to SPLIT (OSM way 73102583)",
+       "lat": 43.07871,
+       "lon": 16.209189
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "VIS|SPLIT": {
+     "per tonne of load capacity over 5 t": 10.72
+    },
+    "SPLIT|VELA LUKA": {
+     "per tonne of load capacity over 5 t": 13.92
+    },
+    "SPLIT|UBLI": {
+     "per tonne of load capacity over 5 t": 13.92
+    },
+    "VELA LUKA|UBLI": {
+     "per tonne of load capacity over 5 t": 6.16
+    },
+    "SUPETAR|SPLIT": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "STARI GRAD|SPLIT": {
+     "per tonne of load capacity over 5 t": 8.4
+    },
+    "ROGAČ|SPLIT": {
+     "per tonne of load capacity over 5 t": 6.0
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "VIS|SPLIT": {
+     "per tonne of load capacity over 5 t": 13.2
+    },
+    "SPLIT|VELA LUKA": {
+     "per tonne of load capacity over 5 t": 17.6
+    },
+    "SPLIT|UBLI": {
+     "per tonne of load capacity over 5 t": 17.6
+    },
+    "VELA LUKA|UBLI": {
+     "per tonne of load capacity over 5 t": 8.16
+    },
+    "SUPETAR|SPLIT": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "STARI GRAD|SPLIT": {
+     "per tonne of load capacity over 5 t": 10.72
+    },
+    "ROGAČ|SPLIT": {
+     "per tonne of load capacity over 5 t": 7.52
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 606 (1) / 606 (2), goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 606 (1); line 606 (2): goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DRVENIK MALI",
+     "points": [
+      {
+       "name": "DRVENIK MALI port, 0.5 km out on the line to TROGIR (OSM way 192129897)",
+       "lat": 43.450586,
+       "lon": 16.09603
+      }
+     ]
+    },
+    {
+     "name": "DRVENIK VELI",
+     "points": [
+      {
+       "name": "DRVENIK VELI port, 0.5 km out on the line to TROGIR (OSM way 192129897)",
+       "lat": 43.451739,
+       "lon": 16.139086
+      }
+     ]
+    },
+    {
+     "name": "TROGIR",
+     "points": [
+      {
+       "name": "TROGIR port, 0.5 km out on the line to DRVENIK VELI (OSM way 192129897)",
+       "lat": 43.513334,
+       "lon": 16.237272
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "TROGIR|DRVENIK VELI": {
+     "load capacity up to 3 t": 18.48,
+     "load capacity 3.01-4 t": 24.32,
+     "load capacity 4.01-5 t": 30.08
+    },
+    "TROGIR|DRVENIK MALI": {
+     "load capacity up to 3 t": 18.48,
+     "load capacity 3.01-4 t": 24.32,
+     "load capacity 4.01-5 t": 30.08
+    },
+    "DRVENIK VELI|DRVENIK MALI": {
+     "load capacity up to 3 t": 13.2,
+     "load capacity 3.01-4 t": 17.28,
+     "load capacity 4.01-5 t": 21.36
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "TROGIR|DRVENIK VELI": {
+     "load capacity up to 3 t": 23.92,
+     "load capacity 3.01-4 t": 31.28,
+     "load capacity 4.01-5 t": 38.64
+    },
+    "TROGIR|DRVENIK MALI": {
+     "load capacity up to 3 t": 23.92,
+     "load capacity 3.01-4 t": 31.28,
+     "load capacity 4.01-5 t": 38.64
+    },
+    "DRVENIK VELI|DRVENIK MALI": {
+     "load capacity up to 3 t": 17.68,
+     "load capacity 3.01-4 t": 22.88,
+     "load capacity 4.01-5 t": 28.16
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 606 (1) / 606 (2), goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 606 (1); line 606 (2): goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DRVENIK MALI",
+     "points": [
+      {
+       "name": "DRVENIK MALI port, 0.5 km out on the line to TROGIR (OSM way 192129897)",
+       "lat": 43.450586,
+       "lon": 16.09603
+      }
+     ]
+    },
+    {
+     "name": "DRVENIK VELI",
+     "points": [
+      {
+       "name": "DRVENIK VELI port, 0.5 km out on the line to TROGIR (OSM way 192129897)",
+       "lat": 43.451739,
+       "lon": 16.139086
+      }
+     ]
+    },
+    {
+     "name": "TROGIR",
+     "points": [
+      {
+       "name": "TROGIR port, 0.5 km out on the line to DRVENIK VELI (OSM way 192129897)",
+       "lat": 43.513334,
+       "lon": 16.237272
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "TROGIR|DRVENIK VELI": {
+     "per tonne of load capacity over 5 t": 6.32
+    },
+    "TROGIR|DRVENIK MALI": {
+     "per tonne of load capacity over 5 t": 6.32
+    },
+    "DRVENIK VELI|DRVENIK MALI": {
+     "per tonne of load capacity over 5 t": 4.56
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "TROGIR|DRVENIK VELI": {
+     "per tonne of load capacity over 5 t": 8.32
+    },
+    "TROGIR|DRVENIK MALI": {
+     "per tonne of load capacity over 5 t": 8.32
+    },
+    "DRVENIK VELI|DRVENIK MALI": {
+     "per tonne of load capacity over 5 t": 6.16
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 632, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 632: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DRVENIK",
+     "points": [
+      {
+       "name": "DRVENIK port, 0.5 km out on the line to SUĆURAJ (OSM way 29893858)",
+       "lat": 43.151228,
+       "lon": 17.245633
+      }
+     ]
+    },
+    {
+     "name": "SUĆURAJ",
+     "points": [
+      {
+       "name": "SUĆURAJ port, 0.5 km out on the line to DRVENIK (OSM way 29893858)",
+       "lat": 43.122615,
+       "lon": 17.194856
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SUĆURAJ|DRVENIK": {
+     "load capacity up to 3 t": 12.16,
+     "load capacity 3.01-4 t": 15.92,
+     "load capacity 4.01-5 t": 19.68
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SUĆURAJ|DRVENIK": {
+     "load capacity up to 3 t": 16.0,
+     "load capacity 3.01-4 t": 20.8,
+     "load capacity 4.01-5 t": 25.52
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 632, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 632: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DRVENIK",
+     "points": [
+      {
+       "name": "DRVENIK port, 0.5 km out on the line to SUĆURAJ (OSM way 29893858)",
+       "lat": 43.151228,
+       "lon": 17.245633
+      }
+     ]
+    },
+    {
+     "name": "SUĆURAJ",
+     "points": [
+      {
+       "name": "SUĆURAJ port, 0.5 km out on the line to DRVENIK (OSM way 29893858)",
+       "lat": 43.122615,
+       "lon": 17.194856
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SUĆURAJ|DRVENIK": {
+     "per tonne of load capacity over 5 t": 4.16
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SUĆURAJ|DRVENIK": {
+     "per tonne of load capacity over 5 t": 5.6
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 633, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 633: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PLOČE",
+     "points": [
+      {
+       "name": "PLOČE port, 0.5 km out on the line to TRPANJ (OSM way 144985254)",
+       "lat": 43.051754,
+       "lon": 17.427825
+      }
+     ]
+    },
+    {
+     "name": "TRPANJ",
+     "points": [
+      {
+       "name": "TRPANJ port, 0.5 km out on the line to PLOČE (OSM way 144985254)",
+       "lat": 43.012773,
+       "lon": 17.264528
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "PLOČE|TRPANJ": {
+     "load capacity up to 3 t": 14.24,
+     "load capacity 3.01-4 t": 18.72,
+     "load capacity 4.01-5 t": 23.12
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "PLOČE|TRPANJ": {
+     "load capacity up to 3 t": 18.32,
+     "load capacity 3.01-4 t": 23.84,
+     "load capacity 4.01-5 t": 29.36
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 633, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 633: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PLOČE",
+     "points": [
+      {
+       "name": "PLOČE port, 0.5 km out on the line to TRPANJ (OSM way 144985254)",
+       "lat": 43.051754,
+       "lon": 17.427825
+      }
+     ]
+    },
+    {
+     "name": "TRPANJ",
+     "points": [
+      {
+       "name": "TRPANJ port, 0.5 km out on the line to PLOČE (OSM way 144985254)",
+       "lat": 43.012773,
+       "lon": 17.264528
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "PLOČE|TRPANJ": {
+     "per tonne of load capacity over 5 t": 4.88
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "PLOČE|TRPANJ": {
+     "per tonne of load capacity over 5 t": 6.4
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 634, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 634: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DOMINČE",
+     "points": [
+      {
+       "name": "DOMINČE port, 0.5 km out on the line to OREBIĆ (OSM way 29971850)",
+       "lat": 42.954703,
+       "lon": 17.15
+      }
+     ]
+    },
+    {
+     "name": "OREBIĆ",
+     "points": [
+      {
+       "name": "OREBIĆ port, 0.5 km out on the line to DOMINČE (OSM way 29971850)",
+       "lat": 42.971828,
+       "lon": 17.169747
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "DOMINČE|OREBIĆ": {
+     "load capacity up to 3 t": 11.84,
+     "load capacity 3.01-4 t": 15.44,
+     "load capacity 4.01-5 t": 19.36
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "DOMINČE|OREBIĆ": {
+     "load capacity up to 3 t": 15.92,
+     "load capacity 3.01-4 t": 20.56,
+     "load capacity 4.01-5 t": 25.28
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 634, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 634: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DOMINČE",
+     "points": [
+      {
+       "name": "DOMINČE port, 0.5 km out on the line to OREBIĆ (OSM way 29971850)",
+       "lat": 42.954703,
+       "lon": 17.15
+      }
+     ]
+    },
+    {
+     "name": "OREBIĆ",
+     "points": [
+      {
+       "name": "OREBIĆ port, 0.5 km out on the line to DOMINČE (OSM way 29971850)",
+       "lat": 42.971828,
+       "lon": 17.169747
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "DOMINČE|OREBIĆ": {
+     "per tonne of load capacity over 5 t": 4.08
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "DOMINČE|OREBIĆ": {
+     "per tonne of load capacity over 5 t": 5.6
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 638, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 638: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-01 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "MAKARSKA",
+     "points": [
+      {
+       "name": "MAKARSKA port, 0.5 km out on the line to SUMARTIN (OSM way 29893191)",
+       "lat": 43.29006,
+       "lon": 17.014206
+      }
+     ]
+    },
+    {
+     "name": "SUMARTIN",
+     "points": [
+      {
+       "name": "SUMARTIN port, 0.5 km out on the line to MAKARSKA (OSM way 29893191)",
+       "lat": 43.280973,
+       "lon": 16.870261
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SUMARTIN|MAKARSKA": {
+     "load capacity up to 3 t": 18.48,
+     "load capacity 3.01-4 t": 24.32,
+     "load capacity 4.01-5 t": 30.16
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-01",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SUMARTIN|MAKARSKA": {
+     "load capacity up to 3 t": 23.92,
+     "load capacity 3.01-4 t": 31.28,
+     "load capacity 4.01-5 t": 38.64
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 638, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 638: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-01 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "MAKARSKA",
+     "points": [
+      {
+       "name": "MAKARSKA port, 0.5 km out on the line to SUMARTIN (OSM way 29893191)",
+       "lat": 43.29006,
+       "lon": 17.014206
+      }
+     ]
+    },
+    {
+     "name": "SUMARTIN",
+     "points": [
+      {
+       "name": "SUMARTIN port, 0.5 km out on the line to MAKARSKA (OSM way 29893191)",
+       "lat": 43.280973,
+       "lon": 16.870261
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SUMARTIN|MAKARSKA": {
+     "per tonne of load capacity over 5 t": 6.32
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-01",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SUMARTIN|MAKARSKA": {
+     "per tonne of load capacity over 5 t": 8.32
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 831, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 831: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DUBROVNIK",
+     "points": [
+      {
+       "name": "DUBROVNIK port, 0.5 km out on the line to SUĐURAĐ (OSM way 60295883)",
+       "lat": 42.66123,
+       "lon": 18.081793
+      },
+      {
+       "name": "DUBROVNIK port, 0.5 km out on the line to KOLOČEP (OSM way 174921703)",
+       "lat": 42.660572,
+       "lon": 18.08212
+      }
+     ]
+    },
+    {
+     "name": "KOLOČEP",
+     "points": [
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 174921703)",
+       "lat": 42.682037,
+       "lon": 17.999547
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178630799)",
+       "lat": 42.68444,
+       "lon": 18.012068
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178657278)",
+       "lat": 42.684858,
+       "lon": 18.012336
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to SUĐURAĐ (OSM way 174921703)",
+       "lat": 42.681312,
+       "lon": 17.998986
+      }
+     ]
+    },
+    {
+     "name": "SUĐURAĐ",
+     "points": [
+      {
+       "name": "SUĐURAĐ port, 0.5 km out on the line to DUBROVNIK (OSM way 178708098)",
+       "lat": 42.709153,
+       "lon": 17.917291
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "DUBROVNIK|SUĐURAĐ": {
+     "load capacity up to 3 t": 17.44,
+     "load capacity 3.01-4 t": 22.96,
+     "load capacity 4.01-5 t": 28.48
+    },
+    "DUBROVNIK|KOLOČEP": {
+     "load capacity up to 3 t": 17.44,
+     "load capacity 3.01-4 t": 22.96,
+     "load capacity 4.01-5 t": 28.48
+    },
+    "KOLOČEP|SUĐURAĐ": {
+     "load capacity up to 3 t": 17.44,
+     "load capacity 3.01-4 t": 22.96,
+     "load capacity 4.01-5 t": 28.48
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "DUBROVNIK|SUĐURAĐ": {
+     "load capacity up to 3 t": 22.64,
+     "load capacity 3.01-4 t": 29.6,
+     "load capacity 4.01-5 t": 36.56
+    },
+    "DUBROVNIK|KOLOČEP": {
+     "load capacity up to 3 t": 22.64,
+     "load capacity 3.01-4 t": 29.6,
+     "load capacity 4.01-5 t": 36.56
+    },
+    "KOLOČEP|SUĐURAĐ": {
+     "load capacity up to 3 t": 22.64,
+     "load capacity 3.01-4 t": 29.6,
+     "load capacity 4.01-5 t": 36.56
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 831, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 831: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "DUBROVNIK",
+     "points": [
+      {
+       "name": "DUBROVNIK port, 0.5 km out on the line to SUĐURAĐ (OSM way 60295883)",
+       "lat": 42.66123,
+       "lon": 18.081793
+      },
+      {
+       "name": "DUBROVNIK port, 0.5 km out on the line to KOLOČEP (OSM way 174921703)",
+       "lat": 42.660572,
+       "lon": 18.08212
+      }
+     ]
+    },
+    {
+     "name": "KOLOČEP",
+     "points": [
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 174921703)",
+       "lat": 42.682037,
+       "lon": 17.999547
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178630799)",
+       "lat": 42.68444,
+       "lon": 18.012068
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to DUBROVNIK (OSM way 178657278)",
+       "lat": 42.684858,
+       "lon": 18.012336
+      },
+      {
+       "name": "KOLOČEP port, 0.5 km out on the line to SUĐURAĐ (OSM way 174921703)",
+       "lat": 42.681312,
+       "lon": 17.998986
+      }
+     ]
+    },
+    {
+     "name": "SUĐURAĐ",
+     "points": [
+      {
+       "name": "SUĐURAĐ port, 0.5 km out on the line to DUBROVNIK (OSM way 178708098)",
+       "lat": 42.709153,
+       "lon": 17.917291
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "DUBROVNIK|SUĐURAĐ": {
+     "per tonne of load capacity over 5 t": 6.0
+    },
+    "DUBROVNIK|KOLOČEP": {
+     "per tonne of load capacity over 5 t": 6.0
+    },
+    "KOLOČEP|SUĐURAĐ": {
+     "per tonne of load capacity over 5 t": 6.0
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "DUBROVNIK|SUĐURAĐ": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "DUBROVNIK|KOLOČEP": {
+     "per tonne of load capacity over 5 t": 7.84
+    },
+    "KOLOČEP|SUĐURAĐ": {
+     "per tonne of load capacity over 5 t": 7.84
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  },
+  {
+   "name": "Jadrolinija 832, goods vehicles up to 5 t",
+   "law": "Jadrolinija's 2026 price list, line 832: goods vehicles and trailers up to 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "load capacity up to 3 t",
+     "min_kg": 3501,
+     "max_capacity_kg": 3000
+    },
+    {
+     "name": "load capacity 3.01-4 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 3000,
+     "max_capacity_kg": 4000
+    },
+    {
+     "name": "load capacity 4.01-5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 4000,
+     "max_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PRAPRATNO",
+     "points": [
+      {
+       "name": "PRAPRATNO port, 0.5 km out on the line to SOBRA (OSM way 60441554)",
+       "lat": 42.807971,
+       "lon": 17.674913
+      }
+     ]
+    },
+    {
+     "name": "SOBRA",
+     "points": [
+      {
+       "name": "SOBRA port, 1.1 km out on the line to PRAPRATNO (OSM way 60441554)",
+       "lat": 42.746736,
+       "lon": 17.622694
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SOBRA|PRAPRATNO": {
+     "load capacity up to 3 t": 17.76,
+     "load capacity 3.01-4 t": 23.36,
+     "load capacity 4.01-5 t": 28.96
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SOBRA|PRAPRATNO": {
+     "load capacity up to 3 t": 21.52,
+     "load capacity 3.01-4 t": 28.08,
+     "load capacity 4.01-5 t": 34.56
+    }
+   }
+  },
+  {
+   "name": "Jadrolinija 832, goods vehicles per tonne over 5 t",
+   "law": "Jadrolinija's 2026 price list, line 832: goods vehicles and trailers per tonne over 5 t of load capacity (season 2026-05-29 to 2026-09-27)",
+   "groups": [
+    {
+     "name": "per tonne of load capacity over 5 t",
+     "min_kg": 3501,
+     "min_capacity_kg": 5000
+    }
+   ],
+   "stations": [
+    {
+     "name": "PRAPRATNO",
+     "points": [
+      {
+       "name": "PRAPRATNO port, 0.5 km out on the line to SOBRA (OSM way 60441554)",
+       "lat": 42.807971,
+       "lon": 17.674913
+      }
+     ]
+    },
+    {
+     "name": "SOBRA",
+     "points": [
+      {
+       "name": "SOBRA port, 1.1 km out on the line to PRAPRATNO (OSM way 60441554)",
+       "lat": 42.746736,
+       "lon": 17.622694
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "SOBRA|PRAPRATNO": {
+     "per tonne of load capacity over 5 t": 6.08
+    }
+   },
+   "unmatched": "free",
+   "season": [
+    [
+     "2026-05-29",
+     "2026-09-27"
+    ]
+   ],
+   "season_prices": {
+    "SOBRA|PRAPRATNO": {
+     "per tonne of load capacity over 5 t": 7.52
+    }
+   },
+   "unit": "t",
+   "mass_basis": "load_capacity_kg"
+  }
+ ],
+ "rows": []
+}

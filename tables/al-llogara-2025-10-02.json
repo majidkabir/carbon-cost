@@ -1,0 +1,46 @@
+{
+ "country": "AL",
+ "currency": "ALL",
+ "valid_from": "2025-10-02",
+ "crossings": true,
+ "osm_extract": "2026-11-21",
+ "name": "Llogara tunnel toll",
+ "law": "Udhëzim i përbashkët nr. 4, datë 12.9.2025, of the Minister of Infrastructure and Energy and the Minister of Finance, Fletorja Zyrtare nr. 177/2025, in force on its publication on 2 October 2025: the tariff for using the Llogara tunnel (Shtojca I, with VAT): high vehicles with 2 axles ALL 350, with 3 axles ALL 500, with 4, 5, 6 or 7 and more axles ALL 5000. Trucks over 3.5 t are taken to be high vehicles (the instruction gives no height). Excluding 20% VAT. Charged per passage, either way, at the middle of the tunnel's way in OpenStreetMap. Prepaid (subscription) tariffs aren't modelled; vehicles carrying dangerous goods may not use the tunnel.",
+ "sources": [
+  {
+   "title": "Udhëzim i përbashkët nr. 4, datë 12.9.2025, Për përcaktimin e tarifave për përdorimin e Tunelit të Llogorasë nga përdoruesit e rrugës (Qendra e Botimeve Zyrtare)",
+   "url": "https://qbz.gov.al/eli/udhezim/2025/09/12/4"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Llogara tunnel (SH8, Dukat–Palasë), charged per passage either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Tuneli i Llogarasë",
+   "lat": 40.206968,
+   "lon": 19.570068,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 291.6667
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "max_axles": 3,
+     "rate": 416.6667
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 4166.6667
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

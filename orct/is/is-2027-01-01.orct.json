@@ -1,0 +1,1380 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/is/2027-01-01",
+  "scheme": {
+   "id": "is",
+   "name": "Kílómetragjald (km fee on vehicles)",
+   "country": "IS"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2027-01-01",
+  "valid_to": "2027-12-31",
+  "currency": "ISK",
+  "timezone": "Atlantic/Reykjavik",
+  "license": "MIT",
+  "method": "Lög um kílómetragjald á ökutæki nr. 100/2025, in Alþingi's lagasafn útgáfa 157b (20. apríl 2026): 6. gr., ISK per km by the vehicle's gjaldþyngd, its permissible total weight on registration; from 10,000 kg at most the annex's maximum by axles (motor vehicle 18,000, 26,000, 32,000 kg with 2, 3, 4 or more axles; trailer 10,000, 18,000, 24,000 kg with 1, 2, 3 or more). The motor vehicle and the trailer each pay on their own (give motor_mass_kg, trailer_mass_kg and motor_axles); the annex's maxima for road trains are not applied. Temporary provisions VI and VII for 2027: the trailer at 80 % of its band; trucks of 10,000 kg or more running on methane, methanol, electricity or hydrogen, and their trailers, at 20 %. Buses' discounts are left out. Foreign vehicles in Iceland pay it too (3. gr.).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "is-2027-01-01.json"
+  },
+  "required_features": ["type.distance"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Lög um kílómetragjald á ökutæki nr. 100/2025 (Alþingi, lagasafn)",
+   "url": "https://www.althingi.is/lagas/nuna/2025100.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "All vehicles; trailers over 3,500 kg",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "toll-motor-1",
+   "classes": [
+    {
+     "id": "toll-motor-1.1",
+     "criteria": {
+      "mass_kg": {
+       "min": 18001
+      },
+      "axles": {
+       "min": 2,
+       "max": 2
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.2",
+     "criteria": {
+      "mass_kg": {
+       "min": 26001
+      },
+      "axles": {
+       "min": 3,
+       "max": 3
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.3",
+     "criteria": {
+      "mass_kg": {
+       "min": 32001
+      },
+      "axles": {
+       "min": 4
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.4",
+     "criteria": {
+      "mass_kg": {
+       "min": 10000,
+       "max": 10000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.5",
+     "criteria": {
+      "mass_kg": {
+       "min": 10001,
+       "max": 11000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.6",
+     "criteria": {
+      "mass_kg": {
+       "min": 11001,
+       "max": 12000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.7",
+     "criteria": {
+      "mass_kg": {
+       "min": 12001,
+       "max": 13000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.8",
+     "criteria": {
+      "mass_kg": {
+       "min": 13001,
+       "max": 14000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.9",
+     "criteria": {
+      "mass_kg": {
+       "min": 14001,
+       "max": 15000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.10",
+     "criteria": {
+      "mass_kg": {
+       "min": 15001,
+       "max": 16000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.11",
+     "criteria": {
+      "mass_kg": {
+       "min": 16001,
+       "max": 17000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.12",
+     "criteria": {
+      "mass_kg": {
+       "min": 17001,
+       "max": 18000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.13",
+     "criteria": {
+      "mass_kg": {
+       "min": 18001,
+       "max": 19000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.14",
+     "criteria": {
+      "mass_kg": {
+       "min": 19001,
+       "max": 20000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.15",
+     "criteria": {
+      "mass_kg": {
+       "min": 20001,
+       "max": 21000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.16",
+     "criteria": {
+      "mass_kg": {
+       "min": 21001,
+       "max": 22000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.17",
+     "criteria": {
+      "mass_kg": {
+       "min": 22001,
+       "max": 23000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.18",
+     "criteria": {
+      "mass_kg": {
+       "min": 23001,
+       "max": 24000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.19",
+     "criteria": {
+      "mass_kg": {
+       "min": 24001,
+       "max": 25000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.20",
+     "criteria": {
+      "mass_kg": {
+       "min": 25001,
+       "max": 26000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.21",
+     "criteria": {
+      "mass_kg": {
+       "min": 26001,
+       "max": 27000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.22",
+     "criteria": {
+      "mass_kg": {
+       "min": 27001,
+       "max": 28000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.23",
+     "criteria": {
+      "mass_kg": {
+       "min": 28001,
+       "max": 29000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.24",
+     "criteria": {
+      "mass_kg": {
+       "min": 29001,
+       "max": 30000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.25",
+     "criteria": {
+      "mass_kg": {
+       "min": 30001,
+       "max": 31000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.26",
+     "criteria": {
+      "mass_kg": {
+       "min": 31001
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-motor-1.27",
+     "criteria": {
+      "mass_kg": {
+       "min": 18001
+      },
+      "axles": {
+       "min": 2,
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.28",
+     "criteria": {
+      "mass_kg": {
+       "min": 26001
+      },
+      "axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.29",
+     "criteria": {
+      "mass_kg": {
+       "min": 32001
+      },
+      "axles": {
+       "min": 4
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.30",
+     "criteria": {
+      "mass_kg": {
+       "max": 3500
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.31",
+     "criteria": {
+      "mass_kg": {
+       "min": 3501,
+       "max": 5000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.32",
+     "criteria": {
+      "mass_kg": {
+       "min": 5001,
+       "max": 6000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.33",
+     "criteria": {
+      "mass_kg": {
+       "min": 6001,
+       "max": 7000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.34",
+     "criteria": {
+      "mass_kg": {
+       "min": 7001,
+       "max": 8000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.35",
+     "criteria": {
+      "mass_kg": {
+       "min": 8001,
+       "max": 9000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.36",
+     "criteria": {
+      "mass_kg": {
+       "min": 9001,
+       "max": 10000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.37",
+     "criteria": {
+      "mass_kg": {
+       "min": 10001,
+       "max": 11000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.38",
+     "criteria": {
+      "mass_kg": {
+       "min": 11001,
+       "max": 12000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.39",
+     "criteria": {
+      "mass_kg": {
+       "min": 12001,
+       "max": 13000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.40",
+     "criteria": {
+      "mass_kg": {
+       "min": 13001,
+       "max": 14000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.41",
+     "criteria": {
+      "mass_kg": {
+       "min": 14001,
+       "max": 15000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.42",
+     "criteria": {
+      "mass_kg": {
+       "min": 15001,
+       "max": 16000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.43",
+     "criteria": {
+      "mass_kg": {
+       "min": 16001,
+       "max": 17000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.44",
+     "criteria": {
+      "mass_kg": {
+       "min": 17001,
+       "max": 18000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.45",
+     "criteria": {
+      "mass_kg": {
+       "min": 18001,
+       "max": 19000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.46",
+     "criteria": {
+      "mass_kg": {
+       "min": 19001,
+       "max": 20000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.47",
+     "criteria": {
+      "mass_kg": {
+       "min": 20001,
+       "max": 21000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.48",
+     "criteria": {
+      "mass_kg": {
+       "min": 21001,
+       "max": 22000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.49",
+     "criteria": {
+      "mass_kg": {
+       "min": 22001,
+       "max": 23000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.50",
+     "criteria": {
+      "mass_kg": {
+       "min": 23001,
+       "max": 24000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.51",
+     "criteria": {
+      "mass_kg": {
+       "min": 24001,
+       "max": 25000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.52",
+     "criteria": {
+      "mass_kg": {
+       "min": 25001,
+       "max": 26000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.53",
+     "criteria": {
+      "mass_kg": {
+       "min": 26001,
+       "max": 27000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.54",
+     "criteria": {
+      "mass_kg": {
+       "min": 27001,
+       "max": 28000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.55",
+     "criteria": {
+      "mass_kg": {
+       "min": 28001,
+       "max": 29000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.56",
+     "criteria": {
+      "mass_kg": {
+       "min": 29001,
+       "max": 30000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.57",
+     "criteria": {
+      "mass_kg": {
+       "min": 30001,
+       "max": 31000
+      }
+     }
+    },
+    {
+     "id": "toll-motor-1.58",
+     "criteria": {
+      "mass_kg": {
+       "min": 31001
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "toll-trailer-1",
+   "classes": [
+    {
+     "id": "toll-trailer-1.1",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 10001
+      },
+      "trailer_axles": {
+       "min": 1,
+       "max": 1
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.2",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 18001
+      },
+      "trailer_axles": {
+       "min": 2,
+       "max": 2
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.3",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 24001
+      },
+      "trailer_axles": {
+       "min": 3
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.4",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 3501,
+       "max": 5000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.5",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 5001,
+       "max": 6000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.6",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 6001,
+       "max": 7000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.7",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 7001,
+       "max": 8000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.8",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 8001,
+       "max": 9000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.9",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 9001,
+       "max": 10000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.10",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 10001,
+       "max": 11000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.11",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 11001,
+       "max": 12000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.12",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 12001,
+       "max": 13000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.13",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 13001,
+       "max": 14000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.14",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 14001,
+       "max": 15000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.15",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 15001,
+       "max": 16000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.16",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 16001,
+       "max": 17000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.17",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 17001,
+       "max": 18000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.18",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 18001,
+       "max": 19000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.19",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 19001,
+       "max": 20000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.20",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 20001,
+       "max": 21000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.21",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 21001,
+       "max": 22000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.22",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 22001,
+       "max": 23000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.23",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 23001,
+       "max": 24000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.24",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 24001,
+       "max": 25000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.25",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 25001,
+       "max": 26000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.26",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 26001,
+       "max": 27000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.27",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 27001,
+       "max": 28000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.28",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 28001,
+       "max": 29000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.29",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 29001,
+       "max": 30000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.30",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 30001,
+       "max": 31000
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.31",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 31001
+      },
+      "energy": ["cng", "lng", "electric", "hydrogen"]
+     }
+    },
+    {
+     "id": "toll-trailer-1.32",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 10001
+      },
+      "trailer_axles": {
+       "min": 1,
+       "max": 1
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.33",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 18001
+      },
+      "trailer_axles": {
+       "min": 2,
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.34",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 24001
+      },
+      "trailer_axles": {
+       "min": 3
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.35",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 3501,
+       "max": 5000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.36",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 5001,
+       "max": 6000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.37",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 6001,
+       "max": 7000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.38",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 7001,
+       "max": 8000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.39",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 8001,
+       "max": 9000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.40",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 9001,
+       "max": 10000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.41",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 10001,
+       "max": 11000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.42",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 11001,
+       "max": 12000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.43",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 12001,
+       "max": 13000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.44",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 13001,
+       "max": 14000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.45",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 14001,
+       "max": 15000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.46",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 15001,
+       "max": 16000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.47",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 16001,
+       "max": 17000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.48",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 17001,
+       "max": 18000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.49",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 18001,
+       "max": 19000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.50",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 19001,
+       "max": 20000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.51",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 20001,
+       "max": 21000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.52",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 21001,
+       "max": 22000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.53",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 22001,
+       "max": 23000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.54",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 23001,
+       "max": 24000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.55",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 24001,
+       "max": 25000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.56",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 25001,
+       "max": 26000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.57",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 26001,
+       "max": 27000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.58",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 27001,
+       "max": 28000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.59",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 28001,
+       "max": 29000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.60",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 29001,
+       "max": 30000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.61",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 30001,
+       "max": 31000
+      }
+     }
+    },
+    {
+     "id": "toll-trailer-1.62",
+     "criteria": {
+      "trailer_mass_kg": {
+       "min": 31001
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "roads",
+   "type": "network",
+   "network": {
+    "description": "All roads (by odometer)."
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "toll-motor",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "km",
+   "component_label": "toll",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "toll-motor-1.1", "5.25"],
+    ["roads", "toll-motor-1.2", "7.35"],
+    ["roads", "toll-motor-1.3", "9.034"],
+    ["roads", "toll-motor-1.4", "2.636"],
+    ["roads", "toll-motor-1.5", "2.796"],
+    ["roads", "toll-motor-1.6", "2.962"],
+    ["roads", "toll-motor-1.7", "3.258"],
+    ["roads", "toll-motor-1.8", "3.584"],
+    ["roads", "toll-motor-1.9", "3.942"],
+    ["roads", "toll-motor-1.10", "4.336"],
+    ["roads", "toll-motor-1.11", "4.772"],
+    ["roads", "toll-motor-1.12", "5.25"],
+    ["roads", "toll-motor-1.13", "5.474"],
+    ["roads", "toll-motor-1.14", "5.71"],
+    ["roads", "toll-motor-1.15", "5.954"],
+    ["roads", "toll-motor-1.16", "6.212"],
+    ["roads", "toll-motor-1.17", "6.48"],
+    ["roads", "toll-motor-1.18", "6.758"],
+    ["roads", "toll-motor-1.19", "7.048"],
+    ["roads", "toll-motor-1.20", "7.35"],
+    ["roads", "toll-motor-1.21", "7.608"],
+    ["roads", "toll-motor-1.22", "7.872"],
+    ["roads", "toll-motor-1.23", "8.148"],
+    ["roads", "toll-motor-1.24", "8.434"],
+    ["roads", "toll-motor-1.25", "8.73"],
+    ["roads", "toll-motor-1.26", "9.034"],
+    ["roads", "toll-motor-1.27", "26.25"],
+    ["roads", "toll-motor-1.28", "36.75"],
+    ["roads", "toll-motor-1.29", "45.17"],
+    ["roads", "toll-motor-1.30", "6.95"],
+    ["roads", "toll-motor-1.31", "9.85"],
+    ["roads", "toll-motor-1.32", "10.44"],
+    ["roads", "toll-motor-1.33", "11.06"],
+    ["roads", "toll-motor-1.34", "11.73"],
+    ["roads", "toll-motor-1.35", "12.43"],
+    ["roads", "toll-motor-1.36", "13.18"],
+    ["roads", "toll-motor-1.37", "13.98"],
+    ["roads", "toll-motor-1.38", "14.81"],
+    ["roads", "toll-motor-1.39", "16.29"],
+    ["roads", "toll-motor-1.40", "17.92"],
+    ["roads", "toll-motor-1.41", "19.71"],
+    ["roads", "toll-motor-1.42", "21.68"],
+    ["roads", "toll-motor-1.43", "23.86"],
+    ["roads", "toll-motor-1.44", "26.25"],
+    ["roads", "toll-motor-1.45", "27.37"],
+    ["roads", "toll-motor-1.46", "28.55"],
+    ["roads", "toll-motor-1.47", "29.77"],
+    ["roads", "toll-motor-1.48", "31.06"],
+    ["roads", "toll-motor-1.49", "32.4"],
+    ["roads", "toll-motor-1.50", "33.79"],
+    ["roads", "toll-motor-1.51", "35.24"],
+    ["roads", "toll-motor-1.52", "36.75"],
+    ["roads", "toll-motor-1.53", "38.04"],
+    ["roads", "toll-motor-1.54", "39.36"],
+    ["roads", "toll-motor-1.55", "40.74"],
+    ["roads", "toll-motor-1.56", "42.17"],
+    ["roads", "toll-motor-1.57", "43.65"],
+    ["roads", "toll-motor-1.58", "45.17"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  },
+  {
+   "id": "toll-trailer",
+   "type": "distance",
+   "component": "unspecified",
+   "unit": "km",
+   "component_label": "toll",
+   "unmatched": "free",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["roads", "toll-trailer-1.1", "2.636"],
+    ["roads", "toll-trailer-1.2", "5.25"],
+    ["roads", "toll-trailer-1.3", "6.758"],
+    ["roads", "toll-trailer-1.4", "1.97"],
+    ["roads", "toll-trailer-1.5", "2.088"],
+    ["roads", "toll-trailer-1.6", "2.212"],
+    ["roads", "toll-trailer-1.7", "2.346"],
+    ["roads", "toll-trailer-1.8", "2.486"],
+    ["roads", "toll-trailer-1.9", "2.636"],
+    ["roads", "toll-trailer-1.10", "2.796"],
+    ["roads", "toll-trailer-1.11", "2.962"],
+    ["roads", "toll-trailer-1.12", "3.258"],
+    ["roads", "toll-trailer-1.13", "3.584"],
+    ["roads", "toll-trailer-1.14", "3.942"],
+    ["roads", "toll-trailer-1.15", "4.336"],
+    ["roads", "toll-trailer-1.16", "4.772"],
+    ["roads", "toll-trailer-1.17", "5.25"],
+    ["roads", "toll-trailer-1.18", "5.474"],
+    ["roads", "toll-trailer-1.19", "5.71"],
+    ["roads", "toll-trailer-1.20", "5.954"],
+    ["roads", "toll-trailer-1.21", "6.212"],
+    ["roads", "toll-trailer-1.22", "6.48"],
+    ["roads", "toll-trailer-1.23", "6.758"],
+    ["roads", "toll-trailer-1.24", "7.048"],
+    ["roads", "toll-trailer-1.25", "7.35"],
+    ["roads", "toll-trailer-1.26", "7.608"],
+    ["roads", "toll-trailer-1.27", "7.872"],
+    ["roads", "toll-trailer-1.28", "8.148"],
+    ["roads", "toll-trailer-1.29", "8.434"],
+    ["roads", "toll-trailer-1.30", "8.73"],
+    ["roads", "toll-trailer-1.31", "9.034"],
+    ["roads", "toll-trailer-1.32", "10.544"],
+    ["roads", "toll-trailer-1.33", "21"],
+    ["roads", "toll-trailer-1.34", "27.032"],
+    ["roads", "toll-trailer-1.35", "7.88"],
+    ["roads", "toll-trailer-1.36", "8.352"],
+    ["roads", "toll-trailer-1.37", "8.848"],
+    ["roads", "toll-trailer-1.38", "9.384"],
+    ["roads", "toll-trailer-1.39", "9.944"],
+    ["roads", "toll-trailer-1.40", "10.544"],
+    ["roads", "toll-trailer-1.41", "11.184"],
+    ["roads", "toll-trailer-1.42", "11.848"],
+    ["roads", "toll-trailer-1.43", "13.032"],
+    ["roads", "toll-trailer-1.44", "14.336"],
+    ["roads", "toll-trailer-1.45", "15.768"],
+    ["roads", "toll-trailer-1.46", "17.344"],
+    ["roads", "toll-trailer-1.47", "19.088"],
+    ["roads", "toll-trailer-1.48", "21"],
+    ["roads", "toll-trailer-1.49", "21.896"],
+    ["roads", "toll-trailer-1.50", "22.84"],
+    ["roads", "toll-trailer-1.51", "23.816"],
+    ["roads", "toll-trailer-1.52", "24.848"],
+    ["roads", "toll-trailer-1.53", "25.92"],
+    ["roads", "toll-trailer-1.54", "27.032"],
+    ["roads", "toll-trailer-1.55", "28.192"],
+    ["roads", "toll-trailer-1.56", "29.4"],
+    ["roads", "toll-trailer-1.57", "30.432"],
+    ["roads", "toll-trailer-1.58", "31.488"],
+    ["roads", "toll-trailer-1.59", "32.592"],
+    ["roads", "toll-trailer-1.60", "33.736"],
+    ["roads", "toll-trailer-1.61", "34.92"],
+    ["roads", "toll-trailer-1.62", "36.136"]
+   ],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

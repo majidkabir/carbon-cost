@@ -1,0 +1,15 @@
+{
+ "country": "LT",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "name": "CO2 dedamoji of the excise duty on gas oils",
+ "rate_per_l": 0.0536,
+ "law": "Akcizų įstatymas Nr. IX-569, 37 straipsnio 1 dalis and 3 priedas: the excise duty on gas oils (diesel) has a fixed part and a variable CO2 part (CO2 dedamoji), EUR 53.6 per 1,000 litres in 2026 (kept at the 2025 amount by law XV-679 instead of rising), as the customs department's notice gives it. The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+ "sources": [
+  {
+   "title": "Muitinės departamentas: Dėl Akcizų įstatymo tam tikrų nuostatų pasikeitimo nuo 2026-01-01 (notice): the CO2 component of the excise duty on gas oils kept in 2026 at its 2025 amount, per 1,000 litres (read in Chrome: tools/tables/browser/lt-muitine-akcizai-2026.txt)",
+   "url": "https://muitine.lrv.lt/public/canonical/1772694030/1834/1_AkzicIstatKor_20260226.pdf"
+  }
+ ]
+}

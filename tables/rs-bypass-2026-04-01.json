@@ -1,0 +1,226 @@
+{
+ "country": "RS",
+ "currency": "RSD",
+ "valid_from": "2026-04-01",
+ "crossings": true,
+ "osm_extract": "2026-11-20",
+ "name": "Belgrade bypass toll (Obilaznica oko Beograda), category 4",
+ "law": "JP Putevi Srbije's price list for the Belgrade bypass from 2026-04-01 (posebna naknada za upotrebu javnog puta, putarina): category 4 (four or more axles, over 3,500 kg) pays per section between two interchanges, in RSD, by TAG without barriers; other categories don't pay. Each section is a toll point in the middle of each carriageway, paid in its direction (placed on OpenStreetMap's A1 bypass carriageways between the interchanges' junctions).",
+ "sources": [
+  {
+   "title": "JP Putevi Srbije: Posebna naknada za upotrebu javnog puta (putarina), Obilaznica oko Beograda, važi od 2026-04-01",
+   "url": "https://www.putevi-srbije.rs/images/pdf/cene_putarina_obilaznica_lat.pdf"
+  },
+  {
+   "title": "JP Putevi Srbije: Kategorizacija vozila/Cenovnik putarine",
+   "url": "https://www.putevi-srbije.rs/index.php/sr/kategorizacija-vozila-cenovnik-putarine"
+  },
+  {
+   "title": "OpenStreetMap (Geofabrik extract), the bypass's carriageways and junctions",
+   "url": "https://download.geofabrik.de/europe/serbia.html"
+  }
+ ],
+ "vehicles": "Category 4: four or more axles, over 3,500 kg",
+ "min_kg": 3501,
+ "tolled_roads": "The Belgrade bypass (A1) from Batajnica to Bubanj Potok, by section: Batajnica – Beograd, Beograd – Surčin, Surčin – Surčin Jug, Surčin Jug – Ostružnica, Ostružnica – Orlovača, Orlovača – Avala, Avala – Bubanj Potok.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "Obilaznica oko Beograda, sekcija Batajnica – Beograd (towards Beograd, 7.3 km)",
+   "lat": 44.872908,
+   "lon": 20.259242,
+   "heading": 216.4,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 340
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Batajnica – Beograd (towards Batajnica, 9.2 km)",
+   "lat": 44.865068,
+   "lon": 20.253083,
+   "heading": 23.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 340
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Beograd – Surčin (towards Surčin, 3.9 km)",
+   "lat": 44.823972,
+   "lon": 20.251937,
+   "heading": 168.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 120
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Beograd – Surčin (towards Beograd, 2.5 km)",
+   "lat": 44.812785,
+   "lon": 20.253427,
+   "heading": 355.0,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 120
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Surčin – Surčin Jug (towards Surčin Jug, 4.2 km)",
+   "lat": 44.787703,
+   "lon": 20.259379,
+   "heading": 154.1,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 120
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Surčin – Surčin Jug (towards Surčin, 4.3 km)",
+   "lat": 44.783364,
+   "lon": 20.263007,
+   "heading": 327.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 120
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Surčin Jug – Ostružnica (towards Ostružnica, 6.6 km)",
+   "lat": 44.750971,
+   "lon": 20.303378,
+   "heading": 129.2,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 290
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Surčin Jug – Ostružnica (towards Surčin Jug, 6.2 km)",
+   "lat": 44.748691,
+   "lon": 20.307682,
+   "heading": 308.7,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 290
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Ostružnica – Orlovača (towards Orlovača, 7.0 km)",
+   "lat": 44.71164,
+   "lon": 20.366174,
+   "heading": 123.8,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 480
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Ostružnica – Orlovača (towards Ostružnica, 7.8 km)",
+   "lat": 44.71011,
+   "lon": 20.373681,
+   "heading": 270.9,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 480
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Orlovača – Avala (towards Avala, 6.8 km)",
+   "lat": 44.720141,
+   "lon": 20.448605,
+   "heading": 69.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 390
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Orlovača – Avala (towards Orlovača, 6.3 km)",
+   "lat": 44.720726,
+   "lon": 20.458119,
+   "heading": 290.6,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 390
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Avala – Bubanj Potok (towards Bubanj Potok, 3.5 km)",
+   "lat": 44.716486,
+   "lon": 20.510529,
+   "heading": 104.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 130
+    }
+   ]
+  },
+  {
+   "name": "Obilaznica oko Beograda, sekcija Avala – Bubanj Potok (towards Avala, 4.9 km)",
+   "lat": 44.715803,
+   "lon": 20.525999,
+   "heading": 263.3,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "min_axles": 4,
+     "rate": 130
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

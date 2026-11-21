@@ -1,0 +1,15 @@
+{
+ "country": "LU",
+ "currency": "EUR",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "name": "Taxe CO2 on gas oil used as motor fuel",
+ "rate_per_l": 0.13255,
+ "law": "Règlement grand-ducal modifié du 17 décembre 2010 fixant les taux applicables en matière de droits d'accise autonomes sur les produits énergétiques, art. 3: the droit d'accise autonome additionnel « taxe CO2 » on gas oil used as motor fuel, EUR 132.55 per 1,000 litres at 15 °C in 2025, as the customs' rate sheet for 2025 gives it (part of EUR 452.55 of excise in all). The excise payer passes it on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+ "sources": [
+  {
+   "title": "Administration des douanes et accises: taux d'accises applicables pour l'année 2025, incl. gas oil used as motor fuel per 1,000 litres (UEBL excise, accise autonome, contribution sociale, taxe CO2)",
+   "url": "https://douanes.public.lu/content/dam/douanes/fr/accises/taux-accises-lu-01012025.pdf"
+  }
+ ]
+}

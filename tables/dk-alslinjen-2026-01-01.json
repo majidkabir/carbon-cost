@@ -1,0 +1,78 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "ALSLINJEN's ferries Bøjden–Fynshav, trucks",
+ "law": "ALSLINJEN's freight prices for 2026 per single trip (including 25% VAT, taken out) on Bøjden–Fynshav: Lastbil maks. 10 m DKK 408; Lastbil maks. 12 m DKK 704; Sættevogn maks. 17 m DKK 958; Vogntog maks. 19 m DKK 958. By length, without VAT: DKK up to 10 m 326.4, 10-12 m 563.2, 12-19 m 766.4. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "ALSLINJEN: freight prices",
+   "url": "https://www.alslinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "ALSLINJEN's ferries Bøjden–Fynshav.",
+ "closed_systems": [
+  {
+   "name": "ALSLINJEN: Bøjden–Fynshav",
+   "law": "ALSLINJEN's freight prices: Bøjden–Fynshav",
+   "groups": [
+    {
+     "name": "up to 10 m",
+     "min_kg": 3501,
+     "max_length_m": 10
+    },
+    {
+     "name": "10-12 m",
+     "min_kg": 3501,
+     "max_length_m": 12,
+     "min_length_m": 10
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    }
+   ],
+   "stations": [
+    {
+     "name": "Bøjden",
+     "points": [
+      {
+       "name": "Bøjden port, 0.5 km out on the line to Fynshav (OSM way 12334972)",
+       "lat": 55.106418,
+       "lon": 10.075224
+      }
+     ]
+    },
+    {
+     "name": "Fynshav",
+     "points": [
+      {
+       "name": "Fynshav port, 0.7 km out on the line to Bøjden (OSM way 12334972)",
+       "lat": 55.000434,
+       "lon": 9.989193
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Bøjden|Fynshav": {
+     "up to 10 m": 326.4,
+     "10-12 m": 563.2,
+     "12-19 m": 766.4
+    }
+   }
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,883 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T11:10:02Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 247958241,
+  "lat": 38.2103110,
+  "lon": 15.5616576,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "check_date": "2023-06-15",
+    "name:signed": "no",
+    "public_transport": "stop_position",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 330215846,
+  "lat": 38.2162640,
+  "lon": 15.6333123,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Villa San Giovanni invasatura 2",
+    "public_transport": "stop_position",
+    "railway": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 536098486,
+  "lat": 38.2090060,
+  "lon": 15.5618240,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name:signed": "no",
+    "public_transport": "stop_position",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 746505791,
+  "lat": 38.1880925,
+  "lon": 15.5631225,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "fixme": "name missing",
+    "name": "Invasatura IV",
+    "public_transport": "stop_position",
+    "railway": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 746505793,
+  "lat": 38.1879927,
+  "lon": 15.5634403,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "fixme": "name missing",
+    "name": "Invasatura III",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 746505797,
+  "lat": 38.1881435,
+  "lon": 15.5636866,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "fixme": "name missing",
+    "name": "Invasatura II",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 746505798,
+  "lat": 38.1883092,
+  "lon": 15.5639446,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "fixme": "name missing",
+    "name": "Invasatura I",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 1463204372,
+  "lat": 38.2227567,
+  "lon": 15.6330338,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 1753698247,
+  "lat": 38.1319596,
+  "lon": 15.5234841,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Meridiano Lines",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 1753698254,
+  "lat": 38.2109235,
+  "lon": 15.5617125,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "bus": "yes",
+    "ferry": "yes",
+    "name:signed": "no",
+    "public_transport": "stop_position",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1753698276,
+  "lat": 38.2208781,
+  "lon": 15.6329096,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 1753698278,
+  "lat": 38.2210816,
+  "lon": 15.6329673,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 1977634007,
+  "lat": 38.1881753,
+  "lon": 15.5627622,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Invasatura V",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 2010288033,
+  "lat": 38.1312873,
+  "lon": 15.5232340,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Caronte & Tourists",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 2012143776,
+  "lat": 38.1216519,
+  "lon": 15.6488424,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers",
+    "ferry": "yes",
+    "name": "Reggio di Calabria (Liberty Lines)",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2012177911,
+  "lat": 38.1907602,
+  "lon": 15.5667383,
+  "tags": {
+    "addr:city": "Messina",
+    "addr:postcode": "98100",
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;vehicle",
+    "contact:facebook": "https://www.facebook.com/390588288383817;https://www.facebook.com/129295397121455",
+    "facebook": "https://www.facebook.com/390588288383817;https://www.facebook.com/129295397121455",
+    "ferry": "yes",
+    "name": "Molo Norimberga",
+    "old_name": "Pontile Etiopia",
+    "public_transport": "stop_position",
+    "seamark:mooring:category": "wall",
+    "seamark:name": "Molo Norimberga",
+    "seamark:type": "mooring"
+  }
+},
+{
+  "type": "node",
+  "id": 2931755232,
+  "lat": 38.2160930,
+  "lon": 15.6330467,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "stop_position",
+    "railway": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 3635807449,
+  "lat": 38.1884086,
+  "lon": 15.5617234,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Messina (Liberty Lines)",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 8191001989,
+  "lat": 38.2169690,
+  "lon": 15.6335971,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Villa San Giovanni invasatura automezzi",
+    "public_transport": "stop_position"
+  }
+},
+{
+  "type": "node",
+  "id": 8191001991,
+  "lat": 38.2164016,
+  "lon": 15.6336195,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Villa San Giovanni invasatura 1",
+    "public_transport": "stop_position",
+    "railway": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 11659376802,
+  "lat": 38.2169348,
+  "lon": 15.6334131,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "BluJets pedoni",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 11938667224,
+  "lat": 38.1935460,
+  "lon": 15.5577217,
+  "tags": {
+    "addr:city": "Messina",
+    "addr:housenumber": "96",
+    "addr:postcode": "98122",
+    "addr:street": "Via Vittorio Emanuele II",
+    "amenity": "ferry_terminal",
+    "email": "protocollo@pec.adspstretto.it",
+    "ferry": "yes",
+    "name": "Messina Cruise Terminal",
+    "phone": "+39 090 6013211",
+    "public_transport": "station",
+    "seaway": "cruise_port",
+    "website": "https://adspstretto.it/en/ports-of-stretto/port-of-messina/",
+    "wikidata": "Q3909251",
+    "wikimedia_commons": "Category:Harbour of Messina",
+    "wikipedia": "en:Port of Messina"
+  }
+},
+{
+  "type": "node",
+  "id": 13479140681,
+  "lat": 38.1883607,
+  "lon": 15.5604740,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Messina (Blu Jet)",
+    "public_transport": "station",
+    "seamark:mooring:category": "wall",
+    "seamark:name": "Molo Luigi Rizzo",
+    "seamark:type": "mooring"
+  }
+},
+{
+  "type": "way",
+  "id": 27733921,
+  "bounds": {
+    "minlat": 38.2101538,
+    "minlon": 15.5616576,
+    "maxlat": 38.2239103,
+    "maxlon": 15.6329673
+  },
+  "geometry": [
+    { "lat": 38.2103110, "lon": 15.5616576 },
+    { "lat": 38.2101538, "lon": 15.5637535 },
+    { "lat": 38.2114622, "lon": 15.5691902 },
+    { "lat": 38.2191948, "lon": 15.5938732 },
+    { "lat": 38.2230829, "lon": 15.6121606 },
+    { "lat": 38.2239103, "lon": 15.6171298 },
+    { "lat": 38.2235528, "lon": 15.6201069 },
+    { "lat": 38.2219891, "lon": 15.6305219 },
+    { "lat": 38.2218438, "lon": 15.6312933 },
+    { "lat": 38.2212239, "lon": 15.6324712 },
+    { "lat": 38.2211202, "lon": 15.6328080 },
+    { "lat": 38.2210816, "lon": 15.6329673 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "00:40",
+    "ferry": "primary",
+    "foot": "yes",
+    "int_ref": "E 45",
+    "motor_vehicle": "yes",
+    "motorcar": "yes",
+    "name": "Messina - Villa San Giovanni",
+    "operator": "Caronte & Tourist",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 190394346,
+  "bounds": {
+    "minlat": 38.1312873,
+    "minlon": 15.5232340,
+    "maxlat": 38.2240394,
+    "maxlon": 15.6330338
+  },
+  "geometry": [
+    { "lat": 38.1312873, "lon": 15.5232340 },
+    { "lat": 38.1329373, "lon": 15.5262269 },
+    { "lat": 38.1371391, "lon": 15.5303675 },
+    { "lat": 38.2221517, "lon": 15.6253864 },
+    { "lat": 38.2224235, "lon": 15.6257711 },
+    { "lat": 38.2225904, "lon": 15.6262041 },
+    { "lat": 38.2240113, "lon": 15.6311792 },
+    { "lat": 38.2240394, "lon": 15.6315525 },
+    { "lat": 38.2239928, "lon": 15.6319079 },
+    { "lat": 38.2238695, "lon": 15.6322132 },
+    { "lat": 38.2236923, "lon": 15.6324137 },
+    { "lat": 38.2227567, "lon": 15.6330338 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "foot": "no",
+    "hgv": "yes",
+    "motorcar": "no",
+    "name": "Tremestieri- Villa San Giovanni",
+    "operator": "Caronte & Tourist",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 190568783,
+  "bounds": {
+    "minlat": 38.1216519,
+    "minlon": 15.5612790,
+    "maxlat": 38.1997837,
+    "maxlon": 15.6503976
+  },
+  "geometry": [
+    { "lat": 38.1884086, "lon": 15.5617234 },
+    { "lat": 38.1906199, "lon": 15.5617337 },
+    { "lat": 38.1940774, "lon": 15.5613649 },
+    { "lat": 38.1948124, "lon": 15.5613265 },
+    { "lat": 38.1964760, "lon": 15.5612790 },
+    { "lat": 38.1968811, "lon": 15.5613701 },
+    { "lat": 38.1972997, "lon": 15.5615758 },
+    { "lat": 38.1978399, "lon": 15.5621030 },
+    { "lat": 38.1982225, "lon": 15.5625892 },
+    { "lat": 38.1991213, "lon": 15.5637047 },
+    { "lat": 38.1994838, "lon": 15.5641653 },
+    { "lat": 38.1996389, "lon": 15.5643407 },
+    { "lat": 38.1997189, "lon": 15.5645109 },
+    { "lat": 38.1997766, "lon": 15.5647322 },
+    { "lat": 38.1997837, "lon": 15.5704033 },
+    { "lat": 38.1997048, "lon": 15.5711832 },
+    { "lat": 38.1994402, "lon": 15.5719396 },
+    { "lat": 38.1973164, "lon": 15.5754483 },
+    { "lat": 38.1969812, "lon": 15.5758981 },
+    { "lat": 38.1296804, "lon": 15.6494849 },
+    { "lat": 38.1291771, "lon": 15.6499026 },
+    { "lat": 38.1288301, "lon": 15.6501187 },
+    { "lat": 38.1285796, "lon": 15.6502294 },
+    { "lat": 38.1282808, "lon": 15.6503121 },
+    { "lat": 38.1280138, "lon": 15.6503546 },
+    { "lat": 38.1273584, "lon": 15.6503976 },
+    { "lat": 38.1216925, "lon": 15.6488841 },
+    { "lat": 38.1216519, "lon": 15.6488424 }
+  ],
+  "tags": {
+    "foot": "yes",
+    "from": "Messina",
+    "hgv": "no",
+    "motorcar": "no",
+    "name": "Messina - Reggio di Calabria",
+    "operator": "Liberty Lines",
+    "route": "ferry",
+    "to": "Reggio di Calabria"
+  }
+},
+{
+  "type": "way",
+  "id": 190568784,
+  "bounds": {
+    "minlat": 38.1883607,
+    "minlon": 15.5604699,
+    "maxlat": 38.2204061,
+    "maxlon": 15.6335971
+  },
+  "geometry": [
+    { "lat": 38.1883607, "lon": 15.5604740 },
+    { "lat": 38.1905518, "lon": 15.5608083 },
+    { "lat": 38.1930125, "lon": 15.5605954 },
+    { "lat": 38.1940728, "lon": 15.5604699 },
+    { "lat": 38.1968888, "lon": 15.5604839 },
+    { "lat": 38.1972904, "lon": 15.5605270 },
+    { "lat": 38.1976378, "lon": 15.5606283 },
+    { "lat": 38.1979147, "lon": 15.5608517 },
+    { "lat": 38.2007074, "lon": 15.5642862 },
+    { "lat": 38.2011317, "lon": 15.5650279 },
+    { "lat": 38.2014483, "lon": 15.5657908 },
+    { "lat": 38.2201793, "lon": 15.6267517 },
+    { "lat": 38.2203469, "lon": 15.6274879 },
+    { "lat": 38.2204061, "lon": 15.6282559 },
+    { "lat": 38.2203429, "lon": 15.6290186 },
+    { "lat": 38.2201313, "lon": 15.6296953 },
+    { "lat": 38.2197875, "lon": 15.6304978 },
+    { "lat": 38.2193569, "lon": 15.6312592 },
+    { "lat": 38.2175071, "lon": 15.6334646 },
+    { "lat": 38.2172358, "lon": 15.6335446 },
+    { "lat": 38.2169690, "lon": 15.6335971 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:20",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "no",
+    "motorcar": "no",
+    "name": "Messina - Villa San Giovanni",
+    "operator": "Blu Jet",
+    "route": "ferry",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 190573058,
+  "bounds": {
+    "minlat": 38.1907602,
+    "minlon": 14.7404563,
+    "maxlat": 40.6702667,
+    "maxlon": 15.6890123
+  },
+  "geometry": [
+    { "lat": 38.1907602, "lon": 15.5667383 },
+    { "lat": 38.1908286, "lon": 15.5667811 },
+    { "lat": 38.1919692, "lon": 15.5653703 },
+    { "lat": 38.1944939, "lon": 15.5622476 },
+    { "lat": 38.1946931, "lon": 15.5620638 },
+    { "lat": 38.1949320, "lon": 15.5619192 },
+    { "lat": 38.1952803, "lon": 15.5618140 },
+    { "lat": 38.1963339, "lon": 15.5618127 },
+    { "lat": 38.1967464, "lon": 15.5619094 },
+    { "lat": 38.1970557, "lon": 15.5621269 },
+    { "lat": 38.1973044, "lon": 15.5624044 },
+    { "lat": 38.1988005, "lon": 15.5643095 },
+    { "lat": 38.2364360, "lon": 15.6107290 },
+    { "lat": 38.2368214, "lon": 15.6113070 },
+    { "lat": 38.2371068, "lon": 15.6118594 },
+    { "lat": 38.2623933, "lon": 15.6805296 },
+    { "lat": 38.2623867, "lon": 15.6805253 },
+    { "lat": 38.2627917, "lon": 15.6812303 },
+    { "lat": 38.2633235, "lon": 15.6816389 },
+    { "lat": 38.2772008, "lon": 15.6886552 },
+    { "lat": 38.2779246, "lon": 15.6889030 },
+    { "lat": 38.2785593, "lon": 15.6890123 },
+    { "lat": 38.2793369, "lon": 15.6888608 },
+    { "lat": 40.2394045, "lon": 14.8602874 },
+    { "lat": 40.6622435, "lon": 14.7404563 },
+    { "lat": 40.6630445, "lon": 14.7405966 },
+    { "lat": 40.6637613, "lon": 14.7410882 },
+    { "lat": 40.6643082, "lon": 14.7418723 },
+    { "lat": 40.6646198, "lon": 14.7428550 },
+    { "lat": 40.6652971, "lon": 14.7470495 },
+    { "lat": 40.6654344, "lon": 14.7476938 },
+    { "lat": 40.6657302, "lon": 14.7482376 },
+    { "lat": 40.6661490, "lon": 14.7486158 },
+    { "lat": 40.6666406, "lon": 14.7487828 },
+    { "lat": 40.6671459, "lon": 14.7487186 },
+    { "lat": 40.6676043, "lon": 14.7484310 },
+    { "lat": 40.6696839, "lon": 14.7454380 },
+    { "lat": 40.6702008, "lon": 14.7433974 },
+    { "lat": 40.6702667, "lon": 14.7414493 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "10:00",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "motorcar": "yes",
+    "name": "Messina - Salerno",
+    "operator": "Caronte & Tourist",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 239666042,
+  "bounds": {
+    "minlat": 38.1232061,
+    "minlon": 15.5234841,
+    "maxlat": 38.1330261,
+    "maxlon": 15.6521665
+  },
+  "geometry": [
+    { "lat": 38.1319596, "lon": 15.5234841 },
+    { "lat": 38.1330261, "lon": 15.5261450 },
+    { "lat": 38.1303242, "lon": 15.6473542 },
+    { "lat": 38.1301679, "lon": 15.6480212 },
+    { "lat": 38.1299252, "lon": 15.6485304 },
+    { "lat": 38.1296919, "lon": 15.6489490 },
+    { "lat": 38.1293935, "lon": 15.6493270 },
+    { "lat": 38.1291420, "lon": 15.6496141 },
+    { "lat": 38.1289774, "lon": 15.6497398 },
+    { "lat": 38.1286493, "lon": 15.6499253 },
+    { "lat": 38.1283155, "lon": 15.6500708 },
+    { "lat": 38.1279445, "lon": 15.6501483 },
+    { "lat": 38.1276008, "lon": 15.6501673 },
+    { "lat": 38.1273290, "lon": 15.6502304 },
+    { "lat": 38.1244694, "lon": 15.6516095 },
+    { "lat": 38.1232061, "lon": 15.6521665 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "ferry": "tertiary",
+    "foot": "yes",
+    "hgv": "yes",
+    "motorcar": "yes",
+    "name": "Tremestieri - Reggio di Calabria",
+    "operator": "Meridiano",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 355800025,
+  "bounds": {
+    "minlat": 37.4795205,
+    "minlon": 14.2572892,
+    "maxlat": 40.8376704,
+    "maxlon": 15.6891751
+  },
+  "geometry": [
+    { "lat": 37.4998470, "lon": 15.0905606 },
+    { "lat": 37.4920878, "lon": 15.0965096 },
+    { "lat": 37.4913934, "lon": 15.0969398 },
+    { "lat": 37.4907176, "lon": 15.0972273 },
+    { "lat": 37.4838893, "lon": 15.0974595 },
+    { "lat": 37.4831424, "lon": 15.0975944 },
+    { "lat": 37.4823955, "lon": 15.0978725 },
+    { "lat": 37.4815590, "lon": 15.0984327 },
+    { "lat": 37.4806553, "lon": 15.0994216 },
+    { "lat": 37.4806102, "lon": 15.0994639 },
+    { "lat": 37.4801250, "lon": 15.1002875 },
+    { "lat": 37.4797535, "lon": 15.1012544 },
+    { "lat": 37.4795659, "lon": 15.1023898 },
+    { "lat": 37.4795205, "lon": 15.1035251 },
+    { "lat": 37.4796681, "lon": 15.1046613 },
+    { "lat": 37.4800005, "lon": 15.1056899 },
+    { "lat": 37.4804905, "lon": 15.1066926 },
+    { "lat": 37.4811084, "lon": 15.1074625 },
+    { "lat": 37.5468425, "lon": 15.1717713 },
+    { "lat": 37.5471454, "lon": 15.1720433 },
+    { "lat": 38.0972948, "lon": 15.5736758 },
+    { "lat": 38.0980890, "lon": 15.5740412 },
+    { "lat": 38.2353012, "lon": 15.6114196 },
+    { "lat": 38.2355397, "lon": 15.6115114 },
+    { "lat": 38.2358275, "lon": 15.6117195 },
+    { "lat": 38.2360596, "lon": 15.6120299 },
+    { "lat": 38.2362008, "lon": 15.6123558 },
+    { "lat": 38.2615125, "lon": 15.6810686 },
+    { "lat": 38.2621602, "lon": 15.6821273 },
+    { "lat": 38.2629670, "lon": 15.6828117 },
+    { "lat": 38.2752674, "lon": 15.6889977 },
+    { "lat": 38.2763189, "lon": 15.6891751 },
+    { "lat": 38.2776952, "lon": 15.6890337 },
+    { "lat": 38.2786372, "lon": 15.6886102 },
+    { "lat": 40.5663284, "lon": 14.2938927 },
+    { "lat": 40.8049203, "lon": 14.2826931 },
+    { "lat": 40.8110463, "lon": 14.2830560 },
+    { "lat": 40.8242666, "lon": 14.2819560 },
+    { "lat": 40.8288559, "lon": 14.2817229 },
+    { "lat": 40.8292548, "lon": 14.2815786 },
+    { "lat": 40.8296383, "lon": 14.2813292 },
+    { "lat": 40.8299681, "lon": 14.2809498 },
+    { "lat": 40.8304714, "lon": 14.2800491 },
+    { "lat": 40.8316253, "lon": 14.2782363 },
+    { "lat": 40.8345760, "lon": 14.2735821 },
+    { "lat": 40.8350095, "lon": 14.2723740 },
+    { "lat": 40.8365297, "lon": 14.2614230 },
+    { "lat": 40.8376704, "lon": 14.2572892 }
+  ],
+  "tags": {
+    "duration": "11:30",
+    "name": "Catania - Napoli",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 358688572,
+  "bounds": {
+    "minlat": 38.1884086,
+    "minlon": 15.2399151,
+    "maxlat": 38.7975225,
+    "maxlon": 15.6882758
+  },
+  "geometry": [
+    { "lat": 38.1884086, "lon": 15.5617234 },
+    { "lat": 38.1947160, "lon": 15.5610979 },
+    { "lat": 38.1964633, "lon": 15.5610271 },
+    { "lat": 38.1969396, "lon": 15.5611151 },
+    { "lat": 38.1973627, "lon": 15.5612519 },
+    { "lat": 38.1977946, "lon": 15.5616077 },
+    { "lat": 38.2029525, "lon": 15.5684549 },
+    { "lat": 38.2367402, "lon": 15.6102336 },
+    { "lat": 38.2371715, "lon": 15.6108908 },
+    { "lat": 38.2375605, "lon": 15.6116108 },
+    { "lat": 38.2628384, "lon": 15.6802573 },
+    { "lat": 38.2628329, "lon": 15.6802523 },
+    { "lat": 38.2630973, "lon": 15.6807698 },
+    { "lat": 38.2635016, "lon": 15.6810525 },
+    { "lat": 38.2773745, "lon": 15.6880667 },
+    { "lat": 38.2779154, "lon": 15.6882758 },
+    { "lat": 38.2784441, "lon": 15.6881419 },
+    { "lat": 38.7970248, "lon": 15.2403676 },
+    { "lat": 38.7975225, "lon": 15.2399151 }
+  ],
+  "tags": {
+    "duration": "2:45",
+    "name": "Messina - Stromboli",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 851258939,
+  "bounds": {
+    "minlat": 38.1880925,
+    "minlon": 15.5614967,
+    "maxlat": 38.2199402,
+    "maxlon": 15.6333123
+  },
+  "geometry": [
+    { "lat": 38.2162640, "lon": 15.6333123 },
+    { "lat": 38.2171360, "lon": 15.6325624 },
+    { "lat": 38.2189919, "lon": 15.6308109 },
+    { "lat": 38.2193756, "lon": 15.6299934 },
+    { "lat": 38.2196886, "lon": 15.6294161 },
+    { "lat": 38.2198900, "lon": 15.6288439 },
+    { "lat": 38.2199402, "lon": 15.6281976 },
+    { "lat": 38.2198716, "lon": 15.6275977 },
+    { "lat": 38.2197287, "lon": 15.6270096 },
+    { "lat": 38.2015036, "lon": 15.5676989 },
+    { "lat": 38.2012944, "lon": 15.5671345 },
+    { "lat": 38.2009407, "lon": 15.5664797 },
+    { "lat": 38.1973842, "lon": 15.5620070 },
+    { "lat": 38.1971004, "lon": 15.5617504 },
+    { "lat": 38.1966647, "lon": 15.5615385 },
+    { "lat": 38.1962748, "lon": 15.5614967 },
+    { "lat": 38.1946598, "lon": 15.5615208 },
+    { "lat": 38.1900830, "lon": 15.5623267 },
+    { "lat": 38.1880925, "lon": 15.5631225 }
+  ],
+  "tags": {
+    "duration": "01:15",
+    "hgv": "yes",
+    "name": "Messina - Villa San Giovanni",
+    "operator": "Rete Ferroviaria Italiana",
+    "operator:short": "RFI",
+    "operator:wikidata": "Q1060049",
+    "railway": "ferry",
+    "route": "ferry",
+    "wikidata": "Q124569642"
+  }
+},
+{
+  "type": "way",
+  "id": 1207988825,
+  "bounds": {
+    "minlat": 37.4792319,
+    "minlon": 14.2621143,
+    "maxlat": 40.8404979,
+    "maxlon": 15.6895392
+  },
+  "geometry": [
+    { "lat": 37.4998470, "lon": 15.0905606 },
+    { "lat": 37.4919495, "lon": 15.0961918 },
+    { "lat": 37.4912836, "lon": 15.0966043 },
+    { "lat": 37.4906666, "lon": 15.0968668 },
+    { "lat": 37.4838650, "lon": 15.0970981 },
+    { "lat": 37.4830810, "lon": 15.0972397 },
+    { "lat": 37.4822863, "lon": 15.0975356 },
+    { "lat": 37.4813953, "lon": 15.0981322 },
+    { "lat": 37.4804750, "lon": 15.0991392 },
+    { "lat": 37.4804047, "lon": 15.0992052 },
+    { "lat": 37.4798781, "lon": 15.1000990 },
+    { "lat": 37.4794794, "lon": 15.1011368 },
+    { "lat": 37.4792800, "lon": 15.1023435 },
+    { "lat": 37.4792319, "lon": 15.1035455 },
+    { "lat": 37.4793897, "lon": 15.1047601 },
+    { "lat": 37.4797433, "lon": 15.1058543 },
+    { "lat": 37.4802639, "lon": 15.1069195 },
+    { "lat": 37.4809186, "lon": 15.1077353 },
+    { "lat": 37.5466711, "lon": 15.1720620 },
+    { "lat": 37.5469901, "lon": 15.1723484 },
+    { "lat": 38.0971742, "lon": 15.5740055 },
+    { "lat": 38.0980103, "lon": 15.5743901 },
+    { "lat": 38.2352301, "lon": 15.6117706 },
+    { "lat": 38.2354269, "lon": 15.6118463 },
+    { "lat": 38.2356505, "lon": 15.6120080 },
+    { "lat": 38.2358283, "lon": 15.6122457 },
+    { "lat": 38.2359472, "lon": 15.6125203 },
+    { "lat": 38.2612686, "lon": 15.6812592 },
+    { "lat": 38.2619642, "lon": 15.6823962 },
+    { "lat": 38.2628345, "lon": 15.6831344 },
+    { "lat": 38.2751955, "lon": 15.6893509 },
+    { "lat": 38.2763116, "lon": 15.6895392 },
+    { "lat": 38.2777549, "lon": 15.6893909 },
+    { "lat": 38.2787453, "lon": 15.6889456 },
+    { "lat": 40.5663950, "lon": 14.2942517 },
+    { "lat": 40.8049174, "lon": 14.2829920 },
+    { "lat": 40.8110375, "lon": 14.2832517 },
+    { "lat": 40.8242732, "lon": 14.2822385 },
+    { "lat": 40.8288582, "lon": 14.2820093 },
+    { "lat": 40.8292494, "lon": 14.2818666 },
+    { "lat": 40.8295764, "lon": 14.2816418 },
+    { "lat": 40.8298988, "lon": 14.2813474 },
+    { "lat": 40.8301974, "lon": 14.2809740 },
+    { "lat": 40.8305767, "lon": 14.2803546 },
+    { "lat": 40.8317793, "lon": 14.2784809 },
+    { "lat": 40.8347727, "lon": 14.2738055 },
+    { "lat": 40.8383348, "lon": 14.2650603 },
+    { "lat": 40.8404979, "lon": 14.2621143 }
+  ],
+  "tags": {
+    "duration": "11:30",
+    "name": "Catania - Napoli",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 1312804043,
+  "bounds": {
+    "minlat": 38.1884086,
+    "minlon": 14.9607725,
+    "maxlat": 38.4164941,
+    "maxlon": 15.6878712
+  },
+  "geometry": [
+    { "lat": 38.4152140, "lon": 14.9607725 },
+    { "lat": 38.4148619, "lon": 14.9629720 },
+    { "lat": 38.4153065, "lon": 14.9653705 },
+    { "lat": 38.4164941, "lon": 14.9712078 },
+    { "lat": 38.4162673, "lon": 14.9754485 },
+    { "lat": 38.2897879, "lon": 15.6779578 },
+    { "lat": 38.2783009, "lon": 15.6878712 },
+    { "lat": 38.2769870, "lon": 15.6875708 },
+    { "lat": 38.2631392, "lon": 15.6805327 },
+    { "lat": 38.2621284, "lon": 15.6779148 },
+    { "lat": 38.2374752, "lon": 15.6109454 },
+    { "lat": 38.2273789, "lon": 15.5983283 },
+    { "lat": 38.1979609, "lon": 15.5613766 },
+    { "lat": 38.1976289, "lon": 15.5610482 },
+    { "lat": 38.1971283, "lon": 15.5608364 },
+    { "lat": 38.1964579, "lon": 15.5607721 },
+    { "lat": 38.1948179, "lon": 15.5608150 },
+    { "lat": 38.1939072, "lon": 15.5608525 },
+    { "lat": 38.1908970, "lon": 15.5612710 },
+    { "lat": 38.1884086, "lon": 15.5617234 }
+  ],
+  "tags": {
+    "duration": "01:30",
+    "foot": "yes",
+    "from": "Vulcano",
+    "name": "Vulcano - Messina",
+    "operator": "Liberty Lines",
+    "route": "ferry",
+    "to": "Messina"
+  }
+},
+{
+  "type": "way",
+  "id": 1312804044,
+  "bounds": {
+    "minlat": 38.1216519,
+    "minlon": 14.9607725,
+    "maxlat": 38.4166474,
+    "maxlon": 15.6898296
+  },
+  "geometry": [
+    { "lat": 38.1216519, "lon": 15.6488424 },
+    { "lat": 38.1216709, "lon": 15.6489164 },
+    { "lat": 38.1273431, "lon": 15.6506608 },
+    { "lat": 38.1283211, "lon": 15.6505246 },
+    { "lat": 38.1289794, "lon": 15.6502571 },
+    { "lat": 38.1297221, "lon": 15.6497398 },
+    { "lat": 38.2042213, "lon": 15.6036058 },
+    { "lat": 38.2288689, "lon": 15.6103650 },
+    { "lat": 38.2353076, "lon": 15.6120387 },
+    { "lat": 38.2355731, "lon": 15.6121874 },
+    { "lat": 38.2357536, "lon": 15.6124983 },
+    { "lat": 38.2506633, "lon": 15.6530588 },
+    { "lat": 38.2610898, "lon": 15.6812283 },
+    { "lat": 38.2614643, "lon": 15.6819947 },
+    { "lat": 38.2618922, "lon": 15.6826248 },
+    { "lat": 38.2623736, "lon": 15.6830847 },
+    { "lat": 38.2630556, "lon": 15.6835275 },
+    { "lat": 38.2750769, "lon": 15.6894781 },
+    { "lat": 38.2757985, "lon": 15.6897620 },
+    { "lat": 38.2764777, "lon": 15.6898296 },
+    { "lat": 38.2774009, "lon": 15.6897079 },
+    { "lat": 38.2791942, "lon": 15.6878290 },
+    { "lat": 38.2819531, "lon": 15.6853553 },
+    { "lat": 38.2896667, "lon": 15.6787237 },
+    { "lat": 38.2899213, "lon": 15.6781290 },
+    { "lat": 38.2902184, "lon": 15.6764325 },
+    { "lat": 38.4164289, "lon": 14.9755817 },
+    { "lat": 38.4166474, "lon": 14.9711829 },
+    { "lat": 38.4149235, "lon": 14.9629479 },
+    { "lat": 38.4152140, "lon": 14.9607725 }
+  ],
+  "tags": {
+    "duration": "01:30",
+    "foot": "yes",
+    "from": "Vulcano",
+    "name": "Vulcano - Reggio Calabria",
+    "operator": "Liberty Lines",
+    "route": "ferry",
+    "to": "Reggio Calabria"
+  }
+}
+
+  ]
+}

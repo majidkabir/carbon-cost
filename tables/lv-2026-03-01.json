@@ -1,0 +1,243 @@
+{
+ "country": "LV",
+ "currency": "EUR",
+ "valid_from": "2026-03-01",
+ "name": "Latvian road user charge (autoceļu lietošanas nodeva)",
+ "law": "Autoceļu lietošanas nodevas likums, Annex 2 as worded by the amendments of 22 January 2026 (in force 1 March 2026): a time-based charge in euro for 1 day, 7 days, 30 days or a year, by maximum mass (3001-3500 kg, 3501-12000 kg, 12001 kg and over), axles (2 and 3, or 4 and more, over 12 t) and EURO class; zero-emission vehicles pay nothing. The table keeps the 1-day rate. A fee, without VAT.",
+ "sources": [
+  {
+   "title": "Autoceļu lietošanas nodevas likums, consolidated (likumi.lv)",
+   "url": "https://likumi.lv/ta/id/185656-autocelu-lietosanas-nodevas-likums"
+  }
+ ],
+ "vehicles": "Goods vehicles and combinations from 3001 kg maximum mass",
+ "min_kg": 3001,
+ "tolled_roads": "The state main and regional road sections listed in Annex 1 of the law. Any use of them on a day needs that day's charge.",
+ "per_day": true,
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "euro": [
+    3
+   ],
+   "rate": 11
+  },
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "euro": [
+    4
+   ],
+   "rate": 10
+  },
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "euro": [
+    5
+   ],
+   "rate": 9
+  },
+  {
+   "component": "toll",
+   "min_kg": 3001,
+   "max_kg": 3500,
+   "euro": [
+    6
+   ],
+   "rate": 7
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 17
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    4
+   ],
+   "rate": 13
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 12
+  },
+  {
+   "component": "toll",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 10
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 29
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 24
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 22
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 19
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 14
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 46
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 38
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 34
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 30
+  },
+  {
+   "component": "toll",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 22
+  }
+ ]
+}

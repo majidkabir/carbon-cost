@@ -1,0 +1,45 @@
+{
+ "country": "BY",
+ "currency": "EUR",
+ "valid_from": "2026-09-01",
+ "name": "BelToll",
+ "law": "Resolution of the Ministry of Transport and Communications No. 42 of 2026-08-24, in force from 2026-09-01, annex 1, table 1: EUR 0.121 per km for vehicles over 3.5 t with 2 axles, 0.152 with 3, 0.182 with 4 or more; BelToll counts the axles of the vehicle with its trailers and semi-trailers. Table 2 (not modelled): the rate times 10,0 on М-2 km 14,9-25,308, М-3 km 9,4-10,418, М-4 km 16,3-19,046, М-6/Е 28 km 12,0-20,575, Р-1 km 8,2-24,44, Р-23 km 10,2-14,1, Р-28 km 12,44-16,91 when a vehicle drives two or more of them within an hour. Toll roads: the list of the Regulation approved by Council of Ministers resolution No. 340 of 30 April 2013, placed on the ways OpenStreetMap tags as toll roads.",
+ "sources": [
+  {
+   "title": "Постановление Министерства транспорта и коммуникаций Республики Беларусь от 24 августа 2026 г. № 42 (ETALON-online)",
+   "url": "https://etalonline.by/document/?regnum=Y226w0876c"
+  },
+  {
+   "title": "BelToll: Помощь (the number of axles includes trailers)",
+   "url": "https://beltoll.by/ru/help"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "BelToll toll roads (the list of the Regulation approved by resolution No. 340), as OpenStreetMap tags them.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_axles": 2,
+   "rate": 0.121
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.152
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.182
+  }
+ ]
+}

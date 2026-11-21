@@ -1,0 +1,1014 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T10:45:50Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 29875511,
+  "lat": 47.1175895,
+  "lon": 12.5046748,
+  "tags": {
+    "access": "yes",
+    "barrier": "toll_booth",
+    "name": "Mautstation Felbertauerntunnel"
+  }
+},
+{
+  "type": "way",
+  "id": 9669958,
+  "bounds": {
+    "minlat": 47.1590793,
+    "minlon": 12.5336316,
+    "maxlat": 47.1604713,
+    "maxlon": 12.5358669
+  },
+  "geometry": [
+    { "lat": 47.1604713, "lon": 12.5358669 },
+    { "lat": 47.1603743, "lon": 12.5355459 },
+    { "lat": 47.1602947, "lon": 12.5353032 },
+    { "lat": 47.1602381, "lon": 12.5351447 },
+    { "lat": 47.1601852, "lon": 12.5350037 },
+    { "lat": 47.1601248, "lon": 12.5348582 },
+    { "lat": 47.1600625, "lon": 12.5347211 },
+    { "lat": 47.1600031, "lon": 12.5346085 },
+    { "lat": 47.1599232, "lon": 12.5344747 },
+    { "lat": 47.1598497, "lon": 12.5343659 },
+    { "lat": 47.1597606, "lon": 12.5342519 },
+    { "lat": 47.1596838, "lon": 12.5341603 },
+    { "lat": 47.1595983, "lon": 12.5340689 },
+    { "lat": 47.1595175, "lon": 12.5339899 },
+    { "lat": 47.1594246, "lon": 12.5339072 },
+    { "lat": 47.1593341, "lon": 12.5338316 },
+    { "lat": 47.1592498, "lon": 12.5337638 },
+    { "lat": 47.1591564, "lon": 12.5336911 },
+    { "lat": 47.1590793, "lon": 12.5336316 }
+  ],
+  "tags": {
+    "charge:motorcar": "13 EUR",
+    "charge:motorcycle": "12 EUR",
+    "highway": "trunk",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed:backward": "80",
+    "maxspeed:forward": "50",
+    "motorroad": "yes",
+    "name": "Felbertauerntunnel",
+    "name:prefix:uk": "тунель",
+    "name:uk": "Фельбертауерн",
+    "note": "bicycle shuttle service: +43-4875-8806-11",
+    "oneway": "no",
+    "payment:american_express": "yes",
+    "payment:cash": "yes",
+    "payment:diners_club": "yes",
+    "payment:dkv": "yes",
+    "payment:euroshell": "yes",
+    "payment:maestro": "yes",
+    "payment:mastercard": "yes",
+    "payment:routex": "yes",
+    "payment:uta": "yes",
+    "payment:visa": "yes",
+    "surface": "paved",
+    "toll": "yes",
+    "tunnel": "yes",
+    "wikidata": "Q143294",
+    "wikipedia": "de:Felbertauerntunnel"
+  }
+},
+{
+  "type": "way",
+  "id": 37345490,
+  "bounds": {
+    "minlat": 47.0591176,
+    "minlon": 12.5266333,
+    "maxlat": 47.0607484,
+    "maxlon": 12.5271970
+  },
+  "geometry": [
+    { "lat": 47.0607484, "lon": 12.5271970 },
+    { "lat": 47.0604314, "lon": 12.5271594 },
+    { "lat": 47.0600457, "lon": 12.5270534 },
+    { "lat": 47.0596016, "lon": 12.5268770 },
+    { "lat": 47.0591176, "lon": 12.5266333 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed": "100",
+    "name": "Felbertauern Mautstraße",
+    "note": "Mautstr. ist nicht B108",
+    "sidewalk": "no",
+    "smoothness": "excellent",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 37345498,
+  "bounds": {
+    "minlat": 47.0638859,
+    "minlon": 12.5296070,
+    "maxlat": 47.0645772,
+    "maxlon": 12.5301466
+  },
+  "geometry": [
+    { "lat": 47.0645772, "lon": 12.5301466 },
+    { "lat": 47.0644126, "lon": 12.5300214 },
+    { "lat": 47.0642104, "lon": 12.5298776 },
+    { "lat": 47.0638859, "lon": 12.5296070 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "not_left|yes",
+    "change:lanes:forward": "no",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "2",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight": "4",
+    "maxspeed": "100",
+    "name": "Felbertauern Mautstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "excellent",
+    "source": "plan.at 2008",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 37345502,
+  "bounds": {
+    "minlat": 47.0717888,
+    "minlon": 12.5308678,
+    "maxlat": 47.0773839,
+    "maxlon": 12.5325540
+  },
+  "geometry": [
+    { "lat": 47.0773839, "lon": 12.5308678 },
+    { "lat": 47.0769039, "lon": 12.5309758 },
+    { "lat": 47.0766547, "lon": 12.5310438 },
+    { "lat": 47.0763007, "lon": 12.5311786 },
+    { "lat": 47.0758251, "lon": 12.5313899 },
+    { "lat": 47.0755467, "lon": 12.5314848 },
+    { "lat": 47.0743227, "lon": 12.5317774 },
+    { "lat": 47.0737217, "lon": 12.5320220 },
+    { "lat": 47.0730477, "lon": 12.5323649 },
+    { "lat": 47.0727119, "lon": 12.5324860 },
+    { "lat": 47.0724672, "lon": 12.5325395 },
+    { "lat": 47.0722020, "lon": 12.5325540 },
+    { "lat": 47.0719643, "lon": 12.5325499 },
+    { "lat": 47.0717888, "lon": 12.5325227 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes": "no|no",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauern Mautstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "excellent",
+    "source": "plan.at 2008",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 37345511,
+  "bounds": {
+    "minlat": 47.0889418,
+    "minlon": 12.5276732,
+    "maxlat": 47.0901339,
+    "maxlon": 12.5294693
+  },
+  "geometry": [
+    { "lat": 47.0901339, "lon": 12.5276732 },
+    { "lat": 47.0899978, "lon": 12.5279826 },
+    { "lat": 47.0898526, "lon": 12.5282077 },
+    { "lat": 47.0889418, "lon": 12.5294693 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "80",
+    "name": "Felbertauern Mautstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "excellent",
+    "source": "plan.at 2008",
+    "source:maxspeed": "sign",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68811346,
+  "bounds": {
+    "minlat": 47.2227931,
+    "minlon": 12.4862885,
+    "maxlat": 47.2234499,
+    "maxlon": 12.4872555
+  },
+  "geometry": [
+    { "lat": 47.2234499, "lon": 12.4872555 },
+    { "lat": 47.2232817, "lon": 12.4868750 },
+    { "lat": 47.2231141, "lon": 12.4866084 },
+    { "lat": 47.2229389, "lon": 12.4864084 },
+    { "lat": 47.2227931, "lon": 12.4862885 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826127,
+  "bounds": {
+    "minlat": 47.2372459,
+    "minlon": 12.4911451,
+    "maxlat": 47.2388946,
+    "maxlon": 12.4921710
+  },
+  "geometry": [
+    { "lat": 47.2388946, "lon": 12.4911451 },
+    { "lat": 47.2385042, "lon": 12.4912905 },
+    { "lat": 47.2381472, "lon": 12.4914818 },
+    { "lat": 47.2378270, "lon": 12.4916812 },
+    { "lat": 47.2375244, "lon": 12.4919158 },
+    { "lat": 47.2372459, "lon": 12.4921710 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826130,
+  "bounds": {
+    "minlat": 47.2306153,
+    "minlon": 12.4926519,
+    "maxlat": 47.2316387,
+    "maxlon": 12.4929257
+  },
+  "geometry": [
+    { "lat": 47.2316387, "lon": 12.4929257 },
+    { "lat": 47.2312320, "lon": 12.4927835 },
+    { "lat": 47.2309078, "lon": 12.4926934 },
+    { "lat": 47.2306153, "lon": 12.4926519 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826144,
+  "bounds": {
+    "minlat": 47.2144435,
+    "minlon": 12.5035648,
+    "maxlat": 47.2153740,
+    "maxlon": 12.5044127
+  },
+  "geometry": [
+    { "lat": 47.2153740, "lon": 12.5035648 },
+    { "lat": 47.2151302, "lon": 12.5037434 },
+    { "lat": 47.2149117, "lon": 12.5039260 },
+    { "lat": 47.2146872, "lon": 12.5041434 },
+    { "lat": 47.2144435, "lon": 12.5044127 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "excellent",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826149,
+  "bounds": {
+    "minlat": 47.2087297,
+    "minlon": 12.5081459,
+    "maxlat": 47.2100165,
+    "maxlon": 12.5093517
+  },
+  "geometry": [
+    { "lat": 47.2100165, "lon": 12.5081459 },
+    { "lat": 47.2096309, "lon": 12.5084912 },
+    { "lat": 47.2092292, "lon": 12.5088449 },
+    { "lat": 47.2089354, "lon": 12.5091255 },
+    { "lat": 47.2087297, "lon": 12.5093517 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826156,
+  "bounds": {
+    "minlat": 47.2049359,
+    "minlon": 12.5109322,
+    "maxlat": 47.2078007,
+    "maxlon": 12.5142507
+  },
+  "geometry": [
+    { "lat": 47.2078007, "lon": 12.5109322 },
+    { "lat": 47.2073470, "lon": 12.5119033 },
+    { "lat": 47.2070188, "lon": 12.5124928 },
+    { "lat": 47.2067445, "lon": 12.5129207 },
+    { "lat": 47.2064965, "lon": 12.5132262 },
+    { "lat": 47.2061439, "lon": 12.5135525 },
+    { "lat": 47.2058158, "lon": 12.5138083 },
+    { "lat": 47.2054586, "lon": 12.5140395 },
+    { "lat": 47.2049359, "lon": 12.5142507 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826167,
+  "bounds": {
+    "minlat": 47.1699041,
+    "minlon": 12.5329862,
+    "maxlat": 47.1755533,
+    "maxlon": 12.5348011
+  },
+  "geometry": [
+    { "lat": 47.1755533, "lon": 12.5329862 },
+    { "lat": 47.1751836, "lon": 12.5329906 },
+    { "lat": 47.1748739, "lon": 12.5330476 },
+    { "lat": 47.1746325, "lon": 12.5331221 },
+    { "lat": 47.1738719, "lon": 12.5335337 },
+    { "lat": 47.1736642, "lon": 12.5336120 },
+    { "lat": 47.1734545, "lon": 12.5336458 },
+    { "lat": 47.1731843, "lon": 12.5336293 },
+    { "lat": 47.1726897, "lon": 12.5335221 },
+    { "lat": 47.1722382, "lon": 12.5334789 },
+    { "lat": 47.1719705, "lon": 12.5334931 },
+    { "lat": 47.1716587, "lon": 12.5335482 },
+    { "lat": 47.1714444, "lon": 12.5336351 },
+    { "lat": 47.1711919, "lon": 12.5337749 },
+    { "lat": 47.1709951, "lon": 12.5339192 },
+    { "lat": 47.1705458, "lon": 12.5343453 },
+    { "lat": 47.1702685, "lon": 12.5345590 },
+    { "lat": 47.1699041, "lon": 12.5348011 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "good",
+    "source": "survey 09.2022 and basemap imagery",
+    "source:maxspeed": "sign",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 68826172,
+  "bounds": {
+    "minlat": 47.1639730,
+    "minlon": 12.5375081,
+    "maxlat": 47.1655909,
+    "maxlon": 12.5377183
+  },
+  "geometry": [
+    { "lat": 47.1655909, "lon": 12.5375081 },
+    { "lat": 47.1653542, "lon": 12.5376255 },
+    { "lat": 47.1651442, "lon": 12.5376922 },
+    { "lat": 47.1648446, "lon": 12.5377183 },
+    { "lat": 47.1645037, "lon": 12.5377096 },
+    { "lat": 47.1639730, "lon": 12.5376682 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "good",
+    "source": "survey 07.2019 and basemap ortphoto",
+    "source:maxspeed": "sign. Survey 07.2019",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 115656755,
+  "bounds": {
+    "minlat": 47.1789199,
+    "minlon": 12.5298271,
+    "maxlat": 47.1796393,
+    "maxlon": 12.5303539
+  },
+  "geometry": [
+    { "lat": 47.1796393, "lon": 12.5298271 },
+    { "lat": 47.1793395, "lon": 12.5300264 },
+    { "lat": 47.1789199, "lon": 12.5303539 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "no",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source": "survey 09.2022 and basemap imagery",
+    "source:maxspeed": "sign",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 115656756,
+  "bounds": {
+    "minlat": 47.1755533,
+    "minlon": 12.5319108,
+    "maxlat": 47.1776827,
+    "maxlon": 12.5330061
+  },
+  "geometry": [
+    { "lat": 47.1776827, "lon": 12.5319108 },
+    { "lat": 47.1775856, "lon": 12.5320422 },
+    { "lat": 47.1771914, "lon": 12.5325312 },
+    { "lat": 47.1769870, "lon": 12.5327162 },
+    { "lat": 47.1768033, "lon": 12.5328221 },
+    { "lat": 47.1766245, "lon": 12.5329192 },
+    { "lat": 47.1764517, "lon": 12.5329703 },
+    { "lat": 47.1762344, "lon": 12.5330061 },
+    { "lat": 47.1755533, "lon": 12.5329862 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "no",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source": "survey 09.2022 and basemap imagery",
+    "source:maxspeed": "sign",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 115656757,
+  "bounds": {
+    "minlat": 47.1876706,
+    "minlon": 12.5233126,
+    "maxlat": 47.1881870,
+    "maxlon": 12.5234874
+  },
+  "geometry": [
+    { "lat": 47.1881870, "lon": 12.5233126 },
+    { "lat": 47.1876706, "lon": 12.5234874 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "good",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 115656790,
+  "bounds": {
+    "minlat": 47.1661980,
+    "minlon": 12.5355365,
+    "maxlat": 47.1674343,
+    "maxlon": 12.5369412
+  },
+  "geometry": [
+    { "lat": 47.1674343, "lon": 12.5355365 },
+    { "lat": 47.1672134, "lon": 12.5356864 },
+    { "lat": 47.1669631, "lon": 12.5359096 },
+    { "lat": 47.1667780, "lon": 12.5361255 },
+    { "lat": 47.1664507, "lon": 12.5365734 },
+    { "lat": 47.1661980, "lon": 12.5369412 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxheight:signed": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "smoothness": "good",
+    "source": "survey 07.2019 and basemap ortphoto",
+    "source:maxspeed": "sign. Survey 07.2019",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 125194900,
+  "bounds": {
+    "minlat": 47.1192138,
+    "minlon": 12.5049171,
+    "maxlat": 47.1590793,
+    "maxlon": 12.5336316
+  },
+  "geometry": [
+    { "lat": 47.1590793, "lon": 12.5336316 },
+    { "lat": 47.1574766, "lon": 12.5324786 },
+    { "lat": 47.1557216, "lon": 12.5312140 },
+    { "lat": 47.1539605, "lon": 12.5299451 },
+    { "lat": 47.1521995, "lon": 12.5286763 },
+    { "lat": 47.1505364, "lon": 12.5274780 },
+    { "lat": 47.1504393, "lon": 12.5274080 },
+    { "lat": 47.1503454, "lon": 12.5273404 },
+    { "lat": 47.1486924, "lon": 12.5261494 },
+    { "lat": 47.1469453, "lon": 12.5248908 },
+    { "lat": 47.1452005, "lon": 12.5236338 },
+    { "lat": 47.1434539, "lon": 12.5223755 },
+    { "lat": 47.1417057, "lon": 12.5211162 },
+    { "lat": 47.1400480, "lon": 12.5199220 },
+    { "lat": 47.1399584, "lon": 12.5198575 },
+    { "lat": 47.1398607, "lon": 12.5197871 },
+    { "lat": 47.1380494, "lon": 12.5184824 },
+    { "lat": 47.1361414, "lon": 12.5171080 },
+    { "lat": 47.1342287, "lon": 12.5157304 },
+    { "lat": 47.1323212, "lon": 12.5143565 },
+    { "lat": 47.1304137, "lon": 12.5129827 },
+    { "lat": 47.1285922, "lon": 12.5116708 },
+    { "lat": 47.1285029, "lon": 12.5116065 },
+    { "lat": 47.1284090, "lon": 12.5115388 },
+    { "lat": 47.1267865, "lon": 12.5103704 },
+    { "lat": 47.1250461, "lon": 12.5091170 },
+    { "lat": 47.1233094, "lon": 12.5078664 },
+    { "lat": 47.1215682, "lon": 12.5066172 },
+    { "lat": 47.1198292, "lon": 12.5053603 },
+    { "lat": 47.1192138, "lon": 12.5049171 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "charge:motorcar": "13.50 EUR",
+    "charge:motorcycle": "12 EUR",
+    "foot": "no",
+    "highway": "trunk",
+    "horse": "no",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed": "80",
+    "maxspeed:variable": "yes",
+    "motorroad": "yes",
+    "name": "Felbertauerntunnel",
+    "name:prefix:uk": "тунель",
+    "name:uk": "Фельбертауерн",
+    "note": "bicycle shuttle service: +43-4875-8806-11",
+    "oneway": "no",
+    "payment:american_express": "yes",
+    "payment:cash": "yes",
+    "payment:diners_club": "yes",
+    "payment:dkv": "yes",
+    "payment:euroshell": "yes",
+    "payment:maestro": "yes",
+    "payment:mastercard": "yes",
+    "payment:routex": "yes",
+    "payment:uta": "yes",
+    "payment:visa": "yes",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "yes",
+    "wikidata": "Q143294",
+    "wikipedia": "de:Felbertauerntunnel"
+  }
+},
+{
+  "type": "way",
+  "id": 125194901,
+  "bounds": {
+    "minlat": 47.1180348,
+    "minlon": 12.5043376,
+    "maxlat": 47.1187272,
+    "maxlon": 12.5045668
+  },
+  "geometry": [
+    { "lat": 47.1187272, "lon": 12.5045668 },
+    { "lat": 47.1185961, "lon": 12.5044767 },
+    { "lat": 47.1185094, "lon": 12.5044235 },
+    { "lat": 47.1184439, "lon": 12.5043922 },
+    { "lat": 47.1183675, "lon": 12.5043645 },
+    { "lat": 47.1182982, "lon": 12.5043481 },
+    { "lat": 47.1182240, "lon": 12.5043389 },
+    { "lat": 47.1181445, "lon": 12.5043376 },
+    { "lat": 47.1180348, "lon": 12.5043541 }
+  ],
+  "tags": {
+    "charge:motorcar": "13 EUR",
+    "charge:motorcycle": "12 EUR",
+    "highway": "trunk",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed:backward": "80",
+    "maxspeed:forward": "30",
+    "maxspeed:variable": "yes",
+    "motorroad": "yes",
+    "name": "Felbertauerntunnel",
+    "name:prefix:uk": "тунель",
+    "name:uk": "Фельбертауерн",
+    "note": "bicycle shuttle service: +43-4875-8806-11",
+    "oneway": "no",
+    "payment:american_express": "yes",
+    "payment:cash": "yes",
+    "payment:diners_club": "yes",
+    "payment:dkv": "yes",
+    "payment:euroshell": "yes",
+    "payment:maestro": "yes",
+    "payment:mastercard": "yes",
+    "payment:routex": "yes",
+    "payment:uta": "yes",
+    "payment:visa": "yes",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "yes",
+    "wikidata": "Q143294",
+    "wikipedia": "de:Felbertauerntunnel"
+  }
+},
+{
+  "type": "way",
+  "id": 400706680,
+  "bounds": {
+    "minlat": 47.1150276,
+    "minlon": 12.5063143,
+    "maxlat": 47.1154307,
+    "maxlon": 12.5064077
+  },
+  "geometry": [
+    { "lat": 47.1150276, "lon": 12.5064077 },
+    { "lat": 47.1152416, "lon": 12.5063541 },
+    { "lat": 47.1154307, "lon": 12.5063143 }
+  ],
+  "tags": {
+    "access": "no",
+    "highway": "track",
+    "layer": "-1",
+    "name": "Alter Wegabschnitt Felbertauern Mautstraße",
+    "tracktype": "grade1",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 400706682,
+  "bounds": {
+    "minlat": 47.1134695,
+    "minlon": 12.5068097,
+    "maxlat": 47.1140576,
+    "maxlon": 12.5068743
+  },
+  "geometry": [
+    { "lat": 47.1140576, "lon": 12.5068097 },
+    { "lat": 47.1139189, "lon": 12.5068526 },
+    { "lat": 47.1136298, "lon": 12.5068743 },
+    { "lat": 47.1134695, "lon": 12.5068560 }
+  ],
+  "tags": {
+    "abandoned": "yes",
+    "access": "no",
+    "highway": "track",
+    "layer": "-1",
+    "name": "Alter Wegabschnitt Felbertauern Mautstraße",
+    "surface": "asphalt",
+    "tracktype": "grade3",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 702859145,
+  "bounds": {
+    "minlat": 47.1187272,
+    "minlon": 12.5045668,
+    "maxlat": 47.1192138,
+    "maxlon": 12.5049171
+  },
+  "geometry": [
+    { "lat": 47.1192138, "lon": 12.5049171 },
+    { "lat": 47.1187272, "lon": 12.5045668 }
+  ],
+  "tags": {
+    "charge:motorcar": "13 EUR",
+    "charge:motorcycle": "12 EUR",
+    "highway": "trunk",
+    "lanes": "2",
+    "layer": "-1",
+    "lit": "yes",
+    "maxspeed:backward": "80",
+    "maxspeed:forward": "50",
+    "maxspeed:variable": "yes",
+    "motorroad": "yes",
+    "name": "Felbertauerntunnel",
+    "name:prefix:uk": "тунель",
+    "name:uk": "Фельбертауерн",
+    "note": "bicycle shuttle service: +43-4875-8806-11",
+    "oneway": "no",
+    "payment:american_express": "yes",
+    "payment:cash": "yes",
+    "payment:diners_club": "yes",
+    "payment:dkv": "yes",
+    "payment:euroshell": "yes",
+    "payment:maestro": "yes",
+    "payment:mastercard": "yes",
+    "payment:routex": "yes",
+    "payment:uta": "yes",
+    "payment:visa": "yes",
+    "surface": "asphalt",
+    "toll": "yes",
+    "tunnel": "yes",
+    "wikidata": "Q143294",
+    "wikipedia": "de:Felbertauerntunnel"
+  }
+},
+{
+  "type": "way",
+  "id": 703277350,
+  "bounds": {
+    "minlat": 47.1776827,
+    "minlon": 12.5312377,
+    "maxlat": 47.1781578,
+    "maxlon": 12.5319108
+  },
+  "geometry": [
+    { "lat": 47.1781578, "lon": 12.5312377 },
+    { "lat": 47.1776827, "lon": 12.5319108 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "no",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "2",
+    "lanes:backward": "1",
+    "lanes:forward": "1",
+    "layer": "-1",
+    "lit": "no",
+    "maxspeed": "80",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source": "survey 09.2022 and basemap imagery",
+    "source:maxspeed": "sign",
+    "surface": "asphalt",
+    "tunnel": "avalanche_protector"
+  }
+},
+{
+  "type": "way",
+  "id": 784894123,
+  "bounds": {
+    "minlat": 47.1923430,
+    "minlon": 12.5175653,
+    "maxlat": 47.1953559,
+    "maxlon": 12.5204418
+  },
+  "geometry": [
+    { "lat": 47.1953559, "lon": 12.5175653 },
+    { "lat": 47.1946148, "lon": 12.5181604 },
+    { "lat": 47.1941840, "lon": 12.5185001 },
+    { "lat": 47.1937961, "lon": 12.5188372 },
+    { "lat": 47.1935054, "lon": 12.5191159 },
+    { "lat": 47.1933161, "lon": 12.5193017 },
+    { "lat": 47.1929353, "lon": 12.5197253 },
+    { "lat": 47.1923430, "lon": 12.5204418 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "change:lanes:backward": "no",
+    "change:lanes:forward": "not_left|yes",
+    "cycleway:both": "no",
+    "highway": "primary",
+    "lanes": "3",
+    "lanes:backward": "1",
+    "lanes:forward": "2",
+    "layer": "-1",
+    "lit": "no",
+    "maxspeed": "100",
+    "name": "Felbertauernstraße",
+    "note": "Mautstr. ist nicht B108",
+    "source:maxspeed": "AT:rural",
+    "surface": "asphalt",
+    "tunnel": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 1009485155,
+  "bounds": {
+    "minlat": 47.1131596,
+    "minlon": 12.5068205,
+    "maxlat": 47.1134695,
+    "maxlon": 12.5068560
+  },
+  "geometry": [
+    { "lat": 47.1134695, "lon": 12.5068560 },
+    { "lat": 47.1131596, "lon": 12.5068205 }
+  ],
+  "tags": {
+    "abandoned": "yes",
+    "access": "no",
+    "highway": "track",
+    "layer": "-1",
+    "name": "Alter Wegabschnitt Felbertauern Mautstraße",
+    "surface": "asphalt",
+    "tracktype": "grade3",
+    "tunnel": "avalanche_protector"
+  }
+}
+
+  ]
+}

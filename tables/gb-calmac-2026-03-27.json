@@ -1,0 +1,6220 @@
+{
+ "country": "GB",
+ "currency": "GBP",
+ "valid_from": "2026-03-27",
+ "crossings": true,
+ "name": "CalMac ferries (Clyde and Hebrides), commercial vehicles",
+ "law": "CalMac's commercial vehicle single rates from 2026-03-27 (until further notice): per route, its fixed base rate (Coll–Tiree, Tiree–Castlebay, Uig's and Ullapool's routes) plus its price per 0.5 m of the vehicle's length, for each started 0.5 m and 6 m at least, one way; vehicles over 3.5 t (the route fare pages: commercial vehicles are charged by length in 0.5 metre increments, and the fares exclude VAT, which is left out here too). Length groups to 25.5 m. The table is an image, read by OCR: each route's base and price per 0.5 m give its fares from 6 to 17 m as printed. The ports are OpenStreetMap's ferry terminals, priced where a route goes out on OpenStreetMap's car ferry line from them; routes sharing a line (a ship calling on the way) are one system, priced from the first port passed to the last. Wide loads (dearer) aren't priced. Castlebay–Lochboisdale: no car ferry line between them in OpenStreetMap, not priced. Fionnphort–Iona: motor vehicles only with a permit there (OpenStreetMap), not priced. Mallaig–Canna: no car ferry line between them in OpenStreetMap, not priced. Mallaig–Eigg: motor vehicles only with a permit there (OpenStreetMap), not priced. Mallaig–Muck: Muck not found in OpenStreetMap, not priced. Mallaig–Rum: no car ferry line between them in OpenStreetMap, not priced.",
+ "sources": [
+  {
+   "title": "CalMac: commercial vehicle single rates from 2026-03-27",
+   "url": "https://assets.calmac.co.uk/media/dhylsra5/cv-fares-table-from-27th-march-2026-updated-030426.pdf"
+  },
+  {
+   "title": "CalMac: commercial vehicle rates",
+   "url": "https://www.calmac.co.uk/faqs/commercial-vehicles/commercial-vehicle-rates"
+  },
+  {
+   "title": "CalMac: Uig – Tarbert fares (commercial vehicles by length in 0.5 m increments, excluding VAT)",
+   "url": "https://assets.calmac.co.uk/media/hctnsn1e/uig-tarbert-s26.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): ferry lines and terminals on Scotland's west coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Commercial vehicles over 3.5 t, by length (give truck.length_m; 16.5 m assumed)",
+ "min_kg": 3501,
+ "tolled_roads": "CalMac's ferry routes on the Clyde and to the Hebrides, from port to port.",
+ "closed_systems": [
+  {
+   "name": "CalMac Ardmhor (Barra)-Eriskay",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Ardmhor (Barra)-Eriskay: £8.41 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ardmhor",
+     "points": [
+      {
+       "name": "Ardmhor port, 0.5 km out on the line to Eriskay (OSM way 4905020)",
+       "lat": 57.011761,
+       "lon": -7.398237
+      }
+     ]
+    },
+    {
+     "name": "Eriskay",
+     "points": [
+      {
+       "name": "Eriskay port, 0.5 km out on the line to Ardmhor (OSM way 4905020)",
+       "lat": 57.070548,
+       "lon": -7.313736
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Ardmhor|Eriskay": {
+     "6 m": 100.92,
+     "6.5 m": 109.33,
+     "7 m": 117.74,
+     "7.5 m": 126.15,
+     "8 m": 134.56,
+     "8.5 m": 142.97,
+     "9 m": 151.38,
+     "9.5 m": 159.79,
+     "10 m": 168.2,
+     "10.5 m": 176.61,
+     "11 m": 185.02,
+     "11.5 m": 193.43,
+     "12 m": 201.84,
+     "12.5 m": 210.25,
+     "13 m": 218.66,
+     "13.5 m": 227.07,
+     "14 m": 235.48,
+     "14.5 m": 243.89,
+     "15 m": 252.3,
+     "15.5 m": 260.71,
+     "16 m": 269.12,
+     "16.5 m": 277.53,
+     "17 m": 285.94,
+     "17.5 m": 294.35,
+     "18 m": 302.76,
+     "18.5 m": 311.17,
+     "19 m": 319.58,
+     "19.5 m": 327.99,
+     "20 m": 336.4,
+     "20.5 m": 344.81,
+     "21 m": 353.22,
+     "21.5 m": 361.63,
+     "22 m": 370.04,
+     "22.5 m": 378.45,
+     "23 m": 386.86,
+     "23.5 m": 395.27,
+     "24 m": 403.68,
+     "24.5 m": 412.09,
+     "25 m": 420.5,
+     "25.5 m": 428.91
+    }
+   }
+  },
+  {
+   "name": "CalMac Ardrossan/Troon-Brodick",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Ardrossan/Troon-Brodick: £8.57 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ardrossan",
+     "points": [
+      {
+       "name": "Ardrossan port, 0.5 km out on the line to Brodick (OSM way 232580862)",
+       "lat": 55.641162,
+       "lon": -4.830325
+      }
+     ]
+    },
+    {
+     "name": "Brodick",
+     "points": [
+      {
+       "name": "Brodick port, 0.5 km out on the line to Ardrossan (OSM way 232580862)",
+       "lat": 55.581024,
+       "lon": -5.132467
+      },
+      {
+       "name": "Brodick port, 0.5 km out on the line to Troon (OSM way 1246889027)",
+       "lat": 55.58073,
+       "lon": -5.131801
+      }
+     ]
+    },
+    {
+     "name": "Troon",
+     "points": [
+      {
+       "name": "Troon port, 0.5 km out on the line to Brodick (OSM way 1246889027)",
+       "lat": 55.552708,
+       "lon": -4.684771
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Ardrossan|Brodick": {
+     "6 m": 102.84,
+     "6.5 m": 111.41,
+     "7 m": 119.98,
+     "7.5 m": 128.55,
+     "8 m": 137.12,
+     "8.5 m": 145.69,
+     "9 m": 154.26,
+     "9.5 m": 162.83,
+     "10 m": 171.4,
+     "10.5 m": 179.97,
+     "11 m": 188.54,
+     "11.5 m": 197.11,
+     "12 m": 205.68,
+     "12.5 m": 214.25,
+     "13 m": 222.82,
+     "13.5 m": 231.39,
+     "14 m": 239.96,
+     "14.5 m": 248.53,
+     "15 m": 257.1,
+     "15.5 m": 265.67,
+     "16 m": 274.24,
+     "16.5 m": 282.81,
+     "17 m": 291.38,
+     "17.5 m": 299.95,
+     "18 m": 308.52,
+     "18.5 m": 317.09,
+     "19 m": 325.66,
+     "19.5 m": 334.23,
+     "20 m": 342.8,
+     "20.5 m": 351.37,
+     "21 m": 359.94,
+     "21.5 m": 368.51,
+     "22 m": 377.08,
+     "22.5 m": 385.65,
+     "23 m": 394.22,
+     "23.5 m": 402.79,
+     "24 m": 411.36,
+     "24.5 m": 419.93,
+     "25 m": 428.5,
+     "25.5 m": 437.07
+    },
+    "Troon|Brodick": {
+     "6 m": 102.84,
+     "6.5 m": 111.41,
+     "7 m": 119.98,
+     "7.5 m": 128.55,
+     "8 m": 137.12,
+     "8.5 m": 145.69,
+     "9 m": 154.26,
+     "9.5 m": 162.83,
+     "10 m": 171.4,
+     "10.5 m": 179.97,
+     "11 m": 188.54,
+     "11.5 m": 197.11,
+     "12 m": 205.68,
+     "12.5 m": 214.25,
+     "13 m": 222.82,
+     "13.5 m": 231.39,
+     "14 m": 239.96,
+     "14.5 m": 248.53,
+     "15 m": 257.1,
+     "15.5 m": 265.67,
+     "16 m": 274.24,
+     "16.5 m": 282.81,
+     "17 m": 291.38,
+     "17.5 m": 299.95,
+     "18 m": 308.52,
+     "18.5 m": 317.09,
+     "19 m": 325.66,
+     "19.5 m": 334.23,
+     "20 m": 342.8,
+     "20.5 m": 351.37,
+     "21 m": 359.94,
+     "21.5 m": 368.51,
+     "22 m": 377.08,
+     "22.5 m": 385.65,
+     "23 m": 394.22,
+     "23.5 m": 402.79,
+     "24 m": 411.36,
+     "24.5 m": 419.93,
+     "25 m": 428.5,
+     "25.5 m": 437.07
+    }
+   }
+  },
+  {
+   "name": "CalMac Berneray-Leverburgh",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Berneray-Leverburgh: £12.01 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Berneray",
+     "points": [
+      {
+       "name": "Berneray port, 0.5 km out on the line to Leverburgh (OSM way 24920773)",
+       "lat": 57.700788,
+       "lon": -7.173795
+      }
+     ]
+    },
+    {
+     "name": "Leverburgh",
+     "points": [
+      {
+       "name": "Leverburgh port, 0.5 km out on the line to Berneray (OSM way 24920773)",
+       "lat": 57.765117,
+       "lon": -7.032865
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Berneray|Leverburgh": {
+     "6 m": 144.12,
+     "6.5 m": 156.13,
+     "7 m": 168.14,
+     "7.5 m": 180.15,
+     "8 m": 192.16,
+     "8.5 m": 204.17,
+     "9 m": 216.18,
+     "9.5 m": 228.19,
+     "10 m": 240.2,
+     "10.5 m": 252.21,
+     "11 m": 264.22,
+     "11.5 m": 276.23,
+     "12 m": 288.24,
+     "12.5 m": 300.25,
+     "13 m": 312.26,
+     "13.5 m": 324.27,
+     "14 m": 336.28,
+     "14.5 m": 348.29,
+     "15 m": 360.3,
+     "15.5 m": 372.31,
+     "16 m": 384.32,
+     "16.5 m": 396.33,
+     "17 m": 408.34,
+     "17.5 m": 420.35,
+     "18 m": 432.36,
+     "18.5 m": 444.37,
+     "19 m": 456.38,
+     "19.5 m": 468.39,
+     "20 m": 480.4,
+     "20.5 m": 492.41,
+     "21 m": 504.42,
+     "21.5 m": 516.43,
+     "22 m": 528.44,
+     "22.5 m": 540.45,
+     "23 m": 552.46,
+     "23.5 m": 564.47,
+     "24 m": 576.48,
+     "24.5 m": 588.49,
+     "25 m": 600.5,
+     "25.5 m": 612.51
+    }
+   }
+  },
+  {
+   "name": "CalMac Claonaig/Tarbert(*)-Lochranza",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Claonaig/Tarbert(*)-Lochranza: £6.34 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Claonaig",
+     "points": [
+      {
+       "name": "Claonaig port, 0.5 km out on the line to Lochranza (OSM way 26604112)",
+       "lat": 55.747432,
+       "lon": -5.382981
+      }
+     ]
+    },
+    {
+     "name": "Lochranza",
+     "points": [
+      {
+       "name": "Lochranza port, 0.5 km out on the line to Claonaig (OSM way 26604112)",
+       "lat": 55.711062,
+       "lon": -5.306029
+      },
+      {
+       "name": "Lochranza port, 0.5 km out on the line to Tarbert (Loch Fyne) (OSM way 744137517)",
+       "lat": 55.712328,
+       "lon": -5.301382
+      }
+     ]
+    },
+    {
+     "name": "Tarbert (Loch Fyne)",
+     "points": [
+      {
+       "name": "Tarbert (Loch Fyne) port, 1.5 km out on the line to Lochranza (OSM way 744137517)",
+       "lat": 55.866405,
+       "lon": -5.380528
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Claonaig|Lochranza": {
+     "6 m": 76.08,
+     "6.5 m": 82.42,
+     "7 m": 88.76,
+     "7.5 m": 95.1,
+     "8 m": 101.44,
+     "8.5 m": 107.78,
+     "9 m": 114.12,
+     "9.5 m": 120.46,
+     "10 m": 126.8,
+     "10.5 m": 133.14,
+     "11 m": 139.48,
+     "11.5 m": 145.82,
+     "12 m": 152.16,
+     "12.5 m": 158.5,
+     "13 m": 164.84,
+     "13.5 m": 171.18,
+     "14 m": 177.52,
+     "14.5 m": 183.86,
+     "15 m": 190.2,
+     "15.5 m": 196.54,
+     "16 m": 202.88,
+     "16.5 m": 209.22,
+     "17 m": 215.56,
+     "17.5 m": 221.9,
+     "18 m": 228.24,
+     "18.5 m": 234.58,
+     "19 m": 240.92,
+     "19.5 m": 247.26,
+     "20 m": 253.6,
+     "20.5 m": 259.94,
+     "21 m": 266.28,
+     "21.5 m": 272.62,
+     "22 m": 278.96,
+     "22.5 m": 285.3,
+     "23 m": 291.64,
+     "23.5 m": 297.98,
+     "24 m": 304.32,
+     "24.5 m": 310.66,
+     "25 m": 317.0,
+     "25.5 m": 323.34
+    },
+    "Tarbert (Loch Fyne)|Lochranza": {
+     "6 m": 76.08,
+     "6.5 m": 82.42,
+     "7 m": 88.76,
+     "7.5 m": 95.1,
+     "8 m": 101.44,
+     "8.5 m": 107.78,
+     "9 m": 114.12,
+     "9.5 m": 120.46,
+     "10 m": 126.8,
+     "10.5 m": 133.14,
+     "11 m": 139.48,
+     "11.5 m": 145.82,
+     "12 m": 152.16,
+     "12.5 m": 158.5,
+     "13 m": 164.84,
+     "13.5 m": 171.18,
+     "14 m": 177.52,
+     "14.5 m": 183.86,
+     "15 m": 190.2,
+     "15.5 m": 196.54,
+     "16 m": 202.88,
+     "16.5 m": 209.22,
+     "17 m": 215.56,
+     "17.5 m": 221.9,
+     "18 m": 228.24,
+     "18.5 m": 234.58,
+     "19 m": 240.92,
+     "19.5 m": 247.26,
+     "20 m": 253.6,
+     "20.5 m": 259.94,
+     "21 m": 266.28,
+     "21.5 m": 272.62,
+     "22 m": 278.96,
+     "22.5 m": 285.3,
+     "23 m": 291.64,
+     "23.5 m": 297.98,
+     "24 m": 304.32,
+     "24.5 m": 310.66,
+     "25 m": 317.0,
+     "25.5 m": 323.34
+    }
+   }
+  },
+  {
+   "name": "CalMac Colintraive-Rhubodach",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Colintraive-Rhubodach: £1.91 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Colintraive",
+     "points": [
+      {
+       "name": "Colintraive port, 0.1 km out on the line to Rhubodach (OSM way 4233844)",
+       "lat": 55.923115,
+       "lon": -5.15474
+      }
+     ]
+    },
+    {
+     "name": "Rhubodach",
+     "points": [
+      {
+       "name": "Rhubodach port, 0.1 km out on the line to Colintraive (OSM way 4233844)",
+       "lat": 55.921844,
+       "lon": -5.157399
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Colintraive|Rhubodach": {
+     "6 m": 22.92,
+     "6.5 m": 24.83,
+     "7 m": 26.74,
+     "7.5 m": 28.65,
+     "8 m": 30.56,
+     "8.5 m": 32.47,
+     "9 m": 34.38,
+     "9.5 m": 36.29,
+     "10 m": 38.2,
+     "10.5 m": 40.11,
+     "11 m": 42.02,
+     "11.5 m": 43.93,
+     "12 m": 45.84,
+     "12.5 m": 47.75,
+     "13 m": 49.66,
+     "13.5 m": 51.57,
+     "14 m": 53.48,
+     "14.5 m": 55.39,
+     "15 m": 57.3,
+     "15.5 m": 59.21,
+     "16 m": 61.12,
+     "16.5 m": 63.03,
+     "17 m": 64.94,
+     "17.5 m": 66.85,
+     "18 m": 68.76,
+     "18.5 m": 70.67,
+     "19 m": 72.58,
+     "19.5 m": 74.49,
+     "20 m": 76.4,
+     "20.5 m": 78.31,
+     "21 m": 80.22,
+     "21.5 m": 82.13,
+     "22 m": 84.04,
+     "22.5 m": 85.95,
+     "23 m": 87.86,
+     "23.5 m": 89.77,
+     "24 m": 91.68,
+     "24.5 m": 93.59,
+     "25 m": 95.5,
+     "25.5 m": 97.41
+    }
+   }
+  },
+  {
+   "name": "CalMac Coll-Tiree / Kennacraig-Port Ellen/Port Askaig / Lochaline-Fishnish / Oban-Castlebay/Lochboisdale / Oban-Coll/Tiree / Oban-Craignure / Oban-Lismore / Oban/Kennacraig-Colonsay / Oban-Port Askaig / Port Askaig-Colonsay",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Coll-Tiree: £31.54 plus £3.30 per 0.5 m; Kennacraig-Port Ellen/Port Askaig: £13.02 per 0.5 m; Lochaline-Fishnish: £5.38 per 0.5 m; Oban-Castlebay/Lochboisdale: £18.13 per 0.5 m; Oban-Coll/Tiree: £14.54 per 0.5 m; Oban-Craignure: £9.19 per 0.5 m; Oban-Lismore: £7.16 per 0.5 m; Oban/Kennacraig-Colonsay: £18.23 per 0.5 m; Oban-Port Askaig: £18.57 per 0.5 m; Port Askaig-Colonsay: £6.80 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Castlebay",
+     "points": [
+      {
+       "name": "Castlebay port, 3.9 km out on the line to Oban (OSM way 439911852)",
+       "lat": 56.932097,
+       "lon": -7.453201
+      }
+     ]
+    },
+    {
+     "name": "Coll",
+     "points": [
+      {
+       "name": "Coll port, 0.5 km out on the line to Tiree (OSM way 165022552)",
+       "lat": 56.611531,
+       "lon": -6.516579
+      }
+     ]
+    },
+    {
+     "name": "Colonsay",
+     "points": [
+      {
+       "name": "Colonsay port, 0.5 km out on the line to Oban (OSM way 172129035)",
+       "lat": 56.069073,
+       "lon": -6.176936
+      },
+      {
+       "name": "Colonsay port, 0.5 km out on the line to Kennacraig (OSM way 25604793)",
+       "lat": 56.068568,
+       "lon": -6.176893
+      }
+     ]
+    },
+    {
+     "name": "Craignure",
+     "points": [
+      {
+       "name": "Craignure port, 0.5 km out on the line to Oban (OSM way 23471991)",
+       "lat": 56.474347,
+       "lon": -5.699732
+      }
+     ]
+    },
+    {
+     "name": "Fishnish",
+     "points": [
+      {
+       "name": "Fishnish port, 0.5 km out on the line to Lochaline (OSM way 42368972)",
+       "lat": 56.518198,
+       "lon": -5.80642
+      }
+     ]
+    },
+    {
+     "name": "Kennacraig",
+     "points": [
+      {
+       "name": "Kennacraig port, 0.5 km out on the line to Port Ellen (OSM way 26508102)",
+       "lat": 55.805984,
+       "lon": -5.491135
+      },
+      {
+       "name": "Kennacraig port, 0.5 km out on the line to Port Askaig (OSM way 26508013)",
+       "lat": 55.806446,
+       "lon": -5.491243
+      }
+     ]
+    },
+    {
+     "name": "Lismore",
+     "points": [
+      {
+       "name": "Lismore port, 0.5 km out on the line to Oban (OSM way 35085611)",
+       "lat": 56.508247,
+       "lon": -5.490099
+      }
+     ]
+    },
+    {
+     "name": "Lochaline",
+     "points": [
+      {
+       "name": "Lochaline port, 0.5 km out on the line to Fishnish (OSM way 42368972)",
+       "lat": 56.533006,
+       "lon": -5.774306
+      }
+     ]
+    },
+    {
+     "name": "Lochboisdale",
+     "points": [
+      {
+       "name": "Lochboisdale port, 5.2 km out on the line to Oban (OSM way 1147905340)",
+       "lat": 57.140548,
+       "lon": -7.222159
+      }
+     ]
+    },
+    {
+     "name": "Oban",
+     "points": [
+      {
+       "name": "Oban port, 0.5 km out on the line to Castlebay (OSM way 439911852)",
+       "lat": 56.415077,
+       "lon": -5.482216
+      },
+      {
+       "name": "Oban port, 0.5 km out on the line to Craignure (OSM way 23471991)",
+       "lat": 56.414549,
+       "lon": -5.482528
+      }
+     ]
+    },
+    {
+     "name": "Port Askaig",
+     "points": [
+      {
+       "name": "Port Askaig port, 0.8 km out on the line to Kennacraig (OSM way 26508013)",
+       "lat": 55.845284,
+       "lon": -6.095786
+      },
+      {
+       "name": "Port Askaig port, 0.5 km out on the line to Oban (OSM way 25604793)",
+       "lat": 55.852371,
+       "lon": -6.101224
+      }
+     ]
+    },
+    {
+     "name": "Port Ellen",
+     "points": [
+      {
+       "name": "Port Ellen port, 0.5 km out on the line to Kennacraig (OSM way 26508102)",
+       "lat": 55.6257,
+       "lon": -6.196612
+      }
+     ]
+    },
+    {
+     "name": "Tiree",
+     "points": [
+      {
+       "name": "Tiree port, 7.2 km out on the line to Coll (OSM way 165022552)",
+       "lat": 56.529068,
+       "lon": -6.695807
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Coll|Tiree": {
+     "6 m": 71.14,
+     "6.5 m": 74.44,
+     "7 m": 77.74,
+     "7.5 m": 81.04,
+     "8 m": 84.34,
+     "8.5 m": 87.64,
+     "9 m": 90.94,
+     "9.5 m": 94.24,
+     "10 m": 97.54,
+     "10.5 m": 100.84,
+     "11 m": 104.14,
+     "11.5 m": 107.44,
+     "12 m": 110.74,
+     "12.5 m": 114.04,
+     "13 m": 117.34,
+     "13.5 m": 120.64,
+     "14 m": 123.94,
+     "14.5 m": 127.24,
+     "15 m": 130.54,
+     "15.5 m": 133.84,
+     "16 m": 137.14,
+     "16.5 m": 140.44,
+     "17 m": 143.74,
+     "17.5 m": 147.04,
+     "18 m": 150.34,
+     "18.5 m": 153.64,
+     "19 m": 156.94,
+     "19.5 m": 160.24,
+     "20 m": 163.54,
+     "20.5 m": 166.84,
+     "21 m": 170.14,
+     "21.5 m": 173.44,
+     "22 m": 176.74,
+     "22.5 m": 180.04,
+     "23 m": 183.34,
+     "23.5 m": 186.64,
+     "24 m": 189.94,
+     "24.5 m": 193.24,
+     "25 m": 196.54,
+     "25.5 m": 199.84
+    },
+    "Kennacraig|Port Ellen": {
+     "6 m": 156.24,
+     "6.5 m": 169.26,
+     "7 m": 182.28,
+     "7.5 m": 195.3,
+     "8 m": 208.32,
+     "8.5 m": 221.34,
+     "9 m": 234.36,
+     "9.5 m": 247.38,
+     "10 m": 260.4,
+     "10.5 m": 273.42,
+     "11 m": 286.44,
+     "11.5 m": 299.46,
+     "12 m": 312.48,
+     "12.5 m": 325.5,
+     "13 m": 338.52,
+     "13.5 m": 351.54,
+     "14 m": 364.56,
+     "14.5 m": 377.58,
+     "15 m": 390.6,
+     "15.5 m": 403.62,
+     "16 m": 416.64,
+     "16.5 m": 429.66,
+     "17 m": 442.68,
+     "17.5 m": 455.7,
+     "18 m": 468.72,
+     "18.5 m": 481.74,
+     "19 m": 494.76,
+     "19.5 m": 507.78,
+     "20 m": 520.8,
+     "20.5 m": 533.82,
+     "21 m": 546.84,
+     "21.5 m": 559.86,
+     "22 m": 572.88,
+     "22.5 m": 585.9,
+     "23 m": 598.92,
+     "23.5 m": 611.94,
+     "24 m": 624.96,
+     "24.5 m": 637.98,
+     "25 m": 651.0,
+     "25.5 m": 664.02
+    },
+    "Kennacraig|Port Askaig": {
+     "6 m": 156.24,
+     "6.5 m": 169.26,
+     "7 m": 182.28,
+     "7.5 m": 195.3,
+     "8 m": 208.32,
+     "8.5 m": 221.34,
+     "9 m": 234.36,
+     "9.5 m": 247.38,
+     "10 m": 260.4,
+     "10.5 m": 273.42,
+     "11 m": 286.44,
+     "11.5 m": 299.46,
+     "12 m": 312.48,
+     "12.5 m": 325.5,
+     "13 m": 338.52,
+     "13.5 m": 351.54,
+     "14 m": 364.56,
+     "14.5 m": 377.58,
+     "15 m": 390.6,
+     "15.5 m": 403.62,
+     "16 m": 416.64,
+     "16.5 m": 429.66,
+     "17 m": 442.68,
+     "17.5 m": 455.7,
+     "18 m": 468.72,
+     "18.5 m": 481.74,
+     "19 m": 494.76,
+     "19.5 m": 507.78,
+     "20 m": 520.8,
+     "20.5 m": 533.82,
+     "21 m": 546.84,
+     "21.5 m": 559.86,
+     "22 m": 572.88,
+     "22.5 m": 585.9,
+     "23 m": 598.92,
+     "23.5 m": 611.94,
+     "24 m": 624.96,
+     "24.5 m": 637.98,
+     "25 m": 651.0,
+     "25.5 m": 664.02
+    },
+    "Lochaline|Fishnish": {
+     "6 m": 64.56,
+     "6.5 m": 69.94,
+     "7 m": 75.32,
+     "7.5 m": 80.7,
+     "8 m": 86.08,
+     "8.5 m": 91.46,
+     "9 m": 96.84,
+     "9.5 m": 102.22,
+     "10 m": 107.6,
+     "10.5 m": 112.98,
+     "11 m": 118.36,
+     "11.5 m": 123.74,
+     "12 m": 129.12,
+     "12.5 m": 134.5,
+     "13 m": 139.88,
+     "13.5 m": 145.26,
+     "14 m": 150.64,
+     "14.5 m": 156.02,
+     "15 m": 161.4,
+     "15.5 m": 166.78,
+     "16 m": 172.16,
+     "16.5 m": 177.54,
+     "17 m": 182.92,
+     "17.5 m": 188.3,
+     "18 m": 193.68,
+     "18.5 m": 199.06,
+     "19 m": 204.44,
+     "19.5 m": 209.82,
+     "20 m": 215.2,
+     "20.5 m": 220.58,
+     "21 m": 225.96,
+     "21.5 m": 231.34,
+     "22 m": 236.72,
+     "22.5 m": 242.1,
+     "23 m": 247.48,
+     "23.5 m": 252.86,
+     "24 m": 258.24,
+     "24.5 m": 263.62,
+     "25 m": 269.0,
+     "25.5 m": 274.38
+    },
+    "Oban|Castlebay": {
+     "6 m": 217.56,
+     "6.5 m": 235.69,
+     "7 m": 253.82,
+     "7.5 m": 271.95,
+     "8 m": 290.08,
+     "8.5 m": 308.21,
+     "9 m": 326.34,
+     "9.5 m": 344.47,
+     "10 m": 362.6,
+     "10.5 m": 380.73,
+     "11 m": 398.86,
+     "11.5 m": 416.99,
+     "12 m": 435.12,
+     "12.5 m": 453.25,
+     "13 m": 471.38,
+     "13.5 m": 489.51,
+     "14 m": 507.64,
+     "14.5 m": 525.77,
+     "15 m": 543.9,
+     "15.5 m": 562.03,
+     "16 m": 580.16,
+     "16.5 m": 598.29,
+     "17 m": 616.42,
+     "17.5 m": 634.55,
+     "18 m": 652.68,
+     "18.5 m": 670.81,
+     "19 m": 688.94,
+     "19.5 m": 707.07,
+     "20 m": 725.2,
+     "20.5 m": 743.33,
+     "21 m": 761.46,
+     "21.5 m": 779.59,
+     "22 m": 797.72,
+     "22.5 m": 815.85,
+     "23 m": 833.98,
+     "23.5 m": 852.11,
+     "24 m": 870.24,
+     "24.5 m": 888.37,
+     "25 m": 906.5,
+     "25.5 m": 924.63
+    },
+    "Oban|Lochboisdale": {
+     "6 m": 217.56,
+     "6.5 m": 235.69,
+     "7 m": 253.82,
+     "7.5 m": 271.95,
+     "8 m": 290.08,
+     "8.5 m": 308.21,
+     "9 m": 326.34,
+     "9.5 m": 344.47,
+     "10 m": 362.6,
+     "10.5 m": 380.73,
+     "11 m": 398.86,
+     "11.5 m": 416.99,
+     "12 m": 435.12,
+     "12.5 m": 453.25,
+     "13 m": 471.38,
+     "13.5 m": 489.51,
+     "14 m": 507.64,
+     "14.5 m": 525.77,
+     "15 m": 543.9,
+     "15.5 m": 562.03,
+     "16 m": 580.16,
+     "16.5 m": 598.29,
+     "17 m": 616.42,
+     "17.5 m": 634.55,
+     "18 m": 652.68,
+     "18.5 m": 670.81,
+     "19 m": 688.94,
+     "19.5 m": 707.07,
+     "20 m": 725.2,
+     "20.5 m": 743.33,
+     "21 m": 761.46,
+     "21.5 m": 779.59,
+     "22 m": 797.72,
+     "22.5 m": 815.85,
+     "23 m": 833.98,
+     "23.5 m": 852.11,
+     "24 m": 870.24,
+     "24.5 m": 888.37,
+     "25 m": 906.5,
+     "25.5 m": 924.63
+    },
+    "Oban|Coll": {
+     "6 m": 174.48,
+     "6.5 m": 189.02,
+     "7 m": 203.56,
+     "7.5 m": 218.1,
+     "8 m": 232.64,
+     "8.5 m": 247.18,
+     "9 m": 261.72,
+     "9.5 m": 276.26,
+     "10 m": 290.8,
+     "10.5 m": 305.34,
+     "11 m": 319.88,
+     "11.5 m": 334.42,
+     "12 m": 348.96,
+     "12.5 m": 363.5,
+     "13 m": 378.04,
+     "13.5 m": 392.58,
+     "14 m": 407.12,
+     "14.5 m": 421.66,
+     "15 m": 436.2,
+     "15.5 m": 450.74,
+     "16 m": 465.28,
+     "16.5 m": 479.82,
+     "17 m": 494.36,
+     "17.5 m": 508.9,
+     "18 m": 523.44,
+     "18.5 m": 537.98,
+     "19 m": 552.52,
+     "19.5 m": 567.06,
+     "20 m": 581.6,
+     "20.5 m": 596.14,
+     "21 m": 610.68,
+     "21.5 m": 625.22,
+     "22 m": 639.76,
+     "22.5 m": 654.3,
+     "23 m": 668.84,
+     "23.5 m": 683.38,
+     "24 m": 697.92,
+     "24.5 m": 712.46,
+     "25 m": 727.0,
+     "25.5 m": 741.54
+    },
+    "Oban|Tiree": {
+     "6 m": 174.48,
+     "6.5 m": 189.02,
+     "7 m": 203.56,
+     "7.5 m": 218.1,
+     "8 m": 232.64,
+     "8.5 m": 247.18,
+     "9 m": 261.72,
+     "9.5 m": 276.26,
+     "10 m": 290.8,
+     "10.5 m": 305.34,
+     "11 m": 319.88,
+     "11.5 m": 334.42,
+     "12 m": 348.96,
+     "12.5 m": 363.5,
+     "13 m": 378.04,
+     "13.5 m": 392.58,
+     "14 m": 407.12,
+     "14.5 m": 421.66,
+     "15 m": 436.2,
+     "15.5 m": 450.74,
+     "16 m": 465.28,
+     "16.5 m": 479.82,
+     "17 m": 494.36,
+     "17.5 m": 508.9,
+     "18 m": 523.44,
+     "18.5 m": 537.98,
+     "19 m": 552.52,
+     "19.5 m": 567.06,
+     "20 m": 581.6,
+     "20.5 m": 596.14,
+     "21 m": 610.68,
+     "21.5 m": 625.22,
+     "22 m": 639.76,
+     "22.5 m": 654.3,
+     "23 m": 668.84,
+     "23.5 m": 683.38,
+     "24 m": 697.92,
+     "24.5 m": 712.46,
+     "25 m": 727.0,
+     "25.5 m": 741.54
+    },
+    "Oban|Craignure": {
+     "6 m": 110.28,
+     "6.5 m": 119.47,
+     "7 m": 128.66,
+     "7.5 m": 137.85,
+     "8 m": 147.04,
+     "8.5 m": 156.23,
+     "9 m": 165.42,
+     "9.5 m": 174.61,
+     "10 m": 183.8,
+     "10.5 m": 192.99,
+     "11 m": 202.18,
+     "11.5 m": 211.37,
+     "12 m": 220.56,
+     "12.5 m": 229.75,
+     "13 m": 238.94,
+     "13.5 m": 248.13,
+     "14 m": 257.32,
+     "14.5 m": 266.51,
+     "15 m": 275.7,
+     "15.5 m": 284.89,
+     "16 m": 294.08,
+     "16.5 m": 303.27,
+     "17 m": 312.46,
+     "17.5 m": 321.65,
+     "18 m": 330.84,
+     "18.5 m": 340.03,
+     "19 m": 349.22,
+     "19.5 m": 358.41,
+     "20 m": 367.6,
+     "20.5 m": 376.79,
+     "21 m": 385.98,
+     "21.5 m": 395.17,
+     "22 m": 404.36,
+     "22.5 m": 413.55,
+     "23 m": 422.74,
+     "23.5 m": 431.93,
+     "24 m": 441.12,
+     "24.5 m": 450.31,
+     "25 m": 459.5,
+     "25.5 m": 468.69
+    },
+    "Oban|Lismore": {
+     "6 m": 85.92,
+     "6.5 m": 93.08,
+     "7 m": 100.24,
+     "7.5 m": 107.4,
+     "8 m": 114.56,
+     "8.5 m": 121.72,
+     "9 m": 128.88,
+     "9.5 m": 136.04,
+     "10 m": 143.2,
+     "10.5 m": 150.36,
+     "11 m": 157.52,
+     "11.5 m": 164.68,
+     "12 m": 171.84,
+     "12.5 m": 179.0,
+     "13 m": 186.16,
+     "13.5 m": 193.32,
+     "14 m": 200.48,
+     "14.5 m": 207.64,
+     "15 m": 214.8,
+     "15.5 m": 221.96,
+     "16 m": 229.12,
+     "16.5 m": 236.28,
+     "17 m": 243.44,
+     "17.5 m": 250.6,
+     "18 m": 257.76,
+     "18.5 m": 264.92,
+     "19 m": 272.08,
+     "19.5 m": 279.24,
+     "20 m": 286.4,
+     "20.5 m": 293.56,
+     "21 m": 300.72,
+     "21.5 m": 307.88,
+     "22 m": 315.04,
+     "22.5 m": 322.2,
+     "23 m": 329.36,
+     "23.5 m": 336.52,
+     "24 m": 343.68,
+     "24.5 m": 350.84,
+     "25 m": 358.0,
+     "25.5 m": 365.16
+    },
+    "Oban|Colonsay": {
+     "6 m": 218.76,
+     "6.5 m": 236.99,
+     "7 m": 255.22,
+     "7.5 m": 273.45,
+     "8 m": 291.68,
+     "8.5 m": 309.91,
+     "9 m": 328.14,
+     "9.5 m": 346.37,
+     "10 m": 364.6,
+     "10.5 m": 382.83,
+     "11 m": 401.06,
+     "11.5 m": 419.29,
+     "12 m": 437.52,
+     "12.5 m": 455.75,
+     "13 m": 473.98,
+     "13.5 m": 492.21,
+     "14 m": 510.44,
+     "14.5 m": 528.67,
+     "15 m": 546.9,
+     "15.5 m": 565.13,
+     "16 m": 583.36,
+     "16.5 m": 601.59,
+     "17 m": 619.82,
+     "17.5 m": 638.05,
+     "18 m": 656.28,
+     "18.5 m": 674.51,
+     "19 m": 692.74,
+     "19.5 m": 710.97,
+     "20 m": 729.2,
+     "20.5 m": 747.43,
+     "21 m": 765.66,
+     "21.5 m": 783.89,
+     "22 m": 802.12,
+     "22.5 m": 820.35,
+     "23 m": 838.58,
+     "23.5 m": 856.81,
+     "24 m": 875.04,
+     "24.5 m": 893.27,
+     "25 m": 911.5,
+     "25.5 m": 929.73
+    },
+    "Kennacraig|Colonsay": {
+     "6 m": 218.76,
+     "6.5 m": 236.99,
+     "7 m": 255.22,
+     "7.5 m": 273.45,
+     "8 m": 291.68,
+     "8.5 m": 309.91,
+     "9 m": 328.14,
+     "9.5 m": 346.37,
+     "10 m": 364.6,
+     "10.5 m": 382.83,
+     "11 m": 401.06,
+     "11.5 m": 419.29,
+     "12 m": 437.52,
+     "12.5 m": 455.75,
+     "13 m": 473.98,
+     "13.5 m": 492.21,
+     "14 m": 510.44,
+     "14.5 m": 528.67,
+     "15 m": 546.9,
+     "15.5 m": 565.13,
+     "16 m": 583.36,
+     "16.5 m": 601.59,
+     "17 m": 619.82,
+     "17.5 m": 638.05,
+     "18 m": 656.28,
+     "18.5 m": 674.51,
+     "19 m": 692.74,
+     "19.5 m": 710.97,
+     "20 m": 729.2,
+     "20.5 m": 747.43,
+     "21 m": 765.66,
+     "21.5 m": 783.89,
+     "22 m": 802.12,
+     "22.5 m": 820.35,
+     "23 m": 838.58,
+     "23.5 m": 856.81,
+     "24 m": 875.04,
+     "24.5 m": 893.27,
+     "25 m": 911.5,
+     "25.5 m": 929.73
+    },
+    "Oban|Port Askaig": {
+     "6 m": 222.84,
+     "6.5 m": 241.41,
+     "7 m": 259.98,
+     "7.5 m": 278.55,
+     "8 m": 297.12,
+     "8.5 m": 315.69,
+     "9 m": 334.26,
+     "9.5 m": 352.83,
+     "10 m": 371.4,
+     "10.5 m": 389.97,
+     "11 m": 408.54,
+     "11.5 m": 427.11,
+     "12 m": 445.68,
+     "12.5 m": 464.25,
+     "13 m": 482.82,
+     "13.5 m": 501.39,
+     "14 m": 519.96,
+     "14.5 m": 538.53,
+     "15 m": 557.1,
+     "15.5 m": 575.67,
+     "16 m": 594.24,
+     "16.5 m": 612.81,
+     "17 m": 631.38,
+     "17.5 m": 649.95,
+     "18 m": 668.52,
+     "18.5 m": 687.09,
+     "19 m": 705.66,
+     "19.5 m": 724.23,
+     "20 m": 742.8,
+     "20.5 m": 761.37,
+     "21 m": 779.94,
+     "21.5 m": 798.51,
+     "22 m": 817.08,
+     "22.5 m": 835.65,
+     "23 m": 854.22,
+     "23.5 m": 872.79,
+     "24 m": 891.36,
+     "24.5 m": 909.93,
+     "25 m": 928.5,
+     "25.5 m": 947.07
+    },
+    "Port Askaig|Colonsay": {
+     "6 m": 81.6,
+     "6.5 m": 88.4,
+     "7 m": 95.2,
+     "7.5 m": 102.0,
+     "8 m": 108.8,
+     "8.5 m": 115.6,
+     "9 m": 122.4,
+     "9.5 m": 129.2,
+     "10 m": 136.0,
+     "10.5 m": 142.8,
+     "11 m": 149.6,
+     "11.5 m": 156.4,
+     "12 m": 163.2,
+     "12.5 m": 170.0,
+     "13 m": 176.8,
+     "13.5 m": 183.6,
+     "14 m": 190.4,
+     "14.5 m": 197.2,
+     "15 m": 204.0,
+     "15.5 m": 210.8,
+     "16 m": 217.6,
+     "16.5 m": 224.4,
+     "17 m": 231.2,
+     "17.5 m": 238.0,
+     "18 m": 244.8,
+     "18.5 m": 251.6,
+     "19 m": 258.4,
+     "19.5 m": 265.2,
+     "20 m": 272.0,
+     "20.5 m": 278.8,
+     "21 m": 285.6,
+     "21.5 m": 292.4,
+     "22 m": 299.2,
+     "22.5 m": 306.0,
+     "23 m": 312.8,
+     "23.5 m": 319.6,
+     "24 m": 326.4,
+     "24.5 m": 333.2,
+     "25 m": 340.0,
+     "25.5 m": 346.8
+    }
+   }
+  },
+  {
+   "name": "CalMac Largs-Cumbrae Slip",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Largs-Cumbrae Slip: £4.33 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Cumbrae Slip",
+     "points": [
+      {
+       "name": "Cumbrae Slip port, 0.5 km out on the line to Largs (OSM way 19212318)",
+       "lat": 55.7893,
+       "lon": -4.891198
+      }
+     ]
+    },
+    {
+     "name": "Largs",
+     "points": [
+      {
+       "name": "Largs port, 0.5 km out on the line to Cumbrae Slip (OSM way 19212318)",
+       "lat": 55.794879,
+       "lon": -4.878212
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Largs|Cumbrae Slip": {
+     "6 m": 51.96,
+     "6.5 m": 56.29,
+     "7 m": 60.62,
+     "7.5 m": 64.95,
+     "8 m": 69.28,
+     "8.5 m": 73.61,
+     "9 m": 77.94,
+     "9.5 m": 82.27,
+     "10 m": 86.6,
+     "10.5 m": 90.93,
+     "11 m": 95.26,
+     "11.5 m": 99.59,
+     "12 m": 103.92,
+     "12.5 m": 108.25,
+     "13 m": 112.58,
+     "13.5 m": 116.91,
+     "14 m": 121.24,
+     "14.5 m": 125.57,
+     "15 m": 129.9,
+     "15.5 m": 134.23,
+     "16 m": 138.56,
+     "16.5 m": 142.89,
+     "17 m": 147.22,
+     "17.5 m": 151.55,
+     "18 m": 155.88,
+     "18.5 m": 160.21,
+     "19 m": 164.54,
+     "19.5 m": 168.87,
+     "20 m": 173.2,
+     "20.5 m": 177.53,
+     "21 m": 181.86,
+     "21.5 m": 186.19,
+     "22 m": 190.52,
+     "22.5 m": 194.85,
+     "23 m": 199.18,
+     "23.5 m": 203.51,
+     "24 m": 207.84,
+     "24.5 m": 212.17,
+     "25 m": 216.5,
+     "25.5 m": 220.83
+    }
+   }
+  },
+  {
+   "name": "CalMac Lochmaddy-Tarbert / Uig-Lochmaddy / Uig-Tarbert",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Lochmaddy-Tarbert: £12.01 per 0.5 m; Uig-Lochmaddy: £50.14 plus £6.58 per 0.5 m; Uig-Tarbert: £50.14 plus £6.58 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Lochmaddy",
+     "points": [
+      {
+       "name": "Lochmaddy port, 0.5 km out on the line to Tarbert (Harris) (OSM way 256623173)",
+       "lat": 57.596799,
+       "lon": -7.150063
+      }
+     ]
+    },
+    {
+     "name": "Tarbert (Harris)",
+     "points": [
+      {
+       "name": "Tarbert (Harris) port, 0.5 km out on the line to Lochmaddy (OSM way 4910859)",
+       "lat": 57.894463,
+       "lon": -6.792356
+      }
+     ]
+    },
+    {
+     "name": "Uig",
+     "points": [
+      {
+       "name": "Uig port, 0.5 km out on the line to Lochmaddy (OSM way 256623173)",
+       "lat": 57.58159,
+       "lon": -6.373818
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Lochmaddy|Tarbert (Harris)": {
+     "6 m": 144.12,
+     "6.5 m": 156.13,
+     "7 m": 168.14,
+     "7.5 m": 180.15,
+     "8 m": 192.16,
+     "8.5 m": 204.17,
+     "9 m": 216.18,
+     "9.5 m": 228.19,
+     "10 m": 240.2,
+     "10.5 m": 252.21,
+     "11 m": 264.22,
+     "11.5 m": 276.23,
+     "12 m": 288.24,
+     "12.5 m": 300.25,
+     "13 m": 312.26,
+     "13.5 m": 324.27,
+     "14 m": 336.28,
+     "14.5 m": 348.29,
+     "15 m": 360.3,
+     "15.5 m": 372.31,
+     "16 m": 384.32,
+     "16.5 m": 396.33,
+     "17 m": 408.34,
+     "17.5 m": 420.35,
+     "18 m": 432.36,
+     "18.5 m": 444.37,
+     "19 m": 456.38,
+     "19.5 m": 468.39,
+     "20 m": 480.4,
+     "20.5 m": 492.41,
+     "21 m": 504.42,
+     "21.5 m": 516.43,
+     "22 m": 528.44,
+     "22.5 m": 540.45,
+     "23 m": 552.46,
+     "23.5 m": 564.47,
+     "24 m": 576.48,
+     "24.5 m": 588.49,
+     "25 m": 600.5,
+     "25.5 m": 612.51
+    },
+    "Uig|Lochmaddy": {
+     "6 m": 129.1,
+     "6.5 m": 135.68,
+     "7 m": 142.26,
+     "7.5 m": 148.84,
+     "8 m": 155.42,
+     "8.5 m": 162.0,
+     "9 m": 168.58,
+     "9.5 m": 175.16,
+     "10 m": 181.74,
+     "10.5 m": 188.32,
+     "11 m": 194.9,
+     "11.5 m": 201.48,
+     "12 m": 208.06,
+     "12.5 m": 214.64,
+     "13 m": 221.22,
+     "13.5 m": 227.8,
+     "14 m": 234.38,
+     "14.5 m": 240.96,
+     "15 m": 247.54,
+     "15.5 m": 254.12,
+     "16 m": 260.7,
+     "16.5 m": 267.28,
+     "17 m": 273.86,
+     "17.5 m": 280.44,
+     "18 m": 287.02,
+     "18.5 m": 293.6,
+     "19 m": 300.18,
+     "19.5 m": 306.76,
+     "20 m": 313.34,
+     "20.5 m": 319.92,
+     "21 m": 326.5,
+     "21.5 m": 333.08,
+     "22 m": 339.66,
+     "22.5 m": 346.24,
+     "23 m": 352.82,
+     "23.5 m": 359.4,
+     "24 m": 365.98,
+     "24.5 m": 372.56,
+     "25 m": 379.14,
+     "25.5 m": 385.72
+    },
+    "Uig|Tarbert (Harris)": {
+     "6 m": 129.1,
+     "6.5 m": 135.68,
+     "7 m": 142.26,
+     "7.5 m": 148.84,
+     "8 m": 155.42,
+     "8.5 m": 162.0,
+     "9 m": 168.58,
+     "9.5 m": 175.16,
+     "10 m": 181.74,
+     "10.5 m": 188.32,
+     "11 m": 194.9,
+     "11.5 m": 201.48,
+     "12 m": 208.06,
+     "12.5 m": 214.64,
+     "13 m": 221.22,
+     "13.5 m": 227.8,
+     "14 m": 234.38,
+     "14.5 m": 240.96,
+     "15 m": 247.54,
+     "15.5 m": 254.12,
+     "16 m": 260.7,
+     "16.5 m": 267.28,
+     "17 m": 273.86,
+     "17.5 m": 280.44,
+     "18 m": 287.02,
+     "18.5 m": 293.6,
+     "19 m": 300.18,
+     "19.5 m": 306.76,
+     "20 m": 313.34,
+     "20.5 m": 319.92,
+     "21 m": 326.5,
+     "21.5 m": 333.08,
+     "22 m": 339.66,
+     "22.5 m": 346.24,
+     "23 m": 352.82,
+     "23.5 m": 359.4,
+     "24 m": 365.98,
+     "24.5 m": 372.56,
+     "25 m": 379.14,
+     "25.5 m": 385.72
+    }
+   }
+  },
+  {
+   "name": "CalMac Mallaig-Armadale",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Mallaig-Armadale: £4.24 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Armadale",
+     "points": [
+      {
+       "name": "Armadale port, 0.5 km out on the line to Mallaig (OSM way 4904837)",
+       "lat": 57.065671,
+       "lon": -5.887126
+      }
+     ]
+    },
+    {
+     "name": "Mallaig",
+     "points": [
+      {
+       "name": "Mallaig port, 1.7 km out on the line to Armadale (OSM way 4904837)",
+       "lat": 57.02119,
+       "lon": -5.828761
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Mallaig|Armadale": {
+     "6 m": 50.88,
+     "6.5 m": 55.12,
+     "7 m": 59.36,
+     "7.5 m": 63.6,
+     "8 m": 67.84,
+     "8.5 m": 72.08,
+     "9 m": 76.32,
+     "9.5 m": 80.56,
+     "10 m": 84.8,
+     "10.5 m": 89.04,
+     "11 m": 93.28,
+     "11.5 m": 97.52,
+     "12 m": 101.76,
+     "12.5 m": 106.0,
+     "13 m": 110.24,
+     "13.5 m": 114.48,
+     "14 m": 118.72,
+     "14.5 m": 122.96,
+     "15 m": 127.2,
+     "15.5 m": 131.44,
+     "16 m": 135.68,
+     "16.5 m": 139.92,
+     "17 m": 144.16,
+     "17.5 m": 148.4,
+     "18 m": 152.64,
+     "18.5 m": 156.88,
+     "19 m": 161.12,
+     "19.5 m": 165.36,
+     "20 m": 169.6,
+     "20.5 m": 173.84,
+     "21 m": 178.08,
+     "21.5 m": 182.32,
+     "22 m": 186.56,
+     "22.5 m": 190.8,
+     "23 m": 195.04,
+     "23.5 m": 199.28,
+     "24 m": 203.52,
+     "24.5 m": 207.76,
+     "25 m": 212.0,
+     "25.5 m": 216.24
+    }
+   }
+  },
+  {
+   "name": "CalMac Mallaig-Lochboisdale",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Mallaig-Lochboisdale: £14.06 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Lochboisdale",
+     "points": [
+      {
+       "name": "Lochboisdale port, 5.2 km out on the line to Mallaig (OSM way 251232841)",
+       "lat": 57.143334,
+       "lon": -7.22108
+      }
+     ]
+    },
+    {
+     "name": "Mallaig",
+     "points": [
+      {
+       "name": "Mallaig port, 1.7 km out on the line to Lochboisdale (OSM way 251232841)",
+       "lat": 57.0185,
+       "lon": -5.833599
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Mallaig|Lochboisdale": {
+     "6 m": 168.72,
+     "6.5 m": 182.78,
+     "7 m": 196.84,
+     "7.5 m": 210.9,
+     "8 m": 224.96,
+     "8.5 m": 239.02,
+     "9 m": 253.08,
+     "9.5 m": 267.14,
+     "10 m": 281.2,
+     "10.5 m": 295.26,
+     "11 m": 309.32,
+     "11.5 m": 323.38,
+     "12 m": 337.44,
+     "12.5 m": 351.5,
+     "13 m": 365.56,
+     "13.5 m": 379.62,
+     "14 m": 393.68,
+     "14.5 m": 407.74,
+     "15 m": 421.8,
+     "15.5 m": 435.86,
+     "16 m": 449.92,
+     "16.5 m": 463.98,
+     "17 m": 478.04,
+     "17.5 m": 492.1,
+     "18 m": 506.16,
+     "18.5 m": 520.22,
+     "19 m": 534.28,
+     "19.5 m": 548.34,
+     "20 m": 562.4,
+     "20.5 m": 576.46,
+     "21 m": 590.52,
+     "21.5 m": 604.58,
+     "22 m": 618.64,
+     "22.5 m": 632.7,
+     "23 m": 646.76,
+     "23.5 m": 660.82,
+     "24 m": 674.88,
+     "24.5 m": 688.94,
+     "25 m": 703.0,
+     "25.5 m": 717.06
+    }
+   }
+  },
+  {
+   "name": "CalMac Sconser-Raasay",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Sconser-Raasay: £6.48 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Raasay",
+     "points": [
+      {
+       "name": "Raasay port, 0.5 km out on the line to Sconser (OSM way 33875625)",
+       "lat": 57.346152,
+       "lon": -6.086595
+      }
+     ]
+    },
+    {
+     "name": "Sconser",
+     "points": [
+      {
+       "name": "Sconser port, 0.5 km out on the line to Raasay (OSM way 33875625)",
+       "lat": 57.316092,
+       "lon": -6.105175
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Sconser|Raasay": {
+     "6 m": 77.76,
+     "6.5 m": 84.24,
+     "7 m": 90.72,
+     "7.5 m": 97.2,
+     "8 m": 103.68,
+     "8.5 m": 110.16,
+     "9 m": 116.64,
+     "9.5 m": 123.12,
+     "10 m": 129.6,
+     "10.5 m": 136.08,
+     "11 m": 142.56,
+     "11.5 m": 149.04,
+     "12 m": 155.52,
+     "12.5 m": 162.0,
+     "13 m": 168.48,
+     "13.5 m": 174.96,
+     "14 m": 181.44,
+     "14.5 m": 187.92,
+     "15 m": 194.4,
+     "15.5 m": 200.88,
+     "16 m": 207.36,
+     "16.5 m": 213.84,
+     "17 m": 220.32,
+     "17.5 m": 226.8,
+     "18 m": 233.28,
+     "18.5 m": 239.76,
+     "19 m": 246.24,
+     "19.5 m": 252.72,
+     "20 m": 259.2,
+     "20.5 m": 265.68,
+     "21 m": 272.16,
+     "21.5 m": 278.64,
+     "22 m": 285.12,
+     "22.5 m": 291.6,
+     "23 m": 298.08,
+     "23.5 m": 304.56,
+     "24 m": 311.04,
+     "24.5 m": 317.52,
+     "25 m": 324.0,
+     "25.5 m": 330.48
+    }
+   }
+  },
+  {
+   "name": "CalMac Tarbert-Portavadie",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Tarbert-Portavadie: £5.10 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Portavadie",
+     "points": [
+      {
+       "name": "Portavadie port, 0.5 km out on the line to Tarbert (Loch Fyne) (OSM way 26603850)",
+       "lat": 55.876188,
+       "lon": -5.324702
+      }
+     ]
+    },
+    {
+     "name": "Tarbert (Loch Fyne)",
+     "points": [
+      {
+       "name": "Tarbert (Loch Fyne) port, 1.5 km out on the line to Portavadie (OSM way 26603850)",
+       "lat": 55.869184,
+       "lon": -5.380463
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Tarbert (Loch Fyne)|Portavadie": {
+     "6 m": 61.2,
+     "6.5 m": 66.3,
+     "7 m": 71.4,
+     "7.5 m": 76.5,
+     "8 m": 81.6,
+     "8.5 m": 86.7,
+     "9 m": 91.8,
+     "9.5 m": 96.9,
+     "10 m": 102.0,
+     "10.5 m": 107.1,
+     "11 m": 112.2,
+     "11.5 m": 117.3,
+     "12 m": 122.4,
+     "12.5 m": 127.5,
+     "13 m": 132.6,
+     "13.5 m": 137.7,
+     "14 m": 142.8,
+     "14.5 m": 147.9,
+     "15 m": 153.0,
+     "15.5 m": 158.1,
+     "16 m": 163.2,
+     "16.5 m": 168.3,
+     "17 m": 173.4,
+     "17.5 m": 178.5,
+     "18 m": 183.6,
+     "18.5 m": 188.7,
+     "19 m": 193.8,
+     "19.5 m": 198.9,
+     "20 m": 204.0,
+     "20.5 m": 209.1,
+     "21 m": 214.2,
+     "21.5 m": 219.3,
+     "22 m": 224.4,
+     "22.5 m": 229.5,
+     "23 m": 234.6,
+     "23.5 m": 239.7,
+     "24 m": 244.8,
+     "24.5 m": 249.9,
+     "25 m": 255.0,
+     "25.5 m": 260.1
+    }
+   }
+  },
+  {
+   "name": "CalMac Tayinloan-Gigha",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Tayinloan-Gigha: £6.19 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Gigha",
+     "points": [
+      {
+       "name": "Gigha port, 0.5 km out on the line to Tayinloan (OSM way 62271489)",
+       "lat": 55.675226,
+       "lon": -5.726801
+      }
+     ]
+    },
+    {
+     "name": "Tayinloan",
+     "points": [
+      {
+       "name": "Tayinloan port, 0.5 km out on the line to Gigha (OSM way 62271489)",
+       "lat": 55.659753,
+       "lon": -5.677771
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Tayinloan|Gigha": {
+     "6 m": 74.28,
+     "6.5 m": 80.47,
+     "7 m": 86.66,
+     "7.5 m": 92.85,
+     "8 m": 99.04,
+     "8.5 m": 105.23,
+     "9 m": 111.42,
+     "9.5 m": 117.61,
+     "10 m": 123.8,
+     "10.5 m": 129.99,
+     "11 m": 136.18,
+     "11.5 m": 142.37,
+     "12 m": 148.56,
+     "12.5 m": 154.75,
+     "13 m": 160.94,
+     "13.5 m": 167.13,
+     "14 m": 173.32,
+     "14.5 m": 179.51,
+     "15 m": 185.7,
+     "15.5 m": 191.89,
+     "16 m": 198.08,
+     "16.5 m": 204.27,
+     "17 m": 210.46,
+     "17.5 m": 216.65,
+     "18 m": 222.84,
+     "18.5 m": 229.03,
+     "19 m": 235.22,
+     "19.5 m": 241.41,
+     "20 m": 247.6,
+     "20.5 m": 253.79,
+     "21 m": 259.98,
+     "21.5 m": 266.17,
+     "22 m": 272.36,
+     "22.5 m": 278.55,
+     "23 m": 284.74,
+     "23.5 m": 290.93,
+     "24 m": 297.12,
+     "24.5 m": 303.31,
+     "25 m": 309.5,
+     "25.5 m": 315.69
+    }
+   }
+  },
+  {
+   "name": "CalMac Tiree-Castlebay",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Tiree-Castlebay: £50.14 plus £10.84 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Castlebay",
+     "points": [
+      {
+       "name": "Castlebay port, 3.9 km out on the line to Tiree (OSM way 400016994)",
+       "lat": 56.929717,
+       "lon": -7.455842
+      }
+     ]
+    },
+    {
+     "name": "Tiree",
+     "points": [
+      {
+       "name": "Tiree port, 7.1 km out on the line to Castlebay (OSM way 400016994)",
+       "lat": 56.53016,
+       "lon": -6.701735
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Tiree|Castlebay": {
+     "6 m": 180.22,
+     "6.5 m": 191.06,
+     "7 m": 201.9,
+     "7.5 m": 212.74,
+     "8 m": 223.58,
+     "8.5 m": 234.42,
+     "9 m": 245.26,
+     "9.5 m": 256.1,
+     "10 m": 266.94,
+     "10.5 m": 277.78,
+     "11 m": 288.62,
+     "11.5 m": 299.46,
+     "12 m": 310.3,
+     "12.5 m": 321.14,
+     "13 m": 331.98,
+     "13.5 m": 342.82,
+     "14 m": 353.66,
+     "14.5 m": 364.5,
+     "15 m": 375.34,
+     "15.5 m": 386.18,
+     "16 m": 397.02,
+     "16.5 m": 407.86,
+     "17 m": 418.7,
+     "17.5 m": 429.54,
+     "18 m": 440.38,
+     "18.5 m": 451.22,
+     "19 m": 462.06,
+     "19.5 m": 472.9,
+     "20 m": 483.74,
+     "20.5 m": 494.58,
+     "21 m": 505.42,
+     "21.5 m": 516.26,
+     "22 m": 527.1,
+     "22.5 m": 537.94,
+     "23 m": 548.78,
+     "23.5 m": 559.62,
+     "24 m": 570.46,
+     "24.5 m": 581.3,
+     "25 m": 592.14,
+     "25.5 m": 602.98
+    }
+   }
+  },
+  {
+   "name": "CalMac Tobermory-Kilchoan",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Tobermory-Kilchoan: £6.34 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Kilchoan",
+     "points": [
+      {
+       "name": "Kilchoan port, 0.5 km out on the line to Tobermory (OSM way 3263412)",
+       "lat": 56.685515,
+       "lon": -6.088865
+      }
+     ]
+    },
+    {
+     "name": "Tobermory",
+     "points": [
+      {
+       "name": "Tobermory port, 0.8 km out on the line to Kilchoan (OSM way 3263412)",
+       "lat": 56.629169,
+       "lon": -6.056802
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Tobermory|Kilchoan": {
+     "6 m": 76.08,
+     "6.5 m": 82.42,
+     "7 m": 88.76,
+     "7.5 m": 95.1,
+     "8 m": 101.44,
+     "8.5 m": 107.78,
+     "9 m": 114.12,
+     "9.5 m": 120.46,
+     "10 m": 126.8,
+     "10.5 m": 133.14,
+     "11 m": 139.48,
+     "11.5 m": 145.82,
+     "12 m": 152.16,
+     "12.5 m": 158.5,
+     "13 m": 164.84,
+     "13.5 m": 171.18,
+     "14 m": 177.52,
+     "14.5 m": 183.86,
+     "15 m": 190.2,
+     "15.5 m": 196.54,
+     "16 m": 202.88,
+     "16.5 m": 209.22,
+     "17 m": 215.56,
+     "17.5 m": 221.9,
+     "18 m": 228.24,
+     "18.5 m": 234.58,
+     "19 m": 240.92,
+     "19.5 m": 247.26,
+     "20 m": 253.6,
+     "20.5 m": 259.94,
+     "21 m": 266.28,
+     "21.5 m": 272.62,
+     "22 m": 278.96,
+     "22.5 m": 285.3,
+     "23 m": 291.64,
+     "23.5 m": 297.98,
+     "24 m": 304.32,
+     "24.5 m": 310.66,
+     "25 m": 317.0,
+     "25.5 m": 323.34
+    }
+   }
+  },
+  {
+   "name": "CalMac Ullapool-Stornoway",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Ullapool-Stornoway: £50.14 plus £11.75 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Stornoway",
+     "points": [
+      {
+       "name": "Stornoway port, 0.5 km out on the line to Ullapool (OSM way 24959813)",
+       "lat": 58.201974,
+       "lon": -6.387819
+      }
+     ]
+    },
+    {
+     "name": "Ullapool",
+     "points": [
+      {
+       "name": "Ullapool port, 0.5 km out on the line to Stornoway (OSM way 24959813)",
+       "lat": 57.890547,
+       "lon": -5.160669
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Ullapool|Stornoway": {
+     "6 m": 191.14,
+     "6.5 m": 202.89,
+     "7 m": 214.64,
+     "7.5 m": 226.39,
+     "8 m": 238.14,
+     "8.5 m": 249.89,
+     "9 m": 261.64,
+     "9.5 m": 273.39,
+     "10 m": 285.14,
+     "10.5 m": 296.89,
+     "11 m": 308.64,
+     "11.5 m": 320.39,
+     "12 m": 332.14,
+     "12.5 m": 343.89,
+     "13 m": 355.64,
+     "13.5 m": 367.39,
+     "14 m": 379.14,
+     "14.5 m": 390.89,
+     "15 m": 402.64,
+     "15.5 m": 414.39,
+     "16 m": 426.14,
+     "16.5 m": 437.89,
+     "17 m": 449.64,
+     "17.5 m": 461.39,
+     "18 m": 473.14,
+     "18.5 m": 484.89,
+     "19 m": 496.64,
+     "19.5 m": 508.39,
+     "20 m": 520.14,
+     "20.5 m": 531.89,
+     "21 m": 543.64,
+     "21.5 m": 555.39,
+     "22 m": 567.14,
+     "22.5 m": 578.89,
+     "23 m": 590.64,
+     "23.5 m": 602.39,
+     "24 m": 614.14,
+     "24.5 m": 625.89,
+     "25 m": 637.64,
+     "25.5 m": 649.39
+    }
+   }
+  },
+  {
+   "name": "CalMac Wemyss Bay-Rothesay",
+   "law": "CalMac commercial vehicle single rates from 2026-03-27: Wemyss Bay-Rothesay: £5.32 per 0.5 m",
+   "groups": [
+    {
+     "name": "6 m",
+     "min_kg": 3501,
+     "max_length_m": 6.0
+    },
+    {
+     "name": "6.5 m",
+     "min_kg": 3501,
+     "min_length_m": 6.0,
+     "max_length_m": 6.5
+    },
+    {
+     "name": "7 m",
+     "min_kg": 3501,
+     "min_length_m": 6.5,
+     "max_length_m": 7.0
+    },
+    {
+     "name": "7.5 m",
+     "min_kg": 3501,
+     "min_length_m": 7.0,
+     "max_length_m": 7.5
+    },
+    {
+     "name": "8 m",
+     "min_kg": 3501,
+     "min_length_m": 7.5,
+     "max_length_m": 8.0
+    },
+    {
+     "name": "8.5 m",
+     "min_kg": 3501,
+     "min_length_m": 8.0,
+     "max_length_m": 8.5
+    },
+    {
+     "name": "9 m",
+     "min_kg": 3501,
+     "min_length_m": 8.5,
+     "max_length_m": 9.0
+    },
+    {
+     "name": "9.5 m",
+     "min_kg": 3501,
+     "min_length_m": 9.0,
+     "max_length_m": 9.5
+    },
+    {
+     "name": "10 m",
+     "min_kg": 3501,
+     "min_length_m": 9.5,
+     "max_length_m": 10.0
+    },
+    {
+     "name": "10.5 m",
+     "min_kg": 3501,
+     "min_length_m": 10.0,
+     "max_length_m": 10.5
+    },
+    {
+     "name": "11 m",
+     "min_kg": 3501,
+     "min_length_m": 10.5,
+     "max_length_m": 11.0
+    },
+    {
+     "name": "11.5 m",
+     "min_kg": 3501,
+     "min_length_m": 11.0,
+     "max_length_m": 11.5
+    },
+    {
+     "name": "12 m",
+     "min_kg": 3501,
+     "min_length_m": 11.5,
+     "max_length_m": 12.0
+    },
+    {
+     "name": "12.5 m",
+     "min_kg": 3501,
+     "min_length_m": 12.0,
+     "max_length_m": 12.5
+    },
+    {
+     "name": "13 m",
+     "min_kg": 3501,
+     "min_length_m": 12.5,
+     "max_length_m": 13.0
+    },
+    {
+     "name": "13.5 m",
+     "min_kg": 3501,
+     "min_length_m": 13.0,
+     "max_length_m": 13.5
+    },
+    {
+     "name": "14 m",
+     "min_kg": 3501,
+     "min_length_m": 13.5,
+     "max_length_m": 14.0
+    },
+    {
+     "name": "14.5 m",
+     "min_kg": 3501,
+     "min_length_m": 14.0,
+     "max_length_m": 14.5
+    },
+    {
+     "name": "15 m",
+     "min_kg": 3501,
+     "min_length_m": 14.5,
+     "max_length_m": 15.0
+    },
+    {
+     "name": "15.5 m",
+     "min_kg": 3501,
+     "min_length_m": 15.0,
+     "max_length_m": 15.5
+    },
+    {
+     "name": "16 m",
+     "min_kg": 3501,
+     "min_length_m": 15.5,
+     "max_length_m": 16.0
+    },
+    {
+     "name": "16.5 m",
+     "min_kg": 3501,
+     "min_length_m": 16.0,
+     "max_length_m": 16.5
+    },
+    {
+     "name": "17 m",
+     "min_kg": 3501,
+     "min_length_m": 16.5,
+     "max_length_m": 17.0
+    },
+    {
+     "name": "17.5 m",
+     "min_kg": 3501,
+     "min_length_m": 17.0,
+     "max_length_m": 17.5
+    },
+    {
+     "name": "18 m",
+     "min_kg": 3501,
+     "min_length_m": 17.5,
+     "max_length_m": 18.0
+    },
+    {
+     "name": "18.5 m",
+     "min_kg": 3501,
+     "min_length_m": 18.0,
+     "max_length_m": 18.5
+    },
+    {
+     "name": "19 m",
+     "min_kg": 3501,
+     "min_length_m": 18.5,
+     "max_length_m": 19.0
+    },
+    {
+     "name": "19.5 m",
+     "min_kg": 3501,
+     "min_length_m": 19.0,
+     "max_length_m": 19.5
+    },
+    {
+     "name": "20 m",
+     "min_kg": 3501,
+     "min_length_m": 19.5,
+     "max_length_m": 20.0
+    },
+    {
+     "name": "20.5 m",
+     "min_kg": 3501,
+     "min_length_m": 20.0,
+     "max_length_m": 20.5
+    },
+    {
+     "name": "21 m",
+     "min_kg": 3501,
+     "min_length_m": 20.5,
+     "max_length_m": 21.0
+    },
+    {
+     "name": "21.5 m",
+     "min_kg": 3501,
+     "min_length_m": 21.0,
+     "max_length_m": 21.5
+    },
+    {
+     "name": "22 m",
+     "min_kg": 3501,
+     "min_length_m": 21.5,
+     "max_length_m": 22.0
+    },
+    {
+     "name": "22.5 m",
+     "min_kg": 3501,
+     "min_length_m": 22.0,
+     "max_length_m": 22.5
+    },
+    {
+     "name": "23 m",
+     "min_kg": 3501,
+     "min_length_m": 22.5,
+     "max_length_m": 23.0
+    },
+    {
+     "name": "23.5 m",
+     "min_kg": 3501,
+     "min_length_m": 23.0,
+     "max_length_m": 23.5
+    },
+    {
+     "name": "24 m",
+     "min_kg": 3501,
+     "min_length_m": 23.5,
+     "max_length_m": 24.0
+    },
+    {
+     "name": "24.5 m",
+     "min_kg": 3501,
+     "min_length_m": 24.0,
+     "max_length_m": 24.5
+    },
+    {
+     "name": "25 m",
+     "min_kg": 3501,
+     "min_length_m": 24.5,
+     "max_length_m": 25.0
+    },
+    {
+     "name": "25.5 m",
+     "min_kg": 3501,
+     "min_length_m": 25.0,
+     "max_length_m": 25.5
+    }
+   ],
+   "stations": [
+    {
+     "name": "Rothesay",
+     "points": [
+      {
+       "name": "Rothesay port, 0.5 km out on the line to Wemyss Bay (OSM way 4796214)",
+       "lat": 55.842912,
+       "lon": -5.050433
+      }
+     ]
+    },
+    {
+     "name": "Wemyss Bay",
+     "points": [
+      {
+       "name": "Wemyss Bay port, 0.5 km out on the line to Rothesay (OSM way 4796214)",
+       "lat": 55.874457,
+       "lon": -4.898381
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Wemyss Bay|Rothesay": {
+     "6 m": 63.84,
+     "6.5 m": 69.16,
+     "7 m": 74.48,
+     "7.5 m": 79.8,
+     "8 m": 85.12,
+     "8.5 m": 90.44,
+     "9 m": 95.76,
+     "9.5 m": 101.08,
+     "10 m": 106.4,
+     "10.5 m": 111.72,
+     "11 m": 117.04,
+     "11.5 m": 122.36,
+     "12 m": 127.68,
+     "12.5 m": 133.0,
+     "13 m": 138.32,
+     "13.5 m": 143.64,
+     "14 m": 148.96,
+     "14.5 m": 154.28,
+     "15 m": 159.6,
+     "15.5 m": 164.92,
+     "16 m": 170.24,
+     "16.5 m": 175.56,
+     "17 m": 180.88,
+     "17.5 m": 186.2,
+     "18 m": 191.52,
+     "18.5 m": 196.84,
+     "19 m": 202.16,
+     "19.5 m": 207.48,
+     "20 m": 212.8,
+     "20.5 m": 218.12,
+     "21 m": 223.44,
+     "21.5 m": 228.76,
+     "22 m": 234.08,
+     "22.5 m": 239.4,
+     "23 m": 244.72,
+     "23.5 m": 250.04,
+     "24 m": 255.36,
+     "24.5 m": 260.68,
+     "25 m": 266.0,
+     "25.5 m": 271.32
+    }
+   }
+  }
+ ],
+ "rows": []
+}

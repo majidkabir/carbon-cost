@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="hu" data-ng-app="njtAppX" id="html">
+<head data-ng-non-bindable="true">
+    <base href="/">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="title" id="meta_title" content="22/2023. (XII. 5.) ÉKM rendelet - Nemzeti Jogszabálytár"/>
+    <meta name="description" id="meta_description" content="22/2023. (XII. 5.) ÉKM rendelet az útdíj mértékéről és az útdíjköteles utakról szóló 25/2013. (V. 31.) NFM rendelet és a használati díj megfizetése ellenében használható autópályákról, autóutakról, főutakról és azok díjáról szóló 45/2020. (XI. 28.) ITM rendelet módosításáról"/>
+    <title>22/2023. (XII. 5.) ÉKM rendelet - Nemzeti Jogszabálytár</title>
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png">
+
+        <link href="/css/njtfrontend-7106b941d9605d8cbe2cf85898ebbb4f4cce489d.css?v2029fd183.14117.20261022122540.2.18.4" type="text/css" rel="stylesheet"/>
+    <script>
+    function iPM() {
+        let css = "";
+        const t = ['padding', 'margin'];
+        for (let e of t) {
+            for (let i = 0; i <= 64; i += 4) {
+                css += `
+                    .${e[0]}-${i}{${e}:${i}px}
+                    .${e[0]}b-${i}{${e}-bottom:${i}px}
+                    .${e[0]}t-${i}{${e}-top:${i}px}
+                    .${e[0]}l-${i}{${e}-left:${i}px}
+                    .${e[0]}r-${i}{${e}-right:${i}px}
+                    .${e[0]}x-${i}{${e}-left:${i}px;${e}-right:${i}px}
+                    .${e[0]}y-${i}{${e}-top:${i}px;${e}-bottom:${i}px}`;
+            }
+        }
+
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.textContent = css;
+        document.head.appendChild(style);
+    }
+    iPM();
+
+</script>        <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script>
+        window.njtLoadAnalytics = function () {
+            if (window.njtAnalyticsLoaded) {
+                return;
+            }
+            window.njtAnalyticsLoaded = true;
+
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-28015740-1';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = function () {
+                dataLayer.push(arguments);
+            };
+            gtag('js', new Date());
+            gtag('config', 'UA-28015740-1');
+        };
+
+        if (/(?:^|;\s*)acceptCookieLaw=true(?:;|$)/.test(document.cookie)) {
+            window.njtLoadAnalytics();
+        }
+    </script>
+        </head>
+<body class="resp-body">
+<div id="loading-bar-host" aria-hidden="true"></div>
+
+<div id="menu-overlay" class="relative" style="display: none">
+    <div class="fixed"></div>
+</div>
+
+<header id="header" data-ng-controller="accountCtrl" aria-label="Az oldal fejléce">
+    <div id="top_flag_line" class="top-flag-line-fixed">
+        <div id="top_header_line"
+                >
+
+            <div id="top-bar--desktop">
+                <div class="wrapper w-1200 flex justify-between items-center">
+                    
+
+<a class="accessiblehidden" id="jumpToSearch" href="#" onclick="return njtApp.scrollToSearchForm()" hidden>Ugrás a keresőre</a>
+<a class="accessiblehidden" id="jumpToContent" href="#" onclick="return njtApp.scrollToElement('main')">Ugrás a tartalomra</a>
+<nav aria-label="Portálok" class="top-links flex flex-nowrap items-center basis-full justify-between">
+    <div class="logo">
+        <a class="flex gap-10 text-medium no-underline" onclick="njtApp.njtService.resetSearchPaths()" href="/">
+            <img alt="Nemzeti Jogszabálytár logó" src="/bundles/njtfrontend/images/layout/logo/njt-logo-header.svg?v2029fd183.14117.20261022122540.2.18.4"/>
+            Nemzeti Jogszabálytár
+        </a>
+                </div>    
+    <ul id="top-menu" class="text-medium flex gap-40 justify-center basis-full" aria-label="Fejléc hivatkozások">
+        <li>
+            <a href="https://jog.gov.hu/" class="no-underline" aria-label="Magyar Jogi Információs Portál - Külső hivatkozás" target="portal">Magyar Jogi Információs Portál</a><i class="ri-external-link-line"></i>
+        </li>
+        <li>
+            <a href="https://magyarkozlony.hu/" class="no-underline" aria-label="Magyar Közlöny Portál - Külső hivatkozás" target="_blank">Magyar Közlöny Portál</a><i class="ri-external-link-line"></i>
+        </li>
+        <li>
+            <a href="https://www.cegkozlony.hu/" class="no-underline" aria-label="Céginformációs Portál - Külső hivatkozás" target="_blank">Céginformációs Portál</a><i class="ri-external-link-line"></i>
+        </li>
+        <li>
+            <a href="https://eur-lex.europa.eu/homepage.html?locale=hu" class="no-underline" aria-label="EUR-LEX - Külső hivatkozás" target="_blank" >EUR-LEX</a><i class="ri-external-link-line"></i>   
+        </li>
+    </ul>
+   
+    <div><ul id="top-right" class="flex items-center justify-center gap-8"><li><a id="help" class="block no-underline" href="/kezikonyv" target="_blank" aria-label="Súgó - Új ablakban nyílik" data-njttip data-njttipposition="below" title="Súgó"><i class="ri-question-line text-24 color-white"></i></a></li><li><button onclick="njtApp.njtService.redirectToLogin()" class="login-button button outline inverted flex justify-center items-center" data-njttip data-njttipposition="below" title="Belépés" aria-label="Belépés"><i class="ri-user-line"></i></button></li></ul></div>
+</nav>
+                </div>
+            </div>
+
+            <div id="top-bar--mobile">
+                <div class="wrapper">
+                    <div class="top-bar">
+    <div class="logo">
+        <a class="flex gap-10 text-medium no-underline" onclick="njtApp.njtService.resetSearchPaths()" href="/">
+            <img alt="Nemzeti Jogszabálytár logó" src="/bundles/njtfrontend/images/layout/logo/njt-logo-header.svg?v2029fd183.14117.20261022122540.2.18.4"/>
+            <span class="w-120">Nemzeti Jogszabálytár</span>
+        </a>
+ 
+    </div>
+
+    <div class="top-bar__button-container">
+        <ul class="flex items-center justify-center gap-8">
+            <li>
+                <a class="no-underline" href="/kezikonyv" target="_blank" aria-label="Súgó - Új ablakban nyílik" data-njttip data-njttipposition="below" title="Súgó">
+                    <i class="ri-question-line text-24 color-white"></i>
+                </a>
+            </li>
+
+                            
+                <li>
+                    <button onclick="njtApp.njtService.redirectToLogin()" class="login-button button outline inverted flex justify-center items-center" data-njttip data-njttipposition="below" title="Belépés" aria-label="Belépés">
+                        <i class="ri-user-line"></i>
+                    </button>
+                </li>
+
+                <li>
+                    <button data-ng-click="toggleMobileMenu()" class="button secondary flex justify-center items-center" data-njttip data-njttipposition="below" title="Menü" aria-label="Menü">
+                        <i class="ri-menu-line"></i>
+                    </button>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="top-bar__menu menu" id="mobile-menu" style="display: none" >
+
+        <div class="menu__row">
+            <div class="logo sidebar">
+                <a class="flex gap-10 text-medium no-underline"
+                   onclick="njtApp.njtService.resetSearchPaths()"
+                   href="/">
+                    <img alt="Nemzeti Jogszabálytár logó" src="/bundles/njtfrontend/images/layout/logo/njt-logo-header.svg?v2029fd183.14117.20261022122540.2.18.4"/>
+                    <span class="w-120">Nemzeti Jogszabálytár</span>
+                </a>
+            </div>
+                        <button id="toggle-menu" data-ng-click="toggleMobileMenu(true)" data-njttip title="Bezárás" aria-label="Bezárás">
+                <i class="ri-close-line color-white text-24"></i>
+            </button>
+        </div>
+        <nav class="menu__links">
+                                        
+            <li class="cursor-pointer" onclick="njtApp.toggleMegnyitottak();">
+                <a href="#">Megnyitott jogszabályok</a>
+            </li>
+            <hr>
+
+                            <li><a href="/">Jogszabálytár</a></li>
+                        <li>
+                                                    <a aria-label="Önkormányzati rendeletek" href="/or"
+                            >
+                        Önkormányzati rendeletek
+                    </a>
+                            </li>
+            <li><a href="/justification_search">Indokolások Tára</a></li>
+            <li>
+                <a  href="/international_agreement/-/1/10">Nemzetközi szerződések</a>
+            </li>
+            <li>
+                <a href="/forditasok">Jogszabályfordítások</a>
+            </li>
+            <li>
+                <a href="/translations">Translated legislation</a>
+            </li>
+                                </nav>
+
+        <hr>
+        <nav class="menu__hyperlinks">
+            <li>
+                <a href="https://jog.gov.hu/" class="no-underline" aria-label="Magyar Jogi Információs Portál - Külső hivatkozás" target="_blank">Magyar Jogi Információs Portál</a>
+            </li>
+            <li>
+                <a href="https://magyarkozlony.hu/" class="no-underline" aria-label="Magyar Közlöny Portál - Külső hivatkozás" target="_blank">Magyar Közlöny Portál</a>
+            </li>
+            <li>
+                <a href="https://www.cegkozlony.hu/" class="no-underline" aria-label="Céginformációs Portál - Külső hivatkozás" target="_blank">Céginformációs Portál</a>
+            </li>
+            <li>
+                <a href="https://eur-lex.europa.eu/homepage.html?locale=hu" class="no-underline" aria-label="EUR-LEX - Külső hivatkozás" target="_blank" >EUR-LEX</a>
+            </li>
+        </nav>
+
+        
+    </div>
+
+</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="loggedin-menu-window" class="on-top-window">
+        <div class="section">
+    <div><a id="historyLink" href="/history/">Előzmények</a></div>
+    <div><a id="favouriteLink" href="/favourite/-/1">Kedvencek</a></div>
+    <div><a id="kerdoivLink" href="/elethelyzet/kerdoiv">Élethelyzet kérdőív</a></div>
+    <div><a id="elethelyzetLink" href="/elethelyzet/lista">Élethelyzet beállítás</a></div>
+        <div><a id="topicLink" href="/topic">Témakörök beállítása</a></div>
+    <div><a id="jogszabalyfigyelo" href="/jogszabalyfigyelo">Jogszabályfigyelő</a></div>
+    <div class="last"><a id="valtozasokLink" href="/valtozaskovetes/favourite/all">Változások követése</a></div>
+                <div><a id="accountLink" href="/account/modification">Beállítások</a></div>
+
+    
+    <div class="last mobile-fixed-logout"><a href="" data-ng-click="logout()">Kilépés</a></div>
+</div>
+
+
+
+
+
+
+
+    </div>
+</header><main id="main" tabindex="-1" aria-label="Az oldal tartalma">
+    <div id="orig" class="mainWrapper" data-ng-controller="origMainCtrl">
+            <div class="mainContent" id="jogszabaly-reader">
+        <div class="bigMargin">
+            <div class="action-menu-wrapper" id="operationMenu" data-ng-controller="mobileFooterCtrl"><div class="blur"><a class="accessiblehidden backToSearchLink text-small" data-ng-attr-href="{{ lastSearchPath }}">Vissza a Jogszabálykeresőre</a><div class="onlyMobile flex justify-between"><h2>Kifejezéskereső</h2><button data-ng-click="toggleOperationsMenu()" class="button subtle ri-close-line flex justify-center items-center p-0 w-32 h-32 color-link-neutral-enabled" data-njttip title="Bezárás" aria-label="Bezárás"></button></div><div class="action-menu"><div class="logo"><a class="flex gap-10 text-medium no-underline" onclick="njtApp.njtService.resetSearchPaths()" href="/"><img alt="Nemzeti Jogszabálytár logó" src="/bundles/njtfrontend/images/layout/logo/njt-logo-header.svg?v2029fd183.14117.20261022122540.2.18.4"/>
+                    Nemzeti Jogszabálytár
+                </a></div><div class="tartalomjegyzekButtonContainer"><button class="tartalomjegyzekButton button outline inverted small">Oldalmenü</button></div><ul class="flex items-center h-full" role="group" aria-label="Dokumentum műveletei"><li role="none" class="searchLi soloLi input-container flex items-center gap-5 flex-1" data-ng-controller="searchController"><input type="text" class="searchInput form-field"
+                           placeholder="Keresés a szövegben"
+                           id="szokereso"
+                           data-njtinput
+                           data-ng-model="searchText"
+                           data-ng-focus="focused.searchText=true"
+                           data-ng-blur="focused.searchText=false"
+                           data-enterkeypress="searchJogszabaly()"
+                           data-ng-disabled="isSearching.left"
+                           aria-label="Szókereső"/><div class="searchButtonHolder left flex gap-6 hidden"><button role="button" aria-label="Előző találat" class="searchPrev left button outline inverted flex justify-center items-center ri-arrow-left-s-line color-icon-neutral-base w-32 h-32"></button><button role="button" aria-label="Következő találat" class="searchNext left button outline inverted flex justify-center items-center ri-arrow-right-s-line color-icon-neutral-base w-32 h-32"></button></div><button
+                            data-ng-click="searchJogszabaly()"
+                            class="onlyMobile searchWordButton button primary text search w-full justify-center"
+                            aria-label="Keresés">Keresés
+                    </button></li><li role="none"><select id="zoomCombo" class="text-16 bg-transparent border-0 mx-8 cursor-pointer color-white" data-njttip data-njttipposition="below" aria-label="Betűméret állítása" title="Betűméret állítása"><option value="50" class="color-link-neutral-enabled">50%</option><option value="75" class="color-link-neutral-enabled">75%</option><option value="90" class="color-link-neutral-enabled">90%</option><option value="100" class="color-link-neutral-enabled" selected>100%</option><option value="125" class="color-link-neutral-enabled">125%</option><option value="150" class="color-link-neutral-enabled">150%</option><option value="175" class="color-link-neutral-enabled">175%</option><option value="200" class="color-link-neutral-enabled">200%</option></select></li><li role="none" class="onlyDesktop"><a class="no-underline color-white" data-njttip data-njttipposition="below"
+                           tabindex="0" href="/wcag"
+                           aria-label="Akadálymentes nézet"
+                           title="Akadálymentes nézet"><i class="ri-accessibility-line"></i></a></li><li role="none"  class="onlyDesktop" ><a class="eliLinkBtn no-underline color-white" data-njttip data-njttipposition="below"
+                               tabindex="0" href="#"
+                               onclick="growl.modal('&lt;a href=&quot;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&quot; target=&quot;_blank&quot; &gt;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&lt;/a&gt;', 'ELI', 'info');"
+                               aria-label="ELI" title="ELI">ELI</a></li><li role="none"  class="onlyDesktop" ><a class="printBtn no-underline color-white" data-njttip data-njttipposition="below"
+                           tabindex="0" href="#"
+                            onclick="njtPrint.handlePrintClick();"                            aria-label="Nyomtatás" title="Nyomtatás"><i class="printBtn ri-printer-fill"></i></a></li><li role="none" class="onlyMobile navigator__button-container"><div class="navigator__item"><a class="eliLinkBtn color-white" data-njttip data-njttipposition="below"
+                                   tabindex="0" href="#"
+                                   onclick="growl.modal('&lt;a href=&quot;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&quot; target=&quot;_blank&quot; &gt;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&lt;/a&gt;', 'ELI', 'info');"
+                                   title="ELI">ELI</a><span>ELI</span></div><div class="navigator__item"><a class="printBtn cursor-pointer color-white"
+                           tabindex="0" href="#"
+                            onclick="njtPrint.handlePrintClick();"                            title="Nyomtatás"><i class="printBtn ri-printer-fill"></i></a></div></li></ul><div class="loginButtonContainer"><button onclick="njtApp.njtService.redirectToLogin()" class="login-button button outline inverted flex justify-center items-center" data-njttitle data-njttipposition="below" title="Belépés" aria-label="Belépés"><i class="ri-user-line"></i></button></div></div></div></div>                <div class="content wrapper jogszabaly-wrapper">
+                    <div class="jumpButtonsContainer">
+                        <button class="jumpToPreviousFutureChangedSlice button flex justify-center items-center p-0" data-njttip title="Előző megváltozó">
+                            <i class="ri-arrow-up-s-line"></i>
+                        </button>
+
+                        <button class="jumpToNextFutureChangedSlice button flex justify-center items-center p-0" data-njttip title="Következő megváltozó">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+
+                        
+                            <button class="jumpToPreviousPastChangedSlice button flex justify-center items-center p-0" data-njttip title="Előző megváltozott">
+                                <i class="ri-arrow-up-s-line"></i>
+                            </button>
+
+                            <button class="jumpToNextPastChangedSlice button flex justify-center items-center p-0" data-njttip title="Következő megváltozott">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+
+                                            </div>
+                                                                        <div id="sidemenu-window-left" class="sidemenu-window rounded-8" aria-label="Oldalmenü">
+    <div class="sidemenu-mobile-header flex justify-between items-center p-16">
+        <h3>Tartalomjegyzék</h3>
+        <button class="tartalomjegyzekButton button subtle ri-close-line flex justify-center items-center p-0 w-32 h-32 color-link-neutral-enabled" data-njttip title="Bezárás" aria-label="Bezárás"></button>
+    </div>
+    <ul class="tab-menu">
+        <li class="tartalom active accessible" role="link" tabindex="0">Szerkezet</li>
+            </ul>
+    <div class="tartalom-tab tab-content active">
+        <div class="tartalom-tab__holder">
+
+            <label class="tartalom-tab__label">
+            <input
+                    id="treeFilter-left"
+                    type="text"
+                    class="sidemenu-window__search"
+                    placeholder="Keresés"
+                    data-njtinput
+            />
+            </label>
+            <div id="treeContainer-left" class="tartalom-tree tree" data-tree-label="Szerkezet"></div>
+        </div>
+    </div>
+        <div class="accessiblehidden" aria-hidden="true"><span>Az oldalmenübe visszatéréshez használhatja az <strong id="accesskey_help">ALT + S</strong> billentyűket.</span></div>
+</div>                                            
+                    
+                                                            <div class="jogszabalyCtrl" data-ng-controller="documentCtrl"
+                         data-ng-init="openDocument('jogszabaly','2023-22-20-8X','22/2023. (XII. 5.) ÉKM rendelet','22/2023. (XII. 5.) ÉKM rendelet az útdíj mértékéről és az útdíjköteles utakról szóló 25/2013. (V. 31.) NFM rendelet és a használati díj megfizetése ellenében használható autópályákról, autóutakról, főutakról és azok díjáról szóló 45/2020. (XI. 28.) ITM rendelet módosításáról', '1')"></div>
+                    <div class="jogszabaly                             "
+                         data-ng-non-bindable="true" id="jogszab">
+
+                        
+                        
+                                                                                    <div class="changeVersionParent flex items-center justify-center">
+                                    <button class="changeVersion flex items-center justify-center text-24" tabindex="0" href="#"
+                                            onclick="versionChooser.versionChooserClick(this)"
+                                            data-njttip title="Hatályosság választás" aria-expanded="false"
+                                            aria-controls="versionWindow">
+                                        <i class="ri-calendar-2-line"></i>
+                                    </button>
+                                </div>
+                                                        <!--i-->
+<span class="jhId" id="NR"></span><h1 id="sc2023-22-20-8X-2" class="pslice jogszabalyMainTitle mainTitle">22/2023. (XII. 5.) ÉKM rendelet</h1><!--i-->
+<span class="jhId" id="CI"></span><h2 id="sc2023-22-20-8X-4" class="pslice jogszabalySubtitle">az útdíj mértékéről és az útdíjköteles utakról szóló <a class="link" href="jogszabaly/2013-25-20-2W" data-type="kulso">25/2013. (V. 31.) NFM rendelet</a> és a használati díj megfizetése ellenében használható autópályákról, autóutakról, főutakról és azok díjáról szóló <a class="link" href="jogszabaly/2020-45-20-7Q" data-type="kulso">45/2020. (XI. 28.) ITM rendelet</a> módosításáról<sup class="fnSup" data-note-id="fnr_45944">1</sup></h2><div class="hataly">2024.02.02.</div><!--i-->
+<span class="jhId" id="PR"></span><div id="sc2023-22-20-8X-6" class="preambulum"><p class="AJ">A közúti közlekedésről szóló <a class="link" href="jogszabaly/1988-1-00-00" data-jhid="SZ48@BE3@POG" data-type="kulso">1988. évi I. törvény 48. § (3) bekezdés g) pont</a> 1., 2. és 4. alpontjában, valamint az autópályák, autóutak és főutak használatáért fizetendő, megtett úttal arányos díjról szóló <a class="link" href="jogszabaly/2013-67-00-00" data-jhid="SZ28@BE2@POC" data-type="kulso">2013. évi LXVII. törvény 28. § (2) bekezdés c) pont</a>jában kapott felhatalmazás alapján,a <a class="link" data-jhid="AC2" data-type="belso">2. alcím</a> tekintetében a közúti közlekedésről szóló <a class="link" href="jogszabaly/1988-1-00-00" data-jhid="SZ48@BE3@POG" data-type="kulso">1988. évi I. törvény 48. § (3) bekezdés g) pont</a>jában kapott felhatalmazás alapján,a Kormány tagjainak feladat- és hatásköréről szóló <a class="link" href="jogszabaly/2022-182-20-22" data-jhid="SZ95@PO8" data-type="kulso">182/2022. (V. 24.) Korm. rendelet 95. § 8. pont</a>jában meghatározott feladatkörömben eljárva – a Kormány tagjainak feladat- és hatásköréről szóló <a class="link" href="jogszabaly/2022-182-20-22" data-jhid="SZ148@BE1@PO2" data-type="kulso">182/2022. (V. 24.) Korm. rendelet 148. § (1) bekezdés 2. pont</a>jában meghatározott feladatkörében eljáró pénzügyminiszterrel és a Kormány tagjainak feladat- és hatásköréről szóló <a class="link" href="jogszabaly/2022-182-20-22" data-jhid="SZ9@BE1@PO17" data-type="kulso">182/2022. (V. 24.) Korm. rendelet 9. § (1) bekezdés 17. pont</a>jában meghatározott feladatkörében eljáró Miniszterelnöki Kabinetirodát vezető miniszterrel egyetértésben – a következőket rendelem el:</p></div><!--i-->
+<!--as--><span class="jhId" id="AC1"></span><div id="sc2023-22-20-8X-10" class="alcim"><p><span class="jel"> 1.</span> Az útdíj mértékéről és az útdíjköteles utakról szóló <a class="link" href="jogszabaly/2013-25-20-2W" data-type="kulso">25/2013. (V. 31.) NFM rendelet</a> módosítása</p></div><!--ae--><!--i-->
+<span class="jhId" id="SZ1"></span><div id="sc2023-22-20-8X-12" class="szakasz"><p class=" mt"><span class="szakasz-jel">1. §<sup class="fnSup" data-note-id="fnr_45931">2</sup> </span></p></div><!--i-->
+<span class="jhId" id="SZ2"></span><div id="sc2023-22-20-8X-109" class="szakasz"><p class=" mt"><span class="szakasz-jel">2. §<sup class="fnSup" data-note-id="fnr_45932">3</sup> </span></p></div><!--i-->
+<!--as--><span class="jhId" id="AC2"></span><div id="sc2023-22-20-8X-125" class="alcim"><p><span class="jel"> 2.</span> A használati díj megfizetése ellenében használható autópályákról, autóutakról, főutakról és azok díjáról szóló <a class="link" href="jogszabaly/2020-45-20-7Q" data-type="kulso">45/2020. (XI. 28.) ITM rendelet</a> módosítása</p></div><!--ae--><!--i-->
+<span class="jhId" id="SZ3"></span><div id="sc2023-22-20-8X-127" class="szakasz"><p class=" mt"><span class="szakasz-jel">3. §<sup class="fnSup" data-note-id="fnr_45945">4</sup> </span></p></div><!--i-->
+<span class="jhId" id="SZ4"></span><div id="sc2023-22-20-8X-183" class="szakasz"><p class=" mt"><span class="szakasz-jel">4. §<sup class="fnSup" data-note-id="fnr_45938">5</sup> </span></p></div><!--i-->
+<span class="jhId" id="SZ5"></span><div id="sc2023-22-20-8X-187" class="szakasz"><p class=" mt"><span class="szakasz-jel">5. §<sup class="fnSup" data-note-id="fnr_45946">6</sup> </span></p></div><!--i-->
+<!--as--><span class="jhId" id="AC3"></span><div id="sc2023-22-20-8X-204" class="alcim"><p><span class="jel"> 3.</span> Záró rendelkezések</p></div><!--ae--><!--i-->
+<span class="jhId" id="SZ6"></span><div id="sc2023-22-20-8X-206" class="szakasz"></div><!--n-->
+<span class="jhId" id="SZ6@BE1"></span><div id="sc2023-22-20-8X-207" class="bekezdesNyito"><p class=" mt"><span class="jel"><span class="szakasz-jel">6. §</span> (1)</span> Ez a rendelet – a <a class="link" data-jhid="SZ6@BE2" data-type="belso">(2)–(3) bekezdés</a>ben foglalt kivétellel – a kihirdetését követő 5. napon lép hatályba.</p></div><!--n-->
+<span class="jhId" id="SZ6@BE2"></span><div id="sc2023-22-20-8X-208" class="bekezdesNyito"><p><span class="jel"> (2)</span> Az <a class="link" data-jhid="SZ1" data-type="belso">1–2. §</a>, a <a class="link" data-jhid="SZ3@BE1" data-type="belso">3. § (1)</a>, <a class="link" data-jhid="SZ3@BE2" data-type="belso">(2)</a>, <a class="link" data-jhid="SZ3@BE4" data-type="belso">(4)</a>, <a class="link" data-jhid="SZ3@BE5" data-type="belso">(5)</a> és <a class="link" data-jhid="SZ3@BE7" data-type="belso">(7) bekezdés</a>e, a <a class="link" data-jhid="SZ4" data-type="belso">4. §</a>, valamint az <a class="link" data-jhid="SZ5@BE0@POD" data-type="belso">5. § d) pont</a>ja 2024. január 1-jén lép hatályba.</p></div><!--n-->
+<span class="jhId" id="SZ6@BE3"></span><div id="sc2023-22-20-8X-209" class="bekezdesNyito"><p><span class="jel"> (3)</span> A <a class="link" data-jhid="SZ3@BE6" data-type="belso">3. § (6)</a> és <a class="link" data-jhid="SZ3@BE8" data-type="belso">(8) bekezdés</a>e, valamint az <a class="link" data-jhid="SZ5@BE0@POA" data-type="belso">5. § a)–c) pont</a>ja 2024. február 1-jén lép hatályba.</p></div><!--i-->
+<span class="jhId" id="SZ7"></span><div id="sc2023-22-20-8X-216" class="szakasz"></div><!--n-->
+<span class="jhId" id="SZ7@BE0"></span><div id="sc2023-22-20-8X-217" class="bekezdesNyito"><p class=" mt"><span class="jel"><span class="szakasz-jel">7. §</span></span> Ez a rendelet</p></div><span class="jhId" id="SZ7@BE0@PO1"></span><div id="sc2023-22-20-8X-220" class="szamosPontNyito"><p><span class="jel"> 1.</span> a járművekre egyes közúti infrastruktúrák használatáért kivetett díjakról szóló, 1999. június 17-i 1999/62/EK európai parlamenti és tanácsi irányelvnek, valamint</p></div><span class="jhId" id="SZ7@BE0@PO2"></span><div id="sc2023-22-20-8X-223" class="szamosPontNyito"><p><span class="jel"> 2.</span> az 1999/62/EK, az 1999/37/EK és az (EU) 2019/520 irányelvnek a gépjárművekre egyes infrastruktúrák használatáért kivetett díjak tekintetében való módosításáról szóló, 2022. február 24-i (EU) 2022/362 európai parlamenti és tanácsi irányelvnek</p></div><div id="sc2023-22-20-8X-226" class="bekezdesZaro"><p>való megfelelést szolgálja.</p></div><span class="jhId" id="ME1"></span><!--i-->
+<div id="sc2023-22-20-8X-231" class="mellekletCimke"><p><i>1. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45940">7</sup></p></div><span class="jhId" id="ME2"></span><!--i-->
+<div id="sc2023-22-20-8X-44178" class="mellekletCimke"><p><i>2. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45941">8</sup></p></div><span class="jhId" id="ME3"></span><!--i-->
+<div id="sc2023-22-20-8X-44693" class="mellekletCimke"><p><i>3. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45942">9</sup></p></div><span class="jhId" id="ME4"></span><!--i-->
+<div id="sc2023-22-20-8X-45612" class="mellekletCimke"><p><i>4. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45947">10</sup></p></div><span class="jhId" id="ME5"></span><!--i-->
+<div id="sc2023-22-20-8X-45708" class="mellekletCimke"><p><i>5. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45943">11</sup></p></div><span class="jhId" id="ME6"></span><!--i-->
+<div id="sc2023-22-20-8X-45819" class="mellekletCimke"><p><i>6. melléklet a 22/2023. (XII. 5.) ÉKM rendelethez</i><sup class="fnSup" data-note-id="fnr_45948">12</sup></p></div>
+                                                        <div class="footnote" id="fnr_45944"><sup>1</sup><p>A rendelet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12B" data-type="kulso">2010. évi CXXX. törvény 12/B. §</a>-a alapján hatályát vesztette 2024. február 3. napjával.</p></div><div class="footnote" id="fnr_45931"><sup>2</sup><p>Az 1. § a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45932"><sup>3</sup><p>A 2. § a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45945"><sup>4</sup><p>A 3. § a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45938"><sup>5</sup><p>A 4. § a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45946"><sup>6</sup><p>Az 5. § a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45940"><sup>7</sup><p>Az 1. melléklet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45941"><sup>8</sup><p>A 2. melléklet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45942"><sup>9</sup><p>A 3. melléklet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45947"><sup>10</sup><p>A 4. melléklet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div><div class="footnote" id="fnr_45943"><sup>11</sup><p>Az 5. melléklet az <a class="link" href="jogszabaly/2023-52-20-8X" data-jhid="SZ7" data-type="kulso">52/2023. (XII. 29.) ÉKM rendelet 7. §</a>-a alapján nem lép hatályba.</p></div><div class="footnote" id="fnr_45948"><sup>12</sup><p>A 6. melléklet a <a class="link" href="jogszabaly/2010-130-00-00" data-jhid="SZ12@BE2" data-type="kulso">2010. évi CXXX. törvény 12. § (2) bekezdés</a>e alapján hatályát vesztette.</p></div>
+                        
+
+                    </div>
+                    <div class="clbo"></div>
+                </div>
+        </div>
+
+        <div class="versionWindow versionWindowDefault" id="versionWindow"></div>
+
+        <div class="footnoteDisplay footnote-fixed">
+    <div class="footnoteContent">
+        <div class="footnoteText" tabindex="0"></div>
+        <button class="footnoteClose absolute top-0 right-0 button outline flex justify-center items-center w-32 h-32 p-0" tabindex="0" data-njttip title="Lábjegyzet bezárása" aria-label="Lábjegyzet bezárása">
+            <i class="footnoteClose ri-close-line"></i>
+        </button>
+    </div>
+</div>
+<div id="fake_footnote_display"></div>
+        
+        <div id="navigation_panel" style="display: none" class="navigation-panel" data-ng-controller="mobileFooterCtrl">
+            <div class="navigation-panel__header flex justify-between items-center p-16">
+                <h3> Változott rendelkezések</h3>
+                <button data-ng-click="toggleNavigationPanel()" class="button subtle ri-close-line flex justify-center items-center p-0 w-32 h-32 color-link-neutral-enabled" data-njttip title="Bezárás" aria-label="Bezárás"></button>
+            </div>
+            <div class="navigation-panel__nav-content nav-content">
+                <div class="flex flex-col gap-8">
+                    <span class="text-16"> Megváltozott</span>
+                    <div class="flex justify-evenly">
+                        <button class="jumpToPreviousPastChangedSlice prevChange button outline negative flex justify-center items-center p-0 w-32 h-32" data-njttip title="Előző megváltozott">
+                            <i class="ri-arrow-up-s-line"></i>
+                        </button>
+                        <button class="jumpToNextPastChangedSlice prevChange button outline negative flex justify-center items-center p-0 w-32 h-32" data-njttip title="Következő megváltozott">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <span class="noPrevChange noChange">
+                            Nincs változás
+                        </span>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-8">
+                    <span class="text-16"> Változni fog </span>
+                    <div class="flex justify-evenly">
+                        <button class="jumpToPreviousFutureChangedSlice nextChange button outline flex justify-center items-center p-0 w-32 h-32" data-njttip title="Előző megváltozó">
+                            <i class="ri-arrow-up-s-line"></i>
+                        </button>
+                        <button class="jumpToNextFutureChangedSlice nextChange button outline flex justify-center items-center p-0 w-32 h-32" data-njttip title="Következő megváltozó">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                        <span class="noNextChange noChange">
+                            Nincs változás
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="eszkoztar_panel" style="display: none" class="eszkoztar_panel " data-ng-controller="mobileFooterCtrl">
+            <div class="navigation-panel__header flex justify-between items-center p-16">
+                <h3> Eszköztár</h3>
+                <button data-ng-click="toggleEszkoztarPanel()" class="button subtle ri-close-line flex justify-center items-center p-0 w-32 h-32 color-link-neutral-enabled" data-njttip title="Bezárás" aria-label="Bezárás"></button>
+            </div>
+            <div class="eszkoztar_panel__content">
+                                                                            <div class="flex flex-col items-center justify-center">
+                        <a class="no-underline text-small" href="#"
+                           onclick="growl.modal('&lt;a href=&quot;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&quot; target=&quot;_blank&quot; &gt;https://njt.jog.gov.hu/eli/R/2023/EKM_/22&lt;/a&gt;', 'ELI', 'info eli-link-modal');"
+                           data-njttip title="ELI">ELI</a>
+                    </div>
+                                <div>
+                    <div onclick="njtPrint.handlePrintClick();"
+                         class="flex flex-col items-center">
+                        <i class="ri-printer-fill text-18"></i>
+                        <span class="text-small">Nyomtatás</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="context_menu">
+            <ul>
+                <li class="context_menu__selection" onclick="exportText.configureExport();">Másolás a vágólapra</li>
+                                    <li class="context_menu__selection" onclick="njtPrint.handlePrintClick();">Nyomtatás</li>
+                                            </ul>
+        </div>
+        </div>
+        <div id="scrollbarRuler"></div>
+
+        <footer id="mobileFooter">
+            <div data-ng-controller="mobileFooterCtrl">
+    <div id="mobile-footer" >
+        <div class="m-footer-item sideMenu color-white cursor-pointer"
+             aria-expanded="false"
+             aria-controls="sidemenu-window-left">
+            <i class="ri-list-check text-16 color-white"></i>
+            <span>
+                Szerkezet
+            </span>
+        </div>
+        <div data-ng-click="toggleOperationsMenu()"
+             class="m-footer-item color-white cursor-pointer">
+            <i class="ri-file-search-line text-16 color-white"></i>
+            <span>
+                Keresés
+            </span>
+        </div>
+        <div data-ng-click="toggleMegnyitottak()"
+             class="m-footer-item color-white cursor-pointer">
+            <i class="ri-archive-stack-line text-16 color-white"></i>
+            <span>
+                Megnyitottak
+            </span>
+        </div>
+                <div data-ng-click="toggleEszkoztarPanel()"
+             class="m-footer-item color-white cursor-pointer">
+            <i class="ri-settings-5-line text-16 color-white"></i>
+            <span>
+                Eszköztár
+            </span>
+        </div>
+        <div data-ng-click="toggleNavigationPanel()"
+             class="m-footer-item color-white cursor-pointer">
+            <i class="ri-expand-up-down-line text-16 color-white"></i>
+            <span>
+                Változások
+            </span>
+        </div>
+    </div>
+</div>        </footer>
+    </div>
+
+
+    <!-- p: 2026-04-30 17:30:01, i: 2026-05-02 17:15:36 -->
+    </div>
+    <div id="dynamic" class="mainWrapper empty" style="display: none">
+        <div data-ng-view></div>
+    </div>
+        <div id="bottom_flag_line" class="bg-white">
+            <div id="sztp_banner" style="position:absolute; bottom: 50px; right: 0; display: none;">
+                <img src="/bundles/njtfrontend/images/layout/sztp.svg?v2029fd183.14117.20261022122540.2.18.4" alt="Széchenyi Terv Plusz logó" style="height: 100px;"/>
+            </div>
+            <div id="bottom_black_line">
+                <div class="wrapper">
+                    <div data-ng-controller="pageBarCtrl">
+                        <div class="pageBar ng-cloak" data-ng-init="initPageBar('jogszabaly','2023-22-20-8X')"><ul><li class="pager search" id="pageBarSearch"><div class="searchPopup"><div class="searchPopupBox"><a class="page or"
+                               data-ng-attr-href="{{ lastOrSearchPath }}">Önkormányzati rendeletek</a></div><div><a class="no-underline" data-ng-attr-href="{{ lastSearchPath }}"><i class="ri-search-line"></i><span class="hidden">Jogszabálykereső</span></a></div></div></li><li class="pager left items-center justify-center" id="pageBarBack" aria-label="Előző fül megjelenítése"
+                data-ng-click="changePager(-1)" data-ng-keydown="$event.keyCode === 13 && changePager(-1)"
+                data-ng-show="backForward"><i tabindex="0" class="ri-arrow-left-s-line text-24"></i></li><li class="flex items-center px-2" data-ng-repeat="page in pages" data-ng-class="[page.style, {'last':$last}]"
+                data-njttip title="<b>{{ page.title }}</b> {{ page.shortDescription }}"><div class="pagerWrapper flex-1 flex"><a class="page content-center pageTabLink" href="{{ page.url }}" data-ng-bind="page.title">{{ page.url }}</a><div><a class="no-underline text-16" tabindex="0" href="#"
+                       data-ng-click="deleteCookie(page.pageId, true, page.type, page.documentTypeForHistory)"
+                    ><i class="ri-close-line"></i></a></div></div></li><li class="pager right items-center justify-center" id="pageBarForward" aria-label="Következő fül megjelenítése"
+                data-ng-click="changePager(1)" data-ng-keydown="$event.keyCode === 13 && changePager(1)"
+                data-ng-show="backForward"><i tabindex="0" class="ri-arrow-right-s-line text-24"></i></li></ul></div>                        <div class="mobile-megnyitottak-tab">
+    <div class="megnyitottak-mobile-header flex justify-between items-center p-16">
+        <h3>Megnyitottak</h3>
+        <button class="megnyitottakCloseButton button subtle ri-close-line flex justify-center items-center p-0 w-32 h-32 color-link-neutral-enabled" data-njttip title="Bezárás" aria-label="Bezárás"></button>
+    </div>
+    <h2 class="p-16">Megnyitottak</h2>
+    <ul class="flex flex-col gap-16 px-16">
+        <li class="flex justify-between" data-ng-repeat="page in localData track by $index"
+            data-njttip title="{{ page.title }} {{ page.shortDescription }}">
+            <a class="no-underline text-16" href="{{ page.url }}"
+               data-ng-bind="page.title" onclick="njtApp.toggleMegnyitottak();">{{ page.url }}</a>
+
+            <button data-ng-click="deleteCookie($index,true)"
+                    class="button outline flex justify-center items-center w-32 h-32 p-0">
+                <i class="ri-close-line text-16"></i>
+            </button>
+        </li>
+    </ul>
+</div>
+                    </div>
+                    <div id="scrollToTop" class="absolute items-center gap-4 text-small">
+                        <button class="button secondary flex justify-center items-center p-0 ri-arrow-up-s-line h-32">
+                            <span>Lap tetejére</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div id="sticky-footer-wrapper"></div>
+</main>
+<div id="sztp_banner_mobile" style="position:fixed; right: 0; bottom: 0;z-index: 2; display: none;">
+    <img src="/bundles/njtfrontend/images/layout/sztp.svg?v2029fd183.14117.20261022122540.2.18.4" alt="Széchenyi Terv Plusz logó" style="height: 100px; max-width: 100%"/></div>
+
+<footer id="mainFooter">
+    <div class="flag-separator"></div>
+    <div class="w-full flex justify-center text-small color-white">
+        <div class="text">
+            <img class="footer-logo" src="/bundles/njtfrontend/images/layout/logo/njt-logo-footer-white.svg?v2029fd183.14117.20261022122540.2.18.4"
+                 alt=""/>
+            <div class="text-right">
+                <ul>
+                    <li>
+                        <a id="aboutLink"
+                           href="https://jog.gov.hu/kapcsolat"
+                           target="_blank"
+                           class="color-white">Kapcsolat</a>
+                    </li>
+                    <li>
+                        <a href="https://jog.gov.hu/felhasznalasi-feltetelek"
+                           target="_blank"
+                           class="color-white"
+                           aria-label="Felhasználási feltételek">
+                            Felhasználási feltételek
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/bundles/njtfrontend/docs/akadalymentesitesi.pdf?v2029fd183.14117.20261022122540.2.18.4"
+                           target="_blank"
+                           class="color-white"
+                           aria-label="Akadálymentesítési nyilatkozat PDF dokumentum">
+                            Akadálymentesítési nyilatkozat
+                            <span class="pdf accessiblehidden">PDF</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://jog.gov.hu/adatkezelesi-tajekoztato"
+                           target="_blank"
+                           class="color-white"
+                           aria-label="Adatkezelési tájékoztató">
+                            Adatkezelési tájékoztató
+                        </a>
+                    </li>
+                    <li>
+                        <a href="static/cookie"
+                           onclick="njtOpenCookieSettings();"
+                           class="color-white"
+                           aria-label="Süti beállítások">
+                            Süti beállítások
+                        </a>
+                    </li>
+                                                        </ul>
+                <span class="text-right__text">
+                    <span data-njttip title="v2029fd183.14117.20261022122540.2.18.4">©</span> A Nemzeti Jogszabálytárban elérhető szövegek tekintetében az MKIFK Magyar Közlönykiadó és Igazságügyi Fordítóközpont Zrt. minden jogot fenntart!
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="blank-clipboard-select-area">_</div>
+</footer>
+<div data-ng-controller="cookieLawCtrl" data-ng-init="init()"
+     class="cookie-law ng-cloak flex fixed w-full color-white" data-ng-show="!accepted">
+    <div class="cookie-law__holder flex flex-row justify-center items-center gap-40">
+        <div class="flex flex-row gap-8">
+            <i class="ri-information-2-fill text-24 color-white"></i>
+            <span class="text-medium color-white font-medium">
+                <span data-ng-non-bindable="true">A működéshez szükséges sütik mellett a Google Analytics statisztikai sütijeit, a munkamenet-azonosítót és a bejelentkezést csak az Ön hozzájárulásával használjuk. Döntését bármikor megváltoztathatja a lábléc „Süti beállítások” hivatkozásával.</span>
+                <span data-ng-hide="onCookiePage"><br/><span data-ng-non-bindable="true">A cookie-k kezeléséről részletesebb információt <a href="static/cookie">ide</a> kattintva olvashat.</span></span>
+            </span>
+        </div>
+        <div class="flex flex-row gap-8">
+            <button class="button primary" id="acceptButton" data-ng-if="!consentGiven"
+                    data-ng-click="acceptCookieLaw()">Elfogadom</button>
+            <button class="button primary" id="keepButton" data-ng-if="consentGiven"
+                    data-ng-click="keepCookieLaw()">Nem változtatok</button>
+            <button class="button outline inverted" id="rejectButton"
+                    data-ng-click="rejectCookieLaw()">Elutasítom</button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var njtConfig = {
+        cachedPageDataUrl: '/ajax/cachedPageData.json',
+        searchUrl: '/ajax/get_search_url.json',
+        onkormanyzatiSearchUrl: '/ajax/get_onkormanyzati_search_url.json',
+        justificationSearchUrl: '/ajax/get_justification_search_url.json',
+        documentTranslationSearchUrl: '/ajax/get_document_translation_search_url.json',
+        internationalAgreementSearchUrl: '/ajax/get_international_agreement_search_url.json',
+        loggerUrl: '/ajax/logger.json',
+        collectAllDocumentVersion: '/ajax/collectAllDocumentVersion.json',
+        collectDocumentVhrVersion: '/ajax/collectDocumentVhrVersion.json',
+        documentVersions: '/ajax/getDocumentVersions.json',
+        currentDocumentFromAbbr: '/ajax/getCurrentDocumentFromAbbr.json',
+        documentVersionsFromAbbr: '/ajax/getDocumentVersionsFromAbbr.json',
+        documentConfig: '/ajax/config.json',
+        tagSearch: '/ajax/tags.json',
+        getBlock: '/ajax/njtGetBlock.json',
+        searchInText: '/ajax/searchInText.json',
+        modifyAccount: '/account/registration/modify.json',
+        printWindowSkeleton: '/ajax/getPrintWindow',
+        organisationGetPrintableDatas: '/organisation/print_datas.json/',
+        simpleSearchPredict: '/ajax/simple_predict.json',
+        acceptCookieLaw: '/ajax/acl.json',
+        rejectCookieLaw: '/ajax/rcl.json',
+        analyticsId: 'UA-28015740-1',
+        getMessage: '/ajax/message.json',
+        acceptMessage: '/ajax/accept_message.json',
+        exportWindowSkeleton: '/ajax/getExportWindow',
+        acceptCookieLawName: 'acceptCookieLaw',
+        sidemenu: '/ajax/sidemenu/:id',
+        requirements: [],
+        isLoggedIn: false,
+        indokolasSearchPrefix: '𝒿',
+        onkormanyzatSearchPrefix: 'ℴ',
+        pagebarMarkArchivum: '𝒶',
+        pagebarMarkFogalomtar: '𝒻',
+        pagebarMarkElethelyzet: '𝓮',
+        pagebarMarkElethelyzetTerulet: '𝓽',
+        pagebarMarkTopic: '𝓴',
+        loadQuestion: '/elethelyzet/question',
+        getAllElethelyzet: '/elethelyzet/index',
+        lazyModeLoggedOut:  false,
+        valtozasJelzesekVersions: '/ajax/getValtozasJelzesekVersions.json',
+        getTelepulesKibocsatoByMegye: '/getTelepulesKibocsatoByMegye.json',
+        szakaszSliceType: 'SZAKASZ',
+        mellekletCimkeSliceType: 'SZAKASZ',
+        jogszabalyHighlight: '/ajax/jogszabaly_highlight',
+        getElethelyzetData: '/elethelyzet/getElethelyzetData.json',
+        getElethelyzetTeruletData: '/elethelyzet/getElethelyzetTeruletData.json',
+        getTopicSearchListForHater: '/getTopicSearchList.json',
+    };
+
+
+    
+    var njtTranslate = {
+        cancel: 'Mégsem',
+        ok: 'Rendben',
+        send: 'Küldés',
+        login: 'Belépés',
+        gazette_state: 'Közlönyállapot',
+        hatalyos: 'Hatályos',
+        meg_nem_hatalyos: 'Még nem hatályos',
+        nemIsmert: 'Nem ismert',
+        nemLepettHatalyba: 'Nem lépett hatályba',
+        closeWindowText: 'Biztosan elnavigál az oldalról?',
+        szervezetAdminCaption: 'Szervezeti adminisztrátor adatai:',
+        datepickerPlaceholder: 'éééé.hh.nn',
+        documentInfo: 'Jogszabályinfó',
+        documentSampleAddWindowTitle: 'Jogszabály adatai',
+        footnoteTitle: 'Lábjegyzetek',
+        figyelem: 'Figyelem!',
+        figyelemMessage: 'A szolgáltatások igénybevételéhez jelentkezzen be!',
+        jogszabalyLoginTitle: 'A jogszabály megtekintéséhez jelentkezzen be!',
+        jogszabalyLoginMessage: 'A hivatkozott jogszabály, jogszabályi időállapot a Nemzeti Jogszabálytár regisztrációval vagy ügyfélkapus bejelentkezéssel használható szolgáltatási szintjén érhető el [338/2011. (XII. 29.) Korm. rendelet 2. § (1) bekezdése alapján].',
+        jogszabalyMissingMessage: 'A hivatkozott jogi dokumentum nem áll rendelkezésre.',
+        sessionMessage: 'A munkamenet <span class="time"></span> múlva lejár és automatikusan ki lesz léptetve.<br>A meghosszabbításhoz kattintson a tovább gombra.',
+        csrfExpired: 'Lejárt a munkamenet, kérjük jelentkezzen be újra.',
+        orgRegistrationFileUploadError: 'Kérjük, töltse fel az aláírt regisztrációs lapot',
+        registrationHandleTitle: 'Elfogadja a regisztrációt?',
+        registrationHandleSubTitle: 'Elutasítás esetén, kérjük, adja meg a elutasítás okát. Erről a regisztráló felhasználót e-mailben értesítjük.',
+        registrationCreated: 'Sikeres regisztráció',
+        registrationModified: 'Sikeres módosítás',
+        registrationMergeError: 'Regisztrált felhasználók összefésülése sikertelen',
+        underProcessWarning: 'A jogszabály feldolgozás alatt van, a felület korlátozottan használható',
+        metaDescription: 'Magyarország hivatalos, hiteles, ingyenesen használható jogszabálygyűjteménye, az MKIFK Magyar Közlönykiadó és Igazságügyi Fordítóközpont Zrt. gondozásában',
+        metaTitle: 'Nemzeti Jogszabálytár – MKIFK Magyar Közlönykiadó és Igazságügyi Fordítóközpont Zrt.',
+        hiba: 'Hiba',
+        noResult: 'Nincs találat',
+        nemMegfelelo: 'Nem megfelelő',
+        evszam: 'évszám',
+        lekerdezesIdeje: 'Lekérdezés ideje',
+        kivonat: 'KIVONAT',
+        iratminta: 'iratminta',
+        errorNeedReload: 'HIBA! Újratöltés szükséges!',
+        beforeDeleteLawRequest: 'Biztosan törölni szeretné jogszabály igénylését?',
+        lawRequest: 'Jogszabály igénylés',
+        igen: 'Igen',
+        nem: 'Nem',
+        tablazatKinyitasa: 'Táblázat kinyitása',
+        emailCim: 'E-mail cím',
+        giveYourEmailAddress: 'Adja meg az e-mail címét',
+        informacio: 'Információ',
+        successfulModification: 'Sikeres módosítás!',
+        maganszemely: 'Magánszemély',
+        unsuccessfulExport: 'Sikertelen exportálás',
+        unsuccessfulCopy: 'Sikertelen másolás',
+        copiedToClipboard: 'Kimásolva a vágólapra',
+        documentTranslations: 'Jogszabályfordítások',
+        internationalAgreements: 'Nemzetközi szerződések',
+        kozismertJogszabalyok: 'Közismert jogszabályok',
+        registration: 'Regisztráció',
+        accountSettings: 'Fiók módosítás',
+        simpleSearch: 'Jogszabálykereső',
+        cif: 'Adott napon hatályba lépő jogszabályok',
+        expired: 'Adott napon hatályukat vesztő jogszabályok',
+        info: 'Információ',
+        justificationSearch: 'Indokolások Tára',
+        popupHeader: 'Karbantartás',
+        popupMessage: 'Tájékoztatjuk Tisztelt Felhasználóinkat, hogy technikai karbantartás miatt 2023. április 25-én 20:00-21:00 óra között a Nemzeti Jogszabálytár Ügyfélkapus bejelentkezéssel történő használatában fennakadások várhatók.',
+        clearField: 'Mező tartalmának törlése',
+        privacy: 'Adatkezelési tájékoztató',
+        loginNeedsCookieConsent: 'A bejelentkezéshez el kell fogadnia a sütik használatát.',
+        cookieConsentWithdrawLogout: 'A sütik elutasításával ki is jelentkezik. Folytatja?'
+    };
+</script>
+    <script src="/bundles/njtfrontend/datepicker/duet/duet.js?v2029fd183.14117.20261022122540.2.18.4" type="text/javascript"></script>
+                            <script src="/js/m-04042633b7e29fc47a744cf0973e3db4eda5a4eb.js?v2029fd183.14117.20261022122540.2.18.4" type="text/javascript"></script>
+        
+<div class="loadingFadeLayer"></div>
+</body>
+</html>

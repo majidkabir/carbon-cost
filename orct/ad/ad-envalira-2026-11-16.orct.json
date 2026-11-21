@@ -1,0 +1,112 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ad-envalira/2026-11-16",
+  "scheme": {
+   "id": "ad-envalira",
+   "name": "Túnel d'Envalira toll",
+   "country": "AD"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-16",
+  "currency": "EUR",
+  "timezone": "Europe/Andorra",
+  "license": "MIT",
+  "method": "Túnel d'Envalira's fares per passage, either way, set under its concession from the Government of Andorra and published by the concessionaire Túnel d'Envalira S.A.U.: category 3 (heavy vehicles over 3 m high or over 3.5 t, two axles) EUR 16.30, category 4 (more than two axles) EUR 20.30. The dangerous goods supplement isn't modelled. The page gives no date: valid_from is the day it was first read.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ad-envalira-2026-11-16.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Túnel d'Envalira: rates",
+   "url": "https://tuneldenvalira.com/en"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3.5 t, by axles",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Túnel d'Envalira",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [1.697136, 42.549016]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [["pt1", "pt-1.1", "16.3"], ["pt1", "pt-1.2", "20.3"]],
+   "sources": ["s1"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true,
+   "osm_extract": "2026-11-21"
+  }
+ }
+}

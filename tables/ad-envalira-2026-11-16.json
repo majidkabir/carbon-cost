@@ -1,0 +1,40 @@
+{
+ "country": "AD",
+ "currency": "EUR",
+ "valid_from": "2026-11-16",
+ "crossings": true,
+ "osm_extract": "2026-11-21",
+ "name": "Túnel d'Envalira toll",
+ "law": "Túnel d'Envalira's fares per passage, either way, set under its concession from the Government of Andorra and published by the concessionaire Túnel d'Envalira S.A.U.: category 3 (heavy vehicles over 3 m high or over 3.5 t, two axles) EUR 16.30, category 4 (more than two axles) EUR 20.30. The dangerous goods supplement isn't modelled. The page gives no date: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Túnel d'Envalira: rates",
+   "url": "https://tuneldenvalira.com/en"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t, by axles",
+ "min_kg": 3501,
+ "tolled_roads": "The Túnel d'Envalira (CG-2, Grau Roig–Pas de la Casa), charged at its toll plaza either way.",
+ "point_match_km": 0.15,
+ "toll_points": [
+  {
+   "name": "Túnel d'Envalira",
+   "lat": 42.549016,
+   "lon": 1.697136,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_axles": 2,
+     "rate": 16.3
+    },
+    {
+     "min_kg": 3501,
+     "min_axles": 3,
+     "rate": 20.3
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

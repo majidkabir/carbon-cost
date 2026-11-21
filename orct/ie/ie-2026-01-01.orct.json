@@ -1,0 +1,277 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ie/2026-01-01",
+  "scheme": {
+   "id": "ie",
+   "name": "Irish national road tolls (M50 and the PPP toll roads)",
+   "country": "IE"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Dublin",
+  "license": "MIT",
+  "method": "Roads Act 1993 (Part V) and the toll bye-laws of each scheme, maximum tolls for 2026 as published by Transport Infrastructure Ireland per toll road: goods vehicles over 3,500 kg by axles (2 or 3, 4 or more) on the PPP roads, excluding 23% VAT; on the M50 (no VAT) by weight, at the unregistered price, or the tag price for trucks paying by tag. Heavy goods vehicles use the Dublin Port Tunnel free. Each toll is charged at its plaza (M50: its gantry), placed with OpenStreetMap's toll booths (2026-11-20T21:21:21Z).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ie-2026-01-01.json"
+  },
+  "required_features": ["type.point", "user_classes"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "TII: Toll Locations and Charges",
+   "url": "https://www.tii.ie/en/roads-tolling/tolling-information/toll-locations-and-charges/"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/ireland-and-northern-ireland.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Goods vehicles over 3,500 kg (M50: over 2,000 kg)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-2",
+   "classes": [
+    {
+     "id": "pt-2.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 2001,
+       "max": 10000
+      }
+     }
+    },
+    {
+     "id": "pt-2.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 10001
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "user_classes": [
+  {
+   "id": "electronic",
+   "label": "Electronic toll device or contract",
+   "payment": ["electronic"]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "M1 Gormanston to Monasterboice",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.3303, 53.662852]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "M3 Clonee Kells",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.775738, 53.672403]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "M3 Between Clonee and Dunshaughlin",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.482601, 53.453751]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "M4 Kilcock Enfield Kinnegad",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.739993, 53.410308]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "N6 Galway Ballinasloe",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.413455, 53.282212]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "M7-M8 Portlaoise Castletown Portlaoise Cullahill",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.393453, 53.000441]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "N8 Rathcormac Fermoy Bypass",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.328118, 52.02701]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "Limerick Tunnel",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-8.700088, 52.669569]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "N25 Waterford City Bypass",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-7.158746, 52.273883]
+    },
+    "match_m": 150
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "M50 Barrier Free Tolling",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [-6.37846, 53.369438]
+    },
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "user_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", null, "4.7967"],
+    ["pt1", "pt-1.2", null, "6.0976"],
+    ["pt2", "pt-1.1", null, "2.9268"],
+    ["pt2", "pt-1.2", null, "3.5772"],
+    ["pt3", "pt-1.1", null, "2.9268"],
+    ["pt3", "pt-1.2", null, "3.5772"],
+    ["pt4", "pt-1.1", null, "5.7724"],
+    ["pt4", "pt-1.2", null, "7.1545"],
+    ["pt5", "pt-1.1", null, "4.7967"],
+    ["pt5", "pt-1.2", null, "6.0976"],
+    ["pt6", "pt-1.1", null, "4.7967"],
+    ["pt6", "pt-1.2", null, "6.0976"],
+    ["pt7", "pt-1.1", null, "4.7967"],
+    ["pt7", "pt-1.2", null, "6.0976"],
+    ["pt8", "pt-1.1", null, "4.7967"],
+    ["pt8", "pt-1.2", null, "6.0976"],
+    ["pt9", "pt-1.1", null, "4.7967"],
+    ["pt9", "pt-1.2", null, "6.0976"],
+    ["pt10", "pt-2.1", null, "6.5"],
+    ["pt10", "pt-2.1", "electronic", "5.2"],
+    ["pt10", "pt-2.2", null, "7.8"],
+    ["pt10", "pt-2.2", "electronic", "6.5"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-20"
+  }
+ }
+}

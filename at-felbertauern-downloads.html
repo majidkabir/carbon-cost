@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="de-DE">
+
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Downloads - Felbertauernstraße AG</title>
+    <!-- fm favicon snippet start - Include this in html head -->
+
+    <!-- Desktop browser favicon -->
+    <link rel="icon" type="image/png" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon-32x32.png" sizes="32x32" class="light-scheme-icon">
+    <link rel="icon" type="image/png" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon-48x48.png" sizes="48x48" class="light-scheme-icon">
+    <link rel="shortcut icon" type="image/ico" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon.ico" class="light-scheme-icon">
+    <link rel="icon" type="image/png" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon-32x32-darkscheme.png" sizes="32x32" class="dark-scheme-icon">
+    <link rel="icon" type="image/png" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon-48x48-darkscheme.png" sizes="48x48" class="dark-scheme-icon">
+    <link rel="shortcut icon" type="image/ico" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/favicon-darkscheme.ico" class="dark-scheme-icon">
+
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/apple-touch-icon.png">
+
+    <!-- Windows 8.0 -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/mstile-144x144.png">
+
+    <!-- Windows 8.1 - Edit browserconfiguration.xml to change image srcs and background color, file has to be in root -->
+
+    <!-- Android, Chrome - Edit site.webmanifest file to change image srcs -->
+    <link rel="manifest" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/favicon/site.webmanifest">
+	
+	<script>
+		let lightSchemeIcon = document.querySelectorAll('link.light-scheme-icon');
+		let darkSchemeIcon = document.querySelectorAll('link.dark-scheme-icon');
+		matcher = window.matchMedia('(prefers-color-scheme: dark)');
+		matcher.addListener(onUpdate);
+		onUpdate();
+
+		function onUpdate() {
+			if (matcher.matches) {
+				lightSchemeIcon[0].remove();
+				lightSchemeIcon[1].remove();
+				lightSchemeIcon[2].remove();
+				document.head.append(darkSchemeIcon[0]);
+				document.head.append(darkSchemeIcon[1]);
+				document.head.append(darkSchemeIcon[2]);
+			} else {
+				document.head.append(lightSchemeIcon[0]);
+				document.head.append(lightSchemeIcon[1]);
+				document.head.append(lightSchemeIcon[2]);
+				darkSchemeIcon[0].remove();
+				darkSchemeIcon[1].remove();
+				darkSchemeIcon[2].remove();
+			}
+		}
+		//for incognito
+		var detectIncognito=function(){return new Promise(function(o,n){var e,t="Unknown";function i(e){o({isPrivate:e,browserName:t})}function r(e){return e===eval.toString().length}function a(){var e,o=window;void 0!==navigator.maxTouchPoints?void 0!==o.safari&&void 0===o.DeviceMotionEvent?(t="Safari for macOS",function(){try{window.safari.pushNotification.requestPermission("https://example.com","private",{},function(){})}catch(e){return i(!new RegExp("gesture").test(e))}i(!1)}()):void 0!==o.DeviceMotionEvent?(e=!(t="Safari for iOS"),(o=document.createElement("iframe")).style.display="none",document.body.appendChild(o),o.contentWindow.applicationCache.addEventListener("error",function(){return i(e=!0)}),setTimeout(function(){e||i(!1)},100)):n(new Error("detectIncognito Could not identify this version of Safari")):(t="Safari",function(){var e=window.openDatabase,o=window.localStorage;try{e(null,null,null,null)}catch(e){return i(!0)}try{o.setItem("test","1"),o.removeItem("test")}catch(e){return i(!0)}i(!1)}())}function c(){navigator.webkitTemporaryStorage.queryUsageAndQuota(function(e,o){i(o<(void 0!==(o=window).performance&&void 0!==o.performance.memory&&void 0!==o.performance.memory.jsHeapSizeLimit?performance.memory.jsHeapSizeLimit:1073741824))},function(e){n(new Error("detectIncognito somehow failed to query storage quota: "+e.message))})}function d(){void 0!==Promise&&void 0!==Promise.allSettled?c():(0,window.webkitRequestFileSystem)(0,1,function(){i(!1)},function(){i(!0)})}void 0!==(e=navigator.vendor)&&0===e.indexOf("Apple")&&r(37)?a():void 0!==(e=navigator.vendor)&&0===e.indexOf("Google")&&r(33)?(e=navigator.userAgent,t=e.match(/Chrome/)?void 0!==navigator.brave?"Brave":e.match(/Edg/)?"Edge":e.match(/OPR/)?"Opera":"Chrome":"Chromium",d()):void 0!==document.documentElement&&void 0!==document.documentElement.style.MozAppearance&&r(37)?(t="Firefox",i(void 0===navigator.serviceWorker)):void 0!==navigator.msSaveBlob&&r(39)?(t="Internet Explorer",i(void 0===window.indexedDB)):n(new Error("detectIncognito cannot determine the browser"))})};
+		detectIncognito().then((result) => {	
+			if(result.isPrivate){
+				lightSchemeIcon[0].remove();
+				lightSchemeIcon[1].remove();
+				lightSchemeIcon[2].remove();
+				document.head.append(darkSchemeIcon[0]);
+				document.head.append(darkSchemeIcon[1]);
+				document.head.append(darkSchemeIcon[2]);
+			}
+		});
+    </script>
+<!-- fm favicon snippet end-->
+    <link rel="preload" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/fonts/NeueHelveticaPro45Light/font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/fonts/NeueHelveticaPro65Medium/font.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/fonts/NeueHelveticaPro75Bold/font.woff2" as="font" type="font/woff2" crossorigin>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+	  <script src='https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js'></script>
+	  <script src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js'></script>
+	<![endif]-->
+    <!--IE 11 POLYFILLS-->
+    <!--script crossorigin='anonymous'
+	src='https://polyfill.io/v3/polyfill.min.js?features=Promise%2CIntersectionObserver%2CNodeList.prototype.forEach'>
+	</script-->
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+<link rel="alternate" hreflang="de" href="https://www.felbertauernstrasse.at/downloads/" />
+<link rel="alternate" hreflang="en" href="https://www.felbertauernstrasse.at/en/downloads/" />
+<link rel="alternate" hreflang="x-default" href="https://www.felbertauernstrasse.at/downloads/" />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.8 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<link rel="canonical" href="https://www.felbertauernstrasse.at/downloads/" />
+	<meta property="og:locale" content="de_DE" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Downloads - Felbertauernstraße AG" />
+	<meta property="og:url" content="https://www.felbertauernstrasse.at/downloads/" />
+	<meta property="og:site_name" content="Felbertauernstraße AG" />
+	<meta property="article:modified_time" content="2026-11-18T15:00:01+00:00" />
+	<meta property="og:image" content="https://www.felbertauernstrasse.at/wp-content/uploads/2025/11/felbertauern_logo_og.png" />
+	<meta property="og:image:width" content="1200" />
+	<meta property="og:image:height" content="675" />
+	<meta property="og:image:type" content="image/png" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/www.felbertauernstrasse.at\/downloads\/","url":"https:\/\/www.felbertauernstrasse.at\/downloads\/","name":"Downloads - Felbertauernstraße AG","isPartOf":{"@id":"https:\/\/www.felbertauernstrasse.at\/en\/#website"},"datePublished":"2025-04-17T13:30:43+00:00","dateModified":"2026-11-18T15:00:01+00:00","breadcrumb":{"@id":"https:\/\/www.felbertauernstrasse.at\/downloads\/#breadcrumb"},"inLanguage":"de","potentialAction":[{"@type":"ReadAction","target":["https:\/\/www.felbertauernstrasse.at\/downloads\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/www.felbertauernstrasse.at\/downloads\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/www.felbertauernstrasse.at\/"},{"@type":"ListItem","position":2,"name":"Downloads"}]},{"@type":"WebSite","@id":"https:\/\/www.felbertauernstrasse.at\/en\/#website","url":"https:\/\/www.felbertauernstrasse.at\/en\/","name":"Felbertauernstraße AG","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/www.felbertauernstrasse.at\/en\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"de"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='dnd-upload-cf7-css' href='https://www.felbertauernstrasse.at/wp-content/plugins/drag-and-drop-multiple-file-upload-contact-form-7/assets/css/dnd-upload-cf7.css?ver=1.4.1' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://www.felbertauernstrasse.at/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.2.5' media='all' />
+<link rel='stylesheet' id='theme-style-css' href='https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/style.css?_=1795257651&#038;ver=7.1.5' media='all' />
+<script id="wpml-cookie-js-extra">
+var wpml_cookies = {"wp-wpml_current_language":{"value":"de","expires":1,"path":"/"}};
+var wpml_cookies = {"wp-wpml_current_language":{"value":"de","expires":1,"path":"/"}};
+//# sourceURL=wpml-cookie-js-extra
+</script>
+<script data-wp-strategy="defer" defer id="wpml-cookie-js" src="https://www.felbertauernstrasse.at/wp-content/plugins/sitepress-multilingual-cms/res/js/cookies/language-cookie.js?ver=486900"></script>
+<script id="theme-main-js-js-extra">
+var admin = {"admin_url":"https://www.felbertauernstrasse.at/wp-admin/admin-ajax.php","theme_url":"https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse","site_url":"https://www.felbertauernstrasse.at","home_url":"https://www.felbertauernstrasse.at","ajax_nonce":"cf75be77e7"};
+//# sourceURL=theme-main-js-js-extra
+</script>
+<script id="theme-main-js-js" src="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/js/main.min.js?_=1795257651&#038;ver=7.1.5"></script>
+<meta name="generator" content="WPML ver:4.8.6 stt:1,3;" />
+            <!-- Google Tag Manager -->
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5SWRQ6VV');
+        </script>
+        <!-- End Google Tag Manager -->
+
+    
+    </head>
+
+<body data-barba='wrapper'>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SWRQ6VV"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="slide_down"></div>
+
+    <!-- Alert Banner -->
+        <div class="alert-popup-wrapper js-hidden align-items-center justify-content-center" data-alert-popup="0">
+        <div class="alert-popup-container d-flex justify-content-between align-items-center column-gap-70 position-relative" data-alert-popup-container>
+            <div class="cancel-alert position-absolute d-flex align-items-center clickable" tabindex="0" role="button" aria-label="Alert schließen">
+                <i class="icon icon-md"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11 4L10 3L7 6L4 3L3 4L6 7L3 10L4 11L7 8L10 11L11 10L8 7L11 4Z" fill="#343434"/>
+</svg>
+</i>
+            </div>
+        </div>
+    </div>
+    <!-- Alert Banner End -->
+
+
+    <!-- Navbar -->
+    <div class="accessKeys">
+        <a href="#main-content">Zum Inhalt</a>
+    </div>
+    <div class="navbar d-xl-flex align-items-center justify-content-between container-fluid d-none py-8">
+        <div class="logo">
+            <div class="logo-scale-anim">
+                <a href="https://www.felbertauernstrasse.at" class="d-flex" aria-label="Zur Startseite">
+                    <svg width="68" height="100" viewBox="0 0 68 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4945_13685)">
+<path d="M65.8267 46.2864V55.9064H14.9667V99.7997H4.86V55.9931H0.5V46.2931C2.01333 46.2397 3.56667 46.1864 5.3 46.1264C1.79333 38.3597 1.17333 30.5464 3.64 22.6131C5.90667 15.3397 10.3267 9.55974 16.7333 5.34641C29.0533 -2.76026 44.8 -1.30693 55.3333 7.36641C66.46 16.5264 69.92 31.5797 64.9333 43.7331H55.0333C55.5667 42.3864 56.0667 41.1997 56.52 39.9931C57.6867 36.8931 58.04 33.6731 57.7133 30.4064C57.2533 25.8531 55.56 21.7597 52.62 18.2197C49.7533 14.7731 46.16 12.3531 41.86 11.0131C39.24 10.1997 36.5467 9.70641 33.8 9.93307C27.7333 10.4331 22.4933 12.7197 18.2867 17.2064C15.68 19.9797 13.86 23.1797 12.9333 26.8197C12.3133 29.2397 11.86 31.7197 12.2667 34.2864C12.5667 36.1597 12.82 38.0197 13.4267 39.8331C14.14 41.9731 15.1933 43.9331 16.52 45.7331C16.7533 46.0531 17.3933 46.2131 17.84 46.2131C24.0533 46.2397 30.2667 46.2264 36.48 46.2264C45.86 46.2264 55.24 46.2264 64.62 46.2264C64.9667 46.2264 65.3133 46.2597 65.8267 46.2931V46.2864Z" fill="#52BCB9"/>
+<path d="M50.1333 33.2666C49.36 33.7932 48.7267 34.2332 48.08 34.6466C45.7 36.1732 42.12 36.4599 39.7467 34.6066C39.2 34.1799 38.7933 34.2799 38.2867 34.6199C37.0933 35.4266 35.78 35.8266 34.1667 35.5999C34.3667 35.3666 34.5 35.1732 34.68 35.0266C34.8267 34.9066 35.0267 34.8532 35.1867 34.7399C37 33.4599 36.5733 32.7732 35.68 31.3799C35.3067 30.7999 34.8067 30.2932 34.2933 29.8266C33.6867 29.2732 33.5733 28.7332 33.9533 27.9932C34.4733 26.9799 34.3533 26.5799 33.48 25.8199C32.8467 25.2666 32.1133 25.2066 31.3267 25.6799C31.0333 25.8599 30.78 26.1066 30.5067 26.3266C29.98 26.7532 30.0667 27.1332 30.5467 27.5666C32.2067 29.0732 32.2467 29.1999 30.4733 30.5732C29.02 31.6999 27.4533 32.6866 25.8933 33.6732C24.5 34.5532 22.92 34.8399 21.3 34.6532C18.9733 34.3866 16.72 34.8399 14.4533 35.1932C14.34 35.2132 14.2267 35.1932 13.9933 35.1932C13.8067 34.6532 13.62 34.0932 13.38 33.4066C14.9333 33.1332 16.3133 32.9532 17.6733 32.6399C18.6067 32.4266 19.5333 32.0932 20.4 31.6799C20.7467 31.5132 21.2 30.9332 21.1267 30.6599C20.9533 29.9932 20.32 30.3199 19.84 30.3732C18.1 30.5799 16.36 30.7799 14.62 30.9466C14.26 30.9799 13.8867 30.8466 13.44 30.7732C13.7467 30.0266 14.2667 29.8666 14.8067 29.8999C16.5733 30.0266 18.0533 29.3066 19.5133 28.4732C20.32 28.0132 21.1333 27.5666 22.0533 27.0532C22.5 27.5466 23 28.0132 23.4067 28.5532C24.18 29.5666 24.6067 29.5532 25.7733 28.8132C27.66 27.6132 29.48 26.2999 31.3267 25.0332C31.6467 24.8132 31.9667 24.6066 32.2667 24.4066C33.7 25.3732 35.0733 26.3066 36.4533 27.2332C37.6733 28.0532 38.9333 28.4466 40.36 27.7132C42.04 26.8466 43.76 26.0532 45.4267 25.1532C46.42 24.6199 46.5067 24.5666 47.3533 25.2999C48.7933 26.5332 50.1067 27.9532 51.9333 28.6266C53.2867 29.1266 54.7 29.4799 56.3267 29.9799C56.5333 31.6799 56.4467 33.6599 56.3467 35.7332C53.7467 36.1199 51.66 35.4799 50.1533 33.2532L50.1333 33.2666ZM48.6267 30.8666C47.9133 30.2266 47.2667 29.6466 46.5733 29.0266C47.14 28.4266 47.6533 27.8866 48.1667 27.3466C47.7933 26.8799 47.5267 26.4932 47.2067 26.1666C46.4667 25.4066 46.26 25.3932 45.3267 25.9799C44.9667 26.2066 44.5933 26.4199 44.2667 26.6866C43.22 27.5332 43.2667 28.1266 44.4133 28.7932C44.7267 28.9732 45.04 29.1466 45.4067 29.3532C44.7133 29.8866 44.12 30.3466 43.54 30.7932C44.4467 32.2599 46.8867 32.3066 48.6267 30.8599V30.8666Z" fill="#52BCB9"/>
+<path d="M55.7867 37.6132C55.6467 39.5866 54.64 41.0199 53.3667 42.4132C53.5733 42.5999 53.78 42.7932 54.0133 43.0066C53.76 43.8332 53.0667 43.7132 52.48 43.7199C50.3733 43.7466 48.26 43.7332 46.1467 43.7399C36.9267 43.7666 27.7 43.7932 18.48 43.8132C16.06 43.8132 16.6667 44.1132 15.7867 42.0332C14.8267 39.7666 14.46 39.1199 17.54 38.2332C18.7733 37.8799 20.0467 37.6866 21.3533 38.0132C22.7467 38.3666 24.16 38.6732 25.5667 38.9532C25.96 39.0332 26.4467 39.0732 26.78 38.9132C29 37.8532 31.3533 37.5666 33.74 37.8532C35.4667 38.0599 37.1667 38.5532 38.8667 38.9732C40.6667 39.4199 42.36 39.2999 43.84 38.0999C44.8133 37.3066 45.8667 37.6732 46.82 37.9532C49.3333 38.6866 51.8 38.7599 54.2867 37.8866C54.72 37.7332 55.2 37.7199 55.7867 37.6266V37.6132Z" fill="#52BCB9"/>
+<path d="M18.3133 59.5399H22.4733V60.8466H19.8733V64.4666H22.22V65.7732H19.8733V70.9999H18.32V59.5399H18.3133Z" fill="#52BCB9"/>
+<path d="M26.4733 59.5399H30.6067V60.8466H28.0267V64.4799H30.3133V65.7866H28.0267V69.6999H30.6067V71.0066H26.4733V59.5399Z" fill="#52BCB9"/>
+<path d="M36.3933 59.5399V69.6932H38.9333V70.9999H34.8333V59.5399H36.3933Z" fill="#52BCB9"/>
+<path d="M42.7133 59.5399H44.82C46.4733 59.5399 47.2933 60.5599 47.2933 62.5932C47.2933 63.3732 47.1867 63.9466 46.9733 64.3199C46.76 64.6932 46.38 64.9799 45.8333 65.1732C46.46 65.4199 46.88 65.7399 47.1133 66.1266C47.3467 66.5066 47.4667 67.0799 47.4667 67.8466C47.4667 69.9466 46.56 70.9999 44.7467 70.9999H42.7133V59.5399ZM44.18 64.5866C44.78 64.5866 45.2 64.4466 45.4333 64.1732C45.6667 63.8799 45.7867 63.3666 45.7867 62.6332C45.7867 61.3932 45.34 60.7799 44.44 60.7799H44.2533C44.2133 60.7799 44.1867 60.7799 44.18 60.7866V64.5866ZM44.18 69.6799C44.82 69.6799 45.26 69.5466 45.5067 69.2732C45.7533 68.9999 45.8733 68.5066 45.8733 67.7932C45.8733 67.0799 45.7467 66.5466 45.4933 66.2532C45.2467 65.9532 44.8067 65.8066 44.1867 65.8066V69.6732L44.18 69.6799Z" fill="#52BCB9"/>
+<path d="M51.82 59.5399H55.9533V60.8466H53.3733V64.4799H55.66V65.7866H53.3733V69.6999H55.9533V71.0066H51.82V59.5399Z" fill="#52BCB9"/>
+<path d="M60.1867 59.5399H62.2333C63.08 59.5399 63.7133 59.7399 64.1267 60.1399C64.6533 60.6599 64.9133 61.4532 64.9133 62.5199C64.9133 63.3399 64.7733 63.9999 64.5 64.4999C64.22 64.9999 63.8267 65.3066 63.3133 65.4266L65.44 70.9999H63.86L61.74 65.3866V70.9999H60.1867V59.5399ZM61.7467 64.6199C62.3467 64.6199 62.7733 64.4799 63.0267 64.2066C63.2733 63.9266 63.4 63.4599 63.4 62.8066C63.4 62.4532 63.3733 62.1466 63.32 61.8932C63.2667 61.6399 63.1867 61.4332 63.0733 61.2799C62.96 61.1199 62.8133 61.0066 62.64 60.9332C62.4667 60.8599 62.2533 60.8199 62.0067 60.8199H61.7467V64.6266V64.6199Z" fill="#52BCB9"/>
+<path d="M17.3933 73.9666H22.46V75.3199H20.72V85.4332H19.1933V75.3199H17.4V73.9666H17.3933Z" fill="#52BCB9"/>
+<path d="M26.4267 73.9666H27.64L30.1133 85.4266H28.5733L28.14 83.1932H25.8533L25.4133 85.4266H23.92L26.4333 73.9666H26.4267ZM27.92 81.9999L27.5733 80.1732C27.3467 78.9332 27.16 77.6066 27.0133 76.1932C26.9467 76.8799 26.8533 77.5799 26.7467 78.2799C26.64 78.9866 26.5067 79.7332 26.36 80.5266L26.0733 81.9932H27.92V81.9999Z" fill="#52BCB9"/>
+<path d="M33.3267 73.9666H34.8533V82.0666C34.8533 82.8932 34.9267 83.4399 35.08 83.7132C35.2333 83.9866 35.54 84.1199 35.9933 84.1199C36.4467 84.1199 36.7467 83.9999 36.8933 83.7666C37.04 83.5266 37.12 83.0332 37.12 82.2866V73.9666H38.6467V82.2866C38.6467 83.5332 38.4533 84.3799 38.0733 84.8199C37.6133 85.3199 36.9133 85.5666 35.9733 85.5666C34.9333 85.5666 34.2067 85.2466 33.78 84.5999C33.4867 84.1599 33.34 83.3132 33.34 82.0599V73.9599L33.3267 73.9666Z" fill="#52BCB9"/>
+<path d="M42.7133 73.9666H46.8467V75.2732H44.2667V78.9066H46.5533V80.2132H44.2667V84.1266H46.8467V85.4332H42.7133V73.9666Z" fill="#52BCB9"/>
+<path d="M50.58 73.9666H52.6267C53.4733 73.9666 54.1067 74.1666 54.52 74.5666C55.0467 75.0866 55.3067 75.8799 55.3067 76.9466C55.3067 77.7666 55.1667 78.4266 54.8933 78.9266C54.6133 79.4266 54.22 79.7332 53.7067 79.8532L55.8333 85.4266H54.2533L52.14 79.8132V85.4266H50.5867V73.9666H50.58ZM52.1333 79.0466C52.7333 79.0466 53.16 78.9066 53.4133 78.6332C53.6667 78.3599 53.7867 77.8866 53.7867 77.2332C53.7867 76.8799 53.76 76.5732 53.7067 76.3199C53.6533 76.0666 53.5733 75.8599 53.46 75.7066C53.3467 75.5466 53.2 75.4332 53.0267 75.3599C52.8467 75.2866 52.64 75.2466 52.3933 75.2466H52.1333V79.0532V79.0466Z" fill="#52BCB9"/>
+<path d="M60.7867 73.9666L62.3333 78.5399C62.78 79.8332 63.18 81.2132 63.52 82.6732C63.3933 81.7866 63.3 80.9866 63.24 80.2666C63.18 79.5466 63.1533 78.8732 63.1533 78.2399V73.9666H64.72V85.4266H63.26L61.52 80.2666C61.36 79.7866 61.2067 79.2932 61.0667 78.7866C60.9267 78.2799 60.7933 77.7532 60.6733 77.1999C60.66 77.1332 60.6467 77.0466 60.6267 76.9466C60.6067 76.8466 60.58 76.7332 60.5467 76.6066C60.56 76.7332 60.5733 76.8466 60.5867 76.9399C60.6 77.0332 60.6067 77.1066 60.6067 77.1732L60.6867 78.3399L60.7667 79.7599C60.7667 79.8399 60.7733 79.9332 60.78 80.0466C60.78 80.1599 60.78 80.2866 60.78 80.4332L60.86 85.4266H59.3267V73.9666H60.7867Z" fill="#52BCB9"/>
+<path d="M22.1667 88.6332V90.1399C21.6933 89.8066 21.2667 89.6332 20.8867 89.6332C20.48 89.6332 20.1467 89.7732 19.8867 90.0666C19.6267 90.3399 19.5 90.6999 19.5 91.1599C19.5 91.5599 19.5933 91.9066 19.78 92.1932C19.8733 92.3466 20.0333 92.5466 20.2467 92.7866C20.4667 93.0266 20.7467 93.3199 21.0867 93.6599C21.72 94.2999 22.1533 94.8532 22.38 95.3132C22.6067 95.7666 22.7267 96.3132 22.7267 96.9666C22.7267 97.8532 22.4733 98.5799 21.9733 99.1532C21.4667 99.7132 20.8267 99.9932 20.0333 99.9932C19.3733 99.9932 18.8067 99.8132 18.3333 99.4532V97.9266C18.8867 98.3266 19.3933 98.5266 19.8467 98.5266C20.2733 98.5266 20.6 98.3866 20.84 98.1066C21.08 97.8266 21.2 97.4466 21.2 96.9666C21.2 96.5532 21.1067 96.1799 20.92 95.8466C20.8267 95.6866 20.6933 95.5066 20.5267 95.2999C20.36 95.0932 20.1467 94.8666 19.8933 94.6132C19.5 94.2266 19.1733 93.8866 18.9133 93.5866C18.6533 93.2866 18.46 93.0266 18.34 92.8066C18.1 92.3732 17.98 91.8199 17.98 91.1599C17.98 90.2666 18.2133 89.5532 18.68 89.0266C19.1533 88.4999 19.7867 88.2332 20.5867 88.2332C21.14 88.2332 21.6667 88.3666 22.1733 88.6266L22.1667 88.6332Z" fill="#52BCB9"/>
+<path d="M24.52 88.3932H29.5867V89.7466H27.8467V99.8599H26.32V89.7466H24.5267V88.3932H24.52Z" fill="#52BCB9"/>
+<path d="M31.6667 88.3932H33.7133C34.56 88.3932 35.1933 88.5932 35.6067 88.9932C36.1333 89.5132 36.3933 90.3066 36.3933 91.3732C36.3933 92.1932 36.2533 92.8532 35.98 93.3532C35.7 93.8532 35.3067 94.1599 34.7933 94.2799L36.92 99.8532H35.34L33.2267 94.2399V99.8532H31.6733V88.3932H31.6667ZM33.2267 93.4732C33.8267 93.4732 34.2533 93.3332 34.5067 93.0599C34.76 92.7866 34.88 92.3132 34.88 91.6599C34.88 91.3066 34.8533 90.9999 34.8 90.7466C34.7467 90.4932 34.6667 90.2866 34.5533 90.1332C34.44 89.9732 34.2933 89.8599 34.12 89.7866C33.94 89.7132 33.7333 89.6732 33.4867 89.6732H33.2267V93.4799V93.4732Z" fill="#52BCB9"/>
+<path d="M40.9933 88.3932H42.2067L44.68 99.8532H43.14L42.7067 97.6199H40.42L39.98 99.8532H38.4867L41 88.3932H40.9933ZM42.48 96.4266L42.1333 94.5999C41.9067 93.3599 41.72 92.0332 41.5733 90.6199C41.5067 91.3066 41.4133 92.0066 41.3067 92.7066C41.2 93.4132 41.0667 94.1599 40.92 94.9532L40.6333 96.4199H42.48V96.4266Z" fill="#52BCB9"/>
+<path d="M50.6733 88.6332V90.1399C50.2 89.8066 49.7733 89.6332 49.3933 89.6332C48.9867 89.6332 48.6533 89.7732 48.3933 90.0666C48.1333 90.3399 48.0067 90.6999 48.0067 91.1599C48.0067 91.5599 48.1 91.9066 48.2867 92.1932C48.38 92.3466 48.54 92.5466 48.7533 92.7866C48.9733 93.0266 49.2533 93.3199 49.5933 93.6599C50.2267 94.2999 50.66 94.8532 50.8867 95.3132C51.1133 95.7666 51.2333 96.3132 51.2333 96.9666C51.2333 97.8532 50.98 98.5799 50.48 99.1532C49.9733 99.7132 49.3333 99.9932 48.54 99.9932C47.8733 99.9932 47.3133 99.8132 46.84 99.4532V97.9266C47.3933 98.3266 47.9 98.5266 48.3533 98.5266C48.78 98.5266 49.1067 98.3866 49.3467 98.1066C49.5867 97.8266 49.7067 97.4466 49.7067 96.9666C49.7067 96.5532 49.6133 96.1799 49.4267 95.8466C49.3333 95.6866 49.2 95.5066 49.0333 95.2999C48.8667 95.0932 48.6533 94.8666 48.4 94.6132C48.0067 94.2266 47.68 93.8866 47.42 93.5866C47.16 93.2866 46.9667 93.0266 46.8467 92.8066C46.6067 92.3732 46.4867 91.8199 46.4867 91.1599C46.4867 90.2666 46.72 89.5532 47.1867 89.0266C47.66 88.4999 48.2933 88.2332 49.0933 88.2332C49.6467 88.2332 50.1733 88.3666 50.68 88.6266L50.6733 88.6332Z" fill="#52BCB9"/>
+<path d="M57.6133 88.6332V90.1399C57.14 89.8066 56.7133 89.6332 56.3333 89.6332C55.9267 89.6332 55.5933 89.7732 55.3333 90.0666C55.0733 90.3399 54.9467 90.6999 54.9467 91.1599C54.9467 91.5599 55.04 91.9066 55.2267 92.1932C55.32 92.3466 55.48 92.5466 55.6933 92.7866C55.9133 93.0266 56.1933 93.3199 56.5333 93.6599C57.1667 94.2999 57.6 94.8532 57.8267 95.3132C58.0533 95.7666 58.1733 96.3132 58.1733 96.9666C58.1733 97.8532 57.92 98.5799 57.42 99.1532C56.9133 99.7132 56.2733 99.9932 55.48 99.9932C54.8133 99.9932 54.2533 99.8132 53.78 99.4532V97.9266C54.3333 98.3266 54.84 98.5266 55.2933 98.5266C55.72 98.5266 56.0467 98.3866 56.2867 98.1066C56.5267 97.8266 56.6467 97.4466 56.6467 96.9666C56.6467 96.5532 56.5533 96.1799 56.3667 95.8466C56.2733 95.6866 56.14 95.5066 55.9733 95.2999C55.8067 95.0932 55.5933 94.8666 55.34 94.6132C54.9467 94.2266 54.62 93.8866 54.36 93.5866C54.1 93.2866 53.9067 93.0266 53.7867 92.8066C53.5467 92.3732 53.4267 91.8199 53.4267 91.1599C53.4267 90.2666 53.66 89.5532 54.1267 89.0266C54.6 88.4999 55.2333 88.2332 56.0333 88.2332C56.5867 88.2332 57.1133 88.3666 57.62 88.6266L57.6133 88.6332Z" fill="#52BCB9"/>
+<path d="M60.7 88.3932H64.8333V89.6999H62.2533V93.3332H64.54V94.6399H62.2533V98.5532H64.8333V99.8599H60.7V88.3932Z" fill="#52BCB9"/>
+</g>
+<defs>
+<clipPath id="clip0_4945_13685">
+<rect width="66.6667" height="100" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
+                    <span class="visually-hidden">Zur Startseite</span>
+                </a>
+            </div>
+        </div>
+        <div class="nav">
+            <nav aria-label="Hauptnavigation">
+                <ul class="d-flex align-items-center">
+                                                <li>
+                                <a class="txt-txt-sm txt-bold link-without-underline" href="https://shop.felbertauernstrasse.at" target="_blank">Webshop</a>
+                            </li>
+                                                                        <li>
+                                <a class="txt-txt-sm txt-bold link-without-underline" href="https://www.felbertauernstrasse.at/anreise/" target="">Anreise</a>
+                            </li>
+                                                                        <li>
+                                <a class="txt-txt-sm txt-bold link-without-underline" href="https://www.felbertauernstrasse.at/tickets/" target="">Tickets und Tarife</a>
+                            </li>
+                                                                        <li>
+                                <a class="txt-txt-sm txt-bold link-without-underline" href="https://www.felbertauernstrasse.at/service/" target="">Service</a>
+                            </li>
+                                                                        <li class="has-submenu cursor-pointer">
+                                <div class="submenu-title d-flex gap-4 align-items-center" tabindex="0" role="button" aria-expanded="false" aria-haspopup="true" aria-label="Unternehmen Menü">
+                                    <span class="txt-txt-sm txt-bold">Unternehmen</span>
+                                    <i class="icon arrow-down">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#343434"/>
+</svg>
+                                    </i>
+                                </div>
+                                <ul class="submenu" role="menu" aria-label="Unternehmen Untermenü">
+                                                                            <li class="ms-0 " role="none"><a class="link-without-underline" href="https://www.felbertauernstrasse.at/ueber-uns/" role="menuitem">Über uns</a></li>
+                                                                            <li class="ms-0 " role="none"><a class="link-without-underline" href="https://www.felbertauernstrasse.at/karriere/" role="menuitem">Karriere</a></li>
+                                                                    </ul>
+                            </li>
+                                                            </ul>
+            </nav>
+        </div>
+
+        <div class="cart-div d-flex justify-content-between align-items-center">
+            <nav aria-label="Sprachauswahl">
+                <div class="lang-menu dropdown position-relative d-flex align-items-center txt-btn-txt txt-bold clickable" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+                    <div class="title d-flex align-items-center">
+                                                            <span class="txt-btn-txt text-uppercase"><b>de</b></span>
+                                                <i class="icon flex-shrink-0 lang-down-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#343434"/>
+</svg>
+</i>
+                    </div>
+                    <ul class="position-absolute lang-dropdown-web">
+                                                            <li>
+                                        <a href="https://www.felbertauernstrasse.at/en/downloads/" class="ignoreLink d-flex language-link text-uppercase" data-lang="en">
+                                            en                                        </a>
+                                    </li>
+                                            </ul>
+                </div>
+            </nav>
+
+            <nav aria-label="Suche">
+                <div class="head-serach d-flex align-items-center text-right ms-20 me-20">
+                    <div class="position-relative d-flex align-items-center search-input">
+                        <input class="search-in txt-color-neutral-black" id="search-in" type="text" placeholder="Search" aria-label="Suchbegriff eingeben">
+                        <i class="d-flex me-34 clear-icon" aria-label="Suchbegriff löschen"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11 4L10 3L7 6L4 3L3 4L6 7L3 10L4 11L7 8L10 11L11 10L8 7L11 4Z" fill="#343434"/>
+</svg>
+</i>
+                        <div class="icon search-icon clickable position-absolute end-8">
+                            <i class="icon d-flex" tabindex="0" role="button" aria-label="Suche öffnen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.6977 18.3953C12.4055 18.395 14.0642 17.8232 15.4096 16.7711L19.6394 21.001L21 19.6404L16.7701 15.4105C17.8228 14.0651 18.3949 12.406 18.3953 10.6977C18.3953 6.45336 14.9419 3 10.6977 3C6.45336 3 3 6.45336 3 10.6977C3 14.9419 6.45336 18.3953 10.6977 18.3953ZM10.6977 4.92441C13.8816 4.92441 16.4709 7.51371 16.4709 10.6977C16.4709 13.8816 13.8816 16.4709 10.6977 16.4709C7.51371 16.4709 4.92441 13.8816 4.92441 10.6977C4.92441 7.51371 7.51371 4.92441 10.6977 4.92441Z" fill="#343434"/>
+</svg>
+</i>
+                        </div>
+                        <div class="search-results position-absolute w-100 p-10" role="region" aria-label="Suchergebnisse">
+                            <p class="txt-txt-xs text-start">suggestions</p>
+                            <div class="loading-helper" style="display:none">
+                                <i class="loader-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="50px" height="50px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<g transform="translate(20 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.375s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(40 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.25s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(60 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.125s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(80 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g>
+</svg></i>
+                            </div>
+                            <div class="search-results-wrapper mt-16 mb-n20">
+                                <!-- Ajax results will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu d-flex align-items-center justify-content-between d-xl-none container-fluid py-6">
+
+        <div class="logo">
+            <a href="https://www.felbertauernstrasse.at">
+                <svg width="68" height="100" viewBox="0 0 68 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_4945_13685)">
+<path d="M65.8267 46.2864V55.9064H14.9667V99.7997H4.86V55.9931H0.5V46.2931C2.01333 46.2397 3.56667 46.1864 5.3 46.1264C1.79333 38.3597 1.17333 30.5464 3.64 22.6131C5.90667 15.3397 10.3267 9.55974 16.7333 5.34641C29.0533 -2.76026 44.8 -1.30693 55.3333 7.36641C66.46 16.5264 69.92 31.5797 64.9333 43.7331H55.0333C55.5667 42.3864 56.0667 41.1997 56.52 39.9931C57.6867 36.8931 58.04 33.6731 57.7133 30.4064C57.2533 25.8531 55.56 21.7597 52.62 18.2197C49.7533 14.7731 46.16 12.3531 41.86 11.0131C39.24 10.1997 36.5467 9.70641 33.8 9.93307C27.7333 10.4331 22.4933 12.7197 18.2867 17.2064C15.68 19.9797 13.86 23.1797 12.9333 26.8197C12.3133 29.2397 11.86 31.7197 12.2667 34.2864C12.5667 36.1597 12.82 38.0197 13.4267 39.8331C14.14 41.9731 15.1933 43.9331 16.52 45.7331C16.7533 46.0531 17.3933 46.2131 17.84 46.2131C24.0533 46.2397 30.2667 46.2264 36.48 46.2264C45.86 46.2264 55.24 46.2264 64.62 46.2264C64.9667 46.2264 65.3133 46.2597 65.8267 46.2931V46.2864Z" fill="#52BCB9"/>
+<path d="M50.1333 33.2666C49.36 33.7932 48.7267 34.2332 48.08 34.6466C45.7 36.1732 42.12 36.4599 39.7467 34.6066C39.2 34.1799 38.7933 34.2799 38.2867 34.6199C37.0933 35.4266 35.78 35.8266 34.1667 35.5999C34.3667 35.3666 34.5 35.1732 34.68 35.0266C34.8267 34.9066 35.0267 34.8532 35.1867 34.7399C37 33.4599 36.5733 32.7732 35.68 31.3799C35.3067 30.7999 34.8067 30.2932 34.2933 29.8266C33.6867 29.2732 33.5733 28.7332 33.9533 27.9932C34.4733 26.9799 34.3533 26.5799 33.48 25.8199C32.8467 25.2666 32.1133 25.2066 31.3267 25.6799C31.0333 25.8599 30.78 26.1066 30.5067 26.3266C29.98 26.7532 30.0667 27.1332 30.5467 27.5666C32.2067 29.0732 32.2467 29.1999 30.4733 30.5732C29.02 31.6999 27.4533 32.6866 25.8933 33.6732C24.5 34.5532 22.92 34.8399 21.3 34.6532C18.9733 34.3866 16.72 34.8399 14.4533 35.1932C14.34 35.2132 14.2267 35.1932 13.9933 35.1932C13.8067 34.6532 13.62 34.0932 13.38 33.4066C14.9333 33.1332 16.3133 32.9532 17.6733 32.6399C18.6067 32.4266 19.5333 32.0932 20.4 31.6799C20.7467 31.5132 21.2 30.9332 21.1267 30.6599C20.9533 29.9932 20.32 30.3199 19.84 30.3732C18.1 30.5799 16.36 30.7799 14.62 30.9466C14.26 30.9799 13.8867 30.8466 13.44 30.7732C13.7467 30.0266 14.2667 29.8666 14.8067 29.8999C16.5733 30.0266 18.0533 29.3066 19.5133 28.4732C20.32 28.0132 21.1333 27.5666 22.0533 27.0532C22.5 27.5466 23 28.0132 23.4067 28.5532C24.18 29.5666 24.6067 29.5532 25.7733 28.8132C27.66 27.6132 29.48 26.2999 31.3267 25.0332C31.6467 24.8132 31.9667 24.6066 32.2667 24.4066C33.7 25.3732 35.0733 26.3066 36.4533 27.2332C37.6733 28.0532 38.9333 28.4466 40.36 27.7132C42.04 26.8466 43.76 26.0532 45.4267 25.1532C46.42 24.6199 46.5067 24.5666 47.3533 25.2999C48.7933 26.5332 50.1067 27.9532 51.9333 28.6266C53.2867 29.1266 54.7 29.4799 56.3267 29.9799C56.5333 31.6799 56.4467 33.6599 56.3467 35.7332C53.7467 36.1199 51.66 35.4799 50.1533 33.2532L50.1333 33.2666ZM48.6267 30.8666C47.9133 30.2266 47.2667 29.6466 46.5733 29.0266C47.14 28.4266 47.6533 27.8866 48.1667 27.3466C47.7933 26.8799 47.5267 26.4932 47.2067 26.1666C46.4667 25.4066 46.26 25.3932 45.3267 25.9799C44.9667 26.2066 44.5933 26.4199 44.2667 26.6866C43.22 27.5332 43.2667 28.1266 44.4133 28.7932C44.7267 28.9732 45.04 29.1466 45.4067 29.3532C44.7133 29.8866 44.12 30.3466 43.54 30.7932C44.4467 32.2599 46.8867 32.3066 48.6267 30.8599V30.8666Z" fill="#52BCB9"/>
+<path d="M55.7867 37.6132C55.6467 39.5866 54.64 41.0199 53.3667 42.4132C53.5733 42.5999 53.78 42.7932 54.0133 43.0066C53.76 43.8332 53.0667 43.7132 52.48 43.7199C50.3733 43.7466 48.26 43.7332 46.1467 43.7399C36.9267 43.7666 27.7 43.7932 18.48 43.8132C16.06 43.8132 16.6667 44.1132 15.7867 42.0332C14.8267 39.7666 14.46 39.1199 17.54 38.2332C18.7733 37.8799 20.0467 37.6866 21.3533 38.0132C22.7467 38.3666 24.16 38.6732 25.5667 38.9532C25.96 39.0332 26.4467 39.0732 26.78 38.9132C29 37.8532 31.3533 37.5666 33.74 37.8532C35.4667 38.0599 37.1667 38.5532 38.8667 38.9732C40.6667 39.4199 42.36 39.2999 43.84 38.0999C44.8133 37.3066 45.8667 37.6732 46.82 37.9532C49.3333 38.6866 51.8 38.7599 54.2867 37.8866C54.72 37.7332 55.2 37.7199 55.7867 37.6266V37.6132Z" fill="#52BCB9"/>
+<path d="M18.3133 59.5399H22.4733V60.8466H19.8733V64.4666H22.22V65.7732H19.8733V70.9999H18.32V59.5399H18.3133Z" fill="#52BCB9"/>
+<path d="M26.4733 59.5399H30.6067V60.8466H28.0267V64.4799H30.3133V65.7866H28.0267V69.6999H30.6067V71.0066H26.4733V59.5399Z" fill="#52BCB9"/>
+<path d="M36.3933 59.5399V69.6932H38.9333V70.9999H34.8333V59.5399H36.3933Z" fill="#52BCB9"/>
+<path d="M42.7133 59.5399H44.82C46.4733 59.5399 47.2933 60.5599 47.2933 62.5932C47.2933 63.3732 47.1867 63.9466 46.9733 64.3199C46.76 64.6932 46.38 64.9799 45.8333 65.1732C46.46 65.4199 46.88 65.7399 47.1133 66.1266C47.3467 66.5066 47.4667 67.0799 47.4667 67.8466C47.4667 69.9466 46.56 70.9999 44.7467 70.9999H42.7133V59.5399ZM44.18 64.5866C44.78 64.5866 45.2 64.4466 45.4333 64.1732C45.6667 63.8799 45.7867 63.3666 45.7867 62.6332C45.7867 61.3932 45.34 60.7799 44.44 60.7799H44.2533C44.2133 60.7799 44.1867 60.7799 44.18 60.7866V64.5866ZM44.18 69.6799C44.82 69.6799 45.26 69.5466 45.5067 69.2732C45.7533 68.9999 45.8733 68.5066 45.8733 67.7932C45.8733 67.0799 45.7467 66.5466 45.4933 66.2532C45.2467 65.9532 44.8067 65.8066 44.1867 65.8066V69.6732L44.18 69.6799Z" fill="#52BCB9"/>
+<path d="M51.82 59.5399H55.9533V60.8466H53.3733V64.4799H55.66V65.7866H53.3733V69.6999H55.9533V71.0066H51.82V59.5399Z" fill="#52BCB9"/>
+<path d="M60.1867 59.5399H62.2333C63.08 59.5399 63.7133 59.7399 64.1267 60.1399C64.6533 60.6599 64.9133 61.4532 64.9133 62.5199C64.9133 63.3399 64.7733 63.9999 64.5 64.4999C64.22 64.9999 63.8267 65.3066 63.3133 65.4266L65.44 70.9999H63.86L61.74 65.3866V70.9999H60.1867V59.5399ZM61.7467 64.6199C62.3467 64.6199 62.7733 64.4799 63.0267 64.2066C63.2733 63.9266 63.4 63.4599 63.4 62.8066C63.4 62.4532 63.3733 62.1466 63.32 61.8932C63.2667 61.6399 63.1867 61.4332 63.0733 61.2799C62.96 61.1199 62.8133 61.0066 62.64 60.9332C62.4667 60.8599 62.2533 60.8199 62.0067 60.8199H61.7467V64.6266V64.6199Z" fill="#52BCB9"/>
+<path d="M17.3933 73.9666H22.46V75.3199H20.72V85.4332H19.1933V75.3199H17.4V73.9666H17.3933Z" fill="#52BCB9"/>
+<path d="M26.4267 73.9666H27.64L30.1133 85.4266H28.5733L28.14 83.1932H25.8533L25.4133 85.4266H23.92L26.4333 73.9666H26.4267ZM27.92 81.9999L27.5733 80.1732C27.3467 78.9332 27.16 77.6066 27.0133 76.1932C26.9467 76.8799 26.8533 77.5799 26.7467 78.2799C26.64 78.9866 26.5067 79.7332 26.36 80.5266L26.0733 81.9932H27.92V81.9999Z" fill="#52BCB9"/>
+<path d="M33.3267 73.9666H34.8533V82.0666C34.8533 82.8932 34.9267 83.4399 35.08 83.7132C35.2333 83.9866 35.54 84.1199 35.9933 84.1199C36.4467 84.1199 36.7467 83.9999 36.8933 83.7666C37.04 83.5266 37.12 83.0332 37.12 82.2866V73.9666H38.6467V82.2866C38.6467 83.5332 38.4533 84.3799 38.0733 84.8199C37.6133 85.3199 36.9133 85.5666 35.9733 85.5666C34.9333 85.5666 34.2067 85.2466 33.78 84.5999C33.4867 84.1599 33.34 83.3132 33.34 82.0599V73.9599L33.3267 73.9666Z" fill="#52BCB9"/>
+<path d="M42.7133 73.9666H46.8467V75.2732H44.2667V78.9066H46.5533V80.2132H44.2667V84.1266H46.8467V85.4332H42.7133V73.9666Z" fill="#52BCB9"/>
+<path d="M50.58 73.9666H52.6267C53.4733 73.9666 54.1067 74.1666 54.52 74.5666C55.0467 75.0866 55.3067 75.8799 55.3067 76.9466C55.3067 77.7666 55.1667 78.4266 54.8933 78.9266C54.6133 79.4266 54.22 79.7332 53.7067 79.8532L55.8333 85.4266H54.2533L52.14 79.8132V85.4266H50.5867V73.9666H50.58ZM52.1333 79.0466C52.7333 79.0466 53.16 78.9066 53.4133 78.6332C53.6667 78.3599 53.7867 77.8866 53.7867 77.2332C53.7867 76.8799 53.76 76.5732 53.7067 76.3199C53.6533 76.0666 53.5733 75.8599 53.46 75.7066C53.3467 75.5466 53.2 75.4332 53.0267 75.3599C52.8467 75.2866 52.64 75.2466 52.3933 75.2466H52.1333V79.0532V79.0466Z" fill="#52BCB9"/>
+<path d="M60.7867 73.9666L62.3333 78.5399C62.78 79.8332 63.18 81.2132 63.52 82.6732C63.3933 81.7866 63.3 80.9866 63.24 80.2666C63.18 79.5466 63.1533 78.8732 63.1533 78.2399V73.9666H64.72V85.4266H63.26L61.52 80.2666C61.36 79.7866 61.2067 79.2932 61.0667 78.7866C60.9267 78.2799 60.7933 77.7532 60.6733 77.1999C60.66 77.1332 60.6467 77.0466 60.6267 76.9466C60.6067 76.8466 60.58 76.7332 60.5467 76.6066C60.56 76.7332 60.5733 76.8466 60.5867 76.9399C60.6 77.0332 60.6067 77.1066 60.6067 77.1732L60.6867 78.3399L60.7667 79.7599C60.7667 79.8399 60.7733 79.9332 60.78 80.0466C60.78 80.1599 60.78 80.2866 60.78 80.4332L60.86 85.4266H59.3267V73.9666H60.7867Z" fill="#52BCB9"/>
+<path d="M22.1667 88.6332V90.1399C21.6933 89.8066 21.2667 89.6332 20.8867 89.6332C20.48 89.6332 20.1467 89.7732 19.8867 90.0666C19.6267 90.3399 19.5 90.6999 19.5 91.1599C19.5 91.5599 19.5933 91.9066 19.78 92.1932C19.8733 92.3466 20.0333 92.5466 20.2467 92.7866C20.4667 93.0266 20.7467 93.3199 21.0867 93.6599C21.72 94.2999 22.1533 94.8532 22.38 95.3132C22.6067 95.7666 22.7267 96.3132 22.7267 96.9666C22.7267 97.8532 22.4733 98.5799 21.9733 99.1532C21.4667 99.7132 20.8267 99.9932 20.0333 99.9932C19.3733 99.9932 18.8067 99.8132 18.3333 99.4532V97.9266C18.8867 98.3266 19.3933 98.5266 19.8467 98.5266C20.2733 98.5266 20.6 98.3866 20.84 98.1066C21.08 97.8266 21.2 97.4466 21.2 96.9666C21.2 96.5532 21.1067 96.1799 20.92 95.8466C20.8267 95.6866 20.6933 95.5066 20.5267 95.2999C20.36 95.0932 20.1467 94.8666 19.8933 94.6132C19.5 94.2266 19.1733 93.8866 18.9133 93.5866C18.6533 93.2866 18.46 93.0266 18.34 92.8066C18.1 92.3732 17.98 91.8199 17.98 91.1599C17.98 90.2666 18.2133 89.5532 18.68 89.0266C19.1533 88.4999 19.7867 88.2332 20.5867 88.2332C21.14 88.2332 21.6667 88.3666 22.1733 88.6266L22.1667 88.6332Z" fill="#52BCB9"/>
+<path d="M24.52 88.3932H29.5867V89.7466H27.8467V99.8599H26.32V89.7466H24.5267V88.3932H24.52Z" fill="#52BCB9"/>
+<path d="M31.6667 88.3932H33.7133C34.56 88.3932 35.1933 88.5932 35.6067 88.9932C36.1333 89.5132 36.3933 90.3066 36.3933 91.3732C36.3933 92.1932 36.2533 92.8532 35.98 93.3532C35.7 93.8532 35.3067 94.1599 34.7933 94.2799L36.92 99.8532H35.34L33.2267 94.2399V99.8532H31.6733V88.3932H31.6667ZM33.2267 93.4732C33.8267 93.4732 34.2533 93.3332 34.5067 93.0599C34.76 92.7866 34.88 92.3132 34.88 91.6599C34.88 91.3066 34.8533 90.9999 34.8 90.7466C34.7467 90.4932 34.6667 90.2866 34.5533 90.1332C34.44 89.9732 34.2933 89.8599 34.12 89.7866C33.94 89.7132 33.7333 89.6732 33.4867 89.6732H33.2267V93.4799V93.4732Z" fill="#52BCB9"/>
+<path d="M40.9933 88.3932H42.2067L44.68 99.8532H43.14L42.7067 97.6199H40.42L39.98 99.8532H38.4867L41 88.3932H40.9933ZM42.48 96.4266L42.1333 94.5999C41.9067 93.3599 41.72 92.0332 41.5733 90.6199C41.5067 91.3066 41.4133 92.0066 41.3067 92.7066C41.2 93.4132 41.0667 94.1599 40.92 94.9532L40.6333 96.4199H42.48V96.4266Z" fill="#52BCB9"/>
+<path d="M50.6733 88.6332V90.1399C50.2 89.8066 49.7733 89.6332 49.3933 89.6332C48.9867 89.6332 48.6533 89.7732 48.3933 90.0666C48.1333 90.3399 48.0067 90.6999 48.0067 91.1599C48.0067 91.5599 48.1 91.9066 48.2867 92.1932C48.38 92.3466 48.54 92.5466 48.7533 92.7866C48.9733 93.0266 49.2533 93.3199 49.5933 93.6599C50.2267 94.2999 50.66 94.8532 50.8867 95.3132C51.1133 95.7666 51.2333 96.3132 51.2333 96.9666C51.2333 97.8532 50.98 98.5799 50.48 99.1532C49.9733 99.7132 49.3333 99.9932 48.54 99.9932C47.8733 99.9932 47.3133 99.8132 46.84 99.4532V97.9266C47.3933 98.3266 47.9 98.5266 48.3533 98.5266C48.78 98.5266 49.1067 98.3866 49.3467 98.1066C49.5867 97.8266 49.7067 97.4466 49.7067 96.9666C49.7067 96.5532 49.6133 96.1799 49.4267 95.8466C49.3333 95.6866 49.2 95.5066 49.0333 95.2999C48.8667 95.0932 48.6533 94.8666 48.4 94.6132C48.0067 94.2266 47.68 93.8866 47.42 93.5866C47.16 93.2866 46.9667 93.0266 46.8467 92.8066C46.6067 92.3732 46.4867 91.8199 46.4867 91.1599C46.4867 90.2666 46.72 89.5532 47.1867 89.0266C47.66 88.4999 48.2933 88.2332 49.0933 88.2332C49.6467 88.2332 50.1733 88.3666 50.68 88.6266L50.6733 88.6332Z" fill="#52BCB9"/>
+<path d="M57.6133 88.6332V90.1399C57.14 89.8066 56.7133 89.6332 56.3333 89.6332C55.9267 89.6332 55.5933 89.7732 55.3333 90.0666C55.0733 90.3399 54.9467 90.6999 54.9467 91.1599C54.9467 91.5599 55.04 91.9066 55.2267 92.1932C55.32 92.3466 55.48 92.5466 55.6933 92.7866C55.9133 93.0266 56.1933 93.3199 56.5333 93.6599C57.1667 94.2999 57.6 94.8532 57.8267 95.3132C58.0533 95.7666 58.1733 96.3132 58.1733 96.9666C58.1733 97.8532 57.92 98.5799 57.42 99.1532C56.9133 99.7132 56.2733 99.9932 55.48 99.9932C54.8133 99.9932 54.2533 99.8132 53.78 99.4532V97.9266C54.3333 98.3266 54.84 98.5266 55.2933 98.5266C55.72 98.5266 56.0467 98.3866 56.2867 98.1066C56.5267 97.8266 56.6467 97.4466 56.6467 96.9666C56.6467 96.5532 56.5533 96.1799 56.3667 95.8466C56.2733 95.6866 56.14 95.5066 55.9733 95.2999C55.8067 95.0932 55.5933 94.8666 55.34 94.6132C54.9467 94.2266 54.62 93.8866 54.36 93.5866C54.1 93.2866 53.9067 93.0266 53.7867 92.8066C53.5467 92.3732 53.4267 91.8199 53.4267 91.1599C53.4267 90.2666 53.66 89.5532 54.1267 89.0266C54.6 88.4999 55.2333 88.2332 56.0333 88.2332C56.5867 88.2332 57.1133 88.3666 57.62 88.6266L57.6133 88.6332Z" fill="#52BCB9"/>
+<path d="M60.7 88.3932H64.8333V89.6999H62.2533V93.3332H64.54V94.6399H62.2533V98.5532H64.8333V99.8599H60.7V88.3932Z" fill="#52BCB9"/>
+</g>
+<defs>
+<clipPath id="clip0_4945_13685">
+<rect width="66.6667" height="100" fill="white" transform="translate(0.5)"/>
+</clipPath>
+</defs>
+</svg>
+            </a>
+        </div>
+
+        <div class="toggle-btn d-block ">
+            <input id="checkbox" type="checkbox">
+            <label class="toggle" for="checkbox">
+                <div id="bar1" class="bars"></div>
+                <div id="bar2" class="bars"></div>
+                <div id="bar3" class="bars"></div>
+            </label>
+        </div>
+
+        <div class="mobile-overlay d-xl-none">
+            <div class="overlay-container position-relative">
+                <div class="container-over container">
+                    <nav aria-label="Mobile Navigation">
+                        <ul class="pt-64 txt-txt-lg txt-bold letter-space-2">
+                                                                <li class="parent-li">
+                                        <a class="link-without-underline mobile-menu-item" href="https://shop.felbertauernstrasse.at" target="_blank">Webshop</a>
+                                    </li>
+                                                                                                <li class="parent-li">
+                                        <a class="link-without-underline mobile-menu-item" href="https://www.felbertauernstrasse.at/anreise/" target="">Anreise</a>
+                                    </li>
+                                                                                                <li class="parent-li">
+                                        <a class="link-without-underline mobile-menu-item" href="https://www.felbertauernstrasse.at/tickets/" target="">Tickets und Tarife</a>
+                                    </li>
+                                                                                                <li class="parent-li">
+                                        <a class="link-without-underline mobile-menu-item" href="https://www.felbertauernstrasse.at/service/" target="">Service</a>
+                                    </li>
+                                                                                                <li class="has-submenu cursor-pointer">
+                                        <div class="submenu-title d-flex gap-4 align-items-center" role="button" aria-expanded="false" aria-haspopup="true" aria-label="Unternehmen Menü">
+                                            <span>Unternehmen</span>
+                                            <i class="icon arrow-down">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#343434"/>
+</svg>
+                                            </i>
+                                        </div>
+                                        <ul class="submenu" role="menu" aria-label="Unternehmen Untermenü">
+                                                                                            <li class="ms-0 txt-400" role="none"><a class="link-without-underline mobile-menu-item" href="https://www.felbertauernstrasse.at/ueber-uns/" role="menuitem">Über uns</a></li>
+                                                                                            <li class="ms-0 txt-400" role="none"><a class="link-without-underline mobile-menu-item" href="https://www.felbertauernstrasse.at/karriere/" role="menuitem">Karriere</a></li>
+                                                                                    </ul>
+                                    </li>
+                                                                                    </ul>
+                    </nav>
+
+                    <div class="mobile-bot pt-64 letter-space-1 txt-txt-xs txt-500">
+                        <div class=" pt-16 mobile-search">
+                            <nav aria-label="Suche">
+                                <div class="mobile-search-div d-flex align-items-start">
+                                    <p class="search-txt">Search</p>
+                                    <div class="icon-input-box d-flex position-relative">
+                                        <input class="mobile-search-in" type="text" aria-label="Suchbegriff eingeben">
+                                        <i class="d-flex me-42 clear-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11 4L10 3L7 6L4 3L3 4L6 7L3 10L4 11L7 8L10 11L11 10L8 7L11 4Z" fill="#343434"/>
+</svg>
+</i>
+                                        <div class="position-absolute search-icon-div d-flex">
+                                            <i class="icon icon-md mobile-search-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.6977 18.3953C12.4055 18.395 14.0642 17.8232 15.4096 16.7711L19.6394 21.001L21 19.6404L16.7701 15.4105C17.8228 14.0651 18.3949 12.406 18.3953 10.6977C18.3953 6.45336 14.9419 3 10.6977 3C6.45336 3 3 6.45336 3 10.6977C3 14.9419 6.45336 18.3953 10.6977 18.3953ZM10.6977 4.92441C13.8816 4.92441 16.4709 7.51371 16.4709 10.6977C16.4709 13.8816 13.8816 16.4709 10.6977 16.4709C7.51371 16.4709 4.92441 13.8816 4.92441 10.6977C4.92441 7.51371 7.51371 4.92441 10.6977 4.92441Z" fill="#343434"/>
+</svg>
+</i>
+                                        </div>
+                                        <div class="search-results position-absolute w-100">
+                                            <p class="txt-txt-xs text-start">suggestions</p>
+                                            <div class="loading-helper" style="display:none">
+                                                <i class="loader-icon"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;display:block;" width="50px" height="50px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<g transform="translate(20 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.375s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(40 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.25s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(60 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="-0.125s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g><g transform="translate(80 50)">
+<circle cx="0" cy="0" r="6" fill="#000">
+  <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1s" repeatCount="indefinite"></animateTransform>
+</circle>
+</g>
+</svg></i>
+                                            </div>
+                                            <div class="search-results-wrapper mt-16 mb-n20">
+                                                <!-- Ajax results will be inserted here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                    <nav aria-label="Sprachauswahl">
+                        <div class="position-relative lang-menu lang-menu-mobile dropdown pt-32">
+                            <div class="title d-flex align-items-center">
+                                                                            <span class="txt-btn-txt text-uppercase pt-3">de</span>
+                                                                <i class="icon flex-shrink-0 lang-down-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.59 8.29492L12 12.8749L7.41 8.29492L6 9.70492L12 15.7049L18 9.70492L16.59 8.29492Z" fill="#343434"/>
+</svg>
+</i>
+                            </div>
+                            <ul class="position-absolute lang-dropdown-mobile">
+                                                                            <li>
+                                                <a href="https://www.felbertauernstrasse.at/en/downloads/" class="ignoreLink d-flex txt-btn-txt text-uppercase" data-lang="en">
+                                                    en                                                </a>
+                                            </li>
+                                                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="burger-menu d-flex justify-content-center container-fluid position-absolute">
+                    <a href="https://www.felbertauernstrasse.at/tickets" class="txt-btn-txt txt-color-neutral-white"><b>TICKETS & TARIFE</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main data-barba='container' data-barba-namespace='flexible-blocks' id="main-content">
+<div class="block-default-hero container-fluid pt-lg-120  pb-lg-80">
+    <div class="d-flex justify-content-center py-40 pt-lg-0 pb-lg-64">
+        <h1 class="text-center"><b>Downloads</b></h1>
+    </div>
+    <!-- <div class="hero-btn d-flex justify-content-center pb-lg-64">
+        <button class="btn large-btn primary-btn ">Unsere Stellenangebote</button>
+    </div> -->
+    </div>
+
+<div class="block-quick-links py-lg-80 py-40 default default" id="Please enter block ID here">
+    <div class="container-lg">
+        <div class="container-1294 mx-auto">
+            <div class="d-flex flex-column flex-lg-row justify-content-between py-40 py-lg-80 quick-links-box">
+                <div class="links-headline-container">
+                    <h4><b>Formulare und Dokumente</b></h4>
+                    <p class="txt-txt-sm pt-12 pt-xl-32">Wichtige Formulare und Dokumente stehen zum Download zur Verfügung. </p>
+                </div>
+                <div class="links-container pt-40 pt-lg-0">
+                    <ul class="d-flex flex-column row-gap-20 row-gap-lg-24 text-uppercase">
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2024/05/Antragsformular-Jahreskarte-DSGVO-1.pdf" target="_blank"><span><b>Antragsformular Jahreskarte für Menschen mit Gehbeeinträchtigung</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2025/12/Mauttarife-per-01.01.2026.pdf" target="_blank"><span><b>Mauttarife</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2026/04/RundfahrtFAG2026.pdf" target="_blank"><span><b>Folder Rundfahrtticket</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2026/04/Datenschutzerklaerung-BewerberInnen-FAG.pdf" target="_blank"><span><b>Datenschutzerklärung für BewerberInnen</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2026/07/Nutzungsbedingungen-Webshop.pdf" target="_blank"><span><b>Nutzungsbedingungen Webshop</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                                        <li>
+                                    <a class="d-inline-flex align-items-center link-without-underline txt-link-txt" href="https://www.felbertauernstrasse.at/wp-content/uploads/2026/10/Mautordnung-per-01.11.2026.pdf" target="_blank"><span><b>Mautordnung</b></span>
+                                        <i class="icon icon-md ms-8">
+                                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.9038 3V12.586L17.4038 9.086L18.8178 10.5L12.9038 16.414L6.98981 10.5L8.40381 9.086L11.9038 12.586V3H13.9038ZM5.40381 14V19H20.4038V14H22.4038V21H3.40381V14H5.40381Z" fill="#1B1C1E"/>
+</svg>
+                                        </i>
+                                    </a>
+                                </li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>        <div class="container-fluid container-banner">
+                        <a href="https://shop.felbertauernstrasse.at/">
+                <img src="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/images/fts-banner-webshop-de.jpg" alt="Felbertauernstrasse AG Webshop">
+            </a>
+        </div>
+
+        </main>
+        <!-- LightWidget WIDGET -->
+        <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+        <iframe src="https://cdn.lightwidget.com/widgets/c8ddc2b2fc685d84acf9cc3b3b9af92e.html" title="Instagram photo gallery" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;">
+        </iframe>
+        <footer>
+            <div class="footer pt-lg-80">
+                <div class="container-fluid footer-container">
+                    <div class="row pt-80 py-lg-80 flex-column-reverse flex-lg-row row-gap-40 justify-content-between">
+                        <div class="col-lg-3">
+                            <span class="txt-txt-sm"><b>Anschrift</b></span>
+                            <div class="txt-txt-sm pt-8 pt-lg-12 txt-300 address-col">
+                                <p>Felbertauernstraße AG <br>
+Albin Egger-Straße 17 <br>
+9900 Lienz</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 txt-txt-sm ">
+                            <span><b>Kontakt</b></span>
+                            <div class="pt-8 pt-lg-12 txt-300">
+                                <p>
+                                    <a class="link-without-underline" href="mailto:info@felbertauernstrasse.at">info@felbertauernstrasse.at</a>
+                                </p>
+                                <div class="footer-icons pt-12 pt-lg-16 ">
+                                    <i class="icon icon-md social-icon-hover">
+                                        <a class="d-flex align-items-center" href="https://www.instagram.com/felbertauern.strasse/?hl=de" target="_blank" aria-label="Instagram" title="Instagram">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M7.05242 0.0718667C8.3323 0.0137476 8.741 0 12 0C15.259 0 15.6676 0.0137476 16.9475 0.0718667C18.2248 0.129844 19.0971 0.331743 19.8605 0.626985C20.6496 0.932133 21.3188 1.34048 21.9859 2.0044C22.6531 2.66836 23.0633 3.33436 23.37 4.11963C23.6667 4.8793 23.8695 5.74739 23.9278 7.01857C23.9862 8.29235 24 8.69904 24 11.9424C24 15.1858 23.9862 15.5925 23.9278 16.8662C23.8695 18.1374 23.6667 19.0055 23.37 19.7651C23.0633 20.5505 22.6531 21.2165 21.9859 21.8804C21.3188 22.5443 20.6496 22.9526 19.8605 23.2579C19.0971 23.5531 18.2248 23.755 16.9475 23.813C15.6676 23.8711 15.259 23.8848 12 23.8848C8.741 23.8848 8.3323 23.8711 7.05242 23.813C5.77511 23.755 4.90283 23.5531 4.1395 23.2579C3.35044 22.9526 2.68118 22.5443 2.01406 21.8804C1.3469 21.2165 0.936629 20.5504 0.629961 19.7651C0.333296 19.0055 0.13047 18.1374 0.0721656 16.8662C0.0137662 15.5925 0 15.1858 0 11.9424C0 8.699 0.0137662 8.29235 0.0721656 7.01857C0.13047 5.74739 0.333296 4.8793 0.629961 4.11963C0.936629 3.33436 1.3469 2.66836 2.01406 2.0044C2.68118 1.34048 3.35044 0.932133 4.1395 0.626985C4.90283 0.331743 5.77511 0.129844 7.05242 0.0718667ZM16.8474 2.22037C15.582 2.16291 15.2025 2.15078 11.9984 2.15078C8.79423 2.15078 8.41473 2.16291 7.14933 2.22037C5.97939 2.27351 5.34395 2.46806 4.9211 2.63161C4.36102 2.84825 3.96123 3.10704 3.54134 3.52497C3.12144 3.94284 2.86136 4.34067 2.64367 4.89811C2.47938 5.31893 2.28389 5.95127 2.23049 7.11564C2.17276 8.37492 2.16057 8.75265 2.16057 11.9414C2.16057 15.1302 2.17276 15.5079 2.23049 16.7672C2.28389 17.9315 2.47938 18.5639 2.64367 18.9847C2.86136 19.5421 3.12144 19.94 3.54134 20.3578C3.96123 20.7758 4.36102 21.0346 4.9211 21.2512C5.34395 21.4147 5.97939 21.6093 7.14938 21.6624C8.41454 21.7198 8.79399 21.732 11.9984 21.732C15.2028 21.732 15.5822 21.7198 16.8474 21.6624C18.0174 21.6093 18.6528 21.4147 19.0756 21.2512C19.6357 21.0346 20.0355 20.7758 20.4554 20.3578C20.8753 19.94 21.1354 19.5421 21.3531 18.9847C21.5174 18.5639 21.7129 17.9315 21.7663 16.7671C21.824 15.5079 21.8362 15.1302 21.8362 11.9414C21.8362 8.75265 21.824 8.37492 21.7663 7.11564C21.7129 5.95127 21.5174 5.31893 21.3531 4.89811C21.1354 4.34067 20.8753 3.94284 20.4554 3.52492C20.0355 3.10704 19.6357 2.84825 19.0756 2.63161C18.6528 2.46806 18.0174 2.27351 16.8474 2.22037ZM19.8432 5.56315C19.8432 6.35464 19.1987 6.99622 18.4037 6.99622C17.6086 6.99622 16.9641 6.35464 16.9641 5.56315C16.9641 4.77167 17.6086 4.13009 18.4037 4.13009C19.1987 4.13009 19.8432 4.77167 19.8432 5.56315ZM11.9978 15.9216C9.78865 15.9216 7.99775 14.1393 7.99775 11.9408C7.99775 9.74229 9.78865 7.96003 11.9978 7.96003C14.2069 7.96003 15.9978 9.74229 15.9978 11.9408C15.9978 14.1393 14.2069 15.9216 11.9978 15.9216ZM11.9994 5.80926C8.59609 5.80926 5.83717 8.55489 5.83717 11.9418C5.83717 15.3288 8.59609 18.0744 11.9994 18.0744C15.4026 18.0744 18.1615 15.3288 18.1615 11.9418C18.1615 8.55489 15.4026 5.80926 11.9994 5.80926Z" fill="#1B1C1E"/>
+</svg>
+                                            <span class="visually-hidden">Instagram</span>
+                                        </a>
+                                    </i>
+                                    <i class="icon icon-md ms-12 ms-lg-16 social-icon-hover">
+                                        <a class="d-flex align-items-center" href="https://www.facebook.com/Felbertauern.Strasse.AG/?locale=de_DE" target="_blank" aria-label="Facebook" title="Facebook">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_382_5610)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M12 0C18.6274 0 24 5.37258 24 12C24 17.9895 19.6118 22.954 13.875 23.8542V15.4688H16.6711V15.4687L17.2031 12.0001V12H13.875V9.74912C13.875 8.80014 14.34 7.87506 15.8306 7.87506H17.3437V7.875V4.92194V4.92187C17.3437 4.92187 15.9705 4.6875 14.6576 4.6875C12.0879 4.6875 10.3527 6.14758 10.1458 8.8082C10.132 8.98557 10.125 9.16828 10.125 9.35625V12H7.07812V15.4687L7.07812 15.4688H10.125L10.125 23.8542C4.3882 22.954 0 17.9895 0 12C0 5.37258 5.37258 0 12 0Z" fill="#1B1C1E"/>
+</g>
+<defs>
+<clipPath id="clip0_382_5610">
+<rect width="24" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+                                            <span class="visually-hidden">Facebook</span>
+                                        </a>
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="d-flex align-items-center justify-content-lg-end">
+                                <i class="icon icon-md"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.79657 3.3234L9.43357 6.20741C9.79291 6.62791 9.79291 7.2891 9.37355 7.64941L7.69532 9.21179C7.15593 9.69245 7.21595 10.0528 7.6353 10.5334L13.6879 17.083C14.1073 17.5636 14.4666 17.6238 14.946 17.2033L16.6242 15.641C17.0436 15.2205 17.703 15.2807 18.0624 15.7011L20.7586 18.5852C21.118 19.0057 21.058 19.6067 20.6986 20.0272C16.3842 24.6541 10.6918 20.1475 7.5154 16.6626C4.33983 13.1775 0.384822 7.16878 5.35791 3.26315C5.77728 2.90283 6.37669 2.90283 6.79604 3.32333L6.79657 3.3234Z" fill="#343434"/>
+</svg>
+</i>
+                                <span class="txt-txt-sm ms-12"><b>Straßenhotline 0-24 Uhr</b></span>
+                            </div>
+                            <div class="txt-number-txt pt-8 pt-lg-12 text-start text-lg-end">
+                                <p>+43 4875 880611</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="footer-copyright d-md-flex flex-row justify-content-between align-items-center pt-40 pb-160 pt-lg-0 pb-lg-40">
+                        <div class="row copyright-row flex-column-reverse justify-content-lg-between flex-lg-row row-gap-40">
+                            <div class="txt-txt-xs col-lg-5 col-xl-4 copyright-text-color">© 2025 Felbertauernstraße AG</div>
+                            <div class="cookies-div  col-lg-7 col-xxl-5">
+                                <ul class="d-flex txt-txt-xs flex-wrap justify-content-md-between ps-xl-20">
+                                                                            <li><a class="link-without-underline " href="https://www.felbertauernstrasse.at/downloads/" target="">Downloads</a></li>
+                                                                            <li><a class="link-without-underline " href="https://www.felbertauernstrasse.at/datenschutz/" target="">Datenschutz</a></li>
+                                                                            <li><a class="link-without-underline csconsentlink" href="" target="">Cookie-Einstellungen</a></li>
+                                                                            <li><a class="link-without-underline ignoreLink" href="https://www.felbertauernstrasse.at/whistleblower/" target="">Whistleblower</a></li>
+                                                                            <li><a class="link-without-underline " href="https://www.felbertauernstrasse.at/impressum/" target="">Impressum</a></li>
+                                                                            <li><a class="link-without-underline " href="https://www.felbertauernstrasse.at/kontakt/" target="">Kontakt</a></li>
+                                                                    </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </footer>
+        <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/felbertauernstrasse/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script id="wp-hooks-js" src="https://www.felbertauernstrasse.at/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://www.felbertauernstrasse.at/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://www.felbertauernstrasse.at/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.2.5"></script>
+<script id="contact-form-7-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2026-10-26 14:55:04+0000","generator":"GlotPress\/4.1.0","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=2; plural=n != 1;","lang":"de"},"This contact form is placed in the wrong place.":["Dieses Kontaktformular wurde an der falschen Stelle platziert."],"Error:":["Fehler:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+//# sourceURL=contact-form-7-js-translations
+</script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/www.felbertauernstrasse.at\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://www.felbertauernstrasse.at/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.2.5"></script>
+<script id="codedropz-uploader-js-extra">
+var dnd_cf7_uploader = {"ajax_url":"https://www.felbertauernstrasse.at/wp-admin/admin-ajax.php","ajax_nonce":"8d6595e1b7","drag_n_drop_upload":{"tag":"h3","text":"Hierher ziehen &amp; fallen lassen","or_separator":"oder","browse":"Dateien ausw\u00e4hlen","server_max_error":"Die hochgeladene Datei \u00fcberschreitet die maximale Upload-Gr\u00f6\u00dfe Ihres Servers.","large_file":"Die Datei \u00fcberscheitet das Upload Limit!","inavalid_type":"Die Hochgeladene Datei ist f\u00fcr diesen Dateityp nicht erlaubt.","max_file_limit":"Note : Some of the files are not uploaded ( Only %count% files allowed )","required":"This field is required.","delete":{"text":"deleting","title":"Remove"}},"dnd_text_counter":"von","disable_btn":""};
+//# sourceURL=codedropz-uploader-js-extra
+</script>
+<script id="codedropz-uploader-js" src="https://www.felbertauernstrasse.at/wp-content/plugins/drag-and-drop-multiple-file-upload-contact-form-7/assets/js/codedropz-uploader-min.js?ver=1.4.1"></script>
+<script id="weather-widget-js-js" src="https://www.felbertauernstrasse.at/wp-content/themes/felbertauernstrasse/assets/js/weather-widget.js?_=1795257651"></script>
+<script id="google-recaptcha-js" src="https://www.google.com/recaptcha/api.js?render=6LfZ7RcuAAAAALrlJ1-SopVKgu3w30UE187bzHj4&#038;ver=3.0"></script>
+<script id="wp-polyfill-js" src="https://www.felbertauernstrasse.at/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0"></script>
+<script id="wpcf7-recaptcha-js-before">
+var wpcf7_recaptcha = {
+    "sitekey": "6LfZ7RcuAAAAALrlJ1-SopVKgu3w30UE187bzHj4",
+    "actions": {
+        "homepage": "homepage",
+        "contactform": "contactform"
+    }
+};
+//# sourceURL=wpcf7-recaptcha-js-before
+</script>
+<script id="wpcf7-recaptcha-js" src="https://www.felbertauernstrasse.at/wp-content/plugins/contact-form-7/modules/recaptcha/index.js?ver=6.2.5"></script>
+        </body>
+
+        </html>

@@ -1,0 +1,4861 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-21T11:11:59Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 21961621,
+  "lat": 54.9666329,
+  "lon": 10.4918268,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Hjortøboen",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 22573866,
+  "lat": 55.2601367,
+  "lon": 9.7306049,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 22577662,
+  "lat": 55.2613489,
+  "lon": 9.7128931,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 22606704,
+  "lat": 55.8648686,
+  "lon": 10.5484980,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 112289667,
+  "lat": 54.9350162,
+  "lon": 10.8331168,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Spodsbjerg Færgehavn",
+    "opening_hours": "Mo-Fr 05:15-22:15; Sa 06:15-19:15; Su 07:15-22:15",
+    "operator": "Langelandstrafikken A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 279319232,
+  "lat": 55.0079354,
+  "lon": 9.6928557,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 280805269,
+  "lat": 54.8551577,
+  "lon": 10.5221201,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 281806928,
+  "lat": 55.8220779,
+  "lon": 10.0520167,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "source": "PGS(could be inacurately)"
+  }
+},
+{
+  "type": "node",
+  "id": 281899484,
+  "lat": 55.0942792,
+  "lon": 10.2395391,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Bjørnø-Færgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 290676883,
+  "lat": 54.9375087,
+  "lon": 10.7029471,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Strynø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 297817405,
+  "lat": 55.0928395,
+  "lon": 10.2418451,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 321629399,
+  "lat": 55.8220942,
+  "lon": 10.0522715,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "source": "PGS(could be inacurately)"
+  }
+},
+{
+  "type": "node",
+  "id": 374096683,
+  "lat": 54.8564101,
+  "lon": 10.5215251,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Marstal Færgehavn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 383923211,
+  "lat": 55.0346145,
+  "lon": 10.6461201,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 385307568,
+  "lat": 54.9659666,
+  "lon": 10.4370335,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Drejø færgehavn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 386875534,
+  "lat": 55.0589956,
+  "lon": 10.6350009,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Sundfarten Helge",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 387769264,
+  "lat": 54.8915321,
+  "lon": 10.4127177,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 391498589,
+  "lat": 55.0155299,
+  "lon": 8.4398008,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Syltfähre",
+    "name:da": "Sildfærgen",
+    "public_transport": "station",
+    "website": "https://www.frs-syltfaehre.de/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 414701768,
+  "lat": 55.1099627,
+  "lon": 9.5147211,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "name": "Barsøfærgen",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 414701785,
+  "lat": 55.1194373,
+  "lon": 9.5496325,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "name": "Barsøfærgen",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 414941490,
+  "lat": 55.9131780,
+  "lon": 8.4050366,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;bicycle",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "name": "Trækfærgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 414941491,
+  "lat": 55.9135712,
+  "lon": 8.4052916,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;bicycle",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 429926947,
+  "lat": 55.0522669,
+  "lon": 10.1586261,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Lyø Havn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 429927565,
+  "lat": 55.0930726,
+  "lon": 10.2416611,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 447944215,
+  "lat": 56.0238317,
+  "lon": 9.9296101,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 449765713,
+  "lat": 55.9118010,
+  "lon": 10.2586746,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Tunøfærgen",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 449834125,
+  "lat": 55.9745617,
+  "lon": 11.2996853,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Molslinjen Odden",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 450921879,
+  "lat": 54.9416597,
+  "lon": 10.2597250,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 469246457,
+  "lat": 55.9130365,
+  "lon": 8.4057319,
+  "tags": {
+    "access": "private",
+    "amenity": "ferry_terminal",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "name": "Kodriveren",
+    "passenger": "no",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 469246459,
+  "lat": 55.9132200,
+  "lon": 8.4061865,
+  "tags": {
+    "access": "private",
+    "amenity": "ferry_terminal",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "name": "Kodriveren",
+    "passenger": "no",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 473595927,
+  "lat": 55.0398213,
+  "lon": 10.2509935,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 473606342,
+  "lat": 54.9414020,
+  "lon": 10.2590543,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "description:de": "Elektrofähre Anleger nach Als",
+    "ferry": "yes",
+    "name": "Søby Havn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 499237308,
+  "lat": 54.8592900,
+  "lon": 9.4970336,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "bicycle",
+    "ferry": "yes",
+    "name": "Cykelfærgen",
+    "name:da": "Cykelfærgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 535964457,
+  "lat": 56.0435805,
+  "lon": 9.9344689,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "waterway:sign": "ferry"
+  }
+},
+{
+  "type": "node",
+  "id": 572529923,
+  "lat": 56.1542272,
+  "lon": 10.6676079,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "description": "This ferry is part of National Cycle Route No 2. Please note it only runs on fridays, saturdays and sundays. On other days take the express ferry to Odden from Aarhus 75 min). Siuation as of July 2018.",
+    "ferry": "yes",
+    "name": "Molslinjen Ebeltoft",
+    "operator": "Mols Linjen",
+    "public_transport": "station",
+    "website": "https://www.molslinjen.dk/fartplan"
+  }
+},
+{
+  "type": "node",
+  "id": 603356282,
+  "lat": 56.0211286,
+  "lon": 9.9148984,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 638631306,
+  "lat": 55.0675111,
+  "lon": 10.2517748,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 723903736,
+  "lat": 55.2972343,
+  "lon": 9.8043697,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Bågø - Assens",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 754168083,
+  "lat": 55.9172590,
+  "lon": 8.4092942,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;bicycle",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "name": "Trækfærgen over Skjern å.",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 754168085,
+  "lat": 55.9177573,
+  "lon": 8.4091251,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;bicycle",
+    "check_date": "2026-07-17",
+    "ferry": "yes",
+    "name": "Trækfærgen over Skjern å",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 762871760,
+  "lat": 56.0930619,
+  "lon": 9.7535299,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Himmelbjergbådene",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 801713568,
+  "lat": 56.1439058,
+  "lon": 9.5862588,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "De Små Fisk",
+    "public_transport": "station",
+    "website": "http://hjejlen.com/p/sejlplan/silkeborg/rute-priser-tider"
+  }
+},
+{
+  "type": "node",
+  "id": 831382121,
+  "lat": 55.7538639,
+  "lon": 11.3254173,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 834113410,
+  "lat": 55.8225670,
+  "lon": 10.0640767,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Hjarnø Færgehavn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1081860415,
+  "lat": 55.0111737,
+  "lon": 10.4728876,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Skarø Færgeleje",
+    "public_transport": "station",
+    "wheelchair": "yes",
+    "wikidata": "Q2066711"
+  }
+},
+{
+  "type": "node",
+  "id": 1083052376,
+  "lat": 54.9161082,
+  "lon": 11.3596781,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1096756420,
+  "lat": 55.8800987,
+  "lon": 11.1379517,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1106152139,
+  "lat": 55.2117735,
+  "lon": 11.1979678,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Agersø Havn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1118372649,
+  "lat": 55.2129958,
+  "lon": 11.2444939,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Stigsnæs Havn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1119169680,
+  "lat": 55.1711566,
+  "lon": 11.1601207,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Omø færgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1435304548,
+  "lat": 55.0862065,
+  "lon": 8.5703000,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Sildfærgen",
+    "name:de": "Syltfähre",
+    "public_transport": "station",
+    "website": "https://www.frs-syltfaehre.de/",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1604094256,
+  "lat": 54.8232599,
+  "lon": 9.6541567,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "bicycle",
+    "ferry": "yes",
+    "name": "Langballigau",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1670785506,
+  "lat": 55.0207274,
+  "lon": 10.6563564,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Sundfarten Helge",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1828627827,
+  "lat": 54.9940968,
+  "lon": 9.9855531,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;vehicle",
+    "description:de": "Elektroferry _terminal to Søby",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1850248159,
+  "lat": 56.1265123,
+  "lon": 9.6127649,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Slåensø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1906510075,
+  "lat": 54.9990072,
+  "lon": 9.6707708,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;vehicle",
+    "ferry": "yes",
+    "name": "Ballebro",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 1921428526,
+  "lat": 54.9362301,
+  "lon": 11.3721993,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Kragenæs-Fejø",
+    "operator": "Lollandfærgefart",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2077928426,
+  "lat": 55.0577696,
+  "lon": 10.6146214,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Svendborg-Hjortø",
+    "operator": "Hjortøboen",
+    "phone": "+45 62233000",
+    "public_transport": "station",
+    "website": "http://havn.svendborg.dk/f%C3%A6rger/hjort%C3%B8boen"
+  }
+},
+{
+  "type": "node",
+  "id": 2368728605,
+  "lat": 54.9942002,
+  "lon": 9.9851038,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2379556068,
+  "lat": 54.8761939,
+  "lon": 11.0294033,
+  "tags": {
+    "alt_name": "Tårs - Spodsbjerg",
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Tårs Færgehavn",
+    "operator": "Langelandstrafikken A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2392966302,
+  "lat": 56.1292948,
+  "lon": 9.6435898,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Ludvigslyst",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2392966305,
+  "lat": 56.1099309,
+  "lon": 9.6855480,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Hotel Julsø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2392966311,
+  "lat": 56.1260100,
+  "lon": 9.6398904,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Skyttehuset",
+    "public_transport": "station",
+    "website": "http://hjejlen.com/p/sejlplan/silkeborg/rute-priser-tider"
+  }
+},
+{
+  "type": "node",
+  "id": 2467287135,
+  "lat": 56.1696265,
+  "lon": 9.5556189,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2578631620,
+  "lat": 55.2703253,
+  "lon": 9.8896055,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Bågø - Assens",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2613848952,
+  "lat": 56.0276275,
+  "lon": 9.9566281,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 2972817599,
+  "lat": 55.0316553,
+  "lon": 10.6680100,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers",
+    "ferry": "yes",
+    "name": "Sundfarten Helge",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3041302832,
+  "lat": 55.9124582,
+  "lon": 10.2591121,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Samsø - Hou",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 3271443425,
+  "lat": 56.0355975,
+  "lon": 9.9341752,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "waterway:sign": "ferry"
+  }
+},
+{
+  "type": "node",
+  "id": 3579875493,
+  "lat": 55.1048411,
+  "lon": 10.0816270,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Bøjden",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3679666173,
+  "lat": 56.1464793,
+  "lon": 9.5794005,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Ny Hattenæs",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3842049864,
+  "lat": 55.7818156,
+  "lon": 11.2973392,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "vehicle",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3842065889,
+  "lat": 55.7538704,
+  "lon": 11.3258049,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 3959167056,
+  "lat": 55.8076853,
+  "lon": 10.6447315,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Ballen Færgehavn",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4176350330,
+  "lat": 55.2325970,
+  "lon": 9.4213933,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Damende",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4291016217,
+  "lat": 56.1257601,
+  "lon": 9.6386997,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "wikimedia_commons": "File:Solfærgen Søhøjlandet.jpg"
+  }
+},
+{
+  "type": "node",
+  "id": 4388734960,
+  "lat": 55.5365941,
+  "lon": 9.4008053,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "T/F Ferup Færgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4494985756,
+  "lat": 55.8643283,
+  "lon": 10.5488913,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Hou",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4582613075,
+  "lat": 55.9483903,
+  "lon": 10.4544139,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Tunøfærgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 4589191749,
+  "lat": 55.0595980,
+  "lon": 10.6148198,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Sundfarten Helge",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4589192446,
+  "lat": 55.0592474,
+  "lon": 10.6149042,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Svendborg-Skarø-Drejø",
+    "operator": "Svendborg-Skarø-Drejø Færgen",
+    "phone": "+45 62233000",
+    "public_transport": "station",
+    "website": "http://havn.svendborg.dk/f%C3%A6rger/mf-h%C3%B8jestene-oplev-drej%C3%B8-og-skar%C3%B8"
+  }
+},
+{
+  "type": "node",
+  "id": 4916005250,
+  "lat": 55.0577680,
+  "lon": 10.6147914,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Svendborg-Ærøskøbing",
+    "operator": "Ærøfærgerne",
+    "phone": "+45 62524000",
+    "public_transport": "station",
+    "website": "http://aeroe-ferry.dk/#/"
+  }
+},
+{
+  "type": "node",
+  "id": 4937593828,
+  "lat": 55.4501770,
+  "lon": 8.4084492,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Nordby",
+    "operator": "Molslinjen",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 4982081863,
+  "lat": 54.9946335,
+  "lon": 9.9852697,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;vehicle",
+    "ferry": "yes",
+    "name": "Fynshav",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 5640562879,
+  "lat": 55.4608839,
+  "lon": 8.4400652,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Esbjerg",
+    "name:de": "Esberg",
+    "operator": "Molslinjen",
+    "public_transport": "station",
+    "website": "https://www.fanoelinjen.de/fahrplan",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 5709266224,
+  "lat": 54.8297037,
+  "lon": 11.1328932,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "mooring": "ferry",
+    "name": "Postbåden",
+    "public_transport": "station",
+    "website": "https://www.postbaaden.dk/"
+  }
+},
+{
+  "type": "node",
+  "id": 5884355773,
+  "lat": 55.0560969,
+  "lon": 10.6310702,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Sundfarten Helge",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6872067928,
+  "lat": 55.8412423,
+  "lon": 10.0383654,
+  "tags": {
+    "air_conditioning": "no",
+    "amenity": "ferry_terminal",
+    "baby_feeding": "no",
+    "changing_table": "yes",
+    "check_date": "2026-10-17",
+    "ferry": "yes",
+    "internet_access": "no",
+    "name": "Dampskibsbroen",
+    "public_transport": "station",
+    "toilets": "yes",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 6918572182,
+  "lat": 56.1266990,
+  "lon": 9.6390951,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 7674038020,
+  "lat": 56.1520282,
+  "lon": 10.2530942,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Terminal 2",
+    "operator": "Molslinien A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 7674038021,
+  "lat": 56.1517392,
+  "lon": 10.2542527,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Terminal 3",
+    "operator": "Molslinien A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 7674038045,
+  "lat": 56.1522710,
+  "lon": 10.2521472,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Terminal 1",
+    "operator": "Molslinien A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 8007874615,
+  "lat": 55.5579423,
+  "lon": 9.7473207,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 8488286283,
+  "lat": 55.2303931,
+  "lon": 9.4377786,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Bergs Plads",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 8505600737,
+  "lat": 55.5361681,
+  "lon": 9.4006866,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "T/f Ferup Færgen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9627306572,
+  "lat": 56.1652050,
+  "lon": 9.5549182,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Vandrehjemmet",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9627306584,
+  "lat": 56.1583947,
+  "lon": 9.5648824,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Indelukket",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9627306588,
+  "lat": 56.1514208,
+  "lon": 9.5644407,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Aqua",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9627306596,
+  "lat": 56.1263918,
+  "lon": 9.6383433,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Aalekroen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 9798063337,
+  "lat": 55.8223857,
+  "lon": 10.0636546,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station",
+    "wikimedia_commons": "File:Lille Hjarnø.jpg"
+  }
+},
+{
+  "type": "node",
+  "id": 9918510820,
+  "lat": 54.8970661,
+  "lon": 9.6195773,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "bicycle",
+    "ferry": "yes",
+    "name": "Cykelfærgen",
+    "public_transport": "station",
+    "website": "https://www.cykelfaergen.info/"
+  }
+},
+{
+  "type": "node",
+  "id": 9918510821,
+  "lat": 54.9067083,
+  "lon": 9.5997065,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "bicycle": "yes",
+    "duration": "01:00",
+    "ferry": "yes",
+    "foot": "yes",
+    "name": "Cykelfærgen",
+    "phone": "+45 20 25 64 62",
+    "public_transport": "station",
+    "route": "ferry",
+    "website": "https://www.cykelfaergen.info/",
+    "website:de": "https://www.fahrradfaehre.info/"
+  }
+},
+{
+  "type": "node",
+  "id": 9957586499,
+  "lat": 54.8668603,
+  "lon": 9.6359639,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "bicycle": "yes",
+    "ferry": "yes",
+    "foot": "yes",
+    "name": "Cykelfærgen",
+    "phone": "+45 20 25 64 62",
+    "public_transport": "station",
+    "website": "https://www.cykelfaergen.info/",
+    "website:de": "https://www.fahrradfaehre.info"
+  }
+},
+{
+  "type": "node",
+  "id": 10183173979,
+  "lat": 55.8653589,
+  "lon": 10.5484019,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Aarhus",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10651688396,
+  "lat": 55.3894276,
+  "lon": 10.3794374,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10833540576,
+  "lat": 55.2502799,
+  "lon": 9.4835354,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Inderdammen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10951058699,
+  "lat": 55.2124690,
+  "lon": 11.2446022,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Stigsnæs Færgehavn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 10951058705,
+  "lat": 55.2129325,
+  "lon": 11.2443098,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Stigsnæs Færgehavn",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 11074993507,
+  "lat": 56.0388415,
+  "lon": 8.3031475,
+  "tags": {
+    "amenity": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 11074993508,
+  "lat": 56.0390104,
+  "lon": 8.3031052,
+  "tags": {
+    "amenity": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 11141512068,
+  "lat": 55.2536829,
+  "lon": 11.2910478,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Skjelskør V",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 11827243975,
+  "lat": 56.1538940,
+  "lon": 10.2154164,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "cargo": "passengers;bicycle",
+    "check_date": "2023-03-18",
+    "ferry": "yes",
+    "name": "Samsø Rederi",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 12055131275,
+  "lat": 56.1241283,
+  "lon": 9.7177517,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Laven",
+    "operator": "Hjejleselskabet",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13108964711,
+  "lat": 55.2452529,
+  "lon": 9.4759020,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Haderslev Vandrerhjem",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13123107232,
+  "lat": 54.9375087,
+  "lon": 10.7029471,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Strynø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13123107233,
+  "lat": 54.9375087,
+  "lon": 10.7029471,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Terminal Strynø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13123107234,
+  "lat": 54.9375431,
+  "lon": 10.7033078,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Terminal Ærø",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 13203511377,
+  "lat": 55.4949957,
+  "lon": 9.6942850,
+  "tags": {
+    "amenity": "ferry_terminal"
+  }
+},
+{
+  "type": "node",
+  "id": 13814946904,
+  "lat": 55.6770017,
+  "lon": 11.0911964,
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "SamsøFærgen",
+    "operator": "Færgen",
+    "public_transport": "station",
+    "website": "http://www.faergen.dk/ruter/samsoefaergen.aspx/"
+  }
+},
+{
+  "type": "way",
+  "id": 12334972,
+  "bounds": {
+    "minlat": 54.9946335,
+    "minlon": 9.9852697,
+    "maxlat": 55.1066176,
+    "maxlon": 10.0816270
+  },
+  "geometry": [
+    { "lat": 55.1048411, "lon": 10.0816270 },
+    { "lat": 55.1056567, "lon": 10.0805829 },
+    { "lat": 55.1062560, "lon": 10.0798818 },
+    { "lat": 55.1066176, "lon": 10.0777761 },
+    { "lat": 55.1065877, "lon": 10.0757275 },
+    { "lat": 55.1056437, "lon": 10.0729335 },
+    { "lat": 55.1021574, "lon": 10.0660360 },
+    { "lat": 55.0999353, "lon": 10.0627197 },
+    { "lat": 55.0800005, "lon": 10.0484937 },
+    { "lat": 55.0480497, "lon": 10.0270346 },
+    { "lat": 55.0294404, "lon": 10.0127352 },
+    { "lat": 55.0024482, "lon": 9.9902046 },
+    { "lat": 54.9960789, "lon": 9.9870063 },
+    { "lat": 54.9953059, "lon": 9.9862566 },
+    { "lat": 54.9946335, "lon": 9.9852697 }
+  ],
+  "tags": {
+    "alt_name": "Bøjden - Fynshav",
+    "bicycle": "yes",
+    "duration": "0:50",
+    "fee": "yes",
+    "foot": "yes",
+    "from": "Bøjden",
+    "hgv": "yes",
+    "maxheight": "4",
+    "maxlength": "19",
+    "maxweight": "40",
+    "motor_vehicle": "yes",
+    "name": "Alslinjen",
+    "operator": "Molslinjen",
+    "price": "https://www.alslinjen.dk/priser/",
+    "ref": "8",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "to": "Fynshav",
+    "website": "https://www.alslinjen.dk",
+    "wikidata": "Q12301158"
+  }
+},
+{
+  "type": "way",
+  "id": 12648578,
+  "bounds": {
+    "minlat": 55.9669505,
+    "minlon": 10.2530942,
+    "maxlat": 56.1575598,
+    "maxlon": 11.2996853
+  },
+  "geometry": [
+    { "lat": 55.9745617, "lon": 11.2996853 },
+    { "lat": 55.9740177, "lon": 11.2994980 },
+    { "lat": 55.9733975, "lon": 11.2993762 },
+    { "lat": 55.9721633, "lon": 11.2993411 },
+    { "lat": 55.9709835, "lon": 11.2990569 },
+    { "lat": 55.9697577, "lon": 11.2982081 },
+    { "lat": 55.9688373, "lon": 11.2972092 },
+    { "lat": 55.9681466, "lon": 11.2946834 },
+    { "lat": 55.9672895, "lon": 11.2901556 },
+    { "lat": 55.9669505, "lon": 11.2837580 },
+    { "lat": 55.9672369, "lon": 11.2774374 },
+    { "lat": 55.9677100, "lon": 11.2695266 },
+    { "lat": 55.9950359, "lon": 11.0477594 },
+    { "lat": 56.0480924, "lon": 10.6311960 },
+    { "lat": 56.0519438, "lon": 10.6068390 },
+    { "lat": 56.0555489, "lon": 10.5788138 },
+    { "lat": 56.0617753, "lon": 10.5546035 },
+    { "lat": 56.0702119, "lon": 10.5218830 },
+    { "lat": 56.1144129, "lon": 10.4002447 },
+    { "lat": 56.1348592, "lon": 10.3419933 },
+    { "lat": 56.1434434, "lon": 10.3145550 },
+    { "lat": 56.1542303, "lon": 10.2784991 },
+    { "lat": 56.1575598, "lon": 10.2626164 },
+    { "lat": 56.1569877, "lon": 10.2568578 },
+    { "lat": 56.1520282, "lon": 10.2530942 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:15",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "19",
+    "maxweight": "40",
+    "motor_vehicle": "yes",
+    "name": "Odden - Aarhus",
+    "operator": "Molslinjen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.molslinjen.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 23180841,
+  "bounds": {
+    "minlat": 55.9679172,
+    "minlon": 10.6556314,
+    "maxlat": 56.1542272,
+    "maxlon": 11.2996853
+  },
+  "geometry": [
+    { "lat": 55.9745617, "lon": 11.2996853 },
+    { "lat": 55.9740273, "lon": 11.2993950 },
+    { "lat": 55.9734167, "lon": 11.2991013 },
+    { "lat": 55.9721864, "lon": 11.2988691 },
+    { "lat": 55.9710093, "lon": 11.2985983 },
+    { "lat": 55.9693017, "lon": 11.2967498 },
+    { "lat": 55.9687214, "lon": 11.2944946 },
+    { "lat": 55.9679809, "lon": 11.2900679 },
+    { "lat": 55.9679172, "lon": 11.2851799 },
+    { "lat": 55.9684863, "lon": 11.2777539 },
+    { "lat": 55.9698282, "lon": 11.2711246 },
+    { "lat": 56.0803547, "lon": 10.8677798 },
+    { "lat": 56.1114101, "lon": 10.7713897 },
+    { "lat": 56.1292955, "lon": 10.7245912 },
+    { "lat": 56.1303341, "lon": 10.7200875 },
+    { "lat": 56.1308896, "lon": 10.7171517 },
+    { "lat": 56.1311355, "lon": 10.7115745 },
+    { "lat": 56.1306173, "lon": 10.7018328 },
+    { "lat": 56.1285446, "lon": 10.6845258 },
+    { "lat": 56.1287001, "lon": 10.6803804 },
+    { "lat": 56.1294774, "lon": 10.6764941 },
+    { "lat": 56.1344000, "lon": 10.6617262 },
+    { "lat": 56.1352809, "lon": 10.6599126 },
+    { "lat": 56.1364930, "lon": 10.6587535 },
+    { "lat": 56.1380911, "lon": 10.6580700 },
+    { "lat": 56.1424261, "lon": 10.6569122 },
+    { "lat": 56.1434189, "lon": 10.6565828 },
+    { "lat": 56.1444881, "lon": 10.6561398 },
+    { "lat": 56.1454411, "lon": 10.6557523 },
+    { "lat": 56.1461615, "lon": 10.6556314 },
+    { "lat": 56.1466497, "lon": 10.6557316 },
+    { "lat": 56.1475010, "lon": 10.6562573 },
+    { "lat": 56.1486276, "lon": 10.6572964 },
+    { "lat": 56.1500047, "lon": 10.6590240 },
+    { "lat": 56.1533673, "lon": 10.6641643 },
+    { "lat": 56.1542272, "lon": 10.6676079 }
+  ],
+  "tags": {
+    "access:conditional": "no @ (Nov-Mar)",
+    "bicycle": "yes",
+    "duration": "0:55",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "25",
+    "maxweight": "40",
+    "motor_vehicle": "yes",
+    "name": "Odden - Ebeltoft",
+    "note": "Sæsonrute: April til oktober.\nSeasonal route: April to October.",
+    "operator": "Molslinjen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.molslinjen.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 23609972,
+  "bounds": {
+    "minlat": 54.9990072,
+    "minlon": 9.6707708,
+    "maxlat": 55.0079354,
+    "maxlon": 9.6928557
+  },
+  "geometry": [
+    { "lat": 54.9990072, "lon": 9.6707708 },
+    { "lat": 54.9992485, "lon": 9.6712347 },
+    { "lat": 55.0075607, "lon": 9.6915594 },
+    { "lat": 55.0079354, "lon": 9.6928557 }
+  ],
+  "tags": {
+    "alt_name": "Ballebro - Hardeshøj",
+    "bicycle": "yes",
+    "duration": "0:10",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Nordalsfærgen Bitten",
+    "reservation": "no",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "surface": "asphalt",
+    "vessel": "Bitten Clausen",
+    "website": "https://www.faergen-bitten.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 25836273,
+  "bounds": {
+    "minlat": 55.8220779,
+    "minlon": 10.0520167,
+    "maxlat": 55.8227357,
+    "maxlon": 10.0640767
+  },
+  "geometry": [
+    { "lat": 55.8220779, "lon": 10.0520167 },
+    { "lat": 55.8224973, "lon": 10.0529302 },
+    { "lat": 55.8227357, "lon": 10.0545554 },
+    { "lat": 55.8226328, "lon": 10.0598809 },
+    { "lat": 55.8226265, "lon": 10.0602069 },
+    { "lat": 55.8225801, "lon": 10.0635156 },
+    { "lat": 55.8225670, "lon": 10.0640767 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "0:05",
+    "foot": "yes",
+    "hgv": "no",
+    "maxaxleload": "10",
+    "maxweight": "19",
+    "motor_vehicle": "yes",
+    "name": "Hjarnøfærgen",
+    "operator": "Hjarnø Færgefart",
+    "route": "ferry",
+    "toll": "yes",
+    "vessel": "M/F Hjarnø",
+    "website": "http://www.hjarnoe.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 25844837,
+  "bounds": {
+    "minlat": 55.0675111,
+    "minlon": 10.2367428,
+    "maxlat": 55.0944489,
+    "maxlon": 10.2517748
+  },
+  "geometry": [
+    { "lat": 55.0675111, "lon": 10.2517748 },
+    { "lat": 55.0677050, "lon": 10.2517573 },
+    { "lat": 55.0679423, "lon": 10.2517218 },
+    { "lat": 55.0681374, "lon": 10.2516696 },
+    { "lat": 55.0686012, "lon": 10.2515575 },
+    { "lat": 55.0692160, "lon": 10.2511888 },
+    { "lat": 55.0716123, "lon": 10.2497511 },
+    { "lat": 55.0739916, "lon": 10.2483177 },
+    { "lat": 55.0757788, "lon": 10.2472482 },
+    { "lat": 55.0783975, "lon": 10.2456803 },
+    { "lat": 55.0803345, "lon": 10.2445067 },
+    { "lat": 55.0808150, "lon": 10.2442231 },
+    { "lat": 55.0811940, "lon": 10.2439912 },
+    { "lat": 55.0816165, "lon": 10.2437400 },
+    { "lat": 55.0820155, "lon": 10.2434981 },
+    { "lat": 55.0823193, "lon": 10.2433172 },
+    { "lat": 55.0826872, "lon": 10.2431011 },
+    { "lat": 55.0830823, "lon": 10.2428573 },
+    { "lat": 55.0834845, "lon": 10.2426202 },
+    { "lat": 55.0839993, "lon": 10.2423105 },
+    { "lat": 55.0844415, "lon": 10.2420432 },
+    { "lat": 55.0849038, "lon": 10.2417649 },
+    { "lat": 55.0855661, "lon": 10.2413712 },
+    { "lat": 55.0862350, "lon": 10.2409659 },
+    { "lat": 55.0866423, "lon": 10.2406103 },
+    { "lat": 55.0872850, "lon": 10.2400515 },
+    { "lat": 55.0879689, "lon": 10.2394607 },
+    { "lat": 55.0886535, "lon": 10.2388622 },
+    { "lat": 55.0900227, "lon": 10.2376702 },
+    { "lat": 55.0902438, "lon": 10.2374693 },
+    { "lat": 55.0905983, "lon": 10.2373498 },
+    { "lat": 55.0910088, "lon": 10.2371960 },
+    { "lat": 55.0913312, "lon": 10.2370749 },
+    { "lat": 55.0916899, "lon": 10.2369645 },
+    { "lat": 55.0918996, "lon": 10.2369102 },
+    { "lat": 55.0921390, "lon": 10.2368494 },
+    { "lat": 55.0925299, "lon": 10.2367428 },
+    { "lat": 55.0926485, "lon": 10.2368156 },
+    { "lat": 55.0926856, "lon": 10.2368493 },
+    { "lat": 55.0927475, "lon": 10.2369141 },
+    { "lat": 55.0927886, "lon": 10.2370274 },
+    { "lat": 55.0928156, "lon": 10.2371111 },
+    { "lat": 55.0928564, "lon": 10.2373374 },
+    { "lat": 55.0928698, "lon": 10.2375885 },
+    { "lat": 55.0928839, "lon": 10.2378559 },
+    { "lat": 55.0929211, "lon": 10.2381098 },
+    { "lat": 55.0930245, "lon": 10.2384452 },
+    { "lat": 55.0931046, "lon": 10.2386515 },
+    { "lat": 55.0932100, "lon": 10.2387396 },
+    { "lat": 55.0934074, "lon": 10.2388105 },
+    { "lat": 55.0936450, "lon": 10.2388252 },
+    { "lat": 55.0937468, "lon": 10.2388310 },
+    { "lat": 55.0939890, "lon": 10.2388795 },
+    { "lat": 55.0941545, "lon": 10.2389887 },
+    { "lat": 55.0943576, "lon": 10.2391379 },
+    { "lat": 55.0944307, "lon": 10.2392515 },
+    { "lat": 55.0944489, "lon": 10.2393814 },
+    { "lat": 55.0944370, "lon": 10.2394722 },
+    { "lat": 55.0944101, "lon": 10.2395544 },
+    { "lat": 55.0943931, "lon": 10.2395684 },
+    { "lat": 55.0943661, "lon": 10.2395824 },
+    { "lat": 55.0943243, "lon": 10.2395725 },
+    { "lat": 55.0942792, "lon": 10.2395391 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "17",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Bjørnøfærgen",
+    "operator": "Andelsselskabet Bjørnøfærgen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://bjoernoefaergen.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 26204104,
+  "bounds": {
+    "minlat": 54.8743975,
+    "minlon": 10.8331168,
+    "maxlat": 54.9350162,
+    "maxlon": 11.0294033
+  },
+  "geometry": [
+    { "lat": 54.9350162, "lon": 10.8331168 },
+    { "lat": 54.9345790, "lon": 10.8357919 },
+    { "lat": 54.9342283, "lon": 10.8402730 },
+    { "lat": 54.8896481, "lon": 10.9558775 },
+    { "lat": 54.8760693, "lon": 10.9952888 },
+    { "lat": 54.8747982, "lon": 10.9994940 },
+    { "lat": 54.8743975, "lon": 11.0019614 },
+    { "lat": 54.8745304, "lon": 11.0067823 },
+    { "lat": 54.8749790, "lon": 11.0160416 },
+    { "lat": 54.8759045, "lon": 11.0280150 },
+    { "lat": 54.8761939, "lon": 11.0294033 }
+  ],
+  "tags": {
+    "alt_name": "Spodsbjerg - Tårs",
+    "bicycle": "yes",
+    "duration": "0:45",
+    "foot": "yes",
+    "hgv": "yes",
+    "internet_access:fee": "no",
+    "maxlength": "26",
+    "motor_vehicle": "yes",
+    "name": "Langelandslinjen",
+    "opening_hours": "Mo-Fr 05:15-22:15; Sa 06:15-19:15; Su 07:15-22:15",
+    "ref": "9",
+    "route": "ferry",
+    "website": "https://www.langelandslinjen.dk/fartplan/",
+    "wikidata": "Q12323719",
+    "wikipedia": "da:Langelandslinjen"
+  }
+},
+{
+  "type": "way",
+  "id": 29243611,
+  "bounds": {
+    "minlat": 55.7621971,
+    "minlon": 10.0522715,
+    "maxlat": 55.8224250,
+    "maxlon": 10.2727035
+  },
+  "geometry": [
+    { "lat": 55.8220942, "lon": 10.0522715 },
+    { "lat": 55.8224250, "lon": 10.0530624 },
+    { "lat": 55.8223892, "lon": 10.0548282 },
+    { "lat": 55.8058294, "lon": 10.0787644 },
+    { "lat": 55.8043797, "lon": 10.0823324 },
+    { "lat": 55.8037824, "lon": 10.0881410 },
+    { "lat": 55.8066346, "lon": 10.1471518 },
+    { "lat": 55.8089851, "lon": 10.2283801 },
+    { "lat": 55.8076132, "lon": 10.2343647 },
+    { "lat": 55.8044900, "lon": 10.2401966 },
+    { "lat": 55.7867713, "lon": 10.2488832 },
+    { "lat": 55.7686111, "lon": 10.2577821 },
+    { "lat": 55.7672718, "lon": 10.2598489 },
+    { "lat": 55.7638174, "lon": 10.2723893 },
+    { "lat": 55.7621971, "lon": 10.2727035 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:05",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "22",
+    "motor_vehicle": "yes",
+    "name": "Endelave Færgen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.oenendelave.dk/faergefart/"
+  }
+},
+{
+  "type": "way",
+  "id": 33847154,
+  "bounds": {
+    "minlat": 54.8915321,
+    "minlon": 10.4127177,
+    "maxlat": 55.0577680,
+    "maxlon": 10.6162247
+  },
+  "geometry": [
+    { "lat": 54.8915321, "lon": 10.4127177 },
+    { "lat": 54.8916894, "lon": 10.4130911 },
+    { "lat": 54.8932834, "lon": 10.4164130 },
+    { "lat": 54.8940631, "lon": 10.4171251 },
+    { "lat": 54.8948574, "lon": 10.4175191 },
+    { "lat": 54.8954834, "lon": 10.4176636 },
+    { "lat": 54.8993954, "lon": 10.4168028 },
+    { "lat": 54.8998073, "lon": 10.4168121 },
+    { "lat": 54.9004044, "lon": 10.4171219 },
+    { "lat": 54.9009593, "lon": 10.4177311 },
+    { "lat": 54.9021435, "lon": 10.4192416 },
+    { "lat": 54.9039694, "lon": 10.4206050 },
+    { "lat": 54.9568407, "lon": 10.4522573 },
+    { "lat": 54.9638999, "lon": 10.4564286 },
+    { "lat": 54.9675838, "lon": 10.4589241 },
+    { "lat": 54.9695404, "lon": 10.4608588 },
+    { "lat": 54.9701341, "lon": 10.4615321 },
+    { "lat": 54.9707046, "lon": 10.4623272 },
+    { "lat": 54.9726827, "lon": 10.4657375 },
+    { "lat": 54.9807164, "lon": 10.4777197 },
+    { "lat": 54.9829452, "lon": 10.4808338 },
+    { "lat": 54.9854064, "lon": 10.4843299 },
+    { "lat": 54.9906071, "lon": 10.4919046 },
+    { "lat": 54.9968990, "lon": 10.5010332 },
+    { "lat": 54.9979080, "lon": 10.5022305 },
+    { "lat": 54.9991033, "lon": 10.5034684 },
+    { "lat": 54.9996890, "lon": 10.5039344 },
+    { "lat": 55.0002049, "lon": 10.5043687 },
+    { "lat": 55.0007472, "lon": 10.5046801 },
+    { "lat": 55.0107354, "lon": 10.5081339 },
+    { "lat": 55.0110603, "lon": 10.5083399 },
+    { "lat": 55.0113095, "lon": 10.5087111 },
+    { "lat": 55.0362656, "lon": 10.5629683 },
+    { "lat": 55.0364231, "lon": 10.5633183 },
+    { "lat": 55.0398944, "lon": 10.5736231 },
+    { "lat": 55.0400332, "lon": 10.5783611 },
+    { "lat": 55.0405967, "lon": 10.5825688 },
+    { "lat": 55.0414051, "lon": 10.5861489 },
+    { "lat": 55.0424707, "lon": 10.5903549 },
+    { "lat": 55.0438001, "lon": 10.5946946 },
+    { "lat": 55.0466310, "lon": 10.6032834 },
+    { "lat": 55.0468522, "lon": 10.6039804 },
+    { "lat": 55.0497164, "lon": 10.6123702 },
+    { "lat": 55.0543134, "lon": 10.6158831 },
+    { "lat": 55.0563332, "lon": 10.6162247 },
+    { "lat": 55.0573814, "lon": 10.6153666 },
+    { "lat": 55.0577680, "lon": 10.6147914 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:15",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Svendborg - Ærøskøbing",
+    "operator": "Ærøfærgerne",
+    "reservation": "recommended",
+    "route": "ferry",
+    "seamark:type": "ferry_route",
+    "toll": "yes",
+    "website": "https://aeroe-ferry.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 34142186,
+  "bounds": {
+    "minlat": 55.0136986,
+    "minlon": 8.4397593,
+    "maxlat": 55.0866450,
+    "maxlon": 8.5749326
+  },
+  "geometry": [
+    { "lat": 55.0862065, "lon": 8.5703000 },
+    { "lat": 55.0862450, "lon": 8.5706063 },
+    { "lat": 55.0865545, "lon": 8.5725960 },
+    { "lat": 55.0866450, "lon": 8.5732899 },
+    { "lat": 55.0865895, "lon": 8.5742286 },
+    { "lat": 55.0864319, "lon": 8.5746061 },
+    { "lat": 55.0862537, "lon": 8.5748102 },
+    { "lat": 55.0859004, "lon": 8.5749326 },
+    { "lat": 55.0847331, "lon": 8.5743867 },
+    { "lat": 55.0829254, "lon": 8.5732723 },
+    { "lat": 55.0805252, "lon": 8.5714229 },
+    { "lat": 55.0759496, "lon": 8.5675027 },
+    { "lat": 55.0728744, "lon": 8.5638633 },
+    { "lat": 55.0708241, "lon": 8.5607299 },
+    { "lat": 55.0654081, "lon": 8.5502983 },
+    { "lat": 55.0623432, "lon": 8.5438953 },
+    { "lat": 55.0602143, "lon": 8.5393412 },
+    { "lat": 55.0595902, "lon": 8.5376675 },
+    { "lat": 55.0591554, "lon": 8.5360133 },
+    { "lat": 55.0568146, "lon": 8.5226429 },
+    { "lat": 55.0554992, "lon": 8.5148971 },
+    { "lat": 55.0550422, "lon": 8.5111409 },
+    { "lat": 55.0544319, "lon": 8.5041443 },
+    { "lat": 55.0539859, "lon": 8.4976246 },
+    { "lat": 55.0536654, "lon": 8.4931727 },
+    { "lat": 55.0534425, "lon": 8.4843175 },
+    { "lat": 55.0530523, "lon": 8.4784546 },
+    { "lat": 55.0525506, "lon": 8.4763868 },
+    { "lat": 55.0515055, "lon": 8.4744163 },
+    { "lat": 55.0506275, "lon": 8.4734918 },
+    { "lat": 55.0489412, "lon": 8.4724944 },
+    { "lat": 55.0472967, "lon": 8.4719105 },
+    { "lat": 55.0438122, "lon": 8.4696724 },
+    { "lat": 55.0401741, "lon": 8.4665342 },
+    { "lat": 55.0385571, "lon": 8.4650259 },
+    { "lat": 55.0302060, "lon": 8.4569735 },
+    { "lat": 55.0266783, "lon": 8.4539812 },
+    { "lat": 55.0224390, "lon": 8.4503321 },
+    { "lat": 55.0186455, "lon": 8.4467560 },
+    { "lat": 55.0151446, "lon": 8.4430825 },
+    { "lat": 55.0144356, "lon": 8.4423500 },
+    { "lat": 55.0142013, "lon": 8.4420012 },
+    { "lat": 55.0139328, "lon": 8.4414033 },
+    { "lat": 55.0137443, "lon": 8.4408154 },
+    { "lat": 55.0136986, "lon": 8.4402076 },
+    { "lat": 55.0139785, "lon": 8.4398688 },
+    { "lat": 55.0149279, "lon": 8.4397593 },
+    { "lat": 55.0155299, "lon": 8.4398008 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "0:40",
+    "foot": "yes",
+    "hgv": "yes",
+    "interval": "01:00",
+    "motor_vehicle": "yes",
+    "name": "Sylt - Rømø (List - Havneby)",
+    "name:da": "Sildfærgen",
+    "name:de": "Syltfähre",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "toll": "yes",
+    "website": "https://www.frs-syltfaehre.de/",
+    "wikidata": "Q1657743"
+  }
+},
+{
+  "type": "way",
+  "id": 35367447,
+  "bounds": {
+    "minlat": 55.1099627,
+    "minlon": 9.5143021,
+    "maxlat": 55.1194373,
+    "maxlon": 9.5498962
+  },
+  "geometry": [
+    { "lat": 55.1099627, "lon": 9.5147211 },
+    { "lat": 55.1100715, "lon": 9.5146454 },
+    { "lat": 55.1103022, "lon": 9.5143622 },
+    { "lat": 55.1104004, "lon": 9.5143021 },
+    { "lat": 55.1105035, "lon": 9.5143364 },
+    { "lat": 55.1106066, "lon": 9.5144394 },
+    { "lat": 55.1107048, "lon": 9.5146025 },
+    { "lat": 55.1108119, "lon": 9.5151277 },
+    { "lat": 55.1110329, "lon": 9.5164151 },
+    { "lat": 55.1113765, "lon": 9.5183034 },
+    { "lat": 55.1120147, "lon": 9.5216079 },
+    { "lat": 55.1126235, "lon": 9.5253072 },
+    { "lat": 55.1133549, "lon": 9.5292640 },
+    { "lat": 55.1141060, "lon": 9.5332122 },
+    { "lat": 55.1150780, "lon": 9.5383449 },
+    { "lat": 55.1156425, "lon": 9.5414691 },
+    { "lat": 55.1171691, "lon": 9.5465417 },
+    { "lat": 55.1177091, "lon": 9.5480867 },
+    { "lat": 55.1181263, "lon": 9.5488162 },
+    { "lat": 55.1184012, "lon": 9.5492368 },
+    { "lat": 55.1186368, "lon": 9.5496230 },
+    { "lat": 55.1188257, "lon": 9.5498962 },
+    { "lat": 55.1189827, "lon": 9.5498619 },
+    { "lat": 55.1190858, "lon": 9.5497760 },
+    { "lat": 55.1192380, "lon": 9.5495958 },
+    { "lat": 55.1194373, "lon": 9.5496325 }
+  ],
+  "tags": {
+    "alt_name": "Barsø Landing - Barsø",
+    "description": "Kan tage 4 biler & 24 passagerer. Reservering anbefales",
+    "duration": "0:15",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "yes",
+    "name": "Barsøfærgen",
+    "phone": "+45 7376 8800",
+    "reservation": "recommended",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.aabenraa.dk/borger/trafik-og-groenne-omraader/barsoefaergen/"
+  }
+},
+{
+  "type": "way",
+  "id": 35382089,
+  "bounds": {
+    "minlat": 55.9131780,
+    "minlon": 8.4050366,
+    "maxlat": 55.9135712,
+    "maxlon": 8.4052916
+  },
+  "geometry": [
+    { "lat": 55.9131780, "lon": 8.4050366 },
+    { "lat": 55.9135712, "lon": 8.4052916 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "ferry": "path",
+    "ferry:cable": "yes",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "no",
+    "name": "Rørhønen - Trækfærge på Skjern Å",
+    "route": "ferry",
+    "toll": "no",
+    "wikimedia_commons": "File:SkjernÅTrækfærgeFortgrøft.JPG"
+  }
+},
+{
+  "type": "way",
+  "id": 36973884,
+  "bounds": {
+    "minlat": 55.0522669,
+    "minlon": 10.1583286,
+    "maxlat": 55.0930726,
+    "maxlon": 10.2454585
+  },
+  "geometry": [
+    { "lat": 55.0930726, "lon": 10.2416611 },
+    { "lat": 55.0924185, "lon": 10.2403464 },
+    { "lat": 55.0922206, "lon": 10.2401234 },
+    { "lat": 55.0920396, "lon": 10.2399405 },
+    { "lat": 55.0916088, "lon": 10.2399111 },
+    { "lat": 55.0885008, "lon": 10.2415387 },
+    { "lat": 55.0870614, "lon": 10.2427017 },
+    { "lat": 55.0849138, "lon": 10.2445390 },
+    { "lat": 55.0841165, "lon": 10.2452765 },
+    { "lat": 55.0834901, "lon": 10.2454585 },
+    { "lat": 55.0823981, "lon": 10.2451287 },
+    { "lat": 55.0800927, "lon": 10.2431657 },
+    { "lat": 55.0776972, "lon": 10.2411643 },
+    { "lat": 55.0755232, "lon": 10.2381017 },
+    { "lat": 55.0738033, "lon": 10.2355268 },
+    { "lat": 55.0724274, "lon": 10.2332094 },
+    { "lat": 55.0702924, "lon": 10.2293032 },
+    { "lat": 55.0697736, "lon": 10.2286603 },
+    { "lat": 55.0687416, "lon": 10.2283170 },
+    { "lat": 55.0667882, "lon": 10.2279773 },
+    { "lat": 55.0654697, "lon": 10.2276545 },
+    { "lat": 55.0632096, "lon": 10.2270625 },
+    { "lat": 55.0617298, "lon": 10.2266051 },
+    { "lat": 55.0594519, "lon": 10.2258279 },
+    { "lat": 55.0587145, "lon": 10.2253988 },
+    { "lat": 55.0576330, "lon": 10.2235105 },
+    { "lat": 55.0568465, "lon": 10.2211931 },
+    { "lat": 55.0562565, "lon": 10.2187898 },
+    { "lat": 55.0549291, "lon": 10.2143266 },
+    { "lat": 55.0541917, "lon": 10.2114084 },
+    { "lat": 55.0539950, "lon": 10.2097776 },
+    { "lat": 55.0542900, "lon": 10.2054861 },
+    { "lat": 55.0542900, "lon": 10.1974180 },
+    { "lat": 55.0546833, "lon": 10.1652315 },
+    { "lat": 55.0544954, "lon": 10.1617473 },
+    { "lat": 55.0542943, "lon": 10.1602054 },
+    { "lat": 55.0540834, "lon": 10.1594331 },
+    { "lat": 55.0538811, "lon": 10.1589301 },
+    { "lat": 55.0533495, "lon": 10.1583659 },
+    { "lat": 55.0528200, "lon": 10.1583286 },
+    { "lat": 55.0522669, "lon": 10.1586261 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "40",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "yes",
+    "name": "Fåborg - Lyø",
+    "operator": "Ø-færgen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://oefaergen.fmk.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 38192155,
+  "bounds": {
+    "minlat": 55.8643283,
+    "minlon": 10.2591121,
+    "maxlat": 55.9273629,
+    "maxlon": 10.5493940
+  },
+  "geometry": [
+    { "lat": 55.9124582, "lon": 10.2591121 },
+    { "lat": 55.9122937, "lon": 10.2606618 },
+    { "lat": 55.9126067, "lon": 10.2649748 },
+    { "lat": 55.9133403, "lon": 10.2666002 },
+    { "lat": 55.9143504, "lon": 10.2676463 },
+    { "lat": 55.9167494, "lon": 10.2691752 },
+    { "lat": 55.9211683, "lon": 10.2730590 },
+    { "lat": 55.9254184, "lon": 10.2849948 },
+    { "lat": 55.9261585, "lon": 10.2953857 },
+    { "lat": 55.9273629, "lon": 10.3204751 },
+    { "lat": 55.9272788, "lon": 10.3381347 },
+    { "lat": 55.9254034, "lon": 10.3642272 },
+    { "lat": 55.9191995, "lon": 10.3935813 },
+    { "lat": 55.9122943, "lon": 10.4254717 },
+    { "lat": 55.8994963, "lon": 10.4680437 },
+    { "lat": 55.8911011, "lon": 10.4939174 },
+    { "lat": 55.8801924, "lon": 10.5256084 },
+    { "lat": 55.8733194, "lon": 10.5408710 },
+    { "lat": 55.8709923, "lon": 10.5453392 },
+    { "lat": 55.8691058, "lon": 10.5482782 },
+    { "lat": 55.8669772, "lon": 10.5493940 },
+    { "lat": 55.8657547, "lon": 10.5492348 },
+    { "lat": 55.8643283, "lon": 10.5488913 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:00",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Hov - Sælvig",
+    "operator": "Samsø Rederi",
+    "reservation": "yes",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.tilsamsoe.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 39174320,
+  "bounds": {
+    "minlat": 55.9130365,
+    "minlon": 8.4057319,
+    "maxlat": 55.9132200,
+    "maxlon": 8.4061865
+  },
+  "geometry": [
+    { "lat": 55.9132200, "lon": 8.4061865 },
+    { "lat": 55.9130365, "lon": 8.4057319 }
+  ],
+  "tags": {
+    "access": "private",
+    "bicycle": "no",
+    "ferry": "track",
+    "ferry:cable": "yes",
+    "foot": "no",
+    "hgv": "no",
+    "motor_vehicle": "no",
+    "note": "for animals",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 44443564,
+  "bounds": {
+    "minlat": 54.9038212,
+    "minlon": 10.6293911,
+    "maxlat": 54.9390093,
+    "maxlon": 10.7031253
+  },
+  "geometry": [
+    { "lat": 54.9375087, "lon": 10.7029471 },
+    { "lat": 54.9382550, "lon": 10.7031253 },
+    { "lat": 54.9390093, "lon": 10.7027305 },
+    { "lat": 54.9365539, "lon": 10.6972030 },
+    { "lat": 54.9261978, "lon": 10.6733421 },
+    { "lat": 54.9121882, "lon": 10.6549743 },
+    { "lat": 54.9041305, "lon": 10.6345208 },
+    { "lat": 54.9038212, "lon": 10.6293911 }
+  ],
+  "tags": {
+    "duration": "40",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Strynø - Rudkøbing",
+    "operator": "Langeland Kommune",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route"
+  }
+},
+{
+  "type": "way",
+  "id": 47401154,
+  "bounds": {
+    "minlat": 56.0180282,
+    "minlon": 9.9148762,
+    "maxlat": 56.0435805,
+    "maxlon": 9.9597642
+  },
+  "geometry": [
+    { "lat": 56.0295966, "lon": 9.9511801 },
+    { "lat": 56.0285565, "lon": 9.9534492 },
+    { "lat": 56.0280277, "lon": 9.9549084 },
+    { "lat": 56.0276275, "lon": 9.9566281 },
+    { "lat": 56.0271746, "lon": 9.9565670 },
+    { "lat": 56.0236612, "lon": 9.9597642 },
+    { "lat": 56.0222102, "lon": 9.9595926 },
+    { "lat": 56.0213228, "lon": 9.9584768 },
+    { "lat": 56.0210949, "lon": 9.9562666 },
+    { "lat": 56.0214547, "lon": 9.9525330 },
+    { "lat": 56.0218003, "lon": 9.9487534 },
+    { "lat": 56.0194791, "lon": 9.9288166 },
+    { "lat": 56.0191191, "lon": 9.9276046 },
+    { "lat": 56.0182038, "lon": 9.9227252 },
+    { "lat": 56.0180282, "lon": 9.9206447 },
+    { "lat": 56.0181739, "lon": 9.9187593 },
+    { "lat": 56.0198501, "lon": 9.9153748 },
+    { "lat": 56.0210825, "lon": 9.9148762 },
+    { "lat": 56.0211286, "lon": 9.9148984 },
+    { "lat": 56.0210844, "lon": 9.9149036 },
+    { "lat": 56.0194951, "lon": 9.9170656 },
+    { "lat": 56.0188427, "lon": 9.9179540 },
+    { "lat": 56.0184133, "lon": 9.9192414 },
+    { "lat": 56.0182699, "lon": 9.9202734 },
+    { "lat": 56.0183064, "lon": 9.9223068 },
+    { "lat": 56.0185290, "lon": 9.9232444 },
+    { "lat": 56.0189734, "lon": 9.9244685 },
+    { "lat": 56.0215512, "lon": 9.9286731 },
+    { "lat": 56.0222593, "lon": 9.9292761 },
+    { "lat": 56.0238317, "lon": 9.9296101 },
+    { "lat": 56.0237346, "lon": 9.9304881 },
+    { "lat": 56.0236612, "lon": 9.9310672 },
+    { "lat": 56.0236663, "lon": 9.9312914 },
+    { "lat": 56.0237027, "lon": 9.9314782 },
+    { "lat": 56.0239067, "lon": 9.9317856 },
+    { "lat": 56.0247133, "lon": 9.9322488 },
+    { "lat": 56.0249095, "lon": 9.9326330 },
+    { "lat": 56.0250898, "lon": 9.9332508 },
+    { "lat": 56.0256509, "lon": 9.9359435 },
+    { "lat": 56.0265353, "lon": 9.9377288 },
+    { "lat": 56.0273675, "lon": 9.9383186 },
+    { "lat": 56.0296446, "lon": 9.9389299 },
+    { "lat": 56.0305090, "lon": 9.9388044 },
+    { "lat": 56.0313243, "lon": 9.9383774 },
+    { "lat": 56.0348837, "lon": 9.9350021 },
+    { "lat": 56.0353604, "lon": 9.9349948 },
+    { "lat": 56.0357406, "lon": 9.9348299 },
+    { "lat": 56.0357763, "lon": 9.9345053 },
+    { "lat": 56.0355975, "lon": 9.9341752 },
+    { "lat": 56.0363454, "lon": 9.9339743 },
+    { "lat": 56.0389580, "lon": 9.9327957 },
+    { "lat": 56.0393290, "lon": 9.9327013 },
+    { "lat": 56.0415243, "lon": 9.9330071 },
+    { "lat": 56.0418962, "lon": 9.9331675 },
+    { "lat": 56.0435805, "lon": 9.9344689 },
+    { "lat": 56.0426890, "lon": 9.9346704 },
+    { "lat": 56.0421940, "lon": 9.9349420 },
+    { "lat": 56.0368126, "lon": 9.9402624 },
+    { "lat": 56.0360813, "lon": 9.9411840 },
+    { "lat": 56.0295966, "lon": 9.9511801 }
+  ],
+  "tags": {
+    "motor_vehicle": "no",
+    "name": "M/S Dagmar",
+    "note": "Cirka rute for turbåden på Skanderborg Sø",
+    "route": "ferry",
+    "website": "http://www.dagmar.mono.net"
+  }
+},
+{
+  "type": "way",
+  "id": 52448323,
+  "bounds": {
+    "minlat": 55.9118010,
+    "minlon": 10.2586746,
+    "maxlat": 55.9490799,
+    "maxlon": 10.4600726
+  },
+  "geometry": [
+    { "lat": 55.9118010, "lon": 10.2586746 },
+    { "lat": 55.9122258, "lon": 10.2606473 },
+    { "lat": 55.9127198, "lon": 10.2648735 },
+    { "lat": 55.9134367, "lon": 10.2663919 },
+    { "lat": 55.9144117, "lon": 10.2674113 },
+    { "lat": 55.9167812, "lon": 10.2689320 },
+    { "lat": 55.9212546, "lon": 10.2728926 },
+    { "lat": 55.9242483, "lon": 10.2813888 },
+    { "lat": 55.9255366, "lon": 10.2849044 },
+    { "lat": 55.9261983, "lon": 10.2953760 },
+    { "lat": 55.9277718, "lon": 10.3202865 },
+    { "lat": 55.9353363, "lon": 10.4465845 },
+    { "lat": 55.9354446, "lon": 10.4475147 },
+    { "lat": 55.9356727, "lon": 10.4484109 },
+    { "lat": 55.9369518, "lon": 10.4517449 },
+    { "lat": 55.9372240, "lon": 10.4523562 },
+    { "lat": 55.9376429, "lon": 10.4530418 },
+    { "lat": 55.9402378, "lon": 10.4566843 },
+    { "lat": 55.9408392, "lon": 10.4574651 },
+    { "lat": 55.9413386, "lon": 10.4579231 },
+    { "lat": 55.9435386, "lon": 10.4595389 },
+    { "lat": 55.9439560, "lon": 10.4597582 },
+    { "lat": 55.9442116, "lon": 10.4598520 },
+    { "lat": 55.9457738, "lon": 10.4600554 },
+    { "lat": 55.9461438, "lon": 10.4600726 },
+    { "lat": 55.9464724, "lon": 10.4599881 },
+    { "lat": 55.9479975, "lon": 10.4592932 },
+    { "lat": 55.9483711, "lon": 10.4590648 },
+    { "lat": 55.9485692, "lon": 10.4587897 },
+    { "lat": 55.9487307, "lon": 10.4584399 },
+    { "lat": 55.9489961, "lon": 10.4576842 },
+    { "lat": 55.9490694, "lon": 10.4570776 },
+    { "lat": 55.9490799, "lon": 10.4564429 },
+    { "lat": 55.9490326, "lon": 10.4560528 },
+    { "lat": 55.9489330, "lon": 10.4556533 },
+    { "lat": 55.9486409, "lon": 10.4550831 },
+    { "lat": 55.9483903, "lon": 10.4544139 }
+  ],
+  "tags": {
+    "alt_name": "Hov - Tunø",
+    "bicycle": "yes",
+    "duration": "1:00",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "yes",
+    "name": "Tunøfærgen",
+    "phone": "+45 30 86 36 27",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "http://www.tunoefaergen.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 55507520,
+  "bounds": {
+    "minlat": 55.2601367,
+    "minlon": 9.7128931,
+    "maxlat": 55.2621577,
+    "maxlon": 9.7306049
+  },
+  "geometry": [
+    { "lat": 55.2613489, "lon": 9.7128931 },
+    { "lat": 55.2619021, "lon": 9.7131951 },
+    { "lat": 55.2620702, "lon": 9.7135168 },
+    { "lat": 55.2621577, "lon": 9.7138787 },
+    { "lat": 55.2620680, "lon": 9.7151979 },
+    { "lat": 55.2618421, "lon": 9.7173774 },
+    { "lat": 55.2611717, "lon": 9.7224448 },
+    { "lat": 55.2601367, "lon": 9.7306049 }
+  ],
+  "tags": {
+    "duration": "0:10",
+    "ferry": "unclassified",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Aarøfærgen",
+    "operator": "Haderslev Kommune",
+    "reservation": "no",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.haderslev.dk/borger/trafik-og-milj/trafik/aarfrgen"
+  }
+},
+{
+  "type": "way",
+  "id": 58369320,
+  "bounds": {
+    "minlat": 55.2703253,
+    "minlon": 9.8043697,
+    "maxlat": 55.2972343,
+    "maxlon": 9.8896055
+  },
+  "geometry": [
+    { "lat": 55.2972343, "lon": 9.8043697 },
+    { "lat": 55.2971853, "lon": 9.8047380 },
+    { "lat": 55.2971270, "lon": 9.8050168 },
+    { "lat": 55.2970496, "lon": 9.8052841 },
+    { "lat": 55.2934305, "lon": 9.8082655 },
+    { "lat": 55.2922732, "lon": 9.8122961 },
+    { "lat": 55.2897317, "lon": 9.8344132 },
+    { "lat": 55.2868122, "lon": 9.8542203 },
+    { "lat": 55.2833003, "lon": 9.8772772 },
+    { "lat": 55.2820353, "lon": 9.8811208 },
+    { "lat": 55.2807923, "lon": 9.8828054 },
+    { "lat": 55.2799386, "lon": 9.8833167 },
+    { "lat": 55.2708388, "lon": 9.8857327 },
+    { "lat": 55.2704177, "lon": 9.8874145 },
+    { "lat": 55.2703867, "lon": 9.8887295 },
+    { "lat": 55.2703253, "lon": 9.8896055 }
+  ],
+  "tags": {
+    "duration": "30",
+    "hgv": "yes",
+    "maxlength": "12",
+    "motor_vehicle": "yes",
+    "name": "Assens - Baagø",
+    "reservation": "required",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://baagoe.info/faergen.html"
+  }
+},
+{
+  "type": "way",
+  "id": 60489403,
+  "bounds": {
+    "minlat": 55.9172590,
+    "minlon": 8.4091251,
+    "maxlat": 55.9177573,
+    "maxlon": 8.4092942
+  },
+  "geometry": [
+    { "lat": 55.9172590, "lon": 8.4092942 },
+    { "lat": 55.9174927, "lon": 8.4092150 },
+    { "lat": 55.9177573, "lon": 8.4091251 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "ferry": "path",
+    "ferry:cable": "yes",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "no",
+    "name": "Blishønen - Trækfærge på Skjern Å",
+    "route": "ferry",
+    "toll": "no",
+    "wikimedia_commons": "File:Trækfærge i Skjern Enge.jpg"
+  }
+},
+{
+  "type": "way",
+  "id": 64605438,
+  "bounds": {
+    "minlat": 55.7538639,
+    "minlon": 11.2973392,
+    "maxlat": 55.7818156,
+    "maxlon": 11.3264154
+  },
+  "geometry": [
+    { "lat": 55.7538639, "lon": 11.3254173 },
+    { "lat": 55.7542271, "lon": 11.3257957 },
+    { "lat": 55.7546930, "lon": 11.3264154 },
+    { "lat": 55.7549870, "lon": 11.3263009 },
+    { "lat": 55.7553026, "lon": 11.3261321 },
+    { "lat": 55.7554119, "lon": 11.3260782 },
+    { "lat": 55.7568642, "lon": 11.3253614 },
+    { "lat": 55.7617717, "lon": 11.3217853 },
+    { "lat": 55.7764270, "lon": 11.3104480 },
+    { "lat": 55.7791300, "lon": 11.3079250 },
+    { "lat": 55.7800530, "lon": 11.3065080 },
+    { "lat": 55.7806170, "lon": 11.3052300 },
+    { "lat": 55.7809000, "lon": 11.3035550 },
+    { "lat": 55.7813610, "lon": 11.2985307 },
+    { "lat": 55.7814004, "lon": 11.2981715 },
+    { "lat": 55.7815290, "lon": 11.2977755 },
+    { "lat": 55.7818156, "lon": 11.2973392 }
+  ],
+  "tags": {
+    "alt_name": "Havnsø - Nekselø",
+    "bicycle": "yes",
+    "duration": "00:25",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "private",
+    "name": "Nekseløfærgen",
+    "operator": "Kalundborg Kommune",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 93308405,
+  "bounds": {
+    "minlat": 54.9651317,
+    "minlon": 10.4370335,
+    "maxlat": 55.0592474,
+    "maxlon": 10.6161408
+  },
+  "geometry": [
+    { "lat": 54.9659666, "lon": 10.4370335 },
+    { "lat": 54.9652198, "lon": 10.4390787 },
+    { "lat": 54.9651547, "lon": 10.4393685 },
+    { "lat": 54.9651317, "lon": 10.4396879 },
+    { "lat": 54.9655786, "lon": 10.4554978 },
+    { "lat": 54.9657205, "lon": 10.4561888 },
+    { "lat": 54.9660507, "lon": 10.4567311 },
+    { "lat": 54.9690857, "lon": 10.4598465 },
+    { "lat": 54.9695847, "lon": 10.4603954 },
+    { "lat": 54.9700697, "lon": 10.4609116 },
+    { "lat": 54.9704711, "lon": 10.4614286 },
+    { "lat": 54.9708258, "lon": 10.4619455 },
+    { "lat": 54.9728428, "lon": 10.4654662 },
+    { "lat": 54.9790038, "lon": 10.4746329 },
+    { "lat": 54.9825362, "lon": 10.4798892 },
+    { "lat": 54.9862028, "lon": 10.4851160 },
+    { "lat": 54.9907075, "lon": 10.4916347 },
+    { "lat": 54.9970689, "lon": 10.5008112 },
+    { "lat": 54.9980948, "lon": 10.5020503 },
+    { "lat": 54.9992837, "lon": 10.5032488 },
+    { "lat": 54.9998684, "lon": 10.5036772 },
+    { "lat": 55.0004181, "lon": 10.5038215 },
+    { "lat": 55.0052750, "lon": 10.5038834 },
+    { "lat": 55.0054805, "lon": 10.5038588 },
+    { "lat": 55.0056732, "lon": 10.5037561 },
+    { "lat": 55.0058054, "lon": 10.5036149 },
+    { "lat": 55.0059504, "lon": 10.5033956 },
+    { "lat": 55.0139540, "lon": 10.4890012 },
+    { "lat": 55.0142319, "lon": 10.4882962 },
+    { "lat": 55.0144176, "lon": 10.4876513 },
+    { "lat": 55.0145661, "lon": 10.4869654 },
+    { "lat": 55.0146886, "lon": 10.4862495 },
+    { "lat": 55.0147627, "lon": 10.4854073 },
+    { "lat": 55.0147670, "lon": 10.4850282 },
+    { "lat": 55.0147288, "lon": 10.4846624 },
+    { "lat": 55.0117507, "lon": 10.4727462 },
+    { "lat": 55.0117153, "lon": 10.4726665 },
+    { "lat": 55.0116636, "lon": 10.4725869 },
+    { "lat": 55.0115971, "lon": 10.4725880 },
+    { "lat": 55.0111737, "lon": 10.4728876 },
+    { "lat": 55.0115638, "lon": 10.4725314 },
+    { "lat": 55.0116380, "lon": 10.4725022 },
+    { "lat": 55.0117216, "lon": 10.4725306 },
+    { "lat": 55.0117759, "lon": 10.4726258 },
+    { "lat": 55.0118377, "lon": 10.4728581 },
+    { "lat": 55.0149853, "lon": 10.4853315 },
+    { "lat": 55.0364894, "lon": 10.5628349 },
+    { "lat": 55.0400002, "lon": 10.5735594 },
+    { "lat": 55.0401756, "lon": 10.5781591 },
+    { "lat": 55.0407898, "lon": 10.5828402 },
+    { "lat": 55.0411940, "lon": 10.5846303 },
+    { "lat": 55.0427923, "lon": 10.5909393 },
+    { "lat": 55.0434570, "lon": 10.5931091 },
+    { "lat": 55.0467553, "lon": 10.6031067 },
+    { "lat": 55.0469771, "lon": 10.6038030 },
+    { "lat": 55.0497924, "lon": 10.6121416 },
+    { "lat": 55.0543637, "lon": 10.6156198 },
+    { "lat": 55.0574035, "lon": 10.6161408 },
+    { "lat": 55.0583989, "lon": 10.6156915 },
+    { "lat": 55.0589285, "lon": 10.6151015 },
+    { "lat": 55.0589972, "lon": 10.6150435 },
+    { "lat": 55.0590816, "lon": 10.6149888 },
+    { "lat": 55.0592474, "lon": 10.6149042 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "0:40",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Svendborg - Skarø - Drejø",
+    "operator": "Højestene",
+    "phone": "+45 62233000",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "toll": "yes",
+    "vessel": "M/F Højestene",
+    "website": "http://www.svendborg-havn.dk/f%C3%A6rger/mf-h%C3%B8jestene"
+  }
+},
+{
+  "type": "way",
+  "id": 93357485,
+  "bounds": {
+    "minlat": 54.9079110,
+    "minlon": 11.3596781,
+    "maxlat": 54.9723183,
+    "maxlon": 11.5147645
+  },
+  "geometry": [
+    { "lat": 54.9718933, "lon": 11.5147645 },
+    { "lat": 54.9719178, "lon": 11.5138812 },
+    { "lat": 54.9718502, "lon": 11.5119132 },
+    { "lat": 54.9721705, "lon": 11.5082225 },
+    { "lat": 54.9723183, "lon": 11.5063557 },
+    { "lat": 54.9722320, "lon": 11.5054974 },
+    { "lat": 54.9718589, "lon": 11.5040162 },
+    { "lat": 54.9662577, "lon": 11.4958827 },
+    { "lat": 54.9639141, "lon": 11.4928153 },
+    { "lat": 54.9623866, "lon": 11.4913776 },
+    { "lat": 54.9571013, "lon": 11.4877942 },
+    { "lat": 54.9508419, "lon": 11.4849618 },
+    { "lat": 54.9452716, "lon": 11.4822152 },
+    { "lat": 54.9435955, "lon": 11.4814427 },
+    { "lat": 54.9397992, "lon": 11.4745763 },
+    { "lat": 54.9381228, "lon": 11.4695123 },
+    { "lat": 54.9330439, "lon": 11.4531186 },
+    { "lat": 54.9297892, "lon": 11.4464238 },
+    { "lat": 54.9253504, "lon": 11.4368108 },
+    { "lat": 54.9178528, "lon": 11.4193871 },
+    { "lat": 54.9085281, "lon": 11.3974145 },
+    { "lat": 54.9079110, "lon": 11.3953500 },
+    { "lat": 54.9082321, "lon": 11.3933804 },
+    { "lat": 54.9167182, "lon": 11.3724378 },
+    { "lat": 54.9160600, "lon": 11.3622673 },
+    { "lat": 54.9160436, "lon": 11.3600673 },
+    { "lat": 54.9161082, "lon": 11.3596781 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "00:50",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "19",
+    "motor_vehicle": "yes",
+    "name": "Femø – Kragenæs",
+    "operator": "Lolland Færgefart",
+    "phone": "+45 88321212",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://lollandfaergefart.lolland.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 94140998,
+  "bounds": {
+    "minlat": 54.9160892,
+    "minlon": 11.3596781,
+    "maxlat": 54.9362301,
+    "maxlon": 11.3721993
+  },
+  "geometry": [
+    { "lat": 54.9161082, "lon": 11.3596781 },
+    { "lat": 54.9160892, "lon": 11.3600567 },
+    { "lat": 54.9165128, "lon": 11.3617387 },
+    { "lat": 54.9191693, "lon": 11.3691191 },
+    { "lat": 54.9265984, "lon": 11.3702448 },
+    { "lat": 54.9305321, "lon": 11.3697545 },
+    { "lat": 54.9353836, "lon": 11.3715953 },
+    { "lat": 54.9362301, "lon": 11.3721993 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "0:15",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "19",
+    "motor_vehicle": "yes",
+    "name": "Kragenæs - Fejø",
+    "operator": "Lolland Færgefart",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "http://www.lollandfaergefart.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 96542901,
+  "bounds": {
+    "minlat": 55.2117735,
+    "minlon": 11.1979678,
+    "maxlat": 55.2124690,
+    "maxlon": 11.2446022
+  },
+  "geometry": [
+    { "lat": 55.2124690, "lon": 11.2446022 },
+    { "lat": 55.2124216, "lon": 11.2444064 },
+    { "lat": 55.2123921, "lon": 11.2439953 },
+    { "lat": 55.2123614, "lon": 11.2435956 },
+    { "lat": 55.2123290, "lon": 11.2429251 },
+    { "lat": 55.2120435, "lon": 11.2013984 },
+    { "lat": 55.2119476, "lon": 11.1993759 },
+    { "lat": 55.2118653, "lon": 11.1984196 },
+    { "lat": 55.2117735, "lon": 11.1979678 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "15",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "22",
+    "motor_vehicle": "yes",
+    "name": "Agersøfærgen",
+    "operator": "Agersø & Omø Færgerne",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://aofaerger.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 96622965,
+  "bounds": {
+    "minlat": 55.1711566,
+    "minlon": 11.1592209,
+    "maxlat": 55.2129325,
+    "maxlon": 11.2451810
+  },
+  "geometry": [
+    { "lat": 55.2129325, "lon": 11.2443098 },
+    { "lat": 55.2128777, "lon": 11.2441694 },
+    { "lat": 55.2115621, "lon": 11.2410470 },
+    { "lat": 55.2111976, "lon": 11.2402841 },
+    { "lat": 55.2071726, "lon": 11.2389932 },
+    { "lat": 55.1861187, "lon": 11.2451810 },
+    { "lat": 55.1767425, "lon": 11.2428770 },
+    { "lat": 55.1728670, "lon": 11.2332840 },
+    { "lat": 55.1740153, "lon": 11.2178263 },
+    { "lat": 55.1853055, "lon": 11.1850257 },
+    { "lat": 55.1874101, "lon": 11.1738827 },
+    { "lat": 55.1867405, "lon": 11.1646248 },
+    { "lat": 55.1818853, "lon": 11.1592209 },
+    { "lat": 55.1752115, "lon": 11.1600168 },
+    { "lat": 55.1724124, "lon": 11.1612316 },
+    { "lat": 55.1715375, "lon": 11.1603712 },
+    { "lat": 55.1711566, "lon": 11.1601207 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "0:50",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Omøfærgen",
+    "operator": "Agersø & Omø Færgerne",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://aofaerger.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 104299145,
+  "bounds": {
+    "minlat": 54.8546564,
+    "minlon": 10.4978938,
+    "maxlat": 54.9273287,
+    "maxlon": 10.5254555
+  },
+  "geometry": [
+    { "lat": 54.9273241, "lon": 10.4995085 },
+    { "lat": 54.9273287, "lon": 10.4994596 },
+    { "lat": 54.9273199, "lon": 10.4994267 },
+    { "lat": 54.9272467, "lon": 10.4993570 },
+    { "lat": 54.9272054, "lon": 10.4993375 },
+    { "lat": 54.9271661, "lon": 10.4993322 },
+    { "lat": 54.9270941, "lon": 10.4993194 },
+    { "lat": 54.9270421, "lon": 10.4993080 },
+    { "lat": 54.9269921, "lon": 10.4992878 },
+    { "lat": 54.9258450, "lon": 10.4984322 },
+    { "lat": 54.9249596, "lon": 10.4978938 },
+    { "lat": 54.9246308, "lon": 10.4979119 },
+    { "lat": 54.9243047, "lon": 10.4981856 },
+    { "lat": 54.9196403, "lon": 10.5067112 },
+    { "lat": 54.9164964, "lon": 10.5125813 },
+    { "lat": 54.9138307, "lon": 10.5177870 },
+    { "lat": 54.9102194, "lon": 10.5216141 },
+    { "lat": 54.9085318, "lon": 10.5230271 },
+    { "lat": 54.9060094, "lon": 10.5241654 },
+    { "lat": 54.9016983, "lon": 10.5253976 },
+    { "lat": 54.8894442, "lon": 10.5254555 },
+    { "lat": 54.8698833, "lon": 10.5219357 },
+    { "lat": 54.8602167, "lon": 10.5220803 },
+    { "lat": 54.8575823, "lon": 10.5223368 },
+    { "lat": 54.8560970, "lon": 10.5226910 },
+    { "lat": 54.8551320, "lon": 10.5227652 },
+    { "lat": 54.8547193, "lon": 10.5226600 },
+    { "lat": 54.8546564, "lon": 10.5224350 },
+    { "lat": 54.8546784, "lon": 10.5222309 },
+    { "lat": 54.8551577, "lon": 10.5221201 }
+  ],
+  "tags": {
+    "description": "Medtager et meget begrænset antal passagerer, så det anbefales at reservere plads",
+    "duration": "0:20",
+    "motor_vehicle": "no",
+    "name": "Birkholmposten",
+    "phone": "+45 4040 0325; +45 3070 3116",
+    "reservation": "recommended",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "http://www.birkholm-beboerforening.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 112654387,
+  "bounds": {
+    "minlat": 55.4501770,
+    "minlon": 8.4084492,
+    "maxlat": 55.4608839,
+    "maxlon": 8.4400652
+  },
+  "geometry": [
+    { "lat": 55.4608839, "lon": 8.4400652 },
+    { "lat": 55.4606904, "lon": 8.4395244 },
+    { "lat": 55.4604498, "lon": 8.4390260 },
+    { "lat": 55.4597581, "lon": 8.4380460 },
+    { "lat": 55.4582288, "lon": 8.4364880 },
+    { "lat": 55.4578330, "lon": 8.4358553 },
+    { "lat": 55.4575459, "lon": 8.4350489 },
+    { "lat": 55.4574077, "lon": 8.4337808 },
+    { "lat": 55.4575854, "lon": 8.4282708 },
+    { "lat": 55.4574188, "lon": 8.4227962 },
+    { "lat": 55.4568883, "lon": 8.4208968 },
+    { "lat": 55.4562025, "lon": 8.4184464 },
+    { "lat": 55.4553593, "lon": 8.4159955 },
+    { "lat": 55.4549832, "lon": 8.4151102 },
+    { "lat": 55.4545634, "lon": 8.4143052 },
+    { "lat": 55.4541389, "lon": 8.4137878 },
+    { "lat": 55.4534478, "lon": 8.4130046 },
+    { "lat": 55.4530182, "lon": 8.4124713 },
+    { "lat": 55.4523537, "lon": 8.4117238 },
+    { "lat": 55.4516603, "lon": 8.4110178 },
+    { "lat": 55.4512465, "lon": 8.4104332 },
+    { "lat": 55.4508900, "lon": 8.4097020 },
+    { "lat": 55.4501770, "lon": 8.4084492 }
+  ],
+  "tags": {
+    "alt_name": "Esbjerg - Fanø",
+    "bicycle": "yes",
+    "duration": "00:12",
+    "foot": "yes",
+    "hgv": "yes",
+    "maxlength": "19",
+    "motor_vehicle": "yes",
+    "name": "Fanølinjen",
+    "old_name": "Fanøfærgen",
+    "operator": "Molslinjen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://www.fanoelinjen.dk/",
+    "wikidata": "Q12311063",
+    "wikipedia": "da:Fanølinjen"
+  }
+},
+{
+  "type": "way",
+  "id": 112655435,
+  "bounds": {
+    "minlat": 55.7538704,
+    "minlon": 11.1367514,
+    "maxlat": 55.8800987,
+    "maxlon": 11.3265371
+  },
+  "geometry": [
+    { "lat": 55.7538704, "lon": 11.3258049 },
+    { "lat": 55.7539543, "lon": 11.3259333 },
+    { "lat": 55.7543343, "lon": 11.3262832 },
+    { "lat": 55.7547054, "lon": 11.3265371 },
+    { "lat": 55.7551054, "lon": 11.3264043 },
+    { "lat": 55.7557905, "lon": 11.3261635 },
+    { "lat": 55.7569927, "lon": 11.3257364 },
+    { "lat": 55.7974334, "lon": 11.3051655 },
+    { "lat": 55.8692460, "lon": 11.1379093 },
+    { "lat": 55.8794933, "lon": 11.1367514 },
+    { "lat": 55.8800987, "lon": 11.1379517 }
+  ],
+  "tags": {
+    "alt_name": "Havnsø - Sejerø",
+    "duration": "1:00",
+    "hgv": "yes",
+    "name": "Sejerøfærgen",
+    "operator": "Kalundborg Kommune",
+    "route": "ferry",
+    "vehicle": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 141509964,
+  "bounds": {
+    "minlat": 55.0398213,
+    "minlon": 10.1585038,
+    "maxlat": 55.0544849,
+    "maxlon": 10.2509935
+  },
+  "geometry": [
+    { "lat": 55.0522669, "lon": 10.1586261 },
+    { "lat": 55.0527038, "lon": 10.1585038 },
+    { "lat": 55.0533273, "lon": 10.1586447 },
+    { "lat": 55.0538029, "lon": 10.1591954 },
+    { "lat": 55.0541165, "lon": 10.1603145 },
+    { "lat": 55.0543265, "lon": 10.1618582 },
+    { "lat": 55.0544849, "lon": 10.1653009 },
+    { "lat": 55.0543601, "lon": 10.1697162 },
+    { "lat": 55.0539705, "lon": 10.1903799 },
+    { "lat": 55.0537984, "lon": 10.1922681 },
+    { "lat": 55.0533067, "lon": 10.1944139 },
+    { "lat": 55.0417212, "lon": 10.2453903 },
+    { "lat": 55.0402645, "lon": 10.2506702 },
+    { "lat": 55.0398213, "lon": 10.2509935 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "30",
+    "foot": "yes",
+    "hgv": "no",
+    "maxlength": "20",
+    "motor_vehicle": "yes",
+    "name": "Lyø - Avernakø",
+    "operator": "Ø-færgen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://oefaergen.fmk.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 141509969,
+  "bounds": {
+    "minlat": 55.0398213,
+    "minlon": 10.2290603,
+    "maxlat": 55.0930726,
+    "maxlon": 10.2509935
+  },
+  "geometry": [
+    { "lat": 55.0398213, "lon": 10.2509935 },
+    { "lat": 55.0402363, "lon": 10.2508974 },
+    { "lat": 55.0555533, "lon": 10.2336654 },
+    { "lat": 55.0586787, "lon": 10.2311416 },
+    { "lat": 55.0685639, "lon": 10.2290603 },
+    { "lat": 55.0695579, "lon": 10.2291071 },
+    { "lat": 55.0700348, "lon": 10.2292464 },
+    { "lat": 55.0703704, "lon": 10.2298589 },
+    { "lat": 55.0728505, "lon": 10.2342792 },
+    { "lat": 55.0751110, "lon": 10.2378734 },
+    { "lat": 55.0775924, "lon": 10.2413281 },
+    { "lat": 55.0822793, "lon": 10.2453943 },
+    { "lat": 55.0834338, "lon": 10.2457269 },
+    { "lat": 55.0842014, "lon": 10.2454372 },
+    { "lat": 55.0885981, "lon": 10.2417358 },
+    { "lat": 55.0916680, "lon": 10.2401050 },
+    { "lat": 55.0920417, "lon": 10.2401372 },
+    { "lat": 55.0923486, "lon": 10.2404376 },
+    { "lat": 55.0929319, "lon": 10.2415534 },
+    { "lat": 55.0930726, "lon": 10.2416611 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "40",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "yes",
+    "name": "Fåborg - Avernakø",
+    "operator": "Ø-færgen",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "website": "https://oefaergen.fmk.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 143208708,
+  "bounds": {
+    "minlat": 54.9348420,
+    "minlon": 10.8318143,
+    "maxlat": 54.9350511,
+    "maxlon": 10.8324960
+  },
+  "geometry": [
+    { "lat": 54.9349327, "lon": 10.8324509 },
+    { "lat": 54.9348420, "lon": 10.8318664 },
+    { "lat": 54.9349531, "lon": 10.8318143 },
+    { "lat": 54.9350511, "lon": 10.8324454 },
+    { "lat": 54.9349430, "lon": 10.8324960 },
+    { "lat": 54.9349358, "lon": 10.8324495 },
+    { "lat": 54.9349327, "lon": 10.8324509 }
+  ],
+  "tags": {
+    "amenity": "ferry_terminal",
+    "building": "yes",
+    "ferry": "yes",
+    "name": "Langelandslinjen",
+    "network": "Spodsbjerg-Tårs",
+    "operator": "Langelandslinjen",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 171896489,
+  "bounds": {
+    "minlat": 54.9414020,
+    "minlon": 9.9855531,
+    "maxlat": 54.9970800,
+    "maxlon": 10.2591287
+  },
+  "geometry": [
+    { "lat": 54.9940968, "lon": 9.9855531 },
+    { "lat": 54.9944186, "lon": 9.9860721 },
+    { "lat": 54.9953563, "lon": 9.9868117 },
+    { "lat": 54.9962619, "lon": 9.9875878 },
+    { "lat": 54.9967478, "lon": 9.9882061 },
+    { "lat": 54.9969761, "lon": 9.9889131 },
+    { "lat": 54.9970800, "lon": 9.9896148 },
+    { "lat": 54.9970568, "lon": 9.9904227 },
+    { "lat": 54.9968317, "lon": 9.9918627 },
+    { "lat": 54.9965276, "lon": 9.9959239 },
+    { "lat": 54.9954657, "lon": 10.0061493 },
+    { "lat": 54.9940086, "lon": 10.0195860 },
+    { "lat": 54.9894895, "lon": 10.0636429 },
+    { "lat": 54.9856681, "lon": 10.0981211 },
+    { "lat": 54.9821812, "lon": 10.1320242 },
+    { "lat": 54.9800780, "lon": 10.1737551 },
+    { "lat": 54.9790510, "lon": 10.1929254 },
+    { "lat": 54.9778935, "lon": 10.2065167 },
+    { "lat": 54.9764823, "lon": 10.2176146 },
+    { "lat": 54.9753148, "lon": 10.2229104 },
+    { "lat": 54.9734625, "lon": 10.2297425 },
+    { "lat": 54.9711816, "lon": 10.2348065 },
+    { "lat": 54.9490004, "lon": 10.2547202 },
+    { "lat": 54.9464864, "lon": 10.2569518 },
+    { "lat": 54.9438429, "lon": 10.2584677 },
+    { "lat": 54.9432436, "lon": 10.2585388 },
+    { "lat": 54.9424628, "lon": 10.2589170 },
+    { "lat": 54.9420013, "lon": 10.2591287 },
+    { "lat": 54.9414020, "lon": 10.2590543 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:10",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Søby - Fynshav",
+    "operator": "Ærøfærgerne",
+    "reservation": "recommended",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "vessel": "M/F Skjoldnæs",
+    "website": "https://aeroe-ferry.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 172009892,
+  "bounds": {
+    "minlat": 54.9416597,
+    "minlon": 10.2238446,
+    "maxlat": 55.0928395,
+    "maxlon": 10.2597250
+  },
+  "geometry": [
+    { "lat": 55.0928395, "lon": 10.2418451 },
+    { "lat": 55.0926574, "lon": 10.2414077 },
+    { "lat": 55.0923934, "lon": 10.2408391 },
+    { "lat": 55.0920803, "lon": 10.2406245 },
+    { "lat": 55.0917057, "lon": 10.2406675 },
+    { "lat": 55.0913128, "lon": 10.2409893 },
+    { "lat": 55.0910979, "lon": 10.2412683 },
+    { "lat": 55.0901401, "lon": 10.2424270 },
+    { "lat": 55.0881261, "lon": 10.2444011 },
+    { "lat": 55.0857190, "lon": 10.2459460 },
+    { "lat": 55.0842207, "lon": 10.2463752 },
+    { "lat": 55.0830416, "lon": 10.2463752 },
+    { "lat": 55.0820590, "lon": 10.2460748 },
+    { "lat": 55.0807080, "lon": 10.2454311 },
+    { "lat": 55.0774897, "lon": 10.2417833 },
+    { "lat": 55.0736816, "lon": 10.2369338 },
+    { "lat": 55.0696519, "lon": 10.2302819 },
+    { "lat": 55.0690621, "lon": 10.2297670 },
+    { "lat": 55.0678826, "lon": 10.2300244 },
+    { "lat": 55.0653515, "lon": 10.2306682 },
+    { "lat": 55.0585190, "lon": 10.2319986 },
+    { "lat": 55.0548319, "lon": 10.2324706 },
+    { "lat": 55.0460308, "lon": 10.2331573 },
+    { "lat": 55.0448506, "lon": 10.2331144 },
+    { "lat": 55.0439654, "lon": 10.2326852 },
+    { "lat": 55.0379408, "lon": 10.2268487 },
+    { "lat": 55.0354324, "lon": 10.2245742 },
+    { "lat": 55.0342519, "lon": 10.2238446 },
+    { "lat": 55.0334156, "lon": 10.2238876 },
+    { "lat": 55.0321859, "lon": 10.2245313 },
+    { "lat": 55.0222973, "lon": 10.2310544 },
+    { "lat": 54.9985744, "lon": 10.2421266 },
+    { "lat": 54.9742463, "lon": 10.2495080 },
+    { "lat": 54.9502855, "lon": 10.2564067 },
+    { "lat": 54.9488314, "lon": 10.2568358 },
+    { "lat": 54.9465823, "lon": 10.2579409 },
+    { "lat": 54.9438278, "lon": 10.2586061 },
+    { "lat": 54.9432485, "lon": 10.2586597 },
+    { "lat": 54.9425028, "lon": 10.2590138 },
+    { "lat": 54.9420530, "lon": 10.2593678 },
+    { "lat": 54.9416597, "lon": 10.2597250 }
+  ],
+  "tags": {
+    "duration": "60",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Søby - Faaborg",
+    "operator": "Ærøfærgerne",
+    "reservation": "recommended",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "vessel": "M/F Skjoldnæs",
+    "website": "https://aeroe-ferry.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 197575169,
+  "bounds": {
+    "minlat": 54.9666329,
+    "minlon": 10.4808318,
+    "maxlat": 55.0577696,
+    "maxlon": 10.6164122
+  },
+  "geometry": [
+    { "lat": 55.0577696, "lon": 10.6146214 },
+    { "lat": 55.0577314, "lon": 10.6146564 },
+    { "lat": 55.0576126, "lon": 10.6147558 },
+    { "lat": 55.0557901, "lon": 10.6164122 },
+    { "lat": 55.0542737, "lon": 10.6161529 },
+    { "lat": 55.0496581, "lon": 10.6126078 },
+    { "lat": 55.0467272, "lon": 10.6041579 },
+    { "lat": 55.0465066, "lon": 10.6034600 },
+    { "lat": 55.0441431, "lon": 10.5962801 },
+    { "lat": 55.0421490, "lon": 10.5897706 },
+    { "lat": 55.0416162, "lon": 10.5876676 },
+    { "lat": 55.0404035, "lon": 10.5822974 },
+    { "lat": 55.0399245, "lon": 10.5785151 },
+    { "lat": 55.0397779, "lon": 10.5736958 },
+    { "lat": 55.0363317, "lon": 10.5635666 },
+    { "lat": 55.0361683, "lon": 10.5631499 },
+    { "lat": 55.0111009, "lon": 10.5088478 },
+    { "lat": 55.0108723, "lon": 10.5085898 },
+    { "lat": 55.0106464, "lon": 10.5084704 },
+    { "lat": 55.0007145, "lon": 10.5050987 },
+    { "lat": 55.0000596, "lon": 10.5046966 },
+    { "lat": 54.9995025, "lon": 10.5042782 },
+    { "lat": 54.9988251, "lon": 10.5037026 },
+    { "lat": 54.9977804, "lon": 10.5025508 },
+    { "lat": 54.9967958, "lon": 10.5012766 },
+    { "lat": 54.9904448, "lon": 10.4921673 },
+    { "lat": 54.9831013, "lon": 10.4813845 },
+    { "lat": 54.9828631, "lon": 10.4810518 },
+    { "lat": 54.9826803, "lon": 10.4808945 },
+    { "lat": 54.9824878, "lon": 10.4808318 },
+    { "lat": 54.9822954, "lon": 10.4808459 },
+    { "lat": 54.9819467, "lon": 10.4809286 },
+    { "lat": 54.9815966, "lon": 10.4810746 },
+    { "lat": 54.9701039, "lon": 10.4878613 },
+    { "lat": 54.9698247, "lon": 10.4880636 },
+    { "lat": 54.9694812, "lon": 10.4885608 },
+    { "lat": 54.9669008, "lon": 10.4915926 },
+    { "lat": 54.9666329, "lon": 10.4918268 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "description": "Max 1 bil + 12 personer. Udenfor sommerferien sejles kun på bestilling",
+    "duration": "1:00",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "yes",
+    "name": "Svendborg - Hjortø",
+    "operator": "Hjortøboen",
+    "route": "ferry",
+    "toll": "yes",
+    "website": "http://www.hjorto.dk/faergen.html"
+  }
+},
+{
+  "type": "way",
+  "id": 237766644,
+  "bounds": {
+    "minlat": 55.4946221,
+    "minlon": 9.6942850,
+    "maxlat": 55.4953045,
+    "maxlon": 9.7019291
+  },
+  "geometry": [
+    { "lat": 55.4949957, "lon": 9.6942850 },
+    { "lat": 55.4951399, "lon": 9.6946426 },
+    { "lat": 55.4951673, "lon": 9.6948051 },
+    { "lat": 55.4952205, "lon": 9.6952094 },
+    { "lat": 55.4953045, "lon": 9.6961600 },
+    { "lat": 55.4952818, "lon": 9.6967439 },
+    { "lat": 55.4952085, "lon": 9.6972550 },
+    { "lat": 55.4949483, "lon": 9.6979990 },
+    { "lat": 55.4947907, "lon": 9.6986200 },
+    { "lat": 55.4946661, "lon": 9.6996551 },
+    { "lat": 55.4946221, "lon": 9.7007096 },
+    { "lat": 55.4946221, "lon": 9.7014276 },
+    { "lat": 55.4947139, "lon": 9.7019291 }
+  ],
+  "tags": {
+    "access": "private",
+    "hgv": "no",
+    "name": "Øksnerodde - Fænø",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route"
+  }
+},
+{
+  "type": "way",
+  "id": 293690622,
+  "bounds": {
+    "minlat": 55.0201387,
+    "minlon": 10.6148198,
+    "maxlat": 55.0608985,
+    "maxlon": 10.6680100
+  },
+  "geometry": [
+    { "lat": 55.0595980, "lon": 10.6148198 },
+    { "lat": 55.0606017, "lon": 10.6161271 },
+    { "lat": 55.0606925, "lon": 10.6162777 },
+    { "lat": 55.0607679, "lon": 10.6164393 },
+    { "lat": 55.0608334, "lon": 10.6166463 },
+    { "lat": 55.0608744, "lon": 10.6168659 },
+    { "lat": 55.0608941, "lon": 10.6171045 },
+    { "lat": 55.0608985, "lon": 10.6173565 },
+    { "lat": 55.0608801, "lon": 10.6176678 },
+    { "lat": 55.0608275, "lon": 10.6180245 },
+    { "lat": 55.0607500, "lon": 10.6183860 },
+    { "lat": 55.0606235, "lon": 10.6188318 },
+    { "lat": 55.0586863, "lon": 10.6240991 },
+    { "lat": 55.0584464, "lon": 10.6248373 },
+    { "lat": 55.0568507, "lon": 10.6307451 },
+    { "lat": 55.0566858, "lon": 10.6309737 },
+    { "lat": 55.0564652, "lon": 10.6310557 },
+    { "lat": 55.0560969, "lon": 10.6310702 },
+    { "lat": 55.0563461, "lon": 10.6312170 },
+    { "lat": 55.0565568, "lon": 10.6314446 },
+    { "lat": 55.0585744, "lon": 10.6347762 },
+    { "lat": 55.0587605, "lon": 10.6349317 },
+    { "lat": 55.0589956, "lon": 10.6350009 },
+    { "lat": 55.0585618, "lon": 10.6351762 },
+    { "lat": 55.0581778, "lon": 10.6354171 },
+    { "lat": 55.0565526, "lon": 10.6378682 },
+    { "lat": 55.0530324, "lon": 10.6405030 },
+    { "lat": 55.0502176, "lon": 10.6413828 },
+    { "lat": 55.0457063, "lon": 10.6452083 },
+    { "lat": 55.0446857, "lon": 10.6455670 },
+    { "lat": 55.0420425, "lon": 10.6459103 },
+    { "lat": 55.0397802, "lon": 10.6454597 },
+    { "lat": 55.0358578, "lon": 10.6460820 },
+    { "lat": 55.0350633, "lon": 10.6462223 },
+    { "lat": 55.0348339, "lon": 10.6462402 },
+    { "lat": 55.0346145, "lon": 10.6461201 },
+    { "lat": 55.0349825, "lon": 10.6464179 },
+    { "lat": 55.0359370, "lon": 10.6481304 },
+    { "lat": 55.0360502, "lon": 10.6493546 },
+    { "lat": 55.0359361, "lon": 10.6520330 },
+    { "lat": 55.0351410, "lon": 10.6604957 },
+    { "lat": 55.0348293, "lon": 10.6618606 },
+    { "lat": 55.0344887, "lon": 10.6626341 },
+    { "lat": 55.0317835, "lon": 10.6675045 },
+    { "lat": 55.0316565, "lon": 10.6679032 },
+    { "lat": 55.0316553, "lon": 10.6680100 },
+    { "lat": 55.0316188, "lon": 10.6676221 },
+    { "lat": 55.0314094, "lon": 10.6671088 },
+    { "lat": 55.0288594, "lon": 10.6656566 },
+    { "lat": 55.0215487, "lon": 10.6619513 },
+    { "lat": 55.0214795, "lon": 10.6618801 },
+    { "lat": 55.0214144, "lon": 10.6617470 },
+    { "lat": 55.0204462, "lon": 10.6590906 },
+    { "lat": 55.0203072, "lon": 10.6587190 },
+    { "lat": 55.0201758, "lon": 10.6582524 },
+    { "lat": 55.0201440, "lon": 10.6577778 },
+    { "lat": 55.0201387, "lon": 10.6573096 },
+    { "lat": 55.0202574, "lon": 10.6568525 },
+    { "lat": 55.0204297, "lon": 10.6565046 },
+    { "lat": 55.0207274, "lon": 10.6563564 }
+  ],
+  "tags": {
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Sundfarten Helge",
+    "operational_status": "restricted",
+    "route": "ferry",
+    "seamark:ferry_route:category": "free",
+    "seamark:type": "ferry_route",
+    "seasonal": "summer"
+  }
+},
+{
+  "type": "way",
+  "id": 299847759,
+  "bounds": {
+    "minlat": 54.3168041,
+    "minlon": 10.1391693,
+    "maxlat": 59.9098282,
+    "maxlon": 11.8584519
+  },
+  "geometry": [
+    { "lat": 59.9098282, "lon": 10.7087912 },
+    { "lat": 59.9088748, "lon": 10.7084505 },
+    { "lat": 59.9071272, "lon": 10.7078504 },
+    { "lat": 59.9067264, "lon": 10.7078344 },
+    { "lat": 59.9062611, "lon": 10.7079202 },
+    { "lat": 59.9045952, "lon": 10.7086733 },
+    { "lat": 59.9008336, "lon": 10.7075875 },
+    { "lat": 59.8997105, "lon": 10.7060501 },
+    { "lat": 59.8985191, "lon": 10.7019345 },
+    { "lat": 59.8941042, "lon": 10.6887457 },
+    { "lat": 59.8917596, "lon": 10.6801247 },
+    { "lat": 59.8786652, "lon": 10.6475061 },
+    { "lat": 59.8183951, "lon": 10.5802148 },
+    { "lat": 59.7589990, "lon": 10.5533557 },
+    { "lat": 59.7408637, "lon": 10.5554481 },
+    { "lat": 59.7371522, "lon": 10.5565003 },
+    { "lat": 59.7335589, "lon": 10.5584823 },
+    { "lat": 59.7300668, "lon": 10.5615422 },
+    { "lat": 59.7209876, "lon": 10.5724548 },
+    { "lat": 59.7027265, "lon": 10.5829774 },
+    { "lat": 59.7001000, "lon": 10.5859076 },
+    { "lat": 59.6797994, "lon": 10.6100678 },
+    { "lat": 59.6668653, "lon": 10.6154468 },
+    { "lat": 59.6091784, "lon": 10.6256648 },
+    { "lat": 59.6061604, "lon": 10.6265795 },
+    { "lat": 59.5704835, "lon": 10.6289237 },
+    { "lat": 59.5652013, "lon": 10.6254133 },
+    { "lat": 59.4490888, "lon": 10.5567487 },
+    { "lat": 59.4282280, "lon": 10.5555471 },
+    { "lat": 59.1637653, "lon": 10.6437295 },
+    { "lat": 58.5846515, "lon": 10.6454073 },
+    { "lat": 57.0755135, "lon": 11.6292858 },
+    { "lat": 56.7515275, "lon": 11.8584519 },
+    { "lat": 56.1191469, "lon": 11.1888879 },
+    { "lat": 55.9565730, "lon": 11.0070220 },
+    { "lat": 55.9010420, "lon": 10.9314584 },
+    { "lat": 55.8732422, "lon": 10.8904845 },
+    { "lat": 55.8521027, "lon": 10.8620766 },
+    { "lat": 55.8310838, "lon": 10.8335833 },
+    { "lat": 55.8109343, "lon": 10.8154687 },
+    { "lat": 55.7280226, "lon": 10.8007622 },
+    { "lat": 55.6478415, "lon": 10.7746320 },
+    { "lat": 55.5625652, "lon": 10.8412531 },
+    { "lat": 55.4608774, "lon": 10.9260871 },
+    { "lat": 55.3636301, "lon": 11.0408846 },
+    { "lat": 55.3181874, "lon": 11.0423401 },
+    { "lat": 55.2486930, "lon": 11.0946645 },
+    { "lat": 55.2378210, "lon": 11.1010213 },
+    { "lat": 55.2245669, "lon": 11.1040011 },
+    { "lat": 55.2090413, "lon": 11.1032065 },
+    { "lat": 55.2001994, "lon": 11.0962537 },
+    { "lat": 55.1807301, "lon": 11.0543917 },
+    { "lat": 55.1629851, "lon": 11.0092447 },
+    { "lat": 55.1477828, "lon": 10.9941385 },
+    { "lat": 55.0907472, "lon": 10.9879587 },
+    { "lat": 55.0752226, "lon": 10.9943102 },
+    { "lat": 55.0625430, "lon": 10.9994600 },
+    { "lat": 55.0499577, "lon": 11.0011767 },
+    { "lat": 55.0378602, "lon": 10.9986017 },
+    { "lat": 54.9843615, "lon": 10.9738826 },
+    { "lat": 54.9710126, "lon": 10.9664153 },
+    { "lat": 54.9650017, "lon": 10.9580039 },
+    { "lat": 54.9408505, "lon": 10.8898543 },
+    { "lat": 54.8806559, "lon": 10.8432482 },
+    { "lat": 54.8716683, "lon": 10.8370684 },
+    { "lat": 54.8066956, "lon": 10.8357811 },
+    { "lat": 54.8010065, "lon": 10.8352232 },
+    { "lat": 54.7957124, "lon": 10.8323478 },
+    { "lat": 54.7366139, "lon": 10.7839393 },
+    { "lat": 54.6490287, "lon": 10.7187496 },
+    { "lat": 54.6167282, "lon": 10.6586020 },
+    { "lat": 54.5850319, "lon": 10.5935633 },
+    { "lat": 54.5624993, "lon": 10.5227269 },
+    { "lat": 54.4967117, "lon": 10.3096317 },
+    { "lat": 54.4701044, "lon": 10.2701409 },
+    { "lat": 54.4287867, "lon": 10.2217250 },
+    { "lat": 54.4135025, "lon": 10.2094842 },
+    { "lat": 54.3994289, "lon": 10.2004628 },
+    { "lat": 54.3897671, "lon": 10.1997681 },
+    { "lat": 54.3709550, "lon": 10.1777575 },
+    { "lat": 54.3627167, "lon": 10.1690667 },
+    { "lat": 54.3463725, "lon": 10.1641057 },
+    { "lat": 54.3380564, "lon": 10.1629088 },
+    { "lat": 54.3337362, "lon": 10.1613666 },
+    { "lat": 54.3285607, "lon": 10.1556543 },
+    { "lat": 54.3247832, "lon": 10.1505350 },
+    { "lat": 54.3205771, "lon": 10.1445831 },
+    { "lat": 54.3178239, "lon": 10.1405507 },
+    { "lat": 54.3168041, "lon": 10.1391693 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "19:00",
+    "ferry": "primary",
+    "foot": "yes",
+    "goods": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Kiel (D) – Oslo (N)",
+    "operator": "Color Line",
+    "route": "ferry",
+    "toll": "yes",
+    "trailer": "yes",
+    "wikidata": "Q19384908"
+  }
+},
+{
+  "type": "way",
+  "id": 363842091,
+  "bounds": {
+    "minlat": 56.0930447,
+    "minlon": 9.6855480,
+    "maxlat": 56.1241472,
+    "maxlon": 9.7535299
+  },
+  "geometry": [
+    { "lat": 56.0930619, "lon": 9.7535299 },
+    { "lat": 56.0930447, "lon": 9.7533331 },
+    { "lat": 56.0932362, "lon": 9.7531293 },
+    { "lat": 56.0936372, "lon": 9.7525285 },
+    { "lat": 56.0939185, "lon": 9.7519384 },
+    { "lat": 56.0940143, "lon": 9.7511874 },
+    { "lat": 56.0939305, "lon": 9.7502432 },
+    { "lat": 56.0937860, "lon": 9.7492546 },
+    { "lat": 56.0936715, "lon": 9.7481881 },
+    { "lat": 56.0939185, "lon": 9.7467027 },
+    { "lat": 56.0938946, "lon": 9.7455655 },
+    { "lat": 56.0937150, "lon": 9.7442995 },
+    { "lat": 56.0933679, "lon": 9.7425185 },
+    { "lat": 56.0933140, "lon": 9.7273157 },
+    { "lat": 56.0944991, "lon": 9.7251378 },
+    { "lat": 56.0951634, "lon": 9.7234426 },
+    { "lat": 56.0956661, "lon": 9.7228632 },
+    { "lat": 56.0961269, "lon": 9.7228740 },
+    { "lat": 56.0968570, "lon": 9.7232495 },
+    { "lat": 56.0987899, "lon": 9.7233139 },
+    { "lat": 56.0995439, "lon": 9.7230027 },
+    { "lat": 56.1004295, "lon": 9.7236143 },
+    { "lat": 56.1020511, "lon": 9.7243224 },
+    { "lat": 56.1027333, "lon": 9.7242365 },
+    { "lat": 56.1057728, "lon": 9.7208462 },
+    { "lat": 56.1062275, "lon": 9.7208999 },
+    { "lat": 56.1067959, "lon": 9.7212968 },
+    { "lat": 56.1071309, "lon": 9.7212968 },
+    { "lat": 56.1074779, "lon": 9.7211895 },
+    { "lat": 56.1083215, "lon": 9.7200737 },
+    { "lat": 56.1087522, "lon": 9.7197197 },
+    { "lat": 56.1094462, "lon": 9.7196231 },
+    { "lat": 56.1097932, "lon": 9.7194944 },
+    { "lat": 56.1102299, "lon": 9.7193013 },
+    { "lat": 56.1105948, "lon": 9.7190009 },
+    { "lat": 56.1108521, "lon": 9.7187219 },
+    { "lat": 56.1111033, "lon": 9.7183142 },
+    { "lat": 56.1112469, "lon": 9.7177992 },
+    { "lat": 56.1115500, "lon": 9.7165165 },
+    { "lat": 56.1119568, "lon": 9.7155295 },
+    { "lat": 56.1125071, "lon": 9.7142849 },
+    { "lat": 56.1129857, "lon": 9.7134695 },
+    { "lat": 56.1137514, "lon": 9.7129116 },
+    { "lat": 56.1148520, "lon": 9.7129116 },
+    { "lat": 56.1165268, "lon": 9.7127829 },
+    { "lat": 56.1174547, "lon": 9.7127738 },
+    { "lat": 56.1191934, "lon": 9.7119988 },
+    { "lat": 56.1203836, "lon": 9.7122502 },
+    { "lat": 56.1217216, "lon": 9.7150100 },
+    { "lat": 56.1217593, "lon": 9.7172504 },
+    { "lat": 56.1218669, "lon": 9.7195126 },
+    { "lat": 56.1225394, "lon": 9.7204882 },
+    { "lat": 56.1235745, "lon": 9.7200615 },
+    { "lat": 56.1241472, "lon": 9.7193869 },
+    { "lat": 56.1241283, "lon": 9.7177517 },
+    { "lat": 56.1228885, "lon": 9.7149530 },
+    { "lat": 56.1224930, "lon": 9.7133337 },
+    { "lat": 56.1221123, "lon": 9.7118715 },
+    { "lat": 56.1215139, "lon": 9.7098578 },
+    { "lat": 56.1213331, "lon": 9.7060273 },
+    { "lat": 56.1201325, "lon": 9.7034219 },
+    { "lat": 56.1188050, "lon": 9.7025241 },
+    { "lat": 56.1176522, "lon": 9.7031035 },
+    { "lat": 56.1169906, "lon": 9.7025257 },
+    { "lat": 56.1100439, "lon": 9.6859635 },
+    { "lat": 56.1100051, "lon": 9.6857408 },
+    { "lat": 56.1099886, "lon": 9.6856899 },
+    { "lat": 56.1099309, "lon": 9.6855480 }
+  ],
+  "tags": {
+    "motor_vehicle": "no",
+    "name": "Ry - Himmelbjerget",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "route": "ferry",
+    "website": "http://hjejlen.com/"
+  }
+},
+{
+  "type": "way",
+  "id": 392728788,
+  "bounds": {
+    "minlat": 55.6670694,
+    "minlon": 10.6447315,
+    "maxlat": 55.8105445,
+    "maxlon": 11.0911964
+  },
+  "geometry": [
+    { "lat": 55.8076853, "lon": 10.6447315 },
+    { "lat": 55.8080240, "lon": 10.6454876 },
+    { "lat": 55.8084078, "lon": 10.6463254 },
+    { "lat": 55.8087839, "lon": 10.6471242 },
+    { "lat": 55.8091511, "lon": 10.6474235 },
+    { "lat": 55.8097173, "lon": 10.6478316 },
+    { "lat": 55.8102836, "lon": 10.6482591 },
+    { "lat": 55.8104966, "lon": 10.6487958 },
+    { "lat": 55.8105445, "lon": 10.6494505 },
+    { "lat": 55.8102892, "lon": 10.6510644 },
+    { "lat": 55.8096541, "lon": 10.6524993 },
+    { "lat": 55.7302967, "lon": 10.8079732 },
+    { "lat": 55.6867438, "lon": 10.9522760 },
+    { "lat": 55.6716437, "lon": 11.0374834 },
+    { "lat": 55.6671178, "lon": 11.0675885 },
+    { "lat": 55.6670694, "lon": 11.0714723 },
+    { "lat": 55.6684006, "lon": 11.0830809 },
+    { "lat": 55.6693458, "lon": 11.0857428 },
+    { "lat": 55.6757206, "lon": 11.0909895 },
+    { "lat": 55.6770017, "lon": 11.0911964 }
+  ],
+  "tags": {
+    "alt_name": "Ballen - Kalundborg",
+    "bicycle": "yes",
+    "duration": "1:15",
+    "foot": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Samsøfærgen",
+    "route": "ferry",
+    "website": "https://www.faergen.dk/ruter/samsoefaergen",
+    "wikidata": "Q12334455",
+    "wikipedia": "da:Samsølinjen"
+  }
+},
+{
+  "type": "way",
+  "id": 409892450,
+  "bounds": {
+    "minlat": 54.3175871,
+    "minlon": 10.1368028,
+    "maxlat": 57.6958324,
+    "maxlon": 11.9143932
+  },
+  "geometry": [
+    { "lat": 57.6958324, "lon": 11.9143932 },
+    { "lat": 57.6954000, "lon": 11.9132820 },
+    { "lat": 57.6953874, "lon": 11.9132496 },
+    { "lat": 57.6950785, "lon": 11.9124586 },
+    { "lat": 57.6945847, "lon": 11.9112133 },
+    { "lat": 57.6916472, "lon": 11.9031468 },
+    { "lat": 57.6912957, "lon": 11.9021521 },
+    { "lat": 57.6909614, "lon": 11.9011368 },
+    { "lat": 57.6906447, "lon": 11.9001019 },
+    { "lat": 57.6903460, "lon": 11.8990485 },
+    { "lat": 57.6903218, "lon": 11.8989599 },
+    { "lat": 57.6900950, "lon": 11.8981059 },
+    { "lat": 57.6898778, "lon": 11.8972431 },
+    { "lat": 57.6896705, "lon": 11.8963719 },
+    { "lat": 57.6892855, "lon": 11.8946059 },
+    { "lat": 57.6886596, "lon": 11.8915511 },
+    { "lat": 57.6885430, "lon": 11.8909674 },
+    { "lat": 57.6884315, "lon": 11.8903803 },
+    { "lat": 57.6883252, "lon": 11.8897898 },
+    { "lat": 57.6882241, "lon": 11.8891961 },
+    { "lat": 57.6881282, "lon": 11.8885994 },
+    { "lat": 57.6880376, "lon": 11.8879998 },
+    { "lat": 57.6879523, "lon": 11.8873976 },
+    { "lat": 57.6878723, "lon": 11.8867927 },
+    { "lat": 57.6877225, "lon": 11.8856193 },
+    { "lat": 57.6876547, "lon": 11.8850774 },
+    { "lat": 57.6875896, "lon": 11.8845345 },
+    { "lat": 57.6875270, "lon": 11.8839905 },
+    { "lat": 57.6874671, "lon": 11.8834454 },
+    { "lat": 57.6874098, "lon": 11.8828993 },
+    { "lat": 57.6872641, "lon": 11.8814770 },
+    { "lat": 57.6866079, "lon": 11.8740049 },
+    { "lat": 57.6864440, "lon": 11.8722140 },
+    { "lat": 57.6862670, "lon": 11.8704274 },
+    { "lat": 57.6860770, "lon": 11.8686455 },
+    { "lat": 57.6858740, "lon": 11.8668686 },
+    { "lat": 57.6856582, "lon": 11.8650971 },
+    { "lat": 57.6854294, "lon": 11.8633312 },
+    { "lat": 57.6851879, "lon": 11.8615713 },
+    { "lat": 57.6849335, "lon": 11.8598177 },
+    { "lat": 57.6841033, "lon": 11.8542452 },
+    { "lat": 57.6837474, "lon": 11.8518264 },
+    { "lat": 57.6833999, "lon": 11.8494034 },
+    { "lat": 57.6830606, "lon": 11.8469763 },
+    { "lat": 57.6827298, "lon": 11.8445451 },
+    { "lat": 57.6824072, "lon": 11.8421100 },
+    { "lat": 57.6820931, "lon": 11.8396711 },
+    { "lat": 57.6817873, "lon": 11.8372285 },
+    { "lat": 57.6814899, "lon": 11.8347822 },
+    { "lat": 57.6812010, "lon": 11.8323324 },
+    { "lat": 57.6809204, "lon": 11.8298792 },
+    { "lat": 57.6798273, "lon": 11.8201681 },
+    { "lat": 57.6797050, "lon": 11.8191529 },
+    { "lat": 57.6795673, "lon": 11.8181445 },
+    { "lat": 57.6794144, "lon": 11.8171438 },
+    { "lat": 57.6792465, "lon": 11.8161516 },
+    { "lat": 57.6790635, "lon": 11.8151688 },
+    { "lat": 57.6788658, "lon": 11.8141960 },
+    { "lat": 57.6786534, "lon": 11.8132340 },
+    { "lat": 57.6784265, "lon": 11.8122837 },
+    { "lat": 57.6781854, "lon": 11.8113458 },
+    { "lat": 57.6779301, "lon": 11.8104211 },
+    { "lat": 57.6778751, "lon": 11.8102287 },
+    { "lat": 57.6776066, "lon": 11.8093162 },
+    { "lat": 57.6773262, "lon": 11.8084162 },
+    { "lat": 57.6770341, "lon": 11.8075294 },
+    { "lat": 57.6767304, "lon": 11.8066562 },
+    { "lat": 57.6764153, "lon": 11.8057973 },
+    { "lat": 57.6760890, "lon": 11.8049531 },
+    { "lat": 57.6757518, "lon": 11.8041242 },
+    { "lat": 57.6754037, "lon": 11.8033110 },
+    { "lat": 57.6750451, "lon": 11.8025140 },
+    { "lat": 57.6746761, "lon": 11.8017338 },
+    { "lat": 57.6659215, "lon": 11.7836760 },
+    { "lat": 57.6655246, "lon": 11.7828692 },
+    { "lat": 57.6651215, "lon": 11.7820732 },
+    { "lat": 57.6647123, "lon": 11.7812882 },
+    { "lat": 57.6642970, "lon": 11.7805143 },
+    { "lat": 57.6638758, "lon": 11.7797518 },
+    { "lat": 57.6634487, "lon": 11.7790007 },
+    { "lat": 57.6621053, "lon": 11.7766721 },
+    { "lat": 57.6616230, "lon": 11.7757911 },
+    { "lat": 57.6611660, "lon": 11.7748640 },
+    { "lat": 57.6607356, "lon": 11.7738935 },
+    { "lat": 57.6603330, "lon": 11.7728822 },
+    { "lat": 57.6599592, "lon": 11.7718329 },
+    { "lat": 57.6596154, "lon": 11.7707484 },
+    { "lat": 57.6593024, "lon": 11.7696317 },
+    { "lat": 57.6590211, "lon": 11.7684860 },
+    { "lat": 57.6587723, "lon": 11.7673142 },
+    { "lat": 57.6585567, "lon": 11.7661197 },
+    { "lat": 57.6509121, "lon": 11.7200525 },
+    { "lat": 57.6507740, "lon": 11.7192616 },
+    { "lat": 57.6506236, "lon": 11.7184785 },
+    { "lat": 57.6504609, "lon": 11.7177041 },
+    { "lat": 57.6502861, "lon": 11.7169389 },
+    { "lat": 57.6500995, "lon": 11.7161836 },
+    { "lat": 57.6499010, "lon": 11.7154389 },
+    { "lat": 57.6496909, "lon": 11.7147053 },
+    { "lat": 57.6494695, "lon": 11.7139836 },
+    { "lat": 57.6492368, "lon": 11.7132743 },
+    { "lat": 57.6489930, "lon": 11.7125781 },
+    { "lat": 57.6489408, "lon": 11.7124336 },
+    { "lat": 57.6486864, "lon": 11.7117681 },
+    { "lat": 57.6484136, "lon": 11.7111285 },
+    { "lat": 57.6481232, "lon": 11.7105166 },
+    { "lat": 57.6478160, "lon": 11.7099341 },
+    { "lat": 57.6474929, "lon": 11.7093825 },
+    { "lat": 57.6471547, "lon": 11.7088634 },
+    { "lat": 57.6468023, "lon": 11.7083783 },
+    { "lat": 57.6464368, "lon": 11.7079285 },
+    { "lat": 57.6460591, "lon": 11.7075152 },
+    { "lat": 57.6456703, "lon": 11.7071395 },
+    { "lat": 57.6451960, "lon": 11.7067104 },
+    { "lat": 57.6429345, "lon": 11.7046189 },
+    { "lat": 57.6406926, "lon": 11.7024543 },
+    { "lat": 57.6384710, "lon": 11.7002173 },
+    { "lat": 57.6362704, "lon": 11.6979085 },
+    { "lat": 57.6340915, "lon": 11.6955288 },
+    { "lat": 57.6319349, "lon": 11.6930787 },
+    { "lat": 57.6298013, "lon": 11.6905590 },
+    { "lat": 57.6276913, "lon": 11.6879705 },
+    { "lat": 57.6256056, "lon": 11.6853139 },
+    { "lat": 57.6235448, "lon": 11.6825901 },
+    { "lat": 57.6228462, "lon": 11.6816498 },
+    { "lat": 57.6194845, "lon": 11.6771683 },
+    { "lat": 57.6161005, "lon": 11.6727444 },
+    { "lat": 57.6126947, "lon": 11.6683786 },
+    { "lat": 57.6092673, "lon": 11.6640712 },
+    { "lat": 57.6058186, "lon": 11.6598227 },
+    { "lat": 57.6023488, "lon": 11.6556333 },
+    { "lat": 57.5988583, "lon": 11.6515034 },
+    { "lat": 57.5953473, "lon": 11.6474333 },
+    { "lat": 57.5918161, "lon": 11.6434235 },
+    { "lat": 57.5882651, "lon": 11.6394742 },
+    { "lat": 57.5551969, "lon": 11.6030978 },
+    { "lat": 57.5307656, "lon": 11.5926458 },
+    { "lat": 57.5059133, "lon": 11.5897091 },
+    { "lat": 57.0835773, "lon": 11.6667289 },
+    { "lat": 56.7520761, "lon": 11.8675878 },
+    { "lat": 56.1220967, "lon": 11.1785861 },
+    { "lat": 55.9563265, "lon": 11.0019035 },
+    { "lat": 55.9040838, "lon": 10.9282500 },
+    { "lat": 55.8728176, "lon": 10.8821358 },
+    { "lat": 55.8537481, "lon": 10.8560141 },
+    { "lat": 55.8348340, "lon": 10.8298333 },
+    { "lat": 55.8121142, "lon": 10.8109955 },
+    { "lat": 55.7286026, "lon": 10.7963919 },
+    { "lat": 55.6485416, "lon": 10.7704725 },
+    { "lat": 55.5628690, "lon": 10.8383281 },
+    { "lat": 55.4606434, "lon": 10.9226015 },
+    { "lat": 55.3641546, "lon": 11.0379648 },
+    { "lat": 55.3185541, "lon": 11.0395992 },
+    { "lat": 55.2486007, "lon": 11.0906499 },
+    { "lat": 55.2379552, "lon": 11.0970067 },
+    { "lat": 55.2250410, "lon": 11.0999865 },
+    { "lat": 55.2098557, "lon": 11.0989932 },
+    { "lat": 55.2011273, "lon": 11.0918418 },
+    { "lat": 55.1921965, "lon": 11.0704419 },
+    { "lat": 55.1829845, "lon": 11.0501858 },
+    { "lat": 55.1649464, "lon": 11.0055539 },
+    { "lat": 55.1504315, "lon": 10.9901043 },
+    { "lat": 55.0915331, "lon": 10.9842680 },
+    { "lat": 55.0752226, "lon": 10.9904478 },
+    { "lat": 55.0630345, "lon": 10.9962843 },
+    { "lat": 55.0508427, "lon": 10.9971426 },
+    { "lat": 55.0387455, "lon": 10.9947394 },
+    { "lat": 54.9719979, "lon": 10.9628104 },
+    { "lat": 54.9664799, "lon": 10.9550857 },
+    { "lat": 54.9420338, "lon": 10.8865927 },
+    { "lat": 54.8813224, "lon": 10.8410167 },
+    { "lat": 54.8722115, "lon": 10.8350515 },
+    { "lat": 54.8072892, "lon": 10.8335495 },
+    { "lat": 54.8015754, "lon": 10.8328199 },
+    { "lat": 54.7965041, "lon": 10.8296012 },
+    { "lat": 54.7377536, "lon": 10.7803344 },
+    { "lat": 54.6506297, "lon": 10.7147302 },
+    { "lat": 54.5871374, "lon": 10.5905159 },
+    { "lat": 54.5648832, "lon": 10.5196133 },
+    { "lat": 54.5020198, "lon": 10.3033603 },
+    { "lat": 54.4725689, "lon": 10.2622038 },
+    { "lat": 54.4285100, "lon": 10.2163875 },
+    { "lat": 54.4136413, "lon": 10.2069112 },
+    { "lat": 54.3993845, "lon": 10.1990748 },
+    { "lat": 54.3898212, "lon": 10.1985636 },
+    { "lat": 54.3700967, "lon": 10.1741871 },
+    { "lat": 54.3619917, "lon": 10.1656000 },
+    { "lat": 54.3463690, "lon": 10.1634526 },
+    { "lat": 54.3380917, "lon": 10.1624288 },
+    { "lat": 54.3338965, "lon": 10.1609248 },
+    { "lat": 54.3287439, "lon": 10.1552057 },
+    { "lat": 54.3248068, "lon": 10.1499192 },
+    { "lat": 54.3207436, "lon": 10.1441907 },
+    { "lat": 54.3179974, "lon": 10.1392282 },
+    { "lat": 54.3177843, "lon": 10.1386535 },
+    { "lat": 54.3176700, "lon": 10.1382673 },
+    { "lat": 54.3176153, "lon": 10.1379481 },
+    { "lat": 54.3175871, "lon": 10.1376343 },
+    { "lat": 54.3175934, "lon": 10.1373043 },
+    { "lat": 54.3176388, "lon": 10.1370388 },
+    { "lat": 54.3177123, "lon": 10.1368806 },
+    { "lat": 54.3177843, "lon": 10.1368189 },
+    { "lat": 54.3178609, "lon": 10.1368028 },
+    { "lat": 54.3179282, "lon": 10.1368430 },
+    { "lat": 54.3179767, "lon": 10.1368913 },
+    { "lat": 54.3180703, "lon": 10.1370920 },
+    { "lat": 54.3185568, "lon": 10.1381524 },
+    { "lat": 54.3192111, "lon": 10.1395470 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "brand": "Stena Line",
+    "brand:wikidata": "Q833903",
+    "duration": "14:30",
+    "ferry": "primary",
+    "foot": "yes",
+    "from": "Kiel",
+    "goods": "yes",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "motorcycle": "yes",
+    "name": "Kiel (D) – Göteborg (S)",
+    "operator": "Stena Line",
+    "operator:addr:country": "SE",
+    "operator:official_name": "Stena Line Scandinavia AB",
+    "operator:wikidata": "Q833903",
+    "route": "ferry",
+    "to": "Göteborg",
+    "toll": "yes",
+    "trailer": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 436079268,
+  "bounds": {
+    "minlat": 55.8653589,
+    "minlon": 10.2154164,
+    "maxlat": 56.1615024,
+    "maxlon": 10.5493442
+  },
+  "geometry": [
+    { "lat": 55.8653589, "lon": 10.5484019 },
+    { "lat": 55.8655939, "lon": 10.5489187 },
+    { "lat": 55.8669496, "lon": 10.5493442 },
+    { "lat": 55.9148829, "lon": 10.5221342 },
+    { "lat": 55.9639203, "lon": 10.4809446 },
+    { "lat": 56.1598886, "lon": 10.2550208 },
+    { "lat": 56.1612047, "lon": 10.2442170 },
+    { "lat": 56.1615024, "lon": 10.2303746 },
+    { "lat": 56.1574682, "lon": 10.2198209 },
+    { "lat": 56.1545984, "lon": 10.2170169 },
+    { "lat": 56.1538940, "lon": 10.2154164 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "1:00",
+    "foot": "yes",
+    "from": "Aarhus",
+    "motor_vehicle": "no",
+    "name": "Aarhus - Sælvig",
+    "operator": "Samsø Rederi",
+    "route": "ferry",
+    "to": "Sælvig",
+    "toll": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 441112614,
+  "bounds": {
+    "minlat": 55.5361681,
+    "minlon": 9.4006866,
+    "maxlat": 55.5365941,
+    "maxlon": 9.4008053
+  },
+  "geometry": [
+    { "lat": 55.5361681, "lon": 9.4006866 },
+    { "lat": 55.5365941, "lon": 9.4008053 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "ferry:cable": "yes",
+    "foot": "yes",
+    "hgv": "no",
+    "motor_vehicle": "no",
+    "name": "Ferup Færgen",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 590873074,
+  "bounds": {
+    "minlat": 55.4605195,
+    "minlon": 8.4398357,
+    "maxlat": 55.4621634,
+    "maxlon": 8.4417501
+  },
+  "geometry": [
+    { "lat": 55.4613514, "lon": 8.4402568 },
+    { "lat": 55.4612404, "lon": 8.4399590 },
+    { "lat": 55.4610183, "lon": 8.4402246 },
+    { "lat": 55.4608800, "lon": 8.4398357 },
+    { "lat": 55.4605195, "lon": 8.4402648 },
+    { "lat": 55.4609529, "lon": 8.4414745 },
+    { "lat": 55.4612601, "lon": 8.4411446 },
+    { "lat": 55.4614593, "lon": 8.4417025 },
+    { "lat": 55.4619060, "lon": 8.4417501 },
+    { "lat": 55.4619452, "lon": 8.4417280 },
+    { "lat": 55.4619881, "lon": 8.4416342 },
+    { "lat": 55.4620433, "lon": 8.4414564 },
+    { "lat": 55.4620752, "lon": 8.4413954 },
+    { "lat": 55.4621634, "lon": 8.4412867 },
+    { "lat": 55.4620996, "lon": 8.4410990 },
+    { "lat": 55.4620220, "lon": 8.4410883 },
+    { "lat": 55.4616890, "lon": 8.4410502 },
+    { "lat": 55.4616047, "lon": 8.4409927 },
+    { "lat": 55.4615258, "lon": 8.4408825 },
+    { "lat": 55.4612553, "lon": 8.4405153 },
+    { "lat": 55.4612551, "lon": 8.4404123 },
+    { "lat": 55.4612860, "lon": 8.4403480 },
+    { "lat": 55.4613514, "lon": 8.4402568 }
+  ],
+  "tags": {
+    "alt_name": "Fanøfærgeriet",
+    "amenity": "ferry_terminal",
+    "contact:website": "https://www.faergen.dk/ruter/fanoefaergen/",
+    "ferry": "yes",
+    "name": "FanøFærgen",
+    "public_transport": "station",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 619580540,
+  "bounds": {
+    "minlat": 54.8232599,
+    "minlon": 9.6541567,
+    "maxlat": 54.9107750,
+    "maxlon": 9.7853619
+  },
+  "geometry": [
+    { "lat": 54.9107750, "lon": 9.7853619 },
+    { "lat": 54.9094700, "lon": 9.7834265 },
+    { "lat": 54.9069412, "lon": 9.7813022 },
+    { "lat": 54.9053498, "lon": 9.7824823 },
+    { "lat": 54.9028454, "lon": 9.7818601 },
+    { "lat": 54.8922092, "lon": 9.7583854 },
+    { "lat": 54.8591720, "lon": 9.7687280 },
+    { "lat": 54.8445337, "lon": 9.7661316 },
+    { "lat": 54.8351673, "lon": 9.7602093 },
+    { "lat": 54.8307552, "lon": 9.7290527 },
+    { "lat": 54.8276141, "lon": 9.6562434 },
+    { "lat": 54.8275911, "lon": 9.6557104 },
+    { "lat": 54.8232599, "lon": 9.6541567 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "00:55",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Langballigau - Sønderborg",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 708175581,
+  "bounds": {
+    "minlat": 56.1482315,
+    "minlon": 10.2476021,
+    "maxlat": 56.1523912,
+    "maxlon": 10.2548280
+  },
+  "geometry": [
+    { "lat": 56.1523912, "lon": 10.2517283 },
+    { "lat": 56.1521780, "lon": 10.2514940 },
+    { "lat": 56.1520403, "lon": 10.2514759 },
+    { "lat": 56.1519163, "lon": 10.2514131 },
+    { "lat": 56.1517347, "lon": 10.2513579 },
+    { "lat": 56.1511692, "lon": 10.2510998 },
+    { "lat": 56.1501260, "lon": 10.2502387 },
+    { "lat": 56.1498448, "lon": 10.2498072 },
+    { "lat": 56.1486543, "lon": 10.2479474 },
+    { "lat": 56.1484333, "lon": 10.2476021 },
+    { "lat": 56.1482315, "lon": 10.2480689 },
+    { "lat": 56.1491714, "lon": 10.2503354 },
+    { "lat": 56.1504174, "lon": 10.2546457 },
+    { "lat": 56.1504786, "lon": 10.2548280 },
+    { "lat": 56.1505937, "lon": 10.2547985 },
+    { "lat": 56.1510322, "lon": 10.2543560 },
+    { "lat": 56.1511136, "lon": 10.2543654 },
+    { "lat": 56.1516006, "lon": 10.2547663 },
+    { "lat": 56.1516723, "lon": 10.2545330 },
+    { "lat": 56.1517392, "lon": 10.2542527 },
+    { "lat": 56.1520282, "lon": 10.2530942 },
+    { "lat": 56.1520712, "lon": 10.2529183 },
+    { "lat": 56.1521811, "lon": 10.2524368 },
+    { "lat": 56.1522710, "lon": 10.2521472 },
+    { "lat": 56.1523912, "lon": 10.2517283 }
+  ],
+  "tags": {
+    "amenity": "ferry_terminal",
+    "ferry": "yes",
+    "name": "Molslinjen Aarhus",
+    "operator": "Molslinien A/S",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "way",
+  "id": 738902150,
+  "bounds": {
+    "minlat": 56.1257601,
+    "minlon": 9.6386997,
+    "maxlat": 56.1266990,
+    "maxlon": 9.6391202
+  },
+  "geometry": [
+    { "lat": 56.1257601, "lon": 9.6386997 },
+    { "lat": 56.1266131, "lon": 9.6391202 },
+    { "lat": 56.1266990, "lon": 9.6390951 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "duration": "00:05",
+    "fee": "yes",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Solfærgen",
+    "operator": "Skyttehusets Outdoor Camp",
+    "phone": "+45 86 84 51 11",
+    "reservation": "only",
+    "route": "ferry",
+    "website": "https://www.skyttehusetscamping.dk/solfaergen.aspx"
+  }
+},
+{
+  "type": "way",
+  "id": 766352393,
+  "bounds": {
+    "minlat": 54.8564101,
+    "minlon": 10.5215251,
+    "maxlat": 54.9385465,
+    "maxlon": 10.7034146
+  },
+  "geometry": [
+    { "lat": 54.8564101, "lon": 10.5215251 },
+    { "lat": 54.8567943, "lon": 10.5220882 },
+    { "lat": 54.8613078, "lon": 10.5217910 },
+    { "lat": 54.8679114, "lon": 10.5216301 },
+    { "lat": 54.8684671, "lon": 10.5220592 },
+    { "lat": 54.8687110, "lon": 10.5227190 },
+    { "lat": 54.8724213, "lon": 10.5467355 },
+    { "lat": 54.8765923, "lon": 10.5870613 },
+    { "lat": 54.8785128, "lon": 10.6058295 },
+    { "lat": 54.8787846, "lon": 10.6187105 },
+    { "lat": 54.8921495, "lon": 10.6365873 },
+    { "lat": 54.9095413, "lon": 10.6585232 },
+    { "lat": 54.9254896, "lon": 10.6737113 },
+    { "lat": 54.9359938, "lon": 10.6967353 },
+    { "lat": 54.9385465, "lon": 10.7025780 },
+    { "lat": 54.9383585, "lon": 10.7034146 },
+    { "lat": 54.9375431, "lon": 10.7033078 }
+  ],
+  "tags": {
+    "duration": "0:50",
+    "email": "info@aeroexpressen.dk",
+    "hgv": "yes",
+    "motor_vehicle": "yes",
+    "name": "Marstal - Rudkøbing",
+    "operator": "ÆrøXpressen",
+    "phone": "+45 73707800",
+    "route": "ferry",
+    "website": "https://www.aeroexpressen.dk",
+    "wikimedia_commons": "File:MF ÆrøXpressen.1.JPG"
+  }
+},
+{
+  "type": "way",
+  "id": 966032778,
+  "bounds": {
+    "minlat": 54.8603681,
+    "minlon": 8.9521736,
+    "maxlat": 54.8605936,
+    "maxlon": 8.9527313
+  },
+  "geometry": [
+    { "lat": 54.8605936, "lon": 8.9521736 },
+    { "lat": 54.8603681, "lon": 8.9527313 }
+  ],
+  "tags": {
+    "foot": "no",
+    "motor_vehicle": "no",
+    "route": "ferry"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937306,
+  "bounds": {
+    "minlat": 56.1652050,
+    "minlon": 9.5549182,
+    "maxlat": 56.1696265,
+    "maxlon": 9.5556844
+  },
+  "geometry": [
+    { "lat": 56.1696265, "lon": 9.5556189 },
+    { "lat": 56.1694607, "lon": 9.5554583 },
+    { "lat": 56.1692964, "lon": 9.5552633 },
+    { "lat": 56.1686010, "lon": 9.5553730 },
+    { "lat": 56.1673906, "lon": 9.5556844 },
+    { "lat": 56.1664256, "lon": 9.5555323 },
+    { "lat": 56.1655351, "lon": 9.5551168 },
+    { "lat": 56.1652674, "lon": 9.5550102 },
+    { "lat": 56.1652050, "lon": 9.5549182 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:05",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937307,
+  "bounds": {
+    "minlat": 56.1583947,
+    "minlon": 9.5549182,
+    "maxlat": 56.1652050,
+    "maxlon": 9.5648824
+  },
+  "geometry": [
+    { "lat": 56.1652050, "lon": 9.5549182 },
+    { "lat": 56.1649798, "lon": 9.5552834 },
+    { "lat": 56.1647132, "lon": 9.5553137 },
+    { "lat": 56.1640035, "lon": 9.5550567 },
+    { "lat": 56.1636506, "lon": 9.5553877 },
+    { "lat": 56.1629805, "lon": 9.5581246 },
+    { "lat": 56.1627170, "lon": 9.5594352 },
+    { "lat": 56.1616040, "lon": 9.5611537 },
+    { "lat": 56.1608820, "lon": 9.5618972 },
+    { "lat": 56.1602647, "lon": 9.5623615 },
+    { "lat": 56.1586200, "lon": 9.5647876 },
+    { "lat": 56.1584678, "lon": 9.5648526 },
+    { "lat": 56.1583947, "lon": 9.5648824 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:15",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937310,
+  "bounds": {
+    "minlat": 56.1492789,
+    "minlon": 9.5644407,
+    "maxlat": 56.1583947,
+    "maxlon": 9.5716824
+  },
+  "geometry": [
+    { "lat": 56.1583947, "lon": 9.5648824 },
+    { "lat": 56.1579922, "lon": 9.5657137 },
+    { "lat": 56.1570931, "lon": 9.5668984 },
+    { "lat": 56.1564197, "lon": 9.5671197 },
+    { "lat": 56.1550625, "lon": 9.5671079 },
+    { "lat": 56.1545439, "lon": 9.5672385 },
+    { "lat": 56.1537983, "lon": 9.5676215 },
+    { "lat": 56.1531038, "lon": 9.5681274 },
+    { "lat": 56.1524318, "lon": 9.5693481 },
+    { "lat": 56.1515840, "lon": 9.5706385 },
+    { "lat": 56.1504765, "lon": 9.5716824 },
+    { "lat": 56.1498168, "lon": 9.5713878 },
+    { "lat": 56.1492789, "lon": 9.5704329 },
+    { "lat": 56.1495120, "lon": 9.5684695 },
+    { "lat": 56.1514208, "lon": 9.5644407 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:10",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937311,
+  "bounds": {
+    "minlat": 56.1438580,
+    "minlon": 9.5644407,
+    "maxlat": 56.1514208,
+    "maxlon": 9.5862588
+  },
+  "geometry": [
+    { "lat": 56.1514208, "lon": 9.5644407 },
+    { "lat": 56.1493566, "lon": 9.5684588 },
+    { "lat": 56.1487657, "lon": 9.5725445 },
+    { "lat": 56.1477583, "lon": 9.5736718 },
+    { "lat": 56.1472964, "lon": 9.5743340 },
+    { "lat": 56.1466729, "lon": 9.5760123 },
+    { "lat": 56.1464793, "lon": 9.5794005 },
+    { "lat": 56.1440752, "lon": 9.5827446 },
+    { "lat": 56.1438580, "lon": 9.5854747 },
+    { "lat": 56.1439058, "lon": 9.5862588 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:5",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937312,
+  "bounds": {
+    "minlat": 56.1265123,
+    "minlon": 9.5862588,
+    "maxlat": 56.1439058,
+    "maxlon": 9.6127649
+  },
+  "geometry": [
+    { "lat": 56.1439058, "lon": 9.5862588 },
+    { "lat": 56.1393171, "lon": 9.5882378 },
+    { "lat": 56.1385068, "lon": 9.5892544 },
+    { "lat": 56.1382949, "lon": 9.5896841 },
+    { "lat": 56.1382271, "lon": 9.5901738 },
+    { "lat": 56.1383508, "lon": 9.5909189 },
+    { "lat": 56.1385520, "lon": 9.5927439 },
+    { "lat": 56.1386954, "lon": 9.5941172 },
+    { "lat": 56.1387199, "lon": 9.5949465 },
+    { "lat": 56.1385520, "lon": 9.5954905 },
+    { "lat": 56.1382453, "lon": 9.5957668 },
+    { "lat": 56.1379153, "lon": 9.5957764 },
+    { "lat": 56.1375372, "lon": 9.5960039 },
+    { "lat": 56.1369188, "lon": 9.5976926 },
+    { "lat": 56.1365341, "lon": 9.5989457 },
+    { "lat": 56.1356286, "lon": 9.6006725 },
+    { "lat": 56.1352281, "lon": 9.6022282 },
+    { "lat": 56.1342237, "lon": 9.6039019 },
+    { "lat": 56.1301682, "lon": 9.6110720 },
+    { "lat": 56.1271543, "lon": 9.6123183 },
+    { "lat": 56.1265123, "lon": 9.6127649 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:10",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937313,
+  "bounds": {
+    "minlat": 56.1260706,
+    "minlon": 9.6127649,
+    "maxlat": 56.1285914,
+    "maxlon": 9.6383433
+  },
+  "geometry": [
+    { "lat": 56.1265123, "lon": 9.6127649 },
+    { "lat": 56.1279017, "lon": 9.6149683 },
+    { "lat": 56.1285914, "lon": 9.6231494 },
+    { "lat": 56.1281118, "lon": 9.6291769 },
+    { "lat": 56.1281651, "lon": 9.6354200 },
+    { "lat": 56.1278380, "lon": 9.6358738 },
+    { "lat": 56.1274553, "lon": 9.6358738 },
+    { "lat": 56.1268334, "lon": 9.6357451 },
+    { "lat": 56.1262832, "lon": 9.6358309 },
+    { "lat": 56.1261158, "lon": 9.6367751 },
+    { "lat": 56.1260706, "lon": 9.6377479 },
+    { "lat": 56.1262887, "lon": 9.6382874 },
+    { "lat": 56.1263918, "lon": 9.6383433 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:13",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937314,
+  "bounds": {
+    "minlat": 56.1260100,
+    "minlon": 9.6383433,
+    "maxlat": 56.1263918,
+    "maxlon": 9.6398904
+  },
+  "geometry": [
+    { "lat": 56.1263918, "lon": 9.6383433 },
+    { "lat": 56.1260958, "lon": 9.6386039 },
+    { "lat": 56.1260100, "lon": 9.6398904 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:01",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937316,
+  "bounds": {
+    "minlat": 56.1260100,
+    "minlon": 9.6398904,
+    "maxlat": 56.1292948,
+    "maxlon": 9.6435898
+  },
+  "geometry": [
+    { "lat": 56.1260100, "lon": 9.6398904 },
+    { "lat": 56.1264217, "lon": 9.6411520 },
+    { "lat": 56.1291948, "lon": 9.6434762 },
+    { "lat": 56.1292948, "lon": 9.6435898 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:04",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1046937317,
+  "bounds": {
+    "minlat": 56.1099309,
+    "minlon": 9.6435898,
+    "maxlat": 56.1292948,
+    "maxlon": 9.6855480
+  },
+  "geometry": [
+    { "lat": 56.1099309, "lon": 9.6855480 },
+    { "lat": 56.1132688, "lon": 9.6828983 },
+    { "lat": 56.1137689, "lon": 9.6821194 },
+    { "lat": 56.1196199, "lon": 9.6666141 },
+    { "lat": 56.1227382, "lon": 9.6496432 },
+    { "lat": 56.1242979, "lon": 9.6467314 },
+    { "lat": 56.1262910, "lon": 9.6436919 },
+    { "lat": 56.1292948, "lon": 9.6435898 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "00:25",
+    "fee": "yes",
+    "ferry": "tourist",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "operator": "Hjejleselskabet",
+    "phone": "+45 86 82 07 66",
+    "reservation": "no",
+    "route": "ferry",
+    "website": "https://hjejleselskabet.dk"
+  }
+},
+{
+  "type": "way",
+  "id": 1066483703,
+  "bounds": {
+    "minlat": 55.8223857,
+    "minlon": 10.0383654,
+    "maxlat": 55.8412423,
+    "maxlon": 10.0637286
+  },
+  "geometry": [
+    { "lat": 55.8223857, "lon": 10.0636546 },
+    { "lat": 55.8224350, "lon": 10.0637286 },
+    { "lat": 55.8224852, "lon": 10.0637125 },
+    { "lat": 55.8225801, "lon": 10.0635156 },
+    { "lat": 55.8226328, "lon": 10.0598809 },
+    { "lat": 55.8231125, "lon": 10.0585859 },
+    { "lat": 55.8238839, "lon": 10.0572126 },
+    { "lat": 55.8412423, "lon": 10.0383654 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "capacity:persons": "12",
+    "charge": "95 DKK",
+    "duration": "00:25",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Cykelfærgen",
+    "reservation": "recommended",
+    "route": "ferry",
+    "toll": "yes",
+    "website": "https://www.kystlandet.dk/kystlandet/billetter"
+  }
+},
+{
+  "type": "way",
+  "id": 1082245309,
+  "bounds": {
+    "minlat": 54.8232599,
+    "minlon": 9.6137365,
+    "maxlat": 54.8980727,
+    "maxlon": 9.6541567
+  },
+  "geometry": [
+    { "lat": 54.8232599, "lon": 9.6541567 },
+    { "lat": 54.8651979, "lon": 9.6344518 },
+    { "lat": 54.8661117, "lon": 9.6346557 },
+    { "lat": 54.8666118, "lon": 9.6349856 },
+    { "lat": 54.8666334, "lon": 9.6350286 },
+    { "lat": 54.8668603, "lon": 9.6359639 },
+    { "lat": 54.8965396, "lon": 9.6141314 },
+    { "lat": 54.8970830, "lon": 9.6138201 },
+    { "lat": 54.8974940, "lon": 9.6137365 },
+    { "lat": 54.8977421, "lon": 9.6138982 },
+    { "lat": 54.8978711, "lon": 9.6141061 },
+    { "lat": 54.8979752, "lon": 9.6143527 },
+    { "lat": 54.8980727, "lon": 9.6146303 },
+    { "lat": 54.8979737, "lon": 9.6158597 },
+    { "lat": 54.8979160, "lon": 9.6160796 },
+    { "lat": 54.8978169, "lon": 9.6161337 },
+    { "lat": 54.8975919, "lon": 9.6160214 },
+    { "lat": 54.8974228, "lon": 9.6160583 },
+    { "lat": 54.8965662, "lon": 9.6168704 },
+    { "lat": 54.8964475, "lon": 9.6177286 },
+    { "lat": 54.8970661, "lon": 9.6195773 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "capacity:persons": "12",
+    "duration": "01:00",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Cykelfærgen",
+    "name:da": "Cykelfærgen",
+    "operator": "Cykelfærgen",
+    "phone": "+45 20 25 64 62",
+    "route": "ferry",
+    "website": "https://www.cykelfaergen.info/",
+    "website:de": "https://www.fahrradfaehre.info/"
+  }
+},
+{
+  "type": "way",
+  "id": 1082245311,
+  "bounds": {
+    "minlat": 54.8964872,
+    "minlon": 9.5963786,
+    "maxlat": 54.9067083,
+    "maxlon": 9.6195773
+  },
+  "geometry": [
+    { "lat": 54.8970661, "lon": 9.6195773 },
+    { "lat": 54.8964872, "lon": 9.6177203 },
+    { "lat": 54.8965913, "lon": 9.6169052 },
+    { "lat": 54.8974311, "lon": 9.6161216 },
+    { "lat": 54.8975853, "lon": 9.6160787 },
+    { "lat": 54.8978171, "lon": 9.6162037 },
+    { "lat": 54.8979455, "lon": 9.6161289 },
+    { "lat": 54.8980212, "lon": 9.6158815 },
+    { "lat": 54.8981325, "lon": 9.6146393 },
+    { "lat": 54.9032270, "lon": 9.5972442 },
+    { "lat": 54.9034156, "lon": 9.5969582 },
+    { "lat": 54.9036266, "lon": 9.5967240 },
+    { "lat": 54.9038552, "lon": 9.5965469 },
+    { "lat": 54.9040965, "lon": 9.5964309 },
+    { "lat": 54.9043444, "lon": 9.5963786 },
+    { "lat": 54.9045937, "lon": 9.5963907 },
+    { "lat": 54.9048392, "lon": 9.5964668 },
+    { "lat": 54.9050755, "lon": 9.5966053 },
+    { "lat": 54.9054484, "lon": 9.5969082 },
+    { "lat": 54.9056930, "lon": 9.5971684 },
+    { "lat": 54.9059194, "lon": 9.5974746 },
+    { "lat": 54.9061247, "lon": 9.5978228 },
+    { "lat": 54.9063042, "lon": 9.5982037 },
+    { "lat": 54.9064567, "lon": 9.5986113 },
+    { "lat": 54.9065828, "lon": 9.5990454 },
+    { "lat": 54.9067083, "lon": 9.5997065 }
+  ],
+  "tags": {
+    "bicycle": "yes",
+    "foot": "yes",
+    "motor_vehicle": "no",
+    "name": "Cykelfærgen",
+    "name:da": "Cykelfærgen",
+    "phone": "+45 20 25 64 62",
+    "route": "ferry",
+    "website": "https://www.cykelfaergen.info/",
+    "website:de": "https://www.fahrradfaehre.info/"
+  }
+},
+{
+  "type": "way",
+  "id": 1193125997,
+  "bounds": {
+    "minlat": 56.0388415,
+    "minlon": 8.3031052,
+    "maxlat": 56.0390104,
+    "maxlon": 8.3031475
+  },
+  "geometry": [
+    { "lat": 56.0390104, "lon": 8.3031052 },
+    { "lat": 56.0388415, "lon": 8.3031475 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "contact:youtube": "https://youtu.be/Fqqre84vEcw",
+    "ferry:cable": "yes",
+    "foot": "yes",
+    "horse": "no",
+    "motor_vehicle": "no",
+    "route": "ferry",
+    "toll": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 1280495774,
+  "bounds": {
+    "minlat": 54.9490936,
+    "minlon": 9.7473207,
+    "maxlat": 56.2073102,
+    "maxlon": 21.1384409
+  },
+  "geometry": [
+    { "lat": 55.5579423, "lon": 9.7473207 },
+    { "lat": 55.5553275, "lon": 9.7590737 },
+    { "lat": 55.5538237, "lon": 9.7702420 },
+    { "lat": 55.5541963, "lon": 9.7790457 },
+    { "lat": 55.5591630, "lon": 9.7896484 },
+    { "lat": 55.6148142, "lon": 9.9563585 },
+    { "lat": 55.6907466, "lon": 10.0895677 },
+    { "lat": 55.7273042, "lon": 10.5352007 },
+    { "lat": 55.7272421, "lon": 10.6484136 },
+    { "lat": 55.7539337, "lon": 10.7453361 },
+    { "lat": 55.8060819, "lon": 10.7817603 },
+    { "lat": 55.8385838, "lon": 10.8260833 },
+    { "lat": 55.8553935, "lon": 10.8499515 },
+    { "lat": 55.8723931, "lon": 10.8737870 },
+    { "lat": 55.9071254, "lon": 10.9250417 },
+    { "lat": 55.9560799, "lon": 10.9967851 },
+    { "lat": 56.0256345, "lon": 11.0735314 },
+    { "lat": 56.1479519, "lon": 11.2166458 },
+    { "lat": 56.2073102, "lon": 12.3589005 },
+    { "lat": 56.1732238, "lon": 12.4099445 },
+    { "lat": 56.1503906, "lon": 12.4488889 },
+    { "lat": 56.1177350, "lon": 12.5173889 },
+    { "lat": 56.0965784, "lon": 12.5621445 },
+    { "lat": 56.0723945, "lon": 12.6089338 },
+    { "lat": 56.0530436, "lon": 12.6464895 },
+    { "lat": 56.0064234, "lon": 12.6716389 },
+    { "lat": 55.9818277, "lon": 12.6796669 },
+    { "lat": 55.9478267, "lon": 12.6369349 },
+    { "lat": 55.9318133, "lon": 12.6343715 },
+    { "lat": 55.9213182, "lon": 12.6396956 },
+    { "lat": 55.9116959, "lon": 12.6425167 },
+    { "lat": 55.8186446, "lon": 12.6823422 },
+    { "lat": 55.7387169, "lon": 12.6836545 },
+    { "lat": 55.6430834, "lon": 12.6929250 },
+    { "lat": 55.6273250, "lon": 12.6955667 },
+    { "lat": 55.6149083, "lon": 12.6970250 },
+    { "lat": 55.6026417, "lon": 12.6988083 },
+    { "lat": 55.5900750, "lon": 12.7005834 },
+    { "lat": 55.5774583, "lon": 12.7025334 },
+    { "lat": 55.5649250, "lon": 12.7044084 },
+    { "lat": 55.5523667, "lon": 12.7062667 },
+    { "lat": 55.4723732, "lon": 12.3602870 },
+    { "lat": 55.4716239, "lon": 12.3570405 },
+    { "lat": 55.4709456, "lon": 12.3540767 },
+    { "lat": 55.4703333, "lon": 12.3513613 },
+    { "lat": 55.4697817, "lon": 12.3488596 },
+    { "lat": 55.4692859, "lon": 12.3465374 },
+    { "lat": 55.4688406, "lon": 12.3443603 },
+    { "lat": 55.4684407, "lon": 12.3422937 },
+    { "lat": 55.4680813, "lon": 12.3403033 },
+    { "lat": 55.4677570, "lon": 12.3383547 },
+    { "lat": 55.4674628, "lon": 12.3364135 },
+    { "lat": 55.4671936, "lon": 12.3344452 },
+    { "lat": 55.4669443, "lon": 12.3324154 },
+    { "lat": 55.4667096, "lon": 12.3302897 },
+    { "lat": 55.4664847, "lon": 12.3280336 },
+    { "lat": 55.4662642, "lon": 12.3256129 },
+    { "lat": 55.4660431, "lon": 12.3229930 },
+    { "lat": 55.4658162, "lon": 12.3201395 },
+    { "lat": 55.4655785, "lon": 12.3170180 },
+    { "lat": 55.4653248, "lon": 12.3135940 },
+    { "lat": 55.4650500, "lon": 12.3098333 },
+    { "lat": 55.4631333, "lon": 12.2835542 },
+    { "lat": 55.4578425, "lon": 12.2116445 },
+    { "lat": 55.4577226, "lon": 12.2065034 },
+    { "lat": 55.4578604, "lon": 12.2057384 },
+    { "lat": 55.4582607, "lon": 12.2045766 },
+    { "lat": 55.4639688, "lon": 12.2050948 },
+    { "lat": 55.4658457, "lon": 12.2053506 },
+    { "lat": 55.4639819, "lon": 12.2048848 },
+    { "lat": 55.4581101, "lon": 12.2034702 },
+    { "lat": 55.4574421, "lon": 12.2055503 },
+    { "lat": 55.4573732, "lon": 12.2059328 },
+    { "lat": 55.4573274, "lon": 12.2113430 },
+    { "lat": 55.4626333, "lon": 12.2836625 },
+    { "lat": 55.4645833, "lon": 12.3099333 },
+    { "lat": 55.4648567, "lon": 12.3136860 },
+    { "lat": 55.4650896, "lon": 12.3170852 },
+    { "lat": 55.4652769, "lon": 12.3201638 },
+    { "lat": 55.4654136, "lon": 12.3229547 },
+    { "lat": 55.4654946, "lon": 12.3254907 },
+    { "lat": 55.4655147, "lon": 12.3278046 },
+    { "lat": 55.4654687, "lon": 12.3299294 },
+    { "lat": 55.4653517, "lon": 12.3318977 },
+    { "lat": 55.4651585, "lon": 12.3337426 },
+    { "lat": 55.4648840, "lon": 12.3354968 },
+    { "lat": 55.4645230, "lon": 12.3371932 },
+    { "lat": 55.4640705, "lon": 12.3388646 },
+    { "lat": 55.4635214, "lon": 12.3405439 },
+    { "lat": 55.4628705, "lon": 12.3422639 },
+    { "lat": 55.4621127, "lon": 12.3440575 },
+    { "lat": 55.4612429, "lon": 12.3459575 },
+    { "lat": 55.4602561, "lon": 12.3479968 },
+    { "lat": 55.4591469, "lon": 12.3502082 },
+    { "lat": 55.4579105, "lon": 12.3526246 },
+    { "lat": 55.4565415, "lon": 12.3552788 },
+    { "lat": 55.3028085, "lon": 12.6526881 },
+    { "lat": 55.2939468, "lon": 12.6945717 },
+    { "lat": 55.2537977, "lon": 12.8655231 },
+    { "lat": 54.9664806, "lon": 14.0839563 },
+    { "lat": 54.9490936, "lon": 15.0587595 },
+    { "lat": 55.7304165, "lon": 20.9939980 },
+    { "lat": 55.7284178, "lon": 21.0581944 },
+    { "lat": 55.7281546, "lon": 21.0770935 },
+    { "lat": 55.7282518, "lon": 21.0794885 },
+    { "lat": 55.7281466, "lon": 21.0818499 },
+    { "lat": 55.7247367, "lon": 21.0943835 },
+    { "lat": 55.7213484, "lon": 21.1027137 },
+    { "lat": 55.7192166, "lon": 21.1063922 },
+    { "lat": 55.7129959, "lon": 21.1125469 },
+    { "lat": 55.7061494, "lon": 21.1173555 },
+    { "lat": 55.7027377, "lon": 21.1201993 },
+    { "lat": 55.6970715, "lon": 21.1253239 },
+    { "lat": 55.6897591, "lon": 21.1318847 },
+    { "lat": 55.6839199, "lon": 21.1384409 }
+  ],
+  "tags": {
+    "bicycle": "no",
+    "duration": "16:00",
+    "ferry": "tertiary",
+    "foot": "no",
+    "hgv": "yes",
+    "motor_vehicle": "no",
+    "name": "Fredericia (DK) - Klaipėda (LT)",
+    "operator": "DFDS Seaways",
+    "route": "ferry",
+    "trailer": "yes",
+    "via": "Køge",
+    "website": "https://www.dfds.com/en/freight-shipping/routes-and-schedules/klaipeda-fredericia"
+  }
+},
+{
+  "type": "way",
+  "id": 1372762764,
+  "bounds": {
+    "minlat": 54.8817581,
+    "minlon": 11.3596781,
+    "maxlat": 54.9167182,
+    "maxlon": 11.4832877
+  },
+  "geometry": [
+    { "lat": 54.9161082, "lon": 11.3596781 },
+    { "lat": 54.9160436, "lon": 11.3600673 },
+    { "lat": 54.9160600, "lon": 11.3622673 },
+    { "lat": 54.9167182, "lon": 11.3724378 },
+    { "lat": 54.9082321, "lon": 11.3933804 },
+    { "lat": 54.9028616, "lon": 11.4060506 },
+    { "lat": 54.8986709, "lon": 11.4274969 },
+    { "lat": 54.8912088, "lon": 11.4492020 },
+    { "lat": 54.8817808, "lon": 11.4664335 },
+    { "lat": 54.8817581, "lon": 11.4783206 },
+    { "lat": 54.8826621, "lon": 11.4817781 },
+    { "lat": 54.8831363, "lon": 11.4828898 },
+    { "lat": 54.8838405, "lon": 11.4832877 },
+    { "lat": 54.8844251, "lon": 11.4831569 }
+  ],
+  "tags": {
+    "duration": "00:45",
+    "motor_vehicle": "yes",
+    "name": "Kragenæs - Askø",
+    "operator": "Lolland Færgefart",
+    "route": "ferry",
+    "website": "https://lollandfaergefart.lolland.dk/"
+  }
+},
+{
+  "type": "way",
+  "id": 1426065615,
+  "bounds": {
+    "minlat": 55.2303931,
+    "minlon": 9.4213933,
+    "maxlat": 55.2502799,
+    "maxlon": 9.4835354
+  },
+  "geometry": [
+    { "lat": 55.2502799, "lon": 9.4835354 },
+    { "lat": 55.2500535, "lon": 9.4830501 },
+    { "lat": 55.2497135, "lon": 9.4825815 },
+    { "lat": 55.2493565, "lon": 9.4823088 },
+    { "lat": 55.2490991, "lon": 9.4821895 },
+    { "lat": 55.2487907, "lon": 9.4822534 },
+    { "lat": 55.2477514, "lon": 9.4828115 },
+    { "lat": 55.2476276, "lon": 9.4827817 },
+    { "lat": 55.2474988, "lon": 9.4826667 },
+    { "lat": 55.2473993, "lon": 9.4824749 },
+    { "lat": 55.2473441, "lon": 9.4822955 },
+    { "lat": 55.2472996, "lon": 9.4816832 },
+    { "lat": 55.2471545, "lon": 9.4783215 },
+    { "lat": 55.2470177, "lon": 9.4777340 },
+    { "lat": 55.2466450, "lon": 9.4768402 },
+    { "lat": 55.2461897, "lon": 9.4761450 },
+    { "lat": 55.2457864, "lon": 9.4758553 },
+    { "lat": 55.2452529, "lon": 9.4759020 },
+    { "lat": 55.2453714, "lon": 9.4748490 },
+    { "lat": 55.2452149, "lon": 9.4734594 },
+    { "lat": 55.2437127, "lon": 9.4702091 },
+    { "lat": 55.2398389, "lon": 9.4622640 },
+    { "lat": 55.2376806, "lon": 9.4562716 },
+    { "lat": 55.2348053, "lon": 9.4482462 },
+    { "lat": 55.2309230, "lon": 9.4389635 },
+    { "lat": 55.2303931, "lon": 9.4377786 },
+    { "lat": 55.2309572, "lon": 9.4340926 },
+    { "lat": 55.2309108, "lon": 9.4259939 },
+    { "lat": 55.2313575, "lon": 9.4228908 },
+    { "lat": 55.2319667, "lon": 9.4219547 },
+    { "lat": 55.2325970, "lon": 9.4213933 },
+    { "lat": 55.2322916, "lon": 9.4232774 },
+    { "lat": 55.2325179, "lon": 9.4268994 },
+    { "lat": 55.2345128, "lon": 9.4351108 },
+    { "lat": 55.2373116, "lon": 9.4495859 },
+    { "lat": 55.2393548, "lon": 9.4578900 },
+    { "lat": 55.2457649, "lon": 9.4719019 },
+    { "lat": 55.2467312, "lon": 9.4752493 },
+    { "lat": 55.2472526, "lon": 9.4783810 },
+    { "lat": 55.2473767, "lon": 9.4816120 },
+    { "lat": 55.2474161, "lon": 9.4823379 },
+    { "lat": 55.2475205, "lon": 9.4825833 },
+    { "lat": 55.2476072, "lon": 9.4826697 },
+    { "lat": 55.2477156, "lon": 9.4827250 },
+    { "lat": 55.2477510, "lon": 9.4827320 },
+    { "lat": 55.2487815, "lon": 9.4821893 },
+    { "lat": 55.2491736, "lon": 9.4820821 },
+    { "lat": 55.2495361, "lon": 9.4822446 },
+    { "lat": 55.2498848, "lon": 9.4825799 },
+    { "lat": 55.2501311, "lon": 9.4830050 },
+    { "lat": 55.2502799, "lon": 9.4835354 }
+  ],
+  "tags": {
+    "name": "Haderslev Dambåd",
+    "oneway": "yes",
+    "route": "ferry"
+  }
+}
+
+  ]
+}

@@ -1,0 +1,336 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/it-messina/2026-11-01",
+  "scheme": {
+   "id": "it-messina",
+   "name": "Strait of Messina ferry (Caronte & Tourist), trucks",
+   "country": "IT"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-11-01",
+  "currency": "EUR",
+  "timezone": "Europe/Rome",
+  "license": "MIT",
+  "method": "Caronte & Tourist's commercial vehicle fares, Messina Tremestieri–Villa San Giovanni, valid 2026-11-01 to 2026-11-30: one way each direction by the vehicle's length in linear metres (to 20.50 m), plus the 4.30 EUR per trip every commercial vehicle pays for the port company's services. The fares include the fuel, ETS and FuelEU Maritime surcharges, updated monthly; a newer month's fares replace these when published. In November 2026 the fares hold a fuel surcharge of 9,10 EUR and ETS and FuelEU Maritime of 1,90 EUR per trip for heavy vehicles. The page doesn't say whether VAT is in the fares; they are taken as published. Round trips and vouchers aren't used; longer vehicles are exceptional transport, not priced. The ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "it-messina-2026-11-01.json"
+  },
+  "required_features": ["type.od"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Caronte & Tourist: Strait of Messina, commercial vehicle fares",
+   "url": "https://www.carontetourist.it/en/strait-messina/freight/rates-commercial-vehicle"
+  },
+  {
+   "id": "s2",
+   "title": "OpenStreetMap (Overpass API): the Strait of Messina's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Trucks over 3.5 t, by length (truck.length_m)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "sys1-1",
+   "classes": [
+    {
+     "id": "sys1-1.up-to-6-m",
+     "label": "up to 6 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "max": 6.0
+      }
+     }
+    },
+    {
+     "id": "sys1-1.6-01-6-50-m",
+     "label": "6.01-6.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6.0,
+       "max": 6.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.6-51-7-50-m",
+     "label": "6.51-7.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 6.5,
+       "max": 7.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.7-51-8-50-m",
+     "label": "7.51-8.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 7.5,
+       "max": 8.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.8-51-9-50-m",
+     "label": "8.51-9.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 8.5,
+       "max": 9.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.9-51-10-50-m",
+     "label": "9.51-10.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 9.5,
+       "max": 10.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.10-51-11-50-m",
+     "label": "10.51-11.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 10.5,
+       "max": 11.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.11-51-12-50-m",
+     "label": "11.51-12.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 11.5,
+       "max": 12.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.12-51-13-50-m",
+     "label": "12.51-13.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12.5,
+       "max": 13.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.13-51-14-50-m",
+     "label": "13.51-14.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 13.5,
+       "max": 14.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.14-51-15-50-m",
+     "label": "14.51-15.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 14.5,
+       "max": 15.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.15-51-16-50-m",
+     "label": "15.51-16.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 15.5,
+       "max": 16.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.16-51-17-50-m",
+     "label": "16.51-17.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 16.5,
+       "max": 17.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.17-51-18-50-m",
+     "label": "17.51-18.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 17.5,
+       "max": 18.5
+      }
+     }
+    },
+    {
+     "id": "sys1-1.18-51-20-50-m",
+     "label": "18.51-20.50 m",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 18.5,
+       "max": 20.5
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "st1:Messina Tremestieri",
+   "type": "station",
+   "name": "Messina Tremestieri",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.529591, 38.136352]]
+    },
+    "point_names": ["Messina Tremestieri port, 0.8 km out on the line to Villa San Giovanni (OSM way 190394346)"],
+    "match_m": 150
+   }
+  },
+  {
+   "id": "st1:Villa San Giovanni",
+   "type": "station",
+   "name": "Villa San Giovanni",
+   "location": {
+    "geometry": {
+     "type": "MultiPoint",
+     "coordinates": [[15.615476, 38.213285]]
+    },
+    "point_names": ["Villa San Giovanni port, 2.1 km out on the line to Messina Tremestieri (OSM way 190394346)"],
+    "match_m": 150
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "system1",
+   "name": "Strait of Messina: Caronte & Tourist, Messina Tremestieri–Villa San Giovanni",
+   "type": "od",
+   "component": "unspecified",
+   "unit": "trip",
+   "method": "Caronte & Tourist's commercial vehicle fares, Messina Tremestieri–Villa San Giovanni, valid 2026-11-01 to 2026-11-30: one way each direction by the vehicle's length in linear metres (to 20.50 m), plus the 4.30 EUR per trip every commercial vehicle pays for the port company's services. The fares include the fuel, ETS and FuelEU Maritime surcharges, updated monthly; a newer month's fares replace these when published. In November 2026 the fares hold a fuel surcharge of 9,10 EUR and ETS and FuelEU Maritime of 1,90 EUR per trip for heavy vehicles. The page doesn't say whether VAT is in the fares; they are taken as published. Round trips and vouchers aren't used; longer vehicles are exceptional transport, not priced. The ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+   "directed": true,
+   "columns": ["entry", "exit", "vehicle_class", "amount"],
+   "rows": [
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.10-51-11-50-m", "141.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.11-51-12-50-m", "145.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.12-51-13-50-m", "150.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.13-51-14-50-m", "153.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.14-51-15-50-m", "169.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.15-51-16-50-m", "169.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.16-51-17-50-m", "187.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.17-51-18-50-m", "187.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.18-51-20-50-m", "196.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.6-01-6-50-m", "75.3"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.6-51-7-50-m", "86.3"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.7-51-8-50-m", "102.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.8-51-9-50-m", "113.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.9-51-10-50-m", "123.9"],
+    ["st1:Messina Tremestieri", "st1:Villa San Giovanni", "sys1-1.up-to-6-m", "65.3"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.10-51-11-50-m", "187.8"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.11-51-12-50-m", "201.7"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.12-51-13-50-m", "209.5"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.13-51-14-50-m", "209.5"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.14-51-15-50-m", "228.6"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.15-51-16-50-m", "228.6"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.16-51-17-50-m", "257.1"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.17-51-18-50-m", "257.1"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.18-51-20-50-m", "269"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.6-01-6-50-m", "102.6"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.6-51-7-50-m", "117.1"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.7-51-8-50-m", "141.7"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.8-51-9-50-m", "161.4"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.9-51-10-50-m", "174.3"],
+    ["st1:Villa San Giovanni", "st1:Messina Tremestieri", "sys1-1.up-to-6-m", "69"]
+   ],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

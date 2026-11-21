@@ -1,0 +1,15 @@
+{
+ "country": "FI",
+ "currency": "EUR",
+ "valid_from": "2026-11-20",
+ "name": "Finland: no road toll or vignette",
+ "law": "Traficom, the agency that collects Finland's vehicle tax, states on its vehicle tax page that time-based road user charges (vignettes), distance-based road tolls and vehicle emission stickers are not used in Finland. Vehicles registered in Finland pay the yearly vehicle tax instead, not a charge for using the roads (not modelled). The page gives no date from which this holds: valid_from is the day it was first read.",
+ "sources": [
+  {
+   "title": "Traficom (Finnish Transport and Communications Agency): Vehicle tax",
+   "url": "https://www.traficom.fi/en/drivers-and-vehicles/vehicle-taxation/vehicle-tax"
+  }
+ ],
+ "vehicles": "All vehicles",
+ "no_charge": "no road toll, vignette or emission sticker for trucks (Traficom: they are not used in Finland)."
+}

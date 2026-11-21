@@ -1,0 +1,43 @@
+{
+ "country": "IS",
+ "currency": "ISK",
+ "valid_from": "2026-09-01",
+ "crossings": true,
+ "osm_extract": "2026-11-21",
+ "name": "Ring Road (1) through Hornafjörður",
+ "law": "Spölur ehf.'s price list for the new Ring Road (1) section through Hornafjörður, single trips: vehicles of 3.5-7.5 t ISK 2100, over 7.5 t ISK 4500, by the total weight in the vehicle register; Vegagerðin's notice of 31 August 2026: collected from 2026-09-01, the same prices. Free-flow (cameras at the section's ends); placed at the longest bridge of the ways OpenStreetMap tags toll=yes there (the one over Hornafjarðarfljót), which a trip through the section crosses. Monthly discounts (for vehicles up to 7.5 t) aren't modelled.",
+ "sources": [
+  {
+   "title": "Spölur: Verðskrá",
+   "url": "https://www.spolur.is/verdskra"
+  },
+  {
+   "title": "Vegagerðin: Hornafjörður Ring road tolls collected from September 1st onwards",
+   "url": "https://www.vegagerdin.is/en/about-us/operation/news/gjaldtaka-a-hringvegi-1-um-hornafjord-hefst-i-september"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "The new Ring Road (1) section through Hornafjörður, with its bridge over Hornafjarðarfljót.",
+ "point_match_km": 0.1,
+ "toll_points": [
+  {
+   "name": "Hornafjörður (Ring Road 1)",
+   "lat": 64.293665,
+   "lon": -15.337318,
+   "rate": 0,
+   "classes": [
+    {
+     "min_kg": 3501,
+     "max_kg": 7500,
+     "rate": 2100
+    },
+    {
+     "min_kg": 7501,
+     "rate": 4500
+    }
+   ]
+  }
+ ],
+ "rows": []
+}

@@ -1,0 +1,226 @@
+{
+ "country": "EE",
+ "currency": "EUR",
+ "valid_from": "2025-02-01",
+ "crossings": true,
+ "name": "Estonia's state ferries to Muhu, Saaremaa and Hiiumaa, trucks",
+ "law": "Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, version in force (2026-09-14 publication), annex in the wording of 21.12.2023: the ticket of a truck over 3,500 kg Kuivastu–Virtsu 16.00 EUR, Rohuküla–Heltermaa 18.00 EUR, Sõru–Triigi 22.00 EUR; § 6: × 1.2 for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, rounded to 5 cents; × 1.5 over 2.6 m wide and × 2.0 over 4 m high (not applied: a truck within 2.55 m and 4 m). The regulation doesn't say whether VAT is in the prices; they are taken as it sets them. Residents' prices aren't used. Ports at OpenStreetMap's ferry terminals (else the place), priced where the line goes out on OpenStreetMap's car ferry line. ",
+ "sources": [
+  {
+   "title": "Riigi Teataja: määrus nr 120 (25.09.2015), version in force",
+   "url": "https://www.riigiteataja.ee/akt/115092026002"
+  },
+  {
+   "title": "Riigi Teataja: määrus nr 120, annex (ticket prices)",
+   "url": "https://www.riigiteataja.ee/aktilisa/1150/9202/6002/MM_m109_lisa.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): ferry lines, ferry terminals and places on Estonia's west coast",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "The state ferry lines Virtsu–Kuivastu, Rohuküla–Heltermaa and Sõru–Triigi.",
+ "closed_systems": [
+  {
+   "name": "Estonia's state ferries: Kuivastu–Virtsu",
+   "law": "Regulation nr 120 of 25.09.2015, annex and § 6: Kuivastu–Virtsu",
+   "groups": [
+    {
+     "name": "trucks over 3.5 t",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Kuivastu",
+     "points": [
+      {
+       "name": "Kuivastu port, 0.5 km out on the line to Virtsu (OSM way 1567536771)",
+       "lat": 58.573992,
+       "lon": 23.409212
+      }
+     ]
+    },
+    {
+     "name": "Virtsu",
+     "points": [
+      {
+       "name": "Virtsu port, 0.5 km out on the line to Kuivastu (OSM way 1567536771)",
+       "lat": 58.576471,
+       "lon": 23.494629
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Virtsu|Kuivastu": {
+     "trucks over 3.5 t": 16.0
+    },
+    "Kuivastu|Virtsu": {
+     "trucks over 3.5 t": 16.0
+    }
+   },
+   "directed": true,
+   "time_prices": [
+    {
+     "label": "Friday from 13:00 towards the islands (× 1.2)",
+     "weekdays": [
+      5
+     ],
+     "times": [
+      [
+       "13:00",
+       "24:00"
+      ]
+     ],
+     "prices": {
+      "Virtsu|Kuivastu": {
+       "trucks over 3.5 t": 19.2
+      }
+     }
+    },
+    {
+     "label": "Sunday from 13:00 back (× 1.2)",
+     "weekdays": [
+      7
+     ],
+     "times": [
+      [
+       "13:00",
+       "24:00"
+      ]
+     ],
+     "prices": {
+      "Kuivastu|Virtsu": {
+       "trucks over 3.5 t": 19.2
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "Estonia's state ferries: Rohuküla–Heltermaa",
+   "law": "Regulation nr 120 of 25.09.2015, annex and § 6: Rohuküla–Heltermaa",
+   "groups": [
+    {
+     "name": "trucks over 3.5 t",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Heltermaa",
+     "points": [
+      {
+       "name": "Heltermaa port, 0.5 km out on the line to Rohuküla (OSM way 26206863)",
+       "lat": 58.867514,
+       "lon": 23.056169
+      }
+     ]
+    },
+    {
+     "name": "Rohuküla",
+     "points": [
+      {
+       "name": "Rohuküla port, 1.3 km out on the line to Heltermaa (OSM way 26206863)",
+       "lat": 58.907899,
+       "lon": 23.401957
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Rohuküla|Heltermaa": {
+     "trucks over 3.5 t": 18.0
+    },
+    "Heltermaa|Rohuküla": {
+     "trucks over 3.5 t": 18.0
+    }
+   },
+   "directed": true,
+   "time_prices": [
+    {
+     "label": "Friday from 13:00 towards the islands (× 1.2)",
+     "weekdays": [
+      5
+     ],
+     "times": [
+      [
+       "13:00",
+       "24:00"
+      ]
+     ],
+     "prices": {
+      "Rohuküla|Heltermaa": {
+       "trucks over 3.5 t": 21.6
+      }
+     }
+    },
+    {
+     "label": "Sunday from 13:00 back (× 1.2)",
+     "weekdays": [
+      7
+     ],
+     "times": [
+      [
+       "13:00",
+       "24:00"
+      ]
+     ],
+     "prices": {
+      "Heltermaa|Rohuküla": {
+       "trucks over 3.5 t": 21.6
+      }
+     }
+    }
+   ]
+  },
+  {
+   "name": "Estonia's state ferries: Sõru–Triigi",
+   "law": "Regulation nr 120 of 25.09.2015, annex and § 6: Sõru–Triigi",
+   "groups": [
+    {
+     "name": "trucks over 3.5 t",
+     "min_kg": 3501
+    }
+   ],
+   "stations": [
+    {
+     "name": "Sõru",
+     "points": [
+      {
+       "name": "Sõru port, 0.5 km out on the line to Triigi (OSM way 38742332)",
+       "lat": 58.687367,
+       "lon": 22.523353
+      }
+     ]
+    },
+    {
+     "name": "Triigi",
+     "points": [
+      {
+       "name": "Triigi port, 0.5 km out on the line to Sõru (OSM way 38742332)",
+       "lat": 58.595062,
+       "lon": 22.723359
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Triigi|Sõru": {
+     "trucks over 3.5 t": 22.0
+    },
+    "Sõru|Triigi": {
+     "trucks over 3.5 t": 22.0
+    }
+   },
+   "directed": true
+  }
+ ],
+ "rows": []
+}

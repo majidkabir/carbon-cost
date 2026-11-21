@@ -1,0 +1,310 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-03",
+ "valid_to": "2027-01-04",
+ "crossings": true,
+ "name": "Ærøfærgerne's ferries Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav, trucks",
+ "law": "Ærøfærgerne's prices from 2026-01-03 to 2027-01-04 per single trip for a truck with driver on Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav: up to 12 m DKK 588.00 including VAT of 104.00; 12-19 m DKK 905.00 including VAT of 167.40; per metre over 19 m DKK 35.00 including VAT of 7.00; taken without the VAT, each started metre over 19 m added: DKK up to 12 m 484, 12-19 m 737.6, 19-20 m 765.6, 20-21 m 793.6, 21-22 m 821.6, 22-23 m 849.6, 23-24 m 877.6, 24-25 m 905.6, 25-26 m 933.6. Each crossing is priced on its own. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "Ærøfærgerne: freight prices",
+   "url": "https://www.aeroe-ferry.dk/da/priser"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "Ærøfærgerne's ferries Svendborg–Ærøskøbing, Faaborg–Søby, Søby–Fynshav.",
+ "closed_systems": [
+  {
+   "name": "Ærøfærgerne: Svendborg–Ærøskøbing",
+   "law": "Ærøfærgerne's freight prices: Svendborg–Ærøskøbing",
+   "groups": [
+    {
+     "name": "up to 12 m",
+     "min_kg": 3501,
+     "max_length_m": 12
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    },
+    {
+     "name": "19-20 m",
+     "min_kg": 3501,
+     "max_length_m": 20,
+     "min_length_m": 19
+    },
+    {
+     "name": "20-21 m",
+     "min_kg": 3501,
+     "max_length_m": 21,
+     "min_length_m": 20
+    },
+    {
+     "name": "21-22 m",
+     "min_kg": 3501,
+     "max_length_m": 22,
+     "min_length_m": 21
+    },
+    {
+     "name": "22-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23,
+     "min_length_m": 22
+    },
+    {
+     "name": "23-24 m",
+     "min_kg": 3501,
+     "max_length_m": 24,
+     "min_length_m": 23
+    },
+    {
+     "name": "24-25 m",
+     "min_kg": 3501,
+     "max_length_m": 25,
+     "min_length_m": 24
+    },
+    {
+     "name": "25-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 25
+    }
+   ],
+   "stations": [
+    {
+     "name": "Svendborg",
+     "points": [
+      {
+       "name": "Svendborg port, 0.5 km out on the line to Ærøskøbing (OSM way 33847154)",
+       "lat": 55.053579,
+       "lon": 10.615322
+      }
+     ]
+    },
+    {
+     "name": "Ærøskøbing",
+     "points": [
+      {
+       "name": "Ærøskøbing port, 0.5 km out on the line to Svendborg (OSM way 33847154)",
+       "lat": 54.894893,
+       "lon": 10.417527
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Svendborg|Ærøskøbing": {
+     "up to 12 m": 484.0,
+     "12-19 m": 737.6,
+     "19-20 m": 765.6,
+     "20-21 m": 793.6,
+     "21-22 m": 821.6,
+     "22-23 m": 849.6,
+     "23-24 m": 877.6,
+     "24-25 m": 905.6,
+     "25-26 m": 933.6
+    }
+   }
+  },
+  {
+   "name": "Ærøfærgerne: Faaborg–Søby",
+   "law": "Ærøfærgerne's freight prices: Faaborg–Søby",
+   "groups": [
+    {
+     "name": "up to 12 m",
+     "min_kg": 3501,
+     "max_length_m": 12
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    },
+    {
+     "name": "19-20 m",
+     "min_kg": 3501,
+     "max_length_m": 20,
+     "min_length_m": 19
+    },
+    {
+     "name": "20-21 m",
+     "min_kg": 3501,
+     "max_length_m": 21,
+     "min_length_m": 20
+    },
+    {
+     "name": "21-22 m",
+     "min_kg": 3501,
+     "max_length_m": 22,
+     "min_length_m": 21
+    },
+    {
+     "name": "22-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23,
+     "min_length_m": 22
+    },
+    {
+     "name": "23-24 m",
+     "min_kg": 3501,
+     "max_length_m": 24,
+     "min_length_m": 23
+    },
+    {
+     "name": "24-25 m",
+     "min_kg": 3501,
+     "max_length_m": 25,
+     "min_length_m": 24
+    },
+    {
+     "name": "25-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 25
+    }
+   ],
+   "stations": [
+    {
+     "name": "Faaborg",
+     "points": [
+      {
+       "name": "Faaborg port, 5.1 km out on the line to Søby (OSM way 172009892)",
+       "lat": 55.051317,
+       "lon": 10.232745
+      }
+     ]
+    },
+    {
+     "name": "Søby",
+     "points": [
+      {
+       "name": "Søby port, 1.5 km out on the line to Faaborg (OSM way 172009892)",
+       "lat": 54.954831,
+       "lon": 10.255098
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Faaborg|Søby": {
+     "up to 12 m": 484.0,
+     "12-19 m": 737.6,
+     "19-20 m": 765.6,
+     "20-21 m": 793.6,
+     "21-22 m": 821.6,
+     "22-23 m": 849.6,
+     "23-24 m": 877.6,
+     "24-25 m": 905.6,
+     "25-26 m": 933.6
+    }
+   }
+  },
+  {
+   "name": "Ærøfærgerne: Søby–Fynshav",
+   "law": "Ærøfærgerne's freight prices: Søby–Fynshav",
+   "groups": [
+    {
+     "name": "up to 12 m",
+     "min_kg": 3501,
+     "max_length_m": 12
+    },
+    {
+     "name": "12-19 m",
+     "min_kg": 3501,
+     "max_length_m": 19,
+     "min_length_m": 12
+    },
+    {
+     "name": "19-20 m",
+     "min_kg": 3501,
+     "max_length_m": 20,
+     "min_length_m": 19
+    },
+    {
+     "name": "20-21 m",
+     "min_kg": 3501,
+     "max_length_m": 21,
+     "min_length_m": 20
+    },
+    {
+     "name": "21-22 m",
+     "min_kg": 3501,
+     "max_length_m": 22,
+     "min_length_m": 21
+    },
+    {
+     "name": "22-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23,
+     "min_length_m": 22
+    },
+    {
+     "name": "23-24 m",
+     "min_kg": 3501,
+     "max_length_m": 24,
+     "min_length_m": 23
+    },
+    {
+     "name": "24-25 m",
+     "min_kg": 3501,
+     "max_length_m": 25,
+     "min_length_m": 24
+    },
+    {
+     "name": "25-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 25
+    }
+   ],
+   "stations": [
+    {
+     "name": "Fynshav",
+     "points": [
+      {
+       "name": "Fynshav port, 0.6 km out on the line to Søby (OSM way 171896489)",
+       "lat": 54.99676,
+       "lon": 9.992822
+      }
+     ]
+    },
+    {
+     "name": "Søby",
+     "points": [
+      {
+       "name": "Søby port, 1.5 km out on the line to Fynshav (OSM way 171896489)",
+       "lat": 54.953796,
+       "lon": 10.250415
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Søby|Fynshav": {
+     "up to 12 m": 484.0,
+     "12-19 m": 737.6,
+     "19-20 m": 765.6,
+     "20-21 m": 793.6,
+     "21-22 m": 821.6,
+     "22-23 m": 849.6,
+     "23-24 m": 877.6,
+     "24-25 m": 905.6,
+     "25-26 m": 933.6
+    }
+   }
+  }
+ ],
+ "rows": []
+}

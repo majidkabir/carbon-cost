@@ -1,0 +1,117 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-12-31",
+ "crossings": true,
+ "name": "SAMSØLINJEN's ferries Kalundborg–Ballen, trucks",
+ "law": "SAMSØLINJEN's freight prices for 2026 per single trip (excluding VAT) on Kalundborg–Ballen: Lastbil maks. 10 m DKK 191; Lastbil maks. 12 m DKK 293; Sættevogn maks. 17 m DKK 293; Vogntog maks. 19 m DKK 293; Tillæg pr. ekstra påbegyndt meter over 20 meter: DKK 17. By length, without VAT: DKK up to 10 m 191, 10-20 m 293, 20-21 m 310, 21-22 m 327, 22-23 m 344, 23-24 m 361, 24-25 m 378, 25-26 m 395. The road train's price runs to 20 m, where the price per metre over begins, as the state's contract prices goods vehicles over 10 m up to 20 m alike. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line.",
+ "sources": [
+  {
+   "title": "SAMSØLINJEN: freight prices",
+   "url": "https://www.samsoelinjen.dk/alt-det-praktiske/fragt"
+  },
+  {
+   "title": "Transportministeriet: contract with Molslinjen on Ballen–Kalundborg 2025–2034, Bilag 2 pkt. 3.2",
+   "url": "https://www.trm.dk/media/rpchpvqy/faergekontrakt-for-samsoe-kalundborg-2024-2035ny.pdf"
+  },
+  {
+   "title": "OpenStreetMap (Overpass API): Denmark's ferry lines and terminals",
+   "url": "https://www.openstreetmap.org/"
+  }
+ ],
+ "vehicles": "Trucks over 3.5 t, by length (truck.length_m)",
+ "min_kg": 3501,
+ "tolled_roads": "SAMSØLINJEN's ferries Kalundborg–Ballen.",
+ "closed_systems": [
+  {
+   "name": "SAMSØLINJEN: Kalundborg–Ballen",
+   "law": "SAMSØLINJEN's freight prices: Kalundborg–Ballen",
+   "groups": [
+    {
+     "name": "up to 10 m",
+     "min_kg": 3501,
+     "max_length_m": 10
+    },
+    {
+     "name": "10-20 m",
+     "min_kg": 3501,
+     "max_length_m": 20,
+     "min_length_m": 10
+    },
+    {
+     "name": "20-21 m",
+     "min_kg": 3501,
+     "max_length_m": 21,
+     "min_length_m": 20
+    },
+    {
+     "name": "21-22 m",
+     "min_kg": 3501,
+     "max_length_m": 22,
+     "min_length_m": 21
+    },
+    {
+     "name": "22-23 m",
+     "min_kg": 3501,
+     "max_length_m": 23,
+     "min_length_m": 22
+    },
+    {
+     "name": "23-24 m",
+     "min_kg": 3501,
+     "max_length_m": 24,
+     "min_length_m": 23
+    },
+    {
+     "name": "24-25 m",
+     "min_kg": 3501,
+     "max_length_m": 25,
+     "min_length_m": 24
+    },
+    {
+     "name": "25-26 m",
+     "min_kg": 3501,
+     "max_length_m": 26,
+     "min_length_m": 25
+    }
+   ],
+   "stations": [
+    {
+     "name": "Ballen",
+     "points": [
+      {
+       "name": "Ballen port, 0.5 km out on the line to Kalundborg (OSM way 392728788)",
+       "lat": 55.810439,
+       "lon": 10.650119
+      }
+     ]
+    },
+    {
+     "name": "Kalundborg",
+     "points": [
+      {
+       "name": "Kalundborg port, 0.5 km out on the line to Ballen (OSM way 392728788)",
+       "lat": 55.672809,
+       "lon": 11.088593
+      }
+     ]
+    }
+   ],
+   "station_match_km": 0.15,
+   "prices": {
+    "Kalundborg|Ballen": {
+     "up to 10 m": 191.0,
+     "10-20 m": 293.0,
+     "20-21 m": 310.0,
+     "21-22 m": 327.0,
+     "22-23 m": 344.0,
+     "23-24 m": 361.0,
+     "24-25 m": 378.0,
+     "25-26 m": 395.0
+    }
+   }
+  }
+ ],
+ "rows": []
+}

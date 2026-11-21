@@ -1,0 +1,15 @@
+{
+ "country": "DK",
+ "currency": "DKK",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-12-31",
+ "name": "CO2-afgift on gas and diesel oil",
+ "rate_per_l": 0.519,
+ "law": "CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, 188.9 øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): 51.9 øre per litre in 2024 (51.6 øre at 15 °C), as Skatteministeriet's rate table gives it. The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel; diesel blended with 6.8 or 7.6% biofuel pays a little less per litre of blend. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+ "sources": [
+  {
+   "title": "Skatteministeriet: rates in CO2-afgiftsloven for 2024 and 2025 (the Internet Archive's copy of July 2025)",
+   "url": "https://skm.dk/tal-og-metode/satser/satser-og-beloebsgraenser-i-lovgivningen/co2-afgiftsloven"
+  }
+ ]
+}

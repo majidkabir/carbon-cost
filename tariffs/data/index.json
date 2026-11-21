@@ -38,6 +38,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/fuelco2-al/2024-01-01",
+   "scheme": "fuelco2-al",
+   "country": "AL",
+   "file": "al/fuelco2-al-2024-01-01.orct.json",
+   "name": "Taksa e karbonit on gazoil",
+   "valid_from": "2024-01-01",
+   "valid_to": null,
+   "sha256": "27357c07154b4aa60a1953cb532f8b36eae8b7524a96edfd1afb5214b0e38ccb",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/at/2024-01-01",
    "scheme": "at",
    "country": "AT",

@@ -1688,6 +1688,22 @@ func TestPrice_FuelCountry(t *testing.T) {
 			t.Errorf("NO %s: %+v", d, l)
 		}
 	}
+	// Albania's taksa e karbonit on gazoil: 3 lekë per litre (ligj 9975/2008,
+	// neni 4 pika 6), converted at the Bank of Albania's rate of the day.
+	for d := range map[string]bool{"2024-06-03": true, "2026-11-03": true} {
+		date, _ := time.Parse("2006-01-02", d)
+		perEUR, _, _, ok := fx.NationalOnDate("ALL", date)
+		if !ok {
+			t.Fatalf("AL %s: no Bank of Albania rate", d)
+		}
+		r, err = Price(cphHam, all(t), Request{CargoKg: 20000, Truck: truck40, FuelCountry: "AL", DieselL: 100}, date)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if l, ok := line(r, FuelCO2, "AL", rates.CO2); !ok || l.Rate != 3 || l.RateUnit != "ALL/l" || l.Amount != 300 || math.Abs(l.AmountEUR-round2(300/perEUR)) > 0.011 {
+			t.Errorf("AL %s: %+v", d, l)
+		}
+	}
 	// Finland's hiilidioksidivero on diesel oil: EUR 0.1978 per litre in 2024
 	// and 2025, 0.1812 from 2026.
 	for d, want := range map[string]float64{"2024-06-01": 0.1978, "2025-12-31": 0.1978, "2026-11-03": 0.1812} {

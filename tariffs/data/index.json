@@ -2146,7 +2146,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "f02cc528abe8e22852afe4e206427fe58408b9544992e6743c088ce082d48842",
+   "sha256": "1166de08d77adfbe5d0d00ba960581436ba511a9e20f0ec74d5eb03808f14f25",
    "coverage": "complete"
   },
   {
@@ -3235,7 +3235,18 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "8e5438cceb8ed97a85b3ecdcb73886524a8d27ea660a6a0d39d3297fcdf6b024",
+   "sha256": "c8e1ae0b0ac7ecbfe991f720f609689841597bad3b7cf7e9e2ab0b7188bef3da",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/se/2027-01-01",
+   "scheme": "se",
+   "country": "SE",
+   "file": "se/se-2027-01-01.orct.json",
+   "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "807914579db48955669996da824fb226cc76e27d71134a62bc91288ae2d065ba",
    "coverage": "complete"
   },
   {

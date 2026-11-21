@@ -31,6 +31,9 @@
   .tile b { display: block; font-size: 22px; }
   .tile span { color: var(--muted); font-size: 13px; }
   .tile.carbon b { color: var(--carbon); }
+  .warn { background: #fff8e6; border: 1px solid #e3b341; border-radius: 10px; padding: 10px 14px; margin: 0 0 12px; }
+  .warn b { display: block; margin-bottom: 4px; }
+  .warn ul { margin: 0; padding-left: 18px; }
   table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 8px 0 16px; }
   th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 14px; }
   th { color: var(--muted); font-weight: 600; background: #fbfcfc; }
@@ -103,10 +106,11 @@
 
   <section id="out" hidden>
     <div class="totals">
-      <div class="tile"><span>Total</span><b id="total"></b></div>
+      <div class="tile"><span id="totallabel">Total</span><b id="total"></b></div>
       <div class="tile carbon"><span>Of which carbon</span><b id="carbon"></b></div>
       <div class="tile"><span>Distance</span><b id="dist"></b></div>
     </div>
+    <div id="incomplete" class="warn" hidden><b>Incomplete: the total leaves out charges this trip meets</b><ul id="missing"></ul></div>
     <div id="km"></div>
     <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
     <div class="h2row"><h2>Charges</h2><label class="check"><input id="showsrc" type="checkbox"> Show sources</label></div>
@@ -114,6 +118,7 @@
       <tbody id="lines"></tbody></table>
     <div id="cmpwrap" hidden>
       <h2>Same trip, other trucks</h2>
+      <p id="cmpnote" class="sub" hidden>The savings count only the charges included above (the total is incomplete).</p>
       <table><thead><tr><th>CO2 class</th><th class="n">Tolls EUR</th><th class="n">Total EUR</th><th class="n">Carbon EUR</th><th class="n">Saving / trip</th><th class="n">Saving / year</th></tr></thead>
         <tbody id="cmp"></tbody></table>
     </div>
@@ -121,7 +126,7 @@
     <details id="prov"><summary>Data used</summary><ul class="notes" id="provlist"></ul></details>
   </section>
 
-  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
+  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>, described in <a href="v1/openapi.json">OpenAPI</a>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
 </main>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -243,8 +248,20 @@ f.addEventListener("submit", async (e) => {
   } finally { $("go").disabled = false; }
 });
 
+// missingText says what a result leaves out, as the API's Missing.Message.
+function missingText(m) {
+  const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel" }[m.charge] || m.charge;
+  return m.reason === "ended"
+    ? `${m.area} ${what} (${m.name}): the rates here ended on ${m.ended} and the next ones aren't in this release yet`
+    : `${m.area} ${what}: no table in this tool`;
+}
+
 function show(r) {
   $("total").textContent = eur(r.total_eur);
+  const miss = r.missing || [];
+  $("incomplete").hidden = miss.length === 0;
+  $("totallabel").textContent = miss.length ? "Total (incomplete)" : "Total";
+  $("missing").replaceChildren(...miss.map(m => { const li = document.createElement("li"); li.textContent = missingText(m); return li; }));
   $("carbon").textContent = eur(r.carbon_eur);
   $("dist").textContent = num(r.distance_km, 1) + " km";
   const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
@@ -276,6 +293,7 @@ function show(r) {
   }
   const cmp = $("cmp"); cmp.replaceChildren();
   $("cmpwrap").hidden = !(r.compare && r.compare.length);
+  $("cmpnote").hidden = miss.length === 0;
   for (const c of r.compare || []) {
     const tr = cmp.insertRow();
     cell(tr, String(c.co2_class)); cell(tr, num(c.road_toll_eur, 2), "n"); cell(tr, num(c.total_eur, 2), "n");
@@ -283,7 +301,6 @@ function show(r) {
     cell(tr, c.saving_per_year_eur ? num(c.saving_per_year_eur, 0) : "", "n");
   }
   const notes = $("notes"); notes.replaceChildren();
-  if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
   for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
   // What the result rests on: release, rate tables and their files, map
   // extracts, ferry data, exchange rates and defaults taken.

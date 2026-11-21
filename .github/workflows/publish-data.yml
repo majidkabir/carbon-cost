@@ -77,3 +77,13 @@ jobs:
           p=$(grep '^published' report.txt | sed 's/^published /- /' || true)
           w=$(grep '^::warning' report.txt | sed 's/^::warning title=\([^:]*\)::/- \1: /' || true)
           printf '## Published (OpenStreetMap only, or new days of exchange rates)\n%s\n## For review (not published)\n%s\n' "${p:-nothing}" "${w:-nothing}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Rates that run out
+        # A scheme whose last rates end within 45 days (or ended) with no
+        # next version here: trips after that day are priced without it
+        # (their results say incomplete). Usually a new year's tariffs,
+        # published in December.
+        run: |
+          git fetch -q origin main && git reset -q --hard FETCH_HEAD
+          python3 tools/orct/expiring.py tariffs/data 45 | tee expiring.txt
+          r=$(grep '^::warning' expiring.txt | sed 's/^::warning title=Rates run out: \([^:]*\)::/- \1: /' || true)
+          printf '## Rates that run out within 45 days, with no next version here\n%s\n' "${r:-none}" >> "$GITHUB_STEP_SUMMARY"

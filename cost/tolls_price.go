@@ -69,9 +69,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	tolledKm := km * share
 	nw := networkOf(ds)
 	rk, byRoute := req.roadKm[a.country]
-	byRoute = byRoute && a.region == "" && rk.Total() > 0 && len(nw.roadTypes) > 0
+	// One rate on the whole tolled network (Germany's A and B roads,
+	// Austria's A and S): the road classes only tell its km from the
+	// rest, so a tolled_share given overrides them.
+	oneRate := len(nw.roadTypes) == 0 && nw.hasRows && nw.perDay == nil
+	byRoute = byRoute && a.region == "" && rk.Total() > 0 && (len(nw.roadTypes) > 0 || oneRate && !shareGiven)
 	if byRoute && !shareGiven {
 		tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
+	}
+	if byRoute && oneRate {
+		local := "which aren't tolled"
+		if l := req.roadLeftOut[a.country]; len(l) > 0 {
+			local = fmt.Sprintf("which aren't tolled (they include the stretches the toll leaves out: %s)", strings.Join(l, ", "))
+		}
+		first, _, _ := strings.Cut(tolledRoads(ds), ". ")
+		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, %s. Tolled roads: %s. Give tolled_share.%s to override.",
+			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), local, strings.TrimSuffix(first, "."), cc)
 	}
 	p.useTable(ds)
 	if byRoute {

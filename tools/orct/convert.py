@@ -934,6 +934,12 @@ def check(t, name):
         if not (t.get("name") and t.get("law") and t.get("no_charge")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
             bad.append("name, law and no_charge are required, and no rates")
         return bad
+    if isinstance(t.get("no_charge"), str):
+        # A scheme's version that charges nothing (a toll repealed): the
+        # statement and its sources, no rates.
+        if not (t.get("name") and t.get("law")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
+            bad.append("name, law and no_charge are required, and no rates")
+        return bad
     if name.startswith("fuelco2-"):
         if name != f"fuelco2-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
             bad.append("the name must be fuelco2-<cc>-<valid_from>.json")
@@ -1036,7 +1042,7 @@ def main():
             doc = convert_zone(t, path)
         elif name.startswith("fuelco2-"):
             doc = convert_fuel(t, path)
-        elif name.startswith("nocharge-"):
+        elif name.startswith("nocharge-") or isinstance(t.get("no_charge"), str):
             doc = convert_no_charge(t, path)
         else:
             doc = convert_table(t, path)

@@ -3928,3 +3928,103 @@ func TestAlbaniaLlogara(t *testing.T) {
 		}
 	}
 }
+
+// A result says what it leaves out: an area with no table, and rates that
+// ended with no successor here yet (the next year's not yet published).
+func TestMissing(t *testing.T) {
+	req := Request{CargoKg: 20000, Truck: truck40}
+	r, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !r.Complete || len(r.Missing) > 0 {
+		t.Errorf("2026: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+	// Austria's GO-Maut table for 2026 ends on 31 December 2026, and
+	// Germany's BEHG price for 2027 comes from its auctions.
+	vieMuc := sootcase.Result{TTWKg: 300, WTWKg: 360, Legs: []sootcase.LegResult{{
+		DistanceKm: 430, TTWKg: 300, WTWKg: 360,
+		CountryKm: map[string]float64{"AT": 300, "DE": 130},
+	}}}
+	r, err = Price(vieMuc, all(t), req, time.Date(2099, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete {
+		t.Error("2099: complete, want missing AT tolls")
+	}
+	got := map[string]Missing{}
+	for _, m := range r.Missing {
+		got[m.Area+" "+m.Charge] = m
+	}
+	if m, ok := got["AT road_toll"]; !ok || m.Reason != "ended" || m.Ended == "" || m.Name == "" {
+		t.Errorf("AT tolls: %+v (missing %+v)", m, r.Missing)
+	}
+	if m, ok := got["DE fuel_co2"]; !ok || m.Reason != "ended" {
+		t.Errorf("DE fuel CO2: %+v (missing %+v)", m, r.Missing)
+	}
+	// A country with no table at all.
+	ua := sootcase.Result{TTWKg: 100, WTWKg: 120, Legs: []sootcase.LegResult{{
+		DistanceKm: 100, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"UA": 100},
+	}}}
+	r, err = Price(ua, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Complete || len(r.Missing) != 1 || r.Missing[0].Reason != "no_table" || r.Missing[0].Area != "UA" {
+		t.Errorf("UA: complete %v, missing %+v", r.Complete, r.Missing)
+	}
+}
+
+// Germany's rates are the same on its A and B roads: the road classes
+// only take the km off them out of the toll (BFStrMG § 1), and a
+// tolled_share given wins over them.
+func TestGermanyRoadClasses(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"DE": 100}}}}
+	rk := map[string]roads.Km{"DE": {Motorway: 70, National: 20, Local: 10}}
+	left := map[string][]string{"DE": {"A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"}}
+	day := time.Date(2026, 11, 21, 0, 0, 0, 0, time.UTC)
+	tollKm := func(r Response) (km float64) {
+		// Each Mautteilsatz is a line over the same km.
+		for _, l := range r.Lines {
+			if l.Country == "DE" && l.Charge == RoadToll {
+				km = math.Max(km, l.Km)
+			}
+		}
+		return km
+	}
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, roadLeftOut: left}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-90) > 1e-6 {
+		t.Errorf("tolled km %v, want 90: %+v", got, r.Lines)
+	}
+	found := false
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap along the route, 90% of the 100.0 km are on the tolled roads and 10% on other roads") {
+			found = strings.Contains(n, "A 5 Swiss and French borders-Müllheim/Neuenburg") && strings.Contains(n, "Tolled roads: Federal motorways")
+		}
+		if strings.Contains(n, "all 100.0 km are counted as on tolled roads") {
+			t.Errorf("note %q with road classes", n)
+		}
+	}
+	if !found {
+		t.Errorf("no road-class note: %v", r.Notes)
+	}
+	if r.Provenance.RoadClasses["DE"] == "" {
+		t.Errorf("no road classes in provenance")
+	}
+	r, err = Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, roadKm: rk, TolledShare: map[string]float64{"DE": 0.5}}, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := tollKm(r); math.Abs(got-50) > 1e-6 {
+		t.Errorf("tolled_share 0.5: %v km", got)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "DE: by OpenStreetMap") {
+			t.Errorf("note %q with tolled_share", n)
+		}
+	}
+}

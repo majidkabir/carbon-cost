@@ -205,6 +205,13 @@ type Response struct {
 	// NoRates lists countries on the route this tool has no toll table
 	// for: their charges are not included.
 	NoRates []string `json:"no_rates,omitempty"`
+	// Complete says whether the total includes every charge this tool
+	// knows the trip meets; false when Missing lists any.
+	Complete bool `json:"complete"`
+	// Missing lists the charges the trip meets that the total leaves out:
+	// areas with no table here, and rates that ended with no successor
+	// here yet (a new year's tariffs not yet published or added).
+	Missing []Missing `json:"missing,omitempty"`
 	// Compare is the trip priced for each of CompareCO2Classes.
 	Compare []Comparison   `json:"compare,omitempty"`
 	Notes   []string       `json:"notes,omitempty"`
@@ -214,6 +221,30 @@ type Response struct {
 	Route []Run `json:"route,omitempty"`
 	// Provenance names the data and assumptions the result rests on.
 	Provenance Provenance `json:"provenance"`
+}
+
+// Missing is a charge the trip meets that the result leaves out.
+type Missing struct {
+	// Area is the country, or region, of the charge.
+	Area string `json:"area"`
+	// Charge is the kind of charge: road_toll, area_charge or fuel_co2.
+	Charge string `json:"charge"`
+	// Name is the scheme, for rates that ended.
+	Name string `json:"name,omitempty"`
+	// Reason is "no_table" (this tool has none for the area) or "ended"
+	// (its rates ended on Ended and the next ones aren't here yet).
+	Reason string `json:"reason"`
+	// Ended is the last day of the last rates here.
+	Ended string `json:"ended,omitempty"`
+}
+
+// Message says what is missing, in a sentence.
+func (m Missing) Message() string {
+	what := map[string]string{RoadToll: "tolls", AreaCharge: "area charge", FuelCO2: "CO2 price on diesel"}[m.Charge]
+	if m.Reason == "ended" {
+		return fmt.Sprintf("%s %s (%s): the rates here ended on %s and the next ones aren't in this release yet", m.Area, what, m.Name, m.Ended)
+	}
+	return fmt.Sprintf("%s %s: no table in this tool", m.Area, what)
 }
 
 // Provenance is what a result was calculated from: enough to repeat it.
@@ -530,6 +561,11 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		if !ok {
 			if a.km >= 0.5 {
 				out.NoRates = append(out.NoRates, a.code)
+				m := Missing{Area: a.code, Charge: RoadToll, Reason: "no_table"}
+				if d, ok := set.Ended(a.code, date); ok {
+					m.Reason, m.Name, m.Ended = "ended", d.Name, d.ValidTo
+				}
+				out.Missing = append(out.Missing, m)
 			}
 			continue
 		}
@@ -582,6 +618,8 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	if err := p.priceZones(set, route); err != nil {
 		return Response{}, err
 	}
+	out.Missing = append(out.Missing, lapsed(set, req, &out, route, (res.TTWKg-ferryTTW)/1000, date)...)
+	out.Complete = len(out.Missing) == 0
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
 	if err := compare(&out, res, set, fd, req, date, ferryTTW); err != nil {
 		return Response{}, err
@@ -991,4 +1029,36 @@ func opName(op string) string {
 		return name
 	}
 	return name + " (" + ref + ")"
+}
+
+// lapsed finds the crossings, zones and CO2 prices on diesel the trip
+// meets under rates that ended with no successor here yet: each such
+// table, priced on its last day, says whether the route would pay it.
+func lapsed(set *tariffs.Set, req Request, out *Response, route *track, roadT float64, date time.Time) []Missing {
+	var ms []Missing
+	for _, kind := range []string{tariffs.Crossings, tariffs.Zone, tariffs.FuelCO2} {
+		for _, ds := range set.Lapsed(kind, date) {
+			last, err := time.Parse(time.DateOnly, ds.ValidTo)
+			if err != nil {
+				continue
+			}
+			scratch := Response{CountryKm: out.CountryKm, RegionKm: out.RegionKm}
+			n := 0
+			p := newPricer(req, last, &scratch, func(Line) error { n++; return nil })
+			one := &tariffs.Set{All: []*tariffs.Dataset{ds}}
+			charge := RoadToll
+			switch kind {
+			case tariffs.Crossings:
+				err = p.priceCrossings(one, route)
+			case tariffs.Zone:
+				charge, err = AreaCharge, p.priceZones(one, route)
+			case tariffs.FuelCO2:
+				charge, err = FuelCO2, p.priceFuel(one, roadT)
+			}
+			if err == nil && n > 0 {
+				ms = append(ms, Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "ended", Ended: ds.ValidTo})
+			}
+		}
+	}
+	return ms
 }

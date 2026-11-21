@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - run: python3 tools/orct/test_publish.py
+      - run: python3 tools/orct/test_expiring.py
       - run: |
           for d in cost/testdata/synthetic/tables/*/; do
             v=$(basename "$d")

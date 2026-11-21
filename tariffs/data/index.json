@@ -528,8 +528,8 @@
    "file": "cz/cz-2026-01-01.orct.json",
    "name": "Czech electronic toll (Mýto CZ)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "c03e39d824c13bcbe66d6d10522902a93686f50091124bff96b5e49d58a5eced",
+   "valid_to": null,
+   "sha256": "65449fa2c23812fe0320976add7169e41de88d875ad7782351b3b14fd199bbc2",
    "coverage": "complete"
   },
   {
@@ -3377,8 +3377,8 @@
    "file": "si/si-2026-04-01.orct.json",
    "name": "Slovenian distance toll (DarsGo)",
    "valid_from": "2026-04-01",
-   "valid_to": "2026-12-31",
-   "sha256": "3646966b596c304af8cf394c9f525d0017fd6587b3b0850b5206a095ed412aa5",
+   "valid_to": null,
+   "sha256": "661a57ac371ba4dbc2db47b5c9630630410727cde03389a549d97d154c4b13c6",
    "coverage": "partial"
   },
   {

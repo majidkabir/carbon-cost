@@ -13,11 +13,10 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2026-01-01",
-  "valid_to": "2026-12-31",
   "currency": "CZK",
   "timezone": "Europe/Prague",
   "license": "MIT",
-  "method": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as amended by nařízení vlády č. 327/2025 Sb., in force 1 January 2026. One rate per km by road category, maximum permissible mass, axles and EURO / CO2 emission class; the regulation gives no separate CO2 part.",
+  "method": "Nařízení vlády č. 240/2014 Sb., § 3 and Annexes 1 (motorways) and 2 (class I roads), as amended by nařízení vlády č. 327/2025 Sb., in force 1 January 2026. One rate per km by road category, maximum permissible mass, axles and EURO / CO2 emission class; the regulation gives no separate CO2 part. The regulation has no end date, and e-Sbírka lists no later version: the table runs until it is amended.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "cz-2026-01-01.json"
@@ -34,6 +33,11 @@
    "id": "s2",
    "title": "Nařízení vlády č. 240/2014 Sb., § 3 (rate structure)",
    "url": "https://www.epravo.cz/top/zakony/sbirka-zakonu/sb/2014/240"
+  },
+  {
+   "id": "s3",
+   "title": "e-Sbírka: nařízení vlády č. 240/2014 Sb., its versions (Historie)",
+   "url": "https://e-sbirka.gov.cz/sb/2014/240?zalozka=historie"
   }
  ],
  "tax": {
@@ -1421,7 +1425,7 @@
     ["road:other", "toll-1.83", "1.9938"],
     ["road:other", "toll-1.84", "2.4127"]
    ],
-   "sources": ["s1", "s2"],
+   "sources": ["s1", "s2", "s3"],
    "basis": "transcribed"
   }
  ],

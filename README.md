@@ -208,7 +208,7 @@ NLRTM,ITMIL,2026-11-03,12000
 $ carbon-cost calc -csv trips.csv -eua 75 > priced.csv
 ```
 
-The API takes up to 100 trips in one `POST /v1/carbon-cost/batch` (`{"trips": [<request>, ...]}`) and answers `{"results": [{"result": <response>} or {"error": "..."}, ...]}` in the same order; a trip that can't be priced has its error and doesn't fail the others.
+`GET /v1/openapi.json` describes the API (OpenAPI 3.1), every field with its meaning; it is generated from the Go types (`go run ./tools/openapi`), and a test fails when it is out of date. The API takes up to 100 trips in one `POST /v1/carbon-cost/batch` (`{"trips": [<request>, ...]}`) and answers `{"results": [{"result": <response>} or {"error": "..."}, ...]}` in the same order; a trip that can't be priced has its error and doesn't fail the others.
 
 Or with Docker (images are published for each release tag):
 

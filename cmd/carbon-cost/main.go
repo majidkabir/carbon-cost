@@ -408,6 +408,9 @@ func serve(args []string) error {
 	return srv.ListenAndServe()
 }
 
+//go:embed web/openapi.json
+var openAPI []byte
+
 //go:embed web/index.html
 var indexHTML string
 
@@ -479,6 +482,11 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
+	mux.HandleFunc("GET /v1/openapi.json", func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Write(openAPI)
+	})
 	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tariffs.Summaries()) })
 	mux.HandleFunc("GET /v1/rates/{cc}/{file}", func(w http.ResponseWriter, r *http.Request) {
 		b, ok := c.Tariffs.Raw(r.PathValue("cc") + "/" + r.PathValue("file"))

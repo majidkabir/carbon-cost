@@ -60,6 +60,7 @@ type Index struct {
 	countries map[string]*grid
 	extract   map[string]string
 	leftOut   map[string][]string
+	network   map[string]string
 }
 
 // LeftOut names the stretches of a country's motorway class its toll law
@@ -70,6 +71,15 @@ func (ix *Index) LeftOut(country string) []string {
 		return nil
 	}
 	return ix.leftOut[strings.ToUpper(country)]
+}
+
+// Network names the law whose list of tolled sections a country's ways
+// are ("" where they are its road classes by ref).
+func (ix *Index) Network(country string) string {
+	if ix == nil {
+		return ""
+	}
+	return ix.network[strings.ToUpper(country)]
 }
 
 // Extract is the date of the OpenStreetMap extract a country's ways come
@@ -120,7 +130,7 @@ func Default() (*Index, error) {
 }
 
 func load(fsys fs.FS) (*Index, error) {
-	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}, leftOut: map[string][]string{}}
+	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}, leftOut: map[string][]string{}, network: map[string]string{}}
 	files, err := fs.Glob(fsys, "data/*.json.gz")
 	if err != nil {
 		return nil, err
@@ -145,6 +155,7 @@ func load(fsys fs.FS) (*Index, error) {
 			Ops     []string  `json:"ops"`
 			MWOp    []int     `json:"mwop"`
 			LeftOut []string  `json:"left_out"`
+			Network string    `json:"network"`
 		}
 		err = json.NewDecoder(zr).Decode(&d)
 		r.Close()
@@ -176,6 +187,9 @@ func load(fsys fs.FS) (*Index, error) {
 			}
 		}
 		ix.countries[strings.ToUpper(d.Country)] = g
+		if d.Network != "" {
+			ix.network[strings.ToUpper(d.Country)] = d.Network
+		}
 		if d.Extract != "" {
 			ix.extract[strings.ToUpper(d.Country)] = d.Extract
 			if len(d.LeftOut) > 0 {

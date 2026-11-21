@@ -96,6 +96,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 			d = "date not recorded"
 		}
 		p.out.Provenance.RoadClasses[a.country] = "OpenStreetMap " + d
+		if n := req.roadNetwork[a.country]; n != "" {
+			p.out.Provenance.RoadClasses[a.country] += "; tolled sections: " + n
+		}
 		if rk.Uncertain >= 0.5 {
 			p.note("%s: %.1f km counted as untolled local roads pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
 				cc, rk.Uncertain, roads.NearM, cc)
@@ -232,8 +235,14 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 				// The motorway stretches the toll leaves to their operators count here.
 				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
 			}
-			p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
-				cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+			if req.roadNetwork[a.country] != "" {
+				// The road classes are the law's list of tolled sections.
+				p.note("%s: by OpenStreetMap along the route and the tolled sections the law lists, %.0f%% of the %.1f km are on tolled motorways and expressways, %.0f%% on other tolled national roads and %.0f%% on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+			} else {
+				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+			}
 		default:
 			ds.Ext("motorway_share", &mw)
 			p.note("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",

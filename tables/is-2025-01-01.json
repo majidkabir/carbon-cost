@@ -1,0 +1,331 @@
+{
+ "country": "IS",
+ "currency": "ISK",
+ "valid_from": "2025-01-01",
+ "valid_to": "2025-12-31",
+ "name": "Kílómetragjald (km fee on trucks and trailers of 10 t or more)",
+ "law": "Lög um olíugjald og kílómetragjald nr. 87/2004: the km fee on trucks (not buses) and trailers of 10,000 kg or more, registered in Iceland or abroad, each by its own gjaldþyngd (its permissible total weight; no maximum by axles), ISK 0.40 per km at 10,000-11,000 kg to 17.84 above 31,000 kg in 2025, as Skatturinn (Iceland Revenue and Customs) gives the year's amounts. The motor vehicle and the trailer each pay on their own (give motor_mass_kg, trailer_mass_kg and motor_axles). The special km fee on vehicles for special use is left out. Diesel paid olíugjald, a fuel excise, besides: not a road charge here.",
+ "sources": [
+  {
+   "title": "Skatturinn: Kílómetragjald á vörubifreiðar og eftirvagna (Almennt kílómetragjald 2025)",
+   "url": "https://www.skatturinn.is/atvinnurekstur/skattar-og-gjold/kilometragjald-a-vorubifreidar/"
+  }
+ ],
+ "vehicles": "Trucks and trailers of 10,000 kg or more",
+ "min_kg": 0,
+ "tolled_roads": "All roads (by odometer).",
+ "rows": [
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "max_kg": 9999,
+   "rate": 0
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 10000,
+   "rate": 0.4,
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 11001,
+   "rate": 1.22,
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 12001,
+   "rate": 2.05,
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 13001,
+   "rate": 2.91,
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 14001,
+   "rate": 3.73,
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 15001,
+   "rate": 4.57,
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 16001,
+   "rate": 5.39,
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 17001,
+   "rate": 6.22,
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 18001,
+   "rate": 7.05,
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 19001,
+   "rate": 7.86,
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 20001,
+   "rate": 8.73,
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 21001,
+   "rate": 9.52,
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 22001,
+   "rate": 10.38,
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 23001,
+   "rate": 11.19,
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 24001,
+   "rate": 12.03,
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 25001,
+   "rate": 12.84,
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 26001,
+   "rate": 13.69,
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 27001,
+   "rate": 14.54,
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 28001,
+   "rate": 15.38,
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 29001,
+   "rate": 16.18,
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 30001,
+   "rate": 17.02,
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "motor",
+   "min_kg": 31001,
+   "rate": 17.84
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 10000,
+   "rate": 0.4,
+   "max_kg": 11000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 11001,
+   "rate": 1.22,
+   "max_kg": 12000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 12001,
+   "rate": 2.05,
+   "max_kg": 13000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 13001,
+   "rate": 2.91,
+   "max_kg": 14000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 14001,
+   "rate": 3.73,
+   "max_kg": 15000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 15001,
+   "rate": 4.57,
+   "max_kg": 16000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 16001,
+   "rate": 5.39,
+   "max_kg": 17000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 17001,
+   "rate": 6.22,
+   "max_kg": 18000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 18001,
+   "rate": 7.05,
+   "max_kg": 19000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 19001,
+   "rate": 7.86,
+   "max_kg": 20000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 20001,
+   "rate": 8.73,
+   "max_kg": 21000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 21001,
+   "rate": 9.52,
+   "max_kg": 22000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 22001,
+   "rate": 10.38,
+   "max_kg": 23000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 23001,
+   "rate": 11.19,
+   "max_kg": 24000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 24001,
+   "rate": 12.03,
+   "max_kg": 25000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 25001,
+   "rate": 12.84,
+   "max_kg": 26000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 26001,
+   "rate": 13.69,
+   "max_kg": 27000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 27001,
+   "rate": 14.54,
+   "max_kg": 28000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 28001,
+   "rate": 15.38,
+   "max_kg": 29000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 29001,
+   "rate": 16.18,
+   "max_kg": 30000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 30001,
+   "rate": 17.02,
+   "max_kg": 31000
+  },
+  {
+   "component": "toll",
+   "vehicle_unit": "trailer",
+   "min_kg": 31001,
+   "rate": 17.84
+  }
+ ]
+}

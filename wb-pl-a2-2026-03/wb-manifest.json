@@ -1,0 +1,44 @@
+[
+ {
+  "id": "pl-a2-tolls",
+  "url": "https://www.autostrada-a2.pl/oplaty/",
+  "capture": "20260318155435",
+  "original": "https://www.autostrada-a2.pl/oplaty/",
+  "archived": "https://web.archive.org/web/20260318155435/https://www.autostrada-a2.pl/oplaty/",
+  "size": 69182,
+  "sha256": "48569afdff492bc651d62f4cd88d82706304a7b82644e664d70d1df7c4f80e26",
+  "reused": true
+ },
+ {
+  "id": "pl-a2-news",
+  "url": "https://www.autostrada-a2.pl/en/news/change-of-toll-rates-for-a2-motorway-in-nowy-tomysl-konin-section-2/",
+  "live": true,
+  "fetched": "2026-11-21",
+  "size": 60617,
+  "sha256": "e26df16782ff4edf4c71143afb3711bb554abc07036f9914066eb57e3230f5e9"
+ },
+ {
+  "id": "pl-a2-cat2",
+  "url": "https://www.autostrada-a2.pl/wp-content/uploads/2026/02/AW-tabele-oplat-03.2026_02.pdf",
+  "live": true,
+  "fetched": "2026-11-21",
+  "size": 100257,
+  "sha256": "8bfec03529e991a3293829197c744b219969a4077c226dca8b69425500dcbde6"
+ },
+ {
+  "id": "pl-a2-cat3",
+  "url": "https://www.autostrada-a2.pl/wp-content/uploads/2026/02/AW-tabele-oplat-03.2026_03.pdf",
+  "live": true,
+  "fetched": "2026-11-21",
+  "size": 96028,
+  "sha256": "c88fc3e6280047341a719a1c610d5bafb7ac6f5f2e9d42977e823bf8b866db62"
+ },
+ {
+  "id": "pl-a2-cat4",
+  "url": "https://www.autostrada-a2.pl/wp-content/uploads/2026/02/AW-tabele-oplat-03.2026_04.pdf",
+  "live": true,
+  "fetched": "2026-11-21",
+  "size": 94756,
+  "sha256": "f520e29deab03045c6e4424ae39a9f9311dddda68ab60b6f3d5b7e70295173da"
+ }
+]

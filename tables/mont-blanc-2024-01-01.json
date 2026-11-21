@@ -1,0 +1,54 @@
+{
+ "country": "FR",
+ "currency": "EUR",
+ "valid_from": "2024-01-01",
+ "valid_to": "2024-12-31",
+ "crossings": true,
+ "name": "Mont Blanc tunnel toll",
+ "law": "Tunnel du Mont Blanc (TMB-GEIE): ATMB's prices for heavy vehicles from 2024-01-01, one way, France to Italy, EUR including 20% VAT, here excluding it; class 3 (two axles) and 4 (three or more). The Italy to France price is the same before Italy's 22% VAT. Goods vehicles over 3.5 t of EURO 0 to 4 aren't admitted. Rebuilt from the Internet Archive's copies of these pages (2024).",
+ "sources": [
+  {
+   "title": "ATMB: Mont Blanc tunnel prices for heavy vehicles from 2024-01-01",
+   "url": "https://web.archive.org/web/20241006143512/https://www.atmb.com/telepeage-tarifs/les-tarifs-au-tunnel-du-mont-blanc-pour-les-poids-lourds/"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "The Mont Blanc tunnel (Chamonix-Courmayeur), priced when the route passes the French plaza, whichever the direction.",
+ "closed_systems": [
+  {
+   "name": "Mont Blanc tunnel",
+   "law": "ATMB/TMB-GEIE price for heavy vehicles, one way, EUR including 20% VAT, here excluding it.",
+   "groups": [
+    {
+     "name": "3",
+     "min_kg": 3501,
+     "max_axles": 2
+    },
+    {
+     "name": "4",
+     "min_kg": 3501,
+     "min_axles": 3
+    }
+   ],
+   "stations": [
+    {
+     "name": "Tunnel du Mont Blanc",
+     "points": [
+      {
+       "name": "toll plaza",
+       "lat": 45.901,
+       "lon": 6.86072
+      }
+     ]
+    }
+   ],
+   "prices": {
+    "Tunnel du Mont Blanc|Tunnel du Mont Blanc": {
+     "3": 163.75,
+     "4": 329.0
+    }
+   }
+  }
+ ]
+}

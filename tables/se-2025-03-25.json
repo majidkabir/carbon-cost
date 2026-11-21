@@ -1,0 +1,265 @@
+{
+ "country": "SE",
+ "currency": "SEK",
+ "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+ "vehicles": "Trucks and articulated combinations of 12 t or more total weight, for goods transport",
+ "min_kg": 12000,
+ "tolled_roads": "Motorways and the roads in annex 1 of the law (for foreign vehicles; Swedish vehicles pay for all roads, yearly).",
+ "per_day": true,
+ "day": "calendar",
+ "valid_from": "2025-03-25",
+ "valid_to": "2025-12-31",
+ "law": "Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for 2025 from Förordning (2024:953) as amended by SFS 2025:46 (in force 25 March 2025, under the transitional provisions of SFS 2024:292): per calendar day, week, month or year by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT.",
+ "sources": [
+  {
+   "title": "SFS 2025:46 (Svensk författningssamling)",
+   "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-02/SFS2025-46.pdf"
+  },
+  {
+   "title": "Lag (1997:1137), consolidated (Riksdagen)",
+   "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text"
+  }
+ ],
+ "rows": [
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "co2_class": [
+    2
+   ],
+   "rate": 79
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "co2_class": [
+    3
+   ],
+   "rate": 67
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "co2_class": [
+    4
+   ],
+   "rate": 56
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "co2_class": [
+    5
+   ],
+   "rate": 22
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "co2_class": [
+    2
+   ],
+   "rate": 135
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "co2_class": [
+    3
+   ],
+   "rate": 113
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "co2_class": [
+    4
+   ],
+   "rate": 90
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "co2_class": [
+    5
+   ],
+   "rate": 45
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    0
+   ],
+   "rate": 158,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    1
+   ],
+   "rate": 135,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    2
+   ],
+   "rate": 124,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    3
+   ],
+   "rate": 101,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    4
+   ],
+   "rate": 101,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 90,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 90,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    0
+   ],
+   "rate": 271,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    1
+   ],
+   "rate": 237,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    2
+   ],
+   "rate": 203,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    3
+   ],
+   "rate": 181,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    4
+   ],
+   "rate": 158,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 158,
+   "co2_class": [
+    1
+   ]
+  },
+  {
+   "component": "toll",
+   "min_kg": 12000,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 147,
+   "co2_class": [
+    1
+   ]
+  }
+ ]
+}

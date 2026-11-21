@@ -1,0 +1,282 @@
+{
+ "country": "BG",
+ "currency": "EUR",
+ "valid_from": "2026-01-01",
+ "valid_to": "2026-05-31",
+ "name": "Bulgarian distance toll (BG TOLL)",
+ "law": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1 as amended by Постановление № 208 от 9 октомври 2025 г. (ДВ бр. 85 от 14.10.2025), in force from 1 January 2026 (the day Bulgaria adopted the euro, § 15) until 31 May 2026 (Постановление № 64 от 26 май 2026 г., ДВ бр. 49 от 29.05.2026, from 1 June 2026): EUR/km by vehicle category, EURO class and road class. No VAT is charged.",
+ "sources": [
+  {
+   "title": "Държавен вестник бр. 85/2025: Постановление № 208 (toll rates of чл. 25, ал. 1 in euros)",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=238097"
+  },
+  {
+   "title": "Държавен вестник бр. 49/2026: Постановление № 64 (rates from 1 June 2026)",
+   "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642"
+  }
+ ],
+ "vehicles": "Goods vehicles over 3.5 t technically permissible maximum mass (buses have their own rates)",
+ "min_kg": 3501,
+ "tolled_roads": "Motorways and class I roads (about 3,115 km), and tolled class II roads. Km off motorways are priced at the class I rate; class II rates are lower.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.06
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.07
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.07
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.08
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.16
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.16
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.17
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.18
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.21
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.22
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.22
+  },
+  {
+   "component": "infrastructure",
+   "road": "motorway",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.27
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    6
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    5
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.04
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 3501,
+   "max_kg": 12000,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.06
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    6
+   ],
+   "rate": 0.13
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    5
+   ],
+   "rate": 0.15
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.15
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "max_axles": 3,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.15
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    6
+   ],
+   "rate": 0.19
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    5
+   ],
+   "rate": 0.2
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    3,
+    4
+   ],
+   "rate": 0.21
+  },
+  {
+   "component": "infrastructure",
+   "road": "other",
+   "min_kg": 12001,
+   "min_axles": 4,
+   "euro": [
+    0,
+    1,
+    2
+   ],
+   "rate": 0.24
+  }
+ ]
+}

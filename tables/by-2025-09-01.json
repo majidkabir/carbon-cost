@@ -1,0 +1,50 @@
+{
+ "country": "BY",
+ "currency": "EUR",
+ "valid_from": "2025-09-01",
+ "name": "BelToll",
+ "law": "Decree of the Ministry of Transport and Communications No. 65 of 2025-08-19 (amending its decree No. 21 of 17 June 2013), in force from 2025-09-01: EUR 0.117 per km for vehicles over 3.5 t with 2 axles, 0.146 with 3, 0.176 with 4 or more, as BelToll announced them; BelToll counts the axles of the vehicle with its trailers. Toll roads: the list of the Regulation approved by Council of Ministers resolution No. 340 of 30 April 2013, placed on the ways OpenStreetMap tags as toll roads. Resolution No. 94 of 31 October 2025, in force from 11 December 2025, replaced decree No. 21 and kept these tariffs (BelToll).",
+ "sources": [
+  {
+   "title": "BelToll: new tariffs from 2025-09-01 (decree No. 65)",
+   "url": "https://beltoll.by/en/news/on-new-toll-rates-from-september-1-en"
+  },
+  {
+   "title": "BelToll: the regulatory documents (resolution No. 94, the tariffs unchanged)",
+   "url": "https://beltoll.by/en/news/on-regulatory-documents-governing-the-use-of-toll-roads-en"
+  },
+  {
+   "title": "BelToll: Помощь (the number of axles includes trailers)",
+   "url": "https://beltoll.by/ru/help"
+  }
+ ],
+ "vehicles": "Vehicles over 3.5 t",
+ "min_kg": 3501,
+ "tolled_roads": "BelToll toll roads (the list of the Regulation approved by resolution No. 340), as OpenStreetMap tags them.",
+ "motorway_share": 1,
+ "rows": [
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "max_axles": 2,
+   "rate": 0.117
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "min_axles": 3,
+   "max_axles": 3,
+   "rate": 0.146
+  },
+  {
+   "component": "toll",
+   "road": "motorway",
+   "min_kg": 3501,
+   "min_axles": 4,
+   "rate": 0.176
+  }
+ ],
+ "valid_to": "2026-08-31"
+}

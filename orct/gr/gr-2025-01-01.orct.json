@@ -1,0 +1,1620 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/gr/2025-01-01",
+  "scheme": {
+   "id": "gr",
+   "name": "Greek motorway tolls (open toll stations)",
+   "country": "GR"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2025-01-01",
+  "valid_to": "2025-12-31",
+  "currency": "EUR",
+  "timezone": "Europe/Athens",
+  "license": "MIT",
+  "method": "The concession agreements ratified by law (e.g. ν. 3559/2007 for Moreas), prices for 2025 as published by each concession company: Olympia Odos, Nea Odos, Kentriki Odos, Moreas and Aegean Motorway, and the Rio–Antirrio bridge (Gefyra, by axles). Per passage of a front or side station, category 3 (over 2.20 m, two or three axles) and 4 (four or more axles), excluding 24% VAT. Within a toll zone a trip pays one station only, as the stations are placed. Stations placed with OpenStreetMap's toll booths. Egnatia Odos isn't included. Attiki Odos isn't included. Built from the Internet Archive's copies of the 2025 pages. Each operator's page as the Internet Archive kept it in 2025 (the copies of February/April and November/December 2025 of Olympia Odos, Kentriki Odos and Moreas show the same prices). Aegean Motorway's Greek price page has no copy of 2025, so its stations aren't priced.",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "gr-2025-01-01.json"
+  },
+  "required_features": ["type.point"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Olympia Odos: Τιμές διοδίων",
+   "url": "https://web.archive.org/web/20251217071829/https://www.olympiaodos.gr/Diodia-OLYMPIA-PASS/Times-diodion/"
+  },
+  {
+   "id": "s2",
+   "title": "Nea Odos: Διόδια Τέλη",
+   "url": "https://web.archive.org/web/20251123021248/https://www.neaodos.gr/highways/tolls/"
+  },
+  {
+   "id": "s3",
+   "title": "Kentriki Odos: Διόδια Τέλη",
+   "url": "https://web.archive.org/web/20251206172556/https://www.kentrikiodos.gr/highways/toll-fees/"
+  },
+  {
+   "id": "s4",
+   "title": "Moreas: Διόδια",
+   "url": "https://web.archive.org/web/20251216205541/https://www.moreas.com.gr/leitourgia/diodia"
+  },
+  {
+   "id": "s5",
+   "title": "Aegean Motorway: Τιμές Διοδίων 2026",
+   "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"
+  },
+  {
+   "id": "s6",
+   "title": "Gefyra: Τιμές Διοδίων (Rio–Antirrio bridge)",
+   "url": "https://web.archive.org/web/20250120075907/https://www.gefyra.gr/prices/Times-Diodion/"
+  },
+  {
+   "id": "s7",
+   "title": "OpenStreetMap (Geofabrik extract), toll booths",
+   "url": "https://download.geofabrik.de/europe/greece.html"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "Vehicles over 3,500 kg (categories 3 and 4)",
+  "criteria": {
+   "train_mass_kg": {
+    "min": 3501
+   }
+  }
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "pt-1",
+   "classes": [
+    {
+     "id": "pt-1.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-1.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "pt-2",
+   "classes": [
+    {
+     "id": "pt-2.1",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "max": 2
+      }
+     }
+    },
+    {
+     "id": "pt-2.2",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 3,
+       "max": 3
+      }
+     }
+    },
+    {
+     "id": "pt-2.3",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 4,
+       "max": 4
+      }
+     }
+    },
+    {
+     "id": "pt-2.4",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_axles": {
+       "min": 5
+      }
+     }
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "pt1",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Ελευσίνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.495701, 38.042237]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt2",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Ισθμού",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.032463, 37.925162]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt3",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Κιάτου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.735457, 37.9967]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt4",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Ελαιώνα",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.165377, 38.19055]
+    },
+    "heading": 94.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt5",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Ελαιώνα",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.165412, 38.190907]
+    },
+    "heading": 275.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt6",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Ρίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.830146, 38.316452]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt7",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Πάτρας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.618995, 38.145184]
+    },
+    "heading": 262.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt8",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Πάτρας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.619028, 38.144981]
+    },
+    "heading": 86.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt9",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Πύργου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.358685, 37.752637]
+    },
+    "heading": 204.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt10",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Μετωπικός Πύργου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.358915, 37.752562]
+    },
+    "heading": 24.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt11",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Νέας Περάμου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.426682, 38.019648]
+    },
+    "heading": 240.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt12",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Νέας Περάμου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.428464, 38.019888]
+    },
+    "heading": 61.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt13",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Πάχης",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.348981, 37.985808]
+    },
+    "heading": 204.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt14",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Πάχης",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.350115, 37.984998]
+    },
+    "heading": 78.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt15",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Αγίων Θεοδώρων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.119518, 37.921943]
+    },
+    "heading": 298.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt16",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Αγίων Θεοδώρων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.119518, 37.921789]
+    },
+    "heading": 118.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt17",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Ζευγολατιού",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.787996, 37.931258]
+    },
+    "heading": 103.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt18",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Ζευγολατιού",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.787937, 37.931466]
+    },
+    "heading": 282.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt19",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Κιάτου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.733339, 38.007735]
+    },
+    "heading": 155.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt20",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Κιάτου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.733527, 38.00789]
+    },
+    "heading": 335.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt21",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Δερβενίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.405088, 38.132016]
+    },
+    "heading": 303.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt22",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Δερβενίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.404906, 38.13186]
+    },
+    "heading": 127.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt23",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Ακράτας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.34224, 38.157188]
+    },
+    "heading": 243.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt24",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Ακράτας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.342785, 38.156775]
+    },
+    "heading": 357.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt25",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Καλαβρύτων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.239686, 38.174721]
+    },
+    "heading": 47.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt26",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Καλαβρύτων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.239292, 38.174699]
+    },
+    "heading": 229.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt27",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Δρεπάνου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.857979, 38.32515]
+    },
+    "heading": 277.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt28",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Δρεπάνου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.858062, 38.324961]
+    },
+    "heading": 97.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt29",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Κάτω Αχαΐας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.527963, 38.114812]
+    },
+    "heading": 44.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt30",
+   "type": "point",
+   "name": "Ολυμπία Οδός: Πλευρικός Κάτω Αχαΐας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.526824, 38.11453]
+    },
+    "heading": 223.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt31",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Αφιδνών",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.854084, 38.176366]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt32",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Καπανδριτίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.854781, 38.202844]
+    },
+    "heading": 13.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt33",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Καπανδριτίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.853886, 38.202551]
+    },
+    "heading": 203.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt34",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Μαλακάσας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.785893, 38.236384]
+    },
+    "heading": 293.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt35",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Μαλακάσας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.780597, 38.237454]
+    },
+    "heading": 111.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt36",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Οινοφύτων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.674612, 38.292179]
+    },
+    "heading": 266.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt37",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Οινοφύτων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.67592, 38.28917]
+    },
+    "heading": 157.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt38",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Θήβας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.286924, 38.370851]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt39",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Θήβας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.32206, 38.364148]
+    },
+    "heading": 348.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt40",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Θήβας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.324593, 38.366352]
+    },
+    "heading": 353.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt41",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Τραγάνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.143577, 38.617602]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt42",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Τραγάνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.123702, 38.622549]
+    },
+    "heading": 273.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt43",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Τραγάνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [23.123618, 38.621955]
+    },
+    "heading": 106.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt44",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Κλόκοβας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.656746, 38.359352]
+    },
+    "heading": 315.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt45",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Κλόκοβας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.656481, 38.359147]
+    },
+    "heading": 132.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt46",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Γαβρολίμνης",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.624921, 38.37336]
+    },
+    "heading": 115.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt47",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Γαβρολίμνης",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.624926, 38.374209]
+    },
+    "heading": 277.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt48",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Μεσολογγίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.495097, 38.379379]
+    },
+    "heading": 103.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt49",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Μεσολογγίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.495145, 38.379543]
+    },
+    "heading": 282.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt50",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Αγγελοκάστρου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.272429, 38.549428]
+    },
+    "heading": 336.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt51",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Αγγελοκάστρου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.272189, 38.54935]
+    },
+    "heading": 158.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt52",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Κουβαρά",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.215713, 38.700404]
+    },
+    "heading": 353.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt53",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Κουβαρά",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.214125, 38.699493]
+    },
+    "heading": 1.0,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt54",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Μενιδίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.170801, 38.989853]
+    },
+    "heading": 170.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt55",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Μενιδίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.171099, 38.989887]
+    },
+    "heading": 350.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt56",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Άρτας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.010856, 39.160389]
+    },
+    "heading": 136.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt57",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Άρτας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.012041, 39.160625]
+    },
+    "heading": 249.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt58",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Γοργόμυλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.915648, 39.331769]
+    },
+    "heading": 11.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt59",
+   "type": "point",
+   "name": "Νέα Οδός: Πλευρικός Γοργόμυλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.914228, 39.331876]
+    },
+    "heading": 180.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt60",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Τερόβου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.905119, 39.425473]
+    },
+    "heading": 183.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt61",
+   "type": "point",
+   "name": "Νέα Οδός: Μετωπικός Τερόβου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [20.905401, 39.425486]
+    },
+    "heading": 2.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt62",
+   "type": "point",
+   "name": "Κεντρική Οδός: Μετωπικός Αγίας Τριάδας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.602641, 38.808512]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt63",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Μώλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.649427, 38.802892]
+    },
+    "heading": 276.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt64",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Μώλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.649557, 38.80264]
+    },
+    "heading": 96.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt65",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Μπράλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.509363, 38.79927]
+    },
+    "heading": 116.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt66",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Μπράλου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.511019, 38.799604]
+    },
+    "heading": 272.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt67",
+   "type": "point",
+   "name": "Κεντρική Οδός: Μετωπικός Μαυρομαντήλας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.527701, 38.904106]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt68",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Αγίας Μαρίνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.570507, 38.903725]
+    },
+    "heading": 254.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt69",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Αγίας Μαρίνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.569244, 38.903056]
+    },
+    "heading": 78.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt70",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Στυλίδας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.657878, 38.913573]
+    },
+    "heading": 111.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt71",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Στυλίδας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.6589, 38.913691]
+    },
+    "heading": 291.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt72",
+   "type": "point",
+   "name": "Κεντρική Οδός: Μετωπικός Λιανοκλαδίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.348875, 38.915006]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt73",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Ανάβρας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.069247, 39.21025]
+    },
+    "heading": 91.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt74",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Ανάβρας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.069106, 39.210486]
+    },
+    "heading": 271.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt75",
+   "type": "point",
+   "name": "Κεντρική Οδός: Μετωπικός Σοφάδων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.083107, 39.257055]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt76",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Προαστίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.903325, 39.474649]
+    },
+    "heading": 2.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt77",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Προαστίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.903039, 39.474536]
+    },
+    "heading": 182.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt78",
+   "type": "point",
+   "name": "Κεντρική Οδός: Μετωπικός Τρικάλων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.832363, 39.5202]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt79",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Τρικάλων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.818103, 39.568984]
+    },
+    "heading": 271.3,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt80",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Τρικάλων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.818383, 39.568782]
+    },
+    "heading": 90.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt81",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Καλαμπάκας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.610719, 39.699846]
+    },
+    "heading": 354.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt82",
+   "type": "point",
+   "name": "Κεντρική Οδός: Πλευρικός Καλαμπάκας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.608671, 39.700192]
+    },
+    "heading": 116.5,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt83",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.807744, 37.835943]
+    },
+    "heading": 211.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt84",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.808268, 37.835709]
+    },
+    "heading": 29.8,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt85",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Σπαθοβουνίου",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.808018, 37.835825]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt86",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Νεστάνης",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.446442, 37.600785]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt87",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Γέφυρας Μάναρη",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.307739, 37.412353]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt88",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Βελιγοστής",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.110272, 37.345002]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt89",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Παραδεισίων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.077681, 37.331656]
+    },
+    "heading": 208.1,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt90",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Παραδεισίων",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.07835, 37.330717]
+    },
+    "heading": 283.4,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt91",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Αρφαρών",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.025489, 37.153608]
+    },
+    "heading": 309.2,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt92",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Αρφαρών",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.026263, 37.152387]
+    },
+    "heading": 132.6,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt93",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Καλαμάτας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.037936, 37.136833]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt94",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Θουρίας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.048018, 37.072077]
+    },
+    "heading": 326.9,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt95",
+   "type": "point",
+   "name": "Μορέας: Πλευρικός Θουρίας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.047391, 37.071567]
+    },
+    "heading": 127.7,
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt96",
+   "type": "point",
+   "name": "Μορέας: Μετωπικός Πετρίνας",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [22.210251, 37.298728]
+    },
+    "match_m": 100
+   }
+  },
+  {
+   "id": "pt97",
+   "type": "point",
+   "name": "Γέφυρα: Ρίο–Αντίρριο",
+   "location": {
+    "geometry": {
+     "type": "Point",
+     "coordinates": [21.765955, 38.333835]
+    },
+    "match_m": 100
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "points",
+   "type": "point",
+   "component": "unspecified",
+   "unit": "passage",
+   "columns": ["object", "vehicle_class", "amount"],
+   "rows": [
+    ["pt1", "pt-1.1", "4.9194"],
+    ["pt1", "pt-1.2", "6.8548"],
+    ["pt2", "pt-1.1", "4.1935"],
+    ["pt2", "pt-1.2", "5.8871"],
+    ["pt3", "pt-1.1", "5.3226"],
+    ["pt3", "pt-1.2", "7.4194"],
+    ["pt4", "pt-1.1", "7.5"],
+    ["pt4", "pt-1.2", "10.4839"],
+    ["pt5", "pt-1.1", "7.5"],
+    ["pt5", "pt-1.2", "10.4839"],
+    ["pt6", "pt-1.1", "5.2419"],
+    ["pt6", "pt-1.2", "7.3387"],
+    ["pt7", "pt-1.1", "7.1774"],
+    ["pt7", "pt-1.2", "10"],
+    ["pt8", "pt-1.1", "7.1774"],
+    ["pt8", "pt-1.2", "10"],
+    ["pt9", "pt-1.1", "4.2742"],
+    ["pt9", "pt-1.2", "6.0484"],
+    ["pt10", "pt-1.1", "4.2742"],
+    ["pt10", "pt-1.2", "6.0484"],
+    ["pt11", "pt-1.1", "3.3065"],
+    ["pt11", "pt-1.2", "4.5968"],
+    ["pt12", "pt-1.1", "3.3065"],
+    ["pt12", "pt-1.2", "4.5968"],
+    ["pt13", "pt-1.1", "2.0968"],
+    ["pt13", "pt-1.2", "2.9839"],
+    ["pt14", "pt-1.1", "2.0968"],
+    ["pt14", "pt-1.2", "2.9839"],
+    ["pt15", "pt-1.1", "1.2097"],
+    ["pt15", "pt-1.2", "1.7742"],
+    ["pt16", "pt-1.1", "1.2097"],
+    ["pt16", "pt-1.2", "1.7742"],
+    ["pt17", "pt-1.1", "1.6935"],
+    ["pt17", "pt-1.2", "2.4194"],
+    ["pt18", "pt-1.1", "1.6935"],
+    ["pt18", "pt-1.2", "2.4194"],
+    ["pt19", "pt-1.1", "2.0161"],
+    ["pt19", "pt-1.2", "2.8226"],
+    ["pt20", "pt-1.1", "2.0161"],
+    ["pt20", "pt-1.2", "2.8226"],
+    ["pt21", "pt-1.1", "3.0645"],
+    ["pt21", "pt-1.2", "4.2742"],
+    ["pt22", "pt-1.1", "3.0645"],
+    ["pt22", "pt-1.2", "4.2742"],
+    ["pt23", "pt-1.1", "4.0323"],
+    ["pt23", "pt-1.2", "5.6452"],
+    ["pt24", "pt-1.1", "4.0323"],
+    ["pt24", "pt-1.2", "5.6452"],
+    ["pt25", "pt-1.1", "5.4839"],
+    ["pt25", "pt-1.2", "7.7419"],
+    ["pt26", "pt-1.1", "5.4839"],
+    ["pt26", "pt-1.2", "7.7419"],
+    ["pt27", "pt-1.1", "3.9516"],
+    ["pt27", "pt-1.2", "5.5645"],
+    ["pt28", "pt-1.1", "3.9516"],
+    ["pt28", "pt-1.2", "5.5645"],
+    ["pt29", "pt-1.1", "4.3548"],
+    ["pt29", "pt-1.2", "6.0484"],
+    ["pt30", "pt-1.1", "4.3548"],
+    ["pt30", "pt-1.2", "6.0484"],
+    ["pt31", "pt-1.1", "7.5806"],
+    ["pt31", "pt-1.2", "10.6452"],
+    ["pt32", "pt-1.1", "4.5968"],
+    ["pt32", "pt-1.2", "6.4516"],
+    ["pt33", "pt-1.1", "4.5968"],
+    ["pt33", "pt-1.2", "6.4516"],
+    ["pt34", "pt-1.1", "3.2661"],
+    ["pt34", "pt-1.2", "4.5968"],
+    ["pt35", "pt-1.1", "3.2661"],
+    ["pt35", "pt-1.2", "4.5968"],
+    ["pt36", "pt-1.1", "1.5323"],
+    ["pt36", "pt-1.2", "2.1774"],
+    ["pt37", "pt-1.1", "1.5323"],
+    ["pt37", "pt-1.2", "2.1774"],
+    ["pt38", "pt-1.1", "8.871"],
+    ["pt38", "pt-1.2", "12.4194"],
+    ["pt39", "pt-1.1", "3.5081"],
+    ["pt39", "pt-1.2", "4.9194"],
+    ["pt40", "pt-1.1", "3.5081"],
+    ["pt40", "pt-1.2", "4.9194"],
+    ["pt41", "pt-1.1", "8.8306"],
+    ["pt41", "pt-1.2", "12.379"],
+    ["pt42", "pt-1.1", "7.0968"],
+    ["pt42", "pt-1.2", "9.9194"],
+    ["pt43", "pt-1.1", "7.0968"],
+    ["pt43", "pt-1.2", "9.9194"],
+    ["pt44", "pt-1.1", "6.9355"],
+    ["pt44", "pt-1.2", "9.6774"],
+    ["pt45", "pt-1.1", "6.9355"],
+    ["pt45", "pt-1.2", "9.6774"],
+    ["pt46", "pt-1.1", "4.879"],
+    ["pt46", "pt-1.2", "6.8548"],
+    ["pt47", "pt-1.1", "4.879"],
+    ["pt47", "pt-1.2", "6.8548"],
+    ["pt48", "pt-1.1", "2.9032"],
+    ["pt48", "pt-1.2", "4.0726"],
+    ["pt49", "pt-1.1", "2.9032"],
+    ["pt49", "pt-1.2", "4.0726"],
+    ["pt50", "pt-1.1", "8.1452"],
+    ["pt50", "pt-1.2", "11.4113"],
+    ["pt51", "pt-1.1", "8.1452"],
+    ["pt51", "pt-1.2", "11.4113"],
+    ["pt52", "pt-1.1", "3.75"],
+    ["pt52", "pt-1.2", "5.2823"],
+    ["pt53", "pt-1.1", "3.75"],
+    ["pt53", "pt-1.2", "5.2823"],
+    ["pt54", "pt-1.1", "6.9355"],
+    ["pt54", "pt-1.2", "9.7177"],
+    ["pt55", "pt-1.1", "6.9355"],
+    ["pt55", "pt-1.2", "9.7177"],
+    ["pt56", "pt-1.1", "1.7742"],
+    ["pt56", "pt-1.2", "2.4597"],
+    ["pt57", "pt-1.1", "1.7742"],
+    ["pt57", "pt-1.2", "2.4597"],
+    ["pt58", "pt-1.1", "2.3387"],
+    ["pt58", "pt-1.2", "3.2661"],
+    ["pt59", "pt-1.1", "2.3387"],
+    ["pt59", "pt-1.2", "3.2661"],
+    ["pt60", "pt-1.1", "7.1774"],
+    ["pt60", "pt-1.2", "10.0403"],
+    ["pt61", "pt-1.1", "7.1774"],
+    ["pt61", "pt-1.2", "10.0403"],
+    ["pt62", "pt-1.1", "4.0726"],
+    ["pt62", "pt-1.2", "5.7258"],
+    ["pt63", "pt-1.1", "0.7661"],
+    ["pt63", "pt-1.2", "1.0887"],
+    ["pt64", "pt-1.1", "0.7661"],
+    ["pt64", "pt-1.2", "1.0887"],
+    ["pt65", "pt-1.1", "1.4113"],
+    ["pt65", "pt-1.2", "1.9758"],
+    ["pt66", "pt-1.1", "1.4113"],
+    ["pt66", "pt-1.2", "1.9758"],
+    ["pt67", "pt-1.1", "4.3548"],
+    ["pt67", "pt-1.2", "6.129"],
+    ["pt68", "pt-1.1", "2.7823"],
+    ["pt68", "pt-1.2", "3.9113"],
+    ["pt69", "pt-1.1", "2.7823"],
+    ["pt69", "pt-1.2", "3.9113"],
+    ["pt70", "pt-1.1", "1.4919"],
+    ["pt70", "pt-1.2", "2.0968"],
+    ["pt71", "pt-1.1", "1.4919"],
+    ["pt71", "pt-1.2", "2.0968"],
+    ["pt72", "pt-1.1", "3.9919"],
+    ["pt72", "pt-1.2", "5.5645"],
+    ["pt73", "pt-1.1", "4.2339"],
+    ["pt73", "pt-1.2", "5.9274"],
+    ["pt74", "pt-1.1", "4.2339"],
+    ["pt74", "pt-1.2", "5.9274"],
+    ["pt75", "pt-1.1", "7.2177"],
+    ["pt75", "pt-1.2", "10.0806"],
+    ["pt76", "pt-1.1", "2.4194"],
+    ["pt76", "pt-1.2", "3.4274"],
+    ["pt77", "pt-1.1", "2.4194"],
+    ["pt77", "pt-1.2", "3.4274"],
+    ["pt78", "pt-1.1", "6.2903"],
+    ["pt78", "pt-1.2", "8.8306"],
+    ["pt79", "pt-1.1", "1.7339"],
+    ["pt79", "pt-1.2", "2.4597"],
+    ["pt80", "pt-1.1", "1.7339"],
+    ["pt80", "pt-1.2", "2.4597"],
+    ["pt81", "pt-1.1", "1.8952"],
+    ["pt81", "pt-1.2", "2.6613"],
+    ["pt82", "pt-1.1", "1.8952"],
+    ["pt82", "pt-1.2", "2.6613"],
+    ["pt83", "pt-1.1", "5.8065"],
+    ["pt83", "pt-1.2", "8.1048"],
+    ["pt84", "pt-1.1", "5.8065"],
+    ["pt84", "pt-1.2", "8.1048"],
+    ["pt85", "pt-1.1", "5.8065"],
+    ["pt85", "pt-1.2", "8.1048"],
+    ["pt86", "pt-1.1", "5.4839"],
+    ["pt86", "pt-1.2", "7.7016"],
+    ["pt87", "pt-1.1", "4.4355"],
+    ["pt87", "pt-1.2", "6.25"],
+    ["pt88", "pt-1.1", "2.9032"],
+    ["pt88", "pt-1.2", "4.0323"],
+    ["pt89", "pt-1.1", "1.7339"],
+    ["pt89", "pt-1.2", "2.4597"],
+    ["pt90", "pt-1.1", "1.7339"],
+    ["pt90", "pt-1.2", "2.4597"],
+    ["pt91", "pt-1.1", "1.7339"],
+    ["pt91", "pt-1.2", "2.4194"],
+    ["pt92", "pt-1.1", "1.7339"],
+    ["pt92", "pt-1.2", "2.4194"],
+    ["pt93", "pt-1.1", "4.3952"],
+    ["pt93", "pt-1.2", "6.129"],
+    ["pt94", "pt-1.1", "1.0887"],
+    ["pt94", "pt-1.2", "1.5323"],
+    ["pt95", "pt-1.1", "1.0887"],
+    ["pt95", "pt-1.2", "1.5323"],
+    ["pt96", "pt-1.1", "6.6935"],
+    ["pt96", "pt-1.2", "9.3548"],
+    ["pt97", "pt-2.1", "19.1129"],
+    ["pt97", "pt-2.2", "31.0484"],
+    ["pt97", "pt-2.3", "39.4355"],
+    ["pt97", "pt-2.4", "39.4355"]
+   ],
+   "sources": ["s1", "s2", "s3", "s4", "s5", "s6", "s7"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "osm_extract": "2026-11-20"
+  }
+ }
+}

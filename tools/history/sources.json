@@ -1566,6 +1566,16 @@
    "what": "NV 418/2024 Z. z., Annex 6"
   },
   {
+   "id": "sk-nv-418-2024-latest",
+   "table": "sk-2025-07-01",
+   "url": "https://api-gateway.slov-lex.sk/vyhladavanie/predpisZbierky/znenie?zodpovedajucaUcinnost=2099-12-31&predpis=/SK/ZZ/2024/418",
+   "page": "https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2024/418/",
+   "what": "Slov-Lex: the version of nariadenie vlády 418/2024 Z. z. in force on 31 December 2099, i.e. its latest published version (a published amendment shows as a later version)",
+   "expect": [
+    "\"iri\""
+   ]
+  },
+  {
    "id": "si-zbirka-anjp333",
    "table": "si-2026-04-01",
    "url": "https://pisrs.si/api/rezultat/zbirka/id/ANJP333",

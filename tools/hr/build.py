@@ -112,9 +112,9 @@ def main(prices_path, booths_path, out, bina_path=None):
         print(page, len(stations), "stations", len(pr), "prices", sum(len(s["points"]) for s in stations), "points")
     print("no OpenStreetMap point:", missing)
     t = {
-        "country": "HR", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
+        "country": "HR", "currency": "EUR", "valid_from": "2026-01-01",
         "name": "Croatian motorway toll (Hrvatske autoceste)",
-        "law": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
+        "law": "Zakon o cestama and Pravilnik o cestarini (NN 130/2013): toll from entry to exit station on the closed motorway systems, and per passage at the open stations Bregana and Rupa, by vehicle group (III: 2-3 axles over 3.5 t, IV: 4 or more axles). Prices are Hrvatske autoceste's price list (checked 4 November 2026), excluding 25% VAT. The price lists have no end date: the table runs until they change (the HR data workflow reads them each run). They are the full prices; with etc (paying by ENC electronic toll) HAC gives 21.74% off and EURO V/EEV 3% or EURO VI 7% more (taken as added to the 21.74%), and Bina-Istra 30% (ENC PLUS).",
         "sources": [{"title": "Hrvatske autoceste: toll rates", "url": "https://www.hac.hr/en/toll/toll-rates/a1"},
                     {"title": "Hrvatske autoceste: ENC discounts", "url": "https://www.hac.hr/en/toll/etc"},
                     {"title": "Bina-Istra: toll calculator", "url": "https://bina-istra.com/karta/hamburger.html"},

@@ -89,6 +89,12 @@ JULY_2026_LAW = {
     "BE-WAL": "Viapass rate grid ed. 01/07/2026, Wallonia, excluding VAT. No CO2 element; zero-emission trucks pay the Euro VI rate.",
 }
 
+JANUARY_2027_LAW = {
+    "BE-VLG": "Viapass rate grid ed. 01/01/2027, Flanders: the rates indexed on 1 January 2027 (Flanders now indexes on 1 January, before on 1 July), with the CO2 class element; the published rates are totals, the CO2 part is not shown separately. Zero-emission trucks pay 60% of the infrastructure part in 2027 and no external-cost part until 31 December 2029; their share rises to 80% (40% reduction) on 1 January 2028, so the table ends on 31 December 2027.",
+    "BE-BRU": "Viapass rate grid ed. 01/01/2027, Brussels, highway and urban area (all local and regional roads that are not highway): no indexation in 2027, no CO2 element. Zero-emission trucks pay 60% of the infrastructure part in 2027 and no external-cost part until 31 December 2029; their share changes on 1 January 2028, so the table ends on 31 December 2027.",
+    "BE-WAL": "Viapass rate grid ed. 01/01/2027, Wallonia, excluding VAT: the rates indexed on 1 January 2027 on the consumer price index of August 2026 (Walloon decree of 16 July 2015, art. 7, § 4), as each year on 1 January, so the table ends on 31 December 2027. No CO2 element; zero-emission trucks pay the Euro VI rate.",
+}
+
 
 def grouped(grid, road=None):
     """The rows of a grid of EURO 0-5 (CO2 class 1), EURO 6 in CO2 classes
@@ -139,6 +145,24 @@ def july2026(fetched, out, g):
         print(path, len(tb["rows"]), "rows")
 
 
+def january2027(fetched, out, g):
+    """The tables from 1 January 2027: Viapass's grid of that edition."""
+    page = text(os.path.join(fetched, "be-vp-2027-01.html"))
+    if "Starting Friday, January 1st, 2027, new rates for the kilometer charge will be applicable" not in page:
+        sys.exit("be-vp-2027-01: not the rates from 1 January 2027")
+    for region in ("BE-VLG", "BE-BRU", "BE-WAL"):
+        keys = ["BE-BRU motorway", "BE-BRU other"] if region == "BE-BRU" else [region]
+        tb = {"country": "BE", "currency": "EUR", "valid_from": "2027-01-01", "valid_to": "2027-12-31", **META[region],
+              "law": JANUARY_2027_LAW[region],
+              "sources": [{"title": "Viapass: kilometer charge changes from 1 January 2027 (rate grid, ed. 01/01/2027)", "url": g["page"]},
+                          {"title": "The rate grid image", "url": g["source"]["url"]}],
+              "rows": [r for k in keys for r in grouped(g[k], {"BE-BRU motorway": "motorway", "BE-BRU other": "other"}.get(k))]}
+        os.makedirs(out, exist_ok=True)
+        path = os.path.join(out, f"{REGION[region]}-2027-01-01.json")
+        json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+        print(path, len(tb["rows"]), "rows")
+
+
 def main(fetched, out):
     tr = json.load(open(os.path.join(HERE, "transcribed", "be-grids.json"), encoding="utf-8"))
     grids = {g["id"]: g for g in tr["grids"]}
@@ -151,6 +175,7 @@ def main(fetched, out):
     assert wallonia(fetched, "be-vp-wal-2025") == grids["be-vp-2025-07-table"]["BE-WAL"]
     assert grids["be-vp-2024-01-table"]["BE-WAL"] == grids["be-vp-2024-07-table"]["BE-WAL"]
     july2026(fetched, out, grids["be-vp-2026-07-table"])
+    january2027(fetched, out, grids["be-vp-2027-01-table"])
     for region, frm, to, src, zpage in PERIODS:
         tb = {"country": "BE", "currency": "EUR", "valid_from": frm, "valid_to": to, **META[region]}
         keys = ["BE-BRU motorway", "BE-BRU other"] if region == "BE-BRU" else [region]

@@ -1,6 +1,6 @@
 """Builds the Swedish road charge (vägavgift) table for foreign trucks
-from Förordning (2025:918) (fetch.py's se-2025-918.pdf, converted with
-pdftotext -layout to se-2025-918.txt).
+from each year's förordning (fetch.py's se-2025-918.pdf for 2026 and
+se-2026-1806.pdf for 2027, converted with pdftotext -layout to .txt).
 
 Usage: python3 se.py fetched/ out-dir -> out-dir/se-<year>-01-01.json
 
@@ -18,8 +18,23 @@ import json, os, re, sys
 EURO = {"0": [0], "I": [1], "II": [2], "III": [3], "IV": [4], "V": [5], "VI": [6]}
 
 
+# (source id, SFS number, URL): each year's amounts in kronor.
+FORORDNINGAR = [
+    ("se-2025-918", "2025:918", "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf"),
+    ("se-2026-1806", "2026:1806", "https://svenskforfattningssamling.se/sites/default/files/sfs/2026-10/SFS2026-1806.pdf"),
+]
+# Lag (2024:293), from 26 March 2027: the charge also for vehicles over 3.5 t
+# and under 12 t (11 a §), at amounts no förordning has set in kronor yet.
+UNDER_12T = "From 26 March 2027 the law also charges vehicles over 3.5 t and under 12 t (11 a §, Lag (2024:293)); Förordning (2026:1806) gives no kronor amounts for them, so they aren't in the table."
+
+
 def main(fetched, out):
-    t = open(os.path.join(fetched, "se-2025-918.txt"), encoding="utf-8").read()
+    for sid, sfs, url in FORORDNINGAR:
+        build(fetched, out, sid, sfs, url)
+
+
+def build(fetched, out, sid, sfs, url):
+    t = open(os.path.join(fetched, sid + ".txt"), encoding="utf-8").read()
     year = re.search(r"avgiften till följande belopp för år (\d{4})", t).group(1)
     rows = []
     i3, i4 = t.index("Högst 3 axlar"), t.index("Minst 4 axlar")
@@ -47,8 +62,9 @@ def main(fetched, out):
     tb = {
         "country": "SE", "currency": "SEK", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
         "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
-        "law": f"Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for {year} from Förordning (2025:918): a time-based charge per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT.",
-        "sources": [{"title": "SFS 2025:918 (Svensk författningssamling)", "url": "https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-918.pdf"},
+        "law": f"Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for {year} from Förordning ({sfs}), which the government sets for each calendar year (23 §): a time-based charge per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT."
+               + (" " + UNDER_12T if year == "2027" else ""),
+        "sources": [{"title": f"SFS {sfs} (Svensk författningssamling)", "url": url},
                     {"title": "Lag (1997:1137), consolidated (Riksdagen)", "url": "https://data.riksdagen.se/dokument/sfs-1997-1137.text"}],
         "vehicles": "Trucks and articulated combinations of 12 t or more total weight, for goods transport",
         "min_kg": 12000,

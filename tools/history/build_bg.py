@@ -15,7 +15,7 @@ the route's road classes don't tell I from II here). EEV is priced as
 EURO V (the tool has no EEV class; Bulgaria prices it as EURO VI).
 
 Usage: python3 build_bg.py fetched/ out-dir"""
-import html, json, os, re, sys
+import datetime, html, json, os, re, sys
 from html.parser import HTMLParser
 
 DV = "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat="
@@ -114,6 +114,33 @@ def rates(rows):
     return out
 
 
+def note25(fetched):
+    """The consolidated text's note on чл. 25, ал. 1: its amendments."""
+    p = os.path.join(fetched, "bg-iisda-tarifa.html")
+    raw = open(p, "rb").read().decode("latin-1")
+    raw = re.sub(r"\\'([0-9a-fA-F]{2})", lambda m: bytes([int(m.group(1), 16)]).decode("cp1251"), raw)
+    text = re.sub(r"\s+", " ", re.sub(r"\\[a-z]+-?\d* ?|[{}]", "", raw))
+    i = text.find("Чл. 25")
+    m = re.match(r"Чл\. 25 ?\. \(Изм[^)]*\) \(1\) \(Изм\.([^)]*)\)", text[i:i + 600])
+    if not m:
+        sys.exit(f"consolidated чл. 25: no note on ал. 1 in {text[i:i + 300]!r}")
+    return m.group(1)
+
+
+def until(fetched):
+    """The table from 1 June 2026 runs until чл. 25, ал. 1 is amended
+    again: none while the consolidated text's note ends with ДВ бр. 49 of
+    2026 (in force 1 June 2026); else the day before the later amendment
+    takes effect, with a warning."""
+    dates = [datetime.date(int(y), int(mo), int(d)) for d, mo, y in re.findall(r"в сила от (\d+)\.(\d+)\.(\d{4}) ?г", note25(fetched))]
+    later = [d for d in dates if d > datetime.date(2026, 6, 1)]
+    if not later:
+        return None
+    last = (min(later) - datetime.timedelta(days=1)).isoformat()
+    print(f"::warning title=build_bg::the consolidated tariff lists an amendment of чл. 25, ал. 1 in force from {min(later)}; the table ends on {last}: read it")
+    return last
+
+
 def check_dates(fetched):
     """The consolidated text's note on чл. 25, ал. 1 must list the
     amendments the periods assume."""
@@ -204,14 +231,20 @@ def june2026(fetched, out):
         for ci, (_, bounds) in enumerate(CATS):
             for ei, (_, euro) in enumerate(EURO):
                 add(road, col, bounds, {"euro": euro}, vals[(1, ci, ei)])
-    tb = {"country": "BG", "currency": "EUR", "valid_from": "2026-06-01", "valid_to": "2026-12-31",
+    tb = {"country": "BG", "currency": "EUR", "valid_from": "2026-06-01",
           "name": "Bulgarian distance toll (BG TOLL)",
-          "law": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, as amended by Постановление № 64 от 26 май 2026 г. (ДВ бр. 49 от 29.05.2026), in force 1 June 2026: EUR/km by CO2 class, vehicle category, EURO class and road class (motorway, class I, class II), split into infrastructure, air, noise and CO2. No VAT is charged.",
-          "sources": [{"title": "Държавен вестник бр. 49/2026: Постановление № 64 (toll tariff from 1 June 2026)", "url": DV + "243642"}],
+          "law": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, as amended by Постановление № 64 от 26 май 2026 г. (ДВ бр. 49 от 29.05.2026), in force 1 June 2026: EUR/km by CO2 class, vehicle category, EURO class and road class (motorway, class I, class II), split into infrastructure, air, noise and CO2. No VAT is charged. "
+                 "The tariff has no end date, and the consolidated text (Административен регистър) lists no later amendment of чл. 25, ал. 1: the table runs until it is amended.",
+          "sources": [{"title": "Държавен вестник бр. 49/2026: Постановление № 64 (toll tariff from 1 June 2026)", "url": DV + "243642"},
+                      {"title": "Тарифа (ПМС № 370/2019), consolidated text, Административен регистър: the amendments of чл. 25, ал. 1", "url": IISDA}],
           "vehicles": "Goods vehicles over 3.5 t technically permissible maximum mass (buses have their own rates)",
           "min_kg": 3501,
           "tolled_roads": "Motorways and class I roads (about 3,115 km), and tolled class II roads. Km off motorways are priced at the class I rate; class II rates are 0.01 EUR/km lower.",
           "motorway_share": 1, "rows": rows}
+    last = until(fetched)
+    if last:
+        tb["valid_to"] = last
+        tb["law"] = tb["law"].replace("lists no later amendment of чл. 25, ал. 1: the table runs until it is amended.", f"lists a later amendment of чл. 25, ал. 1, in force the day after {last}.")
     path = os.path.join(out, "bg-2026-06-01.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, len(rows), "rows")

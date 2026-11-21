@@ -528,8 +528,8 @@
    "file": "cz/cz-2026-01-01.orct.json",
    "name": "Czech electronic toll (Mýto CZ)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "c03e39d824c13bcbe66d6d10522902a93686f50091124bff96b5e49d58a5eced",
+   "valid_to": null,
+   "sha256": "65449fa2c23812fe0320976add7169e41de88d875ad7782351b3b14fd199bbc2",
    "coverage": "complete"
   },
   {
@@ -1728,7 +1728,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "5d0fe7058a6606f905cd7e25fe6a6a765c1f4ce625e5fde0f14c621b9c6660c4",
+   "sha256": "415a6e7bec6191e089f4165262c258678e74ba049a765c08a7338d40325447be",
    "coverage": "complete"
   },
   {
@@ -1739,7 +1739,7 @@
    "name": "Greek motorway tolls (open toll stations)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "566d2ac803dbdd2a5f4437f6be6f3773c234d601e256d5280fe87691c3f6d80f",
+   "sha256": "135985a0368a1ffc7efdf20fb98d4d353b47dd5434249cbbbb0834df90126b68",
    "coverage": "complete"
   },
   {
@@ -1904,7 +1904,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "08825456f502c2967c534dc36623c9be7d35ed905951fc6b48ee721bf32f0156",
+   "sha256": "0d2efa54c5cdf7115668f42190ba71628a332f02551abe21cca925953dc67680",
    "coverage": "complete"
   },
   {
@@ -1915,7 +1915,7 @@
    "name": "Irish national road tolls (M50 and the PPP toll roads)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "b58e15bdb32ef3aed7b5bd6a19c6253f1ecdc8d13a07cd4cc36e07a21786ab75",
+   "sha256": "22849abce847619d864f48299dcc51e061fa8c9031f23f98919995b46d9c6611",
    "coverage": "complete"
   },
   {
@@ -2366,7 +2366,7 @@
    "name": "North Macedonian road tolls (патарина)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-04-30",
-   "sha256": "e4c915e809afb33d1214f3d59a1886f227c9bd4421f2f879ea9fa2215883252a",
+   "sha256": "85772908565999b4078515261184b729b000d8f6b14b1ffde690de46e98b1d44",
    "coverage": "complete"
   },
   {
@@ -2619,7 +2619,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-03-11",
    "valid_to": "2024-09-10",
-   "sha256": "5186783675bd2c5ba2005e3b9f32f9c30336c4c7f379630f2310f0d85e5ece5b",
+   "sha256": "af27a474817c399b6c9dc24755cc054ccf91e070faa824646f10f813d662f424",
    "coverage": "complete"
   },
   {
@@ -2630,7 +2630,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2024-09-11",
    "valid_to": "2025-03-10",
-   "sha256": "cea950ffd7379c981d27e5a2f129d66f2e3b30db558dcdb8692f336edd05281b",
+   "sha256": "bc462264115e831c8c5884341cb6e915971e45bfa4aaa5bc9101ddef4428b170",
    "coverage": "complete"
   },
   {
@@ -2641,7 +2641,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2025-03-11",
    "valid_to": "2025-09-10",
-   "sha256": "7ad9174f82a55e558bcda5be695ae745e8036afd572b899bc5b81ce44e809014",
+   "sha256": "7b8aba03d2fed9ebd72eaf994e9d6c04b2dd7207631bff0283cc96d3ece3ffec",
    "coverage": "complete"
   },
   {
@@ -2652,7 +2652,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2025-09-11",
    "valid_to": "2026-03-10",
-   "sha256": "d669aa2bf39678d3a95900ad56bfd7d77a79bb3b436a79132e831d4b84b2519e",
+   "sha256": "391a815dcea47d1c73e6c63061a8170b2c6b981afe625c52899d69488546197b",
    "coverage": "complete"
   },
   {
@@ -2663,7 +2663,7 @@
    "name": "A2 Świecko-Konin (Autostrada Wielkopolska)",
    "valid_from": "2026-03-11",
    "valid_to": "2026-09-10",
-   "sha256": "617ac3035eff00dfddcf3a2d792263f8406142db68ce43d1485b01d774b2b2cf",
+   "sha256": "33b534f24a6d624ec65f5910751eac2073b71c09a4018a588fbc4d3e4278e96b",
    "coverage": "complete"
   },
   {
@@ -2685,7 +2685,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2023-04-03",
    "valid_to": "2024-01-15",
-   "sha256": "f08e98254f4f625b0c4b406fe9aadbb8ea17b08e19599d62a427816fed4ad6f9",
+   "sha256": "19283729e315211d90b2f7742c8e136388af330a58d486f2fc04840d4f3ff44f",
    "coverage": "complete"
   },
   {
@@ -2696,7 +2696,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2024-01-16",
    "valid_to": "2024-03-31",
-   "sha256": "8e9d363e3b40a3173b56ca98d33f6f20b444c70d2482de072566a7c78a7ff5e7",
+   "sha256": "6404692ba95ff612f7ca3a08604af0126be33fd4911a7a10993bfeacb8dd511e",
    "coverage": "complete"
   },
   {
@@ -2707,7 +2707,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2024-04-01",
    "valid_to": "2025-03-31",
-   "sha256": "625698d40c36131cf49d2e8240ba9962ed6324f7d39635aa49aa70fdc6d46d81",
+   "sha256": "fef59301689e0d062e673aed27d3670d61bb27b741baec5e86f3382f6c8d3bb4",
    "coverage": "complete"
   },
   {
@@ -2718,7 +2718,7 @@
    "name": "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)",
    "valid_from": "2025-04-01",
    "valid_to": "2026-03-31",
-   "sha256": "47bd0e81ab62e68f6e3b567e6a9dd023eb616fc213cf21879303b4dc108dbe67",
+   "sha256": "1a26f7bf3d3b27170f189c58f5c163a94c35240a29b9d6e16d0f260874c40dc6",
    "coverage": "complete"
   },
   {
@@ -2905,7 +2905,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "015d06790c2299d41689538a425575090a6a86d70ec393fde17b7a870b05c977",
+   "sha256": "d3eb40aa24d9371b82f9883e6baec0d61f96de34ca5439462282c426c45721d6",
    "coverage": "complete"
   },
   {
@@ -2916,7 +2916,7 @@
    "name": "Portuguese motorway tolls (portagens)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "e26e79af391b286f9b960a3d2878094357eae7c38cb16229df65572d05750526",
+   "sha256": "7acf0dde5d7d027b003300bb47cc1a7c38a7479cbcebb15f2b7f0293c52534ce",
    "coverage": "complete"
   },
   {
@@ -3377,8 +3377,8 @@
    "file": "si/si-2026-04-01.orct.json",
    "name": "Slovenian distance toll (DarsGo)",
    "valid_from": "2026-04-01",
-   "valid_to": "2026-12-31",
-   "sha256": "3646966b596c304af8cf394c9f525d0017fd6587b3b0850b5206a095ed412aa5",
+   "valid_to": null,
+   "sha256": "661a57ac371ba4dbc2db47b5c9630630410727cde03389a549d97d154c4b13c6",
    "coverage": "partial"
   },
   {
@@ -3411,7 +3411,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-05-14",
-   "sha256": "5e5b38c75d5c79fcc32574308f04742f6c6c783619aeb2d57892b2c3fecc3830",
+   "sha256": "686e316222d44618a4ead08415faf94fd1144d871c27c1760843c491bde0af3d",
    "coverage": "complete"
   },
   {
@@ -3422,7 +3422,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-05-15",
    "valid_to": "2024-08-15",
-   "sha256": "73021178d7eb5eaad59a66ba4d5806f33854530a789395c626ae5cfcd7a09cec",
+   "sha256": "faa5b78e2c84fa4e5b8ddab85dfb57c3df18e943b29930353af1d56b8df61bd5",
    "coverage": "complete"
   },
   {
@@ -3433,7 +3433,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2024-08-16",
    "valid_to": "2025-01-12",
-   "sha256": "62eee627b0578f80cd419dd2e9c974eeea67b40916e9360a8c83cf4327574bac",
+   "sha256": "da4016613c6a58b6167c7e2197942d88b509b7f7a7959d03fc5418fb73174ed6",
    "coverage": "complete"
   },
   {
@@ -3444,7 +3444,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2025-01-13",
    "valid_to": "2025-12-31",
-   "sha256": "d220facc913ff099f106164edba681042a156cbc9afa23c5f0a6aada73d3a027",
+   "sha256": "fc8da02a3066e730fd22ece8b6b8e9617143ec213eefdf2c27730cefac664a02",
    "coverage": "complete"
   },
   {
@@ -3455,7 +3455,7 @@
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-06-30",
-   "sha256": "3b2848d1d54eb48411bbf25a3b4a2f620f7c1a4f9b13dbfde550f48360d4ba58",
+   "sha256": "f97ccac92f9bd96cc7cd65c840500b032c5cc23c0d5ba05aebe3be78377ddf57",
    "coverage": "complete"
   },
   {

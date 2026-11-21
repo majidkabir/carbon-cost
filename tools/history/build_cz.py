@@ -154,6 +154,9 @@ def main(fetched, out):
         sys.exit("not built: " + ", ".join(failed))
 
 
+TABLE_STARTS = ["2021-01-01", "2024-03-01", "2024-03-25", "2025-01-01", "2026-01-01"]
+
+
 def until(fetched):
     """The 2026 table's last day, from e-Sbírka's list of 240/2014's
     versions (cz-esbirka-240-2014-zneni): none while the version of 1
@@ -161,6 +164,12 @@ def until(fetched):
     published amendment shows as a later, future version); else that day,
     with a warning."""
     z = json.load(open(os.path.join(fetched, "cz-esbirka-240-2014-zneni.html"), encoding="utf-8"))["dokumentuSbirkyZneniKeSrovnani"]
+    # The tables start where e-Sbírka's versions do (from 2021), but for
+    # 184/2024 Sb. (1 July 2024), which added § 6a (the EETS providers'
+    # remuneration) and left the rates alone.
+    starts = {v["datumUcinnostiZneniOd"] for v in z if "2021-01-01" <= (v.get("datumUcinnostiZneniOd") or "") <= "2026-01-01" and v.get("typZneni") in ("AKTUALNI", "MINULE")}
+    assert starts == set(TABLE_STARTS) | {"2024-07-01"}, sorted(starts)
+    assert [n["kodDokumentuSbirky"] for v in z if v.get("datumUcinnostiZneniOd") == "2024-07-01" for n in v["novely"]] == ["184/2024 Sb."]
     cur = [v for v in z if v.get("datumUcinnostiZneniOd") == "2026-01-01"]
     assert len(cur) == 1 and [n["kodDokumentuSbirky"] for n in cur[0]["novely"]] == ["327/2025 Sb."], cur
     later = sorted(v["datumUcinnostiZneniOd"] for v in z if (v.get("datumUcinnostiZneniOd") or "") > "2026-01-01")

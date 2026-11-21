@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       # Geofabrik refuses connections when many extracts are asked at once.
-      max-parallel: 8
+      max-parallel: 4
       matrix:
         include:
           - name: dk-de

@@ -35,7 +35,7 @@ jobs:
               curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://eli.gov.pl/api/acts/DU/2026/33/text/O/D20260033.pdf
               pdftotext -layout law.pdf law.txt
               python3 tools/roads/pl_network.py law.txt | diff -u tools/roads/pl-network.json -
-              streets=$(python3 -c "import json; print(','.join(sorted({p['street'].replace('ul. ', '') for s in json.load(open('tools/roads/pl-network.json'))['sections'] for p in (s['from'], s['to']) if p.get('street')})))")
+              streets=$(python3 -c "import json; print(','.join(sorted({(p.get('street') or p.get('junction')).replace('ul. ', '') for s in json.load(open('tools/roads/pl-network.json'))['sections'] for p in (s['from'], s['to']) if p.get('street') or p.get('junction')})))")
               osmium tags-filter -O -o roads.pbf in.pbf w/ref "w/name=$streets" n/highway=motorway_junction n/place r/boundary=administrative
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid

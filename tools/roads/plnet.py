@@ -31,7 +31,9 @@ PLACES = ("city", "town", "village", "hamlet", "suburb", "quarter", "neighbourho
 TWIN_M = 60
 NEAR_PLACE_M = 15000
 NEAR_JUNCTION_M = 3000
-GAP_M = 150
+FAR_JUNCTION_M = 10000
+GAP_M = 1500
+ALIAS_COST = 1.5
 
 
 def dist_m(a, b):
@@ -119,31 +121,45 @@ class Collect(osmium.SimpleHandler):
             pass
 
 
-class Road:
-    """A road's ways as an undirected graph. Its ways' gaps (a way without
-    the ref, a carriageway broken in two) are bridged: each dead end joins
-    the nearest node of another part of the road within GAP_M."""
+def aliases(ref):
+    """The refs a road's ways may carry in OpenStreetMap: an expressway is
+    the national road of its number (S7 is national road 7), so where one
+    has been built or reclassified OpenStreetMap may tag the other."""
+    if ref.startswith("S"):
+        return [ref, ref[1:]]
+    if ref.isdigit():
+        return [ref, "S" + ref]
+    return [ref]
 
-    def __init__(self, ways, coords):
-        self.ways, self.coords = ways, coords
+
+class Road:
+    """A road's ways as an undirected graph: its own ref's, and at
+    ALIAS_COST times their length its alias's. Its ways' gaps (a way
+    without the ref, a carriageway broken in two) are bridged: each dead
+    end joins the nearest dead end of another part of the road within
+    GAP_M. The dead ends before the bridging are the road's ends."""
+
+    def __init__(self, own, alias, coords):
+        self.ways, self.coords = own + alias, coords
         self.adj = defaultdict(dict)
-        for ids, pts in ways:
-            for i in range(len(ids) - 1):
-                a, b = ids[i], ids[i + 1]
-                d = dist_m(pts[i], pts[i + 1])
-                self.adj[a][b] = self.adj[b][a] = d
+        for ways, k in ((own, 1.0), (alias, ALIAS_COST)):
+            for ids, pts in ways:
+                for i in range(len(ids) - 1):
+                    a, b = ids[i], ids[i + 1]
+                    d = dist_m(pts[i], pts[i + 1]) * k
+                    if d < self.adj[a].get(b, math.inf):
+                        self.adj[a][b] = self.adj[b][a] = d
         self.grid = defaultdict(list)
         for n in self.adj:
             p = coords[n]
             self.grid[(int(p[0] * 100), int(p[1] * 100))].append(n)
+        self.ends = {n for n in self.adj if len(self.adj[n]) == 1}
         self._parts()
         part_of = {n: i for i, part in enumerate(self.parts) for n in part}
-        for n in list(self.adj):
-            if len(self.adj[n]) != 1:
-                continue
+        for n in self.ends:
             best = None
             for m in self.near(coords[n], GAP_M):
-                if part_of[m] != part_of[n]:
+                if m in self.ends and part_of[m] != part_of[n]:
                     d = dist_m(coords[n], coords[m])
                     if best is None or d < best[0]:
                         best = (d, m)
@@ -167,7 +183,7 @@ class Road:
             self.parts.append(part)
 
     def near(self, p, within):
-        """The road's nodes within metres of p (within up to about 1 km)."""
+        """The road's nodes within metres of p."""
         k = (int(p[0] * 100), int(p[1] * 100))
         r = 1 + int(within // 700)
         out = []
@@ -226,19 +242,27 @@ def candidates(c, road, pt, jx):
     looked for when there are none."""
     if "junction" in pt:
         named, by = junctions_named(road, pt["junction"], jx)
-        if not named:
-            close = sorted({j[1] for j in by}, key=lambda n: -SequenceMatcher(None, norm(pt["junction"]), norm(n)).ratio())[:6]
-            return [], f"junction {pt['junction']!r} not on the road; its junctions most like it: {close}"
         out = [j[2] for j in named if j[2] in road.adj]
         for j in named:
             if j[2] not in road.adj:
                 out += road.nearest(road.near(j[3], NEAR_JUNCTION_M), j[3], NEAR_JUNCTION_M, 200)
-        return out, ""
+        if out:
+            return out, ""
+        # A junction of that name further off (on the road it joins), or
+        # the street of that name the road crosses (a city junction).
+        far = [j for j in jx if j[0] == norm(pt["junction"])]
+        for j in far:
+            out += road.nearest(road.near(j[3], FAR_JUNCTION_M), j[3], FAR_JUNCTION_M, 200)
+        out += [n for n in c.street_nodes.get(street_of(pt["junction"]), ()) if n in road.adj]
+        if out:
+            return out, ""
+        close = sorted({j[1] for j in by}, key=lambda n: -SequenceMatcher(None, norm(pt["junction"]), norm(n)).ratio())[:6]
+        return [], f"junction {pt['junction']!r} not on the road; its junctions most like it: {close}"
     if "border" in pt:
         places = c.places.get(pt["border"], [])
         if not places:
             return [], f"no place {pt['border']!r}"
-        ends = [(min(dist_m(road.coords[n], p) for p in places), n) for n in road.adj if len(road.adj[n]) == 1]
+        ends = [(min(dist_m(road.coords[n], p) for p in places), n) for n in road.ends]
         ends = [e for e in ends if e[0] <= NEAR_PLACE_M]
         if not ends:
             return [], f"no end of the road within {NEAR_PLACE_M} m of {pt['border']!r}"
@@ -271,7 +295,7 @@ def candidates(c, road, pt, jx):
         return ends, "" if ends else f"no place {pt['place']!r} and no crossing with {pt['crosses']}"
     # Of the same-named places, the one nearest the road.
     place = min(places, key=lambda p: dist_m(road.coords[road.nearest(road.adj, p, math.inf, 0)[0]], p) if road.adj else 0)
-    out = road.nearest(ends, place, NEAR_PLACE_M, 1500)
+    out = road.nearest(ends, place, NEAR_PLACE_M, 300)
     if out:
         return out, ""
     out = road.nearest(road.adj, place, 5000, 300)
@@ -282,13 +306,14 @@ def build(src, sections):
     """The sections' lines by class ("mw", "nat"), [lon, lat] each, and a
     report of each section's km (the longest carriageway) or why it
     wasn't found."""
-    refs = {s["ref"] for s in sections}
+    refs = {a for s in sections for a in aliases(s["ref"])}
     cross = {r for s in sections for pt in (s["from"], s["to"]) for r in pt.get("crosses", [])}
     cities = {pt["city"] for s in sections for pt in (s["from"], s["to"]) if "city" in pt}
     streets = {street_of(pt["street"]) for s in sections for pt in (s["from"], s["to"]) if pt.get("street")}
+    streets |= {street_of(pt["junction"]) for s in sections for pt in (s["from"], s["to"]) if "junction" in pt}
     c = Collect(refs, cross, cities, streets)
     c.apply_file(src, locations=True)
-    roads = {r: Road(c.ways[r], c.coords) for r in refs}
+    roads = {r: Road(c.ways[r], [w for a in aliases(r)[1:] for w in c.ways[a]], c.coords) for r in {s["ref"] for s in sections}}
     lines = {"mw": [], "nat": []}
     report = []
     for s in sections:

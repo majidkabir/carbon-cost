@@ -240,6 +240,26 @@ func TestBelgium(t *testing.T) {
 	if n := len(networkOf(ds).roadTypes); n != 2 {
 		t.Errorf("Brussels road types %d, want motorway and other", n)
 	}
+	// From 1 January 2027 (Viapass grid ed. 01/01/2027): Flanders and
+	// Wallonia indexed, Brussels unchanged but for zero-emission trucks,
+	// which pay 60% of the infrastructure part in Flanders and Brussels.
+	for _, tc := range []struct {
+		area string
+		tr   rates.Truck
+		road string
+		want float64
+	}{
+		{"BE-VLG", e6, "", 0.297},
+		{"BE-VLG", zev, "", 0.078},
+		{"BE-WAL", e6, "", 0.212},
+		{"BE-WAL", zev, "", 0.212},
+		{"BE-BRU", e6, rates.Motorway, 0.171},
+		{"BE-BRU", zev, rates.OtherRoad, 0.103},
+	} {
+		if got, _, _ := rateOf(t, tc.area, tc.tr, "2027-03-01", tc.road); got != tc.want {
+			t.Errorf("2027 %s %+v %s: %v, want %v", tc.area, tc.tr, tc.road, got, tc.want)
+		}
+	}
 }
 
 // The Eurovignette years: a day's charge for a 40 t, 5-axle Euro VI

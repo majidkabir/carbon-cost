@@ -13,11 +13,10 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2026-06-01",
-  "valid_to": "2026-12-31",
   "currency": "EUR",
   "timezone": "Europe/Sofia",
   "license": "MIT",
-  "method": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, as amended by Постановление № 64 от 26 май 2026 г. (ДВ бр. 49 от 29.05.2026), in force 1 June 2026: EUR/km by CO2 class, vehicle category, EURO class and road class (motorway, class I, class II), split into infrastructure, air, noise and CO2. No VAT is charged.",
+  "method": "Тарифа за таксите, които се събират за преминаване и ползване на републиканската пътна мрежа (ПМС № 370/2019), чл. 25, ал. 1, as amended by Постановление № 64 от 26 май 2026 г. (ДВ бр. 49 от 29.05.2026), in force 1 June 2026: EUR/km by CO2 class, vehicle category, EURO class and road class (motorway, class I, class II), split into infrastructure, air, noise and CO2. No VAT is charged. The tariff has no end date, and the consolidated text (Административен регистър) lists no later amendment of чл. 25, ал. 1: the table runs until it is amended.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "bg-2026-06-01.json"
@@ -29,6 +28,11 @@
    "id": "s1",
    "title": "Държавен вестник бр. 49/2026: Постановление № 64 (toll tariff from 1 June 2026)",
    "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=243642"
+  },
+  {
+   "id": "s2",
+   "title": "Тарифа (ПМС № 370/2019), consolidated text, Административен регистър: the amendments of чл. 25, ал. 1",
+   "url": "https://iisda.government.bg/adm_services/service_regulatory_file/22321_97892"
   }
  ],
  "tax": {
@@ -413,7 +417,7 @@
     ["road:other", "infrastructure-1.23", "0.21"],
     ["road:other", "infrastructure-1.24", "0.24"]
    ],
-   "sources": ["s1"],
+   "sources": ["s1", "s2"],
    "basis": "transcribed"
   },
   {
@@ -472,7 +476,7 @@
     ["road:other", "infrastructure-1.23", "0.07"],
     ["road:other", "infrastructure-1.24", "0.07"]
    ],
-   "sources": ["s1"],
+   "sources": ["s1", "s2"],
    "basis": "transcribed"
   }
  ],

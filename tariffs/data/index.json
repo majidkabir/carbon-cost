@@ -225,6 +225,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/be-bru/2027-01-01",
+   "scheme": "be-bru",
+   "country": "BE",
+   "file": "be/be-bru-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Brussels-Capital Region",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "9ffe9f64dd23a96633ae20b6a60ad6f91fe4263bef2e79b2c4c7aa87d8d7bac5",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/be-liefkenshoek/2026-01-01",
    "scheme": "be-liefkenshoek",
    "country": "BE",
@@ -302,6 +313,17 @@
    "coverage": "complete"
   },
   {
+   "id": "carbon-cost/be-vlg/2027-01-01",
+   "scheme": "be-vlg",
+   "country": "BE",
+   "file": "be/be-vlg-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Flemish Region",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "3f9f97cc10fb32a9789217b399d29878d332018d7c092680d9eb0542472462ca",
+   "coverage": "complete"
+  },
+  {
    "id": "carbon-cost/be-wal/2024-01-01",
    "scheme": "be-wal",
    "country": "BE",
@@ -343,6 +365,17 @@
    "valid_from": "2026-07-01",
    "valid_to": "2026-12-31",
    "sha256": "c60aa82320ae9ebd49579abbfc05db9c0cb567ccbfb86b73be78ec2054c01266",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/be-wal/2027-01-01",
+   "scheme": "be-wal",
+   "country": "BE",
+   "file": "be/be-wal-2027-01-01.orct.json",
+   "name": "Belgian kilometre charge, Walloon Region (SOFICO)",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "8469ca26e08f31239dc6cce198d536660d28796b5a12dc9246146f38f18a3b3a",
    "coverage": "complete"
   },
   {
@@ -396,8 +429,8 @@
    "file": "bg/bg-2026-06-01.orct.json",
    "name": "Bulgarian distance toll (BG TOLL)",
    "valid_from": "2026-06-01",
-   "valid_to": "2026-12-31",
-   "sha256": "d6f92a5e42920476d78aeab60fb618a3ec893c2031ca81503e7258d184599de4",
+   "valid_to": null,
+   "sha256": "a9cd5f3002dc62aac55b851836ab34be69f9daac1b1a6596785498b123f350b3",
    "coverage": "complete"
   },
   {
@@ -3399,8 +3432,8 @@
    "file": "sk/sk-2025-07-01.orct.json",
    "name": "Slovak electronic toll (mýto)",
    "valid_from": "2025-07-01",
-   "valid_to": "2026-12-31",
-   "sha256": "ae74397521746557be3c947a599b94dc7bff9946c5b2894ede6b08df11f6dd5c",
+   "valid_to": null,
+   "sha256": "15ad3c5b4c642f1c740108762b992e8aa362682daaa63b97b778ce873488087a",
    "coverage": "complete"
   },
   {

@@ -13,11 +13,10 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2025-07-01",
-  "valid_to": "2026-12-31",
   "currency": "EUR",
   "timezone": "Europe/Bratislava",
   "license": "MIT",
-  "method": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest).",
+  "method": "Nariadenie vlády SR č. 418/2024 Z. z., in force 1 July 2025: Annex 5 (motorways) and Annex 6 part 2 (class I roads not parallel to motorways) give the rate in EUR/km excluding VAT by vehicle category, EURO class and CO2 class; Annex 3 gives its CO2 and air-pollution parts (the infrastructure part is the rest). The regulation has no end date, and Slov-Lex has no later version: the table runs until it is amended.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "sk-2025-07-01.json"
@@ -32,16 +31,21 @@
   },
   {
    "id": "s2",
+   "title": "Slov-Lex: the version of NV 418/2024 Z. z. in force on any later date",
+   "url": "https://www.slov-lex.sk/ezbierky/pravne-predpisy/SK/ZZ/2024/418/"
+  },
+  {
+   "id": "s3",
    "title": "Annex 3: infrastructure, CO2 and air-pollution charges",
    "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704373-2.pdf"
   },
   {
-   "id": "s3",
+   "id": "s4",
    "title": "Annex 5: rates on motorways",
    "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704381-2.pdf"
   },
   {
-   "id": "s4",
+   "id": "s5",
    "title": "Annex 6: rates on class I roads",
    "url": "https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2024/418/20250701_5704385-2.pdf"
   }
@@ -809,7 +813,7 @@
     ["road:other", "infrastructure-1.49", "0.1681"],
     ["road:other", "infrastructure-1.50", "0.1681"]
    ],
-   "sources": ["s1", "s2", "s3", "s4"],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
    "basis": "transcribed"
   },
   {
@@ -920,7 +924,7 @@
     ["road:other", "infrastructure-1.49", "0.081"],
     ["road:other", "infrastructure-1.50", "0.091"]
    ],
-   "sources": ["s1", "s2", "s3", "s4"],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
    "basis": "transcribed"
   },
   {
@@ -1031,7 +1035,7 @@
     ["road:other", "infrastructure-1.49", "0.0756"],
     ["road:other", "infrastructure-1.50", "0.137"]
    ],
-   "sources": ["s1", "s2", "s3", "s4"],
+   "sources": ["s1", "s2", "s3", "s4", "s5"],
    "basis": "transcribed"
   }
  ],

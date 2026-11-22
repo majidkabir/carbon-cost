@@ -5,7 +5,7 @@ name: Fuel prices
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   fetch:
     runs-on: ubuntu-latest
@@ -19,9 +19,11 @@ jobs:
           get history.xlsx "https://energy.ec.europa.eu/document/download/906e60ca-8b6a-44e7-8589-652854d2fd3f_en?filename=Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx"
           get with-taxes.xlsx "https://energy.ec.europa.eu/document/download/264c2d0f-f161-4ea3-a777-78faae59bea0_en?filename=Weekly%20Oil%20Bulletin%20Weekly%20prices%20with%20Taxes.xlsx"
           get without-taxes.xlsx "https://energy.ec.europa.eu/document/download/78311f92-68f8-4b82-b5cf-1293beeaae77_en?filename=Weekly%20Oil%20Bulletin%20Weekly%20prices%20without%20taxes.xlsx"
+          get duties-and-taxes.xlsx "https://energy.ec.europa.eu/document/download/ccdc6e96-6792-40cb-b0b4-b6609f1e30d0_en?filename=Oil_Bulletin_Duties_and_taxes.xlsx"
           ls -la wob
           grep -o 'href="[^"]*\(download\|xlsx\|pdf\)[^"]*"' wob/page.html | sort -u | head -40
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wob
-          path: wob
+      - name: Push to the fuel-out branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898099+github-actions[bot]@users.noreply.github.com"
+          cd wob && git init -q -b fuel-out && git add . && git commit -qm "Weekly Oil Bulletin as fetched" && git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" fuel-out

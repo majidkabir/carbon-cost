@@ -323,3 +323,52 @@ func TestFerrySurchargeStena(t *testing.T) {
 		t.Errorf("Stena Gothenburg–Kiel: %+v", s)
 	}
 }
+
+// The diesel at the Weekly Oil Bulletin's prices, or at the truck's own;
+// with_fuel_eur counts the CO2 prices on fuel once.
+func TestFuelCost(t *testing.T) {
+	day := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"DE": 200, "PL": 100}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 90, FX: map[string]float64{"PLN": 4.25}}
+	r, err := PriceWith(res, all(t), nil, req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Bought along the route: 60 l in Germany, 30 in Poland; the bulletin
+	// of 16 November 2026: DE 1.8613, PL 1.3629 EUR/l without VAT.
+	f := r.Fuel
+	if f == nil || !f.Complete || len(f.ByCountry) != 2 || f.ByCountry[0].Country != "DE" || f.ByCountry[0].Litres != 60 ||
+		f.ByCountry[0].EURPerL != 1.8613 || f.ByCountry[1].EURPerL != 1.3629 || !strings.HasPrefix(f.ByCountry[0].Price, "Weekly Oil Bulletin 2026-11-16") {
+		t.Fatalf("fuel %+v", f)
+	}
+	if want := round2(60*1.8613 + 30*1.3629); f.EUR != want {
+		t.Errorf("fuel EUR %v, want %v", f.EUR, want)
+	}
+	var co2 float64
+	for _, l := range r.Lines {
+		if l.Charge == FuelCO2 {
+			co2 += l.AmountEUR
+		}
+	}
+	if co2 == 0 || f.InPriceEUR != round2(co2) || r.WithFuelEUR != round2(r.TotalEUR+f.EUR-f.InPriceEUR) {
+		t.Errorf("in price %v (co2 %v), with fuel %v, total %v", f.InPriceEUR, co2, r.WithFuelEUR, r.TotalEUR)
+	}
+	if r.Shipments[0].FuelEUR != f.EUR || r.Shipments[0].WithFuelEUR != r.WithFuelEUR {
+		t.Errorf("shipment %+v", r.Shipments[0])
+	}
+	// The truck's own prices: one for all, Poland's over it.
+	req.DieselEURPerL, req.DieselEURPerLByCountry = 1.5, map[string]float64{"PL": 1.2}
+	r, _ = PriceWith(res, all(t), nil, req, day)
+	if r.Fuel.EUR != round2(60*1.5+30*1.2) || r.Fuel.ByCountry[0].Price != "given" {
+		t.Errorf("given: %+v", r.Fuel)
+	}
+	// Bought in Switzerland: no bulletin price.
+	req.DieselEURPerL, req.DieselEURPerLByCountry, req.FuelCountry = 0, nil, "CH"
+	r, _ = PriceWith(res, all(t), nil, req, day)
+	if r.Fuel.Complete || len(r.Fuel.Unpriced) != 1 || r.Fuel.Unpriced[0] != "CH" || r.Fuel.EUR != 0 {
+		t.Errorf("CH: %+v", r.Fuel)
+	}
+	if err := check(Request{CargoKg: 1, Stops: req.Stops, DieselEURPerLByCountry: map[string]float64{"pl": 1}}); err == nil {
+		t.Error("lower-case country: want an error")
+	}
+}

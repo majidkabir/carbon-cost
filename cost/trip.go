@@ -89,6 +89,10 @@ type ShipmentCost struct {
 	// surcharges are quoted.
 	EURPer100Kg       float64 `json:"eur_per_100kg"`
 	CarbonEURPer100Kg float64 `json:"carbon_eur_per_100kg"`
+	// FuelEUR and WithFuelEUR are its tonne-km share of the trip's fuel
+	// and of with_fuel_eur.
+	FuelEUR     float64 `json:"fuel_eur,omitempty"`
+	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
 	// the truck's diesel plus its share by weight of the ferries it is on,
 	// when the diesel is given; else Sootcase's (GLEC default intensity x
@@ -377,6 +381,9 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		}
 		if s.WeightKg > 0 {
 			c.EURPer100Kg, c.CarbonEURPer100Kg = round2(out.TotalEUR*share*100/s.WeightKg), round2(out.CarbonEUR*share*100/s.WeightKg)
+		}
+		if out.Fuel != nil {
+			c.FuelEUR, c.WithFuelEUR = round2(out.Fuel.EUR*share), round2(out.WithFuelEUR*share)
 		}
 		if i < len(req.shipTTW) {
 			c.TTWKg, c.WTWKg = round3(req.shipTTW[i]), round3(req.shipWTW[i])

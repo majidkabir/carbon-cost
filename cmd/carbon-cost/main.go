@@ -175,6 +175,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
+	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
@@ -213,6 +214,11 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 		}
 		for _, cc := range slices.Sorted(maps.Keys(m)) {
 			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
+		}
+	}
+	if *dprice != "" {
+		if err := dieselPriceFlag(&req, *dprice); err != nil {
+			return req, opts, fmt.Errorf("-diesel-price: %w", err)
 		}
 	}
 	if *pathFile != "" {
@@ -264,6 +270,34 @@ type calcOpts struct {
 	csv  string
 	sc   *sootcase.Client
 	rfms string // what the trip took from rFMS
+}
+
+// dieselPriceFlag reads -diesel-price: a price for all litres, prices by
+// country (CC=price), or both, separated by commas.
+func dieselPriceFlag(req *cost.Request, v string) error {
+	for _, p := range strings.Split(v, ",") {
+		p = strings.TrimSpace(p)
+		if p == "" {
+			continue
+		}
+		cc, price, by := strings.Cut(p, "=")
+		if !by {
+			price = cc
+		}
+		x, err := strconv.ParseFloat(strings.TrimSpace(price), 64)
+		if err != nil || x <= 0 {
+			return fmt.Errorf("%q: give EUR per litre, e.g. 1.45 or PL=1.25", p)
+		}
+		if !by {
+			req.DieselEURPerL = x
+			continue
+		}
+		if req.DieselEURPerLByCountry == nil {
+			req.DieselEURPerLByCountry = map[string]float64{}
+		}
+		req.DieselEURPerLByCountry[strings.ToUpper(strings.TrimSpace(cc))] = x
+	}
+	return nil
 }
 
 // rfmsFlags takes the way driven, the diesel and the date from rFMS
@@ -487,6 +521,22 @@ func printResult(r cost.Response) {
 			empty = fmt.Sprintf(", %.1f km empty", tr.EmptyKm)
 		}
 		fmt.Printf("Truck: %.1f road km%s, %.1f l diesel (%s)\n", tr.RoadKm, empty, tr.FuelL, tr.FuelBasis)
+	}
+	if f := r.Fuel; f != nil {
+		var parts []string
+		for _, b := range f.ByCountry {
+			if b.EURPerL > 0 {
+				parts = append(parts, fmt.Sprintf("%s %.1f l x %.4f", b.Country, b.Litres, b.EURPerL))
+			} else {
+				parts = append(parts, fmt.Sprintf("%s %.1f l, no price", b.Country, b.Litres))
+			}
+		}
+		inc := ""
+		if !f.Complete {
+			inc = " (incomplete)"
+		}
+		fmt.Printf("Fuel: EUR %.2f without VAT%s (%s); with fuel: EUR %.2f (the CO2 prices on fuel, EUR %.2f, are in the diesel price)\n",
+			f.EUR, inc, strings.Join(parts, ", "), r.WithFuelEUR, f.InPriceEUR)
 	}
 	if r.EURPerTkm > 0 {
 		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)

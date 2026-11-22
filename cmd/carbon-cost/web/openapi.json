@@ -97,6 +97,75 @@
     ],
     "type": "object"
    },
+   "FuelBought": {
+    "additionalProperties": false,
+    "description": "FuelBought is the litres bought in one country and their price.",
+    "properties": {
+     "country": {
+      "type": "string"
+     },
+     "eur": {
+      "type": "number"
+     },
+     "eur_per_l": {
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "price": {
+      "description": "Price says where the price comes from: \"given\", or \"Weekly Oil Bulletin <date>\".",
+      "type": "string"
+     }
+    },
+    "required": [
+     "country",
+     "litres"
+    ],
+    "type": "object"
+   },
+   "FuelCost": {
+    "additionalProperties": false,
+    "description": "FuelCost is the trip's road diesel at a price: the truck's running cost, not a charge.",
+    "properties": {
+     "by_country": {
+      "description": "ByCountry is where the litres are bought (fuel_purchases, fuel_country, or along the route by road km) and their price.",
+      "items": {
+       "$ref": "#/components/schemas/FuelBought"
+      },
+      "type": "array"
+     },
+     "complete": {
+      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
+      "type": "boolean"
+     },
+     "eur": {
+      "description": "EUR is the litres priced, at their prices, without VAT.",
+      "type": "number"
+     },
+     "in_price_eur": {
+      "description": "InPriceEUR is the CO2 prices on fuel (and, from 2028, ETS2) of the litres priced: the diesel price already holds them, so with_fuel_eur leaves them out of the charges.",
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "unpriced": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "by_country",
+     "complete",
+     "eur",
+     "in_price_eur",
+     "litres"
+    ],
+    "type": "object"
+   },
    "FuelPurchase": {
     "additionalProperties": false,
     "description": "FuelPurchase is fuel bought for the trip in a country, for the national CO2 prices on fuel, which are paid where it is bought.",
@@ -383,6 +452,16 @@
       "description": "YYYY-MM-DD; default today",
       "type": "string"
      },
+     "diesel_eur_per_l": {
+      "description": "DieselEURPerL is what the truck pays for diesel, EUR per litre without VAT, wherever it fills up; DieselEURPerLByCountry by country (ISO 3166-1 alpha-2), over it. Without them, the EU's Weekly Oil Bulletin's national averages of the trip's week. The fuel cost is a line of its own: total_eur stays the charges, and with_fuel_eur adds the fuel.",
+      "type": "number"
+     },
+     "diesel_eur_per_l_by_country": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
      "diesel_l": {
       "description": "DieselL is the litres of diesel the truck burns on the trip's road part, for the CO2 prices on fuel and ETS2.",
       "type": "number"
@@ -576,6 +655,14 @@
      "ferry_km": {
       "type": "number"
      },
+     "fuel": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/FuelCost"
+       }
+      ],
+      "description": "Fuel is the trip's diesel at the price given, or the Weekly Oil Bulletin's: not a charge, so not in total_eur."
+     },
      "intensity_g_co2e_per_tkm": {
       "description": "IntensityG is the well-to-wheel g CO2e per tonne-km of the shipments: EN ISO 14083's emission intensity.",
       "type": "number"
@@ -653,6 +740,10 @@
      },
      "ttw_kg": {
       "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "description": "WithFuelEUR is total_eur and the fuel, without counting twice the CO2 prices on fuel (and ETS2) that the diesel price already holds.",
       "type": "number"
      },
      "wtw_kg": {
@@ -773,6 +864,10 @@
      "from": {
       "type": "integer"
      },
+     "fuel_eur": {
+      "description": "FuelEUR and WithFuelEUR are its tonne-km share of the trip's fuel and of with_fuel_eur.",
+      "type": "number"
+     },
      "id": {
       "type": "string"
      },
@@ -798,6 +893,9 @@
       "type": "number"
      },
      "weight_kg": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
       "type": "number"
      },
      "wtw_kg": {

@@ -161,6 +161,14 @@ type Request struct {
 	// diesel_l isn't given. Without either the default for its vehicle
 	// group and load is used (Trip.FuelBasis says which).
 	LPer100Km float64 `json:"l_per_100km,omitempty"`
+	// DieselEURPerL is what the truck pays for diesel, EUR per litre
+	// without VAT, wherever it fills up; DieselEURPerLByCountry by
+	// country (ISO 3166-1 alpha-2), over it. Without them, the EU's
+	// Weekly Oil Bulletin's national averages of the trip's week. The
+	// fuel cost is a line of its own: total_eur stays the charges, and
+	// with_fuel_eur adds the fuel.
+	DieselEURPerL          float64            `json:"diesel_eur_per_l,omitempty"`
+	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
 	// FX converts other currencies to EUR, in units per euro, e.g.
@@ -276,6 +284,12 @@ type Response struct {
 	Lines     []Line         `json:"lines"`
 	TotalEUR  float64        `json:"total_eur"`
 	CarbonEUR float64        `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
+	// Fuel is the trip's diesel at the price given, or the Weekly Oil
+	// Bulletin's: not a charge, so not in total_eur.
+	Fuel *FuelCost `json:"fuel,omitempty"`
+	// WithFuelEUR is total_eur and the fuel, without counting twice the
+	// CO2 prices on fuel (and ETS2) that the diesel price already holds.
+	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	// NoRates lists countries on the route this tool has no toll table
 	// for: their charges are not included.
 	NoRates []string `json:"no_rates,omitempty"`
@@ -614,6 +628,14 @@ func check(req Request) error {
 	if req.TripsPerYear < 0 {
 		return fmt.Errorf("trips_per_year must be >= 0")
 	}
+	if req.DieselEURPerL < 0 || req.DieselEURPerL > 10 {
+		return fmt.Errorf("diesel_eur_per_l %v: give EUR per litre without VAT, e.g. 1.45", req.DieselEURPerL)
+	}
+	for cc, v := range req.DieselEURPerLByCountry {
+		if !regexp.MustCompile(`^[A-Z]{2}$`).MatchString(cc) || v <= 0 || v > 10 {
+			return fmt.Errorf("diesel_eur_per_l_by_country %s=%v: give ISO 3166-1 alpha-2 codes and EUR per litre without VAT, e.g. PL=1.25", cc, v)
+		}
+	}
 	if req.FuelCountry != "" && !regexp.MustCompile(`^[A-Z]{2}$`).MatchString(req.FuelCountry) {
 		return fmt.Errorf("fuel_country %q: give an ISO 3166-1 alpha-2 code, e.g. DE", req.FuelCountry)
 	}
@@ -810,6 +832,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	if err := compare(&out, res, set, fd, req, date); err != nil {
 		return Response{}, err
 	}
+	fuelCost(&out, req, date)
 	allocate(&out, res, req)
 	if out.Trip.FuelL > 0 && strings.HasPrefix(out.Trip.FuelBasis, "default") {
 		out.Provenance.Assumed = append(out.Provenance.Assumed, fmt.Sprintf("diesel: %.1f l (%.1f l/100 km) for a new truck of its VECTO group (%s); give l_per_100km or diesel_l for the truck's own",

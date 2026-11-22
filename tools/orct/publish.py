@@ -10,6 +10,8 @@ Usage: python3 tools/orct/publish.py <workflow orct dir> tariffs/data
          (ferry crossings files that differ only in the terminals' positions,
          and the lines' ETS surcharges when only editions are added)
        python3 tools/orct/publish.py --fx <workflow fx dir> fx/data
+       python3 tools/orct/publish.py --fuel <workflow fuel dir> fuel/data
+         (exchange rates, and diesel prices, for days after the last only)
          (exchange rate files that only add days after the last one: the
          same header, every committed row unchanged)
 
@@ -179,11 +181,12 @@ def appended_days(a, b):
     return all(re.fullmatch(r"\d{4}-\d\d-\d\d", d) for d in days) and days == sorted(set(days)) and days[0] > last
 
 
-def fx(new, data):
+def fx(new, data, files=None, where="fx"):
     """Publishes the History data workflow's exchange rate files
-    (fx/data/*.csv) that only add days: a past rate changed, a currency
-    added or a day removed is left for review."""
-    for name in FX_FILES:
+    (fx/data/*.csv), or its diesel prices (fuel/data/wob-diesel.csv),
+    that only add days: a past value changed, a column added or a day
+    removed is left for review."""
+    for name in files or FX_FILES:
         src, dst = os.path.join(new, name), os.path.join(data, name)
         if not (os.path.exists(src) and os.path.exists(dst)):
             continue
@@ -192,14 +195,16 @@ def fx(new, data):
             continue
         if appended_days(a, b):
             shutil.copy(src, dst)
-            print("published", "fx/" + name, "to", b.splitlines()[-1].split(",")[0])
+            print("published", f"{where}/{name}", "to", b.splitlines()[-1].split(",")[0])
         else:
-            print(f"::warning title=fx/{name}::differs in more than new days; not published, review it")
+            print(f"::warning title={where}/{name}::differs in more than new days; not published, review it")
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "--fx":
         fx(*sys.argv[2:])
+    elif sys.argv[1] == "--fuel":
+        fx(*sys.argv[2:], files=("wob-diesel.csv",), where="fuel")
     elif sys.argv[1] == "--crossings":
         crossings(*sys.argv[2:])
         ets_surcharges(*sys.argv[2:])

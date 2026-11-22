@@ -88,35 +88,59 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 		defer f.Close()
 		in = f
 	}
+	labels, err := priceCSV(context.Background(), c.Calculate, withoutCSV(args), in, os.Stdout, calcFlagNames(), 0)
+	if len(labels) > 0 {
+		fmt.Fprintf(os.Stderr, "calc -csv: columns kept as labels (no flag of that name): %s\n", strings.Join(labels, ", "))
+	}
+	return err
+}
+
+// webCSVFlags are the flags a CSV sent to the server may set: not those
+// that read files or name servers.
+func webCSVFlags() map[string]bool {
+	ok := calcFlagNames()
+	for _, f := range []string{"csv", "json", "path", "sootcase"} {
+		delete(ok, f)
+	}
+	return ok
+}
+
+// priceCSV prices each row of a CSV whose header names flags (allowed;
+// other columns are kept as labels, and returned), on top of base, and
+// writes the rows back with the results added. maxRows > 0 limits the
+// rows.
+func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cost.Response, error), base []string, in io.Reader, out io.Writer,
+	allowed map[string]bool, maxRows int) ([]string, error) {
 	rd := csv.NewReader(in)
 	rd.FieldsPerRecord = -1
 	rows, err := rd.ReadAll()
 	if err != nil {
-		return fmt.Errorf("-csv: %w", err)
+		return nil, fmt.Errorf("csv: %w", err)
 	}
 	if len(rows) < 2 {
-		return fmt.Errorf("-csv: a header and at least one row are needed")
+		return nil, fmt.Errorf("csv: a header and at least one row are needed")
+	}
+	if maxRows > 0 && len(rows)-1 > maxRows {
+		return nil, fmt.Errorf("csv: at most %d rows", maxRows)
 	}
 	head := rows[0]
+	if len(head) > 0 {
+		head[0] = strings.TrimPrefix(head[0], "\ufeff") // a BOM from Excel
+	}
 	// Columns that name no flag (a truck, an order number) are kept as
 	// they are; a typo in a flag's name shows in this list.
-	known := calcFlagNames()
 	var labels []string
 	for _, name := range head {
-		if n := strings.TrimPrefix(strings.TrimSpace(name), "-"); n != "" && !known[n] {
+		if n := strings.TrimPrefix(strings.TrimSpace(name), "-"); n != "" && !allowed[n] {
 			labels = append(labels, n)
 		}
 	}
-	if len(labels) > 0 {
-		fmt.Fprintf(os.Stderr, "calc -csv: columns kept as labels (no flag of that name): %s\n", strings.Join(labels, ", "))
-	}
-	base := withoutCSV(args)
 	trips, bad := make([]cost.Request, len(rows)-1), make([]string, len(rows)-1)
 	for i, row := range rows[1:] {
 		a := slices.Clone(base)
 		for k, name := range head {
 			name = strings.TrimPrefix(strings.TrimSpace(name), "-")
-			if k < len(row) && strings.TrimSpace(row[k]) != "" && known[name] {
+			if k < len(row) && strings.TrimSpace(row[k]) != "" && allowed[name] {
 				a = append(a, "-"+name+"="+strings.TrimSpace(row[k]))
 			}
 		}
@@ -127,7 +151,7 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 		}
 		trips[i] = req
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(len(trips))*time.Minute)
+	ctx, cancel := context.WithTimeout(ctx, time.Duration(len(trips))*time.Minute)
 	defer cancel()
 	todo, at := []cost.Request{}, []int{}
 	for i, r := range trips {
@@ -135,8 +159,8 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 			todo, at = append(todo, r), append(at, i)
 		}
 	}
-	res := priceAll(ctx, c.Calculate, todo)
-	w := csv.NewWriter(os.Stdout)
+	res := priceAll(ctx, calc, todo)
+	w := csv.NewWriter(out)
 	w.Write(append(slices.Clone(head), csvColumns...))
 	items := make([]BatchItem, len(trips))
 	for k, i := range at {
@@ -152,7 +176,7 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 		w.Write(append(row[:len(head)], csvResult(items[i])...))
 	}
 	w.Flush()
-	return w.Error()
+	return labels, w.Error()
 }
 
 // csvResult is a result's columns (csvColumns).

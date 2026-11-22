@@ -281,7 +281,7 @@ func TestPrice_FerryMRV(t *testing.T) {
 	tr := truck40
 	tr.TareKg = 15000
 
-	r, err := PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr, EUAEurPerT: 75}, nov26)
+	r, err := PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr, EUAEurPerT: 75, FerryETSBasis: "emissions"}, nov26)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -294,7 +294,7 @@ func TestPrice_FerryMRV(t *testing.T) {
 	}
 
 	// No tare: the default part, and a note saying what tare would do.
-	r, _ = PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}, nov26)
+	r, _ = PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, FerryETSBasis: "emissions"}, nov26)
 	if l, _ := line(r, FerryETS, "", ""); l.Amount != 2.25 || !hasNote(r, "tare_kg") {
 		t.Errorf("no tare: %+v, notes %v", l, r.Notes)
 	}
@@ -324,7 +324,7 @@ func TestPrice_FerryETSByLaw(t *testing.T) {
 		return sootcase.Result{TTWKg: 100 + ttw, Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 100 + ttw,
 			RouteParts: map[string]float64{"ferry": km}, CountryKm: map[string]float64{"DK": 200 - km}, Path: path, Parts: parts}}}
 	}
-	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}
+	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, FerryETSBasis: "emissions"}
 	ferryLines := func(r Response) []Line {
 		var out []Line
 		for _, l := range r.Lines {

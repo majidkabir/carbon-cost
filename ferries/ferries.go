@@ -112,6 +112,8 @@ type Data struct {
 	Crossings []Crossing
 	Years     []MRVYear    // oldest first
 	Listed    []ListedYear // oldest first
+	// Surcharges are the ferry lines' published ETS surcharges.
+	Surcharges []ETSSurcharges
 }
 
 // Load reads the embedded data.
@@ -138,6 +140,15 @@ func Load() (Data, error) {
 			return d, fmt.Errorf("%s: %w", e.Name(), err)
 		}
 		d.Crossings = append(d.Crossings, cs.Crossings...)
+	}
+	if b, err := files.ReadFile("data/ets-surcharges.json"); err == nil {
+		var s struct {
+			Operators []ETSSurcharges `json:"operators"`
+		}
+		if err := json.Unmarshal(b, &s); err != nil {
+			return d, fmt.Errorf("ets-surcharges.json: %w", err)
+		}
+		d.Surcharges = s.Operators
 	}
 	for _, e := range ents {
 		if strings.HasPrefix(e.Name(), "mrv-ships-") {
@@ -455,4 +466,105 @@ func (c Crossing) portCoverage(day time.Time) (Coverage, bool) {
 		return Coverage{Share: 0.5, Basis: "50% of its emissions: a voyage between a port under the jurisdiction of a Member State and one outside (Directive 2003/87/EC, Art. 3ga(1))"}, true
 	}
 	return Coverage{Basis: "its ports are outside the EU and the EEA"}, true
+}
+
+// ETSSurcharges are a ferry line's published EU ETS surcharges for
+// freight, per metre of the vehicle's length (ets-surcharges.json, built
+// by tools/tables/ferry_ets.py).
+type ETSSurcharges struct {
+	Operator string `json:"operator"`
+	Unit     string `json:"unit"`
+	// CommencedMetre: charged per commencing metre (the length rounded
+	// up), with at least MinM metres.
+	CommencedMetre bool         `json:"commenced_metre"`
+	MinM           float64      `json:"min_m"`
+	Source         Source       `json:"source"`
+	Routes         []ETSRoute   `json:"routes"`
+	Editions       []ETSEdition `json:"editions"`
+	// PerRoute: an edition names only some routes, the others keep theirs.
+	PerRoute bool `json:"per_route,omitempty"`
+}
+
+// ETSRoute is one of the operator's routes and the crossings it sails.
+type ETSRoute struct {
+	Name      string   `json:"name"`
+	Crossings []string `json:"crossings"`
+}
+
+// ETSEdition is the surcharges in force from From to To (or, without To,
+// until the next edition).
+type ETSEdition struct {
+	From       string             `json:"from"`
+	To         string             `json:"to,omitempty"`
+	EUAEurPerT float64            `json:"eua_eur_per_t,omitempty"`
+	Basis      string             `json:"basis,omitempty"`
+	Source     string             `json:"source"`
+	Note       string             `json:"note,omitempty"`
+	Rates      map[string]float64 `json:"rates"`
+}
+
+// Surcharge is the ETS surcharge on a crossing on a day.
+type Surcharge struct {
+	Operator, Route string
+	EURPerM         float64
+	CommencedMetre  bool
+	MinM            float64
+	Edition         ETSEdition
+	Source          Source
+}
+
+// Metres is the length charged for a vehicle of length m.
+func (s Surcharge) Metres(m float64) float64 {
+	if s.CommencedMetre {
+		m = math.Ceil(m - 1e-9)
+	}
+	return math.Max(m, s.MinM)
+}
+
+// ETSSurcharge is the surcharge an operator publishes for a crossing on a
+// day, if any is in force.
+func (d Data) ETSSurcharge(crossing string, day time.Time) (Surcharge, bool) {
+	ds := day.Format(time.DateOnly)
+	for _, o := range d.Surcharges {
+		for _, r := range o.Routes {
+			if !containsString(r.Crossings, crossing) {
+				continue
+			}
+			var best *ETSEdition
+			for i := range o.Editions {
+				e := &o.Editions[i]
+				if e.From > ds {
+					continue
+				}
+				if _, ok := e.Rates[r.Name]; !ok && o.PerRoute {
+					continue
+				}
+				if best == nil || e.From > best.From {
+					best = e
+				}
+			}
+			if best == nil || best.To != "" && best.To < ds {
+				continue
+			}
+			rate, ok := best.Rates[r.Name]
+			if !ok {
+				continue
+			}
+			src := o.Source
+			if best.Source != "" {
+				src.URL = best.Source
+			}
+			return Surcharge{Operator: o.Operator, Route: r.Name, EURPerM: rate, CommencedMetre: o.CommencedMetre, MinM: o.MinM, Edition: *best, Source: src}, true
+		}
+	}
+	return Surcharge{}, false
+}
+
+func containsString(ss []string, s string) bool {
+	for _, x := range ss {
+		if x == s {
+			return true
+		}
+	}
+	return false
 }

@@ -158,6 +158,7 @@ jobs:
           run python3 tools/tables/de_elbfaehre.py out out/tables
           run python3 tools/tables/ets_islands.py out out/ferries
           run python3 tools/tables/ferry_ships.py out out/ferries
+          run python3 tools/tables/ferry_ets.py out out/ferries
           run python3 tools/tables/ie.py out out/tables
           run python3 tools/tables/se_bridges.py out out/tables
           run python3 tools/tables/se_congestion.py out out/tables
@@ -211,6 +212,7 @@ jobs:
           cmp -s out/tables/hu-annex1.json tools/roads/hu-annex1.json && echo "hu-annex1.json: same as committed" || echo "::warning title=hu-annex1.json::differs from tools/roads/hu-annex1.json"
           cmp -s out/ferries/crossings-islands.json ferries/data/crossings-islands.json && echo "crossings-islands.json: same as committed" || echo "::warning title=crossings-islands.json::differs from ferries/data/crossings-islands.json"
           cmp -s out/ferries/crossings-ships.json ferries/data/crossings-ships.json && echo "crossings-ships.json: same as committed" || echo "::warning title=crossings-ships.json::differs from ferries/data/crossings-ships.json"
+          cmp -s out/ferries/ets-surcharges.json ferries/data/ets-surcharges.json && echo "ets-surcharges.json: same as committed" || echo "::warning title=ets-surcharges.json::differs from ferries/data/ets-surcharges.json (a new month's surcharges)"
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt
           cd out/tables
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt

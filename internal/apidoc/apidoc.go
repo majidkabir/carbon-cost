@@ -120,6 +120,19 @@ func Generate(root, version string) ([]byte, error) {
 				"requestBody": map[string]any{"required": true, "content": map[string]any{"application/json": map[string]any{"schema": breq}}},
 				"responses":   with(jsonBody(bres, "Each trip's result or error, in the order asked.")),
 			}},
+			"/v1/carbon-cost/csv": map[string]any{"post": map[string]any{
+				"summary": "Price a CSV of up to 100 trips",
+				"description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, " +
+					"shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); " +
+					"path, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, " +
+					"carbon_eur, ..., complete, missing, error).",
+				"operationId": "priceCSV",
+				"requestBody": map[string]any{"required": true, "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+				"responses": map[string]any{
+					"200": map[string]any{"description": "The rows with the results added.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+					"400": jsonBody(errRef, "The CSV can't be read, or has more than 100 rows."),
+				},
+			}},
 			"/v1/rates": map[string]any{"get": map[string]any{
 				"summary":     "List the rate datasets (ORCT)",
 				"operationId": "listRates",

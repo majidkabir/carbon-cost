@@ -98,3 +98,32 @@ func TestCalcCSV(t *testing.T) {
 		t.Errorf("row 3 (no destination): %s", lines[3])
 	}
 }
+
+// POST /v1/carbon-cost/csv prices a CSV as calc -csv does, but no flag
+// that reads a file or names a server.
+func TestCSVHandler(t *testing.T) {
+	fake := fakeRoute(t)
+	defer fake.Close()
+	c, err := calculator(&sootcase.Client{BaseURL: fake.URL})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := Handler(c, "none")
+	body := "\ufefffrom,to,date,cargo-kg,ref,path,sootcase\nDEHAM,DEBER,2026-11-03,20000,T1,/etc/passwd,http://169.254.169.254\nDEHAM,DEBER,2026-11-03,x,T2,,\n"
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost/csv", strings.NewReader(body)))
+	if rec.Code != 200 || rec.Header().Get("Content-Type") != "text/csv; charset=utf-8" || rec.Header().Get("X-CSV-Labels") != "ref,path,sootcase" {
+		t.Fatalf("%d %v %s", rec.Code, rec.Header(), rec.Body.String())
+	}
+	lines := strings.Split(strings.TrimSpace(rec.Body.String()), "\n")
+	if len(lines) != 3 || !strings.HasPrefix(lines[0], "from,to,date,cargo-kg,ref,path,sootcase,trip_date") ||
+		!strings.Contains(lines[1], ",T1,/etc/passwd,") || !strings.HasSuffix(lines[1], "true,,") || !strings.Contains(lines[2], "cargo-kg") {
+		t.Errorf("%q", lines)
+	}
+	big := "from,to\n" + strings.Repeat("DEHAM,DEBER\n", MaxBatch+1)
+	rec = httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost/csv", strings.NewReader(big)))
+	if rec.Code != 400 || !strings.Contains(rec.Body.String(), "at most 100 rows") {
+		t.Errorf("%d rows: %d %s", MaxBatch+1, rec.Code, rec.Body.String())
+	}
+}

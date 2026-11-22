@@ -414,6 +414,10 @@
       "description": "EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for ferry crossings. 0: ferry ETS is not priced.",
       "type": "number"
      },
+     "ferry_ets_basis": {
+      "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
+      "type": "string"
+     },
      "ferry_ets_share": {
       "description": "FerryETSShare is the share of a crossing's emissions under the EU ETS for a crossing this tool doesn't know: 1 between two EU/EEA ports (default), 0.5 to or from a port outside. A known crossing's share comes from its ports, its ships' size and the derogations in force.",
       "type": "number"
@@ -1179,6 +1183,45 @@
      }
     },
     "summary": "Price up to 100 trips"
+   }
+  },
+  "/v1/carbon-cost/csv": {
+   "post": {
+    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., complete, missing, error).",
+    "operationId": "priceCSV",
+    "requestBody": {
+     "content": {
+      "text/csv": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/csv": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "The rows with the results added."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The CSV can't be read, or has more than 100 rows."
+     }
+    },
+    "summary": "Price a CSV of up to 100 trips"
    }
   },
   "/v1/places": {

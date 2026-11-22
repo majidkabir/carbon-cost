@@ -99,7 +99,7 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 // that read files or name servers.
 func webCSVFlags() map[string]bool {
 	ok := calcFlagNames()
-	for _, f := range []string{"csv", "json", "path", "sootcase"} {
+	for _, f := range []string{"csv", "json", "path", "rfms", "vin", "sootcase"} {
 		delete(ok, f)
 	}
 	return ok

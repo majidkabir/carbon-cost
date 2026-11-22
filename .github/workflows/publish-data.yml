@@ -68,7 +68,7 @@ jobs:
             # The tool's tests read tariffs/data; a push from here doesn't run CI.
             go test ./... >/dev/null
             n=$(grep -c '^published' report.txt)
-            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions or new days' exchange rates (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, or exchange rates for days after the last changed (tools/orct/publish.py)."
+            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions, new days' exchange rates or ferry lines' new ETS surcharges (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, exchange rates for days after the last changed, or added ETS surcharge editions (tools/orct/publish.py)."
             git push -q origin HEAD:main && break
             [ $i = 3 ] && exit 1; sleep 10
           done

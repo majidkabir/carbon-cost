@@ -160,12 +160,12 @@ def scandlines(fetched):
 
 EN_MONTHS = {m: i + 1 for i, m in enumerate(MONTHS)}
 STENA_URL = "https://stenalinefreight.com/charges/"
-STENA_ROW = re.compile(r"^\s*([A-ZÅÄÖ][^\d|]*?[–-][^\d|]*?)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\S+)\s*$", re.M)
+STENA_ROW = re.compile(r"^[ \t]*([A-ZÅÄÖ][^\d|\n]*?[–-][^\d|\n]*?)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\S+)[ \t]*$", re.M)
 
 
 def stena_table(text, name):
     """(yyyy-mm, {route: EUR per metre}) from a notice's text."""
-    m = re.search(r"MATRIX LEVELS\s+([A-Z]+) (\d{4})", text)
+    m = re.search(r"MATRIX LEVELS\s+([A-Z]+) (\d{4})", text, re.I)
     if not m or m.group(1).title() not in EN_MONTHS:
         print(f"Stena: {name}: the month not read; skipped")
         return None

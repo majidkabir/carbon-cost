@@ -20,6 +20,7 @@ import (
 	"io/fs"
 	"log/slog"
 	"maps"
+	"math"
 	"net/http"
 	"net/url"
 	"os"
@@ -175,6 +176,8 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
 	pathFile := fs.String("path", "", "the way driven, priced instead of Sootcase's route: a GPX file (track or route points) or JSON ([[lon,lat],...] or a GeoJSON LineString)")
+	rfmsFiles := fs.String("rfms", "", "rFMS 4.0 responses from the truck maker's API (/vehiclepositions, /vehiclestatuses) for the trip's hours, files separated by ,: the way driven, the diesel burnt (engineTotalFuelUsed) and the date")
+	vin := fs.String("vin", "", "the vehicle in the -rfms files, when they hold several")
 	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410, from a tachograph; without -from and -to")
 	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
@@ -212,6 +215,11 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	if *pathFile != "" {
 		if req.Path, err = readPath(*pathFile); err != nil {
 			return req, opts, fmt.Errorf("-path: %w", err)
+		}
+	}
+	if *rfmsFiles != "" {
+		if err := rfmsFlags(&req, &opts, strings.Split(*rfmsFiles, ","), *vin, *ckm != ""); err != nil {
+			return req, opts, fmt.Errorf("-rfms: %w", err)
 		}
 	}
 	switch {
@@ -252,12 +260,42 @@ type calcOpts struct {
 	json bool
 	csv  string
 	sc   *sootcase.Client
+	rfms string // what the trip took from rFMS
+}
+
+// rfmsFlags takes the way driven, the diesel and the date from rFMS
+// files, where the other flags don't give them.
+func rfmsFlags(req *cost.Request, opts *calcOpts, names []string, vin string, countryKm bool) error {
+	for i := range names {
+		names[i] = strings.TrimSpace(names[i])
+	}
+	t, err := readRFMS(names, vin)
+	if err != nil {
+		return err
+	}
+	if len(t.Path) >= 2 && !countryKm {
+		if len(req.Path) > 0 {
+			return errors.New("not with -path: rFMS gives the way driven")
+		}
+		req.Path = t.Path
+	}
+	if t.DieselL > 0 && req.DieselL == 0 && req.LPer100Km == 0 && len(req.FuelPurchases) == 0 {
+		req.DieselL = math.Round(t.DieselL*1000) / 1000
+	}
+	if req.Date == "" && !t.From.IsZero() {
+		req.Date = t.From.Format("2006-01-02")
+	}
+	opts.rfms = t.summary()
+	return nil
 }
 
 func calc(args []string) error {
 	req, opts, err := parseCalc(args, flag.ExitOnError)
 	if err != nil {
 		return err
+	}
+	if opts.rfms != "" {
+		fmt.Fprintln(os.Stderr, opts.rfms)
 	}
 	c, err := calculator(opts.sc)
 	if err != nil {

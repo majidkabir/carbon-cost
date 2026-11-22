@@ -152,7 +152,12 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
-	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the road part burns, for taxes per litre (DK); default the road CO2 at 2.67 kg per litre")
+	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
+	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
+	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
+	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
+	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
+	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -181,6 +186,42 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 	}
 	if req.To, err = location(*to); err != nil {
 		return req, opts, fmt.Errorf("-to: %w", err)
+	}
+	if *via != "" || *back {
+		req.Stops = []sootcase.Location{req.From}
+		for _, v := range strings.Split(*via, ";") {
+			if strings.TrimSpace(v) == "" {
+				continue
+			}
+			l, err := location(v)
+			if err != nil {
+				return req, opts, fmt.Errorf("-via: %w", err)
+			}
+			req.Stops = append(req.Stops, l)
+		}
+		req.Stops = append(req.Stops, req.To)
+		if *back {
+			req.Stops = append(req.Stops, req.From)
+		}
+		req.From, req.To = sootcase.Location{}, sootcase.Location{}
+	}
+	if *ships != "" {
+		if req.Shipments, err = shipmentsFlag(*ships); err != nil {
+			return req, opts, fmt.Errorf("-shipments: %w", err)
+		}
+	} else if *back {
+		// The cargo goes to -to; the way back is empty.
+		req.Shipments = []cost.Shipment{{WeightKg: req.CargoKg, To: len(req.Stops) - 2}}
+		req.CargoKg = 0
+	}
+	if *bought != "" {
+		m, err := byCountry(*bought)
+		if err != nil {
+			return req, opts, fmt.Errorf("-fuel-bought: %w", err)
+		}
+		for _, cc := range slices.Sorted(maps.Keys(m)) {
+			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
+		}
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
 		return req, opts, fmt.Errorf("-tolled-share: %w", err)
@@ -235,6 +276,26 @@ func calc(args []string) error {
 }
 
 // location reads a code (DKCPH, CPH) or "lat,lon".
+// shipmentsFlag reads id:kg:from-to;... .
+func shipmentsFlag(s string) ([]cost.Shipment, error) {
+	var out []cost.Shipment
+	for _, part := range strings.Split(s, ";") {
+		f := strings.Split(strings.TrimSpace(part), ":")
+		if len(f) != 3 {
+			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
+		}
+		kg, err := strconv.ParseFloat(f[1], 64)
+		a, b, ok := strings.Cut(f[2], "-")
+		from, err1 := strconv.Atoi(a)
+		to, err2 := strconv.Atoi(b)
+		if err != nil || !ok || err1 != nil || err2 != nil {
+			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
+		}
+		out = append(out, cost.Shipment{ID: f[0], WeightKg: kg, From: from, To: to})
+	}
+	return out, nil
+}
+
 func location(s string) (sootcase.Location, error) {
 	s = strings.TrimSpace(s)
 	if s == "" {
@@ -329,6 +390,23 @@ func printResult(r cost.Response) {
 		incomplete = " (incomplete: see above)"
 	}
 	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f%s\n", r.TotalEUR, r.CarbonEUR, incomplete)
+	if tr := r.Trip; tr != nil {
+		empty := ""
+		if tr.EmptyKm > 0 {
+			empty = fmt.Sprintf(", %.1f km empty", tr.EmptyKm)
+		}
+		fmt.Printf("Truck: %.1f road km%s, %.1f l diesel (%s)\n", tr.RoadKm, empty, tr.FuelL, tr.FuelBasis)
+	}
+	if len(r.Shipments) > 1 {
+		fmt.Println()
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
+		fmt.Fprintln(w, "Shipment	kg	Stops	km	tkm	Share	EUR	Carbon EUR	TTW kg	")
+		for _, s := range r.Shipments {
+			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.1f\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.CarbonEUR, s.TTWKg)
+		}
+		w.Flush()
+		fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")
+	}
 	if len(r.Compare) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)

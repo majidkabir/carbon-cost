@@ -97,6 +97,24 @@
     ],
     "type": "object"
    },
+   "FuelPurchase": {
+    "additionalProperties": false,
+    "description": "FuelPurchase is fuel bought for the trip in a country, for the national CO2 prices on fuel, which are paid where it is bought.",
+    "properties": {
+     "country": {
+      "description": "ISO 3166-1 alpha-2",
+      "type": "string"
+     },
+     "litres": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "country",
+     "litres"
+    ],
+    "type": "object"
+   },
    "Line": {
     "additionalProperties": false,
     "description": "Line is one charge.",
@@ -344,6 +362,7 @@
       "type": "number"
      },
      "cargo_kg": {
+      "description": "CargoKg is the cargo when the trip carries one shipment from start to end (otherwise give shipments).",
       "type": "number"
      },
      "compare_co2_classes": {
@@ -358,7 +377,7 @@
       "type": "string"
      },
      "diesel_l": {
-      "description": "DieselL is the litres of diesel the trip's road part burns, for the national taxes charged per litre (Denmark's, Sweden's, Norway's CO2 taxes...). 0: the road part's tank-to-wheel CO2 divided by DieselKgCO2PerL.",
+      "description": "DieselL is the litres of diesel the truck burns on the trip's road part, for the CO2 prices on fuel and ETS2.",
       "type": "number"
      },
      "dkk_per_eur": {
@@ -393,11 +412,23 @@
       "type": "number"
      },
      "from": {
-      "$ref": "#/components/schemas/SootcaseLocation"
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/SootcaseLocation"
+       }
+      ],
+      "description": "From and To are where the trip starts and ends, for a trip with no stops between; give Stops instead for one with."
      },
      "fuel_country": {
       "description": "FuelCountry is where the trip's road fuel is bought (ISO 3166-1 alpha-2), for national CO2 prices on fuel. \"\": bought along the route, each country's share in proportion to its road km.",
       "type": "string"
+     },
+     "fuel_purchases": {
+      "description": "FuelPurchases are the fuel bought for the trip, by country: the litres are the trip's diesel unless diesel_l is given, and the national CO2 prices on fuel go by where it was bought.",
+      "items": {
+       "$ref": "#/components/schemas/FuelPurchase"
+      },
+      "type": "array"
      },
      "fx": {
       "additionalProperties": {
@@ -405,6 +436,10 @@
       },
       "description": "FX converts other currencies to EUR, in units per euro, e.g. {\"CHF\": 0.93}; default the ECB reference rates (Calculator.FX).",
       "type": "object"
+     },
+     "l_per_100km": {
+      "description": "LPer100Km is the truck's diesel consumption, litres per 100 km, when diesel_l isn't given. Without either the default for its vehicle group and load is used (Trip.FuelBasis says which).",
+      "type": "number"
      },
      "motorway_share": {
       "additionalProperties": {
@@ -416,6 +451,20 @@
      "night": {
       "description": "Night: the trip passes night-tariff sections between 22:00 and 05:00 (Austria's A 13 Brenner).",
       "type": "boolean"
+     },
+     "shipments": {
+      "description": "Shipments are the trip's cargo, each from its loading stop to its unloading stop; the result gives each one's share of the trip. Without them cargo_kg is one shipment from the first stop to the last. Put a groupage trip's other cargo in as shipments too, or the one given carries the whole trip.",
+      "items": {
+       "$ref": "#/components/schemas/Shipment"
+      },
+      "type": "array"
+     },
+     "stops": {
+      "description": "Stops are the trip's stops in order: where the truck starts, where it loads or unloads, where it ends (a depot it returns to empty, say).",
+      "items": {
+       "$ref": "#/components/schemas/SootcaseLocation"
+      },
+      "type": "array"
      },
      "time": {
       "description": "Time is the local departure time (HH:MM) on Date. Each toll station is reached that much later as its km along the route take at AvgSpeedKmh; that time prices congestion taxes and the hours a toll system or station is free. Without it congestion taxes aren't priced and hours aren't checked.",
@@ -447,9 +496,6 @@
      }
     },
     "required": [
-     "cargo_kg",
-     "from",
-     "to",
      "truck"
     ],
     "type": "object"
@@ -539,6 +585,13 @@
       },
       "type": "array"
      },
+     "shipments": {
+      "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023). The totals are the truck's.",
+      "items": {
+       "$ref": "#/components/schemas/ShipmentCost"
+      },
+      "type": "array"
+     },
      "sources": {
       "items": {
        "$ref": "#/components/schemas/RatesSource"
@@ -548,7 +601,16 @@
      "total_eur": {
       "type": "number"
      },
+     "trip": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Trip"
+       }
+      ],
+      "description": "Trip is the truck's trip: legs, loads and diesel."
+     },
      "ttw_kg": {
+      "description": "TTWKg and WTWKg are the shipments' emissions from Sootcase (GLEC default intensities x their tonne-km, EN ISO 14083's default data).",
       "type": "number"
      },
      "wtw_kg": {
@@ -600,6 +662,96 @@
      "kind",
      "km",
      "points"
+    ],
+    "type": "object"
+   },
+   "Shipment": {
+    "additionalProperties": false,
+    "description": "Shipment is cargo on the trip: loaded at one stop and unloaded at a later one. The truck pays the trip's charges; each shipment's share of them is its tonne-km over all the shipments' (EN ISO 14083:2023, the method of Regulation (EU) 2026/1030, CountEmissionsEU).",
+    "properties": {
+     "from": {
+      "description": "From is the stop it is loaded at, 0 being the first.",
+      "type": "integer"
+     },
+     "id": {
+      "description": "ID names it in the result; default its number, from 1.",
+      "type": "string"
+     },
+     "to": {
+      "description": "To is the stop it is unloaded at; 0 means the last.",
+      "type": "integer"
+     },
+     "weight_kg": {
+      "description": "WeightKg is its gross mass.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "weight_kg"
+    ],
+    "type": "object"
+   },
+   "ShipmentCost": {
+    "additionalProperties": false,
+    "description": "ShipmentCost is a shipment's share of the trip.",
+    "properties": {
+     "by_charge": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "ByCharge is its share of each kind of charge, in EUR.",
+      "type": "object"
+     },
+     "carbon_eur": {
+      "type": "number"
+     },
+     "distance_km": {
+      "description": "DistanceKm is its transport activity distance: the road route from its loading stop to its unloading stop (EN ISO 14083's shortest feasible distance), not the truck's way between them.",
+      "type": "number"
+     },
+     "from": {
+      "type": "integer"
+     },
+     "id": {
+      "type": "string"
+     },
+     "share": {
+      "description": "Share is its tonne-km over all the shipments'.",
+      "type": "number"
+     },
+     "tkm": {
+      "type": "number"
+     },
+     "to": {
+      "type": "integer"
+     },
+     "total_eur": {
+      "type": "number"
+     },
+     "ttw_kg": {
+      "description": "TTWKg and WTWKg are its emissions from Sootcase (GLEC default intensity x its tonne-km).",
+      "type": "number"
+     },
+     "weight_kg": {
+      "type": "number"
+     },
+     "wtw_kg": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "by_charge",
+     "carbon_eur",
+     "distance_km",
+     "from",
+     "id",
+     "share",
+     "tkm",
+     "to",
+     "total_eur",
+     "ttw_kg",
+     "weight_kg",
+     "wtw_kg"
     ],
     "type": "object"
    },
@@ -764,6 +916,74 @@
      "name",
      "scheme",
      "valid_from"
+    ],
+    "type": "object"
+   },
+   "Trip": {
+    "additionalProperties": false,
+    "description": "Trip is the truck's trip: its legs between stops, what was on board, and the diesel it burned, on which the CO2 prices on fuel and ETS2 are charged.",
+    "properties": {
+     "empty_km": {
+      "description": "EmptyKm is the road km with nothing on board.",
+      "type": "number"
+     },
+     "fuel_basis": {
+      "description": "FuelBasis says where FuelL comes from: diesel_l, fuel_purchases, l_per_100km, or the default by vehicle group and load.",
+      "type": "string"
+     },
+     "fuel_l": {
+      "description": "FuelL is the litres of diesel on the road.",
+      "type": "number"
+     },
+     "legs": {
+      "items": {
+       "$ref": "#/components/schemas/TripLeg"
+      },
+      "type": "array"
+     },
+     "road_km": {
+      "description": "RoadKm is the km on the road (not on ferries).",
+      "type": "number"
+     }
+    },
+    "required": [
+     "fuel_basis",
+     "fuel_l",
+     "legs",
+     "road_km"
+    ],
+    "type": "object"
+   },
+   "TripLeg": {
+    "additionalProperties": false,
+    "description": "TripLeg is the trip between two consecutive stops.",
+    "properties": {
+     "from": {
+      "type": "integer"
+     },
+     "fuel_l": {
+      "type": "number"
+     },
+     "km": {
+      "type": "number"
+     },
+     "load_kg": {
+      "type": "number"
+     },
+     "road_km": {
+      "type": "number"
+     },
+     "to": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "from",
+     "fuel_l",
+     "km",
+     "load_kg",
+     "road_km",
+     "to"
     ],
     "type": "object"
    }

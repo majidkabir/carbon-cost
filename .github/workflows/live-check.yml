@@ -294,6 +294,9 @@ jobs:
             it-centro) trip="-from 43.5485,10.3106 -to 42.7635,11.1124" ;;
             al) trip="-from 40.4661,19.4914 -to 40.1015,19.7449" ;;
             fi) trip="-from 60.1699,24.9384 -to 60.4518,22.2666" ;;
+            # Luxembourg City to Esch-sur-Alzette, on the map (Sootcase
+            # v0.14.0 refuses places over 25 km from its roads).
+            lu) trip="-from 49.6116,6.1319 -to 49.4958,5.9806" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac
           ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json

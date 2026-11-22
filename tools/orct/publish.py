@@ -6,6 +6,11 @@ extension's osm_extract, and the date a method text gives for the
 extract). Anything else, a new dataset included, is left for review.
 
 Usage: python3 tools/orct/publish.py <workflow orct dir> tariffs/data
+       python3 tools/orct/publish.py --crossings <workflow ferries dir> ferries/data
+         (ferry crossings files that differ only in the terminals' positions)
+       python3 tools/orct/publish.py --fx <workflow fx dir> fx/data
+         (exchange rate files that only add days after the last one: the
+         same header, every committed row unchanged)
 
 Prints what it published and a ::warning for each dataset to review, and
 rebuilds tariffs/data/index.json when it published something. Exit 0.
@@ -87,5 +92,73 @@ def main(new, data):
     return published, review
 
 
+def terminals_only(a, b, path=()):
+    """True if two ferry crossings files differ only in their terminals'
+    positions (lat, lon), which come from OpenStreetMap's ferry lines."""
+    if len(path) >= 2 and path[-2] == "terminals" and isinstance(a, dict) and isinstance(b, dict):
+        a = {k: v for k, v in a.items() if k not in ("lat", "lon")}
+        b = {k: v for k, v in b.items() if k not in ("lat", "lon")}
+    if type(a) is not type(b):
+        return False
+    if isinstance(a, dict):
+        return a.keys() == b.keys() and all(terminals_only(a[k], b[k], path + (k,)) for k in a)
+    if isinstance(a, list):
+        return len(a) == len(b) and all(terminals_only(x, y, path + (i,)) for i, (x, y) in enumerate(zip(a, b)))
+    return a == b
+
+
+def crossings(new, data):
+    """Publishes a data workflow's ferry crossings files (crossings-*.json)
+    that differ from ferries/data only in the terminals' positions."""
+    for name in sorted(os.listdir(new)):
+        src, dst = os.path.join(new, name), os.path.join(data, name)
+        if not (name.startswith("crossings-") and name.endswith(".json")) or not os.path.exists(dst):
+            continue
+        a, b = open(dst, "rb").read(), open(src, "rb").read()
+        if a == b:
+            continue
+        if terminals_only(json.loads(a), json.loads(b)):
+            shutil.copy(src, dst)
+            print("published", "ferries/" + name)
+        else:
+            print(f"::warning title=ferries/{name}::differs in more than OpenStreetMap's positions; not published, review it")
+
+
+FX_FILES = ("ecb-hist.csv", "nbs-eur-rsd.csv", "boa-eur-all.csv")
+
+
+def appended_days(a, b):
+    """True if rate file b is a, with only rows for later days added."""
+    old, new = a.splitlines(), b.splitlines()
+    if len(new) <= len(old) or new[:len(old)] != old or len(old) < 2:
+        return False
+    last = old[-1].split(",")[0]
+    days = [r.split(",")[0] for r in new[len(old):]]
+    return all(re.fullmatch(r"\d{4}-\d\d-\d\d", d) for d in days) and days == sorted(set(days)) and days[0] > last
+
+
+def fx(new, data):
+    """Publishes the History data workflow's exchange rate files
+    (fx/data/*.csv) that only add days: a past rate changed, a currency
+    added or a day removed is left for review."""
+    for name in FX_FILES:
+        src, dst = os.path.join(new, name), os.path.join(data, name)
+        if not (os.path.exists(src) and os.path.exists(dst)):
+            continue
+        a, b = open(dst, encoding="utf-8").read(), open(src, encoding="utf-8").read()
+        if a == b:
+            continue
+        if appended_days(a, b):
+            shutil.copy(src, dst)
+            print("published", "fx/" + name, "to", b.splitlines()[-1].split(",")[0])
+        else:
+            print(f"::warning title=fx/{name}::differs in more than new days; not published, review it")
+
+
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    if sys.argv[1] == "--fx":
+        fx(*sys.argv[2:])
+    elif sys.argv[1] == "--crossings":
+        crossings(*sys.argv[2:])
+    else:
+        main(*sys.argv[1:])

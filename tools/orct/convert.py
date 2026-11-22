@@ -120,6 +120,8 @@ def criteria_of(r, motor_axles=False):
         c["trailer"] = bool(r["trailer"])
     if r.get("min_length_m") or r.get("max_length_m"):
         c["train_length_m"] = rng(hi=r.get("max_length_m"), gt=r.get("min_length_m"))
+    if r.get("min_capacity_kg") is not None or r.get("max_capacity_kg"):
+        c["load_capacity_kg"] = rng(hi=r.get("max_capacity_kg"), gt=r.get("min_capacity_kg"))
     if r.get("euro"):
         c["euro_class"] = euro_list(r["euro"])
     if r.get("co2_class"):
@@ -281,9 +283,14 @@ class Builder:
             "rules": self.rules,
             "coverage": self.coverage or [{"scope": "dataset", "status": "complete"}],
         }
+        if getattr(self, "no_charge", None):
+            # ORCT 6.13: no objects, charges, rules or class sets.
+            out["vehicle_class_sets"] = []
+            out["no_charge"] = self.no_charge
+            out["tax"] = {"basis": "not_applicable"}
         if self.ext:
             out["extensions"] = {EXT: self.ext}
-        return {k: v for k, v in out.items() if v != [] or k in ("charges", "charge_objects")}
+        return {k: v for k, v in out.items() if v != [] or k in ("charges", "charge_objects", "vehicle_class_sets")}
 
 
 # --- toll tables ---------------------------------------------------------------
@@ -293,7 +300,7 @@ def convert_table(t, path):
     used = {"country", "region", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles",
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
-            "motorway_share", "suburban_share", "crossings", "osm_extract", "env_zone_surcharge"}
+            "motorway_share", "suburban_share", "crossings", "ferry", "osm_extract", "env_zone_surcharge"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -316,7 +323,8 @@ def convert_table(t, path):
         convert_sections(b, t["sections"], row_charges)
 
     # How carbon-cost estimates road types a request doesn't give, and source facts: not tariff rules.
-    for k in ("motorway_share", "suburban_share", "crossings", "osm_extract"):
+    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls.
+    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "osm_extract"):
         if k in t:
             b.keep(k, t[k])
     for k in sorted(set(t) - used):
@@ -425,9 +433,16 @@ def convert_system(b, i, s, motor=False):
     gid = dict(zip(names, b.class_set(f"sys{i}-", [(criteria_of(g, motor), g["name"], g.get("base")) for g in s["groups"]])))
     etc, night = s.get("etc_prices") or {}, s.get("night_prices") or {}
     tnight = b.time_class(f"sys{i}-night", times=hours(s["night_hours"]), label="Night tariff") if s.get("night_hours") else None
+    season = s.get("season_prices") or {}
+    tseason = b.time_class(f"sys{i}-season", days=[{"date_ranges": s["season"]}], label="Season") if s.get("season") else None
+    # Prices of weekdays' hours (Estonia's ferries: Friday from 13:00 to the islands).
+    timed = [(tp["prices"], {"time_class": b.time_class(f"sys{i}-t{k}", days=[{"weekdays": tp["weekdays"]}], times=tp["times"],
+                                                         label=tp.get("label")), "priority": 1})
+             for k, tp in enumerate(s.get("time_prices") or [], 1)]
     rows, odd, unplaced = [], {}, set()
-    # At night the night prices replace both the prices and the electronic prices.
-    for table, extra in ((s["prices"], {}), (etc, {"user_class": "electronic"}), (night, {"time_class": tnight, "priority": 1})):
+    # At night the night prices replace both the prices and the electronic prices; in the season the season's.
+    for table, extra in ((s["prices"], {}), (etc, {"user_class": "electronic"}), (night, {"time_class": tnight, "priority": 1}),
+                         (season, {"time_class": tseason, "priority": 1}), *timed):
         if table is etc and etc:
             b.electronic()
         for key in sorted(table):
@@ -446,6 +461,14 @@ def convert_system(b, i, s, motor=False):
         tfree = b.time_class(f"sys{i}-free", times=hours(s["free_hours"]), label="No charge")
         rows.append({"time_class": tfree, "priority": 2, "amount": "0"})
     ch = {"id": cid, "name": s["name"], "type": "od", "component": "unspecified", "unit": "trip"}
+    if s.get("unit") == "t":
+        # A fare per tonne of a mass (Jadrolinija: of the load capacity).
+        ch["unit"], ch["mass_basis"] = "t", s.get("mass_basis", "train_mass_kg")
+        if s.get("mass_step_kg"):
+            # Per started step (the Elbe ferry: per started 1,000 kg of load).
+            ch["mass_step_kg"] = s["mass_step_kg"]
+    if s.get("unmatched"):
+        ch["unmatched"] = s["unmatched"]
     if s.get("law"):
         ch["method"] = s["law"]
     if s.get("directed"):
@@ -848,6 +871,17 @@ def convert_fuel(f, path):
     return b.doc({"description": "CO2 from fuel bought in the country", "criteria": {}})
 
 
+def convert_no_charge(n, path):
+    """A country that levies no road charge on trucks (ORCT 6.13): the
+    statement and its sources, no charges."""
+    b = Builder(n, path)
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge"}
+    b.no_charge = {"description": n["no_charge"], "sources": b.src}
+    for k in sorted(set(n) - used):
+        b.keep(k, n[k], f"{k} is kept as an extension (no ORCT field yet)")
+    return b.doc({"description": n.get("vehicles", "all vehicles"), "criteria": {}})
+
+
 def dumps(x, ind=0):
     """JSON with one object member per line, but short arrays of scalars (rows, coordinates)
     on one line, so tables stay readable and diffs small."""
@@ -895,6 +929,18 @@ def check(t, name):
         if t.get("no_charge") and len(t["no_charge"]) != 2:
             bad.append("no_charge must be [from, to] (MM-DD)")
         return bad
+    if name.startswith("nocharge-"):
+        if name != f"nocharge-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
+            bad.append("the name must be nocharge-<cc>-<valid_from>.json")
+        if not (t.get("name") and t.get("law") and t.get("no_charge")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
+            bad.append("name, law and no_charge are required, and no rates")
+        return bad
+    if isinstance(t.get("no_charge"), str):
+        # A scheme's version that charges nothing (a toll repealed): the
+        # statement and its sources, no rates.
+        if not (t.get("name") and t.get("law")) or set(t) & {"rows", "closed_systems", "toll_points", "sections"}:
+            bad.append("name, law and no_charge are required, and no rates")
+        return bad
     if name.startswith("fuelco2-"):
         if name != f"fuelco2-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
             bad.append("the name must be fuelco2-<cc>-<valid_from>.json")
@@ -916,6 +962,8 @@ def check(t, name):
         bad.append("motorway_share must be 0-1")
     if t.get("crossings") and (rows or not (systems or points)):
         bad.append("a crossings table has closed systems or toll points, and no rows")
+    if t.get("ferry") and not t.get("crossings"):
+        bad.append("a ferry table is a crossings table")
     bad += [f"suburban_share[{k}] must be 0-1" for k, v in (t.get("suburban_share") or {}).items() if not 0 <= v <= 1]
     bad += [f"bad area {r['area']!r}" for r in rows if r.get("area", "") not in ("", "suburban", "interurban")]
     bad += [f"negative rate in {r}" for r in rows if r.get("rate", 0) < 0]
@@ -997,6 +1045,8 @@ def main():
             doc = convert_zone(t, path)
         elif name.startswith("fuelco2-"):
             doc = convert_fuel(t, path)
+        elif name.startswith("nocharge-") or isinstance(t.get("no_charge"), str):
+            doc = convert_no_charge(t, path)
         else:
             doc = convert_table(t, path)
         cc = doc["dataset"]["scheme"]["country"].lower()

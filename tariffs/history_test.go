@@ -15,8 +15,8 @@ var HistoryFrom = time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC)
 // fails on a gap not listed here, and on a listed area that has none.
 var historyGaps = map[string]string{
 	"ES": "SEITT's 2024 tariffs (and the AP-41's of 2025) are neither served nor archived any more",
-	"RS": "JP Putevi Srbije's price lists of April 2023 (to 9 July 2024), 10 January 2025 and 4 July 2025 weren't archived",
 	"MD": "e-Vinieta publishes the current vignette amounts without a date; earlier ones aren't archived",
+	"FI": "Traficom's statement that no road toll or vignette is used carries no date; it holds from the day it was read",
 	"IT": "the Ministry's sheets of each concession's unit rates (directive 2022/362 art. 11) start with 2025; 2024's rates aren't published with them",
 }
 
@@ -151,7 +151,16 @@ func TestNorwegianHolidays(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	ds := dataset(t, s, "no/no-2026-11-12.orct.json")
+	// The current toll stations: the latest no/no-<date> dataset.
+	var ds *Dataset
+	for _, d := range s.All {
+		if strings.HasPrefix(d.File, "no/no-2") && (ds == nil || d.File > ds.File) {
+			ds = d
+		}
+	}
+	if ds == nil {
+		t.Fatal("no Norwegian toll dataset")
+	}
 	oslo, err := time.LoadLocation("Europe/Oslo")
 	if err != nil {
 		t.Fatal(err)

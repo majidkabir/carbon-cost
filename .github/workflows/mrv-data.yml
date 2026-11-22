@@ -1,5 +1,6 @@
 name: MRV ferry data
-# Builds ferries/data/mrv-ropax-<year>.json from EMSA's public MRV report
+# Builds ferries/data/mrv-ropax-<year>.json (and mrv-ships-<year>.json, the
+# report's passenger, ro-pax and ro-ro ships) from EMSA's public MRV report
 # (not reachable from every machine) and pushes it to the mrv-data branch.
 on:
   workflow_dispatch:
@@ -11,8 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
         with:
           go-version-file: go.mod
           cache: false
@@ -20,7 +21,7 @@ jobs:
         run: |
           mkdir -p ferries/data
           for y in 2025 2024; do
-            go run ./tools/mrvferries -fetch -year $y -out ferries/data/mrv-ropax-$y.json 2>&1 | tee log-$y.txt || true
+            go run ./tools/mrvferries -fetch -year $y -out ferries/data/mrv-ropax-$y.json -ships-out ferries/data/mrv-ships-$y.json 2>&1 | tee log-$y.txt || true
           done
           ls -la ferries/data
           for f in ferries/data/*.json; do

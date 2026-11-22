@@ -1,0 +1,7 @@
+# URL: https://etoll.gov.pl/kalkulator-trasy-w-e-toll/
+# Read in Chrome: 2026-11-21 (Kalkulator trasy w e-TOLL, "szacunkowa wycena")
+# Input: Klasa emisji spalin Euro 6; Kategoria pojazdu: Samochód ciężarowy (z przyczepą lub bez), łączna DMC co najmniej 12t;
+#        route Wrocław, Lower Silesian Voivodeship, Poland -> Gliwice, Metropolis GZM, Silesian Voivodeship, Poland; Rodzaj trasy: Najszybsza
+Szacowana wycena trasy e-TOLL, dla wskazanego pojazdu.
+80,15 PLN
+# (the list of tolled sections didn't open; at the A/S rate of 0.56 PLN/km this is about 143 km, the A4 from Wrocław to Gliwice)

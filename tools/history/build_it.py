@@ -4,7 +4,8 @@ sheet, transcribed in tools/tables/transcribed/it-mit-*.json, and
 Autostrade per l'Italia's own for its network), and the Milan ring roads'
 barrier tolls of 2025 from Milano Serravalle's tables (their PDFs give
 every year from 2022), placed as the current barrier table places
-them (fetched/current).
+them (fetched/current; the other barriers were priced per km in 2025's
+estimate, so the 2025 table has Milan's only).
 
 Usage: python3 build_it.py fetched/ out-dir"""
 import glob, json, os, sys
@@ -30,7 +31,7 @@ def barriers(fetched, out, year):
                        "classes": [{"min_kg": 3501, "min_axles": 5, "rate": t["5"]}, {"min_kg": 3501, "min_axles": 4, "rate": t["4"]},
                                    {"min_kg": 3501, "min_axles": 3, "rate": t["3"]}, {"min_kg": 3501, "rate": t["B"]}]})
         notes.append(f"{name} class 5 EUR {t['5']:.2f}")
-    it_barriers.write(out, year, points, notes, tb.get("osm_extract", ""))
+    it_barriers.write(out, year, points, notes)
 
 
 if __name__ == "__main__":

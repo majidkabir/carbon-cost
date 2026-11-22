@@ -6,6 +6,11 @@ TollRo started (30 September 2026).
 
 Usage: python3 ro_bridges.py fetched/ out-dir -> out-dir/ro-danube-bridges-<date>.json
 
+From 1 October 2026 the scheme's dataset says the bridges charge nothing
+(ORCT no_charge): Legea nr. 226/2023 art. 24 (1) repeals OG 15/2002 from
+that day (fetch.py's ro-legea-226-2023, the law as CNAIR's eToll portal
+publishes it).
+
 Prices: CNAIR's table of the tariffs under OG 23/2025 (fetch.py's
 ro-cnair-peaj-2025.txt, pdftotext -layout), one crossing, lei including
 21% VAT (divided out): category 2 (over 3.5 to under 12 t), 3 (12 t and
@@ -72,8 +77,12 @@ def main(fetched, out):
         if length > longest.get((key, tags.get("oneway")), (0,))[0]:
             longest[(key, tags.get("oneway"))] = (length, lat, lon)
     pts = []
-    for (key, _), (length, lat, lon) in sorted(longest.items()):
+    for (key, oneway), (length, lat, lon) in sorted(longest.items()):
         if length < 0.8:
+            # A short piece tagged apart (another oneway) beside the bridge
+            # itself: left out; the bridge must be there.
+            if any(k == key and v[0] >= 0.8 for (k, _), v in longest.items()):
+                continue
             sys.exit(f"{key}: the bridge way is only {length:.2f} km")
         p = prices[key]
         pts.append({"name": f"Danube bridge {key}", "lat": lat, "lon": lon, "rate": 0, "classes": [
@@ -93,6 +102,32 @@ def main(fetched, out):
     path = os.path.join(out, f"ro-danube-bridges-{tb['valid_from']}.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, prices)
+    repealed(fetched, out)
+
+
+REPEAL = (r"Art\. 24\. - \(1\) Ordonan[țţ]a Guvernului nr\. 15/2002 privind aplicarea tarifului de utilizare [șş]i a tarifului de trecere pe "
+          r"re[țţ]eaua de drumuri na[țţ]ionale din Rom[âa]nia.{0,250}?se abrog[ăa] de la data de 1 octombrie 2026")
+
+
+def repealed(fetched, out):
+    """From 1 October 2026: no Danube bridge toll (ORCT no_charge), on
+    Legea nr. 226/2023 art. 24 (1), which repeals OG 15/2002 that day."""
+    p = os.path.join(fetched, "ro-legea-226-2023.txt")
+    if not os.path.exists(p):
+        print("Romanian Danube bridges: Legea nr. 226/2023 wasn't fetched; the end not built")
+        return
+    t = re.sub(r"\s+", " ", open(p, encoding="utf-8", errors="replace").read())
+    if not re.search(REPEAL, t):
+        sys.exit("Legea nr. 226/2023: art. 24 (1), the repeal of OG 15/2002 from 1 October 2026, not found")
+    tb = {"country": "RO", "currency": "RON", "valid_from": "2026-10-01", "crossings": True,
+          "name": "Romania's Danube bridge tolls (tarif de trecere)",
+          "law": "Legea nr. 226/2023 privind aplicarea unor tarife rutiere pe rețeaua de drumuri naționale din România, art. 24 (1): Ordonanța Guvernului nr. 15/2002, which set the tolls on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii, is repealed from 1 October 2026, and (3) the tolls issued under it lapse. Trucks over 3.5 t pay TollRo per km instead (Romania's table).",
+          "no_charge": "no toll on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii (Legea nr. 226/2023, art. 24: OG 15/2002, which set it, is repealed from 1 October 2026); trucks pay TollRo per km instead.",
+          "sources": [{"title": "Legea nr. 226/2023 (CNAIR eToll, acte normative), art. 24", "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania"}],
+          "vehicles": "All vehicles"}
+    path = os.path.join(out, f"ro-danube-bridges-{tb['valid_from']}.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, "no charge")
 
 
 if __name__ == "__main__":

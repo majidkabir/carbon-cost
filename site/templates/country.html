@@ -1,0 +1,57 @@
+{{define "country.html"}}{{template "head" .Head}}
+<h1>{{.H1}}</h1>
+<p class="lead">{{.Lead}}</p>
+<a class="cta" href="{{.Trip}}">{{if .TripName}}{{.TripName}}{{else}}{{.L.T "cta.price"}}{{end}}</a>
+{{range .Schemes}}
+<h2>{{.Name}}{{if .Upcoming}} ({{$.L.T "c.upcoming" "date" .From}}){{end}}</h2>
+<p><b>{{$.L.T "c.how"}}</b> {{stop .How}} {{if .Liable}}<b>{{$.L.T "c.who"}}</b> {{stop .Liable}} {{end}}<b>{{$.L.T "c.inforce"}}</b> {{if .To}}{{stop ($.L.T "c.fromto" "from" .From "to" .To)}}{{else}}{{stop ($.L.T "c.from" "date" .From)}}{{end}}</p>
+{{if .Example}}<p class="example">{{.Example}}</p>{{end}}
+{{if .Roads}}<h3>{{$.L.T "c.km.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.road"}}</th><th class="n">{{$.L.T "col.perkm"}}</th><th class="n co2">{{$.L.T "col.ofco2"}}</th><th class="n co2">{{$.L.T "col.co2share"}}</th>{{if ne .Cur "EUR"}}<th class="n">{{$.L.T "col.perkm.eur"}}</th>{{end}}</tr></thead><tbody>
+{{range .Roads}}<tr{{if .Highlight}} class="hl"{{end}}><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td><td class="n co2">{{.Share}}</td>{{if .EUR}}<td class="n">{{.EUR}}</td>{{end}}</tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByMass}}<h3>{{$.L.T "c.mass.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.truck"}}</th><th class="n">{{$.L.T "col.perkm"}}</th><th class="n co2">{{$.L.T "col.ofco2"}}</th><th class="n co2">{{$.L.T "col.co2share"}}</th></tr></thead><tbody>
+{{range .ByMass}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td><td class="n co2">{{.Share}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByCO2}}<h3>{{$.L.T "c.co2.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.co2class"}}</th><th class="n">{{$.L.T "col.perkm"}}</th><th class="n co2">{{$.L.T "col.ofco2"}}</th></tr></thead><tbody>
+{{range .ByCO2}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ByEuro}}<h3>{{$.L.T "c.euro.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.euro"}}</th><th class="n">{{$.L.T "col.perkm"}}</th><th class="n co2">{{$.L.T "col.ofco2"}}</th></tr></thead><tbody>
+{{range .ByEuro}}<tr><td>{{.Label}}</td><td class="n">{{.Total}}</td><td class="n co2">{{.CO2}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .ZE}}<p class="ze"><b>{{$.L.T "c.ze"}}</b> {{.ZE}}</p>{{end}}
+{{if .Fares}}<h3>{{$.L.T "c.fares.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.trip"}}</th><th class="n">{{$.L.T "col.fare"}}</th></tr></thead><tbody>
+{{range .Fares}}<tr><td>{{.What}}</td><td class="n">{{.Total}}</td></tr>
+{{end}}</tbody></table></div><p class="note">{{.FareNote}} {{$.L.T "c.fares.note"}}</p>{{end}}
+{{if .Products}}<h3>{{$.L.T "c.vig.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.validfor"}}</th><th class="n">{{$.L.T "col.price"}}</th></tr></thead><tbody>
+{{range .Products}}<tr><td>{{.What}}</td><td class="n">{{.Total}}</td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Versions}}<h3>{{$.L.T "c.hist.h"}}</h3>
+<div class="scroll"><table><thead><tr><th>{{$.L.T "col.from"}}</th><th>{{$.L.T "col.to"}}</th>{{if .HasRate}}<th class="n">{{$.L.T "col.rate40"}}</th><th class="n co2">{{$.L.T "col.co2part"}}</th>{{end}}<th>{{$.L.T "col.law"}}</th><th>{{$.L.T "col.data"}}</th></tr></thead><tbody>
+{{range .Versions}}<tr{{if .Upcoming}} class="up"{{else if .Current}} class="hl"{{end}}><td>{{.From}}{{if .Upcoming}} {{$.L.T "hist.tocome"}}{{else if .Current}} {{$.L.T "hist.inforce"}}{{end}}</td><td>{{.To}}</td>{{if .Rate}}<td class="n">{{.Rate}}</td><td class="n co2">{{.CO2}}</td>{{end}}<td{{if ne $.Lang "en"}} lang="en"{{end}}>{{.Law}}</td><td><a href="{{$.Prefix}}/v1/rates/{{.File}}">JSON</a></td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Tables}}<details><summary>{{$.L.T "c.full" "n" (len .Tables)}}</summary>
+{{range .Tables}}<h3{{if .CO2}} style="color:var(--carbon)"{{end}}>{{.Name}} ({{.Unit}})</h3>
+<div class="scroll"><table><thead><tr>{{range .Head}}<th>{{.}}</th>{{end}}</tr></thead><tbody>
+{{range .Rows}}<tr{{if .CO2}} class="co2"{{end}}>{{range .Cells}}<td>{{.}}</td>{{end}}</tr>
+{{end}}</tbody></table></div>{{if gt .Total (len .Rows)}}<p class="note">{{$.L.T "c.full.rows" "shown" (len .Rows) "total" .Total}}</p>{{end}}
+{{end}}</details>{{end}}
+<p class="note"><b>{{$.L.T "c.law"}}</b>{{if ne $.Lang "en"}} {{$.L.T "c.law.en"}}{{end}} <span{{if ne $.Lang "en"}} lang="en"{{end}}>{{.Method}}</span></p>
+{{if .Sources}}<ul class="src">{{range .Sources}}<li><a href="{{.URL}}" rel="nofollow">{{.Title}}</a></li>{{end}}</ul>{{end}}
+{{end}}
+{{range .Fuel}}
+<h2>{{$.L.T "c.fuel.h" "name" .Name}}</h2>
+<div class="tiles"><div class="tile"><span>{{$.L.T "c.fuel.rate"}}</span><b>{{.Rate}}</b></div><div class="tile co2"><span>{{$.L.T "c.fuel.perl"}}</span><b>{{.PerLitre}}</b></div></div>
+<p class="note">{{$.L.T "c.fuel.from" "date" .From}} <span{{if ne $.Lang "en"}} lang="en"{{end}}>{{.Law}}</span></p>
+{{if .Versions}}<div class="scroll"><table><thead><tr><th>{{$.L.T "col.from"}}</th><th>{{$.L.T "col.to"}}</th><th class="n">{{$.L.T "col.rate"}}</th><th class="n co2">{{$.L.T "col.perl"}}</th><th>{{$.L.T "col.data"}}</th></tr></thead><tbody>
+{{range .Versions}}<tr{{if .Upcoming}} class="up"{{else if .Current}} class="hl"{{end}}><td>{{.From}}{{if .Upcoming}} {{$.L.T "hist.tocome"}}{{end}}</td><td>{{.To}}</td><td class="n">{{.Rate}}</td><td class="n co2">{{.CO2}}</td><td><a href="{{$.Prefix}}/v1/rates/{{.File}}">JSON</a></td></tr>
+{{end}}</tbody></table></div>{{end}}
+{{if .Sources}}<ul class="src">{{range .Sources}}<li><a href="{{.URL}}" rel="nofollow">{{.Title}}</a></li>{{end}}</ul>{{end}}
+{{end}}
+<p><a class="cta" href="{{.Trip}}">{{if .TripName}}{{.TripName}}{{else}}{{.L.T "cta.price"}}{{end}}</a></p>
+{{template "foot" .}}{{end}}

@@ -14,6 +14,8 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"html"
+	"io"
 	"io/fs"
 	"log/slog"
 	"maps"
@@ -31,6 +33,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/roads"
+	"github.com/majidkabir/carbon-cost/site"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
@@ -58,8 +61,8 @@ func buildVersion() string {
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
-  calc   price one trip
-  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates, GET /v1/rates/{file})
+  calc   price one trip, or each row of a CSV file (-csv)
+  serve  run the HTTP API (POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates, GET /v1/rates/{file})
   rates  list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
@@ -123,8 +126,11 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	return cost.Calculator{Sootcase: *sc, Tariffs: set, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
-func calc(args []string) error {
-	fs := flag.NewFlagSet("calc", flag.ExitOnError)
+func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, error) {
+	fs := flag.NewFlagSet("calc", errs)
+	if errs == flag.ContinueOnError {
+		fs.SetOutput(io.Discard) // a CSV row's error goes in its row
+	}
 	sc := sootcaseFlags(fs)
 	var req cost.Request
 	from := fs.String("from", "", "origin: UN/LOCODE (DKCPH), IATA code or lat,lon")
@@ -142,7 +148,8 @@ func calc(args []string) error {
 	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
-	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS (default 1; 0.5 to/from a non-EEA port)")
+	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
+	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the road part burns, for taxes per litre (DK); default the road CO2 at 2.67 kg per litre")
@@ -159,33 +166,58 @@ func calc(args []string) error {
 	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
-	fs.Parse(args)
+	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
+	if err := fs.Parse(args); err != nil {
+		return req, calcOpts{}, err
+	}
+	opts := calcOpts{json: *asJSON, csv: *csvIn, sc: sc}
 
 	var err error
+	if *csvIn != "" && (*from == "" || *to == "") {
+		return req, opts, nil // the rows give them
+	}
 	if req.From, err = location(*from); err != nil {
-		return fmt.Errorf("-from: %w", err)
+		return req, opts, fmt.Errorf("-from: %w", err)
 	}
 	if req.To, err = location(*to); err != nil {
-		return fmt.Errorf("-to: %w", err)
+		return req, opts, fmt.Errorf("-to: %w", err)
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
-		return fmt.Errorf("-tolled-share: %w", err)
+		return req, opts, fmt.Errorf("-tolled-share: %w", err)
 	}
 	if req.MotorwayShare, err = byCountry(*mway); err != nil {
-		return fmt.Errorf("-motorway-share: %w", err)
+		return req, opts, fmt.Errorf("-motorway-share: %w", err)
 	}
 	if req.FX, err = byCountry(*fxs); err != nil {
-		return fmt.Errorf("-fx: %w", err)
+		return req, opts, fmt.Errorf("-fx: %w", err)
 	}
 	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
-		return fmt.Errorf("-env-zone-km: %w", err)
+		return req, opts, fmt.Errorf("-env-zone-km: %w", err)
 	}
 	if req.CompareCO2Classes, err = ints(*cmp); err != nil {
-		return fmt.Errorf("-compare: %w", err)
+		return req, opts, fmt.Errorf("-compare: %w", err)
 	}
-	c, err := calculator(sc)
+	return req, opts, nil
+}
+
+// calcOpts are calc's flags that aren't the trip.
+type calcOpts struct {
+	json bool
+	csv  string
+	sc   *sootcase.Client
+}
+
+func calc(args []string) error {
+	req, opts, err := parseCalc(args, flag.ExitOnError)
 	if err != nil {
 		return err
+	}
+	c, err := calculator(opts.sc)
+	if err != nil {
+		return err
+	}
+	if opts.csv != "" {
+		return calcCSV(c, args, opts.csv)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
@@ -193,7 +225,7 @@ func calc(args []string) error {
 	if err != nil {
 		return err
 	}
-	if *asJSON {
+	if opts.json {
 		enc := json.NewEncoder(os.Stdout)
 		enc.SetIndent("", "  ")
 		return enc.Encode(res)
@@ -258,6 +290,12 @@ func printResult(r cost.Response) {
 		fmt.Printf(" (%.1f km by ferry)", r.FerryKm)
 	}
 	fmt.Println()
+	if !r.Complete {
+		fmt.Println("INCOMPLETE: the total leaves out charges this trip meets:")
+		for _, m := range r.Missing {
+			fmt.Println("  - " + m.Message())
+		}
+	}
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
 	fmt.Fprintln(w, "Charge\tCountry\tPart\tBasis\tRate\tAmount\tEUR\t")
 	for _, l := range r.Lines {
@@ -286,7 +324,11 @@ func printResult(r cost.Response) {
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}
 	w.Flush()
-	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f\n", r.TotalEUR, r.CarbonEUR)
+	incomplete := ""
+	if !r.Complete {
+		incomplete = " (incomplete: see above)"
+	}
+	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f%s\n", r.TotalEUR, r.CarbonEUR, incomplete)
 	if len(r.Compare) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
@@ -299,9 +341,6 @@ func printResult(r cost.Response) {
 			fmt.Fprintf(w, "%d\t%.2f\t%.2f\t%.2f\t%.2f\t%s\t\n", c.CO2Class, c.TollEUR, c.TotalEUR, c.CarbonEUR, c.SavingEUR, year)
 		}
 		w.Flush()
-	}
-	if len(r.NoRates) > 0 {
-		fmt.Printf("Not included (no toll table yet): %s\n", strings.Join(r.NoRates, ", "))
 	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)
@@ -352,17 +391,25 @@ func serve(args []string) error {
 	sc := sootcaseFlags(fs)
 	addr := fs.String("addr", envOr("ADDR", ":8090"), "listen address (env ADDR)")
 	tiles := fs.String("tiles", envOr("TILE_URL", DefaultTiles), "map tile URL template, {z}/{x}/{y}; \"none\" for no base map (env TILE_URL)")
+	public := fs.String("public-url", envOr("PUBLIC_URL", site.DefaultBase), "the service's public URL, for the toll pages' links, canonical URLs and sitemap (env PUBLIC_URL)")
 	fs.Parse(args)
 	c, err := calculator(sc)
 	if err != nil {
 		return err
 	}
 	log := slog.New(slog.NewTextHandler(os.Stderr, nil))
-	srv := &http.Server{Addr: *addr, Handler: Handler(c, *tiles), ReadHeaderTimeout: 10 * time.Second,
+	h, err := handlerAt(c, *tiles, *public, true)
+	if err != nil {
+		return err
+	}
+	srv := &http.Server{Addr: *addr, Handler: h, ReadHeaderTimeout: 10 * time.Second,
 		ReadTimeout: 30 * time.Second, WriteTimeout: 3 * time.Minute, IdleTimeout: 2 * time.Minute}
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
+
+//go:embed web/openapi.json
+var openAPI []byte
 
 //go:embed web/index.html
 var indexHTML string
@@ -375,9 +422,30 @@ var leafletFS embed.FS
 // with attribution; a busy deployment should set its own tile server.
 const DefaultTiles = "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
 
-// Handler serves the web page and the HTTP API. tiles is the map's tile
-// URL template ("" or "none": no base map).
+// Handler serves the web page and the HTTP API, and the toll pages at
+// DefaultBase. tiles is the map's tile URL template ("" or "none": no
+// base map).
 func Handler(c cost.Calculator, tiles string) http.Handler {
+	h, err := HandlerAt(c, tiles, site.DefaultBase)
+	if err != nil {
+		panic(err)
+	}
+	return h
+}
+
+// HandlerAt is Handler for a service whose public URL is public: the toll
+// pages (package site) link, and give canonical URLs, under it.
+func HandlerAt(c cost.Calculator, tiles, public string) (http.Handler, error) {
+	return handlerAt(c, tiles, public, false)
+}
+
+// handlerAt is HandlerAt; warm builds the toll pages at once, in the
+// background, rather than on the first visit.
+func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler, error) {
+	pages, err := site.New(c.Tariffs, public, c.Now)
+	if err != nil {
+		return nil, err
+	}
 	if tiles == "none" {
 		tiles = ""
 	}
@@ -392,6 +460,13 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 	}
 	tj, _ := json.Marshal(tiles)
 	page := strings.Replace(indexHTML, "const TILES = \"\";", "const TILES = "+string(tj)+";", 1)
+	pub := html.EscapeString(strings.TrimRight(public, "/"))
+	page = strings.Replace(page, "<!--meta-->", `<link rel="canonical" href="`+pub+`/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="carbon-cost: what a truck trip pays for carbon and tolls">
+<meta property="og:url" content="`+pub+`/">
+<meta property="og:image" content="`+pub+`/tolls.png">
+<meta name="twitter:card" content="summary_large_image">`, 1)
 	csp := "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src " + imgSrc +
 		"; connect-src 'self'; form-action 'none'; base-uri 'none'"
 	mux := http.NewServeMux()
@@ -407,6 +482,11 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
+	mux.HandleFunc("GET /v1/openapi.json", func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Write(openAPI)
+	})
 	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tariffs.Summaries()) })
 	mux.HandleFunc("GET /v1/rates/{cc}/{file}", func(w http.ResponseWriter, r *http.Request) {
 		b, ok := c.Tariffs.Raw(r.PathValue("cc") + "/" + r.PathValue("file"))
@@ -433,6 +513,20 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		writeJSON(w, http.StatusOK, map[string]any{"places": ps})
+	})
+	mux.HandleFunc("POST /v1/carbon-cost/batch", func(w http.ResponseWriter, r *http.Request) {
+		var req BatchRequest
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20))
+		dec.DisallowUnknownFields()
+		if err := dec.Decode(&req); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+			return
+		}
+		if len(req.Trips) == 0 || len(req.Trips) > MaxBatch {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("trips: give 1 to %d", MaxBatch)})
+			return
+		}
+		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(r.Context(), c.Calculate, req.Trips)})
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request
@@ -462,7 +556,11 @@ func Handler(c cost.Calculator, tiles string) http.Handler {
 		}
 		writeJSON(w, http.StatusOK, res)
 	})
-	return mux
+	pages.Register(mux)
+	if warm {
+		pages.Warm()
+	}
+	return mux, nil
 }
 
 func writeJSON(w http.ResponseWriter, status int, v any) {

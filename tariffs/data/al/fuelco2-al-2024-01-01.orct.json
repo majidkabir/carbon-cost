@@ -1,0 +1,86 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/fuelco2-al/2024-01-01",
+  "scheme": {
+   "id": "fuelco2-al",
+   "name": "Taksa e karbonit on gazoil",
+   "country": "AL"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2024-01-01",
+  "currency": "ALL",
+  "timezone": "Europe/Tirane",
+  "license": "MIT",
+  "method": "Ligj nr. 9975, datë 28.7.2008, Për taksat kombëtare, neni 4 pika 6 shkronja b: the taksa e karbonit (carbon tax) on gazoil (diesel), 3 lekë per litre, the same in the consolidated versions 7 (ligj nr. 38/2023) and 8 (ligj nr. 96/2023) that QBZ publishes. It is a fixed amount per litre, not priced on CO2; customs collects it on imported gazoil and the tax administration on gazoil produced in Albania (neni 5), and it is passed on in the pump price, so a trip pays it where its fuel is bought. Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "fuelco2-al-2024-01-01.json"
+  },
+  "required_features": ["type.quantity"]
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Albania: Ligj nr. 9975, datë 28.7.2008, Për taksat kombëtare, consolidated version 7 (amended by ligj nr. 38/2023), neni 4 pika 6 (taksa e karbonit), as the Qendra e Botimeve Zyrtare publishes it",
+   "url": "https://qbz.gov.al/pdf/8d0003921e21dac195d23ab5752446ffe3127d084dfff35955eeec44c11418ee.pdf"
+  },
+  {
+   "id": "s2",
+   "title": "Albania: Ligj nr. 9975, datë 28.7.2008, Për taksat kombëtare, consolidated version 8 (amended by ligj nr. 96/2023), neni 4 pika 6 (taksa e karbonit), as the Qendra e Botimeve Zyrtare publishes it",
+   "url": "https://qbz.gov.al/pdf/b5907d93045650237acd40393290f7e12189d9b62ee3f417533db37139f5dcc7.pdf"
+  }
+ ],
+ "tax": {
+  "basis": "unknown",
+  "note": "carbon-cost states the tax basis in each table's text (dataset.method), not as a field."
+ },
+ "liable_vehicles": {
+  "description": "CO2 from fuel bought in the country",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [
+  {
+   "id": "all",
+   "classes": [
+    {
+     "id": "any",
+     "criteria": {}
+    }
+   ]
+  }
+ ],
+ "charge_objects": [
+  {
+   "id": "country",
+   "type": "jurisdiction",
+   "jurisdiction": {
+    "country": "AL"
+   }
+  }
+ ],
+ "charges": [
+  {
+   "id": "fuel-co2",
+   "name": "Taksa e karbonit on gazoil",
+   "type": "quantity",
+   "component": "carbon_price",
+   "unit": "litre",
+   "objects": ["country"],
+   "columns": ["amount"],
+   "rows": [["3"]],
+   "sources": ["s1", "s2"],
+   "basis": "transcribed"
+  }
+ ],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "complete"
+  }
+ ]
+}

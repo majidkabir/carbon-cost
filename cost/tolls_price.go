@@ -51,6 +51,14 @@ func tolledRoads(ds *tariffs.Dataset) string {
 // systems and toll points on the route.
 func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	req, cc, km := p.req, a.code, a.km
+	if nc := ds.Doc.NoCharge; nc != nil {
+		// The area levies no road charge (ORCT 6.13); tunnels, bridges or
+		// toll roads it leaves out are crossings, priced on their own.
+		p.useTable(ds)
+		p.note("%s: %s", cc, nc.Description)
+		p.addSources(ds)
+		return nil
+	}
 	share, shareGiven := 1.0, false
 	for _, k := range []string{a.code, a.country} {
 		if v, ok := req.TolledShare[k]; ok {
@@ -61,9 +69,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	tolledKm := km * share
 	nw := networkOf(ds)
 	rk, byRoute := req.roadKm[a.country]
-	byRoute = byRoute && a.region == "" && rk.Total() > 0 && len(nw.roadTypes) > 0
+	// One rate on the whole tolled network (Germany's A and B roads,
+	// Austria's A and S): the road classes only tell its km from the
+	// rest, so a tolled_share given overrides them.
+	oneRate := len(nw.roadTypes) == 0 && nw.hasRows && nw.perDay == nil
+	byRoute = byRoute && a.region == "" && rk.Total() > 0 && (len(nw.roadTypes) > 0 || oneRate && !shareGiven)
 	if byRoute && !shareGiven {
 		tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
+	}
+	if byRoute && oneRate {
+		local := "which aren't tolled"
+		if l := req.roadLeftOut[a.country]; len(l) > 0 {
+			local = fmt.Sprintf("which aren't tolled (they include the stretches the toll leaves out: %s)", strings.Join(l, ", "))
+		}
+		first, _, _ := strings.Cut(tolledRoads(ds), ". ")
+		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, %s. Tolled roads: %s. Give tolled_share.%s to override.",
+			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), local, strings.TrimSuffix(first, "."), cc)
 	}
 	p.useTable(ds)
 	if byRoute {
@@ -75,6 +96,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 			d = "date not recorded"
 		}
 		p.out.Provenance.RoadClasses[a.country] = "OpenStreetMap " + d
+		if n := req.roadNetwork[a.country]; n != "" {
+			p.out.Provenance.RoadClasses[a.country] += "; tolled sections: " + n
+		}
 		if rk.Uncertain >= 0.5 {
 			p.note("%s: %.1f km counted as untolled local roads pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
 				cc, rk.Uncertain, roads.NearM, cc)
@@ -147,6 +171,19 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 }
 
 // unpriced notes what the statement couldn't price.
+// classesTest says whether any vehicle class of the dataset tests the
+// parameter.
+func classesTest(ds *tariffs.Dataset, param string) bool {
+	for _, s := range ds.Doc.Sets {
+		for _, c := range s.Classes {
+			if _, ok := c.Criteria[param]; ok {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 	for _, i := range st.Issues {
 		switch i.Code {
@@ -159,6 +196,9 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 				if strings.Contains(i.Message, param) {
 					hint = fmt.Sprintf(" Give %s (and truck.motor_axles): the charge goes by each vehicle's own permissible mass.", field)
 				}
+			}
+			if strings.Contains(i.Message, "vehicle parameter load_capacity_kg ") {
+				hint = " Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by the tonne of it."
 			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
@@ -190,9 +230,19 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			if t := rk.Motorway + rk.National; t > 0 {
 				mw = rk.Motorway / t
 			}
-			p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
-				cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(),
-				map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven], cc, cc)
+			local := map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven]
+			if l := req.roadLeftOut[a.country]; len(l) > 0 {
+				// The motorway stretches the toll leaves to their operators count here.
+				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
+			}
+			if req.roadNetwork[a.country] != "" {
+				// The road classes are the law's list of tolled sections.
+				p.note("%s: by OpenStreetMap along the route and the tolled sections the law lists, %.0f%% of the %.1f km are on tolled motorways and expressways, %.0f%% on other tolled national roads and %.0f%% on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+			} else {
+				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+			}
 		default:
 			ds.Ext("motorway_share", &mw)
 			p.note("%s: rates differ by road type; %.0f%% of the %.1f km are priced at the motorway rate, the rest at the other-road rate. Give motorway_share.%s for the share on motorways.",
@@ -787,6 +837,11 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 		}
 		l := priced[u.meta]
 		if l == nil {
+			if _, given := p.vehicle["load_capacity_kg"]; !given && classesTest(ds, "load_capacity_kg") {
+				p.note("%s: %s from %s to %s not priced. Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by it.",
+					country, ch.Name, u.use.entry.Name, u.use.exit.Name)
+				continue
+			}
 			group := p.groupOf(ds, ch)
 			p.note("%s: %s has no price from %s to %s for group %s.", country, ch.Name, u.use.entry.Name, u.use.exit.Name, group)
 			continue
@@ -1066,6 +1121,13 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 		sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
 		if !sm.any && !pm.any {
 			continue
+		}
+		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+			for i := range b.events {
+				if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
+					m.charge = FerryFare
+				}
+			}
 		}
 		st, err := p.price(b, "", nil)
 		if err != nil {

@@ -36,8 +36,36 @@ as <id>-<n>.json, until a page returns no objects. For toll stations
 as well, 50 at a time from /vegnett/api/v4/veglenkesekvenser?ider=...
 (as <id>-links-<n>.json): their geometry runs in the road's metering
 direction, which a station's charged direction refers to.
+
+Scandlines' freight pages (freight.scandlines.com) link their PDFs, whose
+names carry a hash that changes with each new edition: the tariffs page's
+freight tariffs are saved as <id>-<the file's name, less the hash>.pdf
+(e.g. scl-tariffs-scandlines-freight-tariff-2026-germany-denmark-10m-2026-01-01-until-recall.pdf),
+the surcharges page's monthly notices (English) as <id>-<yyyy>-<mm>.pdf.
+
+POLSCA Baltic Ferries' documents pages on unityline.eu link their PDFs
+(freight tariffs, BES and ETS announcements): saved as <id>-<the file's
+name, lower case>.pdf (e.g. polsca-tariff-polsca-freight-tariff-22.06.2026.pdf).
+
+DFDS's freight routes page (dfds.com/en/freight-ferries-and-logistics/
+routes-and-schedules) links each route's page, saved as <id>-<route>.html,
+whose data names the route's two terminals by UN/LOCODE ("portOfLoading":
+{"name": "Klaipeda", "terminalId": "LTKLJ"}). The page's timetable comes
+from DFDS's API (/api/timetable?dateFrom=..&dateTo=..&portOfDischarge=..
+&portOfLoading=..), which names each departure's ship and its IMO number:
+the 28 days from the day of the fetch are saved as <id>-<route>.json (four
+weeks: a ship on a route sailed weekly, or one of a partner's that takes
+turns, is in it).
+
+Brittany Ferries' freight site answers from its API: /api/routes lists its
+routes by UN/LOCODE, /api/timetables?country=..&departurePortCode=..
+&arrivalPortCode=.. each sailing's date and ship, by a two-letter code,
+for a year ahead (one direction of each route is saved, as
+<id>-<from>-<to>.json). The codes' ship names are in the site's English
+texts, one of the script chunks its runtime script names
+(ship:{GN:"Guillaume de Normandie",...}): saved as <id>-ships.js.
 """
-import gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
+import datetime, gzip, hashlib, html, json, os, re, sys, threading, time, urllib.parse, urllib.request
 
 UA = {"User-Agent": "carbon-cost tables fetch (github.com/majidkabir/carbon-cost)", "Accept-Language": "en,da,ro,hu"}
 
@@ -91,12 +119,18 @@ def get(url, accept=None, tries=3, pause=5):
     raise RuntimeError(f"{url}: {last}")
 
 
+# Guards the manifest and the error list: the Overpass queries are fetched
+# on threads of their own (overpass_all).
+LOCK = threading.Lock()
+
+
 def save(out, manifest, name, url, status, body):
     with open(os.path.join(out, name), "wb") as f:
         f.write(body)
-    manifest.append({"file": name, "url": url, "status": status, "size": len(body),
-                     "sha256": hashlib.sha256(body).hexdigest(), "fetched": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
-    print(status, len(body), name, url)
+    with LOCK:
+        manifest.append({"file": name, "url": url, "status": status, "size": len(body),
+                         "sha256": hashlib.sha256(body).hexdigest(), "fetched": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())})
+        print(status, len(body), name, url, flush=True)
 
 
 def tollro(out, manifest, page_url, page):
@@ -140,6 +174,11 @@ def riigiteataja(out, manifest, sid, body):
     url = f"https://www.riigiteataja.ee/public-api/api/v1/akt/{d['kehtivId']}/blob-html"
     status, text = get(url)
     save(out, manifest, f"{sid}-text.html", url, status, text)
+    # The act's annexes (lisa) are PDFs it links.
+    for k, a in enumerate(sorted(set(re.findall(r"/aktilisa/[0-9/]+[^\"'#<>\s]*\.pdf", text.decode("utf-8", "replace")))), 1):
+        u = "https://www.riigiteataja.ee" + a
+        status, b = get(u)
+        save(out, manifest, f"{sid}-lisa-{k}.pdf", u, status, b)
 
 
 def nvdb(out, manifest, sid, url, body):
@@ -179,6 +218,161 @@ def uradni_list(out, manifest, sid, page_url, page):
         save(out, manifest, f"{sid}-att-{n}.pdf", u, status, body)
 
 
+MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
+
+def scandlines(out, manifest, sid, page_url, page):
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"']+\.pdf)(?:\?[^"']*)?["']""", text):
+        u = urllib.parse.urljoin(page_url, u)
+        name = os.path.basename(urllib.parse.urlparse(u).path)
+        m = re.match(r"(\d\d)_Scandlines_surcharges_([A-Za-z]+)_(\d{4})_ENG_[0-9a-f]+\.pdf$", name)
+        if m and m.group(2) in MONTHS:
+            seen.setdefault(f"{sid}-{m.group(3)}-{MONTHS.index(m.group(2)) + 1:02d}.pdf", u)
+            continue
+        m = re.match(r"((?:Scandlines|Oresundslinjen)_Freight_Tariff_.+?)_[0-9a-f]{8,}\.pdf$", name)
+        if m:
+            seen.setdefault(f"{sid}-" + m.group(1).lower().replace("_", "-") + ".pdf", u)
+    for name, u in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name, u, status, body)
+
+
+def polsca(out, manifest, sid, page_url, page):
+    """The PDFs a POLSCA Baltic Ferries documents or timetables page on
+    unityline.eu links (freight tariffs, surcharge announcements,
+    timetables), saved as <id>-<file name, lower case>.pdf."""
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"']*/__data/assets/pdf_file/[^"']+\.pdf)(?:\?[^"']*)?["']""", text):
+        u = urllib.parse.urljoin(page_url, u)
+        name = os.path.basename(urllib.parse.urlparse(u).path)
+        seen.setdefault(f"{sid}-" + re.sub(r"[^a-z0-9.]+", "-", name.lower()), u)
+    for name, u in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name, u, status, body)
+
+
+def dfds(out, manifest, sid, page_url, page):
+    text = html.unescape(page.decode("utf-8", "replace"))
+    routes = sorted({m.group(1) for m in re.finditer(r"""href=["'](?:https://www\.dfds\.com)?/en/freight-ferries-and-logistics/routes-and-schedules/([a-z0-9-]+)/?["']""", text)})
+    day = datetime.datetime.now(datetime.timezone.utc).date()
+    for r in routes:
+        u = f"https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/{r}"
+        status, body = get(u)
+        save(out, manifest, f"{sid}-{r}.html", u, status, body)
+        m = re.search(r'"route":\{"portOfDischarge":\{.*?"terminalId":"([A-Z0-9]{5})"\},"portOfLoading":\{.*?"terminalId":"([A-Z0-9]{5})"\}',
+                      body.decode("utf-8", "replace").replace('\\"', '"'))
+        if status != 200 or not m:
+            continue
+        q = urllib.parse.urlencode({"dateFrom": f"{day}T00:00:00.000Z", "dateTo": f"{day + datetime.timedelta(days=28)}T00:00:00.000Z",
+                                    "portOfDischarge": m.group(1), "portOfLoading": m.group(2)})
+        status, body = get("https://www.dfds.com/api/timetable?" + q, accept="application/json")
+        save(out, manifest, f"{sid}-{r}.json", "https://www.dfds.com/api/timetable?" + q, status, body)
+
+
+BF = "https://www.brittanyferriesfreight.com"
+
+
+def brittany(out, manifest, sid, body):
+    country = {"GBR": "GB", "FRA": "FR", "ESP": "ES", "IRL": "IE"}
+    seen = set()
+    for group in json.loads(body):
+        for r in group.get("routes", []):
+            a, b = r["departure"], r["arrival"]
+            if frozenset((a["code"], b["code"])) in seen:
+                continue
+            seen.add(frozenset((a["code"], b["code"])))
+            u = f"{BF}/api/timetables?" + urllib.parse.urlencode({"country": country.get(a["country"], a["country"][:2]),
+                                                                  "departurePortCode": a["code"], "arrivalPortCode": b["code"]})
+            status, t = get(u, accept="application/json")
+            save(out, manifest, f"{sid}-{a['code'].lower()}-{b['code'].lower()}.json", u, status, t)
+    status, page = get(f"{BF}/en/ferry-routes/timetables")
+    m = re.search(r'src="(runtime\.[0-9a-f]+\.js)"', page.decode("utf-8", "replace"))
+    if not m:
+        return
+    status, rt = get(f"{BF}/{m.group(1)}")
+    rt = rt.decode("utf-8", "replace")
+    named = dict(re.findall(r'(\d+)===e\?"(\w+)"', rt))
+    hashes = re.search(r'\+"\."\+(\{(?:\d+:"[0-9a-f]+",?)+\})\[e\]', rt)
+    for n, h in re.findall(r'(\d+):"([0-9a-f]+)"', hashes.group(1)) if hashes else []:
+        u = f"{BF}/{named.get(n, n)}.{h}.js"
+        status, js = get(u)
+        if status == 200 and re.search(rb'ship:\{(?:[A-Z]{2}:"[^"]+",?)+\}', js):
+            save(out, manifest, f"{sid}-ships.js", u, status, js)
+            return
+
+
+def follow(out, manifest, s, page):
+    """The pages or files a source links that match its "follow" pattern (a
+    regular expression on the absolute URL), saved as <id>-<last path
+    segment, lower case>.<html or pdf>: an operator's route pages from its
+    route list, say."""
+    text = html.unescape(page.decode("utf-8", "replace"))
+    seen = {}
+    for u in re.findall(r"""href=["']([^"'#]+)["']""", text):
+        u = urllib.parse.urljoin(s["url"], u)
+        if re.fullmatch(s["follow"], u):
+            last = [x for x in urllib.parse.urlparse(u).path.split("/") if x][-1].lower()
+            name, ext = os.path.splitext(last)
+            seen.setdefault(f"{s['id']}-" + re.sub(r"[^a-z0-9.]+", "-", name).strip("-"), (u, ext))
+    for name, (u, ext) in sorted(seen.items()):
+        status, body = get(u)
+        save(out, manifest, name + (".pdf" if body[:4] == b"%PDF" else ".html"), u, status, body)
+
+
+# Overpass instances serving the same OpenStreetMap data: a query goes to
+# its own first, then to the others when that one can't be reached, is
+# busy (429/502/503/504, retried after 30 and 60 s) or fails the query.
+OVERPASS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter", "https://overpass.kumi.systems/api/interpreter"]
+
+
+def ask_overpass(url, prefer=None):
+    """An Overpass query's answer, from the first instance that gives one: (status, body, url asked).
+    A query written for overpass-api.de goes to `prefer` first when given; one
+    written for another instance goes to that one first. An instance whose
+    data is more than STALE_DAYS old (overpass.kumi.systems and
+    overpass.private.coffee have answered with data of months before) is
+    passed over."""
+    base, query = url.split("?", 1)
+    first = prefer if prefer and base == OVERPASS[0] else base
+    last = None
+    for host in [first] + [h for h in OVERPASS if h != first]:
+        for wait in (0, 30, 60, 120) if host == first else (0, 30):
+            time.sleep(wait)
+            try:
+                status, body = get(host + "?" + query, tries=1)
+            except Exception as e:
+                last = f"{host}: {e}"
+                break
+            if status == 200 and not overpass_failed(status, body):
+                stale = overpass_stale(body)
+                if not stale:
+                    return status, body, host + "?" + query
+                last = f"{host}: its data is of {stale}"
+                break
+            last = f"{host}: {status} " + ((json.loads(body).get("remark") or "")[:200] if overpass_failed(status, body) else "")
+            if status not in (429, 502, 503, 504) and not overpass_failed(status, body):
+                break
+    raise RuntimeError(f"Overpass: no instance answered (last: {last})")
+
+
+# An instance whose data is older than this is behind OpenStreetMap: its
+# answer is put aside for another instance's (or the last run's copy).
+STALE_DAYS = 14
+
+
+def overpass_stale(body):
+    """The date of an answer's data when it's more than STALE_DAYS old, else ''."""
+    try:
+        base = json.loads(body).get("osm3s", {}).get("timestamp_osm_base", "")
+        day = datetime.datetime.strptime(base[:10], "%Y-%m-%d").replace(tzinfo=datetime.timezone.utc)
+    except (ValueError, AttributeError):
+        return ""
+    return base[:10] if datetime.datetime.now(datetime.timezone.utc) - day > datetime.timedelta(days=STALE_DAYS) else ""
+
+
 def overpass_failed(status, body):
     if status != 200:
         return False
@@ -192,16 +386,123 @@ def overpass_failed(status, body):
     return bool(r) and (not d.get("elements") or "error" in r.lower() or "timed out" in r.lower())
 
 
+def store(out, manifest, s, status, body, asked):
+    """Saves a source's answer (and what it leads to) under its id."""
+    ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
+    if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"] or "qbz.gov.al/api/" in s["url"]:
+        ext = ".json"
+    if body[:4] == b"%PDF":
+        ext = ".pdf"
+    save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), asked, status, body)
+    if "riigiteataja.ee/public-api/" in s["url"]:
+        riigiteataja(out, manifest, s["id"], body)
+    if "nvdbapiles" in s["url"] and status == 200:
+        nvdb(out, manifest, s["id"], s["url"], body)
+    if s["id"] == "ro-tollro":
+        tollro(out, manifest, s["url"], body)
+    if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
+        njt(out, manifest, s["id"], s["url"], body)
+    if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
+        uradni_list(out, manifest, s["id"], s["url"], body)
+    if "freight.scandlines.com/freight-conditions/" in s["url"] and status == 200:
+        scandlines(out, manifest, s["id"], s["url"], body)
+    if ("unityline.eu/cargo/documents-polsca/" in s["url"] or "unityline.eu/cargo/timetables" in s["url"]) and status == 200:
+        polsca(out, manifest, s["id"], s["url"], body)
+    if s.get("follow") and status == 200:
+        follow(out, manifest, s, body)
+    if s["url"] == f"{BF}/api/routes" and status == 200:
+        brittany(out, manifest, s["id"], body)
+    if s["url"] == "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules" and status == 200:
+        dfds(out, manifest, s["id"], s["url"], body)
+
+
+def checked(s, status, body, again):
+    """A source's answer once it holds what the source expects ("expect"; Overpass at
+    times answers a query without the toll booths near the road): asked again,
+    then an error, so the last run's copy is kept."""
+    missing = lambda b: [x for x in s.get("expect", []) if x.encode() not in b]
+    for wait in (60, 120, 240):
+        if status != 200 or not missing(body):
+            break
+        time.sleep(wait)
+        status, body = again()
+    if status == 200 and missing(body):
+        raise RuntimeError(f"the answer lacks {missing(body)}")
+    return status, body
+
+
+def overpass_all(items, out, manifest, errors):
+    """The Overpass queries, on two threads that ask different instances first
+    (overpass-api.de and overpass.private.coffee), so a busy one doesn't hold up
+    the rest. A query no instance answers is asked again in a second round
+    after a pause; three in a row unanswered mean Overpass is down, and the
+    rest wait for that round too, which stops likewise (the last run's copies
+    are kept)."""
+    rounds, state, lock = [list(items), []], {"dead": 0}, threading.Lock()
+
+    def worker(prefer, queue, later, last_round):
+        while True:
+            with lock:
+                if not queue:
+                    return
+                s = queue.pop(0)
+                down = state["dead"] >= 3
+            if down:
+                if last_round:
+                    with LOCK:
+                        errors.append(f"{s['id']}: Overpass is down (three queries in a row unanswered)")
+                    print(f"ERROR {s['id']} Overpass is down", flush=True)
+                else:
+                    with lock:
+                        later.append(s)
+                continue
+            try:
+                status, body, asked = ask_overpass(s["url"], prefer)
+                status, body = checked(s, status, body, lambda: ask_overpass(s["url"], prefer)[:2])
+                with lock:
+                    state["dead"] = 0
+                store(out, manifest, s, status, body, asked)
+            except Exception as e:
+                with lock:
+                    state["dead"] += 1
+                    if not last_round:
+                        later.append(s)
+                if last_round:
+                    with LOCK:
+                        errors.append(f"{s['id']}: {e}")
+                    print(f"ERROR {s['id']} {e}", flush=True)
+                else:
+                    print(f"refused, asked again later: {s['id']} {e}", flush=True)
+
+    for n in (0, 1):
+        queue, later = rounds[n], []
+        if not queue:
+            break
+        if n:
+            time.sleep(120)
+            state["dead"] = 0
+        threads = [threading.Thread(target=worker, args=(h, queue, later, n == 1)) for h in OVERPASS[:2]]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+        if n == 0:
+            rounds[1] = later
+
+
 def main(src, out):
     os.makedirs(out, exist_ok=True)
     manifest, errors = [], []
     sources = json.load(open(src, encoding="utf-8"))["sources"]
-    # The Internet Archive's copies are fetched last, each asked once; the
+    # The Overpass queries run alongside the rest (overpass_all). The
+    # Internet Archive's copies are fetched last, each asked once; the
     # archive refuses connections when asked too fast, so those it refused
     # are asked again after a pause, with retries. Five refusals in a row
     # mean it is down: the rest wait for the second round, which stops
     # likewise (the last run's copies are kept).
-    sources.sort(key=lambda s: "web.archive.org/" in s["url"])
+    osm = threading.Thread(target=overpass_all, args=([s for s in sources if "/api/interpreter" in s["url"]], out, manifest, errors))
+    osm.start()
+    sources = sorted((s for s in sources if "/api/interpreter" not in s["url"]), key=lambda s: "web.archive.org/" in s["url"])
     queue, later, refused = sources + [None], [], 0
     while queue:
         s = queue.pop(0)
@@ -214,69 +515,37 @@ def main(src, out):
         if archive and not s.get("again") and refused >= 5:
             later.append(dict(s, again=True))  # the archive seems down: asked after the pause
             continue
-        if s.get("again") and refused >= 5:
-            errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
-            print("ERROR", s["id"], "the Internet Archive keeps refusing")
+        if archive and s.get("again") and refused >= 5:
+            with LOCK:
+                errors.append(f"{s['id']}: the Internet Archive refused it (and five others in a row)")
+            print(f"ERROR {s['id']} the Internet Archive keeps refusing", flush=True)
             continue
         try:
+            accept = "application/json" if "nvdbapiles" in s["url"] else None
             if archive:
                 status, body = get(s["url"], tries=3 if s.get("again") else 1, pause=20)
-            else:
-                status, body = get(s["url"], "application/json" if "nvdbapiles" in s["url"] else None)
-            if archive:
                 refused = 0
-            # Overpass answers 429/502/504 when busy and asks for backoff; a
-            # 200 with an error "remark" is a query that timed out or ran out
-            # of memory (with no or part of its elements): also retried, then an error (so the last
-            # run's copy is kept).
-            for wait in (30, 60, 120, 240):
-                if "/api/interpreter" not in s["url"] or (status not in (429, 502, 503, 504) and not overpass_failed(status, body)):
-                    break
-                time.sleep(wait)
-                status, body = get(s["url"])
-            if "/api/interpreter" in s["url"] and overpass_failed(status, body):
-                raise RuntimeError("Overpass: " + json.loads(body).get("remark", "")[:200])
-            # A source's "expect": what its answer must hold (Overpass at
-            # times answers a query without the toll booths near the road):
-            # asked again, then an error, so the last run's copy is kept.
-            missing = lambda b: [x for x in s.get("expect", []) if x.encode() not in b]
-            for wait in (60, 120, 240):
-                if status != 200 or not missing(body):
-                    break
-                time.sleep(wait)
-                status, body = get(s["url"])
-            if status == 200 and missing(body):
-                raise RuntimeError(f"the answer lacks {missing(body)}")
+            else:
+                status, body = get(s["url"], accept)
+            status, body = checked(s, status, body, lambda: get(s["url"], accept))
             # The Internet Archive's outage page instead of a capture: an
             # error, so the last run's copy is kept.
-            if "web.archive.org/" in s["url"] and b"Internet Archive services are temporarily offline" in body[:20000]:
+            if archive and b"Internet Archive services are temporarily offline" in body[:20000]:
                 raise RuntimeError("the Internet Archive is temporarily offline")
-            ext = os.path.splitext(urllib.parse.urlparse(s["url"]).path)[1].lower()
-            if "riigiteataja.ee/public-api/" in s["url"] or "nvdbapiles" in s["url"] or "pisrs.si/api/rezultat/" in s["url"] or "/api/interpreter" in s["url"]:
-                ext = ".json"
-            if body[:4] == b"%PDF":
-                ext = ".pdf"
-            save(out, manifest, s["id"] + (ext if ext in (".pdf", ".jpg", ".png", ".json", ".csv") else ".html"), s["url"], status, body)
-            if "riigiteataja.ee/public-api/" in s["url"]:
-                riigiteataja(out, manifest, s["id"], body)
-            if "nvdbapiles" in s["url"] and status == 200:
-                nvdb(out, manifest, s["id"], s["url"], body)
-            if s["id"] == "ro-tollro":
-                tollro(out, manifest, s["url"], body)
-            if "njt.jog.gov.hu/jogszabaly/" in s["url"]:
-                njt(out, manifest, s["id"], s["url"], body)
-            if "uradni-list.si/glasilo-uradni-list-rs/vsebina/" in s["url"] and status == 200:
-                uradni_list(out, manifest, s["id"], s["url"], body)
+            store(out, manifest, s, status, body, s["url"])
         except Exception as e:
             if archive:
                 refused += 1
             if archive and not s.get("again"):
-                print("refused, asked again later:", s["id"], e)
+                print(f"refused, asked again later: {s['id']} {e}", flush=True)
                 later.append(dict(s, again=True))
                 continue
-            errors.append(f"{s['id']}: {e}")
-            print("ERROR", s["id"], e)
-    json.dump({"files": manifest, "errors": errors}, open(os.path.join(out, "manifest.json"), "w"), indent=1)
+            with LOCK:
+                errors.append(f"{s['id']}: {e}")
+            print(f"ERROR {s['id']} {e}", flush=True)
+    osm.join()
+    manifest.sort(key=lambda f: f.get("file", ""))
+    json.dump({"files": manifest, "errors": sorted(errors)}, open(os.path.join(out, "manifest.json"), "w"), indent=1)
 
 
 if __name__ == "__main__":

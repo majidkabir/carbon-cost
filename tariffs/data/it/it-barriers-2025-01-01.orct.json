@@ -4,7 +4,7 @@
   "id": "carbon-cost/it-barriers/2025-01-01",
   "scheme": {
    "id": "it-barriers",
-   "name": "Milan ring roads' barriers (Milano Serravalle - Milano Tangenziali)",
+   "name": "Italian open-system barriers: Milan ring roads",
    "country": "IT"
   },
   "publisher": {
@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Rome",
   "license": "MIT",
-  "method": "Milano Serravalle - Milano Tangenziali's tolls from 1 January 2025 at the barriers of its semi-closed ring roads, a fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.20; A51 Tangenziale Est di Milano, Vimercate barrier class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. Each barrier is placed at the centre of its toll booths in OpenStreetMap (by name; the Vimercate booths, unnamed, as those within 1 km of the Vimercate Sud junction). The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one.",
+  "method": "A fixed toll to the user per passage by class (A, B by height for two axles; 3, 4, 5 by axles), VAT included, from 1 January 2025. Milano Serravalle - Milano Tangenziali's tolls at the barriers of its semi-closed ring roads: A50 Tangenziale Ovest di Milano, Terrazzano barrier class 5 EUR 8.20; A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza) class 5 EUR 4.90; A52 Tangenziale Nord di Milano, Sesto San Giovanni barrier class 5 EUR 6.30. The ring roads' other km carry no toll; the barrier tolls include Autostrade per l'Italia's share where the table gives one. Each barrier is placed at the toll point Autostrade per l'Italia's station file gives it (Milano Serravalle's Vimercate barrier is the A51's toll gate at Agrate Brianza, km 19.5).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "it-barriers-2025-01-01.json"
@@ -42,8 +42,8 @@
   },
   {
    "id": "s4",
-   "title": "OpenStreetMap (Overpass API): toll booths and the Vimercate junctions around Milan",
-   "url": "https://www.openstreetmap.org/"
+   "title": "Autostrade per l'Italia: Info viabilità's station file (toll stations, their network, road and toll point)",
+   "url": "https://viabilita.autostrade.it/json/caselli.json"
   }
  ],
  "tax": {
@@ -114,7 +114,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.058708, 45.541039]
+     "coordinates": [9.0587, 45.54103]
     },
     "match_m": 100
    }
@@ -122,11 +122,11 @@
   {
    "id": "pt2",
    "type": "point",
-   "name": "A51 Tangenziale Est di Milano, Vimercate barrier",
+   "name": "A51 Tangenziale Est di Milano, Vimercate barrier (Agrate Brianza)",
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.357957, 45.608418]
+     "coordinates": [9.33303, 45.561395]
     },
     "match_m": 100
    }
@@ -138,7 +138,7 @@
    "location": {
     "geometry": {
      "type": "Point",
-     "coordinates": [9.263721, 45.55137]
+     "coordinates": [9.26361, 45.55148]
     },
     "match_m": 100
    }
@@ -177,8 +177,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "crossings": true,
-   "osm_extract": "2026-11-17"
+   "crossings": true
   }
  }
 }

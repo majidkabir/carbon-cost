@@ -1807,6 +1807,20 @@
     "lat": 45.5346,
     "lon": 13.674
    }
+  },
+  {
+   "id": "g2-114",
+   "name": "Serminska vpadnica–priključek Luka Koper",
+   "from": {
+    "name": "Serminska vpadnica at the motorway link (OpenStreetMap node 1676454982)",
+    "lat": 45.55424,
+    "lon": 13.77612
+   },
+   "to": {
+    "name": "End of the tolled way toward the Luka Koper gate (OpenStreetMap node 1676794630)",
+    "lat": 45.5558,
+    "lon": 13.76336
+   }
   }
  ]
 }

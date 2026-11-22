@@ -1,0 +1,1296 @@
+{
+ "source": "Dz. U. 2026 poz. 33, annexes 1 and 2: https://eli.gov.pl/api/acts/DU/2026/33/text/O/D20260033.pdf",
+ "sections": [
+  {
+   "class": "mw",
+   "ref": "A1",
+   "from": {
+    "junction": "Toruń Południe"
+   },
+   "to": {
+    "border": "Gorzyczki"
+   },
+   "text": "A1 węzeł Toruń Południe – Gorzyczki (granica państwowa)"
+  },
+  {
+   "class": "mw",
+   "ref": "A2",
+   "from": {
+    "place": "Modła Królewska",
+    "street": null,
+    "crosses": [
+     "482003P"
+    ]
+   },
+   "to": {
+    "junction": "Konotopa"
+   },
+   "text": "A2 Modła Królewska (skrzyżowanie z drogą gminną nr 482003P) – węzeł Konotopa"
+  },
+  {
+   "class": "mw",
+   "ref": "A2",
+   "from": {
+    "junction": "Lubelska"
+   },
+   "to": {
+    "junction": "Siedlce Południe"
+   },
+   "text": "A2 węzeł Lubelska – węzeł Siedlce Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "A4",
+   "from": {
+    "border": "Zgorzelec"
+   },
+   "to": {
+    "junction": "Murckowska"
+   },
+   "text": "A4 Zgorzelec (granica państwowa) – węzeł Murckowska"
+  },
+  {
+   "class": "mw",
+   "ref": "A4",
+   "from": {
+    "junction": "Balice I"
+   },
+   "to": {
+    "junction": "Korczowa"
+   },
+   "text": "A4 węzeł Balice I – węzeł Korczowa"
+  },
+  {
+   "class": "mw",
+   "ref": "A6",
+   "from": {
+    "border": "Kołbaskowo"
+   },
+   "to": {
+    "junction": "Szczecin Dąbie"
+   },
+   "text": "A6 Kołbaskowo (granica państwowa) – węzeł Szczecin Dąbie"
+  },
+  {
+   "class": "mw",
+   "ref": "A8",
+   "from": {
+    "junction": "Wrocław Południe"
+   },
+   "to": {
+    "junction": "Wrocław Psie Pole"
+   },
+   "text": "A8 węzeł Wrocław Południe – węzeł Wrocław Psie Pole"
+  },
+  {
+   "class": "mw",
+   "ref": "A18",
+   "from": {
+    "border": "Olszyna"
+   },
+   "to": {
+    "junction": "Krzyżowa"
+   },
+   "text": "A18 Olszyna (granica państwowa) – węzeł Krzyżowa"
+  },
+  {
+   "class": "mw",
+   "ref": "S1",
+   "from": {
+    "junction": "Pyrzowice"
+   },
+   "to": {
+    "place": "Tychy",
+    "street": null,
+    "crosses": [
+     "86"
+    ]
+   },
+   "text": "S1 węzeł Pyrzowice – Tychy (skrzyżowanie z drogą krajową nr 86)"
+  },
+  {
+   "class": "mw",
+   "ref": "S1",
+   "from": {
+    "junction": "Bielsko-Biała Komorowice"
+   },
+   "to": {
+    "place": "Węgierska Górka",
+    "street": null,
+    "crosses": [
+     "1483S"
+    ]
+   },
+   "text": "S1 węzeł Bielsko-Biała Komorowice – Węgierska Górka (połączenie z drogą powiatową nr 1483S)"
+  },
+  {
+   "class": "mw",
+   "ref": "S1",
+   "from": {
+    "place": "Milówka",
+    "street": null,
+    "crosses": [
+     "1439S"
+    ]
+   },
+   "to": {
+    "place": "Zwardoń",
+    "street": null,
+    "crosses": [
+     "1446S"
+    ]
+   },
+   "text": "S1 Milówka (połączenie z drogą powiatową nr 1439S) – Zwardoń (połączenie z drogą powiatową nr 1446S)"
+  },
+  {
+   "class": "mw",
+   "ref": "S2",
+   "from": {
+    "junction": "Konotopa"
+   },
+   "to": {
+    "junction": "Lubelska"
+   },
+   "text": "S2 węzeł Konotopa – węzeł Lubelska"
+  },
+  {
+   "class": "mw",
+   "ref": "S3",
+   "from": {
+    "junction": "Świnoujście"
+   },
+   "to": {
+    "junction": "Dargobądz"
+   },
+   "text": "S3 węzeł Świnoujście – węzeł Dargobądz"
+  },
+  {
+   "class": "mw",
+   "ref": "S3",
+   "from": {
+    "junction": "Parłówko"
+   },
+   "to": {
+    "junction": "Szczecin Dąbie"
+   },
+   "text": "S3 węzeł Parłówko – węzeł Szczecin Dąbie"
+  },
+  {
+   "class": "mw",
+   "ref": "S3",
+   "from": {
+    "junction": "Klucz"
+   },
+   "to": {
+    "junction": "Lubawka"
+   },
+   "text": "S3 węzeł Klucz – węzeł Lubawka"
+  },
+  {
+   "class": "mw",
+   "ref": "S5",
+   "from": {
+    "junction": "Ostróda Południe"
+   },
+   "to": {
+    "junction": "Ostróda Zachód"
+   },
+   "text": "S5 węzeł Ostróda Południe – węzeł Ostróda Zachód"
+  },
+  {
+   "class": "mw",
+   "ref": "S5",
+   "from": {
+    "junction": "Nowe Marzy"
+   },
+   "to": {
+    "place": "Nagradowice",
+    "street": null,
+    "crosses": [
+     "2440P"
+    ]
+   },
+   "text": "S5 węzeł Nowe Marzy – Nagradowice (skrzyżowanie z drogą powiatową nr 2440P)"
+  },
+  {
+   "class": "mw",
+   "ref": "S5",
+   "from": {
+    "junction": "Poznań Zachód"
+   },
+   "to": {
+    "junction": "Wrocław Północ"
+   },
+   "text": "S5 węzeł Poznań Zachód – węzeł Wrocław Północ"
+  },
+  {
+   "class": "mw",
+   "ref": "S6",
+   "from": {
+    "junction": "Goleniów Północ"
+   },
+   "to": {
+    "junction": "Sianów Wschód"
+   },
+   "text": "S6 węzeł Goleniów Północ – węzeł Sianów Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S6",
+   "from": {
+    "junction": "Bożepole Wielkie"
+   },
+   "to": {
+    "place": "Rusocin",
+    "street": null,
+    "crosses": [
+     "A1"
+    ]
+   },
+   "text": "S6 węzeł Bożepole Wielkie – Rusocin (połączenie z autostradą A1)"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "place": "Gdynia",
+    "street": null,
+    "crosses": [
+     "468"
+    ]
+   },
+   "to": {
+    "junction": "Gdynia Wielki Kack"
+   },
+   "text": "S7 Gdynia (skrzyżowanie z drogą wojewódzką nr 468) – węzeł Gdynia Wielki Kack"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "junction": "Chwaszczyno"
+   },
+   "to": {
+    "junction": "Miszewo"
+   },
+   "text": "S7 węzeł Chwaszczyno – węzeł Miszewo"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "junction": "Gdańsk Południe"
+   },
+   "to": {
+    "junction": "Płońsk Południe"
+   },
+   "text": "S7 węzeł Gdańsk Południe – węzeł Płońsk Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "place": "Zakroczym",
+    "street": null,
+    "crosses": [
+     "7"
+    ]
+   },
+   "to": {
+    "place": "Czosnów",
+    "street": null,
+    "crosses": [
+     "2405W"
+    ]
+   },
+   "text": "S7 Zakroczym (połączenie z drogą krajową nr 7) – Czosnów (skrzyżowanie z drogą powiatową nr 2405W)"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "junction": "Warszawa Lotnisko"
+   },
+   "to": {
+    "junction": "Raciborowice"
+   },
+   "text": "S7 węzeł Warszawa Lotnisko – węzeł Raciborowice"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "junction": "Kraków Nowa Huta"
+   },
+   "to": {
+    "junction": "Kraków Bieżanów"
+   },
+   "text": "S7 węzeł Kraków Nowa Huta – węzeł Kraków Bieżanów"
+  },
+  {
+   "class": "mw",
+   "ref": "S7",
+   "from": {
+    "place": "Myślenice",
+    "street": null,
+    "crosses": [
+     "7"
+    ]
+   },
+   "to": {
+    "junction": "Zabornia"
+   },
+   "text": "S7 Myślenice (połączenie z drogą krajową nr 7) – węzeł Zabornia"
+  },
+  {
+   "class": "mw",
+   "ref": "S8",
+   "from": {
+    "place": "Domasław",
+    "street": null,
+    "crosses": [
+     "1971D"
+    ]
+   },
+   "to": {
+    "junction": "Wrocław Południe"
+   },
+   "text": "S8 Domasław (skrzyżowanie z drogą powiatową nr 1971D) – węzeł Wrocław Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S8",
+   "from": {
+    "junction": "Wrocław Psie Pole"
+   },
+   "to": {
+    "junction": "Łódź Południe"
+   },
+   "text": "S8 węzeł Wrocław Psie Pole – węzeł Łódź Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S8",
+   "from": {
+    "junction": "Piotrków Trybunalski Zachód"
+   },
+   "to": {
+    "junction": "Opacz"
+   },
+   "text": "S8 węzeł Piotrków Trybunalski Zachód – węzeł Opacz"
+  },
+  {
+   "class": "mw",
+   "ref": "S8",
+   "from": {
+    "junction": "Konotopa"
+   },
+   "to": {
+    "place": "Choroszcz",
+    "street": null,
+    "crosses": [
+     "2287B"
+    ]
+   },
+   "text": "S8 węzeł Konotopa – Choroszcz (skrzyżowanie z drogą powiatową nr 2287B)"
+  },
+  {
+   "class": "mw",
+   "ref": "S10",
+   "from": {
+    "city": "Szczecin"
+   },
+   "to": {
+    "junction": "Stargard Wschód"
+   },
+   "text": "S10 granica m. Szczecin – węzeł Stargard Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S10",
+   "from": {
+    "junction": "Wałcz Zachód"
+   },
+   "to": {
+    "junction": "Witankowo"
+   },
+   "text": "S10 węzeł Wałcz Zachód – węzeł Witankowo"
+  },
+  {
+   "class": "mw",
+   "ref": "S10",
+   "from": {
+    "junction": "Bydgoszcz Błonie"
+   },
+   "to": {
+    "junction": "Bydgoszcz Południe"
+   },
+   "text": "S10 węzeł Bydgoszcz Błonie – węzeł Bydgoszcz Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S10",
+   "from": {
+    "junction": "Toruń Zachód"
+   },
+   "to": {
+    "junction": "Toruń Południe"
+   },
+   "text": "S10 węzeł Toruń Zachód – węzeł Toruń Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "junction": "Bielice"
+   },
+   "to": {
+    "junction": "Bobolice"
+   },
+   "text": "S11 węzeł Bielice – węzeł Bobolice"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "place": "Szczecinek",
+    "street": null,
+    "crosses": [
+     "11"
+    ]
+   },
+   "to": {
+    "place": "Omulna",
+    "street": null,
+    "crosses": [
+     "11"
+    ]
+   },
+   "text": "S11 Szczecinek (połączenie z drogą krajową nr 11) – Omulna (połączenie z drogą krajową nr 11)"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "junction": "Poznań Północ"
+   },
+   "to": {
+    "junction": "Poznań Zachód"
+   },
+   "text": "S11 węzeł Poznań Północ – węzeł Poznań Zachód"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "junction": "Poznań Krzesiny"
+   },
+   "to": {
+    "junction": "Kórnik Południe"
+   },
+   "text": "S11 węzeł Poznań Krzesiny – węzeł Kórnik Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "junction": "Mieszków"
+   },
+   "to": {
+    "junction": "Jarocin"
+   },
+   "text": "S11 węzeł Mieszków – węzeł Jarocin"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "junction": "Ostrów Wielkopolski Północ"
+   },
+   "to": {
+    "place": "Strugi",
+    "street": null,
+    "crosses": [
+     "11"
+    ]
+   },
+   "text": "S11 węzeł Ostrów Wielkopolski Północ – Strugi (połączenie z drogą krajową nr 11)"
+  },
+  {
+   "class": "mw",
+   "ref": "S11",
+   "from": {
+    "place": "Krążkowy",
+    "street": null,
+    "crosses": [
+     "11"
+    ]
+   },
+   "to": {
+    "junction": "Baranów"
+   },
+   "text": "S11 Krążkowy (połączenie z drogą krajową nr 11) – węzeł Baranów"
+  },
+  {
+   "class": "mw",
+   "ref": "S12",
+   "from": {
+    "place": "Leokadiów",
+    "street": null,
+    "crosses": [
+     "12"
+    ]
+   },
+   "to": {
+    "junction": "Piaski Wschód"
+   },
+   "text": "S12 Leokadiów (połączenie z drogą krajową nr 12) – węzeł Piaski Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S14",
+   "from": {
+    "junction": "Emilia"
+   },
+   "to": {
+    "junction": "Róża"
+   },
+   "text": "S14 węzeł Emilia – węzeł Róża"
+  },
+  {
+   "class": "mw",
+   "ref": "S16",
+   "from": {
+    "junction": "Olsztyn Południe"
+   },
+   "to": {
+    "junction": "Olsztyn Wschód"
+   },
+   "text": "S16 węzeł Olsztyn Południe – węzeł Olsztyn Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S16",
+   "from": {
+    "junction": "Sorkwity"
+   },
+   "to": {
+    "junction": "Bagienice"
+   },
+   "text": "S16 węzeł Sorkwity – węzeł Bagienice"
+  },
+  {
+   "class": "mw",
+   "ref": "S16",
+   "from": {
+    "junction": "Ełk Północ"
+   },
+   "to": {
+    "junction": "Ełk Wschód"
+   },
+   "text": "S16 węzeł Ełk Północ – węzeł Ełk Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S17",
+   "from": {
+    "junction": "Warszawa Wschód"
+   },
+   "to": {
+    "junction": "Kurów Zachód"
+   },
+   "text": "S17 węzeł Warszawa Wschód – węzeł Kurów Zachód"
+  },
+  {
+   "class": "mw",
+   "ref": "S17",
+   "from": {
+    "junction": "Tomaszów Lubelski Północ"
+   },
+   "to": {
+    "junction": "Tomasz Lubelski Południe"
+   },
+   "text": "S17 węzeł Tomaszów Lubelski Północ – węzeł Tomasz Lubelski Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S19",
+   "from": {
+    "junction": "Lublin Sławinek"
+   },
+   "to": {
+    "junction": "Rzeszów Wschód"
+   },
+   "text": "S19 węzeł Lublin Sławinek – węzeł Rzeszów Wschód"
+  },
+  {
+   "class": "mw",
+   "ref": "S19",
+   "from": {
+    "junction": "Rzeszów Zachód"
+   },
+   "to": {
+    "junction": "Rzeszów Południe"
+   },
+   "text": "S19 węzeł Rzeszów Zachód – węzeł Rzeszów Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S22",
+   "from": {
+    "junction": "Elbląg Wschód"
+   },
+   "to": {
+    "place": "Grzechotki",
+    "street": null,
+    "crosses": [
+     "22"
+    ]
+   },
+   "text": "S22 węzeł Elbląg Wschód – Grzechotki (połączenie z drogą krajową nr 22)"
+  },
+  {
+   "class": "mw",
+   "ref": "S51",
+   "from": {
+    "junction": "Olsztynek Zachód"
+   },
+   "to": {
+    "junction": "Olsztyn Południe"
+   },
+   "text": "S51 węzeł Olsztynek Zachód – węzeł Olsztyn Południe"
+  },
+  {
+   "class": "mw",
+   "ref": "S52",
+   "from": {
+    "place": "Cieszyn",
+    "street": null,
+    "crosses": [
+     "52"
+    ]
+   },
+   "to": {
+    "junction": "Bielsko-Biała Komorowice"
+   },
+   "text": "S52 Cieszyn (połączenie z drogą krajową nr 52) – węzeł Bielsko-Biała Komorowice"
+  },
+  {
+   "class": "mw",
+   "ref": "S52",
+   "from": {
+    "junction": "Balice I"
+   },
+   "to": {
+    "junction": "Modlniczka"
+   },
+   "text": "S52 węzeł Balice I – węzeł Modlniczka"
+  },
+  {
+   "class": "mw",
+   "ref": "S52",
+   "from": {
+    "junction": "Modlnica"
+   },
+   "to": {
+    "junction": "Batowice"
+   },
+   "text": "S52 węzeł Modlnica – węzeł Batowice"
+  },
+  {
+   "class": "mw",
+   "ref": "S61",
+   "from": {
+    "border": "Budzisko"
+   },
+   "to": {
+    "junction": "Kolno"
+   },
+   "text": "S61 Budzisko (granica państwowa) – węzeł Kolno"
+  },
+  {
+   "class": "mw",
+   "ref": "S61",
+   "from": {
+    "junction": "Łomża Zachód"
+   },
+   "to": {
+    "junction": "Ostrów Mazowiecka Północ"
+   },
+   "text": "S61 węzeł Łomża Zachód – węzeł Ostrów Mazowiecka Północ"
+  },
+  {
+   "class": "mw",
+   "ref": "S74",
+   "from": {
+    "junction": "Kielce Bocianek"
+   },
+   "to": {
+    "place": "Cedzyna",
+    "street": null,
+    "crosses": [
+     "74"
+    ]
+   },
+   "text": "S74 węzeł Kielce Bocianek – Cedzyna (połączenie z drogą krajową nr 74)"
+  },
+  {
+   "class": "mw",
+   "ref": "S79",
+   "from": {
+    "junction": "Marynarska"
+   },
+   "to": {
+    "junction": "Warszawa Lotnisko"
+   },
+   "text": "S79 węzeł Marynarska – węzeł Warszawa Lotnisko"
+  },
+  {
+   "class": "nat",
+   "ref": "7",
+   "from": {
+    "junction": "Płońsk Południe"
+   },
+   "to": {
+    "place": "Zakroczym",
+    "street": null,
+    "crosses": [
+     "S7"
+    ]
+   },
+   "text": "7 węzeł Płońsk Południe – Zakroczym (połączenie z drogą ekspresową S7)"
+  },
+  {
+   "class": "nat",
+   "ref": "7",
+   "from": {
+    "place": "Czosnów",
+    "street": null,
+    "crosses": [
+     "2405W"
+    ]
+   },
+   "to": {
+    "city": "Warszawa"
+   },
+   "text": "7 Czosnów (skrzyżowanie z drogą powiatową nr 2405W) – granica m. Warszawa"
+  },
+  {
+   "class": "nat",
+   "ref": "7",
+   "from": {
+    "city": "Kraków"
+   },
+   "to": {
+    "place": "Myślenice",
+    "street": null,
+    "crosses": [
+     "S7"
+    ]
+   },
+   "text": "7 granica m. Kraków – Myślenice (połączenie z drogą ekspresową S7)"
+  },
+  {
+   "class": "nat",
+   "ref": "8",
+   "from": {
+    "junction": "Raczki"
+   },
+   "to": {
+    "place": "Augustów",
+    "street": null,
+    "crosses": [
+     "665"
+    ]
+   },
+   "text": "8 węzeł Raczki – Augustów (skrzyżowanie z drogą wojewódzką nr 665)"
+  },
+  {
+   "class": "nat",
+   "ref": "12",
+   "from": {
+    "junction": "Tuszyn"
+   },
+   "to": {
+    "junction": "Piotrków Trybunalski Północ"
+   },
+   "text": "12 węzeł Tuszyn – węzeł Piotrków Trybunalski Północ"
+  },
+  {
+   "class": "nat",
+   "ref": "12",
+   "from": {
+    "city": "Piotrków Trybunalski"
+   },
+   "to": {
+    "place": "Sulejów",
+    "street": "ul. Konecka",
+    "crosses": [
+     "74"
+    ]
+   },
+   "text": "12 granica m. Piotrków Trybunalski – Sulejów, ul. Konecka (skrzyżowanie z drogą krajową nr 74)"
+  },
+  {
+   "class": "nat",
+   "ref": "24",
+   "from": {
+    "junction": "Skwierzyna Południe"
+   },
+   "to": {
+    "place": "Pniewy",
+    "street": null,
+    "crosses": [
+     "92"
+    ]
+   },
+   "text": "24 węzeł Skwierzyna Południe – Pniewy (skrzyżowanie z drogą krajową nr 92)"
+  },
+  {
+   "class": "nat",
+   "ref": "44",
+   "from": {
+    "place": "Mikołów",
+    "street": "ul. Gliwicka",
+    "crosses": [
+     "81"
+    ]
+   },
+   "to": {
+    "place": "Mikołów",
+    "street": "ul. Beskidzka",
+    "crosses": [
+     "81"
+    ]
+   },
+   "text": "44 Mikołów, ul. Gliwicka (skrzyżowanie z drogą krajową nr 81) – Mikołów, ul. Beskidzka (skrzyżowanie z drogą krajową nr 81)"
+  },
+  {
+   "class": "nat",
+   "ref": "50",
+   "from": {
+    "place": "Kuznocin",
+    "street": null,
+    "crosses": [
+     "92"
+    ]
+   },
+   "to": {
+    "place": "Regut",
+    "street": null,
+    "crosses": [
+     "797"
+    ]
+   },
+   "text": "50 Kuznocin (skrzyżowanie z drogą krajową nr 92) – Regut (skrzyżowanie z drogą wojewódzką nr 797)"
+  },
+  {
+   "class": "nat",
+   "ref": "50",
+   "from": {
+    "place": "Grębiszew",
+    "street": null,
+    "crosses": [
+     "2245W"
+    ]
+   },
+   "to": {
+    "place": "Łochów",
+    "street": null,
+    "crosses": [
+     "4201W"
+    ]
+   },
+   "text": "50 Grębiszew (skrzyżowanie z drogą powiatową nr 2245W) – Łochów (skrzyżowanie z drogą powiatową nr 4201W)"
+  },
+  {
+   "class": "nat",
+   "ref": "50",
+   "from": {
+    "place": "Jasiorówka",
+    "street": null,
+    "crosses": [
+     "4202W"
+    ]
+   },
+   "to": {
+    "junction": "Brok"
+   },
+   "text": "50 Jasiorówka (skrzyżowanie z drogą powiatową nr 4202W) – węzeł Brok"
+  },
+  {
+   "class": "nat",
+   "ref": "60",
+   "from": {
+    "place": "Dudki",
+    "street": null,
+    "crosses": [
+     "92"
+    ]
+   },
+   "to": {
+    "place": "Kutno",
+    "street": null,
+    "crosses": [
+     "92",
+     "702"
+    ]
+   },
+   "text": "60 Dudki (skrzyżowanie z drogą krajową nr 92) – Kutno (skrzyżowanie z drogą krajową nr 92 i drogą wojewódzką nr 702)"
+  },
+  {
+   "class": "nat",
+   "ref": "77",
+   "from": {
+    "place": "Jarosław",
+    "street": "ul. Kruhel Pełkiński",
+    "crosses": [
+     "94"
+    ]
+   },
+   "to": {
+    "place": "Tuczempy",
+    "street": null,
+    "crosses": [
+     "011525R"
+    ]
+   },
+   "text": "77 Jarosław, ul. Kruhel Pełkiński (skrzyżowanie z drogą krajową nr 94) – Tuczempy (skrzyżowanie z drogą gminną nr 011525R)"
+  },
+  {
+   "class": "nat",
+   "ref": "77",
+   "from": {
+    "place": "Radymno Skołoszów",
+    "street": null,
+    "crosses": [
+     "94"
+    ]
+   },
+   "to": {
+    "city": "Przemyśl"
+   },
+   "text": "77 Radymno Skołoszów (skrzyżowanie z drogą krajową nr 94) – granica m. Przemyśl"
+  },
+  {
+   "class": "nat",
+   "ref": "79",
+   "from": {
+    "city": "Jaworzno"
+   },
+   "to": {
+    "junction": "Modlniczka"
+   },
+   "text": "79 granica m. Jaworzno – węzeł Modlniczka"
+  },
+  {
+   "class": "nat",
+   "ref": "81",
+   "from": {
+    "city": "Katowice"
+   },
+   "to": {
+    "place": "Mikołów",
+    "street": "ul. Beskidzka",
+    "crosses": [
+     "44"
+    ]
+   },
+   "text": "81 granica m. Katowice – Mikołów, ul. Beskidzka (skrzyżowanie z drogą krajową nr 44)"
+  },
+  {
+   "class": "nat",
+   "ref": "81",
+   "from": {
+    "place": "Mikołów",
+    "street": "ul. Gliwicka",
+    "crosses": [
+     "44"
+    ]
+   },
+   "to": {
+    "city": "Żory"
+   },
+   "text": "81 Mikołów, ul. Gliwicka (skrzyżowanie z drogą krajową nr 44) – granica m. Żory"
+  },
+  {
+   "class": "nat",
+   "ref": "81",
+   "from": {
+    "city": "Żory"
+   },
+   "to": {
+    "junction": "Skoczów"
+   },
+   "text": "81 granica m. Żory – węzeł Skoczów"
+  },
+  {
+   "class": "nat",
+   "ref": "90",
+   "from": {
+    "place": "Jeleń",
+    "street": null,
+    "crosses": [
+     "91"
+    ]
+   },
+   "to": {
+    "place": "Baldram",
+    "street": null,
+    "crosses": [
+     "55"
+    ]
+   },
+   "text": "90 Jeleń (skrzyżowanie z drogą krajową nr 91) – Baldram (skrzyżowanie z drogą krajową nr 55)"
+  },
+  {
+   "class": "nat",
+   "ref": "91",
+   "from": {
+    "place": "Rusocin",
+    "street": null,
+    "crosses": [
+     "6"
+    ]
+   },
+   "to": {
+    "junction": "Nowe Marzy"
+   },
+   "text": "91 Rusocin (skrzyżowanie z drogą krajową nr 6) – węzeł Nowe Marzy"
+  },
+  {
+   "class": "nat",
+   "ref": "91",
+   "from": {
+    "junction": "Świecie Zachód"
+   },
+   "to": {
+    "place": "Łysomice",
+    "street": null,
+    "crosses": [
+     "552"
+    ]
+   },
+   "text": "91 węzeł Świecie Zachód – Łysomice (skrzyżowanie z drogą wojewódzką nr 552)"
+  },
+  {
+   "class": "nat",
+   "ref": "91",
+   "from": {
+    "place": "Bardzinek",
+    "street": null,
+    "crosses": [
+     "92"
+    ]
+   },
+   "to": {
+    "place": "Kajew",
+    "street": null,
+    "crosses": [
+     "92"
+    ]
+   },
+   "text": "91 Bardzinek (skrzyżowanie z drogą krajową nr 92) – Kajew (skrzyżowanie z drogą krajową nr 92)"
+  },
+  {
+   "class": "nat",
+   "ref": "91",
+   "from": {
+    "city": "Piotrków Trybunalski"
+   },
+   "to": {
+    "city": "Częstochowa"
+   },
+   "text": "91 granica m. Piotrków Trybunalski – granica m. Częstochowa"
+  },
+  {
+   "class": "nat",
+   "ref": "91",
+   "from": {
+    "city": "Częstochowa"
+   },
+   "to": {
+    "junction": "Podwarpie"
+   },
+   "text": "91 granica m. Częstochowa – węzeł Podwarpie"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Boczów",
+    "street": null,
+    "crosses": [
+     "1258F"
+    ]
+   },
+   "to": {
+    "place": "Poźrzadło",
+    "street": null,
+    "crosses": [
+     "1225F"
+    ]
+   },
+   "text": "92 Boczów (skrzyżowanie z drogą powiatową nr 1258F) – Poźrzadło (skrzyżowanie z drogą powiatową nr 1225F)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Bucze",
+    "street": null,
+    "crosses": [
+     "1238F"
+    ]
+   },
+   "to": {
+    "place": "Myszęcin",
+    "street": null,
+    "crosses": [
+     "1211F"
+    ]
+   },
+   "text": "92 Bucze (skrzyżowanie z drogą powiatową nr 1238F) – Myszęcin (skrzyżowanie z drogą powiatową nr 1211F)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Wilenko",
+    "street": null,
+    "crosses": [
+     "1217F"
+    ]
+   },
+   "to": {
+    "city": "Poznań"
+   },
+   "text": "92 Wilenko (skrzyżowanie z drogą powiatową nr 1217F) – granica m. Poznań"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "city": "Poznań"
+   },
+   "to": {
+    "place": "Chociczka",
+    "street": null,
+    "crosses": [
+     "411551P"
+    ]
+   },
+   "text": "92 granica m. Poznań – Chociczka (skrzyżowanie z drogą gminną nr 411551P)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Września",
+    "street": null,
+    "crosses": [
+     "15"
+    ]
+   },
+   "to": {
+    "city": "Konin"
+   },
+   "text": "92 Września (skrzyżowanie z drogą krajową nr 15) – granica m. Konin"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "city": "Konin"
+   },
+   "to": {
+    "place": "Bardzinek",
+    "street": null,
+    "crosses": [
+     "91"
+    ]
+   },
+   "text": "92 granica m. Konin – Bardzinek (skrzyżowanie z drogą krajową nr 91)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Kajew",
+    "street": null,
+    "crosses": [
+     "91"
+    ]
+   },
+   "to": {
+    "place": "Dudki",
+    "street": null,
+    "crosses": [
+     "60"
+    ]
+   },
+   "text": "92 Kajew (skrzyżowanie z drogą krajową nr 91) – Dudki (skrzyżowanie z drogą krajową nr 60)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Kutno",
+    "street": null,
+    "crosses": [
+     "60",
+     "702"
+    ]
+   },
+   "to": {
+    "place": "Kuznocin",
+    "street": null,
+    "crosses": [
+     "50"
+    ]
+   },
+   "text": "92 Kutno (skrzyżowanie z drogą krajową nr 60 i drogą wojewódzką nr 702) – Kuznocin (skrzyżowanie z drogą krajową nr 50)"
+  },
+  {
+   "class": "nat",
+   "ref": "92",
+   "from": {
+    "place": "Sochaczew",
+    "street": "ul. Żyrardowska",
+    "crosses": [
+     "50"
+    ]
+   },
+   "to": {
+    "city": "Warszawa"
+   },
+   "text": "92 Sochaczew, ul. Żyrardowska (skrzyżowanie z drogą krajową nr 50) – granica m. Warszawa"
+  },
+  {
+   "class": "nat",
+   "ref": "94",
+   "from": {
+    "city": "Dąbrowa Górnicza"
+   },
+   "to": {
+    "junction": "Modlniczka"
+   },
+   "text": "94 granica m. Dąbrowa Górnicza – węzeł Modlniczka"
+  },
+  {
+   "class": "nat",
+   "ref": "94",
+   "from": {
+    "city": "Rzeszów"
+   },
+   "to": {
+    "place": "Jarosław",
+    "street": "ul. Kruhel Pełkiński",
+    "crosses": [
+     "77"
+    ]
+   },
+   "text": "94 granica m. Rzeszów – Jarosław, ul. Kruhel Pełkiński (skrzyżowanie z drogą krajową nr 77)"
+  }
+ ]
+}

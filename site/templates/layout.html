@@ -1,0 +1,88 @@
+{{define "head"}}<!DOCTYPE html>
+<html lang="{{.Lang}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{.Title}}</title>
+<meta name="description" content="{{.Description}}">
+<link rel="canonical" href="{{.Canonical}}">
+{{range .Alternates}}<link rel="alternate" hreflang="{{.Lang}}" href="{{.Href}}">
+{{end}}{{range .Alternates}}{{if eq .Lang "en"}}<link rel="alternate" hreflang="x-default" href="{{.Href}}">
+{{end}}{{end}}<meta property="og:type" content="website">
+<meta property="og:site_name" content="carbon-cost">
+<meta property="og:locale" content="{{.Lang}}">
+<meta property="og:title" content="{{.Title}}">
+<meta property="og:description" content="{{.Description}}">
+<meta property="og:url" content="{{.Canonical}}">
+<meta property="og:image" content="{{.Image}}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{.Title}}">
+<meta name="twitter:description" content="{{.Description}}">
+<meta name="twitter:image" content="{{.Image}}">
+{{if .LD}}<script type="application/ld+json">{{json .LD}}</script>{{end}}
+{{if .CrumbLD}}<script type="application/ld+json">{{json .CrumbLD}}</script>{{end}}
+<style>
+  :root { --ink: #1d2327; --muted: #5f6b73; --line: #dde3e7; --bg: #f6f8f9; --accent: #1f6f5c; --carbon: #b4532a; --co2bg: #fbf1ec; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; }
+  nav.crumbs { font-size: 13px; color: var(--muted); margin-bottom: 10px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; }
+  nav.crumbs a { color: var(--accent); text-decoration: none; }
+  details.langs { position: relative; }
+  details.langs summary { cursor: pointer; list-style: none; color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 2px 10px; background: #fff; user-select: none; }
+  details.langs summary::-webkit-details-marker { display: none; }
+  details.langs summary::after { content: " \25BE"; color: var(--muted); }
+  details.langs ul { position: absolute; right: 0; z-index: 10; margin: 4px 0 0; padding: 6px 0; list-style: none; background: #fff; border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.12); max-height: 70vh; overflow-y: auto; min-width: 180px; }
+  details.langs li a, details.langs li b { display: block; padding: 4px 14px; white-space: nowrap; }
+  details.langs li b { color: var(--ink); background: var(--bg); }
+  details.langs li a:hover { background: var(--bg); }
+  h1 { font-size: 24px; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 18px; margin: 28px 0 6px; }
+  h3 { font-size: 15px; margin: 18px 0 4px; }
+  p { margin: 6px 0 10px; }
+  .lead { font-size: 16px; color: var(--ink); }
+  .muted, .note { color: var(--muted); font-size: 13px; }
+  a { color: var(--accent); }
+  .cta { display: inline-block; font-weight: 600; color: #fff; background: var(--accent); border-radius: 6px; padding: 9px 18px; text-decoration: none; margin: 8px 0 4px; }
+  .tiles { display: flex; flex-wrap: wrap; gap: 12px; margin: 14px 0; }
+  .tile { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; min-width: 170px; }
+  .tile b { display: block; font-size: 22px; }
+  .tile span { color: var(--muted); font-size: 13px; }
+  .tile.co2 b { color: var(--carbon); }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; margin: 8px 0 14px; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 14px; vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; background: #fbfcfc; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td.co2, th.co2 { color: var(--carbon); background: var(--co2bg); }
+  tr.co2 td { background: var(--co2bg); }
+  tr.hl td { font-weight: 600; }
+  tr.up td { background: #eef6f3; }
+  details { margin: 6px 0; }
+  summary { cursor: pointer; color: var(--accent); }
+  ul.src { padding-left: 18px; font-size: 14px; }
+  .example { background: #fff; border-left: 4px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 4px; }
+  .ze { background: #eef6f3; padding: 10px 14px; border-radius: 6px; margin: 10px 0; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 32px; border-top: 1px solid var(--line); padding-top: 12px; }
+  footer a { color: inherit; }
+  .others a { margin-right: 14px; }
+  @media (max-width: 560px) { th, td { padding: 6px; font-size: 13px; } h1 { font-size: 20px; } }
+</style>
+</head>
+<body>
+<main>
+<nav class="crumbs"><span>{{range $i, $c := .Crumbs}}{{if $i}} › {{end}}<a href="{{$c.Href}}">{{$c.Name}}</a>{{end}}</span>{{if .Alternates}}<details class="langs"><summary aria-label="Language">{{.L.Name}}</summary><ul>{{range .Alternates}}<li>{{if eq .Lang $.Lang}}<b>{{.Name}}</b>{{else}}<a href="{{.Path}}" hreflang="{{.Lang}}" lang="{{.Lang}}">{{.Name}}</a>{{end}}</li>{{end}}</ul></details>{{end}}</nav>
+{{end}}
+
+{{define "foot"}}
+<footer>
+  {{if .Others}}<p class="others">{{range .Others}}<a href="{{.Href}}">{{.Name}}</a>{{end}}</p>{{end}}
+  {{if .Countries}}<p class="others">{{.L.T "nav.countries"}} {{range .Countries}}<a href="{{.Href}}">{{.Name}}</a> {{end}}</p>{{end}}
+  <p>{{.L.T "foot.text" "date" .Updated}} <a href="https://github.com/majidkabir/carbon-cost">carbon-cost</a> (MIT) · <a href="https://github.com/majidkabir/orct">ORCT</a> · <a href="{{.Prefix}}/">{{.L.T "foot.price"}}</a> · <a href="{{.Prefix}}{{if ne .Lang "en"}}/{{.Lang}}{{end}}/tolls">{{.L.T "foot.all"}}</a> · <a href="{{.Prefix}}/v1/rates">{{.L.T "foot.data"}}</a></p>
+</footer>
+</main>
+</body>
+</html>
+{{end}}

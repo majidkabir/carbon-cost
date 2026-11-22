@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>carbon-cost: what a truck trip pays for carbon and tolls</title>
+<meta name="description" content="Price a truck trip's road tolls, their CO2 part, ferry ETS, ETS2 and national CO2 taxes on fuel, from the laws, across 40 European countries.">
+<!--meta-->
 <link rel="stylesheet" href="leaflet/leaflet.css">
 <script src="leaflet/leaflet.js"></script>
 <style>
@@ -29,6 +31,9 @@
   .tile b { display: block; font-size: 22px; }
   .tile span { color: var(--muted); font-size: 13px; }
   .tile.carbon b { color: var(--carbon); }
+  .warn { background: #fff8e6; border: 1px solid #e3b341; border-radius: 10px; padding: 10px 14px; margin: 0 0 12px; }
+  .warn b { display: block; margin-bottom: 4px; }
+  .warn ul { margin: 0; padding-left: 18px; }
   table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 8px 0 16px; }
   th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 14px; }
   th { color: var(--muted); font-weight: 600; background: #fbfcfc; }
@@ -64,7 +69,7 @@
 <body>
 <main>
   <h1>What does a truck trip pay for carbon and tolls?</h1>
-  <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws; routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
+  <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (<a href="tolls">truck toll rates by country</a>); routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
 
   <form id="f">
     <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
@@ -78,7 +83,8 @@
     <label>Tractor axles (LT, IS)<input name="motor_axles" type="number" min="2" max="10" placeholder="e.g. 2"></label>
     <label>Tractor max mass, kg (IS)<input name="motor_mass_kg" type="number" min="0" placeholder="e.g. 19000"></label>
     <label>Trailer max mass, kg (IS)<input name="trailer_mass_kg" type="number" min="0" placeholder="e.g. 35000"></label>
-    <label>Length, m (for bridges)<input name="length_m" type="number" min="0" max="50" step="0.01" placeholder="16.5"></label>
+    <label>Length, m (bridges, ferries)<input name="length_m" type="number" min="0" max="50" step="0.01" placeholder="16.5"></label>
+    <label>Load capacity, kg (HR ferries: the semi-trailer's)<input name="capacity_kg" type="number" min="0" placeholder="e.g. 30000"></label>
     <label>Euro class<select name="euro">
       <option value="6" selected>Euro VI</option><option value="5">Euro V / EEV</option><option value="4">Euro IV</option>
       <option value="3">Euro III</option><option value="2">Euro II</option><option value="1">Euro I</option><option value="0">Euro 0</option></select></label>
@@ -86,6 +92,7 @@
       <option value="1" selected>1 (most diesel trucks)</option><option value="2">2</option><option value="3">3</option>
       <option value="4">4</option><option value="5">5 (zero-emission)</option></select></label>
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
+    <label>UKA price, GBP/t<input name="uka_gbp_per_t" type="number" min="0" step="0.01"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
     <label>Fuel bought in (country code; blank: along the route)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
     <label>Diesel burnt on the road, litres (blank: from the CO2)<input name="diesel_l" type="number" min="0" step="any"></label>
@@ -99,10 +106,11 @@
 
   <section id="out" hidden>
     <div class="totals">
-      <div class="tile"><span>Total</span><b id="total"></b></div>
+      <div class="tile"><span id="totallabel">Total</span><b id="total"></b></div>
       <div class="tile carbon"><span>Of which carbon</span><b id="carbon"></b></div>
       <div class="tile"><span>Distance</span><b id="dist"></b></div>
     </div>
+    <div id="incomplete" class="warn" hidden><b>Incomplete: the total leaves out charges this trip meets</b><ul id="missing"></ul></div>
     <div id="km"></div>
     <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
     <div class="h2row"><h2>Charges</h2><label class="check"><input id="showsrc" type="checkbox"> Show sources</label></div>
@@ -110,6 +118,7 @@
       <tbody id="lines"></tbody></table>
     <div id="cmpwrap" hidden>
       <h2>Same trip, other trucks</h2>
+      <p id="cmpnote" class="sub" hidden>The savings count only the charges included above (the total is incomplete).</p>
       <table><thead><tr><th>CO2 class</th><th class="n">Tolls EUR</th><th class="n">Total EUR</th><th class="n">Carbon EUR</th><th class="n">Saving / trip</th><th class="n">Saving / year</th></tr></thead>
         <tbody id="cmp"></tbody></table>
     </div>
@@ -117,7 +126,7 @@
     <details id="prov"><summary>Data used</summary><ul class="notes" id="provlist"></ul></details>
   </section>
 
-  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
+  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>, described in <a href="v1/openapi.json">OpenAPI</a>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
 </main>
 <script>
 const $ = (id) => document.getElementById(id);
@@ -125,6 +134,16 @@ const TILES = "";
 const f = $("f");
 f.date.value = new Date().toISOString().slice(0, 10);
 f.time.value = new Date().toTimeString().slice(0, 5);
+
+// A trip from a link (the toll pages' "price your trip"): ?from=lat,lon&from_name=…&to=…&to_name=…
+{
+  const q = new URLSearchParams(location.search);
+  for (const k of ["from", "to"]) {
+    const v = q.get(k), name = q.get(k + "_name"), m = v && v.trim().match(/^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/);
+    if (m && name) { f[k].value = name; f[k].dataset.label = name; f[k].dataset.lat = m[1]; f[k].dataset.lon = m[2]; }
+    else if (v) f[k].value = v;
+  }
+}
 
 const LATLON = /^(-?\d+(?:\.\d+)?)\s*,\s*(-?\d+(?:\.\d+)?)$/;
 function place(input) {
@@ -213,9 +232,9 @@ f.addEventListener("submit", async (e) => {
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined,
              motor_axles: +f.motor_axles.value || undefined, motor_mass_kg: +f.motor_mass_kg.value || undefined,
-             trailer_mass_kg: +f.trailer_mass_kg.value || undefined },
+             trailer_mass_kg: +f.trailer_mass_kg.value || undefined, capacity_kg: +f.capacity_kg.value || undefined },
     etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
-    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined, diesel_l: +f.diesel_l.value || undefined,
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, uka_gbp_per_t: +f.uka_gbp_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined, diesel_l: +f.diesel_l.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
   $("go").disabled = true; $("error").hidden = true;
@@ -229,8 +248,20 @@ f.addEventListener("submit", async (e) => {
   } finally { $("go").disabled = false; }
 });
 
+// missingText says what a result leaves out, as the API's Missing.Message.
+function missingText(m) {
+  const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel", ferry_fare: "ferry fare" }[m.charge] || m.charge;
+  return m.reason === "ended"
+    ? `${m.area} ${what} (${m.name}): the rates here ended on ${m.ended} and the next ones aren't in this release yet`
+    : `${m.area} ${what}: no table in this tool`;
+}
+
 function show(r) {
   $("total").textContent = eur(r.total_eur);
+  const miss = r.missing || [];
+  $("incomplete").hidden = miss.length === 0;
+  $("totallabel").textContent = miss.length ? "Total (incomplete)" : "Total";
+  $("missing").replaceChildren(...miss.map(m => { const li = document.createElement("li"); li.textContent = missingText(m); return li; }));
   $("carbon").textContent = eur(r.carbon_eur);
   $("dist").textContent = num(r.distance_km, 1) + " km";
   const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
@@ -262,6 +293,7 @@ function show(r) {
   }
   const cmp = $("cmp"); cmp.replaceChildren();
   $("cmpwrap").hidden = !(r.compare && r.compare.length);
+  $("cmpnote").hidden = miss.length === 0;
   for (const c of r.compare || []) {
     const tr = cmp.insertRow();
     cell(tr, String(c.co2_class)); cell(tr, num(c.road_toll_eur, 2), "n"); cell(tr, num(c.total_eur, 2), "n");
@@ -269,7 +301,6 @@ function show(r) {
     cell(tr, c.saving_per_year_eur ? num(c.saving_per_year_eur, 0) : "", "n");
   }
   const notes = $("notes"); notes.replaceChildren();
-  if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
   for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
   // What the result rests on: release, rate tables and their files, map
   // extracts, ferry data, exchange rates and defaults taken.

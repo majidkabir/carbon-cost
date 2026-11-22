@@ -150,6 +150,15 @@
     <label>Trips per year<input name="trips_per_year" type="number" min="0" value="200"></label>
     <button id="go" type="submit">Calculate</button>
   </form>
+  <details id="csvbox" style="margin-top:14px">
+    <summary style="cursor:pointer;font-weight:600">Many trips at once: a CSV file</summary>
+    <p class="sub" style="margin:8px 0">One trip a row, with a header naming the fields: <code>from</code>, <code>to</code>, <code>via</code>, <code>date</code>, <code>cargo-kg</code>,
+      <code>mass-kg</code>, <code>axles</code>, <code>euro</code>, <code>co2-class</code>, <code>length-m</code>, <code>l-per-100km</code>, <code>fuel-bought</code>, <code>shipments</code>,
+      <code>country-km</code>, <code>eua</code>, … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.
+      <a href="#" id="csvexample">Download an example</a>.</p>
+    <div class="bar" style="margin:0"><input type="file" id="csvfile" accept=".csv,text/csv" aria-label="CSV of trips">
+      <button type="button" class="small" id="csvgo">Price the CSV</button><span id="csvinfo" class="sub"></span></div>
+  </details>
   <p id="error" hidden></p>
 
   <section id="out" hidden>
@@ -597,6 +606,34 @@ $("csv").addEventListener("click", () => {
   a.href = URL.createObjectURL(blob); a.download = `carbon-cost-${r.date}.csv`;
   document.body.append(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+// A CSV of trips, priced by the server (POST v1/carbon-cost/csv).
+$("csvexample").addEventListener("click", (e) => {
+  e.preventDefault();
+  const text = "order,from,to,via,date,cargo-kg,mass-kg,axles,euro,co2-class,l-per-100km\r\n" +
+    "A-1001,DKCPH,DEHAM,,2026-11-03,20000,40000,5,6,1,29\r\nA-1002,DEHAM,PLWAW,DEBER,2026-11-04,12000,40000,5,6,1,\r\n";
+  download(new Blob([text], { type: "text/csv" }), "carbon-cost-example.csv");
+});
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+$("csvgo").addEventListener("click", async () => {
+  const file = $("csvfile").files[0], info = $("csvinfo");
+  if (!file) { info.textContent = "Choose a CSV file first."; return; }
+  $("csvgo").disabled = true; info.textContent = "Pricing…";
+  try {
+    const resp = await fetch("v1/carbon-cost/csv", { method: "POST", headers: { "Content-Type": "text/csv" }, body: await file.text() });
+    if (!resp.ok) { const b = await resp.json().catch(() => ({})); throw new Error(b.error || resp.statusText); }
+    const text = await resp.text(), rows = text.trim().split(/\r?\n/).length - 1;
+    const labels = resp.headers.get("X-CSV-Labels");
+    download(new Blob([text], { type: "text/csv" }), file.name.replace(/\.csv$/i, "") + "-priced.csv");
+    info.textContent = `${rows} row${rows === 1 ? "" : "s"} priced; the file is downloading.` + (labels ? ` Kept as they are: ${labels}.` : "");
+  } catch (err) { info.textContent = "Not priced: " + err.message; }
+  finally { $("csvgo").disabled = false; }
 });
 
 // missingText says what a result leaves out, as the API's Missing.Message.

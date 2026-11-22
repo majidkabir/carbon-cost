@@ -1185,6 +1185,45 @@
     "summary": "Price up to 100 trips"
    }
   },
+  "/v1/carbon-cost/csv": {
+   "post": {
+    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., complete, missing, error).",
+    "operationId": "priceCSV",
+    "requestBody": {
+     "content": {
+      "text/csv": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/csv": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "The rows with the results added."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The CSV can't be read, or has more than 100 rows."
+     }
+    },
+    "summary": "Price a CSV of up to 100 trips"
+   }
+  },
   "/v1/places": {
    "get": {
     "operationId": "places",

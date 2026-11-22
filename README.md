@@ -216,7 +216,7 @@ $ carbon-cost calc -from DEHAM -via DEBER -to DEMUC -return -shipments "A:12000:
 ```
 go install github.com/majidkabir/carbon-cost/cmd/carbon-cost@latest
 carbon-cost calc -h
-carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
+carbon-cost serve -addr :8090   # web page at /, toll pages at /tolls, POST /v1/carbon-cost, POST /v1/carbon-cost/batch, POST /v1/carbon-cost/csv, GET /v1/rates (the datasets), GET /v1/rates/{cc}/{file} (one), GET /v1/places?q=
 ```
 
 Many trips at once: `calc -csv trips.csv` prices each row of a CSV file whose header names `calc`'s flags without the dash (`from`, `to`, `date`, `cargo-kg`, `mass-kg`, `axles`, `euro`, `co2-class`, `fuel-country`, `via`, `return`, `shipments`, `l-per-100km`, `fuel-bought`, `path`, `country-km`, ...; each row's values on top of the command line's; a month's km by country from the tachographs, one truck a row, is a `country-km` column such as `"DE=3200,PL=4100"`; other columns, a truck or order number, are kept as labels) and prints the rows back with `trip_date`, `distance_km`, `country_km`, `total_eur`, `carbon_eur`, `road_toll_eur`, `fuel_co2_eur`, `ets_eur`, `area_charge_eur`, `ferry_fare_eur`, `fuel_l`, `empty_km`, `shipments` (each shipment's `id=EUR`), `complete`, `missing` and `error` added:
@@ -229,7 +229,7 @@ NLRTM,ITMIL,2026-11-03,12000
 $ carbon-cost calc -csv trips.csv -eua 75 > priced.csv
 ```
 
-The web page prices trips with stops, shipments, your truck's diesel and a GPX route, keeps saved trucks and the last ten trips in the browser, copies a link that opens and prices the trip, and downloads the result as CSV.
+The web page prices trips with stops, shipments, your truck's diesel and a GPX route, keeps saved trucks and the last ten trips in the browser, copies a link that opens and prices the trip, and downloads the result as CSV. It also prices a CSV of up to 100 trips, the one `calc -csv` takes, by `POST /v1/carbon-cost/csv` (`text/csv` in and out; the flags that read files or name a server, `path`, `csv`, `json` and `sootcase`, are kept as labels there).
 
 `GET /v1/openapi.json` describes the API (OpenAPI 3.1), every field with its meaning; it is generated from the Go types (`go run ./tools/openapi`), and a test fails when it is out of date. The API takes up to 100 trips in one `POST /v1/carbon-cost/batch` (`{"trips": [<request>, ...]}`) and answers `{"results": [{"result": <response>} or {"error": "..."}, ...]}` in the same order; a trip that can't be priced has its error and doesn't fail the others.
 

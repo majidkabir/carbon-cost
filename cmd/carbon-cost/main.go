@@ -8,6 +8,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"embed"
 	"encoding/json"
@@ -164,6 +165,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
+	fs.StringVar(&req.FerryETSBasis, "ferry-ets-basis", "", "a ferry's EU ETS: \"surcharge\" (default: its line's published surcharge where it has one) or \"emissions\" (the cargo's share of the ships' emissions)")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
@@ -667,6 +669,22 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 			return
 		}
 		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(r.Context(), c.Calculate, req.Trips)})
+	})
+	// A CSV of trips, as calc -csv takes it (but no flag that reads a
+	// file or names a server), priced and sent back with the results.
+	mux.HandleFunc("POST /v1/carbon-cost/csv", func(w http.ResponseWriter, r *http.Request) {
+		var buf bytes.Buffer
+		labels, err := priceCSV(r.Context(), c.Calculate, nil, http.MaxBytesReader(w, r.Body, 2<<20), &buf, webCSVFlags(), MaxBatch)
+		if err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			return
+		}
+		if len(labels) > 0 {
+			w.Header().Set("X-CSV-Labels", strings.Join(labels, ","))
+		}
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Content-Disposition", `attachment; filename="carbon-cost.csv"`)
+		w.Write(buf.Bytes())
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request

@@ -135,7 +135,19 @@ jobs:
             # A trip with stops and shipments, back empty; the truck's own diesel.
             run cph-odense-ham-stops -from DKCPH -via 55.4038,10.4024 -to DEHAM -return -shipments "A:12000:0-2;B:8000:1-2" -l-per-100km 29 -fuel-bought DK=200,DE=150
             run dk-de-country-km -country-km DK=140,DE=141
+          elif [ "${{ matrix.name }}" = hu ]; then
+            # Against NÚSZ's Útdíj kalkulátor: Győr to Tatabánya, J4, EURO6, HUF 12 946
+            # gross (infrastructure 10 511, external costs 2 435; tools/tables/browser/hu-utdijkalkulacio.txt).
+            hu=$(./cc calc -json -date 2026-11-22 -cargo-kg 20000 -from 47.6875,17.6504 -to 47.5692,18.4048 | jq -r '[.lines[] | select(.country == "HU" and .charge == "road_toll")] | "\(map(.amount) | add | round) \(.[0].currency // "")"')
+            echo "::notice title=hu/gyor-tatabanya vs NÚSZ::ours $hu net, NÚSZ's calculator HUF 12946 gross (10511 infrastructure + 2435 external; route-dependent)"
+          fi
+          if [ "${{ matrix.name }}" = dk-de ]; then
+            :
           elif [ "${{ matrix.name }}" = at ]; then
+            # Against ASFINAG's Mautkalkulator: Salzburg to Linz, 4 axles,
+            # CO2 class 1, Euro VI, EUR 73.79 net (tools/tables/browser/at-mautkalkulator.txt).
+            at=$(./cc calc -json -date 2026-11-22 -cargo-kg 20000 -axles 4 -from 47.8095,13.0550 -to 48.3069,14.2858 | jq '[.lines[] | select(.country == "AT" and .charge == "road_toll") | .amount_eur] | add * 100 | round / 100')
+            echo "::notice title=at/salzburg-linz vs ASFINAG::ours EUR $at, ASFINAG's Mautkalkulator EUR 73.79 (route-dependent)"
             run kufstein-brenner -from 47.5850,12.1600 -to 47.0035,11.5080
             run kufstein-brenner-night -from 47.5850,12.1600 -to 47.0035,11.5080 -night
             run salzburg-villach -from ATSZG -to 46.6100,13.8500

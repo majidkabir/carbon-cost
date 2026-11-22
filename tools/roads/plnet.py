@@ -330,7 +330,13 @@ def net_points(c, net, road, road_, pt, own):
             # the stretch between by the crossing road's number); else the
             # section's road nearest the place (no crossing road in OSM).
             meet = [n for n in nodes if n in road_.adj] or [n for n in nodes if road_.near(c.coords[n], 200)]
-            for group in (meet, nodes):
+            groups = [meet, nodes]
+            if len(pt["crosses"]) > 1:
+                # Where it meets all the roads named ("x92 and x702").
+                others = [c.cross_nodes.get(r, set()) for r in pt["crosses"][1:]]
+                close = lambda n: all(any(dist_m(c.coords[n], c.coords[m]) <= 300 for m in o if abs(c.coords[m][0] - c.coords[n][0]) < 0.005) for o in others)
+                groups.insert(0, [n for n in meet if close(n)])
+            for group in groups:
                 if group:
                     best = min(group, key=lambda n: dist_m(c.coords[n], place))
                     if dist_m(c.coords[best], place) <= CROSS_NEAR_M:
@@ -339,6 +345,16 @@ def net_points(c, net, road, road_, pt, own):
             if not at:
                 own_near = road_.nearest(road_.near(place, 5000), place, 5000, 0)
                 at = [c.coords[own_near[0]]] if own_near else []
+    elif "city" in pt and c.city.get(pt["city"]):
+        # Where any main road leaves the city: the path's cost picks the
+        # section's road's.
+        shape = c.city[pt["city"]][1]
+        inside = prep(shape)
+        x0, y0, x1, y1 = shape.bounds
+        box = [n for kx in range(int(x0 * 100) - 1, int(x1 * 100) + 2) for ky in range(int(y0 * 100) - 1, int(y1 * 100) + 2)
+               for n in net.grid.get((kx, ky), ())]
+        ins = {n: inside.contains(Point(c.coords[n])) for n in box}
+        return [n for n in box if not ins[n] and any(ins.get(y) for y in net.adj[n])] or [n for n in own if n in net.adj]
     out = []
     for p in at:
         near = net.near(p, SNAP_M)

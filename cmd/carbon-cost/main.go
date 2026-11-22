@@ -157,6 +157,8 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
+	pathFile := fs.String("path", "", "the way driven, priced instead of Sootcase's route: a GPX file (track or route points) or JSON ([[lon,lat],...] or a GeoJSON LineString)")
+	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410, from a tachograph; without -from and -to")
 	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
@@ -178,42 +180,6 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 	opts := calcOpts{json: *asJSON, csv: *csvIn, sc: sc}
 
 	var err error
-	if *csvIn != "" && (*from == "" || *to == "") {
-		return req, opts, nil // the rows give them
-	}
-	if req.From, err = location(*from); err != nil {
-		return req, opts, fmt.Errorf("-from: %w", err)
-	}
-	if req.To, err = location(*to); err != nil {
-		return req, opts, fmt.Errorf("-to: %w", err)
-	}
-	if *via != "" || *back {
-		req.Stops = []sootcase.Location{req.From}
-		for _, v := range strings.Split(*via, ";") {
-			if strings.TrimSpace(v) == "" {
-				continue
-			}
-			l, err := location(v)
-			if err != nil {
-				return req, opts, fmt.Errorf("-via: %w", err)
-			}
-			req.Stops = append(req.Stops, l)
-		}
-		req.Stops = append(req.Stops, req.To)
-		if *back {
-			req.Stops = append(req.Stops, req.From)
-		}
-		req.From, req.To = sootcase.Location{}, sootcase.Location{}
-	}
-	if *ships != "" {
-		if req.Shipments, err = shipmentsFlag(*ships); err != nil {
-			return req, opts, fmt.Errorf("-shipments: %w", err)
-		}
-	} else if *back {
-		// The cargo goes to -to; the way back is empty.
-		req.Shipments = []cost.Shipment{{WeightKg: req.CargoKg, To: len(req.Stops) - 2}}
-		req.CargoKg = 0
-	}
 	if *bought != "" {
 		m, err := byCountry(*bought)
 		if err != nil {
@@ -221,6 +187,26 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 		}
 		for _, cc := range slices.Sorted(maps.Keys(m)) {
 			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
+		}
+	}
+	if *pathFile != "" {
+		if req.Path, err = readPath(*pathFile); err != nil {
+			return req, opts, fmt.Errorf("-path: %w", err)
+		}
+	}
+	switch {
+	case *ckm != "":
+		if req.CountryKm, err = byCountry(*ckm); err != nil {
+			return req, opts, fmt.Errorf("-country-km: %w", err)
+		}
+		if *from != "" || *to != "" || *via != "" || *ships != "" || *back {
+			return req, opts, errors.New("-country-km prices a trip with no route: not with -from, -to, -via, -shipments or -return")
+		}
+	case *csvIn != "" && (*from == "" || *to == ""):
+		return req, opts, nil // the rows give them
+	default:
+		if err := stopsFlags(&req, *from, *to, *via, *ships, *back); err != nil {
+			return req, opts, err
 		}
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
@@ -276,6 +262,46 @@ func calc(args []string) error {
 }
 
 // location reads a code (DKCPH, CPH) or "lat,lon".
+// stopsFlags sets the trip's stops and shipments from -from, -to, -via,
+// -shipments and -return.
+func stopsFlags(req *cost.Request, from, to, via, ships string, back bool) error {
+	var err error
+	if req.From, err = location(from); err != nil {
+		return fmt.Errorf("-from: %w", err)
+	}
+	if req.To, err = location(to); err != nil {
+		return fmt.Errorf("-to: %w", err)
+	}
+	if via != "" || back {
+		req.Stops = []sootcase.Location{req.From}
+		for _, v := range strings.Split(via, ";") {
+			if strings.TrimSpace(v) == "" {
+				continue
+			}
+			l, err := location(v)
+			if err != nil {
+				return fmt.Errorf("-via: %w", err)
+			}
+			req.Stops = append(req.Stops, l)
+		}
+		req.Stops = append(req.Stops, req.To)
+		if back {
+			req.Stops = append(req.Stops, req.From)
+		}
+		req.From, req.To = sootcase.Location{}, sootcase.Location{}
+	}
+	if ships != "" {
+		if req.Shipments, err = shipmentsFlag(ships); err != nil {
+			return fmt.Errorf("-shipments: %w", err)
+		}
+	} else if back {
+		// The cargo goes to -to; the way back is empty.
+		req.Shipments = []cost.Shipment{{WeightKg: req.CargoKg, To: len(req.Stops) - 2}}
+		req.CargoKg = 0
+	}
+	return nil
+}
+
 // shipmentsFlag reads id:kg:from-to;... .
 func shipmentsFlag(s string) ([]cost.Shipment, error) {
 	var out []cost.Shipment
@@ -608,7 +634,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request
-		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20))
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20)) // a path of up to cost.MaxPathPoints
 		dec.DisallowUnknownFields()
 		if err := dec.Decode(&req); err != nil {
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})

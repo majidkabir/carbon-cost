@@ -152,14 +152,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	}
 	p.afterPoints(ds, a.country, st, points)
 	p.afterSystems(ds, a.country, st, systems)
-	if points.listed && !points.any && km >= 1 {
-		p.note("%s: the route passes none of the toll stations.", cc)
-	}
-	if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
-		p.note("%s: the route uses none of the tolled motorways.", cc)
-	}
-	if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
-		p.note("%s: the route passes none of the tolled sections.", cc)
+	switch {
+	case len(route.pts) < 2:
+		// country_km: no route to find the stations and sections on.
+		if (points.listed || systems.listed || hasSections(ds)) && km >= 0.5 {
+			p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "no_route"})
+		}
+	default:
+		if points.listed && !points.any && km >= 1 {
+			p.note("%s: the route passes none of the toll stations.", cc)
+		}
+		if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
+			p.note("%s: the route uses none of the tolled motorways.", cc)
+		}
+		if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
+			p.note("%s: the route passes none of the tolled sections.", cc)
+		}
 	}
 	if !shareGiven && !byRoute && nw.hasRows && nw.perDay == nil {
 		p.note("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",

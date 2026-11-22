@@ -226,7 +226,7 @@
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area) or \"ended\" (its rates ended on Ended and the next ones aren't here yet).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet) or \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km).",
       "type": "string"
      }
     },
@@ -372,6 +372,13 @@
       },
       "type": "array"
      },
+     "country_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced; tolls at stations, on sections and bridges need a route, and the result lists them as missing. Not with from, to, stops, shipments or path.",
+      "type": "object"
+     },
      "date": {
       "description": "YYYY-MM-DD; default today",
       "type": "string"
@@ -451,6 +458,18 @@
      "night": {
       "description": "Night: the trip passes night-tariff sections between 22:00 and 05:00 (Austria's A 13 Brenner).",
       "type": "boolean"
+     },
+     "path": {
+      "description": "Path is the way the truck drove (or will), [lon, lat] points from a GPS track or telematics: its tolls, crossings and km by country are priced on it instead of Sootcase's route. Sootcase still routes the stops for the shipments' emissions and ferry crossings.",
+      "items": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 2,
+       "minItems": 2,
+       "type": "array"
+      },
+      "type": "array"
      },
      "shipments": {
       "description": "Shipments are the trip's cargo, each from its loading stop to its unloading stop; the result gives each one's share of the trip. Without them cargo_kg is one shipment from the first stop to the last. Put a groupage trip's other cargo in as shipments too, or the one given carries the whole trip.",

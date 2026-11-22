@@ -76,7 +76,19 @@ type Request struct {
 	// last. Put a groupage trip's other cargo in as shipments too, or the
 	// one given carries the whole trip.
 	Shipments []Shipment `json:"shipments,omitempty"`
-	Date      string     `json:"date,omitempty"` // YYYY-MM-DD; default today
+	// Path is the way the truck drove (or will), [lon, lat] points from a
+	// GPS track or telematics: its tolls, crossings and km by country are
+	// priced on it instead of Sootcase's route. Sootcase still routes the
+	// stops for the shipments' emissions and ferry crossings.
+	Path [][2]float64 `json:"path,omitempty"`
+	// CountryKm prices a trip with no route: the km driven in each country
+	// (or region, ISO 3166-2, where tolls differ by region), from a
+	// tachograph, say. Only charges by the km and by the day are priced;
+	// tolls at stations, on sections and bridges need a route, and the
+	// result lists them as missing. Not with from, to, stops, shipments or
+	// path.
+	CountryKm map[string]float64 `json:"country_km,omitempty"`
+	Date      string             `json:"date,omitempty"` // YYYY-MM-DD; default today
 	// Time is the local departure time (HH:MM) on Date. Each toll station
 	// is reached that much later as its km along the route take at
 	// AvgSpeedKmh; that time prices congestion taxes and the hours a
@@ -271,8 +283,10 @@ type Missing struct {
 	Charge string `json:"charge"`
 	// Name is the scheme, for rates that ended.
 	Name string `json:"name,omitempty"`
-	// Reason is "no_table" (this tool has none for the area) or "ended"
-	// (its rates ended on Ended and the next ones aren't here yet).
+	// Reason is "no_table" (this tool has none for the area), "ended"
+	// (its rates ended on Ended and the next ones aren't here yet) or
+	// "no_route" (its tolls are at stations or on sections, and the trip
+	// was given as country_km).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here.
 	Ended string `json:"ended,omitempty"`
@@ -281,6 +295,9 @@ type Missing struct {
 // Message says what is missing, in a sentence.
 func (m Missing) Message() string {
 	what := map[string]string{RoadToll: "tolls", AreaCharge: "area charge", FuelCO2: "CO2 price on diesel", FerryFare: "ferry fare"}[m.Charge]
+	if m.Reason == "no_route" {
+		return fmt.Sprintf("%s %s (%s): charged at toll stations or on sections, which need the route (give from and to, or path)", m.Area, what, m.Name)
+	}
 	if m.Reason == "ended" {
 		return fmt.Sprintf("%s %s (%s): the rates here ended on %s and the next ones aren't in this release yet", m.Area, what, m.Name, m.Ended)
 	}
@@ -365,9 +382,21 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			req.ecb = r
 		}
 	}
-	res, err := c.trip(ctx, &req, vt)
-	if err != nil {
-		return Response{}, err
+	var res sootcase.Result
+	var notes []string
+	switch {
+	case len(req.CountryKm) > 0:
+		res = kmTrip(&req)
+	default:
+		if res, err = c.trip(ctx, &req, vt); err != nil {
+			return Response{}, err
+		}
+		if len(req.Path) > 0 {
+			if c.Borders == nil {
+				return Response{}, fmt.Errorf("path: this server has no borders to split it by country")
+			}
+			notes = ownPath(c.Borders, c.Ferries, &res, req.Path)
+		}
 	}
 	var runs []Run
 	if c.Borders != nil {
@@ -401,13 +430,16 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err != nil {
 		return out, err
 	}
+	out.Notes = append(notes, out.Notes...)
 	out.Route = thinRuns(runs, MapPoints)
 	out.Provenance.Version = c.Version
 	base := c.Sootcase.BaseURL
 	if base == "" {
 		base = sootcase.DefaultURL
 	}
-	out.Provenance.Sootcase = strings.TrimRight(base, "/")
+	if len(req.CountryKm) == 0 {
+		out.Provenance.Sootcase = strings.TrimRight(base, "/")
+	}
 	if res.Dataset != "" {
 		out.Provenance.Sootcase += ", factors: " + res.Dataset
 	}
@@ -518,6 +550,9 @@ func check(req Request) error {
 	if err := checkTrip(req); err != nil {
 		return err
 	}
+	if err := checkOwnRoute(req); err != nil {
+		return err
+	}
 	if req.Time != "" {
 		if err := rates.ValidTime(req.Time); err != nil {
 			return fmt.Errorf("time: %w", err)
@@ -588,6 +623,12 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 	}
 	out.Trip = tripOf(res, req)
+	if len(req.CountryKm) > 0 {
+		// No Sootcase: the truck's own diesel is the trip's emissions.
+		out.TTWKg, out.WTWKg = round3(out.Trip.FuelL*DieselKgCO2PerL), round3(out.Trip.FuelL*DieselKgCO2ePerLWTW)
+		out.Notes = append(out.Notes, fmt.Sprintf("country_km: no route, so tolls at stations, on sections, bridges and tunnels, ferries and environmental zones aren't priced (give from and to, or path); emissions are the diesel's, %.1f l x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1).",
+			out.Trip.FuelL, DieselKgCO2PerL, DieselKgCO2ePerLWTW))
+	}
 	// The road diesel's tank-to-wheel CO2, t: what ETS2 and the CO2 prices
 	// on fuel are charged on.
 	roadT := out.Trip.FuelL * DieselKgCO2PerL / 1000

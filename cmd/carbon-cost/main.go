@@ -169,6 +169,9 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
+	fs.IntVar(&req.Alternatives, "alternatives", 0, "price up to this many routes of each leg (2 to 5): Sootcase's and its alternatives, listed under Routes")
+	fs.StringVar(&req.Route, "route", "", "the route to price: primary (default), cheapest (the lowest charges and diesel), or a route's id from Routes (alt1; leg2:alt1 on a trip with stops)")
+	avoidFerries := fs.Bool("avoid-ferries", false, "route on land only")
 	fs.StringVar(&req.FerryETSBasis, "ferry-ets-basis", "", "a ferry's EU ETS: \"surcharge\" (default: its line's published surcharge where it has one) or \"emissions\" (the cargo's share of the ships' emissions)")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
@@ -215,6 +218,9 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 		for _, cc := range slices.Sorted(maps.Keys(m)) {
 			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
 		}
+	}
+	if *avoidFerries {
+		req.Ferry = "avoid"
 	}
 	if *dprice != "" {
 		if err := dieselPriceFlag(&req, *dprice); err != nil {
@@ -543,6 +549,35 @@ func printResult(r cost.Response) {
 	}
 	if r.WTWKg > 0 {
 		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
+	}
+	if len(r.Routes) > 0 {
+		fmt.Println()
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+		fmt.Fprintln(w, "Route\tkm\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tDifference\t")
+		for _, o := range r.Routes {
+			id := o.ID
+			if o.Chosen {
+				id += " *"
+			}
+			if o.Error != "" {
+				fmt.Fprintf(w, "%s\t\t\t\t%s\t\t\t\n", id, o.Error)
+				continue
+			}
+			ferries := strings.Join(o.Ferries, ", ")
+			if ferries == "" {
+				ferries = "none"
+			}
+			roads := strings.Join(o.Roads, " ")
+			if len(roads) > 40 {
+				roads = roads[:40] + "…"
+			}
+			inc := ""
+			if !o.Complete {
+				inc = " (incomplete)"
+			}
+			fmt.Fprintf(w, "%s\t%.1f\t%s\t%s\t%.2f%s\t%.2f\t%+.2f\t\n", id, o.DistanceKm, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.DiffEUR)
+		}
+		w.Flush()
 	}
 	if len(r.Shipments) > 1 {
 		fmt.Println()

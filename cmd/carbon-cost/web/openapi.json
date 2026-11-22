@@ -426,6 +426,10 @@
     "additionalProperties": false,
     "description": "Request is a trip to price.",
     "properties": {
+     "alternatives": {
+      "description": "Alternatives asks Sootcase for up to this many routes of each leg (2 to 5; Sootcase v0.14.0): each is priced in full, and routes lists them. On a trip with stops, an alternative is one leg's other route, the rest as Sootcase routes them.",
+      "type": "integer"
+     },
      "avg_speed_kmh": {
       "description": "AvgSpeedKmh is the average speed for those times, default DefaultAvgSpeedKmh.",
       "type": "number"
@@ -493,6 +497,10 @@
       "description": "EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for ferry crossings. 0: ferry ETS is not priced.",
       "type": "number"
      },
+     "ferry": {
+      "description": "Ferry \"avoid\" routes the trip on land only.",
+      "type": "string"
+     },
      "ferry_ets_basis": {
       "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
       "type": "string"
@@ -553,6 +561,10 @@
        "type": "array"
       },
       "type": "array"
+     },
+     "route": {
+      "description": "Route is the route priced: \"primary\" (Sootcase's, the default), \"cheapest\" (of the routes, the one with the lowest with_fuel_eur, or total_eur where a diesel price is missing, complete ones first), or a route's id from routes (e.g. \"alt1\"; \"leg2:alt1\" on a trip with stops). Without alternatives, cheapest asks for 3 routes and an id for 5.",
+      "type": "string"
      },
      "shipments": {
       "description": "Shipments are the trip's cargo, each from its loading stop to its unloading stop; the result gives each one's share of the trip. Without them cargo_kg is one shipment from the first stop to the last. Put a groupage trip's other cargo in as shipments too, or the one given carries the whole trip.",
@@ -714,6 +726,13 @@
       },
       "type": "array"
      },
+     "routes": {
+      "description": "Routes are the routes priced, when alternatives were asked for: each one's charges and the difference from Sootcase's primary route; the one this answer prices is chosen.",
+      "items": {
+       "$ref": "#/components/schemas/RouteOption"
+      },
+      "type": "array"
+     },
      "shipments": {
       "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023). The totals are the truck's.",
       "items": {
@@ -767,6 +786,79 @@
      "total_eur",
      "ttw_kg",
      "wtw_kg"
+    ],
+    "type": "object"
+   },
+   "RouteOption": {
+    "additionalProperties": false,
+    "description": "RouteOption is one route of the trip, priced: Sootcase's primary or one of its alternatives.",
+    "properties": {
+     "carbon_eur": {
+      "type": "number"
+     },
+     "chosen": {
+      "description": "Chosen is the route this answer prices.",
+      "type": "boolean"
+     },
+     "complete": {
+      "type": "boolean"
+     },
+     "country_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
+     "diff_eur": {
+      "description": "DiffEUR is its cost less the primary's: with_fuel_eur where both have it, else total_eur.",
+      "type": "number"
+     },
+     "distance_km": {
+      "type": "number"
+     },
+     "duration_h": {
+      "type": "number"
+     },
+     "error": {
+      "description": "Error says why it couldn't be priced.",
+      "type": "string"
+     },
+     "ferries": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "ferry_km": {
+      "type": "number"
+     },
+     "id": {
+      "description": "ID is \"primary\", or the alternative's (\"alt1\"; \"leg2:alt1\" on a trip with stops: the second leg's first other route).",
+      "type": "string"
+     },
+     "roads": {
+      "description": "Roads and Ferries tell it apart: its main roads (OSM refs) and the ferries it takes, as Sootcase names them.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "total_eur": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "description": "WithFuelEUR is the charges and the diesel (Response.WithFuelEUR).",
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon_eur",
+     "complete",
+     "country_km",
+     "diff_eur",
+     "distance_km",
+     "id",
+     "total_eur"
     ],
     "type": "object"
    },

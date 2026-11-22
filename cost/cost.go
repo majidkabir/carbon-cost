@@ -169,6 +169,20 @@ type Request struct {
 	// with_fuel_eur adds the fuel.
 	DieselEURPerL          float64            `json:"diesel_eur_per_l,omitempty"`
 	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
+	// Alternatives asks Sootcase for up to this many routes of each leg
+	// (2 to 5; Sootcase v0.14.0): each is priced in full, and routes
+	// lists them. On a trip with stops, an alternative is one leg's other
+	// route, the rest as Sootcase routes them.
+	Alternatives int `json:"alternatives,omitempty"`
+	// Route is the route priced: "primary" (Sootcase's, the default),
+	// "cheapest" (of the routes, the one with the lowest with_fuel_eur, or
+	// total_eur where a diesel price is missing, complete ones first), or
+	// a route's id from routes (e.g. "alt1"; "leg2:alt1" on a trip with
+	// stops). Without alternatives, cheapest asks for 3 routes and an id
+	// for 5.
+	Route string `json:"route,omitempty"`
+	// Ferry "avoid" routes the trip on land only.
+	Ferry string `json:"ferry,omitempty"`
 	// DKKPerEUR converts DKK to EUR; default DKKPerEUR.
 	DKKPerEUR float64 `json:"dkk_per_eur,omitempty"`
 	// FX converts other currencies to EUR, in units per euro, e.g.
@@ -284,6 +298,10 @@ type Response struct {
 	Lines     []Line         `json:"lines"`
 	TotalEUR  float64        `json:"total_eur"`
 	CarbonEUR float64        `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
+	// Routes are the routes priced, when alternatives were asked for: each
+	// one's charges and the difference from Sootcase's primary route; the
+	// one this answer prices is chosen.
+	Routes []RouteOption `json:"routes,omitempty"`
 	// Fuel is the trip's diesel at the price given, or the Weekly Oil
 	// Bulletin's: not a charge, so not in total_eur.
 	Fuel *FuelCost `json:"fuel,omitempty"`
@@ -399,6 +417,12 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if err := check(req); err != nil {
 		return Response{}, err
 	}
+	if req.Alternatives <= 1 && req.Route != "" && req.Route != "primary" {
+		req.Alternatives = 3
+		if req.Route != "cheapest" {
+			req.Alternatives = 5
+		}
+	}
 	vt := req.VehicleType
 	var assumed []string
 	if req.Date == "" {
@@ -434,6 +458,33 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			notes = ownPath(c.Borders, c.Ferries, &res, req.Path)
 		}
 	}
+	if req.Alternatives > 1 {
+		out, err := c.priceRoutes(res, &req, date)
+		if err != nil {
+			return out, err
+		}
+		out.Notes = append(notes, out.Notes...)
+		if req.Time != "" && req.origin != "" {
+			assumed = append(assumed, fmt.Sprintf("time: %s local time in %s, where the trip starts; stations use their own country's time", req.Time, req.origin))
+		}
+		out.Provenance.Assumed = append(assumed, out.Provenance.Assumed...)
+		return out, nil
+	}
+	out, err := c.priceRoute(res, &req, date)
+	if err != nil {
+		return out, err
+	}
+	out.Notes = append(notes, out.Notes...)
+	if req.Time != "" && req.origin != "" {
+		assumed = append(assumed, fmt.Sprintf("time: %s local time in %s, where the trip starts; stations use their own country's time", req.Time, req.origin))
+	}
+	out.Provenance.Assumed = append(assumed, out.Provenance.Assumed...)
+	return out, nil
+}
+
+// priceRoute prices a trip on the route Sootcase gave (res): its runs by
+// country and road class, then the charges.
+func (c Calculator) priceRoute(res sootcase.Result, req *Request, date time.Time) (Response, error) {
 	var runs []Run
 	if c.Borders != nil {
 		var path [][2]float64
@@ -462,11 +513,10 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			}
 		}
 	}
-	out, err := PriceWith(res, c.Tariffs, c.Ferries, req, date)
+	out, err := PriceWith(res, c.Tariffs, c.Ferries, *req, date)
 	if err != nil {
 		return out, err
 	}
-	out.Notes = append(notes, out.Notes...)
 	out.Route = thinRuns(runs, MapPoints)
 	out.Provenance.Version = c.Version
 	base := c.Sootcase.BaseURL
@@ -479,10 +529,6 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	if res.Dataset != "" {
 		out.Provenance.Sootcase += ", factors: " + res.Dataset
 	}
-	if req.Time != "" && req.origin != "" {
-		assumed = append(assumed, fmt.Sprintf("time: %s local time in %s, where the trip starts; stations use their own country's time", req.Time, req.origin))
-	}
-	out.Provenance.Assumed = append(assumed, out.Provenance.Assumed...)
 	return out, nil
 }
 
@@ -506,7 +552,11 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		}
 		sh.Legs = append(sh.Legs, sootcase.Leg{ID: id, Mode: "road", VehicleType: vt, From: stops[i], To: stops[i+1]})
 	}
-	res, err := c.Sootcase.Calculate(ctx, sh)
+	opt := sootcase.Options{AvoidFerries: req.Ferry == "avoid"}
+	if req.Alternatives > 1 {
+		opt.Alternatives = req.Alternatives
+	}
+	res, err := c.Sootcase.CalculateWith(ctx, sh, opt)
 	if err != nil {
 		return res, err
 	}
@@ -520,12 +570,13 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		perT[i] = [2]float64{l.TTWKg / heaviest * 1000, l.WTWKg / heaviest * 1000}
 		f := loads[i] / heaviest
 		l.TTWKg, l.WTWKg = l.TTWKg*f, l.WTWKg*f
-		parts := make([]sootcase.Part, len(l.Parts))
-		for j, p := range l.Parts {
-			p.TTWKg, p.WTWKg = p.TTWKg*f, p.WTWKg*f
-			parts[j] = p
+		scaleParts(l, f)
+		// Its other routes, at the same load.
+		for k := range l.Alternatives {
+			a := &l.Alternatives[k]
+			a.TTWKg, a.WTWKg = a.TTWKg*f, a.WTWKg*f
+			scaleParts(a, f)
 		}
-		l.Parts = parts
 		res.TTWKg += l.TTWKg
 		res.WTWKg += l.WTWKg
 	}
@@ -545,8 +596,9 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 			v, ok = [3]float64{res.Legs[s.From].DistanceKm, perT[s.From][0], perT[s.From][1]}, true
 		}
 		if !ok {
-			r, err := c.Sootcase.Calculate(ctx, sootcase.Shipment{ID: "shipment-" + s.ID, WeightKg: s.WeightKg, AddRoadLegs: &no,
-				Legs: []sootcase.Leg{{ID: "road", Mode: "road", VehicleType: vt, From: stops[s.From], To: stops[s.To]}}})
+			r, err := c.Sootcase.CalculateWith(ctx, sootcase.Shipment{ID: "shipment-" + s.ID, WeightKg: s.WeightKg, AddRoadLegs: &no,
+				Legs: []sootcase.Leg{{ID: "road", Mode: "road", VehicleType: vt, From: stops[s.From], To: stops[s.To]}}},
+				sootcase.Options{AvoidFerries: req.Ferry == "avoid"})
 			if err != nil {
 				return res, fmt.Errorf("shipment %s: %w", s.ID, err)
 			}
@@ -561,6 +613,16 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		req.shipTTW[i], req.shipWTW[i] = v[1]*s.WeightKg/1000, v[2]*s.WeightKg/1000
 	}
 	return res, nil
+}
+
+// scaleParts scales a leg's parts' emissions (its ferries) by f.
+func scaleParts(l *sootcase.LegResult, f float64) {
+	parts := make([]sootcase.Part, len(l.Parts))
+	for j, p := range l.Parts {
+		p.TTWKg, p.WTWKg = p.TTWKg*f, p.WTWKg*f
+		parts[j] = p
+	}
+	l.Parts = parts
 }
 
 func (c Calculator) date(s string) (time.Time, error) {
@@ -627,6 +689,21 @@ func check(req Request) error {
 	}
 	if req.TripsPerYear < 0 {
 		return fmt.Errorf("trips_per_year must be >= 0")
+	}
+	if req.Alternatives < 0 || req.Alternatives > 5 {
+		return fmt.Errorf("alternatives %d: give 2 to 5 routes", req.Alternatives)
+	}
+	if req.Route != "" && !regexp.MustCompile(`^(primary|cheapest|(leg\d+:)?alt\d+)$`).MatchString(req.Route) {
+		return fmt.Errorf("route %q: give primary, cheapest or a route's id (alt1, leg2:alt1)", req.Route)
+	}
+	if req.Ferry != "" && req.Ferry != "avoid" {
+		return fmt.Errorf("ferry %q: give avoid, or leave it out", req.Ferry)
+	}
+	if (req.Alternatives > 1 || req.Route != "" && req.Route != "primary") && (len(req.Path) > 0 || len(req.CountryKm) > 0) {
+		return fmt.Errorf("alternatives and route: not with path or country_km, which give the route")
+	}
+	if req.Ferry != "" && (len(req.Path) > 0 || len(req.CountryKm) > 0) {
+		return fmt.Errorf("ferry: not with path or country_km, which give the route")
 	}
 	if req.DieselEURPerL < 0 || req.DieselEURPerL > 10 {
 		return fmt.Errorf("diesel_eur_per_l %v: give EUR per litre without VAT, e.g. 1.45", req.DieselEURPerL)

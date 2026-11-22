@@ -70,6 +70,39 @@ type LegResult struct {
 	// along it, some within 30 m, which a thinned line misses on curves.
 	Path  [][2]float64 `json:"path"`
 	Parts []Part       `json:"parts"`
+	// ID names an alternative route (alt1, alt2, ...; Sootcase v0.14.0).
+	ID string `json:"id,omitempty"`
+	// Summary is what tells the route apart: its main roads and ferries.
+	Summary *RouteSummary `json:"summary,omitempty"`
+	// DurationH is its driving time at truck speeds, ferries included,
+	// when Sootcase gives it.
+	DurationH float64 `json:"duration_h,omitempty"`
+	// Alternatives are other routes of the leg (asked for with
+	// alternatives=N), each with the fields above.
+	Alternatives []LegResult `json:"alternatives,omitempty"`
+}
+
+// RouteSummary is a route's main roads (OSM refs) and its ferries.
+type RouteSummary struct {
+	Roads   []string   `json:"roads,omitempty"`
+	Ferries []FerryUse `json:"ferries"`
+}
+
+// FerryUse is a ferry a route takes.
+type FerryUse struct {
+	Name       string  `json:"name,omitempty"`
+	From       string  `json:"from,omitempty"`
+	To         string  `json:"to,omitempty"`
+	DistanceKm float64 `json:"distance_km,omitempty"`
+}
+
+// Options ask Sootcase for more than its one route.
+type Options struct {
+	// Alternatives is how many routes a leg may come back with, 1 to 5
+	// (the primary and up to N-1 others); 0 or 1: the primary only.
+	Alternatives int
+	// AvoidFerries routes on land only.
+	AvoidFerries bool
 }
 
 // Result is the part of Sootcase's result this tool uses.
@@ -94,6 +127,12 @@ type Client struct {
 // (?country_km=true, Sootcase v0.9.0 or later) and its route
 // (path=full).
 func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
+	return c.CalculateWith(ctx, s, Options{})
+}
+
+// CalculateWith is Calculate with alternative routes or without ferries
+// (alternatives=N, avoid=ferries: Sootcase v0.14.0 or later).
+func (c Client) CalculateWith(ctx context.Context, s Shipment, o Options) (Result, error) {
 	body, err := json.Marshal(s)
 	if err != nil {
 		return Result{}, err
@@ -102,7 +141,14 @@ func (c Client) Calculate(ctx context.Context, s Shipment) (Result, error) {
 	if base == "" {
 		base = DefaultURL
 	}
-	raw, err := c.do(ctx, http.MethodPost, base+"/v1/calculate?country_km=true&path=full", body)
+	q := "country_km=true&path=full"
+	if o.Alternatives > 1 {
+		q += "&alternatives=" + strconv.Itoa(o.Alternatives)
+	}
+	if o.AvoidFerries {
+		q += "&avoid=ferries"
+	}
+	raw, err := c.do(ctx, http.MethodPost, base+"/v1/calculate?"+q, body)
 	if err != nil {
 		return Result{}, err
 	}

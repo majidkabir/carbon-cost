@@ -8,6 +8,10 @@ lines publish for freight, per metre of the vehicle's length, from
 - Scandlines' monthly surcharges notices (scl-surcharges-<yyyy>-<mm>.txt,
   as tools/tables/scandlines.py reads them): the ETS surcharge per
   commencing metre, at least 7, on Puttgarden–Rødby and Rostock–Gedser;
+- Stena Line Freight's monthly "EU ETS Matrix Levels" (stena-ets-eu-ets-
+  <month>-<yyyy>-<n>.txt, the PDFs its charges page links, as text; else
+  the capture tools/tables/browser/stena-ets.txt): EUR per metre by route,
+  for the calendar month, FuelEU's compliance cost included;
 - POLSCA Baltic Ferries' ETS surcharge announcements
   (polsca-ets-surcharge-*announcement-<dd.mm.yyyy>.txt): EUR per commenced
   metre on each line, from a day until the next announcement.
@@ -155,6 +159,47 @@ def scandlines(fetched):
 
 
 EN_MONTHS = {m: i + 1 for i, m in enumerate(MONTHS)}
+STENA_URL = "https://stenalinefreight.com/charges/"
+STENA_ROW = re.compile(r"^\s*([A-ZÅÄÖ][^\d|]*?[–-][^\d|]*?)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\d+\.\d\d)\s*\|?\s+(\S+)\s*$", re.M)
+
+
+def stena_table(text, name):
+    """(yyyy-mm, {route: EUR per metre}) from a notice's text."""
+    m = re.search(r"MATRIX LEVELS\s+([A-Z]+) (\d{4})", text)
+    if not m or m.group(1).title() not in EN_MONTHS:
+        print(f"Stena: {name}: the month not read; skipped")
+        return None
+    month = f"{m.group(2)}-{EN_MONTHS[m.group(1).title()]:02d}"
+    rates = {re.sub(r"\s*[–-]\s*", "–", r.group(1).strip()): num(r.group(2)) for r in STENA_ROW.finditer(text)}
+    if len(rates) < 8:
+        print(f"Stena: {name}: only {len(rates)} routes read; skipped")
+        return None
+    return month, rates
+
+
+def stena(fetched):
+    """[(month yyyy-mm, {route: rate}, source)] from the notices fetched,
+    else the capture."""
+    out = {}
+    for path in sorted(glob.glob(os.path.join(fetched, "stena-ets-eu-ets-*.txt"))):
+        if "-matrix-" in path:
+            continue
+        r = stena_table(open(path, encoding="utf-8").read(), os.path.basename(path))
+        if r:
+            out[r[0]] = (r[1], STENA_URL + " (" + os.path.basename(path)[len("stena-ets-"):-4] + ".pdf)")
+    if not out:
+        cap = os.path.join(HERE, "browser", "stena-ets.txt")
+        print(f"Stena: no notice read; from {cap}")
+        r = stena_table(open(cap, encoding="utf-8").read(), cap)
+        if r:
+            out[r[0]] = (r[1], STENA_URL + " (read in Chrome: tools/tables/browser/stena-ets.txt)")
+    return [(m, rates, src) for m, (rates, src) in sorted(out.items())]
+
+
+def month_span(month):
+    first = datetime.date.fromisoformat(month + "-01")
+    last = (first.replace(day=28) + datetime.timedelta(days=4)).replace(day=1) - datetime.timedelta(days=1)
+    return first.isoformat(), last.isoformat()
 
 
 def polsca(fetched):
@@ -217,6 +262,23 @@ def main(fetched, outdir, committed=None):
                     "editions": eds})
     elif "Scandlines" in prev_ops:
         ops.append(prev_ops["Scandlines"])
+
+    # Stena: each month's notice, with the months kept from before.
+    st = stena(fetched)
+    if st:
+        new = {month_span(m)[0] for m, _, _ in st}
+        eds = [e for e in prev_ops.get("Stena Line", {}).get("editions", []) if e["from"] not in new]
+        for m, rates, src in st:
+            f, l = month_span(m)
+            eds.append({"from": f, "to": l, "basis": "the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU Maritime's compliance cost included (0.15 EUR per lane metre)",
+                        "source": src, "rates": rates})
+        routes = sorted({r for e in eds for r in e["rates"]})
+        ops.append({"operator": "Stena Line", "unit": "EUR per metre", "commenced_metre": False, "min_m": 0,
+                    "source": {"title": "Stena Line Freight: EU ETS matrix levels, monthly", "url": STENA_URL},
+                    "routes": [{"name": r, "crossings": route_crossings(idx, r, "–")} for r in routes],
+                    "editions": sorted(eds, key=lambda e: e["from"])})
+    elif "Stena Line" in prev_ops:
+        ops.append(prev_ops["Stena Line"])
 
     # POLSCA: each announcement, until the next one for the route.
     pol = polsca(fetched)

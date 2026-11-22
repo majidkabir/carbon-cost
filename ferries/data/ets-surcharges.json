@@ -314,6 +314,117 @@
    ]
   },
   {
+   "operator": "Stena Line",
+   "unit": "EUR per metre",
+   "commenced_metre": false,
+   "min_m": 0,
+   "source": {
+    "title": "Stena Line Freight: EU ETS matrix levels, monthly",
+    "url": "https://stenalinefreight.com/charges/"
+   },
+   "routes": [
+    {
+     "name": "Dublin–Holyhead",
+     "crossings": [
+      "dublin-holyhead"
+     ]
+    },
+    {
+     "name": "Dublin–Liverpool",
+     "crossings": [
+      "dublin-liverpool"
+     ]
+    },
+    {
+     "name": "Fishguard–Rosslare",
+     "crossings": [
+      "rosslare-fishguard"
+     ]
+    },
+    {
+     "name": "Gothenburg–Frederikshavn",
+     "crossings": [
+      "gothenburg-frederikshavn"
+     ]
+    },
+    {
+     "name": "Gothenburg–Kiel",
+     "crossings": [
+      "gothenburg-kiel"
+     ]
+    },
+    {
+     "name": "Hoek van Holland–Harwich",
+     "crossings": [
+      "hoek-van-holland-harwich"
+     ]
+    },
+    {
+     "name": "Hoek van Holland–Immingham",
+     "crossings": [
+      "hoek-van-holland-immingham"
+     ]
+    },
+    {
+     "name": "Karlskrona–Gdynia",
+     "crossings": [
+      "gdynia-karlskrona"
+     ]
+    },
+    {
+     "name": "Nynäshamn–Ventspils",
+     "crossings": [
+      "nynashamn-ventspils"
+     ]
+    },
+    {
+     "name": "Rotterdam–Harwich",
+     "crossings": []
+    },
+    {
+     "name": "Rotterdam–Immingham",
+     "crossings": [
+      "rotterdam-immingham"
+     ]
+    },
+    {
+     "name": "Travemünde–Liepāja",
+     "crossings": [
+      "travemunde-liepaja"
+     ]
+    },
+    {
+     "name": "Trelleborg–Rostock",
+     "crossings": [
+      "rostock-trelleborg"
+     ]
+    }
+   ],
+   "editions": [
+    {
+     "from": "2026-11-01",
+     "to": "2026-11-30",
+     "basis": "the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU Maritime's compliance cost included (0.15 EUR per lane metre)",
+     "source": "https://stenalinefreight.com/charges/ (read in Chrome: tools/tables/browser/stena-ets.txt)",
+     "rates": {
+      "Dublin–Holyhead": 1.56,
+      "Dublin–Liverpool": 1.41,
+      "Fishguard–Rosslare": 1.56,
+      "Gothenburg–Frederikshavn": 1.74,
+      "Gothenburg–Kiel": 4.67,
+      "Hoek van Holland–Harwich": 1.54,
+      "Hoek van Holland–Immingham": 1.85,
+      "Karlskrona–Gdynia": 3.78,
+      "Nynäshamn–Ventspils": 3.86,
+      "Rotterdam–Harwich": 1.54,
+      "Rotterdam–Immingham": 1.85,
+      "Travemünde–Liepāja": 6.92,
+      "Trelleborg–Rostock": 1.59
+     }
+    }
+   ]
+  },
+  {
    "operator": "POLSCA Baltic Ferries (Polferries, Unity Line)",
    "unit": "EUR per commenced metre",
    "commenced_metre": true,

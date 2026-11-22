@@ -312,3 +312,14 @@ func hasLine(r Response, charge string) bool {
 	}
 	return false
 }
+
+func TestFerrySurchargeStena(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	s, ok := fd.ETSSurcharge("gothenburg-kiel", time.Date(2026, 11, 10, 0, 0, 0, 0, time.UTC))
+	if !ok || s.Operator != "Stena Line" || s.EURPerM != 4.67 || s.Metres(16.5) != 16.5 {
+		t.Errorf("Stena Gothenburg–Kiel: %+v", s)
+	}
+}

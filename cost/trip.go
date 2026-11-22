@@ -51,6 +51,14 @@ type Trip struct {
 	// FuelBasis says where FuelL comes from: diesel_l, fuel_purchases,
 	// l_per_100km, or the default by vehicle group and load.
 	FuelBasis string `json:"fuel_basis"`
+	// Hours is the trip's driving time: Sootcase's at truck speeds
+	// (ferries included) where it gives it, else the road km at
+	// avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest,
+	// adds a single driver's breaks and daily rests (Regulation (EC) No
+	// 561/2006, Arts. 6-8).
+	Hours      float64 `json:"hours"`
+	HoursBasis string  `json:"hours_basis"`
+	ElapsedH   float64 `json:"elapsed_h,omitempty"`
 }
 
 // TripLeg is the trip between two consecutive stops.
@@ -89,10 +97,11 @@ type ShipmentCost struct {
 	// surcharges are quoted.
 	EURPer100Kg       float64 `json:"eur_per_100kg"`
 	CarbonEURPer100Kg float64 `json:"carbon_eur_per_100kg"`
-	// FuelEUR and WithFuelEUR are its tonne-km share of the trip's fuel
-	// and of with_fuel_eur.
+	// FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the
+	// trip's fuel, with_fuel_eur and trip_cost_eur.
 	FuelEUR     float64 `json:"fuel_eur,omitempty"`
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
 	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
 	// the truck's diesel plus its share by weight of the ferries it is on,
 	// when the diesel is given; else Sootcase's (GLEC default intensity x
@@ -302,7 +311,31 @@ func tripOf(res sootcase.Result, req Request) *Trip {
 	}
 	tr.FuelL, tr.FuelBasis = tripFuel(tr.Legs, req)
 	tr.FuelL, tr.RoadKm, tr.EmptyKm = round2(tr.FuelL), round3(tr.RoadKm), round3(tr.EmptyKm)
+	tr.Hours, tr.HoursBasis = tripHours(res, tr.RoadKm, req)
+	if req.DriverRest {
+		tr.ElapsedH = math.Round(withRest(tr.Hours)*100) / 100
+	}
 	return tr
+}
+
+// tripHours is the trip's driving time, and on what basis.
+func tripHours(res sootcase.Result, roadKm float64, req Request) (float64, string) {
+	var h float64
+	all := len(res.Legs) > 0
+	for _, l := range res.Legs {
+		if l.DurationH <= 0 {
+			all = false
+		}
+		h += l.DurationH
+	}
+	if all {
+		return math.Round(h*100) / 100, "Sootcase's driving time at truck speeds, ferries included"
+	}
+	v := req.AvgSpeedKmh
+	if v <= 0 {
+		v = DefaultAvgSpeedKmh
+	}
+	return math.Round(roadKm/v*100) / 100, fmt.Sprintf("%.0f road km at %g km/h (avg_speed_kmh); ferry crossings not counted", roadKm, v)
 }
 
 // fuelShares is where the trip's fuel is bought: fuel_purchases by their
@@ -385,6 +418,7 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		if out.Fuel != nil {
 			c.FuelEUR, c.WithFuelEUR = round2(out.Fuel.EUR*share), round2(out.WithFuelEUR*share)
 		}
+		c.TripCostEUR = round2(out.TripCostEUR * share)
 		if i < len(req.shipTTW) {
 			c.TTWKg, c.WTWKg = round3(req.shipTTW[i]), round3(req.shipWTW[i])
 		} else if len(ships) == 1 {

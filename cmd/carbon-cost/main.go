@@ -197,7 +197,9 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.BoolVar(&req.ETC, "etc", false, "pays tolls by electronic toll device or agreement (operators' discounts)")
 	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
 	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
-	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
+	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times and the trip's time (Regulation (EC) No 561/2006)")
+	fs.Float64Var(&req.DriverEURPerH, "driver-eur-h", 0, "the driver's cost, EUR per hour of driving: adds a trip cost (charges, diesel, driver, vehicle), which -route cheapest compares")
+	fs.Float64Var(&req.VehicleEURPerKm, "vehicle-eur-km", 0, "the truck's own cost, EUR per road km (tyres, maintenance, depreciation): adds to the trip cost")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
@@ -544,6 +546,16 @@ func printResult(r cost.Response) {
 		fmt.Printf("Fuel: EUR %.2f without VAT%s (%s); with fuel: EUR %.2f (the CO2 prices on fuel, EUR %.2f, are in the diesel price)\n",
 			f.EUR, inc, strings.Join(parts, ", "), r.WithFuelEUR, f.InPriceEUR)
 	}
+	if r.Trip != nil && r.Trip.Hours > 0 {
+		rest := ""
+		if r.Trip.ElapsedH > 0 {
+			rest = fmt.Sprintf("; %.2f h with breaks and rests", r.Trip.ElapsedH)
+		}
+		fmt.Printf("Driving: %.2f h (%s)%s\n", r.Trip.Hours, r.Trip.HoursBasis, rest)
+	}
+	if r.TripCostEUR > 0 {
+		fmt.Printf("Trip cost: EUR %.2f (driver EUR %.2f, vehicle EUR %.2f)\n", r.TripCostEUR, r.DriverEUR, r.VehicleEUR)
+	}
 	if r.EURPerTkm > 0 {
 		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)
 	}
@@ -553,7 +565,12 @@ func printResult(r cost.Response) {
 	if len(r.Routes) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
-		fmt.Fprintln(w, "Route\tkm\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tDifference\t")
+		tc := r.TripCostEUR > 0
+		if tc {
+			fmt.Fprintln(w, "Route\tkm\tHours\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tTrip cost EUR\tDifference\t")
+		} else {
+			fmt.Fprintln(w, "Route\tkm\tHours\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tDifference\t")
+		}
 		for _, o := range r.Routes {
 			id := o.ID
 			if o.Chosen {
@@ -575,7 +592,11 @@ func printResult(r cost.Response) {
 			if !o.Complete {
 				inc = " (incomplete)"
 			}
-			fmt.Fprintf(w, "%s\t%.1f\t%s\t%s\t%.2f%s\t%.2f\t%+.2f\t\n", id, o.DistanceKm, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.DiffEUR)
+			if tc {
+				fmt.Fprintf(w, "%s\t%.1f\t%.2f\t%s\t%s\t%.2f%s\t%.2f\t%.2f\t%+.2f\t\n", id, o.DistanceKm, o.Hours, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.TripCostEUR, o.DiffEUR)
+			} else {
+				fmt.Fprintf(w, "%s\t%.1f\t%.2f\t%s\t%s\t%.2f%s\t%.2f\t%+.2f\t\n", id, o.DistanceKm, o.Hours, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.DiffEUR)
+			}
 		}
 		w.Flush()
 	}

@@ -13,8 +13,9 @@ import (
 )
 
 // fakeAlternatives answers each leg with a 100 km primary route in
-// Germany and, when asked for alternatives, a 150 km one: German tolls
-// make the primary the cheaper.
+// Germany taking 4 hours and, when asked for alternatives, a 150 km one
+// taking 1.5: German tolls make the primary the cheaper, the driver's
+// time the other.
 func fakeAlternatives(t *testing.T, queries *[]string, mu *sync.Mutex) *httptest.Server {
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var s sootcase.Shipment
@@ -22,16 +23,16 @@ func fakeAlternatives(t *testing.T, queries *[]string, mu *sync.Mutex) *httptest
 		mu.Lock()
 		*queries = append(*queries, r.URL.RawQuery)
 		mu.Unlock()
-		leg := func(km float64, roads ...string) sootcase.LegResult {
+		leg := func(km, h float64, roads ...string) sootcase.LegResult {
 			ttw := 0.08 * s.WeightKg / 1000 * km
-			return sootcase.LegResult{DistanceKm: km, TTWKg: ttw, WTWKg: ttw * 1.25, CountryKm: map[string]float64{"DE": km},
+			return sootcase.LegResult{DistanceKm: km, DurationH: h, TTWKg: ttw, WTWKg: ttw * 1.25, CountryKm: map[string]float64{"DE": km},
 				Path: [][2]float64{{9, 52}, {10, 52}}, Summary: &sootcase.RouteSummary{Roads: roads, Ferries: []sootcase.FerryUse{}}}
 		}
 		var res sootcase.Result
 		for range s.Legs {
-			l := leg(100, "A7")
+			l := leg(100, 4, "A7")
 			if r.URL.Query().Get("alternatives") != "" {
-				a := leg(150, "A1", "A2")
+				a := leg(150, 1.5, "A1", "A2")
 				a.ID = "alt1"
 				l.Alternatives = []sootcase.LegResult{a}
 			}
@@ -78,6 +79,16 @@ func TestRoutes(t *testing.T) {
 	if r, err = c.Calculate(context.Background(), req); err != nil || r.DistanceKm != 100 || !r.Routes[0].Chosen || !strings.Contains(queries[len(queries)-1], "alternatives=3") {
 		t.Fatalf("cheapest: %v %v %+v", err, r.DistanceKm, r.Routes)
 	}
+	// The driver's time makes the faster route the cheaper.
+	req.DriverEURPerH, req.VehicleEURPerKm = 35, 0.4
+	if r, err = c.Calculate(context.Background(), req); err != nil || r.DistanceKm != 150 || !r.Routes[1].Chosen || r.Routes[0].Hours != 4 || r.Trip.Hours != 1.5 ||
+		r.DriverEUR != 52.5 || r.VehicleEUR != 60 || r.TripCostEUR != round2(r.WithFuelEUR+112.5) || r.Routes[1].DiffEUR >= 0 {
+		t.Fatalf("cheapest with running costs: %v %v %+v %+v", err, r.DistanceKm, r.Trip, r.Routes)
+	}
+	if r.Shipments[0].TripCostEUR != r.TripCostEUR {
+		t.Errorf("shipment trip cost %v, want %v", r.Shipments[0].TripCostEUR, r.TripCostEUR)
+	}
+	req.DriverEURPerH, req.VehicleEURPerKm = 0, 0
 	req.Route = "alt9"
 	if _, err = c.Calculate(context.Background(), req); err == nil || !strings.Contains(err.Error(), "primary, alt1") {
 		t.Errorf("unknown route: %v", err)
@@ -94,10 +105,26 @@ func TestRoutes(t *testing.T) {
 	if r, err = c.Calculate(context.Background(), req); err != nil || len(r.Routes) != 3 || r.Routes[1].ID != "leg1:alt1" || r.Routes[2].ID != "leg2:alt1" || r.Routes[1].DistanceKm != 250 {
 		t.Fatalf("stops: %v %+v", err, r.Routes)
 	}
-	for _, bad := range []Request{{Alternatives: 6}, {Route: "fastest"}, {Ferry: "only"}, {Alternatives: 3, CountryKm: map[string]float64{"DE": 100}}} {
+	for _, bad := range []Request{{Alternatives: 6}, {Route: "fastest"}, {Ferry: "only"}, {Alternatives: 3, CountryKm: map[string]float64{"DE": 100}}, {DriverEURPerH: 900}, {VehicleEURPerKm: -1}} {
 		bad.CargoKg, bad.From, bad.To = 1, base.From, base.To
 		if err := check(bad); err == nil {
 			t.Errorf("%+v: want an error", bad)
 		}
+	}
+}
+
+func TestTripHours(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 700}}}
+	if h, b := tripHours(res, 700, Request{}); h != 10 || !strings.Contains(b, "70 km/h") {
+		t.Errorf("by speed: %v %q", h, b)
+	}
+	res.Legs[0].DurationH = 8
+	if h, b := tripHours(res, 700, Request{}); h != 8 || !strings.Contains(b, "Sootcase") {
+		t.Errorf("Sootcase: %v %q", h, b)
+	}
+	// 10 hours' driving: 9 with a 45-minute break, an 11-hour rest, then 1.
+	res.Legs[0].DurationH = 10
+	if tr := tripOf(res, Request{DriverRest: true, Truck: truck40}); tr.Hours != 10 || tr.ElapsedH != 21.75 {
+		t.Errorf("with rest: %+v", tr)
 	}
 }

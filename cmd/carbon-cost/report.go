@@ -15,7 +15,7 @@ import (
 
 // reportSums are the priced CSV's columns a report adds up.
 var reportSums = []string{"distance_km", "empty_km", "fuel_l", "cargo_kg", "tkm", "wtw_kg", "ttw_kg", "total_eur", "carbon_eur",
-	"road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_eur", "with_fuel_eur"}
+	"road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "hours"}
 
 // reportColumns follow the groups' columns in a report.
 var reportColumns = append([]string{"rows", "shipments"}, append(slices.Clone(reportSums),

@@ -111,3 +111,20 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	}
 	out.Notes = append(out.Notes, note+".")
 }
+
+// runningCost adds the truck's own running costs at the rates given: the
+// driver per hour of the trip and the vehicle per road km.
+func runningCost(out *Response, req Request) {
+	if out.Trip == nil || req.DriverEURPerH <= 0 && req.VehicleEURPerKm <= 0 {
+		return
+	}
+	out.DriverEUR = round2(out.Trip.Hours * req.DriverEURPerH)
+	out.VehicleEUR = round2(out.Trip.RoadKm * req.VehicleEURPerKm)
+	base := out.TotalEUR
+	if out.Fuel != nil {
+		base = out.WithFuelEUR
+	}
+	out.TripCostEUR = round2(base + out.DriverEUR + out.VehicleEUR)
+	out.Notes = append(out.Notes, fmt.Sprintf("Trip cost: the charges, the diesel and the running costs given: the driver %.2f h x EUR %g (%s), the vehicle %.1f road km x EUR %g.",
+		out.Trip.Hours, req.DriverEURPerH, out.Trip.HoursBasis, out.Trip.RoadKm, req.VehicleEURPerKm))
+}

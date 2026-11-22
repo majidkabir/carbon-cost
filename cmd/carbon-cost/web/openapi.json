@@ -474,6 +474,10 @@
       "description": "DKKPerEUR converts DKK to EUR; default DKKPerEUR.",
       "type": "number"
      },
+     "driver_eur_per_h": {
+      "description": "DriverEURPerH and VehicleEURPerKm are the truck's own running costs: the driver per hour of driving (Trip.Hours; put paid breaks and allowances in the rate) and the vehicle per road km (tyres, maintenance, depreciation). With either, trip_cost_eur adds them to with_fuel_eur, and route \"cheapest\" compares by it.",
+      "type": "number"
+     },
      "driver_rest": {
       "description": "DriverRest adds a single driver's breaks and daily rests to those times (Regulation (EC) No 561/2006, Arts. 7 and 8): 45 minutes after 4.5 hours' driving, 11 hours after 9.",
       "type": "boolean"
@@ -605,6 +609,9 @@
       "description": "UKAGbpPerT is the UK ETS allowance price (GBP per t CO2e), for crossings between UK ports from 1 July 2026. 0: not priced.",
       "type": "number"
      },
+     "vehicle_eur_per_km": {
+      "type": "number"
+     },
      "vehicle_type": {
       "type": "string"
      }
@@ -650,6 +657,10 @@
       "type": "string"
      },
      "distance_km": {
+      "type": "number"
+     },
+     "driver_eur": {
+      "description": "DriverEUR and VehicleEUR are the running costs at the rates given; TripCostEUR is with_fuel_eur (total_eur without a diesel price) and them.",
       "type": "number"
      },
      "emissions_basis": {
@@ -757,8 +768,14 @@
       ],
       "description": "Trip is the truck's trip: legs, loads and diesel."
      },
+     "trip_cost_eur": {
+      "type": "number"
+     },
      "ttw_kg": {
       "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
+      "type": "number"
+     },
+     "vehicle_eur": {
       "type": "number"
      },
      "with_fuel_eur": {
@@ -810,13 +827,10 @@
       "type": "object"
      },
      "diff_eur": {
-      "description": "DiffEUR is its cost less the primary's: with_fuel_eur where both have it, else total_eur.",
+      "description": "DiffEUR is its cost less the primary's: trip_cost_eur with running costs given, else with_fuel_eur where all have it, else total_eur.",
       "type": "number"
      },
      "distance_km": {
-      "type": "number"
-     },
-     "duration_h": {
       "type": "number"
      },
      "error": {
@@ -830,6 +844,10 @@
       "type": "array"
      },
      "ferry_km": {
+      "type": "number"
+     },
+     "hours": {
+      "description": "Hours is the trip's driving time on it (Trip.Hours).",
       "type": "number"
      },
      "id": {
@@ -846,8 +864,11 @@
      "total_eur": {
       "type": "number"
      },
+     "trip_cost_eur": {
+      "type": "number"
+     },
      "with_fuel_eur": {
-      "description": "WithFuelEUR is the charges and the diesel (Response.WithFuelEUR).",
+      "description": "WithFuelEUR is the charges and the diesel (Response.WithFuelEUR); TripCostEUR adds the running costs given.",
       "type": "number"
      }
     },
@@ -957,7 +978,7 @@
       "type": "integer"
      },
      "fuel_eur": {
-      "description": "FuelEUR and WithFuelEUR are its tonne-km share of the trip's fuel and of with_fuel_eur.",
+      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
       "type": "number"
      },
      "id": {
@@ -978,6 +999,9 @@
       "type": "integer"
      },
      "total_eur": {
+      "type": "number"
+     },
+     "trip_cost_eur": {
       "type": "number"
      },
      "ttw_kg": {
@@ -1182,6 +1206,9 @@
     "additionalProperties": false,
     "description": "Trip is the truck's trip: its legs between stops, what was on board, and the diesel it burned, on which the CO2 prices on fuel and ETS2 are charged.",
     "properties": {
+     "elapsed_h": {
+      "type": "number"
+     },
      "empty_km": {
       "description": "EmptyKm is the road km with nothing on board.",
       "type": "number"
@@ -1193,6 +1220,13 @@
      "fuel_l": {
       "description": "FuelL is the litres of diesel on the road.",
       "type": "number"
+     },
+     "hours": {
+      "description": "Hours is the trip's driving time: Sootcase's at truck speeds (ferries included) where it gives it, else the road km at avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest, adds a single driver's breaks and daily rests (Regulation (EC) No 561/2006, Arts. 6-8).",
+      "type": "number"
+     },
+     "hours_basis": {
+      "type": "string"
      },
      "legs": {
       "items": {
@@ -1208,6 +1242,8 @@
     "required": [
      "fuel_basis",
      "fuel_l",
+     "hours",
+     "hours_basis",
      "legs",
      "road_km"
     ],

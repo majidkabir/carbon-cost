@@ -2,7 +2,6 @@ package cost
 
 import (
 	"fmt"
-	"math"
 	"slices"
 	"strings"
 	"time"
@@ -25,14 +24,17 @@ type RouteOption struct {
 	DistanceKm float64            `json:"distance_km"`
 	FerryKm    float64            `json:"ferry_km,omitempty"`
 	CountryKm  map[string]float64 `json:"country_km"`
-	DurationH  float64            `json:"duration_h,omitempty"`
-	TotalEUR   float64            `json:"total_eur"`
-	CarbonEUR  float64            `json:"carbon_eur"`
-	// WithFuelEUR is the charges and the diesel (Response.WithFuelEUR).
+	// Hours is the trip's driving time on it (Trip.Hours).
+	Hours     float64 `json:"hours,omitempty"`
+	TotalEUR  float64 `json:"total_eur"`
+	CarbonEUR float64 `json:"carbon_eur"`
+	// WithFuelEUR is the charges and the diesel (Response.WithFuelEUR);
+	// TripCostEUR adds the running costs given.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
 	Complete    bool    `json:"complete"`
-	// DiffEUR is its cost less the primary's: with_fuel_eur where both
-	// have it, else total_eur.
+	// DiffEUR is its cost less the primary's: trip_cost_eur with running
+	// costs given, else with_fuel_eur where all have it, else total_eur.
 	DiffEUR float64 `json:"diff_eur"`
 	// Error says why it couldn't be priced.
 	Error string `json:"error,omitempty"`
@@ -83,10 +85,14 @@ func variants(res sootcase.Result) []variant {
 	return out
 }
 
-// routeCost is what routes are compared by: the charges and the diesel,
-// or the charges where a diesel price is missing.
+// routeCost is what routes are compared by: the trip cost with the
+// running costs given, else the charges and the diesel, or the charges
+// where a diesel price is missing.
 func routeCost(o RouteOption, withFuel bool) float64 {
-	if withFuel {
+	switch {
+	case o.TripCostEUR > 0:
+		return o.TripCostEUR
+	case withFuel:
 		return o.WithFuelEUR
 	}
 	return o.TotalEUR
@@ -105,7 +111,6 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 		out, err := c.priceRoute(v.res, &r, date)
 		o := RouteOption{ID: v.id, CountryKm: map[string]float64{}}
 		for _, l := range v.res.Legs {
-			o.DurationH += l.DurationH
 			if l.Summary != nil {
 				for _, rd := range l.Summary.Roads {
 					if !slices.Contains(o.Roads, rd) {
@@ -121,14 +126,16 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 				}
 			}
 		}
-		o.DurationH = math.Round(o.DurationH*100) / 100
 		if err != nil {
 			o.Error = err.Error()
 			opts[i] = o
 			continue
 		}
 		o.DistanceKm, o.FerryKm, o.CountryKm = out.DistanceKm, out.FerryKm, out.CountryKm
-		o.TotalEUR, o.CarbonEUR, o.WithFuelEUR, o.Complete = out.TotalEUR, out.CarbonEUR, out.WithFuelEUR, out.Complete
+		o.TotalEUR, o.CarbonEUR, o.WithFuelEUR, o.TripCostEUR, o.Complete = out.TotalEUR, out.CarbonEUR, out.WithFuelEUR, out.TripCostEUR, out.Complete
+		if out.Trip != nil {
+			o.Hours = out.Trip.Hours
+		}
 		if len(o.Ferries) == 0 && out.FerryCrossing != "" {
 			o.Ferries = strings.Split(out.FerryCrossing, ", ")
 		}
@@ -200,7 +207,9 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 	note := fmt.Sprintf("Routes: %d priced; this is %s", len(opts), desc(opts[pick]))
 	if req.Route == "cheapest" {
 		what := "charges and diesel"
-		if !withFuel {
+		if req.DriverEURPerH > 0 || req.VehicleEURPerKm > 0 {
+			what = "trip cost (charges, diesel, driver and vehicle)"
+		} else if !withFuel {
 			what = "charges (a diesel price is missing)"
 		}
 		note += ", the cheapest by " + what

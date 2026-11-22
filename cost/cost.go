@@ -169,6 +169,13 @@ type Request struct {
 	// with_fuel_eur adds the fuel.
 	DieselEURPerL          float64            `json:"diesel_eur_per_l,omitempty"`
 	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
+	// DriverEURPerH and VehicleEURPerKm are the truck's own running costs:
+	// the driver per hour of driving (Trip.Hours; put paid breaks and
+	// allowances in the rate) and the vehicle per road km (tyres,
+	// maintenance, depreciation). With either, trip_cost_eur
+	// adds them to with_fuel_eur, and route "cheapest" compares by it.
+	DriverEURPerH   float64 `json:"driver_eur_per_h,omitempty"`
+	VehicleEURPerKm float64 `json:"vehicle_eur_per_km,omitempty"`
 	// Alternatives asks Sootcase for up to this many routes of each leg
 	// (2 to 5; Sootcase v0.14.0): each is priced in full, and routes
 	// lists them. On a trip with stops, an alternative is one leg's other
@@ -308,6 +315,12 @@ type Response struct {
 	// WithFuelEUR is total_eur and the fuel, without counting twice the
 	// CO2 prices on fuel (and ETS2) that the diesel price already holds.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	// DriverEUR and VehicleEUR are the running costs at the rates given;
+	// TripCostEUR is with_fuel_eur (total_eur without a diesel price) and
+	// them.
+	DriverEUR   float64 `json:"driver_eur,omitempty"`
+	VehicleEUR  float64 `json:"vehicle_eur,omitempty"`
+	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
 	// NoRates lists countries on the route this tool has no toll table
 	// for: their charges are not included.
 	NoRates []string `json:"no_rates,omitempty"`
@@ -705,6 +718,9 @@ func check(req Request) error {
 	if req.Ferry != "" && (len(req.Path) > 0 || len(req.CountryKm) > 0) {
 		return fmt.Errorf("ferry: not with path or country_km, which give the route")
 	}
+	if req.DriverEURPerH < 0 || req.DriverEURPerH > 500 || req.VehicleEURPerKm < 0 || req.VehicleEURPerKm > 50 {
+		return fmt.Errorf("driver_eur_per_h (0-500) and vehicle_eur_per_km (0-50): give EUR, e.g. 35 and 0.45")
+	}
 	if req.DieselEURPerL < 0 || req.DieselEURPerL > 10 {
 		return fmt.Errorf("diesel_eur_per_l %v: give EUR per litre without VAT, e.g. 1.45", req.DieselEURPerL)
 	}
@@ -910,6 +926,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		return Response{}, err
 	}
 	fuelCost(&out, req, date)
+	runningCost(&out, req)
 	allocate(&out, res, req)
 	if out.Trip.FuelL > 0 && strings.HasPrefix(out.Trip.FuelBasis, "default") {
 		out.Provenance.Assumed = append(out.Provenance.Assumed, fmt.Sprintf("diesel: %.1f l (%.1f l/100 km) for a new truck of its VECTO group (%s); give l_per_100km or diesel_l for the truck's own",

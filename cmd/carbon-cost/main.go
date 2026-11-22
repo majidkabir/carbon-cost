@@ -127,6 +127,21 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 }
 
 func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, error) {
+	return parseCalcWith(args, errs, nil)
+}
+
+// calcFlagNames are calc's flags, without the dash.
+func calcFlagNames() map[string]bool {
+	names := map[string]bool{}
+	parseCalcWith(nil, flag.ContinueOnError, func(fs *flag.FlagSet) {
+		fs.VisitAll(func(f *flag.Flag) { names[f.Name] = true })
+	})
+	return names
+}
+
+// parseCalcWith is parseCalc; inspect, if not nil, sees the flags before
+// they are parsed.
+func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.FlagSet)) (cost.Request, calcOpts, error) {
 	fs := flag.NewFlagSet("calc", errs)
 	if errs == flag.ContinueOnError {
 		fs.SetOutput(io.Discard) // a CSV row's error goes in its row
@@ -174,6 +189,9 @@ func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, 
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
+	if inspect != nil {
+		inspect(fs)
+	}
 	if err := fs.Parse(args); err != nil {
 		return req, calcOpts{}, err
 	}

@@ -98,13 +98,25 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 		return fmt.Errorf("-csv: a header and at least one row are needed")
 	}
 	head := rows[0]
+	// Columns that name no flag (a truck, an order number) are kept as
+	// they are; a typo in a flag's name shows in this list.
+	known := calcFlagNames()
+	var labels []string
+	for _, name := range head {
+		if n := strings.TrimPrefix(strings.TrimSpace(name), "-"); n != "" && !known[n] {
+			labels = append(labels, n)
+		}
+	}
+	if len(labels) > 0 {
+		fmt.Fprintf(os.Stderr, "calc -csv: columns kept as labels (no flag of that name): %s\n", strings.Join(labels, ", "))
+	}
 	base := withoutCSV(args)
 	trips, bad := make([]cost.Request, len(rows)-1), make([]string, len(rows)-1)
 	for i, row := range rows[1:] {
 		a := slices.Clone(base)
 		for k, name := range head {
 			name = strings.TrimPrefix(strings.TrimSpace(name), "-")
-			if k < len(row) && strings.TrimSpace(row[k]) != "" && name != "" {
+			if k < len(row) && strings.TrimSpace(row[k]) != "" && known[name] {
 				a = append(a, "-"+name+"="+strings.TrimSpace(row[k]))
 			}
 		}

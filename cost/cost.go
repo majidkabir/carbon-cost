@@ -243,10 +243,20 @@ type Response struct {
 	FerryCrossing string             `json:"ferry_crossing,omitempty"`
 	CountryKm     map[string]float64 `json:"country_km"`
 	RegionKm      map[string]float64 `json:"region_km,omitempty"`
-	// TTWKg and WTWKg are the shipments' emissions from Sootcase (GLEC
-	// default intensities x their tonne-km, EN ISO 14083's default data).
+	// TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e,
+	// tank-to-wheel and well-to-wheel: from the truck's own diesel when it
+	// is given (primary data, which Regulation (EU) 2026/1030 puts first),
+	// else Sootcase's (GLEC default intensities x the tonne-km, modelled).
 	TTWKg float64 `json:"ttw_kg"`
 	WTWKg float64 `json:"wtw_kg"`
+	// DataType is "primary" (the truck's diesel given) or "modelled"
+	// (Sootcase's defaults, or the default diesel of the truck's group).
+	DataType string `json:"data_type"`
+	// EmissionsBasis says how TTWKg and WTWKg were found.
+	EmissionsBasis string `json:"emissions_basis"`
+	// IntensityG is the well-to-wheel g CO2e per tonne-km of the
+	// shipments: EN ISO 14083's emission intensity.
+	IntensityG float64 `json:"intensity_g_co2e_per_tkm"`
 	// Trip is the truck's trip: legs, loads and diesel.
 	Trip *Trip `json:"trip,omitempty"`
 	// Shipments are each shipment's share of the trip's charges, by
@@ -624,11 +634,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 	}
 	out.Trip = tripOf(res, req)
+	req = tripEmissions(&out, res, req)
 	if len(req.CountryKm) > 0 {
-		// No Sootcase: the truck's own diesel is the trip's emissions.
-		out.TTWKg, out.WTWKg = round3(out.Trip.FuelL*DieselKgCO2PerL), round3(out.Trip.FuelL*DieselKgCO2ePerLWTW)
-		out.Notes = append(out.Notes, fmt.Sprintf("country_km: no route, so tolls at stations, on sections, bridges and tunnels, ferries and environmental zones aren't priced (give from and to, or path); emissions are the diesel's, %.1f l x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1).",
-			out.Trip.FuelL, DieselKgCO2PerL, DieselKgCO2ePerLWTW))
+		out.Notes = append(out.Notes, "country_km: no route, so tolls at stations, on sections, bridges and tunnels, ferries and environmental zones aren't priced (give from and to, or path).")
 	}
 	// The road diesel's tank-to-wheel CO2, t: what ETS2 and the CO2 prices
 	// on fuel are charged on.

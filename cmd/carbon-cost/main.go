@@ -445,12 +445,15 @@ func printResult(r cost.Response) {
 		}
 		fmt.Printf("Truck: %.1f road km%s, %.1f l diesel (%s)\n", tr.RoadKm, empty, tr.FuelL, tr.FuelBasis)
 	}
+	if r.WTWKg > 0 {
+		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
+	}
 	if len(r.Shipments) > 1 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
-		fmt.Fprintln(w, "Shipment	kg	Stops	km	tkm	Share	EUR	Carbon EUR	TTW kg	")
+		fmt.Fprintln(w, "Shipment\tkg\tStops\tkm\ttkm\tShare\tEUR\tCarbon EUR\tCO2e kg\tg/tkm\t")
 		for _, s := range r.Shipments {
-			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.1f\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.CarbonEUR, s.TTWKg)
+			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.1f\t%.1f\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.CarbonEUR, s.WTWKg, s.IntensityG)
 		}
 		w.Flush()
 		fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")

@@ -81,10 +81,14 @@ type ShipmentCost struct {
 	CarbonEUR float64 `json:"carbon_eur"`
 	// ByCharge is its share of each kind of charge, in EUR.
 	ByCharge map[string]float64 `json:"by_charge"`
-	// TTWKg and WTWKg are its emissions from Sootcase (GLEC default
-	// intensity x its tonne-km).
+	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
+	// the truck's diesel plus its share by weight of the ferries it is on,
+	// when the diesel is given; else Sootcase's (GLEC default intensity x
+	// its tonne-km).
 	TTWKg float64 `json:"ttw_kg"`
 	WTWKg float64 `json:"wtw_kg"`
+	// IntensityG is its well-to-wheel g CO2e per tonne-km.
+	IntensityG float64 `json:"intensity_g_co2e_per_tkm"`
 }
 
 // stops is the request's stops: stops, or from and to.
@@ -365,6 +369,91 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		} else if len(ships) == 1 {
 			c.TTWKg, c.WTWKg = round3(out.TTWKg), round3(out.WTWKg)
 		}
+		if t > 0 {
+			c.IntensityG = round2(c.WTWKg * 1000 / t)
+		}
 		out.Shipments = append(out.Shipments, c)
 	}
+	if tkm > 0 {
+		out.IntensityG = round2(out.WTWKg * 1000 / tkm)
+	}
+}
+
+// fuelGiven is whether the request gives the truck's own diesel.
+func (r Request) fuelGiven() bool {
+	return r.DieselL > 0 || r.LPer100Km > 0 || len(r.FuelPurchases) > 0
+}
+
+// tripEmissions sets the trip's emissions. With the truck's own diesel
+// (primary data: EN ISO 14083 and Regulation (EU) 2026/1030 put it before
+// default values), or with no route (country_km): the road's are the
+// litres x EN 16258's factors, shared out by tonne-km, and a ferry's are
+// Sootcase's for the load on board, shared by weight among the shipments
+// on it. Else they stay Sootcase's. It returns req with the shipments'.
+func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
+	out.DataType, out.EmissionsBasis = "modelled", "Sootcase: GLEC default intensities x each shipment's tonne-km on its own route"
+	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
+		return req
+	}
+	if req.fuelGiven() {
+		out.DataType = "primary"
+	}
+	fuel := out.Trip.FuelL
+	roadTTW, roadWTW := fuel*DieselKgCO2PerL, fuel*DieselKgCO2ePerLWTW
+	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1), shared out by tonne-km",
+		fuel, out.Trip.FuelBasis, DieselKgCO2PerL, DieselKgCO2ePerLWTW)
+	ships := req.shipments()
+	dist := make([]float64, len(ships))
+	var tkm float64
+	for i, s := range ships {
+		if i < len(req.shipDistKm) && req.shipDistKm[i] > 0 {
+			dist[i] = req.shipDistKm[i]
+		} else {
+			for j := s.From; j < s.To && j < len(res.Legs); j++ {
+				dist[i] += res.Legs[j].DistanceKm
+			}
+		}
+		tkm += s.WeightKg / 1000 * dist[i]
+	}
+	ttw, wtw := make([]float64, len(ships)), make([]float64, len(ships))
+	for i, s := range ships {
+		share := 1.0
+		if tkm > 0 {
+			share = s.WeightKg / 1000 * dist[i] / tkm
+		}
+		ttw[i], wtw[i] = roadTTW*share, roadWTW*share
+	}
+	out.TTWKg, out.WTWKg = roadTTW, roadWTW
+	var ferry bool
+	for j, l := range res.Legs {
+		var ft, fw float64
+		for _, p := range l.Parts {
+			if p.Kind == "ferry" {
+				ft, fw = ft+p.TTWKg, fw+p.WTWKg
+			}
+		}
+		if ft == 0 && fw == 0 {
+			continue
+		}
+		ferry = true
+		out.TTWKg, out.WTWKg = out.TTWKg+ft, out.WTWKg+fw
+		var load float64
+		for _, s := range ships {
+			if s.From <= j && j < s.To {
+				load += s.WeightKg
+			}
+		}
+		for i, s := range ships {
+			if s.From <= j && j < s.To && load > 0 {
+				ttw[i] += ft * s.WeightKg / load
+				wtw[i] += fw * s.WeightKg / load
+			}
+		}
+	}
+	if ferry {
+		out.EmissionsBasis += "; ferries: Sootcase's for the load on board, shared by weight"
+	}
+	out.TTWKg, out.WTWKg = round3(out.TTWKg), round3(out.WTWKg)
+	req.shipTTW, req.shipWTW = ttw, wtw
+	return req
 }

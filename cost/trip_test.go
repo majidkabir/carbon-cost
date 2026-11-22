@@ -196,3 +196,41 @@ func TestFerryEmpty(t *testing.T) {
 		t.Errorf("notes %q", r.Notes)
 	}
 }
+
+// With the truck's diesel given, the trip's emissions are the litres'
+// (primary data), shared by tonne-km; a ferry's are Sootcase's for the
+// load on board, shared by weight among the shipments on it.
+func TestPrimaryEmissions(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{
+		{DistanceKm: 100, CountryKm: map[string]float64{"DE": 100}},
+		{DistanceKm: 120, RouteParts: map[string]float64{"ferry": 20}, CountryKm: map[string]float64{"DE": 100},
+			Parts: []sootcase.Part{{Kind: "ferry", DistanceKm: 20, TTWKg: 30, WTWKg: 36}}},
+	}}
+	req := Request{Truck: truck40, DieselL: 100, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "C"}},
+		Shipments: []Shipment{{ID: "A", WeightKg: 10000, To: 2}, {ID: "B", WeightKg: 10000, From: 1}},
+		legLoadKg: []float64{10000, 20000}, shipDistKm: []float64{220, 120}}
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Road: 100 l x 2.67 = 267 kg TTW, 324 WTW; tkm A 2200, B 1200.
+	// Ferry on leg 1: 30 kg TTW, A and B 10 t each, half each.
+	if r.DataType != "primary" || r.TTWKg != 297 || r.WTWKg != 360 {
+		t.Fatalf("%s %v %v: %s", r.DataType, r.TTWKg, r.WTWKg, r.EmissionsBasis)
+	}
+	a, b := r.Shipments[0], r.Shipments[1]
+	if math.Abs(a.TTWKg-(267*2200/3400.0+15)) > 0.001 || math.Abs(b.TTWKg-(267*1200/3400.0+15)) > 0.001 {
+		t.Errorf("A %v, B %v", a.TTWKg, b.TTWKg)
+	}
+	if math.Abs(a.IntensityG-round2(a.WTWKg*1000/2200)) > 0.01 || math.Abs(r.IntensityG-round2(360*1000/3400.0)) > 0.01 {
+		t.Errorf("intensity %v %v", a.IntensityG, r.IntensityG)
+	}
+	if !strings.Contains(r.EmissionsBasis, "EN 16258") || !strings.Contains(r.EmissionsBasis, "ferries") {
+		t.Errorf("basis %q", r.EmissionsBasis)
+	}
+	// Without the diesel: Sootcase's, modelled.
+	req.DieselL, req.shipTTW, req.shipWTW = 0, []float64{100, 50}, []float64{120, 60}
+	if r, _ = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); r.DataType != "modelled" || r.TTWKg != 150 || r.Shipments[0].TTWKg != 100 {
+		t.Errorf("default: %s %v %+v", r.DataType, r.TTWKg, r.Shipments)
+	}
+}

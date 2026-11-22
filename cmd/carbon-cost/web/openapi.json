@@ -544,17 +544,29 @@
       },
       "type": "object"
      },
+     "data_type": {
+      "description": "DataType is \"primary\" (the truck's diesel given) or \"modelled\" (Sootcase's defaults, or the default diesel of the truck's group).",
+      "type": "string"
+     },
      "date": {
       "type": "string"
      },
      "distance_km": {
       "type": "number"
      },
+     "emissions_basis": {
+      "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
+      "type": "string"
+     },
      "ferry_crossing": {
       "description": "FerryCrossing names the crossings the route uses, when recognised.",
       "type": "string"
      },
      "ferry_km": {
+      "type": "number"
+     },
+     "intensity_g_co2e_per_tkm": {
+      "description": "IntensityG is the well-to-wheel g CO2e per tonne-km of the shipments: EN ISO 14083's emission intensity.",
       "type": "number"
      },
      "lines": {
@@ -629,7 +641,7 @@
       "description": "Trip is the truck's trip: legs, loads and diesel."
      },
      "ttw_kg": {
-      "description": "TTWKg and WTWKg are the shipments' emissions from Sootcase (GLEC default intensities x their tonne-km, EN ISO 14083's default data).",
+      "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
       "type": "number"
      },
      "wtw_kg": {
@@ -640,8 +652,11 @@
      "carbon_eur",
      "complete",
      "country_km",
+     "data_type",
      "date",
      "distance_km",
+     "emissions_basis",
+     "intensity_g_co2e_per_tkm",
      "lines",
      "provenance",
      "sources",
@@ -734,6 +749,10 @@
      "id": {
       "type": "string"
      },
+     "intensity_g_co2e_per_tkm": {
+      "description": "IntensityG is its well-to-wheel g CO2e per tonne-km.",
+      "type": "number"
+     },
      "share": {
       "description": "Share is its tonne-km over all the shipments'.",
       "type": "number"
@@ -748,7 +767,7 @@
       "type": "number"
      },
      "ttw_kg": {
-      "description": "TTWKg and WTWKg are its emissions from Sootcase (GLEC default intensity x its tonne-km).",
+      "description": "TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of the truck's diesel plus its share by weight of the ferries it is on, when the diesel is given; else Sootcase's (GLEC default intensity x its tonne-km).",
       "type": "number"
      },
      "weight_kg": {
@@ -764,6 +783,7 @@
      "distance_km",
      "from",
      "id",
+     "intensity_g_co2e_per_tkm",
      "share",
      "tkm",
      "to",

@@ -73,7 +73,7 @@ func priceAll(ctx context.Context, calc func(context.Context, cost.Request) (cos
 }
 
 // csvColumns are the result columns calc -csv adds after the input's.
-var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_l", "empty_km", "shipments", "complete", "missing", "error"}
+var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_l", "empty_km", "shipments", "wtw_kg", "g_co2e_per_tkm", "data_type", "complete", "missing", "error"}
 
 // calcCSV prices each row of a CSV file whose header names calc's flags
 // (without the dash), each row's values on top of the command line's, and
@@ -190,7 +190,8 @@ func csvResult(it BatchItem) []string {
 	}
 	return []string{r.Date, strconv.FormatFloat(r.DistanceKm, 'f', 1, 64), strings.Join(km, ";"),
 		f(r.TotalEUR), f(r.CarbonEUR), f(by[cost.RoadToll]), f(by[cost.FuelCO2]), f(by[cost.FerryETS] + by[cost.FerryUKETS] + by[cost.ETS2]), f(by[cost.AreaCharge]), f(by[cost.FerryFare]),
-		fuel, empty, strings.Join(ships, ";"), strconv.FormatBool(r.Complete), strings.Join(miss, "; "), ""}
+		fuel, empty, strings.Join(ships, ";"), strconv.FormatFloat(r.WTWKg, 'f', 1, 64), f(r.IntensityG), r.DataType,
+		strconv.FormatBool(r.Complete), strings.Join(miss, "; "), ""}
 }
 
 // withoutCSV drops -csv and its value from calc's arguments.

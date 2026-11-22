@@ -1008,7 +1008,14 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Req
 			}
 		}
 		if emT == 0 {
-			continue // the truck crosses empty and the crossing's ships aren't known
+			// The truck crosses empty: Sootcase's ferry part goes by the
+			// cargo; the ships' MRV data count the truck itself.
+			where := "a crossing"
+			if section != "" {
+				where = section
+			}
+			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the truck crosses %s empty, so the cargo's share of its emissions is none; the truck's own share needs the crossing's ships (MRV data) and truck.tare_kg.", where))
+			continue
 		}
 		share := phase * cover
 		t := emT * share

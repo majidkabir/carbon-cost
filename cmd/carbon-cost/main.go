@@ -406,6 +406,9 @@ func printResult(r cost.Response) {
 	fmt.Fprintln(w, "Charge\tCountry\tPart\tBasis\tRate\tAmount\tEUR\t")
 	for _, l := range r.Lines {
 		basis := fmt.Sprintf("%.1f km", l.Km)
+		if l.Litres > 0 {
+			basis = fmt.Sprintf("%.1f l", l.Litres)
+		}
 		if l.TonnesCO2 > 0 {
 			basis = fmt.Sprintf("%.3f t CO2e", l.TonnesCO2)
 		}

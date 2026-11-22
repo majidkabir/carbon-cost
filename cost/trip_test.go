@@ -175,3 +175,24 @@ func TestTripShipments(t *testing.T) {
 		}
 	}
 }
+
+// A ferry the truck crosses empty: no cargo share of its emissions
+// without the ships' MRV data, and a note saying so.
+func TestFerryEmpty(t *testing.T) {
+	// As Calculator.trip leaves it: the leg's emissions scaled to no load.
+	empty := sootcase.Result{Legs: []sootcase.LegResult{{
+		DistanceKm: 300, RouteParts: map[string]float64{"ferry": 19}, CountryKm: map[string]float64{"DK": 140, "DE": 141},
+		Parts: []sootcase.Part{{Kind: "ferry", DistanceKm: 19}},
+	}}}
+	req := Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, legLoadKg: []float64{0}}
+	r, err := PriceWith(empty, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := line(r, FerryETS, "", ""); ok {
+		t.Error("ferry ETS line for an empty crossing")
+	}
+	if !strings.Contains(strings.Join(r.Notes, "\n"), "crosses a crossing empty") {
+		t.Errorf("notes %q", r.Notes)
+	}
+}

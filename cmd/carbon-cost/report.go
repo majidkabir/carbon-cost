@@ -14,7 +14,7 @@ import (
 )
 
 // reportSums are the priced CSV's columns a report adds up.
-var reportSums = []string{"distance_km", "empty_km", "fuel_l", "cargo_kg", "tkm", "wtw_kg", "ttw_kg", "total_eur", "carbon_eur",
+var reportSums = []string{"distance_km", "empty_km", "fuel_l", "kwh", "cargo_kg", "tkm", "wtw_kg", "ttw_kg", "total_eur", "carbon_eur",
 	"road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "hours"}
 
 // reportColumns follow the groups' columns in a report.
@@ -187,7 +187,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 			d := 2
 			if c == "cargo_kg" {
 				d = 0
-			} else if c == "distance_km" || c == "empty_km" || c == "tkm" || c == "wtw_kg" || c == "ttw_kg" || c == "fuel_l" {
+			} else if c == "distance_km" || c == "empty_km" || c == "tkm" || c == "wtw_kg" || c == "ttw_kg" || c == "fuel_l" || c == "kwh" {
 				d = 1
 			}
 			if !g.have[c] {

@@ -121,7 +121,18 @@ func TestRFMS(t *testing.T) {
  {"vin": "A", "createdDateTime": "2026-11-20T05:00:00Z", "totalFuelUsedGaseous": 900, "snapshotData": {"gnssPosition": {"latitude": 55.68, "longitude": 12.57, "positionDateTime": "2026-11-20T05:00:00Z"}}},
  {"vin": "A", "createdDateTime": "2026-11-20T06:00:00Z", "totalFuelUsedGaseous": 990, "snapshotData": {"gnssPosition": {"latitude": 55.2, "longitude": 11.9, "positionDateTime": "2026-11-20T06:00:00Z"}}}]}}`
 	g, err := parseRFMS([][]byte{[]byte(gas)}, "")
-	if err != nil || g.DieselL != 0 || len(g.Path) != 2 || !strings.Contains(g.summary(), "gas or electric") {
+	if err != nil || g.DieselL != 0 || len(g.Path) != 2 || !strings.Contains(g.summary(), "a gas truck") {
 		t.Errorf("gas truck: %+v %v", g, err)
+	}
+	// An electric truck: totalElectricEnergyUsed in Wh.
+	ev := strings.ReplaceAll(strings.ReplaceAll(gas, `"totalFuelUsedGaseous": 900`, `"totalElectricEnergyUsed": 5000000`), `"totalFuelUsedGaseous": 990`, `"totalElectricEnergyUsed": 5084250`)
+	e, err := parseRFMS([][]byte{[]byte(ev)}, "")
+	if err != nil || e.KWh != 84.25 || !strings.Contains(e.summary(), "84.2 kWh") || len(e.Notes) != 0 {
+		t.Errorf("electric truck: %+v %v", e, err)
+	}
+	evp := filepath.Join(t.TempDir(), "ev.json")
+	os.WriteFile(evp, []byte(ev), 0o644)
+	if req, _, err = parseCalc([]string{"-from", "DKCPH", "-to", "DKRDB", "-co2-class", "5", "-electricity-price", "0.3", "-rfms", evp}, flag.ContinueOnError); err != nil || req.ElectricityKWh != 84.25 || req.ElectricityEURPerKWh != 0.3 {
+		t.Errorf("electric flags: %v %v", req.ElectricityKWh, err)
 	}
 }

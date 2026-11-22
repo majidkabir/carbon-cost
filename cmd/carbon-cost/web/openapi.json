@@ -63,6 +63,10 @@
      "co2_class": {
       "type": "integer"
      },
+     "energy_eur": {
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
+      "type": "number"
+     },
      "road_toll_eur": {
       "type": "number"
      },
@@ -73,7 +77,16 @@
      "saving_per_year_eur": {
       "type": "number"
      },
+     "saving_with_fuel_eur": {
+      "type": "number"
+     },
+     "saving_with_fuel_per_year_eur": {
+      "type": "number"
+     },
      "total_eur": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
       "type": "number"
      }
     },
@@ -82,7 +95,33 @@
      "co2_class",
      "road_toll_eur",
      "saving_eur",
+     "saving_with_fuel_eur",
      "total_eur"
+    ],
+    "type": "object"
+   },
+   "ElectricityCost": {
+    "additionalProperties": false,
+    "description": "ElectricityCost is an electric truck's energy for the trip at the price given, without VAT.",
+    "properties": {
+     "basis": {
+      "type": "string"
+     },
+     "eur": {
+      "type": "number"
+     },
+     "eur_per_kwh": {
+      "type": "number"
+     },
+     "kwh": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "basis",
+     "eur",
+     "eur_per_kwh",
+     "kwh"
     ],
     "type": "object"
    },
@@ -482,6 +521,13 @@
       "description": "DriverRest adds a single driver's breaks and daily rests to those times (Regulation (EC) No 561/2006, Arts. 7 and 8): 45 minutes after 4.5 hours' driving, 11 hours after 9.",
       "type": "boolean"
      },
+     "electricity_eur_per_kwh": {
+      "type": "number"
+     },
+     "electricity_kwh": {
+      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT. KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
+      "type": "number"
+     },
      "env_zone_km": {
       "additionalProperties": {
        "type": "number"
@@ -538,6 +584,9 @@
       },
       "description": "FX converts other currencies to EUR, in units per euro, e.g. {\"CHF\": 0.93}; default the ECB reference rates (Calculator.FX).",
       "type": "object"
+     },
+     "kwh_per_100km": {
+      "type": "number"
      },
      "l_per_100km": {
       "description": "LPer100Km is the truck's diesel consumption, litres per 100 km, when diesel_l isn't given. Without either the default for its vehicle group and load is used (Trip.FuelBasis says which).",
@@ -663,6 +712,14 @@
       "description": "DriverEUR and VehicleEUR are the running costs at the rates given; TripCostEUR is with_fuel_eur (total_eur without a diesel price) and them.",
       "type": "number"
      },
+     "electricity": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/ElectricityCost"
+       }
+      ],
+      "description": "Electricity is an electric truck's energy at the price given."
+     },
      "emissions_basis": {
       "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
       "type": "string"
@@ -779,7 +836,7 @@
       "type": "number"
      },
      "with_fuel_eur": {
-      "description": "WithFuelEUR is total_eur and the fuel, without counting twice the CO2 prices on fuel (and ETS2) that the diesel price already holds.",
+      "description": "WithFuelEUR is total_eur and the truck's energy (the diesel or the electricity), without counting twice the CO2 prices on fuel (and ETS2) that the diesel price already holds.",
       "type": "number"
      },
      "wtw_kg": {

@@ -415,8 +415,8 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		if s.WeightKg > 0 {
 			c.EURPer100Kg, c.CarbonEURPer100Kg = round2(out.TotalEUR*share*100/s.WeightKg), round2(out.CarbonEUR*share*100/s.WeightKg)
 		}
-		if out.Fuel != nil {
-			c.FuelEUR, c.WithFuelEUR = round2(out.Fuel.EUR*share), round2(out.WithFuelEUR*share)
+		if energyPriced(out) {
+			c.FuelEUR, c.WithFuelEUR = round2(energyEUR(out)*share), round2(out.WithFuelEUR*share)
 		}
 		c.TripCostEUR = round2(out.TripCostEUR * share)
 		if i < len(req.shipTTW) {

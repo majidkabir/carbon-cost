@@ -169,6 +169,14 @@ type Request struct {
 	// with_fuel_eur adds the fuel.
 	DieselEURPerL          float64            `json:"diesel_eur_per_l,omitempty"`
 	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
+	// An electric truck's (CO2 class 5) energy: ElectricityKWh used on the
+	// trip (from rFMS totalElectricEnergyUsed or charging records), or
+	// KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays
+	// per kWh without VAT. KWhPer100Km also prices the electricity of a
+	// class 5 truck in the comparison.
+	ElectricityKWh       float64 `json:"electricity_kwh,omitempty"`
+	KWhPer100Km          float64 `json:"kwh_per_100km,omitempty"`
+	ElectricityEURPerKWh float64 `json:"electricity_eur_per_kwh,omitempty"`
 	// DriverEURPerH and VehicleEURPerKm are the truck's own running costs:
 	// the driver per hour of driving (Trip.Hours; put paid breaks and
 	// allowances in the rate) and the vehicle per road km (tyres,
@@ -241,6 +249,13 @@ type Comparison struct {
 	// one (negative: it costs more).
 	SavingEUR        float64 `json:"saving_eur"`
 	SavingPerYearEUR float64 `json:"saving_per_year_eur,omitempty"`
+	// EnergyEUR is its diesel or electricity, WithFuelEUR the charges and
+	// it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with
+	// the energy counted: null where either truck's energy has no price.
+	EnergyEUR                float64  `json:"energy_eur,omitempty"`
+	WithFuelEUR              float64  `json:"with_fuel_eur,omitempty"`
+	SavingWithFuelEUR        *float64 `json:"saving_with_fuel_eur"`
+	SavingWithFuelPerYearEUR *float64 `json:"saving_with_fuel_per_year_eur,omitempty"`
 }
 
 // Line is one charge.
@@ -312,8 +327,11 @@ type Response struct {
 	// Fuel is the trip's diesel at the price given, or the Weekly Oil
 	// Bulletin's: not a charge, so not in total_eur.
 	Fuel *FuelCost `json:"fuel,omitempty"`
-	// WithFuelEUR is total_eur and the fuel, without counting twice the
-	// CO2 prices on fuel (and ETS2) that the diesel price already holds.
+	// Electricity is an electric truck's energy at the price given.
+	Electricity *ElectricityCost `json:"electricity,omitempty"`
+	// WithFuelEUR is total_eur and the truck's energy (the diesel or the
+	// electricity), without counting twice the CO2 prices on fuel (and
+	// ETS2) that the diesel price already holds.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	// DriverEUR and VehicleEUR are the running costs at the rates given;
 	// TripCostEUR is with_fuel_eur (total_eur without a diesel price) and
@@ -721,6 +739,9 @@ func check(req Request) error {
 	if req.DriverEURPerH < 0 || req.DriverEURPerH > 500 || req.VehicleEURPerKm < 0 || req.VehicleEURPerKm > 50 {
 		return fmt.Errorf("driver_eur_per_h (0-500) and vehicle_eur_per_km (0-50): give EUR, e.g. 35 and 0.45")
 	}
+	if req.ElectricityKWh < 0 || req.KWhPer100Km < 0 || req.KWhPer100Km > 1000 || req.ElectricityEURPerKWh < 0 || req.ElectricityEURPerKWh > 5 {
+		return fmt.Errorf("electricity_kwh (0 or more), kwh_per_100km (0-1000) and electricity_eur_per_kwh (0-5): e.g. 120 kWh per 100 km at EUR 0.25")
+	}
 	if req.DieselEURPerL < 0 || req.DieselEURPerL > 10 {
 		return fmt.Errorf("diesel_eur_per_l %v: give EUR per litre without VAT, e.g. 1.45", req.DieselEURPerL)
 	}
@@ -922,10 +943,11 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	out.Missing = append(out.Missing, lapsed(set, req, &out, route, out.Trip.FuelL, date)...)
 	out.Complete = len(out.Missing) == 0
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
+	fuelCost(&out, req, date)
+	electricityCost(&out, req)
 	if err := compare(&out, res, set, fd, req, date); err != nil {
 		return Response{}, err
 	}
-	fuelCost(&out, req, date)
 	runningCost(&out, req)
 	allocate(&out, res, req)
 	if out.Trip.FuelL > 0 && strings.HasPrefix(out.Trip.FuelBasis, "default") {
@@ -1018,6 +1040,17 @@ func compare(out *Response, res sootcase.Result, set *tariffs.Set, fd *ferries.D
 		}
 		c := Comparison{CO2Class: cls, TotalEUR: r.TotalEUR, CarbonEUR: r.CarbonEUR,
 			SavingEUR: round2(out.TotalEUR - r.TotalEUR)}
+		if energyPriced(&r) {
+			c.EnergyEUR, c.WithFuelEUR = energyEUR(&r), r.WithFuelEUR
+			if energyPriced(out) {
+				v := round2(out.WithFuelEUR - r.WithFuelEUR)
+				c.SavingWithFuelEUR = &v
+				if req.TripsPerYear > 0 {
+					y := round2(v * req.TripsPerYear)
+					c.SavingWithFuelPerYearEUR = &y
+				}
+			}
+		}
 		for _, l := range r.Lines {
 			if l.Charge == RoadToll {
 				c.TollEUR += l.AmountEUR

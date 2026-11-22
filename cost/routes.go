@@ -147,7 +147,7 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 	// Compared with the diesel where every route has its price.
 	withFuel := true
 	for i := range opts {
-		if outs[i] != nil && (outs[i].Fuel == nil || !outs[i].Fuel.Complete) {
+		if outs[i] != nil && !energyComplete(outs[i]) {
 			withFuel = false
 		}
 	}

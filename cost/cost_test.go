@@ -240,9 +240,39 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatalf("compare %+v", r.Compare)
 	}
 	for i, w := range want {
-		if r.Compare[i] != w {
+		g := r.Compare[i]
+		g.EnergyEUR, g.WithFuelEUR, g.SavingWithFuelEUR, g.SavingWithFuelPerYearEUR = 0, 0, nil, nil
+		if g != w {
 			t.Errorf("class %d: got %+v, want %+v", w.CO2Class, r.Compare[i], w)
 		}
+	}
+	// With the diesel: the same 173.22 for classes 1 and 4, less the CO2
+	// prices on fuel the price holds (21.07); class 5's electricity has no
+	// price without kwh_per_100km and electricity_eur_per_kwh.
+	for i, w := range []struct{ energy, with, saving float64 }{{173.22, 245.19, 0}, {173.22, 224.29, 20.90}} {
+		c := r.Compare[i]
+		if c.EnergyEUR != w.energy || c.WithFuelEUR != w.with || c.SavingWithFuelEUR == nil || *c.SavingWithFuelEUR != w.saving || *c.SavingWithFuelPerYearEUR != round2(200*w.saving) {
+			t.Errorf("class %d with diesel: %+v", c.CO2Class, c)
+		}
+	}
+	if c := r.Compare[2]; c.EnergyEUR != 0 || c.SavingWithFuelEUR != nil {
+		t.Errorf("class 5 unpriced: %+v", c)
+	}
+	// 120 kWh per 100 km at EUR 0.25 for the electric truck.
+	req.KWhPer100Km, req.ElectricityEURPerKWh = 120, 0.25
+	e, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	kwh := round2(e.Trip.RoadKm * 1.2)
+	if c := e.Compare[2]; c.EnergyEUR != round2(kwh*0.25) || c.WithFuelEUR != round2(4.69+c.EnergyEUR) || *c.SavingWithFuelEUR != round2(245.19-c.WithFuelEUR) || e.Electricity != nil {
+		t.Errorf("class 5 with electricity: %+v, %v kWh", c, kwh)
+	}
+	// An electric truck's own trip.
+	ev := Request{CargoKg: 20000, Truck: truck40, ElectricityKWh: 400, ElectricityEURPerKWh: 0.3}
+	ev.Truck.CO2Class = 5
+	if e, err = Price(cphHam, all(t), ev, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); err != nil || e.Fuel != nil || e.Electricity == nil || e.Electricity.EUR != 120 || e.WithFuelEUR != round2(e.TotalEUR+120) {
+		t.Errorf("electric truck: %v %+v %+v", err, e.Electricity, e.Fuel)
 	}
 	// The requested truck's own lines are unchanged by the comparison.
 	if r.TotalEUR != 93.04 || len(r.Lines) != 10 {

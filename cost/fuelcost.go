@@ -112,6 +112,64 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	out.Notes = append(out.Notes, note+".")
 }
 
+// ElectricityCost is an electric truck's energy for the trip at the price
+// given, without VAT.
+type ElectricityCost struct {
+	KWh       float64 `json:"kwh"`
+	Basis     string  `json:"basis"`
+	EURPerKWh float64 `json:"eur_per_kwh"`
+	EUR       float64 `json:"eur"`
+}
+
+// electricityCost prices a zero-emission truck's electricity: the kWh
+// used (electricity_kwh), or kwh_per_100km over the road km, at
+// electricity_eur_per_kwh. There is no default: give the truck's own.
+func electricityCost(out *Response, req Request) {
+	if out.Trip == nil || req.Truck.CO2Class != 5 && !req.noFuel {
+		return
+	}
+	var e ElectricityCost
+	switch {
+	case req.ElectricityKWh > 0 && !req.noFuel:
+		e.KWh, e.Basis = req.ElectricityKWh, "electricity_kwh (given)"
+	case req.KWhPer100Km > 0:
+		e.KWh, e.Basis = out.Trip.RoadKm*req.KWhPer100Km/100, fmt.Sprintf("kwh_per_100km: %g (given) x %.1f road km", req.KWhPer100Km, out.Trip.RoadKm)
+	}
+	if e.KWh <= 0 || req.ElectricityEURPerKWh <= 0 {
+		if !req.noFuel {
+			out.Notes = append(out.Notes, "Electricity: not priced; give electricity_kwh or kwh_per_100km, and electricity_eur_per_kwh, for the electric truck's energy.")
+		}
+		return
+	}
+	e.KWh, e.EURPerKWh = round2(e.KWh), req.ElectricityEURPerKWh
+	e.EUR = round2(e.KWh * e.EURPerKWh)
+	out.Electricity = &e
+	out.WithFuelEUR = round2(out.TotalEUR + e.EUR)
+	if !req.noFuel {
+		out.Notes = append(out.Notes, fmt.Sprintf("Electricity: %.1f kWh (%s) at EUR %g per kWh without VAT: EUR %.2f.", e.KWh, e.Basis, e.EURPerKWh, e.EUR))
+	}
+}
+
+// energyPriced: the truck's energy, diesel or electricity, has a price,
+// so with_fuel_eur is set.
+func energyPriced(out *Response) bool { return out.Fuel != nil || out.Electricity != nil }
+
+// energyComplete: every litre or kWh has a price.
+func energyComplete(out *Response) bool {
+	return out.Fuel != nil && out.Fuel.Complete || out.Electricity != nil
+}
+
+// energyEUR is the truck's energy at its price.
+func energyEUR(out *Response) float64 {
+	switch {
+	case out.Fuel != nil:
+		return out.Fuel.EUR
+	case out.Electricity != nil:
+		return out.Electricity.EUR
+	}
+	return 0
+}
+
 // runningCost adds the truck's own running costs at the rates given: the
 // driver per hour of the trip and the vehicle per road km.
 func runningCost(out *Response, req Request) {
@@ -121,10 +179,10 @@ func runningCost(out *Response, req Request) {
 	out.DriverEUR = round2(out.Trip.Hours * req.DriverEURPerH)
 	out.VehicleEUR = round2(out.Trip.RoadKm * req.VehicleEURPerKm)
 	base := out.TotalEUR
-	if out.Fuel != nil {
+	if energyPriced(out) {
 		base = out.WithFuelEUR
 	}
 	out.TripCostEUR = round2(base + out.DriverEUR + out.VehicleEUR)
-	out.Notes = append(out.Notes, fmt.Sprintf("Trip cost: the charges, the diesel and the running costs given: the driver %.2f h x EUR %g (%s), the vehicle %.1f road km x EUR %g.",
+	out.Notes = append(out.Notes, fmt.Sprintf("Trip cost: the charges, the energy and the running costs given: the driver %.2f h x EUR %g (%s), the vehicle %.1f road km x EUR %g.",
 		out.Trip.Hours, req.DriverEURPerH, out.Trip.HoursBasis, out.Trip.RoadKm, req.VehicleEURPerKm))
 }

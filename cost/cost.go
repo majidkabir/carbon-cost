@@ -177,6 +177,9 @@ type Request struct {
 	ElectricityKWh       float64 `json:"electricity_kwh,omitempty"`
 	KWhPer100Km          float64 `json:"kwh_per_100km,omitempty"`
 	ElectricityEURPerKWh float64 `json:"electricity_eur_per_kwh,omitempty"`
+	// Currency (ISO 4217, e.g. DKK, PLN, SEK) adds the totals in that
+	// currency (in_currency), at the rate its charges are converted at.
+	Currency string `json:"currency,omitempty"`
 	// DriverEURPerH and VehicleEURPerKm are the truck's own running costs:
 	// the driver per hour of driving (Trip.Hours; put paid breaks and
 	// allowances in the rate) and the vehicle per road km (tyres,
@@ -333,6 +336,8 @@ type Response struct {
 	// electricity), without counting twice the CO2 prices on fuel (and
 	// ETS2) that the diesel price already holds.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	// InCurrency is the totals in Request.Currency.
+	InCurrency *InCurrency `json:"in_currency,omitempty"`
 	// DriverEUR and VehicleEUR are the running costs at the rates given;
 	// TripCostEUR is with_fuel_eur (total_eur without a diesel price) and
 	// them.
@@ -739,6 +744,9 @@ func check(req Request) error {
 	if req.DriverEURPerH < 0 || req.DriverEURPerH > 500 || req.VehicleEURPerKm < 0 || req.VehicleEURPerKm > 50 {
 		return fmt.Errorf("driver_eur_per_h (0-500) and vehicle_eur_per_km (0-50): give EUR, e.g. 35 and 0.45")
 	}
+	if req.Currency != "" && !currencyCode.MatchString(req.Currency) {
+		return fmt.Errorf("currency %q: give an ISO 4217 code such as DKK, PLN or SEK", req.Currency)
+	}
 	if req.ElectricityKWh < 0 || req.KWhPer100Km < 0 || req.KWhPer100Km > 1000 || req.ElectricityEURPerKWh < 0 || req.ElectricityEURPerKWh > 5 {
 		return fmt.Errorf("electricity_kwh (0 or more), kwh_per_100km (0-1000) and electricity_eur_per_kwh (0-5): e.g. 120 kWh per 100 km at EUR 0.25")
 	}
@@ -950,6 +958,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	}
 	runningCost(&out, req)
 	allocate(&out, res, req)
+	if err := convert(&out, req, date); err != nil {
+		return Response{}, err
+	}
 	if out.Trip.FuelL > 0 && strings.HasPrefix(out.Trip.FuelBasis, "default") {
 		out.Provenance.Assumed = append(out.Provenance.Assumed, fmt.Sprintf("diesel: %.1f l (%.1f l/100 km) for a new truck of its VECTO group (%s); give l_per_100km or diesel_l for the truck's own",
 			out.Trip.FuelL, 100*out.Trip.FuelL/math.Max(out.Trip.RoadKm, 1e-9), vectoSource))
@@ -1028,7 +1039,7 @@ func compare(out *Response, res sootcase.Result, set *tariffs.Set, fd *ferries.D
 	sameEmissions := false
 	for _, cls := range req.CompareCO2Classes {
 		alt := req
-		alt.Truck.CO2Class, alt.CompareCO2Classes = cls, nil
+		alt.Truck.CO2Class, alt.CompareCO2Classes, alt.Currency = cls, nil, ""
 		if cls == 5 && req.Truck.CO2Class != 5 {
 			alt.noFuel = true // no diesel on the road
 		} else if cls != req.Truck.CO2Class && req.Truck.CO2Class != 5 {

@@ -76,7 +76,7 @@ func priceAll(ctx context.Context, calc func(context.Context, cost.Request) (cos
 // With -shipment-rows (rows=shipments on the server) a trip with
 // shipments gives a row per shipment: shipment_id and shipment_kg set,
 // and the amounts, km, tonne-km and CO2e the shipment's share.
-var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "eur_by_country", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "fuel_l", "kwh", "hours", "empty_km", "shipments", "shipment_id", "shipment_kg", "cargo_kg", "eur_per_tkm", "tkm", "wtw_kg", "ttw_kg", "g_co2e_per_tkm", "data_type", "route", "complete", "missing", "error"}
+var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "eur_by_country", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "fuel_l", "kwh", "hours", "empty_km", "shipments", "shipment_id", "shipment_kg", "cargo_kg", "eur_per_tkm", "tkm", "wtw_kg", "ttw_kg", "g_co2e_per_tkm", "currency", "total_in_currency", "data_type", "route", "complete", "missing", "error"}
 
 // calcCSV prices each row of a CSV file whose header names calc's flags
 // (without the dash), each row's values on top of the command line's, and
@@ -230,6 +230,10 @@ func csvResult(it BatchItem) []string {
 			ships = append(ships, s.ID+"="+f(s.TotalEUR))
 		}
 	}
+	var cur, curTotal string
+	if c := r.InCurrency; c != nil {
+		cur, curTotal = c.Currency, f(c.Total)
+	}
 	var fuelEUR, withFuel, tripCost, hours, kwh string
 	if r.Fuel != nil {
 		fuelEUR, withFuel = f(r.Fuel.EUR), f(r.WithFuelEUR)
@@ -261,7 +265,7 @@ func csvResult(it BatchItem) []string {
 	return []string{r.Date, strconv.FormatFloat(r.DistanceKm, 'f', 1, 64), strings.Join(km, ";"),
 		f(r.TotalEUR), f(r.CarbonEUR), f(by[cost.RoadToll]), f(by[cost.FuelCO2]), f(by[cost.FerryETS] + by[cost.FerryUKETS] + by[cost.ETS2]), f(by[cost.AreaCharge]), f(by[cost.FerryFare]), strings.Join(cc, ";"),
 		fuelEUR, withFuel, tripCost, fuel, kwh, hours, empty, strings.Join(ships, ";"), "", "", strconv.FormatFloat(kg, 'f', -1, 64), strconv.FormatFloat(r.EURPerTkm, 'f', 4, 64), strconv.FormatFloat(tkm, 'f', 1, 64),
-		strconv.FormatFloat(r.WTWKg, 'f', 1, 64), strconv.FormatFloat(r.TTWKg, 'f', 1, 64), f(r.IntensityG), r.DataType, route,
+		strconv.FormatFloat(r.WTWKg, 'f', 1, 64), strconv.FormatFloat(r.TTWKg, 'f', 1, 64), f(r.IntensityG), cur, curTotal, r.DataType, route,
 		strconv.FormatBool(r.Complete), strings.Join(miss, "; "), ""}
 }
 
@@ -292,6 +296,9 @@ func csvShipment(r *cost.Response, s cost.ShipmentCost) []string {
 		set("with_fuel_eur", f(s.WithFuelEUR))
 	}
 	set("kwh", "")
+	if r.InCurrency != nil {
+		set("total_in_currency", f(s.TotalInCurrency))
+	}
 	set("trip_cost_eur", "")
 	if r.TripCostEUR > 0 {
 		set("trip_cost_eur", f(s.TripCostEUR))

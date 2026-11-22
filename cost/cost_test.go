@@ -4107,3 +4107,32 @@ func TestFerryFare(t *testing.T) {
 		t.Errorf("fare %.2f", fare)
 	}
 }
+
+func TestCurrency(t *testing.T) {
+	day := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, Currency: "DKK", DriverEURPerH: 30}
+	r, err := Price(cphHam, all(t), req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := r.InCurrency
+	if c == nil || c.PerEUR != DKKPerEUR || c.Total != round2(r.TotalEUR*DKKPerEUR) || c.WithFuel != round2(r.WithFuelEUR*DKKPerEUR) ||
+		c.TripCost != round2(r.TripCostEUR*DKKPerEUR) || r.Shipments[0].TotalInCurrency != c.Total || !strings.Contains(c.Rate, "ERM II") {
+		t.Errorf("DKK: %+v, total %v", c, r.TotalEUR)
+	}
+	req.Currency, req.FX = "PLN", map[string]float64{"PLN": 4.25}
+	if r, err = Price(cphHam, all(t), req, day); err != nil || r.InCurrency.Total != round2(r.TotalEUR*4.25) || r.InCurrency.Rate != "request" {
+		t.Errorf("PLN: %v %+v", err, r.InCurrency)
+	}
+	req.Currency, req.FX = "SEK", nil
+	if _, err = Price(cphHam, all(t), req, day); err == nil || !strings.Contains(err.Error(), "fx.SEK") {
+		t.Errorf("SEK without rates: %v", err)
+	}
+	req.ecb = fx.Rates{Date: "2026-11-02", PerEUR: map[string]float64{"SEK": 11.1}}
+	if r, err = Price(cphHam, all(t), req, day); err != nil || r.InCurrency.PerEUR != 11.1 || !strings.Contains(r.InCurrency.Rate, "ECB") {
+		t.Errorf("SEK: %v %+v", err, r.InCurrency)
+	}
+	if err := check(Request{Currency: "dkk", CargoKg: 1}); err == nil {
+		t.Error("lower-case currency: want an error")
+	}
+}

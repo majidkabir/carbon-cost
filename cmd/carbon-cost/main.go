@@ -198,6 +198,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
 	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
 	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times and the trip's time (Regulation (EC) No 561/2006)")
+	fs.StringVar(&req.Currency, "currency", "", "also give the totals in this currency (DKK, PLN, SEK, ...), at the rate its charges are converted at: the ECB's of the trip's date, or -fx")
 	fs.Float64Var(&req.KWhPer100Km, "kwh-per-100km", 0, "an electric truck's (CO2 class 5) kWh per 100 km, for its electricity and class 5 in -compare")
 	fs.Float64Var(&req.ElectricityKWh, "electricity-kwh", 0, "kWh an electric truck used on the trip (rFMS totalElectricEnergyUsed, charging records)")
 	fs.Float64Var(&req.ElectricityEURPerKWh, "electricity-price", 0, "what an electric truck pays per kWh, EUR without VAT")
@@ -564,6 +565,16 @@ func printResult(r cost.Response) {
 	}
 	if r.TripCostEUR > 0 {
 		fmt.Printf("Trip cost: EUR %.2f (driver EUR %.2f, vehicle EUR %.2f)\n", r.TripCostEUR, r.DriverEUR, r.VehicleEUR)
+	}
+	if c := r.InCurrency; c != nil {
+		extra := ""
+		if c.WithFuel > 0 {
+			extra += fmt.Sprintf(", with the energy %.2f", c.WithFuel)
+		}
+		if c.TripCost > 0 {
+			extra += fmt.Sprintf(", trip cost %.2f", c.TripCost)
+		}
+		fmt.Printf("In %s: %.2f, of which carbon %.2f%s (%g per EUR, %s)\n", c.Currency, c.Total, c.Carbon, extra, c.PerEUR, c.Rate)
 	}
 	if r.EURPerTkm > 0 {
 		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)

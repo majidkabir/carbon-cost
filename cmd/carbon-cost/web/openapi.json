@@ -223,6 +223,41 @@
     ],
     "type": "object"
    },
+   "InCurrency": {
+    "additionalProperties": false,
+    "description": "InCurrency is the trip's amounts in another currency (Request.Currency), at the rate the charges in that currency are converted at: fx given, the ERM II central rate for DKK, else the ECB's reference rate of the trip's date (a national central bank's for RSD and ALL).",
+    "properties": {
+     "carbon": {
+      "type": "number"
+     },
+     "currency": {
+      "type": "string"
+     },
+     "per_eur": {
+      "type": "number"
+     },
+     "rate": {
+      "type": "string"
+     },
+     "total": {
+      "type": "number"
+     },
+     "trip_cost": {
+      "type": "number"
+     },
+     "with_fuel": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon",
+     "currency",
+     "per_eur",
+     "rate",
+     "total"
+    ],
+    "type": "object"
+   },
    "Line": {
     "additionalProperties": false,
     "description": "Line is one charge.",
@@ -491,6 +526,10 @@
       "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced; tolls at stations, on sections and bridges need a route, and the result lists them as missing. Not with from, to, stops, shipments or path.",
       "type": "object"
      },
+     "currency": {
+      "description": "Currency (ISO 4217, e.g. DKK, PLN, SEK) adds the totals in that currency (in_currency), at the rate its charges are converted at.",
+      "type": "string"
+     },
      "date": {
       "description": "YYYY-MM-DD; default today",
       "type": "string"
@@ -742,6 +781,14 @@
        }
       ],
       "description": "Fuel is the trip's diesel at the price given, or the Weekly Oil Bulletin's: not a charge, so not in total_eur."
+     },
+     "in_currency": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/InCurrency"
+       }
+      ],
+      "description": "InCurrency is the totals in Request.Currency."
      },
      "intensity_g_co2e_per_tkm": {
       "description": "IntensityG is the well-to-wheel g CO2e per tonne-km of the shipments: EN ISO 14083's emission intensity.",
@@ -1056,6 +1103,10 @@
       "type": "integer"
      },
      "total_eur": {
+      "type": "number"
+     },
+     "total_in_currency": {
+      "description": "TotalInCurrency is TotalEUR in Request.Currency.",
       "type": "number"
      },
      "trip_cost_eur": {

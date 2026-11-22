@@ -102,6 +102,8 @@ type ShipmentCost struct {
 	FuelEUR     float64 `json:"fuel_eur,omitempty"`
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
+	// TotalInCurrency is TotalEUR in Request.Currency.
+	TotalInCurrency float64 `json:"total_in_currency,omitempty"`
 	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
 	// the truck's diesel plus its share by weight of the ferries it is on,
 	// when the diesel is given; else Sootcase's (GLEC default intensity x

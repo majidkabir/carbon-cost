@@ -431,7 +431,7 @@
       "type": "string"
      },
      "fuel_purchases": {
-      "description": "FuelPurchases are the fuel bought for the trip, by country: the litres are the trip's diesel unless diesel_l is given, and the national CO2 prices on fuel go by where it was bought.",
+      "description": "FuelPurchases are the fuel bought for the trip, by country: the national CO2 prices on fuel go by where it was bought, and the litres are the trip's diesel unless diesel_l or l_per_100km is given.",
       "items": {
        "$ref": "#/components/schemas/FuelPurchase"
       },

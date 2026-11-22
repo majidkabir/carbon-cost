@@ -294,6 +294,7 @@ func stopsFlags(req *cost.Request, from, to, via, ships string, back bool) error
 		if req.Shipments, err = shipmentsFlag(ships); err != nil {
 			return fmt.Errorf("-shipments: %w", err)
 		}
+		req.CargoKg = 0 // the shipments replace -cargo-kg
 	} else if back {
 		// The cargo goes to -to; the way back is empty.
 		req.Shipments = []cost.Shipment{{WeightKg: req.CargoKg, To: len(req.Stops) - 2}}
@@ -450,7 +451,11 @@ func printResult(r cost.Response) {
 		fmt.Println("- " + n)
 	}
 	p := r.Provenance
-	fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	if p.Sootcase != "" {
+		fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	} else {
+		fmt.Printf("\nData: carbon-cost %s\n", p.Version)
+	}
 	for _, t := range p.Tables {
 		osm := ""
 		if t.OSMExtract != "" {

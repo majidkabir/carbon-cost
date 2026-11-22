@@ -231,16 +231,18 @@ func tripFuel(legs []TripLeg, req Request) (float64, string) {
 	case req.DieselL > 0:
 		spread(req.DieselL)
 		return req.DieselL, "diesel_l (given)"
+	case req.LPer100Km > 0:
+		// Burnt at the truck's own rate; fuel_purchases, if given, only say
+		// where it was bought.
+		spread(roadKm * req.LPer100Km / 100)
+		return roadKm * req.LPer100Km / 100, fmt.Sprintf("l_per_100km: %g (given) x %.1f road km", req.LPer100Km, roadKm)
 	case len(req.FuelPurchases) > 0:
 		var total float64
 		for _, p := range req.FuelPurchases {
 			total += p.Litres
 		}
 		spread(total)
-		return total, "fuel_purchases (given)"
-	case req.LPer100Km > 0:
-		spread(roadKm * req.LPer100Km / 100)
-		return roadKm * req.LPer100Km / 100, fmt.Sprintf("l_per_100km: %g (given) x %.1f road km", req.LPer100Km, roadKm)
+		return total, "fuel_purchases (given): the litres bought for the trip"
 	}
 	var total float64
 	var groups []string

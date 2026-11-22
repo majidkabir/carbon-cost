@@ -144,8 +144,9 @@ type Request struct {
 	// route, each country's share in proportion to its road km.
 	FuelCountry string `json:"fuel_country,omitempty"`
 	// FuelPurchases are the fuel bought for the trip, by country: the
-	// litres are the trip's diesel unless diesel_l is given, and the
-	// national CO2 prices on fuel go by where it was bought.
+	// national CO2 prices on fuel go by where it was bought, and the
+	// litres are the trip's diesel unless diesel_l or l_per_100km is
+	// given.
 	FuelPurchases []FuelPurchase `json:"fuel_purchases,omitempty"`
 	// DieselL is the litres of diesel the truck burns on the trip's road
 	// part, for the CO2 prices on fuel and ETS2.

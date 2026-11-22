@@ -1167,7 +1167,7 @@
    "name": "AP-53 Santiago de Compostela – Alto de Santo Domingo",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "35be5f59a410d69b306239f0ea7a67a22142faa0c5c09afa4956310b00431fa5",
+   "sha256": "e2b18a17b847789da9b1342585df6cfecc30be59ac2772a9b502338835bfee5a",
    "coverage": "complete"
   },
   {
@@ -2146,7 +2146,7 @@
    "name": "Sicilian motorways A18 and A20 (Consorzio per le Autostrade Siciliane)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "1166de08d77adfbe5d0d00ba960581436ba511a9e20f0ec74d5eb03808f14f25",
+   "sha256": "c5b5b36b2e8fbe392cb969245f5d3d0d14594840305098732df095fd92411bfe",
    "coverage": "complete"
   },
   {
@@ -3039,6 +3039,17 @@
    "valid_to": "2026-09-30",
    "sha256": "c292ed7b080888d0c1743fb324257e420ec46cb659440fcfe59ec75b74476441",
    "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/ro-danube-bridges/2026-10-01",
+   "scheme": "ro-danube-bridges",
+   "country": "RO",
+   "file": "ro/ro-danube-bridges-2026-10-01.orct.json",
+   "name": "Romania's Danube bridge tolls (tarif de trecere)",
+   "valid_from": "2026-10-01",
+   "valid_to": null,
+   "sha256": "c7dbeaa2ac9aa9740feb232b2a4225dc48865f8b2a37d1ea2d811fb1c79f4ceb",
+   "coverage": "partial"
   },
   {
    "id": "carbon-cost/rs/2024-01-01",

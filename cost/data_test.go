@@ -399,3 +399,24 @@ func TestGermanyRoadData(t *testing.T) {
 		t.Errorf("left out: %v", left)
 	}
 }
+
+// Poland's e-TOLL network is the sections Dz. U. 2026 poz. 33 lists
+// (roads/data/pl.json.gz, from tools/roads/plnet.py): the A4 by Opole is
+// tolled; a national road by Legnica the old road classes tolled isn't.
+func TestPolandNetworkData(t *testing.T) {
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(rx.Network("PL"), "Dz. U. 2026 poz. 33") {
+		t.Skip("PL road classes aren't the e-TOLL sections")
+	}
+	a4 := [][2]float64{{17.77143, 50.61431}, {17.79874, 50.59683}, {17.80306, 50.5942}, {17.80736, 50.5918}, {17.81274, 50.58907}}
+	if k, _ := rx.Classify("PL", a4); k.Motorway < 0.5 || k.Local > 0 {
+		t.Errorf("A4 by Opole: %+v", k)
+	}
+	dk := [][2]float64{{16.02889, 51.2406}, {16.03258, 51.23901}, {16.03715, 51.23733}, {16.04821, 51.23254}}
+	if k, _ := rx.Classify("PL", dk); k.Motorway+k.National > 0 {
+		t.Errorf("national road by Legnica: %+v", k)
+	}
+}

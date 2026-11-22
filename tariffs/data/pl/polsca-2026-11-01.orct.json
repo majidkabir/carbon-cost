@@ -617,7 +617,8 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "crossings": true
+   "crossings": true,
+   "ferry": true
   }
  }
 }

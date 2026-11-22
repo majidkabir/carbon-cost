@@ -78,13 +78,12 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
 	}
 	if byRoute && oneRate {
-		local := "which aren't tolled"
-		if l := req.roadLeftOut[a.country]; len(l) > 0 {
-			local = fmt.Sprintf("which aren't tolled (they include the stretches the toll leaves out: %s)", strings.Join(l, ", "))
-		}
+		// The stretches the toll leaves out (Germany's A 5 and A 6 by the
+		// borders, its private tunnels) are in the README and the road
+		// data, not in every trip's note.
 		first, _, _ := strings.Cut(tolledRoads(ds), ". ")
-		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, %s. Tolled roads: %s. Give tolled_share.%s to override.",
-			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), local, strings.TrimSuffix(first, "."), cc)
+		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, which aren't tolled. Tolled roads: %s. Give tolled_share.%s to override.",
+			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), strings.TrimSuffix(first, "."), cc)
 	}
 	p.useTable(ds)
 	if byRoute {
@@ -153,14 +152,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	}
 	p.afterPoints(ds, a.country, st, points)
 	p.afterSystems(ds, a.country, st, systems)
-	if points.listed && !points.any && km >= 1 {
-		p.note("%s: the route passes none of the toll stations.", cc)
-	}
-	if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
-		p.note("%s: the route uses none of the tolled motorways.", cc)
-	}
-	if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
-		p.note("%s: the route passes none of the tolled sections.", cc)
+	switch {
+	case len(route.pts) < 2:
+		// country_km: no route to find the stations and sections on.
+		if (points.listed || systems.listed || hasSections(ds)) && km >= 0.5 {
+			p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "no_route"})
+		}
+	default:
+		if points.listed && !points.any && km >= 1 {
+			p.note("%s: the route passes none of the toll stations.", cc)
+		}
+		if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
+			p.note("%s: the route uses none of the tolled motorways.", cc)
+		}
+		if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
+			p.note("%s: the route passes none of the tolled sections.", cc)
+		}
 	}
 	if !shareGiven && !byRoute && nw.hasRows && nw.perDay == nil {
 		p.note("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
@@ -1200,26 +1207,14 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 
 // priceFuel prices national CO2 prices on road fuel: fuel bought in
 // fuel_country, or along the route in proportion to each country's km.
-func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
-	if roadT <= 0 {
+func (p *pricer) priceFuel(set *tariffs.Set, fuelL float64) error {
+	if fuelL <= 0 {
 		return nil
 	}
 	req, out := p.req, p.out
-	share := map[string]float64{}
-	if req.FuelCountry != "" {
-		share[req.FuelCountry] = 1
-	} else {
-		var total float64
-		for _, km := range out.CountryKm {
-			total += km
-		}
-		for cc, km := range out.CountryKm {
-			if total > 0 {
-				share[cc] = km / total
-			}
-		}
-	}
-	priced, perLitre := false, false
+	share := fuelShares(req, out.CountryKm)
+	byRoute := req.FuelCountry == "" && len(req.FuelPurchases) == 0
+	priced := false
 	for _, cc := range sortedKeys(share) {
 		if share[cc] <= 0 {
 			continue
@@ -1239,21 +1234,16 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 				obj = o.ID
 			}
 		}
-		t := roadT * share[cc]
+		litres := fuelL * share[cc]
 		m := &lineMeta{charge: FuelCO2, country: cc}
-		if req.FuelCountry == "" {
+		if byRoute {
 			m.km, m.hasKm = out.CountryKm[cc], true
 		}
-		unit, v := "t_co2", t
+		// A tax per litre on the litres, one per tonne of CO2 on their
+		// tank-to-wheel CO2 at the standard factor.
+		unit, v := "t_co2", litres*DieselKgCO2PerL/1000
 		if len(ds.Doc.Charges) > 0 && ds.Doc.Charges[0].Unit == "litre" {
-			// A tax per litre: the litres given, or the CO2's at the
-			// standard factor.
-			unit, v = "litre", t*1000/DieselKgCO2PerL
-			if req.DieselL > 0 {
-				v = req.DieselL * share[cc]
-			} else {
-				perLitre = true
-			}
+			unit, v = "litre", litres
 		}
 		b := &batch{ds: ds}
 		b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
@@ -1263,13 +1253,12 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 		priced = true
 	}
 	switch {
-	case priced && req.FuelCountry == "":
-		p.note("Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
-	case priced:
+	case priced && byRoute:
+		p.note("Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_purchases (or fuel_country) for where the truck fills up.")
+	case priced && req.FuelCountry != "":
 		p.note("Fuel CO2: the national CO2 price on diesel of %s, where the fuel is bought, on this trip's road fuel.", req.FuelCountry)
-	}
-	if perLitre {
-		p.note("Fuel CO2: taxes per litre are on the road part's tank-to-wheel CO2 at %.2f kg CO2e per litre of diesel (EN 16258:2012, Annex A). Give diesel_l for the litres the truck burns.", DieselKgCO2PerL)
+	case priced:
+		p.note("Fuel CO2: the national CO2 prices on diesel where the fuel was bought (fuel_purchases), on this trip's road fuel.")
 	}
 	return nil
 }

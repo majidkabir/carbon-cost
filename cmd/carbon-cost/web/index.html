@@ -22,9 +22,27 @@
   .wide { grid-column: span 2; }
   .check { display: flex; align-items: center; gap: 8px; color: var(--ink); }
   .check input { width: auto; }
-  button { grid-column: 1 / -1; justify-self: start; font: inherit; font-weight: 600; color: #fff; background: var(--accent);
-           border: 0; border-radius: 6px; padding: 9px 18px; cursor: pointer; }
-  button:disabled { opacity: .6; cursor: wait; }
+  button { font: inherit; cursor: pointer; border-radius: 6px; }
+  #go { grid-column: 1 / -1; justify-self: start; font-weight: 600; color: #fff; background: var(--accent);
+        border: 0; padding: 9px 18px; }
+  #go:disabled { opacity: .6; cursor: wait; }
+  button.small { color: var(--accent); background: #fff; border: 1px solid var(--line); padding: 5px 10px; font-size: 13px; white-space: nowrap; }
+  button.x { color: var(--muted); background: none; border: 0; padding: 4px 8px; font-size: 16px; line-height: 1; }
+  .full { grid-column: 1 / -1; }
+  fieldset { grid-column: 1 / -1; border: 1px solid var(--line); border-radius: 8px; margin: 0; padding: 10px 12px 12px; display: grid; gap: 10px;
+             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  legend { font-size: 13px; font-weight: 600; color: var(--ink); padding: 0 4px; }
+  fieldset .hint { grid-column: 1 / -1; margin: -4px 0 0; font-size: 12px; color: var(--muted); }
+  .row { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row > .ac { flex: 1 1 240px; }
+  .row > span.lbl { font-size: 13px; color: var(--muted); min-width: 54px; }
+  .ship { grid-column: 1 / -1; display: grid; gap: 8px; align-items: center; grid-template-columns: 90px 110px 1fr 1fr 30px; }
+  .ship.head { font-size: 12px; color: var(--muted); }
+  #pathinfo { font-size: 13px; color: var(--muted); }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 0; }
+  .bar select { width: auto; max-width: 260px; }
+  .bar input { width: 160px; }
+  #flash { font-size: 13px; color: var(--accent); }
   #error { color: #a3261b; margin: 14px 0 0; white-space: pre-wrap; }
   .totals { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 12px; }
   .tile { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; min-width: 150px; }
@@ -63,7 +81,9 @@
   .ac li { padding: 7px 10px; cursor: pointer; color: var(--ink); font-size: 14px; }
   .ac li small { color: var(--muted); margin-left: 6px; }
   .ac li[aria-selected="true"], .ac li:hover { background: #eef4f2; }
-  @media (max-width: 560px) { #map { height: 300px; } .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
+  @media (max-width: 560px) { #map { height: 300px; } .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; }
+    .ship { grid-template-columns: 1fr 1fr 30px; grid-template-areas: "id kg x" "from to to"; } .ship.head { display: none; }
+    .ship .sid { grid-area: id; } .ship .skg { grid-area: kg; } .ship .sfrom { grid-area: from; } .ship .sto { grid-area: to; } .ship .x { grid-area: x; } }
 </style>
 </head>
 <body>
@@ -71,12 +91,31 @@
   <h1>What does a truck trip pay for carbon and tolls?</h1>
   <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (<a href="tolls">truck toll rates by country</a>); routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
 
-  <form id="f">
-    <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
-    <label class="wide">To<span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" required></span></label>
+  <div class="bar">
+    <select id="recent" aria-label="Recent trips"><option value="">Recent trips</option></select>
+    <select id="trucks" aria-label="Saved trucks"><option value="">Saved trucks</option></select>
+    <input id="truckname" placeholder="Name this truck" aria-label="Truck name">
+    <button type="button" class="small" id="savetruck">Save truck</button>
+    <button type="button" class="small" id="deltruck" hidden>Delete truck</button>
+    <span id="flash"></span>
+  </div>
+  <form id="f" style="margin-top:10px">
+    <div class="row"><span class="lbl">From</span><span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" aria-label="From"></span></div>
+    <div class="full" id="stops" style="display:grid;gap:10px"></div>
+    <div class="row"><span class="lbl">To</span><span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" aria-label="To"></span>
+      <button type="button" class="small" id="addstop">+ Stop in between</button></div>
+    <label class="check full"><input name="back" type="checkbox"> The truck drives back empty to the start</label>
     <label>Date<input name="date" type="date"></label>
     <label>Departure time<input name="time" type="time"></label>
-    <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
+    <label id="cargowrap">Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000"></label>
+    <label class="check wide"><input name="multi" type="checkbox"> Several shipments (loaded and unloaded at different stops)</label>
+    <fieldset id="shipwrap" hidden>
+      <legend>Shipments</legend>
+      <p class="hint">Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.</p>
+      <div class="ship head"><span>ID</span><span>kg</span><span>Loaded at</span><span>Unloaded at</span><span></span></div>
+      <div class="full" id="ships" style="display:grid;gap:8px"></div>
+      <div class="row"><button type="button" class="small" id="addship">+ Shipment</button></div>
+    </fieldset>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
     <label>Truck tare, kg (for ferries)<input name="tare_kg" type="number" min="0" placeholder="e.g. 15000"></label>
@@ -94,8 +133,17 @@
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
     <label>UKA price, GBP/t<input name="uka_gbp_per_t" type="number" min="0" step="0.01"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
-    <label>Fuel bought in (country code; blank: along the route)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
-    <label>Diesel burnt on the road, litres (blank: from the CO2)<input name="diesel_l" type="number" min="0" step="any"></label>
+    <fieldset>
+      <legend>Your truck's data (optional)</legend>
+      <p class="hint">Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.</p>
+      <label>Diesel, l/100 km<input name="l_per_100km" type="number" min="0" max="100" step="any" placeholder="e.g. 29"></label>
+      <label>Diesel burnt on the trip, litres<input name="diesel_l" type="number" min="0" step="any"></label>
+      <label class="wide">Diesel bought, litres by country<input name="fuel_bought" placeholder="e.g. DE=300, PL=150"></label>
+      <label>Or all bought in (country)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
+      <label class="wide">Route driven (GPX or GeoJSON from GPS or telematics)<input name="pathfile" type="file" accept=".gpx,.json,.geojson,application/gpx+xml,application/json"></label>
+      <div class="row"><span id="pathinfo"></span><button type="button" class="small" id="clearpath" hidden>Remove route</button></div>
+      <label class="full">Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)<input name="country_km" placeholder="e.g. DE=320, PL=410, BE-VLG=60"></label>
+    </fieldset>
     <label class="check"><input name="driver_rest" type="checkbox" checked> Driver breaks and rests in passage times (Reg. 561/2006)</label>
     <label class="check"><input name="etc" type="checkbox"> Pays by toll box or agreement (operators' discounts)</label>
     <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
@@ -109,13 +157,23 @@
       <div class="tile"><span id="totallabel">Total</span><b id="total"></b></div>
       <div class="tile carbon"><span>Of which carbon</span><b id="carbon"></b></div>
       <div class="tile"><span>Distance</span><b id="dist"></b></div>
+      <div class="tile" id="fueltile"><span>Diesel</span><b id="fuel"></b></div>
     </div>
+    <div class="bar" style="margin:0 0 10px"><button type="button" class="small" id="share">Copy link to this trip</button>
+      <button type="button" class="small" id="csv">Download CSV</button></div>
     <div id="incomplete" class="warn" hidden><b>Incomplete: the total leaves out charges this trip meets</b><ul id="missing"></ul></div>
     <div id="km"></div>
+    <div id="truckline" class="sub" style="margin:4px 0 0"></div>
+    <div id="co2line" class="sub" style="margin:4px 0 0"></div>
     <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
     <div class="h2row"><h2>Charges</h2><label class="check"><input id="showsrc" type="checkbox"> Show sources</label></div>
     <table><thead><tr><th>Charge</th><th>Where</th><th>Part</th><th class="n">Basis</th><th class="n sm-hide">Rate</th><th class="n sm-hide">Amount</th><th class="n">EUR</th></tr></thead>
       <tbody id="lines"></tbody></table>
+    <div id="shipout" hidden>
+      <h2>Shipments</h2>
+      <table><thead><tr><th>Shipment</th><th class="n">kg</th><th>Stops</th><th class="n sm-hide">km</th><th class="n sm-hide">tkm</th><th class="n">Share</th><th class="n">EUR</th><th class="n sm-hide">EUR/100 kg</th><th class="n">Carbon EUR</th><th class="n sm-hide">CO2e kg (WTW)</th><th class="n sm-hide">g/tkm</th></tr></thead>
+        <tbody id="shiplines"></tbody></table>
+    </div>
     <div id="cmpwrap" hidden>
       <h2>Same trip, other trucks</h2>
       <p id="cmpnote" class="sub" hidden>The savings count only the charges included above (the total is incomplete).</p>
@@ -177,6 +235,7 @@ function autocomplete(input) {
     if (p.code) { delete input.dataset.lat; delete input.dataset.lon; }
     else { input.dataset.lat = p.lat; input.dataset.lon = p.lon; }
     close();
+    input.dispatchEvent(new Event("change"));
   };
   input.addEventListener("input", () => {
     clearTimeout(timer);
@@ -187,7 +246,7 @@ function autocomplete(input) {
       try {
         const resp = await fetch("v1/places?q=" + encodeURIComponent(q));
         const body = await resp.json();
-        if (n !== seq || !resp.ok) return;
+        if (n !== seq || !resp.ok || document.activeElement !== input) return;
         items = body.places || [];
       } catch { return; }
       list.replaceChildren();
@@ -224,33 +283,326 @@ const eur = (v) => "EUR " + (v ?? 0).toLocaleString("en", { minimumFractionDigit
 const num = (v, d) => (v ?? 0).toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
 function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
 
-f.addEventListener("submit", async (e) => {
-  e.preventDefault();
+// ---- stops and shipments
+const stopsEl = $("stops"), shipsEl = $("ships");
+let stopN = 0;
+const stopInputs = () => [f.from, ...stopsEl.querySelectorAll("input"), f.to];
+function getPlace(input) {
+  const d = input.dataset, v = input.value.trim();
+  return d.label === v && d.lat ? { v, lat: +d.lat, lon: +d.lon } : { v };
+}
+function setPlace(input, p) {
+  if (typeof p === "string") p = { v: p };
+  input.value = p.v || "";
+  if (p.lat != null) { input.dataset.label = input.value; input.dataset.lat = p.lat; input.dataset.lon = p.lon; }
+  else { delete input.dataset.label; delete input.dataset.lat; delete input.dataset.lon; }
+}
+function xButton(title, onclick) {
+  const x = document.createElement("button");
+  x.type = "button"; x.className = "x"; x.textContent = "✕"; x.title = title; x.setAttribute("aria-label", title);
+  x.addEventListener("click", onclick);
+  return x;
+}
+function addStop(p) {
+  const row = document.createElement("div"); row.className = "row";
+  const lbl = document.createElement("span"); lbl.className = "lbl"; lbl.textContent = "Stop";
+  const ac = document.createElement("span"); ac.className = "ac";
+  const input = document.createElement("input");
+  input.name = "stop" + (++stopN); input.placeholder = "City, port, code or lat,lon"; input.setAttribute("aria-label", "Stop");
+  ac.append(input);
+  row.append(lbl, ac, xButton("Remove stop", () => { row.remove(); stopsChanged(); }));
+  stopsEl.append(row);
+  autocomplete(input);
+  if (p) setPlace(input, p);
+  input.addEventListener("change", stopsChanged);
+  stopsChanged();
+  return input;
+}
+function stopNames() {
+  const ins = stopInputs(), short = (i) => (i.value.trim() || "?").replace(/\s*\([A-Z0-9]{3,5}\)$/, "");
+  const names = ins.map((i, k) => `${k}: ${short(i)}`);
+  if (f.back.checked) names.push(`${ins.length}: back to ${short(f.from)}`);
+  return names;
+}
+function stopsChanged() {
+  const names = stopNames();
+  for (const row of shipsEl.children) {
+    for (const [sel, def] of [[row.querySelector(".sfrom"), 0], [row.querySelector(".sto"), names.length - 1]]) {
+      const cur = sel.value === "" ? def : Math.min(+sel.value, names.length - 1);
+      sel.replaceChildren(...names.map((n, k) => new Option(n, k)));
+      sel.value = cur;
+    }
+  }
+}
+function addShip(s = {}) {
+  const row = document.createElement("div"); row.className = "ship";
+  const id = document.createElement("input"); id.className = "sid"; id.placeholder = "ID"; id.setAttribute("aria-label", "Shipment ID");
+  id.value = s.id ?? String(shipsEl.children.length + 1);
+  const kg = document.createElement("input"); kg.className = "skg"; kg.type = "number"; kg.min = "1"; kg.placeholder = "kg"; kg.setAttribute("aria-label", "Weight, kg");
+  kg.value = s.kg ?? "";
+  const a = document.createElement("select"), b = document.createElement("select");
+  a.className = "sfrom"; b.className = "sto"; a.setAttribute("aria-label", "Loaded at"); b.setAttribute("aria-label", "Unloaded at");
+  row.append(id, kg, a, b, xButton("Remove shipment", () => row.remove()));
+  shipsEl.append(row);
+  stopsChanged();
+  if (s.from != null) a.value = s.from;
+  if (s.to != null) b.value = s.to;
+}
+const shipRows = () => [...shipsEl.children].map((r) => ({ id: r.querySelector(".sid").value.trim(), kg: r.querySelector(".skg").value,
+  from: +r.querySelector(".sfrom").value, to: +r.querySelector(".sto").value }));
+function multiChanged() {
+  const on = f.multi.checked;
+  $("shipwrap").hidden = !on; $("cargowrap").hidden = on;
+  if (on && !shipsEl.children.length) { addShip({ kg: f.cargo_kg.value }); }
+}
+$("addstop").addEventListener("click", () => addStop().focus());
+$("addship").addEventListener("click", () => addShip());
+f.from.addEventListener("change", stopsChanged); f.to.addEventListener("change", stopsChanged);
+f.back.addEventListener("change", stopsChanged);
+f.multi.addEventListener("change", multiChanged);
+
+// ---- the route driven, from a GPX or GeoJSON file
+const MAX_POINTS = 200000;
+let driven = null;
+function parsePath(text) {
+  text = text.trim();
+  let out = [];
+  if (text.startsWith("<")) {
+    const doc = new DOMParser().parseFromString(text, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length) throw new Error("not valid GPX");
+    let pts = [...doc.getElementsByTagName("trkpt")];
+    if (!pts.length) pts = [...doc.getElementsByTagName("rtept")];
+    out = pts.map((p) => [+p.getAttribute("lon"), +p.getAttribute("lat")]);
+  } else {
+    const walk = (g) => {
+      if (Array.isArray(g)) { for (const p of g) out.push([+p[0], +p[1]]); return; }
+      if (!g) return;
+      if (g.type === "FeatureCollection") (g.features || []).forEach(walk);
+      else if (g.type === "Feature") walk(g.geometry);
+      else if (g.type === "LineString") walk(g.coordinates);
+      else if (g.type === "MultiLineString") (g.coordinates || []).forEach(walk);
+    };
+    walk(JSON.parse(text));
+  }
+  if (out.length < 2 || out.some(([lon, lat]) => !(Math.abs(lon) <= 180 && Math.abs(lat) <= 90)))
+    throw new Error("give GPX track or route points, [[lon, lat], ...] or a GeoJSON LineString");
+  if (out.length > MAX_POINTS) { // keep every k-th point and the last
+    const k = Math.ceil(out.length / MAX_POINTS);
+    out = out.filter((_, i) => i % k === 0 || i === out.length - 1);
+  }
+  return out.map(([lon, lat]) => [Math.round(lon * 1e5) / 1e5, Math.round(lat * 1e5) / 1e5]);
+}
+function pathKm(pts) {
+  let km = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const [lo1, la1] = pts[i - 1], [lo2, la2] = pts[i], r = Math.PI / 180;
+    const h = Math.sin((la2 - la1) * r / 2) ** 2 + Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin((lo2 - lo1) * r / 2) ** 2;
+    km += 12742 * Math.asin(Math.sqrt(h));
+  }
+  return km;
+}
+function setDriven(pts, name) {
+  driven = pts;
+  $("pathinfo").textContent = pts ? `${name ? name + ": " : ""}${pts.length.toLocaleString("en")} points, ${num(pathKm(pts), 1)} km. Priced on this route; the stops above still set the shipments' own routes.` : "";
+  $("clearpath").hidden = !pts;
+  if (!pts) f.pathfile.value = "";
+}
+f.pathfile.addEventListener("change", async () => {
+  const file = f.pathfile.files[0];
+  if (!file) return;
+  try { setDriven(parsePath(await file.text()), file.name); $("error").hidden = true; }
+  catch (err) { setDriven(null); showError("Route file: " + err.message); }
+});
+$("clearpath").addEventListener("click", () => setDriven(null));
+
+// pairs reads "DE=300, PL=150" into { DE: 300, PL: 150 }.
+function pairs(s, what) {
+  s = s.trim();
+  if (!s) return undefined;
+  const out = {};
+  for (const kv of s.split(/[,;]\s*/)) {
+    const m = kv.trim().match(/^([A-Za-z]{2}(?:-[A-Za-z0-9]{1,3})?)\s*[=:]\s*(\d+(?:\.\d+)?)$/);
+    if (!m) throw new Error(`${what}: "${kv}" is not COUNTRY=number`);
+    out[m[1].toUpperCase()] = +m[2];
+  }
+  return out;
+}
+
+function buildRequest() {
   const req = {
-    from: place(f.from), to: place(f.to), date: f.date.value || undefined, time: f.time.value || undefined,
-    cargo_kg: +f.cargo_kg.value,
+    date: f.date.value || undefined, time: f.time.value || undefined,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined,
              motor_axles: +f.motor_axles.value || undefined, motor_mass_kg: +f.motor_mass_kg.value || undefined,
              trailer_mass_kg: +f.trailer_mass_kg.value || undefined, capacity_kg: +f.capacity_kg.value || undefined },
     etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
-    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, uka_gbp_per_t: +f.uka_gbp_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined, diesel_l: +f.diesel_l.value || undefined,
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, uka_gbp_per_t: +f.uka_gbp_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
+    l_per_100km: +f.l_per_100km.value || undefined, diesel_l: +f.diesel_l.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
+  const bought = pairs(f.fuel_bought.value, "Diesel bought");
+  if (bought) req.fuel_purchases = Object.entries(bought).map(([country, litres]) => ({ country, litres }));
+  else req.fuel_country = f.fuel_country.value.trim().toUpperCase() || undefined;
+  const ckm = pairs(f.country_km.value, "Km by country");
+  if (ckm) {
+    if (f.multi.checked || driven) throw new Error("Km by country prices one shipment with no route: untick several shipments and remove the route file, or clear the km.");
+    req.country_km = ckm; req.cargo_kg = +f.cargo_kg.value;
+    return req;
+  }
+  const ins = stopInputs();
+  if (ins.some((i) => !i.value.trim())) throw new Error("Give every stop (or remove the empty ones).");
+  const locs = ins.map(place);
+  if (f.back.checked) locs.push(place(f.from));
+  if (locs.length > 2) req.stops = locs; else { req.from = locs[0]; req.to = locs[1]; }
+  if (f.multi.checked) {
+    req.shipments = shipRows().map((s, i) => ({ id: s.id || String(i + 1), weight_kg: +s.kg, from: s.from, to: s.to }));
+    if (!req.shipments.length) throw new Error("Add a shipment.");
+  } else if (f.back.checked) {
+    req.shipments = [{ id: "1", weight_kg: +f.cargo_kg.value, from: 0, to: locs.length - 2 }];
+  } else req.cargo_kg = +f.cargo_kg.value;
+  if (driven) req.path = driven;
+  return req;
+}
+
+function showError(msg) { $("error").textContent = msg; $("error").hidden = false; }
+let last = null; // the last result
+
+f.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let req;
+  try { req = buildRequest(); } catch (err) { showError(err.message); return; }
   $("go").disabled = true; $("error").hidden = true;
   try {
     const resp = await fetch("v1/carbon-cost", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(req) });
     const body = await resp.json();
     if (!resp.ok) throw new Error(body.error || resp.statusText);
+    last = body;
     show(body);
+    remember();
   } catch (err) {
-    $("out").hidden = true; $("error").textContent = err.message; $("error").hidden = false;
+    $("out").hidden = true; showError(err.message);
   } finally { $("go").disabled = false; }
+});
+
+// ---- the form's state: for links, recent trips and saved trucks
+const FIELDS = ["date", "time", "cargo_kg", "max_mass_kg", "axles", "tare_kg", "motor_axles", "motor_mass_kg", "trailer_mass_kg", "length_m", "capacity_kg",
+  "euro", "co2_class", "eua_eur_per_t", "uka_gbp_per_t", "ets2_eur_per_t", "fuel_country", "l_per_100km", "diesel_l", "fuel_bought", "country_km", "trips_per_year"];
+const CHECKS = ["back", "multi", "driver_rest", "etc", "compare"];
+const TRUCK = ["max_mass_kg", "axles", "tare_kg", "motor_axles", "motor_mass_kg", "trailer_mass_kg", "length_m", "capacity_kg", "euro", "co2_class", "l_per_100km"];
+function state() {
+  const s = { from: getPlace(f.from), to: getPlace(f.to), stops: [...stopsEl.querySelectorAll("input")].map(getPlace) };
+  if (f.multi.checked) s.ships = shipRows();
+  for (const k of FIELDS) if (f[k].value !== "") s[k] = f[k].value;
+  for (const k of CHECKS) s[k] = f[k].checked;
+  return s;
+}
+function restore(s) {
+  setPlace(f.from, s.from || ""); setPlace(f.to, s.to || "");
+  stopsEl.replaceChildren();
+  for (const p of s.stops || []) addStop(p);
+  for (const k of FIELDS) if (k in s) f[k].value = s[k]; else if (k !== "date" && k !== "time") f[k].value = f[k].defaultValue;
+  for (const k of CHECKS) if (k in s) f[k].checked = !!s[k];
+  shipsEl.replaceChildren();
+  for (const x of s.ships || []) addShip(x);
+  multiChanged(); stopsChanged();
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("carbon-cost." + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("carbon-cost." + k, JSON.stringify(v)); return true; } catch { return false; } },
+};
+function flash(msg) { $("flash").textContent = msg; clearTimeout(flash.t); flash.t = setTimeout(() => { $("flash").textContent = ""; }, 4000); }
+
+// Recent trips: the last ten calculated, newest first.
+function fillRecent() {
+  const sel = $("recent"), trips = store.get("trips", []);
+  sel.replaceChildren(new Option(trips.length ? "Recent trips" : "Recent trips (none yet)", ""), ...trips.map((t, i) => new Option(t.label, i)));
+}
+function remember() {
+  const s = state(), names = [s.from, ...s.stops, s.to].map((p) => p.v.replace(/\s*\([A-Z0-9]{3,5}\)$/, "").split(",")[0]);
+  const label = f.country_km.value.trim() ? "Km by country: " + f.country_km.value.trim() : names.join(" → ") + (s.back ? " → back" : "");
+  const json = JSON.stringify(s);
+  const trips = store.get("trips", []).filter((t) => JSON.stringify(t.s) !== json);
+  trips.unshift({ label: `${label} (${s.date || "today"})`, s });
+  store.set("trips", trips.slice(0, 10));
+  fillRecent();
+}
+$("recent").addEventListener("change", (e) => {
+  const t = store.get("trips", [])[+e.target.value];
+  if (e.target.value !== "" && t) { restore(t.s); setDriven(null); flash("Trip loaded: press Calculate."); }
+  e.target.value = "";
+});
+
+// Saved trucks: the truck's fields by a name.
+function fillTrucks(selected) {
+  const sel = $("trucks"), trucks = store.get("trucks", {});
+  sel.replaceChildren(new Option(Object.keys(trucks).length ? "Saved trucks" : "Saved trucks (none yet)", ""), ...Object.keys(trucks).sort().map((n) => new Option(n, n)));
+  sel.value = selected || "";
+  $("deltruck").hidden = !selected;
+}
+$("savetruck").addEventListener("click", () => {
+  const name = $("truckname").value.trim() || $("trucks").value;
+  if (!name) { flash("Give the truck a name first."); $("truckname").focus(); return; }
+  const trucks = store.get("trucks", {}), t = {};
+  for (const k of TRUCK) t[k] = f[k].value;
+  t.etc = f.etc.checked;
+  trucks[name] = t;
+  flash(store.set("trucks", trucks) ? `Saved "${name}" in this browser.` : "This browser doesn't let the page save.");
+  $("truckname").value = "";
+  fillTrucks(name);
+});
+$("trucks").addEventListener("change", (e) => {
+  const t = store.get("trucks", {})[e.target.value];
+  $("deltruck").hidden = !t;
+  if (!t) return;
+  for (const k of TRUCK) if (k in t) f[k].value = t[k];
+  f.etc.checked = !!t.etc;
+  flash(`Truck "${e.target.value}" loaded.`);
+});
+$("deltruck").addEventListener("click", () => {
+  const name = $("trucks").value, trucks = store.get("trucks", {});
+  delete trucks[name]; store.set("trucks", trucks); fillTrucks(); flash(`Deleted "${name}".`);
+});
+fillRecent(); fillTrucks();
+
+// A link to this trip: the form in the address's #, which opens and prices it.
+$("share").addEventListener("click", async () => {
+  const url = location.origin + location.pathname + "#trip=" + encodeURIComponent(JSON.stringify(state()));
+  history.replaceState(null, "", url);
+  let ok = false;
+  try { await navigator.clipboard.writeText(url); ok = true; } catch {}
+  flash((ok ? "Link copied." : "Link in the address bar.") + (driven ? " The route file isn't in it." : ""));
+});
+if (location.hash.startsWith("#trip=")) {
+  try { restore(JSON.parse(decodeURIComponent(location.hash.slice(6)))); setTimeout(() => f.requestSubmit(), 0); }
+  catch { showError("The link's trip couldn't be read."); }
+}
+
+// CSV of the result: the charges, the totals and the shipments.
+const csvCell = (v) => { v = v == null ? "" : String(v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+$("csv").addEventListener("click", () => {
+  const r = last;
+  if (!r) return;
+  const rows = [["charge", "country", "region", "component", "road", "area", "section", "km", "days", "t_co2e", "litres", "rate", "rate_unit", "amount", "currency", "amount_eur", "carbon", "source"]];
+  for (const l of r.lines) rows.push([l.charge, l.country, l.region, l.component, l.road, l.area, l.section, l.km, l.days, l.t_co2e, l.litres, l.rate, l.rate_unit, l.amount, l.currency, l.amount_eur, l.carbon ? "yes" : "", l.source]);
+  rows.push([], ["date", r.date], ["total_eur", r.total_eur], ["carbon_eur", r.carbon_eur], ["complete", r.complete], ["distance_km", r.distance_km],
+    ["diesel_l", r.trip?.fuel_l], ["diesel_basis", r.trip?.fuel_basis], ["empty_km", r.trip?.empty_km ?? 0], ["co2e_ttw_kg", r.ttw_kg], ["co2e_wtw_kg", r.wtw_kg], ["g_co2e_per_tkm", r.intensity_g_co2e_per_tkm], ["eur_per_tkm", r.eur_per_tkm], ["data_type", r.data_type], ["emissions_basis", r.emissions_basis]);
+  for (const m of r.missing || []) rows.push(["missing", missingText(m)]);
+  if ((r.shipments || []).length) {
+    rows.push([], ["shipment", "weight_kg", "from_stop", "to_stop", "distance_km", "tkm", "share", "total_eur", "eur_per_100kg", "carbon_eur", "ttw_kg", "wtw_kg", "g_co2e_per_tkm", "by_country"]);
+    for (const s of r.shipments) rows.push([s.id, s.weight_kg, s.from, s.to, s.distance_km, s.tkm, s.share, s.total_eur, s.eur_per_100kg, s.carbon_eur, s.ttw_kg, s.wtw_kg, s.intensity_g_co2e_per_tkm,
+      Object.entries(s.by_country || {}).sort().map(([k, v]) => `${k}=${v}`).join(";")]);
+  }
+  const blob = new Blob([rows.map((x) => x.map(csvCell).join(",")).join("\r\n") + "\r\n"], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = `carbon-cost-${r.date}.csv`;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 });
 
 // missingText says what a result leaves out, as the API's Missing.Message.
 function missingText(m) {
   const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel", ferry_fare: "ferry fare" }[m.charge] || m.charge;
+  if (m.reason === "no_route") return `${m.area} ${what} (${m.name}): charged at toll stations or on sections, which need the route (give from and to, or a route file)`;
   return m.reason === "ended"
     ? `${m.area} ${what} (${m.name}): the rates here ended on ${m.ended} and the next ones aren't in this release yet`
     : `${m.area} ${what}: no table in this tool`;
@@ -267,7 +619,29 @@ function show(r) {
   const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
   if (r.ferry_km) parts.push(`ferry ${num(r.ferry_km, 1)} km` + (r.ferry_crossing ? ` (${r.ferry_crossing})` : ""));
   if (r.region_km) parts.push("(" + Object.entries(r.region_km).sort().map(([c, k]) => `${c} ${num(k, 1)}`).join(", ") + ")");
-  $("km").textContent = "Route: " + parts.join(" · ");
+  $("km").textContent = (r.country_km && !r.route ? "Km: " : "Route: ") + parts.join(" · ");
+  const tr = r.trip;
+  $("fueltile").hidden = !tr;
+  if (tr) {
+    $("fuel").textContent = num(tr.fuel_l, 0) + " l";
+    $("fueltile").title = tr.fuel_basis;
+    const legs = tr.legs.length > 1 ? ` in ${tr.legs.length} legs` : "";
+    $("truckline").textContent = `Truck: ${num(tr.road_km, 1)} road km${legs}` + (tr.empty_km ? `, ${num(tr.empty_km, 1)} km empty` : "") +
+      `, ${num(tr.fuel_l, 1)} l diesel` + (tr.road_km ? ` (${num(100 * tr.fuel_l / tr.road_km, 1)} l/100 km)` : "") + `: ${tr.fuel_basis}.`;
+  } else $("truckline").textContent = "";
+  $("co2line").textContent = r.wtw_kg ? `CO2e: ${num(r.wtw_kg, 1)} kg well-to-wheel (${num(r.ttw_kg, 1)} tank-to-wheel), ${num(r.intensity_g_co2e_per_tkm, 1)} g per tonne-km. ` +
+    (r.data_type === "primary" ? "Primary data: " : "Modelled: ") + r.emissions_basis + "." : "";
+  const ships = r.shipments || [], sl = $("shiplines");
+  $("shipout").hidden = ships.length < 2;
+  sl.replaceChildren();
+  const names = stopNames();
+  for (const s of ships) {
+    const row = sl.insertRow();
+    cell(row, s.id); cell(row, num(s.weight_kg, 0), "n");
+    cell(row, `${(names[s.from] || String(s.from)).replace(/^\d+: /, "")} → ${(names[s.to] || String(s.to)).replace(/^\d+: /, "")}`);
+    cell(row, num(s.distance_km, 1), "n sm-hide"); cell(row, num(s.tkm, 0), "n sm-hide"); cell(row, num(100 * s.share, 1) + "%", "n");
+    cell(row, num(s.total_eur, 2), "n"); cell(row, num(s.eur_per_100kg, 2), "n sm-hide"); cell(row, num(s.carbon_eur, 2), "n"); cell(row, num(s.wtw_kg, 1), "n sm-hide"); cell(row, num(s.intensity_g_co2e_per_tkm, 1), "n sm-hide");
+  }
 
   const lines = $("lines"); lines.replaceChildren();
   for (const l of r.lines) {
@@ -275,7 +649,7 @@ function show(r) {
     cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
     cell(tr, (l.component || "co2").replace("_", " ") + (l.road || l.area ? ` (${[l.road, l.area].filter(Boolean).join(", ")})` : "") + (l.section ? `: ${l.section}` : ""));
     // Per-passage charges (toll stations, bridges) have no km.
-    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.days ? l.days + (l.days === 1 ? " day" : " days") : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
+    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.litres ? num(l.litres, 1) + " l" : l.days ? l.days + (l.days === 1 ? " day" : " days") : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
     cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
     // The law or tariff behind the number, with links to the documents.

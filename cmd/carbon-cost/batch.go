@@ -73,7 +73,7 @@ func priceAll(ctx context.Context, calc func(context.Context, cost.Request) (cos
 }
 
 // csvColumns are the result columns calc -csv adds after the input's.
-var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "complete", "missing", "error"}
+var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "fuel_l", "empty_km", "shipments", "eur_per_tkm", "wtw_kg", "g_co2e_per_tkm", "data_type", "complete", "missing", "error"}
 
 // calcCSV prices each row of a CSV file whose header names calc's flags
 // (without the dash), each row's values on top of the command line's, and
@@ -98,13 +98,25 @@ func calcCSV(c cost.Calculator, args []string, file string) error {
 		return fmt.Errorf("-csv: a header and at least one row are needed")
 	}
 	head := rows[0]
+	// Columns that name no flag (a truck, an order number) are kept as
+	// they are; a typo in a flag's name shows in this list.
+	known := calcFlagNames()
+	var labels []string
+	for _, name := range head {
+		if n := strings.TrimPrefix(strings.TrimSpace(name), "-"); n != "" && !known[n] {
+			labels = append(labels, n)
+		}
+	}
+	if len(labels) > 0 {
+		fmt.Fprintf(os.Stderr, "calc -csv: columns kept as labels (no flag of that name): %s\n", strings.Join(labels, ", "))
+	}
 	base := withoutCSV(args)
 	trips, bad := make([]cost.Request, len(rows)-1), make([]string, len(rows)-1)
 	for i, row := range rows[1:] {
 		a := slices.Clone(base)
 		for k, name := range head {
 			name = strings.TrimPrefix(strings.TrimSpace(name), "-")
-			if k < len(row) && strings.TrimSpace(row[k]) != "" && name != "" {
+			if k < len(row) && strings.TrimSpace(row[k]) != "" && known[name] {
 				a = append(a, "-"+name+"="+strings.TrimSpace(row[k]))
 			}
 		}
@@ -165,8 +177,20 @@ func csvResult(it BatchItem) []string {
 		miss = append(miss, m.Message())
 	}
 	f := func(v float64) string { return strconv.FormatFloat(v, 'f', 2, 64) }
+	var fuel, empty string
+	if r.Trip != nil {
+		fuel, empty = f(r.Trip.FuelL), strconv.FormatFloat(r.Trip.EmptyKm, 'f', 1, 64)
+	}
+	// Each shipment's share: id=EUR.
+	var ships []string
+	if len(r.Shipments) > 1 {
+		for _, s := range r.Shipments {
+			ships = append(ships, s.ID+"="+f(s.TotalEUR))
+		}
+	}
 	return []string{r.Date, strconv.FormatFloat(r.DistanceKm, 'f', 1, 64), strings.Join(km, ";"),
 		f(r.TotalEUR), f(r.CarbonEUR), f(by[cost.RoadToll]), f(by[cost.FuelCO2]), f(by[cost.FerryETS] + by[cost.FerryUKETS] + by[cost.ETS2]), f(by[cost.AreaCharge]), f(by[cost.FerryFare]),
+		fuel, empty, strings.Join(ships, ";"), strconv.FormatFloat(r.EURPerTkm, 'f', 4, 64), strconv.FormatFloat(r.WTWKg, 'f', 1, 64), f(r.IntensityG), r.DataType,
 		strconv.FormatBool(r.Complete), strings.Join(miss, "; "), ""}
 }
 

@@ -68,7 +68,7 @@ func TestCalcCSV(t *testing.T) {
 	fake := fakeRoute(t)
 	defer fake.Close()
 	in := filepath.Join(t.TempDir(), "trips.csv")
-	os.WriteFile(in, []byte("from,to,date,co2-class\nDEHAM,DEBER,2026-11-03,1\nDEHAM,DEBER,2026-11-03,9\nDEHAM,,2026-11-03,1\n"), 0o644)
+	os.WriteFile(in, []byte("from,to,date,co2-class,ref\nDEHAM,DEBER,2026-11-03,1,T1\nDEHAM,DEBER,2026-11-03,9,T2\nDEHAM,,2026-11-03,1,T3\n"), 0o644)
 	c, err := calculator(&sootcase.Client{BaseURL: fake.URL})
 	if err != nil {
 		t.Fatal(err)
@@ -84,7 +84,8 @@ func TestCalcCSV(t *testing.T) {
 	}
 	b, _ := io.ReadAll(r)
 	lines := strings.Split(strings.TrimSpace(string(b)), "\n")
-	if len(lines) != 4 || !strings.HasPrefix(lines[0], "from,to,date,co2-class,trip_date,distance_km,country_km,total_eur") {
+	// ref names no flag: a label, kept as it is.
+	if len(lines) != 4 || !strings.HasPrefix(lines[0], "from,to,date,co2-class,ref,trip_date,distance_km,country_km,total_eur") || !strings.HasPrefix(lines[1], "DEHAM,DEBER,2026-11-03,1,T1,") {
 		t.Fatalf("output:\n%s", b)
 	}
 	if !strings.Contains(lines[1], ",DE=100.0,") || !strings.Contains(lines[1], ",true,") {

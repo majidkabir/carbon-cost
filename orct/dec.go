@@ -18,18 +18,21 @@ type Dec struct {
 
 var (
 	bigTen = big.NewInt(10)
-	pow10s = map[int]*big.Int{}
+	// pow10s are 10^0 to 10^63, made once: read by many requests at once,
+	// never written after.
+	pow10s = func() (t [64]*big.Int) {
+		for n := range t {
+			t[n] = new(big.Int).Exp(bigTen, big.NewInt(int64(n)), nil)
+		}
+		return
+	}()
 )
 
 func pow10(n int) *big.Int {
-	if p, ok := pow10s[n]; ok {
-		return p
+	if n >= 0 && n < len(pow10s) {
+		return pow10s[n]
 	}
-	p := new(big.Int).Exp(bigTen, big.NewInt(int64(n)), nil)
-	if n < 64 {
-		pow10s[n] = p
-	}
-	return p
+	return new(big.Int).Exp(bigTen, big.NewInt(int64(n)), nil)
 }
 
 func (d Dec) c() *big.Int {

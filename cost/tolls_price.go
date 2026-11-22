@@ -78,13 +78,12 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
 	}
 	if byRoute && oneRate {
-		local := "which aren't tolled"
-		if l := req.roadLeftOut[a.country]; len(l) > 0 {
-			local = fmt.Sprintf("which aren't tolled (they include the stretches the toll leaves out: %s)", strings.Join(l, ", "))
-		}
+		// The stretches the toll leaves out (Germany's A 5 and A 6 by the
+		// borders, its private tunnels) are in the README and the road
+		// data, not in every trip's note.
 		first, _, _ := strings.Cut(tolledRoads(ds), ". ")
-		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, %s. Tolled roads: %s. Give tolled_share.%s to override.",
-			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), local, strings.TrimSuffix(first, "."), cc)
+		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, which aren't tolled. Tolled roads: %s. Give tolled_share.%s to override.",
+			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), strings.TrimSuffix(first, "."), cc)
 	}
 	p.useTable(ds)
 	if byRoute {

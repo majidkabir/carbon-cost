@@ -4005,7 +4005,7 @@ func TestGermanyRoadClasses(t *testing.T) {
 	found := false
 	for _, n := range r.Notes {
 		if strings.HasPrefix(n, "DE: by OpenStreetMap along the route, 90% of the 100.0 km are on the tolled roads and 10% on other roads") {
-			found = strings.Contains(n, "A 5 Swiss and French borders-Müllheim/Neuenburg") && strings.Contains(n, "Tolled roads: Federal motorways")
+			found = strings.Contains(n, "Tolled roads: Federal motorways") && !strings.Contains(n, "Müllheim")
 		}
 		if strings.Contains(n, "all 100.0 km are counted as on tolled roads") {
 			t.Errorf("note %q with road classes", n)

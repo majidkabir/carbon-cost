@@ -14,12 +14,12 @@ import (
 )
 
 // reportSums are the priced CSV's columns a report adds up.
-var reportSums = []string{"distance_km", "empty_km", "fuel_l", "tkm", "wtw_kg", "ttw_kg", "total_eur", "carbon_eur",
+var reportSums = []string{"distance_km", "empty_km", "fuel_l", "cargo_kg", "tkm", "wtw_kg", "ttw_kg", "total_eur", "carbon_eur",
 	"road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur"}
 
 // reportColumns follow the groups' columns in a report.
 var reportColumns = append([]string{"rows", "shipments"}, append(slices.Clone(reportSums),
-	"g_co2e_per_tkm", "eur_per_tkm", "primary_tkm_share", "incomplete", "errors")...)
+	"g_co2e_per_tkm", "eur_per_tkm", "eur_per_100kg", "road_toll_eur_per_100kg", "carbon_eur_per_100kg", "primary_tkm_share", "incomplete", "errors")...)
 
 // report sums priced CSV files (calc -csv's output, or the web page's or
 // POST /v1/carbon-cost/csv's) by the columns given, for a customer's or a
@@ -33,7 +33,8 @@ func report(args []string) error {
 Adds up priced CSV files (calc -csv, with -shipment-rows for a row per
 shipment) by the columns given: tonne-km, CO2e well-to-wheel and
 tank-to-wheel, g CO2e per tonne-km, the share of tonne-km with primary
-data, and the charges. Writes CSV.`)
+data, the charges, and EUR per 100 kg carried (-by from,to on a CSV of
+lanes: a lane's toll surcharge). Writes CSV.`)
 		fs.PrintDefaults()
 	}
 	fs.Parse(args)
@@ -184,7 +185,9 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 		rec := append(slices.Clone(g.key), strconv.Itoa(g.rows), strconv.Itoa(g.shipments))
 		for _, c := range reportSums {
 			d := 2
-			if c == "distance_km" || c == "empty_km" || c == "tkm" || c == "wtw_kg" || c == "ttw_kg" || c == "fuel_l" {
+			if c == "cargo_kg" {
+				d = 0
+			} else if c == "distance_km" || c == "empty_km" || c == "tkm" || c == "wtw_kg" || c == "ttw_kg" || c == "fuel_l" {
 				d = 1
 			}
 			if !g.have[c] {
@@ -193,11 +196,22 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 			}
 			rec = append(rec, f(g.sums[c], d))
 		}
-		tkm := g.sums["tkm"]
+		tkm, kg := g.sums["tkm"], g.sums["cargo_kg"]
 		if tkm > 0 {
-			rec = append(rec, f(1000*g.sums["wtw_kg"]/tkm, 1), f(g.sums["total_eur"]/tkm, 4), f(g.primary/tkm, 3))
+			rec = append(rec, f(1000*g.sums["wtw_kg"]/tkm, 1), f(g.sums["total_eur"]/tkm, 4))
+		} else {
+			rec = append(rec, "", "")
+		}
+		// Per 100 kg carried: a lane's surcharge for groupage.
+		if kg > 0 {
+			rec = append(rec, f(100*g.sums["total_eur"]/kg, 3), f(100*g.sums["road_toll_eur"]/kg, 3), f(100*g.sums["carbon_eur"]/kg, 3))
 		} else {
 			rec = append(rec, "", "", "")
+		}
+		if tkm > 0 {
+			rec = append(rec, f(g.primary/tkm, 3))
+		} else {
+			rec = append(rec, "")
 		}
 		rec = append(rec, strconv.Itoa(g.incomp), strconv.Itoa(g.errs))
 		w.Write(rec)

@@ -188,6 +188,10 @@ func TestShipmentRowsAndReport(t *testing.T) {
 	if got, _ := strconv.ParseFloat(r[1][rc["wtw_kg"]], 64); math.Abs(got-sum) > 0.2 {
 		t.Errorf("Acme 2026-11 wtw %v, want %v", got, sum)
 	}
+	// 18,000 kg carried by Acme in November: EUR per 100 kg.
+	if got, _ := strconv.ParseFloat(r[1][rc["eur_per_100kg"]], 64); math.Abs(got-100*(num(rows[1], "total_eur")+num(rows[2], "total_eur"))/18000) > 0.001 || r[1][rc["cargo_kg"]] != "18000" {
+		t.Errorf("Acme 2026-11 per 100 kg %v of %v kg", got, r[1][rc["cargo_kg"]])
+	}
 	if r[1][rc["g_co2e_per_tkm"]] == "" || r[1][rc["primary_tkm_share"]] != "0.000" {
 		t.Errorf("Acme 2026-11: %v", r[1])
 	}

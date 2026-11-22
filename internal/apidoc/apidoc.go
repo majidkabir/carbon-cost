@@ -140,7 +140,8 @@ func Generate(root, version string) ([]byte, error) {
 				"summary": "Add up priced CSVs by customer, month or any column",
 				"description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file " +
 					"(a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, " +
-					"CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, the share of tonne-km priced on primary data, " +
+					"CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), " +
+					"the share of tonne-km priced on primary data, " +
 					"and the rows that are incomplete or failed.",
 				"operationId": "reportCSV",
 				"parameters": []any{map[string]any{"name": "by", "in": "query", "schema": map[string]any{"type": "string"},

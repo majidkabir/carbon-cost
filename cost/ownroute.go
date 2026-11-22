@@ -172,7 +172,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 				}
 			}
 		}
-		km := pathKm(seg)
+		km := round3(pathKm(seg))
 		l.DistanceKm, l.Path = km, seg
 		l.CountryKm, l.RegionKm = map[string]float64{}, nil
 		var ferryKm float64
@@ -199,7 +199,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 				continue // overlaps the one before
 			}
 			addRoad(seg[at : s[0]+1])
-			fkm := pathKm(seg[s[0] : s[1]+1])
+			fkm := round3(pathKm(seg[s[0] : s[1]+1]))
 			ferryKm += fkm
 			p := sootcase.Part{Kind: "ferry", DistanceKm: fkm}
 			if n < len(sootFerries) && sootFerries[n].DistanceKm > 0 {
@@ -217,7 +217,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		}
 		delete(l.RouteParts, "ferry")
 		if ferryKm > 0 {
-			l.RouteParts["ferry"] = ferryKm
+			l.RouteParts["ferry"] = round3(ferryKm)
 		}
 		if _, had := l.RouteParts["road"]; had {
 			l.RouteParts["road"] = km - ferryKm

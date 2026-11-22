@@ -805,6 +805,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	for k, v := range out.RegionKm {
 		out.RegionKm[k] = round3(v)
 	}
+	out.DistanceKm, out.FerryKm = round3(out.DistanceKm), round3(out.FerryKm)
 	return out, nil
 }
 

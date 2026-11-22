@@ -169,6 +169,10 @@ type Request struct {
 	// with_fuel_eur adds the fuel.
 	DieselEURPerL          float64            `json:"diesel_eur_per_l,omitempty"`
 	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
+	// DieselRefunds takes off the diesel the partial refund of the excise
+	// that some countries pay road hauliers on the litres bought there
+	// (France: trucks of 7.5 t or more). Give diesel prices before it.
+	DieselRefunds bool `json:"diesel_refunds,omitempty"`
 	// An electric truck's (CO2 class 5) energy: ElectricityKWh used on the
 	// trip (from rFMS totalElectricEnergyUsed or charging records), or
 	// KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays

@@ -179,6 +179,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
 	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
+	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France: EUR 0.1556 per litre for trucks of 7.5 t or more)")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
@@ -549,6 +550,9 @@ func printResult(r cost.Response) {
 		inc := ""
 		if !f.Complete {
 			inc = " (incomplete)"
+		}
+		if f.RefundEUR > 0 {
+			inc += fmt.Sprintf(" after EUR %.2f of excise refunds", f.RefundEUR)
 		}
 		fmt.Printf("Fuel: EUR %.2f without VAT%s (%s); with fuel: EUR %.2f (the CO2 prices on fuel, EUR %.2f, are in the diesel price)\n",
 			f.EUR, inc, strings.Join(parts, ", "), r.WithFuelEUR, f.InPriceEUR)

@@ -155,6 +155,13 @@
      "price": {
       "description": "Price says where the price comes from: \"given\", or \"Weekly Oil Bulletin <date>\".",
       "type": "string"
+     },
+     "refund": {
+      "type": "string"
+     },
+     "refund_eur_per_l": {
+      "description": "RefundEURPerL is the refund of the excise per litre (diesel_refunds), and Refund the law it rests on.",
+      "type": "number"
      }
     },
     "required": [
@@ -187,6 +194,10 @@
       "type": "number"
      },
      "litres": {
+      "type": "number"
+     },
+     "refund_eur": {
+      "description": "RefundEUR is the hauliers' partial refunds of the excise on the litres bought where the law sets one (diesel_refunds); EUR is after them.",
       "type": "number"
      },
      "unpriced": {
@@ -547,6 +558,10 @@
      "diesel_l": {
       "description": "DieselL is the litres of diesel the truck burns on the trip's road part, for the CO2 prices on fuel and ETS2.",
       "type": "number"
+     },
+     "diesel_refunds": {
+      "description": "DieselRefunds takes off the diesel the partial refund of the excise that some countries pay road hauliers on the litres bought there (France: trucks of 7.5 t or more). Give diesel prices before it.",
+      "type": "boolean"
      },
      "dkk_per_eur": {
       "description": "DKKPerEUR converts DKK to EUR; default DKKPerEUR.",

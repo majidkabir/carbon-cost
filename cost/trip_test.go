@@ -6,6 +6,7 @@ import (
 	"math"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -370,5 +371,34 @@ func TestFuelCost(t *testing.T) {
 	}
 	if err := check(Request{CargoKg: 1, Stops: req.Stops, DieselEURPerLByCountry: map[string]float64{"pl": 1}}); err == nil {
 		t.Error("lower-case country: want an error")
+	}
+}
+
+func TestDieselRefunds(t *testing.T) {
+	day := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"FR": 300}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 100}
+	r, err := PriceWith(res, all(t), nil, req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := r.Fuel.ByCountry[0].EURPerL
+	if r.Fuel.RefundEUR != 0 || !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "set diesel_refunds") }) {
+		t.Errorf("not asked: %+v %q", r.Fuel, r.Notes)
+	}
+	// France refunds EUR 15.56/hl to trucks of 7.5 t or more (CIBS L.312-53).
+	req.DieselRefunds = true
+	if r, err = PriceWith(res, all(t), nil, req, day); err != nil || r.Fuel.RefundEUR != 15.56 || r.Fuel.ByCountry[0].RefundEURPerL != 0.1556 ||
+		r.Fuel.EUR != round2(100*(p-0.1556)) || !strings.Contains(r.Fuel.ByCountry[0].Refund, "L.312-53") {
+		t.Errorf("refund: %v %+v", err, r.Fuel)
+	}
+	small := req
+	small.Truck.MaxMassKg, small.Truck.Axles = 7000, 2
+	if r, err = PriceWith(res, all(t), nil, small, day); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("7 t truck: %v %+v", err, r.Fuel)
+	}
+	// None before 2025 in the table.
+	if r, err = PriceWith(res, all(t), nil, req, time.Date(2024, 6, 3, 0, 0, 0, 0, time.UTC)); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("2024: %v %+v", err, r.Fuel)
 	}
 }

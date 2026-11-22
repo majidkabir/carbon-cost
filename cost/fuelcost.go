@@ -26,6 +26,10 @@ type FuelCost struct {
 	// the EU without a price given); Unpriced lists those countries.
 	Complete bool     `json:"complete"`
 	Unpriced []string `json:"unpriced,omitempty"`
+	// RefundEUR is the hauliers' partial refunds of the excise on the
+	// litres bought where the law sets one (diesel_refunds); EUR is
+	// after them.
+	RefundEUR float64 `json:"refund_eur,omitempty"`
 }
 
 // FuelBought is the litres bought in one country and their price.
@@ -37,11 +41,16 @@ type FuelBought struct {
 	// Price says where the price comes from: "given", or "Weekly Oil
 	// Bulletin <date>".
 	Price string `json:"price,omitempty"`
+	// RefundEURPerL is the refund of the excise per litre (diesel_refunds),
+	// and Refund the law it rests on.
+	RefundEURPerL float64 `json:"refund_eur_per_l,omitempty"`
+	Refund        string  `json:"refund,omitempty"`
 }
 
 // fuelCost prices the trip's road diesel where it is bought: at the price
 // given, else at the Weekly Oil Bulletin's national average of the
-// trip's week, without VAT.
+// trip's week, without VAT; with diesel_refunds, less the hauliers'
+// refund of the excise where the law sets one (fuel.Refunds).
 func fuelCost(out *Response, req Request, date time.Time) {
 	if out.Trip == nil || out.Trip.FuelL <= 0 {
 		return
@@ -50,6 +59,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	share := fuelShares(req, out.CountryKm)
 	f := &FuelCost{Litres: out.Trip.FuelL, Complete: true}
 	usedB, ets2InPrice := false, false
+	var refundNotes []string
 	priced := map[string]bool{}
 	for _, cc := range sortedKeys(share) {
 		l := out.Trip.FuelL * share[cc]
@@ -66,9 +76,21 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			fb.EURPerL, fb.Price = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date
 			usedB = true
 		}
+		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 {
+			eligible := req.Truck.MaxMassKg >= rf.MinMassKg && req.Truck.Euro >= rf.MinEuro
+			switch {
+			case req.DieselRefunds && eligible:
+				fb.RefundEURPerL, fb.Refund = rf.EURPerL, rf.Law
+				f.RefundEUR += l * rf.EURPerL
+				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds EUR %g per litre (%s; %s)", cc, rf.EURPerL, rf.Law, rf.Note))
+				addSource(out, rates.Source{Title: rf.Title, URL: rf.URL})
+			case eligible:
+				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds hauliers EUR %g per litre of the excise (%s): set diesel_refunds to count it", cc, rf.EURPerL, rf.Law))
+			}
+		}
 		if fb.EURPerL > 0 {
-			fb.EUR = round2(l * fb.EURPerL)
-			f.EUR += l * fb.EURPerL
+			fb.EUR = round2(l * (fb.EURPerL - fb.RefundEURPerL))
+			f.EUR += l * (fb.EURPerL - fb.RefundEURPerL)
 			priced[cc] = true
 			// A price of a day ETS2 covers holds it: the trip's own day for a
 			// price given, the bulletin's for its.
@@ -92,7 +114,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			f.InPriceEUR += l.AmountEUR
 		}
 	}
-	f.EUR, f.InPriceEUR = round2(f.EUR), round2(f.InPriceEUR)
+	f.EUR, f.InPriceEUR, f.RefundEUR = round2(f.EUR), round2(f.InPriceEUR), round2(f.RefundEUR)
 	out.Fuel = f
 	out.WithFuelEUR = round2(out.TotalEUR + f.EUR - f.InPriceEUR)
 	note := fmt.Sprintf("Fuel: %.1f l of diesel at EUR %.2f without VAT", f.Litres, f.EUR)
@@ -105,6 +127,9 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	}
 	if f.InPriceEUR > 0 {
 		note += fmt.Sprintf(". The diesel price holds the CO2 prices on fuel (EUR %.2f here), so with_fuel_eur counts them once", f.InPriceEUR)
+	}
+	if len(refundNotes) > 0 {
+		note += ". Diesel refunds: " + strings.Join(refundNotes, "; ")
 	}
 	if !f.Complete {
 		note += fmt.Sprintf(". No price for the litres bought in %s (outside the bulletin's EU countries): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))

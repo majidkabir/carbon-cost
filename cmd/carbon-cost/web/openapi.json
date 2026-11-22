@@ -527,6 +527,9 @@
       "description": "the CO2 parts of tolls, ferry ETS and ETS2",
       "type": "number"
      },
+     "carbon_eur_per_tkm": {
+      "type": "number"
+     },
      "compare": {
       "description": "Compare is the trip priced for each of CompareCO2Classes.",
       "items": {
@@ -557,6 +560,10 @@
      "emissions_basis": {
       "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
       "type": "string"
+     },
+     "eur_per_tkm": {
+      "description": "EURPerTkm and CarbonEURPerTkm are the trip's amounts per tonne-km of its shipments: each shipment's rate, as they are shared by tonne-km.",
+      "type": "number"
      },
      "ferry_crossing": {
       "description": "FerryCrossing names the crossings the route uses, when recognised.",
@@ -650,12 +657,14 @@
     },
     "required": [
      "carbon_eur",
+     "carbon_eur_per_tkm",
      "complete",
      "country_km",
      "data_type",
      "date",
      "distance_km",
      "emissions_basis",
+     "eur_per_tkm",
      "intensity_g_co2e_per_tkm",
      "lines",
      "provenance",
@@ -736,11 +745,25 @@
       "description": "ByCharge is its share of each kind of charge, in EUR.",
       "type": "object"
      },
+     "by_country": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "ByCountry is its share of the charges of each country (a line's country: where a toll or tax is paid; a ferry's ETS, paid to no country, under its charge), in EUR: what an invoice passing the tolls on by country needs.",
+      "type": "object"
+     },
      "carbon_eur": {
+      "type": "number"
+     },
+     "carbon_eur_per_100kg": {
       "type": "number"
      },
      "distance_km": {
       "description": "DistanceKm is its transport activity distance: the road route from its loading stop to its unloading stop (EN ISO 14083's shortest feasible distance), not the truck's way between them.",
+      "type": "number"
+     },
+     "eur_per_100kg": {
+      "description": "EURPer100Kg and CarbonEURPer100Kg are its amounts per 100 kg, as surcharges are quoted.",
       "type": "number"
      },
      "from": {
@@ -779,8 +802,11 @@
     },
     "required": [
      "by_charge",
+     "by_country",
      "carbon_eur",
+     "carbon_eur_per_100kg",
      "distance_km",
+     "eur_per_100kg",
      "from",
      "id",
      "intensity_g_co2e_per_tkm",

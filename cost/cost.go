@@ -257,6 +257,11 @@ type Response struct {
 	// IntensityG is the well-to-wheel g CO2e per tonne-km of the
 	// shipments: EN ISO 14083's emission intensity.
 	IntensityG float64 `json:"intensity_g_co2e_per_tkm"`
+	// EURPerTkm and CarbonEURPerTkm are the trip's amounts per tonne-km
+	// of its shipments: each shipment's rate, as they are shared by
+	// tonne-km.
+	EURPerTkm       float64 `json:"eur_per_tkm"`
+	CarbonEURPerTkm float64 `json:"carbon_eur_per_tkm"`
 	// Trip is the truck's trip: legs, loads and diesel.
 	Trip *Trip `json:"trip,omitempty"`
 	// Shipments are each shipment's share of the trip's charges, by

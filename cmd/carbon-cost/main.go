@@ -445,15 +445,22 @@ func printResult(r cost.Response) {
 		}
 		fmt.Printf("Truck: %.1f road km%s, %.1f l diesel (%s)\n", tr.RoadKm, empty, tr.FuelL, tr.FuelBasis)
 	}
+	if r.EURPerTkm > 0 {
+		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)
+	}
 	if r.WTWKg > 0 {
 		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
 	}
 	if len(r.Shipments) > 1 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
-		fmt.Fprintln(w, "Shipment\tkg\tStops\tkm\ttkm\tShare\tEUR\tCarbon EUR\tCO2e kg\tg/tkm\t")
+		fmt.Fprintln(w, "Shipment\tkg\tStops\tkm\ttkm\tShare\tEUR\tEUR/100 kg\tCarbon EUR\tCO2e kg\tg/tkm\tBy country\t")
 		for _, s := range r.Shipments {
-			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.1f\t%.1f\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.CarbonEUR, s.WTWKg, s.IntensityG)
+			var by []string
+			for _, cc := range slices.Sorted(maps.Keys(s.ByCountry)) {
+				by = append(by, fmt.Sprintf("%s %.2f", cc, s.ByCountry[cc]))
+			}
+			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.2f\t%.1f\t%.1f\t%s\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.EURPer100Kg, s.CarbonEUR, s.WTWKg, s.IntensityG, strings.Join(by, ", "))
 		}
 		w.Flush()
 		fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")

@@ -171,7 +171,7 @@
       <tbody id="lines"></tbody></table>
     <div id="shipout" hidden>
       <h2>Shipments</h2>
-      <table><thead><tr><th>Shipment</th><th class="n">kg</th><th>Stops</th><th class="n sm-hide">km</th><th class="n sm-hide">tkm</th><th class="n">Share</th><th class="n">EUR</th><th class="n">Carbon EUR</th><th class="n sm-hide">CO2e kg (WTW)</th><th class="n sm-hide">g/tkm</th></tr></thead>
+      <table><thead><tr><th>Shipment</th><th class="n">kg</th><th>Stops</th><th class="n sm-hide">km</th><th class="n sm-hide">tkm</th><th class="n">Share</th><th class="n">EUR</th><th class="n sm-hide">EUR/100 kg</th><th class="n">Carbon EUR</th><th class="n sm-hide">CO2e kg (WTW)</th><th class="n sm-hide">g/tkm</th></tr></thead>
         <tbody id="shiplines"></tbody></table>
     </div>
     <div id="cmpwrap" hidden>
@@ -585,11 +585,12 @@ $("csv").addEventListener("click", () => {
   const rows = [["charge", "country", "region", "component", "road", "area", "section", "km", "days", "t_co2e", "litres", "rate", "rate_unit", "amount", "currency", "amount_eur", "carbon", "source"]];
   for (const l of r.lines) rows.push([l.charge, l.country, l.region, l.component, l.road, l.area, l.section, l.km, l.days, l.t_co2e, l.litres, l.rate, l.rate_unit, l.amount, l.currency, l.amount_eur, l.carbon ? "yes" : "", l.source]);
   rows.push([], ["date", r.date], ["total_eur", r.total_eur], ["carbon_eur", r.carbon_eur], ["complete", r.complete], ["distance_km", r.distance_km],
-    ["diesel_l", r.trip?.fuel_l], ["diesel_basis", r.trip?.fuel_basis], ["empty_km", r.trip?.empty_km ?? 0], ["co2e_ttw_kg", r.ttw_kg], ["co2e_wtw_kg", r.wtw_kg], ["g_co2e_per_tkm", r.intensity_g_co2e_per_tkm], ["data_type", r.data_type], ["emissions_basis", r.emissions_basis]);
+    ["diesel_l", r.trip?.fuel_l], ["diesel_basis", r.trip?.fuel_basis], ["empty_km", r.trip?.empty_km ?? 0], ["co2e_ttw_kg", r.ttw_kg], ["co2e_wtw_kg", r.wtw_kg], ["g_co2e_per_tkm", r.intensity_g_co2e_per_tkm], ["eur_per_tkm", r.eur_per_tkm], ["data_type", r.data_type], ["emissions_basis", r.emissions_basis]);
   for (const m of r.missing || []) rows.push(["missing", missingText(m)]);
-  if ((r.shipments || []).length > 1) {
-    rows.push([], ["shipment", "weight_kg", "from_stop", "to_stop", "distance_km", "tkm", "share", "total_eur", "carbon_eur", "ttw_kg", "wtw_kg", "g_co2e_per_tkm"]);
-    for (const s of r.shipments) rows.push([s.id, s.weight_kg, s.from, s.to, s.distance_km, s.tkm, s.share, s.total_eur, s.carbon_eur, s.ttw_kg, s.wtw_kg, s.intensity_g_co2e_per_tkm]);
+  if ((r.shipments || []).length) {
+    rows.push([], ["shipment", "weight_kg", "from_stop", "to_stop", "distance_km", "tkm", "share", "total_eur", "eur_per_100kg", "carbon_eur", "ttw_kg", "wtw_kg", "g_co2e_per_tkm", "by_country"]);
+    for (const s of r.shipments) rows.push([s.id, s.weight_kg, s.from, s.to, s.distance_km, s.tkm, s.share, s.total_eur, s.eur_per_100kg, s.carbon_eur, s.ttw_kg, s.wtw_kg, s.intensity_g_co2e_per_tkm,
+      Object.entries(s.by_country || {}).sort().map(([k, v]) => `${k}=${v}`).join(";")]);
   }
   const blob = new Blob([rows.map((x) => x.map(csvCell).join(",")).join("\r\n") + "\r\n"], { type: "text/csv" });
   const a = document.createElement("a");
@@ -639,7 +640,7 @@ function show(r) {
     cell(row, s.id); cell(row, num(s.weight_kg, 0), "n");
     cell(row, `${(names[s.from] || String(s.from)).replace(/^\d+: /, "")} → ${(names[s.to] || String(s.to)).replace(/^\d+: /, "")}`);
     cell(row, num(s.distance_km, 1), "n sm-hide"); cell(row, num(s.tkm, 0), "n sm-hide"); cell(row, num(100 * s.share, 1) + "%", "n");
-    cell(row, num(s.total_eur, 2), "n"); cell(row, num(s.carbon_eur, 2), "n"); cell(row, num(s.wtw_kg, 1), "n sm-hide"); cell(row, num(s.intensity_g_co2e_per_tkm, 1), "n sm-hide");
+    cell(row, num(s.total_eur, 2), "n"); cell(row, num(s.eur_per_100kg, 2), "n sm-hide"); cell(row, num(s.carbon_eur, 2), "n"); cell(row, num(s.wtw_kg, 1), "n sm-hide"); cell(row, num(s.intensity_g_co2e_per_tkm, 1), "n sm-hide");
   }
 
   const lines = $("lines"); lines.replaceChildren();

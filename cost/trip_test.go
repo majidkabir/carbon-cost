@@ -234,3 +234,23 @@ func TestPrimaryEmissions(t *testing.T) {
 		t.Errorf("default: %s %v %+v", r.DataType, r.TTWKg, r.Shipments)
 	}
 }
+
+// Each shipment's share by country and per 100 kg, for invoices and
+// surcharge tables; the trip's per tonne-km.
+func TestShipmentBreakdown(t *testing.T) {
+	r, err := PriceWith(cphHam, all(t), nil, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75}, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	s := r.Shipments[0]
+	var sum float64
+	for _, v := range s.ByCountry {
+		sum += v
+	}
+	if math.Abs(sum-r.TotalEUR) > 0.02 || s.ByCountry["DE"] == 0 || s.ByCountry["DK"] == 0 {
+		t.Errorf("by country %v of %v", s.ByCountry, r.TotalEUR)
+	}
+	if s.EURPer100Kg != round2(r.TotalEUR/200) || r.EURPerTkm != math.Round(r.TotalEUR/(20*300)*1e4)/1e4 {
+		t.Errorf("per 100 kg %v, per tkm %v", s.EURPer100Kg, r.EURPerTkm)
+	}
+}

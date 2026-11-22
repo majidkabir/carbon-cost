@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math"
 	"regexp"
-	"sort"
 	"strings"
 
 	"github.com/majidkabir/carbon-cost/rates"
@@ -81,6 +80,15 @@ type ShipmentCost struct {
 	CarbonEUR float64 `json:"carbon_eur"`
 	// ByCharge is its share of each kind of charge, in EUR.
 	ByCharge map[string]float64 `json:"by_charge"`
+	// ByCountry is its share of the charges of each country (a line's
+	// country: where a toll or tax is paid; a ferry's ETS, paid to no
+	// country, under its charge), in EUR: what an invoice passing the
+	// tolls on by country needs.
+	ByCountry map[string]float64 `json:"by_country"`
+	// EURPer100Kg and CarbonEURPer100Kg are its amounts per 100 kg, as
+	// surcharges are quoted.
+	EURPer100Kg       float64 `json:"eur_per_100kg"`
+	CarbonEURPer100Kg float64 `json:"carbon_eur_per_100kg"`
 	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
 	// the truck's diesel plus its share by weight of the ferries it is on,
 	// when the diesel is given; else Sootcase's (GLEC default intensity x
@@ -342,9 +350,14 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		}
 		tkm += s.WeightKg / 1000 * dist[i]
 	}
-	byCharge := map[string]float64{}
+	byCharge, byCountry := map[string]float64{}, map[string]float64{}
 	for _, l := range out.Lines {
 		byCharge[l.Charge] += l.AmountEUR
+		where := l.Country
+		if where == "" {
+			where = l.Charge // a ferry's ETS, paid to no country
+		}
+		byCountry[where] += l.AmountEUR
 	}
 	out.Shipments = nil
 	for i, s := range ships {
@@ -355,14 +368,15 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		}
 		c := ShipmentCost{ID: s.ID, WeightKg: s.WeightKg, From: s.From, To: s.To, DistanceKm: round3(dist[i]), TKm: round3(t),
 			Share: math.Round(share*1e6) / 1e6, TotalEUR: round2(out.TotalEUR * share), CarbonEUR: round2(out.CarbonEUR * share),
-			ByCharge: map[string]float64{}}
-		keys := make([]string, 0, len(byCharge))
-		for k := range byCharge {
-			keys = append(keys, k)
+			ByCharge: map[string]float64{}, ByCountry: map[string]float64{}}
+		for k, v := range byCharge {
+			c.ByCharge[k] = round2(v * share)
 		}
-		sort.Strings(keys)
-		for _, k := range keys {
-			c.ByCharge[k] = round2(byCharge[k] * share)
+		for k, v := range byCountry {
+			c.ByCountry[k] = round2(v * share)
+		}
+		if s.WeightKg > 0 {
+			c.EURPer100Kg, c.CarbonEURPer100Kg = round2(out.TotalEUR*share*100/s.WeightKg), round2(out.CarbonEUR*share*100/s.WeightKg)
 		}
 		if i < len(req.shipTTW) {
 			c.TTWKg, c.WTWKg = round3(req.shipTTW[i]), round3(req.shipWTW[i])
@@ -376,6 +390,7 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 	}
 	if tkm > 0 {
 		out.IntensityG = round2(out.WTWKg * 1000 / tkm)
+		out.EURPerTkm, out.CarbonEURPerTkm = math.Round(out.TotalEUR/tkm*1e4)/1e4, math.Round(out.CarbonEUR/tkm*1e4)/1e4
 	}
 }
 

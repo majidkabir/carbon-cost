@@ -63,9 +63,10 @@ func buildVersion() string {
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
-  calc   price one trip, or each row of a CSV file (-csv)
-  serve  run the HTTP API (POST /v1/carbon-cost, POST /v1/carbon-cost/batch, GET /v1/rates, GET /v1/rates/{file})
-  rates  list the toll tables
+  calc    price one trip, or each row of a CSV file (-csv; -shipment-rows for a row per shipment)
+  report  add up priced CSV files by customer, month or any column (-by customer,month)
+  serve   run the HTTP API (POST /v1/carbon-cost, /batch, /csv, /report, GET /v1/rates, GET /v1/rates/{file})
+  rates   list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
 `
@@ -83,6 +84,8 @@ func main() {
 		err = serve(os.Args[2:])
 	case "rates":
 		err = listRates()
+	case "report":
+		err = report(os.Args[2:])
 	default:
 		fmt.Fprint(os.Stderr, usage)
 		os.Exit(2)
@@ -712,7 +715,12 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	// file or names a server), priced and sent back with the results.
 	mux.HandleFunc("POST /v1/carbon-cost/csv", func(w http.ResponseWriter, r *http.Request) {
 		var buf bytes.Buffer
-		labels, err := priceCSV(r.Context(), c.Calculate, nil, http.MaxBytesReader(w, r.Body, 2<<20), &buf, webCSVFlags(), MaxBatch)
+		rows := r.URL.Query().Get("rows")
+		if rows != "" && rows != "trips" && rows != "shipments" {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "rows: trips or shipments"})
+			return
+		}
+		labels, err := priceCSV(r.Context(), c.Calculate, nil, http.MaxBytesReader(w, r.Body, 2<<20), &buf, webCSVFlags(), MaxBatch, rows == "shipments")
 		if err != nil {
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
 			return
@@ -722,6 +730,17 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		}
 		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
 		w.Header().Set("Content-Disposition", `attachment; filename="carbon-cost.csv"`)
+		w.Write(buf.Bytes())
+	})
+	// A priced CSV added up by customer, month or any column.
+	mux.HandleFunc("POST /v1/carbon-cost/report", func(w http.ResponseWriter, r *http.Request) {
+		var buf bytes.Buffer
+		if err := summarize([]io.Reader{http.MaxBytesReader(w, r.Body, 8<<20)}, &buf, splitList(r.URL.Query().Get("by"))); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			return
+		}
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Content-Disposition", `attachment; filename="carbon-cost-report.csv"`)
 		w.Write(buf.Bytes())
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {

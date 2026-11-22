@@ -57,18 +57,23 @@ jobs:
                 git archive FETCH_HEAD fx | tar -x -C new
                 python3 tools/orct/publish.py --fx new/fx fx/data | tee -a report.txt
               fi
+              # The diesel prices (History data): only new weeks.
+              if git cat-file -e FETCH_HEAD:fuel 2>/dev/null; then
+                git archive FETCH_HEAD fuel | tar -x -C new
+                python3 tools/orct/publish.py --fuel new/fuel fuel/data | tee -a report.txt
+              fi
             done
           }
           # Main may move meanwhile: start again from it if the push fails.
           for i in 1 2 3; do
             git fetch -q origin main && git reset -q --hard FETCH_HEAD
             publish
-            git add tariffs/data ferries/data fx/data
+            git add tariffs/data ferries/data fx/data fuel/data
             if git diff --cached --quiet; then echo "nothing to publish"; break; fi
             # The tool's tests read tariffs/data; a push from here doesn't run CI.
             go test ./... >/dev/null
             n=$(grep -c '^published' report.txt)
-            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions or new days' exchange rates (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, or exchange rates for days after the last changed (tools/orct/publish.py)."
+            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions, new days' exchange rates or diesel prices, or ferry lines' new ETS surcharges (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, exchange rates or diesel prices for days after the last, or added ETS surcharge editions (tools/orct/publish.py)."
             git push -q origin HEAD:main && break
             [ $i = 3 ] && exit 1; sleep 10
           done
@@ -77,3 +82,13 @@ jobs:
           p=$(grep '^published' report.txt | sed 's/^published /- /' || true)
           w=$(grep '^::warning' report.txt | sed 's/^::warning title=\([^:]*\)::/- \1: /' || true)
           printf '## Published (OpenStreetMap only, or new days of exchange rates)\n%s\n## For review (not published)\n%s\n' "${p:-nothing}" "${w:-nothing}" >> "$GITHUB_STEP_SUMMARY"
+      - name: Rates that run out
+        # A scheme whose last rates end within 45 days (or ended) with no
+        # next version here: trips after that day are priced without it
+        # (their results say incomplete). Usually a new year's tariffs,
+        # published in December.
+        run: |
+          git fetch -q origin main && git reset -q --hard FETCH_HEAD
+          python3 tools/orct/expiring.py tariffs/data 45 | tee expiring.txt
+          r=$(grep '^::warning' expiring.txt | sed 's/^::warning title=Rates run out: \([^:]*\)::/- \1: /' || true)
+          printf '## Rates that run out within 45 days, with no next version here\n%s\n' "${r:-none}" >> "$GITHUB_STEP_SUMMARY"

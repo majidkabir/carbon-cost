@@ -8,6 +8,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"embed"
 	"encoding/json"
@@ -15,9 +16,11 @@ import (
 	"flag"
 	"fmt"
 	"html"
+	"io"
 	"io/fs"
 	"log/slog"
 	"maps"
+	"math"
 	"net/http"
 	"net/url"
 	"os"
@@ -60,9 +63,10 @@ func buildVersion() string {
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
 Commands:
-  calc   price one trip
-  serve  run the HTTP API (POST /v1/carbon-cost, GET /v1/rates, GET /v1/rates/{file})
-  rates  list the toll tables
+  calc    price one trip, or each row of a CSV file (-csv; -shipment-rows for a row per shipment)
+  report  add up priced CSV files by customer, month or any column (-by customer,month)
+  serve   run the HTTP API (POST /v1/carbon-cost, /batch, /csv, /report, GET /v1/rates, GET /v1/rates/{file})
+  rates   list the toll tables
 
 Run "carbon-cost <command> -h" for a command's flags.
 `
@@ -80,6 +84,8 @@ func main() {
 		err = serve(os.Args[2:])
 	case "rates":
 		err = listRates()
+	case "report":
+		err = report(os.Args[2:])
 	default:
 		fmt.Fprint(os.Stderr, usage)
 		os.Exit(2)
@@ -125,8 +131,26 @@ func calculator(sc *sootcase.Client) (cost.Calculator, error) {
 	return cost.Calculator{Sootcase: *sc, Tariffs: set, Ferries: &fd, Borders: bix, Roads: rx, FX: fxCache.Get, FXOn: fx.OnDate, Version: buildVersion()}, nil
 }
 
-func calc(args []string) error {
-	fs := flag.NewFlagSet("calc", flag.ExitOnError)
+func parseCalc(args []string, errs flag.ErrorHandling) (cost.Request, calcOpts, error) {
+	return parseCalcWith(args, errs, nil)
+}
+
+// calcFlagNames are calc's flags, without the dash.
+func calcFlagNames() map[string]bool {
+	names := map[string]bool{}
+	parseCalcWith(nil, flag.ContinueOnError, func(fs *flag.FlagSet) {
+		fs.VisitAll(func(f *flag.Flag) { names[f.Name] = true })
+	})
+	return names
+}
+
+// parseCalcWith is parseCalc; inspect, if not nil, sees the flags before
+// they are parsed.
+func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.FlagSet)) (cost.Request, calcOpts, error) {
+	fs := flag.NewFlagSet("calc", errs)
+	if errs == flag.ContinueOnError {
+		fs.SetOutput(io.Discard) // a CSV row's error goes in its row
+	}
 	sc := sootcaseFlags(fs)
 	var req cost.Request
 	from := fs.String("from", "", "origin: UN/LOCODE (DKCPH), IATA code or lat,lon")
@@ -145,10 +169,21 @@ func calc(args []string) error {
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
+	fs.StringVar(&req.FerryETSBasis, "ferry-ets-basis", "", "a ferry's EU ETS: \"surcharge\" (default: its line's published surcharge where it has one) or \"emissions\" (the cargo's share of the ships' emissions)")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
-	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the road part burns, for taxes per litre (DK); default the road CO2 at 2.67 kg per litre")
+	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
+	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
+	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
+	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
+	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
+	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
+	pathFile := fs.String("path", "", "the way driven, priced instead of Sootcase's route: a GPX file (track or route points) or JSON ([[lon,lat],...] or a GeoJSON LineString)")
+	rfmsFiles := fs.String("rfms", "", "rFMS 4.0 responses from the truck maker's API (/vehiclepositions, /vehiclestatuses) for the trip's hours, files separated by ,: the way driven, the diesel burnt (engineTotalFuelUsed) and the date")
+	vin := fs.String("vin", "", "the vehicle in the -rfms files, when they hold several")
+	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410, from a tachograph; without -from and -to")
+	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -162,33 +197,149 @@ func calc(args []string) error {
 	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
-	fs.Parse(args)
+	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
+	if inspect != nil {
+		inspect(fs)
+	}
+	if err := fs.Parse(args); err != nil {
+		return req, calcOpts{}, err
+	}
+	opts := calcOpts{json: *asJSON, csv: *csvIn, sc: sc}
 
 	var err error
-	if req.From, err = location(*from); err != nil {
-		return fmt.Errorf("-from: %w", err)
+	if *bought != "" {
+		m, err := byCountry(*bought)
+		if err != nil {
+			return req, opts, fmt.Errorf("-fuel-bought: %w", err)
+		}
+		for _, cc := range slices.Sorted(maps.Keys(m)) {
+			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
+		}
 	}
-	if req.To, err = location(*to); err != nil {
-		return fmt.Errorf("-to: %w", err)
+	if *dprice != "" {
+		if err := dieselPriceFlag(&req, *dprice); err != nil {
+			return req, opts, fmt.Errorf("-diesel-price: %w", err)
+		}
+	}
+	if *pathFile != "" {
+		if req.Path, err = readPath(*pathFile); err != nil {
+			return req, opts, fmt.Errorf("-path: %w", err)
+		}
+	}
+	if *rfmsFiles != "" {
+		if err := rfmsFlags(&req, &opts, strings.Split(*rfmsFiles, ","), *vin, *ckm != ""); err != nil {
+			return req, opts, fmt.Errorf("-rfms: %w", err)
+		}
+	}
+	switch {
+	case *ckm != "":
+		if req.CountryKm, err = byCountry(*ckm); err != nil {
+			return req, opts, fmt.Errorf("-country-km: %w", err)
+		}
+		if *from != "" || *to != "" || *via != "" || *ships != "" || *back {
+			return req, opts, errors.New("-country-km prices a trip with no route: not with -from, -to, -via, -shipments or -return")
+		}
+	case *csvIn != "" && (*from == "" || *to == ""):
+		return req, opts, nil // the rows give them
+	default:
+		if err := stopsFlags(&req, *from, *to, *via, *ships, *back); err != nil {
+			return req, opts, err
+		}
 	}
 	if req.TolledShare, err = byCountry(*tolled); err != nil {
-		return fmt.Errorf("-tolled-share: %w", err)
+		return req, opts, fmt.Errorf("-tolled-share: %w", err)
 	}
 	if req.MotorwayShare, err = byCountry(*mway); err != nil {
-		return fmt.Errorf("-motorway-share: %w", err)
+		return req, opts, fmt.Errorf("-motorway-share: %w", err)
 	}
 	if req.FX, err = byCountry(*fxs); err != nil {
-		return fmt.Errorf("-fx: %w", err)
+		return req, opts, fmt.Errorf("-fx: %w", err)
 	}
 	if req.EnvZoneKm, err = byCountry(*zone); err != nil {
-		return fmt.Errorf("-env-zone-km: %w", err)
+		return req, opts, fmt.Errorf("-env-zone-km: %w", err)
 	}
 	if req.CompareCO2Classes, err = ints(*cmp); err != nil {
-		return fmt.Errorf("-compare: %w", err)
+		return req, opts, fmt.Errorf("-compare: %w", err)
 	}
-	c, err := calculator(sc)
+	return req, opts, nil
+}
+
+// calcOpts are calc's flags that aren't the trip.
+type calcOpts struct {
+	json bool
+	csv  string
+	sc   *sootcase.Client
+	rfms string // what the trip took from rFMS
+}
+
+// dieselPriceFlag reads -diesel-price: a price for all litres, prices by
+// country (CC=price), or both, separated by commas.
+func dieselPriceFlag(req *cost.Request, v string) error {
+	for _, p := range strings.Split(v, ",") {
+		p = strings.TrimSpace(p)
+		if p == "" {
+			continue
+		}
+		cc, price, by := strings.Cut(p, "=")
+		if !by {
+			price = cc
+		}
+		x, err := strconv.ParseFloat(strings.TrimSpace(price), 64)
+		if err != nil || x <= 0 {
+			return fmt.Errorf("%q: give EUR per litre, e.g. 1.45 or PL=1.25", p)
+		}
+		if !by {
+			req.DieselEURPerL = x
+			continue
+		}
+		if req.DieselEURPerLByCountry == nil {
+			req.DieselEURPerLByCountry = map[string]float64{}
+		}
+		req.DieselEURPerLByCountry[strings.ToUpper(strings.TrimSpace(cc))] = x
+	}
+	return nil
+}
+
+// rfmsFlags takes the way driven, the diesel and the date from rFMS
+// files, where the other flags don't give them.
+func rfmsFlags(req *cost.Request, opts *calcOpts, names []string, vin string, countryKm bool) error {
+	for i := range names {
+		names[i] = strings.TrimSpace(names[i])
+	}
+	t, err := readRFMS(names, vin)
 	if err != nil {
 		return err
+	}
+	if len(t.Path) >= 2 && !countryKm {
+		if len(req.Path) > 0 {
+			return errors.New("not with -path: rFMS gives the way driven")
+		}
+		req.Path = t.Path
+	}
+	if t.DieselL > 0 && req.DieselL == 0 && req.LPer100Km == 0 && len(req.FuelPurchases) == 0 {
+		req.DieselL = math.Round(t.DieselL*1000) / 1000
+	}
+	if req.Date == "" && !t.From.IsZero() {
+		req.Date = t.From.Format("2006-01-02")
+	}
+	opts.rfms = t.summary()
+	return nil
+}
+
+func calc(args []string) error {
+	req, opts, err := parseCalc(args, flag.ExitOnError)
+	if err != nil {
+		return err
+	}
+	if opts.rfms != "" {
+		fmt.Fprintln(os.Stderr, opts.rfms)
+	}
+	c, err := calculator(opts.sc)
+	if err != nil {
+		return err
+	}
+	if opts.csv != "" {
+		return calcCSV(c, args, opts.csv)
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 	defer cancel()
@@ -196,7 +347,7 @@ func calc(args []string) error {
 	if err != nil {
 		return err
 	}
-	if *asJSON {
+	if opts.json {
 		enc := json.NewEncoder(os.Stdout)
 		enc.SetIndent("", "  ")
 		return enc.Encode(res)
@@ -206,6 +357,67 @@ func calc(args []string) error {
 }
 
 // location reads a code (DKCPH, CPH) or "lat,lon".
+// stopsFlags sets the trip's stops and shipments from -from, -to, -via,
+// -shipments and -return.
+func stopsFlags(req *cost.Request, from, to, via, ships string, back bool) error {
+	var err error
+	if req.From, err = location(from); err != nil {
+		return fmt.Errorf("-from: %w", err)
+	}
+	if req.To, err = location(to); err != nil {
+		return fmt.Errorf("-to: %w", err)
+	}
+	if via != "" || back {
+		req.Stops = []sootcase.Location{req.From}
+		for _, v := range strings.Split(via, ";") {
+			if strings.TrimSpace(v) == "" {
+				continue
+			}
+			l, err := location(v)
+			if err != nil {
+				return fmt.Errorf("-via: %w", err)
+			}
+			req.Stops = append(req.Stops, l)
+		}
+		req.Stops = append(req.Stops, req.To)
+		if back {
+			req.Stops = append(req.Stops, req.From)
+		}
+		req.From, req.To = sootcase.Location{}, sootcase.Location{}
+	}
+	if ships != "" {
+		if req.Shipments, err = shipmentsFlag(ships); err != nil {
+			return fmt.Errorf("-shipments: %w", err)
+		}
+		req.CargoKg = 0 // the shipments replace -cargo-kg
+	} else if back {
+		// The cargo goes to -to; the way back is empty.
+		req.Shipments = []cost.Shipment{{WeightKg: req.CargoKg, To: len(req.Stops) - 2}}
+		req.CargoKg = 0
+	}
+	return nil
+}
+
+// shipmentsFlag reads id:kg:from-to;... .
+func shipmentsFlag(s string) ([]cost.Shipment, error) {
+	var out []cost.Shipment
+	for _, part := range strings.Split(s, ";") {
+		f := strings.Split(strings.TrimSpace(part), ":")
+		if len(f) != 3 {
+			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
+		}
+		kg, err := strconv.ParseFloat(f[1], 64)
+		a, b, ok := strings.Cut(f[2], "-")
+		from, err1 := strconv.Atoi(a)
+		to, err2 := strconv.Atoi(b)
+		if err != nil || !ok || err1 != nil || err2 != nil {
+			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
+		}
+		out = append(out, cost.Shipment{ID: f[0], WeightKg: kg, From: from, To: to})
+	}
+	return out, nil
+}
+
 func location(s string) (sootcase.Location, error) {
 	s = strings.TrimSpace(s)
 	if s == "" {
@@ -261,10 +473,19 @@ func printResult(r cost.Response) {
 		fmt.Printf(" (%.1f km by ferry)", r.FerryKm)
 	}
 	fmt.Println()
+	if !r.Complete {
+		fmt.Println("INCOMPLETE: the total leaves out charges this trip meets:")
+		for _, m := range r.Missing {
+			fmt.Println("  - " + m.Message())
+		}
+	}
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
 	fmt.Fprintln(w, "Charge\tCountry\tPart\tBasis\tRate\tAmount\tEUR\t")
 	for _, l := range r.Lines {
 		basis := fmt.Sprintf("%.1f km", l.Km)
+		if l.Litres > 0 {
+			basis = fmt.Sprintf("%.1f l", l.Litres)
+		}
 		if l.TonnesCO2 > 0 {
 			basis = fmt.Sprintf("%.3f t CO2e", l.TonnesCO2)
 		}
@@ -289,7 +510,54 @@ func printResult(r cost.Response) {
 		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%g %s\t%.2f %s\t%.2f\t\n", l.Charge, where, part, basis, l.Rate, l.RateUnit, l.Amount, l.Currency, l.AmountEUR)
 	}
 	w.Flush()
-	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f\n", r.TotalEUR, r.CarbonEUR)
+	incomplete := ""
+	if !r.Complete {
+		incomplete = " (incomplete: see above)"
+	}
+	fmt.Printf("Total: EUR %.2f, of which carbon EUR %.2f%s\n", r.TotalEUR, r.CarbonEUR, incomplete)
+	if tr := r.Trip; tr != nil {
+		empty := ""
+		if tr.EmptyKm > 0 {
+			empty = fmt.Sprintf(", %.1f km empty", tr.EmptyKm)
+		}
+		fmt.Printf("Truck: %.1f road km%s, %.1f l diesel (%s)\n", tr.RoadKm, empty, tr.FuelL, tr.FuelBasis)
+	}
+	if f := r.Fuel; f != nil {
+		var parts []string
+		for _, b := range f.ByCountry {
+			if b.EURPerL > 0 {
+				parts = append(parts, fmt.Sprintf("%s %.1f l x %.4f", b.Country, b.Litres, b.EURPerL))
+			} else {
+				parts = append(parts, fmt.Sprintf("%s %.1f l, no price", b.Country, b.Litres))
+			}
+		}
+		inc := ""
+		if !f.Complete {
+			inc = " (incomplete)"
+		}
+		fmt.Printf("Fuel: EUR %.2f without VAT%s (%s); with fuel: EUR %.2f (the CO2 prices on fuel, EUR %.2f, are in the diesel price)\n",
+			f.EUR, inc, strings.Join(parts, ", "), r.WithFuelEUR, f.InPriceEUR)
+	}
+	if r.EURPerTkm > 0 {
+		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)
+	}
+	if r.WTWKg > 0 {
+		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
+	}
+	if len(r.Shipments) > 1 {
+		fmt.Println()
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
+		fmt.Fprintln(w, "Shipment\tkg\tStops\tkm\ttkm\tShare\tEUR\tEUR/100 kg\tCarbon EUR\tCO2e kg\tg/tkm\tBy country\t")
+		for _, s := range r.Shipments {
+			var by []string
+			for _, cc := range slices.Sorted(maps.Keys(s.ByCountry)) {
+				by = append(by, fmt.Sprintf("%s %.2f", cc, s.ByCountry[cc]))
+			}
+			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.2f\t%.1f\t%.1f\t%s\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.EURPer100Kg, s.CarbonEUR, s.WTWKg, s.IntensityG, strings.Join(by, ", "))
+		}
+		w.Flush()
+		fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")
+	}
 	if len(r.Compare) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
@@ -303,14 +571,15 @@ func printResult(r cost.Response) {
 		}
 		w.Flush()
 	}
-	if len(r.NoRates) > 0 {
-		fmt.Printf("Not included (no toll table yet): %s\n", strings.Join(r.NoRates, ", "))
-	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)
 	}
 	p := r.Provenance
-	fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	if p.Sootcase != "" {
+		fmt.Printf("\nData: carbon-cost %s; %s\n", p.Version, p.Sootcase)
+	} else {
+		fmt.Printf("\nData: carbon-cost %s\n", p.Version)
+	}
 	for _, t := range p.Tables {
 		osm := ""
 		if t.OSMExtract != "" {
@@ -371,6 +640,9 @@ func serve(args []string) error {
 	log.Info("listening", "addr", *addr, "sootcase", sc.BaseURL)
 	return srv.ListenAndServe()
 }
+
+//go:embed web/openapi.json
+var openAPI []byte
 
 //go:embed web/index.html
 var indexHTML string
@@ -443,6 +715,11 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		files.ServeHTTP(w, r)
 	})
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, _ *http.Request) { w.Write([]byte("ok\n")) })
+	mux.HandleFunc("GET /v1/openapi.json", func(w http.ResponseWriter, _ *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Write(openAPI)
+	})
 	mux.HandleFunc("GET /v1/rates", func(w http.ResponseWriter, _ *http.Request) { writeJSON(w, http.StatusOK, c.Tariffs.Summaries()) })
 	mux.HandleFunc("GET /v1/rates/{cc}/{file}", func(w http.ResponseWriter, r *http.Request) {
 		b, ok := c.Tariffs.Raw(r.PathValue("cc") + "/" + r.PathValue("file"))
@@ -470,9 +747,55 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		w.Header().Set("Cache-Control", "public, max-age=86400")
 		writeJSON(w, http.StatusOK, map[string]any{"places": ps})
 	})
+	mux.HandleFunc("POST /v1/carbon-cost/batch", func(w http.ResponseWriter, r *http.Request) {
+		var req BatchRequest
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20))
+		dec.DisallowUnknownFields()
+		if err := dec.Decode(&req); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+			return
+		}
+		if len(req.Trips) == 0 || len(req.Trips) > MaxBatch {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("trips: give 1 to %d", MaxBatch)})
+			return
+		}
+		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(r.Context(), c.Calculate, req.Trips)})
+	})
+	// A CSV of trips, as calc -csv takes it (but no flag that reads a
+	// file or names a server), priced and sent back with the results.
+	mux.HandleFunc("POST /v1/carbon-cost/csv", func(w http.ResponseWriter, r *http.Request) {
+		var buf bytes.Buffer
+		rows := r.URL.Query().Get("rows")
+		if rows != "" && rows != "trips" && rows != "shipments" {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "rows: trips or shipments"})
+			return
+		}
+		labels, err := priceCSV(r.Context(), c.Calculate, nil, http.MaxBytesReader(w, r.Body, 2<<20), &buf, webCSVFlags(), MaxBatch, rows == "shipments")
+		if err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			return
+		}
+		if len(labels) > 0 {
+			w.Header().Set("X-CSV-Labels", strings.Join(labels, ","))
+		}
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Content-Disposition", `attachment; filename="carbon-cost.csv"`)
+		w.Write(buf.Bytes())
+	})
+	// A priced CSV added up by customer, month or any column.
+	mux.HandleFunc("POST /v1/carbon-cost/report", func(w http.ResponseWriter, r *http.Request) {
+		var buf bytes.Buffer
+		if err := summarize([]io.Reader{http.MaxBytesReader(w, r.Body, 8<<20)}, &buf, splitList(r.URL.Query().Get("by"))); err != nil {
+			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			return
+		}
+		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
+		w.Header().Set("Content-Disposition", `attachment; filename="carbon-cost-report.csv"`)
+		w.Write(buf.Bytes())
+	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request
-		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 1<<20))
+		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20)) // a path of up to cost.MaxPathPoints
 		dec.DisallowUnknownFields()
 		if err := dec.Decode(&req); err != nil {
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})

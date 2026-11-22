@@ -7,7 +7,8 @@ primary ways (and, for Hungary, the toll section relations tagged
 ref:HU:edid with their ways). Each way goes in a class by the rule for
 its country (RULES; in Italy the motorways tagged toll=yes, each with its
 operator tag): "mw" are the roads a toll law prices at the
-motorway rate, "nat" the other national roads it tolls. In Hungary a way
+motorway rate, "nat" the other national roads it tolls (in Germany and
+Austria, whose rates are the same on both, only tolled or not counts). In Hungary a way
 in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
 where unknown. Lines are simplified to SIMPLIFY_M and stored as
@@ -53,6 +54,12 @@ RULES = {
     # ref, as "operator|ref", in "ops" and "mwop" (an index into ops per mw
     # line, -1 for none).
     "IT": {"mw": r"^A\d", "mw_highway": ["motorway"], "nat": r"^$a", "toll": True, "operator": True},
+    # Germany, BFStrMG § 1 (1): Bundesautobahnen (A) and Bundesstraßen (B);
+    # the rates don't differ between them.
+    "DE": {"mw": r"^A\s?\d", "mw_highway": ["motorway"], "nat": r"^B\s?\d"},
+    # Austria, BStMG § 1: Bundesstraßen with a toll, the Autobahnen (A) and
+    # Schnellstraßen (S); one rate for both.
+    "AT": {"mw": r"^A\s?\d", "mw_highway": ["motorway"], "nat": r"^S\s?\d"},
     # Belarus: the BelToll roads (the list of the Regulation approved by
     # Council of Ministers resolution No. 340), the motorway, trunk and
     # primary ways tagged toll=yes or toll:hgv=yes.
@@ -156,6 +163,22 @@ FREE = {"PL": [
     ("A4", "Murckowska", (18.95, 50.15, 19.15, 50.30), "Balice I", (19.70, 50.0, 19.90, 50.15), "A4 Katowice-Kraków (Stalexport Autostrada Małopolska)"),
     ("A2", None, (14.50, 52.2, 14.75, 52.45), "Modła", (18.05, 52.15, 18.35, 52.35), "A2 Świecko-Konin (Autostrada Wielkopolska)"),
     ("A1", "Rusocin", (18.45, 54.15, 18.75, 54.35), "Toruń Południe", (18.50, 52.90, 18.80, 53.05), "A1 Rusocin-Toruń (AmberOne)"),
+],
+    # BFStrMG § 1 (3) 1 and 2: no toll on the A 6 from the French border to
+    # the Saarbrücken-Fechingen junction, nor on the A 5 from the Swiss
+    # and French borders to the Müllheim/Neuenburg junction.
+    "DE": [
+    ("A 6", None, (6.93, 49.17, 7.00, 49.23), "Saarbrücken-Fechingen", (7.03, 49.17, 7.13, 49.24), "A 6 French border-Saarbrücken-Fechingen (BFStrMG § 1 (3) 1)"),
+    ("A 5", None, (7.55, 47.54, 7.66, 47.62), "Müllheim / Neuenburg", (7.53, 47.77, 7.66, 47.85), "A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"),
+]}
+
+# Sections of a country's tolled roads that a private operator tolls
+# instead (Germany, BFStrMG § 1 (3) 3: the tunnels tolled under § 2
+# FStrPrivFinG, priced as crossings): the ways of the ref tagged toll=yes
+# whose every node lies in the box are left out.
+PRIVATE = {"DE": [
+    ("B 105", (12.00, 54.10, 12.20, 54.20), "Warnowtunnel (B 105, FStrPrivFinG)"),
+    ("B 75", (10.70, 53.85, 10.90, 53.95), "Herrentunnel (B 75, FStrPrivFinG)"),
 ]}
 
 
@@ -250,13 +273,15 @@ UNTOLLED = {"IT": [
 class Junctions(osmium.SimpleHandler):
     def __init__(self, splits):
         super().__init__()
-        self.splits, self.found = splits, {}
+        self.splits, self.found, self.seen = splits, {}, {}
 
     def node(self, n):
         if n.tags.get("highway") != "motorway_junction":
             return
         x, y = n.location.lon, n.location.lat
         for key, name, (a, b, c, d), label in self.splits:
+            if a <= x <= c and b <= y <= d:
+                self.seen.setdefault(key, set()).add(n.tags.get("name") or "")
             if n.tags.get("name") == name and a <= x <= c and b <= y <= d:
                 self.found.setdefault(key, []).append(x)
                 self.found.setdefault(key + "@", []).append((x, y))
@@ -281,6 +306,8 @@ class Ways(osmium.SimpleHandler):
         self.untolled_boxes, self.untolled_km = [], Counter()
         # MOUNTAIN: (operator|ref, box, label); km by label.
         self.mountain, self.mountain_km = [], Counter()
+        # PRIVATE: (ref, box, label); km left out by label.
+        self.private, self.private_km = [], Counter()
         # Toll-rule countries: km of motorway tagged toll=no by operator|ref
         # and 0.05-degree cell, reported where the operator tolls elsewhere.
         self.untolled = Counter()
@@ -339,6 +366,12 @@ class Ways(osmium.SimpleHandler):
         if len(coords) < 2:
             return
         ls = LineString(coords)
+        if self.private and tags.get("toll") == "yes":
+            refs = [r.strip() for r in (tags.get("ref") or "").split(";")]
+            hit = [lab for ref, (a, b, x1, y1), lab in self.private if ref in refs and all(a <= x <= x1 and b <= y <= y1 for x, y in coords)]
+            if hit:
+                self.private_km[hit[0]] += ls.length * 111.32 * 0.6
+                return
         if c == "mw" and self.free:
             refs = [r.strip() for r in (tags.get("ref") or "").split(";")]
             p = ls.centroid
@@ -377,7 +410,49 @@ class Ways(osmium.SimpleHandler):
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
+# Countries whose law lists its tolled sections: the list (from the law,
+# by a parser beside it) found in OpenStreetMap by tools/roads/plnet.py.
+# Poland: the e-TOLL regulation's annexes 1 (A and S, "mw") and 2 (other
+# national roads, "nat"), from tools/roads/pl_network.py.
+NETWORK = {"PL": "pl-network.json"}
+
+
+def encode(lines):
+    out = []
+    for run in lines:
+        s = LineString(run).simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
+        pts = [[round(x * 1e5), round(y * 1e5)] for x, y in s.coords]
+        if len(pts) >= 2:
+            out.append([v for p in pts for v in p])
+    return out
+
+
+def main_network(cc, src, dst):
+    import plnet
+    here = os.path.dirname(os.path.abspath(__file__))
+    doc = json.load(open(os.path.join(here, NETWORK[cc]), encoding="utf-8"))
+    lines, report = plnet.build(src, doc["sections"])
+    total = Counter()
+    for (text, km, why), s in zip(report, doc["sections"]):
+        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text, why)
+        total[s["class"]] += km or 0
+    print(cc, "km by class (one carriageway):", {k: round(v) for k, v in total.items()})
+    bad = [r for r in report if r[1] is None]
+    if bad:
+        sys.exit(f"{cc}: {len(bad)} of {len(report)} sections not found in OpenStreetMap")
+    out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": encode(lines["mw"]), "nat": encode(lines["nat"]), "network": doc["source"]}
+    if os.environ.get("OSM_EXTRACT"):
+        out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
+    if FREE.get(cc):
+        out["left_out"] = sorted({f[-1] for f in FREE[cc]})
+    with gzip.open(dst, "wt", encoding="utf-8") as fo:
+        json.dump(out, fo, separators=(",", ":"))
+    print(cc, {k: len(v) for k, v in out.items() if k in ("mw", "nat")})
+
+
 def main(cc, src, dst, areas=None):
+    if cc in NETWORK:
+        return main_network(cc, src, dst)
     rule = RULES[cc]
     urban = None
     if areas:
@@ -401,7 +476,7 @@ def main(cc, src, dst, areas=None):
         for key, name, box, label, *axis in SPLITS[cc]:
             pts = j.found.get(key + "@")
             if not pts:
-                sys.exit(f"{cc}: junction {name!r} not found (split of {key})")
+                sys.exit(f"{cc}: junction {name!r} not found (split of {key}); junctions in the box: {sorted(j.seen.get(key, []))}")
             north = axis == ["N"]
             at = sum(p[1 if north else 0] for p in pts) / len(pts)
             h.split_at[key] = (at, label, north)
@@ -418,7 +493,7 @@ def main(cc, src, dst, areas=None):
                     continue
                 pts = j.found.get(f"{ref}|{i}@")
                 if not pts:
-                    sys.exit(f"{cc}: junction {name!r} not found (end of {label})")
+                    sys.exit(f"{cc}: junction {name!r} not found (end of {label}); junctions in the box: {sorted(j.seen.get(f'{ref}|{i}', []))}")
                 ends.append((sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts)))
             known = [e for e in ends if e]
             if len(known) == 2:
@@ -436,6 +511,7 @@ def main(cc, src, dst, areas=None):
     h.tolled = list(TOLLED.get(cc, []))
     h.untolled_boxes = list(UNTOLLED.get(cc, []))
     h.mountain = list(MOUNTAIN.get(cc, []))
+    h.private = list(PRIVATE.get(cc, []))
     h.apply_file(src, locations=True)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
@@ -453,6 +529,10 @@ def main(cc, src, dst, areas=None):
         print(cc, "left out as free before a barrier (both carriageways):", label, round(h.untolled_km[label], 1), "km")
     for label, km in h.free_km.items():
         print(cc, "left out km (both carriageways):", label, round(km))
+    for ref, box, label in h.private:
+        # Not an error: OSM may not tag the tunnel toll=yes; its km then
+        # count as tolled road too.
+        print(cc, "left out as privately tolled (both carriageways):", label, round(h.private_km[label], 1), "km")
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
@@ -461,10 +541,10 @@ def main(cc, src, dst, areas=None):
         out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
     if sections:
         out["mwf"], out["natf"] = h.shares["mw"], h.shares["nat"]
-    if h.free:
+    if h.free or h.private_km:
         # The stretches left out, by name: the tool says the km it counts
         # as local roads include them.
-        out["left_out"] = sorted({label for *_, label in h.free})
+        out["left_out"] = sorted({label for *_, label in h.free} | {label for label, km in h.private_km.items() if km > 0})
     if rule.get("operator"):
         out["ops"], out["mwop"] = h.ops, h.mwop
         for op, km in h.op_km.most_common():

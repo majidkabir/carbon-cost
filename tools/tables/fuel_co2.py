@@ -683,7 +683,8 @@ def albania(fetched, out, srcs):
         if not any(v.get("versionNo") == n and (v.get("pdf") or {}).get("sha256") == sha for v in vers):
             sys.exit(f"Ligj 9975 version {n}: not in QBZ's list of versions")
         t = re.sub(r"\s+", " ", open(txt, encoding="utf-8", errors="replace").read())
-        m = re.search(r"Taksa e karbonit caktohet në masën:? ?(?:a\) ?)?(\d+(?:,\d+)?) lekë për litër për benzinën[;,] ?(?:b\) ?)?(\d+(?:,\d+)?) lekë për litër për gazoilin", t)
+        # (A page number may fall between the lines: "masën: 4 a) 1,5 lekë".)
+        m = re.search(r"Taksa e karbonit caktohet në masën:? ?(?:\d{1,3} )?(?:a\) ?)?(\d+(?:,\d+)?) lekë për litër për benzinën[;,] ?(?:\d{1,3} )?(?:b\) ?)?(\d+(?:,\d+)?) lekë për litër për gazoilin", t)
         if not m:
             sys.exit(f"Ligj 9975 version {n}: neni 4 pika 6 (taksa e karbonit) not read")
         rates[n] = float(m.group(2).replace(",", "."))

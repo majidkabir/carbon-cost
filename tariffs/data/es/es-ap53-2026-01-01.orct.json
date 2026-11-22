@@ -111,10 +111,10 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-8.28877, 42.718319]]
+     "coordinates": [[-8.306261, 42.718251]]
     },
     "point_names": ["between Bandeira and Silleda"],
-    "headings": [77.4],
+    "headings": [120.6],
     "match_m": 100
    }
   },
@@ -195,10 +195,10 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-8.197007, 42.693222]]
+     "coordinates": [[-8.209296, 42.702425]]
     },
     "point_names": ["between Lalín Oeste and Silleda"],
-    "headings": [289.3],
+    "headings": [297.1],
     "match_m": 100
    }
   },
@@ -251,10 +251,10 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-8.288669, 42.718445]]
+     "coordinates": [[-8.306168, 42.71836]]
     },
     "point_names": ["between Silleda and Bandeira"],
-    "headings": [259.0],
+    "headings": [300.1],
     "match_m": 100
    }
   },
@@ -265,10 +265,10 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-8.197127, 42.693141]]
+     "coordinates": [[-8.209397, 42.702342]]
     },
     "point_names": ["between Silleda and Lalín Oeste"],
-    "headings": [106.6],
+    "headings": [117.2],
     "match_m": 100
    }
   }
@@ -386,7 +386,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-21"
+   "osm_extract": "2026-11-22"
   }
  }
 }

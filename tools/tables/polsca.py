@@ -18,8 +18,9 @@ announcement), from
 
 carbon-cost prices a trip with cargo, accompanied, by the truck's length
 (truck.length_m) in whole metres up: the freight plus the BES per metre.
-The ETS surcharge (polsca-ets-*) isn't added: carbon-cost prices the EU
-ETS on a crossing itself, from the ships' MRV data (eua_eur_per_t). The
+The ETS surcharge (polsca-ets-*) isn't in the fare: carbon-cost prices it
+as the crossing's EU ETS (ferry_ets.py reads it into
+ferries/data/ets-surcharges.json). The
 weight and width surcharges are for general cargo and over-standard
 vehicles and aren't applied. TT-Line sails Świnoujście–Trelleborg too;
 its freight rates aren't published, so a trip there is priced at
@@ -173,12 +174,12 @@ def main(fetched, out):
                            f"over 9 m EUR {rates[r][2]:g} per commenced metre" for r in routes)
                + ", including one driver, a cabin place and two meals; by the truck's length in whole metres up. With the bunker-environmental surcharge "
                "(BES) per commenced metre: " + ", ".join(f"{NAMES[r]} EUR {per[r]:g} (from {since[r]})" for r in routes)
-               + ". The ETS surcharge isn't added: carbon-cost prices the EU ETS on a crossing from the ships' MRV data. The weight and width "
+               + ". The ETS surcharge isn't in the fare: carbon-cost prices it as the crossing's EU ETS (ferries/data/ets-surcharges.json). The weight and width "
                "surcharges (general cargo, over-standard vehicles) aren't applied. TT-Line sails Świnoujście–Trelleborg too; its freight rates "
                "aren't published, so that crossing is priced at POLSCA's. Ports at OpenStreetMap's ferry terminals, priced where the line goes out "
                "on its car ferry line." + "".join(f" {x}." for x in notes))
         crossings = [n for r in routes for n in ({"SY": ["Świnoujście–Ystad", "Świnoujście–Trelleborg"], "GN": ["Gdańsk–Nynäshamn"], "GK": ["Gdańsk–Karlshamn"]}[r])]
-        d = {"country": "PL", "currency": "EUR", "valid_from": day, **({"valid_to": until} if until else {}), "crossings": True,
+        d = {"country": "PL", "currency": "EUR", "valid_from": day, **({"valid_to": until} if until else {}), "crossings": True, "ferry": True,
              "name": "POLSCA Baltic Ferries' (Polferries, Unity Line) ferries " + ", ".join(crossings[:-1]) + " and " + crossings[-1] + ", trucks",
              "law": law,
              "sources": [{"title": "POLSCA Baltic Ferries (Unity Line): freight tariff", "url": TARIFF_URL},

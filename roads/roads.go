@@ -2,7 +2,8 @@
 // and on its other national roads, from OpenStreetMap ways embedded in
 // data/ (built by tools/roads). Toll laws in Czechia, Poland, Bulgaria,
 // Slovakia, Hungary and Romania charge less off motorways and don't
-// charge local roads.
+// charge local roads; Germany and Austria charge one rate on their
+// tolled roads and nothing off them.
 package roads
 
 import (
@@ -59,6 +60,7 @@ type Index struct {
 	countries map[string]*grid
 	extract   map[string]string
 	leftOut   map[string][]string
+	network   map[string]string
 }
 
 // LeftOut names the stretches of a country's motorway class its toll law
@@ -69,6 +71,15 @@ func (ix *Index) LeftOut(country string) []string {
 		return nil
 	}
 	return ix.leftOut[strings.ToUpper(country)]
+}
+
+// Network names the law whose list of tolled sections a country's ways
+// are ("" where they are its road classes by ref).
+func (ix *Index) Network(country string) string {
+	if ix == nil {
+		return ""
+	}
+	return ix.network[strings.ToUpper(country)]
 }
 
 // Extract is the date of the OpenStreetMap extract a country's ways come
@@ -82,15 +93,28 @@ func (ix *Index) Extract(country string) string {
 
 const cell = 0.01 // degrees
 
+// seg is a piece of a way, kept small (Germany's ways are a million
+// of them).
 type seg struct {
-	a, b  [2]float64 // lon, lat
-	class string
-	sub   float64 // suburban share, -1 unknown
-	op    string  // the way's operator ("operator|ref"), if recorded
+	a, b  pt     // lon, lat * 1e5
+	sub   int16  // suburban share * 1000, -1 unknown
+	op    uint16 // the way's operator ("operator|ref"), an index into grid.ops; 0 none
+	class uint8  // classMotorway or classNational
 }
+
+// pt is a point as the data stores it: lon, lat * 1e5.
+type pt [2]int32
+
+func (p pt) deg() [2]float64 { return [2]float64{float64(p[0]) / 1e5, float64(p[1]) / 1e5} }
+
+const (
+	classMotorway uint8 = iota + 1
+	classNational
+)
 
 type grid struct {
 	cells map[[2]int32][]seg
+	ops   []string // ops[0] is ""
 }
 
 var (
@@ -106,7 +130,7 @@ func Default() (*Index, error) {
 }
 
 func load(fsys fs.FS) (*Index, error) {
-	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}, leftOut: map[string][]string{}}
+	ix := &Index{countries: map[string]*grid{}, extract: map[string]string{}, leftOut: map[string][]string{}, network: map[string]string{}}
 	files, err := fs.Glob(fsys, "data/*.json.gz")
 	if err != nil {
 		return nil, err
@@ -131,34 +155,41 @@ func load(fsys fs.FS) (*Index, error) {
 			Ops     []string  `json:"ops"`
 			MWOp    []int     `json:"mwop"`
 			LeftOut []string  `json:"left_out"`
+			Network string    `json:"network"`
 		}
 		err = json.NewDecoder(zr).Decode(&d)
 		r.Close()
 		if err != nil {
 			return nil, fmt.Errorf("%s: %w", f, err)
 		}
-		g := &grid{cells: map[[2]int32][]seg{}}
+		if len(d.Ops) >= math.MaxUint16 {
+			return nil, fmt.Errorf("%s: %d operators", f, len(d.Ops))
+		}
+		g := &grid{cells: map[[2]int32][]seg{}, ops: append([]string{""}, d.Ops...)}
 		for _, set := range []struct {
 			lines [][]int32
 			sub   []float64
 			ops   []int
-			class string
-		}{{d.MW, d.MWF, d.MWOp, Motorway}, {d.Nat, d.NatF, nil, National}} {
+			class uint8
+		}{{d.MW, d.MWF, d.MWOp, classMotorway}, {d.Nat, d.NatF, nil, classNational}} {
 			for j, l := range set.lines {
-				sub := -1.0
-				if j < len(set.sub) {
-					sub = set.sub[j]
+				sub := int16(-1)
+				if j < len(set.sub) && set.sub[j] >= 0 {
+					sub = int16(math.Round(set.sub[j] * 1000))
 				}
-				op := ""
+				op := uint16(0)
 				if j < len(set.ops) && set.ops[j] >= 0 && set.ops[j] < len(d.Ops) {
-					op = d.Ops[set.ops[j]]
+					op = uint16(set.ops[j] + 1)
 				}
 				for i := 0; i+3 < len(l); i += 2 {
-					g.add(seg{[2]float64{float64(l[i]) / 1e5, float64(l[i+1]) / 1e5}, [2]float64{float64(l[i+2]) / 1e5, float64(l[i+3]) / 1e5}, set.class, sub, op})
+					g.add(seg{a: pt{l[i], l[i+1]}, b: pt{l[i+2], l[i+3]}, sub: sub, op: op, class: set.class})
 				}
 			}
 		}
 		ix.countries[strings.ToUpper(d.Country)] = g
+		if d.Network != "" {
+			ix.network[strings.ToUpper(d.Country)] = d.Network
+		}
 		if d.Extract != "" {
 			ix.extract[strings.ToUpper(d.Country)] = d.Extract
 			if len(d.LeftOut) > 0 {
@@ -174,7 +205,8 @@ func key(lon, lat float64) [2]int32 {
 }
 
 func (g *grid) add(s seg) {
-	lo, hi := key(math.Min(s.a[0], s.b[0]), math.Min(s.a[1], s.b[1])), key(math.Max(s.a[0], s.b[0]), math.Max(s.a[1], s.b[1]))
+	a, b := s.a.deg(), s.b.deg()
+	lo, hi := key(math.Min(a[0], b[0]), math.Min(a[1], b[1])), key(math.Max(a[0], b[0]), math.Max(a[1], b[1]))
 	for x := lo[0]; x <= hi[0]; x++ {
 		for y := lo[1]; y <= hi[1]; y++ {
 			k := [2]int32{x, y}
@@ -202,16 +234,23 @@ func (g *grid) classOf(p [2]float64) (string, float64, string, bool) {
 	for dx := int32(-1); dx <= 1; dx++ {
 		for dy := int32(-1); dy <= 1; dy++ {
 			for _, s := range g.cells[[2]int32{k[0] + dx, k[1] + dy}] {
-				d := distM(p, s.a, s.b)
+				d := distM(p, s.a.deg(), s.b.deg())
 				if d <= NearM {
 					near = true
 				}
 				if d > MatchM {
 					continue
 				}
-				better := best == Local || (s.class == Motorway && best != Motorway) || (s.class == best && d < bestD)
+				class := National
+				if s.class == classMotorway {
+					class = Motorway
+				}
+				better := best == Local || (class == Motorway && best != Motorway) || (class == best && d < bestD)
 				if better {
-					best, sub, op, bestD = s.class, s.sub, s.op, d
+					best, sub, op, bestD = class, -1, g.ops[s.op], d
+					if s.sub >= 0 {
+						sub = float64(s.sub) / 1000
+					}
 				}
 			}
 		}

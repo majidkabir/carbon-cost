@@ -1,0 +1,1508 @@
+{
+ "components": {
+  "schemas": {
+   "BatchItem": {
+    "additionalProperties": false,
+    "description": "BatchItem is one trip's result, or why it couldn't be priced.",
+    "properties": {
+     "error": {
+      "description": "Error says why the trip wasn't priced.",
+      "type": "string"
+     },
+     "result": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Response"
+       }
+      ],
+      "description": "Result is the priced trip, as POST /v1/carbon-cost answers it."
+     }
+    },
+    "type": "object"
+   },
+   "BatchRequest": {
+    "additionalProperties": false,
+    "description": "BatchRequest is several trips to price (POST /v1/carbon-cost/batch).",
+    "properties": {
+     "trips": {
+      "description": "Trips are priced each on its own, as POST /v1/carbon-cost would; at most 100.",
+      "items": {
+       "$ref": "#/components/schemas/Request"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "trips"
+    ],
+    "type": "object"
+   },
+   "BatchResponse": {
+    "additionalProperties": false,
+    "description": "BatchResponse holds the trips' results in the order asked.",
+    "properties": {
+     "results": {
+      "items": {
+       "$ref": "#/components/schemas/BatchItem"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "results"
+    ],
+    "type": "object"
+   },
+   "Comparison": {
+    "additionalProperties": false,
+    "description": "Comparison is the trip priced for a truck in another CO2 class.",
+    "properties": {
+     "carbon_eur": {
+      "type": "number"
+     },
+     "co2_class": {
+      "type": "integer"
+     },
+     "road_toll_eur": {
+      "type": "number"
+     },
+     "saving_eur": {
+      "description": "SavingEUR is what this truck saves per trip against the requested one (negative: it costs more).",
+      "type": "number"
+     },
+     "saving_per_year_eur": {
+      "type": "number"
+     },
+     "total_eur": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon_eur",
+     "co2_class",
+     "road_toll_eur",
+     "saving_eur",
+     "total_eur"
+    ],
+    "type": "object"
+   },
+   "Error": {
+    "properties": {
+     "error": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "error"
+    ],
+    "type": "object"
+   },
+   "FuelBought": {
+    "additionalProperties": false,
+    "description": "FuelBought is the litres bought in one country and their price.",
+    "properties": {
+     "country": {
+      "type": "string"
+     },
+     "eur": {
+      "type": "number"
+     },
+     "eur_per_l": {
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "price": {
+      "description": "Price says where the price comes from: \"given\", or \"Weekly Oil Bulletin <date>\".",
+      "type": "string"
+     }
+    },
+    "required": [
+     "country",
+     "litres"
+    ],
+    "type": "object"
+   },
+   "FuelCost": {
+    "additionalProperties": false,
+    "description": "FuelCost is the trip's road diesel at a price: the truck's running cost, not a charge.",
+    "properties": {
+     "by_country": {
+      "description": "ByCountry is where the litres are bought (fuel_purchases, fuel_country, or along the route by road km) and their price.",
+      "items": {
+       "$ref": "#/components/schemas/FuelBought"
+      },
+      "type": "array"
+     },
+     "complete": {
+      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
+      "type": "boolean"
+     },
+     "eur": {
+      "description": "EUR is the litres priced, at their prices, without VAT.",
+      "type": "number"
+     },
+     "in_price_eur": {
+      "description": "InPriceEUR is the CO2 prices on fuel (and, from 2028, ETS2) of the litres priced: the diesel price already holds them, so with_fuel_eur leaves them out of the charges.",
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "unpriced": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "by_country",
+     "complete",
+     "eur",
+     "in_price_eur",
+     "litres"
+    ],
+    "type": "object"
+   },
+   "FuelPurchase": {
+    "additionalProperties": false,
+    "description": "FuelPurchase is fuel bought for the trip in a country, for the national CO2 prices on fuel, which are paid where it is bought.",
+    "properties": {
+     "country": {
+      "description": "ISO 3166-1 alpha-2",
+      "type": "string"
+     },
+     "litres": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "country",
+     "litres"
+    ],
+    "type": "object"
+   },
+   "Line": {
+    "additionalProperties": false,
+    "description": "Line is one charge.",
+    "properties": {
+     "amount": {
+      "type": "number"
+     },
+     "amount_eur": {
+      "type": "number"
+     },
+     "area": {
+      "description": "suburban or interurban, where rates differ by it",
+      "type": "string"
+     },
+     "carbon": {
+      "description": "a charge on CO2",
+      "type": "boolean"
+     },
+     "charge": {
+      "type": "string"
+     },
+     "component": {
+      "type": "string"
+     },
+     "country": {
+      "type": "string"
+     },
+     "currency": {
+      "type": "string"
+     },
+     "days": {
+      "description": "Days is the days a time-based charge is paid for.",
+      "type": "integer"
+     },
+     "km": {
+      "type": "number"
+     },
+     "litres": {
+      "description": "fuel, for taxes per litre",
+      "type": "number"
+     },
+     "rate": {
+      "type": "number"
+     },
+     "rate_unit": {
+      "description": "e.g. \"DKK/km\", \"CHF/tkm\", \"EUR/t CO2e\"",
+      "type": "string"
+     },
+     "region": {
+      "description": "ISO 3166-2, for regional tolls",
+      "type": "string"
+     },
+     "road": {
+      "description": "motorway or other, where rates differ by road",
+      "type": "string"
+     },
+     "section": {
+      "description": "a fixed-charge section or a surcharged stretch",
+      "type": "string"
+     },
+     "source": {
+      "type": "string"
+     },
+     "sources": {
+      "description": "Sources link the documents the line's rate comes from.",
+      "items": {
+       "$ref": "#/components/schemas/RatesSource"
+      },
+      "type": "array"
+     },
+     "t_co2e": {
+      "type": "number"
+     },
+     "tonnes": {
+      "description": "chargeable weight, for rates per tonne-km",
+      "type": "number"
+     }
+    },
+    "required": [
+     "amount",
+     "amount_eur",
+     "carbon",
+     "charge",
+     "currency",
+     "rate",
+     "rate_unit",
+     "source"
+    ],
+    "type": "object"
+   },
+   "Missing": {
+    "additionalProperties": false,
+    "description": "Missing is a charge the trip meets that the result leaves out.",
+    "properties": {
+     "area": {
+      "description": "Area is the country, or region, of the charge.",
+      "type": "string"
+     },
+     "charge": {
+      "description": "Charge is the kind of charge: road_toll, area_charge or fuel_co2.",
+      "type": "string"
+     },
+     "ended": {
+      "description": "Ended is the last day of the last rates here.",
+      "type": "string"
+     },
+     "name": {
+      "description": "Name is the scheme, for rates that ended.",
+      "type": "string"
+     },
+     "reason": {
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet) or \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km).",
+      "type": "string"
+     }
+    },
+    "required": [
+     "area",
+     "charge",
+     "reason"
+    ],
+    "type": "object"
+   },
+   "Provenance": {
+    "additionalProperties": false,
+    "description": "Provenance is what a result was calculated from: enough to repeat it.",
+    "properties": {
+     "assumed": {
+      "description": "Assumed lists defaults taken where the request didn't say.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "carbon_cost_version": {
+      "description": "Version is this tool's release (Calculator.Version).",
+      "type": "string"
+     },
+     "ferry_mrv": {
+      "description": "FerryMRV is the EU MRV publication a ferry crossing's emissions come from.",
+      "type": "string"
+     },
+     "fx": {
+      "description": "FX is the exchange rates used.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "road_classes_osm": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "description": "RoadClasses is the OpenStreetMap extract date of the road classes used, by country.",
+      "type": "object"
+     },
+     "sootcase": {
+      "description": "Sootcase is the Sootcase server and its emission factor dataset.",
+      "type": "string"
+     },
+     "tables": {
+      "description": "Tables are the rate tables priced, with their data files.",
+      "items": {
+       "$ref": "#/components/schemas/TableUsed"
+      },
+      "type": "array"
+     }
+    },
+    "type": "object"
+   },
+   "RatesSource": {
+    "additionalProperties": false,
+    "description": "Source is a document the rates come from.",
+    "properties": {
+     "title": {
+      "type": "string"
+     },
+     "url": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "title",
+     "url"
+    ],
+    "type": "object"
+   },
+   "RatesTruck": {
+    "additionalProperties": false,
+    "description": "Truck is what a toll rate depends on.",
+    "properties": {
+     "axles": {
+      "description": "of the truck with its trailer",
+      "type": "integer"
+     },
+     "capacity_kg": {
+      "description": "CapacityKg is the load capacity (permissible mass less the mass in running order) a ferry charges by, optional: the semi-trailer's for a tractor with semi-trailer, else the truck's and its trailer's together. Croatia's state ferries charge goods vehicles with more than 5 t of it a fare per tonne of it.",
+      "type": "integer"
+     },
+     "co2_class": {
+      "description": "EU CO2 emission class 1-5 (5 = zero-emission)",
+      "type": "integer"
+     },
+     "euro": {
+      "description": "emission standard 0-6 (EEV counts as 5)",
+      "type": "integer"
+     },
+     "length_m": {
+      "description": "LengthM is the vehicle's length with trailer, optional: bridge tolls are priced by length (default DefaultLengthM).",
+      "type": "number"
+     },
+     "max_mass_kg": {
+      "description": "technically permissible maximum mass",
+      "type": "integer"
+     },
+     "motor_axles": {
+      "description": "MotorAxles is the motor vehicle's own axles, optional: Lithuania's charge counts those (a tractor's, without the semi-trailer's).",
+      "type": "integer"
+     },
+     "motor_mass_kg": {
+      "description": "MotorMassKg and TrailerMassKg are the motor vehicle's and the trailer's own technically permissible maximum mass, optional: Iceland's km fee charges each vehicle of a combination on its own. They need MotorAxles.",
+      "type": "integer"
+     },
+     "tare_kg": {
+      "description": "TareKg is the truck's own weight (with trailer), optional: ferries report freight emissions per tonne of vehicle and cargo.",
+      "type": "integer"
+     },
+     "trailer_mass_kg": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "axles",
+     "co2_class",
+     "euro",
+     "max_mass_kg"
+    ],
+    "type": "object"
+   },
+   "Request": {
+    "additionalProperties": false,
+    "description": "Request is a trip to price.",
+    "properties": {
+     "avg_speed_kmh": {
+      "description": "AvgSpeedKmh is the average speed for those times, default DefaultAvgSpeedKmh.",
+      "type": "number"
+     },
+     "cargo_kg": {
+      "description": "CargoKg is the cargo when the trip carries one shipment from start to end (otherwise give shipments).",
+      "type": "number"
+     },
+     "compare_co2_classes": {
+      "description": "CompareCO2Classes prices the same trip for trucks in these CO2 classes (e.g. [1, 4, 5]), otherwise the same as Truck.",
+      "items": {
+       "type": "integer"
+      },
+      "type": "array"
+     },
+     "country_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced; tolls at stations, on sections and bridges need a route, and the result lists them as missing. Not with from, to, stops, shipments or path.",
+      "type": "object"
+     },
+     "date": {
+      "description": "YYYY-MM-DD; default today",
+      "type": "string"
+     },
+     "diesel_eur_per_l": {
+      "description": "DieselEURPerL is what the truck pays for diesel, EUR per litre without VAT, wherever it fills up; DieselEURPerLByCountry by country (ISO 3166-1 alpha-2), over it. Without them, the EU's Weekly Oil Bulletin's national averages of the trip's week. The fuel cost is a line of its own: total_eur stays the charges, and with_fuel_eur adds the fuel.",
+      "type": "number"
+     },
+     "diesel_eur_per_l_by_country": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
+     "diesel_l": {
+      "description": "DieselL is the litres of diesel the truck burns on the trip's road part, for the CO2 prices on fuel and ETS2.",
+      "type": "number"
+     },
+     "dkk_per_eur": {
+      "description": "DKKPerEUR converts DKK to EUR; default DKKPerEUR.",
+      "type": "number"
+     },
+     "driver_rest": {
+      "description": "DriverRest adds a single driver's breaks and daily rests to those times (Regulation (EC) No 561/2006, Arts. 7 and 8): 45 minutes after 4.5 hours' driving, 11 hours after 9.",
+      "type": "boolean"
+     },
+     "env_zone_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "EnvZoneKm is km driven on tolled roads inside environmental zones, by country (Denmark charges a surcharge there).",
+      "type": "object"
+     },
+     "etc": {
+      "description": "ETC: the truck pays tolls by an electronic toll device or account agreement, for the operators' discounts on it (Croatia's ENC, Storebælt Erhverv, ØresundBUSINESS).",
+      "type": "boolean"
+     },
+     "ets2_eur_per_t": {
+      "description": "ETS2EurPerT is the ETS2 allowance price (EUR per t CO2e), for trips from 2028. 0: ETS2 is not priced.",
+      "type": "number"
+     },
+     "eua_eur_per_t": {
+      "description": "EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for ferry crossings. 0: ferry ETS is not priced.",
+      "type": "number"
+     },
+     "ferry_ets_basis": {
+      "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
+      "type": "string"
+     },
+     "ferry_ets_share": {
+      "description": "FerryETSShare is the share of a crossing's emissions under the EU ETS for a crossing this tool doesn't know: 1 between two EU/EEA ports (default), 0.5 to or from a port outside. A known crossing's share comes from its ports, its ships' size and the derogations in force.",
+      "type": "number"
+     },
+     "from": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/SootcaseLocation"
+       }
+      ],
+      "description": "From and To are where the trip starts and ends, for a trip with no stops between; give Stops instead for one with."
+     },
+     "fuel_country": {
+      "description": "FuelCountry is where the trip's road fuel is bought (ISO 3166-1 alpha-2), for national CO2 prices on fuel. \"\": bought along the route, each country's share in proportion to its road km.",
+      "type": "string"
+     },
+     "fuel_purchases": {
+      "description": "FuelPurchases are the fuel bought for the trip, by country: the national CO2 prices on fuel go by where it was bought, and the litres are the trip's diesel unless diesel_l or l_per_100km is given.",
+      "items": {
+       "$ref": "#/components/schemas/FuelPurchase"
+      },
+      "type": "array"
+     },
+     "fx": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "FX converts other currencies to EUR, in units per euro, e.g. {\"CHF\": 0.93}; default the ECB reference rates (Calculator.FX).",
+      "type": "object"
+     },
+     "l_per_100km": {
+      "description": "LPer100Km is the truck's diesel consumption, litres per 100 km, when diesel_l isn't given. Without either the default for its vehicle group and load is used (Trip.FuelBasis says which).",
+      "type": "number"
+     },
+     "motorway_share": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "MotorwayShare is the share of an area's tolled km on motorways (default 0), where its rates differ by road type (Brussels).",
+      "type": "object"
+     },
+     "night": {
+      "description": "Night: the trip passes night-tariff sections between 22:00 and 05:00 (Austria's A 13 Brenner).",
+      "type": "boolean"
+     },
+     "path": {
+      "description": "Path is the way the truck drove (or will), [lon, lat] points from a GPS track or telematics: its tolls, crossings and km by country are priced on it instead of Sootcase's route. Sootcase still routes the stops for the shipments' emissions and ferry crossings.",
+      "items": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 2,
+       "minItems": 2,
+       "type": "array"
+      },
+      "type": "array"
+     },
+     "shipments": {
+      "description": "Shipments are the trip's cargo, each from its loading stop to its unloading stop; the result gives each one's share of the trip. Without them cargo_kg is one shipment from the first stop to the last. Put a groupage trip's other cargo in as shipments too, or the one given carries the whole trip.",
+      "items": {
+       "$ref": "#/components/schemas/Shipment"
+      },
+      "type": "array"
+     },
+     "stops": {
+      "description": "Stops are the trip's stops in order: where the truck starts, where it loads or unloads, where it ends (a depot it returns to empty, say).",
+      "items": {
+       "$ref": "#/components/schemas/SootcaseLocation"
+      },
+      "type": "array"
+     },
+     "time": {
+      "description": "Time is the local departure time (HH:MM) on Date. Each toll station is reached that much later as its km along the route take at AvgSpeedKmh; that time prices congestion taxes and the hours a toll system or station is free. Without it congestion taxes aren't priced and hours aren't checked.",
+      "type": "string"
+     },
+     "to": {
+      "$ref": "#/components/schemas/SootcaseLocation"
+     },
+     "tolled_share": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "TolledShare is the share of each country's km on tolled roads, default 1 (all of it). Sootcase doesn't yet tell road classes apart, so give it when part of a trip runs on untolled roads.",
+      "type": "object"
+     },
+     "trips_per_year": {
+      "description": "TripsPerYear turns the comparison's savings per trip into savings per year.",
+      "type": "number"
+     },
+     "truck": {
+      "$ref": "#/components/schemas/RatesTruck"
+     },
+     "uka_gbp_per_t": {
+      "description": "UKAGbpPerT is the UK ETS allowance price (GBP per t CO2e), for crossings between UK ports from 1 July 2026. 0: not priced.",
+      "type": "number"
+     },
+     "vehicle_type": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "truck"
+    ],
+    "type": "object"
+   },
+   "Response": {
+    "additionalProperties": false,
+    "description": "Response is a priced trip.",
+    "properties": {
+     "carbon_eur": {
+      "description": "the CO2 parts of tolls, ferry ETS and ETS2",
+      "type": "number"
+     },
+     "carbon_eur_per_tkm": {
+      "type": "number"
+     },
+     "compare": {
+      "description": "Compare is the trip priced for each of CompareCO2Classes.",
+      "items": {
+       "$ref": "#/components/schemas/Comparison"
+      },
+      "type": "array"
+     },
+     "complete": {
+      "description": "Complete says whether the total includes every charge this tool knows the trip meets; false when Missing lists any.",
+      "type": "boolean"
+     },
+     "country_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
+     "data_type": {
+      "description": "DataType is \"primary\" (the truck's diesel given) or \"modelled\" (Sootcase's defaults, or the default diesel of the truck's group).",
+      "type": "string"
+     },
+     "date": {
+      "type": "string"
+     },
+     "distance_km": {
+      "type": "number"
+     },
+     "emissions_basis": {
+      "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
+      "type": "string"
+     },
+     "eur_per_tkm": {
+      "description": "EURPerTkm and CarbonEURPerTkm are the trip's amounts per tonne-km of its shipments: each shipment's rate, as they are shared by tonne-km.",
+      "type": "number"
+     },
+     "ferry_crossing": {
+      "description": "FerryCrossing names the crossings the route uses, when recognised.",
+      "type": "string"
+     },
+     "ferry_km": {
+      "type": "number"
+     },
+     "fuel": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/FuelCost"
+       }
+      ],
+      "description": "Fuel is the trip's diesel at the price given, or the Weekly Oil Bulletin's: not a charge, so not in total_eur."
+     },
+     "intensity_g_co2e_per_tkm": {
+      "description": "IntensityG is the well-to-wheel g CO2e per tonne-km of the shipments: EN ISO 14083's emission intensity.",
+      "type": "number"
+     },
+     "lines": {
+      "items": {
+       "$ref": "#/components/schemas/Line"
+      },
+      "type": "array"
+     },
+     "missing": {
+      "description": "Missing lists the charges the trip meets that the total leaves out: areas with no table here, and rates that ended with no successor here yet (a new year's tariffs not yet published or added).",
+      "items": {
+       "$ref": "#/components/schemas/Missing"
+      },
+      "type": "array"
+     },
+     "no_rates": {
+      "description": "NoRates lists countries on the route this tool has no toll table for: their charges are not included.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "notes": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "provenance": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Provenance"
+       }
+      ],
+      "description": "Provenance names the data and assumptions the result rests on."
+     },
+     "region_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
+     "route": {
+      "description": "Route is the route split by country, for a map (Calculate with Borders set).",
+      "items": {
+       "$ref": "#/components/schemas/Run"
+      },
+      "type": "array"
+     },
+     "shipments": {
+      "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023). The totals are the truck's.",
+      "items": {
+       "$ref": "#/components/schemas/ShipmentCost"
+      },
+      "type": "array"
+     },
+     "sources": {
+      "items": {
+       "$ref": "#/components/schemas/RatesSource"
+      },
+      "type": "array"
+     },
+     "total_eur": {
+      "type": "number"
+     },
+     "trip": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/Trip"
+       }
+      ],
+      "description": "Trip is the truck's trip: legs, loads and diesel."
+     },
+     "ttw_kg": {
+      "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "description": "WithFuelEUR is total_eur and the fuel, without counting twice the CO2 prices on fuel (and ETS2) that the diesel price already holds.",
+      "type": "number"
+     },
+     "wtw_kg": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon_eur",
+     "carbon_eur_per_tkm",
+     "complete",
+     "country_km",
+     "data_type",
+     "date",
+     "distance_km",
+     "emissions_basis",
+     "eur_per_tkm",
+     "intensity_g_co2e_per_tkm",
+     "lines",
+     "provenance",
+     "sources",
+     "total_eur",
+     "ttw_kg",
+     "wtw_kg"
+    ],
+    "type": "object"
+   },
+   "Run": {
+    "additionalProperties": false,
+    "description": "Run is a stretch of the route in one country (Kind \"road\"), on a recognised ferry crossing (Kind \"ferry\") or at sea (Kind \"sea\", more than borders.NearestKm from any coast), for a map. Consecutive runs share their end point.",
+    "properties": {
+     "country": {
+      "type": "string"
+     },
+     "kind": {
+      "type": "string"
+     },
+     "km": {
+      "type": "number"
+     },
+     "points": {
+      "description": "[lon, lat]",
+      "items": {
+       "items": {
+        "type": "number"
+       },
+       "maxItems": 2,
+       "minItems": 2,
+       "type": "array"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "kind",
+     "km",
+     "points"
+    ],
+    "type": "object"
+   },
+   "Shipment": {
+    "additionalProperties": false,
+    "description": "Shipment is cargo on the trip: loaded at one stop and unloaded at a later one. The truck pays the trip's charges; each shipment's share of them is its tonne-km over all the shipments' (EN ISO 14083:2023, the method of Regulation (EU) 2026/1030, CountEmissionsEU).",
+    "properties": {
+     "from": {
+      "description": "From is the stop it is loaded at, 0 being the first.",
+      "type": "integer"
+     },
+     "id": {
+      "description": "ID names it in the result; default its number, from 1.",
+      "type": "string"
+     },
+     "to": {
+      "description": "To is the stop it is unloaded at; 0 means the last.",
+      "type": "integer"
+     },
+     "weight_kg": {
+      "description": "WeightKg is its gross mass.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "weight_kg"
+    ],
+    "type": "object"
+   },
+   "ShipmentCost": {
+    "additionalProperties": false,
+    "description": "ShipmentCost is a shipment's share of the trip.",
+    "properties": {
+     "by_charge": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "ByCharge is its share of each kind of charge, in EUR.",
+      "type": "object"
+     },
+     "by_country": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "description": "ByCountry is its share of the charges of each country (a line's country: where a toll or tax is paid; a ferry's ETS, paid to no country, under its charge), in EUR: what an invoice passing the tolls on by country needs.",
+      "type": "object"
+     },
+     "carbon_eur": {
+      "type": "number"
+     },
+     "carbon_eur_per_100kg": {
+      "type": "number"
+     },
+     "distance_km": {
+      "description": "DistanceKm is its transport activity distance: the road route from its loading stop to its unloading stop (EN ISO 14083's shortest feasible distance), not the truck's way between them.",
+      "type": "number"
+     },
+     "eur_per_100kg": {
+      "description": "EURPer100Kg and CarbonEURPer100Kg are its amounts per 100 kg, as surcharges are quoted.",
+      "type": "number"
+     },
+     "from": {
+      "type": "integer"
+     },
+     "fuel_eur": {
+      "description": "FuelEUR and WithFuelEUR are its tonne-km share of the trip's fuel and of with_fuel_eur.",
+      "type": "number"
+     },
+     "id": {
+      "type": "string"
+     },
+     "intensity_g_co2e_per_tkm": {
+      "description": "IntensityG is its well-to-wheel g CO2e per tonne-km.",
+      "type": "number"
+     },
+     "share": {
+      "description": "Share is its tonne-km over all the shipments'.",
+      "type": "number"
+     },
+     "tkm": {
+      "type": "number"
+     },
+     "to": {
+      "type": "integer"
+     },
+     "total_eur": {
+      "type": "number"
+     },
+     "ttw_kg": {
+      "description": "TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of the truck's diesel plus its share by weight of the ferries it is on, when the diesel is given; else Sootcase's (GLEC default intensity x its tonne-km).",
+      "type": "number"
+     },
+     "weight_kg": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "type": "number"
+     },
+     "wtw_kg": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "by_charge",
+     "by_country",
+     "carbon_eur",
+     "carbon_eur_per_100kg",
+     "distance_km",
+     "eur_per_100kg",
+     "from",
+     "id",
+     "intensity_g_co2e_per_tkm",
+     "share",
+     "tkm",
+     "to",
+     "total_eur",
+     "ttw_kg",
+     "weight_kg",
+     "wtw_kg"
+    ],
+    "type": "object"
+   },
+   "SootcaseLocation": {
+    "additionalProperties": false,
+    "description": "Location is a place: a UN/LOCODE or IATA code, or coordinates.",
+    "properties": {
+     "code": {
+      "type": "string"
+     },
+     "lat": {
+      "type": "number"
+     },
+     "lon": {
+      "type": "number"
+     },
+     "name": {
+      "type": "string"
+     }
+    },
+    "type": "object"
+   },
+   "SootcasePlace": {
+    "additionalProperties": false,
+    "description": "Place is one match from Sootcase's place search (GET /v1/places).",
+    "properties": {
+     "alt_name": {
+      "type": "string"
+     },
+     "code": {
+      "type": "string"
+     },
+     "country": {
+      "type": "string"
+     },
+     "country_name": {
+      "type": "string"
+     },
+     "id": {
+      "type": "string"
+     },
+     "kinds": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "lat": {
+      "type": "number"
+     },
+     "lon": {
+      "type": "number"
+     },
+     "name": {
+      "type": "string"
+     },
+     "region": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "id",
+     "lat",
+     "lon",
+     "name"
+    ],
+    "type": "object"
+   },
+   "TableUsed": {
+    "additionalProperties": false,
+    "description": "TableUsed is a rate table a result used.",
+    "properties": {
+     "area": {
+      "type": "string"
+     },
+     "file": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "osm_extract": {
+      "type": "string"
+     },
+     "valid_from": {
+      "type": "string"
+     },
+     "valid_to": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "area",
+     "name",
+     "valid_from"
+    ],
+    "type": "object"
+   },
+   "TariffsSource": {
+    "additionalProperties": false,
+    "description": "Source is a source document.",
+    "properties": {
+     "title": {
+      "type": "string"
+     },
+     "url": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "title",
+     "url"
+    ],
+    "type": "object"
+   },
+   "TariffsSummary": {
+    "additionalProperties": false,
+    "description": "Summary is what a dataset is, for a list of them.",
+    "properties": {
+     "country": {
+      "type": "string"
+     },
+     "file": {
+      "type": "string"
+     },
+     "id": {
+      "type": "string"
+     },
+     "kind": {
+      "type": "string"
+     },
+     "method": {
+      "type": "string"
+     },
+     "name": {
+      "type": "string"
+     },
+     "region": {
+      "type": "string"
+     },
+     "scheme": {
+      "type": "string"
+     },
+     "sources": {
+      "items": {
+       "$ref": "#/components/schemas/TariffsSource"
+      },
+      "type": "array"
+     },
+     "valid_from": {
+      "type": "string"
+     },
+     "valid_to": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "country",
+     "file",
+     "id",
+     "kind",
+     "name",
+     "scheme",
+     "valid_from"
+    ],
+    "type": "object"
+   },
+   "Trip": {
+    "additionalProperties": false,
+    "description": "Trip is the truck's trip: its legs between stops, what was on board, and the diesel it burned, on which the CO2 prices on fuel and ETS2 are charged.",
+    "properties": {
+     "empty_km": {
+      "description": "EmptyKm is the road km with nothing on board.",
+      "type": "number"
+     },
+     "fuel_basis": {
+      "description": "FuelBasis says where FuelL comes from: diesel_l, fuel_purchases, l_per_100km, or the default by vehicle group and load.",
+      "type": "string"
+     },
+     "fuel_l": {
+      "description": "FuelL is the litres of diesel on the road.",
+      "type": "number"
+     },
+     "legs": {
+      "items": {
+       "$ref": "#/components/schemas/TripLeg"
+      },
+      "type": "array"
+     },
+     "road_km": {
+      "description": "RoadKm is the km on the road (not on ferries).",
+      "type": "number"
+     }
+    },
+    "required": [
+     "fuel_basis",
+     "fuel_l",
+     "legs",
+     "road_km"
+    ],
+    "type": "object"
+   },
+   "TripLeg": {
+    "additionalProperties": false,
+    "description": "TripLeg is the trip between two consecutive stops.",
+    "properties": {
+     "from": {
+      "type": "integer"
+     },
+     "fuel_l": {
+      "type": "number"
+     },
+     "km": {
+      "type": "number"
+     },
+     "load_kg": {
+      "type": "number"
+     },
+     "road_km": {
+      "type": "number"
+     },
+     "to": {
+      "type": "integer"
+     }
+    },
+    "required": [
+     "from",
+     "fuel_l",
+     "km",
+     "load_kg",
+     "road_km",
+     "to"
+    ],
+    "type": "object"
+   }
+  }
+ },
+ "info": {
+  "description": "What carbon and road charges a truck trip pays, per country and per charge, with the carbon part apart. Rates come from the laws and official tariffs (each result names its datasets and sources); routes, km by country and emissions from Sootcase. Generated from the Go types (internal/apidoc).",
+  "license": {
+   "identifier": "MIT",
+   "name": "MIT"
+  },
+  "title": "carbon-cost",
+  "version": "1"
+ },
+ "openapi": "3.1.0",
+ "paths": {
+  "/v1/carbon-cost": {
+   "post": {
+    "operationId": "price",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/Request"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Response"
+        }
+       }
+      },
+      "description": "The priced trip. Check complete: when false, missing lists the charges the total leaves out."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The request is wrong: its JSON, a field, or a place Sootcase doesn't know."
+     },
+     "502": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "Sootcase (routes and emissions) failed or refused this server."
+     },
+     "503": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "Sootcase is busy (it limits requests); try again later."
+     }
+    },
+    "summary": "Price one trip"
+   }
+  },
+  "/v1/carbon-cost/batch": {
+   "post": {
+    "operationId": "priceBatch",
+    "requestBody": {
+     "content": {
+      "application/json": {
+       "schema": {
+        "$ref": "#/components/schemas/BatchRequest"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/BatchResponse"
+        }
+       }
+      },
+      "description": "Each trip's result or error, in the order asked."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The request is wrong: its JSON, a field, or a place Sootcase doesn't know."
+     },
+     "502": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "Sootcase (routes and emissions) failed or refused this server."
+     },
+     "503": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "Sootcase is busy (it limits requests); try again later."
+     }
+    },
+    "summary": "Price up to 100 trips"
+   }
+  },
+  "/v1/carbon-cost/csv": {
+   "post": {
+    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, missing, error). With rows=shipments a trip with shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
+    "operationId": "priceCSV",
+    "parameters": [
+     {
+      "description": "trips (the default): a row per trip; shipments: a row per shipment of a trip that has them.",
+      "in": "query",
+      "name": "rows",
+      "schema": {
+       "enum": [
+        "trips",
+        "shipments"
+       ],
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "text/csv": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/csv": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "The rows with the results added."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The CSV can't be read, or has more than 100 rows."
+     }
+    },
+    "summary": "Price a CSV of up to 100 trips"
+   }
+  },
+  "/v1/carbon-cost/report": {
+   "post": {
+    "description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file (a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), the share of tonne-km priced on primary data, and the rows that are incomplete or failed.",
+    "operationId": "reportCSV",
+    "parameters": [
+     {
+      "description": "Columns to group by, separated by commas (e.g. customer,month); blank: one total.",
+      "in": "query",
+      "name": "by",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "text/csv": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/csv": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "A row per group."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The CSV isn't one carbon-cost priced, or has no column to group by."
+     }
+    },
+    "summary": "Add up priced CSVs by customer, month or any column"
+   }
+  },
+  "/v1/places": {
+   "get": {
+    "operationId": "places",
+    "parameters": [
+     {
+      "description": "A city, port, code (UN/LOCODE, IATA) or lat,lon.",
+      "in": "query",
+      "name": "q",
+      "required": true,
+      "schema": {
+       "maxLength": 100,
+       "minLength": 2,
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "properties": {
+          "places": {
+           "items": {
+            "$ref": "#/components/schemas/SootcasePlace"
+           },
+           "type": "array"
+          }
+         },
+         "type": "object"
+        }
+       }
+      },
+      "description": "Up to 8 places, best first."
+     },
+     "502": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "Sootcase (routes and emissions) failed or refused this server."
+     }
+    },
+    "summary": "Find a place to start or end a trip"
+   }
+  },
+  "/v1/rates": {
+   "get": {
+    "operationId": "listRates",
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "items": {
+          "$ref": "#/components/schemas/TariffsSummary"
+         },
+         "type": "array"
+        }
+       }
+      },
+      "description": "Every dataset, past, current and future."
+     }
+    },
+    "summary": "List the rate datasets (ORCT)"
+   }
+  },
+  "/v1/rates/{cc}/{file}": {
+   "get": {
+    "operationId": "getRates",
+    "parameters": [
+     {
+      "description": "Country code, lower case (e.g. dk).",
+      "in": "path",
+      "name": "cc",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "description": "The dataset's file (e.g. dk-2026-01-01.orct.json), as /v1/rates lists it.",
+      "in": "path",
+      "name": "file",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "description": "An ORCT dataset: https://github.com/majidkabir/orct",
+         "type": "object"
+        }
+       }
+      },
+      "description": "The dataset."
+     },
+     "404": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "No such dataset."
+     }
+    },
+    "summary": "One dataset, as published (ORCT 0.3)"
+   }
+  }
+ }
+}

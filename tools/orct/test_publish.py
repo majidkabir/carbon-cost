@@ -1,11 +1,11 @@
-"""Tests of publish.osm_only and publish.appended_days: python3 tools/orct/test_publish.py"""
+"""Tests of publish.osm_only, publish.appended_days and publish.editions_added: python3 tools/orct/test_publish.py"""
 import copy
 import json
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from publish import appended_days, osm_only  # noqa: E402
+from publish import appended_days, editions_added, osm_only  # noqa: E402
 
 BASE = {
     "dataset": {"id": "x/2026-01-01", "method": "Stations placed at OpenStreetMap's toll booths (extract of 2026-11-08); law of 2025-12-18."},
@@ -58,10 +58,30 @@ FX_CASES = [
     ("not a day", FX + "total,1\n", False),
 ]
 
+ETS = {"note": "n", "operators": [{"operator": "Stena Line", "unit": "EUR per lane metre", "source": {"url": "u"}, "routes": [],
+        "editions": [{"from": "2026-11-01", "to": "2026-11-30", "source": "u (read in Chrome)", "rates": {"Trelleborg–Rostock": 1.59}}]}]}
+
+
+def ets(f):
+    b = json.loads(json.dumps(ETS))
+    f(b["operators"][0])
+    return b
+
+
+ETS_CASES = [
+    ("month added", ets(lambda o: o["editions"].append({"from": "2026-12-01", "to": "2026-12-31", "source": "u", "rates": {"Trelleborg–Rostock": 1.7}})), True),
+    ("fetched instead of read", ets(lambda o: o["editions"][0].update(source="u (eu-ets-november-2026-11.pdf)")), True),
+    ("earlier month added", ets(lambda o: o["editions"].insert(0, {"from": "2026-10-01", "to": "2026-10-31", "source": "u", "rates": {"Trelleborg–Rostock": 1.5}})), True),
+    ("rate changed", ets(lambda o: o["editions"][0]["rates"].update({"Trelleborg–Rostock": 1.6})), False),
+    ("month gone", ets(lambda o: o.update(editions=[])), False),
+    ("unit changed", ets(lambda o: o.update(unit="EUR per metre")), False),
+]
+
 if __name__ == "__main__":
     bad = [(n, want) for n, f, want in CASES if changed(f) != want]
     bad += [("fx " + n, want) for n, b, want in FX_CASES if appended_days(FX, b) != want]
-    CASES += FX_CASES
+    bad += [("ets " + n, want) for n, b, want in ETS_CASES if editions_added(ETS, b) != want]
+    CASES += FX_CASES + ETS_CASES
     for n, want in bad:
         print(f"FAIL {n}: want osm_only={want}")
     print(f"{len(CASES) - len(bad)}/{len(CASES)} ok")

@@ -302,7 +302,7 @@ def main(fetched, out):
                     "prices": {"Moss|Horten": mh_full}, "etc_prices": {"Moss|Horten": mh_etc}})
     print("Moss–Horten", mh_full["AP6"], mh_etc["AP6"], {n: len(p) for n, p in points.items()})
     start = max(start, mh_from)
-    t = {"country": "NO", "currency": "NOK", "valid_from": start, "crossings": True,
+    t = {"country": "NO", "currency": "NOK", "valid_from": start, "crossings": True, "ferry": True,
          "name": "Norwegian national road ferries (riksvegferjer)",
          "law": (f"AutoPASS-regulativ for ferjetakster from {start} (Statens vegvesen, set by the Ministry of Transport): the full price per crossing by zone and the vehicle's "
                  "total length with trailer and load (AP1 up to 6 m ... AP6 14.51-17.5 m, AP7 17.51-19.5 m, AP8 19.51-22 m, AP9 over 22 m); the table includes 12% VAT, "

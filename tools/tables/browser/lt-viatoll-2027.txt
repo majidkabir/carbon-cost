@@ -1,0 +1,35 @@
+# Lithuania: Via Toll road toll (kelių rinkliava) from 1 January 2027, EUR per km.
+# Law: Lietuvos transporto saugos administracijos direktoriaus 2026-06-30 įsakymas Nr. 2BE-97
+# "Dėl kelių rinkliavos dydžių patvirtinimo" (TAR 2026-06-30, Nr. 2026-11339, in force 2027-01-01),
+# https://www.e-tar.lt/portal/lt/legalAct/c195d646748911f1b53dfa020e517810; its annex is a spreadsheet
+# (ViaToll_dydžių_priedas.xlsx) that e-TAR serves only to browsers (Cloudflare).
+# Read from: Via Lietuva (the toll's operator), https://vialietuva.lt/via-toll, section "Įkainiai"
+# ("Nuo 2027 m. sausio 1 d. taikomi kelių rinkliavos dydžiai (Eur / 1 km) pagal transporto priemonių
+# kategorijas"); the tables are pictures, read in Chrome (Claude in Chrome, screenshots) on 2026-11-22,
+# optional cookies declined. One row a line: category | CO2 class | EURO class | rates by axle column.
+# "Mažataršė transporto priemonė" is a low-emission vehicle, "Netarši transporto priemonė" a
+# zero-emission one (CO2 emission classes 4 and 5).
+N2 | Nuo 3,5 tonos iki 12 tonų (įskaitytinai) didžiausios leidžiamosios masės | columns: Dvi ašys; Ne mažiau kaip trys ašys
+N2 | 1 klasė | EURO 0 | 0.092 | 0.107
+N2 | 1 klasė | EURO I | 0.085 | 0.097
+N2 | 1 klasė | EURO II | 0.083 | 0.095
+N2 | 1 klasė | EURO III | 0.080 | 0.092
+N2 | 1 klasė | EURO IV | 0.078 | 0.087
+N2 | 1 klasė | EURO V | 0.076 | 0.085
+N2 | 1 klasė | EURO VI | 0.074 | 0.083
+N2 | 2 klasė | | 0.073 | 0.081
+N2 | 3 klasė | | 0.071 | 0.079
+N2 | Mažataršė transporto priemonė | | 0.057 | 0.062
+N2 | Netarši transporto priemonė | | 0.040 | 0.040
+N3 | Nuo 12 tonų didžiausiosios leidžiamos masės | columns: Ne daugiau kaip trys ašys; Keturios ašys; Ne mažiau kaip penkios ašys
+N3 | 1 klasė | EURO 0 | 0.248 | 0.259 | 0.266
+N3 | 1 klasė | EURO I | 0.221 | 0.230 | 0.236
+N3 | 1 klasė | EURO II | 0.200 | 0.208 | 0.213
+N3 | 1 klasė | EURO III | 0.177 | 0.184 | 0.189
+N3 | 1 klasė | EURO IV | 0.155 | 0.161 | 0.165
+N3 | 1 klasė | EURO V | 0.132 | 0.138 | 0.141
+N3 | 1 klasė | EURO VI | 0.111 | 0.115 | 0.118
+N3 | 2 klasė | | 0.110 | 0.114 | 0.117
+N3 | 3 klasė | | 0.110 | 0.113 | 0.116
+N3 | Mažataršė transporto priemonė | | 0.105 | 0.107 | 0.108
+N3 | Netarši transporto priemonė | | 0.098 | 0.098 | 0.098

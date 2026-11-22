@@ -164,7 +164,7 @@ def main(fetched, out):
                + "The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, "
                  "nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line."
                + "".join(f" {x}." for x in notes))
-        t = {"country": "DE", "currency": "EUR", "valid_from": day, "valid_to": until, "crossings": True,
+        t = {"country": "DE", "currency": "EUR", "valid_from": day, "valid_to": until, "crossings": True, "ferry": True,
              "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load", "law": law,
              "sources": [{"title": "FRS Elbfähre: LKW und Fracht (fares for trucks and cargo)", "url": PAGE},
                          {"title": "FRS Elbfähre: Treibstoffzuschlag (fuel surcharge)", "url": FUEL_PAGE},

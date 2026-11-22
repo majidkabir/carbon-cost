@@ -22,15 +22,37 @@
   .wide { grid-column: span 2; }
   .check { display: flex; align-items: center; gap: 8px; color: var(--ink); }
   .check input { width: auto; }
-  button { grid-column: 1 / -1; justify-self: start; font: inherit; font-weight: 600; color: #fff; background: var(--accent);
-           border: 0; border-radius: 6px; padding: 9px 18px; cursor: pointer; }
-  button:disabled { opacity: .6; cursor: wait; }
+  [hidden] { display: none !important; }
+  button { font: inherit; cursor: pointer; border-radius: 6px; }
+  #go { grid-column: 1 / -1; justify-self: start; font-weight: 600; color: #fff; background: var(--accent);
+        border: 0; padding: 9px 18px; }
+  #go:disabled { opacity: .6; cursor: wait; }
+  button.small { color: var(--accent); background: #fff; border: 1px solid var(--line); padding: 5px 10px; font-size: 13px; white-space: nowrap; }
+  button.x { color: var(--muted); background: none; border: 0; padding: 4px 8px; font-size: 16px; line-height: 1; }
+  .full { grid-column: 1 / -1; }
+  fieldset { grid-column: 1 / -1; border: 1px solid var(--line); border-radius: 8px; margin: 0; padding: 10px 12px 12px; display: grid; gap: 10px;
+             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  legend { font-size: 13px; font-weight: 600; color: var(--ink); padding: 0 4px; }
+  fieldset .hint { grid-column: 1 / -1; margin: -4px 0 0; font-size: 12px; color: var(--muted); }
+  .row { grid-column: 1 / -1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .row > .ac { flex: 1 1 240px; }
+  .row > span.lbl { font-size: 13px; color: var(--muted); min-width: 54px; }
+  .ship { grid-column: 1 / -1; display: grid; gap: 8px; align-items: center; grid-template-columns: 90px 110px 1fr 1fr 30px; }
+  .ship.head { font-size: 12px; color: var(--muted); }
+  #pathinfo { font-size: 13px; color: var(--muted); }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 0; }
+  .bar select { width: auto; max-width: 260px; }
+  .bar input { width: 160px; }
+  #flash { font-size: 13px; color: var(--accent); }
   #error { color: #a3261b; margin: 14px 0 0; white-space: pre-wrap; }
   .totals { display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0 12px; }
   .tile { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; min-width: 150px; }
   .tile b { display: block; font-size: 22px; }
   .tile span { color: var(--muted); font-size: 13px; }
   .tile.carbon b { color: var(--carbon); }
+  .warn { background: #fff8e6; border: 1px solid #e3b341; border-radius: 10px; padding: 10px 14px; margin: 0 0 12px; }
+  .warn b { display: block; margin-bottom: 4px; }
+  .warn ul { margin: 0; padding-left: 18px; }
   table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 8px 0 16px; }
   th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 14px; }
   th { color: var(--muted); font-weight: 600; background: #fbfcfc; }
@@ -60,7 +82,9 @@
   .ac li { padding: 7px 10px; cursor: pointer; color: var(--ink); font-size: 14px; }
   .ac li small { color: var(--muted); margin-left: 6px; }
   .ac li[aria-selected="true"], .ac li:hover { background: #eef4f2; }
-  @media (max-width: 560px) { #map { height: 300px; } .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; } }
+  @media (max-width: 560px) { #map { height: 300px; } .wide { grid-column: 1 / -1; } td, th { padding: 6px; font-size: 13px; } .sm-hide { display: none; }
+    .ship { grid-template-columns: 1fr 1fr 30px; grid-template-areas: "id kg x" "from to to"; } .ship.head { display: none; }
+    .ship .sid { grid-area: id; } .ship .skg { grid-area: kg; } .ship .sfrom { grid-area: from; } .ship .sto { grid-area: to; } .ship .x { grid-area: x; } }
 </style>
 </head>
 <body>
@@ -68,12 +92,32 @@
   <h1>What does a truck trip pay for carbon and tolls?</h1>
   <p class="sub">Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (<a href="tolls">truck toll rates by country</a>); routes and emissions from <a href="https://sootcase.org">Sootcase</a>.</p>
 
-  <form id="f">
-    <label class="wide">From<span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" required></span></label>
-    <label class="wide">To<span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" required></span></label>
+  <div class="bar">
+    <select id="recent" aria-label="Recent trips"><option value="">Recent trips</option></select>
+    <select id="trucks" aria-label="Saved trucks"><option value="">Saved trucks</option></select>
+    <input id="truckname" placeholder="Name this truck" aria-label="Truck name">
+    <button type="button" class="small" id="savetruck">Save truck</button>
+    <button type="button" class="small" id="deltruck" hidden>Delete truck</button>
+    <span id="flash"></span>
+    <select id="lang" aria-label="Language" style="margin-left:auto"><option value="en">English</option><option value="de">Deutsch</option><option value="da">Dansk</option><option value="pl">Polski</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="nl">Nederlands</option></select>
+  </div>
+  <form id="f" style="margin-top:10px">
+    <div class="row"><span class="lbl">From</span><span class="ac"><input name="from" value="Copenhagen, DK (DKCPH)" placeholder="City, port, code or lat,lon" aria-label="From"></span></div>
+    <div class="full" id="stops" style="display:grid;gap:10px"></div>
+    <div class="row"><span class="lbl">To</span><span class="ac"><input name="to" value="Hamburg, DE (DEHAM)" placeholder="City, port, code or lat,lon" aria-label="To"></span>
+      <button type="button" class="small" id="addstop">+ Stop in between</button></div>
+    <label class="check full"><input name="back" type="checkbox"> The truck drives back empty to the start</label>
     <label>Date<input name="date" type="date"></label>
     <label>Departure time<input name="time" type="time"></label>
-    <label>Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000" required></label>
+    <label id="cargowrap">Cargo, kg<input name="cargo_kg" type="number" min="1" value="20000"></label>
+    <label class="check wide"><input name="multi" type="checkbox"> Several shipments (loaded and unloaded at different stops)</label>
+    <fieldset id="shipwrap" hidden>
+      <legend>Shipments</legend>
+      <p class="hint">Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.</p>
+      <div class="ship head"><span>ID</span><span>kg</span><span>Loaded at</span><span>Unloaded at</span><span></span></div>
+      <div class="full" id="ships" style="display:grid;gap:8px"></div>
+      <div class="row"><button type="button" class="small" id="addship">+ Shipment</button></div>
+    </fieldset>
     <label>Truck max mass, kg<input name="max_mass_kg" type="number" min="3500" value="40000" required></label>
     <label>Axles<input name="axles" type="number" min="2" max="10" value="5" required></label>
     <label>Truck tare, kg (for ferries)<input name="tare_kg" type="number" min="0" placeholder="e.g. 15000"></label>
@@ -91,29 +135,64 @@
     <label>EUA price, EUR/t<input name="eua_eur_per_t" type="number" min="0" step="0.01" value="75"></label>
     <label>UKA price, GBP/t<input name="uka_gbp_per_t" type="number" min="0" step="0.01"></label>
     <label>ETS2 price, EUR/t (2028+)<input name="ets2_eur_per_t" type="number" min="0" step="0.01" value="45"></label>
-    <label>Fuel bought in (country code; blank: along the route)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
-    <label>Diesel burnt on the road, litres (blank: from the CO2)<input name="diesel_l" type="number" min="0" step="any"></label>
+    <fieldset>
+      <legend>Your truck's data (optional)</legend>
+      <p class="hint">Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.</p>
+      <label>Diesel, l/100 km<input name="l_per_100km" type="number" min="0" max="100" step="any" placeholder="e.g. 29"></label>
+      <label>Diesel burnt on the trip, litres<input name="diesel_l" type="number" min="0" step="any"></label>
+      <label class="wide">Diesel bought, litres by country<input name="fuel_bought" placeholder="e.g. DE=300, PL=150"></label>
+      <label>Or all bought in (country)<input name="fuel_country" maxlength="2" pattern="[A-Za-z]{2}" placeholder="DE"></label>
+      <label class="wide">Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)<input name="diesel_price" placeholder="e.g. 1.45 or PL=1.25, DE=1.55"></label>
+      <label class="wide">Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)<input name="pathfile" type="file" multiple accept=".gpx,.json,.geojson,application/gpx+xml,application/json"></label>
+      <div class="row"><span id="pathinfo"></span><button type="button" class="small" id="clearpath" hidden>Remove route</button></div>
+      <label class="full">Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)<input name="country_km" placeholder="e.g. DE=320, PL=410, BE-VLG=60"></label>
+    </fieldset>
     <label class="check"><input name="driver_rest" type="checkbox" checked> Driver breaks and rests in passage times (Reg. 561/2006)</label>
     <label class="check"><input name="etc" type="checkbox"> Pays by toll box or agreement (operators' discounts)</label>
     <label class="check"><input name="compare" type="checkbox" checked> Compare CO2 classes 1, 4, 5</label>
     <label>Trips per year<input name="trips_per_year" type="number" min="0" value="200"></label>
     <button id="go" type="submit">Calculate</button>
   </form>
+  <details id="csvbox" style="margin-top:14px">
+    <summary style="cursor:pointer;font-weight:600">Many trips at once: a CSV file</summary>
+    <p class="sub" style="margin:8px 0">One trip a row, with a header naming the fields: <code>from</code>, <code>to</code>, <code>via</code>, <code>date</code>, <code>cargo-kg</code>,
+      <code>mass-kg</code>, <code>axles</code>, <code>euro</code>, <code>co2-class</code>, <code>length-m</code>, <code>l-per-100km</code>, <code>fuel-bought</code>, <code>shipments</code>,
+      <code>country-km</code>, <code>eua</code>, … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.
+      <a href="#" id="csvexample">Download an example</a>.</p>
+    <div class="bar" style="margin:0 0 8px"><label class="check"><input type="checkbox" id="csvships"> One row per shipment</label>
+      <label>Add up by (columns, e.g. customer,month)<input id="csvby" placeholder="customer,month" autocomplete="off"></label></div>
+    <div class="bar" style="margin:0"><input type="file" id="csvfile" accept=".csv,text/csv" aria-label="CSV of trips">
+      <button type="button" class="small" id="csvgo">Price the CSV</button><span id="csvinfo" class="sub"></span></div>
+  </details>
   <p id="error" hidden></p>
 
   <section id="out" hidden>
     <div class="totals">
-      <div class="tile"><span>Total</span><b id="total"></b></div>
+      <div class="tile"><span id="totallabel">Total</span><b id="total"></b></div>
       <div class="tile carbon"><span>Of which carbon</span><b id="carbon"></b></div>
       <div class="tile"><span>Distance</span><b id="dist"></b></div>
+      <div class="tile" id="fueltile"><span>Diesel</span><b id="fuel"></b></div>
+      <div class="tile" id="withfueltile" hidden><span>With diesel</span><b id="withfuel"></b></div>
     </div>
+    <div class="bar" style="margin:0 0 10px"><button type="button" class="small" id="share">Copy link to this trip</button>
+      <button type="button" class="small" id="csv">Download CSV</button></div>
+    <div id="incomplete" class="warn" hidden><b>Incomplete: the total leaves out charges this trip meets</b><ul id="missing"></ul></div>
     <div id="km"></div>
+    <div id="truckline" class="sub" style="margin:4px 0 0"></div>
+    <div id="co2line" class="sub" style="margin:4px 0 0"></div>
+    <div id="fuelline" class="sub" style="margin:4px 0 0"></div>
     <div id="mapwrap"><div id="map"></div><div class="legend" id="legend"></div></div>
     <div class="h2row"><h2>Charges</h2><label class="check"><input id="showsrc" type="checkbox"> Show sources</label></div>
     <table><thead><tr><th>Charge</th><th>Where</th><th>Part</th><th class="n">Basis</th><th class="n sm-hide">Rate</th><th class="n sm-hide">Amount</th><th class="n">EUR</th></tr></thead>
       <tbody id="lines"></tbody></table>
+    <div id="shipout" hidden>
+      <h2>Shipments</h2>
+      <table><thead><tr><th>Shipment</th><th class="n">kg</th><th>Stops</th><th class="n sm-hide">km</th><th class="n sm-hide">tkm</th><th class="n">Share</th><th class="n">EUR</th><th class="n sm-hide">EUR/100 kg</th><th class="n">Carbon EUR</th><th class="n sm-hide">CO2e kg (WTW)</th><th class="n sm-hide">g/tkm</th></tr></thead>
+        <tbody id="shiplines"></tbody></table>
+    </div>
     <div id="cmpwrap" hidden>
       <h2>Same trip, other trucks</h2>
+      <p id="cmpnote" class="sub" hidden>The savings count only the charges included above (the total is incomplete).</p>
       <table><thead><tr><th>CO2 class</th><th class="n">Tolls EUR</th><th class="n">Total EUR</th><th class="n">Carbon EUR</th><th class="n">Saving / trip</th><th class="n">Saving / year</th></tr></thead>
         <tbody id="cmp"></tbody></table>
     </div>
@@ -121,9 +200,50 @@
     <details id="prov"><summary>Data used</summary><ul class="notes" id="provlist"></ul></details>
   </section>
 
-  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
+  <p class="foot">● marks charges on CO2. Open source (MIT): <a href="https://github.com/majidkabir/carbon-cost">github.com/majidkabir/carbon-cost</a> · API: <code>POST /v1/carbon-cost</code>, described in <a href="v1/openapi.json">OpenAPI</a>. Road classes, toll station positions and the map: © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>, ODbL.</p>
 </main>
 <script>
+// The page in English, German, Danish or Polish: ?lang=, else the last
+// chosen, else the browser's. The API's notes and sources stay English.
+const I18N = {"de":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Gefahrene Strecke (GPX oder GeoJSON aus GPS oder Telematik, oder rFMS-Positionen und -Status des Lkw-Herstellers)","odometer":"Kilometerzähler","What does a truck trip pay for carbon and tolls?":"Was zahlt eine Lkw-Fahrt für CO2 und Maut?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Kilometerabhängige Maut nach Land (mit ihrem CO2-Anteil), EU-ETS auf Fährüberfahrten und ETS2 ab 2028. Die Sätze stammen aus den Gesetzen (","truck toll rates by country":"Lkw-Maut nach Land","); routes and emissions from":"); Strecken und Emissionen von","Recent trips":"Letzte Fahrten","Recent trips (none yet)":"Letzte Fahrten (noch keine)","Saved trucks":"Gespeicherte Lkw","Saved trucks (none yet)":"Gespeicherte Lkw (noch keine)","Name this truck":"Name für diesen Lkw","Truck name":"Name des Lkw","Save truck":"Lkw speichern","Delete truck":"Lkw löschen","From":"Von","To":"Nach","Stop":"Halt","Remove stop":"Halt entfernen","City, port, code or lat,lon":"Stadt, Hafen, Code oder Breite,Länge","+ Stop in between":"+ Zwischenhalt","The truck drives back empty to the start":"Der Lkw fährt leer zum Start zurück","Date":"Datum","Departure time":"Abfahrtszeit","Cargo, kg":"Ladung, kg","Several shipments (loaded and unloaded at different stops)":"Mehrere Sendungen (an verschiedenen Halten be- und entladen)","Shipments":"Sendungen","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Jede Sendung trägt ihren Anteil an der Fahrt nach ihren Tonnenkilometern (ihr Gewicht × die km ihrer eigenen Strecke vom Be- zum Entladen), wie es EN ISO 14083 und die EU-Methode CountEmissionsEU tun. Abschnitte ohne Ladung sind Leerfahrten und gehören zur Fahrt.","Loaded at":"Beladen in","Unloaded at":"Entladen in","Shipment ID":"Sendungsnummer","Weight, kg":"Gewicht, kg","Remove shipment":"Sendung entfernen","+ Shipment":"+ Sendung","Truck max mass, kg":"Zulässiges Gesamtgewicht, kg","Axles":"Achsen","Euro class":"Euro-Klasse","CO2 class":"CO2-Klasse","1 (most diesel trucks)":"1 (die meisten Diesel-Lkw)","5 (zero-emission)":"5 (emissionsfrei)","Truck tare, kg (for ferries)":"Leergewicht, kg (für Fähren)","Length, m (bridges, ferries)":"Länge, m (Brücken, Fähren)","Tractor axles (LT, IS)":"Achsen der Zugmaschine (LT, IS)","Tractor max mass, kg (IS)":"Gesamtgewicht der Zugmaschine, kg (IS)","Trailer max mass, kg (IS)":"Gesamtgewicht des Anhängers, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Nutzlast, kg (HR-Fähren: die des Aufliegers)","Pays by toll box or agreement (operators' discounts)":"Zahlt per Mautbox oder Vertrag (Rabatte der Betreiber)","Driver breaks and rests in passage times (Reg. 561/2006)":"Lenkpausen und Ruhezeiten in den Durchfahrtszeiten (VO 561/2006)","Your truck's data (optional)":"Daten Ihres Lkw (optional)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Leer: ein neuer Lkw seiner VECTO-Gruppe mit der Ladung auf jedem Abschnitt (COM(2024) 313). Auf diesen Diesel werden die CO2-Preise auf Kraftstoff und ETS2 erhoben.","Diesel, l/100 km":"Diesel, l/100 km","Diesel burnt on the trip, litres":"Auf der Fahrt verbrauchter Diesel, Liter","Diesel bought, litres by country":"Getankter Diesel, Liter nach Land","Or all bought in (country)":"Oder alles getankt in (Land)","Remove route":"Strecke entfernen","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Oder km nach Land, ohne Strecke (z. B. aus dem Fahrtenschreiber; Maut an Stationen braucht eine Strecke)","EUA price, EUR/t":"EUA-Preis, EUR/t","UKA price, GBP/t":"UKA-Preis, GBP/t","ETS2 price, EUR/t (2028+)":"ETS2-Preis, EUR/t (ab 2028)","Compare CO2 classes 1, 4, 5":"CO2-Klassen 1, 4, 5 vergleichen","Trips per year":"Fahrten pro Jahr","Calculate":"Berechnen","Many trips at once: a CSV file":"Viele Fahrten auf einmal: eine CSV-Datei","One trip a row, with a header naming the fields:":"Eine Fahrt pro Zeile, mit einer Kopfzeile, die die Felder nennt:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (die Optionen der Kommandozeile). Andere Spalten, etwa eine Auftragsnummer, bleiben erhalten. Bis zu 100 Zeilen; das Ergebnis ist dieselbe Datei mit den Kosten.","Download an example":"Beispiel herunterladen","CSV of trips":"CSV mit Fahrten","Price the CSV":"CSV berechnen","Total":"Gesamt","Total (incomplete)":"Gesamt (unvollständig)","Of which carbon":"Davon CO2","Distance":"Strecke","Diesel":"Diesel","Copy link to this trip":"Link zu dieser Fahrt kopieren","Download CSV":"CSV herunterladen","Incomplete: the total leaves out charges this trip meets":"Unvollständig: Die Summe lässt Abgaben aus, die auf dieser Fahrt anfallen","Charges":"Abgaben","Charge":"Abgabe","Where":"Wo","Part":"Teil","Basis":"Grundlage","Rate":"Satz","Amount":"Betrag","Shipment":"Sendung","Stops":"Halte","Share":"Anteil","Carbon EUR":"CO2 EUR","Same trip, other trucks":"Gleiche Fahrt, andere Lkw","Tolls EUR":"Maut EUR","Total EUR":"Gesamt EUR","Saving / trip":"Ersparnis / Fahrt","Saving / year":"Ersparnis / Jahr","The savings count only the charges included above (the total is incomplete).":"Die Ersparnis zählt nur die oben enthaltenen Abgaben (die Summe ist unvollständig).","Data used":"Verwendete Daten","Show sources":"Quellen zeigen","● marks charges on CO2. Open source (MIT):":"● markiert Abgaben auf CO2. Open Source (MIT):",", described in":", beschrieben in",". Road classes, toll station positions and the map: ©":". Straßenklassen, Lage der Mautstationen und die Karte: ©","OpenStreetMap contributors":"OpenStreetMap-Mitwirkende","Route:":"Strecke:","Km:":"Km:","ferry":"Fähre","Truck":"Lkw","road km":"Straßen-km","in {n} legs":"in {n} Abschnitten","km empty":"km leer","l diesel":"l Diesel","kg well-to-wheel":"kg Well-to-Wheel","tank-to-wheel":"Tank-to-Wheel","g per tonne-km":"g pro Tonnenkilometer","Primary data":"Primärdaten","Modelled":"Modelliert","1 passage":"1 Durchfahrt","day":"Tag","days":"Tage","back to":"zurück nach","Trip loaded: press Calculate.":"Fahrt geladen: Berechnen drücken.","Give the truck a name first.":"Geben Sie dem Lkw zuerst einen Namen.","Link copied.":"Link kopiert.","Link in the address bar.":"Link in der Adresszeile.","The route file isn't in it.":"Die Streckendatei ist nicht enthalten.","Choose a CSV file first.":"Wählen Sie zuerst eine CSV-Datei.","Pricing…":"Wird berechnet…","{n} rows priced; the file is downloading.":"{n} Zeilen berechnet; die Datei wird heruntergeladen.","Kept as they are:":"Unverändert übernommen:","Not priced:":"Nicht berechnet:","Give every stop (or remove the empty ones).":"Geben Sie jeden Halt an (oder entfernen Sie die leeren).","road toll":"Maut","fuel co2":"CO2 auf Diesel","ferry ets":"Fähre ETS","ferry fare":"Fährpreis","area charge":"Zonengebühr","infrastructure":"Infrastruktur","air":"Luft","noise":"Lärm","air noise":"Luft und Lärm","e.g.":"z. B.","Language":"Sprache","points":"Punkte","Priced on this route; the stops above still set the shipments' own routes.":"Auf dieser Strecke berechnet; die Halte oben bestimmen weiter die eigenen Strecken der Sendungen.","One row per shipment":"Eine Zeile pro Sendung","Add up by (columns, e.g. customer,month)":"Summieren nach (Spalten, z. B. customer,month)","The report by {by} is downloading too.":"Der Bericht nach {by} wird ebenfalls heruntergeladen.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Dieselpreis, EUR/l ohne MwSt. (leer: das Weekly Oil Bulletin der EU)","With diesel":"Mit Diesel","without VAT":"ohne MwSt.","no price":"kein Preis","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Preise: das Weekly Oil Bulletin der EU, Landesdurchschnitte ohne MwSt. (Tankkarten sind oft günstiger: geben Sie Ihren an).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"Der Dieselpreis enthält bereits die CO2-Preise auf Kraftstoff ({x}), in der Summe mit Diesel einmal gezählt."},"da":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Kørt rute (GPX eller GeoJSON fra GPS eller telematik, eller lastbilproducentens rFMS-positioner og -status)","odometer":"kilometertæller","What does a truck trip pay for carbon and tolls?":"Hvad betaler en lastbiltur for CO2 og vejafgifter?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Kilometerbaserede vejafgifter efter land (med deres CO2-del), EU ETS på færgeoverfarter og ETS2 fra 2028. Satserne kommer fra lovene (","truck toll rates by country":"vejafgifter for lastbiler efter land","); routes and emissions from":"); ruter og udledning fra","Recent trips":"Seneste ture","Recent trips (none yet)":"Seneste ture (ingen endnu)","Saved trucks":"Gemte lastbiler","Saved trucks (none yet)":"Gemte lastbiler (ingen endnu)","Name this truck":"Navn til lastbilen","Truck name":"Lastbilens navn","Save truck":"Gem lastbil","Delete truck":"Slet lastbil","From":"Fra","To":"Til","Stop":"Stop","Remove stop":"Fjern stop","City, port, code or lat,lon":"By, havn, kode eller bredde,længde","+ Stop in between":"+ Stop undervejs","The truck drives back empty to the start":"Lastbilen kører tom tilbage til start","Date":"Dato","Departure time":"Afgangstid","Cargo, kg":"Last, kg","Several shipments (loaded and unloaded at different stops)":"Flere forsendelser (læsset og losset ved forskellige stop)","Shipments":"Forsendelser","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Hver forsendelse betaler sin andel af turen efter sine tonkilometer (dens vægt × km på dens egen rute fra læsning til losning), som EN ISO 14083 og EU's CountEmissionsEU-metode gør. Strækninger uden last er tomkørsel og hører til turen.","Loaded at":"Læsset i","Unloaded at":"Losset i","Shipment ID":"Forsendelses-id","Weight, kg":"Vægt, kg","Remove shipment":"Fjern forsendelse","+ Shipment":"+ Forsendelse","Truck max mass, kg":"Tilladt totalvægt, kg","Axles":"Aksler","Euro class":"Euronorm","CO2 class":"CO2-klasse","1 (most diesel trucks)":"1 (de fleste diesellastbiler)","5 (zero-emission)":"5 (nulemission)","Truck tare, kg (for ferries)":"Egenvægt, kg (til færger)","Length, m (bridges, ferries)":"Længde, m (broer, færger)","Tractor axles (LT, IS)":"Trækkerens aksler (LT, IS)","Tractor max mass, kg (IS)":"Trækkerens totalvægt, kg (IS)","Trailer max mass, kg (IS)":"Anhængerens totalvægt, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Lasteevne, kg (HR-færger: sættevognens)","Pays by toll box or agreement (operators' discounts)":"Betaler med boks eller aftale (operatørernes rabatter)","Driver breaks and rests in passage times (Reg. 561/2006)":"Førerens pauser og hvil i passagetiderne (forordning 561/2006)","Your truck's data (optional)":"Din lastbils data (valgfrit)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Tomt: en ny lastbil i dens VECTO-gruppe med lasten på hver strækning (COM(2024) 313). Det er denne diesel, CO2-afgifterne på brændstof og ETS2 opkræves af.","Diesel, l/100 km":"Diesel, l/100 km","Diesel burnt on the trip, litres":"Diesel brugt på turen, liter","Diesel bought, litres by country":"Tanket diesel, liter efter land","Or all bought in (country)":"Eller alt tanket i (land)","Remove route":"Fjern rute","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Eller km efter land, uden rute (fx fra fartskriveren; afgifter ved betalingsanlæg kræver en rute)","EUA price, EUR/t":"EUA-pris, EUR/t","UKA price, GBP/t":"UKA-pris, GBP/t","ETS2 price, EUR/t (2028+)":"ETS2-pris, EUR/t (fra 2028)","Compare CO2 classes 1, 4, 5":"Sammenlign CO2-klasse 1, 4, 5","Trips per year":"Ture om året","Calculate":"Beregn","Many trips at once: a CSV file":"Mange ture på én gang: en CSV-fil","One trip a row, with a header naming the fields:":"Én tur pr. række, med en overskrift, der navngiver felterne:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (kommandolinjens flag). Andre kolonner, fx et ordrenummer, bevares. Op til 100 rækker; resultatet er samme fil med omkostningerne tilføjet.","Download an example":"Hent et eksempel","CSV of trips":"CSV med ture","Price the CSV":"Beregn CSV-filen","Total":"I alt","Total (incomplete)":"I alt (ufuldstændig)","Of which carbon":"Heraf CO2","Distance":"Afstand","Diesel":"Diesel","Copy link to this trip":"Kopiér link til turen","Download CSV":"Hent CSV","Incomplete: the total leaves out charges this trip meets":"Ufuldstændig: totalen udelader afgifter, som turen møder","Charges":"Afgifter","Charge":"Afgift","Where":"Hvor","Part":"Del","Basis":"Grundlag","Rate":"Sats","Amount":"Beløb","Shipment":"Forsendelse","Stops":"Stop","Share":"Andel","Carbon EUR":"CO2 EUR","Same trip, other trucks":"Samme tur, andre lastbiler","Tolls EUR":"Afgifter EUR","Total EUR":"I alt EUR","Saving / trip":"Besparelse / tur","Saving / year":"Besparelse / år","The savings count only the charges included above (the total is incomplete).":"Besparelsen tæller kun afgifterne ovenfor (totalen er ufuldstændig).","Data used":"Anvendte data","Show sources":"Vis kilder","● marks charges on CO2. Open source (MIT):":"● markerer afgifter på CO2. Open source (MIT):",", described in":", beskrevet i",". Road classes, toll station positions and the map: ©":". Vejklasser, betalingsanlæggenes placering og kortet: ©","OpenStreetMap contributors":"OpenStreetMap-bidragydere","Route:":"Rute:","Km:":"Km:","ferry":"færge","Truck":"Lastbil","road km":"vej-km","in {n} legs":"på {n} strækninger","km empty":"km tom","l diesel":"l diesel","kg well-to-wheel":"kg well-to-wheel","tank-to-wheel":"tank-to-wheel","g per tonne-km":"g pr. tonkilometer","Primary data":"Primære data","Modelled":"Modelleret","1 passage":"1 passage","day":"dag","days":"dage","back to":"tilbage til","Trip loaded: press Calculate.":"Tur indlæst: tryk Beregn.","Give the truck a name first.":"Giv først lastbilen et navn.","Link copied.":"Link kopieret.","Link in the address bar.":"Link i adresselinjen.","The route file isn't in it.":"Rutefilen er ikke med.","Choose a CSV file first.":"Vælg først en CSV-fil.","Pricing…":"Beregner…","{n} rows priced; the file is downloading.":"{n} rækker beregnet; filen hentes.","Kept as they are:":"Bevaret uændret:","Not priced:":"Ikke beregnet:","Give every stop (or remove the empty ones).":"Angiv alle stop (eller fjern de tomme).","road toll":"vejafgift","fuel co2":"CO2 på diesel","ferry ets":"færge ETS","ferry fare":"færgebillet","area charge":"zoneafgift","infrastructure":"infrastruktur","air":"luft","noise":"støj","air noise":"luft og støj","e.g.":"fx","Language":"Sprog","points":"punkter","Priced on this route; the stops above still set the shipments' own routes.":"Beregnet på denne rute; stoppene ovenfor bestemmer stadig forsendelsernes egne ruter.","One row per shipment":"Én række pr. forsendelse","Add up by (columns, e.g. customer,month)":"Læg sammen efter (kolonner, fx customer,month)","The report by {by} is downloading too.":"Rapporten efter {by} hentes også.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Dieselpris, EUR/l uden moms (tomt: EU's Weekly Oil Bulletin)","With diesel":"Med diesel","without VAT":"uden moms","no price":"ingen pris","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Priser: EU's Weekly Oil Bulletin, landsgennemsnit uden moms (brændstofkort er ofte billigere: angiv din).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"Dieselprisen indeholder allerede CO2-afgifterne på brændstof ({x}), talt én gang i totalen med diesel."},"pl":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Przejechana trasa (GPX lub GeoJSON z GPS lub telematyki albo pozycje i statusy rFMS producenta ciężarówki)","odometer":"licznik km","What does a truck trip pay for carbon and tolls?":"Ile ciężarówka płaci na trasie za CO2 i opłaty drogowe?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Opłaty drogowe za km według kraju (z częścią za CO2), EU ETS na przeprawach promowych i ETS2 od 2028 r. Stawki pochodzą z przepisów (","truck toll rates by country":"stawki opłat dla ciężarówek według kraju","); routes and emissions from":"); trasy i emisje z","Recent trips":"Ostatnie trasy","Recent trips (none yet)":"Ostatnie trasy (jeszcze brak)","Saved trucks":"Zapisane ciężarówki","Saved trucks (none yet)":"Zapisane ciężarówki (jeszcze brak)","Name this truck":"Nazwa ciężarówki","Truck name":"Nazwa ciężarówki","Save truck":"Zapisz ciężarówkę","Delete truck":"Usuń ciężarówkę","From":"Skąd","To":"Dokąd","Stop":"Przystanek","Remove stop":"Usuń przystanek","City, port, code or lat,lon":"Miasto, port, kod lub szer.,dł.","+ Stop in between":"+ Przystanek pośredni","The truck drives back empty to the start":"Ciężarówka wraca pusta na start","Date":"Data","Departure time":"Godzina wyjazdu","Cargo, kg":"Ładunek, kg","Several shipments (loaded and unloaded at different stops)":"Kilka przesyłek (załadunek i rozładunek w różnych miejscach)","Shipments":"Przesyłki","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Każda przesyłka płaci swoją część trasy według tonokilometrów (jej masa × km jej własnej trasy od załadunku do rozładunku), tak jak EN ISO 14083 i unijna metoda CountEmissionsEU. Odcinki bez ładunku to jazda pusta, część trasy.","Loaded at":"Załadunek","Unloaded at":"Rozładunek","Shipment ID":"Numer przesyłki","Weight, kg":"Masa, kg","Remove shipment":"Usuń przesyłkę","+ Shipment":"+ Przesyłka","Truck max mass, kg":"Dopuszczalna masa całkowita, kg","Axles":"Osie","Euro class":"Klasa Euro","CO2 class":"Klasa CO2","1 (most diesel trucks)":"1 (większość ciężarówek z dieslem)","5 (zero-emission)":"5 (bezemisyjna)","Truck tare, kg (for ferries)":"Masa własna, kg (dla promów)","Length, m (bridges, ferries)":"Długość, m (mosty, promy)","Tractor axles (LT, IS)":"Osie ciągnika (LT, IS)","Tractor max mass, kg (IS)":"Masa całkowita ciągnika, kg (IS)","Trailer max mass, kg (IS)":"Masa całkowita przyczepy, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Ładowność, kg (promy HR: naczepy)","Pays by toll box or agreement (operators' discounts)":"Płaci urządzeniem pokładowym lub na umowę (rabaty operatorów)","Driver breaks and rests in passage times (Reg. 561/2006)":"Przerwy i odpoczynki kierowcy w czasach przejazdu (rozp. 561/2006)","Your truck's data (optional)":"Dane Twojej ciężarówki (opcjonalnie)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Puste: nowa ciężarówka z jej grupy VECTO z ładunkiem na każdym odcinku (COM(2024) 313). Od tego oleju naliczane są opłaty za CO2 w paliwie i ETS2.","Diesel, l/100 km":"Olej napędowy, l/100 km","Diesel burnt on the trip, litres":"Olej zużyty na trasie, litry","Diesel bought, litres by country":"Zatankowany olej, litry według kraju","Or all bought in (country)":"Albo całość zatankowana w (kraj)","Remove route":"Usuń trasę","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Albo km według kraju, bez trasy (np. z tachografu; opłaty na bramkach wymagają trasy)","EUA price, EUR/t":"Cena EUA, EUR/t","UKA price, GBP/t":"Cena UKA, GBP/t","ETS2 price, EUR/t (2028+)":"Cena ETS2, EUR/t (od 2028)","Compare CO2 classes 1, 4, 5":"Porównaj klasy CO2 1, 4, 5","Trips per year":"Tras w roku","Calculate":"Oblicz","Many trips at once: a CSV file":"Wiele tras naraz: plik CSV","One trip a row, with a header naming the fields:":"Jedna trasa w wierszu, z nagłówkiem z nazwami pól:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (opcje wiersza poleceń). Inne kolumny, np. numer zlecenia, zostają. Do 100 wierszy; wynik to ten sam plik z dodanymi kosztami.","Download an example":"Pobierz przykład","CSV of trips":"CSV z trasami","Price the CSV":"Wyceń CSV","Total":"Razem","Total (incomplete)":"Razem (niepełne)","Of which carbon":"W tym CO2","Distance":"Dystans","Diesel":"Olej napędowy","Copy link to this trip":"Kopiuj link do trasy","Download CSV":"Pobierz CSV","Incomplete: the total leaves out charges this trip meets":"Niepełne: suma pomija opłaty, które wystąpią na tej trasie","Charges":"Opłaty","Charge":"Opłata","Where":"Gdzie","Part":"Część","Basis":"Podstawa","Rate":"Stawka","Amount":"Kwota","Shipment":"Przesyłka","Stops":"Przystanki","Share":"Udział","Carbon EUR":"CO2 EUR","Same trip, other trucks":"Ta sama trasa, inne ciężarówki","Tolls EUR":"Opłaty EUR","Total EUR":"Razem EUR","Saving / trip":"Oszczędność / trasa","Saving / year":"Oszczędność / rok","The savings count only the charges included above (the total is incomplete).":"Oszczędności liczą tylko opłaty ujęte powyżej (suma jest niepełna).","Data used":"Użyte dane","Show sources":"Pokaż źródła","● marks charges on CO2. Open source (MIT):":"● oznacza opłaty za CO2. Otwarte oprogramowanie (MIT):",", described in":", opisane w",". Road classes, toll station positions and the map: ©":". Klasy dróg, położenie bramek i mapa: ©","OpenStreetMap contributors":"współtwórcy OpenStreetMap","Route:":"Trasa:","Km:":"Km:","ferry":"prom","Truck":"Ciężarówka","road km":"km dróg","in {n} legs":"na {n} odcinkach","km empty":"km pusto","l diesel":"l oleju","kg well-to-wheel":"kg well-to-wheel","tank-to-wheel":"tank-to-wheel","g per tonne-km":"g na tonokilometr","Primary data":"Dane pierwotne","Modelled":"Modelowane","1 passage":"1 przejazd","day":"dzień","days":"dni","back to":"powrót do","Trip loaded: press Calculate.":"Trasa wczytana: naciśnij Oblicz.","Give the truck a name first.":"Najpierw nadaj ciężarówce nazwę.","Link copied.":"Link skopiowany.","Link in the address bar.":"Link w pasku adresu.","The route file isn't in it.":"Plik trasy nie jest w nim zawarty.","Choose a CSV file first.":"Najpierw wybierz plik CSV.","Pricing…":"Wyceniam…","{n} rows priced; the file is downloading.":"Wyceniono wierszy: {n}; plik się pobiera.","Kept as they are:":"Pozostawione bez zmian:","Not priced:":"Nie wyceniono:","Give every stop (or remove the empty ones).":"Podaj każdy przystanek (lub usuń puste).","road toll":"opłata drogowa","fuel co2":"CO2 w paliwie","ferry ets":"prom ETS","ferry fare":"bilet promowy","area charge":"opłata strefowa","infrastructure":"infrastruktura","air":"powietrze","noise":"hałas","air noise":"powietrze i hałas","e.g.":"np.","Language":"Język","points":"punktów","Priced on this route; the stops above still set the shipments' own routes.":"Wyceniono na tej trasie; przystanki powyżej nadal wyznaczają własne trasy przesyłek.","One row per shipment":"Jeden wiersz na przesyłkę","Add up by (columns, e.g. customer,month)":"Sumuj według (kolumny, np. customer,month)","The report by {by} is downloading too.":"Raport według {by} też się pobiera.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Cena oleju, EUR/l bez VAT (puste: Weekly Oil Bulletin UE)","With diesel":"Z olejem","without VAT":"bez VAT","no price":"brak ceny","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Ceny: Weekly Oil Bulletin UE, średnie krajowe bez VAT (karty paliwowe są często tańsze: podaj swoją).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"Cena oleju zawiera już opłaty za CO2 w paliwie ({x}), liczone raz w sumie z olejem."},"fr":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Itinéraire parcouru (GPX ou GeoJSON du GPS ou de la télématique, ou positions et statuts rFMS du constructeur)","odometer":"compteur kilométrique","What does a truck trip pay for carbon and tolls?":"Combien un trajet en camion paie-t-il pour le carbone et les péages ?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Péages kilométriques par pays (avec leur part CO2), EU ETS sur les traversées en ferry et ETS2 à partir de 2028. Les taux viennent des textes de loi (","truck toll rates by country":"péages poids lourds par pays","); routes and emissions from":") ; itinéraires et émissions de","Recent trips":"Trajets récents","Recent trips (none yet)":"Trajets récents (aucun pour l'instant)","Saved trucks":"Camions enregistrés","Saved trucks (none yet)":"Camions enregistrés (aucun pour l'instant)","Name this truck":"Nom de ce camion","Truck name":"Nom du camion","Save truck":"Enregistrer le camion","Delete truck":"Supprimer le camion","From":"De","To":"À","Stop":"Arrêt","Remove stop":"Supprimer l'arrêt","City, port, code or lat,lon":"Ville, port, code ou lat,lon","+ Stop in between":"+ Arrêt intermédiaire","The truck drives back empty to the start":"Le camion revient à vide au départ","Date":"Date","Departure time":"Heure de départ","Cargo, kg":"Chargement, kg","Several shipments (loaded and unloaded at different stops)":"Plusieurs envois (chargés et déchargés à des arrêts différents)","Shipments":"Envois","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Chaque envoi paie sa part du trajet selon ses tonnes-km (son poids × les km de son propre itinéraire du chargement au déchargement), comme le font l'EN ISO 14083 et la méthode CountEmissionsEU de l'UE. Les tronçons sans chargement sont des parcours à vide et font partie du trajet.","Loaded at":"Chargé à","Unloaded at":"Déchargé à","Shipment ID":"N° d'envoi","Weight, kg":"Poids, kg","Remove shipment":"Supprimer l'envoi","+ Shipment":"+ Envoi","Truck max mass, kg":"PTAC/PTRA, kg","Axles":"Essieux","Euro class":"Classe Euro","CO2 class":"Classe CO2","1 (most diesel trucks)":"1 (la plupart des camions diesel)","5 (zero-emission)":"5 (zéro émission)","Truck tare, kg (for ferries)":"Poids à vide, kg (pour les ferries)","Length, m (bridges, ferries)":"Longueur, m (ponts, ferries)","Tractor axles (LT, IS)":"Essieux du tracteur (LT, IS)","Tractor max mass, kg (IS)":"PTAC du tracteur, kg (IS)","Trailer max mass, kg (IS)":"PTAC de la remorque, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Charge utile, kg (ferries HR : celle de la semi-remorque)","Pays by toll box or agreement (operators' discounts)":"Paie par badge ou contrat (remises des opérateurs)","Driver breaks and rests in passage times (Reg. 561/2006)":"Pauses et repos du conducteur dans les temps de passage (règl. 561/2006)","Your truck's data (optional)":"Données de votre camion (facultatif)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Vide : un camion neuf de son groupe VECTO avec la charge de chaque tronçon (COM(2024) 313). C'est sur ce gazole que sont prélevés les prix du CO2 sur le carburant et l'ETS2.","Diesel, l/100 km":"Gazole, l/100 km","Diesel burnt on the trip, litres":"Gazole consommé sur le trajet, litres","Diesel bought, litres by country":"Gazole acheté, litres par pays","Or all bought in (country)":"Ou tout acheté en (pays)","Remove route":"Supprimer l'itinéraire","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Ou km par pays, sans itinéraire (p. ex. du chronotachygraphe ; les péages aux gares exigent un itinéraire)","EUA price, EUR/t":"Prix EUA, EUR/t","UKA price, GBP/t":"Prix UKA, GBP/t","ETS2 price, EUR/t (2028+)":"Prix ETS2, EUR/t (à partir de 2028)","Compare CO2 classes 1, 4, 5":"Comparer les classes CO2 1, 4, 5","Trips per year":"Trajets par an","Calculate":"Calculer","Many trips at once: a CSV file":"Plusieurs trajets à la fois : un fichier CSV","One trip a row, with a header naming the fields:":"Un trajet par ligne, avec un en-tête nommant les champs :",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (les options de la ligne de commande). Les autres colonnes, comme un numéro de commande, sont conservées. Jusqu'à 100 lignes ; le résultat est le même fichier avec les coûts ajoutés.","Download an example":"Télécharger un exemple","CSV of trips":"CSV de trajets","Price the CSV":"Calculer le CSV","Total":"Total","Total (incomplete)":"Total (incomplet)","Of which carbon":"Dont carbone","Distance":"Distance","Diesel":"Gazole","Copy link to this trip":"Copier le lien vers ce trajet","Download CSV":"Télécharger le CSV","Incomplete: the total leaves out charges this trip meets":"Incomplet : le total omet des redevances que ce trajet rencontre","Charges":"Redevances","Charge":"Redevance","Where":"Où","Part":"Partie","Basis":"Base","Rate":"Taux","Amount":"Montant","Shipment":"Envoi","Stops":"Arrêts","Share":"Part","Carbon EUR":"Carbone EUR","Same trip, other trucks":"Même trajet, autres camions","Tolls EUR":"Péages EUR","Total EUR":"Total EUR","Saving / trip":"Économie / trajet","Saving / year":"Économie / an","The savings count only the charges included above (the total is incomplete).":"Les économies ne comptent que les redevances incluses ci-dessus (le total est incomplet).","Data used":"Données utilisées","Show sources":"Afficher les sources","● marks charges on CO2. Open source (MIT):":"● marque les redevances sur le CO2. Open source (MIT) :",", described in":", décrit dans",". Road classes, toll station positions and the map: ©":". Catégories de routes, positions des gares de péage et carte : ©","OpenStreetMap contributors":"contributeurs d'OpenStreetMap","Route:":"Itinéraire :","Km:":"Km :","ferry":"ferry","Truck":"Camion","road km":"km de route","in {n} legs":"en {n} tronçons","km empty":"km à vide","l diesel":"l de gazole","kg well-to-wheel":"kg du puits à la roue","tank-to-wheel":"du réservoir à la roue","g per tonne-km":"g par tonne-km","Primary data":"Données primaires","Modelled":"Modélisé","1 passage":"1 passage","day":"jour","days":"jours","back to":"retour à","Trip loaded: press Calculate.":"Trajet chargé : appuyez sur Calculer.","Give the truck a name first.":"Donnez d'abord un nom au camion.","Link copied.":"Lien copié.","Link in the address bar.":"Lien dans la barre d'adresse.","The route file isn't in it.":"Le fichier d'itinéraire n'y est pas inclus.","Choose a CSV file first.":"Choisissez d'abord un fichier CSV.","Pricing…":"Calcul en cours…","{n} rows priced; the file is downloading.":"{n} lignes calculées ; le fichier se télécharge.","Kept as they are:":"Conservées telles quelles :","Not priced:":"Non calculées :","Give every stop (or remove the empty ones).":"Indiquez chaque arrêt (ou supprimez les arrêts vides).","road toll":"péage","fuel co2":"CO2 sur le carburant","ferry ets":"ETS ferry","ferry fare":"tarif ferry","area charge":"redevance de zone","infrastructure":"infrastructure","air":"air","noise":"bruit","air noise":"air et bruit","e.g.":"p. ex.","Language":"Langue","points":"points","Priced on this route; the stops above still set the shipments' own routes.":"Calculé sur cet itinéraire ; les arrêts ci-dessus fixent toujours les itinéraires propres des envois.","One row per shipment":"Une ligne par envoi","Add up by (columns, e.g. customer,month)":"Totaliser par (colonnes, p. ex. customer,month)","The report by {by} is downloading too.":"Le rapport par {by} se télécharge aussi.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Prix du gazole, EUR/l HT (vide : le Bulletin pétrolier hebdomadaire de l'UE)","With diesel":"Avec gazole","without VAT":"HT","no price":"pas de prix","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Prix : le Bulletin pétrolier hebdomadaire de l'UE, moyennes nationales HT (les cartes carburant sont souvent moins chères : donnez le vôtre).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"Le prix du gazole contient déjà les prix du CO2 sur le carburant ({x}), comptés une fois dans le total avec gazole."},"es":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Ruta recorrida (GPX o GeoJSON del GPS o la telemática, o posiciones y estados rFMS del fabricante)","odometer":"cuentakilómetros","What does a truck trip pay for carbon and tolls?":"¿Cuánto paga un viaje en camión por carbono y peajes?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Peajes por km según el país (con su parte de CO2), EU ETS en los trayectos en ferry y ETS2 desde 2028. Las tarifas proceden de las normas (","truck toll rates by country":"peajes de camiones por país","); routes and emissions from":"); rutas y emisiones de","Recent trips":"Viajes recientes","Recent trips (none yet)":"Viajes recientes (aún ninguno)","Saved trucks":"Camiones guardados","Saved trucks (none yet)":"Camiones guardados (aún ninguno)","Name this truck":"Nombre de este camión","Truck name":"Nombre del camión","Save truck":"Guardar camión","Delete truck":"Eliminar camión","From":"Desde","To":"Hasta","Stop":"Parada","Remove stop":"Quitar parada","City, port, code or lat,lon":"Ciudad, puerto, código o lat,lon","+ Stop in between":"+ Parada intermedia","The truck drives back empty to the start":"El camión vuelve vacío al origen","Date":"Fecha","Departure time":"Hora de salida","Cargo, kg":"Carga, kg","Several shipments (loaded and unloaded at different stops)":"Varios envíos (cargados y descargados en paradas distintas)","Shipments":"Envíos","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Cada envío paga su parte del viaje según sus toneladas-km (su peso × los km de su propia ruta de la carga a la descarga), como hacen la EN ISO 14083 y el método CountEmissionsEU de la UE. Los tramos sin carga son recorridos en vacío y forman parte del viaje.","Loaded at":"Cargado en","Unloaded at":"Descargado en","Shipment ID":"N.º de envío","Weight, kg":"Peso, kg","Remove shipment":"Quitar envío","+ Shipment":"+ Envío","Truck max mass, kg":"MMA del camión, kg","Axles":"Ejes","Euro class":"Clase Euro","CO2 class":"Clase de CO2","1 (most diesel trucks)":"1 (la mayoría de camiones diésel)","5 (zero-emission)":"5 (cero emisiones)","Truck tare, kg (for ferries)":"Tara, kg (para ferris)","Length, m (bridges, ferries)":"Longitud, m (puentes, ferris)","Tractor axles (LT, IS)":"Ejes de la cabeza tractora (LT, IS)","Tractor max mass, kg (IS)":"MMA de la cabeza tractora, kg (IS)","Trailer max mass, kg (IS)":"MMA del remolque, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Carga útil, kg (ferris HR: la del semirremolque)","Pays by toll box or agreement (operators' discounts)":"Paga con dispositivo o contrato (descuentos de los operadores)","Driver breaks and rests in passage times (Reg. 561/2006)":"Pausas y descansos del conductor en los tiempos de paso (Regl. 561/2006)","Your truck's data (optional)":"Datos de su camión (opcional)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"En blanco: un camión nuevo de su grupo VECTO con la carga de cada tramo (COM(2024) 313). Sobre este gasóleo se cobran los precios del CO2 en el combustible y el ETS2.","Diesel, l/100 km":"Gasóleo, l/100 km","Diesel burnt on the trip, litres":"Gasóleo consumido en el viaje, litros","Diesel bought, litres by country":"Gasóleo comprado, litros por país","Or all bought in (country)":"O todo comprado en (país)","Remove route":"Quitar ruta","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"O km por país, sin ruta (p. ej. del tacógrafo; los peajes en estaciones necesitan una ruta)","EUA price, EUR/t":"Precio EUA, EUR/t","UKA price, GBP/t":"Precio UKA, GBP/t","ETS2 price, EUR/t (2028+)":"Precio ETS2, EUR/t (desde 2028)","Compare CO2 classes 1, 4, 5":"Comparar clases de CO2 1, 4, 5","Trips per year":"Viajes al año","Calculate":"Calcular","Many trips at once: a CSV file":"Muchos viajes a la vez: un archivo CSV","One trip a row, with a header naming the fields:":"Un viaje por fila, con una cabecera que nombra los campos:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (las opciones de la línea de comandos). Otras columnas, como un número de pedido, se conservan. Hasta 100 filas; el resultado es el mismo archivo con los costes añadidos.","Download an example":"Descargar un ejemplo","CSV of trips":"CSV de viajes","Price the CSV":"Calcular el CSV","Total":"Total","Total (incomplete)":"Total (incompleto)","Of which carbon":"De ello carbono","Distance":"Distancia","Diesel":"Gasóleo","Copy link to this trip":"Copiar enlace a este viaje","Download CSV":"Descargar CSV","Incomplete: the total leaves out charges this trip meets":"Incompleto: el total omite cargos que este viaje encuentra","Charges":"Cargos","Charge":"Cargo","Where":"Dónde","Part":"Parte","Basis":"Base","Rate":"Tarifa","Amount":"Importe","Shipment":"Envío","Stops":"Paradas","Share":"Proporción","Carbon EUR":"Carbono EUR","Same trip, other trucks":"Mismo viaje, otros camiones","Tolls EUR":"Peajes EUR","Total EUR":"Total EUR","Saving / trip":"Ahorro / viaje","Saving / year":"Ahorro / año","The savings count only the charges included above (the total is incomplete).":"El ahorro solo cuenta los cargos incluidos arriba (el total es incompleto).","Data used":"Datos usados","Show sources":"Mostrar fuentes","● marks charges on CO2. Open source (MIT):":"● marca los cargos sobre el CO2. Código abierto (MIT):",", described in":", descrito en",". Road classes, toll station positions and the map: ©":". Clases de vía, posición de las estaciones de peaje y el mapa: ©","OpenStreetMap contributors":"colaboradores de OpenStreetMap","Route:":"Ruta:","Km:":"Km:","ferry":"ferry","Truck":"Camión","road km":"km por carretera","in {n} legs":"en {n} tramos","km empty":"km en vacío","l diesel":"l de gasóleo","kg well-to-wheel":"kg del pozo a la rueda","tank-to-wheel":"del depósito a la rueda","g per tonne-km":"g por tonelada-km","Primary data":"Datos primarios","Modelled":"Modelizado","1 passage":"1 paso","day":"día","days":"días","back to":"regreso a","Trip loaded: press Calculate.":"Viaje cargado: pulse Calcular.","Give the truck a name first.":"Ponga primero un nombre al camión.","Link copied.":"Enlace copiado.","Link in the address bar.":"Enlace en la barra de direcciones.","The route file isn't in it.":"El archivo de ruta no está incluido.","Choose a CSV file first.":"Elija primero un archivo CSV.","Pricing…":"Calculando…","{n} rows priced; the file is downloading.":"{n} filas calculadas; el archivo se está descargando.","Kept as they are:":"Conservadas tal cual:","Not priced:":"No calculadas:","Give every stop (or remove the empty ones).":"Indique cada parada (o quite las vacías).","road toll":"peaje","fuel co2":"CO2 del combustible","ferry ets":"ETS del ferry","ferry fare":"tarifa del ferry","area charge":"cargo de zona","infrastructure":"infraestructura","air":"aire","noise":"ruido","air noise":"aire y ruido","e.g.":"p. ej.","Language":"Idioma","points":"puntos","Priced on this route; the stops above still set the shipments' own routes.":"Calculado sobre esta ruta; las paradas de arriba siguen fijando las rutas propias de los envíos.","One row per shipment":"Una fila por envío","Add up by (columns, e.g. customer,month)":"Sumar por (columnas, p. ej. customer,month)","The report by {by} is downloading too.":"El informe por {by} también se está descargando.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Precio del gasóleo, EUR/l sin IVA (en blanco: el Weekly Oil Bulletin de la UE)","With diesel":"Con gasóleo","without VAT":"sin IVA","no price":"sin precio","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Precios: el Weekly Oil Bulletin de la UE, medias nacionales sin IVA (las tarjetas de combustible suelen ser más baratas: indique el suyo).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"El precio del gasóleo ya incluye los precios del CO2 sobre el combustible ({x}), contados una vez en el total con gasóleo."},"it":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Percorso effettuato (GPX o GeoJSON dal GPS o dalla telematica, oppure posizioni e stati rFMS del costruttore)","odometer":"contachilometri","What does a truck trip pay for carbon and tolls?":"Quanto paga un viaggio in camion per carbonio e pedaggi?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Pedaggi chilometrici per paese (con la loro quota CO2), EU ETS sulle traversate in traghetto ed ETS2 dal 2028. Le tariffe provengono dalle norme (","truck toll rates by country":"pedaggi per camion per paese","); routes and emissions from":"); percorsi ed emissioni da","Recent trips":"Viaggi recenti","Recent trips (none yet)":"Viaggi recenti (ancora nessuno)","Saved trucks":"Camion salvati","Saved trucks (none yet)":"Camion salvati (ancora nessuno)","Name this truck":"Nome di questo camion","Truck name":"Nome del camion","Save truck":"Salva camion","Delete truck":"Elimina camion","From":"Da","To":"A","Stop":"Fermata","Remove stop":"Rimuovi fermata","City, port, code or lat,lon":"Città, porto, codice o lat,lon","+ Stop in between":"+ Fermata intermedia","The truck drives back empty to the start":"Il camion torna vuoto alla partenza","Date":"Data","Departure time":"Ora di partenza","Cargo, kg":"Carico, kg","Several shipments (loaded and unloaded at different stops)":"Più spedizioni (caricate e scaricate a fermate diverse)","Shipments":"Spedizioni","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Ogni spedizione paga la sua parte del viaggio in base alle sue tonnellate-km (il suo peso × i km del suo percorso dal carico allo scarico), come fanno la EN ISO 14083 e il metodo CountEmissionsEU dell'UE. I tratti senza carico sono percorrenze a vuoto e fanno parte del viaggio.","Loaded at":"Caricata a","Unloaded at":"Scaricata a","Shipment ID":"N. spedizione","Weight, kg":"Peso, kg","Remove shipment":"Rimuovi spedizione","+ Shipment":"+ Spedizione","Truck max mass, kg":"Massa massima del camion, kg","Axles":"Assi","Euro class":"Classe Euro","CO2 class":"Classe CO2","1 (most diesel trucks)":"1 (la maggior parte dei camion diesel)","5 (zero-emission)":"5 (a emissioni zero)","Truck tare, kg (for ferries)":"Tara, kg (per i traghetti)","Length, m (bridges, ferries)":"Lunghezza, m (ponti, traghetti)","Tractor axles (LT, IS)":"Assi del trattore (LT, IS)","Tractor max mass, kg (IS)":"Massa massima del trattore, kg (IS)","Trailer max mass, kg (IS)":"Massa massima del rimorchio, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Portata, kg (traghetti HR: quella del semirimorchio)","Pays by toll box or agreement (operators' discounts)":"Paga con apparato o contratto (sconti degli operatori)","Driver breaks and rests in passage times (Reg. 561/2006)":"Pause e riposi del conducente nei tempi di passaggio (Reg. 561/2006)","Your truck's data (optional)":"Dati del suo camion (facoltativi)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Vuoto: un camion nuovo del suo gruppo VECTO con il carico di ogni tratto (COM(2024) 313). Su questo gasolio si pagano i prezzi del CO2 sul carburante e l'ETS2.","Diesel, l/100 km":"Gasolio, l/100 km","Diesel burnt on the trip, litres":"Gasolio consumato nel viaggio, litri","Diesel bought, litres by country":"Gasolio acquistato, litri per paese","Or all bought in (country)":"Oppure tutto acquistato in (paese)","Remove route":"Rimuovi percorso","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Oppure km per paese, senza percorso (ad es. dal tachigrafo; i pedaggi alle stazioni richiedono un percorso)","EUA price, EUR/t":"Prezzo EUA, EUR/t","UKA price, GBP/t":"Prezzo UKA, GBP/t","ETS2 price, EUR/t (2028+)":"Prezzo ETS2, EUR/t (dal 2028)","Compare CO2 classes 1, 4, 5":"Confronta le classi CO2 1, 4, 5","Trips per year":"Viaggi all'anno","Calculate":"Calcola","Many trips at once: a CSV file":"Molti viaggi insieme: un file CSV","One trip a row, with a header naming the fields:":"Un viaggio per riga, con un'intestazione che nomina i campi:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (le opzioni della riga di comando). Le altre colonne, come un numero d'ordine, restano. Fino a 100 righe; il risultato è lo stesso file con i costi aggiunti.","Download an example":"Scarica un esempio","CSV of trips":"CSV di viaggi","Price the CSV":"Calcola il CSV","Total":"Totale","Total (incomplete)":"Totale (incompleto)","Of which carbon":"Di cui carbonio","Distance":"Distanza","Diesel":"Gasolio","Copy link to this trip":"Copia il link a questo viaggio","Download CSV":"Scarica CSV","Incomplete: the total leaves out charges this trip meets":"Incompleto: il totale esclude oneri che questo viaggio incontra","Charges":"Oneri","Charge":"Onere","Where":"Dove","Part":"Parte","Basis":"Base","Rate":"Tariffa","Amount":"Importo","Shipment":"Spedizione","Stops":"Fermate","Share":"Quota","Carbon EUR":"Carbonio EUR","Same trip, other trucks":"Stesso viaggio, altri camion","Tolls EUR":"Pedaggi EUR","Total EUR":"Totale EUR","Saving / trip":"Risparmio / viaggio","Saving / year":"Risparmio / anno","The savings count only the charges included above (the total is incomplete).":"Il risparmio conta solo gli oneri inclusi sopra (il totale è incompleto).","Data used":"Dati usati","Show sources":"Mostra le fonti","● marks charges on CO2. Open source (MIT):":"● indica gli oneri sul CO2. Open source (MIT):",", described in":", descritto in",". Road classes, toll station positions and the map: ©":". Classi stradali, posizione delle stazioni di pedaggio e la mappa: ©","OpenStreetMap contributors":"contributori di OpenStreetMap","Route:":"Percorso:","Km:":"Km:","ferry":"traghetto","Truck":"Camion","road km":"km su strada","in {n} legs":"in {n} tratti","km empty":"km a vuoto","l diesel":"l di gasolio","kg well-to-wheel":"kg dal pozzo alla ruota","tank-to-wheel":"dal serbatoio alla ruota","g per tonne-km":"g per tonnellata-km","Primary data":"Dati primari","Modelled":"Modellato","1 passage":"1 passaggio","day":"giorno","days":"giorni","back to":"ritorno a","Trip loaded: press Calculate.":"Viaggio caricato: premi Calcola.","Give the truck a name first.":"Dai prima un nome al camion.","Link copied.":"Link copiato.","Link in the address bar.":"Link nella barra degli indirizzi.","The route file isn't in it.":"Il file del percorso non è incluso.","Choose a CSV file first.":"Scegli prima un file CSV.","Pricing…":"Calcolo in corso…","{n} rows priced; the file is downloading.":"{n} righe calcolate; il file si sta scaricando.","Kept as they are:":"Lasciate come sono:","Not priced:":"Non calcolate:","Give every stop (or remove the empty ones).":"Indica ogni fermata (o rimuovi quelle vuote).","road toll":"pedaggio","fuel co2":"CO2 sul carburante","ferry ets":"ETS traghetto","ferry fare":"tariffa traghetto","area charge":"onere di zona","infrastructure":"infrastruttura","air":"aria","noise":"rumore","air noise":"aria e rumore","e.g.":"ad es.","Language":"Lingua","points":"punti","Priced on this route; the stops above still set the shipments' own routes.":"Calcolato su questo percorso; le fermate qui sopra fissano ancora i percorsi propri delle spedizioni.","One row per shipment":"Una riga per spedizione","Add up by (columns, e.g. customer,month)":"Somma per (colonne, ad es. customer,month)","The report by {by} is downloading too.":"Anche il rapporto per {by} si sta scaricando.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Prezzo del gasolio, EUR/l IVA esclusa (vuoto: il Weekly Oil Bulletin dell'UE)","With diesel":"Con gasolio","without VAT":"IVA esclusa","no price":"nessun prezzo","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Prezzi: il Weekly Oil Bulletin dell'UE, medie nazionali IVA esclusa (le carte carburante costano spesso meno: indica il tuo).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"Il prezzo del gasolio contiene già i prezzi del CO2 sul carburante ({x}), contati una volta nel totale con gasolio."},"nl":{"Route driven (GPX or GeoJSON from GPS or telematics, or the truck maker's rFMS positions and statuses)":"Gereden route (GPX of GeoJSON uit gps of telematica, of rFMS-posities en -statussen van de fabrikant)","odometer":"kilometerteller","What does a truck trip pay for carbon and tolls?":"Wat betaalt een vrachtwagenrit aan CO2 en tol?","Km-based road tolls by country (with their CO2 part), EU ETS on ferry crossings and ETS2 from 2028. Rates come from the laws (":"Kilometerheffingen per land (met hun CO2-deel), EU ETS op veerovertochten en ETS2 vanaf 2028. De tarieven komen uit de wetten (","truck toll rates by country":"tol voor vrachtwagens per land","); routes and emissions from":"); routes en uitstoot van","Recent trips":"Recente ritten","Recent trips (none yet)":"Recente ritten (nog geen)","Saved trucks":"Opgeslagen vrachtwagens","Saved trucks (none yet)":"Opgeslagen vrachtwagens (nog geen)","Name this truck":"Naam van deze vrachtwagen","Truck name":"Naam van de vrachtwagen","Save truck":"Vrachtwagen opslaan","Delete truck":"Vrachtwagen verwijderen","From":"Van","To":"Naar","Stop":"Stop","Remove stop":"Stop verwijderen","City, port, code or lat,lon":"Stad, haven, code of lat,lon","+ Stop in between":"+ Tussenstop","The truck drives back empty to the start":"De vrachtwagen rijdt leeg terug naar het begin","Date":"Datum","Departure time":"Vertrektijd","Cargo, kg":"Lading, kg","Several shipments (loaded and unloaded at different stops)":"Meerdere zendingen (geladen en gelost bij verschillende stops)","Shipments":"Zendingen","Each shipment pays its share of the trip by its tonne-km (its weight × the km of its own route from loading to unloading), as EN ISO 14083 and the EU's CountEmissionsEU method do. Legs with nothing on board are empty running, part of the trip.":"Elke zending betaalt haar deel van de rit naar haar tonkilometers (haar gewicht × de km van haar eigen route van laden tot lossen), zoals EN ISO 14083 en de CountEmissionsEU-methode van de EU doen. Trajecten zonder lading zijn leegrijden en horen bij de rit.","Loaded at":"Geladen in","Unloaded at":"Gelost in","Shipment ID":"Zendingnummer","Weight, kg":"Gewicht, kg","Remove shipment":"Zending verwijderen","+ Shipment":"+ Zending","Truck max mass, kg":"Toegestane maximummassa, kg","Axles":"Assen","Euro class":"Euroklasse","CO2 class":"CO2-klasse","1 (most diesel trucks)":"1 (de meeste dieselvrachtwagens)","5 (zero-emission)":"5 (emissievrij)","Truck tare, kg (for ferries)":"Leeggewicht, kg (voor veerboten)","Length, m (bridges, ferries)":"Lengte, m (bruggen, veerboten)","Tractor axles (LT, IS)":"Assen van de trekker (LT, IS)","Tractor max mass, kg (IS)":"Maximummassa van de trekker, kg (IS)","Trailer max mass, kg (IS)":"Maximummassa van de aanhanger, kg (IS)","Load capacity, kg (HR ferries: the semi-trailer's)":"Laadvermogen, kg (HR-veerboten: dat van de oplegger)","Pays by toll box or agreement (operators' discounts)":"Betaalt met tolkastje of contract (kortingen van de exploitanten)","Driver breaks and rests in passage times (Reg. 561/2006)":"Pauzes en rusttijden van de chauffeur in de doorrijtijden (Verord. 561/2006)","Your truck's data (optional)":"Gegevens van uw vrachtwagen (optioneel)","Blank: a new truck of its VECTO group with the load on each leg (COM(2024) 313). The diesel is what the CO2 prices on fuel and ETS2 are charged on.":"Leeg: een nieuwe vrachtwagen van zijn VECTO-groep met de lading op elk traject (COM(2024) 313). Over deze diesel worden de CO2-prijzen op brandstof en ETS2 geheven.","Diesel, l/100 km":"Diesel, l/100 km","Diesel burnt on the trip, litres":"Diesel verbruikt op de rit, liter","Diesel bought, litres by country":"Getankte diesel, liter per land","Or all bought in (country)":"Of alles getankt in (land)","Remove route":"Route verwijderen","Or km by country, with no route (e.g. from the tachograph; tolls at stations need a route)":"Of km per land, zonder route (bv. uit de tachograaf; tol bij tolstations vraagt een route)","EUA price, EUR/t":"EUA-prijs, EUR/t","UKA price, GBP/t":"UKA-prijs, GBP/t","ETS2 price, EUR/t (2028+)":"ETS2-prijs, EUR/t (vanaf 2028)","Compare CO2 classes 1, 4, 5":"CO2-klassen 1, 4, 5 vergelijken","Trips per year":"Ritten per jaar","Calculate":"Berekenen","Many trips at once: a CSV file":"Veel ritten tegelijk: een CSV-bestand","One trip a row, with a header naming the fields:":"Eén rit per regel, met een kopregel die de velden noemt:",", … (the command line's flags). Other columns, such as an order number, are kept. Up to 100 rows; the result is the same file with the costs added.":", … (de opties van de opdrachtregel). Andere kolommen, zoals een ordernummer, blijven staan. Tot 100 regels; het resultaat is hetzelfde bestand met de kosten erbij.","Download an example":"Voorbeeld downloaden","CSV of trips":"CSV met ritten","Price the CSV":"CSV berekenen","Total":"Totaal","Total (incomplete)":"Totaal (onvolledig)","Of which carbon":"Waarvan CO2","Distance":"Afstand","Diesel":"Diesel","Copy link to this trip":"Link naar deze rit kopiëren","Download CSV":"CSV downloaden","Incomplete: the total leaves out charges this trip meets":"Onvolledig: het totaal laat heffingen weg die deze rit tegenkomt","Charges":"Heffingen","Charge":"Heffing","Where":"Waar","Part":"Deel","Basis":"Grondslag","Rate":"Tarief","Amount":"Bedrag","Shipment":"Zending","Stops":"Stops","Share":"Aandeel","Carbon EUR":"CO2 EUR","Same trip, other trucks":"Zelfde rit, andere vrachtwagens","Tolls EUR":"Tol EUR","Total EUR":"Totaal EUR","Saving / trip":"Besparing / rit","Saving / year":"Besparing / jaar","The savings count only the charges included above (the total is incomplete).":"De besparing telt alleen de heffingen hierboven (het totaal is onvolledig).","Data used":"Gebruikte gegevens","Show sources":"Bronnen tonen","● marks charges on CO2. Open source (MIT):":"● markeert heffingen op CO2. Open source (MIT):",", described in":", beschreven in",". Road classes, toll station positions and the map: ©":". Wegklassen, ligging van de tolstations en de kaart: ©","OpenStreetMap contributors":"OpenStreetMap-bijdragers","Route:":"Route:","Km:":"Km:","ferry":"veerboot","Truck":"Vrachtwagen","road km":"wegkm","in {n} legs":"in {n} trajecten","km empty":"km leeg","l diesel":"l diesel","kg well-to-wheel":"kg well-to-wheel","tank-to-wheel":"tank-to-wheel","g per tonne-km":"g per tonkilometer","Primary data":"Primaire gegevens","Modelled":"Gemodelleerd","1 passage":"1 doorrit","day":"dag","days":"dagen","back to":"terug naar","Trip loaded: press Calculate.":"Rit geladen: druk op Berekenen.","Give the truck a name first.":"Geef de vrachtwagen eerst een naam.","Link copied.":"Link gekopieerd.","Link in the address bar.":"Link in de adresbalk.","The route file isn't in it.":"Het routebestand zit er niet in.","Choose a CSV file first.":"Kies eerst een CSV-bestand.","Pricing…":"Bezig met berekenen…","{n} rows priced; the file is downloading.":"{n} regels berekend; het bestand wordt gedownload.","Kept as they are:":"Ongewijzigd behouden:","Not priced:":"Niet berekend:","Give every stop (or remove the empty ones).":"Geef elke stop op (of verwijder de lege).","road toll":"tol","fuel co2":"CO2 op brandstof","ferry ets":"ETS veerboot","ferry fare":"veertarief","area charge":"zoneheffing","infrastructure":"infrastructuur","air":"lucht","noise":"geluid","air noise":"lucht en geluid","e.g.":"bv.","Language":"Taal","points":"punten","Priced on this route; the stops above still set the shipments' own routes.":"Berekend op deze route; de stops hierboven bepalen nog steeds de eigen routes van de zendingen.","One row per shipment":"Eén regel per zending","Add up by (columns, e.g. customer,month)":"Optellen per (kolommen, bv. customer,month)","The report by {by} is downloading too.":"Het rapport per {by} wordt ook gedownload.","Diesel price, EUR/l without VAT (blank: the EU's Weekly Oil Bulletin)":"Dieselprijs, EUR/l zonder btw (leeg: het Weekly Oil Bulletin van de EU)","With diesel":"Met diesel","without VAT":"zonder btw","no price":"geen prijs","Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).":"Prijzen: het Weekly Oil Bulletin van de EU, nationale gemiddelden zonder btw (tankpassen zijn vaak goedkoper: geef de uwe).","The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.":"De dieselprijs bevat de CO2-prijzen op brandstof al ({x}), één keer geteld in het totaal met diesel."}}
+;
+const LANG = (() => {
+  let l = new URLSearchParams(location.search).get("lang");
+  if (!l) { try { l = localStorage.getItem("carbon-cost.lang"); } catch {} }
+  if (!l) l = (navigator.language || "en").slice(0, 2).toLowerCase();
+  return I18N[l] ? l : "en";
+})();
+const T = (s) => (I18N[LANG] && I18N[LANG][s]) || s;
+function translatePage() {
+  document.getElementById("lang").value = LANG;
+  if (LANG === "en") return;
+  document.documentElement.lang = LANG;
+  const skip = "script,style,code,#lines,#shiplines,#cmplines,#lang";
+  const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT,
+    { acceptNode: (n) => n.parentElement.closest(skip) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const nodes = [];
+  while (walk.nextNode()) nodes.push(walk.currentNode);
+  for (const n of nodes) {
+    const s = n.nodeValue.trim();
+    if (s && I18N[LANG][s]) n.nodeValue = n.nodeValue.replace(s, I18N[LANG][s]);
+  }
+  for (const el of document.querySelectorAll("[placeholder],[aria-label],[title]")) {
+    for (const a of ["placeholder", "aria-label", "title"]) {
+      const v = el.getAttribute(a);
+      if (!v) continue;
+      if (I18N[LANG][v]) el.setAttribute(a, I18N[LANG][v]);
+      else if (a === "placeholder" && v.startsWith("e.g. ")) el.setAttribute(a, T("e.g.") + v.slice(4));
+    }
+  }
+}
+translatePage();
+document.getElementById("lang").addEventListener("change", (e) => {
+  try { localStorage.setItem("carbon-cost.lang", e.target.value); } catch {}
+  const u = new URL(location.href);
+  u.searchParams.set("lang", e.target.value);
+  location.href = u.toString();
+});
+
 const $ = (id) => document.getElementById(id);
 const TILES = "";
 const f = $("f");
@@ -172,6 +292,7 @@ function autocomplete(input) {
     if (p.code) { delete input.dataset.lat; delete input.dataset.lon; }
     else { input.dataset.lat = p.lat; input.dataset.lon = p.lon; }
     close();
+    input.dispatchEvent(new Event("change"));
   };
   input.addEventListener("input", () => {
     clearTimeout(timer);
@@ -182,7 +303,7 @@ function autocomplete(input) {
       try {
         const resp = await fetch("v1/places?q=" + encodeURIComponent(q));
         const body = await resp.json();
-        if (n !== seq || !resp.ok) return;
+        if (n !== seq || !resp.ok || document.activeElement !== input) return;
         items = body.places || [];
       } catch { return; }
       list.replaceChildren();
@@ -215,50 +336,475 @@ try { showsrc.checked = localStorage.getItem("showsrc") === "1"; } catch {}
 const applySrc = () => $("lines").classList.toggle("show-src", showsrc.checked);
 showsrc.addEventListener("change", () => { applySrc(); try { localStorage.setItem("showsrc", showsrc.checked ? "1" : "0"); } catch {} });
 applySrc();
-const eur = (v) => "EUR " + (v ?? 0).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-const num = (v, d) => (v ?? 0).toLocaleString("en", { minimumFractionDigits: d, maximumFractionDigits: d });
+const eur = (v) => "EUR " + (v ?? 0).toLocaleString(LANG, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const num = (v, d) => (v ?? 0).toLocaleString(LANG, { minimumFractionDigits: d, maximumFractionDigits: d });
 function cell(tr, text, cls) { const td = tr.insertCell(); td.textContent = text; if (cls) td.className = cls; }
 
-f.addEventListener("submit", async (e) => {
-  e.preventDefault();
+// ---- stops and shipments
+const stopsEl = $("stops"), shipsEl = $("ships");
+let stopN = 0;
+const stopInputs = () => [f.from, ...stopsEl.querySelectorAll("input"), f.to];
+function getPlace(input) {
+  const d = input.dataset, v = input.value.trim();
+  return d.label === v && d.lat ? { v, lat: +d.lat, lon: +d.lon } : { v };
+}
+function setPlace(input, p) {
+  if (typeof p === "string") p = { v: p };
+  input.value = p.v || "";
+  if (p.lat != null) { input.dataset.label = input.value; input.dataset.lat = p.lat; input.dataset.lon = p.lon; }
+  else { delete input.dataset.label; delete input.dataset.lat; delete input.dataset.lon; }
+}
+function xButton(title, onclick) {
+  const x = document.createElement("button");
+  x.type = "button"; x.className = "x"; x.textContent = "✕"; x.title = title; x.setAttribute("aria-label", title);
+  x.addEventListener("click", onclick);
+  return x;
+}
+function addStop(p) {
+  const row = document.createElement("div"); row.className = "row";
+  const lbl = document.createElement("span"); lbl.className = "lbl"; lbl.textContent = T("Stop");
+  const ac = document.createElement("span"); ac.className = "ac";
+  const input = document.createElement("input");
+  input.name = "stop" + (++stopN); input.placeholder = T("City, port, code or lat,lon"); input.setAttribute("aria-label", T("Stop"));
+  ac.append(input);
+  row.append(lbl, ac, xButton(T("Remove stop"), () => { row.remove(); stopsChanged(); }));
+  stopsEl.append(row);
+  autocomplete(input);
+  if (p) setPlace(input, p);
+  input.addEventListener("change", stopsChanged);
+  stopsChanged();
+  return input;
+}
+function stopNames() {
+  const ins = stopInputs(), short = (i) => (i.value.trim() || "?").replace(/\s*\([A-Z0-9]{3,5}\)$/, "");
+  const names = ins.map((i, k) => `${k}: ${short(i)}`);
+  if (f.back.checked) names.push(`${ins.length}: ${T("back to")} ${short(f.from)}`);
+  return names;
+}
+function stopsChanged() {
+  const names = stopNames();
+  for (const row of shipsEl.children) {
+    for (const [sel, def] of [[row.querySelector(".sfrom"), 0], [row.querySelector(".sto"), names.length - 1]]) {
+      const cur = sel.value === "" ? def : Math.min(+sel.value, names.length - 1);
+      sel.replaceChildren(...names.map((n, k) => new Option(n, k)));
+      sel.value = cur;
+    }
+  }
+}
+function addShip(s = {}) {
+  const row = document.createElement("div"); row.className = "ship";
+  const id = document.createElement("input"); id.className = "sid"; id.placeholder = "ID"; id.setAttribute("aria-label", T("Shipment ID"));
+  id.value = s.id ?? String(shipsEl.children.length + 1);
+  const kg = document.createElement("input"); kg.className = "skg"; kg.type = "number"; kg.min = "1"; kg.placeholder = "kg"; kg.setAttribute("aria-label", T("Weight, kg"));
+  kg.value = s.kg ?? "";
+  const a = document.createElement("select"), b = document.createElement("select");
+  a.className = "sfrom"; b.className = "sto"; a.setAttribute("aria-label", T("Loaded at")); b.setAttribute("aria-label", T("Unloaded at"));
+  row.append(id, kg, a, b, xButton(T("Remove shipment"), () => row.remove()));
+  shipsEl.append(row);
+  stopsChanged();
+  if (s.from != null) a.value = s.from;
+  if (s.to != null) b.value = s.to;
+}
+const shipRows = () => [...shipsEl.children].map((r) => ({ id: r.querySelector(".sid").value.trim(), kg: r.querySelector(".skg").value,
+  from: +r.querySelector(".sfrom").value, to: +r.querySelector(".sto").value }));
+function multiChanged() {
+  const on = f.multi.checked;
+  $("shipwrap").hidden = !on; $("cargowrap").hidden = on;
+  if (on && !shipsEl.children.length) { addShip({ kg: f.cargo_kg.value }); }
+}
+$("addstop").addEventListener("click", () => addStop().focus());
+$("addship").addEventListener("click", () => addShip());
+f.from.addEventListener("change", stopsChanged); f.to.addEventListener("change", stopsChanged);
+f.back.addEventListener("change", stopsChanged);
+f.multi.addEventListener("change", multiChanged);
+
+// ---- the route driven, from a GPX or GeoJSON file
+const MAX_POINTS = 200000;
+let driven = null;
+function parsePath(text) {
+  text = text.trim();
+  let out = [];
+  if (text.startsWith("<")) {
+    const doc = new DOMParser().parseFromString(text, "application/xml");
+    if (doc.getElementsByTagName("parsererror").length) throw new Error("not valid GPX");
+    let pts = [...doc.getElementsByTagName("trkpt")];
+    if (!pts.length) pts = [...doc.getElementsByTagName("rtept")];
+    out = pts.map((p) => [+p.getAttribute("lon"), +p.getAttribute("lat")]);
+  } else {
+    const walk = (g) => {
+      if (Array.isArray(g)) { for (const p of g) out.push([+p[0], +p[1]]); return; }
+      if (!g) return;
+      if (g.type === "FeatureCollection") (g.features || []).forEach(walk);
+      else if (g.type === "Feature") walk(g.geometry);
+      else if (g.type === "LineString") walk(g.coordinates);
+      else if (g.type === "MultiLineString") (g.coordinates || []).forEach(walk);
+    };
+    walk(JSON.parse(text));
+  }
+  if (out.length < 2 || out.some(([lon, lat]) => !(Math.abs(lon) <= 180 && Math.abs(lat) <= 90)))
+    throw new Error("give GPX track or route points, [[lon, lat], ...] or a GeoJSON LineString");
+  if (out.length > MAX_POINTS) { // keep every k-th point and the last
+    const k = Math.ceil(out.length / MAX_POINTS);
+    out = out.filter((_, i) => i % k === 0 || i === out.length - 1);
+  }
+  return out.map(([lon, lat]) => [Math.round(lon * 1e5) / 1e5, Math.round(lat * 1e5) / 1e5]);
+}
+// rFMS 4.0 (FMS-Standard): /vehiclepositions and /vehiclestatuses
+// responses for the trip's hours give the way driven (gnssPosition), the
+// diesel (engineTotalFuelUsed, millilitres) and the odometer
+// (hrTotalVehicleDistance, metres).
+function parseRFMS(docs) {
+  const pos = [], st = [];
+  for (const d of docs) for (const p of Array.isArray(d) ? d : [d]) {
+    if (!p || !(p.vehiclePositionResponse || p.vehicleStatusResponse)) throw new Error("not an rFMS vehiclepositions or vehiclestatuses response");
+    pos.push(...(p.vehiclePositionResponse?.vehiclePositions || []));
+    st.push(...(p.vehicleStatusResponse?.vehicleStatuses || []));
+  }
+  const vins = [...new Set([...pos, ...st].map((r) => r.vin))];
+  if (vins.length > 1) throw new Error(`vehicles ${vins.sort().join(", ")}: give one vehicle's records`);
+  const pts = [], at = (g, r) => Date.parse(g?.positionDateTime || r.createdDateTime);
+  const add = (g, r) => { if (g && g.latitude != null && g.longitude != null) pts.push([at(g, r), +g.longitude, +g.latitude]); };
+  pos.forEach((r) => add(r.gnssPosition, r));
+  st.forEach((r) => add(r.snapshotData?.gnssPosition, r));
+  pts.sort((a, b) => a[0] - b[0]);
+  const path = [];
+  for (const [, lon, lat] of pts) if (!path.length || path.at(-1)[0] !== lon || path.at(-1)[1] !== lat) path.push([lon, lat]);
+  const reads = st.map((r) => [Date.parse(r.createdDateTime), r.engineTotalFuelUsed, r.hrTotalVehicleDistance]).sort((a, b) => a[0] - b[0]);
+  const delta = (i, name) => {
+    const v = reads.map((r) => r[i]).filter((x) => x != null);
+    for (let k = 1; k < v.length; k++) if (v[k] < v[k - 1]) throw new Error(name + " goes down: the counter was reset; give the trip's hours after it");
+    return v.length > 1 ? v.at(-1) - v[0] : 0;
+  };
+  const times = [...pts.map((p) => p[0]), ...reads.map((r) => r[0])].filter((t) => !isNaN(t));
+  return { vin: vins[0], path, dieselL: delta(1, "engineTotalFuelUsed") / 1000, odoKm: delta(2, "hrTotalVehicleDistance") / 1000,
+    date: times.length ? new Date(Math.min(...times)).toISOString().slice(0, 10) : "" };
+}
+function pathKm(pts) {
+  let km = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const [lo1, la1] = pts[i - 1], [lo2, la2] = pts[i], r = Math.PI / 180;
+    const h = Math.sin((la2 - la1) * r / 2) ** 2 + Math.cos(la1 * r) * Math.cos(la2 * r) * Math.sin((lo2 - lo1) * r / 2) ** 2;
+    km += 12742 * Math.asin(Math.sqrt(h));
+  }
+  return km;
+}
+function setDriven(pts, name) {
+  driven = pts;
+  $("pathinfo").textContent = pts ? `${name ? name + ": " : ""}${num(pts.length, 0)} ${T("points")}, ${num(pathKm(pts), 1)} km. ${T("Priced on this route; the stops above still set the shipments' own routes.")}` : "";
+  $("clearpath").hidden = !pts;
+  if (!pts) f.pathfile.value = "";
+}
+f.pathfile.addEventListener("change", async () => {
+  const files = [...f.pathfile.files];
+  if (!files.length) return;
+  try {
+    const texts = await Promise.all(files.map((x) => x.text()));
+    if (texts.some((t) => /"vehicle(Position|Status)Response"/.test(t))) {
+      const r = parseRFMS(texts.map((t) => JSON.parse(t)));
+      if (r.path.length >= 2) setDriven(parsePath(JSON.stringify(r.path)), "rFMS " + r.vin); else setDriven(null);
+      if (r.dieselL > 0 && !f.diesel_l.value && !f.l_per_100km.value) f.diesel_l.value = Math.round(r.dieselL * 1000) / 1000;
+      if (r.date) f.date.value = r.date;
+      const got = [r.dieselL > 0 && `${num(r.dieselL, 1)} ${T("l diesel")}`, r.odoKm > 0 && `${T("odometer")} ${num(r.odoKm, 1)} km`, r.date].filter(Boolean);
+      if (!got.length && r.path.length < 2) throw new Error("neither 2 positions nor 2 fuel readings");
+      const route = r.path.length >= 2 ? $("pathinfo").textContent.replace(/^[^:]*: /, "") : "";
+      $("pathinfo").textContent = `rFMS ${r.vin}: ${[...got, route].filter(Boolean).join(". ")}`;
+      $("clearpath").hidden = false;
+    } else setDriven(parsePath(texts[0]), files[0].name);
+    $("error").hidden = true;
+  } catch (err) { setDriven(null); showError("Route file: " + err.message); }
+});
+$("clearpath").addEventListener("click", () => setDriven(null));
+
+// pairs reads "DE=300, PL=150" into { DE: 300, PL: 150 }.
+function pairs(s, what) {
+  s = s.trim();
+  if (!s) return undefined;
+  const out = {};
+  for (const kv of s.split(/[,;]\s*/)) {
+    const m = kv.trim().match(/^([A-Za-z]{2}(?:-[A-Za-z0-9]{1,3})?)\s*[=:]\s*(\d+(?:\.\d+)?)$/);
+    if (!m) throw new Error(`${what}: "${kv}" is not COUNTRY=number`);
+    out[m[1].toUpperCase()] = +m[2];
+  }
+  return out;
+}
+
+function buildRequest() {
   const req = {
-    from: place(f.from), to: place(f.to), date: f.date.value || undefined, time: f.time.value || undefined,
-    cargo_kg: +f.cargo_kg.value,
+    date: f.date.value || undefined, time: f.time.value || undefined,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined,
              motor_axles: +f.motor_axles.value || undefined, motor_mass_kg: +f.motor_mass_kg.value || undefined,
              trailer_mass_kg: +f.trailer_mass_kg.value || undefined, capacity_kg: +f.capacity_kg.value || undefined },
     etc: f.etc.checked || undefined, driver_rest: f.driver_rest.checked || undefined,
-    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, uka_gbp_per_t: +f.uka_gbp_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined, fuel_country: f.fuel_country.value.trim().toUpperCase() || undefined, diesel_l: +f.diesel_l.value || undefined,
+    eua_eur_per_t: +f.eua_eur_per_t.value || undefined, uka_gbp_per_t: +f.uka_gbp_per_t.value || undefined, ets2_eur_per_t: +f.ets2_eur_per_t.value || undefined,
+    l_per_100km: +f.l_per_100km.value || undefined, diesel_l: +f.diesel_l.value || undefined,
     compare_co2_classes: f.compare.checked ? [1, 4, 5] : undefined, trips_per_year: +f.trips_per_year.value || undefined,
   };
+  // A price for all litres, by country, or both.
+  for (const p of f.diesel_price.value.split(/[,;]\s*/).map((x) => x.trim()).filter(Boolean)) {
+    if (/^\d+(\.\d+)?$/.test(p)) { req.diesel_eur_per_l = +p; continue; }
+    const one = pairs(p, "Diesel price");
+    req.diesel_eur_per_l_by_country = Object.assign(req.diesel_eur_per_l_by_country || {}, one);
+  }
+  const bought = pairs(f.fuel_bought.value, "Diesel bought");
+  if (bought) req.fuel_purchases = Object.entries(bought).map(([country, litres]) => ({ country, litres }));
+  else req.fuel_country = f.fuel_country.value.trim().toUpperCase() || undefined;
+  const ckm = pairs(f.country_km.value, "Km by country");
+  if (ckm) {
+    if (f.multi.checked || driven) throw new Error("Km by country prices one shipment with no route: untick several shipments and remove the route file, or clear the km.");
+    req.country_km = ckm; req.cargo_kg = +f.cargo_kg.value;
+    return req;
+  }
+  const ins = stopInputs();
+  if (ins.some((i) => !i.value.trim())) throw new Error(T("Give every stop (or remove the empty ones)."));
+  const locs = ins.map(place);
+  if (f.back.checked) locs.push(place(f.from));
+  if (locs.length > 2) req.stops = locs; else { req.from = locs[0]; req.to = locs[1]; }
+  if (f.multi.checked) {
+    req.shipments = shipRows().map((s, i) => ({ id: s.id || String(i + 1), weight_kg: +s.kg, from: s.from, to: s.to }));
+    if (!req.shipments.length) throw new Error("Add a shipment.");
+  } else if (f.back.checked) {
+    req.shipments = [{ id: "1", weight_kg: +f.cargo_kg.value, from: 0, to: locs.length - 2 }];
+  } else req.cargo_kg = +f.cargo_kg.value;
+  if (driven) req.path = driven;
+  return req;
+}
+
+function showError(msg) { $("error").textContent = msg; $("error").hidden = false; }
+let last = null; // the last result
+
+f.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  let req;
+  try { req = buildRequest(); } catch (err) { showError(err.message); return; }
   $("go").disabled = true; $("error").hidden = true;
   try {
     const resp = await fetch("v1/carbon-cost", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(req) });
     const body = await resp.json();
     if (!resp.ok) throw new Error(body.error || resp.statusText);
+    last = body;
     show(body);
+    remember();
   } catch (err) {
-    $("out").hidden = true; $("error").textContent = err.message; $("error").hidden = false;
+    $("out").hidden = true; showError(err.message);
   } finally { $("go").disabled = false; }
 });
 
+// ---- the form's state: for links, recent trips and saved trucks
+const FIELDS = ["date", "time", "cargo_kg", "max_mass_kg", "axles", "tare_kg", "motor_axles", "motor_mass_kg", "trailer_mass_kg", "length_m", "capacity_kg",
+  "euro", "co2_class", "eua_eur_per_t", "uka_gbp_per_t", "ets2_eur_per_t", "fuel_country", "l_per_100km", "diesel_l", "fuel_bought", "diesel_price", "country_km", "trips_per_year"];
+const CHECKS = ["back", "multi", "driver_rest", "etc", "compare"];
+const TRUCK = ["max_mass_kg", "axles", "tare_kg", "motor_axles", "motor_mass_kg", "trailer_mass_kg", "length_m", "capacity_kg", "euro", "co2_class", "l_per_100km"];
+function state() {
+  const s = { from: getPlace(f.from), to: getPlace(f.to), stops: [...stopsEl.querySelectorAll("input")].map(getPlace) };
+  if (f.multi.checked) s.ships = shipRows();
+  for (const k of FIELDS) if (f[k].value !== "") s[k] = f[k].value;
+  for (const k of CHECKS) s[k] = f[k].checked;
+  return s;
+}
+function restore(s) {
+  setPlace(f.from, s.from || ""); setPlace(f.to, s.to || "");
+  stopsEl.replaceChildren();
+  for (const p of s.stops || []) addStop(p);
+  for (const k of FIELDS) if (k in s) f[k].value = s[k]; else if (k !== "date" && k !== "time") f[k].value = f[k].defaultValue;
+  for (const k of CHECKS) if (k in s) f[k].checked = !!s[k];
+  shipsEl.replaceChildren();
+  for (const x of s.ships || []) addShip(x);
+  multiChanged(); stopsChanged();
+}
+const store = {
+  get(k, d) { try { const v = localStorage.getItem("carbon-cost." + k); return v ? JSON.parse(v) : d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem("carbon-cost." + k, JSON.stringify(v)); return true; } catch { return false; } },
+};
+function flash(msg) { $("flash").textContent = msg; clearTimeout(flash.t); flash.t = setTimeout(() => { $("flash").textContent = ""; }, 4000); }
+
+// Recent trips: the last ten calculated, newest first.
+function fillRecent() {
+  const sel = $("recent"), trips = store.get("trips", []);
+  sel.replaceChildren(new Option(T(trips.length ? "Recent trips" : "Recent trips (none yet)"), ""), ...trips.map((t, i) => new Option(t.label, i)));
+}
+function remember() {
+  const s = state(), names = [s.from, ...s.stops, s.to].map((p) => p.v.replace(/\s*\([A-Z0-9]{3,5}\)$/, "").split(",")[0]);
+  const label = f.country_km.value.trim() ? "Km by country: " + f.country_km.value.trim() : names.join(" → ") + (s.back ? " → back" : "");
+  const json = JSON.stringify(s);
+  const trips = store.get("trips", []).filter((t) => JSON.stringify(t.s) !== json);
+  trips.unshift({ label: `${label} (${s.date || "today"})`, s });
+  store.set("trips", trips.slice(0, 10));
+  fillRecent();
+}
+$("recent").addEventListener("change", (e) => {
+  const t = store.get("trips", [])[+e.target.value];
+  if (e.target.value !== "" && t) { restore(t.s); setDriven(null); flash(T("Trip loaded: press Calculate.")); }
+  e.target.value = "";
+});
+
+// Saved trucks: the truck's fields by a name.
+function fillTrucks(selected) {
+  const sel = $("trucks"), trucks = store.get("trucks", {});
+  sel.replaceChildren(new Option(T(Object.keys(trucks).length ? "Saved trucks" : "Saved trucks (none yet)"), ""), ...Object.keys(trucks).sort().map((n) => new Option(n, n)));
+  sel.value = selected || "";
+  $("deltruck").hidden = !selected;
+}
+$("savetruck").addEventListener("click", () => {
+  const name = $("truckname").value.trim() || $("trucks").value;
+  if (!name) { flash(T("Give the truck a name first.")); $("truckname").focus(); return; }
+  const trucks = store.get("trucks", {}), t = {};
+  for (const k of TRUCK) t[k] = f[k].value;
+  t.etc = f.etc.checked;
+  trucks[name] = t;
+  flash(store.set("trucks", trucks) ? `Saved "${name}" in this browser.` : "This browser doesn't let the page save.");
+  $("truckname").value = "";
+  fillTrucks(name);
+});
+$("trucks").addEventListener("change", (e) => {
+  const t = store.get("trucks", {})[e.target.value];
+  $("deltruck").hidden = !t;
+  if (!t) return;
+  for (const k of TRUCK) if (k in t) f[k].value = t[k];
+  f.etc.checked = !!t.etc;
+  flash(`Truck "${e.target.value}" loaded.`);
+});
+$("deltruck").addEventListener("click", () => {
+  const name = $("trucks").value, trucks = store.get("trucks", {});
+  delete trucks[name]; store.set("trucks", trucks); fillTrucks(); flash(`Deleted "${name}".`);
+});
+fillRecent(); fillTrucks();
+
+// A link to this trip: the form in the address's #, which opens and prices it.
+$("share").addEventListener("click", async () => {
+  const url = location.origin + location.pathname + "#trip=" + encodeURIComponent(JSON.stringify(state()));
+  history.replaceState(null, "", url);
+  let ok = false;
+  try { await navigator.clipboard.writeText(url); ok = true; } catch {}
+  flash(T(ok ? "Link copied." : "Link in the address bar.") + (driven ? " " + T("The route file isn't in it.") : ""));
+});
+if (location.hash.startsWith("#trip=")) {
+  try { restore(JSON.parse(decodeURIComponent(location.hash.slice(6)))); setTimeout(() => f.requestSubmit(), 0); }
+  catch { showError("The link's trip couldn't be read."); }
+}
+
+// CSV of the result: the charges, the totals and the shipments.
+const csvCell = (v) => { v = v == null ? "" : String(v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+$("csv").addEventListener("click", () => {
+  const r = last;
+  if (!r) return;
+  const rows = [["charge", "country", "region", "component", "road", "area", "section", "km", "days", "t_co2e", "litres", "rate", "rate_unit", "amount", "currency", "amount_eur", "carbon", "source"]];
+  for (const l of r.lines) rows.push([l.charge, l.country, l.region, l.component, l.road, l.area, l.section, l.km, l.days, l.t_co2e, l.litres, l.rate, l.rate_unit, l.amount, l.currency, l.amount_eur, l.carbon ? "yes" : "", l.source]);
+  rows.push([], ["date", r.date], ["total_eur", r.total_eur], ["carbon_eur", r.carbon_eur], ["complete", r.complete], ["distance_km", r.distance_km],
+    ["diesel_l", r.trip?.fuel_l], ["diesel_basis", r.trip?.fuel_basis], ["empty_km", r.trip?.empty_km ?? 0], ["co2e_ttw_kg", r.ttw_kg], ["co2e_wtw_kg", r.wtw_kg], ["g_co2e_per_tkm", r.intensity_g_co2e_per_tkm], ["eur_per_tkm", r.eur_per_tkm], ["data_type", r.data_type], ["emissions_basis", r.emissions_basis]);
+  for (const m of r.missing || []) rows.push(["missing", missingText(m)]);
+  if ((r.shipments || []).length) {
+    rows.push([], ["shipment", "weight_kg", "from_stop", "to_stop", "distance_km", "tkm", "share", "total_eur", "eur_per_100kg", "carbon_eur", "ttw_kg", "wtw_kg", "g_co2e_per_tkm", "by_country"]);
+    for (const s of r.shipments) rows.push([s.id, s.weight_kg, s.from, s.to, s.distance_km, s.tkm, s.share, s.total_eur, s.eur_per_100kg, s.carbon_eur, s.ttw_kg, s.wtw_kg, s.intensity_g_co2e_per_tkm,
+      Object.entries(s.by_country || {}).sort().map(([k, v]) => `${k}=${v}`).join(";")]);
+  }
+  const blob = new Blob([rows.map((x) => x.map(csvCell).join(",")).join("\r\n") + "\r\n"], { type: "text/csv" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = `carbon-cost-${r.date}.csv`;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+
+// A CSV of trips, priced by the server (POST v1/carbon-cost/csv).
+$("csvexample").addEventListener("click", (e) => {
+  e.preventDefault();
+  const text = "order,from,to,via,date,cargo-kg,mass-kg,axles,euro,co2-class,l-per-100km\r\n" +
+    "A-1001,DKCPH,DEHAM,,2026-11-03,20000,40000,5,6,1,29\r\nA-1002,DEHAM,PLWAW,DEBER,2026-11-04,12000,40000,5,6,1,\r\n";
+  download(new Blob([text], { type: "text/csv" }), "carbon-cost-example.csv");
+});
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+$("csvgo").addEventListener("click", async () => {
+  const file = $("csvfile").files[0], info = $("csvinfo");
+  if (!file) { info.textContent = T("Choose a CSV file first."); return; }
+  $("csvgo").disabled = true; info.textContent = T("Pricing…");
+  try {
+    const resp = await fetch("v1/carbon-cost/csv" + ($("csvships").checked ? "?rows=shipments" : ""), { method: "POST", headers: { "Content-Type": "text/csv" }, body: await file.text() });
+    if (!resp.ok) { const b = await resp.json().catch(() => ({})); throw new Error(b.error || resp.statusText); }
+    const text = await resp.text(), rows = text.trim().split(/\r?\n/).length - 1;
+    const labels = resp.headers.get("X-CSV-Labels"), base = file.name.replace(/\.csv$/i, "");
+    download(new Blob([text], { type: "text/csv" }), base + "-priced.csv");
+    info.textContent = T("{n} rows priced; the file is downloading.").replace("{n}", rows) + (labels ? ` ${T("Kept as they are:")} ${labels}.` : "");
+    // The priced rows added up by the columns given, as a second file.
+    const by = $("csvby").value.trim();
+    if (by) {
+      const rep = await fetch("v1/carbon-cost/report?by=" + encodeURIComponent(by), { method: "POST", headers: { "Content-Type": "text/csv" }, body: text });
+      if (!rep.ok) { const b = await rep.json().catch(() => ({})); throw new Error(b.error || rep.statusText); }
+      download(new Blob([await rep.text()], { type: "text/csv" }), base + "-report.csv");
+      info.textContent += " " + T("The report by {by} is downloading too.").replace("{by}", by);
+    }
+  } catch (err) { info.textContent = T("Not priced:") + " " + err.message; }
+  finally { $("csvgo").disabled = false; }
+});
+
+// missingText says what a result leaves out, as the API's Missing.Message.
+function missingText(m) {
+  const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel", ferry_fare: "ferry fare" }[m.charge] || m.charge;
+  if (m.reason === "no_route") return `${m.area} ${what} (${m.name}): charged at toll stations or on sections, which need the route (give from and to, or a route file)`;
+  return m.reason === "ended"
+    ? `${m.area} ${what} (${m.name}): the rates here ended on ${m.ended} and the next ones aren't in this release yet`
+    : `${m.area} ${what}: no table in this tool`;
+}
+
 function show(r) {
   $("total").textContent = eur(r.total_eur);
+  const miss = r.missing || [];
+  $("incomplete").hidden = miss.length === 0;
+  $("totallabel").textContent = T(miss.length ? "Total (incomplete)" : "Total");
+  $("missing").replaceChildren(...miss.map(m => { const li = document.createElement("li"); li.textContent = missingText(m); return li; }));
   $("carbon").textContent = eur(r.carbon_eur);
   $("dist").textContent = num(r.distance_km, 1) + " km";
   const parts = Object.entries(r.country_km).sort().map(([c, k]) => `${c} ${num(k, 1)} km`);
-  if (r.ferry_km) parts.push(`ferry ${num(r.ferry_km, 1)} km` + (r.ferry_crossing ? ` (${r.ferry_crossing})` : ""));
+  if (r.ferry_km) parts.push(`${T("ferry")} ${num(r.ferry_km, 1)} km` + (r.ferry_crossing ? ` (${r.ferry_crossing})` : ""));
   if (r.region_km) parts.push("(" + Object.entries(r.region_km).sort().map(([c, k]) => `${c} ${num(k, 1)}`).join(", ") + ")");
-  $("km").textContent = "Route: " + parts.join(" · ");
+  $("km").textContent = T(r.country_km && !r.route ? "Km:" : "Route:") + " " + parts.join(" · ");
+  const tr = r.trip;
+  $("fueltile").hidden = !tr;
+  if (tr) {
+    $("fuel").textContent = num(tr.fuel_l, 0) + " l";
+    $("fueltile").title = tr.fuel_basis;
+    const legs = tr.legs.length > 1 ? " " + T("in {n} legs").replace("{n}", tr.legs.length) : "";
+    $("truckline").textContent = `${T("Truck")}: ${num(tr.road_km, 1)} ${T("road km")}${legs}` + (tr.empty_km ? `, ${num(tr.empty_km, 1)} ${T("km empty")}` : "") +
+      `, ${num(tr.fuel_l, 1)} ${T("l diesel")}` + (tr.road_km ? ` (${num(100 * tr.fuel_l / tr.road_km, 1)} l/100 km)` : "") + `: ${tr.fuel_basis}.`;
+  } else $("truckline").textContent = "";
+  // The diesel: a running cost, not a charge, so beside the total.
+  const fu = r.fuel;
+  $("withfueltile").hidden = !fu;
+  if (fu) {
+    $("withfuel").textContent = eur(r.with_fuel_eur) + (fu.complete ? "" : " *");
+    const by = fu.by_country.map((b) => `${b.country} ${num(b.litres, 1)} l` + (b.eur_per_l ? ` × ${num(b.eur_per_l, 3)}` : ` (${T("no price")})`)).join(", ");
+    const from = fu.by_country.some((b) => (b.price || "").startsWith("Weekly")) ? " " + T("Prices: the EU's Weekly Oil Bulletin, national averages without VAT (fleet cards are often cheaper: give yours).") : "";
+    $("fuelline").textContent = `${T("Diesel")}: ${eur(fu.eur)} ${T("without VAT")} (${by}).${from} ` +
+      (fu.in_price_eur ? T("The diesel price already holds the CO2 prices on fuel ({x}), counted once in the total with diesel.").replace("{x}", eur(fu.in_price_eur)) : "");
+  } else $("fuelline").textContent = "";
+  $("co2line").textContent = r.wtw_kg ? `CO2e: ${num(r.wtw_kg, 1)} ${T("kg well-to-wheel")} (${num(r.ttw_kg, 1)} ${T("tank-to-wheel")}), ${num(r.intensity_g_co2e_per_tkm, 1)} ${T("g per tonne-km")}. ` +
+    T(r.data_type === "primary" ? "Primary data" : "Modelled") + ": " + r.emissions_basis + "." : "";
+  const ships = r.shipments || [], sl = $("shiplines");
+  $("shipout").hidden = ships.length < 2;
+  sl.replaceChildren();
+  const names = stopNames();
+  for (const s of ships) {
+    const row = sl.insertRow();
+    cell(row, s.id); cell(row, num(s.weight_kg, 0), "n");
+    cell(row, `${(names[s.from] || String(s.from)).replace(/^\d+: /, "")} → ${(names[s.to] || String(s.to)).replace(/^\d+: /, "")}`);
+    cell(row, num(s.distance_km, 1), "n sm-hide"); cell(row, num(s.tkm, 0), "n sm-hide"); cell(row, num(100 * s.share, 1) + "%", "n");
+    cell(row, num(s.total_eur, 2), "n"); cell(row, num(s.eur_per_100kg, 2), "n sm-hide"); cell(row, num(s.carbon_eur, 2), "n"); cell(row, num(s.wtw_kg, 1), "n sm-hide"); cell(row, num(s.intensity_g_co2e_per_tkm, 1), "n sm-hide");
+  }
 
   const lines = $("lines"); lines.replaceChildren();
   for (const l of r.lines) {
     const tr = lines.insertRow(); if (l.carbon) tr.className = "c";
-    cell(tr, l.charge.replace("_", " ")); cell(tr, l.region || l.country || "");
-    cell(tr, (l.component || "co2").replace("_", " ") + (l.road || l.area ? ` (${[l.road, l.area].filter(Boolean).join(", ")})` : "") + (l.section ? `: ${l.section}` : ""));
-    // Per-passage charges (toll stations, bridges) have no km.
-    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.days ? l.days + (l.days === 1 ? " day" : " days") : l.km ? num(l.km, 1) + " km" : "1 passage", "n");
+    cell(tr, T(l.charge.replace("_", " "))); cell(tr, l.region || l.country || "");
+    // A ferry fare's part is the crossing it prices.
+    cell(tr, l.charge === "ferry_fare" && l.section ? l.section
+      : T((l.component || "co2").replace("_", " ")) + (l.road || l.area ? ` (${[l.road, l.area].filter(Boolean).join(", ")})` : "") + (l.section ? `: ${l.section}` : ""));
+    // Per-passage charges (toll stations, bridges, ferry fares) have no km.
+    const perPassage = /\/passage$/.test(l.rate_unit || "");
+    cell(tr, l.t_co2e ? num(l.t_co2e, 3) + " t CO2e" : l.litres ? num(l.litres, 1) + " l" : l.days ? l.days + " " + T(l.days === 1 ? "day" : "days") : l.km && !perPassage ? num(l.km, 1) + " km" : T("1 passage"), "n");
     cell(tr, l.rate + " " + l.rate_unit + (l.tonnes ? ` × ${l.tonnes} t` : ""), "n sm-hide");
     cell(tr, num(l.amount, 2) + " " + l.currency, "n sm-hide"); cell(tr, num(l.amount_eur, 2), "n");
     // The law or tariff behind the number, with links to the documents.
@@ -276,6 +822,7 @@ function show(r) {
   }
   const cmp = $("cmp"); cmp.replaceChildren();
   $("cmpwrap").hidden = !(r.compare && r.compare.length);
+  $("cmpnote").hidden = miss.length === 0;
   for (const c of r.compare || []) {
     const tr = cmp.insertRow();
     cell(tr, String(c.co2_class)); cell(tr, num(c.road_toll_eur, 2), "n"); cell(tr, num(c.total_eur, 2), "n");
@@ -283,7 +830,6 @@ function show(r) {
     cell(tr, c.saving_per_year_eur ? num(c.saving_per_year_eur, 0) : "", "n");
   }
   const notes = $("notes"); notes.replaceChildren();
-  if (r.no_rates && r.no_rates.length) { const li = document.createElement("li"); li.textContent = "Not included (no toll table yet): " + r.no_rates.join(", "); notes.append(li); }
   for (const n of r.notes || []) { const li = document.createElement("li"); li.textContent = n; notes.append(li); }
   // What the result rests on: release, rate tables and their files, map
   // extracts, ferry data, exchange rates and defaults taken.

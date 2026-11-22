@@ -201,9 +201,9 @@ def loose(name):
     return re.sub(r"[^A-Z0-9]", "", n)
 
 
-def uredba_sections(fetched):
+def uredba_sections(fetched, sid="si-uredba-9382-npb2-priloga"):
     """[(road, name, km, area)] from the Uredba's annex, in its order."""
-    t = subprocess.run(["pdftotext", "-layout", os.path.join(fetched, "si-uredba-9382-npb2-priloga.pdf"), "-"], capture_output=True, text=True, check=True).stdout
+    t = subprocess.run(["pdftotext", "-layout", os.path.join(fetched, sid + ".pdf"), "-"], capture_output=True, text=True, check=True).stdout
     out = []
     for line in t.splitlines():
         m = re.match(r"^\s*(A\d|H\d|[RG]\d-\d+)\s+(.+?)\s+(\d+,\d{3}) (Medmestna|Primestna) cesta\s*$", line)
@@ -232,8 +232,8 @@ def external_costs(fetched):
 
 # The acts the current table reads, as PISRS's register gives their
 # amendments (citat). None has an end date: the table runs until one of
-# them changes. 1746/26 added the Serminska vpadnica, which the table leaves
-# out (tolled_roads).
+# them changes. 1746/26 added the Serminska vpadnica (the table from 26
+# October 2026).
 IN_FORCE = {
     "si-zbirka-akt-1550": "76/25, 102/25, 139/26 in 1771/26",  # Cenik cestnine
     "si-zbirka-ured9382": "46/25, 102/25, 129/26 in 1746/26",  # Uredba o cestninskih cestah in cestnini
@@ -274,7 +274,8 @@ def current(fetched, out):
     start = applies(os.path.join(fetched, "si-zbirka-skle14332.json"))
     assert start == "2026-04-01", start
     places = json.load(open(os.path.join(HERE, "transcribed", "si-places.json"), encoding="utf-8"))["sections"]
-    kv0, places = places[0], places[1:]
+    # G2-114 (the Serminska vpadnica) is priced from 26 October 2026: october().
+    kv0, places = places[0], [p for p in places[1:] if p["id"] != "g2-114"]
     assert kv0["id"] == "karavanke"
     u = uredba_sections(fetched)
     assert "(Uradni list RS, št. 129/26 z dne 27. 3. 2026)" in text(os.path.join(fetched, "si-uredba-9382-npb2.json"))
@@ -340,14 +341,54 @@ def current(fetched, out):
             ],
         },
     }
-    last = until(fetched, start)
-    if last:
-        tb["valid_to"] = last
+    # 1771/26 (and the Uredba's 1746/26) from 26 October 2026: the table
+    # ends the day before, and the next adds the Serminska vpadnica.
+    tb["valid_to"] = "2026-10-25"
+    tb["tolled_roads"] = tb["tolled_roads"].replace("Not included: the Serminska vpadnica to the port of Koper, priced from 26 October 2026 (Uradni list RS, št. 1771/26).", "The Serminska vpadnica to the port of Koper is priced from 26 October 2026 (Uradni list RS, št. 1771/26: the next table).")
+    tb["law"] = tb["law"].split(" The cenik, the Uredba")[0]
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, f"si-{start}.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
     print(path, len(secs), "sections")
+    october(fetched, out, tb, extra[0], kv)
     return tb
+
+
+def october(fetched, out, april, extra, kv):
+    """From 26 October 2026: the April table and the Serminska vpadnica
+    (G2-114) to the port of Koper, its length and type from the Uredba's
+    annex as 1746/26 completed it (NPB 3), its prices from the cenik as
+    1771/26 completed it, its ends where OpenStreetMap has the tolled road
+    (transcribed/si-places.json)."""
+    start = "2026-10-26"
+    npb = [v for v in json.load(open(os.path.join(fetched, "si-zbirka-ured9382.json"), encoding="utf-8"))["data"]["besedilo"]["npbVerzije"] if v["naziv"] == "NPB 3"]
+    assert len(npb) == 1 and npb[0]["datumZacetkaUporabe"] == start, npb
+    assert "Uredbo o dopolnitvi Uredbe o cestninskih cestah in cestnini (Uradni list RS, št. 1746/26" in text(os.path.join(fetched, "si-uredba-9382-npb3.json"))
+    u2, u3 = uredba_sections(fetched), uredba_sections(fetched, "si-uredba-9382-npb3-priloga")
+    assert u3[:-1] == u2 and u3[-1][0] == "G2-114", u3[-1]
+    road, _, km, area = u3[-1]
+    pl = [s for s in json.load(open(os.path.join(HERE, "transcribed", "si-places.json"), encoding="utf-8"))["sections"] if s["id"] == "g2-114"]
+    assert len(pl) == 1, pl
+    s = {"id": "g2-114", "road": road, "name": pl[0]["name"], "from": pl[0]["from"], "to": pl[0]["to"], "km": km, "area": area, "classes": extra[2]}
+    tb = copy.deepcopy(april)
+    tb["valid_from"] = start
+    del tb["valid_to"]
+    tb["sections"]["list"].append(s)
+    n = len(tb["sections"]["list"])
+    tb["law"] = (tb["law"] + " The cenik, the Uredba o cestninskih cestah in cestnini, the sklep on external costs and the Karavanke uredba have no end date (PISRS's register): the table runs until one of them is amended.")
+    tb["sections"]["law"] = "Cenik cestnine za uporabo cestninskih cest, Annex (as amended by Uradni list RS, št. 139/26, from 1 April 2026, and completed by 1771/26 with the Serminska vpadnica, from 26 October 2026)"
+    tb["tolled_roads"] = (f"The DARS motorway and expressway network and the Serminska vpadnica (G2-114) to the port of Koper, {n} toll sections; a section is charged when the route passes both of its ends. "
+                          f"The Karavanke tunnel's Slovenian toll is a fixed amount per passage (Uredba o cestnini za uporabo cestnega predora Karavanke, Uradni list RS, št. 109/24 in 76/25, art. 3: R2 {kv['R2']:.2f}, R3 {kv['R3']:.2f}, R4 {kv['R4']:.2f} EUR excluding VAT).")
+    for src in tb["sources"]:
+        if src["url"] == ACT % "URED9382":
+            src["title"] = "Uredba o cestninskih cestah in cestnini (Uradni list RS, št. 46/25, 102/25, 129/26 in 1746/26), NPB 3, Annex: toll sections, their lengths and suburban/interurban type"
+    tb["sources"].append({"title": "OpenStreetMap: the Serminska vpadnica's tolled way (way 498569140, toll:hgv=yes from 26 October 2026)", "url": "https://www.openstreetmap.org/way/498569140"})
+    last = until(fetched, start)
+    if last:
+        tb["valid_to"] = last
+    path = os.path.join(out, f"si-{start}.json")
+    json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)
+    print(path, n, "sections")
 
 
 if __name__ == "__main__":

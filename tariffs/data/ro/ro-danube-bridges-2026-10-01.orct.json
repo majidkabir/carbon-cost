@@ -1,0 +1,59 @@
+{
+ "orct": "0.3",
+ "dataset": {
+  "id": "carbon-cost/ro-danube-bridges/2026-10-01",
+  "scheme": {
+   "id": "ro-danube-bridges",
+   "name": "Romania's Danube bridge tolls (tarif de trecere)",
+   "country": "RO"
+  },
+  "publisher": {
+   "name": "carbon-cost",
+   "role": "third_party",
+   "url": "https://github.com/majidkabir/carbon-cost"
+  },
+  "valid_from": "2026-10-01",
+  "currency": "RON",
+  "timezone": "Europe/Bucharest",
+  "license": "MIT",
+  "method": "Legea nr. 226/2023 privind aplicarea unor tarife rutiere pe rețeaua de drumuri naționale din România, art. 24 (1): Ordonanța Guvernului nr. 15/2002, which set the tolls on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii, is repealed from 1 October 2026, and (3) the tolls issued under it lapse. Trucks over 3.5 t pay TollRo per km instead (Romania's table).",
+  "derived_from": {
+   "url": "https://github.com/majidkabir/carbon-cost",
+   "path": "ro-danube-bridges-2026-10-01.json"
+  },
+  "required_features": []
+ },
+ "sources": [
+  {
+   "id": "s1",
+   "title": "Legea nr. 226/2023 (CNAIR eToll, acte normative), art. 24",
+   "url": "https://portal.etoll.ro/documents/d/guest/legea-nr-226-2023-privind-aplicarea-unor-tarife-rutiere-pe-reteaua-de-drumuri-nationale-din-romania"
+  }
+ ],
+ "tax": {
+  "basis": "not_applicable"
+ },
+ "liable_vehicles": {
+  "description": "All vehicles",
+  "criteria": {}
+ },
+ "vehicle_class_sets": [],
+ "charge_objects": [],
+ "charges": [],
+ "coverage": [
+  {
+   "scope": "dataset",
+   "status": "partial",
+   "reason": "crossings is kept as an extension (no ORCT field yet)"
+  }
+ ],
+ "no_charge": {
+  "description": "no toll on the Danube bridges at Fetești–Cernavodă and Giurgeni–Vadu Oii (Legea nr. 226/2023, art. 24: OG 15/2002, which set it, is repealed from 1 October 2026); trucks pay TollRo per km instead.",
+  "sources": ["s1"]
+ },
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "crossings": true
+  }
+ }
+}

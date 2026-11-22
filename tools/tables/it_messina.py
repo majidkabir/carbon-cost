@@ -98,7 +98,7 @@ def main(fetched, out):
          "stations": [{"name": n, "points": pts} for n, pts in sorted(stations.items())], "station_match_km": MATCH_KM,
          "prices": {"Messina Tremestieri|Villa San Giovanni": out_, "Villa San Giovanni|Messina Tremestieri": back},
          "directed": True}
-    t = {"country": "IT", "currency": "EUR", "valid_from": start, "crossings": True,
+    t = {"country": "IT", "currency": "EUR", "valid_from": start, "crossings": True, "ferry": True,
          "name": "Strait of Messina ferry (Caronte & Tourist), trucks",
          "law": law,
          "sources": [{"title": "Caronte & Tourist: Strait of Messina, commercial vehicle fares", "url": "https://www.carontetourist.it/en/strait-messina/freight/rates-commercial-vehicle"},

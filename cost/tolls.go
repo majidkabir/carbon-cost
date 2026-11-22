@@ -54,7 +54,7 @@ func vehicleOf(t rates.Truck) map[string]any {
 
 // lineMeta is what a Line takes from the use an event stands for.
 type lineMeta struct {
-	charge                               string // RoadToll, AreaCharge or FuelCO2
+	charge                               string // RoadToll, FerryFare, AreaCharge or FuelCO2
 	country, region, road, area, section string
 	km, tonnesCO2                        float64
 	hasKm                                bool

@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
-      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q shapely osmium
+      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q shapely osmium
       - name: Build
         run: |
           mkdir -p out
@@ -27,14 +27,26 @@ jobs:
             cc=${x%%:*}; name=${x#*:}
             curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name/$name-latest.osm.pbf"
             export OSM_EXTRACT=$(osmium fileinfo -g header.option.osmosis_replication_timestamp in.pbf)
-            osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
+            if [ $cc = PL ]; then
+              # The tolled sections from the law (the parsed list in the
+              # repository must be the law's), then every way with a ref,
+              # the streets the list names, junctions, places and
+              # administrative boundaries to find them by.
+              curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://eli.gov.pl/api/acts/DU/2026/33/text/O/D20260033.pdf
+              pdftotext -layout law.pdf law.txt
+              python3 tools/roads/pl_network.py law.txt | diff -u tools/roads/pl-network.json -
+              streets=$(python3 -c "import json; print(','.join(sorted({(p.get('street') or p.get('junction')).replace('ul. ', '') for s in json.load(open('tools/roads/pl-network.json'))['sections'] for p in (s['from'], s['to']) if p.get('street') or p.get('junction')})))")
+              osmium tags-filter -O -o roads.pbf in.pbf w/ref w/highway=motorway,motorway_link,trunk,trunk_link,primary,primary_link "w/name=$streets" n/highway=motorway_junction n/place r/boundary=administrative
+            else
+              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
+            fi
             extra=""
             if [ $cc = RO ]; then
               osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail r/boundary=administrative
               extra=areas.pbf
             fi
             python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
-            rm -f in.pbf roads.pbf areas.pbf
+            rm -f in.pbf roads.pbf areas.pbf law.pdf law.txt
           done
           ls -la out
       - name: Push

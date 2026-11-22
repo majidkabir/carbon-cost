@@ -99,7 +99,7 @@ def main(fetched, out):
             systems.append({"name": f"Bornholmslinjen: {' / '.join(rs)}", "law": f"Bornholmslinjen's freight prices {y}, loaded: {' / '.join(rs)}",
                             "groups": groups, "stations": [{"name": n, "points": pts} for n, pts in sorted(stations.items())],
                             "station_match_km": MATCH_KM, "prices": prices})
-        t = {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31", "crossings": True,
+        t = {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31", "crossings": True, "ferry": True,
              "name": "Bornholmslinjen's ferries to Bornholm, trucks",
              "law": (f"Bornholmslinjen's freight prices for {y} (per single trip, excluding VAT), loaded: "
                      + "; ".join(f"{r} lorry under 10 m {p['u10']}, over 10 m {p['o10']}, semi-trailer to 17 m {p['semi']}, road train to 19 m {p['train']} DKK "

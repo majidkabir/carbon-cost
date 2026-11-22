@@ -250,7 +250,7 @@ f.addEventListener("submit", async (e) => {
 
 // missingText says what a result leaves out, as the API's Missing.Message.
 function missingText(m) {
-  const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel" }[m.charge] || m.charge;
+  const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel", ferry_fare: "ferry fare" }[m.charge] || m.charge;
   return m.reason === "ended"
     ? `${m.area} ${what} (${m.name}): the rates here ended on ${m.ended} and the next ones aren't in this release yet`
     : `${m.area} ${what}: no table in this tool`;

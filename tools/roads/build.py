@@ -169,7 +169,7 @@ FREE = {"PL": [
     # and French borders to the Müllheim/Neuenburg junction.
     "DE": [
     ("A 6", None, (6.93, 49.17, 7.00, 49.23), "Saarbrücken-Fechingen", (7.03, 49.17, 7.13, 49.24), "A 6 French border-Saarbrücken-Fechingen (BFStrMG § 1 (3) 1)"),
-    ("A 5", None, (7.55, 47.54, 7.66, 47.62), "Müllheim/Neuenburg", (7.53, 47.77, 7.66, 47.85), "A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"),
+    ("A 5", None, (7.55, 47.54, 7.66, 47.62), "Müllheim / Neuenburg", (7.53, 47.77, 7.66, 47.85), "A 5 Swiss and French borders-Müllheim/Neuenburg (BFStrMG § 1 (3) 2)"),
 ]}
 
 # Sections of a country's tolled roads that a private operator tolls
@@ -410,7 +410,49 @@ class Ways(osmium.SimpleHandler):
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
+# Countries whose law lists its tolled sections: the list (from the law,
+# by a parser beside it) found in OpenStreetMap by tools/roads/plnet.py.
+# Poland: the e-TOLL regulation's annexes 1 (A and S, "mw") and 2 (other
+# national roads, "nat"), from tools/roads/pl_network.py.
+NETWORK = {"PL": "pl-network.json"}
+
+
+def encode(lines):
+    out = []
+    for run in lines:
+        s = LineString(run).simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
+        pts = [[round(x * 1e5), round(y * 1e5)] for x, y in s.coords]
+        if len(pts) >= 2:
+            out.append([v for p in pts for v in p])
+    return out
+
+
+def main_network(cc, src, dst):
+    import plnet
+    here = os.path.dirname(os.path.abspath(__file__))
+    doc = json.load(open(os.path.join(here, NETWORK[cc]), encoding="utf-8"))
+    lines, report = plnet.build(src, doc["sections"])
+    total = Counter()
+    for (text, km, why), s in zip(report, doc["sections"]):
+        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text, why)
+        total[s["class"]] += km or 0
+    print(cc, "km by class (one carriageway):", {k: round(v) for k, v in total.items()})
+    bad = [r for r in report if r[1] is None]
+    if bad:
+        sys.exit(f"{cc}: {len(bad)} of {len(report)} sections not found in OpenStreetMap")
+    out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": encode(lines["mw"]), "nat": encode(lines["nat"]), "network": doc["source"]}
+    if os.environ.get("OSM_EXTRACT"):
+        out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]
+    if FREE.get(cc):
+        out["left_out"] = sorted({f[-1] for f in FREE[cc]})
+    with gzip.open(dst, "wt", encoding="utf-8") as fo:
+        json.dump(out, fo, separators=(",", ":"))
+    print(cc, {k: len(v) for k, v in out.items() if k in ("mw", "nat")})
+
+
 def main(cc, src, dst, areas=None):
+    if cc in NETWORK:
+        return main_network(cc, src, dst)
     rule = RULES[cc]
     urban = None
     if areas:

@@ -2808,9 +2808,11 @@ func TestSicilyCAS(t *testing.T) {
 	}
 }
 
-// 300 m either side along each stretch.
+// TestAP53 prices the AP-53 by its stations' passages.
 func TestAP53(t *testing.T) {
-	south := [][2]float64{{-8.482406, 42.805564}, {-8.483561, 42.803003}, {-8.484716, 42.800442}, {-8.387161, 42.747675}, {-8.383600, 42.747013}, {-8.380039, 42.746351}, {-8.292354, 42.717730}, {-8.288770, 42.718319}, {-8.285186, 42.718908}, {-8.200645, 42.693912}, {-8.197127, 42.693141}, {-8.193609, 42.692370}, {-8.142676, 42.660453}, {-8.141011, 42.658049}, {-8.139346, 42.655645}, {-8.119122, 42.629105}, {-8.116951, 42.626931}, {-8.114780, 42.624757}, {-8.091521, 42.599924}, {-8.088980, 42.597980}, {-8.086439, 42.596036}}
+	// The stations of the dataset (OpenStreetMap 2026-11), each with 300 m
+	// before and after along its heading.
+	south := [][2]float64{{-8.482408, 42.805562}, {-8.483561, 42.803003}, {-8.484714, 42.800444}, {-8.387158, 42.747674}, {-8.383600, 42.747013}, {-8.380042, 42.746352}, {-8.309418, 42.719623}, {-8.306261, 42.718251}, {-8.303104, 42.716879}, {-8.212659, 42.703574}, {-8.209397, 42.702342}, {-8.206135, 42.701110}, {-8.142675, 42.660450}, {-8.141011, 42.658049}, {-8.139347, 42.655648}, {-8.119119, 42.629103}, {-8.116951, 42.626931}, {-8.114783, 42.624759}, {-8.091519, 42.599922}, {-8.088980, 42.597980}, {-8.086441, 42.596038}}
 	light := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
 	for _, tc := range []struct {
 		name  string
@@ -4026,5 +4028,45 @@ func TestGermanyRoadClasses(t *testing.T) {
 		if strings.HasPrefix(n, "DE: by OpenStreetMap") {
 			t.Errorf("note %q with tolled_share", n)
 		}
+	}
+}
+
+// A crossings dataset its table marks as a ferry (carbon-cost's ORCT
+// extension "ferry") prices fares, not tolls.
+func TestFerryFare(t *testing.T) {
+	raw, ok := all(t).Raw("de/de-elbfaehre-2026-11-19.orct.json")
+	if !ok {
+		t.Skip("no Elbfähre dataset")
+	}
+	var doc map[string]any
+	if err := json.Unmarshal(raw, &doc); err != nil {
+		t.Fatal(err)
+	}
+	ext, _ := doc["extensions"].(map[string]any)
+	cc, _ := ext["io.github.majidkabir.carboncost"].(map[string]any)
+	cc["ferry"] = true
+	b, _ := json.Marshal(doc)
+	ds, err := tariffs.Parse(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	ds.File = "de/de-elbfaehre-2026-11-19.orct.json"
+	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"DE": 50}, Path: path}}}
+	r, err := Price(trip, &tariffs.Set{All: []*tariffs.Dataset{ds}}, Request{CargoKg: 20000, Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	fare := 0.0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Elbfähre") {
+			if l.Charge != FerryFare {
+				t.Errorf("line %s %s: %s", l.Section, l.Component, l.Charge)
+			}
+			fare += l.Amount
+		}
+	}
+	if math.Abs(fare-(37.82+2.40+20*1.26)) > 0.011 {
+		t.Errorf("fare %.2f", fare)
 	}
 }

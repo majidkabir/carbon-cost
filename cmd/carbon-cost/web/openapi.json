@@ -414,6 +414,10 @@
       "description": "EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for ferry crossings. 0: ferry ETS is not priced.",
       "type": "number"
      },
+     "ferry_ets_basis": {
+      "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
+      "type": "string"
+     },
      "ferry_ets_share": {
       "description": "FerryETSShare is the share of a crossing's emissions under the EU ETS for a crossing this tool doesn't know: 1 between two EU/EEA ports (default), 0.5 to or from a port outside. A known crossing's share comes from its ports, its ships' size and the derogations in force.",
       "type": "number"

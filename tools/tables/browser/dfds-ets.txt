@@ -1,0 +1,35 @@
+# DFDS's ETS surcharges per lane metre, freight.
+# Page: https://www.dfds.com/en/freight-ferries-and-logistics/ets-surcharges, opened in Chrome and its first table (EUR) read on 2026-11-22
+# (the fallback when the workflow's own copy, dfds-ets.html, can't be fetched or read). A * marks the column the page prints in bold: the month's surcharge.
+The average price of EU allowances in the period 20/09/2026 - 20/10/2026 was EUR 85.62 per allowance.
+ETS surcharge per lane metre (EUR)
+November 2026
+ETS Charges | 75,01-80,00 | 80,01-85,00 | 85,01-90,00 | 90,01-95,00 | 95,01-100,00
+Ijmuiden (Amsterdam) – Newcastle | 2.40 | 2.53 | *2.66 | 2.80 | 2.93
+Gothenburg/Brevik/Fredrikstad – Immingham | 3.44 | 3.65 | *3.86 | 4.08 | 4.29
+Gothenburg/Brevik – Ghent | 5.35 | 5.66 | *5.96 | 6.26 | 6.57
+Gothenburg/Fredrikstad – Zeebrugge | 5.35 | 5.66 | *5.96 | 6.26 | 6.57
+Cuxhaven – Immingham | 2.29 | 2.42 | *2.55 | 2.67 | 2.80
+Esbjerg – Immingham | 2.45 | 2.59 | *2.73 | 2.86 | 3.00
+Vlaardingen (Rotterdam) – Felixstowe | 1.02 | 1.08 | *1.13 | 1.19 | 1.25
+Vlaardingen (Rotterdam) – Immingham | 1.07 | 1.13 | *1.19 | 1.24 | 1.30
+Zeebrugge – Immingham | 1.07 | 1.13 | *1.19 | 1.24 | 1.30
+Rotterdam – Vilagarcia | 9.16 | 9.68 | *10.20 | 10.72 | 11.24
+Dover – Dunkirk | 0.54 | 0.57 | *0.60 | 0.63 | 0.66
+Dover – Calais | 0.54 | 0.57 | *0.60 | 0.63 | 0.66
+Rosslare – Dunkirk | 10.89 | 11.51 | *12.13 | 12.75 | 13.36
+Newhaven – Dieppe | 1.73 | 1.82 | *1.92 | 2.01 | 2.11
+Jersey – St. Malo | 2.27 | 2.40 | *2.53 | 2.66 | 2.79
+Jersey – Portsmouth | 0.12 | 0,12 | *0.13 | 0.14 | 0.15
+Jersey – Poole | 0.35 | 0.37 | *0.39 | 0.42 | 0.44
+Marseille – Tunis | 3.82 | 4.04 | *4.25 | 4.47 | 4.69
+Pendik (Istanbul) – Patras/Bari/Trieste | 6.08 | 6.42 | *6.77 | 7.11 | 7.46
+Mersin – Trieste | 6.98 | 7.38 | *7.77 | 8.17 | 8.57
+Yalova (Istanbul)/Alsancak (Izmir) – Sète | 8.29 | 8.77 | *9.24 | 9.71 | 10.18
+Damietta – Trieste | 14.87 | 15.71 | *16.56 | 17.40 | 18.24
+Klaipeda – Fredericia/Køge | 7.41 | 7.83 | *8.25 | 8.67 | 9.09
+Klaipeda – Karlshamn/Trelleborg | 3.82 | 4.04 | *4.26 | 4.47 | 4.69
+Klaipeda – Kiel/Travemünde | 6.24 | 6.59 | *6.94 | 7.30 | 7.65
+Paldiski – Kapellskär | 3.01 | 3.18 | *3.35 | 3.53 | 3.70
+Algeciras – Tanger Med | 0.69 | 0.72 | *0.75 | 0.78 | 0.80
+Algeciras – Ceuta | 0.69 | 0.72 | *0.75 | 0.78 | 0.80

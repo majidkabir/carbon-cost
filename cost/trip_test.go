@@ -11,6 +11,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -253,4 +254,61 @@ func TestShipmentBreakdown(t *testing.T) {
 	if s.EURPer100Kg != round2(r.TotalEUR/200) || r.EURPerTkm != math.Round(r.TotalEUR/(20*300)*1e4)/1e4 {
 		t.Errorf("per 100 kg %v, per tkm %v", s.EURPer100Kg, r.EURPerTkm)
 	}
+}
+
+// A crossing whose one line publishes an ETS surcharge is priced at it:
+// Scandlines' per commencing metre, at least 7; POLSCA's from each
+// announcement; a crossing sailed by several lines stays on the ships'
+// emissions, with a note.
+func TestFerrySurcharge(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := cphHam
+	trip.Legs = []sootcase.LegResult{cphHam.Legs[0]}
+	trip.Legs[0].RouteParts = map[string]float64{"ferry": 18.976}
+	trip.Legs[0].Path = [][2]float64{{12.57, 55.68}, {11.355, 54.66}, {11.2276, 54.5001}, {9.99, 53.55}}
+	nov26 := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	tr := truck40
+	tr.LengthM = 16.5
+	// No EUA price needed: the line's surcharge, 17 commencing metres.
+	r, err := PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr}, nov26)
+	if err != nil {
+		t.Fatal(err)
+	}
+	l, ok := line(r, FerryETS, "", "")
+	if !ok || l.Rate != 0.18 || l.RateUnit != "EUR/m" || l.Amount != 3.06 || !strings.Contains(l.Source, "Scandlines' ETS surcharge") {
+		t.Errorf("Scandlines: %+v", l)
+	}
+	// An empty truck pays it too: it goes by the vehicle's length.
+	if r, _ = PriceWith(trip, all(t), &fd, Request{CargoKg: 20000, Truck: tr, legLoadKg: []float64{0}}, nov26); !hasLine(r, FerryETS) {
+		t.Errorf("empty: %+v", r.Lines)
+	}
+	s, ok := fd.ETSSurcharge("gdansk-karlshamn", time.Date(2026, 7, 20, 0, 0, 0, 0, time.UTC))
+	if !ok || s.EURPerM != 5.4 || s.Metres(16.5) != 17 {
+		t.Errorf("POLSCA Gdańsk–Karlshamn, July: %+v", s)
+	}
+	if s, ok = fd.ETSSurcharge("gdansk-karlshamn", time.Date(2026, 11, 2, 0, 0, 0, 0, time.UTC)); !ok || s.EURPerM != 5.99 {
+		t.Errorf("POLSCA Gdańsk–Karlshamn, November: %+v", s)
+	}
+	if s, ok = fd.ETSSurcharge("klaipeda-kiel", nov26); !ok || s.EURPerM != 6.94 || s.Metres(16.5) != 16.5 || s.Operator != "DFDS" {
+		t.Errorf("DFDS Klaipėda–Kiel: %+v", s)
+	}
+	// DFDS's month ended and not yet the next: none.
+	if _, ok = fd.ETSSurcharge("klaipeda-kiel", time.Date(2027, 1, 5, 0, 0, 0, 0, time.UTC)); ok {
+		t.Error("DFDS January 2027: want none")
+	}
+	if _, ok = fd.ETSSurcharge("dover-calais", nov26); !ok {
+		t.Error("DFDS Dover–Calais: want its surcharge")
+	}
+}
+
+func hasLine(r Response, charge string) bool {
+	for _, l := range r.Lines {
+		if l.Charge == charge {
+			return true
+		}
+	}
+	return false
 }

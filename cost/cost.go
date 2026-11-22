@@ -136,6 +136,12 @@ type Request struct {
 	// share comes from its ports, its ships' size and the derogations in
 	// force.
 	FerryETSShare float64 `json:"ferry_ets_share,omitempty"`
+	// FerryETSBasis is how a ferry's EU ETS is priced: by default the
+	// surcharge its line publishes per metre of the vehicle, where the
+	// crossing has one line that does (DFDS, Scandlines, POLSCA: what the
+	// truck is charged), else the cargo's share of the ships' emissions
+	// at eua_eur_per_t; "emissions" always prices the latter.
+	FerryETSBasis string `json:"ferry_ets_basis,omitempty"`
 	// ETS2EurPerT is the ETS2 allowance price (EUR per t CO2e), for trips
 	// from 2028. 0: ETS2 is not priced.
 	ETS2EurPerT float64 `json:"ets2_eur_per_t,omitempty"`
@@ -563,6 +569,9 @@ func check(req Request) error {
 	if err := req.Truck.Validate(); err != nil {
 		return fmt.Errorf("truck: %w", err)
 	}
+	if req.FerryETSBasis != "" && req.FerryETSBasis != "emissions" && req.FerryETSBasis != "surcharge" {
+		return fmt.Errorf(`ferry_ets_basis: give "surcharge" (the default) or "emissions"`)
+	}
 	if err := checkTrip(req); err != nil {
 		return err
 	}
@@ -763,13 +772,8 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 
 	// EU ETS on ferry crossings.
 	if hasFerry {
-		switch {
-		case req.EUAEurPerT == 0:
-			out.Notes = append(out.Notes, "Ferry: give eua_eur_per_t to price the EU ETS on the crossing.")
-		default:
-			if err := priceFerryETS(&out, res, fd, req, date, add); err != nil {
-				return Response{}, err
-			}
+		if err := priceFerryETS(&out, res, fd, req, date, add); err != nil {
+			return Response{}, err
 		}
 	}
 
@@ -992,9 +996,32 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time, add func(Line) error) error {
 	phase := maritimeETSShare(date)
 	var names []string
+	askEUA := false
+	defer func() {
+		if askEUA {
+			out.Notes = append(out.Notes, "Ferry: give eua_eur_per_t to price the EU ETS on the crossing.")
+		}
+	}()
 	for _, p := range ferryParts(res, fd, req) {
 		emT, basis, section := p.ttwKg/1000, "Sootcase ferry part (GLEC ro-pax default)", ""
 		cover, coverBasis := 1.0, ""
+		if p.crossing != nil && req.FerryETSBasis != "emissions" {
+			done, err := ferrySurcharge(out, fd, *p.crossing, p.km, req, date, add)
+			if err != nil {
+				return err
+			}
+			if done {
+				names = append(names, p.crossing.Name)
+				continue
+			}
+		}
+		if req.EUAEurPerT == 0 {
+			askEUA = true
+			if p.crossing != nil {
+				names = append(names, p.crossing.Name)
+			}
+			continue
+		}
 		if p.crossing == nil {
 			if req.FerryETSShare > 0 {
 				cover, coverBasis = req.FerryETSShare, fmt.Sprintf("%.0f%% of its emissions (ferry_ets_share)", req.FerryETSShare*100)
@@ -1050,6 +1077,59 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Req
 	}
 	out.FerryCrossing = strings.Join(names, ", ")
 	return nil
+}
+
+// ferrySurcharge prices a crossing's EU ETS at the surcharge its line
+// publishes, per metre of the vehicle, when the crossing has that one
+// line; it says whether it did.
+func ferrySurcharge(out *Response, fd *ferries.Data, c ferries.Crossing, km float64, req Request, date time.Time, add func(Line) error) (bool, error) {
+	s, ok := fd.ETSSurcharge(c.ID, date)
+	if !ok {
+		return false, nil
+	}
+	length, assumed := req.Truck.LengthM, ""
+	if length == 0 {
+		length, assumed = rates.DefaultLengthM, fmt.Sprintf(" (%g m assumed; give the truck's length_m)", rates.DefaultLengthM)
+	}
+	m := s.Metres(length)
+	if strings.Contains(c.Operator, ";") {
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: %s's ETS surcharge is EUR %.2f per metre (EUR %.2f for %g m), but other lines (%s) sail it too, so its EU ETS is the cargo's share of the ships' emissions.",
+			c.Name, s.Operator, s.EURPerM, s.EURPerM*m, m, c.Operator))
+		return false, nil
+	}
+	ed := s.Edition
+	src := fmt.Sprintf("%s ETS surcharge, %s, from %s", possessive(s.Operator), s.Route, ed.From)
+	if ed.Basis != "" {
+		src += " (" + ed.Basis + ")"
+	}
+	if err := add(Line{Charge: FerryETS, Carbon: true, Section: c.Name, Km: round3(km), Rate: s.EURPerM, RateUnit: "EUR/m",
+		Currency: "EUR", Amount: s.EURPerM * m, Source: src,
+		Sources: []rates.Source{{Title: s.Source.Title, URL: s.Source.URL}, etsSources[0]}}); err != nil {
+		return false, err
+	}
+	how := "per metre of the vehicle"
+	if s.CommencedMetre {
+		how = "per commencing metre"
+		if s.MinM > 0 {
+			how += fmt.Sprintf(", at least %g", s.MinM)
+		}
+	}
+	note := fmt.Sprintf("Ferry: %s: the EU ETS as %s charges it, its surcharge of EUR %.2f %s × %g m%s; ferry_ets_basis \"emissions\" prices the cargo's share of the ships' emissions instead.",
+		c.Name, s.Operator, s.EURPerM, how, m, assumed)
+	if ed.Note != "" {
+		note += " The surcharge's edition: " + ed.Note + "."
+	}
+	out.Notes = append(out.Notes, note)
+	return true, nil
+}
+
+// possessive is "DFDS'" or "POLSCA Baltic Ferries (Polferries, Unity
+// Line)'s".
+func possessive(name string) string {
+	if strings.HasSuffix(name, "s") || strings.HasSuffix(name, "S") {
+		return name + "'"
+	}
+	return name + "'s"
 }
 
 // priceFerryUKETS adds a UK ETS line for each crossing between two UK

@@ -7,7 +7,8 @@ extract). Anything else, a new dataset included, is left for review.
 
 Usage: python3 tools/orct/publish.py <workflow orct dir> tariffs/data
        python3 tools/orct/publish.py --crossings <workflow ferries dir> ferries/data
-         (ferry crossings files that differ only in the terminals' positions)
+         (ferry crossings files that differ only in the terminals' positions,
+         and the lines' ETS surcharges when only editions are added)
        python3 tools/orct/publish.py --fx <workflow fx dir> fx/data
          (exchange rate files that only add days after the last one: the
          same header, every committed row unchanged)
@@ -124,6 +125,47 @@ def crossings(new, data):
             print(f"::warning title=ferries/{name}::differs in more than OpenStreetMap's positions; not published, review it")
 
 
+def editions_added(a, b):
+    """True if ETS surcharges file b is a with only editions added: the
+    same operators, routes and terms, and every edition of a in b with
+    the same days and rates (its source may now be the fetched page
+    instead of a page read in Chrome)."""
+    if a.keys() != b.keys() or a["note"] != b["note"]:
+        return False
+    old = {o["operator"]: o for o in a["operators"]}
+    new = {o["operator"]: o for o in b["operators"]}
+    if old.keys() != new.keys():
+        return False
+    added = 0
+    for name, o in old.items():
+        n = new[name]
+        if {k: v for k, v in o.items() if k not in ("editions", "source")} != {k: v for k, v in n.items() if k not in ("editions", "source")}:
+            return False
+        ns = {e["from"]: e for e in n["editions"]}
+        for e in o["editions"]:
+            f = ns.get(e["from"])
+            if f is None or {k: v for k, v in e.items() if k != "source"} != {k: v for k, v in f.items() if k != "source"}:
+                return False
+        added += len(n["editions"]) - len(o["editions"])
+    return added >= 0
+
+
+def ets_surcharges(new, data):
+    """Publishes the ferry lines' ETS surcharges (ferries/ets-surcharges.json)
+    when the Tables run only added editions (a new month's notice)."""
+    src, dst = os.path.join(new, "ets-surcharges.json"), os.path.join(data, "ets-surcharges.json")
+    if not (os.path.exists(src) and os.path.exists(dst)):
+        return
+    a, b = open(dst, "rb").read(), open(src, "rb").read()
+    if a == b:
+        return
+    if editions_added(json.loads(a), json.loads(b)):
+        shutil.copy(src, dst)
+        print("published ferries/ets-surcharges.json")
+    else:
+        print("::warning title=ferries/ets-surcharges.json::changes more than new editions; not published, review it")
+
+
 FX_FILES = ("ecb-hist.csv", "nbs-eur-rsd.csv", "boa-eur-all.csv")
 
 
@@ -160,5 +202,6 @@ if __name__ == "__main__":
         fx(*sys.argv[2:])
     elif sys.argv[1] == "--crossings":
         crossings(*sys.argv[2:])
+        ets_surcharges(*sys.argv[2:])
     else:
         main(*sys.argv[1:])

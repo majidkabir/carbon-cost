@@ -183,6 +183,12 @@ func runningCost(out *Response, req Request) {
 		base = out.WithFuelEUR
 	}
 	out.TripCostEUR = round2(base + out.DriverEUR + out.VehicleEUR)
-	out.Notes = append(out.Notes, fmt.Sprintf("Trip cost: the charges, the energy and the running costs given: the driver %.2f h x EUR %g (%s), the vehicle %.1f road km x EUR %g.",
-		out.Trip.Hours, req.DriverEURPerH, out.Trip.HoursBasis, out.Trip.RoadKm, req.VehicleEURPerKm))
+	var parts []string
+	if req.DriverEURPerH > 0 {
+		parts = append(parts, fmt.Sprintf("the driver %.2f h x EUR %g (%s)", out.Trip.Hours, req.DriverEURPerH, out.Trip.HoursBasis))
+	}
+	if req.VehicleEURPerKm > 0 {
+		parts = append(parts, fmt.Sprintf("the vehicle %.1f road km x EUR %g", out.Trip.RoadKm, req.VehicleEURPerKm))
+	}
+	out.Notes = append(out.Notes, "Trip cost: the charges, the energy and the running costs given: "+strings.Join(parts, ", ")+".")
 }

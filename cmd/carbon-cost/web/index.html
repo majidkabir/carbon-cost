@@ -90,6 +90,7 @@
     main > :not(#out), #out .bar, #out button, .h2row label, #mapwrap { display: none !important; }
     #printhead { display: block; margin-bottom: 12px; }
     #printhead h1 { font-size: 20px; margin: 0 0 4px; }
+    #printmeta { overflow-wrap: anywhere; font-size: 11px; }
     #lines tr.src { display: table-row !important; }
     #lines tr.has-src td { border-bottom: 0 !important; }
     tr, .tile { break-inside: avoid; }
@@ -821,7 +822,7 @@ function show(r) {
     const legs = tr.legs.length > 1 ? " " + T("in {n} legs").replace("{n}", tr.legs.length) : "";
     $("truckline").textContent = `${T("Truck")}: ${num(tr.road_km, 1)} ${T("road km")}${legs}` + (tr.empty_km ? `, ${num(tr.empty_km, 1)} ${T("km empty")}` : "") +
       `, ${num(tr.fuel_l, 1)} ${T("l diesel")}` + (tr.road_km ? ` (${num(100 * tr.fuel_l / tr.road_km, 1)} l/100 km)` : "") + `: ${tr.fuel_basis}.` +
-      (tr.hours ? ` ${T("Driving")}: ${num(tr.hours, 1)} h` + (tr.elapsed_h ? `, ${num(tr.elapsed_h, 1)} h ${T("with breaks and rests")}` : "") + ` (${tr.hours_basis}).` : "");
+      (tr.hours ? ` ${T("Driving")}: ${num(tr.hours, 1)} h` + (tr.elapsed_h > tr.hours ? `, ${num(tr.elapsed_h, 1)} h ${T("with breaks and rests")}` : "") + ` (${tr.hours_basis}).` : "");
   } else $("truckline").textContent = "";
   // The diesel: a running cost, not a charge, so beside the total.
   const fu = r.fuel;

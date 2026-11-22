@@ -37,6 +37,7 @@ GAP_M = 1500
 ALIAS_COST = 1.5
 OTHER_COST = 4.0
 SNAP_M = 300
+CROSS_NEAR_M = 3000
 
 
 def dist_m(a, b):
@@ -316,18 +317,28 @@ def net_points(c, net, road, road_, pt, own):
         nodes = {n for r in pt["crosses"] for n in c.cross_nodes.get(r, ())}
         if pt.get("street"):
             nodes = (nodes & c.street_nodes.get(street_of(pt["street"]), set())) or nodes
-        if places and nodes:
-            # The place of that name nearest the section's road, else the
-            # crossing road.
-            def off(p):
-                near = road_.near(p, NEAR_PLACE_M)
-                return min((dist_m(c.coords[n], p) for n in near), default=math.inf)
-            place = min(places, key=off)
-            if off(place) == math.inf:
-                place = min(places, key=lambda p: min(dist_m(c.coords[n], p) for n in nodes))
-            best = min(nodes, key=lambda n: dist_m(c.coords[n], place))
-            if dist_m(c.coords[best], place) <= NEAR_PLACE_M:
-                at = [c.coords[best]]
+
+        # The place of that name nearest the section's road.
+        def off(p):
+            return min((dist_m(c.coords[n], p) for n in road_.near(p, NEAR_PLACE_M)), default=math.inf)
+        place = min(places, key=off) if places else None
+        if place and off(place) == math.inf and nodes:
+            place = min(places, key=lambda p: min(dist_m(c.coords[n], p) for n in nodes))
+        if place:
+            # Where the crossing road meets the section's road near the
+            # place; else the crossing road nearest the place (OSM may tag
+            # the stretch between by the crossing road's number); else the
+            # section's road nearest the place (no crossing road in OSM).
+            meet = [n for n in nodes if n in road_.adj] or [n for n in nodes if road_.near(c.coords[n], 200)]
+            for group in (meet, nodes):
+                if group:
+                    best = min(group, key=lambda n: dist_m(c.coords[n], place))
+                    if dist_m(c.coords[best], place) <= CROSS_NEAR_M:
+                        at = [c.coords[best]]
+                        break
+            if not at:
+                own_near = road_.nearest(road_.near(place, 5000), place, 5000, 0)
+                at = [c.coords[own_near[0]]] if own_near else []
     out = []
     for p in at:
         near = net.near(p, SNAP_M)
@@ -467,7 +478,7 @@ def build(src, sections):
                 straight = dist_m(c.coords[nodes[0]], c.coords[nodes[-1]])
                 # Mostly on the road, or straight between the points (a
                 # stretch OSM tags by the road it shares).
-                if d >= 200 and d <= 3 * straight + 5000 and (on >= 0.5 * d or d <= 1.3 * straight + 2000):
+                if d >= 200 and d <= 3 * straight + 5000 and (on >= 0.8 * d or d <= 1.3 * straight + 2000):
                     picked.update(nodes)
                     paths.append((net, nodes))
                     km = d / 1000

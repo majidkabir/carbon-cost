@@ -49,7 +49,7 @@ jobs:
           if curl -fsSL --retry 6 --retry-delay 60 --retry-all-errors -A "carbon-cost (github.com/majidkabir/carbon-cost)" -o wob.xlsx \
               "https://energy.ec.europa.eu/document/download/906e60ca-8b6a-44e7-8589-652854d2fd3f_en?filename=Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx"; then
             sha256sum wob.xlsx > out/fuel/wob-history.xlsx.sha256
-            python3 tools/history/wob.py wob.xlsx out/fuel/wob-diesel.csv || echo "::warning title=wob::the Weekly Oil Bulletin wasn't read"
+            python3 tools/history/wob.py wob.xlsx out/fuel/wob-diesel.csv out/fuel/wob-diesel-duties.csv || echo "::warning title=wob::the Weekly Oil Bulletin wasn't read"
           else
             echo "::warning title=wob::the Weekly Oil Bulletin wasn't fetched"
           fi

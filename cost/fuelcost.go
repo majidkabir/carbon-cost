@@ -26,6 +26,10 @@ type FuelCost struct {
 	// the EU without a price given); Unpriced lists those countries.
 	Complete bool     `json:"complete"`
 	Unpriced []string `json:"unpriced,omitempty"`
+	// RefundEUR is the hauliers' partial refunds of the excise on the
+	// litres bought where the law sets one (diesel_refunds); EUR is
+	// after them.
+	RefundEUR float64 `json:"refund_eur,omitempty"`
 }
 
 // FuelBought is the litres bought in one country and their price.
@@ -37,11 +41,16 @@ type FuelBought struct {
 	// Price says where the price comes from: "given", or "Weekly Oil
 	// Bulletin <date>".
 	Price string `json:"price,omitempty"`
+	// RefundEURPerL is the refund of the excise per litre (diesel_refunds),
+	// and Refund the law it rests on.
+	RefundEURPerL float64 `json:"refund_eur_per_l,omitempty"`
+	Refund        string  `json:"refund,omitempty"`
 }
 
 // fuelCost prices the trip's road diesel where it is bought: at the price
 // given, else at the Weekly Oil Bulletin's national average of the
-// trip's week, without VAT.
+// trip's week, without VAT; with diesel_refunds, less the hauliers'
+// refund of the excise where the law sets one (fuel.Refunds).
 func fuelCost(out *Response, req Request, date time.Time) {
 	if out.Trip == nil || out.Trip.FuelL <= 0 {
 		return
@@ -50,6 +59,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	share := fuelShares(req, out.CountryKm)
 	f := &FuelCost{Litres: out.Trip.FuelL, Complete: true}
 	usedB, ets2InPrice := false, false
+	var refundNotes []string
 	priced := map[string]bool{}
 	for _, cc := range sortedKeys(share) {
 		l := out.Trip.FuelL * share[cc]
@@ -66,9 +76,21 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			fb.EURPerL, fb.Price = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date
 			usedB = true
 		}
+		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 {
+			eligible := req.Truck.MaxMassKg >= rf.MinMassKg && req.Truck.Euro >= rf.MinEuro
+			switch {
+			case req.DieselRefunds && eligible:
+				fb.RefundEURPerL, fb.Refund = rf.EURPerL, rf.Law
+				f.RefundEUR += l * rf.EURPerL
+				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds EUR %g per litre (%s; %s)", cc, rf.EURPerL, rf.Law, rf.Note))
+				addSource(out, rates.Source{Title: rf.Title, URL: rf.URL})
+			case eligible:
+				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds hauliers EUR %g per litre of the excise (%s): set diesel_refunds to count it", cc, rf.EURPerL, rf.Law))
+			}
+		}
 		if fb.EURPerL > 0 {
-			fb.EUR = round2(l * fb.EURPerL)
-			f.EUR += l * fb.EURPerL
+			fb.EUR = round2(l * (fb.EURPerL - fb.RefundEURPerL))
+			f.EUR += l * (fb.EURPerL - fb.RefundEURPerL)
 			priced[cc] = true
 			// A price of a day ETS2 covers holds it: the trip's own day for a
 			// price given, the bulletin's for its.
@@ -92,7 +114,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			f.InPriceEUR += l.AmountEUR
 		}
 	}
-	f.EUR, f.InPriceEUR = round2(f.EUR), round2(f.InPriceEUR)
+	f.EUR, f.InPriceEUR, f.RefundEUR = round2(f.EUR), round2(f.InPriceEUR), round2(f.RefundEUR)
 	out.Fuel = f
 	out.WithFuelEUR = round2(out.TotalEUR + f.EUR - f.InPriceEUR)
 	note := fmt.Sprintf("Fuel: %.1f l of diesel at EUR %.2f without VAT", f.Litres, f.EUR)
@@ -106,8 +128,92 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	if f.InPriceEUR > 0 {
 		note += fmt.Sprintf(". The diesel price holds the CO2 prices on fuel (EUR %.2f here), so with_fuel_eur counts them once", f.InPriceEUR)
 	}
+	if len(refundNotes) > 0 {
+		note += ". Diesel refunds: " + strings.Join(refundNotes, "; ")
+	}
 	if !f.Complete {
 		note += fmt.Sprintf(". No price for the litres bought in %s (outside the bulletin's EU countries): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))
 	}
 	out.Notes = append(out.Notes, note+".")
+}
+
+// ElectricityCost is an electric truck's energy for the trip at the price
+// given, without VAT.
+type ElectricityCost struct {
+	KWh       float64 `json:"kwh"`
+	Basis     string  `json:"basis"`
+	EURPerKWh float64 `json:"eur_per_kwh"`
+	EUR       float64 `json:"eur"`
+}
+
+// electricityCost prices a zero-emission truck's electricity: the kWh
+// used (electricity_kwh), or kwh_per_100km over the road km, at
+// electricity_eur_per_kwh. There is no default: give the truck's own.
+func electricityCost(out *Response, req Request) {
+	if out.Trip == nil || req.Truck.CO2Class != 5 && !req.noFuel {
+		return
+	}
+	var e ElectricityCost
+	switch {
+	case req.ElectricityKWh > 0 && !req.noFuel:
+		e.KWh, e.Basis = req.ElectricityKWh, "electricity_kwh (given)"
+	case req.KWhPer100Km > 0:
+		e.KWh, e.Basis = out.Trip.RoadKm*req.KWhPer100Km/100, fmt.Sprintf("kwh_per_100km: %g (given) x %.1f road km", req.KWhPer100Km, out.Trip.RoadKm)
+	}
+	if e.KWh <= 0 || req.ElectricityEURPerKWh <= 0 {
+		if !req.noFuel {
+			out.Notes = append(out.Notes, "Electricity: not priced; give electricity_kwh or kwh_per_100km, and electricity_eur_per_kwh, for the electric truck's energy.")
+		}
+		return
+	}
+	e.KWh, e.EURPerKWh = round2(e.KWh), req.ElectricityEURPerKWh
+	e.EUR = round2(e.KWh * e.EURPerKWh)
+	out.Electricity = &e
+	out.WithFuelEUR = round2(out.TotalEUR + e.EUR)
+	if !req.noFuel {
+		out.Notes = append(out.Notes, fmt.Sprintf("Electricity: %.1f kWh (%s) at EUR %g per kWh without VAT: EUR %.2f.", e.KWh, e.Basis, e.EURPerKWh, e.EUR))
+	}
+}
+
+// energyPriced: the truck's energy, diesel or electricity, has a price,
+// so with_fuel_eur is set.
+func energyPriced(out *Response) bool { return out.Fuel != nil || out.Electricity != nil }
+
+// energyComplete: every litre or kWh has a price.
+func energyComplete(out *Response) bool {
+	return out.Fuel != nil && out.Fuel.Complete || out.Electricity != nil
+}
+
+// energyEUR is the truck's energy at its price.
+func energyEUR(out *Response) float64 {
+	switch {
+	case out.Fuel != nil:
+		return out.Fuel.EUR
+	case out.Electricity != nil:
+		return out.Electricity.EUR
+	}
+	return 0
+}
+
+// runningCost adds the truck's own running costs at the rates given: the
+// driver per hour of the trip and the vehicle per road km.
+func runningCost(out *Response, req Request) {
+	if out.Trip == nil || req.DriverEURPerH <= 0 && req.VehicleEURPerKm <= 0 {
+		return
+	}
+	out.DriverEUR = round2(out.Trip.Hours * req.DriverEURPerH)
+	out.VehicleEUR = round2(out.Trip.RoadKm * req.VehicleEURPerKm)
+	base := out.TotalEUR
+	if energyPriced(out) {
+		base = out.WithFuelEUR
+	}
+	out.TripCostEUR = round2(base + out.DriverEUR + out.VehicleEUR)
+	var parts []string
+	if req.DriverEURPerH > 0 {
+		parts = append(parts, fmt.Sprintf("the driver %.2f h x EUR %g (%s)", out.Trip.Hours, req.DriverEURPerH, out.Trip.HoursBasis))
+	}
+	if req.VehicleEURPerKm > 0 {
+		parts = append(parts, fmt.Sprintf("the vehicle %.1f road km x EUR %g", out.Trip.RoadKm, req.VehicleEURPerKm))
+	}
+	out.Notes = append(out.Notes, "Trip cost: the charges, the energy and the running costs given: "+strings.Join(parts, ", ")+".")
 }

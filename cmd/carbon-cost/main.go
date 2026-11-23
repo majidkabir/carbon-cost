@@ -169,6 +169,9 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
+	fs.IntVar(&req.Alternatives, "alternatives", 0, "price up to this many routes of each leg (2 to 5): Sootcase's and its alternatives, listed under Routes")
+	fs.StringVar(&req.Route, "route", "", "the route to price: primary (default), cheapest (the lowest charges and diesel), or a route's id from Routes (alt1; leg2:alt1 on a trip with stops)")
+	avoidFerries := fs.Bool("avoid-ferries", false, "route on land only")
 	fs.StringVar(&req.FerryETSBasis, "ferry-ets-basis", "", "a ferry's EU ETS: \"surcharge\" (default: its line's published surcharge where it has one) or \"emissions\" (the cargo's share of the ships' emissions)")
 	fs.Float64Var(&req.FerryETSShare, "ferry-ets-share", 0, "share of ferry emissions under the ETS on a crossing the tool doesn't know (default 1; 0.5 to/from a non-EEA port)")
 	fs.Float64Var(&req.ETS2EurPerT, "ets2", 0, "ETS2 allowance price, EUR/t, for trips from 2028")
@@ -176,6 +179,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
 	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
+	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France: EUR 0.1556 per litre for trucks of 7.5 t or more)")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
@@ -194,7 +198,13 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.BoolVar(&req.ETC, "etc", false, "pays tolls by electronic toll device or agreement (operators' discounts)")
 	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
 	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
-	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times (Regulation (EC) No 561/2006)")
+	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times and the trip's time (Regulation (EC) No 561/2006)")
+	fs.StringVar(&req.Currency, "currency", "", "also give the totals in this currency (DKK, PLN, SEK, ...), at the rate its charges are converted at: the ECB's of the trip's date, or -fx")
+	fs.Float64Var(&req.KWhPer100Km, "kwh-per-100km", 0, "an electric truck's (CO2 class 5) kWh per 100 km, for its electricity and class 5 in -compare")
+	fs.Float64Var(&req.ElectricityKWh, "electricity-kwh", 0, "kWh an electric truck used on the trip (rFMS totalElectricEnergyUsed, charging records)")
+	fs.Float64Var(&req.ElectricityEURPerKWh, "electricity-price", 0, "what an electric truck pays per kWh, EUR without VAT")
+	fs.Float64Var(&req.DriverEURPerH, "driver-eur-h", 0, "the driver's cost, EUR per hour of driving: adds a trip cost (charges, diesel, driver, vehicle), which -route cheapest compares")
+	fs.Float64Var(&req.VehicleEURPerKm, "vehicle-eur-km", 0, "the truck's own cost, EUR per road km (tyres, maintenance, depreciation): adds to the trip cost")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
 	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
@@ -215,6 +225,9 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 		for _, cc := range slices.Sorted(maps.Keys(m)) {
 			req.FuelPurchases = append(req.FuelPurchases, cost.FuelPurchase{Country: cc, Litres: m[cc]})
 		}
+	}
+	if *avoidFerries {
+		req.Ferry = "avoid"
 	}
 	if *dprice != "" {
 		if err := dieselPriceFlag(&req, *dprice); err != nil {
@@ -318,6 +331,9 @@ func rfmsFlags(req *cost.Request, opts *calcOpts, names []string, vin string, co
 	}
 	if t.DieselL > 0 && req.DieselL == 0 && req.LPer100Km == 0 && len(req.FuelPurchases) == 0 {
 		req.DieselL = math.Round(t.DieselL*1000) / 1000
+	}
+	if t.KWh > 0 && req.ElectricityKWh == 0 && req.KWhPer100Km == 0 {
+		req.ElectricityKWh = math.Round(t.KWh*1000) / 1000
 	}
 	if req.Date == "" && !t.From.IsZero() {
 		req.Date = t.From.Format("2006-01-02")
@@ -535,14 +551,78 @@ func printResult(r cost.Response) {
 		if !f.Complete {
 			inc = " (incomplete)"
 		}
+		if f.RefundEUR > 0 {
+			inc += fmt.Sprintf(" after EUR %.2f of excise refunds", f.RefundEUR)
+		}
 		fmt.Printf("Fuel: EUR %.2f without VAT%s (%s); with fuel: EUR %.2f (the CO2 prices on fuel, EUR %.2f, are in the diesel price)\n",
 			f.EUR, inc, strings.Join(parts, ", "), r.WithFuelEUR, f.InPriceEUR)
+	}
+	if e := r.Electricity; e != nil {
+		fmt.Printf("Electricity: EUR %.2f without VAT (%.1f kWh x %g, %s); with electricity: EUR %.2f\n", e.EUR, e.KWh, e.EURPerKWh, e.Basis, r.WithFuelEUR)
+	}
+	if r.Trip != nil && r.Trip.Hours > 0 {
+		rest := ""
+		if r.Trip.ElapsedH > r.Trip.Hours {
+			rest = fmt.Sprintf("; %.2f h with breaks and rests", r.Trip.ElapsedH)
+		}
+		fmt.Printf("Driving: %.2f h (%s)%s\n", r.Trip.Hours, r.Trip.HoursBasis, rest)
+	}
+	if r.TripCostEUR > 0 {
+		fmt.Printf("Trip cost: EUR %.2f (driver EUR %.2f, vehicle EUR %.2f)\n", r.TripCostEUR, r.DriverEUR, r.VehicleEUR)
+	}
+	if c := r.InCurrency; c != nil {
+		extra := ""
+		if c.WithFuel > 0 {
+			extra += fmt.Sprintf(", with the energy %.2f", c.WithFuel)
+		}
+		if c.TripCost > 0 {
+			extra += fmt.Sprintf(", trip cost %.2f", c.TripCost)
+		}
+		fmt.Printf("In %s: %.2f, of which carbon %.2f%s (%g per EUR, %s)\n", c.Currency, c.Total, c.Carbon, extra, c.PerEUR, c.Rate)
 	}
 	if r.EURPerTkm > 0 {
 		fmt.Printf("Per tonne-km: EUR %.4f, of which carbon EUR %.4f\n", r.EURPerTkm, r.CarbonEURPerTkm)
 	}
 	if r.WTWKg > 0 {
 		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
+	}
+	if len(r.Routes) > 0 {
+		fmt.Println()
+		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
+		tc := r.TripCostEUR > 0
+		if tc {
+			fmt.Fprintln(w, "Route\tkm\tHours\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tTrip cost EUR\tDifference\t")
+		} else {
+			fmt.Fprintln(w, "Route\tkm\tHours\tFerries\tRoads\tCharges EUR\tWith diesel EUR\tDifference\t")
+		}
+		for _, o := range r.Routes {
+			id := o.ID
+			if o.Chosen {
+				id += " *"
+			}
+			if o.Error != "" {
+				fmt.Fprintf(w, "%s\t\t\t\t%s\t\t\t\n", id, o.Error)
+				continue
+			}
+			ferries := strings.Join(o.Ferries, ", ")
+			if ferries == "" {
+				ferries = "none"
+			}
+			roads := strings.Join(o.Roads, " ")
+			if len(roads) > 40 {
+				roads = roads[:40] + "…"
+			}
+			inc := ""
+			if !o.Complete {
+				inc = " (incomplete)"
+			}
+			if tc {
+				fmt.Fprintf(w, "%s\t%.1f\t%.2f\t%s\t%s\t%.2f%s\t%.2f\t%.2f\t%+.2f\t\n", id, o.DistanceKm, o.Hours, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.TripCostEUR, o.DiffEUR)
+			} else {
+				fmt.Fprintf(w, "%s\t%.1f\t%.2f\t%s\t%s\t%.2f%s\t%.2f\t%+.2f\t\n", id, o.DistanceKm, o.Hours, ferries, roads, o.TotalEUR, inc, o.WithFuelEUR, o.DiffEUR)
+			}
+		}
+		w.Flush()
 	}
 	if len(r.Shipments) > 1 {
 		fmt.Println()
@@ -561,15 +641,27 @@ func printResult(r cost.Response) {
 	if len(r.Compare) > 0 {
 		fmt.Println()
 		w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', tabwriter.AlignRight)
-		fmt.Fprintln(w, "CO2 class\tTolls EUR\tTotal EUR\tCarbon EUR\tSaving/trip\tSaving/year\t")
+		fmt.Fprintln(w, "CO2 class\tTolls EUR\tTotal EUR\tCarbon EUR\tSaving/trip\tSaving/year\tEnergy EUR\tWith energy\tSaving/trip\tSaving/year\t")
+		opt := func(v *float64) string {
+			if v == nil {
+				return ""
+			}
+			return fmt.Sprintf("%.2f", *v)
+		}
 		for _, c := range r.Compare {
 			year := ""
 			if c.SavingPerYearEUR != 0 {
 				year = fmt.Sprintf("%.2f", c.SavingPerYearEUR)
 			}
-			fmt.Fprintf(w, "%d\t%.2f\t%.2f\t%.2f\t%.2f\t%s\t\n", c.CO2Class, c.TollEUR, c.TotalEUR, c.CarbonEUR, c.SavingEUR, year)
+			energy, with := "", ""
+			if c.WithFuelEUR > 0 {
+				energy, with = fmt.Sprintf("%.2f", c.EnergyEUR), fmt.Sprintf("%.2f", c.WithFuelEUR)
+			}
+			fmt.Fprintf(w, "%d\t%.2f\t%.2f\t%.2f\t%.2f\t%s\t%s\t%s\t%s\t%s\t\n", c.CO2Class, c.TollEUR, c.TotalEUR, c.CarbonEUR, c.SavingEUR, year,
+				energy, with, opt(c.SavingWithFuelEUR), opt(c.SavingWithFuelPerYearEUR))
 		}
 		w.Flush()
+		fmt.Println("Energy: the diesel, or an electric truck's electricity at -kwh-per-100km and -electricity-price (blank without them).")
 	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)

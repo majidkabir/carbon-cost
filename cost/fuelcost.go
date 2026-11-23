@@ -126,7 +126,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	out.WithFuelEUR = round2(out.TotalEUR + f.EUR - f.InPriceEUR)
 	note := fmt.Sprintf("Fuel: %.1f l of diesel at EUR %.2f without VAT", f.Litres, f.EUR)
 	if usedB {
-		note += fmt.Sprintf("; prices: the EU's Weekly Oil Bulletin of %s, national average pump prices without VAT (fleet cards, bulk deals and professional diesel refunds are often lower: give diesel_eur_per_l, or diesel_eur_per_l_by_country, for yours)", b.Date)
+		note += fmt.Sprintf("; prices: the EU's Weekly Oil Bulletin of %s, national average pump prices without VAT (fleet cards and bulk deals are often lower: give diesel_eur_per_l, or diesel_eur_per_l_by_country, for yours)", b.Date)
 		if latest {
 			note += "; the trip's week has no bulletin in this release, so the latest is used"
 		}

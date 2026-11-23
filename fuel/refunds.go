@@ -37,12 +37,12 @@ type Refund struct {
 // diesel_eur_per_l_by_country net of their refund.
 var Refunds = []Refund{
 	{Country: "SI", From: "2024-01-01", Floor: 0.33, MinMassKg: 7500,
-		Note:  "the excise above the EU minimum, EUR 330 per 1,000 litres (FURS takes the month's average excise; this the one in force on the day)",
+		Note:  "FURS takes the month's average excise; this is the one in force on the day",
 		Law:   "Zakon o trošarinah (ZTro-1), 95. člen: the month's average excise on diesel less the minimum of Directive 2003/96/EC, art. 7",
 		Title: "Finančna uprava Republike Slovenije: Vračilo trošarine za komercialni prevoz",
 		URL:   "https://www.fu.gov.si/poslovni_dogodki_podjetja/vracilo_trosarine_za_komercialni_prevoz/"},
 	{Country: "HR", From: "2024-01-01", Floor: 0.33, MinMassKg: 7500,
-		Note:  "the excise above the EU minimum, EUR 330 per 1,000 litres; on diesel paid for cashless in Croatia",
+		Note:  "on diesel paid for cashless in Croatia",
 		Law:   "Zakon o trošarinama (Narodne novine 106/2018), čl. 104: the excise on diesel less the EU minimum of EUR 330 per 1,000 litres",
 		Title: "Narodne novine 2019: Pravilnik o ostvarivanju prava na povrat dijela plaćene trošarine za dizelsko gorivo u komercijalnom prijevozu robe i putnika",
 		URL:   "https://narodne-novine.nn.hr/clanci/sluzbeni/2019_02_12_241.html"},
@@ -92,7 +92,7 @@ var Refunds = []Refund{
 		Title: "Diputación Foral de Bizkaia: Gasóleo profesional",
 		URL:   "https://www.bizkaia.eus/es/gasoleo-profesional"},
 	{Country: "IT", From: "2024-01-01", Floor: 0.40322, MinMassKg: 7500, MinEuro: 5,
-		Note:  "the excise above EUR 403.22 per 1,000 litres, by the day it changed",
+		Note:  "Euro V and VI; the Customs and Monopolies Agency refunds by the day the excise changed",
 		Law:   "Decreto legislativo 504/1995, art. 24-ter and Tabella A, punto 4-bis: the excise on commercial gas oil, EUR 403.22 per 1,000 litres",
 		Title: "Agenzia delle Dogane e dei Monopoli: Benefici sul gasolio commerciale utilizzato nel settore del trasporto (informativa, prot. 0611759, 26 September 2025)",
 		URL:   "https://www.bo.cna.it/wp-content/uploads/2025/10/ACCISA-CIRCOLARE-ADM-PROT-0611759-DEL-26-SETTEMBRE-2025.pdf"},

@@ -1,7 +1,8 @@
 name: History data
 # Fetches the ECB's euro reference rates since 1999, the National Bank of
 # Serbia's dinar rates and the Bank of Albania's lek rates since 2024, the
-# EU's Weekly Oil Bulletin (fuel/data/wob-diesel.csv), and
+# EU's Weekly Oil Bulletin (fuel/data/wob-diesel.csv), Eurostat's
+# electricity prices for businesses (fuel/data/eurostat-power.csv), and
 # the official texts behind the historical rate tables
 # (tools/history/sources.json), builds fx/data/ecb-hist.csv,
 # fx/data/nbs-eur-rsd.csv, fx/data/boa-eur-all.csv and the historical
@@ -52,6 +53,19 @@ jobs:
             python3 tools/history/wob.py wob.xlsx out/fuel/wob-diesel.csv out/fuel/wob-diesel-duties.csv || echo "::warning title=wob::the Weekly Oil Bulletin wasn't read"
           else
             echo "::warning title=wob::the Weekly Oil Bulletin wasn't fetched"
+          fi
+      - name: Eurostat's electricity prices for businesses
+        # Each country's average price per kWh for non-household consumers
+        # (band 500-2,000 MWh a year), without VAT, by half year: an
+        # electric truck's energy when no price is given.
+        run: |
+          mkdir -p out/fuel
+          if curl -fsSL --retry 6 --retry-delay 60 --retry-all-errors -A "carbon-cost (github.com/majidkabir/carbon-cost)" -o power.json \
+              "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_205?format=JSON&lang=en&nrg_cons=MWH500-1999&tax=X_VAT&currency=EUR&unit=KWH"; then
+            python3 -c "import json; d=json.load(open('power.json')); print('dims:', d['id'], d['size'])" || true
+            python3 tools/history/eurostat_power.py power.json out/fuel/eurostat-power.csv || echo "::warning title=eurostat::the electricity prices weren't read"
+          else
+            echo "::warning title=eurostat::the electricity prices weren't fetched"
           fi
       - name: Fetch
         # Internet Archive copies the last run fetched aren't asked for again

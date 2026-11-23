@@ -4,14 +4,18 @@ https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en): each
 EU country's national average pump price of automotive gas oil (diesel)
 on each bulletin's Monday from FROM on, in EUR per litre without VAT.
 
-Usage: python3 wob.py history.xlsx out.csv [duties.csv]
+Usage: python3 wob.py history.xlsx out.csv [duties.csv [excise.csv]]
 
 With duties.csv, and when the workbook has a sheet of the prices without
 taxes, it also writes each country's duties and taxes other than VAT on
 diesel, EUR per litre: the price with taxes / (1 + VAT) less the price
 without taxes. Some countries refund hauliers the excise above a floor
 set by law (Italy: EUR 403.22 per 1,000 litres), so the refund follows
-these. It prints the workbook's sheets, to see what the bulletin gives.
+these. With excise.csv, it writes each country's excise duty on diesel
+from the sheet "Excise duties", in national currency per litre (EUR but
+for BG before 2026, CZ, DK, HU, PL, RO and SE), by the day it changed:
+Slovenia and Croatia refund the excise above the EU minimum. It prints
+the workbook's sheets, to see what the bulletin gives.
 
 The bulletin's sheet "Prices with taxes" gives the price with all duties
 and taxes, in EUR per 1,000 litres, a column per country
@@ -115,6 +119,31 @@ def duties(wb, vat, out):
         print("duties:", len(keep), "bulletins from", keep[0][0], "to", keep[-1][0], "for", len(used), "countries")
 
 
+def excise(wb, out):
+    """Writes each country's excise duty on automotive diesel from the
+    sheet "Excise duties" (rows as in "VAT": a country's code on its
+    first row, "Since:" dates newest first, the diesel's rate in column
+    D, in national currency per 1,000 litres): a row for each day a rate
+    changed from FROM on (and the rates in force on FROM), each country's
+    rate in force from it, per litre."""
+    if "Excise duties" not in wb.sheetnames:
+        print("no sheet Excise duties: excise not written", file=sys.stderr)
+        return
+    rates = vat_table(wb["Excise duties"])
+    days = sorted({since for v in rates.values() for since, _ in v if since >= FROM} | {FROM})
+    countries = sorted(rates)
+    with open(out, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["date"] + countries)
+        for day in days:
+            row = []
+            for cc in countries:
+                r = rate_on(rates[cc], day)
+                row.append("" if r is None else f"{r / 1000:.5f}")
+            w.writerow([day.isoformat()] + row)
+    print("excise:", len(days), "days from", days[0], "to", days[-1], "for", len(countries), "countries")
+
+
 def show(wb, names, rows=8):
     """Prints the first rows of sheets the builder doesn't read yet, to see
     what the bulletin gives (the History data run's log)."""
@@ -128,13 +157,15 @@ def show(wb, names, rows=8):
             print("  ", [v for v in row[:14]])
 
 
-def main(src, out, duties_out=None):
+def main(src, out, duties_out=None, excise_out=None):
     wb = openpyxl.load_workbook(src, read_only=True, data_only=True)
     print("sheets:", wb.sheetnames)
-    show(wb, ["Excise duties", "Excise duties - components", "Other Indirect Taxes"])
+    show(wb, ["Other Indirect Taxes"])
     vat = vat_table(wb["VAT"])
     if duties_out:
         duties(wb, vat, duties_out)
+    if excise_out:
+        excise(wb, excise_out)
     ws = wb["Prices with taxes"]
     rows = ws.iter_rows(values_only=True)
     head = next(rows)

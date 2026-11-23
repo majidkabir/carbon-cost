@@ -204,7 +204,7 @@ if __name__ == "__main__":
     if sys.argv[1] == "--fx":
         fx(*sys.argv[2:])
     elif sys.argv[1] == "--fuel":
-        fx(*sys.argv[2:], files=("wob-diesel.csv", "wob-diesel-duties.csv", "eurostat-power.csv"), where="fuel")
+        fx(*sys.argv[2:], files=("wob-diesel.csv", "wob-diesel-duties.csv", "wob-diesel-excise.csv", "eurostat-power.csv"), where="fuel")
     elif sys.argv[1] == "--crossings":
         crossings(*sys.argv[2:])
         ets_surcharges(*sys.argv[2:])

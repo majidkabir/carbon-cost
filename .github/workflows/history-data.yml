@@ -72,17 +72,18 @@ jobs:
         # ones with their electric energy per km. Lists what the EEA serves,
         # to read it next.
         continue-on-error: true
+        timeout-minutes: 5
         run: |
           base=https://sdi.eea.europa.eu/webdav/datastore/public
           for d in eea_t_co2-emission-hdv_p_2023-2024_v01_r00 eea_t_co2-emission-hdv_p_2023-2024_v01_r01; do
             echo "== $d"
-            curl -fsSL --retry 3 -A "carbon-cost (github.com/majidkabir/carbon-cost)" "$base/$d/" | grep -o 'href="[^"]*"' | head -40 || true
+            curl -fsSL -m 60 -A "carbon-cost (github.com/majidkabir/carbon-cost)" "$base/$d/" | grep -o 'href="[^"]*"' | head -40 || true
           done
-          f=$(curl -fsSL "$base/eea_t_co2-emission-hdv_p_2023-2024_v01_r00/" | grep -o 'href="[^"]*"' | sed 's/href="//;s/"$//' | grep -iE 'csv|zip|txt' | grep -iv trailer | head -1)
+          f=$(curl -fsSL -m 60 "$base/eea_t_co2-emission-hdv_p_2023-2024_v01_r00/" | grep -o 'href="[^"]*"' | sed 's/href="//;s/"$//' | grep -iE 'csv|zip|txt' | grep -iv trailer | head -1)
           echo "file: $f"
           if [ -n "$f" ]; then
             case "$f" in http*) u="$f";; /*) u="https://sdi.eea.europa.eu$f";; *) u="$base/eea_t_co2-emission-hdv_p_2023-2024_v01_r00/$f";; esac
-            curl -fsSL -r 0-4000 "$u" | head -c 4000 | cat -v | head -20 || true
+            curl -fsSL -m 60 -r 0-4000 "$u" | head -c 4000 | cat -v | head -20 || true
           fi
       - name: Fetch
         # Internet Archive copies the last run fetched aren't asked for again

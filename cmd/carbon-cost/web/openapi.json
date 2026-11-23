@@ -115,13 +115,18 @@
      },
      "kwh": {
       "type": "number"
+     },
+     "price": {
+      "description": "Price says where the price comes from: \"given\", or Eurostat's average for businesses where the trip runs.",
+      "type": "string"
      }
     },
     "required": [
      "basis",
      "eur",
      "eur_per_kwh",
-     "kwh"
+     "kwh",
+     "price"
     ],
     "type": "object"
    },
@@ -579,7 +584,7 @@
       "type": "number"
      },
      "electricity_kwh": {
-      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT. KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
+      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT (blank: Eurostat's average for businesses where it charges). KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
       "type": "number"
      },
      "env_zone_km": {

@@ -3,6 +3,7 @@ package cost
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strings"
 	"time"
 
@@ -88,7 +89,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds EUR %g per litre (%s; %s)", cc, rf.EURPerL, rf.Law, rf.Note))
 				addSource(out, rates.Source{Title: rf.Title, URL: rf.URL})
 				if rf.Floor > 0 {
-					addSource(out, rates.Source{Title: fuel.DutiesSource, URL: fuel.URL})
+					addSource(out, rates.Source{Title: fuel.ExciseSource, URL: fuel.URL})
 				}
 			case eligible:
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds hauliers EUR %g per litre of the excise (%s): set diesel_refunds to count it", cc, rf.EURPerL, rf.Law))
@@ -149,13 +150,18 @@ type ElectricityCost struct {
 	KWh       float64 `json:"kwh"`
 	Basis     string  `json:"basis"`
 	EURPerKWh float64 `json:"eur_per_kwh"`
-	EUR       float64 `json:"eur"`
+	// Price says where the price comes from: "given", or Eurostat's
+	// average for businesses where the trip runs.
+	Price string  `json:"price"`
+	EUR   float64 `json:"eur"`
 }
 
 // electricityCost prices a zero-emission truck's electricity: the kWh
-// used (electricity_kwh), or kwh_per_100km over the road km, at
-// electricity_eur_per_kwh. There is no default: give the truck's own.
-func electricityCost(out *Response, req Request) {
+// used (electricity_kwh), or kwh_per_100km over the road km (no default:
+// give the truck's own), at electricity_eur_per_kwh, else at Eurostat's
+// average price for businesses in the countries where it charges (as
+// fuel is bought: fuel_purchases, fuel_country, else along the route).
+func electricityCost(out *Response, req Request, date time.Time) {
 	if out.Trip == nil || req.Truck.CO2Class != 5 && !req.noFuel {
 		return
 	}
@@ -166,19 +172,67 @@ func electricityCost(out *Response, req Request) {
 	case req.KWhPer100Km > 0:
 		e.KWh, e.Basis = out.Trip.RoadKm*req.KWhPer100Km/100, fmt.Sprintf("kwh_per_100km: %g (given) x %.1f road km", req.KWhPer100Km, out.Trip.RoadKm)
 	}
-	if e.KWh <= 0 || req.ElectricityEURPerKWh <= 0 {
+	if e.KWh <= 0 {
 		if !req.noFuel {
-			out.Notes = append(out.Notes, "Electricity: not priced; give electricity_kwh or kwh_per_100km, and electricity_eur_per_kwh, for the electric truck's energy.")
+			out.Notes = append(out.Notes, "Electricity: not priced; give electricity_kwh or kwh_per_100km for the electric truck's energy.")
 		}
 		return
 	}
-	e.KWh, e.EURPerKWh = round2(e.KWh), req.ElectricityEURPerKWh
+	e.EURPerKWh, e.Price = req.ElectricityEURPerKWh, "given"
+	if e.EURPerKWh <= 0 {
+		e.EURPerKWh, e.Price = powerPrice(out, req, date)
+		if e.EURPerKWh <= 0 {
+			if !req.noFuel {
+				out.Notes = append(out.Notes, "Electricity: not priced; Eurostat has no price for where the truck charges: give electricity_eur_per_kwh.")
+			}
+			return
+		}
+		addSource(out, rates.Source{Title: fuel.PowerSource, URL: fuel.PowerURL})
+	}
+	e.KWh = round2(e.KWh)
 	e.EUR = round2(e.KWh * e.EURPerKWh)
 	out.Electricity = &e
 	out.WithFuelEUR = round2(out.TotalEUR + e.EUR)
 	if !req.noFuel {
-		out.Notes = append(out.Notes, fmt.Sprintf("Electricity: %.1f kWh (%s) at EUR %g per kWh without VAT: EUR %.2f.", e.KWh, e.Basis, e.EURPerKWh, e.EUR))
+		out.Notes = append(out.Notes, fmt.Sprintf("Electricity: %.1f kWh (%s) at EUR %g per kWh without VAT (%s): EUR %.2f.", e.KWh, e.Basis, e.EURPerKWh, e.Price, e.EUR))
 	}
+}
+
+// powerPrice is Eurostat's average electricity price for businesses,
+// without VAT, in the countries where the truck charges, by their shares;
+// countries Eurostat has no price for are left out of the average.
+func powerPrice(out *Response, req Request, date time.Time) (float64, string) {
+	b, latest, ok := fuel.PowerOn(date)
+	if !ok {
+		return 0, ""
+	}
+	var p, covered float64
+	var missing []string
+	share := fuelShares(req, out.CountryKm)
+	ccs := make([]string, 0, len(share))
+	for cc := range share {
+		ccs = append(ccs, cc)
+	}
+	sort.Strings(ccs)
+	for _, cc := range ccs {
+		if v := b.EURPerL[cc]; v > 0 {
+			p += share[cc] * v
+			covered += share[cc]
+		} else {
+			missing = append(missing, cc)
+		}
+	}
+	if covered == 0 {
+		return 0, ""
+	}
+	basis := fmt.Sprintf("Eurostat's average for businesses from %s in %s", b.Date, strings.Join(ccs, ", "))
+	if latest {
+		basis += ", the latest half year published"
+	}
+	if len(missing) > 0 {
+		basis += "; none for " + strings.Join(missing, ", ")
+	}
+	return math.Round(p/covered*10000) / 10000, basis
 }
 
 // energyPriced: the truck's energy, diesel or electricity, has a price,

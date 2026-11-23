@@ -202,7 +202,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.StringVar(&req.Currency, "currency", "", "also give the totals in this currency (DKK, PLN, SEK, ...), at the rate its charges are converted at: the ECB's of the trip's date, or -fx")
 	fs.Float64Var(&req.KWhPer100Km, "kwh-per-100km", 0, "an electric truck's (CO2 class 5) kWh per 100 km, for its electricity and class 5 in -compare")
 	fs.Float64Var(&req.ElectricityKWh, "electricity-kwh", 0, "kWh an electric truck used on the trip (rFMS totalElectricEnergyUsed, charging records)")
-	fs.Float64Var(&req.ElectricityEURPerKWh, "electricity-price", 0, "what an electric truck pays per kWh, EUR without VAT")
+	fs.Float64Var(&req.ElectricityEURPerKWh, "electricity-price", 0, "what an electric truck pays per kWh, EUR without VAT (blank: Eurostat's average for businesses where it charges)")
 	fs.Float64Var(&req.DriverEURPerH, "driver-eur-h", 0, "the driver's cost, EUR per hour of driving: adds a trip cost (charges, diesel, driver, vehicle), which -route cheapest compares")
 	fs.Float64Var(&req.VehicleEURPerKm, "vehicle-eur-km", 0, "the truck's own cost, EUR per road km (tyres, maintenance, depreciation): adds to the trip cost")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
@@ -661,7 +661,7 @@ func printResult(r cost.Response) {
 				energy, with, opt(c.SavingWithFuelEUR), opt(c.SavingWithFuelPerYearEUR))
 		}
 		w.Flush()
-		fmt.Println("Energy: the diesel, or an electric truck's electricity at -kwh-per-100km and -electricity-price (blank without them).")
+		fmt.Println("Energy: the diesel, or an electric truck's electricity at -kwh-per-100km (blank without it) and -electricity-price or Eurostat's average for businesses.")
 	}
 	for _, n := range r.Notes {
 		fmt.Println("- " + n)

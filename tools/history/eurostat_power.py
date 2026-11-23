@@ -41,7 +41,7 @@ def main(src, out):
         for k, st, n in zip(ids, strides, size):
             coord[k] = pos[k][(flat // st) % n]
         geo, t = coord["geo"], coord["time"]
-        if len(geo) != 2 or t < FROM or v is None:
+        if len(geo) != 2 or geo in ("EA", "EU") or t < FROM or v is None:
             continue
         year, half = t.split("-S")
         day = f"{year}-{'01' if half == '1' else '07'}-01"

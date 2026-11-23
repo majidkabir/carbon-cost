@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fuel"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
@@ -4134,5 +4135,23 @@ func TestCurrency(t *testing.T) {
 	}
 	if err := check(Request{Currency: "dkk", CargoKg: 1}); err == nil {
 		t.Error("lower-case currency: want an error")
+	}
+}
+
+func TestElectricityDefaultPrice(t *testing.T) {
+	day := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	ev := Request{CargoKg: 20000, Truck: truck40, KWhPer100Km: 120}
+	ev.Truck.CO2Class = 5
+	r, err := Price(cphHam, all(t), ev, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Eurostat's prices of the first half of 2026 in DK and DE, by road km.
+	b, _, _ := fuel.PowerOn(day)
+	km := r.CountryKm
+	want := math.Round((km["DK"]*b.EURPerL["DK"]+km["DE"]*b.EURPerL["DE"])/(km["DK"]+km["DE"])*10000) / 10000
+	e := r.Electricity
+	if e == nil || e.EURPerKWh != want || !strings.Contains(e.Price, "Eurostat") || !strings.Contains(e.Price, "2026-01-01") || r.WithFuelEUR != round2(r.TotalEUR+e.EUR) {
+		t.Errorf("default price: %+v, want %v", e, want)
 	}
 }

@@ -23,6 +23,20 @@ var dieselCSV []byte
 //go:embed data/wob-diesel-duties.csv
 var dutiesCSV []byte
 
+//go:embed data/wob-diesel-excise.csv
+var exciseCSV []byte
+
+//go:embed data/eurostat-power.csv
+var powerCSV []byte
+
+// ExciseSource and PowerSource name the excise rates and the electricity
+// prices, for notes.
+const (
+	ExciseSource = "European Commission, Weekly Oil Bulletin: excise duties on automotive gas oil, in national currency"
+	PowerSource  = "Eurostat, electricity prices for non-household consumers (nrg_pc_205), band 500-2,000 MWh a year, without VAT and other recoverable taxes and levies"
+	PowerURL     = "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_205/default/table"
+)
+
 // Source names the prices, for notes.
 const Source = "European Commission, Weekly Oil Bulletin: national average pump prices of automotive gas oil, without VAT"
 
@@ -46,7 +60,12 @@ type series struct {
 	err       error
 }
 
-var prices, duties = &series{csv: dieselCSV}, &series{csv: dutiesCSV}
+var (
+	prices = &series{csv: dieselCSV}
+	duties = &series{csv: dutiesCSV}
+	excise = &series{csv: exciseCSV}
+	power  = &series{csv: powerCSV}
+)
 
 func (s *series) load() {
 	recs, err := csv.NewReader(bytes.NewReader(s.csv)).ReadAll()
@@ -75,6 +94,16 @@ func On(day time.Time) (b Bulletin, latest, ok bool) { return prices.on(day) }
 
 // DutiesOn is the duties other than VAT in force on a day, as On.
 func DutiesOn(day time.Time) (b Bulletin, latest, ok bool) { return duties.on(day) }
+
+// ExciseOn is each country's excise duty on diesel in force on a day, per
+// litre in its national currency (EUR but for BG before 2026, CZ, DK, HU,
+// PL, RO and SE): Bulletin.Date is the day the newest rate took effect.
+func ExciseOn(day time.Time) (b Bulletin, latest, ok bool) { return excise.on(day) }
+
+// PowerOn is each country's electricity price for businesses in force on
+// a day, EUR per kWh without VAT: Bulletin.Date is the half year's first
+// day (Eurostat publishes about five months after it ends).
+func PowerOn(day time.Time) (b Bulletin, latest, ok bool) { return power.on(day) }
 
 func (s *series) on(day time.Time) (b Bulletin, latest, ok bool) {
 	s.once.Do(s.load)

@@ -397,6 +397,17 @@ func TestDieselRefunds(t *testing.T) {
 	if r, err = PriceWith(res, all(t), nil, small, day); err != nil || r.Fuel.RefundEUR != 0 {
 		t.Errorf("7 t truck: %v %+v", err, r.Fuel)
 	}
+	// Italy: the excise above EUR 403.22 per 1,000 l (0.6329 in the
+	// bulletin of 16 November 2026), Euro V and VI only.
+	it := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"IT": 300}}}}
+	if r, err = PriceWith(it, all(t), nil, req, day); err != nil || r.Fuel.RefundEUR != 22.97 || !strings.Contains(r.Fuel.ByCountry[0].Refund, "24-ter") {
+		t.Errorf("IT: %v %+v", err, r.Fuel)
+	}
+	old := req
+	old.Truck.Euro = 4
+	if r, err = PriceWith(it, all(t), nil, old, day); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("IT, Euro IV: %v %+v", err, r.Fuel)
+	}
 	// None before 2025 in the table.
 	if r, err = PriceWith(res, all(t), nil, req, time.Date(2024, 6, 3, 0, 0, 0, 0, time.UTC)); err != nil || r.Fuel.RefundEUR != 0 {
 		t.Errorf("2024: %v %+v", err, r.Fuel)

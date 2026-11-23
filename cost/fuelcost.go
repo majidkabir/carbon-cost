@@ -79,11 +79,16 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 {
 			eligible := req.Truck.MaxMassKg >= rf.MinMassKg && req.Truck.Euro >= rf.MinEuro
 			switch {
+			case eligible && rf.EURPerL == 0:
+				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds nothing on this day (%s: %s)", cc, rf.Law, rf.Note))
 			case req.DieselRefunds && eligible:
 				fb.RefundEURPerL, fb.Refund = rf.EURPerL, rf.Law
 				f.RefundEUR += l * rf.EURPerL
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds EUR %g per litre (%s; %s)", cc, rf.EURPerL, rf.Law, rf.Note))
 				addSource(out, rates.Source{Title: rf.Title, URL: rf.URL})
+				if rf.Floor > 0 {
+					addSource(out, rates.Source{Title: fuel.DutiesSource, URL: fuel.URL})
+				}
 			case eligible:
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds hauliers EUR %g per litre of the excise (%s): set diesel_refunds to count it", cc, rf.EURPerL, rf.Law))
 			}

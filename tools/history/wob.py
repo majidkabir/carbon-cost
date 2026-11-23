@@ -115,9 +115,23 @@ def duties(wb, vat, out):
         print("duties:", len(keep), "bulletins from", keep[0][0], "to", keep[-1][0], "for", len(used), "countries")
 
 
+def show(wb, names, rows=8):
+    """Prints the first rows of sheets the builder doesn't read yet, to see
+    what the bulletin gives (the History data run's log)."""
+    for name in names:
+        if name not in wb.sheetnames:
+            continue
+        print(f"sheet {name!r}:")
+        for i, row in enumerate(wb[name].iter_rows(values_only=True)):
+            if i >= rows:
+                break
+            print("  ", [v for v in row[:14]])
+
+
 def main(src, out, duties_out=None):
     wb = openpyxl.load_workbook(src, read_only=True, data_only=True)
     print("sheets:", wb.sheetnames)
+    show(wb, ["Excise duties", "Excise duties - components", "Other Indirect Taxes"])
     vat = vat_table(wb["VAT"])
     if duties_out:
         duties(wb, vat, duties_out)

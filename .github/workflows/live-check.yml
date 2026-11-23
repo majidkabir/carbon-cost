@@ -140,6 +140,9 @@ jobs:
             run cph-ham-routes -from DKCPH -to DEHAM -alternatives 3
             run cph-ham-cheapest -from DKCPH -to DEHAM -route cheapest
             run cph-ham-land -from DKCPH -to DEHAM -avoid-ferries
+            # The truck's running costs choose the route; totals in DKK; an
+            # electric truck at 120 kWh/100 km and Eurostat's price.
+            run cph-ham-costs -from DKCPH -to DEHAM -route cheapest -driver-eur-h 35 -vehicle-eur-km 0.45 -currency DKK -compare 1,5 -kwh-per-100km 120
           elif [ "${{ matrix.name }}" = hu ]; then
             # Against NÚSZ's Útdíj kalkulátor: Győr to Tatabánya, J4, EURO6, HUF 12 946
             # gross (infrastructure 10 511, external costs 2 435; tools/tables/browser/hu-utdijkalkulacio.txt).
@@ -206,9 +209,11 @@ jobs:
             run slovenia-border-zagreb -from 45.8470,15.6850 -to 45.8150,15.9819
             run rijeka-pula -from 45.3271,14.4422 -to 44.8666,13.8496
             run zagreb-split-etc -from 45.8150,15.9819 -to 43.5081,16.4402 -etc
+            run zagreb-split-refunds -from 45.8150,15.9819 -to 43.5081,16.4402 -diesel-refunds
           elif [ "${{ matrix.name }}" = fr ]; then
             run dijon-macon -from 47.3220,5.0415 -to 46.3069,4.8287
             run auxerre-beaune-2axles -from 47.7982,3.5673 -to 47.0260,4.8400 -axles 2 -mass-kg 18000
+            run dijon-macon-refunds -from 47.3220,5.0415 -to 46.3069,4.8287 -diesel-refunds
           elif [ "${{ matrix.name }}" = fr-south ]; then
             run aix-nice -from 43.5297,5.4474 -to 43.7102,7.2620
             run aix-nice-2axles -from 43.5297,5.4474 -to 43.7102,7.2620 -axles 2 -mass-kg 18000

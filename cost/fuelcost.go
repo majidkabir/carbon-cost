@@ -84,6 +84,9 @@ func fuelCost(out *Response, req Request, date time.Time) {
 				f.RefundEUR += l * rf.EURPerL
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds EUR %g per litre (%s; %s)", cc, rf.EURPerL, rf.Law, rf.Note))
 				addSource(out, rates.Source{Title: rf.Title, URL: rf.URL})
+				if rf.Floor > 0 {
+					addSource(out, rates.Source{Title: fuel.DutiesSource, URL: fuel.URL})
+				}
 			case eligible:
 				refundNotes = append(refundNotes, fmt.Sprintf("%s refunds hauliers EUR %g per litre of the excise (%s): set diesel_refunds to count it", cc, rf.EURPerL, rf.Law))
 			}

@@ -27,3 +27,27 @@ func TestOn(t *testing.T) {
 		t.Errorf("countries: %d", len(b.EURPerL))
 	}
 }
+
+func TestRefunds(t *testing.T) {
+	// Italy's excise on diesel: EUR 672.90 per 1,000 l from 1 January 2026,
+	// 472.90 from 19 March; the refund is what is above 403.22.
+	for _, c := range []struct {
+		day  string
+		want float64
+	}{{"2026-01-07", 0.2697}, {"2026-03-25", 0.0697}, {"2026-07-08", 0.2697}, {"2026-08-05", 0.1297}} {
+		r, ok := RefundOn("IT", day(c.day))
+		if !ok || r.EURPerL != c.want || r.MinEuro != 5 || r.MinMassKg != 7500 {
+			t.Errorf("IT %s: %v %+v", c.day, ok, r)
+		}
+	}
+	// France: EUR 15.56/hl, set by law.
+	if r, ok := RefundOn("FR", day("2026-11-18")); !ok || r.EURPerL != 0.1556 {
+		t.Errorf("FR: %v %+v", ok, r)
+	}
+	if _, ok := RefundOn("DE", day("2026-11-18")); ok {
+		t.Error("DE: want none")
+	}
+	if b, _, ok := DutiesOn(day("2026-11-18")); !ok || b.EURPerL["IT"] != 0.6329 {
+		t.Errorf("duties: %v %v", ok, b.EURPerL["IT"])
+	}
+}

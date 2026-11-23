@@ -183,7 +183,7 @@ def appended_days(a, b):
 
 def fx(new, data, files=None, where="fx"):
     """Publishes the History data workflow's exchange rate files
-    (fx/data/*.csv), or its diesel prices (fuel/data/wob-diesel.csv),
+    (fx/data/*.csv), or its diesel prices and duties (fuel/data/wob-diesel*.csv),
     that only add days: a past value changed, a column added or a day
     removed is left for review."""
     for name in files or FX_FILES:
@@ -204,7 +204,7 @@ if __name__ == "__main__":
     if sys.argv[1] == "--fx":
         fx(*sys.argv[2:])
     elif sys.argv[1] == "--fuel":
-        fx(*sys.argv[2:], files=("wob-diesel.csv",), where="fuel")
+        fx(*sys.argv[2:], files=("wob-diesel.csv", "wob-diesel-duties.csv"), where="fuel")
     elif sys.argv[1] == "--crossings":
         crossings(*sys.argv[2:])
         ets_surcharges(*sys.argv[2:])

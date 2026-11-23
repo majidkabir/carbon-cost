@@ -176,8 +176,9 @@ type Request struct {
 	// An electric truck's (CO2 class 5) energy: ElectricityKWh used on the
 	// trip (from rFMS totalElectricEnergyUsed or charging records), or
 	// KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays
-	// per kWh without VAT. KWhPer100Km also prices the electricity of a
-	// class 5 truck in the comparison.
+	// per kWh without VAT (blank: Eurostat's average for businesses where
+	// it charges). KWhPer100Km also prices the electricity of a class 5
+	// truck in the comparison.
 	ElectricityKWh       float64 `json:"electricity_kwh,omitempty"`
 	KWhPer100Km          float64 `json:"kwh_per_100km,omitempty"`
 	ElectricityEURPerKWh float64 `json:"electricity_eur_per_kwh,omitempty"`
@@ -956,7 +957,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	out.Complete = len(out.Missing) == 0
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
 	fuelCost(&out, req, date)
-	electricityCost(&out, req)
+	electricityCost(&out, req, date)
 	if err := compare(&out, res, set, fd, req, date); err != nil {
 		return Response{}, err
 	}

@@ -11,8 +11,8 @@ import (
 // EUR per litre bought there, for trucks of at least MinMassKg (their
 // technically permissible maximum laden mass) and Euro class MinEuro,
 // from From to To (inclusive; "" open). The rate is EURPerL, set by law;
-// or, where the law refunds the excise above a floor, the Weekly Oil
-// Bulletin's duties of the week less Floor.
+// or, where the law refunds the excise above a floor, the excise in force
+// (the Weekly Oil Bulletin's) less Floor, for countries on the euro.
 type Refund struct {
 	Country  string
 	From, To string
@@ -36,8 +36,13 @@ type Refund struct {
 // excise. Other countries' refunds aren't here yet: give
 // diesel_eur_per_l_by_country net of their refund.
 var Refunds = []Refund{
+	{Country: "SI", From: "2024-01-01", Floor: 0.33, MinMassKg: 7500,
+		Note:  "the excise above the EU minimum, EUR 330 per 1,000 litres (FURS takes the month's average excise; this the one in force on the day)",
+		Law:   "Zakon o trošarinah (ZTro-1), 95. člen: the month's average excise on diesel less the minimum of Directive 2003/96/EC, art. 7",
+		Title: "Finančna uprava Republike Slovenije: Vračilo trošarine za komercialni prevoz",
+		URL:   "https://www.fu.gov.si/poslovni_dogodki_podjetja/vracilo_trosarine_za_komercialni_prevoz/"},
 	{Country: "HR", From: "2024-01-01", Floor: 0.33, MinMassKg: 7500,
-		Note:  "the excise of the bulletin's week above the EU minimum, EUR 330 per 1,000 litres; on diesel paid for cashless in Croatia",
+		Note:  "the excise above the EU minimum, EUR 330 per 1,000 litres; on diesel paid for cashless in Croatia",
 		Law:   "Zakon o trošarinama (Narodne novine 106/2018), čl. 104: the excise on diesel less the EU minimum of EUR 330 per 1,000 litres",
 		Title: "Narodne novine 2019: Pravilnik o ostvarivanju prava na povrat dijela plaćene trošarine za dizelsko gorivo u komercijalnom prijevozu robe i putnika",
 		URL:   "https://narodne-novine.nn.hr/clanci/sluzbeni/2019_02_12_241.html"},
@@ -87,7 +92,7 @@ var Refunds = []Refund{
 		Title: "Diputación Foral de Bizkaia: Gasóleo profesional",
 		URL:   "https://www.bizkaia.eus/es/gasoleo-profesional"},
 	{Country: "IT", From: "2024-01-01", Floor: 0.40322, MinMassKg: 7500, MinEuro: 5,
-		Note:  "the excise of the bulletin's week above EUR 403.22 per 1,000 litres; the Customs and Monopolies Agency refunds by the day the excise changed, each quarter",
+		Note:  "the excise above EUR 403.22 per 1,000 litres, by the day it changed",
 		Law:   "Decreto legislativo 504/1995, art. 24-ter and Tabella A, punto 4-bis: the excise on commercial gas oil, EUR 403.22 per 1,000 litres",
 		Title: "Agenzia delle Dogane e dei Monopoli: Benefici sul gasolio commerciale utilizzato nel settore del trasporto (informativa, prot. 0611759, 26 September 2025)",
 		URL:   "https://www.bo.cna.it/wp-content/uploads/2025/10/ACCISA-CIRCOLARE-ADM-PROT-0611759-DEL-26-SETTEMBRE-2025.pdf"},
@@ -113,12 +118,12 @@ func RefundOn(country string, day time.Time) (Refund, bool) {
 			continue
 		}
 		if r.Floor > 0 {
-			b, _, ok := DutiesOn(day)
+			b, _, ok := ExciseOn(day)
 			if !ok || b.EURPerL[country] == 0 {
 				return Refund{}, false
 			}
 			r.EURPerL = math.Round(math.Max(0, b.EURPerL[country]-r.Floor)*10000) / 10000
-			r.Note = fmt.Sprintf("%s: EUR %.4f per litre in the bulletin of %s", r.Note, b.EURPerL[country], b.Date)
+			r.Note = fmt.Sprintf("%s: the excise EUR %.4f per litre (the Weekly Oil Bulletin, in force from %s)", r.Note, b.EURPerL[country], b.Date)
 		}
 		return r, true
 	}

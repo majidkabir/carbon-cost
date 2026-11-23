@@ -74,3 +74,17 @@ func TestCroatiaRefund(t *testing.T) {
 		t.Errorf("HR 2026-11-18: want zero: %v %+v", ok, r)
 	}
 }
+
+func TestSloveniaRefund(t *testing.T) {
+	// EUR 438.69 per 1,000 l from 16 December 2025: 108.69 above the
+	// minimum; FURS: zero from April 2026, the excise at 330.
+	if r, ok := RefundOn("SI", day("2026-01-14")); !ok || r.EURPerL != 0.1087 {
+		t.Errorf("SI 2026-01-14: %v %+v", ok, r)
+	}
+	if r, ok := RefundOn("SI", day("2026-04-15")); !ok || r.EURPerL != 0 {
+		t.Errorf("SI 2026-04-15: %v %+v", ok, r)
+	}
+	if b, _, ok := PowerOn(day("2026-03-01")); !ok || b.Date != "2026-01-01" || b.EURPerL["DE"] == 0 {
+		t.Errorf("power: %v %+v", ok, b.Date)
+	}
+}

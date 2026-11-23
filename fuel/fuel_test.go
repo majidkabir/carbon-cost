@@ -51,3 +51,15 @@ func TestRefunds(t *testing.T) {
 		t.Errorf("duties: %v %v", ok, b.EURPerL["IT"])
 	}
 }
+
+func TestSpainRefund(t *testing.T) {
+	for _, c := range []struct {
+		day  string
+		want float64
+	}{{"2025-05-05", 0.049}, {"2026-03-21", 0.049}, {"2026-03-22", 0}, {"2026-06-15", 0}, {"2026-08-01", 0}, {"2026-11-18", 0}, {"2027-02-01", 0.049}} {
+		r, ok := RefundOn("ES", day(c.day))
+		if !ok || r.EURPerL != c.want || r.MinMassKg != 7500 {
+			t.Errorf("ES %s: %v %+v", c.day, ok, r)
+		}
+	}
+}

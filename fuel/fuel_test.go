@@ -63,3 +63,14 @@ func TestSpainRefund(t *testing.T) {
 		}
 	}
 }
+
+func TestCroatiaRefund(t *testing.T) {
+	// EUR 406.10 per 1,000 l in February 2026: 76.10 above the minimum;
+	// none once the excise was cut to the minimum and below.
+	if r, ok := RefundOn("HR", day("2026-02-25")); !ok || r.EURPerL != 0.0761 {
+		t.Errorf("HR 2026-02-25: %v %+v", ok, r)
+	}
+	if r, ok := RefundOn("HR", day("2026-11-18")); !ok || r.EURPerL != 0 {
+		t.Errorf("HR 2026-11-18: want zero: %v %+v", ok, r)
+	}
+}

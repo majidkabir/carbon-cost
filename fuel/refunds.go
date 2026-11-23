@@ -36,6 +36,11 @@ type Refund struct {
 // excise. Other countries' refunds aren't here yet: give
 // diesel_eur_per_l_by_country net of their refund.
 var Refunds = []Refund{
+	{Country: "HR", From: "2024-01-01", Floor: 0.33, MinMassKg: 7500,
+		Note:  "the excise of the bulletin's week above the EU minimum, EUR 330 per 1,000 litres; on diesel paid for cashless in Croatia",
+		Law:   "Zakon o trošarinama (Narodne novine 106/2018), čl. 104: the excise on diesel less the EU minimum of EUR 330 per 1,000 litres",
+		Title: "Narodne novine 2019: Pravilnik o ostvarivanju prava na povrat dijela plaćene trošarine za dizelsko gorivo u komercijalnom prijevozu robe i putnika",
+		URL:   "https://narodne-novine.nn.hr/clanci/sluzbeni/2019_02_12_241.html"},
 	{Country: "HU", From: "2025-01-01", To: "2025-12-31", LocalPerL: 17, Currency: "HUF", MinMassKg: 7500,
 		Note:  "HUF 17 per litre, set by NAV for each quarter of 2025",
 		Law:   "2016. évi LXVIII. törvény (Jöt.), 113. § (5)",
@@ -100,7 +105,7 @@ var Refunds = []Refund{
 
 // RefundOn is a country's refund for diesel bought on a day, if any, with
 // its rate: for a floor, the duties of the bulletin in force less it
-// (none when the duties are at or below the floor, or unknown).
+// (zero when the duties are at or below the floor; none when unknown).
 func RefundOn(country string, day time.Time) (Refund, bool) {
 	d := day.Format(time.DateOnly)
 	for _, r := range Refunds {
@@ -109,11 +114,10 @@ func RefundOn(country string, day time.Time) (Refund, bool) {
 		}
 		if r.Floor > 0 {
 			b, _, ok := DutiesOn(day)
-			v := b.EURPerL[country] - r.Floor
-			if !ok || b.EURPerL[country] == 0 || v <= 0 {
+			if !ok || b.EURPerL[country] == 0 {
 				return Refund{}, false
 			}
-			r.EURPerL = math.Round(v*10000) / 10000
+			r.EURPerL = math.Round(math.Max(0, b.EURPerL[country]-r.Floor)*10000) / 10000
 			r.Note = fmt.Sprintf("%s: EUR %.4f per litre in the bulletin of %s", r.Note, b.EURPerL[country], b.Date)
 		}
 		return r, true

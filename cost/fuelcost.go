@@ -2,6 +2,7 @@ package cost
 
 import (
 	"fmt"
+	"math"
 	"strings"
 	"time"
 
@@ -76,7 +77,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			fb.EURPerL, fb.Price = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date
 			usedB = true
 		}
-		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 {
+		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 && refundRate(req, &rf, date, &refundNotes) {
 			eligible := req.Truck.MaxMassKg >= rf.MinMassKg && req.Truck.Euro >= rf.MinEuro
 			switch {
 			case eligible && rf.EURPerL == 0:
@@ -221,4 +222,20 @@ func runningCost(out *Response, req Request) {
 		parts = append(parts, fmt.Sprintf("the vehicle %.1f road km x EUR %g", out.Trip.RoadKm, req.VehicleEURPerKm))
 	}
 	out.Notes = append(out.Notes, "Trip cost: the charges, the energy and the running costs given: "+strings.Join(parts, ", ")+".")
+}
+
+// refundRate converts a refund set in another currency to EUR per litre,
+// at the rate the trip's amounts in that currency are converted at.
+func refundRate(req Request, rf *fuel.Refund, date time.Time, notes *[]string) bool {
+	if rf.LocalPerL == 0 {
+		return true
+	}
+	v, _, err := currencyRate(req, rf.Currency, date)
+	if err != nil {
+		*notes = append(*notes, fmt.Sprintf("%s's refund is in %s and there's no exchange rate for it: not counted", rf.Country, rf.Currency))
+		return false
+	}
+	rf.EURPerL = math.Round(rf.LocalPerL/v*10000) / 10000
+	rf.Note += fmt.Sprintf(" (EUR %.4f at %g %s per euro)", rf.EURPerL, v, rf.Currency)
+	return true
 }

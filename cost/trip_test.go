@@ -413,3 +413,18 @@ func TestDieselRefunds(t *testing.T) {
 		t.Errorf("2024: %v %+v", err, r.Fuel)
 	}
 }
+
+func TestHungaryRefund(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"HU": 300}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 100, DieselRefunds: true, FX: map[string]float64{"HUF": 400}}
+	// HUF 17 a litre in 2025 (NAV), at 400 forint to the euro.
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2025, 6, 4, 0, 0, 0, 0, time.UTC))
+	if err != nil || r.Fuel.RefundEUR != 4.25 || r.Fuel.ByCountry[0].RefundEURPerL != 0.0425 {
+		t.Errorf("2025: %v %+v", err, r.Fuel)
+	}
+	// Zero since 14 May 2026, the excise at the EU minimum.
+	if r, err = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)); err != nil || r.Fuel.RefundEUR != 0 ||
+		!slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "HU refunds nothing") }) {
+		t.Errorf("2026: %v %+v %q", err, r.Fuel, r.Notes)
+	}
+}

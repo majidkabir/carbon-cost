@@ -264,6 +264,12 @@ var weekday = map[time.Weekday]string{time.Monday: "mon", time.Tuesday: "tue", t
 // Windows lists a country's bans for the truck that overlap from-to (in
 // the country's local time, loc).
 func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
+	if _, ok := calendarRules[country]; ok {
+		if !calendarRules[country].Applies(maxMassKg, trailer) {
+			return nil
+		}
+		return calendarWindows(country, from, to, loc)
+	}
 	if country == "HU" {
 		if !huRule.Applies(maxMassKg, trailer) {
 			return nil

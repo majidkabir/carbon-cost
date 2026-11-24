@@ -164,6 +164,11 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 	}
 	out.Bans = hits
+	for cc := range out.CountryKm {
+		if out.CountryKm[cc] >= 0.5 && len(bans.CalendarYears(cc)) > 0 && !slices.Contains(bans.CalendarYears(cc), date.Year()) {
+			out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: %s's calendar of bans for %d isn't in, so its bans aren't checked.", cc, date.Year()))
+		}
+	}
 	if exempted {
 		out.Notes = append(out.Notes, "Driving ban: Hungary's weekend and holiday ban doesn't bind a truck of Euro 3 and up in international traffic from 4 November to 1 March (190/2008. (VII. 29.) Korm. rendelet, § 2 (3)).")
 	}

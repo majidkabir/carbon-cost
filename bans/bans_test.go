@@ -283,3 +283,24 @@ func TestSlovenianBans(t *testing.T) {
 		}
 	}
 }
+
+func TestItalianCalendar(t *testing.T) {
+	rome, _ := time.LoadLocation("Europe/Rome")
+	w := Windows("IT", 40000, false, time.Date(2026, 8, 14, 0, 0, 0, 0, rome), time.Date(2026, 8, 16, 23, 0, 0, 0, rome), rome)
+	var got []string
+	for _, x := range w {
+		got = append(got, x.From.Format("Mon 2 15:04")+"-"+x.To.Format("15:04"))
+	}
+	if want := []string{"Fri 14 16:00-22:00", "Sat 15 07:00-22:00", "Sun 16 07:00-22:00"}; !slices.Equal(got, want) {
+		t.Errorf("Ferragosto: %v", got)
+	}
+	if w[0].Rule.Law == "" || w[0].Rule.URL == "" {
+		t.Errorf("rule: %+v", w[0].Rule)
+	}
+	if w := Windows("IT", 7500, false, time.Date(2026, 8, 15, 0, 0, 0, 0, rome), time.Date(2026, 8, 15, 23, 0, 0, 0, rome), rome); len(w) != 0 {
+		t.Errorf("7.5 t: %+v", w)
+	}
+	if !slices.Equal(CalendarYears("IT"), []int{2026}) {
+		t.Errorf("years %v", CalendarYears("IT"))
+	}
+}

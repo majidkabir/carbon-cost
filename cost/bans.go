@@ -34,7 +34,7 @@ type BanHit struct {
 	// Note says where or for whom else the ban holds.
 	Note       string `json:"note,omitempty"`
 	Exemptions string `json:"exemptions,omitempty"`
-	Law        string  `json:"law"`
+	Law        string `json:"law"`
 }
 
 // segment is a stretch of the route in one country, km along it.

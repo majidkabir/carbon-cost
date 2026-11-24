@@ -458,6 +458,16 @@ func (r Request) fuelGiven() bool {
 	return r.DieselL > 0 || r.LPer100Km > 0 || len(r.FuelPurchases) > 0
 }
 
+// EmissionsStandard is the method the emissions follow, which Regulation
+// (EU) 2026/1030 makes the EU's (Art. 3(1)).
+const EmissionsStandard = "EN ISO 14083:2023"
+
+// Certification is said with every result. The Regulation applies from 2
+// December 2030 (Art. 20(2)); its line "calculated in accordance with
+// Regulation (EU) 2026/1030" (Art. 10(1)) is for tools certified by an
+// accredited body and on the Commission's list (Art. 9(2), 11).
+const Certification = "Not certified under Regulation (EU) 2026/1030 (applies from 2 December 2030)"
+
 // tripEmissions sets the trip's emissions. With the truck's own diesel
 // (primary data: EN ISO 14083 and Regulation (EU) 2026/1030 put it before
 // default values), or with no route (country_km): the road's are the
@@ -466,6 +476,7 @@ func (r Request) fuelGiven() bool {
 // on it. Else they stay Sootcase's. It returns req with the shipments'.
 func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	out.DataType, out.EmissionsBasis = "modelled", "Sootcase: GLEC default intensities x each shipment's tonne-km on its own route"
+	out.EmissionsStandard, out.Certification = EmissionsStandard, Certification
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
 		return req
 	}

@@ -313,6 +313,13 @@ type Response struct {
 	DataType string `json:"data_type"`
 	// EmissionsBasis says how TTWKg and WTWKg were found.
 	EmissionsBasis string `json:"emissions_basis"`
+	// EmissionsStandard is the method: EmissionsStandard.
+	EmissionsStandard string `json:"emissions_standard"`
+	// Certification says the tool isn't certified under Regulation (EU)
+	// 2026/1030: only certified tools on the Commission's list may say
+	// their results are calculated in accordance with it (Art. 10(1),
+	// 11), and carbon-cost never does.
+	Certification string `json:"certification"`
 	// IntensityG is the well-to-wheel g CO2e per tonne-km of the
 	// shipments: EN ISO 14083's emission intensity.
 	IntensityG float64 `json:"intensity_g_co2e_per_tkm"`

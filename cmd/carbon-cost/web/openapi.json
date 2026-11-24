@@ -819,6 +819,10 @@
      "carbon_eur_per_tkm": {
       "type": "number"
      },
+     "certification": {
+      "description": "Certification says the tool isn't certified under Regulation (EU) 2026/1030: only certified tools on the Commission's list may say their results are calculated in accordance with it (Art. 10(1), 11), and carbon-cost never does.",
+      "type": "string"
+     },
      "compare": {
       "description": "Compare is the trip priced for each of CompareCO2Classes.",
       "items": {
@@ -860,6 +864,10 @@
      },
      "emissions_basis": {
       "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
+      "type": "string"
+     },
+     "emissions_standard": {
+      "description": "EmissionsStandard is the method: EmissionsStandard.",
       "type": "string"
      },
      "eur_per_tkm": {
@@ -992,12 +1000,14 @@
     "required": [
      "carbon_eur",
      "carbon_eur_per_tkm",
+     "certification",
      "complete",
      "country_km",
      "data_type",
      "date",
      "distance_km",
      "emissions_basis",
+     "emissions_standard",
      "eur_per_tkm",
      "intensity_g_co2e_per_tkm",
      "lines",

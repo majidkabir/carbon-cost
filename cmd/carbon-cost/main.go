@@ -606,6 +606,7 @@ func printResult(r cost.Response) {
 	}
 	if r.WTWKg > 0 {
 		fmt.Printf("CO2e: %.1f kg well-to-wheel (%.1f tank-to-wheel), %.1f g per tonne-km; %s data: %s\n", r.WTWKg, r.TTWKg, r.IntensityG, r.DataType, r.EmissionsBasis)
+		fmt.Printf("Method: %s. %s.\n", r.EmissionsStandard, r.Certification)
 	}
 	if len(r.Routes) > 0 {
 		fmt.Println()

@@ -230,6 +230,12 @@ func TestPrimaryEmissions(t *testing.T) {
 	if !strings.Contains(r.EmissionsBasis, "EN 16258") || !strings.Contains(r.EmissionsBasis, "ferries") {
 		t.Errorf("basis %q", r.EmissionsBasis)
 	}
+	// The method and that the tool isn't certified, and never the line
+	// Regulation (EU) 2026/1030 Art. 10(1) keeps for certified tools.
+	js, _ := json.Marshal(r)
+	if r.EmissionsStandard != "EN ISO 14083:2023" || !strings.HasPrefix(r.Certification, "Not certified") || strings.Contains(strings.ToLower(string(js)), "in accordance with regulation") {
+		t.Errorf("standard %q, certification %q", r.EmissionsStandard, r.Certification)
+	}
 	// Without the diesel: Sootcase's, modelled.
 	req.DieselL, req.shipTTW, req.shipWTW = 0, []float64{100, 50}, []float64{120, 60}
 	if r, _ = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); r.DataType != "modelled" || r.TTWKg != 150 || r.Shipments[0].TTWKg != 100 {

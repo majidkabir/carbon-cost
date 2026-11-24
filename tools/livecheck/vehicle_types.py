@@ -81,3 +81,21 @@ if st == 200 and isinstance(f, dict):
     for x in fu:
         if re.search(r"diesel|electric|hvo", x.get("fuel", ""), re.I) and (x.get("unit") in ("l", "litre", "kWh", "kwh") or True):
             print("fuel:", json.dumps(x)[:400])
+
+# Primary energy for an electric truck: Sootcase's note says to give
+# energy_kwh_per_tkm with the country. Which leg fields does it take?
+def calc_leg(extra):
+    leg = {"id": "road", "mode": "road", "vehicle_type": "glec/road/europe/electric/artic_34_40t",
+           "from": {"lat": 54.3233, "lon": 10.1228}, "to": {"lat": 53.5511, "lon": 9.9937}, **extra}
+    body = json.dumps({"id": "t", "weight_kg": 20000, "add_road_legs": False, "legs": [leg]}).encode()
+    req = urllib.request.Request(BASE + "/v1/calculate", body, {"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            res = json.load(r)
+            l = res["legs"][0]
+            return f"200 wtw {res.get('wtw_kg')} ttw {res.get('ttw_kg')}; leg keys {sorted(l)}; parts {json.dumps(l.get('parts'))[:300]}"
+    except urllib.error.HTTPError as e:
+        return f"{e.code} {e.read().decode('utf-8', 'replace')[:400]}"
+for extra in [{}, {"energy_kwh_per_tkm": 0.06}, {"energy_kwh_per_tkm": 0.06, "country": "DE"}, {"energy_kwh_per_tkm": 0.06, "country": "NO"},
+              {"energy_kwh_per_tkm": 0.06, "energy_country": "NO"}, {"energy_kwh": 120, "country": "NO"}, {"fuel_l": 30}, {"no_such_field": 1}]:
+    print("leg", json.dumps(extra), "->", calc_leg(extra))

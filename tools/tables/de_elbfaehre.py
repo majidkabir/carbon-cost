@@ -9,8 +9,10 @@
   to 31 December" of a year. The page changed its 2026 fares in November
   2026 without changing their dates: the earlier ones are the Internet
   Archive's copy of 8 November 2026 (frs-elbe-trucks-2026-01), the later
-  ones are taken from the day they were first read (FIRST_READ), and the
-  builder stops if the page gives others again. 2025's are the Internet
+  ones from the day they were first read (FIRST_READ); fares the page gave
+  in between and no longer does are kept as read (RECORDED); a row whose
+  net price doesn't match its gross is taken as gross / 1.19 and reported.
+  2025's are the Internet
   Archive's copy of 10 November 2025;
 - the fuel surcharge page (frs-elbe-fuel*.html; earlier states from the
   Internet Archive's copies): a surcharge per truck, with the date of each
@@ -34,7 +36,16 @@ import datetime, html, json, os, re, sys
 from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 
 # The fares the live page gave when first read, and from when they're taken.
-FIRST_READ = {"2026": "2026-11-19"}
+FIRST_READ = {"2026": "2026-11-23"}
+# Fares the live page gave earlier and no longer does, as they were read
+# then (recorded in the committed dataset tariffs/data/de/
+# de-elbfaehre-<date>.orct.json): (year, [(up to m, net EUR)], per further
+# metre, max m, load per started 1,000 kg). The page raised its 2026 fares
+# again between the runs of 22 and 23 November 2026.
+RECORDED = {"2026-11-19": ("2026", [(5, 15.55), (6, 18.07), (7, 21.43), (8, 24.79), (9, 26.05), (10, 27.31), (11, 29.41), (12, 30.67),
+                                    (13, 31.93), (14, 34.03), (15, 35.71), (16, 36.55), (17, 37.82), (18.35, 39.08)], 4.20, 23.0, 1.26)}
+# Rows whose net price the page gives wrong, taken as gross / 1.19.
+CORRECTED = []
 # The editions: the fetched page for each, the earliest first within a year.
 EDITIONS = [("2025", "frs-elbe-trucks-2025"), ("2026", "frs-elbe-trucks-2026-01"), ("2026", "frs-elbe-trucks")]
 FUEL = ["frs-elbe-fuel-2026-03", "frs-elbe-fuel-2026-05", "frs-elbe-fuel-2026-09", "frs-elbe-fuel"]
@@ -67,9 +78,19 @@ def fares(name, t):
     rows = [(float(a.replace(",", ".")), eur(n), eur(g)) for a, n, g in re.findall(r"Länge bis (\d+,\d\d) m " + EUR + " " + EUR, body)]
     if [r[0] for r in rows] != [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18.35]:
         sys.exit(f"Elbfähre: {name}: the length bands read: {[r[0] for r in rows]}")
-    for _, n, g in rows + [(0, eur(m.group(3)), eur(m.group(4)))]:
-        if abs(n * 1.19 - g) > 0.02:  # gross is net plus 19% VAT
-            sys.exit(f"Elbfähre: {name}: net {n} and gross {g} don't differ by 19% VAT")
+    # Gross is net plus 19% VAT. Where the page's net and gross disagree
+    # (its 2026 table from November has net prices copied from the band
+    # above at 8, 17 and 18.35 m), the gross price, which follows the
+    # table's steps, is taken, and the row is reported.
+    bad = [(a, n, g) for a, n, g in rows if abs(n * 1.19 - g) > 0.02]
+    if len(bad) > 3:
+        sys.exit(f"Elbfähre: {name}: net and gross disagree in {len(bad)} rows: {bad}")
+    for a, n, g in bad:
+        CORRECTED.append(a)
+        print(f"::warning title=Elbfähre {name}::up to {a:g} m net {n} and gross {g} don't differ by 19% VAT; net taken as gross / 1.19 = {round(g / 1.19, 2)}")
+    rows = [(a, round(g / 1.19, 2), g) if (a, n, g) in bad else (a, n, g) for a, n, g in rows]
+    if abs(eur(m.group(3)) * 1.19 - eur(m.group(4))) > 0.02:
+        sys.exit(f"Elbfähre: {name}: per further metre net {m.group(3)} and gross {m.group(4)} don't differ by 19% VAT")
     mx = re.search(r"Maximale Länge: (\d+,\d\d) m", t)
     load = re.search(r"Ladungen Gültig vom 01\. Januar bis 31\. Dezember (\d{4}) netto brutto nach Gewicht, je angefangene 1\.000 kg " + EUR + " " + EUR, t)
     if not mx or not load or load.group(1) != year:
@@ -110,6 +131,11 @@ def main(fetched, out):
         f = fares(sid, pages[sid])
         if f[0] != y:
             sys.exit(f"Elbfähre: {sid}: fares for {f[0]}, not {y}")
+        if sid == "frs-elbe-trucks":
+            # The fares read earlier, before the live page's.
+            for day, r in sorted(RECORDED.items()):
+                if r[0] == y:
+                    eds.append((day, f"{y}-12-31", r))
         if eds and eds[-1][2][0] == y:
             if f[1:] == eds[-1][2][1:]:
                 continue  # the live page still gives the earlier fares
@@ -155,11 +181,14 @@ def main(fetched, out):
                  "groups": [{"name": "per started 1,000 kg of load", "min_kg": 3501}], "stations": st, "station_match_km": MATCH_KM,
                  "prices": {"Glückstadt|Wischhafen": {"per started 1,000 kg of load": load}},
                  "unit": "t", "mass_basis": "load_kg", "mass_step_kg": 1000}
+        fixed = a == FIRST_READ.get(year) and CORRECTED
         src = ("the Internet Archive's copy of 8 November 2026" if a == f"{year}-01-01" and year in FIRST_READ
+               else "the page as read on " + a + ", recorded" if a in RECORDED
                else "the page as read on " + a if year in FIRST_READ else "the Internet Archive's copy of 10 November 2025" if year == "2025" else "the page")
         law = (f"FRS Elbfähre's fares for trucks and cargo, valid 1 January to 31 December {year} ({src}): a truck, unloaded and without its driver, "
                "net of 19% VAT, by its length over all: " + ", ".join(f"to {hi:g} m EUR {net:.2f}" for hi, net in bands)
                + f", each further metre (overhanging ones too) EUR {per:.2f}, at most {mx:g} m; the load by weight, EUR {load:.2f} per started 1,000 kg. "
+               + ("The page's net prices up to " + ", ".join(f"{x:g}" for x in CORRECTED) + " m don't match its gross ones; those are taken as gross / 1.19. " if fixed else "")
                + (f"Plus the fuel surcharge per truck of EUR {sur:.2f} (as of {since}; the page gives one amount, taken as published). " if sur else "")
                + "The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, "
                  "nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line."

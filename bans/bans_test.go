@@ -206,3 +206,50 @@ func TestHungarianBans(t *testing.T) {
 		t.Errorf("summer: no exemption: %+v", w)
 	}
 }
+
+func TestPolishBans(t *testing.T) {
+	waw, _ := time.LoadLocation("Europe/Warsaw")
+	f, l := plSummer(2026)
+	if f.Format(time.DateOnly) != "2026-06-26" || l.Format(time.DateOnly) != "2026-08-30" {
+		t.Errorf("summer 2026: %s to %s", f, l)
+	}
+	// 2027: 20 June is a Sunday, lessons end Friday 25 June; 1 September
+	// is a Wednesday, so the last Sunday before is 29 August.
+	if f, l := plSummer(2027); f.Format(time.DateOnly) != "2027-06-25" || l.Format(time.DateOnly) != "2027-08-29" {
+		t.Errorf("summer 2027: %s to %s", f, l)
+	}
+	day := func(y int, m time.Month, d int) []Window {
+		return Windows("PL", 40000, false, time.Date(y, m, d, 0, 0, 0, 0, waw), time.Date(y, m, d, 23, 59, 0, 0, waw), waw)
+	}
+	span := func(w []Window) (s []string) {
+		for _, x := range w {
+			s = append(s, x.From.Format("15:04")+"-"+x.To.Format("15:04"))
+		}
+		return
+	}
+	for _, c := range []struct {
+		y    int
+		m    time.Month
+		d    int
+		want []string
+	}{
+		{2026, 11, 11, []string{"08:00-22:00"}}, // Independence Day
+		{2026, 11, 10, []string{"18:00-22:00"}}, // its eve
+		{2026, 12, 24, nil},                     // not in the regulation
+		{2026, 12, 31, nil},                     // New Year's eve isn't banned
+		{2026, 7, 10, []string{"18:00-22:00"}},  // summer Friday
+		{2026, 7, 11, []string{"08:00-14:00"}},  // summer Saturday
+		{2026, 8, 15, []string{"08:00-22:00"}},  // Saturday 15 August: the holiday's hours
+		{2026, 8, 14, []string{"18:00-22:00"}},  // its eve, a summer Friday
+		{2026, 9, 5, nil},                       // Saturday after the summer
+		{2026, 11, 29, nil},                     // a Sunday outside summer
+		{2027, 5, 15, []string{"18:00-22:00"}},  // eve of Pentecost Sunday
+	} {
+		if got := span(day(c.y, c.m, c.d)); !slices.Equal(got, c.want) {
+			t.Errorf("%d-%02d-%02d: %v, want %v", c.y, c.m, c.d, got, c.want)
+		}
+	}
+	if w := Windows("PL", 12000, false, time.Date(2026, 11, 11, 0, 0, 0, 0, waw), time.Date(2026, 11, 11, 23, 0, 0, 0, waw), waw); len(w) != 0 {
+		t.Errorf("12 t: %+v", w)
+	}
+}

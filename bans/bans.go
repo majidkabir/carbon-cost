@@ -34,7 +34,10 @@ type Rule struct {
 	Since, Until string
 	// ExemptIntlEuro, when set, exempts trucks of at least this Euro class
 	// in international traffic (Hungary's winter exemption).
-	ExemptIntlEuro   int
+	ExemptIntlEuro int
+	// Season, when set, gives the year's season (first and last day,
+	// inclusive) where it moves from year to year.
+	Season           func(year int) (from, to time.Time)
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -45,6 +48,8 @@ type Holiday struct {
 	Name string
 	// Regions (ISO 3166-2) where it is kept; none: everywhere.
 	Regions []string
+	// NoEve: the day before it isn't banned as its eve.
+	NoEve bool
 }
 
 // Rules are the bans in.
@@ -203,6 +208,17 @@ func Holidays(country string, y int) []Holiday {
 			h = append(h, fixed(12, 24, "Szenteste"))
 		}
 		return h
+	case "PL":
+		// The regulation's own list, § 2 pkt 1 (24 December and 6 January,
+		// days off since, aren't in it); pkt 2 bans the eves of b) to j).
+		h := []Holiday{fixed(1, 1, "Nowy Rok"), moving(0, "Pierwszy dzień Wielkiej Nocy"), moving(1, "Drugi dzień Wielkiej Nocy"),
+			fixed(5, 1, "Święto Państwowe"), fixed(5, 3, "Święto Narodowe Trzeciego Maja"), moving(49, "Zielone Świątki"), moving(60, "Boże Ciało"),
+			fixed(8, 15, "Wniebowzięcie Najświętszej Maryi Panny"), fixed(11, 1, "Wszystkich Świętych"), fixed(11, 11, "Narodowe Święto Niepodległości"),
+			fixed(12, 25, "Pierwszy dzień Bożego Narodzenia"), fixed(12, 26, "Drugi dzień Bożego Narodzenia")}
+		for _, i := range []int{0, 10, 11} {
+			h[i].NoEve = true
+		}
+		return h
 	case "FR":
 		// Code du travail, art. L3133-1.
 		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),
@@ -283,12 +299,17 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			if r.FromDay != "" && (md < r.FromDay || md > r.ToDay) || r.Since != "" && ymd < r.Since || r.Until != "" && ymd > r.Until {
 				continue
 			}
+			if r.Season != nil {
+				if f, t := r.Season(day.Year()); ymd < f.Format(time.DateOnly) || ymd > t.Format(time.DateOnly) {
+					continue
+				}
+			}
 			on := slices.ContainsFunc(kinds, func(k string) bool { return slices.Contains(r.Days, k) })
 			holidayOnly := false
 			if !on && isHol && slices.Contains(r.Days, "holiday") {
 				on, holidayOnly = true, true
 			}
-			if eve, ok := hol[day.AddDate(0, 0, 1).Format(time.DateOnly)]; !on && ok && slices.Contains(r.Days, "holiday_eve") {
+			if eve, ok := hol[day.AddDate(0, 0, 1).Format(time.DateOnly)]; !on && ok && !eve.NoEve && slices.Contains(r.Days, "holiday_eve") {
 				on, holidayOnly, h = true, true, Holiday{Name: "eve of " + eve.Name, Regions: eve.Regions}
 			}
 			if !on {
@@ -302,6 +323,7 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 				w.Holiday, w.Regions = h.Name, h.Regions
 			}
 			if w.To.After(from) && w.From.Before(to) && !covered(out, w) {
+				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })
 				out = append(out, w)
 			}
 		}

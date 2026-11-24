@@ -3,7 +3,8 @@ name: Sootcase country sections
 # and its results' basis and certification (docs/requirements/sootcase-count-emissions.md)
 # as a black box: Sootcase (main, or the ref given) with real OSRM routing
 # on the Denmark, Schleswig-Holstein and Hamburg extracts
-# (tools/livecheck/sections.py), then carbon-cost's driving bans on a
+# (tools/livecheck/sections.py), the road vehicle types it knows
+# (tools/livecheck/vehicle_types.py), then carbon-cost's driving bans on a
 # Copenhagen to Hamburg trip leaving on a Saturday evening. Run from the
 # Actions tab.
 on:
@@ -53,6 +54,9 @@ jobs:
           docker compose logs --tail 50; exit 1
       - name: Checks
         run: python3 tools/livecheck/sections.py http://localhost:8080 | tee checks.txt
+      - name: Vehicle types
+        if: always()
+        run: python3 tools/livecheck/vehicle_types.py http://localhost:8080 | tee -a checks.txt
       - name: carbon-cost's driving bans with the sections
         if: always()
         run: |

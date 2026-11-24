@@ -106,3 +106,25 @@ func TestCalendarYearMissing(t *testing.T) {
 		t.Errorf("%q", r.Notes)
 	}
 }
+
+func TestRegionalHolidayWithRegions(t *testing.T) {
+	// Reformation Day, Saturday 31 October 2026: kept in Schleswig-Holstein,
+	// not in Bavaria. Leaving Friday 23:30, the truck is on the road at
+	// midnight.
+	fri := time.Date(2026, 10, 30, 0, 0, 0, 0, time.UTC)
+	leg := func(region string) sootcase.Result {
+		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, TTWKg: 160, WTWKg: 200, CountryKm: map[string]float64{"DE": 100},
+			CountrySections: []sootcase.CountrySection{{Country: "DE", FromKm: 0, ToKm: 100, Regions: []sootcase.RegionSection{{Region: region, FromKm: 0, ToKm: 100}}}}}}}
+	}
+	req := Request{CargoKg: 20000, Truck: truck40, Time: "23:30", origin: "DE"}
+	r, err := PriceWith(leg("DE-SH"), all(t), nil, req, fri)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.Bans) != 1 || !r.Bans[0].Certain || r.Bans[0].WaitH != 22 || !strings.Contains(r.Bans[0].Holiday, "DE-SH") {
+		t.Errorf("SH: %+v", r.Bans)
+	}
+	if r, err = PriceWith(leg("DE-BY"), all(t), nil, req, fri); err != nil || len(r.Bans) != 0 {
+		t.Errorf("BY: %v %+v", err, r.Bans)
+	}
+}

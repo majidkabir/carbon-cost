@@ -42,6 +42,9 @@ type segment struct {
 	country  string
 	from, to float64
 	ordered  bool
+	// region is its first-level region (ISO 3166-2) where Sootcase gives
+	// it; then a regional holiday's ban holds there or not at all.
+	region string
 }
 
 // segments are the route's stretches by country: a leg in one country is
@@ -55,7 +58,15 @@ func segments(res sootcase.Result) []segment {
 		switch {
 		case len(l.CountrySections) > 0:
 			for _, s := range l.CountrySections {
-				out = append(out, segment{s.Country, pos + s.FromKm, pos + s.ToKm, true})
+				switch {
+				case s.Ferry || s.Country == "":
+				case len(s.Regions) > 0:
+					for _, r := range s.Regions {
+						out = append(out, segment{s.Country, pos + r.FromKm, pos + r.ToKm, true, r.Region})
+					}
+				default:
+					out = append(out, segment{s.Country, pos + s.FromKm, pos + s.ToKm, true, ""})
+				}
 			}
 		default:
 			ccs := make([]string, 0, len(l.CountryKm))
@@ -66,7 +77,7 @@ func segments(res sootcase.Result) []segment {
 			}
 			sort.Strings(ccs)
 			for _, cc := range ccs {
-				out = append(out, segment{cc, pos, end, len(ccs) == 1})
+				out = append(out, segment{cc, pos, end, len(ccs) == 1, ""})
 			}
 		}
 		pos = end
@@ -89,16 +100,31 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 	}
 	exempted := false
-	// windows are the bans in force, less those the truck is exempt from.
-	windows := func(country string, from, to time.Time, loc *time.Location) []bans.Window {
-		ws := bans.Windows(country, req.Truck.MaxMassKg, trailer, from, to, loc)
-		return slices.DeleteFunc(ws, func(w bans.Window) bool {
+	// windows are the bans in force, less those the truck is exempt from;
+	// in a known region, a regional holiday's ban holds or doesn't.
+	windows := func(s segment, from, to time.Time, loc *time.Location) []bans.Window {
+		ws := bans.Windows(s.country, req.Truck.MaxMassKg, trailer, from, to, loc)
+		ws = slices.DeleteFunc(ws, func(w bans.Window) bool {
 			if w.Exempt(req.Truck.Euro, countries > 1) {
 				exempted = true
 				return true
 			}
 			return false
 		})
+		if s.region == "" {
+			return ws
+		}
+		out := ws[:0]
+		for _, w := range ws {
+			if len(w.Regions) > 0 {
+				if !slices.Contains(w.Regions, s.region) {
+					continue
+				}
+				w.Regions, w.Holiday = nil, w.Holiday+" ("+s.region+")"
+			}
+			out = append(out, w)
+		}
+		return out
 	}
 	for _, s := range segs {
 		if !slices.ContainsFunc(bans.Rules, func(r bans.Rule) bool { return r.Country == s.country }) {
@@ -129,7 +155,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			}
 		}
 		if !timed || !s.ordered {
-			for _, w := range windows(s.country, t0, t1, loc) {
+			for _, w := range windows(s, t0, t1, loc) {
 				add(w, false, 0)
 			}
 			continue
@@ -139,7 +165,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		cursor, left := t0, t1.Sub(t0)
 		for left > 0 {
 			var next *bans.Window
-			for _, w := range windows(s.country, cursor, cursor.Add(left), loc) {
+			for _, w := range windows(s, cursor, cursor.Add(left), loc) {
 				if len(w.Regions) > 0 || w.Rule.Listed {
 					add(w, false, 0)
 					continue

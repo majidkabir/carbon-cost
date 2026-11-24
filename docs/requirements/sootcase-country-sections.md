@@ -2,8 +2,9 @@
 
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost).
-**Status:** requested 2026-11-24. carbon-cost already reads the field when it's there and works
-without it.
+**Status:** requested 2026-11-24; done in Sootcase on 2026-11-24 (by the user's word), checked by
+the Sootcase country sections workflow (`tools/livecheck/sections.py`). carbon-cost reads the
+sections, their ferry flag and their regions, and works without them.
 
 ## 1. Why
 

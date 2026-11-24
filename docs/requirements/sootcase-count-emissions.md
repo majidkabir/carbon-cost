@@ -2,7 +2,8 @@
 
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost).
-**Status:** requested 2026-11-24.
+**Status:** requested 2026-11-24. Not in Sootcase main on 2026-11-24: its results have no `basis`
+or `certification` (checked by the Sootcase country sections workflow, E1).
 
 ## 1. Why
 

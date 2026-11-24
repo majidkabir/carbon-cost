@@ -2,9 +2,12 @@
 
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost).
-**Status:** requested 2026-11-24; done in Sootcase on 2026-11-24 (by the user's word), checked by
-the Sootcase country sections workflow (`tools/livecheck/sections.py`). carbon-cost reads the
-sections, their ferry flag and their regions, and works without them.
+**Status:** requested 2026-11-24; in Sootcase main on 2026-11-24. Checked as a black box that
+day by the Sootcase country sections workflow (`tools/livecheck/sections.py`, Denmark,
+Schleswig-Holstein and Hamburg): C1 (Kolding–Hamburg DK then DE; Copenhagen–Hamburg DK, the
+Rødby–Puttgarden ferry section, DE), R2 (DE-SH and DE-HH in order) and R3 (the same with
+`path=full`) pass; C3 passes for Kiel–Hamburg; C2 (Austria–Germany–Austria) isn't on that map.
+carbon-cost reads the sections, their ferry flag and their regions.
 
 ## 1. Why
 

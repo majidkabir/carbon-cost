@@ -64,6 +64,9 @@ type Trip struct {
 	// its truck profiles that covers the truck), with height_m, width_m,
 	// axle_load_kg, hazmat or adr_tunnel_code given.
 	RoutedFor map[string]any `json:"routed_for,omitempty"`
+	// BanWaitH is the hours the truck waits for driving bans to end, by
+	// its passage times (Response.Bans).
+	BanWaitH float64 `json:"ban_wait_h,omitempty"`
 }
 
 // TripLeg is the trip between two consecutive stops.

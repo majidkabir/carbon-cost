@@ -342,6 +342,8 @@ type Response struct {
 	// electricity), without counting twice the CO2 prices on fuel (and
 	// ETS2) that the diesel price already holds.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	// Bans are the driving bans the trip runs into (package bans).
+	Bans []BanHit `json:"bans,omitempty"`
 	// InCurrency is the totals in Request.Currency.
 	InCurrency *InCurrency `json:"in_currency,omitempty"`
 	// DriverEUR and VehicleEUR are the running costs at the rates given;
@@ -999,6 +1001,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		return Response{}, err
 	}
 	runningCost(&out, req)
+	checkBans(&out, res, req, date)
 	allocate(&out, res, req)
 	if req.Truck.Restricted() {
 		if out.Trip.RoutedFor == nil {

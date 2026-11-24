@@ -583,6 +583,9 @@ func printResult(r cost.Response) {
 		if r.Trip.ElapsedH > r.Trip.Hours {
 			rest = fmt.Sprintf("; %.2f h with breaks and rests", r.Trip.ElapsedH)
 		}
+		if r.Trip.BanWaitH > 0 {
+			rest += fmt.Sprintf("; %.2f h waiting for driving bans", r.Trip.BanWaitH)
+		}
 		fmt.Printf("Driving: %.2f h (%s)%s\n", r.Trip.Hours, r.Trip.HoursBasis, rest)
 	}
 	if r.TripCostEUR > 0 {

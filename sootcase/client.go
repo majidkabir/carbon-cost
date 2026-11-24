@@ -84,6 +84,9 @@ type LegResult struct {
 	// for with path=full): toll stations, gantries and sections are found
 	// along it, some within 30 m, which a thinned line misses on curves.
 	Path [][2]float64 `json:"path"`
+	// CountrySections are the leg's stretches by country in route order,
+	// km from the leg's start (when Sootcase gives them).
+	CountrySections []CountrySection `json:"country_sections,omitempty"`
 	// Restrictions is what Sootcase applied of the leg's vehicle.
 	Restrictions map[string]any `json:"restrictions,omitempty"`
 	Parts        []Part         `json:"parts"`
@@ -268,4 +271,11 @@ func (e *HTTPError) Error() string { return fmt.Sprintf("sootcase: HTTP %d: %s",
 // input: 400, 404, 422), rather than failing or refusing this server.
 func (e *HTTPError) CallerError() bool {
 	return e.Status == 400 || e.Status == 404 || e.Status == 422
+}
+
+// CountrySection is a stretch of a leg in one country.
+type CountrySection struct {
+	Country string  `json:"country"`
+	FromKm  float64 `json:"from_km"`
+	ToKm    float64 `json:"to_km"`
 }

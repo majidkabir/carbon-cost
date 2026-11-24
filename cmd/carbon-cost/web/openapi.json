@@ -1,6 +1,58 @@
 {
  "components": {
   "schemas": {
+   "BanHit": {
+    "additionalProperties": false,
+    "description": "BanHit is a driving ban the trip runs into.",
+    "properties": {
+     "ban": {
+      "type": "string"
+     },
+     "certain": {
+      "description": "Certain: the trip is in the country while the ban is in force, by its passage times. Otherwise it may be: no departure time was given, the holiday is regional, or the leg crosses several countries and Sootcase didn't say in which order.",
+      "type": "boolean"
+     },
+     "country": {
+      "type": "string"
+     },
+     "exemptions": {
+      "type": "string"
+     },
+     "from": {
+      "description": "From and To are the ban's window, local time (RFC 3339).",
+      "type": "string"
+     },
+     "holiday": {
+      "description": "Holiday names the public holiday it is for, and Regions where it is kept only in some regions.",
+      "type": "string"
+     },
+     "law": {
+      "type": "string"
+     },
+     "regions": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "to": {
+      "type": "string"
+     },
+     "wait_h": {
+      "description": "WaitH is how long the truck waits for the ban to end, where Certain.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "ban",
+     "certain",
+     "country",
+     "from",
+     "law",
+     "to"
+    ],
+    "type": "object"
+   },
    "BatchItem": {
     "additionalProperties": false,
     "description": "BatchItem is one trip's result, or why it couldn't be priced.",
@@ -749,6 +801,13 @@
     "additionalProperties": false,
     "description": "Response is a priced trip.",
     "properties": {
+     "bans": {
+      "description": "Bans are the driving bans the trip runs into (package bans).",
+      "items": {
+       "$ref": "#/components/schemas/BanHit"
+      },
+      "type": "array"
+     },
      "carbon_eur": {
       "description": "the CO2 parts of tolls, ferry ETS and ETS2",
       "type": "number"
@@ -1350,6 +1409,10 @@
     "additionalProperties": false,
     "description": "Trip is the truck's trip: its legs between stops, what was on board, and the diesel it burned, on which the CO2 prices on fuel and ETS2 are charged.",
     "properties": {
+     "ban_wait_h": {
+      "description": "BanWaitH is the hours the truck waits for driving bans to end, by its passage times (Response.Bans).",
+      "type": "number"
+     },
      "elapsed_h": {
       "type": "number"
      },

@@ -98,9 +98,9 @@ def ch():
             break
     if not items:
         raise ValueError("no asset for " + ", ".join(tried))
-    print("CH asset:", json.dumps(items[0])[:600])
+    print("CH asset:", json.dumps(items[0])[:300], [l for l in items[0].get("links", [])][:3])
     a = items[0]
-    aid = a.get("ipath") or a.get("id") or a.get("assetId")
+    aid = (a.get("ids") or {}).get("damId") or a.get("id")
     link = next((l["href"] for l in a.get("links", []) if l.get("rel") == "master"), f"https://dam-api.bfs.admin.ch/hub/api/dam/assets/{aid}/master")
     wb = openpyxl.load_workbook(io.BytesIO(get(link)), read_only=True, data_only=True)
     out = []

@@ -5,10 +5,12 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
 
+	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -126,5 +128,53 @@ func TestTripHours(t *testing.T) {
 	res.Legs[0].DurationH = 10
 	if tr := tripOf(res, Request{DriverRest: true, Truck: truck40}); tr.Hours != 10 || tr.ElapsedH != 21.75 {
 		t.Errorf("with rest: %+v", tr)
+	}
+}
+
+func TestTruckRestrictions(t *testing.T) {
+	var got []sootcase.Shipment
+	var mu sync.Mutex
+	fake := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var s sootcase.Shipment
+		json.NewDecoder(r.Body).Decode(&s)
+		mu.Lock()
+		got = append(got, s)
+		mu.Unlock()
+		var res sootcase.Result
+		for _, l := range s.Legs {
+			lr := sootcase.LegResult{DistanceKm: 100, TTWKg: 160, WTWKg: 200, CountryKm: map[string]float64{"DE": 100}, Path: [][2]float64{{9, 52}, {10, 52}}}
+			if l.Vehicle != nil {
+				lr.Restrictions = map[string]any{"height_m": l.Vehicle.HeightM, "tunnel_code": l.Vehicle.TunnelCode,
+					"routed_for": map[string]any{"height_m": 4, "width_m": 2.6, "tunnel_code": l.Vehicle.TunnelCode, "hazmat_no": true}, "excluded": []string{"truck", "hzd"}}
+			}
+			res.Legs = append(res.Legs, lr)
+			res.TTWKg, res.WTWKg = res.TTWKg+160, res.WTWKg+200
+		}
+		json.NewEncoder(w).Encode(res)
+	}))
+	defer fake.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: fake.URL}, Tariffs: all(t)}
+	req := Request{Date: "2026-11-03", Truck: truck40, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"}}
+	// Without the truck's size or load, no vehicle goes to Sootcase.
+	if r, err := c.Calculate(context.Background(), req); err != nil || got[0].Legs[0].Vehicle != nil || r.Trip.RoutedFor != nil {
+		t.Fatalf("no vehicle: %v %+v", err, got[0].Legs[0].Vehicle)
+	}
+	req.Truck.HeightM, req.Truck.ADRTunnelCode, req.Truck.TareKg = 4.0, "D", 15000
+	r, err := c.Calculate(context.Background(), req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	v := got[len(got)-1].Legs[0].Vehicle
+	if v == nil || v.HeightM != 4 || v.TunnelCode != "D" || !v.Hazmat || v.GrossWeightKg != 35000 || v.Axles != 5 || v.LengthM != 0 {
+		t.Errorf("vehicle sent: %+v", v)
+	}
+	if r.Trip.RoutedFor["tunnel_code"] != "D" || r.Trip.RoutedFor["width_m"] != 2.6 || !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "kept to roads the truck may drive") }) {
+		t.Errorf("routed for: %+v %q", r.Trip.RoutedFor, r.Notes)
+	}
+	for _, bad := range []rates.Truck{{HeightM: 9}, {WidthM: 1}, {AxleLoadKg: 50000}, {ADRTunnelCode: "A"}, {ADRTunnelCode: "DE"}} {
+		bad.MaxMassKg, bad.Axles, bad.Euro, bad.CO2Class = 40000, 5, 6, 1
+		if err := check(Request{CargoKg: 1, Truck: bad}); err == nil {
+			t.Errorf("%+v: want an error", bad)
+		}
 	}
 }

@@ -20,6 +20,11 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go build -o cc ./cmd/carbon-cost
       - name: Sootcase
         run: |
           git clone -q --depth 1 --branch "${{ inputs.sootcase_ref || 'main' }}" https://github.com/majidkabir/sootcase sootcase-src
@@ -53,6 +58,12 @@ jobs:
           docker compose logs --tail 50; exit 1
       - name: Checks
         run: python3 tools/livecheck/restrictions.py http://localhost:8080 maps/low.geojson maps/heavy.geojson maps/hazmat.geojson | tee checks.txt
+      - name: carbon-cost with the truck's limits
+        run: |
+          export SOOTCASE_URL=http://localhost:8080
+          # Pinneberg to Harburg: the A7 Elbe tunnel is barred to dangerous goods.
+          ./cc calc -from 53.6600,9.8000 -to 53.4600,9.9800 -cargo-kg 20000 -tare-kg 15000 -date 2026-11-24 | tee -a checks.txt
+          ./cc calc -from 53.6600,9.8000 -to 53.4600,9.9800 -cargo-kg 20000 -tare-kg 15000 -date 2026-11-24 -height-m 4 -width-m 2.55 -tunnel-code E | tee -a checks.txt
       - name: Summary
         if: always()
         run: |

@@ -26,6 +26,7 @@ import (
 	"os"
 	"runtime/debug"
 	"slices"
+	"sort"
 	"strconv"
 	"strings"
 	"text/tabwriter"
@@ -167,6 +168,11 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.IntVar(&req.Truck.MotorMassKg, "motor-mass-kg", 0, "the motor vehicle's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
+	fs.Float64Var(&req.Truck.HeightM, "height-m", 0, "truck height with load, m: the route keeps to roads the truck may drive (with its width, length and weight)")
+	fs.Float64Var(&req.Truck.WidthM, "width-m", 0, "truck width, m, for the route")
+	fs.IntVar(&req.Truck.AxleLoadKg, "axle-load-kg", 0, "heaviest axle load, kg, for the route")
+	fs.BoolVar(&req.Truck.Hazmat, "hazmat", false, "carries dangerous goods (ADR): the route avoids roads barred to them")
+	fs.StringVar(&req.Truck.ADRTunnelCode, "tunnel-code", "", "the load's ADR tunnel restriction code (B, C, D or E): the route avoids tunnels it may not enter")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
 	fs.Float64Var(&req.UKAGbpPerT, "uka", 0, "UK ETS allowance price, GBP/t, for crossings between UK ports (from 1 July 2026)")
 	fs.IntVar(&req.Alternatives, "alternatives", 0, "price up to this many routes of each leg (2 to 5): Sootcase's and its alternatives, listed under Routes")
@@ -559,6 +565,18 @@ func printResult(r cost.Response) {
 	}
 	if e := r.Electricity; e != nil {
 		fmt.Printf("Electricity: EUR %.2f without VAT (%.1f kWh x %g, %s); with electricity: EUR %.2f\n", e.EUR, e.KWh, e.EURPerKWh, e.Basis, r.WithFuelEUR)
+	}
+	if r.Trip != nil && r.Trip.RoutedFor != nil {
+		keys := make([]string, 0, len(r.Trip.RoutedFor))
+		for k := range r.Trip.RoutedFor {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+		parts := make([]string, len(keys))
+		for i, k := range keys {
+			parts[i] = fmt.Sprintf("%s %v", k, r.Trip.RoutedFor[k])
+		}
+		fmt.Printf("Routed for the truck: %s\n", strings.Join(parts, ", "))
 	}
 	if r.Trip != nil && r.Trip.Hours > 0 {
 		rest := ""

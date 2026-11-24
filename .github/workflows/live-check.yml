@@ -1,5 +1,5 @@
 name: Live check
-# Runs Sootcase (v0.14.0, else main) with real OSRM routing on a map
+# Runs Sootcase (v0.15.1, else main) with real OSRM routing on a map
 # extract, then prices trips with carbon-cost and prints them as
 # annotations. Run from the Actions tab, or push to the live-check branch.
 on:
@@ -91,7 +91,7 @@ jobs:
       - run: go build -o cc ./cmd/carbon-cost
       - name: Sootcase
         run: |
-          git clone -q --depth 1 --branch v0.14.0 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
+          git clone -q --depth 1 --branch v0.15.1 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
             || { rm -rf sootcase-src; git clone -q --depth 1 https://github.com/majidkabir/sootcase sootcase-src; }
           git -C sootcase-src log --oneline -1
       - name: Map
@@ -142,6 +142,9 @@ jobs:
             run cph-ham-land -from DKCPH -to DEHAM -avoid-ferries
             # The truck's running costs choose the route; totals in DKK; an
             # electric truck at 120 kWh/100 km and Eurostat's price.
+            # Sootcase's truck routing (v0.15.1): 4 m high, dangerous goods
+            # with tunnel code E.
+            run cph-ham-truck -from DKCPH -to DEHAM -height-m 4 -width-m 2.55 -tunnel-code E
             run cph-ham-costs -from DKCPH -to DEHAM -route cheapest -driver-eur-h 35 -vehicle-eur-km 0.45 -currency DKK -compare 1,5 -kwh-per-100km 120
           elif [ "${{ matrix.name }}" = hu ]; then
             # Against NÚSZ's Útdíj kalkulátor: Győr to Tatabánya, J4, EURO6, HUF 12 946

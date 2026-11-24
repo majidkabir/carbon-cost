@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"math"
 	"regexp"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -573,6 +574,35 @@ func (c Calculator) priceRoute(res sootcase.Result, req *Request, date time.Time
 	return out, nil
 }
 
+// routedFor says what Sootcase applied, in a stable order.
+func routedFor(m map[string]any) string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	parts := make([]string, len(keys))
+	for i, k := range keys {
+		parts[i] = fmt.Sprintf("%s %v", k, m[k])
+	}
+	return strings.Join(parts, ", ")
+}
+
+// vehicle is the truck for Sootcase's routing, when it is to keep to roads
+// it may drive: its size, its axles and its gross weight with the leg's
+// load (the tare and the cargo, else its maximum mass).
+func vehicle(t rates.Truck, loadKg float64) *sootcase.Vehicle {
+	if !t.Restricted() {
+		return nil
+	}
+	v := &sootcase.Vehicle{HeightM: t.HeightM, WidthM: t.WidthM, LengthM: t.LengthM, AxleLoadKg: float64(t.AxleLoadKg), Axles: t.Axles,
+		Hazmat: t.Hazmat || t.ADRTunnelCode != "", TunnelCode: t.ADRTunnelCode, GrossWeightKg: float64(t.MaxMassKg)}
+	if t.TareKg > 0 {
+		v.GrossWeightKg = float64(t.TareKg) + loadKg
+	}
+	return v
+}
+
 // trip routes the trip's legs with Sootcase and sets the request's
 // loads and each shipment's distance and emissions. Sootcase's emissions
 // are its GLEC default intensity x tonne-km, so a leg is calculated once,
@@ -591,7 +621,7 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		if len(stops) > 2 {
 			id = fmt.Sprintf("leg%d", i+1)
 		}
-		sh.Legs = append(sh.Legs, sootcase.Leg{ID: id, Mode: "road", VehicleType: vt, From: stops[i], To: stops[i+1]})
+		sh.Legs = append(sh.Legs, sootcase.Leg{ID: id, Mode: "road", VehicleType: vt, From: stops[i], To: stops[i+1], Vehicle: vehicle(req.Truck, loads[i])})
 	}
 	opt := sootcase.Options{AvoidFerries: req.Ferry == "avoid"}
 	if req.Alternatives > 1 {
@@ -638,7 +668,7 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		}
 		if !ok {
 			r, err := c.Sootcase.CalculateWith(ctx, sootcase.Shipment{ID: "shipment-" + s.ID, WeightKg: s.WeightKg, AddRoadLegs: &no,
-				Legs: []sootcase.Leg{{ID: "road", Mode: "road", VehicleType: vt, From: stops[s.From], To: stops[s.To]}}},
+				Legs: []sootcase.Leg{{ID: "road", Mode: "road", VehicleType: vt, From: stops[s.From], To: stops[s.To], Vehicle: vehicle(req.Truck, slices.Max(loads[s.From:s.To]))}}},
 				sootcase.Options{AvoidFerries: req.Ferry == "avoid"})
 			if err != nil {
 				return res, fmt.Errorf("shipment %s: %w", s.ID, err)
@@ -683,6 +713,13 @@ func (c Calculator) date(s string) (time.Time, error) {
 }
 
 func check(req Request) error {
+	if t := req.Truck; t.HeightM != 0 && (t.HeightM < 1.5 || t.HeightM > 5) || t.WidthM != 0 && (t.WidthM < 1.5 || t.WidthM > 3.5) ||
+		t.AxleLoadKg != 0 && (t.AxleLoadKg < 1000 || t.AxleLoadKg > 15000) {
+		return fmt.Errorf("truck: height_m 1.5-5, width_m 1.5-3.5, axle_load_kg 1,000-15,000 (e.g. 4.0, 2.55, 11500)")
+	}
+	if c := req.Truck.ADRTunnelCode; c != "" && !strings.Contains("BCDE", c) || len(c) > 1 {
+		return fmt.Errorf("truck.adr_tunnel_code %q: give the load's ADR tunnel restriction code, B, C, D or E", c)
+	}
 	if err := req.Truck.Validate(); err != nil {
 		return fmt.Errorf("truck: %w", err)
 	}
@@ -963,6 +1000,13 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	}
 	runningCost(&out, req)
 	allocate(&out, res, req)
+	if req.Truck.Restricted() {
+		if out.Trip.RoutedFor == nil {
+			out.Notes = append(out.Notes, "Route: Sootcase didn't say it kept to roads the truck may drive (its vehicle routing came in v0.15.0): check the route for low bridges, weight limits and tunnels.")
+		} else {
+			out.Notes = append(out.Notes, "Route: kept to roads the truck may drive, by OpenStreetMap's height, width, length, weight and dangerous-goods limits (Sootcase applied "+routedFor(out.Trip.RoutedFor)+").")
+		}
+	}
 	if err := convert(&out, req, date); err != nil {
 		return Response{}, err
 	}

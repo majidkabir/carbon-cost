@@ -59,6 +59,11 @@ type Trip struct {
 	Hours      float64 `json:"hours"`
 	HoursBasis string  `json:"hours_basis"`
 	ElapsedH   float64 `json:"elapsed_h,omitempty"`
+	// RoutedFor is the limits Sootcase's routing kept to for the truck's
+	// size, weight and dangerous goods (its first leg's; the smallest of
+	// its truck profiles that covers the truck), with height_m, width_m,
+	// axle_load_kg, hazmat or adr_tunnel_code given.
+	RoutedFor map[string]any `json:"routed_for,omitempty"`
 }
 
 // TripLeg is the trip between two consecutive stops.
@@ -314,6 +319,14 @@ func tripOf(res sootcase.Result, req Request) *Trip {
 	tr.FuelL, tr.FuelBasis = tripFuel(tr.Legs, req)
 	tr.FuelL, tr.RoadKm, tr.EmptyKm = round2(tr.FuelL), round3(tr.RoadKm), round3(tr.EmptyKm)
 	tr.Hours, tr.HoursBasis = tripHours(res, tr.RoadKm, req)
+	if req.Truck.Restricted() && len(res.Legs) > 0 {
+		// Sootcase v0.15.1 gives the vehicle it read and, under
+		// routed_for, the limits its routing profile kept to.
+		tr.RoutedFor = res.Legs[0].Restrictions
+		if m, ok := tr.RoutedFor["routed_for"].(map[string]any); ok {
+			tr.RoutedFor = m
+		}
+	}
 	if req.DriverRest {
 		tr.ElapsedH = math.Round(withRest(tr.Hours)*100) / 100
 	}

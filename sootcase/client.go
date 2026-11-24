@@ -44,6 +44,21 @@ type Leg struct {
 	VehicleType string   `json:"vehicle_type"`
 	From        Location `json:"from"`
 	To          Location `json:"to"`
+	// Vehicle keeps the route to roads the truck may drive (Sootcase
+	// v0.15.0): every field optional.
+	Vehicle *Vehicle `json:"vehicle,omitempty"`
+}
+
+// Vehicle is the truck's size, weight and dangerous goods, for routing.
+type Vehicle struct {
+	HeightM       float64 `json:"height_m,omitempty"`
+	WidthM        float64 `json:"width_m,omitempty"`
+	LengthM       float64 `json:"length_m,omitempty"`
+	GrossWeightKg float64 `json:"gross_weight_kg,omitempty"`
+	AxleLoadKg    float64 `json:"axle_load_kg,omitempty"`
+	Axles         int     `json:"axles,omitempty"`
+	Hazmat        bool    `json:"hazmat,omitempty"`
+	TunnelCode    string  `json:"tunnel_code,omitempty"`
 }
 
 // Part is a part of a leg calculated separately, e.g. a ferry crossing.
@@ -68,8 +83,10 @@ type LegResult struct {
 	// Path is the route as [lon, lat] points, every point of it (asked
 	// for with path=full): toll stations, gantries and sections are found
 	// along it, some within 30 m, which a thinned line misses on curves.
-	Path  [][2]float64 `json:"path"`
-	Parts []Part       `json:"parts"`
+	Path [][2]float64 `json:"path"`
+	// Restrictions is what Sootcase applied of the leg's vehicle.
+	Restrictions map[string]any `json:"restrictions,omitempty"`
+	Parts        []Part         `json:"parts"`
 	// ID names an alternative route (alt1, alt2, ...; Sootcase v0.14.0).
 	ID string `json:"id,omitempty"`
 	// Summary is what tells the route apart: its main roads and ferries.

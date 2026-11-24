@@ -464,6 +464,12 @@
     "additionalProperties": false,
     "description": "Truck is what a toll rate depends on.",
     "properties": {
+     "adr_tunnel_code": {
+      "type": "string"
+     },
+     "axle_load_kg": {
+      "type": "integer"
+     },
      "axles": {
       "description": "of the truck with its trailer",
       "type": "integer"
@@ -479,6 +485,13 @@
      "euro": {
       "description": "emission standard 0-6 (EEV counts as 5)",
       "type": "integer"
+     },
+     "hazmat": {
+      "type": "boolean"
+     },
+     "height_m": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
+      "type": "number"
      },
      "length_m": {
       "description": "LengthM is the vehicle's length with trailer, optional: bridge tolls are priced by length (default DefaultLengthM).",
@@ -502,6 +515,9 @@
      },
      "trailer_mass_kg": {
       "type": "integer"
+     },
+     "width_m": {
+      "type": "number"
      }
     },
     "required": [
@@ -1365,6 +1381,11 @@
      "road_km": {
       "description": "RoadKm is the km on the road (not on ferries).",
       "type": "number"
+     },
+     "routed_for": {
+      "additionalProperties": {},
+      "description": "RoutedFor is what Sootcase applied of the truck's size, weight and dangerous goods to the route (its first leg's), with height_m, width_m, axle_load_kg, hazmat or adr_tunnel_code given.",
+      "type": "object"
      }
     },
     "required": [

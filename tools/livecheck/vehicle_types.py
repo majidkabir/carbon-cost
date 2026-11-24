@@ -99,3 +99,14 @@ def calc_leg(extra):
 for extra in [{}, {"energy_kwh_per_tkm": 0.06}, {"energy_kwh_per_tkm": 0.06, "country": "DE"}, {"energy_kwh_per_tkm": 0.06, "country": "NO"},
               {"energy_kwh_per_tkm": 0.06, "energy_country": "NO"}, {"energy_kwh": 120, "country": "NO"}, {"fuel_l": 30}, {"no_such_field": 1}]:
     print("leg", json.dumps(extra), "->", calc_leg(extra))
+
+# Where the grid factors are: every top-level key of /v1/factors, and the
+# entries naming DNK or a grid.
+if st == 200 and isinstance(f, dict):
+    print("factor keys:", sorted(f))
+    for k, v in f.items():
+        txt = json.dumps(v)
+        if re.search(r"\bDNK\b|grid", txt):
+            print(f"key {k}: {txt[:1500]}")
+for extra in [{"energy_kwh_per_tkm": 0.06, "country": "DNK"}, {"energy_kwh_per_tkm": 0.06, "country": "NOR"}, {"energy_kwh_per_tkm": 0.06, "country": "DEU"}]:
+    print("leg", json.dumps(extra), "->", calc_leg(extra))

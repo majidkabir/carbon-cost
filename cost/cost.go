@@ -27,6 +27,32 @@ import (
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
+// ElectricVehicleType is the GLEC electric truck type Sootcase models a
+// zero-emission truck (CO2 class 5) as when the request names none: an
+// articulated truck over 28 t, a rigid one below, by its maximum mass.
+// GLEC has no hydrogen truck type for Europe, so a fuel-cell truck is
+// modelled as electric too.
+func ElectricVehicleType(maxMassKg int) string {
+	t := "glec/road/europe/electric/"
+	switch {
+	case maxMassKg > 40000:
+		return t + "artic_40_50t"
+	case maxMassKg > 34000:
+		return t + "artic_34_40t"
+	case maxMassKg > 28000:
+		return t + "artic_28_34t"
+	case maxMassKg > 20000:
+		return t + "rigid_20_26t"
+	case maxMassKg > 12000:
+		return t + "rigid_14_20t"
+	case maxMassKg > 7500:
+		return t + "rigid_7_5_12t"
+	case maxMassKg > 3500:
+		return t + "rigid_7_5t"
+	}
+	return t + "van_3_5t"
+}
+
 // DefaultVehicleType is Sootcase's GLEC vehicle type used when the request
 // names none: an articulated 34-40 t diesel truck.
 const DefaultVehicleType = "glec/road/eu_sa/artic_34_40t/diesel"
@@ -486,6 +512,9 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 	}
 	if vt == "" {
 		vt = DefaultVehicleType
+		if req.Truck.CO2Class == 5 {
+			vt = ElectricVehicleType(req.Truck.MaxMassKg)
+		}
 		assumed = append(assumed, "vehicle_type: "+vt)
 	}
 	if c.FXOn != nil {

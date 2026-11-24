@@ -213,6 +213,13 @@ func TestCalculate_CallsSootcase(t *testing.T) {
 	if len(got.Legs) != 1 || got.Legs[0].VehicleType != DefaultVehicleType || got.WeightKg != 20000 || got.AddRoadLegs == nil || *got.AddRoadLegs {
 		t.Errorf("sent %+v", got)
 	}
+	// A zero-emission truck is modelled as GLEC's electric truck of its mass.
+	ev := truck40
+	ev.CO2Class = 5
+	if r, err = c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "DKCPH"}, To: sootcase.Location{Code: "DEHAM"}, CargoKg: 20000, Truck: ev}); err != nil ||
+		got.Legs[0].VehicleType != "glec/road/europe/electric/artic_34_40t" || !slices.Contains(r.Provenance.Assumed, "vehicle_type: glec/road/europe/electric/artic_34_40t") {
+		t.Errorf("class 5: %v, sent %s, assumed %v", err, got.Legs[0].VehicleType, r.Provenance.Assumed)
+	}
 	c.Sootcase.APIKey = ""
 	if _, err := c.Calculate(context.Background(), Request{CargoKg: 1, Truck: truck40}); err == nil || !strings.Contains(err.Error(), "HTTP 400") {
 		t.Errorf("want Sootcase's 400 passed on, got %v", err)

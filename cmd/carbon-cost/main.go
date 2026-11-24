@@ -158,7 +158,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	to := fs.String("to", "", "destination, as -from")
 	fs.StringVar(&req.Date, "date", "", "trip date YYYY-MM-DD (default today)")
 	fs.Float64Var(&req.CargoKg, "cargo-kg", 0, "cargo weight in kg")
-	fs.StringVar(&req.VehicleType, "vehicle", cost.DefaultVehicleType, "Sootcase vehicle type")
+	fs.StringVar(&req.VehicleType, "vehicle", "", "Sootcase vehicle type (default "+cost.DefaultVehicleType+", or GLEC's electric truck of the mass for CO2 class 5)")
 	fs.IntVar(&req.Truck.MaxMassKg, "mass-kg", 40000, "truck's technically permissible maximum mass, kg")
 	fs.IntVar(&req.Truck.Axles, "axles", 5, "axles (truck and trailer)")
 	fs.IntVar(&req.Truck.Euro, "euro", 6, "Euro emission standard 0-6 (EEV = 5)")

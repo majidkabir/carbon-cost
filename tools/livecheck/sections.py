@@ -79,7 +79,8 @@ def check_sections(name, leg, want_countries, want_regions=None):
             if s.get("regions") and (err := contiguous(s["regions"], s["from_km"], s["to_km"], f"{s['country']} regions")):
                 problems.append(err)
     ferries = [s for s in secs if s.get("ferry")]
-    seen = ", ".join(f"{s.get('country') or 'ferry'} {s['from_km']:.1f}-{s['to_km']:.1f}" + (" (ferry)" if s.get("ferry") else "") for s in secs)
+    seen = ", ".join(f"{s.get('country') or 'ferry'} {s['from_km']:.1f}-{s['to_km']:.1f}" + (" (ferry)" if s.get("ferry") else "")
+                     + (" [" + ", ".join(f"{r.get('region')} {r['from_km']:.1f}-{r['to_km']:.1f}" for r in s["regions"]) + "]" if s.get("regions") else "") for s in secs)
     say(name, "FAIL" if problems else "PASS", ("; ".join(problems) + " | " if problems else "") + seen + (f"; {len(ferries)} ferry section(s)" if ferries else ""))
 
 
@@ -96,6 +97,12 @@ def check_basis(name, res):
         problems.append(f"certification {cert!r}")
     if "in accordance with regulation" in text:
         problems.append("the Art. 10 line is in the response")
+    if problems:
+        # What the response has instead, to tell a missing field from a renamed one.
+        hits = {k: v for k, v in res.items() if any(w in k.lower() for w in ("basis", "cert", "standard", "method", "version", "framework", "regulation"))}
+        problems.append(f"top-level keys {sorted(res)}; related {json.dumps(hits)[:400]}")
+        found = [m.start() for m in __import__("re").finditer("14083|glec|2026/1030", text)]
+        problems.append(f"14083/GLEC/2026-1030 mentioned at {len(found)} places" + (f", e.g. …{text[max(0, found[0] - 80):found[0] + 80]}…" if found else ""))
     say(name, "FAIL" if problems else "PASS", "; ".join(problems) or f"basis {basis}, certification {cert!r}")
 
 

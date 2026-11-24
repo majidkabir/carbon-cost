@@ -27,6 +27,18 @@ DIAS = {"lunes": "mon", "martes": "tue", "miércoles": "wed", "jueves": "thu", "
 # de la Dirección General de Trabajo, BOE-A-2025-21667, the days all
 # communities keep), for the days marked (*).
 HOLIDAYS = {2026: ["2026-01-01", "2026-01-06", "2026-04-03", "2026-05-01", "2026-08-15", "2026-10-12", "2026-12-08", "2026-12-25"]}
+# And the communities' own holidays (the same resolution's columns) in the
+# ranges of the days marked (*), with the communities the roads of those
+# tables run through: every such road must be here.
+REGIONAL = {2026: {"2026-07-28": "Cantabria"}}
+COMMUNITIES = {
+    "Andalucía": ["A-483", "A-497", "A-5056", "A-5076", "A-370", "AP-4", "N-4", "A-45", "A-49", "N-630"],
+    "Cantabria": ["A-8"],
+    "Aragón": ["N-230"],
+    "Castilla y León": ["A-1", "A-6", "AP-6", "N-6", "AP-51", "AP-61", "N-110", "N-603"],
+    "Castilla-La Mancha": ["A-2", "A-3", "A-5"],
+    "Madrid": ["A-1", "A-2", "A-3", "A-5", "A-6", "N-6", "M-501"],
+}
 
 ROAD = r"[A-Z]{1,3}(?:-[A-Z])?-\d+[A-Z]?(?:\s?/\s?[A-Z]{1,3}-\d+[A-Z]?)?"
 PK = r"\d+(?:,\s?\d+)?"
@@ -197,17 +209,21 @@ def calendar(text):
             for a, b, w in ranges:
                 specs.append({"from_date": a.isoformat(), "to_date": b.isoformat(), "weekday": w})
             if holidays:
-                for d in HOLIDAYS[YEAR]:
+                where = [c for c, rs in COMMUNITIES.items() if set(roads) & set(rs)]
+                if not where:
+                    raise ValueError(f"{road} under {head!r}: which community? (COMMUNITIES)")
+                days_off = [(d, "a national holiday") for d in HOLIDAYS[YEAR]] + [(d, f"a holiday in {c}") for d, c in REGIONAL[YEAR].items() if c in where]
+                for d, what in days_off:
                     day = dt.date.fromisoformat(d)
                     if any(a <= day <= b for a, b, _ in ranges) and day.strftime("%a").lower()[:3] not in [w for _, _, w in ranges]:
-                        specs.append({"date": d, "holiday": True})
+                        specs.append({"date": d, "holiday": what})
         else:
             specs = [{"date": d.isoformat()} for d in dated_days(head)]
         for spec in specs:
             for f, t in hours:
                 day = {k: v for k, v in spec.items() if k != "holiday"}
                 day.update({"from": f, "to": t, "listed": True, "roads": roads,
-                            "note": note + (", a national holiday (and the affected autonomous community's holidays)" if spec.get("holiday") else ""),
+                            "note": note + (", " + spec["holiday"] if spec.get("holiday") else ""),
                             "heading": head})
                 key = json.dumps(day, sort_keys=True)
                 if key not in seen:

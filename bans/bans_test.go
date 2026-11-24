@@ -304,3 +304,17 @@ func TestItalianCalendar(t *testing.T) {
 		t.Errorf("years %v", CalendarYears("IT"))
 	}
 }
+
+func TestLiechtensteinBans(t *testing.T) {
+	vaduz, _ := time.LoadLocation("Europe/Vaduz")
+	// 8 December 2026, a Tuesday: Maria Empfängnis, all day, plus the
+	// nights either side.
+	w := Windows("LI", 40000, false, time.Date(2026, 12, 8, 6, 0, 0, 0, vaduz), time.Date(2026, 12, 8, 21, 0, 0, 0, vaduz), vaduz)
+	if len(w) != 1 || w[0].Holiday != "Maria Empfängnis" || w[0].From.Hour() != 0 || w[0].To.Day() != 9 {
+		t.Errorf("8 December: %+v", w)
+	}
+	// A weekday night.
+	if w := Windows("LI", 40000, false, time.Date(2026, 11, 24, 21, 0, 0, 0, vaduz), time.Date(2026, 11, 24, 23, 0, 0, 0, vaduz), vaduz); len(w) != 1 || w[0].Rule.Name != "night ban" {
+		t.Errorf("night: %+v", w)
+	}
+}

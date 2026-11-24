@@ -180,6 +180,12 @@ func Holidays(country string, y int) []Holiday {
 			hs = append(hs, fixed(12, 26, "Stephanstag"))
 		}
 		return hs
+	case "LI":
+		// VRV Art. 89 Abs. 1.
+		return []Holiday{fixed(1, 1, "Neujahr"), fixed(1, 6, "Heilige Drei Könige"), moving(1, "Ostermontag"), fixed(5, 1, "1. Mai"),
+			moving(39, "Auffahrt"), moving(50, "Pfingstmontag"), moving(60, "Fronleichnam"), fixed(8, 15, "Maria Himmelfahrt"),
+			fixed(9, 8, "Maria Geburt"), fixed(11, 1, "Allerheiligen"), fixed(12, 8, "Maria Empfängnis"), fixed(12, 25, "Weihnachten"),
+			fixed(12, 26, "St. Stefanstag")}
 	case "CZ":
 		// Zákon č. 245/2000 Sb.: state holidays and the other holidays.
 		return []Holiday{fixed(1, 1, "Den obnovy samostatného českého státu"), moving(-2, "Velký pátek"), moving(1, "Velikonoční pondělí"),

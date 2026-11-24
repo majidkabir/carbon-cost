@@ -25,7 +25,8 @@ type Rule struct {
 	// day before one. Where a country's law counts runs of days off
 	// (Sundays and its holidays): "dayoff_first", "dayoff_last" and
 	// "dayoff_single" for the first and last day of a run and a day off
-	// alone, and "sat_after_workday" for a Saturday after a working day.
+	// alone, "sat_after_workday" for a Saturday after a working day, and
+	// "good_friday".
 	Days           []string
 	From, To       string
 	FromDay, ToDay string
@@ -219,6 +220,13 @@ func Holidays(country string, y int) []Holiday {
 			h[i].NoEve = true
 		}
 		return h
+	case "SI":
+		// Zakon o praznikih in dela prostih dnevih (ZPDPD), 1. and 2.
+		// člen: the holidays that are days off, and the other days off.
+		return []Holiday{fixed(1, 1, "Novo leto"), fixed(1, 2, "Novo leto"), fixed(2, 8, "Prešernov dan"), moving(0, "Velikonočna nedelja"),
+			moving(1, "Velikonočni ponedeljek"), fixed(4, 27, "Dan upora proti okupatorju"), fixed(5, 1, "Praznik dela"), fixed(5, 2, "Praznik dela"),
+			moving(49, "Binkoštna nedelja"), fixed(6, 25, "Dan državnosti"), fixed(8, 15, "Marijino vnebovzetje"), fixed(10, 31, "Dan reformacije"),
+			fixed(11, 1, "Dan spomina na mrtve"), fixed(12, 25, "Božič"), fixed(12, 26, "Dan samostojnosti in enotnosti")}
 	case "FR":
 		// Code du travail, art. L3133-1.
 		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),
@@ -280,6 +288,9 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 		h, isHol := hol[ymd]
 		prev, next := off(day.AddDate(0, 0, -1)), off(day.AddDate(0, 0, 1))
 		kinds := []string{weekday[day.Weekday()]}
+		if e := easter(day.Year()).AddDate(0, 0, -2); day.Month() == e.Month() && day.Day() == e.Day() {
+			kinds = append(kinds, "good_friday")
+		}
 		if off(day) {
 			switch {
 			case !prev && !next:

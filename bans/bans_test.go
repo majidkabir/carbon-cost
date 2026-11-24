@@ -253,3 +253,33 @@ func TestPolishBans(t *testing.T) {
 		t.Errorf("12 t: %+v", w)
 	}
 }
+
+func TestSlovenianBans(t *testing.T) {
+	lj, _ := time.LoadLocation("Europe/Ljubljana")
+	if f, l := siSeason(2025); f.Format(time.DateOnly) != "2025-06-28" || l.Format(time.DateOnly) != "2025-09-07" {
+		t.Errorf("season 2025: %s to %s", f, l)
+	}
+	day := func(y int, m time.Month, d int) (s []string) {
+		for _, w := range Windows("SI", 40000, false, time.Date(y, m, d, 0, 0, 0, 0, lj), time.Date(y, m, d, 23, 59, 0, 0, lj), lj) {
+			s = append(s, w.From.Format("15:04")+"-"+w.To.Format("15:04"))
+		}
+		return
+	}
+	for _, c := range []struct {
+		y    int
+		m    time.Month
+		d    int
+		want []string
+	}{
+		{2026, 4, 3, []string{"14:00-22:00"}},   // Good Friday
+		{2026, 11, 29, []string{"08:00-22:00"}}, // Sunday
+		{2026, 12, 25, []string{"08:00-22:00"}}, // Christmas, a Friday
+		{2026, 11, 23, nil},                     // Maister's day isn't a day off
+		{2026, 7, 4, []string{"08:00-13:00"}},   // a season Saturday
+		{2026, 11, 28, nil},                     // a Saturday outside it
+	} {
+		if got := day(c.y, c.m, c.d); !slices.Equal(got, c.want) {
+			t.Errorf("%d-%02d-%02d: %v, want %v", c.y, c.m, c.d, got, c.want)
+		}
+	}
+}

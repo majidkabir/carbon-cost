@@ -64,6 +64,10 @@ jobs:
           # Saturday 28 November 2026, 18:00 from Copenhagen: Germany's
           # Sunday ban from midnight.
           ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -tare-kg 15000 -date 2026-11-28 -time 18:00 | tee -a checks.txt
+          # Primary data with Sootcase's factors: the truck's own diesel,
+          # and an electric truck's own kWh charged in Denmark.
+          ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -date 2026-11-24 -diesel-l 95 | grep -E "^CO2e|^Method" | tee -a checks.txt
+          ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -date 2026-11-24 -co2-class 5 -electricity-kwh 400 -fuel-country DK | grep -E "^CO2e|^Method|Electricity" | tee -a checks.txt
       - name: Summary
         if: always()
         run: |

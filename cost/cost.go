@@ -243,6 +243,9 @@ type Request struct {
 	// dieselFactor is Sootcase's factor for a litre of diesel (Calculate);
 	// nil: EN 16258's.
 	dieselFactor *sootcase.FuelFactor
+	// grids holds Sootcase's grid factors by country (Calculate); nil: an
+	// electric truck's own kWh give no emissions of their own.
+	grids *sootcase.Factors
 	// legLoadKg is the load on board on each leg (Calculate); nil:
 	// CargoKg on every leg.
 	legLoadKg []float64
@@ -520,12 +523,16 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		}
 		assumed = append(assumed, "vehicle_type: "+vt)
 	}
-	if req.fuelGiven() && len(req.CountryKm) == 0 {
-		// The truck's own diesel: Sootcase's factor for it (GLEC's); a
-		// trip by country_km doesn't call Sootcase, and keeps EN 16258's.
+	if (req.fuelGiven() || req.electricityGiven()) && len(req.CountryKm) == 0 {
+		// The truck's own diesel or electricity: Sootcase's factors for
+		// them (GLEC's for diesel, the grids' by country); a trip by
+		// country_km doesn't call Sootcase, and keeps EN 16258's.
 		if f, ok := factorsOf(ctx, c.Sootcase); ok {
 			if df, ok := f.Fuel("diesel"); ok && df.Unit == "l" && df.TTWKgPerUnit > 0 {
 				req.dieselFactor = &df
+			}
+			if len(f.Grids) > 0 {
+				req.grids = &f
 			}
 		}
 	}

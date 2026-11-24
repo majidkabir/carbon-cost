@@ -309,6 +309,28 @@ type RegionSection struct {
 type Factors struct {
 	Fuels       []FuelFactor      `json:"fuels"`
 	FuelAliases map[string]string `json:"fuel_aliases"`
+	// Grids are the electricity grids' intensities by country (ISO 3166-1
+	// alpha-3), and GridNote what they are.
+	Grids    []Grid `json:"grids"`
+	GridNote string `json:"grid_note"`
+}
+
+// Grid is a country's electricity grid intensity, g CO2e per kWh.
+type Grid struct {
+	Country string  `json:"country"`
+	Year    int     `json:"year"`
+	GPerKWh float64 `json:"g_per_kwh"`
+	Source  string  `json:"source"`
+}
+
+// Grid is the grid factor of a country (ISO 3166-1 alpha-3).
+func (f Factors) Grid(alpha3 string) (Grid, bool) {
+	for _, g := range f.Grids {
+		if g.Country == alpha3 {
+			return g, true
+		}
+	}
+	return Grid{}, false
 }
 
 // FuelFactor is a fuel's tank-to-wheel and well-to-tank kg CO2e per unit.

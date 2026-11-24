@@ -481,6 +481,11 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 		out.EmissionsBasis = fmt.Sprintf("Sootcase %s: %s default intensities x each shipment's tonne-km on its own route", b.Sootcase, b.Framework)
 	}
 	out.EmissionsStandard, out.Certification = EmissionsStandard, Certification
+	var roadTTW, roadWTW float64
+	if wtw, basis, ok := electricEmissions(out, req); ok {
+		out.DataType, out.EmissionsBasis, roadWTW = "primary", basis, wtw
+		return shareEmissions(out, res, req, roadTTW, roadWTW)
+	}
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
 		return req
 	}
@@ -488,7 +493,7 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 		out.DataType = "primary"
 	}
 	fuel := out.Trip.FuelL
-	roadTTW, roadWTW := fuel*DieselKgCO2PerL, fuel*DieselKgCO2ePerLWTW
+	roadTTW, roadWTW = fuel*DieselKgCO2PerL, fuel*DieselKgCO2ePerLWTW
 	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1, as Sootcase gave no fuel factors), shared out by tonne-km",
 		fuel, out.Trip.FuelBasis, DieselKgCO2PerL, DieselKgCO2ePerLWTW)
 	if f := req.dieselFactor; f != nil {
@@ -501,6 +506,14 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 		out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.4f kg CO2e/l tank-to-wheel and %.4f kg CO2e/l well-to-wheel (%s's %s: %s), shared out by tonne-km",
 			fuel, out.Trip.FuelBasis, f.TTWKgPerUnit, f.TTWKgPerUnit+f.WTTKgPerUnit, by, f.Fuel, f.Source)
 	}
+	return shareEmissions(out, res, req, roadTTW, roadWTW)
+}
+
+// shareEmissions shares the road's emissions out among the shipments by
+// tonne-km, adds each ferry's (Sootcase's for the load on board, shared
+// by weight among the shipments on it), and returns req with the
+// shipments'.
+func shareEmissions(out *Response, res sootcase.Result, req Request, roadTTW, roadWTW float64) Request {
 	ships := req.shipments()
 	dist := make([]float64, len(ships))
 	var tkm float64
@@ -555,4 +568,44 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	out.TTWKg, out.WTWKg = round3(out.TTWKg), round3(out.WTWKg)
 	req.shipTTW, req.shipWTW = ttw, wtw
 	return req
+}
+
+// electricityGiven says the request gives an electric truck's own energy.
+func (r Request) electricityGiven() bool {
+	return r.Truck.CO2Class == 5 && (r.ElectricityKWh > 0 || r.KWhPer100Km > 0)
+}
+
+// electricEmissions are a zero-emission truck's own kWh (electricity_kwh,
+// or kwh_per_100km over the road km) x the grid factor of each country
+// it charges in (as fuel is bought), from Sootcase: all well-to-tank, as
+// a battery truck emits none on the road. ok is false without the kWh, or
+// without a factor for each country.
+func electricEmissions(out *Response, req Request) (wtw float64, basis string, ok bool) {
+	if !req.electricityGiven() || req.grids == nil || out.Trip == nil {
+		return 0, "", false
+	}
+	kwh, how := req.ElectricityKWh, "electricity_kwh"
+	if kwh <= 0 {
+		kwh, how = out.Trip.RoadKm*req.KWhPer100Km/100, fmt.Sprintf("kwh_per_100km %g x %.1f road km", req.KWhPer100Km, out.Trip.RoadKm)
+	}
+	var parts []string
+	for _, cc := range sortedKeys(fuelShares(req, out.CountryKm)) {
+		share := fuelShares(req, out.CountryKm)[cc]
+		if share <= 0 {
+			continue
+		}
+		g, found := req.grids.Grid(alpha3[cc])
+		if !found || g.GPerKWh <= 0 {
+			out.Notes = append(out.Notes, fmt.Sprintf("Emissions: Sootcase has no grid factor for %s, so the electric truck's are its modelled ones.", cc))
+			return 0, "", false
+		}
+		wtw += kwh * share * g.GPerKWh / 1000
+		parts = append(parts, fmt.Sprintf("%s %.0f%% x %g g CO2e/kWh (%d, %s)", cc, share*100, g.GPerKWh, g.Year, g.Source))
+	}
+	if len(parts) == 0 {
+		return 0, "", false
+	}
+	basis = fmt.Sprintf("the electric truck's own %.1f kWh (%s), charged as fuel is bought: %s, Sootcase's grid factors; all well-to-tank, none tank-to-wheel; charging losses are in only if the kWh are the charger's; shared out by tonne-km",
+		kwh, how, strings.Join(parts, "; "))
+	return wtw, basis, true
 }

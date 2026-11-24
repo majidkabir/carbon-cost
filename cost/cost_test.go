@@ -4187,3 +4187,30 @@ func TestPrimaryDieselWithSootcaseFactors(t *testing.T) {
 		t.Errorf("%s: %s", r.DataType, r.EmissionsBasis)
 	}
 }
+
+func TestElectricTruckOwnKWh(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/v1/factors":
+			_, _ = w.Write([]byte(`{"fuels":[],"grids":[{"country":"DNK","year":2025,"g_per_kwh":114.5,"source":"Ember via Our World in Data: Denmark"},` +
+				`{"country":"DEU","year":2025,"g_per_kwh":330,"source":"Ember via Our World in Data: Germany"}]}`))
+		default:
+			_ = json.NewEncoder(w).Encode(cphHam)
+		}
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t),
+		Now: func() time.Time { return time.Date(2026, 11, 3, 15, 0, 0, 0, time.UTC) }}
+	ev := truck40
+	ev.CO2Class = 5
+	r, err := c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "DKCPH"}, To: sootcase.Location{Code: "DEHAM"},
+		CargoKg: 20000, Truck: ev, ElectricityKWh: 400, FuelCountry: "DK", ElectricityEURPerKWh: 0.2})
+	if err != nil {
+		t.Fatal(err)
+	}
+	// 400 kWh charged in Denmark x 114.5 g = 45.8 kg, all well-to-tank,
+	// plus the ferry's 30 kg TTW and 36 kg WTW.
+	if r.DataType != "primary" || r.TTWKg != 30 || r.WTWKg != 81.8 || !strings.Contains(r.EmissionsBasis, "DK 100% x 114.5 g CO2e/kWh") {
+		t.Errorf("%s %v %v: %s", r.DataType, r.TTWKg, r.WTWKg, r.EmissionsBasis)
+	}
+}

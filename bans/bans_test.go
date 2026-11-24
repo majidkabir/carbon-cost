@@ -64,3 +64,40 @@ func TestWindows(t *testing.T) {
 		t.Fatalf("DST: %+v", w)
 	}
 }
+
+func TestSwissAndFrenchBans(t *testing.T) {
+	zrh, _ := time.LoadLocation("Europe/Zurich")
+	par, _ := time.LoadLocation("Europe/Paris")
+	// Switzerland, over 3.5 t: the night ban every night, all Sunday.
+	w := Windows("CH", 12000, false, time.Date(2026, 11, 27, 21, 0, 0, 0, zrh), time.Date(2026, 11, 28, 6, 0, 0, 0, zrh), zrh)
+	if len(w) != 2 || w[0].Rule.Name != "night ban" || w[0].From.Format("15:04") != "22:00" || w[1].To.Format("15:04") != "05:00" {
+		t.Fatalf("CH night: %+v", w)
+	}
+	if w := Windows("CH", 12000, false, time.Date(2026, 11, 29, 10, 0, 0, 0, zrh), time.Date(2026, 11, 29, 11, 0, 0, 0, zrh), zrh); len(w) != 1 || w[0].Rule.Name != "Sunday and public holiday ban" {
+		t.Fatalf("CH Sunday: %+v", w)
+	}
+	// Christmas 2026 on a Friday: 26 December isn't a ban day; 2027's is
+	// on a Saturday, so it is.
+	has26 := func(y int) bool {
+		for _, h := range Holidays("CH", y) {
+			if h.Name == "Stephanstag" {
+				return true
+			}
+		}
+		return false
+	}
+	if has26(2026) || !has26(2027) {
+		t.Errorf("CH 26 December: 2026 %v, 2027 %v", has26(2026), has26(2027))
+	}
+	// France: from 22:00 on the eve of 11 November (a Wednesday in 2026)
+	// to 22:00 on the day.
+	w = Windows("FR", 40000, false, time.Date(2026, 11, 10, 20, 0, 0, 0, par), time.Date(2026, 11, 11, 23, 0, 0, 0, par), par)
+	if len(w) != 2 || w[0].From.Format("2006-01-02 15:04") != "2026-11-10 22:00" || w[0].Holiday != "eve of Armistice" || w[1].To.Format("2006-01-02 15:04") != "2026-11-11 22:00" {
+		t.Fatalf("FR 11 November: %+v", w)
+	}
+	// A weekend: Saturday 22:00 to Sunday 22:00.
+	w = Windows("FR", 40000, false, time.Date(2026, 11, 28, 12, 0, 0, 0, par), time.Date(2026, 11, 29, 23, 0, 0, 0, par), par)
+	if len(w) != 2 || w[0].From.Format("Mon 15:04") != "Sat 22:00" || w[1].To.Format("Mon 15:04") != "Sun 22:00" {
+		t.Fatalf("FR weekend: %+v", w)
+	}
+}

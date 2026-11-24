@@ -19,9 +19,10 @@ type Rule struct {
 	Name          string
 	MinMassKg     int
 	TrailerMassKg int
-	// Days: "mon".."sun", and "holiday" for the public holidays of
-	// Holidays (regional ones count only where the route is in a region
-	// that keeps them, else the rule says it may apply).
+	// Days: "mon".."sun", "holiday" for the public holidays of Holidays
+	// (regional ones count only where the route is in a region that keeps
+	// them, else the rule says it may apply) and "holiday_eve" for the
+	// day before one.
 	Days             []string
 	From, To         string
 	FromDay, ToDay   string
@@ -55,6 +56,29 @@ var Rules = []Rule{
 		Law:        "Straßenverkehrsordnung 1960 (StVO), § 42 (1) and (2)",
 		Title:      "RIS: StVO 1960 § 42 Fahrverbot für Lastkraftfahrzeuge",
 		URL:        "https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40276972/NOR40276972.html"},
+}
+
+func init() {
+	ch := Rule{Country: "CH", MinMassKg: 3500, TrailerMassKg: 3500,
+		Exemptions: "only with a cantonal permit (VRV Art. 92)",
+		Note:       "articulated vehicles over 5 t combined, and vehicles towing a trailer over 3.5 t, too",
+		Law:        "Strassenverkehrsgesetz (SVG), Art. 2 Abs. 2; Verkehrsregelnverordnung (VRV), Art. 91",
+		Title:      "ASTRA: Sonntags- und Nachtfahrten",
+		URL:        "https://www.astra.admin.ch/de/sonntags-und-nachtfahrten"}
+	sunday, night1, night2 := ch, ch, ch
+	sunday.Name, sunday.Days, sunday.From, sunday.To = "Sunday and public holiday ban", []string{"sun", "holiday"}, "00:00", "24:00"
+	all := []string{"mon", "tue", "wed", "thu", "fri", "sat", "sun"}
+	night1.Name, night1.Days, night1.From, night1.To = "night ban", all, "00:00", "05:00"
+	night2.Name, night2.Days, night2.From, night2.To = "night ban", all, "22:00", "24:00"
+	fr := Rule{Country: "FR", Name: "weekend and public holiday ban", MinMassKg: 7500,
+		Exemptions: "perishables, live animals, and the other transports of Art. 4, and prefects' permits; on top, the summer and winter Saturdays of each year's arrêté, and Île-de-France's own bans",
+		Law:        "Arrêté du 16 avril 2021 relatif à l'interdiction de circulation des véhicules de transport de marchandises à certaines périodes, art. 1; public holidays: Code du travail, art. L3133-1",
+		Title:      "Ministère de la Transition écologique: Règles et interdictions de circulation dans le transport routier",
+		URL:        "https://www.ecologie.gouv.fr/politiques-publiques/regles-interdictions-circulation-transport-routier"}
+	frEve, frDay := fr, fr
+	frEve.Days, frEve.From, frEve.To = []string{"sat", "holiday_eve"}, "22:00", "24:00"
+	frDay.Days, frDay.From, frDay.To = []string{"sun", "holiday"}, "00:00", "22:00"
+	Rules = append(Rules, sunday, night1, night2, frEve, frDay)
 }
 
 // Night bans that low-noise trucks are exempt from are noted, not
@@ -104,6 +128,21 @@ func Holidays(country string, y int) []Holiday {
 			moving(39, "Christi Himmelfahrt"), moving(50, "Pfingstmontag"), moving(60, "Fronleichnam"), fixed(8, 15, "Mariä Himmelfahrt"),
 			fixed(10, 26, "Nationalfeiertag"), fixed(11, 1, "Allerheiligen"), fixed(12, 8, "Mariä Empfängnis"),
 			fixed(12, 25, "Christtag"), fixed(12, 26, "Stefanitag")}
+	case "CH":
+		// VRV Art. 91 Abs. 1: 26 December only when Christmas falls on
+		// neither a Monday nor a Friday; a day a canton doesn't keep isn't
+		// a ban day there.
+		hs := []Holiday{fixed(1, 1, "Neujahr"), moving(-2, "Karfreitag"), moving(1, "Ostermontag"), moving(39, "Auffahrt"),
+			moving(50, "Pfingstmontag"), fixed(8, 1, "Bundesfeiertag"), fixed(12, 25, "Weihnachten")}
+		if wd := time.Date(y, 12, 25, 0, 0, 0, 0, time.UTC).Weekday(); wd != time.Monday && wd != time.Friday {
+			hs = append(hs, fixed(12, 26, "Stephanstag"))
+		}
+		return hs
+	case "FR":
+		// Code du travail, art. L3133-1.
+		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),
+			moving(39, "Ascension"), moving(50, "Lundi de Pentecôte"), fixed(7, 14, "Fête nationale"), fixed(8, 15, "Assomption"),
+			fixed(11, 1, "Toussaint"), fixed(11, 11, "Armistice"), fixed(12, 25, "Noël")}
 	}
 	return nil
 }
@@ -157,6 +196,9 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			holidayOnly := false
 			if !on && isHol && slices.Contains(r.Days, "holiday") {
 				on, holidayOnly = true, true
+			}
+			if eve, ok := hol[day.AddDate(0, 0, 1).Format(time.DateOnly)]; !on && ok && slices.Contains(r.Days, "holiday_eve") {
+				on, holidayOnly, h = true, true, Holiday{Name: "eve of " + eve.Name, Regions: eve.Regions}
 			}
 			if !on {
 				continue

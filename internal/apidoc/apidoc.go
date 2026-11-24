@@ -124,13 +124,32 @@ func Generate(root, version string) ([]byte, error) {
 				"summary": "Price a CSV of up to 100 trips",
 				"description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, " +
 					"shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); " +
-					"path, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, " +
-					"carbon_eur, ..., complete, missing, error).",
+					"path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, " +
+					"carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, missing, error). With rows=shipments a trip with " +
+					"shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
 				"operationId": "priceCSV",
+				"parameters": []any{map[string]any{"name": "rows", "in": "query", "schema": map[string]any{"type": "string", "enum": []string{"trips", "shipments"}},
+					"description": "trips (the default): a row per trip; shipments: a row per shipment of a trip that has them."}},
 				"requestBody": map[string]any{"required": true, "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
 				"responses": map[string]any{
 					"200": map[string]any{"description": "The rows with the results added.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
 					"400": jsonBody(errRef, "The CSV can't be read, or has more than 100 rows."),
+				},
+			}},
+			"/v1/carbon-cost/report": map[string]any{"post": map[string]any{
+				"summary": "Add up priced CSVs by customer, month or any column",
+				"description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file " +
+					"(a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, " +
+					"CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), " +
+					"the share of tonne-km priced on primary data, " +
+					"and the rows that are incomplete or failed.",
+				"operationId": "reportCSV",
+				"parameters": []any{map[string]any{"name": "by", "in": "query", "schema": map[string]any{"type": "string"},
+					"description": "Columns to group by, separated by commas (e.g. customer,month); blank: one total."}},
+				"requestBody": map[string]any{"required": true, "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+				"responses": map[string]any{
+					"200": map[string]any{"description": "A row per group.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+					"400": jsonBody(errRef, "The CSV isn't one carbon-cost priced, or has no column to group by."),
 				},
 			}},
 			"/v1/rates": map[string]any{"get": map[string]any{

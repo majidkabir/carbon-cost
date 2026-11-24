@@ -1,0 +1,74 @@
+name: Sootcase truck restrictions
+# Checks Sootcase's routing for the truck's size, weight and dangerous
+# goods (docs/requirements/sootcase-truck-restrictions.md) as a black box:
+# Sootcase (main, or the ref given) with real OSRM routing on the Hamburg
+# and Schleswig-Holstein extract, asked with and without a vehicle around
+# the extract's own low bridges, weight limits and tunnels barred to
+# dangerous goods (tools/livecheck/restrictions.py). Run from the Actions
+# tab.
+on:
+  workflow_dispatch:
+    inputs:
+      sootcase_ref:
+        description: Sootcase branch or tag
+        default: main
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go build -o cc ./cmd/carbon-cost
+      - name: Sootcase
+        run: |
+          git clone -q --depth 1 --branch "${{ inputs.sootcase_ref || 'main' }}" https://github.com/majidkabir/sootcase sootcase-src
+          git -C sootcase-src log --oneline -1
+      - name: Map
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
+          mkdir -p maps && cd maps
+          for r in europe/germany/hamburg europe/germany/schleswig-holstein; do
+            curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r/$(basename $r)-latest.osm.pbf"
+          done
+          osmium merge -o region.osm.pbf *.osm.pbf
+          # The map's own restrictions, to route around.
+          osmium tags-filter -o low.osm.pbf region.osm.pbf w/maxheight
+          osmium tags-filter -o heavy.osm.pbf region.osm.pbf w/maxweight w/maxweight:hgv
+          osmium tags-filter -o hazmat.osm.pbf region.osm.pbf w/hazmat w/hazmat:B w/hazmat:C w/hazmat:D w/hazmat:E
+          for f in low heavy hazmat; do osmium export -f geojson -o $f.geojson $f.osm.pbf; done
+          ls -la
+      - name: Start stack
+        working-directory: sootcase-src
+        run: |
+          (cd ../maps && python3 -m http.server 8000 >/dev/null 2>&1 &)
+          ip=$(hostname -I | awk '{print $1}')
+          export OSRM_PBF_URL="http://$ip:8000/region.osm.pbf" SEA_RESOLUTION_KM=100
+          export SOOTCASE_FACTORS="desnz-2026,nl-iww-2026,eu-mrv-2024,glec-3.3"
+          docker compose up -d --build
+          for i in $(seq 1 240); do
+            if curl -fs localhost:8080/healthz >/dev/null; then echo healthy after $((i*5))s; exit 0; fi
+            sleep 5
+          done
+          docker compose logs --tail 50; exit 1
+      - name: Checks
+        run: python3 tools/livecheck/restrictions.py http://localhost:8080 maps/low.geojson maps/heavy.geojson maps/hazmat.geojson | tee checks.txt
+      - name: carbon-cost with the truck's limits
+        run: |
+          export SOOTCASE_URL=http://localhost:8080
+          # Pinneberg to Harburg: the A7 Elbe tunnel is barred to dangerous goods.
+          ./cc calc -from 53.6600,9.8000 -to 53.4600,9.9800 -cargo-kg 20000 -tare-kg 15000 -date 2026-11-24 | tee -a checks.txt
+          ./cc calc -from 53.6600,9.8000 -to 53.4600,9.9800 -cargo-kg 20000 -tare-kg 15000 -date 2026-11-24 -height-m 4 -width-m 2.55 -tunnel-code E | tee -a checks.txt
+      - name: Summary
+        if: always()
+        run: |
+          [ -f checks.txt ] && { echo '```'; cat checks.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Logs
+        if: failure()
+        working-directory: sootcase-src
+        run: docker compose logs --tail 100

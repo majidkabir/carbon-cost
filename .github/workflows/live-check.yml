@@ -1,5 +1,5 @@
 name: Live check
-# Runs Sootcase (v0.10.1, else main) with real OSRM routing on a map
+# Runs Sootcase (v0.15.1, else main) with real OSRM routing on a map
 # extract, then prices trips with carbon-cost and prints them as
 # annotations. Run from the Actions tab, or push to the live-check branch.
 on:
@@ -91,7 +91,7 @@ jobs:
       - run: go build -o cc ./cmd/carbon-cost
       - name: Sootcase
         run: |
-          git clone -q --depth 1 --branch v0.10.1 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
+          git clone -q --depth 1 --branch v0.15.1 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
             || { rm -rf sootcase-src; git clone -q --depth 1 https://github.com/majidkabir/sootcase sootcase-src; }
           git -C sootcase-src log --oneline -1
       - name: Map
@@ -135,6 +135,17 @@ jobs:
             # A trip with stops and shipments, back empty; the truck's own diesel.
             run cph-odense-ham-stops -from DKCPH -via 55.4038,10.4024 -to DEHAM -return -shipments "A:12000:0-2;B:8000:1-2" -l-per-100km 29 -fuel-bought DK=200,DE=150
             run dk-de-country-km -country-km DK=140,DE=141
+            # Sootcase's other routes (v0.14.0): Rødby–Puttgarden against the
+            # land route over Storebælt; the cheapest; on land only.
+            run cph-ham-routes -from DKCPH -to DEHAM -alternatives 3
+            run cph-ham-cheapest -from DKCPH -to DEHAM -route cheapest
+            run cph-ham-land -from DKCPH -to DEHAM -avoid-ferries
+            # The truck's running costs choose the route; totals in DKK; an
+            # electric truck at 120 kWh/100 km and Eurostat's price.
+            # Sootcase's truck routing (v0.15.1): 4 m high, dangerous goods
+            # with tunnel code E.
+            run cph-ham-truck -from DKCPH -to DEHAM -height-m 4 -width-m 2.55 -tunnel-code E
+            run cph-ham-costs -from DKCPH -to DEHAM -route cheapest -driver-eur-h 35 -vehicle-eur-km 0.45 -currency DKK -compare 1,5 -kwh-per-100km 120
           elif [ "${{ matrix.name }}" = hu ]; then
             # Against NÚSZ's Útdíj kalkulátor: Győr to Tatabánya, J4, EURO6, HUF 12 946
             # gross (infrastructure 10 511, external costs 2 435; tools/tables/browser/hu-utdijkalkulacio.txt).
@@ -201,9 +212,11 @@ jobs:
             run slovenia-border-zagreb -from 45.8470,15.6850 -to 45.8150,15.9819
             run rijeka-pula -from 45.3271,14.4422 -to 44.8666,13.8496
             run zagreb-split-etc -from 45.8150,15.9819 -to 43.5081,16.4402 -etc
+            run zagreb-split-refunds -from 45.8150,15.9819 -to 43.5081,16.4402 -diesel-refunds
           elif [ "${{ matrix.name }}" = fr ]; then
             run dijon-macon -from 47.3220,5.0415 -to 46.3069,4.8287
             run auxerre-beaune-2axles -from 47.7982,3.5673 -to 47.0260,4.8400 -axles 2 -mass-kg 18000
+            run dijon-macon-refunds -from 47.3220,5.0415 -to 46.3069,4.8287 -diesel-refunds
           elif [ "${{ matrix.name }}" = fr-south ]; then
             run aix-nice -from 43.5297,5.4474 -to 43.7102,7.2620
             run aix-nice-2axles -from 43.5297,5.4474 -to 43.7102,7.2620 -axles 2 -mass-kg 18000
@@ -289,6 +302,9 @@ jobs:
             it-centro) trip="-from 43.5485,10.3106 -to 42.7635,11.1124" ;;
             al) trip="-from 40.4661,19.4914 -to 40.1015,19.7449" ;;
             fi) trip="-from 60.1699,24.9384 -to 60.4518,22.2666" ;;
+            # Luxembourg City to Esch-sur-Alzette, on the map (Sootcase
+            # v0.14.0 refuses places over 25 km from its roads).
+            lu) trip="-from 49.6116,6.1319 -to 49.4958,5.9806" ;;
             *) trip="-from BEANR -to BELGG" ;;
           esac
           ./cc calc -date 2026-11-04 -cargo-kg 20000 -json $trip > trip.json

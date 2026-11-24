@@ -75,6 +75,20 @@ type Truck struct {
 	// together. Croatia's state ferries charge goods vehicles with more than
 	// 5 t of it a fare per tonne of it.
 	CapacityKg int `json:"capacity_kg,omitempty"`
+	// HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or
+	// E, the load's tunnel restriction code under ADR 1.9.5; it implies
+	// Hazmat) are optional: with any of them, the route keeps to roads
+	// the truck may drive (Sootcase's vehicle), its length and weight too.
+	HeightM       float64 `json:"height_m,omitempty"`
+	WidthM        float64 `json:"width_m,omitempty"`
+	AxleLoadKg    int     `json:"axle_load_kg,omitempty"`
+	Hazmat        bool    `json:"hazmat,omitempty"`
+	ADRTunnelCode string  `json:"adr_tunnel_code,omitempty"`
+}
+
+// Restricted says the truck's route is to keep to roads it may drive.
+func (t Truck) Restricted() bool {
+	return t.HeightM > 0 || t.WidthM > 0 || t.AxleLoadKg > 0 || t.Hazmat || t.ADRTunnelCode != ""
 }
 
 // DefaultLengthM is the length assumed when a truck's isn't given: a

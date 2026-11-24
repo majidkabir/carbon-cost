@@ -51,6 +51,22 @@ type Trip struct {
 	// FuelBasis says where FuelL comes from: diesel_l, fuel_purchases,
 	// l_per_100km, or the default by vehicle group and load.
 	FuelBasis string `json:"fuel_basis"`
+	// Hours is the trip's driving time: Sootcase's at truck speeds
+	// (ferries included) where it gives it, else the road km at
+	// avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest,
+	// adds a single driver's breaks and daily rests (Regulation (EC) No
+	// 561/2006, Arts. 6-8).
+	Hours      float64 `json:"hours"`
+	HoursBasis string  `json:"hours_basis"`
+	ElapsedH   float64 `json:"elapsed_h,omitempty"`
+	// RoutedFor is the limits Sootcase's routing kept to for the truck's
+	// size, weight and dangerous goods (its first leg's; the smallest of
+	// its truck profiles that covers the truck), with height_m, width_m,
+	// axle_load_kg, hazmat or adr_tunnel_code given.
+	RoutedFor map[string]any `json:"routed_for,omitempty"`
+	// BanWaitH is the hours the truck waits for driving bans to end, by
+	// its passage times (Response.Bans).
+	BanWaitH float64 `json:"ban_wait_h,omitempty"`
 }
 
 // TripLeg is the trip between two consecutive stops.
@@ -89,6 +105,13 @@ type ShipmentCost struct {
 	// surcharges are quoted.
 	EURPer100Kg       float64 `json:"eur_per_100kg"`
 	CarbonEURPer100Kg float64 `json:"carbon_eur_per_100kg"`
+	// FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the
+	// trip's fuel, with_fuel_eur and trip_cost_eur.
+	FuelEUR     float64 `json:"fuel_eur,omitempty"`
+	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
+	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
+	// TotalInCurrency is TotalEUR in Request.Currency.
+	TotalInCurrency float64 `json:"total_in_currency,omitempty"`
 	// TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of
 	// the truck's diesel plus its share by weight of the ferries it is on,
 	// when the diesel is given; else Sootcase's (GLEC default intensity x
@@ -298,7 +321,39 @@ func tripOf(res sootcase.Result, req Request) *Trip {
 	}
 	tr.FuelL, tr.FuelBasis = tripFuel(tr.Legs, req)
 	tr.FuelL, tr.RoadKm, tr.EmptyKm = round2(tr.FuelL), round3(tr.RoadKm), round3(tr.EmptyKm)
+	tr.Hours, tr.HoursBasis = tripHours(res, tr.RoadKm, req)
+	if req.Truck.Restricted() && len(res.Legs) > 0 {
+		// Sootcase v0.15.1 gives the vehicle it read and, under
+		// routed_for, the limits its routing profile kept to.
+		tr.RoutedFor = res.Legs[0].Restrictions
+		if m, ok := tr.RoutedFor["routed_for"].(map[string]any); ok {
+			tr.RoutedFor = m
+		}
+	}
+	if req.DriverRest {
+		tr.ElapsedH = math.Round(withRest(tr.Hours)*100) / 100
+	}
 	return tr
+}
+
+// tripHours is the trip's driving time, and on what basis.
+func tripHours(res sootcase.Result, roadKm float64, req Request) (float64, string) {
+	var h float64
+	all := len(res.Legs) > 0
+	for _, l := range res.Legs {
+		if l.DurationH <= 0 {
+			all = false
+		}
+		h += l.DurationH
+	}
+	if all {
+		return math.Round(h*100) / 100, "Sootcase's driving time at truck speeds, ferries included"
+	}
+	v := req.AvgSpeedKmh
+	if v <= 0 {
+		v = DefaultAvgSpeedKmh
+	}
+	return math.Round(roadKm/v*100) / 100, fmt.Sprintf("%.0f road km at %g km/h (avg_speed_kmh); ferry crossings not counted", roadKm, v)
 }
 
 // fuelShares is where the trip's fuel is bought: fuel_purchases by their
@@ -378,6 +433,10 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		if s.WeightKg > 0 {
 			c.EURPer100Kg, c.CarbonEURPer100Kg = round2(out.TotalEUR*share*100/s.WeightKg), round2(out.CarbonEUR*share*100/s.WeightKg)
 		}
+		if energyPriced(out) {
+			c.FuelEUR, c.WithFuelEUR = round2(energyEUR(out)*share), round2(out.WithFuelEUR*share)
+		}
+		c.TripCostEUR = round2(out.TripCostEUR * share)
 		if i < len(req.shipTTW) {
 			c.TTWKg, c.WTWKg = round3(req.shipTTW[i]), round3(req.shipWTW[i])
 		} else if len(ships) == 1 {
@@ -399,6 +458,16 @@ func (r Request) fuelGiven() bool {
 	return r.DieselL > 0 || r.LPer100Km > 0 || len(r.FuelPurchases) > 0
 }
 
+// EmissionsStandard is the method the emissions follow, which Regulation
+// (EU) 2026/1030 makes the EU's (Art. 3(1)).
+const EmissionsStandard = "EN ISO 14083:2023"
+
+// Certification is said with every result. The Regulation applies from 2
+// December 2030 (Art. 20(2)); its line "calculated in accordance with
+// Regulation (EU) 2026/1030" (Art. 10(1)) is for tools certified by an
+// accredited body and on the Commission's list (Art. 9(2), 11).
+const Certification = "Not certified under Regulation (EU) 2026/1030 (applies from 2 December 2030)"
+
 // tripEmissions sets the trip's emissions. With the truck's own diesel
 // (primary data: EN ISO 14083 and Regulation (EU) 2026/1030 put it before
 // default values), or with no route (country_km): the road's are the
@@ -407,6 +476,7 @@ func (r Request) fuelGiven() bool {
 // on it. Else they stay Sootcase's. It returns req with the shipments'.
 func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	out.DataType, out.EmissionsBasis = "modelled", "Sootcase: GLEC default intensities x each shipment's tonne-km on its own route"
+	out.EmissionsStandard, out.Certification = EmissionsStandard, Certification
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
 		return req
 	}

@@ -113,7 +113,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.127916, 37.590231]]
+     "coordinates": [[15.127933, 37.590268]]
     },
     "point_names": ["between Acireale and Catania Nord"],
     "headings": [201.1],
@@ -141,7 +141,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.128031, 37.590179]]
+     "coordinates": [[15.128048, 37.590214]]
     },
     "point_names": ["between Catania Nord and Acireale"],
     "headings": [20.7],
@@ -239,7 +239,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.458764, 38.043021]]
+     "coordinates": [[15.458766, 38.043023]]
     },
     "point_names": ["between Messina Sud and Roccalumera"],
     "headings": [225.3],
@@ -253,7 +253,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.458897, 38.042977]]
+     "coordinates": [[15.458898, 38.042978]]
     },
     "point_names": ["between Roccalumera and Messina Sud"],
     "headings": [45.1],
@@ -365,7 +365,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.912531, 37.995897]]
+     "coordinates": [[13.912529, 37.995896]]
     },
     "point_names": ["between Buonfornello and Cefalu'"],
     "headings": [65.9],
@@ -407,7 +407,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[13.912521, 37.996103]]
+     "coordinates": [[13.912518, 37.996102]]
     },
     "point_names": ["between Cefalu' and Buonfornello"],
     "headings": [245.1],
@@ -463,7 +463,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[15.437347, 38.236498]]
+     "coordinates": [[15.437346, 38.236498]]
     },
     "point_names": ["between Messina Nord and Rometta"],
     "headings": [224.0],
@@ -1658,7 +1658,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-22"
+   "osm_extract": "2026-11-23"
   }
  }
 }

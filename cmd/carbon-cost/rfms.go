@@ -19,12 +19,14 @@ import (
 // /vehiclepositions and /vehiclestatuses responses for the trip's hours
 // the trip takes the way driven (gnssPosition), the diesel burnt
 // (engineTotalFuelUsed, "the total fuel the vehicle has used during its
-// lifetime in MilliLitres") and the odometer km (hrTotalVehicleDistance,
-// in meter).
+// lifetime in MilliLitres"), an electric truck's energy
+// (totalElectricEnergyUsed, in Wh) and the odometer km
+// (hrTotalVehicleDistance, in meter).
 type rfmsTrip struct {
 	VIN        string
 	Path       [][2]float64
 	DieselL    float64 // last engineTotalFuelUsed minus the first, litres
+	KWh        float64 // last totalElectricEnergyUsed minus the first (Wh), kWh
 	OdometerKm float64 // last hrTotalVehicleDistance minus the first
 	Positions  int
 	Statuses   int
@@ -154,6 +156,7 @@ func parseRFMS(docs [][]byte, vin string) (rfmsTrip, error) {
 		t    time.Time
 		fuel *int64
 		dist *int64
+		wh   *int64
 	}
 	var reads []reading
 	gaseous := false
@@ -180,7 +183,7 @@ func parseRFMS(docs [][]byte, vin string) (rfmsTrip, error) {
 		if err != nil {
 			return out, err
 		}
-		reads = append(reads, reading{t, r.Fuel, r.Distance})
+		reads = append(reads, reading{t, r.Fuel, r.Distance, r.Electric})
 		gaseous = gaseous || (r.Fuel == nil && (r.Gaseous != nil || r.Electric != nil))
 	}
 	sort.SliceStable(pts, func(i, j int) bool { return pts[i].t.Before(pts[j].t) })
@@ -231,14 +234,18 @@ func parseRFMS(docs [][]byte, vin string) (rfmsTrip, error) {
 	if err != nil {
 		return out, err
 	}
-	out.DieselL, out.OdometerKm = ml/1000, m/1000
-	if out.DieselL == 0 && gaseous {
-		out.Notes = append(out.Notes, "no engineTotalFuelUsed (a gas or electric truck): the diesel isn't taken from rFMS")
+	wh, err := delta(func(r reading) *int64 { return r.wh }, "totalElectricEnergyUsed")
+	if err != nil {
+		return out, err
 	}
-	if out.Statuses > 0 && out.DieselL == 0 && !gaseous {
+	out.DieselL, out.OdometerKm, out.KWh = ml/1000, m/1000, wh/1000
+	if out.DieselL == 0 && out.KWh == 0 && gaseous {
+		out.Notes = append(out.Notes, "no engineTotalFuelUsed (a gas truck): the fuel isn't taken from rFMS")
+	}
+	if out.Statuses > 0 && out.DieselL == 0 && out.KWh == 0 && !gaseous {
 		out.Notes = append(out.Notes, "engineTotalFuelUsed needs two statuses of the trip, at its start and end")
 	}
-	if len(out.Path) < 2 && out.DieselL == 0 {
+	if len(out.Path) < 2 && out.DieselL == 0 && out.KWh == 0 {
 		return out, errors.New("neither 2 positions nor 2 fuel readings for the vehicle")
 	}
 	return out, nil
@@ -263,6 +270,9 @@ func (r rfmsTrip) summary() string {
 	}
 	if r.DieselL > 0 {
 		s += fmt.Sprintf(", %.1f l diesel (engineTotalFuelUsed)", r.DieselL)
+	}
+	if r.KWh > 0 {
+		s += fmt.Sprintf(", %.1f kWh (totalElectricEnergyUsed)", r.KWh)
 	}
 	if r.OdometerKm > 0 {
 		s += fmt.Sprintf(", odometer %.1f km", r.OdometerKm)

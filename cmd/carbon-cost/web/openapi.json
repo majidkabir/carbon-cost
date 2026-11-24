@@ -1,6 +1,62 @@
 {
  "components": {
   "schemas": {
+   "BanHit": {
+    "additionalProperties": false,
+    "description": "BanHit is a driving ban the trip runs into.",
+    "properties": {
+     "ban": {
+      "type": "string"
+     },
+     "certain": {
+      "description": "Certain: the trip is in the country while the ban is in force, by its passage times. Otherwise it may be: no departure time was given, the holiday is regional, or the leg crosses several countries and Sootcase didn't say in which order.",
+      "type": "boolean"
+     },
+     "country": {
+      "type": "string"
+     },
+     "exemptions": {
+      "type": "string"
+     },
+     "from": {
+      "description": "From and To are the ban's window, local time (RFC 3339).",
+      "type": "string"
+     },
+     "holiday": {
+      "description": "Holiday names the public holiday it is for, and Regions where it is kept only in some regions.",
+      "type": "string"
+     },
+     "law": {
+      "type": "string"
+     },
+     "note": {
+      "description": "Note says where or for whom else the ban holds.",
+      "type": "string"
+     },
+     "regions": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "to": {
+      "type": "string"
+     },
+     "wait_h": {
+      "description": "WaitH is how long the truck waits for the ban to end, where Certain.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "ban",
+     "certain",
+     "country",
+     "from",
+     "law",
+     "to"
+    ],
+    "type": "object"
+   },
    "BatchItem": {
     "additionalProperties": false,
     "description": "BatchItem is one trip's result, or why it couldn't be priced.",
@@ -63,6 +119,10 @@
      "co2_class": {
       "type": "integer"
      },
+     "energy_eur": {
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
+      "type": "number"
+     },
      "road_toll_eur": {
       "type": "number"
      },
@@ -73,7 +133,16 @@
      "saving_per_year_eur": {
       "type": "number"
      },
+     "saving_with_fuel_eur": {
+      "type": "number"
+     },
+     "saving_with_fuel_per_year_eur": {
+      "type": "number"
+     },
      "total_eur": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
       "type": "number"
      }
     },
@@ -82,7 +151,38 @@
      "co2_class",
      "road_toll_eur",
      "saving_eur",
+     "saving_with_fuel_eur",
      "total_eur"
+    ],
+    "type": "object"
+   },
+   "ElectricityCost": {
+    "additionalProperties": false,
+    "description": "ElectricityCost is an electric truck's energy for the trip at the price given, without VAT.",
+    "properties": {
+     "basis": {
+      "type": "string"
+     },
+     "eur": {
+      "type": "number"
+     },
+     "eur_per_kwh": {
+      "type": "number"
+     },
+     "kwh": {
+      "type": "number"
+     },
+     "price": {
+      "description": "Price says where the price comes from: \"given\", or Eurostat's average for businesses where the trip runs.",
+      "type": "string"
+     }
+    },
+    "required": [
+     "basis",
+     "eur",
+     "eur_per_kwh",
+     "kwh",
+     "price"
     ],
     "type": "object"
    },
@@ -94,6 +194,86 @@
     },
     "required": [
      "error"
+    ],
+    "type": "object"
+   },
+   "FuelBought": {
+    "additionalProperties": false,
+    "description": "FuelBought is the litres bought in one country and their price.",
+    "properties": {
+     "country": {
+      "type": "string"
+     },
+     "eur": {
+      "type": "number"
+     },
+     "eur_per_l": {
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "price": {
+      "description": "Price says where the price comes from: \"given\", or \"Weekly Oil Bulletin <date>\".",
+      "type": "string"
+     },
+     "refund": {
+      "type": "string"
+     },
+     "refund_eur_per_l": {
+      "description": "RefundEURPerL is the refund of the excise per litre (diesel_refunds), and Refund the law it rests on.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "country",
+     "litres"
+    ],
+    "type": "object"
+   },
+   "FuelCost": {
+    "additionalProperties": false,
+    "description": "FuelCost is the trip's road diesel at a price: the truck's running cost, not a charge.",
+    "properties": {
+     "by_country": {
+      "description": "ByCountry is where the litres are bought (fuel_purchases, fuel_country, or along the route by road km) and their price.",
+      "items": {
+       "$ref": "#/components/schemas/FuelBought"
+      },
+      "type": "array"
+     },
+     "complete": {
+      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
+      "type": "boolean"
+     },
+     "eur": {
+      "description": "EUR is the litres priced, at their prices, without VAT.",
+      "type": "number"
+     },
+     "in_price_eur": {
+      "description": "InPriceEUR is the CO2 prices on fuel (and, from 2028, ETS2) of the litres priced: the diesel price already holds them, so with_fuel_eur leaves them out of the charges.",
+      "type": "number"
+     },
+     "litres": {
+      "type": "number"
+     },
+     "refund_eur": {
+      "description": "RefundEUR is the hauliers' partial refunds of the excise on the litres bought where the law sets one (diesel_refunds); EUR is after them.",
+      "type": "number"
+     },
+     "unpriced": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     }
+    },
+    "required": [
+     "by_country",
+     "complete",
+     "eur",
+     "in_price_eur",
+     "litres"
     ],
     "type": "object"
    },
@@ -112,6 +292,41 @@
     "required": [
      "country",
      "litres"
+    ],
+    "type": "object"
+   },
+   "InCurrency": {
+    "additionalProperties": false,
+    "description": "InCurrency is the trip's amounts in another currency (Request.Currency), at the rate the charges in that currency are converted at: fx given, the ERM II central rate for DKK, else the ECB's reference rate of the trip's date (a national central bank's for RSD and ALL).",
+    "properties": {
+     "carbon": {
+      "type": "number"
+     },
+     "currency": {
+      "type": "string"
+     },
+     "per_eur": {
+      "type": "number"
+     },
+     "rate": {
+      "type": "string"
+     },
+     "total": {
+      "type": "number"
+     },
+     "trip_cost": {
+      "type": "number"
+     },
+     "with_fuel": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon",
+     "currency",
+     "per_eur",
+     "rate",
+     "total"
     ],
     "type": "object"
    },
@@ -305,6 +520,12 @@
     "additionalProperties": false,
     "description": "Truck is what a toll rate depends on.",
     "properties": {
+     "adr_tunnel_code": {
+      "type": "string"
+     },
+     "axle_load_kg": {
+      "type": "integer"
+     },
      "axles": {
       "description": "of the truck with its trailer",
       "type": "integer"
@@ -320,6 +541,13 @@
      "euro": {
       "description": "emission standard 0-6 (EEV counts as 5)",
       "type": "integer"
+     },
+     "hazmat": {
+      "type": "boolean"
+     },
+     "height_m": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
+      "type": "number"
      },
      "length_m": {
       "description": "LengthM is the vehicle's length with trailer, optional: bridge tolls are priced by length (default DefaultLengthM).",
@@ -343,6 +571,9 @@
      },
      "trailer_mass_kg": {
       "type": "integer"
+     },
+     "width_m": {
+      "type": "number"
      }
     },
     "required": [
@@ -357,6 +588,10 @@
     "additionalProperties": false,
     "description": "Request is a trip to price.",
     "properties": {
+     "alternatives": {
+      "description": "Alternatives asks Sootcase for up to this many routes of each leg (2 to 5; Sootcase v0.14.0): each is priced in full, and routes lists them. On a trip with stops, an alternative is one leg's other route, the rest as Sootcase routes them.",
+      "type": "integer"
+     },
      "avg_speed_kmh": {
       "description": "AvgSpeedKmh is the average speed for those times, default DefaultAvgSpeedKmh.",
       "type": "number"
@@ -379,21 +614,50 @@
       "description": "CountryKm prices a trip with no route: the km driven in each country (or region, ISO 3166-2, where tolls differ by region), from a tachograph, say. Only charges by the km and by the day are priced; tolls at stations, on sections and bridges need a route, and the result lists them as missing. Not with from, to, stops, shipments or path.",
       "type": "object"
      },
+     "currency": {
+      "description": "Currency (ISO 4217, e.g. DKK, PLN, SEK) adds the totals in that currency (in_currency), at the rate its charges are converted at.",
+      "type": "string"
+     },
      "date": {
       "description": "YYYY-MM-DD; default today",
       "type": "string"
+     },
+     "diesel_eur_per_l": {
+      "description": "DieselEURPerL is what the truck pays for diesel, EUR per litre without VAT, wherever it fills up; DieselEURPerLByCountry by country (ISO 3166-1 alpha-2), over it. Without them, the EU's Weekly Oil Bulletin's national averages of the trip's week. The fuel cost is a line of its own: total_eur stays the charges, and with_fuel_eur adds the fuel.",
+      "type": "number"
+     },
+     "diesel_eur_per_l_by_country": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
      },
      "diesel_l": {
       "description": "DieselL is the litres of diesel the truck burns on the trip's road part, for the CO2 prices on fuel and ETS2.",
       "type": "number"
      },
+     "diesel_refunds": {
+      "description": "DieselRefunds takes off the diesel the partial refund of the excise that some countries pay road hauliers on the litres bought there (France: trucks of 7.5 t or more). Give diesel prices before it.",
+      "type": "boolean"
+     },
      "dkk_per_eur": {
       "description": "DKKPerEUR converts DKK to EUR; default DKKPerEUR.",
+      "type": "number"
+     },
+     "driver_eur_per_h": {
+      "description": "DriverEURPerH and VehicleEURPerKm are the truck's own running costs: the driver per hour of driving (Trip.Hours; put paid breaks and allowances in the rate) and the vehicle per road km (tyres, maintenance, depreciation). With either, trip_cost_eur adds them to with_fuel_eur, and route \"cheapest\" compares by it.",
       "type": "number"
      },
      "driver_rest": {
       "description": "DriverRest adds a single driver's breaks and daily rests to those times (Regulation (EC) No 561/2006, Arts. 7 and 8): 45 minutes after 4.5 hours' driving, 11 hours after 9.",
       "type": "boolean"
+     },
+     "electricity_eur_per_kwh": {
+      "type": "number"
+     },
+     "electricity_kwh": {
+      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT (blank: Eurostat's average for businesses where it charges). KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
+      "type": "number"
      },
      "env_zone_km": {
       "additionalProperties": {
@@ -413,6 +677,10 @@
      "eua_eur_per_t": {
       "description": "EUAEurPerT is the EU ETS allowance price (EUR per t CO2e), for ferry crossings. 0: ferry ETS is not priced.",
       "type": "number"
+     },
+     "ferry": {
+      "description": "Ferry \"avoid\" routes the trip on land only.",
+      "type": "string"
      },
      "ferry_ets_basis": {
       "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
@@ -448,6 +716,9 @@
       "description": "FX converts other currencies to EUR, in units per euro, e.g. {\"CHF\": 0.93}; default the ECB reference rates (Calculator.FX).",
       "type": "object"
      },
+     "kwh_per_100km": {
+      "type": "number"
+     },
      "l_per_100km": {
       "description": "LPer100Km is the truck's diesel consumption, litres per 100 km, when diesel_l isn't given. Without either the default for its vehicle group and load is used (Trip.FuelBasis says which).",
       "type": "number"
@@ -474,6 +745,10 @@
        "type": "array"
       },
       "type": "array"
+     },
+     "route": {
+      "description": "Route is the route priced: \"primary\" (Sootcase's, the default), \"cheapest\" (of the routes, the one with the lowest with_fuel_eur, or total_eur where a diesel price is missing, complete ones first), or a route's id from routes (e.g. \"alt1\"; \"leg2:alt1\" on a trip with stops). Without alternatives, cheapest asks for 3 routes and an id for 5.",
+      "type": "string"
      },
      "shipments": {
       "description": "Shipments are the trip's cargo, each from its loading stop to its unloading stop; the result gives each one's share of the trip. Without them cargo_kg is one shipment from the first stop to the last. Put a groupage trip's other cargo in as shipments too, or the one given carries the whole trip.",
@@ -514,6 +789,9 @@
       "description": "UKAGbpPerT is the UK ETS allowance price (GBP per t CO2e), for crossings between UK ports from 1 July 2026. 0: not priced.",
       "type": "number"
      },
+     "vehicle_eur_per_km": {
+      "type": "number"
+     },
      "vehicle_type": {
       "type": "string"
      }
@@ -527,12 +805,23 @@
     "additionalProperties": false,
     "description": "Response is a priced trip.",
     "properties": {
+     "bans": {
+      "description": "Bans are the driving bans the trip runs into (package bans).",
+      "items": {
+       "$ref": "#/components/schemas/BanHit"
+      },
+      "type": "array"
+     },
      "carbon_eur": {
       "description": "the CO2 parts of tolls, ferry ETS and ETS2",
       "type": "number"
      },
      "carbon_eur_per_tkm": {
       "type": "number"
+     },
+     "certification": {
+      "description": "Certification says the tool isn't certified under Regulation (EU) 2026/1030: only certified tools on the Commission's list may say their results are calculated in accordance with it (Art. 10(1), 11), and carbon-cost never does.",
+      "type": "string"
      },
      "compare": {
       "description": "Compare is the trip priced for each of CompareCO2Classes.",
@@ -561,8 +850,24 @@
      "distance_km": {
       "type": "number"
      },
+     "driver_eur": {
+      "description": "DriverEUR and VehicleEUR are the running costs at the rates given; TripCostEUR is with_fuel_eur (total_eur without a diesel price) and them.",
+      "type": "number"
+     },
+     "electricity": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/ElectricityCost"
+       }
+      ],
+      "description": "Electricity is an electric truck's energy at the price given."
+     },
      "emissions_basis": {
       "description": "EmissionsBasis says how TTWKg and WTWKg were found.",
+      "type": "string"
+     },
+     "emissions_standard": {
+      "description": "EmissionsStandard is the method: EmissionsStandard.",
       "type": "string"
      },
      "eur_per_tkm": {
@@ -575,6 +880,22 @@
      },
      "ferry_km": {
       "type": "number"
+     },
+     "fuel": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/FuelCost"
+       }
+      ],
+      "description": "Fuel is the trip's diesel at the price given, or the Weekly Oil Bulletin's: not a charge, so not in total_eur."
+     },
+     "in_currency": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/InCurrency"
+       }
+      ],
+      "description": "InCurrency is the totals in Request.Currency."
      },
      "intensity_g_co2e_per_tkm": {
       "description": "IntensityG is the well-to-wheel g CO2e per tonne-km of the shipments: EN ISO 14083's emission intensity.",
@@ -627,6 +948,13 @@
       },
       "type": "array"
      },
+     "routes": {
+      "description": "Routes are the routes priced, when alternatives were asked for: each one's charges and the difference from Sootcase's primary route; the one this answer prices is chosen.",
+      "items": {
+       "$ref": "#/components/schemas/RouteOption"
+      },
+      "type": "array"
+     },
      "shipments": {
       "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023). The totals are the truck's.",
       "items": {
@@ -651,8 +979,18 @@
       ],
       "description": "Trip is the truck's trip: legs, loads and diesel."
      },
+     "trip_cost_eur": {
+      "type": "number"
+     },
      "ttw_kg": {
       "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
+      "type": "number"
+     },
+     "vehicle_eur": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "description": "WithFuelEUR is total_eur and the truck's energy (the diesel or the electricity), without counting twice the CO2 prices on fuel (and ETS2) that the diesel price already holds.",
       "type": "number"
      },
      "wtw_kg": {
@@ -662,12 +1000,14 @@
     "required": [
      "carbon_eur",
      "carbon_eur_per_tkm",
+     "certification",
      "complete",
      "country_km",
      "data_type",
      "date",
      "distance_km",
      "emissions_basis",
+     "emissions_standard",
      "eur_per_tkm",
      "intensity_g_co2e_per_tkm",
      "lines",
@@ -676,6 +1016,83 @@
      "total_eur",
      "ttw_kg",
      "wtw_kg"
+    ],
+    "type": "object"
+   },
+   "RouteOption": {
+    "additionalProperties": false,
+    "description": "RouteOption is one route of the trip, priced: Sootcase's primary or one of its alternatives.",
+    "properties": {
+     "carbon_eur": {
+      "type": "number"
+     },
+     "chosen": {
+      "description": "Chosen is the route this answer prices.",
+      "type": "boolean"
+     },
+     "complete": {
+      "type": "boolean"
+     },
+     "country_km": {
+      "additionalProperties": {
+       "type": "number"
+      },
+      "type": "object"
+     },
+     "diff_eur": {
+      "description": "DiffEUR is its cost less the primary's: trip_cost_eur with running costs given, else with_fuel_eur where all have it, else total_eur.",
+      "type": "number"
+     },
+     "distance_km": {
+      "type": "number"
+     },
+     "error": {
+      "description": "Error says why it couldn't be priced.",
+      "type": "string"
+     },
+     "ferries": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "ferry_km": {
+      "type": "number"
+     },
+     "hours": {
+      "description": "Hours is the trip's driving time on it (Trip.Hours).",
+      "type": "number"
+     },
+     "id": {
+      "description": "ID is \"primary\", or the alternative's (\"alt1\"; \"leg2:alt1\" on a trip with stops: the second leg's first other route).",
+      "type": "string"
+     },
+     "roads": {
+      "description": "Roads and Ferries tell it apart: its main roads (OSM refs) and the ferries it takes, as Sootcase names them.",
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "total_eur": {
+      "type": "number"
+     },
+     "trip_cost_eur": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
+      "description": "WithFuelEUR is the charges and the diesel (Response.WithFuelEUR); TripCostEUR adds the running costs given.",
+      "type": "number"
+     }
+    },
+    "required": [
+     "carbon_eur",
+     "complete",
+     "country_km",
+     "diff_eur",
+     "distance_km",
+     "id",
+     "total_eur"
     ],
     "type": "object"
    },
@@ -773,6 +1190,10 @@
      "from": {
       "type": "integer"
      },
+     "fuel_eur": {
+      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
+      "type": "number"
+     },
      "id": {
       "type": "string"
      },
@@ -793,11 +1214,21 @@
      "total_eur": {
       "type": "number"
      },
+     "total_in_currency": {
+      "description": "TotalInCurrency is TotalEUR in Request.Currency.",
+      "type": "number"
+     },
+     "trip_cost_eur": {
+      "type": "number"
+     },
      "ttw_kg": {
       "description": "TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of the truck's diesel plus its share by weight of the ferries it is on, when the diesel is given; else Sootcase's (GLEC default intensity x its tonne-km).",
       "type": "number"
      },
      "weight_kg": {
+      "type": "number"
+     },
+     "with_fuel_eur": {
       "type": "number"
      },
      "wtw_kg": {
@@ -992,6 +1423,13 @@
     "additionalProperties": false,
     "description": "Trip is the truck's trip: its legs between stops, what was on board, and the diesel it burned, on which the CO2 prices on fuel and ETS2 are charged.",
     "properties": {
+     "ban_wait_h": {
+      "description": "BanWaitH is the hours the truck waits for driving bans to end, by its passage times (Response.Bans).",
+      "type": "number"
+     },
+     "elapsed_h": {
+      "type": "number"
+     },
      "empty_km": {
       "description": "EmptyKm is the road km with nothing on board.",
       "type": "number"
@@ -1004,6 +1442,13 @@
       "description": "FuelL is the litres of diesel on the road.",
       "type": "number"
      },
+     "hours": {
+      "description": "Hours is the trip's driving time: Sootcase's at truck speeds (ferries included) where it gives it, else the road km at avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest, adds a single driver's breaks and daily rests (Regulation (EC) No 561/2006, Arts. 6-8).",
+      "type": "number"
+     },
+     "hours_basis": {
+      "type": "string"
+     },
      "legs": {
       "items": {
        "$ref": "#/components/schemas/TripLeg"
@@ -1013,11 +1458,18 @@
      "road_km": {
       "description": "RoadKm is the km on the road (not on ferries).",
       "type": "number"
+     },
+     "routed_for": {
+      "additionalProperties": {},
+      "description": "RoutedFor is the limits Sootcase's routing kept to for the truck's size, weight and dangerous goods (its first leg's; the smallest of its truck profiles that covers the truck), with height_m, width_m, axle_load_kg, hazmat or adr_tunnel_code given.",
+      "type": "object"
      }
     },
     "required": [
      "fuel_basis",
      "fuel_l",
+     "hours",
+     "hours_basis",
      "legs",
      "road_km"
     ],
@@ -1187,8 +1639,22 @@
   },
   "/v1/carbon-cost/csv": {
    "post": {
-    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., complete, missing, error).",
+    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, missing, error). With rows=shipments a trip with shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
     "operationId": "priceCSV",
+    "parameters": [
+     {
+      "description": "trips (the default): a row per trip; shipments: a row per shipment of a trip that has them.",
+      "in": "query",
+      "name": "rows",
+      "schema": {
+       "enum": [
+        "trips",
+        "shipments"
+       ],
+       "type": "string"
+      }
+     }
+    ],
     "requestBody": {
      "content": {
       "text/csv": {
@@ -1222,6 +1688,55 @@
      }
     },
     "summary": "Price a CSV of up to 100 trips"
+   }
+  },
+  "/v1/carbon-cost/report": {
+   "post": {
+    "description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file (a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), the share of tonne-km priced on primary data, and the rows that are incomplete or failed.",
+    "operationId": "reportCSV",
+    "parameters": [
+     {
+      "description": "Columns to group by, separated by commas (e.g. customer,month); blank: one total.",
+      "in": "query",
+      "name": "by",
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "requestBody": {
+     "content": {
+      "text/csv": {
+       "schema": {
+        "type": "string"
+       }
+      }
+     },
+     "required": true
+    },
+    "responses": {
+     "200": {
+      "content": {
+       "text/csv": {
+        "schema": {
+         "type": "string"
+        }
+       }
+      },
+      "description": "A row per group."
+     },
+     "400": {
+      "content": {
+       "application/json": {
+        "schema": {
+         "$ref": "#/components/schemas/Error"
+        }
+       }
+      },
+      "description": "The CSV isn't one carbon-cost priced, or has no column to group by."
+     }
+    },
+    "summary": "Add up priced CSVs by customer, month or any column"
    }
   },
   "/v1/places": {

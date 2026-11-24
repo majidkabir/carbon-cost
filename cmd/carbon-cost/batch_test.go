@@ -1,12 +1,17 @@
 package main
 
 import (
+	"bytes"
+	"context"
+	"encoding/csv"
 	"encoding/json"
 	"io"
+	"math"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"testing"
 
@@ -125,5 +130,75 @@ func TestCSVHandler(t *testing.T) {
 	h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost/csv", strings.NewReader(big)))
 	if rec.Code != 400 || !strings.Contains(rec.Body.String(), "at most 100 rows") {
 		t.Errorf("%d rows: %d %s", MaxBatch+1, rec.Code, rec.Body.String())
+	}
+}
+
+// -shipment-rows gives a row per shipment, and report adds rows up by
+// customer and month.
+func TestShipmentRowsAndReport(t *testing.T) {
+	fake := fakeRoute(t)
+	defer fake.Close()
+	c, err := calculator(&sootcase.Client{BaseURL: fake.URL})
+	if err != nil {
+		t.Fatal(err)
+	}
+	in := "from,to,date,shipments,customer\n" +
+		"DEHAM,DEBER,2026-11-03,A:12000:0-1;B:6000:0-1,Acme\n" +
+		"DEHAM,DEBER,2026-12-01,,Acme\n" +
+		"DEHAM,DEBER,2026-11-20,,Bolt\n"
+	var priced bytes.Buffer
+	if _, err := priceCSV(context.Background(), c.Calculate, []string{"-cargo-kg", "10000"}, strings.NewReader(in), &priced, calcFlagNames(), 0, true); err != nil {
+		t.Fatal(err)
+	}
+	rows, err := csv.NewReader(strings.NewReader(priced.String())).ReadAll()
+	if err != nil {
+		t.Fatal(err)
+	}
+	col := map[string]int{}
+	for i, h := range rows[0] {
+		col[h] = i
+	}
+	if len(rows) != 5 || rows[1][col["shipment_id"]] != "A" || rows[2][col["shipment_id"]] != "B" || rows[3][col["shipment_id"]] != "" {
+		t.Fatalf("rows:\n%s", priced.String())
+	}
+	num := func(r []string, c string) float64 { v, _ := strconv.ParseFloat(r[col[c]], 64); return v }
+	// A carries twice B's weight over the same km: twice its tonne-km, CO2e and charges.
+	if a, b := num(rows[1], "tkm"), num(rows[2], "tkm"); a == 0 || math.Abs(a-2*b) > 0.2 {
+		t.Errorf("tkm A %v, B %v", a, b)
+	}
+	if a, b := num(rows[1], "total_eur"), num(rows[2], "total_eur"); a == 0 || math.Abs(a-2*b) > 0.02 {
+		t.Errorf("EUR A %v, B %v", a, b)
+	}
+	if rows[1][col["eur_by_country"]] == "" || rows[3][col["eur_by_country"]] == "" {
+		t.Errorf("eur_by_country: %q, %q", rows[1][col["eur_by_country"]], rows[3][col["eur_by_country"]])
+	}
+	var rep bytes.Buffer
+	if err := summarize([]io.Reader{strings.NewReader(priced.String())}, &rep, []string{"customer", "month"}); err != nil {
+		t.Fatal(err)
+	}
+	r, _ := csv.NewReader(strings.NewReader(rep.String())).ReadAll()
+	rc := map[string]int{}
+	for i, h := range r[0] {
+		rc[h] = i
+	}
+	if len(r) != 4 || r[1][0] != "Acme" || r[1][1] != "2026-11" || r[1][rc["rows"]] != "2" || r[1][rc["shipments"]] != "2" || r[3][0] != "Bolt" {
+		t.Fatalf("report:\n%s", rep.String())
+	}
+	sum := num(rows[1], "wtw_kg") + num(rows[2], "wtw_kg")
+	if got, _ := strconv.ParseFloat(r[1][rc["wtw_kg"]], 64); math.Abs(got-sum) > 0.2 {
+		t.Errorf("Acme 2026-11 wtw %v, want %v", got, sum)
+	}
+	// 18,000 kg carried by Acme in November: EUR per 100 kg.
+	if got, _ := strconv.ParseFloat(r[1][rc["eur_per_100kg"]], 64); math.Abs(got-100*(num(rows[1], "total_eur")+num(rows[2], "total_eur"))/18000) > 0.001 || r[1][rc["cargo_kg"]] != "18000" {
+		t.Errorf("Acme 2026-11 per 100 kg %v of %v kg", got, r[1][rc["cargo_kg"]])
+	}
+	if r[1][rc["g_co2e_per_tkm"]] == "" || r[1][rc["primary_tkm_share"]] != "0.000" {
+		t.Errorf("Acme 2026-11: %v", r[1])
+	}
+	if err := summarize([]io.Reader{strings.NewReader(priced.String())}, &rep, []string{"depot"}); err == nil || !strings.Contains(err.Error(), "depot") {
+		t.Errorf("unknown column: %v", err)
+	}
+	if err := summarize([]io.Reader{strings.NewReader("from,to\nA,B\n")}, &rep, nil); err == nil {
+		t.Error("an unpriced CSV: want an error")
 	}
 }

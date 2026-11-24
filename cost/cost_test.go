@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/fuel"
 	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/roads"
@@ -240,9 +241,39 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatalf("compare %+v", r.Compare)
 	}
 	for i, w := range want {
-		if r.Compare[i] != w {
+		g := r.Compare[i]
+		g.EnergyEUR, g.WithFuelEUR, g.SavingWithFuelEUR, g.SavingWithFuelPerYearEUR = 0, 0, nil, nil
+		if g != w {
 			t.Errorf("class %d: got %+v, want %+v", w.CO2Class, r.Compare[i], w)
 		}
+	}
+	// With the diesel: the same 173.22 for classes 1 and 4, less the CO2
+	// prices on fuel the price holds (21.07); class 5's electricity has no
+	// price without kwh_per_100km and electricity_eur_per_kwh.
+	for i, w := range []struct{ energy, with, saving float64 }{{173.22, 245.19, 0}, {173.22, 224.29, 20.90}} {
+		c := r.Compare[i]
+		if c.EnergyEUR != w.energy || c.WithFuelEUR != w.with || c.SavingWithFuelEUR == nil || *c.SavingWithFuelEUR != w.saving || *c.SavingWithFuelPerYearEUR != round2(200*w.saving) {
+			t.Errorf("class %d with diesel: %+v", c.CO2Class, c)
+		}
+	}
+	if c := r.Compare[2]; c.EnergyEUR != 0 || c.SavingWithFuelEUR != nil {
+		t.Errorf("class 5 unpriced: %+v", c)
+	}
+	// 120 kWh per 100 km at EUR 0.25 for the electric truck.
+	req.KWhPer100Km, req.ElectricityEURPerKWh = 120, 0.25
+	e, err := Price(cphHam, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	kwh := round2(e.Trip.RoadKm * 1.2)
+	if c := e.Compare[2]; c.EnergyEUR != round2(kwh*0.25) || c.WithFuelEUR != round2(4.69+c.EnergyEUR) || *c.SavingWithFuelEUR != round2(245.19-c.WithFuelEUR) || e.Electricity != nil {
+		t.Errorf("class 5 with electricity: %+v, %v kWh", c, kwh)
+	}
+	// An electric truck's own trip.
+	ev := Request{CargoKg: 20000, Truck: truck40, ElectricityKWh: 400, ElectricityEURPerKWh: 0.3}
+	ev.Truck.CO2Class = 5
+	if e, err = Price(cphHam, all(t), ev, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); err != nil || e.Fuel != nil || e.Electricity == nil || e.Electricity.EUR != 120 || e.WithFuelEUR != round2(e.TotalEUR+120) {
+		t.Errorf("electric truck: %v %+v %+v", err, e.Electricity, e.Fuel)
 	}
 	// The requested truck's own lines are unchanged by the comparison.
 	if r.TotalEUR != 93.04 || len(r.Lines) != 10 {
@@ -4075,5 +4106,52 @@ func TestFerryFare(t *testing.T) {
 	}
 	if math.Abs(fare-(37.82+2.40+20*1.26)) > 0.011 {
 		t.Errorf("fare %.2f", fare)
+	}
+}
+
+func TestCurrency(t *testing.T) {
+	day := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	req := Request{CargoKg: 20000, Truck: truck40, Currency: "DKK", DriverEURPerH: 30}
+	r, err := Price(cphHam, all(t), req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := r.InCurrency
+	if c == nil || c.PerEUR != DKKPerEUR || c.Total != round2(r.TotalEUR*DKKPerEUR) || c.WithFuel != round2(r.WithFuelEUR*DKKPerEUR) ||
+		c.TripCost != round2(r.TripCostEUR*DKKPerEUR) || r.Shipments[0].TotalInCurrency != c.Total || !strings.Contains(c.Rate, "ERM II") {
+		t.Errorf("DKK: %+v, total %v", c, r.TotalEUR)
+	}
+	req.Currency, req.FX = "PLN", map[string]float64{"PLN": 4.25}
+	if r, err = Price(cphHam, all(t), req, day); err != nil || r.InCurrency.Total != round2(r.TotalEUR*4.25) || r.InCurrency.Rate != "request" {
+		t.Errorf("PLN: %v %+v", err, r.InCurrency)
+	}
+	req.Currency, req.FX = "SEK", nil
+	if _, err = Price(cphHam, all(t), req, day); err == nil || !strings.Contains(err.Error(), "fx.SEK") {
+		t.Errorf("SEK without rates: %v", err)
+	}
+	req.ecb = fx.Rates{Date: "2026-11-02", PerEUR: map[string]float64{"SEK": 11.1}}
+	if r, err = Price(cphHam, all(t), req, day); err != nil || r.InCurrency.PerEUR != 11.1 || !strings.Contains(r.InCurrency.Rate, "ECB") {
+		t.Errorf("SEK: %v %+v", err, r.InCurrency)
+	}
+	if err := check(Request{Currency: "dkk", CargoKg: 1}); err == nil {
+		t.Error("lower-case currency: want an error")
+	}
+}
+
+func TestElectricityDefaultPrice(t *testing.T) {
+	day := time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)
+	ev := Request{CargoKg: 20000, Truck: truck40, KWhPer100Km: 120}
+	ev.Truck.CO2Class = 5
+	r, err := Price(cphHam, all(t), ev, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Eurostat's prices of the first half of 2026 in DK and DE, by road km.
+	b, _, _ := fuel.PowerOn(day)
+	km := r.CountryKm
+	want := math.Round((km["DK"]*b.EURPerL["DK"]+km["DE"]*b.EURPerL["DE"])/(km["DK"]+km["DE"])*10000) / 10000
+	e := r.Electricity
+	if e == nil || e.EURPerKWh != want || !strings.Contains(e.Price, "Eurostat") || !strings.Contains(e.Price, "2026-01-01") || r.WithFuelEUR != round2(r.TotalEUR+e.EUR) {
+		t.Errorf("default price: %+v, want %v", e, want)
 	}
 }

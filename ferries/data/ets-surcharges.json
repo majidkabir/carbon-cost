@@ -155,7 +155,7 @@
      "to": "2026-11-30",
      "eua_eur_per_t": 85.62,
      "basis": "the average EU allowance price 2026-09-20 to 2026-10-20, EUR 85.62",
-     "source": "https://www.dfds.com/en/freight-ferries-and-logistics/ets-surcharges (read in Chrome: tools/tables/browser/dfds-ets.txt)",
+     "source": "https://www.dfds.com/en/freight-ferries-and-logistics/ets-surcharges",
      "rates": {
       "Ijmuiden (Amsterdam) – Newcastle": 2.66,
       "Gothenburg/Brevik/Fredrikstad – Immingham": 3.86,
@@ -402,10 +402,31 @@
    ],
    "editions": [
     {
+     "from": "2026-10-01",
+     "to": "2026-10-31",
+     "basis": "the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU Maritime's compliance cost included (0.15 EUR per lane metre)",
+     "source": "https://stenalinefreight.com/charges/ (eu-ets-october-2026-10.pdf)",
+     "rates": {
+      "Dublin–Holyhead": 1.54,
+      "Dublin–Liverpool": 1.39,
+      "Fishguard–Rosslare": 1.54,
+      "Gothenburg–Frederikshavn": 1.72,
+      "Gothenburg–Kiel": 4.62,
+      "Hoek van Holland–Harwich": 1.52,
+      "Hoek van Holland–Immingham": 1.83,
+      "Karlskrona–Gdynia": 3.74,
+      "Nynäshamn–Ventspils": 3.82,
+      "Rotterdam–Harwich": 1.52,
+      "Rotterdam–Immingham": 1.83,
+      "Travemünde–Liepāja": 6.84,
+      "Trelleborg–Rostock": 1.57
+     }
+    },
+    {
      "from": "2026-11-01",
      "to": "2026-11-30",
      "basis": "the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU Maritime's compliance cost included (0.15 EUR per lane metre)",
-     "source": "https://stenalinefreight.com/charges/ (read in Chrome: tools/tables/browser/stena-ets.txt)",
+     "source": "https://stenalinefreight.com/charges/ (eu-ets-november-2026-11.pdf)",
      "rates": {
       "Dublin–Holyhead": 1.56,
       "Dublin–Liverpool": 1.41,

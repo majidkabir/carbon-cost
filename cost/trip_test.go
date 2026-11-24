@@ -6,6 +6,7 @@ import (
 	"math"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"strings"
 	"sync"
 	"testing"
@@ -229,6 +230,12 @@ func TestPrimaryEmissions(t *testing.T) {
 	if !strings.Contains(r.EmissionsBasis, "EN 16258") || !strings.Contains(r.EmissionsBasis, "ferries") {
 		t.Errorf("basis %q", r.EmissionsBasis)
 	}
+	// The method and that the tool isn't certified, and never the line
+	// Regulation (EU) 2026/1030 Art. 10(1) keeps for certified tools.
+	js, _ := json.Marshal(r)
+	if r.EmissionsStandard != "EN ISO 14083:2023" || !strings.HasPrefix(r.Certification, "Not certified") || strings.Contains(strings.ToLower(string(js)), "in accordance with regulation") {
+		t.Errorf("standard %q, certification %q", r.EmissionsStandard, r.Certification)
+	}
 	// Without the diesel: Sootcase's, modelled.
 	req.DieselL, req.shipTTW, req.shipWTW = 0, []float64{100, 50}, []float64{120, 60}
 	if r, _ = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); r.DataType != "modelled" || r.TTWKg != 150 || r.Shipments[0].TTWKg != 100 {
@@ -321,5 +328,109 @@ func TestFerrySurchargeStena(t *testing.T) {
 	s, ok := fd.ETSSurcharge("gothenburg-kiel", time.Date(2026, 11, 10, 0, 0, 0, 0, time.UTC))
 	if !ok || s.Operator != "Stena Line" || s.EURPerM != 4.67 || s.Metres(16.5) != 16.5 {
 		t.Errorf("Stena Gothenburg–Kiel: %+v", s)
+	}
+}
+
+// The diesel at the Weekly Oil Bulletin's prices, or at the truck's own;
+// with_fuel_eur counts the CO2 prices on fuel once.
+func TestFuelCost(t *testing.T) {
+	day := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"DE": 200, "PL": 100}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 90, FX: map[string]float64{"PLN": 4.25}}
+	r, err := PriceWith(res, all(t), nil, req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Bought along the route: 60 l in Germany, 30 in Poland; the bulletin
+	// of 16 November 2026: DE 1.8613, PL 1.3629 EUR/l without VAT.
+	f := r.Fuel
+	if f == nil || !f.Complete || len(f.ByCountry) != 2 || f.ByCountry[0].Country != "DE" || f.ByCountry[0].Litres != 60 ||
+		f.ByCountry[0].EURPerL != 1.8613 || f.ByCountry[1].EURPerL != 1.3629 || !strings.HasPrefix(f.ByCountry[0].Price, "Weekly Oil Bulletin 2026-11-16") {
+		t.Fatalf("fuel %+v", f)
+	}
+	if want := round2(60*1.8613 + 30*1.3629); f.EUR != want {
+		t.Errorf("fuel EUR %v, want %v", f.EUR, want)
+	}
+	var co2 float64
+	for _, l := range r.Lines {
+		if l.Charge == FuelCO2 {
+			co2 += l.AmountEUR
+		}
+	}
+	if co2 == 0 || f.InPriceEUR != round2(co2) || r.WithFuelEUR != round2(r.TotalEUR+f.EUR-f.InPriceEUR) {
+		t.Errorf("in price %v (co2 %v), with fuel %v, total %v", f.InPriceEUR, co2, r.WithFuelEUR, r.TotalEUR)
+	}
+	if r.Shipments[0].FuelEUR != f.EUR || r.Shipments[0].WithFuelEUR != r.WithFuelEUR {
+		t.Errorf("shipment %+v", r.Shipments[0])
+	}
+	// The truck's own prices: one for all, Poland's over it.
+	req.DieselEURPerL, req.DieselEURPerLByCountry = 1.5, map[string]float64{"PL": 1.2}
+	r, _ = PriceWith(res, all(t), nil, req, day)
+	if r.Fuel.EUR != round2(60*1.5+30*1.2) || r.Fuel.ByCountry[0].Price != "given" {
+		t.Errorf("given: %+v", r.Fuel)
+	}
+	// Bought in Switzerland: no bulletin price.
+	req.DieselEURPerL, req.DieselEURPerLByCountry, req.FuelCountry = 0, nil, "CH"
+	r, _ = PriceWith(res, all(t), nil, req, day)
+	if r.Fuel.Complete || len(r.Fuel.Unpriced) != 1 || r.Fuel.Unpriced[0] != "CH" || r.Fuel.EUR != 0 {
+		t.Errorf("CH: %+v", r.Fuel)
+	}
+	if err := check(Request{CargoKg: 1, Stops: req.Stops, DieselEURPerLByCountry: map[string]float64{"pl": 1}}); err == nil {
+		t.Error("lower-case country: want an error")
+	}
+}
+
+func TestDieselRefunds(t *testing.T) {
+	day := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"FR": 300}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 100}
+	r, err := PriceWith(res, all(t), nil, req, day)
+	if err != nil {
+		t.Fatal(err)
+	}
+	p := r.Fuel.ByCountry[0].EURPerL
+	if r.Fuel.RefundEUR != 0 || !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "set diesel_refunds") }) {
+		t.Errorf("not asked: %+v %q", r.Fuel, r.Notes)
+	}
+	// France refunds EUR 15.56/hl to trucks of 7.5 t or more (CIBS L.312-53).
+	req.DieselRefunds = true
+	if r, err = PriceWith(res, all(t), nil, req, day); err != nil || r.Fuel.RefundEUR != 15.56 || r.Fuel.ByCountry[0].RefundEURPerL != 0.1556 ||
+		r.Fuel.EUR != round2(100*(p-0.1556)) || !strings.Contains(r.Fuel.ByCountry[0].Refund, "L.312-53") {
+		t.Errorf("refund: %v %+v", err, r.Fuel)
+	}
+	small := req
+	small.Truck.MaxMassKg, small.Truck.Axles = 7000, 2
+	if r, err = PriceWith(res, all(t), nil, small, day); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("7 t truck: %v %+v", err, r.Fuel)
+	}
+	// Italy: the excise above EUR 403.22 per 1,000 l (0.6329 in the
+	// bulletin of 16 November 2026), Euro V and VI only.
+	it := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"IT": 300}}}}
+	if r, err = PriceWith(it, all(t), nil, req, day); err != nil || r.Fuel.RefundEUR != 22.97 || !strings.Contains(r.Fuel.ByCountry[0].Refund, "24-ter") {
+		t.Errorf("IT: %v %+v", err, r.Fuel)
+	}
+	old := req
+	old.Truck.Euro = 4
+	if r, err = PriceWith(it, all(t), nil, old, day); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("IT, Euro IV: %v %+v", err, r.Fuel)
+	}
+	// None before 2025 in the table.
+	if r, err = PriceWith(res, all(t), nil, req, time.Date(2024, 6, 3, 0, 0, 0, 0, time.UTC)); err != nil || r.Fuel.RefundEUR != 0 {
+		t.Errorf("2024: %v %+v", err, r.Fuel)
+	}
+}
+
+func TestHungaryRefund(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, CountryKm: map[string]float64{"HU": 300}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, DieselL: 100, DieselRefunds: true, FX: map[string]float64{"HUF": 400}}
+	// HUF 17 a litre in 2025 (NAV), at 400 forint to the euro.
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2025, 6, 4, 0, 0, 0, 0, time.UTC))
+	if err != nil || r.Fuel.RefundEUR != 4.25 || r.Fuel.ByCountry[0].RefundEURPerL != 0.0425 {
+		t.Errorf("2025: %v %+v", err, r.Fuel)
+	}
+	// Zero since 14 May 2026, the excise at the EU minimum.
+	if r, err = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)); err != nil || r.Fuel.RefundEUR != 0 ||
+		!slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "HU refunds nothing") }) {
+		t.Errorf("2026: %v %+v %q", err, r.Fuel, r.Notes)
 	}
 }

@@ -117,6 +117,10 @@ def main():
         st2, res2 = calc((55.4904, 9.4722), (53.5511, 9.9937), query="country_km=true&path=full", ferries=False)
         same = st2 == 200 and leg0(res2).get("country_sections") == leg0(res).get("country_sections")
         say("R3 same with path=full", "PASS" if same else "FAIL", "" if same else f"HTTP {st2}")
+        # The primary's main roads, without alternatives asked for (for
+        # matching bans on listed roads to the route).
+        roads = (leg0(res).get("summary") or {}).get("roads")
+        say("S1 summary roads on the primary", "PASS" if roads else "FAIL", f"roads {roads}")
     # Copenhagen to Hamburg via Rødby-Puttgarden: a ferry section between.
     st, res = calc((55.6761, 12.5683), (53.5511, 9.9937))
     if st != 200:

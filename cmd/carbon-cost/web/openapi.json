@@ -1384,7 +1384,7 @@
      },
      "routed_for": {
       "additionalProperties": {},
-      "description": "RoutedFor is what Sootcase applied of the truck's size, weight and dangerous goods to the route (its first leg's), with height_m, width_m, axle_load_kg, hazmat or adr_tunnel_code given.",
+      "description": "RoutedFor is the limits Sootcase's routing kept to for the truck's size, weight and dangerous goods (its first leg's; the smallest of its truck profiles that covers the truck), with height_m, width_m, axle_load_kg, hazmat or adr_tunnel_code given.",
       "type": "object"
      }
     },

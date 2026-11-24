@@ -134,6 +134,18 @@ type Result struct {
 	Dataset string `json:"dataset,omitempty"`
 	// Warnings are Sootcase's notes on what may make its result too low.
 	Warnings []string `json:"warnings,omitempty"`
+	// Basis is the method Sootcase says its result follows, and its
+	// version (Sootcase v0.17.0 or later).
+	Basis *Basis `json:"basis,omitempty"`
+	// Certification is Sootcase's statement on Regulation (EU) 2026/1030.
+	Certification string `json:"certification,omitempty"`
+}
+
+// Basis is the standard, framework and Sootcase version a result rests on.
+type Basis struct {
+	Standard  string `json:"standard"`
+	Framework string `json:"framework,omitempty"`
+	Sootcase  string `json:"sootcase,omitempty"`
 }
 
 // Client calls a Sootcase server.

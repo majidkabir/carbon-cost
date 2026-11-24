@@ -2,8 +2,12 @@
 
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost).
-**Status:** requested 2026-11-24. Not in Sootcase main on 2026-11-24: its results have no `basis`
-or `certification` (checked by the Sootcase country sections workflow, E1).
+**Status:** requested 2026-11-24; live on sootcase.org in Sootcase v0.17.0 the same day (R1–R4,
+by the Sootcase agent's report: every result, report, scenario, recommendation and iLEAP answer
+has `basis` and `certification`; pages show a "Basis:" line; CSVs have both columns; tests in both
+repos fail on the Art. 10 line; R4 is in the handover notes). carbon-cost shows Sootcase's `basis`
+in its provenance (`sootcase_basis`) and names its framework and version in a modelled result's
+`emissions_basis`.
 
 ## 1. Why
 
@@ -49,7 +53,7 @@ For example, a response field:
 "basis": {
   "standard": "EN ISO 14083:2023",
   "framework": "GLEC Framework v3.3",
-  "sootcase": "v0.15.1"
+  "sootcase": "v0.17.0"
 }
 ```
 

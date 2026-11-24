@@ -476,6 +476,9 @@ const Certification = "Not certified under Regulation (EU) 2026/1030 (applies fr
 // on it. Else they stay Sootcase's. It returns req with the shipments'.
 func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	out.DataType, out.EmissionsBasis = "modelled", "Sootcase: GLEC default intensities x each shipment's tonne-km on its own route"
+	if b := res.Basis; b != nil && b.Framework != "" {
+		out.EmissionsBasis = fmt.Sprintf("Sootcase %s: %s default intensities x each shipment's tonne-km on its own route", b.Sootcase, b.Framework)
+	}
 	out.EmissionsStandard, out.Certification = EmissionsStandard, Certification
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
 		return req

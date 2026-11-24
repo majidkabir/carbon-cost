@@ -236,8 +236,14 @@ func TestPrimaryEmissions(t *testing.T) {
 	if r.EmissionsStandard != "EN ISO 14083:2023" || !strings.HasPrefix(r.Certification, "Not certified") || strings.Contains(strings.ToLower(string(js)), "in accordance with regulation") {
 		t.Errorf("standard %q, certification %q", r.EmissionsStandard, r.Certification)
 	}
-	// Without the diesel: Sootcase's, modelled.
+	// Without the diesel: Sootcase's, modelled, on the framework and
+	// version it names.
 	req.DieselL, req.shipTTW, req.shipWTW = 0, []float64{100, 50}, []float64{120, 60}
+	res.Basis = &sootcase.Basis{Standard: "EN ISO 14083:2023", Framework: "GLEC Framework v3.3", Sootcase: "v0.17.0"}
+	if r, _ := PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); r.EmissionsBasis != "Sootcase v0.17.0: GLEC Framework v3.3 default intensities x each shipment's tonne-km on its own route" {
+		t.Errorf("modelled basis %q", r.EmissionsBasis)
+	}
+	res.Basis = nil
 	if r, _ = PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC)); r.DataType != "modelled" || r.TTWKg != 150 || r.Shipments[0].TTWKg != 100 {
 		t.Errorf("default: %s %v %+v", r.DataType, r.TTWKg, r.Shipments)
 	}

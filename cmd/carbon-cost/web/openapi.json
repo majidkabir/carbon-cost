@@ -489,6 +489,17 @@
       "description": "Sootcase is the Sootcase server and its emission factor dataset.",
       "type": "string"
      },
+     "sootcase_basis": {
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/SootcaseBasis"
+       }
+      ],
+      "description": "SootcaseBasis is the standard, framework and version Sootcase says its emissions follow, and SootcaseCertification its statement on Regulation (EU) 2026/1030."
+     },
+     "sootcase_certification": {
+      "type": "string"
+     },
      "tables": {
       "description": "Tables are the rate tables priced, with their data files.",
       "items": {
@@ -1252,6 +1263,25 @@
      "ttw_kg",
      "weight_kg",
      "wtw_kg"
+    ],
+    "type": "object"
+   },
+   "SootcaseBasis": {
+    "additionalProperties": false,
+    "description": "Basis is the standard, framework and Sootcase version a result rests on.",
+    "properties": {
+     "framework": {
+      "type": "string"
+     },
+     "sootcase": {
+      "type": "string"
+     },
+     "standard": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "standard"
     ],
     "type": "object"
    },

@@ -415,6 +415,11 @@ type Provenance struct {
 	Version string `json:"carbon_cost_version,omitempty"`
 	// Sootcase is the Sootcase server and its emission factor dataset.
 	Sootcase string `json:"sootcase,omitempty"`
+	// SootcaseBasis is the standard, framework and version Sootcase says
+	// its emissions follow, and SootcaseCertification its statement on
+	// Regulation (EU) 2026/1030.
+	SootcaseBasis         *sootcase.Basis `json:"sootcase_basis,omitempty"`
+	SootcaseCertification string          `json:"sootcase_certification,omitempty"`
 	// Tables are the rate tables priced, with their data files.
 	Tables []TableUsed `json:"tables,omitempty"`
 	// RoadClasses is the OpenStreetMap extract date of the road classes
@@ -577,6 +582,7 @@ func (c Calculator) priceRoute(res sootcase.Result, req *Request, date time.Time
 	if len(req.CountryKm) == 0 {
 		out.Provenance.Sootcase = strings.TrimRight(base, "/")
 	}
+	out.Provenance.SootcaseBasis, out.Provenance.SootcaseCertification = res.Basis, res.Certification
 	if res.Dataset != "" {
 		out.Provenance.Sootcase += ", factors: " + res.Dataset
 	}

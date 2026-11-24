@@ -119,3 +119,45 @@ func TestCzechBans(t *testing.T) {
 		t.Errorf("CZ November Saturday: %+v", w)
 	}
 }
+
+func TestSlovakBans(t *testing.T) {
+	ba, _ := time.LoadLocation("Europe/Bratislava")
+	day := func(y int, m time.Month, d int) (time.Time, time.Time) {
+		return time.Date(y, m, d, 0, 0, 0, 0, ba), time.Date(y, m, d, 23, 59, 0, 0, ba)
+	}
+	cases := []struct {
+		y       int
+		m       time.Month
+		d       int
+		want    string // "" for no ban
+		holiday bool
+	}{
+		{2026, 11, 22, "06:00-22:00", false}, // Sunday, after 131/2026
+		{2026, 8, 2, "00:00-22:00", false},   // Sunday, before it
+		{2026, 8, 1, "07:00-19:00", false},   // summer Saturday after a working day
+		{2026, 8, 29, "07:00-19:00", true},   // Saturday holiday: first of a run
+		{2026, 8, 30, "00:00-22:00", false},  // its Sunday, last of the run
+		{2026, 12, 24, "09:00-19:00", true},  // first of 24-27 December
+		{2026, 12, 25, "", false},            // between the first and the last
+		{2026, 12, 27, "06:00-22:00", false}, // Sunday, last
+		{2027, 1, 1, "06:00-22:00", true},    // Friday alone: Saturday isn't a day off
+		{2026, 11, 17, "", false},            // state holiday, not a day off
+		{2026, 9, 15, "", false},             // not a day off in 2026 (§ 4b)
+		{2027, 9, 15, "06:00-22:00", true},   // a day off again
+		{2026, 11, 28, "", false},            // Saturday outside summer
+	}
+	for _, c := range cases {
+		f, to := day(c.y, c.m, c.d)
+		w := Windows("SK", 40000, false, f, to, ba)
+		got := ""
+		if len(w) == 1 {
+			got = w[0].From.Format("15:04") + "-" + w[0].To.Format("15:04")
+		}
+		if len(w) > 1 || got != c.want || len(w) == 1 && (w[0].Holiday != "") != c.holiday {
+			t.Errorf("%d-%02d-%02d: %+v, want %s", c.y, c.m, c.d, w, c.want)
+		}
+	}
+	if w := Windows("SK", 7500, false, time.Date(2026, 11, 22, 0, 0, 0, 0, ba), time.Date(2026, 11, 22, 23, 0, 0, 0, ba), ba); len(w) != 0 {
+		t.Errorf("7.5 t: %+v", w)
+	}
+}

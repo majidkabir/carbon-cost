@@ -22,10 +22,16 @@ type Rule struct {
 	// Days: "mon".."sun", "holiday" for the public holidays of Holidays
 	// (regional ones count only where the route is in a region that keeps
 	// them, else the rule says it may apply) and "holiday_eve" for the
-	// day before one.
-	Days             []string
-	From, To         string
-	FromDay, ToDay   string
+	// day before one. Where a country's law counts runs of days off
+	// (Sundays and its holidays): "dayoff_first", "dayoff_last" and
+	// "dayoff_single" for the first and last day of a run and a day off
+	// alone, and "sat_after_workday" for a Saturday after a working day.
+	Days           []string
+	From, To       string
+	FromDay, ToDay string
+	// Since and Until ("YYYY-MM-DD", inclusive) bound the dates the rule
+	// is law, when it changed.
+	Since, Until     string
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -90,6 +96,22 @@ func init() {
 	czFri.Name, czFri.Days, czFri.From, czFri.To, czFri.FromDay, czFri.ToDay = "summer ban", []string{"fri"}, "17:00", "21:00", "07-01", "08-31"
 	czSat.Name, czSat.Days, czSat.From, czSat.To, czSat.FromDay, czSat.ToDay = "summer ban", []string{"sat"}, "07:00", "13:00", "07-01", "08-31"
 	Rules = append(Rules, czSun, czFri, czSat)
+	sk := Rule{Country: "SK", MinMassKg: 7500, TrailerMassKg: 3500,
+		Exemptions: "perishables, live animals, post, fuel, combined transport, supplies to continuously running plants in Slovakia, vehicles returning to Slovakia, and the others of § 39 (3)",
+		Note:       "on motorways, expressways and class I roads",
+		Law:        "Zákon č. 8/2009 Z. z. o cestnej premávke, § 39 (1) and (2), as amended by zákon č. 131/2026 Z. z. from 1 September 2026; days off: zákon č. 241/1993 Z. z., § 2",
+		Title:      "Slov-Lex: zákon č. 131/2026 Z. z., Čl. I body 45 a 46",
+		URL:        "https://static.slov-lex.sk/static/SK/ZZ/2026/131/20260901.html"}
+	for _, v := range []struct{ since, until, first, day string }{{"", "2026-08-31", "07:00", "00:00"}, {"2026-09-01", "", "09:00", "06:00"}} {
+		last, first, sat := sk, sk, sk
+		last.Name, last.Days, last.From, last.To = "Sunday and day off ban", []string{"sun", "dayoff_last", "dayoff_single"}, v.day, "22:00"
+		first.Name, first.Days, first.From, first.To = "first day off ban", []string{"dayoff_first"}, v.first, "19:00"
+		sat.Name, sat.Days, sat.From, sat.To, sat.FromDay, sat.ToDay = "summer Saturday ban", []string{"sat_after_workday"}, v.first, "19:00", "07-01", "08-31"
+		for _, r := range []*Rule{&last, &first, &sat} {
+			r.Since, r.Until = v.since, v.until
+		}
+		Rules = append(Rules, last, first, sat)
+	}
 }
 
 // Night bans that low-noise trucks are exempt from are noted, not
@@ -155,6 +177,19 @@ func Holidays(country string, y int) []Holiday {
 			fixed(5, 1, "Svátek práce"), fixed(5, 8, "Den vítězství"), fixed(7, 5, "Den slovanských věrozvěstů Cyrila a Metoděje"),
 			fixed(7, 6, "Den upálení mistra Jana Husa"), fixed(9, 28, "Den české státnosti"), fixed(10, 28, "Den vzniku samostatného československého státu"),
 			fixed(11, 17, "Den boje za svobodu a demokracii"), fixed(12, 24, "Štědrý den"), fixed(12, 25, "1. svátek vánoční"), fixed(12, 26, "2. svátek vánoční")}
+	case "SK":
+		// Zákon č. 241/1993 Z. z., § 1 and § 2: the days off besides
+		// Sundays (1 September, 28 October and 17 November are state
+		// holidays but not days off, § 2 (3); 8 May and 15 September
+		// aren't in 2026, § 4b).
+		h := []Holiday{fixed(1, 1, "Deň vzniku Slovenskej republiky"), fixed(1, 6, "Zjavenie Pána"), moving(-2, "Veľký piatok"), moving(1, "Veľkonočný pondelok"),
+			fixed(5, 1, "Sviatok práce"), fixed(5, 8, "Deň víťazstva nad fašizmom"), fixed(7, 5, "Sviatok svätého Cyrila a svätého Metoda"),
+			fixed(8, 29, "Výročie Slovenského národného povstania"), fixed(9, 15, "Sedembolestná Panna Mária"), fixed(11, 1, "Sviatok Všetkých svätých"),
+			fixed(12, 24, "Štedrý deň"), fixed(12, 25, "Prvý sviatok vianočný"), fixed(12, 26, "Druhý sviatok vianočný")}
+		if y == 2026 {
+			h = slices.DeleteFunc(h, func(d Holiday) bool { return d.Date.Month() == 5 && d.Date.Day() == 8 || d.Date.Month() == 9 })
+		}
+		return h
 	case "FR":
 		// Code du travail, art. L3133-1.
 		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),
@@ -168,6 +203,7 @@ func Holidays(country string, y int) []Holiday {
 var HolidaySources = map[string][2]string{
 	"DE": {"Gesetze im Internet: StVO § 30 (4)", "https://www.gesetze-im-internet.de/stvo_2013/__30.html"},
 	"AT": {"RIS: Arbeitsruhegesetz, § 7 Feiertagsruhe", "https://www.ris.bka.gv.at/eli/bgbl/1983/144/P7/NOR40213419"},
+	"SK": {"Slov-Lex: zákon č. 241/1993 Z. z. o štátnych sviatkoch, dňoch pracovného pokoja a pamätných dňoch", "https://static.slov-lex.sk/static/SK/ZZ/1993/241/20261029.html"},
 }
 
 // Applies says a rule covers the truck.
@@ -199,17 +235,36 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			hol[h.Date.Format(time.DateOnly)] = h
 		}
 	}
+	// off is a day off: a Sunday or a holiday kept everywhere.
+	off := func(d time.Time) bool {
+		h, ok := hol[d.Format(time.DateOnly)]
+		return d.Weekday() == time.Sunday || ok && len(h.Regions) == 0
+	}
 	for ; day.Before(to); day = time.Date(day.Year(), day.Month(), day.Day()+1, 0, 0, 0, 0, loc) {
-		md := day.Format("01-02")
-		h, isHol := hol[day.Format(time.DateOnly)]
+		md, ymd := day.Format("01-02"), day.Format(time.DateOnly)
+		h, isHol := hol[ymd]
+		prev, next := off(day.AddDate(0, 0, -1)), off(day.AddDate(0, 0, 1))
+		kinds := []string{weekday[day.Weekday()]}
+		if off(day) {
+			switch {
+			case !prev && !next:
+				kinds = append(kinds, "dayoff_single")
+			case !prev:
+				kinds = append(kinds, "dayoff_first")
+			case !next:
+				kinds = append(kinds, "dayoff_last")
+			}
+		} else if day.Weekday() == time.Saturday && !prev {
+			kinds = append(kinds, "sat_after_workday")
+		}
 		for _, r := range Rules {
 			if r.Country != country || !r.Applies(maxMassKg, trailer) {
 				continue
 			}
-			if r.FromDay != "" && (md < r.FromDay || md > r.ToDay) {
+			if r.FromDay != "" && (md < r.FromDay || md > r.ToDay) || r.Since != "" && ymd < r.Since || r.Until != "" && ymd > r.Until {
 				continue
 			}
-			on := slices.Contains(r.Days, weekday[day.Weekday()])
+			on := slices.ContainsFunc(kinds, func(k string) bool { return slices.Contains(r.Days, k) })
 			holidayOnly := false
 			if !on && isHol && slices.Contains(r.Days, "holiday") {
 				on, holidayOnly = true, true
@@ -224,12 +279,26 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			if holidayOnly {
 				w.Holiday, w.Regions = h.Name, h.Regions
 			}
-			if w.To.After(from) && w.From.Before(to) {
+			if isHol && !holidayOnly && len(kinds) > 1 && slices.Contains(r.Days, kinds[1]) {
+				w.Holiday, w.Regions = h.Name, h.Regions
+			}
+			if w.To.After(from) && w.From.Before(to) && !covered(out, w) {
 				out = append(out, w)
 			}
 		}
 	}
 	return out
+}
+
+// covered says another of the country's windows already spans w, as
+// when a Sunday is also the first day of a run of days off.
+func covered(out []Window, w Window) bool {
+	for _, o := range out {
+		if o.Rule.Country == w.Rule.Country && !o.From.After(w.From) && !o.To.Before(w.To) {
+			return true
+		}
+	}
+	return false
 }
 
 // at is a day's local clock time "HH:MM" ("24:00": the next midnight).

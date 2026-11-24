@@ -273,9 +273,21 @@ func (e *HTTPError) CallerError() bool {
 	return e.Status == 400 || e.Status == 404 || e.Status == 422
 }
 
-// CountrySection is a stretch of a leg in one country.
+// CountrySection is a stretch of a leg in one country, or a ferry
+// crossing (Ferry, with no country or the flag state).
 type CountrySection struct {
 	Country string  `json:"country"`
 	FromKm  float64 `json:"from_km"`
 	ToKm    float64 `json:"to_km"`
+	Ferry   bool    `json:"ferry,omitempty"`
+	// Regions are its first-level regions (ISO 3166-2) in route order,
+	// where Sootcase knows them.
+	Regions []RegionSection `json:"regions,omitempty"`
+}
+
+// RegionSection is a stretch of a country section in one region.
+type RegionSection struct {
+	Region string  `json:"region"`
+	FromKm float64 `json:"from_km"`
+	ToKm   float64 `json:"to_km"`
 }

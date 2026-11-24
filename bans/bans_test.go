@@ -2,6 +2,7 @@ package bans
 
 import (
 	"slices"
+	"strings"
 	"testing"
 	"time"
 )
@@ -302,5 +303,34 @@ func TestItalianCalendar(t *testing.T) {
 	}
 	if !slices.Equal(CalendarYears("IT"), []int{2026}) {
 		t.Errorf("years %v", CalendarYears("IT"))
+	}
+}
+
+func TestLiechtensteinBans(t *testing.T) {
+	vaduz, _ := time.LoadLocation("Europe/Vaduz")
+	// 8 December 2026, a Tuesday: Maria Empfängnis, all day, plus the
+	// nights either side.
+	w := Windows("LI", 40000, false, time.Date(2026, 12, 8, 6, 0, 0, 0, vaduz), time.Date(2026, 12, 8, 21, 0, 0, 0, vaduz), vaduz)
+	if len(w) != 1 || w[0].Holiday != "Maria Empfängnis" || w[0].From.Hour() != 0 || w[0].To.Day() != 9 {
+		t.Errorf("8 December: %+v", w)
+	}
+	// A weekday night.
+	if w := Windows("LI", 40000, false, time.Date(2026, 11, 24, 21, 0, 0, 0, vaduz), time.Date(2026, 11, 24, 23, 0, 0, 0, vaduz), vaduz); len(w) != 1 || w[0].Rule.Name != "night ban" {
+		t.Errorf("night: %+v", w)
+	}
+}
+
+func TestFrenchCalendar(t *testing.T) {
+	par, _ := time.LoadLocation("Europe/Paris")
+	// Saturday 18 July 2026: 07:00-19:00 everywhere, then from 22:00 the
+	// weekend ban.
+	w := Windows("FR", 40000, false, time.Date(2026, 7, 18, 0, 0, 0, 0, par), time.Date(2026, 7, 18, 23, 59, 0, 0, par), par)
+	if len(w) != 2 || w[0].From.Hour() != 7 || w[0].To.Hour() != 19 || w[0].Rule.Listed || w[1].From.Hour() != 22 {
+		t.Errorf("18 July: %+v", w)
+	}
+	// Saturday 7 February 2026: only on the listed Alpine roads.
+	w = Windows("FR", 40000, false, time.Date(2026, 2, 7, 0, 0, 0, 0, par), time.Date(2026, 2, 7, 20, 0, 0, 0, par), par)
+	if len(w) != 1 || !w[0].Rule.Listed || w[0].To.Hour() != 18 || !strings.Contains(w[0].Rule.Note, "Auvergne-Rhône-Alpes") {
+		t.Errorf("7 February: %+v", w)
 	}
 }

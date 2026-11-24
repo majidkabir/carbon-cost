@@ -38,7 +38,10 @@ type Rule struct {
 	ExemptIntlEuro int
 	// Season, when set, gives the year's season (first and last day,
 	// inclusive) where it moves from year to year.
-	Season           func(year int) (from, to time.Time)
+	Season func(year int) (from, to time.Time)
+	// Listed: the ban holds only on roads the law lists, which the route
+	// doesn't tell, so a trip is said to may run into it.
+	Listed           bool
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -94,6 +97,13 @@ func init() {
 	frEve.Days, frEve.From, frEve.To = []string{"sat", "holiday_eve"}, "22:00", "24:00"
 	frDay.Days, frDay.From, frDay.To = []string{"sun", "holiday"}, "00:00", "22:00"
 	Rules = append(Rules, sunday, night1, night2, frEve, frDay)
+	Rules = append(Rules, Rule{Country: "DE", Name: "summer Saturday ban", MinMassKg: 7500, Days: []string{"sat"}, From: "07:00", To: "20:00",
+		FromDay: "07-01", ToDay: "08-31", Listed: true,
+		Exemptions: "combined transport, fresh milk, meat, fish, perishable fruit and vegetables, live bees and the others of § 1 (4), and empty runs with them",
+		Note:       "only on the motorway sections and federal roads § 1 (2) and (3) list; also trucks with trailers",
+		Law:        "Ferienreiseverordnung (FerReiseV), § 1",
+		Title:      "Gesetze im Internet: Ferienreiseverordnung § 1",
+		URL:        "https://www.gesetze-im-internet.de/ferreisev_1985/__1.html"})
 	cz := Rule{Country: "CZ", Name: "Sunday and holiday ban", MinMassKg: 7500, TrailerMassKg: 3500,
 		Exemptions: "perishables, live animals, fuel, post, combined transport and the others of § 43 (3), and permits",
 		Note:       "on motorways and class I roads",
@@ -180,6 +190,12 @@ func Holidays(country string, y int) []Holiday {
 			hs = append(hs, fixed(12, 26, "Stephanstag"))
 		}
 		return hs
+	case "LI":
+		// VRV Art. 89 Abs. 1.
+		return []Holiday{fixed(1, 1, "Neujahr"), fixed(1, 6, "Heilige Drei Könige"), moving(1, "Ostermontag"), fixed(5, 1, "1. Mai"),
+			moving(39, "Auffahrt"), moving(50, "Pfingstmontag"), moving(60, "Fronleichnam"), fixed(8, 15, "Maria Himmelfahrt"),
+			fixed(9, 8, "Maria Geburt"), fixed(11, 1, "Allerheiligen"), fixed(12, 8, "Maria Empfängnis"), fixed(12, 25, "Weihnachten"),
+			fixed(12, 26, "St. Stefanstag")}
 	case "CZ":
 		// Zákon č. 245/2000 Sb.: state holidays and the other holidays.
 		return []Holiday{fixed(1, 1, "Den obnovy samostatného českého státu"), moving(-2, "Velký pátek"), moving(1, "Velikonoční pondělí"),
@@ -264,12 +280,6 @@ var weekday = map[time.Weekday]string{time.Monday: "mon", time.Tuesday: "tue", t
 // Windows lists a country's bans for the truck that overlap from-to (in
 // the country's local time, loc).
 func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
-	if _, ok := calendarRules[country]; ok {
-		if !calendarRules[country].Applies(maxMassKg, trailer) {
-			return nil
-		}
-		return calendarWindows(country, from, to, loc)
-	}
 	if country == "HU" {
 		if !huRule.Applies(maxMassKg, trailer) {
 			return nil
@@ -345,6 +355,15 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			}
 		}
 	}
+	if r, ok := calendarRules[country]; ok && r.Applies(maxMassKg, trailer) {
+		for _, w := range calendarWindows(country, from, to, loc) {
+			if !covered(out, w) {
+				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })
+				out = append(out, w)
+			}
+		}
+		slices.SortStableFunc(out, func(a, b Window) int { return a.From.Compare(b.From) })
+	}
 	return out
 }
 
@@ -352,7 +371,10 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 // when a Sunday is also the first day of a run of days off.
 func covered(out []Window, w Window) bool {
 	for _, o := range out {
-		if o.Rule.Country == w.Rule.Country && !o.From.After(w.From) && !o.To.Before(w.To) {
+		// A ban only on listed roads or in some regions doesn't cover one
+		// that holds everywhere.
+		sure := !o.Rule.Listed && len(o.Regions) == 0 || w.Rule.Listed || len(w.Regions) > 0
+		if o.Rule.Country == w.Rule.Country && sure && !o.From.After(w.From) && !o.To.Before(w.To) {
 			return true
 		}
 	}

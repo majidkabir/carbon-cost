@@ -103,6 +103,11 @@ type Request struct {
 	// last. Put a groupage trip's other cargo in as shipments too, or the
 	// one given carries the whole trip.
 	Shipments []Shipment `json:"shipments,omitempty"`
+	// CostShareBy is what the shipments' shares of the costs are weighed
+	// by, per km of each one's own route: "tkm" (the default: tonnes),
+	// "loading_m" or "pallets" (their loading_m or pallets). Emissions
+	// are shared by tonne-km whatever it is.
+	CostShareBy string `json:"cost_share_by,omitempty"`
 	// Path is the way the truck drove (or will), [lon, lat] points from a
 	// GPS track or telematics: its tolls, crossings and km by country are
 	// priced on it instead of Sootcase's route. Sootcase still routes the
@@ -363,7 +368,8 @@ type Response struct {
 	// Trip is the truck's trip: legs, loads and diesel.
 	Trip *Trip `json:"trip,omitempty"`
 	// Shipments are each shipment's share of the trip's charges, by
-	// tonne-km (EN ISO 14083:2023). The totals are the truck's.
+	// tonne-km (EN ISO 14083:2023), or by cost_share_by; its emissions are
+	// always by tonne-km. The totals are the truck's.
 	Shipments []ShipmentCost `json:"shipments,omitempty"`
 	Lines     []Line         `json:"lines"`
 	TotalEUR  float64        `json:"total_eur"`
@@ -788,6 +794,22 @@ func check(req Request) error {
 	}
 	if req.FerryETSBasis != "" && req.FerryETSBasis != "emissions" && req.FerryETSBasis != "surcharge" {
 		return fmt.Errorf(`ferry_ets_basis: give "surcharge" (the default) or "emissions"`)
+	}
+	switch req.CostShareBy {
+	case "", "tkm":
+	case "loading_m", "pallets":
+		for i, s := range req.Shipments {
+			if v := costKey(s, req.CostShareBy); v <= 0 || v > 1000 {
+				return fmt.Errorf("shipments[%d]: cost_share_by %q needs its %s (more than 0)", i, req.CostShareBy, req.CostShareBy)
+			}
+		}
+	default:
+		return fmt.Errorf(`cost_share_by: give "tkm" (the default), "loading_m" or "pallets"`)
+	}
+	for i, s := range req.Shipments {
+		if s.LoadingM < 0 || s.LoadingM > 30 || s.Pallets < 0 || s.Pallets > 100 {
+			return fmt.Errorf("shipments[%d]: loading_m 0-30 and pallets 0-100", i)
+		}
 	}
 	if err := checkTrip(req); err != nil {
 		return err

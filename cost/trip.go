@@ -28,6 +28,26 @@ type Shipment struct {
 	From int `json:"from,omitempty"`
 	// To is the stop it is unloaded at; 0 means the last.
 	To int `json:"to,omitempty"`
+	// LoadingM and Pallets are the loading metres and pallet places it
+	// takes, for sharing the costs by them (cost_share_by).
+	LoadingM float64 `json:"loading_m,omitempty"`
+	Pallets  float64 `json:"pallets,omitempty"`
+}
+
+// costKey is what a shipment's share of the costs is weighed by, per km
+// of its own route: its tonnes (tonne-km, the default), loading metres or
+// pallet places. Emissions are always shared by tonne-km: the GLEC
+// Framework v3.3 (Section 1, Chapter 2, "Calculation of transport
+// activities") takes transport activity as mass x distance, and other
+// metrics only alongside the mass.
+func costKey(s Shipment, by string) float64 {
+	switch by {
+	case "loading_m":
+		return s.LoadingM
+	case "pallets":
+		return s.Pallets
+	}
+	return s.WeightKg / 1000
 }
 
 // FuelPurchase is fuel bought for the trip in a country, for the
@@ -405,6 +425,10 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 		}
 		tkm += s.WeightKg / 1000 * dist[i]
 	}
+	var keyKm float64
+	for i, s := range ships {
+		keyKm += costKey(s, req.CostShareBy) * dist[i]
+	}
 	byCharge, byCountry := map[string]float64{}, map[string]float64{}
 	for _, l := range out.Lines {
 		byCharge[l.Charge] += l.AmountEUR
@@ -418,8 +442,8 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 	for i, s := range ships {
 		t := s.WeightKg / 1000 * dist[i]
 		share := 1.0
-		if tkm > 0 {
-			share = t / tkm
+		if keyKm > 0 {
+			share = costKey(s, req.CostShareBy) * dist[i] / keyKm
 		}
 		c := ShipmentCost{ID: s.ID, WeightKg: s.WeightKg, From: s.From, To: s.To, DistanceKm: round3(dist[i]), TKm: round3(t),
 			Share: math.Round(share*1e6) / 1e6, TotalEUR: round2(out.TotalEUR * share), CarbonEUR: round2(out.CarbonEUR * share),
@@ -446,6 +470,11 @@ func allocate(out *Response, res sootcase.Result, req Request) {
 			c.IntensityG = round2(c.WTWKg * 1000 / t)
 		}
 		out.Shipments = append(out.Shipments, c)
+	}
+	if by := req.CostShareBy; (by == "loading_m" || by == "pallets") && len(ships) > 1 {
+		unit := map[string]string{"loading_m": "loading-metre-km", "pallets": "pallet-place-km"}[by]
+		out.Notes = append(out.Notes, fmt.Sprintf("Shipments: the costs are shared by %s (%s x the km of each shipment's own route), the emissions by tonne-km, "+
+			"as the GLEC Framework v3.3 takes transport activity as mass x distance (Section 1, Chapter 2) and other metrics only alongside the mass.", unit, by))
 	}
 	if tkm > 0 {
 		out.IntensityG = round2(out.WTWKg * 1000 / tkm)

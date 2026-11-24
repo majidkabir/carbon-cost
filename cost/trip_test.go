@@ -452,3 +452,40 @@ func TestHungaryRefund(t *testing.T) {
 		t.Errorf("2026: %v %+v %q", err, r.Fuel, r.Notes)
 	}
 }
+
+// Costs shared by loading-metre-km, emissions still by tonne-km.
+func TestCostShareByLoadingMetres(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{
+		{DistanceKm: 100, CountryKm: map[string]float64{"DE": 100}},
+		{DistanceKm: 120, CountryKm: map[string]float64{"DE": 120}},
+	}}
+	// A: 10 t, 2 loading metres, 220 km; B: 10 t, 6 loading metres, 120 km.
+	req := Request{Truck: truck40, DieselL: 100, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "C"}},
+		Shipments: []Shipment{{ID: "A", WeightKg: 10000, To: 2, LoadingM: 2}, {ID: "B", WeightKg: 10000, From: 1, LoadingM: 6}},
+		CostShareBy: "loading_m", legLoadKg: []float64{10000, 20000}, shipDistKm: []float64{220, 120}}
+	if err := check(req); err != nil {
+		t.Fatal(err)
+	}
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	a, b := r.Shipments[0], r.Shipments[1]
+	// Costs: 440 and 720 loading-metre-km; emissions: 2,200 and 1,200 tkm.
+	if math.Abs(a.Share-440.0/1160) > 1e-6 || math.Abs(b.TotalEUR-round2(r.TotalEUR*720/1160)) > 0.011 ||
+		math.Abs(a.WTWKg-r.WTWKg*2200/3400) > 0.001 || a.TKm != 2200 {
+		t.Errorf("A %+v, B %+v", a, b)
+	}
+	if !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "loading-metre-km") && strings.Contains(n, "GLEC") }) {
+		t.Errorf("notes %q", r.Notes)
+	}
+	// Without loading metres for each: an error.
+	req.Shipments[1].LoadingM = 0
+	if err := check(req); err == nil || !strings.Contains(err.Error(), "shipments[1]") {
+		t.Errorf("missing loading_m: %v", err)
+	}
+	req.CostShareBy = "volume"
+	if err := check(req); err == nil {
+		t.Error("cost_share_by volume: want an error")
+	}
+}

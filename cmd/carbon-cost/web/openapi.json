@@ -618,6 +618,10 @@
       },
       "type": "array"
      },
+     "cost_share_by": {
+      "description": "CostShareBy is what the shipments' shares of the costs are weighed by, per km of each one's own route: \"tkm\" (the default: tonnes), \"loading_m\" or \"pallets\" (their loading_m or pallets). Emissions are shared by tonne-km whatever it is.",
+      "type": "string"
+     },
      "country_km": {
       "additionalProperties": {
        "type": "number"
@@ -967,7 +971,7 @@
       "type": "array"
      },
      "shipments": {
-      "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023). The totals are the truck's.",
+      "description": "Shipments are each shipment's share of the trip's charges, by tonne-km (EN ISO 14083:2023), or by cost_share_by; its emissions are always by tonne-km. The totals are the truck's.",
       "items": {
        "$ref": "#/components/schemas/ShipmentCost"
       },
@@ -1151,6 +1155,13 @@
      "id": {
       "description": "ID names it in the result; default its number, from 1.",
       "type": "string"
+     },
+     "loading_m": {
+      "description": "LoadingM and Pallets are the loading metres and pallet places it takes, for sharing the costs by them (cost_share_by).",
+      "type": "number"
+     },
+     "pallets": {
+      "type": "number"
      },
      "to": {
       "description": "To is the stop it is unloaded at; 0 means the last.",

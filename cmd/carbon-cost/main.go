@@ -193,7 +193,8 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	rfmsFiles := fs.String("rfms", "", "rFMS 4.0 responses from the truck maker's API (/vehiclepositions, /vehiclestatuses) for the trip's hours, files separated by ,: the way driven, the diesel burnt (engineTotalFuelUsed) and the date")
 	vin := fs.String("vin", "", "the vehicle in the -rfms files, when they hold several")
 	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410, from a tachograph; without -from and -to")
-	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2")
+	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2, and :ldm=2.4,pallets=6 for -cost-share-by")
+	fs.StringVar(&req.CostShareBy, "cost-share-by", "", "share the costs among the shipments by tkm (default), loading_m or pallets (per km of each one's route); emissions are always by tkm")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
 	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
@@ -425,8 +426,8 @@ func shipmentsFlag(s string) ([]cost.Shipment, error) {
 	var out []cost.Shipment
 	for _, part := range strings.Split(s, ";") {
 		f := strings.Split(strings.TrimSpace(part), ":")
-		if len(f) != 3 {
-			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
+		if len(f) != 3 && len(f) != 4 {
+			return nil, fmt.Errorf("%q: give id:kg:from-to, or id:kg:from-to:ldm=2.4,pallets=6", part)
 		}
 		kg, err := strconv.ParseFloat(f[1], 64)
 		a, b, ok := strings.Cut(f[2], "-")
@@ -435,7 +436,25 @@ func shipmentsFlag(s string) ([]cost.Shipment, error) {
 		if err != nil || !ok || err1 != nil || err2 != nil {
 			return nil, fmt.Errorf("%q: give id:kg:from-to", part)
 		}
-		out = append(out, cost.Shipment{ID: f[0], WeightKg: kg, From: from, To: to})
+		sh := cost.Shipment{ID: f[0], WeightKg: kg, From: from, To: to}
+		if len(f) == 4 {
+			// Its loading metres and pallet places, for -cost-share-by.
+			for _, kv := range strings.Split(f[3], ",") {
+				k, v, _ := strings.Cut(strings.TrimSpace(kv), "=")
+				x, err := strconv.ParseFloat(v, 64)
+				switch {
+				case err != nil:
+					return nil, fmt.Errorf("%q: %q is not key=number", part, kv)
+				case k == "ldm":
+					sh.LoadingM = x
+				case k == "pallets":
+					sh.Pallets = x
+				default:
+					return nil, fmt.Errorf("%q: %q: give ldm= or pallets=", part, k)
+				}
+			}
+		}
+		out = append(out, sh)
 	}
 	return out, nil
 }

@@ -38,7 +38,10 @@ type Rule struct {
 	ExemptIntlEuro int
 	// Season, when set, gives the year's season (first and last day,
 	// inclusive) where it moves from year to year.
-	Season           func(year int) (from, to time.Time)
+	Season func(year int) (from, to time.Time)
+	// Listed: the ban holds only on roads the law lists, which the route
+	// doesn't tell, so a trip is said to may run into it.
+	Listed           bool
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -94,6 +97,13 @@ func init() {
 	frEve.Days, frEve.From, frEve.To = []string{"sat", "holiday_eve"}, "22:00", "24:00"
 	frDay.Days, frDay.From, frDay.To = []string{"sun", "holiday"}, "00:00", "22:00"
 	Rules = append(Rules, sunday, night1, night2, frEve, frDay)
+	Rules = append(Rules, Rule{Country: "DE", Name: "summer Saturday ban", MinMassKg: 7500, Days: []string{"sat"}, From: "07:00", To: "20:00",
+		FromDay: "07-01", ToDay: "08-31", Listed: true,
+		Exemptions: "combined transport, fresh milk, meat, fish, perishable fruit and vegetables, live bees and the others of § 1 (4), and empty runs with them",
+		Note:       "only on the motorway sections and federal roads § 1 (2) and (3) list; also trucks with trailers",
+		Law:        "Ferienreiseverordnung (FerReiseV), § 1",
+		Title:      "Gesetze im Internet: Ferienreiseverordnung § 1",
+		URL:        "https://www.gesetze-im-internet.de/ferreisev_1985/__1.html"})
 	cz := Rule{Country: "CZ", Name: "Sunday and holiday ban", MinMassKg: 7500, TrailerMassKg: 3500,
 		Exemptions: "perishables, live animals, fuel, post, combined transport and the others of § 43 (3), and permits",
 		Note:       "on motorways and class I roads",

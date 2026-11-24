@@ -140,7 +140,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		for left > 0 {
 			var next *bans.Window
 			for _, w := range windows(s.country, cursor, cursor.Add(left), loc) {
-				if len(w.Regions) > 0 {
+				if len(w.Regions) > 0 || w.Rule.Listed {
 					add(w, false, 0)
 					continue
 				}

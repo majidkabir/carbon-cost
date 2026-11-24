@@ -81,3 +81,17 @@ func TestHungarianWinterExemption(t *testing.T) {
 		t.Errorf("Euro 2: %v %+v", err, r.Bans)
 	}
 }
+
+func TestListedRoadBan(t *testing.T) {
+	// A Saturday in July in Germany: the Ferienreiseverordnung holds only
+	// on the roads it lists, so the trip may run into it, without waiting.
+	sat := time.Date(2026, 7, 11, 0, 0, 0, 0, time.UTC)
+	de := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 480, WTWKg: 600, CountryKm: map[string]float64{"DE": 300}}}}
+	r, err := PriceWith(de, all(t), nil, Request{CargoKg: 20000, Truck: truck40, Time: "08:00", origin: "DE"}, sat)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.Bans) != 1 || r.Bans[0].Certain || r.Trip.BanWaitH != 0 || !strings.Contains(r.Bans[0].Law, "Ferienreiseverordnung") {
+		t.Errorf("%+v %v", r.Bans, r.Trip.BanWaitH)
+	}
+}

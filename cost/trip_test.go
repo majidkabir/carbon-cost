@@ -382,7 +382,9 @@ func TestFuelCost(t *testing.T) {
 	req.FX["CHF"] = 0.93
 	r, _ = PriceWith(res, all(t), nil, req, day)
 	if want := round4(2.41 / 1.081 / 0.93); !r.Fuel.Complete || r.Fuel.ByCountry[0].EURPerL != want || !strings.Contains(r.Fuel.ByCountry[0].Price, "Federal Statistical Office") ||
-		!slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "CH CHF 2.4100 with 8.1% VAT (2026-10-01)") && strings.Contains(n, "newest there is") }) {
+		!slices.ContainsFunc(r.Notes, func(n string) bool {
+			return strings.Contains(n, "CH CHF 2.4100 with 8.1% VAT (2026-10-01)") && strings.Contains(n, "newest there is")
+		}) {
 		t.Errorf("CH: %+v %q", r.Fuel, r.Notes)
 	}
 	// Bought in Serbia: no price anywhere.

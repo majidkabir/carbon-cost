@@ -9,6 +9,7 @@ Usage: python3 check_bans.py fetched/ bans/data/
 import glob, json, os, re, sys
 
 MONATE = ["jänner", "februar", "märz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"]
+MINES = ["ιανουαρίου", "φεβρουαρίου", "μαρτίου", "απριλίου", "μαΐου", "ιουνίου", "ιουλίου", "αυγούστου", "σεπτεμβρίου", "οκτωβρίου", "νοεμβρίου", "δεκεμβρίου"]
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 MONTHS = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
 
@@ -45,6 +46,23 @@ def main(fetched, folder):
                     bad += 1
                     print(f"::warning title={name}::{'/'.join(dates)} {d['from']}-{d['to']} not found in {cal['source']['id']}.txt")
             print(f"{name}: {len(cal['days']) - bad} of {len(cal['days'])} days found in the decree's text")
+            bad = 0
+            continue
+        if cal.get("check") == "words-gr":
+            # A Greek ΦΕΚ names its days ("Παρασκευή 20 Φεβρουαρίου 2026",
+            # "01 Ιουλίου 2026", "14/08/2026") and hours ("από ώρα 16:00
+            # έως 21:00", "από ώρες 08.00 έως 22.00").
+            flat = re.sub(r"\s+", " ", text)
+            def said(d):
+                y, m, dd = d.split("-")
+                return re.search(rf"(?<!\d)0?{int(dd)} {MINES[int(m) - 1]} {y}", flat) or f"{dd}/{m}/{y}" in flat
+            for d in cal["days"]:
+                dates = ([d["date"]] if d.get("date") else [d["from_date"], d["to_date"]]) + d.get("except", [])
+                f, t = (re.escape(x).replace(":", "[:.]") for x in (d["from"], d["to"]))
+                if not all(said(x) for x in dates) or not re.search(rf"{f} έως {t}", flat):
+                    bad += 1
+                    print(f"::warning title={name}::{'/'.join(dates)} {d['from']}-{d['to']} not found in {cal['source']['id']}.txt")
+            print(f"{name}: {len(cal['days']) - bad} of {len(cal['days'])} days found in the decision's text")
             bad = 0
             continue
         if cal.get("check") == "es-generated":

@@ -33,6 +33,8 @@ type Calendar struct {
 		Listed bool
 		Roads  []string
 		Note   string
+		// Except are dates of a weekday range it doesn't hold on.
+		Except []string
 	} `json:"days"`
 }
 
@@ -49,6 +51,9 @@ var calendarRules = map[string]Rule{
 	"FR": {Country: "FR", Name: "complementary Saturday ban", MinMassKg: 7500,
 		Exemptions: "those of the arrêté du 16 avril 2021, art. 4, and prefects' permits",
 		Note:       "summer Saturdays on the whole network"},
+	"GR": {Country: "GR", Name: "holiday and summer ban on listed roads", MinMassKg: 3500,
+		Exemptions: "road assistance, post and press, live animals and ATP perishables of at least 10% of the load, fresh fruit and vegetables, fuel for firefighting, utilities' repairs and the others of άρθρο 1, Γ",
+		Note:       "on the motorway and national road sections the decision lists"},
 	"IT": {Country: "IT", Name: "calendar ban", MinMassKg: 7500,
 		Exemptions: "perishables, live animals, post, fuel, combined transport and the others of art. 7 and 8, and prefects' permits",
 		Note:       "on roads outside built-up areas; with papers, from abroad it starts 4 h later and to abroad it ends 2 h earlier (art. 3), and Sardinia's and Sicily's ferries have their own shifts (art. 4 and 5)"},
@@ -90,7 +95,7 @@ func calendarWindows(country string, from, to time.Time, loc *time.Location) []W
 			} else if a, err1 := time.ParseInLocation(time.DateOnly, d.FromDate, loc); err1 == nil {
 				if b, err2 := time.ParseInLocation(time.DateOnly, d.ToDate, loc); err2 == nil {
 					for day := a; !day.After(b); day = time.Date(day.Year(), day.Month(), day.Day()+1, 0, 0, 0, 0, loc) {
-						if weekday[day.Weekday()] == d.Weekday {
+						if weekday[day.Weekday()] == d.Weekday && !slices.Contains(d.Except, day.Format(time.DateOnly)) {
 							days = append(days, day)
 						}
 					}

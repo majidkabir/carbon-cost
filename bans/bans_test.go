@@ -471,3 +471,32 @@ func TestRomania(t *testing.T) {
 		t.Errorf("14 August: %v", g)
 	}
 }
+
+func TestGreece(t *testing.T) {
+	loc, _ := time.LoadLocation("Europe/Athens")
+	n := func(from string, days int, mass int) (int, []Window) {
+		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
+		ws := Windows("GR", mass, false, d, d.AddDate(0, 0, days), loc)
+		return len(ws), ws
+	}
+	// Christmas Eve 2026: the twelve sections leaving the cities, 16-22.
+	if c, ws := n("2026-12-24", 1, 12000); c != 12 || ws[0].From.Hour() != 16 || ws[0].To.Hour() != 22 || !ws[0].Rule.Listed {
+		t.Errorf("24 December: %d %+v", c, ws)
+	}
+	// Friday 14 August 2026 is Β6's, not Β9's: 16-22, not 16-21, and the
+	// Thessaloniki–Kavala road both ways from Β10 (15-22).
+	_, ws := n("2026-08-14", 1, 12000)
+	for _, w := range ws {
+		if w.To.Hour() == 21 {
+			t.Errorf("14 August: a Β9 window %+v", w)
+		}
+	}
+	// An ordinary summer Friday: Β9's 13 windows (the Kavala road both
+	// ways) and Β10's two.
+	if c, _ := n("2026-07-10", 1, 12000); c != 15 {
+		t.Errorf("10 July: %d windows", c)
+	}
+	if c, _ := n("2026-12-24", 1, 3500); c != 0 {
+		t.Errorf("3.5 t: %d windows", c)
+	}
+}

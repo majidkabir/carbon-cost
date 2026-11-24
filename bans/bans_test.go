@@ -443,3 +443,31 @@ func TestLuxembourg(t *testing.T) {
 		t.Errorf("FR %v, DE %v", fr, de)
 	}
 }
+
+func TestRomania(t *testing.T) {
+	if e := orthodoxEaster(2026); e.Format(time.DateOnly) != "2026-04-12" {
+		t.Errorf("Orthodox Easter 2026: %v", e)
+	}
+	if e := orthodoxEaster(2027); e.Format(time.DateOnly) != "2027-05-02" {
+		t.Errorf("Orthodox Easter 2027: %v", e)
+	}
+	loc, _ := time.LoadLocation("Europe/Bucharest")
+	ws := func(from string, days int) []string {
+		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
+		var out []string
+		for _, w := range Windows("RO", 40000, false, d, d.AddDate(0, 0, days), loc) {
+			out = append(out, w.Rule.Roads[0]+" "+w.From.Format("01-02 15:04")+"-"+w.To.Format("15:04"))
+		}
+		return out
+	}
+	// Sf. Andrei and the National Day 2026 (Monday and Tuesday): only the
+	// DN7, all year; the A2 and DN39 from April to September.
+	if g := ws("2026-11-29", 3); !slices.Equal(g, []string{"DN7 11-29 18:00-22:00", "DN7 11-30 06:00-22:00", "DN7 12-01 06:00-22:00"}) {
+		t.Errorf("Sf. Andrei: %v", g)
+	}
+	// 15 August 2026, a Saturday: the summer weekend and the holiday.
+	g := ws("2026-08-14", 1)
+	if !slices.Contains(g, "A2 08-14 16:00-22:00") || !slices.Contains(g, "A2 08-14 12:00-22:00") || !slices.Contains(g, "DN39 08-14 06:00-22:00") {
+		t.Errorf("14 August: %v", g)
+	}
+}

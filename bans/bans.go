@@ -204,6 +204,17 @@ func Holidays(country string, y int) []Holiday {
 			moving(60, "Tijelovo"), fixed(5, 1, "Praznik rada"), fixed(5, 30, "Dan državnosti"), fixed(6, 22, "Dan antifašističke borbe"),
 			fixed(8, 5, "Dan pobjede i domovinske zahvalnosti"), fixed(8, 15, "Velika Gospa"), fixed(11, 1, "Svi sveti"),
 			fixed(11, 18, "Dan sjećanja na žrtve Domovinskog rata"), fixed(12, 25, "Božić"), fixed(12, 26, "Sveti Stjepan")}
+	case "RO":
+		// Legea nr. 53/2003 – Codul muncii, art. 139 alin. (1) (with Legea
+		// nr. 52/2023), but the other cults' days; Easter and Pentecost
+		// are the Orthodox ones.
+		oe := orthodoxEaster(y)
+		om := func(days int, name string) Holiday { return Holiday{Date: oe.AddDate(0, 0, days), Name: name} }
+		return []Holiday{fixed(1, 1, "Anul Nou"), fixed(1, 2, "Anul Nou"), fixed(1, 6, "Boboteaza"), fixed(1, 7, "Sfântul Ioan Botezătorul"),
+			fixed(1, 24, "Ziua Unirii Principatelor Române"), om(-2, "Vinerea Mare"), om(0, "Paștele"), om(1, "a doua zi de Paște"),
+			fixed(5, 1, "Ziua Muncii"), fixed(6, 1, "Ziua Copilului"), om(49, "Rusaliile"), om(50, "a doua zi de Rusalii"),
+			fixed(8, 15, "Adormirea Maicii Domnului"), fixed(11, 30, "Sfântul Andrei"), fixed(12, 1, "Ziua Națională a României"),
+			fixed(12, 25, "Crăciunul"), fixed(12, 26, "a doua zi de Crăciun")}
 	case "LI":
 		// VRV Art. 89 Abs. 1.
 		return []Holiday{fixed(1, 1, "Neujahr"), fixed(1, 6, "Heilige Drei Könige"), moving(1, "Ostermontag"), fixed(5, 1, "1. Mai"),

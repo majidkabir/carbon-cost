@@ -5,6 +5,13 @@
 ferry fares and carbon charges on the route Sootcase returns.
 **Status:** requested 2026-11-22. carbon-cost changes nothing until Sootcase ships this.
 
+**Gap found 2026-11-24 (v0.17.0):** without `alternatives`, the primary leg has no `summary`
+(check S1 in `tools/livecheck/sections.py`: Kolding–Hamburg gives `roads None`). R2 asks for the
+primary's `summary` always. carbon-cost now needs it on every call: Spain's driving restrictions
+hold only on the road sections the DGT lists, and carbon-cost keeps only those on the route's
+main roads (`summary.roads`). Without it, every Spanish restriction of the day is reported as
+one the trip may run into. Acceptance: S1 passes with no `alternatives` in the query.
+
 ## 1. Why
 
 carbon-cost prices only the one route Sootcase returns, and the charges depend heavily on the

@@ -121,6 +121,8 @@ def main():
         # matching bans on listed roads to the route).
         roads = (leg0(res).get("summary") or {}).get("roads")
         say("S1 summary roads on the primary", "PASS" if roads else "FAIL", f"roads {roads}")
+        st3, res3 = calc((55.4904, 9.4722), (53.5511, 9.9937), query="country_km=true&alternatives=2", ferries=False)
+        print(f"note: with alternatives=2, HTTP {st3}, the primary's summary roads {(leg0(res3).get('summary') or {}).get('roads')}")
     # Copenhagen to Hamburg via Rødby-Puttgarden: a ferry section between.
     st, res = calc((55.6761, 12.5683), (53.5511, 9.9937))
     if st != 200:

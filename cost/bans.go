@@ -30,8 +30,10 @@ type BanHit struct {
 	// Sootcase didn't say in which order.
 	Certain bool `json:"certain"`
 	// WaitH is how long the truck waits for the ban to end, where Certain.
-	WaitH      float64 `json:"wait_h,omitempty"`
-	Exemptions string  `json:"exemptions,omitempty"`
+	WaitH float64 `json:"wait_h,omitempty"`
+	// Note says where or for whom else the ban holds.
+	Note       string `json:"note,omitempty"`
+	Exemptions string `json:"exemptions,omitempty"`
 	Law        string  `json:"law"`
 }
 
@@ -102,7 +104,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			}
 			seen[key] = true
 			hits = append(hits, BanHit{Country: s.country, Ban: w.Rule.Name, From: w.From.Format(time.RFC3339), To: w.To.Format(time.RFC3339),
-				Holiday: w.Holiday, Regions: w.Regions, Exemptions: w.Rule.Exemptions, Law: w.Rule.Law, Certain: certain, WaitH: waitH})
+				Holiday: w.Holiday, Regions: w.Regions, Note: w.Rule.Note, Exemptions: w.Rule.Exemptions, Law: w.Rule.Law, Certain: certain, WaitH: waitH})
 			addSource(out, rates.Source{Title: w.Rule.Title, URL: w.Rule.URL})
 			if src, ok := bans.HolidaySources[s.country]; ok && w.Holiday != "" {
 				addSource(out, rates.Source{Title: src[0], URL: src[1]})
@@ -151,6 +153,9 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		from, _ := time.Parse(time.RFC3339, h.From)
 		to, _ := time.Parse(time.RFC3339, h.To)
 		what := fmt.Sprintf("%s's %s (%s) from %s to %s", h.Country, h.Ban, h.Law, from.Format("Mon 2 Jan 15:04"), to.Format("Mon 2 Jan 15:04"))
+		if h.Note != "" {
+			what += " (" + h.Note + ")"
+		}
 		if h.Holiday != "" {
 			what += ", " + h.Holiday
 			if len(h.Regions) > 0 {

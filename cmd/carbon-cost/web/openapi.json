@@ -29,6 +29,10 @@
      "law": {
       "type": "string"
      },
+     "note": {
+      "description": "Note says where or for whom else the ban holds.",
+      "type": "string"
+     },
      "regions": {
       "items": {
        "type": "string"

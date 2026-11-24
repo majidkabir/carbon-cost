@@ -79,6 +79,17 @@ func init() {
 	frEve.Days, frEve.From, frEve.To = []string{"sat", "holiday_eve"}, "22:00", "24:00"
 	frDay.Days, frDay.From, frDay.To = []string{"sun", "holiday"}, "00:00", "22:00"
 	Rules = append(Rules, sunday, night1, night2, frEve, frDay)
+	cz := Rule{Country: "CZ", Name: "Sunday and holiday ban", MinMassKg: 7500, TrailerMassKg: 3500,
+		Exemptions: "perishables, live animals, fuel, post, combined transport and the others of § 43 (3), and permits",
+		Note:       "on motorways and class I roads",
+		Law:        "Zákon č. 361/2000 Sb. o silničním provozu, § 43; days off: zákon č. 245/2000 Sb.",
+		Title:      "Portál veřejné správy: Výjimka z omezení jízdy některých vozidel v rámci celé ČR",
+		URL:        "https://portal.gov.cz/sluzby-vs/vyjimka-z-omezeni-jizdy-nekterych-vozidel-v-ramci-cele-cr-S551"}
+	czSun, czFri, czSat := cz, cz, cz
+	czSun.Days, czSun.From, czSun.To = []string{"sun", "holiday"}, "13:00", "22:00"
+	czFri.Name, czFri.Days, czFri.From, czFri.To, czFri.FromDay, czFri.ToDay = "summer ban", []string{"fri"}, "17:00", "21:00", "07-01", "08-31"
+	czSat.Name, czSat.Days, czSat.From, czSat.To, czSat.FromDay, czSat.ToDay = "summer ban", []string{"sat"}, "07:00", "13:00", "07-01", "08-31"
+	Rules = append(Rules, czSun, czFri, czSat)
 }
 
 // Night bans that low-noise trucks are exempt from are noted, not
@@ -138,6 +149,12 @@ func Holidays(country string, y int) []Holiday {
 			hs = append(hs, fixed(12, 26, "Stephanstag"))
 		}
 		return hs
+	case "CZ":
+		// Zákon č. 245/2000 Sb.: state holidays and the other holidays.
+		return []Holiday{fixed(1, 1, "Den obnovy samostatného českého státu"), moving(-2, "Velký pátek"), moving(1, "Velikonoční pondělí"),
+			fixed(5, 1, "Svátek práce"), fixed(5, 8, "Den vítězství"), fixed(7, 5, "Den slovanských věrozvěstů Cyrila a Metoděje"),
+			fixed(7, 6, "Den upálení mistra Jana Husa"), fixed(9, 28, "Den české státnosti"), fixed(10, 28, "Den vzniku samostatného československého státu"),
+			fixed(11, 17, "Den boje za svobodu a demokracii"), fixed(12, 24, "Štědrý den"), fixed(12, 25, "1. svátek vánoční"), fixed(12, 26, "2. svátek vánoční")}
 	case "FR":
 		// Code du travail, art. L3133-1.
 		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),

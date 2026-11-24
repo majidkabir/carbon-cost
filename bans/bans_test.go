@@ -101,3 +101,21 @@ func TestSwissAndFrenchBans(t *testing.T) {
 		t.Fatalf("FR weekend: %+v", w)
 	}
 }
+
+func TestCzechBans(t *testing.T) {
+	prg, _ := time.LoadLocation("Europe/Prague")
+	// 17 November 2026, a Tuesday holiday: 13:00-22:00.
+	w := Windows("CZ", 40000, false, time.Date(2026, 11, 17, 8, 0, 0, 0, prg), time.Date(2026, 11, 17, 23, 0, 0, 0, prg), prg)
+	if len(w) != 1 || w[0].From.Format("15:04") != "13:00" || w[0].Holiday == "" {
+		t.Fatalf("CZ 17 November: %+v", w)
+	}
+	// Summer: Friday 17:00-21:00 and Saturday 07:00-13:00, then Sunday.
+	w = Windows("CZ", 40000, false, time.Date(2026, 7, 10, 12, 0, 0, 0, prg), time.Date(2026, 7, 12, 23, 0, 0, 0, prg), prg)
+	if len(w) != 3 || w[0].Rule.Name != "summer ban" || w[1].From.Format("Mon 15:04") != "Sat 07:00" || w[2].From.Format("Mon 15:04") != "Sun 13:00" {
+		t.Fatalf("CZ summer: %+v", w)
+	}
+	// Not in November on a Saturday.
+	if w := Windows("CZ", 40000, false, time.Date(2026, 11, 28, 6, 0, 0, 0, prg), time.Date(2026, 11, 28, 14, 0, 0, 0, prg), prg); len(w) != 0 {
+		t.Errorf("CZ November Saturday: %+v", w)
+	}
+}

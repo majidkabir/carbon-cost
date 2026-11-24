@@ -280,12 +280,6 @@ var weekday = map[time.Weekday]string{time.Monday: "mon", time.Tuesday: "tue", t
 // Windows lists a country's bans for the truck that overlap from-to (in
 // the country's local time, loc).
 func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
-	if _, ok := calendarRules[country]; ok {
-		if !calendarRules[country].Applies(maxMassKg, trailer) {
-			return nil
-		}
-		return calendarWindows(country, from, to, loc)
-	}
 	if country == "HU" {
 		if !huRule.Applies(maxMassKg, trailer) {
 			return nil
@@ -361,6 +355,15 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			}
 		}
 	}
+	if r, ok := calendarRules[country]; ok && r.Applies(maxMassKg, trailer) {
+		for _, w := range calendarWindows(country, from, to, loc) {
+			if !covered(out, w) {
+				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })
+				out = append(out, w)
+			}
+		}
+		slices.SortStableFunc(out, func(a, b Window) int { return a.From.Compare(b.From) })
+	}
 	return out
 }
 
@@ -368,7 +371,10 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 // when a Sunday is also the first day of a run of days off.
 func covered(out []Window, w Window) bool {
 	for _, o := range out {
-		if o.Rule.Country == w.Rule.Country && !o.From.After(w.From) && !o.To.Before(w.To) {
+		// A ban only on listed roads or in some regions doesn't cover one
+		// that holds everywhere.
+		sure := !o.Rule.Listed && len(o.Regions) == 0 || w.Rule.Listed || len(w.Regions) > 0
+		if o.Rule.Country == w.Rule.Country && sure && !o.From.After(w.From) && !o.To.Before(w.To) {
 			return true
 		}
 	}

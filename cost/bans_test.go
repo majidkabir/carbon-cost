@@ -95,3 +95,14 @@ func TestListedRoadBan(t *testing.T) {
 		t.Errorf("%+v %v", r.Bans, r.Trip.BanWaitH)
 	}
 }
+
+func TestCalendarYearMissing(t *testing.T) {
+	it := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 480, WTWKg: 600, CountryKm: map[string]float64{"IT": 300}}}}
+	r, err := PriceWith(it, all(t), nil, Request{CargoKg: 20000, Truck: truck40, origin: "IT"}, time.Date(2027, 3, 7, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "IT's calendar of bans for 2027 isn't in") }) {
+		t.Errorf("%q", r.Notes)
+	}
+}

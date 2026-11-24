@@ -1,0 +1,75 @@
+{
+ "about": "France's complementary truck bans for 2026 (over 7.5 t), transcribed from the arrêté; tools/tables/check_bans.py checks each date and the hours against the fetched text.",
+ "country": "FR",
+ "year": 2026,
+ "check": "words-fr",
+ "law": "Arrêté du 26 décembre 2025 relatif aux interdictions complémentaires de circulation des véhicules de transport de marchandises pour l'année 2026 (NOR TRAT2529272A), art. 2",
+ "source": {
+  "id": "fr-bans-2026",
+  "title": "Arrêté du 26 décembre 2025, interdictions complémentaires de circulation pour 2026 (JORF, as the DREAL Hauts-de-France publishes it)",
+  "url": "https://www.hauts-de-france.developpement-durable.gouv.fr/IMG/pdf/interdictions_complementaires_samedis_.pdf",
+  "page": "https://www.bison-fute.gouv.fr/regime-general,10852.html"
+ },
+ "days": [
+  {
+   "date": "2026-02-07",
+   "from": "07:00",
+   "to": "18:00",
+   "listed": true,
+   "note": "winter Saturdays, only on the Auvergne-Rhône-Alpes roads the arrêté's annex lists"
+  },
+  {
+   "date": "2026-02-14",
+   "from": "07:00",
+   "to": "18:00",
+   "listed": true,
+   "note": "winter Saturdays, only on the Auvergne-Rhône-Alpes roads the arrêté's annex lists"
+  },
+  {
+   "date": "2026-02-21",
+   "from": "07:00",
+   "to": "18:00",
+   "listed": true,
+   "note": "winter Saturdays, only on the Auvergne-Rhône-Alpes roads the arrêté's annex lists"
+  },
+  {
+   "date": "2026-02-28",
+   "from": "07:00",
+   "to": "18:00",
+   "listed": true,
+   "note": "winter Saturdays, only on the Auvergne-Rhône-Alpes roads the arrêté's annex lists"
+  },
+  {
+   "date": "2026-03-07",
+   "from": "07:00",
+   "to": "18:00",
+   "listed": true,
+   "note": "winter Saturdays, only on the Auvergne-Rhône-Alpes roads the arrêté's annex lists"
+  },
+  {
+   "date": "2026-07-11",
+   "from": "07:00",
+   "to": "19:00"
+  },
+  {
+   "date": "2026-07-18",
+   "from": "07:00",
+   "to": "19:00"
+  },
+  {
+   "date": "2026-07-25",
+   "from": "07:00",
+   "to": "19:00"
+  },
+  {
+   "date": "2026-08-01",
+   "from": "07:00",
+   "to": "19:00"
+  },
+  {
+   "date": "2026-08-08",
+   "from": "07:00",
+   "to": "19:00"
+  }
+ ]
+}

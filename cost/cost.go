@@ -240,6 +240,9 @@ type Request struct {
 	FX map[string]float64 `json:"fx,omitempty"`
 
 	ecb fx.Rates // set by Calculate from Calculator.FX
+	// dieselFactor is Sootcase's factor for a litre of diesel (Calculate);
+	// nil: EN 16258's.
+	dieselFactor *sootcase.FuelFactor
 	// legLoadKg is the load on board on each leg (Calculate); nil:
 	// CargoKg on every leg.
 	legLoadKg []float64
@@ -516,6 +519,15 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			vt = ElectricVehicleType(req.Truck.MaxMassKg)
 		}
 		assumed = append(assumed, "vehicle_type: "+vt)
+	}
+	if req.fuelGiven() && len(req.CountryKm) == 0 {
+		// The truck's own diesel: Sootcase's factor for it (GLEC's); a
+		// trip by country_km doesn't call Sootcase, and keeps EN 16258's.
+		if f, ok := factorsOf(ctx, c.Sootcase); ok {
+			if df, ok := f.Fuel("diesel"); ok && df.Unit == "l" && df.TTWKgPerUnit > 0 {
+				req.dieselFactor = &df
+			}
+		}
 	}
 	if c.FXOn != nil {
 		if r, ok := c.FXOn(date); ok {

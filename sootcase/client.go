@@ -303,3 +303,65 @@ type RegionSection struct {
 	FromKm float64 `json:"from_km"`
 	ToKm   float64 `json:"to_km"`
 }
+
+// Factors is what Sootcase's /v1/factors gives of its emission factors
+// (v0.17.0 or later): here, the fuels' per unit and their aliases.
+type Factors struct {
+	Fuels       []FuelFactor      `json:"fuels"`
+	FuelAliases map[string]string `json:"fuel_aliases"`
+}
+
+// FuelFactor is a fuel's tank-to-wheel and well-to-tank kg CO2e per unit.
+type FuelFactor struct {
+	Fuel         string  `json:"fuel"`
+	Unit         string  `json:"unit"`
+	TTWKgPerUnit float64 `json:"ttw_kg_per_unit"`
+	WTTKgPerUnit float64 `json:"wtt_kg_per_unit"`
+	Source       string  `json:"source"`
+	Year         int     `json:"year"`
+}
+
+// Fuel is the factor an alias (diesel, hvo, ...) or a fuel id names.
+func (f Factors) Fuel(name string) (FuelFactor, bool) {
+	if id, ok := f.FuelAliases[name]; ok {
+		name = id
+	}
+	for _, x := range f.Fuels {
+		if x.Fuel == name {
+			return x, true
+		}
+	}
+	return FuelFactor{}, false
+}
+
+// Factors reads Sootcase's emission factors.
+func (c Client) Factors(ctx context.Context) (Factors, error) {
+	base := c.BaseURL
+	if base == "" {
+		base = DefaultURL
+	}
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, strings.TrimRight(base, "/")+"/v1/factors", nil)
+	if err != nil {
+		return Factors{}, err
+	}
+	if c.APIKey != "" {
+		req.Header.Set("Authorization", "Bearer "+c.APIKey)
+	}
+	hc := c.HTTP
+	if hc == nil {
+		hc = http.DefaultClient
+	}
+	resp, err := hc.Do(req)
+	if err != nil {
+		return Factors{}, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return Factors{}, fmt.Errorf("sootcase: /v1/factors: HTTP %d", resp.StatusCode)
+	}
+	var f Factors
+	if err := json.NewDecoder(resp.Body).Decode(&f); err != nil {
+		return Factors{}, fmt.Errorf("sootcase: /v1/factors: %w", err)
+	}
+	return f, nil
+}

@@ -4162,3 +4162,28 @@ func TestElectricityDefaultPrice(t *testing.T) {
 		t.Errorf("default price: %+v, want %v", e, want)
 	}
 }
+
+func TestPrimaryDieselWithSootcaseFactors(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/v1/factors":
+			_, _ = w.Write([]byte(`{"fuels":[{"fuel":"glec/fuel/eu/diesel/l","unit":"l","ttw_kg_per_unit":2.6726,"wtt_kg_per_unit":0.8051,"source":"GLEC Framework v3.3, diesel","year":2026}],` +
+				`"fuel_aliases":{"diesel":"glec/fuel/eu/diesel/l"}}`))
+		default:
+			res := cphHam
+			res.Basis = &sootcase.Basis{Standard: "EN ISO 14083:2023", Framework: "GLEC Framework v3.3", Sootcase: "v0.17.0"}
+			_ = json.NewEncoder(w).Encode(res)
+		}
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t),
+		Now: func() time.Time { return time.Date(2026, 11, 3, 15, 0, 0, 0, time.UTC) }}
+	r, err := c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "DKCPH"}, To: sootcase.Location{Code: "DEHAM"},
+		CargoKg: 20000, Truck: truck40, DieselL: 100})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.DataType != "primary" || !strings.Contains(r.EmissionsBasis, "2.6726 kg CO2e/l tank-to-wheel and 3.4777 kg CO2e/l well-to-wheel (Sootcase v0.17.0's glec/fuel/eu/diesel/l") {
+		t.Errorf("%s: %s", r.DataType, r.EmissionsBasis)
+	}
+}

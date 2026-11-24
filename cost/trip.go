@@ -471,7 +471,8 @@ const Certification = "Not certified under Regulation (EU) 2026/1030 (applies fr
 // tripEmissions sets the trip's emissions. With the truck's own diesel
 // (primary data: EN ISO 14083 and Regulation (EU) 2026/1030 put it before
 // default values), or with no route (country_km): the road's are the
-// litres x EN 16258's factors, shared out by tonne-km, and a ferry's are
+// litres x Sootcase's factor for diesel (GLEC's; EN 16258's where it gives
+// none), shared out by tonne-km, and a ferry's are
 // Sootcase's for the load on board, shared by weight among the shipments
 // on it. Else they stay Sootcase's. It returns req with the shipments'.
 func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
@@ -488,8 +489,18 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	}
 	fuel := out.Trip.FuelL
 	roadTTW, roadWTW := fuel*DieselKgCO2PerL, fuel*DieselKgCO2ePerLWTW
-	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1), shared out by tonne-km",
+	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1, as Sootcase gave no fuel factors), shared out by tonne-km",
 		fuel, out.Trip.FuelBasis, DieselKgCO2PerL, DieselKgCO2ePerLWTW)
+	if f := req.dieselFactor; f != nil {
+		// EN ISO 14083 replaced EN 16258: Sootcase's GLEC factor.
+		roadTTW, roadWTW = fuel*f.TTWKgPerUnit, fuel*(f.TTWKgPerUnit+f.WTTKgPerUnit)
+		by := "Sootcase"
+		if res.Basis != nil && res.Basis.Sootcase != "" {
+			by += " " + res.Basis.Sootcase
+		}
+		out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.4f kg CO2e/l tank-to-wheel and %.4f kg CO2e/l well-to-wheel (%s's %s: %s), shared out by tonne-km",
+			fuel, out.Trip.FuelBasis, f.TTWKgPerUnit, f.TTWKgPerUnit+f.WTTKgPerUnit, by, f.Fuel, f.Source)
+	}
 	ships := req.shipments()
 	dist := make([]float64, len(ships))
 	var tkm float64

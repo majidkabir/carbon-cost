@@ -7,6 +7,10 @@ name: Bans check
 # tab, or push to the bans-check branch.
 on:
   workflow_dispatch:
+    inputs:
+      show:
+        description: "Print a part of a fetched text in full, for transcribing it: id:start regex:end regex (e.g. es-bans-2026:ANEXO II:ANEXO III)"
+        default: ""
   push:
     branches: [bans-check]
 permissions:
@@ -24,6 +28,19 @@ jobs:
           python3 -u tools/tables/fetch.py bans-sources.json out
           for f in out/*.pdf; do pdftotext -layout "$f" "${f%.pdf}.txt" || echo "not a PDF: $f"; done
           ls -la out
+      - name: Show
+        if: inputs.show != ''
+        env:
+          SHOW: ${{ inputs.show }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          id_, start, end = os.environ["SHOW"].split(":", 2)
+          t = open(f"out/{id_}.txt", encoding="utf-8", errors="replace").read()
+          a = re.search(start, t)
+          b = re.search(end, t[a.end():]) if a else None
+          print(t[a.start():a.end() + b.start()] if b else t[a.start():] if a else f"{start!r} not in {id_}")
+          PY
       - name: Check
         run: |
           python3 tools/tables/check_bans.py out bans/data | tee check.txt

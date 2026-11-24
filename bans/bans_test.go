@@ -1,6 +1,7 @@
 package bans
 
 import (
+	"slices"
 	"testing"
 	"time"
 )
@@ -159,5 +160,49 @@ func TestSlovakBans(t *testing.T) {
 	}
 	if w := Windows("SK", 7500, false, time.Date(2026, 11, 22, 0, 0, 0, 0, ba), time.Date(2026, 11, 22, 23, 0, 0, 0, ba), ba); len(w) != 0 {
 		t.Errorf("7.5 t: %+v", w)
+	}
+}
+
+func TestHungarianBans(t *testing.T) {
+	bud, _ := time.LoadLocation("Europe/Budapest")
+	at := func(y int, m time.Month, d, h int) time.Time { return time.Date(y, m, d, h, 0, 0, 0, bud) }
+	f := "Mon 2 Jan 15:04"
+	cases := []struct {
+		from, to time.Time
+		want     []string
+	}{
+		// Winter weekend: Saturday 22:00 to Sunday 22:00.
+		{at(2026, 11, 27, 12), at(2026, 11, 30, 12), []string{"Sat 28 Nov 22:00-Sun 29 Nov 22:00"}},
+		// Summer: Saturday 15:00 to Sunday 22:00.
+		{at(2026, 7, 10, 12), at(2026, 7, 13, 12), []string{"Sat 11 Jul 15:00-Sun 12 Jul 22:00"}},
+		// 8 August 2026 is a working Saturday: no summer Saturday ban.
+		{at(2026, 8, 7, 12), at(2026, 8, 10, 12), nil},
+		// 20 August 2026, a Thursday: from 22:00 the day before.
+		{at(2026, 8, 19, 12), at(2026, 8, 21, 12), []string{"Wed 19 Aug 22:00-Thu 20 Aug 22:00"}},
+		// 20 August 2027, a Friday, in summer: § 2 (2), Friday 08:00 to Sunday 22:00.
+		{at(2027, 8, 19, 12), at(2027, 8, 23, 12), []string{"Fri 20 Aug 08:00-Sun 22 Aug 22:00"}},
+		// 1 May 2027, a Saturday, outside summer: § 2 (2), Saturday 08:00 to Sunday 22:00.
+		{at(2027, 4, 30, 12), at(2027, 5, 3, 12), []string{"Sat 1 May 08:00-Sun 2 May 22:00"}},
+		// Easter 2027: Good Friday, then Saturday 22:00 to Monday 22:00.
+		{at(2027, 3, 25, 12), at(2027, 3, 30, 12), []string{"Thu 25 Mar 22:00-Fri 26 Mar 22:00", "Sat 27 Mar 22:00-Mon 29 Mar 22:00"}},
+		// Christmas 2026: 24 December is a day off now, Wednesday 22:00 to Sunday 27 December 22:00.
+		{at(2026, 12, 23, 12), at(2026, 12, 28, 12), []string{"Wed 23 Dec 22:00-Sun 27 Dec 22:00"}},
+	}
+	for _, c := range cases {
+		var got []string
+		for _, w := range Windows("HU", 40000, false, c.from, c.to, bud) {
+			got = append(got, w.From.Format(f)+"-"+w.To.Format(f))
+		}
+		if !slices.Equal(got, c.want) {
+			t.Errorf("%s: %v, want %v", c.from.Format(f), got, c.want)
+		}
+	}
+	// The winter exemption for international traffic from Euro 3.
+	w := Windows("HU", 40000, false, at(2026, 11, 27, 12), at(2026, 11, 30, 12), bud)
+	if len(w) != 1 || !w[0].Exempt(6, true) || w[0].Exempt(6, false) || w[0].Exempt(2, true) {
+		t.Errorf("winter exemption: %+v", w)
+	}
+	if w := Windows("HU", 40000, false, at(2026, 7, 10, 12), at(2026, 7, 13, 12), bud); len(w) != 1 || w[0].Exempt(6, true) {
+		t.Errorf("summer: no exemption: %+v", w)
 	}
 }

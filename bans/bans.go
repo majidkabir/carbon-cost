@@ -31,7 +31,10 @@ type Rule struct {
 	FromDay, ToDay string
 	// Since and Until ("YYYY-MM-DD", inclusive) bound the dates the rule
 	// is law, when it changed.
-	Since, Until     string
+	Since, Until string
+	// ExemptIntlEuro, when set, exempts trucks of at least this Euro class
+	// in international traffic (Hungary's winter exemption).
+	ExemptIntlEuro   int
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -190,6 +193,16 @@ func Holidays(country string, y int) []Holiday {
 			h = slices.DeleteFunc(h, func(d Holiday) bool { return d.Date.Month() == 5 && d.Date.Day() == 8 || d.Date.Month() == 9 })
 		}
 		return h
+	case "HU":
+		// Munka törvénykönyve (2012. évi I. törvény), 102. § (1), with 24
+		// December from 14 November 2026 (2026. évi LXXII. törvény).
+		h := []Holiday{fixed(1, 1, "Újév"), fixed(3, 15, "Nemzeti ünnep"), moving(-2, "Nagypéntek"), moving(1, "Húsvéthétfő"),
+			fixed(5, 1, "A munka ünnepe"), moving(50, "Pünkösdhétfő"), fixed(8, 20, "Az államalapítás ünnepe"), fixed(10, 23, "Nemzeti ünnep"),
+			fixed(11, 1, "Mindenszentek"), fixed(12, 25, "Karácsony"), fixed(12, 26, "Karácsony másnapja")}
+		if y >= 2026 {
+			h = append(h, fixed(12, 24, "Szenteste"))
+		}
+		return h
 	case "FR":
 		// Code du travail, art. L3133-1.
 		return []Holiday{fixed(1, 1, "Jour de l'an"), moving(1, "Lundi de Pâques"), fixed(5, 1, "Fête du travail"), fixed(5, 8, "Victoire 1945"),
@@ -227,6 +240,12 @@ var weekday = map[time.Weekday]string{time.Monday: "mon", time.Tuesday: "tue", t
 // Windows lists a country's bans for the truck that overlap from-to (in
 // the country's local time, loc).
 func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
+	if country == "HU" {
+		if !huRule.Applies(maxMassKg, trailer) {
+			return nil
+		}
+		return huWindows(from, to, loc)
+	}
 	var out []Window
 	day := time.Date(from.In(loc).Year(), from.In(loc).Month(), from.In(loc).Day(), 0, 0, 0, 0, loc)
 	hol := map[string]Holiday{}

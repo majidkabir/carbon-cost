@@ -82,6 +82,24 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	var hits []BanHit
 	var wait float64
 	seen := map[string]bool{}
+	countries := 0
+	for _, km := range out.CountryKm {
+		if km >= 0.5 {
+			countries++
+		}
+	}
+	exempted := false
+	// windows are the bans in force, less those the truck is exempt from.
+	windows := func(country string, from, to time.Time, loc *time.Location) []bans.Window {
+		ws := bans.Windows(country, req.Truck.MaxMassKg, trailer, from, to, loc)
+		return slices.DeleteFunc(ws, func(w bans.Window) bool {
+			if w.Exempt(req.Truck.Euro, countries > 1) {
+				exempted = true
+				return true
+			}
+			return false
+		})
+	}
 	for _, s := range segs {
 		if !slices.ContainsFunc(bans.Rules, func(r bans.Rule) bool { return r.Country == s.country }) {
 			continue
@@ -111,7 +129,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			}
 		}
 		if !timed || !s.ordered {
-			for _, w := range bans.Windows(s.country, req.Truck.MaxMassKg, trailer, t0, t1, loc) {
+			for _, w := range windows(s.country, t0, t1, loc) {
 				add(w, false, 0)
 			}
 			continue
@@ -121,7 +139,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		cursor, left := t0, t1.Sub(t0)
 		for left > 0 {
 			var next *bans.Window
-			for _, w := range bans.Windows(s.country, req.Truck.MaxMassKg, trailer, cursor, cursor.Add(left), loc) {
+			for _, w := range windows(s.country, cursor, cursor.Add(left), loc) {
 				if len(w.Regions) > 0 {
 					add(w, false, 0)
 					continue
@@ -146,6 +164,9 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 	}
 	out.Bans = hits
+	if exempted {
+		out.Notes = append(out.Notes, "Driving ban: Hungary's weekend and holiday ban doesn't bind a truck of Euro 3 and up in international traffic from 4 November to 1 March (190/2008. (VII. 29.) Korm. rendelet, § 2 (3)).")
+	}
 	if out.Trip != nil && wait > 0 {
 		out.Trip.BanWaitH = math.Round(wait*100) / 100
 	}

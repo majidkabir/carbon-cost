@@ -59,3 +59,25 @@ func TestBans(t *testing.T) {
 		t.Errorf("DE-AT at 14:00: %v %+v", err, r.Bans)
 	}
 }
+
+func TestHungarianWinterExemption(t *testing.T) {
+	sat := time.Date(2026, 11, 28, 0, 0, 0, 0, time.UTC)
+	// Budapest to Slovakia late on Saturday: Hungary's ban is in force
+	// from 22:00.
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 320, WTWKg: 400, CountryKm: map[string]float64{"HU": 190, "SK": 10},
+		CountrySections: []sootcase.CountrySection{{Country: "HU", FromKm: 0, ToKm: 190}, {Country: "SK", FromKm: 190, ToKm: 200}}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, Time: "23:00", origin: "HU", FX: map[string]float64{"HUF": 388.6}}
+	req.Truck.Euro = 6
+	r, err := PriceWith(res, all(t), nil, req, sat)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "HU" }) ||
+		!slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "§ 2 (3)") }) {
+		t.Errorf("Euro 6, international: %+v %q", r.Bans, r.Notes)
+	}
+	req.Truck.Euro = 2
+	if r, err = PriceWith(res, all(t), nil, req, sat); err != nil || !slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "HU" && b.Certain && b.WaitH == 23 }) {
+		t.Errorf("Euro 2: %v %+v", err, r.Bans)
+	}
+}

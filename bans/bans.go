@@ -44,7 +44,11 @@ type Rule struct {
 	Listed bool
 	// Roads are the listed roads' refs ("A-6"), where the calendar gives
 	// them, to match with the route's main roads.
-	Roads            []string
+	Roads []string
+	// TransitFrom and TransitTo: the ban holds only on trucks in transit
+	// from one of those countries towards TransitTo (Luxembourg's).
+	TransitFrom      []string
+	TransitTo        string
 	Exemptions, Note string
 	Law, Title, URL  string
 }
@@ -295,6 +299,9 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			return nil
 		}
 		return huWindows(from, to, loc)
+	}
+	if country == "LU" {
+		return luWindows(maxMassKg, trailer, from, to, loc)
 	}
 	var out []Window
 	day := time.Date(from.In(loc).Year(), from.In(loc).Month(), from.In(loc).Day(), 0, 0, 0, 0, loc)

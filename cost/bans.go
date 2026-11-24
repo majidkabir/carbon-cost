@@ -51,6 +51,11 @@ type segment struct {
 	region string
 	// roads are its leg's main roads (Sootcase's summary), where given.
 	roads []string
+	// prev and next are the countries the trip is in before and after it
+	// ("" at the trip's ends), known (around) where all the segments are
+	// in order.
+	prev, next string
+	around     bool
 }
 
 // roadRef is a road ref to compare: upper case, no spaces or hyphens.
@@ -113,6 +118,26 @@ func segments(res sootcase.Result) []segment {
 		}
 		pos = end
 	}
+	// The countries before and after each stretch, for transit bans.
+	ordered := !slices.ContainsFunc(out, func(s segment) bool { return !s.ordered })
+	for i := range out {
+		if !ordered {
+			break
+		}
+		out[i].around = true
+		for j := i - 1; j >= 0; j-- {
+			if out[j].country != out[i].country {
+				out[i].prev = out[j].country
+				break
+			}
+		}
+		for j := i + 1; j < len(out); j++ {
+			if out[j].country != out[i].country {
+				out[i].next = out[j].country
+				break
+			}
+		}
+	}
 	return out
 }
 
@@ -142,6 +167,9 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 				exempted = true
 				return true
 			}
+			if w.Rule.TransitTo != "" && s.around && (!slices.Contains(w.Rule.TransitFrom, s.prev) || s.next != w.Rule.TransitTo) {
+				return true // not in that transit
+			}
 			if len(w.Rule.Roads) > 0 && len(s.roads) > 0 && !onRoads(w.Rule.Roads, s.roads) {
 				if offRoad[s.country] == nil {
 					offRoad[s.country] = map[string]bool{}
@@ -151,6 +179,11 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			}
 			return false
 		})
+		for i := range ws {
+			if ws[i].Rule.TransitTo != "" && !s.around {
+				ws[i].Rule.Listed = true // the trip's way through isn't known
+			}
+		}
 		if s.region == "" {
 			return ws
 		}

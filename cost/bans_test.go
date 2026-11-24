@@ -164,3 +164,32 @@ func TestSpainListedRoads(t *testing.T) {
 		t.Errorf("%d bans, %q", len(r.Bans), r.Notes)
 	}
 }
+
+func TestLuxembourgTransit(t *testing.T) {
+	// Saturday 14 November 2026, 22:00: Belgium, Luxembourg, then France
+	// or Germany. Towards France the ban started at 21:30; towards Germany
+	// it starts at 23:30, when the truck is out of Luxembourg.
+	sat := time.Date(2026, 11, 14, 0, 0, 0, 0, time.UTC)
+	trip := func(next string) sootcase.Result {
+		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 120, TTWKg: 190, WTWKg: 240,
+			CountryKm: map[string]float64{"BE": 50, "LU": 40, next: 30},
+			CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 50}, {Country: "LU", FromKm: 50, ToKm: 90}, {Country: next, FromKm: 90, ToKm: 120}}}}}
+	}
+	req := Request{CargoKg: 20000, Truck: truck40, Time: "21:00", origin: "BE"}
+	r, err := PriceWith(trip("FR"), all(t), nil, req, sat)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "LU" && b.Certain && strings.Contains(b.Ban, "France") }) {
+		t.Errorf("to FR: %+v", r.Bans)
+	}
+	if r, err = PriceWith(trip("DE"), all(t), nil, req, sat); err != nil || slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "LU" }) {
+		t.Errorf("to DE: %v %+v", err, r.Bans)
+	}
+	// Ending in Luxembourg: not transit.
+	end := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 90, TTWKg: 150, WTWKg: 190, CountryKm: map[string]float64{"BE": 50, "LU": 40},
+		CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 50}, {Country: "LU", FromKm: 50, ToKm: 90}}}}}
+	if r, err = PriceWith(end, all(t), nil, req, sat); err != nil || slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "LU" }) {
+		t.Errorf("to LU: %v %+v", err, r.Bans)
+	}
+}

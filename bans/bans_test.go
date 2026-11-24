@@ -423,3 +423,23 @@ func TestCroatia(t *testing.T) {
 		t.Error("7.5 t")
 	}
 }
+
+func TestLuxembourg(t *testing.T) {
+	loc, _ := time.LoadLocation("Europe/Luxembourg")
+	// Whitsun 2026: Saturday 23 May to Monday 25 May. Towards France one
+	// window, Saturday 21:30 to Monday 21:45; towards Germany Saturday
+	// 23:30 to Sunday 21:45 and Sunday 23:30 to Monday 21:45.
+	d := time.Date(2026, 5, 23, 0, 0, 0, 0, loc)
+	var fr, de []string
+	for _, w := range Windows("LU", 40000, false, d, d.AddDate(0, 0, 3), loc) {
+		s := w.From.Format("Mon 15:04") + "-" + w.To.Format("Mon 15:04")
+		if w.Rule.TransitTo == "FR" {
+			fr = append(fr, s)
+		} else {
+			de = append(de, s)
+		}
+	}
+	if !slices.Equal(fr, []string{"Sat 21:30-Mon 21:45"}) || !slices.Equal(de, []string{"Sat 23:30-Sun 21:45", "Sun 23:30-Mon 21:45"}) {
+		t.Errorf("FR %v, DE %v", fr, de)
+	}
+}

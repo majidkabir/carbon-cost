@@ -61,7 +61,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	share := fuelShares(req, out.CountryKm)
 	f := &FuelCost{Litres: out.Trip.FuelL, Complete: true}
 	usedB, ets2InPrice := false, false
-	var refundNotes []string
+	var refundNotes, national []string
 	priced := map[string]bool{}
 	for _, cc := range sortedKeys(share) {
 		l := out.Trip.FuelL * share[cc]
@@ -77,6 +77,17 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		case haveB && b.EURPerL[cc] > 0:
 			fb.EURPerL, fb.Price = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date
 			usedB = true
+		default:
+			// Outside the bulletin: the country's own official average.
+			if n, nLatest, ok := fuel.NationalOn(cc, date); ok {
+				if rate, basis, err := currencyRate(req, n.Currency, date); err == nil && rate > 0 {
+					fb.EURPerL, fb.Price = round4(n.PerLExVAT()/rate), n.Source+" "+n.Date
+					national = append(national, fmt.Sprintf("%s %s %.4f with %g%% VAT (%s), at %g %s per EUR (%s)%s", cc, n.Currency, n.PerL, n.VATPct, n.Date, rate, n.Currency, basis,
+						map[bool]string{true: "; the newest there is, older than the trip", false: ""}[nLatest]))
+					src := fuel.NationalSources[cc]
+					addSource(out, rates.Source{Title: src[0], URL: src[1]})
+				}
+			}
 		}
 		if rf, ok := fuel.RefundOn(cc, date); ok && fb.EURPerL > 0 && refundRate(req, &rf, date, &refundNotes) {
 			eligible := req.Truck.MaxMassKg >= rf.MinMassKg && req.Truck.Euro >= rf.MinEuro
@@ -132,6 +143,9 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		}
 		addSource(out, rates.Source{Title: "European Commission: Weekly Oil Bulletin", URL: fuel.URL})
 	}
+	if len(national) > 0 {
+		note += "; outside the bulletin, the countries' own official average pump prices, without their VAT: " + strings.Join(national, "; ")
+	}
 	if f.InPriceEUR > 0 {
 		note += fmt.Sprintf(". The diesel price holds the CO2 prices on fuel (EUR %.2f here), so with_fuel_eur counts them once", f.InPriceEUR)
 	}
@@ -139,7 +153,7 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		note += ". Diesel refunds: " + strings.Join(refundNotes, "; ")
 	}
 	if !f.Complete {
-		note += fmt.Sprintf(". No price for the litres bought in %s (outside the bulletin's EU countries): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))
+		note += fmt.Sprintf(". No price for the litres bought in %s (outside the bulletin's EU countries and the national statistics read: GB, NO, CH): give diesel_eur_per_l_by_country", strings.Join(f.Unpriced, ", "))
 	}
 	out.Notes = append(out.Notes, note+".")
 }
@@ -293,3 +307,5 @@ func refundRate(req Request, rf *fuel.Refund, date time.Time, notes *[]string) b
 	rf.Note += fmt.Sprintf(" (EUR %.4f at %g %s per euro)", rf.EURPerL, v, rf.Currency)
 	return true
 }
+
+func round4(v float64) float64 { return math.Round(v*10000) / 10000 }

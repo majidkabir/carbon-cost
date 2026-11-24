@@ -375,11 +375,21 @@ func TestFuelCost(t *testing.T) {
 	if r.Fuel.EUR != round2(60*1.5+30*1.2) || r.Fuel.ByCountry[0].Price != "given" {
 		t.Errorf("given: %+v", r.Fuel)
 	}
-	// Bought in Switzerland: no bulletin price.
+	// Bought in Switzerland: no bulletin price; the Federal Statistical
+	// Office's newest month, October 2026, CHF 2.41 with 8.1% VAT, at the
+	// rate given.
 	req.DieselEURPerL, req.DieselEURPerLByCountry, req.FuelCountry = 0, nil, "CH"
+	req.FX["CHF"] = 0.93
 	r, _ = PriceWith(res, all(t), nil, req, day)
-	if r.Fuel.Complete || len(r.Fuel.Unpriced) != 1 || r.Fuel.Unpriced[0] != "CH" || r.Fuel.EUR != 0 {
-		t.Errorf("CH: %+v", r.Fuel)
+	if want := round4(2.41 / 1.081 / 0.93); !r.Fuel.Complete || r.Fuel.ByCountry[0].EURPerL != want || !strings.Contains(r.Fuel.ByCountry[0].Price, "Federal Statistical Office") ||
+		!slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "CH CHF 2.4100 with 8.1% VAT (2026-10-01)") && strings.Contains(n, "newest there is") }) {
+		t.Errorf("CH: %+v %q", r.Fuel, r.Notes)
+	}
+	// Bought in Serbia: no price anywhere.
+	req.FuelCountry = "RS"
+	r, _ = PriceWith(res, all(t), nil, req, day)
+	if r.Fuel.Complete || len(r.Fuel.Unpriced) != 1 || r.Fuel.Unpriced[0] != "RS" || r.Fuel.EUR != 0 {
+		t.Errorf("RS: %+v", r.Fuel)
 	}
 	if err := check(Request{CargoKg: 1, Stops: req.Stops, DieselEURPerLByCountry: map[string]float64{"pl": 1}}); err == nil {
 		t.Error("lower-case country: want an error")

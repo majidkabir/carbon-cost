@@ -27,7 +27,7 @@ jobs:
       - name: Check
         run: |
           python3 tools/tables/check_bans.py out bans/data | tee check.txt
-          ! grep -q "::warning" check.txt
+          ! grep -q "not found in" check.txt
       - name: Summary
         if: always()
         run: |

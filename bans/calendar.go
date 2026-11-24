@@ -3,6 +3,7 @@ package bans
 import (
 	"embed"
 	"encoding/json"
+	"slices"
 	"time"
 )
 
@@ -22,6 +23,11 @@ type Calendar struct {
 	} `json:"source"`
 	Days []struct {
 		Date, From, To string
+		// FromDate, ToDate and Weekday ("sat"): every such weekday in the
+		// range, both ends included, instead of Date.
+		FromDate string `json:"from_date"`
+		ToDate   string `json:"to_date"`
+		Weekday  string
 		// Listed: only on roads the decree lists (see Note).
 		Listed bool
 		Note   string
@@ -33,6 +39,8 @@ var calendars = map[string][]Calendar{}
 // calendarRules are the rules a country's calendars hold their windows
 // under.
 var calendarRules = map[string]Rule{
+	"AT": {Country: "AT", Name: "road ban of the year's decree", MinMassKg: 7500, TrailerMassKg: 7500,
+		Exemptions: "those of each decree's § 2 (and § 1's local traffic, where named)"},
 	"FR": {Country: "FR", Name: "complementary Saturday ban", MinMassKg: 7500,
 		Exemptions: "those of the arrêté du 16 avril 2021, art. 4, and prefects' permits",
 		Note:       "summer Saturdays on the whole network"},
@@ -50,9 +58,9 @@ func init() {
 			panic("bans: " + f.Name() + ": " + err.Error())
 		}
 		calendars[c.Country] = append(calendars[c.Country], c)
-		r := calendarRules[c.Country]
-		r.Law, r.Title, r.URL = c.Law, c.Source.Title, c.Source.URL
-		calendarRules[c.Country] = r
+		if c.Days == nil || calendarRules[c.Country].Country == "" {
+			panic("bans: " + f.Name() + ": no days, or no calendar rule for " + c.Country)
+		}
 	}
 	for cc, r := range calendarRules {
 		if len(calendars[cc]) > 0 && !hasRules(cc) {
@@ -66,18 +74,32 @@ func init() {
 func calendarWindows(country string, from, to time.Time, loc *time.Location) []Window {
 	var out []Window
 	for _, c := range calendars[country] {
+		r := calendarRules[country]
+		r.Law, r.Title, r.URL = c.Law, c.Source.Title, c.Source.URL
 		for _, d := range c.Days {
-			day, err := time.ParseInLocation(time.DateOnly, d.Date, loc)
-			if err != nil {
-				continue
+			var days []time.Time
+			if d.Date != "" {
+				if day, err := time.ParseInLocation(time.DateOnly, d.Date, loc); err == nil {
+					days = append(days, day)
+				}
+			} else if a, err1 := time.ParseInLocation(time.DateOnly, d.FromDate, loc); err1 == nil {
+				if b, err2 := time.ParseInLocation(time.DateOnly, d.ToDate, loc); err2 == nil {
+					for day := a; !day.After(b); day = time.Date(day.Year(), day.Month(), day.Day()+1, 0, 0, 0, 0, loc) {
+						if weekday[day.Weekday()] == d.Weekday {
+							days = append(days, day)
+						}
+					}
+				}
 			}
-			r := calendarRules[country]
+			rr := r
 			if d.Listed {
-				r.Listed, r.Note = true, d.Note
+				rr.Listed, rr.Note = true, d.Note
 			}
-			w := Window{Rule: r, From: at(day, d.From), To: at(day, d.To)}
-			if w.To.After(from) && w.From.Before(to) {
-				out = append(out, w)
+			for _, day := range days {
+				w := Window{Rule: rr, From: at(day, d.From), To: at(day, d.To)}
+				if w.To.After(from) && w.From.Before(to) {
+					out = append(out, w)
+				}
 			}
 		}
 	}
@@ -88,7 +110,9 @@ func calendarWindows(country string, from, to time.Time, loc *time.Location) []W
 func CalendarYears(country string) []int {
 	var ys []int
 	for _, c := range calendars[country] {
-		ys = append(ys, c.Year)
+		if !slices.Contains(ys, c.Year) {
+			ys = append(ys, c.Year)
+		}
 	}
 	return ys
 }

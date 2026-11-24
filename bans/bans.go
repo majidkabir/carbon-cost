@@ -373,7 +373,8 @@ func covered(out []Window, w Window) bool {
 	for _, o := range out {
 		// A ban only on listed roads or in some regions doesn't cover one
 		// that holds everywhere.
-		sure := !o.Rule.Listed && len(o.Regions) == 0 || w.Rule.Listed || len(w.Regions) > 0
+		sure := !o.Rule.Listed && len(o.Regions) == 0 || w.Rule.Listed && !o.Rule.Listed || len(w.Regions) > 0 && !o.Rule.Listed ||
+			o.Rule.Listed && w.Rule.Listed && o.Rule.Note == w.Rule.Note
 		if o.Rule.Country == w.Rule.Country && sure && !o.From.After(w.From) && !o.To.Before(w.To) {
 			return true
 		}

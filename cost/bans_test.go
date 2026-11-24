@@ -102,7 +102,7 @@ func TestCalendarYearMissing(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "IT's calendar of bans for 2027 isn't in") }) {
+	if !slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "IT's decree of bans for 2027 isn't in") }) {
 		t.Errorf("%q", r.Notes)
 	}
 }

@@ -334,3 +334,32 @@ func TestFrenchCalendar(t *testing.T) {
 		t.Errorf("7 February: %+v", w)
 	}
 }
+
+func TestAustrianDecrees(t *testing.T) {
+	vie, _ := time.LoadLocation("Europe/Vienna")
+	// Saturday 11 July 2026: the weekend ban from 15:00 everywhere, and the
+	// decrees' bans on their own roads, each its own window.
+	w := Windows("AT", 40000, false, time.Date(2026, 7, 11, 0, 0, 0, 0, vie), time.Date(2026, 7, 11, 23, 59, 0, 0, vie), vie)
+	var listed, sure int
+	laws := map[string]bool{}
+	for _, x := range w {
+		if x.Rule.Listed {
+			listed++
+			laws[x.Rule.Law] = true
+		} else {
+			sure++
+		}
+	}
+	// Luegbrücke both ways, the B roads, the A 4, the A 10 southbound.
+	if sure != 1 || listed != 5 || len(laws) != 3 {
+		t.Errorf("11 July: %d sure, %d listed, laws %v", sure, listed, laws)
+	}
+	if !slices.Equal(CalendarYears("AT"), []int{2026}) {
+		t.Errorf("years %v", CalendarYears("AT"))
+	}
+	// Friday 10 April 2026: northbound from the Brenner, 07:00-22:00.
+	w = Windows("AT", 40000, false, time.Date(2026, 4, 10, 0, 0, 0, 0, vie), time.Date(2026, 4, 10, 23, 0, 0, 0, vie), vie)
+	if len(w) != 1 || !w[0].Rule.Listed || !strings.Contains(w[0].Rule.Note, "towards Innsbruck") || w[0].To.Hour() != 22 {
+		t.Errorf("10 April: %+v", w)
+	}
+}

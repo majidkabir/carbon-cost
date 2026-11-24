@@ -8,6 +8,7 @@ Usage: python3 check_bans.py fetched/ bans/data/
 """
 import glob, json, os, re, sys
 
+MONATE = ["jänner", "februar", "märz", "april", "mai", "juni", "juli", "august", "september", "oktober", "november", "dezember"]
 MOIS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
 MONTHS = ["gennaio", "febbraio", "marzo", "aprile", "maggio", "giugno", "luglio", "agosto", "settembre", "ottobre", "novembre", "dicembre"]
 
@@ -29,6 +30,23 @@ def main(fetched, folder):
             print(f"::warning title={name}::{cal['source']['id']}.txt not fetched ({cal['source']['url']})")
             continue
         text = open(txt, encoding="utf-8", errors="replace").read().lower()
+        if cal.get("check") == "words-de":
+            # An Austrian decree names its days ("am Samstag 28. März
+            # 2026", "an allen Samstagen vom 10. Jänner 2026 bis
+            # einschließlich 14. März 2026") and hours ("von 7 bis 15 Uhr").
+            flat = re.sub(r"\s+", " ", text)
+            def said(d):
+                y, m, dd = d.split("-")
+                return re.search(rf"(?<!\d){int(dd)}\. {MONATE[int(m) - 1]} {y}", flat) or f"{dd}.{m}.{y}" in flat
+            for d in cal["days"]:
+                dates = [d["date"]] if d.get("date") else [d["from_date"], d["to_date"]]
+                hrs = f"{int(d['from'][:2])} bis {int(d['to'][:2])} uhr"
+                if not all(said(x) for x in dates) or hrs not in flat:
+                    bad += 1
+                    print(f"::warning title={name}::{'/'.join(dates)} {d['from']}-{d['to']} not found in {cal['source']['id']}.txt")
+            print(f"{name}: {len(cal['days']) - bad} of {len(cal['days'])} days found in the decree's text")
+            bad = 0
+            continue
         if cal.get("check") == "words-fr":
             # A French arrêté names the dates in its sentences ("les
             # samedis 7 février, 14 février ... 2026") and the hours as

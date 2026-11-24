@@ -193,6 +193,13 @@ func Holidays(country string, y int) []Holiday {
 			hs = append(hs, fixed(12, 26, "Stephanstag"))
 		}
 		return hs
+	case "HR":
+		// Zakon o blagdanima, spomendanima i neradnim danima u Republici
+		// Hrvatskoj (NN 110/19, 72/25), članak 1.
+		return []Holiday{fixed(1, 1, "Nova godina"), fixed(1, 6, "Bogojavljenje"), moving(0, "Uskrs"), moving(1, "Uskrsni ponedjeljak"),
+			moving(60, "Tijelovo"), fixed(5, 1, "Praznik rada"), fixed(5, 30, "Dan državnosti"), fixed(6, 22, "Dan antifašističke borbe"),
+			fixed(8, 5, "Dan pobjede i domovinske zahvalnosti"), fixed(8, 15, "Velika Gospa"), fixed(11, 1, "Svi sveti"),
+			fixed(11, 18, "Dan sjećanja na žrtve Domovinskog rata"), fixed(12, 25, "Božić"), fixed(12, 26, "Sveti Stjepan")}
 	case "LI":
 		// VRV Art. 89 Abs. 1.
 		return []Holiday{fixed(1, 1, "Neujahr"), fixed(1, 6, "Heilige Drei Könige"), moving(1, "Ostermontag"), fixed(5, 1, "1. Mai"),
@@ -357,6 +364,15 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 				out = append(out, w)
 			}
 		}
+	}
+	if country == "HR" && hrRule.Applies(maxMassKg, trailer) {
+		for _, w := range hrHolidayWindows(from, to, loc) {
+			if !covered(out, w) {
+				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })
+				out = append(out, w)
+			}
+		}
+		slices.SortStableFunc(out, func(a, b Window) int { return a.From.Compare(b.From) })
 	}
 	if r, ok := calendarRules[country]; ok && r.Applies(maxMassKg, trailer) {
 		for _, w := range calendarWindows(country, from, to, loc) {

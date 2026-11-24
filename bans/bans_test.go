@@ -382,3 +382,44 @@ func TestSpainCalendar(t *testing.T) {
 		t.Errorf("7.5 t: %d windows", len(ws))
 	}
 }
+
+func TestCroatia(t *testing.T) {
+	loc, _ := time.LoadLocation("Europe/Zagreb")
+	win := func(from string, days int) []Window {
+		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
+		return Windows("HR", 40000, false, d, d.AddDate(0, 0, days), loc)
+	}
+	type w struct{ from, to string }
+	got := func(ws []Window) []w {
+		var out []w
+		for _, x := range ws {
+			if !x.Rule.Listed || len(x.Rule.Roads) == 0 {
+				t.Errorf("not listed: %+v", x.Rule)
+			}
+			out = append(out, w{x.From.Format("2006-01-02 15:04"), x.To.Format("15:04")})
+		}
+		return out
+	}
+	// Labour Day, Friday 1 May 2026: the eve, Thursday, 15-23; the day
+	// itself moves to Sunday 3 May 12-23.
+	if g := got(win("2026-04-30", 4)); !slices.Equal(g, []w{{"2026-04-30 15:00", "23:00"}, {"2026-05-03 06:00", "22:00"}, {"2026-05-03 12:00", "23:00"}}) {
+		t.Errorf("1 May: %v", g)
+	}
+	// Easter 2026 (5-6 April): Good Friday 15-23 (also the moved eve),
+	// Easter Monday 14-23, and the D2's Sunday.
+	if g := got(win("2026-04-03", 4)); !slices.Equal(g, []w{{"2026-04-03 15:00", "23:00"}, {"2026-04-05 06:00", "22:00"}, {"2026-04-06 14:00", "23:00"}}) {
+		t.Errorf("Easter: %v", g)
+	}
+	// A summer weekend: Saturday 04-14, Sunday 12-23 and the D2's.
+	if g := got(win("2026-07-11", 2)); !slices.Equal(g, []w{{"2026-07-11 04:00", "14:00"}, {"2026-07-12 06:00", "22:00"}, {"2026-07-12 12:00", "23:00"}}) {
+		t.Errorf("July: %v", g)
+	}
+	// Christmas 2026, Friday and Saturday: the eve Thursday 24, the last
+	// day moved to Sunday 27.
+	if g := got(win("2026-12-24", 4)); !slices.Equal(g, []w{{"2026-12-24 15:00", "23:00"}, {"2026-12-27 06:00", "22:00"}, {"2026-12-27 12:00", "23:00"}}) {
+		t.Errorf("Christmas: %v", g)
+	}
+	if len(win("2026-07-11", 2)) == 0 || len(Windows("HR", 7500, false, time.Date(2026, 7, 11, 0, 0, 0, 0, loc), time.Date(2026, 7, 13, 0, 0, 0, 0, loc), loc)) != 0 {
+		t.Error("7.5 t")
+	}
+}

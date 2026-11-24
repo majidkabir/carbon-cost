@@ -68,3 +68,16 @@ if st == 200:
     for word in ["per_l", "litre", "liter", "per_kwh", "kwh", "grid", "electricity_mix", "energy_carrier", "fuel"]:
         hits = [m.start() for m in re.finditer(word, body)]
         print(f"'{word}': {len(hits)} hits" + (f"; e.g. …{body[max(0, hits[0] - 300):hits[0] + 300]}…" if hits else ""))
+
+# The fuel factors for primary data: aliases, regions, and the diesel and
+# electricity entries.
+if st == 200 and isinstance(f, dict):
+    print("note:", f.get("note"))
+    print("fuel_aliases:", json.dumps(f.get("fuel_aliases")))
+    print("fuel_regions:", json.dumps(f.get("fuel_regions"))[:3000])
+    fu = f.get("fuels") or []
+    units = sorted({x.get("unit") for x in fu})
+    print("fuel units:", units, "fuels:", len(fu))
+    for x in fu:
+        if re.search(r"diesel|electric|hvo", x.get("fuel", ""), re.I) and (x.get("unit") in ("l", "litre", "kWh", "kwh") or True):
+            print("fuel:", json.dumps(x)[:400])

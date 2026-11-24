@@ -28,8 +28,10 @@ type Calendar struct {
 		FromDate string `json:"from_date"`
 		ToDate   string `json:"to_date"`
 		Weekday  string
-		// Listed: only on roads the decree lists (see Note).
+		// Listed: only on roads the decree lists (see Note), Roads their
+		// refs.
 		Listed bool
+		Roads  []string
 		Note   string
 	} `json:"days"`
 }
@@ -37,10 +39,13 @@ type Calendar struct {
 var calendars = map[string][]Calendar{}
 
 // calendarRules are the rules a country's calendars hold their windows
-// under.
+// under. Spain's calendar is only listed roads.
 var calendarRules = map[string]Rule{
 	"AT": {Country: "AT", Name: "road ban of the year's decree", MinMassKg: 7500, TrailerMassKg: 7500,
 		Exemptions: "those of each decree's § 2 (and § 1's local traffic, where named)"},
+	"ES": {Country: "ES", Name: "road restriction of the DGT's resolution", MinMassKg: 7500,
+		Exemptions: "live animals, perishables (ATP) of at least half the load, Correos' universal postal service Monday to Friday, de-icing material in winter and breakdown vehicles (B.1.2)",
+		Note:       "on the roads the DGT watches; Catalonia and the Basque Country set their own"},
 	"FR": {Country: "FR", Name: "complementary Saturday ban", MinMassKg: 7500,
 		Exemptions: "those of the arrêté du 16 avril 2021, art. 4, and prefects' permits",
 		Note:       "summer Saturdays on the whole network"},
@@ -93,7 +98,7 @@ func calendarWindows(country string, from, to time.Time, loc *time.Location) []W
 			}
 			rr := r
 			if d.Listed {
-				rr.Listed, rr.Note = true, d.Note
+				rr.Listed, rr.Note, rr.Roads = true, d.Note, d.Roads
 			}
 			for _, day := range days {
 				w := Window{Rule: rr, From: at(day, d.From), To: at(day, d.To)}

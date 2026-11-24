@@ -461,7 +461,7 @@ func TestCostShareByLoadingMetres(t *testing.T) {
 	}}
 	// A: 10 t, 2 loading metres, 220 km; B: 10 t, 6 loading metres, 120 km.
 	req := Request{Truck: truck40, DieselL: 100, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "C"}},
-		Shipments: []Shipment{{ID: "A", WeightKg: 10000, To: 2, LoadingM: 2}, {ID: "B", WeightKg: 10000, From: 1, LoadingM: 6}},
+		Shipments:   []Shipment{{ID: "A", WeightKg: 10000, To: 2, LoadingM: 2}, {ID: "B", WeightKg: 10000, From: 1, LoadingM: 6}},
 		CostShareBy: "loading_m", legLoadKg: []float64{10000, 20000}, shipDistKm: []float64{220, 120}}
 	if err := check(req); err != nil {
 		t.Fatal(err)

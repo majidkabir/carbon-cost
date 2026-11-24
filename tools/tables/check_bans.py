@@ -47,6 +47,24 @@ def main(fetched, folder):
             print(f"{name}: {len(cal['days']) - bad} of {len(cal['days'])} days found in the decree's text")
             bad = 0
             continue
+        if cal.get("check") == "es-generated":
+            # Spain's calendar is generated from the resolution's tables
+            # (es_bans.py): generate it again and compare, both ways.
+            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+            import es_bans
+            try:
+                again = es_bans.calendar(open(txt, encoding="utf-8", errors="replace").read())
+            except Exception as e:
+                print(f"::warning title={name}::{cal['source']['id']}.txt not read: {e}; not found in it")
+                continue
+            have = {json.dumps(d, sort_keys=True, ensure_ascii=False) for d in cal["days"]}
+            want = {json.dumps(d, sort_keys=True, ensure_ascii=False) for d in again}
+            for d in sorted(have - want):
+                print(f"::warning title={name}::{d[:200]} not found in {cal['source']['id']}.txt")
+            for d in sorted(want - have):
+                print(f"::warning title={name}::{d[:200]} of {cal['source']['id']}.txt not found in {name}: run es_bans.py")
+            print(f"{name}: {len(have & want)} of {len(have)} days found in the resolution's tables, {len(want - have)} of them missing")
+            continue
         if cal.get("check") == "words-fr":
             # A French arrêté names the dates in its sentences ("les
             # samedis 7 février, 14 février ... 2026") and the hours as

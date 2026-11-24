@@ -2,6 +2,7 @@ package cost
 
 import (
 	"fmt"
+	"maps"
 	"math"
 	"slices"
 	"sort"
@@ -31,10 +32,13 @@ type BanHit struct {
 	Certain bool `json:"certain"`
 	// WaitH is how long the truck waits for the ban to end, where Certain.
 	WaitH float64 `json:"wait_h,omitempty"`
-	// Note says where or for whom else the ban holds.
-	Note       string `json:"note,omitempty"`
-	Exemptions string `json:"exemptions,omitempty"`
-	Law        string `json:"law"`
+	// Note says where or for whom else the ban holds; Listed, that it
+	// holds only on the roads it names (Roads, their refs).
+	Note       string   `json:"note,omitempty"`
+	Listed     bool     `json:"listed,omitempty"`
+	Roads      []string `json:"roads,omitempty"`
+	Exemptions string   `json:"exemptions,omitempty"`
+	Law        string   `json:"law"`
 }
 
 // segment is a stretch of the route in one country, km along it.
@@ -45,6 +49,27 @@ type segment struct {
 	// region is its first-level region (ISO 3166-2) where Sootcase gives
 	// it; then a regional holiday's ban holds there or not at all.
 	region string
+	// roads are its leg's main roads (Sootcase's summary), where given.
+	roads []string
+}
+
+// roadRef is a road ref to compare: upper case, no spaces or hyphens.
+func roadRef(s string) string {
+	return strings.NewReplacer(" ", "", "-", "").Replace(strings.ToUpper(s))
+}
+
+// onRoads says a listed ban's roads are among the leg's main roads.
+func onRoads(ban, leg []string) bool {
+	for _, l := range leg {
+		for _, r := range strings.Split(l, ";") {
+			for _, b := range ban {
+				if roadRef(r) == roadRef(b) {
+					return true
+				}
+			}
+		}
+	}
+	return false
 }
 
 // segments are the route's stretches by country: a leg in one country is
@@ -55,6 +80,7 @@ func segments(res sootcase.Result) []segment {
 	pos := 0.0
 	for _, l := range res.Legs {
 		end := pos + l.DistanceKm
+		n := len(out)
 		switch {
 		case len(l.CountrySections) > 0:
 			for _, s := range l.CountrySections {
@@ -62,10 +88,10 @@ func segments(res sootcase.Result) []segment {
 				case s.Ferry || s.Country == "":
 				case len(s.Regions) > 0:
 					for _, r := range s.Regions {
-						out = append(out, segment{s.Country, pos + r.FromKm, pos + r.ToKm, true, r.Region})
+						out = append(out, segment{country: s.Country, from: pos + r.FromKm, to: pos + r.ToKm, ordered: true, region: r.Region})
 					}
 				default:
-					out = append(out, segment{s.Country, pos + s.FromKm, pos + s.ToKm, true, ""})
+					out = append(out, segment{country: s.Country, from: pos + s.FromKm, to: pos + s.ToKm, ordered: true})
 				}
 			}
 		default:
@@ -77,7 +103,12 @@ func segments(res sootcase.Result) []segment {
 			}
 			sort.Strings(ccs)
 			for _, cc := range ccs {
-				out = append(out, segment{cc, pos, end, len(ccs) == 1, ""})
+				out = append(out, segment{country: cc, from: pos, to: end, ordered: len(ccs) == 1})
+			}
+		}
+		if l.Summary != nil {
+			for i := n; i < len(out); i++ {
+				out[i].roads = l.Summary.Roads
 			}
 		}
 		pos = end
@@ -100,13 +131,22 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 	}
 	exempted := false
-	// windows are the bans in force, less those the truck is exempt from;
+	offRoad := map[string]map[string]bool{} // country: listed restrictions not on the route's main roads
+	// windows are the bans in force, less those the truck is exempt from
+	// and those on listed roads that aren't among the leg's main roads;
 	// in a known region, a regional holiday's ban holds or doesn't.
 	windows := func(s segment, from, to time.Time, loc *time.Location) []bans.Window {
 		ws := bans.Windows(s.country, req.Truck.MaxMassKg, trailer, from, to, loc)
 		ws = slices.DeleteFunc(ws, func(w bans.Window) bool {
 			if w.Exempt(req.Truck.Euro, countries > 1) {
 				exempted = true
+				return true
+			}
+			if len(w.Rule.Roads) > 0 && len(s.roads) > 0 && !onRoads(w.Rule.Roads, s.roads) {
+				if offRoad[s.country] == nil {
+					offRoad[s.country] = map[string]bool{}
+				}
+				offRoad[s.country][w.Rule.Note] = true
 				return true
 			}
 			return false
@@ -142,13 +182,14 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		shift := time.Duration(wait * float64(time.Hour))
 		t0, t1 = t0.Add(shift), t1.Add(shift)
 		add := func(w bans.Window, certain bool, waitH float64) {
-			key := s.country + w.From.String()
+			key := s.country + w.From.String() + w.Rule.Note
 			if seen[key] {
 				return
 			}
 			seen[key] = true
 			hits = append(hits, BanHit{Country: s.country, Ban: w.Rule.Name, From: w.From.Format(time.RFC3339), To: w.To.Format(time.RFC3339),
-				Holiday: w.Holiday, Regions: w.Regions, Note: w.Rule.Note, Exemptions: w.Rule.Exemptions, Law: w.Rule.Law, Certain: certain, WaitH: waitH})
+				Holiday: w.Holiday, Regions: w.Regions, Note: w.Rule.Note, Listed: w.Rule.Listed, Roads: w.Rule.Roads,
+				Exemptions: w.Rule.Exemptions, Law: w.Rule.Law, Certain: certain, WaitH: waitH})
 			addSource(out, rates.Source{Title: w.Rule.Title, URL: w.Rule.URL})
 			if src, ok := bans.HolidaySources[s.country]; ok && w.Holiday != "" {
 				addSource(out, rates.Source{Title: src[0], URL: src[1]})
@@ -201,7 +242,50 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	if out.Trip != nil && wait > 0 {
 		out.Trip.BanWaitH = math.Round(wait*100) / 100
 	}
+	// A country's many restrictions on listed roads (Spain's) in one note.
+	listed := map[string][]BanHit{}
 	for _, h := range hits {
+		if h.Listed && len(h.Roads) > 0 && !h.Certain {
+			listed[h.Country] = append(listed[h.Country], h)
+		}
+	}
+	for _, cc := range slices.Sorted(maps.Keys(listed)) {
+		hs := listed[cc]
+		if len(hs) <= 3 {
+			delete(listed, cc)
+			continue
+		}
+		var each []string
+		for i, h := range hs {
+			if i == 8 {
+				each = append(each, fmt.Sprintf("and %d more", len(hs)-8))
+				break
+			}
+			from, _ := time.Parse(time.RFC3339, h.From)
+			to, _ := time.Parse(time.RFC3339, h.To)
+			each = append(each, fmt.Sprintf("%s %s to %s", strings.Join(h.Roads, "/"), from.Format("Mon 2 Jan 15:04"), to.Format("15:04")))
+		}
+		out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: the trip may run into %d of %s's %ss on listed roads (%s): %s; bans gives each road section and direction.",
+			len(hs), cc, hs[0].Ban, hs[0].Law, strings.Join(each, ", ")))
+	}
+	for _, cc := range slices.Sorted(maps.Keys(offRoad)) {
+		var main []string
+		for _, s := range segs {
+			if s.country == cc {
+				for _, r := range s.roads {
+					if !slices.Contains(main, r) {
+						main = append(main, r)
+					}
+				}
+			}
+		}
+		out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: %d of %s's restrictions on listed roads in force then are on roads that aren't among the route's main roads (%s), so they aren't counted; check the sections near the stops.",
+			len(offRoad[cc]), cc, strings.Join(main, ", ")))
+	}
+	for _, h := range hits {
+		if listed[h.Country] != nil && h.Listed && len(h.Roads) > 0 && !h.Certain {
+			continue
+		}
 		from, _ := time.Parse(time.RFC3339, h.From)
 		to, _ := time.Parse(time.RFC3339, h.To)
 		what := fmt.Sprintf("%s's %s (%s) from %s to %s", h.Country, h.Ban, h.Law, from.Format("Mon 2 Jan 15:04"), to.Format("Mon 2 Jan 15:04"))

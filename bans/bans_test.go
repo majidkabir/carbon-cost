@@ -363,3 +363,22 @@ func TestAustrianDecrees(t *testing.T) {
 		t.Errorf("10 April: %+v", w)
 	}
 }
+
+func TestSpainCalendar(t *testing.T) {
+	// Sunday 16 August 2026: listed road sections only, each with its
+	// roads; none under 7.5 t.
+	loc, _ := time.LoadLocation("Europe/Madrid")
+	day := time.Date(2026, 8, 16, 0, 0, 0, 0, loc)
+	ws := Windows("ES", 40000, false, day, day.AddDate(0, 0, 1), loc)
+	if len(ws) < 10 {
+		t.Fatalf("%d windows", len(ws))
+	}
+	for _, w := range ws {
+		if !w.Rule.Listed || len(w.Rule.Roads) == 0 || !strings.HasPrefix(w.Rule.Note, "on the ") {
+			t.Errorf("%+v", w.Rule)
+		}
+	}
+	if ws := Windows("ES", 7500, false, day, day.AddDate(0, 0, 1), loc); len(ws) != 0 {
+		t.Errorf("7.5 t: %d windows", len(ws))
+	}
+}

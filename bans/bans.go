@@ -41,7 +41,10 @@ type Rule struct {
 	Season func(year int) (from, to time.Time)
 	// Listed: the ban holds only on roads the law lists, which the route
 	// doesn't tell, so a trip is said to may run into it.
-	Listed           bool
+	Listed bool
+	// Roads are the listed roads' refs ("A-6"), where the calendar gives
+	// them, to match with the route's main roads.
+	Roads            []string
 	Exemptions, Note string
 	Law, Title, URL  string
 }

@@ -128,3 +128,39 @@ func TestRegionalHolidayWithRegions(t *testing.T) {
 		t.Errorf("BY: %v %+v", err, r.Bans)
 	}
 }
+
+func TestSpainListedRoads(t *testing.T) {
+	// Wednesday 1 April 2026 (Semana Santa): the DGT restricts trucks over
+	// 7.5 t on listed road sections. With the route's main roads, only
+	// the A-3's sections are kept; without them, all, in one note.
+	wed := time.Date(2026, 4, 1, 0, 0, 0, 0, time.UTC)
+	leg := sootcase.LegResult{DistanceKm: 350, TTWKg: 560, WTWKg: 700, CountryKm: map[string]float64{"ES": 350},
+		Summary: &sootcase.RouteSummary{Roads: []string{"A-3", "E 901"}}}
+	req := Request{CargoKg: 20000, Truck: truck40, Time: "15:00", origin: "ES"}
+	r, err := PriceWith(sootcase.Result{Legs: []sootcase.LegResult{leg}}, all(t), nil, req, wed)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.Bans) != 2 {
+		t.Fatalf("%+v", r.Bans)
+	}
+	for _, b := range r.Bans {
+		if b.Certain || !b.Listed || !slices.Equal(b.Roads, []string{"A-3"}) || !strings.Contains(b.Law, "Dirección General de Tráfico") {
+			t.Errorf("%+v", b)
+		}
+	}
+	if !slices.ContainsFunc(r.Notes, func(n string) bool {
+		return strings.Contains(n, "of ES's restrictions on listed roads") && strings.Contains(n, "(A-3, E 901)")
+	}) {
+		t.Errorf("%q", r.Notes)
+	}
+	leg.Summary = nil
+	if r, err = PriceWith(sootcase.Result{Legs: []sootcase.LegResult{leg}}, all(t), nil, req, wed); err != nil {
+		t.Fatal(err)
+	}
+	n := slices.IndexFunc(r.Notes, func(n string) bool { return strings.Contains(n, "may run into") && strings.Contains(n, "listed roads") })
+	if len(r.Bans) < 20 || n < 0 || !strings.Contains(r.Notes[n], "and ") ||
+		slices.ContainsFunc(r.Notes, func(n string) bool { return strings.Contains(n, "(on the A-3 from") }) {
+		t.Errorf("%d bans, %q", len(r.Bans), r.Notes)
+	}
+}

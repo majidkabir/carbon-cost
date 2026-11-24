@@ -29,11 +29,20 @@
      "law": {
       "type": "string"
      },
+     "listed": {
+      "type": "boolean"
+     },
      "note": {
-      "description": "Note says where or for whom else the ban holds.",
+      "description": "Note says where or for whom else the ban holds; Listed, that it holds only on the roads it names (Roads, their refs).",
       "type": "string"
      },
      "regions": {
+      "items": {
+       "type": "string"
+      },
+      "type": "array"
+     },
+     "roads": {
       "items": {
        "type": "string"
       },

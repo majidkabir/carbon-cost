@@ -49,3 +49,22 @@ for vt in cands[:8]:
         print(f"POST calculate {vt}: {st} {res}")
 st, res = calc("glec/road/eu_sa/artic_34_40t/diesel")
 print("diesel for comparison:", st, res.get("ttw_kg") if isinstance(res, dict) else res, res.get("wtw_kg") if isinstance(res, dict) else "")
+
+# What /v1/factors holds besides vehicle types: its shape, and any factors
+# per litre of fuel or per kWh of electricity (for primary energy data).
+st, body = get("/v1/factors")
+if st == 200:
+    try:
+        f = json.loads(body)
+    except ValueError:
+        f = None
+    def shape(x, depth=0):
+        if isinstance(x, dict):
+            return "{" + ", ".join(f"{k}: {shape(v, depth + 1) if depth < 2 else type(v).__name__}" for k, v in list(x.items())[:12]) + (", …" if len(x) > 12 else "") + "}"
+        if isinstance(x, list):
+            return f"[{len(x)} × {shape(x[0], depth + 1) if x and depth < 3 else ''}]"
+        return type(x).__name__
+    print("factors shape:", shape(f)[:3000])
+    for word in ["per_l", "litre", "liter", "per_kwh", "kwh", "grid", "electricity_mix", "energy_carrier", "fuel"]:
+        hits = [m.start() for m in re.finditer(word, body)]
+        print(f"'{word}': {len(hits)} hits" + (f"; e.g. …{body[max(0, hits[0] - 300):hits[0] + 300]}…" if hits else ""))

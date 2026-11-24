@@ -88,10 +88,17 @@ def no():
 
 def ch():
     import openpyxl
-    lst = json.loads(get("https://dam-api.bfs.admin.ch/hub/api/dam/assets?orderNr=cc-d-05.02.91&limit=5"))
-    items = lst.get("data") or lst.get("items") or lst if isinstance(lst, list) else lst.get("data", [])
+    # The table's BFS number; its newest asset first.
+    items, tried = [], []
+    for nr in ["su-d-05.02.91", "cc-d-05.02.91", "je-d-05.02.91"]:
+        lst = json.loads(get(f"https://dam-api.bfs.admin.ch/hub/api/dam/assets?orderNr={nr}&limit=5"))
+        items = lst.get("data", []) if isinstance(lst, dict) else lst
+        tried.append(f"{nr}: {len(items)}")
+        if items:
+            break
     if not items:
-        raise ValueError(f"no asset: {str(lst)[:300]}")
+        raise ValueError("no asset for " + ", ".join(tried))
+    print("CH asset:", json.dumps(items[0])[:600])
     a = items[0]
     aid = a.get("ipath") or a.get("id") or a.get("assetId")
     link = next((l["href"] for l in a.get("links", []) if l.get("rel") == "master"), f"https://dam-api.bfs.admin.ch/hub/api/dam/assets/{aid}/master")

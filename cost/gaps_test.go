@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"encoding/json"
 	"slices"
 	"strings"
 	"testing"
@@ -97,5 +98,17 @@ func TestFareWithNoTableIsMissing(t *testing.T) {
 	}
 	if !fare {
 		t.Errorf("Rødby–Puttgarden: no fare line")
+	}
+}
+
+// A trip with no charges has "lines": [], as the schema says, not null.
+func TestNoLinesIsEmptyList(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"XK": 100}, RouteParts: map[string]float64{"road": 100}}}}
+	out, err := Price(res, all(t), Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if b, _ := json.Marshal(out); !strings.Contains(string(b), `"lines":[]`) {
+		t.Errorf("XK 100 km: %s; want \"lines\":[]", b)
 	}
 }

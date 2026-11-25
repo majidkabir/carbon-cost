@@ -883,10 +883,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	})
 	mux.HandleFunc("POST /v1/carbon-cost/batch", func(w http.ResponseWriter, r *http.Request) {
 		var req BatchRequest
-		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20))
-		dec.DisallowUnknownFields()
-		if err := dec.Decode(&req); err != nil {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+		if !readJSON(w, r, &req) {
 			return
 		}
 		if len(req.Trips) == 0 || len(req.Trips) > MaxBatch {
@@ -929,10 +926,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	})
 	mux.HandleFunc("POST /v1/carbon-cost", func(w http.ResponseWriter, r *http.Request) {
 		var req cost.Request
-		dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20)) // a path of up to cost.MaxPathPoints
-		dec.DisallowUnknownFields()
-		if err := dec.Decode(&req); err != nil {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+		if !readJSON(w, r, &req) {
 			return
 		}
 		res, err := c.Calculate(r.Context(), req)
@@ -961,6 +955,32 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		pages.Warm()
 	}
 	return mux, nil
+}
+
+// readJSON reads a request's body, one JSON object of up to 8 MiB (a path
+// of up to cost.MaxPathPoints) with only known fields, into v; else it
+// answers 413 or 400 and says false.
+func readJSON(w http.ResponseWriter, r *http.Request, v any) bool {
+	dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, 8<<20))
+	dec.DisallowUnknownFields()
+	err := dec.Decode(v)
+	if err == nil {
+		if _, err = dec.Token(); err == io.EOF {
+			err = nil
+		} else if err == nil {
+			err = errors.New("more after the JSON object")
+		}
+	}
+	var big *http.MaxBytesError
+	switch {
+	case errors.As(err, &big):
+		writeJSON(w, http.StatusRequestEntityTooLarge, map[string]string{"error": fmt.Sprintf("the body is over %d bytes", big.Limit)})
+	case err != nil:
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "bad JSON: " + err.Error()})
+	default:
+		return true
+	}
+	return false
 }
 
 // writeJSON writes v with the status; one that can't be written as JSON

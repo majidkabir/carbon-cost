@@ -293,6 +293,9 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 					s["description"] = doc
 				}
 			}
+			if _, ptr := f.Type.(*ast.StarExpr); ptr && !strings.Contains(opts, "omitempty") {
+				s = nullable(s) // a nil pointer is written as null
+			}
 			props[name] = s
 			if !strings.Contains(opts, "omitempty") {
 				req = append(req, name)
@@ -306,6 +309,21 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 		return out, nil
 	}
 	return nil, fmt.Errorf("apidoc: %s: can't describe %T", td.spec.Name.Name, e)
+}
+
+// nullable lets a schema be null too.
+func nullable(s map[string]any) map[string]any {
+	if t, ok := s["type"].(string); ok {
+		s["type"] = []any{t, "null"}
+		return s
+	}
+	desc := s["description"]
+	delete(s, "description")
+	out := map[string]any{"anyOf": []any{s, map[string]any{"type": "null"}}}
+	if desc != nil {
+		out["description"] = desc
+	}
+	return out
 }
 
 // clean makes a doc comment one paragraph.

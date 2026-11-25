@@ -64,3 +64,29 @@ func TestWriteJSONNotFinite(t *testing.T) {
 		t.Errorf("HTTP %d %q", rec.Code, rec.Body.String())
 	}
 }
+
+// A body is one JSON object: more after it is refused, and one over the
+// limit is 413.
+func TestRequestBody(t *testing.T) {
+	c, err := calculator(&sootcase.Client{BaseURL: "http://127.0.0.1:1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := Handler(c, DefaultTiles)
+	trip := `{"country_km":{"DE":100},"cargo_kg":10000,"truck":{"max_mass_kg":40000,"axles":5,"euro":6,"co2_class":1}}`
+	for _, tc := range []struct {
+		name, body string
+		want       int
+	}{
+		{"one object", trip + "\n", http.StatusOK},
+		{"two objects", trip + trip, http.StatusBadRequest},
+		{"too big", trip + strings.Repeat(" ", 8<<20), http.StatusRequestEntityTooLarge},
+		{"no euro", strings.Replace(trip, `"euro":6,`, "", 1), http.StatusBadRequest},
+	} {
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost", strings.NewReader(tc.body)))
+		if rec.Code != tc.want {
+			t.Errorf("%s: HTTP %d %.200s; want %d", tc.name, rec.Code, rec.Body.String(), tc.want)
+		}
+	}
+}

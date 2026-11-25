@@ -284,7 +284,9 @@ document.getElementById("lang").addEventListener("change", (e) => {
 const $ = (id) => document.getElementById(id);
 const TILES = "";
 const f = $("f");
-f.date.value = new Date().toISOString().slice(0, 10);
+// The day on the user's clock (toISOString's is UTC's).
+function localDay(d) { return new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10); }
+f.date.value = localDay(new Date());
 f.time.value = new Date().toTimeString().slice(0, 5);
 
 // A trip from a link (the toll pages' "price your trip"): ?from=lat,lon&from_name=…&to=…&to_name=…
@@ -526,7 +528,7 @@ function parseRFMS(docs) {
   };
   const times = [...pts.map((p) => p[0]), ...reads.map((r) => r[0])].filter((t) => !isNaN(t));
   return { vin: vins[0], path, dieselL: delta(1, "engineTotalFuelUsed") / 1000, odoKm: delta(2, "hrTotalVehicleDistance") / 1000, kWh: delta(3, "totalElectricEnergyUsed") / 1000,
-    date: times.length ? new Date(Math.min(...times)).toISOString().slice(0, 10) : "" };
+    date: times.length ? localDay(new Date(Math.min(...times))) : "" };
 }
 function pathKm(pts) {
   let km = 0;
@@ -746,7 +748,7 @@ $("share").addEventListener("click", async () => {
 $("print").addEventListener("click", () => {
   const names = stopNames().map((n) => n.replace(/^\d+: /, ""));
   const truck = `${num(+f.max_mass_kg.value, 0)} kg, ${f.axles.value} ${T("axles")}, Euro ${f.euro.value}, ${T("CO2 class")} ${f.co2_class.value}`;
-  $("printtrip").textContent = `${names.join(" → ")}. ${T("Date")}: ${f.date.value || new Date().toISOString().slice(0, 10)}` + (f.time.value ? ` ${f.time.value}` : "") + `. ${T("Truck")}: ${truck}.`;
+  $("printtrip").textContent = `${names.join(" → ")}. ${T("Date")}: ${f.date.value || localDay(new Date())}` + (f.time.value ? ` ${f.time.value}` : "") + `. ${T("Truck")}: ${truck}.`;
   const url = location.origin + location.pathname + "#trip=" + encodeURIComponent(JSON.stringify(state()));
   $("printmeta").textContent = `${T("Priced")} ${new Date().toISOString().slice(0, 16).replace("T", " ")} UTC ${T("with")} carbon-cost ${(last && last.provenance && last.provenance.carbon_cost_version) || ""}. ${T("Open this trip")}: ${url.length < 1800 ? url : location.origin + location.pathname}`;
   const prov = $("prov"), was = prov.open;

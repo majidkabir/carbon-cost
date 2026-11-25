@@ -4,6 +4,8 @@
 package rates
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -86,6 +88,27 @@ type Truck struct {
 	AxleLoadKg    int     `json:"axle_load_kg,omitempty"`
 	Hazmat        bool    `json:"hazmat,omitempty"`
 	ADRTunnelCode string  `json:"adr_tunnel_code,omitempty"`
+}
+
+// UnmarshalJSON reads a truck, which must give euro: 0 is a class (no
+// Euro standard), so a truck without one isn't taken for it.
+func (t *Truck) UnmarshalJSON(b []byte) error {
+	type plain Truck
+	var keys map[string]json.RawMessage
+	if err := json.Unmarshal(b, &keys); err != nil {
+		return err
+	}
+	if _, ok := keys["euro"]; !ok && keys != nil {
+		return fmt.Errorf("truck: give euro (0-6, the emission standard)")
+	}
+	d := json.NewDecoder(bytes.NewReader(b))
+	d.DisallowUnknownFields()
+	var p plain
+	if err := d.Decode(&p); err != nil {
+		return err
+	}
+	*t = Truck(p)
+	return nil
 }
 
 // Restricted says the truck's route is to keep to roads it may drive.

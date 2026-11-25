@@ -12,7 +12,7 @@ import (
 )
 
 // histCSV is the ECB's reference rates of each working day since 1
-// January 2024 for the currencies the rate tables use, built by
+// December 2023 for every currency it gave, built by
 // tools/history/ecb.py from eurofxref-hist.zip (the History data
 // workflow).
 //

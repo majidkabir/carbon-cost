@@ -272,7 +272,7 @@ func toEUR(v float64, cur string, day time.Time) (float64, bool) {
 	if r, _, _, ok := fx.NationalOnDate(cur, day); ok {
 		return v / r, true
 	}
-	if r, ok := fx.OnDate(day); ok {
+	if r, ok := ratesOn(day); ok {
 		if p := r.PerEUR[cur]; p > 0 {
 			return v / p, true
 		}

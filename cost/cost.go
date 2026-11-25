@@ -126,7 +126,7 @@ type Request struct {
 	// result lists them as missing. Not with from, to, stops, shipments or
 	// path.
 	CountryKm map[string]float64 `json:"country_km,omitempty"`
-	Date      string             `json:"date,omitempty"` // YYYY-MM-DD; default today
+	Date      string             `json:"date,omitempty"` // YYYY-MM-DD; default today where the trip starts (CET if not known)
 	// Time is the local departure time (HH:MM) on Date. Each toll station
 	// is reached that much later as its km along the route take at
 	// AvgSpeedKmh; that time prices congestion taxes and the hours a
@@ -566,7 +566,7 @@ type Calculator struct {
 
 // Calculate routes the trip with Sootcase and prices it.
 func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error) {
-	date, err := c.date(req.Date)
+	date, err := c.date(req.Date, c.startCountry(req))
 	if err != nil {
 		return Response{}, err
 	}
@@ -604,18 +604,31 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 			}
 		}
 	}
+	var notes []string
 	if c.FXOn != nil {
 		if r, ok := c.FXOn(date); ok {
 			req.ecb = r
 		}
 	}
-	if req.ecb.Date == "" && c.FX != nil {
-		if r, err := c.FX(ctx); err == nil {
-			req.ecb = r
+	// A day after the embedded ones (today, mostly) has today's rates, or
+	// if they can't be read the last embedded day's; a day before them
+	// has none (fx then).
+	if _, last := fx.HistoryRange(); req.ecb.Date == "" && (c.FXOn == nil || date.Format(time.DateOnly) > last) {
+		live := errors.New("no source")
+		if c.FX != nil {
+			var r fx.Rates
+			if r, live = c.FX(ctx); live == nil {
+				req.ecb = r
+			}
+		}
+		if d, err := time.Parse(time.DateOnly, last); req.ecb.Date == "" && c.FXOn != nil && err == nil {
+			if r, ok := c.FXOn(d); ok {
+				req.ecb = r
+				notes = append(notes, fmt.Sprintf("Exchange rates: the ECB's of %s, the last in this release; today's couldn't be read (%v).", r.Date, live))
+			}
 		}
 	}
 	var res sootcase.Result
-	var notes []string
 	switch {
 	case len(req.CountryKm) > 0:
 		res = kmTrip(&req)
@@ -827,13 +840,19 @@ func scaleParts(l *sootcase.LegResult, f float64) {
 	l.Parts = parts
 }
 
-func (c Calculator) date(s string) (time.Time, error) {
+// date is the trip's day: s, or today where it starts (cc's time zone;
+// Central European Time where that isn't known).
+func (c Calculator) date(s, cc string) (time.Time, error) {
 	if s == "" {
 		now := time.Now
 		if c.Now != nil {
 			now = c.Now
 		}
-		y, m, d := now().Date()
+		loc := zone(cc)
+		if loc == time.UTC {
+			loc = zone("BE")
+		}
+		y, m, d := now().In(loc).Date()
 		return time.Date(y, m, d, 0, 0, 0, 0, time.UTC), nil
 	}
 	t, err := time.Parse(time.DateOnly, s)
@@ -841,6 +860,31 @@ func (c Calculator) date(s string) (time.Time, error) {
 		return time.Time{}, fmt.Errorf("date must be YYYY-MM-DD")
 	}
 	return t, nil
+}
+
+// startCountry is where the trip starts, if the request tells: its path's
+// first point, its first stop's UN/LOCODE or coordinates, or its one
+// country of country_km.
+func (c Calculator) startCountry(req Request) string {
+	if len(req.CountryKm) == 1 {
+		for k := range req.CountryKm {
+			return k[:min(2, len(k))]
+		}
+	}
+	if len(req.CountryKm) > 0 {
+		return ""
+	}
+	if len(req.Path) > 0 && c.Borders != nil {
+		return c.Borders.Country(req.Path[0][0], req.Path[0][1])
+	}
+	first := req.stops()[0]
+	switch {
+	case len(first.Code) == 5:
+		return strings.ToUpper(first.Code[:2])
+	case first.Code == "" && c.Borders != nil && (first.Lat != 0 || first.Lon != 0):
+		return c.Borders.Country(first.Lon, first.Lat)
+	}
+	return ""
 }
 
 func check(req Request) error {
@@ -1152,6 +1196,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	}
 	out.Missing = append(out.Missing, lapsed(set, req, &out, route, out.Trip.FuelL, date)...)
 	out.Complete = len(out.Missing) == 0
+	if out.Lines == nil {
+		out.Lines = []Line{} // "lines": [], not null
+	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
 	fuelCost(&out, req, date)
 	electricityCost(&out, req, date)

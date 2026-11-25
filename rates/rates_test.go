@@ -1,6 +1,9 @@
 package rates
 
-import "testing"
+import (
+	"encoding/json"
+	"testing"
+)
 
 func TestTruckValidate(t *testing.T) {
 	if err := (Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}).Validate(); err != nil {
@@ -19,5 +22,19 @@ func TestValidTime(t *testing.T) {
 		if (ValidTime(s) == nil) != ok {
 			t.Errorf("%q: valid %v", s, !ok)
 		}
+	}
+}
+
+// A truck must give euro: 0 is a class of its own.
+func TestTruckNeedsEuro(t *testing.T) {
+	var tr Truck
+	if err := json.Unmarshal([]byte(`{"max_mass_kg":40000,"axles":5,"co2_class":1}`), &tr); err == nil {
+		t.Errorf("no euro: read as Euro %d; want an error", tr.Euro)
+	}
+	if err := json.Unmarshal([]byte(`{"max_mass_kg":40000,"axles":5,"euro":0,"co2_class":1}`), &tr); err != nil || tr.MaxMassKg != 40000 {
+		t.Errorf("euro 0: %v, %+v", err, tr)
+	}
+	if err := json.Unmarshal([]byte(`{"max_mass_kg":40000,"axles":5,"euro":6,"co2_class":1,"eur":6}`), &tr); err == nil {
+		t.Errorf("unknown field eur: no error")
 	}
 }

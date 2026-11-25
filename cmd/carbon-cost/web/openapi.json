@@ -157,7 +157,10 @@
      },
      "saving_with_fuel_eur": {
       "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
-      "type": "number"
+      "type": [
+       "number",
+       "null"
+      ]
      },
      "saving_with_fuel_per_year_eur": {
       "description": "SavingWithFuelPerYearEUR is SavingWithFuelEUR times trips_per_year.",
@@ -698,7 +701,7 @@
       "type": "string"
      },
      "date": {
-      "description": "YYYY-MM-DD; default today",
+      "description": "YYYY-MM-DD; default today where the trip starts (CET if not known)",
       "type": "string"
      },
      "diesel_eur_per_l": {

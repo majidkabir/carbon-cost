@@ -312,11 +312,20 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 	}
 	at := p.noon(ds)
+	// The sections' km (priced on their own) come off the parts in
+	// proportion, once in all.
+	total := 0.0
+	for _, pt := range ops {
+		total += math.Max(0, pt.km)
+	}
 	for _, pt := range ops {
 		if pt.km <= 0 && pt.road != "" {
 			continue
 		}
 		k := math.Max(0, pt.km-secKm)
+		if total > 0 {
+			k = math.Max(0, pt.km*(1-secKm/total))
+		}
 		section := ""
 		if pt.op != "" {
 			section = opName(pt.op)

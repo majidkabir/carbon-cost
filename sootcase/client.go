@@ -30,6 +30,20 @@ type Location struct {
 	Lon  float64 `json:"lon,omitempty"`
 }
 
+// MarshalJSON writes a place by coordinates with both, a 0 one too (on
+// the prime meridian or the equator); a place by code with neither.
+func (l Location) MarshalJSON() ([]byte, error) {
+	type plain Location
+	if l.Code != "" || l.Lat == 0 && l.Lon == 0 {
+		return json.Marshal(plain(l))
+	}
+	return json.Marshal(struct {
+		Name string  `json:"name,omitempty"`
+		Lat  float64 `json:"lat"`
+		Lon  float64 `json:"lon"`
+	}{l.Name, l.Lat, l.Lon})
+}
+
 // Shipment is the part of Sootcase's shipment input this tool uses: one
 // road leg.
 type Shipment struct {

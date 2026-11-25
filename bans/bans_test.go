@@ -500,3 +500,14 @@ func TestGreece(t *testing.T) {
 		t.Errorf("3.5 t: %d windows", c)
 	}
 }
+
+// New Year's Eve is the eve of a day off in the next year: France's
+// ban from 22:00 holds on 31 December however late the trip ends.
+func TestNewYearsEve(t *testing.T) {
+	loc, _ := time.LoadLocation("Europe/Paris")
+	from := time.Date(2026, 12, 31, 21, 0, 0, 0, loc)
+	ws := Windows("FR", 40000, true, from, time.Date(2026, 12, 31, 23, 30, 0, 0, loc), loc)
+	if len(ws) == 0 {
+		t.Fatalf("FR 31 December 21:00-23:30: no ban; want the eve of 1 January's from 22:00")
+	}
+}

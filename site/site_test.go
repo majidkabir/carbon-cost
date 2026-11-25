@@ -12,6 +12,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/fx"
 	"github.com/majidkabir/carbon-cost/tariffs"
 )
 
@@ -220,5 +221,21 @@ func TestLocalPages(t *testing.T) {
 		if !strings.Contains(sm, want) {
 			t.Errorf("sitemap lacks %s", want)
 		}
+	}
+}
+
+// A page built after the embedded exchange rates' last day converts at
+// that day's rates, not at none.
+func TestToEURAfterTheRates(t *testing.T) {
+	_, last := fx.HistoryRange()
+	day, err := time.Parse(time.DateOnly, last)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := toEUR(100, "CZK", day.AddDate(0, 1, 0)); !ok {
+		t.Errorf("CZK a month after %s: no rate", last)
+	}
+	if d, ok := fxOnDate(day.AddDate(0, 1, 0)); !ok || d != last {
+		t.Errorf("rates' day a month after %s: %q, %v", last, d, ok)
 	}
 }

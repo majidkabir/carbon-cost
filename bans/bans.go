@@ -317,7 +317,9 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 	var out []Window
 	day := time.Date(from.In(loc).Year(), from.In(loc).Month(), from.In(loc).Day(), 0, 0, 0, 0, loc)
 	hol := map[string]Holiday{}
-	for y := day.Year(); y <= to.In(loc).Year(); y++ {
+	// The years around too: the day before 1 January is an eve, the day
+	// after 31 December a day off.
+	for y := day.Year() - 1; y <= to.In(loc).Year()+1; y++ {
 		for _, h := range Holidays(country, y) {
 			hol[h.Date.Format(time.DateOnly)] = h
 		}

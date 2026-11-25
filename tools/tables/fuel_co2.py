@@ -85,24 +85,37 @@ def germany(fetched, out, srcs):
                     "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": float(m.group(1)),
                     "law": f"BEHG § 10 (2): fixed price of {m.group(1)} euro per certificate (one tonne of CO2) in {y}. Fuel suppliers buy a certificate for each tonne of CO2 their fuel emits and pass the cost on in the fuel price.",
                     "sources": [src(srcs, "de-behg-10")]})
-    m = re.search(r"Für das Jahr 2026 wird ein Preiskorridor mit einem Mindestpreis von (\d+) Euro pro Emissionszertifikat und einem Höchstpreis von (\d+) Euro", t)
+    # § 10 (2) sentence 4: "Für das Jahr 2026 wird ein Preiskorridor ..."; the
+    # Dritte Gesetz zur Änderung des BEHG (Bundestag 15 October 2026)
+    # makes it "Für die Jahre 2026 und 2027 ...".
+    m = re.search(r"Für (?:das Jahr (2026)|die Jahre (2026) und (2027)) wird ein Preiskorridor mit einem Mindestpreis von (\d+) Euro pro Emissionszertifikat und einem Höchstpreis von (\d+) Euro", t)
     if not m:
-        sys.exit("BEHG § 10: no 2026 price corridor")
-    lo, hi = float(m.group(1)), float(m.group(2))
-    rows = []
+        sys.exit("BEHG § 10: no price corridor for 2026")
+    years = [y for y in m.group(1, 2, 3) if y]
+    lo, hi = float(m.group(4)), float(m.group(5))
+    auctions = []
     for line in open(os.path.join(fetched, "de-eex-nehs-auctions.csv"), encoding="utf-8-sig").read().splitlines()[1:]:
         f = line.split(";")
-        if len(f) > 5 and f[3] == "2026":
-            rows.append((f[0], float(f[4]), int(f[5])))
-    if not rows or any(not lo <= p <= hi for _, p, _ in rows):
-        sys.exit(f"EEX: no 2026 auctions in the corridor ({rows[:3]})")
-    vol = sum(v for _, _, v in rows)
-    avg = round(sum(p * v for _, p, v in rows) / vol, 2)
-    prices = sorted({p for _, p, _ in rows})
-    write(out, {"country": "DE", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
-                "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": avg,
-                "law": f"BEHG § 10 (2): 2026 certificates are auctioned in a corridor of {m.group(1)} to {m.group(2)} euro. This is the volume-weighted clearing price of the {len(rows)} auctions EEX held ({rows[-1][0]} to {rows[0][0]}; clearing prices {', '.join(f'{p:g}' for p in prices)} euro). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
-                "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-auctions")]})
+        if len(f) > 5:
+            auctions.append((f[0], f[3], float(f[4]), int(f[5])))
+    for y in years:
+        rows = [(d, p, v) for d, yr, p, v in auctions if yr == y]
+        if not rows:
+            if y == "2026":
+                sys.exit("EEX: no 2026 auctions")
+            print(f"BEHG § 10: the {y} corridor is in the law, but EEX has held no {y} auction yet")
+            continue
+        if any(not lo <= p <= hi for _, p, _ in rows):
+            sys.exit(f"EEX: {y} auctions outside the corridor ({rows[:3]})")
+        vol = sum(v for _, _, v in rows)
+        avg = round(sum(p * v for _, p, v in rows) / vol, 2)
+        prices = sorted({p for _, p, _ in rows})
+        excess = {"2026": 68, "2027": 73}.get(y)
+        write(out, {"country": "DE", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+                    "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": avg,
+                    "law": f"BEHG § 10 (2): {y} certificates are auctioned in a corridor of {m.group(4)} to {m.group(5)} euro. This is the volume-weighted clearing price of the {len(rows)} auctions EEX held ({rows[-1][0]} to {rows[0][0]}; clearing prices {', '.join(f'{p:g}' for p in prices)} euro)."
+                           + (f" Certificates bought after the auctions cost {excess} euro (the excess quantity price), so a supplier's average may be a little higher." if excess else ""),
+                    "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-auctions")]})
 
 
 def austria(fetched, out, srcs):

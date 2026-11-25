@@ -1,5 +1,5 @@
 name: Live check
-# Runs Sootcase (v0.17.0, as on sootcase.org, else main) with real OSRM routing on a map
+# Runs Sootcase (v0.18.0, as on sootcase.org, else main) with real OSRM routing on a map
 # extract, then prices trips with carbon-cost and prints them as
 # annotations. Run from the Actions tab, or push to the live-check branch.
 on:
@@ -91,7 +91,7 @@ jobs:
       - run: go build -o cc ./cmd/carbon-cost
       - name: Sootcase
         run: |
-          git clone -q --depth 1 --branch v0.17.0 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
+          git clone -q --depth 1 --branch v0.18.0 https://github.com/majidkabir/sootcase sootcase-src 2>/dev/null \
             || { rm -rf sootcase-src; git clone -q --depth 1 https://github.com/majidkabir/sootcase sootcase-src; }
           git -C sootcase-src log --oneline -1
       - name: Map

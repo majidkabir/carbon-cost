@@ -709,9 +709,20 @@ func stepUp(ch *Charge, m float64) float64 {
 	return math.Ceil(m/s-1e-9) * s
 }
 
+// before orders two event times as instants: their strings don't, when
+// their offsets differ (an hour before the clocks go back can read later).
+func before(a, b string) bool {
+	ta, ea := parseTime(a)
+	tb, eb := parseTime(b)
+	if ea != nil || eb != nil {
+		return a < b
+	}
+	return ta.Before(tb)
+}
+
 func (c *Calc) odUses(ds *Dataset, ch *Charge, events []*Event) []*pricedUse {
 	evs := append([]*Event(nil), events...)
-	sort.SliceStable(evs, func(i, j int) bool { return evs[i].Time < evs[j].Time })
+	sort.SliceStable(evs, func(i, j int) bool { return before(evs[i].Time, evs[j].Time) })
 	var trips [][]*Event
 	var cur []*Event
 	for _, e := range evs {
@@ -1349,7 +1360,7 @@ func (c *Calc) rulePassageGroup(ds *Dataset, r *Rule, lines []*Line) {
 			}
 		}
 	}
-	sort.SliceStable(group, func(i, j int) bool { return group[i].Event.Time < group[j].Event.Time })
+	sort.SliceStable(group, func(i, j int) bool { return before(group[i].Event.Time, group[j].Event.Time) })
 	var run []*Line
 	var start time.Time
 	started := false

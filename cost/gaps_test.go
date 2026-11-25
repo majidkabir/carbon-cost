@@ -489,3 +489,120 @@ func TestDateFromAStartTime(t *testing.T) {
 		}
 	}
 }
+
+// A ticket over the October clock change: the exit (02:12+01:00) comes
+// after the entry (02:23+02:00), though its text sorts first.
+func TestTicketOverTheClockChange(t *testing.T) {
+	path := dense([][2]float64{{16.20, 44.04}, {15.5809, 44.00868}, {16.0, 43.8}, {16.68549, 43.57016}, {16.72, 43.55}})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 200}, Path: path, RouteParts: map[string]float64{}}}}
+	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40, Time: "01:59", AvgSpeedKmh: 130}, time.Date(2026, 10, 25, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !r.Complete || r.TotalEUR == 0 {
+		t.Errorf("Benkovac–Bisko on 2026-10-25 from 01:59: EUR %.2f, missing %+v", r.TotalEUR, r.Missing)
+	}
+}
+
+// A port with points on two ferry lines (Vela Luka, 33 km out on the
+// Split line and 3 km out on the Ubli one) is passed once on Split–Ubli:
+// one fare from the first port to the last.
+func TestPortOnTwoLinesIsOneVisit(t *testing.T) {
+	path := dense([][2]float64{{16.4335, 43.5002}, {16.434624, 43.498295}, {16.435676, 43.164294}, {16.715, 42.963}, {16.6703, 42.962329}, {16.820807, 42.748651}})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 120, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 10}, Path: path, RouteParts: map[string]float64{}}}}
+	tr := truck40
+	tr.CapacityKg = 25000
+	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: tr}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var fares []string
+	for _, l := range r.Lines {
+		if l.Charge == FerryFare {
+			fares = append(fares, fmt.Sprintf("%s %.2f", l.Section, l.Amount))
+		}
+	}
+	if len(fares) != 1 || !strings.Contains(fares[0], "SPLIT") || !strings.Contains(fares[0], "UBLI") {
+		t.Errorf("fares %q; want one, Split to Ubli", fares)
+	}
+}
+
+// A short turnaround (2 km past Bisko) still makes the way back a ticket
+// of its own.
+func TestShortTurnaround(t *testing.T) {
+	there := dense([][2]float64{{15.55, 44.03}, {15.5809, 44.00868}, {16.0, 43.8}, {16.68549, 43.57016}, {16.70, 43.555}})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 300},
+		Path: append(there, reversed(there)[1:]...), RouteParts: map[string]float64{}}}}
+	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if math.Abs(r.TotalEUR-2*18.88) > 0.05 {
+		var ls []string
+		for _, l := range r.Lines {
+			ls = append(ls, fmt.Sprintf("%s %s %.2f", l.Charge, l.Section, l.Amount))
+		}
+		t.Logf("lines %q", ls)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if l.RateUnit == "EUR/passage" && l.Charge == RoadToll {
+			n++
+		}
+	}
+	if n != 2 {
+		t.Errorf("Benkovac–Bisko and back with a 2 km turnaround: %d tickets; want 2", n)
+	}
+}
+
+// On France's chained system, one leg driven Allaines–Ambérieu and back
+// two or three times pays two or three times one round trip.
+func TestChainedLaps(t *testing.T) {
+	a, z := [2]float64{1.84618, 48.20516}, [2]float64{5.31252, 45.97777}
+	// About 20 km past each end, and back.
+	a0, z0 := [2]float64{a[0] - 0.25, a[1] + 0.12}, [2]float64{z[0] + 0.2, z[1] - 0.12}
+	lap := dense([][2]float64{a0, a, z, z0, z, a, a0})
+	price := func(n int) float64 {
+		path := lap
+		for i := 1; i < n; i++ {
+			path = append(path, lap[1:]...)
+		}
+		res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 900 * float64(n), TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"FR": 900 * float64(n)}, Path: path, RouteParts: map[string]float64{}}}}
+		r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		sum := 0.0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Country == "FR" {
+				sum += l.Amount
+			}
+		}
+		return sum
+	}
+	one := price(1)
+	if two, three := price(2), price(3); one == 0 || math.Abs(two-2*one) > 0.05 || math.Abs(three-3*one) > 0.05 {
+		t.Errorf("FR round trips on one leg: %.2f, %.2f, %.2f; want multiples of the first", one, two, three)
+	}
+}
+
+// A path with no km in any country is the caller's mistake, not
+// Sootcase's.
+func TestPathAtSea(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 60, WTWKg: 70, Legs: []sootcase.LegResult{{DistanceKm: 120, TTWKg: 60, WTWKg: 70,
+			CountryKm: map[string]float64{"DE": 120}, Path: [][2]float64{{9.99, 53.55}, {8.8, 53.08}}}}})
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t), Borders: bix}
+	_, err = c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEBRE"}, Date: "2026-11-20",
+		CargoKg: 1000, Truck: truck40, Path: [][2]float64{{3.0, 55.0}, {3.5, 55.2}}})
+	var fe *sootcase.Failed
+	if err == nil || errors.As(err, &fe) || !strings.Contains(err.Error(), "path") {
+		t.Errorf("a path at sea: %v; want a path error", err)
+	}
+}

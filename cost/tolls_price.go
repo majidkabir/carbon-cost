@@ -640,34 +640,78 @@ func systemsOf(ds *tariffs.Dataset) []*system {
 	return out
 }
 
-// stationAgainKm is how far along the route a station's passes must be
-// apart to be two: its plazas either side of a junction are one.
-const stationAgainKm = 5
+// visit is a pass of a station: its km along the route (where the
+// route reaches it) and the route's distance from it (its nearest point).
+type visit struct {
+	st        *orct.Object
+	pos, dist float64
+}
 
-// passes are each time the route passes the station (any of its points,
-// in its direction), nearest point first: its km along the route and its
-// distance from it.
-func (s *system) passes(st *orct.Object, route *track) []trackPass {
-	var all []trackPass
-	for _, pt := range pointsOf(st) {
+// visits are each time the route passes the station, in its direction,
+// in route order. Its points passed one after another are one visit
+// (its plazas either side of a junction, a port's points on two ferry
+// lines) where the route goes from one to the next about directly; a
+// point passed again, or after a detour (the route turned back), starts
+// another.
+func (s *system) visits(st *orct.Object, route *track) []visit {
+	type pp struct {
+		pt int
+		trackPass
+	}
+	pts := pointsOf(st)
+	var all []pp
+	for i, pt := range pts {
 		for _, x := range route.passes(pt, s.matchKm) {
 			if pt.Heading != nil && math.Abs(math.Mod(x.heading-*pt.Heading+540, 360)-180) > 60 {
 				continue
 			}
-			all = append(all, x)
+			all = append(all, pp{i, x})
 		}
 	}
-	slices.SortFunc(all, func(a, b trackPass) int { return cmp.Compare(a.pos, b.pos) })
-	var out []trackPass
-	start := 0.0
-	for _, x := range all {
-		if n := len(out); n > 0 && x.pos-start <= stationAgainKm {
-			if x.dist < out[n-1].dist {
-				out[n-1] = x
+	slices.SortStableFunc(all, func(a, b pp) int { return cmp.Compare(a.pos, b.pos) })
+	var out []visit
+	seen, last := map[int]bool{}, pp{}
+	for k, x := range all {
+		if k > 0 && !seen[x.pt] {
+			a, b := pts[last.pt], pts[x.pt]
+			if x.pos-last.pos <= 1.5*haversine(a.Lat, a.Lon, b.Lat, b.Lon)+1 {
+				seen[x.pt], last = true, x
+				if v := &out[len(out)-1]; x.dist < v.dist {
+					v.dist = x.dist
+				}
+				continue
 			}
-			continue
 		}
-		out, start = append(out, x), x.pos
+		out = append(out, visit{st, x.pos, x.dist})
+		seen, last = map[int]bool{x.pt: true}, x
+	}
+	return out
+}
+
+// allVisits are the system's stations' visits in route order.
+func (s *system) allVisits(route *track) []visit {
+	var vs []visit
+	for _, st := range s.stations {
+		vs = append(vs, s.visits(st, route)...)
+	}
+	slices.SortStableFunc(vs, func(a, b visit) int { return cmp.Compare(a.pos, b.pos) })
+	return vs
+}
+
+// laps split visits where the route passes a station of the lap again:
+// it left the system and came back (a day's driven path, out and back),
+// so a ticket can't run from one lap into the next.
+func laps(vs []visit) [][]visit {
+	var out [][]visit
+	var cur []visit
+	for _, v := range vs {
+		if slices.ContainsFunc(cur, func(c visit) bool { return c.st == v.st }) {
+			out, cur = append(out, cur), nil
+		}
+		cur = append(cur, v)
+	}
+	if len(cur) > 0 {
+		out = append(out, cur)
 	}
 	return out
 }
@@ -685,54 +729,28 @@ func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
 	if s.chain {
 		return s.chainUses(ds, route, p)
 	}
-	// The stations passed, in route order: a ticket from the first to the
-	// last, and another from where the route passes a station of the
-	// ticket again (it left the system and came back: a day's path).
-	type stPass struct {
-		st  *orct.Object
-		pos float64
-	}
-	var seq []stPass
-	for _, st := range s.stations {
-		for _, x := range s.passes(st, route) {
-			seq = append(seq, stPass{st, x.pos})
-		}
-	}
-	slices.SortStableFunc(seq, func(a, b stPass) int { return cmp.Compare(a.pos, b.pos) })
+	// A ticket from the first station of each lap to its last.
 	var out []sysUse
-	var cur []stPass
-	flush := func() {
-		if len(cur) == 0 {
-			return
-		}
-		a, z := cur[0], cur[len(cur)-1]
+	for _, lap := range laps(s.allVisits(route)) {
+		a, z := lap[0], lap[len(lap)-1]
 		if a.st != z.st || ds.HasPair(s.ch.ID, a.st.ID, a.st.ID) {
 			out = append(out, sysUse{entry: a.st, exit: z.st, km: z.pos - a.pos, from: a.pos})
 		}
-		cur = nil
 	}
-	for _, x := range seq {
-		if slices.ContainsFunc(cur, func(c stPass) bool { return c.st == x.st }) {
-			flush()
-		}
-		cur = append(cur, x)
-	}
-	flush()
 	return out
 }
 
 func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
-	type pass struct {
-		st       *orct.Object
-		pos, off float64
+	var out []sysUse
+	for _, lap := range laps(s.allVisits(route)) {
+		out = append(out, s.chainLap(ds, lap, p)...)
 	}
-	var passes []pass
-	for _, st := range s.stations {
-		for _, x := range s.passes(st, route) {
-			passes = append(passes, pass{st, x.pos, x.dist})
-		}
-	}
-	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
+	return out
+}
+
+// chainLap is a lap's tickets on a chained system: the fewest that cover
+// the most of its km.
+func (s *system) chainLap(ds *tariffs.Dataset, passes []visit, p *pricer) []sysUse {
 	n := len(passes)
 	at := p.noon(ds)
 	rater := ds.Rater(p.vehicle, p.payment)
@@ -794,7 +812,7 @@ func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUs
 					continue
 				}
 				r := from(cont(k, j), j)
-				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].off + passes[j].off + r.off, j}); better(c, b) {
+				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].dist + passes[j].dist + r.off, j}); better(c, b) {
 					b = c
 				}
 			}

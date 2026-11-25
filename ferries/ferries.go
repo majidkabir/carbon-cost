@@ -265,8 +265,9 @@ func gridOf(route [][2]float64) grid {
 // nearestWithin is the index of the route point nearest p, or -1 if none
 // is within MatchKm; ties go to the earlier point.
 func (g grid) nearestWithin(route [][2]float64, p Point) int {
-	dLat := MatchKm / 111.2
-	dLon := dLat / math.Max(math.Cos(p.Lat*math.Pi/180), 0.01)
+	// A box a little wider than MatchKm: km() decides.
+	dLat := MatchKm / 110.0
+	dLon := dLat / math.Max(math.Cos((math.Abs(p.Lat)+dLat)*math.Pi/180), 0.01)
 	lo, hi := cellOf(p.Lon-dLon, p.Lat-dLat), cellOf(p.Lon+dLon, p.Lat+dLat)
 	best, bi := math.Inf(1), -1
 	for x := lo[0]; x <= hi[0]; x++ {

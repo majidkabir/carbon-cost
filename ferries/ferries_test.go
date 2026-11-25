@@ -199,3 +199,16 @@ func TestDetectAll(t *testing.T) {
 		t.Errorf("got %v", ids)
 	}
 }
+
+// The grid search finds what a scan of every point finds, at the edge of
+// MatchKm too.
+func TestNearestWithinEdge(t *testing.T) {
+	p := Point{Lat: 55.05 - 3/111.2 - 1e-9, Lon: 11}
+	route := [][2]float64{{11, 50}, {11, p.Lat + 2.99997/111.195}}
+	if km(route[1][1], route[1][0], p.Lat, p.Lon) > MatchKm {
+		t.Skip("the point isn't within MatchKm")
+	}
+	if i := gridOf(route).nearestWithin(route, p); i != 1 {
+		t.Errorf("nearestWithin: %d; want 1", i)
+	}
+}

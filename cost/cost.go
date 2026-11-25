@@ -1085,6 +1085,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			}
 		}
 	}
+	if !routed && len(req.Path) > 0 {
+		return Response{}, fmt.Errorf("path: it has no km in any country (at sea, or one place): give the way driven on land")
+	}
 	if !routed {
 		return Response{}, &sootcase.Failed{Err: errors.New("returned no distance by country: the server needs Sootcase v0.9.0 or later (country_km)")}
 	}

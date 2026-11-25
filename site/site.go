@@ -225,12 +225,18 @@ const maxImages = 200
 
 // Head is what every page's <head> says, and its language.
 type Head struct {
+	// Title and Description are the page's; Canonical and Image its URL
+	// and its share image's; Prefix the site's path under PUBLIC_URL
+	// ("" at the root) and Path the page's.
 	Title, Description, Canonical, Image, Prefix, Path string
-	Crumbs                                             []link
-	LD, CrumbLD                                        any
-	L                                                  *Loc
-	Lang                                               string
-	Alternates                                         []alt // the page in other languages (hreflang)
+	// Crumbs are the breadcrumb links, and LD and CrumbLD the page's and
+	// the breadcrumbs' schema.org JSON-LD.
+	Crumbs      []link
+	LD, CrumbLD any
+	// L is the page's language and Lang its code.
+	L          *Loc
+	Lang       string
+	Alternates []alt // the page in other languages (hreflang)
 }
 
 type link struct{ Name, Href string }

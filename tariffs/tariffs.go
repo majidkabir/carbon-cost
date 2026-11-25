@@ -35,12 +35,17 @@ const (
 // Dataset is one dataset with what carbon-cost looks it up by.
 type Dataset struct {
 	*orct.Dataset
-	File      string // <cc>/<name>.orct.json, under data/
-	Scheme    string // e.g. "no", "dk-bridges"
-	Name      string
-	Country   string
-	Region    string
-	Kind      string
+	File   string // <cc>/<name>.orct.json, under data/
+	Scheme string // e.g. "no", "dk-bridges"
+	// Name is the scheme's name; Country and Region (for regional tolls)
+	// are where it charges.
+	Name    string
+	Country string
+	Region  string
+	// Kind is Toll, Crossings, Zone or FuelCO2.
+	Kind string
+	// ValidFrom and ValidTo are the days it is in force (YYYY-MM-DD; no
+	// ValidTo: until replaced).
 	ValidFrom string
 	ValidTo   string
 	ext       map[string]json.RawMessage
@@ -79,6 +84,8 @@ func (d *Dataset) Method() string {
 
 // Source is a source document.
 type Source struct {
+	// Title names the document (a law, a table, a dataset), and URL is
+	// where it is published.
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
@@ -92,6 +99,7 @@ func (d *Dataset) Sources() []Source {
 
 // Set is every dataset.
 type Set struct {
+	// All are the datasets, sorted by area, scheme and first day.
 	All  []*Dataset
 	fsys fs.FS
 	dir  string
@@ -99,17 +107,27 @@ type Set struct {
 
 // Summary is what a dataset is, for a list of them.
 type Summary struct {
-	File      string   `json:"file"`
-	ID        string   `json:"id"`
-	Scheme    string   `json:"scheme"`
-	Name      string   `json:"name"`
-	Country   string   `json:"country"`
-	Region    string   `json:"region,omitempty"`
-	Kind      string   `json:"kind"`
-	ValidFrom string   `json:"valid_from"`
-	ValidTo   string   `json:"valid_to,omitempty"`
-	Method    string   `json:"method,omitempty"`
-	Sources   []Source `json:"sources,omitempty"`
+	// File is the dataset, <cc>/<name>.orct.json: GET /v1/rates/{cc}/{file}.
+	File string `json:"file"`
+	// ID is the dataset's ORCT id, Scheme its toll scheme's id (each
+	// version of a scheme is a dataset) and Name the scheme's name.
+	ID     string `json:"id"`
+	Scheme string `json:"scheme"`
+	Name   string `json:"name"`
+	// Country (ISO 3166-1 alpha-2) and Region (ISO 3166-2, for regional
+	// tolls) are where it charges.
+	Country string `json:"country"`
+	Region  string `json:"region,omitempty"`
+	// Kind is toll, crossings, zone or fuel_co2.
+	Kind string `json:"kind"`
+	// ValidFrom and ValidTo are the days it is in force (no ValidTo: until
+	// replaced).
+	ValidFrom string `json:"valid_from"`
+	ValidTo   string `json:"valid_to,omitempty"`
+	// Method is the law and how the dataset was made from it.
+	Method string `json:"method,omitempty"`
+	// Sources are the documents it comes from.
+	Sources []Source `json:"sources,omitempty"`
 }
 
 // Summaries list the datasets.

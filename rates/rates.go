@@ -34,12 +34,16 @@ const (
 
 // Source is a document the rates come from.
 type Source struct {
+	// Title names the document (a law, a table, a dataset), and URL is
+	// where it is published.
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
 
 // Place is a point on a road.
 type Place struct {
+	// Name is the place's name (a toll station, a gantry), and Lat and Lon
+	// its coordinates (WGS 84, degrees).
 	Name string  `json:"name"`
 	Lat  float64 `json:"lat"`
 	Lon  float64 `json:"lon"`

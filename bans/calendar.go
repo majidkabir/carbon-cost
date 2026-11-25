@@ -15,12 +15,17 @@ var calendarFiles embed.FS
 
 // Calendar is one year's decree.
 type Calendar struct {
+	// Country (ISO 3166-1 alpha-2) and Year are the decree's.
 	Country string `json:"country"`
 	Year    int    `json:"year"`
-	Law     string `json:"law"`
-	Source  struct {
+	// Law cites the decree, and Source is where it is published: its id
+	// in tools/tables/sources.json, title, URL and page.
+	Law    string `json:"law"`
+	Source struct {
 		ID, Title, URL, Page string
 	} `json:"source"`
+	// Days are the decree's ban days: Date, and the hours From and To
+	// ("HH:MM", local time).
 	Days []struct {
 		Date, From, To string
 		// FromDate, ToDate and Weekday ("sat"): every such weekday in the

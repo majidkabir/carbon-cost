@@ -22,7 +22,9 @@ const Source = "ECB euro foreign exchange reference rates"
 
 // Rates are units of each currency per euro on a date.
 type Rates struct {
-	Date   string             `json:"date"`
+	// Date is the day the ECB published them for (YYYY-MM-DD).
+	Date string `json:"date"`
+	// PerEUR is each currency's (ISO 4217) units per euro.
 	PerEUR map[string]float64 `json:"per_eur"`
 }
 
@@ -85,6 +87,9 @@ func Fetch(ctx context.Context, hc *http.Client, url string) (Rates, error) {
 // the lock is never held during it: while it runs, other callers get the
 // stale rates, or wait for it when there are none yet.
 type Cache struct {
+	// URL is the ECB's daily rates file (default ECBURL), HTTP the client
+	// that fetches it (default: one with a 15-second timeout), and TTL how
+	// long the rates are kept.
 	URL  string
 	HTTP *http.Client
 	TTL  time.Duration

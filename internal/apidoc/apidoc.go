@@ -81,7 +81,7 @@ func Generate(root, version string) ([]byte, error) {
 	bres, _ := ref("main.BatchResponse")
 	sum, _ := ref("tariffs.Summary")
 	place, _ := ref("sootcase.Place")
-	errSchema := map[string]any{"type": "object", "properties": map[string]any{"error": map[string]any{"type": "string"}}, "required": []string{"error"}}
+	errSchema := map[string]any{"type": "object", "properties": map[string]any{"error": map[string]any{"type": "string", "description": "What was wrong, naming the field."}}, "required": []string{"error"}}
 	g.schemas["Error"] = errSchema
 	errRef := map[string]any{"$ref": "#/components/schemas/Error"}
 	jsonBody := func(s any, desc string) map[string]any {
@@ -262,7 +262,11 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 		return map[string]any{"type": "object", "additionalProperties": v}, nil
 	case *ast.StructType:
 		props, req := map[string]any{}, []string{}
+		group := "" // the last field comment, which may describe the fields after it by name
 		for _, f := range t.Fields.List {
+			if f.Doc != nil {
+				group = clean(f.Doc.Text())
+			}
 			if len(f.Names) == 0 || !f.Names[0].IsExported() || f.Tag == nil {
 				continue
 			}
@@ -278,6 +282,9 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 			doc := clean(f.Doc.Text())
 			if doc == "" {
 				doc = clean(f.Comment.Text())
+			}
+			if doc == "" && names(group, f.Names[0].Name) {
+				doc = group // "TTWKg and WTWKg are ...": WTWKg's too
 			}
 			if doc != "" {
 				if _, isRef := s["$ref"]; isRef {
@@ -303,3 +310,15 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 
 // clean makes a doc comment one paragraph.
 func clean(s string) string { return strings.Join(strings.Fields(s), " ") }
+
+// names says whether a comment names the Go identifier as a word.
+func names(comment, ident string) bool {
+	for _, w := range strings.FieldsFunc(comment, func(r rune) bool {
+		return !(r == '_' || r >= '0' && r <= '9' || r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z')
+	}) {
+		if w == ident {
+			return true
+		}
+	}
+	return false
+}

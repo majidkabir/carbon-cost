@@ -19,20 +19,26 @@ type RouteOption struct {
 	Chosen bool `json:"chosen,omitempty"`
 	// Roads and Ferries tell it apart: its main roads (OSM refs) and the
 	// ferries it takes, as Sootcase names them.
-	Roads      []string           `json:"roads,omitempty"`
-	Ferries    []string           `json:"ferries,omitempty"`
+	Roads   []string `json:"roads,omitempty"`
+	Ferries []string `json:"ferries,omitempty"`
+	// DistanceKm, FerryKm and CountryKm are the route's km, its km on
+	// ferries, and its km by country.
 	DistanceKm float64            `json:"distance_km"`
 	FerryKm    float64            `json:"ferry_km,omitempty"`
 	CountryKm  map[string]float64 `json:"country_km"`
 	// Hours is the trip's driving time on it (Trip.Hours).
-	Hours     float64 `json:"hours,omitempty"`
+	Hours float64 `json:"hours,omitempty"`
+	// TotalEUR and CarbonEUR are its charges and their carbon part
+	// (Response.TotalEUR, Response.CarbonEUR).
 	TotalEUR  float64 `json:"total_eur"`
 	CarbonEUR float64 `json:"carbon_eur"`
 	// WithFuelEUR is the charges and the diesel (Response.WithFuelEUR);
 	// TripCostEUR adds the running costs given.
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`
-	Complete    bool    `json:"complete"`
+	// Complete is false when its total leaves out charges it meets
+	// (Response.Complete).
+	Complete bool `json:"complete"`
 	// DiffEUR is its cost less the primary's: trip_cost_eur with running
 	// costs given, else with_fuel_eur where all have it, else total_eur.
 	DiffEUR float64 `json:"diff_eur"`

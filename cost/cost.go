@@ -136,9 +136,12 @@ type Request struct {
 	DriverRest bool `json:"driver_rest,omitempty"`
 	// CargoKg is the cargo when the trip carries one shipment from start
 	// to end (otherwise give shipments).
-	CargoKg     float64     `json:"cargo_kg,omitempty"`
-	VehicleType string      `json:"vehicle_type,omitempty"`
-	Truck       rates.Truck `json:"truck"`
+	CargoKg float64 `json:"cargo_kg,omitempty"`
+	// VehicleType is Sootcase's vehicle type for the emissions; default
+	// DefaultVehicleType, or ElectricVehicleType for CO2 class 5.
+	VehicleType string `json:"vehicle_type,omitempty"`
+	// Truck is the truck the tolls are priced for.
+	Truck rates.Truck `json:"truck"`
 	// TolledShare is the share of each country's km on tolled roads,
 	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
 	// so give it when part of a trip runs on untolled roads.
@@ -287,58 +290,81 @@ type Request struct {
 
 // Comparison is the trip priced for a truck in another CO2 class.
 type Comparison struct {
-	CO2Class  int     `json:"co2_class"`
+	// CO2Class is the truck's CO2 emission class (1 to 5).
+	CO2Class int `json:"co2_class"`
+	// TollEUR is its road tolls, TotalEUR all its charges and CarbonEUR
+	// their carbon part.
 	TollEUR   float64 `json:"road_toll_eur"`
 	TotalEUR  float64 `json:"total_eur"`
 	CarbonEUR float64 `json:"carbon_eur"`
 	// SavingEUR is what this truck saves per trip against the requested
 	// one (negative: it costs more).
-	SavingEUR        float64 `json:"saving_eur"`
+	SavingEUR float64 `json:"saving_eur"`
+	// SavingPerYearEUR is SavingEUR times trips_per_year.
 	SavingPerYearEUR float64 `json:"saving_per_year_eur,omitempty"`
 	// EnergyEUR is its diesel or electricity, WithFuelEUR the charges and
 	// it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with
 	// the energy counted: null where either truck's energy has no price.
-	EnergyEUR                float64  `json:"energy_eur,omitempty"`
-	WithFuelEUR              float64  `json:"with_fuel_eur,omitempty"`
-	SavingWithFuelEUR        *float64 `json:"saving_with_fuel_eur"`
+	EnergyEUR         float64  `json:"energy_eur,omitempty"`
+	WithFuelEUR       float64  `json:"with_fuel_eur,omitempty"`
+	SavingWithFuelEUR *float64 `json:"saving_with_fuel_eur"`
+	// SavingWithFuelPerYearEUR is SavingWithFuelEUR times trips_per_year.
 	SavingWithFuelPerYearEUR *float64 `json:"saving_with_fuel_per_year_eur,omitempty"`
 }
 
 // Line is one charge.
 type Line struct {
+	// Charge is its kind: road_toll, ferry_ets, ferry_uk_ets, ets2,
+	// fuel_co2, area_charge or ferry_fare.
 	Charge string `json:"charge"`
 	// Days is the days a time-based charge is paid for.
-	Days      int     `json:"days,omitempty"`
-	Country   string  `json:"country,omitempty"`
-	Region    string  `json:"region,omitempty"`  // ISO 3166-2, for regional tolls
-	Road      string  `json:"road,omitempty"`    // motorway or other, where rates differ by road
-	Section   string  `json:"section,omitempty"` // a fixed-charge section or a surcharged stretch
-	Area      string  `json:"area,omitempty"`    // suburban or interurban, where rates differ by it
-	Component string  `json:"component,omitempty"`
-	Carbon    bool    `json:"carbon"` // a charge on CO2
+	Days int `json:"days,omitempty"`
+	// Country is where it is paid (none for a ferry's ETS).
+	Country string `json:"country,omitempty"`
+	Region  string `json:"region,omitempty"`  // ISO 3166-2, for regional tolls
+	Road    string `json:"road,omitempty"`    // motorway or other, where rates differ by road
+	Section string `json:"section,omitempty"` // a fixed-charge section or a surcharged stretch
+	Area    string `json:"area,omitempty"`    // suburban or interurban, where rates differ by it
+	// Component is the toll's part by law: infrastructure, co2, air,
+	// noise, air_noise, env_zone_surcharge, or toll where the law sets
+	// one rate with no split.
+	Component string `json:"component,omitempty"`
+	Carbon    bool   `json:"carbon"` // a charge on CO2
+	// Km is the km it is charged on, and TonnesCO2 the emissions a
+	// charge on CO2 is charged on.
 	Km        float64 `json:"km,omitempty"`
 	TonnesCO2 float64 `json:"t_co2e,omitempty"`
 	Litres    float64 `json:"litres,omitempty"` // fuel, for taxes per litre
 	Tonnes    float64 `json:"tonnes,omitempty"` // chargeable weight, for rates per tonne-km
-	Rate      float64 `json:"rate"`
-	RateUnit  string  `json:"rate_unit"` // e.g. "DKK/km", "CHF/tkm", "EUR/t CO2e"
+	// Rate is the rate applied, in RateUnit.
+	Rate     float64 `json:"rate"`
+	RateUnit string  `json:"rate_unit"` // e.g. "DKK/km", "CHF/tkm", "EUR/t CO2e"
+	// Amount is the charge in Currency, the rate table's, and AmountEUR
+	// in euros: at the request's fx, DKK at the ERM II central rate, else
+	// at the day's ECB reference rate (the central bank's for RSD and ALL).
 	Currency  string  `json:"currency"`
 	Amount    float64 `json:"amount"`
 	AmountEUR float64 `json:"amount_eur"`
-	Source    string  `json:"source"`
+	// Source is the law and table the rate comes from, and how the
+	// amount was worked out.
+	Source string `json:"source"`
 	// Sources link the documents the line's rate comes from.
 	Sources []rates.Source `json:"sources,omitempty"`
 }
 
 // Response is a priced trip.
 type Response struct {
-	Date       string  `json:"date"`
+	// Date is the day priced (YYYY-MM-DD): the request's, or today.
+	Date string `json:"date"`
+	// DistanceKm is the trip's km, FerryKm the part on ferries.
 	DistanceKm float64 `json:"distance_km"`
 	FerryKm    float64 `json:"ferry_km,omitempty"`
 	// FerryCrossing names the crossings the route uses, when recognised.
-	FerryCrossing string             `json:"ferry_crossing,omitempty"`
-	CountryKm     map[string]float64 `json:"country_km"`
-	RegionKm      map[string]float64 `json:"region_km,omitempty"`
+	FerryCrossing string `json:"ferry_crossing,omitempty"`
+	// CountryKm is the km by country (ISO 3166-1 alpha-2), and RegionKm by
+	// region (ISO 3166-2) where tolls are set by region.
+	CountryKm map[string]float64 `json:"country_km"`
+	RegionKm  map[string]float64 `json:"region_km,omitempty"`
 	// TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e,
 	// tank-to-wheel and well-to-wheel: from the truck's own diesel when it
 	// is given (primary data, which Regulation (EU) 2026/1030 puts first),
@@ -371,9 +397,11 @@ type Response struct {
 	// tonne-km (EN ISO 14083:2023), or by cost_share_by; its emissions are
 	// always by tonne-km. The totals are the truck's.
 	Shipments []ShipmentCost `json:"shipments,omitempty"`
-	Lines     []Line         `json:"lines"`
-	TotalEUR  float64        `json:"total_eur"`
-	CarbonEUR float64        `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
+	// Lines are the charges, one per charge, country and part.
+	Lines []Line `json:"lines"`
+	// TotalEUR is the charges' sum, in euros.
+	TotalEUR  float64 `json:"total_eur"`
+	CarbonEUR float64 `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
 	// Routes are the routes priced, when alternatives were asked for: each
 	// one's charges and the difference from Sootcase's primary route; the
 	// one this answer prices is chosen.
@@ -408,8 +436,10 @@ type Response struct {
 	// here yet (a new year's tariffs not yet published or added).
 	Missing []Missing `json:"missing,omitempty"`
 	// Compare is the trip priced for each of CompareCO2Classes.
-	Compare []Comparison   `json:"compare,omitempty"`
-	Notes   []string       `json:"notes,omitempty"`
+	Compare []Comparison `json:"compare,omitempty"`
+	// Notes say what the result rests on and what it leaves out.
+	Notes []string `json:"notes,omitempty"`
+	// Sources are the laws and data the result uses, each once.
 	Sources []rates.Source `json:"sources"`
 	// Route is the route split by country, for a map (Calculate with
 	// Borders set).
@@ -474,16 +504,26 @@ type Provenance struct {
 
 // TableUsed is a rate table a result used.
 type TableUsed struct {
-	Name       string `json:"name"`
-	Area       string `json:"area"`
-	ValidFrom  string `json:"valid_from"`
-	ValidTo    string `json:"valid_to,omitempty"`
-	File       string `json:"file,omitempty"`
+	// Name is the dataset's name, and Area its country, or region for
+	// regional tolls.
+	Name string `json:"name"`
+	Area string `json:"area"`
+	// ValidFrom and ValidTo are the days the dataset is in force (no
+	// ValidTo: until replaced).
+	ValidFrom string `json:"valid_from"`
+	ValidTo   string `json:"valid_to,omitempty"`
+	// File is the dataset, <cc>/<name>.orct.json, served by
+	// GET /v1/rates/{cc}/{file}.
+	File string `json:"file,omitempty"`
+	// OSMExtract is the day of the OpenStreetMap extract its stations'
+	// and sections' positions come from.
 	OSMExtract string `json:"osm_extract,omitempty"`
 }
 
 // Calculator prices trips.
 type Calculator struct {
+	// Sootcase routes the trips and gives their emissions; Tariffs are the
+	// rate tables.
 	Sootcase sootcase.Client
 	Tariffs  *tariffs.Set
 	Ferries  *ferries.Data  // nil: ferry crossings use Sootcase's default

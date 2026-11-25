@@ -22,7 +22,7 @@ const nullRank = 1000000
 // MinorUnits are the decimal places of currencies other than 2.
 var MinorUnits = map[string]int{"JPY": 0, "KRW": 0, "ISK": 0, "CLP": 0, "BHD": 3, "KWD": 3, "OMR": 3, "TND": 3, "JOD": 3}
 
-// Usage is a vehicle's use of charge objects (clause 9).
+// Usage is a vehicle's use of charge objects (9.1). Each field is the member its JSON tag names.
 type Usage struct {
 	ORCTUsage   string                    `json:"orct_usage"`
 	Vehicle     map[string]any            `json:"vehicle,omitempty"`
@@ -33,7 +33,7 @@ type Usage struct {
 	Quantities  []Quantity                `json:"quantities,omitempty"`
 }
 
-// Event is one use of an object.
+// Event is one use of an object (9.1, events). Each field is the member its JSON tag names.
 type Event struct {
 	Dataset  string         `json:"dataset"`
 	Object   string         `json:"object"`
@@ -94,7 +94,9 @@ func FloatStr(f float64) Dec {
 	return MustDec(strconv.FormatFloat(f, 'g', -1, 64))
 }
 
-// Quantity is a measured quantity (tonnes CO2, litres).
+// Quantity is a measured quantity (tonnes CO2, litres; 9.1,
+// quantities). Each field is the member its JSON tag names;
+// Ref is the caller's, not in the usage.
 type Quantity struct {
 	Dataset string `json:"dataset"`
 	Object  string `json:"object"`
@@ -146,7 +148,7 @@ func (q Quantity) MarshalJSON() ([]byte, error) {
 	return json.Marshal(alias{q.Dataset, q.Object, q.Time, q.Unit, q.Value.String()})
 }
 
-// Statement is the charge statement (9.2).
+// Statement is the charge statement (9.2). Each field is the member its JSON tag names.
 type Statement struct {
 	ORCTStatement string  `json:"orct_statement"`
 	Complete      bool    `json:"complete"`
@@ -155,13 +157,13 @@ type Statement struct {
 	Issues        []Issue `json:"issues"`
 }
 
-// Total is the total in one currency.
+// Total is the total in one currency (9.2, totals). Each field is the member its JSON tag names.
 type Total struct {
 	Currency string `json:"currency"`
 	Amount   string `json:"amount"`
 }
 
-// Issue is something left unpriced or uncertain.
+// Issue is something left unpriced or uncertain (9.2, issues). Each field is the member its JSON tag names.
 type Issue struct {
 	Code    string `json:"code"`
 	Message string `json:"message"`
@@ -169,7 +171,9 @@ type Issue struct {
 	Charge  string `json:"charge,omitempty"`
 }
 
-// Line is one priced use, or a rule's or rounding's adjustment.
+// Line is one priced use, or a rule's or rounding's adjustment (9.2,
+// lines). Each field is the member its JSON tag names, but Event,
+// Use and Product, which aren't in the statement.
 type Line struct {
 	Dataset        string          `json:"dataset"`
 	DatasetVersion string          `json:"dataset_version,omitempty"`
@@ -190,7 +194,9 @@ type Line struct {
 
 	// Event is the use's event (for a period product, its start); Ref the
 	// caller's reference from it.
-	Event    *Event `json:"-"`
+	Event *Event `json:"-"`
+	// Use is what the line's row was selected for, and Product the period
+	// product it buys, if any.
 	Use      *Use   `json:"-"`
 	Product  string `json:"-"`
 	discount *Dec
@@ -198,6 +204,8 @@ type Line struct {
 
 // Use is what a row is selected for (6.10.3).
 type Use struct {
+	// Object is the object used; Entry and Exit a closed system's entry
+	// and exit objects; Time when; Product the period product asked for.
 	Object, Entry, Exit string
 	Time                time.Time
 	Product             string

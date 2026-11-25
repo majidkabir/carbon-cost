@@ -53,14 +53,16 @@ func costKey(s Shipment, by string) float64 {
 // FuelPurchase is fuel bought for the trip in a country, for the
 // national CO2 prices on fuel, which are paid where it is bought.
 type FuelPurchase struct {
-	Country string  `json:"country"` // ISO 3166-1 alpha-2
-	Litres  float64 `json:"litres"`
+	Country string `json:"country"` // ISO 3166-1 alpha-2
+	// Litres is the diesel bought there.
+	Litres float64 `json:"litres"`
 }
 
 // Trip is the truck's trip: its legs between stops, what was on board,
 // and the diesel it burned, on which the CO2 prices on fuel and ETS2 are
 // charged.
 type Trip struct {
+	// Legs are the trip between each two consecutive stops.
 	Legs []TripLeg `json:"legs"`
 	// RoadKm is the km on the road (not on ferries).
 	RoadKm float64 `json:"road_km"`
@@ -91,27 +93,39 @@ type Trip struct {
 
 // TripLeg is the trip between two consecutive stops.
 type TripLeg struct {
-	From   int     `json:"from"`
-	To     int     `json:"to"`
+	// From and To are its stops, by index in the trip's stops (0: from).
+	From int `json:"from"`
+	To   int `json:"to"`
+	// Km is its distance, RoadKm the part on the road (not on ferries).
 	Km     float64 `json:"km"`
 	RoadKm float64 `json:"road_km"`
+	// LoadKg is the cargo on board, and FuelL its litres of diesel.
 	LoadKg float64 `json:"load_kg"`
 	FuelL  float64 `json:"fuel_l"`
 }
 
 // ShipmentCost is a shipment's share of the trip.
 type ShipmentCost struct {
-	ID       string  `json:"id"`
+	// ID is the shipment's (Shipment.ID), or its number from 1.
+	ID string `json:"id"`
+	// WeightKg is its gross mass (Shipment.WeightKg).
 	WeightKg float64 `json:"weight_kg"`
-	From     int     `json:"from"`
-	To       int     `json:"to"`
+	// From and To are its loading and unloading stops, by index in the
+	// trip's stops (0: from).
+	From int `json:"from"`
+	To   int `json:"to"`
 	// DistanceKm is its transport activity distance: the road route from
 	// its loading stop to its unloading stop (EN ISO 14083's shortest
 	// feasible distance), not the truck's way between them.
 	DistanceKm float64 `json:"distance_km"`
-	TKm        float64 `json:"tkm"`
-	// Share is its tonne-km over all the shipments'.
-	Share     float64 `json:"share"`
+	// TKm is its tonne-km: WeightKg / 1000 x DistanceKm.
+	TKm float64 `json:"tkm"`
+	// Share is its share of the trip's costs: its tonne-km over all the
+	// shipments', or its loading metres or pallet places times its
+	// DistanceKm over theirs (Request.CostShareBy).
+	Share float64 `json:"share"`
+	// TotalEUR and CarbonEUR are its share of the charges and of their
+	// carbon part (by Request.CostShareBy).
 	TotalEUR  float64 `json:"total_eur"`
 	CarbonEUR float64 `json:"carbon_eur"`
 	// ByCharge is its share of each kind of charge, in EUR.
@@ -125,8 +139,8 @@ type ShipmentCost struct {
 	// surcharges are quoted.
 	EURPer100Kg       float64 `json:"eur_per_100kg"`
 	CarbonEURPer100Kg float64 `json:"carbon_eur_per_100kg"`
-	// FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the
-	// trip's fuel, with_fuel_eur and trip_cost_eur.
+	// FuelEUR, WithFuelEUR and TripCostEUR are its Share of the trip's
+	// fuel, with_fuel_eur and trip_cost_eur.
 	FuelEUR     float64 `json:"fuel_eur,omitempty"`
 	WithFuelEUR float64 `json:"with_fuel_eur,omitempty"`
 	TripCostEUR float64 `json:"trip_cost_eur,omitempty"`

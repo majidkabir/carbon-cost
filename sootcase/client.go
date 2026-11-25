@@ -21,7 +21,10 @@ const DefaultURL = "https://sootcase.org"
 
 // Location is a place: a UN/LOCODE or IATA code, or coordinates.
 type Location struct {
-	Name string  `json:"name,omitempty"`
+	// Name is a label for the place.
+	Name string `json:"name,omitempty"`
+	// Code is a UN/LOCODE or IATA code, or Lat and Lon its coordinates
+	// (WGS 84, degrees).
 	Code string  `json:"code,omitempty"`
 	Lat  float64 `json:"lat,omitempty"`
 	Lon  float64 `json:"lon,omitempty"`
@@ -30,6 +33,8 @@ type Location struct {
 // Shipment is the part of Sootcase's shipment input this tool uses: one
 // road leg.
 type Shipment struct {
+	// ID labels the shipment, WeightKg is the cargo the emissions are
+	// calculated for, and Legs are its road legs.
 	ID       string  `json:"id"`
 	WeightKg float64 `json:"weight_kg"`
 	Legs     []Leg   `json:"legs"`
@@ -39,11 +44,14 @@ type Shipment struct {
 
 // Leg is a Sootcase leg.
 type Leg struct {
-	ID          string   `json:"id"`
-	Mode        string   `json:"mode"`
-	VehicleType string   `json:"vehicle_type"`
-	From        Location `json:"from"`
-	To          Location `json:"to"`
+	// ID labels the leg, Mode is "road", and VehicleType is Sootcase's
+	// vehicle type (e.g. cost.DefaultVehicleType).
+	ID          string `json:"id"`
+	Mode        string `json:"mode"`
+	VehicleType string `json:"vehicle_type"`
+	// From and To are where the leg starts and ends.
+	From Location `json:"from"`
+	To   Location `json:"to"`
 	// Vehicle keeps the route to roads the truck may drive (Sootcase
 	// v0.15.0): every field optional.
 	Vehicle *Vehicle `json:"vehicle,omitempty"`
@@ -51,6 +59,10 @@ type Leg struct {
 
 // Vehicle is the truck's size, weight and dangerous goods, for routing.
 type Vehicle struct {
+	// HeightM, WidthM, LengthM, AxleLoadKg and Axles are the truck's
+	// size; GrossWeightKg its actual weight (tare and load) or its
+	// permissible maximum mass; Hazmat and TunnelCode its dangerous goods
+	// and their ADR tunnel restriction code.
 	HeightM       float64 `json:"height_m,omitempty"`
 	WidthM        float64 `json:"width_m,omitempty"`
 	LengthM       float64 `json:"length_m,omitempty"`
@@ -63,6 +75,8 @@ type Vehicle struct {
 
 // Part is a part of a leg calculated separately, e.g. a ferry crossing.
 type Part struct {
+	// Kind is what the part is ("ferry"), DistanceKm its km, and TTWKg
+	// and WTWKg its emissions, kg CO2e tank-to-wheel and well-to-wheel.
 	Kind       string  `json:"kind"`
 	DistanceKm float64 `json:"distance_km"`
 	TTWKg      float64 `json:"ttw_kg"`
@@ -71,9 +85,13 @@ type Part struct {
 
 // LegResult is the part of Sootcase's leg result this tool uses.
 type LegResult struct {
-	DistanceKm float64            `json:"distance_km"`
-	TTWKg      float64            `json:"ttw_kg"`
-	WTWKg      float64            `json:"wtw_kg"`
+	// DistanceKm is the leg's km, and TTWKg and WTWKg its emissions, kg
+	// CO2e tank-to-wheel and well-to-wheel.
+	DistanceKm float64 `json:"distance_km"`
+	TTWKg      float64 `json:"ttw_kg"`
+	WTWKg      float64 `json:"wtw_kg"`
+	// RouteParts is its km by kind ("road", "ferry"), and CountryKm its km
+	// by country (ISO 3166-1 alpha-2).
 	RouteParts map[string]float64 `json:"route_parts_km"`
 	CountryKm  map[string]float64 `json:"country_km"`
 	// RegionKm splits some countries' km by region (ISO 3166-2, e.g.
@@ -89,7 +107,8 @@ type LegResult struct {
 	CountrySections []CountrySection `json:"country_sections,omitempty"`
 	// Restrictions is what Sootcase applied of the leg's vehicle.
 	Restrictions map[string]any `json:"restrictions,omitempty"`
-	Parts        []Part         `json:"parts"`
+	// Parts are the parts of the leg calculated separately: its ferries.
+	Parts []Part `json:"parts"`
 	// ID names an alternative route (alt1, alt2, ...; Sootcase v0.14.0).
 	ID string `json:"id,omitempty"`
 	// Summary is what tells the route apart: its main roads and ferries.
@@ -104,12 +123,16 @@ type LegResult struct {
 
 // RouteSummary is a route's main roads (OSM refs) and its ferries.
 type RouteSummary struct {
+	// Roads are the main roads' refs ("A7", "E45"), and Ferries the
+	// ferries it takes.
 	Roads   []string   `json:"roads,omitempty"`
 	Ferries []FerryUse `json:"ferries"`
 }
 
 // FerryUse is a ferry a route takes.
 type FerryUse struct {
+	// Name is the ferry route's name, From and To its ports, and
+	// DistanceKm its km, as Sootcase gives them.
 	Name       string  `json:"name,omitempty"`
 	From       string  `json:"from,omitempty"`
 	To         string  `json:"to,omitempty"`
@@ -127,6 +150,8 @@ type Options struct {
 
 // Result is the part of Sootcase's result this tool uses.
 type Result struct {
+	// Legs are the legs' results in order, and TTWKg and WTWKg the
+	// shipment's emissions, kg CO2e tank-to-wheel and well-to-wheel.
 	Legs  []LegResult `json:"legs"`
 	TTWKg float64     `json:"ttw_kg"`
 	WTWKg float64     `json:"wtw_kg"`
@@ -143,6 +168,9 @@ type Result struct {
 
 // Basis is the standard, framework and Sootcase version a result rests on.
 type Basis struct {
+	// Standard is the accounting standard (e.g. "EN ISO 14083:2023"),
+	// Framework the framework of the method and factors (e.g. "GLEC
+	// Framework v3.3"), and Sootcase Sootcase's version.
 	Standard  string `json:"standard"`
 	Framework string `json:"framework,omitempty"`
 	Sootcase  string `json:"sootcase,omitempty"`
@@ -152,7 +180,8 @@ type Basis struct {
 type Client struct {
 	BaseURL string // default DefaultURL
 	APIKey  string // optional; sent as a bearer token
-	HTTP    *http.Client
+	// HTTP sends the requests; default: one with a 60-second timeout.
+	HTTP *http.Client
 }
 
 // Calculate calculates a shipment with each leg's distance by country
@@ -193,16 +222,23 @@ func (c Client) CalculateWith(ctx context.Context, s Shipment, o Options) (Resul
 
 // Place is one match from Sootcase's place search (GET /v1/places).
 type Place struct {
-	ID          string   `json:"id"`
-	Code        string   `json:"code,omitempty"`
-	Kinds       []string `json:"kinds,omitempty"`
-	Name        string   `json:"name"`
-	AltName     string   `json:"alt_name,omitempty"`
-	Region      string   `json:"region,omitempty"`
-	Country     string   `json:"country,omitempty"`
-	CountryName string   `json:"country_name,omitempty"`
-	Lat         float64  `json:"lat"`
-	Lon         float64  `json:"lon"`
+	// ID is Sootcase's id for the place (e.g. "locode:DEHAM").
+	ID string `json:"id"`
+	// Code is its UN/LOCODE or IATA code, to give as a Location's Code.
+	Code string `json:"code,omitempty"`
+	// Kinds is what it is (e.g. "port").
+	Kinds []string `json:"kinds,omitempty"`
+	// Name is its name, and AltName another it goes by.
+	Name    string `json:"name"`
+	AltName string `json:"alt_name,omitempty"`
+	// Region, Country and CountryName are where it is: its region, its
+	// country's ISO 3166-1 alpha-2 code, and the country's name.
+	Region      string `json:"region,omitempty"`
+	Country     string `json:"country,omitempty"`
+	CountryName string `json:"country_name,omitempty"`
+	// Lat and Lon are its coordinates (WGS 84, degrees).
+	Lat float64 `json:"lat"`
+	Lon float64 `json:"lon"`
 }
 
 // Places finds cities, ports, terminals and airports by name or code,
@@ -273,10 +309,13 @@ func (c Client) do(ctx context.Context, method, u string, body []byte) ([]byte, 
 
 // HTTPError is a Sootcase answer other than 200.
 type HTTPError struct {
+	// Status is the HTTP status, and Message Sootcase's error message (or
+	// the start of the body).
 	Status  int
 	Message string
 }
 
+// Error gives the status and Sootcase's message.
 func (e *HTTPError) Error() string { return fmt.Sprintf("sootcase: HTTP %d: %s", e.Status, e.Message) }
 
 // CallerError says whether Sootcase refused the request itself (bad
@@ -288,6 +327,9 @@ func (e *HTTPError) CallerError() bool {
 // CountrySection is a stretch of a leg in one country, or a ferry
 // crossing (Ferry, with no country or the flag state).
 type CountrySection struct {
+	// Country is the ISO 3166-1 alpha-2 code, FromKm and ToKm where the
+	// stretch starts and ends, km from the leg's start, and Ferry whether
+	// it is a ferry crossing.
 	Country string  `json:"country"`
 	FromKm  float64 `json:"from_km"`
 	ToKm    float64 `json:"to_km"`
@@ -299,6 +341,8 @@ type CountrySection struct {
 
 // RegionSection is a stretch of a country section in one region.
 type RegionSection struct {
+	// Region is the ISO 3166-2 code, and FromKm and ToKm where the
+	// stretch starts and ends, km from the leg's start.
 	Region string  `json:"region"`
 	FromKm float64 `json:"from_km"`
 	ToKm   float64 `json:"to_km"`
@@ -307,6 +351,8 @@ type RegionSection struct {
 // Factors is what Sootcase's /v1/factors gives of its emission factors
 // (v0.17.0 or later): here, the fuels' per unit and their aliases.
 type Factors struct {
+	// Fuels are the fuels' factors, and FuelAliases their short names
+	// ("diesel") to fuel ids.
 	Fuels       []FuelFactor      `json:"fuels"`
 	FuelAliases map[string]string `json:"fuel_aliases"`
 	// Grids are the electricity grids' intensities by country (ISO 3166-1
@@ -317,6 +363,8 @@ type Factors struct {
 
 // Grid is a country's electricity grid intensity, g CO2e per kWh.
 type Grid struct {
+	// Country is the ISO 3166-1 alpha-3 code, Year the intensity's year,
+	// GPerKWh the intensity and Source where it comes from.
 	Country string  `json:"country"`
 	Year    int     `json:"year"`
 	GPerKWh float64 `json:"g_per_kwh"`
@@ -335,6 +383,9 @@ func (f Factors) Grid(alpha3 string) (Grid, bool) {
 
 // FuelFactor is a fuel's tank-to-wheel and well-to-tank kg CO2e per unit.
 type FuelFactor struct {
+	// Fuel is the fuel's id and Unit what the factors are per ("l");
+	// TTWKgPerUnit and WTTKgPerUnit are kg CO2e tank-to-wheel and
+	// well-to-tank; Source and Year where the factor comes from.
 	Fuel         string  `json:"fuel"`
 	Unit         string  `json:"unit"`
 	TTWKgPerUnit float64 `json:"ttw_kg_per_unit"`

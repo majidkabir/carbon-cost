@@ -6,6 +6,7 @@
     "description": "BanHit is a driving ban the trip runs into.",
     "properties": {
      "ban": {
+      "description": "Ban names the rule: the days and hours it holds and for which trucks.",
       "type": "string"
      },
      "certain": {
@@ -13,9 +14,11 @@
       "type": "boolean"
      },
      "country": {
+      "description": "Country is where the ban holds (ISO 3166-1 alpha-2).",
       "type": "string"
      },
      "exemptions": {
+      "description": "Exemptions are the law's exemptions, in short (perishable goods, combined transport, ...): the truck may have one.",
       "type": "string"
      },
      "from": {
@@ -27,9 +30,11 @@
       "type": "string"
      },
      "law": {
+      "description": "Law is the law that sets the ban; sources links it.",
       "type": "string"
      },
      "listed": {
+      "description": "Note says where or for whom else the ban holds; Listed, that it holds only on the roads it names (Roads, their refs).",
       "type": "boolean"
      },
      "note": {
@@ -37,18 +42,21 @@
       "type": "string"
      },
      "regions": {
+      "description": "Holiday names the public holiday it is for, and Regions where it is kept only in some regions.",
       "items": {
        "type": "string"
       },
       "type": "array"
      },
      "roads": {
+      "description": "Note says where or for whom else the ban holds; Listed, that it holds only on the roads it names (Roads, their refs).",
       "items": {
        "type": "string"
       },
       "type": "array"
      },
      "to": {
+      "description": "From and To are the ban's window, local time (RFC 3339).",
       "type": "string"
      },
      "wait_h": {
@@ -107,6 +115,7 @@
     "description": "BatchResponse holds the trips' results in the order asked.",
     "properties": {
      "results": {
+      "description": "Results are the trips' results, in the order of the request's.",
       "items": {
        "$ref": "#/components/schemas/BatchItem"
       },
@@ -123,9 +132,11 @@
     "description": "Comparison is the trip priced for a truck in another CO2 class.",
     "properties": {
      "carbon_eur": {
+      "description": "TollEUR is its road tolls, TotalEUR all its charges and CarbonEUR their carbon part.",
       "type": "number"
      },
      "co2_class": {
+      "description": "CO2Class is the truck's CO2 emission class (1 to 5).",
       "type": "integer"
      },
      "energy_eur": {
@@ -133,6 +144,7 @@
       "type": "number"
      },
      "road_toll_eur": {
+      "description": "TollEUR is its road tolls, TotalEUR all its charges and CarbonEUR their carbon part.",
       "type": "number"
      },
      "saving_eur": {
@@ -140,18 +152,23 @@
       "type": "number"
      },
      "saving_per_year_eur": {
+      "description": "SavingPerYearEUR is SavingEUR times trips_per_year.",
       "type": "number"
      },
      "saving_with_fuel_eur": {
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
       "type": "number"
      },
      "saving_with_fuel_per_year_eur": {
+      "description": "SavingWithFuelPerYearEUR is SavingWithFuelEUR times trips_per_year.",
       "type": "number"
      },
      "total_eur": {
+      "description": "TollEUR is its road tolls, TotalEUR all its charges and CarbonEUR their carbon part.",
       "type": "number"
      },
      "with_fuel_eur": {
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
       "type": "number"
      }
     },
@@ -170,15 +187,19 @@
     "description": "ElectricityCost is an electric truck's energy for the trip at the price given, without VAT.",
     "properties": {
      "basis": {
+      "description": "KWh is the electricity the trip takes, and Basis how it was worked out (electricity_kwh, or kwh_per_100km times the road km).",
       "type": "string"
      },
      "eur": {
+      "description": "EUR is the electricity's cost, without VAT.",
       "type": "number"
      },
      "eur_per_kwh": {
+      "description": "EURPerKWh is its price without VAT.",
       "type": "number"
      },
      "kwh": {
+      "description": "KWh is the electricity the trip takes, and Basis how it was worked out (electricity_kwh, or kwh_per_100km times the road km).",
       "type": "number"
      },
      "price": {
@@ -198,6 +219,7 @@
    "Error": {
     "properties": {
      "error": {
+      "description": "What was wrong, naming the field.",
       "type": "string"
      }
     },
@@ -211,15 +233,19 @@
     "description": "FuelBought is the litres bought in one country and their price.",
     "properties": {
      "country": {
+      "description": "Country is where the litres are bought, and Litres how many.",
       "type": "string"
      },
      "eur": {
+      "description": "EURPerL is their price per litre without VAT (after any refund), and EUR the litres' cost; none where there is no price.",
       "type": "number"
      },
      "eur_per_l": {
+      "description": "EURPerL is their price per litre without VAT (after any refund), and EUR the litres' cost; none where there is no price.",
       "type": "number"
      },
      "litres": {
+      "description": "Country is where the litres are bought, and Litres how many.",
       "type": "number"
      },
      "price": {
@@ -227,6 +253,7 @@
       "type": "string"
      },
      "refund": {
+      "description": "RefundEURPerL is the refund of the excise per litre (diesel_refunds), and Refund the law it rests on.",
       "type": "string"
      },
      "refund_eur_per_l": {
@@ -264,6 +291,7 @@
       "type": "number"
      },
      "litres": {
+      "description": "Litres is the trip's diesel (Trip.FuelL).",
       "type": "number"
      },
      "refund_eur": {
@@ -271,6 +299,7 @@
       "type": "number"
      },
      "unpriced": {
+      "description": "Complete is false when some litres have no price (bought outside the EU without a price given); Unpriced lists those countries.",
       "items": {
        "type": "string"
       },
@@ -295,6 +324,7 @@
       "type": "string"
      },
      "litres": {
+      "description": "Litres is the diesel bought there.",
       "type": "number"
      }
     },
@@ -309,24 +339,31 @@
     "description": "InCurrency is the trip's amounts in another currency (Request.Currency), at the rate the charges in that currency are converted at: fx given, the ERM II central rate for DKK, else the ECB's reference rate of the trip's date (a national central bank's for RSD and ALL).",
     "properties": {
      "carbon": {
+      "description": "Total, Carbon, WithFuel and TripCost are total_eur, carbon_eur, with_fuel_eur and trip_cost_eur in the currency.",
       "type": "number"
      },
      "currency": {
+      "description": "Currency is the request's currency, PerEUR its units per euro, and Rate where that rate comes from (the ECB's of the day, a central bank's, or given in fx).",
       "type": "string"
      },
      "per_eur": {
+      "description": "Currency is the request's currency, PerEUR its units per euro, and Rate where that rate comes from (the ECB's of the day, a central bank's, or given in fx).",
       "type": "number"
      },
      "rate": {
+      "description": "Currency is the request's currency, PerEUR its units per euro, and Rate where that rate comes from (the ECB's of the day, a central bank's, or given in fx).",
       "type": "string"
      },
      "total": {
+      "description": "Total, Carbon, WithFuel and TripCost are total_eur, carbon_eur, with_fuel_eur and trip_cost_eur in the currency.",
       "type": "number"
      },
      "trip_cost": {
+      "description": "Total, Carbon, WithFuel and TripCost are total_eur, carbon_eur, with_fuel_eur and trip_cost_eur in the currency.",
       "type": "number"
      },
      "with_fuel": {
+      "description": "Total, Carbon, WithFuel and TripCost are total_eur, carbon_eur, with_fuel_eur and trip_cost_eur in the currency.",
       "type": "number"
      }
     },
@@ -344,9 +381,11 @@
     "description": "Line is one charge.",
     "properties": {
      "amount": {
+      "description": "Amount is the charge in Currency, the rate table's, and AmountEUR in euros: at the request's fx, DKK at the ERM II central rate, else at the day's ECB reference rate (the central bank's for RSD and ALL).",
       "type": "number"
      },
      "amount_eur": {
+      "description": "Amount is the charge in Currency, the rate table's, and AmountEUR in euros: at the request's fx, DKK at the ERM II central rate, else at the day's ECB reference rate (the central bank's for RSD and ALL).",
       "type": "number"
      },
      "area": {
@@ -358,15 +397,19 @@
       "type": "boolean"
      },
      "charge": {
+      "description": "Charge is its kind: road_toll, ferry_ets, ferry_uk_ets, ets2, fuel_co2, area_charge or ferry_fare.",
       "type": "string"
      },
      "component": {
+      "description": "Component is the toll's part by law: infrastructure, co2, air, noise, air_noise, env_zone_surcharge, or toll where the law sets one rate with no split.",
       "type": "string"
      },
      "country": {
+      "description": "Country is where it is paid (none for a ferry's ETS).",
       "type": "string"
      },
      "currency": {
+      "description": "Amount is the charge in Currency, the rate table's, and AmountEUR in euros: at the request's fx, DKK at the ERM II central rate, else at the day's ECB reference rate (the central bank's for RSD and ALL).",
       "type": "string"
      },
      "days": {
@@ -374,6 +417,7 @@
       "type": "integer"
      },
      "km": {
+      "description": "Km is the km it is charged on, and TonnesCO2 the emissions a charge on CO2 is charged on.",
       "type": "number"
      },
      "litres": {
@@ -381,6 +425,7 @@
       "type": "number"
      },
      "rate": {
+      "description": "Rate is the rate applied, in RateUnit.",
       "type": "number"
      },
      "rate_unit": {
@@ -400,6 +445,7 @@
       "type": "string"
      },
      "source": {
+      "description": "Source is the law and table the rate comes from, and how the amount was worked out.",
       "type": "string"
      },
      "sources": {
@@ -410,6 +456,7 @@
       "type": "array"
      },
      "t_co2e": {
+      "description": "Km is the km it is charged on, and TonnesCO2 the emissions a charge on CO2 is charged on.",
       "type": "number"
      },
      "tonnes": {
@@ -507,6 +554,7 @@
       "description": "SootcaseBasis is the standard, framework and version Sootcase says its emissions follow, and SootcaseCertification its statement on Regulation (EU) 2026/1030."
      },
      "sootcase_certification": {
+      "description": "SootcaseBasis is the standard, framework and version Sootcase says its emissions follow, and SootcaseCertification its statement on Regulation (EU) 2026/1030.",
       "type": "string"
      },
      "tables": {
@@ -524,9 +572,11 @@
     "description": "Source is a document the rates come from.",
     "properties": {
      "title": {
+      "description": "Title names the document (a law, a table, a dataset), and URL is where it is published.",
       "type": "string"
      },
      "url": {
+      "description": "Title names the document (a law, a table, a dataset), and URL is where it is published.",
       "type": "string"
      }
     },
@@ -541,9 +591,11 @@
     "description": "Truck is what a toll rate depends on.",
     "properties": {
      "adr_tunnel_code": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
       "type": "string"
      },
      "axle_load_kg": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
       "type": "integer"
      },
      "axles": {
@@ -563,6 +615,7 @@
       "type": "integer"
      },
      "hazmat": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
       "type": "boolean"
      },
      "height_m": {
@@ -590,9 +643,11 @@
       "type": "integer"
      },
      "trailer_mass_kg": {
+      "description": "MotorMassKg and TrailerMassKg are the motor vehicle's and the trailer's own technically permissible maximum mass, optional: Iceland's km fee charges each vehicle of a combination on its own. They need MotorAxles.",
       "type": "integer"
      },
      "width_m": {
+      "description": "HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or E, the load's tunnel restriction code under ADR 1.9.5; it implies Hazmat) are optional: with any of them, the route keeps to roads the truck may drive (Sootcase's vehicle), its length and weight too.",
       "type": "number"
      }
     },
@@ -654,6 +709,7 @@
       "additionalProperties": {
        "type": "number"
       },
+      "description": "DieselEURPerL is what the truck pays for diesel, EUR per litre without VAT, wherever it fills up; DieselEURPerLByCountry by country (ISO 3166-1 alpha-2), over it. Without them, the EU's Weekly Oil Bulletin's national averages of the trip's week. The fuel cost is a line of its own: total_eur stays the charges, and with_fuel_eur adds the fuel.",
       "type": "object"
      },
      "diesel_l": {
@@ -677,6 +733,7 @@
       "type": "boolean"
      },
      "electricity_eur_per_kwh": {
+      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT (blank: Eurostat's average for businesses where it charges). KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
       "type": "number"
      },
      "electricity_kwh": {
@@ -741,6 +798,7 @@
       "type": "object"
      },
      "kwh_per_100km": {
+      "description": "An electric truck's (CO2 class 5) energy: ElectricityKWh used on the trip (from rFMS totalElectricEnergyUsed or charging records), or KWhPer100Km over the road km; ElectricityEURPerKWh is what it pays per kWh without VAT (blank: Eurostat's average for businesses where it charges). KWhPer100Km also prices the electricity of a class 5 truck in the comparison.",
       "type": "number"
      },
      "l_per_100km": {
@@ -793,7 +851,12 @@
       "type": "string"
      },
      "to": {
-      "$ref": "#/components/schemas/SootcaseLocation"
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/SootcaseLocation"
+       }
+      ],
+      "description": "From and To are where the trip starts and ends, for a trip with no stops between; give Stops instead for one with."
      },
      "tolled_share": {
       "additionalProperties": {
@@ -807,16 +870,23 @@
       "type": "number"
      },
      "truck": {
-      "$ref": "#/components/schemas/RatesTruck"
+      "allOf": [
+       {
+        "$ref": "#/components/schemas/RatesTruck"
+       }
+      ],
+      "description": "Truck is the truck the tolls are priced for."
      },
      "uka_gbp_per_t": {
       "description": "UKAGbpPerT is the UK ETS allowance price (GBP per t CO2e), for crossings between UK ports from 1 July 2026. 0: not priced.",
       "type": "number"
      },
      "vehicle_eur_per_km": {
+      "description": "DriverEURPerH and VehicleEURPerKm are the truck's own running costs: the driver per hour of driving (Trip.Hours; put paid breaks and allowances in the rate) and the vehicle per road km (tyres, maintenance, depreciation). With either, trip_cost_eur adds them to with_fuel_eur, and route \"cheapest\" compares by it.",
       "type": "number"
      },
      "vehicle_type": {
+      "description": "VehicleType is Sootcase's vehicle type for the emissions; default DefaultVehicleType, or ElectricVehicleType for CO2 class 5.",
       "type": "string"
      }
     },
@@ -841,6 +911,7 @@
       "type": "number"
      },
      "carbon_eur_per_tkm": {
+      "description": "EURPerTkm and CarbonEURPerTkm are the trip's amounts per tonne-km of its shipments: each shipment's rate, as they are shared by tonne-km.",
       "type": "number"
      },
      "certification": {
@@ -862,6 +933,7 @@
       "additionalProperties": {
        "type": "number"
       },
+      "description": "CountryKm is the km by country (ISO 3166-1 alpha-2), and RegionKm by region (ISO 3166-2) where tolls are set by region.",
       "type": "object"
      },
      "data_type": {
@@ -869,9 +941,11 @@
       "type": "string"
      },
      "date": {
+      "description": "Date is the day priced (YYYY-MM-DD): the request's, or today.",
       "type": "string"
      },
      "distance_km": {
+      "description": "DistanceKm is the trip's km, FerryKm the part on ferries.",
       "type": "number"
      },
      "driver_eur": {
@@ -903,6 +977,7 @@
       "type": "string"
      },
      "ferry_km": {
+      "description": "DistanceKm is the trip's km, FerryKm the part on ferries.",
       "type": "number"
      },
      "fuel": {
@@ -926,6 +1001,7 @@
       "type": "number"
      },
      "lines": {
+      "description": "Lines are the charges, one per charge, country and part.",
       "items": {
        "$ref": "#/components/schemas/Line"
       },
@@ -946,6 +1022,7 @@
       "type": "array"
      },
      "notes": {
+      "description": "Notes say what the result rests on and what it leaves out.",
       "items": {
        "type": "string"
       },
@@ -963,6 +1040,7 @@
       "additionalProperties": {
        "type": "number"
       },
+      "description": "CountryKm is the km by country (ISO 3166-1 alpha-2), and RegionKm by region (ISO 3166-2) where tolls are set by region.",
       "type": "object"
      },
      "route": {
@@ -987,12 +1065,14 @@
       "type": "array"
      },
      "sources": {
+      "description": "Sources are the laws and data the result uses, each once.",
       "items": {
        "$ref": "#/components/schemas/RatesSource"
       },
       "type": "array"
      },
      "total_eur": {
+      "description": "TotalEUR is the charges' sum, in euros.",
       "type": "number"
      },
      "trip": {
@@ -1004,6 +1084,7 @@
       "description": "Trip is the truck's trip: legs, loads and diesel."
      },
      "trip_cost_eur": {
+      "description": "DriverEUR and VehicleEUR are the running costs at the rates given; TripCostEUR is with_fuel_eur (total_eur without a diesel price) and them.",
       "type": "number"
      },
      "ttw_kg": {
@@ -1011,6 +1092,7 @@
       "type": "number"
      },
      "vehicle_eur": {
+      "description": "DriverEUR and VehicleEUR are the running costs at the rates given; TripCostEUR is with_fuel_eur (total_eur without a diesel price) and them.",
       "type": "number"
      },
      "with_fuel_eur": {
@@ -1018,6 +1100,7 @@
       "type": "number"
      },
      "wtw_kg": {
+      "description": "TTWKg and WTWKg are the trip's greenhouse gas emissions, kg CO2e, tank-to-wheel and well-to-wheel: from the truck's own diesel when it is given (primary data, which Regulation (EU) 2026/1030 puts first), else Sootcase's (GLEC default intensities x the tonne-km, modelled).",
       "type": "number"
      }
     },
@@ -1048,6 +1131,7 @@
     "description": "RouteOption is one route of the trip, priced: Sootcase's primary or one of its alternatives.",
     "properties": {
      "carbon_eur": {
+      "description": "TotalEUR and CarbonEUR are its charges and their carbon part (Response.TotalEUR, Response.CarbonEUR).",
       "type": "number"
      },
      "chosen": {
@@ -1055,12 +1139,14 @@
       "type": "boolean"
      },
      "complete": {
+      "description": "Complete is false when its total leaves out charges it meets (Response.Complete).",
       "type": "boolean"
      },
      "country_km": {
       "additionalProperties": {
        "type": "number"
       },
+      "description": "DistanceKm, FerryKm and CountryKm are the route's km, its km on ferries, and its km by country.",
       "type": "object"
      },
      "diff_eur": {
@@ -1068,6 +1154,7 @@
       "type": "number"
      },
      "distance_km": {
+      "description": "DistanceKm, FerryKm and CountryKm are the route's km, its km on ferries, and its km by country.",
       "type": "number"
      },
      "error": {
@@ -1075,12 +1162,14 @@
       "type": "string"
      },
      "ferries": {
+      "description": "Roads and Ferries tell it apart: its main roads (OSM refs) and the ferries it takes, as Sootcase names them.",
       "items": {
        "type": "string"
       },
       "type": "array"
      },
      "ferry_km": {
+      "description": "DistanceKm, FerryKm and CountryKm are the route's km, its km on ferries, and its km by country.",
       "type": "number"
      },
      "hours": {
@@ -1099,9 +1188,11 @@
       "type": "array"
      },
      "total_eur": {
+      "description": "TotalEUR and CarbonEUR are its charges and their carbon part (Response.TotalEUR, Response.CarbonEUR).",
       "type": "number"
      },
      "trip_cost_eur": {
+      "description": "WithFuelEUR is the charges and the diesel (Response.WithFuelEUR); TripCostEUR adds the running costs given.",
       "type": "number"
      },
      "with_fuel_eur": {
@@ -1125,12 +1216,15 @@
     "description": "Run is a stretch of the route in one country (Kind \"road\"), on a recognised ferry crossing (Kind \"ferry\") or at sea (Kind \"sea\", more than borders.NearestKm from any coast), for a map. Consecutive runs share their end point.",
     "properties": {
      "country": {
+      "description": "Kind is \"road\", \"ferry\" or \"sea\"; Country is the road run's.",
       "type": "string"
      },
      "kind": {
+      "description": "Kind is \"road\", \"ferry\" or \"sea\"; Country is the road run's.",
       "type": "string"
      },
      "km": {
+      "description": "Km is the run's length.",
       "type": "number"
      },
      "points": {
@@ -1170,6 +1264,7 @@
       "type": "number"
      },
      "pallets": {
+      "description": "LoadingM and Pallets are the loading metres and pallet places it takes, for sharing the costs by them (cost_share_by).",
       "type": "number"
      },
      "to": {
@@ -1205,9 +1300,11 @@
       "type": "object"
      },
      "carbon_eur": {
+      "description": "TotalEUR and CarbonEUR are its share of the charges and of their carbon part (by Request.CostShareBy).",
       "type": "number"
      },
      "carbon_eur_per_100kg": {
+      "description": "EURPer100Kg and CarbonEURPer100Kg are its amounts per 100 kg, as surcharges are quoted.",
       "type": "number"
      },
      "distance_km": {
@@ -1219,13 +1316,15 @@
       "type": "number"
      },
      "from": {
+      "description": "From and To are its loading and unloading stops, by index in the trip's stops (0: from).",
       "type": "integer"
      },
      "fuel_eur": {
-      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its tonne-km share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
+      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its Share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
       "type": "number"
      },
      "id": {
+      "description": "ID is the shipment's (Shipment.ID), or its number from 1.",
       "type": "string"
      },
      "intensity_g_co2e_per_tkm": {
@@ -1233,16 +1332,19 @@
       "type": "number"
      },
      "share": {
-      "description": "Share is its tonne-km over all the shipments'.",
+      "description": "Share is its share of the trip's costs: its tonne-km over all the shipments', or its loading metres or pallet places times its DistanceKm over theirs (Request.CostShareBy).",
       "type": "number"
      },
      "tkm": {
+      "description": "TKm is its tonne-km: WeightKg / 1000 x DistanceKm.",
       "type": "number"
      },
      "to": {
+      "description": "From and To are its loading and unloading stops, by index in the trip's stops (0: from).",
       "type": "integer"
      },
      "total_eur": {
+      "description": "TotalEUR and CarbonEUR are its share of the charges and of their carbon part (by Request.CostShareBy).",
       "type": "number"
      },
      "total_in_currency": {
@@ -1250,6 +1352,7 @@
       "type": "number"
      },
      "trip_cost_eur": {
+      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its Share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
       "type": "number"
      },
      "ttw_kg": {
@@ -1257,12 +1360,15 @@
       "type": "number"
      },
      "weight_kg": {
+      "description": "WeightKg is its gross mass (Shipment.WeightKg).",
       "type": "number"
      },
      "with_fuel_eur": {
+      "description": "FuelEUR, WithFuelEUR and TripCostEUR are its Share of the trip's fuel, with_fuel_eur and trip_cost_eur.",
       "type": "number"
      },
      "wtw_kg": {
+      "description": "TTWKg and WTWKg are its emissions, kg CO2e: its tonne-km share of the truck's diesel plus its share by weight of the ferries it is on, when the diesel is given; else Sootcase's (GLEC default intensity x its tonne-km).",
       "type": "number"
      }
     },
@@ -1291,12 +1397,15 @@
     "description": "Basis is the standard, framework and Sootcase version a result rests on.",
     "properties": {
      "framework": {
+      "description": "Standard is the accounting standard (e.g. \"EN ISO 14083:2023\"), Framework the framework of the method and factors (e.g. \"GLEC Framework v3.3\"), and Sootcase Sootcase's version.",
       "type": "string"
      },
      "sootcase": {
+      "description": "Standard is the accounting standard (e.g. \"EN ISO 14083:2023\"), Framework the framework of the method and factors (e.g. \"GLEC Framework v3.3\"), and Sootcase Sootcase's version.",
       "type": "string"
      },
      "standard": {
+      "description": "Standard is the accounting standard (e.g. \"EN ISO 14083:2023\"), Framework the framework of the method and factors (e.g. \"GLEC Framework v3.3\"), and Sootcase Sootcase's version.",
       "type": "string"
      }
     },
@@ -1310,15 +1419,19 @@
     "description": "Location is a place: a UN/LOCODE or IATA code, or coordinates.",
     "properties": {
      "code": {
+      "description": "Code is a UN/LOCODE or IATA code, or Lat and Lon its coordinates (WGS 84, degrees).",
       "type": "string"
      },
      "lat": {
+      "description": "Code is a UN/LOCODE or IATA code, or Lat and Lon its coordinates (WGS 84, degrees).",
       "type": "number"
      },
      "lon": {
+      "description": "Code is a UN/LOCODE or IATA code, or Lat and Lon its coordinates (WGS 84, degrees).",
       "type": "number"
      },
      "name": {
+      "description": "Name is a label for the place.",
       "type": "string"
      }
     },
@@ -1329,36 +1442,46 @@
     "description": "Place is one match from Sootcase's place search (GET /v1/places).",
     "properties": {
      "alt_name": {
+      "description": "Name is its name, and AltName another it goes by.",
       "type": "string"
      },
      "code": {
+      "description": "Code is its UN/LOCODE or IATA code, to give as a Location's Code.",
       "type": "string"
      },
      "country": {
+      "description": "Region, Country and CountryName are where it is: its region, its country's ISO 3166-1 alpha-2 code, and the country's name.",
       "type": "string"
      },
      "country_name": {
+      "description": "Region, Country and CountryName are where it is: its region, its country's ISO 3166-1 alpha-2 code, and the country's name.",
       "type": "string"
      },
      "id": {
+      "description": "ID is Sootcase's id for the place (e.g. \"locode:DEHAM\").",
       "type": "string"
      },
      "kinds": {
+      "description": "Kinds is what it is (e.g. \"port\").",
       "items": {
        "type": "string"
       },
       "type": "array"
      },
      "lat": {
+      "description": "Lat and Lon are its coordinates (WGS 84, degrees).",
       "type": "number"
      },
      "lon": {
+      "description": "Lat and Lon are its coordinates (WGS 84, degrees).",
       "type": "number"
      },
      "name": {
+      "description": "Name is its name, and AltName another it goes by.",
       "type": "string"
      },
      "region": {
+      "description": "Region, Country and CountryName are where it is: its region, its country's ISO 3166-1 alpha-2 code, and the country's name.",
       "type": "string"
      }
     },
@@ -1375,21 +1498,27 @@
     "description": "TableUsed is a rate table a result used.",
     "properties": {
      "area": {
+      "description": "Name is the dataset's name, and Area its country, or region for regional tolls.",
       "type": "string"
      },
      "file": {
+      "description": "File is the dataset, <cc>/<name>.orct.json, served by GET /v1/rates/{cc}/{file}.",
       "type": "string"
      },
      "name": {
+      "description": "Name is the dataset's name, and Area its country, or region for regional tolls.",
       "type": "string"
      },
      "osm_extract": {
+      "description": "OSMExtract is the day of the OpenStreetMap extract its stations' and sections' positions come from.",
       "type": "string"
      },
      "valid_from": {
+      "description": "ValidFrom and ValidTo are the days the dataset is in force (no ValidTo: until replaced).",
       "type": "string"
      },
      "valid_to": {
+      "description": "ValidFrom and ValidTo are the days the dataset is in force (no ValidTo: until replaced).",
       "type": "string"
      }
     },
@@ -1405,9 +1534,11 @@
     "description": "Source is a source document.",
     "properties": {
      "title": {
+      "description": "Title names the document (a law, a table, a dataset), and URL is where it is published.",
       "type": "string"
      },
      "url": {
+      "description": "Title names the document (a law, a table, a dataset), and URL is where it is published.",
       "type": "string"
      }
     },
@@ -1422,39 +1553,50 @@
     "description": "Summary is what a dataset is, for a list of them.",
     "properties": {
      "country": {
+      "description": "Country (ISO 3166-1 alpha-2) and Region (ISO 3166-2, for regional tolls) are where it charges.",
       "type": "string"
      },
      "file": {
+      "description": "File is the dataset, <cc>/<name>.orct.json: GET /v1/rates/{cc}/{file}.",
       "type": "string"
      },
      "id": {
+      "description": "ID is the dataset's ORCT id, Scheme its toll scheme's id (each version of a scheme is a dataset) and Name the scheme's name.",
       "type": "string"
      },
      "kind": {
+      "description": "Kind is toll, crossings, zone or fuel_co2.",
       "type": "string"
      },
      "method": {
+      "description": "Method is the law and how the dataset was made from it.",
       "type": "string"
      },
      "name": {
+      "description": "ID is the dataset's ORCT id, Scheme its toll scheme's id (each version of a scheme is a dataset) and Name the scheme's name.",
       "type": "string"
      },
      "region": {
+      "description": "Country (ISO 3166-1 alpha-2) and Region (ISO 3166-2, for regional tolls) are where it charges.",
       "type": "string"
      },
      "scheme": {
+      "description": "ID is the dataset's ORCT id, Scheme its toll scheme's id (each version of a scheme is a dataset) and Name the scheme's name.",
       "type": "string"
      },
      "sources": {
+      "description": "Sources are the documents it comes from.",
       "items": {
        "$ref": "#/components/schemas/TariffsSource"
       },
       "type": "array"
      },
      "valid_from": {
+      "description": "ValidFrom and ValidTo are the days it is in force (no ValidTo: until replaced).",
       "type": "string"
      },
      "valid_to": {
+      "description": "ValidFrom and ValidTo are the days it is in force (no ValidTo: until replaced).",
       "type": "string"
      }
     },
@@ -1478,6 +1620,7 @@
       "type": "number"
      },
      "elapsed_h": {
+      "description": "Hours is the trip's driving time: Sootcase's at truck speeds (ferries included) where it gives it, else the road km at avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest, adds a single driver's breaks and daily rests (Regulation (EC) No 561/2006, Arts. 6-8).",
       "type": "number"
      },
      "empty_km": {
@@ -1497,9 +1640,11 @@
       "type": "number"
      },
      "hours_basis": {
+      "description": "Hours is the trip's driving time: Sootcase's at truck speeds (ferries included) where it gives it, else the road km at avg_speed_kmh; HoursBasis says which. ElapsedH, with driver_rest, adds a single driver's breaks and daily rests (Regulation (EC) No 561/2006, Arts. 6-8).",
       "type": "string"
      },
      "legs": {
+      "description": "Legs are the trip between each two consecutive stops.",
       "items": {
        "$ref": "#/components/schemas/TripLeg"
       },
@@ -1530,21 +1675,27 @@
     "description": "TripLeg is the trip between two consecutive stops.",
     "properties": {
      "from": {
+      "description": "From and To are its stops, by index in the trip's stops (0: from).",
       "type": "integer"
      },
      "fuel_l": {
+      "description": "LoadKg is the cargo on board, and FuelL its litres of diesel.",
       "type": "number"
      },
      "km": {
+      "description": "Km is its distance, RoadKm the part on the road (not on ferries).",
       "type": "number"
      },
      "load_kg": {
+      "description": "LoadKg is the cargo on board, and FuelL its litres of diesel.",
       "type": "number"
      },
      "road_km": {
+      "description": "Km is its distance, RoadKm the part on the road (not on ferries).",
       "type": "number"
      },
      "to": {
+      "description": "From and To are its stops, by index in the trip's stops (0: from).",
       "type": "integer"
      }
     },

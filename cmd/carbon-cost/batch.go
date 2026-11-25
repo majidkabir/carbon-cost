@@ -41,6 +41,7 @@ type BatchItem struct {
 
 // BatchResponse holds the trips' results in the order asked.
 type BatchResponse struct {
+	// Results are the trips' results, in the order of the request's.
 	Results []BatchItem `json:"results"`
 }
 

@@ -24,13 +24,17 @@ var nationalCSV []byte
 // National is one country's average pump price of road diesel on a date:
 // the week's Monday (GB) or the month's first day (NO, CH).
 type National struct {
+	// Date is the week's Monday or the month's first day (YYYY-MM-DD),
+	// Country the ISO 3166-1 alpha-2 code, and Currency the price's
+	// (ISO 4217).
 	Date     string
 	Country  string
 	Currency string
 	// PerL is the price per litre with VAT, in Currency; VATPct the VAT
 	// rate in it.
 	PerL, VATPct float64
-	Source       string
+	// Source names the statistics the price comes from.
+	Source string
 }
 
 // PerLExVAT is the price per litre without VAT, in Currency.

@@ -16,8 +16,10 @@ import (
 
 // BanHit is a driving ban the trip runs into.
 type BanHit struct {
+	// Country is where the ban holds (ISO 3166-1 alpha-2).
 	Country string `json:"country"`
-	Ban     string `json:"ban"`
+	// Ban names the rule: the days and hours it holds and for which trucks.
+	Ban string `json:"ban"`
 	// From and To are the ban's window, local time (RFC 3339).
 	From string `json:"from"`
 	To   string `json:"to"`
@@ -34,11 +36,14 @@ type BanHit struct {
 	WaitH float64 `json:"wait_h,omitempty"`
 	// Note says where or for whom else the ban holds; Listed, that it
 	// holds only on the roads it names (Roads, their refs).
-	Note       string   `json:"note,omitempty"`
-	Listed     bool     `json:"listed,omitempty"`
-	Roads      []string `json:"roads,omitempty"`
-	Exemptions string   `json:"exemptions,omitempty"`
-	Law        string   `json:"law"`
+	Note   string   `json:"note,omitempty"`
+	Listed bool     `json:"listed,omitempty"`
+	Roads  []string `json:"roads,omitempty"`
+	// Exemptions are the law's exemptions, in short (perishable goods,
+	// combined transport, ...): the truck may have one.
+	Exemptions string `json:"exemptions,omitempty"`
+	// Law is the law that sets the ban; sources links it.
+	Law string `json:"law"`
 }
 
 // segment is a stretch of the route in one country, km along it.

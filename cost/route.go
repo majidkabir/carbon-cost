@@ -13,10 +13,12 @@ import (
 // than borders.NearestKm from any coast), for a map. Consecutive runs
 // share their end point.
 type Run struct {
-	Kind    string       `json:"kind"`
-	Country string       `json:"country,omitempty"`
-	Km      float64      `json:"km"`
-	Points  [][2]float64 `json:"points"` // [lon, lat]
+	// Kind is "road", "ferry" or "sea"; Country is the road run's.
+	Kind    string `json:"kind"`
+	Country string `json:"country,omitempty"`
+	// Km is the run's length.
+	Km     float64      `json:"km"`
+	Points [][2]float64 `json:"points"` // [lon, lat]
 }
 
 // Route splits a [lon, lat] route into runs by country with the same

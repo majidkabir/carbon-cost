@@ -15,7 +15,8 @@ import (
 // cost, not a charge.
 type FuelCost struct {
 	// EUR is the litres priced, at their prices, without VAT.
-	EUR    float64 `json:"eur"`
+	EUR float64 `json:"eur"`
+	// Litres is the trip's diesel (Trip.FuelL).
 	Litres float64 `json:"litres"`
 	// ByCountry is where the litres are bought (fuel_purchases,
 	// fuel_country, or along the route by road km) and their price.
@@ -36,8 +37,11 @@ type FuelCost struct {
 
 // FuelBought is the litres bought in one country and their price.
 type FuelBought struct {
+	// Country is where the litres are bought, and Litres how many.
 	Country string  `json:"country"`
 	Litres  float64 `json:"litres"`
+	// EURPerL is their price per litre without VAT (after any refund),
+	// and EUR the litres' cost; none where there is no price.
 	EURPerL float64 `json:"eur_per_l,omitempty"`
 	EUR     float64 `json:"eur,omitempty"`
 	// Price says where the price comes from: "given", or "Weekly Oil
@@ -161,13 +165,17 @@ func fuelCost(out *Response, req Request, date time.Time) {
 // ElectricityCost is an electric truck's energy for the trip at the price
 // given, without VAT.
 type ElectricityCost struct {
-	KWh       float64 `json:"kwh"`
-	Basis     string  `json:"basis"`
+	// KWh is the electricity the trip takes, and Basis how it was worked
+	// out (electricity_kwh, or kwh_per_100km times the road km).
+	KWh   float64 `json:"kwh"`
+	Basis string  `json:"basis"`
+	// EURPerKWh is its price without VAT.
 	EURPerKWh float64 `json:"eur_per_kwh"`
 	// Price says where the price comes from: "given", or Eurostat's
 	// average for businesses where the trip runs.
-	Price string  `json:"price"`
-	EUR   float64 `json:"eur"`
+	Price string `json:"price"`
+	// EUR is the electricity's cost, without VAT.
+	EUR float64 `json:"eur"`
 }
 
 // electricityCost prices a zero-emission truck's electricity: the kWh

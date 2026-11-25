@@ -172,7 +172,7 @@ func TestLuxembourgTransit(t *testing.T) {
 	sat := time.Date(2026, 11, 14, 0, 0, 0, 0, time.UTC)
 	trip := func(next string) sootcase.Result {
 		return sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 120, TTWKg: 190, WTWKg: 240,
-			CountryKm: map[string]float64{"BE": 50, "LU": 40, next: 30},
+			CountryKm:       map[string]float64{"BE": 50, "LU": 40, next: 30},
 			CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 50}, {Country: "LU", FromKm: 50, ToKm: 90}, {Country: next, FromKm: 90, ToKm: 120}}}}}
 	}
 	req := Request{CargoKg: 20000, Truck: truck40, Time: "21:00", origin: "BE"}

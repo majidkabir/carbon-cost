@@ -13,9 +13,14 @@ import (
 // the ERM II central rate for DKK, else the ECB's reference rate of the
 // trip's date (a national central bank's for RSD and ALL).
 type InCurrency struct {
+	// Currency is the request's currency, PerEUR its units per euro, and
+	// Rate where that rate comes from (the ECB's of the day, a central
+	// bank's, or given in fx).
 	Currency string  `json:"currency"`
 	PerEUR   float64 `json:"per_eur"`
 	Rate     string  `json:"rate"`
+	// Total, Carbon, WithFuel and TripCost are total_eur, carbon_eur,
+	// with_fuel_eur and trip_cost_eur in the currency.
 	Total    float64 `json:"total"`
 	Carbon   float64 `json:"carbon"`
 	WithFuel float64 `json:"with_fuel,omitempty"`

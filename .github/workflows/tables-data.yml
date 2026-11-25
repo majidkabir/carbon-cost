@@ -218,6 +218,8 @@ jobs:
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_bans.py .. ../../bans/data | tee -a compare.txt
+          # The tariffs that run out within 45 days with nothing after them.
+          python3 ../../tools/tables/expiring.py ../../tariffs/data/index.json 45 | tee -a compare.txt
       - name: Push
         # Also when a builder failed, but not when the run was cancelled or
         # timed out before the datasets were converted: a partial out/

@@ -1,6 +1,8 @@
 package fuel
 
 import (
+	"math"
+	"strings"
 	"testing"
 	"time"
 )
@@ -86,5 +88,17 @@ func TestSloveniaRefund(t *testing.T) {
 	}
 	if b, _, ok := PowerOn(day("2026-03-01")); !ok || b.Date != "2026-01-01" || b.EURPerL["DE"] == 0 {
 		t.Errorf("power: %v %+v", ok, b.Date)
+	}
+}
+
+// Portugal's gasóleo profissional: the duties other than VAT above EUR
+// 0.33 a litre, for trucks of 35 t or more.
+func TestRefundPortugal(t *testing.T) {
+	day := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC)
+	r, ok := RefundOn("PT", day)
+	b, _, _ := DutiesOn(day)
+	if !ok || r.MinMassKg != 35000 || r.EURPerL != math.Round((b.EURPerL["PT"]-0.33)*10000)/10000 || r.EURPerL <= 0 ||
+		!strings.Contains(r.Note, "duties other than VAT") {
+		t.Errorf("%+v (duties %v)", r, b.EURPerL["PT"])
 	}
 }

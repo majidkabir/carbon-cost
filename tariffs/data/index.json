@@ -1464,7 +1464,7 @@
    "name": "French motorway tolls",
    "valid_from": "2024-01-01",
    "valid_to": "2024-01-31",
-   "sha256": "98df8308aac7ac0a3378ab074cd651a120edbd2725001957ceb243a081d22ac8",
+   "sha256": "35ffaa6a65bb26727d1d6a12b70111048d1fa48248adffac936fa5aae882dd9f",
    "coverage": "partial"
   },
   {
@@ -1475,7 +1475,7 @@
    "name": "French motorway tolls",
    "valid_from": "2024-02-01",
    "valid_to": "2025-01-31",
-   "sha256": "8702270537747ecd71a6fd21d8cd1e9934629341c5389f62a7dea5c63672f47a",
+   "sha256": "aa759ded2ad1ae761ba08aa457df312eae484e7434148017567adc071cd4555e",
    "coverage": "partial"
   },
   {
@@ -1519,7 +1519,7 @@
    "name": "French motorway tolls",
    "valid_from": "2026-06-01",
    "valid_to": "2027-01-31",
-   "sha256": "59af54f5e0b5bc32d407d89b20bba5a7219d91697c5dcb58622ecd5356a53867",
+   "sha256": "5d4f0be8725431f52be87b85980aeabd7a0c2eacd21b59d315b308e726535ce0",
    "coverage": "partial"
   },
   {
@@ -3312,7 +3312,7 @@
    "name": "Stockholm congestion tax (trängselskatt)",
    "valid_from": "2020-01-01",
    "valid_to": null,
-   "sha256": "d2b8bc7b906df4e98e8471a4ba11946411e29ea4a41c19cb5d1d8a03f2d26297",
+   "sha256": "13fc4988c3522633f6cb09843ac0b298dbf9d1afa57e8836b47a1ca3ac25a475",
    "coverage": "complete"
   },
   {

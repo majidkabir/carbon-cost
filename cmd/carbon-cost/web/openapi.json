@@ -497,7 +497,7 @@
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km) or \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it) or \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which).",
       "type": "string"
      }
     },

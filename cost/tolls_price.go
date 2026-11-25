@@ -173,7 +173,7 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		p.note("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
 			cc, km, cc, tolledRoads(ds))
 	}
-	p.unpriced(ds, cc, st)
+	p.unpriced(ds, cc, st, RoadToll)
 	return nil
 }
 
@@ -191,7 +191,7 @@ func classesTest(ds *tariffs.Dataset, param string) bool {
 	return false
 }
 
-func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
+func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement, charge string) {
 	for _, i := range st.Issues {
 		switch i.Code {
 		case "partial_coverage", "outside_validity":
@@ -209,9 +209,12 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
+		// The total leaves out a charge the trip pays.
+		reason := "unpriced"
 		if i.Code == "missing_parameter" {
-			p.missing(Missing{Area: ds.Area(), Charge: RoadToll, Name: ds.Name, Reason: "needs_truck_field"})
+			reason = "needs_truck_field"
 		}
+		p.missing(Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: reason})
 	}
 }
 
@@ -1166,6 +1169,11 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 		pm.listed = len(pm.passes) > 0
 		p.afterPoints(ds, ds.Country, st, pm)
 		p.afterSystems(ds, ds.Country, st, sm)
+		charge := RoadToll
+		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+			charge = FerryFare
+		}
+		p.unpriced(ds, ds.Country, st, charge)
 		p.addSources(ds)
 		p.useTable(ds)
 	}
@@ -1224,6 +1232,7 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 		case !timed && len(ch.Columns) > 0 && len(timeClasses(ch)) > 0 && ch.Unmatched == "free":
 			p.note("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", ds.Country, ds.Name)
 		}
+		p.unpriced(ds, ds.Country, st, AreaCharge)
 	}
 	return nil
 }

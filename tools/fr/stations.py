@@ -67,13 +67,19 @@ def by_number(op, ns, placed, numbers, partners, junctions, km):
     (the same one in every row that gives one) at the OpenStreetMap
     motorway junction with that ref nearest the stations they're cheapest
     to reach: those can't be further away than the price pays for (as in
-    build.py). Taken only if no other junction with that ref comes close."""
+    build.py). Junctions named as the station, if any, are the only
+    candidates. Taken only if no other junction with that ref comes close."""
     for _ in range(3):
         for n in sorted(ns):
             nos = numbers[(op, n)] - {""}
             if n in placed or len(nos) != 1 or "" in numbers[(op, n)]:
                 continue
-            cands = junctions.get(next(iter(nos)).upper(), [])
+            every = cands = junctions.get(next(iter(nos)).upper(), [])
+            # Junctions named as the station come first: the extract
+            # reaches past the border, where an unnamed junction may have
+            # the same number (Irun's 4 on the AP-8, Biarritz's on the A63).
+            named = [c for c in cands if c["name"] and any(k == c["name"] or k.startswith(c["name"] + " ") for k in variants(n))]
+            cands = named or cands
             near = []
             for p, m in sorted(partners[(op, n)]):
                 if m in placed and m != n and len(near) < 3:
@@ -89,7 +95,8 @@ def by_number(op, ns, placed, numbers, partners, junctions, km):
             rivals = [s for s, i in fits[1:] if km(cands[i], best) > 5]
             if rivals and rivals[0] < fits[0][0] * 1.2:
                 continue
-            placed[n] = sorted({(c["lat"], c["lon"], c["gare"], c["type"]) for c in cands if km(c, best) <= 2})
+            # With the junction's other carriageway, if it's unnamed.
+            placed[n] = sorted({(c["lat"], c["lon"], c["gare"], c["type"]) for c in every if km(c, best) <= 2})
 
 
 def main(pairs_path, gares_path, aliases_path, osm_path, out):
@@ -115,7 +122,8 @@ def main(pairs_path, gares_path, aliases_path, osm_path, out):
         if name:
             osm[OSM_PREFIX.sub("", normalize(name))].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": "OSM: " + name, "type": kind})
         if ref and kind == "motorway_junction":
-            junctions[ref.strip().upper()].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": f"OSM: junction {ref}", "type": kind})
+            junctions[ref.strip().upper()].append({"lat": round(lat, 5), "lon": round(lon, 5), "gare": f"OSM: junction {ref}", "type": kind,
+                                                   "name": normalize(name or "")})
     names, numbers, partners = defaultdict(set), defaultdict(set), defaultdict(list)
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
         for n, no, other in ((r["entry"], r.get("entry_no", ""), r["exit"]), (r["exit"], r.get("exit_no", ""), r["entry"])):

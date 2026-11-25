@@ -471,8 +471,10 @@ type Missing struct {
 	// (its rates ended on Ended and the next ones aren't here yet; also
 	// when the trip reaches the charge after that day), "no_route" (its
 	// tolls are at stations or on sections, and the trip was given as
-	// country_km) or "needs_truck_field" (it goes by a truck field the
-	// request doesn't give; the notes name it).
+	// country_km), "needs_truck_field" (it goes by a truck field the
+	// request doesn't give; the notes name it) or "unpriced" (the table
+	// has no price for this use, such as an entry and exit it doesn't
+	// pair; the notes say which).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here.
 	Ended string `json:"ended,omitempty"`
@@ -487,8 +489,14 @@ func (m Missing) Message() string {
 	if m.Reason == "needs_truck_field" {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by a truck field not given (see the notes)", m.Area, what, m.Name)
 	}
+	if m.Reason == "unpriced" {
+		return fmt.Sprintf("%s %s (%s): not fully priced, the table has no price for part of the trip (see the notes)", m.Area, what, m.Name)
+	}
 	if m.Reason == "ended" {
 		return fmt.Sprintf("%s %s (%s): the rates here ended on %s and the next ones aren't in this release yet", m.Area, what, m.Name, m.Ended)
+	}
+	if m.Name != "" {
+		return fmt.Sprintf("%s %s (%s): no table in this tool", m.Area, what, m.Name)
 	}
 	return fmt.Sprintf("%s %s: no table in this tool", m.Area, what)
 }
@@ -1118,6 +1126,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			return Response{}, err
 		}
 	}
+	if hasFerry {
+		out.Missing = append(out.Missing, faresUnknown(res, fd, set, req)...)
+	}
 
 	// ETS2 on road fuel from 2028.
 	if !date.Before(ETS2Start) {
@@ -1345,6 +1356,41 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 			}
 		}
 		out = append(out, ps...)
+	}
+	return out
+}
+
+// faresUnknown are the crossings the trip takes whose fares this tool has
+// no table for, in force or ended: no fare table has stations at both
+// of their terminals.
+func faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req Request) []Missing {
+	near := func(t ferries.Point, ds *tariffs.Dataset) bool {
+		for _, o := range ds.Objects() {
+			for _, q := range pointsOf(o) {
+				if haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= 3 {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	var out []Missing
+	for _, p := range ferryParts(res, fd, req) {
+		c := p.crossing
+		if c == nil {
+			continue
+		}
+		known := false
+		for _, ds := range set.All {
+			if ferry := false; ds.Kind == tariffs.Crossings && ds.Ext("ferry", &ferry) && ferry && near(c.Terminals[0], ds) && near(c.Terminals[1], ds) {
+				known = true
+				break
+			}
+		}
+		m := Missing{Area: c.Terminals[0].Country, Charge: FerryFare, Name: c.Name, Reason: "no_table"}
+		if !known && !slices.Contains(out, m) {
+			out = append(out, m)
+		}
 	}
 	return out
 }

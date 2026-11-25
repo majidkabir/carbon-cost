@@ -7,12 +7,15 @@ ferry fares and carbon charges on the route Sootcase returns.
 carbon-cost prices the alternatives since v0.106.0 (`alternatives`, `route`, `avoid_ferries`).
 Section 2 is how carbon-cost called Sootcase before.
 
-**Gap found 2026-11-24 (v0.17.0):** without `alternatives`, the primary leg has no `summary`
-(check S1 in `tools/livecheck/sections.py`: Kolding–Hamburg gives `roads None`). R2 asks for the
-primary's `summary` always. carbon-cost now needs it on every call: Spain's driving restrictions
-hold only on the road sections the DGT lists, and carbon-cost keeps only those on the route's
-main roads (`summary.roads`). Without it, every Spanish restriction of the day is reported as
-one the trip may run into. Acceptance: S1 passes with no `alternatives` in the query.
+**Gap found 2026-11-24 (v0.17.0), closed in v0.18.0 (2026-11-25):** without `alternatives`, the
+primary leg had no `summary` (check S1 in `tools/livecheck/sections.py`: Kolding–Hamburg gave
+`roads None`). carbon-cost needs it on every call: the driving restrictions of Spain, Greece,
+Romania and Croatia hold only on the roads they list, and carbon-cost keeps only those on the
+route's main roads (`summary.roads`); without it, each is reported as one the trip may run into.
+Sootcase v0.18.0 gives every routed road leg `summary` and `duration_h`, with or without
+`alternatives`. Checked on v0.18.0 by the Sootcase country sections workflow on 2026-11-25: S1
+passes (Kolding–Hamburg, no `alternatives`: `roads ['E 45', 'A 7']`), and S2, `duration_h` 2.577,
+which carbon-cost now takes for `trip.hours` on such trips too.
 
 ## 1. Why
 

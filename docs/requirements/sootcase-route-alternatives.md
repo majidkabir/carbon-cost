@@ -3,7 +3,9 @@
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost), which prices a truck trip's tolls,
 ferry fares and carbon charges on the route Sootcase returns.
-**Status:** requested 2026-11-22. carbon-cost changes nothing until Sootcase ships this.
+**Status:** requested 2026-11-22; shipped in Sootcase v0.14.0 (`alternatives=N`, `avoid=ferries`).
+carbon-cost prices the alternatives since v0.106.0 (`alternatives`, `route`, `avoid_ferries`).
+Section 2 is how carbon-cost called Sootcase before.
 
 **Gap found 2026-11-24 (v0.17.0):** without `alternatives`, the primary leg has no `summary`
 (check S1 in `tools/livecheck/sections.py`: Kolding–Hamburg gives `roads None`). R2 asks for the

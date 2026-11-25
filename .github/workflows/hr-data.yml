@@ -2,7 +2,7 @@ name: Croatia data
 # Fetches HAC's toll price lists and Croatia's OpenStreetMap toll booths
 # and motorway junctions, builds the table (tools/hr/build.py), converts it
 # to ORCT, compares it with tariffs/data, and pushes it all to the hr-out
-# branch. Push to the hr-data branch to run it.
+# branch. Daily at 02:37 UTC, or push to the hr-data branch to run it.
 on:
   push:
     branches: [hr-data]

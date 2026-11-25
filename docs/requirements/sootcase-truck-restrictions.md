@@ -3,7 +3,11 @@
 **For:** the agent working on Sootcase (github.com/majidkabir/sootcase, sootcase.org).
 **From:** carbon-cost (github.com/majidkabir/carbon-cost), which prices a truck trip's tolls,
 ferry fares, diesel and carbon charges on the route Sootcase returns.
-**Status:** requested 2026-11-23. carbon-cost changes nothing until Sootcase ships this.
+**Status:** requested 2026-11-23; shipped in Sootcase v0.15.1. The black-box check (Sootcase truck
+restrictions workflow, `tools/livecheck/restrictions.py`, Hamburg map) passes on v0.15.1: 11
+passed, 0 failed, 4 skipped. carbon-cost sends the vehicle since v0.110.0 (`truck.height_m`,
+`width_m`, `axle_load_kg`, `hazmat`, `adr_tunnel_code`; `trip.routed_for`). Section 2 is how
+carbon-cost called Sootcase before.
 
 ## 1. Why
 

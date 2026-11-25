@@ -1,12 +1,13 @@
 name: Tables data
-# Fetches the official pages behind the Romanian, Danish bridge and
-# Hungarian rate tables, the Fréjus and Mont Blanc tunnels and the Baltic,
-# Swedish, Luxembourg and UK road user charges, and the
-# Norwegian, Irish, Swedish bridge, North Macedonian, Montenegrin and Greek toll stations and the Turkish bridges (tools/tables/sources.json), rebuilds the tables
-# from them, converts them to ORCT datasets (tools/orct/convert.py),
-# compares those with the committed ones (tariffs/data), and pushes the
-# pages, their manifest, the tables and the datasets to the tables-out
-# branch. Push to the tables-data branch to run it.
+# Fetches the official pages and OpenStreetMap data behind the current
+# rate tables, ferry data and driving-ban calendars
+# (tools/tables/sources.json), rebuilds the tables from them
+# (tools/tables/README.md), converts them to ORCT datasets
+# (tools/orct/convert.py), checks the transcribed texts and ban calendars
+# against their sources, compares the datasets with the committed ones
+# (tariffs/data), and pushes the pages, their manifest, the tables and the
+# datasets to the tables-out branch. Daily at 01:23 UTC, or push to the
+# tables-data branch to run it.
 on:
   push:
     branches: [tables-data]

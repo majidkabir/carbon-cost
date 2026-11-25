@@ -717,7 +717,7 @@
       "type": "number"
      },
      "diesel_refunds": {
-      "description": "DieselRefunds takes off the diesel the partial refund of the excise that some countries pay road hauliers on the litres bought there (France: trucks of 7.5 t or more). Give diesel prices before it.",
+      "description": "DieselRefunds takes off the diesel the partial refund of the excise that some countries pay road hauliers on the litres bought there (FR, IT, ES, HU, HR and SI from 7.5 t, PT from 35 t; fuel.Refunds). Give diesel prices before it.",
       "type": "boolean"
      },
      "dkk_per_eur": {
@@ -748,7 +748,7 @@
       "type": "object"
      },
      "etc": {
-      "description": "ETC: the truck pays tolls by an electronic toll device or account agreement, for the operators' discounts on it (Croatia's ENC, Storebælt Erhverv, ØresundBUSINESS).",
+      "description": "ETC: the truck pays tolls by an electronic toll device or account agreement, for the operators' discounts and tag or account prices where they publish them (Croatia's ENC, Storebælt's Grøn rabat, ØresundBUSINESS and others).",
       "type": "boolean"
      },
      "ets2_eur_per_t": {
@@ -764,7 +764,7 @@
       "type": "string"
      },
      "ferry_ets_basis": {
-      "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
+      "description": "FerryETSBasis is how a ferry's EU ETS is priced: by default the surcharge its line publishes per metre of the vehicle, where the crossing has one line that does (DFDS, Scandlines, Stena Line, POLSCA: what the truck is charged), else the cargo's share of the ships' emissions at eua_eur_per_t; \"emissions\" always prices the latter.",
       "type": "string"
      },
      "ferry_ets_share": {
@@ -862,7 +862,7 @@
       "additionalProperties": {
        "type": "number"
       },
-      "description": "TolledShare is the share of each country's km on tolled roads, default 1 (all of it). Sootcase doesn't yet tell road classes apart, so give it when part of a trip runs on untolled roads.",
+      "description": "TolledShare is the share of each country's km on tolled roads: default the road classes read from OpenStreetMap where the tool has them (roads/data), else 1 (all of it). Give it to override.",
       "type": "object"
      },
      "trips_per_year": {
@@ -907,7 +907,7 @@
       "type": "array"
      },
      "carbon_eur": {
-      "description": "the CO2 parts of tolls, ferry ETS and ETS2",
+      "description": "the CO2 parts of tolls, ferry ETS, national CO2 prices on fuel and ETS2",
       "type": "number"
      },
      "carbon_eur_per_tkm": {

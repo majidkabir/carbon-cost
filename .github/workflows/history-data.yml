@@ -5,11 +5,11 @@ name: History data
 # electricity prices for businesses (fuel/data/eurostat-power.csv), and
 # the official texts behind the historical rate tables
 # (tools/history/sources.json), builds fx/data/ecb-hist.csv,
-# fx/data/nbs-eur-rsd.csv, fx/data/boa-eur-all.csv and the historical
-# tables, converts those to ORCT
+# fx/data/nbs-eur-rsd.csv, fx/data/boa-eur-all.csv, fuel/data's
+# wob-diesel*.csv and eurostat-power.csv, and the historical tables, converts those to ORCT
 # datasets (tools/orct/convert.py), and pushes them with the fetched texts
-# and their manifest to the history-out branch. Push to the
-# history-data branch to run it.
+# and their manifest to the history-out branch. Daily at 03:41 UTC, or
+# push to the history-data branch to run it.
 on:
   push:
     branches: [history-data]

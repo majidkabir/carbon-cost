@@ -133,6 +133,9 @@ type Table struct {
 	// its closed systems are priced wherever the route passes them, on top
 	// of the countries' own tolls.
 	Crossings bool `json:"crossings,omitempty"`
+	// Ferry marks a crossings table whose systems are ferry crossings: their
+	// charges are fares (ferry_fare), not tolls.
+	Ferry bool `json:"ferry,omitempty"`
 	// Closed are toll systems priced from entry to exit station
 	// (Croatia's motorways).
 	Closed []TollSystem `json:"closed_systems,omitempty"`
@@ -156,7 +159,7 @@ type PointClass struct {
 	MinAxles int `json:"min_axles,omitempty"`
 	MaxAxles int `json:"max_axles,omitempty"`
 	// MinLengthM (more than) and MaxLengthM (up to) bound the truck's
-	// length with trailer (Truck.Length), where the price goes by length.
+	// length with trailer (Truck.LengthM), where the price goes by length.
 	MinLengthM float64 `json:"min_length_m,omitempty"`
 	MaxLengthM float64 `json:"max_length_m,omitempty"`
 	// Trailer, where set, limits the class to trucks with (true) or
@@ -262,6 +265,31 @@ type TollSystem struct {
 	// Directed: the prices are per direction, entry|exit; a pair with no
 	// price that way has none (no trip), instead of the other way's.
 	Directed bool `json:"directed,omitempty"`
+	// Season: date ranges ([from, to], YYYY-MM-DD) in which SeasonPrices
+	// replace Prices (Jadrolinija's season).
+	Season       [][]string                    `json:"season,omitempty"`
+	SeasonPrices map[string]map[string]float64 `json:"season_prices,omitempty"`
+	// TimePrices replace Prices on weekdays' hours (Estonia's ferries:
+	// Friday from 13:00 towards the islands).
+	TimePrices []TimePrice `json:"time_prices,omitempty"`
+	// Unit "t": the prices are per tonne of MassBasis (an ORCT vehicle
+	// parameter, default train_mass_kg; Jadrolinija's load_capacity_kg),
+	// per started MassStepKg where given (the Elbe ferry's load, per
+	// started 1,000 kg of load_kg).
+	Unit       string `json:"unit,omitempty"`
+	MassBasis  string `json:"mass_basis,omitempty"`
+	MassStepKg int    `json:"mass_step_kg,omitempty"`
+	// Unmatched "free": a truck no group matches pays nothing here
+	// (ORCT unmatched), instead of the system being unpriced for it.
+	Unmatched string `json:"unmatched,omitempty"`
+}
+
+// TimePrice is a toll system's prices on some weekdays' hours.
+type TimePrice struct {
+	Label    string                        `json:"label,omitempty"`
+	Weekdays []int                         `json:"weekdays"` // 1 Monday ... 7 Sunday
+	Times    [][]string                    `json:"times"`    // [from, to], HH:MM
+	Prices   map[string]map[string]float64 `json:"prices"`   // as TollSystem.Prices
 }
 
 // Discount is a percentage off a toll system's price for the trucks it
@@ -292,6 +320,10 @@ type Group struct {
 	// one (an operator that prices by EURO class in a system where the
 	// others don't).
 	Base string `json:"base,omitempty"`
+	// MinCapacityKg (more than this) and MaxCapacityKg (up to this): the
+	// truck's load capacity (Jadrolinija's groups; Request truck.capacity_kg).
+	MinCapacityKg int `json:"min_capacity_kg,omitempty"`
+	MaxCapacityKg int `json:"max_capacity_kg,omitempty"`
 }
 
 // Station is a toll station: where a route passes one of its points (the
@@ -390,16 +422,6 @@ type Truck struct {
 // DefaultLengthM is the length assumed when a truck's isn't given: a
 // tractor with semi-trailer (EU maximum 16.50 m, Directive 96/53/EC).
 const DefaultLengthM = 16.5
-
-// Rate is a component's rate for a truck. In a PerTonneKm table,
-// PerTonneKm is the published rate and Tonnes the chargeable weight.
-type Rate struct {
-	Component  string
-	PerKm      float64
-	PerTonneKm float64
-	Tonnes     float64
-	Area       string // Suburban or Interurban, for a share of the km
-}
 
 // Rush is when a toll point charges its PeakRate: within Hours, Monday to
 // Friday, except its FreeDays.

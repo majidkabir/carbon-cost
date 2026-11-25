@@ -1,6 +1,7 @@
-// Command carbon-cost prices the carbon and road charges of a truck trip:
-// km-based road tolls by country (with their CO2 part), the EU ETS on
-// ferry crossings and ETS2 on road fuel from 2028.
+// Command carbon-cost prices the carbon and road charges of a truck trip
+// (package cost): road tolls by country (with their CO2 part), bridge,
+// tunnel and ferry charges, the ETS on ferry crossings, national CO2
+// prices on fuel and ETS2 from 2028.
 //
 //	carbon-cost calc -from DKCPH -to DEHAM -mass-kg 40000 -axles 5 -euro 6 -co2-class 1 -cargo-kg 20000
 //	carbon-cost serve -addr :8090
@@ -164,10 +165,10 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.IntVar(&req.Truck.Euro, "euro", 6, "Euro emission standard 0-6 (EEV = 5)")
 	fs.IntVar(&req.Truck.CO2Class, "co2-class", 1, "EU CO2 emission class 1-5 (5 = zero-emission)")
 	fs.IntVar(&req.Truck.TareKg, "tare-kg", 0, "truck's own weight with trailer, kg (lets ferries use their MRV data)")
-	fs.IntVar(&req.Truck.MotorAxles, "motor-axles", 0, "the motor vehicle's own axles (e.g. 2 for a tractor; Lithuania, Iceland)")
+	fs.IntVar(&req.Truck.MotorAxles, "motor-axles", 0, "the motor vehicle's own axles (e.g. 2 for a tractor; Lithuania, Iceland, Poland's A2 and A4)")
 	fs.IntVar(&req.Truck.MotorMassKg, "motor-mass-kg", 0, "the motor vehicle's own permissible maximum mass, kg (Iceland's km fee)")
 	fs.IntVar(&req.Truck.TrailerMassKg, "trailer-mass-kg", 0, "the trailer's own permissible maximum mass, kg (Iceland's km fee)")
-	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge tolls (default 16.5)")
+	fs.Float64Var(&req.Truck.LengthM, "length-m", 0, "truck length with trailer, m, for bridge, tunnel and ferry prices by length (default 16.5)")
 	fs.Float64Var(&req.Truck.HeightM, "height-m", 0, "truck height with load, m: the route keeps to roads the truck may drive (with its width, length and weight)")
 	fs.Float64Var(&req.Truck.WidthM, "width-m", 0, "truck width, m, for the route")
 	fs.IntVar(&req.Truck.AxleLoadKg, "axle-load-kg", 0, "heaviest axle load, kg, for the route")
@@ -185,7 +186,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
 	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
-	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France, Italy, Spain, Hungary, Croatia; trucks of 7.5 t or more)")
+	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France, Italy, Spain, Hungary, Croatia and Slovenia from 7.5 t; Portugal from 35 t)")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
 	back := fs.Bool("return", false, "the truck returns empty to -from at the end")
@@ -196,14 +197,14 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2, and :ldm=2.4,pallets=6 for -cost-share-by")
 	fs.StringVar(&req.CostShareBy, "cost-share-by", "", "share the costs among the shipments by tkm (default), loading_m or pallets (per km of each one's route); emissions are always by tkm")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
-	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default 1)")
+	tolled := fs.String("tolled-share", "", "share of each country's km on tolled roads, e.g. DK=1,DE=0.9 (default: the road classes from OpenStreetMap where known, else 1)")
 	mway := fs.String("motorway-share", "", "share of tolled km on motorways where rates differ by road type, e.g. CZ=0.9,BE-BRU=0.2")
 	fxs := fs.String("fx", "", "exchange rates in units per euro, e.g. CHF=0.93,CZK=24.3 (default the ECB reference rates)")
 	zone := fs.String("env-zone-km", "", "km in environmental zones by country, e.g. DK=4")
 	cmp := fs.String("compare", "", "also price the trip for these CO2 classes, e.g. 1,4,5")
 	fs.Float64Var(&req.TripsPerYear, "trips-per-year", 0, "trips per year, for yearly savings in the comparison")
 	fs.BoolVar(&req.ETC, "etc", false, "pays tolls by electronic toll device or agreement (operators' discounts)")
-	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours and days of time-based charges")
+	fs.StringVar(&req.Time, "time", "", "departure time HH:MM, for congestion taxes, free hours, days of time-based charges and driving bans")
 	fs.Float64Var(&req.AvgSpeedKmh, "avg-speed", 0, "average speed km/h for passage times (default 70)")
 	fs.BoolVar(&req.DriverRest, "driver-rest", false, "add one driver's breaks and daily rests to passage times and the trip's time (Regulation (EC) No 561/2006)")
 	fs.StringVar(&req.Currency, "currency", "", "also give the totals in this currency (DKK, PLN, SEK, ...), at the rate its charges are converted at: the ECB's of the trip's date, or -fx")

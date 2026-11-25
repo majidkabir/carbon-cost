@@ -2,10 +2,13 @@ name: Publish data
 # After a data workflow succeeds, publishes to tariffs/data (on main) its
 # datasets that differ only in what OpenStreetMap gives: positions, booth
 # names and headings, and the extract's date (tools/orct/publish.py), its
-# ferry crossings files that differ only in the terminals' positions, and
-# its exchange rate files (fx/data) that only add days after the last.
-# A dataset with any other change, or a new one, is listed in the run's
-# summary for review and not published. Run it by hand to go over all four
+# ferry crossings files that differ only in the terminals' positions, the
+# ferry lines' ETS surcharges when only editions are added, and its
+# exchange rate (fx/data) and fuel price (fuel/data) files that only add
+# days after the last. A dataset with any other change, or a new one, is
+# listed in the run's summary for review and not published; the summary
+# also lists the schemes whose rates run out within 45 days with nothing
+# after them (tools/orct/expiring.py). Run it by hand to go over all four
 # workflows' last output.
 on:
   workflow_run:

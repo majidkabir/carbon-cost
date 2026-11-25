@@ -2,8 +2,8 @@ name: National diesel prices
 # Builds fuel/data/national-diesel.csv (tools/history/national_diesel.py):
 # official average diesel pump prices for the UK, Norway and Switzerland,
 # which the EU's Weekly Oil Bulletin doesn't cover. The file is the run's
-# artifact and is printed in its log; it is copied into fuel/data when it
-# changes. Run from the Actions tab, or weekly.
+# artifact and is printed in its log; copy it into fuel/data by hand when
+# it changes. Run from the Actions tab, or weekly.
 on:
   workflow_dispatch:
   schedule:

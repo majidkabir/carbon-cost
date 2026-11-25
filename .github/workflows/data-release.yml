@@ -1,8 +1,8 @@
 name: Data release
 # Weekly (Monday 05:47 UTC) or by hand: when the embedded data changed
 # since the last release (tariffs/data, and the exchange rates, fuel
-# prices, ferries, bans and roads) and the code didn't, raises RELEASE's patch number (v0.72.0 ->
-# v0.72.1) and starts Release, so a new image and binaries carry the newer
+# prices, ferries, bans and roads) and the code didn't, raises RELEASE's
+# patch number (v0.72.0 -> v0.72.1) and starts Release, so a new image and binaries carry the newer
 # data. With code changes not yet released it does nothing: release those
 # by hand, as before.
 on:

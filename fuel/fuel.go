@@ -2,8 +2,10 @@
 // diesel prices: each EU country's national average pump price of
 // automotive gas oil, without VAT, on each bulletin's Monday since 1
 // January 2024, and the duties other than VAT in it (built by
-// tools/history/wob.py; the History data workflow); and the hauliers'
-// refunds of the excise (Refunds).
+// tools/history/wob.py; the History data workflow); official national
+// averages for the UK, Norway and Switzerland (NationalOn); Eurostat's
+// electricity prices for businesses (PowerOn); and the hauliers' refunds
+// of the excise (Refunds).
 package fuel
 
 import (

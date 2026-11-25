@@ -11,9 +11,9 @@ Usage: python3 tools/orct/publish.py <workflow orct dir> tariffs/data
          and the lines' ETS surcharges when only editions are added)
        python3 tools/orct/publish.py --fx <workflow fx dir> fx/data
        python3 tools/orct/publish.py --fuel <workflow fuel dir> fuel/data
-         (exchange rates, and diesel prices, for days after the last only)
-         (exchange rate files that only add days after the last one: the
-         same header, every committed row unchanged)
+         (exchange rate, diesel price and power price files that only add
+         days after the last one: the same header, every committed row
+         unchanged)
 
 Prints what it published and a ::warning for each dataset to review, and
 rebuilds tariffs/data/index.json when it published something. Exit 0.

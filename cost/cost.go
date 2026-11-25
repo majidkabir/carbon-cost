@@ -1,11 +1,16 @@
 // Package cost works out what carbon and road charges a truck trip pays:
-// km-based road tolls per country (with their CO2 part shown apart), the
-// EU ETS on ferry crossings, and ETS2 on road fuel from 2028.
+// road tolls of every kind per country (with their CO2 part shown apart),
+// bridge, tunnel and ferry charges, area charges, the EU and UK ETS on
+// ferry crossings, national CO2 prices on fuel and ETS2 from 2028; and the
+// trip's fuel or electricity, running cost, driving bans and each
+// shipment's share.
 //
-// Distances by country and emissions come from Sootcase; rates come from
-// the official tables in package tariffs (ORCT datasets). Nothing here is fitted to data:
-// every number is a published rate, a price the user gives, or Sootcase's
-// GLEC/ISO 14083 result.
+// Routes, distances by country and emissions come from Sootcase, or the
+// truck's own path and data; rates come from the official tables in
+// package tariffs (ORCT datasets). Nothing here is fitted to data: every
+// number is a published rate, a price the user gives, the truck's own
+// data, Sootcase's GLEC/ISO 14083 result, or, for the diesel when none is
+// given, the European Commission's figure for a new truck of its group.
 package cost
 
 import (
@@ -142,13 +147,14 @@ type Request struct {
 	VehicleType string `json:"vehicle_type,omitempty"`
 	// Truck is the truck the tolls are priced for.
 	Truck rates.Truck `json:"truck"`
-	// TolledShare is the share of each country's km on tolled roads,
-	// default 1 (all of it). Sootcase doesn't yet tell road classes apart,
-	// so give it when part of a trip runs on untolled roads.
+	// TolledShare is the share of each country's km on tolled roads:
+	// default the road classes read from OpenStreetMap where the tool has
+	// them (roads/data), else 1 (all of it). Give it to override.
 	TolledShare map[string]float64 `json:"tolled_share,omitempty"`
 	// ETC: the truck pays tolls by an electronic toll device or account
-	// agreement, for the operators' discounts on it (Croatia's ENC,
-	// Storebælt Erhverv, ØresundBUSINESS).
+	// agreement, for the operators' discounts and tag or account prices
+	// where they publish them (Croatia's ENC, Storebælt's Grøn rabat,
+	// ØresundBUSINESS and others).
 	ETC bool `json:"etc,omitempty"`
 	// Night: the trip passes night-tariff sections between 22:00 and
 	// 05:00 (Austria's A 13 Brenner).
@@ -173,8 +179,8 @@ type Request struct {
 	FerryETSShare float64 `json:"ferry_ets_share,omitempty"`
 	// FerryETSBasis is how a ferry's EU ETS is priced: by default the
 	// surcharge its line publishes per metre of the vehicle, where the
-	// crossing has one line that does (DFDS, Scandlines, POLSCA: what the
-	// truck is charged), else the cargo's share of the ships' emissions
+	// crossing has one line that does (DFDS, Scandlines, Stena Line,
+	// POLSCA: what the truck is charged), else the cargo's share of the ships' emissions
 	// at eua_eur_per_t; "emissions" always prices the latter.
 	FerryETSBasis string `json:"ferry_ets_basis,omitempty"`
 	// ETS2EurPerT is the ETS2 allowance price (EUR per t CO2e), for trips
@@ -206,7 +212,8 @@ type Request struct {
 	DieselEURPerLByCountry map[string]float64 `json:"diesel_eur_per_l_by_country,omitempty"`
 	// DieselRefunds takes off the diesel the partial refund of the excise
 	// that some countries pay road hauliers on the litres bought there
-	// (France: trucks of 7.5 t or more). Give diesel prices before it.
+	// (FR, IT, ES, HU, HR and SI from 7.5 t, PT from 35 t; fuel.Refunds).
+	// Give diesel prices before it.
 	DieselRefunds bool `json:"diesel_refunds,omitempty"`
 	// An electric truck's (CO2 class 5) energy: ElectricityKWh used on the
 	// trip (from rFMS totalElectricEnergyUsed or charging records), or
@@ -401,7 +408,7 @@ type Response struct {
 	Lines []Line `json:"lines"`
 	// TotalEUR is the charges' sum, in euros.
 	TotalEUR  float64 `json:"total_eur"`
-	CarbonEUR float64 `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS and ETS2
+	CarbonEUR float64 `json:"carbon_eur"` // the CO2 parts of tolls, ferry ETS, national CO2 prices on fuel and ETS2
 	// Routes are the routes priced, when alternatives were asked for: each
 	// one's charges and the difference from Sootcase's primary route; the
 	// one this answer prices is chosen.

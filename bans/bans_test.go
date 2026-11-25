@@ -511,3 +511,14 @@ func TestNewYearsEve(t *testing.T) {
 		t.Fatalf("FR 31 December 21:00-23:30: no ban; want the eve of 1 January's from 22:00")
 	}
 }
+
+// Greece's decree for 2026 holds the first days of 2027: those are
+// covered; later ones aren't.
+func TestCalendarCovers(t *testing.T) {
+	for day, want := range map[string]bool{"2026-06-01": true, "2027-01-03": true, "2027-02-10": false} {
+		d, _ := time.Parse(time.DateOnly, day)
+		if got := CalendarCovers("GR", d); got != want {
+			t.Errorf("GR %s covered %v, want %v", day, got, want)
+		}
+	}
+}

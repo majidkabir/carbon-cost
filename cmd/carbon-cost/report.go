@@ -19,7 +19,7 @@ var reportSums = []string{"distance_km", "empty_km", "fuel_l", "kwh", "cargo_kg"
 
 // reportColumns follow the groups' columns in a report.
 var reportColumns = append([]string{"rows", "shipments"}, append(slices.Clone(reportSums),
-	"g_co2e_per_tkm", "eur_per_tkm", "eur_per_100kg", "road_toll_eur_per_100kg", "carbon_eur_per_100kg", "primary_tkm_share", "incomplete", "errors")...)
+	"g_co2e_per_tkm", "eur_per_tkm", "eur_per_100kg", "road_toll_eur_per_100kg", "carbon_eur_per_100kg", "primary_tkm_share", "incomplete", "fuel_incomplete", "errors")...)
 
 // report sums priced CSV files (calc -csv's output, or the web page's or
 // POST /v1/carbon-cost/csv's) by the columns given, for a customer's or a
@@ -76,6 +76,7 @@ type reportGroup struct {
 	have      map[string]bool // columns with a value in some row
 	primary   float64         // tonne-km with primary data
 	incomp    int
+	fuelInc   int // rows whose fuel_eur leaves litres out
 	errs      int
 }
 
@@ -168,6 +169,9 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 			if get(row, "complete") == "false" {
 				gr.incomp++
 			}
+			if get(row, "fuel_complete") == "false" {
+				gr.fuelInc++
+			}
 		}
 	}
 	if len(groups) == 0 {
@@ -213,7 +217,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 		} else {
 			rec = append(rec, "")
 		}
-		rec = append(rec, strconv.Itoa(g.incomp), strconv.Itoa(g.errs))
+		rec = append(rec, strconv.Itoa(g.incomp), strconv.Itoa(g.fuelInc), strconv.Itoa(g.errs))
 		w.Write(rec)
 	}
 	w.Flush()

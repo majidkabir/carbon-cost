@@ -311,7 +311,7 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			overlays[o.ID] = skm
 		}
 	}
-	days := p.kmDays(ds, a.country)
+	days := p.kmDays(ds, a.country, a.region)
 	// The sections' km (priced on their own) come off the parts in
 	// proportion, once in all.
 	total := 0.0
@@ -384,12 +384,15 @@ type kmDay struct {
 	share float64
 }
 
-// kmDays are a country's km by local day: with a departure time and the
-// route's stretches in the country, each day's share from when it starts
-// there (the passage into the country, or midnight); else all at noon of
-// the trip's day.
-func (p *pricer) kmDays(ds *tariffs.Dataset, country string) []kmDay {
+// kmDays are a country's (or its region's) km by local day: with a
+// departure time and the route's stretches there, each day's share from
+// when it starts there (the passage into it, or midnight); else all at
+// noon of the trip's day.
+func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
 	sp := p.req.spans[country]
+	if rs := p.req.regionSpans[region]; region != "" && len(rs) > 0 {
+		sp = rs
+	}
 	total := 0.0
 	for _, s := range sp {
 		total += s[1] - s[0]
@@ -1178,9 +1181,7 @@ func (p *pricer) afterPoints(ds *tariffs.Dataset, country string, st *orct.State
 	if peakUntimed > 0 {
 		p.note("%s: %d station passage(s) charge more in rush hours; priced at the off-peak rate. Give a departure time.", country, peakUntimed)
 	}
-	if pm.noTime > 0 {
-		p.note("%s: %s not priced: give time (HH:MM, local departure) to price its %d station passage(s).", country, ds.Name, pm.noTime)
-	}
+	p.untimed(ds, country, pm)
 	if congName != "" && cong.offHours > 0 {
 		p.note("%s: %d passage(s) outside the tax's hours or days.", country, cong.offHours)
 	}
@@ -1215,6 +1216,15 @@ func sortedKeys[V any](m map[string]V) []string {
 
 // ---------------------------------------------------------------- crossings, zones, fuel
 
+// untimed lists a charge by the time of day (a congestion tax) whose
+// passages had no time to price them at as missing.
+func (p *pricer) untimed(ds *tariffs.Dataset, country string, pm *pointsMatched) {
+	if pm.noTime > 0 {
+		p.note("%s: %s not priced: give time (HH:MM, local departure) to price its %d station passage(s).", country, ds.Name, pm.noTime)
+		p.missing(Missing{Area: ds.Area(), Charge: RoadToll, Name: ds.Name, Reason: "needs_time"})
+	}
+}
+
 // priceCrossings prices the bridges and tunnels the route passes.
 func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 	for _, ds := range set.OfKind(tariffs.Crossings, p.date) {
@@ -1224,6 +1234,7 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 		b := &batch{ds: ds}
 		sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
 		if !sm.any && !pm.any {
+			p.untimed(ds, ds.Country, pm)
 			continue
 		}
 		if ferry := false; ds.Ext("ferry", &ferry) && ferry {

@@ -285,6 +285,9 @@ type Request struct {
 	// spans are each country's stretches of the route, as [from, to] km
 	// along it, set by Calculate from the route split by country.
 	spans map[string][][2]float64
+	// regionSpans are the regions' stretches (ISO 3166-2), from Sootcase's
+	// country_sections, set by PriceWith.
+	regionSpans map[string][][2]float64
 	// origin is the country the trip starts in, whose local time Time
 	// is (set by Calculate; "" takes each station's country).
 	origin string
@@ -474,13 +477,16 @@ type Missing struct {
 	// country_km), "needs_truck_field" (it goes by a truck field the
 	// request doesn't give; the notes name it), "unpriced" (the table
 	// has no price for this use, such as an entry and exit it doesn't
-	// pair; the notes say which) or "before_table" (its first rates here
+	// pair; the notes say which), "needs_time" (it goes by the time of day,
+	// a congestion tax: give time) or "before_table" (its first rates here
 	// start on Starts, after the trip's day: an earlier price isn't here).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here; Starts, for
 	// "before_table", the first day of the first.
 	Ended  string `json:"ended,omitempty"`
 	Starts string `json:"starts,omitempty"`
+	// Text says it in a sentence (Message).
+	Text string `json:"text"`
 }
 
 // Message says what is missing, in a sentence.
@@ -491,6 +497,9 @@ func (m Missing) Message() string {
 	}
 	if m.Reason == "needs_truck_field" {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by a truck field not given (see the notes)", m.Area, what, m.Name)
+	}
+	if m.Reason == "needs_time" {
+		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)
@@ -569,6 +578,10 @@ type Calculator struct {
 	// Version is the release, for the response's provenance.
 	Version string
 }
+
+// MaxKg is the most a truck, its cargo or a shipment may weigh, in kg:
+// far above any road train, but finite.
+const MaxKg = 1e6
 
 // Calculate routes the trip with Sootcase and prices it.
 func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error) {
@@ -952,8 +965,8 @@ func check(req Request) error {
 		}
 	}
 	for k, v := range req.EnvZoneKm {
-		if v < 0 {
-			return fmt.Errorf("env_zone_km[%s] must be >= 0", k)
+		if !(v >= 0 && v < 100000) {
+			return fmt.Errorf("env_zone_km[%s] must be 0 to 100000", k)
 		}
 	}
 	for _, c := range req.CompareCO2Classes {
@@ -961,8 +974,8 @@ func check(req Request) error {
 			return fmt.Errorf("compare_co2_classes must be 1-5")
 		}
 	}
-	if req.TripsPerYear < 0 {
-		return fmt.Errorf("trips_per_year must be >= 0")
+	if !(req.TripsPerYear >= 0 && req.TripsPerYear <= 100000) {
+		return fmt.Errorf("trips_per_year must be 0 to 100000")
 	}
 	if req.Alternatives < 0 || req.Alternatives > 5 {
 		return fmt.Errorf("alternatives %d: give 2 to 5 routes", req.Alternatives)
@@ -985,8 +998,8 @@ func check(req Request) error {
 	if req.Currency != "" && !currencyCode.MatchString(req.Currency) {
 		return fmt.Errorf("currency %q: give an ISO 4217 code such as DKK, PLN or SEK", req.Currency)
 	}
-	if req.ElectricityKWh < 0 || req.KWhPer100Km < 0 || req.KWhPer100Km > 1000 || req.ElectricityEURPerKWh < 0 || req.ElectricityEURPerKWh > 5 {
-		return fmt.Errorf("electricity_kwh (0 or more), kwh_per_100km (0-1000) and electricity_eur_per_kwh (0-5): e.g. 120 kWh per 100 km at EUR 0.25")
+	if !(req.ElectricityKWh >= 0 && req.ElectricityKWh <= 1e6) || req.KWhPer100Km < 0 || req.KWhPer100Km > 1000 || req.ElectricityEURPerKWh < 0 || req.ElectricityEURPerKWh > 5 {
+		return fmt.Errorf("electricity_kwh (0-1,000,000), kwh_per_100km (0-1000) and electricity_eur_per_kwh (0-5): e.g. 120 kWh per 100 km at EUR 0.25")
 	}
 	if req.DieselEURPerL < 0 || req.DieselEURPerL > 10 {
 		return fmt.Errorf("diesel_eur_per_l %v: give EUR per litre without VAT, e.g. 1.45", req.DieselEURPerL)
@@ -1133,6 +1146,14 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		paths[i] = l.Path
 	}
 	route := tripTrack(paths)
+	for _, s := range segments(res) {
+		if s.region != "" && s.ordered {
+			if req.regionSpans == nil {
+				req.regionSpans = map[string][][2]float64{}
+			}
+			req.regionSpans[s.region] = append(req.regionSpans[s.region], [2]float64{s.from, s.to})
+		}
+	}
 	p := newPricer(req, date, &out, add)
 	p.set = set
 	// Road tolls, area by area: countries, or their regions where tolls
@@ -1145,6 +1166,8 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 				m := Missing{Area: a.code, Charge: RoadToll, Reason: "no_table"}
 				if d, ok := set.Ended(a.code, date); ok {
 					m.Reason, m.Name, m.Ended = "ended", d.Name, d.ValidTo
+				} else if d, ok := set.First(a.code, date); ok {
+					m.Reason, m.Name, m.Starts = "before_table", d.Name, d.ValidFrom
 				}
 				out.Missing = append(out.Missing, m)
 			}
@@ -1198,6 +1221,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	}
 	out.Missing = append(out.Missing, lapsed(set, req, &out, route, out.Trip.FuelL, date)...)
 	out.Complete = len(out.Missing) == 0
+	for i := range out.Missing {
+		out.Missing[i].Text = out.Missing[i].Message()
+	}
 	if out.Lines == nil {
 		out.Lines = []Line{} // "lines": [], not null
 	}

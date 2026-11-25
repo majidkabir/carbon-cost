@@ -77,7 +77,7 @@ func priceAll(ctx context.Context, calc func(context.Context, cost.Request) (cos
 // With -shipment-rows (rows=shipments on the server) a trip with
 // shipments gives a row per shipment: shipment_id and shipment_kg set,
 // and the amounts, km, tonne-km and CO2e the shipment's share.
-var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "eur_by_country", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "fuel_l", "kwh", "hours", "empty_km", "shipments", "shipment_id", "shipment_kg", "cargo_kg", "eur_per_tkm", "tkm", "wtw_kg", "ttw_kg", "g_co2e_per_tkm", "currency", "total_in_currency", "data_type", "route", "complete", "missing", "error"}
+var csvColumns = []string{"trip_date", "distance_km", "country_km", "total_eur", "carbon_eur", "road_toll_eur", "fuel_co2_eur", "ets_eur", "area_charge_eur", "ferry_fare_eur", "eur_by_country", "fuel_eur", "with_fuel_eur", "trip_cost_eur", "fuel_l", "kwh", "hours", "empty_km", "shipments", "shipment_id", "shipment_kg", "cargo_kg", "eur_per_tkm", "tkm", "wtw_kg", "ttw_kg", "g_co2e_per_tkm", "currency", "total_in_currency", "data_type", "route", "complete", "fuel_complete", "missing", "error"}
 
 // calcCSV prices each row of a CSV file whose header names calc's flags
 // (without the dash), each row's values on top of the command line's, and
@@ -245,6 +245,13 @@ func csvResult(it BatchItem) []string {
 	if r.TripCostEUR > 0 {
 		tripCost = f(r.TripCostEUR)
 	}
+	// Whether fuel_eur prices every litre (complete is the charges').
+	fuelComplete := ""
+	if r.Fuel != nil {
+		fuelComplete = strconv.FormatBool(r.Fuel.Complete)
+	} else if r.Electricity != nil {
+		fuelComplete = "true"
+	}
 	if r.Trip != nil {
 		hours = f(r.Trip.Hours)
 	}
@@ -267,7 +274,7 @@ func csvResult(it BatchItem) []string {
 		f(r.TotalEUR), f(r.CarbonEUR), f(by[cost.RoadToll]), f(by[cost.FuelCO2]), f(by[cost.FerryETS] + by[cost.FerryUKETS] + by[cost.ETS2]), f(by[cost.AreaCharge]), f(by[cost.FerryFare]), strings.Join(cc, ";"),
 		fuelEUR, withFuel, tripCost, fuel, kwh, hours, empty, strings.Join(ships, ";"), "", "", strconv.FormatFloat(kg, 'f', -1, 64), strconv.FormatFloat(r.EURPerTkm, 'f', 4, 64), strconv.FormatFloat(tkm, 'f', 1, 64),
 		strconv.FormatFloat(r.WTWKg, 'f', 1, 64), strconv.FormatFloat(r.TTWKg, 'f', 1, 64), f(r.IntensityG), cur, curTotal, r.DataType, route,
-		strconv.FormatBool(r.Complete), strings.Join(miss, "; "), ""}
+		strconv.FormatBool(r.Complete), fuelComplete, strings.Join(miss, "; "), ""}
 }
 
 // csvShipment is a shipment's columns (csvColumns): its share of the

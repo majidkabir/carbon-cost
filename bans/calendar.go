@@ -127,6 +127,33 @@ func CalendarYears(country string) []int {
 	return ys
 }
 
+// CalendarCovers says whether a decree here covers the day: its year's,
+// or one whose days reach it (Greece's decree for 2026 holds the first
+// days of 2027).
+func CalendarCovers(country string, day time.Time) bool {
+	d := day.Format(time.DateOnly)
+	for _, c := range calendars[country] {
+		if c.Year == day.Year() {
+			return true
+		}
+		first, last := "", ""
+		for _, x := range c.Days {
+			from, to := x.Date, x.Date
+			if x.FromDate != "" {
+				from, to = x.FromDate, x.ToDate
+			}
+			if first == "" || from < first {
+				first = from
+			}
+			last = max(last, to)
+		}
+		if first != "" && first <= d && d <= last {
+			return true
+		}
+	}
+	return false
+}
+
 // hasRules says the country has day rules besides its calendars.
 func hasRules(country string) bool {
 	for _, r := range Rules {

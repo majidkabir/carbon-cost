@@ -270,7 +270,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	}
 	out.Bans = hits
 	for cc := range out.CountryKm {
-		if out.CountryKm[cc] >= 0.5 && len(bans.CalendarYears(cc)) > 0 && !slices.Contains(bans.CalendarYears(cc), date.Year()) {
+		if out.CountryKm[cc] >= 0.5 && len(bans.CalendarYears(cc)) > 0 && !bans.CalendarCovers(cc, date) {
 			out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: %s's decree of bans for %d isn't in, so those bans aren't checked.", cc, date.Year()))
 		}
 	}

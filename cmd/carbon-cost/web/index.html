@@ -819,8 +819,9 @@ $("csvgo").addEventListener("click", async () => {
   finally { $("csvgo").disabled = false; }
 });
 
-// missingText says what a result leaves out, as the API's Missing.Message.
+// missingText says what a result leaves out: the API's text.
 function missingText(m) {
+  if (m.text) return m.text;
   const what = { road_toll: "tolls", area_charge: "area charge", fuel_co2: "CO2 price on diesel", ferry_fare: "ferry fare" }[m.charge] || m.charge;
   if (m.reason === "no_route") return `${m.area} ${what} (${m.name}): charged at toll stations or on sections, which need the route (give from and to, or a route file)`;
   return m.reason === "ended"

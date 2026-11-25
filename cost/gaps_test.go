@@ -4,6 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
+	"maps"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -88,7 +90,7 @@ func ferryTrip(t *testing.T, date string, a, b [2]float64, ca, cb string, via ..
 func TestFareWithNoTableIsMissing(t *testing.T) {
 	dover := ferryTrip(t, "2026-11-20", [2]float64{1.332393, 51.123741}, [2]float64{1.854074, 50.967206}, "GB", "FR")
 	want := Missing{Area: "GB", Charge: FerryFare, Name: dover.FerryCrossing, Reason: "no_table"}
-	if dover.Complete || !slices.Contains(dover.Missing, want) {
+	if dover.Complete || !slices.ContainsFunc(dover.Missing, func(m Missing) bool { m.Text = ""; return m == want }) {
 		t.Errorf("Dover–Calais: crossing %q, complete %v, missing %+v; want %+v", dover.FerryCrossing, dover.Complete, dover.Missing, want)
 	}
 	// By the fare table's stations, 0.5 km out on the line.
@@ -219,5 +221,96 @@ func TestRoutesKeepTheErrorsKind(t *testing.T) {
 	var fe *sootcase.Failed
 	if !errors.As(err, &fe) {
 		t.Errorf("alternatives 2, Sootcase's answer unusable: %v; want a sootcase.Failed", err)
+	}
+}
+
+// A region's km are split by day by when that region is driven: Wallonia
+// from 23:00 to midnight, Flanders after it, on 31 December 2026.
+func TestRegionKmByTheirOwnDay(t *testing.T) {
+	leg := sootcase.LegResult{DistanceKm: 140, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"BE": 140},
+		RegionKm: map[string]float64{"BE-WAL": 70, "BE-VLG": 70}, RouteParts: map[string]float64{"road": 140},
+		CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 140, Regions: []sootcase.RegionSection{
+			{Region: "BE-WAL", FromKm: 0, ToKm: 70}, {Region: "BE-VLG", FromKm: 70, ToKm: 140}}}}}
+	req := Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}, Time: "23:00", AvgSpeedKmh: 70,
+		TolledShare: map[string]float64{"BE-WAL": 1, "BE-VLG": 1}, spans: map[string][][2]float64{"BE": {{0, 140}}}}
+	out, err := Price(sootcase.Result{Legs: []sootcase.LegResult{leg}}, all(t), req, time.Date(2026, 12, 31, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	km := map[string]float64{} // region and rate: km
+	for _, l := range out.Lines {
+		if l.Charge == RoadToll && l.Country == "BE" {
+			km[fmt.Sprintf("%s %g", l.Region, l.Rate)] += l.Km
+		}
+	}
+	// 2026's rate for Wallonia, 2027's for Flanders.
+	if want := map[string]float64{"BE-WAL 0.205": 70, "BE-VLG 0.297": 70}; !maps.Equal(km, want) {
+		t.Errorf("BE km by region and rate: %v; want %v", km, want)
+	}
+}
+
+// Stockholm's congestion tax goes by the time of day: without a time it
+// is missing, not left out unseen.
+func TestCongestionNeedsTime(t *testing.T) {
+	path := [][2]float64{{18.095, 59.3139}, {18.112, 59.3139}}
+	out := priceLeg(t, "SE", 1, path, Request{FX: map[string]float64{"SEK": 11}}, "2026-11-24")
+	if out.Complete || !slices.ContainsFunc(out.Missing, func(m Missing) bool { return m.Reason == "needs_time" }) {
+		t.Errorf("through Danvikstull without time: complete %v, missing %+v; want needs_time", out.Complete, out.Missing)
+	}
+	timed := priceLeg(t, "SE", 1, path, Request{Time: "08:00", FX: map[string]float64{"SEK": 11}}, "2026-11-24")
+	if !timed.Complete {
+		t.Errorf("at 08:00: missing %+v", timed.Missing)
+	}
+}
+
+// A toll area before its first table here: before_table, not no_table.
+func TestTollBeforeTheFirstTable(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"DE": 100}, RouteParts: map[string]float64{"road": 100}}}}
+	out, err := Price(res, all(t), Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}}, time.Date(2023, 11, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !slices.ContainsFunc(out.Missing, func(m Missing) bool { return m.Charge == RoadToll && m.Reason == "before_table" && m.Starts != "" }) {
+		t.Errorf("DE on 2023-11-01: missing %+v; want its tolls before_table", out.Missing)
+	}
+}
+
+// The A 12's +25% stays a line of its own when its km run past midnight
+// (two days merged into one line): the base line is its rate × km.
+func TestSurchargeLineOverMidnight(t *testing.T) {
+	pts := [][2]float64{{12.187, 47.607}, {12.1756, 47.5965}, {12.1408, 47.5675}, {12.0941, 47.5333}, {12.0572, 47.495}, {12.0235, 47.4838},
+		{11.8842, 47.4411}, {11.8032, 47.4028}, {11.7016, 47.3577}, {11.6792, 47.3307}, {11.5838, 47.2998}, {11.5015, 47.2739},
+		{11.4764, 47.271}, {11.4385, 47.2606}, {11.4202, 47.2547}}
+	var km float64
+	for i := 0; i+1 < len(pts); i++ {
+		km += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: km, CountryKm: map[string]float64{"AT": km}, Path: pts}}}
+	req := Request{CargoKg: 1, Truck: truck40, Time: "23:30", AvgSpeedKmh: 70, spans: map[string][][2]float64{"AT": {{0, km}}}}
+	out, err := Price(res, all(t), req, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, l := range out.Lines {
+		if l.Component == rates.Infrastructure && math.Abs(l.Amount-l.Rate*l.Km) > 0.02 {
+			t.Errorf("%q: EUR %.2f for %.2f km at %g; want rate × km", l.Section, l.Amount, l.Km, l.Rate)
+		}
+	}
+}
+
+// A vignette over two days counts its km once: Sweden's 140 km from
+// 23:00, on two days.
+func TestVignetteKmOnce(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 140, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"SE": 140}, RouteParts: map[string]float64{"road": 140}}}}
+	req := Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}, Time: "23:00", AvgSpeedKmh: 70,
+		FX: map[string]float64{"SEK": 11}, spans: map[string][][2]float64{"SE": {{0, 140}}}}
+	out, err := Price(res, all(t), req, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, l := range out.Lines {
+		if l.Country == "SE" && l.Charge == RoadToll && l.Days > 0 && l.Km != 140 {
+			t.Errorf("SE vignette over %d days on %.1f km; want 140 km", l.Days, l.Km)
+		}
 	}
 }

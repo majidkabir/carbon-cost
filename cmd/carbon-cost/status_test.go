@@ -1,12 +1,17 @@
 package main
 
 import (
+	"bytes"
+	"context"
+	"encoding/csv"
 	"encoding/json"
+	"io"
 	"math"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -84,6 +89,9 @@ func TestRequestBody(t *testing.T) {
 		{"two objects", trip + trip, http.StatusBadRequest},
 		{"too big", trip + strings.Repeat(" ", 8<<20), http.StatusRequestEntityTooLarge},
 		{"no euro", strings.Replace(trip, `"euro":6,`, "", 1), http.StatusBadRequest},
+		{"huge cargo", strings.Replace(trip, `"cargo_kg":10000`, `"cargo_kg":1e308`, 1), http.StatusBadRequest},
+		{"huge kWh", strings.Replace(strings.Replace(trip, `"co2_class":1`, `"co2_class":5`, 1), `"cargo_kg":10000`, `"cargo_kg":10000,"electricity_kwh":1e308`, 1), http.StatusBadRequest},
+		{"huge trips per year", strings.Replace(trip, `"cargo_kg":10000`, `"cargo_kg":10000,"trips_per_year":1e308,"compare_co2_classes":[5]`, 1), http.StatusBadRequest},
 	} {
 		rec := httptest.NewRecorder()
 		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost", strings.NewReader(tc.body)))
@@ -118,5 +126,31 @@ func TestCSVBodyTooBig(t *testing.T) {
 		if rec.Code != http.StatusRequestEntityTooLarge {
 			t.Errorf("%s: HTTP %d %.200s; want 413", path, rec.Code, rec.Body.String())
 		}
+	}
+}
+
+// A priced CSV row says when its fuel cost leaves litres out (diesel
+// bought in Serbia has no price here), and the report counts such rows.
+func TestCSVFuelComplete(t *testing.T) {
+	c, err := calculator(&sootcase.Client{BaseURL: "http://127.0.0.1:1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var out bytes.Buffer
+	in := "country-km,cargo-kg,mass-kg,axles,euro,co2-class,date,fx\n\"DE=300,RS=300\",10000,40000,5,6,1,2026-11-03,RSD=117\n"
+	if _, err := priceCSV(context.Background(), c.Calculate, nil, strings.NewReader(in), &out, calcFlagNames(), 0, false); err != nil {
+		t.Fatal(err)
+	}
+	rows, _ := csv.NewReader(strings.NewReader(out.String())).ReadAll()
+	if col := slices.Index(rows[0], "fuel_complete"); col < 0 || rows[1][col] != "false" {
+		t.Fatalf("fuel_complete: %v", rows)
+	}
+	var rep bytes.Buffer
+	if err := summarize([]io.Reader{strings.NewReader(out.String())}, &rep, nil); err != nil {
+		t.Fatal(err)
+	}
+	r, _ := csv.NewReader(strings.NewReader(rep.String())).ReadAll()
+	if col := slices.Index(r[0], "fuel_incomplete"); col < 0 || r[1][col] != "1" {
+		t.Errorf("report: %v", r)
 	}
 }

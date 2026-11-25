@@ -131,8 +131,8 @@ func (t Truck) Length() float64 {
 // Validate checks a truck's fields.
 func (t Truck) Validate() error {
 	switch {
-	case t.MaxMassKg <= 0:
-		return fmt.Errorf("max_mass_kg must be > 0")
+	case t.MaxMassKg <= 0 || t.MaxMassKg > 1000000:
+		return fmt.Errorf("max_mass_kg must be > 0 and at most 1,000,000")
 	case t.Axles < 2 || t.Axles > 10:
 		return fmt.Errorf("axles must be 2-10")
 	case t.MotorAxles != 0 && (t.MotorAxles < 2 || t.MotorAxles > t.Axles):

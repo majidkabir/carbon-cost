@@ -216,25 +216,54 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		if m.key != "" && ol.Row != nil && (ch.Type == "distance" || ch.Type == "period" || ch.Type == "area") {
 			key = fmt.Sprintf("%s|%s|%s|%d", m.key, ol.Dataset, ol.Charge, *ol.Row)
 		}
+		rate, _ := orct.ParseDec(ol.Rate)
+		// A factor rule's surcharge on part of the km (a surcharged
+		// stretch) is a line of its own, l keeping the base amount.
+		factors := func(l *Line) {
+			for _, r := range ds.Doc.Rules {
+				if r.Kind != "factor" || !slices.Contains(r.AppliesTo, ol.Charge) || ol.Event == nil {
+					continue
+				}
+				obj, _ := r.Params["object"].(string)
+				okm, ok := ol.Event.Overlays[obj]
+				if !ok || okm.Sign() == 0 {
+					continue
+				}
+				extra := amount - rate.Mul(ol.Quantity).Float()
+				l.Amount -= extra
+				sk := key + "|" + obj
+				if prev, ok := merged[sk]; ok && key != "" {
+					prev.Amount += extra
+					prev.Km += okm.Float()
+					continue
+				}
+				f, _ := orct.ParseDec(fmt.Sprint(r.Params["factor"]))
+				s := *l
+				s.Section, s.Km = ds.Object(obj).Name, okm.Float()
+				s.Rate = rate.Mul(f.Sub(orct.DecInt(1))).Float()
+				s.Amount = extra
+				lines = append(lines, &s)
+				if key != "" {
+					merged[sk] = &s
+				}
+			}
+		}
 		if l, ok := merged[key]; ok && key != "" {
 			l.Amount += amount
 			if l.Area != m.area {
 				l.Area = ""
 			}
 			switch ch.Type {
-			case "period":
+			case "period", "area": // another day: the same km
 				l.Days++
-				fallthrough
 			case "distance":
 				if m.hasKm {
 					l.Km += m.km
 				}
-			case "area": // another day in the zone: the same km
-				l.Days++
 			}
+			factors(l)
 			continue
 		}
-		rate, _ := orct.ParseDec(ol.Rate)
 		l := &Line{Charge: m.charge, Country: m.country, Region: m.region, Road: m.road, Area: m.area, Section: m.section,
 			Component: componentOf(ch), Rate: rate.Float(), Currency: cur, Amount: amount, Source: src, Sources: srcs(ds)}
 		if src == "" {
@@ -285,35 +314,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		if key != "" {
 			merged[key] = l
 		}
-		// A factor rule's surcharge on part of the km (a surcharged
-		// stretch) is a line of its own.
-		for _, r := range ds.Doc.Rules {
-			if r.Kind != "factor" || !slices.Contains(r.AppliesTo, ol.Charge) || ol.Event == nil {
-				continue
-			}
-			obj, _ := r.Params["object"].(string)
-			okm, ok := ol.Event.Overlays[obj]
-			if !ok || okm.Sign() == 0 {
-				continue
-			}
-			base := rate.Mul(ol.Quantity).Float()
-			f, _ := orct.ParseDec(fmt.Sprint(r.Params["factor"]))
-			s := *l
-			s.Section, s.Km = ds.Object(obj).Name, okm.Float()
-			s.Rate = rate.Mul(f.Sub(orct.DecInt(1))).Float()
-			s.Amount = l.Amount - base
-			l.Amount = base
-			sk := key + "|" + obj
-			if prev, ok := merged[sk]; ok && key != "" {
-				prev.Amount += s.Amount
-				prev.Km += s.Km
-				continue
-			}
-			lines = append(lines, &s)
-			if key != "" {
-				merged[sk] = &s
-			}
-		}
+		factors(l)
 	}
 	for _, l := range lines {
 		if math.Abs(l.Amount) < 0.005 && l.Charge != FuelCO2 {

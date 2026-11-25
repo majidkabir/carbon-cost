@@ -500,18 +500,23 @@
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which) or \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which), \"needs_time\" (it goes by the time of day, a congestion tax: give time) or \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here).",
       "type": "string"
      },
      "starts": {
       "description": "Ended is the last day of the last rates here; Starts, for \"before_table\", the first day of the first.",
+      "type": "string"
+     },
+     "text": {
+      "description": "Text says it in a sentence (Message).",
       "type": "string"
      }
     },
     "required": [
      "area",
      "charge",
-     "reason"
+     "reason",
+     "text"
     ],
     "type": "object"
    },

@@ -204,16 +204,16 @@ func checkTrip(r Request) error {
 		return fmt.Errorf("stops: give 2 to %d", MaxStops)
 	}
 	if len(r.Shipments) == 0 {
-		if r.CargoKg <= 0 {
-			return fmt.Errorf("cargo_kg must be > 0 (or give shipments)")
+		if !(r.CargoKg > 0 && r.CargoKg <= MaxKg) {
+			return fmt.Errorf("cargo_kg must be > 0 and at most %g (or give shipments)", MaxKg)
 		}
 	} else if r.CargoKg != 0 {
 		return fmt.Errorf("give shipments or cargo_kg, not both")
 	}
 	ids := map[string]bool{}
 	for i, s := range r.shipments() {
-		if s.WeightKg <= 0 {
-			return fmt.Errorf("shipments[%d].weight_kg must be > 0", i)
+		if !(s.WeightKg > 0 && s.WeightKg <= MaxKg) {
+			return fmt.Errorf("shipments[%d].weight_kg must be > 0 and at most %g", i, MaxKg)
 		}
 		if s.From < 0 || s.To <= s.From || s.To >= len(st) {
 			return fmt.Errorf("shipments[%d]: from and to must be stops (0-%d), from before to", i, len(st)-1)
@@ -224,8 +224,8 @@ func checkTrip(r Request) error {
 		ids[s.ID] = true
 	}
 	for _, p := range r.FuelPurchases {
-		if !ccRE.MatchString(p.Country) || p.Litres <= 0 {
-			return fmt.Errorf("fuel_purchases: each needs a country (ISO 3166-1 alpha-2) and litres > 0")
+		if !ccRE.MatchString(p.Country) || !(p.Litres > 0 && p.Litres <= 100000) {
+			return fmt.Errorf("fuel_purchases: each needs a country (ISO 3166-1 alpha-2) and litres > 0, at most 100000")
 		}
 	}
 	if r.LPer100Km < 0 || r.LPer100Km > 100 {

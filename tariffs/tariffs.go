@@ -233,6 +233,25 @@ func (s *Set) Version(d *Dataset, day string) (*Dataset, bool) {
 	return nil, false
 }
 
+// First is the area's first toll dataset when it starts after the date:
+// rates here only from a later day.
+func (s *Set) First(area string, date time.Time) (*Dataset, bool) {
+	day := date.Format(time.DateOnly)
+	var first *Dataset
+	for _, d := range s.All {
+		if d.Kind == Toll && d.Area() == area && (first == nil || d.ValidFrom < first.ValidFrom) {
+			first = d
+		}
+	}
+	if first == nil || first.ValidFrom <= day {
+		return nil, false
+	}
+	if since := ""; first.Ext("charged_from", &since) && day < since {
+		return nil, false
+	}
+	return first, true
+}
+
 // Ended is the area's last toll dataset when none is in force on the date
 // and that one ended before it: rates that ended with no successor here
 // yet.

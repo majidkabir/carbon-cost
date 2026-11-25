@@ -32,7 +32,6 @@ const api = "https://mrv.emsa.europa.eu/api/public-emission-report"
 
 // Ship is one ro-pax ship's yearly MRV report, freight part.
 type Ship struct {
-	// IMO is the ship's IMO number, and Name its name.
 	IMO  string `json:"imo"`
 	Name string `json:"name"`
 	// FreightCO2T is the CO2e (CO2 in older reports) assigned to freight
@@ -45,11 +44,8 @@ type Ship struct {
 	GPerTNm float64 `json:"g_per_t_nm"`
 }
 
-// File is the output (ferries/data/mrv-ropax-<year>.json, read as
-// ferries.MRVYear).
+// File is the output.
 type File struct {
-	// Source names the publication, ReportingPeriod is its year, Version
-	// EMSA's version of it, and Ships its ro-pax ships.
 	Source          string `json:"source"`
 	ReportingPeriod int    `json:"reporting_period"`
 	Version         string `json:"version"`
@@ -111,17 +107,13 @@ func main() {
 // Listed is a ship in the report: every ship above 5,000 GT on voyages to,
 // from or between EU/EEA ports reports (Regulation (EU) 2015/757, Art. 2).
 type Listed struct {
-	// IMO is the ship's IMO number, Name its name and Type its ship type
-	// as the report gives it.
 	IMO  string `json:"imo"`
 	Name string `json:"name"`
 	Type string `json:"type"`
 }
 
-// ShipsFile is the -ships-out output (ferries/data/mrv-ships-<year>.json,
-// read as ferries.ListedYear).
+// ShipsFile is the -ships-out output.
 type ShipsFile struct {
-	// Source, ReportingPeriod, Version and Ships: as File's.
 	Source          string   `json:"source"`
 	ReportingPeriod int      `json:"reporting_period"`
 	Version         string   `json:"version"`

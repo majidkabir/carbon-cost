@@ -49,8 +49,7 @@ const URL = "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_e
 // Bulletin is one week's figures, EUR per litre, by country (ISO 3166-1
 // alpha-2): the prices without VAT, or the duties other than VAT.
 type Bulletin struct {
-	Date string // the Monday the figures are of
-	// EURPerL is each country's figure.
+	Date    string // the Monday the figures are of
 	EURPerL map[string]float64
 }
 

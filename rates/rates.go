@@ -42,8 +42,6 @@ type Source struct {
 
 // Place is a point on a road.
 type Place struct {
-	// Name is the place's name (a toll station, a gantry), and Lat and Lon
-	// its coordinates (WGS 84, degrees).
 	Name string  `json:"name"`
 	Lat  float64 `json:"lat"`
 	Lon  float64 `json:"lon"`

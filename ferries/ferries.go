@@ -25,8 +25,6 @@ var files embed.FS
 
 // Point is a place.
 type Point struct {
-	// Name is the port's name, and Lat and Lon the terminal's coordinates
-	// (WGS 84, degrees).
 	Name string  `json:"name"`
 	Lat  float64 `json:"lat"`
 	Lon  float64 `json:"lon"`
@@ -40,8 +38,6 @@ type Point struct {
 
 // Ship is a ship on a crossing.
 type Ship struct {
-	// IMO is the ship's IMO number, which the MRV reports list it by, and
-	// Name its name.
 	IMO  string `json:"imo,omitempty"`
 	Name string `json:"name"`
 	// Since is the year the ship entered service, where its operator
@@ -53,8 +49,6 @@ type Ship struct {
 // Exemption is a derogation from surrendering allowances for a
 // crossing's voyages, in force from From to Until (ISO dates).
 type Exemption struct {
-	// From and Until: see Exemption. Law cites the derogation, and URL is
-	// where it is published.
 	From  string `json:"from"`
 	Until string `json:"until"`
 	Law   string `json:"law"`
@@ -63,39 +57,29 @@ type Exemption struct {
 
 // Source is where a crossing's ships come from.
 type Source struct {
-	// Title names the page or document, and URL is where it is.
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
 
 // Crossing is a ferry route and its ships.
 type Crossing struct {
-	// ID is the crossing's id (e.g. "rodby-puttgarden"), Name its name
-	// and Operator the line that runs it.
-	ID       string `json:"id"`
-	Name     string `json:"name"`
-	Operator string `json:"operator"`
-	// Terminals are its ports, Ships the ships on it.
+	ID        string  `json:"id"`
+	Name      string  `json:"name"`
+	Operator  string  `json:"operator"`
 	Terminals []Point `json:"terminals"`
 	Ships     []Ship  `json:"ships"`
-	// NotInMRV says which of its ships the MRV reports don't cover yet,
-	// for a note.
-	NotInMRV string `json:"not_in_mrv,omitempty"`
-	// Source is where its ships come from.
-	Source Source `json:"source"`
+	NotInMRV  string  `json:"not_in_mrv,omitempty"`
+	Source    Source  `json:"source"`
 	// Exemptions are derogations for the crossing's voyages.
 	Exemptions []Exemption `json:"exemptions,omitempty"`
 }
 
-// MRVShip is one ship's yearly freight figures.
+// MRVShip is one ship's yearly freight figures: tonnes of CO2e (CO2 in
+// older reports), tonne-nautical miles, and g CO2e per tonne-nautical mile
+// as reported.
 type MRVShip struct {
-	// IMO is the ship's IMO number, and Name its name.
-	IMO  string `json:"imo"`
-	Name string `json:"name"`
-	// FreightCO2T is the tonnes of CO2e (CO2 in older reports) the ship's
-	// report assigns to freight, FreightWorkTNm its freight transport work
-	// in tonne-nautical miles, and GPerTNm the report's CO2e per freight
-	// transport work, g per tonne-nautical mile.
+	IMO            string  `json:"imo"`
+	Name           string  `json:"name"`
 	FreightCO2T    float64 `json:"freight_co2_t"`
 	FreightWorkTNm float64 `json:"freight_work_t_nm"`
 	GPerTNm        float64 `json:"g_per_t_nm"`
@@ -103,8 +87,6 @@ type MRVShip struct {
 
 // MRVYear is one reporting period of the EU MRV publication.
 type MRVYear struct {
-	// Source names the publication, ReportingPeriod is its year and
-	// Version EMSA's version of it; Ships are its ro-pax ships.
 	Source          string    `json:"source"`
 	ReportingPeriod int       `json:"reporting_period"`
 	Version         string    `json:"version"`
@@ -113,8 +95,6 @@ type MRVYear struct {
 
 // Listed is a ship in an EU MRV report (passenger, ro-pax or ro-ro).
 type Listed struct {
-	// IMO is the ship's IMO number, Name its name and Type its ship type
-	// as the report gives it.
 	IMO  string `json:"imo"`
 	Name string `json:"name"`
 	Type string `json:"type"`
@@ -124,8 +104,6 @@ type Listed struct {
 // such ship above 5,000 GT on voyages to, from or between EU/EEA ports
 // that year (Regulation (EU) 2015/757, Art. 2(1)).
 type ListedYear struct {
-	// ReportingPeriod is the report's year, Version EMSA's version, and
-	// Ships its ships.
 	ReportingPeriod int      `json:"reporting_period"`
 	Version         string   `json:"version"`
 	Ships           []Listed `json:"ships"`
@@ -133,7 +111,6 @@ type ListedYear struct {
 
 // Data is the crossings and the MRV years.
 type Data struct {
-	// Crossings are the truck ferry crossings (data/crossings*.json).
 	Crossings []Crossing
 	Years     []MRVYear    // oldest first
 	Listed    []ListedYear // oldest first
@@ -299,8 +276,6 @@ func km(lat1, lon1, lat2, lon2 float64) float64 {
 // year), weighted by each ship's freight transport work: the sum of their
 // freight CO2e over the sum of their freight work.
 type Intensity struct {
-	// GPerTNm is the intensity, g CO2e per tonne-nautical mile, and Year
-	// the MRV year it comes from.
 	GPerTNm float64
 	Year    MRVYear
 	Ships   []MRVShip // the crossing's ships found in that year
@@ -350,7 +325,6 @@ var eea = map[string]bool{"AT": true, "BE": true, "BG": true, "HR": true, "CY": 
 // Coverage is the share of a crossing's emissions shipping companies
 // surrender allowances for (before the phase-in), and the law it rests on.
 type Coverage struct {
-	// Share is the share (0 to 1), and Basis the law it rests on.
 	Share float64
 	Basis string
 	// Note says what the share can't tell (some ships under 5,000 GT).
@@ -500,28 +474,23 @@ func (c Crossing) portCoverage(day time.Time) (Coverage, bool) {
 // freight, per metre of the vehicle's length (ets-surcharges.json, built
 // by tools/tables/ferry_ets.py).
 type ETSSurcharges struct {
-	// Operator is the line, and Unit what its rates are per (e.g. "EUR
-	// per lane metre").
 	Operator string `json:"operator"`
 	Unit     string `json:"unit"`
 	// CommencedMetre: charged per commencing metre (the length rounded
 	// up), with at least MinM metres.
-	CommencedMetre bool    `json:"commenced_metre"`
-	MinM           float64 `json:"min_m"`
-	// Source is the line's page of surcharges, Routes its routes, and
-	// Editions its surcharges by period.
-	Source   Source       `json:"source"`
-	Routes   []ETSRoute   `json:"routes"`
-	Editions []ETSEdition `json:"editions"`
+	CommencedMetre bool         `json:"commenced_metre"`
+	MinM           float64      `json:"min_m"`
+	Source         Source       `json:"source"`
+	Routes         []ETSRoute   `json:"routes"`
+	Editions       []ETSEdition `json:"editions"`
 	// PerRoute: an edition names only some routes, the others keep theirs.
 	PerRoute bool `json:"per_route,omitempty"`
 }
 
-// ETSRoute is one of the operator's routes and the crossings it sails.
+// ETSRoute is one of the operator's routes, by the name the editions'
+// rates use, and the crossings it sails (none: no truck crossing in the
+// data).
 type ETSRoute struct {
-	// Name is the route as the line names it (the editions' rates are by
-	// it), and Crossings the ids of the crossings it sails (none: no
-	// truck crossing here).
 	Name      string   `json:"name"`
 	Crossings []string `json:"crossings"`
 }
@@ -529,32 +498,23 @@ type ETSRoute struct {
 // ETSEdition is the surcharges in force from From to To (or, without To,
 // until the next edition).
 type ETSEdition struct {
-	// From and To are its days (YYYY-MM-DD).
-	From string `json:"from"`
-	To   string `json:"to,omitempty"`
-	// EUAEurPerT is the allowance price the line based it on, and Basis
-	// how the line says it set it.
-	EUAEurPerT float64 `json:"eua_eur_per_t,omitempty"`
-	Basis      string  `json:"basis,omitempty"`
-	// Source is the URL it was read from, and Note anything it needs said.
-	Source string `json:"source"`
-	Note   string `json:"note,omitempty"`
-	// Rates are the surcharges by route name, in the operator's Unit.
-	Rates map[string]float64 `json:"rates"`
+	From       string             `json:"from"`
+	To         string             `json:"to,omitempty"`
+	EUAEurPerT float64            `json:"eua_eur_per_t,omitempty"`
+	Basis      string             `json:"basis,omitempty"`
+	Source     string             `json:"source"`
+	Note       string             `json:"note,omitempty"`
+	Rates      map[string]float64 `json:"rates"`
 }
 
 // Surcharge is the ETS surcharge on a crossing on a day.
 type Surcharge struct {
-	// Operator and Route name the line and its route, and EURPerM is the
-	// rate per metre of the vehicle's length.
 	Operator, Route string
 	EURPerM         float64
-	// CommencedMetre and MinM: see ETSSurcharges.
-	CommencedMetre bool
-	MinM           float64
-	// Edition is the edition in force, and Source the line's page.
-	Edition ETSEdition
-	Source  Source
+	CommencedMetre  bool
+	MinM            float64
+	Edition         ETSEdition
+	Source          Source
 }
 
 // Metres is the length charged for a vehicle of length m.

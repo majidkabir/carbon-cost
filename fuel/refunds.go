@@ -14,8 +14,6 @@ import (
 // or, where the law refunds the excise above a floor, the excise in force
 // (the Weekly Oil Bulletin's) less Floor, for countries on the euro.
 type Refund struct {
-	// Country (ISO 3166-1 alpha-2), From and To, EURPerL and Floor: see
-	// Refund.
 	Country  string
 	From, To string
 	EURPerL  float64
@@ -28,13 +26,10 @@ type Refund struct {
 	// amounts in that currency.
 	LocalPerL float64
 	Currency  string
-	// MinMassKg and MinEuro: see Refund.
 	MinMassKg int
 	MinEuro   int
 	// Note says what the rate leaves out (regional rates, conditions).
-	Note string
-	// Law cites the law that sets the refund, and Title and URL the
-	// document it is published in.
+	Note  string
 	Law   string
 	Title string
 	URL   string

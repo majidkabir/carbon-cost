@@ -15,11 +15,8 @@ import (
 // local time ("24:00" for midnight at the day's end), within the season
 // FromDay to ToDay ("MM-DD", inclusive) if one is given.
 type Rule struct {
-	// Country is the ISO 3166-1 alpha-2 code, and Name says in short when
-	// and for whom the ban holds.
-	Country string
-	Name    string
-	// MinMassKg and TrailerMassKg: see Rule.
+	Country       string
+	Name          string
 	MinMassKg     int
 	TrailerMassKg int
 	// Days: "mon".."sun", "holiday" for the public holidays of Holidays
@@ -30,8 +27,7 @@ type Rule struct {
 	// "dayoff_single" for the first and last day of a run and a day off
 	// alone, "sat_after_workday" for a Saturday after a working day, and
 	// "good_friday".
-	Days []string
-	// From and To are the hours ("HH:MM"), FromDay and ToDay the season.
+	Days           []string
 	From, To       string
 	FromDay, ToDay string
 	// Since and Until ("YYYY-MM-DD", inclusive) bound the dates the rule
@@ -51,19 +47,14 @@ type Rule struct {
 	Roads []string
 	// TransitFrom and TransitTo: the ban holds only on trucks in transit
 	// from one of those countries towards TransitTo (Luxembourg's).
-	TransitFrom []string
-	TransitTo   string
-	// Exemptions are the law's exemptions, in short; Note says where or
-	// for whom else the ban holds.
+	TransitFrom      []string
+	TransitTo        string
 	Exemptions, Note string
-	// Law cites the law that sets the ban, and Title and URL the document
-	// it is published in.
-	Law, Title, URL string
+	Law, Title, URL  string
 }
 
 // Holiday is a public holiday the bans count.
 type Holiday struct {
-	// Date is the day (UTC midnight), and Name the holiday's name.
 	Date time.Time
 	Name string
 	// Regions (ISO 3166-2) where it is kept; none: everywhere.
@@ -300,7 +291,6 @@ func (r Rule) Applies(maxMassKg int, trailer bool) bool {
 
 // Window is a ban in force over a stretch of time, local time.
 type Window struct {
-	// Rule is the ban, and From and To when it starts and ends.
 	Rule     Rule
 	From, To time.Time
 	// Holiday names the holiday it is for; Regions, where it is kept only

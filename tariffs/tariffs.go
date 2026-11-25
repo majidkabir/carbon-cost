@@ -35,17 +35,12 @@ const (
 // Dataset is one dataset with what carbon-cost looks it up by.
 type Dataset struct {
 	*orct.Dataset
-	File   string // <cc>/<name>.orct.json, under data/
-	Scheme string // e.g. "no", "dk-bridges"
-	// Name is the scheme's name; Country and Region (for regional tolls)
-	// are where it charges.
-	Name    string
-	Country string
-	Region  string
-	// Kind is Toll, Crossings, Zone or FuelCO2.
-	Kind string
-	// ValidFrom and ValidTo are the days it is in force (YYYY-MM-DD; no
-	// ValidTo: until replaced).
+	File      string // <cc>/<name>.orct.json, under data/
+	Scheme    string // e.g. "no", "dk-bridges"
+	Name      string
+	Country   string
+	Region    string
+	Kind      string
 	ValidFrom string
 	ValidTo   string
 	ext       map[string]json.RawMessage

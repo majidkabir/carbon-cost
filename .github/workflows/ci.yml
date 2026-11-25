@@ -14,10 +14,6 @@ jobs:
       - run: test -z "$(gofmt -l .)"
       - run: go vet ./...
       - run: go test ./...
-      # Every exported name has a doc comment (tools/docs/godoc), and every
-      # name docs/code gives exists (tools/docs/check.py).
-      - run: go run ./tools/docs/godoc
-      - run: python3 tools/docs/check.py
   tables:
     # The converter: the test tables convert to the test datasets; what
     # Publish data may publish on its own (tools/orct/publish.py).

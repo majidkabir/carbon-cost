@@ -522,8 +522,6 @@ type TableUsed struct {
 
 // Calculator prices trips.
 type Calculator struct {
-	// Sootcase routes the trips and gives their emissions; Tariffs are the
-	// rate tables.
 	Sootcase sootcase.Client
 	Tariffs  *tariffs.Set
 	Ferries  *ferries.Data  // nil: ferry crossings use Sootcase's default

@@ -14,10 +14,7 @@ import (
 	"time"
 )
 
-// Document is an ORCT dataset as published (6.1). Each field is the member its JSON tag names;
-// Header is the dataset member, and Liable, Sets, Times, Calendars,
-// Users and Objects are liable_vehicles, vehicle_class_sets,
-// time_classes, calendars, user_classes and charge_objects.
+// Document is an ORCT dataset as published.
 type Document struct {
 	ORCT    string          `json:"orct"`
 	Header  Header          `json:"dataset"`
@@ -39,13 +36,13 @@ type Document struct {
 	Extensions json.RawMessage `json:"extensions,omitempty"`
 }
 
-// NoCharge states that the scheme's area levies no charge (6.13). Each field is the member its JSON tag names.
+// NoCharge states that the scheme's area levies no charge (ORCT 6.13).
 type NoCharge struct {
 	Description string   `json:"description"`
 	Sources     []string `json:"sources"`
 }
 
-// Header is the dataset member (6.2). Each field is the member its JSON tag names.
+// Header is the dataset member.
 type Header struct {
 	ID               string          `json:"id"`
 	Version          string          `json:"version,omitempty"`
@@ -61,7 +58,7 @@ type Header struct {
 	DerivedFrom      json.RawMessage `json:"derived_from,omitempty"`
 }
 
-// Tax is how the amounts stand to VAT or a sales tax (6.4). Each field is the member its JSON tag names.
+// Tax is how the amounts stand to VAT or a sales tax.
 type Tax struct {
 	Basis string          `json:"basis"`
 	Name  string          `json:"name,omitempty"`
@@ -69,14 +66,14 @@ type Tax struct {
 	Note  string          `json:"note,omitempty"`
 }
 
-// ClassSet is a vehicle class set (6.6.3). Each field is the member its JSON tag names.
+// ClassSet is a vehicle class set.
 type ClassSet struct {
 	ID      string  `json:"id"`
 	Name    string  `json:"name,omitempty"`
 	Classes []Class `json:"classes"`
 }
 
-// Class is a vehicle class (6.6.2, 6.6.3). Each field is the member its JSON tag names.
+// Class is a vehicle class.
 type Class struct {
 	ID       string         `json:"id"`
 	Label    string         `json:"label,omitempty"`
@@ -84,7 +81,7 @@ type Class struct {
 	Fallback string         `json:"fallback,omitempty"`
 }
 
-// TimeClass is a time class (6.7). Each field is the member its JSON tag names.
+// TimeClass is a time class.
 type TimeClass struct {
 	ID      string           `json:"id"`
 	Label   string           `json:"label,omitempty"`
@@ -94,7 +91,7 @@ type TimeClass struct {
 	Note    string           `json:"note,omitempty"`
 }
 
-// Calendar is an explicit list of dates (6.7). Each field is the member its JSON tag names.
+// Calendar is an explicit list of dates.
 type Calendar struct {
 	ID       string   `json:"id"`
 	Name     string   `json:"name,omitempty"`
@@ -102,14 +99,14 @@ type Calendar struct {
 	CoversTo string   `json:"covers_to"`
 }
 
-// UserClass is a user class (6.8). Each field is the member its JSON tag names.
+// UserClass is a user class.
 type UserClass struct {
 	ID      string   `json:"id"`
 	Label   string   `json:"label,omitempty"`
 	Payment []string `json:"payment,omitempty"`
 }
 
-// Object is a charge object (6.9). Each field is the member its JSON tag names.
+// Object is a charge object.
 type Object struct {
 	ID           string          `json:"id"`
 	Type         string          `json:"type"`
@@ -128,21 +125,21 @@ type Object struct {
 	Note         string          `json:"note,omitempty"`
 }
 
-// Network describes a network object (6.9). Each field is the member its JSON tag names.
+// Network describes a network object.
 type Network struct {
 	RoadTypes   []string `json:"road_types,omitempty"`
 	Area        string   `json:"area,omitempty"`
 	Description string   `json:"description,omitempty"`
 }
 
-// Place is a section's end (6.9). Each field is the member its JSON tag names.
+// Place is a section's end.
 type Place struct {
 	Name     string   `json:"name,omitempty"`
 	Geometry Geometry `json:"geometry"`
 	Heading  *float64 `json:"heading,omitempty"`
 }
 
-// Location is where a toll charger detects an object's use (6.9). Each field is the member its JSON tag names.
+// Location is where a toll charger detects an object's use.
 type Location struct {
 	Geometry   *Geometry       `json:"geometry,omitempty"`
 	OpenLR     string          `json:"openlr,omitempty"`
@@ -153,13 +150,13 @@ type Location struct {
 	PointNames []string        `json:"point_names,omitempty"`
 }
 
-// Geometry is an RFC 7946 geometry. Each field is the member its JSON tag names.
+// Geometry is an RFC 7946 geometry.
 type Geometry struct {
 	Type        string          `json:"type"`
 	Coordinates json.RawMessage `json:"coordinates"`
 }
 
-// Charge is a charge with its rate table (6.10). Each field is the member its JSON tag names.
+// Charge is a charge with its rate table.
 type Charge struct {
 	ID             string                `json:"id"`
 	Name           string                `json:"name,omitempty"`
@@ -192,14 +189,14 @@ type Charge struct {
 	idxOnce sync.Once
 }
 
-// Rounding is a charge's rounding (6.10.1). Each field is the member its JSON tag names.
+// Rounding is a charge's rounding.
 type Rounding struct {
 	Increment string `json:"increment"`
 	Mode      string `json:"mode"`
 	Stage     string `json:"stage"`
 }
 
-// Rule is a rule (6.11). Each field is the member its JSON tag names.
+// Rule is a rule.
 type Rule struct {
 	ID        string         `json:"id"`
 	Kind      string         `json:"kind"`
@@ -207,7 +204,7 @@ type Rule struct {
 	Params    map[string]any `json:"params"`
 }
 
-// Coverage is a coverage entry (6.12). Each field is the member its JSON tag names.
+// Coverage is a coverage entry.
 type Coverage struct {
 	Scope  string `json:"scope"`
 	Status string `json:"status"`
@@ -229,7 +226,6 @@ func (r row) str(col string) (string, bool) {
 
 // Dataset is a document ready to price with.
 type Dataset struct {
-	// Doc is the document, and ID its dataset id.
 	Doc     *Document
 	ID      string
 	tz      *time.Location
@@ -597,7 +593,6 @@ type unknown struct {
 	msg, code string
 }
 
-// Error gives the message.
 func (u unknown) Error() string { return u.msg }
 
 func num(v any) (float64, bool) {

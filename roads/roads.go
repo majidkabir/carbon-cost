@@ -41,10 +41,7 @@ const (
 // carry a suburban share (Hungary's toll sections), Known is the km on
 // ways with one and Sub that km weighted by it.
 type Km struct {
-	// Motorway, National and Local are the km on each class.
-	Motorway, National, Local float64
-	// MotorwayKnown and NationalKnown are the Known km, MotorwaySub and
-	// NationalSub the Sub km, of each class.
+	Motorway, National, Local    float64
 	MotorwayKnown, NationalKnown float64
 	MotorwaySub, NationalSub     float64
 	// Uncertain is the Local km with an end within NearM of a motorway or

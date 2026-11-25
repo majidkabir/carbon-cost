@@ -42,8 +42,6 @@ type localeData struct {
 
 // Loc is a language: its messages and formats.
 type Loc struct {
-	// Code is the language's code (site/i18n/<code>.json), and Name its
-	// name in itself (the CLDR's).
 	Code string
 	Name string
 	msgs map[string]string

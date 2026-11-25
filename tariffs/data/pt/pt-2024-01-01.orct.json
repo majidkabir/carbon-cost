@@ -17,7 +17,7 @@
   "currency": "EUR",
   "timezone": "Europe/Lisbon",
   "license": "MIT",
-  "method": "IMT, Taxas de Portagem de 2024: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-23). 36 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2024 pages. IMT's 2024 pages, one per motorway; the A32 page has no 2024 copy and the former SCUT roads (electronic tolls, abolished on 1 January 2025) have no page, so neither is priced.",
+  "method": "IMT, Taxas de Portagem de 2024: the toll of each lanço by class, set by the concession contracts and validated by IMT; class 2 (two axles, 1.1 m or higher at the front axle), 3 (three axles), 4 (more than three), excluding IVA (23%; 6% on the Lusoponte Tejo crossings, which charge northbound only). A trip pays each lanço it drives: each is a toll point in its middle, placed along the motorway by IMT's lengths at OpenStreetMap's junctions (extract of 2026-11-24). 36 lanços that couldn't be placed (branches, short runs, misfits) aren't charged. Only the concessions IMT's page lists (Brisa, Oeste, Brisal, Douro Litoral, Lusoponte, IP's A21). Built from the Internet Archive's copies of the 2024 pages. IMT's 2024 pages, one per motorway; the A32 page has no 2024 copy and the former SCUT roads (electronic tolls, abolished on 1 January 2025) have no page, so neither is priced.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "pt-2024-01-01.json"
@@ -3948,7 +3948,7 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "osm_extract": "2026-11-23"
+   "osm_extract": "2026-11-24"
   }
  }
 }

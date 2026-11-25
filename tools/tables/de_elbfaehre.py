@@ -7,7 +7,9 @@
   each further metre, overhanging ones too; at most 23 m), net and gross,
   and the load by weight per started 1,000 kg, each "valid from 1 January
   to 31 December" of a year. The page changed its 2026 fares in November
-  2026 without changing their dates: the earlier ones are the Internet
+  2026 without changing their dates (on 19 and 23 November up, on 25
+  November back to January's, "valid until 31 December"): the earlier ones
+  are the Internet
   Archive's copy of 8 November 2026 (frs-elbe-trucks-2026-01), the later
   ones from the day they were first read (FIRST_READ); fares the page gave
   in between and no longer does are kept as read (RECORDED); a row whose
@@ -36,16 +38,25 @@ import datetime, html, json, os, re, sys
 from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 
 # The fares the live page gave when first read, and from when they're taken.
-FIRST_READ = {"2026": "2026-11-23"}
+FIRST_READ = {"2026": "2026-11-25"}
 # Fares the live page gave earlier and no longer does, as they were read
 # then (recorded in the committed dataset tariffs/data/de/
 # de-elbfaehre-<date>.orct.json): (year, [(up to m, net EUR)], per further
 # metre, max m, load per started 1,000 kg). The page raised its 2026 fares
-# again between the runs of 22 and 23 November 2026.
+# again between the runs of 22 and 23 November 2026, and went back to
+# January's between those of 24 and 25 November.
 RECORDED = {"2026-11-19": ("2026", [(5, 15.55), (6, 18.07), (7, 21.43), (8, 24.79), (9, 26.05), (10, 27.31), (11, 29.41), (12, 30.67),
-                                    (13, 31.93), (14, 34.03), (15, 35.71), (16, 36.55), (17, 37.82), (18.35, 39.08)], 4.20, 23.0, 1.26)}
-# Rows whose net price the page gives wrong, taken as gross / 1.19.
+                                    (13, 31.93), (14, 34.03), (15, 35.71), (16, 36.55), (17, 37.82), (18.35, 39.08)], 4.20, 23.0, 1.26),
+            "2026-11-23": ("2026", [(5, 15.88), (6, 18.40), (7, 21.76), (8, 24.79), (9, 26.39), (10, 27.65), (11, 29.75), (12, 31.01),
+                                    (13, 32.27), (14, 34.37), (15, 36.05), (16, 36.89), (17, 38.15), (18.35, 39.41)], 4.20, 23.0, 1.26)}
+# The recorded fares' rows whose net price the page gave wrong (taken as
+# gross / 1.19 when read).
+RECORDED_CORRECTED = {"2026-11-23": [8, 17, 18.35]}
+# Rows whose net price the live page gives wrong, taken as gross / 1.19.
 CORRECTED = []
+# Pages whose fares say only "valid until 31 December" (the live page
+# since 25 November 2026), not "from 1 January".
+UNTIL_ONLY = set()
 # The editions: the fetched page for each, the earliest first within a year.
 EDITIONS = [("2025", "frs-elbe-trucks-2025"), ("2026", "frs-elbe-trucks-2026-01"), ("2026", "frs-elbe-trucks")]
 FUEL = ["frs-elbe-fuel-2026-03", "frs-elbe-fuel-2026-05", "frs-elbe-fuel-2026-09", "frs-elbe-fuel"]
@@ -70,18 +81,21 @@ def eur(s):
 
 def fares(name, t):
     """(year, [(up to m, net EUR)], per further metre net, max m, load per started 1,000 kg net)."""
-    m = re.search(r"Lkw \(unbeladen und unbesetzt\)\* Gültig vom 01\. Januar bis 31\. Dezember (\d{4}) netto brutto (.*?) je weiterer Meter "
+    m = re.search(r"Lkw \(unbeladen und unbesetzt\)\* Gültig (vom 01\. Januar )?bis 31\. Dezember (\d{4}) netto brutto (.*?) je weiterer Meter "
                   r"\(auch bei überhängenden Metern\) " + EUR + " " + EUR, t)
     if not m:
         sys.exit(f"Elbfähre: {name}: the trucks' fares not found")
-    year, body = m.group(1), m.group(2)
+    if not m.group(1):
+        UNTIL_ONLY.add(name)
+    year, body = m.group(2), m.group(3)
     rows = [(float(a.replace(",", ".")), eur(n), eur(g)) for a, n, g in re.findall(r"Länge bis (\d+,\d\d) m " + EUR + " " + EUR, body)]
     if [r[0] for r in rows] != [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18.35]:
         sys.exit(f"Elbfähre: {name}: the length bands read: {[r[0] for r in rows]}")
     # Gross is net plus 19% VAT. Where the page's net and gross disagree
-    # (its 2026 table from November has net prices copied from the band
-    # above at 8, 17 and 18.35 m), the gross price, which follows the
-    # table's steps, is taken, and the row is reported.
+    # (a net price mistyped: in November 2026, 28,57 for 34,50 at 12 m), the
+    # gross price, which follows the table's steps, is taken, and the row is
+    # reported. "Gültig bis 31. Dezember" (since 25 November 2026) is the
+    # same year's table as "Gültig vom 01. Januar bis 31. Dezember".
     bad = [(a, n, g) for a, n, g in rows if abs(n * 1.19 - g) > 0.02]
     if len(bad) > 3:
         sys.exit(f"Elbfähre: {name}: net and gross disagree in {len(bad)} rows: {bad}")
@@ -89,13 +103,13 @@ def fares(name, t):
         CORRECTED.append(a)
         print(f"::warning title=Elbfähre {name}::up to {a:g} m net {n} and gross {g} don't differ by 19% VAT; net taken as gross / 1.19 = {round(g / 1.19, 2)}")
     rows = [(a, round(g / 1.19, 2), g) if (a, n, g) in bad else (a, n, g) for a, n, g in rows]
-    if abs(eur(m.group(3)) * 1.19 - eur(m.group(4))) > 0.02:
-        sys.exit(f"Elbfähre: {name}: per further metre net {m.group(3)} and gross {m.group(4)} don't differ by 19% VAT")
+    if abs(eur(m.group(4)) * 1.19 - eur(m.group(5))) > 0.02:
+        sys.exit(f"Elbfähre: {name}: per further metre net {m.group(4)} and gross {m.group(5)} don't differ by 19% VAT")
     mx = re.search(r"Maximale Länge: (\d+,\d\d) m", t)
-    load = re.search(r"Ladungen Gültig vom 01\. Januar bis 31\. Dezember (\d{4}) netto brutto nach Gewicht, je angefangene 1\.000 kg " + EUR + " " + EUR, t)
+    load = re.search(r"Ladungen Gültig (?:vom 01\. Januar )?bis 31\. Dezember (\d{4}) netto brutto nach Gewicht, je angefangene 1\.000 kg " + EUR + " " + EUR, t)
     if not mx or not load or load.group(1) != year:
         sys.exit(f"Elbfähre: {name}: the maximum length or the load's rate for {year} not found")
-    return year, [(a, n) for a, n, _ in rows], eur(m.group(3)), float(mx.group(1).replace(",", ".")), eur(load.group(2))
+    return year, [(a, n) for a, n, _ in rows], eur(m.group(4)), float(mx.group(1).replace(",", ".")), eur(load.group(2))
 
 
 def fuel(name, t):
@@ -181,14 +195,16 @@ def main(fetched, out):
                  "groups": [{"name": "per started 1,000 kg of load", "min_kg": 3501}], "stations": st, "station_match_km": MATCH_KM,
                  "prices": {"Glückstadt|Wischhafen": {"per started 1,000 kg of load": load}},
                  "unit": "t", "mass_basis": "load_kg", "mass_step_kg": 1000}
-        fixed = a == FIRST_READ.get(year) and CORRECTED
+        fixed = CORRECTED if a == FIRST_READ.get(year) else RECORDED_CORRECTED.get(a)
         src = ("the Internet Archive's copy of 8 November 2026" if a == f"{year}-01-01" and year in FIRST_READ
                else "the page as read on " + a + ", recorded" if a in RECORDED
                else "the page as read on " + a if year in FIRST_READ else "the Internet Archive's copy of 10 November 2025" if year == "2025" else "the page")
-        law = (f"FRS Elbfähre's fares for trucks and cargo, valid 1 January to 31 December {year} ({src}): a truck, unloaded and without its driver, "
+        valid = (f"valid until 31 December {year}" if a == FIRST_READ.get(year) and "frs-elbe-trucks" in UNTIL_ONLY
+                 else f"valid 1 January to 31 December {year}")
+        law = (f"FRS Elbfähre's fares for trucks and cargo, {valid} ({src}): a truck, unloaded and without its driver, "
                "net of 19% VAT, by its length over all: " + ", ".join(f"to {hi:g} m EUR {net:.2f}" for hi, net in bands)
                + f", each further metre (overhanging ones too) EUR {per:.2f}, at most {mx:g} m; the load by weight, EUR {load:.2f} per started 1,000 kg. "
-               + ("The page's net prices up to " + ", ".join(f"{x:g}" for x in CORRECTED) + " m don't match its gross ones; those are taken as gross / 1.19. " if fixed else "")
+               + ("The page's net prices up to " + ", ".join(f"{x:g}" for x in fixed) + " m don't match its gross ones; those are taken as gross / 1.19. " if fixed else "")
                + (f"Plus the fuel surcharge per truck of EUR {sur:.2f} (as of {since}; the page gives one amount, taken as published). " if sur else "")
                + "The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, "
                  "nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line."

@@ -274,6 +274,10 @@ API request:
 
 Optional fields: `time` (HH:MM departure, local time where the trip starts; each station's time is taken in its own country's time zone: each toll station is reached that much later at `avg_speed_kmh`, default 70; this prices congestion taxes, the hours a toll is free and the days of time-based charges), `avg_speed_kmh`, `driver_rest`, `vehicle_type` (Sootcase), `tolled_share`, `motorway_share`, `env_zone_km`, `ferry_ets_share`, `ets2_eur_per_t`, `fuel_country`, `fuel_purchases`, `diesel_l` and `l_per_100km` (the truck's diesel), `stops` and `shipments`, `path` (the route driven), `country_km` (no route), `truck.motor_axles`, `truck.motor_mass_kg` and `truck.trailer_mass_kg` (the tractor's own axles and the tractor's and trailer's own permissible maximum masses, for charges that count them), `truck.length_m` (with trailer and load; bridges and ferries by length, default 16.5), `truck.capacity_kg` (the load capacity, the semi-trailer's for a tractor with semi-trailer: Croatia's state ferries charge per tonne of it; without it they aren't priced), `dkk_per_eur`, `fx`, `night`, `compare_co2_classes` (e.g. `[1, 4, 5]`, giving `compare[]` in the response) and `trips_per_year`. Each line of the response carries `source` (the law or tariff) and `sources` (links to it).
 
+## Working on the code
+
+[docs/code](docs/code/README.md) documents the code: what happens to a request, every package, how the data is fetched and published, and the checks and releases. The full API is in `cmd/carbon-cost/web/openapi.json` (served at `/v1/openapi.json`).
+
 ## License
 
 The code is MIT (see `LICENSE`). The toll rates in `tariffs/data` are copied from laws and official tariffs, which are not protected by copyright in Denmark (Ophavsretsloven § 9) or Germany (UrhG § 5). Route, distance and emission results come from the Sootcase server at run time and are not part of this repo; they follow that server's terms.

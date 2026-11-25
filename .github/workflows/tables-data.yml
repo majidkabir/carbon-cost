@@ -217,7 +217,11 @@ jobs:
           cd out/tables
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/fr/transcribed | tee -a compare.txt
           python3 ../../tools/tables/check_transcribed.py .. ../../tools/tables/transcribed | tee -a compare.txt
-          python3 ../../tools/tables/check_bans.py .. ../../bans/data | tee -a compare.txt
+          # A ban day no longer in its decree fails the run at the end (see
+          # Builders that failed), so the owner hears of an amended decree.
+          python3 ../../tools/tables/check_bans.py .. ../../bans/data > bans-check.txt
+          tee -a compare.txt < bans-check.txt
+          if grep -q "not found in" bans-check.txt; then echo "tools/tables/check_bans.py: bans/data differs from a decree" >> ../build-errors.txt; fi
       - name: Push
         # Also when a builder failed, but not when the run was cancelled or
         # timed out before the datasets were converted: a partial out/

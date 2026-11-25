@@ -1,4 +1,4 @@
-# Romanian, Danish bridge, Hungarian, Baltic, Swedish, Luxembourg, UK, Norwegian, Irish, North Macedonian, Montenegrin, Greek, Turkish motorway and bridge, Fréjus and Mont Blanc tunnel rate tables: how the data is gathered
+# Tables data: how the current rate tables are gathered
 
 Everything here runs in the **Tables data** workflow (`.github/workflows/tables-data.yml`, started by pushing to the `tables-data` branch). It fetches the sources, rebuilds the tables, converts them to ORCT datasets, says whether each one is the same as the committed dataset (`tariffs/data`), and pushes the fetched pages, `manifest.json` (URL, sha256, size, fetch time and HTTP status of every file), the rebuilt tables and their datasets to the `tables-out` branch.
 

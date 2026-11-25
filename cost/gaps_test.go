@@ -334,7 +334,7 @@ func TestOwnPathBans(t *testing.T) {
 	}
 	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// Sootcase's way from Venlo to Nijmegen, mostly in Germany.
-		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 60, WTWKg: 70, Legs: []sootcase.LegResult{{DistanceKm: 70, TTWKg: 60, WTWKg: 70,
+		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 60, WTWKg: 70, Legs: []sootcase.LegResult{{DistanceKm: 70, TTWKg: 60, WTWKg: 70, DurationH: 0.2,
 			CountryKm: map[string]float64{"NL": 15, "DE": 55}, Path: [][2]float64{{6.17, 51.37}, {6.25, 51.6}, {5.86, 51.84}},
 			CountrySections: []sootcase.CountrySection{{Country: "NL", FromKm: 0, ToKm: 5}, {Country: "DE", FromKm: 5, ToKm: 60}, {Country: "NL", FromKm: 60, ToKm: 70}}}}})
 	}))
@@ -347,6 +347,10 @@ func TestOwnPathBans(t *testing.T) {
 	}
 	if out.CountryKm["DE"] > 0 || slices.ContainsFunc(out.Bans, func(b BanHit) bool { return b.Country == "DE" }) {
 		t.Errorf("country km %v, bans %+v; want no German ban", out.CountryKm, out.Bans)
+	}
+	// Nor Sootcase's driving time: the path's km at the average speed.
+	if want := math.Round(out.Trip.RoadKm/DefaultAvgSpeedKmh*100) / 100; out.Trip.Hours != want {
+		t.Errorf("hours %v; want %v", out.Trip.Hours, want)
 	}
 }
 
@@ -374,5 +378,114 @@ func TestSlowAndLongTrips(t *testing.T) {
 	}
 	if !slices.ContainsFunc(out.Notes, func(n string) bool { return strings.Contains(n, "bans aren't checked") }) || time.Since(start) > 10*time.Second {
 		t.Errorf("200,000 km at 5 km/h: %v, notes %q", time.Since(start), out.Notes)
+	}
+}
+
+// A driven path that crosses the Storebælt bridge and back on one leg
+// pays it both ways.
+func TestOneLegPassesTwice(t *testing.T) {
+	out := dense([][2]float64{{12.0, 55.45}, {11.2, 55.37}, {11.10879, 55.3498}, {10.87, 55.31}, {10.39, 55.40}})
+	path := append(out, reversed(out)[1:]...)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 280, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"DK": 280}, Path: path, RouteParts: map[string]float64{}}}}
+	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Storebælt") {
+			n++
+		}
+	}
+	if n != 2 {
+		t.Errorf("Storebælt lines on one leg out and back: %d; want 2", n)
+	}
+}
+
+// The same for a closed system: Benkovac to Bisko and back on one leg is
+// two tickets.
+func TestOneLegTwoTickets(t *testing.T) {
+	there := dense([][2]float64{{15.55, 44.03}, {15.5809, 44.00868}, {16.0, 43.8}, {16.68549, 43.57016}, {16.72, 43.55}})
+	price := func(path [][2]float64) float64 {
+		res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 300}, Path: path, RouteParts: map[string]float64{}}}}
+		r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		sum := 0.0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.RateUnit == "EUR/passage" {
+				sum += l.Amount
+			}
+		}
+		return sum
+	}
+	one, two := price(there), price(append(there, reversed(there)[1:]...))
+	if one == 0 || math.Abs(two-2*one) > 0.01 {
+		t.Errorf("Benkovac–Bisko: one way EUR %.2f, there and back on one leg EUR %.2f; want twice", one, two)
+	}
+}
+
+// A ticket entered just before midnight on a table's last day and left
+// after it is priced (by the table at the exit), not dropped.
+func TestTicketOverATableChange(t *testing.T) {
+	path := dense([][2]float64{{15.55, 44.03}, {15.5809, 44.00868}, {16.0, 43.8}, {16.68549, 43.57016}, {16.72, 43.55}})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 120, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 120}, Path: path, RouteParts: map[string]float64{}}}}
+	for _, at := range []string{"20:00", "23:30"} {
+		r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40, Time: at}, time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		sum := 0.0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.RateUnit == "EUR/passage" {
+				sum += l.Amount
+			}
+		}
+		if sum == 0 || !r.Complete {
+			t.Errorf("Benkovac–Bisko on 2025-12-31 at %s: EUR %.2f, missing %+v; want it priced", at, sum, r.Missing)
+		}
+	}
+}
+
+// A bridge whose rates ended is missing whatever the departure time: at
+// 23:55 on a day after its table ended the bridge is still reached.
+func TestEndedWhateverTheTime(t *testing.T) {
+	set := all(t)
+	var last string
+	for _, ds := range set.All {
+		if ds.Scheme == "dk-bridges" && ds.ValidTo > last {
+			last = ds.ValidTo
+		}
+	}
+	if last == "" {
+		t.Skip("dk-bridges has no last day")
+	}
+	day, _ := time.Parse(time.DateOnly, last)
+	day = day.AddDate(0, 0, 12)
+	res := sootcase.Result{Legs: []sootcase.LegResult{storebaelt()}}
+	for _, at := range []string{"10:00", "23:55"} {
+		r, err := Price(res, set, Request{CargoKg: 10000, Truck: truck40, Time: at}, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if !slices.ContainsFunc(r.Missing, func(m Missing) bool { return m.Reason == "ended" }) {
+			t.Errorf("Storebælt on %s at %s: missing %+v; want it ended", day.Format(time.DateOnly), at, r.Missing)
+		}
+	}
+}
+
+// A start time (telematics, UTC) is the trip's day where it starts:
+// 22:30 UTC on 19 November is the 20th in Helsinki, the 19th in Lisbon.
+func TestDateFromAStartTime(t *testing.T) {
+	for cc, want := range map[string]string{"FI": "2026-11-20", "PT": "2026-11-19"} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{cc: 10}, Date: "2026-11-19T22:30:00Z",
+			CargoKg: 1000, Truck: truck40})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if out.Date != want {
+			t.Errorf("%s: date %s; want %s", cc, out.Date, want)
+		}
 	}
 }

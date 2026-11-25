@@ -40,8 +40,9 @@ type FuelBought struct {
 	// Country is where the litres are bought, and Litres how many.
 	Country string  `json:"country"`
 	Litres  float64 `json:"litres"`
-	// EURPerL is their price per litre without VAT (after any refund),
-	// and EUR the litres' cost; none where there is no price.
+	// EURPerL is their price per litre without VAT (before any refund),
+	// and EUR the litres' cost, less the refund; none where there is no
+	// price.
 	EURPerL float64 `json:"eur_per_l,omitempty"`
 	EUR     float64 `json:"eur,omitempty"`
 	// Price says where the price comes from: "given", or "Weekly Oil

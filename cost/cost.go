@@ -126,7 +126,10 @@ type Request struct {
 	// them as missing; bridges, tunnels, ferries and zones aren't priced
 	// (a note says so). Not with from, to, stops, shipments or path.
 	CountryKm map[string]float64 `json:"country_km,omitempty"`
-	Date      string             `json:"date,omitempty"` // YYYY-MM-DD; default today where the trip starts (CET if not known)
+	// Date is YYYY-MM-DD, or the moment the trip starts (RFC 3339, as
+	// telematics give it) for its day where it starts; default today there
+	// (CET if not known).
+	Date string `json:"date,omitempty"`
 	// Time is the local departure time (HH:MM) on Date. Each toll station
 	// is reached that much later as its km along the route take at
 	// AvgSpeedKmh; that time prices congestion taxes and the hours a
@@ -872,7 +875,14 @@ func (c Calculator) date(s, cc string) (time.Time, error) {
 	}
 	t, err := time.Parse(time.DateOnly, s)
 	if err != nil {
-		return time.Time{}, fmt.Errorf("date must be YYYY-MM-DD")
+		// A moment (a telematics start time): its day where the trip
+		// starts.
+		at, err2 := time.Parse(time.RFC3339, s)
+		if err2 != nil {
+			return time.Time{}, fmt.Errorf("date must be YYYY-MM-DD, or a start time in RFC 3339 (2026-11-19T22:30:00Z)")
+		}
+		y, m, d := at.In(LocalZone(cc)).Date()
+		return time.Date(y, m, d, 0, 0, 0, 0, time.UTC), nil
 	}
 	return t, nil
 }
@@ -1049,7 +1059,6 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 	}
 	out.Trip = tripOf(res, req)
-	req = tripEmissions(&out, res, req)
 	if len(req.CountryKm) > 0 {
 		out.Notes = append(out.Notes, "country_km: no route, so tolls at stations, on sections, bridges and tunnels, ferries and environmental zones aren't priced (give from and to, or path).")
 	}
@@ -1079,6 +1088,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	if !routed {
 		return Response{}, &sootcase.Failed{Err: errors.New("returned no distance by country: the server needs Sootcase v0.9.0 or later (country_km)")}
 	}
+	// The emissions after the km by country: an electric truck's grid mix
+	// goes by them.
+	req = tripEmissions(&out, res, req)
 	for _, w := range res.Warnings {
 		out.Notes = append(out.Notes, "Sootcase: "+w)
 	}
@@ -1883,7 +1895,11 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, fuelL fl
 			}
 			scratch := Response{CountryKm: out.CountryKm, RegionKm: out.RegionKm}
 			n, lineCharge := 0, ""
-			p := newPricer(req, last, &scratch, func(l Line) error { n++; lineCharge = l.Charge; return nil })
+			// At noon of that day, whatever the departure time: a passage
+			// timed after midnight would fall outside the table.
+			untimed := req
+			untimed.Time = ""
+			p := newPricer(untimed, last, &scratch, func(l Line) error { n++; lineCharge = l.Charge; return nil })
 			one := &tariffs.Set{All: []*tariffs.Dataset{ds}}
 			charge := RoadToll
 			switch kind {

@@ -470,7 +470,7 @@ f.multi.addEventListener("change", multiChanged);
 
 // ---- the route driven, from a GPX or GeoJSON file
 const MAX_POINTS = 200000;
-let driven = null, drivenKWh = 0;
+let driven = null, drivenKWh = 0, rfmsStart = null;
 function parsePath(text) {
   text = text.trim();
   let out = [];
@@ -528,7 +528,7 @@ function parseRFMS(docs) {
   };
   const times = [...pts.map((p) => p[0]), ...reads.map((r) => r[0])].filter((t) => !isNaN(t));
   return { vin: vins[0], path, dieselL: delta(1, "engineTotalFuelUsed") / 1000, odoKm: delta(2, "hrTotalVehicleDistance") / 1000, kWh: delta(3, "totalElectricEnergyUsed") / 1000,
-    date: times.length ? localDay(new Date(Math.min(...times))) : "" };
+    date: times.length ? localDay(new Date(Math.min(...times))) : "", start: times.length ? new Date(Math.min(...times)).toISOString() : "" };
 }
 function pathKm(pts) {
   let km = 0;
@@ -541,7 +541,7 @@ function pathKm(pts) {
 }
 function setDriven(pts, name) {
   driven = pts;
-  if (!pts) drivenKWh = 0;
+  if (!pts) drivenKWh = 0, rfmsStart = null;
   $("pathinfo").textContent = pts ? `${name ? name + ": " : ""}${num(pts.length, 0)} ${T("points")}, ${num(pathKm(pts), 1)} km. ${T("Priced on this route; the stops above still set the shipments' own routes.")}` : "";
   $("clearpath").hidden = !pts;
   if (!pts) f.pathfile.value = "";
@@ -555,7 +555,9 @@ f.pathfile.addEventListener("change", async () => {
       const r = parseRFMS(texts.map((t) => JSON.parse(t)));
       if (r.path.length >= 2) setDriven(parsePath(JSON.stringify(r.path)), "rFMS " + r.vin); else setDriven(null);
       if (r.dieselL > 0 && !f.diesel_l.value && !f.l_per_100km.value) f.diesel_l.value = Math.round(r.dieselL * 1000) / 1000;
-      if (r.date) f.date.value = r.date;
+      // The page shows the browser's day; the server takes the start's
+      // day where the truck starts (rFMS times are UTC).
+      if (r.date) { f.date.value = r.date; rfmsStart = { day: r.date, at: r.start }; }
       drivenKWh = r.kWh > 0 ? Math.round(r.kWh * 1000) / 1000 : 0;
       const got = [r.dieselL > 0 && `${num(r.dieselL, 1)} ${T("l diesel")}`, r.kWh > 0 && `${num(r.kWh, 1)} kWh`, r.odoKm > 0 && `${T("odometer")} ${num(r.odoKm, 1)} km`, r.date].filter(Boolean);
       if (!got.length && r.path.length < 2) throw new Error("neither 2 positions nor 2 fuel or energy readings");
@@ -583,7 +585,7 @@ function pairs(s, what) {
 
 function buildRequest() {
   const req = {
-    date: f.date.value || undefined, time: f.time.value || undefined,
+    date: (rfmsStart && f.date.value === rfmsStart.day ? rfmsStart.at : f.date.value) || undefined, time: f.time.value || undefined,
     truck: { max_mass_kg: +f.max_mass_kg.value, axles: +f.axles.value, euro: +f.euro.value, co2_class: +f.co2_class.value,
              tare_kg: +f.tare_kg.value || undefined, length_m: +f.length_m.value || undefined,
              motor_axles: +f.motor_axles.value || undefined, motor_mass_kg: +f.motor_mass_kg.value || undefined,

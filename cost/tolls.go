@@ -363,8 +363,26 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			p.out.Missing = append(p.out.Missing, Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "ended", Ended: b.ds.ValidTo})
 		}
 	}
-	for i := range b.events {
-		move(&b.events[i].Dataset, b.events[i].Time, b.events[i].Ref)
+	for i := 0; i < len(b.events); i++ {
+		e := &b.events[i]
+		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
+			// A ticket is priced by one table: the one in force at the
+			// exit, where the toll is paid; an entry before its first day
+			// (just before midnight) is taken at its start.
+			ex := &b.events[x]
+			move(&ex.Dataset, ex.Time, ex.Ref)
+			e.Dataset = ex.Dataset
+			if d := out[e.Dataset]; d != nil {
+				if t, err := d.Local(e.Time); err == nil && t.Format(time.DateOnly) < d.ValidFrom {
+					if from, err := time.ParseInLocation(time.DateOnly, d.ValidFrom, d.TZ()); err == nil {
+						e.Time = stamp(from)
+					}
+				}
+			}
+			i = x
+			continue
+		}
+		move(&e.Dataset, e.Time, e.Ref)
 	}
 	for i := range b.quants {
 		move(&b.quants[i].Dataset, b.quants[i].Time, b.quants[i].Ref)
@@ -604,6 +622,21 @@ func readPolygons(o *orct.Object) [][][][2]float64 {
 		out = append(out, p)
 	}
 	return out
+}
+
+// bboxOf is the polygons' outer rings' box: min lon, min lat, max lon,
+// max lat.
+func bboxOf(polys [][][][2]float64) [4]float64 {
+	b := [4]float64{math.Inf(1), math.Inf(1), math.Inf(-1), math.Inf(-1)}
+	for _, poly := range polys {
+		if len(poly) == 0 {
+			continue
+		}
+		for _, p := range poly[0] {
+			b[0], b[1], b[2], b[3] = min(b[0], p[0]), min(b[1], p[1]), max(b[2], p[0]), max(b[3], p[1])
+		}
+	}
+	return b
 }
 
 func inPolygons(polys [][][][2]float64, pt [2]float64) bool {

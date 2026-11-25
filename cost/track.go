@@ -2,6 +2,7 @@ package cost
 
 import (
 	"math"
+	"slices"
 
 	"github.com/majidkabir/carbon-cost/rates"
 )
@@ -131,4 +132,69 @@ func (t *track) project(p rates.Place) (pos, dist, heading float64) {
 		}
 	}
 	return pos, dist, heading
+}
+
+// trackPass is one pass of the route by a place: the nearest point of a
+// stretch of the route within reach of it.
+type trackPass struct {
+	pos, dist, heading float64
+}
+
+// passes are each time the route comes within reach km of p, nearest
+// point first in each, in route order: a route that leaves (by more than
+// a km of route beyond reach) and comes back passes it again. A pass that
+// can't be told from a single one (closer) counts once.
+func (t *track) passes(p rates.Place, reach float64) []trackPass {
+	if t == nil || len(t.pts) < 2 {
+		return nil
+	}
+	cos := math.Cos(p.Lat * math.Pi / 180)
+	dLat := math.Min(reach, searchKm) / 111.2
+	dLon := dLat / math.Max(cos, 0.01)
+	lo, hi := trackKey(p.Lon-dLon, p.Lat-dLat), trackKey(p.Lon+dLon, p.Lat+dLat)
+	type near struct {
+		i                  int32
+		pos, dist, heading float64
+	}
+	seen := map[int32]bool{}
+	var ns []near
+	for x := lo[0]; x <= hi[0]; x++ {
+		for y := lo[1]; y <= hi[1]; y++ {
+			for _, i := range t.cells[[2]int32{x, y}] {
+				if seen[i] {
+					continue
+				}
+				seen[i] = true
+				a, b := t.pts[i], t.pts[i+1]
+				seg := t.cum[i+1] - t.cum[i]
+				if seg <= 0 {
+					continue
+				}
+				ax, ay := (a[0]-p.Lon)*cos*111.2, (a[1]-p.Lat)*111.2
+				bx, by := (b[0]-p.Lon)*cos*111.2, (b[1]-p.Lat)*111.2
+				dx, dy := bx-ax, by-ay
+				u := 0.0
+				if l := dx*dx + dy*dy; l > 0 {
+					u = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
+				}
+				if d := math.Hypot(ax+u*dx, ay+u*dy); d <= reach {
+					ns = append(ns, near{i, t.cum[i] + u*seg, d, math.Mod(math.Atan2(dx, dy)*180/math.Pi+360, 360)})
+				}
+			}
+		}
+	}
+	slices.SortFunc(ns, func(a, b near) int { return int(a.i - b.i) })
+	var out []trackPass
+	for k, n := range ns {
+		// Another pass where the route was away in between: segments out
+		// of reach, a km of route or more.
+		if k == 0 || n.i > ns[k-1].i+1 && t.cum[n.i]-t.cum[ns[k-1].i+1] >= 1 {
+			out = append(out, trackPass{n.pos, n.dist, n.heading})
+			continue
+		}
+		if last := &out[len(out)-1]; n.dist < last.dist {
+			*last = trackPass{n.pos, n.dist, n.heading}
+		}
+	}
+	return out
 }

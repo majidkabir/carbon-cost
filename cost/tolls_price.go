@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"cmp"
 	"fmt"
 	"math"
 	"slices"
@@ -639,18 +640,36 @@ func systemsOf(ds *tariffs.Dataset) []*system {
 	return out
 }
 
-func (s *system) pass(st *orct.Object, route *track) (float64, float64) {
-	best, bestPos := math.Inf(1), 0.0
+// stationAgainKm is how far along the route a station's passes must be
+// apart to be two: its plazas either side of a junction are one.
+const stationAgainKm = 5
+
+// passes are each time the route passes the station (any of its points,
+// in its direction), nearest point first: its km along the route and its
+// distance from it.
+func (s *system) passes(st *orct.Object, route *track) []trackPass {
+	var all []trackPass
 	for _, pt := range pointsOf(st) {
-		pos, d, h := route.project(pt)
-		if pt.Heading != nil && math.Abs(math.Mod(h-*pt.Heading+540, 360)-180) > 60 {
-			continue
-		}
-		if d < best {
-			best, bestPos = d, pos
+		for _, x := range route.passes(pt, s.matchKm) {
+			if pt.Heading != nil && math.Abs(math.Mod(x.heading-*pt.Heading+540, 360)-180) > 60 {
+				continue
+			}
+			all = append(all, x)
 		}
 	}
-	return best, bestPos
+	slices.SortFunc(all, func(a, b trackPass) int { return cmp.Compare(a.pos, b.pos) })
+	var out []trackPass
+	start := 0.0
+	for _, x := range all {
+		if n := len(out); n > 0 && x.pos-start <= stationAgainKm {
+			if x.dist < out[n-1].dist {
+				out[n-1] = x
+			}
+			continue
+		}
+		out, start = append(out, x), x.pos
+	}
+	return out
 }
 
 // sysUse is a ticket: the stations a route enters and leaves a system at.
@@ -666,28 +685,40 @@ func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
 	if s.chain {
 		return s.chainUses(ds, route, p)
 	}
-	first, last := math.Inf(1), math.Inf(-1)
-	var u sysUse
+	// The stations passed, in route order: a ticket from the first to the
+	// last, and another from where the route passes a station of the
+	// ticket again (it left the system and came back: a day's path).
+	type stPass struct {
+		st  *orct.Object
+		pos float64
+	}
+	var seq []stPass
 	for _, st := range s.stations {
-		best, pos := s.pass(st, route)
-		if best > s.matchKm {
-			continue
-		}
-		if pos < first {
-			first, u.entry = pos, st
-		}
-		if pos > last {
-			last, u.exit = pos, st
+		for _, x := range s.passes(st, route) {
+			seq = append(seq, stPass{st, x.pos})
 		}
 	}
-	if u.entry == nil {
-		return nil
+	slices.SortStableFunc(seq, func(a, b stPass) int { return cmp.Compare(a.pos, b.pos) })
+	var out []sysUse
+	var cur []stPass
+	flush := func() {
+		if len(cur) == 0 {
+			return
+		}
+		a, z := cur[0], cur[len(cur)-1]
+		if a.st != z.st || ds.HasPair(s.ch.ID, a.st.ID, a.st.ID) {
+			out = append(out, sysUse{entry: a.st, exit: z.st, km: z.pos - a.pos, from: a.pos})
+		}
+		cur = nil
 	}
-	u.km, u.from = last-first, first
-	if u.entry == u.exit && !ds.HasPair(s.ch.ID, u.entry.ID, u.entry.ID) {
-		return nil
+	for _, x := range seq {
+		if slices.ContainsFunc(cur, func(c stPass) bool { return c.st == x.st }) {
+			flush()
+		}
+		cur = append(cur, x)
 	}
-	return []sysUse{u}
+	flush()
+	return out
 }
 
 func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
@@ -697,9 +728,8 @@ func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUs
 	}
 	var passes []pass
 	for _, st := range s.stations {
-		best, pos := s.pass(st, route)
-		if best <= s.matchKm {
-			passes = append(passes, pass{st, pos, best})
+		for _, x := range s.passes(st, route) {
+			passes = append(passes, pass{st, x.pos, x.dist})
 		}
 	}
 	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
@@ -1069,15 +1099,15 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 		if o.Location.MatchM != nil {
 			match = *o.Location.MatchM / 1000
 		}
+		// Each time the route passes it: on each leg, and again on one
+		// where the route comes back (a day's driven path).
 		for _, leg := range route.parts() {
-			pos, d, h := leg.project(pts[0])
-			if d > match {
-				continue
+			for _, ps := range leg.passes(pts[0], match) {
+				if pts[0].Heading != nil && math.Abs(math.Mod(ps.heading-*pts[0].Heading+540, 360)-180) > 90 {
+					continue
+				}
+				passes = append(passes, pointPass{obj: o, ch: ch, pos: ps.pos})
 			}
-			if pts[0].Heading != nil && math.Abs(math.Mod(h-*pts[0].Heading+540, 360)-180) > 90 {
-				continue
-			}
-			passes = append(passes, pointPass{obj: o, ch: ch, pos: pos})
 		}
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
@@ -1302,9 +1332,10 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 			continue
 		}
 		polys := polygonsOf(zone)
+		box := bboxOf(polys)
 		var in []int
 		for i, pt := range route.pts {
-			if inPolygons(polys, pt) {
+			if pt[0] >= box[0] && pt[0] <= box[2] && pt[1] >= box[1] && pt[1] <= box[3] && inPolygons(polys, pt) {
 				in = append(in, i)
 			}
 		}

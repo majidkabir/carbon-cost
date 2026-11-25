@@ -216,6 +216,7 @@ func (d Data) DetectAll(route [][2]float64) []Crossing {
 		c   Crossing
 		pos int
 	}
+	g := gridOf(route)
 	var hits []hit
 	for _, c := range d.Crossings {
 		if len(c.Terminals) == 0 {
@@ -223,7 +224,7 @@ func (d Data) DetectAll(route [][2]float64) []Crossing {
 		}
 		first, all := len(route), true
 		for _, t := range c.Terminals {
-			i := nearestWithin(route, t)
+			i := g.nearestWithin(route, t)
 			if i < 0 {
 				all = false
 				break
@@ -242,13 +243,40 @@ func (d Data) DetectAll(route [][2]float64) []Crossing {
 	return out
 }
 
-// nearestWithin is the index of the route point nearest p, or -1 if none
-// is within MatchKm.
-func nearestWithin(route [][2]float64, p Point) int {
-	best, bi := math.Inf(1), -1
+// grid is a route's points by cell, gridCell degrees a side, so a long
+// route is searched near a terminal only.
+type grid map[[2]int32][]int
+
+const gridCell = 0.05 // degrees: more than MatchKm in latitude
+
+func cellOf(lon, lat float64) [2]int32 {
+	return [2]int32{int32(math.Floor(lon / gridCell)), int32(math.Floor(lat / gridCell))}
+}
+
+func gridOf(route [][2]float64) grid {
+	g := grid{}
 	for i, q := range route {
-		if d := km(q[1], q[0], p.Lat, p.Lon); d <= MatchKm && d < best {
-			best, bi = d, i
+		c := cellOf(q[0], q[1])
+		g[c] = append(g[c], i)
+	}
+	return g
+}
+
+// nearestWithin is the index of the route point nearest p, or -1 if none
+// is within MatchKm; ties go to the earlier point.
+func (g grid) nearestWithin(route [][2]float64, p Point) int {
+	dLat := MatchKm / 111.2
+	dLon := dLat / math.Max(math.Cos(p.Lat*math.Pi/180), 0.01)
+	lo, hi := cellOf(p.Lon-dLon, p.Lat-dLat), cellOf(p.Lon+dLon, p.Lat+dLat)
+	best, bi := math.Inf(1), -1
+	for x := lo[0]; x <= hi[0]; x++ {
+		for y := lo[1]; y <= hi[1]; y++ {
+			for _, i := range g[[2]int32{x, y}] {
+				q := route[i]
+				if d := km(q[1], q[0], p.Lat, p.Lon); d <= MatchKm && (d < best || d == best && i < bi) {
+					best, bi = d, i
+				}
+			}
 		}
 	}
 	return bi

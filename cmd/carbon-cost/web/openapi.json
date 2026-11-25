@@ -240,11 +240,11 @@
       "type": "string"
      },
      "eur": {
-      "description": "EURPerL is their price per litre without VAT (after any refund), and EUR the litres' cost; none where there is no price.",
+      "description": "EURPerL is their price per litre without VAT (before any refund), and EUR the litres' cost, less the refund; none where there is no price.",
       "type": "number"
      },
      "eur_per_l": {
-      "description": "EURPerL is their price per litre without VAT (after any refund), and EUR the litres' cost; none where there is no price.",
+      "description": "EURPerL is their price per litre without VAT (before any refund), and EUR the litres' cost, less the refund; none where there is no price.",
       "type": "number"
      },
      "litres": {
@@ -710,7 +710,7 @@
       "type": "string"
      },
      "date": {
-      "description": "YYYY-MM-DD; default today where the trip starts (CET if not known)",
+      "description": "Date is YYYY-MM-DD, or the moment the trip starts (RFC 3339, as telematics give it) for its day where it starts; default today there (CET if not known).",
       "type": "string"
      },
      "diesel_eur_per_l": {

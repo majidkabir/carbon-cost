@@ -383,7 +383,7 @@ func calc(args []string) error {
 		enc.SetIndent("", "  ")
 		return enc.Encode(res)
 	}
-	printResult(res)
+	printResult(res, req.CostShareBy)
 	return nil
 }
 
@@ -516,7 +516,7 @@ func byCountry(s string) (map[string]float64, error) {
 	return out, nil
 }
 
-func printResult(r cost.Response) {
+func printResult(r cost.Response, shareBy string) {
 	fmt.Printf("Trip on %s: %.1f km", r.Date, r.DistanceKm)
 	if r.FerryKm > 0 {
 		fmt.Printf(" (%.1f km by ferry)", r.FerryKm)
@@ -685,7 +685,12 @@ func printResult(r cost.Response) {
 			fmt.Fprintf(w, "%s\t%.0f\t%d-%d\t%.1f\t%.1f\t%.1f%%\t%.2f\t%.2f\t%.2f\t%.1f\t%.1f\t%s\t\n", s.ID, s.WeightKg, s.From, s.To, s.DistanceKm, s.TKm, 100*s.Share, s.TotalEUR, s.EURPer100Kg, s.CarbonEUR, s.WTWKg, s.IntensityG, strings.Join(by, ", "))
 		}
 		w.Flush()
-		fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")
+		switch shareBy {
+		case "loading_m", "pallets":
+			fmt.Printf("Each shipment's share of the costs is its %s x its own route's km over all of theirs (cost_share_by); its emissions' share is its tonne-km (EN ISO 14083:2023).\n", map[string]string{"loading_m": "loading metres", "pallets": "pallet places"}[shareBy])
+		default:
+			fmt.Println("Each shipment's share is its tonne-km (weight x its own route's km) over all of theirs (EN ISO 14083:2023).")
+		}
 	}
 	if len(r.Compare) > 0 {
 		fmt.Println()

@@ -244,9 +244,10 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 			l.RouteParts["road"] = km - ferryKm
 		}
 		l.Parts = parts
-		// Sootcase's country sections and main roads are its route's: the
-		// path's own sections, by the same borders; its roads aren't known.
-		l.CountrySections, l.Summary = sectionsOf(Route(ix, seg, fd)), nil
+		// Sootcase's country sections, main roads and driving time are its
+		// route's: the path's own sections, by the same borders; its roads
+		// aren't known, and its time is its km at avg_speed_kmh.
+		l.CountrySections, l.Summary, l.DurationH = sectionsOf(Route(ix, seg, fd)), nil, 0
 		ownKm += km
 	}
 	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", len(path), ownKm, sootKm))

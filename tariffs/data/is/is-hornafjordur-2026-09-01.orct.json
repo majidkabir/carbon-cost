@@ -106,6 +106,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
+   "charged_from": "2026-09-01",
    "osm_extract": "2026-11-24"
   }
  }

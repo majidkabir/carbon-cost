@@ -111,6 +111,7 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 	opts := make([]RouteOption, len(vs))
 	outs := make([]*Response, len(vs))
 	reqs := make([]Request, len(vs))
+	errs := make([]error, len(vs)) // kept for their kind (Sootcase failing: a bad gateway)
 	for i, v := range vs {
 		r := *req
 		r.CompareCO2Classes = nil // the chosen one's comparison only
@@ -134,7 +135,7 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 		}
 		if err != nil {
 			o.Error = err.Error()
-			opts[i] = o
+			opts[i], errs[i] = o, err
 			continue
 		}
 		o.DistanceKm, o.FerryKm, o.CountryKm = out.DistanceKm, out.FerryKm, out.CountryKm
@@ -148,7 +149,7 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 		opts[i], outs[i], reqs[i] = o, &out, r
 	}
 	if outs[0] == nil {
-		return Response{}, fmt.Errorf("the primary route: %s", opts[0].Error)
+		return Response{}, fmt.Errorf("the primary route: %w", errs[0])
 	}
 	// Compared with the diesel where every route has its price.
 	withFuel := true
@@ -185,7 +186,7 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 			return Response{}, fmt.Errorf("route %q: this trip's routes are %s", req.Route, strings.Join(ids, ", "))
 		}
 		if outs[pick] == nil {
-			return Response{}, fmt.Errorf("route %s: %s", req.Route, opts[pick].Error)
+			return Response{}, fmt.Errorf("route %s: %w", req.Route, errs[pick])
 		}
 	}
 	opts[pick].Chosen = true

@@ -250,6 +250,35 @@ func (s *Set) Ended(area string, date time.Time) (*Dataset, bool) {
 	return last, last != nil
 }
 
+// Ahead lists, for each scheme of the kind with no rates in force on the
+// date and none that ended before it, its first rates: tables here that
+// start after the date. A scheme whose first table says the charge
+// itself began then (charged_from) is left out before that day.
+func (s *Set) Ahead(kind string, date time.Time) []*Dataset {
+	day := date.Format(time.DateOnly)
+	first, before := map[string]*Dataset{}, map[string]bool{}
+	for _, d := range s.All {
+		if d.Kind != kind {
+			continue
+		}
+		if d.ValidFrom <= day {
+			before[d.Scheme] = true
+		}
+		if f := first[d.Scheme]; f == nil || d.ValidFrom < f.ValidFrom {
+			first[d.Scheme] = d
+		}
+	}
+	var out []*Dataset
+	for sch, d := range first {
+		if since := ""; before[sch] || d.Ext("charged_from", &since) && day < since {
+			continue
+		}
+		out = append(out, d)
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].File < out[j].File })
+	return out
+}
+
 // Lapsed lists, for each scheme of the kind with no dataset in force on
 // the date, its last dataset if that ended before the date: rates that
 // ended with no successor here yet. (A scheme that really ends has a

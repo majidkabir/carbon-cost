@@ -30,3 +30,12 @@ func zone(country string) *time.Location {
 	}
 	return time.UTC
 }
+
+// LocalZone is the country's time zone, Central European Time where it
+// isn't known: the day a trip there is on.
+func LocalZone(country string) *time.Location {
+	if l := zone(country); l != time.UTC {
+		return l
+	}
+	return zone("BE")
+}

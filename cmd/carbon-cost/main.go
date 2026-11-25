@@ -344,14 +344,21 @@ func rfmsFlags(req *cost.Request, opts *calcOpts, names []string, vin string, co
 		req.ElectricityKWh = math.Round(t.KWh*1000) / 1000
 	}
 	if req.Date == "" && !t.From.IsZero() {
-		req.Date = t.From.Format("2006-01-02")
+		// The day where the truck starts (rFMS times are UTC).
+		cc := ""
+		if bix, err := borders.Default(); err == nil && len(t.Path) > 0 {
+			cc = bix.Country(t.Path[0][0], t.Path[0][1])
+		}
+		req.Date = t.From.In(cost.LocalZone(cc)).Format(time.DateOnly)
 	}
 	opts.rfms = t.summary()
 	return nil
 }
 
 func calc(args []string) error {
-	req, opts, err := parseCalc(args, flag.ExitOnError)
+	// -shipment-rows is calcCSV's, not a trip's.
+	tripArgs, _ := withoutFlag(args, "shipment-rows")
+	req, opts, err := parseCalc(tripArgs, flag.ExitOnError)
 	if err != nil {
 		return err
 	}
@@ -903,7 +910,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 		}
 		labels, err := priceCSV(r.Context(), c.Calculate, nil, http.MaxBytesReader(w, r.Body, 2<<20), &buf, webCSVFlags(), MaxBatch, rows == "shipments")
 		if err != nil {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			writeJSON(w, bodyStatus(err), map[string]string{"error": err.Error()})
 			return
 		}
 		if len(labels) > 0 {
@@ -917,7 +924,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	mux.HandleFunc("POST /v1/carbon-cost/report", func(w http.ResponseWriter, r *http.Request) {
 		var buf bytes.Buffer
 		if err := summarize([]io.Reader{http.MaxBytesReader(w, r.Body, 8<<20)}, &buf, splitList(r.URL.Query().Get("by"))); err != nil {
-			writeJSON(w, http.StatusBadRequest, map[string]string{"error": err.Error()})
+			writeJSON(w, bodyStatus(err), map[string]string{"error": err.Error()})
 			return
 		}
 		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
@@ -981,6 +988,15 @@ func readJSON(w http.ResponseWriter, r *http.Request, v any) bool {
 		return true
 	}
 	return false
+}
+
+// bodyStatus is the status for a request body that couldn't be read: 413
+// over its limit, else 400.
+func bodyStatus(err error) int {
+	if big := (*http.MaxBytesError)(nil); errors.As(err, &big) {
+		return http.StatusRequestEntityTooLarge
+	}
+	return http.StatusBadRequest
 }
 
 // writeJSON writes v with the status; one that can't be written as JSON

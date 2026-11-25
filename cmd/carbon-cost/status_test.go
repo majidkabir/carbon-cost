@@ -5,6 +5,8 @@ import (
 	"math"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"path/filepath"
 	"strings"
 	"sync/atomic"
 	"testing"
@@ -87,6 +89,34 @@ func TestRequestBody(t *testing.T) {
 		h.ServeHTTP(rec, httptest.NewRequest("POST", "/v1/carbon-cost", strings.NewReader(tc.body)))
 		if rec.Code != tc.want {
 			t.Errorf("%s: HTTP %d %.200s; want %d", tc.name, rec.Code, rec.Body.String(), tc.want)
+		}
+	}
+}
+
+// calc -csv takes -shipment-rows (it isn't a trip's flag).
+func TestCalcCSVShipmentRows(t *testing.T) {
+	f := filepath.Join(t.TempDir(), "trips.csv")
+	if err := os.WriteFile(f, []byte("country-km,cargo-kg,mass-kg,axles,euro,co2-class,date\n\"DE=100\",10000,40000,5,6,1,2026-11-03\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := calc([]string{"-csv", f, "-shipment-rows"}); err != nil {
+		t.Fatal(err)
+	}
+}
+
+// The CSV endpoints answer 413 for a body over their limit too.
+func TestCSVBodyTooBig(t *testing.T) {
+	c, err := calculator(&sootcase.Client{BaseURL: "http://127.0.0.1:1"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	h := Handler(c, DefaultTiles)
+	body := "country-km,cargo-kg\n" + strings.Repeat("\"DE=1\",1\n", 2<<20)
+	for _, path := range []string{"/v1/carbon-cost/csv", "/v1/carbon-cost/report"} {
+		rec := httptest.NewRecorder()
+		h.ServeHTTP(rec, httptest.NewRequest("POST", path, strings.NewReader(body)))
+		if rec.Code != http.StatusRequestEntityTooLarge {
+			t.Errorf("%s: HTTP %d %.200s; want 413", path, rec.Code, rec.Body.String())
 		}
 	}
 }

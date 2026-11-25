@@ -567,7 +567,8 @@ def lithuania(fetched, out, srcs):
         sys.exit("Lithuanian customs notice: no CO2 component for gas oils")
     v = float(m.group(3).replace(",", "."))
     for y in (m.group(2), m.group(1)):
-        write(out, {"country": "LT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+        # Introduced in the first year: none before.
+        write(out, {"country": "LT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31", "charged_from": f"{m.group(2)}-01-01",
                     "name": "CO2 dedamoji of the excise duty on gas oils", "rate_per_l": round(v / 1000, 5),
                     "law": f"Akcizų įstatymas Nr. IX-569, 37 straipsnio 1 dalis and 3 priedas: the excise duty on gas oils (diesel) has a fixed part and a variable CO2 part (CO2 dedamoji), EUR {v:.1f} per 1,000 litres in {y}"
                            + (f" (introduced on 1 January {y})" if y == m.group(2) else f" (kept at the {m.group(2)} amount by law XV-679 instead of rising)")

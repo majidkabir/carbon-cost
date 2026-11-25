@@ -300,7 +300,7 @@ def convert_table(t, path):
     used = {"country", "region", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles",
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
-            "motorway_share", "suburban_share", "crossings", "ferry", "osm_extract", "env_zone_surcharge"}
+            "motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "env_zone_surcharge"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -323,8 +323,10 @@ def convert_table(t, path):
         convert_sections(b, t["sections"], row_charges)
 
     # How carbon-cost estimates road types a request doesn't give, and source facts: not tariff rules.
-    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls.
-    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "osm_extract"):
+    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls;
+    # "ets_in_fare": the fares include the EU ETS, so the tool adds no ETS of its own on the crossing;
+    # "charged_from": the day the charge itself began (none before it, not just no table here).
+    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract"):
         if k in t:
             b.keep(k, t[k])
     for k in sorted(set(t) - used):
@@ -860,7 +862,7 @@ def convert_zone(z, path):
 
 def convert_fuel(f, path):
     b = Builder(f, path)
-    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t", "rate_per_l"}
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t", "rate_per_l", "charged_from"}
     oid = b.obj({"id": "country", "type": "jurisdiction", "jurisdiction": {"country": f["country"]}})
     # A price per tonne of CO2, or a tax per litre of diesel.
     unit, rate = ("litre", f["rate_per_l"]) if "rate_per_l" in f else ("t_co2", f["rate_per_t"])
@@ -868,6 +870,8 @@ def convert_fuel(f, path):
               "objects": [oid]}, [{"amount": dec(rate)}])
     for k in sorted(set(f) - used):
         b.keep(k, f[k], f"{k} is kept as an extension (no ORCT field yet)")
+    if "charged_from" in f:
+        b.keep("charged_from", f["charged_from"])
     return b.doc({"description": "CO2 from fuel bought in the country", "criteria": {}})
 
 

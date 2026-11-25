@@ -136,3 +136,17 @@ func TestRFMS(t *testing.T) {
 		t.Errorf("electric flags: %v %v", req.ElectricityKWh, err)
 	}
 }
+
+// An rFMS trip's date is the day where it starts: 23:20 UTC on 31
+// December is 1 January in Copenhagen.
+func TestRFMSLocalDay(t *testing.T) {
+	gas := `{"vehicleStatusResponse": {"vehicleStatuses": [
+ {"vin": "A", "createdDateTime": "2026-12-31T23:20:00Z", "totalFuelUsedGaseous": 900, "snapshotData": {"gnssPosition": {"latitude": 55.68, "longitude": 12.57, "positionDateTime": "2026-12-31T23:20:00Z"}}},
+ {"vin": "A", "createdDateTime": "2027-01-01T01:00:00Z", "totalFuelUsedGaseous": 990, "snapshotData": {"gnssPosition": {"latitude": 55.2, "longitude": 11.9, "positionDateTime": "2027-01-01T01:00:00Z"}}}]}}`
+	p := filepath.Join(t.TempDir(), "st.json")
+	os.WriteFile(p, []byte(gas), 0o644)
+	req, _, err := parseCalc([]string{"-from", "DKCPH", "-to", "DKRDB", "-rfms", p}, flag.ContinueOnError)
+	if err != nil || req.Date != "2027-01-01" {
+		t.Errorf("date %q, %v; want 2027-01-01", req.Date, err)
+	}
+}

@@ -311,7 +311,7 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			overlays[o.ID] = skm
 		}
 	}
-	at := p.noon(ds)
+	days := p.kmDays(ds, a.country)
 	// The sections' km (priced on their own) come off the parts in
 	// proportion, once in all.
 	total := 0.0
@@ -360,14 +360,76 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			if sp.km <= 0 && len(splits) > 1 {
 				continue
 			}
-			m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, road: pt.road, section: section, km: sp.km, hasKm: true, key: key}
-			// The cells' km merge into one line where a row prices both
-			// alike (the same row): only where the rates differ by area
-			// is it a line of its own.
-			m.area = sp.area
-			b.km(obj, at, sp.km, ov, m)
+			// Each day's km at the time it starts, so a day after the
+			// table's last prices at the next table's rates.
+			for _, d := range days {
+				dov := map[string]float64{}
+				for id, v := range ov {
+					dov[id] = v * d.share
+				}
+				m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, road: pt.road, section: section, km: sp.km * d.share, hasKm: true, key: key}
+				// The cells' km merge into one line where a row prices both
+				// alike (the same row): only where the rates differ by area
+				// is it a line of its own.
+				m.area = sp.area
+				b.km(obj, d.at, sp.km*d.share, dov, m)
+			}
 		}
 	}
+}
+
+// kmDay is when a share of a country's km is driven: the time it starts.
+type kmDay struct {
+	at    time.Time
+	share float64
+}
+
+// kmDays are a country's km by local day: with a departure time and the
+// route's stretches in the country, each day's share from when it starts
+// there (the passage into the country, or midnight); else all at noon of
+// the trip's day.
+func (p *pricer) kmDays(ds *tariffs.Dataset, country string) []kmDay {
+	sp := p.req.spans[country]
+	total := 0.0
+	for _, s := range sp {
+		total += s[1] - s[0]
+	}
+	if p.req.Time == "" || total <= 0 {
+		return []kmDay{{p.noon(ds), 1}}
+	}
+	at := func(pos float64) time.Time { t, _ := passage(p.req, p.date, pos, country); return t }
+	day := func(t time.Time) string { return t.Format(time.DateOnly) }
+	var out []kmDay
+	add := func(t time.Time, km float64) {
+		for i := range out {
+			if day(out[i].at) == day(t) {
+				out[i].share += km / total
+				return
+			}
+		}
+		out = append(out, kmDay{t, km / total})
+	}
+	for _, s := range sp {
+		for from := s[0]; from < s[1]; {
+			a := at(from)
+			if day(at(s[1])) == day(a) {
+				add(a, s[1]-from)
+				break
+			}
+			// Where the next day begins: the passage time only grows.
+			lo, hi := from, s[1]
+			for i := 0; i < 50; i++ {
+				if mid := (lo + hi) / 2; day(at(mid)) == day(a) {
+					lo = mid
+				} else {
+					hi = mid
+				}
+			}
+			add(a, hi-from)
+			from = hi
+		}
+	}
+	return out
 }
 
 // suburbanShareORCT is the share of km on suburban roads of a road type:

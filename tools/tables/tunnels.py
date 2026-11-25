@@ -452,7 +452,8 @@ def thames(browser, fetched, out):
     src = [{"title": "Transport for London: paying the Blackwall and Silvertown tunnels charge (read in Chrome, as TfL refuses the workflow)", "url": "https://tfl.gov.uk/modes/driving/silvertown-blackwall-tunnels-charge/paying-blackwall-and-silvertown-tunnel-charges"},
            {"title": "TfL press release PN-215 (23 July 2026): current and new user charges", "url": "https://tfl-newsroom.prgloo.com/news/new-report-shows-one-year-old-silvertown-tunnel-cuts-congestion-and-boosts-bus-use-alongside-improved-air-quality"}]
     for vf, vt, rate, etc in ((opened, prev_day(since), float(pr.group(8)), float(pr.group(6))), (since, "", float(cur.group(6)), float(cur.group(4)))):
-        tb = {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp,
+        # Charged from the Silvertown Tunnel's opening: none before.
+        tb = {"country": "GB", "currency": "GBP", "valid_from": vf, "crossings": True, "osm_extract": stamp, "charged_from": opened,
               "name": "Blackwall and Silvertown tunnels charge",
               "law": (f"The Silvertown Tunnel Order 2018 (user charges set by TfL): heavy goods vehicles (N2, N3) pay GBP {rate:.2f} per crossing either way, 06:00-22:00 every day except Christmas Day, paid online or by phone; "
                       f"with `etc` the Auto Pay off-peak price, GBP {etc:.2f} (Auto Pay's peak, weekdays 06:00-10:00 northbound and 16:00-19:00 southbound, is the full price, not modelled). "
@@ -897,7 +898,8 @@ def iceland(fetched, out):
                 "toll_points": [{"name": "Vaðlaheiðargöng", "lat": tl, "lon": tn, "rate": 0,
                                  "classes": [{"min_kg": 3501, "max_kg": 7499, "rate": v_mid}, {"min_kg": 7500, "rate": v_heavy}]}],
                 "rows": []}, "is-vadlaheidargong")
-    write(out, {"country": "IS", "currency": "ISK", "valid_from": hfrom, "crossings": True, "osm_extract": stamp,
+    # A new road, tolled from Vegagerðin's start: none before.
+    write(out, {"country": "IS", "currency": "ISK", "valid_from": hfrom, "crossings": True, "osm_extract": stamp, "charged_from": hfrom,
                 "name": "Ring Road (1) through Hornafjörður",
                 "law": (f"Spölur ehf.'s price list for the new Ring Road (1) section through Hornafjörður, single trips: vehicles of 3.5-7.5 t ISK {h_mid}, over 7.5 t ISK {h_heavy}, by the total weight in the vehicle register; "
                         f"Vegagerðin's notice of {int(g.group(1))} August {g.group(2)}: collected from {hfrom}, the same prices. Free-flow (cameras at the section's ends); "

@@ -1706,7 +1706,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2025-04-07",
    "valid_to": "2026-09-20",
-   "sha256": "0c94912579403d30016e4df5b6d46fdb1adc9264bf8909d68104ae461bef4353",
+   "sha256": "0f60d5ae67671e1f7377585c0b7d0f5797754e0505cd496dbce880599766447f",
    "coverage": "complete"
   },
   {
@@ -1717,7 +1717,7 @@
    "name": "Blackwall and Silvertown tunnels charge",
    "valid_from": "2026-09-21",
    "valid_to": null,
-   "sha256": "b7d49024a8d214822edffaaa709daa9254844fd54241d67bb047404a7f1cce3a",
+   "sha256": "2f43283757c4cc42a0504048125020ba99f064c790eb19d4b82f038db33357e3",
    "coverage": "complete"
   },
   {
@@ -2102,7 +2102,7 @@
    "name": "Ring Road (1) through Hornafjörður",
    "valid_from": "2026-09-01",
    "valid_to": null,
-   "sha256": "9c4e4cf38caac1053088e8c206a61a16717381edf5cc0c2bdc89db7f91282268",
+   "sha256": "035a21f9df8c5199c1ee1b6fde1ee8e0821f05d3375fa752e35c6e794124faeb",
    "coverage": "complete"
   },
   {
@@ -2190,7 +2190,7 @@
    "name": "Strait of Messina ferry (Caronte & Tourist), trucks",
    "valid_from": "2026-11-01",
    "valid_to": null,
-   "sha256": "663b860ba67bc2d81beeaea0cf10da4da2bf72f538e848603f77d0164a15a94e",
+   "sha256": "f2e58dd6ca3e7193c581cc1b6c1d5238d9de69890fef3aea448839b465f382c7",
    "coverage": "complete"
   },
   {
@@ -2223,7 +2223,7 @@
    "name": "CO2 dedamoji of the excise duty on gas oils",
    "valid_from": "2025-01-01",
    "valid_to": "2025-12-31",
-   "sha256": "f48e0f78332e9946eea01af436334d0764a6a2255cf9706660db58b4eadde744",
+   "sha256": "5d173155f0b5277d1fafe61018b836896cfb7d6ab89d94358a7aa77793feda59",
    "coverage": "complete"
   },
   {
@@ -2234,7 +2234,7 @@
    "name": "CO2 dedamoji of the excise duty on gas oils",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "39893192d79f024acae203e2a71135684ef01094fce033421e8214ff3d35881a",
+   "sha256": "4b0315557e96b07750863c45fb77017bafc7d685e0113805d120827f95d5b1f8",
    "coverage": "complete"
   },
   {

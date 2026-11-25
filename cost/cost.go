@@ -122,9 +122,9 @@ type Request struct {
 	// CountryKm prices a trip with no route: the km driven in each country
 	// (or region, ISO 3166-2, where tolls differ by region), from a
 	// tachograph, say. Only charges by the km and by the day are priced;
-	// tolls at stations, on sections and bridges need a route, and the
-	// result lists them as missing. Not with from, to, stops, shipments or
-	// path.
+	// tolls at stations and on sections need a route, and the result lists
+	// them as missing; bridges, tunnels, ferries and zones aren't priced
+	// (a note says so). Not with from, to, stops, shipments or path.
 	CountryKm map[string]float64 `json:"country_km,omitempty"`
 	Date      string             `json:"date,omitempty"` // YYYY-MM-DD; default today where the trip starts (CET if not known)
 	// Time is the local departure time (HH:MM) on Date. Each toll station
@@ -472,12 +472,15 @@ type Missing struct {
 	// when the trip reaches the charge after that day), "no_route" (its
 	// tolls are at stations or on sections, and the trip was given as
 	// country_km), "needs_truck_field" (it goes by a truck field the
-	// request doesn't give; the notes name it) or "unpriced" (the table
+	// request doesn't give; the notes name it), "unpriced" (the table
 	// has no price for this use, such as an entry and exit it doesn't
-	// pair; the notes say which).
+	// pair; the notes say which) or "before_table" (its first rates here
+	// start on Starts, after the trip's day: an earlier price isn't here).
 	Reason string `json:"reason"`
-	// Ended is the last day of the last rates here.
-	Ended string `json:"ended,omitempty"`
+	// Ended is the last day of the last rates here; Starts, for
+	// "before_table", the first day of the first.
+	Ended  string `json:"ended,omitempty"`
+	Starts string `json:"starts,omitempty"`
 }
 
 // Message says what is missing, in a sentence.
@@ -488,6 +491,9 @@ func (m Missing) Message() string {
 	}
 	if m.Reason == "needs_truck_field" {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by a truck field not given (see the notes)", m.Area, what, m.Name)
+	}
+	if m.Reason == "before_table" {
+		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)
 	}
 	if m.Reason == "unpriced" {
 		return fmt.Sprintf("%s %s (%s): not fully priced, the table has no price for part of the trip (see the notes)", m.Area, what, m.Name)
@@ -848,11 +854,7 @@ func (c Calculator) date(s, cc string) (time.Time, error) {
 		if c.Now != nil {
 			now = c.Now
 		}
-		loc := zone(cc)
-		if loc == time.UTC {
-			loc = zone("BE")
-		}
-		y, m, d := now().In(loc).Date()
+		y, m, d := now().In(LocalZone(cc)).Date()
 		return time.Date(y, m, d, 0, 0, 0, 0, time.UTC), nil
 	}
 	t, err := time.Parse(time.DateOnly, s)
@@ -1159,7 +1161,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 
 	// EU ETS on ferry crossings.
 	if hasFerry {
-		if err := priceFerryETS(&out, res, fd, req, date, add); err != nil {
+		if err := priceFerryETS(&out, res, fd, set, req, date, add); err != nil {
 			return Response{}, err
 		}
 	}
@@ -1198,6 +1200,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	out.Complete = len(out.Missing) == 0
 	if out.Lines == nil {
 		out.Lines = []Line{} // "lines": [], not null
+	}
+	if out.Sources == nil {
+		out.Sources = []rates.Source{}
 	}
 	out.TotalEUR, out.CarbonEUR = round2(out.TotalEUR), round2(out.CarbonEUR)
 	fuelCost(&out, req, date)
@@ -1359,6 +1364,7 @@ type ferryPart struct {
 	km, ttwKg float64
 	loadKg    float64 // on board the truck on its leg
 	crossing  *ferries.Crossing
+	leg       int
 }
 
 // ferryParts are the trip's ferry parts, each matched to a crossing in fd
@@ -1375,7 +1381,7 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 		var ps []ferryPart
 		for _, p := range l.Parts {
 			if p.Kind == "ferry" {
-				ps = append(ps, ferryPart{km: p.DistanceKm, ttwKg: p.TTWKg, loadKg: load})
+				ps = append(ps, ferryPart{km: p.DistanceKm, ttwKg: p.TTWKg, loadKg: load, leg: li})
 			}
 		}
 		if len(ps) == 1 && l.RouteParts["ferry"] > 0 {
@@ -1442,11 +1448,44 @@ func faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req R
 	return out
 }
 
+// etsInFare says whether a ferry part of km on a leg's path is a crossing
+// whose fare table says the fare includes the EU ETS (ets_in_fare): the
+// route passes two of its ports, as far apart along it as the part is
+// long (within 2 km or 30%, as ferryParts matches crossings).
+func etsInFare(path [][2]float64, km float64, set *tariffs.Set, date time.Time) (string, bool) {
+	if set == nil || len(path) < 2 {
+		return "", false
+	}
+	tr := newTrack(path)
+	for _, ds := range set.OfKind(tariffs.Crossings, date) {
+		if in := false; !ds.Ext("ets_in_fare", &in) || !in {
+			continue
+		}
+		var at []float64
+		for _, o := range ds.Objects() {
+			for _, q := range pointsOf(o) {
+				if pos, dist, _ := tr.project(q); dist <= 3 {
+					at = append(at, pos)
+					break
+				}
+			}
+		}
+		for i := range at {
+			for j := i + 1; j < len(at); j++ {
+				if along := math.Abs(at[j] - at[i]); math.Abs(km-along) <= math.Max(2, 0.3*along) {
+					return ds.Name, true
+				}
+			}
+		}
+	}
+	return "", false
+}
+
 // priceFerryETS adds a ferry ETS line for each crossing on the trip: the
 // cargo's share of the crossing's emissions (its ships' MRV data when the
 // crossing is known and the truck's tare given, else Sootcase's part),
 // times the share of them under the EU ETS by law, times the phase-in.
-func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time, add func(Line) error) error {
+func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req Request, date time.Time, add func(Line) error) error {
 	phase := maritimeETSShare(date)
 	var names []string
 	askEUA := false
@@ -1456,6 +1495,10 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, req Req
 		}
 	}()
 	for _, p := range ferryParts(res, fd, req) {
+		if name, ok := etsInFare(res.Legs[p.leg].Path, p.km, set, date); ok {
+			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: its fare includes the EU ETS (the operator's surcharge), so it has no ETS line of its own.", name))
+			continue
+		}
 		emT, basis, section := p.ttwKg/1000, "Sootcase ferry part (GLEC ro-pax default)", ""
 		cover, coverBasis := 1.0, ""
 		if p.crossing != nil && req.FerryETSBasis != "emissions" {
@@ -1775,13 +1818,28 @@ func opName(op string) string {
 }
 
 // lapsed finds the crossings, zones and CO2 prices on diesel the trip
-// meets under rates that ended with no successor here yet: each such
-// table, priced on its last day, says whether the route would pay it.
+// meets with no rates here for its day: rates that ended with no successor
+// here yet, or a scheme whose first rates here start after the day. Each
+// such table, priced on its last (or first) day, says whether the route
+// would pay it.
 func lapsed(set *tariffs.Set, req Request, out *Response, route *track, fuelL float64, date time.Time) []Missing {
 	var ms []Missing
 	for _, kind := range []string{tariffs.Crossings, tariffs.Zone, tariffs.FuelCO2} {
+		type gap struct {
+			ds     *tariffs.Dataset
+			day    string
+			before bool // the table starts after the trip
+		}
+		var gaps []gap
 		for _, ds := range set.Lapsed(kind, date) {
-			last, err := time.Parse(time.DateOnly, ds.ValidTo)
+			gaps = append(gaps, gap{ds, ds.ValidTo, false})
+		}
+		for _, ds := range set.Ahead(kind, date) {
+			gaps = append(gaps, gap{ds, ds.ValidFrom, true})
+		}
+		for _, g := range gaps {
+			ds := g.ds
+			last, err := time.Parse(time.DateOnly, g.day)
 			if err != nil {
 				continue
 			}
@@ -1802,7 +1860,11 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, fuelL fl
 				if lineCharge == FerryFare {
 					charge = FerryFare
 				}
-				ms = append(ms, Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "ended", Ended: ds.ValidTo})
+				m := Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "ended", Ended: ds.ValidTo}
+				if g.before {
+					m = Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "before_table", Starts: ds.ValidFrom}
+				}
+				ms = append(ms, m)
 			}
 		}
 	}

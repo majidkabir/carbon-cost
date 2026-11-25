@@ -209,6 +209,16 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
+		if i.Code == "missing_parameter" {
+			p.missing(Missing{Area: ds.Area(), Charge: RoadToll, Name: ds.Name, Reason: "needs_truck_field"})
+		}
+	}
+}
+
+// missing adds m to the charges the result leaves out, once.
+func (p *pricer) missing(m Missing) {
+	if !slices.Contains(p.out.Missing, m) {
+		p.out.Missing = append(p.out.Missing, m)
 	}
 }
 
@@ -488,16 +498,18 @@ func (p *pricer) sectionsOn(ds *tariffs.Dataset, route *track) ([]sectionPass, f
 	}
 	var out []sectionPass
 	var total float64
-	for _, o := range ds.Objects() {
-		if o.Type != "section" || o.From == nil || o.To == nil {
-			continue
-		}
-		a, b := endOf(o.From), endOf(o.To)
-		if km, ok := along(route, a, b); ok {
-			pa, _, _ := route.project(a)
-			pb, _, _ := route.project(b)
-			out = append(out, sectionPass{o, km, math.Min(pa, pb)})
-			total += km
+	for _, leg := range route.parts() {
+		for _, o := range ds.Objects() {
+			if o.Type != "section" || o.From == nil || o.To == nil {
+				continue
+			}
+			a, b := endOf(o.From), endOf(o.To)
+			if km, ok := along(leg, a, b); ok {
+				pa, _, _ := leg.project(a)
+				pb, _, _ := leg.project(b)
+				out = append(out, sectionPass{o, km, math.Min(pa, pb)})
+				total += km
+			}
 		}
 	}
 	return out, total
@@ -737,23 +749,25 @@ func (p *pricer) matchSystems(b *batch, ds *tariffs.Dataset, country, region str
 	sm := &systemsMatched{untimedNight: map[string]bool{}}
 	for _, s := range systemsOf(ds) {
 		sm.listed = true
-		for _, u := range s.uses(ds, route, p) {
-			sm.any = true
-			at, timed := p.at(ds, u.from, country)
-			end, _ := p.at(ds, u.from+u.km, country)
-			if !timed {
-				end = at
+		for _, leg := range route.parts() {
+			for _, u := range s.uses(ds, leg, p) {
+				sm.any = true
+				at, timed := p.at(ds, u.from, country)
+				end, _ := p.at(ds, u.from+u.km, country)
+				if !timed {
+					end = at
+				}
+				name := s.ch.Name + ": " + u.entry.Name
+				if u.exit != u.entry {
+					name += " – " + u.exit.Name
+				}
+				m := &lineMeta{charge: RoadToll, country: country, region: region, section: name, km: u.km, hasKm: true}
+				e := b.event(u.entry.ID, at, m)
+				e.Role = "entry"
+				x := b.event(u.exit.ID, end, m)
+				x.Role = "exit"
+				sm.uses = append(sm.uses, sysMatch{s, u, at, timed, m})
 			}
-			name := s.ch.Name + ": " + u.entry.Name
-			if u.exit != u.entry {
-				name += " – " + u.exit.Name
-			}
-			m := &lineMeta{charge: RoadToll, country: country, region: region, section: name, km: u.km, hasKm: true}
-			e := b.event(u.entry.ID, at, m)
-			e.Role = "entry"
-			x := b.event(u.exit.ID, end, m)
-			x.Role = "exit"
-			sm.uses = append(sm.uses, sysMatch{s, u, at, timed, m})
 		}
 	}
 	return sm
@@ -847,9 +861,16 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 			if _, given := p.vehicle["load_capacity_kg"]; !given && classesTest(ds, "load_capacity_kg") {
 				p.note("%s: %s from %s to %s not priced. Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by it.",
 					country, ch.Name, u.use.entry.Name, u.use.exit.Name)
+				p.missing(Missing{Area: ds.Area(), Charge: u.meta.charge, Name: ds.Name, Reason: "needs_truck_field"})
 				continue
 			}
+			if day := u.at.Format(time.DateOnly); !u.at.IsZero() && (day < ds.ValidFrom || ds.ValidTo != "" && day > ds.ValidTo) {
+				continue // reached after the table's last day: missing, "ended"
+			}
 			group := p.groupOf(ds, ch)
+			if group == "" {
+				continue // the charge isn't for the truck's group: another is
+			}
 			p.note("%s: %s has no price from %s to %s for group %s.", country, ch.Name, u.use.entry.Name, u.use.exit.Name, group)
 			continue
 		}
@@ -971,14 +992,16 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 		if o.Location.MatchM != nil {
 			match = *o.Location.MatchM / 1000
 		}
-		pos, d, h := route.project(pts[0])
-		if d > match {
-			continue
+		for _, leg := range route.parts() {
+			pos, d, h := leg.project(pts[0])
+			if d > match {
+				continue
+			}
+			if pts[0].Heading != nil && math.Abs(math.Mod(h-*pts[0].Heading+540, 360)-180) > 90 {
+				continue
+			}
+			passes = append(passes, pointPass{obj: o, ch: ch, pos: pos})
 		}
-		if pts[0].Heading != nil && math.Abs(math.Mod(h-*pts[0].Heading+540, 360)-180) > 90 {
-			continue
-		}
-		passes = append(passes, pointPass{obj: o, ch: ch, pos: pos})
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	last := map[string]float64{}

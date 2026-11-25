@@ -942,12 +942,13 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 			// server is a bad gateway (busy: unavailable).
 			status := http.StatusBadRequest
 			var he *sootcase.HTTPError
+			var fe *sootcase.Failed
 			switch {
 			case errors.As(err, &he) && he.Status == http.StatusTooManyRequests:
 				status = http.StatusServiceUnavailable
 			case errors.As(err, &he) && !he.CallerError():
 				status = http.StatusBadGateway
-			case he == nil && strings.HasPrefix(err.Error(), "sootcase"):
+			case errors.As(err, &fe):
 				status = http.StatusBadGateway
 			}
 			writeJSON(w, status, map[string]string{"error": err.Error()})
@@ -962,10 +963,18 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	return mux, nil
 }
 
+// writeJSON writes v with the status; one that can't be written as JSON
+// (an infinite or NaN number) is a 500 saying so, not an empty 200.
 func writeJSON(w http.ResponseWriter, status int, v any) {
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	enc.SetIndent("", "  ")
+	if err := enc.Encode(v); err != nil {
+		buf.Reset()
+		status = http.StatusInternalServerError
+		_ = json.NewEncoder(&buf).Encode(map[string]string{"error": "the result can't be written as JSON: " + err.Error()})
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	enc := json.NewEncoder(w)
-	enc.SetIndent("", "  ")
-	_ = enc.Encode(v)
+	_, _ = w.Write(buf.Bytes())
 }

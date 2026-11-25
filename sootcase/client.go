@@ -192,7 +192,7 @@ func (c Client) CalculateWith(ctx context.Context, s Shipment, o Options) (Resul
 	}
 	var r Result
 	if err := json.Unmarshal(raw, &r); err != nil {
-		return Result{}, fmt.Errorf("sootcase: unreadable result: %w", err)
+		return Result{}, &Failed{Err: fmt.Errorf("unreadable result: %w", err)}
 	}
 	return r, nil
 }
@@ -234,7 +234,7 @@ func (c Client) Places(ctx context.Context, q string, limit int) ([]Place, error
 		Places []Place `json:"places"`
 	}
 	if err := json.Unmarshal(raw, &r); err != nil {
-		return nil, fmt.Errorf("sootcase: unreadable places: %w", err)
+		return nil, &Failed{Err: fmt.Errorf("unreadable places: %w", err)}
 	}
 	return r.Places, nil
 }
@@ -261,12 +261,12 @@ func (c Client) do(ctx context.Context, method, u string, body []byte) ([]byte, 
 	}
 	resp, err := hc.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("sootcase: %w", err)
+		return nil, &Failed{Err: err}
 	}
 	defer resp.Body.Close()
 	raw, err := io.ReadAll(io.LimitReader(resp.Body, 32<<20))
 	if err != nil {
-		return nil, fmt.Errorf("sootcase: %w", err)
+		return nil, &Failed{Err: err}
 	}
 	if resp.StatusCode != http.StatusOK {
 		var e struct {
@@ -283,6 +283,13 @@ func (c Client) do(ctx context.Context, method, u string, body []byte) ([]byte, 
 	}
 	return raw, nil
 }
+
+// Failed is Sootcase not answering, or answering what can't be read: a
+// failure of the server, not of the request.
+type Failed struct{ Err error }
+
+func (e *Failed) Error() string { return "sootcase: " + e.Err.Error() }
+func (e *Failed) Unwrap() error { return e.Err }
 
 // HTTPError is a Sootcase answer other than 200.
 type HTTPError struct {
@@ -392,11 +399,11 @@ func (c Client) Factors(ctx context.Context) (Factors, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return Factors{}, fmt.Errorf("sootcase: /v1/factors: HTTP %d", resp.StatusCode)
+		return Factors{}, &HTTPError{Status: resp.StatusCode, Message: "/v1/factors"}
 	}
 	var f Factors
 	if err := json.NewDecoder(resp.Body).Decode(&f); err != nil {
-		return Factors{}, fmt.Errorf("sootcase: /v1/factors: %w", err)
+		return Factors{}, &Failed{Err: fmt.Errorf("/v1/factors: %w", err)}
 	}
 	return f, nil
 }

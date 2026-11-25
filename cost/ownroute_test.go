@@ -169,3 +169,14 @@ func TestOwnPathFerry(t *testing.T) {
 		}
 	}
 }
+
+// Belgium's tolls are set by region: its km as one country can't be priced.
+func TestCountryKmRegionalRefused(t *testing.T) {
+	set := all(t)
+	if err := checkRegional(set, map[string]float64{"BE": 100}); err == nil || !strings.Contains(err.Error(), "BE-VLG") {
+		t.Errorf("BE: %v; want refused, naming its regions", err)
+	}
+	if err := checkRegional(set, map[string]float64{"BE-VLG": 60, "NL": 40}); err != nil {
+		t.Errorf("BE-VLG, NL: %v", err)
+	}
+}

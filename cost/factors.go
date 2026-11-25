@@ -13,10 +13,11 @@ import (
 // when read, ten minutes when they couldn't be.
 var factorCache struct {
 	sync.Mutex
-	by map[string]cachedFactors
+	by map[string]*cachedFactors
 }
 
 type cachedFactors struct {
+	sync.Mutex
 	f     sootcase.Factors
 	ok    bool
 	until time.Time
@@ -25,20 +26,30 @@ type cachedFactors struct {
 func factorsOf(ctx context.Context, c sootcase.Client) (sootcase.Factors, bool) {
 	key := strings.TrimRight(c.BaseURL, "/")
 	factorCache.Lock()
-	defer factorCache.Unlock()
-	if e, hit := factorCache.by[key]; hit && time.Now().Before(e.until) {
+	if factorCache.by == nil {
+		factorCache.by = map[string]*cachedFactors{}
+	}
+	e := factorCache.by[key]
+	if e == nil {
+		e = &cachedFactors{}
+		factorCache.by[key] = e
+	}
+	factorCache.Unlock()
+	// One read per server at a time: requests to the same server wait for
+	// it, others don't.
+	e.Lock()
+	defer e.Unlock()
+	if time.Now().Before(e.until) {
 		return e.f, e.ok
 	}
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	// The read is for all requests, so a client that goes away doesn't end
+	// it and its failure isn't kept for the others.
+	rctx, cancel := context.WithTimeout(context.WithoutCancel(ctx), 20*time.Second)
 	defer cancel()
-	f, err := c.Factors(ctx)
-	e := cachedFactors{f: f, ok: err == nil, until: time.Now().Add(24 * time.Hour)}
+	f, err := c.Factors(rctx)
+	e.f, e.ok, e.until = f, err == nil, time.Now().Add(24*time.Hour)
 	if err != nil {
 		e.until = time.Now().Add(10 * time.Minute)
 	}
-	if factorCache.by == nil {
-		factorCache.by = map[string]cachedFactors{}
-	}
-	factorCache.by[key] = e
 	return e.f, e.ok
 }

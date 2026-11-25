@@ -31,7 +31,9 @@ import convert  # noqa: E402
 OSM_LOCATION = {"geometry", "point_names", "headings"}
 EXT = "io.github.majidkabir.carboncost"
 # "(extract of 2026-11-08)", "OpenStreetMap's toll booths (2026-11-08T21:21:00Z)".
-OSM_DATE = re.compile(r"(OpenStreetMap[^.;]{0,120}?)\d{4}-\d\d-\d\d(?:T[\d:]+Z)?")
+# Only the date in brackets right after OpenStreetMap or what of it ("'s
+# junctions"), so no other date in the method passes as the extract's.
+OSM_DATE = re.compile(r"(OpenStreetMap(?:'s [a-z ]{1,40})? \((?:extract of )?)\d{4}-\d\d-\d\d(?:T[\d:]+Z)?\)")
 
 
 def placed(loc):
@@ -40,15 +42,22 @@ def placed(loc):
     return bool(g.get("coordinates"))
 
 
+def shape(loc):
+    return ((loc or {}).get("geometry") or {}).get("type")
+
+
 def osm_only(a, b, path=()):
     """True if a and b (the committed dataset and the new one) differ only in
-    OpenStreetMap's parts. An object that loses its place (OpenStreetMap no
-    longer has its booths) is not: that is for review."""
+    OpenStreetMap's parts. An object that loses or gains its place
+    (OpenStreetMap no longer has its booths, or has them now, so it stops or
+    starts charging), or whose place changes kind (a zone becomes a point),
+    is not: that is for review."""
     if path == ("extensions", EXT, "osm_extract"):
         return True
     if len(path) == 4 and path[0] == "charge_objects" and path[2] == "location" and path[3] in OSM_LOCATION:
         return True
-    if len(path) == 3 and path[0] == "charge_objects" and path[2] == "location" and placed(a) and not placed(b):
+    if len(path) == 3 and path[0] == "charge_objects" and path[2] == "location" and (
+            placed(a) != placed(b) or shape(a) != shape(b)):
         return False
     if type(a) is not type(b):
         return False
@@ -61,7 +70,7 @@ def osm_only(a, b, path=()):
     if isinstance(a, list):
         return len(a) == len(b) and all(osm_only(x, y, path + (i,)) for i, (x, y) in enumerate(zip(a, b)))
     if isinstance(a, str) and path and path[-1] == "method":
-        return OSM_DATE.sub(r"\1D", a) == OSM_DATE.sub(r"\1D", b)
+        return OSM_DATE.sub(r"\1D)", a) == OSM_DATE.sub(r"\1D)", b)
     return a == b
 
 

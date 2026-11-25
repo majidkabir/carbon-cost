@@ -56,9 +56,13 @@ jobs:
             sleep 5
           done
           docker compose logs --tail 50; exit 1
+      # shell: bash is -eo pipefail: a check failing into "| tee" fails the step.
       - name: Checks
+        shell: bash
         run: python3 tools/livecheck/restrictions.py http://localhost:8080 maps/low.geojson maps/heavy.geojson maps/hazmat.geojson | tee checks.txt
       - name: carbon-cost with the truck's limits
+        if: always()
+        shell: bash
         run: |
           export SOOTCASE_URL=http://localhost:8080
           # Pinneberg to Harburg: the A7 Elbe tunnel is barred to dangerous goods.

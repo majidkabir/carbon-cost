@@ -4,10 +4,12 @@ import (
 	"fmt"
 	"math"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -62,6 +64,25 @@ func checkOwnRoute(r Request) error {
 		if cc, _, ok := strings.Cut(k, "-"); ok && whole[cc] {
 			return fmt.Errorf("country_km: give %s or its regions, not both", cc)
 		}
+	}
+	return nil
+}
+
+// checkRegional refuses country_km for a whole country whose tolls are
+// set by region (Belgium's): its km can't be priced without the split.
+func checkRegional(set *tariffs.Set, km map[string]float64) error {
+	for k := range km {
+		if strings.Contains(k, "-") || set == nil || !set.Regional(k) {
+			continue
+		}
+		var regions []string
+		for _, d := range set.All {
+			if d.Kind == tariffs.Toll && d.Country == k && d.Region != "" && !slices.Contains(regions, d.Region) {
+				regions = append(regions, d.Region)
+			}
+		}
+		slices.Sort(regions)
+		return fmt.Errorf("country_km: %s's tolls are set by region: give the km in each (%s)", k, strings.Join(regions, ", "))
 	}
 	return nil
 }

@@ -401,7 +401,7 @@
       "type": "string"
      },
      "component": {
-      "description": "Component is the toll's part by law: infrastructure, co2, air, noise, air_noise, env_zone_surcharge, or toll where the law sets one rate with no split.",
+      "description": "Component is the charge's part by law: infrastructure, co2, air, noise, air_noise, env_zone_surcharge, km_charge (Belgium's per-km charge), rail_surcharge (Slovenia's), distance_fee (the LSVA of Switzerland and Liechtenstein), or toll where the law sets one rate with no split.",
       "type": "string"
      },
      "country": {
@@ -485,7 +485,7 @@
       "type": "string"
      },
      "charge": {
-      "description": "Charge is the kind of charge: road_toll, area_charge or fuel_co2.",
+      "description": "Charge is the kind of charge: road_toll, ferry_fare, area_charge or fuel_co2.",
       "type": "string"
      },
      "ended": {
@@ -493,11 +493,11 @@
       "type": "string"
      },
      "name": {
-      "description": "Name is the scheme, for rates that ended.",
+      "description": "Name is the scheme.",
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet) or \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km) or \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it).",
       "type": "string"
      }
     },

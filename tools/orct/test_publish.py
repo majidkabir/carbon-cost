@@ -45,6 +45,19 @@ CASES = [
     ("station gone", set_(["charge_objects"], []), False),
     ("station unplaced", set_(["charge_objects", 0, "location", "geometry", "coordinates"], []), False),
     ("station without location", set_(["charge_objects", 0, "location"], {}), False),
+    ("point becomes a zone", set_(["charge_objects", 0, "location", "geometry"], {"type": "MultiPolygon", "coordinates": [[[[1, 2], [1, 3], [2, 3], [1, 2]]]]}), False),
+    ("another date after OpenStreetMap", set_(["dataset", "method"], "Stations placed at OpenStreetMap's toll booths (extract of 2026-11-08); law of 2025-12-18, in force 2026-01-01."), False),
+]
+
+# Pairs whose committed side isn't BASE: (name, committed, new, want).
+UNPLACED = copy.deepcopy(BASE)
+UNPLACED["charge_objects"][0]["location"]["geometry"]["coordinates"] = []
+UNDATED = copy.deepcopy(BASE)
+UNDATED["dataset"]["method"] = "Stations at OpenStreetMap's toll booths, as the law in force from 2026-01-01 lists them."
+PAIRS = [
+    ("station placed", UNPLACED, BASE, False),
+    ("law date after an undated OpenStreetMap", UNDATED,
+     dict(UNDATED, dataset={**UNDATED["dataset"], "method": UNDATED["dataset"]["method"].replace("2026-01-01", "2026-02-01")}), False),
 ]
 
 FX = "date,ALL\n2026-11-19,90.02\n2026-11-20,89.78\n"
@@ -79,9 +92,10 @@ ETS_CASES = [
 
 if __name__ == "__main__":
     bad = [(n, want) for n, f, want in CASES if changed(f) != want]
+    bad += [(n, want) for n, a, b, want in PAIRS if osm_only(a, b) != want]
     bad += [("fx " + n, want) for n, b, want in FX_CASES if appended_days(FX, b) != want]
     bad += [("ets " + n, want) for n, b, want in ETS_CASES if editions_added(ETS, b) != want]
-    CASES += FX_CASES + ETS_CASES
+    CASES += PAIRS + FX_CASES + ETS_CASES
     for n, want in bad:
         print(f"FAIL {n}: want osm_only={want}")
     print(f"{len(CASES) - len(bad)}/{len(CASES)} ok")

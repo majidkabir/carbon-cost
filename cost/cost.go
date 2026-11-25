@@ -15,6 +15,7 @@ package cost
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"math"
 	"regexp"
@@ -332,9 +333,11 @@ type Line struct {
 	Road    string `json:"road,omitempty"`    // motorway or other, where rates differ by road
 	Section string `json:"section,omitempty"` // a fixed-charge section or a surcharged stretch
 	Area    string `json:"area,omitempty"`    // suburban or interurban, where rates differ by it
-	// Component is the toll's part by law: infrastructure, co2, air,
-	// noise, air_noise, env_zone_surcharge, or toll where the law sets
-	// one rate with no split.
+	// Component is the charge's part by law: infrastructure, co2, air,
+	// noise, air_noise, env_zone_surcharge, km_charge (Belgium's per-km
+	// charge), rail_surcharge (Slovenia's), distance_fee (the LSVA of
+	// Switzerland and Liechtenstein), or toll where the law sets one rate
+	// with no split.
 	Component string `json:"component,omitempty"`
 	Carbon    bool   `json:"carbon"` // a charge on CO2
 	// Km is the km it is charged on, and TonnesCO2 the emissions a
@@ -459,14 +462,17 @@ type Response struct {
 type Missing struct {
 	// Area is the country, or region, of the charge.
 	Area string `json:"area"`
-	// Charge is the kind of charge: road_toll, area_charge or fuel_co2.
+	// Charge is the kind of charge: road_toll, ferry_fare, area_charge or
+	// fuel_co2.
 	Charge string `json:"charge"`
-	// Name is the scheme, for rates that ended.
+	// Name is the scheme.
 	Name string `json:"name,omitempty"`
 	// Reason is "no_table" (this tool has none for the area), "ended"
-	// (its rates ended on Ended and the next ones aren't here yet) or
-	// "no_route" (its tolls are at stations or on sections, and the trip
-	// was given as country_km).
+	// (its rates ended on Ended and the next ones aren't here yet; also
+	// when the trip reaches the charge after that day), "no_route" (its
+	// tolls are at stations or on sections, and the trip was given as
+	// country_km) or "needs_truck_field" (it goes by a truck field the
+	// request doesn't give; the notes name it).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here.
 	Ended string `json:"ended,omitempty"`
@@ -477,6 +483,9 @@ func (m Missing) Message() string {
 	what := map[string]string{RoadToll: "tolls", AreaCharge: "area charge", FuelCO2: "CO2 price on diesel", FerryFare: "ferry fare"}[m.Charge]
 	if m.Reason == "no_route" {
 		return fmt.Sprintf("%s %s (%s): charged at toll stations or on sections, which need the route (give from and to, or path)", m.Area, what, m.Name)
+	}
+	if m.Reason == "needs_truck_field" {
+		return fmt.Sprintf("%s %s (%s): not priced, it goes by a truck field not given (see the notes)", m.Area, what, m.Name)
 	}
 	if m.Reason == "ended" {
 		return fmt.Sprintf("%s %s (%s): the rates here ended on %s and the next ones aren't in this release yet", m.Area, what, m.Name, m.Ended)
@@ -746,7 +755,7 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 		return res, err
 	}
 	if len(res.Legs) != len(sh.Legs) {
-		return res, fmt.Errorf("sootcase returned %d legs for %d", len(res.Legs), len(sh.Legs))
+		return res, &sootcase.Failed{Err: fmt.Errorf("returned %d legs for %d", len(res.Legs), len(sh.Legs))}
 	}
 	perT := make([][2]float64, len(res.Legs)) // each leg's TTW and WTW per tonne on board
 	res.TTWKg, res.WTWKg = 0, 0
@@ -881,8 +890,11 @@ func check(req Request) error {
 		}
 	}
 	for k, v := range req.FX {
-		if v <= 0 {
-			return fmt.Errorf("fx.%s must be > 0 (units per euro)", k)
+		if !regexp.MustCompile(`^[A-Z]{3}$`).MatchString(k) || k == "EUR" {
+			return fmt.Errorf("fx.%s: give other currencies' ISO 4217 codes (EUR is the base, 1 per euro)", k)
+		}
+		if !(v > 1e-6 && v < 1e9) {
+			return fmt.Errorf("fx.%s must be > 0 and < 1e9 (units per euro)", k)
 		}
 	}
 	for k, v := range req.EnvZoneKm {
@@ -936,6 +948,9 @@ func check(req Request) error {
 	if req.EUAEurPerT < 0 || req.UKAGbpPerT < 0 || req.ETS2EurPerT < 0 || req.DKKPerEUR < 0 || req.DieselL < 0 || req.FerryETSShare < 0 || req.FerryETSShare > 1 {
 		return fmt.Errorf("prices, rates and shares can't be negative (ferry_ets_share is 0-1)")
 	}
+	if req.EUAEurPerT > 10000 || req.UKAGbpPerT > 10000 || req.ETS2EurPerT > 10000 || req.DKKPerEUR > 100 || req.DieselL > 100000 {
+		return fmt.Errorf("eua_eur_per_t, uka_gbp_per_t and ets2_eur_per_t are at most 10000, dkk_per_eur 100 and diesel_l 100000")
+	}
 	return nil
 }
 
@@ -952,8 +967,11 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	if err := check(req); err != nil {
 		return Response{}, err
 	}
+	if err := checkRegional(set, req.CountryKm); err != nil {
+		return Response{}, err
+	}
 	if len(res.Legs) == 0 {
-		return Response{}, fmt.Errorf("sootcase returned no legs")
+		return Response{}, &sootcase.Failed{Err: errors.New("returned no legs")}
 	}
 	out := Response{Date: date.Format(time.DateOnly), CountryKm: map[string]float64{}, TTWKg: res.TTWKg, WTWKg: res.WTWKg}
 	if len(req.shipTTW) > 0 {
@@ -992,7 +1010,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 	}
 	if !routed {
-		return Response{}, fmt.Errorf("sootcase returned no distance by country: the server needs Sootcase v0.9.0 or later (country_km)")
+		return Response{}, &sootcase.Failed{Err: errors.New("returned no distance by country: the server needs Sootcase v0.9.0 or later (country_km)")}
 	}
 	for _, w := range res.Warnings {
 		out.Notes = append(out.Notes, "Sootcase: "+w)
@@ -1056,12 +1074,13 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 		return nil
 	}
-	var path [][2]float64
-	for _, l := range res.Legs {
-		path = append(path, l.Path...)
+	paths := make([][][2]float64, len(res.Legs))
+	for i, l := range res.Legs {
+		paths[i] = l.Path
 	}
-	route := newTrack(path)
+	route := tripTrack(paths)
 	p := newPricer(req, date, &out, add)
+	p.set = set
 	// Road tolls, area by area: countries, or their regions where tolls
 	// are set by region.
 	for _, a := range areas(&out, set) {

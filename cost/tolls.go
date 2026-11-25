@@ -97,6 +97,9 @@ type pricer struct {
 	add     func(Line) error
 	vehicle map[string]any
 	payment []string
+	// set has the other versions of a scheme, for a use the trip reaches
+	// after its table's last day (nil: none are looked for).
+	set *tariffs.Set
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
@@ -183,24 +186,35 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 	if len(b.events) == 0 && len(b.quants) == 0 {
 		return &orct.Statement{}, nil
 	}
+	versions := p.versions(b)
+	dss := []*orct.Dataset{b.ds.Dataset}
+	for _, v := range versions {
+		if v != b.ds {
+			dss = append(dss, v.Dataset)
+		}
+	}
 	u := &orct.Usage{ORCTUsage: "0.3", Vehicle: p.vehicle, Payment: p.payment, Events: b.events, Quantities: b.quants}
-	st := orct.Calculate([]*orct.Dataset{b.ds.Dataset}, u)
-	cur := b.ds.Doc.Header.Currency
+	st := orct.Calculate(dss, u)
 	var lines []*Line
 	merged := map[string]*Line{}
 	for _, ol := range st.Lines {
-		ch := b.ds.Charge(ol.Charge)
+		ds := b.ds
+		if v := versions[ol.Dataset]; v != nil {
+			ds = v
+		}
+		cur := ds.Doc.Header.Currency
+		ch := ds.Charge(ol.Charge)
 		var m *lineMeta
 		if ol.Event != nil {
 			m, _ = ol.Event.Ref.(*lineMeta)
 		}
 		if m == nil {
-			m = &lineMeta{charge: RoadToll, country: b.ds.Country}
+			m = &lineMeta{charge: RoadToll, country: ds.Country}
 		}
 		amount := ol.Amount.Float()
 		key := ""
 		if m.key != "" && ol.Row != nil && (ch.Type == "distance" || ch.Type == "period" || ch.Type == "area") {
-			key = fmt.Sprintf("%s|%s|%d", m.key, ol.Charge, *ol.Row)
+			key = fmt.Sprintf("%s|%s|%s|%d", m.key, ol.Dataset, ol.Charge, *ol.Row)
 		}
 		if l, ok := merged[key]; ok && key != "" {
 			l.Amount += amount
@@ -222,9 +236,9 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 		rate, _ := orct.ParseDec(ol.Rate)
 		l := &Line{Charge: m.charge, Country: m.country, Region: m.region, Road: m.road, Area: m.area, Section: m.section,
-			Component: componentOf(ch), Rate: rate.Float(), Currency: cur, Amount: amount, Source: src, Sources: srcs(b.ds)}
+			Component: componentOf(ch), Rate: rate.Float(), Currency: cur, Amount: amount, Source: src, Sources: srcs(ds)}
 		if src == "" {
-			l.Source = sourceText(b.ds, ch)
+			l.Source = sourceText(ds, ch)
 		}
 		if m.hasKm {
 			l.Km = m.km
@@ -273,7 +287,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 		// A factor rule's surcharge on part of the km (a surcharged
 		// stretch) is a line of its own.
-		for _, r := range b.ds.Doc.Rules {
+		for _, r := range ds.Doc.Rules {
 			if r.Kind != "factor" || !slices.Contains(r.AppliesTo, ol.Charge) || ol.Event == nil {
 				continue
 			}
@@ -285,7 +299,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 			base := rate.Mul(ol.Quantity).Float()
 			f, _ := orct.ParseDec(fmt.Sprint(r.Params["factor"]))
 			s := *l
-			s.Section, s.Km = b.ds.Object(obj).Name, okm.Float()
+			s.Section, s.Km = ds.Object(obj).Name, okm.Float()
 			s.Rate = rate.Mul(f.Sub(orct.DecInt(1))).Float()
 			s.Amount = l.Amount - base
 			l.Amount = base
@@ -313,6 +327,46 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 	}
 	return st, nil
+}
+
+// versions moves the batch's uses on days after its table's last to the
+// version of the scheme in force then (a bridge crossed after midnight on
+// 31 December pays the new year's toll), and returns the tables so used,
+// by id. A use with no table in force that day is reported missing.
+func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
+	out := map[string]*tariffs.Dataset{b.ds.ID: b.ds}
+	move := func(ds *string, ts string, ref any) {
+		t, err := b.ds.Local(ts)
+		if err != nil {
+			return
+		}
+		day := t.Format(time.DateOnly)
+		if b.ds.ValidFrom <= day && (b.ds.ValidTo == "" || day <= b.ds.ValidTo) {
+			return
+		}
+		if p.set != nil {
+			if v, ok := p.set.Version(b.ds, day); ok {
+				*ds, out[v.ID] = v.ID, v
+				p.addSources(v)
+				p.useTable(v)
+				return
+			}
+		}
+		charge := RoadToll
+		if m, ok := ref.(*lineMeta); ok && m.charge != "" {
+			charge = m.charge
+		}
+		if p.set != nil && !slices.ContainsFunc(p.out.Missing, func(m Missing) bool { return m.Name == b.ds.Name && m.Reason == "ended" }) {
+			p.out.Missing = append(p.out.Missing, Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "ended", Ended: b.ds.ValidTo})
+		}
+	}
+	for i := range b.events {
+		move(&b.events[i].Dataset, b.events[i].Time, b.events[i].Ref)
+	}
+	for i := range b.quants {
+		move(&b.quants[i].Dataset, b.quants[i].Time, b.quants[i].Ref)
+	}
+	return out
 }
 
 // lastOf is the last line priced from the same use (meta), if any.

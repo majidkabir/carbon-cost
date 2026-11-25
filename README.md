@@ -38,7 +38,7 @@ Trip on 2026-11-03: 300.0 km (19.0 km by ferry)
   road_toll       DK       air_noise      140.0 km    0.06 DKK/km   8.40 DKK   1.13
   ferry_ets                      co2  0.030 t CO2e  75 EUR/t CO2e   2.25 EUR   2.25
    fuel_co2       DE             co2  0.118 t CO2e   65 EUR/t CO2   7.66 EUR   7.66
-   fuel_co2       DK             co2      140.0 km    2.284 DKK/l  100.05 DKK  13.41
+   fuel_co2       DK             co2        43.8 l    2.284 DKK/l  100.05 DKK  13.41
 Total: EUR 93.04, of which carbon EUR 56.86
 Truck: 281.0 road km, 87.9 l diesel (default: VECTO group 5-LH (tractor with semi-trailer, long haul), by the load on each leg ...)
 ```

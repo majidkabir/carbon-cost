@@ -37,6 +37,9 @@ jobs:
         env:
           WORKFLOW: ${{ github.event.workflow_run.name }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
+        # -eo pipefail: publish.py failing into "| tee" fails the step, and
+        # nothing it left half done is committed.
+        shell: bash
         run: |
           case "$WORKFLOW" in
             "Tables data") branches=tables-out;;

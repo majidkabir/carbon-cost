@@ -10,10 +10,26 @@ Usage: python3 reuse.py tools/history/sources.json out/ prev/
 Before the fetch, "python3 reuse.py todo sources.json prev/ todo.json"
 writes the sources less those Wayback copies the last run has, so the
 fetch doesn't ask the archive for them again."""
-import glob, json, os, shutil, sys
+import datetime, glob, json, os, re, shutil, sys
+
+# A copy older than this, of a page that may change (not one Internet
+# Archive capture), gets a warning: the source may have moved or closed.
+STALE_DAYS = 14
+CAPTURE = re.compile(r"web\.archive\.org/web/\d{14}id_/")
 
 
-def main(sources, out, prev):
+def stale(entry, now):
+    """Days since the copy was fetched, if it may be out of date."""
+    try:
+        t = datetime.datetime.strptime(entry.get("fetched", ""), "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=datetime.timezone.utc)
+    except ValueError:
+        return None
+    days = (now - t).days
+    return days if days > STALE_DAYS and not CAPTURE.search(entry.get("url", "")) else None
+
+
+def main(sources, out, prev, now=None):
+    now = now or datetime.datetime.now(datetime.timezone.utc)
     ids = {s["id"]: s["url"] for s in json.load(open(sources, encoding="utf-8"))["sources"]}
     man = json.load(open(os.path.join(out, "manifest.json")))
     try:
@@ -32,7 +48,10 @@ def main(sources, out, prev):
         for p in glob.glob(os.path.join(prev, sid + ".*")):
             shutil.copy(p, out)
         man["files"] = [f for f in man["files"] if not f["file"].startswith(sid + ".")] + [dict(hit[0], reused=True)]
-        print("reused", sid)
+        print("reused", sid, "fetched", hit[0].get("fetched", "?"))
+        days = stale(hit[0], now)
+        if days is not None:
+            print(f"::warning title=reused {sid}::{hit[0]['url']} hasn't answered for {days} days; the copy of {hit[0]['fetched'][:10]} is used")
     json.dump(man, open(os.path.join(out, "manifest.json"), "w"), indent=1)
 
 

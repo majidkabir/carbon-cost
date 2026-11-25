@@ -223,6 +223,16 @@ func (s *Set) Find(area string, date time.Time) (*Dataset, bool) {
 	return nil, false
 }
 
+// Version is the dataset of d's scheme in force on day (YYYY-MM-DD).
+func (s *Set) Version(d *Dataset, day string) (*Dataset, bool) {
+	for _, v := range s.All {
+		if v.Scheme == d.Scheme && v.Kind == d.Kind && v.Area() == d.Area() && v.ValidFrom <= day && (v.ValidTo == "" || day <= v.ValidTo) {
+			return v, true
+		}
+	}
+	return nil, false
+}
+
 // Ended is the area's last toll dataset when none is in force on the date
 // and that one ended before it: rates that ended with no successor here
 // yet.

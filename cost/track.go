@@ -13,6 +13,44 @@ type track struct {
 	pts   [][2]float64
 	cum   []float64 // km along the route at each point
 	cells map[[2]int32][]int32
+	// legs are the trip's legs, stop to stop, as tracks of their own with
+	// the same km along the trip; nil for one leg.
+	legs []*track
+}
+
+// tripTrack is the trip's route, its legs one after the other.
+func tripTrack(legs [][][2]float64) *track {
+	var path [][2]float64
+	starts := make([]int, len(legs))
+	for i, l := range legs {
+		starts[i] = len(path)
+		path = append(path, l...)
+	}
+	t := newTrack(path)
+	if len(legs) < 2 {
+		return t
+	}
+	for i, l := range legs {
+		if len(l) < 2 {
+			continue
+		}
+		lt := newTrack(l)
+		for j := range lt.cum {
+			lt.cum[j] += t.cum[starts[i]]
+		}
+		t.legs = append(t.legs, lt)
+	}
+	return t
+}
+
+// parts are the tracks to find a toll point, closed system or section on
+// once each: every leg, so one passed on the way out and again on the way
+// back is charged both times.
+func (t *track) parts() []*track {
+	if len(t.legs) > 0 {
+		return t.legs
+	}
+	return []*track{t}
 }
 
 // trackCell is the grid cell, in degrees.

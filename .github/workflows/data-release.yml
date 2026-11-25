@@ -29,7 +29,10 @@ jobs:
         run: |
           last=$(tr -d '[:space:]' < RELEASE)
           if ! git rev-parse -q --verify "refs/tags/$last" >/dev/null; then echo "$last isn't released yet"; exit 0; fi
-          code=$(git diff --name-only "$last" HEAD -- '*.go' go.mod go.sum Dockerfile | head -20)
+          # Code is the Go source and what the binary embeds besides data:
+          # the start page, the OpenAPI document, the site's templates,
+          # texts and font.
+          code=$(git diff --name-only "$last" HEAD -- '*.go' go.mod go.sum Dockerfile cmd/carbon-cost/web site/templates site/i18n site/font | head -20)
           if [ -n "$code" ]; then
             echo "::warning title=Data release::code changed since $last; release by hand"; echo "$code"; exit 0
           fi

@@ -418,9 +418,14 @@ def denmark(fetched, out, srcs):
         for y, r in dk_rates(os.path.join(fetched, sid + ".html")).items():
             rates.setdefault(y, (r, sid))
     for y, ((day, c15, base), sid) in sorted(rates.items()):
+        # The table's 2015 base is the law's as it stands for its later
+        # year; the earlier year's rate may rest on the law before (2024's
+        # 51.9 øre on the base before the 2025 reform): the base is named
+        # only where the rate is it indexed (about 1.2 since 2015).
+        based = f"{base:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7)" if 1 <= day / base <= 1.6 else "indexed with the net price index (stk. 7)"
         write(out, {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
                     "name": "CO2-afgift on gas and diesel oil", "rate_per_l": round(day / 100, 4),
-                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {base:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
+                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {based}: {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
                            "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel; diesel blended with 6.8 or 7.6% biofuel pays a little less per litre of blend. "
                            "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
                     "sources": [src(srcs, sid)]})

@@ -82,6 +82,9 @@ func onRoads(ban, leg []string) bool {
 	return false
 }
 
+// maxBanDays is the longest trip whose driving bans are checked.
+const maxBanDays = 31
+
 // segments are the route's stretches by country: a leg in one country is
 // one; a leg across several is split only where Sootcase gives its
 // country_sections, else its countries are kept unordered over the leg.
@@ -150,6 +153,21 @@ func segments(res sootcase.Result) []segment {
 // times where a departure time is given, else by its days.
 func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) {
 	segs := segments(res)
+	// A trip of more than a month (a month's km by country, or a very low
+	// average speed) is a total, not a drive to plan: no bans checked.
+	end := 0.0
+	for _, s := range segs {
+		end = max(end, s.to)
+	}
+	hours := tripHoursFor(out, req)
+	if t0, ok := passage(req, date, 0, ""); ok {
+		t1, _ := passage(req, date, end, "")
+		hours = max(hours, t1.Sub(t0).Hours())
+	}
+	if hours > maxBanDays*24 {
+		out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: the trip takes more than %d days, so bans aren't checked.", maxBanDays))
+		return
+	}
 	trailer := false
 	var hits []BanHit
 	var wait float64
@@ -241,10 +259,14 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 		// Drive the segment, stopping for each ban in force until it ends;
 		// a regional holiday's ban is reported, not waited for.
+		// A week ahead at a time, so a long trip's bans are found in time
+		// linear in its length.
+		const ahead = 7 * 24 * time.Hour
 		cursor, left := t0, t1.Sub(t0)
 		for left > 0 {
+			span := min(left, ahead)
 			var next *bans.Window
-			for _, w := range windows(s, cursor, cursor.Add(left), loc) {
+			for _, w := range windows(s, cursor, cursor.Add(span), loc) {
 				if len(w.Regions) > 0 || w.Rule.Listed {
 					add(w, false, 0)
 					continue
@@ -255,7 +277,8 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 				}
 			}
 			if next == nil {
-				break
+				cursor, left = cursor.Add(span), left-span
+				continue
 			}
 			stop := cursor
 			if next.From.After(stop) {

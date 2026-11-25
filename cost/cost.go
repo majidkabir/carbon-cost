@@ -133,7 +133,7 @@ type Request struct {
 	// toll system or station is free. Without it congestion taxes aren't
 	// priced and hours aren't checked.
 	Time string `json:"time,omitempty"`
-	// AvgSpeedKmh is the average speed for those times, default
+	// AvgSpeedKmh is the average speed for those times, 5-130, default
 	// DefaultAvgSpeedKmh.
 	AvgSpeedKmh float64 `json:"avg_speed_kmh,omitempty"`
 	// DriverRest adds a single driver's breaks and daily rests to those
@@ -943,8 +943,8 @@ func check(req Request) error {
 			return fmt.Errorf("time: %w", err)
 		}
 	}
-	if req.AvgSpeedKmh < 0 || req.AvgSpeedKmh > 130 {
-		return fmt.Errorf("avg_speed_kmh must be 0-130")
+	if req.AvgSpeedKmh != 0 && (req.AvgSpeedKmh < 5 || req.AvgSpeedKmh > 130) {
+		return fmt.Errorf("avg_speed_kmh must be 5-130 (or 0 for the default)")
 	}
 	for k, v := range req.TolledShare {
 		if v < 0 || v > 1 {
@@ -1196,7 +1196,7 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		}
 	}
 	if hasFerry {
-		out.Missing = append(out.Missing, faresUnknown(res, fd, set, req)...)
+		out.Missing = append(out.Missing, p.faresUnknown(res, fd, set)...)
 	}
 
 	// ETS2 on road fuel from 2028.
@@ -1440,9 +1440,10 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 }
 
 // faresUnknown are the crossings the trip takes whose fares this tool has
-// no table for, in force or ended: no fare table has stations at both
-// of their terminals.
-func faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req Request) []Missing {
+// no table for, in force or not (no fare table has stations at both of
+// their terminals), or whose table in force the route didn't match (its
+// ports off the route given).
+func (pr *pricer) faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set) []Missing {
 	near := func(t ferries.Point, ds *tariffs.Dataset) bool {
 		for _, o := range ds.Objects() {
 			for _, q := range pointsOf(o) {
@@ -1453,21 +1454,32 @@ func faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req R
 		}
 		return false
 	}
+	passed := func(t ferries.Point) bool {
+		return slices.ContainsFunc(pr.fareAt, func(q rates.Place) bool { return haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= 3 })
+	}
 	var out []Missing
-	for _, p := range ferryParts(res, fd, req) {
+	for _, p := range ferryParts(res, fd, pr.req) {
 		c := p.crossing
 		if c == nil {
 			continue
 		}
-		known := false
+		known, inForce := false, false
 		for _, ds := range set.All {
 			if ferry := false; ds.Kind == tariffs.Crossings && ds.Ext("ferry", &ferry) && ferry && near(c.Terminals[0], ds) && near(c.Terminals[1], ds) {
 				known = true
-				break
+				inForce = inForce || ds.Covers(pr.date)
 			}
 		}
 		m := Missing{Area: c.Terminals[0].Country, Charge: FerryFare, Name: c.Name, Reason: "no_table"}
-		if !known && !slices.Contains(out, m) {
+		if known && inForce && !(passed(c.Terminals[0]) && passed(c.Terminals[1])) {
+			// Its fare table's ports are off the route given (a path off
+			// the ferry line).
+			m.Reason = "unpriced"
+			pr.note("Ferry: %s: the route doesn't pass its fare table's ports, so the fare isn't priced; give the route along the ferry line.", c.Name)
+		} else if known {
+			continue
+		}
+		if !slices.Contains(out, m) {
 			out = append(out, m)
 		}
 	}

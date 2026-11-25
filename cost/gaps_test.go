@@ -17,6 +17,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
 func priceLeg(t *testing.T, cc string, km float64, path [][2]float64, req Request, date string) Response {
@@ -261,6 +262,15 @@ func TestCongestionNeedsTime(t *testing.T) {
 	if !timed.Complete {
 		t.Errorf("at 08:00: missing %+v", timed.Missing)
 	}
+	// No tax on a Sunday, nor in Göteborg in July: nothing to miss.
+	for _, c := range []struct {
+		day  string
+		path [][2]float64
+	}{{"2026-11-22", path}, {"2026-11-22", [][2]float64{{11.9423, 57.670}, {11.9423, 57.690}}}, {"2026-07-15", [][2]float64{{11.9423, 57.670}, {11.9423, 57.690}}}} {
+		if out := priceLeg(t, "SE", 2, c.path, Request{FX: map[string]float64{"SEK": 11}}, c.day); !out.Complete {
+			t.Errorf("%s %v without time: missing %+v; want complete", c.day, c.path[0], out.Missing)
+		}
+	}
 }
 
 // A toll area before its first table here: before_table, not no_table.
@@ -312,5 +322,57 @@ func TestVignetteKmOnce(t *testing.T) {
 		if l.Country == "SE" && l.Charge == RoadToll && l.Days > 0 && l.Km != 140 {
 			t.Errorf("SE vignette over %d days on %.1f km; want 140 km", l.Days, l.Km)
 		}
+	}
+}
+
+// With the path driven given, the driving bans go by its countries, not
+// by Sootcase's route: a path in the Netherlands meets no German ban.
+func TestOwnPathBans(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Sootcase's way from Venlo to Nijmegen, mostly in Germany.
+		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 60, WTWKg: 70, Legs: []sootcase.LegResult{{DistanceKm: 70, TTWKg: 60, WTWKg: 70,
+			CountryKm: map[string]float64{"NL": 15, "DE": 55}, Path: [][2]float64{{6.17, 51.37}, {6.25, 51.6}, {5.86, 51.84}},
+			CountrySections: []sootcase.CountrySection{{Country: "NL", FromKm: 0, ToKm: 5}, {Country: "DE", FromKm: 5, ToKm: 60}, {Country: "NL", FromKm: 60, ToKm: 70}}}}})
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t), Borders: bix}
+	out, err := c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "NLVEN"}, To: sootcase.Location{Code: "NLNIM"}, Date: "2026-11-22", Time: "10:00",
+		CargoKg: 20000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}, Path: [][2]float64{{6.17, 51.37}, {6.0, 51.55}, {5.86, 51.84}}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if out.CountryKm["DE"] > 0 || slices.ContainsFunc(out.Bans, func(b BanHit) bool { return b.Country == "DE" }) {
+		t.Errorf("country km %v, bans %+v; want no German ban", out.CountryKm, out.Bans)
+	}
+}
+
+// A crossing whose fare table's ports the route given doesn't pass (a
+// straight line between the terminals) isn't taken as priced.
+func TestFareOffTheRoute(t *testing.T) {
+	out := ferryTrip(t, "2026-11-20", [2]float64{11.3522, 54.6556}, [2]float64{11.2275, 54.5003}, "DK", "DE")
+	if out.Complete || !slices.ContainsFunc(out.Missing, func(m Missing) bool { return m.Charge == FerryFare && m.Reason == "unpriced" }) {
+		t.Errorf("Rødby–Puttgarden off the ferry line: complete %v, missing %+v; want the fare unpriced", out.Complete, out.Missing)
+	}
+}
+
+// A very low average speed is refused; a trip of more than a month isn't
+// checked for bans (it would take long, and isn't a drive to plan).
+func TestSlowAndLongTrips(t *testing.T) {
+	truck := rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}
+	c := Calculator{Tariffs: all(t)}
+	if _, err := c.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 100}, CargoKg: 1000, Truck: truck, Time: "10:00", AvgSpeedKmh: 0.001}); err == nil {
+		t.Errorf("avg_speed_kmh 0.001: no error")
+	}
+	start := time.Now()
+	out, err := c.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 99999, "FR": 99999}, Date: "2026-11-20", CargoKg: 1000, Truck: truck, Time: "10:00", AvgSpeedKmh: 5})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !slices.ContainsFunc(out.Notes, func(n string) bool { return strings.Contains(n, "bans aren't checked") }) || time.Since(start) > 10*time.Second {
+		t.Errorf("200,000 km at 5 km/h: %v, notes %q", time.Since(start), out.Notes)
 	}
 }

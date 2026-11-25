@@ -1089,7 +1089,9 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 		last[ps.obj.Name] = ps.pos
 		ps.at, ps.timed = p.at(ds, ps.pos, country)
 		if ps.ch.Component == "congestion" && !ps.timed {
-			pm.noTime++
+			if p.chargedOn(ds, ps.obj.ID) {
+				pm.noTime++
+			}
 			continue
 		}
 		name := ps.obj.Name
@@ -1216,6 +1218,24 @@ func sortedKeys[V any](m map[string]V) []string {
 
 // ---------------------------------------------------------------- crossings, zones, fuel
 
+// chargedOn says whether a passage of obj costs anything at some time
+// of the trip's day (a congestion tax isn't charged on Sundays, holidays
+// or in July): the passage priced every 15 minutes of the day.
+func (p *pricer) chargedOn(ds *tariffs.Dataset, obj string) bool {
+	b := &batch{ds: ds}
+	day := time.Date(p.date.Year(), p.date.Month(), p.date.Day(), 0, 0, 0, 0, ds.TZ())
+	for t := day; t.Before(day.AddDate(0, 0, 1)); t = t.Add(15 * time.Minute) {
+		b.event(obj, t, nil)
+	}
+	st := orct.Calculate([]*orct.Dataset{ds.Dataset}, &orct.Usage{ORCTUsage: "0.3", Vehicle: p.vehicle, Payment: p.payment, Events: b.events})
+	for _, l := range st.Lines {
+		if l.Amount.Sign() > 0 {
+			return true
+		}
+	}
+	return false
+}
+
 // untimed lists a charge by the time of day (a congestion tax) whose
 // passages had no time to price them at as missing.
 func (p *pricer) untimed(ds *tariffs.Dataset, country string, pm *pointsMatched) {
@@ -1241,6 +1261,9 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 			for i := range b.events {
 				if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
 					m.charge = FerryFare
+				}
+				if o := ds.Object(b.events[i].Object); o != nil {
+					p.fareAt = append(p.fareAt, pointsOf(o)...)
 				}
 			}
 		}

@@ -100,6 +100,8 @@ type pricer struct {
 	// set has the other versions of a scheme, for a use the trip reaches
 	// after its table's last day (nil: none are looked for).
 	set *tariffs.Set
+	// fareAt are the places of the fare tables' ports the route passed.
+	fareAt []rates.Place
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {

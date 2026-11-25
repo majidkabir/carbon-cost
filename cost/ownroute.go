@@ -244,10 +244,30 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 			l.RouteParts["road"] = km - ferryKm
 		}
 		l.Parts = parts
+		// Sootcase's country sections and main roads are its route's: the
+		// path's own sections, by the same borders; its roads aren't known.
+		l.CountrySections, l.Summary = sectionsOf(Route(ix, seg, fd)), nil
 		ownKm += km
 	}
 	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", len(path), ownKm, sootKm))
 	return notes
+}
+
+// sectionsOf are a path's runs as country sections, as Sootcase gives
+// them: each country's stretch in order, ferries apart.
+func sectionsOf(runs []Run) []sootcase.CountrySection {
+	var out []sootcase.CountrySection
+	pos := 0.0
+	for _, r := range runs {
+		ferry := r.Kind != "road"
+		if n := len(out); n > 0 && out[n-1].Country == r.Country && out[n-1].Ferry == ferry {
+			out[n-1].ToKm = pos + r.Km
+		} else {
+			out = append(out, sootcase.CountrySection{Country: r.Country, FromKm: pos, ToKm: pos + r.Km, Ferry: ferry})
+		}
+		pos += r.Km
+	}
+	return out
 }
 
 // nearestFrom is the index of the path point nearest p from index from

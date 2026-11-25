@@ -680,7 +680,7 @@
       "type": "integer"
      },
      "avg_speed_kmh": {
-      "description": "AvgSpeedKmh is the average speed for those times, default DefaultAvgSpeedKmh.",
+      "description": "AvgSpeedKmh is the average speed for those times, 5-130, default DefaultAvgSpeedKmh.",
       "type": "number"
      },
      "cargo_kg": {

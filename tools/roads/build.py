@@ -352,13 +352,13 @@ class Ways(osmium.SimpleHandler):
         # sections_only: the section ways by road, and the other ways of
         # those classes (road refs, class, [lon, lat] points), placed after.
         self.sec_lines, self.pending = {}, []
-        # myto (Czechia): the class I roads the law tolls; the map's tolled
-        # parts by way id (cz_myto.load); the ways sampled; ways the
-        # capture doesn't know, placed after (class, points, tags, end
-        # nodes); the end nodes of tolled ways by class; km by road ref
-        # (one carriageway).
+        # myto (Czechia): the class I roads the law tolls; the map's class
+        # and tolled parts by way id (cz_myto.load); the ways sampled; ways
+        # the capture doesn't know, placed after (class, points, tags, end
+        # nodes); the end nodes of tolled ways by class; tolled km (one
+        # carriageway) by class and ref, and by class.
         self.law_refs, self.myto, self.samples, self.new_ways = set(), None, [], []
-        self.tolled_nodes, self.ref_km = {"mw": set(), "nat": set()}, Counter()
+        self.tolled_nodes, self.ref_km, self.class_km = {"mw": set(), "nat": set()}, Counter(), Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -373,9 +373,13 @@ class Ways(osmium.SimpleHandler):
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
-            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary"):
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") else ()):
                 return
             c, f = classify(self.rule, tags), -1
+            if c is None and self.rule.get("myto"):
+                # Any main road: the toll map says whether, and in which
+                # class, it is tolled.
+                c = "nat"
             if c is None and hw == "motorway" and self.tolled and tags.get("toll") == "no":
                 key = f"{(tags.get('operator') or '').strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
                 boxes = [(box, lab, suf) for k, box, lab, suf in self.tolled if k == key]
@@ -427,18 +431,18 @@ class Ways(osmium.SimpleHandler):
 
     def myto_way(self, w, c, coords, tags):
         refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
-        if c == "nat" and not set(refs) & self.law_refs:
-            return
         ls = LineString(coords)
-        self.samples.append((w.id, c, ls))
+        self.samples.append((w.id, c, refs[0] if refs else "", ls))
         ends = (w.nodes[0].ref, w.nodes[-1].ref)
         if self.myto is None:
-            parts = [(0.0, 1.0)]
+            # No capture: the law's roads by ref.
+            parts = [(0.0, 1.0)] if tags.get("highway") != "secondary" and (c == "mw" or set(refs) & self.law_refs) else []
         else:
-            parts = self.myto.get(w.id)
-            if parts is None:
+            got = self.myto.get(w.id)
+            if got is None:
                 self.new_ways.append((c, coords, tags, ends))
                 return
+            c, parts = got
         if parts and parts[0][0] == 0:
             self.tolled_nodes[c].add(ends[0])
         if parts and parts[-1][1] == 1:
@@ -451,12 +455,9 @@ class Ways(osmium.SimpleHandler):
     def add_myto(self, c, coords, tags, refs):
         self.add(c, -1, coords, tags)
         # One carriageway: a oneway way (a motorway's) counts half.
-        one = 0.5 if tags.get("oneway") == "yes" or tags.get("highway") == "motorway" else 1
-        for r in refs:
-            # A class I road the law doesn't list sharing a tolled way
-            # isn't tolled on it.
-            if re.match(self.rule[c], r) and (c == "mw" or r in self.law_refs):
-                self.ref_km[r] += cz_myto.length_m(coords) / 1000 * one
+        km = cz_myto.length_m(coords) / 1000 * (0.5 if tags.get("oneway") == "yes" or tags.get("highway") == "motorway" else 1)
+        self.class_km[c] += km
+        self.ref_km[(c, refs[0] if refs else "")] += km
 
     def add(self, c, f, coords, tags, suffix=None):
         ls = LineString(coords)
@@ -681,7 +682,8 @@ CZ_LAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cz-network.js
 
 def myto_finish(h, cc, law, dst):
     """Czechia: the ways the capture doesn't know, the samples for the
-    next capture beside dst, and each road's tolled km against the law's.
+    next capture beside dst, and the tolled km of each class against the
+    law's.
     Returns what the tolled sections are, for the data's network."""
     km = Counter()
     for c, coords, tags, (a, b) in h.new_ways:
@@ -694,25 +696,17 @@ def myto_finish(h, cc, law, dst):
     path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
     cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
     print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")
-    by_ref = Counter()
-    for r in law["sections"]:
-        by_ref[r["ref"]] += r["km"]
-    off = []
-    for ref in sorted(by_ref, key=lambda r: (r[0] == "D", int(r.lstrip("D")))):
-        got, want = h.ref_km[ref], by_ref[ref]
-        mark = ""
-        if abs(got - want) > 0.1 * want + 2:
-            mark = "  OFF"
-            off.append(ref)
-        print(cc, f"{ref:>4}: {got:6.1f} km tolled, law {want:6.1f}{mark}")
-    for ref, got in sorted(h.ref_km.items()):
-        if ref not in by_ref and got > 1:
-            print(cc, f"{ref:>4}: {got:6.1f} km tolled, not in the law  OFF")
-            off.append(ref)
-    print(cc, "km by class (one carriageway):", {c: round(sum(v for r, v in h.ref_km.items() if re.match(RULES[cc][c], r))) for c in ("mw", "nat")},
-          "law:", {c: round(sum(r["km"] for r in law["sections"] if r["class"] == c)) for c in ("mw", "nat")})
-    if h.myto is not None and off:
-        sys.exit(f"{cc}: tolled km off the law's on {', '.join(off)}")
+    for (c, ref), km in sorted(h.ref_km.items(), key=lambda kv: -kv[1]):
+        if km >= 0.5:
+            print(cc, f"tolled {c:>3} {ref or '(no ref)':>6}: {km:6.1f} km")
+    law_km = {c: sum(r["km"] for r in law["sections"] if r["class"] == c) for c in ("mw", "nat")}
+    off = [c for c in law_km if abs(h.class_km[c] - law_km[c]) > 0.05 * law_km[c]]
+    print(cc, "tolled km by class (one carriageway):", {c: round(h.class_km[c], 1) for c in law_km}, "law:", {c: round(v, 1) for c, v in law_km.items()})
+    if h.myto is not None:
+        for cls, lon, lat, px in json.load(open(cz_myto.CAPTURE, encoding="utf-8")).get("unmatched", []):
+            print(cc, f"the map draws {cls} away from the sampled ways near {lat},{lon} ({px} pixels)")
+        if off:
+            sys.exit(f"{cc}: tolled km of {', '.join(off)} more than 5% off the law's")
     cap = json.load(open(cz_myto.CAPTURE, encoding="utf-8")) if h.myto is not None else {}
     return law["source"].split(":")[0] + (f"; tolled stretches as the toll operator's map draws them ({cap['url']}, read {cap['date']})" if cap else "")
 

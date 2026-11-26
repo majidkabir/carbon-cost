@@ -1,8 +1,9 @@
 """Tests build.py's Czech rule on a small OSM file: a way counts only
-where the toll operator's map, read at its points (cz_myto.py), draws
-its class's layer; a class I road the law doesn't list isn't tolled; a
-short tolled blip (a crossing) is left out; a way the capture doesn't
-know is tolled when both its ends meet tolled ways of its class.
+where the toll operator's map, read at its points (cz_myto.py), draws a
+layer, in that layer's class (a class II road in OpenStreetMap the map
+tolls as class I, a motorway it tolls as class I); a short tolled blip
+(a crossing) is left out; a way the capture doesn't know is tolled when
+both its ends meet tolled ways of its class.
 
 Usage: python3 test_cz.py
 """
@@ -40,6 +41,8 @@ def osm(path, new):
     way(5, 0, 3, dy=0.08, highway="motorway", ref="D0")              # not tolled on the map
     way(6, 11, 13, highway="primary", ref="38")                      # tolled
     way(8, 0, 5, dy=-0.03, highway="primary", ref="38")              # a blip at km 2.5 only
+    way(10, 0, 3, dy=-0.06, highway="secondary", ref="434")          # class I on the map
+    way(11, 0, 2, dy=-0.09, highway="motorway", ref="55")            # class I on the map
     if new:
         way(7, 10, 11, highway="primary", ref="38")                  # new: between tolled ends
         way(9, 13, 14, highway="primary", ref="38")                  # new: one end loose
@@ -47,16 +50,20 @@ def osm(path, new):
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
 
-def tolled(wid, x):
-    """The map: km x of way wid tolled."""
-    return {1: not 4 <= x <= 6, 3: True, 4: True, 6: True, 8: 2.4 <= x <= 2.6}.get(wid, False)
+def drawn(wid, x):
+    """The map: the layer drawn at km x of way wid."""
+    if wid == 1:
+        return None if 4 <= x <= 6 else "nat"
+    if wid == 8:
+        return "nat" if 2.4 <= x <= 2.6 else None
+    return {3: "mw", 4: "mw", 6: "nat", 10: "nat", 11: "nat"}.get(wid)
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 11.0, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 15.0, "text": "I/38"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -64,30 +71,34 @@ def main():
     os.replace(os.path.join(d, "cz-samples.json.gz"), cz_myto.SAMPLES)
     doc = json.load(gzip.open(cz_myto.SAMPLES))
     sampled = {w[0] for w in doc["ways"]}
-    bits = []
+    tolled, other = [], []
     for wid, c, n, xy in doc["ways"]:
         x = 0
         for i in range(n):
             x += xy[2 * i]
-            bits.append(tolled(wid, (x / 1e5 - LON0) / KM))
-    runs, cur, n = [], False, 0
-    for b in bits:
-        if b == cur:
-            n += 1
-        else:
-            runs.append(n)
-            cur, n = b, 1
-    runs.append(n)
+            layer = drawn(wid, (x / 1e5 - LON0) / KM)
+            tolled.append(layer is not None)
+            other.append(layer is not None and layer != c)
+
+    def runs(bits):
+        out, cur, n = [], False, 0
+        for b in bits:
+            if b == cur:
+                n += 1
+            else:
+                out.append(n)
+                cur, n = b, 1
+        return ",".join(map(str, out + [n]))
     raw = open(cz_myto.SAMPLES, "rb").read()
-    json.dump({"url": "test", "date": "2026-11-27", "samples_sha256": hashlib.sha256(raw).hexdigest(), "points": len(bits),
-               "runs": ",".join(map(str, runs))}, open(cz_myto.CAPTURE, "w"))
+    json.dump({"url": "test", "date": "2026-11-27", "samples_sha256": hashlib.sha256(raw).hexdigest(), "points": len(tolled),
+               "runs": runs(tolled), "other": runs(other), "unmatched": [["nat", 15.1, 49.4, 1200]]}, open(cz_myto.CAPTURE, "w"))
     osm(src, True)
     build.main("CZ", src, dst)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
     nat, mw = km(out["nat"]), km(out["mw"])
-    ok = sampled == {1, 3, 4, 5, 6, 8} and abs(nat - 11) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
-    print(f"sampled {sorted(sampled)} (want 1, 3, 4, 5, 6, 8: not road 2), nat {nat:.2f} km (want 11: 10 - 2 + 2 + 1, not the blip nor the loose way), mw {mw:.2f} km (want 10: D1's two carriageways, not D0)")
+    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11} and abs(nat - 16) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16: 10 - 2 + 2 + 1 + 3 + 2, not the blip nor the loose way), mw {mw:.2f} km (want 10: D1's two carriageways, not D0)")
     print(out["network"])
     for f in os.listdir(d):
         os.remove(os.path.join(d, f))

@@ -3,33 +3,39 @@
 The law (vyhláška č. 470/2012 Sb., annexes 1 and 2; tools/roads/
 cz-network.json) names each tolled section by its ends and length, but
 not where a class I road's town passages and the other stretches it
-leaves out lie. The operator's map does: its WMS draws the tolled
-motorways (layer entc:v_entc_road_d) and class I roads
-(entc:v_entc_road_a). The geometry is only published as images, so the
-map is read at points of OpenStreetMap's ways:
+leaves out lie; and some roads it lists by their class I number,
+OpenStreetMap already has as class II, the motorway beside them open.
+The operator's map draws the tolled roads by their toll class: its WMS
+has the motorways (layer entc:v_entc_road_d, "mw") and the class I
+roads (entc:v_entc_road_a, "nat"). The geometry is only published as
+images, so the map is read at points of OpenStreetMap's main roads:
 
 1. The Roads data workflow writes cz-samples.json.gz (build.py, with
-   the CZ extract): every motorway and every way of a class I road the
-   law tolls, with a point every STEP_M along it.
+   the CZ extract): every motorway, trunk, primary and secondary way,
+   with a point every STEP_M along it.
 2. In a browser tab on https://myto.gov.cz/cs/vymezene-useky-silnic/mapy
-   (Claude in Chrome), cz_myto.js reads the map at each point: tolled
-   where the layer of its class is drawn there.
-3. The answer, the points' tolled and untolled runs, goes in
-   tools/tables/browser/cz-myto-wms.json with the URL and date, and the
-   samples file in tools/roads/cz-samples.json.gz; build.py then keeps
-   only the tolled parts of each way.
+   (Claude in Chrome), cz_myto.js reads both layers at each point, and
+   lists the places where a layer is drawn away from the points (a
+   tolled road the samples miss).
+3. Its answer goes in tools/tables/browser/cz-myto-wms.json with the
+   URL and date, and the samples file in tools/roads/cz-samples.json.gz;
+   build.py then keeps the tolled parts of each way, in the class of the
+   layer drawn there.
 
 Ways OpenStreetMap added since the samples were taken (other ids) are
 tolled when both their ends meet tolled ways of their class, else not;
-build.py reports their km, and each road's tolled km against the law's.
+build.py reports their km, and the tolled km of each class against the
+law's.
 """
 import gzip, hashlib, json, math, os
+from collections import Counter
 
 STEP_M = 100
 HERE = os.path.dirname(os.path.abspath(__file__))
 SAMPLES = os.path.join(HERE, "cz-samples.json.gz")
 CAPTURE = os.path.join(HERE, "..", "tables", "browser", "cz-myto-wms.json")
 LAYERS = {"mw": "entc:v_entc_road_d", "nat": "entc:v_entc_road_a"}
+OTHER = {"mw": "nat", "nat": "mw"}
 
 
 def length_m(coords):
@@ -49,9 +55,23 @@ def count(coords):
 
 
 def write_samples(ways, path, osm_extract=None):
-    """ways: (id, class, shapely line); points delta-coded, 1e5 degrees."""
+    """ways: (id, class, ref, shapely line). Ordered by ref and then along
+    the road (the long side of its box), so that a road's tolled ways
+    come together; points delta-coded, 1e5 degrees."""
+    box = {}
+    for _, _, ref, ls in ways:
+        x0, y0, x1, y1 = ls.bounds
+        b = box.get(ref, (x0, y0, x1, y1))
+        box[ref] = (min(b[0], x0), min(b[1], y0), max(b[2], x1), max(b[3], y1))
+
+    def key(w):
+        wid, _, ref, ls = w
+        x0, y0, x1, y1 = box[ref]
+        p = ls.interpolate(0.5, normalized=True)
+        return (ref, p.x if (x1 - x0) * 0.65 > (y1 - y0) else p.y, wid)
+
     out = []
-    for wid, c, ls in ways:
+    for wid, c, ref, ls in sorted(ways, key=key):
         n = count(list(ls.coords))
         xy, px, py = [], 0, 0
         for p in points(ls, n):
@@ -87,9 +107,15 @@ def runs(bits):
     return out
 
 
+def unrun(text):
+    """Runs of false and true values, false first: "0,9,6" is 9 true then
+    6 false."""
+    return [i % 2 == 1 for i, n in enumerate(int(x) for x in text.split(",")) for _ in range(n)]
+
+
 def load():
-    """Way id -> its tolled parts as (from, to) fractions of its length
-    ([] for none), or None without a capture."""
+    """Way id -> (its toll class, its tolled parts as (from, to) fractions
+    of its length; [] for none), or None without a capture."""
     if not os.path.exists(CAPTURE) or not os.path.exists(SAMPLES):
         return None
     cap = json.load(open(CAPTURE, encoding="utf-8"))
@@ -97,12 +123,15 @@ def load():
     if hashlib.sha256(raw).hexdigest() != cap["samples_sha256"]:
         raise SystemExit("CZ: tools/tables/browser/cz-myto-wms.json is for another cz-samples.json.gz")
     doc = json.loads(gzip.decompress(raw))
-    # The points' runs, untolled first: 0,9,6 is 9 tolled points then 6 not.
-    bits = [i % 2 == 1 for i, n in enumerate(int(x) for x in cap["runs"].split(",")) for _ in range(n)]
-    if len(bits) != cap["points"] or len(bits) != sum(w[2] for w in doc["ways"]):
-        raise SystemExit(f"CZ: the capture has {len(bits)} points, the samples {sum(w[2] for w in doc['ways'])}")
+    # tolled: a layer is drawn at the point; other: only the other class's.
+    tolled, other = unrun(cap["runs"]), unrun(cap["other"])
+    total = sum(w[2] for w in doc["ways"])
+    if not len(tolled) == len(other) == cap["points"] == total:
+        raise SystemExit(f"CZ: the capture has {len(tolled)} and {len(other)} points, the samples {total}")
     out, k = {}, 0
     for wid, c, n, _ in doc["ways"]:
-        out[wid] = [(a / n, b / n) for a, b in runs(bits[k:k + n])]
+        parts = runs(tolled[k:k + n])
+        votes = Counter(OTHER[c] if other[k + i] else c for a, b in parts for i in range(a, b))
+        out[wid] = (votes.most_common(1)[0][0] if votes else c, [(a / n, b / n) for a, b in parts])
         k += n
     return out

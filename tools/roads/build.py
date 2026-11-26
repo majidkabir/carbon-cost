@@ -20,7 +20,8 @@ break); the other main roads and motorways, such as those inside
 Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
 simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
-For Romania, a fourth argument gives an extract of the administrative
+For Hungary, a fourth argument gives an extract of the administrative
+boundaries, for Budapest's. For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up
 area of a municipality (municipiu: in OpenStreetMap an administrative
 boundary named "Municipiul ..." or tagged place=city) aren't tolled (Legea 226/2023, SETRE
@@ -42,6 +43,9 @@ SIMPLIFY_M = 10
 # such ways up to GAP_KM long between section ways of its road, a gap in
 # OSM's relations; their ends meet within END_M.
 TWIN_M, GAP_KM, END_M = 60, 10, 30
+# A road whose toll sections OSM has for this share of annex 1's km (both
+# carriageways of an M road): its other ways are left out.
+COVERED = 0.9
 # mw: the motorway class of the toll law; nat: the national roads.
 RULES = {
     # Czechia, NV 240/2014: dálnice (D) vs silnice I. třídy.
@@ -109,6 +113,23 @@ class Sections(osmium.SimpleHandler):
         for m in r.members:
             if m.type == "w":
                 self.ways[m.ref] = (c, a["f"], a["road"], edid)
+
+
+class Boundary(osmium.SimpleHandler):
+    """An administrative area by name, its polygons."""
+
+    def __init__(self, name):
+        super().__init__()
+        self.wkb = osmium.geom.WKBFactory()
+        self.name, self.parts = name, []
+
+    def area(self, a):
+        t = a.tags
+        if t.get("boundary") == "administrative" and t.get("name") == self.name and a.from_way() is False:
+            try:
+                self.parts.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
+            except Exception:
+                pass
 
 
 class Urban(osmium.SimpleHandler):
@@ -435,35 +456,45 @@ class Ways(osmium.SimpleHandler):
                     self.op_km[op] += piece.length * 111.32 * 0.68
 
 
-def place_pending(h, cc):
-    """Hungary: the ways outside the toll sections that are a section's
-    other carriageway or fill a gap in OSM's relations, added with the
-    section's class and share; the others left out (reported by road)."""
+def place_pending(h, cc, city=None):
+    """Hungary: the ways outside the toll sections, placed. A section's
+    other carriageway, or a gap in OSM's relations where annex 1 runs on
+    between the sections its chain meets, takes the section's class and
+    share; a chain between two sections annex 1 doesn't join is left out.
+    The rest is left out on a road whose sections OSM has (COVERED of the
+    annex's km, both carriageways of an M road), and on a road whose
+    sections it lacks is tolled by its ref as before, but not inside
+    Budapest (city), whose roads annex 1 doesn't list; reported by road."""
     kx = 111_320 * 0.68  # metres per degree of longitude near 47.2° N
     m = lambda pts: [(x * kx, y * 111_320) for x, y in pts]
     trees = {}
     for road, secs in h.sec_lines.items():
         geoms = [LineString(m(ls.coords)) for ls, *_ in secs]
         trees[road] = (STRtree(geoms), geoms, secs)
-    # Annex 1's sections by road, by chainage: a gap between two sections
-    # is OSM's if the annex runs on between them without a break.
+    # Annex 1's sections by road, by chainage.
     chain_m = lambda v: int(v.split("+")[0]) * 1000 + int(v.split("+")[1])
     rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
     span = {r["id"]: (r["road"], chain_m(r["start"]), chain_m(r["end"])) for r in rows}
-    by_road = {}
+    by_road, annex = {}, Counter()
     for r in rows:
         by_road.setdefault(r["road"], []).append((chain_m(r["start"]), chain_m(r["end"])))
+        annex[r["road"]] += r["m"] / 1000
+    osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
+    covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
+
     def joined(a, b):
-        """Whether annex 1 runs without a break from section a to section b."""
+        """The km of annex 1 between sections a and b if it runs on between
+        them without a break, else None."""
         (ra, a0, a1), (rb, b0, b1) = span[a], span[b]
         if ra != rb:
-            return False
+            return None
         lo, hi = (a1, b0) if a1 <= b0 else (b1, a0)
         at = lo
         for s0, s1 in sorted(by_road[ra]):
             if s0 == at and s1 <= hi:
                 at = s1
-        return at == hi
+        return (hi - lo) / 1000 if at == hi else None
+
     def near(road, pt, d):
         """The nearest section way of road within d metres of pt, or None."""
         if road not in trees:
@@ -476,7 +507,8 @@ def place_pending(h, cc):
             if dist <= d and (best is None or dist < best[0]):
                 best = (dist, secs[i])
         return best and best[1]
-    twins, gaps, dropped = Counter(), Counter(), Counter()
+
+    twins, gaps, breaks, dropped, kept, in_city = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
     rest = []  # (refs, class, points, points in metres)
     for refs, c, coords in h.pending:
         mc = m(coords)
@@ -495,10 +527,10 @@ def place_pending(h, cc):
             twins[hit[0]] += line.length / 1000
         else:
             rest.append((refs, c, coords, mc))
-    # Gaps: chains of the remaining ways of one road, joined end to end.
-    placed = set()
+    # Chains of the remaining ways of one road, joined end to end.
+    decided = {}
     for road in sorted({r for refs, *_ in rest for r in refs}):
-        ways = [i for i, w in enumerate(rest) if road in w[0] and i not in placed]
+        ways = [i for i, w in enumerate(rest) if road in w[0] and i not in decided]
         ends = {}
         key = lambda p: (round(p[0] / END_M), round(p[1] / END_M))
         for i in ways:
@@ -521,32 +553,57 @@ def place_pending(h, cc):
                             todo += [q for q in ends.get((k[0] + dx, k[1] + dy), []) if math.dist(p, rest[q][3][0]) <= END_M or math.dist(p, rest[q][3][-1]) <= END_M]
             seen |= chain
             km = sum(LineString(rest[j][3]).length for j in chain) / 1000
-            if km > GAP_KM:
-                continue
+            if km > 3 * GAP_KM and covered.get(road, False):
+                continue  # long: not a gap; left out below
             # The chain's loose ends: ends of its ways no other way of it meets.
             loose = [p for j in chain for p in (rest[j][3][0], rest[j][3][-1])
                      if not any(q != j and min(math.dist(p, rest[q][3][0]), math.dist(p, rest[q][3][-1])) <= END_M for q in chain)]
             met = [near(road, p, END_M) for p in loose]
             edids = sorted({x[3] for x in met if x}, key=lambda e: span[e][1])
-            if len(loose) >= 2 and all(met) and len(edids) >= 2 and all(joined(a, b) for a, b in zip(edids, edids[1:])):
+            if len(loose) < 2 or not all(met) or len(edids) < 2:
+                continue
+            between = [joined(a, b) for a, b in zip(edids, edids[1:])]
+            if all(b is not None for b in between) and km <= (2.6 if road.startswith("M") else 1.3) * sum(between) + GAP_KM:
                 _, sc, sf, _ = met[0]
                 for j in chain:
                     h.add(sc, sf, rest[j][2], {})
-                    placed.add(j)
+                    decided[j] = "gap"
                 gaps[road] += km
+            elif all(b is None for b in between):
+                for j in chain:
+                    decided[j] = "break"
+                breaks[road] += km
     for i, (refs, c, coords, mc) in enumerate(rest):
-        if i not in placed:
-            dropped[refs[0] if refs else "(no ref)"] += LineString(mc).length / 1000
-    print(cc, "other carriageways of toll sections (km):", {k: round(v, 1) for k, v in twins.most_common()})
-    print(cc, "gaps in the sections' relations filled (km):", {k: round(v, 1) for k, v in gaps.most_common()})
-    print(cc, "main roads and motorways outside annex 1, not tolled (km):", {k: round(v, 1) for k, v in dropped.most_common()})
-    print(cc, "totals: twins", round(sum(twins.values())), "gaps", round(sum(gaps.values())), "left out", round(sum(dropped.values())))
-    annex = Counter()
-    for r in json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json"))):
-        annex[r["road"]] += r["m"] / 1000
-    osm = Counter({road: sum(LineString(m(ls.coords)).length for ls, *_ in secs) / 1000 for road, secs in h.sec_lines.items()})
-    for road, km in sorted(annex.items(), key=lambda kv: -kv[1])[:60]:
-        print(cc, f"road {road}: annex {km:.1f} km, OSM sections {osm[road]:.1f} km (both carriageways), twins {twins[road]:.1f}, gaps {gaps[road]:.1f}, left out {dropped[road]:.1f}")
+        if i in decided:
+            continue
+        road = next((r for r in refs if r in annex), refs[0] if refs else "(no ref)")
+        km = LineString(mc).length / 1000
+        if road in annex and not covered[road]:
+            # OSM lacks this road's sections: tolled by its ref, outside Budapest.
+            ls = LineString(coords)
+            pieces = [ls]
+            if city is not None and ls.intersects(city):
+                out = ls.difference(city)
+                pieces = [g for g in getattr(out, "geoms", [out]) if g.geom_type == "LineString" and not g.is_empty]
+                in_city[road] += km * (1 - (out.length / ls.length if ls.length else 0))
+            for g in pieces:
+                if len(g.coords) >= 2:
+                    h.add(c, -1, list(g.coords), {})
+            kept[road] += km
+        else:
+            dropped[road] += km
+    fmt = lambda c: {k: round(v, 1) for k, v in c.most_common()}
+    print(cc, "other carriageways of toll sections (km):", fmt(twins))
+    print(cc, "gaps in the sections' relations filled (km):", fmt(gaps))
+    print(cc, "between sections annex 1 doesn't join, not tolled (km):", fmt(breaks))
+    print(cc, "outside the sections of roads OSM has them for, not tolled (km):", fmt(dropped))
+    print(cc, "roads whose sections OSM lacks, tolled by ref (km):", fmt(kept), "of which inside Budapest, not tolled:", fmt(in_city))
+    print(cc, "totals: twins", round(sum(twins.values())), "gaps", round(sum(gaps.values())), "breaks", round(sum(breaks.values())),
+          "left out", round(sum(dropped.values())), "by ref", round(sum(kept.values())), "in Budapest", round(sum(in_city.values())))
+    for road, km in sorted(annex.items(), key=lambda kv: -kv[1]):
+        if osm[road] or kept[road] or dropped[road]:
+            print(cc, f"road {road}: annex {km:.1f} km, OSM sections {osm[road]:.1f} km{'' if covered[road] else ' (lacking)'}, twins {twins[road]:.1f}, gaps {gaps[road]:.1f}, "
+                      f"breaks {breaks[road]:.1f}, left out {dropped[road]:.1f}, by ref {kept[road]:.1f}")
 
 
 # Countries whose law lists its tolled sections: the list (from the law,
@@ -593,8 +650,16 @@ def main(cc, src, dst, areas=None):
     if cc in NETWORK:
         return main_network(cc, src, dst)
     rule = RULES[cc]
-    urban = None
-    if areas:
+    urban = city = None
+    if areas and cc == "HU":
+        # Budapest's boundary: annex 1 lists none of the city's roads.
+        b = Boundary("Budapest")
+        b.apply_file(areas, locations=True)
+        if not b.parts:
+            sys.exit("HU: Budapest's administrative boundary not found")
+        city = unary_union(b.parts)
+        print(cc, "Budapest's boundary:", len(b.parts), "polygons")
+    elif areas:
         u = Urban()
         u.apply_file(areas, locations=True)
         urban = u.built_up()
@@ -653,7 +718,7 @@ def main(cc, src, dst, areas=None):
     h.private = list(PRIVATE.get(cc, []))
     h.apply_file(src, locations=True)
     if rule.get("sections_only"):
-        place_pending(h, cc)
+        place_pending(h, cc, city)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:

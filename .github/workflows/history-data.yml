@@ -107,6 +107,9 @@ jobs:
           git archive FETCH_HEAD | tar -x -C out/osm --wildcards '*-osm*.geojsonseq' '*-osm-timestamp.txt'
           # Overpass answers some builders place their stations from.
           for f in pl-concessions-osm.json; do git show FETCH_HEAD:$f > out/osm/$f 2>/dev/null || rm -f out/osm/$f; done
+          # The Norwegian toll projects' tariff pages (build_no.py's
+          # environmental prices of large vehicles).
+          git archive FETCH_HEAD | tar -x -C out --wildcards 'no-rush-*' || true
           # The current tables the other data workflows built, which some
           # builders take their structure from (tools/history/committed.py).
           mkdir -p out/current

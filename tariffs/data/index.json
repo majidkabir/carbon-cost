@@ -1167,7 +1167,7 @@
    "name": "Estonia's state ferries to Muhu, Saaremaa and Hiiumaa, trucks",
    "valid_from": "2025-02-01",
    "valid_to": null,
-   "sha256": "62cabbe0378c8e03b38ae7811035c3ce18506ea44c5018739384a1cd04bc79b5",
+   "sha256": "413e9989ecb35afe4927131e98e248da8b8620b533f3037b43dd43bd8304a0a4",
    "coverage": "complete"
   },
   {
@@ -2641,7 +2641,7 @@
    "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
    "valid_from": "2024-01-01",
    "valid_to": "2026-11-17",
-   "sha256": "4f83a68899fae96995d23a7c1dfb4ff7b5e88aa79386eaae420dc338d82b45c6",
+   "sha256": "a74932f2777534d4482a3d22816dfbe80f9fbdd19e252d2a6a44c4fe288e39c0",
    "coverage": "complete"
   },
   {
@@ -2652,7 +2652,7 @@
    "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
    "valid_from": "2026-11-18",
    "valid_to": null,
-   "sha256": "af21b374f21c3d6337515ff4cfc0d7954da6d21e8cbe3289dca851e5acdb5e80",
+   "sha256": "f8530a82e04c4dfbda75d98d7fb1e936bfb2dad4e2e7c48070471bad1b84595a",
    "coverage": "complete"
   },
   {
@@ -3630,8 +3630,19 @@
    "file": "tr/tr-2026-07-01.orct.json",
    "name": "Turkish motorway and bridge tolls (KGM)",
    "valid_from": "2026-07-01",
+   "valid_to": "2026-10-18",
+   "sha256": "45f988c6d76a3dda448bba4ff1dea4d969bb7e3fdbba592476dc9758ea90f471",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/tr/2026-10-19",
+   "scheme": "tr",
+   "country": "TR",
+   "file": "tr/tr-2026-10-19.orct.json",
+   "name": "Turkish motorway and bridge tolls (KGM)",
+   "valid_from": "2026-10-19",
    "valid_to": null,
-   "sha256": "0f46ef853fdc4cb5eae963d1eb1ba3185fa96b4a6ab342e90958c22e30fa0112",
+   "sha256": "b3d4e0ee7e57538180a64a93fcb3ced9d45a0447fc1ad39d52be8fc2dceb4d57",
    "coverage": "complete"
   }
  ]

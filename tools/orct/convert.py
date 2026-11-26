@@ -667,14 +667,19 @@ def convert_points(b, t, systems, motor):
                         rows.append({**base, "time_class": tc, "user_class": b.electronic() if etc else None,
                                      "priority": prio, "amount": dec(c[key])})
         else:
-            rows.append({"object": oid, "amount": dec(p["rate"])})
-            if p.get("peak_rate") and p.get("rush"):
-                rows.append({"object": oid, "time_class": rush_class(b, p["rush"]), "amount": dec(p["peak_rate"])})
-            elif p.get("peak_rate"):
-                tpeak = b.time_class("rush-hours", defined=False, label="Rush hours",
-                                     note="The station charges more in rush hours; the hours aren't in the source table.")
-                rows.append({"object": oid, "time_class": tpeak, "amount": dec(p["peak_rate"])})
-                peak += 1
+            # The point's price, and its prices for classes of vehicles
+            # (class_rates: criteria, rate, peak_rate), which rank above it.
+            extra = p.get("class_rates", [])
+            cids = b.class_set("pt-", [(c["criteria"], None, None) for c in extra]) if extra else []
+            for cid, c in [(None, p)] + list(zip(cids, extra)):
+                rows.append({"object": oid, "vehicle_class": cid, "amount": dec(c["rate"])})
+                if c.get("peak_rate") and p.get("rush"):
+                    rows.append({"object": oid, "vehicle_class": cid, "time_class": rush_class(b, p["rush"]), "amount": dec(c["peak_rate"])})
+                elif c.get("peak_rate"):
+                    tpeak = b.time_class("rush-hours", defined=False, label="Rush hours",
+                                         note="The station charges more in rush hours; the hours aren't in the source table.")
+                    rows.append({"object": oid, "vehicle_class": cid, "time_class": tpeak, "amount": dec(c["peak_rate"])})
+                    peak += cid is None
         if p.get("free_hours"):
             tfree = b.time_class("free", times=hours(p["free_hours"]), label="No charge")
             rows.append({"object": oid, "time_class": tfree, "priority": 2, "amount": "0"})

@@ -186,6 +186,43 @@
       "Algeciras – Tanger Med": 0.75,
       "Algeciras – Ceuta": 0.75
      }
+    },
+    {
+     "from": "2026-12-01",
+     "to": "2026-12-31",
+     "eua_eur_per_t": 87.12,
+     "basis": "the average EU allowance price 2026-10-20 to 2026-11-20, EUR 87.12",
+     "source": "https://www.dfds.com/en/freight-ferries-and-logistics/ets-surcharges",
+     "rates": {
+      "Ijmuiden (Amsterdam) – Newcastle": 2.66,
+      "Gothenburg/Brevik/Fredrikstad – Immingham": 3.86,
+      "Gothenburg/Brevik – Ghent": 5.96,
+      "Gothenburg/Fredrikstad – Zeebrugge": 5.96,
+      "Cuxhaven – Immingham": 2.55,
+      "Esbjerg – Immingham": 2.73,
+      "Vlaardingen (Rotterdam) – Felixstowe": 1.13,
+      "Vlaardingen (Rotterdam) – Immingham": 1.19,
+      "Zeebrugge – Immingham": 1.19,
+      "Rotterdam – Vilagarcia": 10.2,
+      "Dover – Dunkirk": 0.6,
+      "Dover – Calais": 0.6,
+      "Rosslare – Dunkirk": 12.13,
+      "Newhaven – Dieppe": 1.92,
+      "Jersey – St. Malo": 2.53,
+      "Jersey – Portsmouth": 0.13,
+      "Jersey – Poole": 0.39,
+      "Marseille – Tunis": 4.25,
+      "Pendik (Istanbul) – Patras/Bari/Trieste": 6.77,
+      "Mersin – Trieste": 7.77,
+      "Yalova (Istanbul)/Alsancak (Izmir) – Sète": 9.24,
+      "Damietta – Trieste": 16.56,
+      "Klaipeda – Fredericia/Køge": 8.25,
+      "Klaipeda – Karlshamn/Trelleborg": 4.26,
+      "Klaipeda – Kiel/Travemünde": 6.94,
+      "Paldiski – Kapellskär": 3.35,
+      "Algeciras – Tanger Med": 0.75,
+      "Algeciras – Ceuta": 0.75
+     }
     }
    ]
   },
@@ -305,6 +342,15 @@
     },
     {
      "from": "2026-11-01",
+     "source": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
+     "rates": {
+      "Puttgarden–Rødby": 0.18,
+      "Rostock–Gedser": 0.75
+     },
+     "to": "2026-11-30"
+    },
+    {
+     "from": "2026-12-01",
      "source": "https://freight.scandlines.com/freight-conditions/fuel-surcharges/",
      "rates": {
       "Puttgarden–Rødby": 0.18,
@@ -442,6 +488,27 @@
       "Travemünde–Liepāja": 6.92,
       "Trelleborg–Rostock": 1.59
      }
+    },
+    {
+     "from": "2026-12-01",
+     "to": "2026-12-31",
+     "basis": "the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU Maritime's compliance cost included (0.15 EUR per lane metre)",
+     "source": "https://stenalinefreight.com/charges/ (eu-ets-december-2026-12.pdf)",
+     "rates": {
+      "Dublin–Holyhead": 1.59,
+      "Dublin–Liverpool": 1.44,
+      "Fishguard–Rosslare": 1.59,
+      "Gothenburg–Frederikshavn": 1.78,
+      "Gothenburg–Kiel": 4.77,
+      "Hoek van Holland–Harwich": 1.57,
+      "Hoek van Holland–Immingham": 1.89,
+      "Karlskrona–Gdynia": 3.86,
+      "Nynäshamn–Ventspils": 3.95,
+      "Rotterdam–Harwich": 1.57,
+      "Rotterdam–Immingham": 1.89,
+      "Travemünde–Liepāja": 7.08,
+      "Trelleborg–Rostock": 1.62
+     }
     }
    ]
   },
@@ -563,6 +630,16 @@
       "Świnoujście–Trelleborg": 5.01,
       "Gdańsk–Karlshamn": 5.99,
       "Gdańsk–Nynäshamn": 12.55
+     }
+    },
+    {
+     "from": "2026-12-01",
+     "source": "https://www.unityline.eu/en/documents",
+     "rates": {
+      "Świnoujście–Ystad": 5.09,
+      "Świnoujście–Trelleborg": 5.09,
+      "Gdańsk–Karlshamn": 6.09,
+      "Gdańsk–Nynäshamn": 12.77
      }
     }
    ],

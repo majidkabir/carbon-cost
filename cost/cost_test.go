@@ -1196,23 +1196,38 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 }
 
 // Norway's toll stations: priced per passage in the charged direction,
-// once per hour-rule group.
+// once per hour-rule group. In Bypakke Bergen (the tariff decision of
+// 24.11.2025) a Euro V truck pays NVDB's 88 NOK off-peak and 154 in rush
+// hours, a Euro VI one 47 and 94, a zero-emission one nothing; before and
+// after the current table (18 November 2026).
 func TestNorwayTollPoints(t *testing.T) {
-	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
 	sandvikenSE := [][2]float64{{5.3110, 60.4190}, {5.3150, 60.4170}}
 	straumeNE := [][2]float64{{5.2697, 60.3220}, {5.2723, 60.3232}}
 	reverse := func(p [][2]float64) [][2]float64 { return [][2]float64{p[1], p[0]} }
+	euro5, ev := truck40, truck40
+	euro5.Euro = 5
+	ev.CO2Class = 5
 	for _, tc := range []struct {
-		name string
-		path [][2]float64
-		want float64
+		name  string
+		path  [][2]float64
+		day   int
+		at    string
+		truck rates.Truck
+		want  float64
 	}{
-		{"Sandviken, charged direction", sandvikenSE, 88},
-		{"Sandviken, other direction", reverse(sandvikenSE), 0},
-		{"Sandviken and Straume, one hour-rule group", append(append([][2]float64{}, sandvikenSE...), straumeNE...), 88},
+		{"Sandviken, charged direction", sandvikenSE, 4, "", euro5, 88},
+		{"Sandviken, other direction", reverse(sandvikenSE), 4, "", euro5, 0},
+		{"Sandviken and Straume, one hour-rule group", append(append([][2]float64{}, sandvikenSE...), straumeNE...), 4, "", euro5, 88},
+		{"Sandviken, Euro VI", sandvikenSE, 4, "11:00", truck40, 47},
+		{"Sandviken, Euro VI, rush", sandvikenSE, 4, "08:00", truck40, 94},
+		{"Sandviken, Euro V, rush", sandvikenSE, 4, "08:00", euro5, 154},
+		{"Sandviken, zero-emission", sandvikenSE, 4, "08:00", ev, 0},
+		{"Sandviken, Euro VI, current table", sandvikenSE, 25, "11:00", truck40, 47},
+		{"Sandviken, zero-emission, current table", sandvikenSE, 25, "11:00", ev, 0},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 20, CountryKm: map[string]float64{"NO": 20}, Path: tc.path}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 1000, noFuel: true, Truck: truck40, FX: map[string]float64{"NOK": 11.7}}, date)
+		date := time.Date(2026, 11, tc.day, 0, 0, 0, 0, time.UTC)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, noFuel: true, Truck: tc.truck, Time: tc.at, FX: map[string]float64{"NOK": 11.7}}, date)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -3615,31 +3630,39 @@ func TestCalMac(t *testing.T) {
 // Estonia's state ferries (regulation nr 120, annex and § 6): a truck over
 // 3.5 t pays 16 EUR on Virtsu-Kuivastu and 18 EUR on Rohuküla-Heltermaa,
 // × 1.2 towards the islands on Fridays from 13:00 and back on Sundays from
-// 13:00 (19.20 and 21.60); Sõru-Triigi 22 EUR. The path runs through the
-// stations' points on OpenStreetMap's ferry lines.
+// 13:00 (19.20 and 21.60); Sõru-Triigi 22 EUR. Over 12 m it has a trailer,
+// whose ticket (10.80, 12, 13.20 EUR) is added, not raised. The path runs
+// through the stations' points on OpenStreetMap's ferry lines.
 func TestEstoniaFerries(t *testing.T) {
 	toMuhu := [][2]float64{{23.51, 58.574}, {23.494629, 58.576471}, {23.409212, 58.573992}, {23.39, 58.573}}
 	back := [][2]float64{{23.39, 58.573}, {23.409212, 58.573992}, {23.494629, 58.576471}, {23.51, 58.574}}
 	toHiiumaa := [][2]float64{{23.43, 58.906}, {23.401957, 58.907899}, {23.056169, 58.867514}, {23.03, 58.865}}
 	soru := [][2]float64{{22.73, 58.59}, {22.723359, 58.595062}, {22.523353, 58.687367}, {22.505, 58.70}}
 	wed, fri, sun := time.Date(2026, 11, 18, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), time.Date(2026, 11, 22, 0, 0, 0, 0, time.UTC)
+	rigid := truck40
+	rigid.LengthM = 12
 	for _, tc := range []struct {
-		name string
-		path [][2]float64
-		date time.Time
-		at   string
-		want float64
+		name  string
+		path  [][2]float64
+		date  time.Time
+		at    string
+		truck rates.Truck
+		want  float64
 	}{
-		{"Virtsu-Kuivastu, Wednesday", toMuhu, wed, "14:00", 16},
-		{"Virtsu-Kuivastu, Friday 14:00", toMuhu, fri, "14:00", 19.2},
-		{"Virtsu-Kuivastu, Friday 10:00", toMuhu, fri, "10:00", 16},
-		{"Kuivastu-Virtsu, Friday 14:00", back, fri, "14:00", 16},
-		{"Kuivastu-Virtsu, Sunday 14:00", back, sun, "14:00", 19.2},
-		{"Rohuküla-Heltermaa, Friday 14:00", toHiiumaa, fri, "14:00", 21.6},
-		{"Triigi-Sõru, Friday 14:00", soru, fri, "14:00", 22},
+		{"Virtsu-Kuivastu, Wednesday", toMuhu, wed, "14:00", rigid, 16},
+		{"Virtsu-Kuivastu, Wednesday, with a semi-trailer", toMuhu, wed, "14:00", truck40, 16 + 10.80},
+		{"Virtsu-Kuivastu, Friday 14:00", toMuhu, fri, "14:00", rigid, 19.2},
+		{"Virtsu-Kuivastu, Friday 14:00, with a semi-trailer", toMuhu, fri, "14:00", truck40, 19.2 + 10.80},
+		{"Virtsu-Kuivastu, Friday 10:00", toMuhu, fri, "10:00", rigid, 16},
+		{"Kuivastu-Virtsu, Friday 14:00", back, fri, "14:00", rigid, 16},
+		{"Kuivastu-Virtsu, Sunday 14:00", back, sun, "14:00", rigid, 19.2},
+		{"Rohuküla-Heltermaa, Friday 14:00", toHiiumaa, fri, "14:00", rigid, 21.6},
+		{"Rohuküla-Heltermaa, Friday 14:00, with a semi-trailer", toHiiumaa, fri, "14:00", truck40, 21.6 + 12},
+		{"Triigi-Sõru, Friday 14:00", soru, fri, "14:00", rigid, 22},
+		{"Triigi-Sõru, Friday 14:00, with a semi-trailer", soru, fri, "14:00", truck40, 22 + 13.20},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 30, CountryKm: map[string]float64{"EE": 30}, Path: tc.path}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at}, tc.date)
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: tc.truck, Time: tc.at}, tc.date)
 		if err != nil {
 			t.Fatal(err)
 		}

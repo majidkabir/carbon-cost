@@ -160,7 +160,11 @@ def scandlines(fetched):
 
 EN_MONTHS = {m: i + 1 for i, m in enumerate(MONTHS)}
 STENA_URL = "https://stenalinefreight.com/charges/"
-STENA_ROW = re.compile(r"^[ \t]*([A-ZÅÄÖ][^\d|\n]*?[–-][^\d|\n]*?)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\S+)[ \t]*$", re.M)
+# A route and its EUR per metre, per tonne and per unit, then DKK: "–" or
+# blank (since December 2026) where the route has none.
+STENA_ROW = re.compile(r"^[ \t]*([A-ZÅÄÖ][^\d|\n]*?[–-][^\d|\n]*?)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)[ \t]*\|?[ \t]+(\d+\.\d\d)(?:[ \t]*\|?[ \t]+(\S+))?[ \t]*\|?[ \t]*$", re.M)
+# The notices' other spellings of the routes (December 2026).
+STENA_NAMES = {"Gothenburg–Fredrikshaven": "Gothenburg–Frederikshavn", "Travemünde–Liepaja": "Travemünde–Liepāja"}
 
 
 def stena_table(text, name):
@@ -170,7 +174,10 @@ def stena_table(text, name):
         print(f"Stena: {name}: the month not read; skipped")
         return None
     month = f"{m.group(2)}-{EN_MONTHS[m.group(1).title()]:02d}"
-    rates = {re.sub(r"\s*[–-]\s*", "–", r.group(1).strip()): num(r.group(2)) for r in STENA_ROW.finditer(text)}
+    rates = {}
+    for r in STENA_ROW.finditer(text):
+        route = re.sub(r"\s*[–-]\s*", "–", r.group(1).strip())
+        rates[STENA_NAMES.get(route, route)] = num(r.group(2))
     if len(rates) < 8:
         print(f"Stena: {name}: only {len(rates)} routes read; skipped")
         return None
@@ -253,7 +260,11 @@ def main(fetched, outdir, committed=None):
     # Scandlines: each month's notice.
     scl = scandlines(fetched)
     if scl:
-        eds = [{"from": m, "source": SCL_URL, "rates": r} for m, r in scl]
+        # The months fetched, with those kept from before (a notice no
+        # longer online); each until the next.
+        new = {m for m, _ in scl}
+        eds = [{k: v for k, v in e.items() if k != "to"} for e in prev_ops.get("Scandlines", {}).get("editions", []) if e["from"] not in new]
+        eds = sorted(eds + [{"from": m, "source": SCL_URL, "rates": r} for m, r in scl], key=lambda e: e["from"])
         for i, e in enumerate(eds[:-1]):
             e["to"] = (datetime.date.fromisoformat(eds[i + 1]["from"]) - datetime.timedelta(days=1)).isoformat()
         ops.append({"operator": "Scandlines", "unit": "EUR per commencing metre, at least 7", "commenced_metre": True, "min_m": 7,

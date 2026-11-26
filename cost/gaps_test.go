@@ -837,7 +837,8 @@ func TestParkedFixes(t *testing.T) {
 
 // Two records of one name at one spot with different prices: the nearest,
 // or the one that names its direction (Ring 3 Sinsenkrysset northbound,
-// pt248 at 346.8°, not pt198 with none 9 m away).
+// pt248 at 346.8°, not pt198 with none 9 m away). A Euro V truck: NVDB's
+// price.
 func TestSameNameRecordsAtOneSpot(t *testing.T) {
 	pt := [2]float64{10.781867, 59.940617}
 	for _, deg := range []float64{346.8, 355, 5} {
@@ -846,7 +847,7 @@ func TestSameNameRecordsAtOneSpot(t *testing.T) {
 		step := [2]float64{math.Sin(h) * 0.08 / (111.2 * math.Cos(59.94*math.Pi/180)), math.Cos(h) * 0.08 / 111.2}
 		path := dense([][2]float64{{pt[0] - step[0], pt[1] - step[1]}, pt, {pt[0] + step[0], pt[1] + step[1]}})
 		r, err := Price(sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 0.6, CountryKm: map[string]float64{"NO": 0.6}, Path: path}}}, all(t),
-			Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, time.Date(2026, 11, 24, 12, 0, 0, 0, time.UTC))
+			Request{Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 5, CO2Class: 1}, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, time.Date(2026, 11, 24, 12, 0, 0, 0, time.UTC))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -1972,6 +1973,31 @@ func TestIrishCarbonTaxEnds(t *testing.T) {
 		}
 		if fuel != want || ended == want {
 			t.Errorf("%s: fuel CO2 line %v, ended %v", date, fuel, ended)
+		}
+	}
+}
+
+// Çeşmeli – Kızkalesi is charged from its own tariff's day, 19 October
+// 2026 ("Ücretler 19/10/2026 saat 00:00'dan itibaren geçerlidir"), not
+// from the July tables'.
+func TestCesmeliKizkalesiFrom(t *testing.T) {
+	path := dense([][2]float64{{34.43, 36.71}, {34.417444, 36.704934}, {34.123769, 36.463765}, {34.11, 36.455}})
+	five := truck40
+	for date, want := range map[string]bool{"2026-09-15": false, "2026-10-25": true} {
+		d, _ := time.Parse(time.DateOnly, date)
+		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 45, CountryKm: map[string]float64{"TR": 45}, Path: path}}}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: five, FX: map[string]float64{"TRY": 48}}, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got float64
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Çeşmeli") {
+				got += l.Amount
+			}
+		}
+		if (got > 0) != want {
+			t.Errorf("%s: TRY %.2f on Çeşmeli – Kızkalesi, want charged %v", date, got, want)
 		}
 	}
 }

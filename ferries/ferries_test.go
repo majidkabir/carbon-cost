@@ -212,3 +212,19 @@ func TestNearestWithinEdge(t *testing.T) {
 		t.Errorf("nearestWithin: %d; want 1", i)
 	}
 }
+
+// The December 2026 notices: Stena's (its DKK column blank, two routes
+// spelt otherwise), Scandlines' and POLSCA's.
+func TestETSSurchargesDecember2026(t *testing.T) {
+	d, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	day := time.Date(2026, 12, 5, 0, 0, 0, 0, time.UTC)
+	for crossing, want := range map[string]float64{"gothenburg-kiel": 4.77, "gothenburg-frederikshavn": 1.78, "rodby-puttgarden": 0.18, "swinoujscie-ystad": 5.09} {
+		s, ok := d.ETSSurcharge(crossing, day)
+		if !ok || s.EURPerM != want {
+			t.Errorf("%s: %v %v, want %v", crossing, s.EURPerM, ok, want)
+		}
+	}
+}

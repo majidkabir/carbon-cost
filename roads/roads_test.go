@@ -140,3 +140,17 @@ func TestBudapestNotTolled(t *testing.T) {
 		t.Errorf("Kerepesi út: %+v", k)
 	}
 }
+
+// Road 21 Hatvan–Salgótarján, 2x2, where OSM's toll-section relations
+// lack 21u7k310m–21u11k1015m (7+310–14+263) and annex 1 runs on between
+// 21u6k640m and 21u14k263m: tolled main road, not local.
+func TestHungaryDualCarriagewayGap(t *testing.T) {
+	ix, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	k, _ := ix.Classify("HU", [][2]float64{{19.66316, 47.73772}, {19.66294, 47.74044}, {19.66304, 47.74258}, {19.66424, 47.75065}, {19.66544, 47.75871}})
+	if k.National < 2 || k.Local > 0.2 {
+		t.Errorf("road 21 at 47.74-47.76 N: %+v", k)
+	}
+}

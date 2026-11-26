@@ -2403,7 +2403,10 @@
    "source": {
     "title": "Stena Line: Dublin – Liverpool, its ferries; OpenStreetMap's lines also name Seatruck Ferries Limited, whose ships aren't in it",
     "url": "https://stenalinefreight.com/routes/dublin-liverpool/"
-   }
+   },
+   "other_lines": [
+    "Seatruck Ferries Limited"
+   ]
   },
   {
    "id": "durres-ancona",
@@ -3924,7 +3927,7 @@
     }
    ],
    "source": {
-    "title": "DFDS: IJmuiden–Newcastle, its ferries in its timetable; OpenStreetMap's lines also name Det Forenede Dampskibs-Selskab A, whose ships aren't in it",
+    "title": "DFDS: IJmuiden–Newcastle, its ferries in its timetable",
     "url": "https://www.dfds.com/en/freight-ferries-and-logistics/routes-and-schedules/amsterdam-newcastle"
    }
   },
@@ -6315,7 +6318,7 @@
   {
    "id": "nador-almeria",
    "name": "Nador–Almería",
-   "operator": "Baleria, Naviera Armas, Grandi Navi Veloci",
+   "operator": "Baleria; Grandi Navi Veloci; Naviera Armas",
    "terminals": [
     {
      "name": "Nador",
@@ -8453,7 +8456,7 @@
   {
    "id": "pozzuoli-ischia",
    "name": "Pozzuoli–Ischia",
-   "operator": "GesTour, Caremar, Medmar",
+   "operator": "Caremar; GesTour; Medmar",
    "terminals": [
     {
      "name": "Pozzuoli",
@@ -9299,7 +9302,7 @@
   {
    "id": "tanger-med-algeciras",
    "name": "Tanger Med–Algeciras",
-   "operator": "Balearia / Trasmediterranea / FRS / Inter Shipping / AML",
+   "operator": "AML; Balearia; FRS; Inter Shipping; Trasmediterranea",
    "terminals": [
     {
      "name": "Tanger Med",
@@ -9395,7 +9398,7 @@
   {
    "id": "tanger-tarifa",
    "name": "Tanger–Tarifa",
-   "operator": "DFDS / FRS; FRS / Inter Shipping",
+   "operator": "DFDS; FRS; Inter Shipping",
    "terminals": [
     {
      "name": "Tanger",

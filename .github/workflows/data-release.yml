@@ -4,7 +4,8 @@ name: Data release
 # prices, ferries, bans and roads) and the code didn't, raises RELEASE's
 # patch number (v0.72.0 -> v0.72.1) and starts Release, so a new image and binaries carry the newer
 # data. With code changes not yet released it does nothing: release those
-# by hand, as before.
+# by hand, as before. If its Release failed, running it again starts that
+# Release again.
 on:
   schedule:
     - cron: "47 5 * * 1"
@@ -28,7 +29,20 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           last=$(tr -d '[:space:]' < RELEASE)
-          if ! git rev-parse -q --verify "refs/tags/$last" >/dev/null; then echo "$last isn't released yet"; exit 0; fi
+          if ! git rev-parse -q --verify "refs/tags/$last" >/dev/null; then
+            # This workflow's own bump starts Release by dispatch (its push
+            # doesn't): if that Release failed or never started, start it
+            # again. A bump by hand starts Release itself; leave it.
+            running=$(gh api "repos/${{ github.repository }}/actions/workflows/release.yml/runs?per_page=20" \
+              --jq '[.workflow_runs[] | select(.status != "completed")] | length')
+            if [ "$(git log -1 --format=%an -- RELEASE)" = actions ] && git log -1 --format=%s -- RELEASE | grep -q "^$last: data updated since" && [ "$running" = 0 ]; then
+              gh workflow run release.yml --ref main -f version="$last"
+              printf '## %s\nNot released yet; Release started again.\n' "$last" >> "$GITHUB_STEP_SUMMARY"
+            else
+              echo "$last isn't released yet"
+            fi
+            exit 0
+          fi
           # Code is the Go source and what the binary embeds besides data:
           # the start page, the OpenAPI document, the site's templates,
           # texts and font.

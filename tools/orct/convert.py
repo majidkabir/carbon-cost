@@ -300,7 +300,8 @@ def convert_table(t, path):
     used = {"country", "region", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles",
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
-            "motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "env_zone_surcharge"}
+            "motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "env_zone_surcharge",
+            "shared_vignette"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -325,8 +326,9 @@ def convert_table(t, path):
     # How carbon-cost estimates road types a request doesn't give, and source facts: not tariff rules.
     # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls;
     # "ets_in_fare": the fares include the EU ETS, so the tool adds no ETS of its own on the crossing;
-    # "charged_from": the day the charge itself began (none before it, not just no table here).
-    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract"):
+    # "charged_from": the day the charge itself began (none before it, not just no table here);
+    # "shared_vignette": one day's charge bought in any scheme with the same value covers them all that day.
+    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "shared_vignette"):
         if k in t:
             b.keep(k, t[k])
     for k in sorted(set(t) - used):

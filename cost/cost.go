@@ -95,6 +95,18 @@ const (
 // ETS2Start is when ETS2 covers road transport fuel.
 var ETS2Start = time.Date(2028, 1, 1, 0, 0, 0, 0, time.UTC)
 
+// ets2States are where ETS2 covers the fuel released for consumption: the
+// EU's Member States, and Iceland and Norway under the EEA Agreement (EEA
+// Joint Committee Decision No 335/2023; Articles 30b and 30f don't apply
+// in Liechtenstein until a later decision, its CO2 tax being Switzerland's).
+var ets2States = map[string]bool{"AT": true, "BE": true, "BG": true, "HR": true, "CY": true, "CZ": true, "DK": true, "EE": true, "FI": true,
+	"FR": true, "DE": true, "GR": true, "HU": true, "IE": true, "IT": true, "LV": true, "LT": true, "LU": true, "MT": true, "NL": true,
+	"PL": true, "PT": true, "RO": true, "SK": true, "SI": true, "ES": true, "SE": true, "IS": true, "NO": true}
+
+// ets2EEA is the EEA Joint Committee's decision bringing ETS2 to Iceland
+// and Norway.
+const ets2EEA = "https://eur-lex.europa.eu/eli/dec/2024/1420/oj"
+
 // Request is a trip to price.
 type Request struct {
 	// From and To are where the trip starts and ends, for a trip with no
@@ -1221,12 +1233,37 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		case req.ETS2EurPerT == 0:
 			out.Notes = append(out.Notes, "ETS2: give ets2_eur_per_t to price ETS2 on the road fuel.")
 		case roadT > 0:
-			if err := add(Line{Charge: ETS2, Carbon: true, TonnesCO2: round3(roadT), Rate: req.ETS2EurPerT, RateUnit: "EUR/t CO2e",
-				Currency: "EUR", Amount: roadT * req.ETS2EurPerT,
-				Source: fmt.Sprintf("Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: %.1f l of diesel x %.2f kg CO2/l (%s)", out.Trip.FuelL, DieselKgCO2PerL, out.Trip.FuelBasis), Sources: etsSources}); err != nil {
-				return Response{}, err
+			// Where the fuel is bought: ETS2 covers fuel released for
+			// consumption in its states only.
+			in, outside := 0.0, []string{}
+			share := fuelShares(req, out.CountryKm)
+			for _, cc := range sortedKeys(share) {
+				switch {
+				case ets2States[cc]:
+					in += share[cc]
+				case share[cc] > 0:
+					outside = append(outside, cc)
+				}
 			}
-			out.Notes = append(out.Notes, "ETS2: fuel suppliers pay it and pass it on in the fuel price; this is that cost for this trip's fuel.")
+			if len(share) == 0 {
+				in = 1
+			}
+			t, of := roadT*in, ""
+			if in < 1 {
+				of = fmt.Sprintf(" bought in its states (%.0f%%)", in*100)
+			}
+			if t > 0 {
+				if err := add(Line{Charge: ETS2, Carbon: true, TonnesCO2: round3(t), Rate: req.ETS2EurPerT, RateUnit: "EUR/t CO2e",
+					Currency: "EUR", Amount: t * req.ETS2EurPerT,
+					Source:  fmt.Sprintf("Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: %.1f l of diesel%s x %.2f kg CO2/l (%s)", out.Trip.FuelL*in, of, DieselKgCO2PerL, out.Trip.FuelBasis),
+					Sources: append(append([]rates.Source{}, etsSources...), rates.Source{Title: "EEA Joint Committee Decision No 335/2023 (ETS2 in Iceland and Norway)", URL: ets2EEA})}); err != nil {
+					return Response{}, err
+				}
+				out.Notes = append(out.Notes, "ETS2: fuel suppliers pay it and pass it on in the fuel price; this is that cost for this trip's fuel.")
+			}
+			if len(outside) > 0 {
+				out.Notes = append(out.Notes, fmt.Sprintf("ETS2: the fuel taken as bought in %s, outside the EU and the EEA's Iceland and Norway, has none.", strings.Join(outside, ", ")))
+			}
 		}
 	}
 	if err := p.priceFuel(set, out.Trip.FuelL); err != nil {
@@ -1663,9 +1700,9 @@ func ferrySurcharge(out *Response, fd *ferries.Data, c ferries.Crossing, km floa
 		length, assumed = rates.DefaultLengthM, fmt.Sprintf(" (%g m assumed; give the truck's length_m)", rates.DefaultLengthM)
 	}
 	m := s.Metres(length)
-	if strings.Contains(c.Operator, ";") {
-		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: %s's ETS surcharge is EUR %.2f per metre (EUR %.2f for %g m), but other lines (%s) sail it too, so its EU ETS is the cargo's share of the ships' emissions.",
-			c.Name, s.Operator, s.EURPerM, s.EURPerM*m, m, c.Operator))
+	if lines := c.Lines(); len(lines) > 1 {
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: %s ETS surcharge is EUR %.2f per metre (EUR %.2f for %g m), but more lines sail it (%s), so its EU ETS is the cargo's share of the ships' emissions.",
+			c.Name, possessive(s.Operator), s.EURPerM, s.EURPerM*m, m, strings.Join(lines, ", ")))
 		return false, nil
 	}
 	ed := s.Edition

@@ -295,7 +295,8 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 		ops = append(ops, opPart{pt.road, "", pt.km})
 	}
-	// Surcharged stretches the route drives: their km, as overlays.
+	// Surcharged stretches the route drives: their km, as overlays, on
+	// each leg (a stretch driven out and back is driven twice).
 	overlays := map[string]float64{}
 	for _, o := range ds.Objects() {
 		if o.Type != "network" || o.Location == nil || o.Location.Geometry == nil || o.Location.Geometry.Type != "LineString" {
@@ -303,9 +304,11 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 		pts := pointsOf(o)
 		var skm float64
-		for i := 0; i+1 < len(pts); i++ {
-			if k, ok := along(route, pts[i], pts[i+1]); ok {
-				skm += k
+		for _, leg := range route.parts() {
+			for i := 0; i+1 < len(pts); i++ {
+				if k, ok := along(leg, pts[i], pts[i+1]); ok {
+					skm += k
+				}
 			}
 		}
 		if skm > 0 {
@@ -464,6 +467,9 @@ func suburbanShareORCT(ds *tariffs.Dataset, rk roads.Km, byRoute bool, road stri
 func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, tolledKm float64) {
 	req, cc := p.req, a.code
 	days, note := p.tripDaysORCT(ds, nw.perDay, a.country)
+	if group := ""; ds.Ext("shared_vignette", &group) && group != "" {
+		days = p.claimDays(group, cc, days)
+	}
 	m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: tolledKm, hasKm: true, key: "day"}
 	obj := nw.root
 	for _, d := range days {
@@ -473,6 +479,37 @@ func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, toll
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
 		p.note("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles)
 	}
+}
+
+// claimDays are the days of a vignette shared by several schemes (the
+// Eurovignette: one day's charge, bought in any of its states, is valid in
+// all of them) that no other area of the trip has paid for yet; it notes
+// the days another area's covers.
+func (p *pricer) claimDays(group, cc string, days []time.Time) []time.Time {
+	if p.shared == nil {
+		p.shared = map[string]map[string]string{}
+	}
+	paid := p.shared[group]
+	if paid == nil {
+		paid = map[string]string{}
+		p.shared[group] = paid
+	}
+	var keep []time.Time
+	by := map[string]bool{}
+	for _, d := range days {
+		k := d.Format(time.DateOnly)
+		if o, ok := paid[k]; ok {
+			by[o] = true
+			continue
+		}
+		paid[k] = cc
+		keep = append(keep, d)
+	}
+	if len(by) > 0 {
+		p.note("%s: the %s counted for %s is valid here too (one for all its states), so a day it covers isn't charged again.",
+			cc, strings.ToUpper(group[:1])+group[1:], strings.Join(sortedKeys(by), ", "))
+	}
+	return keep
 }
 
 // hasMotorAxles says whether the dataset's classes count the motor

@@ -539,6 +539,19 @@ def finnlines(pages, schedule):
     return out
 
 
+# The names OpenStreetMap's lines give an operator whose own pages name it
+# otherwise.
+OSM_NAMES = {"Det Forenede Dampskibs-Selskab A/S": "DFDS"}
+
+
+def osm_operators(tag):
+    """The lines an OpenStreetMap operator tag names: "A; B", "A / B" or
+    "A, B" (a comma within parentheses, or the "/" of "A/S", doesn't part
+    them)."""
+    ops = [o.strip() for o in re.split(r";|\s/\s|,(?![^()]*\))", tag)]
+    return [OSM_NAMES.get(o, o) for o in ops if o]
+
+
 def fold(s):
     """Lower case without accents, other scripts kept (Πάτρα: πατρα)."""
     s = unicodedata.normalize("NFKD", s.replace("ø", "o").replace("Ø", "O").replace("ı", "i"))
@@ -1050,7 +1063,7 @@ def main(fetched, out):
         COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} ({ISLANDS[p][0].title()}: {ISLANDS[p][1]}, {ISLANDS[p][2]})", "url": DECISION[1]}
               for p in (a, b) if p in ISLANDS][:1]
-        ops = sorted({w["tags"]["operator"] for w in trucks or ways if w["tags"].get("operator")})
+        ops = sorted({o for w in trucks or ways for o in osm_operators(w["tags"].get("operator", ""))})
         cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
         c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {
             "title": "OpenStreetMap: " + "; ".join(sorted({w["tags"]["name"] for w in trucks or ways})) + " (its ships not named)",
@@ -1081,7 +1094,7 @@ def main(fetched, out):
         COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
         ex = [{"from": FROM, "until": UNTIL, "law": f"{DECISION[0]} (Greece: {ISLANDS[p][1]}, {ISLANDS[p][2]})", "url": DECISION[1]}
               for p in (b, a) if p in ISLANDS][:1]
-        ops = sorted({w["tags"]["operator"] for w in trucks or ways if w["tags"].get("operator")})
+        ops = sorted({o for w in trucks or ways for o in osm_operators(w["tags"].get("operator", ""))})
         cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
         c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {
             "title": "OpenStreetMap: " + "; ".join(sorted({w["tags"]["name"] for w in trucks or ways})) + " (its ships not named)",
@@ -1105,18 +1118,21 @@ def main(fetched, out):
         if key in have:
             # An operator's page named this crossing's ships: say which other
             # operators OpenStreetMap's lines name, whose ships aren't in it.
-            ops = sorted({o.strip() for w in ways for o in re.split(r"[;/,]", w["tags"].get("operator", "")) if o.strip()})
+            ops = sorted({o for w in ways for o in osm_operators(w["tags"].get("operator", ""))})
             same = lambda x: re.sub(r"\s*&\s*", "&", fold(x))
             others = [o for o in ops if not any(same(x) in same(o) or same(o) in same(x) for x in re.split(r";\s*", have[key]["operator"]))]
             if others and "also name" not in have[key]["source"]["title"]:
                 have[key]["source"]["title"] += f"; OpenStreetMap's lines also name {', '.join(others)}, whose ships aren't in it"
+                # Lines that sail it too: carbon-cost prices its EU ETS on
+                # the ships' emissions, not one line's surcharge.
+                have[key]["other_lines"] = others
             continue
         a, b = sorted(key, key=lambda p: (PORTS[p][0] in EEA, p))
         pos = osm_place(gosm, a, b, "")
         if not pos:
             continue
         COUNTRY.update({p: PORTS[p][0] for p in (a, b)})
-        ops = sorted({w["tags"]["operator"] for w in ways if w["tags"].get("operator")})
+        ops = sorted({o for w in ways for o in osm_operators(w["tags"].get("operator", ""))})
         cid = "-".join(re.sub(r"[^a-z0-9]+", "-", ascii(p)).strip("-") for p in (a, b))
         c = crossing(cid, (a, b), pos, "; ".join(ops), set(), {
             "title": "OpenStreetMap: " + "; ".join(sorted({w["tags"]["name"] for w in ways})) + " (its ships not named; the ports' countries)",

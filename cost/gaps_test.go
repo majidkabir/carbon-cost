@@ -1038,3 +1038,137 @@ func TestPathOnlyFerryNotes(t *testing.T) {
 		t.Errorf("notes: %s", notes)
 	}
 }
+
+// One Eurovignette day is valid in all its states: a trip through two of
+// them on one day pays it once (Guichet.lu: the same e-vignette is valid
+// on all the partner states' territories).
+func TestEurovignetteOncePerDay(t *testing.T) {
+	for _, c := range []struct {
+		date string
+		km   map[string]float64
+	}{
+		{"2024-06-03", map[string]float64{"DK": 30, "SE": 40}},
+		{"2025-06-02", map[string]float64{"LU": 40, "NL": 150}},
+	} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: c.km, Date: c.date,
+			CargoKg: 10000, DieselL: 30, Truck: truck40, FX: map[string]float64{"DKK": 7.46, "SEK": 11.5}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		var tolls []string
+		for _, l := range out.Lines {
+			if l.Charge == RoadToll {
+				tolls = append(tolls, fmt.Sprintf("%s %.2f %s", l.Country, l.Amount, l.Currency))
+			}
+		}
+		if len(tolls) != 1 || !out.Complete {
+			t.Errorf("%s %v: road tolls %v (complete %v); want one day's Eurovignette", c.date, c.km, tolls, out.Complete)
+		}
+	}
+	// Alone, each state still charges its day.
+	out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"SE": 40}, Date: "2024-06-03",
+		CargoKg: 10000, DieselL: 30, Truck: truck40, FX: map[string]float64{"SEK": 11.5}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if n := len(out.Lines); n == 0 || out.Lines[0].Charge != RoadToll {
+		t.Errorf("SE alone: %+v", out.Lines)
+	}
+}
+
+// ETS2 covers fuel released for consumption in the EU and the EEA's
+// Iceland and Norway: none on fuel bought in Switzerland or the UK.
+func TestETS2WhereFuelIsBought(t *testing.T) {
+	for _, c := range []struct {
+		km      map[string]float64
+		country string
+		want    float64
+	}{
+		{map[string]float64{"GB": 300}, "", 0},
+		{map[string]float64{"DE": 300}, "CH", 0},
+		{map[string]float64{"DE": 150, "CH": 150}, "", 0.5},
+		{map[string]float64{"NO": 300}, "", 1},
+	} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: c.km, FuelCountry: c.country, Date: "2028-03-01",
+			CargoKg: 10000, DieselL: 100, ETS2EurPerT: 80, Truck: truck40, FX: map[string]float64{"GBP": 0.85, "CHF": 0.93, "NOK": 11.7}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range out.Lines {
+			if l.Charge == ETS2 {
+				got += l.Amount
+			}
+		}
+		if want := 100 * DieselKgCO2PerL / 1000 * 80 * c.want; math.Abs(got-want) > 0.02 {
+			t.Errorf("%v fuel %q: ETS2 EUR %.2f, want %.2f", c.km, c.country, got, want)
+		}
+	}
+}
+
+// A surcharged stretch driven out and back, as two legs, is surcharged on
+// both: Kufstein to Innsbruck/Amras on the A 12 and back.
+func TestSurchargeOnEachLeg(t *testing.T) {
+	pts := [][2]float64{{12.187, 47.607}, {12.1756, 47.5965}, {12.1408, 47.5675}, {12.0941, 47.5333}, {12.0572, 47.495}, {12.0235, 47.4838},
+		{11.8842, 47.4411}, {11.8032, 47.4028}, {11.7016, 47.3577}, {11.6792, 47.3307}, {11.5838, 47.2998}, {11.5015, 47.2739},
+		{11.4764, 47.271}, {11.4385, 47.2606}, {11.4202, 47.2547}}
+	back := slices.Clone(pts)
+	slices.Reverse(back)
+	var km float64
+	for i := 0; i+1 < len(pts); i++ {
+		km += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
+	}
+	leg := func(p [][2]float64) sootcase.LegResult {
+		return sootcase.LegResult{DistanceKm: km, TTWKg: 50, CountryKm: map[string]float64{"AT": km}, Path: p}
+	}
+	res := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{leg(pts), leg(back)}}
+	out, err := Price(res, all(t), Request{CargoKg: 1, Truck: truck40}, time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var infra, a12 float64
+	for _, l := range out.Lines {
+		if l.Component == rates.Infrastructure {
+			if strings.Contains(l.Section, "A 12") {
+				a12 += l.Km
+			} else {
+				infra += l.Km
+			}
+		}
+	}
+	if a12 < 1.8*km {
+		t.Errorf("A 12 surcharge on %.1f km of %.1f there and back (infrastructure %.1f); want both legs", a12, 2*km, infra)
+	}
+}
+
+// A crossing several lines sail stays on the ships' emissions, not one
+// line's ETS surcharge: Tanger Med–Algeciras (DFDS and others, by
+// OpenStreetMap), Dublin–Liverpool (Stena Line and Seatruck).
+func TestSurchargeNotOnSharedCrossing(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, name := range []string{"Tanger Med–Algeciras", "Dublin–Liverpool"} {
+		var c *ferries.Crossing
+		for i := range fd.Crossings {
+			if fd.Crossings[i].Name == name {
+				c = &fd.Crossings[i]
+			}
+		}
+		if c == nil {
+			t.Fatalf("%s: no crossing", name)
+		}
+		if _, ok := fd.ETSSurcharge(c.ID, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC)); !ok {
+			t.Fatalf("%s: no surcharge to leave out", name)
+		}
+		var out Response
+		done, err := ferrySurcharge(&out, &fd, *c, 30, Request{Truck: truck40}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC), func(Line) error { return nil })
+		if err != nil {
+			t.Fatal(err)
+		}
+		if done || !strings.Contains(strings.Join(out.Notes, " "), "more lines sail it") {
+			t.Errorf("%s (%v): priced at one line's surcharge; notes %v", name, c.Lines(), out.Notes)
+		}
+	}
+}

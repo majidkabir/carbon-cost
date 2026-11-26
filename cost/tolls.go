@@ -102,6 +102,9 @@ type pricer struct {
 	set *tariffs.Set
 	// fareAt are the places of the fare tables' ports the route passed.
 	fareAt []rates.Place
+	// shared are the days of shared vignettes paid so far: group, day,
+	// the area charged.
+	shared map[string]map[string]string
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {

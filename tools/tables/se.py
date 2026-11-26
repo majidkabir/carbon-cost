@@ -62,6 +62,8 @@ def build(fetched, out, sid, sfs, url):
     tb = {
         "country": "SE", "currency": "SEK", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31",
         "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+        # One Eurovignette day covers every state of the agreement (Guichet.lu).
+        "shared_vignette": "eurovignette",
         "law": f"Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for {year} from Förordning ({sfs}), which the government sets for each calendar year (23 §): a time-based charge per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT."
                + (" " + UNDER_12T if year == "2027" else ""),
         "sources": [{"title": f"SFS {sfs} (Svensk författningssamling)", "url": url},

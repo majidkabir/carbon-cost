@@ -72,6 +72,19 @@ type Crossing struct {
 	Source    Source  `json:"source"`
 	// Exemptions are derogations for the crossing's voyages.
 	Exemptions []Exemption `json:"exemptions,omitempty"`
+	// OtherLines sail the crossing too, but their ships aren't named
+	// (OpenStreetMap's lines name them).
+	OtherLines []string `json:"other_lines,omitempty"`
+}
+
+// Lines are the ferry lines that sail the crossing: its operators (one
+// per "; "), then the other lines.
+func (c Crossing) Lines() []string {
+	var out []string
+	if c.Operator != "" {
+		out = strings.Split(c.Operator, "; ")
+	}
+	return append(out, c.OtherLines...)
 }
 
 // MRVShip is one ship's yearly freight figures: tonnes of CO2e (CO2 in

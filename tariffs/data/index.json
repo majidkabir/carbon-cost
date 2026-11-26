@@ -749,7 +749,7 @@
    "name": "Danish road user charge (vejbenyttelsesafgift, Eurovignette)",
    "valid_from": "2020-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "dc841118689f842fcdd10ea8c5ac6d047b008365f805196aa425da0a5f333d5a",
+   "sha256": "f0e047acabe3dcb2e78d4773972dfad39aec553f93075b8c28ae6606f18a9e12",
    "coverage": "complete"
   },
   {
@@ -2355,7 +2355,7 @@
    "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
    "valid_from": "2019-07-01",
    "valid_to": "2025-03-24",
-   "sha256": "3854f51cf336a5bce7bf9f5ffda5562526a185d37551e696fc71101df23c4e76",
+   "sha256": "f61321017ee2ebcc75d3725dd488a7dd85ac7720459697e393ddea89894127ba",
    "coverage": "complete"
   },
   {
@@ -2366,7 +2366,7 @@
    "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
    "valid_from": "2025-03-25",
    "valid_to": null,
-   "sha256": "d96dc013d0670f984d5719d66a77a6904c9b815eacbe0e3b5b654f104cd25735",
+   "sha256": "0989893f5ce0fd346f1bcbd94d5f8424dd4dd161939aaa2a34c1ecebb2575ff0",
    "coverage": "complete"
   },
   {
@@ -2454,7 +2454,7 @@
    "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)",
    "valid_from": "2024-01-01",
    "valid_to": "2025-03-24",
-   "sha256": "f900ae736063ce35a8eb6c61cff97125836018e551aa5e3e26547f777867db77",
+   "sha256": "25459f78af531b0282d8b35807d2a9d1cdf86db83c23af6de7c0ba6ef8a5cea7",
    "coverage": "complete"
   },
   {
@@ -2465,7 +2465,7 @@
    "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)",
    "valid_from": "2025-03-25",
    "valid_to": "2026-06-30",
-   "sha256": "1f37bbbd444fb71b4bcaa474c4e171b22a35feb2ad6a95c1433e0b5a26bc4ec3",
+   "sha256": "b09a3ff1dab4eb2dcaae070276f5327cca5e1d509fad1bfbd92c7ca9dc7f254f",
    "coverage": "complete"
   },
   {
@@ -3235,7 +3235,7 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2024-01-01",
    "valid_to": "2024-12-31",
-   "sha256": "e0e5a413fb58245e49245f38a535f21f29605ce869fbad2f35c114a6e46c33f6",
+   "sha256": "c3dccf09b6cf306197571c346e654b0922f71543d2831bd7319f3b009170d1cd",
    "coverage": "complete"
   },
   {
@@ -3246,7 +3246,7 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2025-01-01",
    "valid_to": "2025-03-24",
-   "sha256": "46866dadcd9138b8f6be65f8f9fbc13465123475bcbb9177c3a249f727e560eb",
+   "sha256": "fccf0fc6a38bfb45d17eb0a76c6266cbf9a812ae19bc7e2c94524199331e2527",
    "coverage": "complete"
   },
   {
@@ -3257,7 +3257,7 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2025-03-25",
    "valid_to": "2025-12-31",
-   "sha256": "35b0ee77b279af44dd0286912e25ef338ef1aceaf3092680e3a893d7b1f4060d",
+   "sha256": "0822186e2dca41598aae5172e66d6cd728e66f70e714b520af9d6d6af277d63d",
    "coverage": "complete"
   },
   {
@@ -3268,7 +3268,7 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
-   "sha256": "c8e1ae0b0ac7ecbfe991f720f609689841597bad3b7cf7e9e2ab0b7188bef3da",
+   "sha256": "f199b755a8be2ff2b230d2092bad9cafb7c0d3c730c43abb8babad8f2f8ba2f8",
    "coverage": "complete"
   },
   {
@@ -3279,7 +3279,7 @@
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2027-01-01",
    "valid_to": "2027-12-31",
-   "sha256": "807914579db48955669996da824fb226cc76e27d71134a62bc91288ae2d065ba",
+   "sha256": "93917346993b439079a105408ccc507d98e6bf180ed0e538dcb111880cf0bad4",
    "coverage": "complete"
   },
   {

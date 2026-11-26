@@ -284,6 +284,8 @@ type Request struct {
 	// shipDistKm, shipTTW and shipWTW are each shipment's transport
 	// activity distance and Sootcase emissions (Calculate).
 	shipDistKm, shipTTW, shipWTW []float64
+	// banStops are where the truck waits for driving bans (checkBans).
+	banStops []banStop
 	// noFuel prices the trip without road diesel (a zero-emission truck
 	// in a comparison).
 	noFuel bool
@@ -834,6 +836,13 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 	}
 	req.legLoadKg = loads
 	if len(ships) == 1 && ships[0].From == 0 && ships[0].To == len(stops)-1 && len(stops) == 2 {
+		// Its distance is Sootcase's route, kept from a path driven
+		// otherwise (ownPath).
+		var km float64
+		for _, l := range res.Legs {
+			km += l.DistanceKm
+		}
+		req.shipDistKm = []float64{km}
 		return res, nil
 	}
 	// Each shipment's own route, loading stop to unloading stop: its
@@ -1184,6 +1193,9 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			req.regionSpans[s.region] = append(req.regionSpans[s.region], [2]float64{s.from, s.to})
 		}
 	}
+	// The driving bans first: the truck's waits for them move the times
+	// of all that follows.
+	req.banStops = checkBans(&out, res, req, date)
 	p := newPricer(req, date, &out, add)
 	p.set = set
 	// Road tolls, area by area: countries, or their regions where tolls
@@ -1317,7 +1329,6 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		return Response{}, err
 	}
 	runningCost(&out, req)
-	checkBans(&out, res, req, date)
 	allocate(&out, res, req)
 	if req.Truck.Restricted() {
 		if out.Trip.RoutedFor == nil {
@@ -1913,6 +1924,12 @@ func passage(req Request, date time.Time, pos float64, country string) (time.Tim
 	hours := pos / v
 	if req.DriverRest {
 		hours = withRest(hours)
+	}
+	// The waits for driving bans before it.
+	for _, s := range req.banStops {
+		if s.pos < pos {
+			hours += s.waitH
+		}
 	}
 	return start.Add(time.Duration(hours * float64(time.Hour))).In(here).Truncate(time.Minute), true
 }

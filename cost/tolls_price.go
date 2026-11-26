@@ -60,6 +60,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		p.addSources(ds)
 		return nil
 	}
+	if p.only == nil {
+		if v := p.otherKind(ds, a); v != nil {
+			// From a day the trip reaches, the scheme charges otherwise
+			// (the Netherlands' Eurovignette, then its km charge from 1
+			// July 2026): each prices the trip's own days there.
+			for i, d := range []*tariffs.Dataset{ds, v} {
+				p.only = func(day string) bool { return (day < v.ValidFrom) == (i == 0) }
+				err := p.priceArea(d, a, route)
+				p.only = nil
+				if err != nil {
+					return err
+				}
+			}
+			return nil
+		}
+	}
 	share, shareGiven := 1.0, false
 	for _, k := range []string{a.code, a.country} {
 		if v, ok := req.TolledShare[k]; ok {
@@ -147,6 +163,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		}
 	}
 	systems, points := p.matchSystems(b, ds, a.country, a.region, route), p.matchPoints(b, ds, a.country, route)
+	if p.only != nil {
+		b.keepDays(p.only)
+	}
 	st, err := p.price(b, "", nil)
 	if err != nil {
 		return err
@@ -467,6 +486,9 @@ func suburbanShareORCT(ds *tariffs.Dataset, rk roads.Km, byRoute bool, road stri
 func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, tolledKm float64) {
 	req, cc := p.req, a.code
 	days, note := p.tripDaysORCT(ds, nw.perDay, a.country)
+	if p.only != nil {
+		days = slices.DeleteFunc(days, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
+	}
 	if group := ""; ds.Ext("shared_vignette", &group) && group != "" {
 		days = p.claimDays(group, cc, days)
 	}
@@ -481,6 +503,26 @@ func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, toll
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
 		p.note("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles)
 	}
+}
+
+// otherKind is the version of ds's scheme in force on a later day the
+// trip spends in the area that charges otherwise: by the km where ds
+// charges by the day, or the other way round; nil if none.
+func (p *pricer) otherKind(ds *tariffs.Dataset, a area) *tariffs.Dataset {
+	if p.set == nil || ds.ValidTo == "" {
+		return nil
+	}
+	byDay := networkOf(ds).perDay != nil
+	for _, d := range p.kmDays(ds, a.country, a.region) {
+		day := d.at.Format(time.DateOnly)
+		if day <= ds.ValidTo {
+			continue
+		}
+		if v, ok := p.set.Version(ds, day); ok && (networkOf(v).perDay != nil) != byDay {
+			return v
+		}
+	}
+	return nil
 }
 
 // claimDays are the days of a vignette shared by several schemes (the

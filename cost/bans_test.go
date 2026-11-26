@@ -217,3 +217,36 @@ func TestTrailerBanOnTheTrip(t *testing.T) {
 		}
 	}
 }
+
+// The waits for driving bans move the times of the tolls after them:
+// leaving Wörgl at 14:40 on a Saturday, the truck stands from 15:00 to
+// Sunday 22:00, and drives the A 13 at night, at its night tariff.
+func TestBanWaitMovesTolls(t *testing.T) {
+	pts := [][2]float64{{12.0572, 47.495}, {12.0235, 47.4838}, {11.8842, 47.4411}, {11.8032, 47.4028}, {11.7016, 47.3577}, {11.6792, 47.3307},
+		{11.5838, 47.2998}, {11.5015, 47.2739}, {11.4764, 47.271}, {11.4385, 47.2606}, {11.4202, 47.2547}, {11.3905, 47.2396}, {11.3934, 47.2276},
+		{11.403, 47.2082}, {11.3982, 47.1841}, {11.4497, 47.1195}, {11.4801, 47.0615}, {11.5065, 47.0152}, {11.508, 47.003}}
+	var km float64
+	for i := 0; i+1 < len(pts); i++ {
+		km += haversine(pts[i][1], pts[i][0], pts[i+1][1], pts[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: km, CountryKm: map[string]float64{"AT": km}, Path: dense(pts)}}}
+	a13 := func(day time.Time) (float64, *Response) {
+		req := Request{CargoKg: 1, Truck: truck40, Time: "14:40", AvgSpeedKmh: 70, origin: "AT", spans: map[string][][2]float64{"AT": {{0, km}}}}
+		out, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range out.Lines {
+			if strings.HasPrefix(l.Section, "A 13") {
+				eur += l.Amount
+			}
+		}
+		return eur, &out
+	}
+	wed, _ := a13(time.Date(2026, 11, 25, 0, 0, 0, 0, time.UTC))
+	sat, out := a13(time.Date(2026, 11, 28, 0, 0, 0, 0, time.UTC))
+	if out.Trip.BanWaitH < 30 || wed == 0 || sat < 1.5*wed {
+		t.Errorf("A 13: EUR %.2f on Wednesday afternoon, %.2f after the Saturday wait of %.1f h; want the night tariff", wed, sat, out.Trip.BanWaitH)
+	}
+}

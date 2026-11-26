@@ -180,3 +180,26 @@ func TestCountryKmRegionalRefused(t *testing.T) {
 		t.Errorf("BE-VLG, NL: %v", err)
 	}
 }
+
+// One cargo from the first stop to the last: its tonne-km stay on
+// Sootcase's route too, not the way driven.
+func TestOwnPathOneCargo(t *testing.T) {
+	var calls []sootcase.Shipment
+	var mu sync.Mutex
+	fake := fakeLegs(t, &calls, &mu)
+	defer fake.Close()
+	ix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: fake.URL}, Tariffs: all(t), Borders: ix}
+	path := [][2]float64{{9, 52}, {9.5, 52.3}, {10, 52}}
+	r, err := c.Calculate(context.Background(), Request{Date: "2026-11-03", Truck: truck40, CargoKg: 10000,
+		From: sootcase.Location{Code: "S0"}, To: sootcase.Location{Code: "S1"}, Path: path})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.Shipments) != 1 || r.Shipments[0].DistanceKm != 100 {
+		t.Errorf("driven %.1f km: shipments %+v; want Sootcase's 100 km", pathKm(path), r.Shipments)
+	}
+}

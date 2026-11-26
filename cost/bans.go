@@ -149,9 +149,15 @@ func segments(res sootcase.Result) []segment {
 	return out
 }
 
+// banStop is where along the route (km) the truck waits for a ban to
+// end, and how long (hours).
+type banStop struct{ pos, waitH float64 }
+
 // checkBans finds the driving bans the trip runs into, by its passage
-// times where a departure time is given, else by its days.
-func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) {
+// times where a departure time is given, else by its days. It returns the
+// stops the truck makes for them, which the times of what follows go by.
+func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) []banStop {
+	req.banStops = nil // its own times are those without waits
 	segs := segments(res)
 	// A trip of more than a month (a month's km by country, or a very low
 	// average speed) is a total, not a drive to plan: no bans checked.
@@ -166,8 +172,9 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	}
 	if hours > maxBanDays*24 {
 		out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: the trip takes more than %d days, so bans aren't checked.", maxBanDays))
-		return
+		return nil
 	}
+	var stops []banStop
 	// Towing a trailer (more axles than the motor vehicle's own, or a
 	// trailer's mass given): the heavier of the truck's and the trailer's
 	// own masses, or the least it can be where one or both aren't given (the
@@ -303,6 +310,18 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			left -= stop.Sub(cursor)
 			waitH := math.Round(next.To.Sub(stop).Hours()*100) / 100
 			add(*next, true, waitH)
+			// Where it stops: the first km reached then, at the waits so far.
+			shiftNow := time.Duration(wait * float64(time.Hour))
+			lo, hi := s.from, s.to
+			for i := 0; i < 40; i++ {
+				mid := (lo + hi) / 2
+				if t, _ := passage(req, date, mid, s.country); t.Add(shiftNow).Before(stop) {
+					lo = mid
+				} else {
+					hi = mid
+				}
+			}
+			stops = append(stops, banStop{hi, waitH})
 			wait += waitH
 			cursor = next.To
 		}
@@ -389,6 +408,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			out.Notes = append(out.Notes, "Night ban: "+note+".")
 		}
 	}
+	return stops
 }
 
 // tripHoursFor is the trip's time for its days: with rests where asked.

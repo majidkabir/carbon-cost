@@ -77,6 +77,34 @@ func (b *batch) event(obj string, at time.Time, m *lineMeta) *orct.Event {
 	return &b.events[len(b.events)-1]
 }
 
+// keepDays keeps the uses on the local days keep says: a ticket (entry
+// and exit) by its exit's, where it is paid.
+func (b *batch) keepDays(keep func(day string) bool) {
+	day := func(ts string) string {
+		t, err := b.ds.Local(ts)
+		if err != nil {
+			return ""
+		}
+		return t.Format(time.DateOnly)
+	}
+	var evs []orct.Event
+	for i := 0; i < len(b.events); i++ {
+		e := b.events[i]
+		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
+			if keep(day(b.events[x].Time)) {
+				evs = append(evs, e, b.events[x])
+			}
+			i = x
+			continue
+		}
+		if keep(day(e.Time)) {
+			evs = append(evs, e)
+		}
+	}
+	b.events = evs
+	b.quants = slices.DeleteFunc(b.quants, func(q orct.Quantity) bool { return !keep(day(q.Time)) })
+}
+
 func (b *batch) km(obj string, at time.Time, km float64, overlays map[string]float64, m *lineMeta) {
 	e := b.event(obj, at, m)
 	d := orct.FloatStr(km)
@@ -105,6 +133,9 @@ type pricer struct {
 	// shared are the days of shared vignettes paid so far: group, day,
 	// the area charged.
 	shared map[string]map[string]string
+	// only, when set, keeps an area's uses on the local days it says: a
+	// version prices its own days where the scheme changes kind (otherKind).
+	only func(day string) bool
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
@@ -126,7 +157,9 @@ func newPricer(req Request, date time.Time, out *Response, add func(Line) error)
 }
 
 func (p *pricer) note(format string, a ...any) {
-	p.out.Notes = append(p.out.Notes, fmt.Sprintf(format, a...))
+	if n := fmt.Sprintf(format, a...); !slices.Contains(p.out.Notes, n) {
+		p.out.Notes = append(p.out.Notes, n)
+	}
 }
 
 // noon is the time an untimed use is priced at: noon local time on the
@@ -342,7 +375,7 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 // by id. A use with no table in force that day is reported missing.
 func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 	out := map[string]*tariffs.Dataset{b.ds.ID: b.ds}
-	move := func(ds *string, ts string, ref any) {
+	move := func(ds, obj *string, ts string, ref any) {
 		t, err := b.ds.Local(ts)
 		if err != nil {
 			return
@@ -356,6 +389,7 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 				*ds, out[v.ID] = v.ID, v
 				p.addSources(v)
 				p.useTable(v)
+				*obj = sameObject(b.ds, v, *obj)
 				return
 			}
 		}
@@ -374,8 +408,11 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			// exit, where the toll is paid; an entry before its first day
 			// (just before midnight) is taken at its start.
 			ex := &b.events[x]
-			move(&ex.Dataset, ex.Time, ex.Ref)
-			e.Dataset = ex.Dataset
+			from := ex.Dataset
+			move(&ex.Dataset, &ex.Object, ex.Time, ex.Ref)
+			if e.Dataset = ex.Dataset; e.Dataset != from {
+				e.Object = sameObject(b.ds, out[e.Dataset], e.Object)
+			}
 			if d := out[e.Dataset]; d != nil {
 				if t, err := d.Local(e.Time); err == nil && t.Format(time.DateOnly) < d.ValidFrom {
 					if from, err := time.ParseInLocation(time.DateOnly, d.ValidFrom, d.TZ()); err == nil {
@@ -386,12 +423,80 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			i = x
 			continue
 		}
-		move(&e.Dataset, e.Time, e.Ref)
+		from := e.Dataset
+		move(&e.Dataset, &e.Object, e.Time, e.Ref)
+		if e.Dataset != from && len(e.Overlays) > 0 {
+			ov := map[string]orct.Dec{}
+			for k, v := range e.Overlays {
+				if id := sameObject(b.ds, out[e.Dataset], k); id != "" {
+					ov[id] = v
+				}
+			}
+			e.Overlays = ov
+		}
 	}
 	for i := range b.quants {
-		move(&b.quants[i].Dataset, b.quants[i].Time, b.quants[i].Ref)
+		move(&b.quants[i].Dataset, &b.quants[i].Object, b.quants[i].Time, b.quants[i].Ref)
 	}
 	return out
+}
+
+// goneObject stands for an object a later version doesn't have: the
+// calculator reports its use unpriced (unknown_object).
+const goneObject = "(not in this version)"
+
+// sameObject is the object of version v that is old's object id: ids
+// aren't kept from one version to the next (Norway's and Greece's number
+// their stations), so the one of the same type, name, road and operator,
+// the nearest facing the same way where there are several; goneObject if
+// v has none.
+func sameObject(old, v *tariffs.Dataset, id string) string {
+	o := old.Object(id)
+	if o == nil || v == nil {
+		return id
+	}
+	same := func(x *orct.Object) bool {
+		return x.Type == o.Type && x.Name == o.Name && x.Road == o.Road && x.Operator == o.Operator
+	}
+	if x := v.Object(id); x != nil && same(x) && objectKm(o, x) < 1 {
+		return id
+	}
+	best, bestKm := goneObject, math.Inf(1)
+	for _, x := range v.Objects() {
+		if same(x) {
+			if km := objectKm(o, x); km < bestKm {
+				best, bestKm = x.ID, km
+			}
+		}
+	}
+	return best
+}
+
+// objectKm is how far apart two objects are, by their first points (a
+// section's start), with 1,000 km more for points facing other ways; 0
+// for objects with no place (networks).
+func objectKm(a, b *orct.Object) float64 {
+	at := func(o *orct.Object) (rates.Place, bool) {
+		if pts := pointsOf(o); len(pts) > 0 {
+			return pts[0], true
+		}
+		if o.From != nil && len(o.From.Geometry.Coordinates) > 0 {
+			return endOf(o.From), true
+		}
+		return rates.Place{}, false
+	}
+	pa, ok1 := at(a)
+	pb, ok2 := at(b)
+	if !ok1 || !ok2 {
+		return 0
+	}
+	km := haversine(pa.Lat, pa.Lon, pb.Lat, pb.Lon)
+	if pa.Heading != nil && pb.Heading != nil {
+		if d := math.Mod(math.Abs(*pa.Heading-*pb.Heading), 360); math.Min(d, 360-d) > 90 {
+			km += 1000
+		}
+	}
+	return km
 }
 
 // lastOf is the last line priced from the same use (meta), if any.

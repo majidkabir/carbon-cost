@@ -1309,3 +1309,58 @@ func TestTollsThatAreCrossings(t *testing.T) {
 		t.Errorf("BA path: no_rates %v, missing %+v", r.NoRates, r.Missing)
 	}
 }
+
+// A station passed after midnight into the next version of its table is
+// the same station there, whatever its id: Norway's numbers its stations
+// (Minnesund - Hedmark grense is pt200 to 17 November 2026, pt66 from 18).
+func TestNextVersionSameStation(t *testing.T) {
+	path := dense([][2]float64{{11.215, 60.395}, {11.240759, 60.418983}, {11.26, 60.44}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"NO": km}, RouteParts: map[string]float64{"road": km}}}}
+	toll := func(at string, day int) float64 {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "NO", FX: map[string]float64{"NOK": 11.7}, spans: map[string][][2]float64{"NO": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 11, day, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var nok float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && strings.Contains(l.Section, "Minnesund") {
+				nok += l.Amount
+			}
+		}
+		return nok
+	}
+	// Leaving at 23:58 on the 17th, it passes after midnight: the 18th's
+	// table, at the station's own rate there.
+	if after, own := toll("23:58", 17), toll("10:00", 18); after == 0 || after != own {
+		t.Errorf("Minnesund after midnight: NOK %.0f; the 18th's own rate NOK %.0f", after, own)
+	}
+}
+
+// Where a scheme turns from a vignette into a km charge at midnight (the
+// Netherlands on 1 July 2026), the trip pays the vignette for its day
+// before and the km charge on the km after.
+func TestVignetteThenKmCharge(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 140, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"NL": 140}, RouteParts: map[string]float64{"road": 140}}}}
+	req := Request{CargoKg: 10000, Truck: truck40, Time: "23:30", AvgSpeedKmh: 70, origin: "NL", spans: map[string][][2]float64{"NL": {{0, 140}}}}
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var day, km float64
+	for _, l := range r.Lines {
+		switch {
+		case l.Country == "NL" && l.Days > 0:
+			day += l.Amount
+		case l.Country == "NL" && l.Charge == RoadToll:
+			km = math.Max(km, l.Km)
+		}
+	}
+	if !r.Complete || day == 0 || math.Abs(km-105) > 2 {
+		t.Errorf("NL from 23:30 on 30 June: vignette EUR %.2f, km charge on %.1f km (want 105); missing %+v", day, km, r.Missing)
+	}
+}

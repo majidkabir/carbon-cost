@@ -183,8 +183,8 @@ type Request struct {
 	// (a note says so). Not with from, to, stops, shipments or path.
 	CountryKm map[string]float64 `json:"country_km,omitempty"`
 	// Date is YYYY-MM-DD, or the moment the trip starts (RFC 3339, as
-	// telematics give it) for its day where it starts; default today there
-	// (CET if not known).
+	// telematics give it) for its day where it starts, in 1900 to 2100;
+	// default today there (CET if not known).
 	Date string `json:"date,omitempty"`
 	// Time is the local departure time (HH:MM) on Date. Each toll station
 	// is reached that much later as its km along the route take at
@@ -353,7 +353,8 @@ type Request struct {
 	// is (set by Calculate; "" takes each station's country).
 	origin string
 	// CompareCO2Classes prices the same trip for trucks in these CO2
-	// classes (e.g. [1, 4, 5]), otherwise the same as Truck.
+	// classes (e.g. [1, 4, 5]; each at most once), otherwise the same as
+	// Truck.
 	CompareCO2Classes []int `json:"compare_co2_classes,omitempty"`
 	// TripsPerYear turns the comparison's savings per trip into savings
 	// per year.
@@ -950,7 +951,11 @@ func (c Calculator) date(s, cc string) (time.Time, error) {
 			return time.Time{}, fmt.Errorf("date must be YYYY-MM-DD, or a start time in RFC 3339 (2026-11-19T22:30:00Z)")
 		}
 		y, m, d := at.In(LocalZone(cc)).Date()
-		return time.Date(y, m, d, 0, 0, 0, 0, time.UTC), nil
+		t = time.Date(y, m, d, 0, 0, 0, 0, time.UTC)
+	}
+	// A trip's date: no year a time stamp can't write (10000 after 9999).
+	if t.Year() < 1900 || t.Year() > 2100 {
+		return time.Time{}, fmt.Errorf("date: a year from 1900 to 2100")
 	}
 	return t, nil
 }
@@ -1051,6 +1056,9 @@ func check(req Request) error {
 		if !(v >= 0 && v < 100000) {
 			return fmt.Errorf("env_zone_km[%s] must be 0 to 100000", k)
 		}
+	}
+	if n := len(req.CompareCO2Classes); n > 5 || n > len(slices.Compact(slices.Sorted(slices.Values(req.CompareCO2Classes)))) {
+		return fmt.Errorf("compare_co2_classes: each of the classes 1 to 5 at most once")
 	}
 	for _, c := range req.CompareCO2Classes {
 		if c < 1 || c > 5 {
@@ -1670,13 +1678,13 @@ func (pr *pricer) faresUnknown(res sootcase.Result, fd *ferries.Data, set *tarif
 // whose fare table says the fare includes the EU ETS (ets_in_fare): the
 // route passes two of its ports, as far apart along it as the part is
 // long (within 2 km or 30%, as ferryParts matches crossings).
-func etsInFare(path [][2]float64, km float64, set *tariffs.Set, date time.Time) (string, bool) {
+func etsInFare(path [][2]float64, km float64, set *tariffs.Set, dayAt func(pos float64, cc string) time.Time) (string, bool) {
 	if set == nil || len(path) < 2 {
 		return "", false
 	}
 	tr := newTrack(path)
-	for _, ds := range set.OfKind(tariffs.Crossings, date) {
-		if in := false; !ds.Ext("ets_in_fare", &in) || !in {
+	for _, ds := range set.All {
+		if in := false; ds.Kind != tariffs.Crossings || !ds.Ext("ets_in_fare", &in) || !in {
 			continue
 		}
 		var at []float64
@@ -1690,8 +1698,13 @@ func etsInFare(path [][2]float64, km float64, set *tariffs.Set, date time.Time) 
 		}
 		for i := range at {
 			for j := i + 1; j < len(at); j++ {
+				// The fare's table is this one: the one in force at the
+				// boarding, else at the landing (as tickets are priced).
 				if along := math.Abs(at[j] - at[i]); math.Abs(km-along) <= math.Max(2, 0.3*along) {
-					return ds.Name, true
+					on, off := dayAt(math.Min(at[i], at[j]), ds.Country), dayAt(math.Max(at[i], at[j]), ds.Country)
+					if _, boarded := set.Version(ds, on.Format(time.DateOnly)); ds.Covers(on) || !boarded && ds.Covers(off) {
+						return ds.Name, true
+					}
 				}
 			}
 		}
@@ -1713,7 +1726,19 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *ta
 		}
 	}()
 	for _, p := range ferryParts(res, fd, req) {
-		if name, ok := etsInFare(res.Legs[p.leg].Path, p.km, set, date); ok {
+		// The day a place on its leg is passed: that of the trip's date,
+		// untimed.
+		dayAt := func(pos float64, cc string) time.Time {
+			before := 0.0
+			for _, l := range res.Legs[:p.leg] {
+				before += l.DistanceKm
+			}
+			if t, ok := passage(req, date, before+pos, cc); ok {
+				return t
+			}
+			return date
+		}
+		if name, ok := etsInFare(res.Legs[p.leg].Path, p.km, set, dayAt); ok {
 			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: its fare includes the EU ETS (the operator's surcharge), so it has no ETS line of its own.", name))
 			continue
 		}
@@ -2098,8 +2123,13 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, fuelL fl
 			case tariffs.FuelCO2:
 				charge, err = FuelCO2, p.priceFuel(one, fuelL)
 			}
-			if err == nil && n > 0 {
-				if lineCharge == FerryFare {
+			// The route meets it: priced, or it would be with a truck
+			// field or a time given.
+			met := n > 0 || slices.ContainsFunc(scratch.Missing, func(m Missing) bool {
+				return m.Name == ds.Name && (m.Reason == "needs_truck_field" || m.Reason == "needs_time")
+			})
+			if err == nil && met {
+				if ferry := false; lineCharge == FerryFare || ds.Ext("ferry", &ferry) && ferry {
 					charge = FerryFare
 				}
 				m := Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: "ended", Ended: ds.ValidTo}

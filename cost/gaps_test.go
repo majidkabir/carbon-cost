@@ -1467,9 +1467,9 @@ func TestStationRecordOfItsDay(t *testing.T) {
 	}
 }
 
-// A section the next version splits isn't priced as its first piece:
-// Slovenia's Brezovica–Vrhnika (12.4 km) is Brezovica–Dragomer and more
-// from 1 July 2025; just after midnight it's unpriced there, not 2.6 km.
+// A section the next version splits is priced, after midnight, by the
+// next version's own sections: Slovenia's Brezovica–Vrhnika (12.4 km) is
+// Brezovica–Dragomer and more from 1 July 2025, not its first piece.
 func TestNextVersionSplitSection(t *testing.T) {
 	path := dense([][2]float64{{14.46, 46.04}, {14.4322, 46.0253}, {14.3048, 45.968}, {14.29, 45.96}})
 	var km float64
@@ -1477,15 +1477,24 @@ func TestNextVersionSplitSection(t *testing.T) {
 		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
 	}
 	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"SI": km}, RouteParts: map[string]float64{"road": km}}}}
-	req := Request{CargoKg: 1000, Truck: truck40, Time: "23:59", AvgSpeedKmh: 70, origin: "SI", spans: map[string][][2]float64{"SI": {{0, km}}}}
-	r, err := PriceWith(res, all(t), nil, req, time.Date(2025, 6, 30, 0, 0, 0, 0, time.UTC))
-	if err != nil {
-		t.Fatal(err)
-	}
-	for _, l := range r.Lines {
-		if strings.Contains(l.Section, "Brezovica") && r.Complete {
-			t.Errorf("split section after midnight priced as complete: %s EUR %.2f", l.Section, l.Amount)
+	toll := func(at string, day time.Time) (float64, bool) {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "SI", spans: map[string][][2]float64{"SI": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
 		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.Amount
+			}
+		}
+		return eur, r.Complete
+	}
+	late, complete := toll("23:59", time.Date(2025, 6, 30, 0, 0, 0, 0, time.UTC))
+	own, _ := toll("00:00", time.Date(2025, 7, 1, 0, 0, 0, 0, time.UTC))
+	if !complete || late == 0 || math.Abs(late-own) > 0.01 {
+		t.Errorf("after midnight: EUR %.2f (complete %v); on 1 July from 00:00 EUR %.2f", late, complete, own)
 	}
 }
 
@@ -1707,5 +1716,104 @@ func TestNoTableOnTheDay(t *testing.T) {
 	// The km after midnight priced; the minute's before it, before the table.
 	if late < 0.8*own || late >= own || len(r.Missing) != 1 || r.Missing[0].Reason != "before_table" {
 		t.Errorf("IT from 23:59 on 31 December 2024: EUR %.2f (missing %+v); from 00:01 EUR %.2f", late, r.Missing, own)
+	}
+}
+
+// A toll only the next table has is charged on a trip reaching it after
+// midnight: Croatia's Bina-Istra (Baderna–Buje) from 1 January 2026.
+func TestNextTableOwnStations(t *testing.T) {
+	path := dense([][2]float64{{13.73, 45.20}, {13.72257, 45.2191}, {13.62163, 45.40483}, {13.61, 45.42}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"HR": km}, RouteParts: map[string]float64{"road": km}}}}
+	toll := func(at string, day time.Time) (float64, bool) {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "HR", spans: map[string][][2]float64{"HR": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.AmountEUR
+			}
+		}
+		return eur, r.Complete
+	}
+	late, complete := toll("23:59", time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC))
+	own, _ := toll("00:01", time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC))
+	if !complete || own == 0 || math.Abs(late-own) > 0.01 {
+		t.Errorf("Bina-Istra after midnight: EUR %.2f (complete %v); from 00:01 on 1 January EUR %.2f", late, complete, own)
+	}
+}
+
+// A fare that includes the EU ETS by its table of the day crossed: the
+// Strait of Messina's from 1 November 2026, crossed just after midnight
+// on a trip of 31 October, has no ETS line beside it.
+func TestETSInFareOnTheDayCrossed(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := dense([][2]float64{{15.52, 38.13}, {15.529591, 38.136352}, {15.615476, 38.213285}, {15.62, 38.22}})
+	ferryKm := haversine(38.136352, 15.529591, 38.213285, 15.615476)
+	res := sootcase.Result{TTWKg: 30, WTWKg: 36, Legs: []sootcase.LegResult{{DistanceKm: ferryKm + 2, TTWKg: 30, WTWKg: 36, Path: path,
+		CountryKm: map[string]float64{"IT": 2}, RouteParts: map[string]float64{"ferry": ferryKm, "road": 2},
+		Parts: []sootcase.Part{{Kind: "road", DistanceKm: 1, TTWKg: 1, WTWKg: 1}, {Kind: "ferry", DistanceKm: ferryKm, TTWKg: 28, WTWKg: 34}, {Kind: "road", DistanceKm: 1, TTWKg: 1, WTWKg: 1}}}}}
+	for _, c := range []struct {
+		day time.Time
+		at  string
+	}{{time.Date(2026, 10, 31, 0, 0, 0, 0, time.UTC), "23:59"}, {time.Date(2026, 11, 2, 0, 0, 0, 0, time.UTC), "10:00"}} {
+		r, err := PriceWith(res, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 80, Time: c.at, AvgSpeedKmh: 70, origin: "IT",
+			spans: map[string][][2]float64{"IT": {{0, ferryKm + 2}}}}, c.day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var fare, ets float64
+		for _, l := range r.Lines {
+			switch l.Charge {
+			case FerryFare:
+				fare += l.AmountEUR
+			case FerryETS:
+				ets += l.AmountEUR
+			}
+		}
+		if fare == 0 || ets != 0 {
+			t.Errorf("%s %s: fare EUR %.2f, ETS EUR %.2f; want the fare alone", c.day.Format(time.DateOnly), c.at, fare, ets)
+		}
+	}
+}
+
+// An ended ferry table that would need a truck field is still reported
+// ended (Jadrolinija's Valbiska–Merag, 2027, no capacity_kg given).
+func TestEndedNeedsTruckField(t *testing.T) {
+	path := dense([][2]float64{{14.50, 45.025}, {14.493868, 45.019177}, {14.449625, 44.984412}, {14.44, 44.98}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"HR": km}, RouteParts: map[string]float64{"road": km}}}}
+	r, err := PriceWith(res, all(t), nil, Request{CargoKg: 1000, Truck: truck40}, time.Date(2027, 3, 1, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !slices.ContainsFunc(r.Missing, func(m Missing) bool { return strings.Contains(m.Name, "Jadrolinija") && m.Reason == "ended" }) {
+		t.Errorf("2027, no capacity_kg: missing %+v", r.Missing)
+	}
+}
+
+// A date no time stamp can write, or a list of classes longer than the
+// five, is refused.
+func TestRequestBounds(t *testing.T) {
+	if _, err := (Calculator{}).date("9999-12-31", "DE"); err == nil {
+		t.Error("year 9999: no error")
+	}
+	if err := check(Request{CargoKg: 1000, Truck: truck40, CompareCO2Classes: []int{1, 2, 2}}); err == nil {
+		t.Error("compare_co2_classes 1, 2, 2: no error")
+	}
+	if err := check(Request{CargoKg: 1000, Truck: truck40, CompareCO2Classes: []int{1, 5}}); err != nil {
+		t.Error(err)
 	}
 }

@@ -688,7 +688,7 @@
       "type": "number"
      },
      "compare_co2_classes": {
-      "description": "CompareCO2Classes prices the same trip for trucks in these CO2 classes (e.g. [1, 4, 5]), otherwise the same as Truck.",
+      "description": "CompareCO2Classes prices the same trip for trucks in these CO2 classes (e.g. [1, 4, 5]; each at most once), otherwise the same as Truck.",
       "items": {
        "type": "integer"
       },
@@ -710,7 +710,7 @@
       "type": "string"
      },
      "date": {
-      "description": "Date is YYYY-MM-DD, or the moment the trip starts (RFC 3339, as telematics give it) for its day where it starts; default today there (CET if not known).",
+      "description": "Date is YYYY-MM-DD, or the moment the trip starts (RFC 3339, as telematics give it) for its day where it starts, in 1900 to 2100; default today there (CET if not known).",
       "type": "string"
      },
      "diesel_eur_per_l": {

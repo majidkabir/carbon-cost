@@ -138,8 +138,11 @@ type pricer struct {
 	// the area charged.
 	shared map[string]map[string]string
 	// only, when set, keeps an area's uses on the local days it says: a
-	// version prices its own days where the scheme changes kind (otherKind).
+	// version prices its own days (byVersion).
 	only func(day string) bool
+	// tickets are the tickets matched on the dataset priced now, kept by
+	// its version or not (byVersion): the uses they include go with them.
+	tickets []ticketSpan
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {

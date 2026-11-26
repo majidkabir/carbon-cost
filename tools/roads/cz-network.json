@@ -1,0 +1,904 @@
+{
+ "source": "Vyhláška č. 527/2025 Sb. (annexes 1 and 2 of vyhláška č. 470/2012 Sb. from 1 January 2026): https://www.epravo.cz/_dataPublic/sbirky/2025/Sb_2025_527_PZZ.pdf",
+ "sections": [
+  {
+   "class": "mw",
+   "ref": "D0",
+   "from": {
+    "exit": "58",
+    "junction": "Praha-Satalice"
+   },
+   "to": {
+    "exit": "62",
+    "junction": "Praha-Běchovice"
+   },
+   "km": 4.6,
+   "text": "D0 Praha-Satalice – Praha-Běchovice (exity 58–62)"
+  },
+  {
+   "class": "mw",
+   "ref": "D0",
+   "from": {
+    "exit": "76",
+    "junction": "Modletice"
+   },
+   "to": {
+    "exit": "28",
+    "junction": "Praha-Ruzyně"
+   },
+   "km": 35.3,
+   "text": "D0 Modletice – Praha-Ruzyně (exity 76–28)"
+  },
+  {
+   "class": "mw",
+   "ref": "D1",
+   "from": {
+    "exit": "6",
+    "junction": "Průhonice"
+   },
+   "to": {
+    "border": null
+   },
+   "km": 370.5,
+   "text": "D1 Průhonice – státní hranice (exit 6 až km 377)"
+  },
+  {
+   "class": "mw",
+   "ref": "D2",
+   "from": {
+    "exit": "1",
+    "junction": "Brno-jih"
+   },
+   "to": {
+    "border": null
+   },
+   "km": 60.5,
+   "text": "D2 Brno-jih – státní hranice (exit 1 až km 61)"
+  },
+  {
+   "class": "mw",
+   "ref": "D3",
+   "from": {
+    "near": "Mezno"
+   },
+   "to": {
+    "exit": "165",
+    "junction": "Kaplice"
+   },
+   "km": 102.9,
+   "text": "D3 Mezno – Kaplice (km 62 až exit 165)"
+  },
+  {
+   "class": "mw",
+   "ref": "D3",
+   "from": {
+    "near": "Nažidla"
+   },
+   "to": {
+    "border": "Dolní Dvořiště"
+   },
+   "km": 3.5,
+   "text": "D3 Nažidla – Dolní Dvořiště-státní hranice (km 171 až km 175)"
+  },
+  {
+   "class": "mw",
+   "ref": "D4",
+   "from": {
+    "exit": "9",
+    "junction": "Jíloviště"
+   },
+   "to": {
+    "exit": "84",
+    "junction": "Třebkov"
+   },
+   "km": 75.0,
+   "text": "D4 Jíloviště – Třebkov (exity 9–84)"
+  },
+  {
+   "class": "mw",
+   "ref": "D5",
+   "from": {
+    "exit": "1",
+    "junction": "Praha-Třebonice"
+   },
+   "to": {
+    "border": null
+   },
+   "km": 151.5,
+   "text": "D5 Praha-Třebonice – státní hranice (exit 1 až km 151)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "from": {
+    "exit": "1",
+    "junction": "Praha-Řepy"
+   },
+   "to": {
+    "exit": "62",
+    "junction": "Bukov"
+   },
+   "km": 62.6,
+   "text": "D6 Praha-Řepy – Bukov (exity 1–62)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "from": {
+    "near": "Ležky"
+   },
+   "to": {
+    "exit": "83",
+    "junction": "Bošov"
+   },
+   "km": 10.2,
+   "text": "D6 Ležky – Bošov (km 73 až exit 83)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "from": {
+    "exit": "131",
+    "junction": "Jenišov"
+   },
+   "to": {
+    "exit": "169",
+    "junction": "Cheb-sever"
+   },
+   "km": 37.5,
+   "text": "D6 Jenišov – Cheb-sever (exity 131–169)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "from": {
+    "exit": "2",
+    "junction": "Praha-Ruzyně"
+   },
+   "to": {
+    "exit": "18",
+    "junction": "Knovíz"
+   },
+   "km": 17.0,
+   "text": "D7 Praha-Ruzyně – Knovíz (exity 2–18)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "from": {
+    "exit": "24",
+    "junction": "Slaný - západ"
+   },
+   "to": {
+    "near": "Kutrovice"
+   },
+   "km": 3.4,
+   "text": "D7 Slaný - západ – Kutrovice (exit 24 až km 28)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "from": {
+    "near": "Panenský Týnec"
+   },
+   "to": {
+    "near": "Louny-západ"
+   },
+   "km": 16.2,
+   "text": "D7 Panenský Týnec – Louny-západ (km 34,5 až km 51)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "from": {
+    "exit": "56",
+    "junction": "Postoloprty"
+   },
+   "to": {
+    "exit": "78",
+    "junction": "Spořice"
+   },
+   "km": 22.4,
+   "text": "D7 Postoloprty – Spořice (exity 56–78)"
+  },
+  {
+   "class": "mw",
+   "ref": "D8",
+   "from": {
+    "near": "Praha-Březiněves"
+   },
+   "to": {
+    "border": null
+   },
+   "km": 96.2,
+   "text": "D8 Praha-Březiněves – státní hranice (km -3,5 až km 92)"
+  },
+  {
+   "class": "mw",
+   "ref": "D10",
+   "from": {
+    "exit": "1",
+    "junction": "Praha-Satalice"
+   },
+   "to": {
+    "exit": "71",
+    "junction": "Ohrazenice"
+   },
+   "km": 70.1,
+   "text": "D10 Praha-Satalice – Ohrazenice (exity 1–71)"
+  },
+  {
+   "class": "mw",
+   "ref": "D11",
+   "from": {
+    "exit": "1",
+    "junction": "Praha-Horní Počernice"
+   },
+   "to": {
+    "exit": "113",
+    "junction": "Jaroměř-sever"
+   },
+   "km": 113.3,
+   "text": "D11 Praha-Horní Počernice – Jaroměř-sever (exity 1–113)"
+  },
+  {
+   "class": "mw",
+   "ref": "D11",
+   "from": {
+    "near": "Královec"
+   },
+   "to": {
+    "border": null
+   },
+   "km": 3.3,
+   "text": "D11 Královec – státní hranice (km 151 až km 154)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "from": {
+    "exit": "109",
+    "junction": "Hořice"
+   },
+   "to": {
+    "exit": "126",
+    "junction": "Plotiště"
+   },
+   "km": 17.9,
+   "text": "D35 Hořice – Plotiště (exity 109–126)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "from": {
+    "exit": "127",
+    "junction": "Sedlice"
+   },
+   "to": {
+    "exit": "179",
+    "junction": "Cerekvice nad Loučnou"
+   },
+   "km": 51.4,
+   "text": "D35 Sedlice – Cerekvice nad Loučnou (exity 127–179)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "from": {
+    "exit": "189",
+    "junction": "Janov"
+   },
+   "to": {
+    "exit": "201",
+    "junction": "Svitavy"
+   },
+   "km": 11.6,
+   "text": "D35 Janov – Svitavy (exity 189–201)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "from": {
+    "exit": "235",
+    "junction": "Mohelnice-jih"
+   },
+   "to": {
+    "exit": "296",
+    "junction": "Lipník nad Bečvou"
+   },
+   "km": 58.6,
+   "text": "D35 Mohelnice-jih – Lipník nad Bečvou (exity 235–296)"
+  },
+  {
+   "class": "mw",
+   "ref": "D46",
+   "from": {
+    "exit": "1",
+    "junction": "Vyškov-východ"
+   },
+   "to": {
+    "near": "Olomouc-Slavonín"
+   },
+   "km": 38.5,
+   "text": "D46 Vyškov-východ – Olomouc-Slavonín (exit 1 až km 39)"
+  },
+  {
+   "class": "mw",
+   "ref": "D48",
+   "from": {
+    "exit": "1",
+    "junction": "Bělotín"
+   },
+   "to": {
+    "near": "Nový Jičín-centrum"
+   },
+   "km": 17.3,
+   "text": "D48 Bělotín – Nový Jičín-centrum (exit 1 až km 20)"
+  },
+  {
+   "class": "mw",
+   "ref": "D48",
+   "from": {
+    "near": "Rybí"
+   },
+   "to": {
+    "exit": "70",
+    "junction": "Žukov"
+   },
+   "km": 45.4,
+   "text": "D48 Rybí – Žukov (km 24 až exit 70)"
+  },
+  {
+   "class": "mw",
+   "ref": "D49",
+   "from": {
+    "exit": "1",
+    "junction": "Hulín"
+   },
+   "to": {
+    "near": "Fryšták"
+   },
+   "km": 16.7,
+   "text": "D49 Hulín – Fryšták (exit 1 až km 18)"
+  },
+  {
+   "class": "mw",
+   "ref": "D52",
+   "from": {
+    "exit": "10",
+    "junction": "Rajhrad"
+   },
+   "to": {
+    "exit": "26",
+    "junction": "Pohořelice-jih"
+   },
+   "km": 16.9,
+   "text": "D52 Rajhrad – Pohořelice-jih (exity 10–26)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "from": {
+    "exit": "1",
+    "junction": "Holice"
+   },
+   "to": {
+    "near": "Kokory"
+   },
+   "km": 7.6,
+   "text": "D55 Holice – Kokory (exit 1 až km 8)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "from": {
+    "exit": "16",
+    "junction": "Hulín"
+   },
+   "to": {
+    "near": "Napajedla"
+   },
+   "km": 19.5,
+   "text": "D55 Hulín – Napajedla (exit 16 až km 36)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "from": {
+    "exit": "42",
+    "junction": "Babice"
+   },
+   "to": {
+    "exit": "64",
+    "junction": "Bzenec"
+   },
+   "km": 21.1,
+   "text": "D55 Babice – Bzenec (exity 42–64)"
+  },
+  {
+   "class": "mw",
+   "ref": "D56",
+   "from": {
+    "exit": "39",
+    "junction": "Ostrava-Hrabová"
+   },
+   "to": {
+    "near": "Frýdek-Místek"
+   },
+   "km": 13.7,
+   "text": "D56 Ostrava-Hrabová – Frýdek-Místek (exit 39 až km 54)"
+  },
+  {
+   "class": "nat",
+   "ref": "3",
+   "from": {
+    "near": "Mirošovice"
+   },
+   "to": {
+    "near": "Mezno"
+   },
+   "km": 42.9,
+   "text": "I/3 Mirošovice – Mezno"
+  },
+  {
+   "class": "nat",
+   "ref": "4",
+   "from": {
+    "near": "Praha"
+   },
+   "to": {
+    "near": "Jíloviště"
+   },
+   "km": 4.7,
+   "text": "I/4 Praha – Jíloviště"
+  },
+  {
+   "class": "nat",
+   "ref": "6",
+   "from": {
+    "near": "Bošov"
+   },
+   "to": {
+    "near": "Karlovy Vary"
+   },
+   "km": 29.7,
+   "text": "I/6 Bošov – Karlovy Vary"
+  },
+  {
+   "class": "nat",
+   "ref": "7",
+   "from": {
+    "near": "Spořice"
+   },
+   "to": {
+    "near": "Chomutov"
+   },
+   "km": 3.4,
+   "text": "I/7 Spořice – Chomutov"
+  },
+  {
+   "class": "nat",
+   "ref": "11",
+   "from": {
+    "near": "Krásné Pole"
+   },
+   "to": {
+    "near": "Ostrava"
+   },
+   "km": 8.3,
+   "text": "I/11 Krásné Pole – Ostrava"
+  },
+  {
+   "class": "nat",
+   "ref": "12",
+   "from": {
+    "near": "Praha"
+   },
+   "to": {
+    "near": "Kolín"
+   },
+   "km": 32.5,
+   "text": "I/12 Praha – Kolín"
+  },
+  {
+   "class": "nat",
+   "ref": "16",
+   "from": {
+    "near": "Řevničov"
+   },
+   "to": {
+    "near": "Bezděčín"
+   },
+   "km": 75.4,
+   "text": "I/16 Řevničov – Bezděčín"
+  },
+  {
+   "class": "nat",
+   "ref": "16",
+   "from": {
+    "near": "Mladá Boleslav"
+   },
+   "to": {
+    "near": "Úlibice"
+   },
+   "km": 35.8,
+   "text": "I/16 Mladá Boleslav – Úlibice"
+  },
+  {
+   "class": "nat",
+   "ref": "19",
+   "from": {
+    "near": "Oltyně"
+   },
+   "to": {
+    "near": "Čekanice"
+   },
+   "km": 9.9,
+   "text": "I/19 Oltyně – Čekanice"
+  },
+  {
+   "class": "nat",
+   "ref": "19",
+   "from": {
+    "near": "Tábor"
+   },
+   "to": {
+    "near": "Pelhřimov"
+   },
+   "km": 36.2,
+   "text": "I/19 Tábor – Pelhřimov"
+  },
+  {
+   "class": "nat",
+   "ref": "20",
+   "from": {
+    "near": "Plzeň"
+   },
+   "to": {
+    "near": "České Budějovice"
+   },
+   "km": 107.1,
+   "text": "I/20 Plzeň – České Budějovice"
+  },
+  {
+   "class": "nat",
+   "ref": "22",
+   "from": {
+    "near": "Vodňany"
+   },
+   "to": {
+    "near": "Klatovy-východ"
+   },
+   "km": 54.1,
+   "text": "I/22 Vodňany – Klatovy-východ"
+  },
+  {
+   "class": "nat",
+   "ref": "26",
+   "from": {
+    "near": "Plzeň"
+   },
+   "to": {
+    "near": "Folmava"
+   },
+   "km": 50.8,
+   "text": "I/26 Plzeň – Folmava"
+  },
+  {
+   "class": "nat",
+   "ref": "27",
+   "from": {
+    "near": "Plzeň-Litice"
+   },
+   "to": {
+    "near": "Klatovy-východ"
+   },
+   "km": 35.0,
+   "text": "I/27 Plzeň-Litice – Klatovy-východ"
+  },
+  {
+   "class": "nat",
+   "ref": "30",
+   "from": {
+    "near": "Lovosice"
+   },
+   "to": {
+    "near": "Ústí nad Labem"
+   },
+   "km": 14.5,
+   "text": "I/30 Lovosice – Ústí nad Labem"
+  },
+  {
+   "class": "nat",
+   "ref": "33",
+   "from": {
+    "near": "Hořenice"
+   },
+   "to": {
+    "near": "Náchod"
+   },
+   "km": 18.3,
+   "text": "I/33 Hořenice – Náchod"
+  },
+  {
+   "class": "nat",
+   "ref": "34",
+   "from": {
+    "near": "České Budějovice"
+   },
+   "to": {
+    "near": "Jindřichův Hradec"
+   },
+   "km": 49.7,
+   "text": "I/34 České Budějovice – Jindřichův Hradec"
+  },
+  {
+   "class": "nat",
+   "ref": "34",
+   "from": {
+    "near": "Jarošov nad Nežárkou"
+   },
+   "to": {
+    "near": "Koclířov"
+   },
+   "km": 121.2,
+   "text": "I/34 Jarošov nad Nežárkou – Koclířov"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "from": {
+    "near": "Bílý Kostel nad Nisou"
+   },
+   "to": {
+    "near": "Ohrazenice"
+   },
+   "km": 32.3,
+   "text": "I/35 Bílý Kostel nad Nisou – Ohrazenice"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "from": {
+    "near": "Turnov"
+   },
+   "to": {
+    "near": "Jičín"
+   },
+   "km": 13.8,
+   "text": "I/35 Turnov – Jičín"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "from": {
+    "near": "Úlibice"
+   },
+   "to": {
+    "place": "Všestary",
+    "street": null,
+    "crosses": [
+     "D11"
+    ]
+   },
+   "km": 28.8,
+   "text": "I/35 Úlibice – Všestary (MÚK s D11)"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "from": {
+    "near": "Hradec Králové"
+   },
+   "to": {
+    "near": "Mohelnice"
+   },
+   "km": 91.0,
+   "text": "I/35 Hradec Králové – Mohelnice"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "from": {
+    "near": "Křelov"
+   },
+   "to": {
+    "near": "Olomouc"
+   },
+   "km": 2.6,
+   "text": "I/35 Křelov – Olomouc"
+  },
+  {
+   "class": "nat",
+   "ref": "37",
+   "from": {
+    "near": "Hradec Králové"
+   },
+   "to": {
+    "near": "Pardubice"
+   },
+   "km": 15.9,
+   "text": "I/37 Hradec Králové – Pardubice"
+  },
+  {
+   "class": "nat",
+   "ref": "38",
+   "from": {
+    "near": "Jestřebí"
+   },
+   "to": {
+    "near": "Mladá Boleslav"
+   },
+   "km": 31.1,
+   "text": "I/38 Jestřebí – Mladá Boleslav"
+  },
+  {
+   "class": "nat",
+   "ref": "38",
+   "from": {
+    "near": "Poděbrady"
+   },
+   "to": {
+    "near": "Hatě"
+   },
+   "km": 152.9,
+   "text": "I/38 Poděbrady – Hatě"
+  },
+  {
+   "class": "nat",
+   "ref": "43",
+   "from": {
+    "near": "Brno"
+   },
+   "to": {
+    "near": "Svitavy"
+   },
+   "km": 51.5,
+   "text": "I/43 Brno – Svitavy"
+  },
+  {
+   "class": "nat",
+   "ref": "46",
+   "from": {
+    "near": "Olomouc-Slavonín"
+   },
+   "to": {
+    "near": "Olomouc-centrum"
+   },
+   "km": 0.9,
+   "text": "I/46 Olomouc-Slavonín – Olomouc-centrum"
+  },
+  {
+   "class": "nat",
+   "ref": "47",
+   "from": {
+    "near": "Kroměříž"
+   },
+   "to": {
+    "near": "Hulín"
+   },
+   "km": 3.4,
+   "text": "I/47 Kroměříž – Hulín"
+  },
+  {
+   "class": "nat",
+   "ref": "47",
+   "from": {
+    "near": "Přerov"
+   },
+   "to": {
+    "near": "Bělotín"
+   },
+   "km": 22.6,
+   "text": "I/47 Přerov – Bělotín"
+  },
+  {
+   "class": "nat",
+   "ref": "48",
+   "from": {
+    "near": "Jeseník nad Odrou"
+   },
+   "to": {
+    "near": "Palačov"
+   },
+   "km": 3.8,
+   "text": "I/48 Jeseník nad Odrou – Palačov"
+  },
+  {
+   "class": "nat",
+   "ref": "48",
+   "from": {
+    "near": "Nový Jičín-centrum"
+   },
+   "to": {
+    "near": "Rybí"
+   },
+   "km": 4.4,
+   "text": "I/48 Nový Jičín-centrum – Rybí"
+  },
+  {
+   "class": "nat",
+   "ref": "50",
+   "from": {
+    "near": "Holubice"
+   },
+   "to": {
+    "near": "Rovné"
+   },
+   "km": 85.9,
+   "text": "I/50 Holubice – Rovné"
+  },
+  {
+   "class": "nat",
+   "ref": "52",
+   "from": {
+    "near": "Brno"
+   },
+   "to": {
+    "near": "Rajhrad"
+   },
+   "km": 4.6,
+   "text": "I/52 Brno – Rajhrad"
+  },
+  {
+   "class": "nat",
+   "ref": "52",
+   "from": {
+    "near": "Pohořelice"
+   },
+   "to": {
+    "near": "Mikulov"
+   },
+   "km": 22.4,
+   "text": "I/52 Pohořelice – Mikulov"
+  },
+  {
+   "class": "nat",
+   "ref": "55",
+   "from": {
+    "near": "Přerov"
+   },
+   "to": {
+    "near": "Hulín"
+   },
+   "km": 11.5,
+   "text": "I/55 Přerov – Hulín"
+  },
+  {
+   "class": "nat",
+   "ref": "58",
+   "from": {
+    "near": "Příbor"
+   },
+   "to": {
+    "near": "Krmelín"
+   },
+   "km": 14.2,
+   "text": "I/58 Příbor – Krmelín"
+  },
+  {
+   "class": "nat",
+   "ref": "63",
+   "from": {
+    "near": "Bystřany"
+   },
+   "to": {
+    "near": "Řehlovice"
+   },
+   "km": 6.9,
+   "text": "I/63 Bystřany – Řehlovice"
+  },
+  {
+   "class": "nat",
+   "ref": "68",
+   "from": {
+    "near": "Třanovice"
+   },
+   "to": {
+    "near": "Mosty u Jablunkova"
+   },
+   "km": 32.5,
+   "text": "I/68 Třanovice – Mosty u Jablunkova"
+  }
+ ]
+}

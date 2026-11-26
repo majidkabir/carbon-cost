@@ -402,6 +402,21 @@ def junctions_named(road, want, junctions):
 def candidates(c, road, pt, jx):
     """The road's nodes where a point of a section can be, and what was
     looked for when there are none."""
+    if "exit" in pt:
+        # A motorway junction by its number on the road (both carriageways'),
+        # else by its name.
+        on = [j for j in jx if j[4] == pt["exit"] and (j[2] in road.adj or road.near(j[3], 500))]
+        out = [j[2] for j in on if j[2] in road.adj]
+        for j in on:
+            if j[2] not in road.adj:
+                out += road.nearest(road.near(j[3], 500), j[3], 500, 100)
+        if out:
+            return out, ""
+        refs = sorted({j[4] for j in jx if j[4] and (j[2] in road.adj or road.near(j[3], 500))}, key=lambda r: (len(r), r))
+        if pt.get("junction"):
+            out, why = candidates(c, road, {"near": pt["junction"]}, jx)
+            return out, why and f"no exit {pt['exit']} on the road (its exits: {refs[:40]}); {why}"
+        return [], f"no exit {pt['exit']} on the road (its exits: {refs[:40]})"
     if "junction" in pt:
         named, by = junctions_named(road, pt["junction"], jx)
         out = [j[2] for j in named if j[2] in road.adj]
@@ -420,21 +435,6 @@ def candidates(c, road, pt, jx):
             return out, ""
         close = sorted({j[1] for j in by}, key=lambda n: -SequenceMatcher(None, norm(pt["junction"]), norm(n)).ratio())[:6]
         return [], f"junction {pt['junction']!r} not on the road; its junctions most like it: {close}"
-    if "exit" in pt:
-        # A motorway junction by its number on the road (both carriageways'),
-        # else by its name.
-        on = [j for j in jx if j[4] == pt["exit"] and (j[2] in road.adj or road.near(j[3], 500))]
-        out = [j[2] for j in on if j[2] in road.adj]
-        for j in on:
-            if j[2] not in road.adj:
-                out += road.nearest(road.near(j[3], 500), j[3], 500, 100)
-        if out:
-            return out, ""
-        refs = sorted({j[4] for j in jx if j[4] and (j[2] in road.adj or road.near(j[3], 500))}, key=lambda r: (len(r), r))
-        if pt.get("junction"):
-            out, why = candidates(c, road, {"near": pt["junction"]}, jx)
-            return out, why and f"no exit {pt['exit']} on the road (its exits: {refs[:40]}); {why}"
-        return [], f"no exit {pt['exit']} on the road (its exits: {refs[:40]})"
     if "near" in pt:
         # A junction of the name on the road, else the road's nodes nearest
         # a place of the name (the one nearest the road).
@@ -454,7 +454,10 @@ def candidates(c, road, pt, jx):
             out = road.nearest(road.adj, place, 5000, 300)
             if out:
                 return out, ""
-        return [], f"no junction or place {pt['near']!r} by the road"
+        seen = {n: [round(min((dist_m(road.coords[m], p) for m in road.near(p, 20000)), default=math.inf) / 1000, 1) for p in c.places.get(n, [])][:5]
+                for n in place_names(pt["near"])}
+        return [], f"no junction or place {pt['near']!r} by the road (places of the name, km from the road: {seen}; boundaries: " \
+                   f"{ {n: [lv for lv, _ in c.city_all.get(n, [])] for n in place_names(pt['near'])} })"
     if "border" in pt and pt["border"] is None:
         # Where the road leaves the country (it may go on beyond), else its
         # ends nearest the country's boundary.

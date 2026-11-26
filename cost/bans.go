@@ -170,12 +170,18 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	}
 	// Towing a trailer (more axles than the motor vehicle's own, or a
 	// trailer's mass given): the heavier of the truck's and the trailer's
-	// own masses, where given, else the least it can be, half the
-	// combination's; bans for trucks with trailers go by it.
+	// own masses, or the least it can be where one or both aren't given (the
+	// two together are at least the combination's: with one given, the
+	// other is at least the rest; with neither, half); bans for trucks with
+	// trailers go by it.
 	towKg := 0
 	if t := req.Truck; t.MotorAxles > 0 && t.MotorAxles < t.Axles || t.TrailerMassKg > 0 {
-		towKg = max(t.MotorMassKg, t.TrailerMassKg)
-		if towKg == 0 {
+		switch m, tr := t.MotorMassKg, t.TrailerMassKg; {
+		case m > 0 && tr > 0:
+			towKg = max(m, tr)
+		case m > 0 || tr > 0:
+			towKg = max(m+tr, t.MaxMassKg-m-tr)
+		default:
 			towKg = (t.MaxMassKg + 1) / 2
 		}
 	}

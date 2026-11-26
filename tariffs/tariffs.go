@@ -338,6 +338,23 @@ func (s *Set) Regional(country string) bool {
 	return false
 }
 
+// TollsAreCrossings says whether a country's tolls are all crossings
+// (motorway booths, tunnels: Bosnia's, Andorra's): it has crossings
+// datasets and no toll dataset.
+func (s *Set) TollsAreCrossings(country string) bool {
+	cross := false
+	for _, d := range s.All {
+		switch {
+		case d.Country != country:
+		case d.Kind == Toll:
+			return false
+		case d.Kind == Crossings:
+			cross = true
+		}
+	}
+	return cross
+}
+
 // OfKind lists the datasets of a kind in force on the date.
 func (s *Set) OfKind(kind string, date time.Time) []*Dataset {
 	var out []*Dataset

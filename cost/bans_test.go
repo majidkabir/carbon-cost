@@ -204,6 +204,9 @@ func TestTrailerBanOnTheTrip(t *testing.T) {
 	for _, tr := range []rates.Truck{
 		{MaxMassKg: 7100, Axles: 4, MotorAxles: 2, MotorMassKg: 3500, TrailerMassKg: 3600, Euro: 6, CO2Class: 1},
 		{MaxMassKg: 7100, Axles: 4, MotorAxles: 2, Euro: 6, CO2Class: 1},
+		// A 3 t trailer: the truck is 4.5 t at least.
+		{MaxMassKg: 7500, Axles: 4, MotorAxles: 2, TrailerMassKg: 3000, Euro: 6, CO2Class: 1},
+		{MaxMassKg: 7500, Axles: 4, MotorAxles: 2, MotorMassKg: 3000, Euro: 6, CO2Class: 1},
 	} {
 		r, err := PriceWith(at, all(t), nil, Request{CargoKg: 2000, Truck: tr, Time: "10:00", origin: "AT"}, sun)
 		if err != nil {

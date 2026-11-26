@@ -535,3 +535,16 @@ func TestTrailerBan(t *testing.T) {
 		t.Errorf("AT: a ban on a 7 t combination of 3.5 t each, or a 7.1 t truck without a trailer")
 	}
 }
+
+// Germany's Sunday ban holds for trailers behind any truck (StVO § 30
+// (3): "sowie Anhänger hinter Lastkraftwagen").
+func TestGermanTrailerBan(t *testing.T) {
+	ber, _ := time.LoadLocation("Europe/Berlin")
+	from, to := time.Date(2026, 11, 29, 10, 0, 0, 0, ber), time.Date(2026, 11, 29, 12, 0, 0, 0, ber)
+	if len(Windows("DE", 5000, 2500, from, to, ber)) == 0 {
+		t.Errorf("DE, a 5 t combination on a Sunday: no ban")
+	}
+	if len(Windows("DE", 5000, 0, from, to, ber)) != 0 {
+		t.Errorf("DE, a 5 t truck without a trailer: banned")
+	}
+}

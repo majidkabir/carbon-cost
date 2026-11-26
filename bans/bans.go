@@ -19,6 +19,9 @@ type Rule struct {
 	Name          string
 	MinMassKg     int
 	TrailerMassKg int
+	// AnyTrailer: also any truck towing a trailer, whatever its mass
+	// (Germany's "Anhänger hinter Lastkraftwagen").
+	AnyTrailer bool
 	// Days: "mon".."sun", "holiday" for the public holidays of Holidays
 	// (regional ones count only where the route is in a region that keeps
 	// them, else the rule says it may apply) and "holiday_eve" for the
@@ -65,7 +68,7 @@ type Holiday struct {
 
 // Rules are the bans in.
 var Rules = []Rule{
-	{Country: "DE", Name: "Sunday and public holiday ban", MinMassKg: 7500, Days: []string{"sun", "holiday"}, From: "00:00", To: "22:00",
+	{Country: "DE", Name: "Sunday and public holiday ban", MinMassKg: 7500, AnyTrailer: true, Days: []string{"sun", "holiday"}, From: "00:00", To: "22:00",
 		Exemptions: "combined transport to and from rail terminals (200 km) and ports (150 km), fresh milk, meat, fish and perishable fruit and vegetables, live bees, towing, and empty runs with them",
 		Note:       "also trailers behind any truck",
 		Law:        "Straßenverkehrs-Ordnung (StVO), § 30 (3) and (4)",
@@ -104,7 +107,7 @@ func init() {
 	frEve.Days, frEve.From, frEve.To = []string{"sat", "holiday_eve"}, "22:00", "24:00"
 	frDay.Days, frDay.From, frDay.To = []string{"sun", "holiday"}, "00:00", "22:00"
 	Rules = append(Rules, sunday, night1, night2, frEve, frDay)
-	Rules = append(Rules, Rule{Country: "DE", Name: "summer Saturday ban", MinMassKg: 7500, Days: []string{"sat"}, From: "07:00", To: "20:00",
+	Rules = append(Rules, Rule{Country: "DE", Name: "summer Saturday ban", MinMassKg: 7500, AnyTrailer: true, Days: []string{"sat"}, From: "07:00", To: "20:00",
 		FromDay: "07-01", ToDay: "08-31", Listed: true,
 		Exemptions: "combined transport, fresh milk, meat, fish, perishable fruit and vegetables, live bees and the others of § 1 (4), and empty runs with them",
 		Note:       "only on the motorway sections and federal roads § 1 (2) and (3) list; also trucks with trailers",
@@ -290,7 +293,7 @@ var HolidaySources = map[string][2]string{
 // when it tows a trailer, the heavier of the truck's and the trailer's
 // own (0: no trailer).
 func (r Rule) Applies(maxMassKg, towKg int) bool {
-	return maxMassKg > r.MinMassKg || towKg > 0 && r.TrailerMassKg > 0 && towKg > r.TrailerMassKg
+	return maxMassKg > r.MinMassKg || towKg > 0 && (r.AnyTrailer || r.TrailerMassKg > 0 && towKg > r.TrailerMassKg)
 }
 
 // Window is a ban in force over a stretch of time, local time.

@@ -42,6 +42,8 @@ func TestHandler(t *testing.T) {
 		{"GET", "/leaflet/leaflet.js", "", 200, "Leaflet"},
 		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},
 		{"GET", "/v1/places?q=h", "", 200, `"places": []`},
+		// One character, two bytes: still too short (minLength counts characters).
+		{"GET", "/v1/places?q=%C3%98", "", 200, `"places": []`},
 		{"GET", "/v1/places?q=other", "", 502, "HTTP 418"},
 		{"POST", "/v1/carbon-cost", `{"nope": 1}`, 400, "bad JSON"},
 		{"POST", "/v1/carbon-cost", `{"cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 9}}`, 400, "co2_class"},

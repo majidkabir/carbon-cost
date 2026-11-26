@@ -1282,3 +1282,30 @@ func TestEurovignetteCoveredNote(t *testing.T) {
 		}
 	}
 }
+
+// Where a country's tolls are all crossings (Bosnia's motorway booths,
+// Andorra's tunnel), it has tables: a route past none of them is
+// complete, and country_km can't find them (no_route), not "no table".
+func TestTollsThatAreCrossings(t *testing.T) {
+	for _, cc := range []string{"AL", "AD", "BA", "FO"} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{cc: 50}, Date: "2026-11-26",
+			CargoKg: 10000, DieselL: 20, Truck: truck40, FX: map[string]float64{"BAM": 1.95583, "ALL": 97, "DKK": 7.46}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(out.NoRates) > 0 || len(out.Missing) != 1 || out.Missing[0].Reason != "no_route" {
+			t.Errorf("%s by country_km: no_rates %v, missing %+v", cc, out.NoRates, out.Missing)
+		}
+	}
+	// A path in Bosnia past no booth: nothing missing.
+	path := dense([][2]float64{{17.80, 43.30}, {17.82, 43.32}})
+	km := haversine(43.30, 17.80, 43.32, 17.82)
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"BA": km}, RouteParts: map[string]float64{"road": km}}}}
+	r, err := Price(res, all(t), Request{CargoKg: 1000, Truck: truck40, FX: map[string]float64{"BAM": 1.95583}}, time.Date(2026, 11, 26, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(r.NoRates) > 0 || !r.Complete {
+		t.Errorf("BA path: no_rates %v, missing %+v", r.NoRates, r.Missing)
+	}
+}

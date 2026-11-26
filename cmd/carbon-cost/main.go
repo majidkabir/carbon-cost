@@ -32,6 +32,7 @@ import (
 	"strings"
 	"text/tabwriter"
 	"time"
+	"unicode/utf8"
 
 	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/ferries"
@@ -878,7 +879,7 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	})
 	mux.HandleFunc("GET /v1/places", func(w http.ResponseWriter, r *http.Request) {
 		q := strings.TrimSpace(r.URL.Query().Get("q"))
-		if len(q) < 2 || len(q) > 100 {
+		if n := utf8.RuneCountInString(q); n < 2 || n > 100 {
 			writeJSON(w, http.StatusOK, map[string]any{"places": []sootcase.Place{}})
 			return
 		}

@@ -1190,6 +1190,31 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 	// are set by region.
 	for _, a := range areas(&out, set) {
 		ds, ok := set.Find(a.code, date)
+		if !ok && set.TollsAreCrossings(a.country) {
+			// Its tolls are its crossings', priced where the route passes
+			// them (and before their tables, by lapsed); with no route,
+			// they can't be found.
+			if len(route.pts) < 2 && a.km >= 0.5 {
+				m := Missing{Area: a.code, Charge: RoadToll, Reason: "no_route"}
+				var first *tariffs.Dataset
+				for _, d := range set.All {
+					switch {
+					case d.Country != a.country || d.Kind != tariffs.Crossings:
+					case d.Covers(date):
+						m.Name = d.Name
+					case d.ValidFrom > date.Format(time.DateOnly) && (first == nil || d.ValidFrom < first.ValidFrom):
+						first = d
+					}
+				}
+				if m.Name == "" && first != nil {
+					m.Reason, m.Name, m.Starts = "before_table", first.Name, first.ValidFrom
+				}
+				if m.Name != "" {
+					out.Missing = append(out.Missing, m)
+				}
+			}
+			continue
+		}
 		if !ok {
 			if a.km >= 0.5 {
 				out.NoRates = append(out.NoRates, a.code)

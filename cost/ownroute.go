@@ -184,28 +184,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 				parts = append(parts, p)
 			}
 		}
-		var spans [][2]int
-		if fd != nil {
-			for _, c := range fd.DetectAll(seg) {
-				if len(c.Terminals) != 2 {
-					continue
-				}
-				// A crossing the path takes: its terminals apart (not one
-				// port twice), the path at each (within a km, and nearer
-				// than half the way across), and between them as long as
-				// half the way across at least; not a road along the
-				// harbour passing both within reach.
-				t0, t1 := c.Terminals[0], c.Terminals[1]
-				across := haversine(t0.Lat, t0.Lon, t1.Lat, t1.Lon)
-				a, b := nearestIndex(seg, t0), nearestIndex(seg, t1)
-				at := func(i int, t ferries.Point) bool {
-					return haversine(seg[i][1], seg[i][0], t.Lat, t.Lon) <= min(1, across/2)
-				}
-				if a != b && across >= 0.5 && at(a, t0) && at(b, t1) && pathKm(seg[min(a, b):max(a, b)+1]) >= across/2 {
-					spans = append(spans, [2]int{min(a, b), max(a, b)})
-				}
-			}
-		}
+		spans := ferrySpans(seg, fd)
 		km := round3(pathKm(seg))
 		l.DistanceKm, l.Path = km, seg
 		l.CountryKm, l.RegionKm = map[string]float64{}, nil
@@ -229,9 +208,6 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 			}
 		}
 		for n, s := range spans {
-			if s[0] < at {
-				continue // overlaps the one before
-			}
 			addRoad(seg[at : s[0]+1])
 			fkm := round3(pathKm(seg[s[0] : s[1]+1]))
 			ferryKm += fkm

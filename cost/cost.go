@@ -14,6 +14,7 @@
 package cost
 
 import (
+	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -1431,21 +1432,36 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 		if fd != nil && len(ps) > 0 {
 			cs := fd.DetectAll(l.Path)
 			tr := newTrack(l.Path)
+			// Each part's crossing: the best fits first, so a crossing
+			// found earlier (a port on the way) doesn't take a part from
+			// the one it fits better. The fit: how far the part's km are
+			// from the way between the terminals along the route, and how
+			// far the terminals are off it.
+			type fit struct {
+				c     *ferries.Crossing
+				part  int
+				score float64
+			}
+			var fits []fit
 			for k := range cs {
 				c := &cs[k]
 				if len(c.Terminals) != 2 {
 					continue
 				}
-				a, _, _ := tr.project(rates.Place{Lat: c.Terminals[0].Lat, Lon: c.Terminals[0].Lon})
-				b, _, _ := tr.project(rates.Place{Lat: c.Terminals[1].Lat, Lon: c.Terminals[1].Lon})
-				along, best, bi := math.Abs(b-a), math.Inf(1), -1
+				a, da, _ := tr.project(rates.Place{Lat: c.Terminals[0].Lat, Lon: c.Terminals[0].Lon})
+				b, db, _ := tr.project(rates.Place{Lat: c.Terminals[1].Lat, Lon: c.Terminals[1].Lon})
+				along := math.Abs(b - a)
 				for i, p := range ps {
-					if d := math.Abs(p.km - along); p.crossing == nil && d < best && d <= math.Max(2, 0.3*along) {
-						best, bi = d, i
+					if d := math.Abs(p.km - along); d <= math.Max(2, 0.3*along) {
+						fits = append(fits, fit{c, i, d + da + db})
 					}
 				}
-				if bi >= 0 {
-					ps[bi].crossing = c
+			}
+			slices.SortStableFunc(fits, func(x, y fit) int { return cmp.Compare(x.score, y.score) })
+			taken := map[*ferries.Crossing]bool{}
+			for _, f := range fits {
+				if ps[f.part].crossing == nil && !taken[f.c] {
+					ps[f.part].crossing, taken[f.c] = f.c, true
 				}
 			}
 		}

@@ -886,3 +886,81 @@ func TestNoPhantomFerry(t *testing.T) {
 		t.Errorf("Esbjerg harbour road: %.1f ferry km; want none", f)
 	}
 }
+
+// Driven paths on ferries: a ship calling at a port on the way keeps all
+// of Sootcase's ferry part (Aberdeen to Lerwick via Kirkwall); a terminal
+// placed a km or so off the quay still finds the crossing (Ios–Naxos).
+func TestDrivenFerries(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := func(path [][2]float64, ferryKm float64) sootcase.LegResult {
+		res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: ferryKm + 2, TTWKg: 400, WTWKg: 480, CountryKm: map[string]float64{}, Path: [][2]float64{path[0], path[len(path)-1]},
+			RouteParts: map[string]float64{"ferry": ferryKm, "road": 2},
+			Parts:      []sootcase.Part{{Kind: "road", DistanceKm: 1}, {Kind: "ferry", DistanceKm: ferryKm, TTWKg: 380, WTWKg: 456}, {Kind: "road", DistanceKm: 1}}}}}
+		ownPath(bix, &fd, &res, path)
+		return res.Legs[0]
+	}
+	// Aberdeen quay, Kirkwall, Lerwick, the fixes a few km apart at sea.
+	l := trip(dense([][2]float64{{-2.10, 57.145}, {-2.09175, 57.145287}, {-2.974082, 58.999691}, {-1.157663, 60.16292}, {-1.16, 60.17}}), 380)
+	kg := 0.0
+	for _, p := range l.Parts {
+		kg += p.TTWKg
+	}
+	// Sootcase's 380 kg for its 380 km, by the path's ferry km.
+	if want := 380 * l.RouteParts["ferry"] / 380; math.Abs(kg-want) > 1 {
+		t.Errorf("Aberdeen–Kirkwall–Lerwick on a path: ferry TTW %.1f kg over %d parts; want %.1f", kg, len(l.Parts), want)
+	}
+	// From the quay the other Ios crossings share, 1.2 km from Ios–Naxos's
+	// Ios, straight (fixes quay to quay) to Naxos.
+	l = trip([][2]float64{{25.275, 36.722}, {25.272273, 36.723515}, {25.371443, 37.10619}, {25.375, 37.105}}, 43.5)
+	if l.RouteParts["ferry"] < 40 {
+		t.Errorf("Ios–Naxos on a path: %.1f ferry km; want about 43.5", l.RouteParts["ferry"])
+	}
+}
+
+// The route's runs (for the map and the legs' sections) take the same
+// crossings as the path's pricing: none along the Esbjerg harbour road.
+func TestRouteRunsNoPhantomFerry(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	east := 0.3 / (111.2 * math.Cos(55.46*math.Pi/180))
+	for _, r := range Route(bix, dense([][2]float64{{8.44007 + east, 55.44}, {8.44007 + east, 55.485}}), &fd) {
+		if r.Kind == "ferry" {
+			t.Errorf("Esbjerg harbour road: a ferry run of %.1f km", r.Km)
+		}
+	}
+}
+
+// On a Sootcase route, a ferry part is named for the crossing that fits
+// it best, not one found first: Zadar–Preko, not Zadar–Ošljak (Ošljak is
+// passed on the way).
+func TestFerryPartBestFit(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := dense([][2]float64{{15.26, 44.093}, {15.257666, 44.092329}, {15.194426, 44.076439}, {15.19, 44.074}})
+	km := haversine(44.092329, 15.257666, 44.076439, 15.194426)
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: km + 1, Path: path, RouteParts: map[string]float64{"ferry": km},
+		Parts: []sootcase.Part{{Kind: "ferry", DistanceKm: km, TTWKg: 38}}}}}
+	ps := ferryParts(res, &fd, Request{})
+	if len(ps) != 1 || ps[0].crossing == nil || ps[0].crossing.Name != "Zadar–Preko" {
+		name := ""
+		if len(ps) == 1 && ps[0].crossing != nil {
+			name = ps[0].crossing.Name
+		}
+		t.Errorf("Zadar–Preko route: crossing %q", name)
+	}
+}

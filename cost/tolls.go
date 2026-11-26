@@ -177,6 +177,19 @@ func (p *pricer) at(ds *tariffs.Dataset, pos float64, country string) (time.Time
 	return p.noon(ds), false
 }
 
+// chargeOf is a statement line's charge, from the dataset that priced it:
+// a later version's for a use moved there (its charge ids may be others).
+func (p *pricer) chargeOf(ds *tariffs.Dataset, l *orct.Line) *orct.Charge {
+	if l.Dataset != "" && l.Dataset != ds.ID && p.set != nil {
+		for _, d := range p.set.All {
+			if d.ID == l.Dataset {
+				return d.Charge(l.Charge)
+			}
+		}
+	}
+	return ds.Charge(l.Charge)
+}
+
 // componentOf is the Line component of an ORCT charge.
 func componentOf(ch *orct.Charge) string {
 	switch ch.Type {
@@ -690,16 +703,17 @@ func (n *network) object(road, area, op string) string {
 
 func placeOf(coord []float64) rates.Place { return rates.Place{Lon: coord[0], Lat: coord[1]} }
 
-// geometry caches the places and polygons read from objects' locations.
-var geometry sync.Map // *orct.Object -> []rates.Place or [][][][2]float64
+// points and polygons cache the places and the polygons read from
+// objects' locations (an area's points are none: each kind its own).
+var points, polygons sync.Map // *orct.Object -> []rates.Place, polys
 
 // pointsOf are a location's points, each with its heading and name.
 func pointsOf(o *orct.Object) []rates.Place {
-	if v, ok := geometry.Load(o); ok {
+	if v, ok := points.Load(o); ok {
 		return v.([]rates.Place)
 	}
 	pts := readPoints(o)
-	geometry.Store(o, pts)
+	points.Store(o, pts)
 	return pts
 }
 
@@ -745,11 +759,11 @@ type polys [][][][2]float64
 
 // polygonsOf are an area's polygons, each its outer ring and holes.
 func polygonsOf(o *orct.Object) [][][][2]float64 {
-	if v, ok := geometry.Load(o); ok {
+	if v, ok := polygons.Load(o); ok {
 		return v.(polys)
 	}
 	p := readPolygons(o)
-	geometry.Store(o, polys(p))
+	polygons.Store(o, polys(p))
 	return p
 }
 

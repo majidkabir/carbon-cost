@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
+	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -97,5 +99,25 @@ func TestHandlerSootcaseStatus(t *testing.T) {
 		if rec.Code != want {
 			t.Errorf("sootcase %d: got %d, want %d", in, rec.Code, want)
 		}
+	}
+}
+
+// A request or a batch's trip that fails by a bug is a 500 or that
+// trip's error, not a dropped connection or a stopped server.
+func TestPanicsRecovered(t *testing.T) {
+	h := recovered(http.HandlerFunc(func(http.ResponseWriter, *http.Request) { panic("boom") }))
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("GET", "/v1/x", nil))
+	if rec.Code != 500 || !strings.Contains(rec.Body.String(), "internal error: boom") {
+		t.Errorf("handler: %d %s", rec.Code, rec.Body.String())
+	}
+	out := priceAll(context.Background(), func(_ context.Context, r cost.Request) (cost.Response, error) {
+		if r.CargoKg == 2 {
+			panic("boom")
+		}
+		return cost.Response{}, nil
+	}, []cost.Request{{CargoKg: 1}, {CargoKg: 2}})
+	if out[0].Result == nil || !strings.Contains(out[1].Error, "internal error: boom") {
+		t.Errorf("batch: %+v", out)
 	}
 }

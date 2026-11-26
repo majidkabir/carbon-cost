@@ -1488,3 +1488,37 @@ func TestNextVersionSplitSection(t *testing.T) {
 		}
 	}
 }
+
+// A use moved after midnight into the next version doesn't crash: an
+// area's polygons aren't read as its points (London's Congestion Charge
+// zone, its table ending on 1 January 2026), and a ticket priced under
+// the next version's charge ids is noted by them (Spain's AP-7 Mazarrón
+// to Las Palas, system3 from 2026; Turkey's YSS motorway, system17 from
+// July 2026).
+func TestNextVersionNoCrash(t *testing.T) {
+	for _, c := range []struct {
+		cc    string
+		pts   [][2]float64
+		day   time.Time
+		cur   string
+		perEU float64
+	}{
+		{"GB", [][2]float64{{-0.20, 51.51}, {-0.10, 51.51}, {0.0, 51.51}}, time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "GBP", 0.85},
+		{"ES", [][2]float64{{-1.38, 37.585}, {-1.336067, 37.599864}, {-1.178289, 37.647793}, {-1.15, 37.655}}, time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "", 0},
+		{"TR", [][2]float64{{29.21, 41.19}, {29.202463, 41.19211}, {29.027875, 41.234945}, {29.02, 41.24}}, time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC), "TRY", 50},
+	} {
+		path := dense(c.pts)
+		var km float64
+		for i := 0; i+1 < len(path); i++ {
+			km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+		}
+		res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{c.cc: km}, RouteParts: map[string]float64{"road": km}}}}
+		req := Request{CargoKg: 1000, Truck: truck40, Time: "23:55", AvgSpeedKmh: 70, origin: c.cc, spans: map[string][][2]float64{c.cc: {{0, km}}}}
+		if c.cur != "" {
+			req.FX = map[string]float64{c.cur: c.perEU}
+		}
+		if _, err := PriceWith(res, all(t), nil, req, c.day); err != nil {
+			t.Errorf("%s: %v", c.cc, err)
+		}
+	}
+}

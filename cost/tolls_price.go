@@ -1090,7 +1090,7 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 	priced := map[*lineMeta]*orct.Line{}
 	for _, l := range st.Lines {
 		if l.Event != nil {
-			if m, ok := l.Event.Ref.(*lineMeta); ok && ds.Charge(l.Charge).Type == "od" {
+			if m, ok := l.Event.Ref.(*lineMeta); ok && p.chargeOf(ds, l) != nil && p.chargeOf(ds, l).Type == "od" {
 				priced[m] = l
 			}
 		}
@@ -1347,7 +1347,7 @@ func (p *pricer) afterPoints(ds *tariffs.Dataset, country string, st *orct.State
 		if l.Event == nil {
 			continue
 		}
-		if m, ok := l.Event.Ref.(*lineMeta); ok && ds.Charge(l.Charge).Type == "point" {
+		if m, ok := l.Event.Ref.(*lineMeta); ok && p.chargeOf(ds, l) != nil && p.chargeOf(ds, l).Type == "point" {
 			paid[m] = l
 		}
 	}

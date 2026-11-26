@@ -6,7 +6,9 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os"
+	"runtime/debug"
 	"slices"
 	"sort"
 	"strconv"
@@ -56,12 +58,23 @@ func priceAll(ctx context.Context, calc func(context.Context, cost.Request) (cos
 		go func() {
 			defer wg.Done()
 			for i := range next {
-				r, err := calc(ctx, trips[i])
-				if err != nil {
-					out[i].Error = err.Error()
-					continue
-				}
-				out[i].Result = &r
+				// A trip that fails, even by a bug, is its own error, not
+				// the server's: net/http recovers only its handler's
+				// goroutine.
+				func() {
+					defer func() {
+						if e := recover(); e != nil {
+							log.Printf("batch trip %d: panic: %v\n%s", i, e, debug.Stack())
+							out[i].Error = fmt.Sprintf("internal error: %v", e)
+						}
+					}()
+					r, err := calc(ctx, trips[i])
+					if err != nil {
+						out[i].Error = err.Error()
+						return
+					}
+					out[i].Result = &r
+				}()
 			}
 		}()
 	}

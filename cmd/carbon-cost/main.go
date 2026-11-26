@@ -967,7 +967,24 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 	if warm {
 		pages.Warm()
 	}
-	return mux, nil
+	return recovered(mux), nil
+}
+
+// recovered answers a request that fails by a bug with a 500 saying so,
+// and logs it, not by dropping the connection.
+func recovered(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if e := recover(); e != nil {
+				if e == http.ErrAbortHandler {
+					panic(e)
+				}
+				slog.Error("panic", "method", r.Method, "path", r.URL.Path, "err", e, "stack", string(debug.Stack()))
+				writeJSON(w, http.StatusInternalServerError, map[string]string{"error": fmt.Sprintf("internal error: %v", e)})
+			}
+		}()
+		h.ServeHTTP(w, r)
+	})
 }
 
 // readJSON reads a request's body, one JSON object of up to 8 MiB (a path

@@ -2000,15 +2000,26 @@ func TestAusol(t *testing.T) {
 }
 
 // London's Congestion Charge: GBP 18 a day from 2 January 2026 (15
-// before) for driving in the zone 07:00-18:00 on weekdays.
+// before) for driving in the zone 07:00-18:00 on weekdays; an electric
+// HGV on Auto Pay (etc) gets the Cleaner Vehicle Discount, 50% from
+// 2 January 2026, 25% from 4 March 2030.
 func TestCongestionCharge(t *testing.T) {
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"GB": 6}, Path: [][2]float64{{-0.20, 51.513}, {-0.12, 51.513}, {-0.02, 51.513}}}}}
+	ev := truck40
+	ev.CO2Class = 5
 	for _, tc := range []struct {
 		date, at string
 		gbp      float64
-	}{{"2026-11-11", "10:00", 18}, {"2026-11-11", "20:00", 0}, {"2026-11-14", "10:00", 0}, {"2025-06-04", "10:00", 15}, {"2026-12-29", "10:00", 0}} {
+		ev, etc  bool
+	}{{"2026-11-11", "10:00", 18, false, false}, {"2026-11-11", "20:00", 0, false, false}, {"2026-11-14", "10:00", 0, false, false}, {"2025-06-04", "10:00", 15, false, false},
+		{"2026-12-29", "10:00", 0, false, false}, {"2026-11-11", "10:00", 9, true, true}, {"2026-11-11", "10:00", 18, true, false}, {"2026-11-11", "10:00", 18, false, true},
+		{"2030-03-06", "10:00", 13.5, true, true}, {"2025-06-04", "10:00", 15, true, true}} {
 		d, _ := time.Parse("2006-01-02", tc.date)
-		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck40, Time: tc.at, FX: map[string]float64{"GBP": 0.84}}, d)
+		truck := truck40
+		if tc.ev {
+			truck = ev
+		}
+		r, err := Price(trip, all(t), Request{CargoKg: 1000, Truck: truck, Time: tc.at, ETC: tc.etc, FX: map[string]float64{"GBP": 0.84}}, d)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -2019,7 +2030,7 @@ func TestCongestionCharge(t *testing.T) {
 			}
 		}
 		if got != tc.gbp {
-			t.Errorf("%s %s: GBP %v, want %v", tc.date, tc.at, got, tc.gbp)
+			t.Errorf("%s %s (electric %v, etc %v): GBP %v, want %v", tc.date, tc.at, tc.ev, tc.etc, got, tc.gbp)
 		}
 	}
 }
@@ -3772,8 +3783,10 @@ func TestScandlines(t *testing.T) {
 }
 
 // TestElbfaehre prices the Elbe ferry Glückstadt-Wischhafen: the truck by
-// length at the net fare plus the fuel surcharge, and the load per started
-// 1,000 kg (ORCT unit t on load_kg in steps of 1,000 kg).
+// length at the net fare plus the fuel surcharge's net (gross / 1.19),
+// unless the fare includes it (19 November 2026: January's plus 2.00 /
+// 1.19), and the load per started 1,000 kg (ORCT unit t on load_kg in
+// steps of 1,000 kg).
 func TestElbfaehre(t *testing.T) {
 	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
 	length := func(m float64) rates.Truck { tr := truck40; tr.LengthM = m; return tr }
@@ -3785,9 +3798,11 @@ func TestElbfaehre(t *testing.T) {
 		date  string
 		eur   float64
 	}{
-		{"16.5 m, 20 t, November 2026", truck40, 20000, "2026-11-20", 37.82 + 2.40 + 20*1.26},
-		{"road train, 20.5 t, November 2026", length(18.75), 20500, "2026-11-20", 39.08 + 4.20 + 2.40 + 21*1.26},
-		{"16.5 m, 20 t, April 2026", truck40, 20000, "2026-04-01", 36.13 + 1.80 + 20*1.26},
+		{"16.5 m, 20 t, November 2026", truck40, 20000, "2026-11-20", 37.82 + 20*1.26},
+		{"road train, 20.5 t, November 2026", length(18.75), 20500, "2026-11-20", 39.08 + 4.20 + 21*1.26},
+		{"16.5 m, 20 t, October 2026", truck40, 20000, "2026-10-01", 36.13 + 2.02 + 20*1.26},
+		{"16.5 m, 20 t, 26 November 2026", truck40, 20000, "2026-11-26", 38.15 + 20*1.26},
+		{"16.5 m, 20 t, April 2026", truck40, 20000, "2026-04-01", 36.13 + 1.51 + 20*1.26},
 		{"16.5 m, 20 t, before the fuel surcharge", truck40, 20000, "2026-03-01", 36.13 + 20*1.26},
 		{"16.5 m, 999 kg, 2025", truck40, 999, "2025-06-01", 34.45 + 1*1.18},
 	} {
@@ -4111,7 +4126,7 @@ func TestFerryFare(t *testing.T) {
 			fare += l.Amount
 		}
 	}
-	if math.Abs(fare-(37.82+2.40+20*1.26)) > 0.011 {
+	if math.Abs(fare-(37.82+20*1.26)) > 0.011 {
 		t.Errorf("fare %.2f", fare)
 	}
 }

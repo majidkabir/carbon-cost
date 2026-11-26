@@ -824,7 +824,7 @@ def point_in_ring(pt, ring):
 def convert_zone(z, path):
     b = Builder(z, path)
     used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "min_kg", "charge",
-            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "polygons", "holes", "osm_extract"}
+            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "polygons", "holes", "osm_extract", "discounts"}
     polys = [[ring] for ring in z["polygons"]]
     for h in z.get("holes", []):
         for p in polys:
@@ -858,6 +858,11 @@ def convert_zone(z, path):
     if tcs:
         ch["unmatched"] = "free"
     b.charge(ch, rows)
+    for d in z.get("discounts", []):
+        p = {"name": d["name"], "percent": dec(d["percent"]), "criteria": clean({"co2_class": d.get("co2_class")})}
+        if d.get("etc"):
+            p["payment"] = ["electronic"]
+        b.rule("discount", ["zone-charge"], clean(p))
     if z.get("osm_extract"):
         b.keep("osm_extract", z["osm_extract"])
     for k in sorted(set(z) - used):

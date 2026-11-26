@@ -32,7 +32,7 @@ def main(fetched, out):
     txt = os.path.join(fetched, "rs-cene.txt")
     subprocess.run(["pdftotext", "-layout", os.path.join(fetched, "rs-cene.pdf"), txt], check=True)
     text = open(txt, encoding="utf-8").read()
-    m = re.search(r"važi od:?\s*(\d+)\.\s*([a-zčćšđž]+)\s+(\d{4})", text)
+    m = re.search(r"važi od:?\s*(\d+)\.\s*([a-zčćšđž]+)\s+(\d{4})(?:\.?\s*god\.)?(?:\s*[уu]\s*(\d\d:\d\d)\s*h)?", text)
     if not m or m.group(2) not in MONTHS:
         sys.exit("rs-cene.pdf: no 'važi od' date")
     start = f"{m.group(3)}-{MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
@@ -45,6 +45,9 @@ def main(fetched, out):
     os.makedirs(out, exist_ok=True)
     for first, tb in made:
         tb["law"] += f" Held to Putevi Srbije's current price list (its RSD amounts, from {start}): the same on every pair it has."
+        if m.group(4) and m.group(4) != "00:00":
+            # ORCT's validity is by local day, so the new list applies all that day.
+            tb["law"] += f" The list is in force from {m.group(4)} on {start}; here from the start of that day, so a trip earlier that day is priced at it."
         tb["sources"].append({"title": "JP Putevi Srbije: toll price list (PDF), whose RSD amounts the table is held to", "url": SOURCES["rs-cene"]})
         tb["osm_extract"] = open(os.path.join(fetched, "rs-osm-timestamp.txt")).read().strip()[:10]
         json.dump(tb, open(os.path.join(out, f"rs-{first}.json"), "w"), ensure_ascii=False, indent=1)

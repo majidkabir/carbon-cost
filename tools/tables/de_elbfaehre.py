@@ -8,8 +8,10 @@
   and the load by weight per started 1,000 kg, each "valid from 1 January
   to 31 December" of a year. The page changed its 2026 fares in November
   2026 without changing their dates (on 19 and 23 November up, on 25
-  November back to January's, "valid until 31 December"): the earlier ones
-  are the Internet
+  November back to January's, "valid until 31 December", on 26 November
+  up again "*Inklusive Treibstoffzuschlag": January's with the fuel
+  surcharge in them, as were those of 19 and 23 November, to the cent):
+  the earlier ones are the Internet
   Archive's copy of 8 November 2026 (frs-elbe-trucks-2026-01), the later
   ones from the day they were first read (FIRST_READ); fares the page gave
   in between and no longer does are kept as read (RECORDED); a row whose
@@ -19,13 +21,15 @@
 - the fuel surcharge page (frs-elbe-fuel*.html; earlier states from the
   Internet Archive's copies): a surcharge per truck, with the date of each
   state ("Stand"); the first applies to tickets bought from 23 March 2026,
-  and a state that leaves the trucks' surcharge unchanged isn't a version;
+  and a state that leaves the trucks' surcharge unchanged isn't a version.
+  It is gross (the fares with it in are January's gross plus it, their net
+  plus it / 1.19), so its net is added to fares that don't include it;
 - OpenStreetMap (frs-elbe-osm.json, Overpass): the ferry line and its
   terminals.
 
 carbon-cost prices a trip with cargo: the truck by its length
-(truck.length_m) at the net fare plus the fuel surcharge (the page gives
-one amount, taken as published), and the load (cargo_kg) per started
+(truck.length_m) at the net fare plus the fuel surcharge's net, unless
+the fare includes it, and the load (cargo_kg) per started
 1,000 kg at the net rate: ORCT unit t on the vehicle parameter load_kg in
 steps of 1,000 kg. The driver's own fare isn't added (the passengers' page
 gives adults only a "from" price), nor the surcharges for width, dangerous
@@ -38,25 +42,37 @@ import datetime, html, json, os, re, sys
 from ferry_osm import MATCH_KM, lines_of, port_places, systems as place_systems
 
 # The fares the live page gave when first read, and from when they're taken.
-FIRST_READ = {"2026": "2026-11-25"}
+FIRST_READ = {"2026": "2026-11-26"}
 # Fares the live page gave earlier and no longer does, as they were read
 # then (recorded in the committed dataset tariffs/data/de/
 # de-elbfaehre-<date>.orct.json): (year, [(up to m, net EUR)], per further
 # metre, max m, load per started 1,000 kg). The page raised its 2026 fares
-# again between the runs of 22 and 23 November 2026, and went back to
-# January's between those of 24 and 25 November.
+# again between the runs of 22 and 23 November 2026, went back to
+# January's between those of 24 and 25 November, and up between those of
+# 25 and 26 November.
 RECORDED = {"2026-11-19": ("2026", [(5, 15.55), (6, 18.07), (7, 21.43), (8, 24.79), (9, 26.05), (10, 27.31), (11, 29.41), (12, 30.67),
                                     (13, 31.93), (14, 34.03), (15, 35.71), (16, 36.55), (17, 37.82), (18.35, 39.08)], 4.20, 23.0, 1.26),
             "2026-11-23": ("2026", [(5, 15.88), (6, 18.40), (7, 21.76), (8, 24.79), (9, 26.39), (10, 27.65), (11, 29.75), (12, 31.01),
-                                    (13, 32.27), (14, 34.37), (15, 36.05), (16, 36.89), (17, 38.15), (18.35, 39.41)], 4.20, 23.0, 1.26)}
+                                    (13, 32.27), (14, 34.37), (15, 36.05), (16, 36.89), (17, 38.15), (18.35, 39.41)], 4.20, 23.0, 1.26),
+            "2026-11-25": ("2026", [(5, 13.87), (6, 16.39), (7, 19.75), (8, 23.11), (9, 24.37), (10, 25.63), (11, 27.73), (12, 28.99),
+                                    (13, 30.25), (14, 32.35), (15, 34.03), (16, 34.87), (17, 36.13), (18.35, 37.39)], 4.20, 23.0, 1.26)}
 # The recorded fares' rows whose net price the page gave wrong (taken as
 # gross / 1.19 when read).
-RECORDED_CORRECTED = {"2026-11-23": [8, 17, 18.35]}
+RECORDED_CORRECTED = {"2026-11-23": [8, 17, 18.35], "2026-11-25": [12]}
+# The recorded fares that include the fuel surcharge: each is January's
+# plus a surcharge state's net (2.00 / 1.19 on 19 November, 2.40 / 1.19 on
+# 23 November, but for the rows the page gave wrong).
+RECORDED_INCLUDED = {"2026-11-19", "2026-11-23"}
+# The recorded fares whose page said only "valid until 31 December".
+RECORDED_UNTIL_ONLY = {"2026-11-25"}
 # Rows whose net price the live page gives wrong, taken as gross / 1.19.
 CORRECTED = []
 # Pages whose fares say only "valid until 31 December" (the live page
 # since 25 November 2026), not "from 1 January".
 UNTIL_ONLY = set()
+# Pages whose truck fares include the fuel surcharge ("*Inklusive
+# Treibstoffzuschlag", the live page since 26 November 2026).
+INCLUDED = set()
 # The editions: the fetched page for each, the earliest first within a year.
 EDITIONS = [("2025", "frs-elbe-trucks-2025"), ("2026", "frs-elbe-trucks-2026-01"), ("2026", "frs-elbe-trucks")]
 FUEL = ["frs-elbe-fuel-2026-03", "frs-elbe-fuel-2026-05", "frs-elbe-fuel-2026-09", "frs-elbe-fuel"]
@@ -87,6 +103,8 @@ def fares(name, t):
         sys.exit(f"Elbfähre: {name}: the trucks' fares not found")
     if not m.group(1):
         UNTIL_ONLY.add(name)
+    if "*Inklusive Treibstoffzuschlag" in t:
+        INCLUDED.add(name)
     year, body = m.group(2), m.group(3)
     rows = [(float(a.replace(",", ".")), eur(n), eur(g)) for a, n, g in re.findall(r"Länge bis (\d+,\d\d) m " + EUR + " " + EUR, body)]
     if [r[0] for r in rows] != [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18.35]:
@@ -149,17 +167,17 @@ def main(fetched, out):
             # The fares read earlier, before the live page's.
             for day, r in sorted(RECORDED.items()):
                 if r[0] == y:
-                    eds.append((day, f"{y}-12-31", r))
+                    eds.append((day, f"{y}-12-31", r, day in RECORDED_INCLUDED, day in RECORDED_UNTIL_ONLY))
         if eds and eds[-1][2][0] == y:
             if f[1:] == eds[-1][2][1:]:
                 continue  # the live page still gives the earlier fares
             if y not in FIRST_READ:
                 sys.exit(f"Elbfähre: the {y} fares changed: add the day they were first read to FIRST_READ")
-            eds.append((FIRST_READ[y], f"{y}-12-31", f))
+            eds.append((FIRST_READ[y], f"{y}-12-31", f, sid in INCLUDED, sid in UNTIL_ONLY))
         else:
-            eds.append((f"{y}-01-01", f"{y}-12-31", f))
+            eds.append((f"{y}-01-01", f"{y}-12-31", f, sid in INCLUDED, sid in UNTIL_ONLY))
     # The live page's fares for a year with FIRST_READ must still be those first read.
-    days = sorted({a for a, _, _ in eds} | {d for d, _ in fuels})
+    days = sorted({e[0] for e in eds} | {d for d, _ in fuels})
     lines, permit = lines_of(osm)
     pos = port_places(osm, lines, PORTS)
     if set(pos) != set(PORTS):
@@ -171,11 +189,12 @@ def main(fetched, out):
         ed = [e for e in eds if e[0] <= day <= e[1]]
         if not ed:
             continue
-        a, b, (year, bands, per, mx, load) = ed[-1]
+        a, b, (year, bands, per, mx, load), included, until_only = ed[-1]
         nxt = next((d for d in days[k + 1:]), None)
         until = min(b, (datetime.date.fromisoformat(nxt) - datetime.timedelta(days=1)).isoformat()) if nxt else b
-        sur = ([s for d, s in fuels if d <= day] or [0])[-1]
+        gross = ([s for d, s in fuels if d <= day] or [0])[-1]
         since = ([d for d, s in fuels if d <= day] or [None])[-1]
+        sur = 0 if included else round(gross / 1.19, 2)
         groups, prices, lo = [], {}, 0
         for hi, net in bands:
             g = f"up to {hi:g} m" if lo == 0 else f"{lo:g}-{hi:g} m"
@@ -199,13 +218,13 @@ def main(fetched, out):
         src = ("the Internet Archive's copy of 8 November 2026" if a == f"{year}-01-01" and year in FIRST_READ
                else "the page as read on " + a + ", recorded" if a in RECORDED
                else "the page as read on " + a if year in FIRST_READ else "the Internet Archive's copy of 10 November 2025" if year == "2025" else "the page")
-        valid = (f"valid until 31 December {year}" if a == FIRST_READ.get(year) and "frs-elbe-trucks" in UNTIL_ONLY
-                 else f"valid 1 January to 31 December {year}")
+        valid = f"valid until 31 December {year}" if until_only else f"valid 1 January to 31 December {year}"
         law = (f"FRS Elbfähre's fares for trucks and cargo, {valid} ({src}): a truck, unloaded and without its driver, "
                "net of 19% VAT, by its length over all: " + ", ".join(f"to {hi:g} m EUR {net:.2f}" for hi, net in bands)
                + f", each further metre (overhanging ones too) EUR {per:.2f}, at most {mx:g} m; the load by weight, EUR {load:.2f} per started 1,000 kg. "
                + ("The page's net prices up to " + ", ".join(f"{x:g}" for x in fixed) + " m don't match its gross ones; those are taken as gross / 1.19. " if fixed else "")
-               + (f"Plus the fuel surcharge per truck of EUR {sur:.2f} (as of {since}; the page gives one amount, taken as published). " if sur else "")
+               + (f"Plus the fuel surcharge per truck, EUR {gross:.2f} gross (as of {since}), EUR {sur:.2f} net. " if sur else "")
+               + ("The fares include the fuel surcharge (" + ("\"Inklusive Treibstoffzuschlag\"" if a == FIRST_READ.get(year) else "January's plus a surcharge state's net, to the cent") + "), so it isn't added. " if included else "")
                + "The driver's own fare (adults \"from\" EUR 3.40) isn't added, nor the surcharges for over 2.50 m wide (30%) or dangerous goods, "
                  "nor the frequent travellers' discounts. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line."
                + "".join(f" {x}." for x in notes))

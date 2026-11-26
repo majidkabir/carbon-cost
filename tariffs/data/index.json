@@ -628,7 +628,7 @@
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-03-23",
    "valid_to": "2026-05-05",
-   "sha256": "d315f9d36fe6842c7d8291a4356d04564ed78c0fc656abe25257dd047b5dc812",
+   "sha256": "25d668498395187487eae76abbda9fc72ec2dc88a5f3f6155dab205e237b8ee7",
    "coverage": "complete"
   },
   {
@@ -639,7 +639,7 @@
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-05-06",
    "valid_to": "2026-09-16",
-   "sha256": "26fa3fdc536cc6a2d9c8ada12dbd0fb73969a90c764a7b271a202ea179c1de4a",
+   "sha256": "11a0b0cbc0bc8fd29e6d8046fc4311403a8812f1ec12d64658fe749ebec47cbe",
    "coverage": "complete"
   },
   {
@@ -650,7 +650,7 @@
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-09-17",
    "valid_to": "2026-11-18",
-   "sha256": "d03919653df1520d3bee7435457a82ccd065640e9e20e280eae44393dc8cc5bd",
+   "sha256": "a1673b9328a302154c8aba92b74d330aac4a6ee04e224b7d0cca6fa51bc90c01",
    "coverage": "complete"
   },
   {
@@ -661,7 +661,7 @@
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-11-19",
    "valid_to": "2026-11-22",
-   "sha256": "2cf0a04790a2e7763749ed2f963457d1423600fca943f4982000c3383f237158",
+   "sha256": "06fa32737b26d6cccb9ce0c801e18696717ebd3b65647cac3843155e919d3ec0",
    "coverage": "complete"
   },
   {
@@ -672,7 +672,7 @@
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-11-23",
    "valid_to": "2026-11-24",
-   "sha256": "d45d61c6a1ac6ac408b15cbc7b7ce04728ab0076ab0048da9e8cf9dde3e8dcc1",
+   "sha256": "9ef511a91fc8b397423d64cf91a73b4ed6a794878a0fa2f640886ddd17a52b71",
    "coverage": "complete"
   },
   {
@@ -682,8 +682,19 @@
    "file": "de/de-elbfaehre-2026-11-25.orct.json",
    "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
    "valid_from": "2026-11-25",
+   "valid_to": "2026-11-25",
+   "sha256": "c9fe9a1fe34b32b31fddcbf78536a98f1cd6f5207ef47e6231ec7de9e1fa7c91",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/de-elbfaehre/2026-11-26",
+   "scheme": "de-elbfaehre",
+   "country": "DE",
+   "file": "de/de-elbfaehre-2026-11-26.orct.json",
+   "name": "Elbe ferry Glückstadt–Wischhafen (FRS Elbfähre), trucks and their load",
+   "valid_from": "2026-11-26",
    "valid_to": "2026-12-31",
-   "sha256": "3d8092a0d9e279088b0126d2195b16c02d42b676a508a0d4f0d1d4a8e8ea9d09",
+   "sha256": "5a62497657fb99e530bd08ddfb89f4638b895f4377bd84392326ec24f8703c56",
    "coverage": "complete"
   },
   {
@@ -1111,8 +1122,19 @@
    "file": "dk/scandlines-2026-11-01.orct.json",
    "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
    "valid_from": "2026-11-01",
+   "valid_to": "2026-11-30",
+   "sha256": "2b972612022199b052655d368744271229bd844beff8737960c20d3db96dd018",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/scandlines/2026-12-01",
+   "scheme": "scandlines",
+   "country": "DK",
+   "file": "dk/scandlines-2026-12-01.orct.json",
+   "name": "Scandlines' ferries Puttgarden–Rødby and Rostock–Gedser and Øresundslinjen's Helsingør–Helsingborg, trucks",
+   "valid_from": "2026-12-01",
    "valid_to": null,
-   "sha256": "3ac43dd76089927f3e805fd8c1b4aab7da3674b96f6969c4c9191847533252e3",
+   "sha256": "2f67046fc98d5c5ef6de368daa92cbeec1a95b3d2e7761c9428df2f9c4133255",
    "coverage": "complete"
   },
   {
@@ -1432,6 +1454,17 @@
    "valid_from": "2026-01-01",
    "valid_to": "2026-12-31",
    "sha256": "d94c6af3645ea90b0518b7f517bf8ac1bc6648d0be63d9ad5cb7e9c11daafe63",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/fuelco2-fi/2027-01-01",
+   "scheme": "fuelco2-fi",
+   "country": "FI",
+   "file": "fi/fuelco2-fi-2027-01-01.orct.json",
+   "name": "Hiilidioksidivero on diesel oil",
+   "valid_from": "2027-01-01",
+   "valid_to": "2027-12-31",
+   "sha256": "e20848b234afaacba6e218721727c7b72454e0debdc3f40d5a80875dcac52f4e",
    "coverage": "complete"
   },
   {
@@ -1771,8 +1804,19 @@
    "file": "gb/zone-gb-congestion-charge-2026-01-02.orct.json",
    "name": "London Congestion Charge",
    "valid_from": "2026-01-02",
+   "valid_to": "2030-03-03",
+   "sha256": "8bd018dfe837951353354bc11b6f56dc5976a5a3b6aadff606e024f1ff5429a9",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/zone-gb-congestion-charge/2030-03-04",
+   "scheme": "zone-gb-congestion-charge",
+   "country": "GB",
+   "file": "gb/zone-gb-congestion-charge-2030-03-04.orct.json",
+   "name": "London Congestion Charge",
+   "valid_from": "2030-03-04",
    "valid_to": null,
-   "sha256": "47b75a20f0d0afefde85e5c6c86d8fd0344af1df478b81921e04956f7554cc2b",
+   "sha256": "46bbd313884c0fc9504af017ea2541ded0a6b993c0198dba2aea0502ff2a615a",
    "coverage": "complete"
   },
   {
@@ -3169,7 +3213,7 @@
    "name": "Serbian motorway toll (putarina)",
    "valid_from": "2026-07-01",
    "valid_to": null,
-   "sha256": "0809b5af3005ac3776a6284a08287538a7671337abb9913b5cbf8065207fe91b",
+   "sha256": "1ac8622438c9b92371b47ec6ad16329902e1d2dab27094a9af89df1afa775eb1",
    "coverage": "complete"
   },
   {

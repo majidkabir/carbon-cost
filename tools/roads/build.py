@@ -47,6 +47,8 @@ TWIN_M, GAP_KM, END_M, BRIDGE_M = 60, 10, 30, 60
 # A road whose toll sections OSM has for this share of annex 1's km (both
 # carriageways of an M road): its other ways are left out.
 COVERED = 0.9
+# Roads whose chains the build lists (ROADS_DEBUG="21,4").
+DEBUG_ROADS = set(filter(None, os.environ.get("ROADS_DEBUG", "").split(",")))
 # mw: the motorway class of the toll law; nat: the national roads.
 RULES = {
     # Czechia, NV 240/2014: dálnice (D) vs silnice I. třídy.
@@ -566,6 +568,10 @@ def place_pending(h, cc, city=None):
             if a is None:
                 continue
             ma, mb = near(road, a, END_M), near(road, b, END_M)
+            if road in DEBUG_ROADS:
+                ll = lambda p: f"{p[1] / 111_320:.5f},{p[0] / kx:.5f}"
+                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], ll(b), mb and mb[3],
+                      "joined" if ma and mb and ma[3] != mb[3] and joined(*sorted((ma[3], mb[3]), key=lambda e: span[e][1])) is not None else "")
             if not (ma and mb) or ma[3] == mb[3]:
                 continue
             x, y = sorted((ma[3], mb[3]), key=lambda e: span[e][1])

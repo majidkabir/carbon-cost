@@ -453,7 +453,9 @@ class Ways(osmium.SimpleHandler):
         # One carriageway: a oneway way (a motorway's) counts half.
         one = 0.5 if tags.get("oneway") == "yes" or tags.get("highway") == "motorway" else 1
         for r in refs:
-            if re.match(self.rule[c], r):
+            # A class I road the law doesn't list sharing a tolled way
+            # isn't tolled on it.
+            if re.match(self.rule[c], r) and (c == "mw" or r in self.law_refs):
                 self.ref_km[r] += cz_myto.length_m(coords) / 1000 * one
 
     def add(self, c, f, coords, tags, suffix=None):

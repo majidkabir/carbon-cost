@@ -6,7 +6,7 @@ know is tolled when both its ends meet tolled ways of its class.
 
 Usage: python3 test_cz.py
 """
-import base64, gzip, hashlib, json, os, sys, tempfile, zlib
+import gzip, hashlib, json, os, sys, tempfile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build  # noqa: E402
@@ -64,18 +64,23 @@ def main():
     os.replace(os.path.join(d, "cz-samples.json.gz"), cz_myto.SAMPLES)
     doc = json.load(gzip.open(cz_myto.SAMPLES))
     sampled = {w[0] for w in doc["ways"]}
-    bits, k = bytearray(sum(w[2] for w in doc["ways"]) // 8 + 1), 0
+    bits = []
     for wid, c, n, xy in doc["ways"]:
         x = 0
         for i in range(n):
             x += xy[2 * i]
-            if tolled(wid, (x / 1e5 - LON0) / KM):
-                bits[k >> 3] |= 1 << (k & 7)
-            k += 1
+            bits.append(tolled(wid, (x / 1e5 - LON0) / KM))
+    runs, cur, n = [], False, 0
+    for b in bits:
+        if b == cur:
+            n += 1
+        else:
+            runs.append(n)
+            cur, n = b, 1
+    runs.append(n)
     raw = open(cz_myto.SAMPLES, "rb").read()
-    c = zlib.compressobj(9, zlib.DEFLATED, -15)
-    json.dump({"url": "test", "date": "2026-11-27", "samples_sha256": hashlib.sha256(raw).hexdigest(), "points": k,
-               "bits": base64.b64encode(c.compress(bytes(bits)) + c.flush()).decode()}, open(cz_myto.CAPTURE, "w"))
+    json.dump({"url": "test", "date": "2026-11-27", "samples_sha256": hashlib.sha256(raw).hexdigest(), "points": len(bits),
+               "runs": ",".join(map(str, runs))}, open(cz_myto.CAPTURE, "w"))
     osm(src, True)
     build.main("CZ", src, dst)
     out = json.load(gzip.open(dst))

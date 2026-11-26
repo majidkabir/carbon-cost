@@ -14,16 +14,16 @@ map is read at points of OpenStreetMap's ways:
 2. In a browser tab on https://myto.gov.cz/cs/vymezene-useky-silnic/mapy
    (Claude in Chrome), cz_myto.js reads the map at each point: tolled
    where the layer of its class is drawn there.
-3. The answer, the points' bits, goes in tools/tables/browser/
-   cz-myto-wms.json with the URL and date, and the samples file in
-   tools/roads/cz-samples.json.gz; build.py then keeps only the tolled
-   parts of each way.
+3. The answer, the points' tolled and untolled runs, goes in
+   tools/tables/browser/cz-myto-wms.json with the URL and date, and the
+   samples file in tools/roads/cz-samples.json.gz; build.py then keeps
+   only the tolled parts of each way.
 
 Ways OpenStreetMap added since the samples were taken (other ids) are
 tolled when both their ends meet tolled ways of their class, else not;
 build.py reports their km, and each road's tolled km against the law's.
 """
-import base64, gzip, hashlib, json, math, os, zlib
+import gzip, hashlib, json, math, os
 
 STEP_M = 100
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -97,12 +97,12 @@ def load():
     if hashlib.sha256(raw).hexdigest() != cap["samples_sha256"]:
         raise SystemExit("CZ: tools/tables/browser/cz-myto-wms.json is for another cz-samples.json.gz")
     doc = json.loads(gzip.decompress(raw))
-    data = zlib.decompress(base64.b64decode(cap["bits"]), -15)
+    # The points' runs, untolled first: 0,9,6 is 9 tolled points then 6 not.
+    bits = [i % 2 == 1 for i, n in enumerate(int(x) for x in cap["runs"].split(",")) for _ in range(n)]
+    if len(bits) != cap["points"] or len(bits) != sum(w[2] for w in doc["ways"]):
+        raise SystemExit(f"CZ: the capture has {len(bits)} points, the samples {sum(w[2] for w in doc['ways'])}")
     out, k = {}, 0
     for wid, c, n, _ in doc["ways"]:
-        bits = [bool(data[(k + i) >> 3] >> ((k + i) & 7) & 1) for i in range(n)]
+        out[wid] = [(a / n, b / n) for a, b in runs(bits[k:k + n])]
         k += n
-        out[wid] = [(a / n, b / n) for a, b in runs(bits)]
-    if k != cap["points"]:
-        raise SystemExit(f"CZ: the capture has {cap['points']} points, the samples {k}")
     return out

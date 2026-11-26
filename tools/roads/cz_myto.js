@@ -3,7 +3,8 @@
 // https://myto.gov.cz/cs/vymezene-useky-silnic/mapy, whose map draws the
 // layers from /geoserver/entc/wms: czMyto(url of the samples file) starts
 // it; window.czMytoState gives its progress and, when done, the result
-// for tools/tables/browser/cz-myto-wms.json.
+// for tools/tables/browser/cz-myto-wms.json; czMytoShow() then writes it
+// in the page, whose text the browser tool reads whole.
 //
 // A point is tolled where its class's layer is drawn (alpha over 64) at its
 // pixel or a neighbour, in maps of SIZE pixels at M_PER_PX: the lines are
@@ -58,13 +59,24 @@ async function czMyto(samplesUrl) {
     }
     let next = 0;
     await Promise.all(Array.from({length: WORKERS}, async () => { while (next < keys.length) await tile(keys[next++]); }));
-    const z = new Uint8Array(await new Response(new Blob([bits]).stream().pipeThrough(new CompressionStream('deflate-raw'))).arrayBuffer());
-    let s = '';
-    for (const b of z) s += String.fromCharCode(b);
-    let on = 0;
-    for (let i = 0; i < pts.length; i++) on += bits[i >> 3] >> (i & 7) & 1;
-    st.result = {osm_extract: doc.osm_extract, samples_sha256: sha, layers: doc.layers, m_per_px: M_PER_PX, points: pts.length, tolled: on, maps: keys.length, bits: btoa(s)};
+    // Runs of untolled and tolled points, untolled first.
+    const runs = [];
+    let cur = 0, len = 0, on = 0;
+    for (let i = 0; i < pts.length; i++) {
+      const v = bits[i >> 3] >> (i & 7) & 1;
+      on += v;
+      if (v === cur) len++;
+      else { runs.push(len); cur = v; len = 1; }
+    }
+    runs.push(len);
+    st.result = {osm_extract: doc.osm_extract, samples_sha256: sha, layers: doc.layers, m_per_px: M_PER_PX, points: pts.length, tolled: on, maps: keys.length, runs: runs.join(',')};
   } catch (e) {
     st.error = String(e);
   }
+}
+
+function czMytoShow() {
+  const pre = document.createElement('pre');
+  pre.textContent = JSON.stringify(window.czMytoState.result);
+  document.body.replaceChildren(pre);
 }

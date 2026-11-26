@@ -1065,6 +1065,7 @@ type pointPass struct {
 	ch    *orct.Charge
 	leg   int
 	pos   float64
+	dist  float64 // the route's distance from it
 	dir   float64 // the route's heading there
 	at    time.Time
 	timed bool
@@ -1126,21 +1127,39 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 				if pts[0].Heading != nil && math.Abs(math.Mod(ps.heading-*pts[0].Heading+540, 360)-180) > 90 {
 					continue
 				}
-				passes = append(passes, pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dir: ps.heading})
+				passes = append(passes, pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dist: ps.dist, dir: ps.heading})
 			}
 		}
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	// Points of one name passed within a km on one leg the same way are
-	// one passage (a toll point's objects either way); on another leg, or
-	// on the way back from a U-turn, another.
-	last := map[string]pointPass{}
+	same := func(a, b float64) bool { return math.Abs(math.Mod(a-b+540, 360)-180) < 90 }
+	// Points of other names at the same spot of the route, passed the
+	// same way (two records of one station, the gantry of a road beside
+	// it), are one passage: the nearest, or on a near tie the one that
+	// names its direction.
+	var kept []pointPass
 	for _, ps := range passes {
-		key := fmt.Sprint(ps.leg, ps.obj.Name)
-		if l, ok := last[key]; ok && ps.pos-l.pos < 1 && math.Abs(math.Mod(ps.dir-l.dir+540, 360)-180) < 90 {
+		if n := len(kept); n > 0 {
+			k := &kept[n-1]
+			if ps.obj.Name != k.obj.Name && ps.pos-k.pos < 0.05 && same(ps.dir, k.dir) {
+				named := func(x pointPass) bool { return pointsOf(x.obj)[0].Heading != nil }
+				if ps.dist < k.dist-0.005 || math.Abs(ps.dist-k.dist) <= 0.005 && named(ps) && !named(*k) {
+					*k = ps
+				}
+				continue
+			}
+		}
+		kept = append(kept, ps)
+	}
+	// Points of one name passed within a km the same way are one passage
+	// (a toll point's objects either way, a leg ending by it and the next
+	// going on); the other way (there and back), another.
+	last := map[string]pointPass{}
+	for _, ps := range kept {
+		if l, ok := last[ps.obj.Name]; ok && ps.pos-l.pos < 1 && same(ps.dir, l.dir) {
 			continue
 		}
-		last[key] = ps
+		last[ps.obj.Name] = ps
 		ps.at, ps.timed = p.at(ds, ps.pos, country)
 		if ps.ch.Component == "congestion" && !ps.timed {
 			if p.chargedOn(ds, ps.obj.ID) {

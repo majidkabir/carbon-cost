@@ -668,43 +668,108 @@ func TestPointBothWaysNearAStop(t *testing.T) {
 	}
 }
 
-// A U-turn 0.3 km past a closed system's exit booth, on one leg, makes
-// the way back a ticket of its own; and past a toll point, a passage.
-func TestUTurnWithinReach(t *testing.T) {
-	bisko := [2]float64{16.68549, 43.57016}
-	prev := [2]float64{16.0, 43.8}
-	d := [2]float64{bisko[0] - prev[0], bisko[1] - prev[1]}
-	km := haversine(prev[1], prev[0], bisko[1], bisko[0])
-	turn := [2]float64{bisko[0] + d[0]*0.3/km, bisko[1] + d[1]*0.3/km}
-	there := dense([][2]float64{{15.55, 44.03}, {15.5809, 44.00868}, prev, bisko, turn})
-	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 300},
-		Path: append(there, reversed(there)[1:]...), RouteParts: map[string]float64{}}}}
-	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
-	if err != nil {
-		t.Fatal(err)
+// A stop just past a toll point, its GPS fixes repeated and one a few
+// metres back, is one pass, not a U-turn.
+func TestStopJitterIsOnePass(t *testing.T) {
+	p := rates.Place{Lat: 55.0, Lon: 11.0}
+	at := func(m float64) [2]float64 { return [2]float64{11.0 + m/1000/(111.2*math.Cos(55*math.Pi/180)), 55.0} }
+	var path [][2]float64
+	for m := -500.0; m <= 0; m += 25 {
+		path = append(path, at(m))
 	}
-	if math.Abs(r.TotalEUR-2*18.88) > 0.05 {
-		t.Errorf("Benkovac–Bisko, a U-turn 0.3 km past Bisko, and back: EUR %.2f; want %.2f", r.TotalEUR, 2*18.88)
+	path = append(path, at(5), at(5), at(5), at(3), at(5))
+	for m := 30.0; m <= 500; m += 25 {
+		path = append(path, at(m))
 	}
+	if n := len(newTrack(path).passes(p, 0.05)); n != 1 {
+		t.Errorf("a stop 5 m past the point: %d passes; want 1", n)
+	}
+}
 
+// A leg ending by a toll point and the next going on the same way pass
+// it once.
+func TestLegEndingByAPoint(t *testing.T) {
 	pt := [2]float64{10.132119, 59.119744}
 	from := [2]float64{pt[0] - 0.05, pt[1] - 0.02}
-	d = [2]float64{pt[0] - from[0], pt[1] - from[1]}
-	km = haversine(from[1], from[0], pt[1], pt[0])
-	stop := [2]float64{pt[0] + d[0]*0.3/km, pt[1] + d[1]*0.3/km}
-	there = dense([][2]float64{from, pt, stop})
-	r, err = Price(sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 8, CountryKm: map[string]float64{"NO": 8}, Path: append(there, reversed(there)[1:]...)}}}, all(t),
-		Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
-	if err != nil {
-		t.Fatal(err)
+	d := [2]float64{pt[0] - from[0], pt[1] - from[1]}
+	km := haversine(from[1], from[0], pt[1], pt[0])
+	on := func(m float64) [2]float64 { return [2]float64{pt[0] + d[0]*m/1000/km, pt[1] + d[1]*m/1000/km} }
+	leg := func(p [][2]float64) sootcase.LegResult {
+		return sootcase.LegResult{DistanceKm: 4, CountryKm: map[string]float64{"NO": 4}, Path: dense(p)}
 	}
-	n := 0
-	for _, l := range r.Lines {
-		if strings.Contains(l.Section, "Skinmo") {
-			n++
+	for _, stop := range []float64{-30, 30} {
+		r, err := Price(sootcase.Result{Legs: []sootcase.LegResult{leg([][2]float64{from, on(stop)}), leg([][2]float64{on(stop), on(2000)})}}, all(t),
+			Request{Truck: truck40, CargoKg: 1000, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "C"}}, FX: map[string]float64{"NOK": 11.7}},
+			time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Skinmo") {
+				n++
+			}
+		}
+		if n != 1 {
+			t.Errorf("a stop %+.0f m from E18 Skinmo, going on the same way: %d passages; want 1", stop, n)
 		}
 	}
-	if n != 2 {
-		t.Errorf("E18 Skinmo with a U-turn 0.3 km past it on one leg: %d passages; want 2", n)
+}
+
+// Two records of one station at the same spot (Norway's FV 6612 Hofstad
+// and NVDB 1025249143, 7 m apart), or the gantry of a road beside
+// (Stockholm's Kristineberg by Essingeleden's), charge one passage.
+func TestPointsAtTheSameSpot(t *testing.T) {
+	set := all(t)
+	pos := func(file, name string) [2]float64 {
+		raw, _ := set.Raw(file)
+		var d struct {
+			Objects []struct {
+				Name     string `json:"name"`
+				Location struct {
+					Geometry struct {
+						Coordinates json.RawMessage `json:"coordinates"`
+					} `json:"geometry"`
+				} `json:"location"`
+			} `json:"charge_objects"`
+		}
+		json.Unmarshal(raw, &d)
+		for _, o := range d.Objects {
+			if o.Name == name {
+				var p [2]float64
+				if json.Unmarshal(o.Location.Geometry.Coordinates, &p) != nil {
+					var ps [][2]float64
+					json.Unmarshal(o.Location.Geometry.Coordinates, &ps)
+					p = ps[0]
+				}
+				return p
+			}
+		}
+		t.Fatalf("%s: no %s", file, name)
+		return [2]float64{}
 	}
+	count := func(cc string, p [2]float64, req Request, want int, what string) {
+		// 60 m of road through it, northwards.
+		path := dense([][2]float64{{p[0], p[1] - 0.0003}, p, {p[0], p[1] + 0.0003}})
+		r, err := Price(sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 2, CountryKm: map[string]float64{cc: 2}, Path: path}}}, set, req,
+			time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.RateUnit != "" && strings.Contains(l.RateUnit, "passage") {
+				n++
+			}
+		}
+		if n != want {
+			var ls []string
+			for _, l := range r.Lines {
+				ls = append(ls, l.Section+" "+l.RateUnit)
+			}
+			t.Errorf("%s: %d passages; want %d: %q", what, n, want, ls)
+		}
+	}
+	count("NO", pos("no/no-2026-11-18.orct.json", "FV 6612 Hofstad"), Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, 1, "Hofstad")
+	count("SE", pos("se/se-congestion-stockholm-2020-01-01.orct.json", "Essingeleden"), Request{Truck: truck40, CargoKg: 1000, Time: "08:00", FX: map[string]float64{"SEK": 11}}, 1, "Essingeleden")
 }

@@ -242,3 +242,29 @@ func TestOwnPathRegionsByDay(t *testing.T) {
 		t.Errorf("Flanders: lines' km %v of %v, its 2026 table used: %v", km, r.RegionKm, vlg2026)
 	}
 }
+
+// A ferry Sootcase's route takes that the ferry data doesn't know is a
+// ferry on the path too, where the path goes its way (Kalundborg–Ballen):
+// not road km.
+func TestOwnPathUnknownFerry(t *testing.T) {
+	ix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	route := [][2]float64{{11.20, 55.70}, {11.088, 55.679}, {10.646, 55.818}, {10.60, 55.83}}
+	km := func(p [][2]float64) float64 { return pathKm(p) }
+	road1, sea, road2 := km(route[:2]), km(route[1:3]), km(route[2:])
+	soot := sootcase.LegResult{DistanceKm: road1 + sea + road2, TTWKg: 80, Path: route, RouteParts: map[string]float64{"ferry": sea, "road": road1 + road2},
+		Parts: []sootcase.Part{{Kind: "road", DistanceKm: road1, TTWKg: 5}, {Kind: "ferry", DistanceKm: sea, TTWKg: 70}, {Kind: "road", DistanceKm: road2, TTWKg: 5}}}
+	res := sootcase.Result{Legs: []sootcase.LegResult{soot}}
+	path := dense(route)
+	ownPath(ix, &fd, &res, path)
+	l := res.Legs[0]
+	if math.Abs(l.RouteParts["ferry"]-sea) > 1 || l.CountryKm["DK"] > road1+road2+1 {
+		t.Errorf("ferry %.1f km (want %.1f), DK %.1f km (want %.1f)", l.RouteParts["ferry"], sea, l.CountryKm["DK"], road1+road2)
+	}
+}

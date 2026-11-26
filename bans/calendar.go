@@ -4,6 +4,7 @@ import (
 	"embed"
 	"encoding/json"
 	"slices"
+	"sync"
 	"time"
 )
 
@@ -79,9 +80,36 @@ func init() {
 	}
 }
 
+// calendarAll caches each calendar country's windows, all its decrees'
+// days, by country and zone, in order: built once, not for each stretch
+// of a route.
+var calendarAll sync.Map // country + zone -> []Window
+
 // calendarWindows are a calendar country's windows from to to; none for a
 // year whose decree isn't in.
 func calendarWindows(country string, from, to time.Time, loc *time.Location) []Window {
+	key := country + "|" + loc.String()
+	v, ok := calendarAll.Load(key)
+	if !ok {
+		all := allCalendarWindows(country, loc)
+		slices.SortStableFunc(all, func(a, b Window) int { return a.From.Compare(b.From) })
+		v, _ = calendarAll.LoadOrStore(key, all)
+	}
+	all := v.([]Window)
+	// A window lasts a few days at most: from those starting a week
+	// before.
+	i, _ := slices.BinarySearchFunc(all, from.Add(-7*24*time.Hour), func(w Window, t time.Time) int { return w.From.Compare(t) })
+	var out []Window
+	for ; i < len(all) && all[i].From.Before(to); i++ {
+		if all[i].To.After(from) {
+			out = append(out, all[i])
+		}
+	}
+	return out
+}
+
+// allCalendarWindows are all of a calendar country's decrees' windows.
+func allCalendarWindows(country string, loc *time.Location) []Window {
 	var out []Window
 	for _, c := range calendars[country] {
 		r := calendarRules[country]
@@ -106,10 +134,7 @@ func calendarWindows(country string, from, to time.Time, loc *time.Location) []W
 				rr.Listed, rr.Note, rr.Roads = true, d.Note, d.Roads
 			}
 			for _, day := range days {
-				w := Window{Rule: rr, From: at(day, d.From), To: at(day, d.To)}
-				if w.To.After(from) && w.From.Before(to) {
-					out = append(out, w)
-				}
+				out = append(out, Window{Rule: rr, From: at(day, d.From), To: at(day, d.To)})
 			}
 		}
 	}

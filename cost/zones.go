@@ -21,6 +21,8 @@ var zones = map[string]string{
 	"FO": "Atlantic/Faroe", "BY": "Europe/Minsk", "MC": "Europe/Monaco", "SM": "Europe/San_Marino",
 	"VA": "Europe/Vatican", "GI": "Europe/Gibraltar", "MT": "Europe/Malta", "CY": "Asia/Nicosia",
 	"RU": "Europe/Moscow", "GE": "Asia/Tbilisi", "AM": "Asia/Yerevan", "AZ": "Asia/Baku",
+	"MA": "Africa/Casablanca", "DZ": "Africa/Algiers", "TN": "Africa/Tunis", "IM": "Europe/Isle_of_Man",
+	"JE": "Europe/Jersey", "GG": "Europe/Guernsey",
 }
 
 // zone is the country's time zone, UTC if not known.

@@ -31,7 +31,14 @@ func Route(ix *borders.Index, path [][2]float64, fd *ferries.Data) []Run {
 	if ix == nil || len(path) < 2 {
 		return nil
 	}
-	spans := ferrySpans(path, fd)
+	return routeSpans(ix, path, ferrySpans(path, fd))
+}
+
+// routeSpans is Route with the ferries' stretches given (index spans).
+func routeSpans(ix *borders.Index, path [][2]float64, spans [][2]int) []Run {
+	if ix == nil || len(path) < 2 {
+		return nil
+	}
 	onFerry := func(k int) bool {
 		for _, s := range spans {
 			if k >= s[0] && k < s[1] {

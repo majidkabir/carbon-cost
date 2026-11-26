@@ -548,3 +548,17 @@ func TestGermanTrailerBan(t *testing.T) {
 		t.Errorf("DE, a 5 t truck without a trailer: banned")
 	}
 }
+
+// A calendar country's windows are built once, not for each stretch of a
+// route: ten thousand lookups take little time.
+func TestCalendarWindowsCached(t *testing.T) {
+	mad, _ := time.LoadLocation("Europe/Madrid")
+	from := time.Date(2026, 7, 1, 0, 0, 0, 0, mad)
+	t0 := time.Now()
+	for i := 0; i < 10000; i++ {
+		Windows("ES", 40000, 0, from, from.Add(48*time.Hour), mad)
+	}
+	if d := time.Since(t0); d > 3*time.Second {
+		t.Errorf("10,000 lookups in %v", d)
+	}
+}

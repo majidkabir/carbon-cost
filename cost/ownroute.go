@@ -5,6 +5,7 @@ import (
 	"math"
 	"regexp"
 	"slices"
+	"sort"
 	"strings"
 
 	"github.com/majidkabir/carbon-cost/ferries"
@@ -207,7 +208,9 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 			}
 		}
 		var stretches []int // parts that are road, for their shares
-		spans := ferrySpans(seg, fd)
+		// The ferries: those of fd the path takes, and Sootcase's own
+		// where the path goes the same way (a crossing fd doesn't know).
+		spans := mergeSpans(seg, append(ferrySpans(seg, fd), sootFerrySpans(l.Path, l.DistanceKm, l.Parts, seg)...))
 		km := round3(pathKm(seg))
 		l.DistanceKm, l.Path = km, seg
 		l.CountryKm, l.RegionKm = map[string]float64{}, nil
@@ -273,7 +276,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		// Sootcase's country sections, main roads and driving time are its
 		// route's: the path's own sections, by the same borders; its roads
 		// aren't known, and its time is its km at avg_speed_kmh.
-		l.CountrySections, l.Summary, l.DurationH = sectionsOf(ix, Route(ix, seg, fd)), nil, 0
+		l.CountrySections, l.Summary, l.DurationH = sectionsOf(ix, routeSpans(ix, seg, spans)), nil, 0
 		ownKm += km
 	}
 	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", given, ownKm, sootKm))
@@ -309,6 +312,71 @@ func compactPath(path [][2]float64, minKm float64) [][2]float64 {
 
 // sectionsOf are a path's runs as country sections, as Sootcase gives
 // them: each country's stretch in order, ferries apart.
+// sootFerrySpans are the stretches of path on Sootcase's ferry parts of
+// its leg (route, parts): each part's ends along Sootcase's route, where
+// the path passes them (within 3 km) and goes half its way between.
+func sootFerrySpans(route [][2]float64, legKm float64, parts []sootcase.Part, path [][2]float64) [][2]int {
+	if len(route) < 2 || len(path) < 2 {
+		return nil
+	}
+	cum := make([]float64, len(route))
+	for i := 1; i < len(route); i++ {
+		cum[i] = cum[i-1] + haversine(route[i-1][1], route[i-1][0], route[i][1], route[i][0])
+	}
+	var total float64
+	for _, p := range parts {
+		total += p.DistanceKm
+	}
+	// Parts that are the whole leg, in order, place it on the route.
+	if total <= 0 || cum[len(cum)-1] <= 0 || math.Abs(total-legKm) > 0.1*legKm {
+		return nil
+	}
+	scale := cum[len(cum)-1] / total // the parts' km on the route's line
+	pointAt := func(km float64) ferries.Point {
+		i := sort.SearchFloat64s(cum, km)
+		switch {
+		case i <= 0:
+			return ferries.Point{Lon: route[0][0], Lat: route[0][1]}
+		case i >= len(cum):
+			return ferries.Point{Lon: route[len(route)-1][0], Lat: route[len(route)-1][1]}
+		}
+		f := 0.0
+		if d := cum[i] - cum[i-1]; d > 0 {
+			f = (km - cum[i-1]) / d
+		}
+		a, b := route[i-1], route[i]
+		return ferries.Point{Lon: a[0] + f*(b[0]-a[0]), Lat: a[1] + f*(b[1]-a[1])}
+	}
+	var out [][2]int
+	at := 0.0
+	for _, p := range parts {
+		if p.Kind == "ferry" && p.DistanceKm >= 0.5 {
+			t0, t1 := pointAt(at*scale), pointAt((at+p.DistanceKm)*scale)
+			a, b := nearestIndex(path, t0), nearestIndex(path, t1)
+			near := func(i int, t ferries.Point) bool { return haversine(path[i][1], path[i][0], t.Lat, t.Lon) <= 3 }
+			if k := pathKm(path[a : b+1]); a < b && near(a, t0) && near(b, t1) && k >= p.DistanceKm/2 && k <= 1.5*p.DistanceKm+2 {
+				out = append(out, [2]int{a, b})
+			}
+		}
+		at += p.DistanceKm
+	}
+	return out
+}
+
+// mergeSpans are spans in order, those that overlap or touch as one.
+func mergeSpans(path [][2]float64, spans [][2]int) [][2]int {
+	slices.SortFunc(spans, func(a, b [2]int) int { return a[0] - b[0] })
+	var out [][2]int
+	for _, s := range spans {
+		if n := len(out); n > 0 && s[0] <= out[n-1][1] {
+			out[n-1][1] = max(out[n-1][1], s[1])
+			continue
+		}
+		out = append(out, s)
+	}
+	return out
+}
+
 func sectionsOf(ix *borders.Index, runs []Run) []sootcase.CountrySection {
 	var out []sootcase.CountrySection
 	pos := 0.0

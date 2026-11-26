@@ -267,3 +267,24 @@ func TestBanDecreeOfALaterDay(t *testing.T) {
 		t.Errorf("notes %q", r.Notes)
 	}
 }
+
+// A route of many stretches (a path's regions) takes linear time to
+// order for transit bans, not quadratic.
+func TestSegmentsLinear(t *testing.T) {
+	var regions []sootcase.RegionSection
+	for i := 0; i < 50000; i++ {
+		r := "BE-VLG"
+		if i%2 == 1 {
+			r = "BE-BRU"
+		}
+		regions = append(regions, sootcase.RegionSection{Region: r, FromKm: float64(i) * 0.01, ToKm: float64(i+1) * 0.01})
+	}
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 500, CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 500, Regions: regions}}}}}
+	t0 := time.Now()
+	if s := segments(res); len(s) != 50000 {
+		t.Fatalf("%d segments", len(s))
+	}
+	if d := time.Since(t0); d > 2*time.Second {
+		t.Errorf("50,000 stretches ordered in %v", d)
+	}
+}

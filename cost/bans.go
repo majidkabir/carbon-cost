@@ -127,24 +127,27 @@ func segments(res sootcase.Result) []segment {
 		pos = end
 	}
 	// The countries before and after each stretch, for transit bans.
-	ordered := !slices.ContainsFunc(out, func(s segment) bool { return !s.ordered })
-	for i := range out {
-		if !ordered {
-			break
+	// By runs of one country (its regions' stretches are one run), so a
+	// path of many stretches takes linear time.
+	if slices.ContainsFunc(out, func(s segment) bool { return !s.ordered }) {
+		return out
+	}
+	for i := 0; i < len(out); {
+		j := i
+		for j < len(out) && out[j].country == out[i].country {
+			j++
 		}
-		out[i].around = true
-		for j := i - 1; j >= 0; j-- {
-			if out[j].country != out[i].country {
-				out[i].prev = out[j].country
-				break
-			}
+		prev, next := "", ""
+		if i > 0 {
+			prev = out[i-1].country
 		}
-		for j := i + 1; j < len(out); j++ {
-			if out[j].country != out[i].country {
-				out[i].next = out[j].country
-				break
-			}
+		if j < len(out) {
+			next = out[j].country
 		}
+		for k := i; k < j; k++ {
+			out[k].around, out[k].prev, out[k].next = true, prev, next
+		}
+		i = j
 	}
 	return out
 }

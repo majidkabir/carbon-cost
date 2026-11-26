@@ -1901,3 +1901,45 @@ func TestVignetteDayAcrossVersions(t *testing.T) {
 		t.Errorf("days charged: %d from the 24th of March, %d from the 10th of April; want 2", a, b)
 	}
 }
+
+// The fuel CO2 price and ETS2 go by the day the km are driven, the
+// tables used are listed: Sweden's from 1 July 2026 for a trip from
+// 23:30 on 30 June; ETS2 on the km driven from 2028.
+func TestFuelByDayDriven(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 524, TTWKg: 300, WTWKg: 360, CountryKm: map[string]float64{"SE": 524}, RouteParts: map[string]float64{"road": 524}}}}
+	co2 := func(day time.Time, at string, ets2 float64) (float64, float64, *Response) {
+		req := Request{CargoKg: 10000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "SE", DieselL: 200, ETS2EurPerT: ets2, FX: map[string]float64{"SEK": 11}, spans: map[string][][2]float64{"SE": {{0, 524}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var fuel, e2 float64
+		for _, l := range r.Lines {
+			switch l.Charge {
+			case FuelCO2:
+				fuel += l.AmountEUR
+			case ETS2:
+				e2 += l.AmountEUR
+			}
+		}
+		return fuel, e2, &r
+	}
+	late, _, r := co2(time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC), "23:30", 0)
+	june, _, _ := co2(time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC), "08:00", 0)
+	july, _, _ := co2(time.Date(2026, 7, 1, 0, 0, 0, 0, time.UTC), "08:00", 0)
+	if !(late < june && late > july*0.9) {
+		t.Errorf("fuel CO2 from 23:30 on 30 June: EUR %.2f; 30 June by day %.2f, 1 July %.2f", late, june, july)
+	}
+	var listed bool
+	for _, tb := range r.Provenance.Tables {
+		listed = listed || strings.Contains(tb.File, "fuelco2-se")
+	}
+	if !listed {
+		t.Errorf("tables %+v: no fuel CO2 table", r.Provenance.Tables)
+	}
+	_, e2, _ := co2(time.Date(2027, 12, 31, 0, 0, 0, 0, time.UTC), "23:00", 80)
+	_, all2028, _ := co2(time.Date(2028, 1, 3, 0, 0, 0, 0, time.UTC), "08:00", 80)
+	if !(e2 > 0.8*all2028 && e2 < all2028) {
+		t.Errorf("ETS2 from 23:00 on 31 December 2027: EUR %.2f; all in 2028 EUR %.2f", e2, all2028)
+	}
+}

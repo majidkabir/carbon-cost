@@ -1697,6 +1697,10 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 		if err != nil {
 			return err
 		}
+		if len(st.Lines) > 0 {
+			p.useTable(ds)
+			p.addSources(ds)
+		}
 		switch {
 		case len(st.Lines) > 0 && amount == 0:
 			p.note("%s: the route enters the %s; a Euro %d truck pays nothing there.", ds.Country, ds.Name, p.req.Truck.Euro)
@@ -1751,9 +1755,22 @@ func (p *pricer) priceFuel(set *tariffs.Set, fuelL float64) error {
 			unit, v = "litre", litres
 		}
 		b := &batch{ds: ds}
-		b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
-		if _, err := p.price(b, ds.Name+" ("+ds.File+")", nil); err != nil {
+		if byRoute {
+			// Along the route: each day's share at its day's price (a
+			// table of the next day for the km driven after midnight).
+			for _, d := range p.kmDays(ds, cc, "") {
+				b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(d.at), Unit: unit, Value: orct.FloatStr(v * d.share), Ref: m})
+			}
+		} else {
+			b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
+		}
+		st, err := p.price(b, ds.Name+" ("+ds.File+")", nil)
+		if err != nil {
 			return err
+		}
+		if len(st.Lines) > 0 {
+			p.useTable(ds)
+			p.addSources(ds)
 		}
 		priced = true
 	}

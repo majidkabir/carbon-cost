@@ -1345,8 +1345,31 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 		out.Missing = append(out.Missing, p.faresUnknown(res, fd, set)...)
 	}
 
-	// ETS2 on road fuel from 2028.
+	// ETS2 on road fuel from 2028: on the share of the road km driven
+	// from then (by the passage times; else the trip's date decides).
+	from2028 := 0.0
 	if !date.Before(ETS2Start) {
+		from2028 = 1
+	}
+	var tripKm float64
+	for _, l := range res.Legs {
+		tripKm += l.DistanceKm
+	}
+	if t0, ok := passage(req, date, 0, req.origin); ok && tripKm > 0 {
+		start := time.Date(ETS2Start.Year(), ETS2Start.Month(), ETS2Start.Day(), 0, 0, 0, 0, t0.Location())
+		if t1, _ := passage(req, date, tripKm, req.origin); t0.Before(start) && !t1.Before(start) {
+			lo, hi := 0.0, tripKm
+			for i := 0; i < 40; i++ {
+				if mid := (lo + hi) / 2; func() bool { t, _ := passage(req, date, mid, req.origin); return t.Before(start) }() {
+					lo = mid
+				} else {
+					hi = mid
+				}
+			}
+			from2028 = (tripKm - hi) / tripKm
+		}
+	}
+	if from2028 > 0 {
 		switch {
 		case req.ETS2EurPerT == 0:
 			out.Notes = append(out.Notes, "ETS2: give ets2_eur_per_t to price ETS2 on the road fuel.")
@@ -1366,14 +1389,17 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			if len(share) == 0 {
 				in = 1
 			}
-			t, of := roadT*in, ""
+			t, of := roadT*in*from2028, ""
 			if in < 1 {
 				of = fmt.Sprintf(" bought in its states (%.0f%%)", in*100)
+			}
+			if from2028 < 1 {
+				of += fmt.Sprintf(", %.0f%% of it from 2028", from2028*100)
 			}
 			if t > 0 {
 				if err := add(Line{Charge: ETS2, Carbon: true, TonnesCO2: round3(t), Rate: req.ETS2EurPerT, RateUnit: "EUR/t CO2e",
 					Currency: "EUR", Amount: t * req.ETS2EurPerT,
-					Source:  fmt.Sprintf("Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: %.1f l of diesel%s x %.2f kg CO2/l (%s)", out.Trip.FuelL*in, of, DieselKgCO2PerL, out.Trip.FuelBasis),
+					Source:  fmt.Sprintf("Directive 2003/87/EC Chapter IVa (ETS2), from 2028; emissions: %.1f l of diesel%s x %.2f kg CO2/l (%s)", out.Trip.FuelL*in*from2028, of, DieselKgCO2PerL, out.Trip.FuelBasis),
 					Sources: append(append([]rates.Source{}, etsSources...), rates.Source{Title: "EEA Joint Committee Decision No 335/2023 (ETS2 in Iceland and Norway)", URL: ets2EEA})}); err != nil {
 					return Response{}, err
 				}

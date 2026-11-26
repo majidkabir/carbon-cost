@@ -38,11 +38,12 @@ from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
 SIMPLIFY_M = 10
-# Hungary: a way outside the toll sections within this of a section way of
-# its road along its length is that section's other carriageway; a chain of
-# such ways up to GAP_KM long between section ways of its road, a gap in
-# OSM's relations; their ends meet within END_M.
-TWIN_M, GAP_KM, END_M = 60, 10, 30
+# Hungary: a way outside the toll sections within TWIN_M of a section way
+# of its road along its length is that section's other carriageway; a chain
+# of such ways (joined within BRIDGE_M: carriageways, roundabouts) whose
+# ends meet section ways of its road within END_M, a gap in OSM's relations
+# (up to GAP_KM more than the annex's km between them) or a break.
+TWIN_M, GAP_KM, END_M, BRIDGE_M = 60, 10, 30, 60
 # A road whose toll sections OSM has for this share of annex 1's km (both
 # carriageways of an M road): its other ways are left out.
 COVERED = 0.9
@@ -530,51 +531,54 @@ def place_pending(h, cc, city=None):
             twins[hit[0]] += line.length / 1000
         else:
             rest.append((refs, c, coords, mc))
-    # Chains of the remaining ways of one road, joined end to end.
+    # Chains of the remaining ways of one road: ways whose end comes within
+    # BRIDGE_M of another (both carriageways, across a roundabout or a way
+    # without the ref). A chain's ends are its two way ends farthest apart;
+    # where each meets a section way of the road, the chain is a gap in
+    # OSM's relations if annex 1 runs on between those sections, a break
+    # (not tolled) if it doesn't.
     decided = {}
     for road in sorted({r for refs, *_ in rest for r in refs}):
         ways = [i for i, w in enumerate(rest) if road in w[0] and i not in decided]
-        ends = {}
-        key = lambda p: (round(p[0] / END_M), round(p[1] / END_M))
-        for i in ways:
-            for p in (rest[i][3][0], rest[i][3][-1]):
-                ends.setdefault(key(p), []).append(i)
+        if not ways:
+            continue
+        lines = [LineString(rest[i][3]) for i in ways]
+        tree = STRtree(lines)
         seen = set()
-        for i in ways:
-            if i in seen:
+        for k0 in range(len(ways)):
+            if k0 in seen:
                 continue
-            chain, todo = set(), [i]
+            chain, todo = set(), [k0]
             while todo:
-                j = todo.pop()
-                if j in chain:
+                k = todo.pop()
+                if k in chain:
                     continue
-                chain.add(j)
-                for p in (rest[j][3][0], rest[j][3][-1]):
-                    k = key(p)
-                    for dx in (-1, 0, 1):
-                        for dy in (-1, 0, 1):
-                            todo += [q for q in ends.get((k[0] + dx, k[1] + dy), []) if math.dist(p, rest[q][3][0]) <= END_M or math.dist(p, rest[q][3][-1]) <= END_M]
+                chain.add(k)
+                for p in (rest[ways[k]][3][0], rest[ways[k]][3][-1]):
+                    q = Point(p)
+                    todo += [int(j) for j in tree.query(q.buffer(BRIDGE_M)) if int(j) not in chain and lines[int(j)].distance(q) <= BRIDGE_M]
             seen |= chain
-            km = sum(LineString(rest[j][3]).length for j in chain) / 1000
+            km = sum(lines[k].length for k in chain) / 1000
             if km > 3 * GAP_KM and covered.get(road, False):
                 continue  # long: not a gap; left out below
-            # The chain's loose ends: ends of its ways no other way of it meets.
-            loose = [p for j in chain for p in (rest[j][3][0], rest[j][3][-1])
-                     if not any(q != j and min(math.dist(p, rest[q][3][0]), math.dist(p, rest[q][3][-1])) <= END_M for q in chain)]
-            met = [near(road, p, END_M) for p in loose]
-            edids = sorted({x[3] for x in met if x}, key=lambda e: span[e][1])
-            if len(loose) < 2 or not all(met) or len(edids) < 2:
+            pts = [p for k in chain for p in (rest[ways[k]][3][0], rest[ways[k]][3][-1])]
+            a, b = max(((p, q) for i, p in enumerate(pts) for q in pts[i + 1:]), key=lambda pq: math.dist(*pq), default=(None, None))
+            if a is None:
                 continue
-            between = [joined(a, b) for a, b in zip(edids, edids[1:])]
-            if all(b is not None for b in between) and km <= (2.6 if road.startswith("M") else 1.3) * sum(between) + GAP_KM:
-                _, sc, sf, _ = met[0]
-                for j in chain:
-                    h.add(sc, sf, rest[j][2], {})
-                    decided[j] = "gap"
+            ma, mb = near(road, a, END_M), near(road, b, END_M)
+            if not (ma and mb) or ma[3] == mb[3]:
+                continue
+            x, y = sorted((ma[3], mb[3]), key=lambda e: span[e][1])
+            between = joined(x, y)
+            if between is not None and km <= (2.6 if road.startswith("M") else 1.3) * between + GAP_KM:
+                _, sc, sf, _ = ma
+                for k in chain:
+                    h.add(sc, sf, rest[ways[k]][2], {})
+                    decided[ways[k]] = "gap"
                 gaps[road] += km
-            elif all(b is None for b in between):
-                for j in chain:
-                    decided[j] = "break"
+            elif between is None:
+                for k in chain:
+                    decided[ways[k]] = "break"
                 breaks[road] += km
     for i, (refs, c, coords, mc) in enumerate(rest):
         if i in decided:

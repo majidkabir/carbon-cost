@@ -567,10 +567,13 @@ def place_pending(h, cc, city=None):
             a, b = max(((p, q) for i, p in enumerate(pts) for q in pts[i + 1:]), key=lambda pq: math.dist(*pq), default=(None, None))
             if a is None:
                 continue
-            ma, mb = near(road, a, END_M), near(road, b, END_M)
+            ma, mb = near(road, a, BRIDGE_M), near(road, b, BRIDGE_M)
             if road in DEBUG_ROADS:
                 ll = lambda p: f"{p[1] / 111_320:.5f},{p[0] / kx:.5f}"
-                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], ll(b), mb and mb[3],
+                def dist(p):
+                    x = near(road, p, 1000)
+                    return x and f"{x[3]}@{x[0].distance(Point(p[0] / kx, p[1] / 111_320)) * 111_320:.0f}m"
+                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], dist(a), ll(b), mb and mb[3], dist(b),
                       "joined" if ma and mb and ma[3] != mb[3] and joined(*sorted((ma[3], mb[3]), key=lambda e: span[e][1])) is not None else "")
             if not (ma and mb) or ma[3] == mb[3]:
                 continue

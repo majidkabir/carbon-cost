@@ -122,3 +122,21 @@ func TestPolandLeftOutNamed(t *testing.T) {
 		t.Errorf("CZ left out %v", l)
 	}
 }
+
+// Budapest's main roads aren't in annex 1 of 25/2013 NFM: Kerepesi út
+// (road 3) from Baross tér to Örs vezér tere is local, untolled road.
+func TestBudapestNotTolled(t *testing.T) {
+	ix, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	var pts [][2]float64
+	for i := 0; i <= 44; i++ {
+		f := float64(i) / 44
+		pts = append(pts, [2]float64{19.07916 + f*(19.14071-19.07916), 47.49948 + f*(47.50366-47.49948)})
+	}
+	k, _ := ix.Classify("HU", pts)
+	if k.Motorway+k.National > 0.1 {
+		t.Errorf("Kerepesi út: %+v", k)
+	}
+}

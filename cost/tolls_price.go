@@ -475,7 +475,9 @@ func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, toll
 	for _, d := range days {
 		b.event(obj, d, m)
 	}
-	p.note("%s", cc+": "+note)
+	if len(days) > 0 {
+		p.note("%s", cc+": "+note)
+	}
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
 		p.note("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles)
 	}

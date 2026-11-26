@@ -532,7 +532,11 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	if len(req.CountryKm) > 0 && (out.Trip == nil || out.Trip.FuelL <= 0) {
 		// No route, so no Sootcase emissions, and no diesel: an electric
 		// truck's need its kWh and Sootcase's grid factors.
-		out.DataType, out.EmissionsBasis = "none", "not computed: a trip by country_km has no Sootcase emissions, and an electric truck's need electricity_kwh (or kwh_per_100km) and Sootcase's grid factors"
+		why := "an electric truck's need electricity_kwh (or kwh_per_100km)"
+		if req.electricityGiven() {
+			why = "an electric truck's need Sootcase's grid factor of each country it charges in"
+		}
+		out.DataType, out.EmissionsBasis = "none", "not computed: a trip by country_km has no Sootcase emissions, and "+why
 		return req
 	}
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
@@ -543,8 +547,12 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 	}
 	fuel := out.Trip.FuelL
 	roadTTW, roadWTW = fuel*DieselKgCO2PerL, fuel*DieselKgCO2ePerLWTW
-	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1, as Sootcase gave no fuel factors), shared out by tonne-km",
-		fuel, out.Trip.FuelBasis, DieselKgCO2PerL, DieselKgCO2ePerLWTW)
+	why := "as Sootcase gave no fuel factors"
+	if len(req.CountryKm) > 0 {
+		why = "a trip by country_km doesn't ask Sootcase"
+	}
+	out.EmissionsBasis = fmt.Sprintf("the truck's diesel, %.1f l (%s), x %.2f kg CO2/l tank-to-wheel and %.2f kg CO2e/l well-to-wheel (EN 16258:2012, Table A.1, %s), shared out by tonne-km",
+		fuel, out.Trip.FuelBasis, DieselKgCO2PerL, DieselKgCO2ePerLWTW, why)
 	if f := req.dieselFactor; f != nil {
 		// EN ISO 14083 replaced EN 16258: Sootcase's GLEC factor.
 		roadTTW, roadWTW = fuel*f.TTWKgPerUnit, fuel*(f.TTWKgPerUnit+f.WTTKgPerUnit)
@@ -645,7 +653,11 @@ func electricEmissions(out *Response, req Request) (wtw float64, basis string, o
 		}
 		g, found := req.grids.Grid(alpha3[cc])
 		if !found || g.GPerKWh <= 0 {
-			out.Notes = append(out.Notes, fmt.Sprintf("Emissions: Sootcase has no grid factor for %s, so the electric truck's are its modelled ones.", cc))
+			instead := "are its modelled ones"
+			if len(req.CountryKm) > 0 {
+				instead = "aren't computed"
+			}
+			out.Notes = append(out.Notes, fmt.Sprintf("Emissions: Sootcase has no grid factor for %s, so the electric truck's %s.", cc, instead))
 			return 0, "", false
 		}
 		wtw += kwh * share * g.GPerKWh / 1000

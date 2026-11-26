@@ -1241,3 +1241,44 @@ func TestETS2InPriceOfPricedLitres(t *testing.T) {
 		t.Errorf("ETS2 EUR %.2f, in the price EUR %+v", ets2, out.Fuel)
 	}
 }
+
+// By country_km, the notes and basis say why emissions aren't computed or
+// come from EN 16258: the grid factor missing, Sootcase not asked.
+func TestCountryKmEmissionsReasons(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		_, _ = w.Write([]byte(`{"fuels":[],"grids":[{"country":"DEU","year":2025,"g_per_kwh":330,"source":"Ember via Our World in Data: Germany"}]}`))
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t)}
+	ev := truck40
+	ev.CO2Class = 5
+	r, err := c.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 300, "AT": 100}, Date: "2026-11-20", CargoKg: 10000, Truck: ev, ElectricityKWh: 300})
+	if err != nil {
+		t.Fatal(err)
+	}
+	notes := strings.Join(r.Notes, "\n")
+	if r.DataType != "none" || strings.Contains(r.EmissionsBasis, "need electricity_kwh") || strings.Contains(notes, "modelled ones") {
+		t.Errorf("no AT grid: %s: %s\n%s", r.DataType, r.EmissionsBasis, notes)
+	}
+	if r, err = c.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 300}, Date: "2026-11-20", CargoKg: 10000, Truck: truck40, DieselL: 100}); err != nil {
+		t.Fatal(err)
+	}
+	if strings.Contains(r.EmissionsBasis, "Sootcase gave no") {
+		t.Errorf("diesel by country_km: %s", r.EmissionsBasis)
+	}
+}
+
+// A Eurovignette state whose day another's covers isn't said to be priced
+// at a day's rate.
+func TestEurovignetteCoveredNote(t *testing.T) {
+	out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"LU": 60, "SE": 620}, Date: "2026-11-20",
+		CargoKg: 10000, DieselL: 300, Truck: truck40, FX: map[string]float64{"SEK": 11}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range out.Notes {
+		if strings.HasPrefix(n, "SE: a time-based charge, priced at one day's rate") {
+			t.Errorf("SE, covered by LU's day: %q", n)
+		}
+	}
+}

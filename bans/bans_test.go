@@ -36,32 +36,32 @@ func TestWindows(t *testing.T) {
 	// Saturday 28 November 2026 18:00 to Sunday 29 November 10:00 in
 	// Germany: the Sunday ban from 00:00 to 22:00.
 	from := time.Date(2026, 11, 28, 18, 0, 0, 0, ber)
-	w := Windows("DE", 40000, false, from, from.Add(16*time.Hour), ber)
+	w := Windows("DE", 40000, 0, from, from.Add(16*time.Hour), ber)
 	if len(w) != 1 || w[0].From.Format("2006-01-02 15:04") != "2026-11-29 00:00" || w[0].To.Format("15:04") != "22:00" {
 		t.Fatalf("DE weekend: %+v", w)
 	}
 	// A 7.5 t truck isn't covered; one of 12 t is.
-	if len(Windows("DE", 7500, false, from, from.Add(16*time.Hour), ber)) != 0 {
+	if len(Windows("DE", 7500, 0, from, from.Add(16*time.Hour), ber)) != 0 {
 		t.Error("7.5 t: want none")
 	}
 	// Austria: Saturday from 15:00, and the Sunday.
-	w = Windows("AT", 40000, false, time.Date(2026, 11, 28, 12, 0, 0, 0, vie), time.Date(2026, 11, 29, 23, 0, 0, 0, vie), vie)
+	w = Windows("AT", 40000, 0, time.Date(2026, 11, 28, 12, 0, 0, 0, vie), time.Date(2026, 11, 29, 23, 0, 0, 0, vie), vie)
 	if len(w) != 2 || w[0].From.Format("15:04") != "15:00" || w[0].To.Format("2006-01-02 15:04") != "2026-11-29 00:00" {
 		t.Fatalf("AT weekend: %+v", w)
 	}
 	// A regional holiday: Reformation Day, Saturday 31 October 2026, in
 	// northern Germany only; and 26 October 2026, a Monday, in Austria.
-	w = Windows("DE", 40000, false, time.Date(2026, 10, 31, 8, 0, 0, 0, ber), time.Date(2026, 10, 31, 12, 0, 0, 0, ber), ber)
+	w = Windows("DE", 40000, 0, time.Date(2026, 10, 31, 8, 0, 0, 0, ber), time.Date(2026, 10, 31, 12, 0, 0, 0, ber), ber)
 	if len(w) != 1 || w[0].Holiday != "Reformationstag" || len(w[0].Regions) != 9 {
 		t.Fatalf("DE Reformationstag: %+v", w)
 	}
-	w = Windows("AT", 40000, false, time.Date(2026, 10, 26, 8, 0, 0, 0, vie), time.Date(2026, 10, 26, 12, 0, 0, 0, vie), vie)
+	w = Windows("AT", 40000, 0, time.Date(2026, 10, 26, 8, 0, 0, 0, vie), time.Date(2026, 10, 26, 12, 0, 0, 0, vie), vie)
 	if len(w) != 1 || w[0].Holiday != "Nationalfeiertag" {
 		t.Fatalf("AT Nationalfeiertag: %+v", w)
 	}
 	// Daylight saving ends on Sunday 25 October 2026: the ban is still
 	// 00:00 to 22:00 by the clock.
-	w = Windows("DE", 40000, false, time.Date(2026, 10, 25, 1, 0, 0, 0, ber), time.Date(2026, 10, 25, 23, 0, 0, 0, ber), ber)
+	w = Windows("DE", 40000, 0, time.Date(2026, 10, 25, 1, 0, 0, 0, ber), time.Date(2026, 10, 25, 23, 0, 0, 0, ber), ber)
 	if len(w) != 1 || w[0].To.Format("15:04") != "22:00" {
 		t.Fatalf("DST: %+v", w)
 	}
@@ -71,11 +71,11 @@ func TestSwissAndFrenchBans(t *testing.T) {
 	zrh, _ := time.LoadLocation("Europe/Zurich")
 	par, _ := time.LoadLocation("Europe/Paris")
 	// Switzerland, over 3.5 t: the night ban every night, all Sunday.
-	w := Windows("CH", 12000, false, time.Date(2026, 11, 27, 21, 0, 0, 0, zrh), time.Date(2026, 11, 28, 6, 0, 0, 0, zrh), zrh)
+	w := Windows("CH", 12000, 0, time.Date(2026, 11, 27, 21, 0, 0, 0, zrh), time.Date(2026, 11, 28, 6, 0, 0, 0, zrh), zrh)
 	if len(w) != 2 || w[0].Rule.Name != "night ban" || w[0].From.Format("15:04") != "22:00" || w[1].To.Format("15:04") != "05:00" {
 		t.Fatalf("CH night: %+v", w)
 	}
-	if w := Windows("CH", 12000, false, time.Date(2026, 11, 29, 10, 0, 0, 0, zrh), time.Date(2026, 11, 29, 11, 0, 0, 0, zrh), zrh); len(w) != 1 || w[0].Rule.Name != "Sunday and public holiday ban" {
+	if w := Windows("CH", 12000, 0, time.Date(2026, 11, 29, 10, 0, 0, 0, zrh), time.Date(2026, 11, 29, 11, 0, 0, 0, zrh), zrh); len(w) != 1 || w[0].Rule.Name != "Sunday and public holiday ban" {
 		t.Fatalf("CH Sunday: %+v", w)
 	}
 	// Christmas 2026 on a Friday: 26 December isn't a ban day; 2027's is
@@ -93,12 +93,12 @@ func TestSwissAndFrenchBans(t *testing.T) {
 	}
 	// France: from 22:00 on the eve of 11 November (a Wednesday in 2026)
 	// to 22:00 on the day.
-	w = Windows("FR", 40000, false, time.Date(2026, 11, 10, 20, 0, 0, 0, par), time.Date(2026, 11, 11, 23, 0, 0, 0, par), par)
+	w = Windows("FR", 40000, 0, time.Date(2026, 11, 10, 20, 0, 0, 0, par), time.Date(2026, 11, 11, 23, 0, 0, 0, par), par)
 	if len(w) != 2 || w[0].From.Format("2006-01-02 15:04") != "2026-11-10 22:00" || w[0].Holiday != "eve of Armistice" || w[1].To.Format("2006-01-02 15:04") != "2026-11-11 22:00" {
 		t.Fatalf("FR 11 November: %+v", w)
 	}
 	// A weekend: Saturday 22:00 to Sunday 22:00.
-	w = Windows("FR", 40000, false, time.Date(2026, 11, 28, 12, 0, 0, 0, par), time.Date(2026, 11, 29, 23, 0, 0, 0, par), par)
+	w = Windows("FR", 40000, 0, time.Date(2026, 11, 28, 12, 0, 0, 0, par), time.Date(2026, 11, 29, 23, 0, 0, 0, par), par)
 	if len(w) != 2 || w[0].From.Format("Mon 15:04") != "Sat 22:00" || w[1].To.Format("Mon 15:04") != "Sun 22:00" {
 		t.Fatalf("FR weekend: %+v", w)
 	}
@@ -107,17 +107,17 @@ func TestSwissAndFrenchBans(t *testing.T) {
 func TestCzechBans(t *testing.T) {
 	prg, _ := time.LoadLocation("Europe/Prague")
 	// 17 November 2026, a Tuesday holiday: 13:00-22:00.
-	w := Windows("CZ", 40000, false, time.Date(2026, 11, 17, 8, 0, 0, 0, prg), time.Date(2026, 11, 17, 23, 0, 0, 0, prg), prg)
+	w := Windows("CZ", 40000, 0, time.Date(2026, 11, 17, 8, 0, 0, 0, prg), time.Date(2026, 11, 17, 23, 0, 0, 0, prg), prg)
 	if len(w) != 1 || w[0].From.Format("15:04") != "13:00" || w[0].Holiday == "" {
 		t.Fatalf("CZ 17 November: %+v", w)
 	}
 	// Summer: Friday 17:00-21:00 and Saturday 07:00-13:00, then Sunday.
-	w = Windows("CZ", 40000, false, time.Date(2026, 7, 10, 12, 0, 0, 0, prg), time.Date(2026, 7, 12, 23, 0, 0, 0, prg), prg)
+	w = Windows("CZ", 40000, 0, time.Date(2026, 7, 10, 12, 0, 0, 0, prg), time.Date(2026, 7, 12, 23, 0, 0, 0, prg), prg)
 	if len(w) != 3 || w[0].Rule.Name != "summer ban" || w[1].From.Format("Mon 15:04") != "Sat 07:00" || w[2].From.Format("Mon 15:04") != "Sun 13:00" {
 		t.Fatalf("CZ summer: %+v", w)
 	}
 	// Not in November on a Saturday.
-	if w := Windows("CZ", 40000, false, time.Date(2026, 11, 28, 6, 0, 0, 0, prg), time.Date(2026, 11, 28, 14, 0, 0, 0, prg), prg); len(w) != 0 {
+	if w := Windows("CZ", 40000, 0, time.Date(2026, 11, 28, 6, 0, 0, 0, prg), time.Date(2026, 11, 28, 14, 0, 0, 0, prg), prg); len(w) != 0 {
 		t.Errorf("CZ November Saturday: %+v", w)
 	}
 }
@@ -150,7 +150,7 @@ func TestSlovakBans(t *testing.T) {
 	}
 	for _, c := range cases {
 		f, to := day(c.y, c.m, c.d)
-		w := Windows("SK", 40000, false, f, to, ba)
+		w := Windows("SK", 40000, 0, f, to, ba)
 		got := ""
 		if len(w) == 1 {
 			got = w[0].From.Format("15:04") + "-" + w[0].To.Format("15:04")
@@ -159,7 +159,7 @@ func TestSlovakBans(t *testing.T) {
 			t.Errorf("%d-%02d-%02d: %+v, want %s", c.y, c.m, c.d, w, c.want)
 		}
 	}
-	if w := Windows("SK", 7500, false, time.Date(2026, 11, 22, 0, 0, 0, 0, ba), time.Date(2026, 11, 22, 23, 0, 0, 0, ba), ba); len(w) != 0 {
+	if w := Windows("SK", 7500, 0, time.Date(2026, 11, 22, 0, 0, 0, 0, ba), time.Date(2026, 11, 22, 23, 0, 0, 0, ba), ba); len(w) != 0 {
 		t.Errorf("7.5 t: %+v", w)
 	}
 }
@@ -191,7 +191,7 @@ func TestHungarianBans(t *testing.T) {
 	}
 	for _, c := range cases {
 		var got []string
-		for _, w := range Windows("HU", 40000, false, c.from, c.to, bud) {
+		for _, w := range Windows("HU", 40000, 0, c.from, c.to, bud) {
 			got = append(got, w.From.Format(f)+"-"+w.To.Format(f))
 		}
 		if !slices.Equal(got, c.want) {
@@ -199,11 +199,11 @@ func TestHungarianBans(t *testing.T) {
 		}
 	}
 	// The winter exemption for international traffic from Euro 3.
-	w := Windows("HU", 40000, false, at(2026, 11, 27, 12), at(2026, 11, 30, 12), bud)
+	w := Windows("HU", 40000, 0, at(2026, 11, 27, 12), at(2026, 11, 30, 12), bud)
 	if len(w) != 1 || !w[0].Exempt(6, true) || w[0].Exempt(6, false) || w[0].Exempt(2, true) {
 		t.Errorf("winter exemption: %+v", w)
 	}
-	if w := Windows("HU", 40000, false, at(2026, 7, 10, 12), at(2026, 7, 13, 12), bud); len(w) != 1 || w[0].Exempt(6, true) {
+	if w := Windows("HU", 40000, 0, at(2026, 7, 10, 12), at(2026, 7, 13, 12), bud); len(w) != 1 || w[0].Exempt(6, true) {
 		t.Errorf("summer: no exemption: %+v", w)
 	}
 }
@@ -220,7 +220,7 @@ func TestPolishBans(t *testing.T) {
 		t.Errorf("summer 2027: %s to %s", f, l)
 	}
 	day := func(y int, m time.Month, d int) []Window {
-		return Windows("PL", 40000, false, time.Date(y, m, d, 0, 0, 0, 0, waw), time.Date(y, m, d, 23, 59, 0, 0, waw), waw)
+		return Windows("PL", 40000, 0, time.Date(y, m, d, 0, 0, 0, 0, waw), time.Date(y, m, d, 23, 59, 0, 0, waw), waw)
 	}
 	span := func(w []Window) (s []string) {
 		for _, x := range w {
@@ -250,7 +250,7 @@ func TestPolishBans(t *testing.T) {
 			t.Errorf("%d-%02d-%02d: %v, want %v", c.y, c.m, c.d, got, c.want)
 		}
 	}
-	if w := Windows("PL", 12000, false, time.Date(2026, 11, 11, 0, 0, 0, 0, waw), time.Date(2026, 11, 11, 23, 0, 0, 0, waw), waw); len(w) != 0 {
+	if w := Windows("PL", 12000, 0, time.Date(2026, 11, 11, 0, 0, 0, 0, waw), time.Date(2026, 11, 11, 23, 0, 0, 0, waw), waw); len(w) != 0 {
 		t.Errorf("12 t: %+v", w)
 	}
 }
@@ -261,7 +261,7 @@ func TestSlovenianBans(t *testing.T) {
 		t.Errorf("season 2025: %s to %s", f, l)
 	}
 	day := func(y int, m time.Month, d int) (s []string) {
-		for _, w := range Windows("SI", 40000, false, time.Date(y, m, d, 0, 0, 0, 0, lj), time.Date(y, m, d, 23, 59, 0, 0, lj), lj) {
+		for _, w := range Windows("SI", 40000, 0, time.Date(y, m, d, 0, 0, 0, 0, lj), time.Date(y, m, d, 23, 59, 0, 0, lj), lj) {
 			s = append(s, w.From.Format("15:04")+"-"+w.To.Format("15:04"))
 		}
 		return
@@ -287,7 +287,7 @@ func TestSlovenianBans(t *testing.T) {
 
 func TestItalianCalendar(t *testing.T) {
 	rome, _ := time.LoadLocation("Europe/Rome")
-	w := Windows("IT", 40000, false, time.Date(2026, 8, 14, 0, 0, 0, 0, rome), time.Date(2026, 8, 16, 23, 0, 0, 0, rome), rome)
+	w := Windows("IT", 40000, 0, time.Date(2026, 8, 14, 0, 0, 0, 0, rome), time.Date(2026, 8, 16, 23, 0, 0, 0, rome), rome)
 	var got []string
 	for _, x := range w {
 		got = append(got, x.From.Format("Mon 2 15:04")+"-"+x.To.Format("15:04"))
@@ -298,7 +298,7 @@ func TestItalianCalendar(t *testing.T) {
 	if w[0].Rule.Law == "" || w[0].Rule.URL == "" {
 		t.Errorf("rule: %+v", w[0].Rule)
 	}
-	if w := Windows("IT", 7500, false, time.Date(2026, 8, 15, 0, 0, 0, 0, rome), time.Date(2026, 8, 15, 23, 0, 0, 0, rome), rome); len(w) != 0 {
+	if w := Windows("IT", 7500, 0, time.Date(2026, 8, 15, 0, 0, 0, 0, rome), time.Date(2026, 8, 15, 23, 0, 0, 0, rome), rome); len(w) != 0 {
 		t.Errorf("7.5 t: %+v", w)
 	}
 	if !slices.Equal(CalendarYears("IT"), []int{2026}) {
@@ -310,12 +310,12 @@ func TestLiechtensteinBans(t *testing.T) {
 	vaduz, _ := time.LoadLocation("Europe/Vaduz")
 	// 8 December 2026, a Tuesday: Maria Empfängnis, all day, plus the
 	// nights either side.
-	w := Windows("LI", 40000, false, time.Date(2026, 12, 8, 6, 0, 0, 0, vaduz), time.Date(2026, 12, 8, 21, 0, 0, 0, vaduz), vaduz)
+	w := Windows("LI", 40000, 0, time.Date(2026, 12, 8, 6, 0, 0, 0, vaduz), time.Date(2026, 12, 8, 21, 0, 0, 0, vaduz), vaduz)
 	if len(w) != 1 || w[0].Holiday != "Maria Empfängnis" || w[0].From.Hour() != 0 || w[0].To.Day() != 9 {
 		t.Errorf("8 December: %+v", w)
 	}
 	// A weekday night.
-	if w := Windows("LI", 40000, false, time.Date(2026, 11, 24, 21, 0, 0, 0, vaduz), time.Date(2026, 11, 24, 23, 0, 0, 0, vaduz), vaduz); len(w) != 1 || w[0].Rule.Name != "night ban" {
+	if w := Windows("LI", 40000, 0, time.Date(2026, 11, 24, 21, 0, 0, 0, vaduz), time.Date(2026, 11, 24, 23, 0, 0, 0, vaduz), vaduz); len(w) != 1 || w[0].Rule.Name != "night ban" {
 		t.Errorf("night: %+v", w)
 	}
 }
@@ -324,12 +324,12 @@ func TestFrenchCalendar(t *testing.T) {
 	par, _ := time.LoadLocation("Europe/Paris")
 	// Saturday 18 July 2026: 07:00-19:00 everywhere, then from 22:00 the
 	// weekend ban.
-	w := Windows("FR", 40000, false, time.Date(2026, 7, 18, 0, 0, 0, 0, par), time.Date(2026, 7, 18, 23, 59, 0, 0, par), par)
+	w := Windows("FR", 40000, 0, time.Date(2026, 7, 18, 0, 0, 0, 0, par), time.Date(2026, 7, 18, 23, 59, 0, 0, par), par)
 	if len(w) != 2 || w[0].From.Hour() != 7 || w[0].To.Hour() != 19 || w[0].Rule.Listed || w[1].From.Hour() != 22 {
 		t.Errorf("18 July: %+v", w)
 	}
 	// Saturday 7 February 2026: only on the listed Alpine roads.
-	w = Windows("FR", 40000, false, time.Date(2026, 2, 7, 0, 0, 0, 0, par), time.Date(2026, 2, 7, 20, 0, 0, 0, par), par)
+	w = Windows("FR", 40000, 0, time.Date(2026, 2, 7, 0, 0, 0, 0, par), time.Date(2026, 2, 7, 20, 0, 0, 0, par), par)
 	if len(w) != 1 || !w[0].Rule.Listed || w[0].To.Hour() != 18 || !strings.Contains(w[0].Rule.Note, "Auvergne-Rhône-Alpes") {
 		t.Errorf("7 February: %+v", w)
 	}
@@ -339,7 +339,7 @@ func TestAustrianDecrees(t *testing.T) {
 	vie, _ := time.LoadLocation("Europe/Vienna")
 	// Saturday 11 July 2026: the weekend ban from 15:00 everywhere, and the
 	// decrees' bans on their own roads, each its own window.
-	w := Windows("AT", 40000, false, time.Date(2026, 7, 11, 0, 0, 0, 0, vie), time.Date(2026, 7, 11, 23, 59, 0, 0, vie), vie)
+	w := Windows("AT", 40000, 0, time.Date(2026, 7, 11, 0, 0, 0, 0, vie), time.Date(2026, 7, 11, 23, 59, 0, 0, vie), vie)
 	var listed, sure int
 	laws := map[string]bool{}
 	for _, x := range w {
@@ -358,7 +358,7 @@ func TestAustrianDecrees(t *testing.T) {
 		t.Errorf("years %v", CalendarYears("AT"))
 	}
 	// Friday 10 April 2026: northbound from the Brenner, 07:00-22:00.
-	w = Windows("AT", 40000, false, time.Date(2026, 4, 10, 0, 0, 0, 0, vie), time.Date(2026, 4, 10, 23, 0, 0, 0, vie), vie)
+	w = Windows("AT", 40000, 0, time.Date(2026, 4, 10, 0, 0, 0, 0, vie), time.Date(2026, 4, 10, 23, 0, 0, 0, vie), vie)
 	if len(w) != 1 || !w[0].Rule.Listed || !strings.Contains(w[0].Rule.Note, "towards Innsbruck") || w[0].To.Hour() != 22 {
 		t.Errorf("10 April: %+v", w)
 	}
@@ -369,7 +369,7 @@ func TestSpainCalendar(t *testing.T) {
 	// roads; none under 7.5 t.
 	loc, _ := time.LoadLocation("Europe/Madrid")
 	day := time.Date(2026, 8, 16, 0, 0, 0, 0, loc)
-	ws := Windows("ES", 40000, false, day, day.AddDate(0, 0, 1), loc)
+	ws := Windows("ES", 40000, 0, day, day.AddDate(0, 0, 1), loc)
 	if len(ws) < 10 {
 		t.Fatalf("%d windows", len(ws))
 	}
@@ -378,7 +378,7 @@ func TestSpainCalendar(t *testing.T) {
 			t.Errorf("%+v", w.Rule)
 		}
 	}
-	if ws := Windows("ES", 7500, false, day, day.AddDate(0, 0, 1), loc); len(ws) != 0 {
+	if ws := Windows("ES", 7500, 0, day, day.AddDate(0, 0, 1), loc); len(ws) != 0 {
 		t.Errorf("7.5 t: %d windows", len(ws))
 	}
 }
@@ -387,7 +387,7 @@ func TestCroatia(t *testing.T) {
 	loc, _ := time.LoadLocation("Europe/Zagreb")
 	win := func(from string, days int) []Window {
 		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
-		return Windows("HR", 40000, false, d, d.AddDate(0, 0, days), loc)
+		return Windows("HR", 40000, 0, d, d.AddDate(0, 0, days), loc)
 	}
 	type w struct{ from, to string }
 	got := func(ws []Window) []w {
@@ -419,7 +419,7 @@ func TestCroatia(t *testing.T) {
 	if g := got(win("2026-12-24", 4)); !slices.Equal(g, []w{{"2026-12-24 15:00", "23:00"}, {"2026-12-27 06:00", "22:00"}, {"2026-12-27 12:00", "23:00"}}) {
 		t.Errorf("Christmas: %v", g)
 	}
-	if len(win("2026-07-11", 2)) == 0 || len(Windows("HR", 7500, false, time.Date(2026, 7, 11, 0, 0, 0, 0, loc), time.Date(2026, 7, 13, 0, 0, 0, 0, loc), loc)) != 0 {
+	if len(win("2026-07-11", 2)) == 0 || len(Windows("HR", 7500, 0, time.Date(2026, 7, 11, 0, 0, 0, 0, loc), time.Date(2026, 7, 13, 0, 0, 0, 0, loc), loc)) != 0 {
 		t.Error("7.5 t")
 	}
 }
@@ -431,7 +431,7 @@ func TestLuxembourg(t *testing.T) {
 	// 23:30 to Sunday 21:45 and Sunday 23:30 to Monday 21:45.
 	d := time.Date(2026, 5, 23, 0, 0, 0, 0, loc)
 	var fr, de []string
-	for _, w := range Windows("LU", 40000, false, d, d.AddDate(0, 0, 3), loc) {
+	for _, w := range Windows("LU", 40000, 0, d, d.AddDate(0, 0, 3), loc) {
 		s := w.From.Format("Mon 15:04") + "-" + w.To.Format("Mon 15:04")
 		if w.Rule.TransitTo == "FR" {
 			fr = append(fr, s)
@@ -455,7 +455,7 @@ func TestRomania(t *testing.T) {
 	ws := func(from string, days int) []string {
 		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
 		var out []string
-		for _, w := range Windows("RO", 40000, false, d, d.AddDate(0, 0, days), loc) {
+		for _, w := range Windows("RO", 40000, 0, d, d.AddDate(0, 0, days), loc) {
 			out = append(out, w.Rule.Roads[0]+" "+w.From.Format("01-02 15:04")+"-"+w.To.Format("15:04"))
 		}
 		return out
@@ -476,7 +476,7 @@ func TestGreece(t *testing.T) {
 	loc, _ := time.LoadLocation("Europe/Athens")
 	n := func(from string, days int, mass int) (int, []Window) {
 		d, _ := time.ParseInLocation(time.DateOnly, from, loc)
-		ws := Windows("GR", mass, false, d, d.AddDate(0, 0, days), loc)
+		ws := Windows("GR", mass, 0, d, d.AddDate(0, 0, days), loc)
 		return len(ws), ws
 	}
 	// Christmas Eve 2026: the twelve sections leaving the cities, 16-22.
@@ -506,7 +506,7 @@ func TestGreece(t *testing.T) {
 func TestNewYearsEve(t *testing.T) {
 	loc, _ := time.LoadLocation("Europe/Paris")
 	from := time.Date(2026, 12, 31, 21, 0, 0, 0, loc)
-	ws := Windows("FR", 40000, true, from, time.Date(2026, 12, 31, 23, 30, 0, 0, loc), loc)
+	ws := Windows("FR", 40000, 20000, from, time.Date(2026, 12, 31, 23, 30, 0, 0, loc), loc)
 	if len(ws) == 0 {
 		t.Fatalf("FR 31 December 21:00-23:30: no ban; want the eve of 1 January's from 22:00")
 	}
@@ -520,5 +520,18 @@ func TestCalendarCovers(t *testing.T) {
 		if got := CalendarCovers("GR", d); got != want {
 			t.Errorf("GR %s covered %v, want %v", day, got, want)
 		}
+	}
+}
+
+// Austria bans a truck towing a trailer when the truck or the trailer is
+// over 3.5 t, whatever the combination's mass (StVO 1960 § 42 (1)).
+func TestTrailerBan(t *testing.T) {
+	vie, _ := time.LoadLocation("Europe/Vienna")
+	from, to := time.Date(2026, 11, 22, 10, 0, 0, 0, vie), time.Date(2026, 11, 22, 12, 0, 0, 0, vie)
+	if len(Windows("AT", 7100, 3600, from, to, vie)) == 0 {
+		t.Errorf("AT, 7.1 t towing a 3.6 t trailer on a Sunday: no ban")
+	}
+	if len(Windows("AT", 7000, 3500, from, to, vie)) != 0 || len(Windows("AT", 7100, 0, from, to, vie)) != 0 {
+		t.Errorf("AT: a ban on a 7 t combination of 3.5 t each, or a 7.1 t truck without a trailer")
 	}
 }

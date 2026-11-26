@@ -65,10 +65,10 @@ func luHolidays(to string, y int) []Holiday {
 
 // luWindows are each direction's bans, from the evening before a Sunday
 // or holiday to 21:45 on it, runs of days merged into one window.
-func luWindows(maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
+func luWindows(maxMassKg, towKg int, from, to time.Time, loc *time.Location) []Window {
 	var out []Window
 	for _, r := range []Rule{luToFR, luToDE} {
-		if !r.Applies(maxMassKg, trailer) {
+		if !r.Applies(maxMassKg, towKg) {
 			continue
 		}
 		hol := map[string]Holiday{}

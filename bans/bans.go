@@ -285,8 +285,12 @@ var HolidaySources = map[string][2]string{
 }
 
 // Applies says a rule covers the truck.
-func (r Rule) Applies(maxMassKg int, trailer bool) bool {
-	return maxMassKg > r.MinMassKg || trailer && r.TrailerMassKg > 0 && maxMassKg > r.TrailerMassKg
+// Applies says whether the rule bans the truck: maxMassKg is its
+// technically permissible maximum mass (with its trailer), and towKg,
+// when it tows a trailer, the heavier of the truck's and the trailer's
+// own (0: no trailer).
+func (r Rule) Applies(maxMassKg, towKg int) bool {
+	return maxMassKg > r.MinMassKg || towKg > 0 && r.TrailerMassKg > 0 && towKg > r.TrailerMassKg
 }
 
 // Window is a ban in force over a stretch of time, local time.
@@ -303,16 +307,16 @@ var weekday = map[time.Weekday]string{time.Monday: "mon", time.Tuesday: "tue", t
 	time.Friday: "fri", time.Saturday: "sat", time.Sunday: "sun"}
 
 // Windows lists a country's bans for the truck that overlap from-to (in
-// the country's local time, loc).
-func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, loc *time.Location) []Window {
+// the country's local time, loc); towKg as for Rule.Applies.
+func Windows(country string, maxMassKg, towKg int, from, to time.Time, loc *time.Location) []Window {
 	if country == "HU" {
-		if !huRule.Applies(maxMassKg, trailer) {
+		if !huRule.Applies(maxMassKg, towKg) {
 			return nil
 		}
 		return huWindows(from, to, loc)
 	}
 	if country == "LU" {
-		return luWindows(maxMassKg, trailer, from, to, loc)
+		return luWindows(maxMassKg, towKg, from, to, loc)
 	}
 	var out []Window
 	day := time.Date(from.In(loc).Year(), from.In(loc).Month(), from.In(loc).Day(), 0, 0, 0, 0, loc)
@@ -350,7 +354,7 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			kinds = append(kinds, "sat_after_workday")
 		}
 		for _, r := range Rules {
-			if r.Country != country || !r.Applies(maxMassKg, trailer) {
+			if r.Country != country || !r.Applies(maxMassKg, towKg) {
 				continue
 			}
 			if r.FromDay != "" && (md < r.FromDay || md > r.ToDay) || r.Since != "" && ymd < r.Since || r.Until != "" && ymd > r.Until {
@@ -385,7 +389,7 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 			}
 		}
 	}
-	if country == "HR" && hrRule.Applies(maxMassKg, trailer) {
+	if country == "HR" && hrRule.Applies(maxMassKg, towKg) {
 		for _, w := range hrHolidayWindows(from, to, loc) {
 			if !covered(out, w) {
 				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })
@@ -394,7 +398,7 @@ func Windows(country string, maxMassKg int, trailer bool, from, to time.Time, lo
 		}
 		slices.SortStableFunc(out, func(a, b Window) int { return a.From.Compare(b.From) })
 	}
-	if r, ok := calendarRules[country]; ok && r.Applies(maxMassKg, trailer) {
+	if r, ok := calendarRules[country]; ok && r.Applies(maxMassKg, towKg) {
 		for _, w := range calendarWindows(country, from, to, loc) {
 			if !covered(out, w) {
 				out = slices.DeleteFunc(out, func(o Window) bool { return covered([]Window{w}, o) })

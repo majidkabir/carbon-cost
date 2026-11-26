@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -191,5 +192,25 @@ func TestLuxembourgTransit(t *testing.T) {
 		CountrySections: []sootcase.CountrySection{{Country: "BE", FromKm: 0, ToKm: 50}, {Country: "LU", FromKm: 50, ToKm: 90}}}}}
 	if r, err = PriceWith(end, all(t), nil, req, sat); err != nil || slices.ContainsFunc(r.Bans, func(b BanHit) bool { return b.Country == "LU" }) {
 		t.Errorf("to LU: %v %+v", err, r.Bans)
+	}
+}
+
+// A truck towing a trailer meets Austria's ban when the truck or the
+// trailer is over 3.5 t: its own masses, or, without them, half the
+// combination's at least.
+func TestTrailerBanOnTheTrip(t *testing.T) {
+	sun := time.Date(2026, 11, 22, 0, 0, 0, 0, time.UTC)
+	at := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 200, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"AT": 200}}}}
+	for _, tr := range []rates.Truck{
+		{MaxMassKg: 7100, Axles: 4, MotorAxles: 2, MotorMassKg: 3500, TrailerMassKg: 3600, Euro: 6, CO2Class: 1},
+		{MaxMassKg: 7100, Axles: 4, MotorAxles: 2, Euro: 6, CO2Class: 1},
+	} {
+		r, err := PriceWith(at, all(t), nil, Request{CargoKg: 2000, Truck: tr, Time: "10:00", origin: "AT"}, sun)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if len(r.Bans) == 0 {
+			t.Errorf("%+v on a Sunday in Austria: no ban", tr)
+		}
 	}
 }

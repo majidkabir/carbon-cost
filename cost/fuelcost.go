@@ -80,19 +80,21 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			ets2L += l
 		}
 		fb := FuelBought{Country: cc, Litres: round2(l)}
+		// The day the price is of: the trip's for a price given.
+		priceDay := date.Format(time.DateOnly)
 		switch {
 		case req.DieselEURPerLByCountry[cc] > 0:
 			fb.EURPerL, fb.Price = req.DieselEURPerLByCountry[cc], "given"
 		case req.DieselEURPerL > 0:
 			fb.EURPerL, fb.Price = req.DieselEURPerL, "given"
 		case haveB && b.EURPerL[cc] > 0:
-			fb.EURPerL, fb.Price = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date
+			fb.EURPerL, fb.Price, priceDay = b.EURPerL[cc], "Weekly Oil Bulletin "+b.Date, b.Date
 			usedB = true
 		default:
 			// Outside the bulletin: the country's own official average.
 			if n, nLatest, ok := fuel.NationalOn(cc, date); ok {
 				if rate, basis, err := currencyRate(req, n.Currency, date); err == nil && rate > 0 {
-					fb.EURPerL, fb.Price = round4(n.PerLExVAT()/rate), n.Source+" "+n.Date
+					fb.EURPerL, fb.Price, priceDay = round4(n.PerLExVAT()/rate), n.Source+" "+n.Date, n.Date
 					national = append(national, fmt.Sprintf("%s %s %.4f with %g%% VAT (%s), at %g %s per EUR (%s)%s", cc, n.Currency, n.PerL, n.VATPct, n.Date, rate, n.Currency, basis,
 						map[bool]string{true: "; the newest there is, older than the trip", false: ""}[nLatest]))
 					src := fuel.NationalSources[cc]
@@ -121,9 +123,8 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			fb.EUR = round2(l * (fb.EURPerL - fb.RefundEURPerL))
 			f.EUR += l * (fb.EURPerL - fb.RefundEURPerL)
 			priced[cc] = true
-			// A price of a day ETS2 covers holds it: the trip's own day for a
-			// price given, the bulletin's for its.
-			if ets2States[cc] && (fb.Price == "given" && !date.Before(ETS2Start) || strings.HasPrefix(fb.Price, "Weekly") && b.Date >= ETS2Start.Format(time.DateOnly)) {
+			// A price of a day ETS2 covers holds it.
+			if ets2States[cc] && priceDay >= ETS2Start.Format(time.DateOnly) {
 				ets2Held += l
 			}
 		} else {

@@ -168,7 +168,17 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: the trip takes more than %d days, so bans aren't checked.", maxBanDays))
 		return
 	}
-	trailer := false
+	// Towing a trailer (more axles than the motor vehicle's own, or a
+	// trailer's mass given): the heavier of the truck's and the trailer's
+	// own masses, where given, else the least it can be, half the
+	// combination's; bans for trucks with trailers go by it.
+	towKg := 0
+	if t := req.Truck; t.MotorAxles > 0 && t.MotorAxles < t.Axles || t.TrailerMassKg > 0 {
+		towKg = max(t.MotorMassKg, t.TrailerMassKg)
+		if towKg == 0 {
+			towKg = (t.MaxMassKg + 1) / 2
+		}
+	}
 	var hits []BanHit
 	var wait float64
 	seen := map[string]bool{}
@@ -184,7 +194,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	// and those on listed roads that aren't among the leg's main roads;
 	// in a known region, a regional holiday's ban holds or doesn't.
 	windows := func(s segment, from, to time.Time, loc *time.Location) []bans.Window {
-		ws := bans.Windows(s.country, req.Truck.MaxMassKg, trailer, from, to, loc)
+		ws := bans.Windows(s.country, req.Truck.MaxMassKg, towKg, from, to, loc)
 		ws = slices.DeleteFunc(ws, func(w bans.Window) bool {
 			if w.Exempt(req.Truck.Euro, countries > 1) {
 				exempted = true

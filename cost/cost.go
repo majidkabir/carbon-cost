@@ -758,7 +758,7 @@ func (c Calculator) priceRoute(res sootcase.Result, req *Request, date time.Time
 		// Leg by leg: a crossing taken out and back is one on each leg,
 		// its terminals not paired across them.
 		for _, l := range res.Legs {
-			runs = append(runs, Route(c.Borders, l.Path, c.Ferries)...)
+			runs = append(runs, legRuns(c.Borders, c.Ferries, l)...)
 		}
 		req.spans = Spans(runs)
 		for _, r := range runs {

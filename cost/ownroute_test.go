@@ -8,6 +8,7 @@ import (
 	"strings"
 	"sync"
 	"testing"
+	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/sootcase"
@@ -266,5 +267,63 @@ func TestOwnPathUnknownFerry(t *testing.T) {
 	l := res.Legs[0]
 	if math.Abs(l.RouteParts["ferry"]-sea) > 1 || l.CountryKm["DK"] > road1+road2+1 {
 		t.Errorf("ferry %.1f km (want %.1f), DK %.1f km (want %.1f)", l.RouteParts["ferry"], sea, l.CountryKm["DK"], road1+road2)
+	}
+	// The runs priced on the path have it too.
+	var ferry float64
+	for _, r := range legRuns(ix, &fd, l) {
+		if r.Kind == "ferry" {
+			ferry += r.Km
+		}
+	}
+	if math.Abs(ferry-sea) > 1 {
+		t.Errorf("runs: ferry %.1f km (want %.1f)", ferry, sea)
+	}
+}
+
+// Sootcase's route over a ferry the ferry data doesn't know: the runs
+// priced (and the map) have the ferry, not road in Denmark.
+func TestRouteUnknownFerry(t *testing.T) {
+	ix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	route := dense([][2]float64{{11.20, 55.70}, {11.088, 55.679}, {10.646, 55.818}, {10.60, 55.83}})
+	road1, sea, road2 := pathKm(dense([][2]float64{{11.20, 55.70}, {11.088, 55.679}})), pathKm(dense([][2]float64{{11.088, 55.679}, {10.646, 55.818}})), pathKm(dense([][2]float64{{10.646, 55.818}, {10.60, 55.83}}))
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: road1 + sea + road2, TTWKg: 80, WTWKg: 96, Path: route,
+		CountryKm: map[string]float64{"DK": road1 + road2}, RouteParts: map[string]float64{"ferry": sea, "road": road1 + road2},
+		Parts: []sootcase.Part{{Kind: "road", DistanceKm: road1, TTWKg: 5}, {Kind: "ferry", DistanceKm: sea, TTWKg: 70}, {Kind: "road", DistanceKm: road2, TTWKg: 5}}}}}
+	c := Calculator{Tariffs: all(t), Borders: ix, Ferries: &fd}
+	req := Request{Date: "2026-11-03", Truck: truck40, CargoKg: 20000}
+	out, err := c.priceRoute(res, &req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ferry, dk float64
+	for _, r := range out.Route {
+		switch r.Kind {
+		case "ferry":
+			ferry += r.Km
+		case "road":
+			dk += r.Km
+		}
+	}
+	if math.Abs(ferry-sea) > 2 || dk > road1+road2+2 {
+		t.Errorf("route: ferry %.1f km (want %.1f), road %.1f km (want %.1f)", ferry, sea, dk, road1+road2)
+	}
+}
+
+// A path that doesn't take Sootcase's ferry, reaching its ports in the
+// other order, is priced without it (and doesn't panic).
+func TestOwnPathOtherWay(t *testing.T) {
+	route := [][2]float64{{0, 0}, {0, 0.1}, {0, 0.5}, {0, 0.6}}
+	r1, sea, r2 := pathKm(route[:2]), pathKm(route[1:3]), pathKm(route[2:])
+	parts := []sootcase.Part{{Kind: "road", DistanceKm: r1}, {Kind: "ferry", DistanceKm: sea}, {Kind: "road", DistanceKm: r2}}
+	path := [][2]float64{{0, 0.5}, {0.3, 0.4}, {0.3, 0.2}, {0, 0.1}}
+	if s := sootFerrySpans(route, r1+sea+r2, parts, path); len(s) != 0 {
+		t.Errorf("spans %v", s)
 	}
 }

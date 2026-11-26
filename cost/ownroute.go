@@ -354,8 +354,12 @@ func sootFerrySpans(route [][2]float64, legKm float64, parts []sootcase.Part, pa
 			t0, t1 := pointAt(at*scale), pointAt((at+p.DistanceKm)*scale)
 			a, b := nearestIndex(path, t0), nearestIndex(path, t1)
 			near := func(i int, t ferries.Point) bool { return haversine(path[i][1], path[i][0], t.Lat, t.Lon) <= 3 }
-			if k := pathKm(path[a : b+1]); a < b && near(a, t0) && near(b, t1) && k >= p.DistanceKm/2 && k <= 1.5*p.DistanceKm+2 {
-				out = append(out, [2]int{a, b})
+			// The path goes from one port to the other (not if the truck
+			// took another way, by which they come in another order).
+			if a < b && near(a, t0) && near(b, t1) {
+				if k := pathKm(path[a : b+1]); k >= p.DistanceKm/2 && k <= 1.5*p.DistanceKm+2 {
+					out = append(out, [2]int{a, b})
+				}
 			}
 		}
 		at += p.DistanceKm

@@ -6,6 +6,7 @@ import (
 
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/roads"
+	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -32,6 +33,15 @@ func Route(ix *borders.Index, path [][2]float64, fd *ferries.Data) []Run {
 		return nil
 	}
 	return routeSpans(ix, path, ferrySpans(path, fd))
+}
+
+// legRuns are the runs of a leg: its ferries those of fd the path takes
+// and Sootcase's own ferry parts on it (a crossing fd doesn't know).
+func legRuns(ix *borders.Index, fd *ferries.Data, l sootcase.LegResult) []Run {
+	if ix == nil || len(l.Path) < 2 {
+		return nil
+	}
+	return routeSpans(ix, l.Path, mergeSpans(l.Path, append(ferrySpans(l.Path, fd), sootFerrySpans(l.Path, l.DistanceKm, l.Parts, l.Path)...)))
 }
 
 // routeSpans is Route with the ferries' stretches given (index spans).

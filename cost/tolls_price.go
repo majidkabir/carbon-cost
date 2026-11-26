@@ -1759,7 +1759,9 @@ func (p *pricer) priceFuel(set *tariffs.Set, fuelL float64) error {
 			// Along the route: each day's share at its day's price (a
 			// table of the next day for the km driven after midnight).
 			for _, d := range p.kmDays(ds, cc, "") {
-				b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(d.at), Unit: unit, Value: orct.FloatStr(v * d.share), Ref: m})
+				dm := *m
+				dm.km *= d.share // the day's km
+				b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(d.at), Unit: unit, Value: orct.FloatStr(v * d.share), Ref: &dm})
 			}
 		} else {
 			b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})

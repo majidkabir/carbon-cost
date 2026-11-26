@@ -1930,6 +1930,15 @@ func TestFuelByDayDriven(t *testing.T) {
 	if !(late < june && late > july*0.9) {
 		t.Errorf("fuel CO2 from 23:30 on 30 June: EUR %.2f; 30 June by day %.2f, 1 July %.2f", late, june, july)
 	}
+	var km float64
+	for _, l := range r.Lines {
+		if l.Charge == FuelCO2 {
+			km += l.Km
+		}
+	}
+	if math.Abs(km-524) > 1 {
+		t.Errorf("fuel CO2 lines on %.1f km of 524", km)
+	}
 	var listed bool
 	for _, tb := range r.Provenance.Tables {
 		listed = listed || strings.Contains(tb.File, "fuelco2-se")

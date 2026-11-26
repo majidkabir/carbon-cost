@@ -32,9 +32,10 @@ land, 50 m around.
 import gzip, json, math, os, re, sys
 from collections import Counter
 import osmium
+import cz_myto
 from shapely import wkb
 from shapely.geometry import LineString, Point
-from shapely.ops import unary_union
+from shapely.ops import substring, unary_union
 from shapely.strtree import STRtree
 
 SIMPLIFY_M = 10
@@ -51,8 +52,10 @@ COVERED = 0.9
 DEBUG_ROADS = set(filter(None, os.environ.get("ROADS_DEBUG", "").split(",")))
 # mw: the motorway class of the toll law; nat: the national roads.
 RULES = {
-    # Czechia, NV 240/2014: dálnice (D) vs silnice I. třídy.
-    "CZ": {"mw": r"^D\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
+    # Czechia, NV 240/2014: dálnice (D) vs silnice I. třídy; tolled only
+    # where vyhláška č. 470/2012 Sb. lists them, as the operator's map
+    # draws them (cz_myto.py).
+    "CZ": {"mw": r"^D\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "myto": True},
     # Poland, Dz.U. 2026 poz. 33: autostrady and drogi ekspresowe (A, S) vs
     # drogi krajowe.
     "PL": {"mw": r"^[AS]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
@@ -349,6 +352,13 @@ class Ways(osmium.SimpleHandler):
         # sections_only: the section ways by road, and the other ways of
         # those classes (road refs, class, [lon, lat] points), placed after.
         self.sec_lines, self.pending = {}, []
+        # myto (Czechia): the class I roads the law tolls; the map's tolled
+        # parts by way id (cz_myto.load); the ways sampled; ways the
+        # capture doesn't know, placed after (class, points, tags, end
+        # nodes); the end nodes of tolled ways by class; km by road ref
+        # (one carriageway).
+        self.law_refs, self.myto, self.samples, self.new_ways = set(), None, [], []
+        self.tolled_nodes, self.ref_km = {"mw": set(), "nat": set()}, Counter()
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -411,7 +421,40 @@ class Ways(osmium.SimpleHandler):
         if self.rule.get("sections_only") and not sec:
             self.pending.append(([r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()], c, coords))
             return
+        if self.rule.get("myto"):
+            return self.myto_way(w, c, coords, tags)
         self.add(c, f, coords, tags, suffix)
+
+    def myto_way(self, w, c, coords, tags):
+        refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
+        if c == "nat" and not set(refs) & self.law_refs:
+            return
+        ls = LineString(coords)
+        self.samples.append((w.id, c, ls))
+        ends = (w.nodes[0].ref, w.nodes[-1].ref)
+        if self.myto is None:
+            parts = [(0.0, 1.0)]
+        else:
+            parts = self.myto.get(w.id)
+            if parts is None:
+                self.new_ways.append((c, coords, tags, ends))
+                return
+        if parts and parts[0][0] == 0:
+            self.tolled_nodes[c].add(ends[0])
+        if parts and parts[-1][1] == 1:
+            self.tolled_nodes[c].add(ends[1])
+        for a, b in parts:
+            piece = ls if (a, b) == (0, 1) else substring(ls, a, b, normalized=True)
+            if piece.geom_type == "LineString" and len(piece.coords) >= 2:
+                self.add_myto(c, list(piece.coords), tags, refs)
+
+    def add_myto(self, c, coords, tags, refs):
+        self.add(c, -1, coords, tags)
+        # One carriageway: a oneway way (a motorway's) counts half.
+        one = 0.5 if tags.get("oneway") == "yes" or tags.get("highway") == "motorway" else 1
+        for r in refs:
+            if re.match(self.rule[c], r):
+                self.ref_km[r] += cz_myto.length_m(coords) / 1000 * one
 
     def add(self, c, f, coords, tags, suffix=None):
         ls = LineString(coords)
@@ -627,13 +670,49 @@ def place_pending(h, cc, city=None):
 # by a parser beside it) found in OpenStreetMap by tools/roads/plnet.py.
 # Poland: the e-TOLL regulation's annexes 1 (A and S, "mw") and 2 (other
 # national roads, "nat"), from tools/roads/pl_network.py.
-# Czechia: vyhláška č. 470/2012 Sb. annexes 1 (dálnice, "mw") and 2 (the
-# tolled class I roads, "nat"), from tools/roads/cz_network.py; a section's
-# km found is reported against the law's.
-NETWORK = {"PL": "pl-network.json", "CZ": "cz-network.json"}
-# The letter of the roads a national road becomes, and the country's
-# administrative area (plnet.build's upgrade and country).
-NETWORK_OPTS = {"PL": {"upgrade": "S"}, "CZ": {"upgrade": "D", "country": "Česko"}}
+NETWORK = {"PL": "pl-network.json"}
+
+
+# Czechia's tolled roads and sections, from the law (cz_network.py).
+CZ_LAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cz-network.json")
+
+
+def myto_finish(h, cc, law, dst):
+    """Czechia: the ways the capture doesn't know, the samples for the
+    next capture beside dst, and each road's tolled km against the law's.
+    Returns what the tolled sections are, for the data's network."""
+    km = Counter()
+    for c, coords, tags, (a, b) in h.new_ways:
+        tolled = a in h.tolled_nodes[c] and b in h.tolled_nodes[c]
+        km[tolled] += cz_myto.length_m(coords) / 1000
+        if tolled:
+            h.add_myto(c, coords, tags, [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()])
+    if h.new_ways:
+        print(cc, f"ways not in the map's capture: {len(h.new_ways)}, {km[True]:.1f} km tolled (both ends on tolled ways), {km[False]:.1f} km not")
+    path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
+    cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
+    print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")
+    by_ref = Counter()
+    for r in law["sections"]:
+        by_ref[r["ref"]] += r["km"]
+    off = []
+    for ref in sorted(by_ref, key=lambda r: (r[0] == "D", int(r.lstrip("D")))):
+        got, want = h.ref_km[ref], by_ref[ref]
+        mark = ""
+        if abs(got - want) > 0.1 * want + 2:
+            mark = "  OFF"
+            off.append(ref)
+        print(cc, f"{ref:>4}: {got:6.1f} km tolled, law {want:6.1f}{mark}")
+    for ref, got in sorted(h.ref_km.items()):
+        if ref not in by_ref and got > 1:
+            print(cc, f"{ref:>4}: {got:6.1f} km tolled, not in the law  OFF")
+            off.append(ref)
+    print(cc, "km by class (one carriageway):", {c: round(sum(v for r, v in h.ref_km.items() if re.match(RULES[cc][c], r))) for c in ("mw", "nat")},
+          "law:", {c: round(sum(r["km"] for r in law["sections"] if r["class"] == c)) for c in ("mw", "nat")})
+    if h.myto is not None and off:
+        sys.exit(f"{cc}: tolled km off the law's on {', '.join(off)}")
+    cap = json.load(open(cz_myto.CAPTURE, encoding="utf-8")) if h.myto is not None else {}
+    return law["source"].split(":")[0] + (f"; tolled stretches as the toll operator's map draws them ({cap['url']}, read {cap['date']})" if cap else "")
 
 
 def encode(lines):
@@ -650,16 +729,11 @@ def main_network(cc, src, dst):
     import plnet
     here = os.path.dirname(os.path.abspath(__file__))
     doc = json.load(open(os.path.join(here, NETWORK[cc]), encoding="utf-8"))
-    lines, report = plnet.build(src, doc["sections"], **NETWORK_OPTS.get(cc, {}))
-    total, off = Counter(), []
+    lines, report = plnet.build(src, doc["sections"])
+    total = Counter()
     for (text, km, why), s in zip(report, doc["sections"]):
-        law = f" (law {s['km']:.1f})" if s.get("km") else ""
-        if km is not None and s.get("km") and abs(km - s["km"]) > 0.1 * s["km"] + 1:
-            off.append(f"{text}: {km:.1f} km, law {s['km']:.1f}")
-        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text + law, why)
+        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text, why)
         total[s["class"]] += km or 0
-    for o in off:
-        print(cc, "LENGTH OFF:", o)
     print(cc, "km by class (one carriageway):", {k: round(v) for k, v in total.items()})
     bad = [r for r in report if r[1] is None]
     if bad:
@@ -740,6 +814,13 @@ def main(cc, src, dst, areas=None):
                 lo, hi = sorted((e[axis], -1e9 if mid[axis] < e[axis] else 1e9))
             h.free.append((ref, axis, lo, hi, label))
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
+    law = None
+    if rule.get("myto"):
+        law = json.load(open(CZ_LAW, encoding="utf-8"))
+        h.law_refs = {r["ref"] for r in law["sections"] if r["class"] == "nat"}
+        h.myto = cz_myto.load()
+        if h.myto is None:
+            print(f"::warning::{cc}: no capture of the toll map: every way of the law's roads counted")
     h.tolled = list(TOLLED.get(cc, []))
     h.untolled_boxes = list(UNTOLLED.get(cc, []))
     h.mountain = list(MOUNTAIN.get(cc, []))
@@ -747,6 +828,8 @@ def main(cc, src, dst, areas=None):
     h.apply_file(src, locations=True)
     if rule.get("sections_only"):
         place_pending(h, cc, city)
+    if law:
+        network = myto_finish(h, cc, law, dst)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:
@@ -770,6 +853,8 @@ def main(cc, src, dst, areas=None):
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
+    if law:
+        out["network"] = network
     # The extract's date (the workflow passes its osmosis_replication_timestamp).
     if os.environ.get("OSM_EXTRACT"):
         out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]

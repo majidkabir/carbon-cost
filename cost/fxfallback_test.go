@@ -57,3 +57,19 @@ func TestDefaultDateIsLocal(t *testing.T) {
 		}
 	}
 }
+
+// Every currency the ECB gives is there for a past day: a report in US
+// dollars of 20 November 2026 at the ECB's rate of that day.
+func TestPastDayInUSD(t *testing.T) {
+	down := func(context.Context) (fx.Rates, error) { return fx.Rates{}, errors.New("ECB unreachable") }
+	c := Calculator{Tariffs: all(t), FX: down, FXOn: fx.OnDate}
+	truck := rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1}
+	out, err := c.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 100}, CargoKg: 10000, Truck: truck,
+		Date: "2026-11-20", Currency: "USD"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if out.InCurrency == nil || out.InCurrency.PerEUR != 1.099 || out.InCurrency.Total != round2(out.TotalEUR*1.099) {
+		t.Errorf("USD on 2026-11-20: %+v (total EUR %v)", out.InCurrency, out.TotalEUR)
+	}
+}

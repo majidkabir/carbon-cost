@@ -194,6 +194,12 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 	}
 	var hits []BanHit
 	var wait float64
+	// there are when the trip is in each country with bans.
+	type banSpan struct {
+		cc       string
+		from, to time.Time
+	}
+	var there []banSpan
 	seen := map[string]bool{}
 	countries := 0
 	for _, km := range out.CountryKm {
@@ -260,6 +266,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 		}
 		shift := time.Duration(wait * float64(time.Hour))
 		t0, t1 = t0.Add(shift), t1.Add(shift)
+		w0 := wait
 		add := func(w bans.Window, certain bool, waitH float64) {
 			key := s.country + w.From.String() + w.Rule.Note
 			if seen[key] {
@@ -278,6 +285,7 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			for _, w := range windows(s, t0, t1, loc) {
 				add(w, false, 0)
 			}
+			there = append(there, banSpan{s.country, t0, t1})
 			continue
 		}
 		// Drive the segment, stopping for each ban in force until it ends;
@@ -325,11 +333,24 @@ func checkBans(out *Response, res sootcase.Result, req Request, date time.Time) 
 			wait += waitH
 			cursor = next.To
 		}
+		there = append(there, banSpan{s.country, t0, t1.Add(time.Duration((wait - w0) * float64(time.Hour)))})
 	}
 	out.Bans = hits
-	for cc := range out.CountryKm {
-		if out.CountryKm[cc] >= 0.5 && len(bans.CalendarYears(cc)) > 0 && !bans.CalendarCovers(cc, date) {
-			out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: %s's decree of bans for %d isn't in, so those bans aren't checked.", cc, date.Year()))
+	// A decree of bans not in for a day the trip is in its country.
+	noted := map[string]bool{}
+	for _, sp := range there {
+		if len(bans.CalendarYears(sp.cc)) == 0 {
+			continue
+		}
+		last := sp.to.Add(-time.Nanosecond).Format(time.DateOnly)
+		if sp.to.Equal(sp.from) {
+			last = sp.from.Format(time.DateOnly)
+		}
+		for d := sp.from; d.Format(time.DateOnly) <= last; d = d.AddDate(0, 0, 1) {
+			if k := fmt.Sprint(sp.cc, d.Year()); !noted[k] && !bans.CalendarCovers(sp.cc, d) {
+				noted[k] = true
+				out.Notes = append(out.Notes, fmt.Sprintf("Driving ban: %s's decree of bans for %d isn't in, so those bans aren't checked.", sp.cc, d.Year()))
+			}
 		}
 	}
 	if exempted {

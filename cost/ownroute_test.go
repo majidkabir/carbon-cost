@@ -157,11 +157,12 @@ func TestOwnPathFerry(t *testing.T) {
 		notes := ownPath(ix, &fd, &res, path)
 		l := res.Legs[0]
 		fkm := l.RouteParts["ferry"]
-		if fkm < 18 || fkm > 20 || len(l.Parts) != 1 || l.Parts[0].DistanceKm != fkm || l.CountryKm["DK"] < 100 || l.CountryKm["DE"] < 100 ||
-			math.Abs(l.CountryKm["DK"]+l.CountryKm["DE"]+fkm-l.DistanceKm) > 0.01 {
+		// The parts in the path's order: road, the ferry, road.
+		if fkm < 18 || fkm > 20 || len(l.Parts) != 3 || l.Parts[1].Kind != "ferry" || l.Parts[1].DistanceKm != fkm || l.CountryKm["DK"] < 100 || l.CountryKm["DE"] < 100 ||
+			math.Abs(l.CountryKm["DK"]+l.CountryKm["DE"]+fkm-l.DistanceKm) > 0.01 || math.Abs(l.Parts[0].DistanceKm+l.Parts[1].DistanceKm+l.Parts[2].DistanceKm-l.DistanceKm) > 0.01 {
 			t.Fatalf("leg %+v", l)
 		}
-		if took := len(soot.Parts) > 0; took != (l.Parts[0].TTWKg > 0) || took == strings.Contains(strings.Join(notes, " "), "doesn't take") {
+		if took := len(soot.Parts) > 0; took != (l.Parts[1].TTWKg > 0) || took == strings.Contains(strings.Join(notes, " "), "doesn't take") {
 			t.Errorf("parts %+v, notes %q", l.Parts, notes)
 		}
 		if l.TTWKg != 250 {
@@ -201,5 +202,43 @@ func TestOwnPathOneCargo(t *testing.T) {
 	}
 	if len(r.Shipments) != 1 || r.Shipments[0].DistanceKm != 100 {
 		t.Errorf("driven %.1f km: shipments %+v; want Sootcase's 100 km", pathKm(path), r.Shipments)
+	}
+}
+
+// A path's regions are its own, in order: Flanders driven before
+// midnight on 31 December 2025 is all at its 2025 table, Wallonia's km
+// after it at 2026's (Ghent to Tournai from 23:28).
+func TestOwnPathRegionsByDay(t *testing.T) {
+	var calls []sootcase.Shipment
+	var mu sync.Mutex
+	fake := fakeLegs(t, &calls, &mu)
+	defer fake.Close()
+	ix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: fake.URL}, Tariffs: all(t), Borders: ix}
+	path := dense([][2]float64{{3.72, 51.05}, {3.62, 50.85}, {3.52, 50.72}, {3.39, 50.61}})
+	r, err := c.Calculate(context.Background(), Request{Date: "2025-12-31", Time: "23:28", AvgSpeedKmh: 70, Truck: truck40, CargoKg: 10000,
+		From: sootcase.Location{Code: "S0"}, To: sootcase.Location{Code: "S1"}, Path: path})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.RegionKm["BE-VLG"] < 10 || r.RegionKm["BE-WAL"] < 10 {
+		t.Fatalf("region km %v", r.RegionKm)
+	}
+	var vlg2026 bool
+	for _, tb := range r.Provenance.Tables {
+		vlg2026 = vlg2026 || strings.HasSuffix(tb.File, "be-vlg-2026-01-01.orct.json")
+	}
+	km := map[string]float64{}
+	for _, l := range r.Lines {
+		if l.Region != "" {
+			km[l.Region] = math.Max(km[l.Region], l.Km)
+		}
+	}
+	// Flanders' km, all before midnight: one table's line of all of them.
+	if vlg2026 || math.Abs(km["BE-VLG"]-r.RegionKm["BE-VLG"]) > 0.5 {
+		t.Errorf("Flanders: lines' km %v of %v, its 2026 table used: %v", km, r.RegionKm, vlg2026)
 	}
 }

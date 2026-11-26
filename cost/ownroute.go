@@ -194,15 +194,19 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		if len(seg) < 2 {
 			seg = [][2]float64{path[cut[i]], path[cut[i]]}
 		}
+		// The parts in the path's order: its road stretches (Sootcase's
+		// road emissions shared by their km) and its ferries.
 		var sootFerries []sootcase.Part
 		var parts []sootcase.Part
+		var roadTTW, roadWTW float64
 		for _, p := range l.Parts {
 			if p.Kind == "ferry" {
 				sootFerries = append(sootFerries, p)
 			} else {
-				parts = append(parts, p)
+				roadTTW, roadWTW = roadTTW+p.TTWKg, roadWTW+p.WTWKg
 			}
 		}
+		var stretches []int // parts that are road, for their shares
 		spans := ferrySpans(seg, fd)
 		km := round3(pathKm(seg))
 		l.DistanceKm, l.Path = km, seg
@@ -212,6 +216,10 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		addRoad := func(line [][2]float64) {
 			if len(line) < 2 {
 				return
+			}
+			if rkm := pathKm(line); rkm > 0 {
+				stretches = append(stretches, len(parts))
+				parts = append(parts, sootcase.Part{Kind: "road", DistanceKm: round3(rkm)})
 			}
 			cs, rs := ix.SplitKmRegions(line)
 			for k, v := range cs {
@@ -241,6 +249,16 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 			at = s[1]
 		}
 		addRoad(seg[at:])
+		var roadKm float64
+		for _, i := range stretches {
+			roadKm += parts[i].DistanceKm
+		}
+		for _, i := range stretches {
+			if roadKm > 0 {
+				f := parts[i].DistanceKm / roadKm
+				parts[i].TTWKg, parts[i].WTWKg = roadTTW*f, roadWTW*f
+			}
+		}
 		if l.RouteParts == nil {
 			l.RouteParts = map[string]float64{}
 		}
@@ -255,7 +273,7 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		// Sootcase's country sections, main roads and driving time are its
 		// route's: the path's own sections, by the same borders; its roads
 		// aren't known, and its time is its km at avg_speed_kmh.
-		l.CountrySections, l.Summary, l.DurationH = sectionsOf(Route(ix, seg, fd)), nil, 0
+		l.CountrySections, l.Summary, l.DurationH = sectionsOf(ix, Route(ix, seg, fd)), nil, 0
 		ownKm += km
 	}
 	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", given, ownKm, sootKm))
@@ -291,7 +309,7 @@ func compactPath(path [][2]float64, minKm float64) [][2]float64 {
 
 // sectionsOf are a path's runs as country sections, as Sootcase gives
 // them: each country's stretch in order, ferries apart.
-func sectionsOf(runs []Run) []sootcase.CountrySection {
+func sectionsOf(ix *borders.Index, runs []Run) []sootcase.CountrySection {
 	var out []sootcase.CountrySection
 	pos := 0.0
 	for _, r := range runs {
@@ -301,7 +319,53 @@ func sectionsOf(runs []Run) []sootcase.CountrySection {
 		} else {
 			out = append(out, sootcase.CountrySection{Country: r.Country, FromKm: pos, ToKm: pos + r.Km, Ferry: ferry})
 		}
+		if !ferry && ix != nil {
+			s := &out[len(out)-1]
+			s.Regions = append(s.Regions, regionsOf(ix, r, pos)...)
+			if n := len(s.Regions); n > 1 && s.Regions[n-2].Region == s.Regions[n-1].Region {
+				s.Regions[n-2].ToKm = s.Regions[n-1].ToKm
+				s.Regions = s.Regions[:n-1]
+			}
+		}
 		pos += r.Km
+	}
+	return out
+}
+
+// regionsOf are a road run's regions in order (Belgium's: its km by
+// region, by the day each is driven), from its first-level regions where
+// the borders have them; each step of the path in the region it is most
+// in. pos is where the run starts.
+func regionsOf(ix *borders.Index, r Run, pos float64) []sootcase.RegionSection {
+	if _, rs := ix.SplitKmRegions(r.Points); len(rs) == 0 {
+		return nil
+	}
+	var out []sootcase.RegionSection
+	at, scale, walked := pos, 1.0, 0.0
+	for i := 0; i+1 < len(r.Points); i++ {
+		walked += haversine(r.Points[i][1], r.Points[i][0], r.Points[i+1][1], r.Points[i+1][0])
+	}
+	if walked > 0 {
+		scale = r.Km / walked // the run's km, as Route counted them
+	}
+	for i := 0; i+1 < len(r.Points); i++ {
+		a, b := r.Points[i], r.Points[i+1]
+		km := haversine(a[1], a[0], b[1], b[0]) * scale
+		_, rs := ix.SplitKmRegions([][2]float64{a, b})
+		best, most := "", 0.0
+		for k, v := range rs {
+			if v > most || v == most && k < best {
+				best, most = k, v
+			}
+		}
+		switch n := len(out); {
+		case best == "":
+		case n > 0 && out[n-1].Region == best:
+			out[n-1].ToKm = at + km
+		default:
+			out = append(out, sootcase.RegionSection{Region: best, FromKm: at, ToKm: at + km})
+		}
+		at += km
 	}
 	return out
 }

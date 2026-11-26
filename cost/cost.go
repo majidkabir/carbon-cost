@@ -1559,6 +1559,7 @@ func round3(v float64) float64 { return math.Round(v*1000) / 1000 }
 type ferryPart struct {
 	km, ttwKg float64
 	pos       float64 // where it starts along its leg, km
+	board     string  // the country boarded in, if known
 	loadKg    float64 // on board the truck on its leg
 	crossing  *ferries.Crossing
 	leg       int
@@ -1571,9 +1572,9 @@ func crossedOn(res sootcase.Result, req Request, trip time.Time, p ferryPart) ti
 	for _, l := range res.Legs[:p.leg] {
 		before += l.DistanceKm
 	}
-	cc := ""
-	if p.crossing != nil && len(p.crossing.Terminals) > 0 {
-		cc = p.crossing.Terminals[0].Country
+	cc := p.board
+	if cc == "" {
+		cc = req.origin
 	}
 	if t, ok := passage(req, trip, before+p.pos, cc); ok {
 		y, m, d := t.Date()
@@ -1616,6 +1617,8 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 				c     *ferries.Crossing
 				part  int
 				score float64
+				board int     // the terminal boarded at: the first on the way
+				at    float64 // where, along the leg
 			}
 			var fits []fit
 			for k := range cs {
@@ -1628,7 +1631,11 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 				along := math.Abs(b - a)
 				for i, p := range ps {
 					if d := math.Abs(p.km - along); d <= math.Max(2, 0.3*along) {
-						fits = append(fits, fit{c, i, d + da + db})
+						f := fit{c, i, d + da + db, 0, a}
+						if b < a {
+							f.board, f.at = 1, b
+						}
+						fits = append(fits, f)
 					}
 				}
 			}
@@ -1637,6 +1644,7 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 			for _, f := range fits {
 				if ps[f.part].crossing == nil && !taken[f.c] {
 					ps[f.part].crossing, taken[f.c] = f.c, true
+					ps[f.part].pos, ps[f.part].board = f.at, f.c.Terminals[f.board].Country
 				}
 			}
 		}

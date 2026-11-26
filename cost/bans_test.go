@@ -6,6 +6,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/bans"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -248,5 +249,21 @@ func TestBanWaitMovesTolls(t *testing.T) {
 	sat, out := a13(time.Date(2026, 11, 28, 0, 0, 0, 0, time.UTC))
 	if out.Trip.BanWaitH < 30 || wed == 0 || sat < 1.5*wed {
 		t.Errorf("A 13: EUR %.2f on Wednesday afternoon, %.2f after the Saturday wait of %.1f h; want the night tariff", wed, sat, out.Trip.BanWaitH)
+	}
+}
+
+// A decree of bans not in for a day the trip is in its country is said:
+// Italy's for 2027, on a trip from 23:00 on 31 December 2026.
+func TestBanDecreeOfALaterDay(t *testing.T) {
+	if bans.CalendarCovers("IT", time.Date(2027, 1, 1, 12, 0, 0, 0, time.UTC)) {
+		t.Skip("Italy's decree for 2027 is in")
+	}
+	it := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 900, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"IT": 900}}}}
+	r, err := PriceWith(it, all(t), nil, Request{CargoKg: 2000, Truck: truck40, Time: "23:00", origin: "IT"}, time.Date(2026, 12, 31, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(strings.Join(r.Notes, "\n"), "IT's decree of bans for 2027 isn't in") {
+		t.Errorf("notes %q", r.Notes)
 	}
 }

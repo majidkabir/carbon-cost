@@ -1877,3 +1877,27 @@ func TestFerryETSOnTheDayCrossed(t *testing.T) {
 		t.Errorf("boarded after midnight: EUR %.2f; the same crossing on 1 January EUR %.2f", late, next)
 	}
 }
+
+// A day of a time-based charge is charged however few km are on it when
+// it falls in another version (Sweden's tables of 25 March 2025: a trip
+// from 23:59 on the 24th is there on two days).
+func TestVignetteDayAcrossVersions(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"SE": 100}, RouteParts: map[string]float64{"road": 100}}}}
+	days := func(day time.Time) int {
+		req := Request{CargoKg: 10000, Truck: truck40, Time: "23:59", AvgSpeedKmh: 25, origin: "SE", FX: map[string]float64{"SEK": 11}, spans: map[string][][2]float64{"SE": {{0, 100}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if l.Country == "SE" && l.Charge == RoadToll {
+				n += l.Days
+			}
+		}
+		return n
+	}
+	if a, b := days(time.Date(2025, 3, 24, 0, 0, 0, 0, time.UTC)), days(time.Date(2025, 4, 10, 0, 0, 0, 0, time.UTC)); a != 2 || b != 2 {
+		t.Errorf("days charged: %d from the 24th of March, %d from the 10th of April; want 2", a, b)
+	}
+}

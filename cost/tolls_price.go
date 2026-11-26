@@ -138,7 +138,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	b := &batch{ds: ds}
 	secs, secKm := p.sectionsOn(ds, route)
 	if nw.perDay != nil {
-		if tolledKm >= 0.5 {
+		// A day of use, however few of the area's km are on it (byVersion
+		// gives a version its days' km): the area's km decide.
+		if a.km*share >= 0.5 && (tolledKm > 0 || p.only == nil) {
 			p.perDay(b, ds, nw, a, tolledKm)
 		}
 	} else if nw.hasRows {

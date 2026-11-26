@@ -695,11 +695,11 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 func (c Calculator) priceRoute(res sootcase.Result, req *Request, date time.Time) (Response, error) {
 	var runs []Run
 	if c.Borders != nil {
-		var path [][2]float64
+		// Leg by leg: a crossing taken out and back is one on each leg,
+		// its terminals not paired across them.
 		for _, l := range res.Legs {
-			path = append(path, l.Path...)
+			runs = append(runs, Route(c.Borders, l.Path, c.Ferries)...)
 		}
-		runs = Route(c.Borders, path, c.Ferries)
 		req.spans = Spans(runs)
 		for _, r := range runs {
 			if r.Kind == "road" && r.Country != "" {
@@ -1475,10 +1475,13 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 // their terminals), or whose table in force the route didn't match (its
 // ports off the route given).
 func (pr *pricer) faresUnknown(res sootcase.Result, fd *ferries.Data, set *tariffs.Set) []Missing {
+	// A fare table's ports may be out on the ferry line, a few km from the
+	// terminal (Samsø Rederi's Hou, 5.8 km; Bornholmslinjen's Rønne, 3.9).
+	const portKm = 8
 	near := func(t ferries.Point, ds *tariffs.Dataset) bool {
 		for _, o := range ds.Objects() {
 			for _, q := range pointsOf(o) {
-				if haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= 3 {
+				if haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= portKm {
 					return true
 				}
 			}
@@ -1486,7 +1489,7 @@ func (pr *pricer) faresUnknown(res sootcase.Result, fd *ferries.Data, set *tarif
 		return false
 	}
 	passed := func(t ferries.Point) bool {
-		return slices.ContainsFunc(pr.fareAt, func(q rates.Place) bool { return haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= 3 })
+		return slices.ContainsFunc(pr.fareAt, func(q rates.Place) bool { return haversine(t.Lat, t.Lon, q.Lat, q.Lon) <= portKm })
 	}
 	var out []Missing
 	for _, p := range ferryParts(res, fd, pr.req) {
@@ -1608,9 +1611,12 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *ta
 				continue
 			}
 			cover, coverBasis = cov.Share, cov.Basis
-			if t, b, ok := mrvFerry(out, fd, c, p.km, p.loadKg, req, date); ok {
+			if t, b, ok := mrvFerry(out, fd, c, p.km, p.loadKg, req, date, p.ttwKg); ok {
 				emT, basis = t, b
 			}
+		}
+		if emT == 0 && p.loadKg > 0 {
+			continue // a path's crossing Sootcase's route doesn't take: noted above
 		}
 		if emT == 0 {
 			// The truck crosses empty: Sootcase's ferry part goes by the
@@ -1730,7 +1736,7 @@ func priceFerryUKETS(out *Response, res sootcase.Result, fd *ferries.Data, req R
 			out.Notes = append(out.Notes, "Ferry: "+c.Name+": "+cov.Note+".")
 		}
 		emT, basis := p.ttwKg/1000, "Sootcase ferry part (GLEC ro-pax default)"
-		if t, b, ok := mrvFerry(out, fd, c, p.km, p.loadKg, req, date); ok {
+		if t, b, ok := mrvFerry(out, fd, c, p.km, p.loadKg, req, date, p.ttwKg); ok {
 			emT, basis = t, b
 		}
 		t := emT * cov.Share
@@ -1752,18 +1758,24 @@ var ukETSSources = []rates.Source{
 // data: their freight intensity x (truck tare + cargo) x the distance. ok
 // is false, with a note, when the crossing has no MRV data or the truck's
 // tare isn't given.
-func mrvFerry(out *Response, fd *ferries.Data, c *ferries.Crossing, km, loadKg float64, req Request, date time.Time) (float64, string, bool) {
+func mrvFerry(out *Response, fd *ferries.Data, c *ferries.Crossing, km, loadKg float64, req Request, date time.Time, sootcaseKg float64) (float64, string, bool) {
 	in, ok := fd.Intensity(*c, date.Year())
 	if ok && req.Truck.TareKg > 0 {
 		out.Provenance.FerryMRV = fmt.Sprintf("EU MRV %d, %s", in.Year.ReportingPeriod, in.Year.Version)
 	}
+	// What is used instead: Sootcase's ferry part, if its route takes the
+	// crossing (a path may take one it doesn't: then nothing).
+	instead := "Sootcase's default ro-pax factor is used"
+	if sootcaseKg == 0 && loadKg > 0 {
+		instead = "Sootcase's route doesn't take it (the path does), so it has no emissions and no ETS here"
+	}
 	if !ok {
-		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s has no MRV data; Sootcase's default ro-pax factor is used.", c.Name))
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s has no MRV data; %s.", c.Name, instead))
 		return 0, "", false
 	}
 	if req.Truck.TareKg == 0 {
-		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: give truck.tare_kg to use %s's own MRV data (%.1f g CO2e per tonne-nautical mile of vehicle and cargo); Sootcase's default ro-pax factor is used.",
-			c.Name, in.GPerTNm))
+		out.Notes = append(out.Notes, fmt.Sprintf("Ferry: give truck.tare_kg to use %s's own MRV data (%.1f g CO2e per tonne-nautical mile of vehicle and cargo); %s.",
+			c.Name, in.GPerTNm, instead))
 		return 0, "", false
 	}
 	grossT := (float64(req.Truck.TareKg) + loadKg) / 1000

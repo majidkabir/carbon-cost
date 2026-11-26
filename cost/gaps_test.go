@@ -964,3 +964,77 @@ func TestFerryPartBestFit(t *testing.T) {
 		t.Errorf("Zadar–Preko route: crossing %q", name)
 	}
 }
+
+// A round trip on one crossing, out and back on two legs, is two ferry
+// runs of the crossing's length, not one from a terminal on the way out
+// to the other on the way back.
+func TestRoundTripFerryRuns(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	out := cphHam.Legs[0]
+	out.Path = dense([][2]float64{{12.57, 55.68}, {11.9, 55.0}, {11.3522, 54.6556}, {11.2275, 54.5003}, {10.7, 54.0}, {9.99, 53.55}})
+	back := out
+	back.Path = reversed(out.Path)
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 500, WTWKg: 600, Legs: []sootcase.LegResult{out, back}})
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL}, Tariffs: all(t), Borders: bix, Ferries: &fd}
+	r, err := c.Calculate(context.Background(), Request{Stops: []sootcase.Location{{Code: "DKCPH"}, {Code: "DEHAM"}, {Code: "DKCPH"}}, Date: "2026-11-03",
+		CargoKg: 10000, Truck: truck40})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ferry []float64
+	for _, run := range r.Route {
+		if run.Kind == "ferry" {
+			ferry = append(ferry, run.Km)
+		}
+	}
+	if len(ferry) != 2 || ferry[0] > 40 || ferry[1] > 40 {
+		t.Errorf("CPH–HAM–CPH ferry runs %v km; want two of the crossing's length", ferry)
+	}
+}
+
+// A fare table whose port is out on the ferry line (Samsø Rederi's Hou,
+// 5.8 km from the terminal): its fare priced, the crossing isn't also
+// missing.
+func TestFarePortOnTheLine(t *testing.T) {
+	r := ferryTrip(t, "2026-11-24", [2]float64{10.25911, 55.91246}, [2]float64{10.54889, 55.86433}, "DK", "DK", [2]float64{10.34828, 55.92655}, [2]float64{10.548473, 55.868734})
+	fare := false
+	for _, l := range r.Lines {
+		fare = fare || l.Charge == FerryFare
+	}
+	if !fare || !r.Complete {
+		t.Errorf("Hou–Sælvig along the line: fare %v, missing %+v", fare, r.Missing)
+	}
+}
+
+// A crossing the driven path takes but Sootcase's route doesn't has no
+// emissions here: the notes say so, not that a default factor is used or
+// that the truck crosses empty.
+func TestPathOnlyFerryNotes(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	path := dense([][2]float64{{9.98, 57.59}, {9.97153, 57.593143}, {7.985934, 58.144283}, {7.99, 58.15}})
+	km := haversine(57.593143, 9.97153, 58.144283, 7.985934)
+	res := sootcase.Result{TTWKg: 10, WTWKg: 12, Legs: []sootcase.LegResult{{DistanceKm: km + 2, TTWKg: 10, WTWKg: 12, Path: path,
+		CountryKm: map[string]float64{"DK": 1, "NO": 1}, RouteParts: map[string]float64{"ferry": km, "road": 2},
+		Parts: []sootcase.Part{{Kind: "road", DistanceKm: 1}, {Kind: "ferry", DistanceKm: km}, {Kind: "road", DistanceKm: 1}}}}}
+	r, err := PriceWith(res, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, FX: map[string]float64{"NOK": 11.7, "DKK": 7.46}}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	notes := strings.Join(r.Notes, "\n")
+	if strings.Contains(notes, "default ro-pax factor is used") || strings.Contains(notes, "empty") {
+		t.Errorf("notes: %s", notes)
+	}
+}

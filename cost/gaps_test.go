@@ -1172,3 +1172,72 @@ func TestSurchargeNotOnSharedCrossing(t *testing.T) {
 		}
 	}
 }
+
+// An electric truck by country_km: its own kWh x Sootcase's grid factors,
+// and without them its emissions are said not to be computed, not
+// Sootcase's (which wasn't called).
+func TestElectricTruckByCountryKm(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/v1/factors" {
+			t.Errorf("Sootcase called for %s", r.URL.Path)
+		}
+		_, _ = w.Write([]byte(`{"fuels":[],"grids":[{"country":"DEU","year":2025,"g_per_kwh":330,"source":"Ember via Our World in Data: Germany"}]}`))
+	}))
+	defer srv.Close()
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: srv.URL + "/kwh"}, Tariffs: all(t)}
+	ev := truck40
+	ev.CO2Class = 5
+	req := Request{CountryKm: map[string]float64{"DE": 300}, Date: "2026-11-20", CargoKg: 10000, Truck: ev}
+	r, err := c.Calculate(context.Background(), req)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.DataType != "none" || !strings.HasPrefix(r.EmissionsBasis, "not computed") {
+		t.Errorf("no kWh: %s: %s", r.DataType, r.EmissionsBasis)
+	}
+	req.ElectricityKWh = 300
+	c.Sootcase.BaseURL = srv.URL
+	if r, err = c.Calculate(context.Background(), req); err != nil {
+		t.Fatal(err)
+	}
+	if r.DataType != "primary" || r.WTWKg != 99 {
+		t.Errorf("300 kWh: %s %v: %s", r.DataType, r.WTWKg, r.EmissionsBasis)
+	}
+}
+
+// A 24-hour vignette lasts 24 hours over the night the clocks go back:
+// 24.5 hours in Lithuania from 10:00 on 24 October 2026 need two.
+func TestRollingDayOverClocksBack(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 1715, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"LT": 1715}, RouteParts: map[string]float64{"road": 1715}}}}
+	for _, day := range []int{17, 24} {
+		req := Request{CargoKg: 10000, Truck: truck40, Time: "10:00", AvgSpeedKmh: 70, spans: map[string][][2]float64{"LT": {{0, 1715}}}}
+		out, err := Price(res, all(t), req, time.Date(2026, 10, day, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, l := range out.Lines {
+			if l.Country == "LT" && l.Charge == RoadToll && l.Days != 2 {
+				t.Errorf("from 10:00 on %d October: %d days, EUR %.2f; want 2", day, l.Days, l.Amount)
+			}
+		}
+	}
+}
+
+// ETS2 is in the diesel price of the litres priced at a 2028 price, even
+// when other litres have no price: with_fuel_eur doesn't count it twice.
+func TestETS2InPriceOfPricedLitres(t *testing.T) {
+	out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"DE": 400, "RS": 100}, Date: "2028-03-01",
+		CargoKg: 10000, DieselL: 150, ETS2EurPerT: 100, DieselEURPerLByCountry: map[string]float64{"DE": 1.6}, Truck: truck40, FX: map[string]float64{"RSD": 117}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var ets2 float64
+	for _, l := range out.Lines {
+		if l.Charge == ETS2 {
+			ets2 += l.AmountEUR
+		}
+	}
+	if ets2 == 0 || out.Fuel == nil || math.Abs(out.Fuel.InPriceEUR-ets2) > 0.01 {
+		t.Errorf("ETS2 EUR %.2f, in the price EUR %+v", ets2, out.Fuel)
+	}
+}

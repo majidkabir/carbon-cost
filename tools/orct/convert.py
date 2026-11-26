@@ -881,10 +881,13 @@ def convert_no_charge(n, path):
     """A country that levies no road charge on trucks (ORCT 6.13): the
     statement and its sources, no charges."""
     b = Builder(n, path)
-    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge"}
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge", "crossings"}
     b.no_charge = {"description": n["no_charge"], "sources": b.src}
     for k in sorted(set(n) - used):
         b.keep(k, n[k], f"{k} is kept as an extension (no ORCT field yet)")
+    # "crossings": the version of a crossings scheme (bridges) that charges nothing.
+    if "crossings" in n:
+        b.keep("crossings", n["crossings"])
     return b.doc({"description": n.get("vehicles", "all vehicles"), "criteria": {}})
 
 

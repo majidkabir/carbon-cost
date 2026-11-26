@@ -1,0 +1,49 @@
+{
+ "description": "A rolling P1D bought at 10:00 the day before the clocks go back lasts 24 hours, to 09:00: a use at 09:30 needs a second one (20).",
+ "clauses": [
+  "8.4"
+ ],
+ "datasets": [
+  "tests/fixtures/synthetic.orct.json"
+ ],
+ "usage": {
+  "orct_usage": "0.3",
+  "vehicle": {
+   "train_mass_kg": 40000,
+   "train_axles": 5,
+   "euro_class": "6",
+   "co2_class": 1
+  },
+  "events": [
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "rnet",
+    "time": "2026-10-24T10:00:00+02:00"
+   },
+   {
+    "dataset": "orct-tests/synthetic/2026-01-01",
+    "object": "rnet",
+    "time": "2026-10-25T09:30:00+01:00"
+   }
+  ]
+ },
+ "expected": {
+  "complete": true,
+  "totals": [
+   {
+    "currency": "EUR",
+    "amount": "20.00"
+   }
+  ],
+  "lines": [
+   {
+    "charge": "rvig",
+    "amount": "10"
+   },
+   {
+    "charge": "rvig",
+    "amount": "10"
+   }
+  ]
+ }
+}

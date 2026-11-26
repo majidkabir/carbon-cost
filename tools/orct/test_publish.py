@@ -90,12 +90,40 @@ ETS_CASES = [
     ("unit changed", ets(lambda o: o.update(unit="EUR per metre")), False),
 ]
 
+# Scandlines: the latest edition is open (no "to") until the next notice.
+OPEN = json.loads(json.dumps(ETS))
+del OPEN["operators"][0]["editions"][0]["to"]
+
+
+def opened(f):
+    b = json.loads(json.dumps(OPEN))
+    f(b["operators"][0]["editions"])
+    return b
+
+
+def next_month(eds):
+    eds[0]["to"] = "2026-11-30"
+    eds.append({"from": "2026-12-01", "source": "u", "rates": {"Trelleborg–Rostock": 1.7}})
+
+
+def ended_early(eds):
+    eds[0]["to"] = "2026-11-20"
+    eds.append({"from": "2026-12-01", "source": "u", "rates": {"Trelleborg–Rostock": 1.7}})
+
+
+OPEN_CASES = [
+    ("open edition ends as the next starts", opened(next_month), True),
+    ("open edition ends with no next", opened(lambda e: e[0].update(to="2026-11-30")), False),
+    ("open edition ends early", opened(ended_early), False),
+]
+
 if __name__ == "__main__":
     bad = [(n, want) for n, f, want in CASES if changed(f) != want]
     bad += [(n, want) for n, a, b, want in PAIRS if osm_only(a, b) != want]
     bad += [("fx " + n, want) for n, b, want in FX_CASES if appended_days(FX, b) != want]
     bad += [("ets " + n, want) for n, b, want in ETS_CASES if editions_added(ETS, b) != want]
-    CASES += PAIRS + FX_CASES + ETS_CASES
+    bad += [("ets " + n, want) for n, b, want in OPEN_CASES if editions_added(OPEN, b) != want]
+    CASES += PAIRS + FX_CASES + ETS_CASES + OPEN_CASES
     for n, want in bad:
         print(f"FAIL {n}: want osm_only={want}")
     print(f"{len(CASES) - len(bad)}/{len(CASES)} ok")

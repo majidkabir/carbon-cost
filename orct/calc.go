@@ -1131,8 +1131,10 @@ func durationDays(p string) (int, int, int, bool) {
 }
 
 // productEnd is the first instant a product bought at start no longer
-// covers (8.4).
-func productEnd(start time.Time, p string) time.Time {
+// covers (8.4). For rolling, the months and years end at start's local
+// time of day, and each day then adds 24 hours, whatever change of the
+// clocks.
+func productEnd(start time.Time, p string, rolling bool) time.Time {
 	y, mo, d, _ := durationDays(p)
 	months := int(start.Month()) - 1 + mo + 12*y
 	year, month := start.Year()+months/12, months%12+1
@@ -1140,6 +1142,10 @@ func productEnd(start time.Time, p string) time.Time {
 	day := start.Day()
 	if day > last {
 		day = last
+	}
+	if rolling {
+		end := time.Date(year, time.Month(month), day, start.Hour(), start.Minute(), start.Second(), start.Nanosecond(), start.Location())
+		return end.Add(time.Duration(d) * 24 * time.Hour)
 	}
 	return time.Date(year, time.Month(month), day+d, start.Hour(), start.Minute(), start.Second(), start.Nanosecond(), start.Location())
 }
@@ -1218,9 +1224,9 @@ func (c *Calc) period(ds *Dataset, ch *Charge, days []time.Time, events []*Event
 			}
 			var end time.Time
 			if rolling {
-				end = productEnd(days[i], p)
+				end = productEnd(days[i], p, true)
 			} else {
-				end = productEnd(time.Date(days[i].Year(), days[i].Month(), days[i].Day(), 0, 0, 0, 0, time.UTC), p)
+				end = productEnd(time.Date(days[i].Year(), days[i].Month(), days[i].Day(), 0, 0, 0, 0, time.UTC), p, false)
 			}
 			j := len(days)
 			for k := i; k < len(days); k++ {

@@ -65,13 +65,19 @@ func fuelCost(out *Response, req Request, date time.Time) {
 	b, latest, haveB := fuel.On(date)
 	share := fuelShares(req, out.CountryKm)
 	f := &FuelCost{Litres: out.Trip.FuelL, Complete: true}
-	usedB, ets2InPrice := false, false
+	usedB := false
+	// The litres ETS2 covers (bought in its states), and those of them at a
+	// price that holds it.
+	var ets2L, ets2Held float64
 	var refundNotes, national []string
 	priced := map[string]bool{}
 	for _, cc := range sortedKeys(share) {
 		l := out.Trip.FuelL * share[cc]
 		if l <= 0 {
 			continue
+		}
+		if ets2States[cc] {
+			ets2L += l
 		}
 		fb := FuelBought{Country: cc, Litres: round2(l)}
 		switch {
@@ -117,8 +123,8 @@ func fuelCost(out *Response, req Request, date time.Time) {
 			priced[cc] = true
 			// A price of a day ETS2 covers holds it: the trip's own day for a
 			// price given, the bulletin's for its.
-			if fb.Price == "given" && !date.Before(ETS2Start) || strings.HasPrefix(fb.Price, "Weekly") && b.Date >= ETS2Start.Format(time.DateOnly) {
-				ets2InPrice = true
+			if ets2States[cc] && (fb.Price == "given" && !date.Before(ETS2Start) || strings.HasPrefix(fb.Price, "Weekly") && b.Date >= ETS2Start.Format(time.DateOnly)) {
+				ets2Held += l
 			}
 		} else {
 			f.Complete = false
@@ -126,15 +132,14 @@ func fuelCost(out *Response, req Request, date time.Time) {
 		}
 		f.ByCountry = append(f.ByCountry, fb)
 	}
-	// The CO2 prices on fuel of the litres priced, and ETS2 where the price
-	// holds it, are in the diesel price already.
-	allPriced := f.Complete
+	// The CO2 prices on fuel of the litres priced, and ETS2 on the litres
+	// whose price holds it, are in the diesel price already.
 	for _, l := range out.Lines {
 		switch {
 		case l.Charge == FuelCO2 && priced[l.Country]:
 			f.InPriceEUR += l.AmountEUR
-		case l.Charge == ETS2 && ets2InPrice && allPriced:
-			f.InPriceEUR += l.AmountEUR
+		case l.Charge == ETS2 && ets2L > 0:
+			f.InPriceEUR += l.AmountEUR * ets2Held / ets2L
 		}
 	}
 	f.EUR, f.InPriceEUR, f.RefundEUR = round2(f.EUR), round2(f.InPriceEUR), round2(f.RefundEUR)

@@ -18,6 +18,7 @@ Usage: python3 tools/orct/publish.py <workflow orct dir> tariffs/data
 Prints what it published and a ::warning for each dataset to review, and
 rebuilds tariffs/data/index.json when it published something. Exit 0.
 """
+import datetime
 import json
 import os
 import re
@@ -155,10 +156,20 @@ def editions_added(a, b):
         ns = {e["from"]: e for e in n["editions"]}
         for e in o["editions"]:
             f = ns.get(e["from"])
-            if f is None or {k: v for k, v in e.items() if k != "source"} != {k: v for k, v in f.items() if k != "source"}:
+            if f is None:
+                return False
+            # An open edition (no "to", Scandlines' latest) may end the day
+            # before the next one starts.
+            ends = "to" not in e and f.get("to") and next_day(f["to"]) in ns
+            if {k: v for k, v in e.items() if k != "source"} != {k: v for k, v in f.items() if k != "source" and not (ends and k == "to")}:
                 return False
         added += len(n["editions"]) - len(o["editions"])
     return added >= 0
+
+
+def next_day(day):
+    """The day after day (YYYY-MM-DD)."""
+    return (datetime.date.fromisoformat(day) + datetime.timedelta(days=1)).isoformat()
 
 
 def ets_surcharges(new, data):

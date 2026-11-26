@@ -400,8 +400,9 @@ type Response struct {
 	// else Sootcase's (GLEC default intensities x the tonne-km, modelled).
 	TTWKg float64 `json:"ttw_kg"`
 	WTWKg float64 `json:"wtw_kg"`
-	// DataType is "primary" (the truck's diesel given) or "modelled"
-	// (Sootcase's defaults, or the default diesel of the truck's group).
+	// DataType is "primary" (the truck's diesel or electricity given),
+	// "modelled" (Sootcase's defaults, or the default diesel of the truck's
+	// group) or "none" (not computed: see EmissionsBasis).
 	DataType string `json:"data_type"`
 	// EmissionsBasis says how TTWKg and WTWKg were found.
 	EmissionsBasis string `json:"emissions_basis"`
@@ -626,10 +627,11 @@ func (c Calculator) Calculate(ctx context.Context, req Request) (Response, error
 		}
 		assumed = append(assumed, "vehicle_type: "+vt)
 	}
-	if (req.fuelGiven() || req.electricityGiven()) && len(req.CountryKm) == 0 {
+	if req.fuelGiven() && len(req.CountryKm) == 0 || req.electricityGiven() {
 		// The truck's own diesel or electricity: Sootcase's factors for
-		// them (GLEC's for diesel, the grids' by country); a trip by
-		// country_km doesn't call Sootcase, and keeps EN 16258's.
+		// them (GLEC's for diesel, the grids' by country). A trip by
+		// country_km keeps EN 16258's for diesel; electricity has no
+		// other factors.
 		if f, ok := factorsOf(ctx, c.Sootcase); ok {
 			if df, ok := f.Fuel("diesel"); ok && df.Unit == "l" && df.TTWKgPerUnit > 0 {
 				req.dieselFactor = &df

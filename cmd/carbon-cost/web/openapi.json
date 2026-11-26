@@ -949,7 +949,7 @@
       "type": "object"
      },
      "data_type": {
-      "description": "DataType is \"primary\" (the truck's diesel given) or \"modelled\" (Sootcase's defaults, or the default diesel of the truck's group).",
+      "description": "DataType is \"primary\" (the truck's diesel or electricity given), \"modelled\" (Sootcase's defaults, or the default diesel of the truck's group) or \"none\" (not computed: see EmissionsBasis).",
       "type": "string"
      },
      "date": {

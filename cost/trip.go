@@ -529,6 +529,12 @@ func tripEmissions(out *Response, res sootcase.Result, req Request) Request {
 		out.DataType, out.EmissionsBasis, roadWTW = "primary", basis, wtw
 		return shareEmissions(out, res, req, roadTTW, roadWTW)
 	}
+	if len(req.CountryKm) > 0 && (out.Trip == nil || out.Trip.FuelL <= 0) {
+		// No route, so no Sootcase emissions, and no diesel: an electric
+		// truck's need its kWh and Sootcase's grid factors.
+		out.DataType, out.EmissionsBasis = "none", "not computed: a trip by country_km has no Sootcase emissions, and an electric truck's need electricity_kwh (or kwh_per_100km) and Sootcase's grid factors"
+		return req
+	}
 	if !req.fuelGiven() && len(req.CountryKm) == 0 || out.Trip.FuelL <= 0 {
 		return req
 	}

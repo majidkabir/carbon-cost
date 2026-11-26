@@ -1,0 +1,67 @@
+{
+ "about": "Austria's Fahrverbotskalender for trucks over 7.5 t (and truck-trailer combinations over 7.5 t together) in 2026, transcribed from the consolidated text in RIS; tools/tables/check_bans.py checks the dates and hours against it. Each ban holds only on the roads, directions or destinations its note names, so a trip is said to may run into it.",
+ "country": "AT",
+ "year": 2026,
+ "check": "words-de",
+ "law": "Fahrverbotskalender 2026 (BGBl. II Nr. 77/2026), § 1",
+ "source": {
+  "id": "nor40276924",
+  "title": "RIS: Fahrverbotskalender 2026, § 1",
+  "url": "https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40276924/NOR40276924.pdf"
+ },
+ "days": [
+  {
+   "date": "2026-04-03",
+   "from": "00:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "on the A 12 and A 13 when the destination is in Germany or reached via Germany"
+  },
+  {
+   "date": "2026-10-03",
+   "from": "00:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 12 and A 13 when the destination is in Germany or reached via Germany"
+  },
+  {
+   "date": "2026-04-04",
+   "from": "11:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 12 and A 13 when the destination is in Italy or reached via Italy"
+  },
+  {
+   "date": "2026-04-25",
+   "from": "11:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 12 and A 13 when the destination is in Italy or reached via Italy"
+  },
+  {
+   "date": "2026-06-02",
+   "from": "09:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "on the A 12 and A 13 when the destination is in Italy or reached via Italy"
+  },
+  {
+   "from_date": "2026-07-04",
+   "to_date": "2026-08-29",
+   "weekday": "sat",
+   "from": "08:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "both ways outside built-up areas on the B 178 Lofer–Wörgl, B 320 from km 4.5, B 177 Seefelder Straße, B 179 Nassereith–Biberwier, B 181 Achensee Straße and B 182 Brenner Straße"
+  },
+  {
+   "from_date": "2026-07-04",
+   "to_date": "2026-09-05",
+   "weekday": "sat",
+   "from": "08:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "both ways on the A 4 from Knoten Schwechat to the Nickelsdorf border, but for traffic to and from the districts of Neusiedl am See, Eisenstadt, Eisenstadt-Umgebung, Rust, Mattersburg, Bruck an der Leitha, Gänserndorf and Korneuburg"
+  }
+ ]
+}

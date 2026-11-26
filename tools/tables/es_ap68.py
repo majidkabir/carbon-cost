@@ -92,7 +92,10 @@ def main(fetched, out, year="2026"):
             got[seq[0]] = 0.0
         if es_stretch.open_end(line[-1], m6toll.at(line, cum, cum[-1])[1], ls, line):
             got[seq[-1]] = cum[-1]
-        filled |= set(es_stretch.fill(seq, got, line, cum, juncs))
+        # The AP-68's exits are numbered 1 to 21 (12A, 12B); junctions by it
+        # numbered 244A, 244B, 246, 391 and 406 are other roads', and in the
+        # extracts since 22 November 2026 they left Recajo between two.
+        filled |= set(es_stretch.fill(seq, got, line, cum, juncs, own_ref=lambda r: re.fullmatch(r"\d{1,2}[AB]?", r) is not None))
         for s, x in got.items():
             pts.setdefault(s, []).append(m6toll.at(line, cum, x)[0])
     miss = [s for s in ORDER if s not in pts]

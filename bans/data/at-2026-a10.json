@@ -1,0 +1,50 @@
+{
+ "about": "Austria's A 10 summer bans for trucks over 7.5 t (and truck-trailer combinations over 7.5 t together) in 2026, transcribed from the consolidated text in RIS; tools/tables/check_bans.py checks the dates and hours against it. Each ban holds only on the roads, directions or destinations its note names, so a trip is said to may run into it.",
+ "country": "AT",
+ "year": 2026,
+ "check": "words-de",
+ "law": "Sommer-Fahrverbotskalender A 10 2026 (BGBl. II Nr. 190/2026), § 1",
+ "source": {
+  "id": "nor40279329",
+  "title": "RIS: Sommer-Fahrverbotskalender A 10 2026, § 1",
+  "url": "https://www.ris.bka.gv.at/Dokumente/Bundesnormen/NOR40279329/NOR40279329.pdf"
+ },
+ "days": [
+  {
+   "from_date": "2026-07-11",
+   "to_date": "2026-08-08",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 10 southbound (Richtungsfahrbahn Villach), Knoten Salzburg to Knoten Villach"
+  },
+  {
+   "from_date": "2026-08-22",
+   "to_date": "2026-09-05",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 10 southbound (Richtungsfahrbahn Villach), Knoten Salzburg to Knoten Villach"
+  },
+  {
+   "from_date": "2026-07-18",
+   "to_date": "2026-08-08",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 10 northbound (Richtungsfahrbahn Salzburg), Knoten Villach to Knoten Salzburg"
+  },
+  {
+   "from_date": "2026-08-22",
+   "to_date": "2026-09-19",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 10 northbound (Richtungsfahrbahn Salzburg), Knoten Villach to Knoten Salzburg"
+  }
+ ]
+}

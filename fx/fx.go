@@ -85,6 +85,7 @@ func Fetch(ctx context.Context, hc *http.Client, url string) (Rates, error) {
 // the lock is never held during it: while it runs, other callers get the
 // stale rates, or wait for it when there are none yet.
 type Cache struct {
+	// URL defaults to ECBURL, HTTP to a client with a 15-second timeout.
 	URL  string
 	HTTP *http.Client
 	TTL  time.Duration

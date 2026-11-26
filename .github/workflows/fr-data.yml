@@ -2,7 +2,8 @@ name: France data
 # Fetches the French toll tariffs and toll stations listed in
 # tools/fr/sources.json (tools/fr/fetch.py), builds the table, converts it
 # to ORCT, compares it with tariffs/data, and pushes it all, with a
-# manifest, to the fr-out branch. Push to the fr-data branch to run it.
+# manifest, to the fr-out branch. Daily at 02:49 UTC, or push to the
+# fr-data branch to run it.
 on:
   push:
     branches: [fr-data]

@@ -77,6 +77,38 @@ func (b *batch) event(obj string, at time.Time, m *lineMeta) *orct.Event {
 	return &b.events[len(b.events)-1]
 }
 
+// keepDays keeps the uses on the local days keep says: a ticket (entry
+// and exit) by its time basis's, as versions takes its table.
+func (b *batch) keepDays(keep func(day string) bool) {
+	day := func(ts string) string {
+		t, err := b.ds.Local(ts)
+		if err != nil {
+			return ""
+		}
+		return t.Format(time.DateOnly)
+	}
+	var evs []orct.Event
+	for i := 0; i < len(b.events); i++ {
+		e := b.events[i]
+		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
+			lead := e
+			if odBasisExit(b.ds) {
+				lead = b.events[x]
+			}
+			if keep(day(lead.Time)) {
+				evs = append(evs, e, b.events[x])
+			}
+			i = x
+			continue
+		}
+		if keep(day(e.Time)) {
+			evs = append(evs, e)
+		}
+	}
+	b.events = evs
+	b.quants = slices.DeleteFunc(b.quants, func(q orct.Quantity) bool { return !keep(day(q.Time)) })
+}
+
 func (b *batch) km(obj string, at time.Time, km float64, overlays map[string]float64, m *lineMeta) {
 	e := b.event(obj, at, m)
 	d := orct.FloatStr(km)
@@ -97,14 +129,35 @@ type pricer struct {
 	add     func(Line) error
 	vehicle map[string]any
 	payment []string
+	// set has the other versions of a scheme, for a use the trip reaches
+	// after its table's last day (nil: none are looked for).
+	set *tariffs.Set
+	// fareAt are the places of the fare tables' ports the route passed.
+	fareAt []rates.Place
+	// shared are the days of shared vignettes paid so far: group, day,
+	// the area charged.
+	shared map[string]map[string]string
+	// only, when set, keeps an area's uses on the local days it says: a
+	// version prices its own days (byVersion).
+	only func(day string) bool
+	// tickets are the tickets matched on the dataset priced now, kept by
+	// its version or not (byVersion): the uses they include go with them.
+	tickets []ticketSpan
+	// envDone: env_zone_km priced by one of the versions (byVersion).
+	envDone bool
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
 	p := &pricer{req: req, date: date, out: out, add: add, vehicle: vehicleOf(req.Truck)}
 	// The load carried on the trip, for fares per tonne of it (the Elbe
-	// ferry's per started 1,000 kg).
-	if req.CargoKg > 0 {
-		p.vehicle["load_kg"] = req.CargoKg
+	// ferry's per started 1,000 kg): the heaviest on any leg, where the
+	// legs aren't priced each at their own (priceCrossings).
+	load := req.CargoKg
+	for _, l := range req.legLoadKg {
+		load = math.Max(load, l)
+	}
+	if load > 0 {
+		p.vehicle["load_kg"] = load
 	}
 	if req.ETC {
 		p.payment = []string{"electronic"}
@@ -113,7 +166,9 @@ func newPricer(req Request, date time.Time, out *Response, add func(Line) error)
 }
 
 func (p *pricer) note(format string, a ...any) {
-	p.out.Notes = append(p.out.Notes, fmt.Sprintf(format, a...))
+	if n := fmt.Sprintf(format, a...); !slices.Contains(p.out.Notes, n) {
+		p.out.Notes = append(p.out.Notes, n)
+	}
 }
 
 // noon is the time an untimed use is priced at: noon local time on the
@@ -129,6 +184,19 @@ func (p *pricer) at(ds *tariffs.Dataset, pos float64, country string) (time.Time
 		return t, true
 	}
 	return p.noon(ds), false
+}
+
+// chargeOf is a statement line's charge, from the dataset that priced it:
+// a later version's for a use moved there (its charge ids may be others).
+func (p *pricer) chargeOf(ds *tariffs.Dataset, l *orct.Line) *orct.Charge {
+	if l.Dataset != "" && l.Dataset != ds.ID && p.set != nil {
+		for _, d := range p.set.All {
+			if d.ID == l.Dataset {
+				return d.Charge(l.Charge)
+			}
+		}
+	}
+	return ds.Charge(l.Charge)
 }
 
 // componentOf is the Line component of an ORCT charge.
@@ -179,24 +247,81 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 	if len(b.events) == 0 && len(b.quants) == 0 {
 		return &orct.Statement{}, nil
 	}
+	versions := p.versions(b)
+	dss := []*orct.Dataset{b.ds.Dataset}
+	for _, v := range versions {
+		if v != b.ds {
+			dss = append(dss, v.Dataset)
+		}
+	}
 	u := &orct.Usage{ORCTUsage: "0.3", Vehicle: p.vehicle, Payment: p.payment, Events: b.events, Quantities: b.quants}
-	st := orct.Calculate([]*orct.Dataset{b.ds.Dataset}, u)
-	cur := b.ds.Doc.Header.Currency
+	st := orct.Calculate(dss, u)
 	var lines []*Line
 	merged := map[string]*Line{}
+	// lineDay is each event time's local day, lineAt each line's (a cap's
+	// cut is a day's).
+	lineDay, lineAt := map[string]string{}, map[*Line]string{}
 	for _, ol := range st.Lines {
-		ch := b.ds.Charge(ol.Charge)
+		if ol.Event != nil {
+			d := b.ds
+			if v := versions[ol.Dataset]; v != nil {
+				d = v
+			}
+			if t, err := d.Local(ol.Event.Time); err == nil {
+				lineDay[ol.Event.Time] = t.Format(time.DateOnly)
+			}
+		}
+	}
+	for _, ol := range st.Lines {
+		ds := b.ds
+		if v := versions[ol.Dataset]; v != nil {
+			ds = v
+		}
+		cur := ds.Doc.Header.Currency
+		ch := ds.Charge(ol.Charge)
 		var m *lineMeta
 		if ol.Event != nil {
 			m, _ = ol.Event.Ref.(*lineMeta)
 		}
 		if m == nil {
-			m = &lineMeta{charge: RoadToll, country: b.ds.Country}
+			m = &lineMeta{charge: RoadToll, country: ds.Country}
 		}
 		amount := ol.Amount.Float()
 		key := ""
 		if m.key != "" && ol.Row != nil && (ch.Type == "distance" || ch.Type == "period" || ch.Type == "area") {
-			key = fmt.Sprintf("%s|%s|%d", m.key, ol.Charge, *ol.Row)
+			key = fmt.Sprintf("%s|%s|%s|%d", m.key, ol.Dataset, ol.Charge, *ol.Row)
+		}
+		rate, _ := orct.ParseDec(ol.Rate)
+		// A factor rule's surcharge on part of the km (a surcharged
+		// stretch) is a line of its own, l keeping the base amount.
+		factors := func(l *Line) {
+			for _, r := range ds.Doc.Rules {
+				if r.Kind != "factor" || !slices.Contains(r.AppliesTo, ol.Charge) || ol.Event == nil {
+					continue
+				}
+				obj, _ := r.Params["object"].(string)
+				okm, ok := ol.Event.Overlays[obj]
+				if !ok || okm.Sign() == 0 {
+					continue
+				}
+				extra := amount - rate.Mul(ol.Quantity).Float()
+				l.Amount -= extra
+				sk := key + "|" + obj
+				if prev, ok := merged[sk]; ok && key != "" {
+					prev.Amount += extra
+					prev.Km += okm.Float()
+					continue
+				}
+				f, _ := orct.ParseDec(fmt.Sprint(r.Params["factor"]))
+				s := *l
+				s.Section, s.Km = ds.Object(obj).Name, okm.Float()
+				s.Rate = rate.Mul(f.Sub(orct.DecInt(1))).Float()
+				s.Amount = extra
+				lines = append(lines, &s)
+				if key != "" {
+					merged[sk] = &s
+				}
+			}
 		}
 		if l, ok := merged[key]; ok && key != "" {
 			l.Amount += amount
@@ -204,23 +329,20 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 				l.Area = ""
 			}
 			switch ch.Type {
-			case "period":
+			case "period", "area": // another day: the same km
 				l.Days++
-				fallthrough
 			case "distance":
 				if m.hasKm {
 					l.Km += m.km
 				}
-			case "area": // another day in the zone: the same km
-				l.Days++
 			}
+			factors(l)
 			continue
 		}
-		rate, _ := orct.ParseDec(ol.Rate)
 		l := &Line{Charge: m.charge, Country: m.country, Region: m.region, Road: m.road, Area: m.area, Section: m.section,
-			Component: componentOf(ch), Rate: rate.Float(), Currency: cur, Amount: amount, Source: src, Sources: srcs(b.ds)}
+			Component: componentOf(ch), Rate: rate.Float(), Currency: cur, Amount: amount, Source: src, Sources: srcs(ds)}
 		if src == "" {
-			l.Source = sourceText(b.ds, ch)
+			l.Source = sourceText(ds, ch)
 		}
 		if m.hasKm {
 			l.Km = m.km
@@ -252,6 +374,26 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 			}
 		}
 		if ol.Unit == "rule" {
+			// A cap's cut (a day's maximum of passages) comes off that
+			// day's last passages first, none below nothing: those over
+			// the maximum are free.
+			if amount < 0 && ol.Event != nil && capCut(ol) {
+				day := lineDay[ol.Event.Time]
+				left := -amount
+				for i := len(lines) - 1; i >= 0 && left > 1e-9; i-- {
+					x := lines[i]
+					if x.Charge != m.charge || x.Country != m.country || x.Currency != cur || lineAt[x] != day || x.Amount <= 0 {
+						continue
+					}
+					cut := math.Min(x.Amount, left)
+					x.Amount -= cut
+					left -= cut
+				}
+				amount = -left
+				if left <= 1e-9 {
+					continue
+				}
+			}
 			// A rule's adjustment (a cap, a minimum): it adds to the line
 			// of the use it adjusts.
 			if prev := lastOf(lines, m); prev != nil {
@@ -263,39 +405,14 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		if extra != nil {
 			extra(l, ol)
 		}
+		if ol.Event != nil {
+			lineAt[l] = lineDay[ol.Event.Time]
+		}
 		lines = append(lines, l)
 		if key != "" {
 			merged[key] = l
 		}
-		// A factor rule's surcharge on part of the km (a surcharged
-		// stretch) is a line of its own.
-		for _, r := range b.ds.Doc.Rules {
-			if r.Kind != "factor" || !slices.Contains(r.AppliesTo, ol.Charge) || ol.Event == nil {
-				continue
-			}
-			obj, _ := r.Params["object"].(string)
-			okm, ok := ol.Event.Overlays[obj]
-			if !ok || okm.Sign() == 0 {
-				continue
-			}
-			base := rate.Mul(ol.Quantity).Float()
-			f, _ := orct.ParseDec(fmt.Sprint(r.Params["factor"]))
-			s := *l
-			s.Section, s.Km = b.ds.Object(obj).Name, okm.Float()
-			s.Rate = rate.Mul(f.Sub(orct.DecInt(1))).Float()
-			s.Amount = l.Amount - base
-			l.Amount = base
-			sk := key + "|" + obj
-			if prev, ok := merged[sk]; ok && key != "" {
-				prev.Amount += s.Amount
-				prev.Km += s.Km
-				continue
-			}
-			lines = append(lines, &s)
-			if key != "" {
-				merged[sk] = &s
-			}
-		}
+		factors(l)
 	}
 	for _, l := range lines {
 		if math.Abs(l.Amount) < 0.005 && l.Charge != FuelCO2 {
@@ -309,6 +426,304 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 	}
 	return st, nil
+}
+
+// versions moves the batch's uses on days after its table's last to the
+// version of the scheme in force then (a bridge crossed after midnight on
+// 31 December pays the new year's toll), and returns the tables so used,
+// by id. A use with no table in force that day is reported missing.
+func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
+	out := map[string]*tariffs.Dataset{b.ds.ID: b.ds}
+	// at is the table of b.ds's scheme in force on the local day of ts:
+	// b.ds, a later or earlier version, or nil.
+	at := func(ts string) *tariffs.Dataset {
+		t, err := b.ds.Local(ts)
+		if err != nil {
+			return b.ds
+		}
+		day := t.Format(time.DateOnly)
+		if b.ds.ValidFrom <= day && (b.ds.ValidTo == "" || day <= b.ds.ValidTo) {
+			return b.ds
+		}
+		if p.set != nil {
+			if v, ok := p.set.Version(b.ds, day); ok {
+				return v
+			}
+		}
+		return nil
+	}
+	// gone reports a use with no table that day: before the first (one
+	// that starts later, unless the charge itself began then) or after the
+	// last.
+	gone := func(ts string, ref any) {
+		if p.set == nil {
+			return
+		}
+		charge := RoadToll
+		if m, ok := ref.(*lineMeta); ok && m.charge != "" {
+			charge = m.charge
+		}
+		m := Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "ended", Ended: b.ds.ValidTo}
+		if t, err := b.ds.Local(ts); err == nil && t.Format(time.DateOnly) < b.ds.ValidFrom {
+			if since := ""; b.ds.Ext("charged_from", &since) && since >= b.ds.ValidFrom {
+				return // no charge before it
+			}
+			m = Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "before_table", Starts: b.ds.ValidFrom}
+		}
+		if !slices.ContainsFunc(p.out.Missing, func(x Missing) bool { return x.Name == m.Name && x.Reason == m.Reason }) {
+			p.out.Missing = append(p.out.Missing, m)
+		}
+	}
+	use := func(v *tariffs.Dataset) {
+		if v != b.ds && out[v.ID] == nil {
+			out[v.ID] = v
+			p.addSources(v)
+			p.useTable(v)
+		}
+	}
+	move := func(ds, obj *string, ts string, ref any) {
+		v := at(ts)
+		switch {
+		case v == nil:
+			gone(ts, ref)
+		case v != b.ds:
+			use(v)
+			*ds, *obj = v.ID, sameObject(b.ds, v, *obj)
+		}
+	}
+	// within is ts taken within v's days: its first instant or its last.
+	within := func(v *tariffs.Dataset, ts string) string {
+		t, err := v.Local(ts)
+		if err != nil {
+			return ts
+		}
+		day := t.Format(time.DateOnly)
+		if day < v.ValidFrom {
+			if d, err := time.ParseInLocation(time.DateOnly, v.ValidFrom, v.TZ()); err == nil {
+				return stamp(d)
+			}
+		}
+		if v.ValidTo != "" && day > v.ValidTo {
+			if d, err := time.ParseInLocation(time.DateOnly, v.ValidTo, v.TZ()); err == nil {
+				return stamp(d.Add(24*time.Hour - time.Second))
+			}
+		}
+		return ts
+	}
+	const dropped = "(no table)" // a ticket with no table: neither event priced
+	// The tickets' spans and tables: a use a ticket includes (a bridge in
+	// its fare, ORCT included_in) goes with the ticket's table.
+	type span struct {
+		from, to time.Time
+		v        *tariffs.Dataset
+	}
+	var tickets []span
+	included := map[string]bool{}
+	for _, r := range b.ds.Doc.Rules {
+		if r.Kind == "included_in" {
+			if objs, ok := r.Params["objects"].([]any); ok {
+				for _, o := range objs {
+					if id, ok := o.(string); ok {
+						included[id] = true
+					}
+				}
+			}
+		}
+	}
+	timeOf := func(ts string) time.Time {
+		t, _ := time.Parse(time.RFC3339, ts)
+		return t
+	}
+	for i := 0; i < len(b.events); i++ {
+		e := &b.events[i]
+		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
+			// A ticket is priced by one table: the one in force at its
+			// time basis, the entry (its rows' times go by it), else the
+			// one at the exit (a table that starts that midnight); the
+			// other event is taken within that table's days.
+			ex := &b.events[x]
+			lead, other := e, ex
+			if odBasisExit(b.ds) {
+				lead, other = ex, e
+			}
+			v := at(lead.Time)
+			if v == nil {
+				v = at(other.Time)
+			}
+			if len(included) > 0 {
+				tickets = append(tickets, span{timeOf(e.Time), timeOf(ex.Time), v})
+			}
+			if v == nil {
+				gone(lead.Time, lead.Ref)
+				e.Dataset, ex.Dataset = dropped, dropped
+				i = x
+				continue
+			}
+			if v != b.ds {
+				use(v)
+				e.Object, ex.Object = sameObject(b.ds, v, e.Object), sameObject(b.ds, v, ex.Object)
+			}
+			e.Dataset, ex.Dataset = v.ID, v.ID
+			e.Time, ex.Time = within(v, e.Time), within(v, ex.Time)
+			i = x
+			continue
+		}
+		from := e.Dataset
+		if included[e.Object] {
+			if t := timeOf(e.Time); slices.ContainsFunc(tickets, func(s span) bool { return !t.Before(s.from) && !t.After(s.to) }) {
+				continue // the second pass puts it with its ticket
+			}
+		}
+		move(&e.Dataset, &e.Object, e.Time, e.Ref)
+		if e.Dataset != from && len(e.Overlays) > 0 {
+			ov := map[string]orct.Dec{}
+			for k, v := range e.Overlays {
+				if id := sameObject(b.ds, out[e.Dataset], k); id != "" {
+					ov[id] = v
+				}
+			}
+			e.Overlays = ov
+		}
+	}
+	// The uses a ticket includes: with its table, within its days (or
+	// none, with it).
+	for i := range b.events {
+		e := &b.events[i]
+		if e.Role != "" || !included[e.Object] || e.Dataset != b.ds.ID {
+			continue
+		}
+		t := timeOf(e.Time)
+		for _, s := range tickets {
+			if t.Before(s.from) || t.After(s.to) {
+				continue
+			}
+			switch {
+			case s.v == nil:
+				e.Dataset = dropped
+			case s.v != b.ds:
+				e.Dataset, e.Object = s.v.ID, sameObject(b.ds, s.v, e.Object)
+			}
+			if s.v != nil {
+				e.Time = within(s.v, e.Time)
+			}
+			break
+		}
+	}
+	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return e.Dataset == dropped })
+	for i := range b.quants {
+		move(&b.quants[i].Dataset, &b.quants[i].Object, b.quants[i].Time, b.quants[i].Ref)
+	}
+	// A use on a day the scheme charges nothing (Romania's Danube bridges
+	// from 1 October 2026) owes nothing.
+	free := func(id string) bool {
+		if d := out[id]; d != nil && d.Doc.NoCharge != nil {
+			p.note("%s: from %s, %s", d.Area(), d.ValidFrom, d.Doc.NoCharge.Description)
+			return true
+		}
+		return false
+	}
+	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return free(e.Dataset) })
+	b.quants = slices.DeleteFunc(b.quants, func(q orct.Quantity) bool { return free(q.Dataset) })
+	return out
+}
+
+// odBasisExit says whether the dataset's tickets take their time at the
+// exit (time_basis "exit"), not the entry.
+func odBasisExit(ds *tariffs.Dataset) bool {
+	for _, ch := range ds.Charges() {
+		if ch.Type == "od" && ch.TimeBasis == "exit" {
+			return true
+		}
+	}
+	return false
+}
+
+// goneObject stands for an object a later version doesn't have: the
+// calculator reports its use unpriced (unknown_object).
+const goneObject = "(not in this version)"
+
+// sameObject is the object of version v that is old's object id: ids
+// aren't kept from one version to the next (Norway's and Greece's number
+// their stations), so the one of the same type, name, road and operator,
+// the nearest facing the same way where there are several; goneObject if
+// v has none.
+func sameObject(old, v *tariffs.Dataset, id string) string {
+	o := old.Object(id)
+	if o == nil || v == nil {
+		return id
+	}
+	same := func(x *orct.Object) bool {
+		return x.Type == o.Type && x.Name == o.Name && x.Road == o.Road && x.Operator == o.Operator
+	}
+	// Its own id, where it is still there (renamed or not: "A1 Pombal -
+	// Soure" became "A1 Pombal – Soure"), or both have no place (a
+	// network).
+	if x := v.Object(id); x != nil && x.Type == o.Type {
+		if km, ok := objectKm(o, x); !ok || km < samePlaceKm {
+			return id
+		}
+	}
+	best, bestKm := goneObject, math.Inf(1)
+	for _, x := range v.Objects() {
+		if same(x) {
+			km, _ := objectKm(o, x)
+			if km < bestKm {
+				best, bestKm = x.ID, km
+			}
+		}
+	}
+	if best != goneObject {
+		return best
+	}
+	// Else one of its type in its place, renamed and renumbered ("Fv4856
+	// Skjoldavegen", 16 m from "Skjoldavegen"): both placed, a section's
+	// both ends (not a piece of one split).
+	for _, x := range v.Objects() {
+		if x.Type == o.Type {
+			if km, ok := objectKm(o, x); ok && km < samePlaceKm && km < bestKm {
+				best, bestKm = x.ID, km
+			}
+		}
+	}
+	return best
+}
+
+// samePlaceKm is how near an object of the next version must be to be
+// the same one when its name has changed.
+const samePlaceKm = 0.2
+
+// objectKm is how far apart two objects are: their points (a
+// section's farther apart end), with 1,000 km more for points facing
+// other ways; ok is false if either has no place (a network).
+func objectKm(a, b *orct.Object) (float64, bool) {
+	ends := func(o *orct.Object) []rates.Place {
+		if pts := pointsOf(o); len(pts) > 0 {
+			return pts[:1]
+		}
+		if o.From != nil && len(o.From.Geometry.Coordinates) > 0 && o.To != nil && len(o.To.Geometry.Coordinates) > 0 {
+			return []rates.Place{endOf(o.From), endOf(o.To)}
+		}
+		return nil
+	}
+	pa, pb := ends(a), ends(b)
+	if len(pa) == 0 || len(pa) != len(pb) {
+		return 0, false
+	}
+	km := 0.0
+	for i := range pa {
+		km = math.Max(km, haversine(pa[i].Lat, pa[i].Lon, pb[i].Lat, pb[i].Lon))
+	}
+	if pa[0].Heading != nil && pb[0].Heading != nil {
+		if d := math.Mod(math.Abs(*pa[0].Heading-*pb[0].Heading), 360); math.Min(d, 360-d) > 90 {
+			km += 1000
+		}
+	}
+	return km, true
+}
+
+// capCut says whether a rule's line is a cap's (orct notes it "cap <id>").
+func capCut(ol *orct.Line) bool {
+	return slices.ContainsFunc(ol.Notes, func(n string) bool { return strings.HasPrefix(n, "cap ") })
 }
 
 // lastOf is the last line priced from the same use (meta), if any.
@@ -466,16 +881,17 @@ func (n *network) object(road, area, op string) string {
 
 func placeOf(coord []float64) rates.Place { return rates.Place{Lon: coord[0], Lat: coord[1]} }
 
-// geometry caches the places and polygons read from objects' locations.
-var geometry sync.Map // *orct.Object -> []rates.Place or [][][][2]float64
+// points and polygons cache the places and the polygons read from
+// objects' locations (an area's points are none: each kind its own).
+var points, polygons sync.Map // *orct.Object -> []rates.Place, polys
 
 // pointsOf are a location's points, each with its heading and name.
 func pointsOf(o *orct.Object) []rates.Place {
-	if v, ok := geometry.Load(o); ok {
+	if v, ok := points.Load(o); ok {
 		return v.([]rates.Place)
 	}
 	pts := readPoints(o)
-	geometry.Store(o, pts)
+	points.Store(o, pts)
 	return pts
 }
 
@@ -521,11 +937,11 @@ type polys [][][][2]float64
 
 // polygonsOf are an area's polygons, each its outer ring and holes.
 func polygonsOf(o *orct.Object) [][][][2]float64 {
-	if v, ok := geometry.Load(o); ok {
+	if v, ok := polygons.Load(o); ok {
 		return v.(polys)
 	}
 	p := readPolygons(o)
-	geometry.Store(o, polys(p))
+	polygons.Store(o, polys(p))
 	return p
 }
 
@@ -543,6 +959,21 @@ func readPolygons(o *orct.Object) [][][][2]float64 {
 		out = append(out, p)
 	}
 	return out
+}
+
+// bboxOf is the polygons' outer rings' box: min lon, min lat, max lon,
+// max lat.
+func bboxOf(polys [][][][2]float64) [4]float64 {
+	b := [4]float64{math.Inf(1), math.Inf(1), math.Inf(-1), math.Inf(-1)}
+	for _, poly := range polys {
+		if len(poly) == 0 {
+			continue
+		}
+		for _, p := range poly[0] {
+			b[0], b[1], b[2], b[3] = min(b[0], p[0]), min(b[1], p[1]), max(b[2], p[0]), max(b[3], p[1])
+		}
+	}
+	return b
 }
 
 func inPolygons(polys [][][][2]float64, pt [2]float64) bool {

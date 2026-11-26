@@ -164,7 +164,8 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-21"
+   "charged_from": "2025-04-07",
+   "osm_extract": "2026-11-26"
   }
  }
 }

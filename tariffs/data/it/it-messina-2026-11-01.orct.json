@@ -330,7 +330,9 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "crossings": true
+   "crossings": true,
+   "ferry": true,
+   "ets_in_fare": true
   }
  }
 }

@@ -2320,9 +2320,9 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[-1.80609, 43.32806]]
+     "coordinates": [[-1.5489, 43.44809], [-1.55738, 43.44864]]
     },
-    "point_names": ["OSM: junction 4"]
+    "point_names": ["OSM: junction 4", "OSM: junction 4"]
    }
   },
   {
@@ -11688,7 +11688,7 @@
    "location": {
     "geometry": {
      "type": "MultiPoint",
-     "coordinates": [[3.22242, 45.59597], [3.21812, 45.59833]]
+     "coordinates": [[5.64506, 46.1536], [5.65047, 46.15862]]
     },
     "point_names": ["OSM: junction 9", "OSM: junction 9"]
    }

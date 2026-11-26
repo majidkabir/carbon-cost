@@ -119,7 +119,9 @@ func (s *Site) Register(mux *http.ServeMux) {
 }
 
 func (s *Site) get() *built {
-	day := s.now().UTC().Format(time.DateOnly)
+	// The day in Central European Time, where most of the rates change
+	// at midnight.
+	day := s.now().In(cost.LocalZone("")).Format(time.DateOnly)
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.built == nil {
@@ -272,7 +274,7 @@ func toEUR(v float64, cur string, day time.Time) (float64, bool) {
 	if r, _, _, ok := fx.NationalOnDate(cur, day); ok {
 		return v / r, true
 	}
-	if r, ok := fx.OnDate(day); ok {
+	if r, ok := ratesOn(day); ok {
 		if p := r.PerEUR[cur]; p > 0 {
 			return v / p, true
 		}

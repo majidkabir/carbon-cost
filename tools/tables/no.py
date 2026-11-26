@@ -26,6 +26,12 @@ Each AutoPASS toll station becomes a toll point with:
   RUSH_DAYS and the project's own rush-free days.
   A station whose project RUSH lacks, or whose NVDB hours differ, keeps
   only its off-peak price (a warning says so).
+- the environmental prices of large vehicles (takstgruppe 2) where the
+  project's tariff decision or price page is read (ENV): Euro VI's for the
+  station's NVDB price (Euro V and older), off-peak and in rush hours, and
+  the zero-emission price (CO2 class 5 here). A station whose NVDB price
+  isn't one the source gives keeps it for Euro VI (a warning says so);
+  other projects charge every truck NVDB's price.
 Stations without a large-vehicle price, ferry collection points and
 stations on local or private roads are left out (listed when built). The
 table is valid from the latest version date of the stations
@@ -70,6 +76,121 @@ RUSH = {
         "hours": [("07:00", "09:00"), ("15:00", "17:00")], "free_days": [], "pays": "first",
         "check": {"no-rush-grenland": ["mandag - fredag kl. 07:00 - 09:00 og kl. 15:00 - 17:00, unntatt offentlige fri- og helgedager"]}},
 }
+
+
+def page_text(fetched, sid):
+    f = next((os.path.join(fetched, sid + e) for e in (".txt", ".html") if os.path.exists(os.path.join(fetched, sid + e))), None)
+    if f is None:
+        return None
+    t = open(f, encoding="utf-8", errors="replace").read()
+    if f.endswith(".html"):
+        t = re.sub(r"<script.*?</script>|<style.*?</style>", " ", t, flags=re.S)
+        t = html.unescape(re.sub(r"<[^>]+>", " ", t))
+    return re.sub(r"\s+", " ", t)
+
+
+# Environmental prices of large vehicles by project: its sources and how to
+# read each, the one in force first: an edition {"off": {Euro V price: Euro
+# VI price}, "rush": {...}, "zero": zero-emission price}, or None if the
+# source no longer says it. Earlier editions price the history's stations
+# whose NVDB price is theirs (build_no.py).
+def env_fjellinjen(t):
+    m = re.search(r"Tariff group 2: Large car .*? Outside of rush hour NOK (\d+) Euro 5 and older NOK \1 NOK (\d+) Euro 6 NOK \2 NOK (\d+) Zero-emission NOK \3 "
+                  r".*? Rush hour NOK (\d+) Euro 5 and older NOK \4 NOK (\d+) Euro 6 NOK \5 NOK (\d+) Zero-emission NOK \6 ", t)
+    if not m or m.group(3) != m.group(6):
+        return None
+    return {"off": {int(m.group(1)): int(m.group(2))}, "rush": {int(m.group(4)): int(m.group(5))}, "zero": int(m.group(3))}
+
+
+def env_fjellinjen_2025(t):
+    m = re.search(r"Takstgruppe 2 .*?Euro V og eldre Euro VI Nullutslipp kjøretøy Passering utenom rush (\d+) (\d+) (\d+) \d+ "
+                  r"Passering i rush \([^)]*\) (\d+) (\d+) (\d+) ", t)
+    if not m or m.group(3) != m.group(6):
+        return None
+    return {"off": {int(m.group(1)): int(m.group(2))}, "rush": {int(m.group(4)): int(m.group(5))}, "zero": int(m.group(3))}
+
+
+def env_bergen(t):
+    h = re.search(r"Takstgruppe 1 Takstgruppe 2 Diesel Normaltakst Nullutslipp Euro V og eldre Euro VI Nullutslipp ", t)
+    off = re.search(r"Utenfor rushtid \d+ \d+ \d+ (\d+) (\d+) (\d+) ", t)
+    rush = re.search(r"Rushtid 1? ?\d+ \d+ \d+ (\d+) (\d+) (\d+) ", t)
+    if not (h and off and rush) or off.group(3) != rush.group(3):
+        return None
+    return {"off": {int(off.group(1)): int(off.group(2))}, "rush": {int(rush.group(1)): int(rush.group(2))}, "zero": int(off.group(3))}
+
+
+def env_kristiansand(t, n=0):
+    # The prices in force come first (n 0), then those that ended (n 1,
+    # "Utgåtte priser").
+    ms = list(re.finditer(r"Priser, takstgruppe 2 Priser \(kr\) Pris Rushtid \* Euro V og eldre Pris (\d+),00 Rushtid med avtale (\d+),00 Euro VI / hybrid Pris (\d+),00 "
+                          r"Rushtid med avtale (\d+),00 Nullutslippskjøretøy Pris (\d+) Rushtid med avtale (\d+) ", t))
+    m = ms[n] if len(ms) > n else None
+    if not m or m.group(1) != m.group(2) or m.group(3) != m.group(4) or m.group(5) != m.group(6):
+        return None  # (rush hours there are takstgruppe 1's only)
+    return {"off": {int(m.group(1)): int(m.group(3))}, "rush": {}, "zero": int(m.group(5))}
+
+
+def env_zero(phrase):
+    return lambda t: {"off": {}, "rush": {}, "zero": 0} if phrase in t else None
+
+
+ENV = {
+    "Fjellinjen AS": [("no-rush-fjellinjen", env_fjellinjen), ("no-rush-fjellinjen-hour", env_fjellinjen_2025)],
+    "Ferde AS - Bomringen Bergen": [("no-rush-bergen-decision", env_bergen)],
+    "Ferde AS - Bomringen i Kristiansand": [("no-rush-kristiansand-days", env_kristiansand), ("no-rush-kristiansand-days", lambda t: env_kristiansand(t, 1))],
+    "Vegamot AS": [("no-rush-vegamot", env_zero("Nullutslipps- og gassdrevne kjøretøy i takstgruppe 2 har reduksjon av takst på 100 prosent"))],
+    "Bypakke Tenk Tromsø - BPS Nord": [("no-rush-tromso", env_zero("100 prosent takstreduksjon for nullutslippskjøretøy i takstgruppe 2"))],
+}
+# Projects whose company also runs others: the NVDB operator id of the
+# stations the source is for (Vegamot's Miljøpakke Trondheim, not its
+# Fv. 714 stations Valslag and Våvatnet, operator 100107).
+ENV_OPERATOR = {"Vegamot AS": 100120}
+ZERO = {"co2_class": [5]}
+EURO6 = {"euro_class": ["6", "7"], "co2_class": [1, 2, 3, 4]}
+
+
+def env_prices(fetched):
+    """{project: [editions, the one in force first]} of the sources read."""
+    out = {}
+    for project, srcs in ENV.items():
+        eds = []
+        for k, (sid, read) in enumerate(srcs):
+            t = page_text(fetched, sid)
+            e = read(t) if t else None
+            if e is None:
+                print(f"::warning title=no.py::{sid}: the large vehicles' environmental prices not read" + (f"; {project} charges every truck NVDB's price" if k == 0 else ""))
+                if k == 0:
+                    break
+                continue
+            eds.append(e)
+        if eds:
+            out[project] = eds
+    return out
+
+
+def apply_env(tp, env, history=False, operator=None):
+    """The point's environmental prices for large vehicles, if its project
+    has them: the edition in force, or in the history the edition whose
+    prices the point's are (none if none is: a zero-emission rule alone
+    has no date here). operator: the station's NVDB Operatør_Id."""
+    eds = env.get(tp.get("project"))
+    if not eds or ENV_OPERATOR.get(tp.get("project"), operator) != operator:
+        return
+    if history:
+        e = next((e for e in eds if tp["rate"] in e["off"] and (not tp.get("peak_rate") or not e["rush"] or tp["peak_rate"] in e["rush"])), None)
+        if e is None:
+            return
+    else:
+        e = eds[0]
+    euro6 = {"rate": e["off"].get(tp["rate"], tp["rate"])}
+    if tp.get("peak_rate"):
+        euro6["peak_rate"] = e["rush"].get(tp["peak_rate"], tp["peak_rate"])
+    if (e["off"] and tp["rate"] not in e["off"]) or (tp.get("peak_rate") and e["rush"] and tp["peak_rate"] not in e["rush"]):
+        print(f"::warning title=no.py::{tp['name']}: NVDB's price {tp['rate']}/{tp.get('peak_rate')} isn't one {tp['project']}'s source gives; Euro VI pays it")
+    classes = [{"criteria": ZERO, "rate": e["zero"], **({"peak_rate": e["zero"]} if tp.get("peak_rate") else {})}]
+    if e["off"]:
+        classes.append({"criteria": EURO6, **euro6})
+    tp["class_rates"] = classes
 
 
 def check_rush(fetched):
@@ -206,19 +327,21 @@ def main(fetched, out):
         objs += json.load(open(f)).get("objekter", [])
     seqs = links(fetched)
     check_rush(fetched)
+    env = env_prices(fetched)
     points, left_out, dates = [], [], []
     for o in sorted(objs, key=lambda o: o["id"]):
         tp, why = point(o, seqs)
         if tp is None:
             left_out.append(why)
             continue
+        apply_env(tp, env, operator=props(o).get("Operatør_Id"))
         points.append(tp)
         dates.append(o["metadata"]["startdato"])
     valid_from = max(dates)
     tb = {
         "country": "NO", "currency": "NOK", "valid_from": valid_from,
         "name": "Norwegian road tolls (bompenger, AutoPASS toll stations)",
-        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Tolls carry no VAT.",
+        "law": "Veglova § 27 and the toll projects' Storting decisions; prices per passage for large vehicles (takstgruppe 2, over 3,500 kg) as registered for each AutoPASS toll station in NVDB, Statens vegvesen's national road database (object type 45 Bomstasjon), with the charged direction and the hour rule (timesregel: after a paid passage the project's other stations are free for the time given; where the tariff decision says so, at Fjellinjen and in Bypakke Bergen, the hour's highest price is charged). Rush-hour prices (Rushtidstakst stor bil) apply in the rush hours of each project's tariff decision, Monday to Friday except public holidays (the helligdager of helligdagsfredloven § 2, and 1 and 17 May, which lov 26. april 1947 nr. 1 equates with Sundays); in Miljøpakke Trondheim (Vegamot) and Bypakke Tenk Tromsø also not on Christmas Eve, New Year's Eve and the Wednesday before Easter, at Fjellinjen not in July, as each project's rules say. Large vehicles' environmental prices (Euro VI, zero-emission) as the tariff decisions or price pages of " + ", ".join(sorted(env)) + " give them; elsewhere every truck pays NVDB's price. Tolls carry no VAT.",
         "sources": [{"title": "NVDB API: Bomstasjon (Statens vegvesen)", "url": "https://nvdbapiles.atlas.vegvesen.no/vegobjekter/api/v4/vegobjekter/45"}] + rush_sources(),
         "vehicles": "Vehicles over 3,500 kg (takstgruppe 2)",
         "min_kg": 3501,

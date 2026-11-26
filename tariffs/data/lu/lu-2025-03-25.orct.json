@@ -13,10 +13,11 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2025-03-25",
+  "valid_to": "2027-03-25",
   "currency": "EUR",
   "timezone": "Europe/Luxembourg",
   "license": "MIT",
-  "method": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 2°, as amended by the RGD of 18 December 2024: from 25 March 2025, for vehicles over 12 t, a charge per day, week, month or year, administrative costs included, by CO2 emission class, EURO class (CO2 class 1) and axles (three at most, four at least). The table keeps the daily amount (one calendar day).",
+  "method": "Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 2°, as amended by the RGD of 18 December 2024: from 2025-03-25, for vehicles over 12 t, a charge per day, week, month or year, administrative costs included, by CO2 emission class, EURO class (CO2 class 1) and axles (three at most, four at least). The table keeps the daily amount (one calendar day).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "lu-2025-03-25.json"
@@ -383,5 +384,10 @@
    "scope": "dataset",
    "status": "complete"
   }
- ]
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "shared_vignette": "eurovignette"
+  }
+ }
 }

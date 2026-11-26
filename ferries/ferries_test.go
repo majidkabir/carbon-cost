@@ -199,3 +199,32 @@ func TestDetectAll(t *testing.T) {
 		t.Errorf("got %v", ids)
 	}
 }
+
+// The grid search finds what a scan of every point finds, at the edge of
+// MatchKm too.
+func TestNearestWithinEdge(t *testing.T) {
+	p := Point{Lat: 55.05 - 3/111.2 - 1e-9, Lon: 11}
+	route := [][2]float64{{11, 50}, {11, p.Lat + 2.99997/111.195}}
+	if km(route[1][1], route[1][0], p.Lat, p.Lon) > MatchKm {
+		t.Skip("the point isn't within MatchKm")
+	}
+	if i := gridOf(route).nearestWithin(route, p); i != 1 {
+		t.Errorf("nearestWithin: %d; want 1", i)
+	}
+}
+
+// The December 2026 notices: Stena's (its DKK column blank, two routes
+// spelt otherwise), Scandlines' and POLSCA's.
+func TestETSSurchargesDecember2026(t *testing.T) {
+	d, err := Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	day := time.Date(2026, 12, 5, 0, 0, 0, 0, time.UTC)
+	for crossing, want := range map[string]float64{"gothenburg-kiel": 4.77, "gothenburg-frederikshavn": 1.78, "rodby-puttgarden": 0.18, "swinoujscie-ystad": 5.09} {
+		s, ok := d.ETSSurcharge(crossing, day)
+		if !ok || s.EURPerM != want {
+			t.Errorf("%s: %v %v, want %v", crossing, s.EURPerM, ok, want)
+		}
+	}
+}

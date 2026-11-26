@@ -50,7 +50,10 @@ tickets include it. Karacabey – Mustafakemalpaşa 1 and 2 aren't placed
 (DROP).
 
 The table is valid from the latest date the bridge tariffs give
-("01/07/2026 saat 00:00'dan itibaren geçerlidir").
+("01/07/2026 saat 00:00'dan itibaren geçerlidir"). A motorway whose own
+tariff starts later (Çeşmeli – Kızkalesi, "19/10/2026") is in a version
+of the table from that day only, the earlier version ending the day
+before.
 """
 import json, math, os, re, sys
 
@@ -110,6 +113,12 @@ AXLES = {2: (2, 2), 3: (3, 3), 4: (4, 5), 5: (6, 0)}
 
 def tl(s):
     return float(s.replace(".", "").replace(",", "."))
+
+
+def starts(path):
+    """The day a tariff's prices apply from ("dd/mm/yyyy saat 00:00'dan itibaren geçerlidir"), or ""."""
+    m = re.search(r"(\d\d)[/.](\d\d)[/.](\d{4}) [Ss]aat 00:00 ?'dan itibaren geçerlidir", open(path, encoding="utf-8").read())
+    return f"{m.group(3)}-{m.group(2)}-{m.group(1)}" if m else ""
 
 
 def tariff(path):
@@ -383,7 +392,7 @@ def main(fetched, out):
         for k in {wkey(n), tr_matrix.key(n)}:
             (junctions if p.get("highway") == "motorway_junction" else booths).setdefault(k, []).append(c)
     unnamed = clusters(anon, 1.0)
-    used, systems, unplaced = set(), [], []
+    used, systems, unplaced, since, miss = set(), [], [], {}, {}
     _, osmangazi_tl = derived["tr-2-osmangazi"] if "tr-2-osmangazi" in derived else tariff(os.path.join(fetched, "tr-2-osmangazi.txt"))
     for sid, name in SYSTEMS:
         if sid in absent:
@@ -398,6 +407,8 @@ def main(fetched, out):
             rows, cols, cells = osmangazi(rows, cols, cells, osmangazi_tl)
         s, missing, _ = system((rows, cols, cells), name, booths, junctions, used, sid, unnamed, named)
         systems.append(s)
+        since[name] = starts(os.path.join(fetched, sid + ".txt"))
+        miss[name] = missing
         unplaced += missing
     # The 1915 Çanakkale bridge's own tariff is Malkara–Çanakkale's
     # Gelibolu Güney – bridge price.
@@ -415,22 +426,36 @@ def main(fetched, out):
     bs = [n for sid, n in (("tr-1-15temmuz-fsm", "15 Temmuz Şehitler"), ("tr-1-15temmuz-fsm", "Fatih Sultan Mehmet"), ("tr-3-ysskoprusu", "Yavuz Sultan Selim"), ("tr-2-osmangazi", "Osmangazi")) if sid not in absent or sid in derived]
     srcs = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json")))["sources"]
     url = {s["id"]: s["url"] for s in srcs}
+    # A version from each later start of a motorway's own tariff.
+    import datetime
+    days = [date] + sorted({d for d in since.values() if d > date})
+    for k, day in enumerate(days):
+        until = (datetime.date.fromisoformat(days[k + 1]) - datetime.timedelta(days=1)).isoformat() if k + 1 < len(days) else None
+        names = {n for n, d in since.items() if d <= day}
+        later = sorted(n for n, d in since.items() if d > day)
+        write_tr(out, day, until, osm, absent, derived, bs, url, kgm, titles, [u for n in names for u in miss.get(n, [])], points, [x for x in systems if x["name"] in names], later)
+
+
+def write_tr(out, date, until, osm, absent, derived, bs, url, kgm, titles, unplaced, points, systems, later):
+    on = {x["name"] for x in systems}
     tb = {
         "country": "TR", "currency": "TRY", "valid_from": date,
         "osm_extract": osm,
         "name": "Turkish motorway and bridge tolls (KGM)",
-        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's " + date[:4] + " tariffs. Bridges (" + ", ".join(n for sid, n in BRIDGE_LABELS if sid not in absent or sid in derived) + ") per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT)." + (" Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do." if "tr-1-15temmuz-fsm" not in absent else "") + " Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff" + (" (Gebze–Bursa's price for it, its own tariff of that year not being archived)" if "tr-2-osmangazi" in derived else "") + ", Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them.",
+        "law": "Karayollarında Geçiş Ücretlerinin Belirlenmesi ve Uygulanmasına Dair Yönetmelik; KGM's " + date[:4] + " tariffs. Bridges (" + ", ".join(n for sid, n in BRIDGE_LABELS if sid not in absent or sid in derived) + ") per passage either way; motorways by entry and exit station. By KGM class: 2 (two axles of 3.20 m or more wheelbase), 3 (three axles), 4 (four and five axles), 5 (six or more), excluding 20% KDV (VAT)." + (" Trucks may not use 15 Temmuz Şehitler or FSM (UKOME decision) but pay their tariff if they do." if "tr-1-15temmuz-fsm" not in absent else "") + " Bridges placed at their main span, stations at their toll booths (else the motorway junction of their name) in OpenStreetMap (extract of " + osm + "); " + str(len(unplaced)) + " stations OSM doesn't name aren't placed, a trip from or to one priced from the next placed station. The Osmangazi bridge is charged at its own tariff" + (" (Gebze–Bursa's price for it, its own tariff of that year not being archived)" if "tr-2-osmangazi" in derived else "") + ", Gebze–Bursa's prices taken without it; Kuzey Çevre's tickets include the Yavuz Sultan Selim bridge, which isn't charged again on them." + (" Not yet charged: " + ", ".join(later) + " (its own tariff starts later)." if later else ""),
         "sources": [{"title": "KGM: Otoyol ve Köprü Geçiş Ücretleri", "url": url["tr-kgm-ucretler"]}]
                    + [{"title": f"KGM: {a} Geçiş Ücretleri Tarifesi", "url": kgm + b + ".pdf"} for a, b in titles.values()]
-                   + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in dict((sid, "O-5 Gebze – Orhangazi – İzmir" if sid in ("tr-12-gebze-orhangazi-izmir",) else n) for sid, n in SYSTEMS).items()]
+                   + [{"title": f"KGM: {n} geçiş ücretleri", "url": url[sid]} for sid, n in dict((sid, "O-5 Gebze – Orhangazi – İzmir" if sid in ("tr-12-gebze-orhangazi-izmir",) else n) for sid, n in SYSTEMS).items() if n not in later]
                    + [{"title": "OpenStreetMap (Geofabrik extract), bridges and toll booths", "url": "https://download.geofabrik.de/europe/turkey.html"}],
         "vehicles": "Trucks of two or more axles (KGM classes 2 to 5)",
-        "tolled_roads": "The " + " and ".join(", ".join(b) for b in ([bs[:-1], bs[-1:]] if len(bs) > 1 else [bs])) + (" bridges; " if len(bs) > 1 else " bridge; ") + ", ".join(n for sid, n in SYSTEMS if sid not in absent) + ".",
+        "tolled_roads": "The " + " and ".join(", ".join(b) for b in ([bs[:-1], bs[-1:]] if len(bs) > 1 else [bs])) + (" bridges; " if len(bs) > 1 else " bridge; ") + ", ".join(n for sid, n in SYSTEMS if sid not in absent and n in on) + ".",
         "point_match_km": 0.05,
         "toll_points": points,
         "closed_systems": systems,
         "rows": [],
     }
+    if until:
+        tb["valid_to"] = until
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, f"tr-{date}.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)

@@ -300,7 +300,8 @@ def convert_table(t, path):
     used = {"country", "region", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles",
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
-            "motorway_share", "suburban_share", "crossings", "ferry", "osm_extract", "env_zone_surcharge"}
+            "motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "env_zone_surcharge",
+            "shared_vignette", "not_priced"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -323,10 +324,16 @@ def convert_table(t, path):
         convert_sections(b, t["sections"], row_charges)
 
     # How carbon-cost estimates road types a request doesn't give, and source facts: not tariff rules.
-    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls.
-    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "osm_extract"):
+    # "ferry": the crossings are a ferry's, so the tool shows their charges as fares, not tolls;
+    # "ets_in_fare": the fares include the EU ETS, so the tool adds no ETS of its own on the crossing;
+    # "charged_from": the day the charge itself began (none before it, not just no table here);
+    # "shared_vignette": one day's charge bought in any scheme with the same value covers them all that day.
+    for k in ("motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "shared_vignette"):
         if k in t:
             b.keep(k, t[k])
+    # Vehicles liable that the rows don't price (they are reported missing).
+    for reason in t.get("not_priced", []):
+        b.partial("dataset", reason)
     for k in sorted(set(t) - used):
         b.keep(k, t[k], f"{k} is kept as an extension (no ORCT field yet)")
     return b.doc(liable)
@@ -660,14 +667,19 @@ def convert_points(b, t, systems, motor):
                         rows.append({**base, "time_class": tc, "user_class": b.electronic() if etc else None,
                                      "priority": prio, "amount": dec(c[key])})
         else:
-            rows.append({"object": oid, "amount": dec(p["rate"])})
-            if p.get("peak_rate") and p.get("rush"):
-                rows.append({"object": oid, "time_class": rush_class(b, p["rush"]), "amount": dec(p["peak_rate"])})
-            elif p.get("peak_rate"):
-                tpeak = b.time_class("rush-hours", defined=False, label="Rush hours",
-                                     note="The station charges more in rush hours; the hours aren't in the source table.")
-                rows.append({"object": oid, "time_class": tpeak, "amount": dec(p["peak_rate"])})
-                peak += 1
+            # The point's price, and its prices for classes of vehicles
+            # (class_rates: criteria, rate, peak_rate), which rank above it.
+            extra = p.get("class_rates", [])
+            cids = b.class_set("pt-", [(c["criteria"], None, None) for c in extra]) if extra else []
+            for cid, c in [(None, p)] + list(zip(cids, extra)):
+                rows.append({"object": oid, "vehicle_class": cid, "amount": dec(c["rate"])})
+                if c.get("peak_rate") and p.get("rush"):
+                    rows.append({"object": oid, "vehicle_class": cid, "time_class": rush_class(b, p["rush"]), "amount": dec(c["peak_rate"])})
+                elif c.get("peak_rate"):
+                    tpeak = b.time_class("rush-hours", defined=False, label="Rush hours",
+                                         note="The station charges more in rush hours; the hours aren't in the source table.")
+                    rows.append({"object": oid, "vehicle_class": cid, "time_class": tpeak, "amount": dec(c["peak_rate"])})
+                    peak += cid is None
         if p.get("free_hours"):
             tfree = b.time_class("free", times=hours(p["free_hours"]), label="No charge")
             rows.append({"object": oid, "time_class": tfree, "priority": 2, "amount": "0"})
@@ -817,7 +829,7 @@ def point_in_ring(pt, ring):
 def convert_zone(z, path):
     b = Builder(z, path)
     used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "min_kg", "charge",
-            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "polygons", "holes", "osm_extract"}
+            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "polygons", "holes", "osm_extract", "discounts"}
     polys = [[ring] for ring in z["polygons"]]
     for h in z.get("holes", []):
         for p in polys:
@@ -851,6 +863,11 @@ def convert_zone(z, path):
     if tcs:
         ch["unmatched"] = "free"
     b.charge(ch, rows)
+    for d in z.get("discounts", []):
+        p = {"name": d["name"], "percent": dec(d["percent"]), "criteria": clean({"co2_class": d.get("co2_class")})}
+        if d.get("etc"):
+            p["payment"] = ["electronic"]
+        b.rule("discount", ["zone-charge"], clean(p))
     if z.get("osm_extract"):
         b.keep("osm_extract", z["osm_extract"])
     for k in sorted(set(z) - used):
@@ -860,7 +877,7 @@ def convert_zone(z, path):
 
 def convert_fuel(f, path):
     b = Builder(f, path)
-    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t", "rate_per_l"}
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "rate_per_t", "rate_per_l", "charged_from"}
     oid = b.obj({"id": "country", "type": "jurisdiction", "jurisdiction": {"country": f["country"]}})
     # A price per tonne of CO2, or a tax per litre of diesel.
     unit, rate = ("litre", f["rate_per_l"]) if "rate_per_l" in f else ("t_co2", f["rate_per_t"])
@@ -868,6 +885,8 @@ def convert_fuel(f, path):
               "objects": [oid]}, [{"amount": dec(rate)}])
     for k in sorted(set(f) - used):
         b.keep(k, f[k], f"{k} is kept as an extension (no ORCT field yet)")
+    if "charged_from" in f:
+        b.keep("charged_from", f["charged_from"])
     return b.doc({"description": "CO2 from fuel bought in the country", "criteria": {}})
 
 
@@ -875,10 +894,13 @@ def convert_no_charge(n, path):
     """A country that levies no road charge on trucks (ORCT 6.13): the
     statement and its sources, no charges."""
     b = Builder(n, path)
-    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge"}
+    used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "vehicles", "no_charge", "crossings"}
     b.no_charge = {"description": n["no_charge"], "sources": b.src}
     for k in sorted(set(n) - used):
         b.keep(k, n[k], f"{k} is kept as an extension (no ORCT field yet)")
+    # "crossings": the version of a crossings scheme (bridges) that charges nothing.
+    if "crossings" in n:
+        b.keep("crossings", n["crossings"])
     return b.doc({"description": n.get("vehicles", "all vehicles"), "criteria": {}})
 
 

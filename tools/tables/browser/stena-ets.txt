@@ -1,0 +1,20 @@
+# Stena Line Freight's EU ETS surcharge levels per metre ("EU ETS Matrix Levels").
+# Page: https://stenalinefreight.com/charges/ links https://stenalinefreight.com/app/uploads/2026/10/eu-ets-november-2026-11.pdf, opened in Chrome and its table read on 2026-11-22
+# (the fallback when the workflow's own copy, stena-ets-*.pdf as text, can't be fetched or read). EUR, GBP, SEK, DKK per metre; "–": not invoiced in that currency.
+# The notice: adjusted monthly, valid for the calendar month; the average EUR price per tonne of CO2 up to the 21st of the previous month; FuelEU compliance cost included with 0.15 EUR/lm.
+EU ETS MATRIX LEVELS
+NOVEMBER 2026
+Route v.v | EUR | GBP | SEK | DKK
+Dublin–Holyhead | 1.56 | 1.33 | 17.51 | –
+Dublin–Liverpool | 1.41 | 1.20 | 15.83 | –
+Fishguard–Rosslare | 1.56 | 1.33 | 17.51 | –
+Gothenburg–Frederikshavn | 1.74 | 1.48 | 19.53 | 13.01
+Gothenburg–Kiel | 4.67 | 3.97 | 52.41 | 34.91
+Hoek van Holland–Harwich | 1.54 | 1.31 | 17.28 | –
+Hoek van Holland–Immingham | 1.85 | 1.57 | 20.76 | –
+Karlskrona–Gdynia | 3.78 | 3.21 | 42.42 | 28.26
+Nynäshamn–Ventspils | 3.86 | 3.28 | 43.32 | –
+Rotterdam–Harwich | 1.54 | 1.31 | 17.28 | –
+Rotterdam–Immingham | 1.85 | 1.57 | 20.76 | –
+Travemünde–Liepāja | 6.92 | 5.88 | 77.67 | –
+Trelleborg–Rostock | 1.59 | 1.35 | 17.85 | 11.89

@@ -16,7 +16,7 @@
   "currency": "EUR",
   "timezone": "Europe/Tallinn",
   "license": "MIT",
-  "method": "Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, version in force (2026-09-14 publication), annex in the wording of 21.12.2023: the ticket of a truck over 3,500 kg Kuivastu–Virtsu 16.00 EUR, Rohuküla–Heltermaa 18.00 EUR, Sõru–Triigi 22.00 EUR; § 6: × 1.2 for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, rounded to 5 cents; × 1.5 over 2.6 m wide and × 2.0 over 4 m high (not applied: a truck within 2.55 m and 4 m). The regulation doesn't say whether VAT is in the prices; they are taken as it sets them. Residents' prices aren't used. Ports at OpenStreetMap's ferry terminals (else the place), priced where the line goes out on OpenStreetMap's car ferry line. ",
+  "method": "Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, version in force (2026-09-14 publication), annex in the wording of 21.12.2023: the ticket of a truck over 3,500 kg Kuivastu–Virtsu 16.00 EUR, Rohuküla–Heltermaa 18.00 EUR, Sõru–Triigi 22.00 EUR; of a trailer over 750 kg (semi-trailers included) Kuivastu–Virtsu 10.80 EUR, Rohuküla–Heltermaa 12.00 EUR, Sõru–Triigi 13.20 EUR, added for a truck over 12 m (taken as with a trailer); § 6: × 1.2 on the vehicle's ticket (not its trailer's) for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, rounded to 5 cents; × 1.5 over 2.6 m wide and × 2.0 over 4 m high (not applied: a truck within 2.55 m and 4 m). The regulation doesn't say whether VAT is in the prices; they are taken as it sets them. Residents' prices aren't used. Ports at OpenStreetMap's ferry terminals (else the place), priced where the line goes out on OpenStreetMap's car ferry line. ",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "ee-ferries-2025-02-01.json"
@@ -57,11 +57,26 @@
    "id": "sys1-1",
    "classes": [
     {
-     "id": "sys1-1.trucks-over-3-5-t",
-     "label": "trucks over 3.5 t",
+     "id": "sys1-1.trucks-over-3-5-t-up-to-12-m",
+     "label": "trucks over 3.5 t, up to 12 m",
      "criteria": {
       "train_mass_kg": {
        "min": 3501
+      },
+      "train_length_m": {
+       "max": 12
+      }
+     }
+    },
+    {
+     "id": "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m",
+     "label": "trucks over 3.5 t with a trailer (over 12 m)",
+     "criteria": {
+      "train_mass_kg": {
+       "min": 3501
+      },
+      "train_length_m": {
+       "gt": 12
       }
      }
     }
@@ -181,10 +196,14 @@
    "directed": true,
    "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
    "rows": [
-    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t", null, null, "16"],
-    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t", null, null, "16"],
-    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t", "sys1-t1", 1, "19.2"],
-    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t", "sys1-t2", 1, "19.2"]
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "26.8"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "16"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "26.8"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "16"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t1", 1, "30"],
+    ["st1:Virtsu", "st1:Kuivastu", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t1", 1, "19.2"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t2", 1, "30"],
+    ["st1:Kuivastu", "st1:Virtsu", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t2", 1, "19.2"]
    ],
    "sources": ["s1", "s2", "s3"],
    "basis": "transcribed"
@@ -199,10 +218,14 @@
    "directed": true,
    "columns": ["entry", "exit", "vehicle_class", "time_class", "priority", "amount"],
    "rows": [
-    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t", null, null, "18"],
-    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t", null, null, "18"],
-    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t", "sys1-t1", 1, "21.6"],
-    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t", "sys1-t2", 1, "21.6"]
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "30"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "18"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", null, null, "30"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-up-to-12-m", null, null, "18"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t1", 1, "33.6"],
+    ["st2:Rohuküla", "st2:Heltermaa", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t1", 1, "21.6"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "sys1-t2", 1, "33.6"],
+    ["st2:Heltermaa", "st2:Rohuküla", "sys1-1.trucks-over-3-5-t-up-to-12-m", "sys1-t2", 1, "21.6"]
    ],
    "sources": ["s1", "s2", "s3"],
    "basis": "transcribed"
@@ -216,7 +239,12 @@
    "method": "Regulation nr 120 of 25.09.2015, annex and § 6: Sõru–Triigi",
    "directed": true,
    "columns": ["entry", "exit", "vehicle_class", "amount"],
-   "rows": [["st3:Sõru", "st3:Triigi", "sys1-1.trucks-over-3-5-t", "22"], ["st3:Triigi", "st3:Sõru", "sys1-1.trucks-over-3-5-t", "22"]],
+   "rows": [
+    ["st3:Sõru", "st3:Triigi", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "35.2"],
+    ["st3:Sõru", "st3:Triigi", "sys1-1.trucks-over-3-5-t-up-to-12-m", "22"],
+    ["st3:Triigi", "st3:Sõru", "sys1-1.trucks-over-3-5-t-with-a-trailer-over-12-m", "35.2"],
+    ["st3:Triigi", "st3:Sõru", "sys1-1.trucks-over-3-5-t-up-to-12-m", "22"]
+   ],
    "sources": ["s1", "s2", "s3"],
    "basis": "transcribed"
   }
@@ -229,7 +257,8 @@
  ],
  "extensions": {
   "io.github.majidkabir.carboncost": {
-   "crossings": true
+   "crossings": true,
+   "ferry": true
   }
  }
 }

@@ -28,6 +28,10 @@ date Lag (2018:200), which set these amounts, came into force.
 """
 import json, os, re, sys
 
+from se_bridges import BRIDGES
+
+BRIDGE_NAMES = {name for _, name in BRIDGES}
+
 MONTHS = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]
 BACKA = {"Södra Tagenevägen", "Skälltorpsvägen", "Backadalen", "Tingstadsmotet avfart E6", "Tingstadsvägen"}
 
@@ -90,6 +94,10 @@ def main(fetched, out):
             lon, lat = g["coordinates"]
             city = "stockholm" if 59.0 < lat < 59.6 else "goteborg" if 57.5 < lat < 58.0 else None
         if city == "goteborg" and p["name"] in BACKA:
+            continue
+        # Transportstyrelsen's bridge gantries (Skurubron, by Stockholm) take
+        # the infrastructure charge, priced by se_bridges.py, not this tax.
+        if p["name"] in BRIDGE_NAMES:
             continue
         if city:
             lon, lat = g["coordinates"]

@@ -24,6 +24,7 @@ RULES = {
     "gr-attiki": ("01-01", 366),        # yearly indexation from 1 January
     "gr-egnatia": ("01-01", 366),
     "lt-447": (None, 183),
+    "lt-viatoll-2027": ("06-30", 366),  # LTSA reviews the Via Toll rates each year by 30 June
     "gb-humber": (None, 183),
     "gb-tamar": (None, 183),
     "nl-kiltunnel": (None, 183),

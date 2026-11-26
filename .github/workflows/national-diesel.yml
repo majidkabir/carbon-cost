@@ -1,0 +1,34 @@
+name: National diesel prices
+# Builds fuel/data/national-diesel.csv (tools/history/national_diesel.py):
+# official average diesel pump prices for the UK, Norway and Switzerland,
+# which the EU's Weekly Oil Bulletin doesn't cover. The file is the run's
+# artifact and is printed in its log; copy it into fuel/data by hand when
+# it changes. Run from the Actions tab, or weekly.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * 5"
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - run: pip install -q openpyxl
+      - name: Build
+        run: |
+          mkdir -p out
+          prev=fuel/data/national-diesel.csv; [ -f $prev ] || prev=
+          python3 tools/history/national_diesel.py out/national-diesel.csv $prev
+          cmp -s out/national-diesel.csv fuel/data/national-diesel.csv && echo "same as committed" || echo "::notice title=national-diesel.csv::differs from the committed file"
+          echo "=== national-diesel.csv"; cat out/national-diesel.csv; echo "=== end"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: national-diesel
+          path: out/national-diesel.csv
+      - name: Summary
+        if: always()
+        run: |
+          [ -f out/national-diesel.csv ] && { echo '```'; head -3 out/national-diesel.csv; echo ...; grep ",GB," out/national-diesel.csv | tail -2; grep ",NO," out/national-diesel.csv | tail -2; grep ",CH," out/national-diesel.csv | tail -2; echo '```'; } >> "$GITHUB_STEP_SUMMARY" || true

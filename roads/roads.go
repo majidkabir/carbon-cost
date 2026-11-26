@@ -3,7 +3,8 @@
 // data/ (built by tools/roads). Toll laws in Czechia, Poland, Bulgaria,
 // Slovakia, Hungary and Romania charge less off motorways and don't
 // charge local roads; Germany and Austria charge one rate on their
-// tolled roads and nothing off them.
+// tolled roads and nothing off them; Belarus and Italy toll the ways
+// OpenStreetMap tags as toll roads (Italy's by their operator).
 package roads
 
 import (

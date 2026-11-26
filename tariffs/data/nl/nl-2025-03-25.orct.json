@@ -389,5 +389,10 @@
    "scope": "dataset",
    "status": "complete"
   }
- ]
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "shared_vignette": "eurovignette"
+  }
+ }
 }

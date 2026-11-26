@@ -6,7 +6,11 @@ trucks (ee-ferries-<date>.json), from
   as Riigi Teataja's public API gives it (ee-ferries.json, the text
   ee-ferries-text.html and its annex ee-ferries-lisa-1.txt): the annex's
   ticket for a truck over 3,500 kg of maximum mass ("Täismassiga üle 3500
-  kg veoauto, traktori ja liikurmasina pilet") per line; § 6 raises it by
+  kg veoauto, traktori ja liikurmasina pilet") per line, and for a trailer
+  over 750 kg, semi-trailers included ("Täismassiga üle 750 kg haagise (sh
+  täis-, kesktelg- ja poolhaagis) ja haagissuvila pilet"), its own ticket:
+  a truck longer than 12 m (Directive 96/53/EC's rigid maximum) is taken
+  as with a trailer and pays both; § 6 raises the vehicle ticket by
   1.2 for departures towards the islands (Virtsu-Kuivastu,
   Rohuküla-Heltermaa) on Fridays from 13:00 and back (Kuivastu-Virtsu,
   Heltermaa-Rohuküla) on Sundays from 13:00, rounded to 5 cents; by 1.5
@@ -32,6 +36,8 @@ LINES = {"Kuivastu–Virtsu": ("2.1", ("Virtsu", "Kuivastu")), "Rohuküla–Helt
 PORTS = {"Virtsu": ("terminal", "Virtsu sadam"), "Kuivastu": ("terminal", "Kuivastu sadam"), "Rohuküla": ("terminal", "Rohuküla sadam"),
          "Heltermaa": ("place", "Heltermaa"), "Sõru": ("place", "Sõru"), "Triigi": ("terminal", "Triigi")}
 TRUCK = "Täismassiga üle 3500 kg veoauto, traktori ja liikurmasina pilet"
+# A truck to 12 m alone, a longer one with its trailer.
+SOLO, WITH = "trucks over 3.5 t, up to 12 m", "trucks over 3.5 t with a trailer (over 12 m)"
 
 
 def text(path):
@@ -71,7 +77,7 @@ def main(fetched, out):
     if not m:
         sys.exit("Estonia's ferries: the annex's wording not read")
     wording = m.group(1)
-    prices = {}
+    prices, trailers = {}, {}
     for line, (sec, _) in LINES.items():
         heads = {s: re.search(rf"(?<![\d.]){re.escape(s)}\.?\s*(?=[A-ZÕÄÖÜŠŽ])", flat) for s, _ in LINES.values()}
         if not all(heads.values()):
@@ -85,6 +91,11 @@ def main(fetched, out):
         if not v:
             sys.exit(f"Estonia's ferries: {line}: the truck ticket not read")
         prices[line] = num(v)
+        tm = re.search(r"Täismassiga üle 750 kg haagise \(sh täis-,\s*(?:(\d+(?:,\d+)?)\s+)?kesktelg- ja poolhaagis\) ja haagissuvila pilet\s*(\d+(?:,\d+)?)?", part)
+        tv = tm and (tm.group(1) or tm.group(2))
+        if not tv:
+            sys.exit(f"Estonia's ferries: {line}: the trailer ticket not read")
+        trailers[line] = num(tv)
     # § 6: the coefficients.
     s6 = act[act.index("§ 6."):act.index("§ 7.")]
     for needle in ("Virtsu-Kuivastu ja Rohuküla-Heltermaa suunal väljumistel reedeti alates kella 13.00 on sõidukipileti hinna kordaja 1,2",
@@ -104,19 +115,21 @@ def main(fetched, out):
     pos = port_places(osm, lines, PORTS)
     routes = {line: [ends] for line, (_, ends) in LINES.items()}
     placed, notes = place_systems(routes, pos, lines, permit, lambda msg: sys.exit(f"Estonia's ferries: {msg}"))
-    group = [{"name": "trucks over 3.5 t", "min_kg": 3501}]
+    group = [{"name": SOLO, "min_kg": 3501, "max_length_m": 12}, {"name": WITH, "min_kg": 3501, "min_length_m": 12}]
     systems = []
     for rs, stations, pairs in placed:
         base, timed = {}, []
         fri, sun = {}, {}
         for r, a, b in pairs:
-            v = prices[r]
+            v, tr = prices[r], trailers[r]
             out_, back = LINES[r][1]
             for x, y in ((a, b), (b, a)):
-                base[f"{x}|{y}"] = {"trucks over 3.5 t": v}
+                base[f"{x}|{y}"] = {SOLO: v, WITH: round(v + tr, 2)}
             if r != "Sõru–Triigi":
-                fri[f"{out_}|{back}"] = {"trucks over 3.5 t": round5(v * 1.2)}
-                sun[f"{back}|{out_}"] = {"trucks over 3.5 t": round5(v * 1.2)}
+                # § 6's coefficient is on the vehicle's ticket, not its
+                # trailer's (the regulation names them apart).
+                fri[f"{out_}|{back}"] = {SOLO: round5(v * 1.2), WITH: round(round5(v * 1.2) + tr, 2)}
+                sun[f"{back}|{out_}"] = {SOLO: round5(v * 1.2), WITH: round(round5(v * 1.2) + tr, 2)}
         if fri:
             timed = [{"label": "Friday from 13:00 towards the islands (× 1.2)", "weekdays": [5], "times": [["13:00", "24:00"]], "prices": fri},
                      {"label": "Sunday from 13:00 back (× 1.2)", "weekdays": [7], "times": [["13:00", "24:00"]], "prices": sun}]
@@ -132,7 +145,9 @@ def main(fetched, out):
          "law": (f"Regulation nr 120 of 25.09.2015 of the minister on the ferry prices on the Kuivastu–Virtsu, Rohuküla–Heltermaa and Sõru–Triigi lines, "
                  f"version in force ({p['avaldamiseKuupaev'][:10]} publication), annex in the wording of {wording}: the ticket of a truck over 3,500 kg "
                  + ", ".join(f"{k} {v:.2f} EUR" for k, v in prices.items())
-                 + "; § 6: × 1.2 for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, "
+                 + "; of a trailer over 750 kg (semi-trailers included) " + ", ".join(f"{k} {v:.2f} EUR" for k, v in trailers.items())
+                 + ", added for a truck over 12 m (taken as with a trailer)"
+                 + "; § 6: × 1.2 on the vehicle's ticket (not its trailer's) for departures towards the islands (Virtsu–Kuivastu, Rohuküla–Heltermaa) on Fridays from 13:00 and back on Sundays from 13:00, "
                  "rounded to 5 cents; × 1.5 over 2.6 m wide and × 2.0 over 4 m high (not applied: a truck within 2.55 m and 4 m). "
                  "The regulation doesn't say whether VAT is in the prices; they are taken as it sets them. Residents' prices aren't used. "
                  "Ports at OpenStreetMap's ferry terminals (else the place), priced where the line goes out on OpenStreetMap's car ferry line. "

@@ -1,9 +1,11 @@
 name: Data release
-# Weekly (Monday 05:47 UTC) or by hand: when tariffs/data changed since the
-# last release and the code didn't, raises RELEASE's patch number (v0.72.0 ->
-# v0.72.1) and starts Release, so a new image and binaries carry the newer
+# Weekly (Monday 05:47 UTC) or by hand: when the embedded data changed
+# since the last release (tariffs/data, and the exchange rates, fuel
+# prices, ferries, bans and roads) and the code didn't, raises RELEASE's
+# patch number (v0.72.0 -> v0.72.1) and starts Release, so a new image and binaries carry the newer
 # data. With code changes not yet released it does nothing: release those
-# by hand, as before.
+# by hand, as before. Run after its own Release failed (or didn't start),
+# it re-runs that Release's failed jobs (or starts it).
 on:
   schedule:
     - cron: "47 5 * * 1"
@@ -27,19 +29,41 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           last=$(tr -d '[:space:]' < RELEASE)
+          # This workflow's own bump starts Release by dispatch (its push
+          # doesn't). If that Release never started, start it; if it failed
+          # (binaries, image or notice), re-run its failed jobs; while it
+          # runs, wait. A bump by hand starts Release itself; leave it.
+          if [ "$(git log -1 --format=%an -- RELEASE)" = actions ] && git log -1 --format=%s -- RELEASE | grep -q "^$last: data updated since"; then
+            bump=$(git log -1 --format=%H -- RELEASE)
+            read -r id status conclusion <<< "$(gh api "repos/${{ github.repository }}/actions/workflows/release.yml/runs?head_sha=$bump&per_page=1" \
+              --jq '.workflow_runs[0] // empty | "\(.id) \(.status) \(.conclusion)"')"
+            if [ -z "$id" ] && ! git rev-parse -q --verify "refs/tags/$last" >/dev/null; then
+              gh workflow run release.yml --ref main -f version="$last"
+              printf '## %s\nRelease had not started; started it.\n' "$last" >> "$GITHUB_STEP_SUMMARY"; exit 0
+            elif [ -n "$id" ] && [ "$status" != completed ]; then
+              echo "Release of $last is running"; exit 0
+            elif [ -n "$id" ] && [ "$conclusion" != success ]; then
+              gh api -X POST "repos/${{ github.repository }}/actions/runs/$id/rerun-failed-jobs"
+              printf '## %s\nRelease %s; re-ran its failed jobs.\n' "$last" "$conclusion" >> "$GITHUB_STEP_SUMMARY"; exit 0
+            fi
+          fi
           if ! git rev-parse -q --verify "refs/tags/$last" >/dev/null; then echo "$last isn't released yet"; exit 0; fi
-          code=$(git diff --name-only "$last" HEAD -- '*.go' go.mod go.sum Dockerfile | head -20)
+          # Code is the Go source and what the binary embeds besides data:
+          # the start page, the OpenAPI document, the site's templates,
+          # texts and font.
+          code=$(git diff --name-only "$last" HEAD -- '*.go' go.mod go.sum Dockerfile cmd/carbon-cost/web site/templates site/i18n site/font | head -20)
           if [ -n "$code" ]; then
             echo "::warning title=Data release::code changed since $last; release by hand"; echo "$code"; exit 0
           fi
           changed=$(git diff --name-only "$last" HEAD -- 'tariffs/data/*/*.orct.json')
-          if [ -z "$changed" ]; then echo "no data changes since $last"; exit 0; fi
-          n=$(echo "$changed" | wc -l)
+          other=$(git diff --name-only "$last" HEAD -- fx/data fuel/data ferries/data bans/data roads/data)
+          if [ -z "$changed$other" ]; then echo "no data changes since $last"; exit 0; fi
+          n=$(echo "$changed" | grep -c . || true); m=$(echo "$other" | grep -c . || true)
           IFS=. read -r maj min pat <<< "${last#v}"
           v="v$maj.$min.$((pat + 1))"
           echo "$v" > RELEASE
           git add RELEASE
-          git -c user.name=actions -c user.email=actions@github.com commit -qm "$v: $n datasets updated since $last" -m "$(echo "$changed" | sed 's|^tariffs/data/|- |' | head -60)"
+          git -c user.name=actions -c user.email=actions@github.com commit -qm "$v: data updated since $last ($n datasets, $m other files)" -m "$(printf '%s\n%s\n' "$changed" "$other" | grep . | sed 's|^tariffs/data/||; s|^|- |' | head -60)"
           git push -q origin HEAD:main
           gh workflow run release.yml --ref main -f version="$v"
-          printf '## %s\n%s datasets changed since %s; Release started.\n' "$v" "$n" "$last" >> "$GITHUB_STEP_SUMMARY"
+          printf '## %s\n%s datasets and %s other data files changed since %s; Release started.\n' "$v" "$n" "$m" "$last" >> "$GITHUB_STEP_SUMMARY"

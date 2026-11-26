@@ -13,8 +13,17 @@ import (
 // The pages across countries.
 
 func fxOnDate(day time.Time) (string, bool) {
-	r, ok := fx.OnDate(day)
+	r, ok := ratesOn(day)
 	return r.Date, ok
+}
+
+// ratesOn is the ECB's rates of a day, or after the embedded days (a page
+// built after the release's data) the last day's: the notes give the day.
+func ratesOn(day time.Time) (fx.Rates, bool) {
+	if _, last := fx.HistoryRange(); last != "" && day.Format(time.DateOnly) > last {
+		day, _ = time.Parse(time.DateOnly, last)
+	}
+	return fx.OnDate(day)
 }
 
 func dayAfter(d string) string {

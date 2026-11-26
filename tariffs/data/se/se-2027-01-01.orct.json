@@ -13,11 +13,11 @@
    "url": "https://github.com/majidkabir/carbon-cost"
   },
   "valid_from": "2027-01-01",
-  "valid_to": "2027-12-31",
+  "valid_to": "2027-03-25",
   "currency": "SEK",
   "timezone": "Europe/Stockholm",
   "license": "MIT",
-  "method": "Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for 2027 from Förordning (2026:1806), which the government sets for each calendar year (23 §): a time-based charge per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT. From 26 March 2027 the law also charges vehicles over 3.5 t and under 12 t (11 a §, Lag (2024:293)); Förordning (2026:1806) gives no kronor amounts for them, so they aren't in the table.",
+  "method": "Lag (1997:1137) om vägavgift för vissa tunga fordon, 5, 10, 11 and 23 §§; amounts in kronor for 2027 from Förordning (2026:1806), which the government sets for each calendar year (23 §): a time-based charge per calendar day, week, month or year for trucks and combinations of 12 t or more, by axles (at most 3, at least 4), CO2 emission class and, in CO2 class 1, EURO class. A foreign truck pays per day of use; a Swedish one pays yearly. The table keeps the daily amount. Not subject to VAT.",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "se-2027-01-01.json"
@@ -384,5 +384,10 @@
    "scope": "dataset",
    "status": "complete"
   }
- ]
+ ],
+ "extensions": {
+  "io.github.majidkabir.carboncost": {
+   "shared_vignette": "eurovignette"
+  }
+ }
 }

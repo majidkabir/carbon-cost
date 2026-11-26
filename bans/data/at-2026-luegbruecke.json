@@ -1,0 +1,129 @@
+{
+ "about": "Austria's Luegbrücke truck bans for trucks over 7.5 t (and truck-trailer combinations over 7.5 t together) in 2026, transcribed from the consolidated text in RIS; tools/tables/check_bans.py checks the dates and hours against it. Each ban holds only on the roads, directions or destinations its note names, so a trip is said to may run into it.",
+ "country": "AT",
+ "year": 2026,
+ "check": "words-de",
+ "law": "Lkw-Fahrverbote Generalerneuerung Luegbrücke 2026 (BGBl. II Nr. 338/2025 as amended by BGBl. II Nr. 70/2026), § 1",
+ "source": {
+  "id": "nor40276795",
+  "title": "RIS: Lkw-Fahrverbote Generalerneuerung Luegbrücke 2026, § 1 (consolidated)",
+  "url": "https://ris.bka.gv.at/Dokumente/Bundesnormen/NOR40276795/NOR40276795.pdf"
+ },
+ "days": [
+  {
+   "from_date": "2026-01-10",
+   "to_date": "2026-03-14",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-03-28",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "from_date": "2026-05-23",
+   "to_date": "2026-06-06",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "from_date": "2026-06-27",
+   "to_date": "2026-09-26",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-10-03",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-04-02",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-04-03",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-05-13",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-05-22",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-06-03",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "date": "2026-10-02",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "southbound on the A 12, A 13 and A 14 when the trip's destination is reached via the A 13 from Nößlach to Brenner Nord (towards Italy)"
+  },
+  {
+   "from_date": "2026-01-10",
+   "to_date": "2026-03-14",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 13 from the Italian border to Nößlach when the destination is reached via Brenner Nord to Nößlach (towards Innsbruck)"
+  },
+  {
+   "date": "2026-04-04",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 13 from the Italian border to Nößlach when the destination is reached via Brenner Nord to Nößlach (towards Innsbruck)"
+  },
+  {
+   "from_date": "2026-07-04",
+   "to_date": "2026-08-29",
+   "weekday": "sat",
+   "from": "07:00",
+   "to": "15:00",
+   "listed": true,
+   "note": "on the A 13 from the Italian border to Nößlach when the destination is reached via Brenner Nord to Nößlach (towards Innsbruck)"
+  },
+  {
+   "date": "2026-04-10",
+   "from": "07:00",
+   "to": "22:00",
+   "listed": true,
+   "note": "on the A 13 from the Italian border to Nößlach when the destination is reached via Brenner Nord to Nößlach (towards Innsbruck)"
+  }
+ ]
+}

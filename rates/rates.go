@@ -4,6 +4,8 @@
 package rates
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -34,6 +36,8 @@ const (
 
 // Source is a document the rates come from.
 type Source struct {
+	// Title names the document (a law, a table, a dataset), and URL is
+	// where it is published.
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
@@ -75,6 +79,41 @@ type Truck struct {
 	// together. Croatia's state ferries charge goods vehicles with more than
 	// 5 t of it a fare per tonne of it.
 	CapacityKg int `json:"capacity_kg,omitempty"`
+	// HeightM, WidthM, AxleLoadKg, Hazmat and ADRTunnelCode (B, C, D or
+	// E, the load's tunnel restriction code under ADR 1.9.5; it implies
+	// Hazmat) are optional: with any of them, the route keeps to roads
+	// the truck may drive (Sootcase's vehicle), its length and weight too.
+	HeightM       float64 `json:"height_m,omitempty"`
+	WidthM        float64 `json:"width_m,omitempty"`
+	AxleLoadKg    int     `json:"axle_load_kg,omitempty"`
+	Hazmat        bool    `json:"hazmat,omitempty"`
+	ADRTunnelCode string  `json:"adr_tunnel_code,omitempty"`
+}
+
+// UnmarshalJSON reads a truck, which must give euro: 0 is a class (no
+// Euro standard), so a truck without one isn't taken for it.
+func (t *Truck) UnmarshalJSON(b []byte) error {
+	type plain Truck
+	var keys map[string]json.RawMessage
+	if err := json.Unmarshal(b, &keys); err != nil {
+		return err
+	}
+	if _, ok := keys["euro"]; !ok && keys != nil {
+		return fmt.Errorf("truck: give euro (0-6, the emission standard)")
+	}
+	d := json.NewDecoder(bytes.NewReader(b))
+	d.DisallowUnknownFields()
+	var p plain
+	if err := d.Decode(&p); err != nil {
+		return err
+	}
+	*t = Truck(p)
+	return nil
+}
+
+// Restricted says the truck's route is to keep to roads it may drive.
+func (t Truck) Restricted() bool {
+	return t.HeightM > 0 || t.WidthM > 0 || t.AxleLoadKg > 0 || t.Hazmat || t.ADRTunnelCode != ""
 }
 
 // DefaultLengthM is the length assumed when a truck's isn't given: a
@@ -92,8 +131,8 @@ func (t Truck) Length() float64 {
 // Validate checks a truck's fields.
 func (t Truck) Validate() error {
 	switch {
-	case t.MaxMassKg <= 0:
-		return fmt.Errorf("max_mass_kg must be > 0")
+	case t.MaxMassKg <= 0 || t.MaxMassKg > 1000000:
+		return fmt.Errorf("max_mass_kg must be > 0 and at most 1,000,000")
 	case t.Axles < 2 || t.Axles > 10:
 		return fmt.Errorf("axles must be 2-10")
 	case t.MotorAxles != 0 && (t.MotorAxles < 2 || t.MotorAxles > t.Axles):

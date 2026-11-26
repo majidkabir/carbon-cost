@@ -85,24 +85,37 @@ def germany(fetched, out, srcs):
                     "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": float(m.group(1)),
                     "law": f"BEHG § 10 (2): fixed price of {m.group(1)} euro per certificate (one tonne of CO2) in {y}. Fuel suppliers buy a certificate for each tonne of CO2 their fuel emits and pass the cost on in the fuel price.",
                     "sources": [src(srcs, "de-behg-10")]})
-    m = re.search(r"Für das Jahr 2026 wird ein Preiskorridor mit einem Mindestpreis von (\d+) Euro pro Emissionszertifikat und einem Höchstpreis von (\d+) Euro", t)
+    # § 10 (2) sentence 4: "Für das Jahr 2026 wird ein Preiskorridor ..."; the
+    # Dritte Gesetz zur Änderung des BEHG (Bundestag 15 October 2026)
+    # makes it "Für die Jahre 2026 und 2027 ...".
+    m = re.search(r"Für (?:das Jahr (2026)|die Jahre (2026) und (2027)) wird ein Preiskorridor mit einem Mindestpreis von (\d+) Euro pro Emissionszertifikat und einem Höchstpreis von (\d+) Euro", t)
     if not m:
-        sys.exit("BEHG § 10: no 2026 price corridor")
-    lo, hi = float(m.group(1)), float(m.group(2))
-    rows = []
+        sys.exit("BEHG § 10: no price corridor for 2026")
+    years = [y for y in m.group(1, 2, 3) if y]
+    lo, hi = float(m.group(4)), float(m.group(5))
+    auctions = []
     for line in open(os.path.join(fetched, "de-eex-nehs-auctions.csv"), encoding="utf-8-sig").read().splitlines()[1:]:
         f = line.split(";")
-        if len(f) > 5 and f[3] == "2026":
-            rows.append((f[0], float(f[4]), int(f[5])))
-    if not rows or any(not lo <= p <= hi for _, p, _ in rows):
-        sys.exit(f"EEX: no 2026 auctions in the corridor ({rows[:3]})")
-    vol = sum(v for _, _, v in rows)
-    avg = round(sum(p * v for _, p, v in rows) / vol, 2)
-    prices = sorted({p for _, p, _ in rows})
-    write(out, {"country": "DE", "currency": "EUR", "valid_from": "2026-01-01", "valid_to": "2026-12-31",
-                "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": avg,
-                "law": f"BEHG § 10 (2): 2026 certificates are auctioned in a corridor of {m.group(1)} to {m.group(2)} euro. This is the volume-weighted clearing price of the {len(rows)} auctions EEX held ({rows[-1][0]} to {rows[0][0]}; clearing prices {', '.join(f'{p:g}' for p in prices)} euro). Certificates bought after the auctions cost 68 euro (the excess quantity price), so a supplier's average may be a little higher.",
-                "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-auctions")]})
+        if len(f) > 5:
+            auctions.append((f[0], f[3], float(f[4]), int(f[5])))
+    for y in years:
+        rows = [(d, p, v) for d, yr, p, v in auctions if yr == y]
+        if not rows:
+            if y == "2026":
+                sys.exit("EEX: no 2026 auctions")
+            print(f"BEHG § 10: the {y} corridor is in the law, but EEX has held no {y} auction yet")
+            continue
+        if any(not lo <= p <= hi for _, p, _ in rows):
+            sys.exit(f"EEX: {y} auctions outside the corridor ({rows[:3]})")
+        vol = sum(v for _, _, v in rows)
+        avg = round(sum(p * v for _, p, v in rows) / vol, 2)
+        prices = sorted({p for _, p, _ in rows})
+        excess = {"2026": 68, "2027": 73}.get(y)
+        write(out, {"country": "DE", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+                    "name": "Brennstoffemissionshandel (nEHS) certificate price", "rate_per_t": avg,
+                    "law": f"BEHG § 10 (2): {y} certificates are auctioned in a corridor of {m.group(4)} to {m.group(5)} euro. This is the volume-weighted clearing price of the {len(rows)} auctions EEX held ({rows[-1][0]} to {rows[0][0]}; clearing prices {', '.join(f'{p:g}' for p in prices)} euro)."
+                           + (f" Certificates bought after the auctions cost {excess} euro (the excess quantity price), so a supplier's average may be a little higher." if excess else ""),
+                    "sources": [src(srcs, "de-behg-10"), src(srcs, "de-eex-nehs-auctions")]})
 
 
 def austria(fetched, out, srcs):
@@ -193,10 +206,19 @@ def ireland(fetched, out, srcs):
             merged[-1][1] = vt
         else:
             merged.append([vf, vt, rate])
+    # A legislated increase postponed to a day: the last rate ends before it
+    # (the new amount is in the law, not the manual).
+    flat = re.sub(r"\s+", " ", t)
+    m = re.search(r"postpone carbon tax increases, which had been legislated to come into effect in \d{4}, until (\d+ \w+ \d{4})", flat)
+    ends = ""
+    if m and merged and not merged[-1][1] and irish_date(m.group(1)) > merged[-1][0]:
+        import datetime
+        merged[-1][1] = (datetime.date.fromisoformat(irish_date(m.group(1))) - datetime.timedelta(days=1)).isoformat()
+        ends = f" The manual says the increase legislated for 2026 is postponed to {m.group(1)}, so this rate ends the day before."
     for vf, vt, rate in merged:
         f = {"country": "IE", "currency": "EUR", "valid_from": vf,
              "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel", "rate_per_t": rate,
-             "law": f"Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges {rate:.2f} euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price.",
+             "law": f"Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges {rate:.2f} euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price." + (ends if vt == merged[-1][1] and ends else ""),
              "sources": [src(srcs, "ie-revenue-energy-rates")]}
         if vt:
             f["valid_to"] = vt
@@ -405,9 +427,14 @@ def denmark(fetched, out, srcs):
         for y, r in dk_rates(os.path.join(fetched, sid + ".html")).items():
             rates.setdefault(y, (r, sid))
     for y, ((day, c15, base), sid) in sorted(rates.items()):
+        # The table's 2015 base is the law's as it stands for its later
+        # year; the earlier year's rate may rest on the law before (2024's
+        # 51.9 øre on the base before the 2025 reform): the base is named
+        # only where the rate is it indexed (about 1.2 since 2015).
+        based = f"{base:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7)" if 1 <= day / base <= 1.6 else "indexed with the net price index (stk. 7)"
         write(out, {"country": "DK", "currency": "DKK", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
                     "name": "CO2-afgift on gas and diesel oil", "rate_per_l": round(day / 100, 4),
-                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {base:.1f} øre per litre at day temperature in 2015 prices, indexed with the net price index (stk. 7): {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
+                    "law": f"CO2-afgiftsloven (lov om kuldioxidafgift af visse energiprodukter) § 2, stk. 1: the CO2 tax on gas and diesel oil, {based}: {day:.1f} øre per litre in {y} ({c15:.1f} øre at 15 °C), as Skatteministeriet's rate table gives it. "
                            "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. This is the rate for fossil diesel; diesel blended with 6.8 or 7.6% biofuel pays a little less per litre of blend. "
                            "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
                     "sources": [src(srcs, sid)]})
@@ -549,7 +576,8 @@ def lithuania(fetched, out, srcs):
         sys.exit("Lithuanian customs notice: no CO2 component for gas oils")
     v = float(m.group(3).replace(",", "."))
     for y in (m.group(2), m.group(1)):
-        write(out, {"country": "LT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31",
+        # Introduced in the first year: none before.
+        write(out, {"country": "LT", "currency": "EUR", "valid_from": f"{y}-01-01", "valid_to": f"{y}-12-31", "charged_from": f"{m.group(2)}-01-01",
                     "name": "CO2 dedamoji of the excise duty on gas oils", "rate_per_l": round(v / 1000, 5),
                     "law": f"Akcizų įstatymas Nr. IX-569, 37 straipsnio 1 dalis and 3 priedas: the excise duty on gas oils (diesel) has a fixed part and a variable CO2 part (CO2 dedamoji), EUR {v:.1f} per 1,000 litres in {y}"
                            + (f" (introduced on 1 January {y})" if y == m.group(2) else f" (kept at the {m.group(2)} amount by law XV-679 instead of rising)")

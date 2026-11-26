@@ -79,6 +79,8 @@ func (d *Dataset) Method() string {
 
 // Source is a source document.
 type Source struct {
+	// Title names the document (a law, a table, a dataset), and URL is
+	// where it is published.
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
@@ -92,6 +94,7 @@ func (d *Dataset) Sources() []Source {
 
 // Set is every dataset.
 type Set struct {
+	// All are the datasets, sorted by area, scheme and first day.
 	All  []*Dataset
 	fsys fs.FS
 	dir  string
@@ -99,17 +102,27 @@ type Set struct {
 
 // Summary is what a dataset is, for a list of them.
 type Summary struct {
-	File      string   `json:"file"`
-	ID        string   `json:"id"`
-	Scheme    string   `json:"scheme"`
-	Name      string   `json:"name"`
-	Country   string   `json:"country"`
-	Region    string   `json:"region,omitempty"`
-	Kind      string   `json:"kind"`
-	ValidFrom string   `json:"valid_from"`
-	ValidTo   string   `json:"valid_to,omitempty"`
-	Method    string   `json:"method,omitempty"`
-	Sources   []Source `json:"sources,omitempty"`
+	// File is the dataset, <cc>/<name>.orct.json: GET /v1/rates/{cc}/{file}.
+	File string `json:"file"`
+	// ID is the dataset's ORCT id, Scheme its toll scheme's id (each
+	// version of a scheme is a dataset) and Name the scheme's name.
+	ID     string `json:"id"`
+	Scheme string `json:"scheme"`
+	Name   string `json:"name"`
+	// Country (ISO 3166-1 alpha-2) and Region (ISO 3166-2, for regional
+	// tolls) are where it charges.
+	Country string `json:"country"`
+	Region  string `json:"region,omitempty"`
+	// Kind is toll, crossings, zone or fuel_co2.
+	Kind string `json:"kind"`
+	// ValidFrom and ValidTo are the days it is in force (no ValidTo: until
+	// replaced).
+	ValidFrom string `json:"valid_from"`
+	ValidTo   string `json:"valid_to,omitempty"`
+	// Method is the law and how the dataset was made from it.
+	Method string `json:"method,omitempty"`
+	// Sources are the documents it comes from.
+	Sources []Source `json:"sources,omitempty"`
 }
 
 // Summaries list the datasets.
@@ -210,6 +223,35 @@ func (s *Set) Find(area string, date time.Time) (*Dataset, bool) {
 	return nil, false
 }
 
+// Version is the dataset of d's scheme in force on day (YYYY-MM-DD).
+func (s *Set) Version(d *Dataset, day string) (*Dataset, bool) {
+	for _, v := range s.All {
+		if v.Scheme == d.Scheme && v.Kind == d.Kind && v.Area() == d.Area() && v.ValidFrom <= day && (v.ValidTo == "" || day <= v.ValidTo) {
+			return v, true
+		}
+	}
+	return nil, false
+}
+
+// First is the area's first toll dataset when it starts after the date:
+// rates here only from a later day.
+func (s *Set) First(area string, date time.Time) (*Dataset, bool) {
+	day := date.Format(time.DateOnly)
+	var first *Dataset
+	for _, d := range s.All {
+		if d.Kind == Toll && d.Area() == area && (first == nil || d.ValidFrom < first.ValidFrom) {
+			first = d
+		}
+	}
+	if first == nil || first.ValidFrom <= day {
+		return nil, false
+	}
+	if since := ""; first.Ext("charged_from", &since) && day < since {
+		return nil, false
+	}
+	return first, true
+}
+
 // Ended is the area's last toll dataset when none is in force on the date
 // and that one ended before it: rates that ended with no successor here
 // yet.
@@ -225,6 +267,63 @@ func (s *Set) Ended(area string, date time.Time) (*Dataset, bool) {
 		}
 	}
 	return last, last != nil
+}
+
+// Ahead lists, for each scheme of the kind with no rates in force on the
+// date and none that ended before it, its first rates: tables here that
+// start after the date. A scheme whose first table says the charge
+// itself began then (charged_from) is left out before that day.
+func (s *Set) Ahead(kind string, date time.Time) []*Dataset {
+	day := date.Format(time.DateOnly)
+	first, before := map[string]*Dataset{}, map[string]bool{}
+	for _, d := range s.All {
+		if d.Kind != kind {
+			continue
+		}
+		if d.ValidFrom <= day {
+			before[d.Scheme] = true
+		}
+		if f := first[d.Scheme]; f == nil || d.ValidFrom < f.ValidFrom {
+			first[d.Scheme] = d
+		}
+	}
+	var out []*Dataset
+	for sch, d := range first {
+		if since := ""; before[sch] || d.Ext("charged_from", &since) && day < since {
+			continue
+		}
+		out = append(out, d)
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].File < out[j].File })
+	return out
+}
+
+// Starting lists, for each scheme of the kind with no dataset in force
+// on the date, its first dataset if that starts after it: rates a trip
+// may reach on a later day (one started that day, or after its
+// charged_from).
+func (s *Set) Starting(kind string, date time.Time) []*Dataset {
+	day := date.Format(time.DateOnly)
+	first, before := map[string]*Dataset{}, map[string]bool{}
+	for _, d := range s.All {
+		if d.Kind != kind {
+			continue
+		}
+		if d.ValidFrom <= day {
+			before[d.Scheme] = true
+		}
+		if f := first[d.Scheme]; f == nil || d.ValidFrom < f.ValidFrom {
+			first[d.Scheme] = d
+		}
+	}
+	var out []*Dataset
+	for sch, d := range first {
+		if !before[sch] {
+			out = append(out, d)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].File < out[j].File })
+	return out
 }
 
 // Lapsed lists, for each scheme of the kind with no dataset in force on
@@ -265,6 +364,23 @@ func (s *Set) Regional(country string) bool {
 		}
 	}
 	return false
+}
+
+// TollsAreCrossings says whether a country's tolls are all crossings
+// (motorway booths, tunnels: Bosnia's, Andorra's): it has crossings
+// datasets and no toll dataset.
+func (s *Set) TollsAreCrossings(country string) bool {
+	cross := false
+	for _, d := range s.All {
+		switch {
+		case d.Country != country:
+		case d.Kind == Toll:
+			return false
+		case d.Kind == Crossings:
+			cross = true
+		}
+	}
+	return cross
 }
 
 // OfKind lists the datasets of a kind in force on the date.

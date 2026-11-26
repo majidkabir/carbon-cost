@@ -73,6 +73,15 @@ def ccz(fetched, out):
     if not m or not g or g.group(2) != m.group(1):
         sys.exit(f"Congestion Charge: TfL's page or the Gazette notice changed ({bool(m)}, {bool(g)})")
     since = f"{g.group(4)}-01-{int(g.group(3)):02d}"
+    # The Cleaner Vehicle Discount for electric HGVs (CO2 class 5 here), by
+    # Auto Pay only (an account: etc), from the same day, halved later.
+    cvd = re.search(r"introduce a new Cleaner Vehicle Discount \(CVD\) for electric vehicles on (\d+) January (\d{4}) with the discount level varying by vehicle type: "
+                    r"(\d+)% for electric vans, heavy goods vehicles.{0,120}?The discounts would be halved on (\d+) (\w+) (\d{4})\. Payment would be by auto pay only", gz)
+    if not cvd or f"{cvd.group(2)}-01-{int(cvd.group(1)):02d}" != since:
+        sys.exit("Congestion Charge: the Gazette notice's Cleaner Vehicle Discount changed")
+    import datetime
+    halved = datetime.datetime.strptime(f"{cvd.group(4)} {cvd.group(5)} {cvd.group(6)}", "%d %B %Y").date().isoformat()
+    pct = int(cvd.group(3))
     rel, stamp = relation(osm_p, "London Congestion Charge")
     poly = rings(rel, "outer")
     hh = [m.group(i).zfill(5) for i in range(2, 6)]
@@ -82,9 +91,14 @@ def ccz(fetched, out):
     law = ("Greater London (Central Zone) Congestion Charging Order 2004, as varied: a charge per day for driving in the zone "
            f"{hh[0]}-{hh[1]} Monday to Friday and {hh[2]}-{hh[3]} at weekends and on bank holidays (bank holidays are taken as weekdays here), "
            "none from Christmas Day to New Year's Day (TfL); the charge paid on the day or in advance")
-    for vf, vt, charge in (("2024-01-01", prev_day(since), float(g.group(1))), (since, "", float(g.group(2)))):
-        z = {"country": "GB", "currency": "GBP", "valid_from": vf, "name": "London Congestion Charge", "law": law + f", GBP {charge:g} ({'before' if vt else 'from'} {since}, the Gazette notice).",
+    for vf, vt, charge, off in (("2024-01-01", prev_day(since), float(g.group(1)), 0), (since, prev_day(halved), float(g.group(2)), pct),
+                                (halved, "", float(g.group(2)), pct / 2)):
+        cv = (f" The Cleaner Vehicle Discount, {off:g}% for electric heavy goods vehicles (CO2 class 5 here) registered for it and paying by Auto Pay only "
+              f"(give etc), from {since}, halved on {halved} (the Gazette notice).") if off else ""
+        z = {"country": "GB", "currency": "GBP", "valid_from": vf, "name": "London Congestion Charge", "law": law + f", GBP {charge:g} ({'before' if vf < since else 'from'} {since}, the Gazette notice)." + cv,
              "sources": src, "min_kg": 0, "charge": charge, **hours, "no_charge": ["12-25", "01-01"], "polygons": poly, "osm_extract": stamp}
+        if off:
+            z["discounts"] = [{"name": "Cleaner Vehicle Discount (electric, Auto Pay)", "percent": off, "co2_class": [5], "etc": True}]
         if vt:
             z["valid_to"] = vt
         write(out, z, "congestion-charge")

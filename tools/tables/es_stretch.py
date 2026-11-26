@@ -150,14 +150,17 @@ def assign(order, match, line, cum, juncs, booths=(), near=0.06):
     return best, how
 
 
-def fill(seq, got, line, cum, juncs, near=0.06):
+def fill(seq, got, line, cum, juncs, near=0.06, own_ref=None):
     """Places, by elimination, stations no junction is signposted to:
     where a run of them lies between two placed stations (in the order
     seq, as the line runs) and exactly as many numbered interchanges
     (junction nodes with an exit ref, within 1.5 km of each other; not
     rest areas) lie between those two, more than 0.75 km from either, one
-    station each in order. Returns the stations so placed."""
-    xs = sorted(x for x, d, w in ((*m6toll.project(line, cum, p), w) for p, w, ref in juncs if ref) if d < near and "area de" not in w)
+    station each in order. own_ref, where given, keeps only the refs of
+    the motorway's own exit numbering (another road's junctions on or by
+    it carry its own numbers). Returns the stations so placed."""
+    xs = sorted(x for x, d, w in ((*m6toll.project(line, cum, p), w) for p, w, ref in juncs if ref and (own_ref is None or own_ref(ref)))
+                if d < near and "area de" not in w)
     groups, cl = [], []
     for x in xs + [None]:
         if x is not None and (not cl or x - cl[-1] < 1.5):

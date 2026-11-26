@@ -1925,42 +1925,6 @@
   {
    "id": "pt41",
    "type": "point",
-   "name": "Skurubron",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [18.224895, 59.31376]
-    },
-    "match_m": 30
-   }
-  },
-  {
-   "id": "pt42",
-   "type": "point",
-   "name": "Skurubron",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [18.22489, 59.313821]
-    },
-    "match_m": 30
-   }
-  },
-  {
-   "id": "pt43",
-   "type": "point",
-   "name": "Skurubron",
-   "location": {
-    "geometry": {
-     "type": "Point",
-     "coordinates": [18.22488, 59.313922]
-    },
-    "match_m": 30
-   }
-  },
-  {
-   "id": "pt44",
-   "type": "point",
    "name": "Solnabron",
    "location": {
     "geometry": {
@@ -1971,7 +1935,7 @@
    }
   },
   {
-   "id": "pt45",
+   "id": "pt42",
    "type": "point",
    "name": "Solnabron",
    "location": {
@@ -1983,7 +1947,7 @@
    }
   },
   {
-   "id": "pt46",
+   "id": "pt43",
    "type": "point",
    "name": "Stora Essingen",
    "location": {
@@ -1995,7 +1959,7 @@
    }
   },
   {
-   "id": "pt47",
+   "id": "pt44",
    "type": "point",
    "name": "Stora Essingen",
    "location": {
@@ -2007,7 +1971,7 @@
    }
   },
   {
-   "id": "pt48",
+   "id": "pt45",
    "type": "point",
    "name": "Stora Essingen",
    "location": {
@@ -2019,7 +1983,7 @@
    }
   },
   {
-   "id": "pt49",
+   "id": "pt46",
    "type": "point",
    "name": "Tomtebodavägen",
    "location": {
@@ -2031,7 +1995,7 @@
    }
   },
   {
-   "id": "pt50",
+   "id": "pt47",
    "type": "point",
    "name": "Tomtebodavägen",
    "location": {
@@ -2043,7 +2007,7 @@
    }
   },
   {
-   "id": "pt51",
+   "id": "pt48",
    "type": "point",
    "name": "Universitetet",
    "location": {
@@ -2055,7 +2019,7 @@
    }
   },
   {
-   "id": "pt52",
+   "id": "pt49",
    "type": "point",
    "name": "Universitetet",
    "location": {
@@ -2067,7 +2031,7 @@
    }
   },
   {
-   "id": "pt53",
+   "id": "pt50",
    "type": "point",
    "name": "Värtan Västra",
    "location": {
@@ -2079,7 +2043,7 @@
    }
   },
   {
-   "id": "pt54",
+   "id": "pt51",
    "type": "point",
    "name": "Värtan Västra",
    "location": {
@@ -2091,7 +2055,7 @@
    }
   },
   {
-   "id": "pt55",
+   "id": "pt52",
    "type": "point",
    "name": "Värtan Västra",
    "location": {
@@ -2103,7 +2067,7 @@
    }
   },
   {
-   "id": "pt56",
+   "id": "pt53",
    "type": "point",
    "name": "Värtan Östra",
    "location": {
@@ -2115,7 +2079,7 @@
    }
   },
   {
-   "id": "pt57",
+   "id": "pt54",
    "type": "point",
    "name": "Värtan Östra",
    "location": {
@@ -2127,7 +2091,7 @@
    }
   },
   {
-   "id": "pt58",
+   "id": "pt55",
    "type": "point",
    "name": "Värtan Östra",
    "location": {
@@ -3247,67 +3211,7 @@
     ["pt55", "inner-1730", "25"],
     ["pt55", "inner-1730-high", "30"],
     ["pt55", "inner-1800", "15"],
-    ["pt55", "inner-1800-high", "20"],
-    ["pt56", "inner-0600", "15"],
-    ["pt56", "inner-0630", "25"],
-    ["pt56", "inner-0630-high", "30"],
-    ["pt56", "inner-0700", "35"],
-    ["pt56", "inner-0700-high", "45"],
-    ["pt56", "inner-0830", "25"],
-    ["pt56", "inner-0830-high", "30"],
-    ["pt56", "inner-0900", "15"],
-    ["pt56", "inner-0900-high", "20"],
-    ["pt56", "inner-0930", "11"],
-    ["pt56", "inner-1500", "15"],
-    ["pt56", "inner-1500-high", "20"],
-    ["pt56", "inner-1530", "25"],
-    ["pt56", "inner-1530-high", "30"],
-    ["pt56", "inner-1600", "35"],
-    ["pt56", "inner-1600-high", "45"],
-    ["pt56", "inner-1730", "25"],
-    ["pt56", "inner-1730-high", "30"],
-    ["pt56", "inner-1800", "15"],
-    ["pt56", "inner-1800-high", "20"],
-    ["pt57", "inner-0600", "15"],
-    ["pt57", "inner-0630", "25"],
-    ["pt57", "inner-0630-high", "30"],
-    ["pt57", "inner-0700", "35"],
-    ["pt57", "inner-0700-high", "45"],
-    ["pt57", "inner-0830", "25"],
-    ["pt57", "inner-0830-high", "30"],
-    ["pt57", "inner-0900", "15"],
-    ["pt57", "inner-0900-high", "20"],
-    ["pt57", "inner-0930", "11"],
-    ["pt57", "inner-1500", "15"],
-    ["pt57", "inner-1500-high", "20"],
-    ["pt57", "inner-1530", "25"],
-    ["pt57", "inner-1530-high", "30"],
-    ["pt57", "inner-1600", "35"],
-    ["pt57", "inner-1600-high", "45"],
-    ["pt57", "inner-1730", "25"],
-    ["pt57", "inner-1730-high", "30"],
-    ["pt57", "inner-1800", "15"],
-    ["pt57", "inner-1800-high", "20"],
-    ["pt58", "inner-0600", "15"],
-    ["pt58", "inner-0630", "25"],
-    ["pt58", "inner-0630-high", "30"],
-    ["pt58", "inner-0700", "35"],
-    ["pt58", "inner-0700-high", "45"],
-    ["pt58", "inner-0830", "25"],
-    ["pt58", "inner-0830-high", "30"],
-    ["pt58", "inner-0900", "15"],
-    ["pt58", "inner-0900-high", "20"],
-    ["pt58", "inner-0930", "11"],
-    ["pt58", "inner-1500", "15"],
-    ["pt58", "inner-1500-high", "20"],
-    ["pt58", "inner-1530", "25"],
-    ["pt58", "inner-1530-high", "30"],
-    ["pt58", "inner-1600", "35"],
-    ["pt58", "inner-1600-high", "45"],
-    ["pt58", "inner-1730", "25"],
-    ["pt58", "inner-1730-high", "30"],
-    ["pt58", "inner-1800", "15"],
-    ["pt58", "inner-1800-high", "20"]
+    ["pt55", "inner-1800-high", "20"]
    ],
    "sources": ["s1", "s2"],
    "basis": "transcribed"
@@ -3344,7 +3248,7 @@
  "extensions": {
   "io.github.majidkabir.carboncost": {
    "crossings": true,
-   "osm_extract": "2026-11-20"
+   "osm_extract": "2026-11-24"
   }
  }
 }

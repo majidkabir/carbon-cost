@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"cmp"
 	"fmt"
 	"math"
 	"slices"
@@ -59,12 +60,32 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		p.addSources(ds)
 		return nil
 	}
+	if p.only == nil {
+		// Where the trip is there on days of more than one version of the
+		// table (a new one from midnight: its own stations, its own rates,
+		// or another kind of charge, the Netherlands' Eurovignette then its
+		// km charge from 1 July 2026), each prices the trip's own days.
+		if vs := p.laterVersions(ds, kmDayList(p.kmDays(ds, a.country, a.region))); len(vs) > 1 {
+			return p.byVersion(vs, func(d *tariffs.Dataset) error { return p.priceArea(d, a, route) })
+		}
+	}
 	share, shareGiven := 1.0, false
 	for _, k := range []string{a.code, a.country} {
 		if v, ok := req.TolledShare[k]; ok {
 			share, shareGiven = v, true
 			break
 		}
+	}
+	// Where a version prices only the trip's own days (byVersion), its km
+	// are those driven on them.
+	if p.only != nil {
+		kept := 0.0
+		for _, d := range p.kmDays(ds, a.country, a.region) {
+			if p.only(d.at.Format(time.DateOnly)) {
+				kept += d.share
+			}
+		}
+		km *= kept
 	}
 	tolledKm := km * share
 	nw := networkOf(ds)
@@ -78,13 +99,12 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		tolledKm = km * (rk.Motorway + rk.National) / rk.Total()
 	}
 	if byRoute && oneRate {
-		local := "which aren't tolled"
-		if l := req.roadLeftOut[a.country]; len(l) > 0 {
-			local = fmt.Sprintf("which aren't tolled (they include the stretches the toll leaves out: %s)", strings.Join(l, ", "))
-		}
+		// The stretches the toll leaves out (Germany's A 5 and A 6 by the
+		// borders, its private tunnels) are in the README and the road
+		// data, not in every trip's note.
 		first, _, _ := strings.Cut(tolledRoads(ds), ". ")
-		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, %s. Tolled roads: %s. Give tolled_share.%s to override.",
-			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), local, strings.TrimSuffix(first, "."), cc)
+		p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on the tolled roads and %.0f%% on other roads, which aren't tolled. Tolled roads: %s. Give tolled_share.%s to override.",
+			cc, 100*(rk.Motorway+rk.National)/rk.Total(), km, 100*rk.Local/rk.Total(), strings.TrimSuffix(first, "."), cc)
 	}
 	p.useTable(ds)
 	if byRoute {
@@ -118,7 +138,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	b := &batch{ds: ds}
 	secs, secKm := p.sectionsOn(ds, route)
 	if nw.perDay != nil {
-		if tolledKm >= 0.5 {
+		// A day of use, however few of the area's km are on it (byVersion
+		// gives a version its days' km): the area's km decide.
+		if a.km*share >= 0.5 && (tolledKm > 0 || p.only == nil) {
 			p.perDay(b, ds, nw, a, tolledKm)
 		}
 	} else if nw.hasRows {
@@ -140,33 +162,63 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		zkm = req.EnvZoneKm[a.country]
 	}
 	if zkm > 0 {
-		if nw.env == "" {
+		// On one of the days this version prices, where it prices only
+		// some (byVersion; the other version says if it has none).
+		at, kept := p.noon(ds), false
+		if p.only != nil {
+			for _, d := range p.kmDays(ds, a.country, a.region) {
+				if p.only(d.at.Format(time.DateOnly)) {
+					at, kept = d.at, true
+					break
+				}
+			}
+		}
+		switch {
+		case nw.env != "" && p.only != nil && (p.envDone || !kept):
+			// Another version's days (byVersion): the km once, by the
+			// first version with a zone surcharge on the trip's days.
+		case nw.env != "":
+			b.km(nw.env, at, zkm, nil, &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: zkm, hasKm: true})
+			p.envDone = p.only != nil
+		case p.only == nil:
 			p.note("%s: env_zone_km given, but %s has no environmental zone surcharge.", cc, ds.Name)
-		} else {
-			b.km(nw.env, p.noon(ds), zkm, nil, &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: zkm, hasKm: true})
 		}
 	}
 	systems, points := p.matchSystems(b, ds, a.country, a.region, route), p.matchPoints(b, ds, a.country, route)
+	if p.only != nil {
+		b.keepDays(p.only)
+	}
 	st, err := p.price(b, "", nil)
 	if err != nil {
 		return err
 	}
 	p.afterPoints(ds, a.country, st, points)
 	p.afterSystems(ds, a.country, st, systems)
-	if points.listed && !points.any && km >= 1 {
-		p.note("%s: the route passes none of the toll stations.", cc)
-	}
-	if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
-		p.note("%s: the route uses none of the tolled motorways.", cc)
-	}
-	if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
-		p.note("%s: the route passes none of the tolled sections.", cc)
+	switch {
+	case len(route.pts) < 2:
+		// country_km: no route to find the stations and sections on.
+		if (points.listed || systems.listed || hasSections(ds)) && km >= 0.5 {
+			p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "no_route"})
+		}
+	case p.only != nil:
+		// One version of several (byVersion): whether the route meets
+		// none of the area's is the trip's, not this version's days'.
+	default:
+		if points.listed && !points.any && km >= 1 {
+			p.note("%s: the route passes none of the toll stations.", cc)
+		}
+		if systems.listed && !nw.hasRows && !systems.any && km >= 1 {
+			p.note("%s: the route uses none of the tolled motorways.", cc)
+		}
+		if hasSections(ds) && !nw.hasRows && len(secs) == 0 && km >= 1 {
+			p.note("%s: the route passes none of the tolled sections.", cc)
+		}
 	}
 	if !shareGiven && !byRoute && nw.hasRows && nw.perDay == nil {
 		p.note("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
-			cc, km, cc, tolledRoads(ds))
+			cc, a.km, cc, tolledRoads(ds))
 	}
-	p.unpriced(ds, cc, st)
+	p.unpriced(ds, cc, st, RoadToll)
 	return nil
 }
 
@@ -184,7 +236,7 @@ func classesTest(ds *tariffs.Dataset, param string) bool {
 	return false
 }
 
-func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
+func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement, charge string) {
 	for _, i := range st.Issues {
 		switch i.Code {
 		case "partial_coverage", "outside_validity":
@@ -202,6 +254,19 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement) {
 			}
 		}
 		p.note("%s: %s not fully priced (%s: %s).%s", cc, ds.Name, i.Code, i.Message, hint)
+		// The total leaves out a charge the trip pays.
+		reason := "unpriced"
+		if i.Code == "missing_parameter" {
+			reason = "needs_truck_field"
+		}
+		p.missing(Missing{Area: ds.Area(), Charge: charge, Name: ds.Name, Reason: reason})
+	}
+}
+
+// missing adds m to the charges the result leaves out, once.
+func (p *pricer) missing(m Missing) {
+	if !slices.Contains(p.out.Missing, m) {
+		p.out.Missing = append(p.out.Missing, m)
 	}
 }
 
@@ -274,7 +339,8 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 		ops = append(ops, opPart{pt.road, "", pt.km})
 	}
-	// Surcharged stretches the route drives: their km, as overlays.
+	// Surcharged stretches the route drives: their km, as overlays, on
+	// each leg (a stretch driven out and back is driven twice).
 	overlays := map[string]float64{}
 	for _, o := range ds.Objects() {
 		if o.Type != "network" || o.Location == nil || o.Location.Geometry == nil || o.Location.Geometry.Type != "LineString" {
@@ -282,21 +348,54 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 		pts := pointsOf(o)
 		var skm float64
-		for i := 0; i+1 < len(pts); i++ {
-			if k, ok := along(route, pts[i], pts[i+1]); ok {
-				skm += k
+		for _, leg := range route.parts() {
+			for i := 0; i+1 < len(pts); i++ {
+				if k, ok := along(leg, pts[i], pts[i+1]); ok {
+					skm += k
+				}
 			}
 		}
 		if skm > 0 {
 			overlays[o.ID] = skm
 		}
 	}
-	at := p.noon(ds)
+	days := p.kmDays(ds, a.country, a.region)
+	if p.only != nil {
+		// Only the trip's days here (byVersion): km and overlays are
+		// those days' already (priceArea), so their shares are of them.
+		kept := 0.0
+		for _, d := range days {
+			if p.only(d.at.Format(time.DateOnly)) {
+				kept += d.share
+			}
+		}
+		var in []kmDay
+		for _, d := range days {
+			if p.only(d.at.Format(time.DateOnly)) && kept > 0 {
+				d.share /= kept
+				in = append(in, d)
+			}
+		}
+		days = in
+		for id := range overlays {
+			overlays[id] *= kept
+		}
+		secKm *= kept
+	}
+	// The sections' km (priced on their own) come off the parts in
+	// proportion, once in all.
+	total := 0.0
+	for _, pt := range ops {
+		total += math.Max(0, pt.km)
+	}
 	for _, pt := range ops {
 		if pt.km <= 0 && pt.road != "" {
 			continue
 		}
 		k := math.Max(0, pt.km-secKm)
+		if total > 0 {
+			k = math.Max(0, pt.km*(1-secKm/total))
+		}
 		section := ""
 		if pt.op != "" {
 			section = opName(pt.op)
@@ -331,14 +430,79 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			if sp.km <= 0 && len(splits) > 1 {
 				continue
 			}
-			m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, road: pt.road, section: section, km: sp.km, hasKm: true, key: key}
-			// The cells' km merge into one line where a row prices both
-			// alike (the same row): only where the rates differ by area
-			// is it a line of its own.
-			m.area = sp.area
-			b.km(obj, at, sp.km, ov, m)
+			// Each day's km at the time it starts, so a day after the
+			// table's last prices at the next table's rates.
+			for _, d := range days {
+				dov := map[string]float64{}
+				for id, v := range ov {
+					dov[id] = v * d.share
+				}
+				m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, road: pt.road, section: section, km: sp.km * d.share, hasKm: true, key: key}
+				// The cells' km merge into one line where a row prices both
+				// alike (the same row): only where the rates differ by area
+				// is it a line of its own.
+				m.area = sp.area
+				b.km(obj, d.at, sp.km*d.share, dov, m)
+			}
 		}
 	}
+}
+
+// kmDay is when a share of a country's km is driven: the time it starts.
+type kmDay struct {
+	at    time.Time
+	share float64
+}
+
+// kmDays are a country's (or its region's) km by local day: with a
+// departure time and the route's stretches there, each day's share from
+// when it starts there (the passage into it, or midnight); else all at
+// noon of the trip's day.
+func (p *pricer) kmDays(ds *tariffs.Dataset, country, region string) []kmDay {
+	sp := p.req.spans[country]
+	if rs := p.req.regionSpans[region]; region != "" && len(rs) > 0 {
+		sp = rs
+	}
+	total := 0.0
+	for _, s := range sp {
+		total += s[1] - s[0]
+	}
+	if p.req.Time == "" || total <= 0 {
+		return []kmDay{{p.noon(ds), 1}}
+	}
+	at := func(pos float64) time.Time { t, _ := passage(p.req, p.date, pos, country); return t }
+	day := func(t time.Time) string { return t.Format(time.DateOnly) }
+	var out []kmDay
+	add := func(t time.Time, km float64) {
+		for i := range out {
+			if day(out[i].at) == day(t) {
+				out[i].share += km / total
+				return
+			}
+		}
+		out = append(out, kmDay{t, km / total})
+	}
+	for _, s := range sp {
+		for from := s[0]; from < s[1]; {
+			a := at(from)
+			if day(at(s[1])) == day(a) {
+				add(a, s[1]-from)
+				break
+			}
+			// Where the next day begins: the passage time only grows.
+			lo, hi := from, s[1]
+			for i := 0; i < 50; i++ {
+				if mid := (lo + hi) / 2; day(at(mid)) == day(a) {
+					lo = mid
+				} else {
+					hi = mid
+				}
+			}
+			add(a, hi-from)
+			from = hi
+		}
+	}
+	return out
 }
 
 // suburbanShareORCT is the share of km on suburban roads of a road type:
@@ -369,15 +533,149 @@ func suburbanShareORCT(ds *tariffs.Dataset, rk roads.Km, byRoute bool, road stri
 func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, tolledKm float64) {
 	req, cc := p.req, a.code
 	days, note := p.tripDaysORCT(ds, nw.perDay, a.country)
+	if group := ""; ds.Ext("shared_vignette", &group) && group != "" {
+		days = p.claimDays(group, cc, days)
+	}
 	m := &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: tolledKm, hasKm: true, key: "day"}
 	obj := nw.root
 	for _, d := range days {
 		b.event(obj, d, m)
 	}
-	p.note("%s", cc+": "+note)
+	if len(days) > 0 {
+		p.note("%s", cc+": "+note)
+	}
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
 		p.note("%s: the charge counts the motor vehicle's own axles; priced with the truck's %d axles. Give truck.motor_axles (e.g. 2 for a two-axle tractor).", cc, req.Truck.Axles)
 	}
+}
+
+// ticketSpan is a ticket's time on the route (matchSystems), and whether
+// the version priced now keeps it (byVersion).
+type ticketSpan struct {
+	from, to time.Time
+	kept     bool
+}
+
+// keepPass says whether the version priced now keeps a point passed at t:
+// on its own days, or, one a ticket includes (ORCT included_in), with the
+// ticket it lies in.
+func (p *pricer) keepPass(ds *tariffs.Dataset, obj string, t time.Time) bool {
+	for _, r := range ds.Doc.Rules {
+		if r.Kind != "included_in" {
+			continue
+		}
+		objs, _ := r.Params["objects"].([]any)
+		if !slices.Contains(objs, any(obj)) {
+			continue
+		}
+		for _, s := range p.tickets {
+			if !t.Before(s.from) && !t.After(s.to) {
+				return s.kept
+			}
+		}
+	}
+	return p.only(t.Format(time.DateOnly))
+}
+
+// laterVersions are ds and the versions of its scheme in force on the
+// later of the days (local, in order) the trip uses it, in order.
+func (p *pricer) laterVersions(ds *tariffs.Dataset, days []string) []*tariffs.Dataset {
+	out := []*tariffs.Dataset{ds}
+	if p.set == nil {
+		return out
+	}
+	for _, day := range days {
+		last := out[len(out)-1]
+		if last.ValidTo == "" || day <= last.ValidTo {
+			continue
+		}
+		if v, ok := p.set.Version(ds, day); ok && v != last && v.ValidFrom > last.ValidFrom {
+			out = append(out, v)
+		}
+	}
+	return out
+}
+
+// byVersion prices each of the versions vs (in order) on its own days of
+// the trip (p.only): from its first day to the next's.
+func (p *pricer) byVersion(vs []*tariffs.Dataset, price func(*tariffs.Dataset) error) error {
+	p.envDone = false
+	for i, d := range vs {
+		lo, hi := "", ""
+		if i > 0 {
+			lo = d.ValidFrom
+		}
+		if i+1 < len(vs) {
+			hi = vs[i+1].ValidFrom
+		}
+		p.only = func(day string) bool { return day >= lo && (hi == "" || day < hi) }
+		err := price(d)
+		p.only = nil
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+// kmDayList are the local days of kmDays.
+func kmDayList(ds []kmDay) []string {
+	var out []string
+	for _, d := range ds {
+		out = append(out, d.at.Format(time.DateOnly))
+	}
+	return out
+}
+
+// tripDays are the local days (in ds's zone) from the trip's start to its
+// end along the route: one, the trip's date, untimed.
+func (p *pricer) tripDays(ds *tariffs.Dataset, route *track) []string {
+	end := 0.0
+	if n := len(route.cum); n > 0 {
+		end = route.cum[n-1]
+	}
+	a, okA := passage(p.req, p.date, 0, ds.Country)
+	b, okB := passage(p.req, p.date, end, ds.Country)
+	if !okA || !okB {
+		return []string{p.date.Format(time.DateOnly)}
+	}
+	var out []string
+	last := b.Format(time.DateOnly)
+	for d := time.Date(a.Year(), a.Month(), a.Day(), 12, 0, 0, 0, a.Location()); d.Format(time.DateOnly) <= last; d = d.AddDate(0, 0, 1) {
+		out = append(out, d.Format(time.DateOnly))
+	}
+	return out
+}
+
+// claimDays are the days of a vignette shared by several schemes (the
+// Eurovignette: one day's charge, bought in any of its states, is valid in
+// all of them) that no other area of the trip has paid for yet; it notes
+// the days another area's covers.
+func (p *pricer) claimDays(group, cc string, days []time.Time) []time.Time {
+	if p.shared == nil {
+		p.shared = map[string]map[string]string{}
+	}
+	paid := p.shared[group]
+	if paid == nil {
+		paid = map[string]string{}
+		p.shared[group] = paid
+	}
+	var keep []time.Time
+	by := map[string]bool{}
+	for _, d := range days {
+		k := d.Format(time.DateOnly)
+		if o, ok := paid[k]; ok {
+			by[o] = true
+			continue
+		}
+		paid[k] = cc
+		keep = append(keep, d)
+	}
+	if len(by) > 0 {
+		p.note("%s: the %s counted for %s is valid here too (one for all its states), so a day it covers isn't charged again.",
+			cc, strings.ToUpper(group[:1])+group[1:], strings.Join(sortedKeys(by), ", "))
+	}
+	return keep
 }
 
 // hasMotorAxles says whether the dataset's classes count the motor
@@ -444,7 +742,12 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 			}
 		}
 	}
-	n := len(out)
+	// The days the trip is there in all, and (byVersion) this version's.
+	n, of := len(out), ""
+	if p.only != nil {
+		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
+		of = fmt.Sprintf(" (%d in the table from %s)", len(out), ds.ValidFrom)
+	}
 	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]
 	if n != 1 {
 		unit += "s"
@@ -453,8 +756,8 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	if !req.DriverRest {
 		rest = " without driver rests (give driver_rest for them)"
 	}
-	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s; a longer period may cost less.",
-		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, rest)
+	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s%s; a longer period may cost less.",
+		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, of, rest)
 }
 
 // ---------------------------------------------------------------- sections
@@ -481,16 +784,18 @@ func (p *pricer) sectionsOn(ds *tariffs.Dataset, route *track) ([]sectionPass, f
 	}
 	var out []sectionPass
 	var total float64
-	for _, o := range ds.Objects() {
-		if o.Type != "section" || o.From == nil || o.To == nil {
-			continue
-		}
-		a, b := endOf(o.From), endOf(o.To)
-		if km, ok := along(route, a, b); ok {
-			pa, _, _ := route.project(a)
-			pb, _, _ := route.project(b)
-			out = append(out, sectionPass{o, km, math.Min(pa, pb)})
-			total += km
+	for _, leg := range route.parts() {
+		for _, o := range ds.Objects() {
+			if o.Type != "section" || o.From == nil || o.To == nil {
+				continue
+			}
+			a, b := endOf(o.From), endOf(o.To)
+			if km, ok := along(leg, a, b); ok {
+				pa, _, _ := leg.project(a)
+				pb, _, _ := leg.project(b)
+				out = append(out, sectionPass{o, km, math.Min(pa, pb)})
+				total += km
+			}
 		}
 	}
 	return out, total
@@ -543,24 +848,88 @@ func systemsOf(ds *tariffs.Dataset) []*system {
 	return out
 }
 
-func (s *system) pass(st *orct.Object, route *track) (float64, float64) {
-	best, bestPos := math.Inf(1), 0.0
-	for _, pt := range pointsOf(st) {
-		pos, d, h := route.project(pt)
-		if pt.Heading != nil && math.Abs(math.Mod(h-*pt.Heading+540, 360)-180) > 60 {
-			continue
-		}
-		if d < best {
-			best, bestPos = d, pos
-		}
-	}
-	return best, bestPos
+// visit is a pass of a station: its km along the route (where the
+// route reaches it) and the route's distance from it (its nearest point).
+type visit struct {
+	st        *orct.Object
+	pos, dist float64
+	dir       float64 // the route's heading there
 }
 
-// sysUse is a ticket: the stations a route enters and leaves a system at.
+// visits are each time the route passes the station, in its direction,
+// in route order. Its points passed one after another are one visit
+// (its plazas either side of a junction, a port's points on two ferry
+// lines) where the route goes from one to the next about directly; a
+// point passed again, or after a detour (the route turned back), starts
+// another.
+func (s *system) visits(st *orct.Object, route *track) []visit {
+	type pp struct {
+		pt int
+		trackPass
+	}
+	pts := pointsOf(st)
+	var all []pp
+	for i, pt := range pts {
+		for _, x := range route.passes(pt, s.matchKm) {
+			if pt.Heading != nil && math.Abs(math.Mod(x.heading-*pt.Heading+540, 360)-180) > 60 {
+				continue
+			}
+			all = append(all, pp{i, x})
+		}
+	}
+	slices.SortStableFunc(all, func(a, b pp) int { return cmp.Compare(a.pos, b.pos) })
+	var out []visit
+	seen, last := map[int]bool{}, pp{}
+	for k, x := range all {
+		if k > 0 && !seen[x.pt] {
+			a, b := pts[last.pt], pts[x.pt]
+			if x.pos-last.pos <= 1.5*haversine(a.Lat, a.Lon, b.Lat, b.Lon)+1 {
+				seen[x.pt], last = true, x
+				if v := &out[len(out)-1]; x.dist < v.dist {
+					v.dist = x.dist
+				}
+				continue
+			}
+		}
+		out = append(out, visit{st, x.pos, x.dist, x.heading})
+		seen, last = map[int]bool{x.pt: true}, x
+	}
+	return out
+}
+
+// allVisits are the system's stations' visits in route order.
+func (s *system) allVisits(route *track) []visit {
+	var vs []visit
+	for _, st := range s.stations {
+		vs = append(vs, s.visits(st, route)...)
+	}
+	slices.SortStableFunc(vs, func(a, b visit) int { return cmp.Compare(a.pos, b.pos) })
+	return vs
+}
+
+// laps split visits where the route passes a station of the lap again:
+// it left the system and came back (a day's driven path, out and back),
+// so a ticket can't run from one lap into the next.
+func laps(vs []visit) [][]visit {
+	var out [][]visit
+	var cur []visit
+	for _, v := range vs {
+		if slices.ContainsFunc(cur, func(c visit) bool { return c.st == v.st }) {
+			out, cur = append(out, cur), nil
+		}
+		cur = append(cur, v)
+	}
+	if len(cur) > 0 {
+		out = append(out, cur)
+	}
+	return out
+}
+
+// sysUse is a ticket: the stations a route enters and leaves a system at,
+// and the route's heading at the entry.
 type sysUse struct {
-	entry, exit *orct.Object
-	km, from    float64
+	entry, exit   *orct.Object
+	km, from, dir float64
 }
 
 func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
@@ -570,43 +939,28 @@ func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
 	if s.chain {
 		return s.chainUses(ds, route, p)
 	}
-	first, last := math.Inf(1), math.Inf(-1)
-	var u sysUse
-	for _, st := range s.stations {
-		best, pos := s.pass(st, route)
-		if best > s.matchKm {
-			continue
-		}
-		if pos < first {
-			first, u.entry = pos, st
-		}
-		if pos > last {
-			last, u.exit = pos, st
+	// A ticket from the first station of each lap to its last.
+	var out []sysUse
+	for _, lap := range laps(s.allVisits(route)) {
+		a, z := lap[0], lap[len(lap)-1]
+		if a.st != z.st || ds.HasPair(s.ch.ID, a.st.ID, a.st.ID) {
+			out = append(out, sysUse{entry: a.st, exit: z.st, km: z.pos - a.pos, from: a.pos, dir: a.dir})
 		}
 	}
-	if u.entry == nil {
-		return nil
-	}
-	u.km, u.from = last-first, first
-	if u.entry == u.exit && !ds.HasPair(s.ch.ID, u.entry.ID, u.entry.ID) {
-		return nil
-	}
-	return []sysUse{u}
+	return out
 }
 
 func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
-	type pass struct {
-		st       *orct.Object
-		pos, off float64
+	var out []sysUse
+	for _, lap := range laps(s.allVisits(route)) {
+		out = append(out, s.chainLap(ds, lap, p)...)
 	}
-	var passes []pass
-	for _, st := range s.stations {
-		best, pos := s.pass(st, route)
-		if best <= s.matchKm {
-			passes = append(passes, pass{st, pos, best})
-		}
-	}
-	sort.Slice(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
+	return out
+}
+
+// chainLap is a lap's tickets on a chained system: the fewest that cover
+// the most of its km.
+func (s *system) chainLap(ds *tariffs.Dataset, passes []visit, p *pricer) []sysUse {
 	n := len(passes)
 	at := p.noon(ds)
 	rater := ds.Rater(p.vehicle, p.payment)
@@ -668,7 +1022,7 @@ func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUs
 					continue
 				}
 				r := from(cont(k, j), j)
-				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].off + passes[j].off + r.off, j}); better(c, b) {
+				if c := (best{passes[j].pos - passes[k].pos + r.cover, r.tickets + 1, passes[k].dist + passes[j].dist + r.off, j}); better(c, b) {
 					b = c
 				}
 			}
@@ -687,7 +1041,7 @@ func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUs
 			continue
 		}
 		j := b.exit
-		out = append(out, sysUse{entry: passes[i].st, exit: passes[j].st, km: passes[j].pos - passes[i].pos, from: passes[i].pos})
+		out = append(out, sysUse{entry: passes[i].st, exit: passes[j].st, km: passes[j].pos - passes[i].pos, from: passes[i].pos, dir: passes[i].dir})
 		i, skip = cont(i, j), j
 	}
 	var spans [][2]float64
@@ -703,7 +1057,7 @@ func (s *system) chainUses(ds *tariffs.Dataset, route *track, p *pricer) []sysUs
 			inside = inside || (ps.pos > sp[0]+sameKm && ps.pos < sp[1]-sameKm)
 		}
 		if !inside {
-			out = append(out, sysUse{entry: ps.st, exit: ps.st, from: ps.pos})
+			out = append(out, sysUse{entry: ps.st, exit: ps.st, from: ps.pos, dir: ps.dir})
 		}
 	}
 	sort.SliceStable(out, func(a, b int) bool { return out[a].from < out[b].from })
@@ -728,25 +1082,50 @@ type sysMatch struct {
 // matchSystems adds an entry and an exit event for each ticket.
 func (p *pricer) matchSystems(b *batch, ds *tariffs.Dataset, country, region string, route *track) *systemsMatched {
 	sm := &systemsMatched{untimedNight: map[string]bool{}}
+	p.tickets = nil
 	for _, s := range systemsOf(ds) {
 		sm.listed = true
-		for _, u := range s.uses(ds, route, p) {
-			sm.any = true
-			at, timed := p.at(ds, u.from, country)
-			end, _ := p.at(ds, u.from+u.km, country)
-			if !timed {
-				end = at
+		var prev *sysUse
+		for _, leg := range route.parts() {
+			for i, u := range s.uses(ds, leg, p) {
+				// A barrier (a station priced to itself) by a stop: the leg
+				// to the stop and the next, going on the same way, pass it
+				// once.
+				if i == 0 && prev != nil && u.entry == u.exit && prev.entry == prev.exit && u.entry == prev.entry &&
+					math.Abs(u.from-prev.from) < 1 && math.Abs(math.Mod(u.dir-prev.dir+540, 360)-180) < 90 {
+					continue
+				}
+				u := u
+				prev = &u
+				at, timed := p.at(ds, u.from, country)
+				end, _ := p.at(ds, u.from+u.km, country)
+				if !timed {
+					end = at
+				}
+				// Only a version's own days (byVersion): by the ticket's
+				// time basis; the uses it includes go with it.
+				if basis := at; p.only != nil {
+					if odBasisExit(ds) {
+						basis = end
+					}
+					kept := p.only(basis.Format(time.DateOnly))
+					p.tickets = append(p.tickets, ticketSpan{at, end, kept})
+					if !kept {
+						continue
+					}
+				}
+				sm.any = true
+				name := s.ch.Name + ": " + u.entry.Name
+				if u.exit != u.entry {
+					name += " – " + u.exit.Name
+				}
+				m := &lineMeta{charge: RoadToll, country: country, region: region, section: name, km: u.km, hasKm: true}
+				e := b.event(u.entry.ID, at, m)
+				e.Role = "entry"
+				x := b.event(u.exit.ID, end, m)
+				x.Role = "exit"
+				sm.uses = append(sm.uses, sysMatch{s, u, at, timed, m})
 			}
-			name := s.ch.Name + ": " + u.entry.Name
-			if u.exit != u.entry {
-				name += " – " + u.exit.Name
-			}
-			m := &lineMeta{charge: RoadToll, country: country, region: region, section: name, km: u.km, hasKm: true}
-			e := b.event(u.entry.ID, at, m)
-			e.Role = "entry"
-			x := b.event(u.exit.ID, end, m)
-			x.Role = "exit"
-			sm.uses = append(sm.uses, sysMatch{s, u, at, timed, m})
 		}
 	}
 	return sm
@@ -806,7 +1185,7 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 	priced := map[*lineMeta]*orct.Line{}
 	for _, l := range st.Lines {
 		if l.Event != nil {
-			if m, ok := l.Event.Ref.(*lineMeta); ok && ds.Charge(l.Charge).Type == "od" {
+			if m, ok := l.Event.Ref.(*lineMeta); ok && p.chargeOf(ds, l) != nil && p.chargeOf(ds, l).Type == "od" {
 				priced[m] = l
 			}
 		}
@@ -840,9 +1219,16 @@ func (p *pricer) afterSystems(ds *tariffs.Dataset, country string, st *orct.Stat
 			if _, given := p.vehicle["load_capacity_kg"]; !given && classesTest(ds, "load_capacity_kg") {
 				p.note("%s: %s from %s to %s not priced. Give truck.capacity_kg (the load capacity: the semi-trailer's for a tractor with semi-trailer): the fare goes by it.",
 					country, ch.Name, u.use.entry.Name, u.use.exit.Name)
+				p.missing(Missing{Area: ds.Area(), Charge: u.meta.charge, Name: ds.Name, Reason: "needs_truck_field"})
 				continue
 			}
+			if day := u.at.Format(time.DateOnly); !u.at.IsZero() && (day < ds.ValidFrom || ds.ValidTo != "" && day > ds.ValidTo) {
+				continue // reached after the table's last day: missing, "ended"
+			}
 			group := p.groupOf(ds, ch)
+			if group == "" {
+				continue // the charge isn't for the truck's group: another is
+			}
 			p.note("%s: %s has no price from %s to %s for group %s.", country, ch.Name, u.use.entry.Name, u.use.exit.Name, group)
 			continue
 		}
@@ -910,7 +1296,10 @@ func lengthClasses(ds *tariffs.Dataset, ch *orct.Charge) bool {
 type pointPass struct {
 	obj   *orct.Object
 	ch    *orct.Charge
+	leg   int
 	pos   float64
+	dist  float64 // the route's distance from it
+	dir   float64 // the route's heading there
 	at    time.Time
 	timed bool
 	meta  *lineMeta
@@ -922,16 +1311,12 @@ type pointsMatched struct {
 	noTime      int
 }
 
-// pointCharges maps each point object to the charge in force on the date
-// that prices it.
+// pointCharges maps each point object to the charge that prices it, of
+// whatever days (chargeOn says if on the day it is passed).
 func (p *pricer) pointCharges(ds *tariffs.Dataset) map[string]*orct.Charge {
-	day := p.date.Format(time.DateOnly)
 	out := map[string]*orct.Charge{}
 	for _, ch := range ds.Charges() {
 		if ch.Type != "point" {
-			continue
-		}
-		if (ch.ValidFrom != "" && day < ch.ValidFrom) || (ch.ValidTo != "" && day > ch.ValidTo) {
 			continue
 		}
 		for o := range ch.RowObjects() {
@@ -939,6 +1324,20 @@ func (p *pricer) pointCharges(ds *tariffs.Dataset) map[string]*orct.Charge {
 		}
 	}
 	return out
+}
+
+// chargeOn says whether a charge is in force on the day of t, within its
+// dataset's days (a day past them goes to the next version: its last
+// day's charges stand for it).
+func chargeOn(ds *tariffs.Dataset, ch *orct.Charge, t time.Time) bool {
+	day := t.Format(time.DateOnly)
+	if ds.ValidTo != "" && day > ds.ValidTo {
+		day = ds.ValidTo
+	}
+	if day < ds.ValidFrom {
+		day = ds.ValidFrom
+	}
+	return (ch.ValidFrom == "" || day >= ch.ValidFrom) && (ch.ValidTo == "" || day <= ch.ValidTo)
 }
 
 // matchPoints adds an event for each toll point the route passes in a
@@ -964,25 +1363,58 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 		if o.Location.MatchM != nil {
 			match = *o.Location.MatchM / 1000
 		}
-		pos, d, h := route.project(pts[0])
-		if d > match {
-			continue
+		// Each time the route passes it: on each leg, and again on one
+		// where the route comes back (a day's driven path).
+		for li, leg := range route.parts() {
+			for _, ps := range leg.passes(pts[0], match) {
+				if pts[0].Heading != nil && math.Abs(math.Mod(ps.heading-*pts[0].Heading+540, 360)-180) > 90 {
+					continue
+				}
+				// A station's record of the day it is passed (Norway's
+				// NVDB versions of a station, each under its own dated
+				// charge).
+				pp := pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dist: ps.dist, dir: ps.heading}
+				pp.at, pp.timed = p.at(ds, ps.pos, country)
+				if !chargeOn(ds, ch, pp.at) || p.only != nil && !p.keepPass(ds, o.ID, pp.at) {
+					continue
+				}
+				passes = append(passes, pp)
+			}
 		}
-		if pts[0].Heading != nil && math.Abs(math.Mod(h-*pts[0].Heading+540, 360)-180) > 90 {
-			continue
-		}
-		passes = append(passes, pointPass{obj: o, ch: ch, pos: pos})
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	last := map[string]float64{}
+	same := func(a, b float64) bool { return math.Abs(math.Mod(a-b+540, 360)-180) < 90 }
+	// Points at the same spot of the route, passed the same way (two
+	// records of one station, of one name or not, the gantry of a road
+	// beside it), are one passage: the nearest, or on a near tie the one
+	// that names its direction.
+	var kept []pointPass
 	for _, ps := range passes {
-		if at, ok := last[ps.obj.Name]; ok && ps.pos-at < 1 {
+		if n := len(kept); n > 0 {
+			k := &kept[n-1]
+			if ps.obj != k.obj && ps.pos-k.pos < 0.05 && same(ps.dir, k.dir) {
+				named := func(x pointPass) bool { return pointsOf(x.obj)[0].Heading != nil }
+				if ps.dist < k.dist-0.005 || math.Abs(ps.dist-k.dist) <= 0.005 && named(ps) && !named(*k) {
+					*k = ps
+				}
+				continue
+			}
+		}
+		kept = append(kept, ps)
+	}
+	// Points of one name passed within a km the same way are one passage
+	// (a toll point's objects either way, a leg ending by it and the next
+	// going on); the other way (there and back), another.
+	last := map[string]pointPass{}
+	for _, ps := range kept {
+		if l, ok := last[ps.obj.Name]; ok && ps.pos-l.pos < 1 && same(ps.dir, l.dir) {
 			continue
 		}
-		last[ps.obj.Name] = ps.pos
-		ps.at, ps.timed = p.at(ds, ps.pos, country)
+		last[ps.obj.Name] = ps
 		if ps.ch.Component == "congestion" && !ps.timed {
-			pm.noTime++
+			if p.chargedOn(ds, ps.obj.ID) {
+				pm.noTime++
+			}
 			continue
 		}
 		name := ps.obj.Name
@@ -1010,7 +1442,7 @@ func (p *pricer) afterPoints(ds *tariffs.Dataset, country string, st *orct.State
 		if l.Event == nil {
 			continue
 		}
-		if m, ok := l.Event.Ref.(*lineMeta); ok && ds.Charge(l.Charge).Type == "point" {
+		if m, ok := l.Event.Ref.(*lineMeta); ok && p.chargeOf(ds, l) != nil && p.chargeOf(ds, l).Type == "point" {
 			paid[m] = l
 		}
 	}
@@ -1074,9 +1506,7 @@ func (p *pricer) afterPoints(ds *tariffs.Dataset, country string, st *orct.State
 	if peakUntimed > 0 {
 		p.note("%s: %d station passage(s) charge more in rush hours; priced at the off-peak rate. Give a departure time.", country, peakUntimed)
 	}
-	if pm.noTime > 0 {
-		p.note("%s: %s not priced: give time (HH:MM, local departure) to price its %d station passage(s).", country, ds.Name, pm.noTime)
-	}
+	p.untimed(ds, country, pm)
 	if congName != "" && cong.offHours > 0 {
 		p.note("%s: %d passage(s) outside the tax's hours or days.", country, cong.offHours)
 	}
@@ -1111,34 +1541,114 @@ func sortedKeys[V any](m map[string]V) []string {
 
 // ---------------------------------------------------------------- crossings, zones, fuel
 
+// chargedOn says whether a passage of obj costs anything at some time
+// of the trip's day (a congestion tax isn't charged on Sundays, holidays
+// or in July): the passage priced every 15 minutes of the day.
+func (p *pricer) chargedOn(ds *tariffs.Dataset, obj string) bool {
+	b := &batch{ds: ds}
+	day := time.Date(p.date.Year(), p.date.Month(), p.date.Day(), 0, 0, 0, 0, ds.TZ())
+	for t := day; t.Before(day.AddDate(0, 0, 1)); t = t.Add(15 * time.Minute) {
+		b.event(obj, t, nil)
+	}
+	st := orct.Calculate([]*orct.Dataset{ds.Dataset}, &orct.Usage{ORCTUsage: "0.3", Vehicle: p.vehicle, Payment: p.payment, Events: b.events})
+	for _, l := range st.Lines {
+		if l.Amount.Sign() > 0 {
+			return true
+		}
+	}
+	return false
+}
+
+// untimed lists a charge by the time of day (a congestion tax) whose
+// passages had no time to price them at as missing.
+func (p *pricer) untimed(ds *tariffs.Dataset, country string, pm *pointsMatched) {
+	if pm.noTime > 0 {
+		p.note("%s: %s not priced: give time (HH:MM, local departure) to price its %d station passage(s).", country, ds.Name, pm.noTime)
+		p.missing(Missing{Area: ds.Area(), Charge: RoadToll, Name: ds.Name, Reason: "needs_time"})
+	}
+}
+
 // priceCrossings prices the bridges and tunnels the route passes.
 func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
-	for _, ds := range set.OfKind(tariffs.Crossings, p.date) {
+	// Those in force on the trip's date, and the first tables of schemes
+	// that start later (passed on a later day of the trip, they're in
+	// force; before, versions says so).
+	for _, ds := range append(set.OfKind(tariffs.Crossings, p.date), set.Starting(tariffs.Crossings, p.date)...) {
 		if ok, err := ds.Liable(p.vehicle); err != nil || !ok {
 			continue
 		}
-		b := &batch{ds: ds}
-		sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
-		if !sm.any && !pm.any {
-			continue
-		}
-		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
-			for i := range b.events {
-				if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
-					m.charge = FerryFare
+		// A fare by the load on board (the Elbe ferry's): each leg at its
+		// own load (none on an empty one).
+		if loads := p.req.legLoadKg; len(route.legs) > 1 && len(loads) == len(route.legs) && byLoad(ds) {
+			all, had := p.vehicle["load_kg"]
+			var err error
+			for i, leg := range route.legs {
+				if p.vehicle["load_kg"] = loads[i]; err == nil {
+					err = p.priceCrossing(ds, leg)
 				}
 			}
+			if delete(p.vehicle, "load_kg"); had {
+				p.vehicle["load_kg"] = all
+			}
+			if err != nil {
+				return err
+			}
+			continue
 		}
-		st, err := p.price(b, "", nil)
-		if err != nil {
+		if vs := p.laterVersions(ds, p.tripDays(ds, route)); len(vs) > 1 && p.only == nil {
+			if err := p.byVersion(vs, func(d *tariffs.Dataset) error { return p.priceCrossing(d, route) }); err != nil {
+				return err
+			}
+			continue
+		}
+		if err := p.priceCrossing(ds, route); err != nil {
 			return err
 		}
-		pm.listed = len(pm.passes) > 0
-		p.afterPoints(ds, ds.Country, st, pm)
-		p.afterSystems(ds, ds.Country, st, sm)
-		p.addSources(ds)
-		p.useTable(ds)
 	}
+	return nil
+}
+
+// byLoad says whether a charge of the dataset goes by the load on board.
+func byLoad(ds *tariffs.Dataset) bool {
+	return slices.ContainsFunc(ds.Charges(), func(ch *orct.Charge) bool { return ch.MassBasis == "load_kg" })
+}
+
+// priceCrossing prices one dataset's bridges, tunnels or ferries on the
+// route.
+func (p *pricer) priceCrossing(ds *tariffs.Dataset, route *track) error {
+	b := &batch{ds: ds}
+	sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
+	if !sm.any && !pm.any {
+		p.untimed(ds, ds.Country, pm)
+		return nil
+	}
+	if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+		for i := range b.events {
+			if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
+				m.charge = FerryFare
+			}
+			if o := ds.Object(b.events[i].Object); o != nil {
+				p.fareAt = append(p.fareAt, pointsOf(o)...)
+			}
+		}
+	}
+	if p.only != nil {
+		b.keepDays(p.only)
+	}
+	st, err := p.price(b, "", nil)
+	if err != nil {
+		return err
+	}
+	pm.listed = len(pm.passes) > 0
+	p.afterPoints(ds, ds.Country, st, pm)
+	p.afterSystems(ds, ds.Country, st, sm)
+	charge := RoadToll
+	if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+		charge = FerryFare
+	}
+	p.unpriced(ds, ds.Country, st, charge)
+	p.addSources(ds)
+	p.useTable(ds)
 	return nil
 }
 
@@ -1159,9 +1669,10 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 			continue
 		}
 		polys := polygonsOf(zone)
+		box := bboxOf(polys)
 		var in []int
 		for i, pt := range route.pts {
-			if inPolygons(polys, pt) {
+			if pt[0] >= box[0] && pt[0] <= box[2] && pt[1] >= box[1] && pt[1] <= box[3] && inPolygons(polys, pt) {
 				in = append(in, i)
 			}
 		}
@@ -1186,6 +1697,10 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 		if err != nil {
 			return err
 		}
+		if len(st.Lines) > 0 {
+			p.useTable(ds)
+			p.addSources(ds)
+		}
 		switch {
 		case len(st.Lines) > 0 && amount == 0:
 			p.note("%s: the route enters the %s; a Euro %d truck pays nothing there.", ds.Country, ds.Name, p.req.Truck.Euro)
@@ -1194,32 +1709,21 @@ func (p *pricer) priceZones(set *tariffs.Set, route *track) error {
 		case !timed && len(ch.Columns) > 0 && len(timeClasses(ch)) > 0 && ch.Unmatched == "free":
 			p.note("%s: the %s charges only at certain hours; taken to be in them. Give a departure time.", ds.Country, ds.Name)
 		}
+		p.unpriced(ds, ds.Country, st, AreaCharge)
 	}
 	return nil
 }
 
 // priceFuel prices national CO2 prices on road fuel: fuel bought in
 // fuel_country, or along the route in proportion to each country's km.
-func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
-	if roadT <= 0 {
+func (p *pricer) priceFuel(set *tariffs.Set, fuelL float64) error {
+	if fuelL <= 0 {
 		return nil
 	}
 	req, out := p.req, p.out
-	share := map[string]float64{}
-	if req.FuelCountry != "" {
-		share[req.FuelCountry] = 1
-	} else {
-		var total float64
-		for _, km := range out.CountryKm {
-			total += km
-		}
-		for cc, km := range out.CountryKm {
-			if total > 0 {
-				share[cc] = km / total
-			}
-		}
-	}
-	priced, perLitre := false, false
+	share := fuelShares(req, out.CountryKm)
+	byRoute := req.FuelCountry == "" && len(req.FuelPurchases) == 0
+	priced := false
 	for _, cc := range sortedKeys(share) {
 		if share[cc] <= 0 {
 			continue
@@ -1239,37 +1743,46 @@ func (p *pricer) priceFuel(set *tariffs.Set, roadT float64) error {
 				obj = o.ID
 			}
 		}
-		t := roadT * share[cc]
+		litres := fuelL * share[cc]
 		m := &lineMeta{charge: FuelCO2, country: cc}
-		if req.FuelCountry == "" {
+		if byRoute {
 			m.km, m.hasKm = out.CountryKm[cc], true
 		}
-		unit, v := "t_co2", t
+		// A tax per litre on the litres, one per tonne of CO2 on their
+		// tank-to-wheel CO2 at the standard factor.
+		unit, v := "t_co2", litres*DieselKgCO2PerL/1000
 		if len(ds.Doc.Charges) > 0 && ds.Doc.Charges[0].Unit == "litre" {
-			// A tax per litre: the litres given, or the CO2's at the
-			// standard factor.
-			unit, v = "litre", t*1000/DieselKgCO2PerL
-			if req.DieselL > 0 {
-				v = req.DieselL * share[cc]
-			} else {
-				perLitre = true
-			}
+			unit, v = "litre", litres
 		}
 		b := &batch{ds: ds}
-		b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
-		if _, err := p.price(b, ds.Name+" ("+ds.File+")", nil); err != nil {
+		if byRoute {
+			// Along the route: each day's share at its day's price (a
+			// table of the next day for the km driven after midnight).
+			for _, d := range p.kmDays(ds, cc, "") {
+				dm := *m
+				dm.km *= d.share // the day's km
+				b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(d.at), Unit: unit, Value: orct.FloatStr(v * d.share), Ref: &dm})
+			}
+		} else {
+			b.quants = append(b.quants, orct.Quantity{Dataset: ds.ID, Object: obj, Time: stamp(p.noon(ds)), Unit: unit, Value: orct.FloatStr(v), Ref: m})
+		}
+		st, err := p.price(b, ds.Name+" ("+ds.File+")", nil)
+		if err != nil {
 			return err
+		}
+		if len(st.Lines) > 0 {
+			p.useTable(ds)
+			p.addSources(ds)
 		}
 		priced = true
 	}
 	switch {
-	case priced && req.FuelCountry == "":
-		p.note("Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_country for where the truck fills up.")
-	case priced:
+	case priced && byRoute:
+		p.note("Fuel CO2: national CO2 prices on diesel are paid where the fuel is bought; here the fuel is taken as bought along the route in proportion to each country's road km. Give fuel_purchases (or fuel_country) for where the truck fills up.")
+	case priced && req.FuelCountry != "":
 		p.note("Fuel CO2: the national CO2 price on diesel of %s, where the fuel is bought, on this trip's road fuel.", req.FuelCountry)
-	}
-	if perLitre {
-		p.note("Fuel CO2: taxes per litre are on the road part's tank-to-wheel CO2 at %.2f kg CO2e per litre of diesel (EN 16258:2012, Annex A). Give diesel_l for the litres the truck burns.", DieselKgCO2PerL)
+	case priced:
+		p.note("Fuel CO2: the national CO2 prices on diesel where the fuel was bought (fuel_purchases), on this trip's road fuel.")
 	}
 	return nil
 }

@@ -1,13 +1,16 @@
 package cost
 
 import (
-	"github.com/majidkabir/carbon-cost/roads"
+	"encoding/json"
 	"math"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/majidkabir/carbon-cost/rates"
+	"github.com/majidkabir/carbon-cost/roads"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -397,5 +400,65 @@ func TestGermanyRoadData(t *testing.T) {
 	left := rx.LeftOut("DE")
 	if len(left) < 2 || !strings.Contains(strings.Join(left, ";"), "Müllheim/Neuenburg") {
 		t.Errorf("left out: %v", left)
+	}
+}
+
+// Poland's e-TOLL network is the sections Dz. U. 2026 poz. 33 lists
+// (roads/data/pl.json.gz, from tools/roads/plnet.py): the A4 by Opole is
+// tolled; a national road by Legnica the old road classes tolled isn't.
+func TestPolandNetworkData(t *testing.T) {
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(rx.Network("PL"), "Dz. U. 2026 poz. 33") {
+		t.Skip("PL road classes aren't the e-TOLL sections")
+	}
+	a4 := [][2]float64{{17.77143, 50.61431}, {17.79874, 50.59683}, {17.80306, 50.5942}, {17.80736, 50.5918}, {17.81274, 50.58907}}
+	if k, _ := rx.Classify("PL", a4); k.Motorway < 0.5 || k.Local > 0 {
+		t.Errorf("A4 by Opole: %+v", k)
+	}
+	dk := [][2]float64{{16.02889, 51.2406}, {16.03258, 51.23901}, {16.03715, 51.23733}, {16.04821, 51.23254}}
+	if k, _ := rx.Classify("PL", dk); k.Motorway+k.National > 0 {
+		t.Errorf("national road by Legnica: %+v", k)
+	}
+}
+
+// Norway's zero-emission exemption of Miljøpakke Trondheim (Vegamot's
+// tariff decision) isn't given to the Fv. 714 stations Vegamot also runs.
+func TestVegamotZeroOnlyMiljopakke(t *testing.T) {
+	files, _ := filepath.Glob("../tariffs/data/no/no-*.orct.json")
+	for _, f := range files {
+		b, err := os.ReadFile(f)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var d struct {
+			Objects []struct{ ID, Name string } `json:"charge_objects"`
+			Charges []struct {
+				Columns []string `json:"columns"`
+				Rows    [][]any  `json:"rows"`
+			} `json:"charges"`
+		}
+		if err := json.Unmarshal(b, &d); err != nil {
+			t.Fatal(err)
+		}
+		fv := map[string]bool{}
+		for _, o := range d.Objects {
+			if o.Name == "Fv. 714 Valslag" || o.Name == "Våvatnet" {
+				fv[o.ID] = true
+			}
+		}
+		for _, c := range d.Charges {
+			for _, r := range c.Rows {
+				row := map[string]any{}
+				for i, k := range c.Columns {
+					row[k] = r[i]
+				}
+				if id, _ := row["object"].(string); fv[id] && row["vehicle_class"] != nil {
+					t.Errorf("%s: %v has class prices: %v", filepath.Base(f), id, r)
+				}
+			}
+		}
 	}
 }

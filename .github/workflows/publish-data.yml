@@ -2,10 +2,13 @@ name: Publish data
 # After a data workflow succeeds, publishes to tariffs/data (on main) its
 # datasets that differ only in what OpenStreetMap gives: positions, booth
 # names and headings, and the extract's date (tools/orct/publish.py), its
-# ferry crossings files that differ only in the terminals' positions, and
-# its exchange rate files (fx/data) that only add days after the last.
-# A dataset with any other change, or a new one, is listed in the run's
-# summary for review and not published. Run it by hand to go over all four
+# ferry crossings files that differ only in the terminals' positions, the
+# ferry lines' ETS surcharges when only editions are added, and its
+# exchange rate (fx/data) and fuel price (fuel/data) files that only add
+# days after the last. A dataset with any other change, or a new one, is
+# listed in the run's summary for review and not published; the summary
+# also lists the schemes whose rates run out within 45 days with nothing
+# after them (tools/orct/expiring.py). Run it by hand to go over all four
 # workflows' last output.
 on:
   workflow_run:
@@ -34,6 +37,9 @@ jobs:
         env:
           WORKFLOW: ${{ github.event.workflow_run.name }}
           RUN_URL: ${{ github.event.workflow_run.html_url }}
+        # -eo pipefail: publish.py failing into "| tee" fails the step, and
+        # nothing it left half done is committed.
+        shell: bash
         run: |
           case "$WORKFLOW" in
             "Tables data") branches=tables-out;;
@@ -57,18 +63,23 @@ jobs:
                 git archive FETCH_HEAD fx | tar -x -C new
                 python3 tools/orct/publish.py --fx new/fx fx/data | tee -a report.txt
               fi
+              # The diesel prices (History data): only new weeks.
+              if git cat-file -e FETCH_HEAD:fuel 2>/dev/null; then
+                git archive FETCH_HEAD fuel | tar -x -C new
+                python3 tools/orct/publish.py --fuel new/fuel fuel/data | tee -a report.txt
+              fi
             done
           }
           # Main may move meanwhile: start again from it if the push fails.
           for i in 1 2 3; do
             git fetch -q origin main && git reset -q --hard FETCH_HEAD
             publish
-            git add tariffs/data ferries/data fx/data
+            git add tariffs/data ferries/data fx/data fuel/data
             if git diff --cached --quiet; then echo "nothing to publish"; break; fi
             # The tool's tests read tariffs/data; a push from here doesn't run CI.
             go test ./... >/dev/null
             n=$(grep -c '^published' report.txt)
-            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions or new days' exchange rates (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, or exchange rates for days after the last changed (tools/orct/publish.py)."
+            git -c user.name=actions -c user.email=actions@github.com commit -qm "Data: $n files with OpenStreetMap's newer positions, new days' exchange rates or diesel prices, or ferry lines' new ETS surcharges (${WORKFLOW:-all data workflows})" -m "${RUN_URL:-Run by hand.} Only positions, booth names and headings, the extract date, exchange rates or diesel prices for days after the last, or added ETS surcharge editions (tools/orct/publish.py)."
             git push -q origin HEAD:main && break
             [ $i = 3 ] && exit 1; sleep 10
           done

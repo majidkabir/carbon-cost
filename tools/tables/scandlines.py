@@ -22,9 +22,9 @@ surcharges Scandlines gives), from
 
 carbon-cost prices a trip with cargo: the loaded rates, by the truck's
 length (truck.length_m) in whole metres up (a 16.5 m truck pays the 17 m
-rate and 17 commencing metres of surcharges). The ETS surcharge isn't
-added: carbon-cost prices the EU ETS on a crossing itself, from the ships'
-MRV data (eua_eur_per_t). The routes are one closed system: a trip over
+rate and 17 commencing metres of surcharges). The ETS surcharge isn't in
+the fare: carbon-cost prices it as the crossing's EU ETS (ferry_ets.py
+reads it into ferries/data/ets-surcharges.json). The routes are one closed system: a trip over
 Puttgarden–Rødby (or Rostock–Gedser) and Helsingør–Helsingborg pays the
 transit ticket, priced from the first station passed to the last.
 Over-length (over 26 m), over-width and over-weight surcharges aren't
@@ -210,7 +210,7 @@ def main(fetched, out):
                + f"; by the truck's length in whole metres up. With the surcharges per commencing metre (at least 7) as from {month}: "
                f"Puttgarden–Rødby BAF {sur['PR']['BAF']:g} and GIR {sur['PR']['GIR']:g}, Rostock–Gedser BAF {sur['RG']['BAF']:g} and GIR {sur['RG']['GIR']:g}, "
                f"Helsingør–Helsingborg energy {sur['HH']['energy']:g} and green {sur['HH']['green']:g} EUR. Scandlines' ETS surcharge "
-               f"({sur['PR']['ETS']:g} and {sur['RG']['ETS']:g} EUR per metre) isn't added: carbon-cost prices the EU ETS on a crossing from the ships' MRV data. "
+               f"({sur['PR']['ETS']:g} and {sur['RG']['ETS']:g} EUR per metre) isn't in the fare: carbon-cost prices it as the crossing's EU ETS (ferries/data/ets-surcharges.json). "
                "A trip over Puttgarden–Rødby or Rostock–Gedser and Helsingør–Helsingborg pays the transit ticket. Over-length (over 26 m), over-width and "
                "over-weight surcharges aren't applied. Ports at OpenStreetMap's ferry terminals, priced where the line goes out on its car ferry line."
                + "".join(f" {x}." for x in notes))

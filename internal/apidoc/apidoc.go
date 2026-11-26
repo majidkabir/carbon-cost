@@ -81,7 +81,7 @@ func Generate(root, version string) ([]byte, error) {
 	bres, _ := ref("main.BatchResponse")
 	sum, _ := ref("tariffs.Summary")
 	place, _ := ref("sootcase.Place")
-	errSchema := map[string]any{"type": "object", "properties": map[string]any{"error": map[string]any{"type": "string"}}, "required": []string{"error"}}
+	errSchema := map[string]any{"type": "object", "properties": map[string]any{"error": map[string]any{"type": "string", "description": "What was wrong, naming the field."}}, "required": []string{"error"}}
 	g.schemas["Error"] = errSchema
 	errRef := map[string]any{"$ref": "#/components/schemas/Error"}
 	jsonBody := func(s any, desc string) map[string]any {
@@ -89,6 +89,7 @@ func Generate(root, version string) ([]byte, error) {
 	}
 	errs := map[string]any{
 		"400": jsonBody(errRef, "The request is wrong: its JSON, a field, or a place Sootcase doesn't know."),
+		"413": jsonBody(errRef, "The body is over 8 MiB."),
 		"502": jsonBody(errRef, "Sootcase (routes and emissions) failed or refused this server."),
 		"503": jsonBody(errRef, "Sootcase is busy (it limits requests); try again later."),
 	}
@@ -118,7 +119,42 @@ func Generate(root, version string) ([]byte, error) {
 				"summary":     "Price up to 100 trips",
 				"operationId": "priceBatch",
 				"requestBody": map[string]any{"required": true, "content": map[string]any{"application/json": map[string]any{"schema": breq}}},
-				"responses":   with(jsonBody(bres, "Each trip's result or error, in the order asked.")),
+				// Each trip's error, Sootcase's too, is in its item.
+				"responses": map[string]any{"200": jsonBody(bres, "Each trip's result or error, in the order asked."), "400": errs["400"], "413": errs["413"]},
+			}},
+			"/v1/carbon-cost/csv": map[string]any{"post": map[string]any{
+				"summary": "Price a CSV of up to 100 trips",
+				"description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, " +
+					"shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); " +
+					"path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, " +
+					"carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, fuel_complete, missing, error). With rows=shipments a trip with " +
+					"shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
+				"operationId": "priceCSV",
+				"parameters": []any{map[string]any{"name": "rows", "in": "query", "schema": map[string]any{"type": "string", "enum": []string{"trips", "shipments"}},
+					"description": "trips (the default): a row per trip; shipments: a row per shipment of a trip that has them."}},
+				"requestBody": map[string]any{"required": true, "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+				"responses": map[string]any{
+					"200": map[string]any{"description": "The rows with the results added.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+					"400": jsonBody(errRef, "The CSV can't be read, or has more than 100 rows."),
+					"413": jsonBody(errRef, "The body is over 2 MiB."),
+				},
+			}},
+			"/v1/carbon-cost/report": map[string]any{"post": map[string]any{
+				"summary": "Add up priced CSVs by customer, month or any column",
+				"description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file " +
+					"(a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, " +
+					"CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), " +
+					"the share of tonne-km priced on primary data, " +
+					"and the rows that are incomplete or failed.",
+				"operationId": "reportCSV",
+				"parameters": []any{map[string]any{"name": "by", "in": "query", "schema": map[string]any{"type": "string"},
+					"description": "Columns to group by, separated by commas (e.g. customer,month); blank: one total."}},
+				"requestBody": map[string]any{"required": true, "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+				"responses": map[string]any{
+					"200": map[string]any{"description": "A row per group.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
+					"400": jsonBody(errRef, "The CSV isn't one carbon-cost priced, or has no column to group by."),
+					"413": jsonBody(errRef, "The body is over 8 MiB."),
+				},
 			}},
 			"/v1/rates": map[string]any{"get": map[string]any{
 				"summary":     "List the rate datasets (ORCT)",
@@ -230,7 +266,11 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 		return map[string]any{"type": "object", "additionalProperties": v}, nil
 	case *ast.StructType:
 		props, req := map[string]any{}, []string{}
+		group := "" // the last field comment, which may describe the fields after it by name
 		for _, f := range t.Fields.List {
+			if f.Doc != nil {
+				group = clean(f.Doc.Text())
+			}
 			if len(f.Names) == 0 || !f.Names[0].IsExported() || f.Tag == nil {
 				continue
 			}
@@ -247,12 +287,18 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 			if doc == "" {
 				doc = clean(f.Comment.Text())
 			}
+			if doc == "" && names(group, f.Names[0].Name) {
+				doc = group // "TTWKg and WTWKg are ...": WTWKg's too
+			}
 			if doc != "" {
 				if _, isRef := s["$ref"]; isRef {
 					s = map[string]any{"allOf": []any{s}, "description": doc}
 				} else {
 					s["description"] = doc
 				}
+			}
+			if _, ptr := f.Type.(*ast.StarExpr); ptr && !strings.Contains(opts, "omitempty") {
+				s = nullable(s) // a nil pointer is written as null
 			}
 			props[name] = s
 			if !strings.Contains(opts, "omitempty") {
@@ -269,5 +315,32 @@ func (g *gen) schemaOf(td typeDecl, e ast.Expr) (map[string]any, error) {
 	return nil, fmt.Errorf("apidoc: %s: can't describe %T", td.spec.Name.Name, e)
 }
 
+// nullable lets a schema be null too.
+func nullable(s map[string]any) map[string]any {
+	if t, ok := s["type"].(string); ok {
+		s["type"] = []any{t, "null"}
+		return s
+	}
+	desc := s["description"]
+	delete(s, "description")
+	out := map[string]any{"anyOf": []any{s, map[string]any{"type": "null"}}}
+	if desc != nil {
+		out["description"] = desc
+	}
+	return out
+}
+
 // clean makes a doc comment one paragraph.
 func clean(s string) string { return strings.Join(strings.Fields(s), " ") }
+
+// names says whether a comment names the Go identifier as a word.
+func names(comment, ident string) bool {
+	for _, w := range strings.FieldsFunc(comment, func(r rune) bool {
+		return !(r == '_' || r >= '0' && r <= '9' || r >= 'a' && r <= 'z' || r >= 'A' && r <= 'Z')
+	}) {
+		if w == ident {
+			return true
+		}
+	}
+	return false
+}

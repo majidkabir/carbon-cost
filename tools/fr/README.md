@@ -1,6 +1,6 @@
 # French motorway tolls: how the data is gathered
 
-Everything here runs in the **France data** workflow (`.github/workflows/fr-data.yml`, started by pushing to the `fr-data` branch). Its output goes to the `fr-out` branch, and `build.py --periods` makes one table per tariff period of the year (`fr-<start>.json`: a period starts where a document comes into force, and prices the documents in force on its first day; the last is `fr.json`), converted to ORCT (`tools/orct/convert.py`) and compared with `tariffs/data/fr/`.
+Everything here runs in the **France data** workflow (`.github/workflows/fr-data.yml`, daily at 02:49 UTC, or started by pushing to the `fr-data` branch). Its output goes to the `fr-out` branch, and `build.py --periods` makes one table per tariff period of the year (`fr-<start>.json`: a period starts where a document comes into force, and prices the documents in force on its first day; the last is `fr.json`), converted to ORCT (`tools/orct/convert.py`) and compared with `tariffs/data/fr/`.
 
 1. **Sources** (`sources.json`). France has no national price list: each motorway concessionaire publishes its own tariffs. The operators and their tariff pages come from the list the transport ministry sends the European Commission under article 11 of Directive 1999/62/EC (`source_index`). The legal basis is in `legal`.
 2. **Fetch** (`fetch.py`). Downloads each page and the tariff documents linked from it, plus the ministry's toll station dataset from data.gouv.fr. PDFs are converted to text with `pdftotext -layout`. `manifest.json` records every file's URL, sha256, size and fetch time, and any errors.
@@ -17,6 +17,6 @@ Not covered yet:
 
 The Fréjus and Mont Blanc tunnels are crossings, in tools/tables.
 
-The rate table for 1 February to 31 May 2026 (`fr-2026-02-01.json`) has APRR, AREA, ADELAC and ALIAE only; from 1 June 2026 (`fr-2026-06-01.json`) it has all the above.
+The rate table from 1 February 2026 (`fr-2026-02-01.json`) has all the above but the Normandie and Tancarville bridges, ASF and ALiS; the bridges come in from 1 May 2026 (`fr-2026-05-01.json`), ASF and ALiS from 1 June 2026 (`fr-2026-06-01.json`), the dates of their documents.
 
 Earlier years (from 1 January 2024) are built by `tools/history/build_fr.py` with these scripts from the operators' tariff documents the Internet Archive kept: each table lists its operators, and the others' motorways aren't priced in it.

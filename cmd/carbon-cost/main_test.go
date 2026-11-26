@@ -1,11 +1,13 @@
 package main
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 
+	"github.com/majidkabir/carbon-cost/cost"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -42,6 +44,8 @@ func TestHandler(t *testing.T) {
 		{"GET", "/leaflet/leaflet.js", "", 200, "Leaflet"},
 		{"GET", "/v1/places?q=hamb", "", 200, `"code": "DEHAM"`},
 		{"GET", "/v1/places?q=h", "", 200, `"places": []`},
+		// One character, two bytes: still too short (minLength counts characters).
+		{"GET", "/v1/places?q=%C3%98", "", 200, `"places": []`},
 		{"GET", "/v1/places?q=other", "", 502, "HTTP 418"},
 		{"POST", "/v1/carbon-cost", `{"nope": 1}`, 400, "bad JSON"},
 		{"POST", "/v1/carbon-cost", `{"cargo_kg": 1, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 9}}`, 400, "co2_class"},
@@ -95,5 +99,25 @@ func TestHandlerSootcaseStatus(t *testing.T) {
 		if rec.Code != want {
 			t.Errorf("sootcase %d: got %d, want %d", in, rec.Code, want)
 		}
+	}
+}
+
+// A request or a batch's trip that fails by a bug is a 500 or that
+// trip's error, not a dropped connection or a stopped server.
+func TestPanicsRecovered(t *testing.T) {
+	h := recovered(http.HandlerFunc(func(http.ResponseWriter, *http.Request) { panic("boom") }))
+	rec := httptest.NewRecorder()
+	h.ServeHTTP(rec, httptest.NewRequest("GET", "/v1/x", nil))
+	if rec.Code != 500 || !strings.Contains(rec.Body.String(), "internal error: boom") {
+		t.Errorf("handler: %d %s", rec.Code, rec.Body.String())
+	}
+	out := priceAll(context.Background(), func(_ context.Context, r cost.Request) (cost.Response, error) {
+		if r.CargoKg == 2 {
+			panic("boom")
+		}
+		return cost.Response{}, nil
+	}, []cost.Request{{CargoKg: 1}, {CargoKg: 2}})
+	if out[0].Result == nil || !strings.Contains(out[1].Error, "internal error: boom") {
+		t.Errorf("batch: %+v", out)
 	}
 }

@@ -2,9 +2,11 @@ package cost
 
 import (
 	"math"
+	"slices"
 
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/roads"
+	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -13,10 +15,12 @@ import (
 // than borders.NearestKm from any coast), for a map. Consecutive runs
 // share their end point.
 type Run struct {
-	Kind    string       `json:"kind"`
-	Country string       `json:"country,omitempty"`
-	Km      float64      `json:"km"`
-	Points  [][2]float64 `json:"points"` // [lon, lat]
+	// Kind is "road", "ferry" or "sea"; Country is the road run's.
+	Kind    string `json:"kind"`
+	Country string `json:"country,omitempty"`
+	// Km is the run's length.
+	Km     float64      `json:"km"`
+	Points [][2]float64 `json:"points"` // [lon, lat]
 }
 
 // Route splits a [lon, lat] route into runs by country with the same
@@ -28,14 +32,22 @@ func Route(ix *borders.Index, path [][2]float64, fd *ferries.Data) []Run {
 	if ix == nil || len(path) < 2 {
 		return nil
 	}
-	var spans [][2]int
-	if fd != nil {
-		for _, c := range fd.DetectAll(path) {
-			if len(c.Terminals) == 2 {
-				a, b := nearestIndex(path, c.Terminals[0]), nearestIndex(path, c.Terminals[1])
-				spans = append(spans, [2]int{min(a, b), max(a, b)})
-			}
-		}
+	return routeSpans(ix, path, ferrySpans(path, fd))
+}
+
+// legRuns are the runs of a leg: its ferries those of fd the path takes
+// and Sootcase's own ferry parts on it (a crossing fd doesn't know).
+func legRuns(ix *borders.Index, fd *ferries.Data, l sootcase.LegResult) []Run {
+	if ix == nil || len(l.Path) < 2 {
+		return nil
+	}
+	return routeSpans(ix, l.Path, mergeSpans(l.Path, append(ferrySpans(l.Path, fd), sootFerrySpans(l.Path, l.DistanceKm, l.Parts, l.Path)...)))
+}
+
+// routeSpans is Route with the ferries' stretches given (index spans).
+func routeSpans(ix *borders.Index, path [][2]float64, spans [][2]int) []Run {
+	if ix == nil || len(path) < 2 {
+		return nil
 	}
 	onFerry := func(k int) bool {
 		for _, s := range spans {
@@ -71,6 +83,46 @@ func Route(ix *borders.Index, path [][2]float64, fd *ferries.Data) []Run {
 		runs[i].Km = math.Round(runs[i].Km*10) / 10
 	}
 	return runs
+}
+
+// ferrySpans are the stretches of a path on the crossings in fd it takes,
+// from the point nearest one terminal to the one nearest the other, in
+// order. A crossing counts where the path reaches both terminals (within
+// 2 km, a terminal's place in the data may be off the quay, and nearer
+// than half the way across) and goes half the way across at least
+// between them: not a road along a harbour passing both, nor a crossing
+// whose terminals are one port. Crossings one after another with no more
+// than 3 km of path between (a ship calling at a port on the way) are one
+// stretch.
+func ferrySpans(path [][2]float64, fd *ferries.Data) [][2]int {
+	if fd == nil || len(path) < 2 {
+		return nil
+	}
+	var spans [][2]int
+	for _, c := range fd.DetectAll(path) {
+		if len(c.Terminals) != 2 {
+			continue
+		}
+		t0, t1 := c.Terminals[0], c.Terminals[1]
+		across := haversine(t0.Lat, t0.Lon, t1.Lat, t1.Lon)
+		a, b := nearestIndex(path, t0), nearestIndex(path, t1)
+		at := func(i int, t ferries.Point) bool {
+			return haversine(path[i][1], path[i][0], t.Lat, t.Lon) <= min(2, across/2)
+		}
+		if a != b && across >= 0.5 && at(a, t0) && at(b, t1) && pathKm(path[min(a, b):max(a, b)+1]) >= across/2 {
+			spans = append(spans, [2]int{min(a, b), max(a, b)})
+		}
+	}
+	slices.SortFunc(spans, func(a, b [2]int) int { return a[0] - b[0] })
+	var out [][2]int
+	for _, s := range spans {
+		if n := len(out); n > 0 && (s[0] <= out[n-1][1] || pathKm(path[out[n-1][1]:s[0]+1]) <= 3) {
+			out[n-1][1] = max(out[n-1][1], s[1])
+			continue
+		}
+		out = append(out, s)
+	}
+	return out
 }
 
 func nearestIndex(path [][2]float64, p ferries.Point) int {

@@ -32,6 +32,10 @@ Usage: python3 build_eurovignette.py fetched/ out-dir
 import html, json, os, re, sys
 
 EURO = {"0": [0], "I": [1], "II": [2], "III": [3], "IV": [4], "V": [5], "VI": [6]}
+# One Eurovignette day covers every state of the Eurovignette Agreement
+# (Guichet.lu: the same e-vignette is valid on all the partner states'
+# territories): the tool charges it once a day for all of them.
+EUROVIGNETTE = "eurovignette"
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 
@@ -78,7 +82,7 @@ def se_rows(txt):
 def sweden(fetched, out):
     base = {
         "country": "SE", "currency": "SEK",
-        "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+        "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)", "shared_vignette": EUROVIGNETTE,
         "vehicles": "Trucks and articulated combinations of 12 t or more total weight, for goods transport",
         "min_kg": 12000,
         "tolled_roads": "Motorways and the roads in annex 1 of the law (for foreign vehicles; Swedish vehicles pay for all roads, yearly).",
@@ -120,7 +124,7 @@ def luxembourg(fetched, out):
     assert m, s
     save(out, {
         "_file": "lu-2019-07-01.json", "country": "LU", "currency": "EUR", "valid_from": "2019-07-01", "valid_to": "2025-03-24",
-        "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
+        "name": "Luxembourg road user charge (Eurovignette, droit d'usage)", "shared_vignette": EUROVIGNETTE,
         "law": f"Loi modifiée du 24 février 1995 (Eurovignette Agreement of 9 February 1994); Règlement grand-ducal du 21 mai 2019, art. 1er, 4° as published: the daily charge, administrative costs included, is {m.group(1)} euros for every category of vehicle from 1 July 2019, for goods vehicles of 12 t or more. Replaced on 25 March 2025 by the amounts by CO2 class (RGD of 18 December 2024).",
         "sources": [{"title": "RGD du 21 mai 2019, as published (Legilux, Mémorial A 353)", "url": "https://legilux.public.lu/eli/etat/leg/rgd/2019/05/21/a353/jo"},
                     {"title": "Guichet.lu: Eurovignette, droit d'usage routier pour poids-lourds (a day's charge is a calendar day, 00:00 to 24:00)", "url": "https://guichet.public.lu/fr/entreprises/import-export/transit/transit-ue/e-vignette-poids-lourds.html"}],
@@ -169,7 +173,7 @@ def nl_day_table(L, start):
 def netherlands(fetched, out):
     src_law = lambda d: {"title": f"Wet belasting zware motorrijtuigen, in force on {d} (wetten.overheid.nl)", "url": f"https://wetten.overheid.nl/jci1.3:c:BWBR0007678&g={d}&z={d}"}
     portal = {"title": "Eurovignetten portal, user description: validity from 0:00 on the first day to 24:00 on the last", "url": "https://www.eurovignettes.eu/download/Nutzerbeschreibung_20260701_EN.pdf"}
-    base = {"country": "NL", "currency": "EUR", "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)",
+    base = {"country": "NL", "currency": "EUR", "name": "Dutch heavy vehicle tax (belasting zware motorrijtuigen, Eurovignette)", "shared_vignette": EUROVIGNETTE,
             "vehicles": "Goods motor vehicles whose maximum mass, alone or with the trailer, is 12,000 kg or more",
             "min_kg": 12000, "tolled_roads": "Motorways (autosnelwegen).", "per_day": True, "day": "calendar"}
     old = os.path.join(fetched, "nl-bzm-2024.html")
@@ -264,7 +268,7 @@ def denmark(fetched, out):
     assert "på under 5 pct." in txt
     save(out, {
         "_file": "dk-2020-01-01.json", "country": "DK", "currency": "DKK", "valid_from": "2020-01-01", "valid_to": "2024-12-31",
-        "name": "Danish road user charge (vejbenyttelsesafgift, Eurovignette)",
+        "name": "Danish road user charge (vejbenyttelsesafgift, Eurovignette)", "shared_vignette": EUROVIGNETTE,
         "law": f"Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020, § 3, stk. 4, nr. 5: {m[1]} kroner a day for trucks registered abroad of 12 t or more, whatever their emission norm and axles; § 4 adjusts the amounts each 1 January only if the euro's value in kroner has changed by 5% or more. The period starts at the start of a day (§ 2, stk. 5). The law ended on 1 January 2025 (lov nr. 763 af 13/06/2023), replaced by the km-based vejafgift.",
         "sources": [{"title": "Lov om afgift af vejbenyttelse, LBK nr. 174 af 24/02/2020 (Retsinformation)", "url": "https://www.retsinformation.dk/eli/lta/2020/174"}],
         "vehicles": "Trucks and combinations registered abroad of 12 t or more total weight",

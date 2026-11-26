@@ -1,0 +1,82 @@
+name: Sootcase country sections
+# Checks Sootcase's country_sections (docs/requirements/sootcase-country-sections.md)
+# and its results' basis and certification (docs/requirements/sootcase-count-emissions.md)
+# as a black box: Sootcase (main, or the ref given) with real OSRM routing
+# on the Denmark, Schleswig-Holstein and Hamburg extracts
+# (tools/livecheck/sections.py), the road vehicle types it knows
+# (tools/livecheck/vehicle_types.py), then carbon-cost's driving bans on a
+# Copenhagen to Hamburg trip leaving on a Saturday evening. Run from the
+# Actions tab.
+on:
+  workflow_dispatch:
+    inputs:
+      sootcase_ref:
+        description: Sootcase branch or tag
+        default: main
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+      - run: go build -o cc ./cmd/carbon-cost
+      - name: Sootcase
+        run: |
+          git clone -q --depth 1 --branch "${{ inputs.sootcase_ref || 'main' }}" https://github.com/majidkabir/sootcase sootcase-src
+          git -C sootcase-src log --oneline -1
+      - name: Map
+        run: |
+          sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
+          mkdir -p maps && cd maps
+          for r in europe/denmark europe/germany/schleswig-holstein europe/germany/hamburg; do
+            curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r/$(basename $r)-latest.osm.pbf"
+          done
+          osmium merge -o region.osm.pbf *.osm.pbf
+          ls -la
+      - name: Start stack
+        working-directory: sootcase-src
+        run: |
+          (cd ../maps && python3 -m http.server 8000 >/dev/null 2>&1 &)
+          ip=$(hostname -I | awk '{print $1}')
+          export OSRM_PBF_URL="http://$ip:8000/region.osm.pbf" SEA_RESOLUTION_KM=100
+          export SOOTCASE_FACTORS="desnz-2026,nl-iww-2026,eu-mrv-2024,glec-3.3"
+          docker compose up -d --build
+          for i in $(seq 1 360); do
+            if curl -fs localhost:8080/healthz >/dev/null; then echo healthy after $((i*5))s; exit 0; fi
+            sleep 5
+          done
+          docker compose logs --tail 50; exit 1
+      # shell: bash is -eo pipefail: a check failing into "| tee" fails the step.
+      - name: Checks
+        shell: bash
+        run: python3 tools/livecheck/sections.py http://localhost:8080 | tee checks.txt
+      - name: Vehicle types
+        if: always()
+        shell: bash
+        run: python3 tools/livecheck/vehicle_types.py http://localhost:8080 | tee -a checks.txt
+      - name: carbon-cost's driving bans with the sections
+        if: always()
+        shell: bash
+        run: |
+          export SOOTCASE_URL=http://localhost:8080
+          # Saturday 28 November 2026, 18:00 from Copenhagen: Germany's
+          # Sunday ban from midnight.
+          ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -tare-kg 15000 -date 2026-11-28 -time 18:00 | tee -a checks.txt
+          # Primary data with Sootcase's factors: the truck's own diesel,
+          # and an electric truck's own kWh charged in Denmark.
+          ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -date 2026-11-24 -diesel-l 95 | grep -E "^CO2e|^Method" | tee -a checks.txt
+          ./cc calc -from DKCPH -to DEHAM -cargo-kg 20000 -date 2026-11-24 -co2-class 5 -electricity-kwh 400 -fuel-country DK | grep -E "^CO2e|^Method|Electricity" | tee -a checks.txt
+      - name: Summary
+        if: always()
+        run: |
+          [ -f checks.txt ] && { echo '```'; cat checks.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Logs
+        if: failure()
+        working-directory: sootcase-src
+        run: docker compose logs --tail 100

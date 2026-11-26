@@ -1558,9 +1558,28 @@ func round3(v float64) float64 { return math.Round(v*1000) / 1000 }
 // tank-to-wheel emissions for it, and the crossing it is, when known.
 type ferryPart struct {
 	km, ttwKg float64
+	pos       float64 // where it starts along its leg, km
 	loadKg    float64 // on board the truck on its leg
 	crossing  *ferries.Crossing
 	leg       int
+}
+
+// crossedOn is the day a ferry part is boarded: by its passage time on
+// a timed trip (its first port's zone), else the trip's date.
+func crossedOn(res sootcase.Result, req Request, trip time.Time, p ferryPart) time.Time {
+	before := 0.0
+	for _, l := range res.Legs[:p.leg] {
+		before += l.DistanceKm
+	}
+	cc := ""
+	if p.crossing != nil && len(p.crossing.Terminals) > 0 {
+		cc = p.crossing.Terminals[0].Country
+	}
+	if t, ok := passage(req, trip, before+p.pos, cc); ok {
+		y, m, d := t.Date()
+		return time.Date(y, m, d, 0, 0, 0, 0, time.UTC)
+	}
+	return trip
 }
 
 // ferryParts are the trip's ferry parts, each matched to a crossing in fd
@@ -1575,10 +1594,12 @@ func ferryParts(res sootcase.Result, fd *ferries.Data, req Request) []ferryPart 
 			load = req.legLoadKg[li]
 		}
 		var ps []ferryPart
+		at := 0.0
 		for _, p := range l.Parts {
 			if p.Kind == "ferry" {
-				ps = append(ps, ferryPart{km: p.DistanceKm, ttwKg: p.TTWKg, loadKg: load, leg: li})
+				ps = append(ps, ferryPart{km: p.DistanceKm, ttwKg: p.TTWKg, loadKg: load, leg: li, pos: at})
 			}
+			at += p.DistanceKm
 		}
 		if len(ps) == 1 && l.RouteParts["ferry"] > 0 {
 			ps[0].km = l.RouteParts["ferry"]
@@ -1716,8 +1737,7 @@ func etsInFare(path [][2]float64, km float64, set *tariffs.Set, dayAt func(pos f
 // cargo's share of the crossing's emissions (its ships' MRV data when the
 // crossing is known and the truck's tare given, else Sootcase's part),
 // times the share of them under the EU ETS by law, times the phase-in.
-func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req Request, date time.Time, add func(Line) error) error {
-	phase := maritimeETSShare(date)
+func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *tariffs.Set, req Request, trip time.Time, add func(Line) error) error {
 	var names []string
 	askEUA := false
 	defer func() {
@@ -1733,11 +1753,15 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *ta
 			for _, l := range res.Legs[:p.leg] {
 				before += l.DistanceKm
 			}
-			if t, ok := passage(req, date, before+pos, cc); ok {
+			if t, ok := passage(req, trip, before+pos, cc); ok {
 				return t
 			}
-			return date
+			return trip
 		}
+		// The ETS of the day it's crossed (its phase-in, its line's
+		// surcharge edition, its coverage, its ships' year).
+		date := crossedOn(res, req, trip, p)
+		phase := maritimeETSShare(date)
 		if name, ok := etsInFare(res.Legs[p.leg].Path, p.km, set, dayAt); ok {
 			out.Notes = append(out.Notes, fmt.Sprintf("Ferry: %s: its fare includes the EU ETS (the operator's surcharge), so it has no ETS line of its own.", name))
 			continue
@@ -1878,13 +1902,14 @@ func possessive(name string) string {
 // ports on the trip: the cargo's share of the crossing's emissions (as for
 // the EU ETS) times the share of them under the UK ETS by law, at the UK
 // allowance price.
-func priceFerryUKETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, date time.Time, add func(Line) error) error {
+func priceFerryUKETS(out *Response, res sootcase.Result, fd *ferries.Data, req Request, trip time.Time, add func(Line) error) error {
 	asked := false
 	for _, p := range ferryParts(res, fd, req) {
 		if p.crossing == nil {
 			continue
 		}
 		c := p.crossing
+		date := crossedOn(res, req, trip, p)
 		cov, applies := fd.UKCoverage(*c, date)
 		if !applies {
 			continue

@@ -143,6 +143,8 @@ type pricer struct {
 	// tickets are the tickets matched on the dataset priced now, kept by
 	// its version or not (byVersion): the uses they include go with them.
 	tickets []ticketSpan
+	// envDone: env_zone_km priced by one of the versions (byVersion).
+	envDone bool
 }
 
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {

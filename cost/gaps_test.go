@@ -1369,7 +1369,7 @@ func TestVignetteThenKmCharge(t *testing.T) {
 			t.Errorf("vignette on %.1f km; want the 35 km of its day", l.Km)
 		}
 	}
-	if notes := strings.Join(r.Notes, "\n"); strings.Contains(notes, "on 2 calendar days") || strings.Contains(notes, "all 140.0 km") {
+	if notes := strings.Join(r.Notes, "\n"); !strings.Contains(notes, "on 2 calendar days by its passage times (1 in the table from 2025-03-25)") {
 		t.Errorf("notes: %s", notes)
 	}
 	// Denmark's vignette to its km toll on 1 January 2025: the
@@ -1815,5 +1815,65 @@ func TestRequestBounds(t *testing.T) {
 	}
 	if err := check(Request{CargoKg: 1000, Truck: truck40, CompareCO2Classes: []int{1, 5}}); err != nil {
 		t.Error(err)
+	}
+}
+
+// The environmental zones' km are paid once, whichever versions of the
+// table the trip's days take (Denmark's 2025 and 2026, from 23:30 on 31
+// December 2025).
+func TestEnvZoneOnceAcrossVersions(t *testing.T) {
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 105, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"DK": 105}, RouteParts: map[string]float64{"road": 105}}}}
+	for _, at := range []string{"23:30", "10:00"} {
+		req := Request{CargoKg: 10000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "DK", EnvZoneKm: map[string]float64{"DK": 10}, spans: map[string][][2]float64{"DK": {{0, 105}}}}
+		r, err := PriceWith(res, all(t), nil, req, time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if l.Country == "DK" && l.Km == 10 {
+				n++
+			}
+		}
+		if n != 1 {
+			t.Errorf("from %s: %d environmental zone lines; want one: %+v", at, n, r.Lines)
+		}
+	}
+}
+
+// A ferry's EU ETS goes by the day it is crossed: Rødby–Puttgarden
+// boarded after midnight on a trip of 31 December 2025 is 2026's, all of
+// its emissions under the ETS, not 2025's 70%.
+func TestFerryETSOnTheDayCrossed(t *testing.T) {
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	lead := dense([][2]float64{{11.70, 55.30}, {11.3522, 54.6556}})
+	var road float64
+	for i := 0; i+1 < len(lead); i++ {
+		road += haversine(lead[i][1], lead[i][0], lead[i+1][1], lead[i+1][0])
+	}
+	sea := haversine(54.6556, 11.3522, 54.5003, 11.2275)
+	path := append(lead, dense([][2]float64{{11.3522, 54.6556}, {11.2275, 54.5003}, {11.22, 54.49}})...)
+	res := sootcase.Result{TTWKg: 60, WTWKg: 70, Legs: []sootcase.LegResult{{DistanceKm: road + sea + 1, TTWKg: 60, WTWKg: 70, Path: path,
+		CountryKm: map[string]float64{"DK": road, "DE": 1}, RouteParts: map[string]float64{"ferry": sea, "road": road + 1},
+		Parts: []sootcase.Part{{Kind: "road", DistanceKm: road, TTWKg: 40, WTWKg: 46}, {Kind: "ferry", DistanceKm: sea, TTWKg: 19, WTWKg: 23}, {Kind: "road", DistanceKm: 1, TTWKg: 1, WTWKg: 1}}}}}
+	share := func(day time.Time, at string) float64 {
+		r, err := PriceWith(res, all(t), &fd, Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 80, FerryETSBasis: "emissions", Time: at, AvgSpeedKmh: 70, origin: "DK",
+			FX: map[string]float64{"DKK": 7.46}}, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		for _, l := range r.Lines {
+			if l.Charge == FerryETS {
+				return l.AmountEUR
+			}
+		}
+		return 0
+	}
+	late, next := share(time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "23:30"), share(time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "00:30")
+	if late == 0 || math.Abs(late-next) > 0.01 {
+		t.Errorf("boarded after midnight: EUR %.2f; the same crossing on 1 January EUR %.2f", late, next)
 	}
 }

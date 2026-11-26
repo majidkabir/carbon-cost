@@ -162,18 +162,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	if zkm > 0 {
 		// On one of the days this version prices, where it prices only
 		// some (byVersion; the other version says if it has none).
-		at := p.noon(ds)
+		at, kept := p.noon(ds), false
 		if p.only != nil {
 			for _, d := range p.kmDays(ds, a.country, a.region) {
 				if p.only(d.at.Format(time.DateOnly)) {
-					at = d.at
+					at, kept = d.at, true
 					break
 				}
 			}
 		}
 		switch {
+		case nw.env != "" && p.only != nil && (p.envDone || !kept):
+			// Another version's days (byVersion): the km once, by the
+			// first version with a zone surcharge on the trip's days.
 		case nw.env != "":
 			b.km(nw.env, at, zkm, nil, &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: zkm, hasKm: true})
+			p.envDone = p.only != nil
 		case p.only == nil:
 			p.note("%s: env_zone_km given, but %s has no environmental zone surcharge.", cc, ds.Name)
 		}
@@ -194,6 +198,9 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		if (points.listed || systems.listed || hasSections(ds)) && km >= 0.5 {
 			p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "no_route"})
 		}
+	case p.only != nil:
+		// One version of several (byVersion): whether the route meets
+		// none of the area's is the trip's, not this version's days'.
 	default:
 		if points.listed && !points.any && km >= 1 {
 			p.note("%s: the route passes none of the toll stations.", cc)
@@ -207,7 +214,7 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 	}
 	if !shareGiven && !byRoute && nw.hasRows && nw.perDay == nil {
 		p.note("%s: all %.1f km are counted as on tolled roads; give tolled_share.%s if part of the trip isn't. Tolled roads: %s",
-			cc, km, cc, tolledRoads(ds))
+			cc, a.km, cc, tolledRoads(ds))
 	}
 	p.unpriced(ds, cc, st, RoadToll)
 	return nil
@@ -590,6 +597,7 @@ func (p *pricer) laterVersions(ds *tariffs.Dataset, days []string) []*tariffs.Da
 // byVersion prices each of the versions vs (in order) on its own days of
 // the trip (p.only): from its first day to the next's.
 func (p *pricer) byVersion(vs []*tariffs.Dataset, price func(*tariffs.Dataset) error) error {
+	p.envDone = false
 	for i, d := range vs {
 		lo, hi := "", ""
 		if i > 0 {
@@ -732,10 +740,12 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 			}
 		}
 	}
+	// The days the trip is there in all, and (byVersion) this version's.
+	n, of := len(out), ""
 	if p.only != nil {
 		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
+		of = fmt.Sprintf(" (%d in the table from %s)", len(out), ds.ValidFrom)
 	}
-	n := len(out)
 	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]
 	if n != 1 {
 		unit += "s"
@@ -744,8 +754,8 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	if !req.DriverRest {
 		rest = " without driver rests (give driver_rest for them)"
 	}
-	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s; a longer period may cost less.",
-		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, rest)
+	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s%s; a longer period may cost less.",
+		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, of, rest)
 }
 
 // ---------------------------------------------------------------- sections

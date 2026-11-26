@@ -463,7 +463,8 @@ def place_pending(h, cc, city=None):
     """Hungary: the ways outside the toll sections, placed. A section's
     other carriageway, or a gap in OSM's relations where annex 1 runs on
     between the sections its chain meets, takes the section's class and
-    share; a chain between two sections annex 1 doesn't join is left out.
+    share; a chain between two sections with no annex section between them
+    is left out.
     The rest is left out on a road whose sections OSM has (COVERED of the
     annex's km, both carriageways of an M road), and on a road whose
     sections it lacks is tolled by its ref as before, but not inside
@@ -486,18 +487,15 @@ def place_pending(h, cc, city=None):
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
-    def joined(a, b):
-        """The km of annex 1 between sections a and b if it runs on between
-        them without a break, else None."""
+    def between(a, b):
+        """Annex 1 between sections a and b (in the order of the road):
+        (km of its sections there, km between them), or None."""
         (ra, a0, a1), (rb, b0, b1) = span[a], span[b]
         if ra != rb:
             return None
         lo, hi = (a1, b0) if a1 <= b0 else (b1, a0)
-        at = lo
-        for s0, s1 in sorted(by_road[ra]):
-            if s0 == at and s1 <= hi:
-                at = s1
-        return (hi - lo) / 1000 if at == hi else None
+        on = sum(min(s1, hi) - max(s0, lo) for s0, s1 in by_road[ra] if s1 > lo and s0 < hi)
+        return on / 1000, (hi - lo) / 1000
 
     def near(road, pt, d):
         """The nearest section way of road within d metres of pt, or None."""
@@ -536,9 +534,10 @@ def place_pending(h, cc, city=None):
     # Chains of the remaining ways of one road: ways whose end comes within
     # BRIDGE_M of another (both carriageways, across a roundabout or a way
     # without the ref). A chain's ends are its two way ends farthest apart;
-    # where each meets a section way of the road, the chain is a gap in
-    # OSM's relations if annex 1 runs on between those sections, a break
-    # (not tolled) if it doesn't.
+    # where each meets a section way of the road (within BRIDGE_M), the
+    # chain is a gap in OSM's relations if annex 1 runs on between those
+    # sections, a break (not tolled) if it has nothing between them, and
+    # else is left as the road's other ways.
     decided = {}
     for road in sorted({r for refs, *_ in rest for r in refs}):
         ways = [i for i, w in enumerate(rest) if road in w[0] and i not in decided]
@@ -568,27 +567,29 @@ def place_pending(h, cc, city=None):
             if a is None:
                 continue
             ma, mb = near(road, a, BRIDGE_M), near(road, b, BRIDGE_M)
+            ab = None
+            if ma and mb and ma[3] != mb[3]:
+                ab = between(*sorted((ma[3], mb[3]), key=lambda e: span[e][1]))
             if road in DEBUG_ROADS:
                 ll = lambda p: f"{p[1] / 111_320:.5f},{p[0] / kx:.5f}"
-                def dist(p):
-                    x = near(road, p, 1000)
-                    return x and f"{x[3]}@{x[0].distance(Point(p[0] / kx, p[1] / 111_320)) * 111_320:.0f}m"
-                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], dist(a), ll(b), mb and mb[3], dist(b),
-                      "joined" if ma and mb and ma[3] != mb[3] and joined(*sorted((ma[3], mb[3]), key=lambda e: span[e][1])) is not None else "")
-            if not (ma and mb) or ma[3] == mb[3]:
+                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], ll(b), mb and mb[3],
+                      ab and f"annex {ab[0]:.1f} of {ab[1]:.1f} km between")
+            if ab is None:
                 continue
-            x, y = sorted((ma[3], mb[3]), key=lambda e: span[e][1])
-            between = joined(x, y)
-            if between is not None and km <= (2.6 if road.startswith("M") else 1.3) * between + GAP_KM:
+            on, gap = ab
+            if on >= gap - 0.001 and km <= (2.6 if road.startswith("M") else 1.3) * gap + GAP_KM:
+                # The annex runs on between them: OSM's relations lack it.
                 _, sc, sf, _ = ma
                 for k in chain:
                     h.add(sc, sf, rest[ways[k]][2], {})
                     decided[ways[k]] = "gap"
                 gaps[road] += km
-            elif between is None:
+            elif on <= 0.001:
+                # No annex section between them: not tolled.
                 for k in chain:
                     decided[ways[k]] = "break"
                 breaks[road] += km
+            # Else part of it is in the annex: left as the road's other ways.
     for i, (refs, c, coords, mc) in enumerate(rest):
         if i in decided:
             continue

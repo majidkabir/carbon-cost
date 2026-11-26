@@ -11,8 +11,14 @@ motorway rate, "nat" the other national roads it tolls (in Germany and
 Austria, whose rates are the same on both, only tolled or not counts). In Hungary a way
 in a toll section takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
-where unknown. Lines are simplified to SIMPLIFY_M and stored as
-[lon, lat] * 1e5 integers.
+where unknown. A Hungarian way in no toll section is tolled only as one of
+one: the other carriageway (within TWIN_M of a section way of its road
+number along its length), or a gap in the sections' relations (a chain
+of such ways of the road, at most GAP_KM long, whose ends meet section
+ways of the road where annex 1 runs on between those sections without a
+break); the other main roads and motorways, such as those inside
+Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
+simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
 For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up
@@ -22,15 +28,20 @@ România), so those stretches are left out of "nat". The built-up area
 is the municipality's residential, commercial, industrial and retail
 land, 50 m around.
 """
-import gzip, json, os, re, sys
+import gzip, json, math, os, re, sys
 from collections import Counter
 import osmium
 from shapely import wkb
-from shapely.geometry import LineString
+from shapely.geometry import LineString, Point
 from shapely.ops import unary_union
 from shapely.strtree import STRtree
 
 SIMPLIFY_M = 10
+# Hungary: a way outside the toll sections within this of a section way of
+# its road along its length is that section's other carriageway; a chain of
+# such ways up to GAP_KM long between section ways of its road, a gap in
+# OSM's relations; their ends meet within END_M.
+TWIN_M, GAP_KM, END_M = 60, 10, 30
 # mw: the motorway class of the toll law; nat: the national roads.
 RULES = {
     # Czechia, NV 240/2014: dálnice (D) vs silnice I. třídy.
@@ -44,7 +55,7 @@ RULES = {
     # cesty I. triedy.
     "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
     # Hungary, 25/2013 NFM: gyorsforgalmi utak (M) vs főutak.
-    "HU": {"mw": r"^M\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
+    "HU": {"mw": r"^M\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "sections_only": True},
     # Romania, OMT 1925/2025: autostrăzi and drumuri expres (A, DEx) vs
     # drumuri naționale.
     "RO": {"mw": r"^(A|DEx)\s?\d", "mw_highway": ["motorway"], "nat": r"^(DN\s?)?\d{1,3}[A-Z]{0,2}$"},
@@ -97,7 +108,7 @@ class Sections(osmium.SimpleHandler):
         c = "mw" if a["level"] == "motorway" else "nat"
         for m in r.members:
             if m.type == "w":
-                self.ways[m.ref] = (c, a["f"])
+                self.ways[m.ref] = (c, a["f"], a["road"], edid)
 
 
 class Urban(osmium.SimpleHandler):
@@ -311,6 +322,9 @@ class Ways(osmium.SimpleHandler):
         # Toll-rule countries: km of motorway tagged toll=no by operator|ref
         # and 0.05-degree cell, reported where the operator tolls elsewhere.
         self.untolled = Counter()
+        # sections_only: the section ways by road, and the other ways of
+        # those classes (road refs, class, [lon, lat] points), placed after.
+        self.sec_lines, self.pending = {}, []
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -318,7 +332,12 @@ class Ways(osmium.SimpleHandler):
         sec = self.sections.get(w.id)
         suffix = None
         if sec:
-            c, f = sec
+            c, f, road, edid = sec
+            if self.rule.get("sections_only"):
+                try:
+                    self.sec_lines.setdefault(road, []).append((LineString([(n.lon, n.lat) for n in w.nodes]), c, f, edid))
+                except (osmium.InvalidLocationError, ValueError):
+                    pass
         else:
             if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary"):
                 return
@@ -365,6 +384,12 @@ class Ways(osmium.SimpleHandler):
             return
         if len(coords) < 2:
             return
+        if self.rule.get("sections_only") and not sec:
+            self.pending.append(([r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()], c, coords))
+            return
+        self.add(c, f, coords, tags, suffix)
+
+    def add(self, c, f, coords, tags, suffix=None):
         ls = LineString(coords)
         if self.private and tags.get("toll") == "yes":
             refs = [r.strip() for r in (tags.get("ref") or "").split(";")]
@@ -408,6 +433,120 @@ class Ways(osmium.SimpleHandler):
                         self.ops.append(op)
                     self.mwop.append(self.op_index.get(op, -1))
                     self.op_km[op] += piece.length * 111.32 * 0.68
+
+
+def place_pending(h, cc):
+    """Hungary: the ways outside the toll sections that are a section's
+    other carriageway or fill a gap in OSM's relations, added with the
+    section's class and share; the others left out (reported by road)."""
+    kx = 111_320 * 0.68  # metres per degree of longitude near 47.2° N
+    m = lambda pts: [(x * kx, y * 111_320) for x, y in pts]
+    trees = {}
+    for road, secs in h.sec_lines.items():
+        geoms = [LineString(m(ls.coords)) for ls, *_ in secs]
+        trees[road] = (STRtree(geoms), geoms, secs)
+    # Annex 1's sections by road, by chainage: a gap between two sections
+    # is OSM's if the annex runs on between them without a break.
+    chain_m = lambda v: int(v.split("+")[0]) * 1000 + int(v.split("+")[1])
+    rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
+    span = {r["id"]: (r["road"], chain_m(r["start"]), chain_m(r["end"])) for r in rows}
+    by_road = {}
+    for r in rows:
+        by_road.setdefault(r["road"], []).append((chain_m(r["start"]), chain_m(r["end"])))
+    def joined(a, b):
+        """Whether annex 1 runs without a break from section a to section b."""
+        (ra, a0, a1), (rb, b0, b1) = span[a], span[b]
+        if ra != rb:
+            return False
+        lo, hi = (a1, b0) if a1 <= b0 else (b1, a0)
+        at = lo
+        for s0, s1 in sorted(by_road[ra]):
+            if s0 == at and s1 <= hi:
+                at = s1
+        return at == hi
+    def near(road, pt, d):
+        """The nearest section way of road within d metres of pt, or None."""
+        if road not in trees:
+            return None
+        tree, geoms, secs = trees[road]
+        p = Point(pt)
+        best = None
+        for i in tree.query(p.buffer(d)):
+            dist = geoms[i].distance(p)
+            if dist <= d and (best is None or dist < best[0]):
+                best = (dist, secs[i])
+        return best and best[1]
+    twins, gaps, dropped = Counter(), Counter(), Counter()
+    rest = []  # (refs, class, points, points in metres)
+    for refs, c, coords in h.pending:
+        mc = m(coords)
+        line = LineString(mc)
+        n = max(2, int(line.length // 50) + 1)
+        sample = [line.interpolate(i / (n - 1), normalized=True) for i in range(n)]
+        hit = None
+        for road in refs:
+            ok = [near(road, (q.x, q.y), TWIN_M) for q in sample]
+            if all(ok):
+                hit = (road, ok[len(ok) // 2])
+                break
+        if hit:
+            _, (_, sc, sf, _) = hit
+            h.add(sc, sf, coords, {})
+            twins[hit[0]] += line.length / 1000
+        else:
+            rest.append((refs, c, coords, mc))
+    # Gaps: chains of the remaining ways of one road, joined end to end.
+    placed = set()
+    for road in sorted({r for refs, *_ in rest for r in refs}):
+        ways = [i for i, w in enumerate(rest) if road in w[0] and i not in placed]
+        ends = {}
+        key = lambda p: (round(p[0] / END_M), round(p[1] / END_M))
+        for i in ways:
+            for p in (rest[i][3][0], rest[i][3][-1]):
+                ends.setdefault(key(p), []).append(i)
+        seen = set()
+        for i in ways:
+            if i in seen:
+                continue
+            chain, todo = set(), [i]
+            while todo:
+                j = todo.pop()
+                if j in chain:
+                    continue
+                chain.add(j)
+                for p in (rest[j][3][0], rest[j][3][-1]):
+                    k = key(p)
+                    for dx in (-1, 0, 1):
+                        for dy in (-1, 0, 1):
+                            todo += [q for q in ends.get((k[0] + dx, k[1] + dy), []) if math.dist(p, rest[q][3][0]) <= END_M or math.dist(p, rest[q][3][-1]) <= END_M]
+            seen |= chain
+            km = sum(LineString(rest[j][3]).length for j in chain) / 1000
+            if km > GAP_KM:
+                continue
+            # The chain's loose ends: ends of its ways no other way of it meets.
+            loose = [p for j in chain for p in (rest[j][3][0], rest[j][3][-1])
+                     if not any(q != j and min(math.dist(p, rest[q][3][0]), math.dist(p, rest[q][3][-1])) <= END_M for q in chain)]
+            met = [near(road, p, END_M) for p in loose]
+            edids = sorted({x[3] for x in met if x}, key=lambda e: span[e][1])
+            if len(loose) >= 2 and all(met) and len(edids) >= 2 and all(joined(a, b) for a, b in zip(edids, edids[1:])):
+                _, sc, sf, _ = met[0]
+                for j in chain:
+                    h.add(sc, sf, rest[j][2], {})
+                    placed.add(j)
+                gaps[road] += km
+    for i, (refs, c, coords, mc) in enumerate(rest):
+        if i not in placed:
+            dropped[refs[0] if refs else "(no ref)"] += LineString(mc).length / 1000
+    print(cc, "other carriageways of toll sections (km):", {k: round(v, 1) for k, v in twins.most_common()})
+    print(cc, "gaps in the sections' relations filled (km):", {k: round(v, 1) for k, v in gaps.most_common()})
+    print(cc, "main roads and motorways outside annex 1, not tolled (km):", {k: round(v, 1) for k, v in dropped.most_common()})
+    print(cc, "totals: twins", round(sum(twins.values())), "gaps", round(sum(gaps.values())), "left out", round(sum(dropped.values())))
+    annex = Counter()
+    for r in json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json"))):
+        annex[r["road"]] += r["m"] / 1000
+    osm = Counter({road: sum(LineString(m(ls.coords)).length for ls, *_ in secs) / 1000 for road, secs in h.sec_lines.items()})
+    for road, km in sorted(annex.items(), key=lambda kv: -kv[1])[:60]:
+        print(cc, f"road {road}: annex {km:.1f} km, OSM sections {osm[road]:.1f} km (both carriageways), twins {twins[road]:.1f}, gaps {gaps[road]:.1f}, left out {dropped[road]:.1f}")
 
 
 # Countries whose law lists its tolled sections: the list (from the law,
@@ -513,6 +652,8 @@ def main(cc, src, dst, areas=None):
     h.mountain = list(MOUNTAIN.get(cc, []))
     h.private = list(PRIVATE.get(cc, []))
     h.apply_file(src, locations=True)
+    if rule.get("sections_only"):
+        place_pending(h, cc)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:

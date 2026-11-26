@@ -836,15 +836,14 @@ func (c Calculator) trip(ctx context.Context, req *Request, vt string) (sootcase
 	}
 	req.legLoadKg = loads
 	if len(ships) == 1 && ships[0].From == 0 && ships[0].To == len(stops)-1 && len(stops) == 2 {
-		// With a path, its distance is Sootcase's route, kept from the way
-		// driven (ownPath), as its emissions are.
-		if len(req.Path) > 0 {
-			var km float64
-			for _, l := range res.Legs {
-				km += l.DistanceKm
-			}
-			req.shipDistKm = []float64{km}
+		// Its tonne-km and emissions are on its own route, Sootcase's
+		// primary, as a trip's shipments' are: whatever way is driven
+		// (path) or priced (an alternative).
+		var km float64
+		for _, l := range res.Legs {
+			km += l.DistanceKm
 		}
+		req.shipDistKm, req.shipTTW, req.shipWTW = []float64{km}, []float64{res.TTWKg}, []float64{res.WTWKg}
 		return res, nil
 	}
 	// Each shipment's own route, loading stop to unloading stop: its

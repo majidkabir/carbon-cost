@@ -378,6 +378,7 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		for id := range overlays {
 			overlays[id] *= kept
 		}
+		secKm *= kept
 	}
 	// The sections' km (priced on their own) come off the parts in
 	// proportion, once in all.
@@ -1215,16 +1216,12 @@ type pointsMatched struct {
 	noTime      int
 }
 
-// pointCharges maps each point object to the charge in force on the date
-// that prices it.
+// pointCharges maps each point object to the charge that prices it, of
+// whatever days (chargeOn says if on the day it is passed).
 func (p *pricer) pointCharges(ds *tariffs.Dataset) map[string]*orct.Charge {
-	day := p.date.Format(time.DateOnly)
 	out := map[string]*orct.Charge{}
 	for _, ch := range ds.Charges() {
 		if ch.Type != "point" {
-			continue
-		}
-		if (ch.ValidFrom != "" && day < ch.ValidFrom) || (ch.ValidTo != "" && day > ch.ValidTo) {
 			continue
 		}
 		for o := range ch.RowObjects() {
@@ -1232,6 +1229,20 @@ func (p *pricer) pointCharges(ds *tariffs.Dataset) map[string]*orct.Charge {
 		}
 	}
 	return out
+}
+
+// chargeOn says whether a charge is in force on the day of t, within its
+// dataset's days (a day past them goes to the next version: its last
+// day's charges stand for it).
+func chargeOn(ds *tariffs.Dataset, ch *orct.Charge, t time.Time) bool {
+	day := t.Format(time.DateOnly)
+	if ds.ValidTo != "" && day > ds.ValidTo {
+		day = ds.ValidTo
+	}
+	if day < ds.ValidFrom {
+		day = ds.ValidFrom
+	}
+	return (ch.ValidFrom == "" || day >= ch.ValidFrom) && (ch.ValidTo == "" || day <= ch.ValidTo)
 }
 
 // matchPoints adds an event for each toll point the route passes in a
@@ -1264,7 +1275,15 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 				if pts[0].Heading != nil && math.Abs(math.Mod(ps.heading-*pts[0].Heading+540, 360)-180) > 90 {
 					continue
 				}
-				passes = append(passes, pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dist: ps.dist, dir: ps.heading})
+				// A station's record of the day it is passed (Norway's
+				// NVDB versions of a station, each under its own dated
+				// charge).
+				pp := pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dist: ps.dist, dir: ps.heading}
+				pp.at, pp.timed = p.at(ds, ps.pos, country)
+				if !chargeOn(ds, ch, pp.at) {
+					continue
+				}
+				passes = append(passes, pp)
 			}
 		}
 	}
@@ -1297,7 +1316,6 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 			continue
 		}
 		last[ps.obj.Name] = ps
-		ps.at, ps.timed = p.at(ds, ps.pos, country)
 		if ps.ch.Component == "congestion" && !ps.timed {
 			if p.chargedOn(ds, ps.obj.ID) {
 				pm.noTime++

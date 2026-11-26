@@ -470,14 +470,18 @@ func sameObject(old, v *tariffs.Dataset, id string) string {
 		return x.Type == o.Type && x.Name == o.Name && x.Road == o.Road && x.Operator == o.Operator
 	}
 	// Its own id, where it is still there (renamed or not: "A1 Pombal -
-	// Soure" became "A1 Pombal – Soure").
-	if x := v.Object(id); x != nil && x.Type == o.Type && objectKm(o, x) < samePlaceKm {
-		return id
+	// Soure" became "A1 Pombal – Soure"), or both have no place (a
+	// network).
+	if x := v.Object(id); x != nil && x.Type == o.Type {
+		if km, ok := objectKm(o, x); !ok || km < samePlaceKm {
+			return id
+		}
 	}
 	best, bestKm := goneObject, math.Inf(1)
 	for _, x := range v.Objects() {
 		if same(x) {
-			if km := objectKm(o, x); km < bestKm {
+			km, _ := objectKm(o, x)
+			if km < bestKm {
 				best, bestKm = x.ID, km
 			}
 		}
@@ -486,10 +490,11 @@ func sameObject(old, v *tariffs.Dataset, id string) string {
 		return best
 	}
 	// Else one of its type in its place, renamed and renumbered ("Fv4856
-	// Skjoldavegen", 16 m from "Skjoldavegen").
+	// Skjoldavegen", 16 m from "Skjoldavegen"): both placed, a section's
+	// both ends (not a piece of one split).
 	for _, x := range v.Objects() {
 		if x.Type == o.Type {
-			if km := objectKm(o, x); km < samePlaceKm && km < bestKm {
+			if km, ok := objectKm(o, x); ok && km < samePlaceKm && km < bestKm {
 				best, bestKm = x.ID, km
 			}
 		}
@@ -501,31 +506,33 @@ func sameObject(old, v *tariffs.Dataset, id string) string {
 // the same one when its name has changed.
 const samePlaceKm = 0.2
 
-// objectKm is how far apart two objects are, by their first points (a
-// section's start), with 1,000 km more for points facing other ways; 0
-// for objects with no place (networks).
-func objectKm(a, b *orct.Object) float64 {
-	at := func(o *orct.Object) (rates.Place, bool) {
+// objectKm is how far apart two objects are: their points (a
+// section's farther apart end), with 1,000 km more for points facing
+// other ways; ok is false if either has no place (a network).
+func objectKm(a, b *orct.Object) (float64, bool) {
+	ends := func(o *orct.Object) []rates.Place {
 		if pts := pointsOf(o); len(pts) > 0 {
-			return pts[0], true
+			return pts[:1]
 		}
-		if o.From != nil && len(o.From.Geometry.Coordinates) > 0 {
-			return endOf(o.From), true
+		if o.From != nil && len(o.From.Geometry.Coordinates) > 0 && o.To != nil && len(o.To.Geometry.Coordinates) > 0 {
+			return []rates.Place{endOf(o.From), endOf(o.To)}
 		}
-		return rates.Place{}, false
+		return nil
 	}
-	pa, ok1 := at(a)
-	pb, ok2 := at(b)
-	if !ok1 || !ok2 {
-		return 0
+	pa, pb := ends(a), ends(b)
+	if len(pa) == 0 || len(pa) != len(pb) {
+		return 0, false
 	}
-	km := haversine(pa.Lat, pa.Lon, pb.Lat, pb.Lon)
-	if pa.Heading != nil && pb.Heading != nil {
-		if d := math.Mod(math.Abs(*pa.Heading-*pb.Heading), 360); math.Min(d, 360-d) > 90 {
+	km := 0.0
+	for i := range pa {
+		km = math.Max(km, haversine(pa[i].Lat, pa[i].Lon, pb[i].Lat, pb[i].Lon))
+	}
+	if pa[0].Heading != nil && pb[0].Heading != nil {
+		if d := math.Mod(math.Abs(*pa[0].Heading-*pb[0].Heading), 360); math.Min(d, 360-d) > 90 {
 			km += 1000
 		}
 	}
-	return km
+	return km, true
 }
 
 // lastOf is the last line priced from the same use (meta), if any.

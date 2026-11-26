@@ -1437,3 +1437,54 @@ func TestNextVersionRenamedStation(t *testing.T) {
 		t.Errorf("Pombal after midnight: EUR %.2f (complete %v); the next day EUR %.2f", after, complete, own)
 	}
 }
+
+// A station passed on a later day than the trip's first is priced by its
+// record of that day: Norway's Ranheim is pt1069 to 11 November 2026 and
+// pt1070 from 12 November, each under its own dated charge.
+func TestStationRecordOfItsDay(t *testing.T) {
+	path := dense([][2]float64{{10.53, 63.42}, {10.554037, 63.422291}, {10.58, 63.425}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"NO": km}, RouteParts: map[string]float64{"road": km}}}}
+	toll := func(at string, day int) float64 {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "NO", FX: map[string]float64{"NOK": 11.7}, spans: map[string][][2]float64{"NO": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 11, day, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var nok float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				nok += l.Amount
+			}
+		}
+		return nok
+	}
+	if after, own := toll("23:59", 11), toll("10:00", 12); own == 0 || after != own {
+		t.Errorf("Ranheim just after midnight: NOK %.0f; on the 12th NOK %.0f", after, own)
+	}
+}
+
+// A section the next version splits isn't priced as its first piece:
+// Slovenia's Brezovica–Vrhnika (12.4 km) is Brezovica–Dragomer and more
+// from 1 July 2025; just after midnight it's unpriced there, not 2.6 km.
+func TestNextVersionSplitSection(t *testing.T) {
+	path := dense([][2]float64{{14.46, 46.04}, {14.4322, 46.0253}, {14.3048, 45.968}, {14.29, 45.96}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"SI": km}, RouteParts: map[string]float64{"road": km}}}}
+	req := Request{CargoKg: 1000, Truck: truck40, Time: "23:59", AvgSpeedKmh: 70, origin: "SI", spans: map[string][][2]float64{"SI": {{0, km}}}}
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2025, 6, 30, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Brezovica") && r.Complete {
+			t.Errorf("split section after midnight priced as complete: %s EUR %.2f", l.Section, l.Amount)
+		}
+	}
+}

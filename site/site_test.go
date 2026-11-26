@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/fx"
+	"github.com/majidkabir/carbon-cost/orct"
 	"github.com/majidkabir/carbon-cost/tariffs"
 )
 
@@ -255,5 +256,38 @@ func TestPagesByLocalDay(t *testing.T) {
 	s.Register(mux)
 	if _, body := get(t, mux, "/tolls/co2-tax-diesel"); strings.Contains(body, "31 December 2026") {
 		t.Errorf("pages of 31 December 2026 at 00:30 on 1 January 2027 in Copenhagen")
+	}
+}
+
+// A country's dearest passages are those dearest for the truck at noon:
+// in Norway a Euro VI truck pays Fjellinjen's 109, not Euro V's rush 223,
+// so stations dearer at noon come first.
+func TestPointFaresByPrice(t *testing.T) {
+	set, err := tariffs.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, ds := range set.All {
+		if ds.Country != "NO" || !strings.HasPrefix(ds.File, "no/no-2026") {
+			continue
+		}
+		for i := range ds.Doc.Charges {
+			ch := &ds.Doc.Charges[i]
+			if ch.Type != "point" {
+				continue
+			}
+			fs, _ := pointFares(ds, ch, truck40, "2026-11-26", 12)
+			shown := map[string]bool{}
+			for _, f := range fs {
+				shown[f.From] = true
+			}
+			low := fs[len(fs)-1].Rate.Total
+			when := noon(ds, "2026-11-26")
+			for _, o := range ds.Doc.Objects {
+				if a := calc(ds, truck40, []orct.Event{{Dataset: ds.ID, Object: o.ID, Time: when}}); !shown[o.ID] && a.OK && a.Total > low {
+					t.Errorf("%s (%s) NOK %v at noon isn't shown; the dearest shown are down to %v", o.ID, o.Name, a.Total, low)
+				}
+			}
+		}
 	}
 }

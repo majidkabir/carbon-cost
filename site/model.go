@@ -358,7 +358,8 @@ type fare struct {
 
 // classRows are the rows of a charge for the truck's classes, each with
 // its rank: 0 for the truck's own class, 1 for that class's fallback and
-// so on (a row of a nearer class wins, as the calculator picks it).
+// so on, a row for any vehicle last (a row of a nearer class wins, as the
+// calculator picks it).
 func classRows(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck) map[int]int {
 	classes, _ := ds.Classify(cost.Vehicle(t))
 	rank := map[string]int{}
@@ -378,7 +379,7 @@ func classRows(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck) map[int]int 
 	pay, user := index(ch.Columns, "payment"), index(ch.Columns, "user_class")
 	out := map[int]int{}
 	for i, r := range ch.Rows {
-		k := 0
+		k := 100 // no class: below every class of the truck
 		if vc >= 0 {
 			v, _ := r[vc].(string)
 			if v != "" {
@@ -458,25 +459,44 @@ func odFares(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck, day string, n 
 		}
 		return cs[i].a+cs[i].b < cs[j].a+cs[j].b
 	})
+	// The dearest candidates priced as the calculator prices them at noon
+	// (a row's amount may be another hour's), then the dearest of those,
+	// no station twice.
 	when := noon(ds, day)
-	done, used := map[[2]string]bool{}, map[string]bool{}
+	type priced struct {
+		a, b string
+		v    amount
+	}
+	var ps []priced
+	done := map[[2]string]bool{}
 	for _, c := range cs {
-		if len(fares) == n {
+		if len(ps) == 5*n {
 			break
 		}
 		k := [2]string{c.a, c.b}
 		if c.a > c.b {
 			k = [2]string{c.b, c.a}
 		}
-		if done[k] || used[c.a] || used[c.b] {
+		if done[k] {
 			continue
 		}
 		done[k] = true
 		a := calc(ds, t, []orct.Event{{Dataset: ds.ID, Object: c.a, Time: when, Role: "entry"}, {Dataset: ds.ID, Object: c.b, Time: when, Role: "exit"}})
 		if a.OK && a.Total > 0 {
-			fares = append(fares, fare{From: c.a, To: c.b, Rate: a})
-			used[c.a], used[c.b] = true, true
+			ps = append(ps, priced{c.a, c.b, a})
 		}
+	}
+	sort.SliceStable(ps, func(i, j int) bool { return ps[i].v.Total > ps[j].v.Total })
+	used := map[string]bool{}
+	for _, p := range ps {
+		if len(fares) == n {
+			break
+		}
+		if used[p.a] || used[p.b] {
+			continue
+		}
+		fares = append(fares, fare{From: p.a, To: p.b, Rate: p.v})
+		used[p.a], used[p.b] = true, true
 	}
 	return fares, len(sts), len(all)
 }
@@ -514,26 +534,29 @@ func pointFares(ds *tariffs.Dataset, ch *orct.Charge, t rates.Truck, day string,
 			all[o] = true
 		}
 	}
+	// The dearest by what each passage is priced at noon (a row's amount
+	// alone may be another class's or another hour's).
+	when := noon(ds, day)
+	priced := map[string]amount{}
 	keys := make([]string, 0, len(objs))
 	for o := range objs {
-		keys = append(keys, o)
+		if a := calc(ds, t, []orct.Event{{Dataset: ds.ID, Object: o, Time: when}}); a.OK && a.Total > 0 {
+			priced[o] = a
+			keys = append(keys, o)
+		}
 	}
 	sort.Slice(keys, func(i, j int) bool {
-		if objs[keys[i]] != objs[keys[j]] {
-			return objs[keys[i]] > objs[keys[j]]
+		if a, b := priced[keys[i]].Total, priced[keys[j]].Total; a != b {
+			return a > b
 		}
 		return keys[i] < keys[j]
 	})
 	var out []fare
-	when := noon(ds, day)
 	for _, o := range keys {
 		if len(out) == n {
 			break
 		}
-		a := calc(ds, t, []orct.Event{{Dataset: ds.ID, Object: o, Time: when}})
-		if a.OK && a.Total > 0 {
-			out = append(out, fare{From: o, Rate: a})
-		}
+		out = append(out, fare{From: o, Rate: priced[o]})
 	}
 	return out, len(all)
 }

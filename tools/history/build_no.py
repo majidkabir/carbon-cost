@@ -45,7 +45,7 @@ def main(fetched, out):
         if tp is None:
             left_out.add(why)
             continue
-        no.apply_env(tp, env, history=True)
+        no.apply_env(tp, env, history=True, operator=no.props(o).get("Operatør_Id"))
         if start > FROM:
             tp["valid_from"] = start
         if last and last < to:

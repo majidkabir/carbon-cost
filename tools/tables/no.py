@@ -141,6 +141,10 @@ ENV = {
     "Vegamot AS": [("no-rush-vegamot", env_zero("Nullutslipps- og gassdrevne kjøretøy i takstgruppe 2 har reduksjon av takst på 100 prosent"))],
     "Bypakke Tenk Tromsø - BPS Nord": [("no-rush-tromso", env_zero("100 prosent takstreduksjon for nullutslippskjøretøy i takstgruppe 2"))],
 }
+# Projects whose company also runs others: the NVDB operator id of the
+# stations the source is for (Vegamot's Miljøpakke Trondheim, not its
+# Fv. 714 stations Valslag and Våvatnet, operator 100107).
+ENV_OPERATOR = {"Vegamot AS": 100120}
 ZERO = {"co2_class": [5]}
 EURO6 = {"euro_class": ["6", "7"], "co2_class": [1, 2, 3, 4]}
 
@@ -164,13 +168,13 @@ def env_prices(fetched):
     return out
 
 
-def apply_env(tp, env, history=False):
+def apply_env(tp, env, history=False, operator=None):
     """The point's environmental prices for large vehicles, if its project
     has them: the edition in force, or in the history the edition whose
     prices the point's are (none if none is: a zero-emission rule alone
-    has no date here)."""
+    has no date here). operator: the station's NVDB Operatør_Id."""
     eds = env.get(tp.get("project"))
-    if not eds:
+    if not eds or ENV_OPERATOR.get(tp.get("project"), operator) != operator:
         return
     if history:
         e = next((e for e in eds if tp["rate"] in e["off"] and (not tp.get("peak_rate") or not e["rush"] or tp["peak_rate"] in e["rush"])), None)
@@ -330,7 +334,7 @@ def main(fetched, out):
         if tp is None:
             left_out.append(why)
             continue
-        apply_env(tp, env)
+        apply_env(tp, env, operator=props(o).get("Operatør_Id"))
         points.append(tp)
         dates.append(o["metadata"]["startdato"])
     valid_from = max(dates)

@@ -19,6 +19,7 @@ import (
 	"errors"
 	"fmt"
 	"math"
+	"reflect"
 	"regexp"
 	"slices"
 	"sort"
@@ -91,6 +92,48 @@ const (
 	// table marks as a ferry (carbon-cost's ORCT extension "ferry").
 	FerryFare = "ferry_fare"
 )
+
+// nonFinite is the path of v's first number that is NaN or infinite, by
+// its JSON names; "" if none.
+func nonFinite(v reflect.Value, at string) string {
+	switch v.Kind() {
+	case reflect.Float32, reflect.Float64:
+		if f := v.Float(); math.IsNaN(f) || math.IsInf(f, 0) {
+			return at
+		}
+	case reflect.Pointer, reflect.Interface:
+		if !v.IsNil() {
+			return nonFinite(v.Elem(), at)
+		}
+	case reflect.Slice, reflect.Array:
+		for i := 0; i < v.Len(); i++ {
+			if f := nonFinite(v.Index(i), fmt.Sprintf("%s[%d]", at, i)); f != "" {
+				return f
+			}
+		}
+	case reflect.Map:
+		for _, k := range v.MapKeys() {
+			if f := nonFinite(v.MapIndex(k), fmt.Sprintf("%s.%v", at, k)); f != "" {
+				return f
+			}
+		}
+	case reflect.Struct:
+		t := v.Type()
+		for i := 0; i < v.NumField(); i++ {
+			name := t.Field(i).Name
+			if tag, _, _ := strings.Cut(t.Field(i).Tag.Get("json"), ","); tag != "" && tag != "-" {
+				name = tag
+			}
+			if at != "" {
+				name = at + "." + name
+			}
+			if f := nonFinite(v.Field(i), name); f != "" {
+				return f
+			}
+		}
+	}
+	return ""
+}
 
 // ETS2Start is when ETS2 covers road transport fuel.
 var ETS2Start = time.Date(2028, 1, 1, 0, 0, 0, 0, time.UTC)
@@ -938,6 +981,11 @@ func (c Calculator) startCountry(req Request) string {
 }
 
 func check(req Request) error {
+	// No number is NaN or infinite (a CSV's or a flag's "NaN" parses; it
+	// passes every range check below and breaks the amounts).
+	if f := nonFinite(reflect.ValueOf(req), ""); f != "" {
+		return fmt.Errorf("%s: not a finite number", f)
+	}
 	if t := req.Truck; t.HeightM != 0 && (t.HeightM < 1.5 || t.HeightM > 5) || t.WidthM != 0 && (t.WidthM < 1.5 || t.WidthM > 3.5) ||
 		t.AxleLoadKg != 0 && (t.AxleLoadKg < 1000 || t.AxleLoadKg > 15000) {
 		return fmt.Errorf("truck: height_m 1.5-5, width_m 1.5-3.5, axle_load_kg 1,000-15,000 (e.g. 4.0, 2.55, 11500)")
@@ -1997,8 +2045,13 @@ func lapsed(set *tariffs.Set, req Request, out *Response, route *track, fuelL fl
 		for _, ds := range set.Lapsed(kind, date) {
 			gaps = append(gaps, gap{ds, ds.ValidTo, false})
 		}
+		// A crossing's first table that starts after the trip's date is
+		// priced with the trip (priceCrossings), and versions says if a
+		// passage comes before it.
 		for _, ds := range set.Ahead(kind, date) {
-			gaps = append(gaps, gap{ds, ds.ValidFrom, true})
+			if kind != tariffs.Crossings {
+				gaps = append(gaps, gap{ds, ds.ValidFrom, true})
+			}
 		}
 		for _, g := range gaps {
 			ds := g.ds

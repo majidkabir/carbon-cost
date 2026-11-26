@@ -1475,7 +1475,10 @@ func (p *pricer) untimed(ds *tariffs.Dataset, country string, pm *pointsMatched)
 
 // priceCrossings prices the bridges and tunnels the route passes.
 func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
-	for _, ds := range set.OfKind(tariffs.Crossings, p.date) {
+	// Those in force on the trip's date, and the first tables of schemes
+	// that start later (passed on a later day of the trip, they're in
+	// force; before, versions says so).
+	for _, ds := range append(set.OfKind(tariffs.Crossings, p.date), set.Starting(tariffs.Crossings, p.date)...) {
 		if ok, err := ds.Liable(p.vehicle); err != nil || !ok {
 			continue
 		}

@@ -298,6 +298,34 @@ func (s *Set) Ahead(kind string, date time.Time) []*Dataset {
 	return out
 }
 
+// Starting lists, for each scheme of the kind with no dataset in force
+// on the date, its first dataset if that starts after it: rates a trip
+// may reach on a later day (one started that day, or after its
+// charged_from).
+func (s *Set) Starting(kind string, date time.Time) []*Dataset {
+	day := date.Format(time.DateOnly)
+	first, before := map[string]*Dataset{}, map[string]bool{}
+	for _, d := range s.All {
+		if d.Kind != kind {
+			continue
+		}
+		if d.ValidFrom <= day {
+			before[d.Scheme] = true
+		}
+		if f := first[d.Scheme]; f == nil || d.ValidFrom < f.ValidFrom {
+			first[d.Scheme] = d
+		}
+	}
+	var out []*Dataset
+	for sch, d := range first {
+		if !before[sch] {
+			out = append(out, d)
+		}
+	}
+	sort.Slice(out, func(i, j int) bool { return out[i].File < out[j].File })
+	return out
+}
+
 // Lapsed lists, for each scheme of the kind with no dataset in force on
 // the date, its last dataset if that ended before the date: rates that
 // ended with no successor here yet. (A scheme that really ends has a

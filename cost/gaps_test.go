@@ -1522,3 +1522,119 @@ func TestNextVersionNoCrash(t *testing.T) {
 		}
 	}
 }
+
+// Around a table's last or first day: a ticket is priced by the table and
+// the time at its entry, whatever day it exits (AP-36 entered at 23:35 on
+// 31 December 2025, not free as at 00:00; the Basque A-15 entered before
+// its table ends, its whole ticket); a crossing whose first table starts
+// at midnight is priced when passed after it (AP-7 Calahonda).
+func TestTicketsAndFirstTablesAtMidnight(t *testing.T) {
+	toll := func(pts [][2]float64, day time.Time, at string) (float64, bool) {
+		path := dense(pts)
+		var km float64
+		for i := 0; i+1 < len(path); i++ {
+			km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+		}
+		res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"ES": km}, RouteParts: map[string]float64{"road": km}}}}
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "ES", spans: map[string][][2]float64{"ES": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.Amount
+			}
+		}
+		return eur, r.Complete
+	}
+	for _, c := range []struct {
+		name string
+		pts  [][2]float64
+		day  time.Time
+		late string
+		ref  string
+	}{
+		{"AP-36", [][2]float64{{-2.70, 39.47}, {-2.718178, 39.474381}, {-3.073759, 39.630588}, {-3.09, 39.635}}, time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "23:35", "12:00"},
+		{"A-15", [][2]float64{{-2.215, 43.04}, {-2.206366, 43.045757}, {-2.18869, 43.047709}, {-2.102954, 43.100584}, {-2.091125, 43.114395}, {-2.085, 43.12}}, time.Date(2026, 12, 31, 0, 0, 0, 0, time.UTC), "23:52", "12:00"},
+	} {
+		late, complete := toll(c.pts, c.day, c.late)
+		ref, _ := toll(c.pts, c.day, c.ref)
+		if !complete || late == 0 || late != ref {
+			t.Errorf("%s entered at %s: EUR %.2f (complete %v); at %s EUR %.2f", c.name, c.late, late, complete, c.ref, ref)
+		}
+	}
+	cal := [][2]float64{{-4.74, 36.50}, {-4.717858, 36.505733}, {-4.70, 36.51}}
+	late, complete := toll(cal, time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "23:59")
+	ref, _ := toll(cal, time.Date(2026, 1, 1, 0, 0, 0, 0, time.UTC), "00:01")
+	if !complete || late == 0 || late != ref {
+		t.Errorf("Calahonda just after midnight on its table's first day: EUR %.2f (complete %v); EUR %.2f the next minute", late, complete, ref)
+	}
+}
+
+// A NaN or an infinity (a CSV's or a flag's) is refused, not priced.
+func TestNonFiniteRefused(t *testing.T) {
+	for _, req := range []Request{
+		{CargoKg: 1000, Truck: truck40, TolledShare: map[string]float64{"DE": math.NaN()}},
+		{CargoKg: 1000, Truck: truck40, AvgSpeedKmh: math.NaN()},
+		{CargoKg: 1000, Truck: truck40, DriverEURPerH: math.Inf(1)},
+		{CargoKg: math.NaN(), Truck: truck40},
+	} {
+		if err := check(req); err == nil || !strings.Contains(err.Error(), "not a finite number") {
+			t.Errorf("%+v: %v", req, err)
+		}
+	}
+	if err := check(Request{CargoKg: 1000, Truck: truck40, TolledShare: map[string]float64{"DE": 0.5}}); err != nil {
+		t.Error(err)
+	}
+}
+
+// A path that jumps across the map, or goes round it, is refused before
+// it is indexed (each degree costs the index its cells).
+func TestPathBounds(t *testing.T) {
+	jump := [][2]float64{{-179, -89}, {179, 89}}
+	var round [][2]float64
+	for i := 0; i < 100; i++ {
+		round = append(round, [2]float64{float64(i%2) * 10, 50})
+	}
+	for _, p := range [][][2]float64{jump, round} {
+		if err := checkOwnRoute(Request{Path: p}); err == nil {
+			t.Errorf("%d points: no error", len(p))
+		}
+	}
+	if err := checkOwnRoute(Request{Path: [][2]float64{{9, 52}, {9.5, 52.3}, {10, 52}}}); err != nil {
+		t.Error(err)
+	}
+}
+
+// A day's maximum comes off that day's last passages, none below nothing:
+// Stockholm's SEK 135, seven rush-hour passages of SEK 45.
+func TestCongestionCapLines(t *testing.T) {
+	sto := [][2]float64{{18.1034, 59.3130}, {18.1034, 59.3140}, {18.1034, 59.3150}}
+	back := [][2]float64{sto[2], sto[1], sto[0]}
+	var legs []sootcase.LegResult
+	for i := 0; i < 7; i++ {
+		p := sto
+		if i%2 == 1 {
+			p = back
+		}
+		legs = append(legs, sootcase.LegResult{DistanceKm: 0.2, CountryKm: map[string]float64{"SE": 0.2}, Path: p})
+	}
+	r, err := Price(sootcase.Result{Legs: legs}, all(t), Request{CargoKg: 1000, Truck: truck40, Time: "07:30", FX: map[string]float64{"SEK": 11}}, time.Date(2026, 5, 5, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var sek float64
+	for _, l := range r.Lines {
+		if strings.Contains(l.Source, "trängselskatt") {
+			sek += l.Amount
+			if l.Amount < 0 {
+				t.Errorf("line %s: SEK %.2f", l.Section, l.Amount)
+			}
+		}
+	}
+	if sek != 135 {
+		t.Errorf("SEK %.2f, want the day's maximum 135", sek)
+	}
+}

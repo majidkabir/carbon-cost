@@ -28,6 +28,10 @@ var areaRE = regexp.MustCompile(`^[A-Z]{2}(-[A-Z0-9]{1,3})?$`)
 // pathNearKm is how far from a stop the path may pass without a note.
 const pathNearKm = 5
 
+// maxPathStepDeg and maxPathSpanDeg bound a path: degrees between two
+// points (some 2,000 km), and in all.
+const maxPathStepDeg, maxPathSpanDeg = 20.0, 600.0
+
 func checkOwnRoute(r Request) error {
 	if len(r.Path) > 0 {
 		if len(r.CountryKm) > 0 {
@@ -36,10 +40,25 @@ func checkOwnRoute(r Request) error {
 		if len(r.Path) < 2 || len(r.Path) > MaxPathPoints {
 			return fmt.Errorf("path: give 2 to %d [lon, lat] points", MaxPathPoints)
 		}
+		// A truck's way: no jump across the map between two points, and
+		// not around the world (each degree crossed costs the track's
+		// index its cells).
+		var span float64
 		for i, p := range r.Path {
 			if !(p[0] >= -180 && p[0] <= 180 && p[1] >= -90 && p[1] <= 90) {
 				return fmt.Errorf("path[%d]: give [lon, lat] in degrees", i)
 			}
+			if i > 0 {
+				q := r.Path[i-1]
+				d := math.Max(math.Abs(p[0]-q[0]), math.Abs(p[1]-q[1]))
+				if d > maxPathStepDeg {
+					return fmt.Errorf("path[%d]: %.1f degrees from the point before it; give points at most %g degrees apart", i, d, maxPathStepDeg)
+				}
+				span += d
+			}
+		}
+		if span > maxPathSpanDeg {
+			return fmt.Errorf("path: %.0f degrees in all; give at most %g (some 40,000 km)", span, maxPathSpanDeg)
 		}
 	}
 	if len(r.CountryKm) == 0 {

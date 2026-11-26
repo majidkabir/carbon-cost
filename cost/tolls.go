@@ -78,7 +78,7 @@ func (b *batch) event(obj string, at time.Time, m *lineMeta) *orct.Event {
 }
 
 // keepDays keeps the uses on the local days keep says: a ticket (entry
-// and exit) by its exit's, where it is paid.
+// and exit) by its time basis's, as versions takes its table.
 func (b *batch) keepDays(keep func(day string) bool) {
 	day := func(ts string) string {
 		t, err := b.ds.Local(ts)
@@ -91,7 +91,11 @@ func (b *batch) keepDays(keep func(day string) bool) {
 	for i := 0; i < len(b.events); i++ {
 		e := b.events[i]
 		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
-			if keep(day(b.events[x].Time)) {
+			lead := e
+			if odBasisExit(b.ds) {
+				lead = b.events[x]
+			}
+			if keep(day(lead.Time)) {
 				evs = append(evs, e, b.events[x])
 			}
 			i = x
@@ -249,6 +253,20 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 	st := orct.Calculate(dss, u)
 	var lines []*Line
 	merged := map[string]*Line{}
+	// lineDay is each event time's local day, lineAt each line's (a cap's
+	// cut is a day's).
+	lineDay, lineAt := map[string]string{}, map[*Line]string{}
+	for _, ol := range st.Lines {
+		if ol.Event != nil {
+			d := b.ds
+			if v := versions[ol.Dataset]; v != nil {
+				d = v
+			}
+			if t, err := d.Local(ol.Event.Time); err == nil {
+				lineDay[ol.Event.Time] = t.Format(time.DateOnly)
+			}
+		}
+	}
 	for _, ol := range st.Lines {
 		ds := b.ds
 		if v := versions[ol.Dataset]; v != nil {
@@ -351,6 +369,26 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 			}
 		}
 		if ol.Unit == "rule" {
+			// A cap's cut (a day's maximum of passages) comes off that
+			// day's last passages first, none below nothing: those over
+			// the maximum are free.
+			if amount < 0 && ol.Event != nil && capCut(ol) {
+				day := lineDay[ol.Event.Time]
+				left := -amount
+				for i := len(lines) - 1; i >= 0 && left > 1e-9; i-- {
+					x := lines[i]
+					if x.Charge != m.charge || x.Country != m.country || x.Currency != cur || lineAt[x] != day || x.Amount <= 0 {
+						continue
+					}
+					cut := math.Min(x.Amount, left)
+					x.Amount -= cut
+					left -= cut
+				}
+				amount = -left
+				if left <= 1e-9 {
+					continue
+				}
+			}
 			// A rule's adjustment (a cap, a minimum): it adds to the line
 			// of the use it adjusts.
 			if prev := lastOf(lines, m); prev != nil {
@@ -361,6 +399,9 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 		}
 		if extra != nil {
 			extra(l, ol)
+		}
+		if ol.Event != nil {
+			lineAt[l] = lineDay[ol.Event.Time]
 		}
 		lines = append(lines, l)
 		if key != "" {
@@ -388,51 +429,111 @@ func (p *pricer) price(b *batch, src string, extra func(*Line, *orct.Line)) (*or
 // by id. A use with no table in force that day is reported missing.
 func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 	out := map[string]*tariffs.Dataset{b.ds.ID: b.ds}
-	move := func(ds, obj *string, ts string, ref any) {
+	// at is the table of b.ds's scheme in force on the local day of ts:
+	// b.ds, a later or earlier version, or nil.
+	at := func(ts string) *tariffs.Dataset {
 		t, err := b.ds.Local(ts)
 		if err != nil {
-			return
+			return b.ds
 		}
 		day := t.Format(time.DateOnly)
 		if b.ds.ValidFrom <= day && (b.ds.ValidTo == "" || day <= b.ds.ValidTo) {
-			return
+			return b.ds
 		}
 		if p.set != nil {
 			if v, ok := p.set.Version(b.ds, day); ok {
-				*ds, out[v.ID] = v.ID, v
-				p.addSources(v)
-				p.useTable(v)
-				*obj = sameObject(b.ds, v, *obj)
-				return
+				return v
 			}
+		}
+		return nil
+	}
+	// gone reports a use with no table that day: before the first (one
+	// that starts later, unless the charge itself began then) or after the
+	// last.
+	gone := func(ts string, ref any) {
+		if p.set == nil {
+			return
 		}
 		charge := RoadToll
 		if m, ok := ref.(*lineMeta); ok && m.charge != "" {
 			charge = m.charge
 		}
-		if p.set != nil && !slices.ContainsFunc(p.out.Missing, func(m Missing) bool { return m.Name == b.ds.Name && m.Reason == "ended" }) {
-			p.out.Missing = append(p.out.Missing, Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "ended", Ended: b.ds.ValidTo})
+		m := Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "ended", Ended: b.ds.ValidTo}
+		if t, err := b.ds.Local(ts); err == nil && t.Format(time.DateOnly) < b.ds.ValidFrom {
+			if since := ""; b.ds.Ext("charged_from", &since) && since >= b.ds.ValidFrom {
+				return // no charge before it
+			}
+			m = Missing{Area: b.ds.Area(), Charge: charge, Name: b.ds.Name, Reason: "before_table", Starts: b.ds.ValidFrom}
+		}
+		if !slices.ContainsFunc(p.out.Missing, func(x Missing) bool { return x.Name == m.Name && x.Reason == m.Reason }) {
+			p.out.Missing = append(p.out.Missing, m)
 		}
 	}
+	use := func(v *tariffs.Dataset) {
+		if v != b.ds && out[v.ID] == nil {
+			out[v.ID] = v
+			p.addSources(v)
+			p.useTable(v)
+		}
+	}
+	move := func(ds, obj *string, ts string, ref any) {
+		v := at(ts)
+		switch {
+		case v == nil:
+			gone(ts, ref)
+		case v != b.ds:
+			use(v)
+			*ds, *obj = v.ID, sameObject(b.ds, v, *obj)
+		}
+	}
+	// within is ts taken within v's days: its first instant or its last.
+	within := func(v *tariffs.Dataset, ts string) string {
+		t, err := v.Local(ts)
+		if err != nil {
+			return ts
+		}
+		day := t.Format(time.DateOnly)
+		if day < v.ValidFrom {
+			if d, err := time.ParseInLocation(time.DateOnly, v.ValidFrom, v.TZ()); err == nil {
+				return stamp(d)
+			}
+		}
+		if v.ValidTo != "" && day > v.ValidTo {
+			if d, err := time.ParseInLocation(time.DateOnly, v.ValidTo, v.TZ()); err == nil {
+				return stamp(d.Add(24*time.Hour - time.Second))
+			}
+		}
+		return ts
+	}
+	const dropped = "(no table)" // a ticket with no table: neither event priced
 	for i := 0; i < len(b.events); i++ {
 		e := &b.events[i]
 		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
-			// A ticket is priced by one table: the one in force at the
-			// exit, where the toll is paid; an entry before its first day
-			// (just before midnight) is taken at its start.
+			// A ticket is priced by one table: the one in force at its
+			// time basis, the entry (its rows' times go by it), else the
+			// one at the exit (a table that starts that midnight); the
+			// other event is taken within that table's days.
 			ex := &b.events[x]
-			from := ex.Dataset
-			move(&ex.Dataset, &ex.Object, ex.Time, ex.Ref)
-			if e.Dataset = ex.Dataset; e.Dataset != from {
-				e.Object = sameObject(b.ds, out[e.Dataset], e.Object)
+			lead, other := e, ex
+			if odBasisExit(b.ds) {
+				lead, other = ex, e
 			}
-			if d := out[e.Dataset]; d != nil {
-				if t, err := d.Local(e.Time); err == nil && t.Format(time.DateOnly) < d.ValidFrom {
-					if from, err := time.ParseInLocation(time.DateOnly, d.ValidFrom, d.TZ()); err == nil {
-						e.Time = stamp(from)
-					}
-				}
+			v := at(lead.Time)
+			if v == nil {
+				v = at(other.Time)
 			}
+			if v == nil {
+				gone(lead.Time, lead.Ref)
+				e.Dataset, ex.Dataset = dropped, dropped
+				i = x
+				continue
+			}
+			if v != b.ds {
+				use(v)
+				e.Object, ex.Object = sameObject(b.ds, v, e.Object), sameObject(b.ds, v, ex.Object)
+			}
+			e.Dataset, ex.Dataset = v.ID, v.ID
+			e.Time, ex.Time = within(v, e.Time), within(v, ex.Time)
 			i = x
 			continue
 		}
@@ -448,6 +549,7 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			e.Overlays = ov
 		}
 	}
+	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return e.Dataset == dropped })
 	for i := range b.quants {
 		move(&b.quants[i].Dataset, &b.quants[i].Object, b.quants[i].Time, b.quants[i].Ref)
 	}
@@ -463,6 +565,17 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return free(e.Dataset) })
 	b.quants = slices.DeleteFunc(b.quants, func(q orct.Quantity) bool { return free(q.Dataset) })
 	return out
+}
+
+// odBasisExit says whether the dataset's tickets take their time at the
+// exit (time_basis "exit"), not the entry.
+func odBasisExit(ds *tariffs.Dataset) bool {
+	for _, ch := range ds.Charges() {
+		if ch.Type == "od" && ch.TimeBasis == "exit" {
+			return true
+		}
+	}
+	return false
 }
 
 // goneObject stands for an object a later version doesn't have: the
@@ -546,6 +659,11 @@ func objectKm(a, b *orct.Object) (float64, bool) {
 		}
 	}
 	return km, true
+}
+
+// capCut says whether a rule's line is a cap's (orct notes it "cap <id>").
+func capCut(ol *orct.Line) bool {
+	return slices.ContainsFunc(ol.Notes, func(n string) bool { return strings.HasPrefix(n, "cap ") })
 }
 
 // lastOf is the last line priced from the same use (meta), if any.

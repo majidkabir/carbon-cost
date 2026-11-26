@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"math/rand"
 	"math"
 	"net/http"
 	"net/http/httptest"
@@ -772,4 +773,116 @@ func TestPointsAtTheSameSpot(t *testing.T) {
 	}
 	count("NO", pos("no/no-2026-11-18.orct.json", "FV 6612 Hofstad"), Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, 1, "Hofstad")
 	count("SE", pos("se/se-congestion-stockholm-2020-01-01.orct.json", "Essingeleden"), Request{Truck: truck40, CargoKg: 1000, Time: "08:00", FX: map[string]float64{"SEK": 11}}, 1, "Essingeleden")
+}
+
+// A barrier (a station priced to itself) by a stop, the trip going on the
+// same way, is one ticket; there and back through it via the stop, two.
+func TestBarrierByAStop(t *testing.T) {
+	sb := storebaelt().Path
+	mid := len(sb) / 2
+	leg := func(p [][2]float64) sootcase.LegResult {
+		return sootcase.LegResult{DistanceKm: 70, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"DK": 70}, Path: p}
+	}
+	tickets := func(legs ...sootcase.LegResult) int {
+		stops := make([]sootcase.Location, len(legs)+1)
+		r, err := Price(sootcase.Result{Legs: legs}, all(t), Request{Truck: truck40, CargoKg: 1000, Stops: stops}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		n := 0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Storebælt") {
+				n++
+			}
+		}
+		return n
+	}
+	// The Storebælt plaza is on the Zealand side, at the path's third point.
+	plaza := 0
+	for i, p := range sb {
+		if p == [2]float64{11.10879, 55.3498} {
+			plaza = i
+		}
+	}
+	if plaza == 0 {
+		plaza = mid
+	}
+	for _, k := range []int{plaza - 3, plaza + 3} {
+		if n := tickets(leg(sb[:k+1]), leg(sb[k:])); n != 1 {
+			t.Errorf("a stop %d points from the plaza, going on: %d tickets; want 1", k-plaza, n)
+		}
+	}
+	if n := tickets(leg(sb[:plaza+4]), leg(reversed(sb[:plaza+4]))); n != 2 {
+		t.Errorf("there and back via a stop just past the plaza: %d tickets; want 2", n)
+	}
+}
+
+// GPS fixes logged while parked add no km.
+func TestParkedFixes(t *testing.T) {
+	var path [][2]float64
+	for m := 0.0; m <= 4000; m += 25 {
+		path = append(path, [2]float64{9.0 + m/1000/(111.2*math.Cos(52*math.Pi/180)), 52.0})
+	}
+	rng := rand.New(rand.NewSource(1))
+	stop := path[80]
+	parked := [][2]float64{}
+	for i := 0; i < 600; i++ { // 10 minutes at 1 Hz, about 2 m off
+		parked = append(parked, [2]float64{stop[0] + rng.NormFloat64()*0.00003, stop[1] + rng.NormFloat64()*0.00002})
+	}
+	path = append(append(append([][2]float64{}, path[:81]...), parked...), path[81:]...)
+	if km := pathKm(compactPath(path, parkedKm)); math.Abs(km-4) > 0.05 {
+		t.Errorf("4 km with 10 minutes parked: %.2f km", km)
+	}
+}
+
+// Two records of one name at one spot with different prices: the nearest,
+// or the one that names its direction (Ring 3 Sinsenkrysset northbound,
+// pt248 at 346.8°, not pt198 with none 9 m away).
+func TestSameNameRecordsAtOneSpot(t *testing.T) {
+	pt := [2]float64{10.781867, 59.940617}
+	for _, deg := range []float64{346.8, 355, 5} {
+		h := deg * math.Pi / 180
+		// 80 m either side: not as far as the ramps' points.
+		step := [2]float64{math.Sin(h) * 0.08 / (111.2 * math.Cos(59.94*math.Pi/180)), math.Cos(h) * 0.08 / 111.2}
+		path := dense([][2]float64{{pt[0] - step[0], pt[1] - step[1]}, pt, {pt[0] + step[0], pt[1] + step[1]}})
+		r, err := Price(sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 0.6, CountryKm: map[string]float64{"NO": 0.6}, Path: path}}}, all(t),
+			Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, time.Date(2026, 11, 24, 12, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		var got []string
+		for _, l := range r.Lines {
+			if strings.Contains(l.Section, "Ring 3 Sinsenkrysset") {
+				got = append(got, fmt.Sprintf("%.0f", l.Amount))
+			}
+		}
+		if len(got) != 1 || got[0] != "161" {
+			var all []string
+			for _, l := range r.Lines {
+				all = append(all, fmt.Sprintf("%s %.0f", l.Section, l.Amount))
+			}
+			t.Errorf("Ring 3 Sinsenkrysset heading %g°: %q; want one passage at NOK 161 (%q)", deg, got, all)
+		}
+	}
+}
+
+// A driven path along a harbour road, past both terminals of a short
+// crossing within reach, takes no ferry: Esbjerg 300 m east of the Fanø
+// quay.
+func TestNoPhantomFerry(t *testing.T) {
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	fd, err := ferries.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	east := 0.3 / (111.2 * math.Cos(55.46*math.Pi/180))
+	path := dense([][2]float64{{8.44007 + east, 55.44}, {8.44007 + east, 55.485}})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 5, CountryKm: map[string]float64{"DK": 5}, Path: [][2]float64{path[0], path[len(path)-1]}}}}
+	ownPath(bix, &fd, &res, path)
+	if f := res.Legs[0].RouteParts["ferry"]; f > 0 {
+		t.Errorf("Esbjerg harbour road: %.1f ferry km; want none", f)
+	}
 }

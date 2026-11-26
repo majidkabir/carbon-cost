@@ -645,6 +645,7 @@ func systemsOf(ds *tariffs.Dataset) []*system {
 type visit struct {
 	st        *orct.Object
 	pos, dist float64
+	dir       float64 // the route's heading there
 }
 
 // visits are each time the route passes the station, in its direction,
@@ -682,7 +683,7 @@ func (s *system) visits(st *orct.Object, route *track) []visit {
 				continue
 			}
 		}
-		out = append(out, visit{st, x.pos, x.dist})
+		out = append(out, visit{st, x.pos, x.dist, x.heading})
 		seen, last = map[int]bool{x.pt: true}, x
 	}
 	return out
@@ -716,10 +717,11 @@ func laps(vs []visit) [][]visit {
 	return out
 }
 
-// sysUse is a ticket: the stations a route enters and leaves a system at.
+// sysUse is a ticket: the stations a route enters and leaves a system at,
+// and the route's heading at the entry.
 type sysUse struct {
-	entry, exit *orct.Object
-	km, from    float64
+	entry, exit   *orct.Object
+	km, from, dir float64
 }
 
 func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
@@ -734,7 +736,7 @@ func (s *system) uses(ds *tariffs.Dataset, route *track, p *pricer) []sysUse {
 	for _, lap := range laps(s.allVisits(route)) {
 		a, z := lap[0], lap[len(lap)-1]
 		if a.st != z.st || ds.HasPair(s.ch.ID, a.st.ID, a.st.ID) {
-			out = append(out, sysUse{entry: a.st, exit: z.st, km: z.pos - a.pos, from: a.pos})
+			out = append(out, sysUse{entry: a.st, exit: z.st, km: z.pos - a.pos, from: a.pos, dir: a.dir})
 		}
 	}
 	return out
@@ -831,7 +833,7 @@ func (s *system) chainLap(ds *tariffs.Dataset, passes []visit, p *pricer) []sysU
 			continue
 		}
 		j := b.exit
-		out = append(out, sysUse{entry: passes[i].st, exit: passes[j].st, km: passes[j].pos - passes[i].pos, from: passes[i].pos})
+		out = append(out, sysUse{entry: passes[i].st, exit: passes[j].st, km: passes[j].pos - passes[i].pos, from: passes[i].pos, dir: passes[i].dir})
 		i, skip = cont(i, j), j
 	}
 	var spans [][2]float64
@@ -847,7 +849,7 @@ func (s *system) chainLap(ds *tariffs.Dataset, passes []visit, p *pricer) []sysU
 			inside = inside || (ps.pos > sp[0]+sameKm && ps.pos < sp[1]-sameKm)
 		}
 		if !inside {
-			out = append(out, sysUse{entry: ps.st, exit: ps.st, from: ps.pos})
+			out = append(out, sysUse{entry: ps.st, exit: ps.st, from: ps.pos, dir: ps.dir})
 		}
 	}
 	sort.SliceStable(out, func(a, b int) bool { return out[a].from < out[b].from })
@@ -874,8 +876,18 @@ func (p *pricer) matchSystems(b *batch, ds *tariffs.Dataset, country, region str
 	sm := &systemsMatched{untimedNight: map[string]bool{}}
 	for _, s := range systemsOf(ds) {
 		sm.listed = true
+		var prev *sysUse
 		for _, leg := range route.parts() {
-			for _, u := range s.uses(ds, leg, p) {
+			for i, u := range s.uses(ds, leg, p) {
+				// A barrier (a station priced to itself) by a stop: the leg
+				// to the stop and the next, going on the same way, pass it
+				// once.
+				if i == 0 && prev != nil && u.entry == u.exit && prev.entry == prev.exit && u.entry == prev.entry &&
+					math.Abs(u.from-prev.from) < 1 && math.Abs(math.Mod(u.dir-prev.dir+540, 360)-180) < 90 {
+					continue
+				}
+				u := u
+				prev = &u
 				sm.any = true
 				at, timed := p.at(ds, u.from, country)
 				end, _ := p.at(ds, u.from+u.km, country)
@@ -1133,15 +1145,15 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
 	same := func(a, b float64) bool { return math.Abs(math.Mod(a-b+540, 360)-180) < 90 }
-	// Points of other names at the same spot of the route, passed the
-	// same way (two records of one station, the gantry of a road beside
-	// it), are one passage: the nearest, or on a near tie the one that
-	// names its direction.
+	// Points at the same spot of the route, passed the same way (two
+	// records of one station, of one name or not, the gantry of a road
+	// beside it), are one passage: the nearest, or on a near tie the one
+	// that names its direction.
 	var kept []pointPass
 	for _, ps := range passes {
 		if n := len(kept); n > 0 {
 			k := &kept[n-1]
-			if ps.obj.Name != k.obj.Name && ps.pos-k.pos < 0.05 && same(ps.dir, k.dir) {
+			if ps.obj != k.obj && ps.pos-k.pos < 0.05 && same(ps.dir, k.dir) {
 				named := func(x pointPass) bool { return pointsOf(x.obj)[0].Heading != nil }
 				if ps.dist < k.dist-0.005 || math.Abs(ps.dist-k.dist) <= 0.005 && named(ps) && !named(*k) {
 					*k = ps

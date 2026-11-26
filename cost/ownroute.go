@@ -112,6 +112,8 @@ func kmTrip(req *Request) sootcase.Result {
 // crossings from it. Sootcase's emissions stay: they are the shipments',
 // on their own routes, the transport activity distance of EN ISO 14083.
 func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][2]float64) []string {
+	given := len(path)
+	path = compactPath(path, parkedKm)
 	var notes []string
 	var sootKm float64
 	for _, l := range res.Legs {
@@ -185,11 +187,22 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		var spans [][2]int
 		if fd != nil {
 			for _, c := range fd.DetectAll(seg) {
-				if len(c.Terminals) == 2 {
-					a, b := nearestIndex(seg, c.Terminals[0]), nearestIndex(seg, c.Terminals[1])
-					if a != b {
-						spans = append(spans, [2]int{min(a, b), max(a, b)})
-					}
+				if len(c.Terminals) != 2 {
+					continue
+				}
+				// A crossing the path takes: its terminals apart (not one
+				// port twice), the path at each (within a km, and nearer
+				// than half the way across), and between them as long as
+				// half the way across at least; not a road along the
+				// harbour passing both within reach.
+				t0, t1 := c.Terminals[0], c.Terminals[1]
+				across := haversine(t0.Lat, t0.Lon, t1.Lat, t1.Lon)
+				a, b := nearestIndex(seg, t0), nearestIndex(seg, t1)
+				at := func(i int, t ferries.Point) bool {
+					return haversine(seg[i][1], seg[i][0], t.Lat, t.Lon) <= min(1, across/2)
+				}
+				if a != b && across >= 0.5 && at(a, t0) && at(b, t1) && pathKm(seg[min(a, b):max(a, b)+1]) >= across/2 {
+					spans = append(spans, [2]int{min(a, b), max(a, b)})
 				}
 			}
 		}
@@ -250,8 +263,35 @@ func ownPath(ix *borders.Index, fd *ferries.Data, res *sootcase.Result, path [][
 		l.CountrySections, l.Summary, l.DurationH = sectionsOf(Route(ix, seg, fd)), nil, 0
 		ownKm += km
 	}
-	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", len(path), ownKm, sootKm))
+	notes = append(notes, fmt.Sprintf("Route: the path given (%d points, %.1f km), not Sootcase's (%.1f km); the shipments' emissions are Sootcase's on their own routes (EN ISO 14083's transport activity distance).", given, ownKm, sootKm))
 	return notes
+}
+
+// parkedKm is how far a GPS fix must be from the last one kept to count:
+// fixes logged while the truck stands (a stop, a break) wander a few
+// metres, and would add km and seem to drive back past a booth.
+const parkedKm = 0.025
+
+// compactPath keeps a path's first and last points and each one at least
+// minKm from the one kept before it.
+func compactPath(path [][2]float64, minKm float64) [][2]float64 {
+	if len(path) < 3 {
+		return path
+	}
+	out := [][2]float64{path[0]}
+	for _, p := range path[1 : len(path)-1] {
+		q := out[len(out)-1]
+		if haversine(q[1], q[0], p[1], p[0]) >= minKm {
+			out = append(out, p)
+		}
+	}
+	last := path[len(path)-1]
+	if q := out[len(out)-1]; len(out) > 1 && haversine(q[1], q[0], last[1], last[0]) < minKm {
+		out[len(out)-1] = last
+	} else {
+		out = append(out, last)
+	}
+	return out
 }
 
 // sectionsOf are a path's runs as country sections, as Sootcase gives

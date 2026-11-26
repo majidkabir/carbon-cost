@@ -37,6 +37,16 @@ jobs:
               python3 tools/roads/pl_network.py law.txt | diff -u tools/roads/pl-network.json -
               streets=$(python3 -c "import json; print(','.join(sorted({(p.get('street') or p.get('junction')).replace('ul. ', '') for s in json.load(open('tools/roads/pl-network.json'))['sections'] for p in (s['from'], s['to']) if p.get('street') or p.get('junction')})))")
               osmium tags-filter -O -o roads.pbf in.pbf w/ref w/highway=motorway,motorway_link,trunk,trunk_link,primary,primary_link "w/name=$streets" n/highway=motorway_junction n/place r/boundary=administrative
+            elif [ $cc = CZ ]; then
+              # The tolled motorways and class I roads from the law (the
+              # parsed list in the repository must be the law's), then every
+              # way with a ref, junctions, places and administrative
+              # boundaries to find them by.
+              curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://www.epravo.cz/_dataPublic/sbirky/2025/Sb_2025_527_PZZ.pdf
+              pdftotext -layout law.pdf law.txt
+              python3 tools/roads/cz_network.py law.txt > cz-law.json || { cat law.txt; exit 1; }
+              diff -u tools/roads/cz-network.json cz-law.json || { echo "::error::tools/roads/cz-network.json isn't the law's"; [ -s tools/roads/cz-network.json ] && exit 1; cp cz-law.json tools/roads/cz-network.json; }
+              osmium tags-filter -O -o roads.pbf in.pbf w/ref w/highway=motorway,motorway_link,trunk,trunk_link,primary,primary_link n/highway=motorway_junction n/place r/boundary=administrative
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             fi
@@ -51,7 +61,7 @@ jobs:
               extra=areas.pbf
             fi
             ROADS_DEBUG=$(cat tools/roads/DEBUG 2>/dev/null) python3 tools/roads/build.py $cc roads.pbf out/$(echo $cc | tr A-Z a-z).json.gz $extra
-            rm -f in.pbf roads.pbf areas.pbf law.pdf law.txt
+            rm -f in.pbf roads.pbf areas.pbf law.pdf law.txt cz-law.json
           done
           ls -la out
       - name: Push

@@ -627,7 +627,13 @@ def place_pending(h, cc, city=None):
 # by a parser beside it) found in OpenStreetMap by tools/roads/plnet.py.
 # Poland: the e-TOLL regulation's annexes 1 (A and S, "mw") and 2 (other
 # national roads, "nat"), from tools/roads/pl_network.py.
-NETWORK = {"PL": "pl-network.json"}
+# Czechia: vyhláška č. 470/2012 Sb. annexes 1 (dálnice, "mw") and 2 (the
+# tolled class I roads, "nat"), from tools/roads/cz_network.py; a section's
+# km found is reported against the law's.
+NETWORK = {"PL": "pl-network.json", "CZ": "cz-network.json"}
+# The letter of the roads a national road becomes, and the country's
+# administrative area (plnet.build's upgrade and country).
+NETWORK_OPTS = {"PL": {"upgrade": "S"}, "CZ": {"upgrade": "D", "country": "Česko"}}
 
 
 def encode(lines):
@@ -644,11 +650,16 @@ def main_network(cc, src, dst):
     import plnet
     here = os.path.dirname(os.path.abspath(__file__))
     doc = json.load(open(os.path.join(here, NETWORK[cc]), encoding="utf-8"))
-    lines, report = plnet.build(src, doc["sections"])
-    total = Counter()
+    lines, report = plnet.build(src, doc["sections"], **NETWORK_OPTS.get(cc, {}))
+    total, off = Counter(), []
     for (text, km, why), s in zip(report, doc["sections"]):
-        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text, why)
+        law = f" (law {s['km']:.1f})" if s.get("km") else ""
+        if km is not None and s.get("km") and abs(km - s["km"]) > 0.1 * s["km"] + 1:
+            off.append(f"{text}: {km:.1f} km, law {s['km']:.1f}")
+        print(cc, "section", f"{km:7.1f} km" if km is not None else "NOT FOUND ", text + law, why)
         total[s["class"]] += km or 0
+    for o in off:
+        print(cc, "LENGTH OFF:", o)
     print(cc, "km by class (one carriageway):", {k: round(v) for k, v in total.items()})
     bad = [r for r in report if r[1] is None]
     if bad:

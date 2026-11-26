@@ -81,8 +81,8 @@ class Collect(osmium.SimpleHandler):
 
     def node(self, n):
         t = n.tags
-        if t.get("highway") == "motorway_junction" and t.get("name"):
-            self.junctions.append((norm(t["name"]), t["name"], n.id, (n.location.lon, n.location.lat)))
+        if t.get("highway") == "motorway_junction" and (t.get("name") or t.get("ref")):
+            self.junctions.append((norm(t.get("name")), t.get("name") or "", n.id, (n.location.lon, n.location.lat), (t.get("ref") or "").strip()))
         if t.get("place") in PLACES and t.get("name"):
             self.places[t["name"]].append((n.location.lon, n.location.lat))
 
@@ -141,15 +141,35 @@ class Collect(osmium.SimpleHandler):
             pass
 
 
+# The letter of the roads a national road of the same number becomes: in
+# Poland the expressways (S7 is national road 7); in Czechia the
+# motorways (D35 runs where class I road 35 did). build() sets it.
+UPGRADE = "S"
+# The country's boundary (its administrative area's name): a section's end
+# at the state border with no place named is the road's end nearest it.
+COUNTRY = None
+
+
 def aliases(ref):
     """The refs a road's ways may carry in OpenStreetMap: an expressway is
     the national road of its number (S7 is national road 7), so where one
     has been built or reclassified OpenStreetMap may tag the other."""
-    if ref.startswith("S"):
+    if ref.startswith(UPGRADE) and ref[1:].isdigit():
         return [ref, ref[1:]]
     if ref.isdigit():
-        return [ref, "S" + ref]
+        return [ref, UPGRADE + ref]
     return [ref]
+
+
+def place_names(name):
+    """A place's name as the law writes it and the names OpenStreetMap may
+    give it: "Praha-Satalice" is Satalice in Praha, "Louny-západ" Louny's
+    west, "Slaný - západ" Slaný's."""
+    out = [name]
+    parts = [p.strip() for p in re.split(r"\s*-\s*", name) if p.strip()]
+    if len(parts) > 1:
+        out += [parts[-1], parts[0]]
+    return [n for i, n in enumerate(out) if n not in out[:i] and n not in ("západ", "východ", "sever", "jih", "centrum")]
 
 
 class Road:
@@ -397,6 +417,51 @@ def candidates(c, road, pt, jx):
             return out, ""
         close = sorted({j[1] for j in by}, key=lambda n: -SequenceMatcher(None, norm(pt["junction"]), norm(n)).ratio())[:6]
         return [], f"junction {pt['junction']!r} not on the road; its junctions most like it: {close}"
+    if "exit" in pt:
+        # A motorway junction by its number on the road (both carriageways'),
+        # else by its name.
+        on = [j for j in jx if j[4] == pt["exit"] and (j[2] in road.adj or road.near(j[3], 500))]
+        out = [j[2] for j in on if j[2] in road.adj]
+        for j in on:
+            if j[2] not in road.adj:
+                out += road.nearest(road.near(j[3], 500), j[3], 500, 100)
+        if out:
+            return out, ""
+        if pt.get("junction"):
+            out, why = candidates(c, road, {"near": pt["junction"]}, jx)
+            return out, why and f"no exit {pt['exit']} on the road; {why}"
+        return [], f"no exit {pt['exit']} on the road"
+    if "near" in pt:
+        # A junction of the name on the road, else the road's nodes nearest
+        # a place of the name (the one nearest the road).
+        for name in place_names(pt["near"]):
+            named, _ = junctions_named(road, name, jx)
+            out = [j[2] for j in named if j[2] in road.adj]
+            for j in named:
+                if j[2] not in road.adj:
+                    out += road.nearest(road.near(j[3], NEAR_JUNCTION_M), j[3], NEAR_JUNCTION_M, 200)
+            if out:
+                return out, ""
+        for name in place_names(pt["near"]):
+            places = c.places.get(name, [])
+            if not places or not road.adj:
+                continue
+            place = min(places, key=lambda p: dist_m(road.coords[road.nearest(road.adj, p, math.inf, 0)[0]], p))
+            out = road.nearest(road.adj, place, 5000, 300)
+            if out:
+                return out, ""
+        return [], f"no junction or place {pt['near']!r} by the road"
+    if "border" in pt and pt["border"] is None:
+        # The road's ends nearest the country's boundary.
+        land = c.city.get(COUNTRY)
+        if not land:
+            return [], f"no boundary of {COUNTRY!r}"
+        edge = land[1].boundary
+        ends = sorted((edge.distance(Point(road.coords[n])) * 111000, n) for n in road.ends)
+        ends = [(d, n) for d, n in ends if d <= 3000]
+        if not ends:
+            return [], "no end of the road within 3 km of the state border"
+        return [n for d, n in ends if d <= ends[0][0] + 2000], ""
     if "border" in pt:
         places = c.places.get(pt["border"], [])
         if not places:
@@ -441,13 +506,15 @@ def candidates(c, road, pt, jx):
     return out, "" if out else f"no crossing with {pt['crosses']} by {pt['place']!r}, nor the road within 5 km of it"
 
 
-def build(src, sections):
+def build(src, sections, upgrade="S", country=None):
     """The sections' lines by class ("mw", "nat"), [lon, lat] each, and a
     report of each section's km (the longest carriageway) or why it
-    wasn't found."""
+    wasn't found. upgrade: UPGRADE; country: COUNTRY."""
+    global UPGRADE, COUNTRY
+    UPGRADE, COUNTRY = upgrade, country
     refs = {a for s in sections for a in aliases(s["ref"])}
     cross = {r for s in sections for pt in (s["from"], s["to"]) for r in pt.get("crosses", [])}
-    cities = {pt["city"] for s in sections for pt in (s["from"], s["to"]) if "city" in pt}
+    cities = {pt["city"] for s in sections for pt in (s["from"], s["to"]) if "city" in pt} | ({country} if country else set())
     streets = {street_of(pt["street"]) for s in sections for pt in (s["from"], s["to"]) if pt.get("street")}
     streets |= {street_of(pt["junction"]) for s in sections for pt in (s["from"], s["to"]) if "junction" in pt}
     c = Collect(refs, cross, cities, streets)

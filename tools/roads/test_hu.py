@@ -2,7 +2,7 @@
 sections' ways (relations tagged ref:HU:edid), their other carriageways
 and the gaps where the annex runs on count; the road between two sections
 the annex doesn't join isn't tolled; a road whose sections OSM lacks is
-tolled by its ref, but not inside Budapest.
+tolled by its ref, but not inside Budapest unless it has a section there.
 
 Usage: python3 test_hu.py
 """
@@ -44,7 +44,9 @@ def osm(path, areas):
     way(6, line(0, 6, dy=0.05), highway="motorway", ref="M1")         # in no section, OSM lacking M1's: by ref
     way(9, line(-10, -7), highway="primary", ref="3")                 # inside Budapest
     way(10, line(-11, -8, dy=0.05), highway="motorway", ref="M1")     # inside Budapest
-    for rid, (edid, w) in enumerate((("3u22k810m", 1), ("3u25k636m", 4), ("3u17k534m", 7)), 1):
+    way(11, line(-11, -10, dy=-0.05), highway="motorway", ref="M0")   # section M0u0k0m, inside Budapest
+    way(12, line(-10, -8, dy=-0.05), highway="motorway", ref="M0")    # M0 by ref there: tolled
+    for rid, (edid, w) in enumerate((("3u22k810m", 1), ("3u25k636m", 4), ("3u17k534m", 7), ("M0u0k0m", 11)), 1):
         rels.append(f'<relation id="{rid}" version="1"><member type="way" ref="{w}" role=""/>'
                     f'<tag k="type" v="route"/><tag k="ref:HU:edid" v="{edid}"/></relation>')
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + "".join(nodes + ways + rels) + "</osm>")
@@ -65,8 +67,8 @@ def main():
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
     nat, mw = km(out["nat"]), km(out["mw"])
-    ok = abs(nat - 12) < 0.2 and abs(mw - 6) < 0.2 and len(out["natf"]) == len(out["nat"])
-    print(f"nat {nat:.2f} km (want 12: sections 3 + 3 + 1, the other carriageway 3, the gap 2), mw {mw:.2f} km (want 6: M1 by ref outside Budapest)")
+    ok = abs(nat - 12) < 0.2 and abs(mw - 9) < 0.2 and len(out["natf"]) == len(out["nat"])
+    print(f"nat {nat:.2f} km (want 12: sections 3 + 3 + 1, the other carriageway 3, the gap 2), mw {mw:.2f} km (want 9: M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")
     for f in (src, dst, areas):
         os.remove(f)
     os.rmdir(d)

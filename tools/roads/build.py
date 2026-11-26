@@ -464,7 +464,8 @@ def place_pending(h, cc, city=None):
     The rest is left out on a road whose sections OSM has (COVERED of the
     annex's km, both carriageways of an M road), and on a road whose
     sections it lacks is tolled by its ref as before, but not inside
-    Budapest (city), whose roads annex 1 doesn't list; reported by road."""
+    Budapest (city) unless the road has a section there (the M0);
+    reported by road."""
     kx = 111_320 * 0.68  # metres per degree of longitude near 47.2° N
     m = lambda pts: [(x * kx, y * 111_320) for x, y in pts]
     trees = {}
@@ -508,6 +509,8 @@ def place_pending(h, cc, city=None):
                 best = (dist, secs[i])
         return best and best[1]
 
+    # Roads annex 1 tolls inside Budapest (the M0): a section way there.
+    city_roads = {road for road, secs in h.sec_lines.items() if city is not None and any(ls.intersects(city) for ls, *_ in secs)}
     twins, gaps, breaks, dropped, kept, in_city = Counter(), Counter(), Counter(), Counter(), Counter(), Counter()
     rest = []  # (refs, class, points, points in metres)
     for refs, c, coords in h.pending:
@@ -582,7 +585,7 @@ def place_pending(h, cc, city=None):
             # OSM lacks this road's sections: tolled by its ref, outside Budapest.
             ls = LineString(coords)
             pieces = [ls]
-            if city is not None and ls.intersects(city):
+            if city is not None and road not in city_roads and ls.intersects(city):
                 out = ls.difference(city)
                 pieces = [g for g in getattr(out, "geoms", [out]) if g.geom_type == "LineString" and not g.is_empty]
                 in_city[road] += km * (1 - (out.length / ls.length if ls.length else 0))

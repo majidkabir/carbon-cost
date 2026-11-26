@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/majidkabir/carbon-cost/ferries"
+	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
@@ -325,5 +326,32 @@ func TestOwnPathOtherWay(t *testing.T) {
 	path := [][2]float64{{0, 0.5}, {0.3, 0.4}, {0.3, 0.2}, {0, 0.1}}
 	if s := sootFerrySpans(route, r1+sea+r2, parts, path); len(s) != 0 {
 		t.Errorf("spans %v", s)
+	}
+}
+
+// From 26 March 2027 trucks over 3.5 t and under 12 t pay the Eurovignette:
+// Luxembourg's at its rate (RGD 21 May 2019 art. 1er, 3°), Sweden's
+// listed as missing (no kronor amounts yet), not "no toll".
+func TestEurovignetteUnder12t(t *testing.T) {
+	c := Calculator{Tariffs: all(t)}
+	small := rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 6, CO2Class: 1}
+	for _, tc := range []struct {
+		cc, date string
+		eur      float64
+		complete bool
+	}{{"LU", "2027-04-01", 5, true}, {"LU", "2027-03-25", 0, true}, {"SE", "2027-04-01", 0, false}, {"SE", "2027-03-25", 0, true}} {
+		r, err := c.Calculate(context.Background(), Request{Date: tc.date, Truck: small, CargoKg: 2000, LPer100Km: 20, FuelCountry: "AT", CountryKm: map[string]float64{tc.cc: 50}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.AmountEUR
+			}
+		}
+		if eur != tc.eur || r.Complete != tc.complete {
+			t.Errorf("%s %s: EUR %.2f complete %v, want %.2f %v (missing %+v)", tc.cc, tc.date, eur, r.Complete, tc.eur, tc.complete, r.Missing)
+		}
 	}
 }

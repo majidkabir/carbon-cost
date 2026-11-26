@@ -1160,7 +1160,7 @@ func TestEstoniaLithuaniaPerDay(t *testing.T) {
 		want  float64
 	}{
 		{"EE", truck40, 22},
-		{"EE", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 10},
+		{"EE", rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, 0}, // exempt until 30 June 2031 (§ 264^6)
 		{"EE", rates.Truck{MaxMassKg: 26000, Axles: 3, Euro: 4, CO2Class: 1}, 16},
 		{"EE", rates.Truck{MaxMassKg: 7500, Axles: 2, Euro: 3, CO2Class: 1}, 13},
 		{"LT", truck40, 23},

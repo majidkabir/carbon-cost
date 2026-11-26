@@ -1952,3 +1952,26 @@ func TestFuelByDayDriven(t *testing.T) {
 		t.Errorf("ETS2 from 23:00 on 31 December 2027: EUR %.2f; all in 2028 EUR %.2f", e2, all2028)
 	}
 }
+
+// Ireland's carbon tax of EUR 71/t ends on 30 April 2027: Revenue's manual
+// says the increase legislated for 2026 is postponed to 1 May 2027.
+func TestIrishCarbonTaxEnds(t *testing.T) {
+	c := Calculator{Tariffs: all(t)}
+	for date, want := range map[string]bool{"2027-04-30": true, "2027-05-01": false} {
+		r, err := c.Calculate(context.Background(), Request{Date: date, Truck: truck40, CargoKg: 10000, LPer100Km: 30, FuelCountry: "IE", CountryKm: map[string]float64{"IE": 100}})
+		if err != nil {
+			t.Fatal(err)
+		}
+		var fuel bool
+		for _, l := range r.Lines {
+			fuel = fuel || l.Charge == FuelCO2
+		}
+		var ended bool
+		for _, m := range r.Missing {
+			ended = ended || (m.Charge == FuelCO2 && m.Reason == "ended")
+		}
+		if fuel != want || ended == want {
+			t.Errorf("%s: fuel CO2 line %v, ended %v", date, fuel, ended)
+		}
+	}
+}

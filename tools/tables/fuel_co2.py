@@ -206,10 +206,19 @@ def ireland(fetched, out, srcs):
             merged[-1][1] = vt
         else:
             merged.append([vf, vt, rate])
+    # A legislated increase postponed to a day: the last rate ends before it
+    # (the new amount is in the law, not the manual).
+    flat = re.sub(r"\s+", " ", t)
+    m = re.search(r"postpone carbon tax increases, which had been legislated to come into effect in \d{4}, until (\d+ \w+ \d{4})", flat)
+    ends = ""
+    if m and merged and not merged[-1][1] and irish_date(m.group(1)) > merged[-1][0]:
+        import datetime
+        merged[-1][1] = (datetime.date.fromisoformat(irish_date(m.group(1))) - datetime.timedelta(days=1)).isoformat()
+        ends = f" The manual says the increase legislated for 2026 is postponed to {m.group(1)}, so this rate ends the day before."
     for vf, vt, rate in merged:
         f = {"country": "IE", "currency": "EUR", "valid_from": vf,
              "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel", "rate_per_t": rate,
-             "law": f"Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges {rate:.2f} euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price.",
+             "law": f"Finance Act 1999 Schedule 2A, as Revenue's Excise Duty Rates manual gives it: the carbon component of Mineral Oil Tax on heavy oil used as a propellant (auto-diesel) charges {rate:.2f} euro per tonne of CO2 its burning emits. Fuel suppliers pay it with the Mineral Oil Tax and pass it on in the fuel price." + (ends if vt == merged[-1][1] and ends else ""),
              "sources": [src(srcs, "ie-revenue-energy-rates")]}
         if vt:
             f["valid_to"] = vt

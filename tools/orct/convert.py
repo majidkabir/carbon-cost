@@ -301,7 +301,7 @@ def convert_table(t, path):
             "min_kg", "tolled_roads", "motor_axles", "rows", "per_tonne_km", "max_chargeable_kg", "per_day", "day",
             "exemptions", "surcharges", "closed_systems", "toll_points", "point_match_km", "sections", "congestion",
             "motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "env_zone_surcharge",
-            "shared_vignette"}
+            "shared_vignette", "not_priced"}
     motor = bool(t.get("motor_axles"))
     liable = {"description": t.get("vehicles", ""), "criteria": clean({"train_mass_kg": rng(t.get("min_kg"))})}
 
@@ -331,6 +331,9 @@ def convert_table(t, path):
     for k in ("motorway_share", "suburban_share", "crossings", "ferry", "ets_in_fare", "charged_from", "osm_extract", "shared_vignette"):
         if k in t:
             b.keep(k, t[k])
+    # Vehicles liable that the rows don't price (they are reported missing).
+    for reason in t.get("not_priced", []):
+        b.partial("dataset", reason)
     for k in sorted(set(t) - used):
         b.keep(k, t[k], f"{k} is kept as an extension (no ORCT field yet)")
     return b.doc(liable)

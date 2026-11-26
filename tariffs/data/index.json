@@ -1134,7 +1134,7 @@
    "name": "Estonian road user charge (teekasutustasu)",
    "valid_from": "2026-01-01",
    "valid_to": null,
-   "sha256": "607fe5399ff5946ef3e7532cdcc1f9884d7f8ce08dfcae8b5e25b2974a5fcc28",
+   "sha256": "cc4a68f5618937f7177dce5a1eb59dbcd74864af5ba36183bd3458cf29a02385",
    "coverage": "complete"
   },
   {
@@ -1958,8 +1958,8 @@
    "file": "ie/fuelco2-ie-2025-10-08.orct.json",
    "name": "Carbon tax (carbon component of Mineral Oil Tax) on auto-diesel",
    "valid_from": "2025-10-08",
-   "valid_to": null,
-   "sha256": "46c825225e39374b553cc1781a889ff2236cd8f75b4e44e85443cbd7f604b139",
+   "valid_to": "2027-04-30",
+   "sha256": "16dd561f0dddc42bf7db7eebe5617e120a518095b18e56135fe73790539a6d73",
    "coverage": "complete"
   },
   {
@@ -2365,8 +2365,19 @@
    "file": "lu/lu-2025-03-25.orct.json",
    "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
    "valid_from": "2025-03-25",
+   "valid_to": "2027-03-25",
+   "sha256": "0df3f1ffac9df6fd4635f388de3514e0a761886d74a664a280f81465fd46cd8c",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/lu/2027-03-26",
+   "scheme": "lu",
+   "country": "LU",
+   "file": "lu/lu-2027-03-26.orct.json",
+   "name": "Luxembourg road user charge (Eurovignette, droit d'usage)",
+   "valid_from": "2027-03-26",
    "valid_to": null,
-   "sha256": "0989893f5ce0fd346f1bcbd94d5f8424dd4dd161939aaa2a34c1ecebb2575ff0",
+   "sha256": "32d85df605954b2bdf449ebc88da58902b7871a42636fd11944b83693049e527",
    "coverage": "complete"
   },
   {
@@ -3278,9 +3289,20 @@
    "file": "se/se-2027-01-01.orct.json",
    "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
    "valid_from": "2027-01-01",
-   "valid_to": "2027-12-31",
-   "sha256": "93917346993b439079a105408ccc507d98e6bf180ed0e538dcb111880cf0bad4",
+   "valid_to": "2027-03-25",
+   "sha256": "1f4f47d888e3e4e30793e95b2528cd1b5daa255fe730ee6608db27c322f99bbf",
    "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/se/2027-03-26",
+   "scheme": "se",
+   "country": "SE",
+   "file": "se/se-2027-03-26.orct.json",
+   "name": "Swedish road charge for heavy goods vehicles (vägavgift, Eurovignette)",
+   "valid_from": "2027-03-26",
+   "valid_to": "2027-12-31",
+   "sha256": "67d70c9345cecbfa42db758f8973e15e861ed7f50f9e90a748b55e90f952ad79",
+   "coverage": "partial"
   },
   {
    "id": "carbon-cost/se-bridges/2024-05-01",

@@ -11,9 +11,33 @@ trucks (Regulation (EU) 2019/1242 Art. 3(11)) have their own rates. The
 table keeps the 24-hour rate. Each paragraph is read from its own text
 ("Kui ... on teekasutustasu määrad ...: 1) 24 tunni määr on N eurot"),
 and the table is valid from the latest entry-into-force date noted in
-§ 190^3 ("jõust. dd.mm.yyyy").
+§ 190^3 ("jõust. dd.mm.yyyy"). § 264^6 exempts zero-emission trucks and
+their trailers until a date (their rates apply from the day after), back
+to a day from which it applies ("tagasiulatuvalt"): an exemption of the
+table, which must start on or before that day.
 """
 import datetime, html, json, os, re, sys
+
+MONTHS = ["jaanuari", "veebruari", "märtsi", "aprilli", "mai", "juuni", "juuli", "augusti", "septembri", "oktoobri",
+          "novembri", "detsembri"]
+
+
+def day(y, d, month):
+    return datetime.date(int(y), MONTHS.index(month) + 1, int(d)).isoformat()
+
+
+def zero_emission_exemption(t):
+    """§ 264^6: (until, from) of the zero-emission exemption, or None."""
+    i = t.find("§ 264^6.")
+    if i < 0:
+        return None
+    sec = t[i:t.index("§ 265", i)]
+    until = re.search(r"Heiteta veoauto ja selle haagis on kuni (\d{4})\. aasta (\d{1,2})\. (\w+?)ni teekasutustasust vabastatud", sec)
+    since = re.search(r"tagasiulatuvalt (\d{4})\. aasta (\d{1,2})\. (\w+?)st\b", sec)
+    if not until or not since:
+        sys.exit("§ 264^6: no exemption dates")
+    return day(*until.groups()), day(*since.groups())
+
 
 EURO = [("EURO 0, EURO I või EURO II", [0, 1, 2]), ("EURO III", [3]), ("EURO IV, EURO V või EEV", [4, 5]),
         ("EURO VI või vähem saastavasse", [6])]
@@ -65,7 +89,14 @@ def main(fetched, out):
     if len(rows) != 12:
         sys.exit(f"§ 190^3: {len(rows)} rate paragraphs, want 12")
     dates = sorted(f"{y}-{m}-{d}" for d, m, y in re.findall(r"jõust\. (\d\d)\.(\d\d)\.(\d{4})", sec))
-    write(out, dates[-1], None, [r for _, r in rows], "zero-emission trucks pay lower rates from 1 January 2026")
+    zev, exempt = "zero-emission trucks have their own rates", []
+    if ex := zero_emission_exemption(t):
+        until, since = ex
+        if since > dates[-1]:
+            sys.exit(f"§ 264^6: the exemption applies from {since}, after the table's {dates[-1]}")
+        zev = f"zero-emission trucks and their trailers are exempt until {until} (§ 264^6, from {since}), their own rates applying from the day after"
+        exempt = [{"co2_class": [5], "until": until, "note": f"Zero-emission trucks and their trailers are exempt until {until} (Liiklusseadus § 264^6 (2), from {since})."}]
+    write(out, dates[-1], None, [r for _, r in rows], zev, exempt)
     # The text notes when each paragraph's wording came into force. Before
     # the latest date, the rates are those of the paragraphs already in
     # force then, if the later ones only added zero-emission rates (which
@@ -77,7 +108,7 @@ def main(fetched, out):
         write(out, earlier[-1], to, [r for d, r in rows if d < dates[-1]], f"the zero-emission rates came into force on {dates[-1]}; until then zero-emission trucks paid by EURO class")
 
 
-def write(out, valid_from, valid_to, rows, zev):
+def write(out, valid_from, valid_to, rows, zev, exempt=()):
     # Zero-emission rows first, the more axles first.
     rows.sort(key=lambda r: ("co2_class" not in r, -r.get("min_axles", 0)))
     tb = {
@@ -94,6 +125,8 @@ def write(out, valid_from, valid_to, rows, zev):
     }
     if valid_to:
         tb["valid_to"] = valid_to
+    if exempt:
+        tb["exemptions"] = list(exempt)
     os.makedirs(out, exist_ok=True)
     path = os.path.join(out, f"ee-{valid_from}.json")
     json.dump(tb, open(path, "w"), ensure_ascii=False, indent=1)

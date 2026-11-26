@@ -1638,3 +1638,74 @@ func TestCongestionCapLines(t *testing.T) {
 		t.Errorf("SEK %.2f, want the day's maximum 135", sek)
 	}
 }
+
+// A use a ticket includes goes with the ticket's table across midnight:
+// the Yavuz Sultan Selim bridge in the O-7 ticket (Turkey), not charged
+// again by the next day's table.
+func TestIncludedUseWithItsTicket(t *testing.T) {
+	path := dense([][2]float64{{29.02, 41.2375}, {29.027875, 41.234945}, {29.111661, 41.202962}, {29.202463, 41.19211}, {29.21, 41.19}})
+	var km float64
+	for i := 0; i+1 < len(path); i++ {
+		km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+	}
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"TR": km}, RouteParts: map[string]float64{"road": km}}}}
+	for _, c := range []struct {
+		day time.Time
+		at  string
+	}{{time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "23:53"}, {time.Date(2026, 6, 30, 0, 0, 0, 0, time.UTC), "23:53"}, {time.Date(2025, 12, 31, 0, 0, 0, 0, time.UTC), "12:00"}} {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: c.at, AvgSpeedKmh: 70, origin: "TR", FX: map[string]float64{"TRY": 50}, spans: map[string][][2]float64{"TR": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, c.day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var paid []string
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll && l.Amount > 0 {
+				paid = append(paid, l.Section)
+			}
+		}
+		if len(paid) != 1 {
+			t.Errorf("%s %s: %q; want the O-7 ticket alone", c.day.Format(time.DateOnly), c.at, paid)
+		}
+	}
+}
+
+// With no toll table on the trip's day, its last or first table prices
+// the uses on its own days and reports only those outside them: a route
+// past none of Spain's state toll motorways misses none, before their
+// first table or after their last; Italy's first table prices a trip
+// reaching it after midnight.
+func TestNoTableOnTheDay(t *testing.T) {
+	priced := func(cc string, pts [][2]float64, day time.Time, at string) (*Response, float64) {
+		path := dense(pts)
+		var km float64
+		for i := 0; i+1 < len(path); i++ {
+			km += haversine(path[i][1], path[i][0], path[i+1][1], path[i+1][0])
+		}
+		res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{cc: km}, RouteParts: map[string]float64{"road": km}}}}
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: cc, spans: map[string][][2]float64{cc: {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, day)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.Amount
+			}
+		}
+		return &r, eur
+	}
+	for _, day := range []time.Time{time.Date(2024, 6, 1, 0, 0, 0, 0, time.UTC), time.Date(2027, 1, 15, 0, 0, 0, 0, time.UTC)} {
+		if r, _ := priced("ES", [][2]float64{{2.0, 41.5}, {1.5, 41.3}}, day, ""); slices.ContainsFunc(r.Missing, func(m Missing) bool { return strings.Contains(m.Name, "SEITT") }) {
+			t.Errorf("ES off the SEITT roads on %s: missing %+v", day.Format(time.DateOnly), r.Missing)
+		}
+	}
+	a1 := [][2]float64{{11.19187, 44.14234}, {11.19150, 44.13922}, {11.19156, 44.13688}, {11.19185, 44.13445}, {11.19230, 44.13252}, {11.19359, 44.12917}, {11.19467, 44.12720}, {11.19593, 44.12528}, {11.19760, 44.12325}, {11.20007, 44.12074}, {11.21426, 44.10865}, {11.21636, 44.10652}, {11.22021, 44.10219}, {11.22349, 44.09763}, {11.22840, 44.08950}, {11.23020, 44.08687}, {11.23555, 44.07763}, {11.23717, 44.07508}}
+	r, late := priced("IT", a1, time.Date(2024, 12, 31, 0, 0, 0, 0, time.UTC), "23:59")
+	_, own := priced("IT", a1, time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC), "00:01")
+	// The km after midnight priced; the minute's before it, before the table.
+	if late < 0.8*own || late >= own || len(r.Missing) != 1 || r.Missing[0].Reason != "before_table" {
+		t.Errorf("IT from 23:59 on 31 December 2024: EUR %.2f (missing %+v); from 00:01 EUR %.2f", late, r.Missing, own)
+	}
+}

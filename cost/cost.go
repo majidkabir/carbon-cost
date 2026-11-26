@@ -1277,6 +1277,28 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			continue
 		}
 		if !ok {
+			// No table on the trip's date: its last (ended) or its first
+			// (starting later) prices the trip's uses on its own days (a
+			// timed trip reaching it after midnight), and says which it
+			// meets outside them; a route that meets none of its charges
+			// misses nothing.
+			d, have := set.Ended(a.code, date)
+			if !have {
+				d, have = set.First(a.code, date)
+			}
+			if have && len(route.pts) >= 2 && d.Doc.NoCharge == nil {
+				n := len(out.Missing)
+				if err := p.priceArea(d, a, route); err != nil {
+					return Response{}, err
+				}
+				if slices.ContainsFunc(out.Missing[n:], func(m Missing) bool {
+					return m.Area == d.Area() && (m.Reason == "ended" || m.Reason == "before_table")
+				}) {
+					out.NoRates = append(out.NoRates, a.code)
+				}
+				continue
+			}
+			// With no route (country_km), or no charge said: the whole area.
 			if a.km >= 0.5 {
 				out.NoRates = append(out.NoRates, a.code)
 				m := Missing{Area: a.code, Charge: RoadToll, Reason: "no_table"}

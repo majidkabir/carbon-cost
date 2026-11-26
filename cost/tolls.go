@@ -506,6 +506,29 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 		return ts
 	}
 	const dropped = "(no table)" // a ticket with no table: neither event priced
+	// The tickets' spans and tables: a use a ticket includes (a bridge in
+	// its fare, ORCT included_in) goes with the ticket's table.
+	type span struct {
+		from, to time.Time
+		v        *tariffs.Dataset
+	}
+	var tickets []span
+	included := map[string]bool{}
+	for _, r := range b.ds.Doc.Rules {
+		if r.Kind == "included_in" {
+			if objs, ok := r.Params["objects"].([]any); ok {
+				for _, o := range objs {
+					if id, ok := o.(string); ok {
+						included[id] = true
+					}
+				}
+			}
+		}
+	}
+	timeOf := func(ts string) time.Time {
+		t, _ := time.Parse(time.RFC3339, ts)
+		return t
+	}
 	for i := 0; i < len(b.events); i++ {
 		e := &b.events[i]
 		if x := i + 1; e.Role == "entry" && x < len(b.events) && b.events[x].Role == "exit" && b.events[x].Ref == e.Ref {
@@ -521,6 +544,9 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			v := at(lead.Time)
 			if v == nil {
 				v = at(other.Time)
+			}
+			if len(included) > 0 {
+				tickets = append(tickets, span{timeOf(e.Time), timeOf(ex.Time), v})
 			}
 			if v == nil {
 				gone(lead.Time, lead.Ref)
@@ -538,6 +564,11 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 			continue
 		}
 		from := e.Dataset
+		if included[e.Object] {
+			if t := timeOf(e.Time); slices.ContainsFunc(tickets, func(s span) bool { return !t.Before(s.from) && !t.After(s.to) }) {
+				continue // the second pass puts it with its ticket
+			}
+		}
 		move(&e.Dataset, &e.Object, e.Time, e.Ref)
 		if e.Dataset != from && len(e.Overlays) > 0 {
 			ov := map[string]orct.Dec{}
@@ -547,6 +578,30 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 				}
 			}
 			e.Overlays = ov
+		}
+	}
+	// The uses a ticket includes: with its table, within its days (or
+	// none, with it).
+	for i := range b.events {
+		e := &b.events[i]
+		if e.Role != "" || !included[e.Object] || e.Dataset != b.ds.ID {
+			continue
+		}
+		t := timeOf(e.Time)
+		for _, s := range tickets {
+			if t.Before(s.from) || t.After(s.to) {
+				continue
+			}
+			switch {
+			case s.v == nil:
+				e.Dataset = dropped
+			case s.v != b.ds:
+				e.Dataset, e.Object = s.v.ID, sameObject(b.ds, s.v, e.Object)
+			}
+			if s.v != nil {
+				e.Time = within(s.v, e.Time)
+			}
+			break
 		}
 	}
 	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return e.Dataset == dropped })

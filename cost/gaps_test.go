@@ -1363,4 +1363,77 @@ func TestVignetteThenKmCharge(t *testing.T) {
 	if !r.Complete || day == 0 || math.Abs(km-105) > 2 {
 		t.Errorf("NL from 23:30 on 30 June: vignette EUR %.2f, km charge on %.1f km (want 105); missing %+v", day, km, r.Missing)
 	}
+	// The vignette's line and note are its day's: 35 km, one day.
+	for _, l := range r.Lines {
+		if l.Country == "NL" && l.Days > 0 && math.Abs(l.Km-35) > 2 {
+			t.Errorf("vignette on %.1f km; want the 35 km of its day", l.Km)
+		}
+	}
+	if notes := strings.Join(r.Notes, "\n"); strings.Contains(notes, "on 2 calendar days") || strings.Contains(notes, "all 140.0 km") {
+		t.Errorf("notes: %s", notes)
+	}
+	// Denmark's vignette to its km toll on 1 January 2025: the
+	// environmental zones' km go to the km toll.
+	dk := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 140, TTWKg: 50, WTWKg: 60, CountryKm: map[string]float64{"DK": 140}, RouteParts: map[string]float64{"road": 140}}}}
+	req = Request{CargoKg: 10000, Truck: truck40, Time: "23:30", AvgSpeedKmh: 70, origin: "DK", EnvZoneKm: map[string]float64{"DK": 4}, spans: map[string][][2]float64{"DK": {{0, 140}}}}
+	if r, err = PriceWith(dk, all(t), nil, req, time.Date(2024, 12, 31, 0, 0, 0, 0, time.UTC)); err != nil {
+		t.Fatal(err)
+	}
+	env := false
+	for _, l := range r.Lines {
+		env = env || l.Country == "DK" && l.Km == 4
+	}
+	if !env || !r.Complete {
+		t.Errorf("DK from 23:30 on 31 December 2024: no environmental zone line in %+v (missing %+v)", r.Lines, r.Missing)
+	}
+}
+
+// A use that moves into a version charging nothing owes nothing:
+// Romania's Danube bridge just after midnight on 30 September 2026.
+func TestNoChargeNextVersion(t *testing.T) {
+	path := dense([][2]float64{{28.00, 44.335}, {28.018083, 44.339525}, {28.04, 44.345}})
+	km := haversine(44.335, 28.00, 44.345, 28.04)
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"RO": km}, RouteParts: map[string]float64{"road": km}}}}
+	req := Request{CargoKg: 1000, Truck: truck40, Time: "23:59", AvgSpeedKmh: 70, origin: "RO", FX: map[string]float64{"RON": 5}, spans: map[string][][2]float64{"RO": {{0, km}}}}
+	r, err := PriceWith(res, all(t), nil, req, time.Date(2026, 9, 30, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, m := range r.Missing {
+		if m.Reason == "unpriced" {
+			t.Errorf("bridge after midnight: %+v", r.Missing)
+		}
+	}
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Danube") {
+			t.Errorf("bridge after midnight charged: %+v", l)
+		}
+	}
+}
+
+// A station renamed in the next version ("A1 Pombal - Soure" to "A1
+// Pombal – Soure"), its id the same, is still priced after midnight.
+func TestNextVersionRenamedStation(t *testing.T) {
+	path := dense([][2]float64{{-8.64, 39.97}, {-8.623918, 39.98436}, {-8.61, 40.0}})
+	km := haversine(39.97, -8.64, 40.0, -8.61)
+	res := sootcase.Result{TTWKg: 5, WTWKg: 6, Legs: []sootcase.LegResult{{DistanceKm: km, TTWKg: 5, WTWKg: 6, Path: path, CountryKm: map[string]float64{"PT": km}, RouteParts: map[string]float64{"road": km}}}}
+	toll := func(at string, d time.Time) (float64, bool) {
+		req := Request{CargoKg: 1000, Truck: truck40, Time: at, AvgSpeedKmh: 70, origin: "PT", spans: map[string][][2]float64{"PT": {{0, km}}}}
+		r, err := PriceWith(res, all(t), nil, req, d)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var eur float64
+		for _, l := range r.Lines {
+			if l.Charge == RoadToll {
+				eur += l.Amount
+			}
+		}
+		return eur, r.Complete
+	}
+	after, complete := toll("23:59", time.Date(2024, 12, 31, 0, 0, 0, 0, time.UTC))
+	own, _ := toll("10:00", time.Date(2025, 1, 1, 0, 0, 0, 0, time.UTC))
+	if !complete || after == 0 || after != own {
+		t.Errorf("Pombal after midnight: EUR %.2f (complete %v); the next day EUR %.2f", after, complete, own)
+	}
 }

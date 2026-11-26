@@ -438,6 +438,17 @@ func (p *pricer) versions(b *batch) map[string]*tariffs.Dataset {
 	for i := range b.quants {
 		move(&b.quants[i].Dataset, &b.quants[i].Object, b.quants[i].Time, b.quants[i].Ref)
 	}
+	// A use on a day the scheme charges nothing (Romania's Danube bridges
+	// from 1 October 2026) owes nothing.
+	free := func(id string) bool {
+		if d := out[id]; d != nil && d.Doc.NoCharge != nil {
+			p.note("%s: from %s, %s", d.Area(), d.ValidFrom, d.Doc.NoCharge.Description)
+			return true
+		}
+		return false
+	}
+	b.events = slices.DeleteFunc(b.events, func(e orct.Event) bool { return free(e.Dataset) })
+	b.quants = slices.DeleteFunc(b.quants, func(q orct.Quantity) bool { return free(q.Dataset) })
 	return out
 }
 
@@ -458,7 +469,9 @@ func sameObject(old, v *tariffs.Dataset, id string) string {
 	same := func(x *orct.Object) bool {
 		return x.Type == o.Type && x.Name == o.Name && x.Road == o.Road && x.Operator == o.Operator
 	}
-	if x := v.Object(id); x != nil && same(x) && objectKm(o, x) < 1 {
+	// Its own id, where it is still there (renamed or not: "A1 Pombal -
+	// Soure" became "A1 Pombal – Soure").
+	if x := v.Object(id); x != nil && x.Type == o.Type && objectKm(o, x) < samePlaceKm {
 		return id
 	}
 	best, bestKm := goneObject, math.Inf(1)
@@ -469,8 +482,24 @@ func sameObject(old, v *tariffs.Dataset, id string) string {
 			}
 		}
 	}
+	if best != goneObject {
+		return best
+	}
+	// Else one of its type in its place, renamed and renumbered ("Fv4856
+	// Skjoldavegen", 16 m from "Skjoldavegen").
+	for _, x := range v.Objects() {
+		if x.Type == o.Type {
+			if km := objectKm(o, x); km < samePlaceKm && km < bestKm {
+				best, bestKm = x.ID, km
+			}
+		}
+	}
 	return best
 }
+
+// samePlaceKm is how near an object of the next version must be to be
+// the same one when its name has changed.
+const samePlaceKm = 0.2
 
 // objectKm is how far apart two objects are, by their first points (a
 // section's start), with 1,000 km more for points facing other ways; 0

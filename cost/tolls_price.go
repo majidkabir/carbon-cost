@@ -83,6 +83,17 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 			break
 		}
 	}
+	// Where a version prices only the trip's own days (otherKind), its km
+	// are those driven on them.
+	if p.only != nil {
+		kept := 0.0
+		for _, d := range p.kmDays(ds, a.country, a.region) {
+			if p.only(d.at.Format(time.DateOnly)) {
+				kept += d.share
+			}
+		}
+		km *= kept
+	}
 	tolledKm := km * share
 	nw := networkOf(ds)
 	rk, byRoute := req.roadKm[a.country]
@@ -156,10 +167,22 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		zkm = req.EnvZoneKm[a.country]
 	}
 	if zkm > 0 {
-		if nw.env == "" {
+		// On one of the days this version prices, where it prices only
+		// some (otherKind; the other version says if it has none).
+		at := p.noon(ds)
+		if p.only != nil {
+			for _, d := range p.kmDays(ds, a.country, a.region) {
+				if p.only(d.at.Format(time.DateOnly)) {
+					at = d.at
+					break
+				}
+			}
+		}
+		switch {
+		case nw.env != "":
+			b.km(nw.env, at, zkm, nil, &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: zkm, hasKm: true})
+		case p.only == nil:
 			p.note("%s: env_zone_km given, but %s has no environmental zone surcharge.", cc, ds.Name)
-		} else {
-			b.km(nw.env, p.noon(ds), zkm, nil, &lineMeta{charge: RoadToll, country: a.country, region: a.region, km: zkm, hasKm: true})
 		}
 	}
 	systems, points := p.matchSystems(b, ds, a.country, a.region, route), p.matchPoints(b, ds, a.country, route)
@@ -335,6 +358,27 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 	}
 	days := p.kmDays(ds, a.country, a.region)
+	if p.only != nil {
+		// Only the trip's days here (otherKind): km and overlays are
+		// those days' already (priceArea), so their shares are of them.
+		kept := 0.0
+		for _, d := range days {
+			if p.only(d.at.Format(time.DateOnly)) {
+				kept += d.share
+			}
+		}
+		var in []kmDay
+		for _, d := range days {
+			if p.only(d.at.Format(time.DateOnly)) && kept > 0 {
+				d.share /= kept
+				in = append(in, d)
+			}
+		}
+		days = in
+		for id := range overlays {
+			overlays[id] *= kept
+		}
+	}
 	// The sections' km (priced on their own) come off the parts in
 	// proportion, once in all.
 	total := 0.0
@@ -486,9 +530,6 @@ func suburbanShareORCT(ds *tariffs.Dataset, rk roads.Km, byRoute bool, road stri
 func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, tolledKm float64) {
 	req, cc := p.req, a.code
 	days, note := p.tripDaysORCT(ds, nw.perDay, a.country)
-	if p.only != nil {
-		days = slices.DeleteFunc(days, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
-	}
 	if group := ""; ds.Ext("shared_vignette", &group) && group != "" {
 		days = p.claimDays(group, cc, days)
 	}
@@ -619,6 +660,9 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 				until = until.Add(24 * time.Hour)
 			}
 		}
+	}
+	if p.only != nil {
+		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
 	}
 	n := len(out)
 	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]

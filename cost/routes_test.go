@@ -76,6 +76,10 @@ func TestRoutes(t *testing.T) {
 	if r, err = c.Calculate(context.Background(), req); err != nil || r.DistanceKm != 150 || !r.Routes[1].Chosen || r.Routes[0].Chosen {
 		t.Fatalf("alt1: %v %v %+v", err, r.DistanceKm, r.Routes)
 	}
+	// Its one cargo's tonne-km are on it, as its emissions are.
+	if s := r.Shipments[0]; s.DistanceKm != 150 {
+		t.Errorf("alt1: the cargo's distance %v, want 150", s.DistanceKm)
+	}
 	req = base
 	req.Route = "cheapest"
 	if r, err = c.Calculate(context.Background(), req); err != nil || r.DistanceKm != 100 || !r.Routes[0].Chosen || !strings.Contains(queries[len(queries)-1], "alternatives=3") {

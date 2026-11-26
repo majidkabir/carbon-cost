@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
@@ -200,5 +201,41 @@ func TestShipmentRowsAndReport(t *testing.T) {
 	}
 	if err := summarize([]io.Reader{strings.NewReader("from,to\nA,B\n")}, &rep, nil); err == nil {
 		t.Error("an unpriced CSV: want an error")
+	}
+}
+
+// A batch or CSV that takes longer than the server's write timeout still
+// gets its answer.
+func TestBatchPastWriteTimeout(t *testing.T) {
+	route := fakeRoute(t)
+	defer route.Close()
+	slow := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(700 * time.Millisecond)
+		route.Config.Handler.ServeHTTP(w, r)
+	}))
+	defer slow.Close()
+	c, err := calculator(&sootcase.Client{BaseURL: slow.URL})
+	if err != nil {
+		t.Fatal(err)
+	}
+	srv := httptest.NewUnstartedServer(Handler(c, "none"))
+	srv.Config.WriteTimeout = 300 * time.Millisecond
+	srv.Start()
+	defer srv.Close()
+	trip := `{"from": {"code": "DEHAM"}, "to": {"code": "DEBER"}, "date": "2026-11-03", "cargo_kg": 20000, "truck": {"max_mass_kg": 40000, "axles": 5, "euro": 6, "co2_class": 1}}`
+	for path, body := range map[string]string{
+		"/v1/carbon-cost/batch": `{"trips": [` + trip + `]}`,
+		"/v1/carbon-cost/csv":   "from,to,date,cargo-kg\nDEHAM,DEBER,2026-11-03,20000\n",
+	} {
+		resp, err := http.Post(srv.URL+path, "text/plain", strings.NewReader(body))
+		if err != nil {
+			t.Errorf("%s: %v", path, err)
+			continue
+		}
+		b, _ := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if resp.StatusCode != 200 || !strings.Contains(string(b), "DE") {
+			t.Errorf("%s: %d %s", path, resp.StatusCode, b)
+		}
 	}
 }

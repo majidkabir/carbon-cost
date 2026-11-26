@@ -903,11 +903,14 @@ func handlerAt(c cost.Calculator, tiles, public string, warm bool) (http.Handler
 			writeJSON(w, http.StatusBadRequest, map[string]string{"error": fmt.Sprintf("trips: give 1 to %d", MaxBatch)})
 			return
 		}
-		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(r.Context(), c.Calculate, req.Trips)})
+		ctx, cancel := context.WithTimeout(r.Context(), batchTime(w, len(req.Trips)))
+		defer cancel()
+		writeJSON(w, http.StatusOK, BatchResponse{Results: priceAll(ctx, c.Calculate, req.Trips)})
 	})
 	// A CSV of trips, as calc -csv takes it (but no flag that reads a
 	// file or names a server), priced and sent back with the results.
 	mux.HandleFunc("POST /v1/carbon-cost/csv", func(w http.ResponseWriter, r *http.Request) {
+		batchTime(w, MaxBatch) // priceCSV gives its trips a minute each
 		var buf bytes.Buffer
 		rows := r.URL.Query().Get("rows")
 		if rows != "" && rows != "trips" && rows != "shipments" {

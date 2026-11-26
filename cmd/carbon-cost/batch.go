@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"runtime/debug"
 	"slices"
@@ -25,6 +26,15 @@ const batchWorkers = 4
 
 // MaxBatch is the most trips one batch request may hold.
 const MaxBatch = 100
+
+// batchTime is the time a batch of n trips may take, a minute a trip;
+// the response may be written until a minute after it (the server's
+// write timeout is shorter).
+func batchTime(w http.ResponseWriter, n int) time.Duration {
+	d := time.Duration(max(n, 1)) * time.Minute
+	http.NewResponseController(w).SetWriteDeadline(time.Now().Add(d + time.Minute))
+	return d
+}
 
 // BatchRequest is several trips to price (POST /v1/carbon-cost/batch).
 type BatchRequest struct {

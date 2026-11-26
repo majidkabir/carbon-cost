@@ -119,7 +119,9 @@ func (s *Site) Register(mux *http.ServeMux) {
 }
 
 func (s *Site) get() *built {
-	day := s.now().UTC().Format(time.DateOnly)
+	// The day in Central European Time, where most of the rates change
+	// at midnight.
+	day := s.now().In(cost.LocalZone("")).Format(time.DateOnly)
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if s.built == nil {

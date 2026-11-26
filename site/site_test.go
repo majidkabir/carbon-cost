@@ -239,3 +239,21 @@ func TestToEURAfterTheRates(t *testing.T) {
 		t.Errorf("rates' day a month after %s: %q, %v", last, d, ok)
 	}
 }
+
+// The pages change at midnight Central European Time, not UTC.
+func TestPagesByLocalDay(t *testing.T) {
+	set, err := tariffs.Load()
+	if err != nil {
+		t.Fatal(err)
+	}
+	cph, _ := time.LoadLocation("Europe/Copenhagen")
+	s, err := New(set, "https://example.org/carbon-cost", func() time.Time { return time.Date(2027, 1, 1, 0, 30, 0, 0, cph) })
+	if err != nil {
+		t.Fatal(err)
+	}
+	mux := http.NewServeMux()
+	s.Register(mux)
+	if _, body := get(t, mux, "/tolls/co2-tax-diesel"); strings.Contains(body, "31 December 2026") {
+		t.Errorf("pages of 31 December 2026 at 00:30 on 1 January 2027 in Copenhagen")
+	}
+}

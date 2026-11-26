@@ -556,7 +556,8 @@ f.pathfile.addEventListener("change", async () => {
     if (texts.some((t) => /"vehicle(Position|Status)Response"/.test(t))) {
       const r = parseRFMS(texts.map((t) => JSON.parse(t)));
       if (r.path.length >= 2) setDriven(parsePath(JSON.stringify(r.path)), "rFMS " + r.vin); else setDriven(null);
-      if (r.dieselL > 0 && !f.diesel_l.value && !f.l_per_100km.value) f.diesel_l.value = Math.round(r.dieselL * 1000) / 1000;
+      // Litres given (burnt, per 100 km or bought) win, as on the command line.
+      if (r.dieselL > 0 && !f.diesel_l.value && !f.l_per_100km.value && !f.fuel_bought.value.trim()) f.diesel_l.value = Math.round(r.dieselL * 1000) / 1000;
       // The page shows the browser's day; the server takes the start's
       // day where the truck starts (rFMS times are UTC).
       if (r.date) { f.date.value = r.date; rfmsStart = { day: r.date, at: r.start }; }

@@ -1,6 +1,7 @@
 package cost
 
 import (
+	"cmp"
 	"math"
 	"slices"
 
@@ -155,6 +156,7 @@ func (t *track) passes(p rates.Place, reach float64) []trackPass {
 	type near struct {
 		i                  int32
 		pos, dist, heading float64
+		at                 [2]float64 // the route's nearest point
 	}
 	seen := map[int32]bool{}
 	var ns []near
@@ -178,22 +180,58 @@ func (t *track) passes(p rates.Place, reach float64) []trackPass {
 					u = math.Max(0, math.Min(1, -(ax*dx+ay*dy)/l))
 				}
 				if d := math.Hypot(ax+u*dx, ay+u*dy); d <= reach {
-					ns = append(ns, near{i, t.cum[i] + u*seg, d, math.Mod(math.Atan2(dx, dy)*180/math.Pi+360, 360)})
+					at := [2]float64{a[0] + u*(b[0]-a[0]), a[1] + u*(b[1]-a[1])}
+					ns = append(ns, near{i, t.cum[i] + u*seg, d, math.Mod(math.Atan2(dx, dy)*180/math.Pi+360, 360), at})
 				}
 			}
 		}
 	}
 	slices.SortFunc(ns, func(a, b near) int { return int(a.i - b.i) })
-	var out []trackPass
+	reversed := func(a, b float64) bool { return math.Abs(math.Mod(a-b+540, 360)-180) >= 150 }
+	// The stretches within reach: another where the route was away in
+	// between (segments out of reach), for a km of route or more.
+	var runs [][]near
 	for k, n := range ns {
-		// Another pass where the route was away in between: segments out
-		// of reach, a km of route or more.
 		if k == 0 || n.i > ns[k-1].i+1 && t.cum[n.i]-t.cum[ns[k-1].i+1] >= 1 {
-			out = append(out, trackPass{n.pos, n.dist, n.heading})
-			continue
+			runs = append(runs, nil)
 		}
-		if last := &out[len(out)-1]; n.dist < last.dist {
-			*last = trackPass{n.pos, n.dist, n.heading}
+		runs[len(runs)-1] = append(runs[len(runs)-1], n)
+	}
+	var out []trackPass
+	for _, run := range runs {
+		// A stretch the route turns back on (a U-turn) passes the place
+		// twice: going away from it (by 100 m, or out of reach), turning
+		// to head the other way, and coming back over the same spot (within
+		// 50 m: the same road, or its other carriageway), not a loop of a
+		// junction.
+		for len(run) > 0 {
+			best, far, away, cut := run[0], run[0].dist, false, -1
+			for k, n := range run {
+				if k > 0 && n.i > run[k-1].i+1 {
+					away = true
+				}
+				if (far-best.dist >= 0.1 || away) && reversed(n.heading, best.heading) {
+					cut = k
+					break
+				}
+				if n.dist < best.dist {
+					best, far, away = n, n.dist, false
+				}
+				far = max(far, n.dist)
+			}
+			if cut > 0 {
+				back := slices.MinFunc(run[cut:], func(a, b near) int { return cmp.Compare(a.dist, b.dist) })
+				if back.dist <= max(0.1, best.dist+0.1) && reversed(back.heading, best.heading) &&
+					haversine(back.at[1], back.at[0], best.at[1], best.at[0]) <= 0.05 {
+					out = append(out, trackPass{best.pos, best.dist, best.heading})
+					run = run[cut:]
+					continue
+				}
+				// It doesn't come back to the place: one pass.
+				best = slices.MinFunc(run, func(a, b near) int { return cmp.Compare(a.dist, b.dist) })
+			}
+			out = append(out, trackPass{best.pos, best.dist, best.heading})
+			break
 		}
 	}
 	return out

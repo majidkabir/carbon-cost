@@ -606,3 +606,105 @@ func TestPathAtSea(t *testing.T) {
 		t.Errorf("a path at sea: %v; want a path error", err)
 	}
 }
+
+// The Elbe ferry's fare for the load goes by each leg's own: out with
+// 20 t, back empty or with 1 t.
+func TestElbeLoadPerLeg(t *testing.T) {
+	path := [][2]float64{{9.42, 53.80}, {9.398622, 53.793962}, {9.352505, 53.78884}, {9.33, 53.785}}
+	leg := func(p [][2]float64) sootcase.LegResult {
+		return sootcase.LegResult{DistanceKm: 25, CountryKm: map[string]float64{"DE": 25}, Path: p}
+	}
+	res := sootcase.Result{Legs: []sootcase.LegResult{leg(path), leg(reversed(path))}}
+	for back, want := range map[float64]float64{0: 25.20, 1000: 25.20 + 1.26} {
+		req := Request{Truck: truck40, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "A"}},
+			Shipments: []Shipment{{ID: "out", WeightKg: 20000, From: 0, To: 1}}}
+		if back > 0 {
+			req.Shipments = append(req.Shipments, Shipment{ID: "back", WeightKg: back, From: 1, To: 2})
+		}
+		req.legLoadKg = []float64{20000, back}
+		r, err := Price(res, all(t), req, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := 0.0
+		for _, l := range r.Lines {
+			if strings.Contains(l.Source, "fare for loads") {
+				got += l.Amount
+			}
+		}
+		if math.Abs(got-want) > 0.01 {
+			t.Errorf("back with %v kg: the loads' fares EUR %.2f; want %.2f", back, got, want)
+		}
+	}
+}
+
+// A toll point passed on the way to a stop 0.3 km past it and again on
+// the way back is two passages.
+func TestPointBothWaysNearAStop(t *testing.T) {
+	pt := [2]float64{10.132119, 59.119744}
+	from := [2]float64{pt[0] - 0.05, pt[1] - 0.02}
+	// 0.3 km on past the point, the same way.
+	d := [2]float64{pt[0] - from[0], pt[1] - from[1]}
+	km := haversine(from[1], from[0], pt[1], pt[0])
+	stop := [2]float64{pt[0] + d[0]*0.3/km, pt[1] + d[1]*0.3/km}
+	there := dense([][2]float64{from, pt, stop})
+	leg := func(p [][2]float64) sootcase.LegResult {
+		return sootcase.LegResult{DistanceKm: 4, CountryKm: map[string]float64{"NO": 4}, Path: p}
+	}
+	r, err := Price(sootcase.Result{Legs: []sootcase.LegResult{leg(there), leg(reversed(there))}}, all(t),
+		Request{Truck: truck40, CargoKg: 1000, Stops: []sootcase.Location{{Code: "A"}, {Code: "B"}, {Code: "A"}}, FX: map[string]float64{"NOK": 11.7}},
+		time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Skinmo") {
+			n++
+		}
+	}
+	if n != 2 {
+		t.Errorf("E18 Skinmo there and back with a stop 0.3 km past it: %d passages; want 2", n)
+	}
+}
+
+// A U-turn 0.3 km past a closed system's exit booth, on one leg, makes
+// the way back a ticket of its own; and past a toll point, a passage.
+func TestUTurnWithinReach(t *testing.T) {
+	bisko := [2]float64{16.68549, 43.57016}
+	prev := [2]float64{16.0, 43.8}
+	d := [2]float64{bisko[0] - prev[0], bisko[1] - prev[1]}
+	km := haversine(prev[1], prev[0], bisko[1], bisko[0])
+	turn := [2]float64{bisko[0] + d[0]*0.3/km, bisko[1] + d[1]*0.3/km}
+	there := dense([][2]float64{{15.55, 44.03}, {15.5809, 44.00868}, prev, bisko, turn})
+	res := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 300, TTWKg: 100, WTWKg: 120, CountryKm: map[string]float64{"HR": 300},
+		Path: append(there, reversed(there)[1:]...), RouteParts: map[string]float64{}}}}
+	r, err := Price(res, all(t), Request{CargoKg: 10000, Truck: truck40}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if math.Abs(r.TotalEUR-2*18.88) > 0.05 {
+		t.Errorf("Benkovac–Bisko, a U-turn 0.3 km past Bisko, and back: EUR %.2f; want %.2f", r.TotalEUR, 2*18.88)
+	}
+
+	pt := [2]float64{10.132119, 59.119744}
+	from := [2]float64{pt[0] - 0.05, pt[1] - 0.02}
+	d = [2]float64{pt[0] - from[0], pt[1] - from[1]}
+	km = haversine(from[1], from[0], pt[1], pt[0])
+	stop := [2]float64{pt[0] + d[0]*0.3/km, pt[1] + d[1]*0.3/km}
+	there = dense([][2]float64{from, pt, stop})
+	r, err = Price(sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 8, CountryKm: map[string]float64{"NO": 8}, Path: append(there, reversed(there)[1:]...)}}}, all(t),
+		Request{Truck: truck40, CargoKg: 1000, FX: map[string]float64{"NOK": 11.7}}, time.Date(2026, 11, 24, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	n := 0
+	for _, l := range r.Lines {
+		if strings.Contains(l.Section, "Skinmo") {
+			n++
+		}
+	}
+	if n != 2 {
+		t.Errorf("E18 Skinmo with a U-turn 0.3 km past it on one leg: %d passages; want 2", n)
+	}
+}

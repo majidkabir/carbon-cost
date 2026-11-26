@@ -1063,7 +1063,9 @@ func lengthClasses(ds *tariffs.Dataset, ch *orct.Charge) bool {
 type pointPass struct {
 	obj   *orct.Object
 	ch    *orct.Charge
+	leg   int
 	pos   float64
+	dir   float64 // the route's heading there
 	at    time.Time
 	timed bool
 	meta  *lineMeta
@@ -1119,22 +1121,26 @@ func (p *pricer) matchPoints(b *batch, ds *tariffs.Dataset, country string, rout
 		}
 		// Each time the route passes it: on each leg, and again on one
 		// where the route comes back (a day's driven path).
-		for _, leg := range route.parts() {
+		for li, leg := range route.parts() {
 			for _, ps := range leg.passes(pts[0], match) {
 				if pts[0].Heading != nil && math.Abs(math.Mod(ps.heading-*pts[0].Heading+540, 360)-180) > 90 {
 					continue
 				}
-				passes = append(passes, pointPass{obj: o, ch: ch, pos: ps.pos})
+				passes = append(passes, pointPass{obj: o, ch: ch, leg: li, pos: ps.pos, dir: ps.heading})
 			}
 		}
 	}
 	sort.SliceStable(passes, func(i, j int) bool { return passes[i].pos < passes[j].pos })
-	last := map[string]float64{}
+	// Points of one name passed within a km on one leg the same way are
+	// one passage (a toll point's objects either way); on another leg, or
+	// on the way back from a U-turn, another.
+	last := map[string]pointPass{}
 	for _, ps := range passes {
-		if at, ok := last[ps.obj.Name]; ok && ps.pos-at < 1 {
+		key := fmt.Sprint(ps.leg, ps.obj.Name)
+		if l, ok := last[key]; ok && ps.pos-l.pos < 1 && math.Abs(math.Mod(ps.dir-l.dir+540, 360)-180) < 90 {
 			continue
 		}
-		last[ps.obj.Name] = ps.pos
+		last[key] = ps
 		ps.at, ps.timed = p.at(ds, ps.pos, country)
 		if ps.ch.Component == "congestion" && !ps.timed {
 			if p.chargedOn(ds, ps.obj.ID) {
@@ -1299,37 +1305,69 @@ func (p *pricer) priceCrossings(set *tariffs.Set, route *track) error {
 		if ok, err := ds.Liable(p.vehicle); err != nil || !ok {
 			continue
 		}
-		b := &batch{ds: ds}
-		sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
-		if !sm.any && !pm.any {
-			p.untimed(ds, ds.Country, pm)
-			continue
-		}
-		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
-			for i := range b.events {
-				if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
-					m.charge = FerryFare
-				}
-				if o := ds.Object(b.events[i].Object); o != nil {
-					p.fareAt = append(p.fareAt, pointsOf(o)...)
+		// A fare by the load on board (the Elbe ferry's): each leg at its
+		// own load (none on an empty one).
+		if loads := p.req.legLoadKg; len(route.legs) > 1 && len(loads) == len(route.legs) && byLoad(ds) {
+			all, had := p.vehicle["load_kg"]
+			var err error
+			for i, leg := range route.legs {
+				if p.vehicle["load_kg"] = loads[i]; err == nil {
+					err = p.priceCrossing(ds, leg)
 				}
 			}
+			if delete(p.vehicle, "load_kg"); had {
+				p.vehicle["load_kg"] = all
+			}
+			if err != nil {
+				return err
+			}
+			continue
 		}
-		st, err := p.price(b, "", nil)
-		if err != nil {
+		if err := p.priceCrossing(ds, route); err != nil {
 			return err
 		}
-		pm.listed = len(pm.passes) > 0
-		p.afterPoints(ds, ds.Country, st, pm)
-		p.afterSystems(ds, ds.Country, st, sm)
-		charge := RoadToll
-		if ferry := false; ds.Ext("ferry", &ferry) && ferry {
-			charge = FerryFare
-		}
-		p.unpriced(ds, ds.Country, st, charge)
-		p.addSources(ds)
-		p.useTable(ds)
 	}
+	return nil
+}
+
+// byLoad says whether a charge of the dataset goes by the load on board.
+func byLoad(ds *tariffs.Dataset) bool {
+	return slices.ContainsFunc(ds.Charges(), func(ch *orct.Charge) bool { return ch.MassBasis == "load_kg" })
+}
+
+// priceCrossing prices one dataset's bridges, tunnels or ferries on the
+// route.
+func (p *pricer) priceCrossing(ds *tariffs.Dataset, route *track) error {
+	b := &batch{ds: ds}
+	sm, pm := p.matchSystems(b, ds, ds.Country, "", route), p.matchPoints(b, ds, ds.Country, route)
+	if !sm.any && !pm.any {
+		p.untimed(ds, ds.Country, pm)
+		return nil
+	}
+	if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+		for i := range b.events {
+			if m, ok := b.events[i].Ref.(*lineMeta); ok && m.charge == RoadToll {
+				m.charge = FerryFare
+			}
+			if o := ds.Object(b.events[i].Object); o != nil {
+				p.fareAt = append(p.fareAt, pointsOf(o)...)
+			}
+		}
+	}
+	st, err := p.price(b, "", nil)
+	if err != nil {
+		return err
+	}
+	pm.listed = len(pm.passes) > 0
+	p.afterPoints(ds, ds.Country, st, pm)
+	p.afterSystems(ds, ds.Country, st, sm)
+	charge := RoadToll
+	if ferry := false; ds.Ext("ferry", &ferry) && ferry {
+		charge = FerryFare
+	}
+	p.unpriced(ds, ds.Country, st, charge)
+	p.addSources(ds)
+	p.useTable(ds)
 	return nil
 }
 

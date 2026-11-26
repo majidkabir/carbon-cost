@@ -107,7 +107,8 @@ type pricer struct {
 func newPricer(req Request, date time.Time, out *Response, add func(Line) error) *pricer {
 	p := &pricer{req: req, date: date, out: out, add: add, vehicle: vehicleOf(req.Truck)}
 	// The load carried on the trip, for fares per tonne of it (the Elbe
-	// ferry's per started 1,000 kg): the heaviest on any leg.
+	// ferry's per started 1,000 kg): the heaviest on any leg, where the
+	// legs aren't priced each at their own (priceCrossings).
 	load := req.CargoKg
 	for _, l := range req.legLoadKg {
 		load = math.Max(load, l)

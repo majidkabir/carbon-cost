@@ -89,6 +89,7 @@ func Generate(root, version string) ([]byte, error) {
 	}
 	errs := map[string]any{
 		"400": jsonBody(errRef, "The request is wrong: its JSON, a field, or a place Sootcase doesn't know."),
+		"413": jsonBody(errRef, "The body is over 8 MiB."),
 		"502": jsonBody(errRef, "Sootcase (routes and emissions) failed or refused this server."),
 		"503": jsonBody(errRef, "Sootcase is busy (it limits requests); try again later."),
 	}
@@ -118,14 +119,15 @@ func Generate(root, version string) ([]byte, error) {
 				"summary":     "Price up to 100 trips",
 				"operationId": "priceBatch",
 				"requestBody": map[string]any{"required": true, "content": map[string]any{"application/json": map[string]any{"schema": breq}}},
-				"responses":   with(jsonBody(bres, "Each trip's result or error, in the order asked.")),
+				// Each trip's error, Sootcase's too, is in its item.
+				"responses": map[string]any{"200": jsonBody(bres, "Each trip's result or error, in the order asked."), "400": errs["400"], "413": errs["413"]},
 			}},
 			"/v1/carbon-cost/csv": map[string]any{"post": map[string]any{
 				"summary": "Price a CSV of up to 100 trips",
 				"description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, " +
 					"shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); " +
 					"path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, " +
-					"carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, missing, error). With rows=shipments a trip with " +
+					"carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, fuel_complete, missing, error). With rows=shipments a trip with " +
 					"shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
 				"operationId": "priceCSV",
 				"parameters": []any{map[string]any{"name": "rows", "in": "query", "schema": map[string]any{"type": "string", "enum": []string{"trips", "shipments"}},
@@ -134,6 +136,7 @@ func Generate(root, version string) ([]byte, error) {
 				"responses": map[string]any{
 					"200": map[string]any{"description": "The rows with the results added.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
 					"400": jsonBody(errRef, "The CSV can't be read, or has more than 100 rows."),
+					"413": jsonBody(errRef, "The body is over 2 MiB."),
 				},
 			}},
 			"/v1/carbon-cost/report": map[string]any{"post": map[string]any{
@@ -150,6 +153,7 @@ func Generate(root, version string) ([]byte, error) {
 				"responses": map[string]any{
 					"200": map[string]any{"description": "A row per group.", "content": map[string]any{"text/csv": map[string]any{"schema": map[string]any{"type": "string"}}}},
 					"400": jsonBody(errRef, "The CSV isn't one carbon-cost priced, or has no column to group by."),
+					"413": jsonBody(errRef, "The body is over 8 MiB."),
 				},
 			}},
 			"/v1/rates": map[string]any{"get": map[string]any{

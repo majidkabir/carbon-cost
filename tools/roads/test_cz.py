@@ -154,6 +154,10 @@ def osm(path, new):
         way(87, RING, highway="primary", junction="roundabout", oneway="yes")
     else:
         way(86, 5, 5.2, D, highway="primary", ref="36")
+    D = -0.57
+    way(88, 0, 8, D, highway="primary", ref="36")
+    if new:                                                           # new: a ref-less closed loop way 88 passes through (not a roundabout)
+        way(89, [(3, D), (3.5, D + 0.003), (4.5, D + 0.003), (5, D), (4.5, D - 0.003), (3.5, D - 0.003), (3, D)], highway="secondary")
     D = -0.27
     if new:                                                           # moved 40 m off at km 1.2-1.6
         way(51, [(0, D), (0.5, D), (1.2, D), (1.2, D + 0.00036), (1.6, D + 0.00036), (1.6, D), (3, D)], highway="primary", ref="38")
@@ -183,7 +187,7 @@ def drawn(wid, x):
         return "nat" if 2.4 <= x <= 2.6 else None
     return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw",
             30: "nat", 31: "nat", 32: "nat", 33: "nat", 36: "nat", 37: "nat", 44: "nat", 45: "nat", 47: "nat", 48: "nat", 51: "nat",
-            52: "nat", 53: "nat", 56: "nat", 58: "nat", 60: "nat", 62: "nat", 63: "nat", 68: "nat", 70: "nat", 72: "nat", 80: "nat", 82: "nat", 84: "nat", 85: "nat", 86: "nat"}.get(wid)
+            52: "nat", 53: "nat", 56: "nat", 58: "nat", 60: "nat", 62: "nat", 63: "nat", 68: "nat", 70: "nat", 72: "nat", 80: "nat", 82: "nat", 84: "nat", 85: "nat", 86: "nat", 88: "nat"}.get(wid)
 
 
 # The stretches' latitudes (dy) and the class I km tolled there: 30-32
@@ -194,18 +198,19 @@ def drawn(wid, x):
 # bypass round the town, not the passage; 62, 63 and the new ways and
 # split roundabout between; 68, not the ref-less street off it and back;
 # 70 and 72, not the passage OSM moved; 73 but the passage OSM moved;
-# 80, 83 and 82, not the passage; 84, 85 and the roundabout between them.
+# 80, 83 and 82, not the passage; 84, 85 and the roundabout between them;
+# 88, not the closed loop off it.
 BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08,
          -0.30: 12.0, -0.33: 12 + km_of(BYPASS[-0.33]), -0.36: 8 + km_of(BYPASS[-0.36]),
          -0.39: 10 + 0.9 + 0.9 + km_of([(5.9, -0.39), (6.0, -0.3891), (6.1, -0.39), (6.0, -0.3909), (5.9, -0.39)]),
-         -0.42: 10.0, -0.45: 8.0, -0.48: 7.9, -0.51: 4.027, -0.54: 9.8 + km_of(RING)}  # -0.48: 8 but a slot at the passage's end
+         -0.42: 10.0, -0.45: 8.0, -0.48: 7.9, -0.51: 4.027, -0.54: 9.8 + km_of(RING), -0.57: 8.0}  # -0.48: 8 but a slot at the passage's end
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 125.3, "text": "I/38"}, {"class": "nat", "ref": "36", "km": 10.3, "text": "I/36"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 125.3, "text": "I/38"}, {"class": "nat", "ref": "36", "km": 18.3, "text": "I/36"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -245,7 +250,7 @@ def main():
     bands_ok = all(abs(got[dy] - want) < 0.1 for dy, want in BANDS.items())
     for dy, want in BANDS.items():
         print(f"stretch at {dy}: {got[dy]:.2f} km tolled, want {want}")
-    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60, 62, 63, 68, 70, 71, 72, 73, 80, 81, 82, 84, 85, 86} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60, 62, 63, 68, 70, 71, 72, 73, 80, 81, 82, 84, 85, 86, 88} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
     print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     # Too much changed since the reading: the build asks for a new one.

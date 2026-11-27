@@ -63,13 +63,42 @@ def parse(fetched):
     return f"{state.group(1)}-{state.group(2)}-{state.group(3)}", infra, seg, an, co2
 
 
+ECB = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", "fx", "data", "ecb-hist.csv")
+
+
+def eur_huf(day):
+    """The EUR/HUF rate the external-cost charge is converted at on day
+    (209/2013. (VI. 18.) Korm. rendelet § 3/A (2)-(3)): the ECB rate of
+    October's first working day replaces the one in force from the next
+    1 January when it differs from it by more than 5%. 388.60, the rate of
+    2 October 2023, is in force from 1 January 2024. Returns the rate and
+    the day of its ECB rate."""
+    assert day >= "2024-01-01", day
+    rate, of = 388.60, "2023-10-02"
+    octs = {}
+    for line in open(ECB):
+        d, *cols = line.strip().split(",")
+        if d == "date":
+            col = cols.index("HUF")
+        elif d[5:7] == "10" and d[:4] not in octs and cols[col]:
+            octs[d[:4]] = (d, float(cols[col]))
+    for year in sorted(octs):
+        d, r = octs[year]
+        if year >= "2024" and f"{int(year) + 1}-01-01" <= day and abs(r / rate - 1) > 0.05:
+            rate, of = r, d
+    return rate, of
+
+
 def main(fetched, outdir, law=None, sources=None):
     valid_from, infra, seg, an, co2 = parse(fetched)
     fbar = {}
     for lv in ('motorway', 'main'):
         s = [r for r in seg if r['level'] == lv]
         fbar[lv] = sum(r['m'] * r['f'] for r in s) / sum(r['m'] for r in s)
-    EUR_HUF = 388.6
+    EUR_HUF, eur_huf_of = eur_huf(valid_from)
+    on = lambda d: f"{int(d[8:])} {['January','February','March','April','May','June','July','August','September','October','November','December'][int(d[5:7]) - 1]} {d[:4]}"
+    rate_text = (f"{EUR_HUF:.2f} HUF/EUR (ECB rate of {on(eur_huf_of)}, kept because later 1 October rates moved it by 5% or less, 209/2013 § 3/A (2)-(3))" if eur_huf_of == "2023-10-02"
+                 else f"{EUR_HUF:.2f} HUF/EUR (ECB rate of {on(eur_huf_of)}, in force from 1 January {int(eur_huf_of[:4]) + 1} as it moved the one before by more than 5%, 209/2013 § 3/A (2)-(3))")
     VAT = 1.27
     axles = {'J2': dict(max_axles=2), 'J3': dict(min_axles=3, max_axles=3), 'J4': dict(min_axles=4, max_axles=4), 'J5': dict(min_axles=5)}
     huf = lambda c: round(c / 100 * EUR_HUF, 2)
@@ -92,16 +121,17 @@ def main(fetched, outdir, law=None, sources=None):
         row('co2', cat, huf(c[0]), euro=[0])
         row('co2', cat, huf(c[1]), euro=[1, 2, 3])
         row('co2', cat, huf(c[2]), euro=[4, 5, 6])
-    # check against HU-GO gross table 2025 (same EUR/HUF rate): J2 E0 suburban 91.80, interurban 48.86, CO2 22.21
-    assert round(huf(18.6) * VAT, 2) == 91.80 and round(huf(9.9) * VAT, 2) == 48.86 and round(huf(4.5) * VAT, 2) == 22.21
-    assert round(huf(3.4) * VAT, 2) == 16.78 and round(huf(2.8) * VAT, 2) == 13.82 and round(huf(0.8) * VAT, 2) == 3.95 and round(huf(4.0) * VAT, 2) == 19.74
+    if EUR_HUF == 388.6:
+        # check against HU-GO gross table 2025 (same EUR/HUF rate): J2 E0 suburban 91.80, interurban 48.86, CO2 22.21
+        assert round(huf(18.6) * VAT, 2) == 91.80 and round(huf(9.9) * VAT, 2) == 48.86 and round(huf(4.5) * VAT, 2) == 22.21
+        assert round(huf(3.4) * VAT, 2) == 16.78 and round(huf(2.8) * VAT, 2) == 13.82 and round(huf(0.8) * VAT, 2) == 3.95 and round(huf(4.0) * VAT, 2) == 19.74
     t = {
      "country": "HU", "currency": "HUF", "valid_from": valid_from, "valid_to": valid_from[:4] + "-12-31",
      "name": "Hungarian distance-based toll (HU-GO)",
      "law": ("25/2013. (V. 31.) NFM rendelet (in force from 1 July 2026): § 1 (2)-(4a) as set by 46/2025. (XII. 23.) ÉKM gives the infrastructure charge in HUF/km including 27% VAT by category "
              "(J2-J5 by axles, 209/2013. (VI. 18.) Korm. rendelet § 2) and road level (expressway or main road); annex 2 gives the external-cost charge in eurocent/km excluding VAT "
              "(air and noise for suburban and interurban roads by EURO class, CO2 by EURO class, low- and zero-emission); annex 1 as set by 34/2025. (XI. 30.) ÉKM lists the 2,639 tolled elementary sections with their level and suburban share. "
-             "Rates here exclude VAT: the infrastructure charge is divided by 1.27; the external-cost charge is converted at 388.60 HUF/EUR (ECB rate of 2 October 2023, kept because later 1 October rates moved it by 5% or less, 209/2013 § 3/A (2)-(3)), rounded to 0.01 HUF."),
+             "Rates here exclude VAT: the infrastructure charge is divided by 1.27; the external-cost charge is converted at " + rate_text + ", rounded to 0.01 HUF."),
      "sources": [
       {"title": "25/2013. (V. 31.) NFM rendelet (Nemzeti Jogszabálytár, in force from 1 July 2026)", "url": "https://njt.jog.gov.hu/jogszabaly/2013-25-20-2W"},
       {"title": "Magyar Közlöny 2025/143: 34/2025. (XI. 30.) ÉKM rendelet, annex 1 (tolled sections from 1 July 2026)", "url": "https://magyarkozlony.hu/dokumentumok/ffc3529aaa9c6075ef082089b3ec049444bc554a/letoltes"},

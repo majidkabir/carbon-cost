@@ -381,7 +381,7 @@ class Ways(osmium.SimpleHandler):
         # those classes (road refs, class, [lon, lat] points), placed after.
         # sec_ckm: each section's km in OSM, one carriageway (a oneway way
         # counts half).
-        self.sec_lines, self.pending, self.sec_ckm = {}, [], Counter()
+        self.sec_lines, self.pending, self.sec_ckm, self.sec_hw = {}, [], Counter(), Counter()
         # myto (Czechia): the class I roads the law tolls; the map's
         # layers at each way's points (cz_myto.load); the ways sampled; the
         # ways the capture knows and doesn't, placed after; the end nodes of
@@ -406,6 +406,7 @@ class Ways(osmium.SimpleHandler):
                     pts = [(n.lon, n.lat) for n in w.nodes]
                     self.sec_lines.setdefault(road, []).append((LineString(pts), c, f, edid))
                     self.sec_ckm[edid] += cz_myto.length_m(pts) / 1000 * carriageway(tags)
+                    self.sec_hw[hw] += cz_myto.length_m(pts) / 1000
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
@@ -640,6 +641,7 @@ def place_pending(h, cc, city=None):
     # Sections whose relation has much more than the annex's km (ways past
     # the section's ends): reported, as tolled km past the law's.
     over = sorted(((h.sec_ckm[e] - (s1 - s0) / 1000, e) for e, (_, s0, s1) in span.items() if h.sec_ckm[e] > 1.3 * (s1 - s0) / 1000 + ROOM_KM), reverse=True)
+    print(cc, "section ways' km by highway:", {k: round(v, 1) for k, v in h.sec_hw.most_common()})
     if over:
         # The annex km of the sections next to it that OSM has no ways of
         # (their ways may be in this relation: tolled, but at its share).

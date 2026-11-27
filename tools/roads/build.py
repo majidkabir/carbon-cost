@@ -590,7 +590,8 @@ def place_pending(h, cc, city=None):
     # Annex 1's sections by road, in metres along it: its chainage
     # (km+m) orders them, but a km may run past 1000 m (204+2245), so a
     # section's length is its own ("m"), a stretch between sections the
-    # chainage's (km x 1000 + m), at least 0.
+    # chainage's (km x 1000 + m), and where the km went on, at least the
+    # metres past its post (0+3134 to 1+565: 565).
     chain = lambda v: tuple(int(p) for p in v.split("+"))
     chain_m = lambda v: chain(v)[0] * 1000 + chain(v)[1]
     rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
@@ -598,7 +599,10 @@ def place_pending(h, cc, city=None):
     for road in sorted({r["road"] for r in rows}):
         at, end = None, None
         for r in sorted((r for r in rows if r["road"] == road), key=lambda r: chain(r["start"])):
-            at = chain_m(r["start"]) if at is None else at + (0 if r["start"] == end else max(0, chain_m(r["start"]) - chain_m(end)))
+            if at is None:
+                at = chain_m(r["start"])
+            elif chain(r["start"]) != chain(end):
+                at += max(0, chain_m(r["start"]) - chain_m(end), chain(r["start"])[1] if chain(r["start"])[0] > chain(end)[0] else 0)
             span[r["id"]] = (road, at, at + r["m"])
             by_road.setdefault(road, []).append((at, at + r["m"]))
             annex[road] += r["m"] / 1000
@@ -821,7 +825,9 @@ def myto_finish(h, cc, law, dst):
                         todo.append(k)
         loose.append(piece)
     done, tolled_km = set(), 0.0
-    for r in sorted({r for rs in refs_of for r in rs} | {r for t in h.tolled_nodes.values() for i, rs in enumerate(refs_of) if not rs for n in ways[i][3] for r in t.get(n, ())}):
+    # The refs to try: the new ways', and those of tolled ways a ref-less
+    # one meets (at any of its nodes: a ring closes anywhere).
+    for r in sorted({r for rs in refs_of for r in rs} | {r for t in h.tolled_nodes.values() for i, rs in enumerate(refs_of) if not rs for n in ways[i][4] for r in t.get(n, ())}):
         mine = [i for i, rs in enumerate(refs_of) if r in rs]
         ends_r = {n for i in mine for n in ways[i][3]}
         # Ref-less ways join as pieces (a roundabout's, perhaps split in

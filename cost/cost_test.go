@@ -3232,13 +3232,13 @@ func TestPolandLeftOutNote(t *testing.T) {
 	}
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 70, CountryKm: map[string]float64{"PL": 70}, Path: path}}}
 	rk := RoadKm(rx, []Run{{Kind: "road", Country: "PL", Points: path}})
-	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, FX: map[string]float64{"PLN": 4.3}, roadKm: rk, roadLeftOut: map[string][]string{"PL": rx.LeftOut("PL")}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, FX: map[string]float64{"PLN": 4.3}, roadKm: rk, roadLeftOut: map[string][]string{"PL": rx.LeftOut("PL")}, roadNetwork: map[string]string{"PL": rx.Network("PL")}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
 	if err != nil {
 		t.Fatal(err)
 	}
 	for _, n := range r.Notes {
 		if strings.HasPrefix(n, "PL: by OpenStreetMap along the route") {
-			if !strings.Contains(n, "including the motorways this toll leaves to their operators: A1 Rusocin-Toruń (AmberOne), A2 Świecko-Konin") {
+			if !strings.Contains(n, "including the motorways this toll leaves to their operators: A1 Rusocin-Toruń (AmberOne), A2 Świecko-Konin") || strings.Contains(n, "charge (including") && strings.Contains(n, "), which") {
 				t.Errorf("note %q", n)
 			}
 			return
@@ -4305,4 +4305,45 @@ func TestTolledRoadsNoteNamesRates(t *testing.T) {
 		}
 	}
 	t.Errorf("no road-class note for CZ: %v", r.Notes)
+}
+
+// With a share given, the road-class note of a listed-roads country
+// doesn't contradict it: with tolled_share it claims no km untolled, and
+// with motorway_share the km it counts out are the roads the toll doesn't
+// charge.
+func TestTolledRoadsNoteWithShares(t *testing.T) {
+	path := [][2]float64{{14.66406, 49.74099}, {14.66273, 49.73988}, {14.66214, 49.73892}, {14.66185, 49.73801}, {14.70, 49.70}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 5, CountryKm: map[string]float64{"CZ": 5}, Path: path}}}
+	rk := RoadKm(rx, []Run{{Kind: "road", Country: "CZ", Points: path}})
+	for _, c := range []struct {
+		req      Request
+		want, no string
+	}{
+		{Request{TolledShare: map[string]float64{"CZ": 1}}, "tolled_share.CZ gives the share tolled", "doesn't charge"},
+		{Request{MotorwayShare: map[string]float64{"CZ": 0}}, "on roads the toll doesn't charge", "local roads"},
+	} {
+		req := c.req
+		req.CargoKg, req.Truck, req.FX = 8000, truck40, map[string]float64{"CZK": 25}
+		req.roadKm, req.roadNetwork = rk, map[string]string{"CZ": rx.Network("CZ")}
+		r, err := Price(trip, all(t), req, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+		if err != nil {
+			t.Fatal(err)
+		}
+		found := false
+		for _, n := range r.Notes {
+			if strings.HasPrefix(n, "CZ: ") && strings.Contains(n, "OpenStreetMap along the route") {
+				found = true
+				if !strings.Contains(n, c.want) || strings.Contains(n, c.no) {
+					t.Errorf("%+v: note %q, want %q and not %q", c.req.TolledShare, n, c.want, c.no)
+				}
+			}
+		}
+		if !found {
+			t.Errorf("%+v: no road-class note: %v", c.req.TolledShare, r.Notes)
+		}
+	}
 }

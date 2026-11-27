@@ -119,9 +119,13 @@ func (p *pricer) priceArea(ds *tariffs.Dataset, a area, route *track) error {
 		if n := req.roadNetwork[a.country]; n != "" {
 			p.out.Provenance.RoadClasses[a.country] += "; tolled sections: " + n
 		}
-		if rk.Uncertain >= 0.5 {
-			p.note("%s: %.1f km counted as untolled local roads pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
-				cc, rk.Uncertain, roads.NearM, cc)
+		if rk.Uncertain >= 0.5 && !shareGiven {
+			untolled := "untolled local roads"
+			if req.roadNetwork[a.country] != "" {
+				untolled = "roads the toll doesn't charge"
+			}
+			p.note("%s: %.1f km counted as %s pass within %d m of a tolled road in OpenStreetMap, so may be on it; give tolled_share.%s if they are.",
+				cc, rk.Uncertain, untolled, roads.NearM, cc)
 		}
 	}
 	liable, err := ds.Liable(p.vehicle)
@@ -270,6 +274,15 @@ func (p *pricer) missing(m Missing) {
 	}
 }
 
+// leftOutOf names the motorways a country's toll leaves to their
+// operators, as the road-class note adds them, or "".
+func leftOutOf(req Request, country string) string {
+	if l := req.roadLeftOut[country]; len(l) > 0 {
+		return fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)", strings.Join(l, ", "))
+	}
+	return ""
+}
+
 // perKm adds the area's km by road type, operator and area as events on
 // the network.
 func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, tolledKm float64, byRoute, shareGiven bool, rk roads.Km, secKm float64, route *track) {
@@ -288,6 +301,8 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 			}
 		}
 		switch {
+		case given && byRoute && !shareGiven && req.roadNetwork[a.country] != "":
+			p.note("%s: %.0f%% of the %.1f km are on roads the toll doesn't charge by OpenStreetMap along the route and the tolled roads the toll's law lists%s.", cc, 100*rk.Local/rk.Total(), km, leftOutOf(req, a.country))
 		case given && byRoute && !shareGiven:
 			p.note("%s: %.0f%% of the %.1f km are on local roads by OpenStreetMap along the route, which aren't tolled.", cc, 100*rk.Local/rk.Total(), km)
 		case given:
@@ -300,16 +315,15 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 				// The motorway stretches the toll leaves to their operators count here.
 				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
 			}
-			if req.roadNetwork[a.country] != "" {
+			if req.roadNetwork[a.country] != "" && shareGiven {
+				p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the tolled km are tolled at the motorway rate and %.0f%% at the other tolled roads' rate (tolled_share.%s gives the share tolled). Give motorway_share.%s to override.",
+					cc, 100*mw, 100*(1-mw), cc, cc)
+			} else if req.roadNetwork[a.country] != "" {
 				// The road classes are the law's list of tolled roads, by
 				// the rate each is tolled at (provenance road_classes names
 				// the list).
-				free := ""
-				if l := req.roadLeftOut[a.country]; len(l) > 0 {
-					free = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)", strings.Join(l, ", "))
-				}
 				p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the %.1f km are tolled at the motorway rate, %.0f%% at the other tolled roads' rate and %.0f%% are on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
-					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), free, cc, cc)
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), leftOutOf(req, a.country), cc, cc)
 			} else {
 				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
 					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)

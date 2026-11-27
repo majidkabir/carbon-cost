@@ -112,6 +112,26 @@ def osm(path, new):
     way(60, 6, 10, D, highway="primary", ref="38")
     if new:                                                           # new: a bypass first 11 m beside the town passage
         way(61, BYPASS[D], highway="primary", ref="38")
+    D = -0.39
+    way(62, 0, 5, D, highway="primary", ref="38")
+    way(63, 7, 12, D, highway="primary", ref="38")
+    if new:                                                           # new: 38 through a roundabout OSM split in two
+        A, B, TOP, LOW = (5.9, D), (6.1, D), (6.0, D + 0.0009), (6.0, D - 0.0009)
+        way(64, 5, 5.9, D, highway="primary", ref="38")
+        way(65, [A, TOP], highway="primary", junction="roundabout", oneway="yes")
+        way(66, [TOP, B, LOW, A], highway="primary", junction="roundabout", oneway="yes")
+        way(67, 6.1, 7, D, highway="primary", ref="38")
+    D = -0.42
+    way(68, 0, 10, D, highway="primary", ref="38")
+    if new:                                                           # new: a ref-less street off way 68 and back
+        way(69, [(3, D), (3.5, D + 0.003), (4.5, D + 0.003), (5, D)], highway="primary")
+    D = -0.45
+    way(70, 0, 4, D, highway="primary", ref="38")
+    way(72, 6, 10, D, highway="primary", ref="38")
+    if new:                                                           # the town passage, moved 40 m off at km 4.2-5.8
+        way(71, [(4, D), (4.2, D), (4.2, D + 0.00036), (5.8, D + 0.00036), (5.8, D), (6, D)], highway="primary", ref="38")
+    else:
+        way(71, 4, 6, D, highway="primary", ref="38")
     D = -0.27
     if new:                                                           # moved 40 m off at km 1.2-1.6
         way(51, [(0, D), (0.5, D), (1.2, D), (1.2, D + 0.00036), (1.6, D + 0.00036), (1.6, D), (3, D)], highway="primary", ref="38")
@@ -138,7 +158,7 @@ def drawn(wid, x):
         return "nat" if 2.4 <= x <= 2.6 else None
     return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw",
             30: "nat", 31: "nat", 32: "nat", 33: "nat", 36: "nat", 37: "nat", 44: "nat", 45: "nat", 47: "nat", 48: "nat", 51: "nat",
-            52: "nat", 53: "nat", 56: "nat", 58: "nat", 60: "nat"}.get(wid)
+            52: "nat", 53: "nat", 56: "nat", 58: "nat", 60: "nat", 62: "nat", 63: "nat", 68: "nat", 70: "nat", 72: "nat"}.get(wid)
 
 
 # The stretches' latitudes (dy) and the class I km tolled there: 30-32
@@ -146,16 +166,20 @@ def drawn(wid, x):
 # (not the ref-less way between); 47, 48 and both carriageways between;
 # 51 with its moved bit; 52, 53 and the new way between, not the ref-less
 # road crossing it; 56 and the bypass joining it inside; 58, 60 and the
-# bypass round the town, not the passage.
+# bypass round the town, not the passage; 62, 63 and the new ways and
+# split roundabout between; 68, not the ref-less street off it and back;
+# 70 and 72, not the passage OSM moved.
 BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08,
-         -0.30: 12.0, -0.33: 12 + km_of(BYPASS[-0.33]), -0.36: 8 + km_of(BYPASS[-0.36])}
+         -0.30: 12.0, -0.33: 12 + km_of(BYPASS[-0.33]), -0.36: 8 + km_of(BYPASS[-0.36]),
+         -0.39: 10 + 0.9 + 0.9 + km_of([(5.9, -0.39), (6.0, -0.3891), (6.1, -0.39), (6.0, -0.3909), (5.9, -0.39)]),
+         -0.42: 10.0, -0.45: 8.0}
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 85.1, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 113.3, "text": "I/38"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -194,9 +218,18 @@ def main():
     bands_ok = all(abs(got[dy] - want) < 0.1 for dy, want in BANDS.items())
     for dy, want in BANDS.items():
         print(f"stretch at {dy}: {got[dy]:.2f} km tolled, want {want}")
-    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60, 62, 63, 68, 70, 71, 72} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
     print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
+    # Too much changed since the reading: the build asks for a new one.
+    build.CHANGED_KM, asked = 10, ""
+    try:
+        build.main("CZ", src, dst)
+    except SystemExit as e:
+        asked = str(e)
+    build.CHANGED_KM = 25
+    print("with 10 km allowed:", asked)
+    ok = ok and "take a new reading" in asked
     for f in os.listdir(d):
         os.remove(os.path.join(d, f))
     os.rmdir(d)

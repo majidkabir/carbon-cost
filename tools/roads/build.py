@@ -475,9 +475,16 @@ class Ways(osmium.SimpleHandler):
         nodes = [n.ref for n in w.nodes]
         if self.myto is not None:
             slots = self.myto_points.slots(w.id, ls)
-            # Mostly unread: a way added since (its few points a
-            # neighbour's), placed by its ends instead.
-            if 2 * sum(l == "unread" for l in slots) > len(slots):
+            read = [i for i, l in enumerate(slots) if l != "unread"]
+            own = self.myto.get(w.id)
+            if own:
+                # A way the map was read on, moved since: its unread
+                # slots take the layer most of its points had.
+                most = Counter(own[1]).most_common(1)[0][0]
+                slots = [most if l == "unread" else l for l in slots]
+            if not own and len(read) < len(slots) and all(i < cz_myto.END or i >= len(slots) - cz_myto.END for i in read):
+                # A way added since, unread but (from its neighbours' points)
+                # at most at its ends: placed by its ends instead.
                 self.new_ways.append((c, coords, tags, ends, nodes))
             else:
                 n = len(slots)
@@ -500,9 +507,10 @@ class Ways(osmium.SimpleHandler):
         # added since may meet a tolled road.
         coords = list(ls.coords)
         if parts and len(nodes) == len(coords):
+            # Along the line in degrees, as the parts are.
             run = [0.0]
-            for p, q in zip(coords, coords[1:]):
-                run.append(run[-1] + cz_myto.length_m([p, q]))
+            for (x1, y1), (x2, y2) in zip(coords, coords[1:]):
+                run.append(run[-1] + math.hypot(x2 - x1, y2 - y1))
             total = run[-1] or 1
             for n, d in zip(nodes, run):
                 if any(a - 1e-6 <= d / total <= b + 1e-6 for a, b in parts):
@@ -740,6 +748,10 @@ NETWORK = {"PL": "pl-network.json"}
 
 # Czechia's tolled roads and sections, from the law (cz_network.py).
 CZ_LAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cz-network.json")
+# The km of ways OpenStreetMap changed since the toll map's reading (placed
+# by their ends, or unread) the build accepts before it asks for a new
+# reading.
+CHANGED_KM = 25
 # A point of a road where the map draws a layer of another class counts
 # only if no point of a road of that class with the layer drawn is within
 # about BESIDE_M (one cell either way: the old road beside a motorway).
@@ -759,7 +771,7 @@ def myto_finish(h, cc, law, dst):
         for l, (x, y) in fl:
             if l in st and st[l]:
                 strong[l].add(cell(x, y))
-    beside = 0.0
+    beside, unread = 0.0, 0.0
     for fl, st, ls, tags, refs, nodes in h.mapped:
         keep = []
         for l, (x, y) in fl:
@@ -771,8 +783,9 @@ def myto_finish(h, cc, law, dst):
             keep.append(l)
         c, parts = cz_myto.parts(keep, "nat")
         h.add_parts(c, parts, ls, tags, refs, nodes)
+        unread += cz_myto.length_m(list(ls.coords)) / 1000 * sum(l == "unread" for l in cz_myto.filled(keep)) / len(keep)
     print(cc, f"km the map draws on other roads beside a road of its class (left out): {beside:.1f}")
-    # Ways added since (mostly unread): those of a ref (a road), and
+    # Ways added since (unread but at their ends): those of a ref, and
     # ref-less ones (a roundabout's) whose ends are on them or on tolled
     # ways of the ref, joined at their ends, are tolled in a class when
     # the chain has two ends or more (its ends, and the nodes where tolled
@@ -782,14 +795,48 @@ def myto_finish(h, cc, law, dst):
     refs_of = [[r.strip() for r in (t.get("ref") or "").split(";") if r.strip()] for _, _, t, _, _ in ways]
     # A node on a tolled way of ref r, or of a ref-less one.
     of_ref = lambda n, r: any(n in t and (r in t[n] or not t[n]) for t in h.tolled_nodes.values())
+    # The ref-less ways in pieces joined at their ends.
+    loose, seen = [], set()
+    by_end = {}
+    for i, rs in enumerate(refs_of):
+        if not rs:
+            for n in ways[i][3]:
+                by_end.setdefault(n, []).append(i)
+    for i, rs in enumerate(refs_of):
+        if rs or i in seen:
+            continue
+        piece, todo = [], [i]
+        seen.add(i)
+        while todo:
+            j = todo.pop()
+            piece.append(j)
+            for n in ways[j][3]:
+                for k in by_end[n]:
+                    if k not in seen:
+                        seen.add(k)
+                        todo.append(k)
+        loose.append(piece)
     done, tolled_km = set(), 0.0
     for r in sorted({r for rs in refs_of for r in rs} | {r for t in h.tolled_nodes.values() for i, rs in enumerate(refs_of) if not rs for n in ways[i][3] for r in t.get(n, ())}):
         mine = [i for i, rs in enumerate(refs_of) if r in rs]
         ends_r = {n for i in mine for n in ways[i][3]}
-        group = mine + [i for i, rs in enumerate(refs_of) if not rs and all(n in ends_r or of_ref(n, r) for n in ways[i][3])]
+        # Ref-less ways join as pieces (a roundabout's, perhaps split in
+        # two) whose loose ends are on the ref's new ways or tolled ways:
+        # at least one on a new way, unless they are all roundabout.
+        group = list(mine)
+        for piece in loose:
+            out = [n for n, m in Counter(n for i in piece for n in ways[i][3]).items() if m == 1]
+            ring = all(ways[i][2].get("junction") in ("roundabout", "circular") for i in piece)
+            if out:
+                ok = all(n in ends_r or of_ref(n, r) for n in out) and (ring or any(n in ends_r for n in out))
+            else:
+                # A closed ring: on the ref's new ways.
+                ok = any(n in ends_r for i in piece for n in ways[i][4])
+            if ok:
+                group += piece
         at = {}
         for i in group:
-            for n in ways[i][3]:
+            for n in ways[i][4]:
                 at.setdefault(n, []).append(i)
         seen = set()
         for i in group:
@@ -800,13 +847,14 @@ def myto_finish(h, cc, law, dst):
             while todo:
                 j = todo.pop()
                 chain.append(j)
-                for n in ways[j][3]:
+                for n in ways[j][4]:
                     for k in at[n]:
                         if k not in seen:
                             seen.add(k)
                             todo.append(k)
             uses = Counter(n for j in chain for n in ways[j][3])
-            ends = {n for n, m in uses.items() if m == 1} | {n for j in chain for n in ways[j][4] if of_ref(n, r)}
+            inner = {n for j in chain for n in ways[j][4][1:-1]}
+            ends = {n for n, m in uses.items() if m == 1 and n not in inner} | {n for j in chain for n in ways[j][4] if of_ref(n, r)}
             own = Counter(ways[j][0] for j in chain).most_common(1)[0][0]
             cls = next((k for k in (own, "nat" if own == "mw" else "mw")
                         if len(ends) >= 2 and all(n in h.tolled_nodes[k] and (r in h.tolled_nodes[k][n] or not h.tolled_nodes[k][n]) for n in ends)), None)
@@ -817,8 +865,10 @@ def myto_finish(h, cc, law, dst):
                         h.add_myto(cls, ways[j][1], ways[j][2], refs_of[j])
                         tolled_km += cz_myto.length_m(ways[j][1]) / 1000
     free_km = sum(cz_myto.length_m(ways[j][1]) / 1000 for j in range(len(ways)) if j not in done)
-    if ways:
-        print(cc, f"ways mostly unread (added since the reading): {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not")
+    if ways or unread:
+        print(cc, f"ways unread (added since the reading): {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not; {unread:.1f} km of other ways unread, not tolled")
+    if h.myto is not None and tolled_km + free_km + unread > CHANGED_KM:
+        sys.exit(f"{cc}: {tolled_km + free_km + unread:.0f} km of ways changed since the toll map's reading, more than {CHANGED_KM}: take a new reading (tools/roads/cz_myto.py)")
     path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
     cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
     print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")

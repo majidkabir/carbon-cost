@@ -118,10 +118,25 @@ def unrun(text):
     return [i % 2 == 1 for i, n in enumerate(int(x) for x in text.split(",")) for _ in range(n)]
 
 
-def parts(layers, c):
+def parts(layers, c, gap=10):
     """A way's toll class and tolled parts, as (from, to) fractions of its
     length, from the layer drawn in each of its equal slots (None for
-    none); c, the way's own class, where none is."""
+    none; "unread" where no point told, which takes the layer around it
+    for up to gap slots between two of one layer: OSM moved that bit);
+    c, the way's own class, where none is."""
+    layers = list(layers)
+    i = 0
+    while i < len(layers):
+        if layers[i] == "unread":
+            j = i
+            while j < len(layers) and layers[j] == "unread":
+                j += 1
+            fill = layers[i - 1] if 0 < i and j < len(layers) and j - i <= gap and layers[i - 1] == layers[j] else None
+            for k in range(i, j):
+                layers[k] = fill
+            i = j
+        else:
+            i += 1
     got = runs([l is not None for l in layers])
     votes = Counter(layers[i] for a, b in got for i in range(a, b))
     n = len(layers)
@@ -162,22 +177,23 @@ class Points:
 
     CELL = 0.0005  # degrees
     ALONG = 0.9  # |cos| of the angle between a point's way and the way read
+    ON_M = 8  # a point of a way too short for a direction counts this close
 
     def __init__(self, myto):
         self.myto, self.grid = myto, {}
         for wid, (_, layers, pts) in myto.items():
             for i, (l, p) in enumerate(zip(layers, pts)):
                 d = unit(pts[max(i - 1, 0)], pts[min(i + 1, len(pts) - 1)])
-                if d:
-                    self.grid.setdefault((int(p[0] // self.CELL), int(p[1] // self.CELL)), []).append((l, p, wid, d))
+                self.grid.setdefault((int(p[0] // self.CELL), int(p[1] // self.CELL)), []).append((l, p, wid, d))
 
     def slots(self, wid, ls):
         """The layer drawn in each of count() equal slots of line ls
         (shapely, degrees), the way wid: from its own points within
         MATCH_M (OpenStreetMap may have split, merged or moved it), and
         in slots those leave empty, from other ways' points within NEAR_M
-        whose way runs along it (not a crossing road's). A slot is
-        "unread" where no point falls in it."""
+        whose way runs along it (not a crossing road's; a point of a way
+        of one point, within ON_M), the nearest. A slot is "unread" where
+        no point falls in it."""
         from shapely.geometry import Point
         coords = list(ls.coords)
         n, metres = count(coords), length_m(coords)
@@ -188,13 +204,19 @@ class Points:
             r = ls.interpolate(f, normalized=True)
             return f if length_m([(p[0], p[1]), (r.x, r.y)]) <= within else None
 
+        def gap(p, f):
+            r = ls.interpolate(f, normalized=True)
+            return length_m([(p[0], p[1]), (r.x, r.y)])
+
         own = self.myto.get(wid)
         if own:
             for l, p in zip(own[1], own[2]):
                 f = at(p, MATCH_M)
                 if f is not None:
                     votes[min(int(f * n), n - 1)][l] += 1
-        if any(not v for v in votes):
+        empty = {i for i, v in enumerate(votes) if not v}
+        near = {}  # empty slot -> (metres, layer) of the nearest other point
+        if empty:
             x0, y0, x1, y1 = ls.bounds
             d = 30 / max(metres, 1)
             for cx in range(int(x0 // self.CELL) - 1, int(x1 // self.CELL) + 2):
@@ -202,14 +224,16 @@ class Points:
                     for l, p, w, u in self.grid.get((cx, cy), ()):
                         if w == wid:
                             continue
-                        f = at(p, NEAR_M)
-                        if f is None or votes[min(int(f * n), n - 1)]:
+                        f = at(p, NEAR_M if u else self.ON_M)
+                        if f is None or min(int(f * n), n - 1) not in empty:
                             continue
                         a, b = ls.interpolate(max(f - d, 0), normalized=True), ls.interpolate(min(f + d, 1), normalized=True)
                         v = unit((a.x, a.y), (b.x, b.y))
-                        if v and abs(u[0] * v[0] + u[1] * v[1]) >= self.ALONG:
-                            votes[min(int(f * n), n - 1)][l] += 1
-        return [v.most_common(1)[0][0] if v else "unread" for v in votes]
+                        if not u or (v and abs(u[0] * v[0] + u[1] * v[1]) >= self.ALONG):
+                            i, m = min(int(f * n), n - 1), gap(p, f)
+                            if i not in near or m < near[i][0]:
+                                near[i] = (m, l)
+        return [v.most_common(1)[0][0] if v else near[i][1] if i in near else "unread" for i, v in enumerate(votes)]
 
 
 def unit(a, b):

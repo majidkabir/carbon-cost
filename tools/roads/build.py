@@ -475,11 +475,11 @@ class Ways(osmium.SimpleHandler):
         if self.myto is not None:
             slots = self.myto_points.slots(w.id, ls)
             if all(l == "unread" for l in slots):
-                self.new_ways.append((c, coords, tags, ends))
+                self.new_ways.append((c, coords, tags, ends, [n.ref for n in w.nodes]))
             else:
                 n = len(slots)
                 mids = [ls.interpolate((i + 0.5) / n, normalized=True) for i in range(n)]
-                fl = [(None if l == "unread" else l, (p.x, p.y)) for l, p in zip(slots, mids)]
+                fl = [(l, (p.x, p.y)) for l, p in zip(slots, mids)]
                 # Where the way is of the map layer's class itself (a
                 # motorway, a class I road of the law), and so tolled
                 # wherever the layer is drawn; another road the layer is
@@ -506,7 +506,8 @@ class Ways(osmium.SimpleHandler):
     def add_myto(self, c, coords, tags, refs):
         self.add(c, -1, coords, tags)
         # One carriageway: a oneway way (a motorway's) counts half.
-        one = tags.get("oneway") in ("yes", "1", "true", "-1") or tags.get("junction") in ("roundabout", "circular") or (tags.get("highway") == "motorway" and tags.get("oneway") != "no")
+        ow = tags.get("oneway")
+        one = ow in ("yes", "1", "true", "-1") or (ow != "no" and (tags.get("junction") in ("roundabout", "circular") or tags.get("highway") == "motorway"))
         km = cz_myto.length_m(coords) / 1000 * (0.5 if one else 1)
         self.class_km[c] += km
         self.ref_km[(c, refs[0] if refs else "")] += km
@@ -747,13 +748,13 @@ def myto_finish(h, cc, law, dst):
     strong = {"mw": set(), "nat": set()}
     for fl, st, *_ in h.mapped:
         for l, (x, y) in fl:
-            if l and st[l]:
+            if l in st and st[l]:
                 strong[l].add(cell(x, y))
     beside = 0.0
     for fl, st, ls, tags, refs, ends in h.mapped:
         keep = []
         for l, (x, y) in fl:
-            if l and not st[l]:
+            if l in st and not st[l]:
                 cx, cy = cell(x, y)
                 if any((cx + u, cy + v) in strong[l] for u in (-1, 0, 1) for v in (-1, 0, 1)):
                     l = None
@@ -762,43 +763,53 @@ def myto_finish(h, cc, law, dst):
         c, parts = cz_myto.parts(keep, "nat")
         h.add_parts(c, parts, ls, tags, refs, ends)
     print(cc, f"km the map draws on other roads beside a road of its class (left out): {beside:.1f}")
-    # Ways with none of the map's points: those of a ref (a road), joined
-    # at their ends, are tolled in a class when every end of the chain
-    # meets a way of the ref tolled in that class; ways without a ref
-    # (a roundabout's) when every end meets any tolled way.
+    # Ways with none of the map's points: those of a ref (a road) and the
+    # ref-less ones (a roundabout's), joined at their nodes, are tolled in
+    # a class when the chain has two ends or more (its ends, and the nodes
+    # where tolled ways of the ref end on it) and every one is the end of
+    # a way of the ref (or of a ref-less one) tolled in that class.
     ways = h.new_ways
-    refs_of = [{r.strip() for r in (t.get("ref") or "").split(";") if r.strip()} for _, _, t, _ in ways]
+    refs_of = [[r.strip() for r in (t.get("ref") or "").split(";") if r.strip()] for _, _, t, _, _ in ways]
+    tolled = lambda n: n in h.tolled_nodes["mw"] or n in h.tolled_nodes["nat"]
+    # A node where a way of ref r, or a ref-less way, tolled ends.
+    of_ref = lambda n, r: any(n in t and (r in t[n] or not t[n]) for t in h.tolled_nodes.values())
+    candidates = {r for rs in refs_of for r in rs}
+    for i, rs in enumerate(refs_of):
+        if not rs:
+            for k in ("mw", "nat"):
+                for n in ways[i][4]:
+                    candidates |= h.tolled_nodes[k].get(n, set())
     done, tolled_km = set(), 0.0
-    for r in sorted({r for rs in refs_of for r in rs} | {""}):
-        group = [i for i, rs in enumerate(refs_of) if (r in rs if r else not rs)]
+    for r in sorted(candidates):
+        group = [i for i, rs in enumerate(refs_of) if r in rs or not rs]
         at = {}
         for i in group:
-            for n in ways[i][3]:
+            for n in ways[i][4]:
                 at.setdefault(n, []).append(i)
         seen = set()
         for i in group:
-            if i in seen:
+            if i in seen or r not in refs_of[i] and not any(tolled(n) for n in ways[i][4]):
                 continue
             chain, todo = [], [i]
             seen.add(i)
             while todo:
                 j = todo.pop()
                 chain.append(j)
-                for n in ways[j][3]:
+                for n in ways[j][4]:
                     for k in at[n]:
                         if k not in seen:
                             seen.add(k)
                             todo.append(k)
             uses = Counter(n for j in chain for n in ways[j][3])
-            ends = [n for n, m in uses.items() if m == 1]
+            ends = {n for n, m in uses.items() if m == 1} | {n for j in chain for n in ways[j][4] if of_ref(n, r)}
             own = Counter(ways[j][0] for j in chain).most_common(1)[0][0]
             cls = next((k for k in (own, "nat" if own == "mw" else "mw")
-                        if ends and all(n in h.tolled_nodes[k] and (not r or r in h.tolled_nodes[k][n]) for n in ends)), None)
+                        if len(ends) >= 2 and all(n in h.tolled_nodes[k] and (r in h.tolled_nodes[k][n] or not h.tolled_nodes[k][n]) for n in ends)), None)
             if cls:
                 for j in chain:
                     if j not in done:
                         done.add(j)
-                        h.add_myto(cls, ways[j][1], ways[j][2], sorted(refs_of[j]))
+                        h.add_myto(cls, ways[j][1], ways[j][2], refs_of[j])
                         tolled_km += cz_myto.length_m(ways[j][1]) / 1000
     free_km = sum(cz_myto.length_m(ways[j][1]) / 1000 for j in range(len(ways)) if j not in done)
     if ways:

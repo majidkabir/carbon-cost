@@ -65,6 +65,41 @@ def osm(path, new):
         way(9, 13.8, 14.8, highway="primary", ref="38")              # new: one end loose
         way(17, [(10, 0), (10, 0.003), (11, 0.003), (11, 0)], highway="secondary", ref="999")  # new: another road between tolled ends
         way(18, [(12.05, -0.0007), (12.05, 0.0007)], highway="primary", ref="2")             # new: crossing way 6 at one of its points
+    # Stretches of road 38 OSM changed after the map was read, each at its
+    # own latitude (BANDS: the km tolled there, at the end).
+    D = -0.12
+    if new:
+        way(30, 0, 2.12, D, highway="primary", ref="38")              # merged the one-point way 31
+    else:
+        way(30, 0, 2, D, highway="primary", ref="38")
+        way(31, 2, 2.12, D, highway="primary", ref="38")
+    way(32, 2.12, 4, D, highway="primary", ref="38")
+    D = -0.15
+    way(35 if new else 33, 0, 3, D, highway="primary", ref="38")       # a new id, a secondary 11 m off
+    way(34, 0, 3, D + 0.0001, highway="secondary", ref="333")
+    D = -0.18
+    way(36, 0, 5, D, highway="primary", ref="38")
+    way(37, 7, 12, D, highway="primary", ref="38")
+    if new:                                                           # new: 38 across a ref-less roundabout piece
+        way(41, 5, 5.95, D, highway="primary", ref="38")
+        way(42, 5.95, 6.05, D, highway="primary", junction="roundabout")
+        way(43, 6.05, 7, D, highway="primary", ref="38")
+    D = -0.21
+    way(44, 0, 2, D, highway="primary", ref="38")
+    way(45, 3, 5, D, highway="primary", ref="35")
+    if new:
+        way(46, 2, 3, D, highway="primary")                           # new: ref-less, from 38 to 35
+    D = -0.24
+    way(47, 0, 2, D, highway="primary", ref="38")
+    way(48, 3, 5, D, highway="primary", ref="38")
+    if new:                                                           # new: a dual carriageway between them
+        way(49, 2, 3, D, highway="primary", ref="38", oneway="yes")
+        way(50, [(3, D), (2.5, D + 0.0002), (2, D)], highway="primary", ref="38", oneway="yes")
+    D = -0.27
+    if new:                                                           # moved 40 m off at km 1.2-1.6
+        way(51, [(0, D), (0.5, D), (1.2, D), (1.2, D + 0.00036), (1.6, D + 0.00036), (1.6, D), (3, D)], highway="primary", ref="38")
+    else:
+        way(51, 0, 3, D, highway="primary", ref="38")
     pts = "".join(f'<node id="{i}" version="1" lat="{LAT + dy:.7f}" lon="{LON0 + x * KM:.7f}"/>' for (x, dy), i in nodes.items())
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
@@ -75,14 +110,22 @@ def drawn(wid, x):
         return None if 4 <= x <= 6 else "nat"
     if wid == 8:
         return "nat" if 2.4 <= x <= 2.6 else None
-    return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw"}.get(wid)
+    return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw",
+            30: "nat", 31: "nat", 32: "nat", 33: "nat", 36: "nat", 37: "nat", 44: "nat", 45: "nat", 47: "nat", 48: "nat", 51: "nat"}.get(wid)
+
+
+# The stretches' latitudes (dy) and the class I km tolled there: 30-32
+# whole; 35 (not the secondary); 36, 37 and the new ways between; 44 and 45
+# (not the ref-less way between); 47, 48 and both carriageways between;
+# 51 with its moved bit.
+BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08}
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 15.8, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 46.9, "text": "I/38"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -115,8 +158,13 @@ def main():
     build.main("CZ", src, dst)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
-    nat, mw = km(out["nat"]), km(out["mw"])
-    ok = sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    band = lambda dy: [l for l in out["nat"] if abs(l[1] / 1e5 - (LAT + dy)) < 0.005]
+    got = {dy: km(band(dy)) for dy in BANDS}
+    nat, mw = km(out["nat"]) - sum(got.values()), km(out["mw"])
+    bands_ok = all(abs(got[dy] - want) < 0.1 for dy, want in BANDS.items())
+    for dy, want in BANDS.items():
+        print(f"stretch at {dy}: {got[dy]:.2f} km tolled, want {want}")
+    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
     print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     for f in os.listdir(d):

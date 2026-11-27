@@ -67,7 +67,7 @@ JOIN_KM = 0.1
 # A road whose toll sections OSM has for this share of annex 1's km (both
 # carriageways of an M road): its other ways are left out.
 COVERED = 0.9
-# Roads whose chains the build lists (ROADS_DEBUG="21,4").
+# Roads whose chains the build lists (ROADS_DEBUG="21,4", or "*" for all).
 DEBUG_ROADS = set(filter(None, os.environ.get("ROADS_DEBUG", "").split(",")))
 # mw: the motorway class of the toll law; nat: the national roads.
 RULES = {
@@ -716,6 +716,15 @@ def place_pending(h, cc, city=None):
                 continue
             ma, mb = near(road, a, BRIDGE_M), near(road, b, BRIDGE_M)
             ab = None
+            if ma and mb and ma[3] != mb[3]:
+                ab = between(*sorted((ma[3], mb[3]), key=lambda e: span[e][1]))
+
+            def show(what, cf=None):
+                if road in DEBUG_ROADS or "*" in DEBUG_ROADS:
+                    ll = lambda p: f"{p[1] / 111_320:.5f},{p[0] / kx:.5f}"
+                    print(cc, "chain", road, f"{km:.2f} km", len(chain), "ways, ends", ll(a), ma and ma[3], ll(b), mb and mb[3],
+                          ab and f"annex {ab[0]:.2f} of {ab[1]:.2f} km between, hole {ab[3]:.3f}", "->", what, cf or "")
+
             if ma and mb and ma[3] == mb[3]:
                 # A hole in one section's relation (or its other
                 # carriageway, farther off): the annex runs on there.
@@ -724,14 +733,12 @@ def place_pending(h, cc, city=None):
                         h.add(ma[1], ma[2], rest[ways[k]][2], {})
                         decided[ways[k]] = "gap"
                     gaps[road] += km
+                    show("hole", ma[1:3])
+                else:
+                    show("left (longer than the section)")
                 continue
-            if ma and mb:
-                ab = between(*sorted((ma[3], mb[3]), key=lambda e: span[e][1]))
-            if road in DEBUG_ROADS:
-                ll = lambda p: f"{p[1] / 111_320:.5f},{p[0] / kx:.5f}"
-                print(cc, "chain", road, f"{km:.1f} km", len(chain), "ways, ends", ll(a), ma and ma[3], ll(b), mb and mb[3],
-                      ab and f"annex {ab[0]:.1f} of {ab[1]:.1f} km between")
             if ab is None:
+                show("left (no section at an end)")
                 continue
             on, gap, cf, hole = ab
             if hole <= JOIN_KM and km <= (2.6 if road.startswith("M") else 1.3) * gap + GAP_KM:
@@ -745,12 +752,16 @@ def place_pending(h, cc, city=None):
                     h.add(sc, sf, rest[ways[k]][2], {})
                     decided[ways[k]] = "gap"
                 gaps[road] += km
+                show("gap", (sc, sf, "covers", round(cover(ma[3]), 2), round(cover(mb[3]), 2)))
             elif on <= 0.001:
                 # No annex section between them: not tolled.
                 for k in chain:
                     decided[ways[k]] = "break"
                 breaks[road] += km
-            # Else part of it is in the annex: left as the road's other ways.
+                show("break")
+            else:
+                # Part of it is in the annex: left as the road's other ways.
+                show("left (part in the annex)")
     for i, (refs, c, coords, mc) in enumerate(rest):
         if i in decided:
             continue

@@ -2948,8 +2948,19 @@
    "file": "pl/polsca-2026-11-01.orct.json",
    "name": "POLSCA Baltic Ferries' (Polferries, Unity Line) ferries Świnoujście–Ystad, Świnoujście–Trelleborg, Gdańsk–Nynäshamn and Gdańsk–Karlshamn, trucks",
    "valid_from": "2026-11-01",
+   "valid_to": "2026-11-30",
+   "sha256": "822be09623c93cfe4dc55f27039d661d0b1a6670a70c5dc34d84ea7dfcdcf42f",
+   "coverage": "complete"
+  },
+  {
+   "id": "carbon-cost/polsca/2026-12-01",
+   "scheme": "polsca",
+   "country": "PL",
+   "file": "pl/polsca-2026-12-01.orct.json",
+   "name": "POLSCA Baltic Ferries' (Polferries, Unity Line) ferries Świnoujście–Ystad, Świnoujście–Trelleborg, Gdańsk–Nynäshamn and Gdańsk–Karlshamn, trucks",
+   "valid_from": "2026-12-01",
    "valid_to": null,
-   "sha256": "9613440a645033ef62956581ec4daed331317f20e76b130639f9b64c11183399",
+   "sha256": "d0fe860513a2ef0a5bc42c872301765316a7c34bd9820c9cdf8b6d7a15cb6ede",
    "coverage": "complete"
   },
   {

@@ -23,8 +23,10 @@ its section holds the ground of the sections next to it OSM has none of,
 and other carriageways and filled chains use the room up). It takes the class
 and share of the section it is in, of the annex's sections between, or
 where two meet in it, their mean share. The other ways, such as an old
-road beside a section OSM has whole, and the other main roads and
-motorways, such as those inside
+road beside a section OSM has whole, are tolled by their ref only where
+that brings the road's tolled km (one carriageway) nearer the annex's
+(the build reports each road's against it, and fails when the total is
+more than HU_OFF off); the other main roads and motorways, such as those inside
 Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
 simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
@@ -74,6 +76,8 @@ JOIN_KM = 0.1
 # carriageway) are at most ROOM times the annex km OSM's relations lack
 # there, plus ROOM_KM (OSM's lengths and the annex's differ a little).
 ROOM, ROOM_KM = 1.3, 0.3
+# The share the tolled km (one carriageway) may be off annex 1's in all.
+HU_OFF = 0.05
 # A road's other ways count by their ref where that brings its tolled km
 # (one carriageway) nearer annex 1's (tests turn it off to see the other
 # rules alone).
@@ -644,7 +648,7 @@ def place_pending(h, cc, city=None):
             got, lo, hi = 0.0, i, i
             while excess - got > ROOM_KM:
                 cand = [k for k, ok in ((lo - 1, lo > 0 and joined(lo - 1, lo)), (hi + 1, hi + 1 < len(ids) and joined(hi, hi + 1)))
-                        if ok and h.sec_ckm[ids[k]] == 0]
+                        if ok and h.sec_ckm[ids[k]] == 0 and annex_km(ids[k]) <= ROOM * (excess - got) + ROOM_KM]
                 if not cand:
                     break
                 k = min(cand, key=lambda k: abs(annex_km(ids[k]) - (excess - got)))
@@ -734,7 +738,10 @@ def place_pending(h, cc, city=None):
             h.add(sc, sf, coords, {})
             twins[hit[0]] += line.length / 1000
             twin_c[hit[0]] += line.length / 1000 * cw
-            use([e], line.length / 1000 * cw)
+            # Each section along it, by its samples.
+            along = Counter(s[3] for s in ok)
+            for e, k in along.items():
+                use([e], line.length / 1000 * cw * k / len(ok))
         else:
             rest.append((refs, c, coords, mc, cw))
     # Chains of the remaining ways of one road: ways whose end comes within
@@ -881,6 +888,8 @@ def place_pending(h, cc, city=None):
                   f"holes and gaps {gap_c[road]:.1f}, by ref {ref_c[road]:.1f}; breaks {breaks[road]:.1f}, left out {dropped[road]:.1f} (km of lines)")
     total, law = sum(tolled.values()), sum(annex.values())
     print(cc, f"tolled km (one carriageway) {total:.0f} of annex 1's {law:.0f} ({total / law - 1:+.1%}); by road, {sum(abs(tolled[r] - annex[r]) for r in annex):.0f} km off in all")
+    if law > 1000 and abs(total / law - 1) > HU_OFF:
+        sys.exit(f"{cc}: tolled km {total:.0f} more than {HU_OFF:.0%} off annex 1's {law:.0f}")
 
 
 # Countries whose law lists its tolled sections: the list (from the law,

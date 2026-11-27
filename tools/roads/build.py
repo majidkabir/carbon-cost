@@ -1114,7 +1114,7 @@ def main(cc, src, dst, areas=None):
         network = bg_finish(h, cc, bg)
     if cc == "HU":
         network = ("25/2013. (V. 31.) NFM rendelet, 1. melléklet: its toll sections by OpenStreetMap's relations tagged ref:HU:edid"
-                   " (where OpenStreetMap lacks a tenth of a road's, its ways by their ref; not inside Budapest but the M0)")
+                   " (where that brings a road's tolled km nearer the annex's, its other ways by their ref; not inside Budapest but the M0)")
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:

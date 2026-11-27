@@ -756,7 +756,7 @@ def place_pending(h, cc, city=None):
                     gaps[road] += km
                     show("hole", ma[1:3])
                 else:
-                    show(f"left (room {room(ma[3]):.2f} km)")
+                    show(f"left (room {room(ma[3]):.2f} km: annex {(span[ma[3]][2] - span[ma[3]][1]) / 1000:.2f}, OSM {h.sec_ckm[ma[3]]:.2f}; chain {ckm:.2f})")
                 continue
             if ab is None:
                 show("left (no section at an end)")

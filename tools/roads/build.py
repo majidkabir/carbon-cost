@@ -77,7 +77,7 @@ RULES = {
     "BG": {"mw": r"^[AА]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "segments": "bg-network.json"},
     # Slovakia, NV 418/2024: diaľnice and rýchlostné cesty (D, R) vs
     # cesty I. triedy.
-    "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
+    "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "secondary": True},
     # Hungary, 25/2013 NFM: gyorsforgalmi utak (M) vs főutak.
     "HU": {"mw": r"^M\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "sections_only": True},
     # Romania, OMT 1925/2025: autostrăzi and drumuri expres (A, DEx) vs
@@ -392,7 +392,7 @@ class Ways(osmium.SimpleHandler):
         else:
             # Czechia's toll map and Bulgaria's toll segments have class II
             # roads too (OpenStreetMap's secondary).
-            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("segments") else ()):
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("segments") or self.rule.get("secondary") else ()):
                 return
             c, f = classify(self.rule, tags), -1
             if self.bg is not None:

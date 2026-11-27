@@ -4279,3 +4279,30 @@ func TestElectricTruckOwnKWhAlongTheRoute(t *testing.T) {
 		t.Errorf("%s %v %v: %s", r.DataType, r.TTWKg, r.WTWKg, r.EmissionsBasis)
 	}
 }
+
+// The road-class note for a country whose tolled roads are its law's list
+// names the rate classes, not road types the country may not have
+// (Czechia has no expressways; Bulgaria's class I roads built as
+// motorways pay the class I rate).
+func TestTolledRoadsNoteNamesRates(t *testing.T) {
+	path := [][2]float64{{14.66406, 49.74099}, {14.66273, 49.73988}, {14.66214, 49.73892}, {14.66185, 49.73801}}
+	rx, err := roads.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 0.4, CountryKm: map[string]float64{"CZ": 0.4}, Path: path}}}
+	rk := RoadKm(rx, []Run{{Kind: "road", Country: "CZ", Points: path}})
+	r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, FX: map[string]float64{"CZK": 25}, roadKm: rk, roadNetwork: map[string]string{"CZ": rx.Network("CZ")}}, time.Date(2026, 11, 20, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, n := range r.Notes {
+		if strings.HasPrefix(n, "CZ: by OpenStreetMap along the route") {
+			if strings.Contains(n, "expressways") || !strings.Contains(n, "100% at the other tolled roads' rate") || strings.Contains(n, "charge, which") {
+				t.Errorf("note %q", n)
+			}
+			return
+		}
+	}
+	t.Errorf("no road-class note for CZ: %v", r.Notes)
+}

@@ -4,9 +4,10 @@ layer, in that layer's class (a class II road in OpenStreetMap the map
 tolls as class I, a motorway it tolls as class I); a short tolled blip
 (a crossing) is left out, and so is a road beside a motorway the map's
 line is the motorway's; a way takes the map's reading at the points on it,
-its own or (OSM split or merged it) others' running along it, not a
-crossing road's; ways with none are tolled when the ways of their ref
-joined to them meet tolled ways of that ref at every end.
+its own or (OSM split, merged or moved it) others' running along it, not
+a crossing road's; a way mostly unread (added since) is tolled when the
+ways of its ref joined to it, and ref-less ones between, meet ways of
+that ref tolled at every end (their ends or inside them).
 
 Usage: python3 test_cz.py
 """
@@ -95,6 +96,22 @@ def osm(path, new):
     if new:                                                           # new: a dual carriageway between them
         way(49, 2, 3, D, highway="primary", ref="38", oneway="yes")
         way(50, [(3, D), (2.5, D + 0.0002), (2, D)], highway="primary", ref="38", oneway="yes")
+    D = -0.30
+    way(52, 0, 5, D, highway="primary", ref="38")
+    way(53, 7, 12, D, highway="primary", ref="38")
+    if new:                                                           # new: 38 and a ref-less road crossing it
+        way(54, 5, 7, D, highway="primary", ref="38")
+        way(55, [(6, D - 0.006), (6, D), (6, D + 0.006)], highway="primary")
+    D = -0.33
+    way(56, 0, 12, D, highway="primary", ref="38")
+    if new:                                                           # new: a bypass from inside way 56 to inside it
+        way(57, BYPASS[D], highway="primary", ref="38")
+    D = -0.36
+    way(58, 0, 4, D, highway="primary", ref="38")
+    way(59, 4, 6, D, highway="primary", ref="38")                     # the town passage, untolled
+    way(60, 6, 10, D, highway="primary", ref="38")
+    if new:                                                           # new: a bypass first 11 m beside the town passage
+        way(61, BYPASS[D], highway="primary", ref="38")
     D = -0.27
     if new:                                                           # moved 40 m off at km 1.2-1.6
         way(51, [(0, D), (0.5, D), (1.2, D), (1.2, D + 0.00036), (1.6, D + 0.00036), (1.6, D), (3, D)], highway="primary", ref="38")
@@ -104,6 +121,15 @@ def osm(path, new):
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
 
+BYPASS = {-0.33: [(4.5, -0.33), (4.6, -0.3297), (7.4, -0.3297), (7.5, -0.33)],
+          -0.36: [(4, -0.36), (4.25, -0.3599), (4.5, -0.358), (5.5, -0.358), (6, -0.36)]}
+
+
+def km_of(pts):
+    """The km of (km, dy) points as the test measures lines."""
+    return sum(((x2 - x1) ** 2 + ((y2 - y1) / KM) ** 2) ** 0.5 for (x1, y1), (x2, y2) in zip(pts, pts[1:]))
+
+
 def drawn(wid, x):
     """The map: the layer drawn at km x of way wid."""
     if wid == 1:
@@ -111,21 +137,25 @@ def drawn(wid, x):
     if wid == 8:
         return "nat" if 2.4 <= x <= 2.6 else None
     return {3: "mw", 4: "mw", 6: "nat", 16: "nat", 10: "nat", 11: "nat", 12: "mw",
-            30: "nat", 31: "nat", 32: "nat", 33: "nat", 36: "nat", 37: "nat", 44: "nat", 45: "nat", 47: "nat", 48: "nat", 51: "nat"}.get(wid)
+            30: "nat", 31: "nat", 32: "nat", 33: "nat", 36: "nat", 37: "nat", 44: "nat", 45: "nat", 47: "nat", 48: "nat", 51: "nat",
+            52: "nat", 53: "nat", 56: "nat", 58: "nat", 60: "nat"}.get(wid)
 
 
 # The stretches' latitudes (dy) and the class I km tolled there: 30-32
 # whole; 35 (not the secondary); 36, 37 and the new ways between; 44 and 45
 # (not the ref-less way between); 47, 48 and both carriageways between;
-# 51 with its moved bit.
-BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08}
+# 51 with its moved bit; 52, 53 and the new way between, not the ref-less
+# road crossing it; 56 and the bypass joining it inside; 58, 60 and the
+# bypass round the town, not the passage.
+BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08,
+         -0.30: 12.0, -0.33: 12 + km_of(BYPASS[-0.33]), -0.36: 8 + km_of(BYPASS[-0.36])}
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 46.9, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 85.1, "text": "I/38"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -164,7 +194,7 @@ def main():
     bands_ok = all(abs(got[dy] - want) < 0.1 for dy, want in BANDS.items())
     for dy, want in BANDS.items():
         print(f"stretch at {dy}: {got[dy]:.2f} km tolled, want {want}")
-    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
     print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     for f in os.listdir(d):

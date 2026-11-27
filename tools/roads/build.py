@@ -472,10 +472,13 @@ class Ways(osmium.SimpleHandler):
         ls = LineString(coords)
         self.samples.append((w.id, c, refs[0] if refs else "", ls))
         ends = (w.nodes[0].ref, w.nodes[-1].ref)
+        nodes = [n.ref for n in w.nodes]
         if self.myto is not None:
             slots = self.myto_points.slots(w.id, ls)
-            if all(l == "unread" for l in slots):
-                self.new_ways.append((c, coords, tags, ends, [n.ref for n in w.nodes]))
+            # Mostly unread: a way added since (its few points a
+            # neighbour's), placed by its ends instead.
+            if 2 * sum(l == "unread" for l in slots) > len(slots):
+                self.new_ways.append((c, coords, tags, ends, nodes))
             else:
                 n = len(slots)
                 mids = [ls.interpolate((i + 0.5) / n, normalized=True) for i in range(n)]
@@ -486,18 +489,24 @@ class Ways(osmium.SimpleHandler):
                 # drawn on, only where it isn't beside one of those.
                 hw = tags.get("highway")
                 strong = {"mw": hw == "motorway" or any(re.match(r"^D\d", r) for r in refs), "nat": bool(set(refs) & self.law_refs)}
-                self.mapped.append((fl, strong, ls, tags, refs, ends))
+                self.mapped.append((fl, strong, ls, tags, refs, nodes))
             return
         # No capture: the law's roads by ref.
         parts = [(0.0, 1.0)] if tags.get("highway") != "secondary" and (c == "mw" or set(refs) & self.law_refs) else []
-        self.add_parts(c, parts, ls, tags, refs, ends)
+        self.add_parts(c, parts, ls, tags, refs, nodes)
 
-    def add_parts(self, c, parts, ls, tags, refs, ends):
-        # The ends tolled ways reach, with the ways' refs.
-        if parts and parts[0][0] == 0:
-            self.tolled_nodes[c].setdefault(ends[0], set()).update(refs)
-        if parts and parts[-1][1] == 1:
-            self.tolled_nodes[c].setdefault(ends[1], set()).update(refs)
+    def add_parts(self, c, parts, ls, tags, refs, nodes):
+        # The nodes on the tolled parts, with the ways' refs: where a way
+        # added since may meet a tolled road.
+        coords = list(ls.coords)
+        if parts and len(nodes) == len(coords):
+            run = [0.0]
+            for p, q in zip(coords, coords[1:]):
+                run.append(run[-1] + cz_myto.length_m([p, q]))
+            total = run[-1] or 1
+            for n, d in zip(nodes, run):
+                if any(a - 1e-6 <= d / total <= b + 1e-6 for a, b in parts):
+                    self.tolled_nodes[c].setdefault(n, set()).update(refs)
         for a, b in parts:
             piece = ls if (a, b) == (0, 1) else substring(ls, a, b, normalized=True)
             if piece.geom_type == "LineString" and len(piece.coords) >= 2:
@@ -733,8 +742,8 @@ NETWORK = {"PL": "pl-network.json"}
 CZ_LAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cz-network.json")
 # A point of a road where the map draws a layer of another class counts
 # only if no point of a road of that class with the layer drawn is within
-# about NEAR_M (one cell either way: the old road beside a motorway).
-NEAR_M = 40
+# about BESIDE_M (one cell either way: the old road beside a motorway).
+BESIDE_M = 40
 
 
 def myto_finish(h, cc, law, dst):
@@ -743,15 +752,15 @@ def myto_finish(h, cc, law, dst):
     law's.
     Returns what the tolled sections are, for the data's network."""
     # The points where a layer is drawn on a way of its class, in cells of
-    # about NEAR_M.
-    cell = lambda x, y: (int(x * 111_320 * 0.65 // NEAR_M), int(y * 111_320 // NEAR_M))
+    # about BESIDE_M.
+    cell = lambda x, y: (int(x * 111_320 * 0.65 // BESIDE_M), int(y * 111_320 // BESIDE_M))
     strong = {"mw": set(), "nat": set()}
     for fl, st, *_ in h.mapped:
         for l, (x, y) in fl:
             if l in st and st[l]:
                 strong[l].add(cell(x, y))
     beside = 0.0
-    for fl, st, ls, tags, refs, ends in h.mapped:
+    for fl, st, ls, tags, refs, nodes in h.mapped:
         keep = []
         for l, (x, y) in fl:
             if l in st and not st[l]:
@@ -761,41 +770,37 @@ def myto_finish(h, cc, law, dst):
                     beside += cz_myto.length_m(list(ls.coords)) / 1000 / len(fl)
             keep.append(l)
         c, parts = cz_myto.parts(keep, "nat")
-        h.add_parts(c, parts, ls, tags, refs, ends)
+        h.add_parts(c, parts, ls, tags, refs, nodes)
     print(cc, f"km the map draws on other roads beside a road of its class (left out): {beside:.1f}")
-    # Ways with none of the map's points: those of a ref (a road) and the
-    # ref-less ones (a roundabout's), joined at their nodes, are tolled in
-    # a class when the chain has two ends or more (its ends, and the nodes
-    # where tolled ways of the ref end on it) and every one is the end of
-    # a way of the ref (or of a ref-less one) tolled in that class.
+    # Ways added since (mostly unread): those of a ref (a road), and
+    # ref-less ones (a roundabout's) whose ends are on them or on tolled
+    # ways of the ref, joined at their ends, are tolled in a class when
+    # the chain has two ends or more (its ends, and the nodes where tolled
+    # ways of the ref meet it) and every one is on a way of the ref (or a
+    # ref-less one) tolled in that class.
     ways = h.new_ways
     refs_of = [[r.strip() for r in (t.get("ref") or "").split(";") if r.strip()] for _, _, t, _, _ in ways]
-    tolled = lambda n: n in h.tolled_nodes["mw"] or n in h.tolled_nodes["nat"]
-    # A node where a way of ref r, or a ref-less way, tolled ends.
+    # A node on a tolled way of ref r, or of a ref-less one.
     of_ref = lambda n, r: any(n in t and (r in t[n] or not t[n]) for t in h.tolled_nodes.values())
-    candidates = {r for rs in refs_of for r in rs}
-    for i, rs in enumerate(refs_of):
-        if not rs:
-            for k in ("mw", "nat"):
-                for n in ways[i][4]:
-                    candidates |= h.tolled_nodes[k].get(n, set())
     done, tolled_km = set(), 0.0
-    for r in sorted(candidates):
-        group = [i for i, rs in enumerate(refs_of) if r in rs or not rs]
+    for r in sorted({r for rs in refs_of for r in rs} | {r for t in h.tolled_nodes.values() for i, rs in enumerate(refs_of) if not rs for n in ways[i][3] for r in t.get(n, ())}):
+        mine = [i for i, rs in enumerate(refs_of) if r in rs]
+        ends_r = {n for i in mine for n in ways[i][3]}
+        group = mine + [i for i, rs in enumerate(refs_of) if not rs and all(n in ends_r or of_ref(n, r) for n in ways[i][3])]
         at = {}
         for i in group:
-            for n in ways[i][4]:
+            for n in ways[i][3]:
                 at.setdefault(n, []).append(i)
         seen = set()
         for i in group:
-            if i in seen or r not in refs_of[i] and not any(tolled(n) for n in ways[i][4]):
+            if i in seen:
                 continue
             chain, todo = [], [i]
             seen.add(i)
             while todo:
                 j = todo.pop()
                 chain.append(j)
-                for n in ways[j][4]:
+                for n in ways[j][3]:
                     for k in at[n]:
                         if k not in seen:
                             seen.add(k)
@@ -813,7 +818,7 @@ def myto_finish(h, cc, law, dst):
                         tolled_km += cz_myto.length_m(ways[j][1]) / 1000
     free_km = sum(cz_myto.length_m(ways[j][1]) / 1000 for j in range(len(ways)) if j not in done)
     if ways:
-        print(cc, f"ways with none of the map's points: {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not")
+        print(cc, f"ways mostly unread (added since the reading): {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not")
     path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
     cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
     print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")
@@ -867,8 +872,8 @@ def bg_finish(h, cc, doc):
                 h.add("mw", -1, run, tags)
     if lost > 0.02 * total:
         sys.exit(f"{cc}: {lost:.0f} of {total:.0f} segment km not found in OpenStreetMap")
-    return (doc["source"].split(":")[0] + "; class I and II roads by the toll segments of " + doc["segments_2022"]["source"].split(":")[0]
-            + " (the settlements left out)")
+    return (doc["source"].split(":")[0] + "; the motorways by their ref or tag, the class I and II roads by the toll segments of "
+            + doc["segments_2022"]["source"].split(":")[0] + " (the settlements left out)")
 
 
 def encode(lines):

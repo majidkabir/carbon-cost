@@ -154,7 +154,7 @@ class Urban(osmium.SimpleHandler):
     def __init__(self):
         super().__init__()
         self.wkb = osmium.geom.WKBFactory()
-        self.towns, self.land = [], []
+        self.towns, self.land, self.land_use = [], [], []
         self.seen = Counter()
 
     def area(self, a):
@@ -167,12 +167,14 @@ class Urban(osmium.SimpleHandler):
                 self.towns.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
             elif t.get("landuse") in ("residential", "commercial", "industrial", "retail"):
                 self.land.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
+                self.land_use.append(t.get("landuse"))
         except Exception:
             pass
 
-    def built_up_all(self):
-        """All the built-up land, 50 m around: the settlements."""
-        return unary_union([l.buffer(0.0005) for l in self.land]) if self.land else None
+    def built_up_all(self, uses=("residential", "commercial", "industrial", "retail"), m=50):
+        """The built-up land of these uses, m around: the settlements."""
+        land = [l.buffer(m / 100_000) if m else l for l, u in zip(self.land, self.land_use) if u in uses]
+        return unary_union(land) if land else None
 
     def built_up(self):
         tree = STRtree(self.land)
@@ -844,7 +846,7 @@ def main(cc, src, dst, areas=None):
         # Bulgaria: no toll inside settlements (the law's note).
         u = Urban()
         u.apply_file(areas, locations=True)
-        urban = u.built_up_all()
+        urban = u.built_up_all(*([os.environ["BG_USES"].split(","), int(os.environ["BG_M"])] if os.environ.get("BG_USES") else []))
         print(cc, "built-up polygons:", len(u.land))
     elif areas:
         u = Urban()

@@ -65,18 +65,7 @@ jobs:
               if [ $cc = SK ]; then
                 curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://static.slov-lex.sk/pdf/prilohy/SK/ZZ/2020/228/20270101_5805824-2.pdf
                 pdftotext -layout law.pdf law.txt
-                python3 -c "
-import re
-from collections import Counter
-km = Counter(); par = Counter()
-for l in open('law.txt', encoding='utf-8'):
-    m = re.match(r'^\s*(\d{3})-(A?)\S*\s.*?(\d+,\d{3})\s*$', l)
-    if m:
-        km[int(m.group(1))] += float(m.group(3).replace(',', '.'))
-        if m.group(2): par[int(m.group(1))] += float(m.group(3).replace(',', '.'))
-for r in sorted(km): print('SKLAW I/%d %.1f parallel %.1f' % (r, km[r], par[r]))
-print('SKLAW total %.1f parallel %.1f' % (sum(km.values()), sum(par.values())))
-"
+                python3 tools/roads/sk_law.py law.txt
                 export ROADS_REFKM=1
               fi
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid

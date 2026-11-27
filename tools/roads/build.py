@@ -28,6 +28,10 @@ that class the line is drawn for; the build writes the samples for the
 next reading beside its output, and checks each class's tolled km against
 the law's (cz-network.json).
 
+In Bulgaria the class I and II roads are tolled where the toll segments
+of the list run (bg_network.py, bg-network.json), found along the roads
+by bgseg.py; the settlements between them aren't; the motorways all are.
+
 For Hungary, a fourth argument gives an extract of the administrative
 boundaries, for Budapest's. For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up
@@ -40,6 +44,7 @@ land, 50 m around.
 import gzip, json, math, os, re, sys
 from collections import Counter
 import osmium
+import bgseg
 import cz_myto
 from shapely import wkb
 from shapely.geometry import LineString, Point
@@ -67,8 +72,9 @@ RULES = {
     # Poland, Dz.U. 2026 poz. 33: autostrady and drogi ekspresowe (A, S) vs
     # drogi krajowe.
     "PL": {"mw": r"^[AS]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
-    # Bulgaria, Tarifa art. 25: автомагистрали vs I and II class roads.
-    "BG": {"mw": r"^[AА]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
+    # Bulgaria, Tarifa art. 25: автомагистрали vs I and II class roads,
+    # those by the toll segments of the list (bg_network.py, bgseg.py).
+    "BG": {"mw": r"^[AА]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "segments": "bg-network.json"},
     # Slovakia, NV 418/2024: diaľnice and rýchlostné cesty (D, R) vs
     # cesty I. triedy.
     "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
@@ -367,6 +373,9 @@ class Ways(osmium.SimpleHandler):
         # ref, and by class.
         self.law_refs, self.myto, self.samples, self.new_ways, self.mapped = set(), None, [], [], []
         self.tolled_nodes, self.ref_km, self.class_km = {"mw": set(), "nat": set()}, Counter(), Counter()
+        # segments (Bulgaria): the main roads' ways, for the toll segments
+        # to be found on (bgseg.Network), and whether each is a motorway.
+        self.bg, self.bg_mw = None, []
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -381,9 +390,13 @@ class Ways(osmium.SimpleHandler):
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
-            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") else ()):
+            # Czechia's toll map and Bulgaria's toll segments have class II
+            # roads too (OpenStreetMap's secondary).
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("segments") else ()):
                 return
             c, f = classify(self.rule, tags), -1
+            if self.bg is not None:
+                return self.bg_way(w, c, tags)
             if c is None and self.rule.get("myto"):
                 # Any main road: the toll map says whether, and in which
                 # class, it is tolled.
@@ -436,6 +449,22 @@ class Ways(osmium.SimpleHandler):
         if self.rule.get("myto"):
             return self.myto_way(w, c, coords, tags)
         self.add(c, f, coords, tags, suffix)
+
+    def bg_way(self, w, c, tags):
+        try:
+            coords = [(n.lon, n.lat) for n in w.nodes]
+        except osmium.InvalidLocationError:
+            return
+        if len(coords) < 2:
+            return
+        refs = {r.strip().replace("А", "A") for r in (tags.get("ref") or "").split(";") if r.strip()}
+        roundabout = tags.get("junction") in ("roundabout", "circular")
+        ow = tags.get("oneway")
+        oneway = -1 if ow == "-1" else 0 if ow == "no" else 1 if ow in ("yes", "1", "true") or roundabout or tags.get("highway") == "motorway" else 0
+        self.bg.add(refs, roundabout, oneway, [n.ref for n in w.nodes], coords, tags)
+        # A motorway by its ref; or by its highway, but not a class I or II
+        # road built as one (tolled only along its segments).
+        self.bg_mw.append(any(re.match(r"^A\W?\d", r) for r in refs) or (c == "mw" and not any(re.fullmatch(r"\d{1,2}", r) for r in refs)))
 
     def myto_way(self, w, c, coords, tags):
         refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
@@ -752,6 +781,45 @@ def myto_finish(h, cc, law, dst):
     return law["source"].split(":")[0] + (f"; tolled stretches as the toll operator's map draws them ({cap['url']}, read {cap['date']})" if cap else "")
 
 
+def bg_finish(h, cc, doc):
+    """Bulgaria: the class I and II roads' toll segments placed on the
+    main roads (bgseg.py); the parts of ways they cover are tolled class I
+    and II roads, a motorway's other parts motorway. Returns what the
+    tolled roads are, for the data's network."""
+    net = h.bg
+    rows = [r for r in doc["segments_2022"]["rows"] if r[0] in ("I", "II")]
+    placed, wanted, missed = Counter(), Counter(), Counter()
+    anyroad = 0
+    for cls, road, no, lat1, lon1, lat2, lon2, m in rows:
+        wanted[road] += m / 1000
+        got = net.place((lon1, lat1), (lon2, lat2), m, road)
+        if got is None:
+            got = net.place((lon1, lat1), (lon2, lat2), m, None)
+            anyroad += got is not None
+        if got is None:
+            missed[road] += m / 1000
+        else:
+            placed[road] += m / 1000
+    for road in sorted(wanted, key=int):
+        print(cc, f"road {road:>2}: {placed[road]:6.1f} of {wanted[road]:6.1f} segment km placed" + (f", {missed[road]:.1f} not" if missed[road] else ""))
+    listed = set(doc["roads"]["I"]) | set(doc["roads"]["II"])
+    for road in sorted(listed ^ set(wanted), key=int):
+        print(f"::warning::{cc}: road {road} is in " + ("the list of 2025 but has no segments of 2022" if road in listed else "the segments of 2022 but not the list of 2025"))
+    total, lost = sum(wanted.values()), sum(missed.values())
+    print(cc, f"segments placed: {total - lost:.0f} of {total:.0f} km; {anyroad} on roads of another ref")
+    for w in range(len(net.ways)):
+        tags = net.ways[w][6]
+        for run in net.covered(w):
+            h.add("nat", -1, run, tags)
+        if h.bg_mw[w]:
+            for run in net.uncovered(w):
+                h.add("mw", -1, run, tags)
+    if lost > 0.02 * total:
+        sys.exit(f"{cc}: {lost:.0f} of {total:.0f} segment km not found in OpenStreetMap")
+    return (doc["source"].split(":")[0] + "; class I and II roads by the toll segments of " + doc["segments_2022"]["source"].split(":")[0]
+            + " (the settlements left out)")
+
+
 def encode(lines):
     out = []
     for run in lines:
@@ -858,6 +926,10 @@ def main(cc, src, dst, areas=None):
         h.myto = cz_myto.load()
         if h.myto is None:
             print(f"::warning::{cc}: no capture of the toll map: every way of the law's roads counted")
+    bg = None
+    if rule.get("segments"):
+        bg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), rule["segments"]), encoding="utf-8"))
+        h.bg = bgseg.Network()
     h.tolled = list(TOLLED.get(cc, []))
     h.untolled_boxes = list(UNTOLLED.get(cc, []))
     h.mountain = list(MOUNTAIN.get(cc, []))
@@ -867,6 +939,8 @@ def main(cc, src, dst, areas=None):
         place_pending(h, cc, city)
     if law:
         network = myto_finish(h, cc, law, dst)
+    if bg:
+        network = bg_finish(h, cc, bg)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:
@@ -890,7 +964,7 @@ def main(cc, src, dst, areas=None):
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
-    if law:
+    if law or bg:
         out["network"] = network
     # The extract's date (the workflow passes its osmosis_replication_timestamp).
     if os.environ.get("OSM_EXTRACT"):

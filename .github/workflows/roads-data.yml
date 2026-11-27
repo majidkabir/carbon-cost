@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 90
     steps:
       - uses: actions/checkout@v5
-      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q shapely osmium
+      - run: for i in 1 2 3 4 5; do { sudo apt-get update -qq || true; } && sudo apt-get install -y -qq osmium-tool poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q shapely osmium
       - name: Build
         run: |
           mkdir -p out
@@ -21,11 +21,12 @@ jobs:
           list="CZ:czech-republic PL:poland BG:bulgaria SK:slovakia HU:hungary RO:romania IT:italy DE:germany AT:austria BY:belarus"
           if [ -f tools/roads/ONLY ]; then
             git fetch -q origin roads-out && git archive FETCH_HEAD | tar -x -C out
+            rm -f out/bg-list.html out/bg-network.json
             list=$(cat tools/roads/ONLY)
           fi
           for x in $list; do
             cc=${x%%:*}; name=${x#*:}
-            curl -fsSL --retry 5 --retry-delay 20 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name/$name-latest.osm.pbf"
+            curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o in.pbf "https://download.geofabrik.de/europe/$name/$name-latest.osm.pbf"
             export OSM_EXTRACT=$(osmium fileinfo -g header.option.osmosis_replication_timestamp in.pbf)
             if [ $cc = PL ]; then
               # The tolled sections from the law (the parsed list in the
@@ -44,6 +45,21 @@ jobs:
               curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://www.epravo.cz/_dataPublic/sbirky/2025/Sb_2025_527_PZZ.pdf
               pdftotext -layout law.pdf law.txt
               python3 tools/roads/cz_network.py law.txt | diff -u tools/roads/cz-network.json -
+              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
+            elif [ $cc = BG ]; then
+              # The tolled roads from the law of 2025 and the toll segments
+              # of the list of 2022 (the parsed lists in the repository must
+              # be the laws'), then the main roads they're on.
+              curl -fsSL --retry 5 --retry-delay 20 -o list.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=234264"
+              curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf
+              pdftotext -layout law.pdf law.txt
+              python3 tools/roads/bg_network.py list.html law.txt > bg-law.json
+              if [ -s tools/roads/bg-network.json ]; then
+                diff -u tools/roads/bg-network.json bg-law.json
+              else
+                echo "::warning::tools/roads/bg-network.json is empty: the parsed laws are on roads-out"; cp bg-law.json tools/roads/bg-network.json; cp bg-law.json out/bg-network.json
+              fi
+              rm -f list.html bg-law.json
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid

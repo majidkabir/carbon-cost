@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v5
       - run: python3 tools/orct/test_publish.py
       - run: python3 tools/orct/test_expiring.py
-      - run: pip install -q osmium shapely && python3 tools/roads/test_plnet.py && python3 tools/roads/test_hu.py
+      - run: pip install -q osmium shapely && python3 tools/roads/test_plnet.py && python3 tools/roads/test_hu.py && python3 tools/roads/test_cz.py
       - run: |
           for d in cost/testdata/synthetic/tables/*/; do
             v=$(basename "$d")

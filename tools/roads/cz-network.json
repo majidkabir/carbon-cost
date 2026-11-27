@@ -1,0 +1,431 @@
+{
+ "source": "Vyhláška č. 527/2025 Sb. (annexes 1 and 2 of vyhláška č. 470/2012 Sb. from 1 January 2026): https://www.epravo.cz/_dataPublic/sbirky/2025/Sb_2025_527_PZZ.pdf",
+ "sections": [
+  {
+   "class": "mw",
+   "ref": "D0",
+   "km": 4.6,
+   "text": "D0 Praha-Satalice – Praha-Běchovice (exity 58–62)"
+  },
+  {
+   "class": "mw",
+   "ref": "D0",
+   "km": 35.3,
+   "text": "D0 Modletice – Praha-Ruzyně (exity 76–28)"
+  },
+  {
+   "class": "mw",
+   "ref": "D1",
+   "km": 370.5,
+   "text": "D1 Průhonice – státní hranice (exit 6 až km 377)"
+  },
+  {
+   "class": "mw",
+   "ref": "D2",
+   "km": 60.5,
+   "text": "D2 Brno-jih – státní hranice (exit 1 až km 61)"
+  },
+  {
+   "class": "mw",
+   "ref": "D3",
+   "km": 102.9,
+   "text": "D3 Mezno – Kaplice (km 62 až exit 165)"
+  },
+  {
+   "class": "mw",
+   "ref": "D3",
+   "km": 3.5,
+   "text": "D3 Nažidla – Dolní Dvořiště-státní hranice (km 171 až km 175)"
+  },
+  {
+   "class": "mw",
+   "ref": "D4",
+   "km": 75.0,
+   "text": "D4 Jíloviště – Třebkov (exity 9–84)"
+  },
+  {
+   "class": "mw",
+   "ref": "D5",
+   "km": 151.5,
+   "text": "D5 Praha-Třebonice – státní hranice (exit 1 až km 151)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "km": 62.6,
+   "text": "D6 Praha-Řepy – Bukov (exity 1–62)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "km": 10.2,
+   "text": "D6 Ležky – Bošov (km 73 až exit 83)"
+  },
+  {
+   "class": "mw",
+   "ref": "D6",
+   "km": 37.5,
+   "text": "D6 Jenišov – Cheb-sever (exity 131–169)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "km": 17.0,
+   "text": "D7 Praha-Ruzyně – Knovíz (exity 2–18)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "km": 3.4,
+   "text": "D7 Slaný - západ – Kutrovice (exit 24 až km 28)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "km": 16.2,
+   "text": "D7 Panenský Týnec – Louny-západ (km 34,5 až km 51)"
+  },
+  {
+   "class": "mw",
+   "ref": "D7",
+   "km": 22.4,
+   "text": "D7 Postoloprty – Spořice (exity 56–78)"
+  },
+  {
+   "class": "mw",
+   "ref": "D8",
+   "km": 96.2,
+   "text": "D8 Praha-Březiněves – státní hranice (km -3,5 až km 92)"
+  },
+  {
+   "class": "mw",
+   "ref": "D10",
+   "km": 70.1,
+   "text": "D10 Praha-Satalice – Ohrazenice (exity 1–71)"
+  },
+  {
+   "class": "mw",
+   "ref": "D11",
+   "km": 113.3,
+   "text": "D11 Praha-Horní Počernice – Jaroměř-sever (exity 1–113)"
+  },
+  {
+   "class": "mw",
+   "ref": "D11",
+   "km": 3.3,
+   "text": "D11 Královec – státní hranice (km 151 až km 154)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "km": 17.9,
+   "text": "D35 Hořice – Plotiště (exity 109–126)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "km": 51.4,
+   "text": "D35 Sedlice – Cerekvice nad Loučnou (exity 127–179)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "km": 11.6,
+   "text": "D35 Janov – Svitavy (exity 189–201)"
+  },
+  {
+   "class": "mw",
+   "ref": "D35",
+   "km": 58.6,
+   "text": "D35 Mohelnice-jih – Lipník nad Bečvou (exity 235–296)"
+  },
+  {
+   "class": "mw",
+   "ref": "D46",
+   "km": 38.5,
+   "text": "D46 Vyškov-východ – Olomouc-Slavonín (exit 1 až km 39)"
+  },
+  {
+   "class": "mw",
+   "ref": "D48",
+   "km": 17.3,
+   "text": "D48 Bělotín – Nový Jičín-centrum (exit 1 až km 20)"
+  },
+  {
+   "class": "mw",
+   "ref": "D48",
+   "km": 45.4,
+   "text": "D48 Rybí – Žukov (km 24 až exit 70)"
+  },
+  {
+   "class": "mw",
+   "ref": "D49",
+   "km": 16.7,
+   "text": "D49 Hulín – Fryšták (exit 1 až km 18)"
+  },
+  {
+   "class": "mw",
+   "ref": "D52",
+   "km": 16.9,
+   "text": "D52 Rajhrad – Pohořelice-jih (exity 10–26)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "km": 7.6,
+   "text": "D55 Holice – Kokory (exit 1 až km 8)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "km": 19.5,
+   "text": "D55 Hulín – Napajedla (exit 16 až km 36)"
+  },
+  {
+   "class": "mw",
+   "ref": "D55",
+   "km": 21.1,
+   "text": "D55 Babice – Bzenec (exity 42–64)"
+  },
+  {
+   "class": "mw",
+   "ref": "D56",
+   "km": 13.7,
+   "text": "D56 Ostrava-Hrabová – Frýdek-Místek (exit 39 až km 54)"
+  },
+  {
+   "class": "nat",
+   "ref": "3",
+   "km": 42.9,
+   "text": "I/3 Mirošovice – Mezno"
+  },
+  {
+   "class": "nat",
+   "ref": "4",
+   "km": 4.7,
+   "text": "I/4 Praha – Jíloviště"
+  },
+  {
+   "class": "nat",
+   "ref": "6",
+   "km": 29.7,
+   "text": "I/6 Bošov – Karlovy Vary"
+  },
+  {
+   "class": "nat",
+   "ref": "7",
+   "km": 3.4,
+   "text": "I/7 Spořice – Chomutov"
+  },
+  {
+   "class": "nat",
+   "ref": "11",
+   "km": 8.3,
+   "text": "I/11 Krásné Pole – Ostrava"
+  },
+  {
+   "class": "nat",
+   "ref": "12",
+   "km": 32.5,
+   "text": "I/12 Praha – Kolín"
+  },
+  {
+   "class": "nat",
+   "ref": "16",
+   "km": 75.4,
+   "text": "I/16 Řevničov – Bezděčín"
+  },
+  {
+   "class": "nat",
+   "ref": "16",
+   "km": 35.8,
+   "text": "I/16 Mladá Boleslav – Úlibice"
+  },
+  {
+   "class": "nat",
+   "ref": "19",
+   "km": 9.9,
+   "text": "I/19 Oltyně – Čekanice"
+  },
+  {
+   "class": "nat",
+   "ref": "19",
+   "km": 36.2,
+   "text": "I/19 Tábor – Pelhřimov"
+  },
+  {
+   "class": "nat",
+   "ref": "20",
+   "km": 107.1,
+   "text": "I/20 Plzeň – České Budějovice"
+  },
+  {
+   "class": "nat",
+   "ref": "22",
+   "km": 54.1,
+   "text": "I/22 Vodňany – Klatovy-východ"
+  },
+  {
+   "class": "nat",
+   "ref": "26",
+   "km": 50.8,
+   "text": "I/26 Plzeň – Folmava"
+  },
+  {
+   "class": "nat",
+   "ref": "27",
+   "km": 35.0,
+   "text": "I/27 Plzeň-Litice – Klatovy-východ"
+  },
+  {
+   "class": "nat",
+   "ref": "30",
+   "km": 14.5,
+   "text": "I/30 Lovosice – Ústí nad Labem"
+  },
+  {
+   "class": "nat",
+   "ref": "33",
+   "km": 18.3,
+   "text": "I/33 Hořenice – Náchod"
+  },
+  {
+   "class": "nat",
+   "ref": "34",
+   "km": 49.7,
+   "text": "I/34 České Budějovice – Jindřichův Hradec"
+  },
+  {
+   "class": "nat",
+   "ref": "34",
+   "km": 121.2,
+   "text": "I/34 Jarošov nad Nežárkou – Koclířov"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "km": 32.3,
+   "text": "I/35 Bílý Kostel nad Nisou – Ohrazenice"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "km": 13.8,
+   "text": "I/35 Turnov – Jičín"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "km": 28.8,
+   "text": "I/35 Úlibice – Všestary (MÚK s D11)"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "km": 91.0,
+   "text": "I/35 Hradec Králové – Mohelnice"
+  },
+  {
+   "class": "nat",
+   "ref": "35",
+   "km": 2.6,
+   "text": "I/35 Křelov – Olomouc"
+  },
+  {
+   "class": "nat",
+   "ref": "37",
+   "km": 15.9,
+   "text": "I/37 Hradec Králové – Pardubice"
+  },
+  {
+   "class": "nat",
+   "ref": "38",
+   "km": 31.1,
+   "text": "I/38 Jestřebí – Mladá Boleslav"
+  },
+  {
+   "class": "nat",
+   "ref": "38",
+   "km": 152.9,
+   "text": "I/38 Poděbrady – Hatě"
+  },
+  {
+   "class": "nat",
+   "ref": "43",
+   "km": 51.5,
+   "text": "I/43 Brno – Svitavy"
+  },
+  {
+   "class": "nat",
+   "ref": "46",
+   "km": 0.9,
+   "text": "I/46 Olomouc-Slavonín – Olomouc-centrum"
+  },
+  {
+   "class": "nat",
+   "ref": "47",
+   "km": 3.4,
+   "text": "I/47 Kroměříž – Hulín"
+  },
+  {
+   "class": "nat",
+   "ref": "47",
+   "km": 22.6,
+   "text": "I/47 Přerov – Bělotín"
+  },
+  {
+   "class": "nat",
+   "ref": "48",
+   "km": 3.8,
+   "text": "I/48 Jeseník nad Odrou – Palačov"
+  },
+  {
+   "class": "nat",
+   "ref": "48",
+   "km": 4.4,
+   "text": "I/48 Nový Jičín-centrum – Rybí"
+  },
+  {
+   "class": "nat",
+   "ref": "50",
+   "km": 85.9,
+   "text": "I/50 Holubice – Rovné"
+  },
+  {
+   "class": "nat",
+   "ref": "52",
+   "km": 4.6,
+   "text": "I/52 Brno – Rajhrad"
+  },
+  {
+   "class": "nat",
+   "ref": "52",
+   "km": 22.4,
+   "text": "I/52 Pohořelice – Mikulov"
+  },
+  {
+   "class": "nat",
+   "ref": "55",
+   "km": 11.5,
+   "text": "I/55 Přerov – Hulín"
+  },
+  {
+   "class": "nat",
+   "ref": "58",
+   "km": 14.2,
+   "text": "I/58 Příbor – Krmelín"
+  },
+  {
+   "class": "nat",
+   "ref": "63",
+   "km": 6.9,
+   "text": "I/63 Bystřany – Řehlovice"
+  },
+  {
+   "class": "nat",
+   "ref": "68",
+   "km": 32.5,
+   "text": "I/68 Třanovice – Mosty u Jablunkova"
+  }
+ ]
+}

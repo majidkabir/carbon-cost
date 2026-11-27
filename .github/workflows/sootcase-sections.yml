@@ -32,7 +32,7 @@ jobs:
           git -C sootcase-src log --oneline -1
       - name: Map
         run: |
-          sudo apt-get -qq update && sudo apt-get -qq install -y osmium-tool >/dev/null
+          { sudo apt-get -qq update || true; } && sudo apt-get -qq install -y osmium-tool >/dev/null
           mkdir -p maps && cd maps
           for r in europe/denmark europe/germany/schleswig-holstein europe/germany/hamburg; do
             curl -fsSL --retry 10 --retry-delay 60 --retry-all-errors -o "$(basename $r).osm.pbf" "https://download.geofabrik.de/$r/$(basename $r)-latest.osm.pbf"

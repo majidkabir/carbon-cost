@@ -29,7 +29,7 @@ jobs:
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v5
-      - run: for i in 1 2 3 4 5; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
+      - run: for i in 1 2 3 4 5; do { sudo apt-get update -qq || true; } && sudo apt-get install -y -qq poppler-utils && break; [ $i = 5 ] && exit 1; sleep 30; done && pip install -q pyproj pymupdf
       - name: ECB reference rates, the NBS's dinar rates, the Bank of Albania's lek rates
         run: |
           mkdir -p out/fx

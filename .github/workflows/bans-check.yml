@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
-      - run: for i in 1 2 3; do sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils && break; sleep 20; done
+      - run: for i in 1 2 3; do { sudo apt-get update -qq || true; } && sudo apt-get install -y -qq poppler-utils && break; sleep 20; done
       - name: Fetch
         run: |
           python3 -c "import json; d=json.load(open('tools/tables/sources.json')); d['sources']=[s for s in d['sources'] if s.get('table')=='bans']; json.dump(d, open('bans-sources.json','w'))"

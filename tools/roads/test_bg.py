@@ -2,7 +2,7 @@
 roads are tolled where their toll segments run (bgseg.py), found along
 the road between their ends: not in the settlement between two segments,
 across a roundabout without the road's ref, on each carriageway of a dual
-road by its direction's segment, on a road OSM tags as motorway (but not
+road by its direction's segment (not by a U-turn from the other), on a road OSM tags as motorway (but not
 where it has no segment), and on a ring road OSM gives no ref; a class II road with no segments isn't
 tolled; motorways are.
 
@@ -51,6 +51,14 @@ def osm(path):
     way(8, line(0, 2, 0.12), highway="primary", name="Околовръстен път")          # ring road 18, no ref
     way(9, line(0, 3, 0.15), highway="secondary", ref="99")                      # class II, segments
     way(10, line(0, 3, 0.18), highway="secondary", ref="20")                     # class II, none
+    # Road 2, two carriageways 20 m apart from km -0.6 to 5.6 joined by
+    # roundabouts at the ends; its segments of both directions have the
+    # eastbound carriageway's ends.
+    east, west = line(-0.6, 5.6, 0.21), line(5.6, -0.6, 0.21018)
+    way(20, east, highway="trunk", ref="2", oneway="yes")
+    way(21, west, highway="trunk", ref="2", oneway="yes")
+    way(22, [east[-1], west[0]], highway="trunk", junction="roundabout")
+    way(23, [west[-1], east[0]], highway="trunk", junction="roundabout")
     pts = "".join(f'<node id="{i}" version="1" lat="{lat:.7f}" lon="{lon:.7f}"/>' for (lon, lat), i in nodes.items())
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
@@ -69,15 +77,16 @@ def main():
             seg("I", "6", 0, 5, 0.03), seg("I", "6", 5, 0, 0.0302),                                  # each carriageway
             seg("I", "8", 0, 3, 0.09), seg("I", "8", 3, 0, 0.09),
             seg("II", "18", 0, 2, 0.12), seg("II", "18", 2, 0, 0.12),
-            seg("II", "99", 0, 3, 0.15), seg("II", "99", 3, 0, 0.15)]
-    json.dump({"source": "test: x", "roads": {"mw": ["A-1"], "I": ["1", "6", "8"], "II": ["18", "99"]},
+            seg("II", "99", 0, 3, 0.15), seg("II", "99", 3, 0, 0.15),
+            seg("I", "2", 0, 5, 0.21), seg("I", "2", 5, 0, 0.21)]                                   # each on its carriageway, no U-turn
+    json.dump({"source": "test: x", "roads": {"mw": ["A-1"], "I": ["1", "2", "6", "8"], "II": ["18", "99"]},
                "segments_2022": {"source": "segments: y", "rows": rows}}, open(law, "w"))
     build.RULES["BG"]["segments"] = law
     build.main("BG", src, dst)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(math.hypot((l[i + 2] - l[i]) / 1e5 / KM, (l[i + 3] - l[i + 1]) / 1e5 * 111.32) for i in range(0, len(l) - 2, 2)) for l in lines)
     nat, mw = km(out["nat"]), km(out["mw"])
-    want = 4 + 5 + 10 + 3 + 2 + 3  # road 1: 0-4, 6-11; road 6's carriageways; 8; 18; 99
+    want = 4 + 5 + 10 + 3 + 2 + 3 + 10  # road 1: 0-4, 6-11; road 6's carriageways; 8; 18; 99; road 2's carriageways
     ok = abs(nat - want) < 0.15 and abs(mw - 5) < 0.05 and "toll segments of segments" in out["network"]
     print(f"nat {nat:.2f} km (want {want} and the roundabout's half), mw {mw:.2f} km (want 5: A1, not road 8 nor its stretch in a settlement)")
     for f in (src, dst, law):

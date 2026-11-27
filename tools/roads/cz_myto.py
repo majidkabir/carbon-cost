@@ -22,15 +22,19 @@ images, so the map is read at points of OpenStreetMap's main roads:
    build.py then keeps the tolled parts of each way, in the class of the
    layer drawn there.
 
-Ways OpenStreetMap added since the samples were taken (other ids) are
-tolled when both their ends meet tolled ways of their class, else not;
-build.py reports their km, and the tolled km of each class against the
-law's.
+A way takes the map's reading at its points where they still lie on it
+(within MATCH_M; OpenStreetMap may have split or moved it since), and,
+where they cover too little of it (a way added since: another id), the
+reading at other ways' points beside it (within NEAR_M). Ways with no
+points are tolled when they and the other such ways joined to them reach
+tolled ways of one class at every end, else not; build.py reports their
+km, and the tolled km of each class against the law's.
 """
 import gzip, hashlib, json, math, os
 from collections import Counter
 
 STEP_M = 100
+MATCH_M, NEAR_M, COVER = 25, 15, 0.7
 HERE = os.path.dirname(os.path.abspath(__file__))
 SAMPLES = os.path.join(HERE, "cz-samples.json.gz")
 CAPTURE = os.path.join(HERE, "..", "tables", "browser", "cz-myto-wms.json")
@@ -107,6 +111,50 @@ def runs(bits):
     return out
 
 
+def parts_at(fl, c, half):
+    """A way's toll class and tolled parts, as (from, to) fractions of its
+    length, from the map's points on it: fl, (fraction along the way,
+    layer drawn or None), in order; half, half the points' spacing as a
+    fraction of the way. A part ends halfway between a tolled point and
+    the next, or half a spacing past its last point (the way's end if that
+    is nearer); c, the way's own class, where no layer is drawn."""
+    layers = [l for _, l in fl]
+    got = runs([l is not None for l in layers])
+    votes = Counter(layers[i] for a, b in got for i in range(a, b))
+    out = []
+    for a, b in got:
+        lo = (fl[a - 1][0] + fl[a][0]) / 2 if a else (0.0 if fl[0][0] <= 1.5 * half else fl[0][0] - half)
+        hi = (fl[b - 1][0] + fl[b][0]) / 2 if b < len(fl) else (1.0 if fl[-1][0] >= 1 - 1.5 * half else fl[-1][0] + half)
+        if hi > lo:
+            out.append((lo, hi))
+    return (votes.most_common(1)[0][0] if votes else c), out
+
+
+def unrun(text):
+    """Runs of false and true values, false first: "0,9,6" is 9 true then
+    6 false."""
+    return [i % 2 == 1 for i, n in enumerate(int(x) for x in text.split(",")) for _ in range(n)]
+
+
+def parts_at(fl, c, half):
+    """A way's toll class and tolled parts, as (from, to) fractions of its
+    length, from the map's points on it: fl, (fraction along the way,
+    layer drawn or None), in order; half, half the points' spacing as a
+    fraction of the way. A part ends halfway between a tolled point and
+    the next, or half a spacing past its last point (the way's end if that
+    is nearer); c, the way's own class, where no layer is drawn."""
+    layers = [l for _, l in fl]
+    got = runs([l is not None for l in layers])
+    votes = Counter(layers[i] for a, b in got for i in range(a, b))
+    out = []
+    for a, b in got:
+        lo = (fl[a - 1][0] + fl[a][0]) / 2 if a else (0.0 if fl[0][0] <= 1.5 * half else fl[0][0] - half)
+        hi = (fl[b - 1][0] + fl[b][0]) / 2 if b < len(fl) else (1.0 if fl[-1][0] >= 1 - 1.5 * half else fl[-1][0] + half)
+        if hi > lo:
+            out.append((lo, hi))
+    return (votes.most_common(1)[0][0] if votes else c), out
+
+
 def unrun(text):
     """Runs of false and true values, false first: "0,9,6" is 9 true then
     6 false."""
@@ -149,3 +197,44 @@ def load():
         out[wid] = (c, layers, pts)
         k += n
     return out
+
+
+class Points:
+    """The map's points of every way of the capture, in a grid, to find
+    those on a way: (fraction along it, layer, [lon, lat])."""
+
+    CELL = 0.0005  # degrees
+
+    def __init__(self, myto):
+        self.myto, self.grid = myto, {}
+        for wid, (_, layers, pts) in myto.items():
+            for l, p in zip(layers, pts):
+                self.grid.setdefault((int(p[0] // self.CELL), int(p[1] // self.CELL)), []).append((l, p, wid))
+
+    def on(self, wid, ls):
+        """The points on line ls (shapely, degrees) of way wid: its own
+        within MATCH_M, and, where those cover less than COVER of it, other
+        ways' within NEAR_M. Sorted by fraction."""
+        from shapely.geometry import Point
+        n = count(list(ls.coords))
+        out = []
+
+        def add(l, p, within):
+            q = Point(p)
+            f = ls.project(q, normalized=True)
+            r = ls.interpolate(f, normalized=True)
+            if length_m([(p[0], p[1]), (r.x, r.y)]) <= within:
+                out.append((f, l, tuple(p)))
+
+        own = self.myto.get(wid)
+        if own:
+            for l, p in zip(own[1], own[2]):
+                add(l, p, MATCH_M)
+        if len(out) < COVER * n:
+            x0, y0, x1, y1 = ls.bounds
+            for cx in range(int(x0 // self.CELL) - 1, int(x1 // self.CELL) + 2):
+                for cy in range(int(y0 // self.CELL) - 1, int(y1 // self.CELL) + 2):
+                    for l, p, w in self.grid.get((cx, cy), ()):
+                        if w != wid:
+                            add(l, p, NEAR_M)
+        return sorted(out)

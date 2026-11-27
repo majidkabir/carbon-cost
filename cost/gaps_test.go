@@ -1295,7 +1295,9 @@ func TestTollsThatAreCrossings(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if len(out.NoRates) > 0 || len(out.Missing) != 1 || out.Missing[0].Reason != "no_route" {
+		// Each scheme in force (AL: the Llogara tunnel and the A1; BA: the
+		// Federation's A1 and Republika Srpska's).
+		if len(out.NoRates) > 0 || len(out.Missing) == 0 || slices.ContainsFunc(out.Missing, func(m Missing) bool { return m.Reason != "no_route" }) {
 			t.Errorf("%s by country_km: no_rates %v, missing %+v", cc, out.NoRates, out.Missing)
 		}
 	}
@@ -2027,5 +2029,62 @@ func TestCountryKmDaysUnknown(t *testing.T) {
 		if days != 1 || out.Complete || !slices.Contains(miss, "SE days_unknown") || !strings.Contains(note, "km by country") || strings.Contains(note, "give time (the departure)") {
 			t.Errorf("time %q: %d day(s), complete %v, missing %v, notes %s", tm, days, out.Complete, miss, note)
 		}
+	}
+}
+
+// A route with no time: a charge by the day is priced for the fewest days
+// the trip can be there (leaving at 00:00); where leaving later makes
+// more, they are listed as missing.
+func TestDaysWithoutTime(t *testing.T) {
+	fake := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var s sootcase.Shipment
+		json.NewDecoder(r.Body).Decode(&s)
+		path := [][2]float64{}
+		for i := 0; i <= 120; i++ {
+			path = append(path, [2]float64{11.97 + 0.069*float64(i), 57.71 + 0.084*float64(i)}) // Gothenburg to Kiruna, 1200 km
+		}
+		json.NewEncoder(w).Encode(sootcase.Result{TTWKg: 900, WTWKg: 1100, Legs: []sootcase.LegResult{{DistanceKm: 1200, DurationH: 17, TTWKg: 900, WTWKg: 1100,
+			CountryKm: map[string]float64{"SE": 1200}, Path: path}}})
+	}))
+	defer fake.Close()
+	bix, err := borders.Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	c := Calculator{Sootcase: sootcase.Client{BaseURL: fake.URL}, Tariffs: all(t), Borders: bix}
+	r, err := c.Calculate(context.Background(), Request{From: sootcase.Location{Code: "SEGOT"}, To: sootcase.Location{Code: "SEKRN"}, Date: "2026-11-04",
+		CargoKg: 10000, Truck: truck40, DriverRest: true, FX: map[string]float64{"SEK": 11.5}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	days, unknown := 0, false
+	for _, l := range r.Lines {
+		if l.Charge == RoadToll && l.Country == "SE" {
+			days += l.Days
+		}
+	}
+	for _, m := range r.Missing {
+		unknown = unknown || m.Area == "SE" && m.Reason == "days_unknown"
+	}
+	if days < 2 || !unknown || r.Complete {
+		t.Errorf("%d day(s), days unknown %v, complete %v; want at least 2 and the rest missing; notes %v", days, unknown, r.Complete, r.Notes)
+	}
+}
+
+// Km by country in a country whose tolls are all its crossings': each
+// scheme in force is listed as missing, not only one.
+func TestCountryKmCrossingsAllMissing(t *testing.T) {
+	out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{"AL": 300}, Date: "2026-11-26", CargoKg: 10000, DieselL: 100, Truck: truck40})
+	if err != nil {
+		t.Fatal(err)
+	}
+	var names []string
+	for _, m := range out.Missing {
+		if m.Area == "AL" && m.Reason == "no_route" {
+			names = append(names, m.Name)
+		}
+	}
+	if len(names) < 2 || !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, "Llogara") }) || !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, "Rruga e Kombit") }) {
+		t.Errorf("AL missing %v; want each scheme in force (Llogara, Rruga e Kombit)", names)
 	}
 }

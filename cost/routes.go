@@ -215,14 +215,19 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 	}
 	note := fmt.Sprintf("Routes: %d priced; this is %s", len(opts), desc(opts[pick]))
 	if req.Route == "cheapest" {
-		what := "charges and diesel"
+		// The truck's energy: an electric truck's electricity.
+		energy := "diesel"
+		if o := outs[pick]; o != nil && (o.Electricity != nil || o.Fuel == nil && req.Truck.CO2Class == 5) {
+			energy = "electricity"
+		}
+		what := "charges and " + energy
 		switch running := req.DriverEURPerH > 0 || req.VehicleEURPerKm > 0; {
 		case running && withFuel:
-			what = "trip cost (charges, diesel, driver and vehicle)"
+			what = "trip cost (charges, " + energy + ", driver and vehicle)"
 		case running:
-			what = "charges, driver and vehicle (a diesel price is missing)"
+			what = "charges, driver and vehicle (a price for the " + energy + " is missing)"
 		case !withFuel:
-			what = "charges (a diesel price is missing)"
+			what = "charges (a price for the " + energy + " is missing)"
 		}
 		note += ", the cheapest by " + what
 	}

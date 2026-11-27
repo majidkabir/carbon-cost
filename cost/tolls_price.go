@@ -250,7 +250,11 @@ func (p *pricer) unpriced(ds *tariffs.Dataset, cc string, st *orct.Statement, ch
 		if i.Code == "missing_parameter" {
 			for param, field := range map[string]string{"vehicle parameter mass_kg ": "truck.motor_mass_kg", "vehicle parameter trailer_mass_kg ": "truck.trailer_mass_kg"} {
 				if strings.Contains(i.Message, param) {
-					hint = fmt.Sprintf(" Give %s (and truck.motor_axles): the charge goes by each vehicle's own permissible mass.", field)
+					and := " (and truck.motor_axles)"
+					if p.req.Truck.MotorAxles > 0 {
+						and = ""
+					}
+					hint = fmt.Sprintf(" Give %s%s: the charge goes by each vehicle's own permissible mass.", field, and)
 				}
 			}
 			if strings.Contains(i.Message, "vehicle parameter load_capacity_kg ") {
@@ -558,7 +562,7 @@ func suburbanShareORCT(ds *tariffs.Dataset, rk roads.Km, byRoute bool, road stri
 // in the area, from its passage times there.
 func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, tolledKm float64) {
 	req, cc := p.req, a.code
-	days, note := p.tripDaysORCT(ds, nw.perDay, a.country)
+	days, note, unknown := p.tripDaysORCT(ds, nw.perDay, a.country)
 	if group := ""; ds.Ext("shared_vignette", &group) && group != "" {
 		days = p.claimDays(group, cc, days)
 	}
@@ -570,7 +574,7 @@ func (p *pricer) perDay(b *batch, ds *tariffs.Dataset, nw *network, a area, toll
 	if len(days) > 0 {
 		p.note("%s", cc+": "+note)
 	}
-	if len(days) > 0 && len(req.CountryKm) > 0 && !slices.ContainsFunc(p.out.Missing, func(m Missing) bool { return m.Area == cc && m.Reason == "days_unknown" }) {
+	if len(days) > 0 && unknown && !slices.ContainsFunc(p.out.Missing, func(m Missing) bool { return m.Area == cc && m.Reason == "days_unknown" }) {
 		p.out.Missing = append(p.out.Missing, Missing{Area: cc, Charge: RoadToll, Name: ds.Name, Reason: "days_unknown"})
 	}
 	if hasMotorAxles(ds) && req.Truck.MotorAxles == 0 {
@@ -721,9 +725,10 @@ func hasMotorAxles(ds *tariffs.Dataset) bool {
 }
 
 // tripDaysORCT are the times a time-based charge is used at, one in each
-// day (or 24 hours) the trip spends in the country, and a note saying how
-// they were counted.
-func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country string) ([]time.Time, string) {
+// day (or 24 hours) the trip spends in the country, a note saying how
+// they were counted, and whether the trip may spend more days there than
+// those (its times aren't known: country_km, or no time given).
+func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country string) ([]time.Time, string, bool) {
 	req := p.req
 	sp := req.spans[country]
 	day := ""
@@ -735,12 +740,51 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	}
 	switch {
 	case len(req.CountryKm) > 0:
-		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate: km by country have no passage times to count the trip's days by (give the route, with time); the other days are missing."
+		give := "the route, with time"
+		if req.Time != "" {
+			give = "the route"
+		}
+		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate: km by country have no passage times to count the trip's days by (give " + give + "); the other days are missing.", true
 	case day == "":
-		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period."
-	case req.Time == "" || len(sp) == 0:
-		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; give time (the departure) to count the days the trip spends there."
+		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period.", false
+	case len(sp) == 0:
+		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; give time (the departure) to count the days the trip spends there.", false
 	}
+	// Without a time, the trip leaves at 00:00: the fewest days it can be
+	// there; leaving at 23:59 may make more.
+	at, unknown, how := req, false, " by its passage times"
+	if req.Time == "" {
+		at.Time = "00:00"
+		late := req
+		late.Time = "23:59"
+		unknown = len(p.useDays(late, sp, country, day)) > len(p.useDays(at, sp, country, day))
+		how = " by its passage times leaving at 00:00 (no time given)"
+		if unknown {
+			how += ", the fewest it can be: give time to count them"
+		}
+	}
+	out := p.useDays(at, sp, country, day)
+	// The days the trip is there in all, and (byVersion) this version's.
+	n, of := len(out), ""
+	if p.only != nil {
+		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
+		of = fmt.Sprintf(" (%d in the table from %s)", len(out), ds.ValidFrom)
+	}
+	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]
+	if n != 1 {
+		unit += "s"
+	}
+	rest := ""
+	if !req.DriverRest {
+		rest = " without driver rests (give driver_rest for them)"
+	}
+	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s%s%s%s; a longer period may cost less.",
+		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, how, of, rest), unknown
+}
+
+// useDays are the times a charge by the day (calendar) or 24 hours (24h)
+// is used at on the trip's spans in the country, leaving at req.Time.
+func (p *pricer) useDays(req Request, sp [][2]float64, country, day string) []time.Time {
 	var out []time.Time
 	if day == "calendar" {
 		seen := map[string]bool{}
@@ -759,36 +803,21 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 				}
 			}
 		}
-	} else {
-		var until time.Time
-		for _, s := range sp {
-			a, _ := passage(req, p.date, s[0], country)
-			b, _ := passage(req, p.date, s[1], country)
-			if len(out) == 0 || !a.Before(until) {
-				out, until = append(out, a), a.Add(24*time.Hour)
-			}
-			for b.After(until) {
-				out = append(out, until)
-				until = until.Add(24 * time.Hour)
-			}
+		return out
+	}
+	var until time.Time
+	for _, s := range sp {
+		a, _ := passage(req, p.date, s[0], country)
+		b, _ := passage(req, p.date, s[1], country)
+		if len(out) == 0 || !a.Before(until) {
+			out, until = append(out, a), a.Add(24*time.Hour)
+		}
+		for b.After(until) {
+			out = append(out, until)
+			until = until.Add(24 * time.Hour)
 		}
 	}
-	// The days the trip is there in all, and (byVersion) this version's.
-	n, of := len(out), ""
-	if p.only != nil {
-		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
-		of = fmt.Sprintf(" (%d in the table from %s)", len(out), ds.ValidFrom)
-	}
-	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]
-	if n != 1 {
-		unit += "s"
-	}
-	rest := ""
-	if !req.DriverRest {
-		rest = " without driver rests (give driver_rest for them)"
-	}
-	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s by its passage times%s%s; a longer period may cost less.",
-		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, of, rest)
+	return out
 }
 
 // ---------------------------------------------------------------- sections

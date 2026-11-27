@@ -220,7 +220,7 @@ func tripDaysOf(t *testing.T, ds *tariffs.Dataset, req Request, date time.Time) 
 		t.Fatalf("%s: no time-based charge", ds.File)
 	}
 	p := newPricer(req, date, &Response{}, nil)
-	days, note := p.tripDaysORCT(ds, nw.perDay, ds.Country)
+	days, note, _ := p.tripDaysORCT(ds, nw.perDay, ds.Country)
 	return len(days), note
 }
 

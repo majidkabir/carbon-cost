@@ -139,6 +139,10 @@
       "description": "CO2Class is the truck's CO2 emission class (1 to 5).",
       "type": "integer"
      },
+     "complete": {
+      "description": "Complete says whether both trucks' totals include every charge the trip meets: where not (missing), the savings count only those both include.",
+      "type": "boolean"
+     },
      "energy_eur": {
       "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy isn't all priced.",
       "type": "number"
@@ -178,6 +182,7 @@
     "required": [
      "carbon_eur",
      "co2_class",
+     "complete",
      "road_toll_eur",
      "saving_eur",
      "saving_with_fuel_eur",
@@ -500,7 +505,7 @@
       "type": "string"
      },
      "reason": {
-      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which), \"needs_time\" (it goes by the time of day, a congestion tax: give time), \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here) or \"days_unknown\" (it is by the day, priced for one: the trip, given as country_km, has no times to count its days by).",
+      "description": "Reason is \"no_table\" (this tool has none for the area), \"ended\" (its rates ended on Ended and the next ones aren't here yet; also when the trip reaches the charge after that day), \"no_route\" (its tolls are at stations or on sections, and the trip was given as country_km), \"needs_truck_field\" (it goes by a truck field the request doesn't give; the notes name it), \"unpriced\" (the table has no price for this use, such as an entry and exit it doesn't pair; the notes say which), \"needs_time\" (it goes by the time of day, a congestion tax: give time), \"before_table\" (its first rates here start on Starts, after the trip's day: an earlier price isn't here) or \"days_unknown\" (it is by the day, priced for the fewest days the trip can be there: given as country_km, or with no time, its days aren't known).",
       "type": "string"
      },
      "starts": {

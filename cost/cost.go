@@ -374,6 +374,10 @@ type Comparison struct {
 	TollEUR   float64 `json:"road_toll_eur"`
 	TotalEUR  float64 `json:"total_eur"`
 	CarbonEUR float64 `json:"carbon_eur"`
+	// Complete says whether both trucks' totals include every charge the
+	// trip meets: where not (missing), the savings count only those both
+	// include.
+	Complete bool `json:"complete"`
 	// SavingEUR is what this truck saves per trip against the requested
 	// one (negative: it costs more).
 	SavingEUR float64 `json:"saving_eur"`
@@ -551,8 +555,9 @@ type Missing struct {
 	// pair; the notes say which), "needs_time" (it goes by the time of day,
 	// a congestion tax: give time), "before_table" (its first rates here
 	// start on Starts, after the trip's day: an earlier price isn't here)
-	// or "days_unknown" (it is by the day, priced for one: the trip, given
-	// as country_km, has no times to count its days by).
+	// or "days_unknown" (it is by the day, priced for the fewest days the
+	// trip can be there: given as country_km, or with no time, its days
+	// aren't known).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here; Starts, for
 	// "before_table", the first day of the first.
@@ -575,7 +580,7 @@ func (m Missing) Message() string {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "days_unknown" {
-		return fmt.Sprintf("%s %s (%s): priced for one day; the trip's other days there aren't, as km by country have no times (give the route, with time)", m.Area, what, m.Name)
+		return fmt.Sprintf("%s %s (%s): priced for the fewest days the trip can be there; more may be due, as its times aren't known (give time, or the route with time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)
@@ -1282,22 +1287,24 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			// them (and before their tables, by lapsed); with no route,
 			// they can't be found.
 			if len(route.pts) < 2 && a.km >= 0.5 {
-				m := Missing{Area: a.code, Charge: RoadToll, Reason: "no_route"}
+				// Each scheme in force (Albania's Llogara tunnel and A1),
+				// else the first to come.
 				var first *tariffs.Dataset
+				named := map[string]bool{}
 				for _, d := range set.All {
 					switch {
 					case d.Country != a.country || d.Kind != tariffs.Crossings:
 					case d.Covers(date):
-						m.Name = d.Name
+						if !named[d.Name] {
+							named[d.Name] = true
+							out.Missing = append(out.Missing, Missing{Area: a.code, Charge: RoadToll, Name: d.Name, Reason: "no_route"})
+						}
 					case d.ValidFrom > date.Format(time.DateOnly) && (first == nil || d.ValidFrom < first.ValidFrom):
 						first = d
 					}
 				}
-				if m.Name == "" && first != nil {
-					m.Reason, m.Name, m.Starts = "before_table", first.Name, first.ValidFrom
-				}
-				if m.Name != "" {
-					out.Missing = append(out.Missing, m)
+				if len(named) == 0 && first != nil {
+					out.Missing = append(out.Missing, Missing{Area: a.code, Charge: RoadToll, Reason: "before_table", Name: first.Name, Starts: first.ValidFrom})
 				}
 			}
 			continue
@@ -1551,7 +1558,7 @@ func compare(out *Response, res sootcase.Result, set *tariffs.Set, fd *ferries.D
 		if err != nil {
 			return fmt.Errorf("compare co2_class %d: %w", cls, err)
 		}
-		c := Comparison{CO2Class: cls, TotalEUR: r.TotalEUR, CarbonEUR: r.CarbonEUR,
+		c := Comparison{CO2Class: cls, TotalEUR: r.TotalEUR, CarbonEUR: r.CarbonEUR, Complete: r.Complete && out.Complete,
 			SavingEUR: round2(out.TotalEUR - r.TotalEUR)}
 		if energyPriced(&r) {
 			c.EnergyEUR, c.WithFuelEUR = energyEUR(&r), r.WithFuelEUR
@@ -1842,8 +1849,10 @@ func priceFerryETS(out *Response, res sootcase.Result, fd *ferries.Data, set *ta
 		if p.crossing == nil {
 			if req.FerryETSShare > 0 {
 				cover, coverBasis = req.FerryETSShare, fmt.Sprintf("%.0f%% of its emissions (ferry_ets_share)", req.FerryETSShare*100)
+				out.Notes = append(out.Notes, fmt.Sprintf("Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor and counts %.0f%% of its emissions under the ETS, the ferry_ets_share given.", req.FerryETSShare*100))
+			} else {
+				out.Notes = append(out.Notes, "Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor and counts all its emissions under the ETS (ships under 5,000 GT and island derogations aren't known for it; give ferry_ets_share for a voyage to or from a port outside the EU/EEA).")
 			}
-			out.Notes = append(out.Notes, "Ferry: the crossing isn't one this tool has ship data for, so it uses Sootcase's default ro-pax factor and counts all its emissions under the ETS (ships under 5,000 GT and island derogations aren't known for it; give ferry_ets_share for a voyage to or from a port outside the EU/EEA).")
 		} else {
 			c := p.crossing
 			section = c.Name

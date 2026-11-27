@@ -240,9 +240,9 @@ func TestPrice_Compare(t *testing.T) {
 		t.Fatal(err)
 	}
 	want := []Comparison{
-		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 93.04, CarbonEUR: 56.86},
-		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 72.14, CarbonEUR: 40.09, SavingEUR: 20.90, SavingPerYearEUR: 4180},
-		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, SavingEUR: 88.35, SavingPerYearEUR: 17670},
+		{CO2Class: 1, TollEUR: 69.72, TotalEUR: 93.04, CarbonEUR: 56.86, Complete: true},
+		{CO2Class: 4, TollEUR: 48.82, TotalEUR: 72.14, CarbonEUR: 40.09, Complete: true, SavingEUR: 20.90, SavingPerYearEUR: 4180},
+		{CO2Class: 5, TollEUR: 2.44, TotalEUR: 4.69, CarbonEUR: 2.25, Complete: true, SavingEUR: 88.35, SavingPerYearEUR: 17670},
 	}
 	if len(r.Compare) != len(want) {
 		t.Fatalf("compare %+v", r.Compare)

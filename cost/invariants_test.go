@@ -4,12 +4,14 @@ import (
 	"context"
 	"math"
 	"os"
+	"reflect"
 	"regexp"
 	"strings"
 	"sync"
 	"testing"
 	"time"
 
+	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
 )
 
@@ -42,6 +44,7 @@ func TestInvariants(t *testing.T) {
 	s := func(i int) sootcase.Location { return sootcase.Location{Code: "S" + string(rune('0'+i))} }
 	// Routes as Sootcase gives them, with their emissions.
 	huRS := sootcase.Result{TTWKg: 960, WTWKg: 1200, Legs: []sootcase.LegResult{{DistanceKm: 600, TTWKg: 960, WTWKg: 1200, CountryKm: map[string]float64{"HU": 300, "RS": 300}}}}
+	is := sootcase.Result{TTWKg: 80, WTWKg: 100, Legs: []sootcase.LegResult{{DistanceKm: 100, TTWKg: 80, WTWKg: 100, CountryKm: map[string]float64{"IS": 100}}}}
 	cz := sootcase.Result{TTWKg: 6, WTWKg: 7.5, Legs: []sootcase.LegResult{{DistanceKm: 5, TTWKg: 6, WTWKg: 7.5, CountryKm: map[string]float64{"CZ": 5}, Path: [][2]float64{{16.6, 49.2}, {16.65, 49.2}}}}}
 
 	type run struct {
@@ -72,6 +75,11 @@ func TestInvariants(t *testing.T) {
 			Shipments: []Shipment{{ID: "A", WeightKg: 10000, To: 2}}}, calc(byLegs)},
 		{"cheapest with running costs", Request{Date: "2026-11-03", Truck: truck40, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"},
 			Route: "cheapest", DriverEURPerH: 35, VehicleEURPerKm: 0.4}, calc(byAlts)},
+		{"ferry crossing, ets share given", Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, FerryETSShare: 0.5}, price(cphHam)},
+		{"Iceland, motor axles given", Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1, MotorAxles: 2}, FX: map[string]float64{"ISK": 140}}, price(is)},
+		{"km by country AL", Request{CountryKm: map[string]float64{"AL": 300}, Date: "2026-11-26", CargoKg: 10000, DieselL: 100, Truck: truck40}, calc(noRoute)},
+		{"km by country AT, compare", Request{CountryKm: map[string]float64{"AT": 300}, Date: "2027-01-15", CargoKg: 10000, DieselL: 100, Truck: truck40, CompareCO2Classes: []int{1, 5}, TripsPerYear: 200, KWhPer100Km: 120, ElectricityEURPerKWh: 0.25}, calc(noRoute)},
+		{"cheapest, electric", Request{Date: "2026-11-03", Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"}, Route: "cheapest"}, calc(byAlts)},
 		{"cheapest, diesel partly unpriced", Request{Date: "2026-11-03", Truck: truck40, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"},
 			Route: "cheapest", DriverEURPerH: 35, VehicleEURPerKm: 0.4, FuelPurchases: []FuelPurchase{{Country: "DE", Litres: 20}, {Country: "RS", Litres: 20}}, FX: map[string]float64{"RSD": 117}}, calc(byAlts)},
 	}
@@ -93,6 +101,19 @@ func TestInvariants(t *testing.T) {
 		for _, m := range r.Missing {
 			if m.Text == "" || !reasons[m.Reason] {
 				t.Errorf("%s: missing %+v: no text, or a reason Missing.Reason's doc doesn't name", c.name, m)
+			}
+		}
+		// A note on an electric truck's trip speaks of its electricity.
+		if c.req.Truck.CO2Class == 5 && r.Fuel == nil {
+			for _, n := range r.Notes {
+				if strings.Contains(n, "cheapest by") && strings.Contains(n, "diesel") {
+					t.Errorf("%s: an electric truck's note speaks of diesel: %q", c.name, n)
+				}
+			}
+		}
+		for _, cmp := range r.Compare {
+			if cmp.Complete && !r.Complete {
+				t.Errorf("%s: class %d's comparison complete, the trip's result not (missing %+v)", c.name, cmp.CO2Class, r.Missing)
 			}
 		}
 		if r.Fuel != nil && !r.Fuel.Complete {
@@ -126,23 +147,36 @@ func TestInvariants(t *testing.T) {
 }
 
 // asksForGiven says whether note asks the user to give an input the
-// request already gives, and which.
+// request already gives, and which: any request field by its JSON name
+// ("give time", "give ferry_ets_share", "give tolled_share.CZ"), or a
+// truck's ("Give truck.motor_axles"), after a "give" in the same clause.
 func asksForGiven(note string, req Request) (string, bool) {
-	low := strings.ToLower(note)
-	if req.Time != "" && strings.Contains(low, "give time") {
-		return "time", true
-	}
-	for _, m := range regexp.MustCompile(`(?i)give ((?:motorway|tolled)_share)\.([A-Z]{2}(?:-[A-Z0-9]+)?)`).FindAllStringSubmatch(note, -1) {
-		shares := req.MotorwayShare
-		if strings.EqualFold(m[1], "tolled_share") {
-			shares = req.TolledShare
+	given := func(v reflect.Value, name, key string) bool {
+		t := v.Type()
+		for i := 0; i < t.NumField(); i++ {
+			if strings.Split(t.Field(i).Tag.Get("json"), ",")[0] != name {
+				continue
+			}
+			f := v.Field(i)
+			if f.Kind() == reflect.Map && key != "" {
+				return f.MapIndex(reflect.ValueOf(key)).IsValid()
+			}
+			return !f.IsZero()
 		}
-		if _, ok := shares[m[2]]; ok {
-			return m[1] + "." + m[2], true
-		}
+		return false
 	}
-	if (req.DieselEURPerL > 0 || len(req.DieselEURPerLByCountry) > 0) && strings.Contains(low, "give diesel_eur_per_l") {
-		return "diesel_eur_per_l", true
+	for _, clause := range regexp.MustCompile(`(?i)\bgive\b(?:[^.;]|\.\S)*`).FindAllString(note, -1) {
+		for _, m := range regexp.MustCompile(`\b(truck\.)?([a-z]+(?:_[a-z0-9]+)*)(?:\.([A-Z]{2}(?:-[A-Z0-9]+)?))?\b`).FindAllStringSubmatch(clause, -1) {
+			if m[1] != "" {
+				if given(reflect.ValueOf(req.Truck), m[2], "") {
+					return "truck." + m[2], true
+				}
+				continue
+			}
+			if (strings.Contains(m[2], "_") || m[2] == "time") && given(reflect.ValueOf(req), m[2], m[3]) {
+				return strings.TrimSuffix(m[2]+"."+m[3], "."), true
+			}
+		}
 	}
 	return "", false
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/csv"
 	"flag"
@@ -133,14 +134,33 @@ func webCSVFlags() map[string]bool {
 	return ok
 }
 
+// sniffComma is a CSV's separator: a semicolon where its first line has
+// more of them than commas (Excel's in most European locales), else a
+// comma; and the CSV to read.
+func sniffComma(in io.Reader) (io.Reader, rune, error) {
+	b, err := io.ReadAll(in)
+	if err != nil {
+		return nil, 0, err
+	}
+	first, _, _ := bytes.Cut(b, []byte("\n"))
+	if bytes.Count(first, []byte(";")) > bytes.Count(first, []byte(",")) {
+		return bytes.NewReader(b), ';', nil
+	}
+	return bytes.NewReader(b), ',', nil
+}
+
 // priceCSV prices each row of a CSV whose header names flags (allowed;
 // other columns are kept as labels, and returned), on top of base, and
 // writes the rows back with the results added. maxRows > 0 limits the
 // rows; perShipment writes a row per shipment of a trip that has them.
 func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cost.Response, error), base []string, in io.Reader, out io.Writer,
 	allowed map[string]bool, maxRows int, perShipment bool) ([]string, error) {
+	in, comma, err := sniffComma(in)
+	if err != nil {
+		return nil, fmt.Errorf("csv: %w", err)
+	}
 	rd := csv.NewReader(in)
-	rd.FieldsPerRecord = -1
+	rd.Comma, rd.FieldsPerRecord = comma, -1
 	rows, err := rd.ReadAll()
 	if err != nil {
 		return nil, fmt.Errorf("csv: %w", err)
@@ -189,6 +209,7 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 	}
 	res := priceAll(ctx, calc, todo)
 	w := csv.NewWriter(out)
+	w.Comma = comma
 	w.Write(append(slices.Clone(head), csvColumns...))
 	items := make([]BatchItem, len(trips))
 	for k, i := range at {

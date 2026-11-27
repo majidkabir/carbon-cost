@@ -25,6 +25,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"runtime/debug"
 	"slices"
 	"sort"
@@ -48,16 +49,25 @@ import (
 // main.version=v0.28.0" (the Dockerfile and release workflow do).
 var version = "dev"
 
-// buildVersion is version, with the commit when built from a checkout.
+// buildVersion is version: set by the build, or the module's (go
+// install), or dev with the commit when built from a checkout.
 func buildVersion() string {
 	if version != "dev" {
 		return version
 	}
-	if bi, ok := debug.ReadBuildInfo(); ok {
-		for _, s := range bi.Settings {
-			if s.Key == "vcs.revision" && len(s.Value) >= 7 {
-				return "dev+" + s.Value[:7]
-			}
+	return versionOf(debug.ReadBuildInfo())
+}
+
+func versionOf(bi *debug.BuildInfo, ok bool) string {
+	if !ok {
+		return version
+	}
+	if v := bi.Main.Version; v != "" && v != "(devel)" {
+		return v
+	}
+	for _, s := range bi.Settings {
+		if s.Key == "vcs.revision" && len(s.Value) >= 7 {
+			return "dev+" + s.Value[:7]
 		}
 	}
 	return version
@@ -173,6 +183,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.Truck.HeightM, "height-m", 0, "truck height with load, m: the route keeps to roads the truck may drive (with its width, length and weight)")
 	fs.Float64Var(&req.Truck.WidthM, "width-m", 0, "truck width, m, for the route")
 	fs.IntVar(&req.Truck.AxleLoadKg, "axle-load-kg", 0, "heaviest axle load, kg, for the route")
+	fs.IntVar(&req.Truck.CapacityKg, "capacity-kg", 0, "load capacity, kg (Croatian ferries price a semi-trailer by its capacity)")
 	fs.BoolVar(&req.Truck.Hazmat, "hazmat", false, "carries dangerous goods (ADR): the route avoids roads barred to them")
 	fs.StringVar(&req.Truck.ADRTunnelCode, "tunnel-code", "", "the load's ADR tunnel restriction code (B, C, D or E): the route avoids tunnels it may not enter")
 	fs.Float64Var(&req.EUAEurPerT, "eua", 0, "EU ETS allowance price, EUR/t, for ferry crossings")
@@ -294,9 +305,14 @@ type calcOpts struct {
 	rfms string // what the trip took from rFMS
 }
 
-// dieselPriceFlag reads -diesel-price: a price for all litres, prices by
-// country (CC=price), or both, separated by commas.
+// dieselPriceFlag reads -diesel-price: a price for all litres (a decimal
+// point, or a comma when it is all that's given: 1,45), prices by country
+// (CC=price), or both, separated by commas.
 func dieselPriceFlag(req *cost.Request, v string) error {
+	if dec := strings.TrimSpace(v); regexp.MustCompile(`^\d+,\d+$`).MatchString(dec) {
+		v = strings.Replace(dec, ",", ".", 1)
+	}
+	bare := 0
 	for _, p := range strings.Split(v, ",") {
 		p = strings.TrimSpace(p)
 		if p == "" {
@@ -311,6 +327,9 @@ func dieselPriceFlag(req *cost.Request, v string) error {
 			return fmt.Errorf("%q: give EUR per litre, e.g. 1.45 or PL=1.25", p)
 		}
 		if !by {
+			if bare++; bare > 1 {
+				return fmt.Errorf("%q: one price for all litres (a decimal point: 1.45), and CC=price for a country's", v)
+			}
 			req.DieselEURPerL = x
 			continue
 		}

@@ -85,8 +85,12 @@ type reportGroup struct {
 func summarize(ins []io.Reader, out io.Writer, by []string) error {
 	groups := map[string]*reportGroup{}
 	for n, in := range ins {
+		in, comma, err := sniffComma(in)
+		if err != nil {
+			return fmt.Errorf("file %d: %w", n+1, err)
+		}
 		rd := csv.NewReader(in)
-		rd.FieldsPerRecord = -1
+		rd.Comma, rd.FieldsPerRecord = comma, -1
 		rows, err := rd.ReadAll()
 		if err != nil {
 			return fmt.Errorf("file %d: %w", n+1, err)

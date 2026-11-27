@@ -302,18 +302,13 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 		}
 		switch {
 		case given && byRoute && !shareGiven && req.roadNetwork[a.country] != "":
-			p.note("%s: %.0f%% of the %.1f km are on roads the toll doesn't charge by OpenStreetMap along the route and the tolled roads the toll's law lists%s.", cc, 100*rk.Local/rk.Total(), km, leftOutOf(req, a.country))
+			p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the %.1f km are on roads the toll doesn't charge%s.", cc, 100*rk.Local/rk.Total(), km, leftOutOf(req, a.country))
 		case given && byRoute && !shareGiven:
 			p.note("%s: %.0f%% of the %.1f km are on local roads by OpenStreetMap along the route, which aren't tolled.", cc, 100*rk.Local/rk.Total(), km)
 		case given:
 		case byRoute:
 			if t := rk.Motorway + rk.National; t > 0 {
 				mw = rk.Motorway / t
-			}
-			local := map[bool]string{true: "", false: ", which aren't tolled"}[shareGiven]
-			if l := req.roadLeftOut[a.country]; len(l) > 0 {
-				// The motorway stretches the toll leaves to their operators count here.
-				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
 			}
 			if req.roadNetwork[a.country] != "" && shareGiven {
 				p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the tolled km are tolled at the motorway rate and %.0f%% at the other tolled roads' rate (tolled_share.%s gives the share tolled). Give motorway_share.%s to override.",
@@ -324,9 +319,12 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 				// the list).
 				p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the %.1f km are tolled at the motorway rate, %.0f%% at the other tolled roads' rate and %.0f%% are on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
 					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), leftOutOf(req, a.country), cc, cc)
+			} else if shareGiven {
+				p.note("%s: by OpenStreetMap along the route, %.0f%% of the tolled km are on motorways and %.0f%% on other national roads (tolled_share.%s gives the share tolled). Give motorway_share.%s to override.",
+					cc, 100*mw, 100*(1-mw), cc, cc)
 			} else {
-				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
-					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads, which aren't tolled. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), cc, cc)
 			}
 		default:
 			ds.Ext("motorway_share", &mw)

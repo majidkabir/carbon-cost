@@ -95,7 +95,9 @@ def run(covered):
     for f in (src, dst, areas):
         os.remove(f)
     os.rmdir(d)
-    return km(out["nat"]), km(out["mw"]), len(out["natf"]) == len(out["nat"])
+    # The notes name the annex's sections (provenance road_classes).
+    named = "25/2013. (V. 31.) NFM" in out.get("network", "")
+    return km(out["nat"]), km(out["mw"]), len(out["natf"]) == len(out["nat"]) and named
 
 
 def main():

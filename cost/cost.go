@@ -556,8 +556,9 @@ type Missing struct {
 	// a congestion tax: give time), "before_table" (its first rates here
 	// start on Starts, after the trip's day: an earlier price isn't here)
 	// or "days_unknown" (it is by the day, priced for the fewest days the
-	// trip can be there: given as country_km, or with no time, its days
-	// aren't known).
+	// trip can be there: given as country_km, with no route positions or
+	// no time, or by a table that doesn't say whether its day is a
+	// calendar day or 24 hours, its days can't be counted).
 	Reason string `json:"reason"`
 	// Ended is the last day of the last rates here; Starts, for
 	// "before_table", the first day of the first.
@@ -580,7 +581,7 @@ func (m Missing) Message() string {
 		return fmt.Sprintf("%s %s (%s): not priced, it goes by the time of day (give time)", m.Area, what, m.Name)
 	}
 	if m.Reason == "days_unknown" {
-		return fmt.Sprintf("%s %s (%s): priced for the fewest days the trip can be there; more may be due, as its times aren't known (give time, or the route with time)", m.Area, what, m.Name)
+		return fmt.Sprintf("%s %s (%s): priced for the fewest days the trip can be there; more may be due, as its days can't be counted (the notes say what to give)", m.Area, what, m.Name)
 	}
 	if m.Reason == "before_table" {
 		return fmt.Sprintf("%s %s (%s): the rates here start on %s, after the trip's day, so it isn't priced", m.Area, what, m.Name, m.Starts)
@@ -1287,24 +1288,46 @@ func PriceWith(res sootcase.Result, set *tariffs.Set, fd *ferries.Data, req Requ
 			// them (and before their tables, by lapsed); with no route,
 			// they can't be found.
 			if len(route.pts) < 2 && a.km >= 0.5 {
-				// Each scheme in force (Albania's Llogara tunnel and A1),
-				// else the first to come.
-				var first *tariffs.Dataset
-				named := map[string]bool{}
+				// Each scheme (Albania's Llogara tunnel and A1; Bosnia and
+				// Herzegovina's Federation and Republika Srpska): in force,
+				// not yet (its first rates start later) or ended.
+				type scheme struct {
+					now         bool
+					first, last *tariffs.Dataset
+				}
+				var names []string
+				schemes := map[string]*scheme{}
+				day := date.Format(time.DateOnly)
 				for _, d := range set.All {
+					if d.Country != a.country || d.Kind != tariffs.Crossings {
+						continue
+					}
+					sc := schemes[d.Name]
+					if sc == nil {
+						sc = &scheme{}
+						schemes[d.Name], names = sc, append(names, d.Name)
+					}
 					switch {
-					case d.Country != a.country || d.Kind != tariffs.Crossings:
 					case d.Covers(date):
-						if !named[d.Name] {
-							named[d.Name] = true
-							out.Missing = append(out.Missing, Missing{Area: a.code, Charge: RoadToll, Name: d.Name, Reason: "no_route"})
+						sc.now = true
+					case d.ValidFrom > day:
+						if sc.first == nil || d.ValidFrom < sc.first.ValidFrom {
+							sc.first = d
 						}
-					case d.ValidFrom > date.Format(time.DateOnly) && (first == nil || d.ValidFrom < first.ValidFrom):
-						first = d
+					case sc.last == nil || d.ValidTo > sc.last.ValidTo:
+						sc.last = d
 					}
 				}
-				if len(named) == 0 && first != nil {
-					out.Missing = append(out.Missing, Missing{Area: a.code, Charge: RoadToll, Reason: "before_table", Name: first.Name, Starts: first.ValidFrom})
+				for _, name := range names {
+					m := Missing{Area: a.code, Charge: RoadToll, Name: name, Reason: "no_route"}
+					switch sc := schemes[name]; {
+					case sc.now:
+					case sc.last != nil:
+						m.Reason, m.Ended = "ended", sc.last.ValidTo
+					default:
+						m.Reason, m.Starts = "before_table", sc.first.ValidFrom
+					}
+					out.Missing = append(out.Missing, m)
 				}
 			}
 			continue

@@ -77,8 +77,14 @@ func TestInvariants(t *testing.T) {
 			Route: "cheapest", DriverEURPerH: 35, VehicleEURPerKm: 0.4}, calc(byAlts)},
 		{"ferry crossing, ets share given", Request{CargoKg: 20000, Truck: truck40, EUAEurPerT: 75, FerryETSShare: 0.5}, price(cphHam)},
 		{"Iceland, motor axles given", Request{CargoKg: 10000, Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 1, MotorAxles: 2}, FX: map[string]float64{"ISK": 140}}, price(is)},
+		{"km by country EE, compare an electric truck", Request{CountryKm: map[string]float64{"EE": 300}, Date: "2026-11-26", CargoKg: 10000, DieselL: 100, Truck: truck40,
+			CompareCO2Classes: []int{5}, KWhPer100Km: 120, ElectricityEURPerKWh: 0.25}, calc(noRoute)},
+		{"km by country EE, electric, compare a diesel truck", Request{CountryKm: map[string]float64{"EE": 300}, Date: "2026-11-26", CargoKg: 10000, KWhPer100Km: 120, ElectricityEURPerKWh: 0.25,
+			Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, CompareCO2Classes: []int{1}, DieselL: 100}, calc(noRoute)},
 		{"km by country AL", Request{CountryKm: map[string]float64{"AL": 300}, Date: "2026-11-26", CargoKg: 10000, DieselL: 100, Truck: truck40}, calc(noRoute)},
 		{"km by country AT, compare", Request{CountryKm: map[string]float64{"AT": 300}, Date: "2027-01-15", CargoKg: 10000, DieselL: 100, Truck: truck40, CompareCO2Classes: []int{1, 5}, TripsPerYear: 200, KWhPer100Km: 120, ElectricityEURPerKWh: 0.25}, calc(noRoute)},
+		{"cheapest, electric, a price but no kWh", Request{Date: "2026-11-03", Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"},
+			Route: "cheapest", ElectricityEURPerKWh: 0.25}, calc(byAlts)},
 		{"cheapest, electric", Request{Date: "2026-11-03", Truck: rates.Truck{MaxMassKg: 40000, Axles: 5, Euro: 6, CO2Class: 5}, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"}, Route: "cheapest"}, calc(byAlts)},
 		{"cheapest, diesel partly unpriced", Request{Date: "2026-11-03", Truck: truck40, CargoKg: 20000, From: sootcase.Location{Code: "DEHAM"}, To: sootcase.Location{Code: "DEMUC"},
 			Route: "cheapest", DriverEURPerH: 35, VehicleEURPerKm: 0.4, FuelPurchases: []FuelPurchase{{Country: "DE", Litres: 20}, {Country: "RS", Litres: 20}}, FX: map[string]float64{"RSD": 117}}, calc(byAlts)},
@@ -95,12 +101,23 @@ func TestInvariants(t *testing.T) {
 				t.Errorf("%s: a note asks for %s, which the request gives: %q", c.name, field, n)
 			}
 		}
+		for _, m := range r.Missing {
+			if field, given := asksForGiven(m.Text, c.req); given {
+				t.Errorf("%s: a missing charge's text asks for %s, which the request gives: %q", c.name, field, m.Text)
+			}
+		}
 		if r.Complete != (len(r.Missing) == 0) {
 			t.Errorf("%s: complete %v with missing %+v", c.name, r.Complete, r.Missing)
 		}
 		for _, m := range r.Missing {
 			if m.Text == "" || !reasons[m.Reason] {
 				t.Errorf("%s: missing %+v: no text, or a reason Missing.Reason's doc doesn't name", c.name, m)
+			}
+		}
+		// A note doesn't call missing a price the request gives.
+		for _, n := range r.Notes {
+			if c.req.ElectricityEURPerKWh > 0 && strings.Contains(n, "price for the electricity is missing") || c.req.DieselEURPerL > 0 && strings.Contains(n, "price for the diesel is missing") {
+				t.Errorf("%s: a note calls a given price missing: %q", c.name, n)
 			}
 		}
 		// A note on an electric truck's trip speaks of its electricity.
@@ -111,9 +128,20 @@ func TestInvariants(t *testing.T) {
 				}
 			}
 		}
+		// A comparison is complete when both trucks' results are.
 		for _, cmp := range r.Compare {
-			if cmp.Complete && !r.Complete {
-				t.Errorf("%s: class %d's comparison complete, the trip's result not (missing %+v)", c.name, cmp.CO2Class, r.Missing)
+			alt := c.req
+			alt.Truck.CO2Class, alt.CompareCO2Classes = cmp.CO2Class, nil
+			if c.req.Route != "" {
+				continue // the alternative is priced on the trip's route
+			}
+			a, err := c.do(alt)
+			if err != nil {
+				t.Errorf("%s: class %d alone: %v", c.name, cmp.CO2Class, err)
+				continue
+			}
+			if cmp.Complete != (r.Complete && a.Complete) {
+				t.Errorf("%s: class %d's comparison complete %v; the trip's %v (missing %+v), the class's alone %v (missing %+v)", c.name, cmp.CO2Class, cmp.Complete, r.Complete, r.Missing, a.Complete, a.Missing)
 			}
 		}
 		if r.Fuel != nil && !r.Fuel.Complete {
@@ -158,6 +186,9 @@ func asksForGiven(note string, req Request) (string, bool) {
 				continue
 			}
 			f := v.Field(i)
+			if f.Kind() == reflect.Struct {
+				return false // the truck: by its fields (truck.axles)
+			}
 			if f.Kind() == reflect.Map && key != "" {
 				return f.MapIndex(reflect.ValueOf(key)).IsValid()
 			}
@@ -173,7 +204,7 @@ func asksForGiven(note string, req Request) (string, bool) {
 				}
 				continue
 			}
-			if (strings.Contains(m[2], "_") || m[2] == "time") && given(reflect.ValueOf(req), m[2], m[3]) {
+			if given(reflect.ValueOf(req), m[2], m[3]) {
 				return strings.TrimSuffix(m[2]+"."+m[3], "."), true
 			}
 		}

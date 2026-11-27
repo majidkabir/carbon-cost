@@ -3,6 +3,7 @@ package cost
 import (
 	"cmp"
 	"fmt"
+	"maps"
 	"math"
 	"slices"
 	"sort"
@@ -727,7 +728,9 @@ func hasMotorAxles(ds *tariffs.Dataset) bool {
 // tripDaysORCT are the times a time-based charge is used at, one in each
 // day (or 24 hours) the trip spends in the country, a note saying how
 // they were counted, and whether the trip may spend more days there than
-// those (its times aren't known: country_km, or no time given).
+// those (its times aren't known: country_km, no route positions, no time
+// given, or a table that doesn't say whether its day is a calendar day or
+// 24 hours).
 func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country string) ([]time.Time, string, bool) {
 	req := p.req
 	sp := req.spans[country]
@@ -745,32 +748,55 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 			give = "the route"
 		}
 		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate: km by country have no passage times to count the trip's days by (give " + give + "); the other days are missing.", true
-	case day == "":
-		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; a trip over more days pays for each day or a longer period.", false
 	case len(sp) == 0:
-		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate; give time (the departure) to count the days the trip spends there.", false
+		return []time.Time{p.noon(ds)}, "a time-based charge, priced at one day's rate: the route's positions in the country aren't known, to count the trip's days by; the other days are missing.", true
 	}
-	// Without a time, the trip leaves at 00:00: the fewest days it can be
-	// there; leaving at 23:59 may make more.
+	// A table that doesn't say its day: the fewest by 24 hours, more if
+	// they are calendar days.
+	basis, other := day, ""
+	if day == "" {
+		basis, other = "24h", "calendar"
+	}
+	// Without a time, the departure that makes the fewest days (and any
+	// that makes more).
 	at, unknown, how := req, false, " by its passage times"
 	if req.Time == "" {
-		at.Time = "00:00"
-		late := req
-		late.Time = "23:59"
-		unknown = len(p.useDays(late, sp, country, day)) > len(p.useDays(at, sp, country, day))
-		how = " by its passage times leaving at 00:00 (no time given)"
+		deps := p.departures(req, sp, country)
+		var fewest []time.Time
+		most := 0
+		for _, d := range deps {
+			r := req
+			r.Time = d
+			got := p.useDays(r, sp, country, basis)
+			if fewest == nil || len(got) < len(fewest) {
+				fewest, at = got, r
+			}
+			most = max(most, len(got))
+			if other != "" {
+				most = max(most, len(p.useDays(r, sp, country, other)))
+			}
+		}
+		unknown = most > len(fewest)
+		how = " by its passage times leaving at " + at.Time + " (no time given)"
 		if unknown {
 			how += ", the fewest it can be: give time to count them"
 		}
+		// Waits for driving bans on its days aren't known either.
+		if len(p.out.Bans) > 0 {
+			unknown = true
+			how += "; with driving bans on its days, their waits may make more"
+		}
+	} else if other != "" && len(p.useDays(req, sp, country, other)) > len(p.useDays(req, sp, country, basis)) {
+		unknown = true
 	}
-	out := p.useDays(at, sp, country, day)
+	out := p.useDays(at, sp, country, basis)
 	// The days the trip is there in all, and (byVersion) this version's.
 	n, of := len(out), ""
 	if p.only != nil {
 		out = slices.DeleteFunc(out, func(d time.Time) bool { return !p.only(d.Format(time.DateOnly)) })
 		of = fmt.Sprintf(" (%d in the table from %s)", len(out), ds.ValidFrom)
 	}
-	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[day]
+	unit := map[string]string{"calendar": "calendar day", "24h": "24-hour period"}[basis]
 	if n != 1 {
 		unit += "s"
 	}
@@ -778,8 +804,33 @@ func (p *pricer) tripDaysORCT(ds *tariffs.Dataset, ch *orct.Charge, country stri
 	if !req.DriverRest {
 		rest = " without driver rests (give driver_rest for them)"
 	}
+	if day == "" {
+		return out, fmt.Sprintf("a time-based charge whose table doesn't say if its day is a calendar day or 24 hours: the trip is there on %d %s%s%s%s, the fewest%s; a longer period may cost less.",
+			n, unit, how, of, rest, map[bool]string{true: " (calendar days may be more)", false: ""}[unknown]), unknown
+	}
 	return out, fmt.Sprintf("a time-based charge for each %s of use: the trip is there on %d %s%s%s%s; a longer period may cost less.",
 		map[string]string{"calendar": "calendar day", "24h": "24 hours"}[day], n, unit, how, of, rest), unknown
+}
+
+// departures are the departure times (HH:MM) at which the trip's days in
+// the country can change: 00:00, and for each span's entry and exit the
+// departure that puts it on local midnight, and the minute before.
+func (p *pricer) departures(req Request, sp [][2]float64, country string) []string {
+	r := req
+	r.Time = "00:00"
+	mins := map[int]bool{0: true}
+	for _, s := range sp {
+		for _, km := range s {
+			t, _ := passage(r, p.date, km, country)
+			bp := (1440 - (t.Hour()*60 + t.Minute())) % 1440
+			mins[bp], mins[(bp+1439)%1440] = true, true
+		}
+	}
+	out := make([]string, 0, len(mins))
+	for _, m := range slices.Sorted(maps.Keys(mins)) {
+		out = append(out, fmt.Sprintf("%02d:%02d", m/60, m%60))
+	}
+	return out
 }
 
 // useDays are the times a charge by the day (calendar) or 24 hours (24h)

@@ -225,15 +225,15 @@ func (c Calculator) priceRoutes(res sootcase.Result, req *Request, date time.Tim
 		case running && withFuel:
 			what = "trip cost (charges, " + energy + ", driver and vehicle)"
 		case running:
-			what = "charges, driver and vehicle (a price for the " + energy + " is missing)"
+			what = "charges, driver and vehicle (the " + energy + " isn't priced on every route: see its note)"
 		case !withFuel:
-			what = "charges (a price for the " + energy + " is missing)"
+			what = "charges (the " + energy + " isn't priced on every route: see its note)"
 		}
 		note += ", the cheapest by " + what
 	}
 	if len(opts) == 1 {
 		note += "; Sootcase found no other route that differs enough (it shares less than 80% of its length, or takes other ferries) and is at most 1.5 times as long"
 	}
-	out.Notes = append(out.Notes, note+". Give route with a route's id to price that one.")
+	out.Notes = append(out.Notes, note+". Set route to a route's id to price that one.")
 	return out, nil
 }

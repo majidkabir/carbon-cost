@@ -259,8 +259,10 @@ func TestCongestionNeedsTime(t *testing.T) {
 	if out.Complete || !slices.ContainsFunc(out.Missing, func(m Missing) bool { return m.Reason == "needs_time" }) {
 		t.Errorf("through Danvikstull without time: complete %v, missing %+v; want needs_time", out.Complete, out.Missing)
 	}
+	// (priceLeg has no route positions: the vignette's days are missing.)
+	needsTime := func(m Missing) bool { return m.Reason == "needs_time" }
 	timed := priceLeg(t, "SE", 1, path, Request{Time: "08:00", FX: map[string]float64{"SEK": 11}}, "2026-11-24")
-	if !timed.Complete {
+	if slices.ContainsFunc(timed.Missing, needsTime) {
 		t.Errorf("at 08:00: missing %+v", timed.Missing)
 	}
 	// No tax on a Sunday, nor in Göteborg in July: nothing to miss.
@@ -268,7 +270,7 @@ func TestCongestionNeedsTime(t *testing.T) {
 		day  string
 		path [][2]float64
 	}{{"2026-11-22", path}, {"2026-11-22", [][2]float64{{11.9423, 57.670}, {11.9423, 57.690}}}, {"2026-07-15", [][2]float64{{11.9423, 57.670}, {11.9423, 57.690}}}} {
-		if out := priceLeg(t, "SE", 2, c.path, Request{FX: map[string]float64{"SEK": 11}}, c.day); !out.Complete {
+		if out := priceLeg(t, "SE", 2, c.path, Request{FX: map[string]float64{"SEK": 11}}, c.day); slices.ContainsFunc(out.Missing, needsTime) {
 			t.Errorf("%s %v without time: missing %+v; want complete", c.day, c.path[0], out.Missing)
 		}
 	}
@@ -2033,7 +2035,7 @@ func TestCountryKmDaysUnknown(t *testing.T) {
 }
 
 // A route with no time: a charge by the day is priced for the fewest days
-// the trip can be there (leaving at 00:00); where leaving later makes
+// the trip can be there (over every departure time); where another makes
 // more, they are listed as missing.
 func TestDaysWithoutTime(t *testing.T) {
 	fake := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -2086,5 +2088,34 @@ func TestCountryKmCrossingsAllMissing(t *testing.T) {
 	}
 	if len(names) < 2 || !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, "Llogara") }) || !slices.ContainsFunc(names, func(n string) bool { return strings.Contains(n, "Rruga e Kombit") }) {
 		t.Errorf("AL missing %v; want each scheme in force (Llogara, Rruga e Kombit)", names)
+	}
+}
+
+// Each crossing scheme is missing as it stands on the day: in force
+// (no_route), not yet (before_table, from its first table) or ended.
+func TestCountryKmCrossingsEachScheme(t *testing.T) {
+	for _, c := range []struct {
+		cc, day string
+		want    map[string]string // a word of the scheme's name: reason
+	}{
+		{"AL", "2026-11-05", map[string]string{"Llogara": "no_route", "Rruga e Kombit": "before_table"}},
+		{"AL", "2024-09-01", map[string]string{"Llogara": "before_table", "Rruga e Kombit": "before_table"}},
+		{"BA", "2024-09-01", map[string]string{"Federa": "no_route", "Srpska": "before_table"}},
+	} {
+		out, err := Calculator{Tariffs: all(t)}.Calculate(context.Background(), Request{CountryKm: map[string]float64{c.cc: 300}, Date: c.day, CargoKg: 10000, DieselL: 100, Truck: truck40})
+		if err != nil {
+			t.Fatal(err)
+		}
+		got := map[string]string{}
+		for _, m := range out.Missing {
+			for w := range c.want {
+				if m.Area == c.cc && strings.Contains(m.Name, w) {
+					got[w] = m.Reason
+				}
+			}
+		}
+		if !maps.Equal(got, c.want) {
+			t.Errorf("%s on %s: %v; want %v (missing %+v)", c.cc, c.day, got, c.want, out.Missing)
+		}
 	}
 }

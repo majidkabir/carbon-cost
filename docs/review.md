@@ -12,7 +12,11 @@ line here, so the next change is checked for it.
 - An input can be missing or partial (a diesel price, a day count, a
   route, emissions): the result says so (`missing`, `complete`, a null),
   and nothing built on it counts it as free or as one.
-- A note never asks for what the request gives.
+- A note, or a missing charge's text, never asks for what the request
+  gives.
+- What depends on an input not given (the departure time, a table's day
+  basis, the route's positions) is taken over every value it can take,
+  not one or two samples; the test case enters the country mid-trip.
 - The request and its result are in `TestInvariants` (cost); a new class
   of mistake is a new invariant there.
 

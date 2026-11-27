@@ -3,8 +3,9 @@ where the toll operator's map, read at its points (cz_myto.py), draws a
 layer, in that layer's class (a class II road in OpenStreetMap the map
 tolls as class I, a motorway it tolls as class I); a short tolled blip
 (a crossing) is left out, and so is a road beside a motorway the map's
-line is the motorway's; a way the capture doesn't know is tolled when
-both its ends meet tolled ways of its class.
+line is the motorway's; a way the capture doesn't know takes the map's
+reading at the points beside it (OSM split a way), else is tolled when
+both its ends meet tolled ways of a class, as are the new ways between.
 
 Usage: python3 test_cz.py
 """
@@ -35,7 +36,12 @@ def osm(path, new):
         tg = "".join(f'<tag k="{k}" v="{v}"/>' for k, v in tags.items())
         ways.append(f'<way id="{wid}" version="1">{nds}{tg}</way>')
 
-    way(1, 0, 10, highway="primary", ref="38")                       # tolled but km 4-6 (a town)
+    if new:
+        # OSM split way 1 at the town's end: the old id keeps km 6-10.
+        way(13, 0, 6, highway="primary", ref="38")
+        way(1, 6, 10, highway="primary", ref="38")
+    else:
+        way(1, 0, 10, highway="primary", ref="38")                   # tolled but km 4-6 (a town)
     way(2, 0, 5, dy=0.02, highway="primary", ref="2")                # not in the law
     way(3, 0, 5, dy=0.05, highway="motorway", ref="D1", oneway="yes")
     way(4, 5, 0, dy=0.0502, highway="motorway", ref="D1", oneway="yes")
@@ -46,7 +52,8 @@ def osm(path, new):
     way(11, 0, 2, dy=-0.09, highway="motorway", ref="55")            # class I on the map
     way(12, 0, 4, dy=0.0503, highway="secondary", ref="607")         # beside D1, 33 m off: the map's line is D1's
     if new:
-        way(7, 10, 11, highway="primary", ref="38")                  # new: between tolled ends
+        way(7, 10, 10.5, highway="primary", ref="38")                # new: two ways between tolled ends
+        way(14, 10.5, 11, highway="motorway", ref="38", oneway="no")  # (a class I road tagged motorway)
         way(9, 13, 14, highway="primary", ref="38")                  # new: one end loose
     pts = "".join(f'<node id="{i}" version="1" lat="{LAT + dy:.7f}" lon="{LON0 + x * KM:.7f}"/>' for (x, dy), i in nodes.items())
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")

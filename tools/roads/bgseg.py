@@ -3,8 +3,9 @@
 Each segment of the list (bg_network.py: Решение № 680/2022, both
 directions, settlements left out) is found as the shortest way along its
 road from its start to its end: from the nearest point of a way with the
-road's ref (within SNAP_M; the nearest pair of ways a path joins: a dual
-road's carriageways) to the nearest such point of its end, along ways
+road's ref (within SNAP_M; of the ways there, the pair whose path plus
+the ends' distances is shortest: a dual road's carriageway of the
+segment's direction) to the nearest such point of its end, along ways
 with the ref, roundabouts and, where the way allows it, in its direction
 of travel (oneway). A path more than LONGER times the segment's length (and
 EXTRA_M) is the wrong road: the segment isn't placed. Where the ref's ways
@@ -78,13 +79,17 @@ class Network:
         """Covers the path of a segment from a to b ((lon, lat)) of about
         length metres along the road's ways (ref; None: any). Returns the
         path's length, or None."""
-        # The nearest ends that a path joins.
-        best = None
+        # The pair of ends whose path, with the ends' distances from the
+        # segment's, is shortest: a dual road's carriageway of the
+        # segment's direction, not a U-turn from the other.
+        best, score = None, math.inf
         pairs = sorted((sd + td, (sw, se, st), (tw, te, tt)) for sd, sw, se, st in self.snap(*a, ref) for td, tw, te, tt in self.snap(*b, ref))
-        for _, s, t in pairs:
-            best = self.path(s, t, length * LONGER + EXTRA_M, ref)
-            if best:
+        for d, s, t in pairs:
+            if d >= score:
                 break
+            p = self.path(s, t, length * LONGER + EXTRA_M, ref)
+            if p and p[0] + d < score:
+                best, score = p, p[0] + d
         if best is None:
             return None
         for (w, e), (t0, t1) in best[1]:
@@ -170,7 +175,7 @@ class Network:
                     cur = []
         if cur:
             runs.append(cur)
-        return [r for r in runs if len(r) >= 2]
+        return [r for r in runs if len(set(r)) > 1]
 
     def uncovered(self, w):
         """The stretches of way w no path covers."""
@@ -201,7 +206,7 @@ class Network:
                 cur = []
         if cur:
             runs.append(cur)
-        return [r for r in runs if len(r) >= 2]
+        return [r for r in runs if len(set(r)) > 1]
 
 
 def merge(iv):

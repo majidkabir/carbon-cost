@@ -301,9 +301,15 @@ func (p *pricer) perKm(b *batch, ds *tariffs.Dataset, nw *network, a area, km, t
 				local = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)%s", strings.Join(l, ", "), map[bool]string{true: "", false: ", which it doesn't charge"}[shareGiven])
 			}
 			if req.roadNetwork[a.country] != "" {
-				// The road classes are the law's list of tolled sections.
-				p.note("%s: by OpenStreetMap along the route and the tolled sections the law lists, %.0f%% of the %.1f km are on tolled motorways and expressways, %.0f%% on other tolled national roads and %.0f%% on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
-					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)
+				// The road classes are the law's list of tolled roads, by
+				// the rate each is tolled at (provenance road_classes names
+				// the list).
+				free := ""
+				if l := req.roadLeftOut[a.country]; len(l) > 0 {
+					free = fmt.Sprintf(" (including the motorways this toll leaves to their operators: %s)", strings.Join(l, ", "))
+				}
+				p.note("%s: by OpenStreetMap along the route and the tolled roads the toll's law lists, %.0f%% of the %.1f km are tolled at the motorway rate, %.0f%% at the other tolled roads' rate and %.0f%% are on roads the toll doesn't charge%s. Give motorway_share.%s or tolled_share.%s to override.",
+					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), free, cc, cc)
 			} else {
 				p.note("%s: by OpenStreetMap along the route, %.0f%% of the %.1f km are on motorways, %.0f%% on other national roads and %.0f%% on local roads%s. Give motorway_share.%s or tolled_share.%s to override.",
 					cc, 100*rk.Motorway/rk.Total(), km, 100*rk.National/rk.Total(), 100*rk.Local/rk.Total(), local, cc, cc)

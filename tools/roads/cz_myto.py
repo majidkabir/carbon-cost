@@ -26,10 +26,11 @@ A way is read in equal slots of about STEP_M: each takes the map's
 reading at the way's own points that still lie on it (within MATCH_M;
 OpenStreetMap may have split, merged or moved it since) or, where none
 does, at other ways' points beside it running along it (within NEAR_M: a
-way added since, under another id). Ways with no point at all are
-tolled when they and the ways of their ref joined to them reach ways
-tolled with that ref in one class at every end, else not; build.py
-reports their km, and the tolled km of each class against the law's.
+way added since, under another id). A way mostly unread is placed by
+its ends: with the ways of its ref (and ref-less ones between) joined to
+it, it is tolled when every end of that chain is on a way of the ref
+tolled in one class, else not; build.py reports their km, and the
+tolled km of each class against the law's.
 """
 import gzip, hashlib, json, math, os
 from collections import Counter
@@ -118,11 +119,15 @@ def unrun(text):
     return [i % 2 == 1 for i, n in enumerate(int(x) for x in text.split(",")) for _ in range(n)]
 
 
+END = 3
+
+
 def parts(layers, c, gap=10):
     """A way's toll class and tolled parts, as (from, to) fractions of its
     length, from the layer drawn in each of its equal slots (None for
     none; "unread" where no point told, which takes the layer around it
-    for up to gap slots between two of one layer: OSM moved that bit);
+    for up to gap slots between two of one layer, OSM having moved that
+    bit, or the next slot's for up to END slots at an end);
     c, the way's own class, where none is."""
     layers = list(layers)
     i = 0
@@ -131,7 +136,13 @@ def parts(layers, c, gap=10):
             j = i
             while j < len(layers) and layers[j] == "unread":
                 j += 1
-            fill = layers[i - 1] if 0 < i and j < len(layers) and j - i <= gap and layers[i - 1] == layers[j] else None
+            if 0 < i and j < len(layers):
+                fill = layers[i - 1] if j - i <= gap and layers[i - 1] == layers[j] else None
+            else:
+                # At an end (OSM lengthened the way): the next slot's, for
+                # up to END slots.
+                side = layers[j] if i == 0 and j < len(layers) else layers[i - 1] if i > 0 else None
+                fill = side if side != "unread" and j - i <= END else None
             for k in range(i, j):
                 layers[k] = fill
             i = j
@@ -223,6 +234,10 @@ class Points:
                 for cy in range(int(y0 // self.CELL) - 1, int(y1 // self.CELL) + 2):
                     for l, p, w, u in self.grid.get((cx, cy), ()):
                         if w == wid:
+                            continue
+                        # A point of a way too short for a direction only
+                        # in a way long enough that a lone slot is dropped.
+                        if not u and n < 5:
                             continue
                         f = at(p, NEAR_M if u else self.ON_M)
                         if f is None or min(int(f * n), n - 1) not in empty:

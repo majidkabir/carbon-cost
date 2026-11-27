@@ -4391,3 +4391,22 @@ func TestOneRoadTypeIgnoresMotorwayShare(t *testing.T) {
 		}
 	}
 }
+
+// The saving with the energy counted is null where the diesel is only
+// partly priced (litres bought in Serbia have no price): the litres with
+// none would count as free.
+func TestCompareSavingNeedsEveryLitrePriced(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 600, CountryKm: map[string]float64{"HU": 300, "RS": 300}}}}
+	req := Request{CargoKg: 20000, Truck: truck40, CompareCO2Classes: []int{1, 5}, KWhPer100Km: 120, ElectricityEURPerKWh: 0.25, TripsPerYear: 100,
+		FuelPurchases: []FuelPurchase{{Country: "HU", Litres: 90}, {Country: "RS", Litres: 90}}, FX: map[string]float64{"HUF": 385, "RSD": 117}}
+	r, err := Price(trip, all(t), req, time.Date(2026, 11, 3, 0, 0, 0, 0, time.UTC))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if r.Fuel == nil || r.Fuel.Complete {
+		t.Fatalf("fuel %+v: want RS unpriced", r.Fuel)
+	}
+	if c := r.Compare[1]; c.CO2Class != 5 || c.SavingWithFuelEUR != nil || c.SavingWithFuelPerYearEUR != nil {
+		t.Errorf("class 5: %+v; want no saving with the energy", c)
+	}
+}

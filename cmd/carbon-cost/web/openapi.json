@@ -140,7 +140,7 @@
       "type": "integer"
      },
      "energy_eur": {
-      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy isn't all priced.",
       "type": "number"
      },
      "road_toll_eur": {
@@ -156,7 +156,7 @@
       "type": "number"
      },
      "saving_with_fuel_eur": {
-      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy isn't all priced.",
       "type": [
        "number",
        "null"
@@ -171,7 +171,7 @@
       "type": "number"
      },
      "with_fuel_eur": {
-      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy has no price.",
+      "description": "EnergyEUR is its diesel or electricity, WithFuelEUR the charges and it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with the energy counted: null where either truck's energy isn't all priced.",
       "type": "number"
      }
     },
@@ -1162,7 +1162,7 @@
       "type": "object"
      },
      "diff_eur": {
-      "description": "DiffEUR is its cost less the primary's: trip_cost_eur with running costs given, else with_fuel_eur where all have it, else total_eur.",
+      "description": "DiffEUR is its cost less the primary's: with_fuel_eur where every route's diesel has a price, else total_eur, and the running costs given (driver and vehicle).",
       "type": "number"
      },
      "distance_km": {

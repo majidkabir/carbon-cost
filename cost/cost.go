@@ -381,7 +381,8 @@ type Comparison struct {
 	SavingPerYearEUR float64 `json:"saving_per_year_eur,omitempty"`
 	// EnergyEUR is its diesel or electricity, WithFuelEUR the charges and
 	// it (Response.WithFuelEUR), and SavingWithFuelEUR what it saves with
-	// the energy counted: null where either truck's energy has no price.
+	// the energy counted: null where either truck's energy isn't all
+	// priced.
 	EnergyEUR         float64  `json:"energy_eur,omitempty"`
 	WithFuelEUR       float64  `json:"with_fuel_eur,omitempty"`
 	SavingWithFuelEUR *float64 `json:"saving_with_fuel_eur"`
@@ -1554,7 +1555,9 @@ func compare(out *Response, res sootcase.Result, set *tariffs.Set, fd *ferries.D
 			SavingEUR: round2(out.TotalEUR - r.TotalEUR)}
 		if energyPriced(&r) {
 			c.EnergyEUR, c.WithFuelEUR = energyEUR(&r), r.WithFuelEUR
-			if energyPriced(out) {
+			// Every litre or kWh of both priced: one with none would count
+			// as free.
+			if energyComplete(&r) && energyComplete(out) {
 				v := round2(out.WithFuelEUR - r.WithFuelEUR)
 				c.SavingWithFuelEUR = &v
 				if req.TripsPerYear > 0 {

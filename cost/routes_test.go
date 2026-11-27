@@ -183,3 +183,22 @@ func TestTruckRestrictions(t *testing.T) {
 		}
 	}
 }
+
+// With the running costs given and a diesel price missing on a route,
+// routes compare by their charges and running costs, without the diesel
+// (part of it priced on one, none on another, would be counted as free).
+func TestRouteCostWithoutDiesel(t *testing.T) {
+	// Charges 100, its diesel priced but for the litres in a country with
+	// no price (with fuel 150), driver and vehicle 100.
+	a := RouteOption{TotalEUR: 100, WithFuelEUR: 150, TripCostEUR: 250, runningEUR: 100}
+	b := RouteOption{TotalEUR: 120, WithFuelEUR: 300, TripCostEUR: 400, runningEUR: 100}
+	if got := routeCost(a, false); got != 200 {
+		t.Errorf("a without diesel: %v, want 200", got)
+	}
+	if got := routeCost(b, true); got != 400 {
+		t.Errorf("b with diesel: %v, want 400", got)
+	}
+	if got := routeCost(RouteOption{TotalEUR: 100, WithFuelEUR: 150}, false); got != 100 {
+		t.Errorf("no running costs, no diesel: %v, want 100", got)
+	}
+}

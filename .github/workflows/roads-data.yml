@@ -68,11 +68,6 @@ jobs:
               osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail r/boundary=administrative
               extra=areas.pbf
             fi
-            if [ $cc = BG ]; then
-              # The settlements' built-up land (no toll inside them).
-              osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail
-              extra=areas.pbf
-            fi
             if [ $cc = HU ]; then
               # Budapest's boundary (its roads aren't in annex 1).
               osmium tags-filter -O -o areas.pbf in.pbf r/boundary=administrative

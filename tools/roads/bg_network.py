@@ -61,7 +61,7 @@ def roads(page):
     for kind, v in p.items:
         text = v if kind == "text" else " ".join(v)
         for key, head in SECTIONS:
-            if head in text and (kind == "text" or len(v) <= 2):
+            if (kind == "text" and head in text) or (kind == "row" and any(c == head for c in v)):
                 sec = key
         # A table's rows of column numbers ("1 2 3") aren't roads.
         if kind != "row" or sec is None or not v or all(c.isdigit() for c in v):

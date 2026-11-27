@@ -56,7 +56,7 @@ jobs:
               if [ -s tools/roads/bg-network.json ]; then
                 diff -u tools/roads/bg-network.json bg-law.json
               else
-                echo "::warning::tools/roads/bg-network.json is empty: the parsed laws are on roads-out"; cp bg-law.json tools/roads/bg-network.json; cp bg-law.json out/bg-network.json
+                echo "::warning::tools/roads/bg-network.json is empty: the parsed laws are on roads-out"; cp bg-law.json tools/roads/bg-network.json; cp bg-law.json out/bg-network.json; cp list.html out/bg-list.html
               fi
               rm -f list.html bg-law.json
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary

@@ -46,15 +46,18 @@ jobs:
               python3 tools/roads/cz_network.py law.txt | diff -u tools/roads/cz-network.json -
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             elif [ $cc = BG ]; then
-              # The tolled roads from the law, with the 2022 toll segments'
-              # km to check against (the parsed list in the repository must
-              # be the law's).
+              # The tolled roads from the law of 2025 and the toll segments
+              # of the list of 2022 (the parsed lists in the repository must
+              # be the laws'), then the main roads they're on.
               curl -fsSL --retry 5 --retry-delay 20 -o list.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=234264"
               curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf
               pdftotext -layout law.pdf law.txt
               python3 tools/roads/bg_network.py list.html law.txt > bg-law.json
-              echo LAWTXT-BEGIN; cat law.txt; echo LAWTXT-END
-              diff -u tools/roads/bg-network.json bg-law.json || { [ -s tools/roads/bg-network.json ] && exit 1; cat bg-law.json; cp bg-law.json tools/roads/bg-network.json; }
+              if [ -s tools/roads/bg-network.json ]; then
+                diff -u tools/roads/bg-network.json bg-law.json
+              else
+                echo "::warning::tools/roads/bg-network.json is empty: the parsed laws are on roads-out"; cp bg-law.json tools/roads/bg-network.json; cp bg-law.json out/bg-network.json
+              fi
               rm -f list.html bg-law.json
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             else

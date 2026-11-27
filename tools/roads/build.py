@@ -40,6 +40,7 @@ land, 50 m around.
 import gzip, json, math, os, re, sys
 from collections import Counter
 import osmium
+import bgseg
 import cz_myto
 from shapely import wkb
 from shapely.geometry import LineString, Point
@@ -67,10 +68,9 @@ RULES = {
     # Poland, Dz.U. 2026 poz. 33: autostrady and drogi ekspresowe (A, S) vs
     # drogi krajowe.
     "PL": {"mw": r"^[AS]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
-    # Bulgaria, Tarifa art. 25: автомагистрали vs I and II class roads; of
-    # those only the ones Решение № 238/2025 lists, and not inside
-    # settlements (bg_network.py).
-    "BG": {"mw": r"^[AА]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "law": "bg-network.json"},
+    # Bulgaria, Tarifa art. 25: автомагистрали vs I and II class roads,
+    # those by the toll segments of the list (bg_network.py, bgseg.py).
+    "BG": {"mw": r"^[AА]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "segments": "bg-network.json"},
     # Slovakia, NV 418/2024: diaľnice and rýchlostné cesty (D, R) vs
     # cesty I. triedy.
     "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
@@ -154,7 +154,7 @@ class Urban(osmium.SimpleHandler):
     def __init__(self):
         super().__init__()
         self.wkb = osmium.geom.WKBFactory()
-        self.towns, self.land, self.land_use = [], [], []
+        self.towns, self.land = [], []
         self.seen = Counter()
 
     def area(self, a):
@@ -167,14 +167,8 @@ class Urban(osmium.SimpleHandler):
                 self.towns.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
             elif t.get("landuse") in ("residential", "commercial", "industrial", "retail"):
                 self.land.append(wkb.loads(self.wkb.create_multipolygon(a), hex=True))
-                self.land_use.append(t.get("landuse"))
         except Exception:
             pass
-
-    def built_up_all(self, uses=("residential", "commercial", "industrial", "retail"), m=50):
-        """The built-up land of these uses, m around: the settlements."""
-        land = [l.buffer(m / 100_000) if m else l for l, u in zip(self.land, self.land_use) if u in uses]
-        return unary_union(land) if land else None
 
     def built_up(self):
         tree = STRtree(self.land)
@@ -345,15 +339,6 @@ class Ways(osmium.SimpleHandler):
     def __init__(self, rule, sections, urban=None):
         super().__init__()
         self.rule, self.sections, self.urban = rule, sections, urban
-        # A large urban area, in parts for a tree (Bulgaria's settlements).
-        self.urban_parts = self.urban_tree = self.urban_box = None
-        if urban is not None and len(getattr(urban, "geoms", [])) > 1000:
-            self.urban_parts = list(urban.geoms)
-            self.urban_tree = STRtree(self.urban_parts)
-            self.urban_box = urban.envelope
-        # law (Bulgaria): the class I and II road numbers the toll list has;
-        # km kept by ref (one carriageway).
-        self.law_nat, self.law_km, self.law_urban = None, Counter(), Counter()
         self.urban_km = 0.0
         self.lines = {"mw": [], "nat": []}
         self.shares = {"mw": [], "nat": []}
@@ -384,6 +369,9 @@ class Ways(osmium.SimpleHandler):
         # ref, and by class.
         self.law_refs, self.myto, self.samples, self.new_ways, self.mapped = set(), None, [], [], []
         self.tolled_nodes, self.ref_km, self.class_km = {"mw": set(), "nat": set()}, Counter(), Counter()
+        # segments (Bulgaria): the main roads' ways, for the toll segments
+        # to be found on (bgseg.Network), and whether each is a motorway.
+        self.bg, self.bg_mw = None, []
 
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
@@ -398,17 +386,17 @@ class Ways(osmium.SimpleHandler):
                 except (osmium.InvalidLocationError, ValueError):
                     pass
         else:
-            # Czechia's toll map and Bulgaria's list name class II roads too
-            # (OpenStreetMap's secondary).
-            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("law") else ()):
+            # Czechia's toll map and Bulgaria's toll segments have class II
+            # roads too (OpenStreetMap's secondary).
+            if hw.endswith("_link") or hw not in ("motorway", "trunk", "primary") + (("secondary",) if self.rule.get("myto") or self.rule.get("segments") else ()):
                 return
             c, f = classify(self.rule, tags), -1
+            if self.bg is not None:
+                return self.bg_way(w, c, tags)
             if c is None and self.rule.get("myto"):
                 # Any main road: the toll map says whether, and in which
                 # class, it is tolled.
                 c = "nat"
-            if c == "nat" and self.law_nat is not None and not {r.strip() for r in (tags.get("ref") or "").split(";")} & self.law_nat:
-                c = None
             if c is None and hw == "motorway" and self.tolled and tags.get("toll") == "no":
                 key = f"{(tags.get('operator') or '').strip()}|{(tags.get('ref') or '').split(';')[0].strip()}"
                 boxes = [(box, lab, suf) for k, box, lab, suf in self.tolled if k == key]
@@ -457,6 +445,20 @@ class Ways(osmium.SimpleHandler):
         if self.rule.get("myto"):
             return self.myto_way(w, c, coords, tags)
         self.add(c, f, coords, tags, suffix)
+
+    def bg_way(self, w, c, tags):
+        try:
+            coords = [(n.lon, n.lat) for n in w.nodes]
+        except osmium.InvalidLocationError:
+            return
+        if len(coords) < 2:
+            return
+        refs = {r.strip().replace("А", "A") for r in (tags.get("ref") or "").split(";") if r.strip()}
+        roundabout = tags.get("junction") in ("roundabout", "circular")
+        ow = tags.get("oneway")
+        oneway = -1 if ow == "-1" else 0 if ow == "no" else 1 if ow in ("yes", "1", "true") or roundabout or tags.get("highway") == "motorway" else 0
+        self.bg.add(refs, roundabout, oneway, [n.ref for n in w.nodes], coords, tags)
+        self.bg_mw.append(c == "mw")
 
     def myto_way(self, w, c, coords, tags):
         refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
@@ -513,15 +515,9 @@ class Ways(osmium.SimpleHandler):
                 self.free_km[hit[0]] += ls.length * 111.32 * 0.68
                 return
         pieces = [ls]
-        near = self.urban
-        if c == "nat" and self.urban_parts is not None:
-            near = unary_union([self.urban_parts[i] for i in self.urban_tree.query(ls, predicate="intersects")]) if ls.intersects(self.urban_box) else None
-            near = None if near is None or near.is_empty else near
-        if c == "nat" and near is not None and ls.intersects(near):
-            rest = ls.difference(near)
+        if c == "nat" and self.urban is not None and ls.intersects(self.urban):
+            rest = ls.difference(self.urban)
             self.urban_km += (ls.length - rest.length) * 111.32 * 0.68
-            if self.law_nat is not None:
-                self.law_urban[(tags.get("ref") or "").split(";")[0].strip()] += (ls.length - rest.length) * 111.32 * 0.68 * (0.5 if tags.get("oneway") == "yes" else 1)
             pieces = [g for g in getattr(rest, "geoms", [rest]) if g.geom_type == "LineString" and not g.is_empty]
         for piece in pieces:
             s = piece.simplify(SIMPLIFY_M / 111_320, preserve_topology=False)
@@ -530,11 +526,6 @@ class Ways(osmium.SimpleHandler):
                 self.lines[c].append([v for p in pts for v in p])
                 self.shares[c].append(round(f, 3))
                 self.km[c] += piece.length * 111.32 * 0.68
-                if self.law_nat is not None:
-                    # One carriageway: a oneway way counts half.
-                    one = 0.5 if tags.get("oneway") == "yes" or tags.get("highway") == "motorway" else 1
-                    ref = (tags.get("ref") or "").split(";")[0].strip().replace("А", "A")
-                    self.law_km[ref if c == "nat" else re.sub(r"^A\s?-?", "A-", ref)] += piece.length * 111.32 * 0.68 * one
                 if c == "mw" and self.rule.get("operator"):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
@@ -784,16 +775,43 @@ def myto_finish(h, cc, law, dst):
     return law["source"].split(":")[0] + (f"; tolled stretches as the toll operator's map draws them ({cap['url']}, read {cap['date']})" if cap else "")
 
 
-def law_check(h, cc, law):
-    """Bulgaria: each road's km kept against its toll segments' of 2022
-    (the network the list of 2025 kept)."""
-    seg = law.get("segments_2022", {}).get("km", {})
-    for ref in sorted(set(seg) | set(h.law_km), key=lambda r: (not r.startswith("A"), int(re.sub(r"\D", "", r) or 0), r)):
-        got, want = h.law_km.get(ref, 0), seg.get(ref)
-        print(cc, f"{ref:>5}: {got:6.1f} km kept, {h.law_urban.get(ref, 0):5.1f} in settlements left out, 2022 segments {want if want is not None else '-':>6}")
-    for c, refs in (("mw", [r for r in seg if r.startswith("A")]), ("nat", [r for r in seg if not r.startswith("A")])):
-        got = sum(v for r, v in h.law_km.items() if (r.startswith("A")) == (c == "mw"))
-        print(cc, f"{c}: {got:.0f} km kept (one carriageway), 2022 segments {sum(seg[r] for r in refs):.0f}")
+def bg_finish(h, cc, doc):
+    """Bulgaria: the class I and II roads' toll segments placed on the
+    main roads (bgseg.py); the parts of ways they cover are tolled class I
+    and II roads, a motorway's other parts motorway. Returns what the
+    tolled roads are, for the data's network."""
+    net = h.bg
+    rows = [r for r in doc["segments_2022"]["rows"] if r[0] in ("I", "II")]
+    placed, wanted, missed = Counter(), Counter(), Counter()
+    anyroad = 0
+    for cls, road, no, lat1, lon1, lat2, lon2, m in rows:
+        wanted[road] += m / 1000
+        got = net.place((lon1, lat1), (lon2, lat2), m, road)
+        if got is None:
+            got = net.place((lon1, lat1), (lon2, lat2), m, None)
+            anyroad += got is not None
+        if got is None:
+            missed[road] += m / 1000
+        else:
+            placed[road] += m / 1000
+    for road in sorted(wanted, key=int):
+        print(cc, f"road {road:>2}: {placed[road]:6.1f} of {wanted[road]:6.1f} segment km placed" + (f", {missed[road]:.1f} not" if missed[road] else ""))
+    listed = set(doc["roads"]["I"]) | set(doc["roads"]["II"])
+    for road in sorted(listed ^ set(wanted), key=int):
+        print(f"::warning::{cc}: road {road} is in " + ("the list of 2025 but has no segments of 2022" if road in listed else "the segments of 2022 but not the list of 2025"))
+    total, lost = sum(wanted.values()), sum(missed.values())
+    print(cc, f"segments placed: {total - lost:.0f} of {total:.0f} km; {anyroad} on roads of another ref")
+    for w in range(len(net.ways)):
+        tags = net.ways[w][6]
+        for run in net.covered(w):
+            h.add("nat", -1, run, tags)
+        if h.bg_mw[w]:
+            for run in net.uncovered(w):
+                h.add("mw", -1, run, tags)
+    if lost > 0.02 * total:
+        sys.exit(f"{cc}: {lost:.0f} of {total:.0f} segment km not found in OpenStreetMap")
+    return (doc["source"].split(":")[0] + "; class I and II roads by the toll segments of " + doc["segments_2022"]["source"].split(":")[0]
+            + " (the settlements left out)")
 
 
 def encode(lines):
@@ -842,12 +860,6 @@ def main(cc, src, dst, areas=None):
             sys.exit("HU: Budapest's administrative boundary not found")
         city = unary_union(b.parts)
         print(cc, "Budapest's boundary:", len(b.parts), "polygons")
-    elif areas and rule.get("law"):
-        # Bulgaria: no toll inside settlements (the law's note).
-        u = Urban()
-        u.apply_file(areas, locations=True)
-        urban = u.built_up_all(*([os.environ["BG_USES"].split(","), int(os.environ["BG_M"])] if os.environ.get("BG_USES") else []))
-        print(cc, "built-up polygons:", len(u.land))
     elif areas:
         u = Urban()
         u.apply_file(areas, locations=True)
@@ -863,10 +875,6 @@ def main(cc, src, dst, areas=None):
         sections = h.ways
         print(cc, "toll sections in OSM:", len(h.found), "of", len(rows), "ways:", len(sections))
     h = Ways(rule, sections, urban)
-    law = None
-    if rule.get("law"):
-        law = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), rule["law"]), encoding="utf-8"))
-        h.law_nat = set(law["roads"]["I"]) | set(law["roads"]["II"])
     if SPLITS.get(cc):
         j = Junctions([sp[:4] for sp in SPLITS[cc]])
         j.apply_file(src)
@@ -905,13 +913,17 @@ def main(cc, src, dst, areas=None):
                 lo, hi = sorted((e[axis], -1e9 if mid[axis] < e[axis] else 1e9))
             h.free.append((ref, axis, lo, hi, label))
             print(cc, "left out:", label, "axis", "xy"[axis], round(lo, 4), round(hi, 4), ends)
-    cz_law = None
+    law = None
     if rule.get("myto"):
-        cz_law = json.load(open(CZ_LAW, encoding="utf-8"))
-        h.law_refs = {r["ref"] for r in cz_law["sections"] if r["class"] == "nat"}
+        law = json.load(open(CZ_LAW, encoding="utf-8"))
+        h.law_refs = {r["ref"] for r in law["sections"] if r["class"] == "nat"}
         h.myto = cz_myto.load()
         if h.myto is None:
             print(f"::warning::{cc}: no capture of the toll map: every way of the law's roads counted")
+    bg = None
+    if rule.get("segments"):
+        bg = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), rule["segments"]), encoding="utf-8"))
+        h.bg = bgseg.Network()
     h.tolled = list(TOLLED.get(cc, []))
     h.untolled_boxes = list(UNTOLLED.get(cc, []))
     h.mountain = list(MOUNTAIN.get(cc, []))
@@ -919,8 +931,10 @@ def main(cc, src, dst, areas=None):
     h.apply_file(src, locations=True)
     if rule.get("sections_only"):
         place_pending(h, cc, city)
-    if cz_law:
-        network = myto_finish(h, cc, cz_law, dst)
+    if law:
+        network = myto_finish(h, cc, law, dst)
+    if bg:
+        network = bg_finish(h, cc, bg)
     tolling = {op.split("|")[0] for op in h.op_km}
     for (key, x, y), km in sorted(h.untolled.items(), key=lambda kv: -kv[1]):
         if km >= 1 and key.split("|")[0] in tolling:
@@ -943,13 +957,9 @@ def main(cc, src, dst, areas=None):
         print(cc, "left out as privately tolled (both carriageways):", label, round(h.private_km[label], 1), "km")
     if urban is not None:
         print(cc, "national road km left out inside municipalities (both carriageways):", round(h.urban_km))
-    if law:
-        law_check(h, cc, law)
     out = {"country": cc, "simplify_m": SIMPLIFY_M, "mw": h.lines["mw"], "nat": h.lines["nat"]}
-    if cz_law:
+    if law or bg:
         out["network"] = network
-    elif law:
-        out["network"] = law["source"].split(":")[0] + "; not inside settlements (OpenStreetMap's built-up land, 50 m around)"
     # The extract's date (the workflow passes its osmosis_replication_timestamp).
     if os.environ.get("OSM_EXTRACT"):
         out["osm_extract"] = os.environ["OSM_EXTRACT"][:10]

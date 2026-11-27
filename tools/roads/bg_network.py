@@ -12,12 +12,14 @@ bypasses and ring roads inside them (build.py leaves out the national
 roads' stretches in built-up land).
 
 segments.txt: pdftotext -layout of the list it repealed, Решение № 680 от
-2022 г. (ДВ бр. 78/2022), which gave each road's toll segments with their
-lengths, in both directions; the decree of 2025 says the tolled network
-stays the same. Its km by road (half the sum of both directions) are kept
-to check the build's against.
+2022 г. (ДВ бр. 78/2022), which gave each road's toll segments, in both
+directions, by their ends' coordinates and length; the government said
+the list of 2025 doesn't change the tolled network, and the toll
+operator's own list of segments (bgtoll.bg) refuses the workflow. The
+segments leave out the settlements; build.py finds each segment of a
+class I or II road between its ends along the road in OpenStreetMap.
 """
-import html, json, re, sys
+import json, math, re, sys
 from html.parser import HTMLParser
 
 SECTIONS = (("mw", "Автомагистрали"), ("I", "Пътища първи клас"), ("II", "Пътища втори клас"))
@@ -75,16 +77,38 @@ def roads(page):
     return out
 
 
-def segment_km(text):
-    """Km by road number (A-1, 1, 11), half the sum of the segments of
-    both directions."""
-    km = {}
-    for l in text.splitlines():
-        m = re.match(r"^\s*(Автомагистрала|Първи клас|Втори клас)\s+(\S+)\s.*?\b\d{10}\b.*?\s(\d+)\s+(\d+\.\d{3})\s*$", l)
-        if m:
-            road = m.group(2).replace("А", "A")
-            km[road] = km.get(road, 0) + float(m.group(4)) / 2
-    return {k: round(v, 1) for k, v in km.items()}
+# A segment's row: its class, road, number and length in metres, on the
+# line of its class; its start and end, the first two coordinates after
+# the last segment's, in reading order (on the lines around it: the
+# page's columns wrap).
+ROW = re.compile(r"^\s*(Автомагистрал[аи]|Първи клас|Втори клас)\s+(\S+)\s.*?\b(\d{10})\b.*?\s(\d+)\s+(\d+\.\d{3})\s*$")
+POINT = re.compile(r"(\d{2}\.\d+),\s*(\d{2}\.\d+);")
+CLASS = {"Автомагистрала": "mw", "Автомагистрали": "mw", "Първи клас": "I", "Втори клас": "II"}
+
+
+def segments(text):
+    """The toll segments: [class, road, number, start lat, lon, end lat,
+    lon, metres]."""
+    lines = text.splitlines()
+    points = [(float(m.group(1)), float(m.group(2))) for l in lines for m in [POINT.search(l)] if m]
+    rows = [m for l in lines for m in [ROW.match(l)] if m]
+    if len(points) != 2 * len(rows):
+        raise SystemExit(f"bg_network: {len(rows)} segments but {len(points)} coordinates")
+    out = []
+    for k, m in enumerate(rows):
+        (a, b), (c, d) = points[2 * k], points[2 * k + 1]
+        metres = int(m.group(4))
+        # The ends can't be further apart than the segment is long.
+        if haversine(a, b, c, d) > metres * 1.02 + 60:
+            raise SystemExit(f"bg_network: segment {m.group(3)} of {metres} m has ends {haversine(a, b, c, d):.0f} m apart")
+        out.append([CLASS[m.group(1)], m.group(2).replace("А", "A"), m.group(3), a, b, c, d, metres])
+    return out
+
+
+def haversine(lat1, lon1, lat2, lon2):
+    p1, p2 = math.radians(lat1), math.radians(lat2)
+    h = math.sin((p2 - p1) / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(math.radians(lon2 - lon1) / 2) ** 2
+    return 2 * 6_371_000 * math.asin(math.sqrt(h))
 
 
 if __name__ == "__main__":
@@ -96,7 +120,12 @@ if __name__ == "__main__":
     if len(sys.argv) > 2:
         doc["segments_2022"] = {
             "source": "Решение № 680 от 2022 г., ДВ бр. 78/2022: https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf",
-            "km": segment_km(open(sys.argv[2], encoding="utf-8").read()),
+            "rows": segments(open(sys.argv[2], encoding="utf-8").read()),
         }
-    json.dump(doc, sys.stdout, ensure_ascii=False, indent=1)
-    print()
+    # One segment a line.
+    text = json.dumps(doc, ensure_ascii=False, indent=1)
+    if "segments_2022" in doc:
+        head, _, _ = text.partition('"rows": [')
+        rows = ",\n".join("   " + json.dumps(r, ensure_ascii=False) for r in doc["segments_2022"]["rows"])
+        text = head + '"rows": [\n' + rows + "\n  ]\n }\n}"
+    print(text)

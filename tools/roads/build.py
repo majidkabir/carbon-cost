@@ -343,7 +343,7 @@ class Ways(osmium.SimpleHandler):
     def __init__(self, rule, sections, urban=None):
         super().__init__()
         self.rule, self.sections, self.urban = rule, sections, urban
-        self.urban_km = 0.0
+        self.urban_km, self.ref_line_km = 0.0, Counter()
         self.lines = {"mw": [], "nat": []}
         self.shares = {"mw": [], "nat": []}
         self.km = Counter()
@@ -532,6 +532,9 @@ class Ways(osmium.SimpleHandler):
                 self.lines[c].append([v for p in pts for v in p])
                 self.shares[c].append(round(f, 3))
                 self.km[c] += piece.length * 111.32 * 0.68
+                if c == "nat":
+                    one = 0.5 if tags.get("oneway") == "yes" else 1
+                    self.ref_line_km[(tags.get("ref") or "").split(";")[0].strip()] += cz_myto.length_m(list(piece.coords)) / 1000 * one
                 if c == "mw" and self.rule.get("operator"):
                     op = (tags.get("operator") or "").strip()
                     ref = (tags.get("ref") or "").split(";")[0].strip()
@@ -984,6 +987,9 @@ def main(cc, src, dst, areas=None):
     print(cc, {k: len(v) for k, v in h.lines.items()}, {k: round(v) for k, v in h.km.items()})
     for k, n in h.refs.most_common(30):
         print(" ", k, n)
+    if os.environ.get("ROADS_REFKM"):
+        for ref, km in sorted(h.ref_line_km.items(), key=lambda kv: -kv[1]):
+            print(cc, "ref km (one carriageway):", ref, round(km, 1))
 
 
 if __name__ == "__main__":

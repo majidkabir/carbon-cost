@@ -120,6 +120,33 @@ def page(fetched, sid, year, absent):
     return re.sub(r"\s+", " ", " ".join(l for l in open(b, encoding="utf-8") if not l.startswith("# "))), "browser"
 
 
+# The pages that say from when their prices are in force: Olympia Odos
+# ("Όπως ισχύουν από 01/01/2026"), Aegean Motorway ("Έναρξη ισχύος του
+# τρέχοντος τιμοκαταλόγου 01 Ιανουαρίου 2026") and Attiki Odos
+# ("Τιμαριθμική προσαρμογή διοδίων τελών 2026").
+DATED = [("olympia", r"ισχύουν από \d{1,2}/\d{1,2}/(20\d\d)"), ("aegean", r"Έναρξη ισχύος του τρέχοντος τιμοκαταλόγου \d{1,2} \w+ (20\d\d)"),
+         ("attiki", r"προσαρμογή διοδίων τελών (20\d\d)")]
+
+
+def price_year(fetched):
+    """The year of the current prices, as the dated pages say; stops when
+    they say different years (one has new prices, another not yet) or
+    none says one."""
+    said = {}
+    for sid, pattern in DATED:
+        p = os.path.join(fetched, f"gr-{sid}.html")
+        texts = [" ".join(cells(p))] if os.path.exists(p) else []
+        if sid == "attiki" and os.path.exists(os.path.join(BROWSER, "gr-attiki.txt")):
+            texts.append(" ".join(l for l in open(os.path.join(BROWSER, "gr-attiki.txt"), encoding="utf-8") if not l.startswith("# ")))
+        for t in texts:
+            if m := re.search(pattern, t):
+                said[sid] = m.group(1)
+                break
+    if len(set(said.values())) != 1:
+        sys.exit(f"Greece: the pages' years disagree or aren't read: {said}")
+    return next(iter(said.values()))
+
+
 def heading(a, b):
     return round(math.degrees(math.atan2((b[0] - a[0]) * math.cos(math.radians(a[1])), b[1] - a[1])) % 360, 1)
 
@@ -127,7 +154,7 @@ def heading(a, b):
 def main(fetched, out):
     # A past year's pages (tools/history/build_archived.py writes year.txt,
     # and absent.txt for pages it has no copy of).
-    year = open(os.path.join(fetched, "year.txt")).read().strip() if os.path.exists(os.path.join(fetched, "year.txt")) else "2026"
+    year = open(os.path.join(fetched, "year.txt")).read().strip() if os.path.exists(os.path.join(fetched, "year.txt")) else price_year(fetched)
     absent = set(open(os.path.join(fetched, "absent.txt")).read().split()) if os.path.exists(os.path.join(fetched, "absent.txt")) else set()
     booths, ways, booths_named, attiki = {}, [], {}, []
     for line in open(os.path.join(fetched, "gr-osm.geojsonseq"), encoding="utf-8"):
@@ -234,7 +261,7 @@ def main(fetched, out):
                     {"title": "Nea Odos: Διόδια Τέλη", "url": "https://www.neaodos.gr/highways/tolls/"},
                     {"title": "Kentriki Odos: Διόδια Τέλη", "url": "https://www.kentrikiodos.gr/highways/toll-fees/"},
                     {"title": "Moreas: Διόδια", "url": "https://www.moreas.com.gr/leitourgia/diodia"},
-                    {"title": "Aegean Motorway: Τιμές Διοδίων 2026", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"},
+                    {"title": f"Aegean Motorway: Τιμές Διοδίων {year}", "url": "https://www.aegeanmotorway.gr/travel-info/diodia/times-diodiwn-2/"},
                     {"title": "Gefyra: Τιμές Διοδίων (Rio–Antirrio bridge)", "url": "https://www.gefyra.gr/prices/Times-Diodion/"},
                     {"title": "OpenStreetMap (Geofabrik extract), toll booths", "url": "https://download.geofabrik.de/europe/greece.html"}]
                    + ([{"title": "Νέα Εγνατία Οδός: Σταθμοί Διοδίων" + (" (read in Chrome: tools/tables/browser/gr-egnatia.txt)" if eg[1] == "browser" else ""), "url": "https://neodos.gr/stathmoi-diodion/"}] if eg else [])

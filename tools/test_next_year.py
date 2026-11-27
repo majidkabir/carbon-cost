@@ -16,6 +16,7 @@ sys.path.insert(0, os.path.join(here, "tables"))
 sys.path.insert(0, os.path.join(here, "fr"))
 import hu  # noqa: E402
 import build as fr  # noqa: E402
+import gr  # noqa: E402
 
 
 def test_hu():
@@ -74,8 +75,31 @@ def test_fr_stale():
     os.rmdir(d)
 
 
+def test_gr():
+    """Greece's year is the one its dated pages give; when they disagree
+    (one has next year's prices, another not yet), the build stops."""
+    d = tempfile.mkdtemp()
+    real, gr.BROWSER = gr.BROWSER, d
+    try:
+        for aegean, want in (("2027", "2027"), ("2026", None)):
+            for sid, text in (("olympia", "Όπως ισχύουν από 01/01/2027"), ("aegean", f"Έναρξη ισχύος του τρέχοντος τιμοκαταλόγου 01 Ιανουαρίου {aegean} – 00:01"),
+                              ("attiki", "Νέα Αττική Οδός: Τιμαριθμική προσαρμογή διοδίων τελών 2027")):
+                open(os.path.join(d, f"gr-{sid}.html"), "w", encoding="utf-8").write(f"<html><p>{text}</p></html>")
+            try:
+                got = gr.price_year(d)
+            except SystemExit:
+                got = None
+            assert got == want, (aegean, got)
+    finally:
+        gr.BROWSER = real
+        for f in os.listdir(d):
+            os.remove(os.path.join(d, f))
+        os.rmdir(d)
+
+
 if __name__ == "__main__":
     test_hu()
     test_fr()
     test_fr_stale()
+    test_gr()
     print("test_next_year: ok")

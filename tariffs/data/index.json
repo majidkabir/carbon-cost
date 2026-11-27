@@ -264,8 +264,8 @@
    "file": "be/be-liefkenshoek-2027-01-01.orct.json",
    "name": "Liefkenshoektunnel toll (Antwerp)",
    "valid_from": "2027-01-01",
-   "valid_to": null,
-   "sha256": "361673b7886711c8502dbc6529de54640b20269e335f66ad8f733921e3e803a7",
+   "valid_to": "2027-12-31",
+   "sha256": "a013ca82ed75132a8cd56daa7dda4474c60a34dd0e3f0c227f9ab41f3cd5229d",
    "coverage": "complete"
   },
   {
@@ -1243,8 +1243,8 @@
    "file": "es/es-ap68-2026-01-01.orct.json",
    "name": "AP-68 Bilbao – Zaragoza (Avasa)",
    "valid_from": "2026-01-01",
-   "valid_to": "2026-12-31",
-   "sha256": "d1a7590232401242b87ca812cd8637ff5cbc06f32faed7d6523d84aab72a687c",
+   "valid_to": "2026-11-10",
+   "sha256": "45bebf41b6207b465be418ec15766865c567b618cf0ec951309a7822f8024dcc",
    "coverage": "complete"
   },
   {
@@ -1794,7 +1794,7 @@
    "name": "London Congestion Charge",
    "valid_from": "2024-01-01",
    "valid_to": "2026-01-01",
-   "sha256": "1fa9737842d4754b571bd567f2fca5dede738a823e3d15d043edd6e9969458e1",
+   "sha256": "4118cbbb6b440d281588855e1c3fa2c62af58840d993f655889ef3ec6f5ef8af",
    "coverage": "complete"
   },
   {
@@ -1805,7 +1805,7 @@
    "name": "London Congestion Charge",
    "valid_from": "2026-01-02",
    "valid_to": "2030-03-03",
-   "sha256": "e01775c4e338f3c54093438e915e303fd5eb9ca061a7f9827854e5d66e6b7b91",
+   "sha256": "a6f77382a44d0858a15db74622bc3067f85b64987975dc4ecb5594cb890b0f1a",
    "coverage": "complete"
   },
   {
@@ -1816,7 +1816,7 @@
    "name": "London Congestion Charge",
    "valid_from": "2030-03-04",
    "valid_to": null,
-   "sha256": "883f9104c25fd98e803386fd2d83037bc23c741d6719fa05faf55d5cf2b8118e",
+   "sha256": "b36301bb5e06d1232740da8cd90a14dde58c1c0e88068ff5a940eb021bc43281",
    "coverage": "complete"
   },
   {
@@ -3289,8 +3289,8 @@
    "file": "se/fuelco2-se-2027-01-01.orct.json",
    "name": "Koldioxidskatt on diesel (environmental class 1)",
    "valid_from": "2027-01-01",
-   "valid_to": null,
-   "sha256": "1959f91963b8ab85a55fe46c9b496e87cffa42b33b322b8db4077145e0484103",
+   "valid_to": "2027-12-31",
+   "sha256": "b438db722b236a9709b2c2ee59bf2e26261c84f3db5617a1893a488dd44c0b9c",
    "coverage": "complete"
   },
   {

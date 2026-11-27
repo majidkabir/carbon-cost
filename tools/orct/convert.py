@@ -833,7 +833,7 @@ def point_in_ring(pt, ring):
 def convert_zone(z, path):
     b = Builder(z, path)
     used = {"country", "currency", "valid_from", "valid_to", "name", "law", "sources", "min_kg", "charge",
-            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "polygons", "holes", "osm_extract", "discounts"}
+            "exempt_euro", "euro_charges", "weekdays", "weekends", "no_charge", "no_charge_dates", "polygons", "holes", "osm_extract", "discounts"}
     polys = [[ring] for ring in z["polygons"]]
     for h in z.get("holes", []):
         for p in polys:
@@ -854,7 +854,9 @@ def convert_zone(z, path):
     classes.append(({}, None, None))
     amounts.append(dec(z["charge"]))
     ids = b.class_set("zone-", classes)
-    excl = {"date_ranges": [z["no_charge"]]} if z.get("no_charge") else None
+    # no_charge: [from, to] (MM-DD) each year; no_charge_dates: days besides
+    # (YYYY-MM-DD: a substitute bank holiday).
+    excl = clean({"date_ranges": [z["no_charge"]] if z.get("no_charge") else None, "dates": z.get("no_charge_dates")}) or None
     tcs = []
     if z.get("weekdays"):
         tcs.append(b.time_class("charging-weekdays", days=[clean({"weekdays": [1, 2, 3, 4, 5], "exclude": excl})], times=hours(z["weekdays"])))
@@ -954,6 +956,7 @@ def check(t, name):
         bad += [f"{k} must be [from, to] (HH:MM)" for k in ("weekdays", "weekends") if t.get(k) and not is_hours(t[k])]
         if t.get("no_charge") and len(t["no_charge"]) != 2:
             bad.append("no_charge must be [from, to] (MM-DD)")
+        bad += [f"no_charge_dates must be YYYY-MM-DD: {d}" for d in t.get("no_charge_dates") or [] if not re.fullmatch(r"\d{4}-\d\d-\d\d", d)]
         return bad
     if name.startswith("nocharge-"):
         if name != f"nocharge-{t.get('country', '').lower()}-{t.get('valid_from')}.json":
@@ -1059,6 +1062,7 @@ def main():
         return
     data, out = args
     n = 0
+    os.makedirs(out, exist_ok=True)  # with no tables (France's while a new year's aren't all read), an empty index
     for name in sorted(os.listdir(data)):
         if not name.endswith(".json"):
             continue

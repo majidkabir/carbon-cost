@@ -2017,7 +2017,8 @@ func TestAusol(t *testing.T) {
 // London's Congestion Charge: GBP 18 a day from 2 January 2026 (15
 // before) for driving in the zone 07:00-18:00 on weekdays; an electric
 // HGV on Auto Pay (etc) gets the Cleaner Vehicle Discount, 50% from
-// 2 January 2026, 25% from 4 March 2030.
+// 2 January 2026, 25% from 4 March 2030; none from Christmas Day to the
+// New Year's Day bank holiday.
 func TestCongestionCharge(t *testing.T) {
 	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 6, CountryKm: map[string]float64{"GB": 6}, Path: [][2]float64{{-0.20, 51.513}, {-0.12, 51.513}, {-0.02, 51.513}}}}}
 	ev := truck40
@@ -2028,7 +2029,10 @@ func TestCongestionCharge(t *testing.T) {
 		ev, etc  bool
 	}{{"2026-11-11", "10:00", 18, false, false}, {"2026-11-11", "20:00", 0, false, false}, {"2026-11-14", "10:00", 0, false, false}, {"2025-06-04", "10:00", 15, false, false},
 		{"2026-12-29", "10:00", 0, false, false}, {"2026-11-11", "10:00", 9, true, true}, {"2026-11-11", "10:00", 18, true, false}, {"2026-11-11", "10:00", 18, false, true},
-		{"2030-03-06", "10:00", 13.5, true, true}, {"2025-06-04", "10:00", 15, true, true}} {
+		{"2030-03-06", "10:00", 13.5, true, true}, {"2025-06-04", "10:00", 15, true, true},
+		// To the New Year's Day bank holiday: its substitute Monday 3 January
+		// 2028 (1 January a Saturday), not the Tuesday after.
+		{"2028-01-03", "10:00", 0, false, false}, {"2028-01-04", "10:00", 18, false, false}, {"2027-01-04", "10:00", 18, false, false}} {
 		d, _ := time.Parse("2006-01-02", tc.date)
 		truck := truck40
 		if tc.ev {
@@ -3011,7 +3015,7 @@ func TestAP68(t *testing.T) {
 		{"Ziorraga to Altube", p[12:15], truck40, false, 0},
 	} {
 		trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: tc.path}}}
-		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck, ETC: tc.etc}, time.Date(2026, 11, 20, 12, 0, 0, 0, time.UTC))
+		r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: tc.truck, ETC: tc.etc}, time.Date(2026, 11, 5, 12, 0, 0, 0, time.UTC))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -3024,6 +3028,13 @@ func TestAP68(t *testing.T) {
 		if math.Abs(got-tc.want) > 0.006 {
 			t.Errorf("%s: %v, want %v: %v %v", tc.name, got, tc.want, r.Lines, r.Notes)
 		}
+	}
+	// The concession ended on 10 November 2026 (the Government's answer to
+	// the Congreso); each administration's tolls after it aren't here.
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 50, CountryKm: map[string]float64{"ES": 50}, Path: p}}}
+	r, err := Price(trip, all(t), Request{CargoKg: 5000, Truck: truck40}, time.Date(2026, 11, 20, 12, 0, 0, 0, time.UTC))
+	if err != nil || r.Complete || !slices.ContainsFunc(r.Missing, func(m Missing) bool { return m.Reason == "ended" && m.Ended == "2026-11-10" }) {
+		t.Errorf("AP-68 after the concession: %v complete %v, missing %+v; want ended on 2026-11-10", err, r.Complete, r.Missing)
 	}
 }
 

@@ -25,13 +25,36 @@ def tariff_year_end(day):
     return f"{int(day[:4]) + (day[5:] >= '02-01')}-01-31"
 
 
+# A page read in a browser shows the tariffs in force the day it was read;
+# beyond its own tariff year they are taken as in force only so long after
+# (check_browser.py has it read again by then): a page can change on
+# another day (the Normandie bridges' on 1 May 2026).
+READ_KEEPS_DAYS = 92
+
+
 def in_force_to(r):
-    """The last day a document's tariffs are in force: the end of the
-    tariff year of its valid_from or, for a page read in a browser showing
-    them as the tariffs in force, of the day it was read (the motorways'
-    tariffs change each 1 February); "" when neither is known."""
-    ends = [tariff_year_end(d) for d in (r["valid_from"], r.get("read_on") or "") if d]
+    """The last day a document's tariffs are taken as in force: the end of
+    the tariff year of its valid_from (the motorways' tariffs change each 1
+    February) or, for a page read in a browser showing them as the tariffs
+    in force, READ_KEEPS_DAYS after the day it was read (not past that
+    day's tariff year); "" when neither is known."""
+    ends = [tariff_year_end(r["valid_from"])] if r["valid_from"] else []
+    if r.get("read_on"):
+        kept = (date.fromisoformat(r["read_on"]) + timedelta(days=READ_KEEPS_DAYS)).isoformat()
+        ends.append(min(kept, tariff_year_end(r["read_on"])))
     return max(ends) if ends else ""
+
+
+def arretes(day):
+    """The tariff year of day's arrêtés (documents.json), in a short and a
+    long form for the law texts: "and the arrêtés of ..."; for a year
+    documents.json has none for, "in force from 1 February <year>"."""
+    year = str(int(tariff_year_end(day)[:4]) - 1)
+    a = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "documents.json"), encoding="utf-8"))["arretes"].get(year)
+    if not a:
+        print(f"FR: documents.json names no arrêtés for the tariff year from 1 February {year}: the law text says only the tariffs' first day")
+        return (f"in force from 1 February {year}",) * 2
+    return "and " + a, "and " + a + " relatifs aux péages applicables sur les réseaux autoroutiers concédés"
 
 
 def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None):
@@ -68,11 +91,13 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None
     if stale:
         print(f"::warning title=FR tariffs from {valid_from}::no table: read these operators' new tariffs (tools/fr/browser, tools/fr/sanef, documents.json): " + "; ".join(stale))
         return False
-    valid_to = valid_to or tariff_year_end(valid_from)
+    # To the end of the tariff year, or the first day a document isn't
+    # known to be in force after.
+    valid_to = min([valid_to or tariff_year_end(valid_from)] + [in_force_to(d) for d in docs.values()])
     ops = sorted({d["operator"] for d in docs.values()})
     system = {
         "name": "French motorways (" + ", ".join(ops) + ")",
-        "law": "Operators' published tariffs (TTC, here excluding 20% VAT) under their concession contracts and the arrêtés of 28 January 2026; vehicle classes 3 (two axles) and 4 (three or more axles), over 3.5 t",
+        "law": "Operators' published tariffs (TTC, here excluding 20% VAT) under their concession contracts " + arretes(valid_from)[0] + "; vehicle classes 3 (two axles) and 4 (three or more axles), over 3.5 t",
         "chain": True,
         # Operators pricing by EURO class have their own groups; for the
         # others' pairs these fall back on classes 3 and 4.
@@ -86,7 +111,7 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None
     t = {
         "country": "FR", "currency": "EUR", "valid_from": valid_from, "valid_to": valid_to,
         "name": "French motorway tolls",
-        "law": "Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts and the arrêtés of 28 January 2026 relatifs aux péages applicables sur les réseaux autoroutiers concédés, as published by each operator (" + ", ".join(ops) + "). A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.",
+        "law": "Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts " + arretes(valid_from)[1] + ", as published by each operator (" + ", ".join(ops) + "). A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.",
         "sources": [{"title": f"{d['operator']} tariffs from {d['valid_from']} (sha256 {d['sha256'][:12]})", "url": u} for u, d in docs.items()]
                    + [{"title": "Ministère de la Transition écologique: Gares de péage du réseau routier national concédé", "url": "https://www.data.gouv.fr/datasets/gares-de-peage-du-reseau-routier-national-concede"}],
         "vehicles": "Vehicles over 3.5 t (classes 3 and 4)", "min_kg": 3501,

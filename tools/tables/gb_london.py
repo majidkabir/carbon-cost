@@ -90,18 +90,36 @@ def ccz(fetched, out):
            {"title": "The London Gazette: notice of the Congestion Charge changes", "url": "https://www.thegazette.co.uk/notice/4893898"}]
     law = ("Greater London (Central Zone) Congestion Charging Order 2004, as varied: a charge per day for driving in the zone "
            f"{hh[0]}-{hh[1]} Monday to Friday and {hh[2]}-{hh[3]} at weekends and on bank holidays (bank holidays are taken as weekdays here), "
-           "none from Christmas Day to New Year's Day (TfL); the charge paid on the day or in advance")
+           "none from Christmas Day to the New Year's Day bank holiday (TfL; when 1 January is a Saturday or Sunday, the substitute Monday, as GOV.UK's "
+           "bank holidays page says: normally the following Monday); the charge paid on the day or in advance")
+    src = src + [{"title": "GOV.UK: UK bank holidays (a bank holiday on a weekend: a substitute weekday, normally the following Monday)", "url": "https://www.gov.uk/bank-holidays"}]
     for vf, vt, charge, off in (("2024-01-01", prev_day(since), float(g.group(1)), 0), (since, prev_day(halved), float(g.group(2)), pct),
                                 (halved, "", float(g.group(2)), pct / 2)):
         cv = (f" The Cleaner Vehicle Discount, {off:g}% for electric heavy goods vehicles (CO2 class 5 here) registered for it and paying by Auto Pay only "
               f"(give etc), from {since}, halved on {halved} (the Gazette notice).") if off else ""
         z = {"country": "GB", "currency": "GBP", "valid_from": vf, "name": "London Congestion Charge", "law": law + f", GBP {charge:g} ({'before' if vf < since else 'from'} {since}, the Gazette notice)." + cv,
              "sources": src, "min_kg": 0, "charge": charge, **hours, "no_charge": ["12-25", "01-01"], "polygons": poly, "osm_extract": stamp}
+        # The New Year's Day bank holiday's substitute Monday, within the
+        # table's years (ten from an open one's start).
+        last = int((vt or vf)[:4]) + (0 if vt else 10)
+        z["no_charge_dates"] = new_year_substitutes(int(vf[:4]), last)
         if off:
             z["discounts"] = [{"name": "Cleaner Vehicle Discount (electric, Auto Pay)", "percent": off, "co2_class": [5], "etc": True}]
         if vt:
             z["valid_to"] = vt
         write(out, z, "congestion-charge")
+
+
+def new_year_substitutes(first, last):
+    """The days from 2 January to the substitute Monday when 1 January is a
+    Saturday or Sunday, in the years first to last."""
+    import datetime
+    out = []
+    for y in range(first, last + 1):
+        d = datetime.date(y, 1, 1)
+        if d.weekday() >= 5:
+            out += [(d + datetime.timedelta(days=k)).isoformat() for k in range(1, 7 - d.weekday() + 1)]
+    return out
 
 
 def prev_day(d):

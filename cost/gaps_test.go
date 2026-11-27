@@ -10,6 +10,7 @@ import (
 	"math/rand"
 	"net/http"
 	"net/http/httptest"
+	"path/filepath"
 	"slices"
 	"strings"
 	"testing"
@@ -18,6 +19,7 @@ import (
 	"github.com/majidkabir/carbon-cost/ferries"
 	"github.com/majidkabir/carbon-cost/rates"
 	"github.com/majidkabir/carbon-cost/sootcase"
+	"github.com/majidkabir/carbon-cost/tariffs"
 	"github.com/majidkabir/sootcase/pkg/borders"
 )
 
@@ -2116,6 +2118,25 @@ func TestCountryKmCrossingsEachScheme(t *testing.T) {
 		}
 		if !maps.Equal(got, c.want) {
 			t.Errorf("%s on %s: %v; want %v (missing %+v)", c.cc, c.day, got, c.want, out.Missing)
+		}
+	}
+}
+
+// Rates set for a year end with it, the newest too: a trip after gets
+// "ended", not the last year's (the sources say so: a calendar year's
+// tariff, recalculated or indexed each year, published for a year).
+func TestYearlyRatesEnd(t *testing.T) {
+	newest := map[string]*tariffs.Dataset{}
+	for _, ds := range all(t).All {
+		for _, scheme := range []string{"be-liefkenshoek-", "fuelco2-se-", "fuelco2-pt-", "nl-20", "es-ap53-", "es-ap68-", "fuelco2-de-", "fuelco2-at-", "fuelco2-dk-"} {
+			if strings.HasPrefix(filepath.Base(ds.File), scheme) && (newest[scheme] == nil || ds.ValidFrom > newest[scheme].ValidFrom) {
+				newest[scheme] = ds
+			}
+		}
+	}
+	for scheme, ds := range newest {
+		if ds.ValidTo == "" {
+			t.Errorf("%s: the newest (%s) has no end", scheme, ds.ValidFrom)
 		}
 	}
 }

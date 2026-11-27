@@ -77,7 +77,8 @@ def test_fr_stale():
 
 def test_gr():
     """Greece's year is the one its dated pages give; when they disagree
-    (one has next year's prices, another not yet), the build stops."""
+    (one has next year's prices, another not yet: Attiki Odos's new
+    article not in sources.json yet), the build stops."""
     d = tempfile.mkdtemp()
     real, gr.BROWSER = gr.BROWSER, d
     try:
@@ -86,7 +87,7 @@ def test_gr():
                               ("attiki", "Νέα Αττική Οδός: Τιμαριθμική προσαρμογή διοδίων τελών 2027")):
                 open(os.path.join(d, f"gr-{sid}.html"), "w", encoding="utf-8").write(f"<html><p>{text}</p></html>")
             try:
-                got = gr.price_year(d)
+                got = gr.year_of(d)
             except SystemExit:
                 got = None
             assert got == want, (aegean, got)
@@ -97,9 +98,54 @@ def test_gr():
         os.rmdir(d)
 
 
+def test_fr_read_on():
+    """The day each FR page was read, from its capture, as parse.py writes
+    it to pairs.csv (build.py's in_force_to goes by it), and how long it
+    keeps a page's tariffs: to the end of the tariff year, or 92 days after
+    it was read where that is later than its own tariff year's end, not
+    past the read's."""
+    import parse
+    for name in ("alicorne", "alis", "ccise"):
+        raw = open(os.path.join(here, "fr", "browser", name + ".txt"), encoding="utf-8").read()
+        assert parse.read_day(parse.browser_head(raw)) == "2026-11-04", name
+    cases = [({"valid_from": "2025-02-01", "read_on": "2026-11-04"}, "2027-01-31"),
+             ({"valid_from": "", "read_on": "2026-11-04"}, "2027-01-31"),
+             ({"valid_from": "2026-05-01", "read_on": "2027-02-10"}, "2027-05-13"),
+             ({"valid_from": "2026-02-01", "read_on": ""}, "2027-01-31"),
+             ({"valid_from": "", "read_on": ""}, "")]
+    for r, want in cases:
+        assert fr.in_force_to(r) == want, (r, fr.in_force_to(r), want)
+
+
+def test_es():
+    """Spain's Ministry tables: the newest year sources.json has, not one
+    written in."""
+    import es_ap53, es_ap68, es_stretch
+    real = es_stretch.source_years
+    es_stretch.source_years = lambda key, since="0": ["2025", "2026", "2027"]
+    try:
+        d = tempfile.mkdtemp()
+        # (AP-68's builder reads its concession's end first.)
+        open(os.path.join(d, "es-ap68-concession-end.txt"), "w", encoding="utf-8").write(
+            "se gestiona, actualmente y hasta el 10 de noviembre de 2026, a través de un contrato de concesión ... Madrid, 23 de febrero de 2026")
+        for b, key in ((es_ap53, "ap53"), (es_ap68, "ap68")):
+            try:
+                b.main(d, d)
+            except FileNotFoundError as e:
+                assert f"es-min-{key}-2027.txt" in str(e), (key, e)
+            else:
+                raise AssertionError(key)
+        os.remove(os.path.join(d, "es-ap68-concession-end.txt"))
+        os.rmdir(d)
+    finally:
+        es_stretch.source_years = real
+
+
 if __name__ == "__main__":
     test_hu()
     test_fr()
     test_fr_stale()
     test_gr()
+    test_fr_read_on()
+    test_es()
     print("test_next_year: ok")

@@ -66,11 +66,12 @@ def main(*args):
         name, shown = os.path.basename(path)[:-4], "browser/" + os.path.basename(path)
         if path in fr:
             # A page can change on another day too (the Normandie bridges'
-            # on 1 May 2026): read within half a year.
+            # on 1 May 2026): read each quarter, as tools/fr/build.py keeps
+            # what it showed (READ_KEEPS_DAYS).
             shown = "tools/fr/" + os.path.basename(os.path.dirname(path)) + "/" + os.path.basename(path)
         day = read_on(path)
         said = "tariffs from" if shown.endswith(".items.txt") else "read"
-        change, age = (("02-01", 366) if "sanef" in shown else ("02-01", 183)) if path in fr else RULES.get(name, (None, 183))
+        change, age = (("02-01", 366) if "sanef" in shown else ("02-01", 92)) if path in fr else RULES.get(name, (None, 183))
         why = []
         if day is None:
             why.append("no date read in its header")

@@ -84,7 +84,9 @@ def split(name):
     return ("side" if side else "front"), NAMES.get(stem, stem)
 
 
-ATTIKI_URL = "https://www.naodos.gr/2025/arthro/nea-attiki-odos-timarithmiki-prosarmogi-diodion-telon-2026/"
+# The year's Attiki Odos article (a new one each year): sources.json's
+# gr-attiki, whose page gives the year (price_year).
+ATTIKI_URL = next(s["url"] for s in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "sources.json"), encoding="utf-8"))["sources"] if s["id"] == "gr-attiki")
 
 
 def egnatia_attiki(eg, at):
@@ -125,7 +127,7 @@ def page(fetched, sid, year, absent):
 # τρέχοντος τιμοκαταλόγου 01 Ιανουαρίου 2026") and Attiki Odos
 # ("Τιμαριθμική προσαρμογή διοδίων τελών 2026").
 DATED = [("olympia", r"ισχύουν από \d{1,2}/\d{1,2}/(20\d\d)"), ("aegean", r"Έναρξη ισχύος του τρέχοντος τιμοκαταλόγου \d{1,2} \w+ (20\d\d)"),
-         ("attiki", r"προσαρμογή διοδίων τελών (20\d\d)")]
+         ("attiki", r"(?:προσαρμογή διοδίων τελών|ανακοινώνει ότι το) (20\d\d)")]
 
 
 def price_year(fetched):
@@ -147,6 +149,12 @@ def price_year(fetched):
     return next(iter(said.values()))
 
 
+def year_of(fetched):
+    """The year built: a past year's (year.txt), else the current pages'."""
+    p = os.path.join(fetched, "year.txt")
+    return open(p).read().strip() if os.path.exists(p) else price_year(fetched)
+
+
 def heading(a, b):
     return round(math.degrees(math.atan2((b[0] - a[0]) * math.cos(math.radians(a[1])), b[1] - a[1])) % 360, 1)
 
@@ -154,7 +162,7 @@ def heading(a, b):
 def main(fetched, out):
     # A past year's pages (tools/history/build_archived.py writes year.txt,
     # and absent.txt for pages it has no copy of).
-    year = open(os.path.join(fetched, "year.txt")).read().strip() if os.path.exists(os.path.join(fetched, "year.txt")) else price_year(fetched)
+    year = year_of(fetched)
     absent = set(open(os.path.join(fetched, "absent.txt")).read().split()) if os.path.exists(os.path.join(fetched, "absent.txt")) else set()
     booths, ways, booths_named, attiki = {}, [], {}, []
     for line in open(os.path.join(fetched, "gr-osm.geojsonseq"), encoding="utf-8"):

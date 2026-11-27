@@ -17,7 +17,7 @@
   "currency": "GBP",
   "timezone": "Europe/London",
   "license": "MIT",
-  "method": "Greater London (Central Zone) Congestion Charging Order 2004, as varied: a charge per day for driving in the zone 07:00-18:00 Monday to Friday and 12:00-18:00 at weekends and on bank holidays (bank holidays are taken as weekdays here), none from Christmas Day to New Year's Day (TfL); the charge paid on the day or in advance, GBP 18 (from 2026-01-02, the Gazette notice). The Cleaner Vehicle Discount, 50% for electric heavy goods vehicles (CO2 class 5 here) registered for it and paying by Auto Pay only (give etc), from 2026-01-02, halved on 2030-03-04 (the Gazette notice).",
+  "method": "Greater London (Central Zone) Congestion Charging Order 2004, as varied: a charge per day for driving in the zone 07:00-18:00 Monday to Friday and 12:00-18:00 at weekends and on bank holidays (bank holidays are taken as weekdays here), none from Christmas Day to the New Year's Day bank holiday (TfL; when 1 January is a Saturday or Sunday, the substitute Monday, as GOV.UK's bank holidays page says: normally the following Monday); the charge paid on the day or in advance, GBP 18 (from 2026-01-02, the Gazette notice). The Cleaner Vehicle Discount, 50% for electric heavy goods vehicles (CO2 class 5 here) registered for it and paying by Auto Pay only (give etc), from 2026-01-02, halved on 2030-03-04 (the Gazette notice).",
   "derived_from": {
    "url": "https://github.com/majidkabir/carbon-cost",
    "path": "zone-gb-congestion-charge-2026-01-02.json"
@@ -34,6 +34,11 @@
    "id": "s2",
    "title": "The London Gazette: notice of the Congestion Charge changes",
    "url": "https://www.thegazette.co.uk/notice/4893898"
+  },
+  {
+   "id": "s3",
+   "title": "GOV.UK: UK bank holidays (a bank holiday on a weekend: a substitute weekday, normally the following Monday)",
+   "url": "https://www.gov.uk/bank-holidays"
   }
  ],
  "tax": {
@@ -62,7 +67,8 @@
     {
      "weekdays": [1, 2, 3, 4, 5],
      "exclude": {
-      "date_ranges": [["12-25", "01-01"]]
+      "date_ranges": [["12-25", "01-01"]],
+      "dates": ["2028-01-02", "2028-01-03"]
      }
     }
    ],
@@ -74,7 +80,8 @@
     {
      "weekdays": [6, 7],
      "exclude": {
-      "date_ranges": [["12-25", "01-01"]]
+      "date_ranges": [["12-25", "01-01"]],
+      "dates": ["2028-01-02", "2028-01-03"]
      }
     }
    ],
@@ -926,7 +933,7 @@
    "unmatched": "free",
    "columns": ["vehicle_class", "time_class", "amount"],
    "rows": [["zone-1.1", "charging-weekdays", "18"], ["zone-1.1", "charging-weekends", "18"]],
-   "sources": ["s1", "s2"],
+   "sources": ["s1", "s2", "s3"],
    "basis": "transcribed"
   }
  ],

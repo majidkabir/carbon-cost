@@ -92,7 +92,7 @@ def main(fetched, out):
         tb["law"] = ("Code de la voirie routière art. L122-4 and décret n° 95-81; tariffs set yearly by the concession contracts, as published by each operator: "
                      f"their tariffs in force from 1 February {y['tariffs']}, as the Internet Archive kept them, for " + ", ".join(ops)
                      + ". The other operators' documents of that year weren't archived, so their motorways aren't priced." + y.get("note", "") + " A trip pays the published entry-exit prices along its route, excluding 20% VAT. Stations placed with the ministry's toll station dataset (data.gouv.fr) and OpenStreetMap.")
-        tb["closed_systems"][0]["law"] = tb["closed_systems"][0]["law"].replace("and the arrêtés of 28 January 2026", f"in force from 1 February {y['tariffs']}")
+        # (build.py's law text: "... contracts in force from 1 February <year>; ...".)
         tb["tolled_roads"] = "The conceded motorways of " + ", ".join(ops) + " (the others' tariffs of that year weren't archived)."
         tb["sources"] = [dict(s, title=s["title"].replace(" tariffs from ", " tariffs from ").replace(f"(sha256", "(Internet Archive copy, sha256")) if " tariffs from " in s["title"] else s for s in tb["sources"]]
         path = os.path.join(out, f"fr-{y['valid_from']}.json")

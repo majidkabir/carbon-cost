@@ -125,6 +125,17 @@ def grid_rows(d, fetched, manifest):
     print(f"{d['operator']}: {len(prices[3])} class 3 and {len(prices[4])} class 4 grid cells, {len(out)} pairs, valid from {vf}")
 
 
+def read_day(head):
+    """The day a page was read in a browser: its header's "# read
+    2026-11-04 in a browser ..." line."""
+    return (re.findall(r"\d{4}-\d\d-\d\d", head.get("read", "")) or [""])[0]
+
+
+def browser_head(raw):
+    """A browser capture's header lines ("# key value")."""
+    return dict(l[2:].split(" ", 1) for l in raw.splitlines() if l.startswith("# ") and " " in l[2:] and not l.startswith("# class"))
+
+
 class Rows:
     """The pairs' writer: each row padded to by_euro, then the document's
     read_on (a page read in a browser: the day it was read, for build.py's
@@ -165,7 +176,7 @@ def main(docs_path, fetched, out):
                 # alone). The sha256 is the extract's.
                 path = os.path.join(os.path.dirname(os.path.abspath(docs_path)), d["file"])
                 raw = open(path, encoding="utf-8").read()
-                head = dict(l[2:].split(" ", 1) for l in raw.splitlines() if l.startswith("# ") and " " in l[2:] and not l.startswith("# class"))
+                head = browser_head(raw)
                 barriers, cls, prices, order = None, None, {3: {}, 4: {}}, {}
                 for line in raw.splitlines():
                     if line.startswith("# barriers|"):
@@ -189,7 +200,7 @@ def main(docs_path, fetched, out):
                 sha = hashlib.sha256(raw.encode()).hexdigest()
                 # The day the page was read, showing these as the tariffs
                 # in force (build.py: in force to the next 1 February).
-                w.extra[0] = (re.findall(r"\d{4}-\d\d-\d\d", head.get("read", "")) or [""])[0]
+                w.extra[0] = read_day(head)
                 for (a, b), p3 in prices[3].items():
                     if prices[4].get((a, b)) is not None:
                         w.writerow([d["operator"], d["file"], head["url"], sha, "", "", head.get("valid_from", "").strip(), a, b, "", p3, prices[4][(a, b)], "", ""])

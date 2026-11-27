@@ -479,8 +479,9 @@ def sweden(fetched, out, srcs):
                     "The supplier pays it on the fuel it sells and passes it on in the pump price, so a trip pays it where its fuel is bought. "
                     "Litres are the trip's road fuel as given (diesel_l), or its tank-to-wheel CO2 at 2.67 kg per litre of diesel (EN 16258:2012).",
              "sources": [src(srcs, "se-skv-bransle")]}
-        if e:
-            f["valid_to"] = e
+        # The last has no end on the page: the law's amounts are recalculated
+        # each year, so it is known to the end of its calendar year.
+        f["valid_to"] = e or f"{s[:4]}-12-31"
         write(out, f)
 
 

@@ -57,8 +57,33 @@ def tables(text):
     return out
 
 
+ES_MONTHS = {m: i + 1 for i, m in enumerate(["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"])}
+
+
+def concession_end(fetched):
+    """The concession's last day and the day the Government said so, from
+    its answer to the Congreso (es-ap68-concession-end.txt: "se gestiona,
+    actualmente y hasta el 10 de noviembre de 2026, a través de un contrato
+    de concesión"; "Madrid, 23 de febrero de 2026"); None if not fetched."""
+    p = os.path.join(fetched, "es-ap68-concession-end.txt")
+    if not os.path.exists(p):
+        return None
+    t = re.sub(r"\s+", " ", open(p, encoding="utf-8", errors="replace").read())
+    end = re.search(r"actualmente y hasta el (\d{1,2}) de (\w+) de (\d{4}),? a través de un contrato de concesión", t)
+    said = re.search(r"Madrid, (\d{1,2}) de (\w+) de (\d{4})", t)
+    if not end or not said or end.group(2) not in ES_MONTHS or said.group(2) not in ES_MONTHS:
+        sys.exit("AP-68: the Government's answer on the concession's end changed")
+    day = lambda m: f"{m.group(3)}-{ES_MONTHS[m.group(2)]:02d}-{int(m.group(1)):02d}"
+    return day(end), day(said)
+
+
 def main(fetched, out, year=None):
     year = year or es_stretch.source_years("ap68")[-1]  # the newest table
+    ends = concession_end(fetched)
+    if ends is None:
+        print("AP-68: es-ap68-concession-end (the concession's end) wasn't fetched; not built")
+        return
+    end, said = ends
     text = open(os.path.join(fetched, f"es-min-ap68-{year}.txt"), encoding="utf-8").read()
     flat = re.sub(r"\s+", " ", text)
     t = tables(text)
@@ -131,7 +156,7 @@ def main(fetched, out, year=None):
     cs["etc_prices"] = es_stretch.system("AP-68", "", secs, tag, groups, label)["prices"]
     g = t["G"][("BILBAO", "ZARAGOZA")]
     tb = {
-        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": f"{year}-12-31", "crossings": True, "osm_extract": stamp,
+        "country": "ES", "currency": "EUR", "valid_from": f"{year}-01-01", "valid_to": min(f"{year}-12-31", end), "crossings": True, "osm_extract": stamp,
         "name": "AP-68 Bilbao – Zaragoza (Avasa)",
         "law": (f"The Ministry of Transport's tolls in force from 1 January {year} on the AP-68: by entry and exit, either way, Pesados 1 (two or three axles) and Pesados 2 (four or more; "
                 f"Bilbao – Zaragoza EUR {g[1]:.2f} with IVA), excluding 21% IVA. Heavy vehicles between Ziorraga and Altube are exempt (the Diputación Foral de Álava's convenio). "
@@ -140,8 +165,10 @@ def main(fetched, out, year=None):
                 "signposted to them in the table's order"
                 + (f", {', '.join(label(s) for s in sorted(filled, key=ORDER.index))} by elimination (the only numbered junction between their neighbours)" if filled else "")
                 + ", Bilbao and Zaragoza at the motorway's ends"
-                + (f"; not placed: {', '.join(label(s) for s in miss)}" if miss else "") + ". Bilbao's service area – Arrigorriaga-Bilbao ramp isn't built."),
+                + (f"; not placed: {', '.join(label(s) for s in miss)}" if miss else "") + ". Bilbao's service area – Arrigorriaga-Bilbao ramp isn't built."
+                + f" The concession runs to {end} (the Government's answer to the Congreso of {said}); after it each administration manages its sections, whose tolls aren't here."),
         "sources": [{"title": f"Ministerio de Transportes: peajes vigentes AP-68 {year}", "url": f"https://cdn.transportes.gob.es/portal-web-transportes/carreteras/nuestrared/autopistaspeaje/peajes-actuales/autopista-ap-68,-bilbao---zaragoza-{year}.pdf"},
+                    {"title": f"Congreso de los Diputados: the Government's answer on the AP-68 concession ({said})", "url": "https://www.congreso.es/l15p/e10/e_0102096_n_000.pdf"},
                     {"title": "OpenStreetMap (Overpass API): AP-68 carriageways, junctions and signposted links", "url": "https://www.openstreetmap.org/"}],
         "vehicles": "Pesados 1: trucks of two or three axles; Pesados 2: four axles or more", "min_kg": 3501,
         "tolled_roads": "AP-68 from Bilbao to Zaragoza.",

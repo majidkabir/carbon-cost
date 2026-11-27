@@ -285,8 +285,7 @@ def liefkenshoek(browser, out, osm, stamp):
                              "classes": [{"min_kg": 3501, "rate": cash_d, "etc_rate": obu_d, "night_rate": cash_n, "night_etc_rate": obu_n}]}],
             "rows": [],
         }
-        if i + 1 < len(ys):
-            tb["valid_to"] = f"{y}-12-31"
+        tb["valid_to"] = f"{y}-12-31"  # a calendar year's tariff, the last too
         write(out, tb, "be-liefkenshoek")
 
 

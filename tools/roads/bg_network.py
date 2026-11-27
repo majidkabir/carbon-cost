@@ -61,13 +61,17 @@ def roads(page):
         for key, head in SECTIONS:
             if head in text and (kind == "text" or len(v) <= 2):
                 sec = key
-        if kind != "row" or sec is None or not v:
+        # A table's rows of column numbers ("1 2 3") aren't roads.
+        if kind != "row" or sec is None or not v or all(c.isdigit() for c in v):
             continue
         num = v[0].replace("А", "A")  # Cyrillic А-1
-        if sec == "mw" and re.fullmatch(r"A-\d", num):
-            out[sec].append(num)
-        elif sec in ("I", "II") and re.fullmatch(r"\d{1,2}", num):
-            out[sec].append(num)
+        m = re.match(r"(A)\W?(\d)\b" if sec == "mw" else r"(\d{1,2})\b", num)
+        if m:
+            road = f"A-{m.group(2)}" if sec == "mw" else m.group(1)
+            if road not in out[sec]:
+                out[sec].append(road)
+        else:
+            print("bg_network: row not read:", sec, v[:2], file=sys.stderr)
     return out
 
 

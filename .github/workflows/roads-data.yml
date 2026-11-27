@@ -46,19 +46,27 @@ jobs:
               python3 tools/roads/cz_network.py law.txt | diff -u tools/roads/cz-network.json -
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
             elif [ $cc = BG ]; then
+              # The tolled roads from the law, with the 2022 toll segments'
+              # km to check against (the parsed list in the repository must
+              # be the law's).
               curl -fsSL --retry 5 --retry-delay 20 -o list.html "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=234264"
-              curl -fsSL --retry 5 --retry-delay 20 -o seg.pdf https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf
-              pdftotext -layout seg.pdf seg.txt
-              python3 tools/roads/bg_network.py list.html seg.txt > bg-law.json
-              cat bg-law.json
-              python3 -c "import re; t=open('list.html',encoding='utf-8',errors='replace').read(); i=t.find('Пътища първи клас'); print(t[i-3000:i+2500])"
-              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
+              curl -fsSL --retry 5 --retry-delay 20 -o law.pdf https://dv.parliament.bg/DVPics/2022/78_22/6119.pdf
+              pdftotext -layout law.pdf law.txt
+              python3 tools/roads/bg_network.py list.html law.txt > bg-law.json
+              diff -u tools/roads/bg-network.json bg-law.json || { [ -s tools/roads/bg-network.json ] && exit 1; cat bg-law.json; cp bg-law.json tools/roads/bg-network.json; }
+              rm -f list.html bg-law.json
+              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             fi
             extra=""
             if [ $cc = RO ]; then
               osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail r/boundary=administrative
+              extra=areas.pbf
+            fi
+            if [ $cc = BG ]; then
+              # The settlements' built-up land (no toll inside them).
+              osmium tags-filter -O -o areas.pbf in.pbf a/landuse=residential,commercial,industrial,retail
               extra=areas.pbf
             fi
             if [ $cc = HU ]; then

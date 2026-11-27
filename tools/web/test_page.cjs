@@ -67,7 +67,7 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   f("diesel_price").value = "1.4, 1.5";
   let err = "";
   try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
-  check(err.includes("one price"), "diesel 1.4, 1.5: " + (err || "no error"));
+  check(err !== "", "diesel 1.4, 1.5 refused: " + (err || "no error"));
   // A country's price with a decimal comma, and several with ; between.
   f("diesel_price").value = "DE=1,5";
   let req = w.eval("buildRequest()");
@@ -75,10 +75,10 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   f("diesel_price").value = "1,45;PL=1,25";
   req = w.eval("buildRequest()");
   check(req.diesel_eur_per_l === 1.45 && req.diesel_eur_per_l_by_country.PL === 1.25, "diesel 1,45;PL=1,25: " + JSON.stringify(req));
-  f("diesel_price").value = "DE=1,5,PL=1,4";
+  f("diesel_price").value = "1,459";
   err = "";
   try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
-  check(err.includes("; between"), "diesel DE=1,5,PL=1,4: " + (err || "no error"));
+  check(err.includes("1459 or 1.459"), "diesel 1,459: " + (err || "no error"));
   // Km by country the same way.
   f("diesel_price").value = "";
   f("country_km").value = "DE=320,5;PL=410";
@@ -86,6 +86,21 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   check(req.country_km && req.country_km.DE === 320.5 && req.country_km.PL === 410, "km DE=320,5;PL=410: " + JSON.stringify(req.country_km));
   f("country_km").value = "DE=320,5";
   check(w.eval("buildRequest()").country_km.DE === 320.5, "km DE=320,5");
+  f("country_km").value = "";
+  f("fuel_bought").value = "DE=300, PL=150,5; CZ=20";
+  req = w.eval("buildRequest()");
+  check(JSON.stringify(req.fuel_purchases) === JSON.stringify([{ country: "DE", litres: 300 }, { country: "PL", litres: 150.5 }, { country: "CZ", litres: 20 }]), "diesel bought: " + JSON.stringify(req.fuel_purchases));
+}
+
+// Lists by country as calc reads them: the cases both run.
+{
+  const w = page();
+  const { cases } = JSON.parse(require("fs").readFileSync(require("path").join(__dirname, "../../cmd/carbon-cost/testdata/countryvalues.json"), "utf8"));
+  for (const [input, want] of cases) {
+    let got = null;
+    try { got = Object.fromEntries(w.eval(`countryValues(${JSON.stringify(input)}, "x")`)); } catch (e) { got = null; }
+    check(JSON.stringify(got) === JSON.stringify(want), `countryValues(${JSON.stringify(input)}): ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
+  }
 }
 
 // The CSV's separator is counted outside quotes, as the server does.

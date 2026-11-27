@@ -175,16 +175,20 @@ func sniffComma(in io.Reader, known map[string]bool) (io.Reader, csvLocale, erro
 	}
 	sn, ss := score(';')
 	cn, cs := score(',')
+	// (Without Excel's BOM: before a quoted first cell it is a parse error.)
 	if sn > cn || sn == cn && ss > cs {
-		return bytes.NewReader(b), ';', nil
+		return bytes.NewReader(head), ';', nil
 	}
-	return bytes.NewReader(b), ',', nil
+	return bytes.NewReader(head), ',', nil
 }
 
 // listFlags are calc's flags whose value holds numbers in a list
 // (country-km DE=320,PL=410; shipments A:12000:0-2).
 var listFlags = map[string]bool{"country-km": true, "fuel-bought": true, "shipments": true, "tolled-share": true, "motorway-share": true,
 	"fx": true, "env-zone-km": true, "diesel-price": true}
+
+// digitComma is a comma between digits.
+var digitComma = regexp.MustCompile(`(\d),(\d)`)
 
 // groupedInList is a number such as 12.500 in a list.
 var groupedInList = regexp.MustCompile(`(?:^|[=:,;\s])-?\d{1,3}(?:\.\d{3})+(?:$|[,;:\s])`)
@@ -202,9 +206,8 @@ var (
 )
 
 // in is a row's value for a flag, as calc reads it: in a ; CSV a number's
-// decimal comma made a point, and a date YYYY-MM-DD. A number such as
-// 12.500 (12500, or 12.5?) is refused, alone or in a list; a list's
-// decimal commas are countryValues'.
+// decimal comma made a point, alone or in a list, and a date YYYY-MM-DD.
+// A number such as 12.500 (12500, or 12.5?) is refused.
 func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
 	if l != ';' {
 		return v, nil
@@ -214,8 +217,13 @@ func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
 		mo, _ := strconv.Atoi(m[2])
 		return fmt.Sprintf("%s-%02d-%02d", m[3], mo, d), nil
 	}
-	if listFlags[name] && groupedInList.MatchString(v) {
-		return "", fmt.Errorf("%s %q: with ; between columns, 12.500 is 12500 or 12.5: write 12500, or 12,5 with ; between the countries", name, v)
+	if listFlags[name] {
+		if groupedInList.MatchString(v) {
+			return "", fmt.Errorf("%s %q: with ; between columns, 12.500 is 12500 or 12.5: write 12500 or 12,5", name, v)
+		}
+		// Its decimal commas (CZK=24,305; A:12000,5:0-2; ldm=2,4) made
+		// points: here a comma between digits is one.
+		return digitComma.ReplaceAllString(v, "$1.$2"), nil
 	}
 	if !numeric[name] {
 		return v, nil

@@ -215,7 +215,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
-	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); with decimal commas, ; between them (1,45;PL=1,25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
+	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); a decimal comma too (1,45;PL=1,25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
 	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France, Italy, Spain, Hungary, Croatia and Slovenia from 7.5 t; Portugal from 35 t)")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
@@ -223,7 +223,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	pathFile := fs.String("path", "", "the way driven, priced instead of Sootcase's route: a GPX file (track or route points) or JSON ([[lon,lat],...] or a GeoJSON LineString)")
 	rfmsFiles := fs.String("rfms", "", "rFMS 4.0 responses from the truck maker's API (/vehiclepositions, /vehiclestatuses) for the trip's hours, files separated by ,: the way driven, the diesel burnt (engineTotalFuelUsed) and the date")
 	vin := fs.String("vin", "", "the vehicle in the -rfms files, when they hold several")
-	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410 (with decimal commas, ; between them: DE=320,5;PL=410; so the other lists by country), from a tachograph; without -from and -to")
+	ckm := fs.String("country-km", "", "price a trip with no route on its km by country (or ISO 3166-2 region), e.g. DE=320,PL=410 (as the other lists by country, ; between them too, and a decimal comma: DE=320,5; not 1,200: 1200 or 1.2?), from a tachograph; without -from and -to")
 	ships := fs.String("shipments", "", "shipments instead of -cargo-kg, separated by ;: id:kg:from-to with stops numbered from 0 (-from) to the last (-to), e.g. A:12000:0-2;B:8000:1-2, and :ldm=2.4,pallets=6 for -cost-share-by")
 	fs.StringVar(&req.CostShareBy, "cost-share-by", "", "share the costs among the shipments by tkm (default), loading_m or pallets (per km of each one's route); emissions are always by tkm")
 	fs.Float64Var(&req.DKKPerEUR, "dkk-per-eur", 0, "DKK per EUR (default the ERM II central rate 7.46038)")
@@ -357,54 +357,61 @@ type countryValue struct {
 	v  float64
 }
 
-// countryValues reads a list of values by country (DE=320, or a region:
-// BE-BRU=0.2) or for all (a bare number), separated by commas; or by
-// semicolons, and then a value may have a decimal comma (DE=320,5;PL=410),
-// as may a lone one (DE=320,5). DE=1,5,PL=1,4 is refused (DE=1 and 5, or
-// decimal commas?). -diesel-price, -country-km, -fuel-bought,
-// -tolled-share, -motorway-share, -fx and -env-zone-km take it, as the
-// page does.
+// countryValues reads a list of values by country (DE=320, a region
+// BE-BRU=0.2, a currency CHF=0.93; DE:320 too) or for all (a bare number):
+// entries separated by semicolons, or by commas before the next country.
+// A value has a decimal point (1.45), or a decimal comma (320,5; 1,45) but
+// for 1,200 (1200, or 1.2?), which is refused. -diesel-price,
+// -country-km, -fuel-bought, -tolled-share, -motorway-share, -fx and
+// -env-zone-km take it, as the page does (testdata/countryvalues.json is
+// both's cases).
 func countryValues(s string) ([]countryValue, error) {
-	s = strings.TrimSpace(s)
-	if s == "" {
-		return nil, nil
-	}
-	var parts []string
-	if strings.Contains(s, ";") || listDecimalComma.MatchString(s) {
-		for _, p := range strings.Split(s, ";") {
-			parts = append(parts, listDecimalComma.ReplaceAllString(strings.TrimSpace(p), "$1.$2"))
-		}
-	} else {
-		parts = strings.Split(s, ",")
-		for i := 1; i < len(parts); i++ {
-			if wholeNumber.MatchString(strings.TrimSpace(parts[i])) && endsInWhole.MatchString(strings.TrimSpace(parts[i-1])) {
-				return nil, fmt.Errorf("%q: with decimal commas, ; between the countries (DE=1,5;PL=1,4), or decimal points (DE=1.5,PL=1.4)", s)
-			}
-		}
-	}
 	var out []countryValue
-	for _, p := range parts {
-		if p = strings.TrimSpace(p); p == "" {
-			continue
+	for _, e := range listEntries(s) {
+		m := listEntry.FindStringSubmatch(e)
+		if m == nil {
+			return nil, fmt.Errorf("%q is not COUNTRY=number", e)
 		}
-		cc, num, by := strings.Cut(p, "=")
-		if !by {
-			cc, num = "", cc
+		if m[3] == "," && len(m[2]) <= 3 && len(m[4]) == 3 {
+			return nil, fmt.Errorf("%q: %s,%s is %s%s or %s.%s: write it without the comma, or with a decimal point", e, m[2], m[4], m[2], m[4], m[2], m[4])
 		}
-		x, err := strconv.ParseFloat(strings.TrimSpace(num), 64)
-		if err != nil || by && strings.TrimSpace(cc) == "" {
-			return nil, fmt.Errorf("%q is not COUNTRY=number", p)
+		num := m[2]
+		if m[4] != "" {
+			num += "." + m[4]
 		}
-		out = append(out, countryValue{strings.ToUpper(strings.TrimSpace(cc)), x})
+		v, _ := strconv.ParseFloat(num, 64)
+		out = append(out, countryValue{strings.ToUpper(m[1]), v})
 	}
 	return out, nil
 }
 
-var (
-	listDecimalComma = regexp.MustCompile(`^((?:[A-Za-z]{2}(?:-[A-Za-z0-9]{1,3})?\s*=\s*)?\d+),(\d+)$`)
-	endsInWhole      = regexp.MustCompile(`=\s*\d+$`)
-	wholeNumber      = regexp.MustCompile(`^\d+$`)
-)
+// listEntries splits a list at its semicolons, and at a comma the next
+// country follows (a comma between digits is a decimal comma).
+func listEntries(s string) []string {
+	var out []string
+	add := func(e string) {
+		if e = strings.TrimSpace(e); e != "" {
+			out = append(out, e)
+		}
+	}
+	start := 0
+	for i := 0; i < len(s); i++ {
+		if s[i] == ',' {
+			rest := strings.TrimLeft(s[i+1:], " ")
+			if rest == "" || !(rest[0] >= 'A' && rest[0] <= 'Z' || rest[0] >= 'a' && rest[0] <= 'z') {
+				continue
+			}
+		} else if s[i] != ';' {
+			continue
+		}
+		add(s[start:i])
+		start = i + 1
+	}
+	add(s[start:])
+	return out
+}
+
+var listEntry = regexp.MustCompile(`^(?:([A-Za-z]{2,3}(?:-[A-Za-z0-9]{1,3})?)\s*[=:]\s*)?(\d+)(?:([.,])(\d+))?$`)
 
 // rfmsFlags takes the way driven, the diesel and the date from rFMS
 // files, where the other flags don't give them.

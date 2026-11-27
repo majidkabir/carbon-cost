@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"flag"
 	"io"
+	"os"
 	"reflect"
 	"runtime/debug"
 	"slices"
@@ -33,11 +34,12 @@ func TestDieselPriceFlag(t *testing.T) {
 		{"PL=1.25, DE=1.6", 0, map[string]float64{"PL": 1.25, "DE": 1.6}, false},
 		{"1.5, PL=1.25", 1.5, map[string]float64{"PL": 1.25}, false},
 		{"1.4, 1.5", 0, nil, true},
-		{"1,5, PL=1.25", 0, nil, true},
+		{"1,5, PL=1.25", 1.5, map[string]float64{"PL": 1.25}, false},
 		{"DE=1,5", 0, map[string]float64{"DE": 1.5}, false},
 		{"1,45;PL=1,25", 1.45, map[string]float64{"PL": 1.25}, false},
-		{"DE=1,5,PL=1,4", 0, nil, true}, // DE=1 and 5 for all?
-		{"PL=2,1.45", 1.45, map[string]float64{"PL": 2}, false},
+		{"DE=1,5,PL=1,4", 0, map[string]float64{"DE": 1.5, "PL": 1.4}, false},
+		{"1,459", 0, nil, true}, // 1459, or 1.459?
+		{"PL=2,1.45", 0, nil, true},
 	} {
 		var req cost.Request
 		err := dieselPriceFlag(&req, c.in)
@@ -180,17 +182,39 @@ func TestCSVExcelDecimalComma(t *testing.T) {
 	}
 }
 
-// Lists by country take decimal commas with ; between the countries (or
-// a lone value), as -diesel-price does; DE=1,5,PL=1,4 is refused.
+// Lists by country are read as testdata/countryvalues.json says, by calc
+// and the page alike; and so by each flag that takes one.
 func TestCountryValues(t *testing.T) {
-	for in, want := range map[string]map[string]float64{
-		"DE=320,PL=410": {"DE": 320, "PL": 410}, "DE=320,5": {"DE": 320.5}, "DE=320,5;PL=410": {"DE": 320.5, "PL": 410},
-		"BE-BRU=0,2": {"BE-BRU": 0.2}, "DE=0.9, PL=1": {"DE": 0.9, "PL": 1},
-		"DE=1,5,PL=1,4": nil, "DE=1,5,PL": nil, "320": nil, "=5": nil,
-	} {
-		got, err := byCountry(in)
+	var file struct {
+		Cases [][2]json.RawMessage `json:"cases"`
+	}
+	b, err := os.ReadFile("testdata/countryvalues.json")
+	if err != nil || json.Unmarshal(b, &file) != nil {
+		t.Fatal(err)
+	}
+	for _, c := range file.Cases {
+		var in string
+		var want map[string]float64
+		json.Unmarshal(c[0], &in)
+		json.Unmarshal(c[1], &want)
+		vals, err := countryValues(in)
+		got := map[string]float64{}
+		for _, cv := range vals {
+			got[cv.cc] = cv.v
+		}
 		if (err != nil) != (want == nil) || want != nil && !reflect.DeepEqual(got, want) {
-			t.Errorf("%q: %v %v", in, got, err)
+			t.Errorf("%q: %v %v; want %v", in, got, err, want)
+		}
+	}
+	// Each flag that takes a list.
+	for _, f := range []struct{ flag, v string }{{"-country-km", "DE=320,5;PL=410"}, {"-fuel-bought", "DE=30,5"}, {"-tolled-share", "DE=0,9"},
+		{"-motorway-share", "CZ=0,9"}, {"-fx", "CZK=24,3"}, {"-env-zone-km", "DK=4,5"}, {"-diesel-price", "DE=1,5"}} {
+		args := []string{"-cargo-kg", "1000", "-date", "2026-11-03", f.flag, f.v}
+		if f.flag != "-country-km" {
+			args = append(args, "-country-km", "DE=100,CZ=100")
+		}
+		if _, _, err := parseCalc(args, flag.ContinueOnError); err != nil {
+			t.Errorf("%s %s: %v", f.flag, f.v, err)
 		}
 	}
 	// Every flag that takes text with numbers in it is a list flag, checked
@@ -215,5 +239,38 @@ func TestCSVTextColumns(t *testing.T) {
 		if !slices.Contains(csvColumns, name) {
 			t.Errorf("csvText %q is no result column", name)
 		}
+	}
+}
+
+// In a ; CSV a list's decimal commas are points (CZK=24,305; A:12000,5:0-2;
+// ldm=2,4), its 12.500 refused; elsewhere the cell is the flag's as given.
+func TestCSVLocaleLists(t *testing.T) {
+	for _, c := range []struct {
+		comma      csvLocale
+		name, v    string
+		want       string
+		wantsError bool
+	}{
+		{';', "fx", "CZK=24,305", "CZK=24.305", false},
+		{';', "shipments", "A:12000,5:0-2;B:800:1-2:ldm=2,4,pallets=6", "A:12000.5:0-2;B:800:1-2:ldm=2.4,pallets=6", false},
+		{';', "country-km", "DE=100,PL=100", "DE=100,PL=100", false},
+		{';', "country-km", "DE=3.200,PL=4.100", "", true},
+		{';', "diesel-price", "1,459", "1.459", false},
+		{',', "country-km", "DE=1,200", "DE=1,200", false},
+	} {
+		got, err := c.comma.in(c.name, c.v, calcNumberFlags())
+		if (err != nil) != c.wantsError || got != c.want {
+			t.Errorf("%c %s %q: %q %v", rune(c.comma), c.name, c.v, got, err)
+		}
+	}
+	// report takes calc -csv's -date column (a failed row's month).
+	priced := "-date,trip_date,total_eur,wtw_kg,tkm,data_type,complete,error\n2026-11-03,2026-11-03,10,5,100,modelled,true,\n2026-11-04,,,,,,,bad\n"
+	var rep strings.Builder
+	if err := summarize([]io.Reader{strings.NewReader(priced)}, &rep, []string{"month"}); err != nil || !strings.Contains(rep.String(), "\n2026-11,2,") {
+		t.Errorf("report by month with a -date column: %v\n%s", err, rep.String())
+	}
+	// A BOM before a quoted first header cell (Excel's UTF-8 CSV).
+	if _, err := priceCSV(context.Background(), nil, nil, strings.NewReader("\ufeff\"Kunde, Ort\",country-km\nA,DE=10\n"), io.Discard, calcFlagNames(), 100, false); err != nil && strings.Contains(err.Error(), "bare") {
+		t.Errorf("BOM and a quoted cell: %v", err)
 	}
 }

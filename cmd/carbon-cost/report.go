@@ -121,7 +121,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 		for i, h := range head {
 			// calc -csv adds its columns after the input's; where a name
 			// comes twice, the last (the result's) counts.
-			col[strings.TrimSpace(h)] = i
+			col[strings.TrimPrefix(strings.TrimSpace(h), "-")] = i // calc -csv takes -date as date
 		}
 		for _, need := range []string{"trip_date", "total_eur", "wtw_kg", "tkm", "data_type", "complete", "error"} {
 			if _, ok := col[need]; !ok {

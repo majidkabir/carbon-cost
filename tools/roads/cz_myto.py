@@ -28,14 +28,10 @@ reading at the way's own points that still lie on it (within MATCH_M;
 OpenStreetMap may have split, merged or moved it since) or, where none
 does, at other ways' points beside it running along it (within NEAR_M: a
 way added since, under another id); where none is, the layer of the
-slots on both sides (filled()), else none. A way added since, mostly
-unread and read at most at its ends, is placed by its ends: with the ways
-of its ref (and ref-less ones between) joined to it, it is tolled when
-every end of that chain is on a way of the ref tolled in one class, else
-not. build.py reports
-their km and the other unread km, fails when they pass CHANGED_KM (take
-a new reading then), and checks the tolled km of each class against the
-law's.
+slots on both sides (filled()), else unread. An unread slot (a road
+built or moved since) isn't tolled: build.py reports their km, fails when
+they pass CHANGED_KM (take a new reading then), and checks the tolled km
+of each class against the law's.
 """
 import gzip, hashlib, json, math, os
 from collections import Counter

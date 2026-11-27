@@ -74,9 +74,10 @@ JOIN_KM = 0.1
 # carriageway) are at most ROOM times the annex km OSM's relations lack
 # there, plus ROOM_KM (OSM's lengths and the annex's differ a little).
 ROOM, ROOM_KM = 1.3, 0.3
-# A road whose toll sections OSM has for this share of annex 1's km (both
-# carriageways of an M road): its other ways are left out.
-COVERED = 0.9
+# A road's other ways count by their ref where that brings its tolled km
+# (one carriageway) nearer annex 1's (tests turn it off to see the other
+# rules alone).
+BY_REF = True
 # Roads whose chains the build decides it lists (ROADS_DEBUG="21,4", or "*"
 # for all).
 DEBUG_ROADS = set(filter(None, os.environ.get("ROADS_DEBUG", "").split(",")))
@@ -387,12 +388,11 @@ class Ways(osmium.SimpleHandler):
         self.sec_lines, self.pending, self.sec_ckm, self.sec_hw = {}, [], Counter(), Counter()
         # myto (Czechia): the class I roads the law tolls; the map's
         # layers at each way's points (cz_myto.load); the ways sampled; the
-        # ways the capture knows and doesn't, placed after; the end nodes of
-        # tolled ways by class; tolled km (one carriageway) by class and
-        # ref, and by class.
-        self.law_refs, self.myto, self.samples, self.new_ways, self.mapped = set(), None, [], [], []
+        # ways with their reading, placed after; tolled km (one carriageway)
+        # by class and ref, and by class.
+        self.law_refs, self.myto, self.samples, self.mapped = set(), None, [], []
         self.myto_points = None
-        self.tolled_nodes, self.ref_km, self.class_km = {"mw": {}, "nat": {}}, Counter(), Counter()
+        self.ref_km, self.class_km = Counter(), Counter()
         # segments (Bulgaria): the main roads' ways, for the toll segments
         # to be found on (bgseg.Network), and whether each is a motorway.
         self.bg, self.bg_mw = None, []
@@ -495,45 +495,26 @@ class Ways(osmium.SimpleHandler):
         refs = [r.strip() for r in (tags.get("ref") or "").split(";") if r.strip()]
         ls = LineString(coords)
         self.samples.append((w.id, c, refs[0] if refs else "", ls))
-        ends = (w.nodes[0].ref, w.nodes[-1].ref)
-        nodes = [n.ref for n in w.nodes]
         if self.myto is not None:
+            # The map's reading at the way's points, its own or (OSM split,
+            # merged or moved it) others' along it; where none is, unread.
             slots = self.myto_points.slots(w.id, ls)
-            read = [i for i, l in enumerate(slots) if l != "unread"]
-            if w.id not in self.myto and 2 * (len(slots) - len(read)) > len(slots) and all(i < cz_myto.END or i >= len(slots) - cz_myto.END for i in read):
-                # A way added since, mostly unread and read (from its
-                # neighbours' points) at most at its ends: placed by its
-                # ends instead.
-                self.new_ways.append((c, coords, tags, ends, nodes))
-            else:
-                n = len(slots)
-                mids = [ls.interpolate((i + 0.5) / n, normalized=True) for i in range(n)]
-                fl = [(l, (p.x, p.y)) for l, p in zip(slots, mids)]
-                # Where the way is of the map layer's class itself (a
-                # motorway, a class I road of the law), and so tolled
-                # wherever the layer is drawn; another road the layer is
-                # drawn on, only where it isn't beside one of those.
-                hw = tags.get("highway")
-                strong = {"mw": hw == "motorway" or any(re.match(r"^D\d", r) for r in refs), "nat": bool(set(refs) & self.law_refs)}
-                self.mapped.append((fl, strong, ls, tags, refs, nodes))
+            n = len(slots)
+            mids = [ls.interpolate((i + 0.5) / n, normalized=True) for i in range(n)]
+            fl = [(l, (p.x, p.y)) for l, p in zip(slots, mids)]
+            # Where the way is of the map layer's class itself (a
+            # motorway, a class I road of the law), and so tolled
+            # wherever the layer is drawn; another road the layer is
+            # drawn on, only where it isn't beside one of those.
+            hw = tags.get("highway")
+            strong = {"mw": hw == "motorway" or any(re.match(r"^D\d", r) for r in refs), "nat": bool(set(refs) & self.law_refs)}
+            self.mapped.append((fl, strong, ls, tags, refs))
             return
         # No capture: the law's roads by ref.
         parts = [(0.0, 1.0)] if tags.get("highway") != "secondary" and (c == "mw" or set(refs) & self.law_refs) else []
-        self.add_parts(c, parts, ls, tags, refs, nodes)
+        self.add_parts(c, parts, ls, tags, refs)
 
-    def add_parts(self, c, parts, ls, tags, refs, nodes):
-        # The nodes on the tolled parts, with the ways' refs: where a way
-        # added since may meet a tolled road.
-        coords = list(ls.coords)
-        if parts and len(nodes) == len(coords):
-            # Along the line in degrees, as the parts are.
-            run = [0.0]
-            for (x1, y1), (x2, y2) in zip(coords, coords[1:]):
-                run.append(run[-1] + math.hypot(x2 - x1, y2 - y1))
-            total = run[-1] or 1
-            for n, d in zip(nodes, run):
-                if any(a - 1e-6 <= d / total <= b + 1e-6 for a, b in parts):
-                    self.tolled_nodes[c].setdefault(n, set()).update(refs)
+    def add_parts(self, c, parts, ls, tags, refs):
         for a, b in parts:
             piece = ls if (a, b) == (0, 1) else substring(ls, a, b, normalized=True)
             if piece.geom_type == "LineString" and len(piece.coords) >= 2:
@@ -609,11 +590,10 @@ def place_pending(h, cc, city=None):
     annex's sections' between (none: the two sections' mean share, the
     longer's class). A chain between two sections with nothing of the
     annex between them is a break, not tolled.
-    The rest is left out on a road whose sections OSM has (COVERED of the
-    annex's km, both carriageways of an M road), and on a road whose
-    sections it lacks is tolled by its ref as before, but not inside
-    Budapest (city) unless the road has a section there (the M0);
-    reported by road."""
+    The rest of a road's ways are tolled by their ref where that brings the
+    road's tolled km (one carriageway) nearer the annex's, else left out,
+    and not inside Budapest (city) unless the road has a section there
+    (the M0); each road's tolled km are reported against the annex's."""
     kx = 111_320 * 0.68  # metres per degree of longitude near 47.2° N
     m = lambda pts: [(x * kx, y * 111_320) for x, y in pts]
     trees = {}
@@ -640,7 +620,6 @@ def place_pending(h, cc, city=None):
             by_road.setdefault(road, []).append((at, at + r["m"], r["f"], "mw" if r["level"] == "motorway" else "nat", r["id"]))
             annex[road] += r["m"] / 1000
             at, end = at + r["m"], r["end"]
-    osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
     # Stretches: a section whose relation has more than its annex km, with
     # the sections next to it OSM has no ways of whose ground that holds
     # (as many as the excess covers, nearest in km first). A stretch's
@@ -694,7 +673,11 @@ def place_pending(h, cc, city=None):
     if over:
         print(cc, f"stretches whose relations have more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over;",
               ", ".join(f"{p} +{x:.1f}" for x, p in over[:25]))
-    covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
+    # Tolled km by road, one carriageway: the sections', their other
+    # carriageways', the holes and gaps filled, by ref.
+    sec_c, twin_c, gap_c, ref_c = Counter(), Counter(), Counter(), Counter()
+    for e, (road, _, _) in span.items():
+        sec_c[road] += h.sec_ckm[e]
 
     def between(a, b):
         """Annex 1 between sections a and b (in the order of the road):
@@ -750,6 +733,7 @@ def place_pending(h, cc, city=None):
             _, (_, sc, sf, e) = hit
             h.add(sc, sf, coords, {})
             twins[hit[0]] += line.length / 1000
+            twin_c[hit[0]] += line.length / 1000 * cw
             use([e], line.length / 1000 * cw)
         else:
             rest.append((refs, c, coords, mc, cw))
@@ -783,8 +767,8 @@ def place_pending(h, cc, city=None):
             seen |= chain
             km = sum(lines[k].length for k in chain) / 1000
             ckm = sum(lines[k].length * rest[ways[k]][4] for k in chain) / 1000  # one carriageway
-            if km > 3 * GAP_KM and covered.get(road, False):
-                continue  # long: not a gap; left out below
+            if km > 3 * GAP_KM:
+                continue  # long: not a gap; left to the ref rule below
             pts = [p for k in chain for p in (rest[ways[k]][3][0], rest[ways[k]][3][-1])]
             a, b = max(((p, q) for i, p in enumerate(pts) for q in pts[i + 1:]), key=lambda pq: math.dist(*pq), default=(None, None))
             if a is None:
@@ -807,6 +791,7 @@ def place_pending(h, cc, city=None):
                 # has whole finds none).
                 if ckm <= ROOM * room([ma[3]]) + ROOM_KM:
                     use([ma[3]], ckm)
+                    gap_c[road] += ckm
                     for k in chain:
                         h.add(ma[1], ma[2], rest[ways[k]][2], {})
                         decided[ways[k]] = "gap"
@@ -823,6 +808,7 @@ def place_pending(h, cc, city=None):
             free = gap - on + room(es)  # the unlisted km and the stretches' budget
             if hole <= JOIN_KM and ckm <= ROOM * free + ROOM_KM:
                 use(es, ckm)
+                gap_c[road] += ckm
                 # The annex runs on between them (but for a junction's
                 # few metres): OSM's relations lack it. Its km take the
                 # class and share of the annex's sections there; where
@@ -847,25 +833,39 @@ def place_pending(h, cc, city=None):
             else:
                 # Part of it is in the annex: left as the road's other ways.
                 show("left (part in the annex)")
-    for i, (refs, c, coords, mc, _) in enumerate(rest):
+    # The rest by road (outside Budapest, but for a road with a section
+    # there): tolled by their ref where that brings the road's tolled km
+    # nearer annex 1's.
+    cand = {}
+    for i, (refs, c, coords, mc, cw) in enumerate(rest):
         if i in decided:
             continue
         road = next((r for r in refs if r in annex), refs[0] if refs else "(no ref)")
         km = LineString(mc).length / 1000
-        if road in annex and not covered[road]:
-            # OSM lacks this road's sections: tolled by its ref, outside Budapest.
-            ls = LineString(coords)
-            pieces = [ls]
-            if city is not None and road not in city_roads and ls.intersects(city):
-                out = ls.difference(city)
-                pieces = [g for g in getattr(out, "geoms", [out]) if g.geom_type == "LineString" and not g.is_empty]
-                in_city[road] += km * (1 - (out.length / ls.length if ls.length else 0))
-            for g in pieces:
-                if len(g.coords) >= 2:
-                    h.add(c, -1, list(g.coords), {})
-            kept[road] += km
-        else:
+        if road not in annex:
             dropped[road] += km
+            continue
+        ls = LineString(coords)
+        pieces, share = [ls], 1.0
+        if city is not None and road not in city_roads and ls.intersects(city):
+            out = ls.difference(city)
+            pieces = [g for g in getattr(out, "geoms", [out]) if g.geom_type == "LineString" and not g.is_empty]
+            share = out.length / ls.length if ls.length else 0
+            in_city[road] += km * (1 - share)
+        cand.setdefault(road, []).append((c, pieces, km * share, km * share * cw))
+    for road, items in cand.items():
+        got = sec_c[road] + twin_c[road] + gap_c[road]
+        more = sum(ck for *_, ck in items)
+        if BY_REF and abs(got + more - annex[road]) < abs(got - annex[road]):
+            for c, pieces, km, ck in items:
+                for g in pieces:
+                    if len(g.coords) >= 2:
+                        h.add(c, -1, list(g.coords), {})
+                kept[road] += km
+                ref_c[road] += ck
+        else:
+            for c, pieces, km, ck in items:
+                dropped[road] += km
     fmt = lambda c: {k: round(v, 1) for k, v in c.most_common()}
     print(cc, "other carriageways of toll sections (km):", fmt(twins))
     print(cc, "gaps in the sections' relations filled (km):", fmt(gaps))
@@ -874,10 +874,13 @@ def place_pending(h, cc, city=None):
     print(cc, "roads whose sections OSM lacks, tolled by ref (km):", fmt(kept), "of which inside Budapest, not tolled:", fmt(in_city))
     print(cc, "totals: twins", round(sum(twins.values())), "gaps", round(sum(gaps.values())), "breaks", round(sum(breaks.values())),
           "left out", round(sum(dropped.values())), "by ref", round(sum(kept.values())), "in Budapest", round(sum(in_city.values())))
-    for road, km in sorted(annex.items(), key=lambda kv: -kv[1]):
-        if osm[road] or kept[road] or dropped[road]:
-            print(cc, f"road {road}: annex {km:.1f} km, OSM sections {osm[road]:.1f} km{'' if covered[road] else ' (lacking)'}, twins {twins[road]:.1f}, gaps {gaps[road]:.1f}, "
-                      f"breaks {breaks[road]:.1f}, left out {dropped[road]:.1f}, by ref {kept[road]:.1f}")
+    # Against annex 1, one carriageway: by road, and in all.
+    tolled = {road: sec_c[road] + twin_c[road] + gap_c[road] + ref_c[road] for road in annex}
+    for road, km in sorted(annex.items(), key=lambda kv: -abs(tolled[kv[0]] - kv[1])):
+        print(cc, f"road {road}: annex {km:.1f} km, tolled {tolled[road]:.1f} ({tolled[road] - km:+.1f}): sections {sec_c[road]:.1f}, other carriageways {twin_c[road]:.1f}, "
+                  f"holes and gaps {gap_c[road]:.1f}, by ref {ref_c[road]:.1f}; breaks {breaks[road]:.1f}, left out {dropped[road]:.1f} (km of lines)")
+    total, law = sum(tolled.values()), sum(annex.values())
+    print(cc, f"tolled km (one carriageway) {total:.0f} of annex 1's {law:.0f} ({total / law - 1:+.1%}); by road, {sum(abs(tolled[r] - annex[r]) for r in annex):.0f} km off in all")
 
 
 # Countries whose law lists its tolled sections: the list (from the law,
@@ -889,9 +892,8 @@ NETWORK = {"PL": "pl-network.json"}
 
 # Czechia's tolled roads and sections, from the law (cz_network.py).
 CZ_LAW = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cz-network.json")
-# The km of ways OpenStreetMap changed since the toll map's reading (placed
-# by their ends, or unread) the build accepts before it asks for a new
-# reading.
+# The km of ways unread (OpenStreetMap built or moved them since the toll
+# map's reading) the build accepts before it asks for a new reading.
 CHANGED_KM = 25
 # A point of a road where the map draws a layer of another class counts
 # only if no point of a road of that class with the layer drawn is within
@@ -913,7 +915,7 @@ def myto_finish(h, cc, law, dst):
             if l in st and st[l]:
                 strong[l].add(cell(x, y))
     beside, unread = 0.0, 0.0
-    for fl, st, ls, tags, refs, nodes in h.mapped:
+    for fl, st, ls, tags, refs in h.mapped:
         keep = []
         for l, (x, y) in fl:
             if l in st and not st[l]:
@@ -923,102 +925,17 @@ def myto_finish(h, cc, law, dst):
                     beside += cz_myto.length_m(list(ls.coords)) / 1000 / len(fl)
             keep.append(l)
         c, parts = cz_myto.parts(keep, "nat")
-        h.add_parts(c, parts, ls, tags, refs, nodes)
+        h.add_parts(c, parts, ls, tags, refs)
         unread += cz_myto.length_m(list(ls.coords)) / 1000 * sum(l == "unread" for l in cz_myto.filled(keep)) / len(keep)
     print(cc, f"km the map draws on other roads beside a road of its class (left out): {beside:.1f}")
-    # Ways added since (mostly unread, read at most at their ends): those
-    # of a ref, and
-    # ref-less ones (a roundabout's) whose ends are on them or on tolled
-    # ways of the ref, joined at their ends, are tolled in a class when
-    # the chain has two ends or more (its ends, and the nodes where tolled
-    # ways of the ref meet it) and every one is on a way of the ref (or a
-    # ref-less one) tolled in that class.
-    ways = h.new_ways
-    refs_of = [[r.strip() for r in (t.get("ref") or "").split(";") if r.strip()] for _, _, t, _, _ in ways]
-    # A node on a tolled way of ref r, or of a ref-less one.
-    of_ref = lambda n, r: any(n in t and (r in t[n] or not t[n]) for t in h.tolled_nodes.values())
-    # The ref-less ways in pieces joined at their ends.
-    loose, seen = [], set()
-    by_end = {}
-    for i, rs in enumerate(refs_of):
-        if not rs:
-            for n in ways[i][3]:
-                by_end.setdefault(n, []).append(i)
-    for i, rs in enumerate(refs_of):
-        if rs or i in seen:
-            continue
-        piece, todo = [], [i]
-        seen.add(i)
-        while todo:
-            j = todo.pop()
-            piece.append(j)
-            for n in ways[j][3]:
-                for k in by_end[n]:
-                    if k not in seen:
-                        seen.add(k)
-                        todo.append(k)
-        loose.append(piece)
-    done, tolled_km = set(), 0.0
-    # The refs to try: the new ways', and those of tolled ways a ref-less
-    # one meets (at any of its nodes: a ring closes anywhere).
-    for r in sorted({r for rs in refs_of for r in rs} | {r for t in h.tolled_nodes.values() for i, rs in enumerate(refs_of) if not rs for n in ways[i][4] for r in t.get(n, ())}):
-        mine = [i for i, rs in enumerate(refs_of) if r in rs]
-        ends_r = {n for i in mine for n in ways[i][3]}
-        # Ref-less ways join as pieces (a roundabout's, perhaps split in
-        # two) whose loose ends are on the ref's new ways or tolled ways:
-        # at least one on a new way, unless they are all roundabout; a
-        # closed ring, where the road enters and leaves it.
-        group = list(mine)
-        for piece in loose:
-            out = [n for n, m in Counter(n for i in piece for n in ways[i][3]).items() if m == 1]
-            ring = all(ways[i][2].get("junction") in ("roundabout", "circular") for i in piece)
-            if out:
-                ok = all(n in ends_r or of_ref(n, r) for n in out) and (ring or any(n in ends_r for n in out))
-            else:
-                # A closed ring (a roundabout): where the road enters and
-                # leaves it, on two of its nodes or more, the ref's new
-                # ways or tolled ways.
-                ok = ring and len({n for i in piece for n in ways[i][4] if n in ends_r or of_ref(n, r)}) >= 2
-            if ok:
-                group += piece
-        at = {}
-        for i in group:
-            for n in ways[i][4]:
-                at.setdefault(n, []).append(i)
-        seen = set()
-        for i in group:
-            if i in seen:
-                continue
-            chain, todo = [], [i]
-            seen.add(i)
-            while todo:
-                j = todo.pop()
-                chain.append(j)
-                for n in ways[j][4]:
-                    for k in at[n]:
-                        if k not in seen:
-                            seen.add(k)
-                            todo.append(k)
-            uses = Counter(n for j in chain for n in ways[j][3])
-            inner = {n for j in chain for n in ways[j][4][1:-1]}
-            ends = {n for n, m in uses.items() if m == 1 and n not in inner} | {n for j in chain for n in ways[j][4] if of_ref(n, r)}
-            own = Counter(ways[j][0] for j in chain).most_common(1)[0][0]
-            cls = next((k for k in (own, "nat" if own == "mw" else "mw")
-                        if len(ends) >= 2 and all(n in h.tolled_nodes[k] and (r in h.tolled_nodes[k][n] or not h.tolled_nodes[k][n]) for n in ends)), None)
-            if cls:
-                for j in chain:
-                    if j not in done:
-                        done.add(j)
-                        h.add_myto(cls, ways[j][1], ways[j][2], refs_of[j])
-                        tolled_km += cz_myto.length_m(ways[j][1]) / 1000
-    free_km = sum(cz_myto.length_m(ways[j][1]) / 1000 for j in range(len(ways)) if j not in done)
-    if ways or unread:
-        print(cc, f"ways unread (added since the reading): {len(ways)}, {tolled_km:.1f} km tolled (between tolled ways), {free_km:.1f} km not; {unread:.1f} km of other ways unread, not tolled")
+    # Unread: ways or parts of ways no point of the reading tells (built or
+    # moved since): untolled, and past CHANGED_KM a new reading is needed.
+    print(cc, f"km unread (built or moved since the reading), not tolled: {unread:.1f}")
     path = os.path.join(os.path.dirname(os.path.abspath(dst)), "cz-samples.json.gz")
     cz_myto.write_samples(h.samples, path, os.environ.get("OSM_EXTRACT", "")[:10] or None)
     print(cc, "samples for the next capture:", path, sum(cz_myto.count(list(ls.coords)) for *_, ls in h.samples), "points")
-    if h.myto is not None and tolled_km + free_km + unread > CHANGED_KM:
-        sys.exit(f"{cc}: {tolled_km + free_km + unread:.0f} km of ways changed since the toll map's reading, more than {CHANGED_KM}: take a new reading (tools/roads/cz_myto.py)")
+    if h.myto is not None and unread > CHANGED_KM:
+        sys.exit(f"{cc}: {unread:.0f} km of ways unread (changed since the toll map's reading), more than {CHANGED_KM}: take a new reading (tools/roads/cz_myto.py)")
     for (c, ref), v in sorted(h.ref_km.items(), key=lambda kv: -kv[1]):
         if v >= 0.5:
             print(cc, f"tolled {c:>3} {ref or '(no ref)':>6}: {v:6.1f} km")

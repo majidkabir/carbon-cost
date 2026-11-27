@@ -6,10 +6,9 @@ tolls as class I, a motorway it tolls as class I); a short tolled blip
 line is the motorway's; a way takes the map's reading at the points on it,
 its own or (OSM split, merged or moved it) others' running along it, not
 a crossing road's, and where none is, the layer of the slots on both
-sides (for a few) or none; a way added since, mostly unread and read only
-at its ends, is tolled when the ways of its ref joined to it, and
-ref-less ones between, meet ways of that ref tolled at every end (their
-ends or inside them).
+sides (for a few) or none; a way the reading has no points along (built
+since: a bypass, a roundabout, a link) is unread, untolled and counted,
+and past CHANGED_KM the build asks for a new reading.
 
 Usage: python3 test_cz.py
 """
@@ -191,26 +190,22 @@ def drawn(wid, x):
 
 
 # The stretches' latitudes (dy) and the class I km tolled there: 30-32
-# whole; 35 (not the secondary); 36, 37 and the new ways between; 44 and 45
-# (not the ref-less way between); 47, 48 and both carriageways between;
-# 51 with its moved bit; 52, 53 and the new way between, not the ref-less
-# road crossing it; 56 and the bypass joining it inside; 58, 60 and the
-# bypass round the town, not the passage; 62, 63 and the new ways and
-# split roundabout between; 68, not the ref-less street off it and back;
-# 70 and 72, not the passage OSM moved; 73 but the passage OSM moved;
-# 80, 83 and 82, not the passage; 84, 85 and the roundabout between them;
-# 88, not the closed loop off it.
-BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 12.0, -0.21: 4.0, -0.24: 6.0, -0.27: 3.08,
-         -0.30: 12.0, -0.33: 12 + km_of(BYPASS[-0.33]), -0.36: 8 + km_of(BYPASS[-0.36]),
-         -0.39: 10 + 0.9 + 0.9 + km_of([(5.9, -0.39), (6.0, -0.3891), (6.1, -0.39), (6.0, -0.3909), (5.9, -0.39)]),
-         -0.42: 10.0, -0.45: 8.0, -0.48: 7.9, -0.51: 4.027, -0.54: 9.8 + km_of(RING), -0.57: 8.0}  # -0.48: 8 but a slot at the passage's end
+# whole (merged); 35 (a new id on 33's points, not the secondary); 36 and
+# 37, 44 and 45, 47 and 48, 52 and 53, 56, 58 and 60, 62 and 63, 84 and
+# 85, not the ways built between or beside them (unread); 51 with its
+# moved bit (a few slots, filled); 68, 70 and 72, 73 but the passage
+# (none drawn there); 80, 83 (a split, read on 80's points) and 82, not
+# the passage; 88, not the loop off it.
+BANDS = {-0.12: 4.0, -0.15: 3.0, -0.18: 10.0, -0.21: 4.0, -0.24: 4.0, -0.27: 3.08,
+         -0.30: 10.0, -0.33: 12.0, -0.36: 8.0, -0.39: 10.0,
+         -0.42: 10.0, -0.45: 8.0, -0.48: 7.9, -0.51: 4.027, -0.54: 9.8, -0.57: 8.0}  # -0.48: 8 but a slot at the passage's end
 
 
 def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 125.3, "text": "I/38"}, {"class": "nat", "ref": "36", "km": 18.3, "text": "I/36"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 113.2, "text": "I/38"}, {"class": "nat", "ref": "36", "km": 18.3, "text": "I/36"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)
@@ -240,7 +235,7 @@ def main():
     json.dump({"url": "test", "date": "2026-11-27", "samples_sha256": hashlib.sha256(raw).hexdigest(), "points": len(tolled),
                "runs": runs(tolled), "other": runs(other), "unmatched": [["nat", 15.1, 49.4, 1200]]}, open(cz_myto.CAPTURE, "w"))
     osm(src, True)
-    build.CHANGED_KM = 40  # the test changes more than a real extract may
+    build.CHANGED_KM = 40  # the test changes more than a real extract may (29.8 km unread)
     build.main("CZ", src, dst)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
@@ -250,8 +245,8 @@ def main():
     bands_ok = all(abs(got[dy] - want) < 0.1 for dy, want in BANDS.items())
     for dy, want in BANDS.items():
         print(f"stretch at {dy}: {got[dy]:.2f} km tolled, want {want}")
-    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60, 62, 63, 68, 70, 71, 72, 73, 80, 81, 82, 84, 85, 86, 88} and abs(nat - 16.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
-    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 16.8: 10 - 2 + 2.8 + 1 + 3 + 2, not the blip, the loose way, the other road nor the crossing one), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
+    ok = bands_ok and sampled == {1, 2, 3, 4, 5, 6, 8, 10, 11, 12, 16, 30, 31, 32, 33, 34, 36, 37, 44, 45, 47, 48, 51, 52, 53, 56, 58, 59, 60, 62, 63, 68, 70, 71, 72, 73, 80, 81, 82, 84, 85, 86, 88} and abs(nat - 15.8) < 0.15 and abs(mw - 10) < 0.15 and out["network"] == "test; tolled stretches as the toll operator's map draws them (test, read 2026-11-27)"
+    print(f"sampled {sorted(sampled)} (want all but the new 7 and 9), nat {nat:.2f} km (want 15.8: 10 - 2 + 2.8 + 3 + 2, not the blip nor the ways built since), mw {mw:.2f} km (want 10: D1's two carriageways, not D0 nor the road beside D1)")
     print(out["network"])
     # Too much changed since the reading: the build asks for a new one.
     build.CHANGED_KM, asked = 10, ""

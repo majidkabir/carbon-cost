@@ -189,13 +189,13 @@ def osm(path, areas):
     open(areas, "w").write('<?xml version="1.0"?><osm version="0.6">' + ns + w + r + "</osm>")
 
 
-def run(covered):
-    """nat and mw km with build.COVERED at covered (0: every road's sections
-    taken as in OSM, so only sections, twins and gaps count)."""
+def run(by_ref):
+    """nat and mw km with build.BY_REF at by_ref (off: only sections,
+    twins, holes and gaps count)."""
     d = tempfile.mkdtemp()
     src, dst, areas = os.path.join(d, "hu.osm"), os.path.join(d, "hu.json.gz"), os.path.join(d, "areas.osm")
     osm(src, areas)
-    build.COVERED = covered
+    build.BY_REF = by_ref
     build.main("HU", src, dst, areas)
     out = json.load(gzip.open(dst))
     km = lambda lines: sum(sum(((l[i + 2] - l[i]) ** 2 + (l[i + 3] - l[i + 1]) ** 2) ** 0.5 for i in range(0, len(l) - 2, 2)) for l in lines) / 1e5 / KM
@@ -222,12 +222,12 @@ def main():
     old = lambda xy: path_km([(x, y / 111.32) for x, y in xy])
     loop = path_km(LOOP) + path_km(LOOP2) + 1 + old(OLD27) + old(OLD4)
     m3 = 8.006 + 3.5 + path_km([(x, y / 111.32) for x, y in FAR]) + 1.506  # M3's section and other carriageway
-    nat, mw, shares = run(0.9)
+    nat, mw, shares = run(True)
     ok = abs(nat - sections - loop) < 0.2 and abs(mw - 9 - m3) < 0.2 and shares
     print(f"nat {nat:.2f} km (want {sections + loop:.2f}), mw {mw:.2f} km (want {9 + m3:.2f}: M3's, M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")
-    nat, mw, shares = run(0)
+    nat, mw, shares = run(False)
     ok = ok and abs(nat - sections) < 0.2 and abs(mw - 1 - m3) < 0.2 and shares
-    print(f"every road covered: nat {nat:.2f} km (want {sections:.2f}: the gaps found as gaps), mw {mw:.2f} km (want {1 + m3:.2f}: M3's, M0's section)")
+    print(f"no ref rule: nat {nat:.2f} km (want {sections:.2f}: the gaps found as gaps), mw {mw:.2f} km (want {1 + m3:.2f}: M3's, M0's section)")
     if not ok:
         sys.exit("test_hu: FAILED")
     print("test_hu: ok")

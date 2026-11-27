@@ -14,9 +14,11 @@ in a toll section takes its class and suburban share from annex 1 of
 where unknown. A Hungarian way in no toll section is tolled only as one of
 one: the other carriageway (within TWIN_M of a section way of its road
 number along its length), or a gap in the sections' relations (a chain
-of such ways of the road, at most GAP_KM long, whose ends meet section
-ways of the road where annex 1 runs on between those sections without a
-break); the other main roads and motorways, such as those inside
+of such ways of the road, at most GAP_KM longer than 1.3 times the annex
+between them (2.6 on M roads), whose ends meet section ways of the road
+where annex 1 runs on between those sections without a break but a
+junction's (JOIN_KM), in the class and share of its sections there); the
+other main roads and motorways, such as those inside
 Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
 simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
@@ -55,9 +57,13 @@ SIMPLIFY_M = 10
 # Hungary: a way outside the toll sections within TWIN_M of a section way
 # of its road along its length is that section's other carriageway; a chain
 # of such ways (joined within BRIDGE_M: carriageways, roundabouts) whose
-# ends meet section ways of its road within END_M, a gap in OSM's relations
-# (up to GAP_KM more than the annex's km between them) or a break.
-TWIN_M, GAP_KM, END_M, BRIDGE_M = 60, 10, 30, 60
+# ends meet section ways of its road within BRIDGE_M, a gap in OSM's
+# relations (up to GAP_KM more than 1.3 times the annex's km between them)
+# or a break.
+TWIN_M, GAP_KM, BRIDGE_M = 60, 10, 60
+# Unlisted km between annex 1's sections a gap may have (a junction's;
+# 32u9k695m ends at 10+463, 32u10k510m starts at 10+510).
+JOIN_KM = 0.1
 # A road whose toll sections OSM has for this share of annex 1's km (both
 # carriageways of an M road): its other ways are left out.
 COVERED = 0.9
@@ -604,7 +610,7 @@ def place_pending(h, cc, city=None):
             elif chain(r["start"]) != chain(end):
                 at += max(0, chain_m(r["start"]) - chain_m(end), chain(r["start"])[1] if chain(r["start"])[0] > chain(end)[0] else 0)
             span[r["id"]] = (road, at, at + r["m"])
-            by_road.setdefault(road, []).append((at, at + r["m"]))
+            by_road.setdefault(road, []).append((at, at + r["m"], r["f"], "mw" if r["level"] == "motorway" else "nat"))
             annex[road] += r["m"] / 1000
             at, end = at + r["m"], r["end"]
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
@@ -612,13 +618,19 @@ def place_pending(h, cc, city=None):
 
     def between(a, b):
         """Annex 1 between sections a and b (in the order of the road):
-        (km of its sections there, km between them), or None."""
+        (km of its sections there, km between them, their class and
+        suburban share by length, or None where there are none), or None."""
         (ra, a0, a1), (rb, b0, b1) = span[a], span[b]
         if ra != rb:
             return None
         lo, hi = (a1, b0) if a1 <= b0 else (b1, a0)
-        on = sum(min(s1, hi) - max(s0, lo) for s0, s1 in by_road[ra] if s1 > lo and s0 < hi)
-        return on / 1000, (hi - lo) / 1000
+        there = [(min(s1, hi) - max(s0, lo), f, c) for s0, s1, f, c in by_road[ra] if s1 > lo and s0 < hi]
+        on = sum(m for m, _, _ in there)
+        by_class = Counter()
+        for m, _, c in there:
+            by_class[c] += m
+        cf = (by_class.most_common(1)[0][0], sum(m * f for m, f, _ in there) / on) if on else None
+        return on / 1000, (hi - lo) / 1000, cf
 
     def near(road, pt, d):
         """The nearest section way of road within d metres of pt, or None."""
@@ -699,10 +711,13 @@ def place_pending(h, cc, city=None):
                       ab and f"annex {ab[0]:.1f} of {ab[1]:.1f} km between")
             if ab is None:
                 continue
-            on, gap = ab
-            if on >= gap - 0.001 and km <= (2.6 if road.startswith("M") else 1.3) * gap + GAP_KM:
-                # The annex runs on between them: OSM's relations lack it.
-                _, sc, sf, _ = ma
+            on, gap, cf = ab
+            if on >= gap - JOIN_KM and km <= (2.6 if road.startswith("M") else 1.3) * gap + GAP_KM:
+                # The annex runs on between them (but for a junction's
+                # few metres): OSM's relations lack it. Its km take the
+                # class and share of the annex's sections there (where
+                # there are none, of the section at one end).
+                sc, sf = cf or ma[1:3]
                 for k in chain:
                     h.add(sc, sf, rest[ways[k]][2], {})
                     decided[ways[k]] = "gap"
@@ -844,7 +859,7 @@ def myto_finish(h, cc, law, dst):
                 # A closed ring (a roundabout): where the road enters and
                 # leaves it, on two of its nodes or more, the ref's new
                 # ways or tolled ways.
-                ok = len({n for i in piece for n in ways[i][4] if n in ends_r or of_ref(n, r)}) >= 2
+                ok = ring and len({n for i in piece for n in ways[i][4] if n in ends_r or of_ref(n, r)}) >= 2
             if ok:
                 group += piece
         at = {}

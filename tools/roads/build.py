@@ -9,7 +9,8 @@ its country (RULES; in Italy the motorways tagged toll=yes, each with its
 operator tag): "mw" are the roads a toll law prices at the
 motorway rate, "nat" the other national roads it tolls (in Germany and
 Austria, whose rates are the same on both, only tolled or not counts). In Hungary a way
-in a toll section takes its class and suburban share from annex 1 of
+in a toll section (a motorway, trunk or primary way of its relation, not
+a slip road) takes its class and suburban share from annex 1 of
 25/2013 NFM (hu-annex1.json, from tools/tables/hu.py); "mwf"/"natf" give each line's share, -1
 where unknown. A Hungarian way in no toll section is tolled only as one of
 one: the other carriageway (within TWIN_M of a section way of its road
@@ -397,7 +398,9 @@ class Ways(osmium.SimpleHandler):
     def way(self, w):
         tags = {t.k: t.v for t in w.tags}
         hw = tags.get("highway", "")
-        sec = self.sections.get(w.id)
+        # A section's road ways (its relation's slip roads, service ways
+        # and the like aren't the road annex 1 lists).
+        sec = self.sections.get(w.id) if hw in ("motorway", "trunk", "primary") else None
         suffix = None
         if sec:
             c, f, road, edid = sec

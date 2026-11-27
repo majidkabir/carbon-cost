@@ -139,6 +139,7 @@ def osm(path, areas):
     way(66, line(0, 3.5, dy=Z(0.02)), highway="motorway", ref="M3")   # the other carriageway
     way(67, pts(*((x, Z(y)) for x, y in FAR)), highway="motorway", ref="M3")  # it, 150 m off
     way(68, line(6.5, 8.006, dy=Z(0.02)), highway="motorway", ref="M3")
+    way(75, line(2, 2.3, dy=Z(-0.05)), highway="motorway_link")       # a slip road in M3u69k928m's relation: not tolled
     # Road 4: a dual carriageway whose relation 4u35k320m (1310 m, 0.979)
     # has only 150 m at each end of both: the hole on both is tolled.
     E = -0.23
@@ -148,7 +149,7 @@ def osm(path, areas):
     way(72, line(1.16, 1.31, dy=E + W), highway="primary", ref="4", oneway="yes")
     way(73, line(0.15, 1.16, dy=E), highway="primary", ref="4", oneway="yes")      # the hole, one carriageway
     way(74, line(0.15, 1.16, dy=E + W), highway="primary", ref="4", oneway="yes")  # the other
-    secs = (("83u51k824m", [61]), ("5u98k422m", [63]), ("M3u69k928m", [65]), ("4u35k320m", [69, 70, 71, 72]), ("83u45k322m", [59]), ("12u8k756m", [50, 52]), ("14u3k670m", [53]), ("14u6k105m", [55]), ("57u28k530m", [56]), ("57u34k623m", [58]), ("32u8k277m", [46]), ("32u10k510m", [49]), ("38u0k0m", [43]), ("38u1k565m", [45]), ("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
+    secs = (("83u51k824m", [61]), ("5u98k422m", [63]), ("M3u69k928m", [65, 75]), ("4u35k320m", [69, 70, 71, 72]), ("83u45k322m", [59]), ("12u8k756m", [50, 52]), ("14u3k670m", [53]), ("14u6k105m", [55]), ("57u28k530m", [56]), ("57u34k623m", [58]), ("32u8k277m", [46]), ("32u10k510m", [49]), ("38u0k0m", [43]), ("38u1k565m", [45]), ("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
             ("21u6k640m", [20, 21]), ("21u10k715m", [24, 25]), ("21u14k263m", [29]))
     for rid, (edid, ws) in enumerate(secs, 1):
         members = "".join(f'<member type="way" ref="{w}" role=""/>' for w in ws)

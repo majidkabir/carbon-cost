@@ -4360,3 +4360,34 @@ func TestTolledRoadsNoteWithShares(t *testing.T) {
 		}
 	}
 }
+
+// A toll of one road type (Belarus's BelToll, Italy's estimate) prices
+// every tolled km at it: motorway_share doesn't split them, and the notes
+// don't offer it.
+func TestOneRoadTypeIgnoresMotorwayShare(t *testing.T) {
+	trip := sootcase.Result{Legs: []sootcase.LegResult{{DistanceKm: 100, CountryKm: map[string]float64{"BY": 100}}}}
+	date := time.Date(2026, 11, 4, 0, 0, 0, 0, time.UTC)
+	for _, c := range []struct {
+		name string
+		rk   map[string]roads.Km
+		want float64
+	}{
+		{"no route", nil, 18.2},
+		{"route", map[string]roads.Km{"BY": {Motorway: 70, Local: 30}}, 12.74},
+	} {
+		for _, ms := range []map[string]float64{nil, {"BY": 0.25}} {
+			r, err := Price(trip, all(t), Request{CargoKg: 8000, Truck: truck40, MotorwayShare: ms, roadKm: c.rk}, date)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if l, ok := line(r, RoadToll, "BY", rates.Toll); !ok || math.Abs(l.Amount-c.want) > 0.005 {
+				t.Errorf("%s, motorway_share %v: %+v, want %.2f", c.name, ms, l, c.want)
+			}
+			for _, n := range r.Notes {
+				if strings.HasPrefix(n, "BY: ") && (strings.Contains(n, "motorway_share") || strings.Contains(n, "on motorways") || strings.Contains(n, "road type")) {
+					t.Errorf("%s, motorway_share %v: note %q", c.name, ms, n)
+				}
+			}
+		}
+	}
+}

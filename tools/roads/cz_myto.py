@@ -10,9 +10,10 @@ has the motorways (layer entc:v_entc_road_d, "mw") and the class I
 roads (entc:v_entc_road_a, "nat"). The geometry is only published as
 images, so the map is read at points of OpenStreetMap's main roads:
 
-1. The Roads data workflow writes cz-samples.json.gz (build.py, with
-   the CZ extract): every motorway, trunk, primary and secondary way,
-   with a point every STEP_M along it.
+1. The Roads data workflow writes cz-samples.json.gz to roads-out
+   (build.py, with the CZ extract; also when the build stops for a new
+   reading): every motorway, trunk, primary and secondary way, with a
+   point every STEP_M along it.
 2. In a browser tab on https://myto.gov.cz/cs/vymezene-useky-silnic/mapy
    (Claude in Chrome), cz_myto.js reads both layers at each point, and
    lists the places where a layer is drawn away from the points (a

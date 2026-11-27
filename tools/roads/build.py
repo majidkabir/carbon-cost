@@ -587,14 +587,22 @@ def place_pending(h, cc, city=None):
     for road, secs in h.sec_lines.items():
         geoms = [LineString(m(ls.coords)) for ls, *_ in secs]
         trees[road] = (STRtree(geoms), geoms, secs)
-    # Annex 1's sections by road, by chainage.
-    chain_m = lambda v: int(v.split("+")[0]) * 1000 + int(v.split("+")[1])
+    # Annex 1's sections by road, in metres along it: its chainage
+    # (km+m) orders them, but a km may run past 1000 m (204+2245), so a
+    # section's length is its own ("m"), a stretch between sections the
+    # chainage's (km x 1000 + m), at least 0.
+    chain = lambda v: tuple(int(p) for p in v.split("+"))
+    chain_m = lambda v: chain(v)[0] * 1000 + chain(v)[1]
     rows = json.load(open(os.path.join(os.path.dirname(__file__), "hu-annex1.json")))
-    span = {r["id"]: (r["road"], chain_m(r["start"]), chain_m(r["end"])) for r in rows}
-    by_road, annex = {}, Counter()
-    for r in rows:
-        by_road.setdefault(r["road"], []).append((chain_m(r["start"]), chain_m(r["end"])))
-        annex[r["road"]] += r["m"] / 1000
+    span, by_road, annex = {}, {}, Counter()
+    for road in sorted({r["road"] for r in rows}):
+        at, end = None, None
+        for r in sorted((r for r in rows if r["road"] == road), key=lambda r: chain(r["start"])):
+            at = chain_m(r["start"]) if at is None else at + (0 if r["start"] == end else max(0, chain_m(r["start"]) - chain_m(end)))
+            span[r["id"]] = (road, at, at + r["m"])
+            by_road.setdefault(road, []).append((at, at + r["m"]))
+            annex[road] += r["m"] / 1000
+            at, end = at + r["m"], r["end"]
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
@@ -818,7 +826,8 @@ def myto_finish(h, cc, law, dst):
         ends_r = {n for i in mine for n in ways[i][3]}
         # Ref-less ways join as pieces (a roundabout's, perhaps split in
         # two) whose loose ends are on the ref's new ways or tolled ways:
-        # at least one on a new way, unless they are all roundabout.
+        # at least one on a new way, unless they are all roundabout; a
+        # closed ring, where the road enters and leaves it.
         group = list(mine)
         for piece in loose:
             out = [n for n, m in Counter(n for i in piece for n in ways[i][3]).items() if m == 1]
@@ -826,8 +835,10 @@ def myto_finish(h, cc, law, dst):
             if out:
                 ok = all(n in ends_r or of_ref(n, r) for n in out) and (ring or any(n in ends_r for n in out))
             else:
-                # A closed ring: on the ref's new ways.
-                ok = any(n in ends_r for i in piece for n in ways[i][4])
+                # A closed ring (a roundabout): where the road enters and
+                # leaves it, on two of its nodes or more, the ref's new
+                # ways or tolled ways.
+                ok = len({n for i in piece for n in ways[i][4] if n in ends_r or of_ref(n, r)}) >= 2
             if ok:
                 group += piece
         at = {}

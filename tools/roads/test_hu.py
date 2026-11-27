@@ -67,7 +67,12 @@ def osm(path, areas):
     way(27, ring + ring[:1], highway="primary", junction="roundabout")
     way(28, line(27.52, 29, dy=D), highway="primary", ref="21")       # gap, from the roundabout
     way(29, line(29, 31, dy=D), highway="primary", ref="21")          # section 21u14k263m
-    secs = (("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
+    # Road 47, 2.2 km south: annex 1's chainage runs past 1000 m in a km
+    # (204+2245); the gap 47u204k2245m between two sections is tolled.
+    way(40, line(0, 2.767, dy=-0.02), highway="primary", ref="47")    # section 47u203k452m (203+452 - 204+2245)
+    way(41, line(2.767, 3.769, dy=-0.02), highway="primary", ref="47")  # 47u204k2245m, missing in OSM's relations
+    way(42, line(3.769, 8.872, dy=-0.02), highway="primary", ref="47")  # section 47u205k517m (205+517 - 210+581)
+    secs = (("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
             ("21u6k640m", [20, 21]), ("21u10k715m", [24, 25]), ("21u14k263m", [29]))
     for rid, (edid, ws) in enumerate(secs, 1):
         members = "".join(f'<member type="way" ref="{w}" role=""/>' for w in ws)
@@ -101,7 +106,7 @@ def run(covered):
 
 
 def main():
-    sections = 12 + 6 + 6 + 2 + 2.96  # road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
+    sections = 12 + 6 + 6 + 2 + 2.96 + 8.872  # road 47: 2.767 + 1.002 + 5.103; road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
     nat, mw, shares = run(0.9)
     ok = abs(nat - sections) < 0.2 and abs(mw - 9) < 0.2 and shares
     print(f"nat {nat:.2f} km (want {sections:.2f}), mw {mw:.2f} km (want 9: M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")

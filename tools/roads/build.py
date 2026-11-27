@@ -18,7 +18,9 @@ number along its length), or a hole or gap in the sections' relations: a
 chain of such ways of the road whose ends meet section ways of the road,
 where annex 1 runs on between them (but for a junction's JOIN_KM), and
 whose km (one carriageway: a oneway way counts half) the annex km OSM's
-relations lack there leave room for (ROOM, ROOM_KM). It takes the class
+relations lack there leave room for (ROOM, ROOM_KM; a relation longer than
+its section holds the ground of the sections next to it OSM has none of,
+and other carriageways and filled chains use the room up). It takes the class
 and share of the section it is in, of the annex's sections between, or
 where two meet in it, their mean share. The other ways, such as an old
 road beside a section OSM has whole, and the other main roads and
@@ -61,9 +63,9 @@ SIMPLIFY_M = 10
 # Hungary: a way outside the toll sections within TWIN_M of a section way
 # of its road along its length is that section's other carriageway; a chain
 # of such ways (joined within BRIDGE_M: carriageways, roundabouts) whose
-# ends meet section ways of its road within BRIDGE_M, a gap in OSM's
-# relations (up to GAP_KM more than 1.3 times the annex's km between them)
-# or a break.
+# ends meet section ways of its road within BRIDGE_M, a hole or gap in
+# OSM's relations (as far as ROOM below allows) or a break; a chain over
+# 3 x GAP_KM on a road OSM has the sections of is neither.
 TWIN_M, GAP_KM, BRIDGE_M = 60, 10, 60
 # Unlisted km between two of annex 1's sections a gap may run across (a
 # junction's; 32u9k695m ends at 10+463, 32u10k510m starts at 10+510).
@@ -94,7 +96,7 @@ RULES = {
     # cesty I. triedy.
     "SK": {"mw": r"^[DR]\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$"},
     # Hungary, 25/2013 NFM: gyorsforgalmi utak (M) vs főutak.
-    "HU": {"mw": r"^M\d", "mw_highway": ["motorway"], "nat": r"^\d{1,2}$", "sections_only": True},
+    "HU": {"mw": r"^M\d", "mw_highway": ["motorway"], "nat": r"^\d{1,3}$", "sections_only": True},
     # Romania, OMT 1925/2025: autostrăzi and drumuri expres (A, DEx) vs
     # drumuri naționale.
     "RO": {"mw": r"^(A|DEx)\s?\d", "mw_highway": ["motorway"], "nat": r"^(DN\s?)?\d{1,3}[A-Z]{0,2}$"},
@@ -639,29 +641,66 @@ def place_pending(h, cc, city=None):
             annex[road] += r["m"] / 1000
             at, end = at + r["m"], r["end"]
     osm = Counter({road: sum(g.length for g in trees[road][1]) / 1000 for road in trees})
-    # The km of a section its relation lacks (one carriageway).
-    room = lambda e: max(0.0, (span[e][2] - span[e][1]) / 1000 - h.sec_ckm[e])
-    # Sections whose relation has much more than the annex's km (ways past
-    # the section's ends): reported, as tolled km past the law's.
-    over = sorted(((h.sec_ckm[e] - (s1 - s0) / 1000, e) for e, (_, s0, s1) in span.items() if h.sec_ckm[e] > 1.3 * (s1 - s0) / 1000 + ROOM_KM), reverse=True)
+    # Stretches: a section whose relation has more than its annex km, with
+    # the sections next to it OSM has no ways of whose ground that holds
+    # (as many as the excess covers, nearest in km first). A stretch's
+    # budget is the annex km OSM's section ways lack there (one
+    # carriageway); its other carriageways and the holes and gaps filled
+    # use it up.
+    parent = {e: e for e in span}
+
+    def find(e):
+        while parent[e] != e:
+            parent[e] = parent[parent[e]]
+            e = parent[e]
+        return e
+
+    annex_km = lambda e: (span[e][2] - span[e][1]) / 1000
+    for rows in by_road.values():
+        rows = sorted(rows)
+        ids = [r[4] for r in rows]
+        joined = lambda i, j: rows[j][0] - rows[i][1] <= JOIN_KM * 1000  # i before j
+        for i, e in enumerate(ids):
+            excess = h.sec_ckm[e] - annex_km(e)
+            got, lo, hi = 0.0, i, i
+            while excess - got > ROOM_KM:
+                cand = [k for k, ok in ((lo - 1, lo > 0 and joined(lo - 1, lo)), (hi + 1, hi + 1 < len(ids) and joined(hi, hi + 1)))
+                        if ok and h.sec_ckm[ids[k]] == 0]
+                if not cand:
+                    break
+                k = min(cand, key=lambda k: abs(annex_km(ids[k]) - (excess - got)))
+                parent[find(ids[k])] = find(e)
+                got += annex_km(ids[k])
+                lo, hi = min(lo, k), max(hi, k)
+    budget, annex_of = Counter(), Counter()
+    for e, (_, s0, s1) in span.items():
+        budget[find(e)] += (s1 - s0) / 1000 - h.sec_ckm[e]
+        annex_of[find(e)] += (s1 - s0) / 1000
+    room = lambda es: sum(max(0.0, budget[p]) for p in {find(e) for e in es})
+
+    def use(es, km):
+        ps = sorted({find(e) for e in es}, key=lambda p: -budget[p])
+        for p in ps:
+            take = min(km, max(0.0, budget[p]))
+            budget[p] -= take
+            km -= take
+        if km > 0 and ps:
+            budget[ps[0]] -= km
+
     print(cc, "section ways' km by highway:", {k: round(v, 1) for k, v in h.sec_hw.most_common()})
+    # Stretches whose relations have much more than the annex's km: tolled
+    # km past the law's, reported.
+    over = sorted(((-budget[p], p) for p in budget if -budget[p] > 0.3 * annex_of[p] + ROOM_KM), reverse=True)
     if over:
-        # The annex km of the sections next to it that OSM has no ways of
-        # (their ways may be in this relation: tolled, but at its share).
-        def lacking(e):
-            road, s0, s1 = span[e]
-            rows = sorted(by_road[road])
-            i = next(j for j, r in enumerate(rows) if r[4] == e)
-            return sum((r[1] - r[0]) / 1000 for r in rows[max(0, i - 2):i + 3] if r[4] != e and h.sec_ckm[r[4]] == 0)
-        print(cc, f"sections whose relation has more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over,"
-              f" {sum(min(x, lacking(e)) for x, e in over):.1f} of it as much as the annex km of sections next to them OSM has none of;",
-              ", ".join(f"{e} +{x:.1f} (next {lacking(e):.1f})" for x, e in over[:25]))
+        print(cc, f"stretches whose relations have more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over;",
+              ", ".join(f"{p} +{x:.1f}" for x, p in over[:25]))
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
     def between(a, b):
         """Annex 1 between sections a and b (in the order of the road):
         (km of its sections there, km between them, their class and
-        suburban share by length, or None where there are none), or None."""
+        suburban share by length or None where there are none, the longest
+        stretch no section lists, the sections there), or None."""
         (ra, a0, a1), (rb, b0, b1) = span[a], span[b]
         if ra != rb:
             return None
@@ -677,10 +716,7 @@ def place_pending(h, cc, city=None):
         hole, at = 0, lo
         for s0, s1, *_ in inside:
             hole, at = max(hole, s0 - at), max(at, s1)
-        # The km OSM's relations lack there: the unlisted metres and each
-        # section's annex km beyond what its relation has.
-        lack = (hi - lo - on) / 1000 + sum(room(e) for *_, e in inside)
-        return on / 1000, (hi - lo) / 1000, cf, max(hole, hi - at) / 1000, lack
+        return on / 1000, (hi - lo) / 1000, cf, max(hole, hi - at) / 1000, [e for *_, e in inside]
 
     def near(road, pt, d):
         """The nearest section way of road within d metres of pt, or None."""
@@ -711,9 +747,10 @@ def place_pending(h, cc, city=None):
                 hit = (road, ok[len(ok) // 2])
                 break
         if hit:
-            _, (_, sc, sf, _) = hit
+            _, (_, sc, sf, e) = hit
             h.add(sc, sf, coords, {})
             twins[hit[0]] += line.length / 1000
+            use([e], line.length / 1000 * cw)
         else:
             rest.append((refs, c, coords, mc, cw))
     # Chains of the remaining ways of one road: ways whose end comes within
@@ -768,20 +805,24 @@ def place_pending(h, cc, city=None):
                 # carriageway, farther off): the km its relation lacks
                 # leave room for the chain (a road beside a section OSM
                 # has whole finds none).
-                if ckm <= ROOM * room(ma[3]) + ROOM_KM:
+                if ckm <= ROOM * room([ma[3]]) + ROOM_KM:
+                    use([ma[3]], ckm)
                     for k in chain:
                         h.add(ma[1], ma[2], rest[ways[k]][2], {})
                         decided[ways[k]] = "gap"
                     gaps[road] += km
                     show("hole", ma[1:3])
                 else:
-                    show(f"left (room {room(ma[3]):.2f} km: annex {(span[ma[3]][2] - span[ma[3]][1]) / 1000:.2f}, OSM {h.sec_ckm[ma[3]]:.2f}; chain {ckm:.2f})")
+                    show(f"left (room {room([ma[3]]):.2f} km; chain {ckm:.2f})")
                 continue
             if ab is None:
                 show("left (no section at an end)")
                 continue
-            on, gap, cf, hole, lack = ab
-            if hole <= JOIN_KM and ckm <= ROOM * (lack + room(ma[3]) + room(mb[3])) + ROOM_KM:
+            on, gap, cf, hole, inside = ab
+            es = [ma[3], mb[3]] + inside
+            free = gap - on + room(es)  # the unlisted km and the stretches' budget
+            if hole <= JOIN_KM and ckm <= ROOM * free + ROOM_KM:
+                use(es, ckm)
                 # The annex runs on between them (but for a junction's
                 # few metres): OSM's relations lack it. Its km take the
                 # class and share of the annex's sections there; where
@@ -796,7 +837,7 @@ def place_pending(h, cc, city=None):
                 gaps[road] += km
                 show("gap", (sc, round(sf, 3)))
             elif hole <= JOIN_KM:
-                show(f"left (room {lack + room(ma[3]) + room(mb[3]):.2f} km)")
+                show(f"left (room {free:.2f} km; chain {ckm:.2f})")
             elif on <= 0.001:
                 # No annex section between them: not tolled.
                 for k in chain:

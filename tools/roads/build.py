@@ -641,8 +641,16 @@ def place_pending(h, cc, city=None):
     # the section's ends): reported, as tolled km past the law's.
     over = sorted(((h.sec_ckm[e] - (s1 - s0) / 1000, e) for e, (_, s0, s1) in span.items() if h.sec_ckm[e] > 1.3 * (s1 - s0) / 1000 + ROOM_KM), reverse=True)
     if over:
-        print(cc, f"sections whose relation has more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over;",
-              ", ".join(f"{e} +{x:.1f}" for x, e in over[:12]))
+        # The annex km of the sections next to it that OSM has no ways of
+        # (their ways may be in this relation: tolled, but at its share).
+        def lacking(e):
+            road, s0, s1 = span[e]
+            rows = sorted(by_road[road])
+            i = next(j for j, r in enumerate(rows) if r[4] == e)
+            return sum((r[1] - r[0]) / 1000 for r in rows[max(0, i - 2):i + 3] if r[4] != e and h.sec_ckm[r[4]] == 0)
+        print(cc, f"sections whose relation has more than 1.3 x the annex's km (+{ROOM_KM}): {len(over)}, {sum(x for x, _ in over):.1f} km over,"
+              f" {sum(min(x, lacking(e)) for x, e in over):.1f} of it as much as the annex km of sections next to them OSM has none of;",
+              ", ".join(f"{e} +{x:.1f} (next {lacking(e):.1f})" for x, e in over[:25]))
     covered = {road: osm[road] >= COVERED * km * (2 if road.startswith("M") else 1) for road, km in annex.items()}
 
     def between(a, b):

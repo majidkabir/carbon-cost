@@ -68,6 +68,23 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   let err = "";
   try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
   check(err.includes("one price"), "diesel 1.4, 1.5: " + (err || "no error"));
+  // A country's price with a decimal comma, and several with ; between.
+  f("diesel_price").value = "DE=1,5";
+  let req = w.eval("buildRequest()");
+  check(!req.diesel_eur_per_l && req.diesel_eur_per_l_by_country.DE === 1.5, "diesel DE=1,5: " + JSON.stringify(req));
+  f("diesel_price").value = "1,45;PL=1,25";
+  req = w.eval("buildRequest()");
+  check(req.diesel_eur_per_l === 1.45 && req.diesel_eur_per_l_by_country.PL === 1.25, "diesel 1,45;PL=1,25: " + JSON.stringify(req));
+  f("diesel_price").value = "DE=1,5,PL=1,4";
+  err = "";
+  try { w.eval("buildRequest()"); } catch (e) { err = e.message; }
+  check(err.includes("; between"), "diesel DE=1,5,PL=1,4: " + (err || "no error"));
+}
+
+// The CSV's separator is counted outside quotes, as the server does.
+{
+  const w = page(), rows = w.eval(`parseCSV('country-km;cargo-kg;"Kunde, Ort, PLZ"\\nDE=100,PL=100;1000;"A, B"\\n')`);
+  check(rows.length === 2 && rows[1].length === 3 && rows[1][2] === "A, B", "; CSV with commas in a label: " + JSON.stringify(rows));
 }
 
 // A stop added in between keeps a shipment unloaded where it was.
@@ -81,6 +98,14 @@ const form = (w) => (n) => w.document.getElementById("f").elements.namedItem(n);
   stop.value = "DEBER"; stop.dispatchEvent(new w.Event("change"));
   const req = w.eval("buildRequest()");
   check(req.stops.length === 3 && req.shipments[0].to === 2, "stop added: " + JSON.stringify(req.shipments));
+  // Removed again, and the way back ticked and unticked: still at DEHAM.
+  stop.closest(".row").querySelector("button").click();
+  check(w.eval("buildRequest()").shipments[0].to === 1, "stop removed: " + JSON.stringify(w.eval("buildRequest()").shipments));
+  for (const on of [true, false]) {
+    f("back").checked = on; f("back").dispatchEvent(new w.Event("change"));
+    const r = w.eval("buildRequest()");
+    check(r.shipments[0].to === 1, "back " + on + ": " + JSON.stringify(r.shipments));
+  }
 }
 
 // A route picked with "Price this route" is the last trip's: a trip loaded

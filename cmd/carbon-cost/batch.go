@@ -10,6 +10,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"runtime/debug"
 	"slices"
 	"sort"
@@ -135,18 +136,120 @@ func webCSVFlags() map[string]bool {
 }
 
 // sniffComma is a CSV's separator: a semicolon where its first line has
-// more of them than commas (Excel's in most European locales), else a
-// comma; and the CSV to read.
-func sniffComma(in io.Reader) (io.Reader, rune, error) {
+// more of them than commas outside quotes (Excel's where the decimal
+// symbol is a comma), else a comma; and the CSV to read.
+func sniffComma(in io.Reader) (io.Reader, csvLocale, error) {
 	b, err := io.ReadAll(in)
 	if err != nil {
 		return nil, 0, err
 	}
-	first, _, _ := bytes.Cut(b, []byte("\n"))
-	if bytes.Count(first, []byte(";")) > bytes.Count(first, []byte(",")) {
+	semi, comma, quoted := 0, 0, false
+	for _, c := range b {
+		switch {
+		case c == '"':
+			quoted = !quoted
+		case quoted:
+		case c == '\n':
+			if semi > comma {
+				return bytes.NewReader(b), ';', nil
+			}
+			return bytes.NewReader(b), ',', nil
+		case c == ';':
+			semi++
+		case c == ',':
+			comma++
+		}
+	}
+	if semi > comma {
 		return bytes.NewReader(b), ';', nil
 	}
 	return bytes.NewReader(b), ',', nil
+}
+
+// csvLocale is a CSV's separator. Excel separates by semicolons where the
+// decimal symbol is a comma; there numbers have a decimal comma (28,5;
+// 12.500,5) and dates the day first (03.11.2026, 03-11-2026, 03/11/2026).
+type csvLocale rune
+
+var (
+	commaNumber   = regexp.MustCompile(`^-?\d+(?:\.\d{3})*,\d+$`)
+	groupedNumber = regexp.MustCompile(`^-?\d{1,3}(?:\.\d{3})+$`)
+	pointNumber   = regexp.MustCompile(`^-?\d+\.\d+$`)
+	dayFirst      = regexp.MustCompile(`^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$`)
+)
+
+// in is a row's value for a flag, as calc reads it: in a ; CSV a number's
+// decimal comma made a point, and a date YYYY-MM-DD. A number such as
+// 12.500 (12500, or 12.5?) is refused.
+func (l csvLocale) in(name, v string, numeric map[string]bool) (string, error) {
+	if l != ';' {
+		return v, nil
+	}
+	if m := dayFirst.FindStringSubmatch(v); m != nil && name == "date" {
+		d, _ := strconv.Atoi(m[1])
+		mo, _ := strconv.Atoi(m[2])
+		return fmt.Sprintf("%s-%02d-%02d", m[3], mo, d), nil
+	}
+	if !numeric[name] {
+		return v, nil
+	}
+	if groupedNumber.MatchString(v) {
+		return "", fmt.Errorf("%s %q: with ; between columns, a decimal comma: %s or %s", name, v, strings.ReplaceAll(v, ".", ""), strings.Replace(v, ".", ",", 1))
+	}
+	return l.point(v), nil
+}
+
+// point is a number with a decimal point.
+func (l csvLocale) point(v string) string {
+	if l == ';' && commaNumber.MatchString(v) {
+		return strings.Replace(strings.ReplaceAll(v, ".", ""), ",", ".", 1)
+	}
+	return v
+}
+
+// number reads a priced CSV's number.
+func (l csvLocale) number(v string) (float64, error) {
+	if l == ';' && groupedNumber.MatchString(v) {
+		return 0, fmt.Errorf("12.500 is 12500 or 12.5: write 12500 or 12,5")
+	}
+	return strconv.ParseFloat(l.point(v), 64)
+}
+
+// out writes a result's number with the CSV's decimal symbol.
+func (l csvLocale) out(v string) string {
+	if l == ';' && pointNumber.MatchString(v) {
+		return strings.Replace(v, ".", ",", 1)
+	}
+	return v
+}
+
+// csvText are the result columns that aren't numbers.
+var csvText = map[string]bool{"trip_date": true, "country_km": true, "eur_by_country": true, "shipment_id": true, "currency": true, "data_type": true, "route": true, "complete": true, "fuel_complete": true, "missing": true, "error": true}
+
+// outRow writes a row of results (csvColumns) with the CSV's decimal symbol.
+func (l csvLocale) outRow(cells []string) []string {
+	for i := range cells {
+		if i < len(csvColumns) && !csvText[csvColumns[i]] {
+			cells[i] = l.out(cells[i])
+		}
+	}
+	return cells
+}
+
+// calcNumberFlags are calc's flags that take a number.
+func calcNumberFlags() map[string]bool {
+	names := map[string]bool{}
+	parseCalcWith(nil, flag.ContinueOnError, func(fs *flag.FlagSet) {
+		fs.VisitAll(func(f *flag.Flag) {
+			if g, ok := f.Value.(flag.Getter); ok {
+				switch g.Get().(type) {
+				case float64, int, int64, uint, uint64:
+					names[f.Name] = true
+				}
+			}
+		})
+	})
+	return names
 }
 
 // priceCSV prices each row of a CSV whose header names flags (allowed;
@@ -160,11 +263,12 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 		return nil, fmt.Errorf("csv: %w", err)
 	}
 	rd := csv.NewReader(in)
-	rd.Comma, rd.FieldsPerRecord = comma, -1
+	rd.Comma, rd.FieldsPerRecord = rune(comma), -1
 	rows, err := rd.ReadAll()
 	if err != nil {
 		return nil, fmt.Errorf("csv: %w", err)
 	}
+	numeric := calcNumberFlags()
 	if len(rows) < 2 {
 		return nil, fmt.Errorf("csv: a header and at least one row are needed")
 	}
@@ -189,8 +293,16 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 		for k, name := range head {
 			name = strings.TrimPrefix(strings.TrimSpace(name), "-")
 			if k < len(row) && strings.TrimSpace(row[k]) != "" && allowed[name] {
-				a = append(a, "-"+name+"="+strings.TrimSpace(row[k]))
+				v, err := comma.in(name, strings.TrimSpace(row[k]), numeric)
+				if err != nil {
+					bad[i] = err.Error()
+					break
+				}
+				a = append(a, "-"+name+"="+v)
 			}
+		}
+		if bad[i] != "" {
+			continue
 		}
 		req, _, err := parseCalc(a, flag.ContinueOnError)
 		if err != nil {
@@ -209,7 +321,7 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 	}
 	res := priceAll(ctx, calc, todo)
 	w := csv.NewWriter(out)
-	w.Comma = comma
+	w.Comma = rune(comma)
 	w.Write(append(slices.Clone(head), csvColumns...))
 	items := make([]BatchItem, len(trips))
 	for k, i := range at {
@@ -224,11 +336,11 @@ func priceCSV(ctx context.Context, calc func(context.Context, cost.Request) (cos
 		}
 		if r := items[i].Result; perShipment && r != nil && len(r.Shipments) > 1 {
 			for _, sh := range r.Shipments {
-				w.Write(append(slices.Clone(row[:len(head)]), csvShipment(r, sh)...))
+				w.Write(append(slices.Clone(row[:len(head)]), comma.outRow(csvShipment(r, sh))...))
 			}
 			continue
 		}
-		w.Write(append(row[:len(head)], csvResult(items[i])...))
+		w.Write(append(row[:len(head)], comma.outRow(csvResult(items[i]))...))
 	}
 	w.Flush()
 	return labels, w.Error()

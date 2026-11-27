@@ -1857,7 +1857,7 @@
   },
   "/v1/carbon-cost/csv": {
    "post": {
-    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row. Other columns are kept as labels (listed in the X-CSV-Labels header); path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, fuel_complete, missing, error). With rows=shipments a trip with shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
+    "description": "The CSV calc -csv takes: a header naming calc's flags without the dash (from, to, via, date, cargo-kg, mass-kg, axles, euro, co2-class, shipments, l-per-100km, fuel-bought, country-km, ...), a trip a row, separated by commas, or by semicolons with decimal commas and dates such as 03.11.2026 (Excel's where the decimal symbol is a comma; written back so). Other columns are kept as labels (listed in the X-CSV-Labels header); path, rfms, vin, csv, json and sootcase can't be set here. The rows come back with the results' columns added (trip_date, distance_km, total_eur, carbon_eur, ..., eur_by_country, ..., tkm, wtw_kg, ttw_kg, g_co2e_per_tkm, data_type, complete, fuel_complete, missing, error). With rows=shipments a trip with shipments gives a row per shipment (shipment_id, shipment_kg, and the shipment's share of the amounts, tonne-km and CO2e).",
     "operationId": "priceCSV",
     "parameters": [
      {
@@ -1920,7 +1920,7 @@
   },
   "/v1/carbon-cost/report": {
    "post": {
-    "description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv) and adds its rows up by the columns in by: any column of the file (a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), the share of tonne-km priced on primary data, and the rows that are incomplete or failed.",
+    "description": "Takes a CSV priced by POST /v1/carbon-cost/csv (or calc -csv; separated by semicolons with decimal commas, and then written so) and adds its rows up by the columns in by: any column of the file (a label such as customer, or shipment_id) and month or year (of trip_date). Each group: rows, shipments, km, empty km, litres, tonne-km, CO2e well-to-wheel and tank-to-wheel, the charges, g CO2e per tonne-km, EUR per tonne-km, EUR per 100 kg carried (in all, of tolls, of carbon), the share of tonne-km priced on primary data, and the rows that are incomplete or failed.",
     "operationId": "reportCSV",
     "parameters": [
      {

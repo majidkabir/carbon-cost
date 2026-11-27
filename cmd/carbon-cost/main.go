@@ -49,8 +49,9 @@ import (
 // main.version=v0.28.0" (the Dockerfile and release workflow do).
 var version = "dev"
 
-// buildVersion is version: set by the build, or the module's (go
-// install), or dev with the commit when built from a checkout.
+// buildVersion is version: set by the build, or the module's release (go
+// install of a tag), or dev with the commit otherwise (a checkout, whose
+// Go stamps a pseudo-version, or go install of a commit).
 func buildVersion() string {
 	if version != "dev" {
 		return version
@@ -62,16 +63,33 @@ func versionOf(bi *debug.BuildInfo, ok bool) string {
 	if !ok {
 		return version
 	}
-	if v := bi.Main.Version; v != "" && v != "(devel)" {
+	v := bi.Main.Version
+	rev, dirty := "", false
+	if m := pseudoVersion.FindStringSubmatch(v); m != nil {
+		rev, dirty = m[1], m[2] != ""
+	} else if v != "" && v != "(devel)" {
 		return v
 	}
 	for _, s := range bi.Settings {
-		if s.Key == "vcs.revision" && len(s.Value) >= 7 {
-			return "dev+" + s.Value[:7]
+		switch s.Key {
+		case "vcs.revision":
+			rev = s.Value
+		case "vcs.modified":
+			dirty = s.Value == "true"
 		}
 	}
-	return version
+	if len(rev) < 7 {
+		return version
+	}
+	if dirty {
+		return "dev+" + rev[:7] + ".dirty"
+	}
+	return "dev+" + rev[:7]
 }
+
+// pseudoVersion is Go's version of a commit that no tag names
+// (v0.120.1-0.20261127223745-82420437f9fd, +dirty with changes).
+var pseudoVersion = regexp.MustCompile(`[-.]\d{14}-([0-9a-f]{12})(\+dirty)?$`)
 
 const usage = `carbon-cost prices the carbon and road charges of a truck trip.
 
@@ -197,7 +215,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.StringVar(&req.FuelCountry, "fuel-country", "", "where the road fuel is bought (ISO code, e.g. DE), for national CO2 prices on fuel; default along the route by road km")
 	fs.Float64Var(&req.DieselL, "diesel-l", 0, "litres of diesel the truck burns on the road, for the CO2 prices on fuel and ETS2")
 	fs.Float64Var(&req.LPer100Km, "l-per-100km", 0, "the truck's diesel per 100 km (default: a new truck of its VECTO group with its load, COM(2024) 313)")
-	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
+	dprice := fs.String("diesel-price", "", "what the truck pays for diesel, EUR per litre without VAT: one price (1.45), by country (PL=1.25,DE=1.55), or both (1.45,PL=1.25); with decimal commas, ; between them (1,45;PL=1,25); default the EU Weekly Oil Bulletin's national averages of the trip's week")
 	fs.BoolVar(&req.DieselRefunds, "diesel-refunds", false, "take off the hauliers' partial refund of the excise on diesel where the law sets one (France, Italy, Spain, Hungary, Croatia and Slovenia from 7.5 t; Portugal from 35 t)")
 	bought := fs.String("fuel-bought", "", "litres of diesel bought by country, e.g. DE=300,PL=150: the trip's diesel and where its CO2 prices are paid")
 	via := fs.String("via", "", "stops between -from and -to, separated by ; (e.g. DEHAM;DEBER)")
@@ -227,7 +245,7 @@ func parseCalcWith(args []string, errs flag.ErrorHandling, inspect func(*flag.Fl
 	fs.Float64Var(&req.VehicleEURPerKm, "vehicle-eur-km", 0, "the truck's own cost, EUR per road km (tyres, maintenance, depreciation): adds to the trip cost")
 	fs.BoolVar(&req.Night, "night", false, "the trip passes night-tariff sections at night (22:00-05:00, Austria's A 13)")
 	asJSON := fs.Bool("json", false, "print the result as JSON")
-	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's")
+	csvIn := fs.String("csv", "", "price each row of this CSV file (\"-\": standard input) and print a CSV of the results: its header names the flags above (from, to, date, cargo-kg, mass-kg, ...), each row's values override the command line's; a CSV separated by ; (Excel's where the decimal symbol is a comma) has decimal commas and dates such as 03.11.2026, and is written back so")
 	if inspect != nil {
 		inspect(fs)
 	}
@@ -305,15 +323,27 @@ type calcOpts struct {
 	rfms string // what the trip took from rFMS
 }
 
-// dieselPriceFlag reads -diesel-price: a price for all litres (a decimal
-// point, or a comma when it is all that's given: 1,45), prices by country
-// (CC=price), or both, separated by commas.
+// dieselPriceFlag reads -diesel-price: a price for all litres, prices by
+// country (CC=price), or both, separated by commas; or by semicolons, and
+// then a price may have a decimal comma (1,45;PL=1,25), as may a lone one
+// (1,45 or PL=1,25).
 func dieselPriceFlag(req *cost.Request, v string) error {
-	if dec := strings.TrimSpace(v); regexp.MustCompile(`^\d+,\d+$`).MatchString(dec) {
-		v = strings.Replace(dec, ",", ".", 1)
+	var parts []string
+	if strings.Contains(v, ";") || decimalComma.MatchString(strings.TrimSpace(v)) {
+		for _, p := range strings.Split(v, ";") {
+			parts = append(parts, decimalComma.ReplaceAllString(strings.TrimSpace(p), "$1.$2"))
+		}
+	} else {
+		parts = strings.Split(v, ",")
+		for i := 1; i < len(parts); i++ {
+			// DE=1,5,PL=1,4: DE=1 and 5 for all, or decimal commas?
+			if wholeNumber.MatchString(strings.TrimSpace(parts[i])) && regexp.MustCompile(`=\s*\d+$`).MatchString(strings.TrimSpace(parts[i-1])) {
+				return fmt.Errorf("%q: with decimal commas, ; between the prices (DE=1,5;PL=1,4), or decimal points (DE=1.5,PL=1.4)", v)
+			}
+		}
 	}
 	bare := 0
-	for _, p := range strings.Split(v, ",") {
+	for _, p := range parts {
 		p = strings.TrimSpace(p)
 		if p == "" {
 			continue
@@ -340,6 +370,11 @@ func dieselPriceFlag(req *cost.Request, v string) error {
 	}
 	return nil
 }
+
+var (
+	decimalComma = regexp.MustCompile(`^((?:[A-Za-z]{2}\s*=\s*)?\d+),(\d+)$`)
+	wholeNumber  = regexp.MustCompile(`^\d+$`)
+)
 
 // rfmsFlags takes the way driven, the diesel and the date from rFMS
 // files, where the other flags don't give them.

@@ -34,7 +34,8 @@ Adds up priced CSV files (calc -csv, with -shipment-rows for a row per
 shipment) by the columns given: tonne-km, CO2e well-to-wheel and
 tank-to-wheel, g CO2e per tonne-km, the share of tonne-km with primary
 data, the charges, and EUR per 100 kg carried (-by from,to on a CSV of
-lanes: a lane's toll surcharge). Writes CSV.`)
+lanes: a lane's toll surcharge). Writes CSV, separated by ; with decimal
+commas when the first file is.`)
 		fs.PrintDefaults()
 	}
 	fs.Parse(args)
@@ -84,13 +85,17 @@ type reportGroup struct {
 // of trip_date).
 func summarize(ins []io.Reader, out io.Writer, by []string) error {
 	groups := map[string]*reportGroup{}
+	var first csvLocale // the report is written as the first file is
 	for n, in := range ins {
 		in, comma, err := sniffComma(in)
 		if err != nil {
 			return fmt.Errorf("file %d: %w", n+1, err)
 		}
+		if n == 0 {
+			first = comma
+		}
 		rd := csv.NewReader(in)
-		rd.Comma, rd.FieldsPerRecord = comma, -1
+		rd.Comma, rd.FieldsPerRecord = rune(comma), -1
 		rows, err := rd.ReadAll()
 		if err != nil {
 			return fmt.Errorf("file %d: %w", n+1, err)
@@ -158,7 +163,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 			}
 			for _, c := range reportSums {
 				if v := get(row, c); v != "" {
-					x, err := strconv.ParseFloat(v, 64)
+					x, err := comma.number(v)
 					if err != nil {
 						return fmt.Errorf("file %d: %s %q: %w", n+1, c, v, err)
 					}
@@ -167,7 +172,7 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 				}
 			}
 			if get(row, "data_type") == "primary" {
-				x, _ := strconv.ParseFloat(get(row, "tkm"), 64)
+				x, _ := comma.number(get(row, "tkm"))
 				gr.primary += x
 			}
 			if get(row, "complete") == "false" {
@@ -187,8 +192,9 @@ func summarize(ins []io.Reader, out io.Writer, by []string) error {
 	}
 	sort.Slice(list, func(i, j int) bool { return slices.Compare(list[i].key, list[j].key) < 0 })
 	w := csv.NewWriter(out)
+	w.Comma = rune(first)
 	w.Write(append(slices.Clone(by), reportColumns...))
-	f := func(v float64, d int) string { return strconv.FormatFloat(v, 'f', d, 64) }
+	f := func(v float64, d int) string { return first.out(strconv.FormatFloat(v, 'f', d, 64)) }
 	for _, g := range list {
 		rec := append(slices.Clone(g.key), strconv.Itoa(g.rows), strconv.Itoa(g.shipments))
 		for _, c := range reportSums {

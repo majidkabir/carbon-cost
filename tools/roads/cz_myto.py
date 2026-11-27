@@ -26,11 +26,14 @@ A way is read in equal slots of about STEP_M: each takes the map's
 reading at the way's own points that still lie on it (within MATCH_M;
 OpenStreetMap may have split, merged or moved it since) or, where none
 does, at other ways' points beside it running along it (within NEAR_M: a
-way added since, under another id). A way mostly unread is placed by
-its ends: with the ways of its ref (and ref-less ones between) joined to
-it, it is tolled when every end of that chain is on a way of the ref
-tolled in one class, else not; build.py reports their km, and the
-tolled km of each class against the law's.
+way added since, under another id). A way read before takes, where it is
+unread now, the layer most of its points had. Another way unread but at
+its ends is placed by its ends: with the ways of its ref (and ref-less
+ones between) joined to it, it is tolled when every end of that chain is
+on a way of the ref tolled in one class, else not. build.py reports
+their km and the other unread km, fails when they pass CHANGED_KM (take
+a new reading then), and checks the tolled km of each class against the
+law's.
 """
 import gzip, hashlib, json, math, os
 from collections import Counter
@@ -122,13 +125,11 @@ def unrun(text):
 END = 3
 
 
-def parts(layers, c, gap=10):
-    """A way's toll class and tolled parts, as (from, to) fractions of its
-    length, from the layer drawn in each of its equal slots (None for
-    none; "unread" where no point told, which takes the layer around it
-    for up to gap slots between two of one layer, OSM having moved that
-    bit, or the next slot's for up to END slots at an end);
-    c, the way's own class, where none is."""
+def filled(layers, gap=10):
+    """The slots' layers with "unread" (no point told) filled: between two
+    slots of one layer, that layer for up to gap slots (OSM moved that
+    bit); at an end, the next slot's for up to END slots (OSM lengthened
+    the way); other unread slots stay "unread"."""
     layers = list(layers)
     i = 0
     while i < len(layers):
@@ -137,17 +138,24 @@ def parts(layers, c, gap=10):
             while j < len(layers) and layers[j] == "unread":
                 j += 1
             if 0 < i and j < len(layers):
-                fill = layers[i - 1] if j - i <= gap and layers[i - 1] == layers[j] else None
+                fill = layers[i - 1] if j - i <= gap and layers[i - 1] == layers[j] else "unread"
             else:
-                # At an end (OSM lengthened the way): the next slot's, for
-                # up to END slots.
-                side = layers[j] if i == 0 and j < len(layers) else layers[i - 1] if i > 0 else None
-                fill = side if side != "unread" and j - i <= END else None
+                side = layers[j] if i == 0 and j < len(layers) else layers[i - 1] if i > 0 else "unread"
+                fill = side if j - i <= END else "unread"
             for k in range(i, j):
                 layers[k] = fill
             i = j
         else:
             i += 1
+    return layers
+
+
+def parts(layers, c, gap=10):
+    """A way's toll class and tolled parts, as (from, to) fractions of its
+    length, from the layer drawn in each of its equal slots (None for
+    none, "unread" where no point told: filled(), else untolled); c, the
+    way's own class, where none is."""
+    layers = [None if l == "unread" else l for l in filled(layers, gap)]
     got = runs([l is not None for l in layers])
     votes = Counter(layers[i] for a, b in got for i in range(a, b))
     n = len(layers)

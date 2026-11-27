@@ -125,13 +125,25 @@ def grid_rows(d, fetched, manifest):
     print(f"{d['operator']}: {len(prices[3])} class 3 and {len(prices[4])} class 4 grid cells, {len(out)} pairs, valid from {vf}")
 
 
+class Rows:
+    """The pairs' writer: each row padded to by_euro, then the document's
+    read_on (a page read in a browser: the day it was read, for build.py's
+    check that a document is still in force)."""
+    def __init__(self, w):
+        self.w, self.extra = w, [""]
+
+    def writerow(self, row):
+        self.w.writerow((list(row) + [""] * 15)[:15] + self.extra)
+
+
 def main(docs_path, fetched, out):
     docs = json.load(open(docs_path, encoding="utf-8"))["documents"]
     manifest = {f["file"]: f for f in json.load(open(os.path.join(fetched, "manifest.json")))["files"]}
     with open(out, "w", newline="", encoding="utf-8") as fo:
-        w = csv.writer(fo)
-        w.writerow(["operator", "document", "url", "sha256", "url4", "sha256_4", "valid_from", "entry", "exit", "km", "class3", "class4", "entry_no", "exit_no", "by_euro"])
+        w = Rows(csv.writer(fo))
+        w.w.writerow(["operator", "document", "url", "sha256", "url4", "sha256_4", "valid_from", "entry", "exit", "km", "class3", "class4", "entry_no", "exit_no", "by_euro", "read_on"])
         for d in docs:
+            w.extra = [""]
             if d["parser"] == "items":
                 # Saved in the repository (documents.json's folder): text
                 # positions written in a browser (sanef/extract.js).
@@ -175,6 +187,9 @@ def main(docs_path, fetched, out):
                                     prices[cls][(order[cls][k], name)] = val(c)
                             order[cls].append(name)
                 sha = hashlib.sha256(raw.encode()).hexdigest()
+                # The day the page was read, showing these as the tariffs
+                # in force (build.py: in force to the next 1 February).
+                w.extra[0] = (re.findall(r"\d{4}-\d\d-\d\d", head.get("read", "")) or [""])[0]
                 for (a, b), p3 in prices[3].items():
                     if prices[4].get((a, b)) is not None:
                         w.writerow([d["operator"], d["file"], head["url"], sha, "", "", head.get("valid_from", "").strip(), a, b, "", p3, prices[4][(a, b)], "", ""])

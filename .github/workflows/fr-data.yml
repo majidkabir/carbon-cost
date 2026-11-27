@@ -48,8 +48,12 @@ jobs:
           # One table per tariff period of the year (each prices the
           # documents in force on its first day); the last is fr.json.
           python3 tools/fr/build.py --periods out/pairs.csv out/stations.json out/manifest.json out/tables | tee -a out/build-report.txt
-          v=$(python3 -c "import json; print(json.load(open('out/fr.json'))['valid_from'])")
-          cmp out/fr.json "out/tables/fr-$v.json"
+          # No fr.json when an operator's new tariffs aren't read yet
+          # (build.py warns which).
+          if [ -f out/fr.json ]; then
+            v=$(python3 -c "import json; print(json.load(open('out/fr.json'))['valid_from'])")
+            cmp out/fr.json "out/tables/fr-$v.json"
+          fi
           python3 tools/orct/convert.py out/tables out/orct --commit "$GITHUB_SHA"
           python3 tools/orct/check_lossless.py out/tables out/orct
           sh tools/orct/compare.sh out/orct | tee out/tables/compare.txt

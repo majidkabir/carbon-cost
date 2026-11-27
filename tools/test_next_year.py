@@ -9,7 +9,7 @@ nothing in them may hold a year or a yearly rate written in.
 
 Usage: python3 tools/test_next_year.py
 """
-import csv, os, sys, tempfile
+import contextlib, csv, io, json, os, sys, tempfile
 
 here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(here, "tables"))
@@ -51,7 +51,31 @@ def test_fr():
     os.rmdir(d)
 
 
+def test_fr_stale():
+    """No table for a tariff year an operator's document doesn't reach:
+    its prices would be the last year's."""
+    d = tempfile.mkdtemp()
+    pairs, stations = os.path.join(d, "pairs.csv"), os.path.join(d, "stations.json")
+    json.dump({n: [{"gare": n, "lat": 48 + i, "lon": 2.0}] for i, n in enumerate("ABCD")}, open(stations, "w"))
+    for y_from, y_read, wrote in (("2026-02-01", "", False), ("2026-02-01", "2027-03-01", True), ("2027-02-01", "", True), ("", "2026-11-04", False)):
+        with open(pairs, "w", newline="") as f:
+            w = csv.writer(f)
+            w.writerow(["operator", "document", "url", "sha256", "valid_from", "entry", "exit", "class3", "class4", "read_on"])
+            w.writerow(["X", "x.pdf", "x", "0" * 64, "2027-02-01", "A", "B", "12", "18", ""])
+            w.writerow(["Y", "y.txt", "y", "1" * 64, y_from, "C", "D", "6", "9", y_read])
+        out = os.path.join(d, "fr-2027-02-01.json")
+        with contextlib.redirect_stdout(io.StringIO()) as said:
+            fr.periods(pairs, stations, None, d)
+        assert os.path.exists(out) == wrote and ("::warning" in said.getvalue()) != wrote, (y_from, y_read, said.getvalue())
+        if wrote:
+            os.remove(out)
+    for f in (pairs, stations):
+        os.remove(f)
+    os.rmdir(d)
+
+
 if __name__ == "__main__":
     test_hu()
     test_fr()
+    test_fr_stale()
     print("test_next_year: ok")

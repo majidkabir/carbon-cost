@@ -25,10 +25,22 @@ def tariff_year_end(day):
     return f"{int(day[:4]) + (day[5:] >= '02-01')}-01-31"
 
 
+def in_force_to(r):
+    """The last day a document's tariffs are in force: the end of the
+    tariff year of its valid_from or, for a page read in a browser showing
+    them as the tariffs in force, of the day it was read (the motorways'
+    tariffs change each 1 February); "" when neither is known."""
+    ends = [tariff_year_end(d) for d in (r["valid_from"], r.get("read_on") or "") if d]
+    return max(ends) if ends else ""
+
+
 def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None):
     """upto: only the documents in force on that day (their valid_from known
     and not later), and the table from that day; valid_to: the table's last
-    day (default: the end of its tariff year)."""
+    day (default: the end of its tariff year). No table is written when a
+    document's tariff year ended before the table's first day (an
+    operator's new tariffs not read yet): its prices would be the last
+    year's. Returns whether it wrote one."""
     stations = json.load(open(stations_path, encoding="utf-8"))
     prices, docs, conflicts, skipped, by_euro = {}, {}, 0, 0, False
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
@@ -52,6 +64,10 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None
     names = sorted({n for k in prices for n in k.split("|")})
     st = [{"name": n, "points": [{"name": p["gare"], "lat": p["lat"], "lon": p["lon"]} for p in stations[n]]} for n in names if n in stations]
     valid_from = upto or max(d["valid_from"] for d in docs.values())
+    stale = sorted({f"{d['operator']} ({d['document']}, in force to {in_force_to(d) or 'a day not known'})" for d in docs.values() if in_force_to(d) < valid_from})
+    if stale:
+        print(f"::warning title=FR tariffs from {valid_from}::no table: read these operators' new tariffs (tools/fr/browser, tools/fr/sanef, documents.json): " + "; ".join(stale))
+        return False
     valid_to = valid_to or tariff_year_end(valid_from)
     ops = sorted({d["operator"] for d in docs.values()})
     system = {
@@ -91,6 +107,7 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None
                 far.append(f"{k}: {km:.0f} km for {p['3'] * VAT:.2f} EUR")
     print(f"{len(far)} pairs whose stations are further apart than their price allows" + "".join("\n  " + f for f in far[:20]))
     print(f"{len(prices)} pairs ({conflicts} conflicting duplicates, {skipped} open-system rows left out), {len(st)} of {len(names)} stations placed, valid from {valid_from}")
+    return True
 
 
 

@@ -72,7 +72,13 @@ def osm(path, areas):
     way(40, line(0, 2.767, dy=-0.02), highway="primary", ref="47")    # section 47u203k452m (203+452 - 204+2245)
     way(41, line(2.767, 3.769, dy=-0.02), highway="primary", ref="47")  # 47u204k2245m, missing in OSM's relations
     way(42, line(3.769, 8.872, dy=-0.02), highway="primary", ref="47")  # section 47u205k517m (205+517 - 210+581)
-    secs = (("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
+    # Road 38, 2.2 km further south: 38u0k0m ends at 0+3134, 38u1k565m
+    # starts at 1+565: the annex doesn't join them (at least the 565 m
+    # after km post 1 between them), so the way between isn't tolled.
+    way(43, line(0, 3.125, dy=-0.04), highway="primary", ref="38")    # section 38u0k0m
+    way(44, line(3.125, 4.0, dy=-0.04), highway="primary", ref="38")  # between: not in the annex
+    way(45, line(4.0, 7.802, dy=-0.04), highway="primary", ref="38")  # section 38u1k565m
+    secs = (("38u0k0m", [43]), ("38u1k565m", [45]), ("47u203k452m", [40]), ("47u205k517m", [42]), ("3u22k810m", [1]), ("3u25k636m", [4]), ("3u17k534m", [7]), ("M0u0k0m", [11]),
             ("21u6k640m", [20, 21]), ("21u10k715m", [24, 25]), ("21u14k263m", [29]))
     for rid, (edid, ws) in enumerate(secs, 1):
         members = "".join(f'<member type="way" ref="{w}" role=""/>' for w in ws)
@@ -106,7 +112,7 @@ def run(covered):
 
 
 def main():
-    sections = 12 + 6 + 6 + 2 + 2.96 + 8.872  # road 47: 2.767 + 1.002 + 5.103; road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
+    sections = 12 + 6 + 6 + 2 + 2.96 + 8.872 + 6.927  # road 47: 2.767 + 1.002 + 5.103; road 38: 3.125 + 3.802; road 3: 3 + 3 + 1, the other carriageway 3, the gap 2; road 21: 2 x 1 + 2 x 2 + 2, its dual gap 2 x 3, the gap across the roundabout 2.96
     nat, mw, shares = run(0.9)
     ok = abs(nat - sections) < 0.2 and abs(mw - 9) < 0.2 and shares
     print(f"nat {nat:.2f} km (want {sections:.2f}), mw {mw:.2f} km (want 9: M1 by ref outside Budapest 6, M0's section 1 and by ref in Budapest 2)")

@@ -148,12 +148,12 @@ def osm(path, new):
     way(81, 1.027, 3, D, highway="primary", ref="38")                 # the town passage, untolled
     way(82, 3, 6, D, highway="primary", ref="38")
     D = -0.54
-    way(84, 0, 5, D, highway="primary", ref="38")
-    way(85, 5.2, 10, D, highway="primary", ref="38")
-    if new:                                                           # the link between them now a roundabout (ref-less, closed)
+    way(84, 0, 5, D, highway="primary", ref="36")                     # road 36: no new way of its ref
+    way(85, 5.2, 10, D, highway="primary", ref="36")
+    if new:                                                           # the link between them now a roundabout (ref-less, closed off the road)
         way(87, RING, highway="primary", junction="roundabout", oneway="yes")
     else:
-        way(86, 5, 5.2, D, highway="primary", ref="38")
+        way(86, 5, 5.2, D, highway="primary", ref="36")
     D = -0.27
     if new:                                                           # moved 40 m off at km 1.2-1.6
         way(51, [(0, D), (0.5, D), (1.2, D), (1.2, D + 0.00036), (1.6, D + 0.00036), (1.6, D), (3, D)], highway="primary", ref="38")
@@ -163,7 +163,7 @@ def osm(path, new):
     open(path, "w").write('<?xml version="1.0"?><osm version="0.6">' + pts + "".join(ways) + "</osm>")
 
 
-RING = [(5, -0.54), (5.1, -0.5391), (5.2, -0.54), (5.1, -0.5409), (5, -0.54)]
+RING = [(5.1, -0.5391), (5.2, -0.54), (5.1, -0.5409), (5, -0.54), (5.1, -0.5391)]
 BYPASS = {-0.33: [(4.5, -0.33), (4.6, -0.3297), (7.4, -0.3297), (7.5, -0.33)],
           -0.36: [(4, -0.36), (4.25, -0.3599), (4.5, -0.358), (5.5, -0.358), (6, -0.36)]}
 
@@ -205,7 +205,7 @@ def main():
     d = tempfile.mkdtemp()
     src, dst = os.path.join(d, "cz.osm"), os.path.join(d, "cz.json.gz")
     build.CZ_LAW = os.path.join(d, "law.json")
-    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 135.6, "text": "I/38"},
+    json.dump({"source": "test: x", "sections": [{"class": "nat", "ref": "38", "km": 125.3, "text": "I/38"}, {"class": "nat", "ref": "36", "km": 10.3, "text": "I/36"},
                                                   {"class": "mw", "ref": "D1", "km": 5.0, "text": "D1"}]}, open(build.CZ_LAW, "w"))
     cz_myto.SAMPLES, cz_myto.CAPTURE = os.path.join(d, "samples.json.gz"), os.path.join(d, "capture.json")
     osm(src, False)

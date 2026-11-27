@@ -18,9 +18,17 @@ from datetime import date, timedelta
 VAT = 1.20
 
 
-def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to="2027-01-31"):
+def tariff_year_end(day):
+    """The last day of the tariff year day is in: the French motorways'
+    tariffs change each 1 February, so 31 January of the next year (or of
+    day's year, before 1 February)."""
+    return f"{int(day[:4]) + (day[5:] >= '02-01')}-01-31"
+
+
+def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to=None):
     """upto: only the documents in force on that day (their valid_from known
-    and not later), and the table from that day."""
+    and not later), and the table from that day; valid_to: the table's last
+    day (default: the end of its tariff year)."""
     stations = json.load(open(stations_path, encoding="utf-8"))
     prices, docs, conflicts, skipped, by_euro = {}, {}, 0, 0, False
     for r in csv.DictReader(open(pairs_path, encoding="utf-8")):
@@ -44,6 +52,7 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to="202
     names = sorted({n for k in prices for n in k.split("|")})
     st = [{"name": n, "points": [{"name": p["gare"], "lat": p["lat"], "lon": p["lon"]} for p in stations[n]]} for n in names if n in stations]
     valid_from = upto or max(d["valid_from"] for d in docs.values())
+    valid_to = valid_to or tariff_year_end(valid_from)
     ops = sorted({d["operator"] for d in docs.values()})
     system = {
         "name": "French motorways (" + ", ".join(ops) + ")",
@@ -85,16 +94,20 @@ def main(pairs_path, stations_path, manifest_path, out, upto=None, valid_to="202
 
 
 
-def periods(pairs_path, stations_path, manifest_path, out_dir, year_from="2026-02-01"):
+def periods(pairs_path, stations_path, manifest_path, out_dir, year_from=None):
     """One table per tariff period of the year: a period starts where a
     document comes into force (from year_from, when the yearly tariffs
-    change) and runs to the day before the next; each prices only the
-    documents in force on its first day (a document with no date only the
-    last period). Writes out_dir/fr-<start>.json."""
-    starts = sorted({r["valid_from"] for r in csv.DictReader(open(pairs_path, encoding="utf-8")) if r["valid_from"] >= year_from})
+    change: by default the 1 February of the newest document's tariff
+    year) and runs to the day before the next, the last to the end of the
+    tariff year; each prices only the documents in force on its first day
+    (a document with no date only the last period). Writes
+    out_dir/fr-<start>.json."""
+    days = [r["valid_from"] for r in csv.DictReader(open(pairs_path, encoding="utf-8")) if r["valid_from"]]
+    year_from = year_from or f"{int(tariff_year_end(max(days))[:4]) - 1}-02-01"
+    starts = sorted({d for d in days if d >= year_from})
     for i, start in enumerate(starts):
         last = i == len(starts) - 1
-        end = "2027-01-31" if last else (date.fromisoformat(starts[i + 1]) - timedelta(days=1)).isoformat()
+        end = tariff_year_end(start) if last else (date.fromisoformat(starts[i + 1]) - timedelta(days=1)).isoformat()
         main(pairs_path, stations_path, manifest_path, os.path.join(out_dir, f"fr-{start}.json"), None if last else start, end)
 
 

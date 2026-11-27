@@ -154,3 +154,30 @@ func TestHungaryDualCarriagewayGap(t *testing.T) {
 		t.Errorf("road 21 at 47.74-47.76 N: %+v", k)
 	}
 }
+
+// Czechia tolls the class I roads of annex 2 of vyhláška č. 470/2012 Sb.,
+// where the toll operator's map draws them: I/3 Mirošovice–Mezno is
+// tolled; I/2 and I/9, which the annex doesn't list, aren't; the old I/55
+// Přerov–Hulín, class II road 655 in OpenStreetMap, the map still tolls
+// as a class I road.
+func TestCzechTolledClassI(t *testing.T) {
+	ix, err := Default()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, c := range []struct {
+		name   string
+		path   [][2]float64
+		tolled bool
+	}{
+		{"I/3 Mirošovice-Mezno", [][2]float64{{14.66406, 49.74099}, {14.66273, 49.73988}, {14.66214, 49.73892}, {14.66185, 49.73801}}, true},
+		{"II/655 Přerov-Hulín", [][2]float64{{17.45113, 49.33785}, {17.4487, 49.34039}, {17.44785, 49.34162}, {17.44703, 49.34382}, {17.44633, 49.3469}}, true},
+		{"I/2 Kostelec", [][2]float64{{14.83848, 49.98847}, {14.83999, 49.98737}, {14.84194, 49.98636}, {14.84406, 49.98562}}, false},
+		{"I/9 Mělník", [][2]float64{{14.48426, 50.19186}, {14.48473, 50.19292}, {14.48539, 50.19394}, {14.4865, 50.19512}}, false},
+	} {
+		k, _ := ix.Classify("CZ", c.path)
+		if (k.National > 0 && k.Motorway == 0 && k.Local < 0.05) != c.tolled || (!c.tolled && k.Local < k.Total()-0.01) {
+			t.Errorf("%s: %+v, want tolled class I %v", c.name, k, c.tolled)
+		}
+	}
+}

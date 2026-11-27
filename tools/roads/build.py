@@ -20,6 +20,14 @@ break); the other main roads and motorways, such as those inside
 Budapest or between two sections annex 1 doesn't join, aren't tolled. Lines are
 simplified to SIMPLIFY_M and stored as [lon, lat] * 1e5 integers.
 
+In Czechia a way of the main roads (secondary included) is tolled where
+the toll operator's map draws a layer at its points, in that layer's
+class (cz_myto.py: tools/tables/browser/cz-myto-wms.json, read at the
+points of cz-samples.json.gz), but not where it runs beside a road of
+that class the line is drawn for; the build writes the samples for the
+next reading beside its output, and checks each class's tolled km against
+the law's (cz-network.json).
+
 For Hungary, a fourth argument gives an extract of the administrative
 boundaries, for Budapest's. For Romania, a fourth argument gives an extract of the administrative
 boundaries and built-up land use: national roads inside the built-up

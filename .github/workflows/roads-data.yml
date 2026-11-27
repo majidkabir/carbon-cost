@@ -45,6 +45,12 @@ jobs:
               pdftotext -layout law.pdf law.txt
               python3 tools/roads/cz_network.py law.txt | diff -u tools/roads/cz-network.json -
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary,secondary
+            elif [ $cc = BG ]; then
+              curl -fsSL --retry 5 --retry-delay 20 -o seg.pdf https://bgtoll.bg/content/files/2025/09/01/53a57a86f6620818816386d2edba81c5.pdf
+              pdftotext -layout seg.pdf seg.txt
+              wc -l seg.txt; head -150 seg.txt; echo ...; sed -n '2000,2060p' seg.txt; echo ...; tail -80 seg.txt
+              grep -n "Втори\|втори\|II клас\|D11\|D12\|населен" seg.txt | head -40
+              osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             else
               osmium tags-filter -O -o roads.pbf in.pbf w/highway=motorway,trunk,primary r/ref:HU:edid
             fi
